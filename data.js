@@ -341,7 +341,7 @@ window.COLLECTION_TREE = {
           "children": [
             {
               "id": "col-2",
-              "title": "Xia",
+              "title": "Neolithic China and the Xia",
               "placeholder": false,
               "cardIds": [],
               "i18n": {
@@ -458,23 +458,6 @@ window.COLLECTION_TREE = {
                 "ar": "تشين",
                 "zh": "秦",
                 "ja": "秦"
-              }
-            },
-            {
-              "id": "col-9",
-              "title": "Xin",
-              "placeholder": false,
-              "cardIds": [],
-              "i18n": {
-                "es": "Xin",
-                "fr": "Xin",
-                "de": "Xin",
-                "it": "Xin",
-                "nl": "Xin",
-                "ru": "Синь",
-                "ar": "شين",
-                "zh": "新",
-                "ja": "新"
               }
             },
             {
@@ -788,7 +771,7 @@ window.COLLECTION_TREE = {
             },
             {
               "id": "col-30",
-              "title": "Jin",
+              "title": "Jurchen Jin",
               "placeholder": false,
               "cardIds": [],
               "i18n": {
@@ -969,6 +952,81 @@ window.COLLECTION_TREE = {
             "zh": "近现代",
             "ja": "近現代"
           }
+        },
+        {
+          "id": "cn-state",
+          "title": "State, Society and Economy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-government",
+              "title": "The imperial state",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-peoples",
+              "title": "The peoples and frontiers of China",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-economy",
+              "title": "Land, trade and money",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cn-belief",
+          "title": "Thought and Religion",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-thought",
+              "title": "Chinese philosophy",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-religion",
+              "title": "Religion and ritual",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cn-culture",
+          "title": "Learning, Arts and Invention",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-language",
+              "title": "Language and literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-science",
+              "title": "Science, technology and medicine",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
         }
       ],
       "i18n": {
@@ -1777,7 +1835,207 @@ window.COLLECTION_TREE = {
       "title": "Ancient Rome",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "rm-early",
+          "title": "Early Rome",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-italy",
+              "title": "Italy before Rome",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-kings",
+              "title": "Rome under the kings",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-republic",
+          "title": "The Roman Republic",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-early-republic",
+              "title": "The early Republic",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-conquest-italy",
+              "title": "The conquest of Italy",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-punic-wars",
+              "title": "The Punic Wars",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-mediterranean",
+              "title": "Rome and the Mediterranean",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-crisis",
+              "title": "The Republic in crisis",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-fall-republic",
+              "title": "The fall of the Republic",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-principate",
+          "title": "The Principate",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-augustus",
+              "title": "Augustus",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-julio-claudians",
+              "title": "The Julio-Claudians",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-flavians",
+              "title": "Civil war and the Flavians",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-high-empire",
+              "title": "The high empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-third-century",
+              "title": "The Severans and the third-century crisis",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-late-antiquity",
+          "title": "Late Antiquity",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-dominate",
+              "title": "Diocletian and Constantine",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-christian-empire",
+              "title": "The Christian empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-fall-west",
+              "title": "The end of the western empire",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-institutions",
+          "title": "How Rome Worked",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-army",
+              "title": "The Roman army",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-government",
+              "title": "Government, law and citizenship",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-provinces",
+              "title": "Provinces and frontiers",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-life",
+          "title": "Roman Life",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-society",
+              "title": "Family, household and slavery",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-daily-life",
+              "title": "The Roman city and daily life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-spectacle",
+              "title": "Spectacle and leisure",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-culture",
+          "title": "Religion, Letters and the Arts",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-religion",
+              "title": "Roman religion and myth",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-literature",
+              "title": "Latin literature and thought",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-arts",
+              "title": "Art, architecture and engineering",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "Antigua Roma",
         "fr": "Rome antique",
@@ -1795,7 +2053,269 @@ window.COLLECTION_TREE = {
       "title": "United States",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "us-native",
+          "title": "Native America",
+          "total": 100,
+          "children": [
+            {
+              "id": "us-native-before",
+              "title": "Native America before contact",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "us-native-contact",
+              "title": "Contact, disease and the colonial encounter",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-native-modern",
+              "title": "Removal, the reservations and sovereignty",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-colonial",
+          "title": "Colonies and Empire, 1565–1763",
+          "total": 105,
+          "children": [
+            {
+              "id": "us-borderlands",
+              "title": "Spanish, French and Dutch North America",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-colonies",
+              "title": "The English colonies",
+              "total": 45,
+              "cardIds": []
+            },
+            {
+              "id": "us-colonial-society",
+              "title": "Colonial society and the imperial wars",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-founding",
+          "title": "Revolution and Founding, 1763–1800",
+          "total": 130,
+          "children": [
+            {
+              "id": "us-imperial-crisis",
+              "title": "The imperial crisis",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-revolution",
+              "title": "The War of Independence",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "us-constitution",
+              "title": "The Constitution",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-early-republic",
+              "title": "The early republic",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-antebellum-era",
+          "title": "Expansion and Division, 1800–1860",
+          "total": 105,
+          "children": [
+            {
+              "id": "us-jefferson",
+              "title": "Jefferson, Madison and the War of 1812",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "us-jackson",
+              "title": "The Jacksonian era",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "us-expansion",
+              "title": "Expansion and Manifest Destiny",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-antebellum",
+              "title": "Antebellum society and reform",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-slavery",
+          "title": "Slavery",
+          "total": 90,
+          "children": [
+            {
+              "id": "us-slave-system",
+              "title": "The slave trade and the slave economy",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-enslaved-life",
+              "title": "Enslaved life, family and resistance",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-abolition",
+              "title": "Abolition and the antislavery movement",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-civilwar",
+          "title": "Civil War and Reconstruction, 1848–1877",
+          "total": 120,
+          "children": [
+            {
+              "id": "us-sectional-crisis",
+              "title": "The sectional crisis",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-civil-war",
+              "title": "The Civil War",
+              "total": 45,
+              "cardIds": []
+            },
+            {
+              "id": "us-emancipation",
+              "title": "Emancipation and Black freedom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "us-reconstruction",
+              "title": "Reconstruction and its overthrow",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-industrial",
+          "title": "The Industrial Nation, 1865–1917",
+          "total": 110,
+          "children": [
+            {
+              "id": "us-west",
+              "title": "The West",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-industry",
+              "title": "Industry, labour and the corporation",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-immigration-city",
+              "title": "Immigration and the city",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-progressive",
+              "title": "Populism, Progressivism and empire",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-midcentury",
+          "title": "Depression, War and Cold War, 1917–1963",
+          "total": 130,
+          "children": [
+            {
+              "id": "us-ww1-twenties",
+              "title": "The First World War and the twenties",
+              "total": 32,
+              "cardIds": []
+            },
+            {
+              "id": "us-depression",
+              "title": "Depression and the New Deal",
+              "total": 33,
+              "cardIds": []
+            },
+            {
+              "id": "us-ww2",
+              "title": "The Second World War",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-cold-war",
+              "title": "The Cold War",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-modern",
+          "title": "Modern America",
+          "total": 110,
+          "children": [
+            {
+              "id": "us-civil-rights",
+              "title": "Jim Crow and the Black freedom struggle",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-sixties",
+              "title": "The sixties and Vietnam",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-rights",
+              "title": "Rights movements and the new politics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "us-since-1974",
+              "title": "America since 1974",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "Estados Unidos",
         "fr": "États-Unis",
@@ -1813,7 +2333,238 @@ window.COLLECTION_TREE = {
       "title": "Russia",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "ru-rus",
+          "title": "Rus'",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-before",
+              "title": "Before Rus'",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-kievan",
+              "title": "Kievan Rus'",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-horde",
+              "title": "The Mongol conquest and the Golden Horde",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-moscow-rise",
+              "title": "The rise of Moscow",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-muscovy",
+          "title": "Muscovy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-ivan-iii",
+              "title": "Ivan III and Vasily III",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-ivan-iv",
+              "title": "Ivan the Terrible",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-troubles",
+              "title": "The Time of Troubles",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-first-romanovs",
+              "title": "The first Romanovs",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-empire",
+          "title": "The Russian Empire",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-peter",
+              "title": "Peter the Great",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-empresses",
+              "title": "From Peter to Catherine",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-catherine",
+              "title": "Catherine the Great",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-nineteenth",
+          "title": "The Nineteenth Century",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-alexander-i",
+              "title": "Alexander I and the war with Napoleon",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-nicholas-i",
+              "title": "Nicholas I",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-reforms",
+              "title": "The Great Reforms",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-end-empire",
+          "title": "The End of the Empire",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-late-empire",
+              "title": "Late imperial Russia",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-last-years",
+              "title": "1905 and the fall of the monarchy",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-soviet",
+          "title": "Revolution and the Soviet Union",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-revolution",
+              "title": "1917",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-civil-war",
+              "title": "The Civil War and the making of the USSR",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-stalin",
+              "title": "Stalin",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-great-patriotic-war",
+              "title": "The Great Patriotic War",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-after-stalin",
+              "title": "The Soviet Union after Stalin",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-federation",
+          "title": "Russia since 1985",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "ru-land-peoples",
+          "title": "Land, Peoples and Faith",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-land",
+              "title": "The Russian land",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-peoples",
+              "title": "The peoples of Russia",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-church",
+              "title": "The Orthodox Church",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-culture",
+          "title": "Society, Ideas and Culture",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-thought",
+              "title": "Russian thought",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-literature",
+              "title": "Russian literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "Rusia",
         "fr": "Russie",
@@ -1831,7 +2582,257 @@ window.COLLECTION_TREE = {
       "title": "India",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "in-ancient",
+          "title": "Ancient India",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-prehistory",
+              "title": "Prehistory and the Indus cities",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-vedic",
+              "title": "The Vedic period",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mahajanapadas",
+              "title": "The Mahajanapadas and the new religions",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mauryas",
+              "title": "The Mauryan Empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-after-mauryas",
+              "title": "After the Mauryas",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-guptas",
+              "title": "The Gupta age",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-early-medieval",
+          "title": "Early Medieval India",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-north-kingdoms",
+              "title": "The northern kingdoms",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-deccan-early",
+              "title": "The Deccan: Chalukyas and Rashtrakutas",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-south-early",
+              "title": "The Tamil south and the Cholas",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-sultanates",
+          "title": "Sultanates and Successor States",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-delhi-sultanate",
+              "title": "The Delhi Sultanate",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-vijayanagara",
+              "title": "Vijayanagara",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-deccan-sultanates",
+              "title": "The Deccan sultanates and the regional kingdoms",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-mughals",
+          "title": "The Mughals",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-early-mughals",
+              "title": "Babur to Akbar",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-high-mughal",
+              "title": "Jahangir to Aurangzeb",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mughal-successors",
+              "title": "The successor states",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-colonial",
+          "title": "Company and Crown",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-company",
+              "title": "The East India Company",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-raj",
+              "title": "The Raj",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-colonial-impact",
+              "title": "Colonial rule and its consequences",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-freedom",
+          "title": "Nationalism and Independence",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-nationalism",
+              "title": "The rise of nationalism",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-gandhi",
+              "title": "Gandhi and mass politics",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-partition",
+              "title": "Independence and Partition",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-republic",
+          "title": "India since 1947",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-nehru",
+              "title": "The Nehru years",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-modern",
+              "title": "India since 1964",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-religion",
+          "title": "Religion and Philosophy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-hinduism",
+              "title": "Hindu traditions",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-buddhism-jainism",
+              "title": "Buddhism and Jainism",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-other-faiths",
+              "title": "Islam, Sikhism and India's other faiths",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-culture",
+          "title": "Society, Economy and Culture",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-society",
+              "title": "Caste, family and society",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-economy",
+              "title": "Land, trade and the economy",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-languages",
+              "title": "Languages and literatures",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-science",
+              "title": "Science, mathematics and medicine",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "India",
         "fr": "Inde",
@@ -1843,6 +2844,750 @@ window.COLLECTION_TREE = {
         "zh": "印度",
         "ja": "インド"
       }
+    },
+    {
+      "id": "egypt",
+      "title": "Ancient Egypt",
+      "total": 0,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "eg-early",
+          "title": "Before the Pharaohs",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-prehistory",
+              "title": "The Nile before the pharaohs",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-predynastic",
+              "title": "Predynastic Egypt",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-ok",
+          "title": "The Old Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-early-dynastic",
+              "title": "Early Dynastic Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-old-kingdom",
+              "title": "The Old Kingdom",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-first-intermediate",
+              "title": "The First Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-mk",
+          "title": "The Middle Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-middle-kingdom",
+              "title": "The Middle Kingdom",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-second-intermediate",
+              "title": "The Second Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-nk",
+          "title": "The New Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-early-18th",
+              "title": "The early Eighteenth Dynasty",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-amarna",
+              "title": "Akhenaten and Amarna",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-ramesside",
+              "title": "The Ramesside age",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-thebes",
+              "title": "Thebes, Karnak and the royal tombs",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-later",
+          "title": "The Later Periods",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-third-intermediate",
+              "title": "The Third Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-kush",
+              "title": "Kush and the Twenty-fifth Dynasty",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-late-period",
+              "title": "The Late Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-greco-roman",
+          "title": "Greco-Roman Egypt",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-ptolemaic",
+              "title": "Ptolemaic Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-roman",
+              "title": "Roman Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-late-antique",
+              "title": "Christian Egypt and the end",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-belief",
+          "title": "Gods and the Dead",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-religion",
+              "title": "Gods and religion",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-myth",
+              "title": "Myth and cosmology",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-death",
+              "title": "Death, burial and the afterlife",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-state",
+          "title": "Kingship, State and Society",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-kingship",
+              "title": "Kingship and the state",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-economy",
+              "title": "Land, trade and the economy",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-culture",
+          "title": "Writing, Art and Knowledge",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-writing",
+              "title": "Writing and literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-art",
+              "title": "Art and architecture",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-science",
+              "title": "Science, medicine and technology",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ww2",
+      "title": "The Second World War",
+      "total": 0,
+      "children": [
+        {
+          "id": "ww2-road",
+          "title": "The Road to War",
+          "total": 140,
+          "children": [
+            {
+              "id": "ww2-versailles",
+              "title": "The peace that failed",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-fascism",
+              "title": "Fascism, Nazism and the crisis of democracy",
+              "total": 45,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-asia-road",
+              "title": "Japan and the road to war in Asia",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-crisis",
+              "title": "The crises of the 1930s",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-europe",
+          "title": "The War in Europe, 1939–1941",
+          "total": 120,
+          "children": [
+            {
+              "id": "ww2-poland",
+              "title": "Poland and the outbreak",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-west-1940",
+              "title": "The fall of the West",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-britain",
+              "title": "Britain alone",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-mediterranean-early",
+              "title": "The Mediterranean and the Balkans",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-eastfront",
+          "title": "The Eastern Front",
+          "total": 140,
+          "children": [
+            {
+              "id": "ww2-barbarossa",
+              "title": "Barbarossa and 1941",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-stalingrad",
+              "title": "Stalingrad and the turn",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-east-1943",
+              "title": "Kursk to the Vistula",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-berlin",
+              "title": "The road to Berlin",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-asiapac",
+          "title": "The War in Asia and the Pacific",
+          "total": 140,
+          "children": [
+            {
+              "id": "ww2-china-war",
+              "title": "The war in China",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-japan-expansion",
+              "title": "Pearl Harbor and Japan's expansion",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-pacific",
+              "title": "The Pacific counter-offensive",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-burma",
+              "title": "Burma, India and Southeast Asia",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-allies",
+          "title": "The Western Allies at War",
+          "total": 120,
+          "children": [
+            {
+              "id": "ww2-atlantic",
+              "title": "The Battle of the Atlantic",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-north-africa",
+              "title": "North Africa and Italy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-air-war",
+              "title": "The air war over Europe",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-normandy",
+              "title": "Normandy to the Elbe",
+              "total": 27,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-occupied",
+          "title": "Occupation, Resistance and the Holocaust",
+          "total": 160,
+          "children": [
+            {
+              "id": "ww2-occupation",
+              "title": "Occupation and collaboration",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-resistance",
+              "title": "Resistance",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-holocaust",
+              "title": "The Holocaust",
+              "total": 60,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-crimes",
+              "title": "Other crimes and mass violence",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-society",
+          "title": "Home Fronts, Science and Society",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww2-home-fronts",
+              "title": "The home fronts",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-war-economy",
+              "title": "War economies and production",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-technology",
+              "title": "Technology, intelligence and science",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-experience",
+              "title": "Soldiers, prisoners and civilians",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-endings",
+          "title": "Endings and Reckonings",
+          "total": 70,
+          "children": [
+            {
+              "id": "ww2-japan-end",
+              "title": "The defeat of Japan",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-aftermath",
+              "title": "Reckonings and legacies",
+              "total": 40,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "japan",
+      "title": "Japan",
+      "total": 0,
+      "children": [
+        {
+          "id": "jp-early",
+          "title": "Early Japan",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-jomon",
+              "title": "Jōmon Japan",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-yayoi",
+              "title": "Yayoi and Kofun",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-asuka",
+              "title": "Asuka: the state and Buddhism",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-nara",
+              "title": "Nara Japan",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-heian",
+          "title": "The Heian Court",
+          "total": 90,
+          "children": [
+            {
+              "id": "jp-heian-court",
+              "title": "The court and the Fujiwara",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-heian-culture",
+              "title": "Heian literature and art",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-heian-provinces",
+              "title": "The provinces and the rise of the warriors",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-warrior",
+          "title": "The Warrior Age",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-kamakura",
+              "title": "The Kamakura shogunate",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-mongol",
+              "title": "The Mongol invasions",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "jp-muromachi",
+              "title": "The Muromachi shogunate",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-medieval-culture",
+              "title": "Medieval religion and culture",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-unification",
+          "title": "Unification",
+          "total": 100,
+          "children": [
+            {
+              "id": "jp-sengoku",
+              "title": "The Sengoku age",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-nanban",
+              "title": "The Europeans and Christianity",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-unifiers",
+              "title": "The three unifiers",
+              "total": 40,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-tokugawa",
+          "title": "Tokugawa Japan",
+          "total": 130,
+          "children": [
+            {
+              "id": "jp-bakufu",
+              "title": "The Tokugawa order",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-edo-society",
+              "title": "Edo society and the economy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-edo-culture",
+              "title": "Edo culture",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-late-tokugawa",
+              "title": "The end of the shogunate",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-meiji",
+          "title": "Meiji Japan",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-restoration",
+              "title": "The Meiji Restoration",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-meiji-state",
+              "title": "Building the modern state",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-meiji-society",
+              "title": "Society, industry and culture",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-meiji-empire",
+              "title": "The road to empire",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-empire",
+          "title": "Empire and War",
+          "total": 120,
+          "children": [
+            {
+              "id": "jp-taisho",
+              "title": "Taishō Japan",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-militarism",
+              "title": "The turn to militarism",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-colonial",
+              "title": "The Japanese empire",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-war",
+              "title": "The war and its end",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-postwar",
+          "title": "Postwar Japan",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-occupation",
+              "title": "The Occupation",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-miracle",
+              "title": "The economic miracle",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-contemporary",
+              "title": "Japan since 1973",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-memory",
+              "title": "The war in Japanese memory",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-peoples",
+          "title": "Peoples, Belief and the Arts",
+          "total": 120,
+          "children": [
+            {
+              "id": "jp-ainu",
+              "title": "The Ainu and Hokkaido",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-ryukyu",
+              "title": "Ryūkyū and Okinawa",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-religion",
+              "title": "Shinto, Buddhism and belief",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-arts",
+              "title": "Language, letters and the arts",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
     }
   ]
 };

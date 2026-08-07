@@ -571,7 +571,17 @@ async function studyEasy(page, base, n) {
       await page.mouse.click(marker.x, marker.y);          // open
       await page.waitForTimeout(200);
       const opened2 = await wb();
-      check("[" + tag + "] opening the tools puts the pen down", opened2.panel && opened2.drawing && opened2.canvas && opened2.sel === "pen", JSON.stringify(opened2));
+      /* Opening the tools selects NOTHING (Aug 2026, on request; this asserted the opposite until then).
+         `enabled` lays a canvas over the whole page, so a reader who opened the menu to reach Undo, Clear,
+         a colour or the stylus row had the card taken away from them for asking. The panel is a menu, and
+         choosing from it is what starts drawing — which is the next assertion, and the two fail in opposite
+         directions: without both, "nothing is selected" would also pass on a marker that had stopped
+         working at all. */
+      check("[" + tag + "] opening the tools selects no tool", opened2.panel && !opened2.drawing && !opened2.canvas && opened2.sel === "", JSON.stringify(opened2));
+      await page.evaluate(() => { const b = document.querySelector(".wb-size"); if (b) b.click(); });
+      await page.waitForTimeout(200);
+      const picked = await wb();
+      check("[" + tag + "] ...and choosing one is what starts drawing", picked.drawing && picked.canvas && picked.sel === "pen", JSON.stringify(picked));
       await page.mouse.click(marker.x, marker.y);          // close — the pen must stay down
       await page.waitForTimeout(200);
       const shut = await wb();
@@ -1376,17 +1386,22 @@ async function studyEasy(page, base, n) {
     // the platform's own dialog is a full-screen sheet of sliders over the card being annotated; the picker
     // is inline now, so an <input type=color> anywhere here means the change was reverted
     check("...chosen inline, not in the platform's colour dialog", !panel.nativeDialog);
-    check("...opening the tools puts the pen down", panel.penDown && !!panel.sizeOn, JSON.stringify(panel.sizeOn || null));
+    /* OPENING THE TOOLS SELECTS NOTHING (Aug 2026, on request; this asserted the opposite until then).
+       `enabled` lays a canvas over the whole page, so picking the pen for a reader who has merely opened
+       the menu takes the card away from anyone who came for Undo, Clear, a colour or the stylus row. Both
+       halves are asserted, because they fail in opposite directions and each looks like the feature working
+       from the other side: nothing is selected on open, and choosing a tool IS what starts drawing. */
+    check("...opening the tools selects no tool", !panel.penDown && !panel.sizeOn, JSON.stringify({ pen: panel.penDown, size: panel.sizeOn || null }));
 
     const toggled = await page.evaluate(async () => {
-      const s = document.querySelector(".wb-size.on").dataset.s;
-      const btn = document.querySelector('.wb-size[data-s="' + s + '"]');
+      const btn = document.querySelector(".wb-size");
       btn.click(); await new Promise((r) => setTimeout(r, 120));
-      const up = document.querySelector(".draw-canvas").classList.contains("on");
+      const down = document.querySelector(".draw-canvas").classList.contains("on");
       btn.click(); await new Promise((r) => setTimeout(r, 120));
-      return { up, down: document.querySelector(".draw-canvas").classList.contains("on") };
+      return { down, up: !document.querySelector(".draw-canvas").classList.contains("on") };
     });
-    check("clicking the selected size again picks the pen up", !toggled.up && toggled.down, JSON.stringify(toggled));
+    check("choosing a size is what puts the pen down", toggled.down, JSON.stringify(toggled));
+    check("...and clicking it again picks the pen up", toggled.up, JSON.stringify(toggled));
 
     /* The custom colour: open the picker off the dashed swatch, then press into each field. A press has to
        set the colour where it lands (the fields are dragged, so pointerdown IS the gesture), the hue bar has

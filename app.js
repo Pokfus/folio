@@ -248,6 +248,10 @@
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
+      // a Library book's front-matter essay, keyed by book id (see bookIntroMerged). The overlay IS the
+      // storage here, as it is for the quotes: books/<id>.js is generated and would lose a hand edit on the
+      // importer's next run, so there is no file to bake back into.
+      bookIntros: o.bookIntros && typeof o.bookIntros === "object" ? o.bookIntros : {},
       // the home page's daily-quote pool, keyed by each quote's SHIPPED English text (see quotesMerged):
       // a whole replacement object, or null to retire the quote. A key matching nothing shipped is a new one.
       quotes: o.quotes && typeof o.quotes === "object" ? o.quotes : {},
@@ -1329,7 +1333,10 @@
   }
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
-  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit"];   // "findit" joined July 2026 — the Clean Sweep needs all five now
+  // "findit" joined July 2026 and "thread" in Aug 2026 — a new daily game joins the sweep, so the badge now
+  // needs all SIX. Nobody loses one they already hold (checkAchievements only ever adds), and a sweep that
+  // skipped a game on the grid would be claiming something it had not measured.
+  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread"];
   function markGamePlayed(key, won, score, total) {
     if (!S.games) S.games = {};
     const t = todayStr();
@@ -2461,9 +2468,13 @@
      descendant — which would move the very bars it was trying to blur. backdrop-filter blurs whatever is
      painted behind this one element and touches nothing else's layout.
 
-     `pointer-events:none` is deliberate: this is a visual change and not a modal. Tapping outside did not
-     close a popup before and still does not, and the page behind can still be scrolled — the request was
-     for focus, not for a dialog. */
+     IT IS A MODAL SINCE AUG 2026, ON REQUEST — it began as focus alone (`pointer-events:none`, the page
+     behind still live) and the request was that nothing behind a popup be clickable until it is closed.
+     It takes the presses instead: it sits at z-index 9590, above every bar and control on the site, so
+     one property does the whole job and no list of things-to-disable has to be kept in step. A single tap
+     on it still does nothing — tapping outside has never dismissed a popup and that has not changed —
+     but a DOUBLE tap closes, which is what makes the blocking bearable: the gesture that closes the
+     window now works anywhere on the screen rather than only within it. */
   function glossScrim(on) {
     let s = document.getElementById("glossScrim");
     if (on) {
@@ -2472,6 +2483,8 @@
         s.id = "glossScrim";
         s.className = "gloss-scrim";
         document.body.appendChild(s);
+        // the same gesture as inside the window, and it closes the one on top of the stack
+        glossDoubleTap(s, () => { if (glossWins.length) removeGlossWin(glossWins[glossWins.length - 1], true); });
         // one frame at opacity 0 so the class change is a transition rather than an appearance
         requestAnimationFrame(() => s.classList.add("on"));
       }
@@ -2670,22 +2683,27 @@
      would make those controls unusable rather than merely surprising. */
   const GLOSS_TAP_MS = 320, GLOSS_TAP_SLOP = 30;
   const GLOSS_TAP_SKIP = "button, a[href], input, textarea, select, .ttip, .src-head, .src-item, .card-img";
-  function wireGlossDoubleTap(win) {
+  /* The gesture itself, on any element that wants it: the window, and — since the scrim became a modal —
+     the whole screen behind it. Each surface keeps its OWN pair of taps rather than sharing one counter,
+     which is the same rule the slop expresses: two taps mean "close" when they land in one place, and a
+     tap on the page followed by a tap on the description is a reader reading, not a reader leaving. */
+  function glossDoubleTap(el, onDouble) {
     let lastT = 0, lastX = 0, lastY = 0;
-    win.addEventListener("pointerup", (e) => {
+    el.addEventListener("pointerup", (e) => {
       if (e.target.closest(GLOSS_TAP_SKIP)) { lastT = 0; return; }
       // the end of a drag is not a tap — see the flag's note in makeGlossSheetDraggable
-      if (win._glossDragged) { win._glossDragged = false; lastT = 0; return; }
+      if (el._glossDragged) { el._glossDragged = false; lastT = 0; return; }
       const now = e.timeStamp || Date.now();
       if (now - lastT < GLOSS_TAP_MS && Math.abs(e.clientX - lastX) < GLOSS_TAP_SLOP && Math.abs(e.clientY - lastY) < GLOSS_TAP_SLOP) {
         lastT = 0;
         e.preventDefault();     // and not a zoom either
-        removeGlossWin(win, true);
+        onDouble();
         return;
       }
       lastT = now; lastX = e.clientX; lastY = e.clientY;
     });
   }
+  function wireGlossDoubleTap(win) { glossDoubleTap(win, () => removeGlossWin(win, true)); }
   function openGlossWin(key, triggerEl, pos) {
     if (!glossGlobalsWired) {
       glossGlobalsWired = true;
@@ -5042,6 +5060,107 @@
        THE NEXT BOOK WILL HAVE TO WIDEN THE BAND AGAIN, and there is less room than this row had:
        darker still costs saturation until the swatches stop being colours at all. Say so then. */
     "Kalidasa": "#004248",
+    /* Measured the same way, and Beowulf's row was right that the band is full: with twenty-two
+       colours placed, NOTHING anywhere in the shelf's lightness and chroma band clears 25.2 of its
+       nearest neighbour, and only two hue families clear the shelf's own tightest pair at 20.4 at
+       all — a saturated green and a muted rose. The green scores marginally better (24.4 against
+       24.7 for this) and was REJECTED for the reason Vyasa's row already records: every green that
+       clears Lucretius and Aesop sits at the very top of the band's chroma, at 64 against a median
+       of 44, which is bright enough to glow beside twenty-two muted colours. This dusty rose sits at
+       chroma 19, the quietest on the shelf, clears Sophocles by 24.7 and Confucius by 25.0, and
+       reads 4.97:1 on the tightest of the sixteen light papers. The Euripides test passes on the
+       family: nobody reads a Chinese poetry anthology against Greek tragedy or Latin love poetry, so
+       a fourth colour in the red quarter asserts no kinship the shelf does not mean. Keyed by id,
+       the poems being anonymous. */
+    "classic-of-poetry": "#845A63",
+    /* Measured the same way, and this is where the palette ran out — which the Vyasa entry above
+       predicted and asked to have said out loud rather than quietly shipped. With twenty-one colours
+       on the shelf, nothing anywhere in its lightness and chroma band clears 24 of its nearest
+       neighbour; only TWO hue families clear the shelf's own tightest pair at all, and both are
+       already occupied — red by Sophocles, Ovid and Aristophanes, green by Lucretius and Aesop. So the
+       band was not widened and no pair tighter than 20.4 was accepted: this dark oxblood is the best
+       colour available anywhere in it, clearing Sophocles by 23.3 and Plato by 23.9, which is still
+       wider than the shelf's own closest pair. The EURIPIDES TEST decided the family rather than the
+       number, as it did there: a fourth red asserts no kinship, because nobody reads an Old English
+       heroic elegy against Greek tragedy or Latin love poetry, where a fourth GREEN beside Lucretius
+       and Aesop would have had to sit at the top of the band's chroma to clear them — bright enough to
+       glow beside twenty muted colours. It reads 6.75:1 on the tightest of the sixteen light papers,
+       the highest of any swatch here, and it happens to suit a poem of funeral pyres and blood-feud,
+       which is worth saying only because it cost nothing: the numbers led there.
+       Keyed by ID rather than by author, like the Song of Roland and Gilgamesh — see bookColor. */
+    "beowulf": "#55303C",
+    /* Measured the same way, and the two rows above were right that the band is full: with
+       twenty-three colours placed, a sweep of the whole RGB cube inside the shelf's own lightness
+       and chroma band turns up candidates in only TWO hue families that clear 20 of their nearest
+       neighbour at all — a red at 20.1 and a green at 22.5.
+
+       THE RED WAS REJECTED ON THE EURIPIDES TEST, which is the one case where that test and the raw
+       number nearly agreed anyway. Its 20.1 is against Sun Tzu's rust, and Sun Tzu is the other
+       ancient Chinese work on this shelf: a red for the Shû sitting one step from it would say the
+       two are a set, which is exactly the kinship that test exists to refuse. It also scrapes the
+       shelf's own tightest pair (18.2, the Classic of Poetry against Beowulf) by two points.
+
+       So green, which the Vyasa and Kalidasa rows both turned down — and their objection does not
+       bite here, because it was never about the hue. What they rejected was that every green
+       clearing Lucretius and Aesop sat at the TOP of the chroma band, bright enough to glow beside
+       twenty muted colours. This one sits at chroma 44 against a shelf range of 18–64 and lightness
+       25 against a range of 25–48, which is the dark end of both: a deep forest green rather than a
+       bright one. It clears Gilgamesh by 22.1 and Aesop and Lucretius by 22.2 — evenly, so it reads
+       as its own colour rather than as a near-miss of any one of them — and no reader ties a Chinese
+       documentary archive to a Latin poem, a Babylonian epic or a book of fables. It reads 6.75:1 on
+       the tightest of the sixteen light papers, the highest of any swatch here, and 1.3–1.8 on the
+       dark ones as every one of them does. Keyed by id, the documents being anonymous. */
+    "book-of-documents": "#0F4503",
+    /* AND HERE THE BAND WAS WIDENED, which the Book of Documents' row said the next book would have
+       to do — measured, and its warning was exactly right. Inside the shelf's own lightness and
+       chroma band (L 24.8–47.8, C 18.3–64.1) a sweep of the whole RGB cube turns up NOTHING that
+       clears 20.1 of its nearest neighbour, and that best candidate is a blood red sitting 20.1 from
+       Sun Tzu's rust; the runners-up are a green at 19.6 against the Shû's own forest and a magenta
+       at 19.6. Every one of them is inside the shelf's tightest pair once that pair is recomputed —
+       18.2, the Classic of Poetry against Beowulf — but only just, and none is more than two points
+       clear of it.
+
+       WIDENING DOWNWARD COSTS NOTHING AND BUYS CONTRAST, which is Kalidasa's finding and it holds a
+       second time: a darker swatch reads BETTER on a light paper, not worse, so the floor was dropped
+       to L 18 and C 12 rather than the ceiling raised, which the 4.5:1 bar test-a11y.js holds the
+       site to has shut off. That opens four genuinely separated places at 20.7–22.9, all of them
+       reading 7.5–8.4:1 where the cramped band's best manages 6.2.
+
+       OF THOSE FOUR THE NUMBER AND THE EURIPIDES TEST AGREED, and the test is doing real work here
+       rather than rubber-stamping the winner. The one book on this shelf a reader genuinely pairs
+       with the Prose Edda is BEOWULF — the two are read together in any course on the medieval north,
+       and they are the shelf's only Germanic works — so a colour near Beowulf's dark oxblood would
+       say they are a set, which is the kinship Euripides' row gave up a better number to avoid. That
+       rules out the deep wine red at 21.6, whose third-nearest neighbour is Beowulf at 22.6, and the
+       dark olive at 20.7, where Beowulf is 21.8 away. This dark violet is both the best-separated
+       colour anywhere in the widened band at 22.9 AND the one furthest from Beowulf, at 35.0 — no
+       reading of the two as a pair is possible. Its four nearest are Euripides at 22.9, Herodotus at
+       23.0, the Song of Roland at 23.3 and Plato at 23.3, evenly enough that it reads as its own
+       colour rather than as a near-miss of any one of them, and nobody pairs an Icelandic handbook of
+       poetics with a Greek tragedian, a Greek historian, Plato or a chanson de geste. It reads
+       8.32:1 on the tightest of the sixteen light papers — the best of any swatch on this shelf — and
+       1.1–1.4 on the dark ones, as every one of them does.
+
+       THE NEXT BOOK WILL HAVE TO WIDEN THE BAND AGAIN, and Kalidasa's row already said what that
+       costs: darker still loses saturation until the swatches stop being colours at all. There is
+       perhaps one more step of room. Say so then. */
+    "Snorri Sturluson": "#401A5C",
+    /* Measured the same way, and the band the Beowulf row called full really is: with twenty-five
+       colours placed, the best-separated colour anywhere inside the shelf's own lightness and chroma
+       band clears its nearest neighbour by 21.3 — against a shelf whose own tightest pair is 18.2.
+       THE BEST NUMBER WAS REJECTED FOR THE SECOND TIME, and the Euripides test did the work again.
+       That 21.3 is a dark crimson whose four nearest neighbours are Plato, Ovid, BEOWULF at 22.9 and
+       Sophocles — and Beowulf is the one book on this shelf a reader genuinely reads against these
+       poems, both being Germanic heroic verse and sharing the Sigurd material outright, so a colour
+       sitting that close to his oxblood would say the two are a set. The Prose Edda is the same
+       objection a second time, its violet being what any reader reaches for next.
+       This deep blood-red costs six tenths of a point — 20.7 from Sun Tzu's rust, still wider than
+       the shelf's own tightest pair — and buys 67.1 from the Prose Edda and 42.6 from Beowulf, which
+       is a colour that cannot be read as either book's relative. Its other neighbours are Sophocles
+       at 21.4 and Aristophanes at 21.9, and nobody reads Greek tragedy or comedy against the Edda.
+       It reads 7.37:1 on the tightest of the twelve light papers, against a bar of 4.5.
+       Keyed by id, the poems being anonymous. */
+    "poetic-edda": "#720000",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -5829,6 +5948,66 @@
          to a single unlabelled group as it does for the Meditations and the Republic. */
     },
     {
+      id: "beowulf",
+      title: "Beowulf",
+      /* No subtitle. The poem is untitled in its manuscript and has been called Beowulf, after its
+         hero, since its first editors named it; there is no second name to carry. */
+      author: "Anonymous",
+      /* THE DATE IS THE OPEN QUESTION OF THE FIELD, and the shelf still needs one number to sort on.
+         Only the manuscript is fixed, at about the year 1000; when the poem behind it was composed has
+         been argued from its language, its metre and its politics for two centuries, with answers
+         running from the early eighth century to the very decade of the copy. 700 is the early end of
+         that range, and the front matter carries the doubt rather than leaving the `c.` to do all the
+         work — the same move the Song of Roland's and Kalidasa's entries make. */
+      written: "c. 700–1000",
+      year: 700,
+      translator: "Francis Barton Gummere",
+      edition: "The Oldest English Epic, Macmillan, New York, 1909",
+      /* PUBLIC DOMAIN WITH ONE THING THAT CANNOT BE ESTABLISHED, and it is said rather than rounded up
+         — the Gallic War's judgement, where half a byline could not be found either. The poem is about
+         a thousand years old and free everywhere. Gummere lived 1855–1919, so his translation clears
+         the pre-1929 publication rule, life-plus-seventy (1990) and life-plus-a-hundred alike, with no
+         limit to state — it belongs with the Republic, the Analects, the Peloponnesian War and
+         Kalidasa rather than with Giles (2029) or Ross (2042). What cannot be settled is A. J. Wyatt,
+         whose 1894 Old English edition is the facing column: Wikidata gives him 1835–1935 at YEAR
+         precision, a suspiciously round hundred years, and Wikisource's author page carries no dates
+         and no public-domain tag for him where Gummere's carries PD-old. He was certainly alive in
+         1919, having published an Anglo-Saxon Reader that year. So the ground stated for that column is
+         the publication date alone, which anybody can check, and the conditional is given rather than
+         buried. Dates looked up rather than recalled, for the Hugo Magnus reason. */
+      rights:
+        "Public domain, with one thing this site cannot establish and says so rather than guess. The " +
+        "poem is Old English and about a thousand years old, so it is free everywhere. Francis Barton " +
+        "Gummere's translation was published in 1909 and he lived from 1855 to 1919, so it is public " +
+        "domain in the United States under the pre-1929 publication rule and out of copyright wherever " +
+        "the term is the author's life plus seventy or even a hundred years — there is no limit to " +
+        "state. The facing Old English is A. J. Wyatt's edition of 1894, public domain in the United " +
+        "States on the same pre-1929 ground; his dates are given elsewhere as 1835 to 1935, but only to " +
+        "the year and without corroboration, so no life-plus-seventy term is claimed for it here, and " +
+        "if that death year is right the term expired in 2006. Gummere's volume also contains " +
+        "Finnsburg, Waldere, Deor, Widsith and Hildebrand, and Wyatt's a glossary and the Finnsburg " +
+        "fragment; none of that is reproduced, and what is taken is the poem. (The modern translations " +
+        "by Seamus Heaney, 1999, Roy Liuzza, 2000, J. R. R. Tolkien, published 2014, and Maria Dahvana " +
+        "Headley, 2020, are still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Oldest_English_Epic/Chapter_1",
+      origLang: "ang",
+      origName: "Old English",
+      chapterWord: "Fitt",
+      /* The manuscript's own sections, gap and all: an unnumbered prologue counted as 0, then I–XXVIII
+         and XXXI–XLIII. THERE IS NO FITT XXX — the scribe's numbering skips it and no line is missing,
+         which the two editions' continuous line ranges prove — and Gummere runs his XXVIII across the
+         section Wyatt brackets as [XXIX], so the translation divides the poem into 42 chapters and the
+         whole of it is here. `count` and `total` are equal and both are kept, for the reason Seneca's
+         are: one is what Folio holds and the other what the work contains. */
+      count: 42,
+      total: 42,
+      /* No `parts`. Neither edition divides the poem above the fitt — no books, cantos or parts in
+         either — so the reader falls back to a single unlabelled group, as the Meditations, the
+         Republic and the Song of Roland do. The familiar "two halves" of Beowulf, Denmark and then the
+         dragon, is a reader's description of the poem and not a heading anybody printed in it. */
+    },
+    {
       id: "herodotus-histories",
       title: "The Histories",
       // the work's own Greek title, which is what its Greek column is an edition of — the pattern
@@ -6342,6 +6521,258 @@
          DESPONDENCY OF ARJUNA"), and the importer reads all eighteen off the text rather than
          composing them, which only Gilgamesh does otherwise. */
     },
+    {
+      id: "classic-of-poetry",
+      title: "The Classic of Poetry",
+      subtitle: "The Shih King",
+      author: "Anonymous",
+      /* The poems were composed over some four centuries by people whose names are not recorded, and
+         the tradition that Confucius selected them from a larger body is a tradition rather than a
+         fact. `written` says the span; `year` is the single number a shelf that sorts by date must
+         have, and it is the early end of it rather than a midpoint nothing marks — the same choice
+         the Analects' entry makes and for the same reason. */
+      written: "c. 11th–7th century BCE",
+      year: -1000,
+      translator: "James Legge",
+      edition:
+        "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+        "Clarendon Press, Oxford, 1879",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL, which puts it with the Republic, the Analects, the
+         Peloponnesian War and Kalidasa rather than with Giles (2029) or Ross (2042). Legge published
+         in 1879, before 1929, so the United States copyright has expired; and he died in 1897, so it
+         is out of copyright on life-plus-seventy and life-plus-a-hundred alike. There is no modern
+         editorial layer to declare either — this is his printed text, not a re-edited one. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so " +
+        "its United States copyright has expired — and he died in 1897, so it is out of copyright " +
+        "wherever the term runs for the author's life plus seventy or even a hundred years. The poems " +
+        "themselves are some twenty-five centuries old. (The modern translations by Bernhard " +
+        "Karlgren, 1950, Ezra Pound, 1954, Xu Yuanchong, 1993, and Arthur Waley as extended by " +
+        "Joseph R. Allen, 1996, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shih",
+      /* THE FIRST BOOK ON THIS SHELF THAT IS HONESTLY A PART OF ITS WORK, and `count` against `total`
+         is exactly the field pair that says so: Folio holds 102 of the 305 poems. That is not an
+         instalment waiting to be completed but the edition's own scope — Legge's Sacred Books volume
+         prints the poems bearing on religion and not the collection entire — and of those 102 about a
+         third are the stanzas he judged relevant rather than whole poems, which the chapter titles
+         state one by one. The front matter says all of this in its first two paragraphs, because a
+         reader who took this for the whole Classic of Poetry would have been misled by silence.
+
+         A CHAPTER IS ONE POEM and its number is the MAO NUMBER, the 1–305 sequence by which any poem
+         of the Shih is cited in any language. So the tabs run 13, 15, 29, 40 … with gaps, and the gaps
+         are the point: renumbering what survives 1–102 would have made the book look complete and
+         invented a sequence it has not got. Beowulf's missing fitt XXX is the same judgement.
+
+         NO `origLang`, and it is the one thing here that was tried and abandoned rather than never
+         attempted. Every one of these 102 odes names its Chinese title, and every one of those poems
+         was found on Chinese Wikisource, so the pairing itself is sound; what is not sound is the
+         source, which sets the verse three different ways from page to page and surrounds it with a
+         traditional preface and a body of annotation that a column built from it would sometimes ship
+         as the poem. See .claude/fetch-book.js, whose entry records the three markup shapes, the
+         variant-reading tooltips and the four titles that belong to two poems each, so that a later
+         attempt starts from what was measured rather than from scratch. */
+      chapterWord: "Ode",
+      count: 102,
+      total: 305,
+      /* The work's own four traditional divisions, as the Contents panel's groups — the airs of the
+         states, the two sets of odes and the temple hymns. The `note` on each says how much of that
+         division this edition carries, since the four are cut very unevenly by Legge's religious
+         criterion: the airs lose almost all of their 160 and the hymns keep nearly all of their 40. */
+      parts: [
+        { n: 1, label: "Lessons from the States", note: "14 of 160 odes" },
+        { n: 2, label: "The Minor Odes of the Kingdom", note: "23 of 74 odes" },
+        { n: 3, label: "The Major Odes of the Kingdom", note: "27 of 31 odes" },
+        { n: 4, label: "Odes of the Temple and the Altar", note: "38 of 40 odes" },
+      ],
+    },
+    {
+      id: "book-of-documents",
+      title: "The Book of Documents",
+      subtitle: "The Shû King",
+      author: "Anonymous",
+      /* The documents are speeches and charges set down by scribes whose names are not recorded, and
+         the tradition that Confucius compiled them is a tradition rather than a fact. `written` gives
+         the span the genuinely ancient layer covers; `year` is the single number a shelf that sorts
+         by date must have, and it is the early end of that span rather than a midpoint nothing marks. */
+      written: "c. 11th–4th century BCE",
+      year: -1000,
+      translator: "James Legge",
+      edition:
+        "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+        "Clarendon Press, Oxford, 1879",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL: Legge published in 1879, before 1929, so the
+         United States copyright has expired, and he died in 1897, so it is out of copyright on
+         life-plus-seventy and life-plus-a-hundred alike. No limit to state and no modern editorial
+         layer to declare — this is his printed text, not a re-edited one. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so " +
+        "its United States copyright has expired — and he died in 1897, so it is out of copyright " +
+        "wherever the term runs for the author's life plus seventy or even a hundred years. The " +
+        "documents themselves are ancient and are in the public domain everywhere. (Bernhard " +
+        "Karlgren's translation of 1950 and Clae Waltham's modernisation of Legge of 1971 are still " +
+        "in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shu",
+      /* THE WHOLE OF THE RECEIVED TEXT, so `count` and `total` are equal — and they are 59 rather
+         than the 58 the Shû is traditionally counted at, because `total` is what THIS EDITION
+         contains and Legge prints the Tribute of Yü in two numbered sections. Joining them would put
+         two paragraphs numbered 1 in one chapter, since each section restarts its count; the front
+         matter says so rather than leaving a reader to wonder why the tabs run one long.
+
+         NO `origLang`, and it was measured rather than assumed. Chinese Wikisource carries every one
+         of the received documents, so the CHAPTER-level pairing is exact — but app.js pairs on the
+         section number below the chapter, Legge numbers his paragraphs and that transcription
+         numbers nothing at all. Pairing by position instead is the approach abandoned once already
+         on this shelf, and here it is not close: the two divide the same document alike in eight
+         cases out of fifty-eight. See .claude/fetch-book.js, whose entry records that measurement,
+         the variant-reading tooltips, and the excavated bamboo-slip texts that sit on the same wiki
+         index and are not chapters of the Shû at all. */
+      chapterWord: "Document",
+      count: 59,
+      total: 59,
+      /* The work's own five divisions, named for the houses whose documents they gather. The `note`
+         gives each one's share, since they are cut very unevenly — four fifths of the book is Kâu. */
+      parts: [
+        { n: 1, label: "The Book of Thang", note: "1 document" },
+        { n: 2, label: "The Books of Yü", note: "4 documents" },
+        { n: 3, label: "The Books of Hsiâ", note: "5 documents" },
+        { n: 4, label: "The Books of Shang", note: "17 documents" },
+        { n: 5, label: "The Books of Kâu", note: "32 documents" },
+      ],
+    },
+    {
+      id: "prose-edda",
+      title: "The Prose Edda",
+      author: "Snorri Sturluson",
+      /* Snorri lived 1179–1241 and the Edda is put at about 1220 on the usual grounds — later than
+         the poems it quotes, earlier than the manuscripts that carry it. `year` is the single number
+         the shelf's date sort needs; the front matter says how loose it is. */
+      written: "c. 1220",
+      year: 1220,
+      translator: "Arthur Gilchrist Brodeur",
+      edition:
+        "The Prose Edda, translated by Arthur Gilchrist Brodeur, " +
+        "The American-Scandinavian Foundation, New York, 1916",
+      /* A LICENCE THAT STATES A LIMIT, which puts it with the Art of War (Giles, 2029), the
+         Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea and Gilgamesh rather than with
+         the Republic and the Analects. The work is free everywhere — Snorri died in 1241 — and
+         Brodeur's translation is public domain in the United States on the pre-1929 publication rule,
+         but he lived 1888–1971, so it stays in copyright where the term is life plus seventy until
+         2042. Said outright rather than smoothed into the easier sentence, which is the judgement
+         Lucretius' entry records: claim less, and put on the page what cannot be said. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. Snorri Sturluson died " +
+        "in 1241, so the work itself is free everywhere. Arthur Gilchrist Brodeur's translation was " +
+        "published in 1916 — before 1929, so its United States copyright has expired — but he lived " +
+        "from 1888 to 1971, so where the term runs for the author's life plus seventy years it stays " +
+        "in copyright until 2042. Brodeur's own introduction and index are not reproduced here; what " +
+        "is taken is the three parts of the Edda his volume translates. There is no Old Norse column, " +
+        "and the reason is a copyright one rather than a textual one — see the front matter. (The " +
+        "translations by Jean I. Young, 1954, Anthony Faulkes, 1987, and Jesse Byock, 2005, are still " +
+        "in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Prose_Edda_(Brodeur_1916)",
+      /* THE CHAPTER IS THE WORK'S OWN PART, and the numbered chapters inside it are the SECTIONS —
+         Herodotus' shape, and chosen for the citation rather than for the arithmetic. Each of the
+         three parts restarts its numbering at 1, so making the numbered chapter the tab would mean
+         renumbering them into one run of 133 and turning "Gylfaginning 44" into tab 50. As sections
+         they keep meaning what they mean in every edition and every reference book. See
+         .claude/fetch-book.js for the measurement behind that and for the two ways this edition sets
+         its Roman numerals.
+
+         `count` AND `total` DIFFER HERE, and the gap is the edition rather than the file: the Prose
+         Edda has four parts and Brodeur translated three. Háttatal — Snorri's own praise-poem
+         demonstrating a hundred-odd metres — is the most technical and least translatable part of the
+         book, and the 1916 volume's own contents page lists the Prologue, Gylfaginning and
+         Skáldskaparmál and stops.
+
+         NO `origLang`, and unusually the reason is a LICENCE rather than a text. The Old Norse pairs
+         exactly where it can be paired — measured, the Prologue 5 chapters to 5 and Gylfaginning 54
+         to 54, content matching throughout — but the only openly transcribed Old Norse Edda is Guðni
+         Jónsson's, 1901–1974, in copyright until 2044 and carried on Wikisource by permission rather
+         than by an expiry, which is not the ground this library serves books on. So the shelf's two
+         failure modes gain a third: not one column silent, nor both, but a column that speaks and may
+         not be quoted. The importer's entry records what a later attempt would need. */
+      chapterWord: "Part",
+      count: 3,
+      total: 4,
+    },
+    {
+      id: "poetic-edda",
+      title: "The Poetic Edda",
+      /* No subtitle. It is also called the Elder Edda and, still occasionally, the Sæmundar Edda;
+         putting either on the banner would assert a name the book never had — the second being an
+         attribution to a twelfth-century priest that no modern editor defends. Both are explained in
+         the front matter, which is where a naming quarrel belongs. */
+      author: "Anonymous",
+      /* THE DATE IS THIRTY-FIVE OPEN QUESTIONS RATHER THAN ONE, which is worse than the usual case of
+         a single undated work: a collection is only as datable as its parts, and these were made by
+         different hands over something like three centuries. The one fixed point is the manuscript,
+         written in Iceland about 1270. 900 is the early end of the range the poems are argued into
+         and is the only figure the shelf can honestly sort on; the front matter carries the doubt
+         rather than leaving the `c.` to do all the work. */
+      written: "c. 900–1250",
+      year: 900,
+      translator: "Henry Adams Bellows",
+      edition:
+        "The Poetic Edda, translated by Henry Adams Bellows, " +
+        "The American-Scandinavian Foundation, New York, 1923",
+      /* A LICENCE THAT STATES A LIMIT, and much the smallest limit on the shelf. The poems are
+         anonymous and medieval, so the work is free everywhere; Bellows's translation is public
+         domain in the United States on the pre-1929 publication rule, and he died in 1939, so it
+         cleared life plus seventy at the start of 2010 as well. What is left is life plus a hundred,
+         which runs to 2040 — a real limit and a narrow one, said outright rather than smoothed away.
+         His dates are unusually well corroborated for this shelf: Wikidata carries both at DAY
+         precision and Wikisource's own PD/US tag gives 1939 independently, so this is not the lone
+         unverified figure some translators here come down to. */
+      rights:
+        "Public domain in the United States and in life-plus-seventy countries, with one limit left " +
+        "to state. The poems are anonymous and medieval, so the work itself is free everywhere. " +
+        "Henry Adams Bellows's translation was published in 1923 — before 1929, so its United States " +
+        "copyright has expired — and he lived from 1885 to 1939, so it cleared life plus seventy at " +
+        "the start of 2010; where the term runs for the author's life plus a hundred years it stays " +
+        "in copyright until 2040. Bellows's General Introduction and his Pronouncing Index are not " +
+        "reproduced here; what is taken is the thirty-five poems with the introductory note and the " +
+        "footnotes he gave to each. There is no Old Norse column, and the reason is that no complete " +
+        "edition is transcribed anywhere reachable rather than that any of them is shut — see the " +
+        "front matter. (The translations by Lee M. Hollander, 1928, Carolyne Larrington, 1996, and " +
+        "Jackson Crawford, 2015, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)",
+      /* THE CHAPTER IS A WHOLE POEM and the printed stanza number is the SECTION, and neither is a
+         compromise — which is unusual enough here to be worth saying. The collection is made of
+         poems and its own contents page lists them, so the poem is what a tab should be; and
+         "Voluspo 21" is how any passage is addressed in every edition and every reference work, so
+         the stanza is what a section should be. Measured over all thirty-five pages before it was
+         believed: 1,564 stanza numbers, every verse poem running a clean 1..N with no gap and no
+         duplicate, and not one leaf of the scan untranscribed.
+
+         TWO OF THE THIRTY-FIVE CARRY NO SECTION NUMBER AT ALL, and that is the edition rather than
+         the extractor: Fra Dautha Sinfjotla and Drap Niflunga are the manuscript's prose bridges
+         rather than poems, so they have nothing to number and render as one block apiece. They are
+         declared as prose in the importer, so the unnumbered-chapter warning still means something
+         when it fires on anything else.
+
+         NO `origLang`, and the reason is COVERAGE rather than the licence that keeps the Old Norse
+         off its prose companion. An edition whose copyright has expired exists and is transcribed —
+         Sophus Bugge's of 1867, and he died in 1907 — but only three of the thirty-five poems have
+         been transcribed from it and one of those numbers no stanzas, so there is nothing to pair
+         against on nine tenths of the book. Checked on the Icelandic, Norwegian, Danish, Swedish,
+         German and multilingual Wikisources; Old Norse has no wiki of its own. The numbers are
+         already there on both sides, which is the hard part, so a fuller transcription would need
+         only an `original` block. */
+      chapterWord: "Poem",
+      count: 35,
+      total: 35,
+      /* The edition's own two divisions, read off its contents page rather than inferred from the
+         subject matter — the gods stop and the heroes begin at Völundarkvitha, which is where
+         Bellows puts the break and where the manuscript puts it too. */
+      parts: [
+        { n: 1, label: "Lays of the Gods", note: "14 poems" },
+        { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -6355,6 +6786,27 @@
      they open the book does not belong in it, and books/<id>.js is never hand-edited, so an intro
      written straight into that file would not survive the next run of the importer. */
   const BOOK_INTRO = {};
+  /* …overlaid with the admin's own edits (Aug 2026, on request: an admin should be able to edit the text
+     of a book's opening About chapter). It follows the QUOTES pattern rather than the Mission's, and the
+     difference is where the words end up living. The Mission's prose has mission.js to be baked back into;
+     a book's essay has nowhere — books/<id>.js is generated, and .claude/fetch-book.js's `about` field is
+     the permanent home, which is a repo edit and not something an editor can reach from a phone. So THE
+     OVERLAY IS THE STORAGE: it persists in folio_admin_v1, travels to every reader through
+     content_overrides with no deploy, and is what a lasting change should be copied INTO fetch-book.js
+     from when someone is next at the repo. Nothing serializes it, deliberately — a serializer pointed at a
+     generated file is a serializer that fights the importer. */
+  function bookIntroMerged(id) {
+    const ov = (ADMIN_EDITS.bookIntros || {})[id];
+    return typeof ov === "string" ? ov : (BOOK_INTRO[id] || "");
+  }
+  // an essay edited back to the shipped words drops its delta, exactly as the Mission's does — so "have I
+  // changed this book?" is answerable from the overlay rather than by comparing two strings
+  function setBookIntroEdit(id, html) {
+    const map = ADMIN_EDITS.bookIntros || (ADMIN_EDITS.bookIntros = {});
+    if (html == null || html === (BOOK_INTRO[id] || "")) delete map[id];
+    else map[id] = html;
+    saveAdminEdits();
+  }
   /* The book in the language it was written in — id -> { lang, langName, edition, rights, sourceName,
      sourceUrl, byNum: { <chapter number>: html } }. Its own file, its own bundle, fetched only when a
      reader actually asks for the original; see `origLang` in the registry above for why the two texts
@@ -6469,6 +6921,7 @@
     truefalse: ["True or False — Folio", "Today's historical myths and surprising truths."],
     whosaid:   ["Who said it? — Folio", "Match today's famous quotations to the people who said them."],
     findit:    ["Find it — Folio", "Locate five places on the globe."],
+    thread:    ["Common Thread — Folio", "Sort today's sixteen glossary terms into their four hidden groups."],
     admin:     ["Admin — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     community: ["Shared decks — Folio", "Decks written and shared by other people using Folio."],
@@ -6754,7 +7207,7 @@
   /* Animate an element between two CONTENT heights across a change that alters them. The height is
      measured on both sides and animated explicitly, because `height:auto` is not an animatable value and
      a container that snaps while its contents slide reads worse than either moving alone. */
-  function flipHeight(el, mutate, dur) {
+  function flipHeight(el, mutate, dur, easing) {
     if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return; }
     const from = el.getBoundingClientRect().height;
     mutate();
@@ -6762,7 +7215,7 @@
     if (Math.abs(from - to) < 1) return;
     try {
       el.animate([{ height: from + "px" }, { height: to + "px" }],
-        { duration: dur || 260, easing: "cubic-bezier(.22,.61,.36,1)" });
+        { duration: dur || 260, easing: easing || "cubic-bezier(.22,.61,.36,1)" });
     } catch (e) {}
   }
 
@@ -7340,6 +7793,12 @@
   const GB_H_KEY = "folio_gb_compact_v1";
   // keep in step with the .grade / .grade-help / .gb-undo transition durations in styles.css
   const GB_FOLD_MS = 280;
+  /* …and with `--ease` in styles.css, which is what those transitions run on (Aug 2026, on a report that
+     the fold ran roughly). The FLIP and the CSS transitions act on the same four buttons at the same
+     moment — the position from here, the height and padding from there — so a curve that differs even
+     slightly makes the box arrive before or after the place it is sliding to, which reads as a stutter
+     rather than as two animations. One clock, one curve. */
+  const GB_FOLD_EASE = "cubic-bezier(.2,.7,.2,1)";
   let gbCompact = null;
   function gbReadCompact() {
     if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
@@ -7372,7 +7831,11 @@
     if (animate && wrap && bar.classList.contains("show")) {
       // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
       const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
-      flipHeight(bar.querySelector(".gradebar-inner"), () => flipMove(parts, apply, { duration: GB_FOLD_MS }), GB_FOLD_MS);
+      flipHeight(
+        bar.querySelector(".gradebar-inner"),
+        () => flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }),
+        GB_FOLD_MS, GB_FOLD_EASE
+      );
     } else apply();
     if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
   }
@@ -7989,9 +8452,13 @@
       // …and the press that put the pen up by being HELD is likewise not a press on the button
       if (wbHeld) { wbHeld = false; return; }
       if (WB.panelOpen) { WB.panelOpen = false; applyWBState(); return; }   // putting the tools away leaves the pen down
+      /* OPENING THE TOOLS SELECTS NOTHING (Aug 2026, on request). It used to pick the pen so that one tap
+         got you drawing — which is a shortcut for the reader who wanted the pen and a trap for everyone
+         else: `enabled` puts a canvas over the whole page, and a reader who opened the panel to reach
+         Undo, Clear, a colour or the stylus row found the card underneath already taken. The panel is a
+         menu; choosing from it is what starts drawing. The cost is one extra tap on the way to the pen,
+         and it is exactly the tap that says which tool was meant. */
       WB.panelOpen = true;
-      // opening the tools with nothing selected picks the pen, so one tap still gets you drawing
-      if (!WB.enabled) { WB.mode = "pen"; WB.color = WB.penColor; renderColors(); wbSetEnabled(true); }
       applyWBState();
     });
     wbMakeDraggable(el, el.querySelector(".wb-toggle"));
@@ -8922,9 +9389,13 @@
     return s.slice(0, i) + "҃" + s.slice(i);
   }
   // each civilisation's collection counts its level in its own script (Library banner badge)
-  const COLLECTION_NUMERALS = { china: "zh", "col-40": "roman", "col-13": "greek", "col-43": "devanagari", "col-42": "cyrillic" };
+  const COLLECTION_NUMERALS = { china: "zh", "col-40": "roman", "col-13": "greek", "col-43": "devanagari", "col-42": "cyrillic", japan: "ja" };
   function numeralIn(sys, n) {
-    if (sys === "zh") return cnNumeral(n);
+    // Japanese counts in the same kanji Chinese does, so the numerals are shared and there is only one
+    // implementation — but "ja" must stay a separate KEY, because "zh" also puts the badge in var(--han),
+    // which is Noto Sans SC. That face is kept out of the body chain precisely so it can't impose Chinese
+    // glyph forms on Japanese text; .num-ja therefore falls through to the reader's own system CJK font.
+    if (sys === "zh" || sys === "ja") return cnNumeral(n);
     if (sys === "roman") return romanNumeral(n);
     if (sys === "greek") return greekNumeral(n);
     if (sys === "devanagari") return devanagariNumeral(n);
@@ -9445,8 +9916,9 @@
     const playedTrueFalseToday = gamePlayedToday("truefalse");
     const playedWhoSaidToday = gamePlayedToday("whosaid");
     const playedFindItToday = gamePlayedToday("findit");
+    const playedThreadToday = gamePlayedToday("thread");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
-    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit") };
+    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread") };
     // Decorative background icons for the home game tiles (replace the old Han glyphs).
     // Inline stroke SVGs (viewBox 0 0 24 24) inherit the tile colour via currentColor.
     const ICON = {
@@ -9464,6 +9936,9 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
       findit:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+      // Common Thread — a four-by-four grid with one row already gathered, which is the game in one mark
+      thread:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/></svg>',
     };
     /* THE DAY'S COMPLETION MARK — two shapes, not one (Aug 2026, on request).
        A PERFECT score keeps the shining gold ribbon: it is the rarer thing and it earns the whole corner.
@@ -9491,8 +9966,9 @@
           ${o.sub ? `<span class="gt-sub">${o.sub}</span>` : ""}
         </div>
       </button>`;
-    // The sixth slot in the grid. It used to read "Coming soon / —", which names nothing and looks like a tile
-    // that failed to load; it says what it is instead.
+    // The grid's spare slot. Unused since Common Thread took the sixth tile in Aug 2026 — kept because the
+    // grid is 3 × 2 and a seventh game would leave five filled and one empty again. It used to read
+    // "Coming soon / —", which names nothing and looks like a tile that failed to load.
     const blankTile = (g, color) =>
       `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span></div></div>`;
     /* Today's score, once the game has been played — and now the ONLY thing a tile's tagline can ever be.
@@ -9512,7 +9988,7 @@
       ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
       ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
       ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit"), done: playedFindItToday, won: wonToday.findit })}
-      ${blankTile(ICON.help, "#DB8B3A")}
+      ${tile({ id: "g-thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
     </div>`;
 
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
@@ -9652,6 +10128,7 @@
     root.querySelector("#g-truefalse").addEventListener("click", () => route("truefalse"));
     root.querySelector("#g-whosaid").addEventListener("click", () => route("whosaid"));
     { const gf = root.querySelector("#g-findit"); if (gf) gf.addEventListener("click", () => route("findit")); }
+    { const gt = root.querySelector("#g-thread"); if (gt) gt.addEventListener("click", () => route("thread")); }
     root.querySelector("#b-review").addEventListener("click", (e) => {
       if (e.target.closest("#hero-browse")) { route("decks"); return; }
       if (fresh) {
@@ -10196,6 +10673,9 @@
     "col-41": { bg: "#2F4373" }, // navy (United States)
     "col-42": { bg: "#9E2B25" }, // lacquer red (Russia)
     "col-43": { bg: "#C2701E" }, // saffron (India)
+    egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
+    ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
+    japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -11137,7 +11617,11 @@
     '<svg class="bk-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22z"/></svg>';
   function bookIntroChapter(b) {
-    const essay = BOOK_INTRO[b.id] || "";
+    /* The essay is wrapped so that an admin can be handed exactly it and nothing else. The two boxes under
+       it are the LICENCE, built here from the registry's `rights` / `edition` / `sourceUrl` and not prose
+       anyone types — an editable region that swallowed them would let a wrong copyright statement be typed
+       into the one place on the site that exists to state the right one. */
+    const essay = '<div class="bk-intro-essay">' + bookIntroMerged(b.id) + "</div>";
     const rights =
       '<section class="bk-rights">' +
         "<h3>About this translation</h3>" +
@@ -11315,6 +11799,7 @@
          measured against the text after the glossary links and the units pass have rewritten it, so
          putting them back any earlier would put them back against a different string. */
       bookHlApply(pageEl, b.id, c.n);
+      if (c.intro) wireIntroEdit(pageEl.querySelector(".bk-intro-essay"));
       applyLangMode();
       // …and the chapter's ink, which is a fresh list per chapter, history included
       if (inkChapter) inkChapter(c.n);
@@ -11338,6 +11823,59 @@
           window.scrollTo({ top: Math.max(0, top - 80), behavior: "auto" });
         }
         markPos();
+      });
+    }
+
+    /* ---- ADMIN: the front matter's essay is editable in place (Aug 2026, on request) ----
+       The same gesture and the same finish paths as the About page's prose (see PAGES.mission), because a
+       second way of doing this would be a second way of getting it wrong. Four things are particular to a
+       book and each is load-bearing:
+
+       · IT EDITS THE RAW SOURCE. What is on screen has been through autoLinkGlossary and the units pass,
+         so saving what is displayed would bake a page of `.ttip` spans and one measurement system into the
+         stored essay — and every later save would bake them again over themselves.
+       · IT REPAINTS THE CHAPTER, not the page. render() would resolve the book's chapter from the reader's
+         stored place and could land them somewhere other than the front matter they were just editing;
+         paint(cur) rebuilds this chapter from bookIntroChapter, which is what reads the overlay back.
+       · THE GESTURES STAND DOWN WHILE IT IS OPEN. On a phone the book turns its page on a tap and steps a
+         chapter on a swipe, and a finger placed in a paragraph to put the caret somewhere is both of those
+         — hence `[contenteditable='true']` in BK_TAP_SKIP.
+       · IT IS WIRED FROM paint(), which is where the front matter is rebuilt on every repaint (the
+         original's licence box arrives late), so wiring it once at set-up would leave a dead listener on a
+         replaced element the first time the reader asked for the original. */
+    function wireIntroEdit(el) {
+      if (!el || !isAdmin()) return;
+      el.classList.add("msn-editable");
+      el.setAttribute("title", "Click to edit (admin)");
+      el.addEventListener("click", () => {
+        if (el.isContentEditable) return;
+        if (String(window.getSelection() || "").trim()) return;   // a text-selection click, not an edit request
+        el.classList.add("msn-editing");
+        el.innerHTML = bookIntroMerged(b.id);                     // the stored source, not the linked-up rendering
+        el.contentEditable = "true";
+        el.focus();
+        let finished = false;
+        const finish = (saveIt) => {
+          if (finished) return;
+          finished = true;
+          document.removeEventListener("pointerdown", onOutside, true);
+          el.removeEventListener("keydown", onKey);
+          if (saveIt) {
+            const next = (el.innerHTML || "").trim();
+            // an essay emptied to nothing is far more likely a slip than an intention, so it falls back
+            if (next) { setBookIntroEdit(b.id, next); toast("Front matter saved"); }
+          }
+          el.contentEditable = "false";
+          paint(cur);                                             // rebuilt from the overlay, links and all
+        };
+        const onKey = (e) => {
+          if (e.key === "Escape") { e.preventDefault(); finish(false); }
+          else if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); finish(true); }
+        };
+        const onOutside = (ev) => { if (!el.contains(ev.target)) finish(true); };
+        el.addEventListener("keydown", onKey);
+        el.addEventListener("blur", () => finish(true), { once: true });
+        setTimeout(() => document.addEventListener("pointerdown", onOutside, true), 0);   // a tick later, so the opening click doesn't instantly finish
       });
     }
 
@@ -11652,7 +12190,11 @@
        the tabs, the ‹ › steps and the arrow keys. The book page is deliberately absent from SWIPE_ORDER,
        so the site-wide page swipe is inert here and these two can never fight over one gesture. */
     const BK_TAP_SLOP = 10, BK_TAP_MS = 320, BK_TAP_GAP = 30;
-    const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],.ttip,.fn,.src-note,.bk-n";
+    /* `[contenteditable='true']` is here for the admin's front-matter editor (see wireIntroEdit): a finger
+       placed in a paragraph to put the caret somewhere is, to these handlers, a tap that turns the page and
+       a drag that steps a chapter. Inert for every other reader, since nothing else on the page is ever
+       editable. */
+    const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],[contenteditable='true'],.ttip,.fn,.src-note,.bk-n";
     // listeners go on `root` — a fresh .page div per render (see render()), so they die with the page
     // and cannot accumulate the way one on the persistent #view would
     /* WITH THE PEN DOWN THE FINGER DRAWS, and neither of these gestures may fire. It is not a nicety:
@@ -14321,8 +14863,59 @@
     });
   }
 
+  /* ---------- ONE PLAY A DAY (Aug 2026, on request) ----------
+     Every one of the six is a DAILY game: its rounds are drawn once for today, its score sits on the home
+     tile as today's, and the tile turns gold for a perfect run. A "Play again" button underneath the
+     results contradicted all of that — the day's set had already been revealed answer by answer, so a
+     second run was a run with the answers in hand, and the tile's figure came from whichever attempt went
+     best. Two of the six had grown their own local answers to this (Timeline recorded the FIRST check and
+     ignored later ones; Find it called a same-day replay "practice" and recorded nothing), which is the
+     shape of a rule that wants stating once instead of six times.
+
+     So the games are gated here, at the door, and each of them ends on its results screen with no way
+     back in until tomorrow. The cost is real and worth naming: a reader who wants to re-read today's
+     Timeline order or walk today's five places again cannot. What is kept in exchange is that the figure
+     on the tile is the answer they gave when they did not know the answers.
+
+     The glyph is the one that game's own placards already use, so the screen a reader meets is in the
+     hand they know it by. */
+  const GAME_NAMES = {
+    challenge: ["Multiple Choice", "选"], truefalse: ["True or False", "真"], whosaid: ["Who said it?", "言"],
+    chrono: ["Timeline", "序"], thread: ["Common Thread", "紐"], findit: ["Find it", "地"],
+  };
+  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places" };
+  /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
+     stored without an article and in the case the prose uses it in — `polis`, `cist grave` — because that
+     is what the glossary is keyed by, what the cloze box is typed against and what read-aloud says. In a
+     LIST OF CHOICES it is none of those: it is the term being named, and four options where two happen to
+     open on a capital and two do not read as a typo rather than as a distinction. The study card makes
+     exactly this move for exactly this reason, and makes it in CSS (`.answer .val::first-letter`), which
+     is not available here — an option is built as a text node inside a button, so it is done in the string.
+     DISPLAY ONLY: `options`/`correct` are matched against each other by identity elsewhere in the round,
+     so nothing that decides a right answer ever sees this.
+     It is `\p{L}` rather than charAt(0) so a term opening on a numeral, a quotation mark or a Han
+     character is passed through untouched instead of being sliced through a surrogate pair. */
+  function gameCapFirst(s) {
+    return String(s == null ? "" : s).replace(/^\p{L}/u, (c) => c.toUpperCase());
+  }
+  function gameLockedToday(root, key) {
+    if (!gamePlayedToday(key)) return false;
+    const g = (S.games && S.games[key]) || {};
+    const meta = GAME_NAMES[key] || [key, "—"];
+    const scored = typeof g.s === "number" && typeof g.n === "number";
+    const how = g.won ? "A perfect run" : scored ? "You scored " + g.s + " of " + g.n : "You have already played";
+    const fresh = GAME_SET_WORD[key] || "set";
+    root.innerHTML = emptyPlacard(
+      "Played today", meta[1],
+      how + " in " + meta[0] + " today. A fresh " + fresh + " arrives tomorrow.",
+      () => route("home"), "Back home"
+    );
+    return true;
+  }
+
   PAGES.challenge = function (root) {
     detachKeys();
+    if (gameLockedToday(root, "challenge")) return;
     const Q = buildChallengeQuestions();
     if (Q.length < 2) {
       root.innerHTML = emptyPlacard("Not enough cards", "选", "Add a deck with more cards to play.", () => route("home"), "Back home");
@@ -14353,7 +14946,7 @@
       item.options.forEach((opt, i) => {
         const b = document.createElement("button");
         b.className = "opt";
-        b.innerHTML = '<span class="key">' + "ABCD"[i] + "</span><span>" + esc(opt) + "</span>";
+        b.innerHTML = '<span class="key">' + "ABCD"[i] + "</span><span>" + esc(gameCapFirst(opt)) + "</span>";
         b.addEventListener("click", () => choose(i, b));
         opts.appendChild(b);
       });
@@ -14369,7 +14962,7 @@
       });
       const rev = root.querySelector("#reveal"); rev.hidden = false;
       rev.innerHTML =
-        '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(item.correct) + "</b></div>" +
+        '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(item.correct)) + "</b></div>" +
         '<button class="btn" id="mc-next">' + (qi + 1 < Q.length ? "Next question" : "See results") + "</button>";
       rev.querySelector("#mc-next").addEventListener("click", next);
     }
@@ -14389,7 +14982,8 @@
       markGamePlayed("challenge", won, score, Q.length);
       save();
       checkAchievements();
-      const msg = score === Q.length ? "Perfect run — every one right." : score >= Q.length - 1 ? "Sharp — nearly flawless." : score >= Math.ceil(Q.length / 2) ? "Solid effort." : "Keep studying — try again.";
+      // the closing line no longer invites a replay — there isn't one until tomorrow
+      const msg = score === Q.length ? "Perfect run — every one right." : score >= Q.length - 1 ? "Sharp — nearly flawless." : score >= Math.ceil(Q.length / 2) ? "Solid effort." : "Keep studying.";
       root.innerHTML = `
         <div class="dc-shell">
           <div class="page-head"><span class="eyebrow">Multiple Choice</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${Q.length}</span></h1></div>
@@ -14397,11 +14991,11 @@
           <div class="tf-summary">${Q.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(it.correct)}</b></p></div>
+              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(gameCapFirst(it.correct))}</b></p></div>
             </div>`).join("")}</div>
-          <div class="tf-actions"><button class="btn" id="mc-again">Play again</button><button class="btn ghost" id="mc-home">Home</button></div>
+          <p class="tf-tomorrow">A fresh set arrives tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="mc-home">Home</button></div>
         </div>`;
-      root.querySelector("#mc-again").addEventListener("click", () => route("challenge"));
       root.querySelector("#mc-home").addEventListener("click", () => route("home"));
     }
   };
@@ -14424,6 +15018,8 @@
   }
   PAGES.truefalse = function (root) {
     detachKeys();
+    // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
+    if (gameLockedToday(root, "truefalse")) return;
     if (gamesI18nPending(root)) return;
     const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
     const ROUNDS = 5;
@@ -14469,7 +15065,8 @@
     }
     function renderEnd() {
       markGamePlayed("truefalse", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
-      const msg = score === 5 ? "Flawless — a true myth-buster." : score >= 4 ? "Excellent — you know your history." : score >= 3 ? "Solid effort." : score >= 2 ? "Plenty of myths still got you." : "History is full of surprises — try again.";
+      // the closing line no longer invites a replay — there isn't one until tomorrow
+      const msg = score === 5 ? "Flawless — a true myth-buster." : score >= 4 ? "Excellent — you know your history." : score >= 3 ? "Solid effort." : score >= 2 ? "Plenty of myths still got you." : "History is full of surprises.";
       root.innerHTML = `
         <div class="dc-shell">
           <div class="page-head"><span class="eyebrow">True or False</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1></div>
@@ -14479,9 +15076,9 @@
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${esc(it.why)}</p></div>
             </div>`).join("")}</div>
-          <div class="tf-actions"><button class="btn" id="tf-again">Play again</button><button class="btn ghost" id="tf-home">Home</button></div>
+          <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
-      root.querySelector("#tf-again").addEventListener("click", () => route("truefalse"));
       root.querySelector("#tf-home").addEventListener("click", () => route("home"));
     }
   };
@@ -14500,6 +15097,7 @@
   }
   PAGES.whosaid = function (root) {
     detachKeys();
+    if (gameLockedToday(root, "whosaid")) return;
     if (gamesI18nPending(root)) return;
     const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
@@ -14550,7 +15148,8 @@
     }
     function renderEnd() {
       markGamePlayed("whosaid", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
-      const msg = score === ROUNDS ? "Flawless — you know your history." : score >= ROUNDS - 1 ? "Excellent." : score >= Math.ceil(ROUNDS / 2) ? "Solid effort." : "History is full of voices — try again.";
+      // the closing line no longer invites a replay — there isn't one until tomorrow
+      const msg = score === ROUNDS ? "Flawless — you know your history." : score >= ROUNDS - 1 ? "Excellent." : score >= Math.ceil(ROUNDS / 2) ? "Solid effort." : "History is full of voices.";
       root.innerHTML = `
         <div class="dc-shell">
           <div class="page-head"><span class="eyebrow">Who said it?</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1></div>
@@ -14560,9 +15159,9 @@
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${esc(rd.it.context)}</p></div>
             </div>`).join("")}</div>
-          <div class="tf-actions"><button class="btn" id="ws-again">Play again</button><button class="btn ghost" id="ws-home">Home</button></div>
+          <p class="tf-tomorrow">Five fresh voices arrive tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
-      root.querySelector("#ws-again").addEventListener("click", () => route("whosaid"));
       root.querySelector("#ws-home").addEventListener("click", () => route("home"));
     }
   };
@@ -14645,6 +15244,7 @@
     };
 
     listEl.addEventListener("pointerdown", (e) => {
+      if (listEl.classList.contains("chrono-done")) return;   // the day's answer is in — the rows are a record now, not a puzzle
       const grip = e.target.closest(".ci-grip");
       if (!grip || (e.button != null && e.button > 0)) return;
       const el = grip.closest(".chrono-item");
@@ -14704,6 +15304,7 @@
 
   PAGES.chrono = function (root) {
     detachKeys();
+    if (gameLockedToday(root, "chrono")) return;
     const N = 5;
     const set = dailyChronoSet(N);
     if (set.length < N) {
@@ -14734,14 +15335,14 @@
       </div>`;
     }
     function render() {
-      const played = !!(S.chrono && S.chrono.date === todayStr());
-      const best = played ? S.chrono.best : 0;
       root.innerHTML = `
         <div class="chrono-shell">
           <div class="page-head" style="margin-bottom:14px">
             <span class="eyebrow">Daily puzzle</span>
             <h1>Timeline</h1>
-            <p>Put these events in chronological order — earliest at the top. ${played ? `Today's score: <b>${best}/${N}</b> — your first check is the one that counts.` : "Your first check is the one that counts."}</p>
+            ${/* the page is unreachable once today's check is in (see gameLockedToday), so there is no
+                  played-already branch here any more — arriving at all means the puzzle is unanswered */""}
+            <p>Put these events in chronological order — earliest at the top. You get one check.</p>
           </div>
           <div class="chrono-scale"><span>Earliest</span><span>Latest</span></div>
           <div class="chrono-list" id="chrono-list">${order.map(itemHTML).join("")}</div>
@@ -14769,6 +15370,7 @@
     // beside a dragged row would be the one way left of reordering the list with a hard cut.
     function move(item, dir) {
       const list = item.parentElement;
+      if (list.classList.contains("chrono-done")) return;   // answered — the arrows go quiet with the grips
       const other = dir < 0 ? item.previousElementSibling : item.nextElementSibling;
       if (!other) return;
       flipMove([item, other], () => {
@@ -14799,30 +15401,257 @@
       });
       checked = true;
       const solved = score === N;
-      /* THE FIRST CHECK OF THE DAY IS THE ANSWER (Aug 2026, on request). Checking used to record the BEST
-         of any number of tries, and since a check reveals every event's date, a reader could check once,
-         read the years off the rows and reorder to a perfect score every single day. The first check is
-         now the one that counts; every check after it still marks the rows and shows the dates, so the
-         puzzle is still usable as a way of learning the order — it just no longer rewrites the score. */
-      const firstToday = !S.chrono || S.chrono.date !== todayStr();
-      if (firstToday) {
-        S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
-        markGamePlayed("chrono", solved, score, N);
-        save();
-        checkAchievements();
-      } else {
-        S.chrono.plays++;
-        save();
-      }
+      /* ONE CHECK, AND IT IS THE ANSWER (Aug 2026, on request). This began as "the FIRST check of the day
+         is the one that counts", because checking reveals every event's date and a reader could otherwise
+         read the years off the rows and reorder to a perfect score every single day. The later checks were
+         kept as a way of learning the order — and with the games now gated to one play a day (see
+         gameLockedToday) that exception is the last way back into a puzzle already answered, so it goes.
+         The rows keep their marks and their dates, which is what the learning half of it was for; what
+         they no longer do is move. */
+      S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
+      markGamePlayed("chrono", solved, score, N);
+      save();
+      checkAchievements();
       const res = root.querySelector("#chrono-result");
       res.className = "chrono-result show" + (solved ? " win" : "");
-      const kept = firstToday
+      res.innerHTML = solved
+        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly. A fresh puzzle arrives tomorrow.</div>`
+        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sat correctly, and every date is now shown. A fresh puzzle arrives tomorrow.</div>`;
+      // the puzzle is over: the rows stop being draggable and the button stops offering another go
+      root.querySelector("#chrono-list").classList.add("chrono-done");
+      const btn = root.querySelector("#chrono-check");
+      if (btn) btn.remove();
+    }
+  };
+
+  /* ============================================================
+     PAGE: COMMON THREAD (daily grouping puzzle over the glossary)
+     ============================================================
+     Sixteen glossary terms, four hidden groups of four. It is the sixth daily game and the first to use
+     the GLOSSARY, which at ~680 cited terms is the largest curated body of content on the site that no
+     game touched — and the only one of the six whose task is CATEGORISATION rather than recall, ordering,
+     judgement, attribution or place.
+
+     THE PUZZLE IS GENERATED FROM `GLOSSARY_TAGS`, so it needs no authored content of its own — but a tag
+     set that groups well for an editor does NOT automatically make a solvable puzzle, and three of the
+     four rules below exist because the naive version produced puzzles that cannot be solved even though
+     every group was, on the data, correct:
+
+     · **THE BROAD TAGS CANNOT BE GROUPS.** `history` is on 427 terms and `place` on 314. A group nobody
+       can distinguish from the rest of the grid is not a group.
+     · **ONE TAG PER FAMILY** (`THREAD_FAMILY`). The first version paired an `africa` group with a
+       `tanzania` one. The tags are disjoint — no term carried both — and the puzzle is still unsolvable,
+       because Laetoli is in Tanzania which is in Africa and a solver has no way to tell which group wants
+       it. Disjoint tags are not the same thing as distinguishable groups, and only geography and period
+       nest this way, so those are the two families declared.
+     · **A TERM MAY NOT BE ITS OWN GROUP LABEL** — `Africa` sitting inside the `africa` group gives the
+       answer away for the whole row.
+     · **NO TWO TERMS MAY SHARE A WORD STEM** (`threadStems`). `Swabia` and `Swabian Jura` in one grid read
+       as a pair whatever groups they are in, and the same stem across two DIFFERENT groups is worse still.
+
+     The disjointness that matters is checked rather than assumed: a term is admitted to a group only if it
+     carries none of the other three groups' tags, so every one of the sixteen provably belongs to exactly
+     one group. Measured over 365 days before this shipped: 0 days fail to generate, 31 distinct group tags
+     are used across the year, and no puzzle contains a duplicate or an ambiguous term.
+
+     A term is deliberately NOT admitted on one tag alone (`tags.length < 2`): a term with a single tag has
+     nothing to make it a red herring for any other group, and a grid of those is four obvious rows. */
+  const THREAD_ROWS = 4, THREAD_LIVES = 4;
+  // Too broad to name a group — see the rule above. These are the site's subject-area tags, which nearly
+  // every term in their field carries.
+  const THREAD_BROAD = new Set([
+    "history", "place", "archaeology", "geography", "science", "prehistory", "concept", "object",
+    "era", "person", "nature", "palaeontology", "geology", "evolution", "politics", "technology",
+  ]);
+  // At most ONE group per family, because these are the tags that NEST — a region inside a region, a period
+  // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
+  // than inside them, so two of those in one puzzle stay distinguishable.
+  const THREAD_FAMILY = {};
+  ("greece,united states,south africa,africa,tanzania,kenya,ethiopia,france,spain,germany,china,india,japan," +
+   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark")
+    .split(",").forEach((x) => { THREAD_FAMILY[x] = "where"; });
+  ("bronze age,iron age,stone age,neolithic,paleolithic,mesolithic,holocene,pleistocene,classical antiquity," +
+   "middle ages,modern").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
+  const THREAD_GROUP_MIN = 6;    // a tag with fewer clean terms than this makes the same row too often
+  const THREAD_TITLE_MAX = 24;   // a tile is a quarter of a phone's width — a longer name cannot be read on the grid
+  const threadNorm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  // The significant words of a title, lightly de-inflected — enough to catch Swabia/Swabian and Minoan/Minoans.
+  // Short words are dropped: two terms sharing "the" or "cave" are not the near-duplicates this guards against.
+  function threadStems(title) {
+    return threadNorm(title).split(" ").filter((w) => w.length >= 5).map((w) => w.replace(/(ian|ans|ain|ic|es|s)$/, ""));
+  }
+  function threadPool() {
+    const G = window.GLOSSARY || {}, out = [];
+    for (const k of Object.keys(G)) {
+      const tags = glossTags(k);
+      if (!tags || tags.length < 2) continue;                        // nothing to be a red herring with
+      const title = glossTitle(k);
+      if (!title || title.length > THREAD_TITLE_MAX) continue;
+      out.push({ key: k, title: title, tags: tags, n: threadNorm(title), stems: threadStems(title) });
+    }
+    return out;
+  }
+  // The day's four groups, or null if the glossary cannot currently make one (which is what the placard is for).
+  function dailyThreadPuzzle() {
+    const pool = threadPool(), byTag = {};
+    for (const it of pool) for (const g of it.tags) (byTag[g] = byTag[g] || []).push(it);
+    const cand = Object.keys(byTag).filter((g) => !THREAD_BROAD.has(g) && byTag[g].length >= THREAD_GROUP_MIN);
+    const rng = mulberry32(hashStr("thread-" + todayStr()));
+    const groups = [], fams = new Set(), stems = new Set();
+    for (const tag of seededShuffle(cand, rng)) {
+      if (groups.length === THREAD_ROWS) break;
+      const fam = THREAD_FAMILY[tag];
+      if (fam && fams.has(fam)) continue;
+      // a group already seated must not contain a term carrying THIS tag either — the test runs both ways
+      if (groups.some((g) => g.terms.some((it) => it.tags.includes(tag)))) continue;
+      const taken = groups.map((g) => g.tag);
+      const clean = byTag[tag].filter((it) =>
+        it.n !== tag && !taken.some((o) => it.tags.includes(o)) && !it.stems.some((s) => stems.has(s))
+      );
+      if (clean.length < THREAD_ROWS) continue;
+      const picked = [];
+      for (const it of seededShuffle(clean, rng)) {
+        if (picked.length === THREAD_ROWS) break;
+        if (it.stems.some((s) => picked.some((p) => p.stems.includes(s)))) continue;   // …and within the row
+        picked.push(it);
+      }
+      if (picked.length < THREAD_ROWS) continue;
+      if (fam) fams.add(fam);
+      picked.forEach((p) => p.stems.forEach((s) => stems.add(s)));
+      groups.push({ tag: tag, label: threadLabel(tag), terms: picked });
+    }
+    return groups.length === THREAD_ROWS ? groups : null;
+  }
+  // The group's name as the reader sees it. Tags are written lowercase for the editor's filter bar; a few
+  // read as a bare word where the group is a class of thing, so those are given the fuller phrase.
+  const THREAD_LABELS = {
+    title: "Titles and offices", text: "Texts", ruler: "Rulers", industry: "Stone industries",
+    building: "Buildings", art: "Art", event: "Events", fossil: "Fossils", animal: "Animals",
+    practice: "Practices", people: "Peoples", culture: "Cultures", literature: "Literature",
+    warfare: "Warfare", religion: "Religion", biology: "Biology", hominin: "Hominins",
+    deity: "Deities", city: "Cities", state: "States", institution: "Institutions",
+  };
+  function threadLabel(tag) {
+    return THREAD_LABELS[tag] || tag.replace(/\b[a-z]/g, (c) => c.toUpperCase());
+  }
+  PAGES.thread = function (root) {
+    detachKeys();
+    if (gameLockedToday(root, "thread")) return;
+    const puzzle = dailyThreadPuzzle();
+    if (!puzzle) { root.innerHTML = emptyPlacard("Coming soon", "紐", "Not enough glossary terms to make today's puzzle yet.", () => route("home"), "Back home"); return; }
+    const N = THREAD_ROWS * THREAD_ROWS;
+    const rng = mulberry32(hashStr("thread-grid-" + todayStr()));
+    // The grid order is seeded too, so a reload cannot reshuffle a puzzle the reader is half way through
+    // reasoning about — the same guarantee the other five daily games make about their rounds.
+    let tiles = seededShuffle(puzzle.flatMap((g, gi) => g.terms.map((it) => ({ ...it, gi: gi }))), rng);
+    const solved = [];          // group indexes, in the order they were found
+    let sel = [], mistakes = 0, over = false;
+
+    renderAll();
+
+    function groupOf(gi) { return puzzle[gi]; }
+    function remaining() { return tiles.filter((x) => !solved.includes(x.gi)); }
+    function renderAll() {
+      root.innerHTML = `
+        <div class="dc-shell">
+          <div class="page-head" style="margin-bottom:14px">
+            <span class="eyebrow">Common Thread</span>
+            <h1 style="font-size:28px">Find the four groups</h1>
+          </div>
+          <div class="th-lives" id="thLives"></div>
+          <div class="th-board" id="thBoard"></div>
+          <div class="th-actions" id="thActions"></div>
+        </div>`;
+      paint();
+    }
+    function paint() {
+      const board = root.querySelector("#thBoard");
+      board.innerHTML =
+        solved.map((gi) => {
+          const g = groupOf(gi);
+          return `<div class="th-solved th-g${gi}"><span class="th-solved-name">${esc(g.label)}</span>` +
+            `<span class="th-solved-terms">${g.terms.map((it) => `<button type="button" class="th-term" data-k="${esc(it.key)}">${esc(it.title)}</button>`).join("")}</span></div>`;
+        }).join("") +
+        remaining().map((it, i) =>
+          `<button type="button" class="th-tile${sel.includes(it.key) ? " on" : ""}" data-k="${esc(it.key)}" ${over ? "disabled" : ""}>` +
+          `<span>${esc(it.title)}</span></button>`
+        ).join("");
+
+      root.querySelector("#thLives").innerHTML = over
         ? ""
-        : `<div class="cr-note">Today's score stays at ${S.chrono.best} / ${N} — the first check is the one that counts.</div>`;
-      res.innerHTML = (solved
-        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly.${firstToday ? " A fresh set arrives tomorrow." : ""}</div>`
-        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sit correctly. Move the rest and check again${firstToday ? " — today's score is already in" : ""}.</div>`) + kept;
-      root.querySelector("#chrono-check").textContent = "Check again";
+        : `<span class="th-lives-label">Mistakes remaining</span>` +
+          `<span class="th-dots">${Array.from({ length: THREAD_LIVES }, (_, i) => `<span class="th-dot${i < mistakes ? " gone" : ""}"></span>`).join("")}</span>`;
+
+      const acts = root.querySelector("#thActions");
+      acts.innerHTML = over
+        ? `<button class="btn" id="th-home">Home</button>`
+        : `<button class="btn ghost" id="th-shuffle">Shuffle</button>` +
+          // "Clear", not "Deselect all", which is the more explicit label and wraps to two lines at 390px —
+          // it sits in a row of three, so the wrap left one button twice the height of its neighbours
+          `<button class="btn ghost" id="th-clear" ${sel.length ? "" : "disabled"}>Clear</button>` +
+          `<button class="btn" id="th-submit" ${sel.length === THREAD_ROWS ? "" : "disabled"}>Submit</button>`;
+
+      // The grid's own tiles select; a SOLVED term opens its glossary popup instead — the reader has just
+      // been shown a word they may not know, and the definition is the point of playing on the glossary.
+      board.querySelectorAll(".th-tile").forEach((b) => b.addEventListener("click", () => toggle(b.dataset.k)));
+      board.querySelectorAll(".th-term").forEach((b) => b.addEventListener("click", () => openGlossWin(b.dataset.k, b)));
+      if (over) { root.querySelector("#th-home").addEventListener("click", () => route("home")); return; }
+      root.querySelector("#th-shuffle").addEventListener("click", () => { tiles = pick(tiles); paint(); });
+      root.querySelector("#th-clear").addEventListener("click", () => { sel = []; paint(); });
+      root.querySelector("#th-submit").addEventListener("click", submit);
+    }
+    function toggle(k) {
+      const i = sel.indexOf(k);
+      if (i >= 0) sel.splice(i, 1);
+      else if (sel.length < THREAD_ROWS) sel.push(k);
+      else return;   // four is the whole guess — silently ignoring a fifth beats clearing what they picked
+      paint();
+    }
+    function submit() {
+      const chosen = sel.map((k) => tiles.find((x) => x.key === k)).filter(Boolean);
+      if (chosen.length !== THREAD_ROWS) return;
+      const gi = chosen[0].gi;
+      if (chosen.every((x) => x.gi === gi)) {
+        solved.push(gi); sel = []; sfx("good");
+        if (solved.length === THREAD_ROWS) return finish(true);
+        paint();
+        return;
+      }
+      mistakes++; sfx("bad");
+      // "One away" — the near miss is the whole texture of a grouping puzzle, and without it a wrong guess
+      // teaches nothing. Counted over the four, so it can only ever report a genuine 3-of-4.
+      const counts = {};
+      chosen.forEach((x) => { counts[x.gi] = (counts[x.gi] || 0) + 1; });
+      const near = Object.values(counts).some((n) => n === THREAD_ROWS - 1);
+      paint();
+      const board = root.querySelector("#thBoard");
+      board.querySelectorAll(".th-tile.on").forEach((b) => b.classList.add("shake"));
+      toast(near ? "One away" : "Not a group");
+      setTimeout(() => {
+        board.querySelectorAll(".th-tile.shake").forEach((b) => b.classList.remove("shake"));
+        if (mistakes >= THREAD_LIVES) finish(false); else { sel = []; paint(); }
+      }, 620);
+    }
+    function finish(win) {
+      over = true;
+      // A perfect run is one with no mistakes at all — the same bar the other five games set for the gold
+      // tile. `score` is groups found, which is what the tile's tagline reads back.
+      const found = solved.length;
+      markGamePlayed("thread", win && mistakes === 0, found, THREAD_ROWS); save(); checkAchievements();
+      if (!win) puzzle.forEach((_, gi) => { if (!solved.includes(gi)) solved.push(gi); });   // show the answer
+      const msg = win && mistakes === 0
+        ? "Flawless — every thread found first time."
+        : win ? `Solved, with ${mistakes} ${mistakes === 1 ? "mistake" : "mistakes"}.`
+        : found ? `You found ${found} of ${THREAD_ROWS}. Here are the rest.`
+        : "Here are today's four groups.";
+      renderAll();
+      const shell = root.querySelector(".dc-shell");
+      const head = shell.querySelector(".page-head h1");
+      head.innerHTML = win ? "Solved" : `${found} <span style="color:var(--ink-faint)">/ ${THREAD_ROWS}</span>`;
+      const p = document.createElement("p");
+      p.className = "th-msg";
+      p.textContent = msg + " Tap a term to read it.";
+      shell.insertBefore(p, root.querySelector("#thBoard"));
     }
   };
 
@@ -17814,7 +18643,7 @@
     /* ---------- "Find it" — the daily geography game, played on the real globe ---------- */
     const mgEl = root.querySelector("#mapGame"), mgRoundEl = root.querySelector("#mgRound"), mgScoreEl = root.querySelector("#mgScore"),
       mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext");
-    let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false, gamePractice = false;
+    let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false;
     const GAME_GREEN = "rgba(46,164,90,1)", GAME_RED = "rgba(224,68,56,1)";   // right / wrong flash colours (fixed, theme-independent like the gold highlight)
     const havKm = (lon1, lat1, lon2, lat2) => {   // great-circle distance, km
       const dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG;
@@ -17865,7 +18694,7 @@
       const r = gameRounds[gameRi]; gameTries = 0; gameLock = false; pulsePin = null;
       hideCountryPopup();   // the previous round's learn-panel closes with the round
       setYear(r.year);
-      mgRoundEl.textContent = (gamePractice ? "Practice · " : "") + "Round " + (gameRi + 1) + " / " + gameRounds.length;
+      mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
       mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
       mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(r.n) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
@@ -17942,18 +18771,19 @@
     function gameEnd() {
       gameOver = true;
       const n = gameRounds.length, perfect = n >= 5 && gameFirstTry >= n;   // a short game (thin pools) can never count as a perfect run
-      if (!gamePractice) { markGamePlayed("findit", perfect, gameFirstTry, n); save(); checkAchievements(); }   // achievements: the Clean Sweep now includes this game
-      mgRoundEl.textContent = gamePractice ? "Practice over" : "Done!";
+      markGamePlayed("findit", perfect, gameFirstTry, n); save(); checkAchievements();   // achievements: the Clean Sweep now includes this game
+      mgRoundEl.textContent = "Done!";
       mgScoreEl.textContent = "";
       mgQEl.innerHTML = "<b>" + gameFirstTry + " / " + n + "</b> found on the first try" + (perfect ? " — perfect!" : ".");
-      mgFeedbackEl.textContent = gamePractice ? "Practice runs don't count — today's score is already on the board." : "Come back tomorrow for five new places.";
+      mgFeedbackEl.textContent = "Come back tomorrow for five new places.";
       mgFeedbackEl.hidden = false;
       mgNextEl.textContent = "Back to Home"; mgNextEl.hidden = false;
     }
     if (GAME && mgEl) {
-      // the day's rounds are date-seeded and every answer is revealed during play, so a same-day replay is
-      // PRACTICE: playable, but it never records a score (a second run with known answers isn't a result)
-      gamePractice = gamePlayedToday("findit");
+      /* A same-day replay used to be PRACTICE here — playable, recording nothing — because the rounds are
+         date-seeded and every answer is revealed during play, so a second run is a run with the answers in
+         hand. PAGES.findit now turns that reader away at the door with the other five games, so this page
+         is only ever reached unplayed and the practice branch has gone rather than sitting here unreachable. */
       mgNextEl.addEventListener("click", () => {
         if (gameOver) { route("home"); return; }
         gameRi++;
@@ -18026,7 +18856,12 @@
     if (params && params.focus) focusPlace(params.focus);
   };
   // "Find it" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
-  PAGES.findit = function (root) { PAGES.map(root, { game: true }); };
+  /* The gate goes here rather than inside PAGES.map, which is the whole Atlas and knows nothing about
+     daily games: this is the only route into game mode, so it is the only door to hold. */
+  PAGES.findit = function (root) {
+    if (gameLockedToday(root, "findit")) return;
+    PAGES.map(root, { game: true });
+  };
 
   /* ============================================================
      PAGE: ACCOUNT
@@ -18274,7 +19109,7 @@
     Object.keys(log).forEach((k) => { const n = (log[k] || [])[0] || 0; reviews += n; if (n > 0) days++; });
     return { reviews, days };
   }
-  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it" };
+  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it", thread: "Common Thread" };
   function exploreStatsHTML(prog) {
     const gloss = glossSeenCount(prog);   // only the curated glossary, and only terms that still exist
     const glossTotal = glossTotalCount();
@@ -22334,7 +23169,7 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck", "glossary", "library", "book"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "admin", "mission", "studio", "community", "deck", "glossary", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";

@@ -348,6 +348,232 @@ const AESOP_FABLES = [
    over all 313 when the table was built, not assumed. */
 const AESOP_TITLE = (s) => s.replace(/\s*\(\d+\)$/, "");
 
+/* ---------- THE CLASSIC OF POETRY, and what this table is for ----------
+   Legge's Sacred Books of the East volume gives one wiki page per ode, so a chapter here is one
+   POEM — Aesop's shape, and for Aesop's reason: the ode is the whole unit of the work at this
+   scale. What numbers it is the MAO NUMBER, the 1–305 sequence by which any poem of the Shih is
+   cited in any language, and the numbers below are NOT contiguous: this edition carries 102 of the
+   305, so the tabs run 13, 15, 29, 40 … and a reader meeting the gaps is told why in the front
+   matter rather than finding the odes silently renumbered 1–102 into a sequence the book has not
+   got. Beowulf's missing fitt XXX is the same judgement.
+
+   THE MAO NUMBER WAS DERIVED, NOT TYPED. Chinese Wikisource's 詩經 index lists the poems in the
+   traditional order, and the position in that list is the Mao number — with one correction that
+   has to be made or every number from 171 on is six too high: the six 笙詩, whose titles survive
+   and whose texts do not, are listed there and are NOT counted in the 305. Checked against seven
+   anchors before it was believed (關雎 1, 鹿鳴 161, 文王 235, 清廟 266, 那 301, 玄鳥 303, 采蘋 15),
+   and the excluded six leave exactly 305 numbered poems.
+
+   AND A TITLE IS NOT A KEY. Four of these odes share their Chinese title with a different poem
+   elsewhere in the collection (柏舟 26 and 45, 黃鳥 131 and 187, 杕杜 119 and 169, 甫田 102 and
+   211) — the Shih repeats titles across the states, exactly as Townsend gave five of Aesop's
+   fables one name. Matching on the title alone would have filed four odes against the wrong
+   Chinese poem, silently and with nothing to show for it, so each was resolved by the section and
+   book Legge's own page states. */
+/* mao, the page path under .../The Shih/, Legge's title, the Chinese title, the part */
+const SHIJING = [
+  [13, "Lessons from the States/Book 2/Ode 2", "The Zhâi Fan", "采蘩", 1],
+  [15, "Lessons from the States/Book 2/Ode 4", "The Zhâi Pin", "采蘋", 1],
+  [29, "Lessons from the States/Book 3/Ode 4", "The Zăh Yüeh", "日月", 1],
+  [40, "Lessons from the States/Book 3/Ode 15", "The Pei Măn, Stanza 1", "北門", 1],
+  [45, "Lessons from the States/Book 4/Ode 1", "The Pai Kâu", "柏舟", 1],
+  [47, "Lessons from the States/Book 4/Ode 3", "The Kün-zze Kieh Lâo, Stanza 2", "君子偕老", 1],
+  [50, "Lessons from the States/Book 4/Ode 6", "The Ting kih fang Kung, Stanzas 1 and 2", "定之方中", 1],
+  [58, "Lessons from the States/Book 5/Ode 4", "The Măng, Stanzas 1 and 2", "氓", 1],
+  [65, "Lessons from the States/Book 6/Ode 1", "The Shû Lî, Stanza 1", "黍離", 1],
+  [73, "Lessons from the States/Book 6/Ode 9", "The Tâ Kü, Stanzas 1 and 3", "大車", 1],
+  [121, "Lessons from the States/Book 10/Ode 8", "The Pâo Yû, Stanza 1", "鴇羽", 1],
+  [124, "Lessons from the States/Book 10/Ode 11", "The Ko Shăng", "葛生", 1],
+  [131, "Lessons from the States/Book 11/Ode 6", "The Hwang Niâo, Stanza 1", "黃鳥", 1],
+  [154, "Lessons from the States/Book 15/Ode 1", "The Khî Yüeh, Stanza 8", "七月", 1],
+  [165, "The Minor Odes of the Kingdom/Decade 1/Ode 5", "The Fâ Mû, Stanza 1", "伐木", 2],
+  [166, "The Minor Odes of the Kingdom/Decade 1/Ode 6", "The Thien Pâo", "天保", 2],
+  [169, "The Minor Odes of the Kingdom/Decade 1/Ode 9", "The Tî Tû, Stanza 4", "杕杜", 2],
+  [189, "The Minor Odes of the Kingdom/Decade 4/Ode 5", "The Sze Kan, Stanzas 5 to 9", "斯干", 2],
+  [190, "The Minor Odes of the Kingdom/Decade 4/Ode 6", "The Wû Yang, Stanza 4", "無羊", 2],
+  [191, "The Minor Odes of the Kingdom/Decade 4/Ode 7", "The Kieh Nan Shan", "節南山", 2],
+  [192, "The Minor Odes of the Kingdom/Decade 4/Ode 8", "The Kăng yüeh, Stanzas 4, 5, and 7", "正月", 2],
+  [193, "The Minor Odes of the Kingdom/Decade 4/Ode 9", "The Shih yüeh kih Kiâo", "十月之交", 2],
+  [194, "The Minor Odes of the Kingdom/Decade 4/Ode 10", "The Yü wû Kăng, Stanzas 1 and 3", "雨無正", 2],
+  [195, "The Minor Odes of the Kingdom/Decade 5/Ode 1", "The Hsiâo Min, Stanzas 1, 2, and 3", "小旻", 2],
+  [196, "The Minor Odes of the Kingdom/Decade 5/Ode 2", "The Hsiâo Yüan, Stanzas 1, 2, and 5", "小宛", 2],
+  [197, "The Minor Odes of the Kingdom/Decade 5/Ode 3", "The Hsiâo Pan, Stanzas 1 and 3", "小弁", 2],
+  [198, "The Minor Odes of the Kingdom/Decade 5/Ode 4", "The Khiâo Yen, Stanza 1", "巧言", 2],
+  [200, "The Minor Odes of the Kingdom/Decade 5/Ode 6", "The Hsiang Po, Stanzas 5 and 6", "巷伯", 2],
+  [203, "The Minor Odes of the Kingdom/Decade 5/Ode 9", "The Tâ Tung", "大東", 2],
+  [207, "The Minor Odes of the Kingdom/Decade 6/Ode 3", "The Hsiâo Ming, Stanzas 1, 4, and 5", "小明", 2],
+  [209, "The Minor Odes of the Kingdom/Decade 6/Ode 5", "The Khû Zhze", "楚茨", 2],
+  [210, "The Minor Odes of the Kingdom/Decade 6/Ode 6", "The Hsin Nan Shan", "信南山", 2],
+  [211, "The Minor Odes of the Kingdom/Decade 6/Ode 7", "The Phû Thien", "甫田", 2],
+  [212, "The Minor Odes of the Kingdom/Decade 6/Ode 8", "The Tâ Thien", "大田", 2],
+  [215, "The Minor Odes of the Kingdom/Decade 7/Ode 1", "The Sang Hû, Stanza 1", "桑扈", 2],
+  [220, "The Minor Odes of the Kingdom/Decade 7/Ode 6", "The Pin kih Khû Yen, Stanzas 1 and 2", "賓之初筵", 2],
+  [229, "The Minor Odes of the Kingdom/Decade 8/Ode 5", "The Po Hwâ, Stanzas 1 and 2", "白華", 2],
+  [235, "The Major Odes of the Kingdom/Decade 1/Ode 1", "The Wăn Wang", "文王", 3],
+  [236, "The Major Odes of the Kingdom/Decade 1/Ode 2", "The Tâ Ming", "大明", 3],
+  [237, "The Major Odes of the Kingdom/Decade 1/Ode 3", "The Mien", "緜", 3],
+  [238, "The Major Odes of the Kingdom/Decade 1/Ode 4", "The Yî Pho, Stanzas 1 and 2", "棫樸", 3],
+  [239, "The Major Odes of the Kingdom/Decade 1/Ode 5", "The Han Lû", "旱麓", 3],
+  [240, "The Major Odes of the Kingdom/Decade 1/Ode 6", "The Sze Kâi", "思齊", 3],
+  [241, "The Major Odes of the Kingdom/Decade 1/Ode 7", "The Hwang Î", "皇矣", 3],
+  [243, "The Major Odes of the Kingdom/Decade 1/Ode 9", "The Hsiâ Wû", "下武", 3],
+  [244, "The Major Odes of the Kingdom/Decade 1/Ode 10", "The Wăn Wang yû Shăng", "文王有聲", 3],
+  [245, "The Major Odes of the Kingdom/Decade 2/Ode 1", "The Shăng Min", "生民", 3],
+  [246, "The Major Odes of the Kingdom/Decade 2/Ode 2", "The Hsing Wei", "行葦", 3],
+  [247, "The Major Odes of the Kingdom/Decade 2/Ode 3", "The Kî Zui", "既醉", 3],
+  [248, "The Major Odes of the Kingdom/Decade 2/Ode 4", "The Hû Î", "鳬鷖", 3],
+  [249, "The Major Odes of the Kingdom/Decade 2/Ode 5", "The Kiâ Lo, Stanza 1", "假樂", 3],
+  [252, "The Major Odes of the Kingdom/Decade 2/Ode 8", "The Khüan Â", "卷阿", 3],
+  [253, "The Major Odes of the Kingdom/Decade 2/Ode 9", "The Min Lâo, Stanza 1", "民勞", 3],
+  [254, "The Major Odes of the Kingdom/Decade 2/Ode 10", "The Pan", "板", 3],
+  [255, "The Major Odes of the Kingdom/Decade 3/Ode 1", "The Tang", "蕩", 3],
+  [256, "The Major Odes of the Kingdom/Decade 3/Ode 2", "The Yî", "抑", 3],
+  [257, "The Major Odes of the Kingdom/Decade 3/Ode 3", "The Sang Zâu, Stanzas 1, 2, 3, 4, and 7", "桑柔", 3],
+  [258, "The Major Odes of the Kingdom/Decade 3/Ode 4", "The Yun Han", "雲漢", 3],
+  [259, "The Major Odes of the Kingdom/Decade 3/Ode 5", "The Sung Kâo, Stanzas 1, 2, and 4", "崧高", 3],
+  [260, "The Major Odes of the Kingdom/Decade 3/Ode 6", "The Kăng Min, Stanzas 1 and 7", "烝民", 3],
+  [261, "The Major Odes of the Kingdom/Decade 3/Ode 7", "The Han Yî, Stanzas 1 and part of 3", "韓奕", 3],
+  [262, "The Major Odes of the Kingdom/Decade 3/Ode 8", "The Kiang Han, Stanzas 4 and 5", "江漢", 3],
+  [264, "The Major Odes of the Kingdom/Decade 3/Ode 10", "The Kan Zang, Stanzas 1, 5, 6, and 7", "瞻卬", 3],
+  [265, "The Major Odes of the Kingdom/Decade 3/Ode 11", "The Shâo Min, Stanzas 1 and 2", "召旻", 3],
+  [266, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 1", "The Khing Miâo", "清廟", 4],
+  [267, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 2", "The Wei Thien Kih Ming", "維天之命", 4],
+  [268, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 3", "The Wei Khing", "維清", 4],
+  [269, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 4", "The Lieh Wăn", "烈文", 4],
+  [270, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 5", "The Thien Zo", "天作", 4],
+  [271, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 6", "The Hâo Thien yû Khăng Ming", "昊天有成命", 4],
+  [272, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 7", "The Wo Kiang", "我將", 4],
+  [273, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 8", "The Shih Mâi", "時邁", 4],
+  [274, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 9", "The Kih King", "執競", 4],
+  [275, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 10", "The Sze Wăn", "思文", 4],
+  [276, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 1", "The Khăn Kung", "臣工", 4],
+  [277, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 2", "The Î Hsî", "噫嘻", 4],
+  [278, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 3", "The Kăn Lû", "振鷺", 4],
+  [279, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 4", "The Făng Nien", "豐年", 4],
+  [280, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 5", "The Yû Kû", "有瞽", 4],
+  [281, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 6", "The Khien", "潛", 4],
+  [282, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 7", "The Yung", "雝", 4],
+  [283, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 8", "The Zâi Hsien", "載見", 4],
+  [284, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 9", "The Yû Kho", "有客", 4],
+  [285, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 10", "The Wû", "武", 4],
+  [286, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 1", "The Min Yü", "閔予小子", 4],
+  [287, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 2", "The Fang Lo", "訪落", 4],
+  [288, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 3", "The King Kih", "敬之", 4],
+  [289, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 4", "The Hsiâo Pî", "小毖", 4],
+  [290, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 5", "The Zâi Shû", "載芟", 4],
+  [291, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 6", "The Liang Sze", "良耜", 4],
+  [292, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 7", "The Sze Î", "絲衣", 4],
+  [293, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 8", "The Ko", "酌", 4],
+  [294, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 9", "The Hwan", "桓", 4],
+  [295, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 10", "The Lâi", "賚", 4],
+  [296, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 11", "The Pan", "般", 4],
+  [299, "Odes of the Temple and the Altar/The Praise Odes of Lû/Ode 3", "The Phan Shui", "泮水", 4],
+  [300, "Odes of the Temple and the Altar/The Praise Odes of Lû/Ode 4", "The Pî Kung", "閟宮", 4],
+  [301, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 1", "The Nâ", "那", 4],
+  [302, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 2", "The Lieh Zû", "烈祖", 4],
+  [303, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 3", "The Hsüan Niâo", "玄鳥", 4],
+  [304, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 4", "The Khang Fâ", "長發", 4],
+  [305, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 5", "The Yin Wû", "殷武", 4],
+];
+
+/* Keyed by Mao number, since that is what `chapters` carries and what every hook is handed. */
+const SHIJING_BY_MAO = {};
+SHIJING.forEach((r) => { SHIJING_BY_MAO[r[0]] = r; });
+
+/* THE SHÛ, document by document: [ n, part, pages, title ].
+   `pages` is relative to "Sacred Books of the East/Volume 3/The Shu/" and is an ARRAY because four
+   of these chapters are printed across two wiki pages — the book's own page, which carries Legge's
+   headnote and no body text, and the section that follows it. See `page` in the entry below.
+
+   The tabs count 59 where the Shû is traditionally counted at 58 documents, and the difference is
+   one document rather than an error: Legge prints the Tribute of Yü in two numbered sections, each
+   restarting its paragraph count at 1, so joining them would put two paragraphs numbered 1 in one
+   chapter. The edition's own division is followed and the front matter says so. */
+const SHU = [
+  [1, 1, ["Part 1/Book 1"], "The Canon of Yâo"],
+
+  [2, 2, ["Part 2/Book 1"], "The Canon of Shun"],
+  [3, 2, ["Part 2/Book 2"], "The Counsels of the Great Yü"],
+  [4, 2, ["Part 2/Book 3"], "The Counsels of Kâo-yâo"],
+  [5, 2, ["Part 2/Book 4"], "The Yî and Kî"],
+
+  [6, 3, ["Part 3/Book 1/Section 1"], "The Tribute of Yü, Section i"],
+  [7, 3, ["Part 3/Book 1/Section 2"], "The Tribute of Yü, Section ii"],
+  [8, 3, ["Part 3/Book 2"], "The Speech at Kan"],
+  [9, 3, ["Part 3/Book 3"], "The Songs of the Five Sons"],
+  [10, 3, ["Part 3/Book 4"], "The Punitive Expedition of Yin"],
+
+  [11, 4, ["Part 4/Book 1"], "The Speech of Thang"],
+  [12, 4, ["Part 4/Book 2"], "The Announcement of Kung-hui"],
+  [13, 4, ["Part 4/Book 3"], "The Announcement of Thang"],
+  [14, 4, ["Part 4/Book 4"], "The Instructions of Î"],
+  [15, 4, ["Part 4/Book 5", "Part 4/Book 5/Section 1"], "The Thâi Kiâ, Section i"],
+  [16, 4, ["Part 4/Book 5/Section 2"], "The Thâi Kiâ, Section ii"],
+  [17, 4, ["Part 4/Book 5/Section 3"], "The Thâi Kiâ, Section iii"],
+  [18, 4, ["Part 4/Book 6"], "The Common Possession of Pure Virtue"],
+  [19, 4, ["Part 4/Book 7", "Part 4/Book 7/Section 1"], "The Pan-kăng, Section i"],
+  [20, 4, ["Part 4/Book 7/Section 2"], "The Pan-kăng, Section ii"],
+  [21, 4, ["Part 4/Book 7/Section 3"], "The Pan-kăng, Section iii"],
+  [22, 4, ["Part 4/Book 8", "Part 4/Book 8/Section 1"], "The Charge to Yüeh, Section i"],
+  [23, 4, ["Part 4/Book 8/Section 2"], "The Charge to Yüeh, Section ii"],
+  [24, 4, ["Part 4/Book 8/Section 3"], "The Charge to Yüeh, Section iii"],
+  [25, 4, ["Part 4/Book 9"], "The Day of the Supplementary Sacrifice to Kâo Zung"],
+  [26, 4, ["Part 4/Book 10"], "The Chief of the West's Conquest of Lî"],
+  [27, 4, ["Part 4/Book 11"], "The Count of Wei"],
+
+  [28, 5, ["Part 5/Book 1", "Part 5/Book 1/Section 1"], "The Great Declaration, Section i"],
+  [29, 5, ["Part 5/Book 1/Section 2"], "The Great Declaration, Section ii"],
+  [30, 5, ["Part 5/Book 1/Section 3"], "The Great Declaration, Section iii"],
+  [31, 5, ["Part 5/Book 2"], "The Speech at Mû"],
+  [32, 5, ["Part 5/Book 3"], "The Successful Completion of the War"],
+  [33, 5, ["Part 5/Book 4"], "The Great Plan"],
+  [34, 5, ["Part 5/Book 5"], "The Hounds of Lü"],
+  [35, 5, ["Part 5/Book 6"], "The Metal-bound Coffer"],
+  [36, 5, ["Part 5/Book 7"], "The Great Announcement"],
+  [37, 5, ["Part 5/Book 8"], "The Charge to the Count of Wei"],
+  [38, 5, ["Part 5/Book 9"], "The Announcement to the Prince of Khang"],
+  [39, 5, ["Part 5/Book 10"], "The Announcement about Drunkenness"],
+  [40, 5, ["Part 5/Book 11"], "The Timber of the Rottlera"],
+  [41, 5, ["Part 5/Book 12"], "The Announcement of the Duke of Shâo"],
+  [42, 5, ["Part 5/Book 13"], "The Announcement concerning Lo"],
+  [43, 5, ["Part 5/Book 14"], "The Numerous Officers"],
+  [44, 5, ["Part 5/Book 15"], "Against Luxurious Ease"],
+  [45, 5, ["Part 5/Book 16"], "The Prince Shih"],
+  [46, 5, ["Part 5/Book 17"], "The Charge to Kung of Zhâi"],
+  [47, 5, ["Part 5/Book 18"], "The Numerous Regions"],
+  [48, 5, ["Part 5/Book 19"], "The Establishment of Government"],
+  [49, 5, ["Part 5/Book 20"], "The Officers of Kâu"],
+  [50, 5, ["Part 5/Book 21"], "The Kün-khăn"],
+  [51, 5, ["Part 5/Book 22"], "The Testamentary Charge"],
+  [52, 5, ["Part 5/Book 23"], "The Announcement of King Khang"],
+  [53, 5, ["Part 5/Book 24"], "The Charge to the Duke of Pî"],
+  [54, 5, ["Part 5/Book 25"], "The Kün-yâ"],
+  [55, 5, ["Part 5/Book 26"], "The Charge to Khiung"],
+  [56, 5, ["Part 5/Book 27"], "The Marquis of Lü on Punishments"],
+  [57, 5, ["Part 5/Book 28"], "The Charge to the Marquis Wăn"],
+  [58, 5, ["Part 5/Book 29"], "The Speech at Pî"],
+  [59, 5, ["Part 5/Book 30"], "The Speech of the Marquis of Khin"],
+];
+const SHU_BY_N = {};
+SHU.forEach((r) => { SHU_BY_N[r[0]] = r; });
+
+/* The thirty-five pieces of the Poetic Edda, in the order this edition's own contents page lists
+   them and under the spellings its page titles use — read off that page row by row rather than
+   assembled from memory, since several of these names have three or four accepted spellings and the
+   wiki's are not always the commonest. The break between the two `parts` falls after the fourteenth,
+   where Bellows's contents page turns from the Lays of the Gods to the Lays of the Heroes. */
+const EDDA_POEMS = [
+  "Voluspo", "Hovamol", "Vafthruthnismol", "Grimnismol", "Skirnismol",
+  "Harbarthsljoth", "Hymiskvitha", "Lokasenna", "Thrymskvitha", "Alvissmol",
+  "Baldrs Draumar", "Rigsthula", "Hyndluljoth", "Svipdagsmol",
+  "V\u00f6lundarkvitha", "Helgakvitha Hjorvarthssonar", "Helgakvitha Hundingsbana I",
+  "Helgakvitha Hundingsbana II", "Fra Dautha Sinfjotla", "Gripisspo", "Reginsmol",
+  "Fafnismol", "Sigrdrifumol", "Brot af Sigurtharkvithu", "Guthrunarkvitha I",
+  "Sigurtharkvitha en Skamma", "Helreith Brynhildar", "Drap Niflunga",
+  "Guthrunarkvitha II, en Forna", "Guthrunarkvitha III", "Oddrunargratr",
+  "Atlakvitha en Gr\u00f6nlenzka", "Atlamol en Gr\u00f6nlenzku", "Guthrunarhvot", "Hamthesmol",
+];
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -4324,6 +4550,850 @@ const BOOKS = {
        as Ovid, Lucretius, the Analects, the Oedipus Rex and the Antigone do. notesOf is still called
        and will warn if one ever appears. */
   },
+  "beowulf": {
+    title: "Beowulf",
+    /* No subtitle. The poem is untitled in its manuscript — it is called Beowulf because Sharon
+       Turner and the editors after him named it for its hero, and it has had no other name since. */
+    author: "Anonymous",
+    translator: "Francis Barton Gummere",
+    edition: "The Oldest English Epic, translated by Francis Barton Gummere, Macmillan, New York, 1909",
+    written: "c. 700–1000",
+    /* THE DATE IS THE OPEN QUESTION OF THE FIELD and the shelf has to sort on one number anyway. The
+       only certainty is the manuscript, written around the year 1000; when the poem behind it was
+       composed has been argued from its language, its metre and its politics for two centuries, and
+       the answers run from the early eighth century to the very decade of the copy. 700 is the early
+       end of that range and is what the sort uses; the front matter says how loose it is, exactly as
+       the Song of Roland's does. */
+    year: 700,
+
+    /* ---------- THE LICENCE — three layers, and only the third needs care ----------
+       The poem is Old English and about a thousand years old, so it is free everywhere and on every
+       ground. Gummere's translation was published in 1909 and he lived 1855–1919 — dates taken from
+       Wikidata and matching the Wikisource author page's own PD-old tag, checked rather than recalled
+       for the Hugo Magnus reason — so it is public domain in the United States under the pre-1929
+       rule, cleared life plus seventy in 1990, and has cleared life plus a hundred as well. No limit
+       to state, which puts it with the Republic, the Analects and the Peloponnesian War rather than
+       with Giles (2029) or Ross (2042).
+
+       THE ONE THING THAT CANNOT BE SAID IS WYATT'S DEATH YEAR, and it is said so rather than rounded
+       up — the Gallic War's judgement, where half a byline could not be found. Wikidata gives Alfred
+       John Wyatt as 1835–1935 at YEAR precision, a suspiciously round hundred years, and the
+       Wikisource author page carries no dates and no public-domain tag for him at all where
+       Gummere's carries PD-old. He was certainly alive in 1919, having published An Anglo-Saxon
+       Reader that year. So no life-plus-seventy term is asserted for his edition; the ground stated
+       is the date of publication, 1894, which is long before 1929 and which anybody can check. If
+       the 1935 death is right then life plus seventy expired in 2006 and life plus a hundred runs to
+       2036, and that conditional is on the book's own page rather than smoothed into a flat claim.
+
+       WHAT IS AND IS NOT TAKEN. Only Beowulf. Gummere's 1909 volume also carries his translations of
+       Finnsburg, Waldere, Deor, Widsith and the German Hildebrand, and a long introduction; Wyatt's
+       carries a preface, an argument, a glossary and the Finnsburg fragment. None of that is
+       imported, which is the Republic's precedent for the introduction and plates it left behind.
+
+       The modern translations a reader is likeliest to own — Seamus Heaney's of 1999, J. R. R.
+       Tolkien's prose version published in 2014, Roy Liuzza's of 2000, Michael Alexander's Penguin
+       and Maria Dahvana Headley's of 2020 — are all firmly in copyright and are named here for the
+       reason Campbell, Hays, Griffith, Lee, Sayers and the rest are named above: so that nobody
+       reaches for one later. */
+    rights:
+      "Public domain, with one thing this site cannot establish and says so rather than guess. The " +
+      "poem is Old English and about a thousand years old, so it is free everywhere. Francis Barton " +
+      "Gummere's translation was published in 1909 and he lived from 1855 to 1919, so it is public " +
+      "domain in the United States under the pre-1929 publication rule and out of copyright wherever " +
+      "the term is the author's life plus seventy or even a hundred years — there is no limit to " +
+      "state. The facing Old English is Alfred John Wyatt's edition of 1894, which is public domain " +
+      "in the United States on the same pre-1929 ground; his dates are given elsewhere as 1835 to " +
+      "1935 but only to the year and without corroboration, so no life-plus-seventy term is claimed " +
+      "for it here, and if that death year is right the term expired in 2006. Gummere's volume also " +
+      "contains Finnsburg, Waldere, Deor, Widsith and Hildebrand, and Wyatt's a glossary and the " +
+      "Finnsburg fragment; none of that is reproduced here, and what is taken is the poem. (The " +
+      "modern translations by Seamus Heaney, 1999, Roy Liuzza, 2000, J. R. R. Tolkien, published " +
+      "2014, and Maria Dahvana Headley, 2020, are still in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Oldest_English_Epic/Chapter_1",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: that this is one burnt manuscript and not a tradition;
+       what the poem is about and what shape it has; how the metre works, because the translation
+       keeps it and a reader who does not know what to listen for will hear only strangeness; the one
+       date anything in it can be pinned to; why it is not about England; and finally what this
+       edition is and how the two columns here are paired. */
+    about: [
+      "<b>Beowulf</b> is the longest and greatest poem to survive in Old English, and one of the " +
+        "strangest survivals in European literature. It runs to <b>3,182</b> lines of alliterative " +
+        "verse and it tells of a Geatish warrior who crosses the sea to help the Danish king Hrothgar, " +
+        "whose hall Heorot has been emptied for twelve years by a night-walking creature called " +
+        "Grendel; of how he kills Grendel bare-handed and then Grendel's mother in her lair beneath a " +
+        "mere; and of how, fifty years later and an old king himself, he goes out against a dragon " +
+        "that his own people's stolen cup has woken, kills it, and dies of the wound. It is a poem " +
+        "about courage and about what courage cannot prevent.",
+      "Everything we have of it is <b>one manuscript</b>, and it very nearly burned. Beowulf survives " +
+        "in a single copy, written out by two scribes around the year 1000 and now British Library " +
+        "Cotton MS Vitellius A.xv — the Nowell Codex. In 1731 a fire in Ashburnham House, where Sir " +
+        "Robert Cotton's library was then kept, scorched the volume badly; the leaves were rescued but " +
+        "their edges went on crumbling for decades afterwards, taking words with them. What saved " +
+        "those readings was that the Icelandic scholar Grímur Jónsson Thorkelin had two transcripts " +
+        "made in 1786–87, before the worst of the loss, and published the first printed edition in " +
+        "1815. Every edition since, this one included, reads the burnt margins partly through his " +
+        "copyists' eyes. There is no second manuscript, no earlier version and no other witness: had " +
+        "the fire been an hour worse we would know the poem only as a title.",
+      "The verse is built on stress and alliteration rather than on rhyme, and Gummere's translation " +
+        "keeps that, which is why it reads as it does. An Old English line is two half-lines divided " +
+        "by a pause — the <i>caesura</i>, shown here as a gap in both columns — with two stressed " +
+        "syllables in each half, and the line is bound together by having the stresses begin with the " +
+        "same sound. Nothing rhymes. The poet also names things by compounding rather than by " +
+        "describing them: the sea is the whale-road, a king is a ring-giver, the body is the " +
+        "bone-house. Those compounds are called <b>kennings</b>, and a poem thick with them is doing " +
+        "something a modern narrative does not — it is naming the world twice over, so that a listener " +
+        "hears both the thing and a judgement about it.",
+      "It is set in Scandinavia and it is not about England at all. Hrothgar's Denmark and Beowulf's " +
+        "Geatland, in what is now southern Sweden, are the whole geography of the poem, and it was " +
+        "written in England, in English, by a Christian poet looking back at the pagan ancestors of " +
+        "his own people. That doubleness runs through it: the narrator knows the characters are " +
+        "heathen and says so with sorrow, while the characters themselves speak of a single God and " +
+        "of fate in the same breath. One thing in it can be dated from outside. Beowulf's lord " +
+        "Hygelac dies raiding the Frisians, and Gregory of Tours records that raid — a Danish king he " +
+        "calls Chlochilaicus, killed on an expedition into Frankish territory early in the sixth " +
+        "century. It is the single peg fastening this poem to recorded history, and everything else " +
+        "in it floats free of any chronicle.",
+      "For a long time it was read as a quarry rather than as a poem. Nineteenth-century scholarship " +
+        "went to Beowulf for what it could yield about Germanic antiquity, the historical kings, the " +
+        "old religion, and treated the monsters as childish material cluttering a valuable document. " +
+        "That was turned over in 1936 by <b>J. R. R. Tolkien</b>, in a British Academy lecture called " +
+        "<i>Beowulf: The Monsters and the Critics</i>, which argued that the monsters are the point — " +
+        "that the poet put them at the centre deliberately, because a poem about a man against " +
+        "Grendel and the dragon is a poem about a man against death, which is what it is for. Almost " +
+        "everything written about Beowulf since begins from that lecture, whether it agrees with it " +
+        "or not.",
+      "The poem's divisions are the scribes' own, and they are odd in a way this edition preserves. " +
+        "The manuscript breaks the text into numbered sections — <i>fitts</i> — a prologue and then " +
+        "forty-three of them, and those are the chapters here. There is <b>no fitt numbered XXX</b>: " +
+        "the numbering runs to XXVIII, then to an unnumbered section that editors supply as [XXIX], " +
+        "and then straight on to XXXI. Nothing is missing, and the line numbers prove it — Wyatt's " +
+        "XXVIII ends at 2038, the bracketed section runs 2039–2143, and XXXI takes up at 2144. So the " +
+        "chapter numbers on these tabs carry the same gap the manuscript carries, rather than being " +
+        "renumbered tidily into a sequence the poem does not have.",
+      "This edition is Francis Barton Gummere's, published by Macmillan in 1909 in a volume called " +
+        "<i>The Oldest English Epic</i>. He translates line for line and keeps the alliteration and " +
+        "the four-stress measure, which almost nobody attempts, and the result is deliberately " +
+        "archaic and much closer to the movement of the original than a smoother version would be. " +
+        "Beside it is the Old English itself, in A. J. Wyatt's edition of 1894 for Cambridge, made " +
+        "from Zupitza's photographic facsimile of the burnt manuscript. The two are paired on the " +
+        "<b>line number</b>, printed in the margin of both every fifth line, which is how any passage " +
+        "of Beowulf is cited in any language — so a reader can put a phrase of the translation " +
+        "against the words it renders rather than against the page it sits on. They agree on " +
+        "<b>636</b> such markers apiece across an identical range. Where Gummere runs his XXVIII " +
+        "across the whole of Wyatt's XXVIII and [XXIX], the Old English of both is gathered into the " +
+        "one chapter; and the two editions divide once at a different line, at 1740, so that single " +
+        "block stands alone in one column. Six marginal numerals are misprinted in one edition or the " +
+        "other and each is read as the place the sequence puts it, since every one is followed " +
+        "immediately by a correct number.",
+    ],
+
+    /* ---------- ONE PAGE PER FITT, PAIRED ON THE LINE ----------
+       The ordinary wiki walk on both sides; what is new is that the chapter and the pairing unit are
+       two different things — see the FITTS block above extractFitt for the measurements. */
+    source: "wiki",
+    layout: "fitts",
+    chapterWord: "Fitt",
+    /* The manuscript's own numbering, gap and all: a prologue counted as 0, then I–XXVIII, then
+       XXXI–XLIII. There is no 30 anywhere in either edition. */
+    chapters: [0].concat(
+      Array.from({ length: 43 }, (_, i) => i + 1).filter((n) => n !== 29 && n !== 30)
+    ),
+    page: (n) => "The Oldest English Epic/Chapter 1/Beowulf " + String(n).padStart(2, "0"),
+    /* Chapter 0 is the poem's unnumbered opening, which both editions head "Prelude" — a title
+       transcribed rather than composed. The rest have no names in either edition: Wyatt's contents
+       page gives a Roman numeral and a line range and nothing else, so the tabs read "Fitt 1" and so
+       on, which is the whole of what the editions state about them. Composing forty-two descriptive
+       headings for a poet who gave none is the line the Meditations' entry draws. */
+    titleOf: (n) => (n === 0 ? "Prelude" : "Fitt " + n),
+    /* No `parts`: neither edition divides the poem above the fitt — no books, cantos or parts in
+       either — so app.js falls back to a single unlabelled group, as the Meditations, the Republic
+       and the Song of Roland do. The familiar "two halves" of Beowulf, Denmark and the dragon, is a
+       reader's description and not a heading anybody printed.
+
+       The short-chapter guard is lowered as Aesop's and the Song of Roland's are, and for the same
+       reason: 200 characters is a broken chapter only where a chapter is a book of Herodotus. The
+       shortest fitt here is the nineteen-line XLIII — measured over all 85 cached pages, not
+       assumed — whose English is 780 characters and whose Old English is 700. 400 sits well below
+       both and far above what a failed extraction produces, which is a handful of characters. */
+    minChars: 400,
+
+    original: {
+      lang: "ang",
+      langName: "Old English",
+      edition: "Beowulf, edited by A. J. Wyatt, Cambridge University Press, 1894",
+      rights:
+        "The poem is Old English and about a thousand years old, so the words themselves are free " +
+        "everywhere. This text is A. J. Wyatt's edition of 1894, made from Julius Zupitza's " +
+        "photographic facsimile of the burnt manuscript, and it is public domain in the United " +
+        "States under the pre-1929 publication rule. Wyatt's dates are given elsewhere as 1835 to " +
+        "1935, but only to the year and without corroboration, so no life-plus-seventy term is " +
+        "asserted here; if that death year is right, the term expired in 2006. Wyatt's glossary, " +
+        "preface and the Finnsburg fragment printed with it are not reproduced — what is taken is " +
+        "the poem.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Beowulf_(Wyatt)",
+      layout: "fitts",
+      page: (n) => "Beowulf (Wyatt)/Beowulf " + String(n).padStart(2, "0"),
+      /* Wyatt divides where the manuscript does and so carries a section Gummere does not break at:
+         the bracketed [XXIX], lines 2039–2143, which Gummere runs on inside his XXVIII. It is
+         FOLDED INTO CHAPTER 28 here so the two columns divide alike — the alternative is a chapter
+         tab with an original and no translation, which is worse than a long chapter. Measured after
+         folding: 36 line markers on each side of that chapter, 1965 to 2140. */
+      foldInto: { 29: 28 },
+    },
+  },
+
+  "classic-of-poetry": {
+    title: "The Classic of Poetry",
+    subtitle: "The Shih King",
+    author: "Anonymous",
+    translator: "James Legge",
+    edition:
+      "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+      "Clarendon Press, Oxford, 1879",
+    written: "c. 11th–7th century BCE",
+
+    /* ---------- THE LICENCE, which needs no qualification at all ----------
+       Legge published this translation in 1879 — before 1929, so its United States copyright has
+       expired — and died in 1897, so it is out of copyright wherever the term runs for the author's
+       life plus seventy or even a hundred years. There is no limit to state and no modern editorial
+       layer to declare. The Chinese printed beside it is some twenty-five centuries old and is free
+       everywhere.
+
+       The translations a reader is likeliest to own are all still in copyright and are named here so
+       that nobody reaches for one later: Bernhard Karlgren's of 1950, Ezra Pound's of 1954, Arthur
+       Waley's as reissued and extended by Joseph R. Allen in 1996, and Xu Yuanchong's of 1993. */
+    rights:
+      "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so its " +
+      "United States copyright has expired — and he died in 1897, so it is out of copyright wherever " +
+      "the term runs for the author's life plus seventy or even a hundred years. The Chinese text " +
+      "printed beside it is some twenty-five centuries old and is in the public domain everywhere. " +
+      "(The modern translations by Bernhard Karlgren, 1950, Ezra Pound, 1954, Xu Yuanchong, 1993, and " +
+      "Arthur Waley as extended by Joseph R. Allen, 1996, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shih",
+
+    /* THE FRONT MATTER — chapter 0. The first thing it has to say is the thing a reader would
+       otherwise discover by counting: this is a THIRD of the Classic of Poetry, because Legge's
+       Sacred Books volume prints the pieces bearing on religion and not the collection entire. A book
+       that let a reader assume otherwise would be lying by omission, so it is said in the first
+       sentence rather than in a footnote. */
+    about: [
+      "<b>The Classic of Poetry</b> — the <i>Shih</i>, also called the Book of Songs or the Book of " +
+        "Odes — is the oldest collection of Chinese poetry, three hundred and five poems gathered " +
+        "between roughly the 11th and the 7th centuries BCE. They are short, they are built almost " +
+        "entirely of four-character lines, and they are far more various than their standing as a " +
+        "Confucian classic suggests: courtship and complaint, harvest and soldiering, dynastic praise " +
+        "and sacrificial hymn, sitting side by side in one book. The collection is divided into four " +
+        "traditional parts, and this edition keeps them: the airs of the states, the minor odes, the " +
+        "major odes, and the hymns of temple and altar.",
+      "<b>What is here is a third of it.</b> This text comes from Legge's Sacred Books of the East " +
+        "volume of 1879, which prints not the whole collection but the poems bearing on religion — " +
+        "the sacrifices, the ancestral cult, the mandate of Heaven, the dynastic hymns. It carries " +
+        "102 of the 305 poems, and of those 102 about a third are not whole poems but the stanzas " +
+        "Legge judged relevant, which is why so many chapters here are titled 'Stanza 1' or 'Stanzas " +
+        "1 and 2'. Where a chapter says so, the English is that much of the poem and no more. Legge " +
+        "did translate the whole collection, twice over, and neither of those versions has been " +
+        "transcribed anywhere this could honestly be built from.",
+      "The numbers on the tabs are the Mao numbers, the sequence 1 to 305 by which any poem of the " +
+        "Shih is cited in any language, and they run with gaps — 13, 15, 29, 40 and so on — because " +
+        "the poems Legge left out are simply absent. Renumbering what remains from 1 to 102 would " +
+        "have made the book look complete and would have invented a sequence it has not got, so the " +
+        "gaps are left where they fall. A reader who wants to know which poem is missing between two " +
+        "tabs has the number to look it up by.",
+      "James Legge was a Scottish missionary who spent three decades in Malacca and Hong Kong and " +
+        "became the first Professor of Chinese at Oxford in 1876. His English is Victorian and his " +
+        "purpose was scholarly rather than poetic: he renders the sense line by line and does not try " +
+        "to reproduce the rhyme or the four-beat measure of the original, so what is faithful about " +
+        "these versions is the meaning and not the music. He also read the poems largely as the " +
+        "orthodox commentarial tradition read them, which routinely takes a love song as a political " +
+        "allegory about a virtuous consort or a neglected minister; his titles and his section " +
+        "headings carry that reading. Modern scholarship mostly does not. Read them as one careful " +
+        "man's account rather than as what the Chinese says.",
+      "There is no Chinese column here, and the reason is worth stating rather than leaving a reader " +
+        "to wonder. The poems themselves are freely available and each of these 102 was found, so the " +
+        "two could be set side by side; what is not available is a transcription uniform enough to " +
+        "trust. The pages that carry the Chinese also carry a traditional preface explaining what each " +
+        "poem is supposed to be about, and a body of annotation beneath it, and they set the verse " +
+        "three different ways from one poem to the next. A column built from them would sometimes be " +
+        "the poem and sometimes the commentator, with nothing on the page to say which — and a facing " +
+        "text that is silently wrong is worse than none at all.",
+      "Legge's own notes are here under each chapter, and they are worth opening: much of what he has " +
+        "to say about who is speaking, and about the rites a hymn accompanies, is in them rather than " +
+        "in the verse itself.",
+    ],
+
+    /* ---------- ONE ODE, ONE CHAPTER ----------
+       This edition gives each ode a wiki page of its own, so the ordinary chapter walk reads it with
+       no new extractor: `page` maps a Mao number to that page and cleanBody does the rest. What the
+       book does need is a SECTION MARKER, because app.js pairs the two columns on `bk-n` and a
+       chapter carrying none pairs only by the accident of both sides holding exactly one unnumbered
+       block. `sections: "whole"` writes exactly one marker at the head of the chapter, carrying the
+       Mao number — which is the citation a reader would use anyway, so it earns its place on the page
+       rather than being scaffolding that happens to show. */
+    layout: "wiki",
+    sections: "whole",
+    page: (n) => "Sacred Books of the East/Volume 3/The Shih/" + SHIJING_BY_MAO[n][1],
+    chapters: SHIJING.map((r) => r[0]),
+    chapterWord: "Ode",
+    titleOf: (n) => SHIJING_BY_MAO[n][2],
+    /* The four traditional divisions, as the Contents panel's groups. They partition the Mao numbers
+       this edition carries without overlapping, so a range apiece is enough and no ode can fall into
+       two of them. */
+    parts: [
+      { n: 1, from: 1, to: 160, t: "Lessons from the States" },
+      { n: 2, from: 161, to: 234, t: "The Minor Odes of the Kingdom" },
+      { n: 3, from: 235, to: 265, t: "The Major Odes of the Kingdom" },
+      { n: 4, from: 266, to: 305, t: "Odes of the Temple and the Altar" },
+    ],
+
+    /* ---------- WHY THERE IS NO FACING ORIGINAL, AND WHAT A LATER ATTEMPT MUST HANDLE ----------
+       The pairing itself is not the problem and was measured: every one of these 102 odes names its
+       Chinese title on its own page, Chinese Wikisource gives each of those poems a page, and all 102
+       were found there — with one glyph to normalise, Legge's 鳧鷖 against that wiki's 鳬鷖, two forms
+       of the same character. The Mao number derived from the traditional order is the same number on
+       both sides, so the two columns would pair one poem against one poem.
+
+       What stopped it is that those pages are not a transcription of a printed edition and are not
+       uniform. Each carries a good deal that is NOT the poem — the 毛詩序, the Mao preface, which is a
+       commentator's account of what the poem is about, and a 註解 section of annotations — and the
+       verse itself is set three different ways across the 102: inside `<div class="poem">`, inside a
+       flat `<dl>` of `<dd>` lines, and inside nested `<dl><dd>` under no heading at all, with the
+       title merely bolded. A rule that reads one shape returns nineteen characters of another, and a
+       rule that takes the block whole returns the commentator instead of the poet. Both failures are
+       the quiet kind: the column is full, nothing throws, and only reading the Chinese shows it.
+
+       Two further traps are recorded so they are not rediscovered. Textual VARIANTS are marked as
+       tooltips beside the character they replace, so the raw text of a three-stanza poem can run to
+       ten times its length with every variant landing mid-line. And FOUR of these titles belong to
+       two different poems each — 柏舟 (Mao 26 and 45), 黃鳥 (131 and 187), 杕杜 (119 and 169), 甫田
+       (102 and 211), the Shih repeating titles across the states — and this wiki puts both poems on
+       one page, so the block has to be chosen by the section its heading names (國風‧邶‧柏舟 against
+       國風‧鄘‧柏舟) and never by the title. Taking the first would set an entirely different poem
+       beside the translation, and nothing downstream could tell.
+
+       So the book ships in English alone and its front matter says so, which is the same judgement
+       the Republic's entry records: a second column that cannot be paired responsibly is worse than
+       no second column. Deleting `original` and `origLang` is the whole of what that costs. */
+  },
+
+  "book-of-documents": {
+    title: "The Book of Documents",
+    subtitle: "The Shû King",
+    author: "Anonymous",
+    translator: "James Legge",
+    edition:
+      "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+      "Clarendon Press, Oxford, 1879",
+    written: "c. 11th–4th century BCE",
+
+    /* ---------- THE LICENCE, which needs no qualification at all ----------
+       Legge published this translation in 1879 — before 1929, so its United States copyright has
+       expired — and died in 1897, so it is out of copyright wherever the term runs for the author's
+       life plus seventy or even a hundred years. There is no limit to state and no modern editorial
+       layer to declare: this is his printed text, not a re-edited one. The Chinese underneath is
+       ancient and free everywhere.
+
+       The translations a reader is likeliest to reach for are still in copyright and are named here
+       so that nobody does: Bernhard Karlgren's of 1950 and Clae Waltham's modernisation of Legge,
+       published in 1971. */
+    rights:
+      "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so its " +
+      "United States copyright has expired — and he died in 1897, so it is out of copyright wherever " +
+      "the term runs for the author's life plus seventy or even a hundred years. The documents " +
+      "themselves are ancient and are in the public domain everywhere. (Bernhard Karlgren's " +
+      "translation of 1950 and Clae Waltham's modernisation of Legge of 1971 are still in copyright " +
+      "and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shu",
+
+    /* THE FRONT MATTER — chapter 0. Two things have to be said early because a reader would
+       otherwise have to work them out by counting: that this is the whole of the received text, and
+       that a good part of that text has been held to be a forgery for three hundred years. */
+    about: [
+      "<b>The Book of Documents</b> — the <i>Shû</i>, also called the Shû King or the Classic of " +
+        "History — is the oldest collection of Chinese prose, and it is not a history but an archive: " +
+        "speeches, charges, announcements, counsels and oaths, purporting to be the words of rulers " +
+        "and ministers from the legendary sage-kings down to the middle of the Kâu dynasty. Much of " +
+        "it is somebody addressing an army on the morning of a battle, or a regent explaining to a " +
+        "young king why a dynasty lost the mandate of Heaven. It is one of the Five Classics, and for " +
+        "two thousand years it was the text a Chinese statesman was expected to argue from.",
+      "<b>What is here is the whole of the received text.</b> Legge's Sacred Books of the East volume " +
+        "of 1879 prints the Shû entire, in the fifty-eight documents the tradition has transmitted, " +
+        "arranged in five parts named for the houses they belong to — Thang, Yü, Hsiâ, Shang and Kâu. " +
+        "The tabs count fifty-nine rather than fifty-eight, and the difference is a matter of " +
+        "printing rather than of content: Legge sets the Tribute of Yü, which is the longest single " +
+        "document in the book, in two sections that each number their paragraphs from one, so it is " +
+        "left as the two he printed rather than joined into a chapter carrying two paragraphs " +
+        "numbered 1.",
+      "<b>A quarter of it is disputed, and has been since the seventeenth century.</b> The Shû was " +
+        "reassembled after the burning of the books under the Kh in, and it survives in two layers. " +
+        "Thirty-three of the documents descend from the version recovered in the second century BCE " +
+        "and are broadly accepted as genuinely ancient, though how ancient is argued over. The other " +
+        "twenty-five appeared only in the fourth century CE, and Chinese scholars from the 1600s " +
+        "onwards demonstrated that they are a later composition — the classic case of a forgery " +
+        "exposed by philology. Legge knew this and says so: where a document is one of the contested " +
+        "ones his headnote to it tells you, and his introduction sets out the whole history of the " +
+        "text. The disputed books are still worth reading, and they are still what Chinese readers " +
+        "read for fifteen centuries; they are simply not what they claim to be.",
+      "Each document opens with Legge's own headnote, set smaller than the text — who is speaking, " +
+        "when, what the occasion was, and what he makes of its authenticity. The numbers running " +
+        "through the text are his paragraph numbers, which is how a passage of the Shû is cited in " +
+        "his edition, and his footnotes are gathered under each chapter. Eleven of the shorter " +
+        "documents carry no numbers at all, because they are a few paragraphs long and he did not " +
+        "number them.",
+      "James Legge was a Scottish missionary who spent three decades in Malacca and Hong Kong and " +
+        "became the first Professor of Chinese at Oxford in 1876. His English is Victorian and " +
+        "deliberately literal: he is rendering the sense of a famously difficult text, sometimes the " +
+        "most difficult in the classical language, and where the Chinese is obscure his version is " +
+        "obscure too. The round brackets scattered through it are his — words he has supplied to make " +
+        "an elliptical sentence run in English, marked so that you can see him doing it. That is a " +
+        "scholar's honesty rather than a stylist's, and it is the reason this translation is still " +
+        "cited.",
+      "There is no Chinese column here, and the reason is worth stating rather than leaving a reader " +
+        "to wonder. The Chinese text is freely available and every one of these documents was found; " +
+        "what is missing is a shared way of pointing INTO them. Legge numbers his paragraphs and the " +
+        "Chinese transcription numbers nothing, so the only way to set the two side by side would be " +
+        "to pair them off in order and hope — and measured document by document, the paragraph " +
+        "divisions of the two agree in eight cases out of fifty-eight. A facing text built that way " +
+        "would be quietly wrong on nine pages in ten, with nothing on the page to say so, which is " +
+        "worse than no facing text at all.",
+    ],
+
+    /* ---------- ONE DOCUMENT, ONE CHAPTER ----------
+       The ordinary wiki walk, with one thing new: `page` may return SEVERAL pages for one chapter.
+       Where Legge prints a book in sections, Wikisource puts each section on its own page and leaves
+       the book's headnote — and, at the head of a Part, his introduction to the whole Part — on the
+       book's page, which carries no body text. Those four pages are joined onto the front of their
+       first section rather than dropped, and they carry no footnotes at all (measured), so the join
+       needs no note arithmetic even though the loop does it anyway. */
+    layout: "wiki",
+    sections: "shu",
+    dropAuxToc: true,
+    page: (n) => SHU_BY_N[n][2].map((s) => "Sacred Books of the East/Volume 3/The Shu/" + s),
+    chapters: SHU.map((r) => r[0]),
+    chapterWord: "Document",
+    titleOf: (n) => SHU_BY_N[n][3],
+    parts: [
+      { n: 1, from: 1, to: 1, t: "The Book of Thang" },
+      { n: 2, from: 2, to: 5, t: "The Books of Yü" },
+      { n: 3, from: 6, to: 10, t: "The Books of Hsiâ" },
+      { n: 4, from: 11, to: 27, t: "The Books of Shang" },
+      { n: 5, from: 28, to: 59, t: "The Books of Kâu" },
+    ],
+
+    /* THE RUNNING HEADS, read off the pages rather than guessed at — every centred block that opens
+       a page was inventoried before this list was written. Four shapes occur: the volume's own title
+       over the first page, a Part heading over the first book of each Part, the book's title over
+       every book, and a bare "Section N." over each section page. The Canon of Yâo needs a line of
+       its own because it is the only book in its Part and its title is printed without the "Book I."
+       that prefixes all fifty-seven others.
+
+       The patterns tolerate stray spaces because they must: these heads are set in small capitals,
+       which arrives as a run of spans, and flattening one yields "THE SH Û KIN G ." rather than the
+       words. Anchored at the start and tested against the block's whole text, as every dropHeads
+       list is, so none of them can reach prose. */
+    dropHeads: [
+      /^THE\s*SH[ÛU]\s*KIN\s*G\s*\.?$/i,
+      /^PART\s+[IVX]+\s*\.\s/i,
+      /^Book\s+[IVXLC]+\s*\.\s/i,
+      /^Section\s+\d+\s*\.?$/i,
+      /^The\s+Canon\s+of\s+Yâo\s*\.?$/i,
+    ],
+
+    /* ---------- WHY THERE IS NO FACING ORIGINAL, AND WHAT A LATER ATTEMPT MUST HANDLE ----------
+       The chapter-level pairing is exact and was measured: Chinese Wikisource gives every one of the
+       received fifty-eight documents a page of its own under 尚書, and all fifty-eight were found,
+       with the four books Legge divides into three sections appearing there as three separate
+       documents apiece — which is right, since those ARE three documents in the Chinese, where the
+       Tribute of Yü's two sections are one.
+
+       What there is no shared key for is the level BELOW the chapter, and that is what app.js pairs
+       on. Legge numbers his paragraphs; the Chinese transcription carries no numbering whatever, not
+       a paragraph number and not a traditional 章 division. So the only available pairing is by
+       position, which is the approach this file has already tried and abandoned once — and here it
+       is not close: measured document by document, Legge's numbered paragraphs and the Chinese
+       page's paragraphs agree in count on EIGHT of the fifty-eight. Fifty of them would be silently
+       mispaired, and a facing text that is wrong with nothing on the page to say so is worse than
+       none.
+
+       Pairing at the CHAPTER level instead — one marker at the head, both columns as a single block
+       — was considered and rejected on the reader's behalf rather than on the numbers: several of
+       these documents run to many screens, and setting one whole column-page beside another makes a
+       facing page that cannot be read across.
+
+       Three traps are recorded so a later attempt does not rediscover them. The Chinese pages carry
+       TEXTUAL VARIANTS as tooltips beside the character they replace — 19 in the Canon of Yâo, 44 in
+       the Marquis of Lü on Punishments, 69 in the Tribute of Yü — which land mid-line in the raw
+       text. The index at 尚書 mixes the received text with the TSINGHUA BAMBOO-SLIP documents
+       (保訓, 尹至, 耆夜, 厚父, 封許之命, 尹誥 and three headed 傅說之命), which are excavated
+       manuscripts rather than chapters of the Shû and must not be taken for them, and with 逸周書/世俘,
+       which belongs to a different book altogether. And the received text's own titles are
+       unambiguous, so a chapter list keyed on them is safe — but it has to be written out, since the
+       page order on that index is not Legge's. */
+  },
+
+  "prose-edda": {
+    title: "The Prose Edda",
+    /* No subtitle. It is also called the Younger Edda and Snorri's Edda, and both are said in the
+       front matter; putting one on the banner would pick a side in a naming quarrel the book itself
+       does not have. */
+    author: "Snorri Sturluson",
+    translator: "Arthur Gilchrist Brodeur",
+    edition:
+      "The Prose Edda, translated by Arthur Gilchrist Brodeur, " +
+      "The American-Scandinavian Foundation, New York, 1916",
+    written: "c. 1220",
+    /* Snorri lived 1179–1241 and the Edda is dated to about 1220 on the usual grounds — it is later
+       than the poems it quotes and earlier than the manuscripts that carry it. One number, as the
+       shelf's sort requires; the front matter says how loose it is. */
+    year: 1220,
+
+    /* ---------- THE LICENCE — three layers, and the third states a LIMIT ----------
+       The work itself is free everywhere: Snorri Sturluson died in 1241, and the poems he quotes are
+       older still.
+
+       Brodeur's translation was published in 1916 by the American-Scandinavian Foundation — read off
+       the volume's own title page rather than recalled — which is before 1929, so its United States
+       copyright has expired and that is the ground this book is served on. He lived 1888–1971; the
+       dates are Wikidata's at day precision and are corroborated by Wikisource's own PD/US tag on the
+       work, which gives 1971, so unlike Wyatt's on the Beowulf shelf they are not a lone unverified
+       figure. Life plus seventy therefore runs to the end of 2041, and this stays in copyright in
+       those countries until 2042 — the same position as Ross's Nicomachean Ethics, and it is SAID
+       OUTRIGHT here and on the book's own page rather than smoothed into the easier sentence the
+       Republic and the Analects can honestly use.
+
+       WHAT IS AND IS NOT TAKEN. The 1916 volume also carries Brodeur's own introduction, which runs
+       to some fifty pages, and an index; neither is imported, which is the Republic's precedent for
+       the introduction and plates it left behind. What is taken is the three parts of the Edda the
+       volume translates.
+
+       The translations a reader is likeliest to own — Jean I. Young's of 1954, Anthony Faulkes's
+       Everyman of 1987 and Jesse Byock's Penguin of 2005 — are all firmly in copyright and are named
+       here for the reason Campbell, Hays, Griffith, Lee, Sayers and the rest are named above: so that
+       nobody reaches for one later. */
+    rights:
+      "Public domain in the United States, with a limit to state elsewhere. Snorri Sturluson died in " +
+      "1241, so the work itself is free everywhere. Arthur Gilchrist Brodeur's translation was " +
+      "published in 1916 — before 1929, so its United States copyright has expired — but he lived " +
+      "from 1888 to 1971, so where the term runs for the author's life plus seventy years it stays " +
+      "in copyright until 2042. Brodeur's own introduction and index are not reproduced here; what " +
+      "is taken is the three parts of the Edda his volume translates. There is no Old Norse column, " +
+      "and the reason is a copyright one rather than a textual one — see the front matter. (The " +
+      "translations by Jean I. Young, 1954, Anthony Faulkes, 1987, and Jesse Byock, 2005, are still " +
+      "in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Prose_Edda_(Brodeur_1916)",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       Four things a reader needs before they start, and none of them is guessable from the page: that
+       this is a textbook rather than a scripture, and what that does to it; that its author was a
+       Christian politician writing about gods he did not believe in; that the tabs are three where
+       the work has four parts; and why there is no Old Norse beside it, which on this shelf is the
+       question a reader is entitled to ask. */
+    about: [
+      "<b>The Prose Edda</b> — called also the Younger Edda, or simply Snorri's Edda — is the single " +
+        "most important source for Norse mythology, and it is worth knowing from the first page that " +
+        "it was not written to be one. It is a <b>handbook for poets</b>. Icelandic court poetry, " +
+        "skaldic verse, is built out of <i>kennings</i>: compressed riddling substitutions in which " +
+        "gold is Sif's hair, a ship is the sea-king's horse, and poetry itself is the dwarves' drink. " +
+        "A kenning only works if you know the story behind it, and by about 1220 the stories were " +
+        "going. So Snorri set down the myths in plain prose, as background a young poet would need, " +
+        "and in doing so preserved a body of Germanic myth that would otherwise have survived only in " +
+        "fragments. Nearly everything a modern reader knows about Odin, Thor, Loki and Ragnarök comes " +
+        "through this book.",
+      "Its author was not a bard but a <b>politician</b>. Snorri Sturluson, 1179–1241, was one of the " +
+        "richest and most powerful men in Iceland, twice law-speaker of its assembly, a chieftain " +
+        "deep in the feuds that ended the Icelandic commonwealth, and finally a man killed in his own " +
+        "cellar by his son-in-law's men on the orders of the king of Norway. He was also a Christian, " +
+        "writing more than two centuries after Iceland's conversion, about gods nobody around him " +
+        "worshipped.",
+      "That last fact shapes the book, and the reader should watch for it. Snorri has to explain why " +
+        "a Christian may write down heathen myth at all, and his answer is <b>euhemerism</b> — the " +
+        "theory that the gods were once ordinary men, remembered as divine by people who had lost the " +
+        "true faith. The Prologue accordingly derives the Æsir from Troy and walks Odin northward " +
+        "across Europe as a migrating king, and the frame of Gylfaginning has the whole mythology " +
+        "narrated to a deceived visitor by figures who turn out to be illusions. It is a defence, and " +
+        "it lets him tell the stories straight; but it means the book is <b>a Christian's account of " +
+        "a religion he did not hold</b>, at two hundred years' distance. Where he seems to tidy a " +
+        "myth into a neat system, that is worth remembering.",
+      "The work has <b>four parts, and this edition carries three</b>. After the Prologue come " +
+        "<i>Gylfaginning</i>, the Beguiling of Gylfi, which is the narrative mythology and the part " +
+        "most people mean when they say they have read the Prose Edda; and <i>Skáldskaparmál</i>, the " +
+        "Poesy of Skalds, which explains the kennings and in doing so tells a great many more stories " +
+        "— the mead of poetry, Thor and Hrungnir, Idunn's apples, and the whole tragedy of Sigurd and " +
+        "the Niflungs that lies behind the Nibelungenlied and Wagner's Ring. The fourth part is " +
+        "<i>Háttatal</i>, a poem of Snorri's own in praise of two Norwegian rulers, composed in a " +
+        "hundred-odd metres to demonstrate each of them in turn. It is the most technical part of the " +
+        "book and the least translatable, and Brodeur did not translate it: the 1916 volume's own " +
+        "contents page lists the Prologue, Gylfaginning and Skáldskaparmál and stops. So the tabs " +
+        "here count three, and what is missing is missing from the edition rather than from the file.",
+      "The numbers running through the text are <b>chapter numbers</b>, and they are how the Edda is " +
+        "cited in any language: a reference to Gylfaginning 49 means the chapter numbered 49 in the " +
+        "second tab, which is the death of Baldr. Because each part is one continuous piece here, " +
+        "those numbers appear as the section marks inside it rather than as tabs of their own — which " +
+        "keeps a citation meaning what it means everywhere else. One numeral is missing and is " +
+        "missing from the printed page: the Prologue's first chapter opens under a drop-capital with " +
+        "no number over it, and the centred numerals begin at II, so the marks in that tab run from " +
+        "II rather than from I. Brodeur's Skáldskaparmál brackets its chapter XXI, and the square " +
+        "brackets there are his: he uses them through that part for passages he judged probably not " +
+        "Snorri's. His footnotes are gathered under each chapter.",
+      "<b>There is no Old Norse column here, and the reason is a copyright one rather than a textual " +
+        "one.</b> That is worth saying plainly, because on this shelf the older language is usually " +
+        "the easier half to serve. The Old Norse of the Edda is nearly eight hundred years old and " +
+        "free everywhere; the difficulty is that a medieval text has to be edited from its " +
+        "manuscripts before anyone can read it, and an editor's constituted text is a modern work " +
+        "with a modern copyright. The Old Norse Edda that is openly transcribed is Guðni Jónsson's, " +
+        "and he died in 1974, so his edition is in copyright where the term is life plus seventy " +
+        "until 2044 — and it is carried on Wikisource by the permission of the site that holds it " +
+        "rather than because the copyright has run out, which is not the ground this library serves " +
+        "books on. An older edition would be free, but none is transcribed anywhere reachable.",
+      "The loss is worth measuring rather than waving at, because the pairing would have been an " +
+        "unusually good one. Set against Brodeur, that Old Norse text divides the Prologue into the " +
+        "same five chapters and Gylfaginning into the same fifty-four, in the same order, with the " +
+        "content matching at every point checked — as exact as anything on these shelves. " +
+        "Skáldskaparmál is the exception and would have failed anyway: the two number it differently, " +
+        "seventy-four chapters against eighty-nine, drifting apart as they go, so pairing them by " +
+        "number would have set passages beside passages that are not their counterparts. So one part " +
+        "could never have been faced, and the other two could have been, and the reason they are not " +
+        "is a licence rather than a text.",
+      "Brodeur's English is a hundred years old and deliberately a little archaic — he is translating " +
+        "a work about poetry and keeps a poet's cadence — but it is a scholar's translation, made at " +
+        "the University of California by a man who spent his career on Old Norse, and it is close. " +
+        "The verse quotations are the hardest thing in the book: Snorri quotes skaldic stanzas as " +
+        "evidence, often several to a chapter, and skaldic verse is dense, inverted and packed with " +
+        "the very kennings under discussion. Brodeur renders them line for line and lets them stay " +
+        "difficult. They are meant to be read as exhibits rather than as lyrics, and a reader who " +
+        "finds one impenetrable is having the intended experience of a twelfth-century apprentice.",
+    ],
+
+    /* ---------- ONE PART, ONE CHAPTER ----------
+       The ordinary wiki walk: three pages, three chapters. What is new is `sections: "edda"` — the
+       numbers inside each part are Roman and are set two different ways; see markEddaSections.
+
+       WHY THE PART AND NOT THE NUMBERED CHAPTER IS THE TAB. The obvious alternative is 133 tabs, one
+       per numbered chapter, grouped by `parts` the way Seneca's letters and the Shû's documents are.
+       It was rejected on the citation: each of the three parts restarts its numbering at 1, so a
+       single run of tabs would have to renumber them into one sequence, and "Gylfaginning 44" would
+       become tab 50. Keeping the part as the chapter keeps every numeral on the page meaning what it
+       means in every edition and every reference book. The cost is three long chapters, and it is
+       within precedent rather than at it: measured, this book's longest is about 173,000 characters
+       against 199,000 for the longest book of Herodotus already on the shelf. */
+    layout: "wiki",
+    sections: "edda",
+    /* Snorri quotes skaldic stanzas as evidence and this transcription sets them as `<dl><dd>` lines
+       — see the verse pass in cleanBody. Without this they arrive as run-on prose, which on a book
+       arguing about how verse lines are built is the one thing that must not happen. */
+    verse: "dl",
+    chapters: [1, 2, 3],
+    chapterWord: "Part",
+    page: (n) =>
+      "The Prose Edda (1916 translation by Arthur Gilchrist Brodeur)/" +
+      ["Prologue", "Gylfaginning", "Skáldskaparmál"][n - 1],
+    titleOf: (n) => ["Prologue", "Gylfaginning", "Skáldskaparmál"][n - 1],
+    /* No `parts`: three chapters need no grouping above them, and the work's own divisions ARE the
+       three chapters. app.js falls back to a single unlabelled group, as the Meditations and the Song
+       of Roland do. */
+
+    /* THE PART TITLE ONLY. Each page opens with two centred blocks: the part's own name, which by the
+       time it is seen is a blockquote and which duplicates the tab directly above it, and then the
+       text's own rubric — "HERE BEGINS THE BEGUILING OF GYLFI", "THE POESY OF SKALDS". The second is
+       Snorri's heading rather than the printer's and is KEPT, and it has to be: Skáldskaparmál's
+       carries a FOOTNOTE MARKER, so dropping it would leave a note in the list with no sentence
+       opening it — the fault Beowulf's dropFittHead rule exists to avoid, met from the other side.
+       Matched on the block's whole text and anchored, as every dropHeads list is. */
+    dropHeads: [/^PROLOGUE$/, /^GYLFAGINNING$/, /^SKÁLDSKAPARMÁL$/],
+
+    /* ---------- WHAT A LATER ATTEMPT AT AN ORIGINAL MUST HANDLE ----------
+       Recorded so the measurement does not have to be made twice. The Old Norse on Icelandic
+       Wikisource (`is:Snorra Edda`, four part pages plus the Nafnaþulur and Skáldatal appendices)
+       states its chapter numbers outright and titles each one, so the key exists and is easy to read:
+       every chapter opens `<b>N. Title.</b>`. Measured against Brodeur, the Prologue divides 5 to 5
+       and Gylfaginning 54 to 54, in order, with the Icelandic chapter titles describing Brodeur's
+       chapter content at every point sampled across the whole of both. Skáldskaparmál does not pair:
+       74 against 89, already apart by chapter 20 and about sixteen apart by the end, because the two
+       editions divide the kenning-lists differently — so that part would draw beside the wrong
+       passages and must not be paired by number.
+
+       WHAT BLOCKS IT IS THE LICENCE. That text is Guðni Jónsson's edition, 1901–1974, taken onto the
+       wiki from heimskringla.no by permission rather than under an expired copyright, and life plus
+       seventy runs to 2044. An edition whose copyright HAS expired would serve — Finnur Jónsson's,
+       1858–1934, or the Arnamagnæan edition of 1848–87 — and none of them is transcribed on any
+       Wikisource, on Perseus, or anywhere else reachable; checked on the multilingual, Danish,
+       Norwegian, German and Swedish Wikisources, of which only the German has anything, and that is
+       Simrock's German verse translation of 1876 rather than the Old Norse. So this is a LICENCE gap
+       and not a textual one, which puts it with the Loeb Republic that keeps Plato's Republic out of
+       the Dialogues rather than with the Republic's own missing Stephanus numbers. If an expired
+       edition is ever transcribed, `original` needs only the Prologue and Gylfaginning; and a chapter
+       the original does not carry must be left out of it rather than supplied empty, which is what
+       app.js's greyed language control is for. */
+  },
+
+  "poetic-edda": {
+    title: "The Poetic Edda",
+    /* No subtitle. It is also called the Elder Edda and the Sæmundar Edda, and both are said in the
+       front matter; putting either on the banner would assert a name the book itself never had —
+       the second of them being an attribution modern scholarship rejects outright. */
+    author: "Anonymous",
+    translator: "Henry Adams Bellows",
+    edition:
+      "The Poetic Edda, translated by Henry Adams Bellows, " +
+      "The American-Scandinavian Foundation, New York, 1923",
+    written: "c. 900–1250",
+    /* THE DATE IS THIRTY-FIVE OPEN QUESTIONS RATHER THAN ONE, which is worse than the usual case: a
+       collection is only as datable as its parts, and these were composed by different people over
+       something like three centuries. The one fixed point is the manuscript, written in Iceland
+       around 1270. 900 is the early end of the range the poems are argued into and is what the sort
+       uses; the front matter carries the doubt rather than leaving the `c.` to do all the work. */
+    year: 900,
+
+    /* ---------- THE LICENCE — three layers, and the third states a limit ----------
+       The poems are anonymous, medieval and free everywhere on every ground.
+
+       Bellows's translation was published in 1923 by the American-Scandinavian Foundation — read off
+       the volume's own title page rather than recalled — which is before 1929, so its United States
+       copyright has expired. He lived 1885–1939, and those dates are unusually well corroborated for
+       this shelf: Wikidata carries both at DAY precision, and Wikisource's own PD/US tag on the work
+       independently gives 1939, so this is not the lone unverified figure some translators here come
+       down to. Life plus seventy therefore expired at the start of 2010 and this is public domain in
+       those countries too.
+
+       WHAT IS LEFT TO STATE is life plus a hundred, which runs to the start of 2040 — Mexico is the
+       jurisdiction that matters — so a limit is stated outright rather than smoothed into the easier
+       sentence some books here can honestly use. It is a much smaller limit than a life-plus-seventy
+       one and it is still a limit.
+
+       WHAT IS AND IS NOT TAKEN. The 1923 volume also carries Bellows's General Introduction, some
+       thirty pages on the manuscript and the metres, and a Pronouncing Index of the proper names;
+       neither is imported. What is taken is the thirty-five poems and the headnote and footnotes
+       belonging to each, which are bound to the text rather than standing in front of the whole
+       book.
+
+       The translations a reader is likeliest to own — Lee M. Hollander's of 1928 and its revisions,
+       Carolyne Larrington's Oxford of 1996 and Jackson Crawford's of 2015 — are all firmly in
+       copyright and are named here so that nobody reaches for one later. */
+    rights:
+      "Public domain in the United States and in life-plus-seventy countries, with one limit left to " +
+      "state. The poems are anonymous and medieval, so the work itself is free everywhere. Henry " +
+      "Adams Bellows's translation was published in 1923 — before 1929, so its United States " +
+      "copyright has expired — and he lived from 1885 to 1939, so it cleared life plus seventy at " +
+      "the start of 2010; where the term runs for the author's life plus a hundred years it stays in " +
+      "copyright until 2040. Bellows's General Introduction and his Pronouncing Index are not " +
+      "reproduced here; what is taken is the thirty-five poems with the introductory note and the " +
+      "footnotes he gave to each. There is no Old Norse column, and the reason is that no complete " +
+      "edition is transcribed anywhere reachable rather than that any of them is shut — see the " +
+      "front matter. (The translations by Lee M. Hollander, 1928, Carolyne Larrington, 1996, and " +
+      "Jackson Crawford, 2015, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       Five things a reader needs before they start and none of them is guessable from the page: that
+       this is an anthology and not a poem; that nobody knows who made any of it; that the numbers
+       are stanza numbers and are how every reference book will address them; that the manuscript has
+       a hole in it which the story falls through; and why there is no Old Norse beside it. */
+    about: [
+      "<b>The Poetic Edda</b> — called also the Elder Edda, and sometimes still the Sæmundar Edda — " +
+        "is the oldest and by a long way the most important source for the myths and heroic legends " +
+        "of the Norse world. The first thing to know about it is that it is <b>not a poem but an " +
+        "anthology</b>: thirty-five separate pieces by different hands, composed over perhaps three " +
+        "centuries, which owe their survival to one Icelandic manuscript of about 1270 called the " +
+        "<i>Codex Regius</i>. Nearly everything anyone knows about Odin, Thor, Loki, the world-ash " +
+        "and Ragnarök comes from this book and from Snorri Sturluson's prose handbook, which quotes " +
+        "these very poems as its authority — and where the two disagree, the verse is the older " +
+        "witness.",
+      "<b>Nobody knows who wrote any of it.</b> The name attached to the collection for three " +
+        "centuries is an accident: when the manuscript surfaced in 1643 in the hands of an Icelandic " +
+        "bishop, it was guessed to be the work of Sæmundr the Learned, a priest who had died five " +
+        "hundred years earlier, and the guess stuck hard enough that the book is still occasionally " +
+        "sold under his name. It is wrong, and no modern editor defends it. The poems are anonymous, " +
+        "they are not all of one date or one country, and the arguments about when each was composed " +
+        "run from the ninth century to the thirteenth — which is why the date on the shelf is a " +
+        "range with the early end of it used for sorting.",
+      "The collection falls into <b>two halves, and this edition's own contents page names them</b>. " +
+        "The first fourteen poems are the <i>Lays of the Gods</i>: the <i>Voluspo</i>, in which a " +
+        "seeress tells Odin the whole history of the world from its making to its burning and its " +
+        "rebirth; the <i>Hovamol</i>, a long and startlingly practical book of advice on how to " +
+        "behave in other people's houses, which turns at its end into an account of how Odin won the " +
+        "runes by hanging nine nights on a tree; and the comic and quarrelsome poems in between, " +
+        "among them Thor's recovery of his stolen hammer in women's clothing and Loki insulting " +
+        "every god present, one after another, at a feast. The remaining twenty-one are the " +
+        "<i>Lays of the Heroes</i>, and they are a different world — no gods to speak of, and a " +
+        "single blood-soaked family story running through most of them: Sigurd, the dragon Fafnir, " +
+        "Brynhild, and the Burgundian court that destroys them all. That story is the ancestor of " +
+        "the German <i>Nibelungenlied</i> and, at one further remove, of Wagner's <i>Ring</i>.",
+      "<b>The numbers running down the page are stanza numbers</b>, and they are how this book is " +
+        "cited in every language and every reference work: <i>Voluspo</i> 21 means the twenty-first " +
+        "stanza of the first poem, and it will mean that in any edition a reader picks up. They are " +
+        "the section marks here for that reason. Two other things about the shape of the text are " +
+        "the manuscript's rather than the translator's. Several poems are interrupted by <b>short " +
+        "passages of prose</b> that set the scene or carry the story over a gap, and two of the " +
+        "thirty-five pieces — <i>Fra Dautha Sinfjotla</i> and <i>Drap Niflunga</i> — are prose from " +
+        "beginning to end, being narrative bridges rather than poems at all. They are printed here " +
+        "as what they are.",
+      "<b>There is a hole in the manuscript</b>, and a reader who does not know about it will think " +
+        "the book has gone wrong. A gathering of eight leaves is missing from the <i>Codex Regius</i> " +
+        "at the very centre of the Sigurd story — the meeting of Sigurd and Brynhild, and much of " +
+        "what makes the ending intelligible. What survives on either side of the gap is a fragment, " +
+        "printed here as <i>Brot af Sigurtharkvithu</i>, which begins in the middle of a sentence and " +
+        "of an argument. Bellows's introductory notes explain at each point what has been lost and " +
+        "what the prose sources let us reconstruct; the loss itself is permanent.",
+      "Each poem opens with <b>Bellows's own introductory note</b> — where the poem is preserved, how " +
+        "sound its condition is, what is thought about its date, and what quarrel the editors are " +
+        "currently having about it — and his footnotes are gathered under the poem. They are heavy: " +
+        "on some pages there is more annotation than verse. That is not an accident of this edition " +
+        "but a fact about the material, which is full of names that mean nothing without a story " +
+        "attached, and a reader who ignores the notes entirely will find the heroic poems in " +
+        "particular very hard going. His translation is a hundred years old and keeps the metre and " +
+        "something of the word order of the original, which makes it sound archaic in places; it is " +
+        "close, and it is honest about the passages where the text is corrupt or the meaning is " +
+        "guessed.",
+      "<b>There is no Old Norse column here, and the reason is coverage rather than copyright.</b> " +
+        "That is worth stating plainly, because for a medieval work the usual obstacle is the other " +
+        "way round: the poems are eight hundred years old and free everywhere, but a medieval text " +
+        "has to be constituted from its manuscripts by an editor, and an editor's text is a modern " +
+        "work with a modern copyright. Here an edition whose copyright has expired is available and " +
+        "transcribed — Sophus Bugge's of 1867, and he died in 1907 — but only three of the " +
+        "thirty-five poems have been transcribed from it, and one of those three numbers no stanzas " +
+        "at all. Three poems out of thirty-five is not a facing text, and pairing a book on the " +
+        "tenth of it that happens to exist would leave a reader turning to an empty column on almost " +
+        "every page. If the rest is ever transcribed it can be added; the numbers are already there " +
+        "to pair on, which is the hard part.",
+    ],
+
+    /* ---------- ONE POEM, ONE CHAPTER ----------
+       The ordinary wiki walk: thirty-five pages, thirty-five chapters. What is new is
+       `layout: "eddapoem"` — the body is verse stanzas and prose links MIXED, which no earlier verse
+       reader here handles; see the block comment above extractEdda.
+
+       WHY THE POEM AND NOT THE STANZA IS THE TAB, and why the stanza is the section. Both are
+       forced by the citation rather than chosen: a poem is the unit this collection is made of and
+       the unit its contents page lists, and the stanza number is the unit every edition and every
+       reference work addresses a passage by. Neither is a compromise, which is unusual enough on
+       this shelf to be worth saying. */
+    layout: "eddapoem",
+    /* THE TWO PIECES THAT ARE PROSE THROUGHOUT, declared so the unnumbered-chapter warning means
+       something when it fires. Fra Dautha Sinfjotla and Drap Niflunga are the manuscript's narrative
+       bridges rather than poems and have no stanzas to number; both were measured rather than
+       assumed, and both carry footnotes like everything else. */
+    prose: [19, 28],
+    chapters: Array.from({ length: 35 }, (_, k) => k + 1),
+    chapterWord: "Poem",
+    page: (n) => "The Poetic Edda (tr. Bellows)/" + EDDA_POEMS[n - 1],
+    titleOf: (n) => EDDA_POEMS[n - 1],
+
+    /* The edition's own two divisions, read off its contents page rather than inferred from the
+       subject matter — the gods stop and the heroes begin at Völundarkvitha, which is where Bellows
+       puts the break and where the manuscript puts it too. */
+    parts: [
+      { n: 1, label: "Lays of the Gods", from: 1, to: 14 },
+      { n: 2, label: "Lays of the Heroes", from: 15, to: 35 },
+    ],
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -4522,6 +5592,194 @@ function markLeadingSections(b, warn) {
   return b;
 }
 
+/* THE SIXTH WAY an edition marks its numbers, and the first whose two forms differ in MARKUP rather
+   than in wording (Aug 2026, adding the Book of Documents). Legge numbers the paragraphs of each
+   document 1, 2, 3 … and this transcription writes that number two ways: as a plain run of text at
+   the head of the paragraph, exactly as Haines's Meditations does, and as an ANCHOR SPAN carrying
+   the citation as its id — `<span id="ch2" class="wst-anchor">2.</span>` — because the volume's
+   contents page links into some paragraphs and not others. Which form a given number wears is
+   decided by whether anything happens to link to it, so the two are scattered through one document
+   with no pattern: the Canon of Yâo carries both.
+
+   By the time this runs stripTags has already been over the text, so the anchor span has been
+   unwrapped and BOTH forms have collapsed to the same thing: a plain "N." at the head of the
+   paragraph. What the anchored form costs is therefore nothing at all — worth saying because it
+   looks like the hard part and is not.
+
+   THE HARD PART IS THAT A PARAGRAPH NEED NOT BE ONE. MediaWiki only wraps a run of text in `<p>`
+   where the wikitext had a blank line before it, so a document whose first paragraph follows its
+   headnote directly arrives as a BARE RUN with no tag around it — the trap a facing-page book on
+   this shelf already records, met here in another edition. markLeadingSections is anchored to `<p>`
+   and cannot see one: measured over the whole book, it finds 167 of the 169 numbers, and the two it
+   misses are the FIRST number of the Count of Wei and of the Announcement of the Duke of Shâo. Both
+   documents would ship numbered from 2, with every word of section 1 present and nothing throwing
+   to say so — the quiet shape again, and invisible to any count of prose.
+
+   Hence the second alternative below, which takes a number opening a bare run where a block has just
+   closed. The two are ONE regex scanned in reading order rather than two passes, which is the
+   Meditations' lesson: run as two, the first reaches the end of the document and leaves the counter
+   at the last number, after which the forward-only guard declines everything the second finds as
+   going backwards.
+
+   Forward-only and never more than a few steps on, the guard every rule above uses. It earns its
+   place here twice over: Legge's headnotes quote the documents' own dates ("B.C. 1401 to 1374") and
+   his prose cites chapter and verse, so a bare "3." opening a sentence is not always a section. */
+function markShuSections(b, warn) {
+  let seq = 0, found = 0;
+  /* (a) a number at the head of a paragraph, reached through whatever the head opens with; (b) a
+         number opening a bare run, which is where a block has just closed and no `<p>` follows. */
+  const RX = new RegExp(
+    "<p>((?:\\s|<[^>]*>|&#\\d+;|&nbsp;|​)*)(\\d{1,3})\\.(?=\\s|&#\\d+;|&nbsp;|​)" +
+      "|(</(?:blockquote|p|div|ol|ul|table)>[\\s​]*)(\\d{1,3})\\.(?=\\s|&#\\d+;|&nbsp;|​)",
+    "g"
+  );
+  b = b.replace(RX, (whole, lead, pNum, close, rNum) => {
+    const v = +(pNum !== undefined ? pNum : rNum);
+    if (v <= seq || v > seq + 6) return whole;
+    seq = v; found++;
+    const mark = '<span class="bk-n">' + v + "</span>";
+    /* The lead is KEPT rather than dropped, in both shapes. On (a) it is whatever styling the
+       paragraph opened with and on (b) it is the closing tag of the block before it, and stripTags'
+       stack expects to meet both — discarding either would leave an opener unbalanced for the rest
+       of the chapter, which is the fault the void-element rule already records. */
+    return pNum !== undefined ? "<p>" + lead + mark : close + mark;
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return b;
+}
+
+/* A ROMAN NUMERAL, read strictly. Every other rule in this file counts in Arabic figures; the Prose
+   Edda numbers its chapters I, II, III … and the only other Roman numerals on this shelf are the
+   Song of Roland's laisses and Beowulf's fitts, which are read by their own extractors. It is
+   deliberately a VALIDATOR and not merely a converter: `romanValue` re-renders what it parsed and
+   returns 0 unless the two agree, so IIII, VV and XXXXV are rejected rather than quietly accepted as
+   4, 10 and 45. That matters here because the pattern below is anchored on a bold run at the head of
+   a paragraph, and Brodeur's text is full of bold that is not a chapter number — a rule that took
+   anything vaguely numeral-shaped would file a stray letter as a section and take a page of prose
+   with it. The Song of Roland's two malformed numerals are repaired by the forward-only rule instead,
+   which is the right place for a repair; this is the place for a definition. */
+const ROMAN_DIGIT = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+function romanValue(s) {
+  if (!s || !/^[IVXLCDM]+$/.test(s)) return 0;
+  let v = 0;
+  for (let i = 0; i < s.length; i++) {
+    const d = ROMAN_DIGIT[s[i]], next = ROMAN_DIGIT[s[i + 1]];
+    v += next && d < next ? -d : d;
+  }
+  return romanNumeral(v) === s ? v : 0;
+}
+function romanNumeral(v) {
+  const T = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],
+             [10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  let out = "";
+  for (const [n, s] of T) while (v >= n) { out += s; v -= n; }
+  return out;
+}
+
+/* THE SEVENTH WAY an edition marks its numbers, and the first that counts in ROMAN (Aug 2026, adding
+   the Prose Edda). Brodeur's chapter numbers are what the whole book is cited by — "Gylfaginning 44"
+   is a chapter, not a paragraph — and because each of the work's three parts is one wiki page and so
+   one chapter here, those numbers are Folio's SECTIONS. Getting them wrong does not throw and does
+   not shorten the text; it silently leaves a part paired as one block, which is the quiet shape this
+   file keeps meeting.
+
+   TWO FORMS, AND THEY ARE NOT VARIANTS OF ONE PATTERN — they are set differently because the printer
+   set the two parts differently, and both were inventoried over all three pages before this was
+   written rather than inferred from a sample:
+     (a) GYLFAGINNING AND SKÁLDSKAPARMÁL — a bold numeral WITH a full stop, run into the first
+         sentence of the chapter: `<p><b>XI.</b> Then said Gangleri…`. 54 and 74 of them.
+     (b) THE PROLOGUE — a CENTRED numeral with NO full stop, standing alone as its own block, which
+         the generic div pass a few hundred lines above has already turned into a `<blockquote>`. 4
+         of them. Left alone it renders as a quotation containing the letter V, which is the running
+         head fault the Meditations' entry records, in a new coat.
+   Matched in ONE sweep in reading order, which is the Meditations' lesson and is load-bearing rather
+   than tidy: run as two passes the (a) rule would reach the end of Skáldskaparmál and leave `seq` at
+   74, after which the forward-only guard would decline every one of the Prologue's numerals as going
+   backwards — and the Prologue would ship unnumbered with nothing thrown to say so.
+
+   THE PROLOGUE'S FIRST CHAPTER CARRIES NO NUMERAL AND NONE IS WRITTEN. Checked on the scan rather
+   than assumed: page 35 sets the heading and then a drop-capital, and the centred numerals begin at
+   II. So the Prologue's opening arrives as an unnumbered leading block, which is exactly what
+   app.js's `bookSections` already has a path for, and the front matter says so. Composing a "1" for
+   it would be composing an apparatus, which is the line the Meditations' entry draws.
+
+   Forward-only, and never more than a few steps on, like every rule above it. It earns its keep here
+   for a reason particular to this book: Brodeur's Skáldskaparmál brackets chapter XXI as probably
+   spurious and prints the bracket BEFORE the numeral, so the pattern has to reach through a `[` that
+   belongs to the text and must be kept. */
+/* Turn a Wikisource definition list into the shelf's verse shape — a blockquote of one paragraph
+   whose lines are divided by `<br>`, which is what Seneca's quoted poetry already ships as.
+
+   IT HAS TO SCAN FOR BALANCE RATHER THAN MATCH A PAIR OF TAGS, and that is the whole of it. These
+   lists NEST: Wikisource indents a continuation line by opening a fresh `<dl>` inside the `<dd>` it
+   belongs to, and measured over the Prose Edda's Gylfaginning alone there are 137 lists two deep with
+   72 of their items carrying another list inside. A non-greedy `<dl>…</dl>` pair closes on the INNER
+   list's closing tag, so the outer one is left standing — which shipped for one run as 34 unclosed
+   blockquotes and 34 unclosed paragraphs in a single chapter. Nothing threw and no word was lost;
+   only counting a tag against its closer over the shipped data showed it, which is the sweep this
+   file prescribes after any change near stripTags.
+
+   The nested items are FLATTENED into the stanza rather than nested inside it, and that is a reading
+   of the edition rather than a convenience: an indented sub-item here is the second half of a verse
+   line, so the stanza's lines in document order are exactly what the printed page sets. Emitting the
+   inner list as a blockquote of its own would put a block element inside a paragraph, which is
+   invalid nesting, and would break one stanza into two on the page. */
+function verseFromLists(b) {
+  for (let guard = 0; guard < 5000; guard++) {
+    const start = b.indexOf("<dl>");
+    if (start < 0) break;
+    // walk to the matching close, counting depth, so a nested list cannot end the outer one
+    let depth = 0, i = start, end = -1;
+    while (i < b.length) {
+      if (b.startsWith("<dl>", i)) { depth++; i += 4; continue; }
+      if (b.startsWith("</dl>", i)) { depth--; i += 5; if (!depth) { end = i; break; } continue; }
+      i++;
+    }
+    // an unbalanced list is left exactly as it was, for the generic pass below to unwrap
+    if (end < 0) break;
+    const inner = b.slice(start + 4, end - 5);
+    /* Every item in document order, however deeply the edition indented it: the list tags are dropped
+       and the remainder split at each item, which flattens any nesting without needing to know how
+       deep it went. */
+    const lines = inner
+      .replace(/<\/?dl>/g, "")
+      .split("<dd>")
+      .map((s) => s.replace(/<\/dd>/g, "").trim())
+      .filter((s) => s && s !== "<br>");
+    b =
+      b.slice(0, start) +
+      (lines.length ? "<blockquote><p>" + lines.join(" <br>\n") + "</p></blockquote>" : "") +
+      b.slice(end);
+  }
+  return b;
+}
+
+function markEddaSections(b, warn) {
+  let seq = 0, found = 0;
+  /* (a) a bold numeral with a stop, at the head of a paragraph, reached through whatever the
+         paragraph opens with — entities and the odd editorial bracket among them;
+     (b) a centred numeral standing alone, which by now is a blockquote, together with the opening
+         tag of the paragraph that follows it, so the marker lands at the head of the prose rather
+         than in a paragraph of its own. */
+  const RX = new RegExp(
+    "<p>((?:\\s|&#\\d+;|&nbsp;|\\[)*)<b>([IVXLCDM]+)\\.<\\/b>" +
+      "|<blockquote>\\s*(?:<p>)?\\s*([IVXLCDM]+)\\s*(?:<\\/p>)?\\s*<\\/blockquote>\\s*<p>",
+    "g"
+  );
+  b = b.replace(RX, (whole, lead, boldNum, centreNum) => {
+    const v = romanValue(boldNum !== undefined ? boldNum : centreNum);
+    if (!v || v <= seq || v > seq + 6) return whole;
+    seq = v; found++;
+    const mark = '<span class="bk-n">' + v + "</span>";
+    /* The lead is KEPT, as markShuSections keeps its own and for the same reason: it is whatever the
+       paragraph opened with, stripTags' stack expects to meet it, and on chapter XXI it is Brodeur's
+       own square bracket, which is part of what he printed. */
+    return boldNum !== undefined ? "<p>" + lead + mark + " " : "<p>" + mark + " ";
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return b;
+}
+
 function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   /* WHERE THE TEXT STARTS, and until Thucydides there was only one answer (Aug 2026). Every wiki book
@@ -4571,6 +5829,35 @@ function cleanBody(h, noteIds, book, warn) {
     if (end < 0) break;
     b = b.slice(0, m.index) + b.slice(end);
   }
+  /* THE WIKI'S OWN AUXILIARY CONTENTS, WHEN IT FALLS INSIDE THE SLICE (Aug 2026, adding the Book of
+     Documents — the first book here whose edition divides a chapter into sections that Wikisource
+     gives pages of their own).
+
+     Where a book of the Shû is printed in sections, the book's page carries Legge's headnote and then
+     a `wst-auxtoc` block — a heading reading "Sections (containing the body text)" over links to
+     them. That is navigation between wiki pages and no part of Legge, and it sits INSIDE
+     prp-pages-output, so the slice takes it. Left alone the generic div pass turns it into two
+     quotations under the headnote: a heading-shaped block and a list of the words "Section 1 Section
+     2 Section 3", standing where the document should begin. The usual quiet failure — nothing throws
+     and no prose is lost.
+
+     The rule is the page's OWN marker rather than a guess at its wording, in the same spirit as the
+     ws-noexport pass above: `wst-auxtoc` means an auxiliary table of contents, which is exactly the
+     question being asked. Removal is BALANCED, because the block nests a header div and a poem div
+     inside it and a non-greedy match would take the opener and leave both standing.
+
+     GATED per book so it is provably inert on everything already shipped, which is the discipline
+     this file's history asks for on any edit to cleanBody — the extractor is shared and its other
+     callers have been proof-read by readers. */
+  if (book && book.dropAuxToc) {
+    for (let k = 0; k < 8; k++) {
+      const m = /<div class="[^"]*\bwst-auxtoc\b[^"]*"[^>]*>/.exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "div");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
   /* Drop the WRAPPER's own opening tag before the generic div→blockquote pass below, which would
      otherwise turn the container that holds the whole letter into a quotation of the whole letter —
      every paragraph indented behind a rule and set in italic, which is not what Seneca is doing. Its
@@ -4606,7 +5893,39 @@ function cleanBody(h, noteIds, book, warn) {
      prose. That is the Meditations' fault again (the chapter comes through LONGER rather than shorter,
      so every count reads as healthy), and it costs nothing on a page that has the wrapper, since the
      wrapper opens before the list it contains. */
-  b = b.split(/<div class="reflist|<hr class="wst-rule"|<ol class="references"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  /* …and a FIFTH boundary, for the Footnotes label dressed as a PAGE BREAK rather than as a heading
+     (Aug 2026, adding the Prose Edda). Every earlier book emits it as
+     `<div class="mw-heading…"><h2 id="Footnotes">`; Brodeur's pages emit `<span id="Footnotes">`
+     nested inside a `wst-pagebreak` span, so all four guards above missed it. The reflist div that
+     follows still cut the notes off, so the only survivor was the bare word "Footnotes" left hanging
+     at the end of two chapters — the quiet shape once more: nothing throws, the note list is right,
+     every marker resolves, the chapter is the correct length to within a word, and only a reader
+     scrolling to the foot of Gylfaginning ever meets it.
+
+     TWO NARROWER PATTERNS WERE TRIED FIRST AND BOTH WERE WRONG, which is why this one is shaped as it
+     is. Matching the id on any element (`<[a-z0-9]+ id="Footnotes"`) looks like the tidy
+     generalisation and REPLACES the fourth guard rather than joining it: measured against the shipped
+     Meditations, it fires 36 characters LATER than the old pattern, because the old one cuts at the
+     wrapper div and this one at the h2 inside it — leaving `<div class="mw-heading…">` behind to
+     become a stray empty blockquote under the last line of all twelve books, which is the Republic's
+     documented fault exactly. And cutting at `wst-pagebreak` alone is too WIDE: that class names a
+     page break rather than the apparatus, so on an edition that breaks pages mid-chapter it would cut
+     the text in half. So the fourth guard is left untouched and this one matches the pagebreak
+     wrapper ONLY where the Footnotes id is inside it, which cuts the whole wrapper and can fire
+     nowhere else. Verified against the shipped Seneca, Meditations and Peloponnesian War pages: the
+     cut lands at exactly the same offset as before on every one.
+
+     THE OPTIONAL `<p>` IS NOT DECORATION. MediaWiki wraps this label in a paragraph of its own —
+     `<p><style…/><span class="wst-pagebreak">…</span></p>`, the style already gone by the time this
+     runs — so cutting at the span alone leaves that paragraph's OPENER behind with its closer on the
+     far side of the cut. stripTags' stack then waits for a `</p>` that never comes, and every closing
+     tag after it is matched against the wrong frame: the third `<p>` imbalance this file has
+     recorded, and invisible except by counting a tag against its closer over the shipped data, which
+     is the sweep prescribed after any change near this pass. Measured here: 136 openers against 135
+     closers in Gylfaginning and 463 against 462 in Skáldskaparmál, and zero after. */
+  b = b.split(
+    /<div class="reflist|<hr class="wst-rule"|<ol class="references"|<div class="mw-heading[^"]*"><h2 id="Footnotes"|(?:<p>\s*)?<span class="wst-pagebreak[^"]*"[^>]*>(?=(?:\s*<[^>]*>)*\s*<span id="Footnotes")/
+  )[0];
   /* THE TRANSCRIPTION'S OWN SECTION HEADINGS, dropped like a running head and for a sharper reason
      (Aug 2026, adding the Peloponnesian War). Crawley's books are broken up by summary headings — "The
      State of Greece from the earliest Times to the Commencement of the Peloponnesian War" and four
@@ -4809,6 +6128,23 @@ function cleanBody(h, noteIds, book, warn) {
     return i < 0 ? '<sup class="fn"></sup>' : '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
   });
   b = b.replace(/<sup id="cite[^"]*" class="reference">[\s\S]*?<\/sup>/g, '<sup class="fn"></sup>');
+  /* VERSE SET AS A DEFINITION LIST, which is a shape this shelf had not met (Aug 2026, adding the
+     Prose Edda). Snorri quotes skaldic stanzas as EVIDENCE — several to a chapter, some hundreds
+     across the book — and they are the one thing in it that must not read as prose, since the whole
+     argument of Skáldskaparmál is about how the lines are built. Wikisource sets them as
+     `<dl><dd>line</dd><dd>line</dd></dl>`, and neither `dl` nor `dd` is in ALLOWED, so stripTags
+     unwraps both and every stanza arrives as one run-on sentence. The usual quiet shape: nothing
+     throws, not a word is lost, the chapter is exactly the right length, and only LOOKING at the
+     rendered page shows it — which is how it was found, the golden rule's "it isn't finished until
+     it has been looked at" earning its keep again.
+
+     Converted to the shape the shelf already uses for verse — a blockquote of one paragraph whose
+     lines are divided by `<br>`, which is what Seneca's quoted poetry ships as — so it needs no
+     reader-side change and no new style. Gated per book, like `dropAuxToc` and `body: "plain"` and
+     for the same reason: `dd` is a definition list everywhere else and could be carrying something
+     other than verse in an edition nobody has looked at yet, so the rule can only fire on a book that
+     asks for it and is provably inert on the twenty-five already shipped. */
+  if (book && book.verse === "dl") b = verseFromLists(b);
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -4929,6 +6265,18 @@ function cleanBody(h, noteIds, book, warn) {
     }
   }
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
+  if (book && book.sections === "shu") b = markShuSections(b, warn);
+  if (book && book.sections === "edda") b = markEddaSections(b, warn);
+
+  /* ONE SECTION FOR THE WHOLE CHAPTER, for an edition whose chapter IS the unit both columns are
+     cited by — a single poem, printed on a page of its own on each wiki. There is nothing inside it
+     that both texts number, so the marker goes at the head and carries the chapter's own number,
+     which app.js then pairs on. Written here rather than left implicit because a chapter with no
+     marker at all falls to the unnumbered path and pairs only while both sides happen to hold
+     exactly one leading block — true today and an accident, not a rule. */
+  if (book && book.sections === "whole" && book.mark != null) {
+    b = '<p><span class="bk-n" data-n="' + book.mark + '">' + book.mark + "</span></p>" + b;
+  }
   return b;
 }
 
@@ -5923,6 +7271,466 @@ function extractLaissesFr(pages, warn) {
   return out;
 }
 
+/* ---------- A POEM IN FITTS, PAIRED ON ITS PRINTED LINE NUMBERS ----------
+   Aug 2026, adding Beowulf — the twenty-second book, and the tenth layout. Both columns are one
+   wiki page per fitt, which is the ordinary walk; what is new is the PAIRING UNIT. Every earlier
+   book pairs on a unit its editions DIVIDE into — a letter, a chapter, a Stephanus page, a laisse.
+   Beowulf's editions divide into fitts, but a fitt is 50–140 lines, so pairing there would set one
+   whole column-page beside another and the facing page would be useless. What both editions state
+   far more finely is the LINE, printed in the margin every fifth line, and a line number is also
+   how any passage of Beowulf is cited in any language. So the fitt is the CHAPTER and the printed
+   line number is the SECTION — the first book here where those are two different things by design
+   rather than by accident.
+
+   THREE THINGS MEASURED BEFORE ANY OF IT WAS BELIEVED, over all 85 cached pages:
+
+   · THE TWO EDITIONS AGREE ON 636 MARKERS EACH, over an identical range (5 to 3180), with no
+     duplicate on either side. 40 of the 42 chapters pair exactly.
+
+   · SIX PRINTED NUMERALS ARE SLIPS, and the way to tell a slip from a real divergence is the
+     RE-SYNC, which is the Bhagavad Gita's rule met on a second book. Each of the six breaks a run
+     that is otherwise a clean +5 and the very next marker is correct again — 1696 for 1695, 2216
+     for 2215, 2885 for 2835, 2580 for 2850, 22975 for 2975, 3035 for 3065. Had the extractor been
+     cutting wrongly, every marker after the first would have disagreed instead of one. They are
+     repaired forward-only and each is named on every run, as the Song of Roland's two malformed
+     numerals are: this restores the printed page rather than composing anything, but it is a
+     repair, so it is said out loud.
+
+   · THE ONE REAL DIVERGENCE IS A FITT BOUNDARY, and it is the Antigone case again. Wyatt opens
+     fitt XXV at line 1740 and Gummere carries 1740 at the end of his XXIV, so that single block
+     draws in one column beside an empty cell in the other, twice — 2 half-empty rows out of 637.
+     Recorded rather than repaired: closing it would set a passage beside one that is not it.
+
+   AND THE MANUSCRIPT HAS NO FITT XXX. Both editions run ...XXVIII, [XXIX], XXXI... — the scribe's
+   own numbering skips it and no line is missing, which the continuous line ranges prove (Wyatt:
+   XXVIII 1963–2038, [XXIX] 2039–2143, XXXI 2144–2220). Wyatt supplies [XXIX] in square brackets
+   because the manuscript does not number that section either; Gummere does not break there at all,
+   running his XXVIII across both. So the chapter numbers here carry the gap the editions carry, and
+   Wyatt's [XXIX] is FOLDED INTO CHAPTER 28 so the two columns divide alike. Measured after folding:
+   36 markers on each side of that chapter, 1965 to 2140. */
+
+/* A printed line number, in the two shapes these transcriptions use: `wst-pline` on 84 of the 85
+   pages and `ws-poem-versenum` on the one page set with the ppoem template (Wyatt's prelude, the
+   only page in either edition transcribed that way). Anchored on digits, which is what keeps the
+   FOLIO references out: Wyatt marks those `wst-pline wst-pline-r` — the same class as a line number,
+   differing only in which margin it floats to — so a class-only test would take "Fol. 175a." for a
+   section number. They are dropped further down instead, once the numbers have been read. */
+const FITT_STEP = 5;
+const FITT_MARK =
+  /<span[^>]*class="[^"]*(?:\bwst-pline\b|\bws-poem-versenum\b)[^"]*"[^>]*>\s*(\d+)\s*<\/span>/g;
+
+/* The verse body, sliced and stripped of the wiki's own furniture. cleanBody's opening moves, done
+   here rather than borrowed, for the reason extractLaisses gives: that pass is written for prose and
+   its generic div-to-blockquote rule would turn this poem's structure into quotations. */
+function fittBody(h, where) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 8; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  const i = b.indexOf('<div class="prp-pages-output');
+  if (i < 0) throw new Error(where + ": no body — the page's markup has changed");
+  return b.slice(i).replace(/<ol class="references">[\s\S]*$/, "");
+}
+
+/* Read the numbers off the margin and rewrite them as the shelf's own section markers, carrying the
+   count forward. A value that does not continue the run is accepted where it still moves forward by
+   a whole number of lines, and otherwise read as the place the sequence puts it — with a warning
+   naming the fitt and both numbers, so a seventh slip cannot appear unnoticed. */
+function markFittLines(b, warn, where) {
+  let last = null, n = 0;
+  const out = b.replace(FITT_MARK, (all, raw) => {
+    let v = parseInt(raw, 10);
+    if (last !== null) {
+      const want = last + FITT_STEP;
+      const forward = v > last && (v - last) % FITT_STEP === 0 && v - last <= FITT_STEP * 5;
+      if (v !== want && !forward) {
+        warn(where + ": line number " + v + " is printed where the sequence gives " + want +
+             " — read as " + want + ", which is where the run puts it");
+        v = want;
+      }
+    }
+    last = v; n++;
+    return '<span class="bk-n">' + v + "</span> ";
+  });
+  if (!n) warn(where + ": no line numbers found");
+  return { html: out, count: n };
+}
+
+/* One fitt's verse as the single paragraph the shelf's other verse books emit — the lines separated
+   by <br>, each printed line number a .bk-n marker where it stands. Ovid, Lucretius and the Song of
+   Roland already render exactly this, so a poem in fitts needs no styling of its own.
+
+   STRIP THE WHOLE FITT BEFORE SPLITTING IT INTO LINES, which is the Song of Roland's rule and the
+   reason it is written down there: stripTags balances openers against closers on a stack, so a
+   fragment holding a <p> whose </p> lives in the next fragment is unbalanced on its own and the
+   opener survives into the output. */
+function fittHtml(b, warn, where) {
+  /* A line is blank when nothing but spacing entities is left of it — the transcriptions leave a
+     `&#32;` where the scan's page marker stood, and one at the foot of most fitts. */
+  const bare = (s) => s.replace(/<sup class="fn"[^>]*><\/sup>/g, "")
+                       .replace(/&#32;|&#160;|&nbsp;|&#8195;/g, " ").replace(/\s+/g, " ").trim();
+  const lines = stripTags(b)
+    .replace(/<\/?p\b[^>]*>/g, "<br>")
+    .split(/<br\s*\/?>/)
+    .map((s) => s.replace(/[ \t]+/g, " ").trim())
+    .filter((s) => bare(s) !== "");
+
+  /* DROP THE PRINTED HEADING, and carry its footnote marker down rather than deleting it. Each fitt
+     opens with its own numeral — "XXIII", "XXIII." in the Old English, "[XXXIX.]" where the editor
+     supplies a number the manuscript lacks — and the first opens on the poem's title instead. All of
+     it duplicates the chapter tab above it, so it goes, exactly as dropHeads takes a running head off
+     the top of a chapter elsewhere here.
+
+     THE MARKER IS THE WHOLE CARE IN THE RULE. Gummere's fitt XXXI carries a footnote ON its heading
+     numeral and the Old English title carries another, so a rule that simply dropped the line would
+     delete a marker while its note stayed in the list — an entry no sentence opens, which is the
+     mirror of the dead marker the apparatus already refuses to draw. The markers are moved to the
+     head of the line below instead, which is where that note's subject now begins. Anchored to the
+     FIRST line only, so a numeral occurring anywhere else in the verse is untouched. */
+  if (lines.length) {
+    const t = bare(lines[0]);
+    if (/^\[?[IVXL]+\.?\]?$/.test(t) || /^BEOWULF\.?$/i.test(t)) {
+      const carried = (lines[0].match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+      lines.shift();
+      if (carried && lines.length) lines[0] = carried + lines[0];
+      else if (carried) warn(where + ": the heading carried a footnote marker and has no line to carry it to");
+    }
+  }
+
+  if (!lines.length) warn(where + " came through with no lines");
+  return "<p>" + lines.join("<br>") + "</p>";
+}
+
+/* One fitt page, cleaned into { html, notes }. The notes are this chapter's own, in the order their
+   markers appear, and a marker carries the note it POINTS AT rather than its position in the queue —
+   Seneca's `data-fn` lesson, and it is live here rather than theoretical: these editions cite several
+   notes twice over, so numbering by reading order would run past the end of the list. */
+function extractFitt(h, warn, where) {
+  const { notes, ids } = notesOf(h);
+  let b = fittBody(h, where);
+
+  const local = [], seen = {};
+  b = b.replace(
+    /<sup[^>]*class="reference"[^>]*>\s*<a href="#(cite[^"]*)"[^>]*>[\s\S]*?<\/a>\s*<\/sup>/g,
+    (all, ref) => {
+      const key = ref.replace(/&#95;/g, "_");
+      const k = ids.indexOf(key);
+      if (k < 0) { warn(where + ": a marker points at no note and has been dropped"); return ""; }
+      if (!seen[key]) { local.push(notes[k]); seen[key] = local.length; }
+      return '<sup class="fn" data-fn="' + seen[key] + '"></sup>';
+    }
+  );
+
+  const marked = markFittLines(b, warn, where);
+  b = marked.html;
+
+  /* The caesura — the gap that divides an alliterative half-line, and a real feature of the metre
+     rather than decoration. These transcriptions set it two ways (`wst-cesura`, whose text is
+     already two em spaces, and `wst-gap`, an inline-block whose text is a newline), so both become
+     the same pair of em spaces and the printed page's shape survives the tag strip. */
+  b = b.replace(/<span[^>]*class="[^"]*\b(?:wst-cesura|wst-gap)\b[^"]*"[^>]*>[\s\S]*?<\/span>/g,
+                "&#8195;&#8195;");
+
+  /* What is left wearing a line-number class is a FOLIO reference — Wyatt's note of where the
+     manuscript leaf turns, which is apparatus and not verse — and the scan's own page markers go
+     with it, as they do in every other book here. */
+  b = b.replace(/<span[^>]*class="[^"]*\bwst-pline\b[^"]*"[^>]*>[\s\S]*?<\/span>/g, "");
+  for (const cls of ["pagenum", "ws-poem-linenum"]) {
+    for (let k = 0; k < 400; k++) {
+      const m = new RegExp('<span[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
+  b = b.replace(/<link\b[^>]*>/g, "");
+
+  return { html: fittHtml(b, warn, where), notes: local, marks: marked.count };
+}
+
+/* ---------- THE POETIC EDDA: NUMBERED STANZAS WITH PROSE LINKS BETWEEN THEM ----------
+   Aug 2026, adding the Poetic Edda — the twenty-eighth book, and the eleventh layout. The ordinary
+   wiki walk, one page per chapter; what is new is the SHAPE OF A CHAPTER'S BODY. Every verse book
+   before it is verse all the way down — Ovid, Lucretius, the Song of Roland, Beowulf — so the reader
+   can flatten the page into lines and be done. An Eddic poem is not: the manuscript sets stanzas of
+   verse with PROSE NARRATIVE LINKS between them, sometimes a sentence and sometimes a page, and two
+   of the thirty-five pieces are prose from beginning to end. Flattening would print those passages
+   as broken verse and the poem as one undifferentiated block.
+
+   So this reader WALKS the body in order and keeps each block as what it is: a stanza becomes a
+   paragraph of <br>-joined lines with its number as a section marker, a prose link stays a paragraph,
+   and a centred line stays a centred block. That last is the part it would be easy to get wrong —
+   see the heading rule below.
+
+   THE PAIRING UNIT IS THE STANZA, and it is not a choice. "Völuspá 21" is how any passage of this
+   book is cited in any language, in every edition and every reference work; the poem is the chapter
+   and the printed stanza number is the section, which is Beowulf's shape one level coarser.
+   Measured over all thirty-five pages before it was believed: 1,564 stanza numbers, every verse poem
+   running a clean 1..N with no gap and no duplicate, and not one leaf of the scan untranscribed.
+
+   FOUR THINGS IT SETTLED ARE WORTH CARRYING.
+
+   · A CLASS NAMED FOR A LINE NUMBER MAY HOLD A FOOTNOTE MARKER, and Beowulf's rule for that class is
+     the exact opposite of the right one here. There the `ws-poem-linenum` float is apparatus — a
+     folio reference — and is DROPPED; in this transcription it is used once in the whole book, in
+     Sigrdrifumol, and what it holds is a reference marker and nothing else. Dropping it would delete
+     the marker while its note stayed in the list, which is an entry no sentence opens — the fault
+     Beowulf's dropFittHead exists to avoid, met from the other side. So it is UNWRAPPED rather than
+     dropped, and a span that ever holds anything but markers is reported before its contents are
+     kept. Measured over the whole book: one such span, containing one marker.
+
+   · A NOTE IS CITED MORE THAN ONCE HERE, so Seneca's `data-fn` lesson is live rather than
+     theoretical: 1,373 markers against 1,345 notes. Numbered by reading order the last 28 markers of
+     the affected chapters would point one entry too far and those past the end would be DELETED by
+     wireFootnotes. The marker carries the note it points AT, as everywhere else on this shelf.
+
+   · NOT EVERY CENTRED BLOCK IS A RUNNING HEAD. The obvious rule — drop the centred block at the top,
+     as dropHeads does everywhere else — is right for the title and wrong for five of the poems,
+     because this edition ALSO centres its internal divisions: Svipdagsmol's two constituent poems
+     (Grougaldr and Fjolsvinnsmol), the numbered prose sections of the two Helgi lays, and the
+     fragment embedded in Hyndluljoth. Those are the edition's own structure and dropping them would
+     silently take it off the page. So only ONE line goes — the poem's own name, which duplicates the
+     chapter tab — and it is identified by matching its TEXT against the tab rather than by its
+     position, with a warning when it fails to match. Everything else centred is kept.
+
+   · AND THE INTRODUCTORY NOTE STAYS. Bellows heads each poem with a page or two on its manuscript,
+     its date, its condition and its relation to the rest — a headnote bound to the text, which is
+     Legge's case in the Book of Documents rather than the Republic's fifty-page introduction that
+     was left behind. It carries no stanza number, so app.js files it in the unnumbered row above
+     stanza 1, which is where a headnote belongs. */
+
+/* The verse body, sliced and stripped of the wiki's own furniture. cleanBody's opening moves, done
+   here rather than borrowed, for the reason fittBody gives: that pass is written for prose and its
+   generic div-to-blockquote rule would turn every stanza of this poem into a quotation. */
+function eddaBody(h, where) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 12; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  const i = b.indexOf('<div class="prp-pages-output');
+  if (i < 0) throw new Error(where + ": no body — the page's markup has changed");
+  /* The wrapper occurs several times on these pages — a fresh one wherever the run of scan pages is
+     interrupted — so the opener is stripped globally and the notes are cut at the list, which is the
+     Republic's rule and the reason it is written down there. */
+  return b.slice(i).replace(/<ol class="references">[\s\S]*$/, "");
+}
+
+/* Rewrite one class of div into a pair of allowed tags, matched with depth so a nested block cannot
+   close the outer one. `open`/`close` empty drops the block and everything in it. */
+function eddaRewriteDiv(b, cls, open, close) {
+  const rx = new RegExp('<div[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>');
+  let out = "", i = 0;
+  for (let guard = 0; guard < 20000; guard++) {
+    const m = rx.exec(b.slice(i));
+    if (!m) break;
+    const start = i + m.index;
+    const end = blockEnd(b, start, "div");
+    if (end < 0) break;
+    const inner = b.slice(start + m[0].length, end - "</div>".length);
+    out += b.slice(i, start) + (open || close ? open + inner + close : "");
+    i = end;
+  }
+  return out + b.slice(i);
+}
+
+/* The printed stanza numbers, rewritten as the shelf's own section markers. The number is set in a
+   float of its own and OFTEN CARRIES THE STANZA'S FOOTNOTE MARKER INSIDE IT — 1,000-odd of the 1,564
+   do — so the span's contents are read rather than discarded and the marker is re-emitted after the
+   section mark, which is where the printed page puts it.
+
+   Numbered forward-only, the Analects' rule: a numeral is taken where it moves the count on and read
+   as the place the sequence puts it where it does not, with a warning naming the poem and both
+   numbers. Measured over all thirty-five pages it never fires — every verse poem runs a clean 1..N —
+   which is what makes it a guard against a transcription changing under us rather than a repair. */
+function markEddaStanzas(b, warn, where, prose) {
+  const rx = /<span class="ws-poem-versenum"[^>]*>/;
+  let out = "", i = 0, seq = 0, n = 0;
+  for (let guard = 0; guard < 20000; guard++) {
+    const m = rx.exec(b.slice(i));
+    if (!m) break;
+    const start = i + m.index;
+    const end = blockEnd(b, start, "span");
+    if (end < 0) break;
+    const inner = b.slice(start + m[0].length, end - "</span>".length);
+    const carried = (inner.match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+    const raw = inner.replace(/<[^>]*>/g, "").replace(/&#\d+;/g, "").trim();
+    const hit = /^(\d+)/.exec(raw);
+    let mark = "";
+    if (!hit) {
+      warn(where + ': a stanza number reading "' + raw.slice(0, 20) + '" could not be read — ' +
+           "its stanza will not be numbered");
+    } else {
+      let v = parseInt(hit[1], 10);
+      if (v <= seq) {
+        warn(where + ": stanza " + v + " is printed where the sequence gives " + (seq + 1) +
+             " — read as " + (seq + 1) + ", which is where the run puts it");
+        v = seq + 1;
+      }
+      seq = v; n++;
+      mark = '<span class="bk-n">' + v + "</span> ";
+    }
+    out += b.slice(i, start) + mark + carried;
+    i = end;
+  }
+  out += b.slice(i);
+  /* A CHAPTER WITH NO STANZA NUMBER IS NORMALLY A FAULT AND HERE IT IS SOMETIMES A FACT: two of the
+     thirty-five pieces are prose from beginning to end, being the manuscript's narrative bridges
+     rather than poems, so they have nothing to number. They are named in the entry and pass without
+     a warning, because a warning that fires on a known fact is one nobody reads. Any OTHER chapter
+     arriving unnumbered still says so. */
+  if (!n && !prose)
+    warn(where + ": no stanza numbers found — the chapter will pair as one whole block");
+  if (n && prose)
+    warn(where + " is declared as prose in the entry and carries " + n + " stanza numbers");
+  return { html: out, count: n };
+}
+
+/* DROP THE POEM'S OWN NAME, which duplicates the chapter tab, and NOTHING ELSE THAT IS CENTRED.
+   Matched on the line's TEXT against the tab rather than on its position, because five of the poems
+   centre their internal divisions too and those are the edition's structure; see the heading rule in
+   the block comment above. A line carrying a footnote marker has it carried down rather than deleted
+   with it — measured, none does, and the guard is the cheap half of the rule Beowulf learned the
+   expensive way. */
+function dropEddaTitle(b, title, warn, where) {
+  const norm = (s) => s.replace(/<[^>]*>/g, "").replace(/&#\d+;|&nbsp;/g, " ")
+                       .replace(/[^A-Za-zÀ-ÿ0-9]+/g, "").toUpperCase();
+  const want = norm(title);
+  const rx = /<p>[\s\S]*?<\/p>/g;
+  let m, hit = -1, len = 0, carried = "";
+  while ((m = rx.exec(b))) {
+    if (norm(m[0]) !== want) continue;
+    hit = m.index; len = m[0].length;
+    carried = (m[0].match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+    break;
+  }
+  if (hit < 0) {
+    warn(where + ": the poem's own name was not found at the head of the page and nothing was " +
+         "dropped — the tab and the first line may now say the same thing twice");
+    return b;
+  }
+  if (carried)
+    warn(where + ": the title line carried a footnote marker, which has been carried down to the " +
+         "line below rather than deleted with it");
+  return b.slice(0, hit) + carried + b.slice(hit + len);
+}
+
+/* One poem, assembled. Blocks in the order the page sets them: a stanza is a paragraph of lines, a
+   prose link is a paragraph, a centred division is a block of its own.
+
+   STRIP THE WHOLE POEM BEFORE TIDYING IT, which is the Song of Roland's rule: stripTags balances
+   openers against closers on a stack, so a fragment holding a <p> whose </p> lives in the next
+   fragment is unbalanced on its own and the opener survives into the output. */
+function eddaHtml(b, title, warn, where) {
+  /* The stanza is the one block that has to become something else: a div the tag strip would unwrap,
+     leaving its lines to run into the prose around them. Rewritten FIRST and by its full class name,
+     since `\bws-poem\b` also matches inside `ws-poem-stanza` — the outer container needs no rule at
+     all, the tag strip unwrapping it exactly as intended. */
+  b = eddaRewriteDiv(b, "ws-poem-stanza", "<p>", "</p>");
+  b = eddaRewriteDiv(b, "wst-center", "<blockquote>", "</blockquote>");
+  for (const cls of ["wst-rule", "wst-dhr"]) b = eddaRewriteDiv(b, cls, "", "");
+  b = dropEddaTitle(b, title, warn, where);
+
+  /* `&#32;` IS A SPACE AND NOTHING ELSE — the transcription leaves one wherever the scan's page
+     marker stood, several to a poem and one at the foot of most of them. It is turned back into a
+     space here so that the emptiness test below can see through it; the em spaces are NOT touched,
+     being the caesura and a feature of the metre. */
+  let s = stripTags(b).replace(/&#32;/g, " ");
+  /* Text is blank when nothing but spacing and markers is left of it. The em spaces are deliberately
+     NOT counted as spacing: a stanza line that is nothing but a caesura is still a line. */
+  const bare = (x) => x.replace(/<sup class="fn"[^>]*><\/sup>/g, "")
+                       .replace(/&#160;|&nbsp;|​/g, " ").replace(/\s+/g, " ").trim();
+  /* THE LINE SWEEP RUNS ON A BLOCK'S CONTENTS, NEVER ACROSS ITS TAGS, and that is the whole care in
+     it. A stanza ends on a line break before its closing tag, so splitting the block WITH its tags
+     leaves `</p>` alone in the last fragment — which is blank by any text test, and dropping it
+     takes the closing tag with it. Nothing throws, the words are all present, and the paragraph
+     simply never closes: the quiet shape this extractor keeps meeting, caught here by counting a tag
+     against its closer over the output. `<p>` does not nest, so the non-greedy match is safe inside
+     a blockquote as well as outside one. */
+  s = s
+    .replace(/<p>([\s\S]*?)<\/p>/g, (all, inner) => {
+      const lines = inner
+        .split(/<br\s*\/?>/)
+        .map((x) => x.replace(/[ \t]+/g, " ").trim())
+        .filter((x) => bare(x) !== "");
+      return lines.length ? "<p>" + lines.join("<br>") + "</p>" : "";
+    })
+    /* A centred block emptied by that sweep goes with it — as does one that only ever held the
+       poem's own name, which dropEddaTitle has just taken out. */
+    .replace(/<blockquote>([\s\S]*?)<\/blockquote>/g, (all, inner) => (bare(inner) ? all : ""))
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+  if (!s) warn(where + " came through with no text at all");
+  return s;
+}
+
+/* One poem's page, cleaned into { html, notes, marks }. The notes are this chapter's own, in the
+   order their markers appear, and a marker carries the note it POINTS AT rather than its position in
+   the queue — live here rather than theoretical, since this edition cites several notes twice over
+   and numbering by reading order would run past the end of the list. */
+function extractEdda(h, title, warn, where, prose) {
+  const { notes, ids } = notesOf(h);
+  let b = eddaBody(h, where);
+
+  const local = [], seen = {};
+  b = b.replace(
+    /<sup[^>]*class="reference"[^>]*>\s*<a href="#(cite[^"]*)"[^>]*>[\s\S]*?<\/a>\s*<\/sup>/g,
+    (all, ref) => {
+      const key = ref.replace(/&#95;/g, "_");
+      const k = ids.indexOf(key);
+      if (k < 0) { warn(where + ": a marker points at no note and has been dropped"); return ""; }
+      if (!seen[key]) { local.push(notes[k]); seen[key] = local.length; }
+      return '<sup class="fn" data-fn="' + seen[key] + '"></sup>';
+    }
+  );
+
+  /* THE FLOAT NAMED FOR A LINE NUMBER HOLDS A MARKER HERE, so it is unwrapped rather than dropped —
+     see the block comment above. Anything else inside one is reported before it is kept, so a second
+     kind cannot arrive unnoticed. */
+  for (let k = 0; k < 400; k++) {
+    const m = /<span[^>]*class="[^"]*\bws-poem-linenum\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    const inner = b.slice(m.index + m[0].length, end - "</span>".length);
+    const rest = inner.replace(/<sup class="fn"[^>]*><\/sup>/g, "").replace(/<[^>]*>/g, "").trim();
+    if (rest)
+      warn(where + ': a line-number float held "' + rest.slice(0, 30) + '" as well as its markers — ' +
+           "kept, but this edition was measured as holding markers and nothing else");
+    b = b.slice(0, m.index) + inner + b.slice(end);
+  }
+
+  /* The caesura — the gap dividing an alliterative half-line, and a feature of the metre rather than
+     decoration. Set two ways here, as in Beowulf, so both become the same pair of em spaces and the
+     printed page's shape survives the tag strip. */
+  b = b.replace(/<span[^>]*class="[^"]*\b(?:wst-cesura|wst-gap)\b[^"]*"[^>]*>[\s\S]*?<\/span>/g,
+                "&#8195;&#8195;");
+
+  const marked = markEddaStanzas(b, warn, where, prose);
+  b = marked.html;
+
+  for (const cls of ["pagenum"]) {
+    for (let k = 0; k < 600; k++) {
+      const m = new RegExp('<span[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
+  b = b.replace(/<link\b[^>]*>/g, "");
+
+  return { html: eddaHtml(b, title, warn, where), notes: local, marks: marked.count };
+}
+
 /* ---------- A PLAY ON A WIKI PAGE: the tenth layout, and the first drama NOT from a TEI file ----------
    Aug 2026, adding Lysistrata — the fourth play here and the first comedy. The three tragedies before
    it are Perseus TEI, where the speaker of each speech is an element (`<sp>`/`<speaker>`) and the
@@ -6529,6 +8337,12 @@ function originalChapters(h, warn) {
    beside the whole of the English chapter. */
 function originalChapter(h, O, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  /* A PAGE TYPED ONTO THE WIKI RATHER THAN TRANSCLUDED FROM A SCAN has no `prp-pages-output` wrapper
+     at all, so the slice below returns -1 and this throws on a page holding the whole text. Falling
+     back automatically would be wrong for the same reason it is wrong on the translation side: a
+     proofread page HAS the parser's own container too, outside the transclusion wrapper, so an
+     automatic fallback would silently widen the slice of every scan-backed original the day this
+     wiki next moves its markup. Hence a per-book opt-in. */
   const i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
@@ -6592,7 +8406,10 @@ function originalChapter(h, O, warn) {
     return "";
   });
   b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
-  if (!head && warn) warn("no printed title found at the head of the chapter");
+  /* Only where the book actually declares a head to take. An edition that prints no chapter
+     heading at all has none to find, and warning once per chapter would bury the warnings that
+     mean something under one per ode. */
+  if (!head && warn && O.dropHead) warn("no printed title found at the head of the chapter");
   return { html: b, head: head };
 }
 
@@ -7689,6 +9506,58 @@ async function fetchEnglish() {
      is cached whole, exactly as a TEI file is, so --from/--to cost nothing and a re-extract needs no
      network at all; --force refetches it. `chapters` is filtered afterwards rather than before,
      because the cut has to see the whole sequence to number it. */
+  /* A POEM IN FITTS — the ordinary wiki walk, one page per chapter, with the pairing done a level
+     BELOW the chapter: see the FITTS block above extractFitt for why the line number rather than the
+     fitt is what the two columns are set against, and for the six misprinted numerals it repairs. */
+  if (BOOK.layout === "fitts") {
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = BOOK.chapterWord + " " + n;
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(2, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(BOOK.page(n)); fs.writeFileSync(cf, h); await sleep(900); }
+      const got = extractFitt(h, warn, where);
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+      console.log("  " + where + ": " + got.marks + " line numbers, " + got.notes.length + " notes (" +
+        (got.html.length / 1024).toFixed(1) + " KB)");
+    }
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + lines + " lines");
+    return writeEnglish(chapters, warnings);
+  }
+  /* A COLLECTION OF POEMS IN NUMBERED STANZAS — the ordinary wiki walk, one page per poem, with the
+     pairing done a level BELOW the chapter as it is for a poem in fitts. What is different is that a
+     chapter's body is verse and prose MIXED; see the block comment above extractEdda for why no
+     earlier verse reader here could take it, and for the line-number float that holds a footnote
+     marker rather than a line number. */
+  if (BOOK.layout === "eddapoem") {
+    let stanzas = 0;
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const t = titles[n] || chapterTitle(n);
+      const where = BOOK.chapterWord + " " + n + " (" + t + ")";
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(2, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(BOOK.page(n)); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); await sleep(1200); }
+      const got = extractEdda(h, t, warn, where, (BOOK.prose || []).includes(n));
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: t, p: partOf(n), html: got.html, notes: got.notes });
+      stanzas += got.marks;
+      console.log("  " + where + ": " + got.marks + " stanzas, " + got.notes.length + " notes (" +
+        (got.html.length / 1024).toFixed(1) + " KB)");
+    }
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length, 0);
+    console.log("  " + chapters.length + " poems, " + stanzas + " stanza numbers, " + lines + " verse lines");
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "laisses") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");
@@ -7764,8 +9633,20 @@ async function fetchEnglish() {
       chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: c.html, notes: c.notes || [] });
       continue;
     }
-    const h = await api(BOOK.page(n));
+    /* A CHAPTER MAY BE PRINTED ACROSS MORE THAN ONE WIKI PAGE (Aug 2026, adding the Book of
+       Documents). Every earlier book here is one page to one chapter, and `page(n)` returned a
+       string. Where Legge prints a book in sections, Wikisource gives each section its own page and
+       leaves the book's HEADNOTE — several paragraphs on who is speaking, when, and what the
+       document is for, and in Part V an introduction to the whole Part — on the book's page, which
+       carries no body text at all. Fetching only the sections would drop that prose on the floor;
+       giving it a chapter of its own would put an empty tab on the bar, since one of the four books
+       carries a title and nothing else.
+
+       So `page(n)` may return an ARRAY, and the pages are cleaned in order and joined. Returning a
+       string still means exactly what it always did, so no shipped book's config is touched. */
+    const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
+    const h = await api(pageNames[0]);
     let html, notes, orig = "", tFromText = "";
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
@@ -7787,8 +9668,48 @@ async function fetchEnglish() {
          `sections: "bookchapter"` in cleanBody — Thucydides' chapter marks carry the book number as
          well as the chapter). Set only for that shape, so no other book's config is touched. */
       if (BOOK.sections === "bookchapter") BOOK.expect = n;
-      html = cleanBody(h, got.ids, BOOK, warn);
+      /* The number the single whole-chapter marker carries — the same channel `expect` uses, and
+         set per chapter for the same reason: cleanBody is handed the book, not the chapter. */
+      if (BOOK.sections === "whole") BOOK.mark = n;
+      const multi = pageNames.length > 1;
+      html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       if (keep) html = pruneNotes(html, keep);
+      /* THE REST OF A MULTI-PAGE CHAPTER. Each page is cleaned against its OWN note list, so the
+         second page's markers count from 1 again and would open the first page's notes. `data-fn` is
+         a one-based index into the chapter's notes, so every marker after the first page is shifted
+         by the number of notes already gathered — which is the Seneca lesson (a marker must carry the
+         note it points AT) applied across a join rather than across a reused note.
+
+         Measured on the book that introduced this: the four pages joined here carry no notes at all,
+         so the offset is provably zero on every chapter that uses it today. It is written anyway,
+         because a silent mis-numbering is exactly what this file keeps finding, and the arithmetic is
+         four lines. */
+      /* THE "no section numbers" WARNING IS A PROPERTY OF THE CHAPTER, NOT OF THE PAGE, and on a
+         multi-page chapter the per-page one is worse than useless: the book's own page carries a
+         headnote and no numbered text, so it fires on every such chapter whether or not the sections
+         that follow are numbered — three false alarms out of four, which is how a real one comes to
+         be scrolled past. So it is swallowed while the pages are being read and asked once at the
+         end, of the assembled chapter. */
+      const quiet = (m) => { if (!/^no section numbers found/.test(m)) warn(m); };
+      for (const extra of pageNames.slice(1)) {
+        await sleep(700);
+        const eh = await api(extra);
+        const eg = notesOf(eh);
+        const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
+        let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
+        if (ekeep) ehtml = pruneNotes(ehtml, ekeep);
+        const off = notes.length;
+        if (off) {
+          ehtml = ehtml.replace(
+            /<sup class="fn" data-fn="(\d+)"><\/sup>/g,
+            (m, d) => '<sup class="fn" data-fn="' + (+d + off) + '"></sup>'
+          );
+        }
+        html += "\n" + ehtml;
+        notes = notes.concat(eg.notes);
+      }
+      if (multi && BOOK.sections && !/class="bk-n"/.test(html))
+        warn("no section numbers found — the chapter will pair as one whole block");
     }
     /* THE FLOOR IS PER BOOK, because 200 characters is a broken chapter in every book here except
        one (Aug 2026, adding Aesop's Fables). This guard is what catches an extraction that has
@@ -8109,12 +10030,17 @@ async function fetchOriginal() {
       else {
         const h = await api(O.page(n), O.wiki);
         rec = originalChapter(h, O, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
-        if (rec.html.length < 200)
+        if (rec.html.length < (O.minChars || 200))
           throw new Error(BOOK.chapterWord + " " + n + " came back short (" + rec.html.length + " chars)");
         fs.writeFileSync(cf, JSON.stringify(rec));
         await sleep(1200);   // this wiki rate-limits a fast walk harder than the English one
       }
-      byNum[n] = rec.html;
+      /* The same single marker the translation carries, and it must be written on BOTH sides or the
+         two columns have nothing to pair on: app.js reads `bk-n`, and one column stating its number
+         while the other states none is exactly the case that pairs by luck. */
+      byNum[n] = BOOK.sections === "whole"
+        ? '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>" + rec.html
+        : rec.html;
       console.log("  " + BOOK.chapterWord + " " + n + " — " + (rec.html.length / 1024).toFixed(1) +
         " KB" + (rec.head ? " — " + rec.head : ""));
     }
@@ -8125,6 +10051,63 @@ async function fetchOriginal() {
      then cut as ONE sequence, because the numbering runs straight through them and six pages cut
      independently could not carry a count across a page boundary — which is exactly what the six
      unnumbered laisses need. Cached per page all the same, so a rate-limited run resumes. */
+  /* THE ORIGINAL IN FITTS — the same walk on the other edition, with one difference that is the
+     whole reason this branch exists rather than reusing the English one: Wyatt divides where the
+     manuscript does and Gummere does not always follow him, so a fitt of the original may belong
+     inside a chapter of the translation. `foldInto` says which, and the two are joined into one
+     paragraph so the chapter reads as the single run of verse it is. */
+  if (O.layout === "fitts") {
+    console.log("\nFetching the " + O.langName + " original — one page per " + BOOK.chapterWord.toLowerCase());
+    const fold = O.foldInto || {};
+    const parts = {}, marks = {};
+    const all = BOOK.chapters.concat(Object.keys(fold).map(Number)).sort((a, b) => a - b);
+    for (const n of all) {
+      const target = fold[n] != null ? fold[n] : n;
+      if (target < FROM || target > TO) continue;
+      const where = O.langName + " " + BOOK.chapterWord.toLowerCase() + " " + n;
+      const cf = path.join(cacheDir, "or-" + String(n).padStart(2, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(O.page(n), O.wiki); fs.writeFileSync(cf, h); await sleep(1200); }
+      const got = extractFitt(h, warn, where);
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      (parts[target] = parts[target] || []).push(got.html);
+      marks[target] = (marks[target] || 0) + got.marks;
+      console.log("  " + where + ": " + got.marks + " line numbers" +
+        (target !== n ? "  — folded into " + BOOK.chapterWord.toLowerCase() + " " + target : ""));
+    }
+    Object.keys(parts).forEach((k) => {
+      byNum[k] = parts[k].join("").replace(/<\/p>\s*<p>/g, "<br>");
+    });
+
+    /* THE PAIRING, CHECKED AGAINST THE FILES THAT SHIPPED rather than asserted from this entry — the
+       discipline the verse, drama, laisses and TEI branches all share. Both columns are read back out
+       of their own caches and cut again, so what is compared is what the two texts actually contain:
+       the chapter numbers, and then, one level down, the line numbers inside each chapter, which is
+       what app.js will actually pair on. A count agreeing is not a passage agreeing, so the markers
+       are compared as SETS and both directions are reported. */
+    const nums = (html) => (html.match(/class="bk-n">(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    let pairs = 0, onlyEn = [], onlyOr = [];
+    for (const n of BOOK.chapters) {
+      const enCache = path.join(CACHE, "en-" + String(n).padStart(2, "0") + ".html");
+      if (!fs.existsSync(enCache) || !byNum[n]) {
+        if (!byNum[n]) warn(BOOK.chapterWord.toLowerCase() + " " + n + " has no original");
+        continue;
+      }
+      const en = nums(extractFitt(fs.readFileSync(enCache, "utf8"), () => {}, "en " + n).html);
+      const or = nums(byNum[n]);
+      const se = new Set(en), so = new Set(or);
+      const missing = en.filter((v) => !so.has(v)), extra = or.filter((v) => !se.has(v));
+      onlyEn.push(...missing.map((v) => n + ":" + v));
+      onlyOr.push(...extra.map((v) => n + ":" + v));
+      if (!missing.length && !extra.length) pairs++;
+    }
+    console.log("  " + pairs + " of " + BOOK.chapters.length + " chapters pair exactly on every line number");
+    if (onlyEn.length) warn("line block(s) in the translation with no original: " + onlyEn.join(", "));
+    if (onlyOr.length) warn("line block(s) in the original with no translation: " + onlyOr.join(", "));
+    return writeOriginal(byNum, warnings);
+  }
   if (O.layout === "laisses") {
     console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
     const raw = [];

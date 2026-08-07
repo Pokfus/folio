@@ -90,7 +90,81 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently twenty: `seneca-letters`,
+  matter (chapter 0 — see the Library bullet). Currently twenty-seven:
+  `prose-edda` (~339 KB, the Prologue, Gylfaginning and Skáldskaparmál as **3 chapters**, 132 section
+  numbers, 177 notes — and the book that separates THE TAB from THE CITATION most sharply. Each of the
+  work's three parts restarts its chapter numbering at 1, so making the numbered chapter the tab would
+  mean renumbering 133 of them into one run and turning "Gylfaginning 44" into tab 50. The part is
+  therefore the chapter and the work's own chapter numbers are the SECTIONS — Herodotus's shape, chosen
+  for the citation rather than for the arithmetic, and the cost is three long chapters that are within
+  precedent rather than at it (173,000 characters against Herodotus's longest at 199,000).
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** `count` 3 against `total` 4 is the EDITION and not the
+  file: Háttatal is Snorri's own praise-poem demonstrating a hundred-odd metres, the least translatable
+  part of the book, and the 1916 volume's own contents page lists three parts and stops — read off that
+  page rather than inferred from the subpages that happen to exist. **A NUMBER CAN BE ROMAN AND WEAR TWO
+  COSTUMES IN ONE VOLUME**: Gylfaginning and Skáldskaparmál set a bold numeral WITH a stop run into the
+  first sentence, and the Prologue sets a CENTRED numeral with NO stop standing alone as its own block —
+  hence the seventh section shape, `sections: "edda"`, matching both in one sweep in reading order for
+  the Meditations' reason (run as two passes the first reaches 74 and the forward-only guard then
+  declines every one of the Prologue's). **And the Prologue's first chapter carries NO numeral, so none
+  is written**: checked on the scan, which sets the heading and then a drop-capital, so that tab's marks
+  run from II and the front matter says why. Composing a "1" would be composing an apparatus.
+  Its verse is the other lesson and it was found by LOOKING: Snorri quotes skaldic stanzas as evidence,
+  hundreds of them, and this transcription sets them as `<dl><dd>` lines that `stripTags` unwraps into
+  run-on prose — on a book arguing about how verse lines are built, the one thing that must not happen.
+  Nothing threw, no word was lost and every count read healthy; see `verseFromLists`, and note that
+  these lists NEST two deep, so a non-greedy `<dl>…</dl>` pair closes on the inner tag and leaves 34
+  unclosed blockquotes in one chapter),
+  `book-of-documents` (~444 KB, the whole of the received Shû — **59 chapters**, 169 section numbers,
+  283 notes — and the first book here whose CHAPTER IS PRINTED ACROSS MORE THAN ONE WIKI PAGE. Every
+  earlier wiki book is one page to one chapter; where Legge prints a book in sections, Wikisource gives
+  each section a page of its own and leaves the book's HEADNOTE — and at the head of a Part his
+  introduction to the whole Part — on the book's own page, which carries no body text. So `page(n)` may
+  return an ARRAY and the pages are cleaned in order and joined, with each later page's `data-fn` offset
+  by the notes already gathered (measured: the four pages joined here carry no notes, so the offset is
+  provably zero today, and it is written anyway because a silent mis-numbering is what this file keeps
+  finding). **THREE THINGS IT SETTLED ARE WORTH CARRYING.** The tabs count **59 where the Shû is
+  traditionally counted at 58 documents**, and the difference is a printing fact rather than an error:
+  Legge sets the Tribute of Yü in two sections that EACH restart their paragraph count at 1, so joining
+  them would put two paragraphs numbered 1 in one chapter — the edition's own division is followed and
+  the front matter says why, which is Beowulf's missing fitt XXX again. **A NUMBER'S MARKUP MATTERS LESS
+  THAN ITS WRAPPER**: this transcription writes Legge's paragraph numbers two ways, as plain text and as
+  an anchor span carrying the citation as its id, and by the time the section pass runs `stripTags` has
+  unwrapped the anchor so both have collapsed to the same plain "N." — the anchored form costs nothing,
+  which is the opposite of what it looks like. What DOES cost is that **MediaWiki only wraps a run of
+  text in `<p>` where the wikitext had a blank line before it**, so a document whose first paragraph
+  follows its headnote directly arrives as a BARE RUN: `markLeadingSections` finds 167 of the 169 and the
+  two it misses are the FIRST number of the Count of Wei and of the Announcement of the Duke of Shâo,
+  each of which would ship numbered from 2 with every word present and nothing throwing — hence the sixth
+  section shape, `sections: "shu"`. And **ELEVEN of the 59 carry no numbers at all**, which is the
+  edition rather than the extractor: they are the short documents Legge did not number, recorded rather
+  than repaired),
+  `beowulf` (~264 KB, all 42 chapters, **636 line numbers**, 310 notes — and the first book here whose
+  CHAPTER and whose PAIRING UNIT are two different things on purpose. Every earlier book pairs on a unit
+  its editions divide into; Beowulf's editions divide into fitts, but a fitt is 50–140 lines, so pairing
+  there would set one whole column-page beside another and the facing page would be useless. What both
+  editions state far more finely is the LINE, printed in the margin every fifth line — which is also how
+  any passage of Beowulf is cited in any language. So the fitt is the chapter and the printed line number
+  is the section, which is what the tenth layout (`layout: "fitts"`) exists for. **Ask what the two
+  editions state IN COMMON before assuming the pairing key is the thing they are divided into.**
+  Measured over all 85 pages before it was believed: **636 markers a side over an identical range, no
+  duplicate either way, and 40 of the 42 chapters pairing on every one of their line numbers** — which
+  after the constructed facing-page cases is the cleanest pairing on the shelf. **THREE FAULTS IT FOUND
+  ARE WORTH CARRYING.** The manuscript's numbering has **no fitt XXX** — both editions run ...XXVIII,
+  [XXIX], XXXI... — and *no line is missing where it skips*, which the continuous line ranges prove
+  (Wyatt: XXVIII 1963–2038, [XXIX] 2039–2143, XXXI 2144–2220); a reader meeting the gap in the tabs is
+  told why in the front matter rather than finding the chapters silently renumbered into a sequence the
+  poem has not got. **Six marginal numerals are misprinted** across the two editions and the way to tell
+  a slip from a real divergence is the Gita's RE-SYNC test: each breaks a run that is otherwise a clean
+  +5 and the very next marker is correct again, where a wrong cut would have disagreed on every marker
+  after the first. And **the two editions divide once at a different line** — Wyatt opens fitt XXV at
+  1740 where Gummere carries 1740 at the end of his XXIV — so that single block draws beside an empty
+  cell twice, 2 half-empty rows out of 637, recorded rather than repaired, which is the Antigone case
+  again. Its `dropFittHead` rule is where the care went: each fitt opens on its own numeral, which
+  duplicates the tab and so goes — but **Gummere's XXXI carries a footnote ON the heading numeral**, so
+  the marker is carried down to the line below rather than deleted with the line, or the note would have
+  stayed in the list with no sentence opening it),
+  `seneca-letters`,
   `bhagavad-gita` (~162 KB, all 18 discourses, **701 verses**, 303 notes — the THIRD facing-page book
   after the Art of War and the Analects, and the first whose verse numbers are complete on the
   ORIGINAL's side and damaged on the translation's, which is why it needed a ninth layout
@@ -236,7 +310,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently eighteen:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently nineteen:
+  `beowulf.ang.js` (~216 KB, all 42 chapters, all 636 of the translation's line numbers — A. J. Wyatt's
+  Cambridge text of 1894, made from Zupitza's photographic facsimile of the burnt manuscript, and the
+  first original here in **Old English** (`ang`). It is also the first whose own divisions had to be
+  FOLDED to match the translation's: Wyatt divides where the manuscript does and brackets a section
+  [XXIX] that Gummere runs on inside his XXVIII, so `foldInto` joins the two into one chapter and the
+  columns divide alike — the alternative being a chapter tab with an original and no translation, which
+  is worse than a long chapter. Measured after folding: 36 markers on each side of that chapter.
+  **Its licence is the shelf's first where the thing that cannot be established is a DATE rather than a
+  name** — see the Library bullet),
   `seneca-letters.la.js` (~862 KB, all 124 letters), `marcus-aurelius-meditations.grc.js` (~366 KB, all 12
   books, 486 sections), `sun-tzu-art-of-war.zh.js` (~34 KB, all 13 chapters — classical Chinese is terse,
   and this is the whole work), `ovid-metamorphoses.la.js` (~575 KB, all 15 books, 156 cards, 11,927
@@ -292,9 +375,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty books, eighteen originals**: the Republic, Aesop's Fables and Gilgamesh have none, and the reason
-  differs — the next paragraph's rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns,
-  while Gilgamesh fails a step earlier, there being no settled original text to face.
+  **Twenty-seven books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Prose Edda, Lysistrata and Shakuntala have none, and the reason differs — the
+  next paragraph's
+  rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
+  earlier, there being no settled original text to face.
+  **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
+  exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
+  to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
+  every point sampled. What blocks it is the LICENCE. A medieval text has to be edited from its manuscripts
+  before anyone can read it, and an editor's constituted text is a modern work with a modern copyright: the
+  only openly transcribed Old Norse Edda is Guðni Jónsson's (1901–1974), in copyright until 2044 and carried
+  on Wikisource by permission from heimskringla.no rather than because the copyright has run out, which is
+  not the ground this library serves books on. An edition whose copyright HAS expired would serve — Finnur
+  Jónsson's, or the Arnamagnæan of 1848–87 — and none is transcribed on any Wikisource, on Perseus or
+  anywhere else reachable (checked on the multilingual, Danish, Norwegian, German and Swedish Wikisources;
+  only the German has anything, and that is Simrock's German verse of 1876, not the Old Norse). So the shelf
+  now has three: one column silent (the Republic, fixable by a better transcription), both columns silent
+  (Aesop, not fixable at all), and **a column that speaks and may not be quoted** — which puts it with the
+  Loeb Republic that keeps Plato's Republic out of the Dialogues. Its Skáldskaparmál would have failed
+  anyway, and that is worth knowing before anyone retries: 74 chapters against 89, already apart by chapter
+  20 and about sixteen apart by the end, so pairing that part by number would set passages beside passages
+  that are not their counterparts. **Ask what a medieval original's EDITOR died, not only how old the work
+  is.** **The Book of Documents is the case where the
+  CHAPTER pairing is exact and the level below it has no key at all**: Chinese Wikisource carries every one
+  of the received 58 documents, so chapter for chapter the two columns match, but Legge numbers his
+  paragraphs and that transcription numbers nothing, and pairing by POSITION — the approach abandoned for
+  the Meditations' Greek — puts the two divisions together in only 8 of the 58. Measured, not assumed.
   **THE ONE QUESTION THAT DECIDES WHETHER A BOOK CAN HAVE AN ORIGINAL AT ALL** is not "does a text of it
   exist?" but **"does that text say which section each passage is?"** — because app.js pairs the two columns
   on the section NUMBER, never on paragraph or list order. **And the number need not be the unit the
@@ -618,6 +725,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reads all eighteen titles off the text — the second book to do so after Gilgamesh — and the
     capitals are kept for Aesop's reason. One is misspelt on the page and is kept as printed, recorded
     in the entry so it cannot later be read as an import fault.
+  **THE PAIRING UNIT NEED NOT BE THE UNIT THE BOOK IS DIVIDED INTO** (`layout: "fitts"` →
+  `extractFitt` / `fittBody` / `markFittLines` / `fittHtml` / `FITT_MARK`; Aug 2026, adding Beowulf —
+  the twenty-fourth book, and the tenth layout). Both columns are the ordinary wiki walk, one page per
+  chapter; what is new is a level BELOW the chapter. Every earlier book pairs on the unit its editions
+  divide into — a letter, a chapter, a Stephanus page, a laisse, a verse. Beowulf's editions divide into
+  fitts, but a fitt is 50–140 lines, so pairing there would set one whole column-page against another
+  and the facing page would be useless. What both editions state far more finely is the LINE, printed in
+  the margin every fifth line, and a line number is also how any passage of Beowulf is cited in any
+  language. So the fitt is the CHAPTER and the printed line is the SECTION. **Ask what the two editions
+  state IN COMMON, not what they are cut into.** Five things it settled:
+  · **MEASURE BOTH COLUMNS END TO END BEFORE CHOOSING THE KEY.** 636 markers a side over an identical
+    range, no duplicate either way, 40 of 42 chapters pairing on every line number. That is what makes
+    the two exceptions below statements about the editions rather than suspicions about the extractor.
+  · **A MISPRINTED NUMERAL IS TOLD FROM A BAD CUT BY THE RE-SYNC** — the Bhagavad Gita's rule on a
+    second book. Six numerals across the two editions break a run that is otherwise a clean +5 and the
+    very next marker is correct again; a wrong cut would have disagreed on every marker after the first
+    instead of one. Repaired forward-only and each named on every run, as the Song of Roland's two are.
+  · **THE SAME CLASS CAN MEAN TWO THINGS.** Wyatt marks his line numbers and his FOLIO references with
+    the same `wst-pline` class, differing only in which margin they float to, so a class-only test reads
+    "Fol. 175a." as a section number. `FITT_MARK` is anchored on digits and the folio marks are dropped
+    afterwards. And the reverse: **one page in 85 uses a different template altogether** — Wyatt's
+    prelude is set with `ppoem`, whose numbers are `ws-poem-versenum`, so a reader written for the other
+    84 finds that chapter unnumbered and silently unpairable. Both shapes are matched in one sweep.
+  · **DROPPING A HEADING CAN DROP A FOOTNOTE MARKER.** Each fitt opens on its own numeral, which
+    duplicates the chapter tab and so goes — but Gummere's XXXI carries a footnote ON that numeral and
+    the Old English title carries another, so the markers are carried down to the line below rather than
+    deleted with the line. Otherwise the note stays in the list with no sentence opening it, which is
+    the mirror of the dead marker the apparatus already refuses to draw.
+  · **AN ORIGINAL MAY HAVE TO BE FOLDED TO MATCH THE TRANSLATION** (`foldInto`). Wyatt divides where the
+    manuscript does and brackets a section [XXIX] that Gummere runs on inside his XXVIII; folding the
+    two into one chapter is what keeps the columns dividing alike, the alternative being a chapter tab
+    with an original and no translation.
   **A WHOLE BOOK MAY ARRIVE ON ONE PAGE, and then the chapters are CUT rather than walked**
   (`layout: "laisses"` → `extractLaisses` / `extractLaissesFr` / `laisseHtml` / `laisseNumber` /
   `dropLineNumbers`; Aug 2026, adding the Song of Roland — the seventeenth book, and the eighth
@@ -701,6 +840,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     chapter by the caller): a page transcluding the wrong book announces itself instead of silently
     filing 146 chapters under Book 2. No `data-n` is written — these numbers are integers, and app.js
     reads the marker's own text where the attribute is absent.
+  · **`sections: "shu"`** — THE SIXTH WAY, and the first whose difficulty is the WRAPPER rather than the
+    markup (Aug 2026, adding the Book of Documents). Legge numbers his paragraphs, and this transcription
+    writes the number two ways: as plain text at the head of a paragraph, and as an ANCHOR SPAN carrying
+    the citation as its id, because the volume's contents page links into some paragraphs and not others.
+    **That second form costs nothing**, which is the opposite of what it looks like: `stripTags` runs
+    BEFORE the section pass, so by then the anchor is unwrapped and both forms are the same plain "N.".
+    What does cost is that **MediaWiki only wraps a run of text in `<p>` where the wikitext had a blank
+    line before it**, so a document whose first paragraph follows its headnote directly arrives as a bare
+    run with no tag round it — the Art of War's `wrapBareRuns` trap in another edition. Measured over the
+    whole book: `markLeadingSections`, anchored to `<p>`, finds 167 of the 169 numbers, and the two it
+    misses are the FIRST number of two documents, each of which would ship numbered from 2 with every word
+    present and nothing throwing. So the pass matches a paragraph head OR a number opening a bare run
+    where a block has just closed, in ONE regex scanned in reading order — the Meditations' rule, since
+    two passes leave the counter at the end of the document and the forward-only guard then declines
+    everything the second finds.
+  · **`dropAuxToc`** — Wikisource's own auxiliary contents block (`wst-auxtoc`), which falls INSIDE
+    `prp-pages-output` on a book page whose sections have pages of their own, and which the generic div
+    pass would otherwise render as two quotations reading "Sections (containing the body text)" and
+    "Section 1 Section 2 Section 3". Keyed on the wiki's own class rather than on its wording, like the
+    `ws-noexport` rule, removed with a BALANCED match because it nests, and gated per book so it is
+    provably inert on everything already shipped.
+  **A CHAPTER MAY BE PRINTED ACROSS SEVERAL WIKI PAGES, and `page(n)` may return an ARRAY** (Aug 2026,
+  same book). Every earlier wiki book is one page to one chapter. Where Legge prints a book in sections,
+  Wikisource gives each section its own page and leaves the book's headnote — and at the head of a Part
+  his introduction to the whole Part — on the book's page, which carries no body text at all: fetching
+  only the sections drops that prose on the floor, and giving it a chapter of its own puts an empty tab
+  on the bar, since one of those four pages carries a title and nothing else. The pages are cleaned in
+  order and joined, and **each later page's `data-fn` is offset by the notes already gathered** — the
+  Seneca lesson (a marker must carry the note it points AT) applied across a join. Returning a string
+  still means what it always did, so no shipped book's config is touched, and both a wiki book and a TEI
+  book were re-run and diffed **byte-for-byte** to prove it. **The "no section numbers" warning became a
+  property of the CHAPTER rather than of the page at the same time**: on a multi-page chapter the
+  per-page one fires on the headnote page whether or not the sections that follow are numbered, which is
+  three false alarms out of four — and a warning that cries wolf is one nobody reads.
   **AND THE TWO COLUMNS MAY COME FROM DIFFERENT KINDS OF SOURCE**, which is the same book's other first.
   `fetchOriginal`'s `chaptered` branch reconciles the original against the ENGLISH, and re-read that side
   out of `en-tei.xml` — which a wiki-side book does not have, and whose `BOOK.url` is `undefined`, so it
@@ -1322,6 +1495,72 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   prehistory cards were renumbered into their planned slots and **20 were retired**, and that file has
   the old→new table every earlier document's `wh-NNN` references must be read through. Not part of the
   site.
+- `docs/rome-card-plan.md` — the **1000-card running order for the Ancient Rome collection** (`col-40`):
+  every card's number, topic and deck, fixed in advance across 7 decks and 25 leaf subdecks, so the
+  collection can be grown one card at a time over many sessions. The third of the planned collections and
+  used exactly like the other two — the next card to write is the lowest `rm-NNN` not yet in `data.js` —
+  see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". **No card has been written
+  yet**: the plan and the tree shipped together on 2026-08-06 and the collection starts at `rm-001`. Not
+  part of the site.
+- `docs/russia-card-plan.md` — the **1000-card running order for the Russia collection** (`col-42`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
+  grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
+  the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
+  under "Generating cards & glossary entries". **No card has been written yet**: the plan and the tree
+  shipped together on 2026-08-06 and the collection starts at `ru-001`. It is the first plan that has to
+  set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
+  first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
+  before writing anything after 1917. Not part of the site.
+- `docs/india-card-plan.md` — the **1000-card running order for the India collection** (`col-43`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 31 leaf subdecks, so the collection
+  can be grown one card at a time over many sessions. The fifth of the planned collections and used
+  exactly like the others — the next card to write is the lowest `in-NNN` not yet in `data.js` — see the
+  "INDIA" bullet under "Generating cards & glossary entries". **No card has been written yet**: the plan
+  and the tree shipped together on 2026-08-06 and the collection starts at `in-001`. Read its "What this
+  collection is about" section before writing anything — the subject is the SUBCONTINENT before 1947 and
+  the Republic after, and getting that wrong makes a political claim without noticing. Not part of the site.
+- `docs/china-card-plan.md` — the **1000-card running order for the China collection** (`china`): every
+  card's number, topic and deck, fixed in advance across 7 decks and 39 leaf decks, so the collection can
+  be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
+  written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
+  are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
+  see the "CHINA" bullet under "Generating cards & glossary entries". **No card has been written yet**,
+  and the collection carries **`placeholder: true`** (set aside July 2026), which `availableCardIdSet()`
+  reads — so read that file's warning before writing `cnh-001` or the cards will be written and never
+  studied. Not part of the site.
+- `docs/egypt-card-plan.md` — the **1000-card running order for the Ancient Egypt collection** (`egypt`):
+  every card's number, topic and deck, fixed in advance across 9 decks and 26 leaf subdecks. The seventh of
+  the planned collections and **the only one that created its own collection** — Rome, Russia and India were
+  empty nodes waiting for a tree and China had one already, where Egypt had nothing, so the collection node,
+  its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
+  yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
+  has been written yet.** Not part of the site.
+- `docs/japan-card-plan.md` — the **1000-card running order for the Japan collection** (`japan`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 34 leaf decks. The tenth of the
+  planned collections and the third (after Egypt and the Second World War) to **create its own
+  collection** — node, tree, `COLL_THEME` hue and numeral system ship with the plan. It is the **first
+  collection since China to get a `COLLECTION_NUMERALS` entry**, `"ja"`, and the reasoning is in the
+  plan: Japanese counts in the same kanji so `cnNumeral()` is reused, but the `"zh"` KEY must not be,
+  since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
+  `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
+  **No card has been written yet.** Not part of the site.
+- `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
+  every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
+  planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
+  glossary terms** from Phase 2 of the citation pass. Its two scope decisions are the ones to read first:
+  the collection **opens with Native America as a deck rather than a prologue**, running forward to tribal
+  sovereignty in the present, and it covers **the territory that became the United States**, so Spanish
+  Florida, French Louisiana and New Netherland are in it. The next card to write is the lowest `us-NNN` not
+  yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **No
+  card has been written yet.** Not part of the site.
+- `docs/ww2-card-plan.md` — the **1000-card running order for the Second World War collection** (`ww2`):
+  every card's number, topic and deck, fixed in advance across 8 decks and 30 leaf decks. The eighth of the
+  planned collections, the second (after Egypt) to **create its own collection** — node, tree and
+  `COLL_THEME` hue ship with the plan — and **the first whose subject is inside living memory and is
+  actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
+  the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
+  `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
+  has been written yet.** Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1496,7 +1735,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   canonical format); both collections are grown one card at a time (see "Generating cards & glossary
   entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
   are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
-  and card ids follow that plan's numbering.
+  and card ids follow that plan's numbering. **`col-40` Ancient Rome gained its 7 decks and 25 leaf
+  subdecks, `col-42` Russia its 9 decks and 29 leaf decks, and `col-43` India its 9 decks and 31 leaf
+  subdecks, on 2026-08-06** from `docs/rome-card-plan.md`, `docs/russia-card-plan.md` and
+  `docs/india-card-plan.md`, all empty; all three stay under "Coming soon" until their first card ships,
+  since a collection with no cards is coming-soon whatever its `placeholder` says. **`egypt` is new — the
+  collection itself was created on 2026-08-06** by `docs/egypt-card-plan.md`, with 9 decks and 26 leaf
+  subdecks and a `COLL_THEME` row of its own. **`ww2` is new the same way — created on 2026-08-07** by
+  `docs/ww2-card-plan.md`, with 8 decks and 30 leaf decks and its own `COLL_THEME` row; it and Egypt are
+  the only two collections a plan has had to bring into existence. **`col-41` United States gained its 9
+  decks and 33 leaf decks on 2026-08-07** from `docs/us-card-plan.md` — it was a leaf node with an empty
+  `cardIds` and is now a branch, keeping its `total`, its `placeholder` and its nine translated titles.
+  **`japan` is new the same day** from `docs/japan-card-plan.md`, with 9 decks and 34 leaf decks, its own
+  `COLL_THEME` row and the first new `COLLECTION_NUMERALS` entry since China; it, Egypt and the Second
+  World War are the three collections a plan has had to bring into existence. **`china` was the one
+  collection that already had a tree**, and on the same day `docs/china-card-plan.md` made four changes to
+  it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
+  `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
+  taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
@@ -1885,6 +2141,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a second book — **claim less rather than round up** — and it is the honest shape for any future book
     whose byline outruns the record. Handford (1951), Hammond (1996) and O'Donnell (2019) are named as
     the ones not to reach for.
+    **The Book of Documents needs no qualification either** (Aug 2026), on exactly the Analects' grounds
+    and from the same volume: Legge published in 1879 and died in 1897, so it is public domain on the
+    pre-1929 publication rule, on life-plus-seventy and on life-plus-a-hundred, with no limit to state and
+    no modern editorial layer to declare. The documents underneath are ancient. Karlgren's translation of
+    1950 and Waltham's modernisation of Legge of 1971 are named as the ones not to reach for.
+    **Its `BOOK_AUTHOR_COLOR` row is where only two hue families were left** — a sweep of the whole RGB
+    cube inside the shelf's own lightness and chroma band found candidates clearing 20 of their nearest
+    neighbour in red (20.1) and green (22.5) and nowhere else, which is the Beowulf row's prediction
+    arriving. **The red was rejected on the EURIPIDES TEST**: its 20.1 is against Sun Tzu's rust, and Sun
+    Tzu is the other ancient Chinese work on the shelf, so a red here would say the two are a set. The
+    green the Vyasa and Kalidasa rows turned down is not this one — their objection was that every green
+    clearing Lucretius and Aesop sat at the TOP of the chroma band, bright enough to glow beside twenty
+    muted colours, where `#0F4503` sits at chroma 44 of a 18–64 range and lightness 25 of a 25–48 one, the
+    dark end of both. It clears Gilgamesh, Aesop and Lucretius by 22.1–22.2 evenly and reads 6.75:1 on the
+    tightest of the sixteen light papers. Keyed by id, the documents being anonymous.
     **The Peloponnesian War is the THIRD needing no qualification at all** (Aug 2026), after the Republic
     and the Analects, and all three of its layers are clear: Thucydides wrote in the fifth century BCE,
     Richard Crawley published in 1874 and died in 1893, and the Greek is Henry Stuart Jones's Oxford text
@@ -1947,7 +2218,42 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     own 1907 note is left behind as Thompson's preface and the Republic's introduction were — it is
     quoted in the front matter as evidence of what the edition was FOR, and not reproduced as part of
     the book. Mascaró (1962), Easwaran (1985), Stoler Miller (1986) and Patton (2008) are named as the
-    ones not to reach for. Each book's
+    ones not to reach for.
+    **Beowulf is the first book here where the thing that cannot be established is a DATE rather than a
+    NAME** (Aug 2026), and it is the Gallic War's judgement in a new coat: claim less, and put on the
+    page what cannot be said. The poem is Old English and about a thousand years old, so it is free
+    everywhere; Gummere's translation was published in 1909 and he lived 1855–1919, so it clears the
+    pre-1929 rule, life-plus-seventy (1990) and life-plus-a-hundred alike — no limit to state, which
+    puts it with the Republic, the Analects, the Peloponnesian War and Kalidasa rather than with Giles
+    (2029) or Ross (2042). What could not be settled is **A. J. Wyatt**, whose 1894 Cambridge text is
+    the facing column. Where the Gallic War's "W. S. Bohn" could not be found at all, Wyatt CAN be
+    found and the answer is not trustworthy: Wikidata gives 1835–1935 at **year precision**, a
+    suspiciously round hundred years, and Wikisource's author page carries no dates and no
+    public-domain tag for him where Gummere's carries PD-old. He was certainly alive in 1919, having
+    published an Anglo-Saxon Reader that year. **A date that exists is not the same as a date that is
+    established** — check the precision and the corroboration, not merely whether a field is filled —
+    so no life-plus-seventy term is asserted for that column, the ground stated is the 1894
+    publication, and the conditional (expired 2006 if the 1935 death is right) is given on the book's
+    own page rather than smoothed into a flat claim. Heaney (1999), Liuzza (2000), Tolkien's prose
+    version (published 2014) and Headley (2020) are named as the ones not to reach for.
+    **The Prose Edda is the SEVENTH to state a LIMIT** (Aug 2026), after the Art of War (Giles, 2029),
+    the Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea (Murray, 2028), Gilgamesh and the
+    Bhagavad Gita. Snorri Sturluson died in 1241, so the work is free everywhere; Brodeur's translation
+    was published by the American-Scandinavian Foundation in 1916 — read off the volume's own title page
+    rather than recalled — so it is public domain in the United States on the pre-1929 rule, and he
+    lived 1888–1971, so it stays in copyright where the term is life plus seventy until 2042, the same
+    position as Ross. **His dates are unusually well corroborated for this shelf** and that is worth
+    noting against Wyatt's: Wikidata gives them at DAY precision and Wikisource's own PD/US tag on the
+    work independently gives 1971, so this is not the lone unverified figure the Beowulf entry had to
+    hedge around. Brodeur's fifty-page introduction and his index are not imported, which is the
+    Republic's precedent for the introduction and plates it left behind. Young (1954), Faulkes (1987)
+    and Byock (2005) are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the
+    band was WIDENED as the Book of Documents' row predicted — see that row for the search, and for the
+    Euripides test doing real work: the one book a reader genuinely pairs with the Prose Edda is
+    BEOWULF, the shelf's only other Germanic work, so the two candidates nearer his oxblood were
+    rejected and this dark violet is both the best-separated colour in the widened band and the one
+    furthest from him.
+    Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
     **`BOOK_AUTHOR_COLOR` GAINED AN `"Anonymous"` KEY with it**, and the reasoning is worth keeping
@@ -1992,6 +2298,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     colour for the book, which is worth saying only because it cost nothing: the numbers led there.
     **The next book added will have to widen the band or accept a pair tighter than 20.4** — say so
     then rather than quietly shipping a colour nobody can tell from its neighbour.
+    **`"beowulf"` (`#55303C`) IS THAT NEXT BOOK, and the answer was NEITHER** (Aug 2026). Searched over
+    the shelf's own lightness and chroma band with twenty-one colours already placed, nothing anywhere
+    in it clears 24 of its nearest neighbour, and **only TWO hue families clear the shelf's tightest
+    pair at all** — red, held by Sophocles, Ovid and Aristophanes, and green, held by Lucretius and
+    Aesop. So the band was not widened and no pair tighter than 20.4 was taken: this dark oxblood
+    clears Sophocles by **23.3** and Plato by 23.9, still wider than the shelf's own closest pair, and
+    reads **6.75:1** on the tightest of the sixteen light papers, the highest of any swatch here. The
+    **Euripides test picked the family rather than the number**: a fourth red asserts no kinship,
+    because nobody reads an Old English heroic elegy against Greek tragedy or Latin love poetry, where
+    a fourth green beside Lucretius and Aesop could only clear them from the very top of the band's
+    chroma — bright enough to glow beside twenty muted colours, which is what Vyasa's row rejected.
+    Keyed by ID, the poem being anonymous. **The band genuinely is full now**: the twenty-third colour
+    will have to widen it or accept a tighter pair, and there is no third hue family left to move to.
   · **THE ORIGINAL BESIDE THE TRANSLATION** (`bookSections` / `bookRows` / `applyLangMode` /
     `anchorNow` + `restoreAnchor`, Aug 2026, on request). Side by side on a wide screen, one at a time on
     a phone where **tapping the page turns it over**, as the daily quote does.
@@ -2143,6 +2462,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     into `books/<id>.js` by hand (the next `fetch-book.js` run would destroy it); the licence half needs a
     live link and has always been built from those fields. A reader still in the front matter is told so on
     the shelf — "About this book", never "Letter 0".
+    **AN ADMIN EDITS THE ESSAY IN PLACE** (`bookIntroMerged` / `setBookIntroEdit` / `ADMIN_EDITS.bookIntros`
+    / `wireIntroEdit` / `.bk-intro-essay`, Aug 2026, on request). Same gesture and the same finish paths as
+    the About page's prose (see PAGES.mission) — click, Esc cancels, Ctrl+Enter or clicking away saves — and
+    it follows the QUOTES pattern rather than the Mission's, because of where the words can live. **THE
+    OVERLAY IS THE STORAGE**: the Mission has mission.js to bake back into, and a book's essay has nowhere,
+    since `books/<id>.js` is generated and `.claude/fetch-book.js`'s `about` is a repo edit an editor cannot
+    reach from a phone. So the edit persists in `folio_admin_v1`, travels to every reader through
+    `content_overrides` with no deploy, and is what a lasting change should be copied INTO `fetch-book.js`
+    from when someone is next at the repo. **Nothing serializes it, deliberately** — a serializer pointed at
+    a generated file is a serializer that fights the importer. Five things are load-bearing.
+    **`bookIntros` had to go into `normalizeAdminEdits`** — this file's standing warning that a load path
+    missing an overlay key silently drops those edits on reload, which is what happened to `mission` once.
+    **Only the ESSAY is wrapped**: the two boxes under it are the LICENCE, built from the registry rather
+    than typed, and an editable region that swallowed them would let a wrong copyright statement be typed
+    into the one place on the site that exists to state the right one. **It edits the RAW source**, because
+    what is on screen has been through `autoLinkGlossary` and the units pass and saving that would bake a
+    page of `.ttip` spans and one measurement system into the stored essay — and bake them again on every
+    later save. **It repaints with `paint(cur)`, not `render()`**, which would resolve the chapter from the
+    reader's stored place and could land them somewhere other than the front matter they were editing.
+    And **`[contenteditable='true']` joined `BK_TAP_SKIP`**: on a phone the book turns its page on a tap and
+    steps a chapter on a swipe, and a finger placed in a paragraph to put the caret somewhere is both.
+    It is wired from `paint()` rather than at set-up, since the front matter is rebuilt on every repaint.
   · **The shelf is one full-width BANNER per book** (`.book-grid` at `1fr`), reading left to right: author,
     title and the **year it was written** on the left, how much of the work is on Folio and where you had got
     to on the right, with the reading bar along the banner's own bottom edge (absolutely positioned, so it
@@ -2489,21 +2830,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     terms are three sentences and scroll nothing, so for most of them the whole window really does drag.
     `touch-action:none` on the window with **`pan-y` back on `.gloss-body`** is the CSS half of the same
     split; controls and `.ttip` are exempt through `GLOSS_NODRAG`.
-  · **A DOUBLE TAP anywhere closes it** — the × is a 26px target in one corner of a window that fills most
-    of the screen. Written on pointer events, not `dblclick`, which a phone may swallow for double-tap-to-
-    zoom. Two guards: the taps must land close TOGETHER as well as close in time (`GLOSS_TAP_SLOP`), so
-    tapping one word and then another further down is not a close; and an interactive target is exempt
-    (`GLOSS_TAP_SKIP`), or a nested glossary link and the sources fold would become unusable. The end of a
-    drag is told from a tap by a **one-shot flag** (`win._glossDragged`) that the drag sets and the tap
-    handler clears — NOT by reading the `dragging` class, which is gone by the time the tap handler runs
-    and which, if held for a frame instead, swallows the first real tap after every drag.
+  · **A DOUBLE TAP ANYWHERE ON THE SCREEN closes it** (`glossDoubleTap`; it was anywhere on the WINDOW
+    until Aug 2026, and was widened on request with the scrim's blocking below) — the × is a 26px target
+    in one corner of a window that fills most of the screen. Written on pointer events, not `dblclick`,
+    which a phone may swallow for double-tap-to-zoom. Two guards: the taps must land close TOGETHER as
+    well as close in time (`GLOSS_TAP_SLOP`), so tapping one word and then another further down is not a
+    close; and an interactive target is exempt (`GLOSS_TAP_SKIP`), or a nested glossary link and the
+    sources fold would become unusable. The end of a drag is told from a tap by a **one-shot flag**
+    (`el._glossDragged`) that the drag sets and the tap handler clears — NOT by reading the `dragging`
+    class, which is gone by the time the tap handler runs and which, if held for a frame instead,
+    swallows the first real tap after every drag. **The window and the scrim keep SEPARATE pairs of taps**
+    rather than sharing one counter, which is the same rule the slop expresses: two taps mean "close" when
+    they land in one place, and a tap on the page followed by a tap on the description is a reader reading.
+    The scrim's copy closes the TOP of `glossWins`.
   · **The scrim is ONE element with `backdrop-filter`** (`#glossScrim`), never a `filter` over a list of the
     page's own containers: that list would need keeping in step with every fixed thing on the site, and a
     `filter` on an ancestor becomes the containing block for its `position:fixed` descendants — which would
-    move the very bars it was blurring. **`pointer-events:none`**: this is focus, not a modal, and tapping
-    outside still does not close a popup. It is raised **explicitly** in `openGlossWin` rather than through
+    move the very bars it was blurring. It is raised **explicitly** in `openGlossWin` rather than through
     `syncGlossScrim`, because at that point the new window has not yet been pushed onto `glossWins` (that
     is the last thing the function does) and a count-based call would find zero.
+    **IT IS A MODAL SINCE AUG 2026, ON REQUEST** — it began as focus alone (`pointer-events:none`, the page
+    behind still live) and the request was that nothing behind a popup be clickable until it closes. One
+    property does the whole job: at **z-index 9590 it is above every bar and control on the site** (the tab
+    bar is 55, the grade bar 60), so nothing has to be disabled by name and no list has to be maintained.
+    `touch-action:none` goes with it — a scrim that swallows a tap must not leave the browser free to read
+    the same tap as a scroll or a double-tap zoom. **A single tap on it still does nothing**: tapping
+    outside has never dismissed a popup and that has not changed; what makes the blocking bearable is the
+    double tap above. **The blocking rides on `.on`, not on the base rule**, because the scrim is faded for
+    220ms before it is removed and the popup is already gone for those 220ms — a scrim still eating taps
+    there would leave the page dead to the touch just after the reader closed the thing that made it so.
   It keeps the sheet's **permanent compositing layer** (`will-change:transform` + `backface-visibility`),
   and that is not decoration: it was the fix for a reported flicker, where the sheet blinked out for a
   fraction of a second the instant its slide finished. A per-frame probe read `opacity:1`,
@@ -2815,6 +3170,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   1–4 grade, Enter is Good, Ctrl+Z takes the last one back. They all existed and nothing said so, and that
   bubble is where a reader already goes to ask what the buttons do. (The Atlas's own coach marks already
   covered its click drill-down; they gained the keyboard line — `[`/`]`, Enter, Esc — which they hadn't.)
+  **…AND NEITHER THE BUBBLE'S KEYS NOR THE BUTTONS' DIGITS ARE SHOWN ON A PHONE** (Aug 2026, on request).
+  `.grade .gk` and `.grade-help-bubble .ghb-keys` are both `display:none` in the ≤640px block: they describe
+  a keyboard a phone has not got, so on a phone they are furniture explaining a control that cannot be
+  reached — the digits costing each of the four buttons a line of height and the shortcut line a third of
+  the bubble. **Hidden, not removed from the markup**, because the same markup is what a desktop reader
+  gets, and there the keys are real and worth saying. The `.gk` rule used to live in the ≤430px block alone
+  and now covers the whole phone range, so the two cannot disagree about where a phone starts.
 - **The grade bar is ONE row below 430px** (Aug 2026). Two rows of two plus a help/suspend row took about a
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
@@ -2846,6 +3208,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   breakpoint the chevron is `display:none` and it is unreachable, and `flipMove` skips anything that did
   not move — but it IS gated on the reader's motion setting, inside both helpers. Note for the tests: a
   height read sooner than `GB_FOLD_MS` after the press measures a state half way between the two.
+  **ONE CLOCK AND ONE CURVE, which is what it was missing** (Aug 2026, on a report that the fold ran
+  roughly). The two passes act on the SAME four buttons at the same moment — the position from `flipMove`,
+  the height and padding from the CSS transitions — so they have to agree about more than the duration:
+  the FLIP ran `cubic-bezier(.22,.61,.36,1)` while the transitions ran `--ease`
+  (`cubic-bezier(.2,.7,.2,1)`), and a box arriving slightly before or after the place it is sliding to
+  reads as a stutter rather than as two animations. `GB_FOLD_EASE` in app.js is now `--ease` written out,
+  and `flipHeight` takes an easing argument so it can be passed the same one. Two more things came out of
+  the same report and are worth keeping: **`font-size` is NOT transitioned** on `.grade-help` /
+  `.gb-undo` / `.suspendbtn` — easing a font down to 0 relayouts the text every frame on three buttons
+  `flipMove` is translating, and the two fighting over one box was most of the roughness, so the labels
+  now go at once and only the geometry eases — and **`#gradebar`'s own `padding-bottom` IS transitioned**,
+  or the whole movement ends on a 5px jump the instant everything else settles.
+  **The chevron is dimmed to `opacity:.5`** (Aug 2026, on request), full strength on hover and focus: it
+  is a quiet control sitting directly above four saturated colours.
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
@@ -3603,7 +3979,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   darkest of the three papers, so it clears the bar on all three.
   **One failure was NOT left to the mode**: in night mode `.btn` was `#FFF` on the light-lavender `--indigo`
   at **2.29:1**, and that is a primary control rather than a caption, so `body.night .btn{color:var(--paper)}`
-  fixes it for everybody at 7.9:1. Guarded by `.claude/test-a11y.js`, which measures every text node's
+  fixes it for everybody at 7.9:1. **…and that fix then broke every GHOST button in dark mode for a
+  fortnight** (found Aug 2026 while adding Common Thread, whose Shuffle and Clear are ghosts): the ink is
+  right for a FILLED button and a `.btn.ghost` is transparent, so it put near-black on the dark card and the
+  label vanished outright — on the True or False and Timeline results' "Home" too, which is how long a
+  control that is *invisible rather than merely low-contrast* can sit there unreported. The rule is
+  `body.night .btn:not(.ghost)` now; **the `:hover` line beneath it had carried that `:not(.ghost)` all
+  along**, so the exemption was always intended and was simply missed on the base rule. A ghost keeps
+  `.btn.ghost`'s own `var(--indigo)` — the same light lavender, on the card rather than behind the text —
+  which reads 7.9:1. **Note that `test-a11y.js` could not see it**: it compares a text colour against its
+  background, and near-black on near-black is a contrast failure it *would* have caught — but only on a page
+  it visits, and no game's results screen is in its route list. Guarded by `.claude/test-a11y.js`, which measures every text node's
   computed colour against the background it actually renders on and demands that NOTHING falls short with
   the mode on.
 - **Light / dark FOLLOWS THE DEVICE by default** (**Settings → Appearance → Match my device**,
@@ -3984,10 +4370,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `transition` on it (the row would lag the finger by its own duration); it lifts with shadow and z-index
   instead. The ‹ › arrows FLIP the same way, or they would be the one remaining way to reorder with a cut),
   **True or False** (`truefalse`),
-  **Who said it?** (`whosaid`, from `quotes.js`), and **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
-  below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
-  Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
-  game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
+  **Who said it?** (`whosaid`, from `quotes.js`), **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
+  below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), and **Common Thread**
+  (`thread` — see its own bullet below). `BOTS`/`drawRace`/podium are now dead code.
+  Each of the 6 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
+  game's end; `won` = a perfect run, or `solved` for Timeline).
+  **ONE PLAY A DAY, AND THE GATE IS `gameLockedToday(root, key)`** (Aug 2026, on request). Every one of the
+  six is a DAILY game — its rounds are drawn once for today, its score is today's on the tile, the tile turns
+  gold for a perfect run — and a **Play again** button under the results contradicted all of it: the set had
+  been revealed answer by answer, so a second run was a run with the answers in hand, and the tile's figure
+  came from whichever attempt went best. The three "Play again" buttons are gone, each results screen carries
+  a `.tf-tomorrow` line saying when the next set arrives instead, and **each of the six `PAGES.*` calls the
+  gate as its first act** — `challenge`, `truefalse`, `whosaid`, `chrono`, `thread`, and `findit`, where it
+  goes in `PAGES.findit` rather than inside `PAGES.map` (that is the whole Atlas and knows nothing about
+  daily games, and it is the only route into game mode). It renders an `emptyPlacard` naming today's score.
+  **TWO GAMES HAD GROWN THEIR OWN LOCAL VERSION OF THIS RULE AND BOTH ARE NOW RETIRED**, which is the shape
+  of a rule that wants stating once rather than six times: Timeline recorded the FIRST check and ignored
+  later ones (it now takes ONE check — `.chrono-done` on the list stops the grips and the arrows, in JS as
+  well as in CSS, and the check button is removed), and Find it called a same-day replay "practice" and
+  recorded nothing (`gamePractice` is **deleted**, not left unreachable). **The cost is real and worth
+  naming**: a reader can no longer re-read today's Timeline order or walk today's five places again. What is
+  bought is that the figure on the tile is the answer they gave when they did not know the answers.
+  Two smaller things went with it: the four "…try again" closing lines no longer invite a replay there
+  isn't, and **`gameCapFirst`** capitalises Multiple Choice's options, its revealed answer and its summary
+  (on request). That is DISPLAY only — `options`/`correct` are matched by identity elsewhere in the round —
+  and it is `\p{L}`-anchored so a term opening on a numeral or a Han character is passed through rather than
+  sliced through a surrogate pair. The study card makes the same move for the same reason and makes it in
+  CSS (`.answer .val::first-letter`), which is not available to a text node inside a button.
+  The home tile has **three daily states** (state classes set by
   `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
   `gamePlayedToday` — challenge/chrono still also derive it from `S.daily.lastPlayed` / `S.chrono.date`) = the tile FILLS with
@@ -3997,16 +4407,49 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   darkened far corner (`body:not(.night)` override). A played tile's tagline becomes **today's best score** ("4/5 correct!",
   chrono: "in order!") — `markGamePlayed(key, won, score, total)` stores `{s, n}` per day, `gameSub()` renders it. The
   Daily-review banner's CTA sits at the **bottom-left inside `.body`** (below the full-width xp bar), on mobile too. The **"Clean Sweep" achievement**
-  (`sweep`, 🎯) unlocks when **all five are `won` on the same day** (`DAILY_GAMES` includes `findit`;
+  (`sweep`, 🎯) unlocks when **all six are `won` on the same day** (`DAILY_GAMES` includes `findit` and `thread`;
   `allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
-  The grid's **sixth slot** (`blankTile`) reads "Coming soon / More games / Another one is being written"; it
-  used to be "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
+  The grid's sixth slot is **Common Thread** since Aug 2026; **`blankTile` survives unused** (the grid is 3 × 2,
+  so a seventh game would leave a hole again) and reads "Coming soon / More games", having once been
+  "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
   tile type shrinks, or "Multiple Choice" breaks across two lines and its tagline across two more. The **Card-of-the-day tile carries the card's DECK** in its head
   row (`.cod-where` ← `cardLeaves(id)[0]` → `nodeWhere`) — the tile is a fixed height, so a short question left
   a band of nothing under it. Deliberately the deck and **not** the era: on a prehistory card the era is most
   of the answer.
+- **COMMON THREAD — the sixth daily game, and the first built on the GLOSSARY** (`PAGES.thread` at `#thread`,
+  the `PAGE: COMMON THREAD` block in app.js; Aug 2026, on request). Sixteen glossary terms in a 4×4 grid,
+  four hidden groups of four, four mistakes to spare. It fills two gaps at once: the glossary is ~680 cited
+  terms and was the largest curated body of content on the site that no game touched, and CATEGORISATION is
+  the one study task the other five (recall, ordering, judgement, attribution, place) leave out.
+  · **The puzzle is GENERATED from `GLOSSARY_TAGS`, so the game ships no content of its own** — and a tag set
+    that groups well for the editor's filter bar does NOT automatically make a solvable puzzle. Three of the
+    four rules exist because the naive version produced puzzles that cannot be solved while every group was,
+    on the data, correct. **The broad tags cannot be groups** (`THREAD_BROAD` — `history` is on 427 terms and
+    `place` on 314; a group indistinguishable from the rest of the grid is not a group). **One tag per family**
+    (`THREAD_FAMILY`) — the first version paired an `africa` group with a `tanzania` one, which are disjoint
+    tags and an unsolvable puzzle, because Laetoli is in Tanzania which is in Africa and nothing tells a
+    solver which group wants it: **disjoint is not the same as distinguishable**, and only geography and
+    period nest that way, which is why those are the two families declared. **A term may not be its own group
+    label** (`Africa` inside `africa` gives the row away). **No two terms may share a word stem**
+    (`threadStems`) — `Swabia` beside `Swabian Jura` reads as a pair whatever groups they are in.
+  · **The disjointness is CHECKED, not assumed**: a term joins a group only if it carries none of the other
+    three groups' tags, so all sixteen provably belong to exactly one group. Measured over 365 days before it
+    shipped — **0 days fail to generate, 31 distinct group tags across the year, no duplicate or ambiguous
+    term in any puzzle**. Re-run that sweep after a batch of glossary terms or a tag rename: the pool is
+    derived, so new content silently changes what the game can build.
+  · **A term needs ≥2 tags to enter the pool.** One with a single tag can be a red herring for nothing, and a
+    grid of those is four obvious rows.
+  · **Both the groups AND the grid order are date-seeded** (`hashStr`/`mulberry32`/`seededShuffle`, as the
+    other games seed their rounds), so a reload cannot reshuffle a puzzle the reader is half way through.
+    Shuffle is the reader's own control and is deliberately unseeded.
+  · **A solved term opens its glossary popup.** The reader has just been shown a word they may not know, and
+    the definition is the point of playing on the glossary — which also means playing genuinely counts terms
+    towards the account page's "Glossary terms opened" meter, since `openGlossWin` marks them seen.
+  · **"One away"** is counted over the four submitted, so it can only ever report a genuine 3-of-4. Without it
+    a wrong guess teaches nothing, which is most of the texture of a grouping puzzle.
+  · `won` (the gold tile) is **solved with NO mistakes**; `score` is groups found, out of 4.
 - **Settings and Account fill the stage** (Aug 2026). Both were a narrow column hard-LEFT inside the 800px
   stage — the settings cards stopped 180px short of a heading that spanned the whole width, and the signed-out
   sign-in form 340px short — so each page read as half-drawn on a laptop. `.settings` is now a grid that fills
@@ -4123,13 +4566,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states**, and were
     one until Aug 2026, when putting the tools away also put the pen down — you could not draw with the
     panel out of the way, which on a phone is most of the card. The marker button now only opens and closes
-    the panel (opening it with nothing selected picks the pen, so one tap still gets you drawing); what puts
-    the pen down is **unselecting the tool inside it**. The tools are mutually exclusive and clicking the
+    the panel; what puts the pen down is **choosing a tool inside it**, and what puts it up is unselecting
+    that tool. The tools are mutually exclusive and clicking the
     selected one deselects it, so **nothing selected IS the pen-up state** —
     which is what makes that gesture available at all. `applyWBState` maps `panelOpen` → `.active` and
     `enabled` → the button's `.on` (visible with the panel shut) plus the canvas; **`wbSetEnabled` is the
     one place `enabled` changes**, because the Atlas owns its own cursor / hover / spin state and has to be
     told through `WB.onToggle` the moment the pen goes down or up.
+    **OPENING THE TOOLS SELECTS NOTHING** (Aug 2026, on request). It used to pick the pen so that one tap
+    got you drawing, which is a shortcut for the reader who wanted the pen and a trap for everyone else:
+    `enabled` lays a canvas over the whole visible page, so a reader who opened the panel to reach Undo,
+    Clear, a colour or the stylus row found the card underneath already taken. The panel is a MENU and
+    choosing from it is what starts drawing; the cost is one extra tap on the way to the pen, and it is
+    exactly the tap that says which tool was meant. `test-layout.js` asserts **both halves in two places**
+    — nothing selected on open, and a tool choice starting the drawing — because they fail in opposite
+    directions and "nothing is selected" would otherwise also pass on a marker that had stopped working.
+    (A HOLD on the marker still restores the tool last drawn with; that is a separate gesture and is
+    unchanged.)
   · **IT HAS WEIGHT: it can be THROWN** (`WB_FLING_*` / `wbStopFling` / `wbClampPos`, Aug 2026, on request).
     It used to stop dead on the lift, which on a phone reads as the thing being stuck to the finger rather
     than being moved by it; it now keeps the velocity it was released at and coasts to a stop under
@@ -4543,8 +4996,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   so it inherits the zero and grows into the space, and every other rule written against `--timebar-h` is left
   describing the ordinary Atlas. The markup stays (hidden, so out of the tab order too), so `paintYear`,
   `renderMapYearMarks` and `layoutTicks` need no game branch — the last returns early on a zero `clientWidth`.
-  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
-  never records: the rounds are deterministic and every answer was revealed). The Atlas also gained **first-visit coach
+  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **A same-day replay is turned
+  away at the door** by `gameLockedToday` in `PAGES.findit` (Aug 2026, on request — see the daily-games bullet).
+  It used to be admitted as PRACTICE, playable and recording nothing, since the rounds are deterministic and
+  every answer was revealed during play; `gamePractice` and its four branches are **deleted rather than left
+  unreachable**. The Atlas also gained **first-visit coach
   marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
   "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
   centre, Esc clears, `[`/`]` step map-years). The **`#gzIn`/`#gzOut` zoom buttons' markup was restored** (wiring + CSS
@@ -5038,6 +5494,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
     a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
     and must never be pointed at app.js.
+  **A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP, and TWO of the four had not**
+  (Aug 2026, on a bug report). `.admin-list-items` is capped at `max-height:300px` on a phone, which is right
+  for the Cards and Glossary lists — they are one column of a two-column layout — and traps a whole page in a
+  300px scroll box for a tab that owns the screen: the Quotes tab's edit form filled the box, its Save button
+  sat at the fold, the running order beneath was cut off mid-row and the rest of the screen was left empty.
+  Timeline and Feedback were in that rule's exception list from the day they were built; the **Dashboard and
+  Quotes arrived later and were not**, which is the whole of the bug. All four are listed now — **keep the
+  list in step with the `*-mode` classes `adminRefresh()` sets**, or the next tab added will look broken the
+  same way. Guarded by `test-layout.js`, which reads the cap back and checks the pane is not clipped.
 - **Admin → Dashboard: Folio in numbers (Aug 2026, on request).** The editor's FIRST tab and the one a fresh
   session opens on (`adminState.tab` defaults to `"dashboard"`; a session interrupted mid-edit still comes back
   to the card it was on — `restoreAdminUI` exists because auto-save can live-reload the page between
@@ -5212,12 +5677,51 @@ linked to a Holocene chronozone.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
-template entries are the canonical format: card `cnh-001` in `data.js`, glossary term `Sima_Qian` in
+template entries are the canonical format: card `cnh-001` in `.claude/backup/data.js` (it is NOT in the
+shipped `data.js` — the China deck was trimmed to nothing and regrown as `wh-`/`gr-`), glossary term `Sima_Qian` in
 `glossary.js`. The full pre-trim originals are backed up in `.claude/backup/`.
 
 **Current direction (July 2026): the China collection is SET ASIDE** — its tree node carries
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links.
+
+**THE TEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
+that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
+**Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
+which is `cn-myth`, in China. The bullets below each collection give the reasoning; this table is the
+lookup.
+
+| collection | id | prefix | plan | decks / leaves | state |
+|---|---|---|---|---|---|
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 89 cards, scattered — next id is an early GAP |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 180 cards, contiguous |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | empty |
+| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
+| India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | empty, and **`placeholder: true`** — read the warning first |
+| Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
+| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+
+The next id for any of them (substitute the prefix):
+
+    node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='jp-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
+
+**Two traps when looking a number up in a plan.** A deck heading is `## Title — \`id\`` OR
+`### Title — \`id\`` — the shallower level is a **flat deck**, one that is itself a leaf (`gr-iron`,
+`ru-federation`, `cn-myth`), so reading only `###` misses it. And **`docs/world-history-card-plan.md`
+carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-level heading — which
+lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
+`# The 2026-08-04 renumbering` will find the wrong entry.
+
+**`node .claude/test-card-plans.js` checks all of this** (94 assertions, no browser, no dependencies):
+every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
+running order covers 1–1000 with no gaps or duplicate ids or repeated topics, and CLAUDE.md carries
+each plan and a working next-id command. **Re-run it after editing a plan, after changing a tree in
+`data.js`, and after adding a collection** — every fault it catches is silent, and the worst of them
+(a plan naming a deck id the tree hasn't got) files cards into China without throwing.
 
 **WORLD HISTORY (`col-8`) runs off a 1000-card plan of its own (Aug 2026).** Its 8 decks and 39 leaf
 subdecks are laid out in `data.js` and the running order is `docs/world-history-card-plan.md`.
@@ -5249,6 +5753,342 @@ the work had got to. A plan line is a **subject to research, not a fact to asser
 finished answer term: rename, split or drop a line when the research says so, in the same commit as the
 card. The Greek glossary starts from nothing (of 401 terms only `Greece` and `North_Macedonia`), so
 write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
+
+**ANCIENT ROME (`col-40`) is planned and not yet started (Aug 2026).** Its 7 decks and 25 leaf subdecks
+are laid out in `data.js` and its full 1000-card running order is `docs/rome-card-plan.md`, written to
+the same rules as the Greece and World History plans and used the same way: **"Generate the next Ancient
+Rome card" means take the lowest `rm-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck
+id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='rm-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `rm-1000`). Four things in that plan are decisions rather than
+lists, and re-arguing them card by card is how a plan stops being one. **A monument lives with its
+builder** — the Colosseum under the Flavians, the Pantheon under Hadrian — while `rm-arts` carries the
+techniques nobody's reign owns, which is the rule Greece uses for the Parthenon. **Latin literature is
+ONE subdeck** where Greece has three period ones, because Latin literature is read as a single canon.
+**There is no Rome myth deck**: Rome's legends explain institutions, so they sit beside those
+institutions in `rm-kings` and `rm-early-republic`, and `rm-religion` gets the cult rather than the
+tales. And **the eastern empire is a three-card coda**, not a deck — the reader going onward is served
+by `wh-byzantium`. The Roman glossary starts from nothing (of 671 terms only `Latin` and `Italy`), so
+write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
+
+**RUSSIA (`col-42`) is planned and not yet started (Aug 2026).** Its 9 decks and 29 leaf decks are laid
+out in `data.js` and its full 1000-card running order is `docs/russia-card-plan.md`, written to the same
+rules as the other three plans and used the same way: **"Generate the next Russia card" means take the
+lowest `ru-NNN` not yet in `data.js`, read its topic and deck from that plan, research it, and add it**
+with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='ru-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `ru-1000`). **It is the first collection whose subject is
+contested in the present**, and four things in that plan are decisions rather than lists. **Rus' is
+covered as the polity it was and is never called "early Russia"** — it is the shared inheritance of
+Russia, Ukraine and Belarus, and the modern claim on it is `ru-090`, a card, rather than an assumption
+in the ninety before it. **`ru-peoples` is the largest subdeck in the collection at 50** and the
+mechanisms get cards as well as the peoples (the *yasak*, the Pale, Russification, *korenizatsiya*, the
+deportations), because Russia has been a multinational empire for longer than it has been anything else.
+**Events that happened to other people are in it** — the Circassian expulsions, the Holodomor, Katyn, the
+deportations, Hungary, Prague, Chechnya, Ukraine — written from the scholarship, as neither achievement
+nor indictment. And **no state's account of its own actions is repeated as established fact**, Russia's
+or its opponents'. The plan also fixes the **date, name and transliteration conventions** the collection
+needs (Julian dates run behind Western ones, so the October Revolution happened in November; both are
+given for 1917) and carries three sourcing warnings — Soviet statistics are artefacts rather than
+measurements, many Russian archives have closed since 2022, and twentieth-century casualty figures have
+live scholarly ranges that must be given as ranges. The glossary starts with a head start no other
+collection had: **all eighteen post-Soviet successor states are already cited terms** from Phase 3 of the
+citation pass, and everything historical (`Rus'`, `Tsar`, `Serfdom`, `Boyar`, `Bolshevik`) is open ground
+— write those **cited from the start** at the `GLOSS_SRC_TARGET` bar. Mind two glossary traps it names: a
+term whose surface is an ordinary English word (`Soviet`, `Duma`, `Thaw`, `Terror`) needs
+`GLOSSARY_CASESENSITIVE` or a narrower head word, and a term with a well-known variant spelling needs its
+alias the day it ships.
+
+**INDIA (`col-43`) is planned and not yet started (Aug 2026).** Its 9 decks and 31 leaf subdecks are laid
+out in `data.js` and its full 1000-card running order is `docs/india-card-plan.md`, written to the same
+rules as the other four plans and used the same way: **"Generate the next India card" means take the
+lowest `in-NNN` not yet in `data.js`, read its topic and deck from that plan, research it, and add it**
+with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='in-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `in-1000`). **Read its "What this collection is about" section
+first**: before 1947 the subject is the SUBCONTINENT and after 1947 the Republic of India, because the
+Indus cities are in Pakistan, Lahore was a Mughal capital and the Bengal of 1905 is now two countries —
+a collection that treats all of that as the early history of one modern state has made a political claim
+without noticing. Four more things in that plan are decisions rather than lists. **The tree rejects
+James Mill's Hindu / Muslim / British periodisation** and periodises by polity and region instead, which
+is why it has decks for the Delhi Sultanate, Vijayanagara, the Deccan sultanates and the Mughals rather
+than a "Muslim period"; religion has its own 110-card deck where the questions can be asked properly.
+**The south gets 130 cards of its own** (`in-south-early`, `in-deccan-early`, `in-vijayanagara`,
+`in-deccan-sultanates`) rather than hanging off a northern spine. **Caste is periodised, not assumed** —
+`in-867` and `in-596` are both about the colonial census and codes hardening it, and a card that
+describes caste as a timeless four-fold order has repeated a nineteenth-century administrative document.
+And **`in-033 The Aryan migration debate` is this collection's Normanist controversy**, the exact
+counterpart of `ru-031`: the card is about the evidence and the argument and does not settle it. It is
+also the first plan to SPEND both modern-scholar slots — `in-134 The decipherment of Brahmi` (Ashoka was
+forgotten until 1837) and `in-920 The discovery of the Indo-European family` — both events rather than
+biographies, on Greece's `gr-075` reasoning. Conventions it fixes: plain English forms without
+diacritics, aliases the day a term ships (variant spellings are the rule here), the name current at the
+time for an event and the modern name for the place, and **chronological ranges given as ranges**, since
+the Buddha's dates move by more than a century between schemes. The glossary has the region's eight
+modern countries and nothing else — no `Dharma`, no `Varna`, no `Stupa`, no `Mughal_Empire` — so write
+those **cited from the start** at the `GLOSS_SRC_TARGET` bar, and mind that a term which is an ordinary
+English word (`Raj`, `Congress`, `Partition`, `Emergency`) needs `GLOSSARY_CASESENSITIVE` or a narrower
+head word.
+
+**CHINA (`china`) is planned, SET ASIDE, and not yet started (Aug 2026).** Its 7 decks and 39 leaf decks
+are in `data.js` and its full 1000-card running order is `docs/china-card-plan.md`: **"Generate the next
+China card" means take the lowest `cnh-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='cnh-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `cnh-1000`). The prefix is **`cnh-`, not `cn-`**, because `cn-myth`
+and the new thematic leaves are DECK ids and `cn-001` beside them invites exactly the confusion ids exist
+to prevent; `cnh-` is also the collection's own historical convention, its template card surviving in
+`.claude/backup/data.js`. **⚠ READ THE PLAN'S WARNING BEFORE `cnh-001`**: the collection carries
+`placeholder: true`, which `availableCardIdSet()` reads, so cards written into it today reach no review,
+no game and no card of the day — they would be written and never studied. **Clearing that flag is the
+site owner's call**, so the plan deliberately left it alone.
+**It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
+at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
+is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
+called Jin nine centuries apart (`col-17` 晉 266–420 and `col-30` 金 1115–1234); **`col-2 Xia` is retitled
+`Neolithic China and the Xia`**, since it is the earliest deck and therefore the only home for Yangshao,
+Longshan, Liangzhu and Sanxingdui, none of which is Xia; and **three thematic decks are added**
+(`cn-state`, `cn-belief`, `cn-culture`, 300 cards). That last is the substantial one: **China needed
+thematic decks more than any other collection and had none**, because the dynastic frame is so strong that
+the examinations (605–1905), Confucianism, the characters, silk and the standard histories had nowhere to
+live. Four more decisions are arguments rather than lists. **The dynastic decks are deliberately unequal,
+8 cards to 45** — the Xin lasted 14 years and the Tang 289, so an equal share would be a false claim.
+**`cnh-703 The dynastic cycle` is a card, not the tree's silent assumption**, being a Chinese
+historiographical theory bound up with the Mandate of Heaven rather than a description of what happened.
+**The standard histories were each compiled by the dynasty that replaced the one they describe**, which is
+the collection's central source-critical fact (`cnh-736`–`cnh-738`). And **"China" is not only the Han**:
+`cn-peoples` gets 28 cards, the conquest dynasties are part of the history rather than interruptions of
+it. Conventions it fixes: **pinyin**, except where a non-pinyin form IS the English name (Confucius,
+Mencius, Taoism, the *Tao Te Ching*, Peking opera, the Yangtze); aliases mandatory; conventional dynastic
+dates named as conventional. Two names to watch — *Jin* is two dynasties, and *li* is two different
+central concepts (禮 ritual propriety `cnh-831`, 理 principle `cnh-861`). The glossary has `China`,
+`Mongolia`, `Taiwan`, `Zhoukoudian` and `Sima_Qian` and nothing else Chinese, so write terms **cited from
+the start** at the `GLOSS_SRC_TARGET` bar — and mind that romanised Chinese names collide on their
+syllables (*Yang Yan* against *yin and yang*, *Ban Zhao* against *Han-Zhao*), so prefer the fuller head
+word.
+
+**ANCIENT EGYPT (`egypt`) is planned and not yet started (Aug 2026).** Its 9 decks and 26 leaf subdecks
+are in `data.js` and its full 1000-card running order is `docs/egypt-card-plan.md`: **"Generate the next
+Ancient Egypt card" means take the lowest `eg-NNN` not yet in `data.js`, read its topic and deck from
+that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next
+number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='eg-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `eg-1000`). **It is the only plan that CREATED its collection**,
+so four things were decided that the others inherited: the id is **`egypt`**, not `col-44` (China set the
+readable-id precedent, and `col-44`–`col-64` were retired World History decks — reusing a number that
+recently meant something else is a trap); the card prefix is **`eg-`**; the hue is **`#1F6F5C` malachite**
+in `COLL_THEME`, **measured rather than picked** — the green quarter was unused and it sits 33.3 from its
+nearest neighbour in CIELAB against a tightest existing pair of 12.9; and there is **deliberately NO
+`COLLECTION_NUMERALS` entry**, because no hieroglyphic webfont is loaded and a level badge rendering as
+tofu boxes is worse than a digit (Egypt uses Western numerals, like World History and the US).
+**The scope decision is the one to read first**: the collection runs from the Palaeolithic Nile to the
+Arab conquest of 641 CE, not to 30 BCE, because Egyptian religion, writing and temple building all
+outlive Egyptian independence by centuries — the last dated hieroglyphic inscription is of 394 CE and
+Philae was still working into the sixth. Ptolemaic, Roman and Christian Egypt get 100 cards and the
+collection ends where ancient Egyptian religion does. Four more decisions are arguments rather than
+lists. **Death gets 50 cards because the record IS a record of the dead** — tombs were stone in the
+desert and towns mudbrick on the floodplain — and `eg-789` states that bias outright so a reader is not
+taught a civilisation obsessed with dying. **Kush gets 30 cards and Nubia runs through the collection**,
+the counterpart of `ru-peoples` and India's south. **Monuments live with their builders** (the Great
+Pyramid under Khufu, Abu Simbel under Ramesses II) while `eg-art` carries the canon, the column and the
+pylon — Rome's rule. And **Thebes is a subdeck**, the collection's one place-deck, because Karnak, the
+Valley of the Kings and Deir el-Medina are one continuous body of evidence that no reign owns.
+**This is the collection where the history-not-archaeology rule bites hardest**: everything known about
+Egypt came through excavation and decipherment and the popular literature is about the arriving, so
+**Tutankhamun gets cards and Howard Carter does not**. Modern scholars are capped at two and the plan
+spends **one** (`eg-899 The decipherment of Egyptian hieroglyphs`), leaving the second unspent as a
+standing signal that the bar was not lowered. Conventions: dates are a construct, so use one published
+conventional chronology, say it is conventional and give ranges; the Egyptian name is the head word and
+the Greek form an alias (Khufu not Cheops), except where the Greek form is the English one (Thebes,
+Memphis, Osiris). The glossary has **`Egypt` and nothing else** — no `Pharaoh`, no `Hieroglyph`, no
+`Mummy`, no `Nile` — so write those **cited from the start** at the `GLOSS_SRC_TARGET` bar, and mind
+that this collection's short terms are the worst on the site for auto-linking: `Set` and `Nut` are gods
+whose names are ordinary English words, and `Ba` and `Ka` are two-letter surfaces that would match
+inside other words entirely, so prefer a fuller head word and let the short form be an alias only if it
+can be made safe.
+
+**JAPAN (`japan`) is planned and not yet started (Aug 2026).** Its 9 decks and 34 leaf decks are in
+`data.js` and its full 1000-card running order is `docs/japan-card-plan.md`: **"Generate the next Japan
+card" means take the lowest `jp-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='jp-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `jp-1000`). It is the **third plan to CREATE its collection**,
+after Egypt and the Second World War: the id is **`japan`** (the readable-id precedent), the prefix
+**`jp-`**, the hue **`#8A2E5C`** — *kuwazome*, a deep red-purple, **measured rather than picked** at 35.9
+from its nearest neighbour against a tightest existing pair of 12.9. **The two obvious Japanese colours
+are both taken and were measured before being abandoned**: a *kachi* indigo lands 8.3 from the United
+States' navy and a *sumi* charcoal 7.8 from the war's dark iron, each inside the shelf's tightest pair.
+**IT IS THE FIRST NEW `COLLECTION_NUMERALS` ENTRY SINCE CHINA, AND THE KEY MATTERS**: Japanese counts in
+the same kanji, so `numeralIn` reuses `cnNumeral()` and there is one implementation — but `"ja"` must
+stay a separate key from `"zh"`, because that one ALSO puts the badge in `var(--han)`, which is **Noto
+Sans SC, a Simplified Chinese face**. CLAUDE.md keeps that font out of the body chain precisely so it
+cannot impose Chinese glyph forms on Japanese text, so `.level-badge.num-ja` / `.lu-badge.num-ja` repeat
+`.zh`'s sizes **without** the font override and fall through to the reader's own system CJK font.
+**Three scope decisions to read first.** **The Ainu and the Ryukyuans get 30 cards each**, and the
+load-bearing part is that **the annexations are carded in THOSE decks, not in `jp-meiji-empire`** —
+Hokkaido was colonised from 1869 by an office set up for it and the Ryukyu Kingdom was a sovereign
+tributary state until 1879, and both are events in those peoples' histories before they are two lines in
+somebody else's expansion. "Japan is ethnically homogeneous" is a Meiji nation-building claim before it
+is a fact. **The empire and the war are carded from the outside as well as the inside** — most of
+`jp-colonial`'s 35 are Taiwan, Korea, Manchuria and China rather than Tokyo — under the Russia plan's
+rule that **no state's account of its own actions is repeated as established fact**, which cuts in every
+direction here. And **`jp-memory` is a subdeck of 20**: the textbook controversies, the Yasukuni visits,
+the apology statements and the forced-labour rulings are live diplomacy between four countries, carded
+as history rather than adjudicated.
+Four more decisions are arguments rather than lists. **Tokugawa Japan is the largest chronological deck
+at 130**, because the Edo period is where the explanation for 1868 has to come from and a collection
+treating it as a pause cannot explain the Meiji one. **The Heian court gets 90 with 35 on literature and
+art**, this being the one place on the site where a court's writing is why the period is studied and
+where most of it was written by women. **There is no "samurai" deck** — it would span seven centuries
+and three different social positions, so the warriors are carded where they were, and `jp-514`/`jp-515`
+card *bushidō* as the largely late construction it is. **Buddhism and Shinto are carded twice, by period
+and thematically, and that is not duplication**: the period decks carry what a school's arrival DID, the
+thematic deck what the practices ARE.
+**The four pulls** are romance (the samurai/ninja/bushidō literature — carded accurately, with the
+invention carded as its own subject at `jp-333`/`jp-334`), **essentialism** (*Nihonjinron*; the test is
+the tense — a card saying the Japanese *are* something has adopted the claim, where one saying a practice
+began at a datable moment has described one), **the isolation story** (*sakoku* is substantially revised
+— four gateways ran continuously, and the word is a 19th-c. coinage back-applied; `jp-433`–`jp-435`), and
+live political use, where the collection **declines to treat a settled historical question as open
+because it is politically contested**. Scholars are capped at two and it spends none.
+Conventions: **family name first** (Tokugawa Ieyasu, Ōe Kenzaburō) — the scholarly standard and the
+Japanese government's own policy since 2019; **macrons on Japanese words, not on established English
+place names** (*shōgun*, *daimyō*, *Ryūkyū*, but Tokyo, Osaka, Kyoto, Honshu); era names given with the
+Western year; and **the calendar changes on 1 January 1873**, Japan's smaller version of the Russia
+plan's Julian/Gregorian problem, so an exact day before then says which calendar it is. Two contested
+figure sets are carded so a reader meets the argument — **the dead at Nanjing** (`jp-731`, estimates
+ranging over an order of magnitude on different definitions of area and period) and **Japan's own war
+dead** — under the standing rule: give the range, name whose it is. Sourcing is very well served in
+English, with three hazards: **the popular literature on premodern Japan is heavily romanticised** and
+much of it is old enough to be free online, which is why it ranks first (Nitobe's *Bushidō* was written
+in English, for Americans, in 1900); **war-history material is contested and some is denialist**, from
+more than one direction; and **survivor testimony is evidence needing handling as such**. The glossary
+has `Japan` and nothing else Japanese, so write those **cited from the start** — and mind four traps:
+**a macron is an alias problem in both directions** (`Daimyo`/*daimyō*, `Shōgun`/*shogun*), this
+collection having more of them than any other; **a Japanese word that has entered English keeps its
+English sense too** (`Zen`, `Samurai`, `Tycoon`, `Futon`, `Bonsai`), needing `GLOSSARY_CASESENSITIVE` or
+a narrower head word; the same for ordinary-English surfaces (`Occupation`, `Restoration`, `Bubble`);
+and the war and colonial terms need drafting from institutional definitions rather than the first
+summary to hand.
+
+**THE UNITED STATES (`col-41`) is planned and not yet started (Aug 2026).** Its 9 decks and 33 leaf
+decks are in `data.js` and its full 1000-card running order is `docs/us-card-plan.md`: **"Generate the
+next United States card" means take the lowest `us-NNN` not yet in `data.js`, read its topic and deck
+from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next
+number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='us-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `us-1000`). The collection **already existed** — `col-41` was an
+empty node with its navy `#2F4373` hue and its nine translated titles — so this plan adds a tree and
+nothing else, the Rome/Russia/India case rather than the Egypt/WWII one; there is **no
+`COLLECTION_NUMERALS` entry and should not be one** (Western digits, like World History).
+**READ ITS TWO SCOPE DECISIONS FIRST, because both are claims a shorter plan would make silently.** The
+collection **opens with Native America as a DECK, not a prologue** — 100 cards running from the peopling
+of the continent through Cahokia and the Haudenosaunee to removal, allotment, the boarding schools,
+termination and tribal sovereignty in the present, because Native American history is not a phase of
+American history that ends when the frontier closes; a collection that opens at Jamestown has already
+decided whose history this is. And it covers **the territory that became the United States**, so Spanish
+Florida (older than Jamestown by 42 years), French Louisiana and New Netherland get `us-borderlands`
+rather than the collection being thirteen colonies growing westward. The plains wars are the deliberate
+exception and sit in `us-west`, where they are what the settlement of the West consisted of.
+Four more decisions are arguments rather than lists. **Slavery is a deck of 90, not a subdeck of the
+antebellum South** — the Second World War plan's Holocaust reasoning in another key: filing it under the
+Old South makes it regional when it was national and a phase when it is a foundation, and 35 of the 90
+go to enslaved life, since a deck about the slave *system* alone cards the people in it only as its
+material. **There is no "the South" deck and no pre-1865 "the West" deck**, for those two reasons
+respectively. **Presidents do not organise the tree** — a US collection left alone becomes a list of
+administrations, so `The presidency of X` cards exist only where the office itself is the subject
+(Washington, Jackson, FDR) and the politics is otherwise carded by events, laws and movements; there are
+45 presidents and far fewer than 45 presidency cards, deliberately. And **the Black freedom struggle
+opens with Jim Crow rather than with Montgomery** (`us-891`–`us-902` are the disfranchising
+constitutions, the lynching campaign, the covenants and redlining), because segregation was constructed
+by legislatures, courts and banks after Reconstruction and a deck opening in 1955 leaves a reader
+assuming it was inherited from slavery.
+**The pull specific to this collection is "settled in scholarship, contested in public"**, and the rule
+is the Second World War plan's with the ordering mattering as much: **a card that explains comes before
+a card that debunks.** `us-555 What caused the American Civil War` is built from the secession
+declarations and the Cornerstone Speech (`us-554`); `us-648 Lost Cause of the Confederacy` then cards the
+alternative account as the postwar construction it is. The other three pulls are exceptionalism (carded
+as a subject at `us-148`, `us-391`, `us-665`, `us-1000`, never as the register), the founding register
+(neither demigods nor hypocrites — `us-245` states both halves of Jefferson plainly and lets the reader
+hold them), and live political use, where the collection declines to treat a settled historical question
+as open because it is politically contested. Modern scholars are capped at two and it **spends both**
+(`us-666 Frederick Jackson Turner`, `us-649 The Dunning School and its overthrow`), for the one reason
+that justifies it: in each case a historian's account escaped the academy and became the public
+understanding, which makes the account an event in American history.
+Conventions: **a Native nation takes the name it uses for itself** where that is established (Muscogee,
+Lakota, Diné, Haudenosaunee) with the familiar name in the same sentence, and a name is not an argument
+to be made silently; **enslaved people, not slaves**, and enslaver rather than owner, throughout card
+prose and glossary descriptions, since *slave* names a person by what was done to them and makes it a
+category of person rather than a condition imposed; and three contested figure sets are carded so the
+reader meets the argument (`us-039` pre-contact population, 2–18 million by different methods; the
+Middle Passage mortality; `us-599` the Civil War dead, revised from 620,000 to a range near 750,000 in
+2011). Sourcing is the best on the site — LoC, NARA, the Smithsonian, the NPS handbooks and the founding
+documents in full — with three hazards: **Lost Cause material is still in wide circulation** and being
+out of copyright is not authority; **the WPA slave narratives are indispensable and are evidence needing
+handling as such** (collected in the 1930s from people who had been children before 1865, by mostly
+white southern interviewers, in the Jim Crow South — `us-470` is about this); and much state and local
+heritage material is advocacy. **The glossary starts further ahead than any other collection** — all 45
+presidents cited at the bar from P1–P7 — but has no `Slavery`, no `Reconstruction`, no `Jim_Crow`, no
+`Manifest_Destiny`, no `Cherokee`, no `Lakota`, so write those **cited from the start**; mind that this
+collection has a great many ordinary-English-word surfaces (`Union`, `Confederacy`, `Frontier`,
+`Reconstruction`, `Depression`, `Prohibition`, `Reservation`) needing `GLOSSARY_CASESENSITIVE` or a
+narrower head word, and that **a Native nation needs its aliases the day it ships, both directions**
+(`Muscogee`/Creek, `Lakota`/Sioux, `Diné`/Navajo, `Haudenosaunee`/Iroquois) or half of deck 1 links to
+nothing.
+
+**THE SECOND WORLD WAR (`ww2`) is planned and not yet started (Aug 2026).** Its 8 decks and 30 leaf
+decks are in `data.js` and its full 1000-card running order is `docs/ww2-card-plan.md`: **"Generate the
+next Second World War card" means take the lowest `ww2-NNN` not yet in `data.js`, read its topic and
+deck from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The
+next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='ww2-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `ww2-1000`). It is the **second plan to CREATE its collection**,
+after Egypt, so the same four things were decided here: the id is **`ww2`** and the title **"The Second
+World War"**, the British form, because the site's register is en-GB throughout and World History's own
+deck is already `wh-ww2` — two names for one subject inside one site is how a reader searches for the
+wrong thing; the card prefix is **`ww2-`**; the hue is **`#4A4038` dark iron**, **measured rather than
+picked** (30.9 from its nearest neighbour in CIELAB against a tightest existing pair of 12.9 — every
+other collection hue is a saturated colour, and the sober greys and slates all crowd within 15–24 of
+Greece's Aegean blue); and there is **deliberately NO `COLLECTION_NUMERALS` entry**, there being no
+script this collection could plausibly count in.
+**IT IS THE FIRST COLLECTION WHOSE SUBJECT IS INSIDE LIVING MEMORY AND ACTIVELY CONTESTED IN PUBLIC**,
+so read its "History, not commemoration — and the four pulls" and "Sourcing" sections before writing
+anything. The rule that governs the whole collection is the Russia plan's, needed here more than there:
+**no state's account of its own actions is repeated as established fact.** The four pulls it names are
+commemoration (a card on D-Day states what was planned, what happened, what it cost and what it
+achieved — heroism is a thing people did, not a tone to write in), **national memory** (the Blitz
+spirit, the American good war, French résistancialisme, the Great Patriotic War, the Japanese victim
+narrative and the clean Wehrmacht are all carded as SUBJECTS — `ww2-229`, `ww2-295`, `ww2-393`,
+`ww2-982`, `ww2-995` — and never as the register), denial and myth, and live political use.
+Four more decisions are arguments rather than lists. **The Holocaust is a 60-card subdeck, not a chapter
+inside the Eastern Front** — it was not a military operation and filing it as one is the commonest
+structural mistake a war course makes — built to teach it as history and ending `ww2-788 The evidence`
+→ `ww2-789 Holocaust denial and why it fails` → `ww2-790 Holocaust memory` **in that order, because the
+evidence has to come before the denial for the denial card to be a card about history rather than a
+platform**. Its two writing rules are not optional: **no false balance** (the genuine historiographical
+arguments within it are about MECHANISM and are carded as such) and **no sensationalism** (this material
+does not need heightening, and heightening it is a way of not looking at it). **Other crimes get their
+own subdeck of 30 and it is not a levelling exercise** — one subdeck is a filing decision, not a claim
+of equivalence, and the cards do not make that claim. **The Eastern Front gets 140 against the Western
+Allies' 120**, and the German surrender is carded at the end of `ww2-berlin`, because the war in Europe
+ended where Berlin fell. And **the prelude starts in 1919, not 1933.**
+Conventions: operations take their code names where those are what the events are called; a place takes
+the name current at the time with the modern one where it differs and matters, and **a spelling is not
+an argument and must not be made to do one silently**; the war has several start dates depending on
+where you stand (1937, 1939, 1940, 1941) and `ww2-001` says so; and **casualty figures are given as
+RANGES with whose they are named** — never the highest or lowest available stated flat — with `ww2-390`,
+`ww2-818` and `ww2-962` existing to teach that directly. Sourcing is better served than any other
+collection here and carries a specific hazard: **this subject has more bad material online than any
+other on the site and some of it is dressed as scholarship**, so apply the citation bar more strictly
+here than anywhere. **Memoirs and testimony are evidence and need handling as such** — survivor
+testimony is indispensable and not interchangeable with a secondary source, and several influential
+German generals' accounts were written to shape the record. The glossary has the modern countries and
+nothing else — no `Blitzkrieg`, no `Wehrmacht`, no `Holocaust`, no `Lend-Lease` — so write those **cited
+from the start** at the `GLOSS_SRC_TARGET` bar, and mind that this collection has more
+ordinary-English-word surfaces than any other (`Resistance`, `Blitz`, `Ultra`, `Enigma`, `Overlord`)
+because operation code names were chosen to be ordinary words: use `GLOSSARY_CASESENSITIVE` or the full
+form as the head word (`Operation Barbarossa`, not `Barbarossa`).
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort
@@ -5954,10 +6794,12 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-five committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
-  Playwright; `test-daily-quote.js`, `test-discovery.js`, `test-date-line.js` and `test-scheduler.js` are plain Node with
+- **Twenty-seven committed regression tests** (in `.claude/`, not loaded by the site): twenty-two drive a real browser with
+  Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
+  `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
-  no browser).
+  no browser). **The split is `grep -L playwright .claude/test-*.js`, not a number to keep in your head** — the
+  headline count had drifted one behind before this line was last rewritten.
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -6098,7 +6940,10 @@ dead code (never rendered).
     deck's NAME not cut off at 390px, that being what gives way if the arithmetic ever stops working) and the same page above the breakpoint, where the only thing that may differ
     is the About line (a desktop reaches About from its top bar) and where `#decks` must still RESOLVE with
     no tab left pointing at it;
-    the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen, the
+    the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen,
+    **opening the tools selecting NOTHING and choosing a tool being what starts drawing** — asserted in
+    both places the marker is exercised, and both halves each time, since they fail in opposite directions
+    and "nothing is selected" alone would also pass on a marker that had stopped working; the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
     revert to the platform dialog would look like — and **Show answer and the grade row still tappable with
@@ -6119,7 +6964,10 @@ dead code (never rendered).
     grades as bare colours that a screen reader can still name, keep the ? and Suspend beside them rather
     than dropping them, and take the page's bottom padding down with it — note that the fold is ANIMATED
     since Aug 2026, so a height read sooner than `GB_FOLD_MS` after the press measures a state half way
-    between the two; the Text size setting, which is a SLIDER filling its row (asserted, that being the
+    between the two — which is also how the fold is asserted to EASE rather than cut, by reading a
+    mid-flight height and requiring it to sit between the two settled ones; the shortcut digits and the
+    `?` bubble's keyboard line present in the markup and hidden on a phone (both halves, since a removal
+    and a hidden element look identical from one side); the Text size setting, which is a SLIDER filling its row (asserted, that being the
     visible half of the request) and which must
     grow the card and the glossary popup and must leave a tab label and a grade button exactly where they
     were, that being the difference between a reading scale and a page zoom; Settings and Account filling the stage;
@@ -6132,8 +6980,9 @@ dead code (never rendered).
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
-    `ensureWBTools` / `.wb-pick` /
+    `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     the ink layer's pass-through /
+    `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on `.admin-list-items` /
     `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
@@ -6161,6 +7010,24 @@ dead code (never rendered).
     theme is caught. The default mode is REPORTED — the quiet tokens are quiet on purpose and the high-contrast
     mode is the answer to them — while **with `body.hc` on, nothing may fall short**, which is the assertion.
     **Re-run after touching a control's markup, `body.hc`, or any theme's colour tokens.**
+  · `node .claude/test-card-plans.js` — 125 assertions on **the join between the ten card plans and
+    `data.js`**, which is what makes "generate the next `<collection>` card" work. Everything it guards
+    fails SILENTLY, and the worst of them is not a crash: **a plan naming a deck id the tree hasn't got
+    makes `add-card.js` file the card in the FIRST leaf of the whole tree, which is `cn-myth`, in
+    China** — nothing throws, and the card sits in the wrong collection until somebody notices. It also
+    asserts that no leaf in `data.js` goes unnamed by a plan (cards could never be routed there), that
+    each running order covers 1–1000 with no gaps, no duplicate ids and no two cards naming the same
+    topic, that CLAUDE.md carries every plan and a working next-id command, and that the **index table**
+    under "Generating cards & glossary entries" still matches the tree. **No browser and no
+    dependencies.** Two things it had to learn, both of which made a first draft report faults that were
+    not there: **a `##` heading may name a FLAT DECK** — a deck that is itself a leaf (`gr-iron`,
+    `ru-federation`, `cn-myth`) — so reading only `###` misses it and reading `##` as always-a-leaf
+    misfires on the branch decks; and **`docs/world-history-card-plan.md` carries an appendix**, the
+    2026-08-04 renumbering record, whose 109 old-numbering ids are not the running order, so the list
+    must stop at the next `#` heading. Verified against four deliberately injected faults (a renamed
+    leaf, a duplicate id, a broken next-id command, an unplanned leaf) plus a stale table count; each
+    was caught. **Re-run after editing a plan, after changing a tree in `data.js`, and after adding a
+    collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
     simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
     two days running or a third appearance inside a week fails here rather than on the live page. **No

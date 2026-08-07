@@ -73,7 +73,13 @@ body.night{
 
    One failure was NOT left to the mode, because it is a primary control rather than a caption: in night
    mode `.btn` was #FFF on the light-lavender --indigo, at 2.29:1. That is fixed outright below. */
-body.night .btn{color:var(--paper);}                       /* 7.9:1, against #fff's 2.29 */
+/* The ink is for a FILLED button — on night's light-lavender --indigo it reads 7.9:1 against #fff's 2.29.
+   A .ghost button is transparent, so the same dark ink puts near-black on the dark card and the label
+   disappears altogether: found on the new Common Thread board's Shuffle/Deselect, and it was every ghost
+   button on the site in dark mode (the True or False and Timeline results' "Home" among them). The :hover
+   line below has always carried the :not(.ghost) — the exemption was intended here too and was missed.
+   A ghost keeps .btn.ghost's own var(--indigo), which is that same light lavender ON the dark card. */
+body.night .btn:not(.ghost){color:var(--paper);}
 body.night .btn:not(.ghost):hover{color:var(--paper);}
 body.hc:not(.night){
   --ink-faint:#6C6A63; --ochre:#945D22; --geo:#935F13; --zh:#BA4038; --good:#3B7556;
@@ -462,6 +468,9 @@ html[dir="rtl"] .site-ver{text-align:right;}
 body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}   /* brighter gold so it reads over the dark card/wash */
 /* China's level shows a Chinese numeral — render it in the Han font */
 .level-badge.zh .lb-num{font-family:var(--han); font-weight:600; font-size:calc(40px * var(--fs));}
+/* Japan counts in the same kanji, at the same size — but deliberately WITHOUT var(--han), which is a
+   Simplified Chinese face; this falls through to the reader's own system CJK font, as Japanese text does. */
+.level-badge.num-ja .lb-num{font-weight:600; font-size:calc(40px * var(--fs));}
 /* the other civilisations count in their own script too — letter numerals sit a touch smaller than digits */
 .level-badge.num-roman .lb-num{font-size:calc(36px * var(--fs)); letter-spacing:0;}
 .level-badge.num-greek .lb-num, .level-badge.num-cyrillic .lb-num{font-size:calc(38px * var(--fs));}
@@ -1228,8 +1237,70 @@ body.grading .stage{padding-bottom:150px;}
 .tf-sum-mark.no{background:var(--zh);}
 .tf-sum-q{font-family:var(--serif); font-weight:600; font-size:calc(15.5px * var(--fs)); line-height:1.45; margin:0 0 4px;}
 .tf-sum-a{font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin:0;}
+/* what happens next, now that nothing on this screen offers another go (Aug 2026, with the one-play-a-day
+   rule). It is a line rather than a disabled button: the answer to "can I play again" is a fact about the
+   calendar, and a greyed control invites a reader to keep pressing it. */
+.tf-tomorrow{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-faint); text-align:center; margin:0 0 16px;}
 .tf-actions{display:flex; gap:10px;}
 .tf-actions .btn{flex:1;}
+
+/* Common Thread — the daily grouping puzzle (PAGES.thread).
+   The board is ONE grid holding both states: a solved row spans all four columns (grid-column:1/-1) and
+   sits above the tiles still in play, so a row gathering itself is the grid closing up rather than two
+   separate lists. The four group colours are fixed hex mixed into var(--card), so every theme and both
+   modes get a wash of the same weight without a rule of its own. */
+.th-lives{display:flex; align-items:center; gap:9px; margin:0 0 14px; min-height:20px;}
+.th-lives-label{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);}
+.th-dots{display:flex; gap:6px;}
+.th-dot{width:9px; height:9px; border-radius:99px; background:var(--indigo); transition:background .25s, transform .25s var(--ease);}
+.th-dot.gone{background:var(--rule); transform:scale(.7);}
+.th-board{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:18px;}
+.th-tile{
+  appearance:none; cursor:pointer; border:1px solid var(--rule); background:var(--card); color:var(--ink);
+  border-radius:11px; padding:8px 6px; min-height:74px; display:grid; place-items:center; text-align:center;
+  font-family:var(--serif); font-size:calc(13px * var(--fs)); line-height:1.25; hyphens:auto; overflow-wrap:anywhere;
+  transition:transform .12s var(--ease), background .18s, border-color .18s, box-shadow .2s;
+}
+.th-tile:hover{border-color:color-mix(in srgb,var(--indigo) 35%,var(--rule)); box-shadow:var(--shadow-sm); transform:translateY(-1px);}
+.th-tile:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.th-tile.on{background:var(--indigo); border-color:var(--indigo); color:#fff; transform:translateY(-1px);}
+.th-tile[disabled]{cursor:default;}
+.th-tile.shake{animation:thShake .42s var(--ease);}
+@keyframes thShake{
+  0%,100%{transform:translateX(0);} 20%{transform:translateX(-5px);} 40%{transform:translateX(5px);}
+  60%{transform:translateX(-3px);} 80%{transform:translateX(3px);}
+}
+.th-solved{
+  grid-column:1 / -1; border-radius:11px; padding:11px 14px; text-align:center;
+  background:color-mix(in srgb, var(--th-c) 20%, var(--card)); border:1px solid color-mix(in srgb, var(--th-c) 55%, var(--rule));
+  animation:thPop .3s var(--ease);
+}
+@keyframes thPop{from{opacity:0; transform:scale(.97);} to{opacity:1; transform:none;}}
+.th-solved-name{
+  display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.11em;
+  text-transform:uppercase; font-weight:600; color:color-mix(in srgb, var(--th-c) 72%, var(--ink)); margin-bottom:5px;
+}
+.th-solved-terms{display:flex; flex-wrap:wrap; justify-content:center; gap:4px 10px;}
+/* a solved term opens its glossary popup — a control, so it reads as one rather than as plain text */
+.th-term{
+  appearance:none; background:none; border:0; padding:0; cursor:pointer; color:var(--ink);
+  font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.35;
+  border-bottom:1px dotted color-mix(in srgb, var(--th-c) 60%, var(--rule)); transition:color .15s, border-color .15s;
+}
+.th-term:hover{color:var(--indigo); border-bottom-color:var(--indigo);}
+.th-term:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:3px;}
+.th-g0{--th-c:#C2793A;} .th-g1{--th-c:#4F74C2;} .th-g2{--th-c:#4F9D67;} .th-g3{--th-c:#8257C2;}
+.th-actions{display:flex; gap:10px;}
+.th-actions .btn{flex:1;}
+.th-msg{color:var(--ink-soft); margin:-4px 0 18px; font-family:var(--serif); font-size:calc(15px * var(--fs));}
+/* A four-column grid on a 390px phone leaves each tile about 80px wide, so the type steps down with it —
+   the names are glossary head words and a few run to the 24-character cap the generator enforces. */
+@media (max-width:560px){
+  .th-board{gap:6px;}
+  .th-tile{min-height:66px; font-size:calc(11.5px * var(--fs)); padding:6px 4px; border-radius:9px;}
+  .th-term{font-size:calc(13px * var(--fs));}
+}
 
 /* results */
 .podium{display:flex; flex-direction:column; gap:10px; margin:18px 0;}
@@ -1912,6 +1983,20 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    Same shell for the two dialogs it opens (Custom study, Daily limits), so Escape, the backdrop and the
    focus behaviour are written once. */
 .deck-menu{position:fixed; inset:0; z-index:420; display:flex; align-items:center; justify-content:center; padding:20px; background:color-mix(in srgb,var(--ink) 38%,transparent);}
+/* NOTHING IN THE SHEET IS SELECTABLE, and the reason is the gesture that opens it (Aug 2026, on a bug
+   report: holding a book's banner opened the sheet and immediately selected text inside it). The sheet is
+   raised at HOLD_MS with the finger still down, so it lands UNDER that finger — and the browser's own
+   long-press recognizer, which fires a moment later, hit-tests wherever the finger is NOW. It therefore
+   selects a word of whichever row happens to be under it and raises the platform's Copy / Share / Select
+   All bar over the very menu just opened. The element held is guarded too (.active-deck[data-review],
+   .book-tile, #b-review), but that alone cannot help: by the time the recognizer runs, the thing under the
+   finger is this sheet. It is a menu of buttons, so there is nothing here a reader wants to select anyway. */
+.deck-menu{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
+/* …EXCEPT the fields, and this is not belt-and-braces: `user-select` INHERITS, and it reaches a form
+   control (measured — the Daily limits number box computes `none` under the rule above). Typing still
+   works, but selecting the figure already in the box to type over it does not, which is the whole way a
+   reader edits a number. The guard is about the menu's PROSE; a box a reader types into is not prose. */
+.deck-menu input, .deck-menu textarea{-webkit-user-select:text; user-select:text;}
 .dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;}
 /* Title on the left, how far through the deck the reader is on the right — on the SAME line, which is what
    `align-items:baseline` buys: the left-hand block is a column, and a column flex item aligns on its own
@@ -1985,6 +2070,7 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .lu-row{display:flex; align-items:center; gap:12px; text-align:left; border:1px solid var(--rule); border-radius:10px; padding:9px 12px;}
 .lu-badge{flex:none; min-width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:9px; background:var(--paper); border:1px solid var(--rule); font-family:var(--display); font-weight:600; font-size:calc(22px * var(--fs)); color:#C39A2E;}
 .lu-badge.zh{font-family:var(--han); font-size:calc(19px * var(--fs));}
+.lu-badge.num-ja{font-size:calc(19px * var(--fs));}
 .lu-text{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.35; color:var(--ink-soft);}
 .lu-text b{color:var(--ink); font-weight:600;}
 .lu-hint{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
@@ -2410,7 +2496,7 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    carries three counts, a name, a figure and a bar, and the three commands beside it had nowhere to go.
    Holding a row must not select its text on the way to the sheet, and on iOS must not raise the platform's
    own callout. */
-.active-deck[data-review]{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
+.active-deck[data-review], #b-review{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
 /* hierarchy: ancestor context rows + indentation */
 .active-deck{transition:padding-left .2s var(--ease), background .16s var(--ease);}
 /* a deck added to the review is clickable → reviews just that deck */
@@ -2957,6 +3043,13 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ci-up,.ci-dn{appearance:none; cursor:pointer; width:26px; height:20px; border-radius:6px; border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft); display:inline-flex; align-items:center; justify-content:center; padding:0; transition:all .14s var(--ease);}
 .ci-up svg,.ci-dn svg{width:13px; height:13px;}
 .ci-up:hover,.ci-dn:hover{border-color:var(--indigo); color:var(--indigo); background:var(--indigo-wash);}
+/* ANSWERED: the rows stop being a puzzle and become the record of one (Aug 2026, with the one-play-a-day
+   rule). The controls that reorder them are faded and made inert rather than removed — a row that loses its
+   grip and its arrows changes shape and width the moment the answer lands, which reads as the page redrawing
+   itself under the reader instead of as the puzzle closing. The JS refuses the gesture as well as the CSS:
+   pointer-events alone would still leave the keyboard able to press an arrow. */
+.chrono-list.chrono-done .ci-grip,.chrono-list.chrono-done .ci-arrows{opacity:.32; pointer-events:none;}
+.chrono-list.chrono-done .ci-grip{cursor:default;}
 .chrono-actions{display:flex; gap:12px; margin-top:18px;}
 .chrono-result{overflow:hidden; max-height:0; opacity:0; transition:max-height .35s var(--ease), opacity .3s, margin .3s; text-align:center; margin-top:0;}
 .chrono-result.show{max-height:220px; opacity:1; margin-top:18px;}
@@ -3054,22 +3147,38 @@ button.game-tile .gt-glyph{opacity:.14;}
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
 
+  /* ---- NOTHING ON A PHONE NAMES A KEY IT HAS NOT GOT (Aug 2026, on request) ----
+     The digit under each grade and the shortcut line in the ? bubble both describe a keyboard. A phone has
+     none, so on a phone they are two pieces of furniture explaining a control that cannot be reached: the
+     digits cost the four buttons a line of height each, and the shortcut line costs the bubble a third of
+     its own. They are hidden here rather than dropped from the markup, because the same markup is what a
+     desktop reader gets — and there the keys are real and worth saying. (The ≤430px block used to carry
+     the .gk rule alone; the whole phone range takes it now, so the two can't disagree.) */
+  .grade .gk{display:none;}
+  .grade-help-bubble .ghb-keys{display:none;}
+
   /* ---------- the grade bar's two heights (Aug 2026, on request) ----------
      Drag the grip down and the bar halves: the four grades go side by side as bare COLOURS, and the ?,
      Undo and Suspend shrink to their icons beside them, all on one row. Nothing is taken away — a phone
      reader who wants the card back has the whole bar's function in half its height — and nothing is
      re-rendered: the same markup, laid out differently, so a grade never has to survive a rebuild. */
+  /* It is a quiet control on a bar of loud ones — four saturated colours directly under it — so it is
+     dimmed further than --ink-faint alone (Aug 2026, on request). Full strength on hover and focus, where
+     it has been reached for deliberately. */
   .gb-fold{
     display:flex; align-items:center; justify-content:center; width:100%; height:20px;
     appearance:none; border:0; background:none; padding:0; margin:0 0 -3px; cursor:pointer;
-    color:var(--ink-faint); transition:color .15s var(--ease);
+    color:var(--ink-faint); opacity:.5; transition:color .15s var(--ease), opacity .15s var(--ease);
   }
-  .gb-fold svg{width:20px; height:20px; transition:transform .22s var(--ease);}
+  /* the chevron turns on the SAME clock as the fold it announces — see GB_FOLD_MS in app.js */
+  .gb-fold svg{width:20px; height:20px; transition:transform .28s var(--ease);}
   /* it points the way it will GO: down while the bar is tall (press to fold it away), up once it is short */
   body.gb-compact .gb-fold svg{transform:rotate(180deg);}
-  .gb-fold:hover, .gb-fold:focus-visible{color:var(--indigo);}
+  .gb-fold:hover, .gb-fold:focus-visible{color:var(--indigo); opacity:1;}
   .gb-fold:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:6px;}
-  #gradebar{padding-top:2px;}
+  /* the bar's own padding shrinks with it, and has to be TRANSITIONED or the fold ends on a 5px jump the
+     instant everything else settles — the one part of the movement nothing was animating */
+  #gradebar{padding-top:2px; transition:transform .34s var(--ease), padding-bottom .28s var(--ease);}
   body.gb-compact #gradebar{padding-bottom:max(8px, env(safe-area-inset-bottom));}
   /* one row: [?] [four colours] [undo] [suspend] */
   body.gb-compact .grade-wrap{grid-template-columns:auto 1fr auto auto; grid-template-areas:"help grades undo suspend"; gap:8px; align-items:center;}
@@ -3083,7 +3192,11 @@ button.game-tile .gt-glyph{opacity:.14;}
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     transition:transform .12s var(--ease), box-shadow .2s, filter .2s,
                height .28s var(--ease), border-radius .28s var(--ease);}
-  .grade-help,.grade-wrap .gb-undo,.grade-wrap .suspendbtn{transition:width .28s var(--ease), height .28s var(--ease), padding .28s var(--ease), font-size .28s var(--ease);}
+  /* font-size is deliberately NOT transitioned (Aug 2026, on a report that the fold ran roughly). Easing a
+     font down to 0 relayouts the text on every frame, and it did so on three buttons that flipMove was
+     translating at the same time — the two passes fighting over the same boxes is what the roughness was.
+     The labels now go at once and the buttons' geometry eases, which is the half a reader is watching. */
+  .grade-help,.grade-wrap .gb-undo,.grade-wrap .suspendbtn{transition:width .28s var(--ease), height .28s var(--ease), padding .28s var(--ease);}
   body.gb-compact .grade{position:relative; padding:0; height:32px; border-radius:8px;}
   /* the label is CLIPPED, not removed: display:none would take it out of the accessibility tree too, and
      then the four buttons would be four unnamed colours to a screen reader as well as to the eye */
@@ -3159,7 +3272,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .grade{padding:9px 3px 8px; border-radius:9px;}
   .grade .gl{font-size:calc(10px * var(--fs)); letter-spacing:.02em;}
   .grade .gi{font-size:calc(9px * var(--fs)); margin-top:4px;}
-  .grade .gk{display:none;}
+  /* (.grade .gk is hidden across the whole phone range — see the ≤640px block above) */
   .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
@@ -3391,15 +3504,21 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
    ONE element with backdrop-filter, not a filter over a list of the page's own containers: that list
    would need keeping in step with every fixed thing on the site, and a filter on an ancestor becomes the
    containing block for its position:fixed descendants, which would move the very bars it was blurring.
-   pointer-events:none — this is focus, not a modal: tapping outside never closed a popup and still
-   doesn't, and the page behind can still be scrolled. */
+   IT TAKES THE PRESSES (Aug 2026, on request: nothing behind a popup should be clickable until it closes).
+   It began as focus alone and is now a modal, which one property buys outright — at z-index 9590 it is
+   above every bar and control on the site, so nothing has to be disabled by name. touch-action:none goes
+   with it: a scrim that swallows a tap must not leave the browser free to treat the same tap as a scroll
+   or a double-tap zoom. A single tap on it still does nothing; a DOUBLE tap closes (see glossDoubleTap). */
 .gloss-scrim{
-  position:fixed; inset:0; z-index:9590; pointer-events:none; opacity:0;
+  position:fixed; inset:0; z-index:9590; pointer-events:none; touch-action:none; opacity:0;
   backdrop-filter:blur(7px) saturate(88%); -webkit-backdrop-filter:blur(7px) saturate(88%);
   background:color-mix(in srgb, var(--paper) 22%, transparent);
   transition:opacity .22s var(--ease);
 }
-.gloss-scrim.on{ opacity:1; }
+/* The blocking rides on `.on`, not on the base rule: the scrim is faded out for 220ms before it is removed
+   from the document, and for those 220ms the popup is already gone — a scrim still eating taps there would
+   leave the page dead to the touch just after the reader closed the thing that made it so. */
+.gloss-scrim.on{ opacity:1; pointer-events:auto; }
 
 /* glossary editor: fields on the left, a live popup preview on the right */
 .gloss-edit-cols{ display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; }
@@ -3884,9 +4003,15 @@ body.grading .admin-edit-fab{bottom:108px;}
   .admin-collapse{display:none;}
   .admin-list{width:auto; border-right:0; border-bottom:1px solid var(--rule);}
   .admin-list-items{max-height:300px;}
-  /* timeline + feedback take over the whole admin area, so the panel cap above would trap the entire
-     page in a 300px scroll box — let those two run full height and scroll with the page instead */
-  .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items{max-height:none;}
+  /* Every tab that takes over the whole admin area needs the panel cap above lifted, or its entire page is
+     trapped in a 300px scroll box with the rest of the screen left empty below it — which is exactly what
+     the Quotes tab looked like on a phone (Aug 2026, on a bug report): the edit form filled the box, its
+     Save button sat at the fold, and the running order under it was cut off mid-row. Timeline and Feedback
+     were listed here from the day they were built; the Dashboard and Quotes arrived later and were not,
+     which is the whole of the bug. FOUR tabs take the area over — keep this list in step with the
+     `*-mode` classes adminRefresh() sets, or the next one added will look broken the same way. */
+  .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items,
+  .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items{max-height:none;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and
@@ -4789,6 +4914,9 @@ body.night .rv-star.on{color:#E6C765;}
 body.night .book-tile{
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 19%, transparent), transparent 64%) var(--card);
 }
+/* A banner is HELD for its options sheet, so holding it must not select the title under the finger, and on
+   iOS must not raise the platform's own callout — the guard the daily review's rows already carry. */
+.book-tile{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
 .book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile,var(--indigo)) 45%, var(--rule));}
 .book-tile:active{transform:translateY(0) scale(.995);}
 .book-tile:focus-visible{outline:2px solid var(--tile,var(--indigo-bright)); outline-offset:3px;}
@@ -5028,6 +5156,13 @@ body.night .book-tile{
 .bk-foot{display:flex; justify-content:space-between; gap:10px; margin:16px 0 22px;}
 .bk-foot .btn:disabled{opacity:.4; cursor:default;}
 
+/* The front matter's essay, and the region an admin edits in place (see wireIntroEdit). It carries the
+   About page's .msn-editable / .msn-editing outlines, which stand 6px OFF the block they mark — hence the
+   gap while one is open, or the outline would cross the licence box directly under it. A reader who is not
+   an admin never sees any of this: the class is added by the wiring, not by the markup, and the wrapper is
+   deliberately styled with NOTHING in its resting state — it exists to be targeted, and the front matter
+   has to render exactly as it did before it was wrapped. */
+.bk-intro-essay.msn-editing{margin-bottom:16px;}
 .bk-rights{border:1px solid var(--rule); border-radius:12px; background:var(--card); padding:16px 18px; max-width:74ch;}
 .bk-rights h3{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 9px;}
 .bk-rights p{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.62; color:var(--ink-soft); margin:0 0 8px;}
