@@ -11579,3 +11579,70 @@ adding it** — N12's casing probe alone would have passed this one.
 flow, the 46 ka flooding record and the migration route. `Asia` owns the continent and its figures;
 `East_Asia` owns the M49 composition, the appearance of Chinese writing and the Movius Line. Neither
 pair shares an eight-word run.
+
+## Batch W1 — `wh-004` human evolution, written cited (2026-08-07)
+
+The first World History card written under the post-renumbering plan, with its paired glossary term
+`Human_evolution` in the same commit. Four works were newly opened; three were reused from the register
+unread, for the claims it already records (G6 applied as written — no claim was stretched past what the
+entry says the work supports).
+
+### Newly opened
+
+- Smithsonian National Museum of Natural History, Human Origins Program, "Introduction to Human Evolution," accessed 7 August 2026, https://humanorigins.si.edu/education/introduction-human-evolution. [Open access]
+  - opened: 2026-08-07 · full page
+  - supports: "Human evolution is the lengthy process of change by which people originated from apelike
+    ancestors"; that humans and the great apes of Africa "share a common ancestor that lived between 8 and
+    6 million years ago"; "Humans first evolved in Africa, and much of human evolution occurred on that
+    continent"; that bipedalism "evolved over 4 million years ago" while "a large and complex brain …
+    developed more recently" — which is the card's mosaic assembly, stated by the source as a sequence
+    rather than as a package; and "Most scientists currently recognize some 15 to 20 different species of
+    early humans"
+  - used by: wh-004, Human_evolution
+- Smithsonian National Museum of Natural History, Human Origins Program, "Walking Upright," accessed 7 August 2026, https://humanorigins.si.edu/human-characteristics/walking. [Open access]
+  - opened: 2026-08-07 · full page
+  - supports: "From at least 6 to 3 million years ago, early humans combined apelike and humanlike ways of
+    moving around"; *A. anamensis* at 4.1 Ma "walked upright"; *A. afarensis* "walk upright most of the
+    time" by 4 million years ago — the card's "by about 4 million years ago Australopithecus was doing it
+    habitually"
+  - note: the page does **not** state in so many words that bipedalism preceded larger brains; that
+    ordering is carried by the Introduction page above and by the *afarensis* brain figure below, and the
+    card's markers are placed accordingly rather than all on this one
+  - used by: wh-004, Human_evolution
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Australopithecus afarensis</i>," accessed 7 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-afarensis. [Open access]
+  - opened: 2026-08-07 · full page (already in the glossary's own list for `Australopithecus`; re-read here
+    for the brain figure, which that entry had not recorded)
+  - supports: "small brain, usually less than 500 cubic centimeters -- about 1/3 the size of a modern human
+    brain"; the species range "Between about 3.85 and 2.95 million years ago"
+  - used by: wh-004
+- Thomas A. Püschel et al., "Hominin Brain Size Increase Has Emerged from within-Species Encephalization," <i>Proceedings of the National Academy of Sciences</i> 121, no. 49 (2024): e2409542121, https://pmc.ncbi.nlm.nih.gov/articles/PMC11626186/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` itself is 403 here, as N1 recorded)
+  - supports: that "relative brain size increase across ~7 My of hominin evolution arose from increases
+    within individual species" rather than at speciation events, and "an overall pattern of accelerating
+    relative brain size increase through time" — the card's "ran within species rather than in jumps
+    between them and … quickened towards the present"
+  - used by: wh-004
+
+### Reused from the register, unread, for the claims already recorded
+
+- Smithsonian, "<i>Homo sapiens</i>" (already in the glossary's lists) — 300,000 years ago in Africa; an
+  average brain "approximately 1300 cubic centimeters". Re-read on 2026-08-07 for the brain figure.
+- `green-2010` — interbreeding between Neanderthals and the ancestors of non-Africans. The card claims
+  only that the last of the other human species interbred with ours, which is exactly what the entry
+  records; the 1–4 % figure was **not** used, since the register flags it as sitting in the body.
+- `braun-2019` — "the systematic production of sharp-edged stone tools is unknown before the 2.58–2.55 Ma
+  Oldowan assemblages from Gona, Ethiopia", which is the card's "from about 2.6 million years ago".
+
+### Not cited, and why
+
+- The human–chimpanzee split has a **wider molecular range** than the Smithsonian's 8–6 Ma (published
+  estimates run roughly 5–9.3 Ma on different calibrations). The obvious second source, Moorjani et al.
+  2016 in *PNAS*, **could not be opened** — `pnas.org` is 403 from here and the paper has no PMC copy —
+  so no range and no hedge was asserted beyond what the one openable source states. The card gives 8–6 Ma
+  and attributes it; **the wider range is recorded here rather than composed into the prose.**
+
+### Sibling separation, checked before drafting
+`Hominini` already owns what a hominin *is* and where the group's boundary falls; `Homo` owns the genus
+and its diagnostic features; `Australopithecus` owns that genus and its species. `Human_evolution` was
+written to own the **process and the discipline** — the ape split, Africa as the setting, the evidence
+base, and the bush-not-ladder shape. No pair shares an eight-word run.
