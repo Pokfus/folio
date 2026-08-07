@@ -12228,3 +12228,43 @@ telling the two apart is a judgement about meaning. So the honest statement is: 
 the list stays hand-maintained. **The way they surface is reading a rendered card's link list** — which is
 the golden rule's "it isn't finished until it's been looked at" earning its keep for the second time in
 this run.
+
+## Batch W12 — `wh-063` Paleolithic burial (2026-08-07)
+
+`Paleolithic_burial` is new and ships cited. Five citations, four open to one paywalled. The plan's slot
+was filled from the retired `Sungir` card's reading list, which is exactly what the renumbering note said
+to do — the retired card is the obvious place to start when a slot's research rests on its site.
+
+### A SPELLING DECIDED BY THE CORPUS, against the plan
+The plan line reads `wh-063 Palaeolithic burial`, and the card answers **"Paleolithic burial"**. Measured
+before choosing: the corpus writes **Paleolithic 31 times against Palaeolithic 5**, all three sibling cards
+answer "Paleolithic" / "Middle Paleolithic" / "Upper Paleolithic", and every glossary slug is
+`*_Paleolithic`. The plan is a subject to research, not a spelling to enforce, and a fourth sibling
+answering with the other spelling would be the inconsistency. `Palaeolithic burial` is carried as an alias,
+which is what `Upper_Paleolithic` already does. (The DECK is titled "The Palaeolithic", so the two
+spellings do coexist on the site; this batch did not widen that, and did not narrow it either.)
+
+### Reused, all from the register
+`derrico-backwell-2016` (the Border Cave infant, 74 ± 4 ka, the perforated *Conus*), `trinkaus-buzhilova-2018`
+(Sungir at c. 34,000 cal BP, "the most elaborate Upper Palaeolithic burial currently known", the ~3,000
+beads, twelve pierced fox canines and 25 arm bands), `nowell-2020` (the two adolescents head to head, 13,000
+beads in all, "more than 2500 person hours"), `sikora-2017` (all genetically male; **none closely related**,
+which is the register's own recorded correction and is what the card's closing sentence rests on) and
+`lbova-2021` (the Mal'ta children, the slab-lined structure, the ochre floor, the ivory tiara, the
+120-bead necklace and the bird carving).
+
+### A CLAIM NOT MADE, and why
+The card does **not** say what the oldest African burial is. `derrico-backwell-2016` calls Border Cave "the
+oldest instance of modern human burial from Africa", and that was superseded in 2021 by Panga ya Saidi at
+~78 ka — which this register's own note on that entry already flags, and which is why the card says
+"**the oldest in Africa known to include an ornament**" instead. Citing the 2016 wording flat would have
+shipped a claim its own field has moved past.
+
+**Martinón-Torres et al. 2021, "Earliest Known Human Burial in Africa" (*Nature* 593: 95–100), could not be
+opened**: `nature.com` is 403 here, Europe PMC lists no PMCID, and `api.crossref.org` — the batch-22 route
+that has rescued paywalled abstracts before — **returns metadata for this DOI with no abstract field at
+all**. What a fetch of that record produces is a summary assembled from the reference list, not the paper's
+own words, which is precisely the shape N4 warns about. So the Panga ya Saidi date is **absent from the
+card** rather than cited from something that merely reads like the paper. It is the obvious first thing to
+add when an openable copy appears; the glossary term's date line was dropped for the same reason rather
+than asserting a span this batch cannot source.
