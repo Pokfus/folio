@@ -1329,7 +1329,10 @@
   }
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
-  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit"];   // "findit" joined July 2026 — the Clean Sweep needs all five now
+  // "findit" joined July 2026 and "thread" in Aug 2026 — a new daily game joins the sweep, so the badge now
+  // needs all SIX. Nobody loses one they already hold (checkAchievements only ever adds), and a sweep that
+  // skipped a game on the grid would be claiming something it had not measured.
+  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread"];
   function markGamePlayed(key, won, score, total) {
     if (!S.games) S.games = {};
     const t = todayStr();
@@ -6545,6 +6548,7 @@
     truefalse: ["True or False — Folio", "Today's historical myths and surprising truths."],
     whosaid:   ["Who said it? — Folio", "Match today's famous quotations to the people who said them."],
     findit:    ["Find it — Folio", "Locate five places on the globe."],
+    thread:    ["Common Thread — Folio", "Sort today's sixteen glossary terms into their four hidden groups."],
     admin:     ["Admin — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     community: ["Shared decks — Folio", "Decks written and shared by other people using Folio."],
@@ -9499,8 +9503,9 @@
     const playedTrueFalseToday = gamePlayedToday("truefalse");
     const playedWhoSaidToday = gamePlayedToday("whosaid");
     const playedFindItToday = gamePlayedToday("findit");
+    const playedThreadToday = gamePlayedToday("thread");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
-    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit") };
+    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread") };
     // Decorative background icons for the home game tiles (replace the old Han glyphs).
     // Inline stroke SVGs (viewBox 0 0 24 24) inherit the tile colour via currentColor.
     const ICON = {
@@ -9518,6 +9523,9 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
       findit:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+      // Common Thread — a four-by-four grid with one row already gathered, which is the game in one mark
+      thread:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/></svg>',
     };
     /* THE DAY'S COMPLETION MARK — two shapes, not one (Aug 2026, on request).
        A PERFECT score keeps the shining gold ribbon: it is the rarer thing and it earns the whole corner.
@@ -9545,8 +9553,9 @@
           ${o.sub ? `<span class="gt-sub">${o.sub}</span>` : ""}
         </div>
       </button>`;
-    // The sixth slot in the grid. It used to read "Coming soon / —", which names nothing and looks like a tile
-    // that failed to load; it says what it is instead.
+    // The grid's spare slot. Unused since Common Thread took the sixth tile in Aug 2026 — kept because the
+    // grid is 3 × 2 and a seventh game would leave five filled and one empty again. It used to read
+    // "Coming soon / —", which names nothing and looks like a tile that failed to load.
     const blankTile = (g, color) =>
       `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span></div></div>`;
     /* Today's score, once the game has been played — and now the ONLY thing a tile's tagline can ever be.
@@ -9566,7 +9575,7 @@
       ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
       ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
       ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit"), done: playedFindItToday, won: wonToday.findit })}
-      ${blankTile(ICON.help, "#DB8B3A")}
+      ${tile({ id: "g-thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
     </div>`;
 
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
@@ -9706,6 +9715,7 @@
     root.querySelector("#g-truefalse").addEventListener("click", () => route("truefalse"));
     root.querySelector("#g-whosaid").addEventListener("click", () => route("whosaid"));
     { const gf = root.querySelector("#g-findit"); if (gf) gf.addEventListener("click", () => route("findit")); }
+    { const gt = root.querySelector("#g-thread"); if (gt) gt.addEventListener("click", () => route("thread")); }
     root.querySelector("#b-review").addEventListener("click", (e) => {
       if (e.target.closest("#hero-browse")) { route("decks"); return; }
       if (fresh) {
@@ -14884,6 +14894,236 @@
   };
 
   /* ============================================================
+     PAGE: COMMON THREAD (daily grouping puzzle over the glossary)
+     ============================================================
+     Sixteen glossary terms, four hidden groups of four. It is the sixth daily game and the first to use
+     the GLOSSARY, which at ~680 cited terms is the largest curated body of content on the site that no
+     game touched — and the only one of the six whose task is CATEGORISATION rather than recall, ordering,
+     judgement, attribution or place.
+
+     THE PUZZLE IS GENERATED FROM `GLOSSARY_TAGS`, so it needs no authored content of its own — but a tag
+     set that groups well for an editor does NOT automatically make a solvable puzzle, and three of the
+     four rules below exist because the naive version produced puzzles that cannot be solved even though
+     every group was, on the data, correct:
+
+     · **THE BROAD TAGS CANNOT BE GROUPS.** `history` is on 427 terms and `place` on 314. A group nobody
+       can distinguish from the rest of the grid is not a group.
+     · **ONE TAG PER FAMILY** (`THREAD_FAMILY`). The first version paired an `africa` group with a
+       `tanzania` one. The tags are disjoint — no term carried both — and the puzzle is still unsolvable,
+       because Laetoli is in Tanzania which is in Africa and a solver has no way to tell which group wants
+       it. Disjoint tags are not the same thing as distinguishable groups, and only geography and period
+       nest this way, so those are the two families declared.
+     · **A TERM MAY NOT BE ITS OWN GROUP LABEL** — `Africa` sitting inside the `africa` group gives the
+       answer away for the whole row.
+     · **NO TWO TERMS MAY SHARE A WORD STEM** (`threadStems`). `Swabia` and `Swabian Jura` in one grid read
+       as a pair whatever groups they are in, and the same stem across two DIFFERENT groups is worse still.
+
+     The disjointness that matters is checked rather than assumed: a term is admitted to a group only if it
+     carries none of the other three groups' tags, so every one of the sixteen provably belongs to exactly
+     one group. Measured over 365 days before this shipped: 0 days fail to generate, 31 distinct group tags
+     are used across the year, and no puzzle contains a duplicate or an ambiguous term.
+
+     A term is deliberately NOT admitted on one tag alone (`tags.length < 2`): a term with a single tag has
+     nothing to make it a red herring for any other group, and a grid of those is four obvious rows. */
+  const THREAD_ROWS = 4, THREAD_LIVES = 4;
+  // Too broad to name a group — see the rule above. These are the site's subject-area tags, which nearly
+  // every term in their field carries.
+  const THREAD_BROAD = new Set([
+    "history", "place", "archaeology", "geography", "science", "prehistory", "concept", "object",
+    "era", "person", "nature", "palaeontology", "geology", "evolution", "politics", "technology",
+  ]);
+  // At most ONE group per family, because these are the tags that NEST — a region inside a region, a period
+  // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
+  // than inside them, so two of those in one puzzle stay distinguishable.
+  const THREAD_FAMILY = {};
+  ("greece,united states,south africa,africa,tanzania,kenya,ethiopia,france,spain,germany,china,india,japan," +
+   "italy,russia,egypt,europe,asia,north america,south america,oceania,middle east,britain,mediterranean,denmark")
+    .split(",").forEach((x) => { THREAD_FAMILY[x] = "where"; });
+  ("bronze age,iron age,stone age,neolithic,paleolithic,mesolithic,holocene,pleistocene,classical antiquity," +
+   "middle ages,modern").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
+  const THREAD_GROUP_MIN = 6;    // a tag with fewer clean terms than this makes the same row too often
+  const THREAD_TITLE_MAX = 24;   // a tile is a quarter of a phone's width — a longer name cannot be read on the grid
+  const threadNorm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  // The significant words of a title, lightly de-inflected — enough to catch Swabia/Swabian and Minoan/Minoans.
+  // Short words are dropped: two terms sharing "the" or "cave" are not the near-duplicates this guards against.
+  function threadStems(title) {
+    return threadNorm(title).split(" ").filter((w) => w.length >= 5).map((w) => w.replace(/(ian|ans|ain|ic|es|s)$/, ""));
+  }
+  function threadPool() {
+    const G = window.GLOSSARY || {}, out = [];
+    for (const k of Object.keys(G)) {
+      const tags = glossTags(k);
+      if (!tags || tags.length < 2) continue;                        // nothing to be a red herring with
+      const title = glossTitle(k);
+      if (!title || title.length > THREAD_TITLE_MAX) continue;
+      out.push({ key: k, title: title, tags: tags, n: threadNorm(title), stems: threadStems(title) });
+    }
+    return out;
+  }
+  // The day's four groups, or null if the glossary cannot currently make one (which is what the placard is for).
+  function dailyThreadPuzzle() {
+    const pool = threadPool(), byTag = {};
+    for (const it of pool) for (const g of it.tags) (byTag[g] = byTag[g] || []).push(it);
+    const cand = Object.keys(byTag).filter((g) => !THREAD_BROAD.has(g) && byTag[g].length >= THREAD_GROUP_MIN);
+    const rng = mulberry32(hashStr("thread-" + todayStr()));
+    const groups = [], fams = new Set(), stems = new Set();
+    for (const tag of seededShuffle(cand, rng)) {
+      if (groups.length === THREAD_ROWS) break;
+      const fam = THREAD_FAMILY[tag];
+      if (fam && fams.has(fam)) continue;
+      // a group already seated must not contain a term carrying THIS tag either — the test runs both ways
+      if (groups.some((g) => g.terms.some((it) => it.tags.includes(tag)))) continue;
+      const taken = groups.map((g) => g.tag);
+      const clean = byTag[tag].filter((it) =>
+        it.n !== tag && !taken.some((o) => it.tags.includes(o)) && !it.stems.some((s) => stems.has(s))
+      );
+      if (clean.length < THREAD_ROWS) continue;
+      const picked = [];
+      for (const it of seededShuffle(clean, rng)) {
+        if (picked.length === THREAD_ROWS) break;
+        if (it.stems.some((s) => picked.some((p) => p.stems.includes(s)))) continue;   // …and within the row
+        picked.push(it);
+      }
+      if (picked.length < THREAD_ROWS) continue;
+      if (fam) fams.add(fam);
+      picked.forEach((p) => p.stems.forEach((s) => stems.add(s)));
+      groups.push({ tag: tag, label: threadLabel(tag), terms: picked });
+    }
+    return groups.length === THREAD_ROWS ? groups : null;
+  }
+  // The group's name as the reader sees it. Tags are written lowercase for the editor's filter bar; a few
+  // read as a bare word where the group is a class of thing, so those are given the fuller phrase.
+  const THREAD_LABELS = {
+    title: "Titles and offices", text: "Texts", ruler: "Rulers", industry: "Stone industries",
+    building: "Buildings", art: "Art", event: "Events", fossil: "Fossils", animal: "Animals",
+    practice: "Practices", people: "Peoples", culture: "Cultures", literature: "Literature",
+    warfare: "Warfare", religion: "Religion", biology: "Biology", hominin: "Hominins",
+    deity: "Deities", city: "Cities", state: "States", institution: "Institutions",
+  };
+  function threadLabel(tag) {
+    return THREAD_LABELS[tag] || tag.replace(/\b[a-z]/g, (c) => c.toUpperCase());
+  }
+  PAGES.thread = function (root) {
+    detachKeys();
+    const puzzle = dailyThreadPuzzle();
+    if (!puzzle) { root.innerHTML = emptyPlacard("Coming soon", "紐", "Not enough glossary terms to make today's puzzle yet.", () => route("home"), "Back home"); return; }
+    const N = THREAD_ROWS * THREAD_ROWS;
+    const rng = mulberry32(hashStr("thread-grid-" + todayStr()));
+    // The grid order is seeded too, so a reload cannot reshuffle a puzzle the reader is half way through
+    // reasoning about — the same guarantee the other five daily games make about their rounds.
+    let tiles = seededShuffle(puzzle.flatMap((g, gi) => g.terms.map((it) => ({ ...it, gi: gi }))), rng);
+    const solved = [];          // group indexes, in the order they were found
+    let sel = [], mistakes = 0, over = false;
+
+    renderAll();
+
+    function groupOf(gi) { return puzzle[gi]; }
+    function remaining() { return tiles.filter((x) => !solved.includes(x.gi)); }
+    function renderAll() {
+      root.innerHTML = `
+        <div class="dc-shell">
+          <div class="page-head" style="margin-bottom:14px">
+            <span class="eyebrow">Common Thread</span>
+            <h1 style="font-size:28px">Find the four groups</h1>
+          </div>
+          <div class="th-lives" id="thLives"></div>
+          <div class="th-board" id="thBoard"></div>
+          <div class="th-actions" id="thActions"></div>
+        </div>`;
+      paint();
+    }
+    function paint() {
+      const board = root.querySelector("#thBoard");
+      board.innerHTML =
+        solved.map((gi) => {
+          const g = groupOf(gi);
+          return `<div class="th-solved th-g${gi}"><span class="th-solved-name">${esc(g.label)}</span>` +
+            `<span class="th-solved-terms">${g.terms.map((it) => `<button type="button" class="th-term" data-k="${esc(it.key)}">${esc(it.title)}</button>`).join("")}</span></div>`;
+        }).join("") +
+        remaining().map((it, i) =>
+          `<button type="button" class="th-tile${sel.includes(it.key) ? " on" : ""}" data-k="${esc(it.key)}" ${over ? "disabled" : ""}>` +
+          `<span>${esc(it.title)}</span></button>`
+        ).join("");
+
+      root.querySelector("#thLives").innerHTML = over
+        ? ""
+        : `<span class="th-lives-label">Mistakes remaining</span>` +
+          `<span class="th-dots">${Array.from({ length: THREAD_LIVES }, (_, i) => `<span class="th-dot${i < mistakes ? " gone" : ""}"></span>`).join("")}</span>`;
+
+      const acts = root.querySelector("#thActions");
+      acts.innerHTML = over
+        ? `<button class="btn" id="th-home">Home</button>`
+        : `<button class="btn ghost" id="th-shuffle">Shuffle</button>` +
+          // "Clear", not "Deselect all", which is the more explicit label and wraps to two lines at 390px —
+          // it sits in a row of three, so the wrap left one button twice the height of its neighbours
+          `<button class="btn ghost" id="th-clear" ${sel.length ? "" : "disabled"}>Clear</button>` +
+          `<button class="btn" id="th-submit" ${sel.length === THREAD_ROWS ? "" : "disabled"}>Submit</button>`;
+
+      // The grid's own tiles select; a SOLVED term opens its glossary popup instead — the reader has just
+      // been shown a word they may not know, and the definition is the point of playing on the glossary.
+      board.querySelectorAll(".th-tile").forEach((b) => b.addEventListener("click", () => toggle(b.dataset.k)));
+      board.querySelectorAll(".th-term").forEach((b) => b.addEventListener("click", () => openGlossWin(b.dataset.k, b)));
+      if (over) { root.querySelector("#th-home").addEventListener("click", () => route("home")); return; }
+      root.querySelector("#th-shuffle").addEventListener("click", () => { tiles = pick(tiles); paint(); });
+      root.querySelector("#th-clear").addEventListener("click", () => { sel = []; paint(); });
+      root.querySelector("#th-submit").addEventListener("click", submit);
+    }
+    function toggle(k) {
+      const i = sel.indexOf(k);
+      if (i >= 0) sel.splice(i, 1);
+      else if (sel.length < THREAD_ROWS) sel.push(k);
+      else return;   // four is the whole guess — silently ignoring a fifth beats clearing what they picked
+      paint();
+    }
+    function submit() {
+      const chosen = sel.map((k) => tiles.find((x) => x.key === k)).filter(Boolean);
+      if (chosen.length !== THREAD_ROWS) return;
+      const gi = chosen[0].gi;
+      if (chosen.every((x) => x.gi === gi)) {
+        solved.push(gi); sel = []; sfx("good");
+        if (solved.length === THREAD_ROWS) return finish(true);
+        paint();
+        return;
+      }
+      mistakes++; sfx("bad");
+      // "One away" — the near miss is the whole texture of a grouping puzzle, and without it a wrong guess
+      // teaches nothing. Counted over the four, so it can only ever report a genuine 3-of-4.
+      const counts = {};
+      chosen.forEach((x) => { counts[x.gi] = (counts[x.gi] || 0) + 1; });
+      const near = Object.values(counts).some((n) => n === THREAD_ROWS - 1);
+      paint();
+      const board = root.querySelector("#thBoard");
+      board.querySelectorAll(".th-tile.on").forEach((b) => b.classList.add("shake"));
+      toast(near ? "One away" : "Not a group");
+      setTimeout(() => {
+        board.querySelectorAll(".th-tile.shake").forEach((b) => b.classList.remove("shake"));
+        if (mistakes >= THREAD_LIVES) finish(false); else { sel = []; paint(); }
+      }, 620);
+    }
+    function finish(win) {
+      over = true;
+      // A perfect run is one with no mistakes at all — the same bar the other five games set for the gold
+      // tile. `score` is groups found, which is what the tile's tagline reads back.
+      const found = solved.length;
+      markGamePlayed("thread", win && mistakes === 0, found, THREAD_ROWS); save(); checkAchievements();
+      if (!win) puzzle.forEach((_, gi) => { if (!solved.includes(gi)) solved.push(gi); });   // show the answer
+      const msg = win && mistakes === 0
+        ? "Flawless — every thread found first time."
+        : win ? `Solved, with ${mistakes} ${mistakes === 1 ? "mistake" : "mistakes"}.`
+        : found ? `You found ${found} of ${THREAD_ROWS}. Here are the rest.`
+        : "Here are today's four groups.";
+      renderAll();
+      const shell = root.querySelector(".dc-shell");
+      const head = shell.querySelector(".page-head h1");
+      head.innerHTML = win ? "Solved" : `${found} <span style="color:var(--ink-faint)">/ ${THREAD_ROWS}</span>`;
+      const p = document.createElement("p");
+      p.className = "th-msg";
+      p.textContent = msg + " Tap a term to read it.";
+      shell.insertBefore(p, root.querySelector("#thBoard"));
+    }
+  };
+
+  /* ============================================================
      PAGE: MAP (placeholder)
      ============================================================ */
   // the largest-ring bbox centre of a country in world.js — used as the Atlas "home" location. Module-level so both the Atlas
@@ -18331,7 +18571,7 @@
     Object.keys(log).forEach((k) => { const n = (log[k] || [])[0] || 0; reviews += n; if (n > 0) days++; });
     return { reviews, days };
   }
-  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it" };
+  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it", thread: "Common Thread" };
   function exploreStatsHTML(prog) {
     const gloss = glossSeenCount(prog);   // only the curated glossary, and only terms that still exist
     const glossTotal = glossTotalCount();
@@ -22391,7 +22631,7 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck", "glossary", "library", "book"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "admin", "mission", "studio", "community", "deck", "glossary", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
