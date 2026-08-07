@@ -73,7 +73,13 @@ body.night{
 
    One failure was NOT left to the mode, because it is a primary control rather than a caption: in night
    mode `.btn` was #FFF on the light-lavender --indigo, at 2.29:1. That is fixed outright below. */
-body.night .btn{color:var(--paper);}                       /* 7.9:1, against #fff's 2.29 */
+/* The ink is for a FILLED button — on night's light-lavender --indigo it reads 7.9:1 against #fff's 2.29.
+   A .ghost button is transparent, so the same dark ink puts near-black on the dark card and the label
+   disappears altogether: found on the new Common Thread board's Shuffle/Deselect, and it was every ghost
+   button on the site in dark mode (the True or False and Timeline results' "Home" among them). The :hover
+   line below has always carried the :not(.ghost) — the exemption was intended here too and was missed.
+   A ghost keeps .btn.ghost's own var(--indigo), which is that same light lavender ON the dark card. */
+body.night .btn:not(.ghost){color:var(--paper);}
 body.night .btn:not(.ghost):hover{color:var(--paper);}
 body.hc:not(.night){
   --ink-faint:#6C6A63; --ochre:#945D22; --geo:#935F13; --zh:#BA4038; --good:#3B7556;
@@ -1233,6 +1239,63 @@ body.grading .stage{padding-bottom:150px;}
 .tf-sum-a{font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin:0;}
 .tf-actions{display:flex; gap:10px;}
 .tf-actions .btn{flex:1;}
+
+/* Common Thread — the daily grouping puzzle (PAGES.thread).
+   The board is ONE grid holding both states: a solved row spans all four columns (grid-column:1/-1) and
+   sits above the tiles still in play, so a row gathering itself is the grid closing up rather than two
+   separate lists. The four group colours are fixed hex mixed into var(--card), so every theme and both
+   modes get a wash of the same weight without a rule of its own. */
+.th-lives{display:flex; align-items:center; gap:9px; margin:0 0 14px; min-height:20px;}
+.th-lives-label{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);}
+.th-dots{display:flex; gap:6px;}
+.th-dot{width:9px; height:9px; border-radius:99px; background:var(--indigo); transition:background .25s, transform .25s var(--ease);}
+.th-dot.gone{background:var(--rule); transform:scale(.7);}
+.th-board{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:18px;}
+.th-tile{
+  appearance:none; cursor:pointer; border:1px solid var(--rule); background:var(--card); color:var(--ink);
+  border-radius:11px; padding:8px 6px; min-height:74px; display:grid; place-items:center; text-align:center;
+  font-family:var(--serif); font-size:calc(13px * var(--fs)); line-height:1.25; hyphens:auto; overflow-wrap:anywhere;
+  transition:transform .12s var(--ease), background .18s, border-color .18s, box-shadow .2s;
+}
+.th-tile:hover{border-color:color-mix(in srgb,var(--indigo) 35%,var(--rule)); box-shadow:var(--shadow-sm); transform:translateY(-1px);}
+.th-tile:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.th-tile.on{background:var(--indigo); border-color:var(--indigo); color:#fff; transform:translateY(-1px);}
+.th-tile[disabled]{cursor:default;}
+.th-tile.shake{animation:thShake .42s var(--ease);}
+@keyframes thShake{
+  0%,100%{transform:translateX(0);} 20%{transform:translateX(-5px);} 40%{transform:translateX(5px);}
+  60%{transform:translateX(-3px);} 80%{transform:translateX(3px);}
+}
+.th-solved{
+  grid-column:1 / -1; border-radius:11px; padding:11px 14px; text-align:center;
+  background:color-mix(in srgb, var(--th-c) 20%, var(--card)); border:1px solid color-mix(in srgb, var(--th-c) 55%, var(--rule));
+  animation:thPop .3s var(--ease);
+}
+@keyframes thPop{from{opacity:0; transform:scale(.97);} to{opacity:1; transform:none;}}
+.th-solved-name{
+  display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.11em;
+  text-transform:uppercase; font-weight:600; color:color-mix(in srgb, var(--th-c) 72%, var(--ink)); margin-bottom:5px;
+}
+.th-solved-terms{display:flex; flex-wrap:wrap; justify-content:center; gap:4px 10px;}
+/* a solved term opens its glossary popup — a control, so it reads as one rather than as plain text */
+.th-term{
+  appearance:none; background:none; border:0; padding:0; cursor:pointer; color:var(--ink);
+  font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.35;
+  border-bottom:1px dotted color-mix(in srgb, var(--th-c) 60%, var(--rule)); transition:color .15s, border-color .15s;
+}
+.th-term:hover{color:var(--indigo); border-bottom-color:var(--indigo);}
+.th-term:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:3px;}
+.th-g0{--th-c:#C2793A;} .th-g1{--th-c:#4F74C2;} .th-g2{--th-c:#4F9D67;} .th-g3{--th-c:#8257C2;}
+.th-actions{display:flex; gap:10px;}
+.th-actions .btn{flex:1;}
+.th-msg{color:var(--ink-soft); margin:-4px 0 18px; font-family:var(--serif); font-size:calc(15px * var(--fs));}
+/* A four-column grid on a 390px phone leaves each tile about 80px wide, so the type steps down with it —
+   the names are glossary head words and a few run to the 24-character cap the generator enforces. */
+@media (max-width:560px){
+  .th-board{gap:6px;}
+  .th-tile{min-height:66px; font-size:calc(11.5px * var(--fs)); padding:6px 4px; border-radius:9px;}
+  .th-term{font-size:calc(13px * var(--fs));}
+}
 
 /* results */
 .podium{display:flex; flex-direction:column; gap:10px; margin:18px 0;}
