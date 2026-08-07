@@ -13120,3 +13120,54 @@ would have said the opposite.
 emmer tetraploid, bread wheat hexaploid), `groman-yaroslavski-2026` (cereals reaped for ~4.5 millennia
 before any was altered, which is the card's closing point that the package did not appear from nothing).
 **Five sources, all five open** — the first card in four batches with no paywalled entry.
+
+---
+
+## Batch W28 — `wh-119` Cereal domestication, and the term it needed (2026-08-07)
+
+### Newly opened for this batch, both read in full via the Europe PMC REST route
+
+**`pourkheirandish-komatsuda-2022`** — Mohammad Pourkheirandish and Takao Komatsuda, "Grain Disarticulation
+in Wild Wheat and Barley", *Plant and Cell Physiology* 63, no. 11 (2022): 1584–91. [Open access]
+- supports: that "perhaps the most critical event in the process of cereal domestication was the loss of
+  the natural mode of grain dispersal"; that grains of wild wheat and barley "progressively break off along
+  the inflorescence structure, the spike, and scatter on the ground as the plant senesces"; that *Brittle
+  rachis 1* and *Brittle rachis 2* "are major genes responsible for grain disarticulation in the wild
+  progenitors of wheat and barley that were the target of mutations during domestication"; and that the two
+  "are only found in the Triticeae tribe and are hypothesized to have evolved by a duplication followed by
+  neo-functionalization"
+
+**`kabukcu-2021`** — Ceren Kabukcu, Eleni Asouti, Nadja Pöllath, Joris Peters and Necmi Karul, "Pathways to
+Plant Domestication in Southeast Anatolia Based on New Data from Aceramic Neolithic Gusir Höyük",
+*Scientific Reports* 11, no. 1 (2021): 2112. [Open access]
+- supports: that "early wheat domestication in southeast Anatolia occurred at a faster pace than predicted
+  by current hypotheses for a protracted transition to farming in Southwest Asia", on "a multivariate
+  evaluation of wheat grain metrics alongside botanical and radiometric data"; that the PPNA evidence there
+  "does not support a protracted 'pre-domestication cultivation' stage"; and the authors' proposed
+  explanation, the increasing importance of cereals "in feasting at southeast Anatolian sites characterised
+  by increasing architectural complexity and elaboration during the 11th millennium cal BP"
+
+### A CARD THAT CARRIES A LIVE DISAGREEMENT WITH ITS OWN SIBLINGS, AND MEASURES 0 HISTORIOGRAPHY
+`wh-117` and `wh-118` both state, from `cao-2026`, that domestication is typically protracted and
+unconscious. `kabukcu-2021` argues one region does not fit. **The two are compatible and the card says so
+without hedging either into mush**: block 2 gives the slow picture, then gives the exception as a finding
+about the past rather than as a dispute between scholars. The phrasing is what does that work — "one region
+does not fit the slow picture … wheat there changed faster, with no long stage of cultivating it wild
+beforehand", not "researchers have challenged the protracted model". `card-focus.js` measures **0 of 10**.
+**A card can carry a genuine scholarly argument at zero historiography cost if the sentences are about the
+world rather than about the literature** — the W22 lesson stated more sharply, since here the disagreement
+is the point of the second block rather than an aside.
+
+### Reused, from the register
+`cao-2026` (the protracted, unconscious character of the process, and the plant syndrome traits),
+`groman-yaroslavski-2026` (the ~4,500 years of reaping before anything changed, which is what makes
+harvesting the selecting agent), `gregorio-de-souza-2022` (einkorn and emmer from the Karaca Dağ, barley
+possibly with a second origin on the Iranian plateau).
+**Five sources, all five open — the second card running with no paywalled entry.**
+
+### The mechanism, and why it is the card
+`wh-117` is the concept and `wh-118` the crop set, so this card had one job left: **what actually changed
+in the plant.** The answer is unusually crisp for this subject — two named genes in one tribe of grasses,
+mutated so that the spike no longer breaks up — and it carries the fact worth remembering, that a
+domesticated cereal cannot sow itself and depends on being harvested and resown. The date line names the
+two genes for that reason rather than a second date.
