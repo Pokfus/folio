@@ -12268,3 +12268,76 @@ own words, which is precisely the shape N4 warns about. So the Panga ya Saidi da
 card** rather than cited from something that merely reads like the paper. It is the obvious first thing to
 add when an openable copy appears; the glossary term's date line was dropped for the same reason rather
 than asserting a span this batch cannot source.
+
+---
+
+## Batch W13 — `wh-080` Paleolithic music (2026-08-07)
+
+### Newly opened for this batch
+
+**`urmu-gaensegeierfloete`** — Urgeschichtliches Museum Blaubeuren, "Gänsegeierflöte", Digitale Sammlung,
+inv. no. 1977-0119-0089-9000. [Open access]
+The museum's own object record for the Hohle Fels flute. Carries the length (21.7 cm), the species (griffon
+vulture, *Gyps fulvus*) and the element (wing bone / radius), the **four surviving finger holes with the
+lower end broken away at what would have been a fifth**, the **bevelled notch cut into the shaft as a
+mouthpiece**, the 2008 excavation, and the 35,000–40,000-year age. This is batch 8b's museum-catalogue rule
+paying again on a Swabian Jura object, exactly as it did for the Lion Man and the earlier Hohle Fels flute:
+the institution holding the thing publishes the measurements a journal article assumes its readers know.
+
+**`urmu-hohle-fels`** — Urgeschichtliches Museum Blaubeuren, "Hohle Fels", Welterbe-Fundstellen.
+[Open access]
+The site record, used for the one claim the object record does not make: that the flute came from the **same
+cave and the same years** as the small ivory female figure. Both were lifted in 2008 from the same Aurignacian
+horizon.
+
+**`iceageart-welterbe`** — Welterbe Höhlen und Eiszeitkunst der Schwäbischen Alb, "UNESCO-Welterbe".
+[Open access]
+The property's own portal — the route batch 8b found when `whc.unesco.org` proved 403, and it is still 403.
+Carries the **2017 inscription**, the **six caves in two valleys** (Ach and Lone), and the grounds: the
+oldest portable art and musical instruments of humankind. Also the general statement that sound leaves
+nothing behind and the instruments are what survives.
+
+**`turk-turk-otte-2020`** — Matija Turk, Ivan Turk and Marcel Otte, "The Neanderthal Musical Instrument from
+Divje Babe I Cave (Slovenia): A Critical Review of the Discussion", *Applied Sciences* 10, no. 4 (2020):
+1226. [Open access]
+The finders' own review of two decades of objection. Carries the cave bear cub femur, its ~11 cm surviving
+length, the **two clean round holes in a line**, the layer at 60,000–50,000 years, the Neanderthal
+attribution (in Europe at that date there is nobody else), and their central answer to the carnivore
+argument — that a bite does not **align** holes down a shaft.
+
+**`diedrich-2015`** — Cajus G. Diedrich, "'Neanderthal Bone Flutes': Simply Products of Ice Age Spotted
+Hyena Scavenging Activities on Cave Bear Cubs in European Cave Bear Dens", *Royal Society Open Science* 2,
+no. 4 (2015): 140022. [Open access]
+The standing objection, cited as the objection rather than as the answer: a carnivore's canine punches a
+neat round hole through thin bone, and this piece reads as a bear cub gnawed by spotted hyenas in a cave
+bear den. Reached through the PMC mirror; the RS landing page is fine too.
+
+**`nms-neanderthal-flute`** — National Museum of Slovenia, "Neanderthal Flute", Collection Highlights,
+inv. no. D. b. 652. [Open access]
+The holding institution's record, used for what the object record can say and a paper cannot: that the
+museum **displays it as the oldest musical instrument in the world**. That is a fact about the state of the
+claim, which is what the card's last sentence needs — the museum's position, the objection, and the question
+left open.
+
+### THE FINDING — a contested claim is dated by the SECURE end, not the spectacular one
+The date line carries **one** labelled row, `Oldest secure — c. 40,000–35,000 BP`, and deliberately not the
+Divje Babe span. `cardYears` reads the date line to place the card in the deck's chronological order, so
+giving the contested 60 ka claim the date line would sort this card 20,000 years earlier **on the strength
+of the thing the card itself says is unsettled**. The Divje Babe dates are in the abstract, marked, with the
+objection beside them. The general rule: where a card narrates a dispute, the date line states what is
+agreed and the prose states what is argued.
+
+### A CLAIM NOT MADE, and why
+The card does **not** say how many notes the Hohle Fels flute can play, or what scale it produces. Replicas
+have been made and played and the recordings circulate widely, but the pitch depends on reconstructing the
+broken lower end and the missing fifth hole, which is exactly the part that is gone — so any note count is a
+property of somebody's replica rather than of the object. Neither museum record states one. It is left out
+rather than sourced to a reconstruction.
+
+### `card-focus.js` reads a FALSE POSITIVE here
+The measure flags Q3 for naming "Slovenia". That is a country in a paper's title reaching the name parser
+through an author position, not a researcher named in a question — the rule in `docs/history-focus-plan.md`
+forbids the modern arguer, and a place is not one. Historiography measures **2 of 10**, inside the bar of 3;
+the two sentences are the objection and the finders' answer, which is the dispute itself rather than
+commentary on it. No EXEMPT entry was added: the card passes on its own merits and the list should stay
+short.
