@@ -2453,7 +2453,16 @@ body.night .lu-badge{color:#E6C765;}
 }
 /* like the banner's own wash, a whisper on dark themes */
 body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 9%, transparent), transparent 64%) var(--card);}
-.active-deck:last-child{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
+/* THE SUBDECK FOLD (Aug 2026, on request) — see adSyncFold in app.js.
+   `.ad-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
+   `display:flex`, which beats the UA `[hidden]` rule outright, so the attribute would have needed an
+   override of its own to mean anything (the same trap `.ces-imgpanel[hidden]` and `.gs-results[hidden]`
+   already carry). Two classes against one, so this wins on specificity wherever it sits. */
+.active-deck.ad-shut{display:none;}
+/* The rounded bottom corner belongs to the last VISIBLE row. `:last-child` cannot see a folded row, so with
+   the list shut by default it would round a row nobody can see and square off the bottom of the card; both
+   are kept, the class for the live page and the structural rule as the answer if adSyncFold never runs. */
+.active-deck:last-child, .active-deck.ad-last{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
 /* the deck's own share of the day's three piles, at the far left of its row — the same numbers the banner
    above carries, without the labels it has just spelled out. Tabular figures so the three columns line up
    from row to row rather than jittering with the digit widths. */
@@ -2473,6 +2482,20 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
 .active-deck .ad-line{flex:0 1 auto; min-width:0; display:flex; align-items:baseline; gap:10px;}
 .active-deck .ad-title{font-family:var(--display); font-weight:600; font-size:calc(16px * var(--fs)); color:var(--ink); letter-spacing:-.01em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .active-deck .ad-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); white-space:nowrap; flex:none;}
+/* The fold's own control, at the right end of the row — where the Library puts the chevron on these very
+   same collections, so the reader meets one disclosure gesture on the site and not two. It shares `.chev`
+   for the icon, the 180° open state and the focus ring, and overrides the size and chrome: a 40px bordered
+   disc is the Library banner's control and would be taller than this row, which is one tight line. Quiet by
+   default — no border, no fill — because it must not compete with the three piles and the deck's own name;
+   it takes the indigo on hover like every other control here. These rules MUST stay below `.chev`'s own
+   block: `.active-deck .ad-chev:hover` and `.chev:hover` are both two classes, so source order is all that
+   decides which of them paints. */
+.active-deck .ad-chev{width:26px; height:26px; border:0; background:transparent; color:var(--ink-faint);}
+.active-deck .ad-chev svg{width:15px; height:15px; stroke-width:2.4;}
+.active-deck .ad-chev:hover{background:var(--indigo-wash); color:var(--indigo); border-color:transparent;}
+/* A row with nothing to fold reserves the same width, so the progress bars down the list all stop at one
+   place instead of the right edge going ragged wherever a leaf deck sits. */
+.active-deck .ad-chev-gap{flex:none; width:26px;}
 /* How far through the deck the reader is — the bar took the place of the blue dot that used to sit at the
    left of the row. With room it stays IN the line, stretched between the deck's name and the figure, which
    is what fills the middle of a wide row. */
