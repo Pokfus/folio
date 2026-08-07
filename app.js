@@ -5045,6 +5045,19 @@
        THE NEXT BOOK WILL HAVE TO WIDEN THE BAND AGAIN, and there is less room than this row had:
        darker still costs saturation until the swatches stop being colours at all. Say so then. */
     "Kalidasa": "#004248",
+    /* Measured the same way, and Beowulf's row was right that the band is full: with twenty-two
+       colours placed, NOTHING anywhere in the shelf's lightness and chroma band clears 25.2 of its
+       nearest neighbour, and only two hue families clear the shelf's own tightest pair at 20.4 at
+       all — a saturated green and a muted rose. The green scores marginally better (24.4 against
+       24.7 for this) and was REJECTED for the reason Vyasa's row already records: every green that
+       clears Lucretius and Aesop sits at the very top of the band's chroma, at 64 against a median
+       of 44, which is bright enough to glow beside twenty-two muted colours. This dusty rose sits at
+       chroma 19, the quietest on the shelf, clears Sophocles by 24.7 and Confucius by 25.0, and
+       reads 4.97:1 on the tightest of the sixteen light papers. The Euripides test passes on the
+       family: nobody reads a Chinese poetry anthology against Greek tragedy or Latin love poetry, so
+       a fourth colour in the red quarter asserts no kinship the shelf does not mean. Keyed by id,
+       the poems being anonymous. */
+    "classic-of-poetry": "#845A63",
     /* Measured the same way, and this is where the palette ran out — which the Vyasa entry above
        predicted and asked to have said out loud rather than quietly shipped. With twenty-one colours
        on the shelf, nothing anywhere in its lightness and chroma band clears 24 of its nearest
@@ -6420,6 +6433,71 @@
          edition NAMES each discourse in its own closing formula ("…the first discourse, entitled: THE
          DESPONDENCY OF ARJUNA"), and the importer reads all eighteen off the text rather than
          composing them, which only Gilgamesh does otherwise. */
+    },
+    {
+      id: "classic-of-poetry",
+      title: "The Classic of Poetry",
+      subtitle: "The Shih King",
+      author: "Anonymous",
+      /* The poems were composed over some four centuries by people whose names are not recorded, and
+         the tradition that Confucius selected them from a larger body is a tradition rather than a
+         fact. `written` says the span; `year` is the single number a shelf that sorts by date must
+         have, and it is the early end of it rather than a midpoint nothing marks — the same choice
+         the Analects' entry makes and for the same reason. */
+      written: "c. 11th–7th century BCE",
+      year: -1000,
+      translator: "James Legge",
+      edition:
+        "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+        "Clarendon Press, Oxford, 1879",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL, which puts it with the Republic, the Analects, the
+         Peloponnesian War and Kalidasa rather than with Giles (2029) or Ross (2042). Legge published
+         in 1879, before 1929, so the United States copyright has expired; and he died in 1897, so it
+         is out of copyright on life-plus-seventy and life-plus-a-hundred alike. There is no modern
+         editorial layer to declare either — this is his printed text, not a re-edited one. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so " +
+        "its United States copyright has expired — and he died in 1897, so it is out of copyright " +
+        "wherever the term runs for the author's life plus seventy or even a hundred years. The poems " +
+        "themselves are some twenty-five centuries old. (The modern translations by Bernhard " +
+        "Karlgren, 1950, Ezra Pound, 1954, Xu Yuanchong, 1993, and Arthur Waley as extended by " +
+        "Joseph R. Allen, 1996, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shih",
+      /* THE FIRST BOOK ON THIS SHELF THAT IS HONESTLY A PART OF ITS WORK, and `count` against `total`
+         is exactly the field pair that says so: Folio holds 102 of the 305 poems. That is not an
+         instalment waiting to be completed but the edition's own scope — Legge's Sacred Books volume
+         prints the poems bearing on religion and not the collection entire — and of those 102 about a
+         third are the stanzas he judged relevant rather than whole poems, which the chapter titles
+         state one by one. The front matter says all of this in its first two paragraphs, because a
+         reader who took this for the whole Classic of Poetry would have been misled by silence.
+
+         A CHAPTER IS ONE POEM and its number is the MAO NUMBER, the 1–305 sequence by which any poem
+         of the Shih is cited in any language. So the tabs run 13, 15, 29, 40 … with gaps, and the gaps
+         are the point: renumbering what survives 1–102 would have made the book look complete and
+         invented a sequence it has not got. Beowulf's missing fitt XXX is the same judgement.
+
+         NO `origLang`, and it is the one thing here that was tried and abandoned rather than never
+         attempted. Every one of these 102 odes names its Chinese title, and every one of those poems
+         was found on Chinese Wikisource, so the pairing itself is sound; what is not sound is the
+         source, which sets the verse three different ways from page to page and surrounds it with a
+         traditional preface and a body of annotation that a column built from it would sometimes ship
+         as the poem. See .claude/fetch-book.js, whose entry records the three markup shapes, the
+         variant-reading tooltips and the four titles that belong to two poems each, so that a later
+         attempt starts from what was measured rather than from scratch. */
+      chapterWord: "Ode",
+      count: 102,
+      total: 305,
+      /* The work's own four traditional divisions, as the Contents panel's groups — the airs of the
+         states, the two sets of odes and the temple hymns. The `note` on each says how much of that
+         division this edition carries, since the four are cut very unevenly by Legge's religious
+         criterion: the airs lose almost all of their 160 and the hymns keep nearly all of their 40. */
+      parts: [
+        { n: 1, label: "Lessons from the States", note: "14 of 160 odes" },
+        { n: 2, label: "The Minor Odes of the Kingdom", note: "23 of 74 odes" },
+        { n: 3, label: "The Major Odes of the Kingdom", note: "27 of 31 odes" },
+        { n: 4, label: "Odes of the Temple and the Altar", note: "38 of 40 odes" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
