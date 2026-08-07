@@ -702,7 +702,8 @@ window.GLOSSARY = {
 "Chalcis": "Chalcis is a city on the island of Euboea in Greece, established in the 11th century BCE on the strait between the island and the mainland, a crossing that has been bridged since the late 5th century and makes Euboea one of only two Greek islands a traveller can reach on foot.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its name is read as the city of the bronzeworkers, and although it stands in a very favourable place it is not a well known city.<sup class=\"fn\" data-fn=\"1\"></sup> It was governed by aristocrats called Hippobotai, or horse-feeders, and it planted colonies in Chalcidice, in the Levant around Al Mina and in the west.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Eretria": "Eretria is a city on the island of Euboea in Greece and one of the main archaeological sites of the Greek Early Iron Age, the ground beneath it occupied as far back as the Late Neolithic.<sup class=\"fn\" data-fn=\"2\"></sup> Its name is read as the city of the rowers, and a votive inscription found near its theatre records a body called the Aeinautai, the ever-sailors, and carries the earliest trace of the cult of Hermes there.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its heroon at the West Gate, its House of the Mosaics and its sanctuary of Apollo Daphnephoros are standard illustrations in the handbooks of Greek history.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Lelantine_War": "The Lelantine War is the conflict between Chalcis and Eretria over the plain lying between them on the Greek island of Euboea, and its title is a modern one.<sup class=\"fn\" data-fn=\"1\"></sup> Three brief ancient notices of the hostilities survive, in Herodotus, Thucydides and Aristotle, and none of them names that plain as the object of the fighting, though Thucydides took the quarrel for the most notable among the Greeks before his own war and said the rest of Greece took sides in it.<sup class=\"fn\" data-fn=\"2\"></sup> Allies are named on both sides, and the burning of Lefkandi-Xeropolis about 700 BCE is the archaeological support usually offered for a real war.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Megara": "Megara is an ancient Greek city-state that draws attention chiefly for three things: it was a prominent colonizer, it was a target of the aggression of its neighbours, and it is the reputed home of the poet Theognis.<sup class=\"fn\" data-fn=\"1\"></sup> Its colonies were planted around the Propontis and the Black Sea, and one argument sets it in a colonising alliance with Miletus during the archaic period, the elites of the two cities bound by a claimed mythical kinship reaching back to the Lelantine War, in which both took the side of Eretria.<sup class=\"fn\" data-fn=\"2\"></sup> Its political organisation included the oligarchic office of the aisymnetai, and Apollo Pythios had a part in its colonising ventures.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Megara": "Megara is an ancient Greek city-state that draws attention chiefly for three things: it was a prominent colonizer, it was a target of the aggression of its neighbours, and it is the reputed home of the poet Theognis.<sup class=\"fn\" data-fn=\"1\"></sup> Its colonies were planted around the Propontis and the Black Sea, and one argument sets it in a colonising alliance with Miletus during the archaic period, the elites of the two cities bound by a claimed mythical kinship reaching back to the Lelantine War, in which both took the side of Eretria.<sup class=\"fn\" data-fn=\"2\"></sup> Its political organisation included the oligarchic office of the aisymnetai, and Apollo Pythios had a part in its colonising ventures.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Miletus": "Miletus is a Greek city on the Anatolian coast, standing between the Greek world and that of the Near East, and its heyday came before the Classical age.<sup class=\"fn\" data-fn=\"1\"></sup> Its pottery was wanted from the Black Sea to Egypt after the middle of the 7th century BCE, and workshops making it have been identified in the Hellespont, around the Black Sea and in the Nile Delta, the very regions it was settling.<sup class=\"fn\" data-fn=\"2\"></sup> The sanctuary that mattered most to it stood outside the walls, the oracle of Apollo at Didyma, joined to the city by a Sacred Way, whose temple ranked among the largest cult buildings of the archaic period.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1026,7 +1027,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Aegina": "independent c. 618 – 613 BCE",
 "Chalcis": "founded c. 1100 – 1000 BCE",
 "Eretria": "occupied from the Late Neolithic",
-"Lelantine_War": "c. 700 – 650 BCE"
+"Lelantine_War": "c. 700 – 650 BCE",
+"Miletus": "heyday 7th – 6th century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1501,7 +1503,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aspis_hill": ["Aspis of Argos"],
 "Aegina": ["Aigina"],
 "Chalcis": ["Chalkis"],
-"Lelantine_War": ["Lelantine war"]
+"Lelantine_War": ["Lelantine war"],
+"Miletus": ["Archaic Miletus","Miletos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2217,7 +2220,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chalcis": ["city","place","history","greece","archaic"],
 "Eretria": ["city","place","history","greece","archaic"],
 "Lelantine_War": ["event","history","greece","archaic","warfare"],
-"Megara": ["city","place","history","greece","archaic"]
+"Megara": ["city","place","history","greece","archaic"],
+"Miletus": ["city","place","history","greece","archaic"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2924,7 +2928,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Chalcis": ["Adolfo Domínguez, review of <i>Untersuchungen zum Lelantischen Krieg und verwandten Problemen der frühgriechischen Geschichte</i>, by Victor Parker, Bryn Mawr Classical Review 1998.06.12, https://bmcr.brynmawr.edu/1998/1998.06.12/. [Open access]","David Michael Smith, review of <i>An Island between Two Worlds: The Archaeology of Euboea from Prehistoric to Byzantine Times</i>, ed. Žarko Tankosić, Fanis Mavridis and Maria Kosma, Bryn Mawr Classical Review 2018.10.42, https://bmcr.brynmawr.edu/2018/2018.10.42/. [Open access]"],
 "Eretria": ["Adolfo Domínguez, review of <i>Untersuchungen zum Lelantischen Krieg und verwandten Problemen der frühgriechischen Geschichte</i>, by Victor Parker, Bryn Mawr Classical Review 1998.06.12, https://bmcr.brynmawr.edu/1998/1998.06.12/. [Open access]","Olivier Mariaud, review of <i>Eretria: A Guide to the Ancient City</i>, by Pierre Ducrey, Bryn Mawr Classical Review 2005.05.24, https://bmcr.brynmawr.edu/2005/2005.05.24/. [Open access]","Barbara Leone, \"Dedication by the <i>Aeinautae</i> in Eretria,\" <i>Axon</i> 1, no. 1 (2017), https://doi.org/10.14277/2532-6848/Axon-1-1-17-9. [Open access]"],
 "Lelantine_War": ["Adolfo Domínguez, review of <i>Untersuchungen zum Lelantischen Krieg und verwandten Problemen der frühgriechischen Geschichte</i>, by Victor Parker, Bryn Mawr Classical Review 1998.06.12, https://bmcr.brynmawr.edu/1998/1998.06.12/. [Open access]","Natasha Bershadsky, \"Impossible Memories of the Lelantine War,\" in <i>Dossier: Place aux objets!</i> (Paris: Éditions de l'École des hautes études en sciences sociales, 2018), 191–213, https://doi.org/10.4000/books.editionsehess.5679. [Open access]"],
-"Megara": ["Thomas Figueira, review of <i>Megarian Moments: The Local World of an Ancient Greek City-State</i>, ed. Hans Beck and Philip J. Smith, Bryn Mawr Classical Review 2019.11.35, https://bmcr.brynmawr.edu/2019/2019.11.35/. [Open access]","Margarit Damyanov, review of <i>Mégarika: nouvelles recherches sur Mégare, les cités de la Propontide et du Pont-Euxin</i>, ed. Adrian Robu and Iulian Bîrzescu, Bryn Mawr Classical Review 2017.02.32, https://bmcr.brynmawr.edu/2017/2017.02.32/. [Open access]"]
+"Megara": ["Thomas Figueira, review of <i>Megarian Moments: The Local World of an Ancient Greek City-State</i>, ed. Hans Beck and Philip J. Smith, Bryn Mawr Classical Review 2019.11.35, https://bmcr.brynmawr.edu/2019/2019.11.35/. [Open access]","Margarit Damyanov, review of <i>Mégarika: nouvelles recherches sur Mégare, les cités de la Propontide et du Pont-Euxin</i>, ed. Adrian Robu and Iulian Bîrzescu, Bryn Mawr Classical Review 2017.02.32, https://bmcr.brynmawr.edu/2017/2017.02.32/. [Open access]"],
+"Miletus": ["P. J. Smith, review of <i>Miletos, the Ornament of Ionia: A History of the City to 400 B.C.E.</i>, by Vanessa B. Gorman, Bryn Mawr Classical Review 2002.06.17, https://bmcr.brynmawr.edu/2002/2002.06.17/. [Open access]","Thomas G. Schattner, review of <i>La céramique milésienne et apparentée à l'époque archaïque</i>, ed. Anne Coulié, Bryn Mawr Classical Review 2026.04.21, https://bmcr.brynmawr.edu/2026/2026.04.21/. [Open access]","Udo Schlotzhauer, review of <i>Der archaische Heiligtumsbefund vom Taxiarchis-Hügel in Didyma</i>, by Helga Bumke, Bryn Mawr Classical Review 2025.02.04, https://bmcr.brynmawr.edu/2025/2025.02.04/. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
