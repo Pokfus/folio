@@ -12593,3 +12593,63 @@ quoted and moves with each new result, and nothing opened for this batch states 
 instead is the shape of the limit, that beyond DNA's survival only proteins speak, which `welker-2020`
 does carry. And `Ancient_DNA` takes **"aDNA"** and not **"palaeogenetics"**: the field and the material
 are two different things, and N2's test is that an alias must mean the same thing.
+
+---
+
+## Batch W18 — `wh-092` Sahul, and a mis-link fixed (2026-08-07)
+
+### Newly opened for this batch
+
+**`bird-2019`** — Michael I. Bird et al., "Early Human Settlement of Sahul Was Not an Accident",
+*Scientific Reports* 9 (2019): 8220. [Open access, CC BY]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: Sahul as "Australia, New Guinea and the Aru Islands joined at lower sea levels"; that reaching
+  it "required multiple maritime crossings through Wallacea, with at least one approaching 100 km"; the
+  drift-and-viewshed result that "the probability of randomly reaching Sahul by any route is <5% until ≥40
+  adults are 'washed off' an island"; and the conclusion that "accidental human arrival on Sahul is
+  implausible", a viable population requiring "multiple, coordinated voyages by hundreds of individuals
+  over a relatively short time frame of several centuries"
+
+**`gandini-2025`** — Francesca Gandini et al., "Genomic Evidence Supports the 'Long Chronology' for the
+Peopling of Sahul", *Science Advances* 11 (2025): eady9493. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the fullest definition on the shelf — Sahul as "the Pleistocene landmass formed by present-day
+  New Guinea, Australia, and Tasmania that existed until ~9000 years ago"; that the timing "remains highly
+  contentious"; and **both named positions**, the "long chronology" at "~60 to 65 ka" against the "short
+  chronology" at "47 to 51 ka"; and its own result, an analysis of 2,456 mitogenomes favouring the long side
+
+### AN ACCESS LABEL CORRECTED IN THE HARDER DIRECTION
+`o'connell-2018` is recorded in batch 6's roll-up as **[Open access]** on a PMC link. It is **not readable
+from here now**: the REST full-text route 404s, Europe PMC's record gives `isOpenAccess: N`, and fetching
+the PMC article page returns a **browser challenge** rather than the paper — which is exactly what CLAUDE.md
+records for batch 24 ("PMC's browser check now covers the article HTML as well as search"). So it is cited
+**[Paywalled]**, from its abstract, which was read directly off the Europe PMC record and states the claim
+used ("an age estimate of >50 ka for this site is unlikely to be valid"). It qualifies as the landmark
+statement of the short chronology, and the card's list is 4 open of 5.
+**This is the second stale [Open access] label found in two batches** (W17 recorded the same for
+`stringer-2016` and `nielsen-2017` without relabelling, having only abstracts). The rule the three of them
+make: **a label records reachability on the day it was checked, and PMC's protections have tightened since
+July** — re-fetch before reusing a PMC-hosted label, in both directions.
+
+**Two labels that HELD, checked the same way**: `clarkson-2017` and `malaspinas-2016` both read
+`isOpenAccess: N` at Europe PMC and are both genuinely open — their citations point at green deposits
+(a Washington faculty PDF and an MPG one) which fetched at 200. **The publisher's status is not the
+question; the URL in the citation is.**
+
+### THE MIS-LINK — "New Guinea" was opening the entry for GUINEA
+Found by reading the rendered card's ttip list, which is now the third time that check has caught one after
+polish→Poland and laos→Laos. There was no `New_Guinea` key, so the longest matching surface was **Guinea**,
+the West African country, and every mention on the site pointed there. It was **already live on `wh-038`
+(Denisovans) and on four glossary terms** — `Neolithic_Revolution`, `Indonesia`, `Papua_New_Guinea`,
+`Oceania` — so this card surfaced it rather than causing it.
+**The fix is a term, not an alias, and the wrong fix was available and tempting**: adding "New Guinea" as
+an alias of `Papua_New_Guinea` would have silenced it in one line and been **factually wrong**, since the
+island's western half is Indonesian. `New_Guinea` now ships as its own cited term and the
+longest-surface-first rule gives it the whole phrase; verified by re-rendering `wh-038` as well as
+`wh-092`. The Commonwealth Secretariat's PNG page was re-fetched to confirm it states the eastern-half
+split rather than reusing the claim on the strength of the corpus already carrying it.
+
+### A CLAIM NOT MADE
+The card does **not** say Sahul's peopling is the earliest evidence for seafaring anywhere. It is often
+put that way, `bird-2019` does not assert it, and the claim would have to survive comparison with earlier
+island records this batch has not examined.
