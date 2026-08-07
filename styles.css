@@ -1912,6 +1912,20 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    Same shell for the two dialogs it opens (Custom study, Daily limits), so Escape, the backdrop and the
    focus behaviour are written once. */
 .deck-menu{position:fixed; inset:0; z-index:420; display:flex; align-items:center; justify-content:center; padding:20px; background:color-mix(in srgb,var(--ink) 38%,transparent);}
+/* NOTHING IN THE SHEET IS SELECTABLE, and the reason is the gesture that opens it (Aug 2026, on a bug
+   report: holding a book's banner opened the sheet and immediately selected text inside it). The sheet is
+   raised at HOLD_MS with the finger still down, so it lands UNDER that finger — and the browser's own
+   long-press recognizer, which fires a moment later, hit-tests wherever the finger is NOW. It therefore
+   selects a word of whichever row happens to be under it and raises the platform's Copy / Share / Select
+   All bar over the very menu just opened. The element held is guarded too (.active-deck[data-review],
+   .book-tile, #b-review), but that alone cannot help: by the time the recognizer runs, the thing under the
+   finger is this sheet. It is a menu of buttons, so there is nothing here a reader wants to select anyway. */
+.deck-menu{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
+/* …EXCEPT the fields, and this is not belt-and-braces: `user-select` INHERITS, and it reaches a form
+   control (measured — the Daily limits number box computes `none` under the rule above). Typing still
+   works, but selecting the figure already in the box to type over it does not, which is the whole way a
+   reader edits a number. The guard is about the menu's PROSE; a box a reader types into is not prose. */
+.deck-menu input, .deck-menu textarea{-webkit-user-select:text; user-select:text;}
 .dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;}
 /* Title on the left, how far through the deck the reader is on the right — on the SAME line, which is what
    `align-items:baseline` buys: the left-hand block is a column, and a column flex item aligns on its own
@@ -2410,7 +2424,7 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    carries three counts, a name, a figure and a bar, and the three commands beside it had nowhere to go.
    Holding a row must not select its text on the way to the sheet, and on iOS must not raise the platform's
    own callout. */
-.active-deck[data-review]{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
+.active-deck[data-review], #b-review{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
 /* hierarchy: ancestor context rows + indentation */
 .active-deck{transition:padding-left .2s var(--ease), background .16s var(--ease);}
 /* a deck added to the review is clickable → reviews just that deck */
@@ -4789,6 +4803,9 @@ body.night .rv-star.on{color:#E6C765;}
 body.night .book-tile{
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 19%, transparent), transparent 64%) var(--card);
 }
+/* A banner is HELD for its options sheet, so holding it must not select the title under the finger, and on
+   iOS must not raise the platform's own callout — the guard the daily review's rows already carry. */
+.book-tile{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
 .book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile,var(--indigo)) 45%, var(--rule));}
 .book-tile:active{transform:translateY(0) scale(.995);}
 .book-tile:focus-visible{outline:2px solid var(--tile,var(--indigo-bright)); outline-offset:3px;}
