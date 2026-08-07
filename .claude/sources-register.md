@@ -11646,3 +11646,66 @@ entry says the work supports).
 and its diagnostic features; `Australopithecus` owns that genus and its species. `Human_evolution` was
 written to own the **process and the discipline** — the ape split, Africa as the setting, the evidence
 base, and the bush-not-ladder shape. No pair shares an eight-word run.
+
+## Batch W2 — `wh-005` hominin, and a WRONG MARKER found in `wh-004` (2026-08-07)
+
+### The correction, and how it was found
+`wh-004` shipped earlier the same day with its closing sentence — "some 15 to 20 early human species are
+recognised, several were alive at the same time, and the last of them interbred with ours before dying
+out" — marked to the Smithsonian's *Introduction to Human Evolution* and to `green-2010`. Those two carry
+the first and third clauses. **Neither carries the second.** The Introduction page states the 15–20 figure
+and says nothing whatever about temporal overlap; it was assumed to, because a page that counts the species
+feels as though it must.
+
+It was caught while researching THIS card, by re-opening that page for a different claim — which is batch
+23's finding arriving again: **a marker is only ever checked when somebody goes back to the source for
+another reason.** Fixed by adding the Smithsonian's *Homo erectus* record as an eighth source and marking
+the clause to it; that page states the overlap outright and names the species. The clause was **re-sourced
+rather than withdrawn**, because it is true and easily sourced — the fault was in the pointer, not the prose.
+
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Homo erectus</i>," accessed 7 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-erectus. [Open access]
+  - opened: 2026-08-07 · full page
+  - supports: "At the beginning of its time range, around 1.9 Mya, *H. erectus* coexisted in East Africa
+    with several other early human species including *Homo rudolfensis, Homo habilis,* and *Paranthropus
+    boisei*"; "Sometimes they were even found at the same fossil sites"; and the later overlap, "around
+    143,000 years ago, it coexisted with *Homo sapiens* and possibly *Homo floresiensis* in Indonesia"
+  - used by: wh-004, wh-005
+
+### Newly opened for `wh-005`
+
+- Morris Goodman and Kirstin N. Sterner, "Phylogenomic Evidence of Adaptive Evolution in the Ancestry of Humans," <i>Proceedings of the National Academy of Sciences</i> 107, suppl. 2 (2010): 8918–23, https://pmc.ncbi.nlm.nih.gov/articles/PMC3024020/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` is 403 here)
+  - supports: the molecular finding of "humans, chimpanzees, and gorillas to be highly similar and more
+    closely related to one another than to orangutans", which is what moved the African apes into
+    Hominidae and so forced a narrower word for the human branch alone
+  - **note the limit**: the card claims only this grouping. It does **not** claim the sharper "chimpanzees
+    are closer to humans than to gorillas", which the search summaries offer freely and which this
+    paper's openable text does not state in those terms
+  - used by: wh-005
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Sahelanthropus tchadensis</i>," accessed 7 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/sahelanthropus-tchadensis. [Open access]
+  - opened: 2026-08-07 · the museum's species record
+  - supports: "Sometime between 7 and 6 million years ago"; "West-Central Africa (Chad)"; "a small brain
+    (even slightly smaller than a chimpanzee's)"; and the foramen magnum "located further forward (on the
+    underside of the cranium) than in apes or any other primate except humans"
+  - **does NOT support** any statement that the species' hominin status is disputed — the page presents it
+    as established. The card's hedge ("the oldest **claimed**", and *incertae sedis*) is carried by
+    `cela-conde-ayala-2003` instead, and the two markers are placed accordingly
+  - used by: wh-005
+
+### Reused, and one re-read
+- `austmus-hominin` — the definitions, the genera list, the tribe rank, and that "The term 'hominid' used
+  to have the same meaning that 'hominin' now has". Exactly what the register records; no re-read needed.
+- `cela-conde-ayala-2003` — **re-read on 2026-08-07 for claims the register had not recorded** (G6 applied
+  as written): "habitual upright bipedalism as the chief method of locomotion and teeth that are
+  essentially human in form" as the criteria; "The subsequent increase from three to seven hominid genera
+  in the few years from 1995 to the present"; and *Sahelanthropus* placed *incertae sedis*. The register's
+  existing entry covers only the *ergaster*/*habilis* material, so none of this could have been taken from it.
+- Smithsonian "Introduction to Human Evolution" — the 15–20 figure only, which is what it states.
+
+### Sibling separation, checked before drafting
+`wh-004` owns the **process** — the ape split, Africa, the evidence base, bipedalism-before-brains, the
+shape of the tree. `wh-005` owns the **category**: what the tribe is, why the word is new, what diagnoses
+membership, and where the boundary is argued. The overlap is one figure, the 15–20 species, which each
+card uses to a different end. The glossary's `Hominini` already existed and is cited at the bar, so **no
+new term was written** — the card's answer resolves to it through its `hominin` alias, and the
+answer-term suppression was checked on the rendered page rather than assumed.
