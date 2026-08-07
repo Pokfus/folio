@@ -12784,3 +12784,54 @@ earning its keep, since the eighteen standing hits are all citation titles and w
 The card does not call the headdresses shamanic costume, though the cited paper's own title does. What is
 demonstrable is the manufacture and the wear; the ritual reading is an interpretation, and the card
 describes what was made and leaves the meaning open.
+
+---
+
+## Batch W21 — `wh-110` Bhimbetka rock shelters: ATTEMPTED AND HELD BACK (2026-08-07)
+
+**The card was not written.** One authoritative source was found and read in full; the 5-source bar could
+not be reached, and the list was not padded with works that were never opened. Recorded here so the next
+session starts from the routes already tried rather than repeating them.
+
+### THE ONE SOURCE THAT WORKS, and it is a good one
+**Archaeological Survey of India, *Rock Shelters of Bhimbetka: Continuity through Antiquity, Art and
+Environment* (2003)** — the ASI's own **nomination dossier for the World Heritage List**, scanned with OCR
+on the Internet Archive, https://archive.org/details/ArchaeologicalSurveyOfIndiaRockSheltersOfBhimbetka2003.
+[Open access]
+- opened: 2026-08-07 · 378 KB of OCR text, read in full
+- supports: the location (Madhya Pradesh, District Raisen, Tehsil Goharganj), "the foothills of the Vindhyan
+  Mountains on the southern edge of the central Indian plateau"; "five clusters of natural rock shelters"
+  in "massive sandstone outcrops, above comparatively dense forest"; paintings that "date from the
+  Mesolithic Period right through to the historical period"; "over 700 shelters distributed over the site",
+  and that on Bhimbetka hill alone "of the 243 shelters discovered and numbered so far, 133 are painted";
+  a "continuous sequence of Stone Age cultures from the Late Acheulian to the Late Mesolithic"; the
+  Auditorium cave trench at III F preserved for public viewing; the twenty-one adjacent villages whose
+  traditions "bear a strong resemblance to those represented in the rock paintings"; and the core zone of
+  1,892 hectares against a buffer of 10,280
+- **this is batch 18's rule paying again** — for a site card, ask the body responsible before looking for a
+  paper — with the twist that the body's own website did not serve it and the Internet Archive did.
+
+### THE ROUTES THAT FAILED, all of them measured rather than assumed
+- **`whc.unesco.org` is 403 to curl AND to WebFetch.** C7 recorded the 403; this batch adds that WebFetch
+  does not get round it, which it does for some other publishers.
+- **`asi.nic.in/bhimbetka/` returns 200 and redirects to the ASI homepage** — a 200 that carries none of the
+  content asked for, which is the same trap as the 200-status error documents recorded in P3 and C0.
+- **Europe PMC has nothing**: it is a life-sciences index, and a query on "cupule" returns botanical seed
+  structures. **Do not use it for archaeology that is not palaeogenomics.**
+- **Crossref** returns mostly unrelated book chapters and no abstracts for any of them.
+- **Misra 1979** (*Bulletin of the Indo-Pacific Prehistory Association* 1, "The Acheulian industry of rock
+  shelter IIIF-23 at Bhimbetka") is genuinely open — the article page resolves and the 7.5 MB PDF downloads
+  — but **it could not be read**: there is no `pdftotext` or python PDF library in this sandbox, and WebFetch
+  returned 502 on the file. It is therefore **not cited**, though its claim is corroborated by the dossier.
+- **MDPI 403s**; both *Ancient Asia* DOIs (10.5334/aa.198, aa.202) **404**.
+- **`Indian Archaeology — A Review`** volumes are on the Internet Archive and are the obvious primary
+  excavation record; the 1975–76 volume was read in full and **does not mention Bhimbetka once**, and the
+  1973–74 item has no OCR text file. Other years remain untried and are the best next lead.
+
+### THE TOOLING NOTE WORTH KEEPING
+The dossier's file name contains parentheses — `…Bhimbetka (2003)_djvu.txt` — and **`SRC_URL_RX` stops at a
+closing parenthesis**, so that URL can never be a citation. The citation points at the item's `details`
+page instead, which has none. Fetching the file needs `urllib.parse.quote` on the name; `archive.org/stream/…`
+returns the item page wrapper rather than the text, and `archive.org/download/<id>/<id>_djvu.txt` 404s when
+the real file name differs from the identifier — **read `archive.org/metadata/<id>` for the true file name
+first.**
