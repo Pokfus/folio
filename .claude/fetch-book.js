@@ -480,6 +480,83 @@ const SHIJING = [
 const SHIJING_BY_MAO = {};
 SHIJING.forEach((r) => { SHIJING_BY_MAO[r[0]] = r; });
 
+/* THE SHÛ, document by document: [ n, part, pages, title ].
+   `pages` is relative to "Sacred Books of the East/Volume 3/The Shu/" and is an ARRAY because four
+   of these chapters are printed across two wiki pages — the book's own page, which carries Legge's
+   headnote and no body text, and the section that follows it. See `page` in the entry below.
+
+   The tabs count 59 where the Shû is traditionally counted at 58 documents, and the difference is
+   one document rather than an error: Legge prints the Tribute of Yü in two numbered sections, each
+   restarting its paragraph count at 1, so joining them would put two paragraphs numbered 1 in one
+   chapter. The edition's own division is followed and the front matter says so. */
+const SHU = [
+  [1, 1, ["Part 1/Book 1"], "The Canon of Yâo"],
+
+  [2, 2, ["Part 2/Book 1"], "The Canon of Shun"],
+  [3, 2, ["Part 2/Book 2"], "The Counsels of the Great Yü"],
+  [4, 2, ["Part 2/Book 3"], "The Counsels of Kâo-yâo"],
+  [5, 2, ["Part 2/Book 4"], "The Yî and Kî"],
+
+  [6, 3, ["Part 3/Book 1/Section 1"], "The Tribute of Yü, Section i"],
+  [7, 3, ["Part 3/Book 1/Section 2"], "The Tribute of Yü, Section ii"],
+  [8, 3, ["Part 3/Book 2"], "The Speech at Kan"],
+  [9, 3, ["Part 3/Book 3"], "The Songs of the Five Sons"],
+  [10, 3, ["Part 3/Book 4"], "The Punitive Expedition of Yin"],
+
+  [11, 4, ["Part 4/Book 1"], "The Speech of Thang"],
+  [12, 4, ["Part 4/Book 2"], "The Announcement of Kung-hui"],
+  [13, 4, ["Part 4/Book 3"], "The Announcement of Thang"],
+  [14, 4, ["Part 4/Book 4"], "The Instructions of Î"],
+  [15, 4, ["Part 4/Book 5", "Part 4/Book 5/Section 1"], "The Thâi Kiâ, Section i"],
+  [16, 4, ["Part 4/Book 5/Section 2"], "The Thâi Kiâ, Section ii"],
+  [17, 4, ["Part 4/Book 5/Section 3"], "The Thâi Kiâ, Section iii"],
+  [18, 4, ["Part 4/Book 6"], "The Common Possession of Pure Virtue"],
+  [19, 4, ["Part 4/Book 7", "Part 4/Book 7/Section 1"], "The Pan-kăng, Section i"],
+  [20, 4, ["Part 4/Book 7/Section 2"], "The Pan-kăng, Section ii"],
+  [21, 4, ["Part 4/Book 7/Section 3"], "The Pan-kăng, Section iii"],
+  [22, 4, ["Part 4/Book 8", "Part 4/Book 8/Section 1"], "The Charge to Yüeh, Section i"],
+  [23, 4, ["Part 4/Book 8/Section 2"], "The Charge to Yüeh, Section ii"],
+  [24, 4, ["Part 4/Book 8/Section 3"], "The Charge to Yüeh, Section iii"],
+  [25, 4, ["Part 4/Book 9"], "The Day of the Supplementary Sacrifice to Kâo Zung"],
+  [26, 4, ["Part 4/Book 10"], "The Chief of the West's Conquest of Lî"],
+  [27, 4, ["Part 4/Book 11"], "The Count of Wei"],
+
+  [28, 5, ["Part 5/Book 1", "Part 5/Book 1/Section 1"], "The Great Declaration, Section i"],
+  [29, 5, ["Part 5/Book 1/Section 2"], "The Great Declaration, Section ii"],
+  [30, 5, ["Part 5/Book 1/Section 3"], "The Great Declaration, Section iii"],
+  [31, 5, ["Part 5/Book 2"], "The Speech at Mû"],
+  [32, 5, ["Part 5/Book 3"], "The Successful Completion of the War"],
+  [33, 5, ["Part 5/Book 4"], "The Great Plan"],
+  [34, 5, ["Part 5/Book 5"], "The Hounds of Lü"],
+  [35, 5, ["Part 5/Book 6"], "The Metal-bound Coffer"],
+  [36, 5, ["Part 5/Book 7"], "The Great Announcement"],
+  [37, 5, ["Part 5/Book 8"], "The Charge to the Count of Wei"],
+  [38, 5, ["Part 5/Book 9"], "The Announcement to the Prince of Khang"],
+  [39, 5, ["Part 5/Book 10"], "The Announcement about Drunkenness"],
+  [40, 5, ["Part 5/Book 11"], "The Timber of the Rottlera"],
+  [41, 5, ["Part 5/Book 12"], "The Announcement of the Duke of Shâo"],
+  [42, 5, ["Part 5/Book 13"], "The Announcement concerning Lo"],
+  [43, 5, ["Part 5/Book 14"], "The Numerous Officers"],
+  [44, 5, ["Part 5/Book 15"], "Against Luxurious Ease"],
+  [45, 5, ["Part 5/Book 16"], "The Prince Shih"],
+  [46, 5, ["Part 5/Book 17"], "The Charge to Kung of Zhâi"],
+  [47, 5, ["Part 5/Book 18"], "The Numerous Regions"],
+  [48, 5, ["Part 5/Book 19"], "The Establishment of Government"],
+  [49, 5, ["Part 5/Book 20"], "The Officers of Kâu"],
+  [50, 5, ["Part 5/Book 21"], "The Kün-khăn"],
+  [51, 5, ["Part 5/Book 22"], "The Testamentary Charge"],
+  [52, 5, ["Part 5/Book 23"], "The Announcement of King Khang"],
+  [53, 5, ["Part 5/Book 24"], "The Charge to the Duke of Pî"],
+  [54, 5, ["Part 5/Book 25"], "The Kün-yâ"],
+  [55, 5, ["Part 5/Book 26"], "The Charge to Khiung"],
+  [56, 5, ["Part 5/Book 27"], "The Marquis of Lü on Punishments"],
+  [57, 5, ["Part 5/Book 28"], "The Charge to the Marquis Wăn"],
+  [58, 5, ["Part 5/Book 29"], "The Speech at Pî"],
+  [59, 5, ["Part 5/Book 30"], "The Speech of the Marquis of Khin"],
+];
+const SHU_BY_N = {};
+SHU.forEach((r) => { SHU_BY_N[r[0]] = r; });
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -4786,6 +4863,162 @@ const BOOKS = {
        no second column. Deleting `original` and `origLang` is the whole of what that costs. */
   },
 
+  "book-of-documents": {
+    title: "The Book of Documents",
+    subtitle: "The Shû King",
+    author: "Anonymous",
+    translator: "James Legge",
+    edition:
+      "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+      "Clarendon Press, Oxford, 1879",
+    written: "c. 11th–4th century BCE",
+
+    /* ---------- THE LICENCE, which needs no qualification at all ----------
+       Legge published this translation in 1879 — before 1929, so its United States copyright has
+       expired — and died in 1897, so it is out of copyright wherever the term runs for the author's
+       life plus seventy or even a hundred years. There is no limit to state and no modern editorial
+       layer to declare: this is his printed text, not a re-edited one. The Chinese underneath is
+       ancient and free everywhere.
+
+       The translations a reader is likeliest to reach for are still in copyright and are named here
+       so that nobody does: Bernhard Karlgren's of 1950 and Clae Waltham's modernisation of Legge,
+       published in 1971. */
+    rights:
+      "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so its " +
+      "United States copyright has expired — and he died in 1897, so it is out of copyright wherever " +
+      "the term runs for the author's life plus seventy or even a hundred years. The documents " +
+      "themselves are ancient and are in the public domain everywhere. (Bernhard Karlgren's " +
+      "translation of 1950 and Clae Waltham's modernisation of Legge of 1971 are still in copyright " +
+      "and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shu",
+
+    /* THE FRONT MATTER — chapter 0. Two things have to be said early because a reader would
+       otherwise have to work them out by counting: that this is the whole of the received text, and
+       that a good part of that text has been held to be a forgery for three hundred years. */
+    about: [
+      "<b>The Book of Documents</b> — the <i>Shû</i>, also called the Shû King or the Classic of " +
+        "History — is the oldest collection of Chinese prose, and it is not a history but an archive: " +
+        "speeches, charges, announcements, counsels and oaths, purporting to be the words of rulers " +
+        "and ministers from the legendary sage-kings down to the middle of the Kâu dynasty. Much of " +
+        "it is somebody addressing an army on the morning of a battle, or a regent explaining to a " +
+        "young king why a dynasty lost the mandate of Heaven. It is one of the Five Classics, and for " +
+        "two thousand years it was the text a Chinese statesman was expected to argue from.",
+      "<b>What is here is the whole of the received text.</b> Legge's Sacred Books of the East volume " +
+        "of 1879 prints the Shû entire, in the fifty-eight documents the tradition has transmitted, " +
+        "arranged in five parts named for the houses they belong to — Thang, Yü, Hsiâ, Shang and Kâu. " +
+        "The tabs count fifty-nine rather than fifty-eight, and the difference is a matter of " +
+        "printing rather than of content: Legge sets the Tribute of Yü, which is the longest single " +
+        "document in the book, in two sections that each number their paragraphs from one, so it is " +
+        "left as the two he printed rather than joined into a chapter carrying two paragraphs " +
+        "numbered 1.",
+      "<b>A quarter of it is disputed, and has been since the seventeenth century.</b> The Shû was " +
+        "reassembled after the burning of the books under the Kh in, and it survives in two layers. " +
+        "Thirty-three of the documents descend from the version recovered in the second century BCE " +
+        "and are broadly accepted as genuinely ancient, though how ancient is argued over. The other " +
+        "twenty-five appeared only in the fourth century CE, and Chinese scholars from the 1600s " +
+        "onwards demonstrated that they are a later composition — the classic case of a forgery " +
+        "exposed by philology. Legge knew this and says so: where a document is one of the contested " +
+        "ones his headnote to it tells you, and his introduction sets out the whole history of the " +
+        "text. The disputed books are still worth reading, and they are still what Chinese readers " +
+        "read for fifteen centuries; they are simply not what they claim to be.",
+      "Each document opens with Legge's own headnote, set smaller than the text — who is speaking, " +
+        "when, what the occasion was, and what he makes of its authenticity. The numbers running " +
+        "through the text are his paragraph numbers, which is how a passage of the Shû is cited in " +
+        "his edition, and his footnotes are gathered under each chapter. Eleven of the shorter " +
+        "documents carry no numbers at all, because they are a few paragraphs long and he did not " +
+        "number them.",
+      "James Legge was a Scottish missionary who spent three decades in Malacca and Hong Kong and " +
+        "became the first Professor of Chinese at Oxford in 1876. His English is Victorian and " +
+        "deliberately literal: he is rendering the sense of a famously difficult text, sometimes the " +
+        "most difficult in the classical language, and where the Chinese is obscure his version is " +
+        "obscure too. The round brackets scattered through it are his — words he has supplied to make " +
+        "an elliptical sentence run in English, marked so that you can see him doing it. That is a " +
+        "scholar's honesty rather than a stylist's, and it is the reason this translation is still " +
+        "cited.",
+      "There is no Chinese column here, and the reason is worth stating rather than leaving a reader " +
+        "to wonder. The Chinese text is freely available and every one of these documents was found; " +
+        "what is missing is a shared way of pointing INTO them. Legge numbers his paragraphs and the " +
+        "Chinese transcription numbers nothing, so the only way to set the two side by side would be " +
+        "to pair them off in order and hope — and measured document by document, the paragraph " +
+        "divisions of the two agree in eight cases out of fifty-eight. A facing text built that way " +
+        "would be quietly wrong on nine pages in ten, with nothing on the page to say so, which is " +
+        "worse than no facing text at all.",
+    ],
+
+    /* ---------- ONE DOCUMENT, ONE CHAPTER ----------
+       The ordinary wiki walk, with one thing new: `page` may return SEVERAL pages for one chapter.
+       Where Legge prints a book in sections, Wikisource puts each section on its own page and leaves
+       the book's headnote — and, at the head of a Part, his introduction to the whole Part — on the
+       book's page, which carries no body text. Those four pages are joined onto the front of their
+       first section rather than dropped, and they carry no footnotes at all (measured), so the join
+       needs no note arithmetic even though the loop does it anyway. */
+    layout: "wiki",
+    sections: "shu",
+    dropAuxToc: true,
+    page: (n) => SHU_BY_N[n][2].map((s) => "Sacred Books of the East/Volume 3/The Shu/" + s),
+    chapters: SHU.map((r) => r[0]),
+    chapterWord: "Document",
+    titleOf: (n) => SHU_BY_N[n][3],
+    parts: [
+      { n: 1, from: 1, to: 1, t: "The Book of Thang" },
+      { n: 2, from: 2, to: 5, t: "The Books of Yü" },
+      { n: 3, from: 6, to: 10, t: "The Books of Hsiâ" },
+      { n: 4, from: 11, to: 27, t: "The Books of Shang" },
+      { n: 5, from: 28, to: 59, t: "The Books of Kâu" },
+    ],
+
+    /* THE RUNNING HEADS, read off the pages rather than guessed at — every centred block that opens
+       a page was inventoried before this list was written. Four shapes occur: the volume's own title
+       over the first page, a Part heading over the first book of each Part, the book's title over
+       every book, and a bare "Section N." over each section page. The Canon of Yâo needs a line of
+       its own because it is the only book in its Part and its title is printed without the "Book I."
+       that prefixes all fifty-seven others.
+
+       The patterns tolerate stray spaces because they must: these heads are set in small capitals,
+       which arrives as a run of spans, and flattening one yields "THE SH Û KIN G ." rather than the
+       words. Anchored at the start and tested against the block's whole text, as every dropHeads
+       list is, so none of them can reach prose. */
+    dropHeads: [
+      /^THE\s*SH[ÛU]\s*KIN\s*G\s*\.?$/i,
+      /^PART\s+[IVX]+\s*\.\s/i,
+      /^Book\s+[IVXLC]+\s*\.\s/i,
+      /^Section\s+\d+\s*\.?$/i,
+      /^The\s+Canon\s+of\s+Yâo\s*\.?$/i,
+    ],
+
+    /* ---------- WHY THERE IS NO FACING ORIGINAL, AND WHAT A LATER ATTEMPT MUST HANDLE ----------
+       The chapter-level pairing is exact and was measured: Chinese Wikisource gives every one of the
+       received fifty-eight documents a page of its own under 尚書, and all fifty-eight were found,
+       with the four books Legge divides into three sections appearing there as three separate
+       documents apiece — which is right, since those ARE three documents in the Chinese, where the
+       Tribute of Yü's two sections are one.
+
+       What there is no shared key for is the level BELOW the chapter, and that is what app.js pairs
+       on. Legge numbers his paragraphs; the Chinese transcription carries no numbering whatever, not
+       a paragraph number and not a traditional 章 division. So the only available pairing is by
+       position, which is the approach this file has already tried and abandoned once — and here it
+       is not close: measured document by document, Legge's numbered paragraphs and the Chinese
+       page's paragraphs agree in count on EIGHT of the fifty-eight. Fifty of them would be silently
+       mispaired, and a facing text that is wrong with nothing on the page to say so is worse than
+       none.
+
+       Pairing at the CHAPTER level instead — one marker at the head, both columns as a single block
+       — was considered and rejected on the reader's behalf rather than on the numbers: several of
+       these documents run to many screens, and setting one whole column-page beside another makes a
+       facing page that cannot be read across.
+
+       Three traps are recorded so a later attempt does not rediscover them. The Chinese pages carry
+       TEXTUAL VARIANTS as tooltips beside the character they replace — 19 in the Canon of Yâo, 44 in
+       the Marquis of Lü on Punishments, 69 in the Tribute of Yü — which land mid-line in the raw
+       text. The index at 尚書 mixes the received text with the TSINGHUA BAMBOO-SLIP documents
+       (保訓, 尹至, 耆夜, 厚父, 封許之命, 尹誥 and three headed 傅說之命), which are excavated
+       manuscripts rather than chapters of the Shû and must not be taken for them, and with 逸周書/世俘,
+       which belongs to a different book altogether. And the received text's own titles are
+       unambiguous, so a chapter list keyed on them is safe — but it has to be written out, since the
+       page order on that index is not Legge's. */
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -4984,6 +5217,62 @@ function markLeadingSections(b, warn) {
   return b;
 }
 
+/* THE SIXTH WAY an edition marks its numbers, and the first whose two forms differ in MARKUP rather
+   than in wording (Aug 2026, adding the Book of Documents). Legge numbers the paragraphs of each
+   document 1, 2, 3 … and this transcription writes that number two ways: as a plain run of text at
+   the head of the paragraph, exactly as Haines's Meditations does, and as an ANCHOR SPAN carrying
+   the citation as its id — `<span id="ch2" class="wst-anchor">2.</span>` — because the volume's
+   contents page links into some paragraphs and not others. Which form a given number wears is
+   decided by whether anything happens to link to it, so the two are scattered through one document
+   with no pattern: the Canon of Yâo carries both.
+
+   By the time this runs stripTags has already been over the text, so the anchor span has been
+   unwrapped and BOTH forms have collapsed to the same thing: a plain "N." at the head of the
+   paragraph. What the anchored form costs is therefore nothing at all — worth saying because it
+   looks like the hard part and is not.
+
+   THE HARD PART IS THAT A PARAGRAPH NEED NOT BE ONE. MediaWiki only wraps a run of text in `<p>`
+   where the wikitext had a blank line before it, so a document whose first paragraph follows its
+   headnote directly arrives as a BARE RUN with no tag around it — the trap a facing-page book on
+   this shelf already records, met here in another edition. markLeadingSections is anchored to `<p>`
+   and cannot see one: measured over the whole book, it finds 167 of the 169 numbers, and the two it
+   misses are the FIRST number of the Count of Wei and of the Announcement of the Duke of Shâo. Both
+   documents would ship numbered from 2, with every word of section 1 present and nothing throwing
+   to say so — the quiet shape again, and invisible to any count of prose.
+
+   Hence the second alternative below, which takes a number opening a bare run where a block has just
+   closed. The two are ONE regex scanned in reading order rather than two passes, which is the
+   Meditations' lesson: run as two, the first reaches the end of the document and leaves the counter
+   at the last number, after which the forward-only guard declines everything the second finds as
+   going backwards.
+
+   Forward-only and never more than a few steps on, the guard every rule above uses. It earns its
+   place here twice over: Legge's headnotes quote the documents' own dates ("B.C. 1401 to 1374") and
+   his prose cites chapter and verse, so a bare "3." opening a sentence is not always a section. */
+function markShuSections(b, warn) {
+  let seq = 0, found = 0;
+  /* (a) a number at the head of a paragraph, reached through whatever the head opens with; (b) a
+         number opening a bare run, which is where a block has just closed and no `<p>` follows. */
+  const RX = new RegExp(
+    "<p>((?:\\s|<[^>]*>|&#\\d+;|&nbsp;|​)*)(\\d{1,3})\\.(?=\\s|&#\\d+;|&nbsp;|​)" +
+      "|(</(?:blockquote|p|div|ol|ul|table)>[\\s​]*)(\\d{1,3})\\.(?=\\s|&#\\d+;|&nbsp;|​)",
+    "g"
+  );
+  b = b.replace(RX, (whole, lead, pNum, close, rNum) => {
+    const v = +(pNum !== undefined ? pNum : rNum);
+    if (v <= seq || v > seq + 6) return whole;
+    seq = v; found++;
+    const mark = '<span class="bk-n">' + v + "</span>";
+    /* The lead is KEPT rather than dropped, in both shapes. On (a) it is whatever styling the
+       paragraph opened with and on (b) it is the closing tag of the block before it, and stripTags'
+       stack expects to meet both — discarding either would leave an opener unbalanced for the rest
+       of the chapter, which is the fault the void-element rule already records. */
+    return pNum !== undefined ? "<p>" + lead + mark : close + mark;
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return b;
+}
+
 function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   /* WHERE THE TEXT STARTS, and until Thucydides there was only one answer (Aug 2026). Every wiki book
@@ -5032,6 +5321,35 @@ function cleanBody(h, noteIds, book, warn) {
     const end = blockEnd(b, m.index, "div");
     if (end < 0) break;
     b = b.slice(0, m.index) + b.slice(end);
+  }
+  /* THE WIKI'S OWN AUXILIARY CONTENTS, WHEN IT FALLS INSIDE THE SLICE (Aug 2026, adding the Book of
+     Documents — the first book here whose edition divides a chapter into sections that Wikisource
+     gives pages of their own).
+
+     Where a book of the Shû is printed in sections, the book's page carries Legge's headnote and then
+     a `wst-auxtoc` block — a heading reading "Sections (containing the body text)" over links to
+     them. That is navigation between wiki pages and no part of Legge, and it sits INSIDE
+     prp-pages-output, so the slice takes it. Left alone the generic div pass turns it into two
+     quotations under the headnote: a heading-shaped block and a list of the words "Section 1 Section
+     2 Section 3", standing where the document should begin. The usual quiet failure — nothing throws
+     and no prose is lost.
+
+     The rule is the page's OWN marker rather than a guess at its wording, in the same spirit as the
+     ws-noexport pass above: `wst-auxtoc` means an auxiliary table of contents, which is exactly the
+     question being asked. Removal is BALANCED, because the block nests a header div and a poem div
+     inside it and a non-greedy match would take the opener and leave both standing.
+
+     GATED per book so it is provably inert on everything already shipped, which is the discipline
+     this file's history asks for on any edit to cleanBody — the extractor is shared and its other
+     callers have been proof-read by readers. */
+  if (book && book.dropAuxToc) {
+    for (let k = 0; k < 8; k++) {
+      const m = /<div class="[^"]*\bwst-auxtoc\b[^"]*"[^>]*>/.exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "div");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
   }
   /* Drop the WRAPPER's own opening tag before the generic div→blockquote pass below, which would
      otherwise turn the container that holds the whole letter into a quotation of the whole letter —
@@ -5391,6 +5709,7 @@ function cleanBody(h, noteIds, book, warn) {
     }
   }
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
+  if (book && book.sections === "shu") b = markShuSections(b, warn);
 
   /* ONE SECTION FOR THE WHOLE CHAPTER, for an edition whose chapter IS the unit both columns are
      cited by — a single poem, printed on a page of its own on each wiki. There is nothing inside it
@@ -8450,8 +8769,20 @@ async function fetchEnglish() {
       chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: c.html, notes: c.notes || [] });
       continue;
     }
-    const h = await api(BOOK.page(n));
+    /* A CHAPTER MAY BE PRINTED ACROSS MORE THAN ONE WIKI PAGE (Aug 2026, adding the Book of
+       Documents). Every earlier book here is one page to one chapter, and `page(n)` returned a
+       string. Where Legge prints a book in sections, Wikisource gives each section its own page and
+       leaves the book's HEADNOTE — several paragraphs on who is speaking, when, and what the
+       document is for, and in Part V an introduction to the whole Part — on the book's page, which
+       carries no body text at all. Fetching only the sections would drop that prose on the floor;
+       giving it a chapter of its own would put an empty tab on the bar, since one of the four books
+       carries a title and nothing else.
+
+       So `page(n)` may return an ARRAY, and the pages are cleaned in order and joined. Returning a
+       string still means exactly what it always did, so no shipped book's config is touched. */
+    const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
+    const h = await api(pageNames[0]);
     let html, notes, orig = "", tFromText = "";
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
@@ -8476,8 +8807,45 @@ async function fetchEnglish() {
       /* The number the single whole-chapter marker carries — the same channel `expect` uses, and
          set per chapter for the same reason: cleanBody is handed the book, not the chapter. */
       if (BOOK.sections === "whole") BOOK.mark = n;
-      html = cleanBody(h, got.ids, BOOK, warn);
+      const multi = pageNames.length > 1;
+      html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       if (keep) html = pruneNotes(html, keep);
+      /* THE REST OF A MULTI-PAGE CHAPTER. Each page is cleaned against its OWN note list, so the
+         second page's markers count from 1 again and would open the first page's notes. `data-fn` is
+         a one-based index into the chapter's notes, so every marker after the first page is shifted
+         by the number of notes already gathered — which is the Seneca lesson (a marker must carry the
+         note it points AT) applied across a join rather than across a reused note.
+
+         Measured on the book that introduced this: the four pages joined here carry no notes at all,
+         so the offset is provably zero on every chapter that uses it today. It is written anyway,
+         because a silent mis-numbering is exactly what this file keeps finding, and the arithmetic is
+         four lines. */
+      /* THE "no section numbers" WARNING IS A PROPERTY OF THE CHAPTER, NOT OF THE PAGE, and on a
+         multi-page chapter the per-page one is worse than useless: the book's own page carries a
+         headnote and no numbered text, so it fires on every such chapter whether or not the sections
+         that follow are numbered — three false alarms out of four, which is how a real one comes to
+         be scrolled past. So it is swallowed while the pages are being read and asked once at the
+         end, of the assembled chapter. */
+      const quiet = (m) => { if (!/^no section numbers found/.test(m)) warn(m); };
+      for (const extra of pageNames.slice(1)) {
+        await sleep(700);
+        const eh = await api(extra);
+        const eg = notesOf(eh);
+        const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
+        let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
+        if (ekeep) ehtml = pruneNotes(ehtml, ekeep);
+        const off = notes.length;
+        if (off) {
+          ehtml = ehtml.replace(
+            /<sup class="fn" data-fn="(\d+)"><\/sup>/g,
+            (m, d) => '<sup class="fn" data-fn="' + (+d + off) + '"></sup>'
+          );
+        }
+        html += "\n" + ehtml;
+        notes = notes.concat(eg.notes);
+      }
+      if (multi && BOOK.sections && !/class="bk-n"/.test(html))
+        warn("no section numbers found — the chapter will pair as one whole block");
     }
     /* THE FLOOR IS PER BOOK, because 200 characters is a broken chapter in every book here except
        one (Aug 2026, adding Aesop's Fables). This guard is what catches an extraction that has

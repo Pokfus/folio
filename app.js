@@ -5074,6 +5074,28 @@
        which is worth saying only because it cost nothing: the numbers led there.
        Keyed by ID rather than by author, like the Song of Roland and Gilgamesh — see bookColor. */
     "beowulf": "#55303C",
+    /* Measured the same way, and the two rows above were right that the band is full: with
+       twenty-three colours placed, a sweep of the whole RGB cube inside the shelf's own lightness
+       and chroma band turns up candidates in only TWO hue families that clear 20 of their nearest
+       neighbour at all — a red at 20.1 and a green at 22.5.
+
+       THE RED WAS REJECTED ON THE EURIPIDES TEST, which is the one case where that test and the raw
+       number nearly agreed anyway. Its 20.1 is against Sun Tzu's rust, and Sun Tzu is the other
+       ancient Chinese work on this shelf: a red for the Shû sitting one step from it would say the
+       two are a set, which is exactly the kinship that test exists to refuse. It also scrapes the
+       shelf's own tightest pair (18.2, the Classic of Poetry against Beowulf) by two points.
+
+       So green, which the Vyasa and Kalidasa rows both turned down — and their objection does not
+       bite here, because it was never about the hue. What they rejected was that every green
+       clearing Lucretius and Aesop sat at the TOP of the chroma band, bright enough to glow beside
+       twenty muted colours. This one sits at chroma 44 against a shelf range of 18–64 and lightness
+       25 against a range of 25–48, which is the dark end of both: a deep forest green rather than a
+       bright one. It clears Gilgamesh by 22.1 and Aesop and Lucretius by 22.2 — evenly, so it reads
+       as its own colour rather than as a near-miss of any one of them — and no reader ties a Chinese
+       documentary archive to a Latin poem, a Babylonian epic or a book of fables. It reads 6.75:1 on
+       the tightest of the sixteen light papers, the highest of any swatch here, and 1.3–1.8 on the
+       dark ones as every one of them does. Keyed by id, the documents being anonymous. */
+    "book-of-documents": "#0F4503",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -6497,6 +6519,61 @@
         { n: 2, label: "The Minor Odes of the Kingdom", note: "23 of 74 odes" },
         { n: 3, label: "The Major Odes of the Kingdom", note: "27 of 31 odes" },
         { n: 4, label: "Odes of the Temple and the Altar", note: "38 of 40 odes" },
+      ],
+    },
+    {
+      id: "book-of-documents",
+      title: "The Book of Documents",
+      subtitle: "The Shû King",
+      author: "Anonymous",
+      /* The documents are speeches and charges set down by scribes whose names are not recorded, and
+         the tradition that Confucius compiled them is a tradition rather than a fact. `written` gives
+         the span the genuinely ancient layer covers; `year` is the single number a shelf that sorts
+         by date must have, and it is the early end of that span rather than a midpoint nothing marks. */
+      written: "c. 11th–4th century BCE",
+      year: -1000,
+      translator: "James Legge",
+      edition:
+        "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+        "Clarendon Press, Oxford, 1879",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL: Legge published in 1879, before 1929, so the
+         United States copyright has expired, and he died in 1897, so it is out of copyright on
+         life-plus-seventy and life-plus-a-hundred alike. No limit to state and no modern editorial
+         layer to declare — this is his printed text, not a re-edited one. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so " +
+        "its United States copyright has expired — and he died in 1897, so it is out of copyright " +
+        "wherever the term runs for the author's life plus seventy or even a hundred years. The " +
+        "documents themselves are ancient and are in the public domain everywhere. (Bernhard " +
+        "Karlgren's translation of 1950 and Clae Waltham's modernisation of Legge of 1971 are still " +
+        "in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shu",
+      /* THE WHOLE OF THE RECEIVED TEXT, so `count` and `total` are equal — and they are 59 rather
+         than the 58 the Shû is traditionally counted at, because `total` is what THIS EDITION
+         contains and Legge prints the Tribute of Yü in two numbered sections. Joining them would put
+         two paragraphs numbered 1 in one chapter, since each section restarts its count; the front
+         matter says so rather than leaving a reader to wonder why the tabs run one long.
+
+         NO `origLang`, and it was measured rather than assumed. Chinese Wikisource carries every one
+         of the received documents, so the CHAPTER-level pairing is exact — but app.js pairs on the
+         section number below the chapter, Legge numbers his paragraphs and that transcription
+         numbers nothing at all. Pairing by position instead is the approach abandoned once already
+         on this shelf, and here it is not close: the two divide the same document alike in eight
+         cases out of fifty-eight. See .claude/fetch-book.js, whose entry records that measurement,
+         the variant-reading tooltips, and the excavated bamboo-slip texts that sit on the same wiki
+         index and are not chapters of the Shû at all. */
+      chapterWord: "Document",
+      count: 59,
+      total: 59,
+      /* The work's own five divisions, named for the houses whose documents they gather. The `note`
+         gives each one's share, since they are cut very unevenly — four fifths of the book is Kâu. */
+      parts: [
+        { n: 1, label: "The Book of Thang", note: "1 document" },
+        { n: 2, label: "The Books of Yü", note: "4 documents" },
+        { n: 3, label: "The Books of Hsiâ", note: "5 documents" },
+        { n: 4, label: "The Books of Shang", note: "17 documents" },
+        { n: 5, label: "The Books of Kâu", note: "32 documents" },
       ],
     },
   ];
