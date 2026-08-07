@@ -1362,6 +1362,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
   yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
   has been written yet.** Not part of the site.
+- `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
+  every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
+  planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
+  glossary terms** from Phase 2 of the citation pass. Its two scope decisions are the ones to read first:
+  the collection **opens with Native America as a deck rather than a prologue**, running forward to tribal
+  sovereignty in the present, and it covers **the territory that became the United States**, so Spanish
+  Florida, French Louisiana and New Netherland are in it. The next card to write is the lowest `us-NNN` not
+  yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **No
+  card has been written yet.** Not part of the site.
 - `docs/ww2-card-plan.md` — the **1000-card running order for the Second World War collection** (`ww2`):
   every card's number, topic and deck, fixed in advance across 8 decks and 30 leaf decks. The eighth of the
   planned collections, the second (after Egypt) to **create its own collection** — node, tree and
@@ -1545,7 +1554,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   collection itself was created on 2026-08-06** by `docs/egypt-card-plan.md`, with 9 decks and 26 leaf
   subdecks and a `COLL_THEME` row of its own. **`ww2` is new the same way — created on 2026-08-07** by
   `docs/ww2-card-plan.md`, with 8 decks and 30 leaf decks and its own `COLL_THEME` row; it and Egypt are
-  the only two collections a plan has had to bring into existence. **`china` was the one
+  the only two collections a plan has had to bring into existence. **`col-41` United States gained its 9
+  decks and 33 leaf decks on 2026-08-07** from `docs/us-card-plan.md` — it was a leaf node with an empty
+  `cardIds` and is now a branch, keeping its `total`, its `placeholder` and its nine translated titles.
+  **`china` was the one
   collection that already had a tree**, and on the same day `docs/china-card-plan.md` made four changes to
   it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
   `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
@@ -5246,6 +5258,71 @@ that this collection's short terms are the worst on the site for auto-linking: `
 whose names are ordinary English words, and `Ba` and `Ka` are two-letter surfaces that would match
 inside other words entirely, so prefer a fuller head word and let the short form be an alias only if it
 can be made safe.
+
+**THE UNITED STATES (`col-41`) is planned and not yet started (Aug 2026).** Its 9 decks and 33 leaf
+decks are in `data.js` and its full 1000-card running order is `docs/us-card-plan.md`: **"Generate the
+next United States card" means take the lowest `us-NNN` not yet in `data.js`, read its topic and deck
+from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next
+number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='us-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `us-1000`). The collection **already existed** — `col-41` was an
+empty node with its navy `#2F4373` hue and its nine translated titles — so this plan adds a tree and
+nothing else, the Rome/Russia/India case rather than the Egypt/WWII one; there is **no
+`COLLECTION_NUMERALS` entry and should not be one** (Western digits, like World History).
+**READ ITS TWO SCOPE DECISIONS FIRST, because both are claims a shorter plan would make silently.** The
+collection **opens with Native America as a DECK, not a prologue** — 100 cards running from the peopling
+of the continent through Cahokia and the Haudenosaunee to removal, allotment, the boarding schools,
+termination and tribal sovereignty in the present, because Native American history is not a phase of
+American history that ends when the frontier closes; a collection that opens at Jamestown has already
+decided whose history this is. And it covers **the territory that became the United States**, so Spanish
+Florida (older than Jamestown by 42 years), French Louisiana and New Netherland get `us-borderlands`
+rather than the collection being thirteen colonies growing westward. The plains wars are the deliberate
+exception and sit in `us-west`, where they are what the settlement of the West consisted of.
+Four more decisions are arguments rather than lists. **Slavery is a deck of 90, not a subdeck of the
+antebellum South** — the Second World War plan's Holocaust reasoning in another key: filing it under the
+Old South makes it regional when it was national and a phase when it is a foundation, and 35 of the 90
+go to enslaved life, since a deck about the slave *system* alone cards the people in it only as its
+material. **There is no "the South" deck and no pre-1865 "the West" deck**, for those two reasons
+respectively. **Presidents do not organise the tree** — a US collection left alone becomes a list of
+administrations, so `The presidency of X` cards exist only where the office itself is the subject
+(Washington, Jackson, FDR) and the politics is otherwise carded by events, laws and movements; there are
+45 presidents and far fewer than 45 presidency cards, deliberately. And **the Black freedom struggle
+opens with Jim Crow rather than with Montgomery** (`us-891`–`us-902` are the disfranchising
+constitutions, the lynching campaign, the covenants and redlining), because segregation was constructed
+by legislatures, courts and banks after Reconstruction and a deck opening in 1955 leaves a reader
+assuming it was inherited from slavery.
+**The pull specific to this collection is "settled in scholarship, contested in public"**, and the rule
+is the Second World War plan's with the ordering mattering as much: **a card that explains comes before
+a card that debunks.** `us-555 What caused the American Civil War` is built from the secession
+declarations and the Cornerstone Speech (`us-554`); `us-648 Lost Cause of the Confederacy` then cards the
+alternative account as the postwar construction it is. The other three pulls are exceptionalism (carded
+as a subject at `us-148`, `us-391`, `us-665`, `us-1000`, never as the register), the founding register
+(neither demigods nor hypocrites — `us-245` states both halves of Jefferson plainly and lets the reader
+hold them), and live political use, where the collection declines to treat a settled historical question
+as open because it is politically contested. Modern scholars are capped at two and it **spends both**
+(`us-666 Frederick Jackson Turner`, `us-649 The Dunning School and its overthrow`), for the one reason
+that justifies it: in each case a historian's account escaped the academy and became the public
+understanding, which makes the account an event in American history.
+Conventions: **a Native nation takes the name it uses for itself** where that is established (Muscogee,
+Lakota, Diné, Haudenosaunee) with the familiar name in the same sentence, and a name is not an argument
+to be made silently; **enslaved people, not slaves**, and enslaver rather than owner, throughout card
+prose and glossary descriptions, since *slave* names a person by what was done to them and makes it a
+category of person rather than a condition imposed; and three contested figure sets are carded so the
+reader meets the argument (`us-039` pre-contact population, 2–18 million by different methods; the
+Middle Passage mortality; `us-599` the Civil War dead, revised from 620,000 to a range near 750,000 in
+2011). Sourcing is the best on the site — LoC, NARA, the Smithsonian, the NPS handbooks and the founding
+documents in full — with three hazards: **Lost Cause material is still in wide circulation** and being
+out of copyright is not authority; **the WPA slave narratives are indispensable and are evidence needing
+handling as such** (collected in the 1930s from people who had been children before 1865, by mostly
+white southern interviewers, in the Jim Crow South — `us-470` is about this); and much state and local
+heritage material is advocacy. **The glossary starts further ahead than any other collection** — all 45
+presidents cited at the bar from P1–P7 — but has no `Slavery`, no `Reconstruction`, no `Jim_Crow`, no
+`Manifest_Destiny`, no `Cherokee`, no `Lakota`, so write those **cited from the start**; mind that this
+collection has a great many ordinary-English-word surfaces (`Union`, `Confederacy`, `Frontier`,
+`Reconstruction`, `Depression`, `Prohibition`, `Reservation`) needing `GLOSSARY_CASESENSITIVE` or a
+narrower head word, and that **a Native nation needs its aliases the day it ships, both directions**
+(`Muscogee`/Creek, `Lakota`/Sioux, `Diné`/Navajo, `Haudenosaunee`/Iroquois) or half of deck 1 links to
+nothing.
 
 **THE SECOND WORLD WAR (`ww2`) is planned and not yet started (Aug 2026).** Its 8 decks and 30 leaf
 decks are in `data.js` and its full 1000-card running order is `docs/ww2-card-plan.md`: **"Generate the

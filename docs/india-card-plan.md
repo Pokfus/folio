@@ -273,7 +273,8 @@ Empire is a different card from ten sentences on the mansabdari system.
 Indian campaign is `in-111` here and `gr-738` in the Greece plan — the same months from opposite ends,
 one about the limit of a Macedonian army's reach and one about what arrived on the Indus. And the
 British side of the Company and the Raj belongs to a Britain collection that does not yet exist; when
-it does, the pairs are Plassey, 1857 and Partition.
+it does, the pairs are Plassey, 1857 and Partition. `docs/us-card-plan.md` records the same gap for the
+imperial crisis, the Revolution and the War of 1812, so that collection will want the same partner.
 
 **Two more pairs are already written into `docs/china-card-plan.md`**: `in-812 The spread of Buddhism
 beyond India` against `cnh-883 The transmission of Buddhism into China` — a religion leaving one country

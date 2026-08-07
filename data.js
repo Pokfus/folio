@@ -1960,9 +1960,271 @@ window.COLLECTION_TREE = {
     {
       "id": "col-41",
       "title": "United States",
-      "total": 0,
+      "total": 1000,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "us-native",
+          "title": "Native America",
+          "total": 100,
+          "children": [
+            {
+              "id": "us-native-before",
+              "title": "Native America before contact",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "us-native-contact",
+              "title": "Contact, disease and the colonial encounter",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-native-modern",
+              "title": "Removal, the reservations and sovereignty",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-colonial",
+          "title": "Colonies and Empire, 1565–1763",
+          "total": 105,
+          "children": [
+            {
+              "id": "us-borderlands",
+              "title": "Spanish, French and Dutch North America",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-colonies",
+              "title": "The English colonies",
+              "total": 45,
+              "cardIds": []
+            },
+            {
+              "id": "us-colonial-society",
+              "title": "Colonial society and the imperial wars",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-founding",
+          "title": "Revolution and Founding, 1763–1800",
+          "total": 130,
+          "children": [
+            {
+              "id": "us-imperial-crisis",
+              "title": "The imperial crisis",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-revolution",
+              "title": "The War of Independence",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "us-constitution",
+              "title": "The Constitution",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-early-republic",
+              "title": "The early republic",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-antebellum-era",
+          "title": "Expansion and Division, 1800–1860",
+          "total": 105,
+          "children": [
+            {
+              "id": "us-jefferson",
+              "title": "Jefferson, Madison and the War of 1812",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "us-jackson",
+              "title": "The Jacksonian era",
+              "total": 27,
+              "cardIds": []
+            },
+            {
+              "id": "us-expansion",
+              "title": "Expansion and Manifest Destiny",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-antebellum",
+              "title": "Antebellum society and reform",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-slavery",
+          "title": "Slavery",
+          "total": 90,
+          "children": [
+            {
+              "id": "us-slave-system",
+              "title": "The slave trade and the slave economy",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-enslaved-life",
+              "title": "Enslaved life, family and resistance",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-abolition",
+              "title": "Abolition and the antislavery movement",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-civilwar",
+          "title": "Civil War and Reconstruction, 1848–1877",
+          "total": 120,
+          "children": [
+            {
+              "id": "us-sectional-crisis",
+              "title": "The sectional crisis",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-civil-war",
+              "title": "The Civil War",
+              "total": 45,
+              "cardIds": []
+            },
+            {
+              "id": "us-emancipation",
+              "title": "Emancipation and Black freedom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "us-reconstruction",
+              "title": "Reconstruction and its overthrow",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-industrial",
+          "title": "The Industrial Nation, 1865–1917",
+          "total": 110,
+          "children": [
+            {
+              "id": "us-west",
+              "title": "The West",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-industry",
+              "title": "Industry, labour and the corporation",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-immigration-city",
+              "title": "Immigration and the city",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-progressive",
+              "title": "Populism, Progressivism and empire",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-midcentury",
+          "title": "Depression, War and Cold War, 1917–1963",
+          "total": 130,
+          "children": [
+            {
+              "id": "us-ww1-twenties",
+              "title": "The First World War and the twenties",
+              "total": 32,
+              "cardIds": []
+            },
+            {
+              "id": "us-depression",
+              "title": "Depression and the New Deal",
+              "total": 33,
+              "cardIds": []
+            },
+            {
+              "id": "us-ww2",
+              "title": "The Second World War",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "us-cold-war",
+              "title": "The Cold War",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "us-modern",
+          "title": "Modern America",
+          "total": 110,
+          "children": [
+            {
+              "id": "us-civil-rights",
+              "title": "Jim Crow and the Black freedom struggle",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "us-sixties",
+              "title": "The sixties and Vietnam",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "us-rights",
+              "title": "Rights movements and the new politics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "us-since-1974",
+              "title": "America since 1974",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "Estados Unidos",
         "fr": "États-Unis",

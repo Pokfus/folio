@@ -284,7 +284,7 @@ the record. Cite them as what they are.
 (`wh-916`–`wh-945`) against 1000 here, at survey altitude, and the interwar and Cold War decks sit
 either side of it.
 
-**Four collections already card these same events, and the pairs should be written deliberately
+**Five collections already card these same events, and the pairs should be written deliberately
 differently:**
 
 | subject | elsewhere | here |
@@ -292,7 +292,9 @@ differently:**
 | the Eastern Front | `ru-656`–`ru-690` — the Great Patriotic War, a Soviet national experience and its memory | `ww2-261`–`ww2-400` — the theatre where the European war was decided |
 | Katyn | `ru-658` — a Soviet crime and a Soviet lie maintained for fifty years | `ww2-155`, `ww2-326` — an atrocity, and the discovery that broke the Allied coalition's Polish policy |
 | the war in China | `cnh-631`–`cnh-655` — eight years that reshaped China and set up its civil war | `ww2-401`–`ww2-435` — the war's largest and longest land theatre |
-| the atomic bombings | — | `ww2-938`, `ww2-939`, `ww2-945`, `ww2-946` — the event, and the two arguments about it |
+| the atomic bombings | `us-840`–`us-842`, `us-851`–`us-853` — an American undertaking, and the argument Americans have had about it since | `ww2-938`, `ww2-939`, `ww2-945`, `ww2-946` — the event, and the two arguments about it |
+| Pearl Harbor and the Pacific | `us-828`, `us-843`–`us-846` — what the war did to a country that had been arguing about staying out | `ww2-441`–`ww2-510` — the theatre and the campaign |
+| Japanese American internment | `us-833`, `us-834` — a constitutional question the Supreme Court got wrong and said so fifty years later | `ww2-508` — one of the war's civilian internments |
 | the Bengal famine | `in-575` — a famine in British India and its causes | `ww2-524`, `ww2-525` — a wartime famine in a theatre of war |
 | the Holocaust | `ru-671` — the Holocaust in the Soviet Union, from the Soviet side | `ww2-731`–`ww2-790` — the whole of it |
 

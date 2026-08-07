@@ -137,7 +137,8 @@ story has already lost the plot of the imperialism deck that follows it.
 
 Folio has, or plans, separate collections for **Ancient Greece** (`col-13`, being written now),
 **Ancient Rome** (`col-40`, planned in `docs/rome-card-plan.md` and not yet started), the **United
-States** (`col-41`), **Russia** (`col-42`, planned in `docs/russia-card-plan.md` and not yet started),
+States** (`col-41`, planned in `docs/us-card-plan.md` and not yet started), **Russia** (`col-42`,
+planned in `docs/russia-card-plan.md` and not yet started),
 **India** (`col-43`, planned in `docs/india-card-plan.md` and not yet started) and **China** (`china`,
 planned in `docs/china-card-plan.md`, set aside and not yet started). There is also **Ancient Egypt**
 (`egypt`, planned in `docs/egypt-card-plan.md` and not yet started), which the plan created, and **the

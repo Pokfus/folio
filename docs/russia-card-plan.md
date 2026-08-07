@@ -246,11 +246,18 @@ name whose it is.
 deck, at survey altitude. The rule in `docs/world-history-card-plan.md` cuts both ways: ten sentences
 on the Russian Revolution is a different card from ten sentences on the July Days.
 
-**The Cold War is the pair to watch**, because `col-41` United States will one day plan the same
-events from the other side, as Greece and Rome do for the second century BCE. When that plan is
-written, the Cuban Missile Crisis, the space race and the arms control treaties should get the table
-the Rome plan gives its Greek pairs. Until then, write the card this collection needs: `ru-706` is
-about a Soviet decision and a Soviet retreat, not about thirteen days in Washington.
+**The Cold War is the pair to watch**, and `docs/us-card-plan.md` now exists, so here is the table this
+paragraph used to ask for:
+
+| subject | here | in `col-41` United States |
+|---|---|---|
+| the origins of the Cold War | a Soviet reading of encirclement and of what the war had cost | `us-856` — an American reading of an ally that did not leave the countries it had liberated |
+| the Cuban Missile Crisis | `ru-706` — a Soviet decision and a Soviet retreat | `us-888` — thirteen days in Washington, and the concession that was kept quiet |
+| the space race | Sputnik and Gagarin as Soviet achievements | `us-877` — Sputnik as an American shock, and what it did to schools and budgets |
+| the arms race | Soviet strategic doctrine and its costs | `us-865`, `us-874`, `us-878` — deterrence, brinkmanship and the military-industrial complex |
+
+Neither collection carries the other's card. `ru-706` is about a Soviet decision and a Soviet retreat,
+not about thirteen days in Washington.
 
 One pair already exists: **`ru-274 Treaty of Nerchinsk` and `cnh-546 Treaty of Nerchinsk`** in
 `docs/china-card-plan.md` — Russia's first treaty with China and the limit of its Amur expansion on one
