@@ -5042,6 +5042,22 @@
        THE NEXT BOOK WILL HAVE TO WIDEN THE BAND AGAIN, and there is less room than this row had:
        darker still costs saturation until the swatches stop being colours at all. Say so then. */
     "Kalidasa": "#004248",
+    /* Measured the same way, and this is where the palette ran out — which the Vyasa entry above
+       predicted and asked to have said out loud rather than quietly shipped. With twenty-one colours
+       on the shelf, nothing anywhere in its lightness and chroma band clears 24 of its nearest
+       neighbour; only TWO hue families clear the shelf's own tightest pair at all, and both are
+       already occupied — red by Sophocles, Ovid and Aristophanes, green by Lucretius and Aesop. So the
+       band was not widened and no pair tighter than 20.4 was accepted: this dark oxblood is the best
+       colour available anywhere in it, clearing Sophocles by 23.3 and Plato by 23.9, which is still
+       wider than the shelf's own closest pair. The EURIPIDES TEST decided the family rather than the
+       number, as it did there: a fourth red asserts no kinship, because nobody reads an Old English
+       heroic elegy against Greek tragedy or Latin love poetry, where a fourth GREEN beside Lucretius
+       and Aesop would have had to sit at the top of the band's chroma to clear them — bright enough to
+       glow beside twenty muted colours. It reads 6.75:1 on the tightest of the sixteen light papers,
+       the highest of any swatch here, and it happens to suit a poem of funeral pyres and blood-feud,
+       which is worth saying only because it cost nothing: the numbers led there.
+       Keyed by ID rather than by author, like the Song of Roland and Gilgamesh — see bookColor. */
+    "beowulf": "#55303C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -5827,6 +5843,66 @@
          its own page that neither heading is in the original, so adopting them would present a modern
          editor's grouping as the edition's. Nine tabs need none to be navigable, and app.js falls back
          to a single unlabelled group as it does for the Meditations and the Republic. */
+    },
+    {
+      id: "beowulf",
+      title: "Beowulf",
+      /* No subtitle. The poem is untitled in its manuscript and has been called Beowulf, after its
+         hero, since its first editors named it; there is no second name to carry. */
+      author: "Anonymous",
+      /* THE DATE IS THE OPEN QUESTION OF THE FIELD, and the shelf still needs one number to sort on.
+         Only the manuscript is fixed, at about the year 1000; when the poem behind it was composed has
+         been argued from its language, its metre and its politics for two centuries, with answers
+         running from the early eighth century to the very decade of the copy. 700 is the early end of
+         that range, and the front matter carries the doubt rather than leaving the `c.` to do all the
+         work — the same move the Song of Roland's and Kalidasa's entries make. */
+      written: "c. 700–1000",
+      year: 700,
+      translator: "Francis Barton Gummere",
+      edition: "The Oldest English Epic, Macmillan, New York, 1909",
+      /* PUBLIC DOMAIN WITH ONE THING THAT CANNOT BE ESTABLISHED, and it is said rather than rounded up
+         — the Gallic War's judgement, where half a byline could not be found either. The poem is about
+         a thousand years old and free everywhere. Gummere lived 1855–1919, so his translation clears
+         the pre-1929 publication rule, life-plus-seventy (1990) and life-plus-a-hundred alike, with no
+         limit to state — it belongs with the Republic, the Analects, the Peloponnesian War and
+         Kalidasa rather than with Giles (2029) or Ross (2042). What cannot be settled is A. J. Wyatt,
+         whose 1894 Old English edition is the facing column: Wikidata gives him 1835–1935 at YEAR
+         precision, a suspiciously round hundred years, and Wikisource's author page carries no dates
+         and no public-domain tag for him where Gummere's carries PD-old. He was certainly alive in
+         1919, having published an Anglo-Saxon Reader that year. So the ground stated for that column is
+         the publication date alone, which anybody can check, and the conditional is given rather than
+         buried. Dates looked up rather than recalled, for the Hugo Magnus reason. */
+      rights:
+        "Public domain, with one thing this site cannot establish and says so rather than guess. The " +
+        "poem is Old English and about a thousand years old, so it is free everywhere. Francis Barton " +
+        "Gummere's translation was published in 1909 and he lived from 1855 to 1919, so it is public " +
+        "domain in the United States under the pre-1929 publication rule and out of copyright wherever " +
+        "the term is the author's life plus seventy or even a hundred years — there is no limit to " +
+        "state. The facing Old English is A. J. Wyatt's edition of 1894, public domain in the United " +
+        "States on the same pre-1929 ground; his dates are given elsewhere as 1835 to 1935, but only to " +
+        "the year and without corroboration, so no life-plus-seventy term is claimed for it here, and " +
+        "if that death year is right the term expired in 2006. Gummere's volume also contains " +
+        "Finnsburg, Waldere, Deor, Widsith and Hildebrand, and Wyatt's a glossary and the Finnsburg " +
+        "fragment; none of that is reproduced, and what is taken is the poem. (The modern translations " +
+        "by Seamus Heaney, 1999, Roy Liuzza, 2000, J. R. R. Tolkien, published 2014, and Maria Dahvana " +
+        "Headley, 2020, are still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Oldest_English_Epic/Chapter_1",
+      origLang: "ang",
+      origName: "Old English",
+      chapterWord: "Fitt",
+      /* The manuscript's own sections, gap and all: an unnumbered prologue counted as 0, then I–XXVIII
+         and XXXI–XLIII. THERE IS NO FITT XXX — the scribe's numbering skips it and no line is missing,
+         which the two editions' continuous line ranges prove — and Gummere runs his XXVIII across the
+         section Wyatt brackets as [XXIX], so the translation divides the poem into 42 chapters and the
+         whole of it is here. `count` and `total` are equal and both are kept, for the reason Seneca's
+         are: one is what Folio holds and the other what the work contains. */
+      count: 42,
+      total: 42,
+      /* No `parts`. Neither edition divides the poem above the fitt — no books, cantos or parts in
+         either — so the reader falls back to a single unlabelled group, as the Meditations, the
+         Republic and the Song of Roland do. The familiar "two halves" of Beowulf, Denmark and then the
+         dragon, is a reader's description of the poem and not a heading anybody printed in it. */
     },
     {
       id: "herodotus-histories",
