@@ -1325,7 +1325,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
-  after `gr-008` Knossos was found to be mostly about who dug it. Not part of the site.
+  after `gr-008` Knossos was found to be mostly about who dug it. **Extended the same month, on request, to
+  HISTORIOGRAPHY** — the modern argument about the past is no more the subject than the modern dig is — with two
+  further rules (a question may never name a researcher; historiography may not run past 3 of an abstract's 10
+  sentences), the 45 cards that break them and the five batches F1–F5. Not part of the site.
+- `.claude/card-focus.js` — the measure behind that second half: `node .claude/card-focus.js [--prefix=] [--all]
+  [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
+  "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
+  counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -5153,6 +5160,39 @@ scores on how many of its ten sentences carry a year between 1800 and 2029, whet
 one, and whether its date line uses a discovery label) — `docs/history-focus-plan.md` holds the measure, the
 table and the six rewrite batches. Re-run the measure after each batch; and read the card before rewriting
 it, because on a few of them the modern years ARE the subject.
+
+**…AND NOT A HISTORIOGRAPHY SITE EITHER (Aug 2026, on request).** The rule above was written about the
+people who DUG the past up; it binds equally on the people who ARGUE about it. A card is about its answer
+term's history — not about the modern debate over that history — and the two go wrong in the same way, by
+teaching a reader the state of a scholarly literature instead of the past that literature is about. Two
+parts, and the first is absolute:
+- **A QUESTION MAY NEVER NAME A RESEARCHER OR SCHOLAR.** Not "Hans van Wees calls…", not "Lambert argues
+  that…", not "Evans noted in a footnote…". A clue built on who said a thing is answerable by someone who
+  knows the modern literature and nothing whatever about Greece, which is the exact inversion of what a
+  study card is for. **Naming the THEORY is fine and often better** — "the older view that they were
+  artificial creations", "the middle-class hoplite army is a myth" — so the fix is almost always to keep
+  the claim and drop the name, which costs a card nothing and usually buys back words. **An ANCIENT author
+  is not a researcher**: Herodotus, Pausanias and Strabo are sources FOR the past and are welcome in a
+  question. The line is the modern arguer, not the ancient witness.
+- **HISTORIOGRAPHY MAY NOT BE THE PRIMARY FOCUS OF AN ABSTRACT.** Briefly touching on it is fine and often
+  necessary — a contested date, a term whose meaning was overturned, a dissent worth hedging with — but a
+  background that runs *Scholar A argues, Scholar B answers, A's reviewer is unpersuaded* for six of its ten
+  sentences is a literature review with a Greek word at the top of it. The bar is **at most 3 of 10
+  sentences**, which is where the corpus itself puts the break (206 of 269 cards score 0 or 1).
+- **THE ONE EXEMPTION is a card whose ANSWER TERM is itself a modern theory, debate, method or scholar** —
+  `gr-007` Arthur Evans, `wh-006` the three-age system, `wh-064` the Toba catastrophe theory. There the
+  modern argument IS the subject and neither part applies. Keep that list short; it is `EXEMPT` in the
+  measure, and every entry carries its justification.
+
+**`node .claude/card-focus.js` is the measure** (`--prefix=gr-`, `--all`, `--card=<id>`), and it detects a
+researcher from the card's OWN source list, parsing the author positions of each citation rather than
+sweeping it for capitalised words — the first cut did the latter and flagged 187 of 269 cards, because
+place names, period names and ancient authors all leak out of a citation's TITLE. **It is a proxy, not a
+verdict: read the card before rewriting it.** **45 of the 269 cards shipped by Aug 2026 need revision — 44
+on the question rule and 12 majority-historiography** — and `docs/history-focus-plan.md` holds the verified
+table and the five batches. The worst offenders are `gr-174`–`gr-180`, written in the session that produced
+this rule; that a whole run of cards can drift this way without anything complaining is precisely why the
+measure is committed rather than done by eye.
 
 **A NEW CARD SHIPS WITH A GLOSSARY ENTRY FOR ITS OWN ANSWER TERM, IN THE SAME COMMIT (Aug 2026, on
 request).** Not afterwards and not in a later batch: a card's answer is exactly the word its siblings will
