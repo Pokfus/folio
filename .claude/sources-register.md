@@ -12416,3 +12416,67 @@ against it.
 Unlike the polish→Poland and laos→Laos cases, this is **semantically correct** — the Sahara is precisely
 what "sub-Saharan" is measured against — and eight shipped glossary terms already carry the phrase, so the
 behaviour predates this card. Left alone; recorded so a later reader does not take it for a new fault.
+
+---
+
+## Batch W15 — `wh-088` Southern dispersal route (2026-08-07)
+
+### Newly opened for this batch
+
+**`beyer-2021`** — Robert M. Beyer, Mario Krapp, Anders Eriksson and Andrea Manica, "Climatic Windows for
+Human Migration out of Africa in the Past 300,000 Years", *Nature Communications* 12 (2021): 4889.
+[Open access, CC BY]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the two routes named as such — "two possible routes into Eurasia, through the
+  Nile-Sinai-Land Bridge and the Strait of Bab-el-Mandeb, commonly denoted the northern and southern
+  route"; that precipitation and aridity are "the ecologically limiting factors", the constraint being
+  the ability to hunt, gather and find drinking water along the way; the window at roughly 65 ka, which
+  "marks both the point shortly after which the northern route last was open before a period of 40k
+  years of unsuitable climate, and the point at which the southern route first reopened for an extended
+  period since the last interglacial period"; and the southern route's distinctive obstacle, the Red Sea
+  crossing, which "remains a subject of debate given the very limited archaeological support"
+- **this is the source the previous batch said wh-088 would need.** W14 deliberately withheld a dispersal
+  date from `wh-086` on the grounds that it belonged here and could be sourced properly; it was, and the
+  card carries it.
+
+**`shipton-2026`** — Ceri Shipton, "Lithic Miniaturization Provides a Signature of an MIS4-3 Southern
+Dispersal of *Homo sapiens*", *Evolutionary Anthropology* 35, no. 1 (2026): e70027. [Open access, CC BY]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the genetic brackets — "genetic estimates for *H. sapiens* dispersal 55–45 ka" into Eurasia,
+  Wallacea and Sahul, and "genetic estimates for an out-of-Africa migration event 75–55 ka"; the backed
+  microlith hypothesis and its **refutation** ("a repeatedly reinvented tool type … likely convergent in
+  these regions, with their presence in-between being discontinuous … not found east of India in MIS3 and
+  so cannot provide a universal signature of a southern dispersal"); and the miniaturization proposal
+  tracked west to east from Panga ya Saidi through Fa Hien Lena, Sri Lanka, to Asitau Kuru, Timor-Leste
+- **it places Panga ya Saidi "on the Kenyan coast" in its own words**, which is why the card says so; the
+  first draft was going to be softened to "east African coast" on the assumption that the paper only said
+  east Africa, and the softening was **dropped after grepping the file** rather than applied on a guess.
+  Checking cost one command; guessing would have made the card vaguer than its source.
+
+### Reused, from the register
+`blinkhorn-2021` (MIS 5 as 130–71 ka; the Levantine finds "often considered to represent a 'failed' and
+geographically restricted dispersal"; "multiple potential waves of expansions out of Africa"),
+`groucutt-2019` (Skhul at ~130–100 ka and Qafzeh beginning ~110–90 ka — the card's "roughly 130,000 to
+90,000 years ago"), `bae-wu-2024` (several waves with introgression rather than a single dispersal).
+
+### A REGISTER ENTRY THAT WAS OPEN BUT UNUSABLE AS WRITTEN
+`blinkhorn-2021` was listed in batch 16's source list as [Open access] but has **no `### entry` with
+`supports:` lines** — it appears only as a bibliography row. Under N5's rule a source reused for a new
+claim needs a re-read, and a bibliography row records no claim at all, so it was fetched and read before
+being used. **A source listed in a batch roll-up is not the same as a source entered in the register**;
+the roll-up says a card cited it, the entry says what it will bear.
+
+### THE FINDING — the tidy narrative was the one the sources refuse
+The obvious card here is "the coastal route: people followed the shore from the Red Sea to Australia,
+living on shellfish". Nothing opened supports that as established. What the sources actually give is a
+**negative**: the one artefact type long offered as the route's signature does not work, on three separate
+grounds, and its replacement is a proposal rather than a result. So the card's second block is built
+around a case that **failed**, and the closing sentence gives miniaturization as "the proposal now"
+rather than as the answer. A dispersal route is a hypothesis about a path, and the card says so; writing
+it as a story would have been the more readable and the less true version.
+
+### A CLAIM NOT MADE
+The card gives no figure for sea level at Bab-el-Mandeb and no width for the crossing. `beyer-2021`
+models "the minimum distance needed to continuously cover on water to reach the Arabian Peninsula from
+Africa" as a band on a figure rather than stating a number in the text, and reading a value off a plotted
+grey shade would be inventing a precision the paper declines to print.
