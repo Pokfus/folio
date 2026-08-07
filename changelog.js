@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.40", released: "2026-08-06T21:44Z" };
+window.FOLIO_VERSION = { v: "1.41", released: "2026-08-07T00:34Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-07",
+    t: "Ancient Egypt joins the collections",
+    items: [
+      "Ancient Egypt is now on the shelf — a new collection, in malachite green, with nine parts and twenty-six decks inside them. The Nile before the pharaohs and the predynastic towns, then the pyramid age, the Middle Kingdom, the New Kingdom in four decks of its own, the later dynasties including a deck on Kush and the Nubian pharaohs who ruled Egypt for a century, and the long Greek, Roman and Christian ending. Beside those are three decks on the things that outlast every dynasty: the gods and the dead, kingship and daily life, and writing, art and what the Egyptians knew. It runs from the first herders in the Sahara to the Arab conquest, which is later than most accounts stop — the temples were still being built and hieroglyphs still being carved for three centuries after Cleopatra. It is still empty and still marked coming soon; a thousand cards are mapped out in order, so it can now be written a card at a time.",
+    ],
+  },
   {
     d: "2026-08-06",
     t: "The Bhagavad Gita, Gilgamesh, Aesop, Plato, Aristophanes, Euripides and Sophocles join the shelf, a second look at every new card, a stylus that keeps drawing, and a clearer Find it",

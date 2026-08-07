@@ -1355,6 +1355,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and the collection carries **`placeholder: true`** (set aside July 2026), which `availableCardIdSet()`
   reads — so read that file's warning before writing `cnh-001` or the cards will be written and never
   studied. Not part of the site.
+- `docs/egypt-card-plan.md` — the **1000-card running order for the Ancient Egypt collection** (`egypt`):
+  every card's number, topic and deck, fixed in advance across 9 decks and 26 leaf subdecks. The seventh of
+  the planned collections and **the only one that created its own collection** — Rome, Russia and India were
+  empty nodes waiting for a tree and China had one already, where Egypt had nothing, so the collection node,
+  its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
+  yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
+  has been written yet.** Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1526,7 +1533,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   subdecks, `col-42` Russia its 9 decks and 29 leaf decks, and `col-43` India its 9 decks and 31 leaf
   subdecks, on 2026-08-06** from `docs/rome-card-plan.md`, `docs/russia-card-plan.md` and
   `docs/india-card-plan.md`, all empty; all three stay under "Coming soon" until their first card ships,
-  since a collection with no cards is coming-soon whatever its `placeholder` says. **`china` was the one
+  since a collection with no cards is coming-soon whatever its `placeholder` says. **`egypt` is new — the
+  collection itself was created on 2026-08-06** by `docs/egypt-card-plan.md`, with 9 decks and 26 leaf
+  subdecks and a `COLL_THEME` row of its own; it is the only collection a plan has had to bring into
+  existence. **`china` was the one
   collection that already had a tree**, and on the same day `docs/china-card-plan.md` made four changes to
   it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
   `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
@@ -5187,6 +5197,46 @@ central concepts (禮 ritual propriety `cnh-831`, 理 principle `cnh-861`). The 
 the start** at the `GLOSS_SRC_TARGET` bar — and mind that romanised Chinese names collide on their
 syllables (*Yang Yan* against *yin and yang*, *Ban Zhao* against *Han-Zhao*), so prefer the fuller head
 word.
+
+**ANCIENT EGYPT (`egypt`) is planned and not yet started (Aug 2026).** Its 9 decks and 26 leaf subdecks
+are in `data.js` and its full 1000-card running order is `docs/egypt-card-plan.md`: **"Generate the next
+Ancient Egypt card" means take the lowest `eg-NNN` not yet in `data.js`, read its topic and deck from
+that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next
+number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='eg-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `eg-1000`). **It is the only plan that CREATED its collection**,
+so four things were decided that the others inherited: the id is **`egypt`**, not `col-44` (China set the
+readable-id precedent, and `col-44`–`col-64` were retired World History decks — reusing a number that
+recently meant something else is a trap); the card prefix is **`eg-`**; the hue is **`#1F6F5C` malachite**
+in `COLL_THEME`, **measured rather than picked** — the green quarter was unused and it sits 33.3 from its
+nearest neighbour in CIELAB against a tightest existing pair of 12.9; and there is **deliberately NO
+`COLLECTION_NUMERALS` entry**, because no hieroglyphic webfont is loaded and a level badge rendering as
+tofu boxes is worse than a digit (Egypt uses Western numerals, like World History and the US).
+**The scope decision is the one to read first**: the collection runs from the Palaeolithic Nile to the
+Arab conquest of 641 CE, not to 30 BCE, because Egyptian religion, writing and temple building all
+outlive Egyptian independence by centuries — the last dated hieroglyphic inscription is of 394 CE and
+Philae was still working into the sixth. Ptolemaic, Roman and Christian Egypt get 100 cards and the
+collection ends where ancient Egyptian religion does. Four more decisions are arguments rather than
+lists. **Death gets 50 cards because the record IS a record of the dead** — tombs were stone in the
+desert and towns mudbrick on the floodplain — and `eg-789` states that bias outright so a reader is not
+taught a civilisation obsessed with dying. **Kush gets 30 cards and Nubia runs through the collection**,
+the counterpart of `ru-peoples` and India's south. **Monuments live with their builders** (the Great
+Pyramid under Khufu, Abu Simbel under Ramesses II) while `eg-art` carries the canon, the column and the
+pylon — Rome's rule. And **Thebes is a subdeck**, the collection's one place-deck, because Karnak, the
+Valley of the Kings and Deir el-Medina are one continuous body of evidence that no reign owns.
+**This is the collection where the history-not-archaeology rule bites hardest**: everything known about
+Egypt came through excavation and decipherment and the popular literature is about the arriving, so
+**Tutankhamun gets cards and Howard Carter does not**. Modern scholars are capped at two and the plan
+spends **one** (`eg-899 The decipherment of Egyptian hieroglyphs`), leaving the second unspent as a
+standing signal that the bar was not lowered. Conventions: dates are a construct, so use one published
+conventional chronology, say it is conventional and give ranges; the Egyptian name is the head word and
+the Greek form an alias (Khufu not Cheops), except where the Greek form is the English one (Thebes,
+Memphis, Osiris). The glossary has **`Egypt` and nothing else** — no `Pharaoh`, no `Hieroglyph`, no
+`Mummy`, no `Nile` — so write those **cited from the start** at the `GLOSS_SRC_TARGET` bar, and mind
+that this collection's short terms are the worst on the site for auto-linking: `Set` and `Nut` are gods
+whose names are ordinary English words, and `Ba` and `Ka` are two-letter surfaces that would match
+inside other words entirely, so prefer a fuller head word and let the short form be an alias only if it
+can be made safe.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort

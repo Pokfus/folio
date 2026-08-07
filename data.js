@@ -2491,6 +2491,233 @@ window.COLLECTION_TREE = {
         "zh": "印度",
         "ja": "インド"
       }
+    },
+    {
+      "id": "egypt",
+      "title": "Ancient Egypt",
+      "total": 0,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "eg-early",
+          "title": "Before the Pharaohs",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-prehistory",
+              "title": "The Nile before the pharaohs",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-predynastic",
+              "title": "Predynastic Egypt",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-ok",
+          "title": "The Old Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-early-dynastic",
+              "title": "Early Dynastic Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-old-kingdom",
+              "title": "The Old Kingdom",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-first-intermediate",
+              "title": "The First Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-mk",
+          "title": "The Middle Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-middle-kingdom",
+              "title": "The Middle Kingdom",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-second-intermediate",
+              "title": "The Second Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-nk",
+          "title": "The New Kingdom",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-early-18th",
+              "title": "The early Eighteenth Dynasty",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-amarna",
+              "title": "Akhenaten and Amarna",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-ramesside",
+              "title": "The Ramesside age",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-thebes",
+              "title": "Thebes, Karnak and the royal tombs",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-later",
+          "title": "The Later Periods",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-third-intermediate",
+              "title": "The Third Intermediate Period",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-kush",
+              "title": "Kush and the Twenty-fifth Dynasty",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-late-period",
+              "title": "The Late Period",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-greco-roman",
+          "title": "Greco-Roman Egypt",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-ptolemaic",
+              "title": "Ptolemaic Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-roman",
+              "title": "Roman Egypt",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-late-antique",
+              "title": "Christian Egypt and the end",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-belief",
+          "title": "Gods and the Dead",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-religion",
+              "title": "Gods and religion",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-myth",
+              "title": "Myth and cosmology",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-death",
+              "title": "Death, burial and the afterlife",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-state",
+          "title": "Kingship, State and Society",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-kingship",
+              "title": "Kingship and the state",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-economy",
+              "title": "Land, trade and the economy",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "eg-culture",
+          "title": "Writing, Art and Knowledge",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "eg-writing",
+              "title": "Writing and literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-art",
+              "title": "Art and architecture",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "eg-science",
+              "title": "Science, medicine and technology",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
     }
   ]
 };

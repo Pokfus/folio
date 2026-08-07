@@ -139,8 +139,9 @@ Folio has, or plans, separate collections for **Ancient Greece** (`col-13`, bein
 **Ancient Rome** (`col-40`, planned in `docs/rome-card-plan.md` and not yet started), the **United
 States** (`col-41`), **Russia** (`col-42`, planned in `docs/russia-card-plan.md` and not yet started),
 **India** (`col-43`, planned in `docs/india-card-plan.md` and not yet started) and **China** (`china`,
-planned in `docs/china-card-plan.md`, set aside and not yet started). World History overlaps all six, on
-purpose, and the rule is:
+planned in `docs/china-card-plan.md`, set aside and not yet started). There is also **Ancient Egypt**
+(`egypt`, planned in `docs/egypt-card-plan.md` and not yet started), which the plan created. World
+History overlaps all seven, on purpose, and the rule is:
 
 **World History is written at survey altitude and never waits for another collection.** Greece gets 25
 cards here against 1000 in `col-13`; Rome gets 40. A World History card on the Peloponnesian War is
