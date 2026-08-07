@@ -12103,3 +12103,68 @@ exemption list stays at three, which is what "keep this list SHORT" asks for.
 five over the bar, and went in; it was caught only by running `gloss-length.js` afterwards and was trimmed
 to 107 and re-added. CLAUDE.md already says to re-run that measure after `add-glossary.js`; this is the
 first batch in this run where it actually bit.
+
+## Batch W10 — `wh-056` Later Stone Age (2026-08-07)
+
+**No new glossary term**: `Late_Stone_Age` already exists with three citations at the bar, and the card's
+answer "Later Stone Age" resolves to it through that term's own alias. Checked on the rendered page.
+
+### A HEAD-WORD INCONSISTENCY, found and NOT fixed — flagged instead
+The glossary key is **`Late_Stone_Age`** and its description opens "The Late Stone Age is…". Everything
+else on the site uses **"Later"**:
+
+- the plan line is `wh-056 Later Stone Age`;
+- the corpus spells it **"Later Stone Age" 6 times against "Late Stone Age" once** — the once being that
+  term's own opening sentence;
+- its sibling `Middle_Stone_Age` says the scheme sets out "an Earlier, a Middle and a **Later** Stone Age
+  for Africa";
+- **one of the term's own three citations** is titled "…among **Later** Stone Age Hunter-Gatherers at
+  Taforalt"; and
+- N2's entry in this register, which created the term, calls it "the **Later** Stone Age" in prose.
+
+So the head word is the odd one out, and "Later Stone Age" is the form Goodwin's scheme actually uses.
+**Two fixes were considered and both were rejected as out of scope for a card batch**, which is why this
+is written down rather than done:
+
+1. **Rename the key** to `Later_Stone_Age`, keeping `Late Stone Age` as an alias. Correct, but it changes
+   a shipped slug, and a slug is what the admin overlay, the i18n gloss files and any stored `glossSeen`
+   record are keyed by.
+2. **Add a `GLOSSARY_TITLES` override.** The mechanism exists and is wired end to end in app.js — and
+   **neither `add-glossary.js` nor `add-sources.js` carries that table**, so an entry would be silently
+   destroyed by the next content batch. That is the `GLOSSARY_PLACES` fault CLAUDE.md already records,
+   waiting to happen again. Using it safely means teaching both serializers about the table first.
+
+The card meanwhile says "Later Stone Age" throughout and links correctly, so nothing is broken for a
+reader; the popup simply opens under the older head word.
+
+### Newly opened
+
+- Moustapha Ndiaye et al., "Two New Later Stone Age Sites from the Final Pleistocene in the Falémé Valley, Eastern Senegal," <i>PLOS ONE</i> 19, no. 3 (2024): e0294346, https://pmc.ncbi.nlm.nih.gov/articles/PMC10977785/. [Open access]
+  - opened: 2026-08-07 · full text via the Europe PMC REST route
+  - supports: OSL ages of 17 ± 1 to 16 ± 1 ka and 13 ± 1 to 12 ± 1.1 ka; "chaînes opératoires of core
+    reduction mainly producing flakes and bladelets as well as blades and laminar flakes. Segments dominate
+    the toolkits but a few backed bladelets and end-scrapers"; that these "are the oldest known in Senegal
+    so far and add to the small number of sites known in West Africa"; and the finding the card closes on —
+    "a juxtaposition of the contemporaneous use of MSA and LSA technologies by separate populations"
+  - used by: wh-056
+
+### A WRONG PMCID, caught before it was cited
+A Europe PMC keyword search returned **PMC12317744** for Goldstein et al. 2025 on Kakapel Rockshelter.
+Fetching it returned **a bioinformatics tool paper on DNA damage profiles** — a different work entirely.
+That is N1's warning arriving on a search result rather than on a guess: the id came from a listing, not
+from thin air, and was still wrong. The paper was dropped rather than cited, and the fifth source was
+resolved instead through `search?query=DOI:"…"`, which returns the id, the author string and the
+pagination together and can be checked against the title. **Resolve by DOI; verify the fetched text is
+the paper you asked for.**
+
+### Reused
+`hallinan-2026` (the divisions and the chronological table), `malan-1957` (Goodwin's naming, and that the
+African terms were chosen so as not to be read as the European ones), `moubtahij-2024` (Taforalt, plant
+reliance at 15–13 ka) and `villa-2012` (the 44–42 ka technological change at Border Cave). The last is
+**this card's only paywalled source**, cited from its abstract as the landmark defining paper, exactly as
+its register entry records; the list is 4 open to 1.
+
+### A stale "used by" line, noted not corrected
+`villa-2012`'s entry says "used by: wh-054". Under the current numbering `wh-054` is *Hunter-gatherer* and
+carries none of it — the line is pre-renumbering, which is what this file is deliberately left in. Recorded
+so the next reader does not take it for a fault.
