@@ -348,6 +348,138 @@ const AESOP_FABLES = [
    over all 313 when the table was built, not assumed. */
 const AESOP_TITLE = (s) => s.replace(/\s*\(\d+\)$/, "");
 
+/* ---------- THE CLASSIC OF POETRY, and what this table is for ----------
+   Legge's Sacred Books of the East volume gives one wiki page per ode, so a chapter here is one
+   POEM — Aesop's shape, and for Aesop's reason: the ode is the whole unit of the work at this
+   scale. What numbers it is the MAO NUMBER, the 1–305 sequence by which any poem of the Shih is
+   cited in any language, and the numbers below are NOT contiguous: this edition carries 102 of the
+   305, so the tabs run 13, 15, 29, 40 … and a reader meeting the gaps is told why in the front
+   matter rather than finding the odes silently renumbered 1–102 into a sequence the book has not
+   got. Beowulf's missing fitt XXX is the same judgement.
+
+   THE MAO NUMBER WAS DERIVED, NOT TYPED. Chinese Wikisource's 詩經 index lists the poems in the
+   traditional order, and the position in that list is the Mao number — with one correction that
+   has to be made or every number from 171 on is six too high: the six 笙詩, whose titles survive
+   and whose texts do not, are listed there and are NOT counted in the 305. Checked against seven
+   anchors before it was believed (關雎 1, 鹿鳴 161, 文王 235, 清廟 266, 那 301, 玄鳥 303, 采蘋 15),
+   and the excluded six leave exactly 305 numbered poems.
+
+   AND A TITLE IS NOT A KEY. Four of these odes share their Chinese title with a different poem
+   elsewhere in the collection (柏舟 26 and 45, 黃鳥 131 and 187, 杕杜 119 and 169, 甫田 102 and
+   211) — the Shih repeats titles across the states, exactly as Townsend gave five of Aesop's
+   fables one name. Matching on the title alone would have filed four odes against the wrong
+   Chinese poem, silently and with nothing to show for it, so each was resolved by the section and
+   book Legge's own page states. */
+/* mao, the page path under .../The Shih/, Legge's title, the Chinese title, the part */
+const SHIJING = [
+  [13, "Lessons from the States/Book 2/Ode 2", "The Zhâi Fan", "采蘩", 1],
+  [15, "Lessons from the States/Book 2/Ode 4", "The Zhâi Pin", "采蘋", 1],
+  [29, "Lessons from the States/Book 3/Ode 4", "The Zăh Yüeh", "日月", 1],
+  [40, "Lessons from the States/Book 3/Ode 15", "The Pei Măn, Stanza 1", "北門", 1],
+  [45, "Lessons from the States/Book 4/Ode 1", "The Pai Kâu", "柏舟", 1],
+  [47, "Lessons from the States/Book 4/Ode 3", "The Kün-zze Kieh Lâo, Stanza 2", "君子偕老", 1],
+  [50, "Lessons from the States/Book 4/Ode 6", "The Ting kih fang Kung, Stanzas 1 and 2", "定之方中", 1],
+  [58, "Lessons from the States/Book 5/Ode 4", "The Măng, Stanzas 1 and 2", "氓", 1],
+  [65, "Lessons from the States/Book 6/Ode 1", "The Shû Lî, Stanza 1", "黍離", 1],
+  [73, "Lessons from the States/Book 6/Ode 9", "The Tâ Kü, Stanzas 1 and 3", "大車", 1],
+  [121, "Lessons from the States/Book 10/Ode 8", "The Pâo Yû, Stanza 1", "鴇羽", 1],
+  [124, "Lessons from the States/Book 10/Ode 11", "The Ko Shăng", "葛生", 1],
+  [131, "Lessons from the States/Book 11/Ode 6", "The Hwang Niâo, Stanza 1", "黃鳥", 1],
+  [154, "Lessons from the States/Book 15/Ode 1", "The Khî Yüeh, Stanza 8", "七月", 1],
+  [165, "The Minor Odes of the Kingdom/Decade 1/Ode 5", "The Fâ Mû, Stanza 1", "伐木", 2],
+  [166, "The Minor Odes of the Kingdom/Decade 1/Ode 6", "The Thien Pâo", "天保", 2],
+  [169, "The Minor Odes of the Kingdom/Decade 1/Ode 9", "The Tî Tû, Stanza 4", "杕杜", 2],
+  [189, "The Minor Odes of the Kingdom/Decade 4/Ode 5", "The Sze Kan, Stanzas 5 to 9", "斯干", 2],
+  [190, "The Minor Odes of the Kingdom/Decade 4/Ode 6", "The Wû Yang, Stanza 4", "無羊", 2],
+  [191, "The Minor Odes of the Kingdom/Decade 4/Ode 7", "The Kieh Nan Shan", "節南山", 2],
+  [192, "The Minor Odes of the Kingdom/Decade 4/Ode 8", "The Kăng yüeh, Stanzas 4, 5, and 7", "正月", 2],
+  [193, "The Minor Odes of the Kingdom/Decade 4/Ode 9", "The Shih yüeh kih Kiâo", "十月之交", 2],
+  [194, "The Minor Odes of the Kingdom/Decade 4/Ode 10", "The Yü wû Kăng, Stanzas 1 and 3", "雨無正", 2],
+  [195, "The Minor Odes of the Kingdom/Decade 5/Ode 1", "The Hsiâo Min, Stanzas 1, 2, and 3", "小旻", 2],
+  [196, "The Minor Odes of the Kingdom/Decade 5/Ode 2", "The Hsiâo Yüan, Stanzas 1, 2, and 5", "小宛", 2],
+  [197, "The Minor Odes of the Kingdom/Decade 5/Ode 3", "The Hsiâo Pan, Stanzas 1 and 3", "小弁", 2],
+  [198, "The Minor Odes of the Kingdom/Decade 5/Ode 4", "The Khiâo Yen, Stanza 1", "巧言", 2],
+  [200, "The Minor Odes of the Kingdom/Decade 5/Ode 6", "The Hsiang Po, Stanzas 5 and 6", "巷伯", 2],
+  [203, "The Minor Odes of the Kingdom/Decade 5/Ode 9", "The Tâ Tung", "大東", 2],
+  [207, "The Minor Odes of the Kingdom/Decade 6/Ode 3", "The Hsiâo Ming, Stanzas 1, 4, and 5", "小明", 2],
+  [209, "The Minor Odes of the Kingdom/Decade 6/Ode 5", "The Khû Zhze", "楚茨", 2],
+  [210, "The Minor Odes of the Kingdom/Decade 6/Ode 6", "The Hsin Nan Shan", "信南山", 2],
+  [211, "The Minor Odes of the Kingdom/Decade 6/Ode 7", "The Phû Thien", "甫田", 2],
+  [212, "The Minor Odes of the Kingdom/Decade 6/Ode 8", "The Tâ Thien", "大田", 2],
+  [215, "The Minor Odes of the Kingdom/Decade 7/Ode 1", "The Sang Hû, Stanza 1", "桑扈", 2],
+  [220, "The Minor Odes of the Kingdom/Decade 7/Ode 6", "The Pin kih Khû Yen, Stanzas 1 and 2", "賓之初筵", 2],
+  [229, "The Minor Odes of the Kingdom/Decade 8/Ode 5", "The Po Hwâ, Stanzas 1 and 2", "白華", 2],
+  [235, "The Major Odes of the Kingdom/Decade 1/Ode 1", "The Wăn Wang", "文王", 3],
+  [236, "The Major Odes of the Kingdom/Decade 1/Ode 2", "The Tâ Ming", "大明", 3],
+  [237, "The Major Odes of the Kingdom/Decade 1/Ode 3", "The Mien", "緜", 3],
+  [238, "The Major Odes of the Kingdom/Decade 1/Ode 4", "The Yî Pho, Stanzas 1 and 2", "棫樸", 3],
+  [239, "The Major Odes of the Kingdom/Decade 1/Ode 5", "The Han Lû", "旱麓", 3],
+  [240, "The Major Odes of the Kingdom/Decade 1/Ode 6", "The Sze Kâi", "思齊", 3],
+  [241, "The Major Odes of the Kingdom/Decade 1/Ode 7", "The Hwang Î", "皇矣", 3],
+  [243, "The Major Odes of the Kingdom/Decade 1/Ode 9", "The Hsiâ Wû", "下武", 3],
+  [244, "The Major Odes of the Kingdom/Decade 1/Ode 10", "The Wăn Wang yû Shăng", "文王有聲", 3],
+  [245, "The Major Odes of the Kingdom/Decade 2/Ode 1", "The Shăng Min", "生民", 3],
+  [246, "The Major Odes of the Kingdom/Decade 2/Ode 2", "The Hsing Wei", "行葦", 3],
+  [247, "The Major Odes of the Kingdom/Decade 2/Ode 3", "The Kî Zui", "既醉", 3],
+  [248, "The Major Odes of the Kingdom/Decade 2/Ode 4", "The Hû Î", "鳬鷖", 3],
+  [249, "The Major Odes of the Kingdom/Decade 2/Ode 5", "The Kiâ Lo, Stanza 1", "假樂", 3],
+  [252, "The Major Odes of the Kingdom/Decade 2/Ode 8", "The Khüan Â", "卷阿", 3],
+  [253, "The Major Odes of the Kingdom/Decade 2/Ode 9", "The Min Lâo, Stanza 1", "民勞", 3],
+  [254, "The Major Odes of the Kingdom/Decade 2/Ode 10", "The Pan", "板", 3],
+  [255, "The Major Odes of the Kingdom/Decade 3/Ode 1", "The Tang", "蕩", 3],
+  [256, "The Major Odes of the Kingdom/Decade 3/Ode 2", "The Yî", "抑", 3],
+  [257, "The Major Odes of the Kingdom/Decade 3/Ode 3", "The Sang Zâu, Stanzas 1, 2, 3, 4, and 7", "桑柔", 3],
+  [258, "The Major Odes of the Kingdom/Decade 3/Ode 4", "The Yun Han", "雲漢", 3],
+  [259, "The Major Odes of the Kingdom/Decade 3/Ode 5", "The Sung Kâo, Stanzas 1, 2, and 4", "崧高", 3],
+  [260, "The Major Odes of the Kingdom/Decade 3/Ode 6", "The Kăng Min, Stanzas 1 and 7", "烝民", 3],
+  [261, "The Major Odes of the Kingdom/Decade 3/Ode 7", "The Han Yî, Stanzas 1 and part of 3", "韓奕", 3],
+  [262, "The Major Odes of the Kingdom/Decade 3/Ode 8", "The Kiang Han, Stanzas 4 and 5", "江漢", 3],
+  [264, "The Major Odes of the Kingdom/Decade 3/Ode 10", "The Kan Zang, Stanzas 1, 5, 6, and 7", "瞻卬", 3],
+  [265, "The Major Odes of the Kingdom/Decade 3/Ode 11", "The Shâo Min, Stanzas 1 and 2", "召旻", 3],
+  [266, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 1", "The Khing Miâo", "清廟", 4],
+  [267, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 2", "The Wei Thien Kih Ming", "維天之命", 4],
+  [268, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 3", "The Wei Khing", "維清", 4],
+  [269, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 4", "The Lieh Wăn", "烈文", 4],
+  [270, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 5", "The Thien Zo", "天作", 4],
+  [271, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 6", "The Hâo Thien yû Khăng Ming", "昊天有成命", 4],
+  [272, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 7", "The Wo Kiang", "我將", 4],
+  [273, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 8", "The Shih Mâi", "時邁", 4],
+  [274, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 9", "The Kih King", "執競", 4],
+  [275, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 1/Ode 10", "The Sze Wăn", "思文", 4],
+  [276, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 1", "The Khăn Kung", "臣工", 4],
+  [277, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 2", "The Î Hsî", "噫嘻", 4],
+  [278, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 3", "The Kăn Lû", "振鷺", 4],
+  [279, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 4", "The Făng Nien", "豐年", 4],
+  [280, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 5", "The Yû Kû", "有瞽", 4],
+  [281, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 6", "The Khien", "潛", 4],
+  [282, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 7", "The Yung", "雝", 4],
+  [283, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 8", "The Zâi Hsien", "載見", 4],
+  [284, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 9", "The Yû Kho", "有客", 4],
+  [285, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 2/Ode 10", "The Wû", "武", 4],
+  [286, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 1", "The Min Yü", "閔予小子", 4],
+  [287, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 2", "The Fang Lo", "訪落", 4],
+  [288, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 3", "The King Kih", "敬之", 4],
+  [289, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 4", "The Hsiâo Pî", "小毖", 4],
+  [290, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 5", "The Zâi Shû", "載芟", 4],
+  [291, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 6", "The Liang Sze", "良耜", 4],
+  [292, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 7", "The Sze Î", "絲衣", 4],
+  [293, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 8", "The Ko", "酌", 4],
+  [294, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 9", "The Hwan", "桓", 4],
+  [295, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 10", "The Lâi", "賚", 4],
+  [296, "Odes of the Temple and the Altar/The Sacrificial Odes of Kâu/Decade 3/Ode 11", "The Pan", "般", 4],
+  [299, "Odes of the Temple and the Altar/The Praise Odes of Lû/Ode 3", "The Phan Shui", "泮水", 4],
+  [300, "Odes of the Temple and the Altar/The Praise Odes of Lû/Ode 4", "The Pî Kung", "閟宮", 4],
+  [301, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 1", "The Nâ", "那", 4],
+  [302, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 2", "The Lieh Zû", "烈祖", 4],
+  [303, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 3", "The Hsüan Niâo", "玄鳥", 4],
+  [304, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 4", "The Khang Fâ", "長發", 4],
+  [305, "Odes of the Temple and the Altar/The Sacrificial Odes of Shang/Ode 5", "The Yin Wû", "殷武", 4],
+];
+
+/* Keyed by Mao number, since that is what `chapters` carries and what every hook is handed. */
+const SHIJING_BY_MAO = {};
+SHIJING.forEach((r) => { SHIJING_BY_MAO[r[0]] = r; });
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -4519,6 +4651,141 @@ const BOOKS = {
       foldInto: { 29: 28 },
     },
   },
+
+  "classic-of-poetry": {
+    title: "The Classic of Poetry",
+    subtitle: "The Shih King",
+    author: "Anonymous",
+    translator: "James Legge",
+    edition:
+      "The Sacred Books of the East, Vol. III: The Sacred Books of China, Part I, " +
+      "Clarendon Press, Oxford, 1879",
+    written: "c. 11th–7th century BCE",
+
+    /* ---------- THE LICENCE, which needs no qualification at all ----------
+       Legge published this translation in 1879 — before 1929, so its United States copyright has
+       expired — and died in 1897, so it is out of copyright wherever the term runs for the author's
+       life plus seventy or even a hundred years. There is no limit to state and no modern editorial
+       layer to declare. The Chinese printed beside it is some twenty-five centuries old and is free
+       everywhere.
+
+       The translations a reader is likeliest to own are all still in copyright and are named here so
+       that nobody reaches for one later: Bernhard Karlgren's of 1950, Ezra Pound's of 1954, Arthur
+       Waley's as reissued and extended by Joseph R. Allen in 1996, and Xu Yuanchong's of 1993. */
+    rights:
+      "Public domain worldwide. James Legge published this translation in 1879 — before 1929, so its " +
+      "United States copyright has expired — and he died in 1897, so it is out of copyright wherever " +
+      "the term runs for the author's life plus seventy or even a hundred years. The Chinese text " +
+      "printed beside it is some twenty-five centuries old and is in the public domain everywhere. " +
+      "(The modern translations by Bernhard Karlgren, 1950, Ezra Pound, 1954, Xu Yuanchong, 1993, and " +
+      "Arthur Waley as extended by Joseph R. Allen, 1996, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shih",
+
+    /* THE FRONT MATTER — chapter 0. The first thing it has to say is the thing a reader would
+       otherwise discover by counting: this is a THIRD of the Classic of Poetry, because Legge's
+       Sacred Books volume prints the pieces bearing on religion and not the collection entire. A book
+       that let a reader assume otherwise would be lying by omission, so it is said in the first
+       sentence rather than in a footnote. */
+    about: [
+      "<b>The Classic of Poetry</b> — the <i>Shih</i>, also called the Book of Songs or the Book of " +
+        "Odes — is the oldest collection of Chinese poetry, three hundred and five poems gathered " +
+        "between roughly the 11th and the 7th centuries BCE. They are short, they are built almost " +
+        "entirely of four-character lines, and they are far more various than their standing as a " +
+        "Confucian classic suggests: courtship and complaint, harvest and soldiering, dynastic praise " +
+        "and sacrificial hymn, sitting side by side in one book. The collection is divided into four " +
+        "traditional parts, and this edition keeps them: the airs of the states, the minor odes, the " +
+        "major odes, and the hymns of temple and altar.",
+      "<b>What is here is a third of it.</b> This text comes from Legge's Sacred Books of the East " +
+        "volume of 1879, which prints not the whole collection but the poems bearing on religion — " +
+        "the sacrifices, the ancestral cult, the mandate of Heaven, the dynastic hymns. It carries " +
+        "102 of the 305 poems, and of those 102 about a third are not whole poems but the stanzas " +
+        "Legge judged relevant, which is why so many chapters here are titled 'Stanza 1' or 'Stanzas " +
+        "1 and 2'. Where a chapter says so, the English is that much of the poem and no more. Legge " +
+        "did translate the whole collection, twice over, and neither of those versions has been " +
+        "transcribed anywhere this could honestly be built from.",
+      "The numbers on the tabs are the Mao numbers, the sequence 1 to 305 by which any poem of the " +
+        "Shih is cited in any language, and they run with gaps — 13, 15, 29, 40 and so on — because " +
+        "the poems Legge left out are simply absent. Renumbering what remains from 1 to 102 would " +
+        "have made the book look complete and would have invented a sequence it has not got, so the " +
+        "gaps are left where they fall. A reader who wants to know which poem is missing between two " +
+        "tabs has the number to look it up by.",
+      "James Legge was a Scottish missionary who spent three decades in Malacca and Hong Kong and " +
+        "became the first Professor of Chinese at Oxford in 1876. His English is Victorian and his " +
+        "purpose was scholarly rather than poetic: he renders the sense line by line and does not try " +
+        "to reproduce the rhyme or the four-beat measure of the original, so what is faithful about " +
+        "these versions is the meaning and not the music. He also read the poems largely as the " +
+        "orthodox commentarial tradition read them, which routinely takes a love song as a political " +
+        "allegory about a virtuous consort or a neglected minister; his titles and his section " +
+        "headings carry that reading. Modern scholarship mostly does not. Read them as one careful " +
+        "man's account rather than as what the Chinese says.",
+      "There is no Chinese column here, and the reason is worth stating rather than leaving a reader " +
+        "to wonder. The poems themselves are freely available and each of these 102 was found, so the " +
+        "two could be set side by side; what is not available is a transcription uniform enough to " +
+        "trust. The pages that carry the Chinese also carry a traditional preface explaining what each " +
+        "poem is supposed to be about, and a body of annotation beneath it, and they set the verse " +
+        "three different ways from one poem to the next. A column built from them would sometimes be " +
+        "the poem and sometimes the commentator, with nothing on the page to say which — and a facing " +
+        "text that is silently wrong is worse than none at all.",
+      "Legge's own notes are here under each chapter, and they are worth opening: much of what he has " +
+        "to say about who is speaking, and about the rites a hymn accompanies, is in them rather than " +
+        "in the verse itself.",
+    ],
+
+    /* ---------- ONE ODE, ONE CHAPTER ----------
+       This edition gives each ode a wiki page of its own, so the ordinary chapter walk reads it with
+       no new extractor: `page` maps a Mao number to that page and cleanBody does the rest. What the
+       book does need is a SECTION MARKER, because app.js pairs the two columns on `bk-n` and a
+       chapter carrying none pairs only by the accident of both sides holding exactly one unnumbered
+       block. `sections: "whole"` writes exactly one marker at the head of the chapter, carrying the
+       Mao number — which is the citation a reader would use anyway, so it earns its place on the page
+       rather than being scaffolding that happens to show. */
+    layout: "wiki",
+    sections: "whole",
+    page: (n) => "Sacred Books of the East/Volume 3/The Shih/" + SHIJING_BY_MAO[n][1],
+    chapters: SHIJING.map((r) => r[0]),
+    chapterWord: "Ode",
+    titleOf: (n) => SHIJING_BY_MAO[n][2],
+    /* The four traditional divisions, as the Contents panel's groups. They partition the Mao numbers
+       this edition carries without overlapping, so a range apiece is enough and no ode can fall into
+       two of them. */
+    parts: [
+      { n: 1, from: 1, to: 160, t: "Lessons from the States" },
+      { n: 2, from: 161, to: 234, t: "The Minor Odes of the Kingdom" },
+      { n: 3, from: 235, to: 265, t: "The Major Odes of the Kingdom" },
+      { n: 4, from: 266, to: 305, t: "Odes of the Temple and the Altar" },
+    ],
+
+    /* ---------- WHY THERE IS NO FACING ORIGINAL, AND WHAT A LATER ATTEMPT MUST HANDLE ----------
+       The pairing itself is not the problem and was measured: every one of these 102 odes names its
+       Chinese title on its own page, Chinese Wikisource gives each of those poems a page, and all 102
+       were found there — with one glyph to normalise, Legge's 鳧鷖 against that wiki's 鳬鷖, two forms
+       of the same character. The Mao number derived from the traditional order is the same number on
+       both sides, so the two columns would pair one poem against one poem.
+
+       What stopped it is that those pages are not a transcription of a printed edition and are not
+       uniform. Each carries a good deal that is NOT the poem — the 毛詩序, the Mao preface, which is a
+       commentator's account of what the poem is about, and a 註解 section of annotations — and the
+       verse itself is set three different ways across the 102: inside `<div class="poem">`, inside a
+       flat `<dl>` of `<dd>` lines, and inside nested `<dl><dd>` under no heading at all, with the
+       title merely bolded. A rule that reads one shape returns nineteen characters of another, and a
+       rule that takes the block whole returns the commentator instead of the poet. Both failures are
+       the quiet kind: the column is full, nothing throws, and only reading the Chinese shows it.
+
+       Two further traps are recorded so they are not rediscovered. Textual VARIANTS are marked as
+       tooltips beside the character they replace, so the raw text of a three-stanza poem can run to
+       ten times its length with every variant landing mid-line. And FOUR of these titles belong to
+       two different poems each — 柏舟 (Mao 26 and 45), 黃鳥 (131 and 187), 杕杜 (119 and 169), 甫田
+       (102 and 211), the Shih repeating titles across the states — and this wiki puts both poems on
+       one page, so the block has to be chosen by the section its heading names (國風‧邶‧柏舟 against
+       國風‧鄘‧柏舟) and never by the title. Taking the first would set an entirely different poem
+       beside the translation, and nothing downstream could tell.
+
+       So the book ships in English alone and its front matter says so, which is the same judgement
+       the Republic's entry records: a second column that cannot be paired responsibly is worse than
+       no second column. Deleting `original` and `origLang` is the whole of what that costs. */
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -5124,6 +5391,16 @@ function cleanBody(h, noteIds, book, warn) {
     }
   }
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
+
+  /* ONE SECTION FOR THE WHOLE CHAPTER, for an edition whose chapter IS the unit both columns are
+     cited by — a single poem, printed on a page of its own on each wiki. There is nothing inside it
+     that both texts number, so the marker goes at the head and carries the chapter's own number,
+     which app.js then pairs on. Written here rather than left implicit because a chapter with no
+     marker at all falls to the unnumbered path and pairs only while both sides happen to hold
+     exactly one leading block — true today and an accident, not a rule. */
+  if (book && book.sections === "whole" && book.mark != null) {
+    b = '<p><span class="bk-n" data-n="' + book.mark + '">' + book.mark + "</span></p>" + b;
+  }
   return b;
 }
 
@@ -6906,6 +7183,12 @@ function originalChapters(h, warn) {
    beside the whole of the English chapter. */
 function originalChapter(h, O, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  /* A PAGE TYPED ONTO THE WIKI RATHER THAN TRANSCLUDED FROM A SCAN has no `prp-pages-output` wrapper
+     at all, so the slice below returns -1 and this throws on a page holding the whole text. Falling
+     back automatically would be wrong for the same reason it is wrong on the translation side: a
+     proofread page HAS the parser's own container too, outside the transclusion wrapper, so an
+     automatic fallback would silently widen the slice of every scan-backed original the day this
+     wiki next moves its markup. Hence a per-book opt-in. */
   const i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
@@ -6969,7 +7252,10 @@ function originalChapter(h, O, warn) {
     return "";
   });
   b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
-  if (!head && warn) warn("no printed title found at the head of the chapter");
+  /* Only where the book actually declares a head to take. An edition that prints no chapter
+     heading at all has none to find, and warning once per chapter would bury the warnings that
+     mean something under one per ode. */
+  if (!head && warn && O.dropHead) warn("no printed title found at the head of the chapter");
   return { html: b, head: head };
 }
 
@@ -8187,6 +8473,9 @@ async function fetchEnglish() {
          `sections: "bookchapter"` in cleanBody — Thucydides' chapter marks carry the book number as
          well as the chapter). Set only for that shape, so no other book's config is touched. */
       if (BOOK.sections === "bookchapter") BOOK.expect = n;
+      /* The number the single whole-chapter marker carries — the same channel `expect` uses, and
+         set per chapter for the same reason: cleanBody is handed the book, not the chapter. */
+      if (BOOK.sections === "whole") BOOK.mark = n;
       html = cleanBody(h, got.ids, BOOK, warn);
       if (keep) html = pruneNotes(html, keep);
     }
@@ -8509,12 +8798,17 @@ async function fetchOriginal() {
       else {
         const h = await api(O.page(n), O.wiki);
         rec = originalChapter(h, O, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
-        if (rec.html.length < 200)
+        if (rec.html.length < (O.minChars || 200))
           throw new Error(BOOK.chapterWord + " " + n + " came back short (" + rec.html.length + " chars)");
         fs.writeFileSync(cf, JSON.stringify(rec));
         await sleep(1200);   // this wiki rate-limits a fast walk harder than the English one
       }
-      byNum[n] = rec.html;
+      /* The same single marker the translation carries, and it must be written on BOTH sides or the
+         two columns have nothing to pair on: app.js reads `bk-n`, and one column stating its number
+         while the other states none is exactly the case that pairs by luck. */
+      byNum[n] = BOOK.sections === "whole"
+        ? '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>" + rec.html
+        : rec.html;
       console.log("  " + BOOK.chapterWord + " " + n + " — " + (rec.html.length / 1024).toFixed(1) +
         " KB" + (rec.head ? " — " + rec.head : ""));
     }
