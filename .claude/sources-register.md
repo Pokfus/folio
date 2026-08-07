@@ -12341,3 +12341,78 @@ forbids the modern arguer, and a place is not one. Historiography measures **2 o
 the two sentences are the objection and the finders' answer, which is the dispute itself rather than
 commentary on it. No EXEMPT entry was added: the card passes on its own merits and the list should stay
 short.
+
+---
+
+## Batch W14 — `wh-086` Recent African origin of modern humans (2026-08-07)
+
+### A HOUSE-STYLE DECISION, made by the site's owner, and what it moved
+Asked which form the site should use, the answer was **"Late Stone Age"** over "Later Stone Age". The
+glossary head word was already `Late_Stone_Age`; the **prose was the half that disagreed**, in nine places
+across four cards and two terms — including `wh-056`, whose **answer term** was "Later Stone Age". All nine
+are now "Late Stone Age", and **"Later Stone Age" is kept as an alias**, which matters more than the choice
+itself: the scholarly literature predominantly writes *Later* Stone Age (LSA), so every citation on those
+cards says "Later" while the card says "Late", and the alias is what keeps a reader meeting the standard
+form landing on the right entry.
+
+**The N2 distinction is untouched and must stay so.** What N2 forbade was `Upper_Paleolithic` carrying
+"Late Stone Age" as an alias, because the African division is not the European one. That is a
+scheme-boundary rule; Late-versus-Later is a spelling choice *inside* the African scheme. The term still
+says outright that it is the last of the three divisions of the **African** Stone Age.
+
+`fix-field.js` replaces **one occurrence per run**, so a card with the phrase twice needs two passes — two
+of the four did, and the second pass was only run because the corpus was re-grepped afterwards rather than
+the first run's "patched 4 cards" being taken as done.
+
+### Reused, all from the register, nothing newly opened
+`bae-wu-2024` (both models stated outright, and the synthesis), `cann-1987` (147 people, one woman, about
+200,000 years ago, probably in Africa), `harvati-2022` (Jebel Irhoud "recently dated to ca. 300 ka" as the
+earliest recognised members of our lineage), `scerri-2018` (the morphological diversity and geographical
+spread, the subdivided populations connected by sporadic gene flow, and the phrase "African
+multiregionalism"), `green-2010` (Neanderthals sharing more variants with Eurasians than with sub-Saharan
+Africans, hence gene flow into the ancestors of those who left).
+
+### THE FINDING — batch 24's rule a second time, and it is the strongest case of it yet
+**Where a card's subject is a DEBATE, one review can carry the debate's whole shape.** `bae-wu-2024` is
+nominally about eastern Asian hominin variability and states, in two consecutive paragraphs, the
+multiregional model ("*H. erectus* was considered to have evolved *in situ* into archaic *H. sapiens*…
+modern Chinese people today could trace their ancestry directly back to at least Zhoukoudian Locality 1"),
+its rival ("the 'Out of Africa' or the 'replacement' model posits that modern humans dispersed out of
+Africa and replaced all indigenous populations with no genetic contribution to living peoples"), and the
+current reading ("a combination of both models is the most parsimonious… dispersals and introgression
+events" rather than "a single dispersal and complete replacement event"). **Four of the card's ten
+sentences rest on that one open paper**, and it was found by asking what the register already held rather
+than by searching.
+
+### AN ACCESS NOTE THAT CORRECTS TWO REGISTER ENTRIES
+`stringer-2016` and `nielsen-2017` are both recorded here as **[Open access]**, "full text via PMC". The
+Europe PMC REST full-text route now **404s for both** while working normally on the same run for
+`PMC4448875` and `PMC6092560` — so the route is not broken and these two simply have **no deposited full
+text**. Europe PMC's own record for Stringer gives `isOpenAccess: N` with `inEPMC: Y`. Neither entry is
+relabelled here, because the earlier batch recorded reading them and this batch has only the abstracts;
+what is recorded is that **a re-read of either is not currently possible by that route**, which matters
+under N5's rule — a source reused for a *new* claim needs a re-read, and for these two that re-read cannot
+presently be done. **Neither is cited on this card.** Stringer's abstract *was* read directly and does
+state the Omo Kibish / Herto / Skhul / Qafzeh fossil basis, but the card was built from five sources that
+could be opened in full, which was the better answer than leaning on an abstract.
+
+### A CLAIM NOT MADE, and why
+The card gives **no date for the main dispersal out of Africa** — no "about 60,000 years ago". It is the
+figure a reader most expects here and nothing opened for this batch states it: `bae-wu-2024`'s 67–50 ka is
+the age range of *Homo luzonensis*, not of the dispersal, and reading it as the latter would be the batch-23
+wrong-marker fault made deliberately. The dispersal timing belongs to `wh-088` (Southern dispersal route),
+which can source it properly.
+
+### An alias deliberately NOT taken
+`Recent_African_origin_of_modern_humans` takes **"Out of Africa"** — which `Out_of_Africa_I` was
+deliberately left free of in batch W8, so the two do not collide, and `wh-022` was re-rendered to confirm
+the longest-surface-first rule still gives "Out of Africa I" to the older card. It does **not** take
+**"multiregional evolution"**, which is the RIVAL model and not a synonym: N2's test is that an alias must
+mean the same thing, and an alias there would send a reader looking up multiregionalism to the page arguing
+against it.
+
+### A ttip worth recording as ACCEPTABLE rather than fixed
+"sub-Saharan Africa" links **"Saharan"** to `Sahara`, the alias firing on the second half of the compound.
+Unlike the polish→Poland and laos→Laos cases, this is **semantically correct** — the Sahara is precisely
+what "sub-Saharan" is measured against — and eight shipped glossary terms already carry the phrase, so the
+behaviour predates this card. Left alone; recorded so a later reader does not take it for a new fault.
