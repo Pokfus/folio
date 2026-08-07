@@ -11778,3 +11778,52 @@ measures historio 1 and passes on its own), which is exactly why it could sit th
 and is not** — a stale id there silently exempts whatever card inherits the number. `wh-064` and `wh-106`
 were checked at the same time and are correct. Whole-deck sweep after the fix: 92 cards, 0 failing either
 rule.
+
+## Batch W4 — `wh-007` bipedalism, with its glossary term (2026-08-07)
+
+The card owns what its three neighbours deliberately left out. `wh-004` says upright walking came before
+big brains; `wh-005` says it is what diagnoses a hominin; `wh-006` reports one skull's forward foramen
+magnum. None of them says what the change COST the skeleton, what the direct evidence is, or why it might
+have begun — which is this card.
+
+### Newly opened
+
+- Michael D. Sockol, David A. Raichlen, and Herman Pontzer, "Chimpanzee Locomotor Energetics and the Origin of Human Bipedalism," <i>Proceedings of the National Academy of Sciences</i> 104, no. 30 (2007): 12265–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC1941460/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` is 403 here, as N1 recorded)
+  - supports: "human walking is ≈75% less costly than both quadrupedal and bipedal walking in chimpanzees";
+    and the mechanism the card is careful to keep — that bipedal walking is **not** significantly cheaper
+    than knuckle-walking in modern adult chimpanzees, while longer hindlimbs and an extended hip posture
+    made some individuals cheaper on two legs, so "improved locomotor economy may have accrued very early
+    within the hominin lineage"
+  - **the nuance is the point, and flattening it would be the easy error.** "Upright walking is cheaper"
+    is not what this paper shows; it shows that the two gaits cost a chimpanzee about the same, and that
+    variation in anatomy is what gave selection something to act on. The card states both halves
+  - used by: wh-007
+
+### Reused, and one re-read
+- `si-walking` (opened in W1 for the bipedalism dates) — **re-read on 2026-08-07** for claims the W1 entry
+  did not record (G6 applied as written): "The curve of your lower back absorbs shock when you walk. It is
+  uniquely human"; the *Homo erectus* hip bones "showing that this early human species had given up
+  climbing for walking"; the long thigh bones and the knee "enabling this early human to regularly support
+  its weight on one leg at a time"; and the advantages — hands "freeing … for carrying food, tools, or
+  babies", reaching "fruits and other food from low-lying branches", and appearing "larger and more
+  intimidating".
+- `si-laetoli` — the trail, "almost 27 m (88 ft) long" with "about 70 early human footprints", "big toes in
+  line with the rest of their foot", and the heel-strike-then-toe-off gait. Exactly what the register
+  records. **Note the card says 27 metres (89 feet) where this source says 88 ft**; the metric figure is
+  the source's and the bracket is Folio's own conversion, per the units rule, which rounds to 89.
+- Smithsonian "Introduction to Human Evolution" — bipedalism "evolved over 4 million years ago" and the
+  other traits "developed more recently".
+- `si-sahelanthropus` — the forward foramen magnum, for the anatomy rather than for the species.
+
+### Not claimed
+The **costs** of bipedalism — the narrowed birth canal, the back and knee trouble — are the obvious tenth
+sentence and are **not in the card**, because nothing opened for this batch states them. They are worth a
+source when one turns up rather than a confident sentence now.
+
+### Aliases, checked against N2's rule
+`bipedal`, `upright walking` and `walking upright` are the same concept in the same scheme, not another
+tradition's word for a neighbouring thing — so they are safe where "Late Stone Age" on `Upper_Paleolithic`
+was not. Measured after adding: four shipped cards (`wh-004`, `wh-005`, `wh-009`, `wh-018`) now link the
+term, every one a genuine use. The answer-term suppression was checked **on the rendered page** and covers
+the aliases as well as the key, which is the `byAnySurface` path.
