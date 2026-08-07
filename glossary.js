@@ -694,7 +694,8 @@ window.GLOSSARY = {
 "Diolkos": "The Diolkos is the paved trackway that carried boats overland across the Isthmus of Corinth, sparing them the long and dangerous voyage round the Peloponnese.<sup class=\"fn\" data-fn=\"3\"></sup> It ran about 8 kilometres (5 miles) and was 3.5 to 6 metres (11 to 20 feet) wide, was built in the 6th century BCE, and is associated with Periander; a ship was moored and emptied of its cargo before being moved on a wheeled vehicle.<sup class=\"fn\" data-fn=\"1\"></sup> Whether it was a commercial thoroughfare has been questioned, one re-examination arguing that it carried no constant flow of ships and cargoes and served the transport and strategic ends of Corinth and her allies.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Cleisthenes_of_Sicyon": "Cleisthenes of Sicyon is an Orthagorid tyrant, of the dynasty that held Sicyon for about a century, and his own reign is put at about 600 to about 569 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He took part in the First Sacred War, won the four-horse chariot race at the Pythian games in 582/81, and gave the Dorian tribes of his city new names that Herodotus says stayed in use for 60 years after his death.<sup class=\"fn\" data-fn=\"1\"></sup> His daughter Agariste married into the Alcmaeonid house at Athens; an athletic victory of the kind he won was one of the ways a ruler displayed the excellence by which such rule was justified.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Polycrates": "Polycrates is the tyrant of Samos who was killed at Magnesia at the start of 522 BCE by Oroetes, the Persian governor at Sardis, who baited him with an offer of the wealth his projects needed.<sup class=\"fn\" data-fn=\"2\"></sup> His navy was said to be one of the greatest in archaic Greece and is described most fully in Herodotus's <i>Histories</i>, though the accounts conflict over how it was used and made up; its ships were penteconters, triremes and samainae, the last a type tradition says he invented.<sup class=\"fn\" data-fn=\"1\"></sup> He was joined in guest-friendship to Amasis of Egypt, and the lavish dipteral temple of Hera on his island was commissioned under his rule.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Tunnel_of_Eupalinos": "The Tunnel of Eupalinos is the aqueduct bore cut through the Kastro mountain on Samos in the middle of the 6th century BCE; Herodotus, the first to describe it, names the engineer as Eupalinos, son of Naustrophus, of Megara, and records that the digging began at two portals at once.<sup class=\"fn\" data-fn=\"1\"></sup> It runs about 1,040 metres (3,400 feet), with a cross-section of roughly 1.8 metres (5 ft 11 in) square, and the fall is carried not by the floor, which is almost level, but by a deep trench along it holding the pipes.<sup class=\"fn\" data-fn=\"2\"></sup> Water came from a spring at Agiades and delivered an estimated 400 cubic metres a day.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Tunnel_of_Eupalinos": "The Tunnel of Eupalinos is the aqueduct bore cut through the Kastro mountain on Samos in the middle of the 6th century BCE; Herodotus, the first to describe it, names the engineer as Eupalinos, son of Naustrophus, of Megara, and records that the digging began at two portals at once.<sup class=\"fn\" data-fn=\"1\"></sup> It runs about 1,040 metres (3,400 feet), with a cross-section of roughly 1.8 metres (5 ft 11 in) square, and the fall is carried not by the floor, which is almost level, but by a deep trench along it holding the pipes.<sup class=\"fn\" data-fn=\"2\"></sup> Water came from a spring at Agiades and delivered an estimated 400 cubic metres a day.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Pheidon": "Pheidon is the ruler of Argos whom Aristotle describes as a hereditary king who made himself a tyrant, which makes his the earliest example of archaic tyranny that can be named; by the reckoning of many scholars that would place him near in time to the poets Archilochus and Semonides.<sup class=\"fn\" data-fn=\"2\"></sup> He is credited with a set of standards, among them weights, measures, coinage and the iron spits called obeliskoi, and is given a hand in the running of Olympia.<sup class=\"fn\" data-fn=\"1\"></sup> His date is the hardest question about him, since Herodotus places him relatively late while other accounts synchronise him with Lycurgus of Sparta or with the end of the Corinthian monarchy.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1011,7 +1012,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Al_Mina": "8th century BCE onwards",
 "Cypriot_syllabary": "c. 800 – 200 BCE",
 "Polycrates": "d. 522 BCE",
-"Tunnel_of_Eupalinos": "c. 550 – 540 BCE"
+"Tunnel_of_Eupalinos": "c. 550 – 540 BCE",
+"Pheidon": "dated c. 800 – 600 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1480,7 +1482,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Corinth": ["Korinth"],
 "Cleisthenes_of_Sicyon": ["Kleisthenes of Sicyon","Cleisthenes of Sikyon"],
 "Polycrates": ["Polycrates of Samos","Polykrates","Polykrates of Samos"],
-"Tunnel_of_Eupalinos": ["Eupalinian aqueduct","aqueduct of Eupalinos","Eupalinos tunnel"]
+"Tunnel_of_Eupalinos": ["Eupalinian aqueduct","aqueduct of Eupalinos","Eupalinos tunnel"],
+"Pheidon": ["Pheidon of Argos","Feidon"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2188,7 +2191,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Diolkos": ["building","object","history","greece","archaic"],
 "Cleisthenes_of_Sicyon": ["person","ruler","history","greece","archaic"],
 "Polycrates": ["person","ruler","history","greece","archaic"],
-"Tunnel_of_Eupalinos": ["building","object","technology","history","greece","archaic"]
+"Tunnel_of_Eupalinos": ["building","object","technology","history","greece","archaic"],
+"Pheidon": ["person","ruler","history","greece","archaic"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2887,7 +2891,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Diolkos": ["Giannis Saitis, Anna Karkani, Niki Evelpidou, and Hampik Maroukian, \"Palaeogeographical Reconstruction of Ancient Diolkos Slipway by Using Beachrocks as Proxies, West Corinth Isthmus, Greece,\" <i>Quaternary</i> 5, no. 1 (2022): art. 7, https://doi.org/10.3390/quat5010007. [Open access]","David K. Pettegrew, \"The Diolkos of Corinth,\" <i>American Journal of Archaeology</i> 115, no. 4 (2011): 549–74, https://doi.org/10.3764/aja.115.4.0549. [Paywalled]","American School of Classical Studies at Athens, \"Corinth Monument: Diolkos,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/diolkos. [Open access]"],
 "Cleisthenes_of_Sicyon": ["Victor Parker, \"The Dates of the Orthagorids of Sicyon,\" <i>Tyche</i> 7 (1992): 165–75, https://doi.org/10.15661/tyche.1992.007.20. [Open access]","Philip Davies, review of <i>The Heroic Rulers of Archaic and Classical Greece</i>, by Lynette Mitchell, Bryn Mawr Classical Review 2014.06.30, https://bmcr.brynmawr.edu/2014/2014.06.30/. [Open access]"],
 "Polycrates": ["Jakub Kuciak, \"The Fleet as the Basis for Polycrates of Samos' Thalassocracy,\" <i>Electrum</i> 27 (2020): 45–66, https://doi.org/10.4467/20800909el.20.003.12793. [Open access]","Olga Constanza Ojeda Sánchez, \"Polícrates onírico: el sueño en la obra de Heródoto,\" <i>Espacio, Tiempo y Forma. Serie II, Historia Antigua</i> 35 (2022): 41–54, https://doi.org/10.5944/etfii.35.2022.30839. [Open access]","Hannah L. Ringheim, \"Hera and the Sea. Decoding Dedications at the Samian Heraion,\" <i>Studia Hercynia</i> 23, no. 1 (2019): 11–25, https://studiahercynia.ff.cuni.cz/wp-content/uploads/sites/79/2020/02/Hannah_L_Ringheim_11-25.pdf. [Open access]"],
-"Tunnel_of_Eupalinos": ["Georgios Angistalis, Georgios Dounias, Grigorios Tsokas, and Costas Zambas, \"The Walls of Eupalinos Aqueduct, Samos Island, Greece. Description, Pathology and Proposed Restoration Measures,\" <i>Bulletin of the Geological Society of Greece</i> 53, no. 1 (2018): 193–228, https://doi.org/10.12681/bgsg.18710. [Open access]","Åke Olson, \"How Eupalinos navigated his Way through the Mountain (An empirical approach to the geometry of Eupalinos' tunnel on Samos),\" <i>Anatolia Antiqua</i> 20 (2012): 25–34, https://doi.org/10.3406/anata.2012.1323. [Open access]"]
+"Tunnel_of_Eupalinos": ["Georgios Angistalis, Georgios Dounias, Grigorios Tsokas, and Costas Zambas, \"The Walls of Eupalinos Aqueduct, Samos Island, Greece. Description, Pathology and Proposed Restoration Measures,\" <i>Bulletin of the Geological Society of Greece</i> 53, no. 1 (2018): 193–228, https://doi.org/10.12681/bgsg.18710. [Open access]","Åke Olson, \"How Eupalinos navigated his Way through the Mountain (An empirical approach to the geometry of Eupalinos' tunnel on Samos),\" <i>Anatolia Antiqua</i> 20 (2012): 25–34, https://doi.org/10.3406/anata.2012.1323. [Open access]"],
+"Pheidon": ["Stephanie Larson, review of <i>Ancient Tradition and Early Greek History: The Origins of States in Early-Archaic Sparta, Argos and Corinth</i>, by Mait Kõiv, Bryn Mawr Classical Review 2004.06.08, https://bmcr.brynmawr.edu/2004/2004.06.08/. [Open access]","Brian Lavelle, review of <i>Die archaische Tyrannis</i>, by Loretana de Libero, Bryn Mawr Classical Review 1997.07.18, https://bmcr.brynmawr.edu/1997/1997.07.18/. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
