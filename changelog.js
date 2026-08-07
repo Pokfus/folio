@@ -14,14 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.85", released: "2026-08-07T19:29Z" };
+window.FOLIO_VERSION = { v: "1.86", released: "2026-08-07T19:41Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-07",
-    t: "Thirty-one new cards in Ancient Greece",
+    t: "Thirty-two new cards in Ancient Greece",
     items: [
-      "Thirty-one new cards in the Ancient Greece deck, each with a glossary entry to go with it.",
+      "Thirty-two new cards in the Ancient Greece deck, each with a glossary entry to go with it.",
       "Measurements written as one figure by another, or as a square or cubic area, now follow your chosen units like every other figure.",
     ],
   },
