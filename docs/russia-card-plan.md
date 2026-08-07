@@ -256,6 +256,18 @@ One pair already exists: **`ru-274 Treaty of Nerchinsk` and `cnh-546 Treaty of N
 `docs/china-card-plan.md` — Russia's first treaty with China and the limit of its Amur expansion on one
 side, the Kangxi settlement of a frontier the Qing had just secured on the other.
 
+**And `docs/ww2-card-plan.md` cards the same war from the other altitude**, which is the largest overlap
+this collection has with anything:
+
+| subject | here | there |
+|---|---|---|
+| the Eastern Front | `ru-656`–`ru-690` — the Great Patriotic War, a Soviet national experience and its memory | `ww2-261`–`ww2-400` — the theatre where the European war was decided |
+| Katyn | `ru-658` — a Soviet crime and a Soviet lie maintained for fifty years | `ww2-155`, `ww2-326` — an atrocity, and the discovery that broke the Allied coalition's Polish policy |
+| the Holocaust | `ru-671` — the Holocaust in the Soviet Union, from the Soviet side | `ww2-731`–`ww2-790` — the whole of it |
+
+That plan's rule about the four pulls is this one's rule generalised, and its national-memory section
+names the Great Patriotic War among the versions to card as a **subject** rather than write in.
+
 ## Cross-listing
 
 A card may belong to several decks; `subtreeCardIds` dedupes with a `Set` at every branch, so the

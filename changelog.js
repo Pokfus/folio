@@ -14,14 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.41", released: "2026-08-07T00:34Z" };
+window.FOLIO_VERSION = { v: "1.42", released: "2026-08-07T05:12Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-07",
-    t: "Ancient Egypt joins the collections",
+    t: "Ancient Egypt and the Second World War join the collections",
     items: [
-      "Ancient Egypt is now on the shelf — a new collection, in malachite green, with nine parts and twenty-six decks inside them. The Nile before the pharaohs and the predynastic towns, then the pyramid age, the Middle Kingdom, the New Kingdom in four decks of its own, the later dynasties including a deck on Kush and the Nubian pharaohs who ruled Egypt for a century, and the long Greek, Roman and Christian ending. Beside those are three decks on the things that outlast every dynasty: the gods and the dead, kingship and daily life, and writing, art and what the Egyptians knew. It runs from the first herders in the Sahara to the Arab conquest, which is later than most accounts stop — the temples were still being built and hieroglyphs still being carved for three centuries after Cleopatra. It is still empty and still marked coming soon; a thousand cards are mapped out in order, so it can now be written a card at a time.",
+      "Ancient Egypt is now on the shelf — a new collection, in malachite green, with nine parts and twenty-six decks inside them. The Nile before the pharaohs and the predynastic towns, then the pyramid age, the Middle Kingdom, the New Kingdom in four decks of its own, the later dynasties including a deck on Kush and the Nubian pharaohs who ruled Egypt for a century, and the long Greek, Roman and Christian ending. Beside those are three decks on the things that outlast every dynasty: the gods and the dead, kingship and daily life, and writing, art and what the Egyptians knew. It runs from the first herders in the Sahara to the Arab conquest, which is later than most accounts stop — the temples were still being built and hieroglyphs still being carved for three centuries after Cleopatra. The Second World War joins it the same day, in dark iron, with eight parts and thirty decks. It opens in 1919 rather than 1933, because the peace is where the war starts: the settlement that failed, the rise of the movements that overturned it, Japan's road to war in Asia, and the crises of the 1930s. Then the war itself, theatre by theatre — Poland and the fall of France, Britain alone, the Eastern Front in four decks, China and the Pacific in four more, and the Atlantic, North Africa, the bombing and Normandy. A sixth part of a hundred and sixty cards covers what the war did to the people living under it: occupation and collaboration, resistance, the Holocaust in a deck of sixty, and the other crimes. Then the home fronts, the war economies, the science and the soldiers' own experience, and finally the endings — the defeat of Japan, Nuremberg, and a Europe in ruins. Both collections are still empty and still marked coming soon; a thousand cards are mapped out in order for each, so both can be written a card at a time from here on.",
     ],
   },
   {

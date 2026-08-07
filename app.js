@@ -9726,6 +9726,7 @@
     "col-42": { bg: "#9E2B25" }, // lacquer red (Russia)
     "col-43": { bg: "#C2701E" }, // saffron (India)
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
+    ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

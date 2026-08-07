@@ -281,6 +281,12 @@ and arriving in another, and what it had to become to stay — and `in-199 Xuanz
 visitor whose account is a source for Gupta-age India, against `cnh-388 Xuanzang`, where he is a Tang
 monk whose journey produced a translation programme.
 
+**And one is written into `docs/ww2-card-plan.md`**: the Bengal famine is `in-575` here, a famine in
+British India and its causes, against `ww2-524`/`ww2-525` there, a wartime famine in a theatre of war.
+India's war is carded on both sides of that line — `ww2-511`–`ww2-540` covers the Indian Army, the war
+effort, the home front, Quit India, Bose and the INA from inside the war, where this collection covers
+them as steps towards 1947.
+
 ## Cross-listing
 
 A card may belong to several decks; `subtreeCardIds` dedupes with a `Set` at every branch, so the

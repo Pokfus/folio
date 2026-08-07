@@ -2718,6 +2718,249 @@ window.COLLECTION_TREE = {
           ]
         }
       ]
+    },
+    {
+      "id": "ww2",
+      "title": "The Second World War",
+      "total": 1000,
+      "children": [
+        {
+          "id": "ww2-road",
+          "title": "The Road to War",
+          "total": 140,
+          "children": [
+            {
+              "id": "ww2-versailles",
+              "title": "The peace that failed",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-fascism",
+              "title": "Fascism, Nazism and the crisis of democracy",
+              "total": 45,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-asia-road",
+              "title": "Japan and the road to war in Asia",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-crisis",
+              "title": "The crises of the 1930s",
+              "total": 35,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-europe",
+          "title": "The War in Europe, 1939–1941",
+          "total": 120,
+          "children": [
+            {
+              "id": "ww2-poland",
+              "title": "Poland and the outbreak",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-west-1940",
+              "title": "The fall of the West",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-britain",
+              "title": "Britain alone",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-mediterranean-early",
+              "title": "The Mediterranean and the Balkans",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-eastfront",
+          "title": "The Eastern Front",
+          "total": 140,
+          "children": [
+            {
+              "id": "ww2-barbarossa",
+              "title": "Barbarossa and 1941",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-stalingrad",
+              "title": "Stalingrad and the turn",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-east-1943",
+              "title": "Kursk to the Vistula",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-berlin",
+              "title": "The road to Berlin",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-asiapac",
+          "title": "The War in Asia and the Pacific",
+          "total": 140,
+          "children": [
+            {
+              "id": "ww2-china-war",
+              "title": "The war in China",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-japan-expansion",
+              "title": "Pearl Harbor and Japan's expansion",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-pacific",
+              "title": "The Pacific counter-offensive",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-burma",
+              "title": "Burma, India and Southeast Asia",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-allies",
+          "title": "The Western Allies at War",
+          "total": 120,
+          "children": [
+            {
+              "id": "ww2-atlantic",
+              "title": "The Battle of the Atlantic",
+              "total": 28,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-north-africa",
+              "title": "North Africa and Italy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-air-war",
+              "title": "The air war over Europe",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-normandy",
+              "title": "Normandy to the Elbe",
+              "total": 27,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-occupied",
+          "title": "Occupation, Resistance and the Holocaust",
+          "total": 160,
+          "children": [
+            {
+              "id": "ww2-occupation",
+              "title": "Occupation and collaboration",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-resistance",
+              "title": "Resistance",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-holocaust",
+              "title": "The Holocaust",
+              "total": 60,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-crimes",
+              "title": "Other crimes and mass violence",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-society",
+          "title": "Home Fronts, Science and Society",
+          "total": 110,
+          "children": [
+            {
+              "id": "ww2-home-fronts",
+              "title": "The home fronts",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-war-economy",
+              "title": "War economies and production",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-technology",
+              "title": "Technology, intelligence and science",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-experience",
+              "title": "Soldiers, prisoners and civilians",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ww2-endings",
+          "title": "Endings and Reckonings",
+          "total": 70,
+          "children": [
+            {
+              "id": "ww2-japan-end",
+              "title": "The defeat of Japan",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ww2-aftermath",
+              "title": "Reckonings and legacies",
+              "total": 40,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
     }
   ]
 };

@@ -1362,6 +1362,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
   yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
   has been written yet.** Not part of the site.
+- `docs/ww2-card-plan.md` — the **1000-card running order for the Second World War collection** (`ww2`):
+  every card's number, topic and deck, fixed in advance across 8 decks and 30 leaf decks. The eighth of the
+  planned collections, the second (after Egypt) to **create its own collection** — node, tree and
+  `COLL_THEME` hue ship with the plan — and **the first whose subject is inside living memory and is
+  actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
+  the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
+  `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
+  has been written yet.** Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1535,8 +1543,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `docs/india-card-plan.md`, all empty; all three stay under "Coming soon" until their first card ships,
   since a collection with no cards is coming-soon whatever its `placeholder` says. **`egypt` is new — the
   collection itself was created on 2026-08-06** by `docs/egypt-card-plan.md`, with 9 decks and 26 leaf
-  subdecks and a `COLL_THEME` row of its own; it is the only collection a plan has had to bring into
-  existence. **`china` was the one
+  subdecks and a `COLL_THEME` row of its own. **`ww2` is new the same way — created on 2026-08-07** by
+  `docs/ww2-card-plan.md`, with 8 decks and 30 leaf decks and its own `COLL_THEME` row; it and Egypt are
+  the only two collections a plan has had to bring into existence. **`china` was the one
   collection that already had a tree**, and on the same day `docs/china-card-plan.md` made four changes to
   it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
   `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
@@ -5237,6 +5246,59 @@ that this collection's short terms are the worst on the site for auto-linking: `
 whose names are ordinary English words, and `Ba` and `Ka` are two-letter surfaces that would match
 inside other words entirely, so prefer a fuller head word and let the short form be an alias only if it
 can be made safe.
+
+**THE SECOND WORLD WAR (`ww2`) is planned and not yet started (Aug 2026).** Its 8 decks and 30 leaf
+decks are in `data.js` and its full 1000-card running order is `docs/ww2-card-plan.md`: **"Generate the
+next Second World War card" means take the lowest `ww2-NNN` not yet in `data.js`, read its topic and
+deck from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The
+next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='ww2-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `ww2-1000`). It is the **second plan to CREATE its collection**,
+after Egypt, so the same four things were decided here: the id is **`ww2`** and the title **"The Second
+World War"**, the British form, because the site's register is en-GB throughout and World History's own
+deck is already `wh-ww2` — two names for one subject inside one site is how a reader searches for the
+wrong thing; the card prefix is **`ww2-`**; the hue is **`#4A4038` dark iron**, **measured rather than
+picked** (30.9 from its nearest neighbour in CIELAB against a tightest existing pair of 12.9 — every
+other collection hue is a saturated colour, and the sober greys and slates all crowd within 15–24 of
+Greece's Aegean blue); and there is **deliberately NO `COLLECTION_NUMERALS` entry**, there being no
+script this collection could plausibly count in.
+**IT IS THE FIRST COLLECTION WHOSE SUBJECT IS INSIDE LIVING MEMORY AND ACTIVELY CONTESTED IN PUBLIC**,
+so read its "History, not commemoration — and the four pulls" and "Sourcing" sections before writing
+anything. The rule that governs the whole collection is the Russia plan's, needed here more than there:
+**no state's account of its own actions is repeated as established fact.** The four pulls it names are
+commemoration (a card on D-Day states what was planned, what happened, what it cost and what it
+achieved — heroism is a thing people did, not a tone to write in), **national memory** (the Blitz
+spirit, the American good war, French résistancialisme, the Great Patriotic War, the Japanese victim
+narrative and the clean Wehrmacht are all carded as SUBJECTS — `ww2-229`, `ww2-295`, `ww2-393`,
+`ww2-982`, `ww2-995` — and never as the register), denial and myth, and live political use.
+Four more decisions are arguments rather than lists. **The Holocaust is a 60-card subdeck, not a chapter
+inside the Eastern Front** — it was not a military operation and filing it as one is the commonest
+structural mistake a war course makes — built to teach it as history and ending `ww2-788 The evidence`
+→ `ww2-789 Holocaust denial and why it fails` → `ww2-790 Holocaust memory` **in that order, because the
+evidence has to come before the denial for the denial card to be a card about history rather than a
+platform**. Its two writing rules are not optional: **no false balance** (the genuine historiographical
+arguments within it are about MECHANISM and are carded as such) and **no sensationalism** (this material
+does not need heightening, and heightening it is a way of not looking at it). **Other crimes get their
+own subdeck of 30 and it is not a levelling exercise** — one subdeck is a filing decision, not a claim
+of equivalence, and the cards do not make that claim. **The Eastern Front gets 140 against the Western
+Allies' 120**, and the German surrender is carded at the end of `ww2-berlin`, because the war in Europe
+ended where Berlin fell. And **the prelude starts in 1919, not 1933.**
+Conventions: operations take their code names where those are what the events are called; a place takes
+the name current at the time with the modern one where it differs and matters, and **a spelling is not
+an argument and must not be made to do one silently**; the war has several start dates depending on
+where you stand (1937, 1939, 1940, 1941) and `ww2-001` says so; and **casualty figures are given as
+RANGES with whose they are named** — never the highest or lowest available stated flat — with `ww2-390`,
+`ww2-818` and `ww2-962` existing to teach that directly. Sourcing is better served than any other
+collection here and carries a specific hazard: **this subject has more bad material online than any
+other on the site and some of it is dressed as scholarship**, so apply the citation bar more strictly
+here than anywhere. **Memoirs and testimony are evidence and need handling as such** — survivor
+testimony is indispensable and not interchangeable with a secondary source, and several influential
+German generals' accounts were written to shape the record. The glossary has the modern countries and
+nothing else — no `Blitzkrieg`, no `Wehrmacht`, no `Holocaust`, no `Lend-Lease` — so write those **cited
+from the start** at the `GLOSS_SRC_TARGET` bar, and mind that this collection has more
+ordinary-English-word surfaces than any other (`Resistance`, `Blitz`, `Ultra`, `Enigma`, `Overlord`)
+because operation code names were chosen to be ordinary words: use `GLOSSARY_CASESENSITIVE` or the full
+form as the head word (`Operation Barbarossa`, not `Barbarossa`).
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort

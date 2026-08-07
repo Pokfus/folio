@@ -293,6 +293,7 @@ modern one. Ten sentences on the Tang is a different card from ten sentences on 
 | Treaty of Nerchinsk | `ru-274` — Russia's first treaty with China and the limit of its Amur expansion | `cnh-546` — the Kangxi settlement of a frontier the Qing had just secured |
 | the transmission of Buddhism | `in-812` — a religion leaving India | `cnh-883` — a foreign religion arriving in China, and what it had to become to stay |
 | Xuanzang | `in-199` — a visitor whose account is a source for Gupta-age India | `cnh-388` — a Tang monk's journey and the translations it produced |
+| the war with Japan | `ww2-401`–`ww2-435` — the war's largest and longest land theatre | `cnh-631`–`cnh-655` — eight years that reshaped China and set up its civil war |
 
 Write the card this collection needs.
 
