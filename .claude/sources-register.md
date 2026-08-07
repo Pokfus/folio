@@ -12653,3 +12653,70 @@ split rather than reusing the claim on the strength of the corpus already carryi
 The card does **not** say Sahul's peopling is the earliest evidence for seafaring anywhere. It is often
 put that way, `bird-2019` does not assert it, and the claim would have to survive comparison with earlier
 island records this batch has not examined.
+
+---
+
+## Batch W19 — `wh-095` Peopling of Europe (2026-08-07)
+
+### Newly opened for this batch
+
+**`hajdinjak-2021`** — Mateja Hajdinjak et al., "Initial Upper Palaeolithic Humans in Europe Had Recent
+Neanderthal Ancestry", *Nature* 592, no. 7853 (2021): 253–57. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route (`isOpenAccess: Y`)
+- supports: that "modern humans appeared in Europe by at least 45,000 years ago" and Neanderthals
+  "disappeared by about 40,000 years ago"; the three Bacho Kiro Cave individuals "dated to between 45,930
+  and 42,580 years ago", "the earliest Late Pleistocene modern humans known to have been recovered in
+  Europe so far", found with an Initial Upper Palaeolithic assemblage; and — the card's fourth sentence —
+  that individuals of similar age from Romania and Siberia "did not contribute detectably to later
+  populations"
+
+**`lazaridis-2014`** — Iosif Lazaridis et al., "Ancient Human Genomes Suggest Three Ancestral Populations
+for Present-Day Europeans", *Nature* 513, no. 7518 (2014): 409–13. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the card's closing claim in the paper's own terms — "most present-day Europeans derive from at
+  least three highly differentiated populations: west European hunter-gatherers … ancient north Eurasians
+  related to Upper Palaeolithic Siberians … and early European farmers, who were mainly of Near Eastern
+  origin"
+
+**`fu-2016-europe`** — Qiaomei Fu et al., "The Genetic History of Ice Age Europe", *Nature* 534, no. 7606
+(2016): 200–205. [Paywalled]
+- opened: 2026-08-07 · **abstract only**, read directly off the Europe PMC record; the REST full-text route
+  404s and the PMC article page returns a browser challenge
+- supports: Neanderthal ancestry falling "from 3-6% to around 2%", "consistent with natural selection
+  against Neanderthal variants"; and that "all individuals between ~37,000 and ~14,000 years ago descended
+  from a single founder population which forms part of the ancestry of present-day Europeans"
+
+**`haak-2015`** — Wolfgang Haak et al., "Massive Migration from the Steppe…", *Nature* 522, no. 7555 (2015):
+207–11. [Paywalled] · **abstract only**, same reason
+- supports: early farmers appearing "in Germany, Hungary and Spain" at "∼8,000-7,000 years ago", "different
+  from indigenous hunter-gatherers"; and that "the Late Neolithic Corded Ware people from Germany traced
+  ∼75% of their ancestry to the Yamnaya", ∼4,500 years ago, that steppe ancestry being "ubiquitous in
+  present-day Europeans"
+
+### THE STALE-LABEL PATTERN IS NOW A STANDING RULE — three batches, five works
+`haak-2015` is recorded in batch 6's roll-up as **[Open access]** on a PMC link and is **not readable from
+here**: REST 404, and the article page serves a browser challenge. With `o'connell-2018` (W18) and
+`stringer-2016` / `nielsen-2017` (W17) that is **five PMC-hosted works whose recorded label no longer
+holds**, all found the same way. **Re-fetch a PMC label before reusing it.** The counter-check matters as
+much and was run again here: `hajdinjak-2021` and `lazaridis-2014` both came back readable in full, and
+W18's `clarkson-2017` / `malaspinas-2016` are open at green deposits while Europe PMC calls them closed.
+The status field is not the question; the URL in the citation is.
+
+### THE CARD IS THREE LAYERS, WHICH IS WHAT KEPT IT FROM DUPLICATING ITS NEIGHBOURS
+`wh-049`, `wh-067` and `wh-068` already cover the first arrival, the Aurignacian and the Cro-Magnons. This
+card is therefore built as the **whole sequence** — first arrivals who mostly left no descendants, the
+founder population of 37–14 ka, the glacial refuges, the Anatolian farmers, the steppe herders — so it says
+what none of them says: that European ancestry is a stack rather than a beginning. Checked against
+`wh-035` and `wh-089` before drafting: "around 2 per cent" of Neanderthal DNA today agrees with their "a per
+cent or two".
+
+### A STYLE VIOLATION I INTRODUCED AND CAUGHT
+The draft wrote "over some forty-five thousand years" and `check-style.js` went from its standing **18 to
+19**. Fixed to "45,000". The baseline number is the point: it is stable across batches, so a card that
+raises it has broken a rule, and the check is worth running as a *diff* rather than for its absolute value.
+
+### A CLAIM NOT MADE, and a source list trimmed for the rule
+The glossary term was drafted with four sources and shipped with **three**, because two of the four were
+paywalled and 2-of-4 is not a majority. The Fu 2016 founder-population clause was rewritten rather than
+padded with a fifth source — **the honest fix for a failing open-ratio is to drop a claim, not to add a
+citation to outvote it** (N3's rule on `Solutrean`, met from the other side).
