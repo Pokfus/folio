@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.53", released: "2026-08-07T00:23Z" };
+window.FOLIO_VERSION = { v: "1.54", released: "2026-08-07T05:11Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-07",
+    t: "Holding a book no longer selects the words in the menu it opens",
+    items: [
+      "Holding a book on the shelf opens its menu without selecting text inside it. The menu appears under your finger, and a moment later the phone’s own press-and-hold would grab a word from whichever line had landed there — so the Copy / Share / Select All bar came up over the menu that had just opened. The same went for holding the daily study banner.",
+    ],
+  },
   {
     d: "2026-08-06",
     t: "Kalidasa, the Bhagavad Gita, Gilgamesh, Aesop, Plato, Aristophanes, Euripides and Sophocles join the shelf, a second look at every new card, a stylus that keeps drawing, and a clearer Find it",
