@@ -12480,3 +12480,55 @@ The card gives no figure for sea level at Bab-el-Mandeb and no width for the cro
 models "the minimum distance needed to continuously cover on water to reach the Arabian Peninsula from
 Africa" as a band on a figure rather than stating a number in the text, and reading a value off a plotted
 grey shade would be inventing a precision the paper declines to print.
+
+---
+
+## Batch W16 — `wh-089` Archaic human admixture (2026-08-07)
+
+### Nothing newly opened — the register carried the whole card
+`green-2010` (Neanderthals sharing more variants with Eurasians than with sub-Saharan Africans, hence gene
+flow into the ancestors of those who left), `reich-2010` (the Denisova finger bone, a group sharing a common
+origin with Neanderthals, "4–6% of its genetic material to the genomes of present-day Melanesians", and the
+suggestion the group "may have been widespread in Asia"), `slon-2018` (Denisova 11, "a Neandertal mother and
+a Denisovan father", the two populations "separated from each other more than 390,000 years ago", the
+paper's working age of ~90 kya), `huerta-sánchez-2014` (EPAS1 as explicable only "by introgression of DNA
+from Denisovans or Denisovan-related individuals", found in Denisovans and Tibetans and almost nowhere
+else), `harvati-reyes-centeno-2022` (the Denisovans designated "without formal attribution to taxon", most
+assigned specimens "isolated teeth or undiagnostic bone fragments").
+
+**Five sources, all five open.** This is the second batch running to need no new reading, and both times the
+reason was the same: a card about a well-argued question inherits the sources its neighbours already opened.
+
+### THE SIBLING CHECK RAN FIRST AND FIXED THE FIGURES BEFORE DRAFTING
+Two proportions on this card already exist elsewhere on the site, and the draft was written to them rather
+than to the sources' own phrasing: **"a per cent or two"** for the Neanderthal share (`wh-035`, and the
+`Neanderthal` term's "a small proportion") and **"4 to 6 per cent"** for the Denisovan share in Melanesians
+(`wh-038`, and the `Denisovan` term). Green's body gives 1–4%; writing that here would have set two live
+cards against each other on the same number for no gain, since both are the same claim at different
+roundings. **Grep the corpus for the figure before drafting, not after** — this is the third batch where it
+was cheaper to match an existing wording than to correct one later.
+
+### THE DATE LINE NAMES AN INDIVIDUAL, NOT THE PROCESS, AND THAT WAS THE HARD CHOICE
+Admixture is a process with no crisp date this batch can source, and the field's temptations both had to be
+refused. The **390,000-year split** is sourced and would have sorted the card before `wh-086` at 300,000 BP
+— a Peopling-the-planet card filed among the origins ones, because the figure describes the *lineages*
+rather than the *meeting*. The **2010 publication** is the other trap, the Atapuerca failure mode
+(`docs/history-focus-plan.md`, and `test-date-line.js`'s own assertion): a card whose prose carries a modern
+year and no deep one sorts by the year it was worked out. So the line carries **Denisova 11 at c. 90,000
+BP** — the one individual who *is* the phenomenon, a first-generation hybrid — which dates the meeting
+rather than the split or the discovery, and drops the card where it belongs in the sequence. The 390,000
+figure stays in the prose, where it is context rather than a sort key.
+
+### An alias deliberately NOT taken, twice
+`Archaic_human_admixture` takes "archaic admixture" and "archaic introgression" and refuses two more.
+**"introgression"** bare is a general term in genetics that has nothing to do with humans, and would fire on
+any future card about gene flow in any organism. **"Neanderthal admixture"** is a *subset* of this term, not
+a synonym — N2's test is that an alias must mean the same thing — and taking it would also foreclose a
+future term of its own. Both are the `Late_Stone_Age` lesson from W14 read forward instead of backward:
+decide what a surface means before claiming it.
+
+### A CLAIM NOT MADE
+The card gives **no date for the interbreeding itself**. The genetic brackets `wh-088` carries (75–55 ka out
+of Africa, 55–45 ka into Eurasia) bound it, but no source opened in this batch or the last states when the
+admixture happened, and inferring it from two other numbers would be composing a result rather than
+reporting one.
