@@ -248,6 +248,10 @@
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
+      // a Library book's front-matter essay, keyed by book id (see bookIntroMerged). The overlay IS the
+      // storage here, as it is for the quotes: books/<id>.js is generated and would lose a hand edit on the
+      // importer's next run, so there is no file to bake back into.
+      bookIntros: o.bookIntros && typeof o.bookIntros === "object" ? o.bookIntros : {},
       // the home page's daily-quote pool, keyed by each quote's SHIPPED English text (see quotesMerged):
       // a whole replacement object, or null to retire the quote. A key matching nothing shipped is a new one.
       quotes: o.quotes && typeof o.quotes === "object" ? o.quotes : {},
@@ -2464,9 +2468,13 @@
      descendant — which would move the very bars it was trying to blur. backdrop-filter blurs whatever is
      painted behind this one element and touches nothing else's layout.
 
-     `pointer-events:none` is deliberate: this is a visual change and not a modal. Tapping outside did not
-     close a popup before and still does not, and the page behind can still be scrolled — the request was
-     for focus, not for a dialog. */
+     IT IS A MODAL SINCE AUG 2026, ON REQUEST — it began as focus alone (`pointer-events:none`, the page
+     behind still live) and the request was that nothing behind a popup be clickable until it is closed.
+     It takes the presses instead: it sits at z-index 9590, above every bar and control on the site, so
+     one property does the whole job and no list of things-to-disable has to be kept in step. A single tap
+     on it still does nothing — tapping outside has never dismissed a popup and that has not changed —
+     but a DOUBLE tap closes, which is what makes the blocking bearable: the gesture that closes the
+     window now works anywhere on the screen rather than only within it. */
   function glossScrim(on) {
     let s = document.getElementById("glossScrim");
     if (on) {
@@ -2475,6 +2483,8 @@
         s.id = "glossScrim";
         s.className = "gloss-scrim";
         document.body.appendChild(s);
+        // the same gesture as inside the window, and it closes the one on top of the stack
+        glossDoubleTap(s, () => { if (glossWins.length) removeGlossWin(glossWins[glossWins.length - 1], true); });
         // one frame at opacity 0 so the class change is a transition rather than an appearance
         requestAnimationFrame(() => s.classList.add("on"));
       }
@@ -2673,22 +2683,27 @@
      would make those controls unusable rather than merely surprising. */
   const GLOSS_TAP_MS = 320, GLOSS_TAP_SLOP = 30;
   const GLOSS_TAP_SKIP = "button, a[href], input, textarea, select, .ttip, .src-head, .src-item, .card-img";
-  function wireGlossDoubleTap(win) {
+  /* The gesture itself, on any element that wants it: the window, and — since the scrim became a modal —
+     the whole screen behind it. Each surface keeps its OWN pair of taps rather than sharing one counter,
+     which is the same rule the slop expresses: two taps mean "close" when they land in one place, and a
+     tap on the page followed by a tap on the description is a reader reading, not a reader leaving. */
+  function glossDoubleTap(el, onDouble) {
     let lastT = 0, lastX = 0, lastY = 0;
-    win.addEventListener("pointerup", (e) => {
+    el.addEventListener("pointerup", (e) => {
       if (e.target.closest(GLOSS_TAP_SKIP)) { lastT = 0; return; }
       // the end of a drag is not a tap — see the flag's note in makeGlossSheetDraggable
-      if (win._glossDragged) { win._glossDragged = false; lastT = 0; return; }
+      if (el._glossDragged) { el._glossDragged = false; lastT = 0; return; }
       const now = e.timeStamp || Date.now();
       if (now - lastT < GLOSS_TAP_MS && Math.abs(e.clientX - lastX) < GLOSS_TAP_SLOP && Math.abs(e.clientY - lastY) < GLOSS_TAP_SLOP) {
         lastT = 0;
         e.preventDefault();     // and not a zoom either
-        removeGlossWin(win, true);
+        onDouble();
         return;
       }
       lastT = now; lastX = e.clientX; lastY = e.clientY;
     });
   }
+  function wireGlossDoubleTap(win) { glossDoubleTap(win, () => removeGlossWin(win, true)); }
   function openGlossWin(key, triggerEl, pos) {
     if (!glossGlobalsWired) {
       glossGlobalsWired = true;
@@ -6512,6 +6527,27 @@
      they open the book does not belong in it, and books/<id>.js is never hand-edited, so an intro
      written straight into that file would not survive the next run of the importer. */
   const BOOK_INTRO = {};
+  /* …overlaid with the admin's own edits (Aug 2026, on request: an admin should be able to edit the text
+     of a book's opening About chapter). It follows the QUOTES pattern rather than the Mission's, and the
+     difference is where the words end up living. The Mission's prose has mission.js to be baked back into;
+     a book's essay has nowhere — books/<id>.js is generated, and .claude/fetch-book.js's `about` field is
+     the permanent home, which is a repo edit and not something an editor can reach from a phone. So THE
+     OVERLAY IS THE STORAGE: it persists in folio_admin_v1, travels to every reader through
+     content_overrides with no deploy, and is what a lasting change should be copied INTO fetch-book.js
+     from when someone is next at the repo. Nothing serializes it, deliberately — a serializer pointed at a
+     generated file is a serializer that fights the importer. */
+  function bookIntroMerged(id) {
+    const ov = (ADMIN_EDITS.bookIntros || {})[id];
+    return typeof ov === "string" ? ov : (BOOK_INTRO[id] || "");
+  }
+  // an essay edited back to the shipped words drops its delta, exactly as the Mission's does — so "have I
+  // changed this book?" is answerable from the overlay rather than by comparing two strings
+  function setBookIntroEdit(id, html) {
+    const map = ADMIN_EDITS.bookIntros || (ADMIN_EDITS.bookIntros = {});
+    if (html == null || html === (BOOK_INTRO[id] || "")) delete map[id];
+    else map[id] = html;
+    saveAdminEdits();
+  }
   /* The book in the language it was written in — id -> { lang, langName, edition, rights, sourceName,
      sourceUrl, byNum: { <chapter number>: html } }. Its own file, its own bundle, fetched only when a
      reader actually asks for the original; see `origLang` in the registry above for why the two texts
@@ -6912,7 +6948,7 @@
   /* Animate an element between two CONTENT heights across a change that alters them. The height is
      measured on both sides and animated explicitly, because `height:auto` is not an animatable value and
      a container that snaps while its contents slide reads worse than either moving alone. */
-  function flipHeight(el, mutate, dur) {
+  function flipHeight(el, mutate, dur, easing) {
     if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return; }
     const from = el.getBoundingClientRect().height;
     mutate();
@@ -6920,7 +6956,7 @@
     if (Math.abs(from - to) < 1) return;
     try {
       el.animate([{ height: from + "px" }, { height: to + "px" }],
-        { duration: dur || 260, easing: "cubic-bezier(.22,.61,.36,1)" });
+        { duration: dur || 260, easing: easing || "cubic-bezier(.22,.61,.36,1)" });
     } catch (e) {}
   }
 
@@ -7472,6 +7508,12 @@
   const GB_H_KEY = "folio_gb_compact_v1";
   // keep in step with the .grade / .grade-help / .gb-undo transition durations in styles.css
   const GB_FOLD_MS = 280;
+  /* …and with `--ease` in styles.css, which is what those transitions run on (Aug 2026, on a report that
+     the fold ran roughly). The FLIP and the CSS transitions act on the same four buttons at the same
+     moment — the position from here, the height and padding from there — so a curve that differs even
+     slightly makes the box arrive before or after the place it is sliding to, which reads as a stutter
+     rather than as two animations. One clock, one curve. */
+  const GB_FOLD_EASE = "cubic-bezier(.2,.7,.2,1)";
   let gbCompact = null;
   function gbReadCompact() {
     if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
@@ -7504,7 +7546,11 @@
     if (animate && wrap && bar.classList.contains("show")) {
       // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
       const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
-      flipHeight(bar.querySelector(".gradebar-inner"), () => flipMove(parts, apply, { duration: GB_FOLD_MS }), GB_FOLD_MS);
+      flipHeight(
+        bar.querySelector(".gradebar-inner"),
+        () => flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }),
+        GB_FOLD_MS, GB_FOLD_EASE
+      );
     } else apply();
     if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
   }
@@ -8121,9 +8167,13 @@
       // …and the press that put the pen up by being HELD is likewise not a press on the button
       if (wbHeld) { wbHeld = false; return; }
       if (WB.panelOpen) { WB.panelOpen = false; applyWBState(); return; }   // putting the tools away leaves the pen down
+      /* OPENING THE TOOLS SELECTS NOTHING (Aug 2026, on request). It used to pick the pen so that one tap
+         got you drawing — which is a shortcut for the reader who wanted the pen and a trap for everyone
+         else: `enabled` puts a canvas over the whole page, and a reader who opened the panel to reach
+         Undo, Clear, a colour or the stylus row found the card underneath already taken. The panel is a
+         menu; choosing from it is what starts drawing. The cost is one extra tap on the way to the pen,
+         and it is exactly the tap that says which tool was meant. */
       WB.panelOpen = true;
-      // opening the tools with nothing selected picks the pen, so one tap still gets you drawing
-      if (!WB.enabled) { WB.mode = "pen"; WB.color = WB.penColor; renderColors(); wbSetEnabled(true); }
       applyWBState();
     });
     wbMakeDraggable(el, el.querySelector(".wb-toggle"));
@@ -11282,7 +11332,11 @@
     '<svg class="bk-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
     '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22z"/></svg>';
   function bookIntroChapter(b) {
-    const essay = BOOK_INTRO[b.id] || "";
+    /* The essay is wrapped so that an admin can be handed exactly it and nothing else. The two boxes under
+       it are the LICENCE, built here from the registry's `rights` / `edition` / `sourceUrl` and not prose
+       anyone types — an editable region that swallowed them would let a wrong copyright statement be typed
+       into the one place on the site that exists to state the right one. */
+    const essay = '<div class="bk-intro-essay">' + bookIntroMerged(b.id) + "</div>";
     const rights =
       '<section class="bk-rights">' +
         "<h3>About this translation</h3>" +
@@ -11460,6 +11514,7 @@
          measured against the text after the glossary links and the units pass have rewritten it, so
          putting them back any earlier would put them back against a different string. */
       bookHlApply(pageEl, b.id, c.n);
+      if (c.intro) wireIntroEdit(pageEl.querySelector(".bk-intro-essay"));
       applyLangMode();
       // …and the chapter's ink, which is a fresh list per chapter, history included
       if (inkChapter) inkChapter(c.n);
@@ -11483,6 +11538,59 @@
           window.scrollTo({ top: Math.max(0, top - 80), behavior: "auto" });
         }
         markPos();
+      });
+    }
+
+    /* ---- ADMIN: the front matter's essay is editable in place (Aug 2026, on request) ----
+       The same gesture and the same finish paths as the About page's prose (see PAGES.mission), because a
+       second way of doing this would be a second way of getting it wrong. Four things are particular to a
+       book and each is load-bearing:
+
+       · IT EDITS THE RAW SOURCE. What is on screen has been through autoLinkGlossary and the units pass,
+         so saving what is displayed would bake a page of `.ttip` spans and one measurement system into the
+         stored essay — and every later save would bake them again over themselves.
+       · IT REPAINTS THE CHAPTER, not the page. render() would resolve the book's chapter from the reader's
+         stored place and could land them somewhere other than the front matter they were just editing;
+         paint(cur) rebuilds this chapter from bookIntroChapter, which is what reads the overlay back.
+       · THE GESTURES STAND DOWN WHILE IT IS OPEN. On a phone the book turns its page on a tap and steps a
+         chapter on a swipe, and a finger placed in a paragraph to put the caret somewhere is both of those
+         — hence `[contenteditable='true']` in BK_TAP_SKIP.
+       · IT IS WIRED FROM paint(), which is where the front matter is rebuilt on every repaint (the
+         original's licence box arrives late), so wiring it once at set-up would leave a dead listener on a
+         replaced element the first time the reader asked for the original. */
+    function wireIntroEdit(el) {
+      if (!el || !isAdmin()) return;
+      el.classList.add("msn-editable");
+      el.setAttribute("title", "Click to edit (admin)");
+      el.addEventListener("click", () => {
+        if (el.isContentEditable) return;
+        if (String(window.getSelection() || "").trim()) return;   // a text-selection click, not an edit request
+        el.classList.add("msn-editing");
+        el.innerHTML = bookIntroMerged(b.id);                     // the stored source, not the linked-up rendering
+        el.contentEditable = "true";
+        el.focus();
+        let finished = false;
+        const finish = (saveIt) => {
+          if (finished) return;
+          finished = true;
+          document.removeEventListener("pointerdown", onOutside, true);
+          el.removeEventListener("keydown", onKey);
+          if (saveIt) {
+            const next = (el.innerHTML || "").trim();
+            // an essay emptied to nothing is far more likely a slip than an intention, so it falls back
+            if (next) { setBookIntroEdit(b.id, next); toast("Front matter saved"); }
+          }
+          el.contentEditable = "false";
+          paint(cur);                                             // rebuilt from the overlay, links and all
+        };
+        const onKey = (e) => {
+          if (e.key === "Escape") { e.preventDefault(); finish(false); }
+          else if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); finish(true); }
+        };
+        const onOutside = (ev) => { if (!el.contains(ev.target)) finish(true); };
+        el.addEventListener("keydown", onKey);
+        el.addEventListener("blur", () => finish(true), { once: true });
+        setTimeout(() => document.addEventListener("pointerdown", onOutside, true), 0);   // a tick later, so the opening click doesn't instantly finish
       });
     }
 
@@ -11797,7 +11905,11 @@
        the tabs, the ‹ › steps and the arrow keys. The book page is deliberately absent from SWIPE_ORDER,
        so the site-wide page swipe is inert here and these two can never fight over one gesture. */
     const BK_TAP_SLOP = 10, BK_TAP_MS = 320, BK_TAP_GAP = 30;
-    const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],.ttip,.fn,.src-note,.bk-n";
+    /* `[contenteditable='true']` is here for the admin's front-matter editor (see wireIntroEdit): a finger
+       placed in a paragraph to put the caret somewhere is, to these handlers, a tap that turns the page and
+       a drag that steps a chapter. Inert for every other reader, since nothing else on the page is ever
+       editable. */
+    const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],[contenteditable='true'],.ttip,.fn,.src-note,.bk-n";
     // listeners go on `root` — a fresh .page div per render (see render()), so they die with the page
     // and cannot accumulate the way one on the persistent #view would
     /* WITH THE PEN DOWN THE FINGER DRAWS, and neither of these gestures may fire. It is not a nicety:
@@ -14466,8 +14578,59 @@
     });
   }
 
+  /* ---------- ONE PLAY A DAY (Aug 2026, on request) ----------
+     Every one of the six is a DAILY game: its rounds are drawn once for today, its score sits on the home
+     tile as today's, and the tile turns gold for a perfect run. A "Play again" button underneath the
+     results contradicted all of that — the day's set had already been revealed answer by answer, so a
+     second run was a run with the answers in hand, and the tile's figure came from whichever attempt went
+     best. Two of the six had grown their own local answers to this (Timeline recorded the FIRST check and
+     ignored later ones; Find it called a same-day replay "practice" and recorded nothing), which is the
+     shape of a rule that wants stating once instead of six times.
+
+     So the games are gated here, at the door, and each of them ends on its results screen with no way
+     back in until tomorrow. The cost is real and worth naming: a reader who wants to re-read today's
+     Timeline order or walk today's five places again cannot. What is kept in exchange is that the figure
+     on the tile is the answer they gave when they did not know the answers.
+
+     The glyph is the one that game's own placards already use, so the screen a reader meets is in the
+     hand they know it by. */
+  const GAME_NAMES = {
+    challenge: ["Multiple Choice", "选"], truefalse: ["True or False", "真"], whosaid: ["Who said it?", "言"],
+    chrono: ["Timeline", "序"], thread: ["Common Thread", "紐"], findit: ["Find it", "地"],
+  };
+  const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places" };
+  /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
+     stored without an article and in the case the prose uses it in — `polis`, `cist grave` — because that
+     is what the glossary is keyed by, what the cloze box is typed against and what read-aloud says. In a
+     LIST OF CHOICES it is none of those: it is the term being named, and four options where two happen to
+     open on a capital and two do not read as a typo rather than as a distinction. The study card makes
+     exactly this move for exactly this reason, and makes it in CSS (`.answer .val::first-letter`), which
+     is not available here — an option is built as a text node inside a button, so it is done in the string.
+     DISPLAY ONLY: `options`/`correct` are matched against each other by identity elsewhere in the round,
+     so nothing that decides a right answer ever sees this.
+     It is `\p{L}` rather than charAt(0) so a term opening on a numeral, a quotation mark or a Han
+     character is passed through untouched instead of being sliced through a surrogate pair. */
+  function gameCapFirst(s) {
+    return String(s == null ? "" : s).replace(/^\p{L}/u, (c) => c.toUpperCase());
+  }
+  function gameLockedToday(root, key) {
+    if (!gamePlayedToday(key)) return false;
+    const g = (S.games && S.games[key]) || {};
+    const meta = GAME_NAMES[key] || [key, "—"];
+    const scored = typeof g.s === "number" && typeof g.n === "number";
+    const how = g.won ? "A perfect run" : scored ? "You scored " + g.s + " of " + g.n : "You have already played";
+    const fresh = GAME_SET_WORD[key] || "set";
+    root.innerHTML = emptyPlacard(
+      "Played today", meta[1],
+      how + " in " + meta[0] + " today. A fresh " + fresh + " arrives tomorrow.",
+      () => route("home"), "Back home"
+    );
+    return true;
+  }
+
   PAGES.challenge = function (root) {
     detachKeys();
+    if (gameLockedToday(root, "challenge")) return;
     const Q = buildChallengeQuestions();
     if (Q.length < 2) {
       root.innerHTML = emptyPlacard("Not enough cards", "选", "Add a deck with more cards to play.", () => route("home"), "Back home");
@@ -14498,7 +14661,7 @@
       item.options.forEach((opt, i) => {
         const b = document.createElement("button");
         b.className = "opt";
-        b.innerHTML = '<span class="key">' + "ABCD"[i] + "</span><span>" + esc(opt) + "</span>";
+        b.innerHTML = '<span class="key">' + "ABCD"[i] + "</span><span>" + esc(gameCapFirst(opt)) + "</span>";
         b.addEventListener("click", () => choose(i, b));
         opts.appendChild(b);
       });
@@ -14514,7 +14677,7 @@
       });
       const rev = root.querySelector("#reveal"); rev.hidden = false;
       rev.innerHTML =
-        '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(item.correct) + "</b></div>" +
+        '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(item.correct)) + "</b></div>" +
         '<button class="btn" id="mc-next">' + (qi + 1 < Q.length ? "Next question" : "See results") + "</button>";
       rev.querySelector("#mc-next").addEventListener("click", next);
     }
@@ -14534,7 +14697,8 @@
       markGamePlayed("challenge", won, score, Q.length);
       save();
       checkAchievements();
-      const msg = score === Q.length ? "Perfect run — every one right." : score >= Q.length - 1 ? "Sharp — nearly flawless." : score >= Math.ceil(Q.length / 2) ? "Solid effort." : "Keep studying — try again.";
+      // the closing line no longer invites a replay — there isn't one until tomorrow
+      const msg = score === Q.length ? "Perfect run — every one right." : score >= Q.length - 1 ? "Sharp — nearly flawless." : score >= Math.ceil(Q.length / 2) ? "Solid effort." : "Keep studying.";
       root.innerHTML = `
         <div class="dc-shell">
           <div class="page-head"><span class="eyebrow">Multiple Choice</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${Q.length}</span></h1></div>
@@ -14542,11 +14706,11 @@
           <div class="tf-summary">${Q.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(it.correct)}</b></p></div>
+              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(gameCapFirst(it.correct))}</b></p></div>
             </div>`).join("")}</div>
-          <div class="tf-actions"><button class="btn" id="mc-again">Play again</button><button class="btn ghost" id="mc-home">Home</button></div>
+          <p class="tf-tomorrow">A fresh set arrives tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="mc-home">Home</button></div>
         </div>`;
-      root.querySelector("#mc-again").addEventListener("click", () => route("challenge"));
       root.querySelector("#mc-home").addEventListener("click", () => route("home"));
     }
   };
@@ -14569,6 +14733,8 @@
   }
   PAGES.truefalse = function (root) {
     detachKeys();
+    // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
+    if (gameLockedToday(root, "truefalse")) return;
     if (gamesI18nPending(root)) return;
     const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
     const ROUNDS = 5;
@@ -14614,7 +14780,8 @@
     }
     function renderEnd() {
       markGamePlayed("truefalse", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
-      const msg = score === 5 ? "Flawless — a true myth-buster." : score >= 4 ? "Excellent — you know your history." : score >= 3 ? "Solid effort." : score >= 2 ? "Plenty of myths still got you." : "History is full of surprises — try again.";
+      // the closing line no longer invites a replay — there isn't one until tomorrow
+      const msg = score === 5 ? "Flawless — a true myth-buster." : score >= 4 ? "Excellent — you know your history." : score >= 3 ? "Solid effort." : score >= 2 ? "Plenty of myths still got you." : "History is full of surprises.";
       root.innerHTML = `
         <div class="dc-shell">
           <div class="page-head"><span class="eyebrow">True or False</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1></div>
@@ -14624,9 +14791,9 @@
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${esc(it.why)}</p></div>
             </div>`).join("")}</div>
-          <div class="tf-actions"><button class="btn" id="tf-again">Play again</button><button class="btn ghost" id="tf-home">Home</button></div>
+          <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
-      root.querySelector("#tf-again").addEventListener("click", () => route("truefalse"));
       root.querySelector("#tf-home").addEventListener("click", () => route("home"));
     }
   };
@@ -14645,6 +14812,7 @@
   }
   PAGES.whosaid = function (root) {
     detachKeys();
+    if (gameLockedToday(root, "whosaid")) return;
     if (gamesI18nPending(root)) return;
     const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
@@ -14695,7 +14863,8 @@
     }
     function renderEnd() {
       markGamePlayed("whosaid", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
-      const msg = score === ROUNDS ? "Flawless — you know your history." : score >= ROUNDS - 1 ? "Excellent." : score >= Math.ceil(ROUNDS / 2) ? "Solid effort." : "History is full of voices — try again.";
+      // the closing line no longer invites a replay — there isn't one until tomorrow
+      const msg = score === ROUNDS ? "Flawless — you know your history." : score >= ROUNDS - 1 ? "Excellent." : score >= Math.ceil(ROUNDS / 2) ? "Solid effort." : "History is full of voices.";
       root.innerHTML = `
         <div class="dc-shell">
           <div class="page-head"><span class="eyebrow">Who said it?</span><h1>You scored ${score} <span style="color:var(--ink-faint)">/ ${ROUNDS}</span></h1></div>
@@ -14705,9 +14874,9 @@
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${esc(rd.it.context)}</p></div>
             </div>`).join("")}</div>
-          <div class="tf-actions"><button class="btn" id="ws-again">Play again</button><button class="btn ghost" id="ws-home">Home</button></div>
+          <p class="tf-tomorrow">Five fresh voices arrive tomorrow.</p>
+          <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
-      root.querySelector("#ws-again").addEventListener("click", () => route("whosaid"));
       root.querySelector("#ws-home").addEventListener("click", () => route("home"));
     }
   };
@@ -14790,6 +14959,7 @@
     };
 
     listEl.addEventListener("pointerdown", (e) => {
+      if (listEl.classList.contains("chrono-done")) return;   // the day's answer is in — the rows are a record now, not a puzzle
       const grip = e.target.closest(".ci-grip");
       if (!grip || (e.button != null && e.button > 0)) return;
       const el = grip.closest(".chrono-item");
@@ -14849,6 +15019,7 @@
 
   PAGES.chrono = function (root) {
     detachKeys();
+    if (gameLockedToday(root, "chrono")) return;
     const N = 5;
     const set = dailyChronoSet(N);
     if (set.length < N) {
@@ -14879,14 +15050,14 @@
       </div>`;
     }
     function render() {
-      const played = !!(S.chrono && S.chrono.date === todayStr());
-      const best = played ? S.chrono.best : 0;
       root.innerHTML = `
         <div class="chrono-shell">
           <div class="page-head" style="margin-bottom:14px">
             <span class="eyebrow">Daily puzzle</span>
             <h1>Timeline</h1>
-            <p>Put these events in chronological order — earliest at the top. ${played ? `Today's score: <b>${best}/${N}</b> — your first check is the one that counts.` : "Your first check is the one that counts."}</p>
+            ${/* the page is unreachable once today's check is in (see gameLockedToday), so there is no
+                  played-already branch here any more — arriving at all means the puzzle is unanswered */""}
+            <p>Put these events in chronological order — earliest at the top. You get one check.</p>
           </div>
           <div class="chrono-scale"><span>Earliest</span><span>Latest</span></div>
           <div class="chrono-list" id="chrono-list">${order.map(itemHTML).join("")}</div>
@@ -14914,6 +15085,7 @@
     // beside a dragged row would be the one way left of reordering the list with a hard cut.
     function move(item, dir) {
       const list = item.parentElement;
+      if (list.classList.contains("chrono-done")) return;   // answered — the arrows go quiet with the grips
       const other = dir < 0 ? item.previousElementSibling : item.nextElementSibling;
       if (!other) return;
       flipMove([item, other], () => {
@@ -14944,30 +15116,26 @@
       });
       checked = true;
       const solved = score === N;
-      /* THE FIRST CHECK OF THE DAY IS THE ANSWER (Aug 2026, on request). Checking used to record the BEST
-         of any number of tries, and since a check reveals every event's date, a reader could check once,
-         read the years off the rows and reorder to a perfect score every single day. The first check is
-         now the one that counts; every check after it still marks the rows and shows the dates, so the
-         puzzle is still usable as a way of learning the order — it just no longer rewrites the score. */
-      const firstToday = !S.chrono || S.chrono.date !== todayStr();
-      if (firstToday) {
-        S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
-        markGamePlayed("chrono", solved, score, N);
-        save();
-        checkAchievements();
-      } else {
-        S.chrono.plays++;
-        save();
-      }
+      /* ONE CHECK, AND IT IS THE ANSWER (Aug 2026, on request). This began as "the FIRST check of the day
+         is the one that counts", because checking reveals every event's date and a reader could otherwise
+         read the years off the rows and reorder to a perfect score every single day. The later checks were
+         kept as a way of learning the order — and with the games now gated to one play a day (see
+         gameLockedToday) that exception is the last way back into a puzzle already answered, so it goes.
+         The rows keep their marks and their dates, which is what the learning half of it was for; what
+         they no longer do is move. */
+      S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
+      markGamePlayed("chrono", solved, score, N);
+      save();
+      checkAchievements();
       const res = root.querySelector("#chrono-result");
       res.className = "chrono-result show" + (solved ? " win" : "");
-      const kept = firstToday
-        ? ""
-        : `<div class="cr-note">Today's score stays at ${S.chrono.best} / ${N} — the first check is the one that counts.</div>`;
-      res.innerHTML = (solved
-        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly.${firstToday ? " A fresh set arrives tomorrow." : ""}</div>`
-        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sit correctly. Move the rest and check again${firstToday ? " — today's score is already in" : ""}.</div>`) + kept;
-      root.querySelector("#chrono-check").textContent = "Check again";
+      res.innerHTML = solved
+        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly. A fresh puzzle arrives tomorrow.</div>`
+        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sat correctly, and every date is now shown. A fresh puzzle arrives tomorrow.</div>`;
+      // the puzzle is over: the rows stop being draggable and the button stops offering another go
+      root.querySelector("#chrono-list").classList.add("chrono-done");
+      const btn = root.querySelector("#chrono-check");
+      if (btn) btn.remove();
     }
   };
 
@@ -15083,6 +15251,7 @@
   }
   PAGES.thread = function (root) {
     detachKeys();
+    if (gameLockedToday(root, "thread")) return;
     const puzzle = dailyThreadPuzzle();
     if (!puzzle) { root.innerHTML = emptyPlacard("Coming soon", "紐", "Not enough glossary terms to make today's puzzle yet.", () => route("home"), "Back home"); return; }
     const N = THREAD_ROWS * THREAD_ROWS;
@@ -18189,7 +18358,7 @@
     /* ---------- "Find it" — the daily geography game, played on the real globe ---------- */
     const mgEl = root.querySelector("#mapGame"), mgRoundEl = root.querySelector("#mgRound"), mgScoreEl = root.querySelector("#mgScore"),
       mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext");
-    let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false, gamePractice = false;
+    let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false;
     const GAME_GREEN = "rgba(46,164,90,1)", GAME_RED = "rgba(224,68,56,1)";   // right / wrong flash colours (fixed, theme-independent like the gold highlight)
     const havKm = (lon1, lat1, lon2, lat2) => {   // great-circle distance, km
       const dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG;
@@ -18240,7 +18409,7 @@
       const r = gameRounds[gameRi]; gameTries = 0; gameLock = false; pulsePin = null;
       hideCountryPopup();   // the previous round's learn-panel closes with the round
       setYear(r.year);
-      mgRoundEl.textContent = (gamePractice ? "Practice · " : "") + "Round " + (gameRi + 1) + " / " + gameRounds.length;
+      mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
       mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
       mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(r.n) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
@@ -18317,18 +18486,19 @@
     function gameEnd() {
       gameOver = true;
       const n = gameRounds.length, perfect = n >= 5 && gameFirstTry >= n;   // a short game (thin pools) can never count as a perfect run
-      if (!gamePractice) { markGamePlayed("findit", perfect, gameFirstTry, n); save(); checkAchievements(); }   // achievements: the Clean Sweep now includes this game
-      mgRoundEl.textContent = gamePractice ? "Practice over" : "Done!";
+      markGamePlayed("findit", perfect, gameFirstTry, n); save(); checkAchievements();   // achievements: the Clean Sweep now includes this game
+      mgRoundEl.textContent = "Done!";
       mgScoreEl.textContent = "";
       mgQEl.innerHTML = "<b>" + gameFirstTry + " / " + n + "</b> found on the first try" + (perfect ? " — perfect!" : ".");
-      mgFeedbackEl.textContent = gamePractice ? "Practice runs don't count — today's score is already on the board." : "Come back tomorrow for five new places.";
+      mgFeedbackEl.textContent = "Come back tomorrow for five new places.";
       mgFeedbackEl.hidden = false;
       mgNextEl.textContent = "Back to Home"; mgNextEl.hidden = false;
     }
     if (GAME && mgEl) {
-      // the day's rounds are date-seeded and every answer is revealed during play, so a same-day replay is
-      // PRACTICE: playable, but it never records a score (a second run with known answers isn't a result)
-      gamePractice = gamePlayedToday("findit");
+      /* A same-day replay used to be PRACTICE here — playable, recording nothing — because the rounds are
+         date-seeded and every answer is revealed during play, so a second run is a run with the answers in
+         hand. PAGES.findit now turns that reader away at the door with the other five games, so this page
+         is only ever reached unplayed and the practice branch has gone rather than sitting here unreachable. */
       mgNextEl.addEventListener("click", () => {
         if (gameOver) { route("home"); return; }
         gameRi++;
@@ -18401,7 +18571,12 @@
     if (params && params.focus) focusPlace(params.focus);
   };
   // "Find it" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
-  PAGES.findit = function (root) { PAGES.map(root, { game: true }); };
+  /* The gate goes here rather than inside PAGES.map, which is the whole Atlas and knows nothing about
+     daily games: this is the only route into game mode, so it is the only door to hold. */
+  PAGES.findit = function (root) {
+    if (gameLockedToday(root, "findit")) return;
+    PAGES.map(root, { game: true });
+  };
 
   /* ============================================================
      PAGE: ACCOUNT
