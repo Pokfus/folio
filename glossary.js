@@ -689,7 +689,8 @@ window.GLOSSARY = {
 "Chigi_vase": "The Chigi vase is a Protocorinthian olpe of about 640 BCE, 26.2 centimetres (10 inches) high, painted with three friezes of human figures and among the most ambitious pots made at Corinth.<sup class=\"fn\" data-fn=\"1\"></sup> Its top frieze carries the earliest surviving picture of massed hoplites with a piper beside them, the middle band a lion hunt and a mounted procession, and the lowest a hare hunt, while the Judgement of Paris under the handle is the oldest known picture of that story.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was buried in an Etruscan princely tomb outside Veii, and its warriors carry two spears each, which complicates reading the top frieze as a picture of the phalanx.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Tyrannos": "A tyrannos is a ruler who took sole power in an ancient Greek city outside its ordinary order, and the tyrants of the archaic age resist easy definition.<sup class=\"fn\" data-fn=\"1\"></sup> Tyranny grew out of the crises many cities went through, and a tyrant commonly rose in answer to a local one, often holding an office of the city and acting as its benefactor.<sup class=\"fn\" data-fn=\"1\"></sup> The line between such a ruler and a lawgiver is thin enough to look artificial, both holding unlimited power for a time, and the distinction ancient writers drew between king and tyrant has been read as literary rather than real.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Cypselus": "Cypselus is the man who ended the rule of the Bacchiadae at Corinth and made himself sole ruler of the city, founding a dynasty that is one of the standard examples of archaic tyranny.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Almost everything told of him is legend rather than record: his father Eetion came from outside the Bacchiad clan and his mother was Labda, and the tradition around the family is fictive beyond reasonable doubt.<sup class=\"fn\" data-fn=\"1\"></sup> He is said to have needed neither bodyguard nor mercenaries once the Bacchiadae were gone, though Herodotus has him drive many Corinthians into exile and kill many more.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Periander": "Periander is the second of the Cypselid tyrants of Corinth, the son of Cypselus, and in the tradition that grew up around him one of the Seven Sages.<sup class=\"fn\" data-fn=\"1\"></sup> He faced a generation of nobles who wanted power for themselves and disputed his, and held on to it by keeping a bodyguard and dealing ruthlessly with his enemies, turning the tyranny towards coercion.<sup class=\"fn\" data-fn=\"2\"></sup> The stories told of him are largely invention, among them the consultation of his dead wife's ghost and the parable of the ears of corn, in which the advice to cut down whatever stands tallest is a lesson in reducing one's opponents.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Periander": "Periander is the second of the Cypselid tyrants of Corinth, the son of Cypselus, and in the tradition that grew up around him one of the Seven Sages.<sup class=\"fn\" data-fn=\"1\"></sup> He faced a generation of nobles who wanted power for themselves and disputed his, and held on to it by keeping a bodyguard and dealing ruthlessly with his enemies, turning the tyranny towards coercion.<sup class=\"fn\" data-fn=\"2\"></sup> The stories told of him are largely invention, among them the consultation of his dead wife's ghost and the parable of the ears of corn, in which the advice to cut down whatever stands tallest is a lesson in reducing one's opponents.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Corinth": "Corinth is a Greek city on the Isthmus, lying below Acrocorinth, a rock 575 metres (1,886 feet) high that controlled the road across the Isthmus, the pass south towards Argos and the coastal road west to Sicyon.<sup class=\"fn\" data-fn=\"3\"></sup> Its great archaic building is the temple of Apollo, put up in the middle of the 6th century BCE to replace a destroyed predecessor, with six monolithic columns at each end and 15 along each side, seven of which are standing still.<sup class=\"fn\" data-fn=\"1\"></sup> At the western edge of the walled city the Potters' Quarter worked for three centuries, turning the white marl clay of the place into pots, figurines, painted plaques and votive shields.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1416,7 +1417,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Iron_metallurgy": ["bloomery","iron working","ironworking"],
 "Cremation_burial": ["cremation","urn burial"],
 "Cist_grave": ["cist","cist tomb","slab-built cist"],
-"Kerameikos": ["Kerameikos cemetery","Potters' Quarter"],
+"Kerameikos": ["Kerameikos cemetery"],
 "Dipylon_Amphora": ["Dipylon amphora","Athens 804","Dipylon Master"],
 "Geometric_pottery": ["Geometric style","Geometric ware","Attic Geometric"],
 "Hero_cult": ["hero cults","hero cult at Bronze Age tombs","cult of heroes","heroic cult"],
@@ -1469,7 +1470,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chigi_vase": ["Chigi olpe"],
 "Tyrannos": ["tyrannoi"],
 "Cypselus": ["Kypselos"],
-"Periander": ["Periandros"]
+"Periander": ["Periandros"],
+"Corinth": ["Korinth"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2172,7 +2174,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chigi_vase": ["object","art","warfare","history","greece","archaic"],
 "Tyrannos": ["title","concept","history","greece","archaic"],
 "Cypselus": ["person","ruler","history","greece","archaic"],
-"Periander": ["person","ruler","history","greece","archaic"]
+"Periander": ["person","ruler","history","greece","archaic"],
+"Corinth": ["city","place","history","greece","archaic"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2866,7 +2869,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Chigi_vase": ["Tom Rasmussen, \"Paris on the Chigi Vase,\" <i>Cedrus</i> 1 (2013): 55–64, https://doi.org/10.13113/cedrus/20131675. [Open access]","Thierry Petit, \"Les sphinx sur le Vase François et l'Olpè Chigi : l'héroïsation des élites,\" <i>Mélanges de l'École française de Rome — Antiquité</i> 131, no. 2 (2019), https://doi.org/10.4000/mefra.9092. [Open access]","Wawrzyniec Miścicki, \"Notes on Representations of Hoplites with Double Spears in Archaic Greek Art and the Usage of Javelins and Spears by the Archaic Phalanx,\" <i>Studies in Ancient Art and Civilisation</i> 17 (2013): 113–20, https://doi.org/10.12797/SAAC.17.2013.17.09. [Open access]"],
 "Tyrannos": ["Angela Kühr, review of <i>The Cambridge Companion to Archaic Greece</i>, ed. H. A. Shapiro, Bryn Mawr Classical Review 2008.01.13, https://bmcr.brynmawr.edu/2008/2008.01.13/. [Open access]","Philip Davies, review of <i>The Heroic Rulers of Archaic and Classical Greece</i>, by Lynette Mitchell, Bryn Mawr Classical Review 2014.06.30, https://bmcr.brynmawr.edu/2014/2014.06.30/. [Open access]"],
 "Cypselus": ["Christopher J. Joyce, review of <i>The Tyrants of Corinth: Legends of Cypselus and Periander</i>, by Daniel Ogden, Bryn Mawr Classical Review 2025.02.50, https://bmcr.brynmawr.edu/2025/2025.02.50/. [Open access]","Brian Lavelle, review of <i>Die archaische Tyrannis</i>, by Loretana de Libero, Bryn Mawr Classical Review 1997.07.18, https://bmcr.brynmawr.edu/1997/1997.07.18/. [Open access]","Angela Kühr, review of <i>The Cambridge Companion to Archaic Greece</i>, ed. H. A. Shapiro, Bryn Mawr Classical Review 2008.01.13, https://bmcr.brynmawr.edu/2008/2008.01.13/. [Open access]"],
-"Periander": ["Christopher J. Joyce, review of <i>The Tyrants of Corinth: Legends of Cypselus and Periander</i>, by Daniel Ogden, Bryn Mawr Classical Review 2025.02.50, https://bmcr.brynmawr.edu/2025/2025.02.50/. [Open access]","Brian Lavelle, review of <i>Die archaische Tyrannis</i>, by Loretana de Libero, Bryn Mawr Classical Review 1997.07.18, https://bmcr.brynmawr.edu/1997/1997.07.18/. [Open access]"]
+"Periander": ["Christopher J. Joyce, review of <i>The Tyrants of Corinth: Legends of Cypselus and Periander</i>, by Daniel Ogden, Bryn Mawr Classical Review 2025.02.50, https://bmcr.brynmawr.edu/2025/2025.02.50/. [Open access]","Brian Lavelle, review of <i>Die archaische Tyrannis</i>, by Loretana de Libero, Bryn Mawr Classical Review 1997.07.18, https://bmcr.brynmawr.edu/1997/1997.07.18/. [Open access]"],
+"Corinth": ["American School of Classical Studies at Athens, \"Corinth Monument: Temple of Apollo,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/temple%20of%20apollo. [Open access]","American School of Classical Studies at Athens, \"Corinth Monument: Potters' Quarter,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/potters%27%20quarter. [Open access]","American School of Classical Studies at Athens, \"Corinth Monument: Acrocorinth,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/acrocorinth. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
