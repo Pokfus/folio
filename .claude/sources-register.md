@@ -12967,3 +12967,49 @@ goats. The `Fertile_Crescent` glossary term states it, but **no source in this b
 `larson-2014`'s recorded support is the timing and the count of centres, and its full text is no longer
 reachable to check for more. Adding the list from memory would be the N4 fault. It is the obvious first
 thing to source when an openable copy appears.
+
+---
+
+## Batch W25 — `wh-116` Natufian culture, and the term it needed (2026-08-07)
+
+### Nothing newly opened — five registered sources, all five open, all with `supports:` lines
+`maher-2011` (the Natufian at "c. 14,500–11,600 cal BP" with "sedentism, cemeteries, architecture, food
+production, including animal domestication"), `davin-2026` (the "Late Epipaleolithic Natufian culture
+(15,000 to 11,650 cal yr B.P.)", "a unique transitional entity … [that] marked the beginning of the
+transformation from mobile foraging Paleolithic bands"), `haklay-gopher-2015` ('Ain Mallaha "spanning some
+3,000 years (from ca. 15,000 to 12,000 cal years BP)", "about 2,000 sq m", "a population of 50–100 people",
+and "semi-subterranean curvilinear structures … made of undressed limestone … cutting into the slope and
+building retaining walls"), `groman-yaroslavski-2026` (use-wear on sickle blades from el-Wad Terrace and
+Salibiya I showing "the harvest of semi-ripe and ripe cereals" and "a protracted harvest that begins in
+mid-spring … and continues to the very late spring", ~4.5 millennia before domestication), `santana-2021`
+("straightforward evidence of occupation continuity and growing sedentarization … at 'Ain Mallaha/Eynan",
+with finds stretching from the late Natufian into the Neolithic).
+
+**Fifth batch running with no new reading**, and the deepest yet: six Natufian entries were already in the
+register, enough to choose from rather than merely to fill a list.
+
+### THE TERM DID NOT EXIST, AND THREE SHIPPED CARDS HAD BEEN NAMING IT
+`Natufian_culture` is new. `wh-112` and `wh-115` both shipped earlier today using the word, and **neither
+linked**, because there was nothing to link to — the same silent gap as `New_Guinea` in W18, found the same
+way, by reading the rendered ttip list. Both were re-rendered after the term was added and both now resolve;
+`wh-116` correctly does not link its own answer.
+
+### THE DATE BRACKET DISAGREES BETWEEN SOURCES AND THE CARD SAYS SO
+`maher-2011` gives the Natufian as c. 14,500–11,600 cal BP and `davin-2026` gives 15,000–11,650; the
+'Ain Mallaha occupation runs 15,000–12,000 on `haklay-gopher-2015`. The card leads with **14,500–11,600**
+to match `wh-112` and `wh-115`, which already shipped with it, and **states the wider bracket in the prose
+as one study's** rather than silently averaging them or quietly switching. That is C1's read-both rule in a
+new place: **two open sources differing by a few centuries is a fact about the field, not an error to
+resolve**, and the sibling that shipped first sets the headline figure.
+
+### WRITING PAST TWO NEIGHBOURS AGAIN
+`wh-112` and `wh-115` had each already used the Natufian's sedentism-before-farming, and `wh-112` has the
+'Ain Mallaha dog. So this card spends its length on what neither has: **the village itself** — its size,
+its population estimate and how its houses were built — and **the sickles**, which are the sharpest single
+fact in the whole Neolithic-transition run: cereals reaped through a worked spring some 4,500 years before
+those cereals were domesticated. The dog is deliberately absent for the second batch running.
+
+### The word floor again, and the same cause
+264 against a 270 floor on the first count — **second batch running, and both were cards written to avoid a
+neighbour's ground.** Lengthened from the sources: the two sickle sites from `groman-yaroslavski-2026` and
+the divergent bracket from `davin-2026`, which is a real fact the card was better for stating. 285 after.
