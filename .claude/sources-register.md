@@ -11709,3 +11709,72 @@ membership, and where the boundary is argued. The overlap is one figure, the 15�
 card uses to a different end. The glossary's `Hominini` already existed and is cited at the bar, so **no
 new term was written** — the card's answer resolves to it through its `hominin` alias, and the
 answer-term suppression was checked on the rendered page rather than assumed.
+
+## Batch W3 — `wh-006` Sahelanthropus, and a STALE ID in `card-focus.js` (2026-08-07)
+
+### The card
+The first card on this shelf whose subject is genuinely unresolved, so the honest version says so rather
+than asserting bipedalism. `card-focus.js` measures it at **historio 0 of 10** and no researcher named in
+any of its three questions — the dispute is carried as a fact about the FOSSIL ("the limb bones sit closest
+to chimpanzees"), never as a roll-call of who argues what.
+
+### Newly opened
+
+- Australian Museum, "<i>Sahelanthropus tchadensis</i>," accessed 7 August 2026, https://australian.museum/learn/science/human-evolution/sahelanthropus-tchadensis/. [Open access]
+  - opened: 2026-08-07 · the museum's species page
+  - supports: named and announced in 2002; the nickname "Toumaï" meaning "hope of life"; the genus name
+    from "Sahel" plus Greek *anthropus*, the species name for Chad; "All fossils come from Toros-Menalla
+    in Chad's Djurab desert"; "Brain size is estimated at about 320-380cc (similar to that of a
+    chimpanzee)"; "relatively small canine and incisor teeth"; "a large brow ridge (a presumed male
+    trait) unlike any of those in the australopithecines"; and — the hedge the card needs — "This species
+    position is highly debated. Does it belong on our family tree or is it an ancestor of a gorilla or
+    chimpanzee?"
+  - used by: wh-006, Sahelanthropus (glossary)
+- Anne-Elisabeth Lebatard et al., "Cosmogenic Nuclide Dating of <i>Sahelanthropus tchadensis</i> and <i>Australopithecus bahrelghazali</i>: Mio-Pliocene Hominids from Chad," <i>Proceedings of the National Academy of Sciences</i> 105, no. 9 (2008): 3226–31, https://pmc.ncbi.nlm.nih.gov/articles/PMC2265126/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` is 403 here, as N1 recorded). **The PMCID was
+    resolved through the Europe PMC search endpoint rather than guessed** — N1's rule, after a guessed one
+    returned a paper on stress in mice
+  - supports: "28 10Be/9Be ages obtained within the anthracotheriid unit containing Toumaï" bracketing "the
+    age of *Sahelanthropus tchadensis* to lie between 6.8 and 7.2 Ma"; the weighted mean "7.04 ± 0.18 Ma";
+    the TM 266 locality in "the Toros-Menalla fossiliferous area"
+  - used by: wh-006, Sahelanthropus (glossary)
+- Scott A. Williams et al., "Earliest Evidence of Hominin Bipedalism in <i>Sahelanthropus tchadensis</i>," <i>Science Advances</i> 12, no. 1 (2026): eadv0130, https://pmc.ncbi.nlm.nih.gov/articles/PMC12758524/. [Open access]
+  - opened: 2026-08-07 · full text via PMC, and then **opened a SECOND time with a sharper question**,
+    because the first read could not separate what these authors conclude from what they attribute to the
+    2022 describers. That distinction is the whole value of the paper here and would have been easy to get
+    backwards
+  - supports, in the authors' own voice: "Our results suggest that *Sahelanthropus* was an early biped
+    that evolved from a *Pan*-like Miocene ape ancestor"; "Both limb bones are most similar in size and
+    geometric morphometric shape to chimpanzees (genus *Pan*)"; and the state of the field — "polarized
+    and somewhat contradictory, with one team promoting limited evidence for bipedalism and probable
+    status as the earliest hominin, while another camp has dismissed the evidence for bipedalism and
+    questioned the hominin status of *Sahelanthropus*"
+  - attributes to others (NOT this paper's own finding): the gluteal-complex, shaft-shape and femoral-neck
+    readings, which are the 2022 describers'. The card credits neither team by name and claims only that
+    the femur "has been read as" showing a walker's hip and knee
+  - used by: wh-006, Sahelanthropus (glossary)
+
+### Reused
+- `si-sahelanthropus` (opened in W2) — the forward foramen magnum, 7–6 Ma, Chad, the chimp-sized brain.
+- `cela-conde-ayala-2003` — *Sahelanthropus* placed *incertae sedis*, re-read in W2 and used here for the
+  same claim the W2 entry records.
+
+### Not cited, and why
+- **Daver et al. 2022** (*Nature*) is the primary description of the femur and ulnae and would be the
+  landmark citation, but `nature.com` is 403 here (N1) and no open deposit was found. The Williams 2026
+  paper carries what the card needs, in an openable venue, **and characterises the dispute from outside
+  it** — which is better for a card that must not take a side.
+- **Macchiarelli / Cazenave et al.** on the other side of the argument: `hal.science` is Anubis-walled on
+  both the record and the file path (N1, and batch 21 before it), and `researchgate.net` is not a source.
+  The card therefore states the *existence* and *shape* of the disagreement from Williams 2026's own
+  summary of it, rather than citing one camp and not the other.
+
+### The tooling fix
+`.claude/card-focus.js`'s `EXEMPT` list was keyed **`wh-006`: "the three-age system"** — that card's id
+BEFORE the 2026-08-04 renumbering, which moved the three-age system to `wh-002` and handed `wh-006` to
+Sahelanthropus. So it exempted the wrong card in both directions. It changed no verdict today (`wh-002`
+measures historio 1 and passes on its own), which is exactly why it could sit there unnoticed.
+**The register is a LOG and is deliberately left in the old numbering; `card-focus.js` is a LIVE MEASURE
+and is not** — a stale id there silently exempts whatever card inherits the number. `wh-064` and `wh-106`
+were checked at the same time and are correct. Whole-deck sweep after the fix: 92 cards, 0 failing either
+rule.
