@@ -12168,3 +12168,63 @@ its register entry records; the list is 4 open to 1.
 `villa-2012`'s entry says "used by: wh-054". Under the current numbering `wh-054` is *Hunter-gatherer* and
 carries none of it — the line is pre-renumbering, which is what this file is deliberately left in. Recorded
 so the next reader does not take it for a fault.
+
+## Batch W11 — `wh-062` shell beads, and TWO GLOSSARY MIS-LINKS FOUND (2026-08-07)
+
+### The card
+`Shell_bead` is new and ships cited. Five citations, four open to one paywalled. Its spine is the
+Misliya/Qafzeh contrast, which is what turns "the oldest ornament" into an argument: at Misliya the shells
+carry no trace of handling at all, so they were gathered; at Qafzeh they are pierced and show the polish of
+one valve rubbing against the next on a string, so they were worn.
+
+### Newly opened
+- Daniella E. Bar-Yosef Mayer et al., "On Holes and Strings: Earliest Displays of Human Adornment in the Middle Palaeolithic," <i>PLOS ONE</i> 15, no. 7 (2020): e0234924, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0234924. [Open access]
+  - opened: 2026-08-07 · publisher HTML (the register's own entry already carries this URL because N1
+    guessed a PMCID for this very paper and got one about stress in mice)
+  - supports: Misliya "dated to between ca. 240,000 and 160,000 years ago" with "no traces that reflect
+    human manipulation"; Qafzeh's "fine striations near the hole" and "polish patches produced by
+    valve-to-valve contact… arranged on a string"; *Glycymeris*; and the argument the card opens on — that
+    shells "must not only have a symbolic meaning understood among different groups, they must also be
+    displayed in a way that is clearly visible to others"
+  - used by: wh-062, Shell_bead (glossary)
+
+Reused for the claims the register records: `bouzouggar-2007` (Taforalt, 82 ka, suspension wear, red
+ochre), `derrico-backwell-2016` (the Border Cave infant and its perforated *Conus*, the card's only
+paywalled source), `campmas-2026` (Aterian *Tritia* beads) and `derrico-2021` (the Zhoukoudian Upper Cave
+ornaments, and the three badger canines sewn onto clothing).
+
+## TWO MIS-LINKS, and the trap behind them
+
+Reading the rendered card turned up **"polish" linking to POLAND** — the noun meaning sheen, matched
+against the country's `Polish` alias. Sweeping for the same shape then turned up a **live one on already
+shipped content**: the Greek word *laos*, "people", in `gr-079 Lawagetas` and in the `Lawagetas` glossary
+term, **linking to Laos in Southeast Asia**. Both are fixed by adding the country to
+`GLOSSARY_CASESENSITIVE`, which is exactly what that table is for and where `Turkey` already sits.
+
+**The trap is in `isProperCS`**, which decides whether a surface matches case-sensitively:
+
+    function isProperCS(surface) { return /[A-Z]/.test(String(surface || "").slice(1)); }
+
+It tests for a capital **after the first character**, so it catches `Border Cave` and `Homo erectus` and
+does **not** catch a single capitalised word. Every one-word proper noun is therefore matched
+case-insensitively unless it is flagged by hand — which is why `Turkey` and `Boreal` are already on the
+list, and why this class of fault recurs rather than being fixed once.
+
+**What the fix does and does not cost**, measured on the page rather than assumed:
+
+| surface | before | after |
+|---|---|---|
+| `polish` (sheen) | linked to Poland | no link |
+| `Polish` (of Poland — `Latvia`, "after Polish, Swedish and Russian rule") | linked | **still links** |
+| `Polish` inside "Polish-Lithuanian Commonwealth" (`Belarus`) | linked | no link — correct, it is a fragment of a compound name |
+| `laos` (Greek) | linked to Laos | no link |
+| `Laos` (the country) | linked | still links |
+
+**A mechanical sweep cannot find the rest of this class.** Running one over every single-word surface whose
+lowercase form appears in shipped prose returns **64 terms, and the overwhelming majority are correct** —
+`ochre`, `bronze`, `flint`, `knapping`, `genus`, `mammoth` are common nouns whose keys are capitalised only
+because slugs are, and linking them lowercase is the wanted behaviour. Only a HOMOGRAPH is a fault, and
+telling the two apart is a judgement about meaning. So the honest statement is: two found, two fixed, and
+the list stays hand-maintained. **The way they surface is reading a rendered card's link list** — which is
+the golden rule's "it isn't finished until it's been looked at" earning its keep for the second time in
+this run.
