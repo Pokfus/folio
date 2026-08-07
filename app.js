@@ -7343,22 +7343,48 @@
      isImperialParen: the bracket must be measurement-shaped ALL THROUGH (numbers, joining words and
      imperial units and nothing else), must carry a number, and must carry a STRONG imperial unit — `in`
      and `mi` are allowed as fillers inside a `4 ft 11 in` but never qualify a bracket on their own, or
-     "(in 1920)" would read as a measurement. Verified over the whole corpus: 341 fields transform, no
-     imperial bracket is missed and no other bracket is touched. */
+     "(in 1920)" would read as a measurement.
+
+     THAT ALL-THROUGH TEST IS THE PART THAT ROTS, and it fails SILENTLY in the direction nobody checks
+     (Aug 2026). A word the filler list has never heard of makes the whole bracket "not a measurement",
+     so it is left alone — which is indistinguishable, to every test here, from a bracket correctly left
+     alone. 30 sites shipped that way: `by` (a plan or a court, "54 by 27 metres (177 by 89 feet)"),
+     `square` and `cubic` (a qualifier standing between the number and its unit). A metric reader saw the
+     conversion they had asked not to see and an imperial reader saw metres. All three words are fillers
+     now, `by` is a JOIN as well, and U_CONV_RX's gap admits a dimension qualifier.
+     **test-units.js cannot catch this class on its own** — its classifier IS isImperialParen, so a
+     bracket the classifier rejects is filed as an ordinary bracket correctly untouched. What catches it
+     is the independent word sweep the test now carries: every word appearing inside a bracket that holds
+     a number AND an imperial unit must be one the engine knows. Verified over the whole corpus: 447
+     fields transform (up from 436), 30 brackets are newly recognised and every one is a real
+     measurement, none lost its classification, and the 12 fields that changed all changed correctly. */
   const UNIT_SYSTEMS = ["metric", "imperial"];
   const U_NW = "(?:\\d[\\d.,]*|a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)";
   const U_NUM = "(?:" + U_NW + "(?:\\s+(?:hundred|thousand|million|billion))?)";
-  const U_JOIN = "(?:\\s*(?:–|—|-|,)\\s*|\\s+(?:to|and|or)\\s+)";
+  // `by` joins the two figures of a plan or a court ("54 by 27 metres"), so the run has to survive it or
+  // U_CONV_RX starts at the SECOND number and imperial mode renders "54 by 177 by 89 feet"
+  const U_JOIN = "(?:\\s*(?:–|—|-|,)\\s*|\\s+(?:to|and|or|by)\\s+)";
+  // a dimension qualifier standing between the number and its unit ("7,600 square metres", "129 cubic
+  // kilometres"); the gap group is otherwise whitespace-only, which is what made those brackets invisible
+  const U_DIM = "(?:square|cubic|sq|cu)";
   // longest-first, and the lookahead rather than \b so `km²` (a non-word character) and the bare `m` / `g`
   // abbreviations both terminate correctly
   const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|kg|ha|°C|m|g)(?![A-Za-z²])";
-  const U_FILL = "(?:and|or|to|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|-|,|/|\\s)";
+  // the dashes include U+2212 MINUS SIGN, which is what a sub-zero temperature is written with and is not
+  // any of the three dashes beside it — "(−129 °F)" was the fourth unseen shape
+  const U_FILL = "(?:and|or|to|by|square|cubic|sq|cu|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
   const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
   const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
   const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
   const U_HAS_NUM_RX = /\d|\b(?:a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)\b/i;
-  const U_CONV_RX = new RegExp("(" + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)([\\s-]*)(" + U_METRIC + ")(\\s*)\\(([^()]{1,90})\\)", "gi");
-  const U_BARE_RX = new RegExp("(" + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)(\\s*)\\(([^()]{1,90})\\)", "gi");
+  /* The leading sign has to be CONSUMED, not merely tolerated: left outside the match it survives the
+     replacement while the bracket supplies its own, and "−89.2 °C (−129 °F)" renders in imperial as
+     "−−129 °F". U+2212 only, deliberately — a hyphen or an en dash in that position is a range separator
+     ("10–7 kilometres"), and swallowing one would take the first figure of the range with it. */
+  const U_SIGN = "−?";
+  const U_RUN = "(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
+  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")(\\s*)\\(([^()]{1,90})\\)", "gi");
+  const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
   function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
   // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match

@@ -395,9 +395,9 @@ out-of-copyright Loebs are all open.
     gr-181  Phalanx
     gr-182  Aspis
     gr-183  Corinthian helmet
-    gr-184  The hoplite reform debate
+    gr-184  Hoplite reform
     gr-185  Chigi Vase
-    gr-186  Archaic tyranny
+    gr-186  Tyrannos
     gr-187  Cypselus
     gr-188  Periander
     gr-189  Archaic Corinth

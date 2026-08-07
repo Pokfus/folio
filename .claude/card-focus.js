@@ -38,6 +38,7 @@ const dataPath = path.join(__dirname, "..", "data.js");
 const EXEMPT = {
   "gr-007": "Arthur Evans — a biography of an excavator",
   "gr-075": "the decipherment of Linear B — a modern act",
+  "gr-184": "the hoplite reform — a modern theory about the past, argued over since the 19th century",
   "wh-006": "the three-age system — a 19th-century idea",
   "wh-064": "Toba catastrophe theory — a named modern theory",
   "wh-106": "Blytt–Sernander scheme — a 19th-century scheme",
