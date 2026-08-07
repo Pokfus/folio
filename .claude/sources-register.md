@@ -13013,3 +13013,60 @@ those cereals were domesticated. The dog is deliberately absent for the second b
 264 against a 270 floor on the first count — **second batch running, and both were cards written to avoid a
 neighbour's ground.** Lengthened from the sources: the two sickle sites from `groman-yaroslavski-2026` and
 the divergent bracket from `davin-2026`, which is a real fact the card was better for stating. 285 after.
+
+---
+
+## Batch W26 — `wh-117` Domestication, and the term it needed (2026-08-07)
+
+### Newly opened for this batch — the first new reading in six batches
+
+**`wilkins-2014`** — Adam S. Wilkins, Richard W. Wrangham and W. Tecumseh Fitch, "The 'Domestication
+Syndrome' in Mammals: A Unified Explanation Based on Neural Crest Cell Behavior and Genetics",
+*Genetics* 197, no. 3 (2014): 795–808. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route (`isOpenAccess: Y`)
+- supports: that domesticated mammals possess "a distinctive and unusual suite of heritable traits not seen
+  in their wild progenitors", noticed by Darwin; the trait list — "increased docility and tameness, coat
+  color changes, reductions in tooth size, changes in craniofacial morphology, alterations in ear and tail
+  form (e.g., floppy ears), more frequent and nonseasonal estrus cycles … prolongations in juvenile
+  behavior, and reductions in both total brain size and of particular brain regions"; and that domesticated
+  birds and fish "share some components of this spectrum", which is why the suite is read as a property of
+  the process rather than of a lineage
+- **the neural-crest hypothesis the paper is FOR is deliberately not on the card**: it is the authors'
+  proposal, not an established result, and the card uses only the pattern it sets out to explain.
+
+**`cao-2026`** — Yu Cao, Jianbing Yan, Jeffrey Ross-Ibarra and Ning Yang, "Plant Domestication Revisited:
+Genomic Insights into Origins, Mechanisms, and Convergent Evolution", *iScience* 29, no. 1 (2026): 114062.
+[Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: that domestication "is typically a protracted process, shaped more by unconscious selection
+  than intentional breeding"; the estimate of "1,000–2,500 semi- and fully domesticated plant species from
+  about 120 to 160 taxonomic families"; the plant syndrome — "loss of seed shattering, increased seed size,
+  reduced branching, diminished outcrossing, decreased seed dormancy, altered flowering time, and improved
+  harvestability"; and that crops "from geographically and genetically distinct centers" share that suite,
+  with similar genes underlying convergent evolution
+
+### THE SEARCH THAT NEARLY FAILED, and what fixed it
+A keyword search on "domestication syndrome" in Europe PMC returns **twenty papers on the genomics of
+individual species** — Yantai black pigs, ponies, common carp, budding yeast — and not one general
+treatment. Europe PMC is a life-sciences index and ranks by recency and match, so a CONCEPT card searched
+by keyword gets the field's current output rather than its foundations. What worked was **searching by the
+exact title of the paper you already expect to exist**: three tried, two resolved. `zeder-2015` ("Core
+questions in domestication research") is the third and its full text **404s**. The general lesson for
+concept cards: **name the canonical work and look it up; do not describe the subject and hope.**
+
+### Reused, from the register
+`larson-2014` (the 12,000–11,000 timing and the eleven centres — cited **[Paywalled]** again, per W24),
+`groman-yaroslavski-2026` (cereals reaped ~4.5 millennia before domestication, which is the card's evidence
+that using and altering a species are separated by millennia), `fuller-stevens-2019` (where it led).
+
+### THE CARD IS THE CONCEPT, BECAUSE THE NEXT FOUR CARDS ARE THE INSTANCES
+`wh-118` founder crops, `wh-119` cereals, `wh-120` animals, `wh-121` the dog all follow. So this card
+carries only what is true of domestication AS SUCH — that it is protracted, unconscious, convergent, and
+leaves the same marks on unrelated organisms — and names no individual species being domesticated. That
+restraint is what leaves the next four cards anything to say.
+
+### An alias worth watching
+`Domestication` takes **"domesticated"**, which fires on the adjective throughout the corpus. Checked by
+re-rendering: `wh-111` and `wh-116` now link it correctly, and `wh-117` suppresses it as its own answer.
+It is a wide alias and it is right — every occurrence means this concept — but it is the kind that should
+be re-checked if a future term ever wants the word.
