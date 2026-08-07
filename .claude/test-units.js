@@ -165,6 +165,51 @@ async function shown(page, html) {
       check("the whole corpus transforms", fields > 200, fields + " fields");
       check("...with no imperial bracket left behind", missed.length === 0, missed.slice(0, 4).join(" | "));
       check("...and no other bracket taken", eaten.length === 0, eaten.slice(0, 4).join(" | "));
+
+      /* THE INDEPENDENT SWEEP, and it is the only one here that can catch a bracket the engine does not
+         RECOGNISE (Aug 2026). Every check above asks isImperialParen, so a bracket it rejects is filed as
+         an ordinary bracket correctly left alone and all three pass — which is how `by`, `square` and
+         `cubic` shipped unseen across 30 sites. This one decides what a measurement is WITHOUT the engine:
+         a bracket holding a digit and a strong imperial unit is one, and the engine must agree. */
+      const STRONG = /(?:^|[^A-Za-z])(?:miles?|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)(?![A-Za-z])/i;
+      const unknown = [];
+      const sweep = (s, where) => {
+        if (typeof s !== "string" || s.indexOf("(") < 0) return;
+        (strip(s).match(/\([^()]{1,90}\)/g) || []).forEach((p) => {
+          const inner = p.slice(1, -1);
+          if (/\d/.test(inner) && STRONG.test(inner) && !U.isImperialParen(inner)) unknown.push(where + " " + p);
+        });
+      };
+      (win.CARD_DATA || []).forEach((c) => {
+        ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => sweep(c[f], c.id + "." + f));
+        (c.questions || []).forEach((q, i) => sweep(q, c.id + ".q" + (i + 2)));
+      });
+      Object.keys(win.GLOSSARY || {}).forEach((k) => sweep(win.GLOSSARY[k], "gloss:" + k));
+      check("...and every measurement-looking bracket is one the engine RECOGNISES",
+        unknown.length === 0, unknown.length ? unknown.length + " unseen: " + unknown.slice(0, 4).join(" | ") : "swept independently of isImperialParen");
+
+      /* The three shapes that were unseen, pinned by hand in BOTH directions — a `by` run especially,
+         since without `by` in U_JOIN the match starts at the second number and imperial mode renders
+         "54 by 177 by 89 feet", which is worse than not transforming at all. */
+      [
+        ["a court, joined by `by`", "a central court 54 by 27 metres (177 by 89 feet).", "a central court 54 by 27 metres.", "a central court 177 by 89 feet."],
+        ["an area, qualified `square`", "covers some 7,600 square metres (81,800 square feet),", "covers some 7,600 square metres,", "covers some 81,800 square feet,"],
+        ["a volume, qualified `cubic`", "may reach 117 to 129 cubic kilometres (28 to 31 cubic miles),", "may reach 117 to 129 cubic kilometres,", "may reach 28 to 31 cubic miles,"],
+        ["a `square` abbreviation unit", "reckoned at some 25,000 km² (9,700 square miles) and", "reckoned at some 25,000 km² and", "reckoned at some 9,700 square miles and"],
+        // the sign must be CONSUMED, not merely tolerated — left outside the match it survives while the
+        // bracket supplies its own, and this rendered "−−129 °F" for an hour while the fix was being made
+        ["a signed temperature, once", "a low of −89.2 °C (−129 °F) there", "a low of −89.2 °C there", "a low of −129 °F there"],
+        // ...and the sign is U+2212 alone: a dash HERE is a range separator, and swallowing one would take
+        // the opening figure of the range with it
+        ["a range dash is not a sign", "a hollow 10–7 kilometres (6 by 4 miles) across", "a hollow 10–7 kilometres across", "a hollow 6 by 4 miles across"],
+        ["a hyphenated conversion still works", "a 175-metre (574-foot) drop", "a 175-metre drop", "a 574-foot drop"],
+        ["the shared-unit pair still works", "averaging 151 centimetres (4 ft 11 in) and females 105 (3 ft 5 in).", "averaging 151 centimetres and females 105.", "averaging 4 ft 11 in and females 3 ft 5 in."],
+        ["and an ordinary bracket is still safe", "in the 1920s (about 30 years later)", "in the 1920s (about 30 years later)", "in the 1920s (about 30 years later)"],
+        ["...as is a dated aside", "Ephorus (a 4th-century historian) says", "Ephorus (a 4th-century historian) says", "Ephorus (a 4th-century historian) says"],
+      ].forEach(([label, input, wantMetric, wantImperial]) => {
+        const gotM = U.unitizeText(input, false), gotI = U.unitizeText(input, true);
+        check(label, gotM === wantMetric && gotI === wantImperial, gotM === wantMetric && gotI === wantImperial ? "" : "metric=" + gotM + "  imperial=" + gotI);
+      });
     }
   }
 

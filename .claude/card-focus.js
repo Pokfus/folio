@@ -38,6 +38,7 @@ const dataPath = path.join(__dirname, "..", "data.js");
 const EXEMPT = {
   "gr-007": "Arthur Evans — a biography of an excavator",
   "gr-075": "the decipherment of Linear B — a modern act",
+  "gr-184": "the hoplite reform — a modern theory about the past, argued over since the 19th century",
   // Was keyed "wh-006" — the three-age system's id BEFORE the 2026-08-04 renumbering, which moved it to
   // wh-002 and gave wh-006 to Sahelanthropus. So this list exempted the wrong card in both directions
   // until 2026-08-07. Unlike `.claude/sources-register.md`, which is a LOG of past work and is

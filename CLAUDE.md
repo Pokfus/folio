@@ -90,7 +90,55 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently twenty-four:
+  matter (chapter 0 — see the Library bullet). Currently twenty-seven:
+  `prose-edda` (~339 KB, the Prologue, Gylfaginning and Skáldskaparmál as **3 chapters**, 132 section
+  numbers, 177 notes — and the book that separates THE TAB from THE CITATION most sharply. Each of the
+  work's three parts restarts its chapter numbering at 1, so making the numbered chapter the tab would
+  mean renumbering 133 of them into one run and turning "Gylfaginning 44" into tab 50. The part is
+  therefore the chapter and the work's own chapter numbers are the SECTIONS — Herodotus's shape, chosen
+  for the citation rather than for the arithmetic, and the cost is three long chapters that are within
+  precedent rather than at it (173,000 characters against Herodotus's longest at 199,000).
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** `count` 3 against `total` 4 is the EDITION and not the
+  file: Háttatal is Snorri's own praise-poem demonstrating a hundred-odd metres, the least translatable
+  part of the book, and the 1916 volume's own contents page lists three parts and stops — read off that
+  page rather than inferred from the subpages that happen to exist. **A NUMBER CAN BE ROMAN AND WEAR TWO
+  COSTUMES IN ONE VOLUME**: Gylfaginning and Skáldskaparmál set a bold numeral WITH a stop run into the
+  first sentence, and the Prologue sets a CENTRED numeral with NO stop standing alone as its own block —
+  hence the seventh section shape, `sections: "edda"`, matching both in one sweep in reading order for
+  the Meditations' reason (run as two passes the first reaches 74 and the forward-only guard then
+  declines every one of the Prologue's). **And the Prologue's first chapter carries NO numeral, so none
+  is written**: checked on the scan, which sets the heading and then a drop-capital, so that tab's marks
+  run from II and the front matter says why. Composing a "1" would be composing an apparatus.
+  Its verse is the other lesson and it was found by LOOKING: Snorri quotes skaldic stanzas as evidence,
+  hundreds of them, and this transcription sets them as `<dl><dd>` lines that `stripTags` unwraps into
+  run-on prose — on a book arguing about how verse lines are built, the one thing that must not happen.
+  Nothing threw, no word was lost and every count read healthy; see `verseFromLists`, and note that
+  these lists NEST two deep, so a non-greedy `<dl>…</dl>` pair closes on the inner tag and leaves 34
+  unclosed blockquotes in one chapter),
+  `book-of-documents` (~444 KB, the whole of the received Shû — **59 chapters**, 169 section numbers,
+  283 notes — and the first book here whose CHAPTER IS PRINTED ACROSS MORE THAN ONE WIKI PAGE. Every
+  earlier wiki book is one page to one chapter; where Legge prints a book in sections, Wikisource gives
+  each section a page of its own and leaves the book's HEADNOTE — and at the head of a Part his
+  introduction to the whole Part — on the book's own page, which carries no body text. So `page(n)` may
+  return an ARRAY and the pages are cleaned in order and joined, with each later page's `data-fn` offset
+  by the notes already gathered (measured: the four pages joined here carry no notes, so the offset is
+  provably zero today, and it is written anyway because a silent mis-numbering is what this file keeps
+  finding). **THREE THINGS IT SETTLED ARE WORTH CARRYING.** The tabs count **59 where the Shû is
+  traditionally counted at 58 documents**, and the difference is a printing fact rather than an error:
+  Legge sets the Tribute of Yü in two sections that EACH restart their paragraph count at 1, so joining
+  them would put two paragraphs numbered 1 in one chapter — the edition's own division is followed and
+  the front matter says why, which is Beowulf's missing fitt XXX again. **A NUMBER'S MARKUP MATTERS LESS
+  THAN ITS WRAPPER**: this transcription writes Legge's paragraph numbers two ways, as plain text and as
+  an anchor span carrying the citation as its id, and by the time the section pass runs `stripTags` has
+  unwrapped the anchor so both have collapsed to the same plain "N." — the anchored form costs nothing,
+  which is the opposite of what it looks like. What DOES cost is that **MediaWiki only wraps a run of
+  text in `<p>` where the wikitext had a blank line before it**, so a document whose first paragraph
+  follows its headnote directly arrives as a BARE RUN: `markLeadingSections` finds 167 of the 169 and the
+  two it misses are the FIRST number of the Count of Wei and of the Announcement of the Duke of Shâo,
+  each of which would ship numbered from 2 with every word present and nothing throwing — hence the sixth
+  section shape, `sections: "shu"`. And **ELEVEN of the 59 carry no numbers at all**, which is the
+  edition rather than the extractor: they are the short documents Legge did not number, recorded rather
+  than repaired),
   `beowulf` (~264 KB, all 42 chapters, **636 line numbers**, 310 notes — and the first book here whose
   CHAPTER and whose PAIRING UNIT are two different things on purpose. Every earlier book pairs on a unit
   its editions divide into; Beowulf's editions divide into fitts, but a fitt is 50–140 lines, so pairing
@@ -327,9 +375,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty-four books, nineteen originals**: the Republic, Aesop's Fables and Gilgamesh have none, and the reason
-  differs — the next paragraph's rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns,
-  while Gilgamesh fails a step earlier, there being no settled original text to face.
+  **Twenty-seven books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Prose Edda, Lysistrata and Shakuntala have none, and the reason differs — the
+  next paragraph's
+  rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
+  earlier, there being no settled original text to face.
+  **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
+  exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
+  to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
+  every point sampled. What blocks it is the LICENCE. A medieval text has to be edited from its manuscripts
+  before anyone can read it, and an editor's constituted text is a modern work with a modern copyright: the
+  only openly transcribed Old Norse Edda is Guðni Jónsson's (1901–1974), in copyright until 2044 and carried
+  on Wikisource by permission from heimskringla.no rather than because the copyright has run out, which is
+  not the ground this library serves books on. An edition whose copyright HAS expired would serve — Finnur
+  Jónsson's, or the Arnamagnæan of 1848–87 — and none is transcribed on any Wikisource, on Perseus or
+  anywhere else reachable (checked on the multilingual, Danish, Norwegian, German and Swedish Wikisources;
+  only the German has anything, and that is Simrock's German verse of 1876, not the Old Norse). So the shelf
+  now has three: one column silent (the Republic, fixable by a better transcription), both columns silent
+  (Aesop, not fixable at all), and **a column that speaks and may not be quoted** — which puts it with the
+  Loeb Republic that keeps Plato's Republic out of the Dialogues. Its Skáldskaparmál would have failed
+  anyway, and that is worth knowing before anyone retries: 74 chapters against 89, already apart by chapter
+  20 and about sixteen apart by the end, so pairing that part by number would set passages beside passages
+  that are not their counterparts. **Ask what a medieval original's EDITOR died, not only how old the work
+  is.** **The Book of Documents is the case where the
+  CHAPTER pairing is exact and the level below it has no key at all**: Chinese Wikisource carries every one
+  of the received 58 documents, so chapter for chapter the two columns match, but Legge numbers his
+  paragraphs and that transcription numbers nothing, and pairing by POSITION — the approach abandoned for
+  the Meditations' Greek — puts the two divisions together in only 8 of the 58. Measured, not assumed.
   **THE ONE QUESTION THAT DECIDES WHETHER A BOOK CAN HAVE AN ORIGINAL AT ALL** is not "does a text of it
   exist?" but **"does that text say which section each passage is?"** — because app.js pairs the two columns
   on the section NUMBER, never on paragraph or list order. **And the number need not be the unit the
@@ -768,6 +840,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     chapter by the caller): a page transcluding the wrong book announces itself instead of silently
     filing 146 chapters under Book 2. No `data-n` is written — these numbers are integers, and app.js
     reads the marker's own text where the attribute is absent.
+  · **`sections: "shu"`** — THE SIXTH WAY, and the first whose difficulty is the WRAPPER rather than the
+    markup (Aug 2026, adding the Book of Documents). Legge numbers his paragraphs, and this transcription
+    writes the number two ways: as plain text at the head of a paragraph, and as an ANCHOR SPAN carrying
+    the citation as its id, because the volume's contents page links into some paragraphs and not others.
+    **That second form costs nothing**, which is the opposite of what it looks like: `stripTags` runs
+    BEFORE the section pass, so by then the anchor is unwrapped and both forms are the same plain "N.".
+    What does cost is that **MediaWiki only wraps a run of text in `<p>` where the wikitext had a blank
+    line before it**, so a document whose first paragraph follows its headnote directly arrives as a bare
+    run with no tag round it — the Art of War's `wrapBareRuns` trap in another edition. Measured over the
+    whole book: `markLeadingSections`, anchored to `<p>`, finds 167 of the 169 numbers, and the two it
+    misses are the FIRST number of two documents, each of which would ship numbered from 2 with every word
+    present and nothing throwing. So the pass matches a paragraph head OR a number opening a bare run
+    where a block has just closed, in ONE regex scanned in reading order — the Meditations' rule, since
+    two passes leave the counter at the end of the document and the forward-only guard then declines
+    everything the second finds.
+  · **`dropAuxToc`** — Wikisource's own auxiliary contents block (`wst-auxtoc`), which falls INSIDE
+    `prp-pages-output` on a book page whose sections have pages of their own, and which the generic div
+    pass would otherwise render as two quotations reading "Sections (containing the body text)" and
+    "Section 1 Section 2 Section 3". Keyed on the wiki's own class rather than on its wording, like the
+    `ws-noexport` rule, removed with a BALANCED match because it nests, and gated per book so it is
+    provably inert on everything already shipped.
+  **A CHAPTER MAY BE PRINTED ACROSS SEVERAL WIKI PAGES, and `page(n)` may return an ARRAY** (Aug 2026,
+  same book). Every earlier wiki book is one page to one chapter. Where Legge prints a book in sections,
+  Wikisource gives each section its own page and leaves the book's headnote — and at the head of a Part
+  his introduction to the whole Part — on the book's page, which carries no body text at all: fetching
+  only the sections drops that prose on the floor, and giving it a chapter of its own puts an empty tab
+  on the bar, since one of those four pages carries a title and nothing else. The pages are cleaned in
+  order and joined, and **each later page's `data-fn` is offset by the notes already gathered** — the
+  Seneca lesson (a marker must carry the note it points AT) applied across a join. Returning a string
+  still means what it always did, so no shipped book's config is touched, and both a wiki book and a TEI
+  book were re-run and diffed **byte-for-byte** to prove it. **The "no section numbers" warning became a
+  property of the CHAPTER rather than of the page at the same time**: on a multi-page chapter the
+  per-page one fires on the headnote page whether or not the sections that follow are numbered, which is
+  three false alarms out of four — and a warning that cries wolf is one nobody reads.
   **AND THE TWO COLUMNS MAY COME FROM DIFFERENT KINDS OF SOURCE**, which is the same book's other first.
   `fetchOriginal`'s `chaptered` branch reconciles the original against the ENGLISH, and re-read that side
   out of `en-tei.xml` — which a wiki-side book does not have, and whose `BOOK.url` is `undefined`, so it
@@ -2035,6 +2141,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a second book — **claim less rather than round up** — and it is the honest shape for any future book
     whose byline outruns the record. Handford (1951), Hammond (1996) and O'Donnell (2019) are named as
     the ones not to reach for.
+    **The Book of Documents needs no qualification either** (Aug 2026), on exactly the Analects' grounds
+    and from the same volume: Legge published in 1879 and died in 1897, so it is public domain on the
+    pre-1929 publication rule, on life-plus-seventy and on life-plus-a-hundred, with no limit to state and
+    no modern editorial layer to declare. The documents underneath are ancient. Karlgren's translation of
+    1950 and Waltham's modernisation of Legge of 1971 are named as the ones not to reach for.
+    **Its `BOOK_AUTHOR_COLOR` row is where only two hue families were left** — a sweep of the whole RGB
+    cube inside the shelf's own lightness and chroma band found candidates clearing 20 of their nearest
+    neighbour in red (20.1) and green (22.5) and nowhere else, which is the Beowulf row's prediction
+    arriving. **The red was rejected on the EURIPIDES TEST**: its 20.1 is against Sun Tzu's rust, and Sun
+    Tzu is the other ancient Chinese work on the shelf, so a red here would say the two are a set. The
+    green the Vyasa and Kalidasa rows turned down is not this one — their objection was that every green
+    clearing Lucretius and Aesop sat at the TOP of the chroma band, bright enough to glow beside twenty
+    muted colours, where `#0F4503` sits at chroma 44 of a 18–64 range and lightness 25 of a 25–48 one, the
+    dark end of both. It clears Gilgamesh, Aesop and Lucretius by 22.1–22.2 evenly and reads 6.75:1 on the
+    tightest of the sixteen light papers. Keyed by id, the documents being anonymous.
     **The Peloponnesian War is the THIRD needing no qualification at all** (Aug 2026), after the Republic
     and the Analects, and all three of its layers are clear: Thucydides wrote in the fifth century BCE,
     Richard Crawley published in 1874 and died in 1893, and the Greek is Henry Stuart Jones's Oxford text
@@ -2114,7 +2235,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     so no life-plus-seventy term is asserted for that column, the ground stated is the 1894
     publication, and the conditional (expired 2006 if the 1935 death is right) is given on the book's
     own page rather than smoothed into a flat claim. Heaney (1999), Liuzza (2000), Tolkien's prose
-    version (published 2014) and Headley (2020) are named as the ones not to reach for. Each book's
+    version (published 2014) and Headley (2020) are named as the ones not to reach for.
+    **The Prose Edda is the SEVENTH to state a LIMIT** (Aug 2026), after the Art of War (Giles, 2029),
+    the Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea (Murray, 2028), Gilgamesh and the
+    Bhagavad Gita. Snorri Sturluson died in 1241, so the work is free everywhere; Brodeur's translation
+    was published by the American-Scandinavian Foundation in 1916 — read off the volume's own title page
+    rather than recalled — so it is public domain in the United States on the pre-1929 rule, and he
+    lived 1888–1971, so it stays in copyright where the term is life plus seventy until 2042, the same
+    position as Ross. **His dates are unusually well corroborated for this shelf** and that is worth
+    noting against Wyatt's: Wikidata gives them at DAY precision and Wikisource's own PD/US tag on the
+    work independently gives 1971, so this is not the lone unverified figure the Beowulf entry had to
+    hedge around. Brodeur's fifty-page introduction and his index are not imported, which is the
+    Republic's precedent for the introduction and plates it left behind. Young (1954), Faulkes (1987)
+    and Byock (2005) are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the
+    band was WIDENED as the Book of Documents' row predicted — see that row for the search, and for the
+    Euripides test doing real work: the one book a reader genuinely pairs with the Prose Edda is
+    BEOWULF, the shelf's only other Germanic work, so the two candidates nearer his oxblood were
+    rejected and this dark violet is both the best-separated colour in the widened band and the one
+    furthest from him.
+    Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
     **`BOOK_AUTHOR_COLOR` GAINED AN `"Anonymous"` KEY with it**, and the reasoning is worth keeping
@@ -2323,6 +2462,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     into `books/<id>.js` by hand (the next `fetch-book.js` run would destroy it); the licence half needs a
     live link and has always been built from those fields. A reader still in the front matter is told so on
     the shelf — "About this book", never "Letter 0".
+    **AN ADMIN EDITS THE ESSAY IN PLACE** (`bookIntroMerged` / `setBookIntroEdit` / `ADMIN_EDITS.bookIntros`
+    / `wireIntroEdit` / `.bk-intro-essay`, Aug 2026, on request). Same gesture and the same finish paths as
+    the About page's prose (see PAGES.mission) — click, Esc cancels, Ctrl+Enter or clicking away saves — and
+    it follows the QUOTES pattern rather than the Mission's, because of where the words can live. **THE
+    OVERLAY IS THE STORAGE**: the Mission has mission.js to bake back into, and a book's essay has nowhere,
+    since `books/<id>.js` is generated and `.claude/fetch-book.js`'s `about` is a repo edit an editor cannot
+    reach from a phone. So the edit persists in `folio_admin_v1`, travels to every reader through
+    `content_overrides` with no deploy, and is what a lasting change should be copied INTO `fetch-book.js`
+    from when someone is next at the repo. **Nothing serializes it, deliberately** — a serializer pointed at
+    a generated file is a serializer that fights the importer. Five things are load-bearing.
+    **`bookIntros` had to go into `normalizeAdminEdits`** — this file's standing warning that a load path
+    missing an overlay key silently drops those edits on reload, which is what happened to `mission` once.
+    **Only the ESSAY is wrapped**: the two boxes under it are the LICENCE, built from the registry rather
+    than typed, and an editable region that swallowed them would let a wrong copyright statement be typed
+    into the one place on the site that exists to state the right one. **It edits the RAW source**, because
+    what is on screen has been through `autoLinkGlossary` and the units pass and saving that would bake a
+    page of `.ttip` spans and one measurement system into the stored essay — and bake them again on every
+    later save. **It repaints with `paint(cur)`, not `render()`**, which would resolve the chapter from the
+    reader's stored place and could land them somewhere other than the front matter they were editing.
+    And **`[contenteditable='true']` joined `BK_TAP_SKIP`**: on a phone the book turns its page on a tap and
+    steps a chapter on a swipe, and a finger placed in a paragraph to put the caret somewhere is both.
+    It is wired from `paint()` rather than at set-up, since the front matter is rebuilt on every repaint.
   · **The shelf is one full-width BANNER per book** (`.book-grid` at `1fr`), reading left to right: author,
     title and the **year it was written** on the left, how much of the work is on Folio and where you had got
     to on the right, with the reading bar along the banner's own bottom edge (absolutely positioned, so it
@@ -2669,21 +2830,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     terms are three sentences and scroll nothing, so for most of them the whole window really does drag.
     `touch-action:none` on the window with **`pan-y` back on `.gloss-body`** is the CSS half of the same
     split; controls and `.ttip` are exempt through `GLOSS_NODRAG`.
-  · **A DOUBLE TAP anywhere closes it** — the × is a 26px target in one corner of a window that fills most
-    of the screen. Written on pointer events, not `dblclick`, which a phone may swallow for double-tap-to-
-    zoom. Two guards: the taps must land close TOGETHER as well as close in time (`GLOSS_TAP_SLOP`), so
-    tapping one word and then another further down is not a close; and an interactive target is exempt
-    (`GLOSS_TAP_SKIP`), or a nested glossary link and the sources fold would become unusable. The end of a
-    drag is told from a tap by a **one-shot flag** (`win._glossDragged`) that the drag sets and the tap
-    handler clears — NOT by reading the `dragging` class, which is gone by the time the tap handler runs
-    and which, if held for a frame instead, swallows the first real tap after every drag.
+  · **A DOUBLE TAP ANYWHERE ON THE SCREEN closes it** (`glossDoubleTap`; it was anywhere on the WINDOW
+    until Aug 2026, and was widened on request with the scrim's blocking below) — the × is a 26px target
+    in one corner of a window that fills most of the screen. Written on pointer events, not `dblclick`,
+    which a phone may swallow for double-tap-to-zoom. Two guards: the taps must land close TOGETHER as
+    well as close in time (`GLOSS_TAP_SLOP`), so tapping one word and then another further down is not a
+    close; and an interactive target is exempt (`GLOSS_TAP_SKIP`), or a nested glossary link and the
+    sources fold would become unusable. The end of a drag is told from a tap by a **one-shot flag**
+    (`el._glossDragged`) that the drag sets and the tap handler clears — NOT by reading the `dragging`
+    class, which is gone by the time the tap handler runs and which, if held for a frame instead,
+    swallows the first real tap after every drag. **The window and the scrim keep SEPARATE pairs of taps**
+    rather than sharing one counter, which is the same rule the slop expresses: two taps mean "close" when
+    they land in one place, and a tap on the page followed by a tap on the description is a reader reading.
+    The scrim's copy closes the TOP of `glossWins`.
   · **The scrim is ONE element with `backdrop-filter`** (`#glossScrim`), never a `filter` over a list of the
     page's own containers: that list would need keeping in step with every fixed thing on the site, and a
     `filter` on an ancestor becomes the containing block for its `position:fixed` descendants — which would
-    move the very bars it was blurring. **`pointer-events:none`**: this is focus, not a modal, and tapping
-    outside still does not close a popup. It is raised **explicitly** in `openGlossWin` rather than through
+    move the very bars it was blurring. It is raised **explicitly** in `openGlossWin` rather than through
     `syncGlossScrim`, because at that point the new window has not yet been pushed onto `glossWins` (that
     is the last thing the function does) and a count-based call would find zero.
+    **IT IS A MODAL SINCE AUG 2026, ON REQUEST** — it began as focus alone (`pointer-events:none`, the page
+    behind still live) and the request was that nothing behind a popup be clickable until it closes. One
+    property does the whole job: at **z-index 9590 it is above every bar and control on the site** (the tab
+    bar is 55, the grade bar 60), so nothing has to be disabled by name and no list has to be maintained.
+    `touch-action:none` goes with it — a scrim that swallows a tap must not leave the browser free to read
+    the same tap as a scroll or a double-tap zoom. **A single tap on it still does nothing**: tapping
+    outside has never dismissed a popup and that has not changed; what makes the blocking bearable is the
+    double tap above. **The blocking rides on `.on`, not on the base rule**, because the scrim is faded for
+    220ms before it is removed and the popup is already gone for those 220ms — a scrim still eating taps
+    there would leave the page dead to the touch just after the reader closed the thing that made it so.
   It keeps the sheet's **permanent compositing layer** (`will-change:transform` + `backface-visibility`),
   and that is not decoration: it was the fix for a reported flicker, where the sheet blinked out for a
   fraction of a second the instant its slide finished. A per-frame probe read `opacity:1`,
@@ -2995,6 +3170,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   1–4 grade, Enter is Good, Ctrl+Z takes the last one back. They all existed and nothing said so, and that
   bubble is where a reader already goes to ask what the buttons do. (The Atlas's own coach marks already
   covered its click drill-down; they gained the keyboard line — `[`/`]`, Enter, Esc — which they hadn't.)
+  **…AND NEITHER THE BUBBLE'S KEYS NOR THE BUTTONS' DIGITS ARE SHOWN ON A PHONE** (Aug 2026, on request).
+  `.grade .gk` and `.grade-help-bubble .ghb-keys` are both `display:none` in the ≤640px block: they describe
+  a keyboard a phone has not got, so on a phone they are furniture explaining a control that cannot be
+  reached — the digits costing each of the four buttons a line of height and the shortcut line a third of
+  the bubble. **Hidden, not removed from the markup**, because the same markup is what a desktop reader
+  gets, and there the keys are real and worth saying. The `.gk` rule used to live in the ≤430px block alone
+  and now covers the whole phone range, so the two cannot disagree about where a phone starts.
 - **The grade bar is ONE row below 430px** (Aug 2026). Two rows of two plus a help/suspend row took about a
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
@@ -3026,6 +3208,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   breakpoint the chevron is `display:none` and it is unreachable, and `flipMove` skips anything that did
   not move — but it IS gated on the reader's motion setting, inside both helpers. Note for the tests: a
   height read sooner than `GB_FOLD_MS` after the press measures a state half way between the two.
+  **ONE CLOCK AND ONE CURVE, which is what it was missing** (Aug 2026, on a report that the fold ran
+  roughly). The two passes act on the SAME four buttons at the same moment — the position from `flipMove`,
+  the height and padding from the CSS transitions — so they have to agree about more than the duration:
+  the FLIP ran `cubic-bezier(.22,.61,.36,1)` while the transitions ran `--ease`
+  (`cubic-bezier(.2,.7,.2,1)`), and a box arriving slightly before or after the place it is sliding to
+  reads as a stutter rather than as two animations. `GB_FOLD_EASE` in app.js is now `--ease` written out,
+  and `flipHeight` takes an easing argument so it can be passed the same one. Two more things came out of
+  the same report and are worth keeping: **`font-size` is NOT transitioned** on `.grade-help` /
+  `.gb-undo` / `.suspendbtn` — easing a font down to 0 relayouts the text every frame on three buttons
+  `flipMove` is translating, and the two fighting over one box was most of the roughness, so the labels
+  now go at once and only the geometry eases — and **`#gradebar`'s own `padding-bottom` IS transitioned**,
+  or the whole movement ends on a 5px jump the instant everything else settles.
+  **The chevron is dimmed to `opacity:.5`** (Aug 2026, on request), full strength on hover and focus: it
+  is a quiet control sitting directly above four saturated colours.
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
@@ -4178,7 +4374,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), and **Common Thread**
   (`thread` — see its own bullet below). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 6 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
-  game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
+  game's end; `won` = a perfect run, or `solved` for Timeline).
+  **ONE PLAY A DAY, AND THE GATE IS `gameLockedToday(root, key)`** (Aug 2026, on request). Every one of the
+  six is a DAILY game — its rounds are drawn once for today, its score is today's on the tile, the tile turns
+  gold for a perfect run — and a **Play again** button under the results contradicted all of it: the set had
+  been revealed answer by answer, so a second run was a run with the answers in hand, and the tile's figure
+  came from whichever attempt went best. The three "Play again" buttons are gone, each results screen carries
+  a `.tf-tomorrow` line saying when the next set arrives instead, and **each of the six `PAGES.*` calls the
+  gate as its first act** — `challenge`, `truefalse`, `whosaid`, `chrono`, `thread`, and `findit`, where it
+  goes in `PAGES.findit` rather than inside `PAGES.map` (that is the whole Atlas and knows nothing about
+  daily games, and it is the only route into game mode). It renders an `emptyPlacard` naming today's score.
+  **TWO GAMES HAD GROWN THEIR OWN LOCAL VERSION OF THIS RULE AND BOTH ARE NOW RETIRED**, which is the shape
+  of a rule that wants stating once rather than six times: Timeline recorded the FIRST check and ignored
+  later ones (it now takes ONE check — `.chrono-done` on the list stops the grips and the arrows, in JS as
+  well as in CSS, and the check button is removed), and Find it called a same-day replay "practice" and
+  recorded nothing (`gamePractice` is **deleted**, not left unreachable). **The cost is real and worth
+  naming**: a reader can no longer re-read today's Timeline order or walk today's five places again. What is
+  bought is that the figure on the tile is the answer they gave when they did not know the answers.
+  Two smaller things went with it: the four "…try again" closing lines no longer invite a replay there
+  isn't, and **`gameCapFirst`** capitalises Multiple Choice's options, its revealed answer and its summary
+  (on request). That is DISPLAY only — `options`/`correct` are matched by identity elsewhere in the round —
+  and it is `\p{L}`-anchored so a term opening on a numeral or a Han character is passed through rather than
+  sliced through a surrogate pair. The study card makes the same move for the same reason and makes it in
+  CSS (`.answer .val::first-letter`), which is not available to a text node inside a button.
+  The home tile has **three daily states** (state classes set by
   `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
   `gamePlayedToday` — challenge/chrono still also derive it from `S.daily.lastPlayed` / `S.chrono.date`) = the tile FILLS with
@@ -4347,13 +4566,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states**, and were
     one until Aug 2026, when putting the tools away also put the pen down — you could not draw with the
     panel out of the way, which on a phone is most of the card. The marker button now only opens and closes
-    the panel (opening it with nothing selected picks the pen, so one tap still gets you drawing); what puts
-    the pen down is **unselecting the tool inside it**. The tools are mutually exclusive and clicking the
+    the panel; what puts the pen down is **choosing a tool inside it**, and what puts it up is unselecting
+    that tool. The tools are mutually exclusive and clicking the
     selected one deselects it, so **nothing selected IS the pen-up state** —
     which is what makes that gesture available at all. `applyWBState` maps `panelOpen` → `.active` and
     `enabled` → the button's `.on` (visible with the panel shut) plus the canvas; **`wbSetEnabled` is the
     one place `enabled` changes**, because the Atlas owns its own cursor / hover / spin state and has to be
     told through `WB.onToggle` the moment the pen goes down or up.
+    **OPENING THE TOOLS SELECTS NOTHING** (Aug 2026, on request). It used to pick the pen so that one tap
+    got you drawing, which is a shortcut for the reader who wanted the pen and a trap for everyone else:
+    `enabled` lays a canvas over the whole visible page, so a reader who opened the panel to reach Undo,
+    Clear, a colour or the stylus row found the card underneath already taken. The panel is a MENU and
+    choosing from it is what starts drawing; the cost is one extra tap on the way to the pen, and it is
+    exactly the tap that says which tool was meant. `test-layout.js` asserts **both halves in two places**
+    — nothing selected on open, and a tool choice starting the drawing — because they fail in opposite
+    directions and "nothing is selected" would otherwise also pass on a marker that had stopped working.
+    (A HOLD on the marker still restores the tool last drawn with; that is a separate gesture and is
+    unchanged.)
   · **IT HAS WEIGHT: it can be THROWN** (`WB_FLING_*` / `wbStopFling` / `wbClampPos`, Aug 2026, on request).
     It used to stop dead on the lift, which on a phone reads as the thing being stuck to the finger rather
     than being moved by it; it now keeps the velocity it was released at and coasts to a stop under
@@ -4767,8 +4996,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   so it inherits the zero and grows into the space, and every other rule written against `--timebar-h` is left
   describing the ordinary Atlas. The markup stays (hidden, so out of the tab order too), so `paintYear`,
   `renderMapYearMarks` and `layoutTicks` need no game branch — the last returns early on a zero `clientWidth`.
-  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
-  never records: the rounds are deterministic and every answer was revealed). The Atlas also gained **first-visit coach
+  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **A same-day replay is turned
+  away at the door** by `gameLockedToday` in `PAGES.findit` (Aug 2026, on request — see the daily-games bullet).
+  It used to be admitted as PRACTICE, playable and recording nothing, since the rounds are deterministic and
+  every answer was revealed during play; `gamePractice` and its four branches are **deleted rather than left
+  unreachable**. The Atlas also gained **first-visit coach
   marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
   "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
   centre, Esc clears, `[`/`]` step map-years). The **`#gzIn`/`#gzOut` zoom buttons' markup was restored** (wiring + CSS
@@ -5262,6 +5494,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
     a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
     and must never be pointed at app.js.
+  **A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP, and TWO of the four had not**
+  (Aug 2026, on a bug report). `.admin-list-items` is capped at `max-height:300px` on a phone, which is right
+  for the Cards and Glossary lists — they are one column of a two-column layout — and traps a whole page in a
+  300px scroll box for a tab that owns the screen: the Quotes tab's edit form filled the box, its Save button
+  sat at the fold, the running order beneath was cut off mid-row and the rest of the screen was left empty.
+  Timeline and Feedback were in that rule's exception list from the day they were built; the **Dashboard and
+  Quotes arrived later and were not**, which is the whole of the bug. All four are listed now — **keep the
+  list in step with the `*-mode` classes `adminRefresh()` sets**, or the next tab added will look broken the
+  same way. Guarded by `test-layout.js`, which reads the cap back and checks the pane is not clipped.
 - **Admin → Dashboard: Folio in numbers (Aug 2026, on request).** The editor's FIRST tab and the one a fresh
   session opens on (`adminState.tab` defaults to `"dashboard"`; a session interrupted mid-edit still comes back
   to the card it was on — `restoreAdminUI` exists because auto-save can live-reload the page between
@@ -5443,6 +5684,44 @@ shipped `data.js` — the China deck was trimmed to nothing and regrown as `wh-`
 **Current direction (July 2026): the China collection is SET ASIDE** — its tree node carries
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links.
+
+**THE TEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
+that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
+**Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
+which is `cn-myth`, in China. The bullets below each collection give the reasoning; this table is the
+lookup.
+
+| collection | id | prefix | plan | decks / leaves | state |
+|---|---|---|---|---|---|
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 89 cards, scattered — next id is an early GAP |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 180 cards, contiguous |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | empty |
+| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
+| India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | empty, and **`placeholder: true`** — read the warning first |
+| Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
+| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+
+The next id for any of them (substitute the prefix):
+
+    node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='jp-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
+
+**Two traps when looking a number up in a plan.** A deck heading is `## Title — \`id\`` OR
+`### Title — \`id\`` — the shallower level is a **flat deck**, one that is itself a leaf (`gr-iron`,
+`ru-federation`, `cn-myth`), so reading only `###` misses it. And **`docs/world-history-card-plan.md`
+carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-level heading — which
+lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
+`# The 2026-08-04 renumbering` will find the wrong entry.
+
+**`node .claude/test-card-plans.js` checks all of this** (94 assertions, no browser, no dependencies):
+every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
+running order covers 1–1000 with no gaps or duplicate ids or repeated topics, and CLAUDE.md carries
+each plan and a working next-id command. **Re-run it after editing a plan, after changing a tree in
+`data.js`, and after adding a collection** — every fault it catches is silent, and the worst of them
+(a plan naming a deck id the tree hasn't got) files cards into China without throwing.
 
 **WORLD HISTORY (`col-8`) runs off a 1000-card plan of its own (Aug 2026).** Its 8 decks and 39 leaf
 subdecks are laid out in `data.js` and the running order is `docs/world-history-card-plan.md`.
@@ -6515,10 +6794,12 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-five committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
-  Playwright; `test-daily-quote.js`, `test-discovery.js`, `test-date-line.js` and `test-scheduler.js` are plain Node with
+- **Twenty-seven committed regression tests** (in `.claude/`, not loaded by the site): twenty-two drive a real browser with
+  Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
+  `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
-  no browser).
+  no browser). **The split is `grep -L playwright .claude/test-*.js`, not a number to keep in your head** — the
+  headline count had drifted one behind before this line was last rewritten.
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -6659,7 +6940,10 @@ dead code (never rendered).
     deck's NAME not cut off at 390px, that being what gives way if the arithmetic ever stops working) and the same page above the breakpoint, where the only thing that may differ
     is the About line (a desktop reaches About from its top bar) and where `#decks` must still RESOLVE with
     no tab left pointing at it;
-    the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen, the
+    the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen,
+    **opening the tools selecting NOTHING and choosing a tool being what starts drawing** — asserted in
+    both places the marker is exercised, and both halves each time, since they fail in opposite directions
+    and "nothing is selected" alone would also pass on a marker that had stopped working; the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
     revert to the platform dialog would look like — and **Show answer and the grade row still tappable with
@@ -6680,7 +6964,10 @@ dead code (never rendered).
     grades as bare colours that a screen reader can still name, keep the ? and Suspend beside them rather
     than dropping them, and take the page's bottom padding down with it — note that the fold is ANIMATED
     since Aug 2026, so a height read sooner than `GB_FOLD_MS` after the press measures a state half way
-    between the two; the Text size setting, which is a SLIDER filling its row (asserted, that being the
+    between the two — which is also how the fold is asserted to EASE rather than cut, by reading a
+    mid-flight height and requiring it to sit between the two settled ones; the shortcut digits and the
+    `?` bubble's keyboard line present in the markup and hidden on a phone (both halves, since a removal
+    and a hidden element look identical from one side); the Text size setting, which is a SLIDER filling its row (asserted, that being the
     visible half of the request) and which must
     grow the card and the glossary popup and must leave a tab label and a grade button exactly where they
     were, that being the difference between a reading scale and a page zoom; Settings and Account filling the stage;
@@ -6693,8 +6980,9 @@ dead code (never rendered).
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
-    `ensureWBTools` / `.wb-pick` /
+    `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     the ink layer's pass-through /
+    `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on `.admin-list-items` /
     `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
@@ -6722,6 +7010,24 @@ dead code (never rendered).
     theme is caught. The default mode is REPORTED — the quiet tokens are quiet on purpose and the high-contrast
     mode is the answer to them — while **with `body.hc` on, nothing may fall short**, which is the assertion.
     **Re-run after touching a control's markup, `body.hc`, or any theme's colour tokens.**
+  · `node .claude/test-card-plans.js` — 125 assertions on **the join between the ten card plans and
+    `data.js`**, which is what makes "generate the next `<collection>` card" work. Everything it guards
+    fails SILENTLY, and the worst of them is not a crash: **a plan naming a deck id the tree hasn't got
+    makes `add-card.js` file the card in the FIRST leaf of the whole tree, which is `cn-myth`, in
+    China** — nothing throws, and the card sits in the wrong collection until somebody notices. It also
+    asserts that no leaf in `data.js` goes unnamed by a plan (cards could never be routed there), that
+    each running order covers 1–1000 with no gaps, no duplicate ids and no two cards naming the same
+    topic, that CLAUDE.md carries every plan and a working next-id command, and that the **index table**
+    under "Generating cards & glossary entries" still matches the tree. **No browser and no
+    dependencies.** Two things it had to learn, both of which made a first draft report faults that were
+    not there: **a `##` heading may name a FLAT DECK** — a deck that is itself a leaf (`gr-iron`,
+    `ru-federation`, `cn-myth`) — so reading only `###` misses it and reading `##` as always-a-leaf
+    misfires on the branch decks; and **`docs/world-history-card-plan.md` carries an appendix**, the
+    2026-08-04 renumbering record, whose 109 old-numbering ids are not the running order, so the list
+    must stop at the next `#` heading. Verified against four deliberately injected faults (a renamed
+    leaf, a duplicate id, a broken next-id command, an unplanned leaf) plus a stale table count; each
+    was caught. **Re-run after editing a plan, after changing a tree in `data.js`, and after adding a
+    collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
     simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
     two days running or a third appearance inside a week fails here rather than on the live page. **No
