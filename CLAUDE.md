@@ -5624,6 +5624,44 @@ shipped `data.js` — the China deck was trimmed to nothing and regrown as `wh-`
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links.
 
+**THE TEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
+that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
+**Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
+which is `cn-myth`, in China. The bullets below each collection give the reasoning; this table is the
+lookup.
+
+| collection | id | prefix | plan | decks / leaves | state |
+|---|---|---|---|---|---|
+| World History | `col-8` | `wh-` | `docs/world-history-card-plan.md` | 8 / 39 | 89 cards, scattered — next id is an early GAP |
+| Ancient Greece | `col-13` | `gr-` | `docs/greece-card-plan.md` | 6 / 19 | 180 cards, contiguous |
+| Ancient Rome | `col-40` | `rm-` | `docs/rome-card-plan.md` | 7 / 25 | empty |
+| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
+| Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
+| India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | empty, and **`placeholder: true`** — read the warning first |
+| Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
+| The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
+| Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+
+The next id for any of them (substitute the prefix):
+
+    node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='jp-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
+
+**Two traps when looking a number up in a plan.** A deck heading is `## Title — \`id\`` OR
+`### Title — \`id\`` — the shallower level is a **flat deck**, one that is itself a leaf (`gr-iron`,
+`ru-federation`, `cn-myth`), so reading only `###` misses it. And **`docs/world-history-card-plan.md`
+carries an APPENDIX** — the 2026-08-04 renumbering record, under its own `#`-level heading — which
+lists 109 ids in the OLD numbering; the running order stops there, so a lookup that runs past
+`# The 2026-08-04 renumbering` will find the wrong entry.
+
+**`node .claude/test-card-plans.js` checks all of this** (94 assertions, no browser, no dependencies):
+every deck a plan names exists in that collection, every leaf in `data.js` is named by its plan, each
+running order covers 1–1000 with no gaps or duplicate ids or repeated topics, and CLAUDE.md carries
+each plan and a working next-id command. **Re-run it after editing a plan, after changing a tree in
+`data.js`, and after adding a collection** — every fault it catches is silent, and the worst of them
+(a plan naming a deck id the tree hasn't got) files cards into China without throwing.
+
 **WORLD HISTORY (`col-8`) runs off a 1000-card plan of its own (Aug 2026).** Its 8 decks and 39 leaf
 subdecks are laid out in `data.js` and the running order is `docs/world-history-card-plan.md`.
 **"Generate the next World History card" means: take the lowest `wh-NNN` not yet in `data.js`, read
@@ -6695,10 +6733,12 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-five committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
-  Playwright; `test-daily-quote.js`, `test-discovery.js`, `test-date-line.js` and `test-scheduler.js` are plain Node with
+- **Twenty-seven committed regression tests** (in `.claude/`, not loaded by the site): twenty-two drive a real browser with
+  Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
+  `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
-  no browser).
+  no browser). **The split is `grep -L playwright .claude/test-*.js`, not a number to keep in your head** — the
+  headline count had drifted one behind before this line was last rewritten.
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -6909,6 +6949,24 @@ dead code (never rendered).
     theme is caught. The default mode is REPORTED — the quiet tokens are quiet on purpose and the high-contrast
     mode is the answer to them — while **with `body.hc` on, nothing may fall short**, which is the assertion.
     **Re-run after touching a control's markup, `body.hc`, or any theme's colour tokens.**
+  · `node .claude/test-card-plans.js` — 125 assertions on **the join between the ten card plans and
+    `data.js`**, which is what makes "generate the next `<collection>` card" work. Everything it guards
+    fails SILENTLY, and the worst of them is not a crash: **a plan naming a deck id the tree hasn't got
+    makes `add-card.js` file the card in the FIRST leaf of the whole tree, which is `cn-myth`, in
+    China** — nothing throws, and the card sits in the wrong collection until somebody notices. It also
+    asserts that no leaf in `data.js` goes unnamed by a plan (cards could never be routed there), that
+    each running order covers 1–1000 with no gaps, no duplicate ids and no two cards naming the same
+    topic, that CLAUDE.md carries every plan and a working next-id command, and that the **index table**
+    under "Generating cards & glossary entries" still matches the tree. **No browser and no
+    dependencies.** Two things it had to learn, both of which made a first draft report faults that were
+    not there: **a `##` heading may name a FLAT DECK** — a deck that is itself a leaf (`gr-iron`,
+    `ru-federation`, `cn-myth`) — so reading only `###` misses it and reading `##` as always-a-leaf
+    misfires on the branch decks; and **`docs/world-history-card-plan.md` carries an appendix**, the
+    2026-08-04 renumbering record, whose 109 old-numbering ids are not the running order, so the list
+    must stop at the next `#` heading. Verified against four deliberately injected faults (a renamed
+    leaf, a duplicate id, a broken next-id command, an unplanned leaf) plus a stale table count; each
+    was caught. **Re-run after editing a plan, after changing a tree in `data.js`, and after adding a
+    collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
     simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
     two days running or a third appearance inside a week fails here rather than on the live page. **No
