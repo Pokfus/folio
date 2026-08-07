@@ -90,7 +90,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently twenty-four:
+  matter (chapter 0 — see the Library bullet). Currently twenty-six:
+  `book-of-documents` (~444 KB, the whole of the received Shû — **59 chapters**, 169 section numbers,
+  283 notes — and the first book here whose CHAPTER IS PRINTED ACROSS MORE THAN ONE WIKI PAGE. Every
+  earlier wiki book is one page to one chapter; where Legge prints a book in sections, Wikisource gives
+  each section a page of its own and leaves the book's HEADNOTE — and at the head of a Part his
+  introduction to the whole Part — on the book's own page, which carries no body text. So `page(n)` may
+  return an ARRAY and the pages are cleaned in order and joined, with each later page's `data-fn` offset
+  by the notes already gathered (measured: the four pages joined here carry no notes, so the offset is
+  provably zero today, and it is written anyway because a silent mis-numbering is what this file keeps
+  finding). **THREE THINGS IT SETTLED ARE WORTH CARRYING.** The tabs count **59 where the Shû is
+  traditionally counted at 58 documents**, and the difference is a printing fact rather than an error:
+  Legge sets the Tribute of Yü in two sections that EACH restart their paragraph count at 1, so joining
+  them would put two paragraphs numbered 1 in one chapter — the edition's own division is followed and
+  the front matter says why, which is Beowulf's missing fitt XXX again. **A NUMBER'S MARKUP MATTERS LESS
+  THAN ITS WRAPPER**: this transcription writes Legge's paragraph numbers two ways, as plain text and as
+  an anchor span carrying the citation as its id, and by the time the section pass runs `stripTags` has
+  unwrapped the anchor so both have collapsed to the same plain "N." — the anchored form costs nothing,
+  which is the opposite of what it looks like. What DOES cost is that **MediaWiki only wraps a run of
+  text in `<p>` where the wikitext had a blank line before it**, so a document whose first paragraph
+  follows its headnote directly arrives as a BARE RUN: `markLeadingSections` finds 167 of the 169 and the
+  two it misses are the FIRST number of the Count of Wei and of the Announcement of the Duke of Shâo,
+  each of which would ship numbered from 2 with every word present and nothing throwing — hence the sixth
+  section shape, `sections: "shu"`. And **ELEVEN of the 59 carry no numbers at all**, which is the
+  edition rather than the extractor: they are the short documents Legge did not number, recorded rather
+  than repaired),
   `beowulf` (~264 KB, all 42 chapters, **636 line numbers**, 310 notes — and the first book here whose
   CHAPTER and whose PAIRING UNIT are two different things on purpose. Every earlier book pairs on a unit
   its editions divide into; Beowulf's editions divide into fitts, but a fitt is 50–140 lines, so pairing
@@ -327,9 +351,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty-four books, nineteen originals**: the Republic, Aesop's Fables and Gilgamesh have none, and the reason
-  differs — the next paragraph's rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns,
-  while Gilgamesh fails a step earlier, there being no settled original text to face.
+  **Twenty-six books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, Lysistrata and Shakuntala have none, and the reason differs — the next paragraph's
+  rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
+  earlier, there being no settled original text to face. **The Book of Documents is the case where the
+  CHAPTER pairing is exact and the level below it has no key at all**: Chinese Wikisource carries every one
+  of the received 58 documents, so chapter for chapter the two columns match, but Legge numbers his
+  paragraphs and that transcription numbers nothing, and pairing by POSITION — the approach abandoned for
+  the Meditations' Greek — puts the two divisions together in only 8 of the 58. Measured, not assumed.
   **THE ONE QUESTION THAT DECIDES WHETHER A BOOK CAN HAVE AN ORIGINAL AT ALL** is not "does a text of it
   exist?" but **"does that text say which section each passage is?"** — because app.js pairs the two columns
   on the section NUMBER, never on paragraph or list order. **And the number need not be the unit the
@@ -768,6 +797,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     chapter by the caller): a page transcluding the wrong book announces itself instead of silently
     filing 146 chapters under Book 2. No `data-n` is written — these numbers are integers, and app.js
     reads the marker's own text where the attribute is absent.
+  · **`sections: "shu"`** — THE SIXTH WAY, and the first whose difficulty is the WRAPPER rather than the
+    markup (Aug 2026, adding the Book of Documents). Legge numbers his paragraphs, and this transcription
+    writes the number two ways: as plain text at the head of a paragraph, and as an ANCHOR SPAN carrying
+    the citation as its id, because the volume's contents page links into some paragraphs and not others.
+    **That second form costs nothing**, which is the opposite of what it looks like: `stripTags` runs
+    BEFORE the section pass, so by then the anchor is unwrapped and both forms are the same plain "N.".
+    What does cost is that **MediaWiki only wraps a run of text in `<p>` where the wikitext had a blank
+    line before it**, so a document whose first paragraph follows its headnote directly arrives as a bare
+    run with no tag round it — the Art of War's `wrapBareRuns` trap in another edition. Measured over the
+    whole book: `markLeadingSections`, anchored to `<p>`, finds 167 of the 169 numbers, and the two it
+    misses are the FIRST number of two documents, each of which would ship numbered from 2 with every word
+    present and nothing throwing. So the pass matches a paragraph head OR a number opening a bare run
+    where a block has just closed, in ONE regex scanned in reading order — the Meditations' rule, since
+    two passes leave the counter at the end of the document and the forward-only guard then declines
+    everything the second finds.
+  · **`dropAuxToc`** — Wikisource's own auxiliary contents block (`wst-auxtoc`), which falls INSIDE
+    `prp-pages-output` on a book page whose sections have pages of their own, and which the generic div
+    pass would otherwise render as two quotations reading "Sections (containing the body text)" and
+    "Section 1 Section 2 Section 3". Keyed on the wiki's own class rather than on its wording, like the
+    `ws-noexport` rule, removed with a BALANCED match because it nests, and gated per book so it is
+    provably inert on everything already shipped.
+  **A CHAPTER MAY BE PRINTED ACROSS SEVERAL WIKI PAGES, and `page(n)` may return an ARRAY** (Aug 2026,
+  same book). Every earlier wiki book is one page to one chapter. Where Legge prints a book in sections,
+  Wikisource gives each section its own page and leaves the book's headnote — and at the head of a Part
+  his introduction to the whole Part — on the book's page, which carries no body text at all: fetching
+  only the sections drops that prose on the floor, and giving it a chapter of its own puts an empty tab
+  on the bar, since one of those four pages carries a title and nothing else. The pages are cleaned in
+  order and joined, and **each later page's `data-fn` is offset by the notes already gathered** — the
+  Seneca lesson (a marker must carry the note it points AT) applied across a join. Returning a string
+  still means what it always did, so no shipped book's config is touched, and both a wiki book and a TEI
+  book were re-run and diffed **byte-for-byte** to prove it. **The "no section numbers" warning became a
+  property of the CHAPTER rather than of the page at the same time**: on a multi-page chapter the
+  per-page one fires on the headnote page whether or not the sections that follow are numbered, which is
+  three false alarms out of four — and a warning that cries wolf is one nobody reads.
   **AND THE TWO COLUMNS MAY COME FROM DIFFERENT KINDS OF SOURCE**, which is the same book's other first.
   `fetchOriginal`'s `chaptered` branch reconciles the original against the ENGLISH, and re-read that side
   out of `en-tei.xml` — which a wiki-side book does not have, and whose `BOOK.url` is `undefined`, so it
@@ -2035,6 +2098,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a second book — **claim less rather than round up** — and it is the honest shape for any future book
     whose byline outruns the record. Handford (1951), Hammond (1996) and O'Donnell (2019) are named as
     the ones not to reach for.
+    **The Book of Documents needs no qualification either** (Aug 2026), on exactly the Analects' grounds
+    and from the same volume: Legge published in 1879 and died in 1897, so it is public domain on the
+    pre-1929 publication rule, on life-plus-seventy and on life-plus-a-hundred, with no limit to state and
+    no modern editorial layer to declare. The documents underneath are ancient. Karlgren's translation of
+    1950 and Waltham's modernisation of Legge of 1971 are named as the ones not to reach for.
+    **Its `BOOK_AUTHOR_COLOR` row is where only two hue families were left** — a sweep of the whole RGB
+    cube inside the shelf's own lightness and chroma band found candidates clearing 20 of their nearest
+    neighbour in red (20.1) and green (22.5) and nowhere else, which is the Beowulf row's prediction
+    arriving. **The red was rejected on the EURIPIDES TEST**: its 20.1 is against Sun Tzu's rust, and Sun
+    Tzu is the other ancient Chinese work on the shelf, so a red here would say the two are a set. The
+    green the Vyasa and Kalidasa rows turned down is not this one — their objection was that every green
+    clearing Lucretius and Aesop sat at the TOP of the chroma band, bright enough to glow beside twenty
+    muted colours, where `#0F4503` sits at chroma 44 of a 18–64 range and lightness 25 of a 25–48 one, the
+    dark end of both. It clears Gilgamesh, Aesop and Lucretius by 22.1–22.2 evenly and reads 6.75:1 on the
+    tightest of the sixteen light papers. Keyed by id, the documents being anonymous.
     **The Peloponnesian War is the THIRD needing no qualification at all** (Aug 2026), after the Republic
     and the Analects, and all three of its layers are clear: Thucydides wrote in the fifth century BCE,
     Richard Crawley published in 1874 and died in 1893, and the Greek is Henry Stuart Jones's Oxford text
