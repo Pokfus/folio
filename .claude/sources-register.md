@@ -12720,3 +12720,67 @@ The glossary term was drafted with four sources and shipped with **three**, beca
 paywalled and 2-of-4 is not a majority. The Fu 2016 founder-population clause was rewritten rather than
 padded with a fifth source — **the honest fix for a failing open-ratio is to drop a claim, not to add a
 citation to outvote it** (N3's rule on `Solutrean`, met from the other side).
+
+---
+
+## Batch W20 — `wh-109` Star Carr (2026-08-07)
+
+### Newly opened for this batch
+
+**`milner-2016-pendant`** — Nicky Milner et al., "A Unique Engraved Shale Pendant from the Site of Star
+Carr: The Oldest Mesolithic Art in Britain", *Internet Archaeology* 40 (2016). [Open access]
+- opened: 2026-08-07 · the journal's section pages, read one at a time (`/journal/issue40/8/1.html`,
+  `/3.html` …). **The summary and contents pages are boilerplate shells of ~5 KB and carry no argument** —
+  the substance is only on the numbered section pages, which is worth knowing before writing this journal off.
+- supports: that during the 2015 season "a shale pendant with lines engraved into it was found in the lake
+  edge deposits", first taken for a natural stone because "the perforation was full of sediment and the
+  engravings were not visible"; the dimensions, "sub-triangular in shape, measuring about 31mm by 35mm and
+  3mm thick", with shale confirmed by ED-XRF and a perforation "made by drilling through from the engraved
+  side"; that "an engraved pendant is unique for Britain"; and that "no other Mesolithic engraved pendants
+  from Europe are made of shale: the predominant material used being amber, antler and bone"
+
+**`milner-conneller-taylor-2018-vol1`** — Nicky Milner, Chantal Conneller and Barry Taylor, eds., *Star Carr
+Volume 1: A Persistent Place in a Changing World* (York: White Rose University Press, 2018). [Open access,
+CC BY-NC 4.0]
+- opened: 2026-08-07 · **the publisher's book page only** — editors, year, licence and chapter DOIs verified
+  there directly. **The chapter PDFs could not be read**: the publisher 403s a plain fetch (as the register
+  already recorded for Volume 2), WebFetch reaches the chapter pages but those carry metadata alone, and the
+  chapter PDF itself **exceeds the fetch size limit**. Stated here rather than implied.
+- supports: only what that page states — the site "in use for around 800 years", "large wooden platforms
+  along the edge of the lake", and that wood of this age "is rarely preserved archaeologically". The card
+  marks it to exactly those two sentences and to nothing else.
+- **the 800 years is corroborated arithmetic, not a lone claim**: `bates-2024`'s independently sourced
+  9300–8500 cal BC is an 800-year span, so the two agree without either being derived from the other.
+
+### Reused, from the register with its own `supports:` lines
+`bates-2024` (Star Carr as "an Early Mesolithic site (c. 9300–8500 cal BC) situated on a palaeolake in North
+Yorkshire", and "the central platform; a lake-edge platform made from large split timbers"),
+`elliott-knight-little-2018` (Clark's 21 frontlets, the 12 recovered 2004–2015, and "nine of 33" pierced),
+`little-2016` (the construction). **Five sources, all five open.**
+
+### A CLAIM I WROTE, CHECKED, AND HAD TO SHARPEN
+The draft said the antlers were "thinned and shortened" — which the register's recorded supports for
+`little-2016` do NOT carry. Fetched the full text rather than shipping it: the paper describes "reduction
+of the antlers via groove-and-splinter technique and the subsequent hollowing out of the remaining beams
+and tines", so the card now says cut down by grooving and splintering and hollowed out. The same fetch
+corrected a second word: the paper says "**more than** 90%", where the draft had "roughly". **A phrase that
+sounds like a paraphrase of a registered support may still be a new claim** — N5's rule biting on wording
+rather than on a figure.
+
+### THE SITE CARD STAYED A SITE CARD
+`docs/history-focus-plan.md` allows about two of ten sentences of discovery history and the card spends
+exactly two — the excavation counts, which are what make the 33 meaningful, and the 2015 find, which is
+what makes the pendant a story. `card-focus.js` measures **historio 1 of 10** with no researcher named in
+any question, and the date line carries the dates of the THING (in use c. 9300–8500 BCE) rather than of the
+dig, which is the rule that card would most easily have broken.
+
+### THE STYLE BASELINE CAUGHT ME A SECOND TIME
+`check-style.js` went 18 → 19 on "Twenty-one came from the original excavations"; 21 is above twenty and
+not round, so it wants numerals. Fixed, back to 18. **Second batch running that the baseline diff has
+caught a violation I introduced** — reading that number as a change rather than as an absolute is now
+earning its keep, since the eighteen standing hits are all citation titles and would hide a new one.
+
+### A CLAIM NOT MADE
+The card does not call the headdresses shamanic costume, though the cited paper's own title does. What is
+demonstrable is the manufacture and the wear; the ritual reading is an interpretation, and the card
+describes what was made and leaves the meaning open.
