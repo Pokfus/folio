@@ -2401,6 +2401,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     into `books/<id>.js` by hand (the next `fetch-book.js` run would destroy it); the licence half needs a
     live link and has always been built from those fields. A reader still in the front matter is told so on
     the shelf — "About this book", never "Letter 0".
+    **AN ADMIN EDITS THE ESSAY IN PLACE** (`bookIntroMerged` / `setBookIntroEdit` / `ADMIN_EDITS.bookIntros`
+    / `wireIntroEdit` / `.bk-intro-essay`, Aug 2026, on request). Same gesture and the same finish paths as
+    the About page's prose (see PAGES.mission) — click, Esc cancels, Ctrl+Enter or clicking away saves — and
+    it follows the QUOTES pattern rather than the Mission's, because of where the words can live. **THE
+    OVERLAY IS THE STORAGE**: the Mission has mission.js to bake back into, and a book's essay has nowhere,
+    since `books/<id>.js` is generated and `.claude/fetch-book.js`'s `about` is a repo edit an editor cannot
+    reach from a phone. So the edit persists in `folio_admin_v1`, travels to every reader through
+    `content_overrides` with no deploy, and is what a lasting change should be copied INTO `fetch-book.js`
+    from when someone is next at the repo. **Nothing serializes it, deliberately** — a serializer pointed at
+    a generated file is a serializer that fights the importer. Five things are load-bearing.
+    **`bookIntros` had to go into `normalizeAdminEdits`** — this file's standing warning that a load path
+    missing an overlay key silently drops those edits on reload, which is what happened to `mission` once.
+    **Only the ESSAY is wrapped**: the two boxes under it are the LICENCE, built from the registry rather
+    than typed, and an editable region that swallowed them would let a wrong copyright statement be typed
+    into the one place on the site that exists to state the right one. **It edits the RAW source**, because
+    what is on screen has been through `autoLinkGlossary` and the units pass and saving that would bake a
+    page of `.ttip` spans and one measurement system into the stored essay — and bake them again on every
+    later save. **It repaints with `paint(cur)`, not `render()`**, which would resolve the chapter from the
+    reader's stored place and could land them somewhere other than the front matter they were editing.
+    And **`[contenteditable='true']` joined `BK_TAP_SKIP`**: on a phone the book turns its page on a tap and
+    steps a chapter on a swipe, and a finger placed in a paragraph to put the caret somewhere is both.
+    It is wired from `paint()` rather than at set-up, since the front matter is rebuilt on every repaint.
   · **The shelf is one full-width BANNER per book** (`.book-grid` at `1fr`), reading left to right: author,
     title and the **year it was written** on the left, how much of the work is on Folio and where you had got
     to on the right, with the reading bar along the banner's own bottom edge (absolutely positioned, so it
@@ -2747,21 +2769,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     terms are three sentences and scroll nothing, so for most of them the whole window really does drag.
     `touch-action:none` on the window with **`pan-y` back on `.gloss-body`** is the CSS half of the same
     split; controls and `.ttip` are exempt through `GLOSS_NODRAG`.
-  · **A DOUBLE TAP anywhere closes it** — the × is a 26px target in one corner of a window that fills most
-    of the screen. Written on pointer events, not `dblclick`, which a phone may swallow for double-tap-to-
-    zoom. Two guards: the taps must land close TOGETHER as well as close in time (`GLOSS_TAP_SLOP`), so
-    tapping one word and then another further down is not a close; and an interactive target is exempt
-    (`GLOSS_TAP_SKIP`), or a nested glossary link and the sources fold would become unusable. The end of a
-    drag is told from a tap by a **one-shot flag** (`win._glossDragged`) that the drag sets and the tap
-    handler clears — NOT by reading the `dragging` class, which is gone by the time the tap handler runs
-    and which, if held for a frame instead, swallows the first real tap after every drag.
+  · **A DOUBLE TAP ANYWHERE ON THE SCREEN closes it** (`glossDoubleTap`; it was anywhere on the WINDOW
+    until Aug 2026, and was widened on request with the scrim's blocking below) — the × is a 26px target
+    in one corner of a window that fills most of the screen. Written on pointer events, not `dblclick`,
+    which a phone may swallow for double-tap-to-zoom. Two guards: the taps must land close TOGETHER as
+    well as close in time (`GLOSS_TAP_SLOP`), so tapping one word and then another further down is not a
+    close; and an interactive target is exempt (`GLOSS_TAP_SKIP`), or a nested glossary link and the
+    sources fold would become unusable. The end of a drag is told from a tap by a **one-shot flag**
+    (`el._glossDragged`) that the drag sets and the tap handler clears — NOT by reading the `dragging`
+    class, which is gone by the time the tap handler runs and which, if held for a frame instead,
+    swallows the first real tap after every drag. **The window and the scrim keep SEPARATE pairs of taps**
+    rather than sharing one counter, which is the same rule the slop expresses: two taps mean "close" when
+    they land in one place, and a tap on the page followed by a tap on the description is a reader reading.
+    The scrim's copy closes the TOP of `glossWins`.
   · **The scrim is ONE element with `backdrop-filter`** (`#glossScrim`), never a `filter` over a list of the
     page's own containers: that list would need keeping in step with every fixed thing on the site, and a
     `filter` on an ancestor becomes the containing block for its `position:fixed` descendants — which would
-    move the very bars it was blurring. **`pointer-events:none`**: this is focus, not a modal, and tapping
-    outside still does not close a popup. It is raised **explicitly** in `openGlossWin` rather than through
+    move the very bars it was blurring. It is raised **explicitly** in `openGlossWin` rather than through
     `syncGlossScrim`, because at that point the new window has not yet been pushed onto `glossWins` (that
     is the last thing the function does) and a count-based call would find zero.
+    **IT IS A MODAL SINCE AUG 2026, ON REQUEST** — it began as focus alone (`pointer-events:none`, the page
+    behind still live) and the request was that nothing behind a popup be clickable until it closes. One
+    property does the whole job: at **z-index 9590 it is above every bar and control on the site** (the tab
+    bar is 55, the grade bar 60), so nothing has to be disabled by name and no list has to be maintained.
+    `touch-action:none` goes with it — a scrim that swallows a tap must not leave the browser free to read
+    the same tap as a scroll or a double-tap zoom. **A single tap on it still does nothing**: tapping
+    outside has never dismissed a popup and that has not changed; what makes the blocking bearable is the
+    double tap above. **The blocking rides on `.on`, not on the base rule**, because the scrim is faded for
+    220ms before it is removed and the popup is already gone for those 220ms — a scrim still eating taps
+    there would leave the page dead to the touch just after the reader closed the thing that made it so.
   It keeps the sheet's **permanent compositing layer** (`will-change:transform` + `backface-visibility`),
   and that is not decoration: it was the fix for a reported flicker, where the sheet blinked out for a
   fraction of a second the instant its slide finished. A per-frame probe read `opacity:1`,
@@ -3073,6 +3109,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   1–4 grade, Enter is Good, Ctrl+Z takes the last one back. They all existed and nothing said so, and that
   bubble is where a reader already goes to ask what the buttons do. (The Atlas's own coach marks already
   covered its click drill-down; they gained the keyboard line — `[`/`]`, Enter, Esc — which they hadn't.)
+  **…AND NEITHER THE BUBBLE'S KEYS NOR THE BUTTONS' DIGITS ARE SHOWN ON A PHONE** (Aug 2026, on request).
+  `.grade .gk` and `.grade-help-bubble .ghb-keys` are both `display:none` in the ≤640px block: they describe
+  a keyboard a phone has not got, so on a phone they are furniture explaining a control that cannot be
+  reached — the digits costing each of the four buttons a line of height and the shortcut line a third of
+  the bubble. **Hidden, not removed from the markup**, because the same markup is what a desktop reader
+  gets, and there the keys are real and worth saying. The `.gk` rule used to live in the ≤430px block alone
+  and now covers the whole phone range, so the two cannot disagree about where a phone starts.
 - **The grade bar is ONE row below 430px** (Aug 2026). Two rows of two plus a help/suspend row took about a
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
@@ -3104,6 +3147,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   breakpoint the chevron is `display:none` and it is unreachable, and `flipMove` skips anything that did
   not move — but it IS gated on the reader's motion setting, inside both helpers. Note for the tests: a
   height read sooner than `GB_FOLD_MS` after the press measures a state half way between the two.
+  **ONE CLOCK AND ONE CURVE, which is what it was missing** (Aug 2026, on a report that the fold ran
+  roughly). The two passes act on the SAME four buttons at the same moment — the position from `flipMove`,
+  the height and padding from the CSS transitions — so they have to agree about more than the duration:
+  the FLIP ran `cubic-bezier(.22,.61,.36,1)` while the transitions ran `--ease`
+  (`cubic-bezier(.2,.7,.2,1)`), and a box arriving slightly before or after the place it is sliding to
+  reads as a stutter rather than as two animations. `GB_FOLD_EASE` in app.js is now `--ease` written out,
+  and `flipHeight` takes an easing argument so it can be passed the same one. Two more things came out of
+  the same report and are worth keeping: **`font-size` is NOT transitioned** on `.grade-help` /
+  `.gb-undo` / `.suspendbtn` — easing a font down to 0 relayouts the text every frame on three buttons
+  `flipMove` is translating, and the two fighting over one box was most of the roughness, so the labels
+  now go at once and only the geometry eases — and **`#gradebar`'s own `padding-bottom` IS transitioned**,
+  or the whole movement ends on a 5px jump the instant everything else settles.
+  **The chevron is dimmed to `opacity:.5`** (Aug 2026, on request), full strength on hover and focus: it
+  is a quiet control sitting directly above four saturated colours.
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
@@ -4256,7 +4313,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), and **Common Thread**
   (`thread` — see its own bullet below). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 6 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
-  game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
+  game's end; `won` = a perfect run, or `solved` for Timeline).
+  **ONE PLAY A DAY, AND THE GATE IS `gameLockedToday(root, key)`** (Aug 2026, on request). Every one of the
+  six is a DAILY game — its rounds are drawn once for today, its score is today's on the tile, the tile turns
+  gold for a perfect run — and a **Play again** button under the results contradicted all of it: the set had
+  been revealed answer by answer, so a second run was a run with the answers in hand, and the tile's figure
+  came from whichever attempt went best. The three "Play again" buttons are gone, each results screen carries
+  a `.tf-tomorrow` line saying when the next set arrives instead, and **each of the six `PAGES.*` calls the
+  gate as its first act** — `challenge`, `truefalse`, `whosaid`, `chrono`, `thread`, and `findit`, where it
+  goes in `PAGES.findit` rather than inside `PAGES.map` (that is the whole Atlas and knows nothing about
+  daily games, and it is the only route into game mode). It renders an `emptyPlacard` naming today's score.
+  **TWO GAMES HAD GROWN THEIR OWN LOCAL VERSION OF THIS RULE AND BOTH ARE NOW RETIRED**, which is the shape
+  of a rule that wants stating once rather than six times: Timeline recorded the FIRST check and ignored
+  later ones (it now takes ONE check — `.chrono-done` on the list stops the grips and the arrows, in JS as
+  well as in CSS, and the check button is removed), and Find it called a same-day replay "practice" and
+  recorded nothing (`gamePractice` is **deleted**, not left unreachable). **The cost is real and worth
+  naming**: a reader can no longer re-read today's Timeline order or walk today's five places again. What is
+  bought is that the figure on the tile is the answer they gave when they did not know the answers.
+  Two smaller things went with it: the four "…try again" closing lines no longer invite a replay there
+  isn't, and **`gameCapFirst`** capitalises Multiple Choice's options, its revealed answer and its summary
+  (on request). That is DISPLAY only — `options`/`correct` are matched by identity elsewhere in the round —
+  and it is `\p{L}`-anchored so a term opening on a numeral or a Han character is passed through rather than
+  sliced through a surrogate pair. The study card makes the same move for the same reason and makes it in
+  CSS (`.answer .val::first-letter`), which is not available to a text node inside a button.
+  The home tile has **three daily states** (state classes set by
   `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
   `gamePlayedToday` — challenge/chrono still also derive it from `S.daily.lastPlayed` / `S.chrono.date`) = the tile FILLS with
@@ -4425,13 +4505,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states**, and were
     one until Aug 2026, when putting the tools away also put the pen down — you could not draw with the
     panel out of the way, which on a phone is most of the card. The marker button now only opens and closes
-    the panel (opening it with nothing selected picks the pen, so one tap still gets you drawing); what puts
-    the pen down is **unselecting the tool inside it**. The tools are mutually exclusive and clicking the
+    the panel; what puts the pen down is **choosing a tool inside it**, and what puts it up is unselecting
+    that tool. The tools are mutually exclusive and clicking the
     selected one deselects it, so **nothing selected IS the pen-up state** —
     which is what makes that gesture available at all. `applyWBState` maps `panelOpen` → `.active` and
     `enabled` → the button's `.on` (visible with the panel shut) plus the canvas; **`wbSetEnabled` is the
     one place `enabled` changes**, because the Atlas owns its own cursor / hover / spin state and has to be
     told through `WB.onToggle` the moment the pen goes down or up.
+    **OPENING THE TOOLS SELECTS NOTHING** (Aug 2026, on request). It used to pick the pen so that one tap
+    got you drawing, which is a shortcut for the reader who wanted the pen and a trap for everyone else:
+    `enabled` lays a canvas over the whole visible page, so a reader who opened the panel to reach Undo,
+    Clear, a colour or the stylus row found the card underneath already taken. The panel is a MENU and
+    choosing from it is what starts drawing; the cost is one extra tap on the way to the pen, and it is
+    exactly the tap that says which tool was meant. `test-layout.js` asserts **both halves in two places**
+    — nothing selected on open, and a tool choice starting the drawing — because they fail in opposite
+    directions and "nothing is selected" would otherwise also pass on a marker that had stopped working.
+    (A HOLD on the marker still restores the tool last drawn with; that is a separate gesture and is
+    unchanged.)
   · **IT HAS WEIGHT: it can be THROWN** (`WB_FLING_*` / `wbStopFling` / `wbClampPos`, Aug 2026, on request).
     It used to stop dead on the lift, which on a phone reads as the thing being stuck to the finger rather
     than being moved by it; it now keeps the velocity it was released at and coasts to a stop under
@@ -4845,8 +4935,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   so it inherits the zero and grows into the space, and every other rule written against `--timebar-h` is left
   describing the ordinary Atlas. The markup stays (hidden, so out of the tab order too), so `paintYear`,
   `renderMapYearMarks` and `layoutTicks` need no game branch — the last returns early on a zero `clientWidth`.
-  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
-  never records: the rounds are deterministic and every answer was revealed). The Atlas also gained **first-visit coach
+  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **A same-day replay is turned
+  away at the door** by `gameLockedToday` in `PAGES.findit` (Aug 2026, on request — see the daily-games bullet).
+  It used to be admitted as PRACTICE, playable and recording nothing, since the rounds are deterministic and
+  every answer was revealed during play; `gamePractice` and its four branches are **deleted rather than left
+  unreachable**. The Atlas also gained **first-visit coach
   marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
   "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
   centre, Esc clears, `[`/`]` step map-years). The **`#gzIn`/`#gzOut` zoom buttons' markup was restored** (wiring + CSS
@@ -5340,6 +5433,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
     a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
     and must never be pointed at app.js.
+  **A TAB THAT TAKES OVER THE ADMIN AREA MUST LIFT THE ≤860px PANEL CAP, and TWO of the four had not**
+  (Aug 2026, on a bug report). `.admin-list-items` is capped at `max-height:300px` on a phone, which is right
+  for the Cards and Glossary lists — they are one column of a two-column layout — and traps a whole page in a
+  300px scroll box for a tab that owns the screen: the Quotes tab's edit form filled the box, its Save button
+  sat at the fold, the running order beneath was cut off mid-row and the rest of the screen was left empty.
+  Timeline and Feedback were in that rule's exception list from the day they were built; the **Dashboard and
+  Quotes arrived later and were not**, which is the whole of the bug. All four are listed now — **keep the
+  list in step with the `*-mode` classes `adminRefresh()` sets**, or the next tab added will look broken the
+  same way. Guarded by `test-layout.js`, which reads the cap back and checks the pane is not clipped.
 - **Admin → Dashboard: Folio in numbers (Aug 2026, on request).** The editor's FIRST tab and the one a fresh
   session opens on (`adminState.tab` defaults to `"dashboard"`; a session interrupted mid-edit still comes back
   to the card it was on — `restoreAdminUI` exists because auto-save can live-reload the page between
@@ -6737,7 +6839,10 @@ dead code (never rendered).
     deck's NAME not cut off at 390px, that being what gives way if the arithmetic ever stops working) and the same page above the breakpoint, where the only thing that may differ
     is the About line (a desktop reaches About from its top bar) and where `#decks` must still RESOLVE with
     no tab left pointing at it;
-    the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen, the
+    the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen,
+    **opening the tools selecting NOTHING and choosing a tool being what starts drawing** — asserted in
+    both places the marker is exercised, and both halves each time, since they fail in opposite directions
+    and "nothing is selected" alone would also pass on a marker that had stopped working; the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
     revert to the platform dialog would look like — and **Show answer and the grade row still tappable with
@@ -6758,7 +6863,10 @@ dead code (never rendered).
     grades as bare colours that a screen reader can still name, keep the ? and Suspend beside them rather
     than dropping them, and take the page's bottom padding down with it — note that the fold is ANIMATED
     since Aug 2026, so a height read sooner than `GB_FOLD_MS` after the press measures a state half way
-    between the two; the Text size setting, which is a SLIDER filling its row (asserted, that being the
+    between the two — which is also how the fold is asserted to EASE rather than cut, by reading a
+    mid-flight height and requiring it to sit between the two settled ones; the shortcut digits and the
+    `?` bubble's keyboard line present in the markup and hidden on a phone (both halves, since a removal
+    and a hidden element look identical from one side); the Text size setting, which is a SLIDER filling its row (asserted, that being the
     visible half of the request) and which must
     grow the card and the glossary popup and must leave a tab label and a grade button exactly where they
     were, that being the difference between a reading scale and a page zoom; Settings and Account filling the stage;
@@ -6771,8 +6879,9 @@ dead code (never rendered).
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
-    `ensureWBTools` / `.wb-pick` /
+    `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     the ink layer's pass-through /
+    `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on `.admin-list-items` /
     `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
