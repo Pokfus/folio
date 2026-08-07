@@ -12921,3 +12921,49 @@ The draft came in at **255 words against a 270 floor** — every earlier card th
 short, and a card built to avoid a neighbour's ground is the shape that runs short. It was lengthened from
 the sources rather than padded: the Natufian's own food production and the Hayonim Terrace dog from
 `maher-2011`, and the Old World scope of the village figure from `fuller-stevens-2019`. 283 on the re-count.
+
+---
+
+## Batch W24 — `wh-115` Fertile Crescent (2026-08-07)
+
+### Nothing newly opened — five registered sources, three still open
+`breasted-robinson-1914` (the geography in the coiner's own words: a borderland between desert and
+mountains, "a fertile crescent having the mountains on one side and the desert on the other", an
+approximate semicircle with the west end at the southeast corner of the Mediterranean, the centre directly
+north of Arabia and the east end at the head of the Persian Gulf — and the phrase's first appearance,
+lower-case), `breasted-1916` (the same passage capitalised throughout, with the footnote that no name
+"either geographical or political" covers the whole semicircle), `maher-2011` (the Epipalaeolithic at
+"ca. 23–11.6 ka cal BP" and the Natufian at "c. 14,500–11,600 cal BP" with sedentism, cemeteries and
+architecture), `larson-2014` (domestication "began globally 12,000–11,000 y ago", at least 11 independent
+centres), `lazaridis-2016` (44 ancient Near Easterners "ranging in time between ~12,000 and 1,400 bc, from
+Natufian hunter-gatherers to Bronze Age farmers", and that the first farmers of the southern Levant and the
+Zagros "each descended from local hunter-gatherers").
+
+### TWO MORE STALE [Open access] LABELS — six and seven, and the pattern now has a shape
+`larson-2014` and `lazaridis-2016` are both recorded here as **[Open access] read via PMC**, and **neither
+is reachable now**: the REST full-text route 404s for both and the PMC article pages serve the browser
+challenge. Both are cited **[Paywalled]**, from the claims this register already records, which is what
+G6's rule permits — reuse for the claim recorded, not for a neighbouring one. Running total across W17–W24:
+**seven PMC-hosted works whose recorded label no longer holds** (`stringer-2016`, `nielsen-2017`,
+`o'connell-2018`, `haak-2015`, `fu-2016-europe`, `larson-2014`, `lazaridis-2016`).
+**The shape is now clear enough to act on: a PMC label recorded before August 2026 should be treated as
+unverified until re-fetched.** The counter-check ran again and still matters — `maher-2011` came back with
+107 KB of full text on the same run — so this is not "PMC is closed", it is "PMC is no longer uniform".
+**The two Breasted volumes are on the Internet Archive and are unaffected**, which is the practical lesson:
+a citation pointing at archive.org has held every time this session, where PMC has moved seven times.
+
+### THE HISTORIOGRAPHY BUDGET, AND WHY THE NAMING IS ONE SENTENCE AND NOT THREE
+Two of the five sources are the books that coined the phrase, so the pull towards a card about Breasted was
+strong — and `docs/history-focus-plan.md` would have been broken by it. The naming is compressed into a
+single sentence carrying both sources, and the two sentences of geography are drawn from the same 1914
+passage but written as **facts about the land** rather than as facts about a book. `card-focus.js` measures
+**0 of 10** historiography with no researcher in any question. The register's own correction is preserved in
+that one sentence: the phrase is in print **lower-case in 1914** and capitalised in 1916, so the card says
+both rather than repeating the once-common "named in 1916".
+
+### A CLAIM NOT MADE
+The card gives **no list of the crops and animals domesticated there** — no wheat, barley, lentils, sheep,
+goats. The `Fertile_Crescent` glossary term states it, but **no source in this batch's list carries it**:
+`larson-2014`'s recorded support is the timing and the count of centres, and its full text is no longer
+reachable to check for more. Adding the list from memory would be the N4 fault. It is the obvious first
+thing to source when an openable copy appears.
