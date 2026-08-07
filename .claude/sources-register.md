@@ -12045,3 +12045,61 @@ reporting into arguing.
 Both cards measure historio 0 of 10, no researcher named in any of their six questions. `wh-013` names
 Nutcracker Man and OH 5 but no excavator, and the reversal of the hard-object reading is carried as
 evidence about the teeth rather than as a history of who thought what.
+
+## Batch W9 — `wh-031` cooking hypothesis, with its glossary term (2026-08-07)
+
+The card had to be written AGAINST an existing one. `wh-029` control of fire already carries the
+hypothesis in a single sentence — corrected in batch 23, which caught the pass's first wrong marker there
+(the Wrangham claim pointing at Berna's Wonderwerk microstratigraphy, which says nothing about cooking)
+and moved the date from 1.9 to 1.7 Ma on Gowlett. So `wh-031` owns the MECHANISM and the ARGUMENT, and
+`wh-029` keeps the fire evidence and the attribution.
+
+### A REGISTER GAP, found and closed
+**`gowlett-2016` is cited on the shipped `wh-029` and was not in this file at all.** It went in through a
+batch that did not record it, which means a later batch reusing it had no entry to check against and would
+have had to re-read from scratch — the exact cost the register exists to avoid. Its entry is below.
+
+- John A. J. Gowlett, "The Discovery of Fire by Humans: A Long and Convoluted Process," <i>Philosophical Transactions of the Royal Society B</i> 371, no. 1696 (2016): 20150164, under "Fire and the Cooking Hypothesis," https://pmc.ncbi.nlm.nih.gov/articles/PMC4874402/. [Open access]
+  - opened: 2026-08-07 (and earlier, unrecorded, for wh-029) · full text via PMC
+  - supports: the cooking hypothesis as it bears on early Homo, and **the 1.7 Ma date** — which is the
+    correction batch 23 applied against the card's former 1.9 Ma
+  - used by: wh-029, wh-031, Cooking_hypothesis (glossary)
+
+### Newly opened
+
+- Miki Ben-Dor and Ran Barkai, "A Bioenergetic Approach Favors the Preservation and Protection of Prey, Not Cooking, as the Drivers of Early Fire," <i>Frontiers in Nutrition</i> 12 (2025): 1585182, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12122349/fullTextXML. [Open access]
+  - opened: 2026-08-07 · full text via the Europe PMC REST route
+  - supports: the hypothesis as these authors state it — that fire for cooking "was a driving force behind
+    crucial adaptations in *Homo erectus*", reduced gut and increased brain; the objection, that cooking
+    meat yields "approximately 8%, or around 1,200 ca/h" in digestibility and cooked plants a few hundred
+    calories an hour, both "insufficient to offset the caloric cost of maintaining a fire"; and the
+    alternative, that "meat and fat preservation, and predator protection were more likely the initial
+    motivations"
+  - used by: wh-031, Cooking_hypothesis (glossary)
+- Justin A. Ledogar et al., "Bite Force Production and the Origin of <i>Homo</i>," <i>Royal Society Open Science</i> 12, no. 4 (2025): 241879, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12014231/fullTextXML. [Open access]
+  - opened: 2026-08-07 · full text via the Europe PMC REST route
+  - supports: that "selection on skeletal traits favouring forceful postcanine processing was relaxed by
+    the earliest stages in the evolution of our genus, implying that dietary or food processing changes
+    played an important role in the emergence of *Homo*", with *H. habilis* showing a "decreased ability to
+    generate molar bite force" against australopiths
+  - **the card uses this for BOTH sides**, which is the point of it: the jaws show a processing change at
+    the origin of the genus, and they cannot distinguish fire from cutting and pounding. Citing it only for
+    the supporting half would misrepresent what it establishes
+  - used by: wh-031
+
+### Reused
+`roebroeks-villa-2011` (habitual fire only from ~400 ka), `berna-2012` (in-place burning at Wonderwerk
+~1 Ma) and `si-erectus` — each for the claim the register records.
+
+### No EXEMPT entry, deliberately
+`docs/history-focus-plan.md` exempts cards whose answer term IS a modern theory, and `wh-064` Toba is on
+that list. This card would have qualified, and **it does not need to**: measured, it comes out at
+historio 0 of 10 with no researcher named in any question, because it is written about the claim and the
+evidence rather than about who argued what. Wrangham is not named — `wh-029` carries the attribution. The
+exemption list stays at three, which is what "keep this list SHORT" asks for.
+
+### A tooling note worth having
+**`add-glossary.js` does not check description length.** `Cooking_hypothesis` was written at 115 words,
+five over the bar, and went in; it was caught only by running `gloss-length.js` afterwards and was trimmed
+to 107 and re-added. CLAUDE.md already says to re-run that measure after `add-glossary.js`; this is the
+first batch in this run where it actually bit.
