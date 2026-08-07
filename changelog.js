@@ -14,13 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.54", released: "2026-08-07T05:11Z" };
+window.FOLIO_VERSION = { v: "1.55", released: "2026-08-07T06:52Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-07",
-    t: "Holding a book no longer selects the words in the menu it opens",
+    t: "Beowulf joins the shelf, and holding a book no longer selects the words in the menu it opens",
     items: [
+      "<i>Beowulf</i> joins the Library — the longest poem to survive in Old English, and one of the strangest survivals in European literature. A warrior from southern Sweden crosses the sea to help a Danish king whose hall has been emptied for twelve years by a night-walking creature called Grendel; he kills it bare-handed, then its mother in her lair under a lake; and fifty years later, an old king himself, he goes out against a dragon, kills it, and dies of the wound. Everything we have of it is one manuscript, and it very nearly burned: a fire in 1731 scorched the only copy, and its edges went on crumbling for decades, so some of what you read here survives only because a scholar had it transcribed before the worst of the loss. It is set in Scandinavia rather than England, and one thing in it can be dated from outside — a raid on the Frisians that a Frankish bishop recorded early in the sixth century. The Old English sits beside the translation, and the two are paired on the <b>line number</b> printed in the margin every fifth line, so you can set a phrase against the words it renders rather than against the page it happens to sit on. The verse works by stress and alliteration rather than rhyme, with a pause dividing each line in two — shown as a gap in both columns — and Francis Barton Gummere’s 1909 translation keeps that shape, which is why it reads as strangely and as strongly as it does. The chapters follow the scribes’ own numbered sections, gap and all: there is no fitt thirty, because the manuscript skips the number, and no line is missing where it does.",
       "Holding a book on the shelf opens its menu without selecting text inside it. The menu appears under your finger, and a moment later the phone’s own press-and-hold would grab a word from whichever line had landed there — so the Copy / Share / Select All bar came up over the menu that had just opened. The same went for holding the daily study banner.",
     ],
   },

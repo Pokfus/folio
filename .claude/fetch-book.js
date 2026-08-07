@@ -4324,6 +4324,201 @@ const BOOKS = {
        as Ovid, Lucretius, the Analects, the Oedipus Rex and the Antigone do. notesOf is still called
        and will warn if one ever appears. */
   },
+  "beowulf": {
+    title: "Beowulf",
+    /* No subtitle. The poem is untitled in its manuscript — it is called Beowulf because Sharon
+       Turner and the editors after him named it for its hero, and it has had no other name since. */
+    author: "Anonymous",
+    translator: "Francis Barton Gummere",
+    edition: "The Oldest English Epic, translated by Francis Barton Gummere, Macmillan, New York, 1909",
+    written: "c. 700–1000",
+    /* THE DATE IS THE OPEN QUESTION OF THE FIELD and the shelf has to sort on one number anyway. The
+       only certainty is the manuscript, written around the year 1000; when the poem behind it was
+       composed has been argued from its language, its metre and its politics for two centuries, and
+       the answers run from the early eighth century to the very decade of the copy. 700 is the early
+       end of that range and is what the sort uses; the front matter says how loose it is, exactly as
+       the Song of Roland's does. */
+    year: 700,
+
+    /* ---------- THE LICENCE — three layers, and only the third needs care ----------
+       The poem is Old English and about a thousand years old, so it is free everywhere and on every
+       ground. Gummere's translation was published in 1909 and he lived 1855–1919 — dates taken from
+       Wikidata and matching the Wikisource author page's own PD-old tag, checked rather than recalled
+       for the Hugo Magnus reason — so it is public domain in the United States under the pre-1929
+       rule, cleared life plus seventy in 1990, and has cleared life plus a hundred as well. No limit
+       to state, which puts it with the Republic, the Analects and the Peloponnesian War rather than
+       with Giles (2029) or Ross (2042).
+
+       THE ONE THING THAT CANNOT BE SAID IS WYATT'S DEATH YEAR, and it is said so rather than rounded
+       up — the Gallic War's judgement, where half a byline could not be found. Wikidata gives Alfred
+       John Wyatt as 1835–1935 at YEAR precision, a suspiciously round hundred years, and the
+       Wikisource author page carries no dates and no public-domain tag for him at all where
+       Gummere's carries PD-old. He was certainly alive in 1919, having published An Anglo-Saxon
+       Reader that year. So no life-plus-seventy term is asserted for his edition; the ground stated
+       is the date of publication, 1894, which is long before 1929 and which anybody can check. If
+       the 1935 death is right then life plus seventy expired in 2006 and life plus a hundred runs to
+       2036, and that conditional is on the book's own page rather than smoothed into a flat claim.
+
+       WHAT IS AND IS NOT TAKEN. Only Beowulf. Gummere's 1909 volume also carries his translations of
+       Finnsburg, Waldere, Deor, Widsith and the German Hildebrand, and a long introduction; Wyatt's
+       carries a preface, an argument, a glossary and the Finnsburg fragment. None of that is
+       imported, which is the Republic's precedent for the introduction and plates it left behind.
+
+       The modern translations a reader is likeliest to own — Seamus Heaney's of 1999, J. R. R.
+       Tolkien's prose version published in 2014, Roy Liuzza's of 2000, Michael Alexander's Penguin
+       and Maria Dahvana Headley's of 2020 — are all firmly in copyright and are named here for the
+       reason Campbell, Hays, Griffith, Lee, Sayers and the rest are named above: so that nobody
+       reaches for one later. */
+    rights:
+      "Public domain, with one thing this site cannot establish and says so rather than guess. The " +
+      "poem is Old English and about a thousand years old, so it is free everywhere. Francis Barton " +
+      "Gummere's translation was published in 1909 and he lived from 1855 to 1919, so it is public " +
+      "domain in the United States under the pre-1929 publication rule and out of copyright wherever " +
+      "the term is the author's life plus seventy or even a hundred years — there is no limit to " +
+      "state. The facing Old English is Alfred John Wyatt's edition of 1894, which is public domain " +
+      "in the United States on the same pre-1929 ground; his dates are given elsewhere as 1835 to " +
+      "1935 but only to the year and without corroboration, so no life-plus-seventy term is claimed " +
+      "for it here, and if that death year is right the term expired in 2006. Gummere's volume also " +
+      "contains Finnsburg, Waldere, Deor, Widsith and Hildebrand, and Wyatt's a glossary and the " +
+      "Finnsburg fragment; none of that is reproduced here, and what is taken is the poem. (The " +
+      "modern translations by Seamus Heaney, 1999, Roy Liuzza, 2000, J. R. R. Tolkien, published " +
+      "2014, and Maria Dahvana Headley, 2020, are still in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Oldest_English_Epic/Chapter_1",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: that this is one burnt manuscript and not a tradition;
+       what the poem is about and what shape it has; how the metre works, because the translation
+       keeps it and a reader who does not know what to listen for will hear only strangeness; the one
+       date anything in it can be pinned to; why it is not about England; and finally what this
+       edition is and how the two columns here are paired. */
+    about: [
+      "<b>Beowulf</b> is the longest and greatest poem to survive in Old English, and one of the " +
+        "strangest survivals in European literature. It runs to <b>3,182</b> lines of alliterative " +
+        "verse and it tells of a Geatish warrior who crosses the sea to help the Danish king Hrothgar, " +
+        "whose hall Heorot has been emptied for twelve years by a night-walking creature called " +
+        "Grendel; of how he kills Grendel bare-handed and then Grendel's mother in her lair beneath a " +
+        "mere; and of how, fifty years later and an old king himself, he goes out against a dragon " +
+        "that his own people's stolen cup has woken, kills it, and dies of the wound. It is a poem " +
+        "about courage and about what courage cannot prevent.",
+      "Everything we have of it is <b>one manuscript</b>, and it very nearly burned. Beowulf survives " +
+        "in a single copy, written out by two scribes around the year 1000 and now British Library " +
+        "Cotton MS Vitellius A.xv — the Nowell Codex. In 1731 a fire in Ashburnham House, where Sir " +
+        "Robert Cotton's library was then kept, scorched the volume badly; the leaves were rescued but " +
+        "their edges went on crumbling for decades afterwards, taking words with them. What saved " +
+        "those readings was that the Icelandic scholar Grímur Jónsson Thorkelin had two transcripts " +
+        "made in 1786–87, before the worst of the loss, and published the first printed edition in " +
+        "1815. Every edition since, this one included, reads the burnt margins partly through his " +
+        "copyists' eyes. There is no second manuscript, no earlier version and no other witness: had " +
+        "the fire been an hour worse we would know the poem only as a title.",
+      "The verse is built on stress and alliteration rather than on rhyme, and Gummere's translation " +
+        "keeps that, which is why it reads as it does. An Old English line is two half-lines divided " +
+        "by a pause — the <i>caesura</i>, shown here as a gap in both columns — with two stressed " +
+        "syllables in each half, and the line is bound together by having the stresses begin with the " +
+        "same sound. Nothing rhymes. The poet also names things by compounding rather than by " +
+        "describing them: the sea is the whale-road, a king is a ring-giver, the body is the " +
+        "bone-house. Those compounds are called <b>kennings</b>, and a poem thick with them is doing " +
+        "something a modern narrative does not — it is naming the world twice over, so that a listener " +
+        "hears both the thing and a judgement about it.",
+      "It is set in Scandinavia and it is not about England at all. Hrothgar's Denmark and Beowulf's " +
+        "Geatland, in what is now southern Sweden, are the whole geography of the poem, and it was " +
+        "written in England, in English, by a Christian poet looking back at the pagan ancestors of " +
+        "his own people. That doubleness runs through it: the narrator knows the characters are " +
+        "heathen and says so with sorrow, while the characters themselves speak of a single God and " +
+        "of fate in the same breath. One thing in it can be dated from outside. Beowulf's lord " +
+        "Hygelac dies raiding the Frisians, and Gregory of Tours records that raid — a Danish king he " +
+        "calls Chlochilaicus, killed on an expedition into Frankish territory early in the sixth " +
+        "century. It is the single peg fastening this poem to recorded history, and everything else " +
+        "in it floats free of any chronicle.",
+      "For a long time it was read as a quarry rather than as a poem. Nineteenth-century scholarship " +
+        "went to Beowulf for what it could yield about Germanic antiquity, the historical kings, the " +
+        "old religion, and treated the monsters as childish material cluttering a valuable document. " +
+        "That was turned over in 1936 by <b>J. R. R. Tolkien</b>, in a British Academy lecture called " +
+        "<i>Beowulf: The Monsters and the Critics</i>, which argued that the monsters are the point — " +
+        "that the poet put them at the centre deliberately, because a poem about a man against " +
+        "Grendel and the dragon is a poem about a man against death, which is what it is for. Almost " +
+        "everything written about Beowulf since begins from that lecture, whether it agrees with it " +
+        "or not.",
+      "The poem's divisions are the scribes' own, and they are odd in a way this edition preserves. " +
+        "The manuscript breaks the text into numbered sections — <i>fitts</i> — a prologue and then " +
+        "forty-three of them, and those are the chapters here. There is <b>no fitt numbered XXX</b>: " +
+        "the numbering runs to XXVIII, then to an unnumbered section that editors supply as [XXIX], " +
+        "and then straight on to XXXI. Nothing is missing, and the line numbers prove it — Wyatt's " +
+        "XXVIII ends at 2038, the bracketed section runs 2039–2143, and XXXI takes up at 2144. So the " +
+        "chapter numbers on these tabs carry the same gap the manuscript carries, rather than being " +
+        "renumbered tidily into a sequence the poem does not have.",
+      "This edition is Francis Barton Gummere's, published by Macmillan in 1909 in a volume called " +
+        "<i>The Oldest English Epic</i>. He translates line for line and keeps the alliteration and " +
+        "the four-stress measure, which almost nobody attempts, and the result is deliberately " +
+        "archaic and much closer to the movement of the original than a smoother version would be. " +
+        "Beside it is the Old English itself, in A. J. Wyatt's edition of 1894 for Cambridge, made " +
+        "from Zupitza's photographic facsimile of the burnt manuscript. The two are paired on the " +
+        "<b>line number</b>, printed in the margin of both every fifth line, which is how any passage " +
+        "of Beowulf is cited in any language — so a reader can put a phrase of the translation " +
+        "against the words it renders rather than against the page it sits on. They agree on " +
+        "<b>636</b> such markers apiece across an identical range. Where Gummere runs his XXVIII " +
+        "across the whole of Wyatt's XXVIII and [XXIX], the Old English of both is gathered into the " +
+        "one chapter; and the two editions divide once at a different line, at 1740, so that single " +
+        "block stands alone in one column. Six marginal numerals are misprinted in one edition or the " +
+        "other and each is read as the place the sequence puts it, since every one is followed " +
+        "immediately by a correct number.",
+    ],
+
+    /* ---------- ONE PAGE PER FITT, PAIRED ON THE LINE ----------
+       The ordinary wiki walk on both sides; what is new is that the chapter and the pairing unit are
+       two different things — see the FITTS block above extractFitt for the measurements. */
+    source: "wiki",
+    layout: "fitts",
+    chapterWord: "Fitt",
+    /* The manuscript's own numbering, gap and all: a prologue counted as 0, then I–XXVIII, then
+       XXXI–XLIII. There is no 30 anywhere in either edition. */
+    chapters: [0].concat(
+      Array.from({ length: 43 }, (_, i) => i + 1).filter((n) => n !== 29 && n !== 30)
+    ),
+    page: (n) => "The Oldest English Epic/Chapter 1/Beowulf " + String(n).padStart(2, "0"),
+    /* Chapter 0 is the poem's unnumbered opening, which both editions head "Prelude" — a title
+       transcribed rather than composed. The rest have no names in either edition: Wyatt's contents
+       page gives a Roman numeral and a line range and nothing else, so the tabs read "Fitt 1" and so
+       on, which is the whole of what the editions state about them. Composing forty-two descriptive
+       headings for a poet who gave none is the line the Meditations' entry draws. */
+    titleOf: (n) => (n === 0 ? "Prelude" : "Fitt " + n),
+    /* No `parts`: neither edition divides the poem above the fitt — no books, cantos or parts in
+       either — so app.js falls back to a single unlabelled group, as the Meditations, the Republic
+       and the Song of Roland do. The familiar "two halves" of Beowulf, Denmark and the dragon, is a
+       reader's description and not a heading anybody printed.
+
+       The short-chapter guard is lowered as Aesop's and the Song of Roland's are, and for the same
+       reason: 200 characters is a broken chapter only where a chapter is a book of Herodotus. The
+       shortest fitt here is the nineteen-line XLIII — measured over all 85 cached pages, not
+       assumed — whose English is 780 characters and whose Old English is 700. 400 sits well below
+       both and far above what a failed extraction produces, which is a handful of characters. */
+    minChars: 400,
+
+    original: {
+      lang: "ang",
+      langName: "Old English",
+      edition: "Beowulf, edited by A. J. Wyatt, Cambridge University Press, 1894",
+      rights:
+        "The poem is Old English and about a thousand years old, so the words themselves are free " +
+        "everywhere. This text is A. J. Wyatt's edition of 1894, made from Julius Zupitza's " +
+        "photographic facsimile of the burnt manuscript, and it is public domain in the United " +
+        "States under the pre-1929 publication rule. Wyatt's dates are given elsewhere as 1835 to " +
+        "1935, but only to the year and without corroboration, so no life-plus-seventy term is " +
+        "asserted here; if that death year is right, the term expired in 2006. Wyatt's glossary, " +
+        "preface and the Finnsburg fragment printed with it are not reproduced — what is taken is " +
+        "the poem.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Beowulf_(Wyatt)",
+      layout: "fitts",
+      page: (n) => "Beowulf (Wyatt)/Beowulf " + String(n).padStart(2, "0"),
+      /* Wyatt divides where the manuscript does and so carries a section Gummere does not break at:
+         the bracketed [XXIX], lines 2039–2143, which Gummere runs on inside his XXVIII. It is
+         FOLDED INTO CHAPTER 28 here so the two columns divide alike — the alternative is a chapter
+         tab with an original and no translation, which is worse than a long chapter. Measured after
+         folding: 36 line markers on each side of that chapter, 1965 to 2140. */
+      foldInto: { 29: 28 },
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -5921,6 +6116,188 @@ function extractLaissesFr(pages, warn) {
     });
   });
   return out;
+}
+
+/* ---------- A POEM IN FITTS, PAIRED ON ITS PRINTED LINE NUMBERS ----------
+   Aug 2026, adding Beowulf — the twenty-second book, and the tenth layout. Both columns are one
+   wiki page per fitt, which is the ordinary walk; what is new is the PAIRING UNIT. Every earlier
+   book pairs on a unit its editions DIVIDE into — a letter, a chapter, a Stephanus page, a laisse.
+   Beowulf's editions divide into fitts, but a fitt is 50–140 lines, so pairing there would set one
+   whole column-page beside another and the facing page would be useless. What both editions state
+   far more finely is the LINE, printed in the margin every fifth line, and a line number is also
+   how any passage of Beowulf is cited in any language. So the fitt is the CHAPTER and the printed
+   line number is the SECTION — the first book here where those are two different things by design
+   rather than by accident.
+
+   THREE THINGS MEASURED BEFORE ANY OF IT WAS BELIEVED, over all 85 cached pages:
+
+   · THE TWO EDITIONS AGREE ON 636 MARKERS EACH, over an identical range (5 to 3180), with no
+     duplicate on either side. 40 of the 42 chapters pair exactly.
+
+   · SIX PRINTED NUMERALS ARE SLIPS, and the way to tell a slip from a real divergence is the
+     RE-SYNC, which is the Bhagavad Gita's rule met on a second book. Each of the six breaks a run
+     that is otherwise a clean +5 and the very next marker is correct again — 1696 for 1695, 2216
+     for 2215, 2885 for 2835, 2580 for 2850, 22975 for 2975, 3035 for 3065. Had the extractor been
+     cutting wrongly, every marker after the first would have disagreed instead of one. They are
+     repaired forward-only and each is named on every run, as the Song of Roland's two malformed
+     numerals are: this restores the printed page rather than composing anything, but it is a
+     repair, so it is said out loud.
+
+   · THE ONE REAL DIVERGENCE IS A FITT BOUNDARY, and it is the Antigone case again. Wyatt opens
+     fitt XXV at line 1740 and Gummere carries 1740 at the end of his XXIV, so that single block
+     draws in one column beside an empty cell in the other, twice — 2 half-empty rows out of 637.
+     Recorded rather than repaired: closing it would set a passage beside one that is not it.
+
+   AND THE MANUSCRIPT HAS NO FITT XXX. Both editions run ...XXVIII, [XXIX], XXXI... — the scribe's
+   own numbering skips it and no line is missing, which the continuous line ranges prove (Wyatt:
+   XXVIII 1963–2038, [XXIX] 2039–2143, XXXI 2144–2220). Wyatt supplies [XXIX] in square brackets
+   because the manuscript does not number that section either; Gummere does not break there at all,
+   running his XXVIII across both. So the chapter numbers here carry the gap the editions carry, and
+   Wyatt's [XXIX] is FOLDED INTO CHAPTER 28 so the two columns divide alike. Measured after folding:
+   36 markers on each side of that chapter, 1965 to 2140. */
+
+/* A printed line number, in the two shapes these transcriptions use: `wst-pline` on 84 of the 85
+   pages and `ws-poem-versenum` on the one page set with the ppoem template (Wyatt's prelude, the
+   only page in either edition transcribed that way). Anchored on digits, which is what keeps the
+   FOLIO references out: Wyatt marks those `wst-pline wst-pline-r` — the same class as a line number,
+   differing only in which margin it floats to — so a class-only test would take "Fol. 175a." for a
+   section number. They are dropped further down instead, once the numbers have been read. */
+const FITT_STEP = 5;
+const FITT_MARK =
+  /<span[^>]*class="[^"]*(?:\bwst-pline\b|\bws-poem-versenum\b)[^"]*"[^>]*>\s*(\d+)\s*<\/span>/g;
+
+/* The verse body, sliced and stripped of the wiki's own furniture. cleanBody's opening moves, done
+   here rather than borrowed, for the reason extractLaisses gives: that pass is written for prose and
+   its generic div-to-blockquote rule would turn this poem's structure into quotations. */
+function fittBody(h, where) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 8; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  const i = b.indexOf('<div class="prp-pages-output');
+  if (i < 0) throw new Error(where + ": no body — the page's markup has changed");
+  return b.slice(i).replace(/<ol class="references">[\s\S]*$/, "");
+}
+
+/* Read the numbers off the margin and rewrite them as the shelf's own section markers, carrying the
+   count forward. A value that does not continue the run is accepted where it still moves forward by
+   a whole number of lines, and otherwise read as the place the sequence puts it — with a warning
+   naming the fitt and both numbers, so a seventh slip cannot appear unnoticed. */
+function markFittLines(b, warn, where) {
+  let last = null, n = 0;
+  const out = b.replace(FITT_MARK, (all, raw) => {
+    let v = parseInt(raw, 10);
+    if (last !== null) {
+      const want = last + FITT_STEP;
+      const forward = v > last && (v - last) % FITT_STEP === 0 && v - last <= FITT_STEP * 5;
+      if (v !== want && !forward) {
+        warn(where + ": line number " + v + " is printed where the sequence gives " + want +
+             " — read as " + want + ", which is where the run puts it");
+        v = want;
+      }
+    }
+    last = v; n++;
+    return '<span class="bk-n">' + v + "</span> ";
+  });
+  if (!n) warn(where + ": no line numbers found");
+  return { html: out, count: n };
+}
+
+/* One fitt's verse as the single paragraph the shelf's other verse books emit — the lines separated
+   by <br>, each printed line number a .bk-n marker where it stands. Ovid, Lucretius and the Song of
+   Roland already render exactly this, so a poem in fitts needs no styling of its own.
+
+   STRIP THE WHOLE FITT BEFORE SPLITTING IT INTO LINES, which is the Song of Roland's rule and the
+   reason it is written down there: stripTags balances openers against closers on a stack, so a
+   fragment holding a <p> whose </p> lives in the next fragment is unbalanced on its own and the
+   opener survives into the output. */
+function fittHtml(b, warn, where) {
+  /* A line is blank when nothing but spacing entities is left of it — the transcriptions leave a
+     `&#32;` where the scan's page marker stood, and one at the foot of most fitts. */
+  const bare = (s) => s.replace(/<sup class="fn"[^>]*><\/sup>/g, "")
+                       .replace(/&#32;|&#160;|&nbsp;|&#8195;/g, " ").replace(/\s+/g, " ").trim();
+  const lines = stripTags(b)
+    .replace(/<\/?p\b[^>]*>/g, "<br>")
+    .split(/<br\s*\/?>/)
+    .map((s) => s.replace(/[ \t]+/g, " ").trim())
+    .filter((s) => bare(s) !== "");
+
+  /* DROP THE PRINTED HEADING, and carry its footnote marker down rather than deleting it. Each fitt
+     opens with its own numeral — "XXIII", "XXIII." in the Old English, "[XXXIX.]" where the editor
+     supplies a number the manuscript lacks — and the first opens on the poem's title instead. All of
+     it duplicates the chapter tab above it, so it goes, exactly as dropHeads takes a running head off
+     the top of a chapter elsewhere here.
+
+     THE MARKER IS THE WHOLE CARE IN THE RULE. Gummere's fitt XXXI carries a footnote ON its heading
+     numeral and the Old English title carries another, so a rule that simply dropped the line would
+     delete a marker while its note stayed in the list — an entry no sentence opens, which is the
+     mirror of the dead marker the apparatus already refuses to draw. The markers are moved to the
+     head of the line below instead, which is where that note's subject now begins. Anchored to the
+     FIRST line only, so a numeral occurring anywhere else in the verse is untouched. */
+  if (lines.length) {
+    const t = bare(lines[0]);
+    if (/^\[?[IVXL]+\.?\]?$/.test(t) || /^BEOWULF\.?$/i.test(t)) {
+      const carried = (lines[0].match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+      lines.shift();
+      if (carried && lines.length) lines[0] = carried + lines[0];
+      else if (carried) warn(where + ": the heading carried a footnote marker and has no line to carry it to");
+    }
+  }
+
+  if (!lines.length) warn(where + " came through with no lines");
+  return "<p>" + lines.join("<br>") + "</p>";
+}
+
+/* One fitt page, cleaned into { html, notes }. The notes are this chapter's own, in the order their
+   markers appear, and a marker carries the note it POINTS AT rather than its position in the queue —
+   Seneca's `data-fn` lesson, and it is live here rather than theoretical: these editions cite several
+   notes twice over, so numbering by reading order would run past the end of the list. */
+function extractFitt(h, warn, where) {
+  const { notes, ids } = notesOf(h);
+  let b = fittBody(h, where);
+
+  const local = [], seen = {};
+  b = b.replace(
+    /<sup[^>]*class="reference"[^>]*>\s*<a href="#(cite[^"]*)"[^>]*>[\s\S]*?<\/a>\s*<\/sup>/g,
+    (all, ref) => {
+      const key = ref.replace(/&#95;/g, "_");
+      const k = ids.indexOf(key);
+      if (k < 0) { warn(where + ": a marker points at no note and has been dropped"); return ""; }
+      if (!seen[key]) { local.push(notes[k]); seen[key] = local.length; }
+      return '<sup class="fn" data-fn="' + seen[key] + '"></sup>';
+    }
+  );
+
+  const marked = markFittLines(b, warn, where);
+  b = marked.html;
+
+  /* The caesura — the gap that divides an alliterative half-line, and a real feature of the metre
+     rather than decoration. These transcriptions set it two ways (`wst-cesura`, whose text is
+     already two em spaces, and `wst-gap`, an inline-block whose text is a newline), so both become
+     the same pair of em spaces and the printed page's shape survives the tag strip. */
+  b = b.replace(/<span[^>]*class="[^"]*\b(?:wst-cesura|wst-gap)\b[^"]*"[^>]*>[\s\S]*?<\/span>/g,
+                "&#8195;&#8195;");
+
+  /* What is left wearing a line-number class is a FOLIO reference — Wyatt's note of where the
+     manuscript leaf turns, which is apparatus and not verse — and the scan's own page markers go
+     with it, as they do in every other book here. */
+  b = b.replace(/<span[^>]*class="[^"]*\bwst-pline\b[^"]*"[^>]*>[\s\S]*?<\/span>/g, "");
+  for (const cls of ["pagenum", "ws-poem-linenum"]) {
+    for (let k = 0; k < 400; k++) {
+      const m = new RegExp('<span[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
+  b = b.replace(/<link\b[^>]*>/g, "");
+
+  return { html: fittHtml(b, warn, where), notes: local, marks: marked.count };
 }
 
 /* ---------- A PLAY ON A WIKI PAGE: the tenth layout, and the first drama NOT from a TEI file ----------
@@ -7689,6 +8066,29 @@ async function fetchEnglish() {
      is cached whole, exactly as a TEI file is, so --from/--to cost nothing and a re-extract needs no
      network at all; --force refetches it. `chapters` is filtered afterwards rather than before,
      because the cut has to see the whole sequence to number it. */
+  /* A POEM IN FITTS — the ordinary wiki walk, one page per chapter, with the pairing done a level
+     BELOW the chapter: see the FITTS block above extractFitt for why the line number rather than the
+     fitt is what the two columns are set against, and for the six misprinted numerals it repairs. */
+  if (BOOK.layout === "fitts") {
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = BOOK.chapterWord + " " + n;
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(2, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(BOOK.page(n)); fs.writeFileSync(cf, h); await sleep(900); }
+      const got = extractFitt(h, warn, where);
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+      console.log("  " + where + ": " + got.marks + " line numbers, " + got.notes.length + " notes (" +
+        (got.html.length / 1024).toFixed(1) + " KB)");
+    }
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + lines + " lines");
+    return writeEnglish(chapters, warnings);
+  }
   if (BOOK.layout === "laisses") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");
@@ -8125,6 +8525,63 @@ async function fetchOriginal() {
      then cut as ONE sequence, because the numbering runs straight through them and six pages cut
      independently could not carry a count across a page boundary — which is exactly what the six
      unnumbered laisses need. Cached per page all the same, so a rate-limited run resumes. */
+  /* THE ORIGINAL IN FITTS — the same walk on the other edition, with one difference that is the
+     whole reason this branch exists rather than reusing the English one: Wyatt divides where the
+     manuscript does and Gummere does not always follow him, so a fitt of the original may belong
+     inside a chapter of the translation. `foldInto` says which, and the two are joined into one
+     paragraph so the chapter reads as the single run of verse it is. */
+  if (O.layout === "fitts") {
+    console.log("\nFetching the " + O.langName + " original — one page per " + BOOK.chapterWord.toLowerCase());
+    const fold = O.foldInto || {};
+    const parts = {}, marks = {};
+    const all = BOOK.chapters.concat(Object.keys(fold).map(Number)).sort((a, b) => a - b);
+    for (const n of all) {
+      const target = fold[n] != null ? fold[n] : n;
+      if (target < FROM || target > TO) continue;
+      const where = O.langName + " " + BOOK.chapterWord.toLowerCase() + " " + n;
+      const cf = path.join(cacheDir, "or-" + String(n).padStart(2, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(O.page(n), O.wiki); fs.writeFileSync(cf, h); await sleep(1200); }
+      const got = extractFitt(h, warn, where);
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      (parts[target] = parts[target] || []).push(got.html);
+      marks[target] = (marks[target] || 0) + got.marks;
+      console.log("  " + where + ": " + got.marks + " line numbers" +
+        (target !== n ? "  — folded into " + BOOK.chapterWord.toLowerCase() + " " + target : ""));
+    }
+    Object.keys(parts).forEach((k) => {
+      byNum[k] = parts[k].join("").replace(/<\/p>\s*<p>/g, "<br>");
+    });
+
+    /* THE PAIRING, CHECKED AGAINST THE FILES THAT SHIPPED rather than asserted from this entry — the
+       discipline the verse, drama, laisses and TEI branches all share. Both columns are read back out
+       of their own caches and cut again, so what is compared is what the two texts actually contain:
+       the chapter numbers, and then, one level down, the line numbers inside each chapter, which is
+       what app.js will actually pair on. A count agreeing is not a passage agreeing, so the markers
+       are compared as SETS and both directions are reported. */
+    const nums = (html) => (html.match(/class="bk-n">(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    let pairs = 0, onlyEn = [], onlyOr = [];
+    for (const n of BOOK.chapters) {
+      const enCache = path.join(CACHE, "en-" + String(n).padStart(2, "0") + ".html");
+      if (!fs.existsSync(enCache) || !byNum[n]) {
+        if (!byNum[n]) warn(BOOK.chapterWord.toLowerCase() + " " + n + " has no original");
+        continue;
+      }
+      const en = nums(extractFitt(fs.readFileSync(enCache, "utf8"), () => {}, "en " + n).html);
+      const or = nums(byNum[n]);
+      const se = new Set(en), so = new Set(or);
+      const missing = en.filter((v) => !so.has(v)), extra = or.filter((v) => !se.has(v));
+      onlyEn.push(...missing.map((v) => n + ":" + v));
+      onlyOr.push(...extra.map((v) => n + ":" + v));
+      if (!missing.length && !extra.length) pairs++;
+    }
+    console.log("  " + pairs + " of " + BOOK.chapters.length + " chapters pair exactly on every line number");
+    if (onlyEn.length) warn("line block(s) in the translation with no original: " + onlyEn.join(", "));
+    if (onlyOr.length) warn("line block(s) in the original with no translation: " + onlyOr.join(", "));
+    return writeOriginal(byNum, warnings);
+  }
   if (O.layout === "laisses") {
     console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
     const raw = [];
