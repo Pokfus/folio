@@ -147,18 +147,53 @@ const SETTINGS = {
     await page.waitForTimeout(350);
     const rm = await page.evaluate(() => {
       const ov = document.querySelector(".deck-menu");
-      return ov ? { items: [...ov.querySelectorAll(".dm-item")].map((b) => b.querySelector("b").textContent), on: [...ov.querySelectorAll(".dm-item.on b")].map((b) => b.textContent) } : null;
+      if (!ov) return null;
+      return {
+        items: [...ov.querySelectorAll(".dm-item")].map((b) => b.querySelector("b").textContent),
+        switches: [...ov.querySelectorAll(".dm-switch")].map((r) => r.querySelector("b").textContent),
+        // read per switch, not as a total: the two default OPPOSITE ways — the order is Ordered (off)
+        // and question variety is on, which is the point of it — so a count says nothing about either
+        order: !!ov.querySelector('.dm-switch[data-act="order"] .switch.on'),
+        variety: !!ov.querySelector('.dm-switch[data-act="variety"] .switch.on'),
+        choices: ov.querySelectorAll(".dm-choice").length,
+      };
     });
-    /* The banner's sheet IS the deck sheet now (Aug 2026, on request: "the same menu, without the delete
-       option"), one level up: the three shared rows plus the Ordered/Random pair, and NO Remove — there is
-       nothing to take the review out of. */
+    /* The banner's sheet IS the deck sheet, one level up (Aug 2026, on request: "the same menu, without
+       the delete option"), and NO Remove — there is nothing to take the review out of.
+       The ORDER is a SWITCH now, not a pair of rows to choose between (Aug 2026, on a second request):
+       two rows for one bit of state spent a third of a phone sheet saying what one line says. QUESTION
+       VARIETY arrived beside it the same day and takes the same shape. Both start OFF here, since this
+       harness boots with reviewRandom false and no per-deck override. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Ordered,Random,Custom study,Daily limits,Skip today", JSON.stringify(rm));
-    check("...with the review's current order marked", rm && rm.on.join(",") === "Ordered", JSON.stringify(rm && rm.on));
-    await page.evaluate(() => document.querySelector('.deck-menu .dm-item[data-act="random"]').click());
+      rm && rm.items.join(",") === "Random order,Question variety,Custom study,Daily limits,Skip today", JSON.stringify(rm));
+    check("...the order and the phrasing pool are SWITCHES, not a pair of rows",
+      rm && rm.switches.join(",") === "Random order,Question variety" && rm.choices === 0, JSON.stringify(rm));
+    check("...each showing its own current state — Ordered, and variety on by default",
+      rm && rm.order === false && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="order"]').click());
     await page.waitForTimeout(600);
-    check("...and choosing one writes it",
+    check("...and throwing it writes the setting",
       await page.evaluate(() => (JSON.parse(localStorage.getItem("folio_v1")).settings || {}).reviewRandom) === true);
+    /* …and the SHEET STAYS OPEN, which is the whole difference between a switch and a command: every
+       other row here closes behind itself, and taking the sheet away is what makes a reader wonder
+       whether the throw landed. (It must also not repaint — render() closes this very sheet.) */
+    check("...leaving the sheet open, with the switch now on",
+      await page.evaluate(() => {
+        const ov = document.querySelector(".deck-menu");
+        return !!(ov && ov.querySelector('.dm-switch[data-act="order"] .switch.on'));
+      }));
+    /* QUESTION VARIETY is the second switch, and it is stored PER ENTRY (deckLimits' shape) rather than
+       as one global flag: the sheet opens on a deck's own row as well as on the pooled review, and a
+       setting that silently answered for every deck when thrown from one of them is the one thing a
+       reader could not predict. Off → every card asks its first phrasing and the ‹ › chevrons go. */
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="variety"]').click());
+    await page.waitForTimeout(500);
+    check("...and question variety writes a PER-ENTRY option, not a global one",
+      await page.evaluate(() => {
+        const st = JSON.parse(localStorage.getItem("folio_v1"));
+        return ((st.deckOpts || {})["review:all"] || {}).variety === false;
+      }));
+    await page.evaluate(() => { const st = JSON.parse(localStorage.getItem("folio_v1")); delete (st.deckOpts || {})["review:all"]; localStorage.setItem("folio_v1", JSON.stringify(st)); });
     // put it back — the rest of this file studies the review and reads the order the cards come in
     await page.evaluate(() => { const st = JSON.parse(localStorage.getItem("folio_v1")); st.settings.reviewRandom = false; localStorage.setItem("folio_v1", JSON.stringify(st)); });
     await page.reload({ waitUntil: "load" });
@@ -310,8 +345,11 @@ const SETTINGS = {
       open: !!document.querySelector(".deck-menu"),
       items: [...document.querySelectorAll(".dm-item b")].map((b) => b.textContent.trim()),
     }));
+    /* Question variety joined the deck's own sheet as well as the review's (Aug 2026, on request) — it is
+       stored per entry, so it has to be settable on the entry it applies to. The order switch is NOT here:
+       it is a property of the pooled session and of nothing else. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Custom study", "Daily limits", "Skip today", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Question variety", "Custom study", "Daily limits", "Skip today", "Remove"]),
       JSON.stringify(menu.items));
 
     // Daily limits — Anki's three, and the deck's own new count follows the one it sets
@@ -366,13 +404,21 @@ const SETTINGS = {
     await page.waitForTimeout(1400);
     const capped = await page.evaluate(async () => {
       const btns = [...document.querySelectorAll(".collection-add")];
-      const out = { n: btns.length, added: [] };
+      const out = { n: btns.length, added: [], roots: [] };
       for (const b of btns) { b.click(); await new Promise((r) => setTimeout(r, 250)); }
       out.added = JSON.parse(localStorage.getItem("folio_v1")).active;
+      // which COLLECTIONS got in — the collections page is the only place these buttons exist, so a
+      // ticked one is a root, and everything else in `active` came in underneath one of them
+      out.roots = [...document.querySelectorAll(".collection-add.added")].length;
       out.toast = (document.querySelector("#toast") || {}).textContent || "";
       return out;
     });
-    check("at level 1 the review takes one deck", capped.added.length === 1, JSON.stringify(capped.added));
+    /* THE CAP COUNTS CHOICES, NOT ENTRIES (Aug 2026). Adding a collection now brings its whole subtree in
+       with it, so `active` holds dozens of ids after one press; what the level limits is how many
+       collections/decks the reader may CHOOSE, and countedActiveEntries skips anything with an active
+       ancestor precisely so a four-deck collection does not put a level-1 reader five over their cap. */
+    check("at level 1 the review takes one collection", capped.roots === 1, JSON.stringify({ roots: capped.roots, active: capped.added.length }));
+    check("...and its decks came in with it rather than as choices of their own", capped.added.length > 1, capped.added.length + " entries");
     check("...and says so rather than doing nothing", /level/i.test(capped.toast), capped.toast);
     await page.close();
   }

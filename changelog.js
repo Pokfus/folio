@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.52", released: "2026-08-06T21:52Z" };
+window.FOLIO_VERSION = { v: "1.53", released: "2026-08-07T00:23Z" };
 
 window.CHANGELOG = [
   {
@@ -40,6 +40,16 @@ window.CHANGELOG = [
       "Ten new cards in the Ancient Greece deck, each with a glossary entry to go with it. They open the collection's fourth deck, which had been empty until now.",
       "Cards are being checked so that each one teaches the history of its subject rather than the modern argument about it. Questions no longer name the scholars behind a claim — the claim itself is what you are being asked to recall — and a background that had turned into a run of who-argued-what is being rewritten. Nine cards about places and things also had the year they were dug up sitting in the dates beside the answer, where the date of the thing itself belongs — though a species keeps the year it was named, which is part of its name rather than the story of its discovery. All forty-five cards are done; the sources at the foot of each are untouched.",
       "One card in the Ancient Greece deck closed its period around 1200 BCE in the background while the dates beside the answer ran it on to about 1050. The palaces burned at the earlier date and the age went on for another century and a half, which is what the card now says, and the third way of asking the question said the same wrong thing and has been corrected with it.",
+      "The answer on a card now always opens on a capital letter, however the question and the background happen to write it — it is the name of the thing there, not a word in a sentence.",
+      "Holding the daily study banner, or any deck under it, now offers <b>question variety</b>. Every card carries three ways of asking the same thing and one is picked at random each time, which is what makes you learn the idea rather than one sentence; turn it off and a card always asks the first. The ordered/random choice in the same menu is a switch now instead of two rows to pick between.",
+      "Adding a collection to your daily study now brings its decks and subdecks in with it, each as a row of its own — so you can tap straight into one, hold it for its own options, or drop just that one and keep the rest. Removing a deck takes its collection out with it and leaves the others where they were, and a collection's decks no longer count against the number of decks your level allows.",
+      "On the collections page, a deck now says how many cards are in it, the way the collection above it already did, instead of the years its cards happen to cover.",
+      "Books on the shelf carry their author's colour across the whole banner rather than only on the spine, so a long shelf reads as a shelf. Sorting by <b>Written</b> is now called <b>Date</b>.",
+      "Each book's opening pages now stand on their own. Several of them explained a point about the edition by comparing it with another book on the shelf — how Seneca's notes are laid out, how the Meditations' Greek was handled — which meant nothing unless you had read that one too.",
+      "The little numbers pointing at a translator's note in a book now have a colour of their own, rather than the red Folio uses for the sources under a card.",
+      "A game you have finished today is marked with a small green tick in the corner instead of a green banner reading “Done”. A perfect score keeps its gold ribbon.",
+      "On a phone the marker you draw with can be thrown rather than only dragged: let go while moving it and it carries on and slows to a stop, and catches against the edge of the screen.",
+      "About has left the top bar on desktop, as it did on phones, and is reached from the line at the foot of the home page — so the site now offers the same handful of destinations whatever you are reading it on.",
     ],
   },
   {

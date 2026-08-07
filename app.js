@@ -248,6 +248,9 @@
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
+      // the home page's daily-quote pool, keyed by each quote's SHIPPED English text (see quotesMerged):
+      // a whole replacement object, or null to retire the quote. A key matching nothing shipped is a new one.
+      quotes: o.quotes && typeof o.quotes === "object" ? o.quotes : {},
       timeline: Array.isArray(o.timeline) ? o.timeline : null,   // null = untouched (use shipped timeline.js); array = the working set of historical border eras
       tree: { renames: t.renames || {}, created: t.created || {}, deleted: t.deleted || {}, moved: t.moved || {}, order: t.order || {}, soon: t.soon || {}, dates: t.dates || {}, cardOrder: t.cardOrder || {} },
     };
@@ -306,6 +309,9 @@
     ADMIN_EDITS = normalizeAdminEdits(snap);
     applyAdminEdits();   // rebuilds the tree from SHIPPED_NODES, re-creates admin-made cards, re-applies field/glossary/membership/order deltas
     invalidateGlossIndex();   // the glossary linkify memo may reference reverted aliases/titles/terms — force a rebuild
+    // the daily-quote pool is derived from the overlay too, and its RUNNING ORDER is derived from the pool,
+    // so an undo or a cloud-adopted overlay has to rebuild both (see refreshQuotes)
+    refreshQuotes();
   }
   function adminUndo() {
     if (!adminUndoStack.length) { toast("Nothing to undo"); return; }
@@ -1032,7 +1038,7 @@
   // Era-marked numbers are consumed first (and removed from the text); whatever bare years remain are read as CE,
   // so era-less forms like "618–907" or "220–280" (how these dynasties are conventionally written) sort correctly.
   function glossStartYear(k) {
-    let t = ((window.GLOSSARY_DATES && window.GLOSSARY_DATES[k]) || "").replace(/[‐‑‒–—―−]/g, "-");
+    let t = glossDatesFlat((window.GLOSSARY_DATES && window.GLOSSARY_DATES[k]) || "").replace(/[‐‑‒–—―−]/g, "-");
     if (!t) return null;
     const ys = [];
     t = t.replace(/(\d{1,4})\s*-\s*(\d{1,4})\s*(BCE|BC|CE|AD)\b/gi, (m, a, b, era) => { const s = /^b/i.test(era) ? -1 : 1; ys.push(s * +a, s * +b); return " "; });
@@ -1061,7 +1067,7 @@
       // themeAuto: a first-time visitor follows the operating system's light/dark setting (Aug 2026, on
       // request). `night` stays the RESOLVED value — every stylesheet rule and the canvas globe read
       // body.night — and applyTheme writes it from the system while themeAuto is on.
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
@@ -2125,6 +2131,30 @@
     const v = D[k];
     return v ? String(v).trim() : "";
   }
+  /* THE DATE LINE MAY RUN TO SEVERAL LINES (Aug 2026, on request). It was written into the popup with
+     `textContent`, so a term wanting to state a birth on one line and a death on the next had no way to
+     say so — a typed <br> printed as the characters "<br>" and a typed newline collapsed into a space.
+     Two entry forms are accepted and both mean the same thing: an explicit <br>, and a plain newline
+     typed into the editor's box, which is turned into one. The result goes through the site's own
+     sanitizer, exactly as a description does, since a glossary date is authored content and the popup
+     writes it with innerHTML.
+
+     glossDatesFlat is the SINGLE-LINE reading of the same string, and everything that is not the popup
+     wants that one: the "By date" sort's year parser, the discovered-terms list (one row, one line), the
+     stripDupDates comparison against a parenthetical in the prose, and the read-aloud text, none of
+     which has anywhere to put a line break and all of which would otherwise be handed markup. */
+  function glossDatesHTML(s) {
+    const raw = String(s == null ? "" : s);
+    if (!raw.trim()) return "";
+    return sanitizeHTML(raw.replace(/\r\n?|\n/g, "<br>"));
+  }
+  function glossDatesFlat(s) {
+    return String(s == null ? "" : s)
+      .replace(/<br\s*\/?>/gi, " ")
+      .replace(/<[^>]*>/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
   // remove a parenthetical date from the description when it's identical to the date label
   // shown beneath the title (e.g. label "202 BCE–220 CE" drops "(202 BCE–220 CE)" from the prose).
   function stripDupDates(text, label) {
@@ -2697,9 +2727,9 @@
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
-    if (dates) dEl.textContent = dates; else dEl.remove();
+    if (dates) dEl.innerHTML = glossDatesHTML(dates); else dEl.remove();
     let descText = glossText(key);
-    if (dates) descText = stripDupDates(descText, dates); // drop a parenthetical date identical to the label
+    if (dates) descText = stripDupDates(descText, glossDatesFlat(dates)); // drop a parenthetical date identical to the label
     renderGlossDesc(win.querySelector(".gloss-desc"), key, descText);   // render its HTML + auto-link other terms
     renderGlossImage(win.querySelector(".gloss-imgslot"), key);         // the term's illustration, floated top-right
     // the works behind the description, as a compact fold under it. It sits AFTER the floated image slot
@@ -2744,7 +2774,7 @@
         // sentence is heard as part of the sentence
         let body = "";
         if (desc) { const cl = desc.cloneNode(true); cl.querySelectorAll("sup.fn").forEach((m) => m.remove()); body = (cl.textContent || "").replace(/\s+/g, " ").trim(); }
-        return [{ text: glossTitle(key) + ". " + (dates ? dates + ". " : "") + body }];
+        return [{ text: glossTitle(key) + ". " + (dates ? glossDatesFlat(dates) + ". " : "") + body }];
       };
       const bar = win.querySelector(".gloss-bar");
       const pb = document.createElement("button");
@@ -3200,24 +3230,80 @@
      available cards does not — which matters on day one, because the shipped default S.active is a deck of
      the China collection, and China is set aside as coming soon. Counting it would have left a brand-new
      reader at their cap before they had chosen anything, unable to add the one live collection. */
+  /* ---------- adding a collection adds what is INSIDE it (Aug 2026, on request) ----------
+     A collection used to enter the review as a single entry, and its decks showed under the banner as
+     greyed context rows — present, but not something you could tap into, hold for options, or drop one
+     of. Adding one now adds the collection AND every deck and subdeck beneath it, so each arrives as a
+     row of its own with its own counts, its own limits and its own way out; removing any of them takes
+     that branch out and leaves the rest.
+
+     `nodeSubtreeIds` is what both directions are written in terms of: a node's own id followed by every
+     descendant's, in tree order. */
+  function nodeSubtreeIds(node) {
+    const out = [];
+    (function walk(n) { if (!n) return; out.push(n.id); nodeChildren(n).forEach(walk); })(node);
+    return out;
+  }
+  function nodeAncestorIds(node) {
+    const out = [];
+    let p = node && node.parentId ? NODE_BY_ID[node.parentId] : null;
+    while (p) { out.push(p.id); p = p.parentId ? NODE_BY_ID[p.parentId] : null; }
+    return out;
+  }
+  /* What counts against the cap: an entry that actually contributes cards to the review, AND is a choice
+     the reader made rather than one that arrived with something else. A deck sitting inside an added
+     collection is the second kind — it is in `S.active` because the collection is, so counting it would
+     mean a level-1 reader adding a collection of four decks was instantly five decks over their cap and
+     could not add anything at all. The card test is the older rule and still applies: the shipped default
+     S.active is a deck of the China collection, which is set aside as coming soon, and counting it would
+     leave a brand-new reader at their cap before they had chosen anything. */
   function countedActiveEntries() {
     const avail = availableCardIdSet();
-    return activeEntryIds().filter((id) => id !== COTD_ENTRY && entryCardIds(id).some((c) => avail.has(c)));
+    const set = new Set(activeEntryIds());
+    return activeEntryIds().filter((id) => {
+      if (id === COTD_ENTRY) return false;
+      const n = NODE_BY_ID[id];
+      if (n && nodeAncestorIds(n).some((p) => set.has(p))) return false;   // came in with its collection
+      return entryCardIds(id).some((c) => avail.has(c));
+    });
   }
   function activeDecksFull() { return countedActiveEntries().length >= maxActiveDecks(); }
   // Returns false when the cap turned the request down, so the caller can say so rather than silently no-op.
+  // The cap is tested ONCE, against the thing the reader actually pressed: the decks that come in with a
+  // collection are not separate choices and countedActiveEntries does not count them.
   function addActive(id) {
     const a = activeEntryIds();
     if (a.indexOf(id) !== -1) return true;
     if (id !== COTD_ENTRY && activeDecksFull()) return false;
-    a.push(id);
-    S.active = a;
+    const n = NODE_BY_ID[id];
+    const wanted = n ? nodeSubtreeIds(n) : [id];
+    S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
     save();
     return true;
   }
+  /* Removing takes the node, everything under it, and every ANCESTOR of it — because an ancestor left
+     active would go on offering the very cards just removed, and its + button would still read "added"
+     over a deck the reader has plainly said they do not want.
+     What must NOT go with the ancestor is its OTHER branches, and that is the whole care in this: each
+     one is re-added explicitly before the ancestor is dropped. Usually they are already there (the
+     cascade above put them there), and the exception is the case that makes this necessary — a save
+     written before this existed, where only the collection is listed and its decks are implied by it. */
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
-    S.active = activeEntryIds().filter((x) => x !== id);
+    const n = NODE_BY_ID[id];
+    if (!n) { S.active = activeEntryIds().filter((x) => x !== id); save(); return; }
+    const drop = new Set(nodeSubtreeIds(n));
+    let a = activeEntryIds();
+    let cur = n, p = cur.parentId ? NODE_BY_ID[cur.parentId] : null;
+    while (p) {
+      if (a.indexOf(p.id) !== -1) {
+        drop.add(p.id);
+        nodeChildren(p).forEach((ch) => { if (ch.id !== cur.id) a = a.concat(nodeSubtreeIds(ch)); });
+      }
+      cur = p; p = cur.parentId ? NODE_BY_ID[cur.parentId] : null;
+    }
+    const seen = new Set();
+    S.active = a.filter((x) => !drop.has(x) && !seen.has(x) && seen.add(x));
     save();
   }
   // label + card count for an active entry (deck, subdeck, one of the user's own decks, or the CotD additions)
@@ -3285,6 +3371,33 @@
     if (!S.deckOpts || typeof S.deckOpts !== "object") S.deckOpts = {};
     S.deckOpts[id] = Object.assign({}, S.deckOpts[id] || {}, patch);
     save();
+  }
+  /* QUESTION VARIETY (Aug 2026, on request) — whether a card asks one of its three phrasings at random,
+     or always asks the first. Every curated card carries a pool of three, which is what makes a reader
+     learn the concept rather than the shape of one sentence; a reader who would rather meet the same
+     wording every time can now say so.
+
+     It is PER ENTRY with a global default, exactly like the daily limits and for the same reason: the
+     sheet is opened on a deck's own row as well as on the pooled review, and a setting that silently
+     answered for every deck when thrown from one of them would be the one thing a reader could not
+     predict. `S.deckOpts[id].variety` is written only where the reader has actually thrown the switch;
+     everything else follows `S.settings.questionVariety`, so nothing migrates and an untouched deck
+     behaves exactly as it always has. The REVIEW's own flag governs the pooled session, which is what
+     `scopeEntryId` resolves a study scope to. */
+  function deckVariety(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    if (typeof o.variety === "boolean") return o.variety;
+    return S.settings.questionVariety !== false;
+  }
+  function setDeckVariety(id, on) { setDeckLimits(id, { variety: !!on }); }
+  /* Which entry's options a STUDY SCOPE follows. A deck tapped on its own row uses that deck's; the
+     pooled review, the Card-of-the-day list and a single card off the home tile use the review's, since
+     that is the entry whose sheet the reader would have opened to change it. */
+  function scopeEntryId(scope) {
+    if (!scope) return REVIEW_ENTRY;
+    if (scope.type === "deck") return scope.id;
+    if (scope.type === "udeck") return uDeckEntry(scope.id);
+    return REVIEW_ENTRY;
   }
   // today's per-deck scratch record: the Custom-study bump and the skip flag, both of which expire at
   // midnight. A stale record is reset in place, and every other stale record is dropped with it, so the
@@ -4496,7 +4609,7 @@
 
   /* ---------- Reader feedback (beta) ----------
      A message written on the About page and sent straight to the editors, plus the helpers behind the
-     triage queue in Edit → Feedback. Anonymous senders are allowed on purpose (see the policy note in
+     triage queue in Admin → Feedback. Anonymous senders are allowed on purpose (see the policy note in
      .claude/supabase-schema.sql): the reader most likely to spot a wrong date is the one who never made
      an account, and a sign-in wall is exactly the friction that loses that correction. The only rate
      limit is the device-local cooldown below — honest friction, not security, since anyone holding the
@@ -6356,7 +6469,7 @@
     truefalse: ["True or False — Folio", "Today's historical myths and surprising truths."],
     whosaid:   ["Who said it? — Folio", "Match today's famous quotations to the people who said them."],
     findit:    ["Find it — Folio", "Locate five places on the globe."],
-    admin:     ["Editor — Folio", "Folio's content editor."],
+    admin:     ["Admin — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     community: ["Shared decks — Folio", "Decks written and shared by other people using Folio."],
     deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
@@ -6998,12 +7111,20 @@
     const item = (act, label, note, cls) =>
       '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '">' +
       "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
-    // aria-pressed, not role=menuitemradio: the sheet is a dialog, and menuitemradio is only meaningful
-    // inside a role=menu, where a screen reader would then expect keyboard semantics this has not got
-    const choice = (act, label, note, on) =>
-      '<button type="button" class="dm-item dm-choice' + (on ? " on" : "") + '" data-act="' + act + '" aria-pressed="' + (on ? "true" : "false") + '">' +
-      "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
+    /* A SWITCH ROW — a setting with two states and a name for each, rather than two rows to choose
+       between (Aug 2026, on request, for the Ordered/Random pair; question variety arrived the same day
+       and takes the same shape). What it replaces is `.dm-choice`, a pair of rows one of which carried a
+       tick: two rows for one bit of state, and on a phone that is a third of the sheet spent saying a
+       thing a switch says in one line. The LABEL under the title is what the switch is currently doing,
+       so the row reads as a sentence whichever way the switch is thrown. */
+    const swRow = (act, label, noteOn, noteOff, on) =>
+      '<div class="dm-item dm-switch" data-act="' + act + '">' +
+        '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(on ? noteOn : noteOff) + "</small></div>" +
+        '<div class="switch' + (on ? " on" : "") + '" role="switch" tabindex="0" aria-label="' + esc(label) +
+          '" aria-checked="' + (on ? "true" : "false") + '"></div>' +
+      "</div>";
     const random = !!S.settings.reviewRandom;
+    const variety = deckVariety(id);
     /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
        sit at the right of the row in the review list, where it competed with the deck's name for a 390px
        line; the bar stays there and says the same thing at a glance, and the count is here, where a reader
@@ -7017,9 +7138,12 @@
                   : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
         (total ? '<span class="dm-studied">' + studied + "/" + total + " studied</span>" : "") + "</div>" +
       (isReview
-        ? choice("ordered", "Ordered", "Cards come up in their deck order, oldest history first", !random) +
-          choice("random", "Random", "The session is shuffled each day", random)
+        ? swRow("order", "Random order", "The session is shuffled each day",
+            "Cards come up in their deck order, oldest history first", random)
         : "") +
+      swRow("variety", "Question variety",
+        "Each card asks one of its phrasings at random",
+        "Every card always asks its first phrasing", variety) +
       item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
       item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
       item("skip", skipped ? "Study today after all" : "Skip today",
@@ -7027,20 +7151,38 @@
                 : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review")) +
       (isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
     return deckSheet("Options for " + info.title, html, (ov, close) => {
-      ov.querySelectorAll(".dm-item").forEach((b) => b.addEventListener("click", () => {
+      /* A SWITCH ROW STAYS PUT WHEN THROWN. Every other row here is a command and closes the sheet
+         behind it; a switch is a setting, and taking the sheet away is what makes a reader wonder
+         whether the throw landed. And it must not repaint either, which is the part worth writing down:
+         render() closes this very sheet (closeDeckMenu is in its list), so a switch that repainted would
+         dismiss itself on every flip. Nothing on the page behind depends on either setting — both
+         change what a SESSION deals out, not what the home page shows — so there is nothing to repaint.
+         The row's own note is rewritten instead, and it says what the switch is now doing rather than
+         what it could be changed to, so the sheet reads as a sentence in both positions. */
+      ov.querySelectorAll(".dm-switch").forEach((rowEl) => {
+        const sw = rowEl.querySelector(".switch"), note = rowEl.querySelector("small");
+        const flip = () => {
+          const on = !sw.classList.contains("on");
+          sw.classList.toggle("on", on);
+          sw.setAttribute("aria-checked", on ? "true" : "false");
+          if (rowEl.dataset.act === "order") {
+            S.settings.reviewRandom = on;
+            save();
+            note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
+            toast(on ? "Review order: random" : "Review order: ordered");
+          } else {
+            setDeckVariety(id, on);
+            note.textContent = on ? "Each card asks one of its phrasings at random" : "Every card always asks its first phrasing";
+            toast(on ? "Question variety on" : "Question variety off");
+          }
+        };
+        rowEl.addEventListener("click", flip);
+        sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); flip(); } });
+      });
+      ov.querySelectorAll(".dm-item:not(.dm-switch)").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
-        if (act === "ordered" || act === "random") {
-          const want = act === "random";
-          close();
-          if (want === random) return;
-          S.settings.reviewRandom = want;
-          save();
-          render();
-          toast(want ? "Review order: random" : "Review order: ordered");
-          return;
-        }
         if (act === "skip") {
           setDeckSkip(id, !skipped);
           close();
@@ -7402,6 +7544,22 @@
     return wbPos;
   }
   function wbSavePos() { try { wbPos ? localStorage.setItem(WB_POS_KEY, JSON.stringify(wbPos)) : localStorage.removeItem(WB_POS_KEY); } catch (e) {} }
+  /* Clamp the STORED position, not merely the applied one, and say which edges it hit. Clamping only the
+     inline style (which is what this used to do) leaves wbPos holding a value off the side of the screen
+     — harmless while it is only re-clamped on the next apply, and wrong the moment a fling is integrating
+     against it, since the marker would go on flying invisibly past the edge and take seconds to come
+     back. The two returned flags are what let the throw below die at the wall instead. */
+  const WB_EDGE = 6;   // px of breathing room the marker keeps from every edge
+  function wbClampPos(el) {
+    if (!wbPos) return { r: false, b: false };
+    const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+    const w = el.offsetWidth || 46, h = el.offsetHeight || 46;
+    const r = Math.max(WB_EDGE, Math.min(wbPos.r, vw - w - WB_EDGE));
+    const b = Math.max(WB_EDGE, Math.min(wbPos.b, vh - h - WB_EDGE));
+    const hit = { r: r !== wbPos.r, b: b !== wbPos.b };
+    wbPos = { r, b };
+    return hit;
+  }
   // Put the tools where the reader left them, and tell the panel which way to open. With no stored
   // position the inline styles are cleared so the stylesheet's own corner (and the .on-atlas /
   // body.grading offsets) takes over again.
@@ -7409,22 +7567,64 @@
     if (!el) return;
     const p = wbReadPos();
     if (!p) { el.style.right = ""; el.style.bottom = ""; el.classList.remove("wb-flip", "wb-left"); return; }
+    wbClampPos(el);
     const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
     const w = el.offsetWidth || 46, h = el.offsetHeight || 46;
-    const r = Math.max(6, Math.min(p.r, vw - w - 6));
-    const b = Math.max(6, Math.min(p.b, vh - h - 6));
-    el.style.right = r + "px"; el.style.bottom = b + "px";
-    el.classList.toggle("wb-flip", vh - b - h < WB_PANEL_H);   // no room above the button — open downward
-    el.classList.toggle("wb-left", vw - r - w < WB_PANEL_W);   // none to the left — open rightward
+    el.style.right = wbPos.r + "px"; el.style.bottom = wbPos.b + "px";
+    el.classList.toggle("wb-flip", vh - wbPos.b - h < WB_PANEL_H);   // no room above the button — open downward
+    el.classList.toggle("wb-left", vw - wbPos.r - w < WB_PANEL_W);   // none to the left — open rightward
   }
+  /* ---- THE MARKER HAS WEIGHT: it can be THROWN (Aug 2026, on request) ----
+     It used to stop dead on the lift, which on a phone reads as the thing being stuck to the finger
+     rather than being moved by it. It now keeps the velocity it was released at and coasts to a stop
+     under friction — the same shape as `panFling`, the hand-rolled scroll the ink layer does for a finger
+     in stylus mode, and deliberately so: two things that coast on one page must coast the same way.
+     Three things are decisions rather than arithmetic.
+     · **The velocity is measured over a WINDOW of samples, never from one move**, and that is the whole of
+       the difficulty. A per-event `delta / dt` is wrong in both directions: a pointer stream ends with a
+       sample or two of near-zero movement as the finger settles to lift, so read raw a hard throw dies on
+       release exactly like the behaviour this replaces — and a burst of moves arriving within a
+       millisecond of each other divides a large delta by a clamped `dt` of 1 and reports a velocity nothing
+       could produce, which sends the marker into the far corner of the screen (it did; the layout suite
+       caught it). So the last `WB_FLING_WINDOW` ms of samples are kept and the velocity is the distance
+       across that window divided by its own span, and a gesture whose whole window is shorter than
+       `WB_FLING_MIN_DT` is not flung at all: a movement the browser cannot time is not a throw.
+     · **A finger that PAUSED before lifting is setting the marker down, not throwing it**
+       (`WB_FLING_IDLE`) — the samples say it was moving, and it stopped moving before it let go.
+     · It DIES AT THE WALL. wbClampPos says which edges were hit and that axis's velocity is zeroed, so the
+       marker stops against the edge instead of grinding along it while the other axis runs on. No bounce:
+       this is a control being put down, not a ball.
+     · It is gated on prefersReducedMotion(), like every other movement on the site, and it stops the
+       moment a new press lands, so a marker still coasting is caught by the finger that reaches for it. */
+  /* The numbers are tuned so the throw reads as WEIGHT rather than as a launch. Travel is roughly
+     v × 16 / (1 − friction), so the cap and the friction between them set how far the hardest flick can
+     ever carry: about 210px here, against the ~500 the first cut allowed — which on a 390px phone was the
+     whole screen, and made a quick drag feel like the marker had been fired out of the reader's hand
+     rather than moved by it. A typical throw carries 60–100px, which is a nudge you can see. */
+  const WB_FLING_FRICTION = 0.90;   // velocity kept per ~16ms frame
+  const WB_FLING_WINDOW = 110;      // ms of pointer history the throw's speed is measured across
+  const WB_FLING_MIN_DT = 14;       // ms — a window shorter than this cannot be timed, so it is not a throw
+  const WB_FLING_IDLE = 90;         // ms — moved longer ago than this and the finger had already stopped
+  const WB_FLING_MIN = 0.05;        // px/ms — below this the release was a set-down, not a throw
+  const WB_FLING_MAX = 1.3;         // px/ms — the ceiling on a flick, and so on how far one can carry
+  const WB_FLING_STOP = 0.02;       // px/ms — coasting slower than this is finished
+  let wbFlingRAF = 0;
+  function wbStopFling() { if (wbFlingRAF) cancelAnimationFrame(wbFlingRAF); wbFlingRAF = 0; }
   function wbMakeDraggable(el, handle) {
     let grab = null;
     handle.addEventListener("pointerdown", (e) => {
       if (e.button != null && e.button !== 0) return;
+      wbStopFling();       // a press catches a marker still coasting, exactly as a finger catches a fling
       wbDragged = false;   // a press that never moved must not be swallowed by a previous drag's flag
       const r = el.getBoundingClientRect();
       const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
-      grab = { id: e.pointerId, x: e.clientX, y: e.clientY, r: vw - r.right, b: vh - r.bottom };
+      grab = {
+        id: e.pointerId, x: e.clientX, y: e.clientY, r: vw - r.right, b: vh - r.bottom,
+        // the last WB_FLING_WINDOW ms of the gesture, in the same right/bottom space the position is
+        // stored in — so a finger moving RIGHT gives a falling `r`, which is what keeps the integration
+        // below sign-free. Read as a window rather than per event; see the fling note above for why.
+        hist: [],
+      };
       try { handle.setPointerCapture(e.pointerId); } catch (err) {}
     });
     handle.addEventListener("pointermove", (e) => {
@@ -7433,20 +7633,57 @@
       if (!wbDragged && Math.abs(dx) < WB_DRAG_SLOP && Math.abs(dy) < WB_DRAG_SLOP) return;
       if (!wbDragged) { wbDragged = true; el.classList.add("wb-dragging"); }
       e.preventDefault();
-      wbPos = { r: grab.r - dx, b: grab.b - dy };
+      const now = e.timeStamp || performance.now();
+      const next = { r: grab.r - dx, b: grab.b - dy };
+      grab.hist.push({ t: now, r: next.r, b: next.b });
+      while (grab.hist.length > 2 && now - grab.hist[0].t > WB_FLING_WINDOW) grab.hist.shift();
+      wbPos = next;
       wbPosRead = true;
-      wbApplyPos(el);   // clamps as it goes, so the marker can't be thrown off the screen
+      wbApplyPos(el);   // clamps as it goes, so the marker can't be dragged off the screen
     });
     const release = (e) => {
       if (!grab || (e.pointerId != null && e.pointerId !== grab.id)) return;
+      const g = grab;
       grab = null;
       el.classList.remove("wb-dragging");
-      if (wbDragged) { wbApplyPos(el); wbSavePos(); }   // re-clamp once settled, then remember it
+      if (!wbDragged) return;
+      /* Was that a THROW or a set-down? Measured across the window rather than off the last event —
+         see the note above `WB_FLING_FRICTION`. Three ways it comes out "no": too few samples, a window
+         too short for the browser to have timed honestly, and a finger that had already stopped moving
+         before it let go. Any of them settles the marker where it lies. */
+      const h = g.hist, first = h[0], last = h[h.length - 1];
+      const span = h.length >= 2 ? last.t - first.t : 0;
+      const idle = h.length ? (e.timeStamp || performance.now()) - last.t : Infinity;
+      let vr = 0, vb = 0;
+      if (span >= WB_FLING_MIN_DT && idle <= WB_FLING_IDLE) {
+        const cap = (v) => Math.max(-WB_FLING_MAX, Math.min(WB_FLING_MAX, v));
+        vr = cap((last.r - first.r) / span);
+        vb = cap((last.b - first.b) / span);
+      }
+      const thrown = !prefersReducedMotion() && Math.hypot(vr, vb) >= WB_FLING_MIN;
+      if (!thrown) { wbApplyPos(el); wbSavePos(); return; }
+      el.classList.add("wb-flinging");
+      const step = () => {
+        vr *= WB_FLING_FRICTION; vb *= WB_FLING_FRICTION;
+        wbPos = { r: wbPos.r + vr * 16, b: wbPos.b + vb * 16 };
+        const hit = wbClampPos(el);
+        if (hit.r) vr = 0;
+        if (hit.b) vb = 0;
+        wbApplyPos(el);
+        if (Math.hypot(vr, vb) < WB_FLING_STOP) {
+          wbFlingRAF = 0;
+          el.classList.remove("wb-flinging");
+          wbSavePos();   // remembered only once it has come to rest — where it LANDED, not where it left
+          return;
+        }
+        wbFlingRAF = requestAnimationFrame(step);
+      };
+      wbFlingRAF = requestAnimationFrame(step);
     };
     handle.addEventListener("pointerup", release);
     handle.addEventListener("pointercancel", release);
     // a window that narrows (rotation, a resized desktop window) must not leave the marker off the edge
-    window.addEventListener("resize", () => wbApplyPos(el));
+    window.addEventListener("resize", () => { wbStopFling(); wbApplyPos(el); });
   }
 
   /* ---- HOLDING the marker TOGGLES the pen (Aug 2026, on request) ----
@@ -8100,11 +8337,30 @@
         return;
       }
       if (!wantOn) removeActive(id);
-      btn.classList.toggle("added", wantOn);
-      btn.innerHTML = addIcon(wantOn);
-      btn.setAttribute("aria-label", wantOn ? "Remove from review" : "Add to review");
+      /* EVERY add button on the page is re-read, not just the one pressed (Aug 2026). Since adding a
+         collection also adds its decks and subdecks — and removing one of those takes its collection out
+         while leaving its siblings in — a single press can change the state of a dozen buttons further
+         down the page. Updating only the one clicked left the rest showing what they meant a moment ago,
+         which reads as the tick landing on the wrong row. It is a sweep of the buttons rather than a
+         render() because the collections page is a tree the reader has expanded by hand, and rebuilding
+         it would fold that back up. */
+      refreshAddButtons();
       toast(wantOn ? "Added to daily review" : "Removed from review");
     });
+  }
+  // re-state every + / ✓ on the page from S.active. `data-id` is a tree node, `data-uadd` one of the
+  // reader's own decks (whose entry id carries the "u:" prefix).
+  function refreshAddButtons() {
+    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd]").forEach((b) => {
+      const eid = b.dataset.id != null ? b.dataset.id : uDeckEntry(b.dataset.uadd);
+      const on = isActive(eid);
+      b.classList.toggle("added", on);
+      b.innerHTML = addIcon(on);
+      b.setAttribute("aria-label", on ? "Remove from review" : "Add to review");
+    });
+    // the page head states how many of the reader's slots are spoken for, and a cascade moves it
+    const cap = document.querySelector(".lib-cap b");
+    if (cap) cap.textContent = countedActiveEntries().length + " of " + maxActiveDecks();
   }
 
   /* ---------- text-to-speech (Web Speech API — zero-dependency) ----------
@@ -8347,8 +8603,10 @@
       window.addEventListener("scroll", closeCtxMenu, { capture: true, once: true });
     }, 0);
   }
-  function copySelText(t) {
-    const done = () => toast("Copied");
+  // `msg` says what landed on the clipboard, for callers copying something other than a selection (the
+  // Quotes tab's "Copy as JS"). Omitted, it is the plain "Copied" the read-aloud menu has always shown.
+  function copySelText(t, msg) {
+    const done = () => toast(msg || "Copied");
     const legacy = () => { const ta = document.createElement("textarea"); ta.value = t; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} ta.remove(); done(); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, legacy);
     else legacy();
@@ -8674,7 +8932,7 @@
   // tag), revealed by clicking the quote. A quote carries one ONLY where the wording is documented:
   // Bacon wrote his essay in English, and where the exact original could not be verified there is no `o`
   // rather than a plausible-looking reconstruction — the same rule the cards and glossary run on.
-  const QUOTES = [
+  const SHIPPED_QUOTES = [
     { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius", s: "Analects I.1",
       o: { lang: "lzh", t: "學而時習之，不亦說乎？", a: "孔子", s: "《論語·學而》" } },
     { t: "He who by reanimating the old can gain knowledge of the new is fit to be a teacher.", a: "Confucius", s: "Analects II.11",
@@ -8844,7 +9102,52 @@
     }
     return best;
   }
-  const QUOTE_ORDER = quoteRunningOrder(QUOTES);
+  /* ---------- the pool as it actually stands, shipped quotes plus the admin's overlay ----------
+     Everything else the editor touches lives in a data file, and this one lives in app.js — which the
+     app must never rewrite — so the overlay IS the storage: `ADMIN_EDITS.quotes` is applied over the
+     shipped literal here, exactly as the glossary's deltas are applied over glossary.js, and a signed-in
+     admin's overlay is published to every reader through `content_overrides` with no deploy. The Quotes
+     tab also offers the whole pool back as a JS literal, for pasting into SHIPPED_QUOTES when it is time
+     to bake it in.
+
+     The KEY is a quote's shipped English text, not its index. An index moves the moment a quote is
+     inserted or retired above it, and every edit made before that would then be pointing at somebody
+     else's words — the same reason the two daily-game pools are keyed by their English `q` rather than
+     by position. A key matching nothing shipped is a quote the admin added; `null` retires a shipped one. */
+  function quotesMerged() {
+    const ov = (ADMIN_EDITS && ADMIN_EDITS.quotes) || {};
+    const shipped = new Set(SHIPPED_QUOTES.map((q) => q.t));
+    const out = [];
+    SHIPPED_QUOTES.forEach((q) => {
+      if (!Object.prototype.hasOwnProperty.call(ov, q.t)) { out.push(q); return; }
+      if (ov[q.t]) out.push(ov[q.t]);   // null → retired
+    });
+    Object.keys(ov).forEach((k) => { if (!shipped.has(k) && ov[k]) out.push(ov[k]); });
+    return out;
+  }
+  /* Both of these are derived and both are `let`: the pool changes when the overlay does, and the running
+     order is a property of the WHOLE pool (no author twice in a row, none more than twice in any seven
+     days), so adding or retiring one quote re-solves the lot. refreshQuotes is what any writer calls. */
+  let QUOTES = quotesMerged();
+  let QUOTE_ORDER = quoteRunningOrder(QUOTES);
+  function refreshQuotes() { QUOTES = quotesMerged(); QUOTE_ORDER = quoteRunningOrder(QUOTES); }
+  /* The writers. `key` is always the SHIPPED text of the quote being changed, which is what keeps an
+     edit attached to the right quote after its own wording has been rewritten. */
+  function setQuoteEdit(key, obj) {
+    if (!ADMIN_EDITS.quotes) ADMIN_EDITS.quotes = {};
+    ADMIN_EDITS.quotes[key] = obj;
+    refreshQuotes();
+    queueAdminSave();
+  }
+  // back to the shipped wording. On a quote the admin ADDED there is nothing to go back to, so the
+  // delta is deleted outright and the quote goes with it.
+  function revertQuote(key) {
+    if (ADMIN_EDITS.quotes) delete ADMIN_EDITS.quotes[key];
+    refreshQuotes();
+    saveAdminEdits();
+  }
+  function quoteIsEdited(key) { return !!(ADMIN_EDITS.quotes && Object.prototype.hasOwnProperty.call(ADMIN_EDITS.quotes, key)); }
+  function quoteIsShipped(key) { return SHIPPED_QUOTES.some((q) => q.t === key); }
   // Clicking the quote turns it into the original — words, speaker and source — and clicking again
   // returns it to the reader's own language. Both halves are in the DOM and one is `hidden`, so the
   // toggle is a class flip with nothing to re-render. The original carries `notranslate`: it is the one
@@ -8970,11 +9273,13 @@
 
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
-    /* The phone and the desktop build DIFFERENT pages here, not the same page styled two ways — the phone
-       drops the Atlas teaser, the card of the day and the term of the day, and gathers the games under a
-       heading of their own. It is read once at the top and passed around, since half a dozen decisions
-       below turn on it; crossing the breakpoint re-renders (see _homeResize at the foot of this function). */
-    const phone = phoneHome();
+    /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
+       used to differ by three swiped panes, then by the discovery row, then by the lip to the collections,
+       and finally by the About line alone — each of which was brought into line on request, always in the
+       direction of what the phone already showed. Nothing here is built at one width and not the other any
+       more, so there is no `phone` flag to read and no resize listener to rebuild the page on a breakpoint
+       cross (see the foot of this function); what still differs is layout, and the stylesheet answers for
+       that on its own. */
     const q = reviewQueue();
     const dueN = q.due.length;
     const newN = q.fresh.length;
@@ -9047,9 +9352,18 @@
       const show = new Set();
       activeIds.forEach((id) => { let n = NODE_BY_ID[id]; while (n) { show.add(n.id); n = n.parentId ? NODE_BY_ID[n.parentId] : null; } });
       const rows = [];
+      /* A row is a REVIEW ROW only if there is something in it to review. Adding a collection now brings
+         its whole subtree in (see addActive), and most of a 1,000-card plan's subdecks are still empty —
+         so without this a reader adding World History would meet forty-odd rows reading 0 · 0 · 0, each
+         tappable into a session with no cards in it. An empty deck is drawn as a CONTEXT row instead, the
+         same quiet line an unadded ancestor already gets, and it becomes a real row of its own the day it
+         holds a card. It stays in `S.active` throughout, so nothing is silently left out of the review
+         when the cards arrive. */
+      const availRows = availableCardIdSet();
       function walk(node, depth) {
         if (!show.has(node.id)) return;
-        rows.push({ node, depth, active: activeSet.has(node.id) });
+        const live = activeSet.has(node.id) && entryCardIds(node.id).some((id) => availRows.has(id));
+        rows.push({ node, depth, active: live });
         nodeChildren(node).forEach((ch) => walk(ch, depth + 1));
       }
       TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
@@ -9125,13 +9439,25 @@
       findit:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
     };
+    /* THE DAY'S COMPLETION MARK — two shapes, not one (Aug 2026, on request).
+       A PERFECT score keeps the shining gold ribbon: it is the rarer thing and it earns the whole corner.
+       Merely HAVING PLAYED is now a small green circled check in the top-right instead of a green band
+       reading "Done!" — a ribbon is a lot of tile for a fact that only says "you have been here today",
+       and six of them across the grid read as six announcements rather than as six ticked-off games.
+       Both still carry a NAME: the ribbon has its word, and the circle an aria-label, because an
+       unlabelled patch of colour says nothing to a screen reader and little more to the eye — which is
+       the reasoning the ribbon was built on and is not weakened by the mark getting smaller. */
+    const GT_CHECK_SVG =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+    const doneMarkHTML = (done, won) =>
+      won
+        ? '<span class="gt-ribbon gr-gold"><span>Perfect!</span></span>'
+        : done
+          ? '<span class="gt-check" role="img" aria-label="Played today">' + GT_CHECK_SVG + "</span>"
+          : "";
     const tile = (o) =>
       `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" style="--tile:${o.color}">
-        ${/* Completion is a RIBBON across the top-right corner (Aug 2026, on request) — the whole tile used
-              to fill with its colour, and turn gold on a perfect score, which was a lot of surface to
-              change for one fact. It carries a WORD rather than being a bare band: a colour alone says
-              nothing to a screen reader and little more to the eye. */""}
-        ${o.done ? `<span class="gt-ribbon${o.won ? " gr-gold" : ""}"><span>${o.won ? "Perfect!" : "Done!"}</span></span>` : ""}
+        ${doneMarkHTML(o.done, o.won)}
         <span class="gt-glyph${/^\s*<svg/.test(o.glyph) ? " gt-glyph-svg" : ""}">${o.glyph}</span>
         <div class="gt-body">
           ${o.eyebrow ? `<span class="gt-eyebrow">${o.eyebrow}</span>` : ""}
@@ -9206,7 +9532,7 @@
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
       : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review">
-          ${reviewDone ? `<span class="gt-ribbon${reviewWon ? " gr-gold" : ""}"><span>${reviewWon ? "Perfect!" : "Done!"}</span></span>` : ""}
+          ${doneMarkHTML(reviewDone, reviewWon)}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
                 already break the same total into New / Learning / Review, which is the answer a reader is
@@ -9256,10 +9582,12 @@
        the collections anywhere on the site, so it ships in every state the review can be in, first run
        included, and must not be gated on having decks or on a breakpoint. */
     const addDecksLip = `<button class="rv-lip" id="b-addDecks" type="button">+ Add decks</button>`;
-    // About left the phone's tab bar (Aug 2026, on request) — a page read once does not deserve a share of a
-    // row the day's destinations need. This quiet grey line is the way in instead, phone-only for the same
-    // reason as the lip above it.
-    const aboutLink = phone ? `<button class="home-about" id="b-about" type="button">About Folio</button>` : "";
+    /* THE WAY TO THE ABOUT PAGE — a quiet grey line at the foot of the home page. It was PHONE-ONLY for a
+       fortnight, on the reasoning that a desktop still had an About tab in its top bar to reach the page
+       with; that tab has now left the desktop too (Aug 2026, on request, bringing the two into line with
+       Collections before it), so this is the ONLY route to it anywhere on the site and ships at every
+       width. The #mission route itself is untouched — every link ever shared still resolves. */
+    const aboutLink = `<button class="home-about" id="b-about" type="button">About Folio</button>`;
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
@@ -9313,24 +9641,17 @@
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
-    // the lip under the review group (every width — it is the only route to the collections now), and the
-    // About line under the games (phone-only: the top bar still carries an About tab above the breakpoint)
+    // the lip under the review group and the About line under the games — both at every width now, each
+    // being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
-    // crossing the breakpoint still changes what this page IS — the About line is BUILT on a phone and not on
-    // a desktop — so it is rebuilt rather than restyled. Exactly one listener is ever installed:
-    // render() re-enters this function, and a per-render listener would pile up for the life of the session.
-    if (_homeResize) window.removeEventListener("resize", _homeResize);
-    _homeResize = (function () {
-      let was = phoneHome();
-      return function () {
-        if (current.name !== "home") { window.removeEventListener("resize", _homeResize); _homeResize = null; return; }
-        if (phoneHome() === was) return;   // a phone fires resize on every URL-bar collapse; only the flip matters
-        was = phoneHome();
-        render();
-      };
-    })();
-    window.addEventListener("resize", _homeResize);
+    /* THE BREAKPOINT NO LONGER CHANGES WHAT THIS PAGE IS, and the listener below is retired with the last
+       thing that did (Aug 2026): the About line was the one block built on a phone and not on a desktop,
+       and now that the desktop's About tab has gone it ships at both widths like everything else here. So
+       the page is the same markup at every size and CSS alone answers for the difference — which is what
+       this listener existed to work around, not something to keep paying for. `_homeResize` is still torn
+       down on the way in, so a listener installed by an older build in this same session goes with it. */
+    if (_homeResize) { window.removeEventListener("resize", _homeResize); _homeResize = null; }
     wireDailyQuote(root);
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
@@ -9413,7 +9734,7 @@
       return isNaN(d) ? "" : d.toLocaleDateString(loc, { day: "numeric", month: "short", year: "numeric" });
     };
     const row = (k) => {
-      const dates = glossDates(k), tags = glossTags(k).slice(0, 3);
+      const dates = glossDatesFlat(glossDates(k)), tags = glossTags(k).slice(0, 3);   // one row, one line — the popup is where a multi-line date line belongs
       return '<button type="button" class="gl-row" data-gk="' + esc(k) + '">' +
         '<span class="gl-name">' + esc(glossTitle(k)) + (dates ? '<span class="gl-dates">' + esc(dates) + "</span>" : "") + "</span>" +
         (tags.length ? '<span class="gl-tags">' + tags.map((t2) => '<span class="gl-tag">' + esc(t2) + "</span>").join("") + "</span>" : '<span class="gl-tags"></span>') +
@@ -9763,8 +10084,20 @@
     const num = String(index + 1).padStart(2, "0");
     const soon = isComingSoon(node);
     const pid = node.parentId || "";
-    const spanText = nodeSpanText(node);
-    const nodeSpanHTML = spanText ? `<span class="node-span">${esc(spanText)}</span>` : "";
+    /* A DECK ROW SAYS HOW MANY CARDS IT HOLDS, not what years they cover (Aug 2026, on request — the
+       collection banner one level up has said this all along, and the two rows disagreeing about what the
+       small grey figure on the right MEANS is the whole reason to change it). What is dropped is the
+       AUTO-DERIVED span (nodeSpanText → the earliest and latest datable card inside); a date an editor has
+       set BY HAND on the node still shows, exactly as it does on a collection, since that is a fact about
+       the deck rather than a summary of its contents. A deck with nothing in it says so, for the reason
+       the collection banner does — "0 cards" reads as a figure that failed to load. */
+    const spanText = nodeDateOverride(node.id);
+    const cardCount = subtreeCardIds(node).length;
+    const nodeSpanHTML =
+      (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
+      (cardCount
+        ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>`
+        : soon ? "" : `<span class="pill soon">Empty</span>`);
 
     if (nodeIsBranch(node)) {
       const group = document.createElement("div");
@@ -10521,7 +10854,7 @@
     ["recent", "Last read", "Most recent first", "Least recent first"],
     ["title", "Title", "A – Z", "Z – A"],
     ["author", "Author", "A – Z", "Z – A"],
-    ["written", "Written", "Oldest first", "Newest first"],
+    ["written", "Date", "Oldest first", "Newest first"],
   ];
   // read through a whitelist, like the theme: a key retired from BOOK_SORTS must fall back rather than
   // leave the shelf sorted by nothing at all
@@ -11913,7 +12246,9 @@
                 '<button class="admin-delete" id="stDelTerm" type="button">Delete term</button></div></div>' +
               '<div class="gloss-edit-form">' +
                 '<label class="admin-field"><span class="af-label">Term</span><input class="af-input" data-gf="title" type="text" value="' + esc(t.title || "") + '" /></label>' +
-                '<label class="admin-field"><span class="af-label">Date <small>— optional, e.g. 44 BCE or 1642–1651</small></span><input class="af-input" data-gf="date" type="text" value="' + esc(t.date || "") + '" /></label>' +
+                // a textarea, for the reason the curated glossary's own date box is one: the line may run
+                // to several lines, and `el.value` reads the same either way so the wiring is unchanged
+                '<div class="admin-field"><span class="af-label">Date <small>— optional, e.g. 44 BCE or 1642–1651; Enter for a second line</small></span><textarea class="af-input af-glossdates" data-gf="date" rows="2">' + esc(t.date || "") + '</textarea></div>' +
                 '<div class="admin-field"><span class="af-label">Description</span>' +
                   '<div class="af-input gloss-desc-edit" data-gf="desc" data-rich="1" contenteditable="true" spellcheck="true"></div></div>' +
                 '<label class="admin-field"><span class="af-label">Also written as <small>— comma separated; plurals link automatically</small></span><input class="af-input" data-gf="aliases" type="text" value="' + esc((t.aliases || []).join(", ")) + '" /></label>' +
@@ -12552,6 +12887,10 @@
     }
     const sd = params.scope.type === "deck" ? NODE_BY_ID[params.scope.id] : null;
     const ud = params.scope.type === "udeck" ? UDECKS[params.scope.id] : null;   // one of the user's own decks
+    // whether this scope's cards ask one of their phrasings at random — see deckVariety. Read ONCE for the
+    // session rather than per card: the setting is changed from the home page, so it cannot move mid-session,
+    // and a card requeued ten minutes later must not suddenly be asked a different way.
+    const varietyOn = deckVariety(scopeEntryId(params.scope));
 
     // placeholder / coming-soon deck — or a deck whose cards are all inside coming-soon collections (e.g. China set aside)
     const availStudy = availableCardIdSet();
@@ -12710,7 +13049,11 @@
       const base = cardLocalized(cardById(id));
       // a card of one of a deck's own types asks its FRONT TEMPLATE and has no phrasing pool — the chevrons
       // and the "1 / 3" counter are about the Basic format's `questions` array, which such a card doesn't carry
-      const pool = cardTypeOf(base) ? [] : cardQuestions(base);
+      // …and a reader who has turned QUESTION VARIETY off for this scope gets a pool of one, which is the
+      // card's first phrasing. Cutting the pool rather than fixing qIdx is what makes the rest fall out:
+      // the ‹ › chevrons and the "1 / 3" counter are drawn from `pool.length`, so they simply do not
+      // appear, and there is no second state in which the counter says 1 / 3 and the arrows do nothing.
+      const pool = cardTypeOf(base) ? [] : (varietyOn ? cardQuestions(base) : cardQuestions(base).slice(0, 1));
       if (!Number.isInteger(qIdx) || qIdx < 0 || qIdx >= pool.length) {
         qIdx = pool.length <= 1 ? 0 : (codPick ? codPick(pool.length) : Math.floor(Math.random() * pool.length));
       }
@@ -15071,7 +15414,7 @@
     }
     function hideCountryPopup() { if (cpEl) cpEl.hidden = true; }
 
-    // ===== Map editor (Edit → Timeline → "Edit on globe"): draw/edit/delete territories + place capitals & cities, per year =====
+    // ===== Map editor (Admin → Timeline → "Edit on globe"): draw/edit/delete territories + place capitals & cities, per year =====
     let mapEdit = false, mapEditEra = null, mapTool = "select", mapSelTerr = -1, mapSelCity = -1, mapDraw = null, mapEditRev = 0, mapBar = null, mapDragV = -1, mapDragCity = -1, mapDragging = false;
     function mapBump() { mapEditRev++; _htId = null; _terrCache.clear(); persistTimeline(); scheduleDraw(); }   // an edit changed the era → re-render + rebuild histTerr's bbox/matte caches AND the cross-era terrOf cache (both keyed by era.id, which doesn't change in-place) + persist
     function enterMapEdit(era) {
@@ -18603,7 +18946,7 @@
       const open = it.classList.toggle("open");
       b.setAttribute("aria-expanded", open ? "true" : "false");
     }));
-    // beta feedback → straight into the editors' queue (Edit → Feedback)
+    // beta feedback → straight into the editors' queue (Admin → Feedback)
     const fbForm = root.querySelector("#fbForm");
     if (fbForm) fbForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -18984,22 +19327,28 @@
      ADMIN — back-end editor for all cards + the glossary
      ============================================================ */
   function hideAdminEditBtn() { const b = document.getElementById("admin-edit-fab"); if (b) b.remove(); }
-  /* The editor's way in, as a button on the page rather than a nav tab.
+  /* The admin area's way in, as a button on the page rather than a nav tab.
      Called with a CARD id from the study page (it opens that card in the editor) and with nothing from the
-     home page, where it just opens the editor — the phone's tab bar no longer carries an Edit tab, since
-     that is one person's tool and it was taking a seventh of a row six readers share. The plain
-     (no-card) variant is therefore PHONE-ONLY: on a desktop the top bar's Edit tab is still there, and a
+     home page, where it just opens the admin area — the phone's tab bar no longer carries a tab for it,
+     since that is one person's tool and it was taking a seventh of a row six readers share. The plain
+     (no-card) variant is therefore PHONE-ONLY: on a desktop the top bar's Admin tab is still there, and a
      second entry point beside it would be clutter (`.aef-plain` is hidden above the tab-bar breakpoint).
-     Admin-gated here rather than by the caller, so no route can grow an Edit button for a reader by
-     forgetting to ask — it used to be built unconditionally on every study card. */
+     Admin-gated here rather than by the caller, so no route can grow the button for a reader by
+     forgetting to ask — it used to be built unconditionally on every study card.
+
+     THE CARD VARIANT STILL SAYS "EDIT" (Aug 2026, on request, when the page itself was renamed Admin).
+     The two are answering different questions: the tab names the PLACE, and this names what pressing it
+     does to the card in front of you. "Admin" on a study card would be a button that says where it goes
+     rather than what it is for, which on the one control an editor presses a hundred times a day is the
+     wrong half to state. */
   function showAdminEditBtn(cardId) {
     hideAdminEditBtn();
     if (!isAdmin()) return;
     const b = document.createElement("button");
     b.id = "admin-edit-fab"; b.className = "admin-edit-fab" + (cardId ? "" : " aef-plain"); b.type = "button";
-    b.setAttribute("aria-label", cardId ? "Edit this card in the admin editor" : "Open the editor");
-    b.title = cardId ? "Edit this card" : "Open the editor";
-    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>Edit';
+    b.setAttribute("aria-label", cardId ? "Edit this card in the admin editor" : "Open the admin page");
+    b.title = cardId ? "Edit this card" : "Open the admin page";
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>' + (cardId ? "Edit" : "Admin");
     b.addEventListener("click", () => route("admin", cardId ? { card: cardId, tab: "cards" } : { tab: "cards" }));
     document.body.appendChild(b);
   }
@@ -20520,8 +20869,10 @@
             (gEn
               ? '<label class="admin-field"><span class="af-label">title</span><input class="af-input" id="adminGlossTitle" type="text" spellcheck="true" /></label>' +
                 '<div class="admin-field-note">The popup heading. Leave blank to use the term key (<b>' + esc(glossKeyTitle(k)) + '</b>); the key itself never changes.</div>' +
-                '<label class="admin-field"><span class="af-label">dates</span><input class="af-input" id="adminGlossDates" type="text" spellcheck="false" placeholder="e.g. c. 145–86 BCE" /></label>' +
-                '<div class="admin-field-note">Optional. Shown under the title; leave blank for no date line.</div>'
+                // a TEXTAREA, not an input: the date line may run to several lines (see glossDatesHTML),
+                // and a single-line box has no way to type the break that says so
+                '<div class="admin-field"><span class="af-label">dates</span><textarea class="af-input af-glossdates" id="adminGlossDates" rows="2" spellcheck="false" placeholder="e.g. c. 145–86 BCE"></textarea></div>' +
+                '<div class="admin-field-note">Optional. Shown under the title; leave blank for no date line. Press Enter for a second line.</div>'
               : "") +
             '<div class="admin-field"><span class="af-label">description' + (gEn ? "" : " (" + gLang + ")") + '</span>' +
               '<div class="af-input af-rich af-rich-glossdesc" contenteditable="true" id="adminGlossField" data-field="glossdesc" data-rich="1" spellcheck="true"' + gDir + '></div>' +
@@ -20575,9 +20926,9 @@
       if (srcI) srcI.value = glossSources(k).join("\n");
       function renderPreview() {
         const dates = (datesI ? datesI.value : ((window.GLOSSARY_DATES || {})[k] || "")).trim();
-        let desc = fieldVal(ta); if (dates) desc = stripDupDates(desc, dates);
+        let desc = fieldVal(ta); if (dates) desc = stripDupDates(desc, glossDatesFlat(dates));
         pvTitle.textContent = (titleI ? titleI.value.trim() : ((window.GLOSSARY_TITLES || {})[k] || "")) || glossKeyTitle(k);
-        pvDates.textContent = dates; pvDates.style.display = dates ? "" : "none";
+        pvDates.innerHTML = glossDatesHTML(dates); pvDates.style.display = dates ? "" : "none";
         renderGlossDesc(pvDesc, k, desc);
         setupTooltips(pvDesc);   // wire the linked terms so clicking one opens its own glossary popup
         renderGlossImage(pvImg, k);
@@ -20900,7 +21251,7 @@
     catch (e) { ADMIN_EDITS.timeline = prev; autoSaveWrite(); toast("These eras are too large for browser storage — use “Save to project” now to write timeline.js, or they'll be lost on reload."); return false; }
   }
   function serializeTimeline() {
-    return "/* Historical border eras for the Atlas globe timeline (Edit → Timeline). Traced from world-map PNGs.\n" +
+    return "/* Historical border eras for the Atlas globe timeline (Admin → Timeline). Traced from world-map PNGs.\n" +
       "   Per-era: { id, year, n:label, geo:[ { n, col, p:[ [ [lon,lat],... ] rings ] } ] }. Built in-app; do not hand-edit geometry. */\n" +
       "window.TIMELINE = " + JSON.stringify(window.TIMELINE || []) + ";\n";
   }
@@ -21077,6 +21428,7 @@
             '<button class="admin-tab" type="button" data-atab="dashboard">Dashboard</button>' +
             '<button class="admin-tab" type="button" data-atab="cards">Cards</button>' +
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
+            '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
             '<button class="admin-tab" type="button" data-atab="timeline">Timeline</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
           '</div>' +
@@ -21552,14 +21904,168 @@
         }, "Delete");
       }));
     }
+    /* ---- Quotes: the home page's daily quote, seen, edited and PLANNED (Aug 2026, on request) ----
+       The pool lives in app.js rather than in a data file, and the app must never rewrite app.js, so the
+       overlay is the storage: edits go into ADMIN_EDITS.quotes and are applied over the shipped literal
+       by quotesMerged, which means they reach every reader through the same `content_overrides` route a
+       card edit does, with no deploy. "Copy as JS" hands the whole pool back as the literal, for baking
+       into SHIPPED_QUOTES when a batch is settled.
+
+       The PLANNING half is the column on the right. The running order is not the array's order — it is
+       solved from the pool so that no author speaks two days running or more than twice in any week — so
+       "which day does this one fall on" is a question nobody can answer by looking at the list, and it is
+       exactly the question an editor adding a fifth Confucius line needs answered. Each row therefore
+       carries the next date it comes round, and rows are listed in that order rather than in array order.
+
+       A quote is identified by its SHIPPED text throughout (`data-qk`), never by its position — see
+       quotesMerged for why. */
+    let _qEditing = null;   // the shipped key of the quote whose form is open, or "" for a new one
+    function adminRenderQuotes() {
+      const items = root.querySelector("#adminListItems");
+      const countEl = root.querySelector("#adminListCount");
+      const pool = QUOTES;
+      if (countEl) countEl.textContent = pool.length + (pool.length === 1 ? " quote" : " quotes");
+      // where each quote sits in the running order, and the next date it comes round
+      const today = dayIndex();
+      const seatOf = new Map();
+      QUOTE_ORDER.forEach((idx, seat) => { if (!seatOf.has(idx)) seatOf.set(idx, seat); });
+      const n = QUOTE_ORDER.length || 1;
+      const nextDay = (idx) => {
+        const seat = seatOf.has(idx) ? seatOf.get(idx) : null;
+        if (seat == null) return null;
+        let d = today - (today % n) + seat;
+        if (d < today) d += n;
+        return d;
+      };
+      const whenLabel = (d) => {
+        if (d == null) return "—";
+        if (d === today) return "today";
+        const date = new Date((d * DAY) + (dayEndMin() * 60000));
+        const days = d - today;
+        return (days === 1 ? "tomorrow" : "in " + days + " days") + " · " +
+          date.toLocaleDateString(undefined, { day: "numeric", month: "short", year: date.getUTCFullYear() === new Date().getUTCFullYear() ? undefined : "numeric" });
+      };
+      // the shipped key a live quote answers to: its own text if it is one the admin added or has not
+      // renamed, otherwise the shipped text its delta is filed under
+      const keyOf = (q) => {
+        const ov = (ADMIN_EDITS && ADMIN_EDITS.quotes) || {};
+        for (const k of Object.keys(ov)) if (ov[k] === q) return k;
+        return q.t;
+      };
+      const rows = pool
+        .map((q, i) => ({ q, i, d: nextDay(i) }))
+        .sort((a, b) => (a.d == null ? 1e9 : a.d) - (b.d == null ? 1e9 : b.d));
+      const row = (r) => {
+        const q = r.q, k = keyOf(q), edited = quoteIsEdited(k), added = !quoteIsShipped(k);
+        return '<div class="q-row' + (r.d === today ? " q-today" : "") + (_qEditing === k ? " q-open" : "") + '" data-qk="' + esc(k) + '">' +
+          '<button type="button" class="q-main" data-qopen="' + esc(k) + '">' +
+            '<span class="q-text">' + esc(q.t) + "</span>" +
+            '<span class="q-meta"><b>' + esc(q.a || "—") + "</b>" + (q.s ? '<span class="q-src">' + esc(q.s) + "</span>" : "") +
+              (q.o ? '<span class="q-pill q-orig">' + esc(q.o.lang || "original") + "</span>" : '<span class="q-pill q-noorig">English only</span>') +
+              (added ? '<span class="q-pill q-added">added</span>' : edited ? '<span class="q-pill q-edited">edited</span>' : "") +
+            "</span>" +
+          "</button>" +
+          '<span class="q-when">' + esc(whenLabel(r.d)) + "</span>" +
+        "</div>";
+      };
+      const field = (id, label, val, note) =>
+        '<label class="admin-field"><span class="af-label">' + esc(label) + (note ? ' <small>' + esc(note) + "</small>" : "") + "</span>" +
+        '<input class="af-input" id="' + id + '" type="text" value="' + esc(val || "") + '" /></label>';
+      // the open form, for an existing quote or a blank new one
+      const formHTML = () => {
+        if (_qEditing == null) return "";
+        const isNew = _qEditing === "";
+        const q = isNew ? { t: "", a: "", s: "" } : (pool.find((x) => keyOf(x) === _qEditing) || { t: "", a: "", s: "" });
+        const o = q.o || {};
+        return '<div class="q-form" id="qForm">' +
+          '<div class="q-form-head"><b>' + (isNew ? "New quote" : "Edit quote") + "</b>" +
+            '<span class="q-form-note">Shown on the home page. Standard published translations of well-documented passages only — never a loose attribution.</span></div>' +
+          field("qT", "the quote", q.t) +
+          field("qA", "who said it", q.a) +
+          field("qS", "where it comes from", q.s, "— the work and its book, chapter or letter") +
+          '<div class="q-form-sub">The original, as its writer set it down. Clicking the quote on the home page turns it over to this. ' +
+            'Leave the language blank where the exact original cannot be verified — a plausible-looking reconstruction is worse than no original at all.</div>' +
+          field("qOL", "original language", o.lang || "", "— a BCP-47 tag: la, grc, lzh, sa, fro…") +
+          field("qOT", "the original words", o.t || "") +
+          field("qOA", "the speaker, in that language", o.a || "") +
+          field("qOS", "the source, in that language", o.s || "") +
+          '<div class="q-form-acts">' +
+            '<button class="mini-btn" type="button" id="qCancel">Cancel</button>' +
+            (isNew ? "" : (quoteIsEdited(_qEditing) ? '<button class="mini-btn" type="button" id="qRevert">' + (quoteIsShipped(_qEditing) ? "Revert" : "Delete") + "</button>" : "")) +
+            (isNew || !quoteIsShipped(_qEditing) ? "" : '<button class="mini-btn danger" type="button" id="qRetire">Retire</button>') +
+            '<button class="admin-new" type="button" id="qSave">Save</button>' +
+          "</div></div>";
+      };
+      items.innerHTML =
+        '<div class="q-page">' +
+          '<div class="tl-intro">The home page shows one of these a day. The order is <b>solved, not listed</b> — no writer speaks two days running, and none more than twice in any week — so the running order below is the order they will actually appear in, and it re-solves itself whenever the pool changes. Edits take effect at once and travel to every reader; <b>Copy as JS</b> gives you the whole pool back as a literal to paste into <code>SHIPPED_QUOTES</code> in app.js when you want it baked in.</div>' +
+          '<div class="q-tools">' +
+            '<button class="admin-new" type="button" id="qNew">+ New quote</button>' +
+            '<button class="mini-btn" type="button" id="qCopy">Copy as JS</button>' +
+          "</div>" +
+          formHTML() +
+          '<div class="q-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No quotes in the pool.</div>') + "</div>" +
+        "</div>";
+
+      items.querySelectorAll("[data-qopen]").forEach((b) => b.addEventListener("click", () => {
+        _qEditing = _qEditing === b.dataset.qopen ? null : b.dataset.qopen;
+        adminRenderQuotes();
+      }));
+      const nb = items.querySelector("#qNew");
+      if (nb) nb.addEventListener("click", () => { _qEditing = ""; adminRenderQuotes(); });
+      const cb = items.querySelector("#qCopy");
+      if (cb) cb.addEventListener("click", () => {
+        const lit = "  const SHIPPED_QUOTES = [\n" + pool.map((q) => {
+          const s = (v) => JSON.stringify(String(v == null ? "" : v));
+          let out = "    { t: " + s(q.t) + ", a: " + s(q.a) + ", s: " + s(q.s);
+          if (q.o && q.o.t) out += ",\n      o: { lang: " + s(q.o.lang) + ", t: " + s(q.o.t) + ", a: " + s(q.o.a) + ", s: " + s(q.o.s) + " }";
+          return out + " },";
+        }).join("\n") + "\n  ];\n";
+        copySelText(lit, pool.length + " quotes copied — paste over SHIPPED_QUOTES in app.js");
+      });
+      const form = items.querySelector("#qForm");
+      if (form) {
+        const val = (id) => (form.querySelector("#" + id).value || "").trim();
+        form.querySelector("#qCancel").addEventListener("click", () => { _qEditing = null; adminRenderQuotes(); });
+        form.querySelector("#qSave").addEventListener("click", () => {
+          const t = val("qT");
+          if (!t) { toast("A quote needs its words."); return; }
+          const obj = { t: t, a: val("qA"), s: val("qS") };
+          // an original is written only when there is one — an empty `o` would make the home page offer a
+          // flip that turns the quote into nothing
+          if (val("qOL") && val("qOT")) obj.o = { lang: val("qOL"), t: val("qOT"), a: val("qOA"), s: val("qOS") };
+          const key = _qEditing === "" ? t : _qEditing;
+          setQuoteEdit(key, obj);
+          _qEditing = null;
+          adminRenderQuotes();
+          toast("Quote saved");
+        });
+        const rv = form.querySelector("#qRevert");
+        if (rv) rv.addEventListener("click", () => {
+          const k = _qEditing;
+          inlineConfirm(quoteIsShipped(k) ? "Put this quote back to its shipped wording?" : "Delete this quote?", () => {
+            revertQuote(k); _qEditing = null; adminRenderQuotes(); toast(quoteIsShipped(k) ? "Reverted" : "Quote deleted");
+          }, quoteIsShipped(k) ? "Revert" : "Delete");
+        });
+        const rt = form.querySelector("#qRetire");
+        if (rt) rt.addEventListener("click", () => {
+          const k = _qEditing;
+          inlineConfirm("Retire this quote? It stays in app.js but stops appearing on the home page.", () => {
+            setQuoteEdit(k, null); _qEditing = null; adminRenderQuotes(); toast("Quote retired");
+          }, "Retire");
+        });
+      }
+    }
+
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard";
-      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); }
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes";
+      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); }
       // the feedback/timeline branches return before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
+      if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
       if (feedback) { adminState.selected.clear(); adminRenderFeedback(); return; }
       if (timeline) { adminState.selected.clear(); adminRenderTimeline(); return; }
       search.placeholder = cards ? "Search cards by title, id, hanzi…" : "Search glossary terms…";

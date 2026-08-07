@@ -13,6 +13,13 @@
   --ink:#1B1A17; --ink-soft:#4A4843; --ink-faint:#8B887F; --rule:#E3E0D7;
   --indigo:#36357A; --indigo-bright:#4E4CB0; --indigo-wash:#ECECF7; --ochre:#B5722A;
   --zh:#C8453C; --zh-wash:#FBECEA; --geo:#BC7A18; --good:#3F7E5C;
+  /* the BOOK's own note markers (Aug 2026, on request) — a hue of its own, because every neighbouring
+     one is already spoken for and a marker wearing a borrowed colour claims to be the thing that colour
+     means. --zh is the card's citation marker and the answer term, --indigo is a glossary link, --ochre
+     is a glossary term not yet opened, --good is completion. This teal is none of them, and it is far
+     enough round the wheel from --good's forest green (hue ~186 against ~152) to read as another thing
+     rather than as a shade of the same one. */
+  --bknote:#1E7A85;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --serif:"Newsreader", Georgia, "Times New Roman", serif;
   --display:"Fraunces", Georgia, serif;
@@ -41,6 +48,7 @@ body.night{
   --ink:#ECEAE3; --ink-soft:#D6D2C8; --ink-faint:#8A877F; --rule:#34343C;
   --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
   --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
+  --bknote:#5FC2CE;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
@@ -559,6 +567,24 @@ body.night .banner{
   background:var(--good, #4F9D67); color:#fff;
   box-shadow:0 1px 5px rgba(0,0,0,.28);
 }
+/* HAVING PLAYED is a green circled CHECK, not a band (Aug 2026, on request) — the ribbon is kept for a
+   perfect score alone, below. Same corner, same green (--good, the token the Review pile and the grade
+   buttons use), a fraction of the surface. It is `role="img"` with an aria-label in the markup rather
+   than a decorative pseudo-element, for the reason the ribbon carries a word: a patch of colour with no
+   name is invisible to a screen reader. */
+.gt-check{
+  position:absolute; top:9px; right:9px; z-index:3; pointer-events:none;
+  width:21px; height:21px; border-radius:50%;
+  background:var(--good, #4F9D67); color:#fff;
+  display:inline-flex; align-items:center; justify-content:center;
+  box-shadow:0 1px 4px rgba(0,0,0,.24);
+}
+.gt-check svg{width:12px; height:12px; display:block;}
+/* the review banner is a bigger surface, so its mark is too — the ribbon's own pair of sizes, one line up */
+.review-group .banner .gt-check{top:12px; right:12px; width:25px; height:25px;}
+.review-group .banner .gt-check svg{width:14px; height:14px;}
+body[data-theme="arcade"] .gt-check{border-radius:0; box-shadow:none; border:2px solid var(--ink);}
+body[data-theme="gazette"] .gt-check{box-shadow:none;}
 /* a perfect score: the shining gold the filled tile used to wear, now on the band alone */
 .gt-ribbon.gr-gold span{
   color:#3A2D07;
@@ -789,6 +815,10 @@ body[data-theme="folio"] .collection-deco::after{
 .node-title-row{display:flex; align-items:center; gap:9px;}
 .node-title{font-family:var(--serif); font-weight:600; font-size:calc(17px * var(--fs)); line-height:1;}
 .node-span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
+/* how many cards the deck holds — the collection banner's own `.collection-count`, a size down to sit on
+   a deck row rather than a banner. Same figure, same words, same place on the line, so the two levels of
+   the hierarchy cannot be read as saying different things. */
+.node-count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
 
 /* ============================================================
    STUDY / FLASHCARD  (mirrors the source collection card CSS)
@@ -870,6 +900,15 @@ body[data-theme="folio"] .collection-deco::after{
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
 .answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
+/* THE ANSWER TERM ALWAYS OPENS ON A CAPITAL (Aug 2026, on request), even where the question and the
+   background write it lower-case — here it is a heading naming the thing, not a word in a sentence.
+   Done in CSS rather than in `buildBack`, and that is the load-bearing part: the stored `answer` is
+   HTML that may open on a <b> or an <a>, so an uppercasing pass in JS would have to walk into the
+   markup to find the first letter; and the answer is also read aloud, typed against in the cloze box
+   and matched by the glossary, none of which must see a capital the data has not got. ::first-letter
+   changes what is painted and nothing else. It reaches the letter through inline descendants, and on a
+   hanzi answer it is simply inert, there being no case to change. */
+.answer .val::first-letter{text-transform:uppercase;}
 .answer .val a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(200,69,60,.34);}
 .night .answer .val a{border-bottom-color:rgba(240,147,139,.42);}
 /* column-gap 16, not the 7 it was: the label is a small-caps mono word and the value beside it is mono
@@ -983,6 +1022,9 @@ body[data-theme="folio"] .collection-deco::after{
 .aib-head{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--indigo); font-weight:600;}
 .aib-hint{color:var(--ink-faint); text-transform:none; letter-spacing:.02em; font-weight:400;}
 .af-imgdesc{resize:vertical; min-height:44px; font:inherit;}
+/* the glossary date box — a textarea rather than a single-line input, since the popup's date line may
+   run to several lines (glossDatesHTML). Sized to two, growable by hand. */
+.af-glossdates{resize:vertical; min-height:40px; font:inherit; line-height:1.5;}
 .abstract{font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:0 0 20px;}
 .abstract b, .abstract strong{color:inherit; font-weight:700;}
 .abstract b.ans-term, .abstract strong.ans-term{color:var(--ink); font-weight:700;}
@@ -1440,7 +1482,64 @@ body.grading .stage{padding-bottom:150px;}
 .admin.dash-mode .admin-list{width:auto; flex:1; border-right:0;}
 /* with the deck tree hidden, the side panel is just the tab strip — drop its full-height right border + fill so it
    doesn't leave a floating vertical divider running down the empty column below the tabs. */
-.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side{background:transparent; border-right:0;}
+/* quotes-mode: the daily-quote pool takes over the admin area (like feedback, timeline and the dashboard) */
+.admin.quotes-mode .admin-tree,.admin.quotes-mode .admin-side-foot,.admin.quotes-mode .admin-collapse,.admin.quotes-mode .admin-editor,.admin.quotes-mode .admin-search,.admin.quotes-mode .alt-right,.admin.quotes-mode .alt-right-gloss,.admin.quotes-mode .admin-sel-bar,.admin.quotes-mode .admin-resizer{display:none;}
+.admin.quotes-mode .admin-list{width:auto; flex:1; border-right:0;}
+.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side,.admin.quotes-mode .admin-side{background:transparent; border-right:0;}
+
+/* ---------- Admin → Quotes: the home page's daily quote (Aug 2026, on request) ----------
+   A list in RUNNING ORDER rather than array order — the order is solved from the pool, so where a quote
+   sits in the source says nothing about when a reader will meet it, and when they will meet it is the
+   thing an editor is planning around. Today's quote is marked; the rest carry the date they come round. */
+.q-page{padding:16px 18px 26px; max-width:1000px;}
+.q-tools{display:flex; gap:8px; align-items:center; margin:14px 0 12px;}
+.q-list{display:flex; flex-direction:column; gap:6px;}
+.q-row{
+  display:flex; align-items:flex-start; gap:12px; padding:2px 4px 2px 0;
+  border:1px solid transparent; border-radius:10px; transition:background .14s var(--ease), border-color .14s;
+}
+.q-row:hover{background:var(--paper-2); border-color:var(--rule);}
+/* the one a reader is looking at right now — the left bar is the same gold the version line and the
+   card blanks use, so "current" reads the same here as everywhere else */
+.q-row.q-today{border-color:color-mix(in srgb,var(--ochre) 40%,transparent); background:color-mix(in srgb,var(--ochre) 7%,transparent);}
+.q-row.q-open{border-color:var(--indigo); background:var(--indigo-wash);}
+.q-main{
+  flex:1; min-width:0; appearance:none; background:none; border:0; cursor:pointer; text-align:left;
+  padding:9px 12px; display:flex; flex-direction:column; gap:4px; font:inherit; color:inherit;
+}
+.q-main:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:9px;}
+.q-text{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.45; color:var(--ink);}
+.q-meta{display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
+.q-meta b{font-weight:600; color:var(--ink);}
+.q-src{color:var(--ink-faint);}
+.q-pill{
+  font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.07em; text-transform:uppercase;
+  padding:1px 7px; border-radius:999px; border:1px solid transparent; white-space:nowrap;
+}
+.q-orig{color:var(--good); background:color-mix(in srgb,var(--good) 11%,transparent); border-color:color-mix(in srgb,var(--good) 30%,transparent);}
+.q-noorig{color:var(--ink-faint); background:var(--paper-2); border-color:var(--rule);}
+.q-edited{color:var(--indigo); background:var(--indigo-wash); border-color:color-mix(in srgb,var(--indigo) 30%,transparent);}
+.q-added{color:var(--ochre); background:color-mix(in srgb,var(--ochre) 12%,transparent); border-color:color-mix(in srgb,var(--ochre) 32%,transparent);}
+/* when it next comes round — held to the right, and never allowed to wrap onto the quote's line */
+.q-when{
+  flex:none; align-self:center; width:15ch; text-align:right; white-space:nowrap;
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint);
+}
+.q-row.q-today .q-when{color:var(--ochre); font-weight:600;}
+.q-form{
+  border:1px solid var(--indigo); border-radius:12px; background:var(--card);
+  padding:14px 16px 12px; margin:0 0 14px; display:flex; flex-direction:column; gap:2px;
+}
+.q-form-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:6px;}
+.q-form-head b{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink);}
+.q-form-note, .q-form-sub{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);}
+.q-form-sub{margin:12px 0 6px; padding-top:10px; border-top:1px solid var(--rule);}
+.q-form-acts{display:flex; justify-content:flex-end; gap:8px; margin-top:12px;}
+@media (max-width:640px){
+  .q-page{padding:12px 12px 22px;}
+  .q-row{flex-direction:column; align-items:stretch; gap:0;}
+  .q-when{align-self:flex-start; width:auto; text-align:left; padding:0 12px 8px;}
+}
 
 /* ---- Edit → Dashboard: Folio in numbers ---- */
 .dsh-wrap{padding:20px 24px 40px; max-width:1180px;}
@@ -1832,8 +1931,18 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    that read as the option having been chosen by accident. It hovers like every other row now; the deep
    red text is the whole of the warning. */
 .dm-item.dm-danger b{color:var(--zh);}
-/* a sheet row that is one of a SET (the review's Ordered/Random) rather than a command: the chosen one
-   carries a tick, so the sheet says what the setting currently is and not only what it can be changed to */
+/* A SHEET ROW HOLDING A SWITCH — a setting with two states (Aug 2026, on request: the review's
+   Ordered/Random pair, and question variety beside it). It replaces two `.dm-choice` rows for the order,
+   which spent a third of a phone sheet saying what one line says. The row is a DIV, not a button: it
+   contains a `role="switch"`, and a control inside a button is invalid and unreachable by keyboard.
+   Clicking anywhere on the row throws it — the switch is a 40px target on a 390px line, and a reader
+   aiming at the label means the same thing — while the switch itself takes the tab stop and the keys. */
+.dm-switch{flex-direction:row; align-items:center; justify-content:space-between; gap:12px; cursor:pointer;}
+.dm-switch .dm-switchmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
+.dm-switch .switch{flex:none;}
+/* a sheet row that is one of a SET rather than a command: the chosen one carries a tick, so the sheet
+   says what the setting currently is and not only what it can be changed to. (No longer used by the
+   review's order, which is a switch above; kept for the book shelf's own favourite row.) */
 .dm-choice{position:relative; padding-right:38px;}
 .dm-choice.on{background:var(--indigo-wash); border-color:color-mix(in srgb,var(--indigo) 26%,transparent);}
 .dm-choice.on b{color:var(--indigo);}
@@ -2352,7 +2461,9 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
   width:46px; height:46px; transition:bottom .34s var(--ease);
 }
 .wb-tools.show{display:block;}
-.wb-tools.wb-dragging{transition:none;}   /* the bottom transition would lag a finger by a third of a second */
+/* the bottom transition would lag a finger by a third of a second while dragging — and would fight the
+   fling frame for frame afterwards, since that one moves the marker itself, 60 times a second */
+.wb-tools.wb-dragging, .wb-tools.wb-flinging{transition:none;}
 body.grading .wb-tools{bottom:108px;}
 .wb-tools.on-atlas{bottom:25px; right:16px;}   /* far bottom-right, vertically centred inside the timeline bar */
 .wb-panel{
@@ -2575,6 +2686,16 @@ sup.fn{
 sup.fn:empty::before{content:attr(data-fn);}
 sup.fn:hover{background:color-mix(in srgb,var(--zh) 18%,transparent); color:var(--ink);}
 sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
+/* IN A BOOK THE MARKERS TAKE --bknote, NOT THE CARD'S VERMILION (Aug 2026, on request). A card's marker
+   points at a work Folio is citing in support of a claim it makes; a book's points at the translator's
+   own note on the line in front of you, which is a different KIND of thing, and on a page of continuous
+   prose a run of vermilion superscripts reads as a page full of corrections. Scoped to the reader — the
+   markers, the entry numbers a marker points at, and both hover washes together, so the two ends of a
+   jump keep saying they are one thing. Everything else about the apparatus is unchanged. */
+.bk-page sup.fn{color:var(--bknote);}
+.bk-page sup.fn:hover{background:color-mix(in srgb,var(--bknote) 20%,transparent); color:var(--ink);}
+.bk-page .src-n.src-back{color:var(--bknote);}
+.bk-page .src-n.src-back:hover{background:color-mix(in srgb,var(--bknote) 20%,transparent); color:var(--ink);}
 /* the gloss-popup variant: narrower column, so everything steps down a size */
 .src-compact{margin:14px 0 0; padding-top:9px; clear:both;}
 .src-compact .src-label{font-size:calc(9px * var(--fs)); letter-spacing:.1em;}
@@ -3165,9 +3286,11 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   flex:1; min-width:0; font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs));
   color:var(--zh); letter-spacing:-.01em; white-space:normal; overflow-wrap:break-word; line-height:1.25;
 }
+/* It may run to SEVERAL lines (Aug 2026, on request) — see glossDatesHTML — so it needs a line-height of
+   its own: the default leading on 11px mono sets two dates almost touching. */
 .gloss-dates{
   display:block; margin:0 0 8px; font-family:var(--mono); font-weight:500; font-size:calc(11px * var(--fs));
-  letter-spacing:.03em; color:var(--ink-faint);
+  letter-spacing:.03em; color:var(--ink-faint); line-height:1.55;
 }
 .gloss-close{
   flex:none; appearance:none; cursor:pointer; width:26px; height:26px; border-radius:7px;
@@ -4647,11 +4770,24 @@ body.night .rv-star.on{color:#E6C765;}
 .bk-star{position:absolute; top:9px; right:11px; width:14px; height:14px; color:var(--ochre); pointer-events:none;}
 .bk-star svg{display:block; width:100%; height:100%;}
 .book-tile.bk-fav .bk-tile-foot{padding-right:20px;}   /* …so the star never lands on the length line */
+/* THE BANNER CARRIES ITS BOOK'S COLOUR AS A WASH (Aug 2026, on request — "similar to the collection
+   banners"). It was a flat `var(--card)` with the hue stated only on the 8px spine, which on a shelf of
+   twenty books left every banner looking alike until the eye reached the spine. The gradient is the
+   COLLECTION banner's own bookplate treatment, written the way `.active-deck` writes it — a wash of the
+   accent laid OVER var(--card) rather than mixed into it, so the fade target is whatever paper the theme
+   happens to be using and no theme needs a rule of its own. The accent is `--tile`, the book's AUTHOR'S
+   colour (bookColor in app.js), so two books by one hand wash the same, exactly as their spines do.
+   Night wants a weaker mix than daylight, for the reason the collection banner's pair does: the hue sits
+   on a dark card and reads twice as strongly there. */
 .book-tile{
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
-  background:var(--card); border:1px solid var(--rule); border-radius:14px;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, transparent), transparent 64%) var(--card);
+  border:1px solid var(--rule); border-radius:14px;
   box-shadow:var(--shadow-sm); cursor:pointer; font:inherit; color:inherit;
-  transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease);
+  transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease), background-color .14s var(--ease);
+}
+body.night .book-tile{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 19%, transparent), transparent 64%) var(--card);
 }
 .book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile,var(--indigo)) 45%, var(--rule));}
 .book-tile:active{transform:translateY(0) scale(.995);}

@@ -824,8 +824,8 @@ const BOOKS = {
         "this edition's own. Note that Plato is normally cited not by book but by <i>Stephanus " +
         "number</i> — the page and column of Henri Estienne's edition of 1578, which is how a " +
         "reference such as 'Republic 514a' works — and that this printing does not carry those " +
-        "numbers in its margins. That is why the Greek is not set beside the translation here, as it " +
-        "is for the other books in this library: the two columns are paired on the numbers a text " +
+        "numbers in its margins. That is why the Greek is not set beside the translation " +
+        "here: two columns of a bilingual text are paired on the numbers a text " +
         "states about itself, and this one states none. The numbered notes folded under each book are " +
         "the translator's own.",
     ],
@@ -981,8 +981,7 @@ const BOOKS = {
         "ancient arrangement keeps them and the edition prints them — this is what was transmitted " +
         "under Plato's name — and saying so is better than quietly dropping them or quietly passing " +
         "them off. <i>The Republic</i> is the one work of Plato's missing from this book, and only " +
-        "because the English of it in this edition is still in copyright; it is in this library " +
-        "already, in Benjamin Jowett's translation, as a book of its own.",
+        "because the English of it in this edition is still in copyright.",
       "The numbers in the margin are <i>Stephanus numbers</i> — the pages of Henri Estienne's " +
         "edition of 1578, by which Plato has been cited in every language ever since, so that a " +
         "reference like 'Symposium 189c' means the same passage in any edition. Because both texts " +
@@ -1136,8 +1135,8 @@ const BOOKS = {
         "Latin, marking where each passage begins — so a reference such as 'Metamorphoses 1.452' is " +
         "book 1, line 452, and the figures are how you find it. They are also what pairs the two " +
         "columns: an English passage and a Latin one carrying the same figure are the same place in " +
-        "the poem. This edition prints no translator's notes, so unlike the other books in this " +
-        "library there is no fold of them under each chapter.",
+        "the poem. This edition prints no translator's notes, so there is no fold of them under " +
+        "each chapter.",
     ],
 
     /* ---------- A TEI EDITION ON THE ENGLISH SIDE TOO, which is new ----------
@@ -1515,8 +1514,7 @@ const BOOKS = {
         "are how you find it. They are also what pairs the two texts: an English passage and a Latin " +
         "one carrying the same figure are the same place in the poem, and here all two hundred and " +
         "thirteen of them agree exactly. Two things follow from the edition and are not faults in " +
-        "this page: it prints no translator's notes, so unlike most of this library there is no fold " +
-        "of them under each book, and Perseus's Latin file names no editor for the text it prints, so " +
+        "this page: it prints no translator's notes, so there is no fold of them under each book, and Perseus's Latin file names no editor for the text it prints, so " +
         "this book cannot tell you whose edition the Latin is.",
     ],
 
@@ -2034,8 +2032,8 @@ const BOOKS = {
         "small raised figures running through both columns are CHAPTER numbers, and they are how any " +
         "passage of Herodotus is cited in any language: \"Herodotus 1.32\" means book 1, chapter 32. " +
         "Both editions state them and, measured over the whole work, they agree exactly — 1,578 " +
-        "chapters on each side, the same numbers in the same order in all nine books, which makes this " +
-        "the most cleanly paired text on these shelves. Editions also divide a chapter into finer " +
+        "chapters on each side, the same numbers in the same order in all nine books, which is " +
+        "as exact a pairing as two independently edited texts manage. Editions also divide a chapter into finer " +
         "numbered sections; those are not used for pairing here, because nine of the 1,578 chapters " +
         "number them differently in the two editions, and a passage set beside one that is not its " +
         "counterpart is worse than a longer passage. The numbered notes are the edition's own.",
@@ -2156,8 +2154,8 @@ const BOOKS = {
         "answer to a hard problem rather than as what the Chinese says.",
       "This is Legge's text and the Chinese he printed beside it, and nothing else. His notes, his " +
         "prolegomena and his commentary — which in the printed volume run to several times the length " +
-        "of the translation — are not part of the transcription this comes from, so unlike Seneca or " +
-        "Suetonius there is no apparatus underneath these pages. What you are reading is the whole of " +
+        "of the translation — are not part of the transcription this comes from, so there is no " +
+        "apparatus underneath these pages. What you are reading is the whole of " +
         "the work and none of the argument about it.",
     ],
 
@@ -2302,8 +2300,8 @@ const BOOKS = {
         "a handful of them say in the transcription this text comes from which note belongs to which " +
         "place, so only those few are shown rather than joined up by guesswork.",
       "Two things about this copy. The Prince is cited by chapter and carries no smaller numbered " +
-        "divisions, so where the other books in this library set the two languages beside each other " +
-        "passage by passage, this one pairs them <i>chapter by chapter</i> — each column is the whole " +
+        "divisions, so where a bilingual text is usually set beside itself passage by passage, this " +
+        "one pairs the two languages <i>chapter by chapter</i> — each column is the whole " +
         "of its own chapter, beginning together and running at its own length. And Machiavelli's " +
         "dedicatory letter to Lorenzo, which stands before chapter 1 in both editions, is not included " +
         "here: the reader is given the twenty-six chapters of the book itself.",
@@ -2513,9 +2511,8 @@ const BOOKS = {
         "of Caesar is cited in any language: \"Caesar, Gallic War 1.29\" means book 1, chapter 29. " +
         "Measured over the whole work, the two editions agree exactly — 404 chapters on each side, the " +
         "same numbers in the same order in all eight books, with nothing missing on either side and no " +
-        "duplicates — which makes this the most cleanly paired text on these shelves after the Art of " +
-        "War, and that one is a facing-page edition where a single editor numbered both columns at " +
-        "once. Editions divide a chapter into finer numbered sections as well; those are not used for " +
+        "duplicates, which is an exact pairing of two texts edited independently a generation apart. " +
+        "Editions divide a chapter into finer numbered sections as well; those are not used for " +
         "pairing, and this English does not print them at all. This edition carries almost no notes: " +
         "one, on a disputed numeral.",
     ],
@@ -2704,7 +2701,7 @@ const BOOKS = {
         "Greek's 61 draws beside an empty cell rather than being quietly renumbered. Editions divide " +
         "a chapter into finer numbered sections as well; those are not used for pairing here. This " +
         "edition carries almost no notes — four in the whole history — so the chapters render with " +
-        "no note fold, as Ovid's, Lucretius's and the Analects' do.",
+        "no note fold.",
     ],
 
     /* ---------- A PLAIN WIKI TRANSCRIPTION IN BOOKS OF NUMBERED CHAPTERS ----------
@@ -2839,7 +2836,7 @@ const BOOKS = {
         "is the only kind of Aesop there is.",
       "About Aesop himself almost nothing can be said with confidence. The ancient tradition makes " +
         "him a slave in the sixth century BCE, ugly and clever, and has him killed by the people of " +
-        "Delphi. The earliest surviving mention is in Herodotus, who is also on this shelf: at 2.134 " +
+        "Delphi. The earliest surviving mention is in Herodotus: at 2.134 " +
         "he calls Aesop a story-writer and a fellow-slave of the courtesan Rhodopis under a Samian " +
         "master named Iadmon, and reports that the Delphians later paid compensation for killing " +
         "him. That is roughly a century after Aesop is supposed to have lived, and it is the best " +
@@ -2891,8 +2888,8 @@ const BOOKS = {
         "Wikisource is Émile Chambry's of 1927, which lists 359 fables alphabetically by their Greek " +
         "titles with no numbering anywhere. Two unnumbered collections of different sizes in " +
         "different orders have nothing to pair on, and matching them fable by fable would mean " +
-        "several hundred judgements made by eye, which is exactly the work that was tried and " +
-        "abandoned for the Meditations' Greek. Better to say so than to guess three hundred times.",
+        "several hundred judgements made by eye, which " +
+        "would be guesswork rather than editing. Better to say so than to guess three hundred times.",
     ],
 
     /* ---------- ONE FABLE, ONE CHAPTER — 313 of them, the most on the shelf ----------
@@ -3284,8 +3281,8 @@ const BOOKS = {
         "speaks a line. And two of the five hundred and two English passages draw beside an empty " +
         "Greek cell, both in Part 12, where the children are heard crying out inside the house: " +
         "Murray runs those lines together and gives them to the two boys speaking at once, so the " +
-        "numbers beside them do not stand alone on his side. The notes on those lines say so, which " +
-        "is the tidiest answer this shelf has yet had to a blank cell.",
+        "numbers beside them do not stand alone on his side. The notes on those lines say so, " +
+        "so a reader who meets the blank finds the reason a marker away.",
     ],
 
     /* ---------- A PLAY: the same shape as the Oedipus Rex, and it needed no new reader ----------
@@ -3673,7 +3670,7 @@ const BOOKS = {
         "the first time in the modern world in 1872, and the resemblance to Noah was immediately " +
         "obvious to everyone who heard it — a discovery that changed how the Book of Genesis was read " +
         "and has been argued about ever since.",
-      "That date matters, because this poem's history is unlike that of anything else on this shelf. " +
+      "That date matters, because this poem's history is unlike that of almost any other ancient book. " +
         "Homer, Plato and Herodotus were copied by hand in an unbroken line from antiquity to the " +
         "printing press and have never once been out of the world's hands. Gilgamesh was. Its language " +
         "died, its script became unreadable, and the poem was completely lost for something like two " +
@@ -3699,8 +3696,7 @@ const BOOKS = {
         "translation to buy if you want the current state of the text. What Thompson offers is a " +
         "complete, careful, public-domain rendering by a scholar working from the originals, and the " +
         "poem's power survives the archaisms easily.",
-      "Two absences to explain. There is no facing Akkadian column here, unlike most books on this " +
-        "shelf, and the reason is not that the original is unavailable but that it barely exists as a " +
+      "Two absences to explain. There is no facing Akkadian column here, and the reason is not that the original is unavailable but that it barely exists as a " +
         "settled text: what scholars work from is a transliteration pieced together from scattered " +
         "fragments, the piecing-together is itself modern scholarship, and every such edition is " +
         "either in copyright or licensed in a way this site cannot build on. And the Twelfth Tablet " +
@@ -4030,7 +4026,7 @@ const BOOKS = {
         "in whether they continue. None of that is undercut by the comedy around it. Whether the " +
         "play should be read as being about women at all, or whether they are a device for saying " +
         "something about the war that could not be said straight, is argued about still.",
-      "It is an <i>Old Comedy</i>, and that is a different animal from the tragedies on this shelf. " +
+      "It is an <i>Old Comedy</i>, and that is a different animal from tragedy. " +
         "A tragedy is set in the mythical past and keeps its distance; Old Comedy is set in the " +
         "audience's own city, names living people, insults the men sitting in the front rows, breaks " +
         "off in the middle so the chorus can address the audience directly about the poet's " +
@@ -4056,8 +4052,7 @@ const BOOKS = {
         "printed and whose authorship nothing establishes, so Folio shelves it as what it says it is. " +
         "The numbered notes are the translator's own.",
       "One thing this book has not got, and it is worth saying rather than leaving a reader to " +
-        "wonder. The shelf's other three plays print the Greek beside the English, paired on the line " +
-        "numbers both editions state. This one has no Greek column, because this translation prints " +
+        "wonder. This one has no Greek column beside the English, because this translation prints " +
         "no line numbers — and Folio pairs two texts on the numbers they share, never on the order of " +
         "their paragraphs, which looks right on one screen and drifts thereafter. The Greek exists " +
         "and is well numbered; the free English that carries line numbers, Benjamin Bickley Rogers's " +
@@ -4260,8 +4255,8 @@ const BOOKS = {
         "Englishman writing in Bengal in 1789. It is printed here as he wrote it. And he worked from " +
         "the Bengali recension of the play, which is not the Sanskrit text usually printed today: the " +
         "play survives in several regional versions differing in whole verses, and which is closest to " +
-        "Kalidasa is unsettled. That is also why this book has no Sanskrit column beside the English, " +
-        "where most books on this shelf have one — Folio pairs two texts on the numbers they share, " +
+        "Kalidasa is unsettled. That is also why this book has no Sanskrit column beside the English: " +
+        "Folio pairs two texts on the numbers they share, " +
         "this translation prints none below the act, and the Sanskrit that is freely available is a " +
         "different recension whose edition names no editor at all. The tabs therefore count what this " +
         "edition itself separates: the preface, the prologue and the seven acts.",
