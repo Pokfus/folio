@@ -12532,3 +12532,64 @@ The card gives **no date for the interbreeding itself**. The genetic brackets `w
 of Africa, 55–45 ka into Eurasia) bound it, but no source opened in this batch or the last states when the
 admixture happened, and inferring it from two other numbers would be composing a result rather than
 reporting one.
+
+---
+
+## Batch W17 — `wh-090` Ancient DNA (2026-08-07)
+
+### Newly opened for this batch
+
+**`silverstein-chapman-2026`** — Jodie Silverstein and Amy Chapman, "Recovery and Analysis of Ancient DNA:
+Challenges, Methods, and Applications in Forensic and Archaeological Science", *Journal of Genetic
+Engineering and Biotechnology* 24, no. 2 (2026): 100702. [Open access, CC BY-NC-ND]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: aDNA as "characteristically fragmented, chemically modified, and present in low copy numbers";
+  the degradation modes — hydrolytic cleavage of the phosphodiester bonds, oxidative damage, cytosine
+  deamination; usable fragment lengths of "30–100 bp"; **authentication by the damage itself**, "cytosine
+  deamination, C → T transitions at 5′ ends … used to differentiate ancient from modern DNA"; the
+  contamination regime of "cleanrooms, bleach and UV sterilisation, dedicated reagents, and negative
+  controls"; that early mummy work was "compromised by self-contamination"; the **petrous bone** as "the
+  densest in the human skeleton", giving endogenous human DNA "up to 100 times more than long bones"; and
+  the method shift from PCR, "prone to contamination and artefacts", to next-generation sequencing, which
+  "enabled whole genome analysis from severely fragmented DNA", with single-stranded library preparation
+  improving "recovery from ultra-short fragments"
+- **seven of the card's ten sentences rest on this one paper**, which is proper for a methods card and is
+  the reason the card needed a methods source at all rather than more applications.
+
+### A SECOND ROLL-UP-ONLY ENTRY RE-READ BEFORE USE — the same fault as last batch
+`gelabert-2025` (El Mirón sedaDNA) was listed in batch 16's bibliography as [Open access] with **no `###`
+entry and no `supports:` lines**, exactly as `blinkhorn-2021` was in W15. Re-read; it states that analysis
+of ancient DNA from sediment "can provide additional insights by identifying the presence of animal species
+or human groups in archaeological sites and recovering their DNA even without visible skeletal remains",
+which is the card's closing clause. **Two batches running have hit this, so it is a pattern rather than an
+oversight**: a roll-up line records that a card cited a work, not what the work will bear, and there are
+more of them in this file.
+
+### Reused, from the register
+`green-2010` (the 2010 draft genome and the interbreeding), `reich-2010` (the Denisova finger bone and a
+population "that shares a common origin with Neanderthals"), `welker-2020` (that ancient DNA degrades where
+"the analysis of ancient proteins can address this challenge" — the card's hard limit).
+**Five sources, all five open.**
+
+### THE DATE LINE IS MODERN ON PURPOSE, and `wh-002` is the precedent
+Every other card in this deck is dated in BP and W16 went to some trouble to keep `wh-089` out of the
+modern range. This one goes the other way, and the difference is the subject: **ancient DNA is a modern
+method, not a prehistoric thing**, so it belongs with `wh-002` (the three-age system, "Established
+1810s–1820s … Published 1836") rather than with its deck-mates. `wh-045` shows the third pattern, carrying
+both a deep date and a modern one with the deep date leading so it sorts deep. The rule the three of them
+imply: **date the card by what its answer term IS, and let the sort follow** — a methods card sorting at the
+end of a prehistory deck is correct, not a fault.
+
+### NO `EXEMPT` ENTRY ADDED, though it would qualify
+`docs/history-focus-plan.md` exempts a card "whose ANSWER TERM is itself a modern theory, debate, method or
+scholar", and ancient DNA is squarely a modern method. The entry was **not** added, because the card
+measures **historio 0 of 10 with no researcher named in any question** and passes both rules on its own
+merits — the same call made for `wh-031`. The exemption list buys nothing here and every entry on it is a
+check that stops being run.
+
+### A CLAIM NOT MADE, and an alias not taken
+The card states **no upper age limit for DNA survival** — no "about a million years". The figure is much
+quoted and moves with each new result, and nothing opened for this batch states one; what the card says
+instead is the shape of the limit, that beyond DNA's survival only proteins speak, which `welker-2020`
+does carry. And `Ancient_DNA` takes **"aDNA"** and not **"palaeogenetics"**: the field and the material
+are two different things, and N2's test is that an alias must mean the same thing.
