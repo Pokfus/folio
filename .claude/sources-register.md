@@ -12835,3 +12835,44 @@ page instead, which has none. Fetching the file needs `urllib.parse.quote` on th
 returns the item page wrapper rather than the text, and `archive.org/download/<id>/<id>_djvu.txt` 404s when
 the real file name differs from the identifier — **read `archive.org/metadata/<id>` for the true file name
 first.**
+
+---
+
+## Batch W22 — `wh-111` Neolithic (2026-08-07)
+
+### Nothing newly opened — five registered sources, all open, all with their own `supports:` lines
+`lubbock-1865` (the coinage, "This we may call the 'Neolithic' period", in a four-epoch scheme with no
+Mesolithic, and the author's own caveat "for the present, I only apply this classification to Europe"),
+`larson-2014` (domestication "began globally 12,000–11,000 y ago at the end of the most recent ice age",
+in at least 11 independent centres), `fuller-stevens-2019` (early villages "in the hundreds", settlements
+"in the thousands" later, and "land ownership and rights of tenure associated with emergent elite bodies"),
+`watkins-2017` (Childe's 1936 naming and the analogy with the industrial revolution, and the slow-transition
+reading resting on an Epi-palaeolithic of 23,000–12,000 years ago), `schulz-paulsson-2019` (megalithic
+graves as dolmens, passage and gallery graves, reopened "for repeated burials" from the last third of the
+5th millennium).
+
+**This is the third batch running to need no new reading**, and the reason is the same each time: a card
+that summarises a period inherits the sources its own glossary term and its neighbours already opened.
+Batch 12's finding — that a definitional card is mostly a mapping job — with a fourth confirmation.
+
+### THE HISTORIOGRAPHY BUDGET SHAPED THE CARD, and it is worth recording how
+A period card is the easiest place to break the ≤3-of-10 rule, because the interesting things about a
+period name are who coined it and how the reading has changed. A first outline had **four** such
+sentences — Lubbock's coinage, Lubbock's Europe caveat, Childe's naming, and the modern slow reading — and
+was restructured before drafting: the two Lubbock sentences were merged into one, and the Epipalaeolithic
+sentence was rewritten from "it is now read as slow" (a claim about scholars) to "the changes did not start
+with the period itself" (a claim about the past). `card-focus.js` measures **1 of 10** on the result. The
+lesson is that **the same fact can be written as historiography or as history, and which one it is depends
+on the subject of the sentence.**
+
+### THE STYLE BASELINE CAUGHT ME A THIRD TIME
+18 → 19 on "the last third of the **fifth** millennium BCE"; the house rule numbers centuries and millennia
+without exception. Fixed to "5th", back to 18. Three batches, three catches, and all three were different
+rules (a spelled thousand, a spelled 21, a spelled millennium) — which is the argument for running the
+count as a **diff on every card** rather than at the end of a session.
+
+### A SANDBOX LIMIT worth recording for the next batch
+`pip install pypdf` **succeeds and then the import panics** (`pyo3_runtime.PanicException` out of the
+cryptography rust bindings), so there is still no way to read a PDF locally here. That is what blocked
+`wh-110` in W21 and it is not fixable by installing a package. The routes that do work on a PDF are
+WebFetch (under ~10 MB, and it 502'd on the one file tried) and an Internet Archive item's `_djvu.txt`.
