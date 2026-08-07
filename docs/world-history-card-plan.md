@@ -136,8 +136,15 @@ story has already lost the plot of the imperialism deck that follows it.
 ## Living beside the other collections
 
 Folio has, or plans, separate collections for **Ancient Greece** (`col-13`, being written now),
-**Ancient Rome** (`col-40`), the **United States** (`col-41`), **Russia** (`col-42`), **India**
-(`col-43`) and **China** (`china`). World History overlaps all six, on purpose, and the rule is:
+**Ancient Rome** (`col-40`, planned in `docs/rome-card-plan.md` and not yet started), the **United
+States** (`col-41`, planned in `docs/us-card-plan.md` and not yet started), **Russia** (`col-42`,
+planned in `docs/russia-card-plan.md` and not yet started),
+**India** (`col-43`, planned in `docs/india-card-plan.md` and not yet started) and **China** (`china`,
+planned in `docs/china-card-plan.md`, set aside and not yet started). There is also **Ancient Egypt**
+(`egypt`, planned in `docs/egypt-card-plan.md` and not yet started), which the plan created, and **the
+Second World War** (`ww2`, planned in `docs/ww2-card-plan.md` and not yet started) and **Japan**
+(`japan`, planned in `docs/japan-card-plan.md` and not yet started), both of which the plan likewise
+created. World History overlaps all nine, on purpose, and the rule is:
 
 **World History is written at survey altitude and never waits for another collection.** Greece gets 25
 cards here against 1000 in `col-13`; Rome gets 40. A World History card on the Peloponnesian War is
@@ -165,6 +172,9 @@ their new numbers.
 **The other end of the collection has its own version of the fault**: for the modern decks the trap is
 not archaeology but *commemoration* — writing the card that a memorial writes. A card on the Somme
 states what happened, what it was for and what it cost, in the register of the rest of the collection.
+`docs/ww2-card-plan.md` takes that observation further, into the three pulls that go with it — national
+memory, denial and myth, and live political use — and its section is the one to read before writing
+anything in `wh-ww1`, `wh-interwar`, `wh-ww2` or `wh-coldwar`.
 
 ## The named-person budget
 

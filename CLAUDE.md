@@ -1389,6 +1389,72 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   prehistory cards were renumbered into their planned slots and **20 were retired**, and that file has
   the old→new table every earlier document's `wh-NNN` references must be read through. Not part of the
   site.
+- `docs/rome-card-plan.md` — the **1000-card running order for the Ancient Rome collection** (`col-40`):
+  every card's number, topic and deck, fixed in advance across 7 decks and 25 leaf subdecks, so the
+  collection can be grown one card at a time over many sessions. The third of the planned collections and
+  used exactly like the other two — the next card to write is the lowest `rm-NNN` not yet in `data.js` —
+  see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". **No card has been written
+  yet**: the plan and the tree shipped together on 2026-08-06 and the collection starts at `rm-001`. Not
+  part of the site.
+- `docs/russia-card-plan.md` — the **1000-card running order for the Russia collection** (`col-42`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
+  grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
+  the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
+  under "Generating cards & glossary entries". **No card has been written yet**: the plan and the tree
+  shipped together on 2026-08-06 and the collection starts at `ru-001`. It is the first plan that has to
+  set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
+  first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
+  before writing anything after 1917. Not part of the site.
+- `docs/india-card-plan.md` — the **1000-card running order for the India collection** (`col-43`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 31 leaf subdecks, so the collection
+  can be grown one card at a time over many sessions. The fifth of the planned collections and used
+  exactly like the others — the next card to write is the lowest `in-NNN` not yet in `data.js` — see the
+  "INDIA" bullet under "Generating cards & glossary entries". **No card has been written yet**: the plan
+  and the tree shipped together on 2026-08-06 and the collection starts at `in-001`. Read its "What this
+  collection is about" section before writing anything — the subject is the SUBCONTINENT before 1947 and
+  the Republic after, and getting that wrong makes a political claim without noticing. Not part of the site.
+- `docs/china-card-plan.md` — the **1000-card running order for the China collection** (`china`): every
+  card's number, topic and deck, fixed in advance across 7 decks and 39 leaf decks, so the collection can
+  be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
+  written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
+  are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
+  see the "CHINA" bullet under "Generating cards & glossary entries". **No card has been written yet**,
+  and the collection carries **`placeholder: true`** (set aside July 2026), which `availableCardIdSet()`
+  reads — so read that file's warning before writing `cnh-001` or the cards will be written and never
+  studied. Not part of the site.
+- `docs/egypt-card-plan.md` — the **1000-card running order for the Ancient Egypt collection** (`egypt`):
+  every card's number, topic and deck, fixed in advance across 9 decks and 26 leaf subdecks. The seventh of
+  the planned collections and **the only one that created its own collection** — Rome, Russia and India were
+  empty nodes waiting for a tree and China had one already, where Egypt had nothing, so the collection node,
+  its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
+  yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
+  has been written yet.** Not part of the site.
+- `docs/japan-card-plan.md` — the **1000-card running order for the Japan collection** (`japan`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 34 leaf decks. The tenth of the
+  planned collections and the third (after Egypt and the Second World War) to **create its own
+  collection** — node, tree, `COLL_THEME` hue and numeral system ship with the plan. It is the **first
+  collection since China to get a `COLLECTION_NUMERALS` entry**, `"ja"`, and the reasoning is in the
+  plan: Japanese counts in the same kanji so `cnNumeral()` is reused, but the `"zh"` KEY must not be,
+  since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
+  `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
+  **No card has been written yet.** Not part of the site.
+- `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
+  every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
+  planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
+  glossary terms** from Phase 2 of the citation pass. Its two scope decisions are the ones to read first:
+  the collection **opens with Native America as a deck rather than a prologue**, running forward to tribal
+  sovereignty in the present, and it covers **the territory that became the United States**, so Spanish
+  Florida, French Louisiana and New Netherland are in it. The next card to write is the lowest `us-NNN` not
+  yet in `data.js`; see the "THE UNITED STATES" bullet under "Generating cards & glossary entries". **No
+  card has been written yet.** Not part of the site.
+- `docs/ww2-card-plan.md` — the **1000-card running order for the Second World War collection** (`ww2`):
+  every card's number, topic and deck, fixed in advance across 8 decks and 30 leaf decks. The eighth of the
+  planned collections, the second (after Egypt) to **create its own collection** — node, tree and
+  `COLL_THEME` hue ship with the plan — and **the first whose subject is inside living memory and is
+  actively contested in public**, which is why its "History, not commemoration" and "Sourcing" sections are
+  the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
+  `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
+  has been written yet.** Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1563,7 +1629,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   canonical format); both collections are grown one card at a time (see "Generating cards & glossary
   entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
   are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
-  and card ids follow that plan's numbering.
+  and card ids follow that plan's numbering. **`col-40` Ancient Rome gained its 7 decks and 25 leaf
+  subdecks, `col-42` Russia its 9 decks and 29 leaf decks, and `col-43` India its 9 decks and 31 leaf
+  subdecks, on 2026-08-06** from `docs/rome-card-plan.md`, `docs/russia-card-plan.md` and
+  `docs/india-card-plan.md`, all empty; all three stay under "Coming soon" until their first card ships,
+  since a collection with no cards is coming-soon whatever its `placeholder` says. **`egypt` is new — the
+  collection itself was created on 2026-08-06** by `docs/egypt-card-plan.md`, with 9 decks and 26 leaf
+  subdecks and a `COLL_THEME` row of its own. **`ww2` is new the same way — created on 2026-08-07** by
+  `docs/ww2-card-plan.md`, with 8 decks and 30 leaf decks and its own `COLL_THEME` row; it and Egypt are
+  the only two collections a plan has had to bring into existence. **`col-41` United States gained its 9
+  decks and 33 leaf decks on 2026-08-07** from `docs/us-card-plan.md` — it was a leaf node with an empty
+  `cardIds` and is now a branch, keeping its `total`, its `placeholder` and its nine translated titles.
+  **`japan` is new the same day** from `docs/japan-card-plan.md`, with 9 decks and 34 leaf decks, its own
+  `COLL_THEME` row and the first new `COLLECTION_NUMERALS` entry since China; it, Egypt and the Second
+  World War are the three collections a plan has had to bring into existence. **`china` was the one
+  collection that already had a tree**, and on the same day `docs/china-card-plan.md` made four changes to
+  it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
+  `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
+  taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
@@ -5309,7 +5392,8 @@ linked to a Holocene chronozone.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
-template entries are the canonical format: card `cnh-001` in `data.js`, glossary term `Sima_Qian` in
+template entries are the canonical format: card `cnh-001` in `.claude/backup/data.js` (it is NOT in the
+shipped `data.js` — the China deck was trimmed to nothing and regrown as `wh-`/`gr-`), glossary term `Sima_Qian` in
 `glossary.js`. The full pre-trim originals are backed up in `.claude/backup/`.
 
 **Current direction (July 2026): the China collection is SET ASIDE** — its tree node carries
@@ -5346,6 +5430,342 @@ the work had got to. A plan line is a **subject to research, not a fact to asser
 finished answer term: rename, split or drop a line when the research says so, in the same commit as the
 card. The Greek glossary starts from nothing (of 401 terms only `Greece` and `North_Macedonia`), so
 write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
+
+**ANCIENT ROME (`col-40`) is planned and not yet started (Aug 2026).** Its 7 decks and 25 leaf subdecks
+are laid out in `data.js` and its full 1000-card running order is `docs/rome-card-plan.md`, written to
+the same rules as the Greece and World History plans and used the same way: **"Generate the next Ancient
+Rome card" means take the lowest `rm-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck
+id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='rm-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `rm-1000`). Four things in that plan are decisions rather than
+lists, and re-arguing them card by card is how a plan stops being one. **A monument lives with its
+builder** — the Colosseum under the Flavians, the Pantheon under Hadrian — while `rm-arts` carries the
+techniques nobody's reign owns, which is the rule Greece uses for the Parthenon. **Latin literature is
+ONE subdeck** where Greece has three period ones, because Latin literature is read as a single canon.
+**There is no Rome myth deck**: Rome's legends explain institutions, so they sit beside those
+institutions in `rm-kings` and `rm-early-republic`, and `rm-religion` gets the cult rather than the
+tales. And **the eastern empire is a three-card coda**, not a deck — the reader going onward is served
+by `wh-byzantium`. The Roman glossary starts from nothing (of 671 terms only `Latin` and `Italy`), so
+write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
+
+**RUSSIA (`col-42`) is planned and not yet started (Aug 2026).** Its 9 decks and 29 leaf decks are laid
+out in `data.js` and its full 1000-card running order is `docs/russia-card-plan.md`, written to the same
+rules as the other three plans and used the same way: **"Generate the next Russia card" means take the
+lowest `ru-NNN` not yet in `data.js`, read its topic and deck from that plan, research it, and add it**
+with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='ru-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `ru-1000`). **It is the first collection whose subject is
+contested in the present**, and four things in that plan are decisions rather than lists. **Rus' is
+covered as the polity it was and is never called "early Russia"** — it is the shared inheritance of
+Russia, Ukraine and Belarus, and the modern claim on it is `ru-090`, a card, rather than an assumption
+in the ninety before it. **`ru-peoples` is the largest subdeck in the collection at 50** and the
+mechanisms get cards as well as the peoples (the *yasak*, the Pale, Russification, *korenizatsiya*, the
+deportations), because Russia has been a multinational empire for longer than it has been anything else.
+**Events that happened to other people are in it** — the Circassian expulsions, the Holodomor, Katyn, the
+deportations, Hungary, Prague, Chechnya, Ukraine — written from the scholarship, as neither achievement
+nor indictment. And **no state's account of its own actions is repeated as established fact**, Russia's
+or its opponents'. The plan also fixes the **date, name and transliteration conventions** the collection
+needs (Julian dates run behind Western ones, so the October Revolution happened in November; both are
+given for 1917) and carries three sourcing warnings — Soviet statistics are artefacts rather than
+measurements, many Russian archives have closed since 2022, and twentieth-century casualty figures have
+live scholarly ranges that must be given as ranges. The glossary starts with a head start no other
+collection had: **all eighteen post-Soviet successor states are already cited terms** from Phase 3 of the
+citation pass, and everything historical (`Rus'`, `Tsar`, `Serfdom`, `Boyar`, `Bolshevik`) is open ground
+— write those **cited from the start** at the `GLOSS_SRC_TARGET` bar. Mind two glossary traps it names: a
+term whose surface is an ordinary English word (`Soviet`, `Duma`, `Thaw`, `Terror`) needs
+`GLOSSARY_CASESENSITIVE` or a narrower head word, and a term with a well-known variant spelling needs its
+alias the day it ships.
+
+**INDIA (`col-43`) is planned and not yet started (Aug 2026).** Its 9 decks and 31 leaf subdecks are laid
+out in `data.js` and its full 1000-card running order is `docs/india-card-plan.md`, written to the same
+rules as the other four plans and used the same way: **"Generate the next India card" means take the
+lowest `in-NNN` not yet in `data.js`, read its topic and deck from that plan, research it, and add it**
+with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='in-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `in-1000`). **Read its "What this collection is about" section
+first**: before 1947 the subject is the SUBCONTINENT and after 1947 the Republic of India, because the
+Indus cities are in Pakistan, Lahore was a Mughal capital and the Bengal of 1905 is now two countries —
+a collection that treats all of that as the early history of one modern state has made a political claim
+without noticing. Four more things in that plan are decisions rather than lists. **The tree rejects
+James Mill's Hindu / Muslim / British periodisation** and periodises by polity and region instead, which
+is why it has decks for the Delhi Sultanate, Vijayanagara, the Deccan sultanates and the Mughals rather
+than a "Muslim period"; religion has its own 110-card deck where the questions can be asked properly.
+**The south gets 130 cards of its own** (`in-south-early`, `in-deccan-early`, `in-vijayanagara`,
+`in-deccan-sultanates`) rather than hanging off a northern spine. **Caste is periodised, not assumed** —
+`in-867` and `in-596` are both about the colonial census and codes hardening it, and a card that
+describes caste as a timeless four-fold order has repeated a nineteenth-century administrative document.
+And **`in-033 The Aryan migration debate` is this collection's Normanist controversy**, the exact
+counterpart of `ru-031`: the card is about the evidence and the argument and does not settle it. It is
+also the first plan to SPEND both modern-scholar slots — `in-134 The decipherment of Brahmi` (Ashoka was
+forgotten until 1837) and `in-920 The discovery of the Indo-European family` — both events rather than
+biographies, on Greece's `gr-075` reasoning. Conventions it fixes: plain English forms without
+diacritics, aliases the day a term ships (variant spellings are the rule here), the name current at the
+time for an event and the modern name for the place, and **chronological ranges given as ranges**, since
+the Buddha's dates move by more than a century between schemes. The glossary has the region's eight
+modern countries and nothing else — no `Dharma`, no `Varna`, no `Stupa`, no `Mughal_Empire` — so write
+those **cited from the start** at the `GLOSS_SRC_TARGET` bar, and mind that a term which is an ordinary
+English word (`Raj`, `Congress`, `Partition`, `Emergency`) needs `GLOSSARY_CASESENSITIVE` or a narrower
+head word.
+
+**CHINA (`china`) is planned, SET ASIDE, and not yet started (Aug 2026).** Its 7 decks and 39 leaf decks
+are in `data.js` and its full 1000-card running order is `docs/china-card-plan.md`: **"Generate the next
+China card" means take the lowest `cnh-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='cnh-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `cnh-1000`). The prefix is **`cnh-`, not `cn-`**, because `cn-myth`
+and the new thematic leaves are DECK ids and `cn-001` beside them invites exactly the confusion ids exist
+to prevent; `cnh-` is also the collection's own historical convention, its template card surviving in
+`.claude/backup/data.js`. **⚠ READ THE PLAN'S WARNING BEFORE `cnh-001`**: the collection carries
+`placeholder: true`, which `availableCardIdSet()` reads, so cards written into it today reach no review,
+no game and no card of the day — they would be written and never studied. **Clearing that flag is the
+site owner's call**, so the plan deliberately left it alone.
+**It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
+at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
+is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
+called Jin nine centuries apart (`col-17` 晉 266–420 and `col-30` 金 1115–1234); **`col-2 Xia` is retitled
+`Neolithic China and the Xia`**, since it is the earliest deck and therefore the only home for Yangshao,
+Longshan, Liangzhu and Sanxingdui, none of which is Xia; and **three thematic decks are added**
+(`cn-state`, `cn-belief`, `cn-culture`, 300 cards). That last is the substantial one: **China needed
+thematic decks more than any other collection and had none**, because the dynastic frame is so strong that
+the examinations (605–1905), Confucianism, the characters, silk and the standard histories had nowhere to
+live. Four more decisions are arguments rather than lists. **The dynastic decks are deliberately unequal,
+8 cards to 45** — the Xin lasted 14 years and the Tang 289, so an equal share would be a false claim.
+**`cnh-703 The dynastic cycle` is a card, not the tree's silent assumption**, being a Chinese
+historiographical theory bound up with the Mandate of Heaven rather than a description of what happened.
+**The standard histories were each compiled by the dynasty that replaced the one they describe**, which is
+the collection's central source-critical fact (`cnh-736`–`cnh-738`). And **"China" is not only the Han**:
+`cn-peoples` gets 28 cards, the conquest dynasties are part of the history rather than interruptions of
+it. Conventions it fixes: **pinyin**, except where a non-pinyin form IS the English name (Confucius,
+Mencius, Taoism, the *Tao Te Ching*, Peking opera, the Yangtze); aliases mandatory; conventional dynastic
+dates named as conventional. Two names to watch — *Jin* is two dynasties, and *li* is two different
+central concepts (禮 ritual propriety `cnh-831`, 理 principle `cnh-861`). The glossary has `China`,
+`Mongolia`, `Taiwan`, `Zhoukoudian` and `Sima_Qian` and nothing else Chinese, so write terms **cited from
+the start** at the `GLOSS_SRC_TARGET` bar — and mind that romanised Chinese names collide on their
+syllables (*Yang Yan* against *yin and yang*, *Ban Zhao* against *Han-Zhao*), so prefer the fuller head
+word.
+
+**ANCIENT EGYPT (`egypt`) is planned and not yet started (Aug 2026).** Its 9 decks and 26 leaf subdecks
+are in `data.js` and its full 1000-card running order is `docs/egypt-card-plan.md`: **"Generate the next
+Ancient Egypt card" means take the lowest `eg-NNN` not yet in `data.js`, read its topic and deck from
+that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next
+number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='eg-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `eg-1000`). **It is the only plan that CREATED its collection**,
+so four things were decided that the others inherited: the id is **`egypt`**, not `col-44` (China set the
+readable-id precedent, and `col-44`–`col-64` were retired World History decks — reusing a number that
+recently meant something else is a trap); the card prefix is **`eg-`**; the hue is **`#1F6F5C` malachite**
+in `COLL_THEME`, **measured rather than picked** — the green quarter was unused and it sits 33.3 from its
+nearest neighbour in CIELAB against a tightest existing pair of 12.9; and there is **deliberately NO
+`COLLECTION_NUMERALS` entry**, because no hieroglyphic webfont is loaded and a level badge rendering as
+tofu boxes is worse than a digit (Egypt uses Western numerals, like World History and the US).
+**The scope decision is the one to read first**: the collection runs from the Palaeolithic Nile to the
+Arab conquest of 641 CE, not to 30 BCE, because Egyptian religion, writing and temple building all
+outlive Egyptian independence by centuries — the last dated hieroglyphic inscription is of 394 CE and
+Philae was still working into the sixth. Ptolemaic, Roman and Christian Egypt get 100 cards and the
+collection ends where ancient Egyptian religion does. Four more decisions are arguments rather than
+lists. **Death gets 50 cards because the record IS a record of the dead** — tombs were stone in the
+desert and towns mudbrick on the floodplain — and `eg-789` states that bias outright so a reader is not
+taught a civilisation obsessed with dying. **Kush gets 30 cards and Nubia runs through the collection**,
+the counterpart of `ru-peoples` and India's south. **Monuments live with their builders** (the Great
+Pyramid under Khufu, Abu Simbel under Ramesses II) while `eg-art` carries the canon, the column and the
+pylon — Rome's rule. And **Thebes is a subdeck**, the collection's one place-deck, because Karnak, the
+Valley of the Kings and Deir el-Medina are one continuous body of evidence that no reign owns.
+**This is the collection where the history-not-archaeology rule bites hardest**: everything known about
+Egypt came through excavation and decipherment and the popular literature is about the arriving, so
+**Tutankhamun gets cards and Howard Carter does not**. Modern scholars are capped at two and the plan
+spends **one** (`eg-899 The decipherment of Egyptian hieroglyphs`), leaving the second unspent as a
+standing signal that the bar was not lowered. Conventions: dates are a construct, so use one published
+conventional chronology, say it is conventional and give ranges; the Egyptian name is the head word and
+the Greek form an alias (Khufu not Cheops), except where the Greek form is the English one (Thebes,
+Memphis, Osiris). The glossary has **`Egypt` and nothing else** — no `Pharaoh`, no `Hieroglyph`, no
+`Mummy`, no `Nile` — so write those **cited from the start** at the `GLOSS_SRC_TARGET` bar, and mind
+that this collection's short terms are the worst on the site for auto-linking: `Set` and `Nut` are gods
+whose names are ordinary English words, and `Ba` and `Ka` are two-letter surfaces that would match
+inside other words entirely, so prefer a fuller head word and let the short form be an alias only if it
+can be made safe.
+
+**JAPAN (`japan`) is planned and not yet started (Aug 2026).** Its 9 decks and 34 leaf decks are in
+`data.js` and its full 1000-card running order is `docs/japan-card-plan.md`: **"Generate the next Japan
+card" means take the lowest `jp-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='jp-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `jp-1000`). It is the **third plan to CREATE its collection**,
+after Egypt and the Second World War: the id is **`japan`** (the readable-id precedent), the prefix
+**`jp-`**, the hue **`#8A2E5C`** — *kuwazome*, a deep red-purple, **measured rather than picked** at 35.9
+from its nearest neighbour against a tightest existing pair of 12.9. **The two obvious Japanese colours
+are both taken and were measured before being abandoned**: a *kachi* indigo lands 8.3 from the United
+States' navy and a *sumi* charcoal 7.8 from the war's dark iron, each inside the shelf's tightest pair.
+**IT IS THE FIRST NEW `COLLECTION_NUMERALS` ENTRY SINCE CHINA, AND THE KEY MATTERS**: Japanese counts in
+the same kanji, so `numeralIn` reuses `cnNumeral()` and there is one implementation — but `"ja"` must
+stay a separate key from `"zh"`, because that one ALSO puts the badge in `var(--han)`, which is **Noto
+Sans SC, a Simplified Chinese face**. CLAUDE.md keeps that font out of the body chain precisely so it
+cannot impose Chinese glyph forms on Japanese text, so `.level-badge.num-ja` / `.lu-badge.num-ja` repeat
+`.zh`'s sizes **without** the font override and fall through to the reader's own system CJK font.
+**Three scope decisions to read first.** **The Ainu and the Ryukyuans get 30 cards each**, and the
+load-bearing part is that **the annexations are carded in THOSE decks, not in `jp-meiji-empire`** —
+Hokkaido was colonised from 1869 by an office set up for it and the Ryukyu Kingdom was a sovereign
+tributary state until 1879, and both are events in those peoples' histories before they are two lines in
+somebody else's expansion. "Japan is ethnically homogeneous" is a Meiji nation-building claim before it
+is a fact. **The empire and the war are carded from the outside as well as the inside** — most of
+`jp-colonial`'s 35 are Taiwan, Korea, Manchuria and China rather than Tokyo — under the Russia plan's
+rule that **no state's account of its own actions is repeated as established fact**, which cuts in every
+direction here. And **`jp-memory` is a subdeck of 20**: the textbook controversies, the Yasukuni visits,
+the apology statements and the forced-labour rulings are live diplomacy between four countries, carded
+as history rather than adjudicated.
+Four more decisions are arguments rather than lists. **Tokugawa Japan is the largest chronological deck
+at 130**, because the Edo period is where the explanation for 1868 has to come from and a collection
+treating it as a pause cannot explain the Meiji one. **The Heian court gets 90 with 35 on literature and
+art**, this being the one place on the site where a court's writing is why the period is studied and
+where most of it was written by women. **There is no "samurai" deck** — it would span seven centuries
+and three different social positions, so the warriors are carded where they were, and `jp-514`/`jp-515`
+card *bushidō* as the largely late construction it is. **Buddhism and Shinto are carded twice, by period
+and thematically, and that is not duplication**: the period decks carry what a school's arrival DID, the
+thematic deck what the practices ARE.
+**The four pulls** are romance (the samurai/ninja/bushidō literature — carded accurately, with the
+invention carded as its own subject at `jp-333`/`jp-334`), **essentialism** (*Nihonjinron*; the test is
+the tense — a card saying the Japanese *are* something has adopted the claim, where one saying a practice
+began at a datable moment has described one), **the isolation story** (*sakoku* is substantially revised
+— four gateways ran continuously, and the word is a 19th-c. coinage back-applied; `jp-433`–`jp-435`), and
+live political use, where the collection **declines to treat a settled historical question as open
+because it is politically contested**. Scholars are capped at two and it spends none.
+Conventions: **family name first** (Tokugawa Ieyasu, Ōe Kenzaburō) — the scholarly standard and the
+Japanese government's own policy since 2019; **macrons on Japanese words, not on established English
+place names** (*shōgun*, *daimyō*, *Ryūkyū*, but Tokyo, Osaka, Kyoto, Honshu); era names given with the
+Western year; and **the calendar changes on 1 January 1873**, Japan's smaller version of the Russia
+plan's Julian/Gregorian problem, so an exact day before then says which calendar it is. Two contested
+figure sets are carded so a reader meets the argument — **the dead at Nanjing** (`jp-731`, estimates
+ranging over an order of magnitude on different definitions of area and period) and **Japan's own war
+dead** — under the standing rule: give the range, name whose it is. Sourcing is very well served in
+English, with three hazards: **the popular literature on premodern Japan is heavily romanticised** and
+much of it is old enough to be free online, which is why it ranks first (Nitobe's *Bushidō* was written
+in English, for Americans, in 1900); **war-history material is contested and some is denialist**, from
+more than one direction; and **survivor testimony is evidence needing handling as such**. The glossary
+has `Japan` and nothing else Japanese, so write those **cited from the start** — and mind four traps:
+**a macron is an alias problem in both directions** (`Daimyo`/*daimyō*, `Shōgun`/*shogun*), this
+collection having more of them than any other; **a Japanese word that has entered English keeps its
+English sense too** (`Zen`, `Samurai`, `Tycoon`, `Futon`, `Bonsai`), needing `GLOSSARY_CASESENSITIVE` or
+a narrower head word; the same for ordinary-English surfaces (`Occupation`, `Restoration`, `Bubble`);
+and the war and colonial terms need drafting from institutional definitions rather than the first
+summary to hand.
+
+**THE UNITED STATES (`col-41`) is planned and not yet started (Aug 2026).** Its 9 decks and 33 leaf
+decks are in `data.js` and its full 1000-card running order is `docs/us-card-plan.md`: **"Generate the
+next United States card" means take the lowest `us-NNN` not yet in `data.js`, read its topic and deck
+from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next
+number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='us-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `us-1000`). The collection **already existed** — `col-41` was an
+empty node with its navy `#2F4373` hue and its nine translated titles — so this plan adds a tree and
+nothing else, the Rome/Russia/India case rather than the Egypt/WWII one; there is **no
+`COLLECTION_NUMERALS` entry and should not be one** (Western digits, like World History).
+**READ ITS TWO SCOPE DECISIONS FIRST, because both are claims a shorter plan would make silently.** The
+collection **opens with Native America as a DECK, not a prologue** — 100 cards running from the peopling
+of the continent through Cahokia and the Haudenosaunee to removal, allotment, the boarding schools,
+termination and tribal sovereignty in the present, because Native American history is not a phase of
+American history that ends when the frontier closes; a collection that opens at Jamestown has already
+decided whose history this is. And it covers **the territory that became the United States**, so Spanish
+Florida (older than Jamestown by 42 years), French Louisiana and New Netherland get `us-borderlands`
+rather than the collection being thirteen colonies growing westward. The plains wars are the deliberate
+exception and sit in `us-west`, where they are what the settlement of the West consisted of.
+Four more decisions are arguments rather than lists. **Slavery is a deck of 90, not a subdeck of the
+antebellum South** — the Second World War plan's Holocaust reasoning in another key: filing it under the
+Old South makes it regional when it was national and a phase when it is a foundation, and 35 of the 90
+go to enslaved life, since a deck about the slave *system* alone cards the people in it only as its
+material. **There is no "the South" deck and no pre-1865 "the West" deck**, for those two reasons
+respectively. **Presidents do not organise the tree** — a US collection left alone becomes a list of
+administrations, so `The presidency of X` cards exist only where the office itself is the subject
+(Washington, Jackson, FDR) and the politics is otherwise carded by events, laws and movements; there are
+45 presidents and far fewer than 45 presidency cards, deliberately. And **the Black freedom struggle
+opens with Jim Crow rather than with Montgomery** (`us-891`–`us-902` are the disfranchising
+constitutions, the lynching campaign, the covenants and redlining), because segregation was constructed
+by legislatures, courts and banks after Reconstruction and a deck opening in 1955 leaves a reader
+assuming it was inherited from slavery.
+**The pull specific to this collection is "settled in scholarship, contested in public"**, and the rule
+is the Second World War plan's with the ordering mattering as much: **a card that explains comes before
+a card that debunks.** `us-555 What caused the American Civil War` is built from the secession
+declarations and the Cornerstone Speech (`us-554`); `us-648 Lost Cause of the Confederacy` then cards the
+alternative account as the postwar construction it is. The other three pulls are exceptionalism (carded
+as a subject at `us-148`, `us-391`, `us-665`, `us-1000`, never as the register), the founding register
+(neither demigods nor hypocrites — `us-245` states both halves of Jefferson plainly and lets the reader
+hold them), and live political use, where the collection declines to treat a settled historical question
+as open because it is politically contested. Modern scholars are capped at two and it **spends both**
+(`us-666 Frederick Jackson Turner`, `us-649 The Dunning School and its overthrow`), for the one reason
+that justifies it: in each case a historian's account escaped the academy and became the public
+understanding, which makes the account an event in American history.
+Conventions: **a Native nation takes the name it uses for itself** where that is established (Muscogee,
+Lakota, Diné, Haudenosaunee) with the familiar name in the same sentence, and a name is not an argument
+to be made silently; **enslaved people, not slaves**, and enslaver rather than owner, throughout card
+prose and glossary descriptions, since *slave* names a person by what was done to them and makes it a
+category of person rather than a condition imposed; and three contested figure sets are carded so the
+reader meets the argument (`us-039` pre-contact population, 2–18 million by different methods; the
+Middle Passage mortality; `us-599` the Civil War dead, revised from 620,000 to a range near 750,000 in
+2011). Sourcing is the best on the site — LoC, NARA, the Smithsonian, the NPS handbooks and the founding
+documents in full — with three hazards: **Lost Cause material is still in wide circulation** and being
+out of copyright is not authority; **the WPA slave narratives are indispensable and are evidence needing
+handling as such** (collected in the 1930s from people who had been children before 1865, by mostly
+white southern interviewers, in the Jim Crow South — `us-470` is about this); and much state and local
+heritage material is advocacy. **The glossary starts further ahead than any other collection** — all 45
+presidents cited at the bar from P1–P7 — but has no `Slavery`, no `Reconstruction`, no `Jim_Crow`, no
+`Manifest_Destiny`, no `Cherokee`, no `Lakota`, so write those **cited from the start**; mind that this
+collection has a great many ordinary-English-word surfaces (`Union`, `Confederacy`, `Frontier`,
+`Reconstruction`, `Depression`, `Prohibition`, `Reservation`) needing `GLOSSARY_CASESENSITIVE` or a
+narrower head word, and that **a Native nation needs its aliases the day it ships, both directions**
+(`Muscogee`/Creek, `Lakota`/Sioux, `Diné`/Navajo, `Haudenosaunee`/Iroquois) or half of deck 1 links to
+nothing.
+
+**THE SECOND WORLD WAR (`ww2`) is planned and not yet started (Aug 2026).** Its 8 decks and 30 leaf
+decks are in `data.js` and its full 1000-card running order is `docs/ww2-card-plan.md`: **"Generate the
+next Second World War card" means take the lowest `ww2-NNN` not yet in `data.js`, read its topic and
+deck from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The
+next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='ww2-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `ww2-1000`). It is the **second plan to CREATE its collection**,
+after Egypt, so the same four things were decided here: the id is **`ww2`** and the title **"The Second
+World War"**, the British form, because the site's register is en-GB throughout and World History's own
+deck is already `wh-ww2` — two names for one subject inside one site is how a reader searches for the
+wrong thing; the card prefix is **`ww2-`**; the hue is **`#4A4038` dark iron**, **measured rather than
+picked** (30.9 from its nearest neighbour in CIELAB against a tightest existing pair of 12.9 — every
+other collection hue is a saturated colour, and the sober greys and slates all crowd within 15–24 of
+Greece's Aegean blue); and there is **deliberately NO `COLLECTION_NUMERALS` entry**, there being no
+script this collection could plausibly count in.
+**IT IS THE FIRST COLLECTION WHOSE SUBJECT IS INSIDE LIVING MEMORY AND ACTIVELY CONTESTED IN PUBLIC**,
+so read its "History, not commemoration — and the four pulls" and "Sourcing" sections before writing
+anything. The rule that governs the whole collection is the Russia plan's, needed here more than there:
+**no state's account of its own actions is repeated as established fact.** The four pulls it names are
+commemoration (a card on D-Day states what was planned, what happened, what it cost and what it
+achieved — heroism is a thing people did, not a tone to write in), **national memory** (the Blitz
+spirit, the American good war, French résistancialisme, the Great Patriotic War, the Japanese victim
+narrative and the clean Wehrmacht are all carded as SUBJECTS — `ww2-229`, `ww2-295`, `ww2-393`,
+`ww2-982`, `ww2-995` — and never as the register), denial and myth, and live political use.
+Four more decisions are arguments rather than lists. **The Holocaust is a 60-card subdeck, not a chapter
+inside the Eastern Front** — it was not a military operation and filing it as one is the commonest
+structural mistake a war course makes — built to teach it as history and ending `ww2-788 The evidence`
+→ `ww2-789 Holocaust denial and why it fails` → `ww2-790 Holocaust memory` **in that order, because the
+evidence has to come before the denial for the denial card to be a card about history rather than a
+platform**. Its two writing rules are not optional: **no false balance** (the genuine historiographical
+arguments within it are about MECHANISM and are carded as such) and **no sensationalism** (this material
+does not need heightening, and heightening it is a way of not looking at it). **Other crimes get their
+own subdeck of 30 and it is not a levelling exercise** — one subdeck is a filing decision, not a claim
+of equivalence, and the cards do not make that claim. **The Eastern Front gets 140 against the Western
+Allies' 120**, and the German surrender is carded at the end of `ww2-berlin`, because the war in Europe
+ended where Berlin fell. And **the prelude starts in 1919, not 1933.**
+Conventions: operations take their code names where those are what the events are called; a place takes
+the name current at the time with the modern one where it differs and matters, and **a spelling is not
+an argument and must not be made to do one silently**; the war has several start dates depending on
+where you stand (1937, 1939, 1940, 1941) and `ww2-001` says so; and **casualty figures are given as
+RANGES with whose they are named** — never the highest or lowest available stated flat — with `ww2-390`,
+`ww2-818` and `ww2-962` existing to teach that directly. Sourcing is better served than any other
+collection here and carries a specific hazard: **this subject has more bad material online than any
+other on the site and some of it is dressed as scholarship**, so apply the citation bar more strictly
+here than anywhere. **Memoirs and testimony are evidence and need handling as such** — survivor
+testimony is indispensable and not interchangeable with a secondary source, and several influential
+German generals' accounts were written to shape the record. The glossary has the modern countries and
+nothing else — no `Blitzkrieg`, no `Wehrmacht`, no `Holocaust`, no `Lend-Lease` — so write those **cited
+from the start** at the `GLOSS_SRC_TARGET` bar, and mind that this collection has more
+ordinary-English-word surfaces than any other (`Resistance`, `Blitz`, `Ultra`, `Enigma`, `Overlord`)
+because operation code names were chosen to be ordinary words: use `GLOSSARY_CASESENSITIVE` or the full
+form as the head word (`Operation Barbarossa`, not `Barbarossa`).
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort
