@@ -5096,6 +5096,40 @@
        the tightest of the sixteen light papers, the highest of any swatch here, and 1.3–1.8 on the
        dark ones as every one of them does. Keyed by id, the documents being anonymous. */
     "book-of-documents": "#0F4503",
+    /* AND HERE THE BAND WAS WIDENED, which the Book of Documents' row said the next book would have
+       to do — measured, and its warning was exactly right. Inside the shelf's own lightness and
+       chroma band (L 24.8–47.8, C 18.3–64.1) a sweep of the whole RGB cube turns up NOTHING that
+       clears 20.1 of its nearest neighbour, and that best candidate is a blood red sitting 20.1 from
+       Sun Tzu's rust; the runners-up are a green at 19.6 against the Shû's own forest and a magenta
+       at 19.6. Every one of them is inside the shelf's tightest pair once that pair is recomputed —
+       18.2, the Classic of Poetry against Beowulf — but only just, and none is more than two points
+       clear of it.
+
+       WIDENING DOWNWARD COSTS NOTHING AND BUYS CONTRAST, which is Kalidasa's finding and it holds a
+       second time: a darker swatch reads BETTER on a light paper, not worse, so the floor was dropped
+       to L 18 and C 12 rather than the ceiling raised, which the 4.5:1 bar test-a11y.js holds the
+       site to has shut off. That opens four genuinely separated places at 20.7–22.9, all of them
+       reading 7.5–8.4:1 where the cramped band's best manages 6.2.
+
+       OF THOSE FOUR THE NUMBER AND THE EURIPIDES TEST AGREED, and the test is doing real work here
+       rather than rubber-stamping the winner. The one book on this shelf a reader genuinely pairs
+       with the Prose Edda is BEOWULF — the two are read together in any course on the medieval north,
+       and they are the shelf's only Germanic works — so a colour near Beowulf's dark oxblood would
+       say they are a set, which is the kinship Euripides' row gave up a better number to avoid. That
+       rules out the deep wine red at 21.6, whose third-nearest neighbour is Beowulf at 22.6, and the
+       dark olive at 20.7, where Beowulf is 21.8 away. This dark violet is both the best-separated
+       colour anywhere in the widened band at 22.9 AND the one furthest from Beowulf, at 35.0 — no
+       reading of the two as a pair is possible. Its four nearest are Euripides at 22.9, Herodotus at
+       23.0, the Song of Roland at 23.3 and Plato at 23.3, evenly enough that it reads as its own
+       colour rather than as a near-miss of any one of them, and nobody pairs an Icelandic handbook of
+       poetics with a Greek tragedian, a Greek historian, Plato or a chanson de geste. It reads
+       8.32:1 on the tightest of the sixteen light papers — the best of any swatch on this shelf — and
+       1.1–1.4 on the dark ones, as every one of them does.
+
+       THE NEXT BOOK WILL HAVE TO WIDEN THE BAND AGAIN, and Kalidasa's row already said what that
+       costs: darker still loses saturation until the swatches stop being colours at all. There is
+       perhaps one more step of room. Say so then. */
+    "Snorri Sturluson": "#401A5C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -6575,6 +6609,63 @@
         { n: 4, label: "The Books of Shang", note: "17 documents" },
         { n: 5, label: "The Books of Kâu", note: "32 documents" },
       ],
+    },
+    {
+      id: "prose-edda",
+      title: "The Prose Edda",
+      author: "Snorri Sturluson",
+      /* Snorri lived 1179–1241 and the Edda is put at about 1220 on the usual grounds — later than
+         the poems it quotes, earlier than the manuscripts that carry it. `year` is the single number
+         the shelf's date sort needs; the front matter says how loose it is. */
+      written: "c. 1220",
+      year: 1220,
+      translator: "Arthur Gilchrist Brodeur",
+      edition:
+        "The Prose Edda, translated by Arthur Gilchrist Brodeur, " +
+        "The American-Scandinavian Foundation, New York, 1916",
+      /* A LICENCE THAT STATES A LIMIT, which puts it with the Art of War (Giles, 2029), the
+         Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea and Gilgamesh rather than with
+         the Republic and the Analects. The work is free everywhere — Snorri died in 1241 — and
+         Brodeur's translation is public domain in the United States on the pre-1929 publication rule,
+         but he lived 1888–1971, so it stays in copyright where the term is life plus seventy until
+         2042. Said outright rather than smoothed into the easier sentence, which is the judgement
+         Lucretius' entry records: claim less, and put on the page what cannot be said. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. Snorri Sturluson died " +
+        "in 1241, so the work itself is free everywhere. Arthur Gilchrist Brodeur's translation was " +
+        "published in 1916 — before 1929, so its United States copyright has expired — but he lived " +
+        "from 1888 to 1971, so where the term runs for the author's life plus seventy years it stays " +
+        "in copyright until 2042. Brodeur's own introduction and index are not reproduced here; what " +
+        "is taken is the three parts of the Edda his volume translates. There is no Old Norse column, " +
+        "and the reason is a copyright one rather than a textual one — see the front matter. (The " +
+        "translations by Jean I. Young, 1954, Anthony Faulkes, 1987, and Jesse Byock, 2005, are still " +
+        "in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Prose_Edda_(Brodeur_1916)",
+      /* THE CHAPTER IS THE WORK'S OWN PART, and the numbered chapters inside it are the SECTIONS —
+         Herodotus' shape, and chosen for the citation rather than for the arithmetic. Each of the
+         three parts restarts its numbering at 1, so making the numbered chapter the tab would mean
+         renumbering them into one run of 133 and turning "Gylfaginning 44" into tab 50. As sections
+         they keep meaning what they mean in every edition and every reference book. See
+         .claude/fetch-book.js for the measurement behind that and for the two ways this edition sets
+         its Roman numerals.
+
+         `count` AND `total` DIFFER HERE, and the gap is the edition rather than the file: the Prose
+         Edda has four parts and Brodeur translated three. Háttatal — Snorri's own praise-poem
+         demonstrating a hundred-odd metres — is the most technical and least translatable part of the
+         book, and the 1916 volume's own contents page lists the Prologue, Gylfaginning and
+         Skáldskaparmál and stops.
+
+         NO `origLang`, and unusually the reason is a LICENCE rather than a text. The Old Norse pairs
+         exactly where it can be paired — measured, the Prologue 5 chapters to 5 and Gylfaginning 54
+         to 54, content matching throughout — but the only openly transcribed Old Norse Edda is Guðni
+         Jónsson's, 1901–1974, in copyright until 2044 and carried on Wikisource by permission rather
+         than by an expiry, which is not the ground this library serves books on. So the shelf's two
+         failure modes gain a third: not one column silent, nor both, but a column that speaks and may
+         not be quoted. The importer's entry records what a later attempt would need. */
+      chapterWord: "Part",
+      count: 3,
+      total: 4,
     },
   ];
   const BOOK_BY_ID = {};

@@ -90,7 +90,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently twenty-six:
+  matter (chapter 0 — see the Library bullet). Currently twenty-seven:
+  `prose-edda` (~339 KB, the Prologue, Gylfaginning and Skáldskaparmál as **3 chapters**, 132 section
+  numbers, 177 notes — and the book that separates THE TAB from THE CITATION most sharply. Each of the
+  work's three parts restarts its chapter numbering at 1, so making the numbered chapter the tab would
+  mean renumbering 133 of them into one run and turning "Gylfaginning 44" into tab 50. The part is
+  therefore the chapter and the work's own chapter numbers are the SECTIONS — Herodotus's shape, chosen
+  for the citation rather than for the arithmetic, and the cost is three long chapters that are within
+  precedent rather than at it (173,000 characters against Herodotus's longest at 199,000).
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** `count` 3 against `total` 4 is the EDITION and not the
+  file: Háttatal is Snorri's own praise-poem demonstrating a hundred-odd metres, the least translatable
+  part of the book, and the 1916 volume's own contents page lists three parts and stops — read off that
+  page rather than inferred from the subpages that happen to exist. **A NUMBER CAN BE ROMAN AND WEAR TWO
+  COSTUMES IN ONE VOLUME**: Gylfaginning and Skáldskaparmál set a bold numeral WITH a stop run into the
+  first sentence, and the Prologue sets a CENTRED numeral with NO stop standing alone as its own block —
+  hence the seventh section shape, `sections: "edda"`, matching both in one sweep in reading order for
+  the Meditations' reason (run as two passes the first reaches 74 and the forward-only guard then
+  declines every one of the Prologue's). **And the Prologue's first chapter carries NO numeral, so none
+  is written**: checked on the scan, which sets the heading and then a drop-capital, so that tab's marks
+  run from II and the front matter says why. Composing a "1" would be composing an apparatus.
+  Its verse is the other lesson and it was found by LOOKING: Snorri quotes skaldic stanzas as evidence,
+  hundreds of them, and this transcription sets them as `<dl><dd>` lines that `stripTags` unwraps into
+  run-on prose — on a book arguing about how verse lines are built, the one thing that must not happen.
+  Nothing threw, no word was lost and every count read healthy; see `verseFromLists`, and note that
+  these lists NEST two deep, so a non-greedy `<dl>…</dl>` pair closes on the inner tag and leaves 34
+  unclosed blockquotes in one chapter),
   `book-of-documents` (~444 KB, the whole of the received Shû — **59 chapters**, 169 section numbers,
   283 notes — and the first book here whose CHAPTER IS PRINTED ACROSS MORE THAN ONE WIKI PAGE. Every
   earlier wiki book is one page to one chapter; where Legge prints a book in sections, Wikisource gives
@@ -351,10 +375,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty-six books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, Lysistrata and Shakuntala have none, and the reason differs — the next paragraph's
+  **Twenty-seven books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Prose Edda, Lysistrata and Shakuntala have none, and the reason differs — the
+  next paragraph's
   rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
-  earlier, there being no settled original text to face. **The Book of Documents is the case where the
+  earlier, there being no settled original text to face.
+  **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
+  exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
+  to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
+  every point sampled. What blocks it is the LICENCE. A medieval text has to be edited from its manuscripts
+  before anyone can read it, and an editor's constituted text is a modern work with a modern copyright: the
+  only openly transcribed Old Norse Edda is Guðni Jónsson's (1901–1974), in copyright until 2044 and carried
+  on Wikisource by permission from heimskringla.no rather than because the copyright has run out, which is
+  not the ground this library serves books on. An edition whose copyright HAS expired would serve — Finnur
+  Jónsson's, or the Arnamagnæan of 1848–87 — and none is transcribed on any Wikisource, on Perseus or
+  anywhere else reachable (checked on the multilingual, Danish, Norwegian, German and Swedish Wikisources;
+  only the German has anything, and that is Simrock's German verse of 1876, not the Old Norse). So the shelf
+  now has three: one column silent (the Republic, fixable by a better transcription), both columns silent
+  (Aesop, not fixable at all), and **a column that speaks and may not be quoted** — which puts it with the
+  Loeb Republic that keeps Plato's Republic out of the Dialogues. Its Skáldskaparmál would have failed
+  anyway, and that is worth knowing before anyone retries: 74 chapters against 89, already apart by chapter
+  20 and about sixteen apart by the end, so pairing that part by number would set passages beside passages
+  that are not their counterparts. **Ask what a medieval original's EDITOR died, not only how old the work
+  is.** **The Book of Documents is the case where the
   CHAPTER pairing is exact and the level below it has no key at all**: Chinese Wikisource carries every one
   of the received 58 documents, so chapter for chapter the two columns match, but Legge numbers his
   paragraphs and that transcription numbers nothing, and pairing by POSITION — the approach abandoned for
@@ -2192,7 +2235,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     so no life-plus-seventy term is asserted for that column, the ground stated is the 1894
     publication, and the conditional (expired 2006 if the 1935 death is right) is given on the book's
     own page rather than smoothed into a flat claim. Heaney (1999), Liuzza (2000), Tolkien's prose
-    version (published 2014) and Headley (2020) are named as the ones not to reach for. Each book's
+    version (published 2014) and Headley (2020) are named as the ones not to reach for.
+    **The Prose Edda is the SEVENTH to state a LIMIT** (Aug 2026), after the Art of War (Giles, 2029),
+    the Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea (Murray, 2028), Gilgamesh and the
+    Bhagavad Gita. Snorri Sturluson died in 1241, so the work is free everywhere; Brodeur's translation
+    was published by the American-Scandinavian Foundation in 1916 — read off the volume's own title page
+    rather than recalled — so it is public domain in the United States on the pre-1929 rule, and he
+    lived 1888–1971, so it stays in copyright where the term is life plus seventy until 2042, the same
+    position as Ross. **His dates are unusually well corroborated for this shelf** and that is worth
+    noting against Wyatt's: Wikidata gives them at DAY precision and Wikisource's own PD/US tag on the
+    work independently gives 1971, so this is not the lone unverified figure the Beowulf entry had to
+    hedge around. Brodeur's fifty-page introduction and his index are not imported, which is the
+    Republic's precedent for the introduction and plates it left behind. Young (1954), Faulkes (1987)
+    and Byock (2005) are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the
+    band was WIDENED as the Book of Documents' row predicted — see that row for the search, and for the
+    Euripides test doing real work: the one book a reader genuinely pairs with the Prose Edda is
+    BEOWULF, the shelf's only other Germanic work, so the two candidates nearer his oxblood were
+    rejected and this dark violet is both the best-separated colour in the widened band and the one
+    furthest from him.
+    Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
     **`BOOK_AUTHOR_COLOR` GAINED AN `"Anonymous"` KEY with it**, and the reasoning is worth keeping
