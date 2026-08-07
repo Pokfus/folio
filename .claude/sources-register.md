@@ -13070,3 +13070,53 @@ restraint is what leaves the next four cards anything to say.
 re-rendering: `wh-111` and `wh-116` now link it correctly, and `wh-117` suppresses it as its own answer.
 It is a wide alias and it is right — every occurrence means this concept — but it is the kind that should
 be re-checked if a future term ever wants the word.
+
+---
+
+## Batch W27 — `wh-118` Neolithic founder crops, and the term it needed (2026-08-07)
+
+### Newly opened for this batch — all three open, all read in full via the Europe PMC REST route
+
+**`gregorio-de-souza-2022`** — Jonas Gregorio de Souza, Javier Ruiz-Pérez, Carla Lancelotti and Marco
+Madella, "Environmental Effects on the Spread of the Neolithic Crop Package to South Asia", *PLOS ONE* 17,
+no. 7 (2022): e0268482. [Open access]
+- supports: the package framing itself — "founder crops" such as wheat and barley spreading eastward as a
+  set; that "emmer and einkorn wheat most likely originate from southeast Turkey, in the Karaca Dağ range,
+  although emmer may have a second domestication event in the southern Levant"; that a "polyphyletic origin
+  for domesticated barley is possible, with domestication centres in the Fertile Crescent and the Iranian
+  Plateau"; and the winter pulses, "lentils and peas", forming a package with the cereals
+
+**`fu-2025-flax`** — Yong-Bi Fu, "Flax Domestication Processes as Inferred from Genome-Wide SNP Data",
+*Scientific Reports* 15, no. 1 (2025): 8731. [Open access]
+- supports: flax as a founder crop "domesticated for oil and fiber uses in the Near-Eastern Fertile
+  Crescent" roughly 10,000 years BP; pale flax as the wild progenitor; and that it "was domesticated first
+  for oil, rather" than fibre
+
+**`trneny-2018`** — Oldřich Trněný et al., "Molecular Evidence for Two Domestication Events in the Pea
+Crop", *Genes* 9, no. 11 (2018): 535. [Open access]
+- supports: the pea as "one of the founder crops from the Near East" with two wild species, *Pisum sativum*
+  subsp. *elatius* "with a wide distribution centered in the Mediterranean" and *P. fulvum*, "restricted to
+  Syria, Lebanon, Israel, Palestine and Jordan"
+
+### THE CARD DOES NOT SAY "THE EIGHT FOUNDER CROPS", AND THAT IS THE FINDING
+The familiar formulation is a set of eight, and **no source opened for this batch enumerates them**. Four
+searches were run — the phrase in titles, the phrase in abstracts beside individual crop names, the concept
+paired with the Fertile Crescent — and what came back was **the genomics of single species**: flax, pea,
+barley, wheat, each calling itself "one of the founder crops" in its first sentence and none listing the
+rest. Europe PMC's skew towards current species-level output, recorded in W26, holds for this subject too.
+So the card says **"the small group of plants"** and names only the members its sources name. That is the
+better card as well as the honest one: the number is genuinely argued over, and a card asserting eight
+would have been repeating a textbook convention that the works it cites do not use.
+
+### THE ORIGINS ARE PLURAL AND THE CARD LEADS ON IT
+`gregorio-de-souza-2022` carries three separate hedges in one passage — emmer possibly domesticated twice,
+barley possibly polyphyletic across two regions, einkorn and emmer from the Karaca Dağ — and the card spends
+two of its ten sentences on them, closing block 1 with the point they add up to: the package is "not one
+event in one valley but a set of overlapping ones". A founder-crops card written from the textbook shape
+would have said the opposite.
+
+### Reused, from the register
+`cao-2026` (the three wheats domesticated in the Fertile Crescent by the early Neolithic — einkorn diploid,
+emmer tetraploid, bread wheat hexaploid), `groman-yaroslavski-2026` (cereals reaped for ~4.5 millennia
+before any was altered, which is the card's closing point that the package did not appear from nothing).
+**Five sources, all five open** — the first card in four batches with no paywalled entry.
