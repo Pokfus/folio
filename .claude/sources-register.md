@@ -11990,3 +11990,58 @@ Ma figure knows it was seen and set aside, not missed.
 of discovery history (the 1925 description making the skull a type specimen) and mentions **Darwin**,
 which is not a breach: the rule forbids naming a modern researcher, and Darwin's 1871 prediction is the
 historical claim the fossil bears on rather than a modern scholar's argument about it.
+
+## Batch W8 — `wh-013` Paranthropus and `wh-022` Out of Africa I (2026-08-07)
+
+`Paranthropus` already existed as a glossary term at the bar; `Out_of_Africa_I` is new and ships cited.
+
+### Newly opened
+
+- Thure E. Cerling et al., "Diet of <i>Paranthropus boisei</i> in the Early Pleistocene of East Africa," <i>Proceedings of the National Academy of Sciences</i> 108, no. 23 (2011): 9337–41, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3111323/fullTextXML. [Open access]
+  - opened: 2026-08-07 · Europe PMC REST route; PMCID resolved through the search endpoint, not guessed
+  - supports: a diet "dominated by C4 biomass such as grasses or sedges", sustained "over a wide range of
+    time (> 0.5 Ma) and space (Turkana, Baringo, Natron, and Olduvai regions)", more C4 than "any other
+    hominin studied to date", and explicitly "inconsistent with the notion that *P. boisei* ate nuts or
+    hard fruits preponderantly"
+  - used by: wh-013
+- Rhonda L. Quinn and Christopher J. Lepre, "Contracting Eastern African C4 Grasslands during the Extinction of <i>Paranthropus boisei</i>," <i>Scientific Reports</i> 11 (2021): 7164, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8009881/fullTextXML. [Open access]
+  - opened: 2026-08-07 · full text (CC BY)
+  - supports: extinction "estimated to just before 1 Ma"; a "transient but significant increase in C3
+    vegetation" peaking around 1 Ma; and the authors' reading that "The contraction of C4 grasslands
+    escalated dietary competition amongst the abundant C4-feeders, likely influencing *P. boisei*'s demise"
+  - **this is what makes the card close rather than stop**: the specialisation that defines the genus is
+    also the best candidate for what finished it. The card keeps the paper's hedge ("may have been undone")
+  - used by: wh-013
+- Smithsonian, "<i>Paranthropus aethiopicus</i>" / "<i>Paranthropus robustus</i>" / "OH 5" — the three
+  species records and the type skull, opened 2026-08-07. Between them: the 2.7–2.3 Ma and 1.8–1.2 Ma spans,
+  the Black Skull KNM-WT 17000, the 1938 naming and the meaning "beside man", the sagittal crest and
+  zygomatic arches, "megadont cheek teeth… four times the size of our own", and OH 5's nickname.
+  - used by: wh-013
+
+### Reused
+- `si-boisei` — 2.3–1.2 Ma, body sizes, "the thickest dental enamel of any known early human", and the
+  microwear that "are more similar to living fruit-eaters", with hard foods as fallbacks.
+- `curran-2025`, `si-erectus`, `rizal-2020`, `anton-2016`, `torre-2016`, `si-sapiens` for `wh-022`, each
+  for the claim the register already records.
+  - **note the URL swap**: `curran-2025` is recorded here with a `doi.org` link resolving to nature.com,
+    which is 403 from this sandbox. A PMC copy (PMC11747263) is already shipped on another card and is what
+    `wh-022` cites — the openable copy, per the standing rule that the link is the one a reader can follow.
+
+### An ALIAS deliberately NOT added
+`Out_of_Africa_I` takes `Out of Africa 1` and `first hominin dispersal`. It does **not** take the bare
+**"Out of Africa"**, and that is N2's same-scheme test applied before the fact rather than after: unqualified,
+that phrase far more often means the *later* dispersal of *Homo sapiens*, so an alias would capture prose
+about a different event entirely — the "Late Stone Age" mistake with the two halves swapped. If a card on
+the modern-human dispersal is written later, the bare phrase belongs to it, or to neither.
+
+### One inference, flagged
+`wh-022` says the Acheulean "appears in Africa only around 1.76 million years ago, by which time hominins
+were already at Dmanisi." That is an arithmetic comparison of two separately cited dates (`torre-2016` and
+`curran-2025`) rather than a claim either paper makes, and both markers sit on the sentence so a reader can
+check the join. It is the kind of step worth recording, since it is exactly where a card can slide from
+reporting into arguing.
+
+### Focus check
+Both cards measure historio 0 of 10, no researcher named in any of their six questions. `wh-013` names
+Nutcracker Man and OH 5 but no excavator, and the reversal of the hard-object reading is carried as
+evidence about the teeth rather than as a history of who thought what.
