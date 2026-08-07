@@ -12876,3 +12876,48 @@ count as a **diff on every card** rather than at the end of a session.
 cryptography rust bindings), so there is still no way to read a PDF locally here. That is what blocked
 `wh-110` in W21 and it is not fixable by installing a package. The routes that do work on a PDF are
 WebFetch (under ~10 MB, and it 502'd on the one file tried) and an Internet Archive item's `_djvu.txt`.
+
+---
+
+## Batch W23 — `wh-112` Neolithic Revolution (2026-08-07)
+
+### Nothing newly opened — five registered sources, all open, all with `supports:` lines
+`watkins-2017` (the transformation as "social, economic and technological", and that the Epi-palaeolithic
+"between 23,000 and 12,000 years ago, saw the emergence and development of many of the characteristics that
+we think of as Neolithic"), `maher-2011` (the Natufian at "c. 14,500–11,600 cal BP" with "sedentism,
+cemeteries, architecture, food production, including animal domestication", and the woman buried with a
+juvenile domestic dog at 'Ain Mallaha with a second from Hayonim Terrace), `larson-2014` (domestication
+"began globally 12,000–11,000 y ago at the end of the most recent ice age", at least 11 independent
+centres), `fuller-stevens-2019` (villages "in the hundreds", later "in the thousands", and land tenure with
+"emergent elite bodies"), `lhote-2024` (the speciation of *B. melitensis* from the cattle-infecting
+*B. abortus* "to approximately 9800 years Before Present … coinciding with a period of consolidation and
+dispersal of livestock economies", and the mechanism — penning and confinement, suboptimal hygiene, denser
+herds, "the mixing of previously allopatric species").
+
+**Fourth batch running with no new reading.**
+
+### A SOURCE REFUSED FOR A CLAIM IT DOES NOT MAKE
+The obvious tenth sentence was the health cost of farming, and the obvious source was
+`winther-johannsen-2024`, which the register records as supporting "The commonness of dental caries in LN
+individuals from Southern Sweden … as carbohydrate intake … correlates with the incidence of dental
+caries". **That is a Late Neolithic Scandinavian result (2350–1700 BCE), not a statement about the
+transition** — using it for a general claim about what farming cost the first farmers would be exactly
+G6's fault, a source stretched from the claim the register records to a neighbouring one. The sentence was
+dropped and the disease material carried the cost instead. **The register's `supports:` line is a boundary,
+not a summary of the paper's topic.**
+
+### WRITING AROUND THE NEIGHBOUR
+`wh-111` had shipped an hour earlier and covers the period: the coinage, the villages, the tenure, Childe.
+This card is the transition, and it was structured to lead on what `wh-111` does not have — **sedentism
+arriving BEFORE farming** (the Natufian, and its dog), and **the price**, which is the disease half. Childe
+is deliberately absent: naming him again would have duplicated the neighbour and spent historiography
+budget on a fact already told. Result: **historio 0 of 10, modern 0 of 10, no researcher in any question.**
+Four sentences still share ground with `wh-111` (the 12–11 ka timing, the eleven centres, the villages, the
+tenure), which is accepted rather than trimmed — the eleven centres in particular IS the concept, and a
+transition card that omitted it to avoid overlap would be avoiding its own subject.
+
+### The word floor bit for the first time this session
+The draft came in at **255 words against a 270 floor** — every earlier card this session has run long, not
+short, and a card built to avoid a neighbour's ground is the shape that runs short. It was lengthened from
+the sources rather than padded: the Natufian's own food production and the Hayonim Terrace dog from
+`maher-2011`, and the Old World scope of the village figure from `fuller-stevens-2019`. 283 on the re-count.
