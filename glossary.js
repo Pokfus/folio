@@ -692,7 +692,8 @@ window.GLOSSARY = {
 "Periander": "Periander is the second of the Cypselid tyrants of Corinth, the son of Cypselus, and in the tradition that grew up around him one of the Seven Sages.<sup class=\"fn\" data-fn=\"1\"></sup> He faced a generation of nobles who wanted power for themselves and disputed his, and held on to it by keeping a bodyguard and dealing ruthlessly with his enemies, turning the tyranny towards coercion.<sup class=\"fn\" data-fn=\"2\"></sup> The stories told of him are largely invention, among them the consultation of his dead wife's ghost and the parable of the ears of corn, in which the advice to cut down whatever stands tallest is a lesson in reducing one's opponents.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Corinth": "Corinth is a Greek city on the Isthmus, lying below Acrocorinth, a rock 575 metres (1,886 feet) high that controlled the road across the Isthmus, the pass south towards Argos and the coastal road west to Sicyon.<sup class=\"fn\" data-fn=\"3\"></sup> Its great archaic building is the temple of Apollo, put up in the middle of the 6th century BCE to replace a destroyed predecessor, with six monolithic columns at each end and 15 along each side, seven of which are standing still.<sup class=\"fn\" data-fn=\"1\"></sup> At the western edge of the walled city the Potters' Quarter worked for three centuries, turning the white marl clay of the place into pots, figurines, painted plaques and votive shields.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Diolkos": "The Diolkos is the paved trackway that carried boats overland across the Isthmus of Corinth, sparing them the long and dangerous voyage round the Peloponnese.<sup class=\"fn\" data-fn=\"3\"></sup> It ran about 8 kilometres (5 miles) and was 3.5 to 6 metres (11 to 20 feet) wide, was built in the 6th century BCE, and is associated with Periander; a ship was moored and emptied of its cargo before being moved on a wheeled vehicle.<sup class=\"fn\" data-fn=\"1\"></sup> Whether it was a commercial thoroughfare has been questioned, one re-examination arguing that it carried no constant flow of ships and cargoes and served the transport and strategic ends of Corinth and her allies.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Cleisthenes_of_Sicyon": "Cleisthenes of Sicyon is an Orthagorid tyrant, of the dynasty that held Sicyon for about a century, and his own reign is put at about 600 to about 569 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He took part in the First Sacred War, won the four-horse chariot race at the Pythian games in 582/81, and gave the Dorian tribes of his city new names that Herodotus says stayed in use for 60 years after his death.<sup class=\"fn\" data-fn=\"1\"></sup> His daughter Agariste married into the Alcmaeonid house at Athens; an athletic victory of the kind he won was one of the ways a ruler displayed the excellence by which such rule was justified.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Cleisthenes_of_Sicyon": "Cleisthenes of Sicyon is an Orthagorid tyrant, of the dynasty that held Sicyon for about a century, and his own reign is put at about 600 to about 569 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> He took part in the First Sacred War, won the four-horse chariot race at the Pythian games in 582/81, and gave the Dorian tribes of his city new names that Herodotus says stayed in use for 60 years after his death.<sup class=\"fn\" data-fn=\"1\"></sup> His daughter Agariste married into the Alcmaeonid house at Athens; an athletic victory of the kind he won was one of the ways a ruler displayed the excellence by which such rule was justified.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Polycrates": "Polycrates is the tyrant of Samos who was killed at Magnesia at the start of 522 BCE by Oroetes, the Persian governor at Sardis, who baited him with an offer of the wealth his projects needed.<sup class=\"fn\" data-fn=\"2\"></sup> His navy was said to be one of the greatest in archaic Greece and is described most fully in Herodotus's <i>Histories</i>, though the accounts conflict over how it was used and made up; its ships were penteconters, triremes and samainae, the last a type tradition says he invented.<sup class=\"fn\" data-fn=\"1\"></sup> He was joined in guest-friendship to Amasis of Egypt, and the lavish dipteral temple of Hera on his island was commissioned under his rule.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1007,7 +1008,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nestor's_Cup": "c. 730 BCE",
 "Pithekoussai": "8th century BCE",
 "Al_Mina": "8th century BCE onwards",
-"Cypriot_syllabary": "c. 800 – 200 BCE"
+"Cypriot_syllabary": "c. 800 – 200 BCE",
+"Polycrates": "d. 522 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1474,7 +1476,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cypselus": ["Kypselos"],
 "Periander": ["Periandros"],
 "Corinth": ["Korinth"],
-"Cleisthenes_of_Sicyon": ["Kleisthenes of Sicyon","Cleisthenes of Sikyon"]
+"Cleisthenes_of_Sicyon": ["Kleisthenes of Sicyon","Cleisthenes of Sikyon"],
+"Polycrates": ["Polycrates of Samos","Polykrates","Polykrates of Samos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2180,7 +2183,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Periander": ["person","ruler","history","greece","archaic"],
 "Corinth": ["city","place","history","greece","archaic"],
 "Diolkos": ["building","object","history","greece","archaic"],
-"Cleisthenes_of_Sicyon": ["person","ruler","history","greece","archaic"]
+"Cleisthenes_of_Sicyon": ["person","ruler","history","greece","archaic"],
+"Polycrates": ["person","ruler","history","greece","archaic"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2877,7 +2881,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Periander": ["Christopher J. Joyce, review of <i>The Tyrants of Corinth: Legends of Cypselus and Periander</i>, by Daniel Ogden, Bryn Mawr Classical Review 2025.02.50, https://bmcr.brynmawr.edu/2025/2025.02.50/. [Open access]","Brian Lavelle, review of <i>Die archaische Tyrannis</i>, by Loretana de Libero, Bryn Mawr Classical Review 1997.07.18, https://bmcr.brynmawr.edu/1997/1997.07.18/. [Open access]"],
 "Corinth": ["American School of Classical Studies at Athens, \"Corinth Monument: Temple of Apollo,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/temple%20of%20apollo. [Open access]","American School of Classical Studies at Athens, \"Corinth Monument: Potters' Quarter,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/potters%27%20quarter. [Open access]","American School of Classical Studies at Athens, \"Corinth Monument: Acrocorinth,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/acrocorinth. [Open access]"],
 "Diolkos": ["Giannis Saitis, Anna Karkani, Niki Evelpidou, and Hampik Maroukian, \"Palaeogeographical Reconstruction of Ancient Diolkos Slipway by Using Beachrocks as Proxies, West Corinth Isthmus, Greece,\" <i>Quaternary</i> 5, no. 1 (2022): art. 7, https://doi.org/10.3390/quat5010007. [Open access]","David K. Pettegrew, \"The Diolkos of Corinth,\" <i>American Journal of Archaeology</i> 115, no. 4 (2011): 549–74, https://doi.org/10.3764/aja.115.4.0549. [Paywalled]","American School of Classical Studies at Athens, \"Corinth Monument: Diolkos,\" <i>Corinth Excavations</i>, accessed 7 August 2026, https://ascsa.net/id/corinth/monument/diolkos. [Open access]"],
-"Cleisthenes_of_Sicyon": ["Victor Parker, \"The Dates of the Orthagorids of Sicyon,\" <i>Tyche</i> 7 (1992): 165–75, https://doi.org/10.15661/tyche.1992.007.20. [Open access]","Philip Davies, review of <i>The Heroic Rulers of Archaic and Classical Greece</i>, by Lynette Mitchell, Bryn Mawr Classical Review 2014.06.30, https://bmcr.brynmawr.edu/2014/2014.06.30/. [Open access]"]
+"Cleisthenes_of_Sicyon": ["Victor Parker, \"The Dates of the Orthagorids of Sicyon,\" <i>Tyche</i> 7 (1992): 165–75, https://doi.org/10.15661/tyche.1992.007.20. [Open access]","Philip Davies, review of <i>The Heroic Rulers of Archaic and Classical Greece</i>, by Lynette Mitchell, Bryn Mawr Classical Review 2014.06.30, https://bmcr.brynmawr.edu/2014/2014.06.30/. [Open access]"],
+"Polycrates": ["Jakub Kuciak, \"The Fleet as the Basis for Polycrates of Samos' Thalassocracy,\" <i>Electrum</i> 27 (2020): 45–66, https://doi.org/10.4467/20800909el.20.003.12793. [Open access]","Olga Constanza Ojeda Sánchez, \"Polícrates onírico: el sueño en la obra de Heródoto,\" <i>Espacio, Tiempo y Forma. Serie II, Historia Antigua</i> 35 (2022): 41–54, https://doi.org/10.5944/etfii.35.2022.30839. [Open access]","Hannah L. Ringheim, \"Hera and the Sea. Decoding Dedications at the Samian Heraion,\" <i>Studia Hercynia</i> 23, no. 1 (2019): 11–25, https://studiahercynia.ff.cuni.cz/wp-content/uploads/sites/79/2020/02/Hannah_L_Ringheim_11-25.pdf. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
