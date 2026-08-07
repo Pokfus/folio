@@ -1992,6 +1992,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     colour for the book, which is worth saying only because it cost nothing: the numbers led there.
     **The next book added will have to widen the band or accept a pair tighter than 20.4** — say so
     then rather than quietly shipping a colour nobody can tell from its neighbour.
+  · **A WORK CAN FAIL THE SHELF ON ITS ENGLISH ALONE, and the refusals are recorded rather than
+    forgotten** — see `WORKS CONSIDERED AND NOT SHELVED` in the header of `.claude/fetch-book.js`,
+    which carries the measurements in full. The standard is a PROOFREAD transcription (Wikisource) or
+    a scholarly TEI edition (Perseus); **no book here comes from raw OCR**, and the reason a given
+    work was turned away belongs in that block so the next person finds the measurement instead of
+    repeating it. **The SPRING AND AUTUMN ANNALS (春秋) is the first entry** (asked for Aug 2026,
+    researched, not shelved): its ORIGINAL is ready — zh.wikisource's 春秋經 is the Annals proper,
+    proofread, all twelve dukes, 17,120 characters — and its English fails three ways at once.
+    Legge's 1872 *Ch'un Ts'ew* is the only complete PD translation and en.wikisource has transcribed
+    **2 of 409 text pages** of it (the mainspace page carries the prolegomena, which is the Plato
+    Dialogues trap: ask what a source is MISSING before building on it); ctext.org's English is
+    attributed in its own markup to **"AI and Chinese Text Project users"**, not Legge, and machine
+    translation may never ship here as a scholarly one; and the archive.org OCR runs **2.30%
+    detectably-corrupt tokens across the Annals entries** — *worse* than the volume average, because
+    an entry is almost nothing but state names, Legge romanizes every one with an apostrophe, and
+    that is the character the scan fails on. **The lesson worth carrying is the refuted hypothesis**:
+    bigger type does not mean cleaner OCR when the type is carrying the proper nouns, so measure the
+    subset you actually intend to ship rather than the volume. Correcting it by substitution table
+    was weighed and refused — it repairs the detectable classes, leaves an unmeasured residue, and is
+    composing an edition, which is what the Meditations' Greek was abandoned for.
   · **THE ORIGINAL BESIDE THE TRANSLATION** (`bookSections` / `bookRows` / `applyLangMode` /
     `anchorNow` + `restoreAnchor`, Aug 2026, on request). Side by side on a wide screen, one at a time on
     a phone where **tapping the page turns it over**, as the daily quote does.

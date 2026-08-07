@@ -27,6 +27,60 @@
    books/<id>.js pushes onto window.FOLIO_BOOKS_IN rather than assigning a global, exactly as
    the i18n bundles do: the file is LAZY (bundle "book:<id>" in app.js) and may land before or
    after the reader opens the page, so the ingest hook drains a queue instead of racing a slot.
+
+   ------------------------------------------------------------
+   WORKS CONSIDERED AND NOT SHELVED
+
+   A book is kept off the shelf when no source meets the standard every entry below is built on:
+   a PROOFREAD transcription (Wikisource) or a scholarly TEI edition (Perseus). Raw OCR is not
+   one, and never has been — the reason is recorded here rather than lost, so the next person to
+   reach for one of these finds the measurement instead of repeating it.
+
+   · THE SPRING AND AUTUMN ANNALS (春秋, Chunqiu) — asked for Aug 2026, researched, NOT shelved.
+     The ORIGINAL is ready and clean: zh.wikisource's 春秋經 is the Annals proper, separated from
+     the Zuo Zhuan commentary, proofread, all twelve dukes, 17,120 characters — which matches the
+     traditional length of the work. It is the ENGLISH that fails, and all three routes to it fail
+     independently:
+       - en.wikisource carries Legge's Ch'un Ts'ew (The Chinese Classics, Vol. V, 1872), the only
+         complete public-domain English translation there is, as a transcription project that has
+         not been done. Measured in the Page: namespace rather than inferred from the mainspace
+         page: 2 of 409 text pages in Part I and NONE of the text in Part II. Page 170 is where the
+         text begins ("BOOK I. DUKE YIN. First year.") and is also where the proofreading stops.
+         What IS transcribed is the preface and prolegomena, which is what the mainspace page
+         transcludes — the Plato Dialogues lesson exactly: ask what the source is MISSING before
+         building on it, because a source can be correct about everything it contains and still be
+         0.5% of the book.
+       - ctext.org has the text with an English translation, and that translation is NOT Legge's.
+         The site attributes it, in its own markup, to "AI and Chinese Text Project users". The
+         marker is reliable and was checked against a control: ctext's Analects says "James Legge"
+         in the same slot. Machine translation must never ship here as a scholarly translation.
+       - archive.org's OCR of the 1872 volume (chineseclassics51legg / 52legg) is complete and is
+         too corrupt to serve. Measured over the Annals ENTRIES alone — not the notes — 2.30% of
+         tokens carry a detectable OCR fault, which is WORSE than the 2.01% of the volume at large.
+         The hypothesis that the entries would read more cleanly, being set in larger type than the
+         double-column notes, was tested and is refuted, and the refutation is the useful part: an
+         Annals entry is almost nothing but the names of states, Legge romanizes every one with an
+         apostrophe, and the apostrophe is the character this scan fails on — Ts4e, Ch4ing, Ts4oo,
+         Ch4in, Ts4in, Ts4ae. The corruption lands precisely on the content-bearing words of a
+         chronicle that consists of them. The structural markers are no better: 8 duke names
+         produce 31 OCR spellings (DUKE CII ING, DUKE CIHNG, DUKE CIMNG, DUKE SEUEX, DUKE UWAN),
+         and those headings are what a reader would have to be cut at.
+         That 2.30% counts only the DETECTABLE classes — a digit inside a word, tli- for th-, Av-
+         for W-, a stray asterisk. An OCR fault that produces a valid English word is invisible to
+         it, and in this work the dangerous case is a slip between Ts'e, Ts'in and Ts'oo: three
+         real states, one letter apart, in a text whose every line names one. That is a silent
+         factual error in a study text, which is the one thing this file exists to prevent.
+     Correcting the systematic classes by substitution table was weighed and refused on the
+     standing ground: it repairs what can be detected, leaves a residue nobody has measured, and
+     is composing an edition rather than transcribing one — the same judgement that abandoned the
+     Meditations' Greek and that leaves the Ethics' three repeated Bekker pages recorded rather
+     than repaired.
+     REVISIT IF: en.wikisource proofreads Index:Ch'un Ts'ew Pt I.pdf past page 170 and Pt II at
+     all. Nothing else has to change — the Chinese column is already available and the pairing
+     unit is the obvious one, the YEAR of a duke's reign, which both the Chinese and Legge state.
+     Do NOT reach for Burton Watson's Tso Chuan (1989) or the Durrant/Li/Schaberg Zuo Tradition
+     (2016): both are in copyright, and Watson is in any case partial.
+   ------------------------------------------------------------
    ============================================================ */
 
 const fs = require("fs");
