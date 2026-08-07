@@ -26,8 +26,12 @@ const code = [
   slice(/^  function hashStr\(/m, "\n  }", "hashStr"),
   slice(/^  function mulberry32\(/m, "\n  }", "mulberry32"),
   slice(/^  function seededShuffle\(/m, "\n  }", "seededShuffle"),
-  slice(/^  const QUOTES = \[/m, "\n  ];", "the QUOTES pool"),
+  // SHIPPED_QUOTES since Aug 2026: the live `QUOTES` is now that literal with the admin's overlay applied
+  // over it (see quotesMerged), and it is the SHIPPED pool this test is about — the rule has to hold for
+  // what every reader gets, before any one editor's local overlay is laid on top.
+  slice(/^  const SHIPPED_QUOTES = \[/m, "\n  ];", "the shipped quote pool"),
   slice(/^  const DQ_WEEK = /m, "\n  }", "quoteRunningOrder"),
+  "  const QUOTES = SHIPPED_QUOTES;",
   "  const QUOTE_ORDER = quoteRunningOrder(QUOTES);",
   "  return { QUOTES, QUOTE_ORDER };",
 ].join("\n");
