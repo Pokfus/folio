@@ -5176,6 +5176,35 @@
        It reads 7.37:1 on the tightest of the twelve light papers, against a bar of 4.5.
        Keyed by id, the poems being anonymous. */
     "poetic-edda": "#720000",
+    /* THE BAND WAS WIDENED DOWNWARD A SECOND TIME, which is what the Prose Edda's row did and what
+       Beowulf's predicted would be needed again. With twenty-six colours placed, nothing anywhere in
+       the shelf's own lightness and chroma band (L 18.4–47.8, C 18.3–64.1) clears 21.6 of its nearest
+       neighbour once the 4.5:1 contrast bar is applied, and the best candidates at that number are all
+       an eighth red. Dropping the floor to L 12 opens the space again — Kalidasa's finding for the
+       third time, that a darker swatch reads BETTER on a light paper rather than worse.
+
+       WHAT THE WIDENING NEEDED IS A SECOND FLOOR, and it is new: a colour dark enough is no longer a
+       colour at all, it is the body ink. The six light themes set their ink between L 8 and L 14, so
+       every candidate is now also held 22 clear of all six, which is what rules out the L 10 swatches
+       that scored 26 — a near-black olive that a reader would read as a printing accident.
+
+       OF THE THREE THAT SURVIVE, THE EURIPIDES TEST PICKED THIS ONE AND THE RAW NUMBER DID NOT. The
+       best number is a deep blue-violet at 23.3, and the third is a very dark burnt brown at 22.8 —
+       and that brown lands 24.2 from Confucius, who is the ANALECTS. The Lî Kî and the Analects are
+       the two Confucian classics on this shelf, both in Legge's translation, and they are the pair a
+       reader is likeliest to hold together; a brown one step from his walnut would say they are a
+       set, which is exactly the kinship that test exists to refuse. The blue-violet asserts nothing —
+       it is 65 to 109 from all four Chinese books — but it would be an eighth colour in the blue
+       quarter, which Thucydides' row warns about.
+
+       So this dark plum, at 22.6. It clears Plato, Snorri Sturluson and Beowulf by 22.6, 22.8 and
+       23.0 — evenly, which is Vyasa's test for a colour that reads as its own rather than as a
+       near-miss of one — against the shelf's tightest pair, now 18.2 (the Classic of Poetry against
+       Beowulf). It stands 36.6 from the Classic of Poetry and 48.5 from Confucius, so no reader ties
+       it to the shelf's other Chinese books, and it reads 9.70:1 on the tightest of the sixteen light
+       papers, against 1.0–1.2 on the eighteen dark ones as every swatch here does. Keyed by id, the
+       treatises being anonymous. */
+    "book-of-rites": "#460030",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -6655,6 +6684,63 @@
         { n: 4, label: "The Books of Shang", note: "17 documents" },
         { n: 5, label: "The Books of Kâu", note: "32 documents" },
       ],
+    },
+    {
+      id: "book-of-rites",
+      title: "The Book of Rites",
+      subtitle: "The Lî Kî",
+      author: "Anonymous",
+      /* Forty-six treatises by many hands, gathered under the Han out of Warring States material and
+         edited into this collection in the first century BCE. The tradition names Tâi Shăng as the
+         compiler, which is a tradition rather than a fact and is not asserted here. `written` gives
+         the span the material covers; `year` is the single number the shelf's date sort needs, and it
+         is the early end of that span rather than a midpoint nothing marks. */
+      written: "c. 3rd–1st century BCE",
+      year: -300,
+      translator: "James Legge",
+      edition:
+        "The Sacred Books of the East, Vol. XXVII: The Texts of Confucianism, Part III, " +
+        "Clarendon Press, Oxford, 1885",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL — Legge's third on this shelf and his third easy
+         one, after the Analects and the Book of Documents. He published in 1885, before 1929, so the
+         United States copyright has expired, and he died in 1897, so it is out of copyright on
+         life-plus-seventy and life-plus-a-hundred alike. No limit to state as Giles (2029) and Ross
+         (2042) need, and no modern editorial layer as the Histories and the Meditations' Greek carry. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1885 — before 1929, so " +
+        "its United States copyright has expired — and he died in 1897, so it is out of copyright " +
+        "wherever the term runs for the author's life plus seventy or even a hundred years. The " +
+        "treatises themselves are ancient and are in the public domain everywhere. The six charts of " +
+        "mourning degrees printed with Book II's appendix are not reproduced here; see the front " +
+        "matter. (Wing-tsit Chan's translations of 1963 and the Library of Chinese Classics edition " +
+        "of 2001 are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_27",
+      /* THE CHAPTER IS ONE OF THE FORTY-SIX TREATISES, which is what the work is cited by — "Lî Kî
+         VII" is the Lî Yun. That makes for long tabs (Book II is 131,000 characters, within the
+         precedent the Prose Edda set at 173,000) and it is the Prose Edda's trade made the same way:
+         cutting at the Section instead would give forty-six tabs whose paragraph numbering runs clean
+         and whose names no reader is looking for.
+
+         `count` AND `total` DIFFER MORE WIDELY HERE THAN ANYWHERE ELSE ON THE SHELF, and the reason
+         is the TRANSCRIPTION rather than the edition — which is new. The Classic of Poetry ships 102
+         of 305 because Legge selected 102, and the Prose Edda 3 parts of 4 because Brodeur translated
+         three; here Legge translated all forty-six, in two volumes, and only the first of the two has
+         been transcribed. That volume is complete and every one of its ten books is here entire. The
+         ten are also the long ones, filling 420 pages of a 480-page volume against a companion volume
+         of much the same size, so what is here is nearer half the work than 10-of-46 suggests — but
+         the missing thirty-six include the Great Learning and the Doctrine of the Mean, and the front
+         matter says so rather than letting a reader discover it by counting tabs.
+
+         NO `origLang`, and it was measured rather than assumed — the Book of Documents' answer, and
+         more decisively. Chinese Wikisource carries all ten of these treatises, so the CHAPTER-level
+         pairing exists; app.js pairs on the section number BELOW the chapter, Legge numbers his
+         paragraphs and that transcription numbers nothing at all, and the two divide the same prose
+         so differently that one book runs to 57 of Legge's paragraphs against 35 Chinese ones. See
+         .claude/fetch-book.js, whose entry records those counts. */
+      chapterWord: "Book",
+      count: 10,
+      total: 46,
     },
     {
       id: "prose-edda",

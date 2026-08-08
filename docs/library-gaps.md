@@ -1,6 +1,7 @@
 # The Library's gaps — what is missing, and what can still be added
 
-An audit of all 28 shelved books (Aug 2026, on request), covering three kinds of absence: **text the
+An audit of all 29 shelved books (Aug 2026, on request; the Book of Rites was added after the first
+pass and its rows are folded in below), covering three kinds of absence: **text the
 book does not carry**, **a facing original it has not got**, and **notes**. For each gap it records
 whether the blocker still holds, because several of the decisions behind them were made months or
 years ago and at least one has expired since.
@@ -14,12 +15,13 @@ Not part of the site.
 
 ## 1. The audit
 
-28 books; 19 carry a facing original, 9 do not.
+29 books; 19 carry a facing original, 10 do not.
 
 ### Books that do not carry the whole work (`count` < `total`)
 
 | book | has | of | why |
 |---|---|---|---|
+| `book-of-rites` | 10 | 46 | only the first of Legge's two volumes has been transcribed — see below |
 | `classic-of-poetry` | 102 | 305 | Legge's *Sacred Books of the East* volume prints only the poems bearing on religion |
 | `prose-edda` | 3 | 4 | Brodeur omitted *Háttatal* deliberately |
 | `plato-dialogues` | 35 | 36 | the Republic is missing — a licence gap, not a textual one |
@@ -33,6 +35,7 @@ Everything else on the shelf is `count == total`.
 | `plato-republic` | Greek | Jowett prints no Stephanus numbers |
 | `classic-of-poetry` | Chinese | no uniform transcription |
 | `book-of-documents` | Chinese | Chinese transcription numbers nothing |
+| `book-of-rites` | Chinese | ditto, and further apart — 57 of Legge's paragraphs against 35 Chinese |
 | `poetic-edda` | Old Norse | — |
 | `prose-edda` | Old Norse | licence (Guðni Jónsson, d. 1974) |
 | `aristophanes-lysistrata` | Greek | the English prints no line numbers |
@@ -150,6 +153,19 @@ software. The sanctioned route is ctext's **JSON API**, which supports a `gettex
 text in ordered paragraphs, with tiered access by API key. Its documentation also says "usage
 restrictions and other terms and conditions apply to all usage of the API", and that the API appears
 oriented to the Chinese text rather than the translations.
+
+**AND ITS TRANSLATIONS CARRY AN ADAPTATION LAYER, which is a separate objection and bites only on the
+English.** Recorded when the Book of Rites was added (Aug 2026), because that book went looking at ctext
+for a complete Legge and had to turn it down. ctext's own FAQ divides its translations into three kinds:
+copyright-expired translations "**manually adapted for the site**", published translations used by
+permission, and a third kind "created through a combination of artificial intelligence and
+crowdsourcing" — with no per-article statement of which is which, and the standing advice that "all
+translations should be used with caution". That is the Histories' modernised-Godley layer with no editor
+named and no way to tell the layers apart, so nothing from there can be shipped as "James Legge, 1885".
+**It does not touch what section B actually wants**, which is the CHINESE source text and the paragraph
+numbering — those are transcriptions of a classical text, not adapted translations — but anyone reading
+this section and thinking "ctext has the English too" should stop there. Ask what a source has DONE to a
+text, not only whether it has it.
 
 **So the next step is not code.** It is to read the API's terms and, most likely, to write to the
 Chinese Text Project describing what Folio is and asking whether an import for this purpose is
