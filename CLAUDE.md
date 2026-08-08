@@ -220,8 +220,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   which are complete, it went from eleven dialogues to thirty-five. **Ask what the source is MISSING
   before building on it**: the first shape was correct about everything it contained and was a third of
   the book.
-  Thirty-five of thirty-six because Perseus's English Republic is Shorey's of 1935–37 and still in
-  copyright — a LICENCE gap, not a textual one; the Republic is on the shelf from another printing),
+  Thirty-five of thirty-six because Perseus's English Republic is Shorey's, published in two volumes
+  in 1930 and 1935 — a LICENCE gap, not a textual one; the Republic is on the shelf from another
+  printing. **THAT GAP IS NOW HALF OPEN, and the dates are why it has to be stated per volume**:
+  Shorey died in 1934, so the translation is public domain wherever the term is life plus seventy —
+  since 2005 — and in the United States volume 1 (Books I–V, 1930) cleared on 1 January 2026 with
+  volume 2 (Books VI–X, 1935) following on 1 January 2031. This entry read "1935–37" until Aug 2026,
+  which conflated volume 2's date with volume 1's reprint and hid the fact that the two clear at
+  different times; taking the Republic into the Dialogues, and giving the Republic itself the facing
+  Greek it has never had, both turn on it. See `docs/library-gaps.md`),
   `ovid-metamorphoses` (~813 KB, all 15 books, 156 section numbers, **0 notes** — the first book
   here whose edition carries none, so its chapters render with no note fold at all, which is correct
   and not a wiring fault), `suetonius-twelve-caesars` (~952 KB, all 12 lives, 551 chapter numbers,
@@ -387,11 +394,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty-seven books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, the Prose Edda, Lysistrata and Shakuntala have none, and the reason differs — the
-  next paragraph's
-  rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
-  earlier, there being no settled original text to face.
+  **Twenty-eight books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala have none, and the
+  reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and on BOTH of
+  Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text to face.
   **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
   exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
   to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at

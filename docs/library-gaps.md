@@ -249,15 +249,19 @@ written**, and one of them was nearly overturned by a bad reading.
 
 ---
 
-## 4. Two corrections to CLAUDE.md
+## 4. Two corrections to CLAUDE.md — **applied**
 
-Both are records that have drifted from what is on disk, and one of them holds up a licence decision.
+Both were records that had drifted from what is on disk, and one of them held up a licence decision.
+Fixed in the same batch as this audit.
 
-1. **"Twenty-seven books, nineteen originals"** — there are **28** books (`poetic-edda` was added and
-   the sentence was not updated). The originals count of 19 is right.
-2. **Shorey "of 1935–37"** — the volumes are **1930** and **1935** (1937 is volume 1's reprint). This
-   matters because it is the sentence that keeps the Republic out of the Dialogues and the Greek off
-   the Republic, and as written it obscures that volume 1 cleared US copyright in January 2026.
+1. **"Twenty-seven books, nineteen originals"** → **twenty-eight**. `poetic-edda` was added and the
+   sentence was not updated. It was stale twice over: 28 − 19 leaves **nine** books without an
+   original and the sentence named only eight, the Poetic Edda missing from its own list. Both halves
+   corrected; the originals count of 19 was right.
+2. **Shorey "of 1935–37"** → **1930 and 1935** (1937 is volume 1's reprint). This is the sentence that
+   keeps the Republic out of the Dialogues and the Greek off the Republic, and as written it obscured
+   that volume 1 cleared US copyright in January 2026. It now states the position per volume and the
+   life-plus-seventy expiry of 2005, and points here.
 
 ---
 
@@ -265,7 +269,8 @@ Both are records that have drifted from what is on disk, and one of them holds u
 
 1. **Decide the Republic.** It is the largest gain for the least work, it is already unblocked in
    most of the world and half-unblocked in the United States, the precedent for stating the limit is
-   on the shelf, and it closes two gaps at once. Correct the CLAUDE.md date either way.
+   on the shelf, and it closes two gaps at once. (The CLAUDE.md dates are already corrected — see §4 —
+   so the entry now states the position rather than hiding it, whichever way the decision goes.)
 2. **Write to the Chinese Text Project.** Cheap, and it is the only thing standing between the shelf
    and both a complete Classic of Poetry and two facing Chinese columns.
 3. **Decide whether Bugge's diplomatic text is worth having** for the Poetic Edda. This one is a
