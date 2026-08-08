@@ -84,14 +84,23 @@ function shippedBookLeaks() {
 
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const errs = [];
-  /* …and suppresses the Library's own first-visit coach marks (Aug 2026). They are a full-screen overlay
-     on document.body, so on a fresh profile every click below lands on the scrim instead of the shelf and
-     the whole file times out. Set BEFORE the first navigation, hence the await at every call site. The card
-     itself is `.claude/test-tour.js`'s section 5 — this file is about the shelf under it. */
+  /* …and suppresses the first-visit coach marks (Aug 2026) — BOTH of them, the shelf's and the one shown
+     the first time a book is opened. They are full-screen overlays on document.body, so on a fresh profile
+     every click below lands on the scrim instead of the shelf and the whole file times out; the book half
+     is worse, since it is over the PAGE the gesture sections swipe (that is how it announced itself when
+     the card was split — one real-touch swipe, silently eaten). Set BEFORE the first navigation, hence the
+     await at every call site. The cards themselves are `.claude/test-tour.js`'s section 5 — this file is
+     about the shelf and the book under them. */
   const watch = async (p) => {
     p.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
     p.on("pageerror", (e) => errs.push(String(e)));
-    await p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_tour_v1", "1"); } catch (e) {} });
+    await p.addInitScript(() => {
+      try {
+        localStorage.setItem("folio_library_tour_v1", "1");
+        localStorage.setItem("folio_book_tour_v1", "1");
+        localStorage.setItem("folio_tour_v1", "1");
+      } catch (e) {}
+    });
   };
 
   /* ================= 1. the rename ================= */

@@ -203,14 +203,14 @@ body[data-theme="folio"] .topbar::after{
   transition:color .18s var(--ease), background .18s var(--ease);
 }
 .tab .tab-ic{width:16px; height:16px; flex:none;}
-/* icon-only tabs: the label collapses shut, unfolding beside the icon on hover / keyboard focus,
-   and staying open on the page currently shown (.active) */
+/* THE LABEL IS ALWAYS OPEN (Aug 2026, on request). These tabs used to be icon-only, the name unfolding
+   beside the icon on hover / keyboard focus and staying open on the page currently shown — which meant a
+   reader had to point at four icons to find out what they were, and the one name on screen belonged to the
+   page they were already on. There are only four destinations and the bar has room for all four, so the
+   name is simply there; `.active` still says which page you are on, in the indigo and the underline.
+   The colour transition is kept and the width one goes with the collapse: nothing animates any more. */
 .tab .tab-label{
-  display:block; max-width:0; opacity:0; overflow:hidden; white-space:nowrap; margin-inline-start:0;
-  transition:max-width .28s var(--ease), opacity .18s var(--ease), margin-inline-start .28s var(--ease);
-}
-.tab:hover .tab-label, .tab:focus-visible .tab-label, .tab.active .tab-label{
-  max-width:200px; opacity:1; margin-inline-start:8px;
+  display:block; overflow:hidden; white-space:nowrap; margin-inline-start:8px;
 }
 .tab:hover{color:var(--ink-soft); background:color-mix(in srgb, var(--ink) 5%, transparent);}
 .tab.active{color:var(--indigo);}
@@ -628,8 +628,9 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .hero-eyebrow{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.2em; text-transform:uppercase; color:var(--indigo); display:block; margin-bottom:10px;}
 .banner.hero .review-title{font-size:calc(34px * var(--fs)); letter-spacing:-.015em;}
 .banner.hero .desc{font-size:calc(16px * var(--fs)); max-width:56ch;}
-.hero-alt{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px; text-decoration-color:color-mix(in srgb,var(--ink) 30%, transparent);}
-.hero-alt:hover{color:var(--ink);}
+/* `.hero-alt` — the quiet "or browse the collections" link beside the hero's button — is GONE (Aug 2026,
+   on request), with the markup that carried it. The hero offers ONE way in; the collections are reached
+   from the lip under the review group, which is the route the home page advertises. */
 
 /* ---------- home: the way to the collections ----------
    A whole banner of its own sat here until Aug 2026 — a second full-width block spending a heading and a
@@ -660,6 +661,11 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
   padding:20px 0 16px; text-align:center;
   font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
 }
+/* …and on a desktop it stands further off the game grid above it (Aug 2026, on request). The padding is a
+   PHONE figure — at 390px the page ends a thumb's width below the last tile and more air there is just
+   scrolling — where a wide window has room to let the last line of the page be plainly the end of it. It is
+   `padding-top` rather than a margin so it stays part of the button's own target. */
+@media (min-width:641px){ .home-about{padding-top:48px;} }
 .home-about:hover{color:var(--ink-soft);}
 .home-about:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:6px;}
 
@@ -684,17 +690,15 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
   font-weight:600; color:var(--ink-faint);
 }
 
-/* ---------- home: how-it-works strip (until the first card is graded) ---------- */
-.howit{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
-.hi-step{display:flex; gap:13px; align-items:flex-start; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:15px 17px; box-shadow:var(--shadow-sm);}
-.hi-num{flex:none; width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:99px; background:color-mix(in srgb,var(--indigo) 12%, transparent); color:var(--indigo); font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs));}
-.hi-body{display:flex; flex-direction:column; gap:3px; min-width:0;}
-.hi-body b{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
-.hi-body span{font-size:calc(12.5px * var(--fs)); line-height:1.45; color:var(--ink-soft);}
+/* ---------- home: how-it-works strip — REMOVED (Aug 2026, on request) ----------
+   `.howit` / `.hi-step` / `.hi-num` / `.hi-body` were the three-beat first-run strip under the review
+   banner: study a card, grade yourself, it comes back. The walkthrough offered directly above it now
+   says all three properly, with the forgetting curve and a real card, so the strip was a first visit
+   spending its attention twice. Its markup went with these rules — see PAGES.home. */
 
 /* ---------- home: the walkthrough offer (until it is answered, or the first card is graded) ---------- */
-/* It sits with .howit and the first-run hero, and for the same reason: a reader who has already studied
-   knows what the site is. Either button retires it — see tourOfferHTML in app.js. */
+/* It sits with the first-run hero, and for the same reason: a reader who has already studied knows what
+   the site is. Either button retires it — see tourOfferHTML in app.js. */
 .tour-offer{
   display:flex; align-items:center; gap:15px; flex-wrap:wrap;
   background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 17px;
@@ -1829,9 +1833,13 @@ body.grading .stage{padding-bottom:150px;}
    face: no mono and no uppercasing in the caption (which mangles the accents on a Greek name), and no
    synthetic oblique on Chinese — the body serif chain ends in generic `serif`, so CJK falls through to
    the reader's own system font, as everywhere else on the site. */
-/* the figure is a button, so it must not select as text: clicking it twice to toggle back would
-   otherwise sweep the ::selection wash across the whole quote. */
-.daily-quote.dq-flip{cursor:pointer; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent;}
+/* THE WORDS ARE SELECTABLE (Aug 2026, on request). This carried `user-select:none` from the day the flip
+   shipped, on the grounds that the figure is a button and clicking it twice to toggle back would sweep the
+   ::selection wash across the whole quote — which is true, and the wrong trade: a quotation is the one thing
+   on the home page a reader might want to copy, and the site's own read-aloud menu is built on selecting
+   prose. The flip is guarded in JS instead (wireDailyQuote): a click that ends a selection, or that ends a
+   drag, does not turn the page over. */
+.daily-quote.dq-flip{cursor:pointer; -webkit-tap-highlight-color:transparent;}
 .daily-quote.dq-flip:focus{outline:none;}
 .daily-quote.dq-flip:focus-visible{outline:2px solid var(--zh); outline-offset:8px; border-radius:4px;}
 /* The two languages dissolve into each other rather than cutting: the words on screen fade out and
@@ -2840,6 +2848,11 @@ body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in 
 /* the bottom transition would lag a finger by a third of a second while dragging — and would fight the
    fling frame for frame afterwards, since that one moves the marker itself, 60 times a second */
 .wb-tools.wb-dragging, .wb-tools.wb-flinging{transition:none;}
+/* …and the slide back to the default corner needs BOTH axes for its own 200ms (see wbGoHome in app.js:
+   the base rule above transitions `bottom` alone, which would slide the marker down into place and jump
+   it sideways). Two classes, so it outranks the base rule wherever it lands in the file. Keep the
+   duration in step with WB_HOME_MS. */
+.wb-tools.wb-homing{transition:right .2s var(--ease), bottom .2s var(--ease);}
 body.grading .wb-tools{bottom:108px;}
 .wb-tools.on-atlas{bottom:25px; right:16px;}   /* far bottom-right, vertically centred inside the timeline bar */
 .wb-panel{
@@ -3378,16 +3391,16 @@ button.game-tile .gt-glyph{opacity:.14;}
     color:var(--ink-faint); position:relative;
   }
   .tabbar .tab-ic{width:20px; height:20px; opacity:1;}
-  /* the top bar's labels unfold from the icon on hover and stay open only on the active tab; down here
-     every tab is named all the time, which is the point of moving them (a row of bare icons was the
-     problem, and there is no hover on a phone to unfold them with). At five or six to a row a cell is
-     ~65–78px wide, so the label may not wrap — a second line would push the icons off centre. */
-  /* the descendant `.tab` in the selector is SPECIFICITY, not decoration: the top bar's
-     `.tab:hover .tab-label` / `.tab.active .tab-label` rules carry three classes and open the label with
-     `margin-inline-start:8px`. At two classes this rule lost to them whatever the source order, so the
+  /* Every tab is named all the time here, which is the point of moving them: a row of bare icons was the
+     problem, and there is no hover on a phone to unfold one with. (The top bar names its tabs outright too
+     since Aug 2026 — it used to unfold them from the icon — but it sets the name BESIDE the icon, where
+     these sit UNDER it.) At five or six to a row a cell is ~65–78px wide, so the label may not wrap: a
+     second line would push the icons off centre.
+     The descendant `.tab` in the selector is SPECIFICITY, not decoration: the top bar's own rule sets
+     `margin-inline-start:8px`, and at two classes this one lost to it whatever the source order, so the
      SELECTED tab's name sat 8px right of the icon it belongs under — the label is centred in the cell here,
      and any inline margin breaks that. */
-  .tabbar .tab .tab-label{display:block; max-width:100%; opacity:1; margin-inline-start:0; margin-inline-end:0; transition:none;
+  .tabbar .tab .tab-label{display:block; max-width:100%; margin-inline-start:0; margin-inline-end:0;
     font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; line-height:1;
     text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .tabbar .tab.active{color:var(--indigo);}
@@ -3507,7 +3520,6 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-title{font-size:calc(12.5px * var(--fs)); line-height:1.15;}   /* one line per tile — see the padding note above */
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
-  .howit{grid-template-columns:1fr; gap:10px;}
   /* the offer's two controls go under its prose rather than beside it — at 390px "Take the tour" and
      "No thanks" on the same line as the sentence leave the sentence four words wide */
   .to-acts{flex:1 1 100%; justify-content:flex-start;}
@@ -5272,6 +5284,11 @@ body.night .book-tile{
 .bk-nav svg{width:16px; height:16px;}
 .bk-nav:hover:not(:disabled){background:var(--paper); color:var(--ink); border-color:var(--indigo);}
 .bk-nav:disabled{opacity:.35; cursor:default;}
+/* the "?" that brings the first-open card back. It is the only .bk-nav whose face is a CHARACTER rather
+   than an svg, so it needs the type stated — a button falls back to the UA font otherwise. It stands last
+   in the bar, past the controls it explains, and quiet until pointed at. */
+.bk-help-btn{font-family:var(--mono); font-size:calc(14px * var(--fs)); line-height:1; opacity:.7;}
+.bk-help-btn:hover{opacity:1;}
 .bk-tabs{
   flex:1 1 auto; display:flex; gap:5px; overflow-x:auto; scroll-behavior:smooth;
   scrollbar-width:thin; padding:1px 0;

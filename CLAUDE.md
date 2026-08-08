@@ -2084,12 +2084,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   markup are untouched (`#decks`, every shared link still works); only the label, the eyebrow and its
   `PAGE_META` title changed. Two pages called Library, one titled Collections, is how a reader lands on the
   wrong one.
-  · **IT EXPLAINS ITSELF ON A FIRST VISIT** (Aug 2026, on request), the Atlas's pattern one page over: a
-    card covering the shelf's five features — what may be shelved, the chapter bar and the kept reading
-    position, the facing original, the marker and the passage highlights, and the search/sort/hold. Shown
-    once (`folio_library_tour_v1`), brought back by the `#libHelpBtn` "?" beside the sort. Built on
-    `document.body` by `pageHelp` and NOT written into this page — see that bullet under "How the app is
-    wired" for the reason, which is `.page` being the containing block for anything `position:fixed`.
+  · **IT EXPLAINS ITSELF ON A FIRST VISIT, IN TWO HALVES** (Aug 2026, on request), the Atlas's pattern one
+    page over. It was ONE card on the shelf covering five features, and three of the five are about the
+    inside of a book — the chapter bar, the facing original, the marker and the highlights. A reader
+    standing at the shelf has not opened a book yet, so those three describe furniture that is not on the
+    screen and cannot be tried, which is the surest way to have an explanation read past. Split at the
+    obvious seam: **the SHELF card** (`LIB_HELP_TIPS`) says what may be shelved and why, how to search,
+    sort and hold, and that your place is kept; **the BOOK card** (`BOOK_HELP_TIPS`) says how to read one
+    and is shown the first time a book is actually opened, beside the bar it is talking about. Both are
+    built on `document.body` by `pageHelp` and NOT written into their page — see that bullet under "How the
+    app is wired" for the reason, which is `.page` being the containing block for anything
+    `position:fixed`. Each has a "?" bringing it back (`#libHelpBtn` beside the sort, `#bkHelp` at the end
+    of the chapter bar). **TWO KEYS, because they are answered at different moments and one must not retire
+    the other**: the shelf's is untouched (`folio_library_tour_v1`), so a reader who met the old card is
+    not shown that half again — and DOES meet the book half, which is new to them and is the part they were
+    likeliest to have skimmed. Beside `folio_book_tour_v1` sits a session flag (`_bookHelpShown`), because
+    **the book page RE-RENDERS under the reader**: the original-language bundle lands a moment after the
+    page opens and calls `render()`, which closes every overlay on the body, so on the stored value alone
+    the card would be taken away and rebuilt mid-sentence with the focus reset.
+    **`test-library.js` must suppress BOTH keys**, not just the shelf's — the book half sits over the very
+    page its gesture sections swipe, and it announced itself by silently eating one real-touch swipe.
   · **WHAT MAY BE SHELVED, and it is the only content rule.** Folio serves the text itself, so a book goes
     up only where the copyright has **expired**. For a classical author the trap is that the original and
     the TRANSLATION are separate works: Seneca's Latin is free and the English is a 20th-century work with
@@ -4345,7 +4359,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE OFFER IS INLINE, NOT MODAL.** It would be one line to raise the tour over the home page on a
     first visit, and it is the wrong line: a site that seizes the screen before the reader has seen it is a
     site they leave. `tourOfferHTML()` is a card at the head of `.banners`, beside the first-run hero and
-    the `.howit` strip that are already first-run-only, shown to a reader who has **never graded a card**
+    the (now removed) `.howit` strip that are already first-run-only, shown to a reader who has **never graded a card**
     and never answered it; either answer writes the key for good, and **Settings → Study → Walkthrough** is
     the way back. It is also what keeps every Playwright test that boots a fresh reader from meeting an
     overlay it never asked about — the offer blocks nothing.
@@ -4379,11 +4393,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Escape and Skip close it (and count as answered); the **backdrop deliberately does not** — a stray tap on
   a dimmed page is the likeliest gesture there is, and losing the tour to one would be losing it silently.
   `.folio-tour` is in `swipeEnabled()`'s overlay list. Guarded by `.claude/test-tour.js`.
-- **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp` / `LIB_TOUR_KEY` / `openLibHelp`;
+- **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp` / `LIB_TOUR_KEY` / `openLibHelp` /
+  `BOOK_TOUR_KEY` / `openBookHelp`;
   `.page-help` in styles.css. Aug 2026, on request). The Atlas has had these since it shipped
   (`#atlasHelp`, `folio_atlas_tour_v1`, reopened by `#gzHelp`); the walkthrough stops short of the Atlas
-  and the Library on purpose, so **the Library now has its own** — `folio_library_tour_v1`, reopened by the
-  `#libHelpBtn` "?" beside the shelf's sort. Same card, same three ways out.
+  and the Library on purpose, so **the Library has its own — and since Aug 2026, on request, TWO**:
+  `folio_library_tour_v1` on the shelf, reopened by the `#libHelpBtn` "?" beside the sort, and
+  `folio_book_tour_v1` the first time a book is opened, reopened by `#bkHelp` at the end of the chapter
+  bar. The reasoning for the split, the two keys and the session flag beside the second is in the Library
+  bullet under "How the app is wired". Same card, same three ways out.
   **IT LIVES ON `document.body`, AND THAT IS NOT A PREFERENCE.** The Atlas's card can be
   `position:absolute` inside its own full-bleed stage; an ordinary page has no such stage, so this one must
   be fixed to the VIEWPORT — and `.page` carries `animation:pageIn … both`, which makes it the containing
@@ -4406,10 +4424,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   listener ever), because the i18n observer rewrites the quote after render for a non-English reader and a
   webfont arriving re-wraps both languages. `DQ_FADE` /
   `DQ_SIZE` in app.js must stay in step with the `.dq-*` transition durations in styles.css; a `busy` guard ignores
-  clicks mid-flight and `prefersReducedMotion()` swaps outright instead of waiting out the timings. `.dq-flip` also
-  carries **`user-select:none`** — it is a button, and clicking it twice to toggle back otherwise swept the
-  `::selection` wash across the whole quote (the "it lights up" bug); the trade is that the quote can no longer be
-  selected for copying. The original carries **`notranslate`**, or the i18n engine would translate the
+  clicks mid-flight and `prefersReducedMotion()` swaps outright instead of waiting out the timings.
+  **THE WORDS ARE SELECTABLE, and the flip is guarded in JS rather than in CSS** (Aug 2026, on request).
+  `.dq-flip` carried **`user-select:none`** from the day it shipped — it is a button, and clicking it twice
+  to toggle back swept the `::selection` wash across the whole quote (the "it lights up" bug) — and the
+  trade was that the one thing on the home page a reader might want to copy could not be. So the rule is
+  gone and `wireDailyQuote` classifies the click instead, on TWO tests, both needed: a **live selection
+  inside the figure** (a sweep or a double-click always ends in a click, and flipping there takes the very
+  words away) and a press that **MOVED past `DQ_SLOP`** (a drag across empty space beside a short line
+  selects nothing, so there is no selection left to test). It is the same classification the book's own
+  tap-to-turn makes. The original carries **`notranslate`**, or the i18n engine would translate the
   one thing on the page that must stay as written. A quote has an `o` only where the original wording is documented —
   Bacon wrote in English, and Meditations VII.49's exact Greek could not be verified, so both render exactly as before
   with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**.
@@ -4445,10 +4469,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is the cost that is no longer paid anywhere: the mini globe was the **only caller of the `world` bundle outside
   the Atlas**, so the home page no longer fetches ~1.6 MB of borders at idle to turn an ornament. The
   Card-of-the-day PSEUDO-ENTRY (`COTD_ENTRY`, `S.cotd`) survives untouched — a reader who added cards that way
-  still has them in the review, and the entry retires itself when its list empties. **Until the first card is ever graded**
+  still has them in the review, and the entry retires itself when its list empties.
+  **THE `.howit` STRIP IS GONE TOO** (Aug 2026, on request), and `.hi-step` / `.hi-num` / `.hi-body` with it:
+  the three-beat first-run explanation of the method that sat under the review banner — study a card, grade
+  yourself, it comes back. The WALKTHROUGH offered directly above where it stood says all three properly,
+  with the forgetting curve behind them and a real card to look at, so the strip was a first visit spending
+  its attention twice on the same lesson. Its markup and its CSS are deleted rather than hidden at a
+  breakpoint: the reasoning applies at every width, and the phone/desktop divergence is what this page has
+  spent Aug 2026 removing. `TOUR_STEPS`' second step no longer names it as a target and falls to `.banners`.
+  **Until the first card is ever graded**
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
-  xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
+  xp bar, stats, review-order toggle and active-deck list appear only after that.
+  **The hero offers ONE way in, and its title breaks where it is written to** (Aug 2026, on request). The
+  quiet "or browse the collections" beside the button is gone and `.hero-alt` with it — the collections are
+  one press further on from wherever that button lands, and the `.rv-lip` under the review group is the route
+  the home page advertises, so a second and quieter link in the same row only asked a first-time reader to
+  choose between two things they cannot yet tell apart. The `#hero-browse` branch in the banner's own click
+  handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
+  leaving the two halves to the wrap: it is a promise and a price, and which line each falls on should not
+  be a function of the column width. The banner shows a **🔥 day-streak
   chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a MARK in the top-right corner, and
   it comes in TWO SHAPES** (`doneMarkHTML` in `PAGES.home`; Aug 2026). The tile used to FILL with its colour
   once played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought
@@ -4546,7 +4586,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     already follows for the collections. The `#mission` ROUTE is untouched and must stay so: every link ever
     shared points at it, and `setActiveTab` already handles a route with no tab (nothing lights). Its
     `20px 0 16px` padding is the whole of its separation
-    from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid).
+    from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid),
+    and **above 640px the top of it goes to 48px** (Aug 2026, on request): those figures are a PHONE's, where
+    the page ending a thumb's width below the last tile is right and more air there is only scrolling, and a
+    wide window has the room to let the last line of the page read plainly as the end of it. It is
+    `padding-top` rather than a margin so the space stays part of the button's own target.
     Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the cards most AKIN
@@ -4714,6 +4758,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   had to be restyled; `.deck-prog .xp-lvl` takes the quiet ink, a caption not being a level. The same pair
   is used by the community-deck rows and by the account page's "Collection progress" section, so the three
   places a collection's standing is shown cannot come to disagree about what they are showing.
+- **THE DESKTOP'S TOP BAR NAMES ITS TABS AT ALL TIMES** (`.tab .tab-label`, Aug 2026, on request). They were
+  icon-only, the name unfolding beside the icon on hover / keyboard focus and staying open on the page
+  currently shown — so finding out what the four icons were meant pointing at each of them in turn, and the
+  one name on screen belonged to the page the reader was already on, which is the one they least needed
+  told. There are four destinations and the bar has room for all four (measured: 0px of overflow at 1280px,
+  and every label rendering at its own `scrollWidth`), so the name is simply there. `.active` still says
+  which page you are on, in the indigo and the underline. The collapse went with it — no `max-width`, no
+  `opacity`, no width transition, so nothing animates — and **the `.ink` underline is unchanged**, since it
+  was already positioned from `--ink-start` (padding + icon + the open label's margin) rather than from the
+  animation. The phone's own rule still overrides `margin-inline-start` and still needs its extra `.tab` for
+  specificity; the two bars now differ only in where the name sits relative to the icon (beside, against
+  under). One cost, stated: an inactive label is `--ink-faint`, which is 3.25:1 and below the bar — it is one
+  of the quiet tokens `body.hc` re-tones, exactly as the version line and the games heading are, and
+  `test-a11y.js` covers it with no change of its own.
 - **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`) and **the top
   bar is hidden outright** — see the next bullet.
 - **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
@@ -4747,12 +4805,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   8.5px — `test-layout.js` asserts each label's rendered width against its own `scrollWidth`, so a longer
   name added later fails there rather than silently clipping.
   **The label rule is written `.tabbar .tab .tab-label`, and the descendant `.tab` is SPECIFICITY, not
-  decoration** (Aug 2026, on a bug report): the top bar's `.tab:hover .tab-label` / `.tab.active .tab-label`
-  open the label beside the icon with `margin-inline-start:8px`, and at two classes against three this rule
-  lost to them whatever the source order — so the SELECTED tab, and only that one, drew its name 4px right
+  decoration** (Aug 2026, on a bug report): the top bar's own rule sets `margin-inline-start:8px`, and at
+  two classes against three this rule
+  lost to it whatever the source order — so the SELECTED tab, and only that one, drew its name 4px right
   of the icon it sits under. One tab misaligned out of five looks like a design, not a bug, which is why
   `test-layout.js` now measures every tab's icon centre against its label's, active included.
-  Every tab is labelled here (the top bar's labels unfold on hover, and a phone has no hover). Hidden while
+  Every tab is labelled here, under its icon; the TOP bar names its tabs too, beside theirs. Hidden while
   `body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
   **The admin area's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
   than a nav tab. Called with a card id from the study page — it opens THAT card in the editor — and with
@@ -4823,6 +4881,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     lands, and **saves only once it has come to rest** — where it landed, not where it left.
     `.wb-flinging` joins `.wb-dragging` in killing the `bottom` transition, which would otherwise fight the
     fling frame for frame.
+  · **…AND IT SNAPS HOME** (`WB_SNAP_HOME` / `WB_HOME_MS` / `wbDefaultPos` / `wbNearHome` / `wbGoHome` /
+    `wbStopHome`, `.wb-homing`; Aug 2026, on request). Let go within 30px of the corner it started in and the
+    marker slides the rest of the way and **forgets the position entirely**, so it is back to the pixel in
+    line with the zoom column, the timeline bar and whatever else that corner is shared with. Without it
+    "put it back where it was" is a job no reader can do by hand, because the default is a stylesheet corner
+    that MOVES — 18px normally, 108 while grading, 25 on the Atlas, different again on a phone — so a drag
+    landing one pixel out leaves a stored position that no longer follows any of those rules, and the
+    misalignment turns up later, on a page the reader was not looking at when they moved it. Four things:
+    · **THE DEFAULT IS MEASURED, NEVER WRITTEN DOWN** — the inline right/bottom are cleared, the rect is
+      read, and they are put straight back. A table of the CSS corners here would be a second copy of the
+      stylesheet, out of date the first time one of those offsets moved, and wrong in exactly the case this
+      exists to serve.
+    · **…AND THE TRANSITION HAS TO GO OFF FOR THAT MEASUREMENT.** `.wb-tools` carries `transition:bottom
+      .34s` for the grade bar's sake, so clearing the inline `bottom` STARTS an animation towards the
+      stylesheet's value rather than arriving at it, and the rect read on the same tick is still the OLD
+      bottom. Left in, the probe returns the marker's own current position as its "default": the snap test
+      becomes right-axis-only and the slide goes to a place the stylesheet never chose. It did, for an hour,
+      and it is invisible from the outside — the marker still slides and still ends up right, because the
+      timer then clears the position and the CSS takes over. Caught by reading the inline styles mid-slide.
+    · **CLEARING THE STORED POSITION IS THE POINT, not moving it to the same numbers.** A marker parked at
+      the default's coordinates still HAS a position, so it would sit still while `body.grading` lifted the
+      corner out from under it. The slide animates the inline values to the default and then drops them.
+    · **INTERRUPTING THE SLIDE DOES NOT CANCEL THE GOING-HOME** (`wbStopHome`): the marker was released at
+      the corner and that is where it belongs, so a press stops the ANIMATION and the position is forgotten
+      there and then. Cancelling instead would leave the marker sitting at coordinates localStorage does not
+      have — memory, disk and the pixels have to agree at every instant.
+    Gated on `prefersReducedMotion()` (there the position is simply cleared), and `.wb-homing` transitions
+    BOTH axes for its own 200ms, the base rule transitioning `bottom` alone — keep it in step with
+    `WB_HOME_MS`.
   · **The handle is the toggle button itself** — there is nothing else to grab — so every press has to be
     classified: under `WB_DRAG_SLOP` (5px) it stays a click and toggles drawing, past it the drag takes over
     and the click that pointerup fires afterwards is swallowed by the `wbDragged` flag, which the toggle's own
@@ -5027,7 +5114,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   must clear both its left neighbour and the right anchor; it re-runs from `resize()`, and it has to unhide
   everything before measuring because a hidden element has no width.
   A **plate-title cartouche** (`#mapCartouche`, top-centre, hidden ≤640px, updated by `paintYear`) shows "THE WORLD ·
-  1938" / "THE WORLD TODAY". The disk gets **limb shading + an atmosphere halo** as **two DOM layers, NOT canvas
+  1938" for a past year and simply **"TODAY"** for the present one (Aug 2026, on request — it was "THE WORLD
+  TODAY": every other plate is "THE WORLD · <year>", so on this one the two words before the date were the
+  only part carrying no information, the globe under it being the world either way). The disk gets **limb shading + an atmosphere halo** as **two DOM layers, NOT canvas
   gradients**: `#globeHalo` (below the canvas) + `#globeShade` (above it, `z-index:1`), radial-gradient divs sized to
   the disk by `updateLimbDom()` each draw (style-update only, keyed so it no-ops unless the disk moved) and tinted by
   `paintLimbDom()` (colours `limbA/limbB/haloIn/haloOut` from `readColors`; re-applied by the theme observer). They
@@ -7218,14 +7307,20 @@ dead code (never rendered).
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
     `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
+    `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` /
     the ink layer's pass-through /
     `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on `.admin-list-items` /
     `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
-    catch — it has to report, not abort the file. Verified against five deliberately reintroduced
+    catch — it has to report, not abort the file. Verified against six deliberately reintroduced
     regressions (a no-op `layoutTicks`, the chip's source-order bug, the collapsing labels, a `render()`
-    that forgets `closeCongrats`, and the tab label's two-class rule); each was caught.
+    that forgets `closeCongrats`, the tab label's two-class rule, and the marker's transitioned default
+    probe); each was caught. **That last one is worth knowing before adding to the marker section**: the
+    settled position could NOT see it — clearing the stored position afterwards hands the marker to the
+    stylesheet and it ends up right whatever the slide aimed at — so the assertion had to read the inline
+    right/bottom MID-FLIGHT. A first cut asserted the finished position and passed with the bug
+    reintroduced, which is a test that would have shipped the fault back the next time somebody touched it.
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js`: that a
     register full of historical territories can never push the country figure past its own total, that a
@@ -7339,8 +7434,8 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
-  · `node .claude/test-tour.js` — the first visitor's walkthrough and the two pages that explain themselves
-    (Aug 2026), 52 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+  · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
+    (Aug 2026), 61 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
     **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
     obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
@@ -7354,9 +7449,13 @@ dead code (never rendered).
     demo grades carry four DIFFERENT intervals from the real scheduler, which a hard-coded illustration
     would hide for ever; either answer retires the offer and a second visit proves it; a reader with study
     history is not offered a beginners' tour; and the coach marks are shown once, reopen from their "?", and
-    cannot outlive their page. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` /
-    `closePageHelp`, `tourOfferHTML`'s place on the home page, the Atlas or Library help cards, or
-    `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
+    cannot outlive their page. **THE LIBRARY'S SPLIT IS ASSERTED IN BOTH DIRECTIONS** (Aug 2026) — the shelf
+    card carries the search and the reading position and NOT the marker, the book card carries the marker,
+    the chapters and the facing original, and the two are remembered under separate keys — because a tip
+    filed in the wrong half is invisible from either side on its own, and the half that fires on opening a
+    book is the one nothing else in the suite would ever see. **Re-run after touching the `THE GUIDED TOUR`
+    block, `pageHelp` / `closePageHelp` / `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `tourOfferHTML`'s place on the
+    home page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
     `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
     figures (read them structurally); and a step-change reads mid-transition, so anything measured during
     one has to be measured again after it settles.

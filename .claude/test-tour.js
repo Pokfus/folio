@@ -268,17 +268,49 @@ const CARD = () => {
     check("a first visit to the Library explains it", !!h, h ? "" : "no .page-help");
     check("...ON THE BODY, so it is fixed to the viewport and not to the shelf", !!(h && h.onBody));
     check("...and is actually on the screen", !!(h && h.onScreen));
-    check("...covering several features", !!(h && h.tips >= 4), h && h.tips + " tips");
-    check("...the marker among them", !!(h && /marker/i.test(h.text)));
+    /* THE CARD IS TWO CARDS (Aug 2026, on request), and the split is what these assert — in BOTH
+       directions, since a tip in the wrong half is invisible from either side on its own. The SHELF's
+       half says what is here and how to find it; everything about the inside of a book moved to a card
+       shown the first time one is opened, beside the furniture it is describing. */
+    check("...covering what the shelf itself offers", !!(h && h.tips >= 3), h && h.tips + " tips");
+    check("...the search and the sort among them", !!(h && /search/i.test(h.text)));
     check("...and the reading position it keeps", !!(h && /remember/i.test(h.text)));
+    check("...but NOT the marker, which belongs to the book half", !!(h && !/marker/i.test(h.text)));
 
     await page.click(".page-help .ah-go");
     await page.waitForTimeout(300);
     check("dismissing it clears the shelf", await page.evaluate(() => !document.querySelector(".page-help")));
     // a book still opens — a scrim left hit-testing would make the whole shelf dead to the touch
     await page.click(".book-tile");
-    await page.waitForTimeout(1200);
+    await page.waitForTimeout(2500);
     check("...and a book opens straight afterwards", await page.evaluate(() => location.hash.startsWith("#book/")), await page.evaluate(() => location.hash));
+
+    // …and the book half arrives with it, on the first book ever opened
+    const bk = await page.evaluate(() => {
+      const ov = document.querySelector(".page-help");
+      if (!ov) return null;
+      const r = ov.querySelector(".ah-card").getBoundingClientRect();
+      return { tips: ov.querySelectorAll(".ah-tip").length, text: ov.textContent,
+               onBody: ov.parentElement === document.body,
+               onScreen: r.top >= 0 && r.bottom <= innerHeight + 1 && r.width > 120 };
+    });
+    check("opening a book explains the READING", !!bk, bk ? "" : "no .page-help on the book");
+    check("...on the body and on the screen, like the shelf's", !!(bk && bk.onBody && bk.onScreen));
+    check("...the marker is here, where a page exists to draw on", !!(bk && /marker/i.test(bk.text)));
+    check("...with the chapter bar and the facing original", !!(bk && /chapters/i.test(bk.text) && /original/i.test(bk.text)));
+    await page.click(".page-help .ah-go");
+    await page.waitForTimeout(300);
+    check("dismissing it clears the book", await page.evaluate(() => !document.querySelector(".page-help")));
+    // its own key, so the shelf's answer cannot retire it and vice versa
+    check("...the two halves are remembered apart", await page.evaluate(() =>
+      !!localStorage.getItem("folio_library_tour_v1") && !!localStorage.getItem("folio_book_tour_v1")));
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    check("...and the book half is not shown again", await page.evaluate(() => !document.querySelector(".page-help")));
+    await page.click("#bkHelp");
+    await page.waitForTimeout(300);
+    check("...but the book's ? brings it back", await page.evaluate(() =>
+      !!document.querySelector(".page-help") && /marker/i.test(document.querySelector(".page-help").textContent)));
 
     await page.goto(base + "#library", { waitUntil: "load" });
     await page.waitForTimeout(1000);
