@@ -717,7 +717,8 @@ window.GLOSSARY = {
 "Caere": "Caere was an Etruscan city on the plateau where Cerveteri now stands, known to Greek traders as Agylla and the most thoroughly hellenised of the Etruscan cities.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An Athenian colony was settled there by about 600 BCE, an Ionian workshop made the painted Caeretan hydriae between 540 and 510, and Attic pottery reached the city in quantity.<sup class=\"fn\" data-fn=\"2\"></sup> Its ports included Pyrgi, its cemetery was the Banditaccia, and its long friendship with Rome ended in annexation, the Caerites being remembered as the first people made Roman citizens without the vote.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Banditaccia_necropolis": "The Banditaccia necropolis is the principal cemetery of the Etruscan city of Caere, covering a plateau across a valley from the town, its rock-cut chamber tombs set under earthen mounds.<sup class=\"fn\" data-fn=\"1\"></sup> Chamber interiors imitate the rooms of a house and develop in plan until about the middle of the 6th century BCE, after which the tombs are laid out along planned roads with uniform exteriors.<sup class=\"fn\" data-fn=\"1\"></sup> From the 4th century BCE the façades cease and tombs are cut along roads sunk into the tuff, while cippi, stelae and stone lions above ground carried the memory of the dead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Veii": "Veii was an Etruscan city on the right bank of the Tiber, the nearest of the Etruscan cities to Rome, whose walls enclosed 190 hectares (470 acres).<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Roman writers remembered it as the most powerful city in Etruria in the earliest days and recorded a long series of wars with Rome, ending in its storming by Camillus in 396 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its sanctuary at Portonaccio drew gifts from across Etruria, and although the city ended, excavation shows the site occupied at lower intensity for centuries afterwards.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Vulci": "Vulci was an Etruscan city above the river Fiora in southern Etruria, ranking with the greatest and worshipping Uni, Vei, Fufluns, Suri and Thufltha.<sup class=\"fn\" data-fn=\"1\"></sup> The emperor Claudius named two Vulcian brothers, Aulus and Caelius Vibenna, in the speech preserved on a bronze tablet at Lyon, adding that their companion Mastarna ruled Rome as Servius Tullius.<sup class=\"fn\" data-fn=\"1\"></sup> Rome took its coastal strip in 280 BCE, and its cemeteries, opened on a huge scale from 1828, sent Etruscan and Attic material into museums and private collections across Europe.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Vulci": "Vulci was an Etruscan city above the river Fiora in southern Etruria, ranking with the greatest and worshipping Uni, Vei, Fufluns, Suri and Thufltha.<sup class=\"fn\" data-fn=\"1\"></sup> The emperor Claudius named two Vulcian brothers, Aulus and Caelius Vibenna, in the speech preserved on a bronze tablet at Lyon, adding that their companion Mastarna ruled Rome as Servius Tullius.<sup class=\"fn\" data-fn=\"1\"></sup> Rome took its coastal strip in 280 BCE, and its cemeteries, opened on a huge scale from 1828, sent Etruscan and Attic material into museums and private collections across Europe.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Etruscan_bronzework": "Etruscan bronzework is the metalwork of Etruria in copper alloy, comprising vessels, mirrors, statuettes and furniture fittings, and it travelled further than anything else the Etruscans made.<sup class=\"fn\" data-fn=\"1\"></sup> Beaked jugs of the type called Schnabelkanne, most of them made between 525 and 400 BCE, reached Switzerland, the Rhine valley and Gaul in large numbers, and corded cistae, situlae and stamnoi went with them.<sup class=\"fn\" data-fn=\"1\"></sup> At home the engraved mirrors are the most closely studied class, while the tin that the alloy requires has no proven Etruscan source, no tin slag having been found in Tuscany.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1060,7 +1061,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Caere": "Iron Age – Roman period",
 "Banditaccia_necropolis": "Iron Age – 3rd century BCE",
 "Veii": "Iron Age – 396 BCE",
-"Vulci": "Iron Age – Roman period"
+"Vulci": "Iron Age – Roman period",
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1541,7 +1542,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Caere": ["Cerveteri","Agylla"],
 "Banditaccia_necropolis": ["Banditaccia","Banditaccia cemetery"],
 "Veii": ["Veio","Veientes"],
-"Vulci": ["Velc","Volcentani"]
+"Vulci": ["Velc","Volcentani"],
+"Etruscan_bronzework": ["Etruscan bronzes","Etruscan bronze"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2272,7 +2274,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Caere": ["city","archaeology","history","italy","iron age","etruscan"],
 "Banditaccia_necropolis": ["place","archaeology","history","italy","iron age","etruscan","religion"],
 "Veii": ["city","archaeology","history","italy","iron age","etruscan","warfare"],
-"Vulci": ["city","archaeology","history","italy","iron age","etruscan"]
+"Vulci": ["city","archaeology","history","italy","iron age","etruscan"],
+"Etruscan_bronzework": ["object","technology","archaeology","history","italy","iron age","etruscan"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2994,7 +2997,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Caere": ["Mauro Cristofani, \"Cerveteri,\" <i>Bibliografia topografica della colonizzazione greca in Italia e nelle isole tirreniche</i> 5 (1987): 251–66, https://www.persee.fr/doc/btcgi_0000-0009_1987_num_5_1_3380. [Open access]","Jacques Heurgon, \"Les inscriptions de Pyrgi et l'alliance étrusco-punique autour de 500 av. J.-C.,\" <i>Comptes rendus des séances de l'Académie des Inscriptions et Belles-Lettres</i> 109, no. 1 (1965): 89–104, https://doi.org/10.3406/crai.1965.11813. [Open access]","Michel Humbert, \"L'incorporation de Caere dans la civitas Romana,\" <i>Mélanges de l'École française de Rome</i> 84, no. 1 (1972): 231–68, https://doi.org/10.3406/mefr.1972.923. [Open access]"],
 "Banditaccia_necropolis": ["Mauro Cristofani, \"Cerveteri,\" <i>Bibliografia topografica della colonizzazione greca in Italia e nelle isole tirreniche</i> 5 (1987): 251–66, https://www.persee.fr/doc/btcgi_0000-0009_1987_num_5_1_3380. [Open access]","Catherine Cousin, \"Une commémoration originale du mort en Étrurie,\" <i>Actes des congrès nationaux des sociétés historiques et scientifiques</i> 134, no. 1 (2010): 17–33, https://www.persee.fr/doc/acths_1764-7355_2010_act_134_1_1813. [Open access]"],
 "Veii": ["Francesca Boitani and Iefke van Kampen, \"Veio,\" <i>Bibliografia topografica della colonizzazione greca in Italia e nelle isole tirreniche</i> 21 (2012): 553–88, https://www.persee.fr/doc/btcgi_0000-0009_2012_num_21_1_4754. [Open access]","Paul Fontaine, \"Véies. Les remparts et la porte de la Piazza d'Armi,\" <i>Mélanges de l'École française de Rome</i> 105, no. 1 (1993): 221–39, https://doi.org/10.3406/mefr.1993.1799. [Open access]","Charlotte R. Potts and Christopher J. Smith, \"The Etruscans: Setting New Agendas,\" <i>Journal of Archaeological Research</i> 30 (2022): 597–644, https://doi.org/10.1007/s10814-021-09169-x. [Open access]"],
-"Vulci": ["Anna Maria Moretti Sgubini, \"Vulci,\" <i>Bibliografia topografica della colonizzazione greca in Italia e nelle isole tirreniche</i> 21 (2012): 1082–1154, https://www.persee.fr/doc/btcgi_0000-0009_2012_num_21_1_4783. [Open access]","Clara Berrendonner, \"Les Tetnie à Vulci,\" <i>Mélanges de l'École française de Rome</i> 118, no. 1 (2006): 21–34, https://doi.org/10.3406/mefr.2006.10966. [Open access]"]
+"Vulci": ["Anna Maria Moretti Sgubini, \"Vulci,\" <i>Bibliografia topografica della colonizzazione greca in Italia e nelle isole tirreniche</i> 21 (2012): 1082–1154, https://www.persee.fr/doc/btcgi_0000-0009_2012_num_21_1_4783. [Open access]","Clara Berrendonner, \"Les Tetnie à Vulci,\" <i>Mélanges de l'École française de Rome</i> 118, no. 1 (2006): 21–34, https://doi.org/10.3406/mefr.2006.10966. [Open access]"],
+"Etruscan_bronzework": ["Bernard Bouloumié, \"Les œnochoés en bronze du type Schnabelkanne en France et en Belgique,\" <i>Gallia</i> 31, no. 1 (1973): 1–35, https://doi.org/10.3406/galia.1973.2623. [Open access]","Marco Tizzoni, \"Etruscan Tin: A Legend?,\" <i>Pallas</i> 50, no. 1 (1999): 89–100, https://doi.org/10.3406/palla.1999.1538. [Open access]","Roger Lambrechts, \"Deux miroirs étrusques inédits,\" <i>Revue belge de philologie et d'histoire</i> 76, no. 1 (1998): 159–76, https://doi.org/10.3406/rbph.1998.4259. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
