@@ -1732,6 +1732,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
+- `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
+  (the `check-style --fix` citation corruption above all), four planned batches (**A** stale translations,
+  **B** content outside its own length bar, **C** the changelog drifting back into transcripts, **D** deck-title
+  casing), the eager-payload measurement, and the suggestions that came out of it. **Its "where the site is
+  strong" section is measured on purpose** — 4,028 citations all carrying a URL and an access label, clean data
+  integrity, `PAGE_META` covering all 20 routes — so a later pass does not go "fixing" what is already right.
+  Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
