@@ -59,13 +59,17 @@ It is a plain static website — open `index.html` and it runs.
 
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js → app.js`.
-**That path was ~1.4 MB when the lazy split landed and is now 7.5 MB raw / 2.4 MB gzipped** (measured
-2026-08-08; the figure here said 1.4 MB for months and was five times out of date, so **re-measure it rather
-than quoting it**). The growth is content, not code: `data.js` alone is 4.3 MB, and **58% of it (2.06 MB) is
-the `i18n` translation blocks of 89 cards** — which `MULTILANG = false` means no reader can currently reach.
-That is the `quotes.js` mistake (27 KB → 312 KB for every visitor) at seven times the scale, and the fix is
-the same one: move card translations to a lazy `cardI18n:<lang>` bundle beside the glossary's. `glossary.js`
-is 1.15 MB, of which `GLOSSARY_SOURCES` is 479 KB (42%) and is only read once a popup opens.
+**That path is 4.9 MB raw / 1.35 MB gzipped** (measured 2026-08-08 after the translation removal below; it
+said "~1.4 MB" for months and was five times out of date, so **re-measure it rather than quoting it**).
+**THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
+path was 7.5 MB raw / 2.4 MB gzipped, and **58% of `data.js` (2.06 MB) was the `i18n` blocks of 89 cards**,
+which `MULTILANG = false` meant no reader could reach — the `quotes.js` mistake (27 KB → 312 KB for every
+visitor) at seven times the scale. `data.js` went 4.32 MB → 1.64 MB and every visitor now downloads ~1 MB
+less gzipped. `glossary.js` is 1.15 MB, of which `GLOSSARY_SOURCES` is 479 KB (42%) and is only read once a
+popup opens — the largest remaining candidate, and the weakest of them, since popups are common.
+**Nothing re-adds a translation by accident**: `add-card.js` and `add-glossary.js` now DROP a supplied
+`i18n` / `translations` block with a warning, and `test-i18n-lang.js` fails if any card carries one or any
+`i18n/gloss-<lang>.js` reappears.
 
 **Everything else is LAZY**, injected on demand by `DATA_BUNDLES` / `ensureData(name)` in app.js (see the
 "Lazy data bundles" bullet under "How the app is wired"). Before this split every visitor downloaded ~11.3 MB
@@ -76,7 +80,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
-| `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
+| ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
 | `placeI18n:<lang>` | `i18n/places-<lang>.js` | ditto (country / territory / capital names on the globe) |
 | `book:<id>` | `books/<id>.js` | that book is opened in the Library (never on the shelf — see the Library bullet) |
@@ -1745,8 +1749,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 99 cards** — 89 in World
   History (`col-8`, scattered across the first three subdecks of its 1000-slot plan) and 10 in Ancient
   Greece (`gr-001`…`gr-010`) — **each carrying its full pool of 3 question phrasings** (`question` + 2
-  `questions` extras) in EN + all 9 languages (regrown from the `cnh-001` template, which remains the
-  canonical format); both collections are grown one card at a time (see "Generating cards & glossary
+  `questions` extras), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
+  request** — 2.06 MB, 58% of the file, that `MULTILANG = false` put beyond every reader's reach, and the
+  file went 4.32 MB → 1.64 MB with them. `add-card.js` now DROPS a supplied `i18n` block with a warning and
+  `test-i18n-lang.js` fails if one reappears, so the eager path cannot silently regain it; both collections are grown one card at a time (see "Generating cards & glossary
   entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
   are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
   and card ids follow that plan's numbering. **`col-40` Ancient Rome gained its 7 decks and 25 leaf
@@ -1792,14 +1798,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   translations are backed up in `.claude/backup/`.
 - `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
   `glossary.js`). **Currently an empty stub.**
-- `i18n/gloss-<lang>.js` — glossary descriptions translated into that one language (slug → text); written by
-  `.claude/add-glossary.js` from the entry JSON's `translations` field, or backfilled a language at a time by
-  `.claude/add-lang.js` (both go through `.claude/gloss-i18n-io.js`). A file **pushes onto
-  `window.GLOSSARY_I18N_IN`** rather than writing the live table: the bundle's `after` hook (`glossI18nIngest`)
-  drains that queue into the shipped baseline `PRISTINE_GLOSS_I18N` and then layers the admin overlay on top,
-  producing `window.GLOSSARY_I18N[slug][lang]` — which is what `glossText()` reads. **Admin-editable**: with the
-  site language switched to a non-EN language, the glossary editor edits that language's translation
-  (`glossaryI18n` overlay deltas; baked back into this file by `serializeGlossaryI18n`).
+- ~~`i18n/gloss-<lang>.js`~~ — **REMOVED 2026-08-08, on request**, together with the card `i18n` blocks: the
+  site ships in English (`MULTILANG = false`) and the nine files were 3.1 MB of repo weight no reader could
+  reach. `glossText()` falls back to the English, so every reader now sees the English glossary. **The
+  machinery is deliberately intact** — `GLOSSARY_I18N`, the `glossI18nIngest` queue drain, `PRISTINE_GLOSS_I18N`,
+  the per-language `glossaryI18n` overlay and `serializeGlossaryI18n` are all still there — so restoring the
+  languages is a matter of putting the files back, not rebuilding the layout. What is NOT still there is the
+  fetch: `loadLangData` no longer requests the bundle, because a bundle pointing at a deleted file is a 404
+  per language (it was, for the hour between deleting the files and cutting that line, and `test-i18n-lang.js`
+  is what caught it). `add-glossary.js` drops a `translations` block with a warning rather than recreating them.
 - `i18n/ui-<lang>.js` — the site-chrome translation tables for one language (`window.I18N` exact strings /
   `I18N_RULES` regex patterns / `I18N_HTML` whole prose blocks, keyed by English source text) consumed by
   app.js's localisation engine. **Lazy** (bundle `uiI18n:<lang>`) — an English reader never fetches any of
@@ -4072,23 +4079,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
   shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,
-  and `setLang` refuses anything but English. **Nothing is deleted** — the nine `i18n/*` files stay on disk,
-  the engine stays wired, `langPickerHTML`/`wireLangPicker`/`loadLangData` are untouched, and every bullet
-  below still describes live code; the tables are lazy and per-language, so an English reader never fetched
-  one anyway and the shut door costs a visitor nothing. Flip the flag and it all comes back.
+  and `setLang` refuses anything but English. It began as a switch with **nothing deleted**, and that is no
+  longer true of the CONTENT: **on 2026-08-08, on request, the card `i18n` blocks and every
+  `i18n/gloss-<lang>.js` were REMOVED** — 2.06 MB of the eager path plus 3.1 MB of repo weight that the gate
+  put beyond every reader's reach. What survives is the ENGINE and the other three families: `ui-<lang>.js`,
+  `games-<lang>.js` and `places-<lang>.js` are all still on disk and still lazy, `langPickerHTML` /
+  `wireLangPicker` / `loadLangData` are still wired, and flipping the flag brings the chrome, the game pools
+  and the map labels back at once. What it does NOT bring back is the cards and the glossary: those now fall
+  back to English in every language, and restoring them means regenerating the files, not flipping a switch.
+  **`loadLangData` no longer requests the gloss bundle** — a bundle pointing at a deleted file is a 404 per
+  language.
   **The migration back is part of the gate, and is the part not to remove**: `langFromURL` resets a stored
   non-English `S.settings.lang` to `"en"` on boot. Without it, a reader who had chosen Spanish would be held
   in Spanish for ever with no control left on the page to escape — the one way removing a setting can
   genuinely strand someone. The content pipeline has the same switch twice over
-  (`REQUIRE_TRANSLATIONS` in `add-card.js` and `add-glossary.js`), and the changelog rule in the golden rules
-  is suspended to match. Guarded by `test-layout.js` (the gate) and `test-i18n-lang.js`, which asserts the
+  (`REQUIRE_TRANSLATIONS` in `add-card.js` and `add-glossary.js`) and, since the removal, a second guard
+  beyond it: both tools **DROP** a supplied `i18n` / `translations` block with a warning rather than writing
+  it, so the eager path cannot regain megabytes because one batch file still carried its nine languages. The
+  changelog rule in the golden rules is suspended to match. Guarded by `test-layout.js` (the gate) and `test-i18n-lang.js`, which asserts the
   gate UNPATCHED and then **serves an app.js with the flag flipped** so the machinery behind it stays tested
   rather than quietly rotting.
   One consequence to know rather than to fix: **the editors can no longer reach a translation.** The editing
   language IS the site language, so with English forced the card editor edits the base fields and the
   glossary editor the English description — `setCardI18nEdit` / `setGlossI18nEdit` are unreachable from the
   UI, and `serializeGlossaryI18n` bakes nothing, since it only ever writes languages whose file is loaded.
-  Translations are edited by `.claude/add-lang.js` alone while this stands.
+  Translations are edited by `.claude/add-lang.js` alone while this stands — and since the removal its
+  `cards` and `glossary` sections would RECREATE what was deleted, so only its `chrome` and `tree` sections
+  are live. Its header says so.
 - **Language picker + i18n** (**Settings → Language**, `langPickerHTML` / `wireLangPicker`; it was a `#lang-switch`
   dropdown in the top bar until Aug 2026, moved on request when the phone's top bar was removed — a preference
   belongs on the preferences page, and the picker had nowhere else to live once that bar was gone): a grid of
@@ -6868,33 +6885,28 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
-  · `node .claude/test-i18n-lang.js` — 28 assertions, in two halves. First the **English-only gate**, on the
-    real app.js: `?lang=ja` does not switch the site, Settings offers no picker, and not one translation
-    file is fetched. Then everything else — the machinery kept behind `MULTILANG` — against an app.js the
-    test's own server rewrites `const MULTILANG = false;` → `true` as it serves it, so the preserved code
-    stays tested instead of quietly rotting until someone flips the flag back. **`patchApp` asserts the
-    string was found**, and one assertion at the end reports it, so renaming the flag fails loudly here
-    rather than leaving this file testing an app that can no longer switch language at all.
-    That second half is the original test: a reader downloads one language and not all of them (an English
-    reader downloads none), switching pulls only the new language, Japanese is at parity with the other
-    languages across chrome/cards/glossary — **parity with EACH OTHER, not with the English count**, since
-    every card and term added since the gate went up is English-only, so a test demanding equality with
-    `GLOSSARY` is red by design and therefore read by nobody (it was, at 24/4, until Aug 2026). Both halves
-    still bite: a batch that translates one language and forgets the rest fails, and so does a card
-    translated into only some. **Tighten it back to `Object.keys(GLOSS).length` when translations resume.**
-    **THE CARD SIDE CARRIED THE SAME ROT and was fixed on 2026-08-08**: it asserted an ABSOLUTE floor of 100
-    fully-translated cards, which erodes on its own from two directions — cards written since the gate ship
-    English-only, and the 2026-08-04 World History renumbering **retired 20 cards that had been translated** —
-    so it went red at 89 of 334 with nothing whatever wrong. Verified before touching it (89 fully translated,
-    89 carrying any `i18n` at all, **0 partial**, every one a pre-gate `wh-` card), then replaced with the
-    invariant that does not erode: *a card carrying translations carries all nine*. **An absolute count of a
-    growing corpus is not an invariant** — assert the relationship, not the number.
-    Also asserted: — the sharp edge of this layout — a `glossaryI18n` overlay
-    delta records ONLY the edited language, LAYERS over the shipped text so an edit made in one language
-    cannot wipe another's, bakes to one file per edited language holding every term, and NEVER bakes a
-    language whose file isn't loaded. **Re-run after touching `MULTILANG` / `langBundle` /
-    `glossI18nIngest` / `glossI18nMerged` / `setGlossI18nEdit` / `serializeGlossaryI18n` /
-    `editedGlossI18nLangs`, or after adding a language.**
+  · `node .claude/test-i18n-lang.js` — **21 assertions**, in two halves. First the **English-only gate**, on
+    the real app.js: `?lang=ja` does not switch the site, Settings offers no picker, a stored non-English
+    language is migrated back, and not one translation file is fetched. Then the lazy per-language LOADER —
+    the machinery kept behind `MULTILANG` — against an app.js the test's own server rewrites
+    `const MULTILANG = false;` → `true` as it serves it, so the preserved code stays tested instead of
+    quietly rotting until someone flips the flag back. **`patchApp` asserts the string was found**, and one
+    assertion at the end reports it, so renaming the flag fails loudly here rather than leaving this file
+    testing an app that can no longer switch language at all.
+    **IT WAS REWRITTEN ON 2026-08-08 when the card `i18n` blocks and the gloss files were removed on
+    request.** Roughly two-thirds of it described data that no longer exists — gloss-file parity, card
+    translation parity, the per-language overlay and the bake — and those assertions went with the data
+    rather than being propped up. What replaced them is the invariant the removal created: **the removal
+    STAYS removed.** No card may carry an `i18n` block and no `gloss-<lang>.js` may reappear, because
+    `add-card.js` and `add-lang.js` can both still write one and a card carrying translations costs every
+    visitor its bytes in the eager path whether or not any reader can reach them. **Nothing else in the suite
+    would notice** — that is the quotes.js mistake, and this is the only thing watching for its return.
+    What survives beside it: chrome parity across the nine `ui-<lang>.js` (a batch that translates one
+    language and forgets the rest still fails), one-language-in-one-language-out for the three families that
+    still ship, that **no `gloss-` file is requested** (the 404 that caught the dead bundle fetch), that the
+    game pools carry no INLINE translations, and that an English reader fetches nothing at all.
+    **Re-run after touching `MULTILANG` / `langBundle` / `loadLangData` / `DATA_BUNDLES`, after adding a
+    language, or after anything that writes card or glossary content.**
   · `node .claude/test-account-switch.js` — 22 assertions on switching accounts on one device, against an
     in-memory mock of the Supabase **auth + progress** endpoints (a test that really signed up would create
     users in the live project). It asserts both halves of the rule: a guest's study history still migrates

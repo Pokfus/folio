@@ -23269,13 +23269,17 @@
     if (LANG_CODES.includes(q) && q !== S.settings.lang) { S.settings.lang = q; save(); }
   })();
   // The translation tables are lazy AND per-language (see langBundle): i18n/ui-<lang>.js carries the site
-  // chrome and i18n/gloss-<lang>.js the glossary descriptions — ~310 KB for the one language being read,
-  // which an English reader never fetches at all. Both are pulled the moment the language goes
-  // non-English; `then` fires once the chrome table has landed.
+  // chrome, and games/places their own pools — the one language being read, which an English reader never
+  // fetches at all. They are pulled the moment the language goes non-English; `then` fires once the chrome
+  // table has landed.
+  // NOTE (2026-08-08): the GLOSSARY translations were removed on request along with the card `i18n` blocks,
+  // so i18n/gloss-<lang>.js no longer exists and is deliberately NOT fetched here — a bundle pointing at a
+  // deleted file is a 404 per language, which is what it did for the hour before this line was cut.
+  // `glossText()` falls back to the English, so every reader now sees the English glossary. The ingest hook
+  // and the per-language overlay below are kept intact, so restoring the files is all it would take.
   function loadLangData(then) {
     const lang = S.settings.lang || "en";
     if (lang === "en") { if (then) then(); return; }
-    ensureData(langBundle("glossI18n", lang));   // background — gloss popups read it as soon as it lands
     ensureData(langBundle("gamesI18n", lang));   // background — the two game pages also await it themselves
     ensureData(langBundle("placeI18n", lang));   // background — the Atlas re-renders its labels when it lands
     ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });

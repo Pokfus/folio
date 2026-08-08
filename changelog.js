@@ -14,13 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.94", released: "2026-08-08T06:07Z" };
+window.FOLIO_VERSION = { v: "1.95", released: "2026-08-08T07:02Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-08",
-    t: "The decks on the home page take their collection's colour properly, and the spelling settles to British throughout",
+    t: "The site loads about a megabyte lighter, the decks on the home page take their collection's colour properly, and the spelling settles to British throughout",
     items: [
+      "Folio now opens noticeably faster. The site has shipped in English for a while, but every visitor was still downloading the nine translations of the cards and the glossary before a single card could be turned over — about a megabyte of compressed text that nothing on screen could ever use. It has been taken out, so the first page you see costs a third less to load, on a phone signal as much as on a desk.",
       "Ten glossary entries and one Ancient Greece card now spell and number things the way the rest of the site does — British spellings throughout, and a figure above twenty written as a numeral rather than in words.",
       "Each deck listed under Daily study on the home page is washed in the colour of the collection it belongs to — but only faintly, at about half the strength of that collection's own banner in Collections, so the two read as different colours rather than the same one. The rows now carry exactly the wash their banner does, in light and dark alike, and the parent rows above them keep their quieter paper on dark themes as they always have on light ones.",
     ],
