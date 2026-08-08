@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.92", released: "2026-08-07T22:36Z" };
+window.FOLIO_VERSION = { v: "1.93", released: "2026-08-08T03:10Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-08",
+    t: "The decks on the home page take their collection's colour properly",
+    items: [
+      "Each deck listed under Daily study on the home page is washed in the colour of the collection it belongs to — but only faintly, at about half the strength of that collection's own banner in Collections, so the two read as different colours rather than the same one. The rows now carry exactly the wash their banner does, in light and dark alike, and the parent rows above them keep their quieter paper on dark themes as they always have on light ones.",
+    ],
+  },
   {
     d: "2026-08-07",
     t: "Five books join the shelf, a sixth daily game arrives, four new collections take shape, thirty-five new cards in Ancient Greece and thirty in World History, and the daily games settle to one play each",

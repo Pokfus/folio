@@ -2446,13 +2446,20 @@ body.night .lu-badge{color:#E6C765;}
   display:flex; align-items:center; gap:11px;
   /* the row wears its COLLECTION's identity hue (--coll-bg, set per row by PAGES.home from COLL_THEME —
      the same colour the Library banner uses), falling back to the review's bronze for a community deck or
-     the Card-of-the-day list, which belong to no collection */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 14%, transparent), transparent 64%) var(--card);
+     the Card-of-the-day list, which belong to no collection.
+     THE MIX IS THE COLLECTION BANNER'S OWN (Aug 2026, on request): the same 105deg wash at the same 30%
+     (22% at night), fading into the card at the same 64%, so a deck's row on the home page states its
+     collection's colour exactly as strongly as that collection's banner does one page over. It was 14%
+     and 9% — the right HUE at half the strength, which read as a different, washed-out colour rather
+     than as the same one. Keep these four figures in step with `body[data-theme="folio"]
+     .collection-deco` and its `.night` pair; the two rules exist to say the same thing. */
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--card);
   border:1px solid var(--rule); border-top:0; border-left:4px solid var(--coll-bg, var(--tile, #9A6634));
   padding:10px 13px; animation:pageIn .3s var(--ease) both;
 }
-/* like the banner's own wash, a whisper on dark themes */
-body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 9%, transparent), transparent 64%) var(--card);}
+/* like the banner's own wash, weaker on dark themes — the hue sits on a dark card and reads twice as
+   strongly there, which is why the banner's own night pair drops from 30% to 22% as well */
+body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--card);}
 /* THE SUBDECK FOLD (Aug 2026, on request) — see adSyncFold in app.js.
    `.ad-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
    `display:flex`, which beats the UA `[hidden]` rule outright, so the attribute would have needed an
@@ -2524,9 +2531,18 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
 .active-deck{transition:padding-left .2s var(--ease), background .16s var(--ease);}
 /* a deck added to the review is clickable → reviews just that deck */
 .active-deck[data-review]{cursor:pointer;}
-.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 18%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 9%, var(--card));}
+/* hover deepens the same wash rather than introducing a colour of its own — it must stay ABOVE the resting
+   mix in both layers, or hovering a row would lighten it */
+.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 38%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 10%, var(--card));}
 .active-deck[data-review]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
-.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 11%, transparent), transparent 64%) var(--paper-2);}
+/* An ancestor SIGNPOST row (not itself added) carries the same collection wash at the same strength — what
+   marks it as context is the paper under it and the quieter title, not a different colour, since it names
+   the very collection its children are washed in. */
+.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--paper-2);}
+/* …and its own night pair. Without it `body.night .active-deck` (0,2,1) outranks `.active-deck.context`
+   (0,2,0) whatever the source order, so on every dark theme a context row silently lost both its weaker
+   wash and the --paper-2 under it and rendered identically to an added deck's row. */
+body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--paper-2);}
 .active-deck.context .ad-title{font-size:calc(14px * var(--fs)); color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
