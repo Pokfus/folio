@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.114", released: "2026-08-08T19:43Z" };
+window.FOLIO_VERSION = { v: "1.115", released: "2026-08-08T20:09Z" };
 
 window.CHANGELOG = [
   {
@@ -29,7 +29,7 @@ window.CHANGELOG = [
       "If you are new to Folio, the home page now offers you a three-minute walkthrough. It dims the page, puts one card in the middle of it, and points at what it is describing: why the cards come back when they do, how to add a deck to your daily study, how to answer one and grade yourself honestly, and the marker you can write on a card with. It is entirely optional — take it, or say no thanks and it will not ask again — and if you change your mind it is in Settings, under Study.",
       "The Library now explains itself the first time you open it, as the Atlas already did: what may be shelved and why, how the chapters and your reading position work, the original language beside the translation, and the marker and highlights. The Atlas card has gained a line about the marker too, since the strokes you draw on the globe are pinned to the map and turn with it. Both can be reopened from the ? beside them, whenever you like.",
       "Folio now opens noticeably faster. The site has shipped in English for a while, but every visitor was still downloading the nine translations of the cards and the glossary before a single card could be turned over — about a megabyte of compressed text that nothing on screen could ever use. It has been taken out, so the first page you see costs a third less to load, on a phone signal as much as on a desk.",
-      "Sixty new cards — twenty in Ancient Greece, fifteen in its deck on the polis and colonisation and the first five of its Sparta deck, and the first forty of the <b>Ancient Rome</b> collection, in its Italy before Rome deck, which is no longer empty and can be grown a card at a time from here. Each comes with the glossary term that goes with it.",
+      "Sixty-one new cards — twenty-one in Ancient Greece, fifteen in its deck on the polis and colonisation and the first six of its Sparta deck, and the first forty of the <b>Ancient Rome</b> collection, in its Italy before Rome deck, which is no longer empty and can be grown a card at a time from here. Each comes with the glossary term that goes with it.",
       "These release notes read as notes again. A day that announced eleven books in five separate entries now announces them in one, and the longest entries — one ran to four thousand characters — have been cut back to a summary of what changed rather than a transcript of it. Nothing has been dropped: every change is still recorded, in a good deal less reading.",
       "Every card background on the site now sits inside its own length rule, and the two entries that fell outside it have been put right: seven backgrounds that ran slightly long were tightened without losing a claim, and a Syracuse card and glossary entry that stopped short gained the part they had left out.",
       "Eleven glossary entries and three Ancient Greece cards now spell, quote and number things the way the rest of the site does — British spellings throughout, the straight quotation marks the rest of the writing uses, and a figure above twenty written as a numeral rather than in words.",
