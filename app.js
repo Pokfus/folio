@@ -7892,8 +7892,9 @@
      ============================================================
      A first-time reader meets a site that schedules cards for them, holds their decks in a review they have
      not built yet, and hides a marker behind a floating button. None of that explains itself, and the
-     three-beat `.howit` strip on the home page is a summary rather than a lesson. So: an OPTIONAL walkthrough
-     that dims the page, puts one card in the middle of it, and points at the thing being described.
+     three-beat `.howit` strip that used to sit on the home page was a summary rather than a lesson. So: an
+     OPTIONAL walkthrough that dims the page, puts one card in the middle of it, and points at the thing being
+     described. (The strip itself went in Aug 2026, on request, once this existed: see PAGES.home.)
 
      Five decisions are load-bearing.
 
@@ -7960,7 +7961,7 @@
         "with that curve instead of against it: a card you have just met returns within minutes, and one you " +
         "have answered right several times may not return for months.<p>Each correct answer pushes the next " +
         "sighting further out, so a collection of a thousand cards still costs a few minutes a day.</p>",
-      target: [".howit", ".banners"],
+      target: [".banners"],   // the `.howit` strip this used to point at is gone — this step is what replaced it
     },
     {
       route: "home",
@@ -8262,19 +8263,45 @@
     setTimeout(() => { const f = ov.querySelector(".btn"); if (f) f.focus(); }, 0);
     return ov;
   }
+  /* THE LIBRARY'S CARD IS TWO CARDS (Aug 2026, on request). It was one, shown on the shelf, and it
+     explained the whole system in five tips — three of which are about the inside of a book: the chapter
+     bar, the facing original, the marker and the highlights. A reader standing at the shelf has not opened
+     a book yet, so those three describe furniture that is not on the screen and cannot be tried, which is
+     the surest way to have an explanation read past. Split at the obvious seam: the SHELF card says what
+     is here and how to find it, and the BOOK card says how to read one — shown the first time a book is
+     actually opened, beside the bar it is talking about.
+     Two keys, because they are answered at different moments and one must not retire the other. The shelf's
+     is untouched (`folio_library_tour_v1`), so a reader who has already met the old card is not shown the
+     shelf half again — and DOES meet the book half, which is new to them and is the part they were most
+     likely to have skimmed. Each has its own "?" bringing it back. */
   const LIB_TOUR_KEY = "folio_library_tour_v1";
   const LIB_HELP_TIPS = [
     "<b>Whole books, not extracts</b> — every work here is out of copyright and complete, in a named edition, with the translator and the grounds for shelving it stated on the book's own first page.",
-    "<b>Open one</b> — the chapters run along a bar at the top; ‹ › and the arrow keys step through them, and on a phone a sideways swipe does the same. Folio remembers the paragraph you stopped at, on every device you are signed in to.",
-    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. The translator's own notes fold out under each chapter.",
-    "<b>Mark up the page</b> — the same floating marker as a study card's draws over a book, and here the strokes are kept. Select a passage and right-click it to highlight the words themselves, copy them, or have them read aloud.",
     "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a book for its options: star it to the top of the shelf, or share it.",
+    "<b>Open one and it stays open</b> — Folio remembers the paragraph you stopped at, on every device you are signed in to. The rest of the reading — the chapters, the original language, marking up a page — is explained the first time you open a book.",
   ];
   function openLibHelp() {
     pageHelp("The Library", LIB_HELP_TIPS, "Start reading", () => { try { localStorage.setItem(LIB_TOUR_KEY, "1"); } catch (e) {} });
   }
+  const BOOK_TOUR_KEY = "folio_book_tour_v1";
+  /* …and a session flag beside the key, because the book page RE-RENDERS under the reader: the original
+     language bundle lands a moment after the page opens and calls render(), which closes every overlay on
+     the body. Keyed on the stored value alone the card would be taken away and rebuilt mid-sentence, with
+     the focus reset. The key is still what survives a reload — this only stops it opening twice in one
+     visit, before it has been answered. */
+  let _bookHelpShown = false;
+  const BOOK_HELP_TIPS = [
+    "<b>Moving about</b> — the chapters run along the bar at the top, with <b>Contents</b> for the whole list; ‹ › and the arrow keys step through them, and on a phone a sideways swipe does the same. Your place is kept as you read.",
+    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. The translator's own notes fold out under each chapter.",
+    "<b>Mark up the page</b> — the same floating marker as a study card's draws over a book, and here the strokes are kept. Select a passage and right-click it to highlight the words themselves, copy them, or have them read aloud.",
+  ];
+  function openBookHelp() {
+    _bookHelpShown = true;
+    pageHelp("Reading a book", BOOK_HELP_TIPS, "Start reading", () => { try { localStorage.setItem(BOOK_TOUR_KEY, "1"); } catch (e) {} });
+  }
 
-  /* THE OFFER — first-run markup on the home page, beside the hero and the how-it-works strip. It is shown
+  /* THE OFFER — first-run markup on the home page, beside the hero (the how-it-works strip that used to
+     sit under the review went once this existed; see PAGES.home). It is shown
      to a reader who has never graded a card and has never answered this question, and either answer retires
      it for good; Settings → Study brings the walkthrough back. */
   function tourOfferHTML() {
@@ -8578,6 +8605,82 @@
     el.classList.toggle("wb-flip", vh - wbPos.b - h < WB_PANEL_H);   // no room above the button — open downward
     el.classList.toggle("wb-left", vw - wbPos.r - w < WB_PANEL_W);   // none to the left — open rightward
   }
+  /* ---- …AND IT SNAPS HOME (Aug 2026, on request) ----
+     Let go near enough to the corner it started in and the marker slides the rest of the way and forgets
+     the position entirely, so it is back to the pixel in line with the zoom column, the timeline bar and
+     whatever else that corner is shared with. Without it "put it back where it was" is a job no reader can
+     do by hand: the default is a stylesheet corner that MOVES — 18px normally, 108 while grading, 25 on
+     the Atlas, and different again on a phone — so a drag that lands one pixel out leaves a stored
+     position that no longer follows any of those rules, and the misalignment shows up later, on a page the
+     reader was not looking at when they moved it.
+     Two things are decisions rather than arithmetic.
+     · **THE DEFAULT IS MEASURED, NEVER WRITTEN DOWN.** The inline right/bottom are cleared, the rect is
+       read, and they are put straight back — one synchronous pass that never paints. A table of the CSS
+       corners here would be a second copy of the stylesheet, out of date the first time one of those
+       offsets moves, and wrong in exactly the case this exists to serve.
+     · **CLEARING THE STORED POSITION IS THE POINT, not moving it to the same numbers.** A marker parked at
+       the default's coordinates still has a position, so it would sit still while `body.grading` lifted
+       the corner out from under it. So the slide animates the inline values to the default and THEN drops
+       them, which hands the element back to the stylesheet with nothing on screen moving.
+     It is gated on prefersReducedMotion() like every other movement — there the position is simply
+     cleared — and a new press cancels a slide still running. */
+  const WB_SNAP_HOME = 30;   // px from the default corner within which a release goes home
+  const WB_HOME_MS = 200;    // keep in step with the .wb-tools.wb-homing transition in styles.css
+  let wbHomeT = 0;
+  /* Stopping the SLIDE does not cancel the going-home — it stops the ANIMATION. The marker was let go at
+     the corner, and that is where it belongs; a press landing on it mid-slide is a finger reaching for a
+     moving target, not a change of mind. So the position is forgotten here rather than at the timer, and
+     the inline values (already the default's, set when the slide began) are left in place: memory, disk and
+     the pixels then agree at every instant, where cancelling would leave the marker sitting at coordinates
+     localStorage did not have. A drag that follows reads its start off the rect, so it picks up wherever
+     the slide had got to. */
+  function wbStopHome(el) {
+    if (el) el.classList.remove("wb-homing");
+    if (!wbHomeT) return;
+    clearTimeout(wbHomeT); wbHomeT = 0;
+    wbPos = null; wbSavePos();
+  }
+  /* Where the stylesheet would put it right now, in the same right/bottom space wbPos is stored in.
+     THE TRANSITION HAS TO GO OFF FOR THE MEASUREMENT, and that is not belt-and-braces: `.wb-tools` carries
+     `transition:bottom .34s` for the grade bar's sake, so clearing the inline `bottom` starts an animation
+     towards the stylesheet's value rather than arriving at it — and the rect read on the same tick is still
+     the OLD bottom. Left in, the probe returns the marker's own current position as its "default", which
+     makes the snap test right-axis-only and slides the marker to a place the stylesheet never chose (it
+     did, until this line). `right` is not transitioned in the base rule and would have measured correctly;
+     it is covered anyway, since a rule added there later would fail exactly as quietly. */
+  function wbDefaultPos(el) {
+    const r0 = el.style.right, b0 = el.style.bottom, t0 = el.style.transition;
+    el.style.transition = "none";
+    el.style.right = ""; el.style.bottom = "";
+    const r = el.getBoundingClientRect();
+    const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+    const out = { r: vw - r.right, b: vh - r.bottom };
+    el.style.right = r0; el.style.bottom = b0;
+    void el.offsetHeight;                 // flush the restore while transitions are still off, or it animates back
+    el.style.transition = t0;
+    return out;
+  }
+  function wbNearHome(el) {
+    if (!wbPos) return false;
+    const d = wbDefaultPos(el);
+    return Math.hypot(wbPos.r - d.r, wbPos.b - d.b) <= WB_SNAP_HOME;
+  }
+  function wbGoHome(el) {
+    wbStopHome(el);
+    if (prefersReducedMotion()) { wbPos = null; wbSavePos(); wbApplyPos(el); return; }
+    const d = wbDefaultPos(el);
+    el.classList.add("wb-homing");
+    el.style.right = d.r + "px"; el.style.bottom = d.b + "px";
+    wbPos = { r: d.r, b: d.b };
+    wbHomeT = setTimeout(() => {
+      wbHomeT = 0;
+      el.classList.remove("wb-homing");
+      wbPos = null;                  // the position is FORGOTTEN, not set to the default's numbers
+      wbSavePos();
+      wbApplyPos(el);                // clears the inline styles — the stylesheet's corner takes over again
+    }, WB_HOME_MS);
+  }
+
   /* ---- THE MARKER HAS WEIGHT: it can be THROWN (Aug 2026, on request) ----
      It used to stop dead on the lift, which on a phone reads as the thing being stuck to the finger
      rather than being moved by it. It now keeps the velocity it was released at and coasts to a stop
@@ -8619,6 +8722,7 @@
     handle.addEventListener("pointerdown", (e) => {
       if (e.button != null && e.button !== 0) return;
       wbStopFling();       // a press catches a marker still coasting, exactly as a finger catches a fling
+      wbStopHome(el);      // …and a marker mid-way through sliding home, for the same reason
       wbDragged = false;   // a press that never moved must not be swallowed by a previous drag's flag
       const r = el.getBoundingClientRect();
       const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
@@ -8665,7 +8769,8 @@
         vb = cap((last.b - first.b) / span);
       }
       const thrown = !prefersReducedMotion() && Math.hypot(vr, vb) >= WB_FLING_MIN;
-      if (!thrown) { wbApplyPos(el); wbSavePos(); return; }
+      // set down near the corner it came from → it slides the rest of the way and forgets the position
+      if (!thrown) { wbApplyPos(el); if (wbNearHome(el)) { wbGoHome(el); return; } wbSavePos(); return; }
       el.classList.add("wb-flinging");
       const step = () => {
         vr *= WB_FLING_FRICTION; vb *= WB_FLING_FRICTION;
@@ -8677,6 +8782,8 @@
         if (Math.hypot(vr, vb) < WB_FLING_STOP) {
           wbFlingRAF = 0;
           el.classList.remove("wb-flinging");
+          // a throw that comes to rest by the corner goes home too — the test is where it LANDED
+          if (wbNearHome(el)) { wbGoHome(el); return; }
           wbSavePos();   // remembered only once it has come to rest — where it LANDED, not where it left
           return;
         }
@@ -8687,7 +8794,7 @@
     handle.addEventListener("pointerup", release);
     handle.addEventListener("pointercancel", release);
     // a window that narrows (rotation, a resized desktop window) must not leave the marker off the edge
-    window.addEventListener("resize", () => { wbStopFling(); wbApplyPos(el); });
+    window.addEventListener("resize", () => { wbStopFling(); wbStopHome(el); wbApplyPos(el); });
   }
 
   /* ---- HOLDING the marker TOGGLES the pen (Aug 2026, on request) ----
@@ -10619,7 +10726,30 @@
         }, DQ_SIZE);
       }, DQ_FADE);
     };
-    fig.addEventListener("click", flip);
+    /* THE QUOTE SELECTS AS TEXT, so the click that flips it has to be told from the click that ENDS a
+       selection (Aug 2026, on request — it used to be `user-select:none`, which settled this by making the
+       words uncopyable). Two guards, and both are needed:
+       · a live selection inside the figure means the reader has just swept words or double-clicked one —
+         a click always follows either, and flipping there takes the very words away;
+       · a press that MOVED is a drag, and a drag that selected nothing (empty space beside a short line)
+         leaves no selection to test. Same classification the book's own tap-to-turn makes. */
+    const DQ_SLOP = 4;   // px of movement before a press stops being a click
+    let down = null, moved = false;
+    fig.addEventListener("pointerdown", (e) => { down = { x: e.clientX, y: e.clientY }; moved = false; });
+    fig.addEventListener("pointermove", (e) => {
+      if (!down || moved) return;
+      if (Math.abs(e.clientX - down.x) > DQ_SLOP || Math.abs(e.clientY - down.y) > DQ_SLOP) moved = true;
+    });
+    const selectingInFig = () => {
+      const s = window.getSelection && window.getSelection();
+      return !!(s && !s.isCollapsed && s.anchorNode && fig.contains(s.anchorNode));
+    };
+    fig.addEventListener("click", () => {
+      const dragged = moved;
+      down = null; moved = false;
+      if (dragged || selectingInFig()) return;
+      flip();
+    });
     fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
   }
   /* `dailyPick` (the date-seeded "same pick all day" chooser) and `startMiniGlobe` (the 170px turning
@@ -10986,12 +11116,12 @@
        go with it. What it cost is worth stating, because it is the same cost the phone was already paying
        and is now paid nowhere: a date-seeded pick over every card, a scan of the glossary for dated terms,
        and above all the ~1.6 MB `world` bundle fetched at idle to turn a 170px ornament. */
-    // shown until the first card is graded: the three-beat explanation of the method
-    const howit = fresh ? `<div class="howit" aria-label="How Folio works">
-      <div class="hi-step"><span class="hi-num">1</span><div class="hi-body"><b>Study a card</b><span>Each one asks you to recall the missing name, date or term.</span></div></div>
-      <div class="hi-step"><span class="hi-num">2</span><div class="hi-body"><b>Grade yourself</b><span>Again, Hard, Good or Easy — honesty sets the schedule.</span></div></div>
-      <div class="hi-step"><span class="hi-num">3</span><div class="hi-body"><b>It comes back</b><span>Right before you would forget it. That is spaced repetition.</span></div></div>
-    </div>` : "";
+    /* THE THREE-BEAT `.howit` STRIP IS GONE (Aug 2026, on request), and `.hi-*` with it. It was a
+       first-run summary of the method — study a card, grade yourself, it comes back — written when
+       nothing else on the site explained itself. The WALKTHROUGH explains all three properly now, with
+       the forgetting curve behind them and a real card to look at, and it is offered directly above
+       where the strip stood; two answers to one question, one of them a paragraph shorter than the
+       other, is a first visit spending its attention twice. */
 
     // streak chip: shown once a run of 2+ days is alive (studied today, or yesterday with today still open)
     const streakChip = (() => {
@@ -11018,11 +11148,18 @@
       ? `<button class="banner hero" id="b-review">
           <div class="body">
             <span class="hero-eyebrow">Start here</span>
-            <h2 class="review-title">Memorize anything, a few minutes a day</h2>
+            ${/* The break is written in the markup rather than left to the wrap (Aug 2026, on request):
+                  the title is a promise and a price, and the two halves belong on their own lines
+                  whatever the column happens to be doing. */""}
+            <h2 class="review-title">Memorize anything,<br>a few minutes a day</h2>
             <p class="desc">Folio deals you flashcards and brings each one back just before you would forget it — spaced repetition, the schedule that makes what you learn stay learned.</p>
             <div class="meta">
+              ${/* ONE way in (Aug 2026, on request — the "or browse the collections" alternative beside
+                    it is gone, and `.hero-alt` with it). The collections are one press further on from
+                    wherever this button lands, and the lip under the review group is the route the home
+                    page advertises; a second, quieter link in the same row only asks a first-time
+                    reader to choose between two things they cannot yet tell apart. */""}
               <span class="cta"><span class="btn">${(TREE.collections || []).some((c) => !isComingSoon(c)) ? "Study your first cards" : "Browse the collections"}</span></span>
-              ${(TREE.collections || []).some((c) => !isComingSoon(c)) ? '<span class="hero-alt" id="hero-browse">or browse the collections</span>' : ""}
               ${/* the hero carries the chest chip too: the daily-sweep chest can be won without studying a
                     single card, so a reader can be holding one while this is still the banner they see */""}
               ${chestChip}
@@ -11110,11 +11247,11 @@
       ${dailyQuoteHTML()}
       <div class="banners">
         ${/* The walkthrough is OFFERED, never raised over the page unasked — see the GUIDED TOUR block. It
-              sits above the review with the hero and the how-it-works strip, which are first-run-only for
-              the same reason, and either answer retires it. Settings → Study brings it back. */""}
+              sits above the review with the first-run hero, which is first-run-only for the same reason,
+              and either answer retires it. Settings → Study brings it back. It is what the three-beat
+              how-it-works strip under the review used to say, said properly and only where asked for. */""}
         ${tourOfferHTML()}
         ${reviewGroup}
-        ${howit}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
@@ -11132,7 +11269,6 @@
     { const gf = root.querySelector("#g-findit"); if (gf) gf.addEventListener("click", () => route("findit")); }
     { const gt = root.querySelector("#g-thread"); if (gt) gt.addEventListener("click", () => route("thread")); }
     root.querySelector("#b-review").addEventListener("click", (e) => {
-      if (e.target.closest("#hero-browse")) { route("decks"); return; }
       // the chest chip is a target inside the banner: it opens the chest rather than starting the review
       if (e.target.closest("[data-chest]")) { e.stopPropagation(); openChestPop(); return; }
       if (fresh) {
@@ -12782,6 +12918,10 @@
               the page by tapping it, which is quick once you know and invisible until you are told, so
               the gesture cannot be the only route. Rendered only for a book that has an original. */""}
         ${b.origLang ? `<button class="bk-nav bk-lang-btn" type="button" id="bkLang" aria-pressed="false"><span id="bkLangLbl">${esc(b.origName || "Original")}</span></button>` : ""}
+        ${/* the way back to the first-open card, exactly as the shelf's "?" and the Atlas's are — a page
+              that explains itself once and then never again is a page whose explanation cannot be
+              re-read. It sits at the end of the bar, past the controls it describes. */""}
+        <button class="bk-nav bk-help-btn" type="button" id="bkHelp" aria-label="How to read a book here" title="How to read a book here">?</button>
       </div>
       <div class="bk-toc" id="bkTocPanel" hidden></div>
       </div>
@@ -13209,6 +13349,18 @@
     root.querySelector("#bkPrev2").addEventListener("click", () => step(-1));
     root.querySelector("#bkNext2").addEventListener("click", () => step(1));
     root.querySelector("#bkBack").addEventListener("click", () => route("library"));
+
+    /* first-open coach marks + the "?" that brings them back. The card is built on document.body rather
+       than written into this page — the reason is worth reading at pageHelp. Three of the Library's five
+       tips moved here (Aug 2026, on request): they are about the inside of a book, and the shelf is where
+       a reader has not opened one yet. */
+    { const bh = root.querySelector("#bkHelp");
+      if (bh) bh.addEventListener("click", openBookHelp);
+      let seen = "1"; try { seen = localStorage.getItem(BOOK_TOUR_KEY) || ""; } catch (err) {}
+      // never over the walkthrough, and never over the shelf's own card, which a reader arriving straight
+      // from the Library may still have open behind them
+      if (!seen && !_bookHelpShown && !tourRunning() && !_pageHelpEl) openBookHelp();
+    }
 
     const langBtn = root.querySelector("#bkLang");
     if (langBtn) langBtn.addEventListener("click", toggleOrig);
@@ -19514,7 +19666,10 @@
       const f = year2frac(year) * 100;
       pin.style.left = f + "%"; fill.style.width = f + "%";
       const ff = fmt(year); ayNum.textContent = ff.n; ayEra.textContent = ff.e; tip.textContent = ff.n + " " + ff.e;
-      if (cartEl) cartEl.textContent = year >= MAXY ? "THE WORLD TODAY" : "THE WORLD · " + ff.n + (ff.e === "BCE" ? " BCE" : "");   // plate-title cartouche
+      // plate-title cartouche. The present-day plate says simply TODAY (Aug 2026, on request): every other
+      // year's plate is "THE WORLD · <year>", so on this one the two words before the date were the only
+      // part carrying no information — the globe under it is the world either way.
+      if (cartEl) cartEl.textContent = year >= MAXY ? "TODAY" : "THE WORLD · " + ff.n + (ff.e === "BCE" ? " BCE" : "");
       // show the work-in-progress note only when no map (present-day or a historical era) covers this year
       if (wipEl) wipEl.classList.toggle("show", activeEra(year) == null);
     }
