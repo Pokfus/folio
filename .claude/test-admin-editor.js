@@ -9,6 +9,8 @@ fs.readFile(f,(e,d)=>{if(e){r.writeHead(404);r.end();return;}r.writeHead(200,{"C
 (async()=>{await new Promise(r=>s.listen(5603,r));
 const b=await chromium.launch({...(process.env.FOLIO_CHROMIUM?{executablePath:process.env.FOLIO_CHROMIUM}:{})});
 const p=await b.newPage();const errs=[];
+// the Collections page raises a first-visit card over itself (Aug 2026); this file edits content, not tours
+await p.addInitScript(()=>{try{localStorage.setItem("folio_collections_tour_v1","1");}catch(e){}});
 p.on("pageerror",e=>errs.push("pageerror: "+String(e).slice(0,200)));
 p.on("console",m=>{if(m.type()==="error"&&!/ERR_(TUNNEL|CONNECTION)/.test(m.text()))errs.push("console: "+m.text().slice(0,200));});
 let fail=0;

@@ -171,10 +171,11 @@ const PROBE = () => {
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const page = await browser.newPage({ viewport: DESKTOP });
   /* The first-visit coach marks cover the page they explain — the Atlas's the globe, the Library's the
-     shelf — so every probe below would be measuring the card instead of the route it names. The home
-     page's walkthrough offer is inline and blocks nothing, so it is deliberately left in: it is a first
-     visitor's first sight of Folio, and its two controls should be named and reachable like any other. */
-  await page.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
+     shelf, the Collections page's the collections — so every probe below would be measuring the card
+     instead of the route it names. The home page's walkthrough offer is inline and blocks nothing, so it
+     is deliberately left in: it is a first visitor's first sight of Folio, and its two controls should be
+     named and reachable like any other. */
+  await page.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
 
   const allUnnamed = [], allUnreachable = [], allRoleless = [];
   const contrastByRoute = {};
@@ -233,6 +234,15 @@ const PROBE = () => {
   /* …and a glossary term, which is a span standing in for a button. It has to be found on a STUDY CARD:
      the home page carries none (the card of the day has its gloss links stripped), so pointing this at
      `#home` made it pass by finding nothing, which is the shape of assertion that guards nothing at all. */
+  /* …and a collection has to be IN the review first: the first-run hero routes to the collections now
+     (Aug 2026) rather than choosing a subject for the reader, so pressing it on an empty review lands on
+     that page rather than on a card. Added through the page's own +, which is the route a reader takes. */
+  await page.goto(base + "#decks", { waitUntil: "load" });
+  await page.waitForTimeout(1000);
+  await page.evaluate(() => {
+    const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+    if (b && !b.classList.contains("added")) b.click();
+  });
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1400);
   await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
@@ -266,7 +276,7 @@ const PROBE = () => {
      landing), and that write goes out with the in-memory settings — so a flag set from outside can be
      overwritten between the write and the reload. It looks like the mode not working. */
   const hcPage = await browser.newPage({ viewport: DESKTOP });
-  await hcPage.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
+  await hcPage.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   await hcPage.addInitScript(() => {
     try {
       const raw = localStorage.getItem("folio_v1");

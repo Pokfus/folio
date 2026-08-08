@@ -66,6 +66,8 @@ function syntheticPool() {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !/net::ERR_/.test(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push(String(e)));
+  // the Collections page raises a first-visit card over itself (Aug 2026); nothing here is about it
+  await page.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   await page.goto(base, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(700);
 

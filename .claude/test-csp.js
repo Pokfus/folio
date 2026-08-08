@@ -53,6 +53,7 @@ const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono"
   const violations = [], errors = [];
   await page.exposeFunction("__cspHit", (d) => violations.push(d));
   await page.addInitScript(() => {
+    try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {}   // the Collections page's first-visit card (Aug 2026)
     document.addEventListener("securitypolicyviolation", (e) => {
       window.__cspHit({ directive: e.violatedDirective, blocked: String(e.blockedURI).slice(0, 160), line: e.lineNumber });
     });

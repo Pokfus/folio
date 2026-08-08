@@ -52,7 +52,21 @@ async function closeGloss(page) {
    glossary link in the card's background. It stays inside ONE document — hash navigation and clicks, never
    page.goto — which matters in these files because they mutate window.GLOSSARY / GLOSSARY_SOURCES in the
    page first, and a reload would throw those mutations away. */
+/* A collection has to be IN the daily review before there is a card to open: the first-run hero routes to
+   the collections now (Aug 2026, on request) rather than adding one on the reader's behalf. Done through
+   the page's own + and inside this ONE document, like everything else here — a reload would throw away
+   the GLOSSARY mutations this file makes. The `.added` test makes a second call a no-op. */
+async function ensureReviewDeck(page) {
+  await page.evaluate(() => { location.hash = "decks"; });
+  await page.waitForTimeout(700);
+  await page.evaluate(() => {
+    const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+    if (b && !b.classList.contains("added")) b.click();
+  });
+  await page.waitForTimeout(200);
+}
 async function openStudyCard(page) {
+  await ensureReviewDeck(page);
   await page.evaluate(() => { location.hash = "home"; });
   await page.waitForTimeout(450);
   await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
@@ -100,6 +114,8 @@ async function openGlossEditor(page, base) {
   const base = "http://127.0.0.1:" + server.address().port + "/";
   const browser = await chromium.launch(LAUNCH);
   const page = await browser.newPage();
+  // the Collections page raises a first-visit card over itself (Aug 2026); nothing here is about it
+  await page.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + e));
   page.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load/.test(m.text())) errs.push("console: " + m.text()); });

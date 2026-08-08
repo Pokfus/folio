@@ -98,6 +98,7 @@ function shippedBookLeaks() {
       try {
         localStorage.setItem("folio_library_tour_v1", "1");
         localStorage.setItem("folio_book_tour_v1", "1");
+        localStorage.setItem("folio_collections_tour_v1", "1");
         localStorage.setItem("folio_tour_v1", "1");
       } catch (e) {}
     });

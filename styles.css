@@ -783,6 +783,20 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .page-help .ah-card{max-height:calc(100vh - 40px); overflow-y:auto;}
 .ah-go{align-self:flex-start; margin-top:3px;}
 .lib-help-btn{flex:none;}
+/* The same "?" on a page whose head has no tools row to sit in — the Collections page (see openCollHelp).
+   It hangs off the top corner of the head rather than joining the flow: below 640px `.page-head` is
+   centred, so a button in the flow would land under the title in the middle of the page and read as a
+   control belonging to the prose above it. The containing block is asked for by CLASS rather than given to
+   every `.page-head` — nothing else on the site positions anything inside one, and a blanket
+   `position:relative` is a change to every page to serve one. `inset-inline-end` so Arabic puts it in the
+   corner Arabic reads from. */
+.page-head.has-help{position:relative;}
+/* …and the room it needs is reserved only where the head is LEFT-aligned. Below 640px `.page-head` is
+   centred, and padding on one side of a centred block moves the text off centre — 22px left of the title
+   on every other page, which is exactly the kind of drift nobody reports and everybody sees. The prose
+   there is short and the button sits in a corner it never reaches, so nothing has to be reserved. */
+@media (min-width:641px){ .page-head.has-help{padding-inline-end:44px;} }
+.page-help-btn{position:absolute; top:2px; inset-inline-end:0;}
 
 /* The discovery row — .explore-grid with its card of the day, gloss of the day and Atlas teaser — was
    REMOVED in Aug 2026 on request, from the phone first and then from the desktop, so that the two home
@@ -2762,6 +2776,42 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
 /* A row with nothing to fold reserves the same width, so the progress bars down the list all stop at one
    place instead of the right edge going ragged wherever a leaf deck sits. */
 .active-deck .ad-chev-gap{flex:none; width:26px;}
+/* THE DRAG HANDLE (Aug 2026, on request — see setupDeckDrag). It sits ABSOLUTELY in the row's own left
+   padding rather than taking a column in the flex line, and the row's inline `padding-left` starts at 22px
+   instead of 16 to make room for it: at 390px the row already carries three piles, a name, a bar and a
+   chevron, and the deck's NAME is the only part of it with a shorter form — so a handle in the line would
+   have been paid for out of the one thing the reader is reading. `inset-inline-start` rather than `left`,
+   so Arabic finds it on the side Arabic reads from.
+   It stays in ONE GUTTER at the left edge rather than following its row's indent: which handle belongs to
+   which row is settled by the horizontal band it sits in, so staircasing them buys nothing and would push
+   a depth-3 handle into the counts. The indent is the title's job and it still carries the hierarchy.
+   Quiet by default and full strength on hover or focus: it is on every row of the list, and six handles
+   competing with six deck names is a list about its own furniture. `touch-action:none` because a finger
+   dragging it must not be handed to the page's scroller before pointermove ever fires. */
+.active-deck .ad-grip{
+  position:absolute; inset-inline-start:0; top:0; bottom:0; width:20px;
+  display:grid; place-items:center; padding:0; border:0; background:transparent;
+  color:var(--ink-faint); opacity:.5; cursor:grab; touch-action:none;
+  transition:opacity .15s var(--ease), color .15s var(--ease);
+}
+.active-deck .ad-grip svg{width:11px; height:11px;}
+.active-deck .ad-grip:hover{opacity:1; color:var(--indigo);}
+.active-deck .ad-grip:focus-visible{opacity:1; color:var(--indigo); outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:4px;}
+.active-deck .ad-grip:active{cursor:grabbing;}
+/* The row being carried, and the block of subdecks travelling with it. It is lifted rather than hidden —
+   the list underneath opens a gap for it as the others FLIP out of the way, so what the reader is holding
+   has to read as being above the page. `.ad-settling` is the same row on release, easing the last few
+   pixels into its slot instead of snapping to it (the transform is what JS animates, so only the shadow
+   and the lift are transitioned here). */
+.active-deck.ad-dragging{z-index:3; box-shadow:0 10px 24px -8px color-mix(in srgb, var(--ink) 40%, transparent); cursor:grabbing;}
+.active-deck.ad-settling{transition:transform .2s var(--ease), box-shadow .2s var(--ease);}
+/* While a drag is live the rows stop being hit-tested, so none of them lights up as the carried row passes
+   over it. `pointer-events:none` rather than an override of the hover wash: the wash is a different mix on
+   dark themes, so restating it here would be two figures to keep in step with the resting rule for no gain
+   — and an element that is not hit-tested cannot match `:hover` at all. The gesture is unaffected, the
+   pointer having been captured by the LIST. */
+.active-decks.ad-reordering .active-deck{pointer-events:none;}
+.active-decks.ad-reordering{cursor:grabbing; user-select:none; -webkit-user-select:none;}
 /* How far through the deck the reader is — the bar took the place of the blue dot that used to sit at the
    left of the row. With room it stays IN the line, stretched between the deck's name and the figure, which
    is what fills the middle of a wide row. */
