@@ -171,11 +171,10 @@ const PROBE = () => {
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const page = await browser.newPage({ viewport: DESKTOP });
   /* The first-visit coach marks cover the page they explain — the Atlas's the globe, the Library's the
-     shelf, the Collections page's the collections — so every probe below would be measuring the card
-     instead of the route it names. The home page's walkthrough offer is inline and blocks nothing, so it
-     is deliberately left in: it is a first visitor's first sight of Folio, and its two controls should be
-     named and reachable like any other. */
-  await page.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
+     shelf — so every probe below would be measuring the card instead of the route it names. The home
+     page's walkthrough offer is inline and blocks nothing, so it is deliberately left in: it is a first
+     visitor's first sight of Folio, and its two controls should be named and reachable like any other. */
+  await page.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
 
   const allUnnamed = [], allUnreachable = [], allRoleless = [];
   const contrastByRoute = {};
@@ -276,7 +275,7 @@ const PROBE = () => {
      landing), and that write goes out with the in-memory settings — so a flag set from outside can be
      overwritten between the write and the reload. It looks like the mode not working. */
   const hcPage = await browser.newPage({ viewport: DESKTOP });
-  await hcPage.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
+  await hcPage.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
   await hcPage.addInitScript(() => {
     try {
       const raw = localStorage.getItem("folio_v1");

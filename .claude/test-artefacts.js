@@ -22,6 +22,18 @@
        obituary, since a cap removed from `addActive` but left in the page head reads as still in force.
      · **THE DECK CAP IS GONE.** A reader at level 1 can add every live collection, which is the whole of
        what was asked for and the one assertion that would have caught a half-removal.
+     · **THE CITATION APPARATUS (Aug 2026).** Every shipped artefact carries at least ARTEFACT_SRC_TARGET
+       citations, each ending in a URL and each pointed at by a marker; the plate renders them as the site's
+       numbered fold and `wireFootnotes` joins the two ends. Read off the SHIPPED file as well as off the
+       page, because a plate looks identical whether its markers resolve or not — an unwired one just shows
+       empty superscripts over a list nothing points at, which is what an unwired surface has always looked
+       like here.
+     · **THE ADMIN PLATE PREVIEW.** It is the reader's own builder, it follows the FORM rather than the
+       store, and its footnotes are wired. A preview that lags the boxes by one save is worse than none,
+       because it is believed.
+     · **THE SHOWCASE'S WAY IN.** The "See all" button opens the collection, lists everything owned, and —
+       the half that fails silently — opens a FRIEND's collection on a friend's showcase rather than your
+       own. It is absent when there is nothing behind it.
 
    Run:  NODE_PATH=<playwright>/node_modules node .claude/test-artefacts.js
    Env:  FOLIO_CHROMIUM=<path to chrome> if Chromium lives outside the playwright package. */
@@ -50,8 +62,16 @@ function syntheticPool() {
   RARS.forEach((r) => {
     for (let i = 1; i <= 8; i++) {
       const id = "t-" + r + "-" + i;
+      // three citations and three markers, so a synthetic artefact is shaped like a real one — the save
+      // path refuses anything under the bar, and a pool of uncited test objects would test the refusal
+      // rather than everything downstream of it
       out[id] = { id, name: "Test " + r + " " + i, rarity: r, date: "c. 100 BCE", origin: "Nowhere",
-        desc: "A test object. ".repeat(5) };
+        desc: 'A test object.<sup class="fn" data-fn="1"></sup> Another sentence.<sup class="fn" data-fn="2"></sup> A third.<sup class="fn" data-fn="3"></sup> A fourth. A fifth.',
+        sources: [
+          "Someone, “A Test Work,” <i>Test Journal</i> 1 (2026): 1–2, https://example.org/one. [Open access]",
+          "Someone Else, “A Second Test Work,” <i>Test Journal</i> 2 (2026): 3–4, https://example.org/two. [Open access]",
+          "A Third Hand, “A Third Test Work,” <i>Test Journal</i> 3 (2026): 5–6, https://example.org/three. [Open access]",
+        ] };
     }
   });
   return out;
@@ -66,8 +86,6 @@ function syntheticPool() {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !/net::ERR_/.test(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push(String(e)));
-  // the Collections page raises a first-visit card over itself (Aug 2026); nothing here is about it
-  await page.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   await page.goto(base, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(700);
 
@@ -228,6 +246,34 @@ function syntheticPool() {
     check("…and the fifth is refused", pinned[4] === false);
     const show = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).showcase);
     check("the showcase holds exactly four", show.length === 4, JSON.stringify(show));
+
+    /* THE PLATE'S APPARATUS. The fold is the site's own, so what is worth asserting is the JOIN: a marker
+       shows the number of the entry it opens, and the entry it opens exists. An unwired plate looks the
+       same at a glance — empty superscripts over an unnumbered list — which is exactly how an unwired
+       surface has failed here before. */
+    await page.locator("#reliquary .ar-tile").first().click();
+    await page.waitForTimeout(250);
+    const ap = await page.evaluate(() => {
+      const w = document.querySelector(".ar-win");
+      const marks = [...w.querySelectorAll("sup.fn")].map((s) => s.textContent);
+      const items = w.querySelectorAll(".src-item").length;
+      const note = w.querySelector(".src-note");
+      return { marks, items, open: note && !note.querySelector(".src-collapse.collapsed"), count: (w.querySelector(".src-count") || {}).textContent };
+    });
+    check("the plate carries the sources fold", ap.items === 3, String(ap.items));
+    check("…numbered by wireFootnotes, not left blank", ap.marks.join(",") === "1,2,3", JSON.stringify(ap.marks));
+    check("…open on the plate, as a card's is", !!ap.open);
+    check("…and the header counts them", ap.count === "3", String(ap.count));
+    await page.locator(".ar-close").click();
+    await page.waitForTimeout(200);
+
+    /* THE SHOWCASE'S "See all" BUTTON IS NOT ASSERTED HERE, and that is a fact about the page rather than
+       an omission: the SIGNED-OUT account page carries the inventory and no showcase at all, because a
+       showcase is four artefacts chosen to be SEEN and there is nobody to see a guest's. It is guarded in
+       .claude/test-account-page.js, which has the session this needs. What is asserted here is the other
+       half — that a guest is not shown a control that belongs to a section they have not got. */
+    check("a guest gets the inventory and no showcase", await page.locator("#reliquary").count() === 1 && await page.locator("#showcase").count() === 0);
+    check("…and so no orphan way in to it", await page.locator("[data-arall]").count() === 0);
   }
 
   /* ================= 5. Admin → Artefacts ================= */
@@ -262,6 +308,80 @@ function syntheticPool() {
       return Object.values(ov).filter((a) => a && a.image && a.image.src).length;
     });
     check("the picture reached the overlay", withImg === 1, String(withImg));
+
+    /* THE LIVE PLATE PREVIEW. Two things worth asserting and they fail in opposite directions: that the
+       preview exists and is the READER's plate (same builder, so the same classes), and that it follows the
+       FORM rather than the store — a preview a save behind is believed and is wrong. */
+    await page.locator(".a-row .a-main").first().click();
+    await page.waitForTimeout(350);
+    check("the form shows the reader's plate", await page.locator("#aPreview .ar-win").count() === 1);
+    check("…with the sources fold on it", await page.locator("#aPreview .src-item").count() === 3);
+    check("…its markers numbered", (await page.locator("#aPreview sup.fn").first().textContent()) === "1");
+    const nameNow = await page.locator("#aPreview .ar-wname").textContent();
+    await page.fill("#aName", "A Renamed Thing");
+    await page.waitForTimeout(250);
+    const nameThen = await page.locator("#aPreview .ar-wname").textContent();
+    check("…and it follows the form, not the store", nameThen === "A Renamed Thing" && nameThen !== nameNow, nameNow + " → " + nameThen);
+    // the rarity is a <select>, which fires `change` and (in some engines) no `input` at all — so this is
+    // the one field that would silently stop updating if the preview listened for `input` alone
+    const rarWas = await page.locator("#aPreview .ar-win").getAttribute("data-rar");
+    const rarNow = rarWas === "epic" ? "rare" : "epic";
+    await page.selectOption("#aRar", rarNow);
+    await page.waitForTimeout(250);
+    const rarThen = await page.locator("#aPreview .ar-win").getAttribute("data-rar");
+    check("…including the rarity, which fires change and not input", rarThen === rarNow && rarThen !== rarWas, rarWas + " → " + rarThen);
+
+    /* THE CITATION BAR IS A REFUSAL. Empty the box and the save is turned away with a reason, which is the
+       whole difference between a bar and a chip nobody reads. */
+    await page.fill("#aSrc", "");
+    await page.waitForTimeout(150);
+    await page.locator("#aSave").click();
+    await page.waitForTimeout(300);
+    check("an artefact under the source bar is refused", await page.locator("#aForm").count() === 1 && /sources/i.test((await page.locator("#toast").textContent()) || ""));
+    await page.fill("#aSrc", "One, “A,” <i>J</i> 1 (2026): 1, https://example.org/a.\nTwo, “B,” <i>J</i> 2 (2026): 2, https://example.org/b.\nThree, “C,” <i>J</i> 3 (2026): 3, https://example.org/c.");
+    await page.waitForTimeout(150);
+    await page.locator("#aSave").click();
+    await page.waitForTimeout(350);
+    check("…and saved once it is at the bar", await page.locator("#aForm").count() === 0);
+  }
+
+  /* ================= 6. the shipped pool is cited ================= */
+  {
+    // read off the FILE rather than off a page: every plate looks the same whether its list is three works
+    // or none, and the pool is what a reader is actually handed
+    const bar = (fs.readFileSync(path.join(ROOT, "app.js"), "utf8").match(/const\s+ARTEFACT_SRC_TARGET\s*=\s*(\d+)/) || [])[1];
+    check("the bar is declared in app.js", !!bar, String(bar));
+    const vm = require("vm");
+    const ctx = vm.createContext({ window: {} });   // the file assigns a global, so a bare window stands in for the browser
+    vm.runInContext(fs.readFileSync(path.join(ROOT, "artefacts.js"), "utf8"), ctx, { filename: "artefacts.js" });
+    const pool = ctx.window.ARTEFACTS || [];
+    const n = Number(bar || 3);
+    /* THE SHAPE IS AN INVARIANT; THE COVERAGE IS A PASS IN PROGRESS, and the two are asserted differently
+       on purpose. Anything that HAS been cited must be cited properly — a citation with no URL, a marker
+       running past the end of its list (wireFootnotes deletes those, so the claim silently loses its
+       source), a work nothing points at. Coverage is REPORTED rather than failed, exactly as the card and
+       glossary passes were run: docs/artefact-citation-plan.md is the work of bringing the rest of the pool
+       up, and a suite that goes red for a documented backlog is a suite people learn to ignore. The bar
+       itself is enforced where it bites — add-artefacts.js refuses a new artefact under it, and so does the
+       editor's Save. */
+    const cited = pool.filter((a) => Array.isArray(a.sources) && a.sources.length);
+    const short = cited.filter((a) => a.sources.length < n);
+    const noUrl = cited.filter((a) => a.sources.some((s) => !/https?:\/\//.test(s)));
+    const marks = (d) => (String(d).match(/<sup[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi) || [])
+      .map((t) => { const m = t.match(/data-fn="(\d+)"/i); return m ? Number(m[1]) : 0; });
+    const unmarked = cited.filter((a) => !marks(a.desc).length);
+    const dangling = cited.filter((a) => marks(a.desc).some((x) => x > a.sources.length));
+    const orphan = cited.filter((a) => a.sources.some((s, i) => marks(a.desc).indexOf(i + 1) < 0));
+    const dead = pool.filter((a) => !Array.isArray(a.sources) || !a.sources.length);
+    check("no cited artefact is under the " + n + "-source bar", short.length === 0, short.slice(0, 4).map((a) => a.id).join(", "));
+    check("…every citation carries a URL", noUrl.length === 0, noUrl.slice(0, 4).map((a) => a.id).join(", "));
+    check("…every cited description points at its works", unmarked.length === 0, unmarked.slice(0, 4).map((a) => a.id).join(", "));
+    check("…no marker runs past the end of its list", dangling.length === 0, dangling.slice(0, 4).map((a) => a.id).join(", "));
+    check("…and no citation goes unreferenced", orphan.length === 0, orphan.slice(0, 4).map((a) => a.id).join(", "));
+    // …and a marker must never point at a work in a DIFFERENT artefact's list, which is what a copied plan
+    // produces and which no count can see
+    check("…and every marker resolves inside its own artefact", cited.every((a) => marks(a.desc).every((x) => x >= 1 && x <= a.sources.length)));
+    console.log("      coverage: " + cited.length + " of " + pool.length + " artefacts cited, " + dead.length + " still to do");
   }
 
   check("no uncaught page errors", errs.length === 0, errs.slice(0, 4).join(" | "));

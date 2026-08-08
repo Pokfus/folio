@@ -78,12 +78,7 @@ const SETTINGS = {
   const newPage = async (state) => {
     const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
     page.on("pageerror", (e) => errs.push(e.message));
-    await page.addInitScript((st) => {
-      try {
-        localStorage.setItem("folio_v1", JSON.stringify(st));
-        localStorage.setItem("folio_collections_tour_v1", "1");   // the Collections page's own first-visit card (Aug 2026)
-      } catch (e) {}
-    }, state);
+    await page.addInitScript((st) => { try { localStorage.setItem("folio_v1", JSON.stringify(st)); } catch (e) {} }, state);
     return page;
   };
   // three cards already studied → past the first-run hero, and Folio level 2 (which is two decks)
@@ -600,9 +595,7 @@ const SETTINGS = {
     const blob = await page.evaluate(() => localStorage.getItem("folio_v1"));
     const fresh = await browser.newPage({ viewport: { width: 1200, height: 900 } });
     fresh.on("pageerror", (e) => errs.push(e.message));
-    await fresh.addInitScript((b) => {
-      try { localStorage.setItem("folio_v1", b); localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {}
-    }, blob);
+    await fresh.addInitScript((b) => { try { localStorage.setItem("folio_v1", b); } catch (e) {} }, blob);
     await fresh.goto(base + "#home", { waitUntil: "load" });
     await fresh.waitForTimeout(1400);
     const reread = await fresh.evaluate((p) => [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p).map((r) => r.dataset.drag), lvl.parent);

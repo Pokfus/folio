@@ -208,9 +208,6 @@ async function newSession(browser, db, who, base) {
   const ctx = await browser.newContext({ acceptDownloads: true });
   const ref = { user: who };
   await attachMock(ctx, db, ref);
-  // the Collections page raises a first-visit card over itself (Aug 2026) — this file reaches the
-  // community rows through it
-  await ctx.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   await ctx.addInitScript((u) => {
     localStorage.setItem("folio_supa_v1", JSON.stringify({
       access_token: "mock-token", refresh_token: "mock-refresh",

@@ -48,9 +48,6 @@ async function typeField(page, field, text) {
   const browser = await chromium.launch(LAUNCH);
   const downloads = fs.mkdtempSync(path.join(os.tmpdir(), "folio-dl-"));
   const ctx = await browser.newContext({ acceptDownloads: true });
-  // the Collections page raises a first-visit card over itself (Aug 2026) — this file uses that page to
-  // reach the "Your decks" section, and a scrim over it swallows every click after the first
-  await ctx.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   const page = await ctx.newPage();
   const errs = [], badResponses = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + String(e).slice(0, 240)));

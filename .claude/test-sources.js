@@ -136,8 +136,6 @@ async function requireTerm(page) {
   const browser = await chromium.launch(LAUNCH);
   const ctx = await browser.newContext({ acceptDownloads: true });
   const page = await ctx.newPage();
-  // the Collections page raises a first-visit card over itself (Aug 2026); nothing here is about it
-  await page.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + e));
   page.on("console", (m) => { if (m.type() === "error") errs.push("console: " + m.text()); });

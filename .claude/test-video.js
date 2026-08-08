@@ -114,8 +114,6 @@ async function openGlossEditor(page, base) {
   const base = "http://127.0.0.1:" + server.address().port + "/";
   const browser = await chromium.launch(LAUNCH);
   const page = await browser.newPage();
-  // the Collections page raises a first-visit card over itself (Aug 2026); nothing here is about it
-  await page.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + e));
   page.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load/.test(m.text())) errs.push("console: " + m.text()); });

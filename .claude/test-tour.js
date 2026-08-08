@@ -325,15 +325,13 @@ const CARD = () => {
     await page.close();
   }
 
-  /* ================= 5b. the Collections page's own card ================= */
-  /* Aug 2026, on request, and of the three page cards this is the one doing the most work: the home
-     page's first press now sends a brand-new reader HERE rather than choosing a subject for them, so
-     this is the first real page they meet and the card is the only thing on it that says pressing a +
-     is what starts the daily study. Both halves are asserted — the route and the card — because they
-     fail in opposite directions and either alone looks deliberate: a hero that still deals a card
-     bypasses the page, and a page with no card leaves a first-time reader on a list of things to look
-     at with nothing telling them what to do with one. */
-  console.log("\n5b. The Collections page explains how to add one");
+  /* ================= 5b. where the first-run hero sends a reader ================= */
+  /* Aug 2026, on request: the hero used to pick the first live collection, add it on the reader's behalf
+     and deal them a card; it takes them to the collections to choose their own. Both ends are asserted
+     because they fail in opposite directions and either alone looks deliberate — a hero that still deals
+     a card bypasses the page, and one that never deals a card strands a reader who has just added a
+     collection on the page they came from. */
+  console.log("\n5b. The first-run hero sends a new reader to the collections");
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
@@ -349,49 +347,21 @@ const CARD = () => {
     check("...and its first press goes to the collections, not into a session",
       await page.evaluate(() => location.hash === "#decks"), await page.evaluate(() => location.hash));
 
-    const h = await page.evaluate(() => {
-      const ov = document.querySelector(".page-help");
-      if (!ov) return null;
-      const r = ov.querySelector(".ah-card").getBoundingClientRect();
-      return {
-        onBody: ov.parentElement === document.body,
-        onScreen: r.top >= 0 && r.bottom <= innerHeight + 1 && r.width > 120,
-        tips: ov.querySelectorAll(".ah-tip").length,
-        text: ov.textContent,
-      };
-    });
-    check("...where a card explains what a collection is", !!h, h ? "" : "no .page-help");
-    check("...on the body and on the screen, like the Library's", !!(h && h.onBody && h.onScreen));
-    check("...naming the + as the way to add one", !!(h && /\+/.test(h.text) && /add/i.test(h.text)));
-    check("...and saying what adding one DOES", !!(h && /daily study/i.test(h.text)), h && h.text.slice(0, 0));
-    check("...three tips, like its siblings", !!(h && h.tips >= 3), h && h.tips + " tips");
-
-    await page.click(".page-help .ah-go");
-    await page.waitForTimeout(300);
-    check("dismissing it clears the page", await page.evaluate(() => !document.querySelector(".page-help")));
-    // a scrim left hit-testing would leave the whole page dead — and this is the page a first visit lands on
+    check("...and the page is live, with collections to add", await page.evaluate(() =>
+      document.querySelectorAll("#collection-list-all .collection-add[data-id]").length > 0));
     await page.click("#collection-list-all .collection-add");
     await page.waitForTimeout(400);
-    check("...and a collection can be added straight afterwards",
-      await page.evaluate(() => !!document.querySelector("#collection-list-all .collection-add.added")));
-
-    await page.goto(base + "#decks", { waitUntil: "load" });
-    await page.waitForTimeout(900);
-    check("it is not shown again on the next visit", await page.evaluate(() => !document.querySelector(".page-help")));
-    await page.click("#collHelpBtn");
-    await page.waitForTimeout(300);
-    check("...but the ? brings it back", await page.evaluate(() => !!document.querySelector(".page-help")));
+    check("...one of which can be added", await page.evaluate(() =>
+      !!document.querySelector("#collection-list-all .collection-add.added")));
+    /* THE LOOP THIS CLOSES: the deck list under the banner is not drawn while the hero IS the banner, so
+       that button is the only way into a session. `fresh` is an empty schedule AND an empty review, so a
+       reader who has just added a collection meets the ordinary banner and its Start — and a version of
+       this that sent every press to the collections would leave them going round in a circle. */
     await page.evaluate(() => { location.hash = "home"; });
-    await page.waitForTimeout(600);
-    check("...and it cannot outlive the page it explains", await page.evaluate(() => !document.querySelector(".page-help")));
-    /* THE LOOP THIS CLOSES: the deck list under the banner only appears once a card has been graded, so
-       while the hero is still the banner its button is the ONLY way into a session. Routing it to the
-       collections unconditionally left a reader who had just added one with nowhere to go but back to the
-       page they came from. */
-    await page.waitForTimeout(700);
+    await page.waitForTimeout(1300);
     await page.evaluate(() => document.querySelector(".banner .cta .btn").click());
     await page.waitForTimeout(1400);
-    check("...and with a collection added the hero deals a card after all",
+    check("...and with a collection added the banner deals a card after all",
       await page.evaluate(() => location.hash === "#study" && !!document.querySelector("#reveal-btn")),
       await page.evaluate(() => location.hash));
     await page.close();

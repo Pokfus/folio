@@ -90,22 +90,15 @@ async function studyEasy(page, base, n) {
   const base = "http://127.0.0.1:" + server.address().port + "/";
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const errs = [];
-  /* …and suppresses the LIBRARY's and the COLLECTIONS page's first-visit coach marks (Aug 2026). They are
-     a full-screen overlay on document.body, and the swipe section below lands on #library — a scrim there
-     swallows every gesture after it, which reads as the swipe having broken rather than as an overlay
-     being in the way. The collections one is raised on a first visit to #decks, which `studyEasy` walks
-     through to put a deck in the review. The home page's walkthrough OFFER is left alone deliberately: it
-     is inline markup, it blocks nothing, and section 6 asserts the home page as a first-time reader
-     actually meets it. */
+  /* …and suppresses the LIBRARY's first-visit coach marks (Aug 2026). They are a full-screen overlay on
+     document.body, and the swipe section below lands on #library — a scrim there swallows every gesture
+     after it, which reads as the swipe having broken rather than as an overlay being in the way. The
+     home page's walkthrough OFFER is left alone deliberately: it is inline markup, it blocks nothing, and
+     section 6 asserts the home page as a first-time reader actually meets it. */
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
     p.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load|favicon/.test(m.text())) errs.push("console: " + m.text()); });
-    return p.addInitScript(() => {
-      try {
-        localStorage.setItem("folio_library_tour_v1", "1");
-        localStorage.setItem("folio_collections_tour_v1", "1");
-      } catch (e) {}
-    });
+    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
   };
 
   /* ================= 1. the bottom tab bar ================= */
@@ -1965,49 +1958,6 @@ async function studyEasy(page, base, n) {
       check("...leaving nothing behind on the next page either", await page.locator(".chest-pop").count() === 0);
     }
     await page.close();
-  }
-
-  /* ================= 9. the Collections page's "?" costs the head nothing =================
-     It is the first page a brand-new reader is sent to (see PAGES.home's `fresh` branch), and its help
-     button has no tools row to sit in, so it hangs off the top corner of `.page-head`. The room reserved
-     for it is the trap: below 640px that head is CENTRED, and padding on one side of a centred block moves
-     the text off centre — the title sat 22px left of every other page's for as long as the padding was
-     unconditional. Nothing throws, and it reads as a page that has slipped. */
-  {
-    const phone = await browser.newPage({ viewport: PHONE });
-    await watch(phone);
-    const read = async (p) => {
-      await p.goto(base + "#decks", { waitUntil: "load" });
-      await p.waitForTimeout(1100);
-      return p.evaluate(() => {
-        const head = document.querySelector(".page-head.has-help");
-        const btn = document.querySelector("#collHelpBtn");
-        const h1 = head && head.querySelector("h1");
-        if (!head || !btn || !h1) return null;
-        const hb = head.getBoundingClientRect(), bb = btn.getBoundingClientRect();
-        // the title's own painted centre, not the box's — a centred block's box does not move, its text does
-        const r = document.createRange(); r.selectNodeContents(h1);
-        const tb = r.getBoundingClientRect();
-        return {
-          inHead: bb.right <= hb.right + 1 && bb.top >= hb.top - 3,
-          rightEnd: bb.left > hb.left + hb.width / 2,
-          off: Math.round((tb.left + tb.right) / 2 - (hb.left + hb.right) / 2),
-          overlaps: [...head.querySelectorAll("h1, p, .eyebrow")].some((e) => {
-            const r2 = e.getBoundingClientRect();
-            return r2.right > bb.left + 1 && r2.top < bb.bottom - 1 && r2.bottom > bb.top + 1;
-          }),
-        };
-      });
-    };
-    const ph = await read(phone);
-    check("the Collections page carries a ? in its head", !!ph && ph.inHead && ph.rightEnd, JSON.stringify(ph));
-    check("...and on a phone the title is still centred under it", !!ph && Math.abs(ph.off) <= 2, JSON.stringify(ph));
-    await phone.close();
-    const desk = await browser.newPage({ viewport: DESKTOP });
-    await watch(desk);
-    const dk = await read(desk);
-    check("...with the head's prose clearing it on a desktop", !!dk && dk.inHead && !dk.overlaps, JSON.stringify(dk));
-    await desk.close();
   }
 
   const real = errs.filter((e) => !/ERR_|manifest\.json|CORS|favicon|example\.org/.test(e));

@@ -143,8 +143,6 @@ async function studyLinks(page, base) {
   const base = "http://127.0.0.1:5650/";
   const browser = await chromium.launch(LAUNCH);
   const ctx = await browser.newContext();
-  // the Collections page raises a first-visit card over itself (Aug 2026); this file only passes through it
-  await ctx.addInitScript(() => { try { localStorage.setItem("folio_collections_tour_v1", "1"); } catch (e) {} });
   const page = await ctx.newPage();
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + String(e).slice(0, 220)));

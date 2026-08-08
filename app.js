@@ -1164,6 +1164,14 @@
   if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
   if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
   if (S.settings && S.settings.contrast === undefined) S.settings.contrast = false;
+  /* …and the daily allowance, which every one of the lines above has had and this one has not, because it
+     predates them. `load()` shallow-merges, so a stored `settings` REPLACES the default object wholesale —
+     and `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with no fallback of their own, so a save
+     old enough to lack the key yields `newPerDay: undefined` → NaN through `deckNewRemaining` → a
+     `slice(0, NaN)` that returns nothing. The review then offers **no new cards, ever**, with no error and
+     no zero to explain it: the banner simply reads "Browse collections" for good. Found while seeding a
+     partial settings object for `test-reset.js`, which is exactly the shape an old save has. */
+  if (S.settings && !Number.isFinite(S.settings.newPerDay)) S.settings.newPerDay = 3;
   /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
      book are keyed by its id — so without this a reader who had the dialogue open, or had starred
      it, would find their place and their star simply gone, with nothing on screen to say why. The
@@ -1457,6 +1465,30 @@
   function extractProgress() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
   function applyProgress(p) { const base = emptyProgress(); PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); }); }
   function emptyProgress() { const d = defaultState(), p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = d[k]; }); return p; }
+  /* SETTINGS → DANGER ZONE → RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE (Aug 2026, on a bug report:
+     "I purposely reset my study progress and then encountered that bug" — the bug being that the home page
+     turned back into a first-time visitor's and the reader's Daily study decks were gone).
+     It was `S = defaultState()`, which is not a progress reset but a factory reset of the whole save: it
+     took the theme, the night/system setting, the text size, the language, the day boundary, the sound and
+     narrator settings, the Atlas home location, the book sort — and the DECKS the reader had added, which
+     is what they noticed. It also threw away `_supaTs` / `_supaOwner`, the device-local sync baseline and
+     the record of whose progress this is, so the next boot had to re-reconcile from scratch.
+     A control is allowed to be destructive; it is not allowed to be destructive in ways its own words do
+     not describe. The dialog names study history, the streak and the badges, so those go, and with them the
+     artefacts and chests — they are what a level buys, and keeping forty of them beside a level 1 badge
+     would be the odder outcome. What is KEPT is what was never study history in the first place:
+       · `settings` and `user` — not progress at all, and `joined` is what the heatmap starts from.
+       · `active` and `deckOpts` — WHICH decks you study and what your daily limits are is a choice, not a
+         history. This is the reported symptom, and it is the one a reader cannot easily rebuild.
+       · `reading` and `bookFavs` — the Library is not the flashcards; losing your place in a 124-letter
+         book because you reset a card schedule is a surprise nothing warned you about.
+     Field-wise rather than whole-object, so a PROGRESS_FIELD added later is reset by default and has to be
+     named here to survive — the safe direction for a control with "cannot be undone" written on it. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs"];
+  function resetProgress() {
+    const base = emptyProgress();
+    PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
+  }
   function syncProgressToAccount() {
     const u = currentUser(); if (!u) return;
     u.progress = extractProgress();
@@ -7282,6 +7314,7 @@
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
     closeChestPop();      // …nor an artefact chest, which IS the level-up celebration and lives on the body too
     closeArtefactWin();   // …nor an artefact's own window
+    closeCollectionWin(); // …nor the collection the showcase's "See all" raises over it
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
@@ -8433,25 +8466,6 @@
   function openBookHelp() {
     _bookHelpShown = true;
     pageHelp("Reading a book", BOOK_HELP_TIPS, "Start reading", () => { try { localStorage.setItem(BOOK_TOUR_KEY, "1"); } catch (e) {} });
-  }
-  /* THE COLLECTIONS PAGE EXPLAINS ITSELF ON A FIRST VISIT (Aug 2026, on request), and of the three cards
-     this one is doing the most work. The home page's first press now sends a brand-new reader HERE rather
-     than choosing a subject on their behalf (see PAGES.home's `fresh` branch), so this is the first real
-     page they meet — and what they have to do on it is press a 30px "+" beside a banner, on a page that
-     otherwise reads as a list of things to look at. Nothing on the page says that adding one is the step
-     that makes the daily review start dealing cards.
-     It is RAISED rather than offered, which the walkthrough deliberately is not: the walkthrough is an
-     optional three-minute tour of the whole site, where this is one sentence about the page in front of
-     you, at the one moment it answers a question the reader is actually holding. Its three ways out are
-     pageHelp's own (Escape, the ×, the button), so it is a card to read and dismiss, not a wall. */
-  const COLL_TOUR_KEY = "folio_collections_tour_v1";
-  const COLL_HELP_TIPS = [
-    "<b>A collection is a subject</b> — a thousand cards on Ancient Greece or World History, cut into decks and subdecks by period and theme. Pick one that interests you; you can hold as many as you like at once.",
-    "<b>Press the + to add one</b> — the button on the right of a collection's banner. Adding it puts its decks into your daily study, and the home page starts dealing you a few new cards a day from them. Press it again to take it back out.",
-    "<b>Study a part of one instead</b> — open a collection with the chevron to see the decks inside it, and add just the period you want. Anything marked <b>Coming soon</b> is still being written.",
-  ];
-  function openCollHelp() {
-    pageHelp("Adding a collection", COLL_HELP_TIPS, "Pick a collection", () => { try { localStorage.setItem(COLL_TOUR_KEY, "1"); } catch (e) {} });
   }
 
   /* THE OFFER — first-run markup on the home page, beside the hero (the how-it-works strip that used to
@@ -10233,6 +10247,12 @@
       date: sanitizePlain(String(a.date || "")).trim().slice(0, 120),
       origin: sanitizePlain(String(a.origin || "")).trim().slice(0, 200),
       desc: sanitizeHTML(String(a.desc || "")),
+      /* A citation is RICH: Chicago sets the title of a work in italics, and a museum record's own title
+         may carry a foreign term. So each entry goes through sanitizeHTML like the description rather than
+         through sanitizePlain like the fields above — the same treatment a community deck's `sources` gets
+         on ingest, and for the same reason (the overlay is written by an admin from a phone into a table
+         any signed-in admin can PATCH). normSources then trims, de-duplicates and caps the list. */
+      sources: normSources((Array.isArray(a.sources) ? a.sources : []).map((s) => sanitizeHTML(String(s == null ? "" : s)))),
     };
     const im = a.image;
     if (im && typeof im === "object" && im.src) {
@@ -10255,11 +10275,17 @@
     const seen = new Set();
     return out.map(artefactSanitize).filter((a) => a && !seen.has(a.id) && seen.add(a.id));
   }
-  // Derived, and therefore `let` — any writer calls refreshArtefacts(), exactly as the quote pool does.
-  let ARTEFACTS = artefactsMerged();
+  /* Derived, and therefore `let` — any writer calls refreshArtefacts(), exactly as the quote pool does.
+     THE POOL IS BUILT LATER, NOT HERE, and that is a TDZ hazard rather than a preference: `artefactSanitize`
+     runs each citation through `normSources`, which reads `SRC_MAX` / `SRC_MAX_LEN` — `const`s declared in
+     THE SOURCE FOOTNOTES block several thousand lines below. A function declaration is hoisted and a `const`
+     is not, so building the pool at this point throws "Cannot access 'SRC_MAX' before initialization" and
+     takes the whole IIFE down with it: no router, no page, a blank site. The build therefore happens beside
+     that block (see the call under ARTEFACT_SRC_TARGET), which is the first point at which everything it
+     depends on exists. Nothing between here and there reads the pool at module-init time. */
+  let ARTEFACTS = [];
   let ARTEFACT_BY_ID = {};
   function refreshArtefacts() { ARTEFACTS = artefactsMerged(); ARTEFACT_BY_ID = {}; ARTEFACTS.forEach((a) => { ARTEFACT_BY_ID[a.id] = a; }); }
-  refreshArtefacts();
   function artefactIsShipped(id) { return (window.ARTEFACTS || []).some((a) => a && a.id === id); }
   function setArtefactEdit(id, obj) {
     if (!ADMIN_EDITS.artefacts) ADMIN_EDITS.artefacts = {};
@@ -10365,7 +10391,21 @@
     for (let i = ids.length; i < SHOWCASE_MAX; i++) {
       cells += '<div class="ar-tile ar-slot" aria-hidden="true"><span class="ar-slotmark">+</span></div>';
     }
-    return '<div class="showcase">' + cells + '</div>' +
+    /* THE WAY IN TO THE WHOLE COLLECTION (Aug 2026, on request). The showcase is four artefacts out of
+       however many a reader holds, and until now it said nothing about the rest: on your own account the
+       inventory was three sections further down the page, and on a friend's it was below their statistics,
+       so the four tiles read as the whole of it. The button opens the collection as an OVERLAY rather than
+       scrolling to that section, for two reasons — it is the same list wherever the showcase is rendered,
+       including a page that carries no inventory section at all, and a reader who came to look at four
+       artefacts is asking to see more of them, not to be moved somewhere else on a long page.
+       It appears only once there is something behind it: "See all 0" is a control that does nothing. */
+    const n = ownedArtefacts(prog).length;
+    const head = n
+      ? '<div class="ar-schead"><button type="button" class="ghost-btn ar-all" data-arall="1" title="' +
+        (own ? "Everything you have collected" : "Everything this scholar has collected") + '">' +
+        "See all " + n + " artefact" + (n === 1 ? "" : "s") + "</button></div>"
+      : "";
+    return head + '<div class="showcase">' + cells + '</div>' +
       (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
   }
   // the account page's inventory
@@ -10385,7 +10425,42 @@
     return head + '<div class="ar-grid">' + list.map((a) => artefactTileHTML(a, { pinned: own && inShowcase(a.id) })).join("") + '</div>' +
       (own && list.length < total ? '<p class="ar-note">' + (total - list.length) + ' still to find.</p>' : "");
   }
-  // one artefact, opened from a tile: the picture, what it is, and the five sentences
+  /* ---------- THE PLATE ----------
+     The frame an artefact is READ in: its picture, its name, its rarity, the date and origin lines, the
+     five sentences and the works behind them. It is built HERE, once, rather than inside openArtefactWin,
+     because Admin → Artefacts shows the same plate live beside the form (Aug 2026, on request) — and a
+     preview built from a second copy of this markup is a preview that drifts, which is worse than none:
+     the whole value of it is that what the editor sees is what the reader gets.
+
+     Two things it deliberately does NOT own. The overlay chrome (the backdrop, the × , Escape) belongs to
+     openArtefactWin, since the preview is embedded in a page and has nothing to close; and the FOOTNOTE
+     NUMBERING belongs to `wireFootnotes`, which has to run over the rendered nodes — so every caller pairs
+     this with `wireArtefactPlate` on the container it put the markup in. */
+  function artefactPlateHTML(a, opts) {
+    const o = opts || {};
+    const r = rarityId(a);
+    const src = normSources(a.sources);
+    return '<div class="ar-win' + (o.cls ? " " + o.cls : "") + '"' + (o.attrs || "") + ' data-rar="' + r + '">' +
+      (o.close ? '<button class="ar-close" type="button" aria-label="Close">×</button>' : "") +
+      '<div class="ar-winart">' + artefactArtHTML(a, "ar-big") + '</div>' +
+      '<div class="ar-wintext">' +
+        '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
+        '<h3 class="ar-wname">' + esc(a.name || "") + '</h3>' +
+        (a.date ? '<div class="ar-wmeta">' + esc(a.date) + '</div>' : "") +
+        (a.origin ? '<div class="ar-wmeta">' + esc(a.origin) + '</div>' : "") +
+        '<div class="ar-wdesc">' + (a.desc || "") + '</div>' +
+        (a.image && a.image.credit ? '<div class="ar-wcredit">' + esc(a.image.credit) + '</div>' : "") +
+        /* The apparatus is the site's own — `sourcesHTML` and the delegated fold/marker listeners, so the
+           numbers, the links, the access chips and the jump both ways all work here with no wiring of
+           their own. It renders OPEN like a card's and unlike a gloss popup's: an artefact plate is a
+           page about one object rather than a glance at a word, and this is where a reader who wants to
+           know whether the thing is really 65 centimetres long goes to find out. */
+        sourcesHTML(src) +
+        (o.pin ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + esc(o.pin) + "</button>" : "") +
+      "</div></div>";
+  }
+  function wireArtefactPlate(scope) { if (scope) wireFootnotes(scope); }
+  // one artefact, opened from a tile: the plate, over a backdrop, with the pin control on your own copy
   let _artefactClose = null;
   function closeArtefactWin() { if (_artefactClose) _artefactClose(); }
   function openArtefactWin(id) {
@@ -10393,22 +10468,15 @@
     if (!a) return;
     closeArtefactWin();
     const own = ownsArtefact(id);
-    const r = rarityId(a);
     const ov = document.createElement("div");
     ov.className = "artefact-pop";
-    ov.innerHTML = '<div class="ar-win" role="dialog" aria-modal="true" aria-label="' + esc(a.name) + '" data-rar="' + r + '">' +
-      '<button class="ar-close" type="button" aria-label="Close">×</button>' +
-      '<div class="ar-winart">' + artefactArtHTML(a, "ar-big") + '</div>' +
-      '<div class="ar-wintext">' +
-        '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
-        '<h3 class="ar-wname">' + esc(a.name) + '</h3>' +
-        (a.date ? '<div class="ar-wmeta">' + esc(a.date) + '</div>' : "") +
-        (a.origin ? '<div class="ar-wmeta">' + esc(a.origin) + '</div>' : "") +
-        '<div class="ar-wdesc">' + a.desc + '</div>' +
-        (a.image && a.image.credit ? '<div class="ar-wcredit">' + esc(a.image.credit) + '</div>' : "") +
-        (own ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + (inShowcase(id) ? "Remove from profile" : "Show on profile") + '</button>' : "") +
-      '</div></div>';
+    ov.innerHTML = artefactPlateHTML(a, {
+      close: true,
+      attrs: ' role="dialog" aria-modal="true" aria-label="' + esc(a.name) + '"',
+      pin: own ? (inShowcase(id) ? "Remove from profile" : "Show on profile") : "",
+    });
     document.body.appendChild(ov);
+    wireArtefactPlate(ov);
     const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _artefactClose = null; };
     _artefactClose = close;
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
@@ -10426,6 +10494,35 @@
     requestAnimationFrame(() => ov.classList.add("show"));
     unitizeTree(ov);
   }
+  /* ---------- the whole collection, opened from the showcase ----------
+     The list the showcase's "See all" button raises. It is deliberately the SAME `reliquaryHTML` the
+     account page's own section renders, so the two can never come to disagree about what is collected or
+     how a tile looks — the overlay is a place to put that list, not a second version of it. The tiles
+     inside open their own artefact plate, which stacks above this one (the plate is appended to the body
+     after it, so it paints later at the same z-index) and whose Escape closes only itself, since each
+     overlay installs its own capture-phase key handler and the plate's stops propagation. */
+  let _collectionClose = null;
+  function closeCollectionWin() { if (_collectionClose) _collectionClose(); }
+  function openCollectionWin(prog, own) {
+    closeCollectionWin();
+    const p = prog || S;
+    const ov = document.createElement("div");
+    ov.className = "artefact-pop collection-pop";
+    ov.innerHTML = '<div class="ar-collwin" role="dialog" aria-modal="true" aria-label="Collected artefacts">' +
+      '<button class="ar-close" type="button" aria-label="Close">×</button>' +
+      '<h3 class="ar-collhead">' + (own ? "Your collection" : "Their collection") + "</h3>" +
+      '<div class="ar-collbody">' + reliquaryHTML(p, own) + "</div></div>";
+    document.body.appendChild(ov);
+    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _collectionClose = null; };
+    _collectionClose = close;
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("click", (e) => { if (e.target === ov) close(); });
+    ov.querySelector(".ar-close").addEventListener("click", close);
+    wireReliquary(ov.querySelector(".ar-collbody"), p, own);
+    requestAnimationFrame(() => ov.classList.add("show"));
+    unitizeTree(ov);
+  }
   /* Repaint the account page's own two Reliquary blocks IN PLACE. A chest opened from anywhere and a pin
      thrown in an artefact's window both change what those blocks say, and `render()` is the wrong tool:
      it would rebuild the whole account page — losing the reader's scroll, and, on a page with an overlay
@@ -10434,15 +10531,20 @@
   function refreshReliquary() {
     if (!current || current.name !== "account") return;
     const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
-    if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host); }
-    if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc); }
+    if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host, S, true); }
+    if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc, S, true); }
   }
-  // one delegated listener per rendered container — the tiles are rebuilt whenever a pin changes
-  function wireReliquary(host) {
+  /* one delegated listener per rendered container — the tiles are rebuilt whenever a pin changes.
+     `prog` and `own` are what the "See all" button opens the collection FOR: a friend's showcase must
+     raise a friend's collection, and defaulting to S would quietly show the reader their own list under
+     somebody else's name. They default to your own for the callers that render your own page. */
+  function wireReliquary(host, prog, own) {
     if (!host) return;
+    const p = prog || S, mine = own === undefined ? true : !!own;
     host.querySelectorAll("[data-artefact]").forEach((b) => b.addEventListener("click", () => openArtefactWin(b.dataset.artefact)));
     const open = host.querySelector("#arOpen");
     if (open) open.addEventListener("click", () => openChestPop());
+    host.querySelectorAll("[data-arall]").forEach((b) => b.addEventListener("click", () => openCollectionWin(p, mine)));
   }
 
   /* ---------- the chest ----------
@@ -11148,6 +11250,33 @@
     listEl.addEventListener("pointerup", end);
     listEl.addEventListener("pointercancel", end);
   }
+  /* The line-drawn marks the home page's game tiles and the daily-review banner wear. Inline stroke SVGs
+     (viewBox 0 0 24 24) that take the surrounding colour through currentColor, so one mark serves a tile,
+     a banner and a placard without a second copy in another hue.
+     THEY ARE AT MODULE SCOPE RATHER THAN INSIDE PAGES.home BECAUSE THE PLACARDS NEED THEM TOO: they were
+     written to replace the Han glyphs the game tiles used to carry, and `gameLockedToday` — the screen a
+     reader meets every day once they have played — was still setting one of those glyphs (see GAME_NAMES).
+     A Chinese character standing over "Played today" is a leftover from the days when Folio was a China
+     deck; it says nothing about Multiple Choice or Timeline to a reader of an English site. */
+  const ICON = {
+    choices:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><line x1="10" y1="6" x2="20" y2="6"/><circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="10" y1="12" x2="20" y2="12"/><circle cx="5" cy="18" r="2"/><line x1="10" y1="18" x2="20" y2="18"/></svg>',
+    timeline:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg>',
+    truefalse:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 6 17 11 8"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/></svg>',
+    whosaid:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+    review:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    help:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
+    findit:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    // Common Thread — a four-by-four grid with one row already gathered, which is the game in one mark
+    thread:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/></svg>',
+  };
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -11360,27 +11489,8 @@
     const playedThreadToday = gamePlayedToday("thread");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
     const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread") };
-    // Decorative background icons for the home game tiles (replace the old Han glyphs).
-    // Inline stroke SVGs (viewBox 0 0 24 24) inherit the tile colour via currentColor.
-    const ICON = {
-      choices:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><line x1="10" y1="6" x2="20" y2="6"/><circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="10" y1="12" x2="20" y2="12"/><circle cx="5" cy="18" r="2"/><line x1="10" y1="18" x2="20" y2="18"/></svg>',
-      timeline:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg>',
-      truefalse:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 6 17 11 8"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/></svg>',
-      whosaid:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
-      review:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
-      help:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
-      findit:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-      // Common Thread — a four-by-four grid with one row already gathered, which is the game in one mark
-      thread:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/></svg>',
-    };
+    /* The game tiles' and the banner's marks are at module scope now (see ICON, above PAGES.home) —
+       the daily "Played today" placard needs them too. */
     /* THE DAY'S COMPLETION MARK — two shapes, not one (Aug 2026, on request).
        A PERFECT score keeps the shining gold ribbon: it is the rarer thing and it earns the whole corner.
        Merely HAVING PLAYED is now a small green circled check in the top-right instead of a green band
@@ -11432,7 +11542,20 @@
       ${tile({ id: "g-thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
     </div>`;
 
-    const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
+    /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
+       reader who used Settings → Reset progress was handed the first-run hero and lost the list of decks
+       under it). `fresh` was `S.cards` being empty, which is true of a genuine first-timer and equally true
+       of someone who has been here for months and has just cleared their schedule on purpose — and it does
+       not merely change the wording, it HIDES the deck list below (see reviewGroup), so the one thing that
+       reader wanted back was the one thing taken away.
+       Adding `!activeCardIds().length` distinguishes them without a new flag, because a first-timer's
+       shipped `S.active` is a single deck of the coming-soon China collection, which `activeCardIds`
+       filters out through `availableCardIdSet` — so they still get the hero, exactly as before. Anyone with
+       a studiable deck in their daily review gets the ordinary banner and their decks, whether they arrived
+       there by resetting or by adding a collection before turning a single card over. That second case is
+       an improvement rather than a side effect: someone who has just pressed "+ Add decks" is better served
+       by their own pile and a Start button than by being told again what Folio is for. */
+    const fresh = Object.keys(S.cards).length === 0 && activeCardIds().length === 0;
     /* THE DISCOVERY ROW IS GONE — the card of the day, the gloss of the day and the Atlas teaser with it
        (Aug 2026, on request). It went from the phone first, on the grounds that a phone's home page is the
        day's work; the request a fortnight later was to bring the desktop into line with the phone rather
@@ -11598,18 +11721,18 @@
       if (fresh) {
         /* THE FIRST PRESS GOES TO THE COLLECTIONS (Aug 2026, on request). It used to pick the first
            collection that was not coming soon, add it on the reader's behalf and deal them a card —
-           which is quick, and makes for them the one decision this page exists to hand over. A reader
-           with an empty review is sent to the collections instead, where the first-visit card (see
-           openCollHelp) says what a collection is and how to add one.
-           ONCE THEY HAVE ADDED ONE IT STARTS THE SESSION, and that half is not a nicety: the deck list
-           under the banner only appears after the first card is graded, so while the hero is still the
-           banner this button is the ONLY way into a session. Routing it to the collections
-           unconditionally left a reader who had just added a collection with nowhere to go but back to
-           the page they had come from — a loop with no way out of it, which is what this test is here
-           to prevent. `pileIds` is the review's own studiable cards, so the question it answers is
-           exactly "is there anything here to deal yet?". */
-        if (!pileIds.length) { route("decks"); return; }
-        route("study", { scope: { type: "review" } });
+           which is quick, and makes for them the one decision this page exists to hand over. They are
+           sent to the collections instead, to choose their own.
+           IT CAN ROUTE UNCONDITIONALLY BECAUSE `fresh` ALREADY ASKS THE HARDER QUESTION. A reader who
+           has added a collection but not yet graded a card is no longer fresh — `fresh` is an empty
+           schedule AND an empty review — so they meet the ordinary banner, with their decks under it and
+           a Start button, and never reach this branch. That matters more than it looks: while the hero
+           IS the banner it is the only way into a session, since the deck list is not drawn under it, so
+           a version of this that sent every press to the collections left a reader who had just added
+           one looping back to the page they came from. The two changes landed on different branches and
+           the guard that used to stand here (`if (!pileIds.length)`) is redundant now rather than
+           wrong — kept as a sentence rather than as a line that can never be false. */
+        route("decks");
         return;
       }
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
@@ -11829,7 +11952,7 @@
       </details>`;
 
     root.innerHTML = `
-      <div class="page-head has-help">
+      <div class="page-head">
         ${/* The eyebrow read "Library" until Aug 2026, when that name moved to the reading room next
               door (PAGES.library — whole books rather than cards). Two pages called Library, one of them
               titled Collections, is how a reader ends up on the wrong one; this page is the Collections
@@ -11839,9 +11962,6 @@
         <p>Curated collections of flashcards. New subjects are on the way.</p>
         ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
               itself (Aug 2026, on request) — there is no limit left to state. */""}
-        ${/* the way back to the first-visit card, exactly as the Library's "?" and the Atlas's are: a page
-              that explains itself once and then never again is a page whose explanation cannot be re-read */""}
-        <button class="gz-btn page-help-btn" id="collHelpBtn" type="button" aria-label="How to add a collection">?</button>
       </div>
       ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
             list of collections — the label contradicted both that and the page title above it. */""}
@@ -11856,17 +11976,6 @@
     wireLibraryDnd(root);
     wireCommunityLibrary(root);
     animateProgs(root);   // fill the collection XP bars from their data-pct
-    /* First-visit coach marks + the "?" that brings them back (see openCollHelp). Built on document.body
-       rather than written into this page — the reason is worth reading at pageHelp; written into a `.page`
-       that carries a filled animation, `inset:0` resolves to the page's own several-screen box and the
-       card centres itself below the fold.
-       Never over the walkthrough, whose second step routes to this very page and points at a collection's
-       + button: two cards at once, one of them arrowed at something the other is covering. */
-    { const helpBtn = root.querySelector("#collHelpBtn");
-      if (helpBtn) helpBtn.addEventListener("click", openCollHelp);
-      let seen = "1"; try { seen = localStorage.getItem(COLL_TOUR_KEY) || ""; } catch (err) {}
-      if (!seen && !tourRunning()) openCollHelp();
-    }
   };
 
   /* ---------- the Library's "Your decks" section ----------
@@ -15557,6 +15666,16 @@
      is, so this file and the scripts can never disagree about what the bar is. docs/glossary-citation-plan.md
      is the work of bringing the 333 terms up to it. */
   const GLOSS_SRC_TARGET = 2;
+  /* And the same bar for an ARTEFACT (Aug 2026, on request: "all artefacts use at least three source
+     citations for their info paragraphs"). Three sits between the glossary's two and a card's five for the
+     reason those two numbers differ from each other — a description of five sentences is longer than a
+     term's three and shorter than a card's ten. Read out of here by .claude/add-artefacts.js and
+     .claude/add-artefact-sources.js by slicing this file, exactly as the other two are, so a bar can never
+     be raised in one place and left standing in another. Unlike SRC_TARGET this one is a REFUSAL rather
+     than a target the editor reports against: the artefact pool was cited in one pass rather than backfilled
+     over months, so there is no under-cited backlog for a chip to describe and nothing to gain by letting
+     the next one in below the bar. */
+  const ARTEFACT_SRC_TARGET = 3;
   // clean a raw sources value (array, or one string) into the display list: trimmed, de-duplicated, capped
   function normSources(raw) {
     const arr = Array.isArray(raw) ? raw : (raw == null || raw === "" ? [] : [raw]);
@@ -15567,6 +15686,10 @@
     });
     return out.slice(0, SRC_MAX);
   }
+  /* The artefact pool is BUILT HERE rather than where it is declared, and the reason is the two `const`s
+     above: `artefactSanitize` runs every citation through `normSources`, so building the pool any earlier
+     dies in the temporal dead zone and takes the whole IIFE with it. See the note at `let ARTEFACTS`. */
+  refreshArtefacts();
   function cardSources(c) { return normSources(c && c.sources); }
   function glossSources(k) {
     const u = uGlossParse(k);
@@ -16443,11 +16566,16 @@
      Timeline order or walk today's five places again cannot. What is kept in exchange is that the figure
      on the tile is the answer they gave when they did not know the answers.
 
-     The glyph is the one that game's own placards already use, so the screen a reader meets is in the
-     hand they know it by. */
+     THE MARK IS THE GAME'S OWN TILE ICON (Aug 2026, on request — it was a Han glyph: 选 over Multiple
+     Choice, 真 over True or False, and so on). Those glyphs are what the game tiles wore back when Folio
+     was a China deck, and the tiles gave them up for these line-drawn marks when the site stopped being
+     one; this placard kept its copy and is the screen a reader meets EVERY day once they have played, so
+     it was the last place on the site regularly showing a Chinese character to a reader of an English
+     page — a character that says nothing about Timeline or Find it. Using the tile's own mark also means
+     the screen answers in the hand the reader pressed. */
   const GAME_NAMES = {
-    challenge: ["Multiple Choice", "选"], truefalse: ["True or False", "真"], whosaid: ["Who said it?", "言"],
-    chrono: ["Timeline", "序"], thread: ["Common Thread", "紐"], findit: ["Find it", "地"],
+    challenge: ["Multiple Choice", ICON.choices], truefalse: ["True or False", ICON.truefalse], whosaid: ["Who said it?", ICON.whosaid],
+    chrono: ["Timeline", ICON.timeline], thread: ["Common Thread", ICON.thread], findit: ["Find it", ICON.findit],
   };
   const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places" };
   /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
@@ -21204,10 +21332,10 @@
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
       root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
-      wireReliquary(root.querySelector("#fShowcase"));
+      wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See all" opens THEIR collection, not yours
       const fRel = root.querySelector("#fReliquary");
       fRel.innerHTML = reliquaryHTML(prog, false);   // `own` false → no chest button and no pinning
-      wireReliquary(fRel);
+      wireReliquary(fRel, prog, false);
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
@@ -21290,15 +21418,26 @@
       "             rarity-coloured placeholder rather than an empty frame.\n" +
       "     desc    exactly FIVE sentences, about 200 words (±10%), at the same reading level as a card's\n" +
       "             background. Rich HTML: <b> for the object's own name at its first mention, <i> for titles\n" +
-      "             and foreign terms. Metric first with the imperial equivalent in brackets.\n\n" +
-      "   Written and edited in Admin → Artefacts, which can also hand this whole file back as a JS literal. */\n" +
+      "             and foreign terms. Metric first with the imperial equivalent in brackets. It carries the\n" +
+      "             footnote markers — <sup class=\"fn\"></sup>, written EMPTY, since the digit is drawn from\n" +
+      "             the list at render time and a hand-typed number goes stale the moment the list is\n" +
+      "             re-ordered.\n" +
+      "     sources at least THREE Chicago note-form citations, each ending in the URL that lets a reader\n" +
+      "             check it, and each pointed at by at least one marker in the description. Real works only:\n" +
+      "             a museum's own record of the object, an excavation report, a journal article, an ancient\n" +
+      "             author in a published translation. Never a citation composed to fit a sentence.\n\n" +
+      "   Written and edited in Admin → Artefacts, which shows the reader's plate live beside the form and can\n" +
+      "   also hand this whole file back as a JS literal. */\n" +
       "window.ARTEFACTS = [\n" +
       ARTEFACTS.map((a) => {
         let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
         if (a.date) out += "    date: " + s(a.date) + ",\n";
         if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
         if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
-        return out + "    desc: " + s(a.desc) + ",\n  },";
+        out += "    desc: " + s(a.desc) + ",\n";
+        const src = normSources(a.sources);
+        if (src.length) out += "    sources: [\n" + src.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
+        return out + "  },";
       }).join("\n") + "\n];\n";
   }
 
@@ -21684,7 +21823,7 @@
         <div class="set-card danger">
           ${setHead("var(--zh)", '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/>', "Danger zone")}
           <div class="set-row">
-            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. This can't be undone.</p></div>
+            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. Your decks and your settings are kept. This can't be undone.</p></div>
             <div class="ctl"><button class="btn ghost danger-btn" id="reset">Reset…</button></div>
           </div>
         </div>
@@ -21813,11 +21952,11 @@
     });
 
     root.querySelector("#reset").addEventListener("click", () => {
-      inlinePrompt("This clears every card's study history, your streak and your badges, and cannot be undone. Type RESET to confirm.", "", (val) => {
+      // the wording says what resetProgress actually does — see RESET_KEEPS. It used to promise the study
+      // history, the streak and the badges and quietly take the settings and the decks with them.
+      inlinePrompt("This clears your study history, your streak, your badges and your artefacts. Your decks, your place in the Library and your settings are kept. It cannot be undone. Type RESET to confirm.", "", (val) => {
         if (String(val || "").trim().toUpperCase() !== "RESET") { toast("Reset cancelled — confirmation didn't match"); return; }
-        const keepName = S.user.name;
-        S = defaultState();
-        S.user.name = keepName;
+        resetProgress();
         save();
         toast("Progress reset");
         render();
@@ -24585,7 +24724,21 @@
        because the reader's own inventory is keyed by that id — so the id field is editable only while an
        artefact is NEW, and locked once it exists. And the description is held to the house bar (five
        sentences, 200 words ±10%): the counter beside the box is live, so a description drifting long is
-       visible while it is being written rather than at review time. */
+       visible while it is being written rather than at review time.
+
+       THE FORM SHOWS THE PLATE (Aug 2026, on request) — the frame the reader meets the object in, drawn
+       live from what is in the boxes and repainted on every keystroke. Three things about it:
+
+       · **It is `artefactPlateHTML`, the reader's own builder**, not a second rendering of the same
+         fields. A preview written separately is a preview that drifts, and it drifts silently: the whole
+         value of one is the promise that what is on the left is what a reader gets.
+       · **It is built from the FORM, never from the store**, so it shows the edit in progress rather than
+         the last thing saved — which is the difference between a preview and a receipt. The description
+         is passed through `sanitizeHTML` on the way in exactly as `artefactSanitize` would, so a typo in
+         a tag looks here the way it will look to a reader instead of only after saving.
+       · **`wireArtefactPlate` runs on every repaint**, or the citations render as a fold of unnumbered
+         entries with blank superscripts above them — the one part of the plate that cannot be seen to be
+         right without the pass that joins the two ends. */
     let _aEditing = null;   // the id of the artefact whose form is open, or "" for a new one
     function adminRenderArtefacts() {
       const items = root.querySelector("#adminListItems");
@@ -24600,8 +24753,14 @@
         const sents = plain.trim() ? plain.split(/(?<=[.!?])\s+(?=[A-Z“"‘'])/).filter((s) => s.trim()).length : 0;
         return { words, sents, ok: words >= 180 && words <= 220 && sents === 5 };
       };
+      // the citation bar, reported on every row: how many works, and whether the description points at them
+      const srcStat = (a) => {
+        const n = normSources(a.sources).length;
+        const marks = (String(a.desc || "").match(/<sup[^>]*class="[^"]*\bfn\b[^"]*"/gi) || []).length;
+        return { n, marks, ok: n >= ARTEFACT_SRC_TARGET && marks > 0 };
+      };
       const row = (a) => {
-        const r = rarityId(a), st = stat(a), added = !artefactIsShipped(a.id);
+        const r = rarityId(a), st = stat(a), ss = srcStat(a), added = !artefactIsShipped(a.id);
         return '<div class="a-row' + (_aEditing === a.id ? " a-open" : "") + '">' +
           '<button type="button" class="a-main" data-aopen="' + esc(a.id) + '">' +
             '<span class="a-swatch" data-rar="' + r + '" aria-hidden="true"></span>' +
@@ -24610,6 +24769,7 @@
               '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
               (a.image && a.image.src ? '<span class="q-pill q-orig">picture</span>' : '<span class="q-pill q-noorig">no picture</span>') +
               '<span class="q-pill ' + (st.ok ? "q-orig" : "q-noorig") + '">' + st.words + "w · " + st.sents + "s</span>" +
+              '<span class="q-pill ' + (ss.ok ? "q-orig" : "q-noorig") + '" title="' + (ss.n < ARTEFACT_SRC_TARGET ? "Under the three-source bar" : (ss.marks ? "Cited and marked" : "No marker in the description points at these")) + '">' + ss.n + "/" + ARTEFACT_SRC_TARGET + " src</span>" +
               (added ? '<span class="q-pill q-added">added</span>' : (ADMIN_EDITS.artefacts && Object.prototype.hasOwnProperty.call(ADMIN_EDITS.artefacts, a.id) ? '<span class="q-pill q-edited">edited</span>' : "")) +
             "</span>" +
           "</button></div>";
@@ -24624,7 +24784,9 @@
         if (!a) return "";
         const im = a.image || {};
         const edited = !isNew && ADMIN_EDITS.artefacts && Object.prototype.hasOwnProperty.call(ADMIN_EDITS.artefacts, a.id);
-        return '<div class="q-form" id="aForm">' +
+        return '<div class="a-edit">' +
+          '<div class="a-preview" id="aPreview"><div class="a-prevhead">The reader’s plate</div><div class="a-prevbody" id="aPrevBody"></div></div>' +
+          '<div class="q-form" id="aForm">' +
           '<div class="q-form-head"><b>' + (isNew ? "New artefact" : "Edit artefact") + "</b>" +
             '<span class="q-form-note">A real historical object. Five sentences, about 200 words, at a card background’s reading level — and nothing invented: not a date, not a museum, not a measurement.</span></div>' +
           (isNew
@@ -24635,9 +24797,12 @@
             '<select class="af-input" id="aRar">' + RARITIES.map((r) => '<option value="' + r.id + '"' + (rarityId(a) === r.id ? " selected" : "") + ">" + esc(r.label) + " · " + r.weight + "%</option>").join("") + "</select></label>" +
           field("aDate", "date", a.date, "— the compact notation the cards use: c. 1600 – 1500 BCE") +
           field("aOrigin", "origin", a.origin, "— where it is from, and where it is now if that is worth knowing") +
-          '<label class="admin-field"><span class="af-label">description <small>— five sentences, 180–220 words. &lt;b&gt; the name, &lt;i&gt; titles and foreign terms.</small></span>' +
+          '<label class="admin-field"><span class="af-label">description <small>— five sentences, 180–220 words. &lt;b&gt; the name, &lt;i&gt; titles and foreign terms. Point at a source with &lt;sup class="fn"&gt;&lt;/sup&gt;, left EMPTY — the number is drawn from the list.</small></span>' +
             '<textarea class="af-input af-area" id="aDesc" rows="9">' + esc(a.desc || "") + "</textarea>" +
             '<span class="af-count" id="aCount"></span></label>' +
+          '<label class="admin-field"><span class="af-label">sources <small>— ONE citation per line, Chicago note form, each ending in the URL a reader can open. At least ' + ARTEFACT_SRC_TARGET + '.</small></span>' +
+            '<textarea class="af-input af-area" id="aSrc" rows="6">' + esc(normSources(a.sources).join("\n")) + "</textarea>" +
+            '<span class="af-count" id="aSrcCount"></span></label>' +
           '<div class="q-form-sub">The picture is a <b>link</b>, never an upload — the same rule a card’s image follows, and what keeps this file small enough to ship. A source line is required wherever there is a URL; an artefact with no picture draws a rarity-coloured placeholder rather than an empty frame.</div>' +
           field("aImg", "picture URL", im.src || "") +
           field("aCredit", "picture source", im.credit || "", "— who holds it and under what licence") +
@@ -24647,7 +24812,7 @@
             (isNew || !edited ? "" : '<button class="mini-btn" type="button" id="aRevert">' + (artefactIsShipped(a.id) ? "Revert" : "Delete") + "</button>") +
             (isNew || !artefactIsShipped(a.id) ? "" : '<button class="mini-btn danger" type="button" id="aRetire">Retire</button>') +
             '<button class="admin-new" type="button" id="aSave">Save</button>' +
-          "</div></div>";
+          "</div></div></div>";
       };
       items.innerHTML =
         '<div class="q-page">' +
@@ -24672,14 +24837,48 @@
       const form = items.querySelector("#aForm");
       if (form) {
         const val = (id) => { const e = form.querySelector("#" + id); return e ? (e.value || "").trim() : ""; };
-        // live word / sentence counter, so a description drifting long is visible as it is written
         const ta = form.querySelector("#aDesc"), cnt = form.querySelector("#aCount");
+        const srcTa = form.querySelector("#aSrc"), srcCnt = form.querySelector("#aSrcCount");
+        // one line, one citation — blank lines are the author's paragraphing, not an empty source
+        const srcLines = () => normSources(srcTa.value.split(/\r?\n/));
+        /* Everything the form currently says, in the shape artefactSanitize would give it. The preview and
+           Save both read THIS, so what is previewed and what is stored cannot come apart. */
+        const draft = () => {
+          const o = {
+            id: _aEditing === "" ? (val("aId") || "new") : _aEditing,
+            name: val("aName") || "Untitled",
+            rarity: val("aRar") || "common",
+            date: val("aDate"), origin: val("aOrigin"),
+            desc: ta.value.trim(), sources: srcLines(),
+          };
+          if (val("aImg")) o.image = { src: val("aImg"), credit: val("aCredit"), alt: val("aAlt") };
+          return o;
+        };
+        // live word / sentence counter, so a description drifting long is visible as it is written,
+        // the citation count beside it, and the plate itself
+        const prev = items.querySelector("#aPrevBody");
         const recount = () => {
           const st = stat({ desc: ta.value });
           cnt.textContent = st.words + " words · " + st.sents + " sentences";
           cnt.className = "af-count" + (st.ok ? " ok" : " warn");
+          const ss = srcStat({ desc: ta.value, sources: srcLines() });
+          srcCnt.textContent = ss.n + " of " + ARTEFACT_SRC_TARGET + " · " + ss.marks + " marker" + (ss.marks === 1 ? "" : "s") + " in the description";
+          srcCnt.className = "af-count" + (ss.ok ? " ok" : " warn");
+          if (prev) {
+            const d = draft();
+            // sanitized on the way in, exactly as the store would sanitize it — a preview of markup the
+            // reader will never be shown is not a preview
+            d.desc = sanitizeHTML(d.desc);
+            prev.innerHTML = artefactPlateHTML(d, { cls: "ar-inline" });
+            wireArtefactPlate(prev);
+            unitizeTree(prev);
+          }
         };
-        ta.addEventListener("input", recount); recount();
+        form.querySelectorAll("input, textarea, select").forEach((el) => {
+          el.addEventListener("input", recount);
+          el.addEventListener("change", recount);   // the rarity <select> fires change, not input, in some engines
+        });
+        recount();
         form.querySelector("#aCancel").addEventListener("click", () => { _aEditing = null; adminRenderArtefacts(); });
         form.querySelector("#aSave").addEventListener("click", () => {
           const isNew = _aEditing === "";
@@ -24689,8 +24888,13 @@
           if (!val("aName")) { toast("An artefact needs a name."); return; }
           // the same rule the cards and the glossary enforce: a picture is never saved uncredited
           if (val("aImg") && !val("aCredit")) { toast("A picture needs its source."); return; }
-          const obj = { id, name: val("aName"), rarity: val("aRar") || "common", date: val("aDate"), origin: val("aOrigin"), desc: ta.value.trim() };
-          if (val("aImg")) obj.image = { src: val("aImg"), credit: val("aCredit"), alt: val("aAlt") };
+          /* …and the citation bar, which is a REFUSAL here rather than a chip to be looked at later. The
+             pool was cited in one pass, so there is no backlog for a warning to describe — an artefact
+             saved under the bar would be the only uncited object in the reliquary. */
+          const src = srcLines();
+          if (src.length < ARTEFACT_SRC_TARGET) { toast("An artefact needs at least " + ARTEFACT_SRC_TARGET + " sources — this one has " + src.length + "."); return; }
+          if (src.some((s) => !/https?:\/\//i.test(s))) { toast("Every citation ends in the URL a reader can open."); return; }
+          const obj = Object.assign(draft(), { id, name: val("aName") });
           setArtefactEdit(id, obj);
           _aEditing = null;
           adminRenderArtefacts();

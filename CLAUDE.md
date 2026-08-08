@@ -1932,6 +1932,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
   regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
+- `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
+  after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
+  an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
+  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
+  the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
+  which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
+  assumed, with the routes that keep paying (a paper walled here is usually open at its **Europe PMC** copy;
+  where the modern synthesis is closed the **standard 19th-century monograph is on archive.org and is often
+  the origin of the type name**; and a family with no reachable database may still have a **subject-specialist
+  network's** curator guide, which is what carried the Qing cash coins). **Coins looked like the pass's thin
+  spot and were its easiest family** — `numismatics.org` is shut and the British Museum's own catalogues
+  (Mattingly, Grueber, Head, Wroth, Keary, Brooke, Terrien de Lacouperie) are all on archive.org with full
+  OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
+  only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
+  connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
@@ -2070,7 +2086,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
-- `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc } ]`, the pool a
+- `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc, sources } ]`, the pool a
   level-up chest draws from (see THE RELIQUARY under "How the app is wired"). **Eager**, and it can stay
   eager because it is metadata only: a picture is a LINK, never an upload, exactly as a card's is, so an
   artefact costs a few hundred bytes however many are added. Every entry is a REAL object and the content
@@ -2090,6 +2106,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is a fresh lowercase slug) and **rewrites the file in `serializeArtefacts`'s exact output format**, so a
   hand edit and the next Admin save cannot drift apart. Its imperial pattern is add-card.js's plus VOLUME
   (gallons, pints, quarts), which the card corpus never needed and a corpus of jars and cauldrons does.
+  **AN ARTEFACT IS CITED, at `ARTEFACT_SRC_TARGET` (3) works** (Aug 2026, on request), each ending in the
+  URL a reader can open and each pointed at by a `<sup class="fn" data-fn="N"></sup>` marker written EMPTY
+  in the description — the card's apparatus exactly, so the numbering, the links, the access chips and the
+  jump both ways all come free. Three sits between the glossary's two and a card's five because a
+  description is five sentences. **It is a REFUSAL rather than a target the editor reports against**:
+  `add-artefacts.js` and Admin → Artefacts both turn away an artefact under the bar, one with a citation
+  carrying no URL, one whose description points at nothing, or one whose marker runs past the end of its
+  list (`wireFootnotes` deletes those at render, so the claim silently loses its source). An artefact
+  ALREADY in the file is cited with **`node .claude/add-artefact-sources.js <batch.json>`**, and the markers
+  are placed by **`node .claude/mark-artefact-sources.js <plan.json> <batch.json>`** from a plan of
+  `{ id: { sources, marks: { "<sentence>": [srcNums] } } }` — never by hand, which is how a marker ends up
+  inside a tag or a sentence loses its full stop. That plan takes an optional `desc`, so a CORRECTION and
+  its markers land in one diff where a source turns out not to bear the prose out.
+  **ALL 100 ARE CITED** (batches 1–15, completed 2026-08-08); `docs/artefact-citation-plan.md` holds the
+  batch table, the reachable-host survey the pass is built on, and its findings. **What keeps it true is
+  the refusal, not the count** — a new artefact cannot be written below the bar — so re-run
+  `.claude/test-artefacts.js` after any batch, since it reports coverage and re-checks every shipped list.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
@@ -2802,6 +2835,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       Confucius's walnut is 26 from its nearest neighbour. The obvious green for the Analects was
       measured and REJECTED: every green that sits inside this palette lands 12–17 from Lucretius, and
       the only greens clearing that are bright enough to glow beside ten muted colours.
+    · **…AND ON A DARK PAPER IT IS A LIGHTER SHADE OF THAT COLOUR** (`--bk-accent`, Aug 2026, on a bug
+      report: "in night mode some of the books' authors and 'Start reading' are too dark to read"). Every
+      swatch above was chosen inside a deliberately dark lightness band and **measured against the SIXTEEN
+      LIGHT papers alone** — the Euripides row says outright that a swatch this dark reads 1.5–3.0 on the
+      dark ones. That is right for a SPINE seen against white and wrong the moment the same value is set
+      as TEXT on night's `--card`: the Book of Rites' dark plum reads **1.08:1** there, which is not low
+      contrast but none at all, and the spine that identifies the book disappears with the words.
+      **The lesson is that a palette is only measured against the papers somebody thought to measure it
+      against** — nothing here was wrong when it was chosen, and the same numbers stopped being the right
+      numbers when the accent was given a second job.
+      Three decisions. It is a **derived property** rather than a re-toned `--tile`, because `--tile` is
+      set INLINE by `bookColor` and a stylesheet cannot override an inline custom property — `.book-tile`
+      declares `--bk-accent`, `body.night .book-tile` redeclares it, and the seven rules that paint the
+      banner (spine, author, Start-reading/resume, the reading bar, the wash, the hover border, the focus
+      ring) all read the derived one. It is a **MIX toward white rather than a second table of colours**,
+      so a book added later is covered by having a colour at all. And **45% is measured, not guessed**: it
+      is the strongest mix at which the darkest swatch on the shelf still clears 4.5:1 on the lightest
+      night `--card` (#460030 → 5.0:1; all thirty books land 5.0–6.5; at 50% it falls to 4.3 and misses).
+      It keeps each hue and takes only chroma, so two books by one hand still wash, spine and read alike.
+      **Day mode is untouched** — `--bk-accent` resolves to `var(--tile, var(--indigo))` there, so the
+      light shelf is byte-identical.
     **The banner carries its book's colour as a WASH, not only on the spine** (Aug 2026, on request —
     "similar to the collection banners"). It is the collection banner's own bookplate treatment written
     the way `.active-deck` writes it: a gradient of the accent laid OVER `var(--card)` rather than mixed
@@ -3041,6 +3095,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   precached — that would undo the split; they enter the cache when a page actually asks for them, so one
   Atlas visit makes it available offline. Bump `VERSION` in sw.js to invalidate everything.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
+- **RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE** (`resetProgress` / `RESET_KEEPS`, beside
+  `applyProgress`/`emptyProgress`; Settings → Danger zone. Aug 2026, on a bug report). It was
+  `S = defaultState()`, which is not a progress reset but a **factory reset of the whole save**: it took the
+  theme, the light/dark and follow-the-system settings, the text size, the language, the day boundary, the
+  sound and narrator settings, the Atlas home location, the book sort — and **the decks the reader had
+  added**, which is what they noticed. It also threw away `_supaTs` and `_supaOwner`, the device-local sync
+  baseline and the record of whose progress this is.
+  **A control is allowed to be destructive; it is not allowed to be destructive in ways its own words do not
+  describe** — and this one has "cannot be undone" written on it, so the loss is found afterwards. The
+  dialog names the study history, the streak and the badges, so those go, and the **artefacts and chests**
+  with them (they are what a level buys, and forty of them beside a level 1 badge is the odder outcome).
+  **`RESET_KEEPS` is what was never study history**: `active` and `deckOpts` (WHICH decks you study and what
+  your daily limits are is a choice, and the one thing a reader cannot easily rebuild), and `reading` /
+  `bookFavs` (the Library is not the flashcards — losing your place in a 124-letter book because you reset a
+  card schedule is a surprise nothing warned you about). `settings` and `user` are outside PROGRESS_FIELDS
+  entirely and are simply not touched; `user.joined` matters because the heatmap starts from it.
+  It resets **field by field rather than replacing the object**, so a PROGRESS_FIELD added later is reset by
+  default and has to be NAMED to survive — the safe direction for a control like this. The row's own
+  description and the confirmation both say what is kept. Guarded by `.claude/test-reset.js`.
+- **…and `S.settings.newPerDay` gained the back-fill every setting beside it already had** (same batch).
+  `load()` shallow-merges, so a stored `settings` replaces the default object wholesale, and
+  `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with **no fallback of their own** — so a save old
+  enough to lack the key (it predates every other back-fill line) gives `newPerDay: undefined`, which runs
+  as NaN through `deckNewRemaining` into a `slice(0, NaN)` that returns nothing. **The review then offers no
+  new cards, ever, with no error and no zero to explain it**: the banner just reads "Browse collections" for
+  good. Found by seeding a partial settings object for `test-reset.js` — which is exactly the shape an old
+  save has. **When a reader in `S.settings` has no default of its own, it needs a back-fill line.**
 - **Admin edits:** `localStorage["folio_admin_v1"]` stores edits as *deltas*, applied at startup
   by mutating the in-memory globals (`CARD_BY_ID`, `window.GLOSSARY`, the collection tree). **The editing language
   IS the site language** (the top-right switcher; there is NO in-editor language picker — it was replaced on request):
@@ -3277,13 +3358,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `showcaseIds` filters on the way OUT rather than on the way in: an artefact retired from the pool since
     it was pinned would otherwise leave a slot pointing at nothing, and a reader cannot unpin what they
     cannot see.
+    **…AND IT CARRIES THE WAY IN TO THE WHOLE COLLECTION** (`.ar-schead` → `openCollectionWin`, Aug 2026, on
+    request). Four artefacts out of however many a reader holds said nothing about the rest: on your own
+    account the inventory was three sections further down and on a friend's it was below their statistics,
+    so the four tiles read as the whole of it. It opens as an OVERLAY rather than scrolling to that section
+    — the same list wherever a showcase is rendered, including a page that carries no inventory section at
+    all — and it is built from **`reliquaryHTML`**, so the overlay and the page's own section cannot come to
+    disagree about what is collected. Two things: it is absent when nothing is owned ("See all 0" is a
+    control that does nothing), and **`wireReliquary(host, prog, own)` takes the progress it opens FOR** —
+    a friend's showcase must raise a friend's collection, and the earlier one-argument form would quietly
+    have shown the reader their own list under somebody else's name.
+  · **THE PLATE IS ONE BUILDER** (`artefactPlateHTML` + `wireArtefactPlate`, Aug 2026, on request). The frame
+    an artefact is READ in — picture, name, rarity, date, origin, the five sentences and the works behind
+    them — is built once and used by both `openArtefactWin` and the live preview in Admin → Artefacts. A
+    preview written from a second copy of the markup is a preview that drifts, and it drifts silently. The
+    overlay chrome (backdrop, ×, Escape) stays with `openArtefactWin`, since the preview has nothing to
+    close; the FOOTNOTE NUMBERING stays with `wireFootnotes`, which needs rendered nodes, so every caller
+    pairs the builder with `wireArtefactPlate` on the container it put the markup in.
   · **A GUEST'S ARTEFACTS SHOW ON THE SIGNED-OUT ACCOUNT PAGE TOO.** Everything else there is behind the
     sign-in wall because it is about an ACCOUNT; artefacts are not — a guest levels up, earns chests and
     opens them entirely on this device, so walling the inventory off would be a reward that can be won and
     never looked at. It appears only once there is something to show, and carries no showcase, that being
     the half an account is needed for.
   · **THE OVERLAYS LIVE ON `document.body`**, like the level-up popup and the image viewer, so — like them —
-    `render()` closes them (`closeChestPop`, `closeArtefactWin`, in the close list). The chest is
+    `render()` closes them (`closeChestPop`, `closeArtefactWin`, `closeCollectionWin`, in the close list). The chest is
     deliberately NOT dismissed by a backdrop click: unlike the level-up popup it holds buttons, and an
     overlay where a stray tap outside the card takes the reward away is one nobody trusts.
   `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` are in `defaultState` AND `PROGRESS_FIELDS` — an
@@ -4673,7 +4771,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a dimmed page is the likeliest gesture there is, and losing the tour to one would be losing it silently.
   `.folio-tour` is in `swipeEnabled()`'s overlay list. Guarded by `.claude/test-tour.js`.
 - **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp` / `LIB_TOUR_KEY` / `openLibHelp` /
-  `BOOK_TOUR_KEY` / `openBookHelp` / `COLL_TOUR_KEY` / `openCollHelp`;
+  `BOOK_TOUR_KEY` / `openBookHelp`;
   `.page-help` in styles.css. Aug 2026, on request). The Atlas has had these since it shipped
   (`#atlasHelp`, `folio_atlas_tour_v1`, reopened by `#gzHelp`); the walkthrough stops short of the Atlas
   and the Library on purpose, so **the Library has its own — and since Aug 2026, on request, TWO**:
@@ -4681,19 +4779,6 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `folio_book_tour_v1` the first time a book is opened, reopened by `#bkHelp` at the end of the chapter
   bar. The reasoning for the split, the two keys and the session flag beside the second is in the Library
   bullet under "How the app is wired". Same card, same three ways out.
-  **THE COLLECTIONS PAGE HAS ONE TOO** (`folio_collections_tour_v1`, reopened by the `#collHelpBtn` "?" in
-  its page head; Aug 2026, on request), and of the four it is doing the most work: the home page's first
-  press now sends a brand-new reader HERE rather than choosing a subject for them, so this is the first
-  real page they meet — and what they have to do on it is press a 30px "+" beside a banner, on a page that
-  otherwise reads as a list of things to look at. It is RAISED rather than offered, which the walkthrough
-  deliberately is not: the walkthrough is an optional tour of the whole site, where this is one card about
-  the page in front of you, at the one moment it answers a question the reader is holding. Its three ways
-  out are `pageHelp`'s own, so it is a card to read and dismiss, not a wall. The "?" needs
-  `.page-head.has-help` — the head has no tools row to sit in, and below 640px it is CENTRED, so a button
-  in the flow would land under the title in the middle of the page; the containing block is asked for by
-  CLASS rather than given to every `.page-head`. **Every browser test that touches `#decks` sets that key**
-  (a scrim over the page swallows every real click after it) — `test-tour.js` section 5b is the one that
-  deliberately does not.
   **IT LIVES ON `document.body`, AND THAT IS NOT A PREFERENCE.** The Atlas's card can be
   `position:absolute` inside its own full-bleed stage; an ordinary page has no such stage, so this one must
   be fixed to the VIEWPORT — and `.page` carries `animation:pageIn … both`, which makes it the containing
@@ -4774,16 +4859,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   xp bar, stats, review-order toggle and active-deck list appear only after that.
   **ITS FIRST PRESS GOES TO THE COLLECTIONS** (Aug 2026, on request). It used to pick the first collection
   that was not coming soon, add it on the reader's behalf and deal them a card — quick, and making for them
-  the one decision this page exists to hand over. A reader with an empty review is sent to `#decks` instead,
-  where the page's own first-visit card (see `openCollHelp`) says what a collection is and how to add one.
-  **ONCE THEY HAVE ADDED ONE IT STARTS THE SESSION, and that half is not a nicety**: the deck list under the
-  banner only appears after the first card is graded, so while the hero is still the banner this button is
-  the ONLY way into a session — routing it to the collections unconditionally left a reader who had just
-  added one with nowhere to go but back to the page they came from, a loop with no way out of it (it shipped
-  that way for ten minutes and `test-tour.js` section 5b now asserts both halves). The test is `pileIds`,
-  the review's own studiable cards, which is exactly the question "is there anything here to deal yet?".
-  The LABEL is untouched: the button is named for what it is for, and the collections are the first step of
-  it.
+  the one decision this page exists to hand over. They are sent to `#decks` instead, to choose their own.
+  It can route there UNCONDITIONALLY because `fresh` already asks the harder question (next paragraph): a
+  reader who has added a collection but not yet graded a card is no longer fresh, so they meet the ordinary
+  banner with their decks under it and never reach that branch. That matters more than it looks — while the
+  hero IS the banner it is the only way into a session, the deck list not being drawn under it, so a
+  version of this that sent every press to the collections left a reader who had just added one looping
+  back to the page they came from. The two changes landed on different branches; `test-tour.js` section 5b
+  asserts both ends of it. The LABEL is untouched: the button is named for what it is for, and the
+  collections are the first step of it.
+  **A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY** (`fresh`, Aug 2026, on a bug
+  report: "I am now always forced into the first-time visitor view, and can no longer see my Daily study
+  active decks" — from a reader who had used **Settings → Reset progress**). `fresh` was `S.cards` being
+  empty, which is true of a genuine first-timer and equally true of somebody who has been here for months
+  and has just cleared their schedule on purpose. And it does not merely change the banner's WORDING: it
+  also **hides the list of added decks** (`reviewGroup`), so the one thing that reader wanted back was the
+  one thing taken off the page. It is `Object.keys(S.cards).length === 0 && activeCardIds().length === 0`
+  now, which needs **no new flag**, because a first-timer's shipped `S.active` is a single deck of the
+  **coming-soon** China collection and `activeCardIds` filters that out through `availableCardIdSet` — so
+  they still get the hero, exactly as before. Anyone with a studiable deck in their review gets the
+  ordinary banner and their decks, whether they arrived there by resetting or by adding a collection before
+  turning a single card over; that second case is an improvement rather than a side effect, since somebody
+  who has just pressed "+ Add decks" is better served by their own pile and a Start button than by being
+  told again what Folio is for. **A state that is empty for a REASON is not the same as a state that has
+  never been used, and a first-run screen keyed on emptiness alone cannot tell them apart.** Guarded by
+  `.claude/test-reset.js`, in both directions.
   **The hero offers ONE way in, and its title breaks where it is written to** (Aug 2026, on request). The
   quiet "or browse the collections" beside the button is gone and `.hero-alt` with it — the collections are
   one press further on from wherever that button lands, and the `.rv-lip` under the review group is the route
@@ -4940,6 +5040,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   gate as its first act** — `challenge`, `truefalse`, `whosaid`, `chrono`, `thread`, and `findit`, where it
   goes in `PAGES.findit` rather than inside `PAGES.map` (that is the whole Atlas and knows nothing about
   daily games, and it is the only route into game mode). It renders an `emptyPlacard` naming today's score.
+  **ITS MARK IS THE GAME'S OWN TILE ICON, NOT A HAN GLYPH** (Aug 2026, on a report: "the 'Played today'
+  screen should not contain a Chinese character"). `GAME_NAMES` carried 选 / 真 / 言 / 序 / 紐 / 地 — the
+  glyphs the game TILES wore back when Folio was a China deck, and which the tiles gave up for the
+  line-drawn `ICON` marks when the site stopped being one. This placard kept its copy, and because it is
+  what a reader meets EVERY day once they have played it was the last place on the site regularly showing
+  a Chinese character to a reader of an English page — one that says nothing whatever about Timeline or
+  Find it. **`ICON` therefore moved out of `PAGES.home` to module scope** rather than being copied: two
+  tables of the same SVGs is how a tile and its placard come to disagree about which mark a game wears.
+  `.placard .big` sizes an inline SVG to the same 54px square a character occupied and **thins the stroke
+  from the tiles' 2 to 1.5** — at this size a 24-viewBox stroke of 2 draws 4.5px, which reads as a logo.
+  The OTHER placards still carry Han glyphs (`emptyPlacard`'s "Coming soon" / "Not enough cards" branches
+  inside the games); they are states a reader effectively never reaches, and they were deliberately left
+  rather than swept up with this — say so if one is ever seen.
   **TWO GAMES HAD GROWN THEIR OWN LOCAL VERSION OF THIS RULE AND BOTH ARE NOW RETIRED**, which is the shape
   of a rule that wants stating once rather than six times: Timeline recorded the FIRST check and ignored
   later ones (it now takes ONE check — `.chrono-done` on the list stops the grips and the arrows, in JS as
@@ -6132,6 +6245,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A picture is never saved uncredited** — the same rule `add-card.js`, `add-glossary.js` and the editors'
     media gate enforce, and for the same reason: the editors save on every keystroke, so a URL pasted in and
     forgotten about would otherwise ship credited to nobody.
+  · **THE FORM SHOWS THE READER'S PLATE, LIVE** (Aug 2026, on request), drawn by `artefactPlateHTML` — the
+    reader's own builder, not a second rendering of the same fields — and repainted on every keystroke.
+    Three things hold it up. It is built from the **FORM, never from the store**, so it shows the edit in
+    progress rather than the last thing saved, which is the difference between a preview and a receipt; the
+    description goes through `sanitizeHTML` on the way in exactly as `artefactSanitize` would, so a typo in
+    a tag looks here the way it will look to a reader. **`wireArtefactPlate` runs on every repaint**, or the
+    citations render as an unnumbered list under blank superscripts. And the listeners are bound with
+    **`change` as well as `input`**, because the rarity is a `<select>` — the one field that would silently
+    stop updating on an `input`-only preview.
+  · **The citation bar is a refusal here too** — a save under `ARTEFACT_SRC_TARGET`, or with a citation that
+    carries no URL, is turned away with a reason, and a counter beside the sources box reports both the
+    count and how many markers the description carries.
   `serializeArtefacts` writes the file's whole head comment out rather than preserving what is on disk: this
   is the only copy of it once the file has been round-tripped, and a serializer that drops the documentation
   is how a file stops explaining itself. It is wired into `autoSaveFiles`, `adminExport` (including its
@@ -7427,7 +7552,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-nine committed regression tests** (in `.claude/`, not loaded by the site): twenty-four drive a real browser with
+- **Thirty committed regression tests** (in `.claude/`, not loaded by the site): twenty-five drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
   `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -7555,7 +7680,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 294 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 291 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -7623,11 +7748,7 @@ dead code (never rendered).
     **`studyEasy` PUTS A COLLECTION IN THE REVIEW FIRST** (Aug 2026), through the collections page's own +:
     the first-run hero routes there now rather than choosing a subject for the reader, so nothing studies
     until something has been added, and every section that wanted a card was reporting an empty page.
-    **Section 9 pins the Collections page's "?"**, and the trap it guards is the room reserved for it: the
-    head has no tools row, so the button hangs off its top corner — and below 640px that head is CENTRED,
-    where padding on one side moves the TEXT off centre. The title's own painted centre is measured through
-    a Range rather than the box's, since a centred block's box does not move.
-    And **section 8 watches the CHEST, not `.levelup-pop`** — the Reliquary retired that path deliberately
+    **Section 8 watches the CHEST, not `.levelup-pop`** — the Reliquary retired that path deliberately
     (`announceLevelUps` calls `grantChest()` and `openChestPop({level})`, the chest overlay BEING the
     celebration), so the old assertion could only ever count zero and had been failing on a feature working
     exactly as designed. `congratsPopup` is not dead code — it survives for anything else that wants it and
@@ -7776,7 +7897,7 @@ dead code (never rendered).
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
-    (Aug 2026), 74 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+    (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
     **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
     obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
@@ -7795,17 +7916,13 @@ dead code (never rendered).
     the chapters and the facing original, and the two are remembered under separate keys — because a tip
     filed in the wrong half is invisible from either side on its own, and the half that fires on opening a
     book is the one nothing else in the suite would ever see.
-    **SECTION 5b IS THE COLLECTIONS PAGE, and it asserts a ROUTE as well as a card** (Aug 2026): the hero's
-    first press lands on `#decks`, the card there names the + and says what adding one DOES, dismissing it
-    leaves the page live enough to add a collection (a scrim still hit-testing would leave the first page a
-    reader ever sees dead to the touch), the "?" brings it back, and — the half that closes a loop — **with
-    a collection added the hero deals a card after all**. Both halves are needed because they fail in
-    opposite directions and either alone looks deliberate: a hero that still deals a card bypasses the page,
-    and a hero that never does strands the reader on it. It is also the ONE browser test that does not set
-    `folio_collections_tour_v1`; everything else in the suite does. **Re-run after touching the
-    `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` / `LIB_HELP_TIPS` / `BOOK_HELP_TIPS` /
-    `COLL_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home page, the Atlas /
-    Library / book / collections help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
+    **SECTION 5b IS A ROUTE RATHER THAN A CARD** (Aug 2026): the hero's first press lands on `#decks`, a
+    collection can be added there, and — the half that closes a loop — **with one added the banner deals a
+    card after all**. Both ends are needed because they fail in opposite directions and either alone looks
+    deliberate: a hero that still deals a card bypasses the page, and one that never does strands a reader
+    on it. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
+    `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home
+    page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
     `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
     figures (read them structurally); and a step-change reads mid-transition, so anything measured during
     one has to be measured again after it settles.
@@ -7835,8 +7952,22 @@ dead code (never rendered).
     where the numeral was, a studied/total bar where the XP bar was, and no numeral or `.lib-cap` left
     anywhere. **And the deck cap is gone**: a reader who has studied nothing may add every live collection,
     which is the one assertion that would catch a half-removal, the cap having lived in three places. Plus
-    the Admin tab, including its ≤860px panel cap and the never-save-a-picture-uncredited rule. **Re-run
-    after touching the `THE RELIQUARY` block, `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
+    the Admin tab, including its ≤860px panel cap and the never-save-a-picture-uncredited rule.
+    **THE CITATION APPARATUS (Aug 2026)** is asserted in two places and two ways. On the PAGE: the plate
+    carries the fold, its markers are numbered by `wireFootnotes` rather than left blank, and it renders
+    OPEN as a card's does — a plate looks identical whether its markers resolve or not, so only the numbers
+    prove the join. In the SHIPPED FILE: **the shape is an invariant and the coverage is a pass in progress**,
+    and the two are checked differently on purpose — anything cited must be cited properly (a URL on every
+    citation, no marker past the end of its list, no work nothing points at), while coverage is REPORTED,
+    exactly as the card and glossary passes were run, because a suite that goes red for a documented backlog
+    is a suite people learn to ignore. The bar is enforced where it bites: `add-artefacts.js` and the
+    editor's Save. **The admin PREVIEW** is asserted to be the reader's own plate, to follow the FORM rather
+    than the store, and to update on the rarity `<select>`, which fires `change` and not `input`.
+    **The showcase's "See all" is NOT here** — the signed-out account page has no showcase, so it lives in
+    `test-account-page.js`, which has the session; what this file asserts is the other half, that a guest is
+    shown no orphan control for a section they have not got. **Re-run
+    after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
+    `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
@@ -7851,6 +7982,21 @@ dead code (never rendered).
     one that works — and, the assertion most worth having, that re-sorting KEEPS a filter the reader has
     typed, which the obvious two-handler implementation silently throws away. **Re-run after touching
     `makePageGhost` / `.page-ghost` / `PAGES.glossary` / `GLOSS_SORTS` / `glossSeen`.**
+  · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page thinks
+    you are** (21 assertions, Aug 2026). Both halves fail silently and one of them cannot be undone. It
+    seeds a long-standing reader — study history, two collections added with a per-deck limit, a place in a
+    book, a starred book, badges, a streak, artefacts, a non-default theme, text size, sound, book sort and
+    day boundary — presses the real control, types the real confirmation, and then reads the SAVE back:
+    everything the dialog names is gone and **every one of `RESET_KEEPS` survives**. That list is exactly
+    the kind a later edit shortens by accident, and dropping a name from it loses a reader's decks in
+    silence — no other test on the shelf would see it. The other half is `fresh`, asserted in **both**
+    directions, which is the point: a genuine first-timer must still get the hero (so the fix cannot be
+    "never show it"), a reader with a studiable deck must not — before studying as well as after a reset —
+    and none of it may be undone by a reload. **Re-run after touching `resetProgress` / `RESET_KEEPS` /
+    `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.** Note the
+    house gotcha it is built around: a hash-only `goto` is a same-document navigation, so anything written
+    into localStorage behind the app's back has to be read back through a real `reload()` or the next
+    `save()` simply overwrites it — hence `seedHome` reloads and `home` does not.
   · `node .claude/test-library.js` — the Library (135 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
@@ -7953,8 +8099,12 @@ dead code (never rendered).
     them, that the glossary meter is a link on your own record, and that the dashboard's People panel fills
     from the database and still says in prose what RLS will not let it count. **The mock sends
     `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
-    mock that forgets it reports a connection failure that is really a CORS one. **Re-run after touching
-    `acctSelfView` / `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
+    mock that forgets it reports a connection failure that is really a CORS one. It also owns the **Profile
+    showcase's "See all" button** (Aug 2026) — absent when the reader holds nothing, labelled with how many
+    they DO hold, opening the collection and closing on Escape — because the signed-out account page carries
+    no showcase at all and `test-artefacts.js` therefore cannot reach one. **Re-run after touching
+    `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
+    `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve and community-deck **card types** (Aug 2026), 110
     assertions in three parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
     through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part
