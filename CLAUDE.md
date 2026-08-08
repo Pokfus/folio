@@ -2080,6 +2080,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the field once an artefact exists. Written and edited in **Admin → Artefacts**, which also hands the
   whole file back as a JS literal (`serializeArtefacts`); an `ADMIN_EDITS.artefacts` overlay sits over it,
   keyed by id, exactly as the daily quotes' does over `SHIPPED_QUOTES`.
+  **Currently 100 — 4 legendary, 13 epic, 27 rare, 56 common** (98 added on 2026-08-08 on request, to the
+  two the feature shipped with). **None carries a picture**, and that is a fact rather than a backlog: a
+  `src` is somebody else's URL and a `credit` is required beside it, so an invented one would be a
+  fabricated source holding up a real object — the rarity-coloured placeholder is what the shape was
+  designed for. A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
+  content rules the file's own header states (exactly five sentences, 180–220 words with the imperial
+  conversion NOT charged against the budget, a bolded first mention, a credit on any picture, an id that
+  is a fresh lowercase slug) and **rewrites the file in `serializeArtefacts`'s exact output format**, so a
+  hand edit and the next Admin save cannot drift apart. Its imperial pattern is add-card.js's plus VOLUME
+  (gallons, pints, quarts), which the card corpus never needed and a corpus of jars and cauldrons does.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
