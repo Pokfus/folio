@@ -690,6 +690,94 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .hi-body b{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
 .hi-body span{font-size:calc(12.5px * var(--fs)); line-height:1.45; color:var(--ink-soft);}
 
+/* ---------- home: the walkthrough offer (until it is answered, or the first card is graded) ---------- */
+/* It sits with .howit and the first-run hero, and for the same reason: a reader who has already studied
+   knows what the site is. Either button retires it — see tourOfferHTML in app.js. */
+.tour-offer{
+  display:flex; align-items:center; gap:15px; flex-wrap:wrap;
+  background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 17px;
+  box-shadow:var(--shadow-sm);
+  border-left:3px solid var(--indigo);
+}
+.to-chip{flex:none; width:34px; height:34px; border-radius:99px; display:grid; place-items:center; background:var(--indigo-wash); color:var(--indigo);}
+.to-chip svg{width:18px; height:18px;}
+.to-body{flex:1 1 240px; min-width:0; display:flex; flex-direction:column; gap:2px;}
+.to-body b{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
+.to-body span{font-size:calc(12.5px * var(--fs)); line-height:1.45; color:var(--ink-soft);}
+.to-acts{flex:none; display:flex; align-items:center; gap:12px;}
+/* --ink-soft, not the --ink-faint the site's captions use: this is one of only two CONTROLS on a
+   first-time reader's first screen, and at 12px the faint token reads 3.54:1 (measured by test-a11y).
+   A caption may be quiet; the button that declines the tutorial may not be. */
+.to-no{appearance:none; border:0; background:transparent; cursor:pointer; padding:4px 2px; color:var(--ink-soft); font-family:inherit; font-size:calc(12px * var(--fs)); text-decoration:underline; text-underline-offset:3px;}
+.to-no:hover{color:var(--ink);}
+
+/* ---------- the guided walkthrough (see THE GUIDED TOUR in app.js) ---------- */
+/* z-index: above the gloss scrim (9590) so a popup left open cannot sit over the lesson, and below the
+   fullscreen media viewer (9800), which nothing here opens. The scrim is DARK rather than a paper wash —
+   the Atlas's coach marks lighten their globe, and this one has to darken a page of prose in eight themes,
+   so it is deliberately theme-independent. */
+.folio-tour{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:color-mix(in srgb, #000 55%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+  animation:tourIn .22s var(--ease) both;}
+@keyframes tourIn{from{opacity:0}to{opacity:1}}
+/* the arrow layer: no viewBox, so its user units are CSS pixels and the rects tourPlace() measures need no
+   conversion. pointer-events:none — it is drawn over the card as well as beside it. */
+.tour-draw{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible;}
+.tour-ring{stroke:var(--ochre); stroke-width:2.5; opacity:.95; stroke-dasharray:7 6;}
+.tour-line{stroke:var(--ochre); stroke-width:2.5; stroke-linecap:round;}
+.tour-head{stroke:var(--ochre); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;}
+
+.tour-card{position:relative; z-index:1; width:min(460px, 100%); max-height:calc(100vh - 40px); overflow-y:auto;
+  background:var(--card); border:1px solid var(--rule); border-radius:15px; padding:20px 24px 18px;
+  box-shadow:0 22px 54px -18px rgba(0,0,0,.65); display:flex; flex-direction:column; gap:11px;
+  /* the nudge that keeps the card off its own target (tourPlace) — eased, so the popup is followed rather
+     than found again on each step. The global reduced-motion killswitch covers it. */
+  transition:transform .28s var(--ease);}
+.tour-card:focus{outline:none;}
+.tour-count{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
+.tour-card h3{font-family:var(--display); font-weight:600; font-size:calc(20px * var(--fs)); letter-spacing:-.01em; margin:0 22px 0 0;}
+.tour-body{font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+.tour-body p{margin:0 0 9px;}
+.tour-body p:last-child{margin-bottom:0;}
+.tour-body b{color:var(--ink); font-weight:600;}
+.tour-body b.tour-gold{color:var(--ochre);}
+.tour-x{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:26px; height:26px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+.tour-x:hover{background:var(--rule); color:var(--ink);}
+.tour-nav{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:3px;}
+.tour-nav-main{display:flex; align-items:center; gap:9px;}
+.tour-skip{appearance:none; border:0; background:transparent; cursor:pointer; padding:4px 2px; color:var(--ink-soft); font-family:inherit; font-size:calc(12px * var(--fs)); text-decoration:underline; text-underline-offset:3px;}
+.tour-skip:hover{color:var(--ink);}
+.tour-back[disabled]{opacity:.4; cursor:default;}
+
+/* the illustrations. A study card is never dealt for real during the walkthrough — the reader's schedule is
+   not a demonstration surface, and the grade bar is pinned to the bottom of the viewport under the scrim —
+   so the card, its blank and the four grades are drawn here instead. */
+.tour-demo[hidden]{display:none;}
+.td-card{background:var(--paper-2); border:1px solid var(--rule); border-radius:11px; padding:14px 16px; display:flex; flex-direction:column; gap:11px; align-items:flex-start;}
+.td-q{font-family:var(--display); font-size:calc(15px * var(--fs)); line-height:1.45; color:var(--ink);}
+.td-blank{display:inline-block; width:3.4em; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px;}
+.td-btn{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--indigo); border-radius:8px; padding:7px 14px;}
+.td-grades{display:grid; grid-template-columns:repeat(4,1fr); gap:7px;}
+.td-g{border-radius:9px; padding:8px 4px; display:flex; flex-direction:column; align-items:center; gap:2px; color:#fff;}
+.td-g b{font-family:var(--display); font-weight:600; font-size:calc(12.5px * var(--fs));}
+.td-g i{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); opacity:.85;}
+.td-g.again{background:#D9544C;} .td-g.hard{background:#DB8B3A;} .td-g.good{background:#4F9D67;} .td-g.easy{background:#4F74C2;}
+.night .td-g.again{background:#E26B62;} .night .td-g.hard{background:#E0A057;} .night .td-g.good{background:#5FB07E;} .night .td-g.easy{background:#6E8FD6;}
+.td-marker{display:flex; align-items:center; gap:14px; background:var(--paper-2); border:1px solid var(--rule); border-radius:11px; padding:13px 16px;}
+.td-pen{flex:none; width:42px; height:42px; border-radius:99px; display:grid; place-items:center; background:var(--indigo); color:#fff; box-shadow:var(--shadow-sm);}
+.td-pen svg{width:20px; height:20px;}
+.td-scribble{flex:1 1 auto; height:34px; color:var(--ochre);}
+
+/* ---------- a page's own first-visit coach marks (the Library; the Atlas has .atlas-help) ---------- */
+/* The same card as the Atlas's, in a wrapper fixed to the VIEWPORT rather than absolute inside a
+   full-bleed stage — an ordinary page has no such stage to sit inside. */
+.page-help{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:color-mix(in srgb, #000 48%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);}
+.page-help[hidden]{display:none;}
+.page-help .ah-card{max-height:calc(100vh - 40px); overflow-y:auto;}
+.ah-go{align-self:flex-start; margin-top:3px;}
+.lib-help-btn{flex:none;}
+
 /* The discovery row — .explore-grid with its card of the day, gloss of the day and Atlas teaser — was
    REMOVED in Aug 2026 on request, from the phone first and then from the desktop, so that the two home
    pages read the same. Its ~90 rules (.exp-tile / .exp-card / .cod-* / .term-* / .atlas-* / .mini-globe)
@@ -3260,6 +3348,14 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
   .howit{grid-template-columns:1fr; gap:10px;}
+  /* the offer's two controls go under its prose rather than beside it — at 390px "Take the tour" and
+     "No thanks" on the same line as the sentence leave the sentence four words wide */
+  .to-acts{flex:1 1 100%; justify-content:flex-start;}
+  .tour-card{padding:17px 18px 15px; border-radius:13px; max-height:calc(100dvh - 32px);}
+  .tour-card h3{font-size:calc(18px * var(--fs));}
+  .folio-tour,.page-help{padding:14px;}
+  .td-g b{font-size:calc(11px * var(--fs));}
+  .td-g{padding:7px 2px;}
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
   body.grading .stage{padding-bottom:206px;}
   body.grading .wb-tools{bottom:170px;}

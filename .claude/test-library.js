@@ -84,16 +84,21 @@ function shippedBookLeaks() {
 
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const errs = [];
-  const watch = (p) => {
+  /* …and suppresses the Library's own first-visit coach marks (Aug 2026). They are a full-screen overlay
+     on document.body, so on a fresh profile every click below lands on the scrim instead of the shelf and
+     the whole file times out. Set BEFORE the first navigation, hence the await at every call site. The card
+     itself is `.claude/test-tour.js`'s section 5 — this file is about the shelf under it. */
+  const watch = async (p) => {
     p.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
     p.on("pageerror", (e) => errs.push(String(e)));
+    await p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); localStorage.setItem("folio_tour_v1", "1"); } catch (e) {} });
   };
 
   /* ================= 1. the rename ================= */
   console.log("\n1. Collections — the page that used to be called Library");
   {
     const page = await browser.newPage({ viewport: DESK });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#decks", { waitUntil: "load" });
     await page.waitForTimeout(900);
     const d = await page.evaluate(() => ({
@@ -127,7 +132,7 @@ function shippedBookLeaks() {
   {
     asked.length = 0;
     const page = await browser.newPage({ viewport: DESK });
-    watch(page);
+    await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1200);
     check("no book text is fetched on boot", !asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
@@ -382,7 +387,7 @@ function shippedBookLeaks() {
   {
     asked.length = 0;
     const page = await browser.newPage({ viewport: DESK });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#book/" + bookHref, { waitUntil: "load" });
     await page.waitForTimeout(2500);
     const d = await page.evaluate(() => ({
@@ -492,7 +497,7 @@ function shippedBookLeaks() {
        the tab bar", measured against the bar's own rendered box rather than a hard-coded 58. */
     {
       const phone = await browser.newPage({ viewport: PHONE });
-      watch(phone);
+      await watch(phone);
       await phone.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
       await phone.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "3"); t.click(); });
       await phone.waitForTimeout(600);
@@ -595,7 +600,7 @@ function shippedBookLeaks() {
   console.log("\n4. Where the reader left off — across a reload, not just a re-render");
   {
     const page = await browser.newPage({ viewport: DESK });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#book/" + bookHref, { waitUntil: "load" });
     await page.waitForTimeout(2500);
 
@@ -641,7 +646,7 @@ function shippedBookLeaks() {
   console.log("\n5. Stepping, contents, and the phone");
   {
     const page = await browser.newPage({ viewport: DESK });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#book/" + bookHref, { waitUntil: "load" });
     await page.waitForTimeout(2500);
     // the first chapter is the front matter now, so that is where Previous runs out — the arrows step
@@ -727,7 +732,7 @@ function shippedBookLeaks() {
 
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#book/" + bookHref, { waitUntil: "load" });
     await page.waitForTimeout(2600);
     const ph = await page.evaluate(() => {
@@ -761,7 +766,7 @@ function shippedBookLeaks() {
   console.log("\n6. The original beside the translation");
   {
     const page = await browser.newPage({ viewport: DESK });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#book/" + bookHref, { waitUntil: "load" });
     await page.waitForTimeout(2500);
 
@@ -1073,7 +1078,7 @@ function shippedBookLeaks() {
   console.log("\n7. Turning the page over is a crossfade");
   {
     const page = await browser.newPage({ viewport: DESK });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
     await page.evaluate(() => document.querySelectorAll(".bk-tab")[9].click());
     await page.waitForTimeout(300);
@@ -1104,7 +1109,7 @@ function shippedBookLeaks() {
 
     // a reader who has asked for less motion is not made to wait out a fade they will not see
     const still = await browser.newPage({ viewport: DESK, reducedMotion: "reduce" });
-    watch(still);
+    await watch(still);
     await still.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
     await still.evaluate(() => document.querySelectorAll(".bk-tab")[9].click());
     await still.waitForTimeout(300);
