@@ -1148,6 +1148,14 @@
   if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
   if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
   if (S.settings && S.settings.contrast === undefined) S.settings.contrast = false;
+  /* …and the daily allowance, which every one of the lines above has had and this one has not, because it
+     predates them. `load()` shallow-merges, so a stored `settings` REPLACES the default object wholesale —
+     and `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with no fallback of their own, so a save
+     old enough to lack the key yields `newPerDay: undefined` → NaN through `deckNewRemaining` → a
+     `slice(0, NaN)` that returns nothing. The review then offers **no new cards, ever**, with no error and
+     no zero to explain it: the banner simply reads "Browse collections" for good. Found while seeding a
+     partial settings object for `test-reset.js`, which is exactly the shape an old save has. */
+  if (S.settings && !Number.isFinite(S.settings.newPerDay)) S.settings.newPerDay = 3;
   /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
      book are keyed by its id — so without this a reader who had the dialogue open, or had starred
      it, would find their place and their star simply gone, with nothing on screen to say why. The
@@ -1441,6 +1449,30 @@
   function extractProgress() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
   function applyProgress(p) { const base = emptyProgress(); PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); }); }
   function emptyProgress() { const d = defaultState(), p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = d[k]; }); return p; }
+  /* SETTINGS → DANGER ZONE → RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE (Aug 2026, on a bug report:
+     "I purposely reset my study progress and then encountered that bug" — the bug being that the home page
+     turned back into a first-time visitor's and the reader's Daily study decks were gone).
+     It was `S = defaultState()`, which is not a progress reset but a factory reset of the whole save: it
+     took the theme, the night/system setting, the text size, the language, the day boundary, the sound and
+     narrator settings, the Atlas home location, the book sort — and the DECKS the reader had added, which
+     is what they noticed. It also threw away `_supaTs` / `_supaOwner`, the device-local sync baseline and
+     the record of whose progress this is, so the next boot had to re-reconcile from scratch.
+     A control is allowed to be destructive; it is not allowed to be destructive in ways its own words do
+     not describe. The dialog names study history, the streak and the badges, so those go, and with them the
+     artefacts and chests — they are what a level buys, and keeping forty of them beside a level 1 badge
+     would be the odder outcome. What is KEPT is what was never study history in the first place:
+       · `settings` and `user` — not progress at all, and `joined` is what the heatmap starts from.
+       · `active` and `deckOpts` — WHICH decks you study and what your daily limits are is a choice, not a
+         history. This is the reported symptom, and it is the one a reader cannot easily rebuild.
+       · `reading` and `bookFavs` — the Library is not the flashcards; losing your place in a 124-letter
+         book because you reset a card schedule is a surprise nothing warned you about.
+     Field-wise rather than whole-object, so a PROGRESS_FIELD added later is reset by default and has to be
+     named here to survive — the safe direction for a control with "cannot be undone" written on it. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs"];
+  function resetProgress() {
+    const base = emptyProgress();
+    PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
+  }
   function syncProgressToAccount() {
     const u = currentUser(); if (!u) return;
     u.progress = extractProgress();
@@ -11193,7 +11225,20 @@
       ${tile({ id: "g-thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
     </div>`;
 
-    const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
+    /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
+       reader who used Settings → Reset progress was handed the first-run hero and lost the list of decks
+       under it). `fresh` was `S.cards` being empty, which is true of a genuine first-timer and equally true
+       of someone who has been here for months and has just cleared their schedule on purpose — and it does
+       not merely change the wording, it HIDES the deck list below (see reviewGroup), so the one thing that
+       reader wanted back was the one thing taken away.
+       Adding `!activeCardIds().length` distinguishes them without a new flag, because a first-timer's
+       shipped `S.active` is a single deck of the coming-soon China collection, which `activeCardIds`
+       filters out through `availableCardIdSet` — so they still get the hero, exactly as before. Anyone with
+       a studiable deck in their daily review gets the ordinary banner and their decks, whether they arrived
+       there by resetting or by adding a collection before turning a single card over. That second case is
+       an improvement rather than a side effect: someone who has just pressed "+ Add decks" is better served
+       by their own pile and a Start button than by being told again what Folio is for. */
+    const fresh = Object.keys(S.cards).length === 0 && activeCardIds().length === 0;
     /* THE DISCOVERY ROW IS GONE — the card of the day, the gloss of the day and the Atlas teaser with it
        (Aug 2026, on request). It went from the phone first, on the grounds that a phone's home page is the
        day's work; the request a fortnight later was to bring the desktop into line with the phone rather
@@ -21415,7 +21460,7 @@
         <div class="set-card danger">
           ${setHead("var(--zh)", '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/>', "Danger zone")}
           <div class="set-row">
-            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. This can't be undone.</p></div>
+            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. Your decks and your settings are kept. This can't be undone.</p></div>
             <div class="ctl"><button class="btn ghost danger-btn" id="reset">Reset…</button></div>
           </div>
         </div>
@@ -21544,11 +21589,11 @@
     });
 
     root.querySelector("#reset").addEventListener("click", () => {
-      inlinePrompt("This clears every card's study history, your streak and your badges, and cannot be undone. Type RESET to confirm.", "", (val) => {
+      // the wording says what resetProgress actually does — see RESET_KEEPS. It used to promise the study
+      // history, the streak and the badges and quietly take the settings and the decks with them.
+      inlinePrompt("This clears your study history, your streak, your badges and your artefacts. Your decks, your place in the Library and your settings are kept. It cannot be undone. Type RESET to confirm.", "", (val) => {
         if (String(val || "").trim().toUpperCase() !== "RESET") { toast("Reset cancelled — confirmation didn't match"); return; }
-        const keepName = S.user.name;
-        S = defaultState();
-        S.user.name = keepName;
+        resetProgress();
         save();
         toast("Progress reset");
         render();
