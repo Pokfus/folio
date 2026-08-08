@@ -162,7 +162,8 @@
   <!-- ============================================================
        SCRIPTS
 
-       Only the study-critical data ships here (~1.4 MB): the cards, the glossary, the
+       Only the study-critical data ships here (4.9 MB raw / 1.35 MB gzipped, measured
+       2026-08-08 — re-measure rather than quoting it): the cards, the glossary, the
        minigame pools and the app itself. Everything else is LAZY — app.js's DATA_BUNDLES
        injects it on demand:
 
@@ -170,8 +171,14 @@
          bundle "atlas"      uk / lakes / rivers / water / cities / timeline /
                              countries / country-stats / country-spans / country-years
          bundle "uiI18n:<lang>"     i18n/ui-<lang>.js      — only when the site language isn't English
-         bundle "glossI18n:<lang>"  i18n/gloss-<lang>.js   — ditto (one file per language, ~310 KB
-                                                              for the language actually being read)
+         bundle "gamesI18n:<lang>"  i18n/games-<lang>.js   — ditto (the two daily-game pools)
+         bundle "placeI18n:<lang>"  i18n/places-<lang>.js  — ditto (the names on the globe)
+
+       The card `i18n` blocks and i18n/gloss-<lang>.js were REMOVED on 2026-08-08, on request:
+       the site ships in English (MULTILANG = false in app.js), so they were 2.06 MB of THIS
+       list — 58% of data.js — plus 3.1 MB of files no reader could reach. `loadLangData` no
+       longer asks for the gloss bundle; the glossary now falls back to English in every
+       language.
 
        That is ~9.9 MB a visitor no longer downloads to flip a card. Don't move a lazy file
        back into this list without also dropping it from DATA_BUNDLES — a bundle whose files
