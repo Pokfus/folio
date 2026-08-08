@@ -15,11 +15,25 @@
   --zh:#C8453C; --zh-wash:#FBECEA; --geo:#BC7A18; --good:#3F7E5C;
   /* the BOOK's own note markers (Aug 2026, on request) — a hue of its own, because every neighbouring
      one is already spoken for and a marker wearing a borrowed colour claims to be the thing that colour
-     means. --zh is the card's citation marker and the answer term, --indigo is a glossary link, --ochre
-     is a glossary term not yet opened, --good is completion. This teal is none of them, and it is far
-     enough round the wheel from --good's forest green (hue ~186 against ~152) to read as another thing
-     rather than as a shade of the same one. */
+     means. --zh is the card's citation marker and the answer term, --indigo is a glossary link,
+     --newterm is a glossary term not yet opened, --good is completion. This teal is none of them, and it
+     is far enough round the wheel from --good's forest green (hue ~186 against ~152) to read as another
+     thing rather than as a shade of the same one. */
   --bknote:#1E7A85;
+  /* A GLOSSARY TERM NOT YET OPENED (Aug 2026, on request: "a lighter blue or teal instead of gold, so it
+     is clearly a different shade from discovered terms, but clearly the same type of feature"). It was
+     --ochre, the gold of the blank in a card's question — which said "something waiting to be filled in"
+     and said nothing at all about being a glossary link, so the two states of one feature read as two
+     different features. An azure is the answer to both halves: it sits in the same cool family as
+     --indigo, so an unopened term is plainly the same kind of thing as an opened one, and it is 40° round
+     the wheel from it (202 against 241), so nobody mistakes one for the other.
+     MEASURED rather than picked, against every token it could be confused with and every paper it is set
+     on. In CIELAB it stands 33.3 from --indigo and 25.1 from --bknote — the one token it can share a page
+     with, since a book's prose carries both its translator's note markers and its glossary links — where
+     the shelf's own tightest acceptable pair is 20. And unlike the gold it replaces it clears the contrast
+     bar on its own: 4.88:1 on --paper-2, the darkest of the three papers, against --ochre's 3.32, which is
+     why it needs no re-toning in the high-contrast block below. */
+  --newterm:#1B6C9C;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --serif:"Newsreader", Georgia, "Times New Roman", serif;
   --display:"Fraunces", Georgia, serif;
@@ -49,6 +63,8 @@ body.night{
   --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
   --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
   --bknote:#5FC2CE;
+  /* the night azure: 29.8 from --indigo and 20.5 from --bknote in CIELAB, 7.24:1 on --card */
+  --newterm:#74BCE8;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
@@ -2011,6 +2027,13 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .dm-item small{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.4;}
 .dm-item:hover{background:var(--paper-2); border-color:var(--rule);}
 .dm-item:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* An end-of-the-run Move row (openMoveMenu's "Move up" on the first row) is DISABLED rather than absent: a
+   row that comes and goes as the reader presses it makes the sheet jump under the finger, and its note is
+   what says why it cannot be pressed. Never `pointer-events:none` — a disabled button still reports its
+   state to a screen reader, and taking it out of hit-testing would take the note's title with it. */
+.dm-item[disabled]{cursor:default; opacity:.45;}
+.dm-item[disabled]:hover{background:none; border-color:transparent;}
+.dm-item[disabled]:active{transform:none;}
 /* Remove says what it is in its LABEL alone (Aug 2026, on request). It carried a soft red wash on hover
    as well, and on a phone — where a hover state can be left behind by the tap that opened the sheet —
    that read as the option having been chosen by accident. It hovers like every other row now; the deep
@@ -2526,7 +2549,7 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    carries three counts, a name, a figure and a bar, and the three commands beside it had nowhere to go.
    Holding a row must not select its text on the way to the sheet, and on iOS must not raise the platform's
    own callout. */
-.active-deck[data-review], #b-review{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
+.active-deck[data-review], .active-deck[data-adfolder], #b-review{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
 /* hierarchy: ancestor context rows + indentation */
 .active-deck{transition:padding-left .2s var(--ease), background .16s var(--ease);}
 /* a deck added to the review is clickable → reviews just that deck */
@@ -2549,6 +2572,31 @@ body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in 
    indent (data-depth padding) carries the hierarchy on its own. */
 .active-deck.context .prog .track{background:var(--paper);}
 .active-deck.context .prog .fill{opacity:.65;}
+/* ---- A FOLDER THE READER MADE (Aug 2026, on request) — see THE READER'S OWN ARRANGEMENT in app.js ----
+   It has to read as neither a deck nor a signpost, being the one row on this list the reader authored. So it
+   takes NO collection hue — it belongs to no collection, and borrowing one would say it did — and instead
+   wears the ink's own quiet wash on --paper-2 with a full-strength title above it: the paper says "this is a
+   container", the title says "and it is yours". Its accent bar is --ink-faint for the same reason.
+   `body.night .active-deck` is (0,2,1) against this rule's (0,2,0), so the night pair below is SPECIFICITY
+   and not decoration — without it a folder on every dark theme silently rendered as an added deck's row,
+   which is the exact trap `.active-deck.context` already carries a note about. */
+.active-deck.ad-folder{
+  cursor:pointer;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--ink) 8%, transparent), transparent 64%) var(--paper-2);
+  border-left-color:var(--ink-faint);
+}
+body.night .active-deck.ad-folder{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--ink) 11%, transparent), transparent 64%) var(--paper-2);
+}
+/* the row's own hover, since `.active-deck[data-review]:hover` cannot reach it — a folder taps into no
+   session, so it deliberately carries no data-review */
+.active-deck.ad-folder:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--ink) 13%, transparent), transparent 64%) var(--paper-2);}
+.active-deck.ad-folder:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* the folder glyph stands in the slot the three piles hold on every other row, so the numbers down the rest
+   of the list stay in one column instead of stepping left wherever a folder sits */
+.active-deck .ad-folder-mark{align-items:center; color:var(--ink-faint);}
+.active-deck .ad-folder-mark svg{width:17px; height:17px;}
+.active-deck.ad-folder .ad-count{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.02em;}
 /* The earned fill used to run down the added decks as well, so the whole group turned bronze (or gold) as
    one tile. It went with the banner's fill in Aug 2026 — the ribbon on the banner says the day is done, and
    the rows underneath stay legible in their own collection hues. `rv-done` / `rv-won` are still set on
@@ -2798,8 +2846,8 @@ sup.fn.src-flash{padding:0 3px;}
 }
 .src-compact .src-access, .cp-src .src-access{font-size:calc(8.5px * var(--fs)); padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the SAME VERMILION as the answer term
-   (.answer .val). Deliberately not the ochre the blanks use: an unopened glossary link is gold
-   (.ttip[data-new]), and a marker in that same gold read as one more undiscovered term. */
+   (.answer .val). Deliberately not the ochre the blanks use, nor the azure an unopened glossary link
+   carries (.ttip[data-new]) — a marker in either would read as one more of the thing that colour means. */
 sup.fn{
   font-family:var(--mono); font-size:.62em; line-height:0; vertical-align:super; font-weight:600;
   color:var(--zh); cursor:pointer; padding:0 1px; margin-left:1px; border-radius:3px;
@@ -3347,28 +3395,31 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   transition:color .15s var(--ease), text-decoration-color .15s var(--ease), background .15s var(--ease);
   border-radius:3px;
 }
-/* An UNDISCOVERED term wears the gold of the blank in a card's question (--ochre, and theme-aware with
-   it), so a term not yet read looks like something waiting to be filled in. A term already read carries
-   no attribute and keeps the ordinary glossary-link styling above, unchanged — the mark is the
-   invitation, not a record of what is finished. (markTtipNew sets data-new; deck terms never get it.) */
+/* An UNDISCOVERED term wears --newterm, the azure declared beside --bknote at the top of this file — a
+   lighter, plainly different shade of the same cool family the ordinary glossary link is in, so the two
+   states read as one feature in two conditions rather than as two features (Aug 2026, on request; it was
+   --ochre, the gold of the question's blank, which said "waiting to be filled in" and nothing about being
+   a glossary link at all). A term already read carries no attribute and keeps the ordinary styling above,
+   unchanged — the mark is the invitation, not a record of what is finished. (markTtipNew sets data-new;
+   deck terms never get it.) */
 .ttip[data-new]{
-  color:var(--ochre);
-  text-decoration-color:color-mix(in srgb,var(--ochre) 55%,transparent);
+  color:var(--newterm);
+  text-decoration-color:color-mix(in srgb,var(--newterm) 55%,transparent);
 }
 .ttip:hover,.ttip:focus-visible{
   color:var(--indigo-bright); text-decoration-color:var(--indigo-bright);
   background:var(--indigo-wash); outline:none;
 }
 .night .ttip:hover,.night .ttip:focus-visible{ color:var(--indigo); background:color-mix(in srgb,var(--indigo) 16%,transparent); }
-/* An undiscovered term stays gold under the cursor — jumping to the indigo hover would read as the term
-   changing state before it has been opened. These sit AFTER the rules above: equal specificity, so
+/* An undiscovered term keeps its own azure under the cursor — jumping to the indigo hover would read as
+   the term changing state before it has been opened. These sit AFTER the rules above: equal specificity, so
    source order decides (and the .night pair below outranks .night .ttip:hover outright). */
 .ttip[data-new]:hover,.ttip[data-new]:focus-visible{
-  color:var(--ochre); text-decoration-color:var(--ochre);
-  background:color-mix(in srgb,var(--ochre) 13%,transparent); outline:none;
+  color:var(--newterm); text-decoration-color:var(--newterm);
+  background:color-mix(in srgb,var(--newterm) 13%,transparent); outline:none;
 }
 .night .ttip[data-new]:hover,.night .ttip[data-new]:focus-visible{
-  color:var(--ochre); background:color-mix(in srgb,var(--ochre) 18%,transparent);
+  color:var(--newterm); background:color-mix(in srgb,var(--newterm) 18%,transparent);
 }
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
 

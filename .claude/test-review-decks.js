@@ -11,8 +11,10 @@
     · a deck's row shows ITS OWN remaining allowance, not its share of the pooled review
     · a study session survives a reload — same card, same phrasing, same reveal
     · a card's three phrasings can be stepped through, and the step sticks
-    · holding a deck's row opens Custom study / Daily limits / Skip today / Remove, the bin having gone
+    · holding a deck's row opens Custom study / Daily limits / Skip today / Move / Remove, the bin having gone
     · the Folio level caps how many decks may sit in the review at once
+    · (Aug 2026) the reader can reorder that list and group it into FOLDERS of their own — and a folder must
+      never reach S.active, since it holds no cards and would sit in the review eating a place against the cap
 
   Everything is driven through a real browser against the real files. Progress is seeded through
   addInitScript rather than a live page write, because the app saves on its own schedule and would clobber
@@ -79,6 +81,18 @@ const SETTINGS = {
     const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
     page.on("pageerror", (e) => errs.push(e.message));
     await page.addInitScript((st) => { try { localStorage.setItem("folio_v1", JSON.stringify(st)); } catch (e) {} }, state);
+    return page;
+  };
+  /* …and a seeder that only fires on a FIRST load, for the one section that has to survive a reload. The
+     unconditional one above is right everywhere else — it is what stops the app's own save schedule
+     clobbering the fixture — and it is exactly wrong for section 8, where what is being tested is that
+     something the page just wrote is still there after a reload. */
+  const newPageOnce = async (state) => {
+    const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    page.on("pageerror", (e) => errs.push(e.message));
+    await page.addInitScript((st) => {
+      try { if (!localStorage.getItem("folio_v1")) localStorage.setItem("folio_v1", JSON.stringify(st)); } catch (e) {}
+    }, state);
     return page;
   };
   // three cards already studied → past the first-run hero, and Folio level 2 (which is two decks)
@@ -164,8 +178,11 @@ const SETTINGS = {
        two rows for one bit of state spent a third of a phone sheet saying what one line says. QUESTION
        VARIETY arrived beside it the same day and takes the same shape. Both start OFF here, since this
        harness boots with reviewRandom false and no per-deck override. */
+    /* …and "New folder" at the foot of it (Aug 2026, on request: the reader arranges their own review list).
+       The BANNER gets that where a deck's row gets "Move": the review is the list, so it cannot be moved
+       inside itself, and this is the only place a reader with no folders yet can make their first one. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Random order,Question variety,Custom study,Daily limits,Skip today", JSON.stringify(rm));
+      rm && rm.items.join(",") === "Random order,Question variety,Custom study,Daily limits,Skip today,New folder", JSON.stringify(rm));
     check("...the order and the phrasing pool are SWITCHES, not a pair of rows",
       rm && rm.switches.join(",") === "Random order,Question variety" && rm.choices === 0, JSON.stringify(rm));
     check("...each showing its own current state — Ordered, and variety on by default",
@@ -348,8 +365,11 @@ const SETTINGS = {
     /* Question variety joined the deck's own sheet as well as the review's (Aug 2026, on request) — it is
        stored per entry, so it has to be settable on the entry it applies to. The order switch is NOT here:
        it is a property of the pooled session and of nothing else. */
+    /* MOVE joined it in Aug 2026, on request — one row rather than three, opening a dialog of its own the
+       way Custom study and Daily limits do, since the sheet already carries five commands. It sits directly
+       above Remove because both are about the row rather than about what it deals out today. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Question variety", "Custom study", "Daily limits", "Skip today", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Question variety", "Custom study", "Daily limits", "Skip today", "Move", "Remove"]),
       JSON.stringify(menu.items));
 
     // Daily limits — Anki's three, and the deck's own new count follows the one it sets
@@ -509,6 +529,162 @@ const SETTINGS = {
       return { txt: b ? b.textContent.trim() : null, hero: !!document.querySelector(".review-hero") };
     });
     check("the review's button reads 'Start'", cta.txt === "Start", JSON.stringify(cta));
+    await page.close();
+  }
+
+  /* ================= 8. the reader's own arrangement: reordering and folders (Aug 2026, on request) =====
+     Every clause here fails SILENTLY. A folder that renders as an ordinary deck row looks like a deck; a
+     "Move up" that does nothing looks like a control; an arrangement lost on reload looks like a page that
+     never had one. And the one that would do real damage is invisible from the outside: a folder is not an
+     entry, so if one ever reached S.active or the review queue it would be a deck with no cards sitting in
+     the reader's review, eating a place against the level cap. */
+  {
+    const page = await newPageOnce(seeded);   // seeded once, so a reload keeps what the page has written
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const rows = () => page.evaluate(() => [...document.querySelectorAll(".active-deck")].map((el) => ({
+      key: el.dataset.adkey, folder: !!el.dataset.adfolder, review: el.dataset.review || null,
+      title: (el.querySelector(".ad-title") || {}).textContent, vis: el.offsetParent !== null, depth: el.dataset.depth,
+    })));
+    const tops = async () => (await rows()).filter((r) => r.vis && r.depth === "0").map((r) => r.key);
+    const sheetOn = (sel) => page.evaluate((s) => {
+      const el = document.querySelector(s);
+      el.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+    }, sel);
+    const press = (act) => page.evaluate((a) => {
+      const b = [...document.querySelectorAll(".deck-menu .dm-item")].find((x) => x.dataset.act === a);
+      if (b) b.click();
+    }, act);
+
+    check("every row in the list carries data-adkey — what the fold now keys off",
+      (await rows()).every((r) => r.key), JSON.stringify((await rows()).slice(0, 2)));
+    check("...and there are no folder rows until one is made", !(await rows()).some((r) => r.folder));
+
+    // make one from the banner's own sheet, which is the only route in for a reader who has none
+    await sheetOn("#b-review");
+    await page.waitForTimeout(300);
+    await press("newfolder");
+    /* 800ms, and the reason is a real guard rather than a slow page: wireHoldMenu sets `_holdUntil` for 700ms
+       after a hold and a document-level CAPTURE listener swallows the next click outside `.deck-menu`. The
+       row press above is inside the sheet and so passes without clearing it — the modal's OK button is not,
+       so a faster test has its click eaten and the folder is never made. */
+    await page.waitForTimeout(800);
+    await page.evaluate(() => {
+      document.querySelector(".inline-prompt .ip-input").value = "Mornings";
+      document.querySelector(".inline-prompt .ip-ok").click();
+    });
+    await page.waitForTimeout(800);
+    let all = await rows();
+    const folder = all.find((r) => r.folder);
+    check("the banner's New folder makes one, named by the reader", !!folder && folder.title === "Mornings", JSON.stringify(folder));
+    /* NOT tappable into a session, and this is the assertion that matters: a folder holds no cards, so a
+       data-review on it would put a scope through buildSession that has nothing to deal out. */
+    check("...carrying no data-review, so it taps into no session", folder && !folder.review);
+    check("...and landing LAST, so making one never rearranges the list being looked at",
+      (await tops()).slice(-1)[0] === folder.key, JSON.stringify(await tops()));
+    check("...while never entering S.active or the review's own card set",
+      await page.evaluate((k) => {
+        const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        return (S.active || []).indexOf(k) === -1 && !/^f:/.test((S.active || []).join(","));
+      }, folder.key));
+
+    // reorder it: Move up must actually swap it with the row above, and survive a reload
+    const before = await tops();
+    await sheetOn(`.active-deck[data-adkey="${folder.key}"]`);
+    await page.waitForTimeout(300);
+    const fsheet = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].map((b) => b.dataset.act));
+    /* a folder's sheet is its OWN, not openDeckMenu: every row of that one is about what a deck deals out
+       today, and offering a folder Custom study would offer to change a number that decides nothing */
+    check("a folder's sheet is rename / move / delete and nothing else",
+      JSON.stringify(fsheet) === JSON.stringify(["rename", "move", "delete"]), JSON.stringify(fsheet));
+    await press("move");
+    await page.waitForTimeout(300);
+    await press("up");
+    await page.waitForTimeout(800);
+    const after = await tops();
+    check("Move up reorders the top level", before.length > 1 && after.indexOf(folder.key) === before.indexOf(folder.key) - 1,
+      JSON.stringify({ before, after }));
+    // it STAYS open, so moving a deck five places is five presses rather than five re-openings
+    check("...with the Move dialog still open for a second press",
+      await page.evaluate(() => !!document.querySelector('.deck-menu .dm-item[data-act="up"]')));
+    await page.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    check("...and the new order surviving a reload", JSON.stringify(await tops()) === JSON.stringify(after),
+      JSON.stringify({ after, now: await tops() }));
+
+    // move a deck into it
+    const target = await page.evaluate(() => {
+      const el = [...document.querySelectorAll(".active-deck[data-review]")].find((e) => e.offsetParent !== null);
+      return el ? el.dataset.adkey : null;
+    });
+    check("a deck row is reachable to move", !!target, target);
+    await sheetOn(`.active-deck[data-adkey="${target}"]`);
+    await page.waitForTimeout(300);
+    await press("move");
+    await page.waitForTimeout(300);
+    const msheet = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].map((b) => ({ act: b.dataset.act, dis: b.disabled })));
+    check("the Move dialog offers up, down, the folder and a new one",
+      msheet.some((r) => r.act === "up") && msheet.some((r) => r.act === "down") &&
+      msheet.some((r) => /^into:/.test(r.act || "")) && msheet.some((r) => r.act === "new"), JSON.stringify(msheet));
+    // the end it cannot move past is greyed rather than absent, so the sheet does not jump under the finger
+    check("...with the end of the run disabled rather than missing",
+      msheet.some((r) => (r.act === "up" || r.act === "down") && r.dis === true), JSON.stringify(msheet));
+    await page.evaluate(() => {
+      const b = [...document.querySelectorAll(".deck-menu .dm-item")].find((x) => /^into:/.test(x.dataset.act || ""));
+      if (b) b.click();
+    });
+    await page.waitForTimeout(800);
+    all = await rows();
+    const moved = all.find((r) => r.key === target);
+    check("the deck now sits inside the folder", moved && +moved.depth === 1 &&
+      all.findIndex((r) => r.key === target) > all.findIndex((r) => r.folder), JSON.stringify(moved));
+    check("...visible, because a folder the reader just made starts OPEN", moved && moved.vis, JSON.stringify(moved));
+    check("...and still tappable into its own session", moved && moved.review === target);
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    check("...with the whole arrangement surviving a reload",
+      await page.evaluate((k) => { const el = document.querySelector(`.active-deck[data-adkey="${k}"]`); return !!el && el.dataset.depth === "1"; }, target));
+
+    /* THE FOLD walks the ARRANGED parents now, not the collection tree — a row inside a folder has an
+       ancestor the tree has never heard of, so folding the folder is what proves the new walk. */
+    await page.evaluate((k) => document.querySelector(`.active-deck[data-adkey="${k}"] .ad-chev`).click(), folder.key);
+    await page.waitForTimeout(600);
+    check("folding a folder hides what is inside it",
+      !((await rows()).find((r) => r.key === target) || {}).vis);
+    check("...and the rounded corner follows the last VISIBLE row",
+      await page.evaluate(() => {
+        const v = [...document.querySelectorAll(".active-deck")].filter((e) => e.offsetParent !== null);
+        const l = v[v.length - 1];
+        return !!l && l.classList.contains("ad-last") && parseFloat(getComputedStyle(l).borderBottomLeftRadius) > 0;
+      }));
+
+    // the COLLECTIONS page must know nothing about any of this
+    await page.goto(base + "#decks", { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    check("the Collections page shows no folders and still draws its collections",
+      await page.evaluate(() => document.querySelectorAll("[data-adfolder]").length === 0 && document.querySelectorAll(".collection").length > 0));
+
+    // deleting the folder puts its deck back rather than taking it out of the review
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await sheetOn(`.active-deck[data-adkey="${folder.key}"]`);
+    await page.waitForTimeout(300);
+    await press("delete");
+    await page.waitForTimeout(800);
+    all = await rows();
+    check("deleting a folder removes its row", !all.some((r) => r.folder));
+    check("...and its deck is still in the review, back where the tree puts it",
+      all.some((r) => r.key === target) &&
+      await page.evaluate((k) => (JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []).indexOf(k) !== -1, target));
+    // …and the layout is cleaned, or a stale key would keep a dead folder looking occupied
+    check("...with the layout cleaned of the dead folder",
+      await page.evaluate(() => {
+        const L = (JSON.parse(localStorage.getItem("folio_v1") || "{}").adLayout) || {};
+        return Object.keys(L.folders || {}).length === 0 &&
+          !Object.keys(L.parent || {}).some((k) => /^f:/.test(String(L.parent[k] || "")));
+      }));
     await page.close();
   }
 

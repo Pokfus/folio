@@ -3059,6 +3059,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and the "1 / 3" counter are drawn from `pool.length`, so they simply do not appear, and there is no
     second state in which the counter says 1 / 3 and the arrows do nothing. The daily GAMES are untouched
     — they draw from every card and are not deck-scoped, so a per-deck setting has no business there.
+    (Multiple Choice fixed itself to the FIRST phrasing in Aug 2026, on request, and did it unconditionally
+    for that same reason rather than by reading this switch — see `FIRST_PHRASING` in the card-pool bullet.)
   · **The N/N STUDIED figure lives in the sheet's head, not on the row** (`.dm-studied`, Aug 2026, on request).
     It sat at the right of the row, where on a 390px line it competed with the deck's own name — the one part
     of the row with a shorter form, so the name is what gave way. The **bar stays on the row** and says the
@@ -3074,6 +3076,68 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     highlighted row in a menu reads as one already chosen. The rule is gone; `.dm-item.dm-danger b` keeps
     `--zh` and the row hovers like every other. `test-layout.js` asserts it HOVERED, against an ordinary
     row's own hover wash — reading the resting style would pass whatever the rule says.
+- **THE READER'S OWN ARRANGEMENT OF THE REVIEW LIST — reordering, and folders of their own (Aug 2026, on
+  request).** The `THE READER'S OWN ARRANGEMENT` block in app.js, beside the entry helpers: `S.adLayout`,
+  `adRowsBuild`, `adSiblings`, `adMoveWithin`, `adSetParent`, `adFolderCreate` / `Rename` / `Delete`,
+  `adForget`, plus `openMoveMenu` / `openFolderMenu` / `promptNewFolder` beside the deck sheet. The list under
+  the banner took its whole shape from the collection tree, which is a fine default and a poor answer to "I
+  study these three together" — a reader with decks out of five collections could not put the two they work on
+  each morning beside each other, and could not name the pair.
+  · **IT IS A LAYER, NOT A REPLACEMENT, and that is the whole of its safety.** `S.active` is still the set of
+    added entries, `entryCardIds` still says what is in each, and every count, limit, queue and session is
+    derived from those exactly as before. What is recorded is only where a row SITS — `{ folders, parent,
+    order }` — so **nothing in it changes what is studied**, and **`PAGES.decks` never reads it**: the
+    Collections page goes on showing the tree as it is, which is what a reader browsing for a deck needs.
+    An absent or empty layout is the tree's own order, so an older save looks exactly as it always did and
+    nothing migrates. In `defaultState` AND `PROGRESS_FIELDS` — where a reader keeps their decks is a fact
+    about the reader, so the shelf a phone shows is the shelf the laptop shows.
+  · **A FOLDER IS NOT AN ENTRY.** It carries no cards, is never put in `S.active`, and `activeEntryIds`
+    filters it out by construction (it is neither a node id, a `u:` deck nor the CotD pseudo-entry), so it
+    cannot reach `reviewQueue`, `buildSession`, `deckLimits`, the level cap or the scheduler — the Phase-0
+    lesson about keeping community cards out of `CARDS`, one floor up. Its id carries a **COLON** (`f:`) for
+    the reason `review:all` and `cotd:added` do. Its row is therefore **not tappable into a session** and
+    carries **no `data-review`**: giving it one would mean a fifth scope in `buildSession` and a row in every
+    per-deck limit table for a thing that is not a deck. It shows how many decks are inside and how far
+    through their cards the reader is — both derived from those decks, so they cannot disagree with them —
+    and **no piles**, whose 46px slot holds a folder glyph instead so the numbers down the rest of the list
+    stay in one column.
+  · **FOLDERS LIVE AT THE TOP LEVEL, and that is what makes a cycle impossible rather than merely unlikely.**
+    A folder's parent is never read from `parent`, so there is no chain of folders to walk and no guard to get
+    wrong. Depth still happens where the DECKS have depth: a node moved into a folder brings its subdecks,
+    which follow their own natural parent.
+  · **`""` AND "ABSENT" ARE DIFFERENT THINGS** in `parent`, told apart with `hasOwnProperty` — an explicit top
+    level against "wherever the tree puts it". Without that distinction a subdeck could never be lifted out
+    from under its own collection's row. **Deleting a folder REMOVES the entry rather than pinning it to the
+    top level**, so what was inside returns under its own collection exactly as it sat before the folder
+    existed; and `removeActive` calls `adForget`, or a stale key would keep a folder looking occupied and
+    would come back the day that deck was added again.
+  · **SIGNPOSTS THAT NOW POINT AT NOTHING ARE PRUNED** (`adRowsBuild`, repeated until stable — a chain of
+    ancestors empties one level at a time). A context row exists only to say where the reader's own deck
+    sits; move that deck into a folder and the row is left naming a collection with nothing under it. Never
+    touches a deck row, an entry or a folder — an empty folder the reader made stays on the page, or there
+    would be nothing to fill or delete.
+  · **THE FOLD NOW WALKS THE ARRANGED PARENTS, NOT THE COLLECTION TREE** (`adParentOf`, written by the builder
+    from the same pass the markup comes from; `adRowVisible(key)` replaced `adRowVisible(node, rowIds)`). A row
+    moved into a folder has an ancestor the tree has never heard of, so the old walk up `NODE_BY_ID` could not
+    answer the question. **Every row carries `data-adkey` and `adSyncFold` keys off THAT, not `[data-node]`** —
+    a community deck or the Card-of-the-day list can be moved into a folder now, so those rows fold too, and
+    the old "the tail never folds" shortcut would have left one showing inside a shut folder while claiming
+    the rounded corner. A **folder starts OPEN** (the reader made it and named it); a node row keeps the rule
+    it always had.
+  · **IT IS NOT A DRAG, and that is a decision rather than a shortfall.** The obvious answer is a grip on the
+    row, and the row cannot afford one: it already carries three piles, a name, a bar and a chevron, and this
+    file's own record of getting five things onto a 390px line is what sent the bar off the line and under the
+    row. A drag on the row ITSELF is worse — a vertical drag on a phone is a scroll, which is exactly the
+    gesture `wireHoldMenu` already has to reject to keep a scroll from opening a sheet. So the commands live in
+    the sheet the row already has: **Move** on a deck's (one row, opening a dialog of its own the way Custom
+    study and Daily limits do, since the sheet already carries five commands) and **New folder** in the
+    BANNER's, which is the only place a reader with no folders yet can make their first one. A folder's row
+    gets a sheet of its own — rename / move / delete, and deliberately not `openDeckMenu`, every row of which
+    is about what a deck deals out today. The cost is real and worth naming: moving a deck five places takes
+    five presses, which is why `openMoveMenu` **stays open** across an up/down press and re-opens itself after
+    the repaint (`render()` closes it, `closeDeckMenu` being in that list), refreshing "3 of 7" and re-greying
+    the button at the end of the run as it goes.
+  · Guarded by `test-review-decks.js`, whose two sheet-contents assertions name the new rows.
 - **The Folio LEVEL is how many decks may sit in the daily review** (`maxActiveDecks` = the level, Aug 2026, on
   request — levels were a score and nothing else, and this is the first thing they decide). `addActive` returns
   **false** when the cap turned it down so `wireAddButton` can say why rather than doing nothing, and the Library's
@@ -3321,16 +3385,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     · **The UNDISCOVERED term is the marked one.** A glossary link not yet opened carries **`data-new`**
       (set by `markTtipNew`, called from `setupTooltips` — the one choke point every `.ttip` render path
       already goes through, hand-authored and auto-linked alike), and `.ttip[data-new]` paints it in
-      **`--ochre`, the same gold as the blank in a card's question**, so an unread term reads as something
-      waiting to be filled in. **A term already read carries no attribute and renders exactly as every
-      glossary link always has** — the familiar state is untouched, because the mark is the invitation,
-      not a record of what is finished. (It was briefly the other way round — read terms dimmed — and was
-      changed on request; don't reintroduce that.) It writes an explicit `data-new` rather than styling
-      `:not([data-seen])` **because deck terms are in neither register** and would otherwise sit gold and
-      undiscoverable forever. `.ttip[data-new]:hover` keeps the gold — jumping to the indigo hover would
-      read as the term changing state before it was opened — and sits **after** the base `:hover` rules
-      (equal specificity → source order). `refreshTtipNew(key)` re-marks every matching link on the page
-      the moment a popup opens, so the prose behind it loses its gold at once, not on the next render.
+      **`--newterm`**, an azure declared beside `--bknote` at the top of styles.css. **A term already read
+      carries no attribute and renders exactly as every glossary link always has** — the familiar state is
+      untouched, because the mark is the invitation, not a record of what is finished. (It was briefly the
+      other way round — read terms dimmed — and was changed on request; don't reintroduce that.) It writes
+      an explicit `data-new` rather than styling `:not([data-seen])` **because deck terms are in neither
+      register** and would otherwise sit marked and undiscoverable forever. `.ttip[data-new]:hover` keeps
+      the azure — jumping to the indigo hover would read as the term changing state before it was opened —
+      and sits **after** the base `:hover` rules (equal specificity → source order). `refreshTtipNew(key)`
+      re-marks every matching link on the page the moment a popup opens, so the prose behind it loses its
+      azure at once, not on the next render.
+      **IT WAS `--ochre`, THE GOLD OF THE QUESTION'S BLANK, AND THE CHANGE IS THE LESSON** (Aug 2026, on
+      request: "a lighter blue or teal instead of gold, so it is clearly a different shade from discovered
+      terms, but clearly the same type of feature"). The gold said *something waiting to be filled in* and
+      said nothing whatever about being a glossary link, so the two states of ONE feature read as two
+      different features — a reader met a gold word and a blue word in the same sentence with no reason to
+      think they did the same thing. An azure answers both halves at once: same cool family as `--indigo`,
+      so an unopened term is plainly the same kind of thing as an opened one, and 40° round the wheel from
+      it (202 against 241), so nobody mistakes one for the other. **The value is measured, not picked**, and
+      the token it had to be measured against is not the obvious one: `--bknote` is a TEAL at 186, and a
+      book's prose carries both its translator's note markers and its glossary links, so that is the one
+      collision that can actually happen on a page. In CIELAB it stands 33.3 from `--indigo` and 25.1 from
+      `--bknote` where the shelf's own tightest acceptable pair is 20; the night value (`#74BCE8`) stands
+      29.8 and 20.5. **It also needs no high-contrast override**, clearing 4.88:1 on `--paper-2` where the
+      gold managed 3.32 — so the `body.hc` block, which exists to re-tone exactly the tokens that fall
+      short, does not mention it. Declared in `:root` and `body.night` ONLY, which is `--bknote`'s pattern:
+      every theme inherits it unless it says otherwise.
     · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 401"
       in the gloss popup's bar, "New place! 7 / 258" in the Atlas panel (`#cpNew`), with a **splash** of
       two expanding rings (`discRing` / `discRingNight`, staggered onto `::after`) and a **`sfx("discover")`
@@ -3441,7 +3521,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     TRANSLATOR's own note on the line in front of you, which is a different kind of thing, and on a page of
     continuous prose a run of vermilion superscripts reads as a page full of corrections. **Every
     neighbouring token was already spoken for** — `--zh` is the card's marker and the answer term,
-    `--indigo` a glossary link, `--ochre` a glossary term not yet opened, `--good` completion — so it is a
+    `--indigo` a glossary link, `--newterm` a glossary term not yet opened, `--good` completion — so it is a
     NEW token rather than a borrowed one, declared in `:root` and in the `body.night` block only: every
     theme inherits it unless it says otherwise, and a per-theme dark variant that does not declare it still
     picks up the night value (`body.night` outranks `:root` on the element they both target). The teal sits
@@ -3785,8 +3865,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   under the same rules (mid-sentence blank, ~28 words), each testing the concept from a different angle so
   students learn the concept rather than one sentence's shape. `cardQuestions(c)` returns the non-blank pool;
   **`cardWithQuestion(c, pickIdx?)`** returns a COPY with `question` set to one of them — **random per show**
-  on the study page, **date-seeded** for the card of the day, **fixed per round** in Multiple Choice (so the
-  results summary repeats what was asked). Translations carry their own pool (`i18n[lang].questions`), and
+  on the study page, **date-seeded** for the card of the day, and **always the FIRST** in Multiple Choice
+  (`FIRST_PHRASING`, Aug 2026, on request; it used to be one of the three at random, fixed for the round so
+  the results summary repeated what was asked). The reasoning for the exception is worth keeping, because the
+  pool exists precisely to stop a reader learning one sentence's shape: **a quiz round is a card asked ONCE,
+  cold, with three near-miss answers beside it**, and the first phrasing is the one written to stand on its own
+  with nothing else on the card to lean on. The per-deck **Question variety** switch is deliberately not
+  consulted there either — the games are not deck-scoped, so a setting thrown on one deck's row has no
+  business deciding what a quiz drawn from every collection asks. It is written as an explicit picker rather
+  than by dropping the call, so the intent survives in the code: phrasing 0 by choice, not by accident.
+  Translations carry their own pool (`i18n[lang].questions`), and
   `cardLocalized` **falls back to the single translated question when a language hasn't translated the
   extras** — never a translated question mixed with English extras. In the editors the question box gets
   **chevrons (‹ ›) that cycle the pool** plus a "1 / 3" counter and add/remove controls; edits write through

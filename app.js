@@ -1110,6 +1110,12 @@
       // without its whole deck coming with it — see the COTD block below.
       cotd: [],
       active: ["cn-qing"], // deck/subdeck ids added to the daily review
+      /* …and where the reader has put them. A LAYER over the derived list — folders they have made, rows
+         they have moved out of their natural place, and their sequence among one parent's children. It
+         decides nothing about what is studied (see THE READER'S OWN ARRANGEMENT above) and is read by the
+         home page alone; the Collections page still shows the tree as it is. An absent or empty layout is
+         the tree's own order, so an older save simply looks as it always did. */
+      adLayout: { folders: {}, parent: {}, order: {} },
       achievements: {}, // achievement id -> unlock timestamp
       // ---- learning that happens outside the scheduler, for the account page's "Beyond the cards" panel.
       // Neither of these can be reconstructed after the fact: a glossary popup and an Atlas click leave no
@@ -1366,7 +1372,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "adLayout", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2809,13 +2815,15 @@
     requestAnimationFrame(() => win.classList.add("show"));
   }
 
-  /* The UNDISCOVERED term is the marked one: `data-new` puts it in the same gold as the blank in a card's
-     question (`--ochre`), so what has not been read yet reads as something waiting to be filled in. A term
-     already read carries no attribute at all and renders exactly as every glossary link always has —
-     nothing about the familiar state changed, which is the point: the mark is the invitation, not a
-     record of what is done.
+  /* The UNDISCOVERED term is the marked one: `data-new` puts it in `--newterm`, a lighter azure in the same
+     cool family as the ordinary glossary link's `--indigo` and plainly a different shade of it, so an
+     unread term reads as the same feature in another condition (Aug 2026, on request; it used to take
+     `--ochre`, the gold of a card's blank, which read as a different feature altogether). A term already
+     read carries no attribute at all and renders exactly as every glossary link always has — nothing about
+     the familiar state changed, which is the point: the mark is the invitation, not a record of what is
+     done.
      Deck terms are deliberately left unmarked in BOTH directions — glossSeen does not record them (a
-     stranger's deck would let the count pass 100%), so they must not sit gold and undiscoverable forever.
+     stranger's deck would let the count pass 100%), so they must not sit marked and undiscoverable forever.
      That is why this writes an explicit `data-new` rather than styling `:not([data-seen])`. */
   function markTtipNew(el) {
     const k = el.dataset.k;
@@ -2823,7 +2831,7 @@
     else el.removeAttribute("data-new");
   }
   // every .ttip currently on the page that points at this term — the prose behind a popup must lose its
-  // gold the moment the term is read, not on the next render (which for a study card is the next card)
+  // azure the moment the term is read, not on the next render (which for a study card is the next card)
   function refreshTtipNew(key) {
     document.querySelectorAll(".ttip").forEach((el) => { if (el.dataset.k === key) markTtipNew(el); });
   }
@@ -3309,7 +3317,7 @@
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
     const n = NODE_BY_ID[id];
-    if (!n) { S.active = activeEntryIds().filter((x) => x !== id); save(); return; }
+    if (!n) { S.active = activeEntryIds().filter((x) => x !== id); adForget([id]); save(); return; }
     const drop = new Set(nodeSubtreeIds(n));
     let a = activeEntryIds();
     let cur = n, p = cur.parentId ? NODE_BY_ID[cur.parentId] : null;
@@ -3322,6 +3330,7 @@
     }
     const seen = new Set();
     S.active = a.filter((x) => !drop.has(x) && !seen.has(x) && seen.add(x));
+    adForget([...drop]);   // and its place in the reader's arrangement, or a stale key keeps a folder looking occupied
     save();
   }
   // label + card count for an active entry (deck, subdeck, one of the user's own decks, or the CotD additions)
@@ -3334,6 +3343,268 @@
     if (!n) return { title: id, parent: "", count: 0 };
     return { title: nodeTitle(n), parent: nodeParentPath(n), count: subtreeCardIds(n).length };
   }
+
+  /* ============================================================
+     THE READER'S OWN ARRANGEMENT OF THE REVIEW LIST (Aug 2026, on request)
+     ============================================================
+     The daily review's list took its whole shape from the collection tree: rows walked TREE in tree order,
+     nested by tree parent, with a greyed signpost row for each unadded ancestor. That is a fine default and
+     a poor answer to "I study these three together" — a reader who has added decks out of five collections
+     cannot put the two they work on each morning beside each other, and cannot name the pair.
+
+     So there is now a LAYER over the derived list, and it is a layer rather than a replacement for a reason
+     worth stating: `S.active` is still the set of added entries, `entryCardIds` still says what is in each
+     one, and every count, limit and session in the review is derived from those exactly as before. What this
+     records is only where a row SITS — its parent and its place among its siblings — plus the folders the
+     reader has made. Nothing here changes what is studied, and nothing here is read by PAGES.decks: the
+     Collections page goes on showing the tree as it is, which is what a reader browsing for a deck needs.
+
+       S.adLayout = {
+         folders: { "f:ab12cd": { title: "Mornings" } },   // the reader's own, named by them
+         parent:  { "gr-archaic": "f:ab12cd" },            // a row moved out of its natural place ("" = top level)
+         order:   { "": [...keys], "f:ab12cd": [...keys] } // the reader's sequence among one parent's children
+       }
+
+     Three decisions in that shape are load-bearing.
+
+     A FOLDER IS NOT AN ENTRY. It carries no cards, it is never put in `S.active`, `activeEntryIds` filters
+     it out by construction (it is neither a node id, a "u:" deck nor the CotD pseudo-entry), and it has no
+     row in `S.deckOpts`. So it cannot reach `reviewQueue`, `buildSession`, the per-deck limits, the level
+     cap or the scheduler — the Phase-0 lesson about keeping community cards out of `CARDS`, one floor up. Its
+     id carries a COLON for the same reason `review:all` and `cotd:added` do: a node id is a plain slug and a
+     user deck's is prefixed `u:`, so `f:` can never collide with either.
+
+     FOLDERS LIVE AT THE TOP LEVEL, and that is what makes a cycle impossible rather than merely unlikely. A
+     folder's parent is never read from `parent`, so there is no chain of folders to walk and no guard to get
+     wrong. What a folder contains may itself be nested — a deck moved into one brings its subdecks, which
+     follow their own natural parent — so the reader still gets depth where the decks have depth.
+
+     AN UNMOVED ROW HAS NO ENTRY IN `parent` AT ALL, which is why `""` (an explicit top level) and "absent"
+     (wherever the tree puts it) have to be told apart with `hasOwnProperty`. Without that distinction a
+     subdeck could never be lifted out from under its own collection's row.
+     ============================================================ */
+  /* It sits in the slot the three piles occupy on every other row, which is why it is drawn at all: a folder
+     has no piles, and 46px of nothing at the head of the row is what would otherwise be there. Marking the
+     row's KIND is the useful thing to put in it, and it keeps the numbers down the rest of the list in one
+     column. `aria-hidden` — the row already says it is a folder, in the title attribute and in its sheet. */
+  const FOLDER_GLYPH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+  const AD_FOLDER_PFX = "f:";
+  const AD_FOLDER_MAX = 60;   // a title is a row on a 390px line, not a paragraph
+  function isAdFolder(key) { return typeof key === "string" && key.slice(0, 2) === AD_FOLDER_PFX; }
+  function adLayout() {
+    const L = (S.adLayout && typeof S.adLayout === "object") ? S.adLayout : (S.adLayout = {});
+    if (!L.folders || typeof L.folders !== "object") L.folders = {};
+    if (!L.parent || typeof L.parent !== "object") L.parent = {};
+    if (!L.order || typeof L.order !== "object") L.order = {};
+    return L;
+  }
+  function adFolderIds() { const f = adLayout().folders; return Object.keys(f).filter((k) => isAdFolder(k) && f[k]); }
+  function adFolderTitle(key) { const f = adLayout().folders[key]; return (f && f.title) || "Folder"; }
+  /* The reader's sequence among one parent's children, and the writer that records it. A write always
+     stores the FULL list of that parent's children rather than a patch, which is what keeps the meaning of
+     "unlisted" simple — an id the reader has never arranged sorts after every id they have, in tree order —
+     and self-heals a stale key on the first move made beside it. */
+  function adOrderOf(parentKey) { const o = adLayout().order[parentKey || ""]; return Array.isArray(o) ? o : []; }
+  function adSetOrder(parentKey, keys) { adLayout().order[parentKey || ""] = keys.slice(); }
+
+  /* ---------- the arranged list ----------
+     One function builds it, and both the home page (to render) and the options sheets (to work out what
+     "move up" means) call it — so the sheet can never disagree with the list about what a row's neighbours
+     are. Returns rows in DRAWING order, each carrying its arranged parent, its depth and whether it has
+     children, plus the maps the fold needs.
+
+     A row is one of four kinds: `folder` (the reader's own), `deck` (an added node with cards in it),
+     `context` (a node on the path to one, not itself studiable) or `entry` (a community deck / the
+     Card-of-the-day list, which sit outside TREE entirely). */
+  function adRowsBuild() {
+    const activeIds = activeEntryIds();
+    const activeSet = new Set(activeIds);
+    const L = adLayout();
+    const avail = availableCardIdSet();
+    const items = [];
+    const byKey = Object.create(null);
+    const add = (it) => { items.push(it); byKey[it.key] = it; return it; };
+    // the reader's folders first, so an empty one still has a row to be filled or deleted from
+    adFolderIds().forEach((k) => add({ key: k, kind: "folder", title: adFolderTitle(k), natural: "" }));
+    // then the tree: every added id and every ancestor of one, in tree order
+    const show = new Set();
+    activeIds.forEach((id) => { let n = NODE_BY_ID[id]; while (n) { show.add(n.id); n = n.parentId ? NODE_BY_ID[n.parentId] : null; } });
+    const treeKeys = new Set();
+    (function () {
+      function walk(node) {
+        if (!show.has(node.id)) return;
+        treeKeys.add(node.id);
+        // a row is a DECK only if there is something in it to review; an added-but-empty subdeck (most of a
+        // 1,000-card plan) draws as a signpost instead of as a row that taps into an empty session
+        const live = activeSet.has(node.id) && entryCardIds(node.id).some((id) => avail.has(id));
+        add({ key: node.id, kind: live ? "deck" : "context", node: node, title: nodeTitle(node), natural: null });
+        nodeChildren(node).forEach(walk);
+      }
+      TREE.collections.forEach((c) => { if (!isComingSoon(c)) walk(c); });   // a coming-soon collection sits the review out
+    })();
+    items.forEach((it) => {
+      if (it.natural !== null) return;
+      const p = it.node && it.node.parentId;
+      it.natural = (p && treeKeys.has(p)) ? p : "";
+    });
+    // and last the entries that are in no tree at all
+    activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).forEach((id) =>
+      add({ key: id, kind: "entry", title: UDECKS[uDeckIdOf(id)].title, natural: "" }));
+    if (activeIds.indexOf(COTD_ENTRY) !== -1) add({ key: COTD_ENTRY, kind: "entry", title: COTD_TITLE, natural: "" });
+
+    /* The arranged parent. A folder's is always the top level — see the header: that, and not a cycle
+       check, is what makes a loop impossible. Anything else takes the reader's answer where they have
+       given one and where the destination still exists, and its natural place otherwise. */
+    items.forEach((it) => {
+      if (it.kind === "folder") { it.parent = ""; return; }
+      const has = Object.prototype.hasOwnProperty.call(L.parent, it.key);
+      const want = has ? String(L.parent[it.key] || "") : null;
+      it.parent = (want !== null && (want === "" || (isAdFolder(want) && byKey[want]))) ? want : it.natural;
+    });
+
+    /* PRUNE THE SIGNPOSTS THAT NOW POINT AT NOTHING. A context row exists only to say where the reader's
+       own deck sits; move that deck into a folder and the row is left naming a collection with nothing
+       under it, which is noise rather than context. Repeated until stable, because a chain of ancestors
+       empties one level at a time. Never touches a deck row, an entry or a folder — a folder the reader
+       made stays on the page whether or not they have filled it yet. */
+    for (let pass = 0; pass < 40; pass++) {
+      const kids = new Set(items.map((it) => it.parent));
+      const dead = items.filter((it) => it.kind === "context" && !kids.has(it.key));
+      if (!dead.length) break;
+      dead.forEach((it) => { delete byKey[it.key]; });
+      const keep = items.filter((it) => byKey[it.key] === it);
+      items.length = 0; keep.forEach((it) => items.push(it));
+    }
+
+    // children, in the reader's order where they have given one and base order after it
+    const children = new Map();
+    items.forEach((it) => {
+      if (!children.has(it.parent)) children.set(it.parent, []);
+      children.get(it.parent).push(it);
+    });
+    children.forEach((list, parentKey) => {
+      const seq = adOrderOf(parentKey);
+      const rank = new Map(); seq.forEach((k, i) => rank.set(k, i));
+      // a stable sort over the base order, so an unarranged row keeps its tree position among its peers
+      list.forEach((it, i) => { it._i = i; });
+      list.sort((a, b) => {
+        const ra = rank.has(a.key) ? rank.get(a.key) : Infinity;
+        const rb = rank.has(b.key) ? rank.get(b.key) : Infinity;
+        return ra !== rb ? ra - rb : a._i - b._i;
+      });
+    });
+
+    // walk it into drawing order, recording depth and the arranged parent of every row
+    const rows = [], parentOf = new Map();
+    (function walk(parentKey, depth) {
+      (children.get(parentKey) || []).forEach((it) => {
+        it.depth = depth;
+        it.hasKids = !!(children.get(it.key) || []).length;
+        parentOf.set(it.key, parentKey);
+        rows.push(it);
+        walk(it.key, depth + 1);
+      });
+    })("", 0);
+    return { rows: rows, byKey: byKey, children: children, parentOf: parentOf };
+  }
+  /* WHAT IS INSIDE A FOLDER, derived once and read by both the row and the folder's own sheet — a figure in
+     the sheet that disagreed with the figure on the row it was opened from is exactly the quiet kind of
+     wrong this file keeps finding. It counts every ENTRY beneath the folder at any depth, not just the rows
+     whose `parent` names it: a deck moved in brings its subdecks, and they are inside it too. */
+  function adFolderContents(key) {
+    const b = adRowsBuild();
+    const rows = [];
+    (function collect(k) {
+      (b.children.get(k) || []).forEach((c) => { if (c.kind !== "folder") rows.push(c); collect(c.key); });
+    })(key);
+    const entries = rows.filter((r) => r.kind === "deck" || r.kind === "entry");
+    const cards = new Set();
+    entries.forEach((r) => entryCardIds(r.key).forEach((id) => cards.add(id)));
+    return { decks: entries.length, cardIds: [...cards] };
+  }
+  /* The keys of one row's siblings, in the order they are drawn — what "move up" and "move down" move
+     within. Derived from a fresh build rather than from the DOM, so it is right whether the sheet was
+     opened from the home page or from anywhere else. */
+  function adSiblings(key) {
+    const b = adRowsBuild();
+    const it = b.byKey[key];
+    if (!it) return { parent: "", keys: [] };
+    const parentKey = b.parentOf.get(key) || "";
+    return { parent: parentKey, keys: (b.children.get(parentKey) || []).map((x) => x.key) };
+  }
+  // Move a row one place among its siblings. Returns false at the ends, so the caller can say so rather
+  // than silently doing nothing.
+  function adMoveWithin(key, dir) {
+    const s = adSiblings(key);
+    const i = s.keys.indexOf(key);
+    const j = i + dir;
+    if (i < 0 || j < 0 || j >= s.keys.length) return false;
+    const arr = s.keys.slice();
+    arr.splice(j, 0, arr.splice(i, 1)[0]);
+    adSetOrder(s.parent, arr);
+    save();
+    return true;
+  }
+  /* Move a row into a folder, or back to the top level (`""`). It lands at the END of its destination,
+     which needs the order written in two passes — set the parent, rebuild, then record the destination's
+     full sequence with this key last. A folder is never moved this way: they live at the top level. */
+  function adSetParent(key, folderKey) {
+    const L = adLayout();
+    if (isAdFolder(key)) return false;
+    const dest = folderKey || "";
+    if (dest && !L.folders[dest]) return false;
+    L.parent[key] = dest;
+    const s = adSiblings(key);
+    adSetOrder(dest, s.keys.filter((k) => k !== key).concat([key]));
+    save();
+    return true;
+  }
+  function adFolderCreate(title) {
+    const L = adLayout();
+    let key;
+    do { key = AD_FOLDER_PFX + Math.random().toString(36).slice(2, 8); } while (L.folders[key]);
+    L.folders[key] = { title: adFolderClean(title) };
+    // at the end of the top level, so making one never rearranges the list the reader was looking at
+    const top = adSiblings(key);
+    adSetOrder("", top.keys.filter((k) => k !== key).concat([key]));
+    save();
+    return key;
+  }
+  function adFolderClean(title) {
+    const s = sanitizePlain(String(title == null ? "" : title)).slice(0, AD_FOLDER_MAX).trim();
+    return s || "New folder";
+  }
+  function adFolderRename(key, title) {
+    const f = adLayout().folders[key];
+    if (!f) return;
+    f.title = adFolderClean(title);
+    save();
+  }
+  /* Deleting a folder puts what was in it BACK where it came from — the `parent` entry is removed rather
+     than pinned to the top level, so a subdeck returns under its own collection's row exactly as it sat
+     before the folder existed. Nothing is ever taken out of the review by this: a folder holds no cards. */
+  function adFolderDelete(key) {
+    const L = adLayout();
+    if (!L.folders[key]) return;
+    Object.keys(L.parent).forEach((k) => { if (String(L.parent[k] || "") === key) delete L.parent[k]; });
+    delete L.folders[key];
+    delete L.order[key];
+    Object.keys(L.order).forEach((p) => {
+      if (Array.isArray(L.order[p])) L.order[p] = L.order[p].filter((k) => k !== key);
+    });
+    save();
+  }
+  // …and a row leaving the review takes its place in the arrangement with it, or a stale key would keep a
+  // folder looking occupied and would come back the day that deck was added again
+  function adForget(keys) {
+    const L = adLayout();
+    const drop = new Set(keys);
+    Object.keys(L.parent).forEach((k) => { if (drop.has(k)) delete L.parent[k]; });
+    Object.keys(L.order).forEach((p) => {
+      if (Array.isArray(L.order[p])) L.order[p] = L.order[p].filter((k) => !drop.has(k));
+    });
+  }
+
   /* ---------- per-deck daily limits (Aug 2026, on request) ----------
      Every added deck now carries Anki's three settings of its own — new cards/day, maximum reviews/day, and
      whether new cards ignore the review limit — reached by a long press on the deck's row in the daily
@@ -7531,7 +7802,9 @@
     ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
     _deckMenuClose = close;
     wire(ov, close);
-    setTimeout(() => { const f = ov.querySelector("button, input"); if (f) f.focus(); }, 0);
+    // :not([disabled]) — openMoveMenu greys its "Move up" on the first row, and focusing a disabled button
+    // does nothing at all, which would leave the sheet opened from the keyboard with focus still on the body
+    setTimeout(() => { const f = ov.querySelector("button:not([disabled]), input"); if (f) f.focus(); }, 0);
     return ov;
   }
   /* HOLD to open an options sheet — used by the daily review's deck rows and by the review banner above
@@ -7628,6 +7901,14 @@
       item("skip", skipped ? "Study today after all" : "Skip today",
         skipped ? "This " + thing + " is sitting today out"
                 : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review")) +
+      /* WHERE THE ROW SITS (Aug 2026, on request). One row rather than three, opening a dialog of its own
+         the way Custom study and Daily limits do — the sheet already carries five commands, and on a phone
+         three more would make it the page. The BANNER gets the folder-making row instead of a Move row,
+         since the review is the list itself and cannot be moved inside it; that is also the only place a
+         reader with no folders yet can make their first one without holding a particular deck. */
+      (isReview
+        ? item("newfolder", "New folder", "Group the decks below into a folder of your own")
+        : item("move", "Move", "Reorder it, or put it in a folder of your own")) +
       (isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
     return deckSheet("Options for " + info.title, html, (ov, close) => {
       /* A SWITCH ROW STAYS PUT WHEN THROWN. Every other row here is a command and closes the sheet
@@ -7662,6 +7943,8 @@
         const act = b.dataset.act;
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
+        if (act === "move") { close(); openMoveMenu(id); return; }
+        if (act === "newfolder") { close(); promptNewFolder(null); return; }
         if (act === "skip") {
           setDeckSkip(id, !skipped);
           close();
@@ -7731,6 +8014,121 @@
         render();
         toast("Daily limits saved");
       });
+    });
+  }
+  /* ---------- MOVING A ROW AROUND THE REVIEW LIST (Aug 2026, on request) ----------
+     Reached from a deck row's own sheet, and from a folder row's. Two things in one dialog, because they
+     are one question a reader is asking — where does this go? — and splitting them into two sheets would
+     mean opening the second to find out that the first was the one they wanted.
+
+     A NOTE ON WHY THIS IS NOT A DRAG. The obvious answer is a grip on the row, and the row cannot afford
+     one: it already carries three piles, a name, a progress bar and a chevron, and this file's own record
+     of getting five things onto a 390px line is what sent the bar off it and under the row. A drag on the
+     row ITSELF is worse — a vertical drag on a phone is a scroll, which is exactly the gesture `wireHoldMenu`
+     already has to reject to keep a scroll from opening a sheet. Up / down / into a folder costs the row
+     nothing, works the same on a phone and a desktop, and is reachable from the keyboard, which a drag is
+     not. The cost is real and worth naming: moving a deck five places takes five presses. */
+  function openMoveMenu(key) {
+    const isFolder = isAdFolder(key);
+    const title = isFolder ? adFolderTitle(key) : entryInfo(key).title;
+    const s = adSiblings(key);
+    const i = s.keys.indexOf(key);
+    const item = (act, label, note, cls, dis) =>
+      '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '"' +
+      (dis ? " disabled" : "") + '><b>' + esc(label) + "</b><small>" + esc(note) + "</small></button>";
+    /* WHAT THE ROW IS CURRENTLY INSIDE, and the two cases are NOT the same thing — which is the bug this
+       replaced. `s.parent` is the ARRANGED parent, and that is a folder only where the reader has put the row
+       in one; the ordinary case is a subdeck sitting under its own collection's row, where the parent is a
+       NODE. Read as a folder either way, every nested deck was offered "Take it out of Folder" and told it
+       was "inside Folder" — a folder it is not in and, on a fresh install, a folder that does not exist. */
+    const inFolder = isAdFolder(s.parent);
+    const parentTitle = s.parent ? (inFolder ? adFolderTitle(s.parent) : entryInfo(s.parent).title) : "";
+    const where = isFolder ? "among your folders and decks"
+      : (s.parent ? "inside " + parentTitle : "at the top of the list");
+    let html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Move</span>' +
+        '<span class="dm-where">' + esc(title) + "</span></div>" +
+        '<span class="dm-studied">' + (i < 0 ? "" : (i + 1) + " of " + s.keys.length) + "</span></div>" +
+      item("up", "Move up", i <= 0 ? "Already first " + where : "One place up " + where, "", i <= 0) +
+      item("down", "Move down", (i < 0 || i >= s.keys.length - 1) ? "Already last " + where : "One place down " + where, "",
+        i < 0 || i >= s.keys.length - 1);
+    /* A FOLDER IS NEVER PUT INSIDE ANOTHER, so the destination half of the dialog is a deck's alone. That
+       is not a gap left to be filled later: folders living at the top level is what makes a loop in the
+       arrangement impossible by construction rather than by a guard that can be got wrong. */
+    if (!isFolder) {
+      const folders = adFolderIds().filter((f) => f !== s.parent);
+      /* Lifting a row to the top level is offered whenever it is not already there — out of a folder, and
+         equally out from under its own collection's row, which is the same `parent: ""` and reads as a
+         different request, so it is worded as one. */
+      html += '<p class="dm-note">Or move it somewhere else in the list — the Collections page is unchanged either way.</p>' +
+        (s.parent
+          ? item("top", inFolder ? "Take it out of " + parentTitle : "Move to the top of the list",
+              inFolder ? "Back to where its collection puts it" : "Out from under " + parentTitle)
+          : "") +
+        folders.map((f) => item("into:" + f, adFolderTitle(f), "Move it into this folder")).join("") +
+        item("new", "New folder…", "Make one and put this in it");
+    }
+    return deckSheet("Move " + title, html, (ov, close) => {
+      ov.querySelectorAll(".dm-item").forEach((b) => b.addEventListener("click", () => {
+        const act = b.dataset.act;
+        if (act === "up" || act === "down") {
+          /* The dialog STAYS OPEN on an up/down press and is rebuilt behind the repaint, so a reader moving
+             a deck three places presses three times instead of re-opening the sheet twice. `render()` closes
+             this very sheet (closeDeckMenu is in its list), so it has to be re-opened after — which is also
+             what refreshes "3 of 7" and re-disables the button at the end of the run. */
+          if (adMoveWithin(key, act === "up" ? -1 : 1)) { render(); openMoveMenu(key); }
+          return;
+        }
+        close();
+        if (act === "new") { promptNewFolder(key); return; }
+        if (act === "top") { adSetParent(key, ""); render(); toast("Moved to the top level"); return; }
+        const f = act.slice(0, 5) === "into:" ? act.slice(5) : "";
+        if (f && adSetParent(key, f)) { render(); toast("Moved into " + adFolderTitle(f)); }
+      }));
+    });
+  }
+  /* Make a folder, and — when the reader got here from a deck's Move dialog — put that deck in it, which is
+     the only reason they were making one. `moveKey` null is the banner's "New folder", where the folder is
+     the whole point and there is nothing to put in it yet. */
+  function promptNewFolder(moveKey) {
+    inlinePrompt("Name for the new folder", "", (v) => {
+      const key = adFolderCreate(v);
+      if (moveKey) adSetParent(moveKey, key);
+      render();
+      toast(moveKey ? "Moved into " + adFolderTitle(key) : "Folder “" + adFolderTitle(key) + "” added");
+    });
+  }
+  /* A folder's own sheet. Deliberately NOT openDeckMenu: every row in that one is about what a deck deals
+     out today, and a folder deals out nothing — offering it Custom study or Daily limits would be offering
+     to change a number that decides nothing. Deleting one never takes a deck out of the review; what was
+     inside goes back where the collection tree puts it, which is why the wording says so rather than
+     asking for a confirmation nobody needs to weigh. */
+  function openFolderMenu(key) {
+    const title = adFolderTitle(key);
+    const inside = adFolderContents(key).decks;
+    const item = (act, label, note, cls) =>
+      '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '"><b>' +
+      esc(label) + "</b><small>" + esc(note) + "</small></button>";
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(title) + "</span>" +
+        '<span class="dm-where">Your own folder</span></div>' +
+        '<span class="dm-studied">' + (inside === 1 ? "1 deck" : inside + " decks") + "</span></div>" +
+      item("rename", "Rename", "Call it something else") +
+      item("move", "Move", "Change where it sits in the list") +
+      item("delete", "Delete folder", "The decks inside go back to their collections", "dm-danger");
+    return deckSheet("Options for " + title, html, (ov, close) => {
+      ov.querySelectorAll(".dm-item").forEach((b) => b.addEventListener("click", () => {
+        const act = b.dataset.act;
+        close();
+        if (act === "rename") {
+          inlinePrompt("Name for this folder", title, (v) => { adFolderRename(key, v); render(); toast("Folder renamed"); });
+          return;
+        }
+        if (act === "move") { openMoveMenu(key); return; }
+        adFolderDelete(key);
+        render();
+        toast("Folder deleted — its decks are still in your review");
+      }));
     });
   }
   function inlinePrompt(message, defaultValue, onOk) { inlineModal(message, true, defaultValue, onOk); }
@@ -9803,14 +10201,17 @@
      it every re-render (a grade, a navigation back to the page) would re-seed the defaults and undo a fold the
      reader had just opened; with it, a collection added later in the same session still starts shut. */
   const adSeeded = new Set();
-  /* A row is visible when every ANCESTOR OF IT THAT IS ALSO A ROW is open. Walking the node's own parent
-     chain rather than the DOM keeps this true for a tree whose middle levels are not all drawn. */
-  function adRowVisible(node, rowIds) {
-    let p = node && node.parentId ? NODE_BY_ID[node.parentId] : null;
-    while (p) {
-      if (rowIds.has(p.id) && !adOpen.has(p.id)) return false;
-      p = p.parentId ? NODE_BY_ID[p.parentId] : null;
-    }
+  /* The ARRANGED parent of every row currently in the list, keyed by row — written by the builder below
+     and read by the fold. It replaces a walk up the collection tree, which cannot answer the question any
+     more: a row the reader has moved into a folder has an ancestor the tree has never heard of. Module
+     level for the same reason `adOpen` is, and set on every build, so it can only ever be as stale as the
+     list on screen. */
+  let adParentOf = new Map();
+  /* A row is visible when every ancestor of it IN THE ARRANGED LIST is open. Only rows that are drawn
+     appear in the map, and the top level is `""` — falsy, so the walk ends there. */
+  function adRowVisible(key) {
+    let p = adParentOf.get(key);
+    while (p) { if (!adOpen.has(p)) return false; p = adParentOf.get(p); }
     return true;
   }
   /* Re-hide, re-mark and re-round the list after a fold. Three things, and the last two are the ones that
@@ -9820,17 +10221,19 @@
      card would square off under whatever row happened to be last in the markup. */
   function adSyncFold(listEl) {
     if (!listEl) return;
-    const rows = [...listEl.querySelectorAll(".active-deck[data-node]")];
-    const rowIds = new Set(rows.map((el) => el.dataset.node));
+    /* EVERY row, keyed by `data-adkey` — not `[data-node]`. Since the reader can move a community deck or
+       the Card-of-the-day list into a folder, those rows fold too, and the old "the tail never folds"
+       shortcut below would have left one showing inside a shut folder while claiming the rounded corner. */
+    const rows = [...listEl.querySelectorAll(".active-deck[data-adkey]")];
     let last = null;
     rows.forEach((el) => {
-      const node = NODE_BY_ID[el.dataset.node];
-      const vis = adRowVisible(node, rowIds);
+      const key = el.dataset.adkey;
+      const vis = adRowVisible(key);
       el.classList.toggle("ad-shut", !vis);
       if (vis) last = el;
       const chev = el.querySelector(".ad-chev");
       if (chev) {
-        const open = adOpen.has(el.dataset.node);
+        const open = adOpen.has(key);
         chev.classList.toggle("open", open);
         chev.setAttribute("aria-expanded", open ? "true" : "false");
         const label = t(open ? "Hide the decks inside" : "Show the decks inside");
@@ -9838,10 +10241,6 @@
         chev.title = label;
       }
     });
-    // the community decks and the Card-of-the-day list sit after the tree and never fold, so the last row
-    // of the whole list is whichever of those came last — they carry no data-node and are always visible
-    const tail = [...listEl.children].filter((el) => !el.dataset.node);
-    if (tail.length) last = tail[tail.length - 1];
     listEl.querySelectorAll(".ad-last").forEach((el) => el.classList.remove("ad-last"));
     if (last) last.classList.add("ad-last");
   }
@@ -9921,96 +10320,90 @@
       const th = n && COLL_THEME[n.id];
       return th ? ' style="--coll-bg:' + th.bg + ';' : ' style="';
     };
+    /* THE LIST IS THE READER'S ARRANGEMENT, not the tree's own order (Aug 2026, on request). `adRowsBuild`
+       does the deriving — folders, moved rows, the reader's sequence, and the pruning of signposts left
+       pointing at nothing — so all that is left here is drawing one row per kind. See THE READER'S OWN
+       ARRANGEMENT beside the entry helpers for what is stored and, more to the point, what is not: nothing
+       in this layer decides what is studied, and the Collections page never reads it.
+
+       `adParentOf` is written from the same build the markup comes from, so the fold below and the rows on
+       screen can never disagree about what is inside what. */
     const activeHTML = (function () {
-      const activeSet = new Set(activeIds);
-      const show = new Set();
-      activeIds.forEach((id) => { let n = NODE_BY_ID[id]; while (n) { show.add(n.id); n = n.parentId ? NODE_BY_ID[n.parentId] : null; } });
-      const rows = [];
-      /* A row is a REVIEW ROW only if there is something in it to review. Adding a collection now brings
-         its whole subtree in (see addActive), and most of a 1,000-card plan's subdecks are still empty —
-         so without this a reader adding World History would meet forty-odd rows reading 0 · 0 · 0, each
-         tappable into a session with no cards in it. An empty deck is drawn as a CONTEXT row instead, the
-         same quiet line an unadded ancestor already gets, and it becomes a real row of its own the day it
-         holds a card. It stays in `S.active` throughout, so nothing is silently left out of the review
-         when the cards arrive. */
-      const availRows = availableCardIdSet();
-      function walk(node, depth) {
-        if (!show.has(node.id)) return;
-        const live = activeSet.has(node.id) && entryCardIds(node.id).some((id) => availRows.has(id));
-        rows.push({ node, depth, active: live });
-        nodeChildren(node).forEach((ch) => walk(ch, depth + 1));
-      }
-      TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
-      /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
-         that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
-         subdecks are all empty carry none. The default is seeded once per row (see adSeeded): an ADDED row
-         starts shut, an ancestor context row starts open, for the reason set out above the fold helpers. */
-      const rowIds = new Set(rows.map((r) => r.node.id));
-      const hasKids = new Set();
-      rows.forEach((r) => { if (r.node.parentId && rowIds.has(r.node.parentId)) hasKids.add(r.node.parentId); });
-      /* What starts OPEN is a row lying entirely ABOVE everything the reader added — nothing on the path
-         from it down to their choice is in S.active. Those are the pure signposts, and folding one hides
-         the reader's own deck behind a row they cannot even tap.
+      const built = adRowsBuild();
+      adParentOf = built.parentOf;
+      /* What starts OPEN among the NODE rows is one lying entirely ABOVE everything the reader added —
+         nothing on the path from it down to their choice is in S.active. Those are the pure signposts, and
+         folding one hides the reader's own deck behind a row they cannot even tap.
          The test is on `activeSet` rather than on the row being drawn as a context row, and the difference
-         is the whole of it: an EMPTY deck inside an added collection also draws as a context row, and it
-         is not a signpost at all — it is inside the very fold the reader just shut. Testing the drawn row
+         is the whole of it: an EMPTY deck inside an added collection also draws as a context row, and it is
+         not a signpost at all — it is inside the very fold the reader just shut. Testing the drawn row
          instead let a collection open onto its whole 43-row tree again, which is the thing this replaced. */
-      const seedOpen = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
-      rows.forEach((r) => {
-        if (!hasKids.has(r.node.id) || adSeeded.has(r.node.id)) return;
-        adSeeded.add(r.node.id);
-        if (seedOpen(r.node)) adOpen.add(r.node.id);
+      const activeSet = new Set(activeIds);
+      const seedOpenNode = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
+      /* A FOLDER STARTS OPEN — the reader made it and named it, and hiding what they just put in it is the
+         one default that cannot be right. A node row keeps the rule it always had: an added row starts shut
+         and an ancestor signpost starts open, seeded once each (see adSeeded above the fold helpers). */
+      built.rows.forEach((r) => {
+        if (!r.hasKids || adSeeded.has(r.key)) return;
+        adSeeded.add(r.key);
+        if (r.kind === "folder") { adOpen.add(r.key); return; }
+        if (r.node && seedOpenNode(r.node)) adOpen.add(r.key);
       });
-      return rows
-        .map((r) => {
-          const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
-          // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
-          // collapse in the reader's face on every visit to the page
-          const shut = adRowVisible(r.node, rowIds) ? "" : " ad-shut";
-          // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
-          // of a leaf deck would stop at two different places and the list's right edge would go ragged
-          const chev = hasKids.has(r.node.id) ? chevBtn("ad-chev") : '<span class="ad-chev-gap" aria-hidden="true"></span>';
-          if (r.active) {
-            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}" data-node="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
-              ${adCounts(r.node.id)}
-              <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
-                ${adProg(entryCardIds(r.node.id))}
-              </div>
-              ${chev}
-            </div>`;
-          }
-          return `<div class="active-deck context${shut}" data-node="${esc(r.node.id)}" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px">
+      return built.rows.map((r) => {
+        const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
+        // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
+        // collapse in the reader's face on every visit to the page
+        const shut = adRowVisible(r.key) ? "" : " ad-shut";
+        // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
+        // of a leaf deck would stop at two different places and the list's right edge would go ragged
+        const chev = r.hasKids ? chevBtn("ad-chev") : '<span class="ad-chev-gap" aria-hidden="true"></span>';
+        const key = ` data-adkey="${esc(r.key)}"`;
+        if (r.kind === "folder") {
+          /* A FOLDER ROW IS AN ORGANISER AND NOTHING ELSE. It carries no piles and taps into no session —
+             a folder holds no cards of its own, and giving it a study scope would mean a fifth kind of
+             scope in buildSession and a row in every per-deck limit for a thing that is not a deck. What it
+             does carry is how many decks are in it and how far through their cards the reader is, which is
+             derived from those decks and so can never disagree with them. The piles' width is reserved so
+             the numbers down the rest of the list stay in one column. Tapping it folds it; holding it opens
+             its own sheet (rename, move, delete). */
+          /* the SAME derivation the folder's own sheet reads (adFolderContents), walked over the build
+             already in hand rather than rebuilding it once per folder row */
+          const inside = [];
+          (function collect(k) {
+            (built.children.get(k) || []).forEach((c) => { if (c.kind !== "folder") inside.push(c); collect(c.key); });
+          })(r.key);
+          const entries = inside.filter((c) => c.kind === "deck" || c.kind === "entry");
+          const cardIds = [...new Set(entries.reduce((acc, c) => acc.concat(entryCardIds(c.key)), []))];
+          const nDecks = entries.length;
+          return `<div class="active-deck ad-folder${shut}" data-adfolder="${esc(r.key)}"${key} role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="${esc(r.title)} — hold for options">
+            <span class="ad-counts ad-folder-mark" aria-hidden="true">${FOLDER_GLYPH}</span>
             <div class="ad-body">
-              <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
+              <div class="ad-line"><span class="ad-title">${esc(r.title)}</span><span class="ad-count">${nDecks === 1 ? "1 deck" : nDecks + " decks"}</span></div>
+              ${cardIds.length ? adProg(cardIds) : ""}
             </div>
             ${chev}
           </div>`;
-        })
-        .join("") +
-        // the user's own decks aren't in TREE, so they're listed after it — otherwise a community deck
-        // in the review could never be seen or removed from here
-        activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).map((id) => {
-          const d = UDECKS[uDeckIdOf(id)];
-          return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(d.title)}">
-              ${adCounts(id)}
-              <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
-                ${adProg(entryCardIds(id))}
-              </div>
-              <span class="ad-chev-gap" aria-hidden="true"></span>
-            </div>`;
-        }).join("") +
-        // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
-        // reader added. It reads as one more added collection, and Remove on it empties the whole list.
-        (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(COTD_TITLE)}">
-              ${adCounts(COTD_ENTRY)}
-              <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
-                ${adProg(entryCardIds(COTD_ENTRY))}
-              </div>
-              <span class="ad-chev-gap" aria-hidden="true"></span>
-            </div>`);
+        }
+        if (r.kind === "context") {
+          return `<div class="active-deck context${shut}"${key} data-node="${esc(r.key)}" data-depth="${r.depth}"${rowHue(r.key)}padding-left:${pad}px">
+            <div class="ad-body">
+              <div class="ad-line"><span class="ad-title">${esc(r.title)}</span></div>
+            </div>
+            ${chev}
+          </div>`;
+        }
+        // a deck the reader added, one of their own decks, or the Card-of-the-day list — all of them
+        // entries, so all of them tappable into a session of their own and holdable for their options
+        const node = r.kind === "deck" ? ` data-node="${esc(r.key)}"` : "";
+        return `<div class="active-deck${shut}" data-review="${esc(r.key)}"${node}${key} role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.key)}padding-left:${pad}px" title="Review just ${esc(r.title)}">
+          ${adCounts(r.key)}
+          <div class="ad-body">
+            <div class="ad-line"><span class="ad-title">${esc(r.title)}</span></div>
+            ${adProg(entryCardIds(r.key))}
+          </div>
+          ${chev}
+        </div>`;
+      }).join("");
     })();
     const greeting = (() => {
       const h = new Date().getHours();
@@ -10271,6 +10664,18 @@
         route("study", { scope: id === COTD_ENTRY ? { type: "cotd" } : ud ? { type: "udeck", id: ud } : { type: "deck", id } });
       });
     });
+    /* A FOLDER's row (Aug 2026, on request). Held, it opens its own sheet — rename, move, delete; tapped,
+       it folds, so the whole row is a target for the one thing it does rather than a 26px chevron at the
+       far end of it. It is deliberately not tappable into a session: a folder holds no cards of its own,
+       and the fold is the only behaviour it has. The tap is handed to the chevron's own click, so the
+       reveal animation and the aria state are written once. */
+    root.querySelectorAll(".active-deck[data-adfolder]").forEach((el) => {
+      const key = el.dataset.adfolder;
+      wireHoldMenu(el, () => openFolderMenu(key), () => {
+        const chev = el.querySelector(".ad-chev");
+        if (chev) chev.click();
+      });
+    });
     /* The subdeck fold. The chevron sits INSIDE a row whose own click starts a session and whose own hold
        opens the options sheet, so it has to take itself out of both: `stopPropagation` keeps the click off
        the row (the Library's chevron does exactly this, for exactly this reason), and `pointerdown` has to
@@ -10284,7 +10689,7 @@
       adSyncFold(adList);
       adList.querySelectorAll(".ad-chev").forEach((chev) => {
         const row = chev.closest(".active-deck");
-        const id = row && row.dataset.node;
+        const id = row && row.dataset.adkey;
         if (!id) return;
         chev.addEventListener("pointerdown", (e) => e.stopPropagation());
         /* …and the KEYBOARD needs the same treatment, which the pointer half does not make obvious.
@@ -10299,10 +10704,10 @@
           e.preventDefault();
           const open = !adOpen.has(id);
           if (open) adOpen.add(id); else adOpen.delete(id);
-          const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)")]);
+          const before = new Set([...adList.querySelectorAll(".active-deck[data-adkey]:not(.ad-shut)")]);
           adSyncFold(adList);
           if (open) {
-            adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)").forEach((el) => {
+            adList.querySelectorAll(".active-deck[data-adkey]:not(.ad-shut)").forEach((el) => {
               if (before.has(el)) return;
               el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
             });
@@ -14984,6 +15389,17 @@
     if (ta[0] !== tb[0]) n = Math.min(n, 2);
     return n;
   }
+  /* MULTIPLE CHOICE ALWAYS ASKS A CARD'S FIRST PHRASING (Aug 2026, on request). Every other surface picks
+     one of the three at random — that is what the pool is for, and on the study page it is what stops a
+     reader learning the shape of one sentence instead of the concept. A quiz round is a different case: the
+     card is being asked once, cold, with three near-miss answers beside it, and its FIRST phrasing is the
+     one written to stand on its own with nothing else on the card to lean on. So the pool is not drawn from
+     here at all, and the per-deck "Question variety" switch is deliberately not consulted — the games are
+     not deck-scoped, and a setting made on one deck's row has no business deciding what a quiz drawn from
+     every collection asks.
+     It is written as an explicit picker rather than by dropping the call, so the intent survives: this is a
+     choice of phrasing 0, not an accident of `card.question` happening to be the first one today. */
+  const FIRST_PHRASING = () => 0;
   function buildChallengeQuestions() {
     const avail = availableCardIdSet();
     const poolIds = ALL_CARD_IDS.filter((id) => avail.has(id));
@@ -15003,9 +15419,9 @@
       return { card, options, correct };
     }).map((q) => {   // display in the site language when translations exist (typing/distractor matching stays English)
       const loc = cardLocalized(q.card);
-      if (loc === q.card) return Object.assign({}, q, { card: cardWithQuestion(q.card) });   // one phrasing per round, fixed at build so the results summary repeats what was asked
+      if (loc === q.card) return Object.assign({}, q, { card: cardWithQuestion(q.card, FIRST_PHRASING) });
       const lat = (s) => { const src = CARDS.find((c) => c.answerText === s); const l = src && cardLocalized(src); return (l && l.answerText) || s; };
-      return { card: cardWithQuestion(loc), options: q.options.map(lat), correct: lat(q.correct) };
+      return { card: cardWithQuestion(loc, FIRST_PHRASING), options: q.options.map(lat), correct: lat(q.correct) };
     });
   }
 

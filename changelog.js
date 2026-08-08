@@ -14,14 +14,17 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.99", released: "2026-08-08T05:23Z" };
+window.FOLIO_VERSION = { v: "1.100", released: "2026-08-08T10:28Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-08",
-    t: "Seven new cards in Ancient Greece, and the decks on the home page take their collection's colour properly",
+    t: "Your own folders under Daily study, a clearer mark on glossary terms you have not read, and seven new cards in Ancient Greece",
     items: [
       "Seven new cards in the Ancient Greece collection, in the deck on the polis and colonisation, with the glossary terms that go with them.",
+      "<b>You can now arrange the list under Daily study however you like.</b> Hold any deck in it and choose <b>Move</b> to shift it up or down, or to put it in a <b>folder of your own</b> with a name you choose — hold the Daily study banner itself to make your first one. A folder holds any decks you like, from any collection, and folds away when you do not need to see inside it; deleting one never removes a deck from your review, it just puts it back where its collection had it. None of this changes the Collections page, which still shows every collection as it is built, so finding a new deck to add works exactly as before.",
+      "A glossary term you have <b>not yet opened</b> is now marked in a lighter blue rather than gold. Both states are still underlined the same way, so the two now read as one thing in two conditions — a term you have read and a term still waiting — where the gold looked like a different kind of link altogether. It is also easier to read on every paper the site uses.",
+      "<b>Multiple Choice</b> now always asks a card the way it is worded first. Every card carries three ways of asking the same thing, which is right when you are working through a deck and wrong for a single cold question with three near-miss answers beside it — the first wording is the one written to stand on its own.",
       "Each deck listed under Daily study on the home page is washed in the colour of the collection it belongs to — but only faintly, at about half the strength of that collection's own banner in Collections, so the two read as different colours rather than the same one. The rows now carry exactly the wash their banner does, in light and dark alike, and the parent rows above them keep their quieter paper on dark themes as they always have on light ones.",
     ],
   },
