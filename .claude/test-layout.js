@@ -560,6 +560,50 @@ async function studyEasy(page, base, n) {
       const again = await page.evaluate(() => { const b = document.querySelector(".wb-tools").getBoundingClientRect(); return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2) }; });
       check("[" + tag + "] the marker comes back where it was left", Math.abs(again.x - target.x) <= 3 && Math.abs(again.y - target.y) <= 3, JSON.stringify(again));
 
+      /* …AND IT SNAPS HOME (Aug 2026, on request). Let go within WB_SNAP_HOME of the corner it started in
+         and it slides the rest of the way and FORGETS the position, so it lines up with everything else in
+         that corner again. Three things are asserted and all three fail silently:
+         · a drop well outside the threshold must NOT snap — a marker that jumps home from anywhere is a
+           marker that cannot be placed near its own corner at all;
+         · the stored position must be GONE rather than set to the default's numbers, or the marker would
+           sit still while `body.grading` lifted the corner out from under it;
+         · and THE SLIDE MUST AIM AT THE STYLESHEET'S CORNER, which has to be read MID-FLIGHT. That is the
+           real bug this had: `.wb-tools` transitions `bottom`, so the probe that measures the default read
+           the marker's own current bottom instead of the CSS one, the snap test became right-axis-only and
+           the slide travelled somewhere the stylesheet never chose. **The finished position cannot see
+           it** — the timer then forgets the position and the CSS takes over, so the marker ends up right
+           whatever the slide aimed at (asserted with the bug deliberately reintroduced: the settled
+           position passed unchanged). What differs is the inline right/bottom written when the slide
+           begins, so those are what is compared against the corner captured before this section moved
+           anything. Same rule as the chapter slide and the page swipe: a movement is asserted while it is
+           moving, or a hard cut passes for it. */
+      const home = at;   // where the stylesheet put it before any of this section moved it
+      const homeRB = await page.evaluate((h) => ({ r: innerWidth - (h.x + h.w / 2), b: innerHeight - (h.y + h.h / 2) }), home);
+      const drop = async (x, y) => {
+        const p = await pos();
+        await page.mouse.move(p.x, p.y);
+        await page.mouse.down();
+        await page.mouse.move(x, y, { steps: 8 });
+        await page.waitForTimeout(220);         // a PLACEMENT, not a throw
+        await page.mouse.up();
+        // the slide's TARGET, read before it has travelled — this is the only place the aim is visible
+        const aim = await page.evaluate(() => {
+          const t = document.querySelector(".wb-tools");
+          return { homing: t.classList.contains("wb-homing"), r: parseFloat(t.style.right), b: parseFloat(t.style.bottom) };
+        });
+        await page.waitForTimeout(450);         // past WB_HOME_MS and any fling
+        return Object.assign(await pos(), { aim });
+      };
+      const outside = await drop(home.x - 90, home.y - 90);
+      check("[" + tag + "] dropped well clear of its corner, it stays put",
+        Math.hypot(outside.x - home.x, outside.y - home.y) > 40 && outside.stored && !outside.aim.homing, JSON.stringify(outside));
+      const homed = await drop(home.x - 12, home.y - 12);
+      check("[" + tag + "] ...but dropped near it, it SLIDES rather than jumping", homed.aim.homing, JSON.stringify(homed.aim));
+      check("[" + tag + "] ...aimed at the stylesheet's own corner, on BOTH axes",
+        near(homed.aim.r, homeRB.r, 1) && near(homed.aim.b, homeRB.b, 1), JSON.stringify({ aim: homed.aim, want: homeRB }));
+      check("[" + tag + "] ...and arrives there", Math.abs(homed.x - home.x) <= 2 && Math.abs(homed.y - home.y) <= 2, JSON.stringify({ homed, home }));
+      check("[" + tag + "] ...forgetting the position, so the stylesheet's corner rules again", !homed.stored);
+
       /* The pen and the tools are two states. They were one until Aug 2026, when putting the tools away
          also put the pen down — you could not draw with the panel out of the way, which on a phone is most
          of the card. What stops the drawing is unselecting the tool INSIDE the panel — and since the Draw
@@ -1836,9 +1880,20 @@ async function studyEasy(page, base, n) {
   }
 
   /* ================= 8. no overlay outlives the page that spawned it =================
-     The level-up card is dismissed by a click ANYWHERE, which hides the problem: clicking a nav tab takes it
-     away. But a back/forward, a deep link and any programmatic hash change move the route without a click,
-     and the overlay then sits over whatever renders next. It lives on document.body, so render() owns it. */
+     A back/forward, a deep link and any programmatic hash change move the route without a click, and an
+     overlay living on document.body then sits over whatever renders next. render() owns those, so it has to
+     clear them — and a hash change is the probe, never a click, since a click dismisses several of them
+     anyway and would prove nothing.
+
+     WHAT LEVELLING UP RAISES IS THE CHEST, NOT A CONFETTI CARD. This section watched `.levelup-pop` until
+     Aug 2026, and the Reliquary retired that path deliberately: `announceLevelUps` calls `grantChest()` and
+     `openChestPop({level})`, and the chest overlay IS the celebration, there being no sense in two overlays
+     for one event. The assertion went on looking for the popup and failed on a feature working exactly as
+     designed. `congratsPopup` itself is NOT dead — it survives for anything else that wants it, and
+     `closeCongrats` is still in render()'s close list — but nothing reaches it from a level-up, so testing
+     it here would be testing an unreachable path. The level is asserted on the overlay too: a chest opened
+     from the home banner's chip carries no `.chest-lvl`, and without that line this would pass on any chest
+     at all rather than on the level-up that was supposed to raise one. */
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     await watch(page);
@@ -1866,16 +1921,21 @@ async function studyEasy(page, base, n) {
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(900);
     await studyEasy(page, base, XP_STEP - 1);
-    const up = await page.locator(".levelup-pop").count();
-    check("levelling up raises its card", up === 1, XP_STEP + " cards studied → " + up + " popup(s)");
+    const up = await page.locator(".chest-pop").count();
+    check("levelling up raises its chest", up === 1, XP_STEP + " cards studied → " + up + " overlay(s)");
+    check("...and no confetti card behind it", await page.locator(".levelup-pop").count() === 0);
     if (up) {
+      // the level is announced ON the chest — that is what makes this one the celebration rather than
+      // an ordinary chest opened from the home banner's chip, which carries no such line
+      check("...announcing the level reached", /level/i.test((await page.locator(".chest-lvl").first().textContent().catch(() => "")) || ""),
+        (await page.locator(".chest-lvl").first().textContent().catch(() => "")) || "no .chest-lvl");
       // a hash change, NOT a click — a click would dismiss it and prove nothing
       await page.evaluate(() => { location.hash = "#decks"; });
       await page.waitForTimeout(900);
-      check("...and a hash change takes it away with the page", await page.locator(".levelup-pop").count() === 0);
+      check("...and a hash change takes it away with the page", await page.locator(".chest-pop").count() === 0);
       await page.evaluate(() => { location.hash = "#settings"; });
       await page.waitForTimeout(700);
-      check("...leaving nothing behind on the next page either", await page.locator(".levelup-pop").count() === 0);
+      check("...leaving nothing behind on the next page either", await page.locator(".chest-pop").count() === 0);
     }
     await page.close();
   }

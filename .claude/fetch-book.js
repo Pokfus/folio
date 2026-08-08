@@ -557,6 +557,34 @@ const SHU = [
 const SHU_BY_N = {};
 SHU.forEach((r) => { SHU_BY_N[r[0]] = r; });
 
+/* The ten treatises of the Lî Kî that Sacred Books of the East volume 27 carries — its Books I to X,
+   the whole of that volume — as [number, the Roman numeral its wiki page is titled by, title].
+
+   THE TITLES ARE THE VOLUME'S OWN CONTENTS PAGE, read row by row rather than taken off the head of
+   each book, and the two are not always the same: the contents page gives Book VIII as "Rites in the
+   Formation of Character" where the book's own half-title sets CHARACTERS. The contents page is what
+   `chapterTitles` reads for every other book here that has one, so it wins, and the divergence is
+   recorded rather than silently resolved. Its "Wǎn Wang Shih-ᴈze" is hyphenated and the book's head
+   is not; the hyphen is kept, again because the contents page is the authority.
+
+   Legge's own "or" is kept as an em-dashed second half rather than turned into a subtitle field: it
+   is part of the name he gives the treatise, and a tab reading "The Lî Yun" alone tells an English
+   reader nothing whatever. */
+const LIKI = [
+  [1, "I", "Khü Lî — Summary of the Rules of Propriety"],
+  [2, "II", "The Than Kung"],
+  [3, "III", "The Royal Regulations"],
+  [4, "IV", "Yüeh Ling — Proceedings of Government in the different Months"],
+  [5, "V", "The Questions of Зăng-зze"],
+  [6, "VI", "Wăn Wang Shih-зze — King Wăn as Son and Heir"],
+  [7, "VII", "The Lî Yun — Ceremonial Usages; their Origin, Development, and Intention"],
+  [8, "VIII", "The Lî Khî — Rites in the Formation of Character"],
+  [9, "IX", "The Kiâo Theh Săng — the Single Victim at the Border Sacrifices"],
+  [10, "X", "The Nêi Зeh — the Pattern of the Family"],
+];
+const LIKI_BY_N = {};
+LIKI.forEach((r) => { LIKI_BY_N[r[0]] = r; });
+
 /* The thirty-five pieces of the Poetic Edda, in the order this edition's own contents page lists
    them and under the spellings its page titles use — read off that page row by row rather than
    assembled from memory, since several of these names have three or four accepted spellings and the
@@ -573,6 +601,20 @@ const EDDA_POEMS = [
   "Guthrunarkvitha II, en Forna", "Guthrunarkvitha III", "Oddrunargratr",
   "Atlakvitha en Gr\u00f6nlenzka", "Atlamol en Gr\u00f6nlenzku", "Guthrunarhvot", "Hamthesmol",
 ];
+
+/* ---------- The City of God: how many chapters each of the twenty-two books has, and which of them
+   Dods heads with a preface ----------
+   Read off Wikisource's own contents lists rather than off a printed table: every one of the 22 book
+   pages carries a list of its subpages, and the 665 of them are 661 numbered chapters plus four
+   prefaces (books I, V, VI and VII). Both editions agree on every one of those numbers — see the
+   `original` block below for the measurement — so this table is the pairing key as well as the fetch
+   list, and it is written out rather than derived so that a Wikisource page moved or renamed
+   announces itself as a fetch failure instead of quietly shortening a book. */
+const COG_CHAPTERS = [36, 29, 31, 34, 26, 12, 35, 27, 23, 32, 34, 27, 24, 28, 27, 43, 24, 54, 28, 30, 27, 30];
+const COG_PREFACE = new Set([1, 5, 6, 7]);
+const COG_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI",
+  "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII"];
+const COG_BASE = "Nicene and Post-Nicene Fathers: Series I/Volume II/City of God/Book ";
 
 const BOOKS = {
   "seneca-letters": {
@@ -5036,6 +5078,155 @@ const BOOKS = {
        page order on that index is not Legge's. */
   },
 
+  "book-of-rites": {
+    title: "The Book of Rites",
+    subtitle: "The Lî Kî",
+    author: "Anonymous",
+    translator: "James Legge",
+    edition:
+      "The Sacred Books of the East, Vol. XXVII: The Texts of Confucianism, Part III, " +
+      "Clarendon Press, Oxford, 1885",
+    written: "c. 3rd–1st century BCE",
+
+    /* ---------- THE LICENCE, which needs no qualification at all ----------
+       Legge's fourth appearance on this shelf and his third easy one. He published this translation
+       in 1885 — before 1929, so its United States copyright has expired — and died in 1897, so it is
+       out of copyright wherever the term runs for the author's life plus seventy or even a hundred
+       years. No limit to state, as Giles (2029) and Ross (2042) need, and no modern editorial layer
+       to declare, as the Histories and the Meditations' Greek carry: this is his printed text.
+
+       The translations a reader is likeliest to meet are still in copyright and are named here so
+       nobody reaches for one: Séraphin Couvreur's French of 1913 is free, but the standard modern
+       English of the two chapters that later became separate classics — Wing-tsit Chan's of 1963 and
+       Daniel Gardner's — are not, and neither is the complete Chinese-English Lî Kî published in the
+       Library of Chinese Classics in 2001. */
+    rights:
+      "Public domain worldwide. James Legge published this translation in 1885 — before 1929, so its " +
+      "United States copyright has expired — and he died in 1897, so it is out of copyright wherever " +
+      "the term runs for the author's life plus seventy or even a hundred years. The treatises " +
+      "themselves are ancient and are in the public domain everywhere. (Wing-tsit Chan's translations " +
+      "of 1963 and the Library of Chinese Classics edition of 2001 are still in copyright and are not " +
+      "used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_27",
+
+    /* THE FRONT MATTER — chapter 0. Two things have to be said before a reader starts counting tabs:
+       what the book is, and that ten of its forty-six treatises are here and thirty-six are not. */
+    about: [
+      "<b>The Book of Rites</b> — the <i>Lî Kî</i>, also called the Classic of Rites — is not one " +
+        "book but a collection of forty-six treatises on ceremony and conduct, assembled under the " +
+        "Han dynasty out of much older material. It is the most miscellaneous of the Five Classics " +
+        "and much the most human: beside the court ritual and the sacrificial calendar there is a " +
+        "father teaching a son how to carry a jar of water, rules for how to behave at somebody " +
+        "else's funeral, what to do with the seeds when the ruler gives you a peach, and a set of " +
+        "monthly ordinances telling a government what to do in each month of the year. Ritual here " +
+        "is not ceremony as opposed to real life; it is the whole of how people are supposed to " +
+        "treat one another, and the book argues that a society is held together by it.",
+      "<b>Ten of the forty-six treatises are here, and thirty-six are not.</b> Legge published his " +
+        "translation in two volumes of the Sacred Books of the East in 1885, Books I to X in the " +
+        "first and Books XI to XLVI in the second, and only the first volume has been transcribed. " +
+        "That volume is complete: every one of its ten books is here entire, with Legge's own " +
+        "footnotes and his section and paragraph numbering. The ten are also the long ones — they " +
+        "fill four hundred and twenty pages of a volume that runs to four hundred and eighty, and " +
+        "the thirty-six that remain fill a companion volume of much the same size — so what is here " +
+        "is nearer half the work than the fifth that ten out of forty-six suggests. It is still not " +
+        "the whole, and among the missing are two treatises that later left this collection " +
+        "altogether to become classics in their own right: the Great Learning and the Doctrine of " +
+        "the Mean, Books XXXIX and XXVIII. The Record on Education and the Record of Music are also " +
+        "in the second volume. If a transcription of it ever appears, the rest of the book can be " +
+        "added without disturbing anything here, because the tabs are numbered as Legge numbers " +
+        "them.",
+      "<b>How it is divided, and why the numbers start again.</b> Each book is cut into Sections, " +
+        "and the longer books cut each Section again into Parts; the paragraph numbers run from one " +
+        "within each of those, which is why the small figures in the margin restart several times in " +
+        "a single tab. That is exactly what the printed page does, and it is how the work is cited — " +
+        "a passage of the Lî Kî is given as its book, its section, its part and its paragraph. The " +
+        "headings are set in their own line so the reader can see where each count begins again. In " +
+        "Book I, and only there, Legge also groups the paragraphs into numbered chapters and prints " +
+        "the chapter number in front of the first paragraph of each, so its openings read \"1. 1.\", " +
+        "\"2. 2.\", \"3. 3.\", \"4. 6.\" — the chapter first and then the paragraph.",
+      "Legge's footnotes are gathered under each book, and they are worth opening. The notes on the " +
+        "section headings are not references at all but his own summaries of what the section " +
+        "contains, and elsewhere he argues with the Chinese commentators, marks a passage he thinks " +
+        "corrupt, or says plainly that he cannot make sense of a sentence. Book II ends with an " +
+        "appendix he prints from a paper of 1853 on Chinese mourning and inheritance; its six plates " +
+        "of mourning charts are not part of the transcription, so the tables it refers to are absent " +
+        "while the argument around them is here.",
+      "James Legge was a Scottish missionary who spent three decades in Malacca and Hong Kong and " +
+        "became the first Professor of Chinese at Oxford in 1876. His English is Victorian and " +
+        "deliberately literal, and the round brackets scattered through it are his — words he has " +
+        "supplied to make an elliptical sentence run in English, marked so that you can see him " +
+        "doing it. He also spells Chinese in a romanisation of his own that nobody uses now, so " +
+        "Confucius is <i>Khung-jze</i> and the Kâu dynasty is the one usually written Zhou. There is " +
+        "a letter in it that no ordinary alphabet has, a blackletter Z standing for a sound his " +
+        "system distinguishes; the transcription writes it four different ways and it is written one " +
+        "way here.",
+      "There is no Chinese column, and the reason is the one that keeps the Book of Documents from " +
+        "having one. The Chinese text is freely available and every one of these ten treatises was " +
+        "found; what is missing is a shared way of pointing into them. Legge numbers his paragraphs " +
+        "and the Chinese transcription numbers nothing at all, so the only way to set the two side " +
+        "by side would be to pair them off in order and hope — and the two divide their prose quite " +
+        "differently, one book of thirty-five Chinese paragraphs facing fifty-seven of Legge's. A " +
+        "facing text built that way would be quietly wrong on most of its pages, with nothing to " +
+        "say so.",
+    ],
+
+    /* ---------- ONE TREATISE, ONE CHAPTER ----------
+       The ordinary wiki walk: one page per book, one book per tab. The chapters are long — Book II
+       is 155,000 characters — which is within the precedent the Prose Edda set at 173,000 and is
+       chosen for the same reason it was there: the tab is the unit the work is CITED by. "Lî Kî II"
+       is the Than Kung; "Lî Kî II.i.iii" is a passage in it. Cutting at the Section instead would
+       give forty-six tabs whose numbering runs clean, and would name none of them anything a reader
+       is looking for. */
+    layout: "wiki",
+    sections: "liki",
+    /* THE MOURNING CHARTS, taken by the handle the Republic's plates are taken by. Legge closes Book
+       II's appendix with six tables of mourning degrees, printed on leaves bound in outside the
+       pagination — so Wikisource labels each of them `data-page-number="table"` rather than giving it
+       a number, and the structural rule written for the Republic's engraved plates removes them
+       without knowing anything about what is on them. Measured across all ten books first: eight
+       unnumbered leaves, every one of them in Book II, and every other page of the volume numbered.
+
+       They are worth removing rather than keeping. Three of the six were never transcribed at all and
+       arrive as Wikisource's own message box — "A table should appear at this position in the text.
+       See Help:Table" — which the tag stripper would unwrap into the middle of Legge's prose as
+       though he had written it. The other three ARE transcribed, and a table run through a stripper
+       that has no rows is a column of nouns with every relation between them gone: "Mother's
+       Grand-parents Mother's Sister. Mother's Parents. Mother's Brother." tells a reader nothing the
+       chart told them. And the caption of the first is unproofread OCR — "( t>y a Man /ttr hit
+       Kmamtn and Kiimpomtn." for "by a Man for his Kinsmen and Kinswomen" — which is the one thing a
+       library must not ship as somebody's book. The front matter says the charts are absent. */
+    dropUnnumberedPages: true,
+    /* One printed letter written four ways by this transcription — see applyGlyphs, which is where
+       the count and the reasoning are. Two of the four are astral-plane characters that most devices
+       have no font for. */
+    glyphs: [["\u{1D585}", "З"], ["\u{1D59F}", "з"], ["ℨ", "З"]],
+    page: (n) => "Sacred Books of the East/Volume 27/The Lî Kî/Book " + LIKI_BY_N[n][1],
+    chapters: LIKI.map((r) => r[0]),
+    chapterWord: "Book",
+    titleOf: (n) => LIKI_BY_N[n][2],
+
+    /* ---------- WHY THERE IS NO FACING ORIGINAL ----------
+       The same answer as the Book of Documents', reached the same way and rather more decisively.
+       Chinese Wikisource carries every one of these ten treatises under 禮記 — Legge's Book I is
+       曲禮上 and 曲禮下, his Book II is 檀弓上 and 檀弓下, and his Books III to X are one pian
+       apiece — so the CHAPTER-level pairing exists. What does not exist is the level below it, which
+       is what app.js pairs on: those pages carry no numbering whatever, not a paragraph number and
+       not a traditional 章 division, so the only available key is position.
+
+       Position does not work here, and it is not close. Measured page against page: Legge's Lî Yun
+       runs to fifty-seven numbered paragraphs against thirty-five on the Chinese page, his Nêi Zeh
+       to sixty-four against twenty, his Wang Kih to fifty against fifty-six. The two are dividing
+       the same prose on different principles, and pairing them off in order would set most of the
+       book beside passages that are not its counterpart — the approach this file has already tried
+       and abandoned once, for the Meditations' Greek.
+
+       One trap is recorded so a later attempt does not rediscover it. The index at 禮記 carries
+       several pages TWICE under simplified and traditional titles — 大传 beside 大傳, 少仪 beside
+       少儀, 杂记上 beside 雜記上 — so a chapter list built by reading that index rather than by
+       naming the ten pian wanted will pick up duplicates of books it already has. */
+  },
+
   "prose-edda": {
     title: "The Prose Edda",
     /* No subtitle. It is also called the Younger Edda and Snorri's Edda, and both are said in the
@@ -5394,6 +5585,201 @@ const BOOKS = {
     ],
   },
 
+  "city-of-god": {
+    title: "The City of God",
+    subtitle: "De Civitate Dei contra Paganos",
+    author: "Augustine of Hippo",
+    translator: "Marcus Dods",
+    edition:
+      "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+      "First Series, Vol. II, ed. Philip Schaff, Buffalo, 1887",
+    written: "413–426 CE",
+
+    /* ---------- THE LICENCE, which needs no qualification at all ----------
+       Three layers and every one of them is clear. Augustine finished the work in 426 and died in
+       430. Marcus Dods's translation was published in Edinburgh in 1871 and reprinted in Schaff's
+       American series in 1887 — both long before 1929, so the United States copyright has expired —
+       and Dods lived 1834–1909, dates looked up rather than recalled, so it is also out of copyright
+       wherever the term runs for the author's life plus seventy or even a hundred years. There is no
+       limit to state and no modern editorial layer to declare: this is his printed text, not a
+       re-edited one.
+
+       Schaff's series added an editor's preface, a set of introductory essays and an index; none of
+       that is imported, exactly as the volume's own front and back matter is left behind elsewhere.
+       What is taken is the twenty-two books of the translation.
+
+       The translations a reader is likeliest to reach for are still in copyright and are named here
+       so that nobody does: Henry Bettenson's Penguin of 1972, R. W. Dyson's Cambridge text of 1998
+       and William Babcock's for New City Press (2012–2013). */
+    rights:
+      "Public domain worldwide. Augustine finished the work in 426 and died in 430. Marcus Dods " +
+      "published this translation in Edinburgh in 1871 and it was reprinted in Philip Schaff's " +
+      "Nicene and Post-Nicene Fathers in 1887 — both before 1929, so its United States copyright has " +
+      "expired — and Dods died in 1909, so it is out of copyright wherever the term runs for the " +
+      "author's life plus seventy or even a hundred years. (Henry Bettenson's translation of 1972, " +
+      "R. W. Dyson's of 1998 and William Babcock's of 2012–2013 are still in copyright and are not " +
+      "used here.)",
+    sourceName: "Wikisource",
+    sourceUrl:
+      "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_II/City_of_God",
+
+    /* THE FRONT MATTER — chapter 0. Two things have to be said early because a reader would otherwise
+       have to work them out by counting: what the twenty-two books are actually doing, since the
+       first ten are an argument against somebody and only the last twelve are the book most people
+       think they are opening, and where the Latin beside it comes from. */
+    about: [
+      "<b>The City of God</b> is Augustine's longest work and the one he laboured at longest: he " +
+        "began it in 413, three years after Alaric's Goths sacked Rome, and finished it in 426, four " +
+        "years before he died with the Vandals at the gates of his own city. Rome had not fallen to " +
+        "an enemy for eight hundred years, and the shock of it was argued about across the empire. " +
+        "One explanation was ready to hand and was being made loudly: the city had abandoned the gods " +
+        "who kept it, and this was what the new religion had cost. Augustine set out to answer that, " +
+        "and the answer grew into a history of the world from the creation to the last judgment.",
+      "<b>It is a book of two halves, and knowing which half you are in makes it far easier to " +
+        "read.</b> Books I to X are the reply, and they are polemical, encyclopaedic and often very " +
+        "funny: he goes through what the gods are supposed to have done for Rome, what Rome actually " +
+        "suffered while worshipping them, and what the philosophers — Varro on the state religion, " +
+        "Plato and the Platonists on everything above it — had already worked out and failed to act " +
+        "on. Books XI to XXII are the constructive half, and they are what the title names: the story " +
+        "of two cities, one founded on the love of God and one on the love of self, from the fall of " +
+        "the angels through the whole of biblical and Roman history to the end of the world. He says " +
+        "himself at the head of Book XI that the second part begins there.",
+      "The <b>two cities are not a state and a church</b>, and reading them that way is the commonest " +
+        "way to lose the argument. They are two allegiances, mixed together and indistinguishable " +
+        "until the end, and a bishop may belong to the earthly one and an emperor to the heavenly. " +
+        "That is why Book XIX, on what peace is and what a commonwealth is, has been read for fifteen " +
+        "centuries by people who cared nothing for the rest — it is where he defines a people by what " +
+        "it loves, and takes Cicero's definition of a republic apart to do it.",
+      "Marcus Dods was a Scottish minister and later Principal of New College, Edinburgh; his " +
+        "translation of 1871 was made for a complete Edinburgh Augustine and reprinted in 1887 in " +
+        "Philip Schaff's American series, which is the printing here. It is Victorian and fairly " +
+        "close, and it keeps the shape of Augustine's sentences, which are long. The chapter headings " +
+        "running through it are the edition's own summaries, printed above each chapter — they are the " +
+        "quickest way to find a passage in a work of six hundred and sixty-one chapters. The " +
+        "paragraph at the head of each book, marked <i>Argument</i>, is the same thing at the scale of " +
+        "the book. Footnotes are the translator's and the American editor's together, gathered under " +
+        "each book; the ones signed P.S. are Schaff's.",
+      "The Latin facing it is <b>Migne's</b>, from volume 41 of the <i>Patrologia Latina</i> of 1841, " +
+        "which prints the text the Benedictines of St Maur established in the seventeenth century — " +
+        "the text Dods himself was translating. The two columns are paired on the chapter number, " +
+        "which is how any passage of the work is cited in any language: <i>City of God</i> XIX.24 is " +
+        "book nineteen, chapter twenty-four. Measured over the whole work before it was believed, the " +
+        "two agree on all 661 chapters, in the same order, in every one of the twenty-two books. " +
+        "Migne's own chapter headings are printed in the Latin column as Dods's are in the English, " +
+        "so the two sides describe each chapter in their own words.",
+      "One thing about the Latin is worth knowing before you meet it. Migne sets the column numbers " +
+        "of his own edition into the running text, and they are stripped here, because a figure like " +
+        "41.0347 arriving in the middle of a sentence is a reference to a page rather than anything " +
+        "Augustine wrote. His numbered subdivisions inside the longer chapters are left as he printed " +
+        "them.",
+    ],
+
+    /* ---------- ONE BOOK OF THE WORK, ONE CHAPTER HERE ----------
+       Augustine's chapter is far too small to be a Folio chapter — a great many of the 661 run to a
+       single paragraph — and his BOOK is exactly the right size, so the book is the chapter and the
+       chapter number is the section, which is what any citation of this work states anyway. That
+       makes every chapter a multi-page fetch: the book's own page carries the Argument and nothing
+       else, and each of its chapters (and, in four books, its preface) has a page of its own. Thirty
+       to fifty-five pages a chapter, 687 in all.
+
+       `body: "plain"` because this is not a proofread transcription of a scan. It is typed straight
+       onto the page, so there is no `prp-pages-output` wrapper and the ordinary slice returns -1 and
+       throws on a page holding a whole chapter of Augustine. */
+    layout: "wiki",
+    body: "plain",
+    sections: "chapterhead",
+    dropHeadings: true,
+    dropLinkLists: true,
+    dropHeadMarkers: true,
+    dropBlankParas: true,
+    chapters: Array.from({ length: 22 }, (_, k) => k + 1),
+    chapterWord: "Book",
+    titleOf: (n) => "Book " + COG_ROMAN[n - 1],
+    page: (n) => {
+      const r = COG_ROMAN[n - 1];
+      const out = [COG_BASE + r];
+      if (COG_PREFACE.has(n)) out.push(COG_BASE + r + "/Preface");
+      for (let c = 1; c <= COG_CHAPTERS[n - 1]; c++) out.push(COG_BASE + r + "/Chapter " + c);
+      return out;
+    },
+    /* WHICH CHAPTER EACH PAGE IS SUPPOSED TO CARRY, so the number read off the printed heading can be
+       CHECKED rather than merely parsed — the discipline the chapter marks of a book-and-chapter
+       edition already follow. Here it is free: the page NAME states the chapter, so a page that has
+       been renamed, or a heading mistyped, is reported instead of silently filing its prose under the
+       chapter before it. Returns null for a page that carries no numbered chapter (the book's own
+       page, and a preface), which is what tells the section pass not to expect one. */
+    pageMark: (name) => {
+      const m = /\/Chapter (\d+)$/.exec(name);
+      return m ? +m[1] : null;
+    },
+
+    /* THE EDITION'S OWN FURNITURE at the head of a book's page: the volume's half-title over Book I,
+       the book's own number over every one of them, and the rule of em dashes the printing sets under
+       it. All three are plain paragraphs rather than centred blocks, which is why this book declares
+       `dropLeadParas` and not `dropHeads` — see the note on that option in cleanBody. Anchored to the
+       start and tested against each block's whole text, as every list of this kind is, so none of
+       them can reach prose. */
+    dropLeadParas: [
+      /^The City of God\.?$/i,
+      /^Book\s+[IVXLC]+\s*\.?$/i,
+      /^[—–-]{3,}$/,
+    ],
+
+    /* ---------- THE LATIN, AND WHY IT IS THIS COPY OF IT ----------
+       Migne's Patrologia Latina 41, transcribed on Latin Wikisource from the University of Zurich's
+       Corpus Corporum. It is the right column on three separate grounds and each was checked rather
+       than assumed.
+
+       IT NAMES ITS EDITOR AND ITS DATE. The other complete Latin De civitate Dei on that wiki is
+       taken from thelatinlibrary.com, and its own index page records no edition at all — Wikisource
+       files it under "works without an edition". A constituted Latin text is a modern editor's work
+       whatever the age of the author, so an original that cannot say whose text it is cannot say
+       whether it may be quoted; Migne 1841 can, and is public domain past any argument.
+
+       IT IS THE TEXT DODS WAS TRANSLATING. Migne prints the Maurist text of 1685, which is the
+       edition the Edinburgh translation was made from, so the two columns are a translation and its
+       own original rather than two independent editions set beside each other.
+
+       AND THE OBVIOUS COPY OF IT IS THE UNFINISHED ONE. `De civitate Dei (ed. Migne)` is what a
+       search for this text returns first and it is INCOMPLETE: measured against the English before a
+       word of it was imported, its Book XX stops in the middle of a sentence in chapter 24 and never
+       reaches the last six, and its Book XII has no chapter 7. `De civitate Dei (Migne)` — the same
+       text, one page name away, with no "ed." — carries all 661. Ask what a source is MISSING before
+       building on it; the two look identical for nineteen books out of twenty-two.
+
+       THE PAIRING, measured over both editions before any of it was believed: 22 books on each side,
+       661 chapters on each side, the same numbers in the same order in every book, no gaps and no
+       duplicates, and not one chapter number carrying a letter — so none of the sort-key trouble a
+       lettered citation brings arises. Two things in the Latin had to be learned rather than assumed
+       and both are recorded in extractCaput: the mark is printed four ways (CAPUT PRIMUM for the
+       first of every book, then Roman numerals, with the dash after it sometimes missing and once a
+       stray full stop after the word CAPUT), and Book I marks its tenth chapter a SECOND time, in
+       square brackets, where Migne resumes the chapter after an inserted passage. The forward-only
+       guard every section pass here uses declines that repeat and the material folds into the chapter
+       already open, which is where it belongs. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      layout: "caput",
+      wiki: "la.wikisource.org",
+      edition:
+        "Patrologiae Cursus Completus, Series Latina, Tomus XLI, ed. J.-P. Migne, Paris, 1841",
+      rights:
+        "Public domain worldwide. Augustine died in 430 and Migne's edition was published in Paris in " +
+        "1841, so both the work and the text of it printed here are long out of copyright on every " +
+        "rule. The transcription is from the University of Zurich's Corpus Corporum project.",
+      sourceName: "Vicifons",
+      sourceUrl: "https://la.wikisource.org/wiki/De_civitate_Dei_(Migne)",
+      page: (n) => "De civitate Dei (Migne)/" + n,
+      /* The book's own number, printed above its summary in seventeen of the twenty-two and set in
+         the page heading in the other five — the Latin half of the running head the translation side
+         drops. Written out in the ordinals this edition uses rather than matched loosely, so it can
+         reach nothing else. */
+      dropLeadParas: [/^LIBER(?:\s+[A-Z]+){1,2}\s*\.?$/],
+      minChars: 20000,
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -5592,6 +5978,73 @@ function markLeadingSections(b, warn) {
   return b;
 }
 
+/* THE NINTH WAY an edition marks its numbers, and the first where the number arrives on a page of its
+   OWN (Aug 2026, adding The City of God).
+
+   Every rule above reads its numbers out of a chapter's running text, because every book above puts a
+   chapter on a page. Here the wiki puts each of Augustine's 661 chapters on a separate page and a
+   Folio chapter is one of his twenty-two BOOKS, so each page carries exactly one number and carries it
+   in the same place: a leading paragraph reading "Chapter 12.—Of the Fate of Those Christians Who
+   Perished in the Sack of the City", the number and the edition's own summary of the chapter run
+   together with an em dash between them.
+
+   THE NUMBER IS READ AND THEN CHECKED, which is what makes this the safest of the nine rather than
+   the laziest. It would be a line to compose the marker from the page name, which states the chapter
+   outright — and composing an apparatus is what this file refuses to do everywhere else. It would be
+   two lines to read the printed heading and trust it. Doing both costs nothing, because the caller
+   already knows which page it asked for: the number is taken from the print and compared against
+   `book.expect`, so a heading mistyped on the wiki, or a page moved under a different name, is
+   reported rather than filed silently under the chapter before it.
+
+   THE SUMMARY IS KEPT, in bold, in the paragraph the marker opens. It is the edition's own — Dods
+   prints one over every chapter — and in a work of 661 chapters it is the only practical way to find
+   a passage. The paragraph's inner markup survives untouched, which matters for the ten of them that
+   carry a footnote marker: wrapping the run rather than rewriting it keeps the marker pointing where
+   cleanBody has already aimed it.
+
+   FOUR PRINTED FORMS, inventoried over all 665 pages rather than assumed from a sample: 659 set an
+   em dash after the number, one writes that dash as a character entity, one sets no dash at all and
+   one prints a space before the full stop ("Chapter 21 .—", in Book X). All four are matched here, so
+   none of them loses its number — which would leave that chapter's prose swallowed into the one above
+   it with nothing throwing to say so.
+
+   AND ONE PAGE IN 665 SETS THE WHOLE HEADING IN BOLD, which is why the pattern tolerates an inline
+   tag in front of the word and strips the closer off the back of the title. Book V's twenty-sixth
+   chapter is that page, and it is also the one with no dash — so the two rarest forms in the book are
+   on the same page, and a rule written from any sample smaller than all of them would have missed it.
+   It reads exactly like every other chapter and would simply have had no number.
+
+   A PAGE THAT CARRIES NO NUMBER IS NOT A FAILURE. Four of the twenty-two books open with a preface,
+   and every book's own page carries the Argument and no chapter at all; the caller says so by passing
+   `expect` as null, and those pages are left unmarked, which is what puts them at the head of the
+   chapter as its opening unnumbered block. Their leading title line is still set in bold, so a
+   preface reads as a preface rather than as prose that has lost its heading. */
+function markChapterHead(b, book, warn) {
+  const expect = book.expect;
+  let found = 0;
+  b = b.replace(/^<p>\s*(?:<[bi]>\s*)?Chapter\s+(\d+)\s*\.\s*(?:—|–|--|&#8212;)?\s*((?:(?!<\/p>)[\s\S])*)<\/p>/, (m, d, rest) => {
+    const v = +d;
+    rest = rest.replace(/<\/[bi]>\s*$/, "");
+    if (expect != null && v !== expect)
+      warn && warn("the page for chapter " + expect + " is headed “Chapter " + v + "” — left as printed");
+    found++;
+    return '<p><span class="bk-n">' + v + "</span> <b>" + rest.trim() + "</b></p>";
+  });
+  if (found) {
+    if (expect == null && warn)
+      warn("a page with no chapter of its own is headed “Chapter " + found + "”");
+    return b;
+  }
+  /* No number on the page. Where one was expected that is a real fault and is reported; where none
+     was, the leading line is a preface's or an Argument's title and is set as a heading. */
+  if (expect != null) {
+    warn && warn("no chapter heading found on the page for chapter " + expect +
+      " — its text will fold into the chapter above it");
+    return b;
+  }
+  return b.replace(/^<p>\s*(Preface[^<]{0,120}?)\s*<\/p>/, "<p><b>$1</b></p>");
+}
+
 /* THE SIXTH WAY an edition marks its numbers, and the first whose two forms differ in MARKUP rather
    than in wording (Aug 2026, adding the Book of Documents). Legge numbers the paragraphs of each
    document 1, 2, 3 … and this transcription writes that number two ways: as a plain run of text at
@@ -5645,6 +6098,156 @@ function markShuSections(b, warn) {
     return pNum !== undefined ? "<p>" + lead + mark : close + mark;
   });
   if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return b;
+}
+
+/* THE HEADINGS AND THE HALF-TITLES OF THE LÎ KÎ, which arrive in the SAME centred block and have to
+   be told apart (Aug 2026, adding the Book of Rites). This runs before the generic div pass, where
+   the class is still there to key on.
+
+   Every one of this edition's forty-six divisions is a `wst-center` div, and so is the half-title at
+   the head of each book — and at the head of a BOOK the two are one block: the title, sometimes an
+   "OR" and a descriptive second line, and then "Section I. Part I." underneath, inside a single
+   centred div. dropHeads cannot help, for two reasons. It matches a block's WHOLE text, so a pattern
+   that reached the half-title would take the section heading with it and a pattern that spared the
+   heading would leave the half-title; and Book I's block holds a nested centred div of its own (the
+   volume's own title page), which none of dropHeads' three shapes can match at all. So the block is
+   opened and its paragraphs sorted rather than the block being kept or dropped whole.
+
+   THE HALF-TITLE GOES AND THE HEADING STAYS, and the heading stays because the numbering restarts at
+   it. A reader meeting the small figures running 1…31 and then 1 again needs to see, on the page, the
+   line that says why; this is Herodotus's chapter numbers if the book divisions were invisible.
+
+   DROPPING A HALF-TITLE CAN DROP A FOOTNOTE MARKER, which is Beowulf's rule met in another edition.
+   Legge hangs his note on the whole treatise off its TITLE — Book VII's is on the words "Ceremonial
+   Usages; their Origin, Development, and Intention", Book II's on "The Than Kung" — so nine of the
+   ten books would have shipped with a note 1 that no sentence opens, which is the mirror of the dead
+   marker app.js's apparatus already refuses to draw. Every marker on a dropped line is carried down
+   to the heading below it instead, where Legge's note on the book belongs anyway.
+
+   THE TEST FOR A LINE THAT MAY GO IS THAT IT IS SET IN CAPITALS — this edition sets every half-title
+   that way and nothing else in the book — so a line neither matching a heading nor wholly capital is
+   REPORTED and kept rather than silently discarded. */
+const LIKI_MARK = "@@LKH@@";
+const LIKI_HEAD_RX = /^(?:Section\b|Part\b|Supplementary Section\b|Appendix to Book\b)/i;
+function likiPlain(s) {
+  return s.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;|&#32;|\u200b/g, " ").replace(/\s+/g, " ").trim();
+}
+function markLikiHeads(b, warn) {
+  // the centred blocks, opened one at a time and sorted into headings and half-titles
+  let at = 0;
+  for (let k = 0; k < 200; k++) {
+    const rx = /<div class="wst-center[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = b.slice(m.index, end);
+    const keep = [];
+    let orphans = "";
+    let p;
+    const prx = /<p>([\s\S]*?)<\/p>/g;
+    while ((p = prx.exec(inner))) {
+      const t = likiPlain(p[1]);
+      if (!t) continue;
+      if (LIKI_HEAD_RX.test(t)) { keep.push(p[1]); continue; }
+      /* A half-title is wholly capital. Anything else in one of these blocks is prose nobody has
+         looked at, so it is kept and named rather than thrown away on a guess. */
+      if (/[a-z\u00e0-\u00ff]/.test(t.replace(/&[a-z]+;/g, ""))) {
+        warn('kept a centred line that is not a heading and not a half-title: "' + t.slice(0, 60) + '"');
+        keep.push(p[1]);
+        continue;
+      }
+      orphans += (p[1].match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+    }
+    if (orphans && !keep.length) warn("a half-title carried a footnote marker with no heading under it");
+    const out = keep
+      .map((h, i) => "<p>" + LIKI_MARK + h + (i === 0 ? orphans : "") + LIKI_MARK + "</p>")
+      .join("\n");
+    b = b.slice(0, m.index) + out + b.slice(end);
+    at = m.index + out.length;
+  }
+  return b;
+}
+
+/* THE EIGHTH WAY an edition marks its numbers, and the first whose count RESTARTS inside a chapter
+   (Aug 2026, adding the Book of Rites). Every rule above numbers a chapter once, straight through,
+   and is guarded by a forward-only test that treats a number going backwards as prose. Legge numbers
+   the paragraphs of the Lî Kî from one within each Section — and within each Part, where a Section
+   has Parts — so Book I alone starts its count over eight times and Book IV thirteen. Run under the
+   ordinary guard, everything after the first Part is declined as going backwards and nine tabs in ten
+   ship carrying the numbers of their opening pages only.
+
+   So the counter is reset by the HEADINGS, which markLikiHeads has just fenced off above, and the
+   headings and the numbers are matched in ONE sweep in reading order — the Meditations' lesson, which
+   is sharper here than anywhere: as two passes there is no reading order at all and the reset cannot
+   know which numbers it precedes.
+
+   A NUMBER NEED NOT OPEN A PARAGRAPH. Legge runs several numbered paragraphs together where the sense
+   runs on, so the figure lands mid-sentence after a full stop — 4 of Book I's 31, but 82 of Book IV's
+   198 — and a rule anchored to `<p>` finds the rest and leaves those out of the numbering with their
+   prose swallowed into the paragraph above, which is the Art of War's bare-run trap in another dress.
+   The mid-paragraph alternative is therefore matched too, and it is fenced as tightly as the evidence
+   allows: it must follow a sentence ending, be followed by a capital or an opening quotation, and — as
+   everywhere in this file — move the sequence forward by a step or a few. Legge's prose is full of
+   figures that are not sections (a territory of 1000 lî, five gradations of rank, the age of a man in
+   his eighties) and the guard is what keeps them prose.
+
+   BOOK I NUMBERS TWICE OVER, and both figures are printed. Its paragraphs are grouped into chapters
+   and the first paragraph of each carries the chapter number in front of its own — "Ch. 1. 1.", then
+   "2. 2.", "3. 3.", "4. 6." — which is Legge's own analysis, set out in his note to each Part. Both
+   are kept, in the order he prints them, with the PARAGRAPH number written as the marker's `data-n`
+   sort key so app.js goes on pairing and ordering by the number a passage is cited by. The pair is
+   accepted only when the chapter figure moves a counter of its own forward as well, or an ordinary
+   paragraph opening on two numbers would be read as one. */
+function markLikiSections(b, warn) {
+  let seq = 0, ch = 0, found = 0, resets = 0;
+  const RX = new RegExp(
+    "<p>" + LIKI_MARK + "([\\s\\S]*?)" + LIKI_MARK + "</p>" +
+      "|<p>((?:\\s|<[^>]*>)*)(?:(?:Ch\\.\\s*)?(\\d{1,3})\\.\\s+)?(\\d{1,3})\\.(?=\\s|<)" +
+      /* A sentence ending OR the head of a printed line, then the figure, then the opening of a
+         sentence. Both halves of that are load-bearing and each was measured.
+
+         THE TAGS IN THE LOOKAHEAD ARE NOT DECORATION: Legge italicises the aspirated consonants of
+         his romanisation, so a great many of his paragraphs open on `<i>K</i>ung-nî` or `<i>Kh</i>ǎng`
+         rather than on a letter, and a lookahead wanting a capital immediately meets a `<`.
+
+         AND THE SENTENCE BEFORE DOES NOT ALWAYS END IN A STOP. Three of these numbers follow no full
+         stop at all — Book I's 44 follows a comma, and Book IV's 2 and Book X's 27 each follow a
+         footnote marker whose stop the printing drops — so a rule keyed on punctuation alone leaves
+         three paragraphs of prose swallowed into the paragraph above with nothing thrown to say so.
+         What all four hundred of them DO share is that the figure opens a line: this transcription
+         keeps the scan's own line breaks, and Legge starts every numbered paragraph on a fresh line.
+         That is a stronger signal than the punctuation, not a looser one, and it is fenced by the
+         same two guards as everything else here — the number must move the sequence on by a step or
+         a few, and a sentence must open after it. */
+      "|(?<=[.!?][\\s\u201d\"']{0,2}\\s|\\n)(\\d{1,3})\\.(?=\\s+(?:<[^>]*>)*[A-Z\u201c\u2018(\u0417])",
+    "g"
+  );
+  b = b.replace(RX, (whole, head, lead, chNum, pNum, midNum) => {
+    if (head !== undefined) {
+      seq = 0; ch = 0; resets++;
+      return '<p class="bk-head">' + head + "</p>";
+    }
+    const v = +(pNum !== undefined ? pNum : midNum);
+    if (v <= seq || v > seq + 6) return whole;
+    /* The chapter figure is taken only where it moves its own counter on. Where it does not, the
+       match is left as it stands rather than half-taken: the alternative is to read Legge's chapter
+       number as a paragraph number, which would put the marker on the wrong figure. */
+    let text = String(v);
+    if (chNum !== undefined) {
+      const c = +chNum;
+      if (c <= ch || c > ch + 3) return whole;
+      ch = c;
+      text = c + ". " + v;
+    }
+    seq = v; found++;
+    const mark = '<span class="bk-n" data-n="' + v + '">' + text + "</span> ";
+    return pNum !== undefined ? "<p>" + lead + mark : mark;
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  if (!resets && warn) warn("no section headings found — the paragraph numbering cannot restart");
   return b;
 }
 
@@ -5950,6 +6553,32 @@ function cleanBody(h, noteIds, book, warn) {
       b = b.slice(0, m.index) + b.slice(end);
     }
   }
+  /* THE WIKI'S OWN LIST OF ITS OWN SUBPAGES (Aug 2026, adding The City of God — the first book here
+     whose chapters are each a page and whose book pages therefore carry a table of contents).
+
+     Where a work is broken up one chapter to a page, Wikisource puts a bulleted list of links to
+     those pages under a "Contents" heading. The heading is a `mw-heading` div and `dropHeadings`
+     takes it; the LIST is a bare `<ul>`, which neither that rule nor anything else here can see —
+     and `ul` and `li` are not in ALLOWED, so stripTags unwraps both and the whole thing arrives as
+     one run-on paragraph reading "Preface Chapter 1 Chapter 2 Chapter 3 …" standing where the book
+     should begin. It is `dropAuxToc`'s fault in a different dress, and the usual quiet one: nothing
+     throws, not a word of Augustine is lost, and the chapter is longer rather than shorter.
+
+     THE TEST IS STRUCTURAL AND NOT A GUESS ABOUT THE WORDING: a list goes only when every one of its
+     items is a single link and nothing else, which is what a navigation list IS and what a list in
+     an author's prose never is — an edition that sets a genuine list of items would have text in
+     them. Measured over this book before it was written: the 22 book pages carry exactly one such
+     list each and the 665 chapter and preface pages carry none at all. Gated per book, so it is
+     provably inert on the twenty-seven already shipped. */
+  if (book && book.dropLinkLists) {
+    b = b.replace(/<ul>[\s\S]*?<\/ul>/g, (list) => {
+      const items = list.match(/<li>[\s\S]*?<\/li>/g) || [];
+      if (!items.length) return list;
+      const allLinks = items.every((li) =>
+        /^<li>\s*<a\b[^>]*>[\s\S]*?<\/a>\s*<\/li>$/.test(li));
+      return allLinks ? "" : list;
+    });
+  }
   /* AN ILLUSTRATION PLATE IS A LEAF THE EDITION NEVER NUMBERED, and that is the handle to take it by
      (Aug 2026, adding the Republic). This printing binds engraved plates into the text — a facsimile
      of a Venetian frontispiece before Book V, the Gemma Augustea cameo before Book VII — each a
@@ -6145,6 +6774,10 @@ function cleanBody(h, noteIds, book, warn) {
      other than verse in an edition nobody has looked at yet, so the rule can only fire on a book that
      asks for it and is provably inert on the twenty-five already shipped. */
   if (book && book.verse === "dl") b = verseFromLists(b);
+  /* Before the centred divs become blockquotes and lose the class this has to key on — see
+     markLikiHeads, which sorts a half-title from the section heading printed under it in the very
+     same block. Gated per book, so it is provably inert on the twenty-six already shipped. */
+  if (book && book.sections === "liki") b = markLikiHeads(b, warn || (() => {}));
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -6222,6 +6855,52 @@ function cleanBody(h, noteIds, book, warn) {
     // the line break the head used to sit above, now opening the first paragraph on a blank line
     b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
   }
+  /* THE SAME FURNITURE SET AS ORDINARY PARAGRAPHS (Aug 2026, adding The City of God). dropHeads above
+     is anchored to a leading `<blockquote>`, because in every edition that has needed it the running
+     head arrives as a centred div. This transcription centres nothing: the volume's half-title, the
+     book's own number and the rule of em dashes under it are three plain `<p>`s at the top of each
+     book's page, so not one of dropHeads' three shapes can reach them and every chapter would open on
+     "The City of God. / Book I. / ————————————" above the Argument that already says which book it is.
+
+     It is a SEPARATE option rather than a fourth shape on dropHeads, and deliberately: a fourth shape
+     would start dropping leading paragraphs in the six books that already declare dropHeads, whose
+     patterns were written knowing that only a centred block could match them. Gated on its own key it
+     cannot execute for any of them, which is the argument every other addition to this function
+     rests on.
+
+     Otherwise it shares dropHeads' whole discipline — anchored to position 0, the block's WHOLE text
+     tested against a pattern the book itself declares, one block peeled per pass, the loop stopping
+     the moment nothing matches — so the worst a bad pattern can do is stop early, never run into
+     prose.
+
+     AND A DROPPED HEAD MAY CARRY A FOOTNOTE MARKER, which is the one thing this had to add. Two of
+     these books hang the editor's note on the book's own number — "Book V.[1]", "Book XIV.[1]" — so
+     dropping the line drops the marker and the note stays in the list with no sentence to open it.
+     The marker is carried down to the front of the next block instead, which is where a note about
+     the whole book belongs; a heading is not a sentence, so nothing else about it is worth keeping.
+     Gated again (`dropHeadMarkers`) so a book that would rather lose the marker still can. */
+  if (book && book.dropLeadParas) {
+    /* The markers are collected as the heads are peeled and planted afterwards, rather than left in
+       the string behind a sentinel. A sentinel would sit at position 0 and every shape here is
+       anchored there, so the SECOND head of a run would be unreachable the moment the first one
+       carried a marker — which is the fault dropHeads records for its own blank-line peel, met again
+       one option along. Peeled here rather than in dropHeads' loop for the reason the whole option
+       is separate: a `<p>` at position 0 is prose in the six books that declare dropHeads. */
+    const carried = [];
+    for (let k = 0; k < 8; k++) {
+      const before = b;
+      b = b.replace(/^<p>\s*(?:<br>\s*)*<\/p>\s*/, "");
+      b = b.replace(/^<p>((?:(?!<\/p>)[\s\S])*)<\/p>\s*/, (m, inner) => {
+        const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+        if (!book.dropLeadParas.some((rx) => rx.test(t))) return m;
+        if (book.dropHeadMarkers)
+          carried.push(...(inner.match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || []));
+        return "";
+      });
+      if (b === before) break;
+    }
+    if (carried.length) b = b.replace(/(<p[^>]*>)/, "$1" + carried.join(""));
+  }
   /* THE FURNITURE AT THE OTHER END OF THE CHAPTER (Aug 2026, adding Shakuntala — the first book here
      whose last page carries the printer's imprint inside the transcluded slice).
 
@@ -6264,8 +6943,19 @@ function cleanBody(h, noteIds, book, warn) {
       if (b === before) break;
     }
   }
+  /* A PARAGRAPH HOLDING NOTHING BUT LINE BREAKS (Aug 2026, adding The City of God). This
+     transcription closes every one of its 665 pages with the blank line the printing sets under a
+     chapter, which arrives as `<p><br></p>`. On a book that is one page to one chapter it falls at the
+     very end and the tidy-up sweeps it; on a book whose chapter is a joined run of pages it lands
+     between every pair of chapters, so the reader gets an empty block between them — and an
+     unnumbered block is attached to the section already open, so each one rides silently on the end
+     of the chapter above it. Gated per book, and it can only ever remove a paragraph with no text in
+     it at all. */
+  if (book && book.dropBlankParas) b = b.replace(/<p>\s*(?:<br>\s*)+<\/p>\s*/g, "");
+  if (book && book.sections === "chapterhead") b = markChapterHead(b, book, warn);
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
   if (book && book.sections === "shu") b = markShuSections(b, warn);
+  if (book && book.sections === "liki") b = markLikiSections(b, warn);
   if (book && book.sections === "edda") b = markEddaSections(b, warn);
 
   /* ONE SECTION FOR THE WHOLE CHAPTER, for an edition whose chapter IS the unit both columns are
@@ -6308,6 +6998,32 @@ function stripWikiCSS(s) {
    Pairing the id with its text in one match also avoids a trap worth writing down: the notes cannot
    be split on "<li", because MediaWiki serves its font templates as <link rel="mw-deduplicated-inline-
    style"> elements INSIDE a note, and "<link" starts with "<li". */
+/* ONE PRINTED LETTER WRITTEN FOUR WAYS, normalised on the page before either the prose or the notes
+   is read out of it (Aug 2026, adding the Book of Rites).
+
+   Legge romanises Chinese in a system of his own that needs a letter no alphabet has: a blackletter Z
+   standing for a sound he keeps apart from plain z, so Zengzi is "Зăng-зze" and the Nêi Zeh is "Nêi
+   Зeh". Unicode has no such letter, and the transcription reaches for four different characters to
+   stand in for it — Cyrillic З 139 times in the running prose, a mathematical bold fraktur 𝖅 98 times
+   and 𝖟 71 times in the headings and half-titles, and a blackletter ℨ twice, including on the
+   volume's own contents page. It is one letter in the book and four to any reader searching for it.
+
+   Two of the four are also outside the Basic Multilingual Plane, and a font that carries them is not
+   a font anyone reads a book in: on a device with no mathematical-alphanumerics face they are empty
+   boxes, and there are 169 of them here plus two chapter tabs. So all four are written the way the
+   transcription itself writes them most often, in the running prose, which is the one place a reader
+   meets the letter oftenest.
+
+   THIS IS A REPAIR, so it is narrow and it is declared per book: a table of exact characters, applied
+   to the fetched page before anything is extracted from it, so the prose and the footnotes and the
+   chapter titles cannot come to spell the same name differently. It asserts nothing about which glyph
+   Legge set — only that whatever he set, he set one. */
+function applyGlyphs(h) {
+  if (!BOOK || !BOOK.glyphs) return h;
+  for (const [from, to] of BOOK.glyphs) h = h.split(from).join(to);
+  return h;
+}
+
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
   if (!m) return { notes: [], ids: [] };
@@ -8413,6 +9129,142 @@ function originalChapter(h, O, warn) {
   return { html: b, head: head };
 }
 
+/* ---------- AN ORIGINAL WHOSE CHAPTERS ARE MARKED IN THE PROSE BY A WORD ----------
+   `layout: "caput"` (Aug 2026, adding The City of God). One page of another wiki per Folio chapter,
+   like `perChapter` above, with the one thing that function does not do: it reads the section numbers
+   back out of the text. Migne prints Augustine's chapter heads as "CAPUT XVII.-- <the chapter's Latin
+   title>", run into the prose rather than set as headings, so there is nothing structural to walk and
+   the numbers have to be found in the words — the same job the wiki shape has always had on the
+   translation side, met here on the original's.
+
+   FOUR THINGS ABOUT THIS EDITION HAD TO BE LEARNED RATHER THAN ASSUMED, and every one of them was
+   found by counting its marks against the English rather than by reading a page.
+
+   · THE MARK WEARS FOUR COSTUMES. The first chapter of every book is "CAPUT PRIMUM" — the word, not
+     the numeral — and the rest are Roman. The double dash that separates the number from the title is
+     missing in a handful (Book XIV's twenty-fifth, among others), and one chapter has a stray full
+     stop after the word itself ("CAPUT. VII.--", Book XII). Written against the strictest of the four,
+     the pass finds 650 of the 661 and the eleven it misses fold their prose silently into the chapter
+     above them — which is invisible to every count, since no word is lost and the book is the right
+     length.
+
+   · A NUMBER MAY BE PRINTED TWICE, IN BRACKETS. Book I sets "[CAPUT X.]" a second time, where Migne
+     resumes a chapter after an inserted passage. It is not a chapter and must not open one, and the
+     forward-only guard every section pass here uses declines it for nothing but its number — so the
+     material folds into chapter 10, which is what it is part of. The bracketed form is recognised
+     anyway, so that it is reported rather than left in the prose as a stray heading.
+
+   · THE MARK IS NOT IN ANY ONE KIND OF ELEMENT. Inventoried over the whole work: 478 of the 661 sit
+     in a definition-list item, 153 in a paragraph and 31 in no element of their own at all, running
+     on after the previous chapter's last sentence inside the same paragraph. So the marking is done
+     on the TEXT, after the tags have gone, and each mark SPLITS the paragraph it was found in —
+     anchoring to a `<p>` would find fewer than a quarter of them.
+
+   · AND THE EDITION'S OWN PAGE NUMBERS ARE IN THE RUNNING TEXT. Migne threads the column numbers of
+     the Patrologia through the prose as bare figures — "41.0347|" — 821 of them across the work.
+     They are a reference to a page of a printed volume and read as debris in the middle of a Latin
+     sentence, so they are removed and counted, and the count is reported rather than the removal
+     being silent.
+
+   Migne's numbered subdivisions inside the longer chapters are HIS and are kept. They arrive as a
+   list item holding nothing but "1." and would render as a paragraph containing a single figure, so
+   each is folded onto the front of the paragraph it numbers — which is where the printing puts it. */
+function extractCaput(h, O, warn, where) {
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
+  if (!m) throw new Error(where + ": no body");
+  b = b.slice(0, m.index) + b.slice(m.index + m[0].length);
+  b = b.slice(m.index);
+  b = b.split(/<div class="reflist|<ol class="references"/)[0];
+  /* The wiki's own furniture: the title block, the machine-readable data block, the previous/next
+     navigation table, the [recensere] edit links and the heading blocks that carry them. Balanced,
+     because each nests.
+
+     THE CLASS IS LOOKED FOR ANYWHERE IN THE TAG, not immediately after the element name, and that is
+     not tidiness: this wiki writes `<div id="ws-data" class="ws-noexport" …>` and
+     `<div align="left" class="ws-noexport" …>`, so a pattern anchored to `<div class=` misses both.
+     The one carrying the id holds the page's author, title and year as bare spans, which arrive as a
+     quotation reading "Aurelius AugustinusDe civitate Dei0Saeculo V" at the top of the chapter — the
+     attribute-order fault this file has recorded once before on a TEI milestone, met again on a div,
+     and quiet in the same way: nothing throws and no prose is lost. */
+  for (const cls of ["ws-noexport", "titulusHeaderBox", "mw-heading", "mw-editsection"]) {
+    for (let k = 0; k < 60; k++) {
+      const x = new RegExp('<(div|span)\\b[^>]*\\bclass="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+      if (!x) break;
+      const end = blockEnd(b, x.index, x[1]);
+      if (end < 0) break;
+      b = b.slice(0, x.index) + b.slice(end);
+    }
+  }
+  b = b.replace(/<table[\s\S]*?<\/table>/g, "");
+  b = b.replace(/<link[^>]*\/?>/g, "").replace(/<meta[^>]*\/?>/g, "");
+  // Migne's own column references, threaded through the prose as bare figures
+  const cols = (b.match(/\b41\.\d{4}\s*\|/g) || []).length;
+  b = b.replace(/\b41\.\d{4}\s*\|/g, "");
+  // a definition list is this edition's chapter head and its paragraph numbers; both are paragraphs
+  b = b.replace(/<\/?dl[^>]*>/g, "").replace(/<dd[^>]*>/g, "<p>").replace(/<\/dd>/g, "</p>");
+  /* THE PAGE'S OWN CONTAINERS, dropped before the generic div pass turns them into a quotation OF the
+     whole book — the fault the translation side's wrapper rule exists to prevent, in another wiki's
+     markup. Each page nests two `<div class="text">` and an empty `<div title="beginning">` around
+     everything; left standing they become blockquotes wrapping every word of Augustine, indented
+     behind a rule and set in italic. Their closers become unmatched `</blockquote>`s and stripTags
+     discards them, which is what its stack is for. The `poem` divs are NOT dropped: twelve of them
+     across the work hold verse Augustine quotes, and a quotation is exactly what they are. */
+  b = b.replace(/<div class="text"[^>]*>/g, "").replace(/<div title="beginning"[^>]*>/g, "");
+  b = b.replace(/<div[^>]*>/g, "<blockquote>").replace(/<\/div>/g, "</blockquote>");
+  b = stripTags(b);
+  b = b.replace(/&#160;|&nbsp;/g, " ").replace(/&#32;/g, " ");
+  b = b.replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+
+  /* THE CHAPTER HEADS. Matched on the text, forward-only, and each one SPLITS the block it was found
+     in — the closing and opening tags are emitted around it and the empty paragraphs that leaves are
+     swept below. A number that does not move the sequence on is left exactly as it was printed and
+     reported, so a bracketed resumption reads as the repetition it is rather than as a chapter. */
+  let seq = 0, found = 0, refused = 0;
+  b = b.replace(
+    /(\[?)\s*CAPUT\s*\.?\s*(PRIMUM|[IVXLC]+)\s*\.\s*(?:--|—|–)?\s*([^\n<]*)/g,
+    (whole, brack, num, title) => {
+      const v = num === "PRIMUM" ? 1 : romanValue(num);
+      if (!v || v <= seq) {
+        refused++;
+        warn && warn(where + ": “CAPUT " + num + "” repeats or goes backwards — left as printed");
+        return whole;
+      }
+      seq = v; found++;
+      return '</p><p><span class="bk-n">' + v + "</span> <b>" + title.trim() + "</b></p><p>";
+    }
+  );
+  if (!found && warn) warn(where + ": no chapter numbers found — it will pair as one whole block");
+
+  for (let k = 0; k < 6; k++) {
+    b = b.replace(/<p>\s*(?:<br>\s*)+<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
+  }
+  /* Migne's paragraph number, printed on a line of its own by this transcription and put back on the
+     front of the paragraph it belongs to. */
+  const folded = (b.match(/<p>\s*\d{1,3}\s*\.\s*<\/p>\s*<p>/g) || []).length;
+  b = b.replace(/<p>\s*(\d{1,3})\s*\.\s*<\/p>\s*<p>/g, "<p>$1. ");
+  b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+  /* THE BOOK'S OWN NUMBER, printed above its summary — the same running head the translation side
+     drops, in the other language. This transcription is not consistent about where it puts it:
+     seventeen of the twenty-two books set "LIBER TERTIUS." as a paragraph and the other five set it
+     in the page heading, which has already gone with the rest of the wiki's furniture. Left standing
+     it is a heading under a tab that already reads Book III. Anchored to the start and tested against
+     the block's whole text, as every list of this kind here is, so it can only ever take a head. */
+  if (O && O.dropLeadParas) {
+    for (let k = 0; k < 4; k++) {
+      const before = b;
+      b = b.replace(/^<p>((?:(?!<\/p>)[\s\S])*)<\/p>\s*/, (m, inner) => {
+        const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+        return O.dropLeadParas.some((rx) => rx.test(t)) ? "" : m;
+      });
+      if (b === before) break;
+    }
+  }
+  return { html: b, marks: found, refused: refused, cols: cols, folded: folded };
+}
+
 /* ---------- the original as a TEI edition ----------
    The second shape an original-language text can arrive in, and the better one. A wiki gives prose with
    the section numbers printed in it, which have to be read back out of the words; a TEI edition
@@ -9646,7 +10498,7 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    const h = await api(pageNames[0]);
+    const h = applyGlyphs(await api(pageNames[0]));
     let html, notes, orig = "", tFromText = "";
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
@@ -9671,6 +10523,12 @@ async function fetchEnglish() {
       /* The number the single whole-chapter marker carries — the same channel `expect` uses, and
          set per chapter for the same reason: cleanBody is handed the book, not the chapter. */
       if (BOOK.sections === "whole") BOOK.mark = n;
+      /* WHICH SECTION THIS PAGE IS SUPPOSED TO CARRY, on a book whose chapter is spread over many
+         pages and whose sections are one to a page (Aug 2026, adding The City of God). The same
+         channel `expect` already uses for a chapter mark that names its own book, set per PAGE here
+         rather than per chapter because that is the grain the number arrives at. A book with no
+         `pageMark` leaves it null and every rule that reads it goes on behaving exactly as it did. */
+      if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(pageNames[0]);
       const multi = pageNames.length > 1;
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       if (keep) html = pruneNotes(html, keep);
@@ -9693,7 +10551,8 @@ async function fetchEnglish() {
       const quiet = (m) => { if (!/^no section numbers found/.test(m)) warn(m); };
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
-        const eh = await api(extra);
+        if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
+        const eh = applyGlyphs(await api(extra));
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -10013,6 +10872,68 @@ async function fetchOriginal() {
       const secs = (byNum[n].match(/class="bk-n"/g) || []).length;
       console.log("  " + BOOK.chapterWord + " " + n + " — " + secs + " sections (" + (byNum[n].length / 1024).toFixed(0) + " KB)");
     });
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* ONE PAGE PER CHAPTER on another wiki, with the chapter numbers printed in the prose — see
+     extractCaput above for what this edition does with them. Cached per chapter as raw HTML rather
+     than as an extracted record, so that re-running the extractor costs no requests, which is what
+     --force is for.
+
+     THE PAIRING IS CHECKED AGAINST THE FILE THAT SHIPPED, never asserted from the entry: the English
+     side is read back out of its own cache and its markers compared with the Latin's as SETS in both
+     directions, because a count agreeing is not the same claim as a passage agreeing. */
+  if (O.layout === "caput") {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    let cols = 0, folded = 0;
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = O.langName + " " + BOOK.chapterWord.toLowerCase() + " " + n;
+      const cf = path.join(cacheDir, "or-" + String(n).padStart(2, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(O.page(n), O.wiki); fs.writeFileSync(cf, h); await sleep(1200); }
+      const got = extractCaput(h, O, warn, where);
+      if (got.html.length < (O.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      byNum[n] = got.html;
+      cols += got.cols; folded += got.folded;
+      console.log("  " + where + ": " + got.marks + " chapters, " +
+        (got.html.length / 1024).toFixed(0) + " KB");
+    }
+    console.log("  " + cols + " Migne column references removed, " + folded +
+      " paragraph number(s) folded onto their paragraph");
+
+    /* THE ENGLISH IS READ BACK OUT OF ITS OWN CACHE, which is the record writeEnglish serializes, so
+       what is compared is exactly what shipped. Not out of books/<id>.js: that file is JavaScript and
+       its markers are inside a quoted string, so a pattern written for HTML matches nothing there and
+       reports a book that pairs perfectly as a book that pairs nowhere — which it did, before this
+       was written this way. */
+    const nums = (html) => (html.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    let pairs = 0, seen = 0;
+    const onlyEn = [], onlyOr = [];
+    for (const n of BOOK.chapters) {
+      const cf = path.join(CACHE, n + ".json");
+      if (!byNum[n] || !fs.existsSync(cf)) continue;
+      seen++;
+      const en = nums(JSON.parse(fs.readFileSync(cf, "utf8")).html), or = nums(byNum[n]);
+      const se = new Set(en), so = new Set(or);
+      const missing = en.filter((v) => !so.has(v)), extra = or.filter((v) => !se.has(v));
+      onlyEn.push(...missing.map((v) => n + "." + v));
+      onlyOr.push(...extra.map((v) => n + "." + v));
+      if (!missing.length && !extra.length) pairs++;
+    }
+    if (seen) console.log("  " + pairs + " of " + seen + " " + BOOK.chapterWord.toLowerCase() +
+      "s pair exactly on every chapter number");
+    else console.log("  (no cached translation to pair against — run without --only-original to check)");
+    /* Reported in full up to a point and then counted: a real divergence is a handful of chapters,
+       and a list of six hundred is a report that the CHECK is broken rather than the book. */
+    const say = (list) => list.length > 12
+      ? list.slice(0, 12).join(", ") + " … and " + (list.length - 12) + " more"
+      : list.join(", ");
+    if (onlyEn.length) warn(onlyEn.length + " chapter(s) in the translation with no original: " + say(onlyEn));
+    if (onlyOr.length) warn(onlyOr.length + " chapter(s) in the original with no translation: " + say(onlyOr));
     return writeOriginal(byNum, warnings);
   }
 

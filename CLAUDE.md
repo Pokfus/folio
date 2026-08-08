@@ -102,7 +102,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently twenty-seven:
+  matter (chapter 0 — see the Library bullet). Currently thirty:
+  `city-of-god` (**~2.4 MB, the largest English text on the shelf** — Augustine's twenty-two books as
+  **22 chapters**, **661 chapter numbers**, 1,675 notes — and the first book here whose CHAPTER IS
+  ASSEMBLED FROM HUNDREDS OF WIKI PAGES. The Book of Documents established that `page(n)` may return an
+  array; this is that at scale, 687 pages for 22 chapters, because Wikisource gives every one of
+  Augustine's 661 chapters a page of its own. The mapping follows from the sizes and from the citation
+  alike: "City of God XIX.24" is book nineteen, chapter twenty-four, so the BOOK is the chapter and the
+  chapter is the section — Herodotus's shape a fifth time — and cutting at the chapter instead would
+  put 661 tabs on the bar, a great many of them one paragraph long.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **THE OBVIOUS COPY OF A SOURCE IS NOT ALWAYS THE
+  FINISHED ONE, and this is the Plato-Jowett lesson on a text where the two look identical.** Latin
+  Wikisource carries Migne's Patrologia twice under names one edit apart: `De civitate Dei (ed.
+  Migne)`, which is what a search returns first, and `De civitate Dei (Migne)`, which has no "ed." The
+  first is INCOMPLETE — measured against the English before a word was imported, its Book XX stops
+  mid-sentence in chapter 24 and never reaches the last six, and its Book XII has no chapter 7 — and
+  the second carries all 661. Nineteen books of twenty-two are indistinguishable between them.
+  **A CLASS MUST BE LOOKED FOR ANYWHERE IN A TAG, not immediately after the element name**: this wiki
+  writes `<div id="ws-data" class="ws-noexport">` and `<div align="left" class="ws-noexport">`, so a
+  pattern anchored to `<div class=` misses both and the page's own author, title and year arrive as a
+  quotation at the head of the chapter — the attribute-order fault this file already records on a TEI
+  milestone, met again on a div, and quiet in the same way. **A CHAPTER NUMBER CAN BE READ AND THEN
+  CHECKED, which is strictly better than either alone**: the page NAME states the chapter, so
+  composing the marker from it would be composing an apparatus and trusting the printed heading would
+  be trusting a wiki — reading the heading and comparing it against the name costs nothing and reports
+  a page renamed or a heading mistyped instead of filing its prose under the chapter before it. And
+  **THE RAREST FORMS CLUSTER**: 659 of the 661 headings are `Chapter N.—Title`, and the one page that
+  sets its heading in bold is ALSO the one that omits the dash, so a rule written from any sample
+  short of all 665 pages would have missed it and that chapter would simply have had no number),
   `prose-edda` (~339 KB, the Prologue, Gylfaginning and Skáldskaparmál as **3 chapters**, 132 section
   numbers, 177 notes — and the book that separates THE TAB from THE CITATION most sharply. Each of the
   work's three parts restarts its chapter numbering at 1, so making the numbered chapter the tab would
@@ -127,6 +154,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Nothing threw, no word was lost and every count read healthy; see `verseFromLists`, and note that
   these lists NEST two deep, so a non-greedy `<dl>…</dl>` pair closes on the inner tag and leaves 34
   unclosed blockquotes in one chapter),
+  `book-of-rites` (~790 KB, ten of the Lî Kî's forty-six treatises — **10 chapters**, 1,182 section
+  numbers, 812 notes — Legge's fourth appearance on the shelf, and **the first book here that is short
+  of its whole because of the TRANSCRIPTION rather than the edition.** The Classic of Poetry ships 102
+  of 305 because Legge selected 102 and the Prose Edda 3 parts of 4 because Brodeur translated three;
+  here Legge translated all forty-six, in two Sacred Books of the East volumes of 1885, and only the
+  first has been transcribed — Volume 28 exists as an Index with 37 of ~500 pages proofread and no
+  mainspace transclusion at all. That volume IS complete and every one of its ten books ships entire.
+  **The ten are also the long ones — 420 pages of a 480-page volume against a companion volume of much
+  the same size — so it is nearer half the work than 10-of-46 suggests**, which is worth measuring and
+  saying rather than letting `count`/`total` imply a fifth. The missing thirty-six include the Great
+  Learning and the Doctrine of the Mean, and the front matter names them.
+  **CTEXT.ORG WAS CHECKED AND REJECTED, which is the finding to carry before anyone reaches for it as
+  the obvious complete source.** It is reachable here and it does carry a complete Legge Lî Kî; its own
+  FAQ says its translations are "based upon copyright-expired translations … and **manually adapted for
+  the site**", alongside a third category "created through a combination of artificial intelligence and
+  crowdsourcing", with no per-article statement of which is which. That cannot be shipped as "James
+  Legge, 1885" — it is the Histories' modernised-Godley layer with no editor named and no way to tell
+  the layers apart. **Ask what an obvious source has DONE to the text, not only whether it has it.**
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **A SECTION COUNT MAY RESTART INSIDE A CHAPTER** —
+  Legge numbers paragraphs from 1 within each Section, and within each Part where a Section has Parts,
+  so Book I starts over eight times and Book IV thirteen; run under the ordinary forward-only guard
+  everything after the first Part is declined as going backwards and nine tabs in ten ship carrying
+  their opening pages' numbers only. Hence the eighth section shape, `sections: "liki"`, whose counter
+  is reset by the headings and which matches headings and numbers in ONE sweep for the Meditations'
+  reason. **A HALF-TITLE AND THE HEADING UNDER IT ARRIVE IN ONE BLOCK**, so `dropHeads` — which keeps or
+  drops a block whole, and whose three shapes cannot match Book I's nested centred div at all — is no
+  help; the block is opened and its paragraphs sorted instead, on the test that a half-title is wholly
+  CAPITAL and anything else is reported and kept. **DROPPING A HALF-TITLE DROPS A FOOTNOTE MARKER**,
+  Beowulf's rule in another edition: Legge hangs his note on the whole treatise off its TITLE, so nine
+  of the ten books would have shipped with a note 1 that no sentence opens — the markers are carried
+  down onto the heading below. And **A PARAGRAPH NUMBER NEED NOT FOLLOW A FULL STOP**: three of them
+  follow a comma or a footnote marker whose stop the printing drops, so the mid-paragraph rule keys on
+  the figure OPENING A PRINTED LINE as well, which this transcription preserves. All 45 numbered runs
+  are a clean 1..N after that, measured, with no gaps and no duplicates.
+  Its plates were taken by the Republic's handle rather than a new rule: Book II's appendix closes on
+  six mourning charts bound in outside the pagination, so Wikisource labels each leaf
+  `data-page-number="table"` and `dropUnnumberedPages` removes them — measured first, eight unnumbered
+  leaves in the whole book and every other page numbered. Worth removing rather than keeping: three of
+  the six were never transcribed and arrive as Wikisource's own "A table should appear at this position
+  in the text" box, the three that were are flattened by the tag stripper into a column of nouns with
+  every relation gone, and the first caption is unproofread OCR),
   `book-of-documents` (~444 KB, the whole of the received Shû — **59 chapters**, 169 section numbers,
   283 notes — and the first book here whose CHAPTER IS PRINTED ACROSS MORE THAN ONE WIKI PAGE. Every
   earlier wiki book is one page to one chapter; where Legge prints a book in sections, Wikisource gives
@@ -220,8 +288,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   which are complete, it went from eleven dialogues to thirty-five. **Ask what the source is MISSING
   before building on it**: the first shape was correct about everything it contained and was a third of
   the book.
-  Thirty-five of thirty-six because Perseus's English Republic is Shorey's of 1935–37 and still in
-  copyright — a LICENCE gap, not a textual one; the Republic is on the shelf from another printing),
+  Thirty-five of thirty-six because Perseus's English Republic is Shorey's, published in two volumes
+  in 1930 and 1935 — a LICENCE gap, not a textual one; the Republic is on the shelf from another
+  printing. **THAT GAP IS NOW HALF OPEN, and the dates are why it has to be stated per volume**:
+  Shorey died in 1934, so the translation is public domain wherever the term is life plus seventy —
+  since 2005 — and in the United States volume 1 (Books I–V, 1930) cleared on 1 January 2026 with
+  volume 2 (Books VI–X, 1935) following on 1 January 2031. This entry read "1935–37" until Aug 2026,
+  which conflated volume 2's date with volume 1's reprint and hid the fact that the two clear at
+  different times; taking the Republic into the Dialogues, and giving the Republic itself the facing
+  Greek it has never had, both turn on it. See `docs/library-gaps.md`),
   `ovid-metamorphoses` (~813 KB, all 15 books, 156 section numbers, **0 notes** — the first book
   here whose edition carries none, so its chapters render with no note fold at all, which is correct
   and not a wiring fault), `suetonius-twelve-caesars` (~952 KB, all 12 lives, 551 chapter numbers,
@@ -322,7 +397,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently nineteen:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty:
+  `city-of-god.la.js` (**~2.0 MB**, all 22 books, **all 661 of the translation's chapter numbers** —
+  Migne's Patrologia Latina 41 of 1841, which prints the Maurist text of 1685 that Dods was
+  translating, so the two columns are a translation and its own original rather than two independent
+  editions set side by side. **It is the largest EXACT pairing on the shelf**: 661 chapters a side,
+  identical numbers in identical order in all 22 books, no gap and no duplicate either way — bettered
+  only by the constructed cases, where one editor numbered both columns at once. Its chapter mark is
+  read out of the prose rather than off structure (`layout: "caput"` → `extractCaput`), and it wears
+  four costumes — `CAPUT PRIMUM` for the first of every book against Roman numerals after it, the
+  double dash after the number missing in a handful, and one chapter with a stray full stop after the
+  word itself. Written against the strictest of the four the pass finds 650 of 661 and the eleven it
+  misses fold into the chapter above them, which no count can see. Book I marks its tenth chapter a
+  SECOND time in square brackets, where Migne resumes it after an inserted passage; the forward-only
+  guard declines it and the material folds into chapter 10, where it belongs. **The edition's own
+  page references are in the running text** — 821 bare figures like `41.0347|` threaded through the
+  Latin — and are removed and counted rather than left as debris mid-sentence),
   `beowulf.ang.js` (~216 KB, all 42 chapters, all 636 of the translation's line numbers — A. J. Wyatt's
   Cambridge text of 1894, made from Zupitza's photographic facsimile of the burnt manuscript, and the
   first original here in **Old English** (`ang`). It is also the first whose own divisions had to be
@@ -387,11 +477,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty-seven books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, the Prose Edda, Lysistrata and Shakuntala have none, and the reason differs — the
-  next paragraph's
-  rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
-  earlier, there being no settled original text to face.
+  **Thirty books, twenty originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
+  have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
+  on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
+  to face.
   **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
   exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
   to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
@@ -414,6 +504,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of the received 58 documents, so chapter for chapter the two columns match, but Legge numbers his
   paragraphs and that transcription numbers nothing, and pairing by POSITION — the approach abandoned for
   the Meditations' Greek — puts the two divisions together in only 8 of the 58. Measured, not assumed.
+  **The Book of Rites is that same case and less close still**, which is worth recording because the two
+  are the same translator on the same wiki: Chinese Wikisource carries all ten of its treatises under 禮記,
+  so the chapter pairing exists, and those pages number nothing whatever — one book runs to 57 of Legge's
+  numbered paragraphs against 35 Chinese ones, another to 64 against 20. One trap there for a later
+  attempt: that index carries several pages TWICE under simplified and traditional titles (大传 beside
+  大傳, 少仪 beside 少儀, 杂记上 beside 雜記上), so a chapter list built by reading it rather than by naming
+  the pian wanted picks up duplicates of books it already has.
   **THE ONE QUESTION THAT DECIDES WHETHER A BOOK CAN HAVE AN ORIGINAL AT ALL** is not "does a text of it
   exist?" but **"does that text say which section each passage is?"** — because app.js pairs the two columns
   on the section NUMBER, never on paragraph or list order. **And the number need not be the unit the
@@ -816,6 +913,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   only strips blocks from the START of a chapter, so while the plates stood in front of them Books V and
   VII kept heads the other eight lost — a rule that did not fire, reading as a rendering fault in two
   chapters out of ten.
+  **IT TOOK A SECOND BOOK WITHOUT A LINE OF NEW CODE** (Aug 2026, the Book of Rites), which is the
+  argument for having made it structural: Legge closes Book II's appendix with six charts of mourning
+  degrees bound in outside the pagination, so Wikisource labels each of those leaves
+  `data-page-number="table"` and the Republic's rule lifts them out knowing nothing about charts.
+  Measured first, as there: eight unnumbered leaves in the whole book, all in Book II, every other page
+  numbered. They are worth removing rather than keeping — three of the six were never transcribed and
+  arrive as Wikisource's own "A table should appear at this position in the text. See Help:Table" box,
+  which the tag stripper unwraps into the middle of Legge's prose as though he had written it; the three
+  that WERE transcribed are flattened by that same stripper into a column of nouns with every relation
+  between them gone; and the caption of the first is unproofread OCR ("( t>y a Man /ttr hit Kmamtn and
+  Kiimpomtn." for "by a Man for his Kinsmen and Kinswomen"), which is the one thing a library must not
+  ship as somebody's book.
   **`prp-pages-output` CAN OCCUR MORE THAN ONCE, so its opener is stripped globally** (same batch). A
   transclusion is broken into a fresh wrapper wherever something interrupts the run of scan pages — an
   inserted plate, or the footnote apparatus at the foot — and the Republic's pages carry two. Anchored to
@@ -873,6 +982,44 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     "Section 1 Section 2 Section 3". Keyed on the wiki's own class rather than on its wording, like the
     `ws-noexport` rule, removed with a BALANCED match because it nests, and gated per book so it is
     provably inert on everything already shipped.
+  · **`sections: "liki"`** — THE EIGHTH WAY, and the first whose count RESTARTS INSIDE A CHAPTER (Aug
+    2026, adding the Book of Rites). Every rule above numbers a chapter once, straight through, under a
+    forward-only guard that reads a number going backwards as prose. Legge numbers the paragraphs of the
+    Lî Kî from 1 within each Section, and within each Part where a Section has Parts, so Book I starts
+    over eight times and Book IV thirteen — and under the ordinary guard everything after the first Part
+    is declined, so nine tabs in ten ship carrying their opening pages' numbers alone with every later
+    paragraph's prose swallowed into the one above. **The counter is therefore reset by the HEADINGS**,
+    which `markLikiHeads` fences off before the generic div pass, and the headings and the numbers are
+    matched in ONE sweep in reading order — the Meditations' lesson, sharper here than anywhere, since as
+    two passes there is no reading order at all and the reset cannot know which numbers it precedes.
+    Three more things it settled. **A HALF-TITLE AND THE FIRST HEADING ARRIVE IN THE SAME BLOCK**, so
+    `dropHeads` cannot help — it keeps or drops a block whole, and none of its three shapes can match
+    Book I's block at all, that one holding a nested centred div (the volume's own title page). The block
+    is opened and its paragraphs sorted instead, on the test that **a half-title is wholly CAPITAL** in
+    this edition and nothing else is, so a line that is neither a heading nor capital is reported and
+    KEPT rather than discarded on a guess. **DROPPING A HALF-TITLE DROPS A FOOTNOTE MARKER** — Beowulf's
+    `dropFittHead` rule in another edition: Legge hangs his note on the whole treatise off its TITLE, so
+    nine of the ten books would have shipped with a note 1 that no sentence opens, and every marker on a
+    dropped line is carried down onto the heading below, where his note on the book belongs anyway. And
+    **A PARAGRAPH NUMBER NEED NOT FOLLOW A FULL STOP**: Legge runs numbered paragraphs together where the
+    sense runs on, so 4 of Book I's 31 and 82 of Book IV's 198 land mid-sentence — and three of those
+    follow a comma or a footnote marker whose stop the printing drops. What all of them share is that the
+    figure OPENS A PRINTED LINE, which this transcription preserves, so that is the signal rather than
+    the punctuation. Watch the lookahead as well: Legge italicises the aspirated consonants of his
+    romanisation, so a great many paragraphs open on `<i>K</i>ung-nî` and a rule wanting a capital
+    immediately meets a `<`. All 45 numbered runs are a clean 1..N afterwards, measured, no gaps and no
+    duplicates — which is the check to run, since every one of these faults is silent.
+  · **`glyphs`** — a per-book table of exact characters applied to the fetched page BEFORE anything is
+    extracted from it, so the prose, the footnotes and the chapter titles cannot come to spell one name
+    differently (Aug 2026, same book). It exists because **a transcription may write ONE PRINTED LETTER
+    SEVERAL WAYS**: Legge's romanisation needs a blackletter Z that Unicode has not got, and this one
+    reaches for four characters to stand in for it — Cyrillic З 139 times in the running prose, a
+    mathematical bold fraktur 𝖅 98 times and 𝖟 71 times in the headings and half-titles, and a
+    blackletter ℨ twice, including on the volume's own contents page. Two of the four are also outside
+    the Basic Multilingual Plane, so on a device with no mathematical-alphanumerics face they are 169
+    empty boxes plus two chapter tabs. All four are written the way the transcription itself writes the
+    letter most often. **It is a repair, so it is narrow and declared per book**, and it asserts nothing
+    about which glyph Legge set — only that whatever he set, he set one.
   **A CHAPTER MAY BE PRINTED ACROSS SEVERAL WIKI PAGES, and `page(n)` may return an ARRAY** (Aug 2026,
   same book). Every earlier wiki book is one page to one chapter. Where Legge prints a book in sections,
   Wikisource gives each section its own page and leaves the book's headnote — and at the head of a Part
@@ -893,6 +1040,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   English back out of whichever cache the translation actually used, keeping the discipline the verse,
   drama and TEI branches share: **the pairing is checked against the files that shipped, never asserted
   from the entry.**
+  **A CHAPTER MAY BE ASSEMBLED FROM HUNDREDS OF PAGES, and then the whole wiki walk changes grain**
+  (Aug 2026, adding The City of God — 687 pages for 22 chapters, where the Book of Rites' four-page
+  chapter was the previous high). Five rules were needed and **every one is GATED per book**, which is
+  what let two shipped books be re-run and diffed byte-for-byte before any of them was kept:
+  · **`dropLinkLists`** — where a work is one chapter to a page, the wiki puts a bulleted list of links
+    to those pages under a Contents heading. `dropHeadings` takes the heading; the `<ul>` is bare, and
+    `ul`/`li` are not in `ALLOWED`, so `stripTags` unwraps both and it arrives as one run-on paragraph
+    reading "Preface Chapter 1 Chapter 2 …" where the book should begin. **The test is structural**: a
+    list goes only where every item is a single link and nothing else, which is what navigation IS and
+    what an author's list never is. Measured first — one such list on each of the 22 book pages and
+    none at all on the 665 chapter pages.
+  · **`dropLeadParas`** — `dropHeads` is anchored to a leading `<blockquote>`, because in every edition
+    that needed it the running head is a centred div. This transcription centres nothing: the volume's
+    half-title, the book's number and the rule under it are three plain `<p>`s, so not one of
+    dropHeads' three shapes can reach them. A SEPARATE option rather than a fourth shape, deliberately
+    — a fourth shape would start dropping leading paragraphs in the six books that already declare
+    dropHeads, whose patterns were written knowing only a centred block could match.
+  · **`dropHeadMarkers`** — **A DROPPED HEAD MAY CARRY A FOOTNOTE MARKER**, Beowulf's `dropFittHead`
+    rule in a third edition: two of these books hang the editor's note on the book's own number
+    ("Book V.[1]"), so dropping the line strands the note. The markers are collected as the heads are
+    peeled and planted afterwards, **never left in the string behind a sentinel** — every shape here
+    is anchored to position 0, so a sentinel would make the SECOND head of a run unreachable, which is
+    the fault dropHeads records for its own blank-line peel.
+  · **`dropBlankParas`** — this transcription closes every page with the blank line the printing sets
+    under a chapter. On a one-page-per-chapter book it falls at the end and is swept; on a joined run
+    it lands between every pair of chapters, and an unnumbered block rides silently onto the end of
+    the chapter above it.
+  · **`pageMark`** — **THE NINTH WAY an edition marks its numbers, and the first read AND CHECKED.**
+    Each page carries exactly one chapter number, at its head; the page NAME states the same number.
+    Composing the marker from the name would be composing an apparatus and trusting the heading would
+    be trusting a wiki, so `sections: "chapterhead"` reads the heading and compares it against
+    `book.expect`, which the loop sets per PAGE from `pageMark(name)` — a page renamed or a heading
+    mistyped is reported instead of being filed under the chapter before it. A page returning null
+    (the book's own page, a preface) is left unmarked, which is what puts it at the head of the
+    chapter as its opening unnumbered block.
   **A book's ORIGINAL language is a second half of the same entry** (`original: { lang, langName, … }`),
   written to `books/<id>.<lang>.js` with its own cache under `book-cache/<id>/<lang>/`. **It comes in THREE
   shapes, and the wiki walk — the first one written — is the worst of them**, because it is the only one that
@@ -938,6 +1120,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the rule is inert.
   · **the wiki walk** (`wiki` + `pages` + `originalChapters`) — one page per book of the collection, the
     numbers printed in the text and read back out. Everything below is about this shape.
+    **`layout: "caput"` → `extractCaput` is that shape with a page per FOLIO CHAPTER** (Aug 2026,
+    adding The City of God), which `perChapter` above already does — what it adds is reading the
+    section numbers out of the prose, which `originalChapter` does not do at all. Four things it
+    settled, and every one was found by counting its marks against the English rather than by reading
+    a page. **THE MARK WEARS FOUR COSTUMES** — `CAPUT PRIMUM` for the first of every book against
+    Roman numerals after it, the double dash missing in a handful, one stray full stop after the word
+    itself — and written against the strictest of the four the pass finds 650 of 661 and the eleven it
+    misses fold their prose into the chapter above them, invisibly. **A NUMBER MAY BE PRINTED TWICE,
+    IN BRACKETS**, where the editor resumes a chapter after an inserted passage; the forward-only
+    guard declines it for its number alone and the material folds where it belongs. **THE MARK IS IN
+    NO ONE KIND OF ELEMENT** — 478 of the 661 in a definition-list item, 153 in a paragraph and 31 in
+    no element at all, running on inside the paragraph before them — so the marking is done on the
+    TEXT after the tags have gone and each mark SPLITS the block it was found in; anchoring to a `<p>`
+    would find under a quarter of them. And **THE EDITION'S OWN PAGE NUMBERS ARE IN THE RUNNING TEXT**,
+    821 bare figures like `41.0347|`, removed and COUNTED rather than removed in silence.
   Two things about the wiki shape are worth knowing before adding one.
   **The other wiki is laid out differently** — la.wikisource gives one page per BOOK of the collection with the
   letters as `<h2>` headings inside it, where en.wikisource gives one page per letter — so `originalChapters`
@@ -1735,6 +1932,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
   regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
+- `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
+  after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
+  an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
+  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
+  the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
+  which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
+  assumed, with the routes that keep paying (a paper walled here is usually open at its **Europe PMC** copy;
+  where the modern synthesis is closed the **standard 19th-century monograph is on archive.org and is often
+  the origin of the type name**; and a family with no reachable database may still have a **subject-specialist
+  network's** curator guide, which is what carried the Qing cash coins). **Coins looked like the pass's thin
+  spot and were its easiest family** — `numismatics.org` is shut and the British Museum's own catalogues
+  (Mattingly, Grueber, Head, Wroth, Keary, Brooke, Terrien de Lacouperie) are all on archive.org with full
+  OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
+  only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
+  connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
@@ -1873,7 +2086,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
-- `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc } ]`, the pool a
+- `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc, sources } ]`, the pool a
   level-up chest draws from (see THE RELIQUARY under "How the app is wired"). **Eager**, and it can stay
   eager because it is metadata only: a picture is a LINK, never an upload, exactly as a card's is, so an
   artefact costs a few hundred bytes however many are added. Every entry is a REAL object and the content
@@ -1883,6 +2096,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the field once an artefact exists. Written and edited in **Admin → Artefacts**, which also hands the
   whole file back as a JS literal (`serializeArtefacts`); an `ADMIN_EDITS.artefacts` overlay sits over it,
   keyed by id, exactly as the daily quotes' does over `SHIPPED_QUOTES`.
+  **Currently 100 — 4 legendary, 13 epic, 27 rare, 56 common** (98 added on 2026-08-08 on request, to the
+  two the feature shipped with). **None carries a picture**, and that is a fact rather than a backlog: a
+  `src` is somebody else's URL and a `credit` is required beside it, so an invented one would be a
+  fabricated source holding up a real object — the rarity-coloured placeholder is what the shape was
+  designed for. A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
+  content rules the file's own header states (exactly five sentences, 180–220 words with the imperial
+  conversion NOT charged against the budget, a bolded first mention, a credit on any picture, an id that
+  is a fresh lowercase slug) and **rewrites the file in `serializeArtefacts`'s exact output format**, so a
+  hand edit and the next Admin save cannot drift apart. Its imperial pattern is add-card.js's plus VOLUME
+  (gallons, pints, quarts), which the card corpus never needed and a corpus of jars and cauldrons does.
+  **AN ARTEFACT IS CITED, at `ARTEFACT_SRC_TARGET` (3) works** (Aug 2026, on request), each ending in the
+  URL a reader can open and each pointed at by a `<sup class="fn" data-fn="N"></sup>` marker written EMPTY
+  in the description — the card's apparatus exactly, so the numbering, the links, the access chips and the
+  jump both ways all come free. Three sits between the glossary's two and a card's five because a
+  description is five sentences. **It is a REFUSAL rather than a target the editor reports against**:
+  `add-artefacts.js` and Admin → Artefacts both turn away an artefact under the bar, one with a citation
+  carrying no URL, one whose description points at nothing, or one whose marker runs past the end of its
+  list (`wireFootnotes` deletes those at render, so the claim silently loses its source). An artefact
+  ALREADY in the file is cited with **`node .claude/add-artefact-sources.js <batch.json>`**, and the markers
+  are placed by **`node .claude/mark-artefact-sources.js <plan.json> <batch.json>`** from a plan of
+  `{ id: { sources, marks: { "<sentence>": [srcNums] } } }` — never by hand, which is how a marker ends up
+  inside a tag or a sentence loses its full stop. That plan takes an optional `desc`, so a CORRECTION and
+  its markers land in one diff where a source turns out not to bear the prose out.
+  **ALL 100 ARE CITED** (batches 1–15, completed 2026-08-08); `docs/artefact-citation-plan.md` holds the
+  batch table, the reachable-host survey the pass is built on, and its findings. **What keeps it true is
+  the refusal, not the count** — a new artefact cannot be written below the bar — so re-run
+  `.claude/test-artefacts.js` after any batch, since it reports coverage and re-checks every shipped list.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
@@ -2078,12 +2318,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   markup are untouched (`#decks`, every shared link still works); only the label, the eyebrow and its
   `PAGE_META` title changed. Two pages called Library, one titled Collections, is how a reader lands on the
   wrong one.
-  · **IT EXPLAINS ITSELF ON A FIRST VISIT** (Aug 2026, on request), the Atlas's pattern one page over: a
-    card covering the shelf's five features — what may be shelved, the chapter bar and the kept reading
-    position, the facing original, the marker and the passage highlights, and the search/sort/hold. Shown
-    once (`folio_library_tour_v1`), brought back by the `#libHelpBtn` "?" beside the sort. Built on
-    `document.body` by `pageHelp` and NOT written into this page — see that bullet under "How the app is
-    wired" for the reason, which is `.page` being the containing block for anything `position:fixed`.
+  · **IT EXPLAINS ITSELF ON A FIRST VISIT, IN TWO HALVES** (Aug 2026, on request), the Atlas's pattern one
+    page over. It was ONE card on the shelf covering five features, and three of the five are about the
+    inside of a book — the chapter bar, the facing original, the marker and the highlights. A reader
+    standing at the shelf has not opened a book yet, so those three describe furniture that is not on the
+    screen and cannot be tried, which is the surest way to have an explanation read past. Split at the
+    obvious seam: **the SHELF card** (`LIB_HELP_TIPS`) says what may be shelved and why, how to search,
+    sort and hold, and that your place is kept; **the BOOK card** (`BOOK_HELP_TIPS`) says how to read one
+    and is shown the first time a book is actually opened, beside the bar it is talking about. Both are
+    built on `document.body` by `pageHelp` and NOT written into their page — see that bullet under "How the
+    app is wired" for the reason, which is `.page` being the containing block for anything
+    `position:fixed`. Each has a "?" bringing it back (`#libHelpBtn` beside the sort, `#bkHelp` at the end
+    of the chapter bar). **TWO KEYS, because they are answered at different moments and one must not retire
+    the other**: the shelf's is untouched (`folio_library_tour_v1`), so a reader who met the old card is
+    not shown that half again — and DOES meet the book half, which is new to them and is the part they were
+    likeliest to have skimmed. Beside `folio_book_tour_v1` sits a session flag (`_bookHelpShown`), because
+    **the book page RE-RENDERS under the reader**: the original-language bundle lands a moment after the
+    page opens and calls `render()`, which closes every overlay on the body, so on the stored value alone
+    the card would be taken away and rebuilt mid-sentence with the focus reset.
+    **`test-library.js` must suppress BOTH keys**, not just the shelf's — the book half sits over the very
+    page its gesture sections swipe, and it announced itself by silently eating one real-touch swipe.
   · **WHAT MAY BE SHELVED, and it is the only content rule.** Folio serves the text itself, so a book goes
     up only where the copyright has **expired**. For a classical author the trap is that the original and
     the TRANSLATION are separate works: Seneca's Latin is free and the English is a 20th-century work with
@@ -2184,6 +2438,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     pre-1929 publication rule, on life-plus-seventy and on life-plus-a-hundred, with no limit to state and
     no modern editorial layer to declare. The documents underneath are ancient. Karlgren's translation of
     1950 and Waltham's modernisation of Legge of 1971 are named as the ones not to reach for.
+    **The Book of Rites is Legge's third easy licence and needs no qualification either** (Aug 2026):
+    published 1885, died 1897, so it clears the pre-1929 rule, life-plus-seventy and life-plus-a-hundred
+    alike, with no limit to state and no modern editorial layer. Chan's translations of 1963 and the
+    Library of Chinese Classics edition of 2001 are named as the ones not to reach for. What its `rights`
+    does state, and no other book's has had to, is a piece of the printed volume that is NOT reproduced —
+    the six mourning charts of Book II's appendix — because they are absent for a transcription reason
+    rather than a copyright one and a reader meeting the appendix's argument without its tables is owed
+    the reason. **Its `BOOK_AUTHOR_COLOR` row widened the band downward a SECOND time**, which the Prose
+    Edda's row did first and Beowulf's predicted: with twenty-six colours placed, nothing in the shelf's
+    own band clears 21.6 of its nearest neighbour once the 4.5:1 bar is applied, and every candidate at
+    that number is an eighth red. Dropping the floor to L 12 opens it again — and needs a SECOND FLOOR
+    that is new, since a colour dark enough stops being a colour and becomes the body ink: every
+    candidate is now also held 22 clear of all six light themes' inks, which is what rules out the L 10
+    swatches that scored 26. Of the three survivors the **Euripides test picked against the raw number**
+    for the second time: the best is a blue-violet at 23.3 and the third a dark burnt brown at 22.8 that
+    lands 24.2 from Confucius — who is the ANALECTS, the one book on the shelf a reader is likeliest to
+    hold beside the Lî Kî. So the dark plum `#460030` at 22.6, clearing Plato, Snorri and Beowulf by
+    22.6/22.8/23.0 evenly, 36.6 from the Classic of Poetry and 48.5 from Confucius, reading 9.70:1 on the
+    tightest of the sixteen light papers.
     **Its `BOOK_AUTHOR_COLOR` row is where only two hue families were left** — a sweep of the whole RGB
     cube inside the shelf's own lightness and chroma band found candidates clearing 20 of their nearest
     neighbour in red (20.1) and green (22.5) and nowhere else, which is the Beowulf row's prediction
@@ -2291,6 +2564,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     BEOWULF, the shelf's only other Germanic work, so the two candidates nearer his oxblood were
     rejected and this dark violet is both the best-separated colour in the widened band and the one
     furthest from him.
+    **The City of God is the FOURTH licence needing no qualification at all** (Aug 2026), after the
+    Republic, the Analects and the Peloponnesian War, and all three of its layers are clear:
+    Augustine died in 430, Marcus Dods published his translation in Edinburgh in 1871 and Philip
+    Schaff reprinted it in 1887 — both long pre-1929 — and Dods died in 1909, so the English clears
+    the publication rule, life-plus-seventy and life-plus-a-hundred alike, with no limit to state as
+    Giles (2029) and Ross (2042) need and no modern editorial layer as the Histories and the
+    Meditations' Greek carry. Migne's Latin of 1841 is free on the same three grounds. Schaff's own
+    introductory essays and index are not imported, which is the Republic's precedent for the
+    introduction and plates it left behind. Bettenson (1972), Dyson (1998) and Babcock (2012–2013)
+    are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is the easy case the last
+    several have not been: with twenty-seven colours placed, only three hue families still hold
+    anything inside the shelf's band under the Book of Rites' ink floor and the 4.5:1 bar, and the
+    best NUMBER and the right grammar were the same colour for once — a very dark brown clearing
+    Sophocles, Confucius and Beowulf by 23.0, 23.2 and 24.0, against the shelf's tightest pair at
+    18.2, and reading 9.42:1 on the tightest of the sixteen light papers, the highest of any swatch
+    here. The blue at 22.6 was rejected on Thucydides' rule, being a fourth colour in a quarter that
+    already holds Aristotle, Machiavelli, Herodotus, the Song of Roland, Snorri and Seneca. The band
+    did not have to be widened again.
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
@@ -2544,6 +2835,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       Confucius's walnut is 26 from its nearest neighbour. The obvious green for the Analects was
       measured and REJECTED: every green that sits inside this palette lands 12–17 from Lucretius, and
       the only greens clearing that are bright enough to glow beside ten muted colours.
+    · **…AND ON A DARK PAPER IT IS A LIGHTER SHADE OF THAT COLOUR** (`--bk-accent`, Aug 2026, on a bug
+      report: "in night mode some of the books' authors and 'Start reading' are too dark to read"). Every
+      swatch above was chosen inside a deliberately dark lightness band and **measured against the SIXTEEN
+      LIGHT papers alone** — the Euripides row says outright that a swatch this dark reads 1.5–3.0 on the
+      dark ones. That is right for a SPINE seen against white and wrong the moment the same value is set
+      as TEXT on night's `--card`: the Book of Rites' dark plum reads **1.08:1** there, which is not low
+      contrast but none at all, and the spine that identifies the book disappears with the words.
+      **The lesson is that a palette is only measured against the papers somebody thought to measure it
+      against** — nothing here was wrong when it was chosen, and the same numbers stopped being the right
+      numbers when the accent was given a second job.
+      Three decisions. It is a **derived property** rather than a re-toned `--tile`, because `--tile` is
+      set INLINE by `bookColor` and a stylesheet cannot override an inline custom property — `.book-tile`
+      declares `--bk-accent`, `body.night .book-tile` redeclares it, and the seven rules that paint the
+      banner (spine, author, Start-reading/resume, the reading bar, the wash, the hover border, the focus
+      ring) all read the derived one. It is a **MIX toward white rather than a second table of colours**,
+      so a book added later is covered by having a colour at all. And **45% is measured, not guessed**: it
+      is the strongest mix at which the darkest swatch on the shelf still clears 4.5:1 on the lightest
+      night `--card` (#460030 → 5.0:1; all thirty books land 5.0–6.5; at 50% it falls to 4.3 and misses).
+      It keeps each hue and takes only chroma, so two books by one hand still wash, spine and read alike.
+      **Day mode is untouched** — `--bk-accent` resolves to `var(--tile, var(--indigo))` there, so the
+      light shelf is byte-identical.
     **The banner carries its book's colour as a WASH, not only on the spine** (Aug 2026, on request —
     "similar to the collection banners"). It is the collection banner's own bookplate treatment written
     the way `.active-deck` writes it: a gradient of the accent laid OVER `var(--card)` rather than mixed
@@ -2783,6 +3095,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   precached — that would undo the split; they enter the cache when a page actually asks for them, so one
   Atlas visit makes it available offline. Bump `VERSION` in sw.js to invalidate everything.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
+- **RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE** (`resetProgress` / `RESET_KEEPS`, beside
+  `applyProgress`/`emptyProgress`; Settings → Danger zone. Aug 2026, on a bug report). It was
+  `S = defaultState()`, which is not a progress reset but a **factory reset of the whole save**: it took the
+  theme, the light/dark and follow-the-system settings, the text size, the language, the day boundary, the
+  sound and narrator settings, the Atlas home location, the book sort — and **the decks the reader had
+  added**, which is what they noticed. It also threw away `_supaTs` and `_supaOwner`, the device-local sync
+  baseline and the record of whose progress this is.
+  **A control is allowed to be destructive; it is not allowed to be destructive in ways its own words do not
+  describe** — and this one has "cannot be undone" written on it, so the loss is found afterwards. The
+  dialog names the study history, the streak and the badges, so those go, and the **artefacts and chests**
+  with them (they are what a level buys, and forty of them beside a level 1 badge is the odder outcome).
+  **`RESET_KEEPS` is what was never study history**: `active` and `deckOpts` (WHICH decks you study and what
+  your daily limits are is a choice, and the one thing a reader cannot easily rebuild), and `reading` /
+  `bookFavs` (the Library is not the flashcards — losing your place in a 124-letter book because you reset a
+  card schedule is a surprise nothing warned you about). `settings` and `user` are outside PROGRESS_FIELDS
+  entirely and are simply not touched; `user.joined` matters because the heatmap starts from it.
+  It resets **field by field rather than replacing the object**, so a PROGRESS_FIELD added later is reset by
+  default and has to be NAMED to survive — the safe direction for a control like this. The row's own
+  description and the confirmation both say what is kept. Guarded by `.claude/test-reset.js`.
+- **…and `S.settings.newPerDay` gained the back-fill every setting beside it already had** (same batch).
+  `load()` shallow-merges, so a stored `settings` replaces the default object wholesale, and
+  `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with **no fallback of their own** — so a save old
+  enough to lack the key (it predates every other back-fill line) gives `newPerDay: undefined`, which runs
+  as NaN through `deckNewRemaining` into a `slice(0, NaN)` that returns nothing. **The review then offers no
+  new cards, ever, with no error and no zero to explain it**: the banner just reads "Browse collections" for
+  good. Found by seeding a partial settings object for `test-reset.js` — which is exactly the shape an old
+  save has. **When a reader in `S.settings` has no default of its own, it needs a back-fill line.**
 - **Admin edits:** `localStorage["folio_admin_v1"]` stores edits as *deltas*, applied at startup
   by mutating the in-memory globals (`CARD_BY_ID`, `window.GLOSSARY`, the collection tree). **The editing language
   IS the site language** (the top-right switcher; there is NO in-editor language picker — it was replaced on request):
@@ -3015,13 +3354,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `showcaseIds` filters on the way OUT rather than on the way in: an artefact retired from the pool since
     it was pinned would otherwise leave a slot pointing at nothing, and a reader cannot unpin what they
     cannot see.
+    **…AND IT CARRIES THE WAY IN TO THE WHOLE COLLECTION** (`.ar-schead` → `openCollectionWin`, Aug 2026, on
+    request). Four artefacts out of however many a reader holds said nothing about the rest: on your own
+    account the inventory was three sections further down and on a friend's it was below their statistics,
+    so the four tiles read as the whole of it. It opens as an OVERLAY rather than scrolling to that section
+    — the same list wherever a showcase is rendered, including a page that carries no inventory section at
+    all — and it is built from **`reliquaryHTML`**, so the overlay and the page's own section cannot come to
+    disagree about what is collected. Two things: it is absent when nothing is owned ("See all 0" is a
+    control that does nothing), and **`wireReliquary(host, prog, own)` takes the progress it opens FOR** —
+    a friend's showcase must raise a friend's collection, and the earlier one-argument form would quietly
+    have shown the reader their own list under somebody else's name.
+  · **THE PLATE IS ONE BUILDER** (`artefactPlateHTML` + `wireArtefactPlate`, Aug 2026, on request). The frame
+    an artefact is READ in — picture, name, rarity, date, origin, the five sentences and the works behind
+    them — is built once and used by both `openArtefactWin` and the live preview in Admin → Artefacts. A
+    preview written from a second copy of the markup is a preview that drifts, and it drifts silently. The
+    overlay chrome (backdrop, ×, Escape) stays with `openArtefactWin`, since the preview has nothing to
+    close; the FOOTNOTE NUMBERING stays with `wireFootnotes`, which needs rendered nodes, so every caller
+    pairs the builder with `wireArtefactPlate` on the container it put the markup in.
   · **A GUEST'S ARTEFACTS SHOW ON THE SIGNED-OUT ACCOUNT PAGE TOO.** Everything else there is behind the
     sign-in wall because it is about an ACCOUNT; artefacts are not — a guest levels up, earns chests and
     opens them entirely on this device, so walling the inventory off would be a reward that can be won and
     never looked at. It appears only once there is something to show, and carries no showcase, that being
     the half an account is needed for.
   · **THE OVERLAYS LIVE ON `document.body`**, like the level-up popup and the image viewer, so — like them —
-    `render()` closes them (`closeChestPop`, `closeArtefactWin`, in the close list). The chest is
+    `render()` closes them (`closeChestPop`, `closeArtefactWin`, `closeCollectionWin`, in the close list). The chest is
     deliberately NOT dismissed by a backdrop click: unlike the level-up popup it holds buttons, and an
     overlay where a stray tap outside the card takes the reward away is one nobody trusts.
   `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` are in `defaultState` AND `PROGRESS_FIELDS` — an
@@ -4339,7 +4695,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE OFFER IS INLINE, NOT MODAL.** It would be one line to raise the tour over the home page on a
     first visit, and it is the wrong line: a site that seizes the screen before the reader has seen it is a
     site they leave. `tourOfferHTML()` is a card at the head of `.banners`, beside the first-run hero and
-    the `.howit` strip that are already first-run-only, shown to a reader who has **never graded a card**
+    the (now removed) `.howit` strip that are already first-run-only, shown to a reader who has **never graded a card**
     and never answered it; either answer writes the key for good, and **Settings → Study → Walkthrough** is
     the way back. It is also what keeps every Playwright test that boots a fresh reader from meeting an
     overlay it never asked about — the offer blocks nothing.
@@ -4373,11 +4729,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Escape and Skip close it (and count as answered); the **backdrop deliberately does not** — a stray tap on
   a dimmed page is the likeliest gesture there is, and losing the tour to one would be losing it silently.
   `.folio-tour` is in `swipeEnabled()`'s overlay list. Guarded by `.claude/test-tour.js`.
-- **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp` / `LIB_TOUR_KEY` / `openLibHelp`;
+- **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp` / `LIB_TOUR_KEY` / `openLibHelp` /
+  `BOOK_TOUR_KEY` / `openBookHelp`;
   `.page-help` in styles.css. Aug 2026, on request). The Atlas has had these since it shipped
   (`#atlasHelp`, `folio_atlas_tour_v1`, reopened by `#gzHelp`); the walkthrough stops short of the Atlas
-  and the Library on purpose, so **the Library now has its own** — `folio_library_tour_v1`, reopened by the
-  `#libHelpBtn` "?" beside the shelf's sort. Same card, same three ways out.
+  and the Library on purpose, so **the Library has its own — and since Aug 2026, on request, TWO**:
+  `folio_library_tour_v1` on the shelf, reopened by the `#libHelpBtn` "?" beside the sort, and
+  `folio_book_tour_v1` the first time a book is opened, reopened by `#bkHelp` at the end of the chapter
+  bar. The reasoning for the split, the two keys and the session flag beside the second is in the Library
+  bullet under "How the app is wired". Same card, same three ways out.
   **IT LIVES ON `document.body`, AND THAT IS NOT A PREFERENCE.** The Atlas's card can be
   `position:absolute` inside its own full-bleed stage; an ordinary page has no such stage, so this one must
   be fixed to the VIEWPORT — and `.page` carries `animation:pageIn … both`, which makes it the containing
@@ -4400,10 +4760,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   listener ever), because the i18n observer rewrites the quote after render for a non-English reader and a
   webfont arriving re-wraps both languages. `DQ_FADE` /
   `DQ_SIZE` in app.js must stay in step with the `.dq-*` transition durations in styles.css; a `busy` guard ignores
-  clicks mid-flight and `prefersReducedMotion()` swaps outright instead of waiting out the timings. `.dq-flip` also
-  carries **`user-select:none`** — it is a button, and clicking it twice to toggle back otherwise swept the
-  `::selection` wash across the whole quote (the "it lights up" bug); the trade is that the quote can no longer be
-  selected for copying. The original carries **`notranslate`**, or the i18n engine would translate the
+  clicks mid-flight and `prefersReducedMotion()` swaps outright instead of waiting out the timings.
+  **THE WORDS ARE SELECTABLE, and the flip is guarded in JS rather than in CSS** (Aug 2026, on request).
+  `.dq-flip` carried **`user-select:none`** from the day it shipped — it is a button, and clicking it twice
+  to toggle back swept the `::selection` wash across the whole quote (the "it lights up" bug) — and the
+  trade was that the one thing on the home page a reader might want to copy could not be. So the rule is
+  gone and `wireDailyQuote` classifies the click instead, on TWO tests, both needed: a **live selection
+  inside the figure** (a sweep or a double-click always ends in a click, and flipping there takes the very
+  words away) and a press that **MOVED past `DQ_SLOP`** (a drag across empty space beside a short line
+  selects nothing, so there is no selection left to test). It is the same classification the book's own
+  tap-to-turn makes. The original carries **`notranslate`**, or the i18n engine would translate the
   one thing on the page that must stay as written. A quote has an `o` only where the original wording is documented —
   Bacon wrote in English, and Meditations VII.49's exact Greek could not be verified, so both render exactly as before
   with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**.
@@ -4439,10 +4805,42 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is the cost that is no longer paid anywhere: the mini globe was the **only caller of the `world` bundle outside
   the Atlas**, so the home page no longer fetches ~1.6 MB of borders at idle to turn an ornament. The
   Card-of-the-day PSEUDO-ENTRY (`COTD_ENTRY`, `S.cotd`) survives untouched — a reader who added cards that way
-  still has them in the review, and the entry retires itself when its list empties. **Until the first card is ever graded**
+  still has them in the review, and the entry retires itself when its list empties.
+  **THE `.howit` STRIP IS GONE TOO** (Aug 2026, on request), and `.hi-step` / `.hi-num` / `.hi-body` with it:
+  the three-beat first-run explanation of the method that sat under the review banner — study a card, grade
+  yourself, it comes back. The WALKTHROUGH offered directly above where it stood says all three properly,
+  with the forgetting curve behind them and a real card to look at, so the strip was a first visit spending
+  its attention twice on the same lesson. Its markup and its CSS are deleted rather than hidden at a
+  breakpoint: the reasoning applies at every width, and the phone/desktop divergence is what this page has
+  spent Aug 2026 removing. `TOUR_STEPS`' second step no longer names it as a target and falls to `.banners`.
+  **Until the first card is ever graded**
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
-  xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
+  xp bar, stats, review-order toggle and active-deck list appear only after that.
+  **A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY** (`fresh`, Aug 2026, on a bug
+  report: "I am now always forced into the first-time visitor view, and can no longer see my Daily study
+  active decks" — from a reader who had used **Settings → Reset progress**). `fresh` was `S.cards` being
+  empty, which is true of a genuine first-timer and equally true of somebody who has been here for months
+  and has just cleared their schedule on purpose. And it does not merely change the banner's WORDING: it
+  also **hides the list of added decks** (`reviewGroup`), so the one thing that reader wanted back was the
+  one thing taken off the page. It is `Object.keys(S.cards).length === 0 && activeCardIds().length === 0`
+  now, which needs **no new flag**, because a first-timer's shipped `S.active` is a single deck of the
+  **coming-soon** China collection and `activeCardIds` filters that out through `availableCardIdSet` — so
+  they still get the hero, exactly as before. Anyone with a studiable deck in their review gets the
+  ordinary banner and their decks, whether they arrived there by resetting or by adding a collection before
+  turning a single card over; that second case is an improvement rather than a side effect, since somebody
+  who has just pressed "+ Add decks" is better served by their own pile and a Start button than by being
+  told again what Folio is for. **A state that is empty for a REASON is not the same as a state that has
+  never been used, and a first-run screen keyed on emptiness alone cannot tell them apart.** Guarded by
+  `.claude/test-reset.js`, in both directions.
+  **The hero offers ONE way in, and its title breaks where it is written to** (Aug 2026, on request). The
+  quiet "or browse the collections" beside the button is gone and `.hero-alt` with it — the collections are
+  one press further on from wherever that button lands, and the `.rv-lip` under the review group is the route
+  the home page advertises, so a second and quieter link in the same row only asked a first-time reader to
+  choose between two things they cannot yet tell apart. The `#hero-browse` branch in the banner's own click
+  handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
+  leaving the two halves to the wrap: it is a promise and a price, and which line each falls on should not
+  be a function of the column width. The banner shows a **🔥 day-streak
   chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a MARK in the top-right corner, and
   it comes in TWO SHAPES** (`doneMarkHTML` in `PAGES.home`; Aug 2026). The tile used to FILL with its colour
   once played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought
@@ -4540,7 +4938,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     already follows for the collections. The `#mission` ROUTE is untouched and must stay so: every link ever
     shared points at it, and `setActiveTab` already handles a route with no tab (nothing lights). Its
     `20px 0 16px` padding is the whole of its separation
-    from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid).
+    from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid),
+    and **above 640px the top of it goes to 48px** (Aug 2026, on request): those figures are a PHONE's, where
+    the page ending a thumb's width below the last tile is right and more air there is only scrolling, and a
+    wide window has the room to let the last line of the page read plainly as the end of it. It is
+    `padding-top` rather than a margin so the space stays part of the button's own target.
     Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the cards most AKIN
@@ -4581,6 +4983,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   gate as its first act** — `challenge`, `truefalse`, `whosaid`, `chrono`, `thread`, and `findit`, where it
   goes in `PAGES.findit` rather than inside `PAGES.map` (that is the whole Atlas and knows nothing about
   daily games, and it is the only route into game mode). It renders an `emptyPlacard` naming today's score.
+  **ITS MARK IS THE GAME'S OWN TILE ICON, NOT A HAN GLYPH** (Aug 2026, on a report: "the 'Played today'
+  screen should not contain a Chinese character"). `GAME_NAMES` carried 选 / 真 / 言 / 序 / 紐 / 地 — the
+  glyphs the game TILES wore back when Folio was a China deck, and which the tiles gave up for the
+  line-drawn `ICON` marks when the site stopped being one. This placard kept its copy, and because it is
+  what a reader meets EVERY day once they have played it was the last place on the site regularly showing
+  a Chinese character to a reader of an English page — one that says nothing whatever about Timeline or
+  Find it. **`ICON` therefore moved out of `PAGES.home` to module scope** rather than being copied: two
+  tables of the same SVGs is how a tile and its placard come to disagree about which mark a game wears.
+  `.placard .big` sizes an inline SVG to the same 54px square a character occupied and **thins the stroke
+  from the tiles' 2 to 1.5** — at this size a 24-viewBox stroke of 2 draws 4.5px, which reads as a logo.
+  The OTHER placards still carry Han glyphs (`emptyPlacard`'s "Coming soon" / "Not enough cards" branches
+  inside the games); they are states a reader effectively never reaches, and they were deliberately left
+  rather than swept up with this — say so if one is ever seen.
   **TWO GAMES HAD GROWN THEIR OWN LOCAL VERSION OF THIS RULE AND BOTH ARE NOW RETIRED**, which is the shape
   of a rule that wants stating once rather than six times: Timeline recorded the FIRST check and ignored
   later ones (it now takes ONE check — `.chrono-done` on the list stops the grips and the arrows, in JS as
@@ -4708,6 +5123,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   had to be restyled; `.deck-prog .xp-lvl` takes the quiet ink, a caption not being a level. The same pair
   is used by the community-deck rows and by the account page's "Collection progress" section, so the three
   places a collection's standing is shown cannot come to disagree about what they are showing.
+- **THE DESKTOP'S TOP BAR NAMES ITS TABS AT ALL TIMES** (`.tab .tab-label`, Aug 2026, on request). They were
+  icon-only, the name unfolding beside the icon on hover / keyboard focus and staying open on the page
+  currently shown — so finding out what the four icons were meant pointing at each of them in turn, and the
+  one name on screen belonged to the page the reader was already on, which is the one they least needed
+  told. There are four destinations and the bar has room for all four (measured: 0px of overflow at 1280px,
+  and every label rendering at its own `scrollWidth`), so the name is simply there. `.active` still says
+  which page you are on, in the indigo and the underline. The collapse went with it — no `max-width`, no
+  `opacity`, no width transition, so nothing animates — and **the `.ink` underline is unchanged**, since it
+  was already positioned from `--ink-start` (padding + icon + the open label's margin) rather than from the
+  animation. The phone's own rule still overrides `margin-inline-start` and still needs its extra `.tab` for
+  specificity; the two bars now differ only in where the name sits relative to the icon (beside, against
+  under). One cost, stated: an inactive label is `--ink-faint`, which is 3.25:1 and below the bar — it is one
+  of the quiet tokens `body.hc` re-tones, exactly as the version line and the games heading are, and
+  `test-a11y.js` covers it with no change of its own.
 - **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`) and **the top
   bar is hidden outright** — see the next bullet.
 - **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
@@ -4741,12 +5170,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   8.5px — `test-layout.js` asserts each label's rendered width against its own `scrollWidth`, so a longer
   name added later fails there rather than silently clipping.
   **The label rule is written `.tabbar .tab .tab-label`, and the descendant `.tab` is SPECIFICITY, not
-  decoration** (Aug 2026, on a bug report): the top bar's `.tab:hover .tab-label` / `.tab.active .tab-label`
-  open the label beside the icon with `margin-inline-start:8px`, and at two classes against three this rule
-  lost to them whatever the source order — so the SELECTED tab, and only that one, drew its name 4px right
+  decoration** (Aug 2026, on a bug report): the top bar's own rule sets `margin-inline-start:8px`, and at
+  two classes against three this rule
+  lost to it whatever the source order — so the SELECTED tab, and only that one, drew its name 4px right
   of the icon it sits under. One tab misaligned out of five looks like a design, not a bug, which is why
   `test-layout.js` now measures every tab's icon centre against its label's, active included.
-  Every tab is labelled here (the top bar's labels unfold on hover, and a phone has no hover). Hidden while
+  Every tab is labelled here, under its icon; the TOP bar names its tabs too, beside theirs. Hidden while
   `body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
   **The admin area's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
   than a nav tab. Called with a card id from the study page — it opens THAT card in the editor — and with
@@ -4817,6 +5246,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     lands, and **saves only once it has come to rest** — where it landed, not where it left.
     `.wb-flinging` joins `.wb-dragging` in killing the `bottom` transition, which would otherwise fight the
     fling frame for frame.
+  · **…AND IT SNAPS HOME** (`WB_SNAP_HOME` / `WB_HOME_MS` / `wbDefaultPos` / `wbNearHome` / `wbGoHome` /
+    `wbStopHome`, `.wb-homing`; Aug 2026, on request). Let go within 30px of the corner it started in and the
+    marker slides the rest of the way and **forgets the position entirely**, so it is back to the pixel in
+    line with the zoom column, the timeline bar and whatever else that corner is shared with. Without it
+    "put it back where it was" is a job no reader can do by hand, because the default is a stylesheet corner
+    that MOVES — 18px normally, 108 while grading, 25 on the Atlas, different again on a phone — so a drag
+    landing one pixel out leaves a stored position that no longer follows any of those rules, and the
+    misalignment turns up later, on a page the reader was not looking at when they moved it. Four things:
+    · **THE DEFAULT IS MEASURED, NEVER WRITTEN DOWN** — the inline right/bottom are cleared, the rect is
+      read, and they are put straight back. A table of the CSS corners here would be a second copy of the
+      stylesheet, out of date the first time one of those offsets moved, and wrong in exactly the case this
+      exists to serve.
+    · **…AND THE TRANSITION HAS TO GO OFF FOR THAT MEASUREMENT.** `.wb-tools` carries `transition:bottom
+      .34s` for the grade bar's sake, so clearing the inline `bottom` STARTS an animation towards the
+      stylesheet's value rather than arriving at it, and the rect read on the same tick is still the OLD
+      bottom. Left in, the probe returns the marker's own current position as its "default": the snap test
+      becomes right-axis-only and the slide goes to a place the stylesheet never chose. It did, for an hour,
+      and it is invisible from the outside — the marker still slides and still ends up right, because the
+      timer then clears the position and the CSS takes over. Caught by reading the inline styles mid-slide.
+    · **CLEARING THE STORED POSITION IS THE POINT, not moving it to the same numbers.** A marker parked at
+      the default's coordinates still HAS a position, so it would sit still while `body.grading` lifted the
+      corner out from under it. The slide animates the inline values to the default and then drops them.
+    · **INTERRUPTING THE SLIDE DOES NOT CANCEL THE GOING-HOME** (`wbStopHome`): the marker was released at
+      the corner and that is where it belongs, so a press stops the ANIMATION and the position is forgotten
+      there and then. Cancelling instead would leave the marker sitting at coordinates localStorage does not
+      have — memory, disk and the pixels have to agree at every instant.
+    Gated on `prefersReducedMotion()` (there the position is simply cleared), and `.wb-homing` transitions
+    BOTH axes for its own 200ms, the base rule transitioning `bottom` alone — keep it in step with
+    `WB_HOME_MS`.
   · **The handle is the toggle button itself** — there is nothing else to grab — so every press has to be
     classified: under `WB_DRAG_SLOP` (5px) it stays a click and toggles drawing, past it the drag takes over
     and the click that pointerup fires afterwards is swallowed by the `wbDragged` flag, which the toggle's own
@@ -5021,7 +5479,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   must clear both its left neighbour and the right anchor; it re-runs from `resize()`, and it has to unhide
   everything before measuring because a hidden element has no width.
   A **plate-title cartouche** (`#mapCartouche`, top-centre, hidden ≤640px, updated by `paintYear`) shows "THE WORLD ·
-  1938" / "THE WORLD TODAY". The disk gets **limb shading + an atmosphere halo** as **two DOM layers, NOT canvas
+  1938" for a past year and simply **"TODAY"** for the present one (Aug 2026, on request — it was "THE WORLD
+  TODAY": every other plate is "THE WORLD · <year>", so on this one the two words before the date were the
+  only part carrying no information, the globe under it being the world either way). The disk gets **limb shading + an atmosphere halo** as **two DOM layers, NOT canvas
   gradients**: `#globeHalo` (below the canvas) + `#globeShade` (above it, `z-index:1`), radial-gradient divs sized to
   the disk by `updateLimbDom()` each draw (style-update only, keyed so it no-ops unless the disk moved) and tinted by
   `paintLimbDom()` (colours `limbA/limbB/haloIn/haloOut` from `readColors`; re-applied by the theme observer). They
@@ -5728,6 +6188,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A picture is never saved uncredited** — the same rule `add-card.js`, `add-glossary.js` and the editors'
     media gate enforce, and for the same reason: the editors save on every keystroke, so a URL pasted in and
     forgotten about would otherwise ship credited to nobody.
+  · **THE FORM SHOWS THE READER'S PLATE, LIVE** (Aug 2026, on request), drawn by `artefactPlateHTML` — the
+    reader's own builder, not a second rendering of the same fields — and repainted on every keystroke.
+    Three things hold it up. It is built from the **FORM, never from the store**, so it shows the edit in
+    progress rather than the last thing saved, which is the difference between a preview and a receipt; the
+    description goes through `sanitizeHTML` on the way in exactly as `artefactSanitize` would, so a typo in
+    a tag looks here the way it will look to a reader. **`wireArtefactPlate` runs on every repaint**, or the
+    citations render as an unnumbered list under blank superscripts. And the listeners are bound with
+    **`change` as well as `input`**, because the rarity is a `<select>` — the one field that would silently
+    stop updating on an `input`-only preview.
+  · **The citation bar is a refusal here too** — a save under `ARTEFACT_SRC_TARGET`, or with a citation that
+    carries no URL, is turned away with a reason, and a counter beside the sources box reports both the
+    count and how many markers the description carries.
   `serializeArtefacts` writes the file's whole head comment out rather than preserving what is on disk: this
   is the only copy of it once the file has been round-tripped, and a serializer that drops the documentation
   is how a file stops explaining itself. It is wired into `autoSaveFiles`, `adminExport` (including its
@@ -7023,7 +7495,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-nine committed regression tests** (in `.claude/`, not loaded by the site): twenty-four drive a real browser with
+- **Thirty committed regression tests** (in `.claude/`, not loaded by the site): twenty-five drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
   `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -7212,14 +7684,20 @@ dead code (never rendered).
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
     `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
+    `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` /
     the ink layer's pass-through /
     `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on `.admin-list-items` /
     `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
-    catch — it has to report, not abort the file. Verified against five deliberately reintroduced
+    catch — it has to report, not abort the file. Verified against six deliberately reintroduced
     regressions (a no-op `layoutTicks`, the chip's source-order bug, the collapsing labels, a `render()`
-    that forgets `closeCongrats`, and the tab label's two-class rule); each was caught.
+    that forgets `closeCongrats`, the tab label's two-class rule, and the marker's transitioned default
+    probe); each was caught. **That last one is worth knowing before adding to the marker section**: the
+    settled position could NOT see it — clearing the stored position afterwards hands the marker to the
+    stylesheet and it ends up right whatever the slide aimed at — so the assertion had to read the inline
+    right/bottom MID-FLIGHT. A first cut asserted the finished position and passed with the bug
+    reintroduced, which is a test that would have shipped the fault back the next time somebody touched it.
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js`: that a
     register full of historical territories can never push the country figure past its own total, that a
@@ -7333,8 +7811,8 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
-  · `node .claude/test-tour.js` — the first visitor's walkthrough and the two pages that explain themselves
-    (Aug 2026), 52 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+  · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
+    (Aug 2026), 61 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
     **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
     obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
@@ -7348,9 +7826,13 @@ dead code (never rendered).
     demo grades carry four DIFFERENT intervals from the real scheduler, which a hard-coded illustration
     would hide for ever; either answer retires the offer and a second visit proves it; a reader with study
     history is not offered a beginners' tour; and the coach marks are shown once, reopen from their "?", and
-    cannot outlive their page. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` /
-    `closePageHelp`, `tourOfferHTML`'s place on the home page, the Atlas or Library help cards, or
-    `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
+    cannot outlive their page. **THE LIBRARY'S SPLIT IS ASSERTED IN BOTH DIRECTIONS** (Aug 2026) — the shelf
+    card carries the search and the reading position and NOT the marker, the book card carries the marker,
+    the chapters and the facing original, and the two are remembered under separate keys — because a tip
+    filed in the wrong half is invisible from either side on its own, and the half that fires on opening a
+    book is the one nothing else in the suite would ever see. **Re-run after touching the `THE GUIDED TOUR`
+    block, `pageHelp` / `closePageHelp` / `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `tourOfferHTML`'s place on the
+    home page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
     `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
     figures (read them structurally); and a step-change reads mid-transition, so anything measured during
     one has to be measured again after it settles.
@@ -7380,8 +7862,22 @@ dead code (never rendered).
     where the numeral was, a studied/total bar where the XP bar was, and no numeral or `.lib-cap` left
     anywhere. **And the deck cap is gone**: a reader who has studied nothing may add every live collection,
     which is the one assertion that would catch a half-removal, the cap having lived in three places. Plus
-    the Admin tab, including its ≤860px panel cap and the never-save-a-picture-uncredited rule. **Re-run
-    after touching the `THE RELIQUARY` block, `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
+    the Admin tab, including its ≤860px panel cap and the never-save-a-picture-uncredited rule.
+    **THE CITATION APPARATUS (Aug 2026)** is asserted in two places and two ways. On the PAGE: the plate
+    carries the fold, its markers are numbered by `wireFootnotes` rather than left blank, and it renders
+    OPEN as a card's does — a plate looks identical whether its markers resolve or not, so only the numbers
+    prove the join. In the SHIPPED FILE: **the shape is an invariant and the coverage is a pass in progress**,
+    and the two are checked differently on purpose — anything cited must be cited properly (a URL on every
+    citation, no marker past the end of its list, no work nothing points at), while coverage is REPORTED,
+    exactly as the card and glossary passes were run, because a suite that goes red for a documented backlog
+    is a suite people learn to ignore. The bar is enforced where it bites: `add-artefacts.js` and the
+    editor's Save. **The admin PREVIEW** is asserted to be the reader's own plate, to follow the FORM rather
+    than the store, and to update on the rarity `<select>`, which fires `change` and not `input`.
+    **The showcase's "See all" is NOT here** — the signed-out account page has no showcase, so it lives in
+    `test-account-page.js`, which has the session; what this file asserts is the other half, that a guest is
+    shown no orphan control for a section they have not got. **Re-run
+    after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
+    `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
@@ -7396,6 +7892,21 @@ dead code (never rendered).
     one that works — and, the assertion most worth having, that re-sorting KEEPS a filter the reader has
     typed, which the obvious two-handler implementation silently throws away. **Re-run after touching
     `makePageGhost` / `.page-ghost` / `PAGES.glossary` / `GLOSS_SORTS` / `glossSeen`.**
+  · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page thinks
+    you are** (21 assertions, Aug 2026). Both halves fail silently and one of them cannot be undone. It
+    seeds a long-standing reader — study history, two collections added with a per-deck limit, a place in a
+    book, a starred book, badges, a streak, artefacts, a non-default theme, text size, sound, book sort and
+    day boundary — presses the real control, types the real confirmation, and then reads the SAVE back:
+    everything the dialog names is gone and **every one of `RESET_KEEPS` survives**. That list is exactly
+    the kind a later edit shortens by accident, and dropping a name from it loses a reader's decks in
+    silence — no other test on the shelf would see it. The other half is `fresh`, asserted in **both**
+    directions, which is the point: a genuine first-timer must still get the hero (so the fix cannot be
+    "never show it"), a reader with a studiable deck must not — before studying as well as after a reset —
+    and none of it may be undone by a reload. **Re-run after touching `resetProgress` / `RESET_KEEPS` /
+    `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.** Note the
+    house gotcha it is built around: a hash-only `goto` is a same-document navigation, so anything written
+    into localStorage behind the app's back has to be read back through a real `reload()` or the next
+    `save()` simply overwrites it — hence `seedHome` reloads and `home` does not.
   · `node .claude/test-library.js` — the Library (135 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
@@ -7436,8 +7947,16 @@ dead code (never rendered).
     `slideChapter` / `BOOK_SORTS` / `sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` /
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
+    `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `extractCaput` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
+    **A change to the CAPUT reader likewise has no sibling to diff against** — The City of God is the
+    only book on that path — so what stands in for it is the shipped-data sweep: 661 marks a side,
+    both columns a clean 1..N in every one of the 22 books, tag balance on both, every footnote
+    marker resolving and every note referenced, and **no unconverted `CAPUT` left in the Latin except
+    the one bracketed resumption in Book I**, which is Migne's own and is deliberately left as
+    printed. That last assertion is the one that would catch a costume the four the pass knows about
+    do not cover, and it is the fault no other check here can see.
     **A change to the SHLOKA reader has no sibling to diff against** — the Gita is the only book on
     that path — so what stands in for the byte-for-byte check is the shipped-data sweep the entry
     above describes: verse counts per discourse against the standard chapter lengths, the two columns
@@ -7490,8 +8009,12 @@ dead code (never rendered).
     them, that the glossary meter is a link on your own record, and that the dashboard's People panel fills
     from the database and still says in prose what RLS will not let it count. **The mock sends
     `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
-    mock that forgets it reports a connection failure that is really a CORS one. **Re-run after touching
-    `acctSelfView` / `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
+    mock that forgets it reports a connection failure that is really a CORS one. It also owns the **Profile
+    showcase's "See all" button** (Aug 2026) — absent when the reader holds nothing, labelled with how many
+    they DO hold, opening the collection and closing on Escape — because the signed-out account page carries
+    no showcase at all and `test-artefacts.js` therefore cannot reach one. **Re-run after touching
+    `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
+    `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve and community-deck **card types** (Aug 2026), 110
     assertions in three parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
     through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part

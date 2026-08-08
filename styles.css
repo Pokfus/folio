@@ -203,14 +203,14 @@ body[data-theme="folio"] .topbar::after{
   transition:color .18s var(--ease), background .18s var(--ease);
 }
 .tab .tab-ic{width:16px; height:16px; flex:none;}
-/* icon-only tabs: the label collapses shut, unfolding beside the icon on hover / keyboard focus,
-   and staying open on the page currently shown (.active) */
+/* THE LABEL IS ALWAYS OPEN (Aug 2026, on request). These tabs used to be icon-only, the name unfolding
+   beside the icon on hover / keyboard focus and staying open on the page currently shown — which meant a
+   reader had to point at four icons to find out what they were, and the one name on screen belonged to the
+   page they were already on. There are only four destinations and the bar has room for all four, so the
+   name is simply there; `.active` still says which page you are on, in the indigo and the underline.
+   The colour transition is kept and the width one goes with the collapse: nothing animates any more. */
 .tab .tab-label{
-  display:block; max-width:0; opacity:0; overflow:hidden; white-space:nowrap; margin-inline-start:0;
-  transition:max-width .28s var(--ease), opacity .18s var(--ease), margin-inline-start .28s var(--ease);
-}
-.tab:hover .tab-label, .tab:focus-visible .tab-label, .tab.active .tab-label{
-  max-width:200px; opacity:1; margin-inline-start:8px;
+  display:block; overflow:hidden; white-space:nowrap; margin-inline-start:8px;
 }
 .tab:hover{color:var(--ink-soft); background:color-mix(in srgb, var(--ink) 5%, transparent);}
 .tab.active{color:var(--indigo);}
@@ -628,8 +628,9 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .hero-eyebrow{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.2em; text-transform:uppercase; color:var(--indigo); display:block; margin-bottom:10px;}
 .banner.hero .review-title{font-size:calc(34px * var(--fs)); letter-spacing:-.015em;}
 .banner.hero .desc{font-size:calc(16px * var(--fs)); max-width:56ch;}
-.hero-alt{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px; text-decoration-color:color-mix(in srgb,var(--ink) 30%, transparent);}
-.hero-alt:hover{color:var(--ink);}
+/* `.hero-alt` — the quiet "or browse the collections" link beside the hero's button — is GONE (Aug 2026,
+   on request), with the markup that carried it. The hero offers ONE way in; the collections are reached
+   from the lip under the review group, which is the route the home page advertises. */
 
 /* ---------- home: the way to the collections ----------
    A whole banner of its own sat here until Aug 2026 — a second full-width block spending a heading and a
@@ -660,6 +661,11 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
   padding:20px 0 16px; text-align:center;
   font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
 }
+/* …and on a desktop it stands further off the game grid above it (Aug 2026, on request). The padding is a
+   PHONE figure — at 390px the page ends a thumb's width below the last tile and more air there is just
+   scrolling — where a wide window has room to let the last line of the page be plainly the end of it. It is
+   `padding-top` rather than a margin so it stays part of the button's own target. */
+@media (min-width:641px){ .home-about{padding-top:48px;} }
 .home-about:hover{color:var(--ink-soft);}
 .home-about:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:6px;}
 
@@ -684,17 +690,15 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
   font-weight:600; color:var(--ink-faint);
 }
 
-/* ---------- home: how-it-works strip (until the first card is graded) ---------- */
-.howit{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
-.hi-step{display:flex; gap:13px; align-items:flex-start; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:15px 17px; box-shadow:var(--shadow-sm);}
-.hi-num{flex:none; width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:99px; background:color-mix(in srgb,var(--indigo) 12%, transparent); color:var(--indigo); font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs));}
-.hi-body{display:flex; flex-direction:column; gap:3px; min-width:0;}
-.hi-body b{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
-.hi-body span{font-size:calc(12.5px * var(--fs)); line-height:1.45; color:var(--ink-soft);}
+/* ---------- home: how-it-works strip — REMOVED (Aug 2026, on request) ----------
+   `.howit` / `.hi-step` / `.hi-num` / `.hi-body` were the three-beat first-run strip under the review
+   banner: study a card, grade yourself, it comes back. The walkthrough offered directly above it now
+   says all three properly, with the forgetting curve and a real card, so the strip was a first visit
+   spending its attention twice. Its markup went with these rules — see PAGES.home. */
 
 /* ---------- home: the walkthrough offer (until it is answered, or the first card is graded) ---------- */
-/* It sits with .howit and the first-run hero, and for the same reason: a reader who has already studied
-   knows what the site is. Either button retires it — see tourOfferHTML in app.js. */
+/* It sits with the first-run hero, and for the same reason: a reader who has already studied knows what
+   the site is. Either button retires it — see tourOfferHTML in app.js. */
 .tour-offer{
   display:flex; align-items:center; gap:15px; flex-wrap:wrap;
   background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 17px;
@@ -1236,6 +1240,12 @@ body.grading .stage{padding-bottom:150px;}
   padding:46px 34px; text-align:center; max-width:560px; margin:10px auto;
 }
 .placard .big{font-family:var(--han); font-size:calc(54px * var(--fs)); color:var(--indigo); opacity:.85; line-height:1; margin-bottom:6px;}
+/* A placard's mark may be an inline SVG rather than a character — the daily "Played today" screen takes
+   the game's own tile icon, so a reader is answered in the hand they pressed. It is sized to the same
+   54px square the character occupies, and takes the rule's --indigo through currentColor. The stroke is
+   thinned from the tiles' 2: at this size a 24-viewBox stroke of 2 draws 4.5px, which reads as a logo
+   rather than as a mark. */
+.placard .big svg{display:block; width:calc(54px * var(--fs)); height:calc(54px * var(--fs)); margin:0 auto; stroke-width:1.5;}
 .placard h2{font-family:var(--display); font-weight:600; font-size:calc(26px * var(--fs)); margin:10px 0 8px;}
 .placard p{color:var(--ink-soft); margin:0 auto 20px; max-width:42ch; font-size:calc(15.5px * var(--fs));}
 .placard .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
@@ -1829,9 +1839,13 @@ body.grading .stage{padding-bottom:150px;}
    face: no mono and no uppercasing in the caption (which mangles the accents on a Greek name), and no
    synthetic oblique on Chinese — the body serif chain ends in generic `serif`, so CJK falls through to
    the reader's own system font, as everywhere else on the site. */
-/* the figure is a button, so it must not select as text: clicking it twice to toggle back would
-   otherwise sweep the ::selection wash across the whole quote. */
-.daily-quote.dq-flip{cursor:pointer; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent;}
+/* THE WORDS ARE SELECTABLE (Aug 2026, on request). This carried `user-select:none` from the day the flip
+   shipped, on the grounds that the figure is a button and clicking it twice to toggle back would sweep the
+   ::selection wash across the whole quote — which is true, and the wrong trade: a quotation is the one thing
+   on the home page a reader might want to copy, and the site's own read-aloud menu is built on selecting
+   prose. The flip is guarded in JS instead (wireDailyQuote): a click that ends a selection, or that ends a
+   drag, does not turn the page over. */
+.daily-quote.dq-flip{cursor:pointer; -webkit-tap-highlight-color:transparent;}
 .daily-quote.dq-flip:focus{outline:none;}
 .daily-quote.dq-flip:focus-visible{outline:2px solid var(--zh); outline-offset:8px; border-radius:4px;}
 /* The two languages dissolve into each other rather than cutting: the words on screen fade out and
@@ -2194,6 +2208,10 @@ body.hc:not(.night){
 
 /* ---- the profile showcase: four slots, filled or empty ---- */
 .showcase{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:10px;}
+/* the way in to the whole collection. It sits ABOVE the four slots and to the right, where a "see the
+   rest of this" control belongs — under them it would read as a caption on the fourth tile. */
+.ar-schead{display:flex; justify-content:flex-end; margin-bottom:8px;}
+.ar-all{font-size:calc(12.5px * var(--fs));}
 .ar-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin:6px 2px 16px;}
 /* an empty slot is DRAWN rather than left out: four dashed frames say "four of these can go here", where
    two tiles and a gap say nothing at all */
@@ -2240,11 +2258,39 @@ body.hc:not(.night){
 .ar-wdesc b{color:var(--ink);}
 .ar-wcredit{font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin-bottom:10px;}
 .ar-pinbtn{font-size:calc(12.5px * var(--fs));}
+
+/* ---- the whole collection, raised from the showcase's "See all" ----
+   It reuses `.artefact-pop`'s backdrop and the inventory's own grid, so the list in here is byte-for-byte
+   the one the account page's Reliquary section renders. Only the frame is new. */
+.ar-collwin{position:relative; width:min(760px,96vw); max-height:min(88vh,820px); overflow-y:auto; padding:22px 24px; background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:0 26px 64px rgba(0,0,0,.42);}
+.ar-collhead{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); margin:0 0 14px;}
+/* the inventory's own bottom margin is for a page, not for the foot of a dialog */
+.ar-collbody .reliquary{margin-bottom:0;}
+
+/* ---- the plate, previewed live in Admin → Artefacts ----
+   The editor's column is narrow and the plate is a two-column frame, so the preview stacks and the
+   picture is capped; nothing else about it is restyled, which is the point of previewing it at all. */
+.a-edit{display:grid; gap:16px; margin-bottom:14px;}
+.a-preview{border:1px solid var(--rule); border-radius:12px; background:var(--paper-2); padding:12px;}
+.a-prevhead{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px;}
+.ar-win.ar-inline{width:auto; max-height:none; box-shadow:none; overflow:visible;}
+@media (min-width:900px){
+  /* wide enough for the two to sit side by side — the form on the left, what it makes on the right */
+  .a-edit{grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start;}
+  .a-edit .a-preview{order:2; position:sticky; top:8px;}
+  .a-edit .q-form{order:1;}
+}
+@media (max-width:899px){
+  .ar-win.ar-inline{flex-direction:column; gap:14px;}
+  .ar-win.ar-inline .ar-winart{width:100%; max-width:220px; align-self:center;}
+}
+
 @media (max-width:640px){
   .ar-win{flex-direction:column; gap:14px; padding:20px 18px;}
   .ar-winart{width:100%; max-width:260px; align-self:center;}
   .showcase{grid-template-columns:repeat(2,1fr);}
   .ar-grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));}
+  .ar-collwin{padding:18px 16px;}
 }
 
 /* ---- the chest ----
@@ -2840,6 +2886,11 @@ body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in 
 /* the bottom transition would lag a finger by a third of a second while dragging — and would fight the
    fling frame for frame afterwards, since that one moves the marker itself, 60 times a second */
 .wb-tools.wb-dragging, .wb-tools.wb-flinging{transition:none;}
+/* …and the slide back to the default corner needs BOTH axes for its own 200ms (see wbGoHome in app.js:
+   the base rule above transitions `bottom` alone, which would slide the marker down into place and jump
+   it sideways). Two classes, so it outranks the base rule wherever it lands in the file. Keep the
+   duration in step with WB_HOME_MS. */
+.wb-tools.wb-homing{transition:right .2s var(--ease), bottom .2s var(--ease);}
 body.grading .wb-tools{bottom:108px;}
 .wb-tools.on-atlas{bottom:25px; right:16px;}   /* far bottom-right, vertically centred inside the timeline bar */
 .wb-panel{
@@ -3378,16 +3429,16 @@ button.game-tile .gt-glyph{opacity:.14;}
     color:var(--ink-faint); position:relative;
   }
   .tabbar .tab-ic{width:20px; height:20px; opacity:1;}
-  /* the top bar's labels unfold from the icon on hover and stay open only on the active tab; down here
-     every tab is named all the time, which is the point of moving them (a row of bare icons was the
-     problem, and there is no hover on a phone to unfold them with). At five or six to a row a cell is
-     ~65–78px wide, so the label may not wrap — a second line would push the icons off centre. */
-  /* the descendant `.tab` in the selector is SPECIFICITY, not decoration: the top bar's
-     `.tab:hover .tab-label` / `.tab.active .tab-label` rules carry three classes and open the label with
-     `margin-inline-start:8px`. At two classes this rule lost to them whatever the source order, so the
+  /* Every tab is named all the time here, which is the point of moving them: a row of bare icons was the
+     problem, and there is no hover on a phone to unfold one with. (The top bar names its tabs outright too
+     since Aug 2026 — it used to unfold them from the icon — but it sets the name BESIDE the icon, where
+     these sit UNDER it.) At five or six to a row a cell is ~65–78px wide, so the label may not wrap: a
+     second line would push the icons off centre.
+     The descendant `.tab` in the selector is SPECIFICITY, not decoration: the top bar's own rule sets
+     `margin-inline-start:8px`, and at two classes this one lost to it whatever the source order, so the
      SELECTED tab's name sat 8px right of the icon it belongs under — the label is centred in the cell here,
      and any inline margin breaks that. */
-  .tabbar .tab .tab-label{display:block; max-width:100%; opacity:1; margin-inline-start:0; margin-inline-end:0; transition:none;
+  .tabbar .tab .tab-label{display:block; max-width:100%; margin-inline-start:0; margin-inline-end:0;
     font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.03em; text-transform:uppercase; line-height:1;
     text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .tabbar .tab.active{color:var(--indigo);}
@@ -3507,7 +3558,6 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-title{font-size:calc(12.5px * var(--fs)); line-height:1.15;}   /* one line per tile — see the padding note above */
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
-  .howit{grid-template-columns:1fr; gap:10px;}
   /* the offer's two controls go under its prose rather than beside it — at 390px "Take the tour" and
      "No thanks" on the same line as the sentence leave the sentence four words wide */
   .to-acts{flex:1 1 100%; justify-content:flex-start;}
@@ -5197,31 +5247,50 @@ body.night .rv-star.on{color:#E6C765;}
    colour (bookColor in app.js), so two books by one hand wash the same, exactly as their spines do.
    Night wants a weaker mix than daylight, for the reason the collection banner's pair does: the hue sits
    on a dark card and reads twice as strongly there. */
+/* THE BANNER PAINTS FROM `--bk-accent`, NOT FROM `--tile` DIRECTLY, AND ON A DARK PAPER THAT IS A
+   LIGHTER COLOUR (Aug 2026, on a bug report: "in night mode some of the books' authors and 'Start
+   reading' are too dark to read on the dark background").
+   The author colours in BOOK_AUTHOR_COLOR were chosen inside a deliberately dark lightness band and
+   measured against the SIXTEEN LIGHT papers alone — every one of them reads 1.5–3.0 on the dark ones,
+   which their own notes in app.js say outright. That is right for a SPINE seen against white and wrong
+   the moment the same value is set as text on `--card` at #26262C: the Book of Rites' dark plum reads
+   1.08:1 there, which is not low contrast but no contrast at all, and the spine that identifies the book
+   disappears with the words. So night lightens the accent for the whole banner rather than re-toning six
+   rules by hand, and it is done as a MIX rather than a second table of colours, so a book added later is
+   covered by having a colour at all.
+   45% is measured, not guessed: it is the strongest mix at which the darkest swatch on the shelf still
+   clears 4.5:1 on the lightest night `--card` (#460030 → 5.0:1; the whole shelf lands 5.0–6.5; at 50% it
+   falls to 4.3 and misses). It keeps each hue and only takes chroma, so two books by one hand still wash,
+   spine and read alike — which is the whole point of the colour.
+   `--tile` is set INLINE on the element (bookColor in app.js), so it cannot be overridden from here; a
+   derived property can, which is why the indirection exists at all. */
 .book-tile{
+  --bk-accent:var(--tile, var(--indigo));
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, transparent), transparent 64%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 26%, transparent), transparent 64%) var(--card);
   border:1px solid var(--rule); border-radius:14px;
   box-shadow:var(--shadow-sm); cursor:pointer; font:inherit; color:inherit;
   transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease), background-color .14s var(--ease);
 }
 body.night .book-tile{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 19%, transparent), transparent 64%) var(--card);
+  --bk-accent:color-mix(in srgb, var(--tile, var(--indigo)) 45%, #FFFFFF);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 15%, transparent), transparent 64%) var(--card);
 }
 /* A banner is HELD for its options sheet, so holding it must not select the title under the finger, and on
    iOS must not raise the platform's own callout — the guard the daily review's rows already carry. */
 .book-tile{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
-.book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile,var(--indigo)) 45%, var(--rule));}
+.book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--bk-accent) 45%, var(--rule));}
 .book-tile:active{transform:translateY(0) scale(.995);}
-.book-tile:focus-visible{outline:2px solid var(--tile,var(--indigo-bright)); outline-offset:3px;}
+.book-tile:focus-visible{outline:2px solid var(--bk-accent); outline-offset:3px;}
 /* the spine: where the book's colour is stated boldest, so the shelf reads as a shelf. The colour is
    its AUTHOR'S (BOOK_AUTHOR_COLOR in app.js), so two books by one hand carry one spine — which is why
    the author line below takes it too, and the title does not. */
-.bk-spine{flex:0 0 8px; align-self:stretch; background:var(--tile,var(--indigo)); position:relative;}
+.bk-spine{flex:0 0 8px; align-self:stretch; background:var(--bk-accent); position:relative;}
 .bk-spine::after{content:""; position:absolute; inset:0 2px; border-left:1px solid rgba(255,255,255,.25); border-right:1px solid rgba(0,0,0,.12);}
 /* the banner's own row: who and what on the left, how long and where you got to on the right */
 .bk-tile-body{display:flex; flex-flow:row wrap; align-items:center; gap:6px 18px; padding:13px 18px; min-width:0; flex:1;}
 .bk-tile-main{display:flex; flex-direction:column; gap:2px; min-width:0; flex:1 1 220px;}
-.bk-tile-author{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--tile,var(--indigo));}
+.bk-tile-author{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--bk-accent);}
 .bk-tile-title{font-family:var(--display); font-size:calc(19px * var(--fs)); font-weight:600; line-height:1.2; color:var(--ink);}
 .bk-tile-sub{font-family:var(--serif); font-style:italic; font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); margin-top:-2px;}
 /* When it was written — the one fact about a work of history a reader wants before opening it, and
@@ -5230,15 +5299,15 @@ body.night .book-tile{
 .bk-tile-foot{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:none; min-width:0;}
 .bk-tile-meta{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
 .bk-of{opacity:.72;}
-.bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+.bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* where the reader left off — the tile's one changing fact, so it takes the accent colour */
-.bk-tile-resume{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+.bk-tile-resume{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* The reading bar as the banner's own bottom EDGE (Aug 2026, on request — it was a short bar inside the
    right-hand block). Absolutely positioned, so it takes no height from the row and the banner stays as
    short as it is without one; .book-tile is already `position:relative` and `overflow:hidden`, so it
    follows the banner's rounded corners. */
 .bk-tile-bar{position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--rule); overflow:hidden;}
-.bk-tile-bar span{display:block; height:100%; background:var(--tile,var(--indigo)); border-radius:2px;}
+.bk-tile-bar span{display:block; height:100%; background:var(--bk-accent); border-radius:2px;}
 .lib-note{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink-soft);
   background:var(--card); border:1px dashed var(--rule); border-radius:12px; padding:13px 16px; max-width:70ch;}
 
@@ -5272,6 +5341,11 @@ body.night .book-tile{
 .bk-nav svg{width:16px; height:16px;}
 .bk-nav:hover:not(:disabled){background:var(--paper); color:var(--ink); border-color:var(--indigo);}
 .bk-nav:disabled{opacity:.35; cursor:default;}
+/* the "?" that brings the first-open card back. It is the only .bk-nav whose face is a CHARACTER rather
+   than an svg, so it needs the type stated — a button falls back to the UA font otherwise. It stands last
+   in the bar, past the controls it explains, and quiet until pointed at. */
+.bk-help-btn{font-family:var(--mono); font-size:calc(14px * var(--fs)); line-height:1; opacity:.7;}
+.bk-help-btn:hover{opacity:1;}
 .bk-tabs{
   flex:1 1 auto; display:flex; gap:5px; overflow-x:auto; scroll-behavior:smooth;
   scrollbar-width:thin; padding:1px 0;
