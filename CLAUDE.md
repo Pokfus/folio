@@ -1843,13 +1843,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
   after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
   an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
-  reported against. **56 of 100 are done** (batches 1–8: stone and bone tools, bronze tools and pottery,
-  Roman small finds, Egypt, Mesopotamia, five named objects, Greek and Roman vessels, and part of Asia,
-  Africa and the Americas); the file lists the remaining families and the per-artefact workflow. Its most reusable
-  half is the **reachable-host survey** — which scholarly and museum hosts answer from this sandbox and which
-  serve a bot wall, measured rather than assumed, with the two routes that keep paying (a paper walled here
-  is usually open at its **Europe PMC** copy, and where the modern synthesis is closed the **standard
-  19th-century monograph is on archive.org and is often the origin of the type name**). Not part of the site.
+  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
+  the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
+  which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
+  assumed, with the routes that keep paying (a paper walled here is usually open at its **Europe PMC** copy;
+  where the modern synthesis is closed the **standard 19th-century monograph is on archive.org and is often
+  the origin of the type name**; and a family with no reachable database may still have a **subject-specialist
+  network's** curator guide, which is what carried the Qing cash coins). **Coins looked like the pass's thin
+  spot and were its easiest family** — `numismatics.org` is shut and the British Museum's own catalogues
+  (Mattingly, Grueber, Head, Wroth, Keary, Brooke, Terrien de Lacouperie) are all on archive.org with full
+  OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
+  only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
+  connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
@@ -2021,8 +2027,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `{ id: { sources, marks: { "<sentence>": [srcNums] } } }` — never by hand, which is how a marker ends up
   inside a tag or a sentence loses its full stop. That plan takes an optional `desc`, so a CORRECTION and
   its markers land in one diff where a source turns out not to bear the prose out.
-  **56 of the 100 are cited so far**; `docs/artefact-citation-plan.md` is the work of finishing it, and
-  holds the reachable-host survey that pass is built on.
+  **ALL 100 ARE CITED** (batches 1–15, completed 2026-08-08); `docs/artefact-citation-plan.md` holds the
+  batch table, the reachable-host survey the pass is built on, and its findings. **What keeps it true is
+  the refusal, not the count** — a new artefact cannot be written below the bar — so re-run
+  `.claude/test-artefacts.js` after any batch, since it reports coverage and re-checks every shipped list.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"

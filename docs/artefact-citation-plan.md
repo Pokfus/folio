@@ -16,8 +16,10 @@ save one.
 
 ## Where it stands
 
-**56 of 100 artefacts are cited** (batches 1–8). `node .claude/add-artefact-sources.js` reports coverage on
-every run, and `.claude/test-artefacts.js` prints it and holds everything already cited to the shape rules.
+**THE PASS IS COMPLETE: 100 of 100 artefacts are cited and at the bar** (batches 1–15).
+`node .claude/add-artefact-sources.js` reports coverage on every run, and `.claude/test-artefacts.js`
+prints it and holds every citation to the shape rules — so a NEW artefact joins at the bar rather than
+reopening a backlog, exactly as the glossary pass now works.
 
 | batch | what | artefacts |
 |---|---|---|
@@ -29,16 +31,13 @@ every run, and `.claude/test-artefacts.js` prints it and holds everything alread
 | 6 | named objects, first five | rosetta-stone, mask-of-agamemnon, mask-of-tutankhamun, code-of-hammurabi-stele, nebra-sky-disc |
 | 7 | Greek and Roman arms and vessels, first four | gladius, corinthian-helmet, panathenaic-amphora, bucchero-kantharos |
 | 8 | Asia, Africa and the Americas, first six | haniwa-warrior, han-bronze-mirror, maya-cylinder-vessel, benin-plaque, nok-terracotta-head, sancai-camel |
-
-**Still to do — 44**, in the families they are most cheaply worked in:
-
-| family | artefacts |
-|---|---|
-| coins | roman-aureus, roman-denarius, roman-as, greek-drachm, byzantine-follis, ban-liang-coin, kangxi-tongbao, medieval-silver-penny, cowrie-shell-money |
-| medieval and later | medieval-iron-key, medieval-horseshoe, pilgrim-badge, illuminated-psalter-leaf, clay-tobacco-pipe, lead-musket-ball, pewter-spoon, bone-dice, glass-trade-bead, garnet-disc-brooch, mjolnir-pendant, ulfberht-sword |
-| Greek and Roman arms and vessels | boars-tusk-helmet, cavalry-parade-mask, achaemenid-rhyton, scythian-stag-plaque, celtic-gold-torc, gold-lunula, cycladic-figurine |
-| Asia, Africa and the Americas | ming-blue-and-white-vase, olmec-jade-celt, inca-gold-llama, islamic-astrolabe |
-| named objects | bust-of-nefertiti, sutton-hoo-helmet, standard-of-ur, cyrus-cylinder, gundestrup-cauldron, derveni-krater, portland-vase, trundholm-sun-chariot, sanxingdui-bronze-mask, sipan-ear-ornaments, ishtar-gate-lion, oseberg-cart |
+| 9 | named objects, the rest | bust-of-nefertiti, sutton-hoo-helmet, standard-of-ur, cyrus-cylinder, gundestrup-cauldron, derveni-krater, portland-vase, trundholm-sun-chariot, sanxingdui-bronze-mask, oseberg-cart |
+| 10 | Greek and Roman arms, and two named | ishtar-gate-lion, sipan-ear-ornaments, boars-tusk-helmet, cavalry-parade-mask, achaemenid-rhyton, scythian-stag-plaque, celtic-gold-torc, gold-lunula, cycladic-figurine |
+| 11 | post-medieval everyday things | illuminated-psalter-leaf, clay-tobacco-pipe, lead-musket-ball, pewter-spoon, bone-dice, glass-trade-bead |
+| 12 | early medieval | pilgrim-badge, garnet-disc-brooch, mjolnir-pendant, ulfberht-sword |
+| 13 | Asia, Africa and the Americas, the rest | ming-blue-and-white-vase, olmec-jade-celt, inca-gold-llama, islamic-astrolabe |
+| 14 | medieval iron | medieval-iron-key, medieval-horseshoe |
+| 15 | the coins | roman-aureus, roman-denarius, roman-as, greek-drachm, byzantine-follis, ban-liang-coin, kangxi-tongbao, medieval-silver-penny, cowrie-shell-money |
 
 ## The workflow
 
@@ -101,10 +100,44 @@ and lamps). Use it for typology and naming; a modern date or a scientific result
   under the Mask of Agamemnon. They were thrown away and the artefacts researched properly. Where a third
   work cannot be found, the artefact waits for the next batch rather than being padded to the bar; this is
   why `bust-of-nefertiti` and `standard-of-ur` are still on the to-do list beside their own batch-mates.
-· **Coins are the thin spot.** `numismatics.org` (the ANS, and with it OCRE and CRRO) does not answer here,
-  and museum coin records are patchy outside the aureus, the drachm and Qing cash. That family will need a
-  different route — the Revue numismatique on Persée carries specific studies but few type overviews.
+· **Coins looked like the thin spot and were the easiest family in the pass.** `numismatics.org` (the ANS,
+  and with it OCRE and CRRO) does not answer here, and that reading — "coins will need a different route" —
+  was wrong about which route. **The great British Museum catalogues are all on archive.org with full OCR**
+  and are the type references the whole discipline still cites: Mattingly's *Coins of the Roman Empire in
+  the British Museum* (1923–), Grueber's *Coins of the Roman Republic* (1910), Head's *Historia Numorum*
+  (1911), Wroth's *Imperial Byzantine Coins* (1908), Keary's and Brooke's English series (1887, 1916),
+  Terrien de Lacouperie's Chinese catalogue (1892). **When a modern database is shut, ask whether the
+  standard 19th-century catalogue is open** — for coins it always is, and it is what the modern database
+  indexes.
+· **CHECK THE OCR, NOT THE CATALOGUE ENTRY.** archive.org holds several copies of most of these and only
+  some carry extracted text: Schjøth's *Chinese Currency*, Petersen's *De norske vikingesverd* and the
+  Dumbarton Oaks Olmec catalogue all resolve to a 200 and hand back the page furniture and nothing else.
+  `curl …/<id>/<id>_djvu.txt` and grep for a word the book must contain; a 200 is not a readable book.
+· **A SUBJECT-SPECIALIST NETWORK PUBLISHES WHAT NO JOURNAL DOES.** The Qing cash coins were carried by a
+  curator's identification guide written for the Money and Medals Network (a British Museum / Arts Council
+  network for coin collections in UK museums) and hosted as a PDF by a regional museum — an institutional
+  publication, freely downloadable, and the only reachable work here that explains the Manchu mint marks.
+  Reach for the specialist network before concluding a whole family is unsourceable.
 · **Unpaywall's "not OA" is about the licence, not about whether a reader can open it** — Persée reports
   closed and serves the full text.
+· **A HOST THAT IS 403 OR 000 IS A DIFFERENT FACT FROM A PAYWALL, and neither may be recorded as the
+  other.** Added to the unreachable list by batches 10–15: `gladius.revistas.csic.es` (connection refused
+  on every path, so Alan Williams's Viking-sword metallurgy is out), `ojs.elte.hu` (403),
+  `journals.sagepub.com` (403, which is why the standard critique of pipe-stem-bore dating is not cited),
+  `museotumbasrealesdesipan.pe` (no answer), and `samlinger.natmus.dk` / `historiska.se` / `ashmolean.org`,
+  which answer but serve their collections through JavaScript and so have no citable per-object URL.
+· **A DEAD END IS USUALLY THE WRONG QUESTION.** The Sipán ear ornaments looked unsourceable — the excavation
+  literature is in Wiley and Springer journals — until the question became *who has X-rayed them*: two
+  archaeometry papers in Europe PMC state the tomb, the excavator, the year and the warrior-priest reading
+  between them. The same move found the Ishtar Gate (Koldewey's own 1918 monograph), the Bhagavad-Gita-like
+  gap on Cycladic figurines (Hall's 1915 *Ægean Archæology*) and the cowries (a repository deposit at UC
+  Irvine of a 1981 *Slavery and Abolition* paper).
+· **THE OPEN JOURNALS WORTH KNOWING, all found in this pass and all reachable**: *BEADS: Journal of the
+  Society of Bead Researchers* (10.7264, at Oregon — the whole run, and the only serious literature on trade
+  beads), *Papers from the Institute of Archaeology* (10.5334, UCL), *Fasciculi Archaeologiae Historicae*
+  (journals.iaepan.pl), *Archeologické rozhledy* (10.35686), the *UISPP Journal*, *Palaeohistoria*
+  (10.21827, Groningen), *Kentron* and *Archéopages* on OpenEdition, *Temenos* (journal.fi),
+  *Danish Journal of Archaeology* and the rest of `tidsskrift.dk`, and the *Estonian Journal of Archaeology*
+  (10.3176).
 
 Not part of the site.
