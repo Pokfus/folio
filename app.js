@@ -9498,7 +9498,15 @@
       // elided. Text from the scanned Naibedya on Bengali Wikisource.
       o: { lang: "bn", t: "চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির — ভারতেরে সেই স্বর্গে করো জাগরিত।", a: "রবীন্দ্রনাথ ঠাকুর", s: "নৈবেদ্য ৭২, ১৯০১" } },
     { t: "Education is the manifestation of the perfection already in man.", a: "Swami Vivekananda", s: "Complete Works, vol. IV" },
-    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century" },
+    // Read off the Arabic text of the risāla on Arabic Wikisource rather than set down from memory, which is
+    // the same rule the Marcus Aurelius Greek follows (that one is read out of the project's own Library).
+    // It sits in the خطبة, the dedication to al-Mu'tasim that opens the work. The Arabic is cut to the
+    // clauses the English actually quotes: al-Kindi's sentence runs on into "فإنه لا شيء أولى بطالب الحق من
+    // الحق" — nothing is fitter for the seeker of truth than the truth — which this translation does not
+    // carry, and a flip that answered with a clause the reader was never shown would be the wrong half of
+    // the page. Tagore's entry cuts for the same reason.
+    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century",
+      o: { lang: "ar", t: "وينبغي لنا أن لا نستحي من استحسان الحق، واقتناء الحق من أين أتى، وإن أتى من الأجناس القاصية عنا، والأمم المباينة.", a: "الكندي", s: "الفلسفة الأولى، خطبة الكتاب" } },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
     { t: "The seeker after truth is not one who studies the writings of the ancients and trusts them, but one who questions what he gathers from them.", a: "Ibn al-Haytham", s: "Doubts Concerning Ptolemy, 11th century" },
@@ -9768,6 +9776,75 @@
            `v${v}${when ? " · " + w : ""}</div>`;
   }
 
+  /* ---------- the review list's SUBDECK FOLD (Aug 2026, on request) ----------
+     Adding a collection brings its whole subtree into the review (see addActive), and a 1,000-card plan's
+     tree runs to thirty or forty leaves — so the list under the banner had become by a wide margin the
+     longest thing on the home page, and a reader with two collections added met a wall of rows before the
+     games. A row with children under it now carries a chevron and its children start SHUT.
+
+     NOTHING IS LOST BY SHUTTING ONE, which is what makes that default honest rather than merely tidy: a
+     node's own row already counts its WHOLE subtree (entryCardIds walks it), so the three piles and the
+     progress bar on a folded parent are the totals for everything folded underneath it. Tapping the row
+     still studies the lot.
+
+     WHAT STARTS SHUT IS AN ADDED ROW, NOT EVERY ROW, and the distinction is load-bearing. `addActive`
+     takes a node's subtree and deliberately NOT its ancestors, so a reader who adds one subdeck gets it
+     under a greyed context row for each ancestor — signposts they never chose. Folding those by default
+     would hide the reader's own deck behind a row they cannot even tap, which is the one way this change
+     could take something away. So an ancestor context row starts OPEN and the topmost thing the reader
+     actually added is always on screen; it still carries a chevron, so folding it is theirs to do.
+
+     The open set is module-level rather than in `S` — it is a way of looking at a list, not a preference
+     about Folio (the same call renderDeckStats and the glossary record's sort picker make). So it survives
+     tapping into a deck and coming back, and resets on reload, which is what "collapsed by default" means
+     for a reader arriving at the page. */
+  const adOpen = new Set();
+  /* …and the ids whose default has already been decided, so that seeding one is a once-per-row event. Without
+     it every re-render (a grade, a navigation back to the page) would re-seed the defaults and undo a fold the
+     reader had just opened; with it, a collection added later in the same session still starts shut. */
+  const adSeeded = new Set();
+  /* A row is visible when every ANCESTOR OF IT THAT IS ALSO A ROW is open. Walking the node's own parent
+     chain rather than the DOM keeps this true for a tree whose middle levels are not all drawn. */
+  function adRowVisible(node, rowIds) {
+    let p = node && node.parentId ? NODE_BY_ID[node.parentId] : null;
+    while (p) {
+      if (rowIds.has(p.id) && !adOpen.has(p.id)) return false;
+      p = p.parentId ? NODE_BY_ID[p.parentId] : null;
+    }
+    return true;
+  }
+  /* Re-hide, re-mark and re-round the list after a fold. Three things, and the last two are the ones that
+     look like bugs when they are missed: the chevron has to say which way it now points (to the eye AND to
+     a screen reader), and the rounded bottom corner belongs to the last VISIBLE row rather than to the last
+     DOM child — `:last-child` cannot see a folded row, so with the list shut by default the bottom of the
+     card would square off under whatever row happened to be last in the markup. */
+  function adSyncFold(listEl) {
+    if (!listEl) return;
+    const rows = [...listEl.querySelectorAll(".active-deck[data-node]")];
+    const rowIds = new Set(rows.map((el) => el.dataset.node));
+    let last = null;
+    rows.forEach((el) => {
+      const node = NODE_BY_ID[el.dataset.node];
+      const vis = adRowVisible(node, rowIds);
+      el.classList.toggle("ad-shut", !vis);
+      if (vis) last = el;
+      const chev = el.querySelector(".ad-chev");
+      if (chev) {
+        const open = adOpen.has(el.dataset.node);
+        chev.classList.toggle("open", open);
+        chev.setAttribute("aria-expanded", open ? "true" : "false");
+        const label = t(open ? "Hide the decks inside" : "Show the decks inside");
+        chev.setAttribute("aria-label", label);
+        chev.title = label;
+      }
+    });
+    // the community decks and the Card-of-the-day list sit after the tree and never fold, so the last row
+    // of the whole list is whichever of those came last — they carry no data-node and are always visible
+    const tail = [...listEl.children].filter((el) => !el.dataset.node);
+    if (tail.length) last = tail[tail.length - 1];
+    listEl.querySelectorAll(".ad-last").forEach((el) => el.classList.remove("ad-last"));
+    if (last) last.classList.add("ad-last");
+  }
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -9864,22 +9941,50 @@
         nodeChildren(node).forEach((ch) => walk(ch, depth + 1));
       }
       TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
+      /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
+         that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
+         subdecks are all empty carry none. The default is seeded once per row (see adSeeded): an ADDED row
+         starts shut, an ancestor context row starts open, for the reason set out above the fold helpers. */
+      const rowIds = new Set(rows.map((r) => r.node.id));
+      const hasKids = new Set();
+      rows.forEach((r) => { if (r.node.parentId && rowIds.has(r.node.parentId)) hasKids.add(r.node.parentId); });
+      /* What starts OPEN is a row lying entirely ABOVE everything the reader added — nothing on the path
+         from it down to their choice is in S.active. Those are the pure signposts, and folding one hides
+         the reader's own deck behind a row they cannot even tap.
+         The test is on `activeSet` rather than on the row being drawn as a context row, and the difference
+         is the whole of it: an EMPTY deck inside an added collection also draws as a context row, and it
+         is not a signpost at all — it is inside the very fold the reader just shut. Testing the drawn row
+         instead let a collection open onto its whole 43-row tree again, which is the thing this replaced. */
+      const seedOpen = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
+      rows.forEach((r) => {
+        if (!hasKids.has(r.node.id) || adSeeded.has(r.node.id)) return;
+        adSeeded.add(r.node.id);
+        if (seedOpen(r.node)) adOpen.add(r.node.id);
+      });
       return rows
         .map((r) => {
           const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
+          // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
+          // collapse in the reader's face on every visit to the page
+          const shut = adRowVisible(r.node, rowIds) ? "" : " ad-shut";
+          // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
+          // of a leaf deck would stop at two different places and the list's right edge would go ragged
+          const chev = hasKids.has(r.node.id) ? chevBtn("ad-chev") : '<span class="ad-chev-gap" aria-hidden="true"></span>';
           if (r.active) {
-            return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}" data-node="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${adCounts(r.node.id)}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
+              ${chev}
             </div>`;
           }
-          return `<div class="active-deck context" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px">
+          return `<div class="active-deck context${shut}" data-node="${esc(r.node.id)}" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px">
             <div class="ad-body">
               <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
+            ${chev}
           </div>`;
         })
         .join("") +
@@ -9893,6 +9998,7 @@
                 <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
                 ${adProg(entryCardIds(id))}
               </div>
+              <span class="ad-chev-gap" aria-hidden="true"></span>
             </div>`;
         }).join("") +
         // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
@@ -9903,6 +10009,7 @@
                 <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
                 ${adProg(entryCardIds(COTD_ENTRY))}
               </div>
+              <span class="ad-chev-gap" aria-hidden="true"></span>
             </div>`);
     })();
     const greeting = (() => {
@@ -10164,6 +10271,45 @@
         route("study", { scope: id === COTD_ENTRY ? { type: "cotd" } : ud ? { type: "udeck", id: ud } : { type: "deck", id } });
       });
     });
+    /* The subdeck fold. The chevron sits INSIDE a row whose own click starts a session and whose own hold
+       opens the options sheet, so it has to take itself out of both: `stopPropagation` keeps the click off
+       the row (the Library's chevron does exactly this, for exactly this reason), and `pointerdown` has to
+       be stopped as well — `wireHoldMenu` starts its timer there, so without it a reader resting a finger
+       on the chevron would fold the row AND be handed the deck's options sheet.
+       It repaints IN PLACE rather than through render(): the list is a tree the reader has just posed by
+       hand, and rebuilding the page would re-run every row's entrance animation and take the scroll
+       position with it. Revealed rows re-run their own pageIn, which is what the Library's expander does. */
+    const adList = root.querySelector(".active-decks");
+    if (adList) {
+      adSyncFold(adList);
+      adList.querySelectorAll(".ad-chev").forEach((chev) => {
+        const row = chev.closest(".active-deck");
+        const id = row && row.dataset.node;
+        if (!id) return;
+        chev.addEventListener("pointerdown", (e) => e.stopPropagation());
+        /* …and the KEYBOARD needs the same treatment, which the pointer half does not make obvious.
+           `wireHoldMenu` also binds Enter/Space on the row, and a native <button> activated from the
+           keyboard fires a keydown that bubbles BEFORE the click it synthesises — so without this the
+           chevron folded the row and then the row's own handler carried the reader off into a study
+           session. Stopping the key here leaves the button's own default alone, so the click still
+           arrives and the fold still happens. */
+        chev.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") e.stopPropagation(); });
+        chev.addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          const open = !adOpen.has(id);
+          if (open) adOpen.add(id); else adOpen.delete(id);
+          const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)")]);
+          adSyncFold(adList);
+          if (open) {
+            adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)").forEach((el) => {
+              if (before.has(el)) return;
+              el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+            });
+          }
+        });
+      });
+    }
     // …and the banner above them holds open the review's OWN options (the Ordered/Random pair that used to
     // sit in its corner). Its click is already wired above, so no tap handler is passed here — the shared
     // `held` guard is what keeps the hold from also starting a session.

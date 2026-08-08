@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.91", released: "2026-08-07T21:22Z" };
+window.FOLIO_VERSION = { v: "1.92", released: "2026-08-07T22:36Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,8 @@ window.CHANGELOG = [
       "The site now says <b>Late Stone Age</b> throughout, where four cards and two glossary entries had said <b>Later Stone Age</b> — one of them as the answer to its card. Both forms still find the entry, so the wording you meet in the reading will still lead you to the right place.",
       "Three glossary links that led somewhere wrong are fixed. The word 'polish', meaning a sheen, opened the entry for Poland, and the Greek word 'laos', meaning the people, opened the entry for Laos in Southeast Asia; both now lead nowhere, and both countries still link when their own names are written. And <b>New Guinea</b> — the island north of Australia, half Indonesian and half Papua New Guinean — was opening the entry for Guinea in West Africa; it now has an entry of its own.",
       "Measurements written as one figure by another, or as a square or cubic area, now follow your chosen units like every other figure.",
+      "The decks under Daily study on the home page now fold. Adding a collection brings all of its decks in with it, which on a big collection meant forty rows between you and the rest of the page — so a collection or deck with parts inside it now carries a chevron on the right and starts closed, and the counts and the bar on a closed row still cover everything folded underneath it. Tapping the row itself studies the whole thing as before.",
+      "The daily quote from Al-Kindi can now be turned over to read his Arabic, like the rest of the quotes that have an original.",
     ],
   },
   {

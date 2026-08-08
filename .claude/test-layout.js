@@ -1171,6 +1171,124 @@ async function studyEasy(page, base, n) {
       JSON.stringify(cleared));
     await page.close();
   }
+  /* ================= 7c. the review list's SUBDECK FOLD =================
+     Adding a collection brings its whole subtree in, so the list can run to forty rows; a row with children
+     carries a chevron and starts shut (Aug 2026, on request). Every failure mode here is silent, and one of
+     them shipped for an hour while this was being written:
+
+       · the chevron sits INSIDE a row whose own click starts a study session and whose own hold opens the
+         options sheet. The click is stopped — but `wireHoldMenu` ALSO binds Enter/Space on the row, and a
+         native <button> activated from the keyboard fires a keydown that bubbles before the click it
+         synthesises, so a keyboard reader folding the row was carried off into a session instead. A mouse
+         cannot see it, which is why it is asserted from the keyboard here.
+       · the rounded bottom corner. `:last-child` cannot see a folded row, so with the list shut by default
+         the bottom of the card squares off under a row nobody can see.
+       · what starts OPEN. `addActive` takes a node's subtree and NOT its ancestors, so a reader who added
+         one subdeck gets a greyed signpost row for each ancestor. Folding those by default hides the
+         reader's OWN deck behind a row they cannot even tap — the one way this feature can take something
+         away, and it looks exactly like the deck having been dropped from the review. */
+  {
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    // add a whole collection the way addActive does — its subtree, and deliberately not its ancestors
+    const seeded = await page.evaluate(() => {
+      const coll = (window.COLLECTION_TREE.collections || []).find((c) => !c.placeholder && (c.children || []).length);
+      if (!coll) return null;
+      const ids = []; (function w(n) { ids.push(n.id); (n.children || []).forEach(w); })(coll);
+      const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      s.active = ids;
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+      return { id: coll.id, n: ids.length };
+    });
+    if (!seeded) { check("a collection with decks inside it exists to fold", false); }
+    else {
+      await studyEasy(page, base, 1);               // until a card is graded the banner is the first-run hero
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.waitForTimeout(1400);
+      const read = () => page.evaluate((top) => {
+        const rows = [...document.querySelectorAll(".active-deck")];
+        const vis = rows.filter((r) => r.offsetParent !== null);
+        const t = document.querySelector(`.active-deck[data-node="${top}"]`);
+        const last = vis[vis.length - 1];
+        return {
+          rows: rows.length, vis: vis.length,
+          topChev: !!(t && t.querySelector(".ad-chev")),
+          expanded: t && t.querySelector(".ad-chev") ? t.querySelector(".ad-chev").getAttribute("aria-expanded") : null,
+          named: t && t.querySelector(".ad-chev") ? (t.querySelector(".ad-chev").getAttribute("aria-label") || "") : "",
+          // a leaf has nothing to fold and must carry no chevron — but must still reserve its width, or the
+          // bars down the list stop at different places
+          leafChev: vis.some((r) => !r.querySelector(".ad-chev") && !r.querySelector(".ad-chev-gap")),
+          lastRounded: last ? parseFloat(getComputedStyle(last).borderBottomLeftRadius) : 0,
+          hash: location.hash,
+        };
+      }, seeded.id);
+
+      let f = await read();
+      check("the review list folds: a collection's decks start shut",
+        f.rows > 1 && f.vis === 1, JSON.stringify({ rows: f.rows, visible: f.vis }));
+      check("...behind a chevron that says which way it points", f.topChev && f.expanded === "false" && /\S/.test(f.named),
+        JSON.stringify({ chev: f.topChev, expanded: f.expanded, name: f.named }));
+      check("...every row reserving the chevron's width, folded or not", !f.leafChev);
+      check("...and the rounded corner following the last VISIBLE row", f.lastRounded > 0, f.lastRounded);
+
+      // the KEYBOARD half — the bug a mouse cannot see
+      await page.focus(`.active-deck[data-node="${seeded.id}"] .ad-chev`);
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(500);
+      f = await read();
+      check("...opening from the keyboard reveals the decks inside", f.vis > 1, JSON.stringify({ visible: f.vis }));
+      check("...WITHOUT the row's own Enter carrying the reader into a session",
+        f.hash !== "#study" && !/study/.test(f.hash), f.hash || "(none)");
+      check("...and the chevron's name flips with its state", f.expanded === "true" && /\S/.test(f.named),
+        JSON.stringify({ expanded: f.expanded, name: f.named }));
+      check("...the corner still following the last visible row", f.lastRounded > 0, f.lastRounded);
+
+      // a click on the chevron must not start one either
+      await page.click(`.active-deck[data-node="${seeded.id}"] .ad-chev`);
+      await page.waitForTimeout(450);
+      f = await read();
+      check("...and clicking it folds rather than studying",
+        f.vis === 1 && f.expanded === "false" && !/study/.test(f.hash), JSON.stringify({ visible: f.vis, hash: f.hash }));
+
+      /* …while a SIGNPOST above what the reader added stays open. Adding one deep subdeck leaves its
+         ancestors as untappable context rows; folding those by default would hide the reader's own deck. */
+      const deep = await page.evaluate(() => {
+        let best = null;
+        (window.COLLECTION_TREE.collections || []).forEach((c) => {
+          if (c.placeholder) return;
+          (function w(n, d) {
+            const kids = n.children || [];
+            if (!kids.length && (n.cardIds || []).length && (!best || d > best.d)) best = { id: n.id, d };
+            kids.forEach((k) => w(k, d + 1));
+          })(c, 0);
+        });
+        if (!best || best.d < 1) return null;
+        const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        s.active = [best.id];
+        localStorage.setItem("folio_v1", JSON.stringify(s));
+        return best;
+      });
+      if (deep) {
+        await page.reload({ waitUntil: "load" });
+        await page.waitForTimeout(1400);
+        const d = await page.evaluate((id) => {
+          const el = document.querySelector(`.active-deck[data-node="${id}"]`);
+          return {
+            found: !!el,
+            visible: !!el && el.offsetParent !== null,
+            tappable: !!el && el.hasAttribute("data-review"),
+            signposts: [...document.querySelectorAll(".active-deck.context")].filter((r) => r.offsetParent !== null).length,
+          };
+        }, deep.id);
+        check("a deck added on its own is never folded behind its signposts",
+          d.found && d.visible && d.tappable, JSON.stringify(d));
+        check("...with the signpost rows above it left open", d.signposts >= 1, JSON.stringify(d));
+      }
+    }
+    await page.close();
+  }
   {
     /* Above the breakpoint the home page is now the SAME page (Aug 2026, on request: the desktop was brought
        into line with the phone). It was the opposite assertion for a fortnight, which is why every clause
