@@ -1148,6 +1148,14 @@
   if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
   if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
   if (S.settings && S.settings.contrast === undefined) S.settings.contrast = false;
+  /* …and the daily allowance, which every one of the lines above has had and this one has not, because it
+     predates them. `load()` shallow-merges, so a stored `settings` REPLACES the default object wholesale —
+     and `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with no fallback of their own, so a save
+     old enough to lack the key yields `newPerDay: undefined` → NaN through `deckNewRemaining` → a
+     `slice(0, NaN)` that returns nothing. The review then offers **no new cards, ever**, with no error and
+     no zero to explain it: the banner simply reads "Browse collections" for good. Found while seeding a
+     partial settings object for `test-reset.js`, which is exactly the shape an old save has. */
+  if (S.settings && !Number.isFinite(S.settings.newPerDay)) S.settings.newPerDay = 3;
   /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
      book are keyed by its id — so without this a reader who had the dialogue open, or had starred
      it, would find their place and their star simply gone, with nothing on screen to say why. The
@@ -1441,6 +1449,30 @@
   function extractProgress() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
   function applyProgress(p) { const base = emptyProgress(); PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); }); }
   function emptyProgress() { const d = defaultState(), p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = d[k]; }); return p; }
+  /* SETTINGS → DANGER ZONE → RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE (Aug 2026, on a bug report:
+     "I purposely reset my study progress and then encountered that bug" — the bug being that the home page
+     turned back into a first-time visitor's and the reader's Daily study decks were gone).
+     It was `S = defaultState()`, which is not a progress reset but a factory reset of the whole save: it
+     took the theme, the night/system setting, the text size, the language, the day boundary, the sound and
+     narrator settings, the Atlas home location, the book sort — and the DECKS the reader had added, which
+     is what they noticed. It also threw away `_supaTs` / `_supaOwner`, the device-local sync baseline and
+     the record of whose progress this is, so the next boot had to re-reconcile from scratch.
+     A control is allowed to be destructive; it is not allowed to be destructive in ways its own words do
+     not describe. The dialog names study history, the streak and the badges, so those go, and with them the
+     artefacts and chests — they are what a level buys, and keeping forty of them beside a level 1 badge
+     would be the odder outcome. What is KEPT is what was never study history in the first place:
+       · `settings` and `user` — not progress at all, and `joined` is what the heatmap starts from.
+       · `active` and `deckOpts` — WHICH decks you study and what your daily limits are is a choice, not a
+         history. This is the reported symptom, and it is the one a reader cannot easily rebuild.
+       · `reading` and `bookFavs` — the Library is not the flashcards; losing your place in a 124-letter
+         book because you reset a card schedule is a surprise nothing warned you about.
+     Field-wise rather than whole-object, so a PROGRESS_FIELD added later is reset by default and has to be
+     named here to survive — the safe direction for a control with "cannot be undone" written on it. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs"];
+  function resetProgress() {
+    const base = emptyProgress();
+    PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
+  }
   function syncProgressToAccount() {
     const u = currentUser(); if (!u) return;
     u.progress = extractProgress();
@@ -5205,6 +5237,29 @@
        papers, against 1.0–1.2 on the eighteen dark ones as every swatch here does. Keyed by id, the
        treatises being anonymous. */
     "book-of-rites": "#460030",
+    /* Measured the same way as every row above, with twenty-seven colours already placed, and this
+       time the number and the grammar agreed — which after several rows where they did not is worth
+       recording as the easy case rather than assumed to be the normal one.
+
+       Searched over the shelf's own lightness and chroma band (L 12.7–47.8, C 18.3–64.1), under the
+       Book of Rites' second floor of 22 from every light theme's ink and the 4.5:1 bar test-a11y.js
+       holds the site to, only THREE hue families still hold anything at all: a very dark brown at
+       23.0, a deep blue-indigo at 22.6 and a dark red at 22.2. The band is as full as that row said
+       it was, and it did not have to be widened again.
+
+       THE BLUE WAS REJECTED ON THUCYDIDES' RULE. It is a fourth colour in a quarter that already
+       holds Aristotle, Machiavelli, Herodotus, the Song of Roland and, next door, Snorri Sturluson
+       and Seneca — and its two nearest neighbours at 22.6 and 22.9 are Snorri and Herodotus, so it
+       would be crowding the quarter to say nothing in particular.
+
+       So this very dark brown, which is the best number as well: it clears Sophocles by 23.0,
+       Confucius by 23.2 and Beowulf by 24.0 — evenly, which is Vyasa's test for a colour that reads
+       as its own rather than as a near-miss of one — against the shelf's tightest pair at 18.2. The
+       Euripides test costs nothing here, its three nearest being Greek tragedy, an Old English
+       heroic poem and the Analects: nobody reads The City of God against any of them, so no kinship
+       is asserted. It reads 9.42:1 on the tightest of the sixteen light papers, the highest of any
+       swatch on the shelf. */
+    "Augustine of Hippo": "#3F1800",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -6872,6 +6927,60 @@
       parts: [
         { n: 1, label: "Lays of the Gods", note: "14 poems" },
         { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
+    },
+    {
+      id: "city-of-god",
+      title: "The City of God",
+      subtitle: "De Civitate Dei contra Paganos",
+      author: "Augustine of Hippo",
+      /* Begun in 413, three years after the sack of Rome, and finished in 426. `year` is the single
+         number the shelf's date sort needs and is the year he began rather than the year he stopped:
+         it is what places the book against its neighbours, and the thirteen years between are the
+         work rather than a delay before it. */
+      written: "413–426 CE",
+      year: 413,
+      translator: "Marcus Dods",
+      edition:
+        "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+        "First Series, Vol. II, ed. Philip Schaff, Buffalo, 1887",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL — the fourth on this shelf after the Republic, the
+         Analects and the Peloponnesian War, and every one of its three layers is clear. Augustine
+         died in 430. Dods published in Edinburgh in 1871 and Schaff reprinted him in 1887, both long
+         before 1929, and Dods died in 1909, so the translation clears the publication rule,
+         life-plus-seventy and life-plus-a-hundred alike: no limit to state as Giles (2029) and Ross
+         (2042) need, and no modern editorial layer as the Histories and the Meditations' Greek carry.
+         Migne's Latin beside it is of 1841 and is free on the same three grounds. */
+      rights:
+        "Public domain worldwide. Augustine died in 430. Marcus Dods published this translation in " +
+        "Edinburgh in 1871 and Philip Schaff reprinted it in 1887 — both before 1929, so its United " +
+        "States copyright has expired — and Dods died in 1909, so it is out of copyright wherever the " +
+        "term runs for the author's life plus seventy or even a hundred years. Migne's Latin, printed " +
+        "in 1841, is free on the same grounds. (Henry Bettenson's translation of 1972, R. W. Dyson's " +
+        "of 1998 and William Babcock's of 2012–2013 are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl:
+        "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_II/City_of_God",
+      origLang: "la",
+      origName: "Latin",
+      /* THE CHAPTER IS ONE OF AUGUSTINE'S TWENTY-TWO BOOKS, and his own chapter is the SECTION. That
+         is the shape the citation already has — "City of God XIX.24" is book nineteen, chapter
+         twenty-four — and it is forced by the sizes: 661 chapters over 22 books averages thirty to a
+         book, and a great many of them run to a single paragraph, so cutting at the chapter would put
+         661 tabs on the bar and set one paragraph beside another. See .claude/fetch-book.js for the
+         measurement behind the pairing (661 chapters on each side, the same numbers in the same order
+         in all 22 books) and for why the Latin is the copy of Migne it is rather than the one a search
+         returns first. */
+      chapterWord: "Book",
+      count: 22,
+      total: 22,
+      /* The work's own division, which Augustine states himself at the head of Book XI: ten books
+         answering the charge that Rome fell because it left its gods, and twelve tracing the two
+         cities from the creation to the judgment. The `note` gives each half's share of the
+         chapters, since they are cut very unevenly against the books. */
+      parts: [
+        { n: 1, label: "Against the pagans", note: "Books I–X" },
+        { n: 2, label: "The two cities", note: "Books XI–XXII" },
       ],
     },
   ];
@@ -10944,6 +11053,33 @@
     listEl.querySelectorAll(".ad-last").forEach((el) => el.classList.remove("ad-last"));
     if (last) last.classList.add("ad-last");
   }
+  /* The line-drawn marks the home page's game tiles and the daily-review banner wear. Inline stroke SVGs
+     (viewBox 0 0 24 24) that take the surrounding colour through currentColor, so one mark serves a tile,
+     a banner and a placard without a second copy in another hue.
+     THEY ARE AT MODULE SCOPE RATHER THAN INSIDE PAGES.home BECAUSE THE PLACARDS NEED THEM TOO: they were
+     written to replace the Han glyphs the game tiles used to carry, and `gameLockedToday` — the screen a
+     reader meets every day once they have played — was still setting one of those glyphs (see GAME_NAMES).
+     A Chinese character standing over "Played today" is a leftover from the days when Folio was a China
+     deck; it says nothing about Multiple Choice or Timeline to a reader of an English site. */
+  const ICON = {
+    choices:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><line x1="10" y1="6" x2="20" y2="6"/><circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="10" y1="12" x2="20" y2="12"/><circle cx="5" cy="18" r="2"/><line x1="10" y1="18" x2="20" y2="18"/></svg>',
+    timeline:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg>',
+    truefalse:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 6 17 11 8"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/></svg>',
+    whosaid:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+    review:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+    help:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
+    findit:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    // Common Thread — a four-by-four grid with one row already gathered, which is the game in one mark
+    thread:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/></svg>',
+  };
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -11125,27 +11261,8 @@
     const playedThreadToday = gamePlayedToday("thread");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
     const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread") };
-    // Decorative background icons for the home game tiles (replace the old Han glyphs).
-    // Inline stroke SVGs (viewBox 0 0 24 24) inherit the tile colour via currentColor.
-    const ICON = {
-      choices:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><line x1="10" y1="6" x2="20" y2="6"/><circle cx="5" cy="12" r="2" fill="currentColor" stroke="none"/><line x1="10" y1="12" x2="20" y2="12"/><circle cx="5" cy="18" r="2"/><line x1="10" y1="18" x2="20" y2="18"/></svg>',
-      timeline:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><circle cx="6" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg>',
-      truefalse:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 6 17 11 8"/><line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/></svg>',
-      whosaid:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
-      review:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
-      help:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
-      findit:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-      // Common Thread — a four-by-four grid with one row already gathered, which is the game in one mark
-      thread:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6" fill="currentColor" stroke="none"/></svg>',
-    };
+    /* The game tiles' and the banner's marks are at module scope now (see ICON, above PAGES.home) —
+       the daily "Played today" placard needs them too. */
     /* THE DAY'S COMPLETION MARK — two shapes, not one (Aug 2026, on request).
        A PERFECT score keeps the shining gold ribbon: it is the rarer thing and it earns the whole corner.
        Merely HAVING PLAYED is now a small green circled check in the top-right instead of a green band
@@ -11197,7 +11314,20 @@
       ${tile({ id: "g-thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
     </div>`;
 
-    const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
+    /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
+       reader who used Settings → Reset progress was handed the first-run hero and lost the list of decks
+       under it). `fresh` was `S.cards` being empty, which is true of a genuine first-timer and equally true
+       of someone who has been here for months and has just cleared their schedule on purpose — and it does
+       not merely change the wording, it HIDES the deck list below (see reviewGroup), so the one thing that
+       reader wanted back was the one thing taken away.
+       Adding `!activeCardIds().length` distinguishes them without a new flag, because a first-timer's
+       shipped `S.active` is a single deck of the coming-soon China collection, which `activeCardIds`
+       filters out through `availableCardIdSet` — so they still get the hero, exactly as before. Anyone with
+       a studiable deck in their daily review gets the ordinary banner and their decks, whether they arrived
+       there by resetting or by adding a collection before turning a single card over. That second case is
+       an improvement rather than a side effect: someone who has just pressed "+ Add decks" is better served
+       by their own pile and a Start button than by being told again what Folio is for. */
+    const fresh = Object.keys(S.cards).length === 0 && activeCardIds().length === 0;
     /* THE DISCOVERY ROW IS GONE — the card of the day, the gloss of the day and the Atlas teaser with it
        (Aug 2026, on request). It went from the phone first, on the grounds that a phone's home page is the
        day's work; the request a fortnight later was to bring the desktop into line with the phone rather
@@ -16187,11 +16317,16 @@
      Timeline order or walk today's five places again cannot. What is kept in exchange is that the figure
      on the tile is the answer they gave when they did not know the answers.
 
-     The glyph is the one that game's own placards already use, so the screen a reader meets is in the
-     hand they know it by. */
+     THE MARK IS THE GAME'S OWN TILE ICON (Aug 2026, on request — it was a Han glyph: 选 over Multiple
+     Choice, 真 over True or False, and so on). Those glyphs are what the game tiles wore back when Folio
+     was a China deck, and the tiles gave them up for these line-drawn marks when the site stopped being
+     one; this placard kept its copy and is the screen a reader meets EVERY day once they have played, so
+     it was the last place on the site regularly showing a Chinese character to a reader of an English
+     page — a character that says nothing about Timeline or Find it. Using the tile's own mark also means
+     the screen answers in the hand the reader pressed. */
   const GAME_NAMES = {
-    challenge: ["Multiple Choice", "选"], truefalse: ["True or False", "真"], whosaid: ["Who said it?", "言"],
-    chrono: ["Timeline", "序"], thread: ["Common Thread", "紐"], findit: ["Find it", "地"],
+    challenge: ["Multiple Choice", ICON.choices], truefalse: ["True or False", ICON.truefalse], whosaid: ["Who said it?", ICON.whosaid],
+    chrono: ["Timeline", ICON.timeline], thread: ["Common Thread", ICON.thread], findit: ["Find it", ICON.findit],
   };
   const GAME_SET_WORD = { chrono: "puzzle", thread: "puzzle", findit: "five places" };
   /* AN ANSWER TERM IS SHOWN CAPITALISED (Aug 2026, on request, for Multiple Choice). A card's answer is
@@ -21439,7 +21574,7 @@
         <div class="set-card danger">
           ${setHead("var(--zh)", '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/>', "Danger zone")}
           <div class="set-row">
-            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. This can't be undone.</p></div>
+            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. Your decks and your settings are kept. This can't be undone.</p></div>
             <div class="ctl"><button class="btn ghost danger-btn" id="reset">Reset…</button></div>
           </div>
         </div>
@@ -21568,11 +21703,11 @@
     });
 
     root.querySelector("#reset").addEventListener("click", () => {
-      inlinePrompt("This clears every card's study history, your streak and your badges, and cannot be undone. Type RESET to confirm.", "", (val) => {
+      // the wording says what resetProgress actually does — see RESET_KEEPS. It used to promise the study
+      // history, the streak and the badges and quietly take the settings and the decks with them.
+      inlinePrompt("This clears your study history, your streak, your badges and your artefacts. Your decks, your place in the Library and your settings are kept. It cannot be undone. Type RESET to confirm.", "", (val) => {
         if (String(val || "").trim().toUpperCase() !== "RESET") { toast("Reset cancelled — confirmation didn't match"); return; }
-        const keepName = S.user.name;
-        S = defaultState();
-        S.user.name = keepName;
+        resetProgress();
         save();
         toast("Progress reset");
         render();

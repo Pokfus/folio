@@ -1240,6 +1240,12 @@ body.grading .stage{padding-bottom:150px;}
   padding:46px 34px; text-align:center; max-width:560px; margin:10px auto;
 }
 .placard .big{font-family:var(--han); font-size:calc(54px * var(--fs)); color:var(--indigo); opacity:.85; line-height:1; margin-bottom:6px;}
+/* A placard's mark may be an inline SVG rather than a character — the daily "Played today" screen takes
+   the game's own tile icon, so a reader is answered in the hand they pressed. It is sized to the same
+   54px square the character occupies, and takes the rule's --indigo through currentColor. The stroke is
+   thinned from the tiles' 2: at this size a 24-viewBox stroke of 2 draws 4.5px, which reads as a logo
+   rather than as a mark. */
+.placard .big svg{display:block; width:calc(54px * var(--fs)); height:calc(54px * var(--fs)); margin:0 auto; stroke-width:1.5;}
 .placard h2{font-family:var(--display); font-weight:600; font-size:calc(26px * var(--fs)); margin:10px 0 8px;}
 .placard p{color:var(--ink-soft); margin:0 auto 20px; max-width:42ch; font-size:calc(15.5px * var(--fs));}
 .placard .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
@@ -5241,31 +5247,50 @@ body.night .rv-star.on{color:#E6C765;}
    colour (bookColor in app.js), so two books by one hand wash the same, exactly as their spines do.
    Night wants a weaker mix than daylight, for the reason the collection banner's pair does: the hue sits
    on a dark card and reads twice as strongly there. */
+/* THE BANNER PAINTS FROM `--bk-accent`, NOT FROM `--tile` DIRECTLY, AND ON A DARK PAPER THAT IS A
+   LIGHTER COLOUR (Aug 2026, on a bug report: "in night mode some of the books' authors and 'Start
+   reading' are too dark to read on the dark background").
+   The author colours in BOOK_AUTHOR_COLOR were chosen inside a deliberately dark lightness band and
+   measured against the SIXTEEN LIGHT papers alone — every one of them reads 1.5–3.0 on the dark ones,
+   which their own notes in app.js say outright. That is right for a SPINE seen against white and wrong
+   the moment the same value is set as text on `--card` at #26262C: the Book of Rites' dark plum reads
+   1.08:1 there, which is not low contrast but no contrast at all, and the spine that identifies the book
+   disappears with the words. So night lightens the accent for the whole banner rather than re-toning six
+   rules by hand, and it is done as a MIX rather than a second table of colours, so a book added later is
+   covered by having a colour at all.
+   45% is measured, not guessed: it is the strongest mix at which the darkest swatch on the shelf still
+   clears 4.5:1 on the lightest night `--card` (#460030 → 5.0:1; the whole shelf lands 5.0–6.5; at 50% it
+   falls to 4.3 and misses). It keeps each hue and only takes chroma, so two books by one hand still wash,
+   spine and read alike — which is the whole point of the colour.
+   `--tile` is set INLINE on the element (bookColor in app.js), so it cannot be overridden from here; a
+   derived property can, which is why the indirection exists at all. */
 .book-tile{
+  --bk-accent:var(--tile, var(--indigo));
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, transparent), transparent 64%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 26%, transparent), transparent 64%) var(--card);
   border:1px solid var(--rule); border-radius:14px;
   box-shadow:var(--shadow-sm); cursor:pointer; font:inherit; color:inherit;
   transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease), background-color .14s var(--ease);
 }
 body.night .book-tile{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 19%, transparent), transparent 64%) var(--card);
+  --bk-accent:color-mix(in srgb, var(--tile, var(--indigo)) 45%, #FFFFFF);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 15%, transparent), transparent 64%) var(--card);
 }
 /* A banner is HELD for its options sheet, so holding it must not select the title under the finger, and on
    iOS must not raise the platform's own callout — the guard the daily review's rows already carry. */
 .book-tile{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
-.book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile,var(--indigo)) 45%, var(--rule));}
+.book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--bk-accent) 45%, var(--rule));}
 .book-tile:active{transform:translateY(0) scale(.995);}
-.book-tile:focus-visible{outline:2px solid var(--tile,var(--indigo-bright)); outline-offset:3px;}
+.book-tile:focus-visible{outline:2px solid var(--bk-accent); outline-offset:3px;}
 /* the spine: where the book's colour is stated boldest, so the shelf reads as a shelf. The colour is
    its AUTHOR'S (BOOK_AUTHOR_COLOR in app.js), so two books by one hand carry one spine — which is why
    the author line below takes it too, and the title does not. */
-.bk-spine{flex:0 0 8px; align-self:stretch; background:var(--tile,var(--indigo)); position:relative;}
+.bk-spine{flex:0 0 8px; align-self:stretch; background:var(--bk-accent); position:relative;}
 .bk-spine::after{content:""; position:absolute; inset:0 2px; border-left:1px solid rgba(255,255,255,.25); border-right:1px solid rgba(0,0,0,.12);}
 /* the banner's own row: who and what on the left, how long and where you got to on the right */
 .bk-tile-body{display:flex; flex-flow:row wrap; align-items:center; gap:6px 18px; padding:13px 18px; min-width:0; flex:1;}
 .bk-tile-main{display:flex; flex-direction:column; gap:2px; min-width:0; flex:1 1 220px;}
-.bk-tile-author{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--tile,var(--indigo));}
+.bk-tile-author{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--bk-accent);}
 .bk-tile-title{font-family:var(--display); font-size:calc(19px * var(--fs)); font-weight:600; line-height:1.2; color:var(--ink);}
 .bk-tile-sub{font-family:var(--serif); font-style:italic; font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); margin-top:-2px;}
 /* When it was written — the one fact about a work of history a reader wants before opening it, and
@@ -5274,15 +5299,15 @@ body.night .book-tile{
 .bk-tile-foot{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:none; min-width:0;}
 .bk-tile-meta{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
 .bk-of{opacity:.72;}
-.bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+.bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* where the reader left off — the tile's one changing fact, so it takes the accent colour */
-.bk-tile-resume{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+.bk-tile-resume{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* The reading bar as the banner's own bottom EDGE (Aug 2026, on request — it was a short bar inside the
    right-hand block). Absolutely positioned, so it takes no height from the row and the banner stays as
    short as it is without one; .book-tile is already `position:relative` and `overflow:hidden`, so it
    follows the banner's rounded corners. */
 .bk-tile-bar{position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--rule); overflow:hidden;}
-.bk-tile-bar span{display:block; height:100%; background:var(--tile,var(--indigo)); border-radius:2px;}
+.bk-tile-bar span{display:block; height:100%; background:var(--bk-accent); border-radius:2px;}
 .lib-note{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink-soft);
   background:var(--card); border:1px dashed var(--rule); border-radius:12px; padding:13px 16px; max-width:70ch;}
 
