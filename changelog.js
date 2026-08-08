@@ -19,10 +19,11 @@ window.FOLIO_VERSION = { v: "1.99", released: "2026-08-08T05:23Z" };
 window.CHANGELOG = [
   {
     d: "2026-08-08",
-    t: "Seven new cards in Ancient Greece",
+    t: "Seven new cards in Ancient Greece, and the decks on the home page take their collection's colour properly",
     items: [
-      "Seven new cards in the Ancient Greece collection, in the deck on the polis and colonisation, with the glossary terms that go with them."
-    ]
+      "Seven new cards in the Ancient Greece collection, in the deck on the polis and colonisation, with the glossary terms that go with them.",
+      "Each deck listed under Daily study on the home page is washed in the colour of the collection it belongs to — but only faintly, at about half the strength of that collection's own banner in Collections, so the two read as different colours rather than the same one. The rows now carry exactly the wash their banner does, in light and dark alike, and the parent rows above them keep their quieter paper on dark themes as they always have on light ones.",
+    ],
   },
   {
     d: "2026-08-07",

@@ -3009,6 +3009,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
     Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
     community deck or the Card-of-the-day list, which belong to no collection.
+    **…AT THE BANNER'S OWN STRENGTH, which it was not for a fortnight** (Aug 2026, on request). The hue was
+    right from the start and the MIX was half of it — 14% by day and 9% at night against the banner's 30% and
+    22% — and a colour at half strength does not read as a paler version of itself, it reads as another
+    colour, which is the whole of what was reported. `.active-deck` now writes the same 105deg wash at the
+    same percentages fading at the same 64%, so a row's gradient start is byte-identical to its collection
+    banner's (measured: World History `srgb 0.862 0.828 0.774` by day and `0.235 0.210 0.189` at night, on
+    both). **Keep the four figures in step with `body[data-theme="folio"] .collection-deco` and its `.night`
+    pair** — the two rules exist to say one thing, and nothing enforces it. The other themes' banners are not
+    a plain wash at all (arcade dithers, academy sets a side band, gazette hatches) and are deliberately NOT
+    matched: a row is 46px of `var(--ink)` text and a saturated banner gradient under it would be unreadable.
+    **A CONTEXT ROW NEEDED ITS OWN NIGHT RULE**, found while making that change and fixed with it:
+    `body.night .active-deck` is (0,2,1) against `.active-deck.context`'s (0,2,0), so source order never came
+    into it and on every dark theme an ancestor signpost row silently lost both its wash and the `--paper-2`
+    under it and rendered as an added deck's row. What marks a context row is the paper and the quieter title,
+    never a weaker hue — it names the very collection its children are washed in.
   · **A pile at ZERO is grey** (`.adc-zero` on a row, `.stat-zero` on the banner, Aug 2026, on request): the
     colour means "there is work of this kind here", so it has nothing to say on a 0.
   · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
