@@ -14,17 +14,18 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.97", released: "2026-08-08T08:19Z" };
+window.FOLIO_VERSION = { v: "1.100", released: "2026-08-08T09:12Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-08",
-    t: "The site loads about a megabyte lighter, the decks on the home page take their collection's colour properly, and the spelling settles to British throughout",
+    t: "The site loads about a megabyte lighter, seven new cards in Ancient Greece, and the decks on the home page take their collection's colour properly",
     items: [
       "Folio now opens noticeably faster. The site has shipped in English for a while, but every visitor was still downloading the nine translations of the cards and the glossary before a single card could be turned over — about a megabyte of compressed text that nothing on screen could ever use. It has been taken out, so the first page you see costs a third less to load, on a phone signal as much as on a desk.",
+      "Seven new cards in the Ancient Greece collection, in the deck on the polis and colonisation, with the glossary terms that go with them.",
       "These release notes read as notes again. A day that announced eleven books in five separate entries now announces them in one, and the longest entries — one ran to four thousand characters — have been cut back to a summary of what changed rather than a transcript of it. Nothing has been dropped: every change is still recorded, in a good deal less reading.",
-      "Every card background on the site now sits inside its own length rule, and the two entries that fell outside it have been put right: seven backgrounds that ran slightly long were tightened without losing a claim, and a Syracuse card and glossary entry that stopped short gained the part they had left out. Stray typographic apostrophes were regularised at the same time.",
-      "Ten glossary entries and one Ancient Greece card now spell and number things the way the rest of the site does — British spellings throughout, and a figure above twenty written as a numeral rather than in words.",
+      "Every card background on the site now sits inside its own length rule, and the two entries that fell outside it have been put right: seven backgrounds that ran slightly long were tightened without losing a claim, and a Syracuse card and glossary entry that stopped short gained the part they had left out.",
+      "Eleven glossary entries and three Ancient Greece cards now spell, quote and number things the way the rest of the site does — British spellings throughout, the straight quotation marks the rest of the writing uses, and a figure above twenty written as a numeral rather than in words.",
       "Each deck listed under Daily study on the home page is washed in the colour of the collection it belongs to — but only faintly, at about half the strength of that collection's own banner in Collections, so the two read as different colours rather than the same one. The rows now carry exactly the wash their banner does, in light and dark alike, and the parent rows above them keep their quieter paper on dark themes as they always have on light ones.",
     ],
   },
