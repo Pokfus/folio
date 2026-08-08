@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.105", released: "2026-08-08T18:31Z" };
+window.FOLIO_VERSION = { v: "1.106", released: "2026-08-08T19:03Z" };
 
 window.CHANGELOG = [
   {
@@ -22,8 +22,8 @@ window.CHANGELOG = [
     t: "Levelling up now opens a chest holding a real historical artefact, collections show how far through them you are, the first forty Ancient Rome cards arrive, the Book of Rites joins the Library, and a walkthrough for new readers",
     items: [
       "<b>The Book of Rites</b> is on the Library shelf — the Lî Kî, the most human of the Five Classics, in James Legge's translation of 1885. Beside the court ritual and the sacrificial calendar there is a father teaching a son how to carry a jar of water, what to do with the seeds when the ruler gives you a peach, and a set of monthly ordinances telling a government what to do in each month of the year. Ten of its forty-six treatises are here, which is nearer half the work than it sounds, because they are the long ones; the book's own front matter says which are missing and why.",
-      "Every time you level up, Folio now hands you a chest — and inside it is a real historical artefact, drawn at random from a growing collection. Artefacts come in four grades, common, rare, epic and legendary, and the rarer ones open with rather more ceremony. You will never be given one you already have, and winning all six daily games in a single day earns you a chest as well.",
-      "Your artefacts live in a Reliquary on your account page, each with a picture and a few paragraphs about what it is, where it comes from and why it matters. You can pin up to four of them to the top of your profile for anyone visiting it to see.",
+      "Every time you level up, Folio now hands you a chest — and inside it is a real historical artefact, drawn at random from a collection of a hundred of them. Artefacts come in four grades, common, rare, epic and legendary, and the rarer ones open with rather more ceremony. You will never be given one you already have, and winning all six daily games in a single day earns you a chest as well.",
+      "Your artefacts live in a Reliquary on your account page, each with a short account of what it is, where it comes from and why it matters. You can pin up to four of them to the top of your profile for anyone visiting it to see.",
       "The Folio level no longer limits how many decks your daily study can hold. Add as many collections as you like, from the first day. The level now earns you a chest instead of deciding what you are allowed to do.",
       "Collections no longer carry a level of their own. In their place, each shows how many of its cards you have studied out of how many there are — which is the thing you actually want to know about a collection — and each now carries an icon of its own subject: a pagoda for China, a column for Greece, a pyramid for Egypt, a torii for Japan, and so on.",
       "The notes in the Library's books are now marked in the same red as the citations on a card, so there is one apparatus to learn instead of two. The teal they were using has moved to glossary words you have not yet opened, which used to share their colour with the blank in a card's question.",
