@@ -3751,7 +3751,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     before fixing by running `--fix` on a throwaway copy: it renamed **six real published works across twelve
     citations** (Lemos's *…Late Eleventh and Tenth Centuries B.C.* → *…Late 11th and 10th Centuries B.C.*,
     Camp's *A Drought in the Late Eighth Century B.C.*, Dickinson's *…Twelfth and Eighth Centuries BC*). The
-    whole block is masked now. **The lesson is that a mask keyed on one file's SHAPE is not a rule about
+    whole block is masked now, and so is the **`COLLECTION_TREE`** — a deck title is neither a card field nor a
+    glossary description, so it is outside the rules' stated scope, and the checker had been reporting
+    `gr-fourth-century` and `ru-nineteenth` on every run. It now reports both files clean and `--fix` applies
+    0 changes. **The lesson is that a mask keyed on one file's SHAPE is not a rule about
     citations** — when a checker grows a second corpus, re-derive what it is meant to skip there rather than
     assuming the existing guard travels. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
     the split rather than routing round it with a per-language marker map** — `add-sources.js` catches the
