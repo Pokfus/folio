@@ -557,6 +557,34 @@ const SHU = [
 const SHU_BY_N = {};
 SHU.forEach((r) => { SHU_BY_N[r[0]] = r; });
 
+/* The ten treatises of the Lî Kî that Sacred Books of the East volume 27 carries — its Books I to X,
+   the whole of that volume — as [number, the Roman numeral its wiki page is titled by, title].
+
+   THE TITLES ARE THE VOLUME'S OWN CONTENTS PAGE, read row by row rather than taken off the head of
+   each book, and the two are not always the same: the contents page gives Book VIII as "Rites in the
+   Formation of Character" where the book's own half-title sets CHARACTERS. The contents page is what
+   `chapterTitles` reads for every other book here that has one, so it wins, and the divergence is
+   recorded rather than silently resolved. Its "Wǎn Wang Shih-ᴈze" is hyphenated and the book's head
+   is not; the hyphen is kept, again because the contents page is the authority.
+
+   Legge's own "or" is kept as an em-dashed second half rather than turned into a subtitle field: it
+   is part of the name he gives the treatise, and a tab reading "The Lî Yun" alone tells an English
+   reader nothing whatever. */
+const LIKI = [
+  [1, "I", "Khü Lî — Summary of the Rules of Propriety"],
+  [2, "II", "The Than Kung"],
+  [3, "III", "The Royal Regulations"],
+  [4, "IV", "Yüeh Ling — Proceedings of Government in the different Months"],
+  [5, "V", "The Questions of Зăng-зze"],
+  [6, "VI", "Wăn Wang Shih-зze — King Wăn as Son and Heir"],
+  [7, "VII", "The Lî Yun — Ceremonial Usages; their Origin, Development, and Intention"],
+  [8, "VIII", "The Lî Khî — Rites in the Formation of Character"],
+  [9, "IX", "The Kiâo Theh Săng — the Single Victim at the Border Sacrifices"],
+  [10, "X", "The Nêi Зeh — the Pattern of the Family"],
+];
+const LIKI_BY_N = {};
+LIKI.forEach((r) => { LIKI_BY_N[r[0]] = r; });
+
 /* The thirty-five pieces of the Poetic Edda, in the order this edition's own contents page lists
    them and under the spellings its page titles use — read off that page row by row rather than
    assembled from memory, since several of these names have three or four accepted spellings and the
@@ -5036,6 +5064,155 @@ const BOOKS = {
        page order on that index is not Legge's. */
   },
 
+  "book-of-rites": {
+    title: "The Book of Rites",
+    subtitle: "The Lî Kî",
+    author: "Anonymous",
+    translator: "James Legge",
+    edition:
+      "The Sacred Books of the East, Vol. XXVII: The Texts of Confucianism, Part III, " +
+      "Clarendon Press, Oxford, 1885",
+    written: "c. 3rd–1st century BCE",
+
+    /* ---------- THE LICENCE, which needs no qualification at all ----------
+       Legge's fourth appearance on this shelf and his third easy one. He published this translation
+       in 1885 — before 1929, so its United States copyright has expired — and died in 1897, so it is
+       out of copyright wherever the term runs for the author's life plus seventy or even a hundred
+       years. No limit to state, as Giles (2029) and Ross (2042) need, and no modern editorial layer
+       to declare, as the Histories and the Meditations' Greek carry: this is his printed text.
+
+       The translations a reader is likeliest to meet are still in copyright and are named here so
+       nobody reaches for one: Séraphin Couvreur's French of 1913 is free, but the standard modern
+       English of the two chapters that later became separate classics — Wing-tsit Chan's of 1963 and
+       Daniel Gardner's — are not, and neither is the complete Chinese-English Lî Kî published in the
+       Library of Chinese Classics in 2001. */
+    rights:
+      "Public domain worldwide. James Legge published this translation in 1885 — before 1929, so its " +
+      "United States copyright has expired — and he died in 1897, so it is out of copyright wherever " +
+      "the term runs for the author's life plus seventy or even a hundred years. The treatises " +
+      "themselves are ancient and are in the public domain everywhere. (Wing-tsit Chan's translations " +
+      "of 1963 and the Library of Chinese Classics edition of 2001 are still in copyright and are not " +
+      "used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_27",
+
+    /* THE FRONT MATTER — chapter 0. Two things have to be said before a reader starts counting tabs:
+       what the book is, and that ten of its forty-six treatises are here and thirty-six are not. */
+    about: [
+      "<b>The Book of Rites</b> — the <i>Lî Kî</i>, also called the Classic of Rites — is not one " +
+        "book but a collection of forty-six treatises on ceremony and conduct, assembled under the " +
+        "Han dynasty out of much older material. It is the most miscellaneous of the Five Classics " +
+        "and much the most human: beside the court ritual and the sacrificial calendar there is a " +
+        "father teaching a son how to carry a jar of water, rules for how to behave at somebody " +
+        "else's funeral, what to do with the seeds when the ruler gives you a peach, and a set of " +
+        "monthly ordinances telling a government what to do in each month of the year. Ritual here " +
+        "is not ceremony as opposed to real life; it is the whole of how people are supposed to " +
+        "treat one another, and the book argues that a society is held together by it.",
+      "<b>Ten of the forty-six treatises are here, and thirty-six are not.</b> Legge published his " +
+        "translation in two volumes of the Sacred Books of the East in 1885, Books I to X in the " +
+        "first and Books XI to XLVI in the second, and only the first volume has been transcribed. " +
+        "That volume is complete: every one of its ten books is here entire, with Legge's own " +
+        "footnotes and his section and paragraph numbering. The ten are also the long ones — they " +
+        "fill four hundred and twenty pages of a volume that runs to four hundred and eighty, and " +
+        "the thirty-six that remain fill a companion volume of much the same size — so what is here " +
+        "is nearer half the work than the fifth that ten out of forty-six suggests. It is still not " +
+        "the whole, and among the missing are two treatises that later left this collection " +
+        "altogether to become classics in their own right: the Great Learning and the Doctrine of " +
+        "the Mean, Books XXXIX and XXVIII. The Record on Education and the Record of Music are also " +
+        "in the second volume. If a transcription of it ever appears, the rest of the book can be " +
+        "added without disturbing anything here, because the tabs are numbered as Legge numbers " +
+        "them.",
+      "<b>How it is divided, and why the numbers start again.</b> Each book is cut into Sections, " +
+        "and the longer books cut each Section again into Parts; the paragraph numbers run from one " +
+        "within each of those, which is why the small figures in the margin restart several times in " +
+        "a single tab. That is exactly what the printed page does, and it is how the work is cited — " +
+        "a passage of the Lî Kî is given as its book, its section, its part and its paragraph. The " +
+        "headings are set in their own line so the reader can see where each count begins again. In " +
+        "Book I, and only there, Legge also groups the paragraphs into numbered chapters and prints " +
+        "the chapter number in front of the first paragraph of each, so its openings read \"1. 1.\", " +
+        "\"2. 2.\", \"3. 3.\", \"4. 6.\" — the chapter first and then the paragraph.",
+      "Legge's footnotes are gathered under each book, and they are worth opening. The notes on the " +
+        "section headings are not references at all but his own summaries of what the section " +
+        "contains, and elsewhere he argues with the Chinese commentators, marks a passage he thinks " +
+        "corrupt, or says plainly that he cannot make sense of a sentence. Book II ends with an " +
+        "appendix he prints from a paper of 1853 on Chinese mourning and inheritance; its six plates " +
+        "of mourning charts are not part of the transcription, so the tables it refers to are absent " +
+        "while the argument around them is here.",
+      "James Legge was a Scottish missionary who spent three decades in Malacca and Hong Kong and " +
+        "became the first Professor of Chinese at Oxford in 1876. His English is Victorian and " +
+        "deliberately literal, and the round brackets scattered through it are his — words he has " +
+        "supplied to make an elliptical sentence run in English, marked so that you can see him " +
+        "doing it. He also spells Chinese in a romanisation of his own that nobody uses now, so " +
+        "Confucius is <i>Khung-jze</i> and the Kâu dynasty is the one usually written Zhou. There is " +
+        "a letter in it that no ordinary alphabet has, a blackletter Z standing for a sound his " +
+        "system distinguishes; the transcription writes it four different ways and it is written one " +
+        "way here.",
+      "There is no Chinese column, and the reason is the one that keeps the Book of Documents from " +
+        "having one. The Chinese text is freely available and every one of these ten treatises was " +
+        "found; what is missing is a shared way of pointing into them. Legge numbers his paragraphs " +
+        "and the Chinese transcription numbers nothing at all, so the only way to set the two side " +
+        "by side would be to pair them off in order and hope — and the two divide their prose quite " +
+        "differently, one book of thirty-five Chinese paragraphs facing fifty-seven of Legge's. A " +
+        "facing text built that way would be quietly wrong on most of its pages, with nothing to " +
+        "say so.",
+    ],
+
+    /* ---------- ONE TREATISE, ONE CHAPTER ----------
+       The ordinary wiki walk: one page per book, one book per tab. The chapters are long — Book II
+       is 155,000 characters — which is within the precedent the Prose Edda set at 173,000 and is
+       chosen for the same reason it was there: the tab is the unit the work is CITED by. "Lî Kî II"
+       is the Than Kung; "Lî Kî II.i.iii" is a passage in it. Cutting at the Section instead would
+       give forty-six tabs whose numbering runs clean, and would name none of them anything a reader
+       is looking for. */
+    layout: "wiki",
+    sections: "liki",
+    /* THE MOURNING CHARTS, taken by the handle the Republic's plates are taken by. Legge closes Book
+       II's appendix with six tables of mourning degrees, printed on leaves bound in outside the
+       pagination — so Wikisource labels each of them `data-page-number="table"` rather than giving it
+       a number, and the structural rule written for the Republic's engraved plates removes them
+       without knowing anything about what is on them. Measured across all ten books first: eight
+       unnumbered leaves, every one of them in Book II, and every other page of the volume numbered.
+
+       They are worth removing rather than keeping. Three of the six were never transcribed at all and
+       arrive as Wikisource's own message box — "A table should appear at this position in the text.
+       See Help:Table" — which the tag stripper would unwrap into the middle of Legge's prose as
+       though he had written it. The other three ARE transcribed, and a table run through a stripper
+       that has no rows is a column of nouns with every relation between them gone: "Mother's
+       Grand-parents Mother's Sister. Mother's Parents. Mother's Brother." tells a reader nothing the
+       chart told them. And the caption of the first is unproofread OCR — "( t>y a Man /ttr hit
+       Kmamtn and Kiimpomtn." for "by a Man for his Kinsmen and Kinswomen" — which is the one thing a
+       library must not ship as somebody's book. The front matter says the charts are absent. */
+    dropUnnumberedPages: true,
+    /* One printed letter written four ways by this transcription — see applyGlyphs, which is where
+       the count and the reasoning are. Two of the four are astral-plane characters that most devices
+       have no font for. */
+    glyphs: [["\u{1D585}", "З"], ["\u{1D59F}", "з"], ["ℨ", "З"]],
+    page: (n) => "Sacred Books of the East/Volume 27/The Lî Kî/Book " + LIKI_BY_N[n][1],
+    chapters: LIKI.map((r) => r[0]),
+    chapterWord: "Book",
+    titleOf: (n) => LIKI_BY_N[n][2],
+
+    /* ---------- WHY THERE IS NO FACING ORIGINAL ----------
+       The same answer as the Book of Documents', reached the same way and rather more decisively.
+       Chinese Wikisource carries every one of these ten treatises under 禮記 — Legge's Book I is
+       曲禮上 and 曲禮下, his Book II is 檀弓上 and 檀弓下, and his Books III to X are one pian
+       apiece — so the CHAPTER-level pairing exists. What does not exist is the level below it, which
+       is what app.js pairs on: those pages carry no numbering whatever, not a paragraph number and
+       not a traditional 章 division, so the only available key is position.
+
+       Position does not work here, and it is not close. Measured page against page: Legge's Lî Yun
+       runs to fifty-seven numbered paragraphs against thirty-five on the Chinese page, his Nêi Zeh
+       to sixty-four against twenty, his Wang Kih to fifty against fifty-six. The two are dividing
+       the same prose on different principles, and pairing them off in order would set most of the
+       book beside passages that are not its counterpart — the approach this file has already tried
+       and abandoned once, for the Meditations' Greek.
+
+       One trap is recorded so a later attempt does not rediscover it. The index at 禮記 carries
+       several pages TWICE under simplified and traditional titles — 大传 beside 大傳, 少仪 beside
+       少儀, 杂记上 beside 雜記上 — so a chapter list built by reading that index rather than by
+       naming the ten pian wanted will pick up duplicates of books it already has. */
+  },
+
   "prose-edda": {
     title: "The Prose Edda",
     /* No subtitle. It is also called the Younger Edda and Snorri's Edda, and both are said in the
@@ -5648,6 +5825,156 @@ function markShuSections(b, warn) {
   return b;
 }
 
+/* THE HEADINGS AND THE HALF-TITLES OF THE LÎ KÎ, which arrive in the SAME centred block and have to
+   be told apart (Aug 2026, adding the Book of Rites). This runs before the generic div pass, where
+   the class is still there to key on.
+
+   Every one of this edition's forty-six divisions is a `wst-center` div, and so is the half-title at
+   the head of each book — and at the head of a BOOK the two are one block: the title, sometimes an
+   "OR" and a descriptive second line, and then "Section I. Part I." underneath, inside a single
+   centred div. dropHeads cannot help, for two reasons. It matches a block's WHOLE text, so a pattern
+   that reached the half-title would take the section heading with it and a pattern that spared the
+   heading would leave the half-title; and Book I's block holds a nested centred div of its own (the
+   volume's own title page), which none of dropHeads' three shapes can match at all. So the block is
+   opened and its paragraphs sorted rather than the block being kept or dropped whole.
+
+   THE HALF-TITLE GOES AND THE HEADING STAYS, and the heading stays because the numbering restarts at
+   it. A reader meeting the small figures running 1…31 and then 1 again needs to see, on the page, the
+   line that says why; this is Herodotus's chapter numbers if the book divisions were invisible.
+
+   DROPPING A HALF-TITLE CAN DROP A FOOTNOTE MARKER, which is Beowulf's rule met in another edition.
+   Legge hangs his note on the whole treatise off its TITLE — Book VII's is on the words "Ceremonial
+   Usages; their Origin, Development, and Intention", Book II's on "The Than Kung" — so nine of the
+   ten books would have shipped with a note 1 that no sentence opens, which is the mirror of the dead
+   marker app.js's apparatus already refuses to draw. Every marker on a dropped line is carried down
+   to the heading below it instead, where Legge's note on the book belongs anyway.
+
+   THE TEST FOR A LINE THAT MAY GO IS THAT IT IS SET IN CAPITALS — this edition sets every half-title
+   that way and nothing else in the book — so a line neither matching a heading nor wholly capital is
+   REPORTED and kept rather than silently discarded. */
+const LIKI_MARK = "@@LKH@@";
+const LIKI_HEAD_RX = /^(?:Section\b|Part\b|Supplementary Section\b|Appendix to Book\b)/i;
+function likiPlain(s) {
+  return s.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;|&#32;|\u200b/g, " ").replace(/\s+/g, " ").trim();
+}
+function markLikiHeads(b, warn) {
+  // the centred blocks, opened one at a time and sorted into headings and half-titles
+  let at = 0;
+  for (let k = 0; k < 200; k++) {
+    const rx = /<div class="wst-center[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = b.slice(m.index, end);
+    const keep = [];
+    let orphans = "";
+    let p;
+    const prx = /<p>([\s\S]*?)<\/p>/g;
+    while ((p = prx.exec(inner))) {
+      const t = likiPlain(p[1]);
+      if (!t) continue;
+      if (LIKI_HEAD_RX.test(t)) { keep.push(p[1]); continue; }
+      /* A half-title is wholly capital. Anything else in one of these blocks is prose nobody has
+         looked at, so it is kept and named rather than thrown away on a guess. */
+      if (/[a-z\u00e0-\u00ff]/.test(t.replace(/&[a-z]+;/g, ""))) {
+        warn('kept a centred line that is not a heading and not a half-title: "' + t.slice(0, 60) + '"');
+        keep.push(p[1]);
+        continue;
+      }
+      orphans += (p[1].match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+    }
+    if (orphans && !keep.length) warn("a half-title carried a footnote marker with no heading under it");
+    const out = keep
+      .map((h, i) => "<p>" + LIKI_MARK + h + (i === 0 ? orphans : "") + LIKI_MARK + "</p>")
+      .join("\n");
+    b = b.slice(0, m.index) + out + b.slice(end);
+    at = m.index + out.length;
+  }
+  return b;
+}
+
+/* THE EIGHTH WAY an edition marks its numbers, and the first whose count RESTARTS inside a chapter
+   (Aug 2026, adding the Book of Rites). Every rule above numbers a chapter once, straight through,
+   and is guarded by a forward-only test that treats a number going backwards as prose. Legge numbers
+   the paragraphs of the Lî Kî from one within each Section — and within each Part, where a Section
+   has Parts — so Book I alone starts its count over eight times and Book IV thirteen. Run under the
+   ordinary guard, everything after the first Part is declined as going backwards and nine tabs in ten
+   ship carrying the numbers of their opening pages only.
+
+   So the counter is reset by the HEADINGS, which markLikiHeads has just fenced off above, and the
+   headings and the numbers are matched in ONE sweep in reading order — the Meditations' lesson, which
+   is sharper here than anywhere: as two passes there is no reading order at all and the reset cannot
+   know which numbers it precedes.
+
+   A NUMBER NEED NOT OPEN A PARAGRAPH. Legge runs several numbered paragraphs together where the sense
+   runs on, so the figure lands mid-sentence after a full stop — 4 of Book I's 31, but 82 of Book IV's
+   198 — and a rule anchored to `<p>` finds the rest and leaves those out of the numbering with their
+   prose swallowed into the paragraph above, which is the Art of War's bare-run trap in another dress.
+   The mid-paragraph alternative is therefore matched too, and it is fenced as tightly as the evidence
+   allows: it must follow a sentence ending, be followed by a capital or an opening quotation, and — as
+   everywhere in this file — move the sequence forward by a step or a few. Legge's prose is full of
+   figures that are not sections (a territory of 1000 lî, five gradations of rank, the age of a man in
+   his eighties) and the guard is what keeps them prose.
+
+   BOOK I NUMBERS TWICE OVER, and both figures are printed. Its paragraphs are grouped into chapters
+   and the first paragraph of each carries the chapter number in front of its own — "Ch. 1. 1.", then
+   "2. 2.", "3. 3.", "4. 6." — which is Legge's own analysis, set out in his note to each Part. Both
+   are kept, in the order he prints them, with the PARAGRAPH number written as the marker's `data-n`
+   sort key so app.js goes on pairing and ordering by the number a passage is cited by. The pair is
+   accepted only when the chapter figure moves a counter of its own forward as well, or an ordinary
+   paragraph opening on two numbers would be read as one. */
+function markLikiSections(b, warn) {
+  let seq = 0, ch = 0, found = 0, resets = 0;
+  const RX = new RegExp(
+    "<p>" + LIKI_MARK + "([\\s\\S]*?)" + LIKI_MARK + "</p>" +
+      "|<p>((?:\\s|<[^>]*>)*)(?:(?:Ch\\.\\s*)?(\\d{1,3})\\.\\s+)?(\\d{1,3})\\.(?=\\s|<)" +
+      /* A sentence ending OR the head of a printed line, then the figure, then the opening of a
+         sentence. Both halves of that are load-bearing and each was measured.
+
+         THE TAGS IN THE LOOKAHEAD ARE NOT DECORATION: Legge italicises the aspirated consonants of
+         his romanisation, so a great many of his paragraphs open on `<i>K</i>ung-nî` or `<i>Kh</i>ǎng`
+         rather than on a letter, and a lookahead wanting a capital immediately meets a `<`.
+
+         AND THE SENTENCE BEFORE DOES NOT ALWAYS END IN A STOP. Three of these numbers follow no full
+         stop at all — Book I's 44 follows a comma, and Book IV's 2 and Book X's 27 each follow a
+         footnote marker whose stop the printing drops — so a rule keyed on punctuation alone leaves
+         three paragraphs of prose swallowed into the paragraph above with nothing thrown to say so.
+         What all four hundred of them DO share is that the figure opens a line: this transcription
+         keeps the scan's own line breaks, and Legge starts every numbered paragraph on a fresh line.
+         That is a stronger signal than the punctuation, not a looser one, and it is fenced by the
+         same two guards as everything else here — the number must move the sequence on by a step or
+         a few, and a sentence must open after it. */
+      "|(?<=[.!?][\\s\u201d\"']{0,2}\\s|\\n)(\\d{1,3})\\.(?=\\s+(?:<[^>]*>)*[A-Z\u201c\u2018(\u0417])",
+    "g"
+  );
+  b = b.replace(RX, (whole, head, lead, chNum, pNum, midNum) => {
+    if (head !== undefined) {
+      seq = 0; ch = 0; resets++;
+      return '<p class="bk-head">' + head + "</p>";
+    }
+    const v = +(pNum !== undefined ? pNum : midNum);
+    if (v <= seq || v > seq + 6) return whole;
+    /* The chapter figure is taken only where it moves its own counter on. Where it does not, the
+       match is left as it stands rather than half-taken: the alternative is to read Legge's chapter
+       number as a paragraph number, which would put the marker on the wrong figure. */
+    let text = String(v);
+    if (chNum !== undefined) {
+      const c = +chNum;
+      if (c <= ch || c > ch + 3) return whole;
+      ch = c;
+      text = c + ". " + v;
+    }
+    seq = v; found++;
+    const mark = '<span class="bk-n" data-n="' + v + '">' + text + "</span> ";
+    return pNum !== undefined ? "<p>" + lead + mark : mark;
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  if (!resets && warn) warn("no section headings found — the paragraph numbering cannot restart");
+  return b;
+}
+
 /* A ROMAN NUMERAL, read strictly. Every other rule in this file counts in Arabic figures; the Prose
    Edda numbers its chapters I, II, III … and the only other Roman numerals on this shelf are the
    Song of Roland's laisses and Beowulf's fitts, which are read by their own extractors. It is
@@ -6145,6 +6472,10 @@ function cleanBody(h, noteIds, book, warn) {
      other than verse in an edition nobody has looked at yet, so the rule can only fire on a book that
      asks for it and is provably inert on the twenty-five already shipped. */
   if (book && book.verse === "dl") b = verseFromLists(b);
+  /* Before the centred divs become blockquotes and lose the class this has to key on — see
+     markLikiHeads, which sorts a half-title from the section heading printed under it in the very
+     same block. Gated per book, so it is provably inert on the twenty-six already shipped. */
+  if (book && book.sections === "liki") b = markLikiHeads(b, warn || (() => {}));
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -6266,6 +6597,7 @@ function cleanBody(h, noteIds, book, warn) {
   }
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
   if (book && book.sections === "shu") b = markShuSections(b, warn);
+  if (book && book.sections === "liki") b = markLikiSections(b, warn);
   if (book && book.sections === "edda") b = markEddaSections(b, warn);
 
   /* ONE SECTION FOR THE WHOLE CHAPTER, for an edition whose chapter IS the unit both columns are
@@ -6308,6 +6640,32 @@ function stripWikiCSS(s) {
    Pairing the id with its text in one match also avoids a trap worth writing down: the notes cannot
    be split on "<li", because MediaWiki serves its font templates as <link rel="mw-deduplicated-inline-
    style"> elements INSIDE a note, and "<link" starts with "<li". */
+/* ONE PRINTED LETTER WRITTEN FOUR WAYS, normalised on the page before either the prose or the notes
+   is read out of it (Aug 2026, adding the Book of Rites).
+
+   Legge romanises Chinese in a system of his own that needs a letter no alphabet has: a blackletter Z
+   standing for a sound he keeps apart from plain z, so Zengzi is "Зăng-зze" and the Nêi Zeh is "Nêi
+   Зeh". Unicode has no such letter, and the transcription reaches for four different characters to
+   stand in for it — Cyrillic З 139 times in the running prose, a mathematical bold fraktur 𝖅 98 times
+   and 𝖟 71 times in the headings and half-titles, and a blackletter ℨ twice, including on the
+   volume's own contents page. It is one letter in the book and four to any reader searching for it.
+
+   Two of the four are also outside the Basic Multilingual Plane, and a font that carries them is not
+   a font anyone reads a book in: on a device with no mathematical-alphanumerics face they are empty
+   boxes, and there are 169 of them here plus two chapter tabs. So all four are written the way the
+   transcription itself writes them most often, in the running prose, which is the one place a reader
+   meets the letter oftenest.
+
+   THIS IS A REPAIR, so it is narrow and it is declared per book: a table of exact characters, applied
+   to the fetched page before anything is extracted from it, so the prose and the footnotes and the
+   chapter titles cannot come to spell the same name differently. It asserts nothing about which glyph
+   Legge set — only that whatever he set, he set one. */
+function applyGlyphs(h) {
+  if (!BOOK || !BOOK.glyphs) return h;
+  for (const [from, to] of BOOK.glyphs) h = h.split(from).join(to);
+  return h;
+}
+
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
   if (!m) return { notes: [], ids: [] };
@@ -9646,7 +10004,7 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    const h = await api(pageNames[0]);
+    const h = applyGlyphs(await api(pageNames[0]));
     let html, notes, orig = "", tFromText = "";
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
@@ -9693,7 +10051,7 @@ async function fetchEnglish() {
       const quiet = (m) => { if (!/^no section numbers found/.test(m)) warn(m); };
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
-        const eh = await api(extra);
+        const eh = applyGlyphs(await api(extra));
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);

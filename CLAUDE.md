@@ -102,7 +102,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently twenty-seven:
+  matter (chapter 0 — see the Library bullet). Currently twenty-eight:
   `prose-edda` (~339 KB, the Prologue, Gylfaginning and Skáldskaparmál as **3 chapters**, 132 section
   numbers, 177 notes — and the book that separates THE TAB from THE CITATION most sharply. Each of the
   work's three parts restarts its chapter numbering at 1, so making the numbered chapter the tab would
@@ -127,6 +127,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Nothing threw, no word was lost and every count read healthy; see `verseFromLists`, and note that
   these lists NEST two deep, so a non-greedy `<dl>…</dl>` pair closes on the inner tag and leaves 34
   unclosed blockquotes in one chapter),
+  `book-of-rites` (~790 KB, ten of the Lî Kî's forty-six treatises — **10 chapters**, 1,182 section
+  numbers, 812 notes — Legge's fourth appearance on the shelf, and **the first book here that is short
+  of its whole because of the TRANSCRIPTION rather than the edition.** The Classic of Poetry ships 102
+  of 305 because Legge selected 102 and the Prose Edda 3 parts of 4 because Brodeur translated three;
+  here Legge translated all forty-six, in two Sacred Books of the East volumes of 1885, and only the
+  first has been transcribed — Volume 28 exists as an Index with 37 of ~500 pages proofread and no
+  mainspace transclusion at all. That volume IS complete and every one of its ten books ships entire.
+  **The ten are also the long ones — 420 pages of a 480-page volume against a companion volume of much
+  the same size — so it is nearer half the work than 10-of-46 suggests**, which is worth measuring and
+  saying rather than letting `count`/`total` imply a fifth. The missing thirty-six include the Great
+  Learning and the Doctrine of the Mean, and the front matter names them.
+  **CTEXT.ORG WAS CHECKED AND REJECTED, which is the finding to carry before anyone reaches for it as
+  the obvious complete source.** It is reachable here and it does carry a complete Legge Lî Kî; its own
+  FAQ says its translations are "based upon copyright-expired translations … and **manually adapted for
+  the site**", alongside a third category "created through a combination of artificial intelligence and
+  crowdsourcing", with no per-article statement of which is which. That cannot be shipped as "James
+  Legge, 1885" — it is the Histories' modernised-Godley layer with no editor named and no way to tell
+  the layers apart. **Ask what an obvious source has DONE to the text, not only whether it has it.**
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **A SECTION COUNT MAY RESTART INSIDE A CHAPTER** —
+  Legge numbers paragraphs from 1 within each Section, and within each Part where a Section has Parts,
+  so Book I starts over eight times and Book IV thirteen; run under the ordinary forward-only guard
+  everything after the first Part is declined as going backwards and nine tabs in ten ship carrying
+  their opening pages' numbers only. Hence the eighth section shape, `sections: "liki"`, whose counter
+  is reset by the headings and which matches headings and numbers in ONE sweep for the Meditations'
+  reason. **A HALF-TITLE AND THE HEADING UNDER IT ARRIVE IN ONE BLOCK**, so `dropHeads` — which keeps or
+  drops a block whole, and whose three shapes cannot match Book I's nested centred div at all — is no
+  help; the block is opened and its paragraphs sorted instead, on the test that a half-title is wholly
+  CAPITAL and anything else is reported and kept. **DROPPING A HALF-TITLE DROPS A FOOTNOTE MARKER**,
+  Beowulf's rule in another edition: Legge hangs his note on the whole treatise off its TITLE, so nine
+  of the ten books would have shipped with a note 1 that no sentence opens — the markers are carried
+  down onto the heading below. And **A PARAGRAPH NUMBER NEED NOT FOLLOW A FULL STOP**: three of them
+  follow a comma or a footnote marker whose stop the printing drops, so the mid-paragraph rule keys on
+  the figure OPENING A PRINTED LINE as well, which this transcription preserves. All 45 numbered runs
+  are a clean 1..N after that, measured, with no gaps and no duplicates.
+  Its plates were taken by the Republic's handle rather than a new rule: Book II's appendix closes on
+  six mourning charts bound in outside the pagination, so Wikisource labels each leaf
+  `data-page-number="table"` and `dropUnnumberedPages` removes them — measured first, eight unnumbered
+  leaves in the whole book and every other page numbered. Worth removing rather than keeping: three of
+  the six were never transcribed and arrive as Wikisource's own "A table should appear at this position
+  in the text" box, the three that were are flattened by the tag stripper into a column of nouns with
+  every relation gone, and the first caption is unproofread OCR),
   `book-of-documents` (~444 KB, the whole of the received Shû — **59 chapters**, 169 section numbers,
   283 notes — and the first book here whose CHAPTER IS PRINTED ACROSS MORE THAN ONE WIKI PAGE. Every
   earlier wiki book is one page to one chapter; where Legge prints a book in sections, Wikisource gives
@@ -387,8 +428,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty-seven books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, the Prose Edda, Lysistrata and Shakuntala have none, and the reason differs — the
+  **Twenty-eight books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Book of Rites, the Prose Edda, Lysistrata and Shakuntala have none, and the
+  reason differs — the
   next paragraph's
   rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
   earlier, there being no settled original text to face.
@@ -414,6 +456,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of the received 58 documents, so chapter for chapter the two columns match, but Legge numbers his
   paragraphs and that transcription numbers nothing, and pairing by POSITION — the approach abandoned for
   the Meditations' Greek — puts the two divisions together in only 8 of the 58. Measured, not assumed.
+  **The Book of Rites is that same case and less close still**, which is worth recording because the two
+  are the same translator on the same wiki: Chinese Wikisource carries all ten of its treatises under 禮記,
+  so the chapter pairing exists, and those pages number nothing whatever — one book runs to 57 of Legge's
+  numbered paragraphs against 35 Chinese ones, another to 64 against 20. One trap there for a later
+  attempt: that index carries several pages TWICE under simplified and traditional titles (大传 beside
+  大傳, 少仪 beside 少儀, 杂记上 beside 雜記上), so a chapter list built by reading it rather than by naming
+  the pian wanted picks up duplicates of books it already has.
   **THE ONE QUESTION THAT DECIDES WHETHER A BOOK CAN HAVE AN ORIGINAL AT ALL** is not "does a text of it
   exist?" but **"does that text say which section each passage is?"** — because app.js pairs the two columns
   on the section NUMBER, never on paragraph or list order. **And the number need not be the unit the
@@ -816,6 +865,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   only strips blocks from the START of a chapter, so while the plates stood in front of them Books V and
   VII kept heads the other eight lost — a rule that did not fire, reading as a rendering fault in two
   chapters out of ten.
+  **IT TOOK A SECOND BOOK WITHOUT A LINE OF NEW CODE** (Aug 2026, the Book of Rites), which is the
+  argument for having made it structural: Legge closes Book II's appendix with six charts of mourning
+  degrees bound in outside the pagination, so Wikisource labels each of those leaves
+  `data-page-number="table"` and the Republic's rule lifts them out knowing nothing about charts.
+  Measured first, as there: eight unnumbered leaves in the whole book, all in Book II, every other page
+  numbered. They are worth removing rather than keeping — three of the six were never transcribed and
+  arrive as Wikisource's own "A table should appear at this position in the text. See Help:Table" box,
+  which the tag stripper unwraps into the middle of Legge's prose as though he had written it; the three
+  that WERE transcribed are flattened by that same stripper into a column of nouns with every relation
+  between them gone; and the caption of the first is unproofread OCR ("( t>y a Man /ttr hit Kmamtn and
+  Kiimpomtn." for "by a Man for his Kinsmen and Kinswomen"), which is the one thing a library must not
+  ship as somebody's book.
   **`prp-pages-output` CAN OCCUR MORE THAN ONCE, so its opener is stripped globally** (same batch). A
   transclusion is broken into a fresh wrapper wherever something interrupts the run of scan pages — an
   inserted plate, or the footnote apparatus at the foot — and the Republic's pages carry two. Anchored to
@@ -873,6 +934,44 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     "Section 1 Section 2 Section 3". Keyed on the wiki's own class rather than on its wording, like the
     `ws-noexport` rule, removed with a BALANCED match because it nests, and gated per book so it is
     provably inert on everything already shipped.
+  · **`sections: "liki"`** — THE EIGHTH WAY, and the first whose count RESTARTS INSIDE A CHAPTER (Aug
+    2026, adding the Book of Rites). Every rule above numbers a chapter once, straight through, under a
+    forward-only guard that reads a number going backwards as prose. Legge numbers the paragraphs of the
+    Lî Kî from 1 within each Section, and within each Part where a Section has Parts, so Book I starts
+    over eight times and Book IV thirteen — and under the ordinary guard everything after the first Part
+    is declined, so nine tabs in ten ship carrying their opening pages' numbers alone with every later
+    paragraph's prose swallowed into the one above. **The counter is therefore reset by the HEADINGS**,
+    which `markLikiHeads` fences off before the generic div pass, and the headings and the numbers are
+    matched in ONE sweep in reading order — the Meditations' lesson, sharper here than anywhere, since as
+    two passes there is no reading order at all and the reset cannot know which numbers it precedes.
+    Three more things it settled. **A HALF-TITLE AND THE FIRST HEADING ARRIVE IN THE SAME BLOCK**, so
+    `dropHeads` cannot help — it keeps or drops a block whole, and none of its three shapes can match
+    Book I's block at all, that one holding a nested centred div (the volume's own title page). The block
+    is opened and its paragraphs sorted instead, on the test that **a half-title is wholly CAPITAL** in
+    this edition and nothing else is, so a line that is neither a heading nor capital is reported and
+    KEPT rather than discarded on a guess. **DROPPING A HALF-TITLE DROPS A FOOTNOTE MARKER** — Beowulf's
+    `dropFittHead` rule in another edition: Legge hangs his note on the whole treatise off its TITLE, so
+    nine of the ten books would have shipped with a note 1 that no sentence opens, and every marker on a
+    dropped line is carried down onto the heading below, where his note on the book belongs anyway. And
+    **A PARAGRAPH NUMBER NEED NOT FOLLOW A FULL STOP**: Legge runs numbered paragraphs together where the
+    sense runs on, so 4 of Book I's 31 and 82 of Book IV's 198 land mid-sentence — and three of those
+    follow a comma or a footnote marker whose stop the printing drops. What all of them share is that the
+    figure OPENS A PRINTED LINE, which this transcription preserves, so that is the signal rather than
+    the punctuation. Watch the lookahead as well: Legge italicises the aspirated consonants of his
+    romanisation, so a great many paragraphs open on `<i>K</i>ung-nî` and a rule wanting a capital
+    immediately meets a `<`. All 45 numbered runs are a clean 1..N afterwards, measured, no gaps and no
+    duplicates — which is the check to run, since every one of these faults is silent.
+  · **`glyphs`** — a per-book table of exact characters applied to the fetched page BEFORE anything is
+    extracted from it, so the prose, the footnotes and the chapter titles cannot come to spell one name
+    differently (Aug 2026, same book). It exists because **a transcription may write ONE PRINTED LETTER
+    SEVERAL WAYS**: Legge's romanisation needs a blackletter Z that Unicode has not got, and this one
+    reaches for four characters to stand in for it — Cyrillic З 139 times in the running prose, a
+    mathematical bold fraktur 𝖅 98 times and 𝖟 71 times in the headings and half-titles, and a
+    blackletter ℨ twice, including on the volume's own contents page. Two of the four are also outside
+    the Basic Multilingual Plane, so on a device with no mathematical-alphanumerics face they are 169
+    empty boxes plus two chapter tabs. All four are written the way the transcription itself writes the
+    letter most often. **It is a repair, so it is narrow and declared per book**, and it asserts nothing
+    about which glyph Legge set — only that whatever he set, he set one.
   **A CHAPTER MAY BE PRINTED ACROSS SEVERAL WIKI PAGES, and `page(n)` may return an ARRAY** (Aug 2026,
   same book). Every earlier wiki book is one page to one chapter. Where Legge prints a book in sections,
   Wikisource gives each section its own page and leaves the book's headnote — and at the head of a Part
@@ -2184,6 +2283,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     pre-1929 publication rule, on life-plus-seventy and on life-plus-a-hundred, with no limit to state and
     no modern editorial layer to declare. The documents underneath are ancient. Karlgren's translation of
     1950 and Waltham's modernisation of Legge of 1971 are named as the ones not to reach for.
+    **The Book of Rites is Legge's third easy licence and needs no qualification either** (Aug 2026):
+    published 1885, died 1897, so it clears the pre-1929 rule, life-plus-seventy and life-plus-a-hundred
+    alike, with no limit to state and no modern editorial layer. Chan's translations of 1963 and the
+    Library of Chinese Classics edition of 2001 are named as the ones not to reach for. What its `rights`
+    does state, and no other book's has had to, is a piece of the printed volume that is NOT reproduced —
+    the six mourning charts of Book II's appendix — because they are absent for a transcription reason
+    rather than a copyright one and a reader meeting the appendix's argument without its tables is owed
+    the reason. **Its `BOOK_AUTHOR_COLOR` row widened the band downward a SECOND time**, which the Prose
+    Edda's row did first and Beowulf's predicted: with twenty-six colours placed, nothing in the shelf's
+    own band clears 21.6 of its nearest neighbour once the 4.5:1 bar is applied, and every candidate at
+    that number is an eighth red. Dropping the floor to L 12 opens it again — and needs a SECOND FLOOR
+    that is new, since a colour dark enough stops being a colour and becomes the body ink: every
+    candidate is now also held 22 clear of all six light themes' inks, which is what rules out the L 10
+    swatches that scored 26. Of the three survivors the **Euripides test picked against the raw number**
+    for the second time: the best is a blue-violet at 23.3 and the third a dark burnt brown at 22.8 that
+    lands 24.2 from Confucius — who is the ANALECTS, the one book on the shelf a reader is likeliest to
+    hold beside the Lî Kî. So the dark plum `#460030` at 22.6, clearing Plato, Snorri and Beowulf by
+    22.6/22.8/23.0 evenly, 36.6 from the Classic of Poetry and 48.5 from Confucius, reading 9.70:1 on the
+    tightest of the sixteen light papers.
     **Its `BOOK_AUTHOR_COLOR` row is where only two hue families were left** — a sweep of the whole RGB
     cube inside the shelf's own lightness and chroma band found candidates clearing 20 of their nearest
     neighbour in red (20.1) and green (22.5) and nowhere else, which is the Beowulf row's prediction
@@ -7436,6 +7554,7 @@ dead code (never rendered).
     `slideChapter` / `BOOK_SORTS` / `sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` /
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
+    `markLikiHeads` / `markLikiSections` / `applyGlyphs` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
     **A change to the SHLOKA reader has no sibling to diff against** — the Gita is the only book on
