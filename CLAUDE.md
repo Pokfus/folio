@@ -58,7 +58,8 @@ It is a plain static website — open `index.html` and it runs.
 ## File map
 
 **Only the study-critical files load eagerly**, in this order — it is significant:
-`data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js → app.js`.
+`data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js →
+artefacts.js → app.js`.
 **That path is 4.9 MB raw / 1.35 MB gzipped** (measured 2026-08-08 after the translation removal below; it
 said "~1.4 MB" for months and was five times out of date, so **re-measure it rather than quoting it**).
 **THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
@@ -1872,6 +1873,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
+- `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc } ]`, the pool a
+  level-up chest draws from (see THE RELIQUARY under "How the app is wired"). **Eager**, and it can stay
+  eager because it is metadata only: a picture is a LINK, never an upload, exactly as a card's is, so an
+  artefact costs a few hundred bytes however many are added. Every entry is a REAL object and the content
+  rules are the cards' — nothing invented, five sentences, ~200 words (±10%), metric first with the
+  imperial in brackets. **The `id` is permanent**: the reader's own inventory (`S.artefacts`) is keyed by
+  it, so renaming one takes the artefact out of every collection that holds it, and the Admin editor locks
+  the field once an artefact exists. Written and edited in **Admin → Artefacts**, which also hands the
+  whole file back as a JS literal (`serializeArtefacts`); an `ADMIN_EDITS.artefacts` overlay sits over it,
+  keyed by id, exactly as the daily quotes' does over `SHIPPED_QUOTES`.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
@@ -2916,17 +2927,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   step** — the number is a constant precisely so the two can be read against each other. Nothing migrates: XP is
   derived from `S.cards` on every read, so an existing reader's level simply recomputes on the new curve (roughly
   ×0.77 of the old level number at the same card count). Guarded by `test-card-types.js`, which slices `levelFromXP`
-  out of app.js and walks every threshold through level 13. Each **collection** has its own level (distinct cards studied within it, `collectionXP` =
-  `studiedInNode`) shown on its **Library banner**; the whole of Folio has a **general level** (`folioXP` =
-  `Object.keys(S.cards).length`) shown on the **home Daily-review banner**. Both banners carry a **large level numeral**
-  on the left (`.level-badge` — just the numeral now; the small "Level" label under it was removed since the blue "Level N"
-  in the xp-bar head beside it already says it), rendered in a **golden colour** (`.banner .lb-num` + `.collection-row .lb-num`
-  = `#C39A2E`, brighter `#E6C765` on `body.night`; the profile `.cl-row .lb-num` stays indigo). **The review
-  banner's xp bar runs in the same metal** (`.banner .xp-fill` + `.xp-lvl`, gold): the Library's bars take each
+  out of app.js and walks every threshold through level 13.
+  **THERE IS EXACTLY ONE LEVEL NOW, AND IT IS FOLIO'S** (`folioXP` = `Object.keys(S.cards).length`), shown on the
+  **home Daily-study banner**. Collections had their own (distinct cards studied within them) and it was removed on
+  request in Aug 2026, along with the per-script numerals that counted it — `COLLECTION_NUMERALS`, `numeralIn` and
+  the five numeral functions (`cnNumeral` / `romanNumeral` / `greekNumeral` / `devanagariNumeral` / `cyrillicNumeral`)
+  are **deleted**, as are their `.level-badge.zh` / `.num-*` rules. A collection banner carries a **subject icon**
+  and a **studied/total bar** instead — see the collection-icon bullet under "How the app is wired". *(The
+  `COLLECTION_NUMERALS` paragraphs in `docs/*-card-plan.md` are historical from that date: read them as a record of
+  what each collection would have counted in, not as something to wire up.)*
+  **What a level buys is an ARTEFACT CHEST** — see THE RELIQUARY. It used to cap how many decks the daily review
+  would hold, which is the opposite of a reward, and that cap is gone.
+  **`levelBadgeMarkup` AND `.level-badge` / `.lb-num` / `.lb-lbl` ARE GONE**, and that is a second removal
+  finishing a first: the home banner gave its own big numeral up earlier in Aug 2026 on request (see the
+  `pileBadgeMarkup` note in `PAGES.home`), which left the badge rendering only on collection banners — so when
+  those lost their levels, nothing was calling it at all. The level is still spelled out **in words** by the
+  banner's xp bar, which **runs in gold** (`.banner .xp-fill` + `.xp-lvl`): the Library's bars take each
   collection's hue and the account's are indigo, so one indigo bar read as another. Its "Level N" label is a
   DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px text. The earned
-  `.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing. The old studied/total
-  **progress bars were removed from Library decks + collections** (they remain on the account page's "Progress by deck").
+  `.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing.
   **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X studied` bar
   (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
   sit. (The bin at the right of each row went in Aug 2026 — Remove moved into the row's long-press options sheet;
@@ -2945,11 +2964,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   specificity. And the label was shortened to **`X/X studied`** (its `I18N_RULES` pattern moved with it in all nine
   languages, the old one retired). The `data-depth` indent went with them, from `22 + depth*21` to
   `16 + depth*16`. The name is the only thing that ellipsises, since it is the only part of the row with a
-  shorter form. Each collection's level is also listed on the **profile** (`renderCollectionLevels` in
-  `acctSelfView`). `grade()` calls `announceLevelUps(id)` on a freshly-studied card → a **full-screen "Level up!" popup**
-  (`congratsPopup(items)`, a `.levelup-pop` overlay modelled on `inlineModal`) naming each Folio/collection level that ticks
-  over (China's shown as its Chinese numeral); it is **dismissed by clicking anywhere on screen** (or Esc/Enter) — the
-  click-to-close listener is wired a tick later (`setTimeout 0`) so the grading click that spawned it doesn't instantly dismiss it.
+  shorter form. Each collection's PROGRESS is also listed on the **profile** (`renderCollectionLevels` in
+  `acctSelfView` — the name is historical; the section is headed "Collection progress" and shows an icon and a
+  studied/total bar). `grade()` calls `announceLevelUps()` on a freshly-studied card, which grants a chest and
+  **opens the chest overlay** — that overlay IS the level-up celebration now, so `congratsPopup` is no longer
+  raised behind it (two overlays for one event). `congratsPopup(items)` (a `.levelup-pop` overlay modelled on
+  `inlineModal`) survives for anything else that wants it and is **dismissed by clicking anywhere on screen**
+  (or Esc/Enter) — the click-to-close listener is wired a tick later (`setTimeout 0`) so the click that spawned
+  it doesn't instantly dismiss it.
   **`render()` closes it too** (`closeCongrats`, beside `closeImageViewer`, Aug 2026). Dismiss-on-any-click made
   it look as though it could not outlive its page — clicking a nav tab takes it away — but a back/forward, a
   deep link and any programmatic hash change move the route without a click, and it then sat over whatever
@@ -2959,6 +2981,52 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole subtree** (`wireExpander`'s optional `rowClick` → `route("study",{scope:{type:"deck",id}})`, since a collection is in
   `NODE_BY_ID` and `subtreeCardIds` covers it); its **chevron still expands/collapses** the decks within (the chevron's
   `stopPropagation` keeps it from also studying). A coming-soon / empty collection falls back to toggling.
+- **THE RELIQUARY — artefact chests** (the `THE RELIQUARY` block in app.js, just below the levels block;
+  `artefacts.js`; Aug 2026, on request). A level buys a **chest**, and a chest holds one real historical
+  object. It is the first thing a Folio level has ever GIVEN the reader rather than taken away — the level
+  used to cap how many decks the daily review would hold, which made the reward for studying a permission
+  to study. Nine things are decisions rather than plumbing.
+  · **RARITY IS THE WHOLE LANGUAGE**: `RARITIES` holds Common / Rare / Epic / Legendary at **60 / 25 / 12 / 3**,
+    and styles.css declares one token pair each (`--rar-common` grey, `--rar-rare` blue, `--rar-epic` purple,
+    `--rar-legendary` orange, with separate NIGHT and `body.hc` values — a colour mixed toward a dark paper
+    loses the thing that identifies it, and the reader is being asked to tell four apart at a glance).
+    `[data-rar]` sets `--rar` on whatever element needs it, so the chest, the reveal, the inventory tile and
+    the admin row's swatch all say "this is an epic" the same way and none of them carries a literal.
+  · **A RARITY THE READER HAS FULLY COLLECTED IS DROPPED FROM THE ROLL, not re-rolled into a duplicate.**
+    `rollArtefact` renormalises the weights over whatever rarities still hold something unowned, so every
+    chest is a NEW artefact until the whole pool is exhausted — and then it says so instead of opening on
+    nothing. With a small pool that is the difference between a reward and a slot machine, and it is the
+    failure a reader would never report: a duplicate just reads as bad luck.
+  · **THE RARITY IS DECIDED WHEN THE LID IS TAPPED, not when the overlay opens**, so the shake, the burst,
+    the confetti and the sound are all sized to what is inside (`CHEST_MS`: 900ms common → 2500ms legendary;
+    a legendary is the only one that gets rays, a screen flash and a held chord). Four `sfx` branches —
+    `chest` for the hinge, then `loot-common` / `loot-rare` / `loot-epic` / `loot-legendary`.
+  · **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it.** `announceLevelUps` grants and
+    opens; `congratsPopup` is no longer raised behind it, since two overlays for one event is two.
+  · **AN UNOPENED CHEST QUEUES.** `S.chests` is a COUNT, not a flag: dismissing the overlay keeps the chest,
+    a second level while one waits adds to it, and both the home banner (`.chest-chip`, a `role="button"`
+    span inside the review BUTTON — a button inside a button is invalid, so the banner's own click handler
+    defers to it) and the account page say how many are owed.
+  · **THE SECOND CHANNEL is the daily sweep** (`maybeSweepChest`, called from `markGamePlayed`): all six
+    games won in one day, once a day. `S.sweepChest` records the DAY rather than a boolean — a flag would
+    need clearing at midnight by something, and nothing runs at midnight.
+  · **THE SHOWCASE is four** (`SHOWCASE_MAX`, `S.showcase`), pinned from an artefact's own window and shown
+    at the top of the profile — your own and a friend's, since being seen is the whole point of it.
+    `showcaseIds` filters on the way OUT rather than on the way in: an artefact retired from the pool since
+    it was pinned would otherwise leave a slot pointing at nothing, and a reader cannot unpin what they
+    cannot see.
+  · **A GUEST'S ARTEFACTS SHOW ON THE SIGNED-OUT ACCOUNT PAGE TOO.** Everything else there is behind the
+    sign-in wall because it is about an ACCOUNT; artefacts are not — a guest levels up, earns chests and
+    opens them entirely on this device, so walling the inventory off would be a reward that can be won and
+    never looked at. It appears only once there is something to show, and carries no showcase, that being
+    the half an account is needed for.
+  · **THE OVERLAYS LIVE ON `document.body`**, like the level-up popup and the image viewer, so — like them —
+    `render()` closes them (`closeChestPop`, `closeArtefactWin`, in the close list). The chest is
+    deliberately NOT dismissed by a backdrop click: unlike the level-up popup it holds buttons, and an
+    overlay where a stray tap outside the card takes the reward away is one nobody trusts.
+  `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` are in `defaultState` AND `PROGRESS_FIELDS` — an
+  artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows. Guarded by
+  `.claude/test-artefacts.js`.
 - **Card-of-the-day additions** (`COTD_ENTRY` / `cotdIds` / `cotdAdd`, beside the other entry helpers): the home tile's
   button studies **that one card** (`scope {type:"card", id, addTo:"cotd"}`), and **grading it** — not opening it — drops
   the card into the daily review. It can't be added the usual way: `S.active` holds whole decks, and pulling a deck in
@@ -3101,14 +3169,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     highlighted row in a menu reads as one already chosen. The rule is gone; `.dm-item.dm-danger b` keeps
     `--zh` and the row hovers like every other. `test-layout.js` asserts it HOVERED, against an ordinary
     row's own hover wash — reading the resting style would pass whatever the rule says.
-- **The Folio LEVEL is how many decks may sit in the daily review** (`maxActiveDecks` = the level, Aug 2026, on
-  request — levels were a score and nothing else, and this is the first thing they decide). `addActive` returns
-  **false** when the cap turned it down so `wireAddButton` can say why rather than doing nothing, and the Library's
-  page head states the standing (`.lib-cap`). Two deliberate exclusions: the **Card-of-the-day pseudo-entry is
-  outside the cap** (it is added by grading a card from the home tile, not chosen from the library, so a full review
-  would otherwise make that button silently stop working), and **`countedActiveEntries` skips an entry with no
-  available cards** — the shipped default `S.active` is a deck of the China collection, which is set aside as coming
-  soon, and counting it would have left a brand-new reader at their cap before choosing anything.
+- **THE DAILY REVIEW HAS NO DECK CAP** (Aug 2026, on request). The Folio level used to be one — one deck at level
+  1 and one more per level — and it was removed because it was the only thing a level decided and it decided it
+  by taking something away: a reader who had found two collections worth studying was told to go and study more
+  before they could have both. **`maxActiveDecks`, `activeDecksFull` and `countedActiveEntries` are deleted**, as
+  is the Library's `.lib-cap` line and the toast that said why an add was refused. `addActive` still returns a
+  boolean and every caller still tests it — it simply never returns false for a cap now — so nothing else moved.
+  A level buys an artefact chest instead; see THE RELIQUARY. Guarded by `test-review-decks.js` section 5, which
+  now asserts the OPPOSITE of what it used to: a reader who has studied nothing may add every collection offered.
+  **The cap lived in three places** (`addActive`, `wireAddButton`'s toast, the page head), and dropping it from
+  one of them would still have let almost every add through — which is why that assertion is worth having.
 - **ADDING A COLLECTION ADDS WHAT IS INSIDE IT** (`nodeSubtreeIds` / `nodeAncestorIds` / `addActive` /
   `removeActive` / `refreshAddButtons`, Aug 2026, on request). A collection used to enter the review as a
   single entry with its decks showing under the banner as greyed CONTEXT rows — present, but not something
@@ -3348,16 +3418,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     · **The UNDISCOVERED term is the marked one.** A glossary link not yet opened carries **`data-new`**
       (set by `markTtipNew`, called from `setupTooltips` — the one choke point every `.ttip` render path
       already goes through, hand-authored and auto-linked alike), and `.ttip[data-new]` paints it in
-      **`--ochre`, the same gold as the blank in a card's question**, so an unread term reads as something
-      waiting to be filled in. **A term already read carries no attribute and renders exactly as every
+      **`--newterm`, a teal of its own**. It wore `--ochre`, the gold of the blank in a card's question,
+      until Aug 2026, when the two roles were SWAPPED on request: the Library books gave up the teal they
+      had been using for their note markers (those now take the card's vermilion like every other citation
+      on the site) and it moved here. **The reasoning that chose the hue holds either way** — every
+      neighbouring token is spoken for, and this teal is none of them — and the swap ends a real collision:
+      a card's blank and an unread term in the SAME gold, in the same sentence, said the two were the same
+      kind of thing. **A term already read carries no attribute and renders exactly as every
       glossary link always has** — the familiar state is untouched, because the mark is the invitation,
       not a record of what is finished. (It was briefly the other way round — read terms dimmed — and was
       changed on request; don't reintroduce that.) It writes an explicit `data-new` rather than styling
-      `:not([data-seen])` **because deck terms are in neither register** and would otherwise sit gold and
-      undiscoverable forever. `.ttip[data-new]:hover` keeps the gold — jumping to the indigo hover would
+      `:not([data-seen])` **because deck terms are in neither register** and would otherwise sit marked and
+      undiscoverable forever. `.ttip[data-new]:hover` keeps the teal — jumping to the indigo hover would
       read as the term changing state before it was opened — and sits **after** the base `:hover` rules
       (equal specificity → source order). `refreshTtipNew(key)` re-marks every matching link on the page
-      the moment a popup opens, so the prose behind it loses its gold at once, not on the next render.
+      the moment a popup opens, so the prose behind it loses its mark at once, not on the next render.
+      **`body.hc` re-tones `--newterm`** with the other quiet tokens; `test-a11y.js` covers it with no
+      change of its own, and `test-artefacts.js` asserts the swap in both directions.
     · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 401"
       in the gloss popup's bar, "New place! 7 / 258" in the Atlas panel (`#cpNew`), with a **splash** of
       two expanding rings (`discRing` / `discRingNight`, staggered onto `::after`) and a **`sfx("discover")`
@@ -3463,18 +3540,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attributes, with `wireSourceLinks` in a try/catch: the links are decoration over text this code didn't
     write, the numbering is the join between the prose and the list, and one must not be able to take the
     other down.
-  · **IN A BOOK THE MARKERS TAKE `--bknote`, NOT THE CARD'S VERMILION** (Aug 2026, on request). A card's
-    marker points at a work Folio is citing in support of a claim it makes; a book's points at the
-    TRANSLATOR's own note on the line in front of you, which is a different kind of thing, and on a page of
-    continuous prose a run of vermilion superscripts reads as a page full of corrections. **Every
-    neighbouring token was already spoken for** — `--zh` is the card's marker and the answer term,
-    `--indigo` a glossary link, `--ochre` a glossary term not yet opened, `--good` completion — so it is a
-    NEW token rather than a borrowed one, declared in `:root` and in the `body.night` block only: every
-    theme inherits it unless it says otherwise, and a per-theme dark variant that does not declare it still
-    picks up the night value (`body.night` outranks `:root` on the element they both target). The teal sits
-    ~186° round the wheel against `--good`'s ~152°, far enough to read as another thing rather than a shade
-    of the same one. Scoped to `.bk-page` — the markers, the entry numbers a marker points at, and both
-    hover washes together, so the two ends of a jump keep saying they are one thing.
+  · **A BOOK'S MARKERS TAKE THE CARD'S VERMILION** (Aug 2026, on request — they wore a teal of their own,
+    `--bknote`, for a fortnight). The argument for separating them was that a card's marker points at a
+    work Folio is citing while a book's points at the TRANSLATOR's own note, which is a different kind of
+    thing; the argument against, and the one that won, is that a reader meets both and **one apparatus is
+    easier to learn than two**. So there is **no `.bk-page` override at all** — the reader inherits
+    `sup.fn` and `.src-n.src-back` unchanged — and the token moved rather than being deleted: it is
+    `--newterm` now, and it marks an undiscovered glossary term (see the discovery-marks bullet, which is
+    where the reasoning that chose the hue lives). `test-artefacts.js` asserts both ends of the swap, and
+    it compares a book's marker against a CARD's rather than against a hex literal, so a re-toned `--zh`
+    moves both together.
   · **A card's, the Atlas panel's and a BOOK's folds are OPEN by default; a GLOSS POPUP's is always SHUT.** On
     the big surfaces a citation the reader has to go looking for is one they will not check, and checking is the
     whole point of shipping the apparatus (July 2026, on request — they were collapsed before; the book's notes
@@ -4587,7 +4662,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   numeral). The **default folio theme has a "bookplate" deco** (quiet hue wash + fine inner rule); coming-soon rows
   show a ghost of their hue (row opacity .62). Deck rows inside a collection take the collection hue as their left
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
-  under a new id, update `COLL_THEME` (and `COLLECTION_NUMERALS`).
+  under a new id, update `COLL_THEME` (and `COLLECTION_ICON` — a collection with no row there falls through
+  to a stack-of-cards mark, which is honest but says nothing about the subject).
 - **Library layout (`PAGES.decks`)**: "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
@@ -4615,13 +4691,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   was 9px of nothing inside a flex item the row centres as a whole, so the title rode ~4.5px above the middle
   of its own banner. A flex item establishes its own formatting context, so the margin cannot collapse away by
   itself — it has to be zeroed.
-- **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
-  `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
-  horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
-  ancient Greek alphabetic numerals (`α ια`, ϛ = 6; the closing keraia was removed on request — don't reintroduce it), India (col-43) → Devanagari digits (`१ २`), Russia
-  (col-42) → Cyrillic/Church-Slavonic numerals (`а҃ в҃`, titlo over the second-to-last letter, 11–19 unit-before-ten). The
-  level-up popup (`congratsPopup`, items carry `sys`) uses the same map; sizes tuned per script in styles.css
-  (`.level-badge.num-*`). World History + United States stay Western digits.
+- **A collection wears a SUBJECT ICON and a PROGRESS BAR** (`COLLECTION_ICON` / `collectionIconMarkup(id)` /
+  `deckProgMarkup(studied, total)`, Aug 2026, on request). Both replace something a level used to occupy:
+  the icon stands where the per-script level numeral stood (`.coll-ic`, at the same 56px width, so nothing
+  around it moved) and the bar where the XP bar did. It is one line-drawn mark per collection, chosen for the
+  SUBJECT rather than for the script — a pagoda for China, a Doric column for Greece, a triumphal arch for
+  Rome, a pyramid for Egypt, a torii for Japan, an onion dome for Russia, a lotus for India, a star for the
+  United States, an aeroplane for the Second World War, a globe for World History, and a stack of cards for
+  anything with no row (a community deck, or a collection added later). Three decisions are load-bearing.
+  They are **decorative** (`aria-hidden`), because the collection is named in words directly beside them.
+  They take the **same gold the numeral did** rather than the collection's own hue: the banner wash IS that
+  hue, and the gold is the one colour already proven to read over all ten of them in all eight themes, light
+  and dark (the `body.hc` re-tone moved across with it). And `deckProgMarkup` **reuses the `.xp` markup**
+  rather than `.prog` — every theme rule, the collection hue and `animateProgs` are already written against
+  that shape, so swapping the head's words ("Studied" / "N / M cards") was the whole change and nothing else
+  had to be restyled; `.deck-prog .xp-lvl` takes the quiet ink, a caption not being a level. The same pair
+  is used by the community-deck rows and by the account page's "Collection progress" section, so the three
+  places a collection's standing is shown cannot come to disagree about what they are showing.
 - **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`) and **the top
   bar is hidden outright** — see the next bullet.
 - **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
@@ -5624,9 +5710,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   300px scroll box for a tab that owns the screen: the Quotes tab's edit form filled the box, its Save button
   sat at the fold, the running order beneath was cut off mid-row and the rest of the screen was left empty.
   Timeline and Feedback were in that rule's exception list from the day they were built; the **Dashboard and
-  Quotes arrived later and were not**, which is the whole of the bug. All four are listed now — **keep the
-  list in step with the `*-mode` classes `adminRefresh()` sets**, or the next tab added will look broken the
-  same way. Guarded by `test-layout.js`, which reads the cap back and checks the pane is not clipped.
+  Quotes arrived later and were not**, which is the whole of the bug. All FIVE are listed now (Artefacts
+  joined in Aug 2026) — **keep the list in step with the `*-mode` classes `adminRefresh()` sets**, or the next
+  tab added will look broken the same way. Guarded by `test-layout.js`, which reads the cap back and checks the
+  pane is not clipped, and by `test-artefacts.js` for the Artefacts tab's own copy of it.
+- **Admin → Artefacts: the pool a chest draws from (Aug 2026, on request).** `adminRenderArtefacts`, a sixth
+  tab taking over the admin area the way the Dashboard, Quotes, Timeline and Feedback do (`artefacts-mode`,
+  the same hide list, and the panel-cap exception above). It follows the Quotes tab exactly — `artefacts.js`
+  is the shipped literal and `ADMIN_EDITS.artefacts` an overlay over it, so an edit made on a phone reaches
+  every reader through `content_overrides` with no deploy, and **Copy as JS** hands the whole file back
+  (`serializeArtefacts`) for baking in. Three things differ from Quotes and all three matter.
+  · **The key is the artefact's `id`, not its text**, because the reader's own inventory is keyed by that id.
+    So the id field is editable only while an artefact is NEW and locked once it exists — a renamed id takes
+    the artefact out of every collection that holds it, silently.
+  · **The description carries a live word/sentence counter** against the house bar (five sentences, 200 words
+    ±10%), so prose drifting long is visible as it is written rather than at review time.
+  · **A picture is never saved uncredited** — the same rule `add-card.js`, `add-glossary.js` and the editors'
+    media gate enforce, and for the same reason: the editors save on every keystroke, so a URL pasted in and
+    forgotten about would otherwise ship credited to nobody.
+  `serializeArtefacts` writes the file's whole head comment out rather than preserving what is on disk: this
+  is the only copy of it once the file has been round-tripped, and a serializer that drops the documentation
+  is how a file stops explaining itself. It is wired into `autoSaveFiles`, `adminExport` (including its
+  download fallback) and `folioSave.files`, each gated on the overlay actually holding something.
 - **Admin → Dashboard: Folio in numbers (Aug 2026, on request).** The editor's FIRST tab and the one a fresh
   session opens on (`adminState.tab` defaults to `"dashboard"`; a session interrupted mid-edit still comes back
   to the card it was on — `restoreAdminUI` exists because auto-save can live-reload the page between
@@ -6918,7 +7023,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-eight committed regression tests** (in `.claude/`, not loaded by the site): twenty-three drive a real browser with
+- **Twenty-nine committed regression tests** (in `.claude/`, not loaded by the site): twenty-four drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
   `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -7262,6 +7367,22 @@ dead code (never rendered).
     reload, and **an older save keeps the light/dark it chose** — the one way this change could strand
     somebody. **Re-run after touching `unitizeText` / `unitizeTree` / `applyUnits` / `applyTheme` /
     `setNight` / `setThemeAuto`, and after any units batch.**
+  · `node .claude/test-artefacts.js` — **THE RELIQUARY, the collection banners, and the two colour swaps that
+    went with them** (Aug 2026). Everything in it fails SILENTLY, which is why it is a file rather than a few
+    lines appended elsewhere. **The roll**: a chest never returns something already owned (with a small pool a
+    duplicate reads as bad luck and is never reported), every rarity is reachable, and an exhausted pool SAYS
+    so rather than opening on nothing — driven through 32 real chest openings over a synthetic 32-artefact
+    pool planted in the admin overlay, under `reducedMotion` so the rarity-sized waits collapse to a tick.
+    **The queue**: dismissing an overlay keeps the chest, opening one spends exactly one. **The showcase cap**:
+    four, and the fifth refused. **The colour swap, in both directions** — a book's marker measured against a
+    CARD's rather than against a hex literal, so a re-toned `--zh` moves both together, and an undiscovered
+    term measured against a card's blank, which it must no longer match. **The collection banner**: an icon
+    where the numeral was, a studied/total bar where the XP bar was, and no numeral or `.lib-cap` left
+    anywhere. **And the deck cap is gone**: a reader who has studied nothing may add every live collection,
+    which is the one assertion that would catch a half-removal, the cap having lived in three places. Plus
+    the Admin tab, including its ≤860px panel cap and the never-save-a-picture-uncredited rule. **Re-run
+    after touching the `THE RELIQUARY` block, `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
+    `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
     own term (never part of what the meter counts); both filters are invisible until they are wrong. The

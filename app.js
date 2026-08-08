@@ -255,6 +255,9 @@
       // the home page's daily-quote pool, keyed by each quote's SHIPPED English text (see quotesMerged):
       // a whole replacement object, or null to retire the quote. A key matching nothing shipped is a new one.
       quotes: o.quotes && typeof o.quotes === "object" ? o.quotes : {},
+      // the artefact pool, keyed by artefact ID (see artefactsMerged): a whole replacement object, or
+      // null to retire a shipped artefact. A key matching nothing in artefacts.js is one the admin added.
+      artefacts: o.artefacts && typeof o.artefacts === "object" ? o.artefacts : {},
       timeline: Array.isArray(o.timeline) ? o.timeline : null,   // null = untouched (use shipped timeline.js); array = the working set of historical border eras
       tree: { renames: t.renames || {}, created: t.created || {}, deleted: t.deleted || {}, moved: t.moved || {}, order: t.order || {}, soon: t.soon || {}, dates: t.dates || {}, cardOrder: t.cardOrder || {} },
     };
@@ -316,6 +319,7 @@
     // the daily-quote pool is derived from the overlay too, and its RUNNING ORDER is derived from the pool,
     // so an undo or a cloud-adopted overlay has to rebuild both (see refreshQuotes)
     refreshQuotes();
+    refreshArtefacts();   // ditto for the artefact pool, which is artefacts.js under the same kind of overlay
   }
   function adminUndo() {
     if (!adminUndoStack.length) { toast("Nothing to undo"); return; }
@@ -1120,6 +1124,12 @@
       // cumulative daily-game record: game key -> { plays, wins }. S.games only ever holds TODAY, so the
       // lifetime tally had nowhere to live before this.
       gameLog: {},
+      // ---- THE RELIQUARY (Aug 2026, on request). All four are PROGRESS, not device settings: an
+      // artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows.
+      artefacts: {},     // artefact id -> when it was drawn from a chest
+      chests: 0,         // unopened chests. A level-up offers to open one at once; this is what is left if they don't.
+      showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
+      sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
     };
   }
   let S = load();
@@ -1330,6 +1340,35 @@
       sfxTone(ctx, t + 0.44, 1568, 0.4, 0.025, "sine");
       sfxTone(ctx, t + 0.58, 2093, 0.35, 0.02, "sine");
     }
+    /* ---- the chest (see THE RELIQUARY) ----
+       The lid coming up is a WOODEN event, so it is taps rather than tones: three of them, slowing and
+       falling, which is what a hinge under strain sounds like, over a low creak. Then one of four loot
+       sounds, sized to the rarity — the whole point of deciding the rarity before the animation starts is
+       that the ear and the eye can agree about how big a thing has just happened. */
+    else if (name === "chest") {
+      [0, 0.1, 0.22].forEach((d, i) => sfxTap(ctx, t + d, 1500 - i * 260, 0.05, 0.07));
+      sfxTone(ctx, t + 0.02, 210, 0.34, 0.028, "sawtooth", 150);
+    }
+    else if (name === "loot-common") {   // a dry double-knock and a short low pair — a thing found, not a prize won
+      sfxTap(ctx, t, 1200, 0.045, 0.06);
+      sfxTone(ctx, t + 0.02, 392, 0.14, 0.038, "sine");
+      sfxTone(ctx, t + 0.13, 466, 0.2, 0.032, "sine");
+    }
+    else if (name === "loot-rare") {     // a clean rising third into a bell
+      [523, 659, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.075, f, 0.18, 0.045, "triangle"));
+      sfxTone(ctx, t + 0.26, 1568, 0.42, 0.024, "sine");
+    }
+    else if (name === "loot-epic") {     // a longer run, a held chord under it, and a shimmer on top
+      [523, 659, 784, 988].forEach((f, i) => sfxTone(ctx, t + i * 0.07, f, 0.2, 0.045, "triangle"));
+      [392, 523, 659].forEach((f) => sfxTone(ctx, t + 0.3, f, 0.7, 0.026, "triangle"));
+      [1568, 2093, 2637].forEach((f, i) => sfxTone(ctx, t + 0.34 + i * 0.09, f, 0.4, 0.018, "sine"));
+    }
+    else if (name === "loot-legendary") {   // a low boom under a full fanfare, a held chord, and a long shimmer
+      sfxTone(ctx, t, 110, 0.9, 0.055, "sine", 62);
+      [392, 523, 659, 784, 1047].forEach((f, i) => sfxTone(ctx, t + 0.06 + i * 0.075, f, 0.24, 0.05, "triangle"));
+      [523, 659, 784, 1047, 1319].forEach((f) => sfxTone(ctx, t + 0.46, f, 1.1, 0.024, "triangle"));
+      [1568, 2093, 2637, 3136].forEach((f, i) => sfxTone(ctx, t + 0.5 + i * 0.1, f, 0.55, 0.016, "sine"));
+    }
   }
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
@@ -1354,6 +1393,7 @@
       g.n = total;
     }
     S.games[key] = g;
+    maybeSweepChest();   // all six won today → a chest, once per day (see THE RELIQUARY)
   }
   function gamePlayedToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.played); }
   function gameWonToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.won); }   // won = a perfect run today (gold tile)
@@ -1366,7 +1406,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -3075,7 +3115,7 @@
       c.first = todayStr();
       if (S.intro.date !== todayStr()) S.intro = { date: todayStr(), count: 0, extra: 0 };
       S.intro.count += 1;
-      announceLevelUps(id);   // a newly-studied card may complete an XP bar → level up (Folio + its collection)
+      announceLevelUps();   // a newly-studied card may complete the Folio XP bar → level up, and a level buys a chest
     }
     bumpStreak();
     save();
@@ -3236,18 +3276,13 @@
     activeEntryIds().forEach((id) => entryCardIds(id).forEach((c) => { if (avail.has(c)) set.add(c); }));
     return [...set];
   }
-  /* How many decks may sit in the daily review at once — the Folio LEVEL (Aug 2026, on request). Levels
-     were a score and nothing else; this is the first thing they decide. One deck at level 1, one more with
-     every level, so the reader who has studied enough to want a second collection has earned it by then.
-     The Card-of-the-day pseudo-entry is deliberately OUTSIDE the cap: it is added by grading a card from
-     the home tile rather than chosen from the library, so a full review would otherwise make that button
-     silently stop working. The cap only ever blocks ADDING — a reader whose level drops (it cannot) or who
-     arrives with more decks than the cap allows keeps every one of them. */
-  function maxActiveDecks() { return Math.max(1, levelFromXP(folioXP()).level); }
-  /* What counts against the cap: an entry that actually contributes cards to the review. An entry with no
-     available cards does not — which matters on day one, because the shipped default S.active is a deck of
-     the China collection, and China is set aside as coming soon. Counting it would have left a brand-new
-     reader at their cap before they had chosen anything, unable to add the one live collection. */
+  /* THE DAILY REVIEW HAS NO DECK CAP (Aug 2026, on request — the Folio level used to be one, allowing one
+     deck at level 1 and one more per level). It was the only thing a level decided, and it decided it by
+     taking something away: a reader who had found two collections worth studying was told to go and study
+     more before they could have both. Levels now buy an artefact chest instead (see THE RELIQUARY), which
+     is a reward rather than a permission, and `maxActiveDecks` / `activeDecksFull` / `countedActiveEntries`
+     are gone with the rule — `addActive` still returns a boolean, so its callers are unchanged, it simply
+     never returns false for a cap any more. */
   /* ---------- adding a collection adds what is INSIDE it (Aug 2026, on request) ----------
      A collection used to enter the review as a single entry, and its decks showed under the banner as
      greyed context rows — present, but not something you could tap into, hold for options, or drop one
@@ -3268,31 +3303,11 @@
     while (p) { out.push(p.id); p = p.parentId ? NODE_BY_ID[p.parentId] : null; }
     return out;
   }
-  /* What counts against the cap: an entry that actually contributes cards to the review, AND is a choice
-     the reader made rather than one that arrived with something else. A deck sitting inside an added
-     collection is the second kind — it is in `S.active` because the collection is, so counting it would
-     mean a level-1 reader adding a collection of four decks was instantly five decks over their cap and
-     could not add anything at all. The card test is the older rule and still applies: the shipped default
-     S.active is a deck of the China collection, which is set aside as coming soon, and counting it would
-     leave a brand-new reader at their cap before they had chosen anything. */
-  function countedActiveEntries() {
-    const avail = availableCardIdSet();
-    const set = new Set(activeEntryIds());
-    return activeEntryIds().filter((id) => {
-      if (id === COTD_ENTRY) return false;
-      const n = NODE_BY_ID[id];
-      if (n && nodeAncestorIds(n).some((p) => set.has(p))) return false;   // came in with its collection
-      return entryCardIds(id).some((c) => avail.has(c));
-    });
-  }
-  function activeDecksFull() { return countedActiveEntries().length >= maxActiveDecks(); }
-  // Returns false when the cap turned the request down, so the caller can say so rather than silently no-op.
-  // The cap is tested ONCE, against the thing the reader actually pressed: the decks that come in with a
-  // collection are not separate choices and countedActiveEntries does not count them.
+  /* Still returns a boolean — every caller tests it — but nothing can turn an add down any more now that
+     the level cap is gone. Kept rather than made void so `wireAddButton` and the tests read unchanged. */
   function addActive(id) {
     const a = activeEntryIds();
     if (a.indexOf(id) !== -1) return true;
-    if (id !== COTD_ENTRY && activeDecksFull()) return false;
     const n = NODE_BY_ID[id];
     const wanted = n ? nodeSubtreeIds(n) : [id];
     S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
@@ -7044,6 +7059,8 @@
     closeAllGloss();
     closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
+    closeChestPop();      // …nor an artefact chest, which IS the level-up celebration and lives on the body too
+    closeArtefactWin();   // …nor an artefact's own window
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
@@ -7755,7 +7772,7 @@
     const ov = document.createElement("div");
     ov.className = "levelup-pop";
     const rows = items.map((it) =>
-      '<div class="lu-row"><span class="lu-badge' + (it.sys ? (it.sys === "zh" ? " zh" : " num-" + it.sys) : "") + '">' + esc(numeralIn(it.sys, it.level)) + '</span>' +
+      '<div class="lu-row"><span class="lu-badge">' + esc(String(it.level)) + '</span>' +
       '<span class="lu-text"><b>' + esc(it.title) + '</b> reached <b>Level ' + it.level + '</b></span></div>'
     ).join("");
     // full-screen celebration: a falling-confetti burst + an expanding gold flash behind the card (skipped under
@@ -9234,14 +9251,7 @@
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       const wantOn = !isActive(id);
-      // the daily review holds as many decks as the reader's Folio level (maxActiveDecks) — addActive
-      // returns false when that is what stopped it, so the button says why instead of doing nothing
-      if (wantOn && !addActive(id)) {
-        toast("Level " + levelFromXP(folioXP()).level + " keeps " + maxActiveDecks() +
-          (maxActiveDecks() === 1 ? " deck" : " decks") + " in your daily review — study more to raise it.");
-        return;
-      }
-      if (!wantOn) removeActive(id);
+      if (wantOn) addActive(id); else removeActive(id);
       /* EVERY add button on the page is re-read, not just the one pressed (Aug 2026). Since adding a
          collection also adds its decks and subdecks — and removing one of those takes its collection out
          while leaving its siblings in — a single press can change the state of a dozen buttons further
@@ -9263,9 +9273,6 @@
       b.innerHTML = addIcon(on);
       b.setAttribute("aria-label", on ? "Remove from review" : "Add to review");
     });
-    // the page head states how many of the reader's slots are spoken for, and a cascade moves it
-    const cap = document.querySelector(".lib-cap b");
-    if (cap) cap.textContent = countedActiveEntries().length + " of " + maxActiveDecks();
   }
 
   /* ---------- text-to-speech (Web Speech API — zero-dependency) ----------
@@ -9740,93 +9747,468 @@
     while (into >= need) { into -= need; level++; need = XP_PER_LEVEL * level; }
     return { level, into, need };   // into/need = progress within the current level toward the next
   }
-  function folioXP() { return Object.keys(S.cards).length; }        // all distinct cards studied → general Folio level
-  function collectionXP(node) { return studiedInNode(node); }       // distinct cards studied in a collection → its level
-  function collectionXPFrom(node, cards) { return subtreeCardIds(node).filter((id) => !!(cards && cards[id])).length; }   // same, for an arbitrary progress map (e.g. a friend's)
-  function cardCollections(id) { return TREE.collections.filter((c) => subtreeCardIds(c).indexOf(id) !== -1); }   // top-level collections containing a card
-  // a freshly-studied card adds 1 XP globally and to each collection it belongs to — announce any level that ticks over
-  // (Folio level and collection levels cross their thresholds independently). One combined toast, since toast() shows one at a time.
-  function announceLevelUps(id) {
-    const items = [];
+  function folioXP() { return Object.keys(S.cards).length; }        // all distinct cards studied → the ONE level Folio keeps
+  function collectionStudiedFrom(node, cards) { return subtreeCardIds(node).filter((id) => !!(cards && cards[id])).length; }   // cards studied in a collection, for an arbitrary progress map (e.g. a friend's)
+  /* A freshly-studied card adds 1 XP and may tick the Folio level over. COLLECTIONS NO LONGER HAVE LEVELS
+     (Aug 2026, on request): they show how many of their cards have been studied instead, which is the
+     question a reader actually asks of a collection, and the per-script numerals that counted those levels
+     (Chinese, Roman, Greek, Devanagari, Church Slavonic) went with them, along with COLLECTION_NUMERALS.
+     What a level buys now is an ARTEFACT CHEST — see THE RELIQUARY. */
+  function announceLevelUps() {
     const g = Object.keys(S.cards).length;
-    if (levelFromXP(g).level > levelFromXP(g - 1).level) items.push({ title: "Folio", level: levelFromXP(g).level, sys: null });
-    cardCollections(id).forEach((c) => {
-      const n = studiedInNode(c);
-      if (levelFromXP(n).level > levelFromXP(n - 1).level) items.push({ title: nodeTitle(c), level: levelFromXP(n).level, sys: COLLECTION_NUMERALS[c.id] });
-    });
-    if (items.length) congratsPopup(items);   // a click-anywhere-to-dismiss popup naming each collection/Folio that leveled up
+    if (levelFromXP(g).level <= levelFromXP(g - 1).level) return;
+    grantChest();   // one chest per level — and the chest overlay IS the celebration, so there is no
+    openChestPop({ level: levelFromXP(g).level });   // congratsPopup behind it. Dismissing it leaves the chest in S.chests.
   }
-  // number → Chinese numeral (一 二 三 … 十 十一 … 二十 …), good for level values
-  function cnNumeral(n) {
-    n = n | 0;
-    const d = ["〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
-    if (n <= 0) return d[0];
-    if (n < 10) return d[n];
-    if (n < 20) return "十" + (n % 10 ? d[n % 10] : "");
-    if (n < 100) { const t = Math.floor(n / 10), o = n % 10; return d[t] + "十" + (o ? d[o] : ""); }
-    return String(n);
+  /* ---------- a collection's icon ----------
+     What sits at the left of a collection banner, where the level numeral used to (Aug 2026, on request).
+     One line-drawn mark per collection, chosen for the subject rather than for the script: a pagoda for
+     China, a Doric column for Greece, a triumphal arch for Rome, a pyramid for Egypt, a torii for Japan,
+     an onion dome for Russia, a lotus for India, a star for the United States, an aeroplane for the war
+     and a globe for World History. They are decorative (`aria-hidden`) — the collection is named in words
+     directly beside them — and they take the same gold the numeral did, which is the one colour already
+     proven to read over all ten hue washes in all eight themes, light and dark.
+     A collection with no row here (a community deck, or one added later) falls through to a stack of
+     cards rather than to a second default kept in step by hand. */
+  const COLLECTION_ICON = {
+    // pagoda — two flared roofs over a body
+    china: '<path d="M3 9h18"/><path d="M4.5 9 12 4l7.5 5"/><path d="M5.5 14h13"/><path d="M6.5 14 12 10.5 17.5 14"/><path d="M9 14v6h6v-6"/><path d="M7 20h10"/>',
+    // globe
+    "col-8": '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c3 3 3 14 0 17"/><path d="M12 3.5c-3 3-3 14 0 17"/>',
+    // Doric column — capital, fluted shaft, base
+    "col-13": '<path d="M5.5 5.5h13"/><path d="M7 8h10"/><path d="M9.5 8v9"/><path d="M12 8v9"/><path d="M14.5 8v9"/><path d="M7 17h10"/><path d="M5.5 20h13"/>',
+    // triumphal arch
+    "col-40": '<path d="M3 6.5h18"/><path d="M4.5 20V9.5"/><path d="M19.5 20V9.5"/><path d="M4.5 9.5a7.5 7.5 0 0 1 15 0"/><path d="M9 20v-6.5a3 3 0 0 1 6 0V20"/><path d="M2.5 20h19"/>',
+    // five-pointed star
+    "col-41": '<path d="M12 3.4l2.6 5.5 6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.8l6-.9z"/>',
+    // onion-domed church
+    "col-42": '<path d="M12 2.2v2.2"/><path d="M8.5 11c0-3 3.5-3.8 3.5-6.6 0 2.8 3.5 3.6 3.5 6.6 0 2-1.6 3.1-3.5 3.1S8.5 13 8.5 11z"/><path d="M9.8 14.1V16"/><path d="M14.2 14.1V16"/><path d="M7.5 16h9v5h-9z"/><path d="M6 21h12"/>',
+    // lotus on water
+    "col-43": '<path d="M12 19.5c-3.9 0-7-2.4-7-5.3 1.6-.7 3.1-.4 4.2.5-.3-3.2 1-6 2.8-7.7 1.8 1.7 3.1 4.5 2.8 7.7 1.1-.9 2.6-1.2 4.2-.5 0 2.9-3.1 5.3-7 5.3z"/><path d="M3 19.5h18"/>',
+    // pyramid
+    egypt: '<path d="M12 3.5 21.5 19.5h-19z"/><path d="M12 3.5 16 19.5"/><path d="M2 19.5h20"/>',
+    // fighter aeroplane, plan view
+    ww2: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>',
+    // torii gate
+    japan: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>',
+    // fallback — a stack of cards
+    _: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>',
+  };
+  function collectionIconMarkup(id) {
+    return '<div class="coll-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+      (COLLECTION_ICON[id] || COLLECTION_ICON._) + '</svg></div>';
   }
-  // number → Roman numeral (I II III … XII …), subtractive notation
-  function romanNumeral(n) {
-    n = n | 0;
-    if (n <= 0 || n >= 4000) return String(n);
-    const V = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
-    let s = "";
-    V.forEach(([v, r]) => { while (n >= v) { s += r; n -= v; } });
-    return s;
+  /* How much of a deck or collection has been studied. It reuses the `.xp` markup rather than `.prog`
+     deliberately: every theme, the collection hue and animateProgs are all already written against that
+     shape, so swapping the HEAD's words is the whole change and nothing else had to be restyled. */
+  function deckProgMarkup(studied, total) {
+    const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
+    return '<div class="xp deck-prog" data-pct="' + pct.toFixed(2) + '">' +
+      '<div class="xp-head"><span class="xp-lvl">Studied</span><span class="xp-count">' + studied + ' / ' + total + ' cards</span></div>' +
+      '<div class="xp-track"><div class="xp-fill"></div></div></div>';
   }
-  // number → ancient Greek (Ionian alphabetic) numeral: α β … ι ια …, with ϛ = 6.
-  // The closing keraia was dropped on request — the banner shows the bare Greek letters.
-  function greekNumeral(n) {
-    n = n | 0;
-    if (n <= 0 || n >= 1000) return String(n);
-    const u = ["", "α", "β", "γ", "δ", "ε", "ϛ", "ζ", "η", "θ"],
-      t = ["", "ι", "κ", "λ", "μ", "ν", "ξ", "ο", "π", "ϟ"],
-      h = ["", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω", "ϡ"];
-    return h[Math.floor(n / 100)] + t[Math.floor(n / 10) % 10] + u[n % 10];
-  }
-  // number → Devanagari digits (१ २ ३ …), positional like Western digits
-  function devanagariNumeral(n) { return String(n | 0).replace(/\d/g, (d) => "०१२३४५६७८९"[+d]); }
-  // number → Cyrillic (Church Slavonic) numeral: а҃ в҃ г҃ … — letters valued like the Greek system, marked with a
-  // titlo; 11–19 put the unit before the ten (а҃і = 11)
-  function cyrillicNumeral(n) {
-    n = n | 0;
-    if (n <= 0 || n >= 1000) return String(n);
-    const u = ["", "а", "в", "г", "д", "є", "ѕ", "з", "и", "ѳ"],
-      t = ["", "і", "к", "л", "м", "н", "ѯ", "о", "п", "ч"],
-      h = ["", "р", "с", "т", "у", "ф", "х", "ѱ", "ѡ", "ц"];
-    const te = Math.floor(n / 10) % 10;
-    const s = h[Math.floor(n / 100)] + (te === 1 ? u[n % 10] + t[1] : t[te] + u[n % 10]);
-    const i = Math.max(1, s.length - 1);   // titlo sits over the second-to-last letter (or the only one)
-    return s.slice(0, i) + "҃" + s.slice(i);
-  }
-  // each civilisation's collection counts its level in its own script (Library banner badge)
-  const COLLECTION_NUMERALS = { china: "zh", "col-40": "roman", "col-13": "greek", "col-43": "devanagari", "col-42": "cyrillic", japan: "ja" };
-  function numeralIn(sys, n) {
-    // Japanese counts in the same kanji Chinese does, so the numerals are shared and there is only one
-    // implementation — but "ja" must stay a separate KEY, because "zh" also puts the badge in var(--han),
-    // which is Noto Sans SC. That face is kept out of the body chain precisely so it can't impose Chinese
-    // glyph forms on Japanese text; .num-ja therefore falls through to the reader's own system CJK font.
-    if (sys === "zh" || sys === "ja") return cnNumeral(n);
-    if (sys === "roman") return romanNumeral(n);
-    if (sys === "greek") return greekNumeral(n);
-    if (sys === "devanagari") return devanagariNumeral(n);
-    if (sys === "cyrillic") return cyrillicNumeral(n);
-    return String(n);
-  }
-  // large level numeral shown at the left of a collection / review banner (sys → render in that numeral system)
-  function levelBadgeMarkup(xp, sys) {
-    const lvl = levelFromXP(xp).level;
-    // just the large numeral — the "Level N" text lives in the blue xp-bar head (xpBarMarkup) beside it, so a label here is redundant.
-    return '<div class="level-badge' + (sys ? (sys === "zh" ? " zh" : " num-" + sys) : "") + '" aria-hidden="true"><span class="lb-num">' + esc(numeralIn(sys, lvl)) + '</span></div>';
-  }
-  // XP progress bar toward the next level (replaces the old studied/total progress bar)
-  function xpBarMarkup(xp, zh) {
+  /* The XP bar toward the next Folio level. ONE caller now — the home Daily-study banner — since
+     collections show progress instead (deckProgMarkup above); its old `zh` argument, which tinted the
+     fill vermilion for the China collection, went with them. */
+  function xpBarMarkup(xp) {
     const info = levelFromXP(xp);
     const pct = info.need > 0 ? Math.min(100, (info.into / info.need) * 100) : 0;
-    return '<div class="xp' + (zh ? " zh" : "") + '" data-pct="' + pct.toFixed(2) + '">' +
+    return '<div class="xp" data-pct="' + pct.toFixed(2) + '">' +
       '<div class="xp-head"><span class="xp-lvl">Level ' + info.level + '</span><span class="xp-count">' + info.into + ' / ' + info.need + ' cards</span></div>' +
       '<div class="xp-track"><div class="xp-fill"></div></div></div>';
+  }
+
+  /* ============================================================
+     THE RELIQUARY — artefact chests (Aug 2026, on request)
+     ============================================================
+     A level buys a CHEST, and a chest holds one real historical object. It is the first thing a Folio
+     level has ever given the reader rather than taken away: the level used to cap how many decks could
+     sit in the daily review, which meant the reward for studying was permission to study.
+
+     Six decisions are load-bearing.
+
+     · **THE POOL IS artefacts.js UNDER AN OVERLAY, keyed by ID.** Same shape as the daily quotes and for
+       the same reasons — a signed-in admin's edits reach every reader through `content_overrides` with no
+       deploy — but keyed by the artefact's `id` rather than by its text, because the reader's own
+       inventory (`S.artefacts`) is keyed by that id too. Rename an artefact and every collection holding
+       it keeps it; change its id and every collection loses it, which is why the id is the one field the
+       editor will not let you touch after an artefact has shipped.
+
+     · **A RARITY THE READER HAS FULLY COLLECTED IS DROPPED FROM THE ROLL, not re-rolled into a
+       duplicate.** The odds (60 / 25 / 12 / 3) are renormalised over whatever rarities still hold
+       something unowned, so every chest is a new artefact until the whole pool is exhausted — and when it
+       is, the chest says so instead of opening on nothing. With a pool this small that is the difference
+       between a reward and a slot machine.
+
+     · **THE RARITY IS DECIDED WHEN THE LID IS TAPPED, not when the overlay opens**, so the shake, the
+       burst, the confetti and the sound can all be the right size for what is inside. A legendary is
+       nearly three times as long as a common and is the only one that gets rays, a screen flash and a
+       held chord.
+
+     · **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it.** `announceLevelUps` used to
+       raise a confetti popup; raising that AND a chest would be two overlays for one event, so the chest
+       overlay carries the "Level N" line itself and `congratsPopup` is left for anything else.
+
+     · **AN UNOPENED CHEST QUEUES.** `S.chests` is a count, not a flag: dismissing the overlay keeps the
+       chest, a second level while one is waiting adds to it, and the account page and the home banner
+       both say how many are owed. Nothing is ever lost to a mistimed tap.
+
+     · **THE OVERLAY LIVES ON `document.body`**, like the level-up popup and the image viewer, so — like
+       them — `render()` has to close it. See `closeChestPop` in the close list. */
+
+  // grey / blue / purple / orange, and the drop odds. `weight` is relative, so a rarity with nothing
+  // unowned left in it can simply be filtered out and the rest renormalise on their own.
+  const RARITIES = [
+    { id: "common",    label: "Common",    weight: 60 },
+    { id: "rare",      label: "Rare",      weight: 25 },
+    { id: "epic",      label: "Epic",      weight: 12 },
+    { id: "legendary", label: "Legendary", weight: 3 },
+  ];
+  const RARITY_BY_ID = {};
+  RARITIES.forEach((r) => { RARITY_BY_ID[r.id] = r; });
+  const SHOWCASE_MAX = 4;      // how many artefacts a reader may pin to their profile
+  function rarityId(a) { return a && RARITY_BY_ID[a.rarity] ? a.rarity : "common"; }
+  function rarityLabel(id) { return (RARITY_BY_ID[id] || RARITY_BY_ID.common).label; }
+
+  /* Everything entering the pool passes through here — artefacts.js AND the overlay, which on the live
+     site is written by an admin from a phone and stored in a table any signed-in admin can PATCH. The
+     description is rich (it italicises titles and foreign terms) so it takes sanitizeHTML; every other
+     field is plain; the image src is a URL. Returns null for an entry with no id or no name, which is
+     what keeps a half-typed new artefact out of the roll. */
+  function artefactSanitize(a) {
+    if (!a || typeof a !== "object") return null;
+    const id = sanitizePlain(String(a.id || "")).trim().replace(/[^\w.-]/g, "").slice(0, 64);
+    const name = sanitizePlain(String(a.name || "")).trim().slice(0, 120);
+    if (!id || !name) return null;
+    const out = {
+      id, name,
+      rarity: RARITY_BY_ID[a.rarity] ? a.rarity : "common",
+      date: sanitizePlain(String(a.date || "")).trim().slice(0, 120),
+      origin: sanitizePlain(String(a.origin || "")).trim().slice(0, 200),
+      desc: sanitizeHTML(String(a.desc || "")),
+    };
+    const im = a.image;
+    if (im && typeof im === "object" && im.src) {
+      const src = sanitizeUrl(String(im.src), ["http", "https"]);
+      if (src) out.image = { src, credit: sanitizePlain(String(im.credit || "")).trim().slice(0, 300), alt: sanitizePlain(String(im.alt || "")).trim().slice(0, 300) };
+    }
+    return out;
+  }
+  function artefactsMerged() {
+    const base = Array.isArray(window.ARTEFACTS) ? window.ARTEFACTS : [];
+    const ov = (ADMIN_EDITS && ADMIN_EDITS.artefacts) || {};
+    const shipped = new Set(base.map((a) => a && a.id));
+    const out = [];
+    base.forEach((a) => {
+      if (!a || !a.id) return;
+      if (!Object.prototype.hasOwnProperty.call(ov, a.id)) { out.push(a); return; }
+      if (ov[a.id]) out.push(ov[a.id]);   // null → retired
+    });
+    Object.keys(ov).forEach((k) => { if (!shipped.has(k) && ov[k]) out.push(ov[k]); });
+    const seen = new Set();
+    return out.map(artefactSanitize).filter((a) => a && !seen.has(a.id) && seen.add(a.id));
+  }
+  // Derived, and therefore `let` — any writer calls refreshArtefacts(), exactly as the quote pool does.
+  let ARTEFACTS = artefactsMerged();
+  let ARTEFACT_BY_ID = {};
+  function refreshArtefacts() { ARTEFACTS = artefactsMerged(); ARTEFACT_BY_ID = {}; ARTEFACTS.forEach((a) => { ARTEFACT_BY_ID[a.id] = a; }); }
+  refreshArtefacts();
+  function artefactIsShipped(id) { return (window.ARTEFACTS || []).some((a) => a && a.id === id); }
+  function setArtefactEdit(id, obj) {
+    if (!ADMIN_EDITS.artefacts) ADMIN_EDITS.artefacts = {};
+    ADMIN_EDITS.artefacts[id] = obj;
+    refreshArtefacts();
+    queueAdminSave();
+  }
+  // back to what artefacts.js shipped. On an artefact the admin ADDED there is nothing to go back to, so
+  // the delta is deleted outright and the artefact goes with it.
+  function revertArtefact(id) {
+    if (ADMIN_EDITS.artefacts) delete ADMIN_EDITS.artefacts[id];
+    refreshArtefacts();
+    saveAdminEdits();
+  }
+
+  /* ---------- the reader's own collection ---------- */
+  function ownedArtefacts(prog) {
+    const o = (prog && prog.artefacts) || {};
+    return ARTEFACTS.filter((a) => o[a.id]).sort((x, y) => (o[y.id] || 0) - (o[x.id] || 0));   // newest first
+  }
+  function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
+  function chestCount() { return Math.max(0, (S.chests | 0)); }
+  function grantChest(n) { S.chests = chestCount() + (n || 1); save(); }
+  /* A second channel, so a reader who plays the daily games has something to open without waiting thirty
+     cards for the next level (Aug 2026, on request). Once a day, on the same condition the Clean Sweep
+     badge already measures. `S.sweepChest` records the day rather than a boolean: a flag would need
+     clearing at midnight by something, and nothing runs at midnight. */
+  function maybeSweepChest() {
+    if (S.sweepChest === todayStr() || !allGamesWonToday(S)) return;
+    S.sweepChest = todayStr();
+    grantChest();
+    toast("🎯 Every game won today — a chest is waiting in your account.");
+  }
+
+  /* Draw one artefact. Returns null when there is nothing left to find, which the overlay says out loud
+     rather than opening an empty chest. */
+  function rollArtefact() {
+    const owned = (S.artefacts) || {};
+    const byRarity = {};
+    RARITIES.forEach((r) => { byRarity[r.id] = []; });
+    ARTEFACTS.forEach((a) => { if (!owned[a.id]) byRarity[rarityId(a)].push(a); });
+    const live = RARITIES.filter((r) => byRarity[r.id].length);
+    if (!live.length) return null;
+    const total = live.reduce((s, r) => s + r.weight, 0);
+    let x = Math.random() * total, pick = live[live.length - 1];
+    for (let i = 0; i < live.length; i++) { if (x < live[i].weight) { pick = live[i]; break; } x -= live[i].weight; }
+    const list = byRarity[pick.id];
+    return list[Math.floor(Math.random() * list.length)];
+  }
+  function claimArtefact(a) {
+    if (!a) return;
+    if (!S.artefacts || typeof S.artefacts !== "object") S.artefacts = {};
+    S.artefacts[a.id] = Date.now();
+    S.chests = Math.max(0, chestCount() - 1);
+    save();
+  }
+
+  /* ---------- the showcase: up to four pinned to the profile ---------- */
+  function showcaseIds(prog) {
+    const list = Array.isArray(prog && prog.showcase) ? prog.showcase : [];
+    const owned = (prog && prog.artefacts) || {};
+    // filtered on the way OUT rather than on the way in: an artefact retired from the pool since it was
+    // pinned would otherwise leave a slot pointing at nothing, and the reader can't fix what they can't see
+    return list.filter((id) => owned[id] && ARTEFACT_BY_ID[id]).slice(0, SHOWCASE_MAX);
+  }
+  function inShowcase(id) { return showcaseIds(S).indexOf(id) !== -1; }
+  // returns false when the four slots are full, so the caller can say why rather than doing nothing
+  function toggleShowcase(id) {
+    const cur = showcaseIds(S);
+    const at = cur.indexOf(id);
+    if (at !== -1) { cur.splice(at, 1); S.showcase = cur; save(); return true; }
+    if (cur.length >= SHOWCASE_MAX) return false;
+    if (!ownsArtefact(id)) return false;
+    cur.push(id);
+    S.showcase = cur;
+    save();
+    return true;
+  }
+
+  /* ---------- rendering ---------- */
+  // no picture yet → the rarity's own initial on a wash of its colour, rather than an empty frame
+  function artefactArtHTML(a, cls) {
+    const r = rarityId(a);
+    if (a.image && a.image.src) {
+      return '<img class="ar-img ' + (cls || "") + '" src="' + esc(a.image.src) + '" alt="' + esc(a.image.alt || a.name) + '" loading="lazy">';
+    }
+    return '<div class="ar-img ar-noimg ' + (cls || "") + '" data-rar="' + r + '" aria-hidden="true"><span>' + esc(a.name.slice(0, 1).toUpperCase()) + '</span></div>';
+  }
+  function artefactTileHTML(a, opts) {
+    const r = rarityId(a);
+    const pinned = opts && opts.pinned;
+    return '<button type="button" class="ar-tile" data-artefact="' + esc(a.id) + '" data-rar="' + r + '" title="' + esc(a.name + " — " + rarityLabel(r)) + '">' +
+      artefactArtHTML(a) +
+      '<span class="ar-tname">' + esc(a.name) + '</span>' +
+      '<span class="ar-trar">' + esc(rarityLabel(r)) + '</span>' +
+      (pinned ? '<span class="ar-pin" aria-hidden="true">★</span>' : "") +
+      '</button>';
+  }
+  // the profile strip: four slots, filled or empty, on your own account and on a friend's
+  function showcaseHTML(prog, own) {
+    const ids = showcaseIds(prog);
+    let cells = ids.map((id) => artefactTileHTML(ARTEFACT_BY_ID[id])).join("");
+    for (let i = ids.length; i < SHOWCASE_MAX; i++) {
+      cells += '<div class="ar-tile ar-slot" aria-hidden="true"><span class="ar-slotmark">+</span></div>';
+    }
+    return '<div class="showcase">' + cells + '</div>' +
+      (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
+  }
+  // the account page's inventory
+  function reliquaryHTML(prog, own) {
+    const list = ownedArtefacts(prog);
+    const total = ARTEFACTS.length;
+    const chests = own ? chestCount() : 0;
+    const head = '<div class="ar-head">' +
+      '<span class="ar-count">' + list.length + ' of ' + total + ' artefact' + (total === 1 ? "" : "s") + ' recovered</span>' +
+      (own && chests ? '<button type="button" class="btn ar-open" id="arOpen">Open ' + (chests === 1 ? "your chest" : chests + " chests") + '</button>' : "") +
+      '</div>';
+    if (!list.length) {
+      return head + '<div class="ar-empty">' + (own
+        ? "No artefacts yet. Every Folio level opens a chest, and so does winning all six daily games in one day."
+        : "This scholar has not opened a chest yet.") + '</div>';
+    }
+    return head + '<div class="ar-grid">' + list.map((a) => artefactTileHTML(a, { pinned: own && inShowcase(a.id) })).join("") + '</div>' +
+      (own && list.length < total ? '<p class="ar-note">' + (total - list.length) + ' still to find.</p>' : "");
+  }
+  // one artefact, opened from a tile: the picture, what it is, and the five sentences
+  let _artefactClose = null;
+  function closeArtefactWin() { if (_artefactClose) _artefactClose(); }
+  function openArtefactWin(id) {
+    const a = ARTEFACT_BY_ID[id];
+    if (!a) return;
+    closeArtefactWin();
+    const own = ownsArtefact(id);
+    const r = rarityId(a);
+    const ov = document.createElement("div");
+    ov.className = "artefact-pop";
+    ov.innerHTML = '<div class="ar-win" role="dialog" aria-modal="true" aria-label="' + esc(a.name) + '" data-rar="' + r + '">' +
+      '<button class="ar-close" type="button" aria-label="Close">×</button>' +
+      '<div class="ar-winart">' + artefactArtHTML(a, "ar-big") + '</div>' +
+      '<div class="ar-wintext">' +
+        '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
+        '<h3 class="ar-wname">' + esc(a.name) + '</h3>' +
+        (a.date ? '<div class="ar-wmeta">' + esc(a.date) + '</div>' : "") +
+        (a.origin ? '<div class="ar-wmeta">' + esc(a.origin) + '</div>' : "") +
+        '<div class="ar-wdesc">' + a.desc + '</div>' +
+        (a.image && a.image.credit ? '<div class="ar-wcredit">' + esc(a.image.credit) + '</div>' : "") +
+        (own ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + (inShowcase(id) ? "Remove from profile" : "Show on profile") + '</button>' : "") +
+      '</div></div>';
+    document.body.appendChild(ov);
+    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _artefactClose = null; };
+    _artefactClose = close;
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("click", (e) => { if (e.target === ov) close(); });
+    ov.querySelector(".ar-close").addEventListener("click", close);
+    const pin = ov.querySelector("#arPin");
+    if (pin) pin.addEventListener("click", () => {
+      if (!toggleShowcase(id)) { toast("Your profile holds " + SHOWCASE_MAX + " artefacts — remove one first."); return; }
+      const on = inShowcase(id);
+      pin.textContent = on ? "Remove from profile" : "Show on profile";
+      toast(on ? "Pinned to your profile" : "Removed from your profile");
+      refreshReliquary();
+    });
+    requestAnimationFrame(() => ov.classList.add("show"));
+    unitizeTree(ov);
+  }
+  /* Repaint the account page's own two Reliquary blocks IN PLACE. A chest opened from anywhere and a pin
+     thrown in an artefact's window both change what those blocks say, and `render()` is the wrong tool:
+     it would rebuild the whole account page — losing the reader's scroll, and, on a page with an overlay
+     over it, redrawing the very thing they are looking through. Both blocks are optional (a friend's page
+     and the signed-out page carry one or neither), so each is guarded. */
+  function refreshReliquary() {
+    if (!current || current.name !== "account") return;
+    const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
+    if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host); }
+    if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc); }
+  }
+  // one delegated listener per rendered container — the tiles are rebuilt whenever a pin changes
+  function wireReliquary(host) {
+    if (!host) return;
+    host.querySelectorAll("[data-artefact]").forEach((b) => b.addEventListener("click", () => openArtefactWin(b.dataset.artefact)));
+    const open = host.querySelector("#arOpen");
+    if (open) open.addEventListener("click", () => openChestPop());
+  }
+
+  /* ---------- the chest ----------
+     Phase 1 is a closed chest waiting to be tapped; phase 2 is the opening, whose length and furniture
+     are chosen by the rarity that has just been rolled; phase 3 is the artefact. */
+  const CHEST_MS = { common: 900, rare: 1300, epic: 1800, legendary: 2500 };
+  const RARITY_HEX = { common: "#8A867C", rare: "#3A6FB0", epic: "#7B4BA8", legendary: "#C2701E" };
+  const CHEST_SVG =
+    '<svg class="chest-svg" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<g class="chest-lid"><path d="M14 44V34a46 30 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 44h108v10H6z" fill="currentColor" fill-opacity=".22"/></g>' +
+      '<g class="chest-box"><path d="M14 54h92v32a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 54h16v16H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 62v6"/></g>' +
+    '</svg>';
+  let _chestClose = null;
+  function closeChestPop() { if (_chestClose) _chestClose(); }
+  /* opts.level — announce a level above the chest (the level-up path). The chest overlay IS the level-up
+     celebration; there is deliberately no separate confetti popup behind it. */
+  function openChestPop(opts) {
+    opts = opts || {};
+    closeChestPop();
+    const ov = document.createElement("div");
+    ov.className = "chest-pop";
+    const nothingLeft = !rollArtefact();
+    ov.innerHTML =
+      '<div class="chest-stage" role="dialog" aria-live="polite">' +
+        (opts.level ? '<div class="chest-lvl">Level ' + esc(String(opts.level)) + ' reached</div>' : "") +
+        '<div class="chest-body">' +
+          '<button type="button" class="chest-btn" id="chestBtn" aria-label="Open the chest">' + CHEST_SVG + '</button>' +
+          '<div class="chest-rays" aria-hidden="true"></div>' +
+        '</div>' +
+        '<div class="chest-hint" id="chestHint">' + (nothingLeft
+          ? "You have found every artefact Folio holds. This chest will keep until there are more."
+          : "Tap the chest") + '</div>' +
+        (chestCount() > 1 ? '<div class="chest-more" id="chestMore">' + chestCount() + ' chests waiting</div>' : "") +
+        '<div class="chest-reveal" id="chestReveal" hidden></div>' +
+        '<div class="chest-acts" id="chestActs" hidden></div>' +
+      '</div>';
+    document.body.appendChild(ov);
+    // closing repaints the Reliquary under it: an artefact was claimed and a chest spent, and the section
+    // the reader is about to be looking at would otherwise still be describing the moment before
+    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _chestClose = null; refreshReliquary(); };
+    _chestClose = close;
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
+    document.addEventListener("keydown", onKey, true);
+    requestAnimationFrame(() => ov.classList.add("show"));
+
+    const btn = ov.querySelector("#chestBtn");
+    if (nothingLeft) { btn.disabled = true; addAct("Close", close); return; }
+    let opening = false;
+    btn.addEventListener("click", () => {
+      if (opening) return;
+      opening = true;
+      const a = rollArtefact();
+      if (!a) { close(); return; }
+      const r = rarityId(a);
+      const dur = prefersReducedMotion() ? 120 : (CHEST_MS[r] || 900);
+      ov.dataset.rar = r;
+      ov.classList.add("opening");
+      ov.querySelector("#chestHint").textContent = "";
+      const more = ov.querySelector("#chestMore"); if (more) more.hidden = true;
+      sfx("chest");
+      if (!prefersReducedMotion()) chestConfetti(ov, r);
+      setTimeout(() => {
+        claimArtefact(a);
+        sfx("loot-" + r);
+        ov.classList.add("opened");
+        const rev = ov.querySelector("#chestReveal");
+        rev.hidden = false;
+        rev.dataset.rar = r;
+        rev.innerHTML =
+          '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
+          '<div class="chest-art">' + artefactArtHTML(a, "ar-big") + '</div>' +
+          '<h3 class="chest-name">' + esc(a.name) + '</h3>' +
+          (a.date ? '<div class="chest-meta">' + esc(a.date) + '</div>' : "") +
+          (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
+        addAct("Read about it", () => { close(); openArtefactWin(a.id); });
+        if (chestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
+        addAct("Close", close, true);
+        unitizeTree(rev);
+      }, dur);
+    });
+    function addAct(label, fn, ghost) {
+      const acts = ov.querySelector("#chestActs");
+      acts.hidden = false;
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "btn" + (ghost ? " ghost" : "");
+      b.textContent = label;
+      b.addEventListener("click", fn);
+      acts.appendChild(b);
+    }
+  }
+  // rarity-sized burst. Common gets a handful of grey flecks; a legendary gets a shower in its own colour
+  // plus the gold the site already celebrates in. Everything is transient and dies with the overlay.
+  function chestConfetti(ov, rarity) {
+    const N = { common: 18, rare: 40, epic: 70, legendary: 120 }[rarity] || 18;
+    const cols = rarity === "legendary" ? [RARITY_HEX.legendary, "#E6C765", "#C39A2E", "#F2DC96"]
+      : rarity === "epic" ? [RARITY_HEX.epic, "#B98BE0", "#E6C765"]
+      : rarity === "rare" ? [RARITY_HEX.rare, "#7FAEE8"]
+      : [RARITY_HEX.common, "#B4B0A6"];
+    let bits = "";
+    for (let i = 0; i < N; i++) {
+      const round = Math.random() < 0.35, size = 5 + Math.random() * 7;
+      bits += '<i class="chest-bit" style="left:' + (Math.random() * 100).toFixed(1) + '%;width:' + size.toFixed(1) + 'px;height:' +
+        (size * (round ? 1 : 0.5)).toFixed(1) + 'px;background:' + cols[i % cols.length] +
+        ';animation-delay:' + (Math.random() * 0.5).toFixed(2) + 's;animation-duration:' + (1.6 + Math.random() * 1.8).toFixed(2) +
+        's;--dx:' + (Math.random() * 200 - 100).toFixed(0) + 'px;--spin:' + (Math.random() * 720 + 360).toFixed(0) + 'deg;' +
+        (round ? "border-radius:50%;" : "") + '"></i>';
+    }
+    const wrap = document.createElement("div");
+    wrap.className = "chest-conf";
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.innerHTML = bits;
+    ov.appendChild(wrap);
   }
 
   /* ============================================================
@@ -10532,6 +10914,13 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
+    /* An unopened chest says so on the banner (Aug 2026, on request), because a chest can be dismissed and
+       queued and there would otherwise be nothing on the home page to say one is owed. It is a BUTTON
+       inside a button, which the markup cannot allow, so it is a span carrying `data-chest` and the
+       banner's own click handler defers to it. */
+    const chestChip = chestCount()
+      ? `<span class="stat chest-chip" role="button" tabindex="0" data-chest="1" title="Open your artefact chest"><b>🗝 ${chestCount()}</b><span>${chestCount() === 1 ? "Chest" : "Chests"}</span></span>`
+      : "";
     // The Daily-review tile earns its bronze exactly as a game tile earns its hue: a wash while the day's pile
     // is still open, the full bronze fill once it's cleared (something was studied today and nothing is left
     // due or new), and the same shining gold as a perfect game when every card today was right on the first try.
@@ -10548,6 +10937,9 @@
             <div class="meta">
               <span class="cta"><span class="btn">${(TREE.collections || []).some((c) => !isComingSoon(c)) ? "Study your first cards" : "Browse the collections"}</span></span>
               ${(TREE.collections || []).some((c) => !isComingSoon(c)) ? '<span class="hero-alt" id="hero-browse">or browse the collections</span>' : ""}
+              ${/* the hero carries the chest chip too: the daily-sweep chest can be won without studying a
+                    single card, so a reader can be holding one while this is still the banner they see */""}
+              ${chestChip}
             </div>
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
@@ -10585,6 +10977,7 @@
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
               ${streakChip}
+              ${chestChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
         }</span></span>
@@ -10654,12 +11047,13 @@
     { const gt = root.querySelector("#g-thread"); if (gt) gt.addEventListener("click", () => route("thread")); }
     root.querySelector("#b-review").addEventListener("click", (e) => {
       if (e.target.closest("#hero-browse")) { route("decks"); return; }
+      // the chest chip is a target inside the banner: it opens the chest rather than starting the review
+      if (e.target.closest("[data-chest]")) { e.stopPropagation(); openChestPop(); return; }
       if (fresh) {
         // first session: activate the first available collection and go — or browse the library while everything is still coming soon
         const first = (TREE.collections || []).find((c) => !isComingSoon(c));
         if (!first) { route("decks"); return; }
-        // through addActive like every other route in, so there is one door — and it always opens here:
-        // a reader on the first-run hero has no counted entries and every level allows at least one
+        // through addActive like every other route in, so there is one door
         if (activeIds.indexOf(first.id) < 0) addActive(first.id);
         route("study", { scope: { type: "review" } });
         return;
@@ -10667,6 +11061,11 @@
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
+    // …and the chest chip answers to a keyboard, since it declares role="button" and a role without keys
+    // is a control a screen-reader user is told about and cannot use
+    { const cc = root.querySelector("[data-chest]"); if (cc) cc.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); openChestPop(); }
+    }); }
     // the lip under the review group and the About line under the games — both at every width now, each
     // being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
@@ -10881,10 +11280,8 @@
         <span class="eyebrow">Study</span>
         <h1>Collections</h1>
         <p>Curated collections of flashcards. New subjects are on the way.</p>
-        ${/* What the Folio level is FOR (Aug 2026, on request): how many decks may sit in the daily review
-              at once. Said here, where a reader is choosing one, rather than only in the toast that turns
-              the choice down. */""}
-        <p class="lib-cap">Your daily review holds <b>${countedActiveEntries().length} of ${maxActiveDecks()}</b> ${maxActiveDecks() === 1 ? "deck" : "decks"} — one more with every Folio level.</p>
+        ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
+              itself (Aug 2026, on request) — there is no limit left to state. */""}
       </div>
       ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
             list of collections — the label contradicted both that and the page title above it. */""}
@@ -10912,7 +11309,7 @@
     const installed = !uDeckIsMine(d);
     return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
       '<div class="collection-row" role="button" tabindex="0" data-udeck="' + esc(d.id) + '">' +
-        levelBadgeMarkup(studied) +
+        collectionIconMarkup(d.id) +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
             '<span class="collection-title">' + esc(d.title) + '</span>' +
@@ -10921,7 +11318,7 @@
             (n ? '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' : '<span class="pill soon">Empty</span>') +
           '</div>' +
           (d.subtitle ? '<div class="udeck-sub">' + esc(d.subtitle) + '</div>' : (installed && d.ownerName ? '<div class="udeck-sub">by ' + esc(d.ownerName) + '</div>' : "")) +
-          xpBarMarkup(studied) +
+          deckProgMarkup(studied, n) +
         '</div>' +
         '<div class="collection-actions">' +
           (n ? '<button class="collection-add' + (on ? " added" : "") + '" data-uadd="' + esc(d.id) + '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + '</button>' : "") +
@@ -11258,7 +11655,7 @@
         <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col">
           <div class="collection-deco" aria-hidden="true"></div>
           ${libGripHTML(d.id)}
-          ${soon ? "" : levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
+          ${soon ? "" : collectionIconMarkup(d.id)}
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
@@ -11270,7 +11667,7 @@
                  an XP bar reading "0 / 3 cards" — a progress meter towards a level in a collection that cannot
                  be studied, and a figure that reads as a card count when there are no cards at all. Six of the
                  seven collections are coming-soon, so this was most of the Library saying nothing. */
-              soon ? "" : xpBarMarkup(studied)
+              soon ? "" : deckProgMarkup(studied, total)
             }
           </div>
           <div class="collection-actions">
@@ -19766,17 +20163,19 @@
     if (!n) container.innerHTML = '<div class="dp-empty">No decks studied yet — progress appears here once you start reviewing.</div>';
     return n;
   }
-  // the level a user holds in each collection (distinct cards studied within it → its XP level).
-  // compareCards (optional, the viewer's own progress) adds a "You: …" chip per row for the friend view.
+  /* How far through each collection a reader has got. It was a LEVEL per collection until Aug 2026, when
+     collection levels were removed on request; it is the same row with the same hue, showing the same
+     figure the Collections page now shows — the icon, and cards studied out of cards there are.
+     compareCards (optional, the viewer's own progress) adds a "You: …" chip per row for the friend view. */
   function renderCollectionLevels(container, cards, compareCards) {
     const cols = TREE.collections.filter((c) => subtreeCardIds(c).length > 0 && !isComingSoon(c));
-    if (!cols.length) { container.innerHTML = '<div class="cl-empty">No collections studied yet — your level in each appears here as you study.</div>'; return 0; }
+    if (!cols.length) { container.innerHTML = '<div class="cl-empty">No collections studied yet — your progress in each appears here as you study.</div>'; return 0; }
     container.innerHTML = cols.map((c) => {
-      const xp = collectionXPFrom(c, cards);
+      const total = subtreeCardIds(c).length, studied = collectionStudiedFrom(c, cards);
       const hue = COLL_THEME[c.id] ? ' style="--coll-bg:' + COLL_THEME[c.id].bg + '"' : "";
-      const you = compareCards ? '<span class="cl-you" title="Your own level in this collection">You: Lv ' + levelFromXP(collectionXPFrom(c, compareCards)).level + "</span>" : "";
-      return '<div class="cl-row"' + hue + '>' + levelBadgeMarkup(xp, COLLECTION_NUMERALS[c.id]) +
-        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + you + '</div>' + xpBarMarkup(xp) + '</div></div>';
+      const you = compareCards ? '<span class="cl-you" title="Your own progress in this collection">You: ' + collectionStudiedFrom(c, compareCards) + " / " + total + "</span>" : "";
+      return '<div class="cl-row"' + hue + '>' + collectionIconMarkup(c.id) +
+        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + you + '</div>' + deckProgMarkup(studied, total) + '</div></div>';
     }).join("");
     animateProgs(container);
     return cols.length;
@@ -19896,7 +20295,17 @@
           <div class="perk"><span class="perk-ic" style="--pk:#4F9D67"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Friends, badges and levels</span></div>
           <div class="perk"><span class="perk-ic" style="--pk:#C39A2E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.5l7.1-.6z"/></svg></span><span>Free — no account needed to study on this device</span></div>
         </div>
-      </div>`;
+      </div>
+      ${/* A GUEST'S ARTEFACTS ARE SHOWN HERE TOO (Aug 2026). Everything else on this page is behind the
+            sign-in wall because it is about an ACCOUNT — friends, sync, a profile. Artefacts are not: a
+            guest levels up, earns chests and opens them entirely on this device, so walling the inventory
+            off would mean a reward that can be won and never looked at. It appears only once there is
+            something to show, so a first visit is the sign-in page it has always been; and there is no
+            showcase, which is the half that needs an account to have any point. */""}
+      ${(Object.keys(S.artefacts || {}).length || chestCount())
+        ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
+        : ""}`;
+    { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
       tabs.forEach((x) => x.classList.toggle("active", x === t));
@@ -19982,11 +20391,18 @@
         ${statTile("st-wins", st.wins, "Quiz wins")}
       </div>
       ${me.avatar ? '<div class="acct-tools"><button class="ghost-btn" id="avatarRemove" type="button">Remove photo</button></div>' : ""}
+      ${/* THE RELIQUARY (Aug 2026, on request). The showcase sits directly under the profile hero because
+            it IS part of the profile — the four artefacts a reader has chosen to be seen holding — while
+            the inventory itself is a section of its own further down, beside the badges it belongs with. */""}
+      <div class="section-label">Profile showcase</div>
+      <div id="showcase"></div>
       <div class="section-label">Friends</div>
       <div class="friends-box" id="friendsBox"></div>
       <div class="section-label">Badges</div>
       <div class="badges-box" id="badgesBox"></div>
-      <div class="section-label">Collection levels</div>
+      <div class="section-label">Reliquary</div>
+      <div class="reliquary" id="reliquary"></div>
+      <div class="section-label">Collection progress</div>
       <div class="coll-levels" id="collLevels"></div>
       <div id="statWrap"></div>
       <div class="section-label">Review statistics</div>
@@ -20054,6 +20470,11 @@
     renderFriends(root.querySelector("#friendsBox"));
     checkAchievements(true);
     root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
+    root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
+    wireReliquary(root.querySelector("#showcase"));
+    const relHost = root.querySelector("#reliquary");
+    relHost.innerHTML = reliquaryHTML(S, true);
+    wireReliquary(relHost);
     renderCollectionLevels(root.querySelector("#collLevels"), S.cards);
 
     const dp = root.querySelector("#deckprog");
@@ -20157,6 +20578,10 @@
           <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
+        ${/* the four artefacts they chose to be seen holding — the whole point of the showcase is that
+              somebody else sees it, so it sits at the top of their profile as it does on your own */""}
+        <div class="section-label">Profile showcase</div>
+        <div id="fShowcase"></div>
         <div id="fStat"></div>
         <div class="section-label">Review statistics</div>
         <div id="fReviewStats"></div>
@@ -20166,8 +20591,10 @@
         <div id="fExploreStats"></div>
         <div class="section-label">Badges</div>
         <div class="badges-box" id="fBadges"></div>
-        <div class="section-label">Collection levels</div>
+        <div class="section-label">Collection progress</div>
         <div class="coll-levels" id="fLevels"></div>
+        <div class="section-label">Reliquary</div>
+        <div class="reliquary" id="fReliquary"></div>
         <div class="section-label">Progress by deck</div>
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
@@ -20175,7 +20602,12 @@
       renderDeckStats(root.querySelector("#fDeckStats"), prog, false);   // their community decks live on their device, not in the blob
       root.querySelector("#fExploreStats").innerHTML = exploreStatsHTML(prog);
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
-      renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their levels, with a "You: …" chip beside each
+      renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
+      root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
+      wireReliquary(root.querySelector("#fShowcase"));
+      const fRel = root.querySelector("#fReliquary");
+      fRel.innerHTML = reliquaryHTML(prog, false);   // `own` false → no chest button and no pinning
+      wireReliquary(fRel);
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
@@ -20232,6 +20664,44 @@
       "   are baked back into this file by auto-save / \"Save to project\" (serializeMission). Loaded before app.js. */\n" +
       "window.MISSION = " + JSON.stringify({ title: M.title, paras: M.paras }, null, 2) + ";\n";
   }
+  /* artefacts.js, rebuilt from the live pool (shipped literal + overlay). The head comment is written out
+     in full rather than preserved from the file on disk: this is the ONLY copy of it once the file has
+     been round-tripped, and a serializer that drops the documentation is how a file stops explaining
+     itself. Offered by Admin → Artefacts as "Copy as JS" and written by auto-save / "Save to project". */
+  function serializeArtefacts() {
+    const s = (v) => JSON.stringify(String(v == null ? "" : v));
+    return "/* ============================================================\n" +
+      "   ARTEFACTS — the pool a level-up chest draws from\n" +
+      "   ============================================================\n" +
+      "   Every entry is a REAL historical object. The same rule the cards and the glossary run on applies here\n" +
+      "   without exception: nothing is invented — not a date, not a museum, not a measurement — and where the\n" +
+      "   scholarship is unsettled the description says so rather than picking a side.\n\n" +
+      "   Shape:\n" +
+      "     id      a stable slug. It is what the reader's own inventory (S.artefacts) is keyed by, so it must\n" +
+      "             NEVER be reused for a different object and never renamed once shipped — a renamed id takes\n" +
+      "             the artefact out of every collection that holds it.\n" +
+      "     name    the title shown when it is looted.\n" +
+      "     rarity  \"common\" | \"rare\" | \"epic\" | \"legendary\" — grey, blue, purple, orange. It decides the drop\n" +
+      "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are.\n" +
+      "     date    a short date line, in the compact notation the cards use.\n" +
+      "     origin  where it is from, and where it is now if that is worth knowing.\n" +
+      "     image   optional { src, credit, alt } — a LINK, never an upload, exactly as a card's picture is.\n" +
+      "             `credit` is required wherever `src` is set; an artefact with no picture draws a\n" +
+      "             rarity-coloured placeholder rather than an empty frame.\n" +
+      "     desc    exactly FIVE sentences, about 200 words (±10%), at the same reading level as a card's\n" +
+      "             background. Rich HTML: <b> for the object's own name at its first mention, <i> for titles\n" +
+      "             and foreign terms. Metric first with the imperial equivalent in brackets.\n\n" +
+      "   Written and edited in Admin → Artefacts, which can also hand this whole file back as a JS literal. */\n" +
+      "window.ARTEFACTS = [\n" +
+      ARTEFACTS.map((a) => {
+        let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
+        if (a.date) out += "    date: " + s(a.date) + ",\n";
+        if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
+        if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+        return out + "    desc: " + s(a.desc) + ",\n  },";
+      }).join("\n") + "\n];\n";
+  }
+
   PAGES.mission = function (root) {
     const M = missionMerged();
     // The changelog dates follow the SITE language, not the browser's: en-GB for English (so a reader with a
@@ -21358,7 +21828,7 @@
     b.classList.toggle("on", s === "on" || s === "saving" || s === "saved");
     b.classList.toggle("warn", s === "reconnect" || s === "error");
   }
-  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); Object.assign(f, glossI18nFiles()); return f; }
+  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); if (Object.keys(ADMIN_EDITS.artefacts || {}).length) f["artefacts.js"] = serializeArtefacts(); Object.assign(f, glossI18nFiles()); return f; }
   async function autoSaveNow() {
     if (!autoSaveArmed || !autoSaveDir) return;
     if (_autoWriting) { autoSaveWrite(); return; }                                  // a write is in flight → coalesce into the next tick
@@ -21401,6 +21871,7 @@
   async function adminExport() {
     const dataJs = serializeCardData(), glossJs = serializeGlossary();
     const hasTl = Array.isArray(ADMIN_EDITS.timeline);
+    const hasArt = Object.keys(ADMIN_EDITS.artefacts || {}).length > 0;
     // fallback for any path where direct write isn't available: download the generated files so they can be placed manually.
     // stagger the fallback downloads: firing 2–3 a.click() downloads in one tight loop trips Chrome's "site is trying to
     // download multiple files" block, so only the first would actually save. Space them out so every file lands.
@@ -21408,6 +21879,7 @@
       const files = [["data.js", dataJs], ["glossary.js", glossJs]];
       if (hasTl) files.push(["timeline.js", serializeTimeline()]);
       if (ADMIN_EDITS.mission) files.push(["mission.js", serializeMission()]);
+      if (hasArt) files.push(["artefacts.js", serializeArtefacts()]);
       Object.entries(glossI18nFiles()).forEach((e) => files.push(e));
       // a browser download can't carry a folder — send the basename and say where the i18n ones belong
       files.forEach(([n, t], i) => setTimeout(() => downloadText(n.split("/").pop(), t), i * 350));
@@ -21435,6 +21907,7 @@
       await writeFileTo(dir, "glossary.js", glossJs);
       if (hasTl) await writeFileTo(dir, "timeline.js", serializeTimeline());   // commit historical eras to timeline.js (then the overlay copy is dropped below)
       if (ADMIN_EDITS.mission) await writeFileTo(dir, "mission.js", serializeMission());   // bake the Mission intro (overlay dropped below)
+      if (hasArt) await writeFileTo(dir, "artefacts.js", serializeArtefacts());   // bake the artefact pool (overlay dropped below)
       for (const [n, txt] of Object.entries(glossI18nFiles())) await writeFileTo(dir, n, txt);   // bake edited glossary translations, one file per language
       // deck date labels + coming-soon pins live only in the delta overlay (not encoded in the files) — keep them so a
       // save never loses them; everything else is now baked into data.js / glossary.js, so drop it.
@@ -21459,6 +21932,7 @@
       const out = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() };
       if (Array.isArray(ADMIN_EDITS.timeline)) out["timeline.js"] = serializeTimeline();
       if (ADMIN_EDITS.mission) out["mission.js"] = serializeMission();
+      if (Object.keys(ADMIN_EDITS.artefacts || {}).length) out["artefacts.js"] = serializeArtefacts();
       Object.assign(out, glossI18nFiles());
       return out;
     },
@@ -22872,6 +23346,7 @@
             '<button class="admin-tab" type="button" data-atab="cards">Cards</button>' +
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
+            '<button class="admin-tab" type="button" data-atab="artefacts">Artefacts</button>' +
             '<button class="admin-tab" type="button" data-atab="timeline">Timeline</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
           '</div>' +
@@ -23500,15 +23975,154 @@
       }
     }
 
+    /* ---------- Admin → Artefacts (Aug 2026, on request) ----------
+       The pool a level-up chest draws from, written and edited here. It follows the Quotes tab exactly:
+       artefacts.js is the shipped literal and `ADMIN_EDITS.artefacts` an overlay over it, so an edit made
+       on a phone reaches every reader through `content_overrides` with no deploy, and "Copy as JS" hands
+       the whole pool back for baking into artefacts.js when a batch is settled.
+
+       Two things differ from Quotes and both matter. The key is the artefact's **id**, not its text,
+       because the reader's own inventory is keyed by that id — so the id field is editable only while an
+       artefact is NEW, and locked once it exists. And the description is held to the house bar (five
+       sentences, 200 words ±10%): the counter beside the box is live, so a description drifting long is
+       visible while it is being written rather than at review time. */
+    let _aEditing = null;   // the id of the artefact whose form is open, or "" for a new one
+    function adminRenderArtefacts() {
+      const items = root.querySelector("#adminListItems");
+      const countEl = root.querySelector("#adminListCount");
+      const pool = ARTEFACTS;
+      if (countEl) countEl.textContent = pool.length + (pool.length === 1 ? " artefact" : " artefacts");
+      const order = { legendary: 0, epic: 1, rare: 2, common: 3 };
+      const rows = pool.slice().sort((a, b) => (order[rarityId(a)] - order[rarityId(b)]) || a.name.localeCompare(b.name));
+      const stat = (a) => {
+        const plain = String(a.desc || "").replace(/<[^>]+>/g, "");
+        const words = plain.trim() ? plain.trim().split(/\s+/).length : 0;
+        const sents = plain.trim() ? plain.split(/(?<=[.!?])\s+(?=[A-Z“"‘'])/).filter((s) => s.trim()).length : 0;
+        return { words, sents, ok: words >= 180 && words <= 220 && sents === 5 };
+      };
+      const row = (a) => {
+        const r = rarityId(a), st = stat(a), added = !artefactIsShipped(a.id);
+        return '<div class="a-row' + (_aEditing === a.id ? " a-open" : "") + '">' +
+          '<button type="button" class="a-main" data-aopen="' + esc(a.id) + '">' +
+            '<span class="a-swatch" data-rar="' + r + '" aria-hidden="true"></span>' +
+            '<span class="a-name">' + esc(a.name) + '<small>' + esc(a.id) + '</small></span>' +
+            '<span class="a-meta">' +
+              '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
+              (a.image && a.image.src ? '<span class="q-pill q-orig">picture</span>' : '<span class="q-pill q-noorig">no picture</span>') +
+              '<span class="q-pill ' + (st.ok ? "q-orig" : "q-noorig") + '">' + st.words + "w · " + st.sents + "s</span>" +
+              (added ? '<span class="q-pill q-added">added</span>' : (ADMIN_EDITS.artefacts && Object.prototype.hasOwnProperty.call(ADMIN_EDITS.artefacts, a.id) ? '<span class="q-pill q-edited">edited</span>' : "")) +
+            "</span>" +
+          "</button></div>";
+      };
+      const field = (id, label, val, note) =>
+        '<label class="admin-field"><span class="af-label">' + esc(label) + (note ? ' <small>' + esc(note) + "</small>" : "") + "</span>" +
+        '<input class="af-input" id="' + id + '" type="text" value="' + esc(val || "") + '" /></label>';
+      const formHTML = () => {
+        if (_aEditing == null) return "";
+        const isNew = _aEditing === "";
+        const a = isNew ? { id: "", name: "", rarity: "common", date: "", origin: "", desc: "" } : (ARTEFACT_BY_ID[_aEditing] || null);
+        if (!a) return "";
+        const im = a.image || {};
+        const edited = !isNew && ADMIN_EDITS.artefacts && Object.prototype.hasOwnProperty.call(ADMIN_EDITS.artefacts, a.id);
+        return '<div class="q-form" id="aForm">' +
+          '<div class="q-form-head"><b>' + (isNew ? "New artefact" : "Edit artefact") + "</b>" +
+            '<span class="q-form-note">A real historical object. Five sentences, about 200 words, at a card background’s reading level — and nothing invented: not a date, not a museum, not a measurement.</span></div>' +
+          (isNew
+            ? field("aId", "id", "", "— lowercase slug, permanent: the reader’s collection is keyed by it")
+            : '<label class="admin-field"><span class="af-label">id <small>— locked: every collection holding this artefact is keyed by it</small></span><input class="af-input" value="' + esc(a.id) + '" disabled /></label>') +
+          field("aName", "name", a.name) +
+          '<label class="admin-field"><span class="af-label">rarity <small>— decides the drop odds and how big the chest opening is</small></span>' +
+            '<select class="af-input" id="aRar">' + RARITIES.map((r) => '<option value="' + r.id + '"' + (rarityId(a) === r.id ? " selected" : "") + ">" + esc(r.label) + " · " + r.weight + "%</option>").join("") + "</select></label>" +
+          field("aDate", "date", a.date, "— the compact notation the cards use: c. 1600 – 1500 BCE") +
+          field("aOrigin", "origin", a.origin, "— where it is from, and where it is now if that is worth knowing") +
+          '<label class="admin-field"><span class="af-label">description <small>— five sentences, 180–220 words. &lt;b&gt; the name, &lt;i&gt; titles and foreign terms.</small></span>' +
+            '<textarea class="af-input af-area" id="aDesc" rows="9">' + esc(a.desc || "") + "</textarea>" +
+            '<span class="af-count" id="aCount"></span></label>' +
+          '<div class="q-form-sub">The picture is a <b>link</b>, never an upload — the same rule a card’s image follows, and what keeps this file small enough to ship. A source line is required wherever there is a URL; an artefact with no picture draws a rarity-coloured placeholder rather than an empty frame.</div>' +
+          field("aImg", "picture URL", im.src || "") +
+          field("aCredit", "picture source", im.credit || "", "— who holds it and under what licence") +
+          field("aAlt", "alt text", im.alt || "", "— describes the picture to a reader who cannot see it") +
+          '<div class="q-form-acts">' +
+            '<button class="mini-btn" type="button" id="aCancel">Cancel</button>' +
+            (isNew || !edited ? "" : '<button class="mini-btn" type="button" id="aRevert">' + (artefactIsShipped(a.id) ? "Revert" : "Delete") + "</button>") +
+            (isNew || !artefactIsShipped(a.id) ? "" : '<button class="mini-btn danger" type="button" id="aRetire">Retire</button>') +
+            '<button class="admin-new" type="button" id="aSave">Save</button>' +
+          "</div></div>";
+      };
+      items.innerHTML =
+        '<div class="q-page">' +
+          '<div class="tl-intro">Every Folio level opens a chest, and so does winning all six daily games in one day. A chest draws one artefact the reader does not already own, at <b>60 / 25 / 12 / 3</b> for common / rare / epic / legendary — a rarity that is fully collected drops out of the roll rather than handing back a duplicate. Edits take effect at once and travel to every reader; <b>Copy as JS</b> gives the whole pool back as a literal to paste into <code>artefacts.js</code>.</div>' +
+          '<div class="q-tools">' +
+            '<button class="admin-new" type="button" id="aNew">+ New artefact</button>' +
+            '<button class="mini-btn" type="button" id="aCopy">Copy as JS</button>' +
+          "</div>" +
+          formHTML() +
+          '<div class="q-list a-list">' + (rows.length ? rows.map(row).join("") : '<div class="tl-empty">No artefacts yet — a chest will say so rather than opening on nothing.</div>') + "</div>" +
+        "</div>";
+
+      items.querySelectorAll("[data-aopen]").forEach((b) => b.addEventListener("click", () => {
+        _aEditing = _aEditing === b.dataset.aopen ? null : b.dataset.aopen;
+        adminRenderArtefacts();
+      }));
+      const nb = items.querySelector("#aNew");
+      if (nb) nb.addEventListener("click", () => { _aEditing = ""; adminRenderArtefacts(); });
+      const cb = items.querySelector("#aCopy");
+      if (cb) cb.addEventListener("click", () => copySelText(serializeArtefacts(), pool.length + " artefacts copied — paste over artefacts.js"));
+
+      const form = items.querySelector("#aForm");
+      if (form) {
+        const val = (id) => { const e = form.querySelector("#" + id); return e ? (e.value || "").trim() : ""; };
+        // live word / sentence counter, so a description drifting long is visible as it is written
+        const ta = form.querySelector("#aDesc"), cnt = form.querySelector("#aCount");
+        const recount = () => {
+          const st = stat({ desc: ta.value });
+          cnt.textContent = st.words + " words · " + st.sents + " sentences";
+          cnt.className = "af-count" + (st.ok ? " ok" : " warn");
+        };
+        ta.addEventListener("input", recount); recount();
+        form.querySelector("#aCancel").addEventListener("click", () => { _aEditing = null; adminRenderArtefacts(); });
+        form.querySelector("#aSave").addEventListener("click", () => {
+          const isNew = _aEditing === "";
+          const id = isNew ? val("aId").toLowerCase().replace(/[^\w.-]+/g, "-").replace(/^-+|-+$/g, "") : _aEditing;
+          if (!id) { toast("An artefact needs an id."); return; }
+          if (isNew && ARTEFACT_BY_ID[id]) { toast("There is already an artefact with that id."); return; }
+          if (!val("aName")) { toast("An artefact needs a name."); return; }
+          // the same rule the cards and the glossary enforce: a picture is never saved uncredited
+          if (val("aImg") && !val("aCredit")) { toast("A picture needs its source."); return; }
+          const obj = { id, name: val("aName"), rarity: val("aRar") || "common", date: val("aDate"), origin: val("aOrigin"), desc: ta.value.trim() };
+          if (val("aImg")) obj.image = { src: val("aImg"), credit: val("aCredit"), alt: val("aAlt") };
+          setArtefactEdit(id, obj);
+          _aEditing = null;
+          adminRenderArtefacts();
+          toast("Artefact saved");
+        });
+        const rv = form.querySelector("#aRevert");
+        if (rv) rv.addEventListener("click", () => {
+          const k = _aEditing, shipped = artefactIsShipped(k);
+          inlineConfirm(shipped ? "Put this artefact back to what artefacts.js ships?" : "Delete this artefact? Readers who already hold it keep an entry pointing at nothing.", () => {
+            revertArtefact(k); _aEditing = null; adminRenderArtefacts(); toast(shipped ? "Reverted" : "Artefact deleted");
+          }, shipped ? "Revert" : "Delete");
+        });
+        const rt = form.querySelector("#aRetire");
+        if (rt) rt.addEventListener("click", () => {
+          const k = _aEditing;
+          inlineConfirm("Retire this artefact? It stays in artefacts.js but stops being drawn from chests.", () => {
+            setArtefactEdit(k, null); _aEditing = null; adminRenderArtefacts(); toast("Artefact retired");
+          }, "Retire");
+        });
+      }
+    }
+
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes";
-      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); }
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes", artefacts = adminState.tab === "artefacts";
+      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); }
       // the feedback/timeline branches return before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
+      if (artefacts) { adminState.selected.clear(); adminRenderArtefacts(); return; }
       if (feedback) { adminState.selected.clear(); adminRenderFeedback(); return; }
       if (timeline) { adminState.selected.clear(); adminRenderTimeline(); return; }
       search.placeholder = cards ? "Search cards by title, id, hanzi…" : "Search glossary terms…";

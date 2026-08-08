@@ -873,18 +873,23 @@ async function studyEasy(page, base, n) {
       }
       return {
         groupLabel: groupLabel.trim(), soonTitleOffset: off,
-        soonBadge: has(soon, ".level-badge"), soonXp: has(soon, ".xp"), soonPill: has(soon, ".pill.soon"),
-        liveBadge: has(live, ".level-badge"), liveXp: has(live, ".xp"), liveCount: has(live, ".collection-count"),
+        soonBadge: has(soon, ".coll-ic"), soonXp: has(soon, ".xp"), soonPill: has(soon, ".pill.soon"),
+        liveBadge: has(live, ".coll-ic"), liveXp: has(live, ".deck-prog"), liveCount: has(live, ".collection-count"),
+        anyNumeral: !!document.querySelector(".collection-row .lb-num"),
       };
     });
     check("the first group is called Collections", lib.groupLabel === "Collections", lib.groupLabel);
     // a level meter towards a level in a collection that cannot be studied, over a "0 / 3 cards" figure that
     // reads as a card count when the collection holds none
-    check("a coming-soon collection carries no level badge", !lib.soonBadge);
-    check("...and no XP bar", !lib.soonXp);
+    check("a coming-soon collection carries no icon", !lib.soonBadge);
+    check("...and no progress bar", !lib.soonXp);
     check("...just the Coming soon pill", lib.soonPill);
     check("...with its title centred in the banner", lib.soonTitleOffset !== null && Math.abs(lib.soonTitleOffset) <= 1.5, lib.soonTitleOffset);
+    // Aug 2026, on request: collections lost their level. The banner carries a SUBJECT ICON where the
+    // per-script numeral was and a studied/total bar where the XP bar was — see test-artefacts.js, which
+    // pins the pair properly. Here it is only the shell: both present, and no numeral left anywhere.
     check("a live collection keeps both, and its card count", lib.liveBadge && lib.liveXp && lib.liveCount, JSON.stringify(lib));
+    check("...and no level numeral survives on any collection banner", !lib.anyNumeral);
     await page.close();
   }
 

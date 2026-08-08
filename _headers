@@ -16,7 +16,7 @@
 #                       positions, colour tags), which needs 'unsafe-inline'; styles.css @imports the
 #                       font stylesheet from fonts.googleapis.com.
 #   img-src             data: for the heightmap PNG data-URIs and profile avatars, blob: for the avatar
-#                       upload preview, https: for card images hosted off-site.
+#                       upload preview, https: for card, glossary and artefact images hosted off-site.
 #   media-src           https: for card and glossary videos linked from off-site (a <video src>). Videos are
 #                       link-only — nothing is uploaded — so no data: or blob: is needed here.
 #   frame-src           the two video hosts a link can be turned into a player for. youtube-nocookie.com is

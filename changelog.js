@@ -14,13 +14,18 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.101", released: "2026-08-08T11:04Z" };
+window.FOLIO_VERSION = { v: "1.102", released: "2026-08-08T12:34Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-08",
-    t: "A walkthrough for new readers, the site loads about a megabyte lighter, seven new cards in Ancient Greece, and the decks on the home page take their collection's colour properly",
+    t: "Levelling up now opens a chest holding a real historical artefact, collections show how far through them you are, and a walkthrough for new readers",
     items: [
+      "Every time you level up, Folio now hands you a chest — and inside it is a real historical artefact, drawn at random from a growing collection. Artefacts come in four grades, common, rare, epic and legendary, and the rarer ones open with rather more ceremony. You will never be given one you already have, and winning all six daily games in a single day earns you a chest as well.",
+      "Your artefacts live in a Reliquary on your account page, each with a picture and a few paragraphs about what it is, where it comes from and why it matters. You can pin up to four of them to the top of your profile for anyone visiting it to see.",
+      "The Folio level no longer limits how many decks your daily study can hold. Add as many collections as you like, from the first day. The level now earns you a chest instead of deciding what you are allowed to do.",
+      "Collections no longer carry a level of their own. In their place, each shows how many of its cards you have studied out of how many there are — which is the thing you actually want to know about a collection — and each now carries an icon of its own subject: a pagoda for China, a column for Greece, a pyramid for Egypt, a torii for Japan, and so on.",
+      "The notes in the Library's books are now marked in the same red as the citations on a card, so there is one apparatus to learn instead of two. The teal they were using has moved to glossary words you have not yet opened, which used to share their colour with the blank in a card's question.",
       "If you are new to Folio, the home page now offers you a three-minute walkthrough. It dims the page, puts one card in the middle of it, and points at what it is describing: why the cards come back when they do, how to add a deck to your daily study, how to answer one and grade yourself honestly, and the marker you can write on a card with. It is entirely optional — take it, or say no thanks and it will not ask again — and if you change your mind it is in Settings, under Study.",
       "The Library now explains itself the first time you open it, as the Atlas already did: what may be shelved and why, how the chapters and your reading position work, the original language beside the translation, and the marker and highlights. The Atlas card has gained a line about the marker too, since the strokes you draw on the globe are pinned to the map and turn with it. Both can be reopened from the ? beside them, whenever you like.",
       "Folio now opens noticeably faster. The site has shipped in English for a while, but every visitor was still downloading the nine translations of the cards and the glossary before a single card could be turned over — about a megabyte of compressed text that nothing on screen could ever use. It has been taken out, so the first page you see costs a third less to load, on a phone signal as much as on a desk.",

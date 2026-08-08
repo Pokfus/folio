@@ -12,7 +12,7 @@
     · a study session survives a reload — same card, same phrasing, same reveal
     · a card's three phrasings can be stepped through, and the step sticks
     · holding a deck's row opens Custom study / Daily limits / Skip today / Remove, the bin having gone
-    · the Folio level caps how many decks may sit in the review at once
+    · there is NO cap on how many decks may sit in the review (the Folio level used to be one)
 
   Everything is driven through a real browser against the real files. Progress is seeded through
   addInitScript rather than a live page write, because the app saves on its own schedule and would clobber
@@ -91,11 +91,14 @@ const SETTINGS = {
     await page.waitForTimeout(1200);
     const lib = await page.evaluate(() => ({
       soonOpen: (() => { const d = document.querySelector(".collection-group-soon"); return d ? d.open : null; })(),
-      cap: (document.querySelector(".lib-cap") || {}).textContent || "",
+      cap: !!document.querySelector(".lib-cap"),
     }));
     // it used to open itself for an admin, who is exactly the person on this page most often
     check("the Coming soon fold starts closed, admin or not", lib.soonOpen === false, JSON.stringify(lib.soonOpen));
-    check("...and the Library says how many decks the level allows", /\d+ of \d+ decks?/.test(lib.cap), lib.cap);
+    // the Folio level used to cap how many decks the review would hold, and this line stated the standing.
+    // The cap was removed on request (Aug 2026) — a level buys an artefact chest now — so the line must be
+    // gone with it: a limit stated in the page head but not enforced reads as still in force.
+    check("...and no deck-cap line is left in the page head", lib.cap === false);
     await page.close();
   }
 
@@ -394,17 +397,21 @@ const SETTINGS = {
     await page.close();
   }
 
-  /* ================= 5. the level caps how many decks may be added ================= */
+  /* ================= 5. there is NO cap on how many decks may be added (Aug 2026) =================
+     The Folio level used to allow one deck at level 1 and one more per level, so this section asserted
+     that a level-1 reader got exactly one collection and a toast saying why. That was removed on request:
+     it was the only thing a level decided and it decided it by taking something away. What is asserted
+     now is the opposite, and it is the assertion that would catch a half-removal — the cap lived in three
+     places (addActive, wireAddButton's toast, the page head) and dropping it from one of them would still
+     let almost every add through. */
   {
-    // no cards studied at all → Folio level 1 → one deck, and the shipped default S.active (a deck of the
-    // coming-soon China collection) must NOT be what fills it
     const page = await newPage({ active: [], settings: SETTINGS, cards: {} });
     await page.goto(base + "#decks", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
-    const capped = await page.evaluate(async () => {
+    const open = await page.evaluate(async () => {
       const btns = [...document.querySelectorAll(".collection-add")];
-      const out = { n: btns.length, added: [], roots: [] };
+      const out = { n: btns.length };
       for (const b of btns) { b.click(); await new Promise((r) => setTimeout(r, 250)); }
       out.added = JSON.parse(localStorage.getItem("folio_v1")).active;
       // which COLLECTIONS got in — the collections page is the only place these buttons exist, so a
@@ -413,13 +420,9 @@ const SETTINGS = {
       out.toast = (document.querySelector("#toast") || {}).textContent || "";
       return out;
     });
-    /* THE CAP COUNTS CHOICES, NOT ENTRIES (Aug 2026). Adding a collection now brings its whole subtree in
-       with it, so `active` holds dozens of ids after one press; what the level limits is how many
-       collections/decks the reader may CHOOSE, and countedActiveEntries skips anything with an active
-       ancestor precisely so a four-deck collection does not put a level-1 reader five over their cap. */
-    check("at level 1 the review takes one collection", capped.roots === 1, JSON.stringify({ roots: capped.roots, active: capped.added.length }));
-    check("...and its decks came in with it rather than as choices of their own", capped.added.length > 1, capped.added.length + " entries");
-    check("...and says so rather than doing nothing", /level/i.test(capped.toast), capped.toast);
+    check("a reader who has studied nothing may add every collection offered", open.n > 1 && open.roots === open.n, open.roots + " of " + open.n);
+    check("...their decks coming in with them rather than as choices of their own", open.added.length > open.roots, open.added.length + " entries");
+    check("...and nothing is refused on account of a level", !/level/i.test(open.toast), open.toast);
     await page.close();
   }
 
