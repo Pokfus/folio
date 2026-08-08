@@ -95,11 +95,14 @@ if (e.delete) {
     const missing = I18N_LANGS.filter((l) => !(typeof tr[l] === "string" && tr[l].trim()));
     if (missing.length) { console.error("ERROR: a new term needs `translations` for all 9 site languages (missing: " + missing.join(", ") + ") — or pass skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
   }
-  // MERGE, never replace: an update that carries only some languages (e.g. backfilling a newly added
-  // site language into an old term) must not drop the translations already on the entry.
+  // TRANSLATIONS ARE NOT WRITTEN (2026-08-08, on request). The glossary translations and the card `i18n`
+  // blocks were removed — the site ships in English and they were weight no reader could reach. Writing
+  // them here would recreate i18n/gloss-<lang>.js and quietly undo that, so a batch that still carries
+  // `translations` is accepted and its translations DROPPED, loudly, rather than silently honoured.
+  // Restoring the languages means deleting this block, not working around it.
   if (e.translations && Object.keys(e.translations).length) {
-    I18N[e.slug] = I18N[e.slug] || {};
-    I18N_LANGS.forEach((l) => { if (typeof e.translations[l] === "string" && e.translations[l].trim()) I18N[e.slug][l] = e.translations[l]; });
+    console.warn("WARNING: " + e.slug + " carries `translations` (" + Object.keys(e.translations).join(", ") +
+      ") — DROPPED. The site is English-only and the glossary translation files were removed; see CLAUDE.md.");
   }
   action = isNew ? "added" : "updated";
   GLOSS[e.slug] = e.description;

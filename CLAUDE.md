@@ -57,8 +57,19 @@ It is a plain static website — open `index.html` and it runs.
 
 ## File map
 
-**Only the study-critical files load eagerly** (~1.4 MB), in this order — it is significant:
+**Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js → app.js`.
+**That path is 4.9 MB raw / 1.35 MB gzipped** (measured 2026-08-08 after the translation removal below; it
+said "~1.4 MB" for months and was five times out of date, so **re-measure it rather than quoting it**).
+**THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
+path was 7.5 MB raw / 2.4 MB gzipped, and **58% of `data.js` (2.06 MB) was the `i18n` blocks of 89 cards**,
+which `MULTILANG = false` meant no reader could reach — the `quotes.js` mistake (27 KB → 312 KB for every
+visitor) at seven times the scale. `data.js` went 4.32 MB → 1.64 MB and every visitor now downloads ~1 MB
+less gzipped. `glossary.js` is 1.15 MB, of which `GLOSSARY_SOURCES` is 479 KB (42%) and is only read once a
+popup opens — the largest remaining candidate, and the weakest of them, since popups are common.
+**Nothing re-adds a translation by accident**: `add-card.js` and `add-glossary.js` now DROP a supplied
+`i18n` / `translations` block with a warning, and `test-i18n-lang.js` fails if any card carries one or any
+`i18n/gloss-<lang>.js` reappears.
 
 **Everything else is LAZY**, injected on demand by `DATA_BUNDLES` / `ensureData(name)` in app.js (see the
 "Lazy data bundles" bullet under "How the app is wired"). Before this split every visitor downloaded ~11.3 MB
@@ -69,7 +80,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
-| `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
+| ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
 | `placeI18n:<lang>` | `i18n/places-<lang>.js` | ditto (country / territory / capital names on the globe) |
 | `book:<id>` | `books/<id>.js` | that book is opened in the Library (never on the shelf — see the Library bullet) |
@@ -90,7 +101,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently twenty-six:
+  matter (chapter 0 — see the Library bullet). Currently twenty-seven:
+  `prose-edda` (~339 KB, the Prologue, Gylfaginning and Skáldskaparmál as **3 chapters**, 132 section
+  numbers, 177 notes — and the book that separates THE TAB from THE CITATION most sharply. Each of the
+  work's three parts restarts its chapter numbering at 1, so making the numbered chapter the tab would
+  mean renumbering 133 of them into one run and turning "Gylfaginning 44" into tab 50. The part is
+  therefore the chapter and the work's own chapter numbers are the SECTIONS — Herodotus's shape, chosen
+  for the citation rather than for the arithmetic, and the cost is three long chapters that are within
+  precedent rather than at it (173,000 characters against Herodotus's longest at 199,000).
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** `count` 3 against `total` 4 is the EDITION and not the
+  file: Háttatal is Snorri's own praise-poem demonstrating a hundred-odd metres, the least translatable
+  part of the book, and the 1916 volume's own contents page lists three parts and stops — read off that
+  page rather than inferred from the subpages that happen to exist. **A NUMBER CAN BE ROMAN AND WEAR TWO
+  COSTUMES IN ONE VOLUME**: Gylfaginning and Skáldskaparmál set a bold numeral WITH a stop run into the
+  first sentence, and the Prologue sets a CENTRED numeral with NO stop standing alone as its own block —
+  hence the seventh section shape, `sections: "edda"`, matching both in one sweep in reading order for
+  the Meditations' reason (run as two passes the first reaches 74 and the forward-only guard then
+  declines every one of the Prologue's). **And the Prologue's first chapter carries NO numeral, so none
+  is written**: checked on the scan, which sets the heading and then a drop-capital, so that tab's marks
+  run from II and the front matter says why. Composing a "1" would be composing an apparatus.
+  Its verse is the other lesson and it was found by LOOKING: Snorri quotes skaldic stanzas as evidence,
+  hundreds of them, and this transcription sets them as `<dl><dd>` lines that `stripTags` unwraps into
+  run-on prose — on a book arguing about how verse lines are built, the one thing that must not happen.
+  Nothing threw, no word was lost and every count read healthy; see `verseFromLists`, and note that
+  these lists NEST two deep, so a non-greedy `<dl>…</dl>` pair closes on the inner tag and leaves 34
+  unclosed blockquotes in one chapter),
   `book-of-documents` (~444 KB, the whole of the received Shû — **59 chapters**, 169 section numbers,
   283 notes — and the first book here whose CHAPTER IS PRINTED ACROSS MORE THAN ONE WIKI PAGE. Every
   earlier wiki book is one page to one chapter; where Legge prints a book in sections, Wikisource gives
@@ -351,10 +386,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Twenty-six books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, Lysistrata and Shakuntala have none, and the reason differs — the next paragraph's
+  **Twenty-seven books, nineteen originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Prose Edda, Lysistrata and Shakuntala have none, and the reason differs — the
+  next paragraph's
   rule bites on the Republic's ENGLISH only and on BOTH of Aesop's columns, while Gilgamesh fails a step
-  earlier, there being no settled original text to face. **The Book of Documents is the case where the
+  earlier, there being no settled original text to face.
+  **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
+  exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
+  to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
+  every point sampled. What blocks it is the LICENCE. A medieval text has to be edited from its manuscripts
+  before anyone can read it, and an editor's constituted text is a modern work with a modern copyright: the
+  only openly transcribed Old Norse Edda is Guðni Jónsson's (1901–1974), in copyright until 2044 and carried
+  on Wikisource by permission from heimskringla.no rather than because the copyright has run out, which is
+  not the ground this library serves books on. An edition whose copyright HAS expired would serve — Finnur
+  Jónsson's, or the Arnamagnæan of 1848–87 — and none is transcribed on any Wikisource, on Perseus or
+  anywhere else reachable (checked on the multilingual, Danish, Norwegian, German and Swedish Wikisources;
+  only the German has anything, and that is Simrock's German verse of 1876, not the Old Norse). So the shelf
+  now has three: one column silent (the Republic, fixable by a better transcription), both columns silent
+  (Aesop, not fixable at all), and **a column that speaks and may not be quoted** — which puts it with the
+  Loeb Republic that keeps Plato's Republic out of the Dialogues. Its Skáldskaparmál would have failed
+  anyway, and that is worth knowing before anyone retries: 74 chapters against 89, already apart by chapter
+  20 and about sixteen apart by the end, so pairing that part by number would set passages beside passages
+  that are not their counterparts. **Ask what a medieval original's EDITOR died, not only how old the work
+  is.** **The Book of Documents is the case where the
   CHAPTER pairing is exact and the level below it has no key at all**: Chinese Wikisource carries every one
   of the received 58 documents, so chapter for chapter the two columns match, but Legge numbers his
   paragraphs and that transcription numbers nothing, and pairing by POSITION — the approach abandoned for
@@ -1682,14 +1736,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
+- `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
+  (the `check-style --fix` citation corruption above all), four planned batches (**A** stale translations,
+  **B** content outside its own length bar, **C** the changelog drifting back into transcripts, **D** deck-title
+  casing), the eager-payload measurement, and the suggestions that came out of it. **Its "where the site is
+  strong" section is measured on purpose** — 4,028 citations all carrying a URL and an access label, clean data
+  integrity, `PAGE_META` covering all 20 routes — so a later pass does not go "fixing" what is already right.
+  Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
 - `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 99 cards** — 89 in World
   History (`col-8`, scattered across the first three subdecks of its 1000-slot plan) and 10 in Ancient
   Greece (`gr-001`…`gr-010`) — **each carrying its full pool of 3 question phrasings** (`question` + 2
-  `questions` extras) in EN + all 9 languages (regrown from the `cnh-001` template, which remains the
-  canonical format); both collections are grown one card at a time (see "Generating cards & glossary
+  `questions` extras), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
+  request** — 2.06 MB, 58% of the file, that `MULTILANG = false` put beyond every reader's reach, and the
+  file went 4.32 MB → 1.64 MB with them. `add-card.js` now DROPS a supplied `i18n` block with a warning and
+  `test-i18n-lang.js` fails if one reappears, so the eager path cannot silently regain it; both collections are grown one card at a time (see "Generating cards & glossary
   entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
   are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
   and card ids follow that plan's numbering. **`col-40` Ancient Rome gained its 7 decks and 25 leaf
@@ -1735,14 +1798,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   translations are backed up in `.claude/backup/`.
 - `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
   `glossary.js`). **Currently an empty stub.**
-- `i18n/gloss-<lang>.js` — glossary descriptions translated into that one language (slug → text); written by
-  `.claude/add-glossary.js` from the entry JSON's `translations` field, or backfilled a language at a time by
-  `.claude/add-lang.js` (both go through `.claude/gloss-i18n-io.js`). A file **pushes onto
-  `window.GLOSSARY_I18N_IN`** rather than writing the live table: the bundle's `after` hook (`glossI18nIngest`)
-  drains that queue into the shipped baseline `PRISTINE_GLOSS_I18N` and then layers the admin overlay on top,
-  producing `window.GLOSSARY_I18N[slug][lang]` — which is what `glossText()` reads. **Admin-editable**: with the
-  site language switched to a non-EN language, the glossary editor edits that language's translation
-  (`glossaryI18n` overlay deltas; baked back into this file by `serializeGlossaryI18n`).
+- ~~`i18n/gloss-<lang>.js`~~ — **REMOVED 2026-08-08, on request**, together with the card `i18n` blocks: the
+  site ships in English (`MULTILANG = false`) and the nine files were 3.1 MB of repo weight no reader could
+  reach. `glossText()` falls back to the English, so every reader now sees the English glossary. **The
+  machinery is deliberately intact** — `GLOSSARY_I18N`, the `glossI18nIngest` queue drain, `PRISTINE_GLOSS_I18N`,
+  the per-language `glossaryI18n` overlay and `serializeGlossaryI18n` are all still there — so restoring the
+  languages is a matter of putting the files back, not rebuilding the layout. What is NOT still there is the
+  fetch: `loadLangData` no longer requests the bundle, because a bundle pointing at a deleted file is a 404
+  per language (it was, for the hour between deleting the files and cutting that line, and `test-i18n-lang.js`
+  is what caught it). `add-glossary.js` drops a `translations` block with a warning rather than recreating them.
 - `i18n/ui-<lang>.js` — the site-chrome translation tables for one language (`window.I18N` exact strings /
   `I18N_RULES` regex patterns / `I18N_HTML` whole prose blocks, keyed by English source text) consumed by
   app.js's localisation engine. **Lazy** (bundle `uiI18n:<lang>`) — an English reader never fetches any of
@@ -2003,6 +2067,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   markup are untouched (`#decks`, every shared link still works); only the label, the eyebrow and its
   `PAGE_META` title changed. Two pages called Library, one titled Collections, is how a reader lands on the
   wrong one.
+  · **IT EXPLAINS ITSELF ON A FIRST VISIT** (Aug 2026, on request), the Atlas's pattern one page over: a
+    card covering the shelf's five features — what may be shelved, the chapter bar and the kept reading
+    position, the facing original, the marker and the passage highlights, and the search/sort/hold. Shown
+    once (`folio_library_tour_v1`), brought back by the `#libHelpBtn` "?" beside the sort. Built on
+    `document.body` by `pageHelp` and NOT written into this page — see that bullet under "How the app is
+    wired" for the reason, which is `.page` being the containing block for anything `position:fixed`.
   · **WHAT MAY BE SHELVED, and it is the only content rule.** Folio serves the text itself, so a book goes
     up only where the copyright has **expired**. For a classical author the trap is that the original and
     the TRANSLATION are separate works: Seneca's Latin is free and the English is a 20th-century work with
@@ -2192,7 +2262,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     so no life-plus-seventy term is asserted for that column, the ground stated is the 1894
     publication, and the conditional (expired 2006 if the 1935 death is right) is given on the book's
     own page rather than smoothed into a flat claim. Heaney (1999), Liuzza (2000), Tolkien's prose
-    version (published 2014) and Headley (2020) are named as the ones not to reach for. Each book's
+    version (published 2014) and Headley (2020) are named as the ones not to reach for.
+    **The Prose Edda is the SEVENTH to state a LIMIT** (Aug 2026), after the Art of War (Giles, 2029),
+    the Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea (Murray, 2028), Gilgamesh and the
+    Bhagavad Gita. Snorri Sturluson died in 1241, so the work is free everywhere; Brodeur's translation
+    was published by the American-Scandinavian Foundation in 1916 — read off the volume's own title page
+    rather than recalled — so it is public domain in the United States on the pre-1929 rule, and he
+    lived 1888–1971, so it stays in copyright where the term is life plus seventy until 2042, the same
+    position as Ross. **His dates are unusually well corroborated for this shelf** and that is worth
+    noting against Wyatt's: Wikidata gives them at DAY precision and Wikisource's own PD/US tag on the
+    work independently gives 1971, so this is not the lone unverified figure the Beowulf entry had to
+    hedge around. Brodeur's fifty-page introduction and his index are not imported, which is the
+    Republic's precedent for the introduction and plates it left behind. Young (1954), Faulkes (1987)
+    and Byock (2005) are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the
+    band was WIDENED as the Book of Documents' row predicted — see that row for the search, and for the
+    Euripides test doing real work: the one book a reader genuinely pairs with the Prose Edda is
+    BEOWULF, the shelf's only other Germanic work, so the two candidates nearer his oxblood were
+    rejected and this dark violet is both the best-separated colour in the widened band and the one
+    furthest from him.
+    Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
     **`BOOK_AUTHOR_COLOR` GAINED AN `"Anonymous"` KEY with it**, and the reasoning is worth keeping
@@ -2948,6 +3036,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
     Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
     community deck or the Card-of-the-day list, which belong to no collection.
+    **…AT THE BANNER'S OWN STRENGTH, which it was not for a fortnight** (Aug 2026, on request). The hue was
+    right from the start and the MIX was half of it — 14% by day and 9% at night against the banner's 30% and
+    22% — and a colour at half strength does not read as a paler version of itself, it reads as another
+    colour, which is the whole of what was reported. `.active-deck` now writes the same 105deg wash at the
+    same percentages fading at the same 64%, so a row's gradient start is byte-identical to its collection
+    banner's (measured: World History `srgb 0.862 0.828 0.774` by day and `0.235 0.210 0.189` at night, on
+    both). **Keep the four figures in step with `body[data-theme="folio"] .collection-deco` and its `.night`
+    pair** — the two rules exist to say one thing, and nothing enforces it. The other themes' banners are not
+    a plain wash at all (arcade dithers, academy sets a side band, gazette hatches) and are deliberately NOT
+    matched: a row is 46px of `var(--ink)` text and a saturated banner gradient under it would be unreadable.
+    **A CONTEXT ROW NEEDED ITS OWN NIGHT RULE**, found while making that change and fixed with it:
+    `body.night .active-deck` is (0,2,1) against `.active-deck.context`'s (0,2,0), so source order never came
+    into it and on every dark theme an ancestor signpost row silently lost both its wash and the `--paper-2`
+    under it and rendered as an added deck's row. What marks a context row is the paper and the quieter title,
+    never a weaker hue — it names the very collection its children are washed in.
   · **A pile at ZERO is grey** (`.adc-zero` on a row, `.stat-zero` on the banner, Aug 2026, on request): the
     colour means "there is work of this kind here", so it has nothing to say on a 0.
   · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
@@ -3648,7 +3751,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **in English** — and batch 24 should clear them before marking any of those cards. And
     **`check-style.js` was applying the house rules to `sources`**, reporting a real paper's title as a
     century-word violation; in `--fix` mode it would have renamed the paper. Citations are now masked out
-    before any rule runs. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
+    before any rule runs. **THAT MASK ONLY EVER COVERED HALF THE CORPUS, and the other half was found on
+    2026-08-08**: it matches the CARD shape `"sources":[…]`, and glossary citations live in a TOP-LEVEL
+    `window.GLOSSARY_SOURCES` block with no such key, so nothing in the glossary was ever masked. Reproduced
+    before fixing by running `--fix` on a throwaway copy: it renamed **six real published works across twelve
+    citations** (Lemos's *…Late Eleventh and Tenth Centuries B.C.* → *…Late 11th and 10th Centuries B.C.*,
+    Camp's *A Drought in the Late Eighth Century B.C.*, Dickinson's *…Twelfth and Eighth Centuries BC*). The
+    whole block is masked now, and so is the **`COLLECTION_TREE`** — a deck title is neither a card field nor a
+    glossary description, so it is outside the rules' stated scope, and the checker had been reporting
+    `gr-fourth-century` and `ru-nineteenth` on every run. It now reports both files clean and `--fix` applies
+    0 changes. **The lesson is that a mask keyed on one file's SHAPE is not a rule about
+    citations** — when a checker grows a second corpus, re-derive what it is meant to skip there rather than
+    assuming the existing guard travels. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
     the split rather than routing round it with a per-language marker map** — `add-sources.js` catches the
     divergence as a marker-count mismatch, and rejoining the sentences restores parity claim for claim.
     From Batch 24: **where a batch's cards share a DEBATE rather than a site, one review can carry
@@ -3974,23 +4088,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
   shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,
-  and `setLang` refuses anything but English. **Nothing is deleted** — the nine `i18n/*` files stay on disk,
-  the engine stays wired, `langPickerHTML`/`wireLangPicker`/`loadLangData` are untouched, and every bullet
-  below still describes live code; the tables are lazy and per-language, so an English reader never fetched
-  one anyway and the shut door costs a visitor nothing. Flip the flag and it all comes back.
+  and `setLang` refuses anything but English. It began as a switch with **nothing deleted**, and that is no
+  longer true of the CONTENT: **on 2026-08-08, on request, the card `i18n` blocks and every
+  `i18n/gloss-<lang>.js` were REMOVED** — 2.06 MB of the eager path plus 3.1 MB of repo weight that the gate
+  put beyond every reader's reach. What survives is the ENGINE and the other three families: `ui-<lang>.js`,
+  `games-<lang>.js` and `places-<lang>.js` are all still on disk and still lazy, `langPickerHTML` /
+  `wireLangPicker` / `loadLangData` are still wired, and flipping the flag brings the chrome, the game pools
+  and the map labels back at once. What it does NOT bring back is the cards and the glossary: those now fall
+  back to English in every language, and restoring them means regenerating the files, not flipping a switch.
+  **`loadLangData` no longer requests the gloss bundle** — a bundle pointing at a deleted file is a 404 per
+  language.
   **The migration back is part of the gate, and is the part not to remove**: `langFromURL` resets a stored
   non-English `S.settings.lang` to `"en"` on boot. Without it, a reader who had chosen Spanish would be held
   in Spanish for ever with no control left on the page to escape — the one way removing a setting can
   genuinely strand someone. The content pipeline has the same switch twice over
-  (`REQUIRE_TRANSLATIONS` in `add-card.js` and `add-glossary.js`), and the changelog rule in the golden rules
-  is suspended to match. Guarded by `test-layout.js` (the gate) and `test-i18n-lang.js`, which asserts the
+  (`REQUIRE_TRANSLATIONS` in `add-card.js` and `add-glossary.js`) and, since the removal, a second guard
+  beyond it: both tools **DROP** a supplied `i18n` / `translations` block with a warning rather than writing
+  it, so the eager path cannot regain megabytes because one batch file still carried its nine languages. The
+  changelog rule in the golden rules is suspended to match. Guarded by `test-layout.js` (the gate) and `test-i18n-lang.js`, which asserts the
   gate UNPATCHED and then **serves an app.js with the flag flipped** so the machinery behind it stays tested
   rather than quietly rotting.
   One consequence to know rather than to fix: **the editors can no longer reach a translation.** The editing
   language IS the site language, so with English forced the card editor edits the base fields and the
   glossary editor the English description — `setCardI18nEdit` / `setGlossI18nEdit` are unreachable from the
   UI, and `serializeGlossaryI18n` bakes nothing, since it only ever writes languages whose file is loaded.
-  Translations are edited by `.claude/add-lang.js` alone while this stands.
+  Translations are edited by `.claude/add-lang.js` alone while this stands — and since the removal its
+  `cards` and `glossary` sections would RECREATE what was deleted, so only its `chrome` and `tree` sections
+  are live. Its header says so.
 - **Language picker + i18n** (**Settings → Language**, `langPickerHTML` / `wireLangPicker`; it was a `#lang-switch`
   dropdown in the top bar until Aug 2026, moved on request when the phone's top bar was removed — a preference
   belongs on the preferences page, and the picker had nowhere else to live once that bar was gone): a grid of
@@ -4130,6 +4254,63 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carries it. Its colour is `--ink-faint`, the site's own quiet token — so it joins the captions and source
     lines that the **High contrast** mode re-tones, and `test-a11y.js` covers it with no change of its own
     (3.25:1 reported in the default mode, clearing the bar with the mode on). Guarded by `test-layout.js`.
+- **THE GUIDED WALKTHROUGH — a first visitor's few minutes** (the `THE GUIDED TOUR` block in app.js:
+  `TOUR_KEY` / `TOUR_STEPS` / `tourStart` / `tourGo` / `tourPaint` / `tourPlace` / `tourAfterRender` /
+  `tourOfferHTML`; `.folio-tour` in styles.css. Aug 2026, on request). Ten steps that dim the page, put one
+  card in the middle of it, and point at the thing being described — the concept of spaced repetition, how
+  to add a deck to the daily study, how to study a card, and the marker. **It deliberately stops short of
+  the Atlas and the Library**, which explain themselves the first time they are opened (see `pageHelp`
+  below). Five decisions are load-bearing.
+  · **THE OFFER IS INLINE, NOT MODAL.** It would be one line to raise the tour over the home page on a
+    first visit, and it is the wrong line: a site that seizes the screen before the reader has seen it is a
+    site they leave. `tourOfferHTML()` is a card at the head of `.banners`, beside the first-run hero and
+    the `.howit` strip that are already first-run-only, shown to a reader who has **never graded a card**
+    and never answered it; either answer writes the key for good, and **Settings → Study → Walkthrough** is
+    the way back. It is also what keeps every Playwright test that boots a fresh reader from meeting an
+    overlay it never asked about — the offer blocks nothing.
+  · **THE SCREEN STAYS DARK: the target is RINGED, not spotlit.** A cut-out spotlight means holding a hole
+    in the scrim over an element that moves with every reflow, and it reads as a page half-lit rather than
+    as an explanation. The scrim is uniform (a theme-independent `#000` mix — the Atlas's coach marks
+    lighten their globe, and this one has to darken eight themes' worth of prose), and each step draws an
+    **arrow** from the card to a **dashed ring** around its target. A step whose target is missing draws
+    neither and still reads: a tour must never depend on the state of the page it describes.
+  · **IT NAVIGATES, so it is NOT in `render()`'s close list.** The add-a-deck step routes to the
+    collections and the next one routes back. That is the whole reason the overlay lives on `document.body`
+    and is left alone by the close sweep every other body overlay is in — a `render()` that dismissed it
+    would dismiss it at exactly the moment it was doing its job. What it does need is re-measuring, which
+    is `tourAfterRender()`, called at the end of `render()`.
+  · **THE CARD IS NUDGED OFF ITS OWN TARGET, and the base rect is COMPUTED, never measured.** A centred
+    popup lands on top of whatever it is describing about half the time (the daily-study banner is most of
+    the home page), so four placements are tried — below the target, above it, either side — and the
+    smallest shift that keeps the whole card on screen wins. **The gap has to leave room for an ARROW**
+    rather than merely for daylight: the line starts 10px outside the card and stops 8px outside the ring,
+    so a 26px gap draws an 8px stub, and a roomy gap is tried before a tight one. And the unshifted rect
+    comes from `offsetWidth`/`offsetHeight` plus the viewport centre, **not from `getBoundingClientRect()`**
+    — the card's transform is transitioned, so a rect read during a step change is the card somewhere
+    between two positions, subtracting the shift we asked for does not recover the centred box, and every
+    later step shifts an already-shifted card until it walks off the side of the screen taking its own Next
+    button with it. That shipped for an hour and is invisible except as "the tour stopped working".
+  · **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED.** Dealing a real card would hijack the reader's
+    schedule, and the grade bar is pinned to the bottom of the viewport under the scrim — so the card, its
+    blank and the four grades are drawn inside the popup, **with the four intervals read from the real
+    scheduler** (`schedPreview(null, …)` → `fmtInterval`). A tutorial that teaches a schedule the site does
+    not use is worse than one that teaches none.
+  Escape and Skip close it (and count as answered); the **backdrop deliberately does not** — a stray tap on
+  a dimmed page is the likeliest gesture there is, and losing the tour to one would be losing it silently.
+  `.folio-tour` is in `swipeEnabled()`'s overlay list. Guarded by `.claude/test-tour.js`.
+- **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp` / `LIB_TOUR_KEY` / `openLibHelp`;
+  `.page-help` in styles.css. Aug 2026, on request). The Atlas has had these since it shipped
+  (`#atlasHelp`, `folio_atlas_tour_v1`, reopened by `#gzHelp`); the walkthrough stops short of the Atlas
+  and the Library on purpose, so **the Library now has its own** — `folio_library_tour_v1`, reopened by the
+  `#libHelpBtn` "?" beside the shelf's sort. Same card, same three ways out.
+  **IT LIVES ON `document.body`, AND THAT IS NOT A PREFERENCE.** The Atlas's card can be
+  `position:absolute` inside its own full-bleed stage; an ordinary page has no such stage, so this one must
+  be fixed to the VIEWPORT — and `.page` carries `animation:pageIn … both`, which makes it the containing
+  block for every fixed descendant. Written into the page, `inset:0` therefore resolves to the page's own
+  box: on the Library that is the whole shelf, several screens tall, so the card centres itself a screen
+  and a half below the fold and the reader sees a dimmed page with **nothing on it**. It shipped that way
+  for an hour. On the body it is `render()`'s to close, like every other overlay there — hence
+  `closePageHelp()` in the close list. The **Atlas card gained a marker tip** in the same pass, on request.
 - **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES` — world sources East and West, standard published
   translations only, no loose internet attributions; **clicking one flips it to the original** — text, speaker and
   source from the entry's `o` block, `wireDailyQuote` swapping `hidden` on the `.dq-live`/`.dq-orig` spans, clicking
@@ -4311,7 +4492,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **True or False** (`truefalse`),
   **Who said it?** (`whosaid`, from `quotes.js`), **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), and **Common Thread**
-  (`thread` — see its own bullet below). `BOTS`/`drawRace`/podium are now dead code.
+  (`thread` — see its own bullet below). The rival-bot race is **gone, not merely unreachable**: `drawRace`
+  and the podium had already been deleted, and `BOTS` plus the write-only `S.daily.podiums` field followed on
+  2026-08-08 (nothing read either; `S.daily.wins` stays, since the Victor/Champion badges read it).
   Each of the 6 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline).
   **ONE PLAY A DAY, AND THE GATE IS `gameLockedToday(root, key)`** (Aug 2026, on request). Every one of the
@@ -4941,7 +5124,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   every answer was revealed during play; `gamePractice` and its four branches are **deleted rather than left
   unreachable**. The Atlas also gained **first-visit coach
   marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
-  "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
+  "?" button — **five tips since Aug 2026**, a marker one having been added on request: the whiteboard draws on the
+  globe as it does on a study card, and the strokes there are geo-anchored, so they turn with the map. The Library
+  now carries the same kind of card; see `pageHelp`) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
   centre, Esc clears, `[`/`]` step map-years). The **`#gzIn`/`#gzOut` zoom buttons' markup was restored** (wiring + CSS
   existed but the DOM had been lost in an old refactor); the `.globe-zoom` column now sits **bottom-right** — at
   top:50% it collided with the (top-right) legend on short viewports. Clicking a country
@@ -6733,7 +6918,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-seven committed regression tests** (in `.claude/`, not loaded by the site): twenty-two drive a real browser with
+- **Twenty-eight committed regression tests** (in `.claude/`, not loaded by the site): twenty-three drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
   `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -6768,26 +6953,28 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
-  · `node .claude/test-i18n-lang.js` — 28 assertions, in two halves. First the **English-only gate**, on the
-    real app.js: `?lang=ja` does not switch the site, Settings offers no picker, and not one translation
-    file is fetched. Then everything else — the machinery kept behind `MULTILANG` — against an app.js the
-    test's own server rewrites `const MULTILANG = false;` → `true` as it serves it, so the preserved code
-    stays tested instead of quietly rotting until someone flips the flag back. **`patchApp` asserts the
-    string was found**, and one assertion at the end reports it, so renaming the flag fails loudly here
-    rather than leaving this file testing an app that can no longer switch language at all.
-    That second half is the original test: a reader downloads one language and not all of them (an English
-    reader downloads none), switching pulls only the new language, Japanese is at parity with the other
-    languages across chrome/cards/glossary — **parity with EACH OTHER, not with the English count**, since
-    every card and term added since the gate went up is English-only, so a test demanding equality with
-    `GLOSSARY` is red by design and therefore read by nobody (it was, at 24/4, until Aug 2026). Both halves
-    still bite: a batch that translates one language and forgets the rest fails, and so does a card
-    translated into only some. **Tighten it back to `Object.keys(GLOSS).length` when translations resume.**
-    Also asserted: — the sharp edge of this layout — a `glossaryI18n` overlay
-    delta records ONLY the edited language, LAYERS over the shipped text so an edit made in one language
-    cannot wipe another's, bakes to one file per edited language holding every term, and NEVER bakes a
-    language whose file isn't loaded. **Re-run after touching `MULTILANG` / `langBundle` /
-    `glossI18nIngest` / `glossI18nMerged` / `setGlossI18nEdit` / `serializeGlossaryI18n` /
-    `editedGlossI18nLangs`, or after adding a language.**
+  · `node .claude/test-i18n-lang.js` — **21 assertions**, in two halves. First the **English-only gate**, on
+    the real app.js: `?lang=ja` does not switch the site, Settings offers no picker, a stored non-English
+    language is migrated back, and not one translation file is fetched. Then the lazy per-language LOADER —
+    the machinery kept behind `MULTILANG` — against an app.js the test's own server rewrites
+    `const MULTILANG = false;` → `true` as it serves it, so the preserved code stays tested instead of
+    quietly rotting until someone flips the flag back. **`patchApp` asserts the string was found**, and one
+    assertion at the end reports it, so renaming the flag fails loudly here rather than leaving this file
+    testing an app that can no longer switch language at all.
+    **IT WAS REWRITTEN ON 2026-08-08 when the card `i18n` blocks and the gloss files were removed on
+    request.** Roughly two-thirds of it described data that no longer exists — gloss-file parity, card
+    translation parity, the per-language overlay and the bake — and those assertions went with the data
+    rather than being propped up. What replaced them is the invariant the removal created: **the removal
+    STAYS removed.** No card may carry an `i18n` block and no `gloss-<lang>.js` may reappear, because
+    `add-card.js` and `add-lang.js` can both still write one and a card carrying translations costs every
+    visitor its bytes in the eager path whether or not any reader can reach them. **Nothing else in the suite
+    would notice** — that is the quotes.js mistake, and this is the only thing watching for its return.
+    What survives beside it: chrome parity across the nine `ui-<lang>.js` (a batch that translates one
+    language and forgets the rest still fails), one-language-in-one-language-out for the three families that
+    still ship, that **no `gloss-` file is requested** (the 404 that caught the dead bundle fetch), that the
+    game pools carry no INLINE translations, and that an English reader fetches nothing at all.
+    **Re-run after touching `MULTILANG` / `langBundle` / `loadLangData` / `DATA_BUNDLES`, after adding a
+    language, or after anything that writes card or glossary content.**
   · `node .claude/test-account-switch.js` — 22 assertions on switching accounts on one device, against an
     in-memory mock of the Supabase **auth + progress** endpoints (a test that really signed up would create
     users in the live project). It asserts both halves of the rule: a guest's study history still migrates
@@ -7041,6 +7228,27 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
+  · `node .claude/test-tour.js` — the first visitor's walkthrough and the two pages that explain themselves
+    (Aug 2026), 52 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+    INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
+    **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
+    obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
+    teaches adding a deck. **The card must never leave the viewport**, on a desktop or a 390px phone: the
+    nudge that keeps it off its own target walked it off the side of the screen with its own Next button
+    when the base rect was measured rather than computed, and nothing on screen says "the button is outside
+    the viewport" — the tour simply stops working, which is how it was found. **The Library's card must be
+    on `document.body` AND on the screen**, the two halves of the containing-block trap that had it
+    centring itself a screen and a half below the fold. Plus: the three subjects the request names are read
+    off the prose a reader is actually shown (a tour can lose one to an edit without erroring); the four
+    demo grades carry four DIFFERENT intervals from the real scheduler, which a hard-coded illustration
+    would hide for ever; either answer retires the offer and a second visit proves it; a reader with study
+    history is not offered a beginners' tour; and the coach marks are shown once, reopen from their "?", and
+    cannot outlive their page. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` /
+    `closePageHelp`, `tourOfferHTML`'s place on the home page, the Atlas or Library help cards, or
+    `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
+    `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
+    figures (read them structurally); and a step-change reads mid-transition, so anything measured during
+    one has to be measured again after it settles.
   · `node .claude/test-units.js` — the two Settings that REWRITE what is already on the page (Aug 2026):
     measurements, and light/dark from the device. The units transform is a regex over every text node, so
     its two failure modes are a bracket it fails to recognise (both systems left on screen — it looks as

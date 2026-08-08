@@ -75,15 +75,21 @@ async function studyEasy(page, base, n) {
   const base = "http://127.0.0.1:" + server.address().port + "/";
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const errs = [];
+  /* …and suppresses the LIBRARY's first-visit coach marks (Aug 2026). They are a full-screen overlay on
+     document.body, and the swipe section below lands on #library — a scrim there swallows every gesture
+     after it, which reads as the swipe having broken rather than as an overlay being in the way. The
+     home page's walkthrough OFFER is left alone deliberately: it is inline markup, it blocks nothing, and
+     section 6 asserts the home page as a first-time reader actually meets it. */
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
     p.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load|favicon/.test(m.text())) errs.push("console: " + m.text()); });
+    return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
   };
 
   /* ================= 1. the bottom tab bar ================= */
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1400);
 
@@ -151,7 +157,7 @@ async function studyEasy(page, base, n) {
   }
   {
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1200);
     const d = await page.evaluate(() => ({
@@ -173,7 +179,7 @@ async function studyEasy(page, base, n) {
      sits on top of another, or a gap opens under the last one. */
   for (const vp of [PHONE, { width: 560, height: 820 }, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
-    watch(page);
+    await watch(page);
     await atlas(page, base);
     const g = await page.evaluate(() => {
       const r = (s) => { const e = document.querySelector(s); if (!e || !e.checkVisibility()) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom), h: Math.round(b.height) }; };
@@ -195,7 +201,7 @@ async function studyEasy(page, base, n) {
   {
     // an ordinary page: its content must not end underneath the tab bar
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#mission", { waitUntil: "load" });
     await page.waitForTimeout(1500);
     const clear = await page.evaluate(() => {
@@ -214,7 +220,7 @@ async function studyEasy(page, base, n) {
      are always kept. */
   for (const vp of [PHONE, { width: 480, height: 820 }, { width: 900, height: 900 }, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
-    watch(page);
+    await watch(page);
     await atlas(page, base);
     const t = await page.evaluate(() => {
       const all = [...document.querySelectorAll(".tl-tick")];
@@ -236,7 +242,7 @@ async function studyEasy(page, base, n) {
   /* ================= 4. the Atlas chrome as chips on a phone ================= */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
-    watch(page);
+    await watch(page);
     await atlas(page, base);
     const chips = await page.evaluate(() => {
       const r = (s) => { const e = document.querySelector(s); const b = e.getBoundingClientRect(); return { w: Math.round(b.width), h: Math.round(b.height), shown: e.checkVisibility() }; };
@@ -276,7 +282,7 @@ async function studyEasy(page, base, n) {
   }
   {
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await atlas(page, base);
     const d = await page.evaluate(() => ({
       chip: document.querySelector("#gsToggle").checkVisibility(),
@@ -304,7 +310,7 @@ async function studyEasy(page, base, n) {
   }
   {
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.evaluate(() => localStorage.setItem("folio_atlas_tour_v1", "1"));
     await page.goto(base + "#map/1938/france", { waitUntil: "load" });
@@ -320,7 +326,7 @@ async function studyEasy(page, base, n) {
   /* ================= 5. the one-row grade bar under 430px ================= */
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await studyEasy(page, base, 0);
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(700);
@@ -410,7 +416,7 @@ async function studyEasy(page, base, n) {
   {
     // the height is remembered on the device, so the next card opens the way the last one was left
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await studyEasy(page, base, 0);
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(600);
@@ -427,7 +433,7 @@ async function studyEasy(page, base, n) {
   {
     // above the breakpoint there is nothing to reclaim: one comfortable row already, and no chevron
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await studyEasy(page, base, 0);
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(600);
@@ -442,7 +448,7 @@ async function studyEasy(page, base, n) {
      a card never shows two. Both halves have to hold, or a reader gets a duplicate or nothing at all. */
   for (const vp of [PHONE, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
-    watch(page);
+    await watch(page);
     await studyEasy(page, base, 1);            // one graded card is what makes Undo exist at all
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(700);
@@ -483,7 +489,7 @@ async function studyEasy(page, base, n) {
      that overshoots where it was put is as wrong as a throw that stops dead. */
   for (const vp of [PHONE, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp, hasTouch: vp === PHONE });
-    watch(page);
+    await watch(page);
     await studyEasy(page, base, 0);
     const at = await page.evaluate(() => {
       const t = document.querySelector(".wb-tools");
@@ -602,7 +608,7 @@ async function studyEasy(page, base, n) {
      the breakpoint the top bar's Edit tab is still the way in and the plain copy must not double it. */
   for (const vp of [PHONE, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     const tag = vp.width + "px";
@@ -661,7 +667,7 @@ async function studyEasy(page, base, n) {
      `test-i18n-lang.js` covers the other half: that the machinery behind the flag still works. */
   for (const vp of [PHONE, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#settings", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     const p = await page.evaluate(() => ({
@@ -683,7 +689,7 @@ async function studyEasy(page, base, n) {
        setting can really strand someone: a reader who picked Spanish would be held in Spanish with no
        control left on the page to change it back. Also: a ?lang= link must no longer switch. */
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(900);
     await page.evaluate(() => {
@@ -713,7 +719,7 @@ async function studyEasy(page, base, n) {
      time is worse than none. */
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#settings", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     /* A SLIDER since Aug 2026, not buttons on the left (on request). The sizes are an ordered scale and
@@ -798,7 +804,7 @@ async function studyEasy(page, base, n) {
   /* ================= 6. Settings and Account fill the stage ================= */
   {
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#settings", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     const s = await page.evaluate(() => {
@@ -818,7 +824,7 @@ async function studyEasy(page, base, n) {
   }
   {
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#account", { waitUntil: "load" });
     await page.waitForTimeout(1600);
     const a = await page.evaluate(() => {
@@ -834,7 +840,7 @@ async function studyEasy(page, base, n) {
   }
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#account", { waitUntil: "load" });
     await page.waitForTimeout(1600);
     const a = await page.evaluate(() => {
@@ -849,7 +855,7 @@ async function studyEasy(page, base, n) {
   /* ================= 7. the Library's collection rows ================= */
   {
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#decks", { waitUntil: "load" });
     await page.waitForTimeout(1500);
     const lib = await page.evaluate(() => {
@@ -893,7 +899,7 @@ async function studyEasy(page, base, n) {
      a lip the size of a word, easy to lose and impossible to notice the loss of. */
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1600);
     const h = await page.evaluate(() => {
@@ -1171,6 +1177,124 @@ async function studyEasy(page, base, n) {
       JSON.stringify(cleared));
     await page.close();
   }
+  /* ================= 7c. the review list's SUBDECK FOLD =================
+     Adding a collection brings its whole subtree in, so the list can run to forty rows; a row with children
+     carries a chevron and starts shut (Aug 2026, on request). Every failure mode here is silent, and one of
+     them shipped for an hour while this was being written:
+
+       · the chevron sits INSIDE a row whose own click starts a study session and whose own hold opens the
+         options sheet. The click is stopped — but `wireHoldMenu` ALSO binds Enter/Space on the row, and a
+         native <button> activated from the keyboard fires a keydown that bubbles before the click it
+         synthesises, so a keyboard reader folding the row was carried off into a session instead. A mouse
+         cannot see it, which is why it is asserted from the keyboard here.
+       · the rounded bottom corner. `:last-child` cannot see a folded row, so with the list shut by default
+         the bottom of the card squares off under a row nobody can see.
+       · what starts OPEN. `addActive` takes a node's subtree and NOT its ancestors, so a reader who added
+         one subdeck gets a greyed signpost row for each ancestor. Folding those by default hides the
+         reader's OWN deck behind a row they cannot even tap — the one way this feature can take something
+         away, and it looks exactly like the deck having been dropped from the review. */
+  {
+    const page = await browser.newPage({ viewport: PHONE });
+    await watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    // add a whole collection the way addActive does — its subtree, and deliberately not its ancestors
+    const seeded = await page.evaluate(() => {
+      const coll = (window.COLLECTION_TREE.collections || []).find((c) => !c.placeholder && (c.children || []).length);
+      if (!coll) return null;
+      const ids = []; (function w(n) { ids.push(n.id); (n.children || []).forEach(w); })(coll);
+      const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      s.active = ids;
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+      return { id: coll.id, n: ids.length };
+    });
+    if (!seeded) { check("a collection with decks inside it exists to fold", false); }
+    else {
+      await studyEasy(page, base, 1);               // until a card is graded the banner is the first-run hero
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.waitForTimeout(1400);
+      const read = () => page.evaluate((top) => {
+        const rows = [...document.querySelectorAll(".active-deck")];
+        const vis = rows.filter((r) => r.offsetParent !== null);
+        const t = document.querySelector(`.active-deck[data-node="${top}"]`);
+        const last = vis[vis.length - 1];
+        return {
+          rows: rows.length, vis: vis.length,
+          topChev: !!(t && t.querySelector(".ad-chev")),
+          expanded: t && t.querySelector(".ad-chev") ? t.querySelector(".ad-chev").getAttribute("aria-expanded") : null,
+          named: t && t.querySelector(".ad-chev") ? (t.querySelector(".ad-chev").getAttribute("aria-label") || "") : "",
+          // a leaf has nothing to fold and must carry no chevron — but must still reserve its width, or the
+          // bars down the list stop at different places
+          leafChev: vis.some((r) => !r.querySelector(".ad-chev") && !r.querySelector(".ad-chev-gap")),
+          lastRounded: last ? parseFloat(getComputedStyle(last).borderBottomLeftRadius) : 0,
+          hash: location.hash,
+        };
+      }, seeded.id);
+
+      let f = await read();
+      check("the review list folds: a collection's decks start shut",
+        f.rows > 1 && f.vis === 1, JSON.stringify({ rows: f.rows, visible: f.vis }));
+      check("...behind a chevron that says which way it points", f.topChev && f.expanded === "false" && /\S/.test(f.named),
+        JSON.stringify({ chev: f.topChev, expanded: f.expanded, name: f.named }));
+      check("...every row reserving the chevron's width, folded or not", !f.leafChev);
+      check("...and the rounded corner following the last VISIBLE row", f.lastRounded > 0, f.lastRounded);
+
+      // the KEYBOARD half — the bug a mouse cannot see
+      await page.focus(`.active-deck[data-node="${seeded.id}"] .ad-chev`);
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(500);
+      f = await read();
+      check("...opening from the keyboard reveals the decks inside", f.vis > 1, JSON.stringify({ visible: f.vis }));
+      check("...WITHOUT the row's own Enter carrying the reader into a session",
+        f.hash !== "#study" && !/study/.test(f.hash), f.hash || "(none)");
+      check("...and the chevron's name flips with its state", f.expanded === "true" && /\S/.test(f.named),
+        JSON.stringify({ expanded: f.expanded, name: f.named }));
+      check("...the corner still following the last visible row", f.lastRounded > 0, f.lastRounded);
+
+      // a click on the chevron must not start one either
+      await page.click(`.active-deck[data-node="${seeded.id}"] .ad-chev`);
+      await page.waitForTimeout(450);
+      f = await read();
+      check("...and clicking it folds rather than studying",
+        f.vis === 1 && f.expanded === "false" && !/study/.test(f.hash), JSON.stringify({ visible: f.vis, hash: f.hash }));
+
+      /* …while a SIGNPOST above what the reader added stays open. Adding one deep subdeck leaves its
+         ancestors as untappable context rows; folding those by default would hide the reader's own deck. */
+      const deep = await page.evaluate(() => {
+        let best = null;
+        (window.COLLECTION_TREE.collections || []).forEach((c) => {
+          if (c.placeholder) return;
+          (function w(n, d) {
+            const kids = n.children || [];
+            if (!kids.length && (n.cardIds || []).length && (!best || d > best.d)) best = { id: n.id, d };
+            kids.forEach((k) => w(k, d + 1));
+          })(c, 0);
+        });
+        if (!best || best.d < 1) return null;
+        const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        s.active = [best.id];
+        localStorage.setItem("folio_v1", JSON.stringify(s));
+        return best;
+      });
+      if (deep) {
+        await page.reload({ waitUntil: "load" });
+        await page.waitForTimeout(1400);
+        const d = await page.evaluate((id) => {
+          const el = document.querySelector(`.active-deck[data-node="${id}"]`);
+          return {
+            found: !!el,
+            visible: !!el && el.offsetParent !== null,
+            tappable: !!el && el.hasAttribute("data-review"),
+            signposts: [...document.querySelectorAll(".active-deck.context")].filter((r) => r.offsetParent !== null).length,
+          };
+        }, deep.id);
+        check("a deck added on its own is never folded behind its signposts",
+          d.found && d.visible && d.tappable, JSON.stringify(d));
+        check("...with the signpost rows above it left open", d.signposts >= 1, JSON.stringify(d));
+      }
+    }
+    await page.close();
+  }
   {
     /* Above the breakpoint the home page is now the SAME page (Aug 2026, on request: the desktop was brought
        into line with the phone). It was the opposite assertion for a fortnight, which is why every clause
@@ -1181,7 +1305,7 @@ async function studyEasy(page, base, n) {
        here as a 1.6 MB request on a page nobody asked to see a globe on. */
     const asked = [];
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     page.on("request", (r) => asked.push(r.url()));
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(2500);
@@ -1238,7 +1362,7 @@ async function studyEasy(page, base, n) {
   {
     for (const [label, vp] of [["desktop", DESKTOP], ["phone", PHONE]]) {
       const page = await browser.newPage({ viewport: vp });
-      watch(page);
+      await watch(page);
       await page.goto(base + "#home", { waitUntil: "load" });
       await page.waitForTimeout(1500);
       const v = await page.evaluate(() => {
@@ -1279,7 +1403,7 @@ async function studyEasy(page, base, n) {
     }
 
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     check("the version line is the home page's alone", await page.evaluate(async () => {
@@ -1312,7 +1436,7 @@ async function studyEasy(page, base, n) {
   /* ================= 7c. the Atlas panel's discovery chip and its pages ================= */
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await atlas(page, base);
     const cp = await page.evaluate(() => {
       const el = document.querySelector("#countryPop");
@@ -1347,7 +1471,7 @@ async function studyEasy(page, base, n) {
      control above it; the pass-through in setupWhiteboard is the only thing holding this up. */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
-    watch(page);
+    await watch(page);
     await studyEasy(page, base, 0);
     const place = await page.evaluate(() => {
       const w = document.querySelector(".wb-tools").getBoundingClientRect();
@@ -1482,7 +1606,7 @@ async function studyEasy(page, base, n) {
      of a slide and the finished state of a cut are the same page in the same place. */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true, isMobile: true });
-    watch(page);
+    await watch(page);
     const swipe = (dx, dy) => page.evaluate(async ([d, v]) => {
       const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 7, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
       const y0 = 340, x0 = d < 0 ? 300 : 90;
@@ -1596,7 +1720,7 @@ async function studyEasy(page, base, n) {
   {
     // …and above the breakpoint it is not wired at all: a mouse drag is a selection
     const page = await browser.newPage({ viewport: DESKTOP, hasTouch: true });
-    watch(page);
+    await watch(page);
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1400);
     await page.evaluate(async () => {
@@ -1621,7 +1745,7 @@ async function studyEasy(page, base, n) {
      full of nothing looks like a sheet. */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
-    watch(page);
+    await watch(page);
     await atlas(page, base);
     await page.evaluate(() => { location.hash = "#map/2026/france"; });
     await page.waitForTimeout(2500);
@@ -1684,7 +1808,7 @@ async function studyEasy(page, base, n) {
      lines, and everything under it — the review banner and the games below it — used to lift or drop by one. */
   {
     const page = await browser.newPage({ viewport: PHONE });
-    watch(page);
+    await watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1700);
     const q = await page.evaluate(async () => {
@@ -1712,7 +1836,7 @@ async function studyEasy(page, base, n) {
      and the overlay then sits over whatever renders next. It lives on document.body, so render() owns it. */
   {
     const page = await browser.newPage({ viewport: DESKTOP });
-    watch(page);
+    await watch(page);
     // Folio level 1 costs XP_PER_LEVEL cards, and Easy graduates a new card outright, so the last grade levels
     // up. The figure is READ OUT OF app.js rather than written here: it was 3 and is 5 (Aug 2026), and a
     // hard-coded 3 turns a deliberate change to the curve into a failure that reads as a broken overlay.

@@ -82,6 +82,21 @@ for (const file of FILES) {
   text = text.replace(/"sources":\[(?:"(?:\\.|[^"\\])*"(?:,\s*)?)*\]/g, (m0) => {
     srcMask.push(m0); return '"sources":["SRCMASK' + (srcMask.length - 1) + '"]';
   });
+  // …and glossary.js keeps its citations in a TOP-LEVEL GLOSSARY_SOURCES block rather than in a
+  // per-entry "sources":[…] field, so the card-shaped mask above never fired there. Measured before
+  // fixing: `--fix` renamed six real published works across twelve citations (Lemos's "…Late Eleventh
+  // and Tenth Centuries B.C." → "…Late 11th and 10th Centuries B.C."). Mask the whole block.
+  const blockMask = [];
+  text = text.replace(/window\.GLOSSARY_SOURCES\s*=[\s\S]*?\n\}\);\n/g, (m0) => {
+    blockMask.push(m0); return "/*BLOCKMASK" + (blockMask.length - 1) + "*/\n";
+  });
+  // The DECK TREE is out of scope too. CLAUDE.md scopes these rules to "all card fields + glossary
+  // descriptions"; a deck title is neither, and the titles are fixed by the ten collection plans (which
+  // `test-card-plans.js` asserts the tree against), so a finding here is one nobody intends to act on.
+  // It reported `gr-fourth-century` and `ru-nineteenth` on every run until 2026-08-08.
+  text = text.replace(/window\.COLLECTION_TREE\s*=[\s\S]*$/g, (m0) => {
+    blockMask.push(m0); return "/*BLOCKMASK" + (blockMask.length - 1) + "*/\n";
+  });
 
   // rule 2 — centuries/millennia (pairs first, then singles)
   for (const re of [ORD_PAIR_RE, ORD_RE]) {
@@ -143,6 +158,7 @@ for (const file of FILES) {
     }
   }
 
+  text = text.replace(/\/\*BLOCKMASK(\d+)\*\/\n/g, (m0, i) => blockMask[Number(i)]);
   text = text.replace(/"sources":\["SRCMASK(\d+)"\]/g, (m0, i) => srcMask[Number(i)]);
 
   if (FIX) fs.writeFileSync(file, text);

@@ -690,6 +690,94 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .hi-body b{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
 .hi-body span{font-size:calc(12.5px * var(--fs)); line-height:1.45; color:var(--ink-soft);}
 
+/* ---------- home: the walkthrough offer (until it is answered, or the first card is graded) ---------- */
+/* It sits with .howit and the first-run hero, and for the same reason: a reader who has already studied
+   knows what the site is. Either button retires it — see tourOfferHTML in app.js. */
+.tour-offer{
+  display:flex; align-items:center; gap:15px; flex-wrap:wrap;
+  background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 17px;
+  box-shadow:var(--shadow-sm);
+  border-left:3px solid var(--indigo);
+}
+.to-chip{flex:none; width:34px; height:34px; border-radius:99px; display:grid; place-items:center; background:var(--indigo-wash); color:var(--indigo);}
+.to-chip svg{width:18px; height:18px;}
+.to-body{flex:1 1 240px; min-width:0; display:flex; flex-direction:column; gap:2px;}
+.to-body b{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
+.to-body span{font-size:calc(12.5px * var(--fs)); line-height:1.45; color:var(--ink-soft);}
+.to-acts{flex:none; display:flex; align-items:center; gap:12px;}
+/* --ink-soft, not the --ink-faint the site's captions use: this is one of only two CONTROLS on a
+   first-time reader's first screen, and at 12px the faint token reads 3.54:1 (measured by test-a11y).
+   A caption may be quiet; the button that declines the tutorial may not be. */
+.to-no{appearance:none; border:0; background:transparent; cursor:pointer; padding:4px 2px; color:var(--ink-soft); font-family:inherit; font-size:calc(12px * var(--fs)); text-decoration:underline; text-underline-offset:3px;}
+.to-no:hover{color:var(--ink);}
+
+/* ---------- the guided walkthrough (see THE GUIDED TOUR in app.js) ---------- */
+/* z-index: above the gloss scrim (9590) so a popup left open cannot sit over the lesson, and below the
+   fullscreen media viewer (9800), which nothing here opens. The scrim is DARK rather than a paper wash —
+   the Atlas's coach marks lighten their globe, and this one has to darken a page of prose in eight themes,
+   so it is deliberately theme-independent. */
+.folio-tour{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:color-mix(in srgb, #000 55%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+  animation:tourIn .22s var(--ease) both;}
+@keyframes tourIn{from{opacity:0}to{opacity:1}}
+/* the arrow layer: no viewBox, so its user units are CSS pixels and the rects tourPlace() measures need no
+   conversion. pointer-events:none — it is drawn over the card as well as beside it. */
+.tour-draw{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible;}
+.tour-ring{stroke:var(--ochre); stroke-width:2.5; opacity:.95; stroke-dasharray:7 6;}
+.tour-line{stroke:var(--ochre); stroke-width:2.5; stroke-linecap:round;}
+.tour-head{stroke:var(--ochre); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;}
+
+.tour-card{position:relative; z-index:1; width:min(460px, 100%); max-height:calc(100vh - 40px); overflow-y:auto;
+  background:var(--card); border:1px solid var(--rule); border-radius:15px; padding:20px 24px 18px;
+  box-shadow:0 22px 54px -18px rgba(0,0,0,.65); display:flex; flex-direction:column; gap:11px;
+  /* the nudge that keeps the card off its own target (tourPlace) — eased, so the popup is followed rather
+     than found again on each step. The global reduced-motion killswitch covers it. */
+  transition:transform .28s var(--ease);}
+.tour-card:focus{outline:none;}
+.tour-count{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
+.tour-card h3{font-family:var(--display); font-weight:600; font-size:calc(20px * var(--fs)); letter-spacing:-.01em; margin:0 22px 0 0;}
+.tour-body{font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+.tour-body p{margin:0 0 9px;}
+.tour-body p:last-child{margin-bottom:0;}
+.tour-body b{color:var(--ink); font-weight:600;}
+.tour-body b.tour-gold{color:var(--ochre);}
+.tour-x{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:26px; height:26px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+.tour-x:hover{background:var(--rule); color:var(--ink);}
+.tour-nav{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:3px;}
+.tour-nav-main{display:flex; align-items:center; gap:9px;}
+.tour-skip{appearance:none; border:0; background:transparent; cursor:pointer; padding:4px 2px; color:var(--ink-soft); font-family:inherit; font-size:calc(12px * var(--fs)); text-decoration:underline; text-underline-offset:3px;}
+.tour-skip:hover{color:var(--ink);}
+.tour-back[disabled]{opacity:.4; cursor:default;}
+
+/* the illustrations. A study card is never dealt for real during the walkthrough — the reader's schedule is
+   not a demonstration surface, and the grade bar is pinned to the bottom of the viewport under the scrim —
+   so the card, its blank and the four grades are drawn here instead. */
+.tour-demo[hidden]{display:none;}
+.td-card{background:var(--paper-2); border:1px solid var(--rule); border-radius:11px; padding:14px 16px; display:flex; flex-direction:column; gap:11px; align-items:flex-start;}
+.td-q{font-family:var(--display); font-size:calc(15px * var(--fs)); line-height:1.45; color:var(--ink);}
+.td-blank{display:inline-block; width:3.4em; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px;}
+.td-btn{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--indigo); border-radius:8px; padding:7px 14px;}
+.td-grades{display:grid; grid-template-columns:repeat(4,1fr); gap:7px;}
+.td-g{border-radius:9px; padding:8px 4px; display:flex; flex-direction:column; align-items:center; gap:2px; color:#fff;}
+.td-g b{font-family:var(--display); font-weight:600; font-size:calc(12.5px * var(--fs));}
+.td-g i{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); opacity:.85;}
+.td-g.again{background:#D9544C;} .td-g.hard{background:#DB8B3A;} .td-g.good{background:#4F9D67;} .td-g.easy{background:#4F74C2;}
+.night .td-g.again{background:#E26B62;} .night .td-g.hard{background:#E0A057;} .night .td-g.good{background:#5FB07E;} .night .td-g.easy{background:#6E8FD6;}
+.td-marker{display:flex; align-items:center; gap:14px; background:var(--paper-2); border:1px solid var(--rule); border-radius:11px; padding:13px 16px;}
+.td-pen{flex:none; width:42px; height:42px; border-radius:99px; display:grid; place-items:center; background:var(--indigo); color:#fff; box-shadow:var(--shadow-sm);}
+.td-pen svg{width:20px; height:20px;}
+.td-scribble{flex:1 1 auto; height:34px; color:var(--ochre);}
+
+/* ---------- a page's own first-visit coach marks (the Library; the Atlas has .atlas-help) ---------- */
+/* The same card as the Atlas's, in a wrapper fixed to the VIEWPORT rather than absolute inside a
+   full-bleed stage — an ordinary page has no such stage to sit inside. */
+.page-help{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:color-mix(in srgb, #000 48%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);}
+.page-help[hidden]{display:none;}
+.page-help .ah-card{max-height:calc(100vh - 40px); overflow-y:auto;}
+.ah-go{align-self:flex-start; margin-top:3px;}
+.lib-help-btn{flex:none;}
+
 /* The discovery row — .explore-grid with its card of the day, gloss of the day and Atlas teaser — was
    REMOVED in Aug 2026 on request, from the phone first and then from the desktop, so that the two home
    pages read the same. Its ~90 rules (.exp-tile / .exp-card / .cod-* / .term-* / .atlas-* / .mini-globe)
@@ -2446,14 +2534,30 @@ body.night .lu-badge{color:#E6C765;}
   display:flex; align-items:center; gap:11px;
   /* the row wears its COLLECTION's identity hue (--coll-bg, set per row by PAGES.home from COLL_THEME —
      the same colour the Library banner uses), falling back to the review's bronze for a community deck or
-     the Card-of-the-day list, which belong to no collection */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 14%, transparent), transparent 64%) var(--card);
+     the Card-of-the-day list, which belong to no collection.
+     THE MIX IS THE COLLECTION BANNER'S OWN (Aug 2026, on request): the same 105deg wash at the same 30%
+     (22% at night), fading into the card at the same 64%, so a deck's row on the home page states its
+     collection's colour exactly as strongly as that collection's banner does one page over. It was 14%
+     and 9% — the right HUE at half the strength, which read as a different, washed-out colour rather
+     than as the same one. Keep these four figures in step with `body[data-theme="folio"]
+     .collection-deco` and its `.night` pair; the two rules exist to say the same thing. */
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--card);
   border:1px solid var(--rule); border-top:0; border-left:4px solid var(--coll-bg, var(--tile, #9A6634));
   padding:10px 13px; animation:pageIn .3s var(--ease) both;
 }
-/* like the banner's own wash, a whisper on dark themes */
-body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 9%, transparent), transparent 64%) var(--card);}
-.active-deck:last-child{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
+/* like the banner's own wash, weaker on dark themes — the hue sits on a dark card and reads twice as
+   strongly there, which is why the banner's own night pair drops from 30% to 22% as well */
+body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--card);}
+/* THE SUBDECK FOLD (Aug 2026, on request) — see adSyncFold in app.js.
+   `.ad-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
+   `display:flex`, which beats the UA `[hidden]` rule outright, so the attribute would have needed an
+   override of its own to mean anything (the same trap `.ces-imgpanel[hidden]` and `.gs-results[hidden]`
+   already carry). Two classes against one, so this wins on specificity wherever it sits. */
+.active-deck.ad-shut{display:none;}
+/* The rounded bottom corner belongs to the last VISIBLE row. `:last-child` cannot see a folded row, so with
+   the list shut by default it would round a row nobody can see and square off the bottom of the card; both
+   are kept, the class for the live page and the structural rule as the answer if adSyncFold never runs. */
+.active-deck:last-child, .active-deck.ad-last{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
 /* the deck's own share of the day's three piles, at the far left of its row — the same numbers the banner
    above carries, without the labels it has just spelled out. Tabular figures so the three columns line up
    from row to row rather than jittering with the digit widths. */
@@ -2473,6 +2577,20 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
 .active-deck .ad-line{flex:0 1 auto; min-width:0; display:flex; align-items:baseline; gap:10px;}
 .active-deck .ad-title{font-family:var(--display); font-weight:600; font-size:calc(16px * var(--fs)); color:var(--ink); letter-spacing:-.01em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .active-deck .ad-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); white-space:nowrap; flex:none;}
+/* The fold's own control, at the right end of the row — where the Library puts the chevron on these very
+   same collections, so the reader meets one disclosure gesture on the site and not two. It shares `.chev`
+   for the icon, the 180° open state and the focus ring, and overrides the size and chrome: a 40px bordered
+   disc is the Library banner's control and would be taller than this row, which is one tight line. Quiet by
+   default — no border, no fill — because it must not compete with the three piles and the deck's own name;
+   it takes the indigo on hover like every other control here. These rules MUST stay below `.chev`'s own
+   block: `.active-deck .ad-chev:hover` and `.chev:hover` are both two classes, so source order is all that
+   decides which of them paints. */
+.active-deck .ad-chev{width:26px; height:26px; border:0; background:transparent; color:var(--ink-faint);}
+.active-deck .ad-chev svg{width:15px; height:15px; stroke-width:2.4;}
+.active-deck .ad-chev:hover{background:var(--indigo-wash); color:var(--indigo); border-color:transparent;}
+/* A row with nothing to fold reserves the same width, so the progress bars down the list all stop at one
+   place instead of the right edge going ragged wherever a leaf deck sits. */
+.active-deck .ad-chev-gap{flex:none; width:26px;}
 /* How far through the deck the reader is — the bar took the place of the blue dot that used to sit at the
    left of the row. With room it stays IN the line, stretched between the deck's name and the figure, which
    is what fills the middle of a wide row. */
@@ -2501,9 +2619,18 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
 .active-deck{transition:padding-left .2s var(--ease), background .16s var(--ease);}
 /* a deck added to the review is clickable → reviews just that deck */
 .active-deck[data-review]{cursor:pointer;}
-.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 18%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 9%, var(--card));}
+/* hover deepens the same wash rather than introducing a colour of its own — it must stay ABOVE the resting
+   mix in both layers, or hovering a row would lighten it */
+.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 38%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 10%, var(--card));}
 .active-deck[data-review]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
-.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 11%, transparent), transparent 64%) var(--paper-2);}
+/* An ancestor SIGNPOST row (not itself added) carries the same collection wash at the same strength — what
+   marks it as context is the paper under it and the quieter title, not a different colour, since it names
+   the very collection its children are washed in. */
+.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 30%, transparent), transparent 64%) var(--paper-2);}
+/* …and its own night pair. Without it `body.night .active-deck` (0,2,1) outranks `.active-deck.context`
+   (0,2,0) whatever the source order, so on every dark theme a context row silently lost both its weaker
+   wash and the --paper-2 under it and rendered identically to an added deck's row. */
+body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--paper-2);}
 .active-deck.context .ad-title{font-size:calc(14px * var(--fs)); color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
@@ -3221,6 +3348,14 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
   .howit{grid-template-columns:1fr; gap:10px;}
+  /* the offer's two controls go under its prose rather than beside it — at 390px "Take the tour" and
+     "No thanks" on the same line as the sentence leave the sentence four words wide */
+  .to-acts{flex:1 1 100%; justify-content:flex-start;}
+  .tour-card{padding:17px 18px 15px; border-radius:13px; max-height:calc(100dvh - 32px);}
+  .tour-card h3{font-size:calc(18px * var(--fs));}
+  .folio-tour,.page-help{padding:14px;}
+  .td-g b{font-size:calc(11px * var(--fs));}
+  .td-g{padding:7px 2px;}
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
   body.grading .stage{padding-bottom:206px;}
   body.grading .wb-tools{bottom:170px;}

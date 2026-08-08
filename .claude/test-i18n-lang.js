@@ -1,22 +1,25 @@
 #!/usr/bin/env node
-// Regression test for the PER-LANGUAGE translation files (i18n/ui-<lang>.js, i18n/gloss-<lang>.js)
-// and for the Japanese content that rides on them.
+// Regression test for the ENGLISH-ONLY gate and for the per-language translation files that remain
+// (i18n/ui-<lang>.js, i18n/games-<lang>.js, i18n/places-<lang>.js).
 //
 //   node .claude/test-i18n-lang.js
 //
-// Re-run after touching langBundle / glossI18nIngest / glossI18nMerged / setGlossI18nEdit /
-// serializeGlossaryI18n / editedGlossI18nLangs, or after adding a language.
+// Re-run after touching MULTILANG / langBundle / loadLangData / DATA_BUNDLES, or after adding a language.
 //
-// What it guards, and why each one matters:
-//  · A reader downloads ONE language, not all of them. That split is the whole point of the layout;
-//    a regression here silently restores a 2.7 MB download for every non-English visitor.
-//  · The shipped baseline (PRISTINE_GLOSS_I18N) is seeded from the file, so revert compares against
-//    shipped text rather than against an admin's edit.
-//  · A glossaryI18n overlay delta records ONLY the edited language and is LAYERED over the shipped
-//    text. This is the sharp edge of the per-language layout: a whole-lang-map delta would hold only
-//    the languages loaded when the admin typed, and would wipe the rest on the next load.
-//  · The bake writes one file per edited language, and NEVER a language whose file is not loaded —
-//    that write would truncate the shipped file to just the edited slugs.
+// WHAT CHANGED ON 2026-08-08: the card `i18n` blocks and every i18n/gloss-<lang>.js were REMOVED on
+// request — the site ships in English and the translations were 2.06 MB of the eager path that no
+// reader could reach. So the assertions that used to check gloss-file parity, card-translation parity,
+// and the per-language glossary overlay/bake are gone with the data they described. What is left is
+// what still has teeth:
+//  · The gate itself, served UNPATCHED: ?lang= does not switch, Settings offers no picker, a stored
+//    non-English language is migrated back, and NOT ONE translation file is fetched.
+//  · The removal STAYS removed. A batch script that re-inlines card translations would put megabytes
+//    back into every visitor's first paint without anything else noticing — that is the quotes.js
+//    mistake, and this is the only thing watching for its return.
+//  · One language in, one language out, for the families that still ship. That split is the whole
+//    point of the layout; a regression restores a multi-megabyte download for every non-English reader.
+//  · The game pools carry no INLINE translations. They are in the eager path, so an inline copy would
+//    put nine languages of prose into every first paint (quotes.js went 27 KB -> 312 KB that way).
 //
 // Playwright is a dev dependency and must NOT be installed into the repo. Install it in a scratch
 // folder and run with NODE_PATH=<that>/node_modules; set FOLIO_CHROMIUM if Chromium lives elsewhere.
@@ -33,14 +36,12 @@ const ok = (name, cond, extra) => {
   console.log((cond ? "ok   " : "FAIL ") + " " + name + (extra !== undefined ? "  " + JSON.stringify(extra).slice(0, 110) : ""));
 };
 
-/* The site is ENGLISH-ONLY for now (`const MULTILANG = false` in app.js, Aug 2026, on request): the
-   picker is gone from Settings, ?lang= no longer switches and a stored language is migrated back. That
-   gate is asserted below, UNPATCHED, and by test-layout.js.
-   Everything else in this file is about the machinery BEHIND the flag — the per-language lazy load, the
-   overlay, the bake — which is deliberately preserved so the languages can be turned back on in one
-   edit. To keep testing it, this server flips the flag as it serves app.js. `patchApp` asserts the
-   string was actually found: if the flag is renamed or removed, the test fails loudly here rather than
-   quietly running against an app that can no longer switch language at all. */
+/* The site is ENGLISH-ONLY (`const MULTILANG = false` in app.js). That gate is asserted below,
+   UNPATCHED, and by test-layout.js. The lazy per-language LOADER behind the flag is deliberately kept
+   so the remaining languages can be turned back on in one edit, so this server flips the flag as it
+   serves app.js to exercise it. `patchApp` asserts the string was actually found: if the flag is
+   renamed or removed, the test fails loudly here rather than quietly running against an app that can
+   no longer switch language at all. */
 const MULTILANG_OFF = "const MULTILANG = false;";
 let patchedApp = false;
 function patchApp(buf) {
@@ -63,26 +64,22 @@ function serve(patch) {
 
 (async () => {
   /* ---------- static checks: the files on disk ------------------------------------------- */
-  const io = require("./gloss-i18n-io");
   global.window = {}; require(path.join(ROOT, "glossary.js")); require(path.join(ROOT, "data.js"));
   const GLOSS = global.window.GLOSSARY, CARDS = global.window.CARD_DATA;
-  const langs = io.langs();
-  ok("every language has a gloss file", langs.length >= 9, langs);
-  /* PARITY WITH EACH OTHER, not with the English count. Since the MULTILANG gate went up (Aug 2026) every
-     new card and term ships English-only, so the nine languages sit permanently behind `GLOSSARY` and a
-     test demanding equality with it is red by design and therefore read by nobody. The rule actually in
-     force is CLAUDE.md's: none of the nine may be behind the others. Both halves still bite — a batch that
-     translated one language and forgot the rest fails here, and so does a gloss file that has quietly lost
-     terms. When translations resume, tighten `translated` back to Object.keys(GLOSS).length. */
-  const glossCounts = langs.map((l) => Object.keys(io.read(l)).length);
-  const translated = Math.max(...glossCounts);
-  ok("no gloss file is behind the others", glossCounts.every((n) => n === translated),
-    langs.map((l, i) => l + ":" + glossCounts[i]));
-  ok("...and the translated terms are a subset of the shipped ones",
-    translated <= Object.keys(GLOSS).length &&
-    langs.every((l) => Object.keys(io.read(l)).every((k) => k in GLOSS)),
-    translated + " translated / " + Object.keys(GLOSS).length + " shipped");
 
+  /* THE REMOVAL STAYS REMOVED. `add-card.js` and `add-lang.js` can both still WRITE an i18n block, and
+     a card carrying one costs every visitor its bytes in the eager path whether or not any reader can
+     reach it. Nothing else in the suite would notice. */
+  const withI18n = CARDS.filter((c) => c.i18n && Object.keys(c.i18n).length).map((c) => c.id);
+  ok("no card carries a translation block", withI18n.length === 0,
+    withI18n.length + " of " + CARDS.length + (withI18n.length ? ": " + withI18n.slice(0, 5).join(", ") : ""));
+  const glossFiles = fs.readdirSync(path.join(ROOT, "i18n")).filter((f) => /^gloss-[\w-]+\.js$/.test(f));
+  ok("...and no glossary translation file is on disk", glossFiles.length === 0, glossFiles);
+  ok("...while the English glossary and cards are untouched", Object.keys(GLOSS).length > 700 && CARDS.length > 300,
+    { terms: Object.keys(GLOSS).length, cards: CARDS.length });
+
+  /* The chrome files DO still ship (they were not part of the removal), and none of the nine may fall
+     behind the others — a batch that translated one and forgot the rest fails here. */
   const ui = {};
   for (const f of fs.readdirSync(path.join(ROOT, "i18n"))) {
     if (/^ui-[\w-]+\.js$/.test(f)) new Function("window", fs.readFileSync(path.join(ROOT, "i18n", f), "utf8"))(ui);
@@ -94,15 +91,6 @@ function serve(patch) {
     { exact: Object.keys(ui.I18N.ja).length, rules: ui.I18N_RULES.ja.length, html: Object.keys(ui.I18N_HTML.ja).length });
   ok("rule patterns match across languages in the same order",
     JSON.stringify(ui.I18N_RULES.ja.map((r) => r[0])) === JSON.stringify(ui.I18N_RULES.es.map((r) => r[0])));
-  // likewise: a TRANSLATED card carries all nine, an English-only one carries none — never a partial set
-  const partial = CARDS.filter((c) => {
-    const have = langs.filter((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract).length;
-    return have !== 0 && have !== langs.length;
-  }).map((c) => c.id);
-  ok("no card is translated into only some languages", partial.length === 0, partial.join(", "));
-  ok("...and at least the original deck is translated",
-    CARDS.filter((c) => langs.every((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract)).length >= 100,
-    CARDS.filter((c) => langs.every((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract)).length + " of " + CARDS.length);
 
   /* ---------- browser checks ------------------------------------------------------------- */
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
@@ -135,7 +123,7 @@ function serve(patch) {
     await new Promise((r) => plain.close(r));
   }
 
-  /* ---------- the machinery behind the flag, served WITH it flipped ----------------------- */
+  /* ---------- the loader behind the flag, served WITH it flipped -------------------------- */
   const srv = serve(true);
 
   // one language in, one language out
@@ -145,14 +133,20 @@ function serve(patch) {
   pg.on("request", (r) => { if (r.url().includes("/i18n/")) fetched.push(r.url().split("/").pop()); });
   await pg.goto(url("?lang=ja"), { waitUntil: "networkidle" });
   await pg.waitForTimeout(1500);
-  // Every per-language family for that language and NOTHING for the other eight (see langBundle in
-  // app.js). Asserted as a property rather than a count, so adding a family doesn't need a new number
-  // here — what must never change is that no other language is fetched.
-  const FAMILIES = ["ui-", "gloss-", "games-", "places-"];
+  // Every per-language family that still SHIPS, for that language, and nothing for the other eight (see
+  // langBundle in app.js). Asserted as a property rather than a count, so adding a family doesn't need a
+  // new number here — what must never change is that no other language is fetched. `gloss-` is no longer
+  // in this list because the files were removed; the bundle entry is inert and never resolves.
+  const FAMILIES = ["ui-", "games-", "places-"];
   ok("only the current language's files are fetched", fetched.length > 0 && fetched.every((f) => f.endsWith("-ja.js")), fetched);
-  ok("every per-language family is fetched", FAMILIES.every((p) => fetched.some((f) => f.startsWith(p))), fetched);
+  ok("every per-language family that still ships is fetched", FAMILIES.every((p) => fetched.some((f) => f.startsWith(p))), fetched);
+  ok("...and no glossary translation is requested", !fetched.some((f) => f.startsWith("gloss-")), fetched);
   ok("the chrome is localized", (await pg.$$eval(".tab", (ts) => ts.map((t) => t.textContent.trim()))).includes("ホーム"));
-  ok("the glossary table holds every translated term", (await pg.evaluate(() => Object.keys(window.GLOSSARY_I18N).length)) === translated);
+  // the English glossary is what every reader now sees, in every language
+  ok("a glossary description falls back to the English", await pg.evaluate(() => {
+    const k = Object.keys(window.GLOSSARY)[0];
+    return !(window.GLOSSARY_I18N && window.GLOSSARY_I18N[k] && window.GLOSSARY_I18N[k].ja);
+  }));
 
   fetched.length = 0;
   // the picker lives on the Settings page (Aug 2026 — it was a top-bar dropdown before that)
@@ -168,11 +162,19 @@ function serve(patch) {
   ok("the game pools carry no inline translations", await pg.evaluate(() =>
     (window.QUOTEGAME || []).every((x) => !x.i18n) && (window.TRUEFALSE || []).every((x) => !x.i18n)));
   ok("the lazy games table reached the running app", await pg.evaluate(() =>
-    !!(window.GAMES_I18N_IN === undefined || true) && document.querySelectorAll('script[src*="games-ru.js"]').length === 1));
+    document.querySelectorAll('script[src*="games-ru.js"]').length === 1));
   await pg.evaluate(() => { location.hash = "whosaid"; });
   await pg.waitForTimeout(1800);
   const wsRu = await pg.evaluate(() => (document.querySelector(".ws-quote") || {}).textContent || "");
-  ok("a quote renders in the reading language", /[\u0400-\u04FF]/.test(wsRu), wsRu.slice(0, 60));
+  ok("a quote renders in the reading language", /[Ѐ-ӿ]/.test(wsRu), wsRu.slice(0, 60));
+
+  // a card's prose is English now whatever the reading language — cardLocalized falls back
+  await pg.evaluate(() => { location.hash = "home"; });
+  await pg.waitForTimeout(600);
+  ok("a card's prose falls back to English", await pg.evaluate(() => {
+    const c = (window.CARD_DATA || [])[0];
+    return !!c && !c.i18n;
+  }));
 
   const en = await ctx.newPage(); watch(en);
   const f2 = [];
@@ -180,53 +182,6 @@ function serve(patch) {
   await en.goto(url("?lang=en"), { waitUntil: "networkidle" });
   await en.waitForTimeout(1000);
   ok("an English reader fetches no translation file at all", f2.length === 0, f2);
-
-  /* ---------- the overlay: a per-language delta, layered ---------------------------------- */
-  const admin = await (await browser.newContext()).newPage(); watch(admin);
-  const TERM = Object.keys(GLOSS)[0];
-  await admin.goto(url("?lang=ja"), { waitUntil: "networkidle" });
-  await admin.waitForTimeout(1400);
-  const shipped = await admin.evaluate((k) => (window.GLOSSARY_I18N[k] || {}).ja, TERM);
-  ok("the term ships with Japanese text", !!shipped && /[ぁ-んァ-ヶ一-龯]/.test(shipped));
-
-  await admin.evaluate((k) => {
-    const ov = JSON.parse(localStorage.getItem("folio_admin_v1") || "null") || {};
-    ov.glossaryI18n = Object.assign({}, ov.glossaryI18n, { [k]: { ja: "編集済みのテスト説明。二文目。三文目。" } });
-    localStorage.setItem("folio_admin_v1", JSON.stringify(ov));
-  }, TERM);
-
-  // reload in a DIFFERENT language: the other language's shipped text must survive the ja edit
-  await admin.goto(url("?lang=es"), { waitUntil: "networkidle" });
-  await admin.waitForTimeout(1500);
-  const map = await admin.evaluate((k) => window.GLOSSARY_I18N[k], TERM);
-  ok("another language's shipped text survives an edit made in Japanese", !!map.es && !/編集済み/.test(map.es), (map.es || "").slice(0, 40));
-  ok("the Japanese edit is still applied", /編集済み/.test(map.ja || ""));
-  ok("both languages are present after the second file lands", Object.keys(map).sort().join(",") === "es,ja", Object.keys(map).sort());
-
-  // the bake
-  await admin.goto(url("?lang=ja"), { waitUntil: "networkidle" });
-  await admin.waitForTimeout(1500);
-  const files = await admin.evaluate(() => Object.keys(window.folioSave.files()));
-  ok("the bake emits the edited language's file", files.includes("i18n/gloss-ja.js"), files);
-  const baked = await admin.evaluate(() => window.folioSave.files()["i18n/gloss-ja.js"]);
-  ok("the baked file carries the edit", /編集済み/.test(baked));
-  ok("the baked file holds every translated term, not just the edited one", (baked.match(/^"[^"]+":/gm) || []).length === translated,
-    (baked.match(/^"[^"]+":/gm) || []).length);
-
-  // a delta for a language whose file is NOT loaded must never be written
-  await admin.evaluate((k) => {
-    localStorage.setItem("folio_admin_v1", JSON.stringify({ glossaryI18n: { [k]: { es: "texto editado" } } }));
-  }, TERM);
-  await admin.goto(url("?lang=ja"), { waitUntil: "networkidle" });
-  await admin.waitForTimeout(1500);
-  const files2 = await admin.evaluate(() => Object.keys(window.folioSave.files()));
-  ok("an unloaded language is never baked", !files2.includes("i18n/gloss-es.js"), files2);
-
-  await admin.evaluate(() => localStorage.removeItem("folio_admin_v1"));
-  await admin.goto(url("?lang=ja"), { waitUntil: "networkidle" });
-  await admin.waitForTimeout(1400);
-  const restored = await admin.evaluate((k) => window.GLOSSARY_I18N[k].ja, TERM);
-  ok("clearing the overlay restores the shipped text", restored === shipped);
 
   ok("the MULTILANG flag was found and flipped for these checks", patchedApp);
   ok("no console or page errors", errs.length === 0, errs.slice(0, 3));

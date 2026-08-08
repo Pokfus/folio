@@ -205,6 +205,17 @@ for (const l of I18N_LANGS) {
   }
 }
 delete card.skipTranslations;   // control flag only — never written to data.js
+/* THE `i18n` BLOCK IS NOT WRITTEN (2026-08-08, on request). The card translations were removed along with
+   the glossary ones: 2.06 MB of the eager path — 58% of data.js — that no reader could reach while
+   `MULTILANG = false`. Writing one here would put it straight back into every visitor's first paint, so a
+   batch that still carries `i18n` is accepted and its translations DROPPED, loudly, rather than honoured.
+   `test-i18n-lang.js` asserts the corpus stays clean. Restoring the languages means deleting this, not
+   working around it. */
+if (card.i18n && Object.keys(card.i18n).length) {
+  console.warn("WARNING: card." + card.id + " carries an `i18n` block (" + Object.keys(card.i18n).join(", ") +
+    ") — DROPPED. The site is English-only and card translations were removed from data.js; see CLAUDE.md.");
+  delete card.i18n;
+}
 
 const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
 if (cards.some(c => c.id === card.id)) { console.error("ERROR: duplicate id:", card.id); process.exit(1); }

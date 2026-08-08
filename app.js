@@ -1084,7 +1084,7 @@
          shelf a phone shows is the shelf the laptop shows. The timestamp rather than `true` is what lets
          the Favourites section keep the order they were starred in. */
       bookFavs: {},
-      daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
+      daily: { lastPlayed: 0, best: 0, games: 0, wins: 0 },   // `podiums` retired with the rival-bot race — nothing ever read it
       chrono: { date: "", best: 0, plays: 0, solved: false }, // timeline game daily record
       games: {}, // minigame id ("challenge"/"chrono"/"truefalse"/"whosaid") -> { date, played, won } for today's tile checkmarks + the daily-sweep badge
       intro: { date: "", count: 0, extra: 0 }, // new cards introduced today (+ today's Custom-study bump)
@@ -5111,6 +5111,56 @@
        the tightest of the sixteen light papers, the highest of any swatch here, and 1.3–1.8 on the
        dark ones as every one of them does. Keyed by id, the documents being anonymous. */
     "book-of-documents": "#0F4503",
+    /* AND HERE THE BAND WAS WIDENED, which the Book of Documents' row said the next book would have
+       to do — measured, and its warning was exactly right. Inside the shelf's own lightness and
+       chroma band (L 24.8–47.8, C 18.3–64.1) a sweep of the whole RGB cube turns up NOTHING that
+       clears 20.1 of its nearest neighbour, and that best candidate is a blood red sitting 20.1 from
+       Sun Tzu's rust; the runners-up are a green at 19.6 against the Shû's own forest and a magenta
+       at 19.6. Every one of them is inside the shelf's tightest pair once that pair is recomputed —
+       18.2, the Classic of Poetry against Beowulf — but only just, and none is more than two points
+       clear of it.
+
+       WIDENING DOWNWARD COSTS NOTHING AND BUYS CONTRAST, which is Kalidasa's finding and it holds a
+       second time: a darker swatch reads BETTER on a light paper, not worse, so the floor was dropped
+       to L 18 and C 12 rather than the ceiling raised, which the 4.5:1 bar test-a11y.js holds the
+       site to has shut off. That opens four genuinely separated places at 20.7–22.9, all of them
+       reading 7.5–8.4:1 where the cramped band's best manages 6.2.
+
+       OF THOSE FOUR THE NUMBER AND THE EURIPIDES TEST AGREED, and the test is doing real work here
+       rather than rubber-stamping the winner. The one book on this shelf a reader genuinely pairs
+       with the Prose Edda is BEOWULF — the two are read together in any course on the medieval north,
+       and they are the shelf's only Germanic works — so a colour near Beowulf's dark oxblood would
+       say they are a set, which is the kinship Euripides' row gave up a better number to avoid. That
+       rules out the deep wine red at 21.6, whose third-nearest neighbour is Beowulf at 22.6, and the
+       dark olive at 20.7, where Beowulf is 21.8 away. This dark violet is both the best-separated
+       colour anywhere in the widened band at 22.9 AND the one furthest from Beowulf, at 35.0 — no
+       reading of the two as a pair is possible. Its four nearest are Euripides at 22.9, Herodotus at
+       23.0, the Song of Roland at 23.3 and Plato at 23.3, evenly enough that it reads as its own
+       colour rather than as a near-miss of any one of them, and nobody pairs an Icelandic handbook of
+       poetics with a Greek tragedian, a Greek historian, Plato or a chanson de geste. It reads
+       8.32:1 on the tightest of the sixteen light papers — the best of any swatch on this shelf — and
+       1.1–1.4 on the dark ones, as every one of them does.
+
+       THE NEXT BOOK WILL HAVE TO WIDEN THE BAND AGAIN, and Kalidasa's row already said what that
+       costs: darker still loses saturation until the swatches stop being colours at all. There is
+       perhaps one more step of room. Say so then. */
+    "Snorri Sturluson": "#401A5C",
+    /* Measured the same way, and the band the Beowulf row called full really is: with twenty-five
+       colours placed, the best-separated colour anywhere inside the shelf's own lightness and chroma
+       band clears its nearest neighbour by 21.3 — against a shelf whose own tightest pair is 18.2.
+       THE BEST NUMBER WAS REJECTED FOR THE SECOND TIME, and the Euripides test did the work again.
+       That 21.3 is a dark crimson whose four nearest neighbours are Plato, Ovid, BEOWULF at 22.9 and
+       Sophocles — and Beowulf is the one book on this shelf a reader genuinely reads against these
+       poems, both being Germanic heroic verse and sharing the Sigurd material outright, so a colour
+       sitting that close to his oxblood would say the two are a set. The Prose Edda is the same
+       objection a second time, its violet being what any reader reaches for next.
+       This deep blood-red costs six tenths of a point — 20.7 from Sun Tzu's rust, still wider than
+       the shelf's own tightest pair — and buys 67.1 from the Prose Edda and 42.6 from Beowulf, which
+       is a colour that cannot be read as either book's relative. Its other neighbours are Sophocles
+       at 21.4 and Aristophanes at 21.9, and nobody reads Greek tragedy or comedy against the Edda.
+       It reads 7.37:1 on the tightest of the twelve light papers, against a bar of 4.5.
+       Keyed by id, the poems being anonymous. */
+    "poetic-edda": "#720000",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -6591,6 +6641,138 @@
         { n: 5, label: "The Books of Kâu", note: "32 documents" },
       ],
     },
+    {
+      id: "prose-edda",
+      title: "The Prose Edda",
+      author: "Snorri Sturluson",
+      /* Snorri lived 1179–1241 and the Edda is put at about 1220 on the usual grounds — later than
+         the poems it quotes, earlier than the manuscripts that carry it. `year` is the single number
+         the shelf's date sort needs; the front matter says how loose it is. */
+      written: "c. 1220",
+      year: 1220,
+      translator: "Arthur Gilchrist Brodeur",
+      edition:
+        "The Prose Edda, translated by Arthur Gilchrist Brodeur, " +
+        "The American-Scandinavian Foundation, New York, 1916",
+      /* A LICENCE THAT STATES A LIMIT, which puts it with the Art of War (Giles, 2029), the
+         Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea and Gilgamesh rather than with
+         the Republic and the Analects. The work is free everywhere — Snorri died in 1241 — and
+         Brodeur's translation is public domain in the United States on the pre-1929 publication rule,
+         but he lived 1888–1971, so it stays in copyright where the term is life plus seventy until
+         2042. Said outright rather than smoothed into the easier sentence, which is the judgement
+         Lucretius' entry records: claim less, and put on the page what cannot be said. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. Snorri Sturluson died " +
+        "in 1241, so the work itself is free everywhere. Arthur Gilchrist Brodeur's translation was " +
+        "published in 1916 — before 1929, so its United States copyright has expired — but he lived " +
+        "from 1888 to 1971, so where the term runs for the author's life plus seventy years it stays " +
+        "in copyright until 2042. Brodeur's own introduction and index are not reproduced here; what " +
+        "is taken is the three parts of the Edda his volume translates. There is no Old Norse column, " +
+        "and the reason is a copyright one rather than a textual one — see the front matter. (The " +
+        "translations by Jean I. Young, 1954, Anthony Faulkes, 1987, and Jesse Byock, 2005, are still " +
+        "in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Prose_Edda_(Brodeur_1916)",
+      /* THE CHAPTER IS THE WORK'S OWN PART, and the numbered chapters inside it are the SECTIONS —
+         Herodotus' shape, and chosen for the citation rather than for the arithmetic. Each of the
+         three parts restarts its numbering at 1, so making the numbered chapter the tab would mean
+         renumbering them into one run of 133 and turning "Gylfaginning 44" into tab 50. As sections
+         they keep meaning what they mean in every edition and every reference book. See
+         .claude/fetch-book.js for the measurement behind that and for the two ways this edition sets
+         its Roman numerals.
+
+         `count` AND `total` DIFFER HERE, and the gap is the edition rather than the file: the Prose
+         Edda has four parts and Brodeur translated three. Háttatal — Snorri's own praise-poem
+         demonstrating a hundred-odd metres — is the most technical and least translatable part of the
+         book, and the 1916 volume's own contents page lists the Prologue, Gylfaginning and
+         Skáldskaparmál and stops.
+
+         NO `origLang`, and unusually the reason is a LICENCE rather than a text. The Old Norse pairs
+         exactly where it can be paired — measured, the Prologue 5 chapters to 5 and Gylfaginning 54
+         to 54, content matching throughout — but the only openly transcribed Old Norse Edda is Guðni
+         Jónsson's, 1901–1974, in copyright until 2044 and carried on Wikisource by permission rather
+         than by an expiry, which is not the ground this library serves books on. So the shelf's two
+         failure modes gain a third: not one column silent, nor both, but a column that speaks and may
+         not be quoted. The importer's entry records what a later attempt would need. */
+      chapterWord: "Part",
+      count: 3,
+      total: 4,
+    },
+    {
+      id: "poetic-edda",
+      title: "The Poetic Edda",
+      /* No subtitle. It is also called the Elder Edda and, still occasionally, the Sæmundar Edda;
+         putting either on the banner would assert a name the book never had — the second being an
+         attribution to a twelfth-century priest that no modern editor defends. Both are explained in
+         the front matter, which is where a naming quarrel belongs. */
+      author: "Anonymous",
+      /* THE DATE IS THIRTY-FIVE OPEN QUESTIONS RATHER THAN ONE, which is worse than the usual case of
+         a single undated work: a collection is only as datable as its parts, and these were made by
+         different hands over something like three centuries. The one fixed point is the manuscript,
+         written in Iceland about 1270. 900 is the early end of the range the poems are argued into
+         and is the only figure the shelf can honestly sort on; the front matter carries the doubt
+         rather than leaving the `c.` to do all the work. */
+      written: "c. 900–1250",
+      year: 900,
+      translator: "Henry Adams Bellows",
+      edition:
+        "The Poetic Edda, translated by Henry Adams Bellows, " +
+        "The American-Scandinavian Foundation, New York, 1923",
+      /* A LICENCE THAT STATES A LIMIT, and much the smallest limit on the shelf. The poems are
+         anonymous and medieval, so the work is free everywhere; Bellows's translation is public
+         domain in the United States on the pre-1929 publication rule, and he died in 1939, so it
+         cleared life plus seventy at the start of 2010 as well. What is left is life plus a hundred,
+         which runs to 2040 — a real limit and a narrow one, said outright rather than smoothed away.
+         His dates are unusually well corroborated for this shelf: Wikidata carries both at DAY
+         precision and Wikisource's own PD/US tag gives 1939 independently, so this is not the lone
+         unverified figure some translators here come down to. */
+      rights:
+        "Public domain in the United States and in life-plus-seventy countries, with one limit left " +
+        "to state. The poems are anonymous and medieval, so the work itself is free everywhere. " +
+        "Henry Adams Bellows's translation was published in 1923 — before 1929, so its United States " +
+        "copyright has expired — and he lived from 1885 to 1939, so it cleared life plus seventy at " +
+        "the start of 2010; where the term runs for the author's life plus a hundred years it stays " +
+        "in copyright until 2040. Bellows's General Introduction and his Pronouncing Index are not " +
+        "reproduced here; what is taken is the thirty-five poems with the introductory note and the " +
+        "footnotes he gave to each. There is no Old Norse column, and the reason is that no complete " +
+        "edition is transcribed anywhere reachable rather than that any of them is shut — see the " +
+        "front matter. (The translations by Lee M. Hollander, 1928, Carolyne Larrington, 1996, and " +
+        "Jackson Crawford, 2015, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)",
+      /* THE CHAPTER IS A WHOLE POEM and the printed stanza number is the SECTION, and neither is a
+         compromise — which is unusual enough here to be worth saying. The collection is made of
+         poems and its own contents page lists them, so the poem is what a tab should be; and
+         "Voluspo 21" is how any passage is addressed in every edition and every reference work, so
+         the stanza is what a section should be. Measured over all thirty-five pages before it was
+         believed: 1,564 stanza numbers, every verse poem running a clean 1..N with no gap and no
+         duplicate, and not one leaf of the scan untranscribed.
+
+         TWO OF THE THIRTY-FIVE CARRY NO SECTION NUMBER AT ALL, and that is the edition rather than
+         the extractor: Fra Dautha Sinfjotla and Drap Niflunga are the manuscript's prose bridges
+         rather than poems, so they have nothing to number and render as one block apiece. They are
+         declared as prose in the importer, so the unnumbered-chapter warning still means something
+         when it fires on anything else.
+
+         NO `origLang`, and the reason is COVERAGE rather than the licence that keeps the Old Norse
+         off its prose companion. An edition whose copyright has expired exists and is transcribed —
+         Sophus Bugge's of 1867, and he died in 1907 — but only three of the thirty-five poems have
+         been transcribed from it and one of those numbers no stanzas, so there is nothing to pair
+         against on nine tenths of the book. Checked on the Icelandic, Norwegian, Danish, Swedish,
+         German and multilingual Wikisources; Old Norse has no wiki of its own. The numbers are
+         already there on both sides, which is the hard part, so a fuller transcription would need
+         only an `original` block. */
+      chapterWord: "Poem",
+      count: 35,
+      total: 35,
+      /* The edition's own two divisions, read off its contents page rather than inferred from the
+         subject matter — the gods stop and the heroes begin at Völundarkvitha, which is where
+         Bellows puts the break and where the manuscript puts it too. */
+      parts: [
+        { n: 1, label: "Lays of the Gods", note: "14 poems" },
+        { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -6823,7 +7005,7 @@
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
     if (SWIPE_ORDER.indexOf(current.name) < 0) return false;
     if (document.body.classList.contains("grading")) return false;
-    return !document.querySelector(".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu");
+    return !document.querySelector(".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour");
   }
   function wirePageSwipe() {
     let st = null;
@@ -6863,6 +7045,7 @@
     closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
+    closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -6892,6 +7075,11 @@
     wireSpeakControls(root);
     // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
     window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    /* The walkthrough is deliberately NOT in the close list above: it NAVIGATES (the add-a-deck step routes
+       to the collections and back), so a render() that dismissed it would dismiss it at exactly the moment
+       it was doing its job. What it does need is re-measuring — the page it was pointing at has just been
+       rebuilt. See the GUIDED TOUR block. */
+    tourAfterRender();
   }
   /* Page transitions (Aug 2026, on request). `.page` has always faded IN; what was missing was the other
      half, so a navigation cut the old page away on the same frame the new one appeared. render() is
@@ -7161,22 +7349,48 @@
      isImperialParen: the bracket must be measurement-shaped ALL THROUGH (numbers, joining words and
      imperial units and nothing else), must carry a number, and must carry a STRONG imperial unit — `in`
      and `mi` are allowed as fillers inside a `4 ft 11 in` but never qualify a bracket on their own, or
-     "(in 1920)" would read as a measurement. Verified over the whole corpus: 341 fields transform, no
-     imperial bracket is missed and no other bracket is touched. */
+     "(in 1920)" would read as a measurement.
+
+     THAT ALL-THROUGH TEST IS THE PART THAT ROTS, and it fails SILENTLY in the direction nobody checks
+     (Aug 2026). A word the filler list has never heard of makes the whole bracket "not a measurement",
+     so it is left alone — which is indistinguishable, to every test here, from a bracket correctly left
+     alone. 30 sites shipped that way: `by` (a plan or a court, "54 by 27 metres (177 by 89 feet)"),
+     `square` and `cubic` (a qualifier standing between the number and its unit). A metric reader saw the
+     conversion they had asked not to see and an imperial reader saw metres. All three words are fillers
+     now, `by` is a JOIN as well, and U_CONV_RX's gap admits a dimension qualifier.
+     **test-units.js cannot catch this class on its own** — its classifier IS isImperialParen, so a
+     bracket the classifier rejects is filed as an ordinary bracket correctly untouched. What catches it
+     is the independent word sweep the test now carries: every word appearing inside a bracket that holds
+     a number AND an imperial unit must be one the engine knows. Verified over the whole corpus: 447
+     fields transform (up from 436), 30 brackets are newly recognised and every one is a real
+     measurement, none lost its classification, and the 12 fields that changed all changed correctly. */
   const UNIT_SYSTEMS = ["metric", "imperial"];
   const U_NW = "(?:\\d[\\d.,]*|a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)";
   const U_NUM = "(?:" + U_NW + "(?:\\s+(?:hundred|thousand|million|billion))?)";
-  const U_JOIN = "(?:\\s*(?:–|—|-|,)\\s*|\\s+(?:to|and|or)\\s+)";
+  // `by` joins the two figures of a plan or a court ("54 by 27 metres"), so the run has to survive it or
+  // U_CONV_RX starts at the SECOND number and imperial mode renders "54 by 177 by 89 feet"
+  const U_JOIN = "(?:\\s*(?:–|—|-|,)\\s*|\\s+(?:to|and|or|by)\\s+)";
+  // a dimension qualifier standing between the number and its unit ("7,600 square metres", "129 cubic
+  // kilometres"); the gap group is otherwise whitespace-only, which is what made those brackets invisible
+  const U_DIM = "(?:square|cubic|sq|cu)";
   // longest-first, and the lookahead rather than \b so `km²` (a non-word character) and the bare `m` / `g`
   // abbreviations both terminate correctly
   const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|kg|ha|°C|m|g)(?![A-Za-z²])";
-  const U_FILL = "(?:and|or|to|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|-|,|/|\\s)";
+  // the dashes include U+2212 MINUS SIGN, which is what a sub-zero temperature is written with and is not
+  // any of the three dashes beside it — "(−129 °F)" was the fourth unseen shape
+  const U_FILL = "(?:and|or|to|by|square|cubic|sq|cu|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|−|-|,|/|\\s)";
   const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
   const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
   const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
   const U_HAS_NUM_RX = /\d|\b(?:a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)\b/i;
-  const U_CONV_RX = new RegExp("(" + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)([\\s-]*)(" + U_METRIC + ")(\\s*)\\(([^()]{1,90})\\)", "gi");
-  const U_BARE_RX = new RegExp("(" + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)(\\s*)\\(([^()]{1,90})\\)", "gi");
+  /* The leading sign has to be CONSUMED, not merely tolerated: left outside the match it survives the
+     replacement while the bracket supplies its own, and "−89.2 °C (−129 °F)" renders in imperial as
+     "−−129 °F". U+2212 only, deliberately — a hyphen or an en dash in that position is a range separator
+     ("10–7 kilometres"), and swallowing one would take the first figure of the range with it. */
+  const U_SIGN = "−?";
+  const U_RUN = "(" + U_SIGN + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)";
+  const U_CONV_RX = new RegExp(U_RUN + "([\\s-]*(?:" + U_DIM + "[\\s-]+)?)(" + U_METRIC + ")(\\s*)\\(([^()]{1,90})\\)", "gi");
+  const U_BARE_RX = new RegExp(U_RUN + "(\\s*)\\(([^()]{1,90})\\)", "gi");
   function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
   function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
   // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match
@@ -7568,6 +7782,412 @@
     // defer wiring a tick so the same click that graded the card (and spawned this) doesn't instantly dismiss it
     setTimeout(() => { ov.addEventListener("click", close); document.addEventListener("keydown", onKey, true); }, 0);
     requestAnimationFrame(() => ov.classList.add("show"));
+  }
+
+  /* ============================================================
+     THE GUIDED TOUR — a first visitor's few minutes (Aug 2026, on request)
+     ============================================================
+     A first-time reader meets a site that schedules cards for them, holds their decks in a review they have
+     not built yet, and hides a marker behind a floating button. None of that explains itself, and the
+     three-beat `.howit` strip on the home page is a summary rather than a lesson. So: an OPTIONAL walkthrough
+     that dims the page, puts one card in the middle of it, and points at the thing being described.
+
+     Five decisions are load-bearing.
+
+     · **THE OFFER IS INLINE, NOT MODAL.** It would have been one line of code to raise the tour over the home
+       page on a first visit, and it is the wrong line: a site that seizes the screen before the reader has
+       seen it is a site they leave. The offer is a card at the top of the home page's first-run stack, beside
+       the hero and the how-it-works strip that are already first-run-only, and it is dismissible. The tour
+       itself is the full-screen thing, and it opens only when asked for. (It is also what keeps every
+       Playwright test that boots a fresh reader from meeting an overlay it never asked about.)
+
+     · **THE SCREEN STAYS DARK — the target is RINGED, not spotlit.** A cut-out spotlight would mean holding a
+       hole in the scrim over an element that moves with every scroll and every reflow, and it reads as the
+       page half-lit rather than as an explanation. The scrim is uniform, and the step draws an ARROW from the
+       card to a ring around whatever it is talking about. Where the target is missing (a control that only
+       exists once a deck has been added, say), the arrow and the ring are simply not drawn and the step still
+       reads — a tour must never depend on the state of the page it is describing.
+
+     · **IT NAVIGATES.** "How to add a deck to your daily study" cannot be taught on the home page, so the
+       step that teaches it routes to the collections and points at a real + button. That is why the overlay
+       lives on document.body and is deliberately NOT in render()'s close list: it has to survive the very
+       navigations it performs. `tourAfterRender()` re-measures at the end of every render instead.
+
+     · **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED.** Dealing a real card mid-tour would hijack the
+       reader's schedule, and the grade bar is pinned to the bottom of the viewport where the scrim is. So the
+       card, the blank and the four grades are drawn INSIDE the popup — with the four intervals read from the
+       real scheduler (`schedPreview`), so the figures a reader is shown are the figures they will meet.
+
+     · **THE CARD IS NUDGED OFF ITS OWN TARGET, and its base rect is COMPUTED rather than measured.** A
+       centred popup lands on top of the thing it is describing about half the time, and then the arrow is a
+       stub between two overlapping boxes. See tourPlace for the placement search and for why reading the
+       card's own rect back — the obvious way to find the unshifted box — walks it off the screen instead. */
+  const TOUR_KEY = "folio_tour_v1";
+  function tourSeen() { try { return localStorage.getItem(TOUR_KEY) === "1"; } catch (e) { return true; } }
+  function setTourSeen() { try { localStorage.setItem(TOUR_KEY, "1"); } catch (e) {} }
+  // the demo grades carry the REAL first-step intervals rather than four plausible-looking strings — a
+  // tutorial that teaches numbers the site does not use is worse than one that teaches none
+  function tourGradeDemo() {
+    let p;
+    try { p = schedPreview(null, 0, Date.now()); } catch (e) { p = null; }
+    const iv = (v) => { try { return p ? fmtInterval(v) : ""; } catch (e) { return ""; } };
+    const cell = (cls, label, v) =>
+      '<span class="td-g ' + cls + '"><b>' + label + '</b>' + (p ? "<i>" + esc(iv(v)) + "</i>" : "") + "</span>";
+    return '<div class="td-grades" aria-hidden="true">' +
+      cell("again", "Again", p && p.again) + cell("hard", "Hard", p && p.hard) +
+      cell("good", "Good", p && p.good) + cell("easy", "Easy", p && p.easy) + "</div>";
+  }
+  const TOUR_PEN =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+  /* Each step: where it is taught, what it says, and — optionally — what it points at. `target` is a list of
+     selectors tried in order, so a step can name the ideal target and fall back to one that is always there. */
+  const TOUR_STEPS = [
+    {
+      route: "home",
+      title: "Welcome to Folio",
+      body: "Folio is a study companion for history — flashcards, a globe you can travel back through, and a " +
+        "library of whole books. This walkthrough takes about three minutes and covers the part that matters " +
+        "most: how the cards work.<p>Leave at any point with <b>Skip</b> or the Escape key.</p>",
+    },
+    {
+      route: "home",
+      title: "Why the cards come back",
+      body: "Everything you learn fades, steeply at first and then more slowly. <b>Spaced repetition</b> works " +
+        "with that curve instead of against it: a card you have just met returns within minutes, and one you " +
+        "have answered right several times may not return for months.<p>Each correct answer pushes the next " +
+        "sighting further out, so a collection of a thousand cards still costs a few minutes a day.</p>",
+      target: [".howit", ".banners"],
+    },
+    {
+      route: "home",
+      title: "Your daily study",
+      body: "This banner is the day's work. The three numbers under it are the three kinds of card waiting: " +
+        "<b>New</b> ones you have never seen, <b>Learning</b> ones you are still getting wrong, and " +
+        "<b>Review</b> ones that have come round again.<p>Press it and Folio deals them in order. When the " +
+        "three reach zero the day is done — there is no benefit in pushing on.</p>",
+      target: ["#b-review"],
+    },
+    {
+      route: "home",
+      title: "Nothing is scheduled until you choose it",
+      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>This tab under " +
+        "the banner is the way to them — it is the only route to the collections anywhere on the site.</p>",
+      target: [".rv-lip", "#b-addDecks"],
+    },
+    {
+      route: "decks",
+      title: "Adding a deck",
+      body: "Here are the collections. The <b>+</b> beside one adds the whole thing to your daily study; open " +
+        "it with the chevron to add a single deck inside it instead. Pressing + again takes it back out.<p>Your " +
+        "Folio level decides how many decks may sit in the review at once — one more with every level, so the " +
+        "pile grows as you do.</p>",
+      target: [".collection-add", ".collection-actions", ".collection-list"],
+    },
+    {
+      route: "home",
+      title: "Your decks, once they are added",
+      body: "Each added deck gets a row under the banner, with its own bar and its own share of the day. Tapping " +
+        "a row studies that deck alone.<p><b>Hold a row</b> — or right-click it — for its own options: extra " +
+        "cards today, daily limits of its own, sitting the day out, or removing it again. Holding the banner " +
+        "itself does the same for the whole review.</p>",
+      target: [".active-decks", "#b-review"],
+    },
+    {
+      route: "home",
+      title: "Studying a card",
+      body: "A card asks for one missing name, date or term. Answer it in your head, or type into the blank, " +
+        "then press <b>Show answer</b> — the space bar does the same.<p>Behind the answer sits a page of " +
+        "background and the sources it rests on. Terms in <b class=\"tour-gold\">gold</b> are glossary entries " +
+        "you have not opened yet; a tap defines them.</p>",
+      demo: '<div class="td-card" aria-hidden="true">' +
+        '<div class="td-q">Carthage was destroyed at the end of the <span class="td-blank"></span> Punic War, in 146 BCE.</div>' +
+        '<div class="td-btn">Show answer</div></div>',
+    },
+    {
+      route: "home",
+      title: "Grade yourself honestly",
+      body: "Then you say how it went. The figure on each button is when that card comes back — a moment, or " +
+        "months.<p>Honesty is the whole mechanism. Marking a card <b>Easy</b> that you actually fumbled buries " +
+        "it for weeks; <b>Again</b> costs you nothing but a minute. Keys <b>1</b>–<b>4</b> do the same, and " +
+        "Ctrl+Z takes back a misclick.</p>",
+      demo: tourGradeDemo,
+    },
+    {
+      route: "home",
+      title: "Write on the card",
+      body: "A <b>marker</b> floats over every study card. Tap it for pens, a highlighter, an eraser, undo and a " +
+        "colour of your own; tap the chosen tool again to put the pen down.<p>Drag it anywhere on the screen — " +
+        "it has weight, so it can be thrown out of the way. It works on the Atlas globe and on a book's page " +
+        "too, and in a book your notes are kept when you come back.</p>",
+      demo: '<div class="td-marker" aria-hidden="true"><span class="td-pen">' + TOUR_PEN + "</span>" +
+        '<svg class="td-scribble" viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">' +
+        '<path d="M6 30c14-22 22 8 34-6s16 14 30 2 20 6 26-4"/></svg></div>',
+    },
+    {
+      route: "home",
+      title: "And the rest of it",
+      body: "Six <b>minigames</b> sit under the review, one round of each per day. The <b>Atlas</b> is a globe " +
+        "you can wind back to 1000 BCE, and the <b>Library</b> holds whole books to read.<p>Both of those " +
+        "explain themselves the first time you open them, so this is where the tour stops. Your progress is " +
+        "kept on this device; an account carries it between them.</p>",
+      target: [".games-sec", ".game-grid"],
+    },
+  ];
+
+  let tourEl = null, tourAt = 0, _tourKeys = null, _tourWatch = null, _tourShift = [0, 0];
+  function tourRunning() { return !!tourEl; }
+  function tourStart(at) {
+    tourStop();
+    tourAt = Math.max(0, Math.min(TOUR_STEPS.length - 1, at || 0));
+    const ov = document.createElement("div");
+    ov.className = "folio-tour";
+    ov.innerHTML =
+      '<svg class="tour-draw" aria-hidden="true"><path class="tour-ring" fill="none"/><path class="tour-line" fill="none"/><path class="tour-head" fill="none"/></svg>' +
+      '<div class="tour-card" role="dialog" aria-modal="true" aria-label="Folio walkthrough" tabindex="-1">' +
+      '<button class="tour-x" type="button" aria-label="Close the walkthrough">×</button>' +
+      '<span class="tour-count"></span><h3></h3><div class="tour-body"></div><div class="tour-demo"></div>' +
+      '<div class="tour-nav"><button class="tour-skip" type="button">Skip</button>' +
+      '<span class="tour-nav-main"><button class="btn ghost tour-back" type="button">Back</button>' +
+      '<button class="btn tour-next" type="button">Next</button></span></div></div>';
+    document.body.appendChild(ov);
+    tourEl = ov;
+    ov.querySelector(".tour-x").addEventListener("click", () => tourStop(true));
+    ov.querySelector(".tour-skip").addEventListener("click", () => tourStop(true));
+    ov.querySelector(".tour-back").addEventListener("click", () => tourGo(tourAt - 1));
+    ov.querySelector(".tour-next").addEventListener("click", () => tourGo(tourAt + 1));
+    // the backdrop deliberately does NOT dismiss: a walkthrough is read, and a stray tap on a dimmed page
+    // is the likeliest gesture there is — losing the tour to one would be losing it silently
+    _tourKeys = (e) => {
+      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); tourStop(true); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); tourGo(tourAt + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); tourGo(tourAt - 1); }
+      else if (e.key === "Tab") {
+        // a light containment: the page behind is dimmed and inert to the pointer, so it must not be the
+        // next thing a Tab reaches either. Wraps within the card rather than fighting the browser.
+        const f = [...ov.querySelectorAll("button")].filter((b) => !b.disabled && b.offsetParent !== null);
+        if (!f.length) return;
+        const i = f.indexOf(document.activeElement);
+        if (e.shiftKey ? i <= 0 : i === f.length - 1) { e.preventDefault(); (e.shiftKey ? f[f.length - 1] : f[0]).focus(); }
+        else if (i < 0) { e.preventDefault(); f[0].focus(); }
+      }
+    };
+    document.addEventListener("keydown", _tourKeys, true);
+    _tourWatch = () => tourPlace();
+    window.addEventListener("resize", _tourWatch);
+    window.addEventListener("scroll", _tourWatch, true);
+    tourGo(tourAt, true);
+  }
+  function tourStop(remember) {
+    if (_tourKeys) { document.removeEventListener("keydown", _tourKeys, true); _tourKeys = null; }
+    if (_tourWatch) { window.removeEventListener("resize", _tourWatch); window.removeEventListener("scroll", _tourWatch, true); _tourWatch = null; }
+    if (tourEl) { tourEl.remove(); tourEl = null; }
+    _tourShift = [0, 0];   // the overlay is rebuilt centred; a stale shift would be subtracted from it
+    if (remember) {
+      setTourSeen();
+      // the offer card is first-run markup on the home page — drop it now rather than leave it standing
+      // behind a tour the reader has just finished
+      if (current && current.name === "home" && document.querySelector(".tour-offer")) render();
+    }
+  }
+  function tourGo(i, first) {
+    if (!tourEl) return;
+    if (i >= TOUR_STEPS.length) { tourStop(true); return; }
+    tourAt = Math.max(0, i);
+    const st = TOUR_STEPS[tourAt];
+    // routing repaints the page under the tour; the overlay is on document.body and survives it, and
+    // render() calls tourAfterRender() so nothing here has to wait on the paint
+    if (st.route && current && current.name !== st.route) route(st.route);
+    tourPaint(first);
+  }
+  function tourPaint(first) {
+    const ov = tourEl; if (!ov) return;
+    const st = TOUR_STEPS[tourAt], last = tourAt === TOUR_STEPS.length - 1;
+    ov.querySelector(".tour-count").textContent = "Step " + (tourAt + 1) + " of " + TOUR_STEPS.length;
+    ov.querySelector("h3").textContent = st.title;
+    ov.querySelector(".tour-body").innerHTML = "<p>" + st.body + "</p>";
+    const demo = ov.querySelector(".tour-demo");
+    const d = typeof st.demo === "function" ? st.demo() : st.demo;
+    demo.innerHTML = d || "";
+    demo.hidden = !d;
+    const back = ov.querySelector(".tour-back");
+    back.disabled = tourAt === 0;
+    ov.querySelector(".tour-next").textContent = last ? "Done" : "Next";
+    ov.querySelector(".tour-skip").textContent = last ? "Close" : "Skip";
+    // a target the reader cannot see is a target the arrow cannot usefully point at
+    const t = tourTarget();
+    if (t && t.scrollIntoView) {
+      const r = t.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > innerHeight) t.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    }
+    tourPlace();
+    requestAnimationFrame(() => { tourPlace(); if (first) ov.querySelector(".tour-card").focus(); });
+    // …and again once a smooth scroll has settled, since the arrow is drawn at the target's painted position
+    setTimeout(tourPlace, 260);
+  }
+  function tourTarget() {
+    const st = TOUR_STEPS[tourAt];
+    for (const sel of st.target || []) { const el = document.querySelector(sel); if (el && el.getBoundingClientRect().width) return el; }
+    return null;
+  }
+  /* The arrow. Both rects are in viewport coordinates and the SVG is a fixed full-screen layer with no
+     viewBox, so its user units are CSS pixels and nothing has to be converted. The line leaves the card's
+     own edge on the ray toward the target and stops just short of the ring — an arrow that starts in the
+     middle of the text it belongs to, or ends under the thing it points at, reads as a mistake. */
+  function tourPlace() {
+    const ov = tourEl; if (!ov) return;
+    const line = ov.querySelector(".tour-line"), head = ov.querySelector(".tour-head"), ring = ov.querySelector(".tour-ring");
+    const cardEl = ov.querySelector(".tour-card");
+    /* THE UNSHIFTED RECT IS COMPUTED, NEVER MEASURED, and that is the whole robustness of the nudge below.
+       `getBoundingClientRect()` includes the transform, and the transform is TRANSITIONED — so a rect read
+       during a step change is the card somewhere between its last position and its next, and subtracting
+       the shift we asked for does not recover the centred box. Every later call then shifts a base that is
+       already shifted, and on a long step the card walks off the side of the screen with its own Next
+       button (which is exactly how this was found). `offsetWidth`/`offsetHeight` are layout values that no
+       transform can touch, and .folio-tour centres its child in the viewport, so the centred box is
+       arithmetic and cannot drift. */
+    const cw = cardEl.offsetWidth, ch = cardEl.offsetHeight;
+    let card = { left: Math.round((innerWidth - cw) / 2), top: Math.round((innerHeight - ch) / 2), width: cw, height: ch };
+    const t = tourTarget();
+    const centre = () => { if (_tourShift[0] || _tourShift[1]) { _tourShift = [0, 0]; cardEl.style.transform = ""; } };
+    const clear = () => { line.setAttribute("d", ""); head.setAttribute("d", ""); ring.setAttribute("d", ""); centre(); };
+    if (!t) return clear();
+    const r = t.getBoundingClientRect();
+    if (!r.width || !r.height || r.bottom < 0 || r.top > innerHeight) return clear();
+    /* THE CARD MOVES OUT OF ITS TARGET'S WAY, and only that far. A centred popup lands on top of whatever
+       it is describing about half the time — the daily-study banner is most of the home page — and an
+       arrow that starts and ends inside the same box is a stub pointing at nothing. So four placements are
+       tried (below the target, above it, beside it either way), the smallest shift that keeps the whole
+       card on screen wins, and if none does the card stays centred and the ring speaks for itself. It is a
+       nudge rather than a repositioning: the popup is still in the middle of the screen, and the reader's
+       eye does not have to go looking for it between steps. */
+    { const m = 14, cR = card.left + card.width, cB = card.top + card.height;
+      /* The gap has to leave room for an ARROW, not merely for daylight: the line starts 10px outside the
+         card and stops 8px outside the ring, so a 26px gap draws an 8px stub the eye reads as a smudge.
+         The roomy gap is tried first and a tight one second — on a phone, or against a target that fills
+         most of the page, the roomy one simply will not fit and half an arrow beats none. */
+      let dx = 0, dy = 0;
+      if (r.bottom + 20 > card.top && r.top - 20 < cB && r.right + 20 > card.left && r.left - 20 < cR) {
+        for (const gap of [76, 40]) {
+          const fit = [
+            [0, r.bottom + gap - card.top], [0, r.top - gap - cB],
+            [r.right + gap - card.left, 0], [r.left - gap - cR, 0],
+          ].filter((o) =>
+            card.top + o[1] >= m && cB + o[1] <= innerHeight - m &&
+            card.left + o[0] >= m && cR + o[0] <= innerWidth - m
+          ).sort((a, b) => (Math.abs(a[0]) + Math.abs(a[1])) - (Math.abs(b[0]) + Math.abs(b[1])));
+          if (fit.length) { dx = Math.round(fit[0][0]); dy = Math.round(fit[0][1]); break; }
+        }
+      }
+      if (dx || dy) {
+        _tourShift = [dx, dy];
+        cardEl.style.transform = "translate(" + dx + "px," + dy + "px)";
+        // the arrow is drawn against where the card WILL be, not where it is mid-transition
+        card = { left: card.left + dx, top: card.top + dy, width: card.width, height: card.height };
+      } else centre();
+    }
+    // the ring: a rounded rectangle a little outside the target, drawn as a path so one element does both jobs
+    const pad = 7, rad = 11;
+    const x = r.left - pad, y = r.top - pad, w = r.width + pad * 2, h = r.height + pad * 2;
+    const rr = Math.min(rad, w / 2, h / 2);
+    ring.setAttribute("d",
+      "M" + (x + rr) + " " + y + "h" + (w - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + rr + " " + rr +
+      "v" + (h - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + -rr + " " + rr +
+      "h" + -(w - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + -rr + " " + -rr +
+      "v" + -(h - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + rr + " " + -rr + "z");
+    const cx = card.left + card.width / 2, cy = card.top + card.height / 2;
+    const tx = r.left + r.width / 2, ty = r.top + r.height / 2;
+    let ux = tx - cx, uy = ty - cy;
+    const len = Math.hypot(ux, uy);
+    if (len < 1) { line.setAttribute("d", ""); head.setAttribute("d", ""); return; }
+    ux /= len; uy /= len;
+    const exit = (hw, hh) => Math.min(Math.abs(ux) < 1e-4 ? Infinity : hw / Math.abs(ux), Math.abs(uy) < 1e-4 ? Infinity : hh / Math.abs(uy));
+    const sT = exit(card.width / 2, card.height / 2) + 10;
+    const eT = exit(w / 2, h / 2) + 8;
+    const sx = cx + ux * sT, sy = cy + uy * sT;
+    const ex = tx - ux * eT, ey = ty - uy * eT;
+    // too close to draw: the target is all but under the card, and a 20px arrow between two boxes is noise
+    if (Math.hypot(ex - sx, ey - sy) < 26) { line.setAttribute("d", ""); head.setAttribute("d", ""); return; }
+    // a slight bow, so the arrow reads as drawn by hand rather than as a rule between two boxes
+    const mx = (sx + ex) / 2, my = (sy + ey) / 2, bow = Math.min(34, Math.hypot(ex - sx, ey - sy) * 0.16);
+    const px = -(ey - sy), py = ex - sx, pl = Math.hypot(px, py) || 1;
+    const qx = mx + (px / pl) * bow, qy = my + (py / pl) * bow;
+    line.setAttribute("d", "M" + sx + " " + sy + "Q" + qx + " " + qy + " " + ex + " " + ey);
+    // the head follows the curve's own tangent at the end, not the straight line between the two boxes
+    let hx = ex - qx, hy = ey - qy; const hl = Math.hypot(hx, hy) || 1; hx /= hl; hy /= hl;
+    const wing = (a) => {
+      const c = Math.cos(a), s = Math.sin(a);
+      return [ex - (hx * c - hy * s) * 11, ey - (hx * s + hy * c) * 11];
+    };
+    const a1 = wing(0.45), a2 = wing(-0.45);
+    head.setAttribute("d", "M" + a1[0] + " " + a1[1] + "L" + ex + " " + ey + "L" + a2[0] + " " + a2[1]);
+  }
+  // every render() ends here: the page under the tour has just been rebuilt, so the arrow is pointing at an
+  // element that no longer exists
+  function tourAfterRender() { if (tourEl) requestAnimationFrame(tourPlace); }
+
+  /* ---------- a page's own first-visit coach marks ----------
+     The Atlas has had these since it shipped; the walkthrough above deliberately stops short of the Atlas
+     and the Library, so the Library needed its own (Aug 2026, on request). Same card, same three ways out,
+     its own remembered key.
+
+     IT LIVES ON document.body, and that is not a preference. The Atlas's card can be `position:absolute`
+     inside its own full-bleed stage; an ordinary page has no such stage, so this one has to be fixed to the
+     VIEWPORT — and `.page` carries `animation:pageIn … both`, which makes it the containing block for every
+     fixed descendant. Rendered inside the page, `inset:0` therefore resolves to the page's own box: on the
+     Library that is the whole shelf, several screens tall, so the card centres itself a screen and a half
+     below the fold and the reader sees a dimmed page with nothing on it. (It shipped that way for an hour.)
+     On the body it is render()'s to close, like every other overlay there — see closePageHelp. */
+  let _pageHelpEl = null;
+  function closePageHelp() { if (_pageHelpEl) { _pageHelpEl.remove(); _pageHelpEl = null; } }
+  function pageHelp(label, tips, goLabel, onDone) {
+    closePageHelp();
+    const ov = document.createElement("div");
+    ov.className = "page-help";
+    ov.innerHTML = '<div class="ah-card" role="dialog" aria-modal="true" aria-label="' + esc(label) + '">' +
+      '<button class="ah-close" type="button" aria-label="Close">×</button><h3>' + esc(label) + "</h3>" +
+      tips.map((t) => '<div class="ah-tip">' + t + "</div>").join("") +
+      '<button class="btn ah-go" type="button">' + esc(goLabel) + "</button></div>";
+    document.body.appendChild(ov);
+    _pageHelpEl = ov;
+    const done = () => { closePageHelp(); document.removeEventListener("keydown", onKey, true); if (onDone) onDone(); };
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); done(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("click", (e) => { if (e.target === ov) done(); });
+    ov.querySelector(".ah-close").addEventListener("click", done);
+    ov.querySelector(".ah-go").addEventListener("click", done);
+    setTimeout(() => { const f = ov.querySelector(".btn"); if (f) f.focus(); }, 0);
+    return ov;
+  }
+  const LIB_TOUR_KEY = "folio_library_tour_v1";
+  const LIB_HELP_TIPS = [
+    "<b>Whole books, not extracts</b> — every work here is out of copyright and complete, in a named edition, with the translator and the grounds for shelving it stated on the book's own first page.",
+    "<b>Open one</b> — the chapters run along a bar at the top; ‹ › and the arrow keys step through them, and on a phone a sideways swipe does the same. Folio remembers the paragraph you stopped at, on every device you are signed in to.",
+    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. The translator's own notes fold out under each chapter.",
+    "<b>Mark up the page</b> — the same floating marker as a study card's draws over a book, and here the strokes are kept. Select a passage and right-click it to highlight the words themselves, copy them, or have them read aloud.",
+    "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a book for its options: star it to the top of the shelf, or share it.",
+  ];
+  function openLibHelp() {
+    pageHelp("The Library", LIB_HELP_TIPS, "Start reading", () => { try { localStorage.setItem(LIB_TOUR_KEY, "1"); } catch (e) {} });
+  }
+
+  /* THE OFFER — first-run markup on the home page, beside the hero and the how-it-works strip. It is shown
+     to a reader who has never graded a card and has never answered this question, and either answer retires
+     it for good; Settings → Study brings the walkthrough back. */
+  function tourOfferHTML() {
+    if (tourSeen() || tourRunning()) return "";
+    if (Object.keys(S.cards).length) return "";   // not a first-time reader, whatever the key says
+    return '<div class="tour-offer">' +
+      '<span class="to-chip" aria-hidden="true">' + TOUR_PEN + "</span>" +
+      '<div class="to-body"><b>New here?</b>' +
+      "<span>A three-minute walkthrough of how the cards are scheduled, how to add a deck, and how to study one.</span></div>" +
+      '<div class="to-acts"><button class="btn" id="b-tour" type="button">Take the tour</button>' +
+      '<button class="to-no" id="b-tour-no" type="button">No thanks</button></div></div>';
+  }
+  function wireTourOffer(root) {
+    const go = root.querySelector("#b-tour"), no = root.querySelector("#b-tour-no");
+    if (go) go.addEventListener("click", () => tourStart(0));
+    if (no) no.addEventListener("click", () => { setTourSeen(); render(); });
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
@@ -9290,7 +9910,15 @@
       // elided. Text from the scanned Naibedya on Bengali Wikisource.
       o: { lang: "bn", t: "চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির — ভারতেরে সেই স্বর্গে করো জাগরিত।", a: "রবীন্দ্রনাথ ঠাকুর", s: "নৈবেদ্য ৭২, ১৯০১" } },
     { t: "Education is the manifestation of the perfection already in man.", a: "Swami Vivekananda", s: "Complete Works, vol. IV" },
-    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century" },
+    // Read off the Arabic text of the risāla on Arabic Wikisource rather than set down from memory, which is
+    // the same rule the Marcus Aurelius Greek follows (that one is read out of the project's own Library).
+    // It sits in the خطبة, the dedication to al-Mu'tasim that opens the work. The Arabic is cut to the
+    // clauses the English actually quotes: al-Kindi's sentence runs on into "فإنه لا شيء أولى بطالب الحق من
+    // الحق" — nothing is fitter for the seeker of truth than the truth — which this translation does not
+    // carry, and a flip that answered with a clause the reader was never shown would be the wrong half of
+    // the page. Tagore's entry cuts for the same reason.
+    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century",
+      o: { lang: "ar", t: "وينبغي لنا أن لا نستحي من استحسان الحق، واقتناء الحق من أين أتى، وإن أتى من الأجناس القاصية عنا، والأمم المباينة.", a: "الكندي", s: "الفلسفة الأولى، خطبة الكتاب" } },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
     { t: "The seeker after truth is not one who studies the writings of the ancients and trusts them, but one who questions what he gathers from them.", a: "Ibn al-Haytham", s: "Doubts Concerning Ptolemy, 11th century" },
@@ -9560,6 +10188,75 @@
            `v${v}${when ? " · " + w : ""}</div>`;
   }
 
+  /* ---------- the review list's SUBDECK FOLD (Aug 2026, on request) ----------
+     Adding a collection brings its whole subtree into the review (see addActive), and a 1,000-card plan's
+     tree runs to thirty or forty leaves — so the list under the banner had become by a wide margin the
+     longest thing on the home page, and a reader with two collections added met a wall of rows before the
+     games. A row with children under it now carries a chevron and its children start SHUT.
+
+     NOTHING IS LOST BY SHUTTING ONE, which is what makes that default honest rather than merely tidy: a
+     node's own row already counts its WHOLE subtree (entryCardIds walks it), so the three piles and the
+     progress bar on a folded parent are the totals for everything folded underneath it. Tapping the row
+     still studies the lot.
+
+     WHAT STARTS SHUT IS AN ADDED ROW, NOT EVERY ROW, and the distinction is load-bearing. `addActive`
+     takes a node's subtree and deliberately NOT its ancestors, so a reader who adds one subdeck gets it
+     under a greyed context row for each ancestor — signposts they never chose. Folding those by default
+     would hide the reader's own deck behind a row they cannot even tap, which is the one way this change
+     could take something away. So an ancestor context row starts OPEN and the topmost thing the reader
+     actually added is always on screen; it still carries a chevron, so folding it is theirs to do.
+
+     The open set is module-level rather than in `S` — it is a way of looking at a list, not a preference
+     about Folio (the same call renderDeckStats and the glossary record's sort picker make). So it survives
+     tapping into a deck and coming back, and resets on reload, which is what "collapsed by default" means
+     for a reader arriving at the page. */
+  const adOpen = new Set();
+  /* …and the ids whose default has already been decided, so that seeding one is a once-per-row event. Without
+     it every re-render (a grade, a navigation back to the page) would re-seed the defaults and undo a fold the
+     reader had just opened; with it, a collection added later in the same session still starts shut. */
+  const adSeeded = new Set();
+  /* A row is visible when every ANCESTOR OF IT THAT IS ALSO A ROW is open. Walking the node's own parent
+     chain rather than the DOM keeps this true for a tree whose middle levels are not all drawn. */
+  function adRowVisible(node, rowIds) {
+    let p = node && node.parentId ? NODE_BY_ID[node.parentId] : null;
+    while (p) {
+      if (rowIds.has(p.id) && !adOpen.has(p.id)) return false;
+      p = p.parentId ? NODE_BY_ID[p.parentId] : null;
+    }
+    return true;
+  }
+  /* Re-hide, re-mark and re-round the list after a fold. Three things, and the last two are the ones that
+     look like bugs when they are missed: the chevron has to say which way it now points (to the eye AND to
+     a screen reader), and the rounded bottom corner belongs to the last VISIBLE row rather than to the last
+     DOM child — `:last-child` cannot see a folded row, so with the list shut by default the bottom of the
+     card would square off under whatever row happened to be last in the markup. */
+  function adSyncFold(listEl) {
+    if (!listEl) return;
+    const rows = [...listEl.querySelectorAll(".active-deck[data-node]")];
+    const rowIds = new Set(rows.map((el) => el.dataset.node));
+    let last = null;
+    rows.forEach((el) => {
+      const node = NODE_BY_ID[el.dataset.node];
+      const vis = adRowVisible(node, rowIds);
+      el.classList.toggle("ad-shut", !vis);
+      if (vis) last = el;
+      const chev = el.querySelector(".ad-chev");
+      if (chev) {
+        const open = adOpen.has(el.dataset.node);
+        chev.classList.toggle("open", open);
+        chev.setAttribute("aria-expanded", open ? "true" : "false");
+        const label = t(open ? "Hide the decks inside" : "Show the decks inside");
+        chev.setAttribute("aria-label", label);
+        chev.title = label;
+      }
+    });
+    // the community decks and the Card-of-the-day list sit after the tree and never fold, so the last row
+    // of the whole list is whichever of those came last — they carry no data-node and are always visible
+    const tail = [...listEl.children].filter((el) => !el.dataset.node);
+    if (tail.length) last = tail[tail.length - 1];
+    listEl.querySelectorAll(".ad-last").forEach((el) => el.classList.remove("ad-last"));
+    if (last) last.classList.add("ad-last");
+  }
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -9656,22 +10353,50 @@
         nodeChildren(node).forEach((ch) => walk(ch, depth + 1));
       }
       TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
+      /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
+         that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
+         subdecks are all empty carry none. The default is seeded once per row (see adSeeded): an ADDED row
+         starts shut, an ancestor context row starts open, for the reason set out above the fold helpers. */
+      const rowIds = new Set(rows.map((r) => r.node.id));
+      const hasKids = new Set();
+      rows.forEach((r) => { if (r.node.parentId && rowIds.has(r.node.parentId)) hasKids.add(r.node.parentId); });
+      /* What starts OPEN is a row lying entirely ABOVE everything the reader added — nothing on the path
+         from it down to their choice is in S.active. Those are the pure signposts, and folding one hides
+         the reader's own deck behind a row they cannot even tap.
+         The test is on `activeSet` rather than on the row being drawn as a context row, and the difference
+         is the whole of it: an EMPTY deck inside an added collection also draws as a context row, and it
+         is not a signpost at all — it is inside the very fold the reader just shut. Testing the drawn row
+         instead let a collection open onto its whole 43-row tree again, which is the thing this replaced. */
+      const seedOpen = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
+      rows.forEach((r) => {
+        if (!hasKids.has(r.node.id) || adSeeded.has(r.node.id)) return;
+        adSeeded.add(r.node.id);
+        if (seedOpen(r.node)) adOpen.add(r.node.id);
+      });
       return rows
         .map((r) => {
           const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
+          // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
+          // collapse in the reader's face on every visit to the page
+          const shut = adRowVisible(r.node, rowIds) ? "" : " ad-shut";
+          // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
+          // of a leaf deck would stop at two different places and the list's right edge would go ragged
+          const chev = hasKids.has(r.node.id) ? chevBtn("ad-chev") : '<span class="ad-chev-gap" aria-hidden="true"></span>';
           if (r.active) {
-            return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}" data-node="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${adCounts(r.node.id)}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
+              ${chev}
             </div>`;
           }
-          return `<div class="active-deck context" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px">
+          return `<div class="active-deck context${shut}" data-node="${esc(r.node.id)}" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px">
             <div class="ad-body">
               <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
+            ${chev}
           </div>`;
         })
         .join("") +
@@ -9685,6 +10410,7 @@
                 <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
                 ${adProg(entryCardIds(id))}
               </div>
+              <span class="ad-chev-gap" aria-hidden="true"></span>
             </div>`;
         }).join("") +
         // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
@@ -9695,6 +10421,7 @@
                 <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
                 ${adProg(entryCardIds(COTD_ENTRY))}
               </div>
+              <span class="ad-chev-gap" aria-hidden="true"></span>
             </div>`);
     })();
     const greeting = (() => {
@@ -9903,6 +10630,10 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
+        ${/* The walkthrough is OFFERED, never raised over the page unasked — see the GUIDED TOUR block. It
+              sits above the review with the hero and the how-it-works strip, which are first-run-only for
+              the same reason, and either answer retires it. Settings → Study brings it back. */""}
+        ${tourOfferHTML()}
         ${reviewGroup}
         ${howit}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
@@ -9948,6 +10679,7 @@
        down on the way in, so a listener installed by an older build in this same session goes with it. */
     if (_homeResize) { window.removeEventListener("resize", _homeResize); _homeResize = null; }
     wireDailyQuote(root);
+    wireTourOffer(root);
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
       const id = el.dataset.review;
@@ -9956,6 +10688,45 @@
         route("study", { scope: id === COTD_ENTRY ? { type: "cotd" } : ud ? { type: "udeck", id: ud } : { type: "deck", id } });
       });
     });
+    /* The subdeck fold. The chevron sits INSIDE a row whose own click starts a session and whose own hold
+       opens the options sheet, so it has to take itself out of both: `stopPropagation` keeps the click off
+       the row (the Library's chevron does exactly this, for exactly this reason), and `pointerdown` has to
+       be stopped as well — `wireHoldMenu` starts its timer there, so without it a reader resting a finger
+       on the chevron would fold the row AND be handed the deck's options sheet.
+       It repaints IN PLACE rather than through render(): the list is a tree the reader has just posed by
+       hand, and rebuilding the page would re-run every row's entrance animation and take the scroll
+       position with it. Revealed rows re-run their own pageIn, which is what the Library's expander does. */
+    const adList = root.querySelector(".active-decks");
+    if (adList) {
+      adSyncFold(adList);
+      adList.querySelectorAll(".ad-chev").forEach((chev) => {
+        const row = chev.closest(".active-deck");
+        const id = row && row.dataset.node;
+        if (!id) return;
+        chev.addEventListener("pointerdown", (e) => e.stopPropagation());
+        /* …and the KEYBOARD needs the same treatment, which the pointer half does not make obvious.
+           `wireHoldMenu` also binds Enter/Space on the row, and a native <button> activated from the
+           keyboard fires a keydown that bubbles BEFORE the click it synthesises — so without this the
+           chevron folded the row and then the row's own handler carried the reader off into a study
+           session. Stopping the key here leaves the button's own default alone, so the click still
+           arrives and the fold still happens. */
+        chev.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") e.stopPropagation(); });
+        chev.addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          const open = !adOpen.has(id);
+          if (open) adOpen.add(id); else adOpen.delete(id);
+          const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)")]);
+          adSyncFold(adList);
+          if (open) {
+            adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)").forEach((el) => {
+              if (before.has(el)) return;
+              el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
+            });
+          }
+        });
+      });
+    }
     // …and the banner above them holds open the review's OWN options (the Ordered/Random pair that used to
     // sit in its corner). Its click is already wired above, so no tap handler is passed here — the shared
     // `held` guard is what keeps the hold from also starting a session.
@@ -11286,6 +12057,9 @@
       <div class="lib-tools">
         <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these books…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
         ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
+        ${/* the way back to the first-visit card, exactly as the Atlas's "?" is — a page that explains
+              itself once and then never again is a page whose explanation cannot be re-read */""}
+        <button class="gz-btn lib-help-btn" id="libHelpBtn" type="button" aria-label="How to use the Library">?</button>
       </div>
       ${/* The licence note that used to close this page is gone (Aug 2026, on request). The RULE it
             described has not changed and is not weakened by its going: it is still stated in
@@ -11317,6 +12091,15 @@
     if (so) so.addEventListener("change", () => { setBookSort(so.value, false); });
     const sd = root.querySelector("#bkSortDir");
     if (sd) sd.addEventListener("click", () => { setBookSort(bookSortKey(), !bookSortRev()); });
+    /* first-visit coach marks + the "?" that brings them back (see pageHelp). The card is built on
+       document.body rather than written into this page — the reason is worth reading there. */
+    { const helpBtn = root.querySelector("#libHelpBtn");
+      if (helpBtn) helpBtn.addEventListener("click", openLibHelp);
+      let seen = "1"; try { seen = localStorage.getItem(LIB_TOUR_KEY) || ""; } catch (err) {}
+      // never over the walkthrough — it routes through nothing but Home and the collections, but a reader
+      // who finished it and came straight here would otherwise meet two cards at once
+      if (!seen && !tourRunning()) openLibHelp();
+    }
   };
   /* The direction control. A real button rather than four more options in the select, because the field
      and the direction are two independent choices and a select of eight rows makes the reader find the
@@ -14593,13 +15376,10 @@
   }
 
   /* ============================================================
-     DAILY CHALLENGE
+     MULTIPLE CHOICE
      ============================================================ */
-  const BOTS = [
-    { name: "Mei", color: "#36357A", skill: 0.78, speed: [2.5, 7] },
-    { name: "Aric", color: "#B5722A", skill: 0.62, speed: [3, 9] },
-    { name: "Tomas", color: "#3F7E5C", skill: 0.7, speed: [2, 8] },
-  ];
+  // (The rival-bot race that used to live here is gone; `BOTS`, `drawRace` and the podium went with it.
+  //  `S.daily.wins` survives because the Victor/Champion badges read it — see checkAchievements.)
 
   // rough type of a card's answer, so the wrong options are the SAME KIND of thing (a person → other people,
   // a dynasty → other dynasties, an event → other events) and the choice is genuinely hard rather than obvious.
@@ -15539,6 +16319,7 @@
               <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
               <div class="ah-tip"><b>Time-travel</b> — the dots on the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
+              <div class="ah-tip"><b>Draw on it</b> — the marker floating over the globe is the same one that writes on a study card: tap it for pens, a highlighter and an eraser, and drag it out of the way. Strokes here are pinned to the map, so they turn with it.</div>
               <div class="ah-tip"><b>A caution</b> — historical borders are rough estimates and should never be taken as factually accurate. Many past frontiers were vague, disputed or simply never recorded, so read every old map as an approximation rather than a precise picture of the world.</div>
               <button class="btn" id="ahGo" type="button">Explore</button>
             </div>
@@ -19801,6 +20582,13 @@
             <div class="info"><h3>Day ends at</h3><p>When one study day becomes the next: the review's new cards reset, the daily quote and the card of the day change, and your streak counts. Useful if you study after midnight. Follows this device's clock.</p></div>
             <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
+          <div class="set-row">
+            ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
+                  — so without this it would be unreachable the moment either answer was given. The Atlas
+                  and the Library keep their own "?" for the same reason. */""}
+            <div class="info"><h3>Walkthrough</h3><p>The three-minute tour of how cards are scheduled, how to add a deck to your daily study, and how to study one.</p></div>
+            <div class="ctl"><button class="btn ghost" id="replayTour">Take the tour</button></div>
+          </div>
         </div>
         <div class="set-card">
           ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
@@ -19923,6 +20711,8 @@
       scheduleDayRoll();                    // the next roll-over is at a different hour now
       toast(mins ? "The day now ends at " + dayEndHHMM() : "The day now ends at midnight");
     });
+    // the walkthrough's step 1 is taught on the home page, so it routes there itself — see tourGo
+    { const rt = root.querySelector("#replayTour"); if (rt) rt.addEventListener("click", () => tourStart(0)); }
 
     const npVal = root.querySelector("#np-val");
     const setNp = (d) => {
@@ -22918,13 +23708,17 @@
     if (LANG_CODES.includes(q) && q !== S.settings.lang) { S.settings.lang = q; save(); }
   })();
   // The translation tables are lazy AND per-language (see langBundle): i18n/ui-<lang>.js carries the site
-  // chrome and i18n/gloss-<lang>.js the glossary descriptions — ~310 KB for the one language being read,
-  // which an English reader never fetches at all. Both are pulled the moment the language goes
-  // non-English; `then` fires once the chrome table has landed.
+  // chrome, and games/places their own pools — the one language being read, which an English reader never
+  // fetches at all. They are pulled the moment the language goes non-English; `then` fires once the chrome
+  // table has landed.
+  // NOTE (2026-08-08): the GLOSSARY translations were removed on request along with the card `i18n` blocks,
+  // so i18n/gloss-<lang>.js no longer exists and is deliberately NOT fetched here — a bundle pointing at a
+  // deleted file is a 404 per language, which is what it did for the hour before this line was cut.
+  // `glossText()` falls back to the English, so every reader now sees the English glossary. The ingest hook
+  // and the per-language overlay below are kept intact, so restoring the files is all it would take.
   function loadLangData(then) {
     const lang = S.settings.lang || "en";
     if (lang === "en") { if (then) then(); return; }
-    ensureData(langBundle("glossI18n", lang));   // background — gloss popups read it as soon as it lands
     ensureData(langBundle("gamesI18n", lang));   // background — the two game pages also await it themselves
     ensureData(langBundle("placeI18n", lang));   // background — the Atlas re-renders its labels when it lands
     ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });

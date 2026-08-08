@@ -557,6 +557,23 @@ const SHU = [
 const SHU_BY_N = {};
 SHU.forEach((r) => { SHU_BY_N[r[0]] = r; });
 
+/* The thirty-five pieces of the Poetic Edda, in the order this edition's own contents page lists
+   them and under the spellings its page titles use — read off that page row by row rather than
+   assembled from memory, since several of these names have three or four accepted spellings and the
+   wiki's are not always the commonest. The break between the two `parts` falls after the fourteenth,
+   where Bellows's contents page turns from the Lays of the Gods to the Lays of the Heroes. */
+const EDDA_POEMS = [
+  "Voluspo", "Hovamol", "Vafthruthnismol", "Grimnismol", "Skirnismol",
+  "Harbarthsljoth", "Hymiskvitha", "Lokasenna", "Thrymskvitha", "Alvissmol",
+  "Baldrs Draumar", "Rigsthula", "Hyndluljoth", "Svipdagsmol",
+  "V\u00f6lundarkvitha", "Helgakvitha Hjorvarthssonar", "Helgakvitha Hundingsbana I",
+  "Helgakvitha Hundingsbana II", "Fra Dautha Sinfjotla", "Gripisspo", "Reginsmol",
+  "Fafnismol", "Sigrdrifumol", "Brot af Sigurtharkvithu", "Guthrunarkvitha I",
+  "Sigurtharkvitha en Skamma", "Helreith Brynhildar", "Drap Niflunga",
+  "Guthrunarkvitha II, en Forna", "Guthrunarkvitha III", "Oddrunargratr",
+  "Atlakvitha en Gr\u00f6nlenzka", "Atlamol en Gr\u00f6nlenzku", "Guthrunarhvot", "Hamthesmol",
+];
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -5019,6 +5036,364 @@ const BOOKS = {
        page order on that index is not Legge's. */
   },
 
+  "prose-edda": {
+    title: "The Prose Edda",
+    /* No subtitle. It is also called the Younger Edda and Snorri's Edda, and both are said in the
+       front matter; putting one on the banner would pick a side in a naming quarrel the book itself
+       does not have. */
+    author: "Snorri Sturluson",
+    translator: "Arthur Gilchrist Brodeur",
+    edition:
+      "The Prose Edda, translated by Arthur Gilchrist Brodeur, " +
+      "The American-Scandinavian Foundation, New York, 1916",
+    written: "c. 1220",
+    /* Snorri lived 1179–1241 and the Edda is dated to about 1220 on the usual grounds — it is later
+       than the poems it quotes and earlier than the manuscripts that carry it. One number, as the
+       shelf's sort requires; the front matter says how loose it is. */
+    year: 1220,
+
+    /* ---------- THE LICENCE — three layers, and the third states a LIMIT ----------
+       The work itself is free everywhere: Snorri Sturluson died in 1241, and the poems he quotes are
+       older still.
+
+       Brodeur's translation was published in 1916 by the American-Scandinavian Foundation — read off
+       the volume's own title page rather than recalled — which is before 1929, so its United States
+       copyright has expired and that is the ground this book is served on. He lived 1888–1971; the
+       dates are Wikidata's at day precision and are corroborated by Wikisource's own PD/US tag on the
+       work, which gives 1971, so unlike Wyatt's on the Beowulf shelf they are not a lone unverified
+       figure. Life plus seventy therefore runs to the end of 2041, and this stays in copyright in
+       those countries until 2042 — the same position as Ross's Nicomachean Ethics, and it is SAID
+       OUTRIGHT here and on the book's own page rather than smoothed into the easier sentence the
+       Republic and the Analects can honestly use.
+
+       WHAT IS AND IS NOT TAKEN. The 1916 volume also carries Brodeur's own introduction, which runs
+       to some fifty pages, and an index; neither is imported, which is the Republic's precedent for
+       the introduction and plates it left behind. What is taken is the three parts of the Edda the
+       volume translates.
+
+       The translations a reader is likeliest to own — Jean I. Young's of 1954, Anthony Faulkes's
+       Everyman of 1987 and Jesse Byock's Penguin of 2005 — are all firmly in copyright and are named
+       here for the reason Campbell, Hays, Griffith, Lee, Sayers and the rest are named above: so that
+       nobody reaches for one later. */
+    rights:
+      "Public domain in the United States, with a limit to state elsewhere. Snorri Sturluson died in " +
+      "1241, so the work itself is free everywhere. Arthur Gilchrist Brodeur's translation was " +
+      "published in 1916 — before 1929, so its United States copyright has expired — but he lived " +
+      "from 1888 to 1971, so where the term runs for the author's life plus seventy years it stays " +
+      "in copyright until 2042. Brodeur's own introduction and index are not reproduced here; what " +
+      "is taken is the three parts of the Edda his volume translates. There is no Old Norse column, " +
+      "and the reason is a copyright one rather than a textual one — see the front matter. (The " +
+      "translations by Jean I. Young, 1954, Anthony Faulkes, 1987, and Jesse Byock, 2005, are still " +
+      "in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Prose_Edda_(Brodeur_1916)",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       Four things a reader needs before they start, and none of them is guessable from the page: that
+       this is a textbook rather than a scripture, and what that does to it; that its author was a
+       Christian politician writing about gods he did not believe in; that the tabs are three where
+       the work has four parts; and why there is no Old Norse beside it, which on this shelf is the
+       question a reader is entitled to ask. */
+    about: [
+      "<b>The Prose Edda</b> — called also the Younger Edda, or simply Snorri's Edda — is the single " +
+        "most important source for Norse mythology, and it is worth knowing from the first page that " +
+        "it was not written to be one. It is a <b>handbook for poets</b>. Icelandic court poetry, " +
+        "skaldic verse, is built out of <i>kennings</i>: compressed riddling substitutions in which " +
+        "gold is Sif's hair, a ship is the sea-king's horse, and poetry itself is the dwarves' drink. " +
+        "A kenning only works if you know the story behind it, and by about 1220 the stories were " +
+        "going. So Snorri set down the myths in plain prose, as background a young poet would need, " +
+        "and in doing so preserved a body of Germanic myth that would otherwise have survived only in " +
+        "fragments. Nearly everything a modern reader knows about Odin, Thor, Loki and Ragnarök comes " +
+        "through this book.",
+      "Its author was not a bard but a <b>politician</b>. Snorri Sturluson, 1179–1241, was one of the " +
+        "richest and most powerful men in Iceland, twice law-speaker of its assembly, a chieftain " +
+        "deep in the feuds that ended the Icelandic commonwealth, and finally a man killed in his own " +
+        "cellar by his son-in-law's men on the orders of the king of Norway. He was also a Christian, " +
+        "writing more than two centuries after Iceland's conversion, about gods nobody around him " +
+        "worshipped.",
+      "That last fact shapes the book, and the reader should watch for it. Snorri has to explain why " +
+        "a Christian may write down heathen myth at all, and his answer is <b>euhemerism</b> — the " +
+        "theory that the gods were once ordinary men, remembered as divine by people who had lost the " +
+        "true faith. The Prologue accordingly derives the Æsir from Troy and walks Odin northward " +
+        "across Europe as a migrating king, and the frame of Gylfaginning has the whole mythology " +
+        "narrated to a deceived visitor by figures who turn out to be illusions. It is a defence, and " +
+        "it lets him tell the stories straight; but it means the book is <b>a Christian's account of " +
+        "a religion he did not hold</b>, at two hundred years' distance. Where he seems to tidy a " +
+        "myth into a neat system, that is worth remembering.",
+      "The work has <b>four parts, and this edition carries three</b>. After the Prologue come " +
+        "<i>Gylfaginning</i>, the Beguiling of Gylfi, which is the narrative mythology and the part " +
+        "most people mean when they say they have read the Prose Edda; and <i>Skáldskaparmál</i>, the " +
+        "Poesy of Skalds, which explains the kennings and in doing so tells a great many more stories " +
+        "— the mead of poetry, Thor and Hrungnir, Idunn's apples, and the whole tragedy of Sigurd and " +
+        "the Niflungs that lies behind the Nibelungenlied and Wagner's Ring. The fourth part is " +
+        "<i>Háttatal</i>, a poem of Snorri's own in praise of two Norwegian rulers, composed in a " +
+        "hundred-odd metres to demonstrate each of them in turn. It is the most technical part of the " +
+        "book and the least translatable, and Brodeur did not translate it: the 1916 volume's own " +
+        "contents page lists the Prologue, Gylfaginning and Skáldskaparmál and stops. So the tabs " +
+        "here count three, and what is missing is missing from the edition rather than from the file.",
+      "The numbers running through the text are <b>chapter numbers</b>, and they are how the Edda is " +
+        "cited in any language: a reference to Gylfaginning 49 means the chapter numbered 49 in the " +
+        "second tab, which is the death of Baldr. Because each part is one continuous piece here, " +
+        "those numbers appear as the section marks inside it rather than as tabs of their own — which " +
+        "keeps a citation meaning what it means everywhere else. One numeral is missing and is " +
+        "missing from the printed page: the Prologue's first chapter opens under a drop-capital with " +
+        "no number over it, and the centred numerals begin at II, so the marks in that tab run from " +
+        "II rather than from I. Brodeur's Skáldskaparmál brackets its chapter XXI, and the square " +
+        "brackets there are his: he uses them through that part for passages he judged probably not " +
+        "Snorri's. His footnotes are gathered under each chapter.",
+      "<b>There is no Old Norse column here, and the reason is a copyright one rather than a textual " +
+        "one.</b> That is worth saying plainly, because on this shelf the older language is usually " +
+        "the easier half to serve. The Old Norse of the Edda is nearly eight hundred years old and " +
+        "free everywhere; the difficulty is that a medieval text has to be edited from its " +
+        "manuscripts before anyone can read it, and an editor's constituted text is a modern work " +
+        "with a modern copyright. The Old Norse Edda that is openly transcribed is Guðni Jónsson's, " +
+        "and he died in 1974, so his edition is in copyright where the term is life plus seventy " +
+        "until 2044 — and it is carried on Wikisource by the permission of the site that holds it " +
+        "rather than because the copyright has run out, which is not the ground this library serves " +
+        "books on. An older edition would be free, but none is transcribed anywhere reachable.",
+      "The loss is worth measuring rather than waving at, because the pairing would have been an " +
+        "unusually good one. Set against Brodeur, that Old Norse text divides the Prologue into the " +
+        "same five chapters and Gylfaginning into the same fifty-four, in the same order, with the " +
+        "content matching at every point checked — as exact as anything on these shelves. " +
+        "Skáldskaparmál is the exception and would have failed anyway: the two number it differently, " +
+        "seventy-four chapters against eighty-nine, drifting apart as they go, so pairing them by " +
+        "number would have set passages beside passages that are not their counterparts. So one part " +
+        "could never have been faced, and the other two could have been, and the reason they are not " +
+        "is a licence rather than a text.",
+      "Brodeur's English is a hundred years old and deliberately a little archaic — he is translating " +
+        "a work about poetry and keeps a poet's cadence — but it is a scholar's translation, made at " +
+        "the University of California by a man who spent his career on Old Norse, and it is close. " +
+        "The verse quotations are the hardest thing in the book: Snorri quotes skaldic stanzas as " +
+        "evidence, often several to a chapter, and skaldic verse is dense, inverted and packed with " +
+        "the very kennings under discussion. Brodeur renders them line for line and lets them stay " +
+        "difficult. They are meant to be read as exhibits rather than as lyrics, and a reader who " +
+        "finds one impenetrable is having the intended experience of a twelfth-century apprentice.",
+    ],
+
+    /* ---------- ONE PART, ONE CHAPTER ----------
+       The ordinary wiki walk: three pages, three chapters. What is new is `sections: "edda"` — the
+       numbers inside each part are Roman and are set two different ways; see markEddaSections.
+
+       WHY THE PART AND NOT THE NUMBERED CHAPTER IS THE TAB. The obvious alternative is 133 tabs, one
+       per numbered chapter, grouped by `parts` the way Seneca's letters and the Shû's documents are.
+       It was rejected on the citation: each of the three parts restarts its numbering at 1, so a
+       single run of tabs would have to renumber them into one sequence, and "Gylfaginning 44" would
+       become tab 50. Keeping the part as the chapter keeps every numeral on the page meaning what it
+       means in every edition and every reference book. The cost is three long chapters, and it is
+       within precedent rather than at it: measured, this book's longest is about 173,000 characters
+       against 199,000 for the longest book of Herodotus already on the shelf. */
+    layout: "wiki",
+    sections: "edda",
+    /* Snorri quotes skaldic stanzas as evidence and this transcription sets them as `<dl><dd>` lines
+       — see the verse pass in cleanBody. Without this they arrive as run-on prose, which on a book
+       arguing about how verse lines are built is the one thing that must not happen. */
+    verse: "dl",
+    chapters: [1, 2, 3],
+    chapterWord: "Part",
+    page: (n) =>
+      "The Prose Edda (1916 translation by Arthur Gilchrist Brodeur)/" +
+      ["Prologue", "Gylfaginning", "Skáldskaparmál"][n - 1],
+    titleOf: (n) => ["Prologue", "Gylfaginning", "Skáldskaparmál"][n - 1],
+    /* No `parts`: three chapters need no grouping above them, and the work's own divisions ARE the
+       three chapters. app.js falls back to a single unlabelled group, as the Meditations and the Song
+       of Roland do. */
+
+    /* THE PART TITLE ONLY. Each page opens with two centred blocks: the part's own name, which by the
+       time it is seen is a blockquote and which duplicates the tab directly above it, and then the
+       text's own rubric — "HERE BEGINS THE BEGUILING OF GYLFI", "THE POESY OF SKALDS". The second is
+       Snorri's heading rather than the printer's and is KEPT, and it has to be: Skáldskaparmál's
+       carries a FOOTNOTE MARKER, so dropping it would leave a note in the list with no sentence
+       opening it — the fault Beowulf's dropFittHead rule exists to avoid, met from the other side.
+       Matched on the block's whole text and anchored, as every dropHeads list is. */
+    dropHeads: [/^PROLOGUE$/, /^GYLFAGINNING$/, /^SKÁLDSKAPARMÁL$/],
+
+    /* ---------- WHAT A LATER ATTEMPT AT AN ORIGINAL MUST HANDLE ----------
+       Recorded so the measurement does not have to be made twice. The Old Norse on Icelandic
+       Wikisource (`is:Snorra Edda`, four part pages plus the Nafnaþulur and Skáldatal appendices)
+       states its chapter numbers outright and titles each one, so the key exists and is easy to read:
+       every chapter opens `<b>N. Title.</b>`. Measured against Brodeur, the Prologue divides 5 to 5
+       and Gylfaginning 54 to 54, in order, with the Icelandic chapter titles describing Brodeur's
+       chapter content at every point sampled across the whole of both. Skáldskaparmál does not pair:
+       74 against 89, already apart by chapter 20 and about sixteen apart by the end, because the two
+       editions divide the kenning-lists differently — so that part would draw beside the wrong
+       passages and must not be paired by number.
+
+       WHAT BLOCKS IT IS THE LICENCE. That text is Guðni Jónsson's edition, 1901–1974, taken onto the
+       wiki from heimskringla.no by permission rather than under an expired copyright, and life plus
+       seventy runs to 2044. An edition whose copyright HAS expired would serve — Finnur Jónsson's,
+       1858–1934, or the Arnamagnæan edition of 1848–87 — and none of them is transcribed on any
+       Wikisource, on Perseus, or anywhere else reachable; checked on the multilingual, Danish,
+       Norwegian, German and Swedish Wikisources, of which only the German has anything, and that is
+       Simrock's German verse translation of 1876 rather than the Old Norse. So this is a LICENCE gap
+       and not a textual one, which puts it with the Loeb Republic that keeps Plato's Republic out of
+       the Dialogues rather than with the Republic's own missing Stephanus numbers. If an expired
+       edition is ever transcribed, `original` needs only the Prologue and Gylfaginning; and a chapter
+       the original does not carry must be left out of it rather than supplied empty, which is what
+       app.js's greyed language control is for. */
+  },
+
+  "poetic-edda": {
+    title: "The Poetic Edda",
+    /* No subtitle. It is also called the Elder Edda and the Sæmundar Edda, and both are said in the
+       front matter; putting either on the banner would assert a name the book itself never had —
+       the second of them being an attribution modern scholarship rejects outright. */
+    author: "Anonymous",
+    translator: "Henry Adams Bellows",
+    edition:
+      "The Poetic Edda, translated by Henry Adams Bellows, " +
+      "The American-Scandinavian Foundation, New York, 1923",
+    written: "c. 900–1250",
+    /* THE DATE IS THIRTY-FIVE OPEN QUESTIONS RATHER THAN ONE, which is worse than the usual case: a
+       collection is only as datable as its parts, and these were composed by different people over
+       something like three centuries. The one fixed point is the manuscript, written in Iceland
+       around 1270. 900 is the early end of the range the poems are argued into and is what the sort
+       uses; the front matter carries the doubt rather than leaving the `c.` to do all the work. */
+    year: 900,
+
+    /* ---------- THE LICENCE — three layers, and the third states a limit ----------
+       The poems are anonymous, medieval and free everywhere on every ground.
+
+       Bellows's translation was published in 1923 by the American-Scandinavian Foundation — read off
+       the volume's own title page rather than recalled — which is before 1929, so its United States
+       copyright has expired. He lived 1885–1939, and those dates are unusually well corroborated for
+       this shelf: Wikidata carries both at DAY precision, and Wikisource's own PD/US tag on the work
+       independently gives 1939, so this is not the lone unverified figure some translators here come
+       down to. Life plus seventy therefore expired at the start of 2010 and this is public domain in
+       those countries too.
+
+       WHAT IS LEFT TO STATE is life plus a hundred, which runs to the start of 2040 — Mexico is the
+       jurisdiction that matters — so a limit is stated outright rather than smoothed into the easier
+       sentence some books here can honestly use. It is a much smaller limit than a life-plus-seventy
+       one and it is still a limit.
+
+       WHAT IS AND IS NOT TAKEN. The 1923 volume also carries Bellows's General Introduction, some
+       thirty pages on the manuscript and the metres, and a Pronouncing Index of the proper names;
+       neither is imported. What is taken is the thirty-five poems and the headnote and footnotes
+       belonging to each, which are bound to the text rather than standing in front of the whole
+       book.
+
+       The translations a reader is likeliest to own — Lee M. Hollander's of 1928 and its revisions,
+       Carolyne Larrington's Oxford of 1996 and Jackson Crawford's of 2015 — are all firmly in
+       copyright and are named here so that nobody reaches for one later. */
+    rights:
+      "Public domain in the United States and in life-plus-seventy countries, with one limit left to " +
+      "state. The poems are anonymous and medieval, so the work itself is free everywhere. Henry " +
+      "Adams Bellows's translation was published in 1923 — before 1929, so its United States " +
+      "copyright has expired — and he lived from 1885 to 1939, so it cleared life plus seventy at " +
+      "the start of 2010; where the term runs for the author's life plus a hundred years it stays in " +
+      "copyright until 2040. Bellows's General Introduction and his Pronouncing Index are not " +
+      "reproduced here; what is taken is the thirty-five poems with the introductory note and the " +
+      "footnotes he gave to each. There is no Old Norse column, and the reason is that no complete " +
+      "edition is transcribed anywhere reachable rather than that any of them is shut — see the " +
+      "front matter. (The translations by Lee M. Hollander, 1928, Carolyne Larrington, 1996, and " +
+      "Jackson Crawford, 2015, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       Five things a reader needs before they start and none of them is guessable from the page: that
+       this is an anthology and not a poem; that nobody knows who made any of it; that the numbers
+       are stanza numbers and are how every reference book will address them; that the manuscript has
+       a hole in it which the story falls through; and why there is no Old Norse beside it. */
+    about: [
+      "<b>The Poetic Edda</b> — called also the Elder Edda, and sometimes still the Sæmundar Edda — " +
+        "is the oldest and by a long way the most important source for the myths and heroic legends " +
+        "of the Norse world. The first thing to know about it is that it is <b>not a poem but an " +
+        "anthology</b>: thirty-five separate pieces by different hands, composed over perhaps three " +
+        "centuries, which owe their survival to one Icelandic manuscript of about 1270 called the " +
+        "<i>Codex Regius</i>. Nearly everything anyone knows about Odin, Thor, Loki, the world-ash " +
+        "and Ragnarök comes from this book and from Snorri Sturluson's prose handbook, which quotes " +
+        "these very poems as its authority — and where the two disagree, the verse is the older " +
+        "witness.",
+      "<b>Nobody knows who wrote any of it.</b> The name attached to the collection for three " +
+        "centuries is an accident: when the manuscript surfaced in 1643 in the hands of an Icelandic " +
+        "bishop, it was guessed to be the work of Sæmundr the Learned, a priest who had died five " +
+        "hundred years earlier, and the guess stuck hard enough that the book is still occasionally " +
+        "sold under his name. It is wrong, and no modern editor defends it. The poems are anonymous, " +
+        "they are not all of one date or one country, and the arguments about when each was composed " +
+        "run from the ninth century to the thirteenth — which is why the date on the shelf is a " +
+        "range with the early end of it used for sorting.",
+      "The collection falls into <b>two halves, and this edition's own contents page names them</b>. " +
+        "The first fourteen poems are the <i>Lays of the Gods</i>: the <i>Voluspo</i>, in which a " +
+        "seeress tells Odin the whole history of the world from its making to its burning and its " +
+        "rebirth; the <i>Hovamol</i>, a long and startlingly practical book of advice on how to " +
+        "behave in other people's houses, which turns at its end into an account of how Odin won the " +
+        "runes by hanging nine nights on a tree; and the comic and quarrelsome poems in between, " +
+        "among them Thor's recovery of his stolen hammer in women's clothing and Loki insulting " +
+        "every god present, one after another, at a feast. The remaining twenty-one are the " +
+        "<i>Lays of the Heroes</i>, and they are a different world — no gods to speak of, and a " +
+        "single blood-soaked family story running through most of them: Sigurd, the dragon Fafnir, " +
+        "Brynhild, and the Burgundian court that destroys them all. That story is the ancestor of " +
+        "the German <i>Nibelungenlied</i> and, at one further remove, of Wagner's <i>Ring</i>.",
+      "<b>The numbers running down the page are stanza numbers</b>, and they are how this book is " +
+        "cited in every language and every reference work: <i>Voluspo</i> 21 means the twenty-first " +
+        "stanza of the first poem, and it will mean that in any edition a reader picks up. They are " +
+        "the section marks here for that reason. Two other things about the shape of the text are " +
+        "the manuscript's rather than the translator's. Several poems are interrupted by <b>short " +
+        "passages of prose</b> that set the scene or carry the story over a gap, and two of the " +
+        "thirty-five pieces — <i>Fra Dautha Sinfjotla</i> and <i>Drap Niflunga</i> — are prose from " +
+        "beginning to end, being narrative bridges rather than poems at all. They are printed here " +
+        "as what they are.",
+      "<b>There is a hole in the manuscript</b>, and a reader who does not know about it will think " +
+        "the book has gone wrong. A gathering of eight leaves is missing from the <i>Codex Regius</i> " +
+        "at the very centre of the Sigurd story — the meeting of Sigurd and Brynhild, and much of " +
+        "what makes the ending intelligible. What survives on either side of the gap is a fragment, " +
+        "printed here as <i>Brot af Sigurtharkvithu</i>, which begins in the middle of a sentence and " +
+        "of an argument. Bellows's introductory notes explain at each point what has been lost and " +
+        "what the prose sources let us reconstruct; the loss itself is permanent.",
+      "Each poem opens with <b>Bellows's own introductory note</b> — where the poem is preserved, how " +
+        "sound its condition is, what is thought about its date, and what quarrel the editors are " +
+        "currently having about it — and his footnotes are gathered under the poem. They are heavy: " +
+        "on some pages there is more annotation than verse. That is not an accident of this edition " +
+        "but a fact about the material, which is full of names that mean nothing without a story " +
+        "attached, and a reader who ignores the notes entirely will find the heroic poems in " +
+        "particular very hard going. His translation is a hundred years old and keeps the metre and " +
+        "something of the word order of the original, which makes it sound archaic in places; it is " +
+        "close, and it is honest about the passages where the text is corrupt or the meaning is " +
+        "guessed.",
+      "<b>There is no Old Norse column here, and the reason is coverage rather than copyright.</b> " +
+        "That is worth stating plainly, because for a medieval work the usual obstacle is the other " +
+        "way round: the poems are eight hundred years old and free everywhere, but a medieval text " +
+        "has to be constituted from its manuscripts by an editor, and an editor's text is a modern " +
+        "work with a modern copyright. Here an edition whose copyright has expired is available and " +
+        "transcribed — Sophus Bugge's of 1867, and he died in 1907 — but only three of the " +
+        "thirty-five poems have been transcribed from it, and one of those three numbers no stanzas " +
+        "at all. Three poems out of thirty-five is not a facing text, and pairing a book on the " +
+        "tenth of it that happens to exist would leave a reader turning to an empty column on almost " +
+        "every page. If the rest is ever transcribed it can be added; the numbers are already there " +
+        "to pair on, which is the hard part.",
+    ],
+
+    /* ---------- ONE POEM, ONE CHAPTER ----------
+       The ordinary wiki walk: thirty-five pages, thirty-five chapters. What is new is
+       `layout: "eddapoem"` — the body is verse stanzas and prose links MIXED, which no earlier verse
+       reader here handles; see the block comment above extractEdda.
+
+       WHY THE POEM AND NOT THE STANZA IS THE TAB, and why the stanza is the section. Both are
+       forced by the citation rather than chosen: a poem is the unit this collection is made of and
+       the unit its contents page lists, and the stanza number is the unit every edition and every
+       reference work addresses a passage by. Neither is a compromise, which is unusual enough on
+       this shelf to be worth saying. */
+    layout: "eddapoem",
+    /* THE TWO PIECES THAT ARE PROSE THROUGHOUT, declared so the unnumbered-chapter warning means
+       something when it fires. Fra Dautha Sinfjotla and Drap Niflunga are the manuscript's narrative
+       bridges rather than poems and have no stanzas to number; both were measured rather than
+       assumed, and both carry footnotes like everything else. */
+    prose: [19, 28],
+    chapters: Array.from({ length: 35 }, (_, k) => k + 1),
+    chapterWord: "Poem",
+    page: (n) => "The Poetic Edda (tr. Bellows)/" + EDDA_POEMS[n - 1],
+    titleOf: (n) => EDDA_POEMS[n - 1],
+
+    /* The edition's own two divisions, read off its contents page rather than inferred from the
+       subject matter — the gods stop and the heroes begin at Völundarkvitha, which is where Bellows
+       puts the break and where the manuscript puts it too. */
+    parts: [
+      { n: 1, label: "Lays of the Gods", from: 1, to: 14 },
+      { n: 2, label: "Lays of the Heroes", from: 15, to: 35 },
+    ],
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -5273,6 +5648,138 @@ function markShuSections(b, warn) {
   return b;
 }
 
+/* A ROMAN NUMERAL, read strictly. Every other rule in this file counts in Arabic figures; the Prose
+   Edda numbers its chapters I, II, III … and the only other Roman numerals on this shelf are the
+   Song of Roland's laisses and Beowulf's fitts, which are read by their own extractors. It is
+   deliberately a VALIDATOR and not merely a converter: `romanValue` re-renders what it parsed and
+   returns 0 unless the two agree, so IIII, VV and XXXXV are rejected rather than quietly accepted as
+   4, 10 and 45. That matters here because the pattern below is anchored on a bold run at the head of
+   a paragraph, and Brodeur's text is full of bold that is not a chapter number — a rule that took
+   anything vaguely numeral-shaped would file a stray letter as a section and take a page of prose
+   with it. The Song of Roland's two malformed numerals are repaired by the forward-only rule instead,
+   which is the right place for a repair; this is the place for a definition. */
+const ROMAN_DIGIT = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+function romanValue(s) {
+  if (!s || !/^[IVXLCDM]+$/.test(s)) return 0;
+  let v = 0;
+  for (let i = 0; i < s.length; i++) {
+    const d = ROMAN_DIGIT[s[i]], next = ROMAN_DIGIT[s[i + 1]];
+    v += next && d < next ? -d : d;
+  }
+  return romanNumeral(v) === s ? v : 0;
+}
+function romanNumeral(v) {
+  const T = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],
+             [10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  let out = "";
+  for (const [n, s] of T) while (v >= n) { out += s; v -= n; }
+  return out;
+}
+
+/* THE SEVENTH WAY an edition marks its numbers, and the first that counts in ROMAN (Aug 2026, adding
+   the Prose Edda). Brodeur's chapter numbers are what the whole book is cited by — "Gylfaginning 44"
+   is a chapter, not a paragraph — and because each of the work's three parts is one wiki page and so
+   one chapter here, those numbers are Folio's SECTIONS. Getting them wrong does not throw and does
+   not shorten the text; it silently leaves a part paired as one block, which is the quiet shape this
+   file keeps meeting.
+
+   TWO FORMS, AND THEY ARE NOT VARIANTS OF ONE PATTERN — they are set differently because the printer
+   set the two parts differently, and both were inventoried over all three pages before this was
+   written rather than inferred from a sample:
+     (a) GYLFAGINNING AND SKÁLDSKAPARMÁL — a bold numeral WITH a full stop, run into the first
+         sentence of the chapter: `<p><b>XI.</b> Then said Gangleri…`. 54 and 74 of them.
+     (b) THE PROLOGUE — a CENTRED numeral with NO full stop, standing alone as its own block, which
+         the generic div pass a few hundred lines above has already turned into a `<blockquote>`. 4
+         of them. Left alone it renders as a quotation containing the letter V, which is the running
+         head fault the Meditations' entry records, in a new coat.
+   Matched in ONE sweep in reading order, which is the Meditations' lesson and is load-bearing rather
+   than tidy: run as two passes the (a) rule would reach the end of Skáldskaparmál and leave `seq` at
+   74, after which the forward-only guard would decline every one of the Prologue's numerals as going
+   backwards — and the Prologue would ship unnumbered with nothing thrown to say so.
+
+   THE PROLOGUE'S FIRST CHAPTER CARRIES NO NUMERAL AND NONE IS WRITTEN. Checked on the scan rather
+   than assumed: page 35 sets the heading and then a drop-capital, and the centred numerals begin at
+   II. So the Prologue's opening arrives as an unnumbered leading block, which is exactly what
+   app.js's `bookSections` already has a path for, and the front matter says so. Composing a "1" for
+   it would be composing an apparatus, which is the line the Meditations' entry draws.
+
+   Forward-only, and never more than a few steps on, like every rule above it. It earns its keep here
+   for a reason particular to this book: Brodeur's Skáldskaparmál brackets chapter XXI as probably
+   spurious and prints the bracket BEFORE the numeral, so the pattern has to reach through a `[` that
+   belongs to the text and must be kept. */
+/* Turn a Wikisource definition list into the shelf's verse shape — a blockquote of one paragraph
+   whose lines are divided by `<br>`, which is what Seneca's quoted poetry already ships as.
+
+   IT HAS TO SCAN FOR BALANCE RATHER THAN MATCH A PAIR OF TAGS, and that is the whole of it. These
+   lists NEST: Wikisource indents a continuation line by opening a fresh `<dl>` inside the `<dd>` it
+   belongs to, and measured over the Prose Edda's Gylfaginning alone there are 137 lists two deep with
+   72 of their items carrying another list inside. A non-greedy `<dl>…</dl>` pair closes on the INNER
+   list's closing tag, so the outer one is left standing — which shipped for one run as 34 unclosed
+   blockquotes and 34 unclosed paragraphs in a single chapter. Nothing threw and no word was lost;
+   only counting a tag against its closer over the shipped data showed it, which is the sweep this
+   file prescribes after any change near stripTags.
+
+   The nested items are FLATTENED into the stanza rather than nested inside it, and that is a reading
+   of the edition rather than a convenience: an indented sub-item here is the second half of a verse
+   line, so the stanza's lines in document order are exactly what the printed page sets. Emitting the
+   inner list as a blockquote of its own would put a block element inside a paragraph, which is
+   invalid nesting, and would break one stanza into two on the page. */
+function verseFromLists(b) {
+  for (let guard = 0; guard < 5000; guard++) {
+    const start = b.indexOf("<dl>");
+    if (start < 0) break;
+    // walk to the matching close, counting depth, so a nested list cannot end the outer one
+    let depth = 0, i = start, end = -1;
+    while (i < b.length) {
+      if (b.startsWith("<dl>", i)) { depth++; i += 4; continue; }
+      if (b.startsWith("</dl>", i)) { depth--; i += 5; if (!depth) { end = i; break; } continue; }
+      i++;
+    }
+    // an unbalanced list is left exactly as it was, for the generic pass below to unwrap
+    if (end < 0) break;
+    const inner = b.slice(start + 4, end - 5);
+    /* Every item in document order, however deeply the edition indented it: the list tags are dropped
+       and the remainder split at each item, which flattens any nesting without needing to know how
+       deep it went. */
+    const lines = inner
+      .replace(/<\/?dl>/g, "")
+      .split("<dd>")
+      .map((s) => s.replace(/<\/dd>/g, "").trim())
+      .filter((s) => s && s !== "<br>");
+    b =
+      b.slice(0, start) +
+      (lines.length ? "<blockquote><p>" + lines.join(" <br>\n") + "</p></blockquote>" : "") +
+      b.slice(end);
+  }
+  return b;
+}
+
+function markEddaSections(b, warn) {
+  let seq = 0, found = 0;
+  /* (a) a bold numeral with a stop, at the head of a paragraph, reached through whatever the
+         paragraph opens with — entities and the odd editorial bracket among them;
+     (b) a centred numeral standing alone, which by now is a blockquote, together with the opening
+         tag of the paragraph that follows it, so the marker lands at the head of the prose rather
+         than in a paragraph of its own. */
+  const RX = new RegExp(
+    "<p>((?:\\s|&#\\d+;|&nbsp;|\\[)*)<b>([IVXLCDM]+)\\.<\\/b>" +
+      "|<blockquote>\\s*(?:<p>)?\\s*([IVXLCDM]+)\\s*(?:<\\/p>)?\\s*<\\/blockquote>\\s*<p>",
+    "g"
+  );
+  b = b.replace(RX, (whole, lead, boldNum, centreNum) => {
+    const v = romanValue(boldNum !== undefined ? boldNum : centreNum);
+    if (!v || v <= seq || v > seq + 6) return whole;
+    seq = v; found++;
+    const mark = '<span class="bk-n">' + v + "</span>";
+    /* The lead is KEPT, as markShuSections keeps its own and for the same reason: it is whatever the
+       paragraph opened with, stripTags' stack expects to meet it, and on chapter XXI it is Brodeur's
+       own square bracket, which is part of what he printed. */
+    return boldNum !== undefined ? "<p>" + lead + mark + " " : "<p>" + mark + " ";
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return b;
+}
+
 function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   /* WHERE THE TEXT STARTS, and until Thucydides there was only one answer (Aug 2026). Every wiki book
@@ -5386,7 +5893,39 @@ function cleanBody(h, noteIds, book, warn) {
      prose. That is the Meditations' fault again (the chapter comes through LONGER rather than shorter,
      so every count reads as healthy), and it costs nothing on a page that has the wrapper, since the
      wrapper opens before the list it contains. */
-  b = b.split(/<div class="reflist|<hr class="wst-rule"|<ol class="references"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  /* …and a FIFTH boundary, for the Footnotes label dressed as a PAGE BREAK rather than as a heading
+     (Aug 2026, adding the Prose Edda). Every earlier book emits it as
+     `<div class="mw-heading…"><h2 id="Footnotes">`; Brodeur's pages emit `<span id="Footnotes">`
+     nested inside a `wst-pagebreak` span, so all four guards above missed it. The reflist div that
+     follows still cut the notes off, so the only survivor was the bare word "Footnotes" left hanging
+     at the end of two chapters — the quiet shape once more: nothing throws, the note list is right,
+     every marker resolves, the chapter is the correct length to within a word, and only a reader
+     scrolling to the foot of Gylfaginning ever meets it.
+
+     TWO NARROWER PATTERNS WERE TRIED FIRST AND BOTH WERE WRONG, which is why this one is shaped as it
+     is. Matching the id on any element (`<[a-z0-9]+ id="Footnotes"`) looks like the tidy
+     generalisation and REPLACES the fourth guard rather than joining it: measured against the shipped
+     Meditations, it fires 36 characters LATER than the old pattern, because the old one cuts at the
+     wrapper div and this one at the h2 inside it — leaving `<div class="mw-heading…">` behind to
+     become a stray empty blockquote under the last line of all twelve books, which is the Republic's
+     documented fault exactly. And cutting at `wst-pagebreak` alone is too WIDE: that class names a
+     page break rather than the apparatus, so on an edition that breaks pages mid-chapter it would cut
+     the text in half. So the fourth guard is left untouched and this one matches the pagebreak
+     wrapper ONLY where the Footnotes id is inside it, which cuts the whole wrapper and can fire
+     nowhere else. Verified against the shipped Seneca, Meditations and Peloponnesian War pages: the
+     cut lands at exactly the same offset as before on every one.
+
+     THE OPTIONAL `<p>` IS NOT DECORATION. MediaWiki wraps this label in a paragraph of its own —
+     `<p><style…/><span class="wst-pagebreak">…</span></p>`, the style already gone by the time this
+     runs — so cutting at the span alone leaves that paragraph's OPENER behind with its closer on the
+     far side of the cut. stripTags' stack then waits for a `</p>` that never comes, and every closing
+     tag after it is matched against the wrong frame: the third `<p>` imbalance this file has
+     recorded, and invisible except by counting a tag against its closer over the shipped data, which
+     is the sweep prescribed after any change near this pass. Measured here: 136 openers against 135
+     closers in Gylfaginning and 463 against 462 in Skáldskaparmál, and zero after. */
+  b = b.split(
+    /<div class="reflist|<hr class="wst-rule"|<ol class="references"|<div class="mw-heading[^"]*"><h2 id="Footnotes"|(?:<p>\s*)?<span class="wst-pagebreak[^"]*"[^>]*>(?=(?:\s*<[^>]*>)*\s*<span id="Footnotes")/
+  )[0];
   /* THE TRANSCRIPTION'S OWN SECTION HEADINGS, dropped like a running head and for a sharper reason
      (Aug 2026, adding the Peloponnesian War). Crawley's books are broken up by summary headings — "The
      State of Greece from the earliest Times to the Commencement of the Peloponnesian War" and four
@@ -5589,6 +6128,23 @@ function cleanBody(h, noteIds, book, warn) {
     return i < 0 ? '<sup class="fn"></sup>' : '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
   });
   b = b.replace(/<sup id="cite[^"]*" class="reference">[\s\S]*?<\/sup>/g, '<sup class="fn"></sup>');
+  /* VERSE SET AS A DEFINITION LIST, which is a shape this shelf had not met (Aug 2026, adding the
+     Prose Edda). Snorri quotes skaldic stanzas as EVIDENCE — several to a chapter, some hundreds
+     across the book — and they are the one thing in it that must not read as prose, since the whole
+     argument of Skáldskaparmál is about how the lines are built. Wikisource sets them as
+     `<dl><dd>line</dd><dd>line</dd></dl>`, and neither `dl` nor `dd` is in ALLOWED, so stripTags
+     unwraps both and every stanza arrives as one run-on sentence. The usual quiet shape: nothing
+     throws, not a word is lost, the chapter is exactly the right length, and only LOOKING at the
+     rendered page shows it — which is how it was found, the golden rule's "it isn't finished until
+     it has been looked at" earning its keep again.
+
+     Converted to the shape the shelf already uses for verse — a blockquote of one paragraph whose
+     lines are divided by `<br>`, which is what Seneca's quoted poetry ships as — so it needs no
+     reader-side change and no new style. Gated per book, like `dropAuxToc` and `body: "plain"` and
+     for the same reason: `dd` is a definition list everywhere else and could be carrying something
+     other than verse in an edition nobody has looked at yet, so the rule can only fire on a book that
+     asks for it and is provably inert on the twenty-five already shipped. */
+  if (book && book.verse === "dl") b = verseFromLists(b);
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -5710,6 +6266,7 @@ function cleanBody(h, noteIds, book, warn) {
   }
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
   if (book && book.sections === "shu") b = markShuSections(b, warn);
+  if (book && book.sections === "edda") b = markEddaSections(b, warn);
 
   /* ONE SECTION FOR THE WHOLE CHAPTER, for an edition whose chapter IS the unit both columns are
      cited by — a single poem, printed on a page of its own on each wiki. There is nothing inside it
@@ -6894,6 +7451,284 @@ function extractFitt(h, warn, where) {
   b = b.replace(/<link\b[^>]*>/g, "");
 
   return { html: fittHtml(b, warn, where), notes: local, marks: marked.count };
+}
+
+/* ---------- THE POETIC EDDA: NUMBERED STANZAS WITH PROSE LINKS BETWEEN THEM ----------
+   Aug 2026, adding the Poetic Edda — the twenty-eighth book, and the eleventh layout. The ordinary
+   wiki walk, one page per chapter; what is new is the SHAPE OF A CHAPTER'S BODY. Every verse book
+   before it is verse all the way down — Ovid, Lucretius, the Song of Roland, Beowulf — so the reader
+   can flatten the page into lines and be done. An Eddic poem is not: the manuscript sets stanzas of
+   verse with PROSE NARRATIVE LINKS between them, sometimes a sentence and sometimes a page, and two
+   of the thirty-five pieces are prose from beginning to end. Flattening would print those passages
+   as broken verse and the poem as one undifferentiated block.
+
+   So this reader WALKS the body in order and keeps each block as what it is: a stanza becomes a
+   paragraph of <br>-joined lines with its number as a section marker, a prose link stays a paragraph,
+   and a centred line stays a centred block. That last is the part it would be easy to get wrong —
+   see the heading rule below.
+
+   THE PAIRING UNIT IS THE STANZA, and it is not a choice. "Völuspá 21" is how any passage of this
+   book is cited in any language, in every edition and every reference work; the poem is the chapter
+   and the printed stanza number is the section, which is Beowulf's shape one level coarser.
+   Measured over all thirty-five pages before it was believed: 1,564 stanza numbers, every verse poem
+   running a clean 1..N with no gap and no duplicate, and not one leaf of the scan untranscribed.
+
+   FOUR THINGS IT SETTLED ARE WORTH CARRYING.
+
+   · A CLASS NAMED FOR A LINE NUMBER MAY HOLD A FOOTNOTE MARKER, and Beowulf's rule for that class is
+     the exact opposite of the right one here. There the `ws-poem-linenum` float is apparatus — a
+     folio reference — and is DROPPED; in this transcription it is used once in the whole book, in
+     Sigrdrifumol, and what it holds is a reference marker and nothing else. Dropping it would delete
+     the marker while its note stayed in the list, which is an entry no sentence opens — the fault
+     Beowulf's dropFittHead exists to avoid, met from the other side. So it is UNWRAPPED rather than
+     dropped, and a span that ever holds anything but markers is reported before its contents are
+     kept. Measured over the whole book: one such span, containing one marker.
+
+   · A NOTE IS CITED MORE THAN ONCE HERE, so Seneca's `data-fn` lesson is live rather than
+     theoretical: 1,373 markers against 1,345 notes. Numbered by reading order the last 28 markers of
+     the affected chapters would point one entry too far and those past the end would be DELETED by
+     wireFootnotes. The marker carries the note it points AT, as everywhere else on this shelf.
+
+   · NOT EVERY CENTRED BLOCK IS A RUNNING HEAD. The obvious rule — drop the centred block at the top,
+     as dropHeads does everywhere else — is right for the title and wrong for five of the poems,
+     because this edition ALSO centres its internal divisions: Svipdagsmol's two constituent poems
+     (Grougaldr and Fjolsvinnsmol), the numbered prose sections of the two Helgi lays, and the
+     fragment embedded in Hyndluljoth. Those are the edition's own structure and dropping them would
+     silently take it off the page. So only ONE line goes — the poem's own name, which duplicates the
+     chapter tab — and it is identified by matching its TEXT against the tab rather than by its
+     position, with a warning when it fails to match. Everything else centred is kept.
+
+   · AND THE INTRODUCTORY NOTE STAYS. Bellows heads each poem with a page or two on its manuscript,
+     its date, its condition and its relation to the rest — a headnote bound to the text, which is
+     Legge's case in the Book of Documents rather than the Republic's fifty-page introduction that
+     was left behind. It carries no stanza number, so app.js files it in the unnumbered row above
+     stanza 1, which is where a headnote belongs. */
+
+/* The verse body, sliced and stripped of the wiki's own furniture. cleanBody's opening moves, done
+   here rather than borrowed, for the reason fittBody gives: that pass is written for prose and its
+   generic div-to-blockquote rule would turn every stanza of this poem into a quotation. */
+function eddaBody(h, where) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 12; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  const i = b.indexOf('<div class="prp-pages-output');
+  if (i < 0) throw new Error(where + ": no body — the page's markup has changed");
+  /* The wrapper occurs several times on these pages — a fresh one wherever the run of scan pages is
+     interrupted — so the opener is stripped globally and the notes are cut at the list, which is the
+     Republic's rule and the reason it is written down there. */
+  return b.slice(i).replace(/<ol class="references">[\s\S]*$/, "");
+}
+
+/* Rewrite one class of div into a pair of allowed tags, matched with depth so a nested block cannot
+   close the outer one. `open`/`close` empty drops the block and everything in it. */
+function eddaRewriteDiv(b, cls, open, close) {
+  const rx = new RegExp('<div[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>');
+  let out = "", i = 0;
+  for (let guard = 0; guard < 20000; guard++) {
+    const m = rx.exec(b.slice(i));
+    if (!m) break;
+    const start = i + m.index;
+    const end = blockEnd(b, start, "div");
+    if (end < 0) break;
+    const inner = b.slice(start + m[0].length, end - "</div>".length);
+    out += b.slice(i, start) + (open || close ? open + inner + close : "");
+    i = end;
+  }
+  return out + b.slice(i);
+}
+
+/* The printed stanza numbers, rewritten as the shelf's own section markers. The number is set in a
+   float of its own and OFTEN CARRIES THE STANZA'S FOOTNOTE MARKER INSIDE IT — 1,000-odd of the 1,564
+   do — so the span's contents are read rather than discarded and the marker is re-emitted after the
+   section mark, which is where the printed page puts it.
+
+   Numbered forward-only, the Analects' rule: a numeral is taken where it moves the count on and read
+   as the place the sequence puts it where it does not, with a warning naming the poem and both
+   numbers. Measured over all thirty-five pages it never fires — every verse poem runs a clean 1..N —
+   which is what makes it a guard against a transcription changing under us rather than a repair. */
+function markEddaStanzas(b, warn, where, prose) {
+  const rx = /<span class="ws-poem-versenum"[^>]*>/;
+  let out = "", i = 0, seq = 0, n = 0;
+  for (let guard = 0; guard < 20000; guard++) {
+    const m = rx.exec(b.slice(i));
+    if (!m) break;
+    const start = i + m.index;
+    const end = blockEnd(b, start, "span");
+    if (end < 0) break;
+    const inner = b.slice(start + m[0].length, end - "</span>".length);
+    const carried = (inner.match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+    const raw = inner.replace(/<[^>]*>/g, "").replace(/&#\d+;/g, "").trim();
+    const hit = /^(\d+)/.exec(raw);
+    let mark = "";
+    if (!hit) {
+      warn(where + ': a stanza number reading "' + raw.slice(0, 20) + '" could not be read — ' +
+           "its stanza will not be numbered");
+    } else {
+      let v = parseInt(hit[1], 10);
+      if (v <= seq) {
+        warn(where + ": stanza " + v + " is printed where the sequence gives " + (seq + 1) +
+             " — read as " + (seq + 1) + ", which is where the run puts it");
+        v = seq + 1;
+      }
+      seq = v; n++;
+      mark = '<span class="bk-n">' + v + "</span> ";
+    }
+    out += b.slice(i, start) + mark + carried;
+    i = end;
+  }
+  out += b.slice(i);
+  /* A CHAPTER WITH NO STANZA NUMBER IS NORMALLY A FAULT AND HERE IT IS SOMETIMES A FACT: two of the
+     thirty-five pieces are prose from beginning to end, being the manuscript's narrative bridges
+     rather than poems, so they have nothing to number. They are named in the entry and pass without
+     a warning, because a warning that fires on a known fact is one nobody reads. Any OTHER chapter
+     arriving unnumbered still says so. */
+  if (!n && !prose)
+    warn(where + ": no stanza numbers found — the chapter will pair as one whole block");
+  if (n && prose)
+    warn(where + " is declared as prose in the entry and carries " + n + " stanza numbers");
+  return { html: out, count: n };
+}
+
+/* DROP THE POEM'S OWN NAME, which duplicates the chapter tab, and NOTHING ELSE THAT IS CENTRED.
+   Matched on the line's TEXT against the tab rather than on its position, because five of the poems
+   centre their internal divisions too and those are the edition's structure; see the heading rule in
+   the block comment above. A line carrying a footnote marker has it carried down rather than deleted
+   with it — measured, none does, and the guard is the cheap half of the rule Beowulf learned the
+   expensive way. */
+function dropEddaTitle(b, title, warn, where) {
+  const norm = (s) => s.replace(/<[^>]*>/g, "").replace(/&#\d+;|&nbsp;/g, " ")
+                       .replace(/[^A-Za-zÀ-ÿ0-9]+/g, "").toUpperCase();
+  const want = norm(title);
+  const rx = /<p>[\s\S]*?<\/p>/g;
+  let m, hit = -1, len = 0, carried = "";
+  while ((m = rx.exec(b))) {
+    if (norm(m[0]) !== want) continue;
+    hit = m.index; len = m[0].length;
+    carried = (m[0].match(/<sup class="fn"[^>]*><\/sup>/g) || []).join("");
+    break;
+  }
+  if (hit < 0) {
+    warn(where + ": the poem's own name was not found at the head of the page and nothing was " +
+         "dropped — the tab and the first line may now say the same thing twice");
+    return b;
+  }
+  if (carried)
+    warn(where + ": the title line carried a footnote marker, which has been carried down to the " +
+         "line below rather than deleted with it");
+  return b.slice(0, hit) + carried + b.slice(hit + len);
+}
+
+/* One poem, assembled. Blocks in the order the page sets them: a stanza is a paragraph of lines, a
+   prose link is a paragraph, a centred division is a block of its own.
+
+   STRIP THE WHOLE POEM BEFORE TIDYING IT, which is the Song of Roland's rule: stripTags balances
+   openers against closers on a stack, so a fragment holding a <p> whose </p> lives in the next
+   fragment is unbalanced on its own and the opener survives into the output. */
+function eddaHtml(b, title, warn, where) {
+  /* The stanza is the one block that has to become something else: a div the tag strip would unwrap,
+     leaving its lines to run into the prose around them. Rewritten FIRST and by its full class name,
+     since `\bws-poem\b` also matches inside `ws-poem-stanza` — the outer container needs no rule at
+     all, the tag strip unwrapping it exactly as intended. */
+  b = eddaRewriteDiv(b, "ws-poem-stanza", "<p>", "</p>");
+  b = eddaRewriteDiv(b, "wst-center", "<blockquote>", "</blockquote>");
+  for (const cls of ["wst-rule", "wst-dhr"]) b = eddaRewriteDiv(b, cls, "", "");
+  b = dropEddaTitle(b, title, warn, where);
+
+  /* `&#32;` IS A SPACE AND NOTHING ELSE — the transcription leaves one wherever the scan's page
+     marker stood, several to a poem and one at the foot of most of them. It is turned back into a
+     space here so that the emptiness test below can see through it; the em spaces are NOT touched,
+     being the caesura and a feature of the metre. */
+  let s = stripTags(b).replace(/&#32;/g, " ");
+  /* Text is blank when nothing but spacing and markers is left of it. The em spaces are deliberately
+     NOT counted as spacing: a stanza line that is nothing but a caesura is still a line. */
+  const bare = (x) => x.replace(/<sup class="fn"[^>]*><\/sup>/g, "")
+                       .replace(/&#160;|&nbsp;|​/g, " ").replace(/\s+/g, " ").trim();
+  /* THE LINE SWEEP RUNS ON A BLOCK'S CONTENTS, NEVER ACROSS ITS TAGS, and that is the whole care in
+     it. A stanza ends on a line break before its closing tag, so splitting the block WITH its tags
+     leaves `</p>` alone in the last fragment — which is blank by any text test, and dropping it
+     takes the closing tag with it. Nothing throws, the words are all present, and the paragraph
+     simply never closes: the quiet shape this extractor keeps meeting, caught here by counting a tag
+     against its closer over the output. `<p>` does not nest, so the non-greedy match is safe inside
+     a blockquote as well as outside one. */
+  s = s
+    .replace(/<p>([\s\S]*?)<\/p>/g, (all, inner) => {
+      const lines = inner
+        .split(/<br\s*\/?>/)
+        .map((x) => x.replace(/[ \t]+/g, " ").trim())
+        .filter((x) => bare(x) !== "");
+      return lines.length ? "<p>" + lines.join("<br>") + "</p>" : "";
+    })
+    /* A centred block emptied by that sweep goes with it — as does one that only ever held the
+       poem's own name, which dropEddaTitle has just taken out. */
+    .replace(/<blockquote>([\s\S]*?)<\/blockquote>/g, (all, inner) => (bare(inner) ? all : ""))
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+  if (!s) warn(where + " came through with no text at all");
+  return s;
+}
+
+/* One poem's page, cleaned into { html, notes, marks }. The notes are this chapter's own, in the
+   order their markers appear, and a marker carries the note it POINTS AT rather than its position in
+   the queue — live here rather than theoretical, since this edition cites several notes twice over
+   and numbering by reading order would run past the end of the list. */
+function extractEdda(h, title, warn, where, prose) {
+  const { notes, ids } = notesOf(h);
+  let b = eddaBody(h, where);
+
+  const local = [], seen = {};
+  b = b.replace(
+    /<sup[^>]*class="reference"[^>]*>\s*<a href="#(cite[^"]*)"[^>]*>[\s\S]*?<\/a>\s*<\/sup>/g,
+    (all, ref) => {
+      const key = ref.replace(/&#95;/g, "_");
+      const k = ids.indexOf(key);
+      if (k < 0) { warn(where + ": a marker points at no note and has been dropped"); return ""; }
+      if (!seen[key]) { local.push(notes[k]); seen[key] = local.length; }
+      return '<sup class="fn" data-fn="' + seen[key] + '"></sup>';
+    }
+  );
+
+  /* THE FLOAT NAMED FOR A LINE NUMBER HOLDS A MARKER HERE, so it is unwrapped rather than dropped —
+     see the block comment above. Anything else inside one is reported before it is kept, so a second
+     kind cannot arrive unnoticed. */
+  for (let k = 0; k < 400; k++) {
+    const m = /<span[^>]*class="[^"]*\bws-poem-linenum\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    const inner = b.slice(m.index + m[0].length, end - "</span>".length);
+    const rest = inner.replace(/<sup class="fn"[^>]*><\/sup>/g, "").replace(/<[^>]*>/g, "").trim();
+    if (rest)
+      warn(where + ': a line-number float held "' + rest.slice(0, 30) + '" as well as its markers — ' +
+           "kept, but this edition was measured as holding markers and nothing else");
+    b = b.slice(0, m.index) + inner + b.slice(end);
+  }
+
+  /* The caesura — the gap dividing an alliterative half-line, and a feature of the metre rather than
+     decoration. Set two ways here, as in Beowulf, so both become the same pair of em spaces and the
+     printed page's shape survives the tag strip. */
+  b = b.replace(/<span[^>]*class="[^"]*\b(?:wst-cesura|wst-gap)\b[^"]*"[^>]*>[\s\S]*?<\/span>/g,
+                "&#8195;&#8195;");
+
+  const marked = markEddaStanzas(b, warn, where, prose);
+  b = marked.html;
+
+  for (const cls of ["pagenum"]) {
+    for (let k = 0; k < 600; k++) {
+      const m = new RegExp('<span[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
+  b = b.replace(/<link\b[^>]*>/g, "");
+
+  return { html: eddaHtml(b, title, warn, where), notes: local, marks: marked.count };
 }
 
 /* ---------- A PLAY ON A WIKI PAGE: the tenth layout, and the first drama NOT from a TEI file ----------
@@ -8694,6 +9529,35 @@ async function fetchEnglish() {
     console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + lines + " lines");
     return writeEnglish(chapters, warnings);
   }
+  /* A COLLECTION OF POEMS IN NUMBERED STANZAS — the ordinary wiki walk, one page per poem, with the
+     pairing done a level BELOW the chapter as it is for a poem in fitts. What is different is that a
+     chapter's body is verse and prose MIXED; see the block comment above extractEdda for why no
+     earlier verse reader here could take it, and for the line-number float that holds a footnote
+     marker rather than a line number. */
+  if (BOOK.layout === "eddapoem") {
+    let stanzas = 0;
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const t = titles[n] || chapterTitle(n);
+      const where = BOOK.chapterWord + " " + n + " (" + t + ")";
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(2, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(BOOK.page(n)); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); await sleep(1200); }
+      const got = extractEdda(h, t, warn, where, (BOOK.prose || []).includes(n));
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: t, p: partOf(n), html: got.html, notes: got.notes });
+      stanzas += got.marks;
+      console.log("  " + where + ": " + got.marks + " stanzas, " + got.notes.length + " notes (" +
+        (got.html.length / 1024).toFixed(1) + " KB)");
+    }
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length, 0);
+    console.log("  " + chapters.length + " poems, " + stanzas + " stanza numbers, " + lines + " verse lines");
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "laisses") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");

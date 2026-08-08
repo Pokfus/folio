@@ -38,6 +38,22 @@ const rows = cards.map((c) => {
   };
 });
 
+/* A translation whose markers differ from the English shows the source LIST with the wrong claims pointed
+   at it — or with none pointed at it at all. `add-sources.js` warns about it at write time, but a warning
+   scrolls past and nothing here ever looked again, so the card side had no standing check where
+   `gloss-source-audit.js` has had one all along. Found on 2026-08-08: `wh-061`, adrift in all nine, because
+   the English abstract was revised later and the translations kept the older marker layout. */
+const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
+const markersOf = (s) => (String(s || "").match(/data-fn="(\d+)"/g) || []).map((x) => x.match(/\d+/)[0]).join(",");
+const drifted = cards.map((c) => {
+  const en = markersOf(c.abstract);
+  const drift = I18N_LANGS.filter((l) => {
+    const t = c.i18n && c.i18n[l] && c.i18n[l].abstract;
+    return t && markersOf(t) !== en;
+  });
+  return { id: c.id, drift };
+}).filter((r) => r.drift.length);
+
 const by = (s) => rows.filter((r) => r.state === s);
 const met = by("met"), short = by("short"), blocked = by("blocked");
 const need = short.concat(blocked).reduce((a, r) => a + (TARGET - r.n), 0);
@@ -56,7 +72,14 @@ console.log("  " + cards.length + " cards");
 console.log("  " + met.length + " at the bar");
 console.log("  " + short.length + " below it, not yet researched");
 console.log("  " + blocked.length + " below it, researched and blocked");
-console.log("  " + need + " citations still to find\n");
+console.log("  " + need + " citations still to find");
+console.log("  " + drifted.length + " markers adrift   a translation carries different markers from the English\n");
+
+if (drifted.length) {
+  console.log("── MARKERS ADRIFT FROM THE ENGLISH (" + drifted.length + ") ".padEnd(20, "─") + "\n");
+  drifted.forEach((r) => console.log("  " + r.id.padEnd(10) + r.drift.join(" ")));
+  console.log("");
+}
 
 if (short.length) {
   console.log("── BELOW THE BAR, NOT YET RESEARCHED (" + short.length + ") ".padEnd(20, "─"));
