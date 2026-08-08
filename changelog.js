@@ -14,12 +14,12 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.102", released: "2026-08-08T12:34Z" };
+window.FOLIO_VERSION = { v: "1.103", released: "2026-08-08T13:58Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-08",
-    t: "Levelling up now opens a chest holding a real historical artefact, collections show how far through them you are, and a walkthrough for new readers",
+    t: "Levelling up now opens a chest holding a real historical artefact, collections show how far through them you are, the first forty Ancient Rome cards arrive, and a walkthrough for new readers",
     items: [
       "Every time you level up, Folio now hands you a chest — and inside it is a real historical artefact, drawn at random from a growing collection. Artefacts come in four grades, common, rare, epic and legendary, and the rarer ones open with rather more ceremony. You will never be given one you already have, and winning all six daily games in a single day earns you a chest as well.",
       "Your artefacts live in a Reliquary on your account page, each with a picture and a few paragraphs about what it is, where it comes from and why it matters. You can pin up to four of them to the top of your profile for anyone visiting it to see.",
@@ -29,7 +29,7 @@ window.CHANGELOG = [
       "If you are new to Folio, the home page now offers you a three-minute walkthrough. It dims the page, puts one card in the middle of it, and points at what it is describing: why the cards come back when they do, how to add a deck to your daily study, how to answer one and grade yourself honestly, and the marker you can write on a card with. It is entirely optional — take it, or say no thanks and it will not ask again — and if you change your mind it is in Settings, under Study.",
       "The Library now explains itself the first time you open it, as the Atlas already did: what may be shelved and why, how the chapters and your reading position work, the original language beside the translation, and the marker and highlights. The Atlas card has gained a line about the marker too, since the strokes you draw on the globe are pinned to the map and turn with it. Both can be reopened from the ? beside them, whenever you like.",
       "Folio now opens noticeably faster. The site has shipped in English for a while, but every visitor was still downloading the nine translations of the cards and the glossary before a single card could be turned over — about a megabyte of compressed text that nothing on screen could ever use. It has been taken out, so the first page you see costs a third less to load, on a phone signal as much as on a desk.",
-      "Seven new cards in the Ancient Greece collection, in the deck on the polis and colonisation, with the glossary terms that go with them.",
+      "Forty-seven new cards — seven in Ancient Greece, in its deck on the polis and colonisation, and the first forty of the <b>Ancient Rome</b> collection, in its Italy before Rome deck, which is no longer empty and can be grown a card at a time from here. Each comes with the glossary term that goes with it.",
       "These release notes read as notes again. A day that announced eleven books in five separate entries now announces them in one, and the longest entries — one ran to four thousand characters — have been cut back to a summary of what changed rather than a transcript of it. Nothing has been dropped: every change is still recorded, in a good deal less reading.",
       "Every card background on the site now sits inside its own length rule, and the two entries that fell outside it have been put right: seven backgrounds that ran slightly long were tightened without losing a claim, and a Syracuse card and glossary entry that stopped short gained the part they had left out.",
       "Eleven glossary entries and three Ancient Greece cards now spell, quote and number things the way the rest of the site does — British spellings throughout, the straight quotation marks the rest of the writing uses, and a figure above twenty written as a numeral rather than in words.",
