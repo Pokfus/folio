@@ -2067,6 +2067,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   markup are untouched (`#decks`, every shared link still works); only the label, the eyebrow and its
   `PAGE_META` title changed. Two pages called Library, one titled Collections, is how a reader lands on the
   wrong one.
+  · **IT EXPLAINS ITSELF ON A FIRST VISIT** (Aug 2026, on request), the Atlas's pattern one page over: a
+    card covering the shelf's five features — what may be shelved, the chapter bar and the kept reading
+    position, the facing original, the marker and the passage highlights, and the search/sort/hold. Shown
+    once (`folio_library_tour_v1`), brought back by the `#libHelpBtn` "?" beside the sort. Built on
+    `document.body` by `pageHelp` and NOT written into this page — see that bullet under "How the app is
+    wired" for the reason, which is `.page` being the containing block for anything `position:fixed`.
   · **WHAT MAY BE SHELVED, and it is the only content rule.** Folio serves the text itself, so a book goes
     up only where the copyright has **expired**. For a classical author the trap is that the original and
     the TRANSLATION are separate works: Seneca's Latin is free and the English is a 20th-century work with
@@ -4248,6 +4254,63 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carries it. Its colour is `--ink-faint`, the site's own quiet token — so it joins the captions and source
     lines that the **High contrast** mode re-tones, and `test-a11y.js` covers it with no change of its own
     (3.25:1 reported in the default mode, clearing the bar with the mode on). Guarded by `test-layout.js`.
+- **THE GUIDED WALKTHROUGH — a first visitor's few minutes** (the `THE GUIDED TOUR` block in app.js:
+  `TOUR_KEY` / `TOUR_STEPS` / `tourStart` / `tourGo` / `tourPaint` / `tourPlace` / `tourAfterRender` /
+  `tourOfferHTML`; `.folio-tour` in styles.css. Aug 2026, on request). Ten steps that dim the page, put one
+  card in the middle of it, and point at the thing being described — the concept of spaced repetition, how
+  to add a deck to the daily study, how to study a card, and the marker. **It deliberately stops short of
+  the Atlas and the Library**, which explain themselves the first time they are opened (see `pageHelp`
+  below). Five decisions are load-bearing.
+  · **THE OFFER IS INLINE, NOT MODAL.** It would be one line to raise the tour over the home page on a
+    first visit, and it is the wrong line: a site that seizes the screen before the reader has seen it is a
+    site they leave. `tourOfferHTML()` is a card at the head of `.banners`, beside the first-run hero and
+    the `.howit` strip that are already first-run-only, shown to a reader who has **never graded a card**
+    and never answered it; either answer writes the key for good, and **Settings → Study → Walkthrough** is
+    the way back. It is also what keeps every Playwright test that boots a fresh reader from meeting an
+    overlay it never asked about — the offer blocks nothing.
+  · **THE SCREEN STAYS DARK: the target is RINGED, not spotlit.** A cut-out spotlight means holding a hole
+    in the scrim over an element that moves with every reflow, and it reads as a page half-lit rather than
+    as an explanation. The scrim is uniform (a theme-independent `#000` mix — the Atlas's coach marks
+    lighten their globe, and this one has to darken eight themes' worth of prose), and each step draws an
+    **arrow** from the card to a **dashed ring** around its target. A step whose target is missing draws
+    neither and still reads: a tour must never depend on the state of the page it describes.
+  · **IT NAVIGATES, so it is NOT in `render()`'s close list.** The add-a-deck step routes to the
+    collections and the next one routes back. That is the whole reason the overlay lives on `document.body`
+    and is left alone by the close sweep every other body overlay is in — a `render()` that dismissed it
+    would dismiss it at exactly the moment it was doing its job. What it does need is re-measuring, which
+    is `tourAfterRender()`, called at the end of `render()`.
+  · **THE CARD IS NUDGED OFF ITS OWN TARGET, and the base rect is COMPUTED, never measured.** A centred
+    popup lands on top of whatever it is describing about half the time (the daily-study banner is most of
+    the home page), so four placements are tried — below the target, above it, either side — and the
+    smallest shift that keeps the whole card on screen wins. **The gap has to leave room for an ARROW**
+    rather than merely for daylight: the line starts 10px outside the card and stops 8px outside the ring,
+    so a 26px gap draws an 8px stub, and a roomy gap is tried before a tight one. And the unshifted rect
+    comes from `offsetWidth`/`offsetHeight` plus the viewport centre, **not from `getBoundingClientRect()`**
+    — the card's transform is transitioned, so a rect read during a step change is the card somewhere
+    between two positions, subtracting the shift we asked for does not recover the centred box, and every
+    later step shifts an already-shifted card until it walks off the side of the screen taking its own Next
+    button with it. That shipped for an hour and is invisible except as "the tour stopped working".
+  · **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED.** Dealing a real card would hijack the reader's
+    schedule, and the grade bar is pinned to the bottom of the viewport under the scrim — so the card, its
+    blank and the four grades are drawn inside the popup, **with the four intervals read from the real
+    scheduler** (`schedPreview(null, …)` → `fmtInterval`). A tutorial that teaches a schedule the site does
+    not use is worse than one that teaches none.
+  Escape and Skip close it (and count as answered); the **backdrop deliberately does not** — a stray tap on
+  a dimmed page is the likeliest gesture there is, and losing the tour to one would be losing it silently.
+  `.folio-tour` is in `swipeEnabled()`'s overlay list. Guarded by `.claude/test-tour.js`.
+- **A PAGE'S OWN FIRST-VISIT COACH MARKS** (`pageHelp` / `closePageHelp` / `LIB_TOUR_KEY` / `openLibHelp`;
+  `.page-help` in styles.css. Aug 2026, on request). The Atlas has had these since it shipped
+  (`#atlasHelp`, `folio_atlas_tour_v1`, reopened by `#gzHelp`); the walkthrough stops short of the Atlas
+  and the Library on purpose, so **the Library now has its own** — `folio_library_tour_v1`, reopened by the
+  `#libHelpBtn` "?" beside the shelf's sort. Same card, same three ways out.
+  **IT LIVES ON `document.body`, AND THAT IS NOT A PREFERENCE.** The Atlas's card can be
+  `position:absolute` inside its own full-bleed stage; an ordinary page has no such stage, so this one must
+  be fixed to the VIEWPORT — and `.page` carries `animation:pageIn … both`, which makes it the containing
+  block for every fixed descendant. Written into the page, `inset:0` therefore resolves to the page's own
+  box: on the Library that is the whole shelf, several screens tall, so the card centres itself a screen
+  and a half below the fold and the reader sees a dimmed page with **nothing on it**. It shipped that way
+  for an hour. On the body it is `render()`'s to close, like every other overlay there — hence
+  `closePageHelp()` in the close list. The **Atlas card gained a marker tip** in the same pass, on request.
 - **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES` — world sources East and West, standard published
   translations only, no loose internet attributions; **clicking one flips it to the original** — text, speaker and
   source from the entry's `o` block, `wireDailyQuote` swapping `hidden` on the `.dq-live`/`.dq-orig` spans, clicking
@@ -5061,7 +5124,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   every answer was revealed during play; `gamePractice` and its four branches are **deleted rather than left
   unreachable**. The Atlas also gained **first-visit coach
   marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
-  "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
+  "?" button — **five tips since Aug 2026**, a marker one having been added on request: the whiteboard draws on the
+  globe as it does on a study card, and the strokes there are geo-anchored, so they turn with the map. The Library
+  now carries the same kind of card; see `pageHelp`) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
   centre, Esc clears, `[`/`]` step map-years). The **`#gzIn`/`#gzOut` zoom buttons' markup was restored** (wiring + CSS
   existed but the DOM had been lost in an old refactor); the `.globe-zoom` column now sits **bottom-right** — at
   top:50% it collided with the (top-right) legend on short viewports. Clicking a country
@@ -6853,7 +6918,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-seven committed regression tests** (in `.claude/`, not loaded by the site): twenty-two drive a real browser with
+- **Twenty-eight committed regression tests** (in `.claude/`, not loaded by the site): twenty-three drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
   `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -7163,6 +7228,27 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
+  · `node .claude/test-tour.js` — the first visitor's walkthrough and the two pages that explain themselves
+    (Aug 2026), 52 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+    INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
+    **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
+    obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
+    teaches adding a deck. **The card must never leave the viewport**, on a desktop or a 390px phone: the
+    nudge that keeps it off its own target walked it off the side of the screen with its own Next button
+    when the base rect was measured rather than computed, and nothing on screen says "the button is outside
+    the viewport" — the tour simply stops working, which is how it was found. **The Library's card must be
+    on `document.body` AND on the screen**, the two halves of the containing-block trap that had it
+    centring itself a screen and a half below the fold. Plus: the three subjects the request names are read
+    off the prose a reader is actually shown (a tour can lose one to an edit without erroring); the four
+    demo grades carry four DIFFERENT intervals from the real scheduler, which a hard-coded illustration
+    would hide for ever; either answer retires the offer and a second visit proves it; a reader with study
+    history is not offered a beginners' tour; and the coach marks are shown once, reopen from their "?", and
+    cannot outlive their page. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` /
+    `closePageHelp`, `tourOfferHTML`'s place on the home page, the Atlas or Library help cards, or
+    `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
+    `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
+    figures (read them structurally); and a step-change reads mid-transition, so anything measured during
+    one has to be measured again after it settles.
   · `node .claude/test-units.js` — the two Settings that REWRITE what is already on the page (Aug 2026):
     measurements, and light/dark from the device. The units transform is a regex over every text node, so
     its two failure modes are a bracket it fails to recognise (both systems left on screen — it looks as

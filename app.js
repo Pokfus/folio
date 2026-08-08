@@ -7005,7 +7005,7 @@
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
     if (SWIPE_ORDER.indexOf(current.name) < 0) return false;
     if (document.body.classList.contains("grading")) return false;
-    return !document.querySelector(".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu");
+    return !document.querySelector(".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour");
   }
   function wirePageSwipe() {
     let st = null;
@@ -7045,6 +7045,7 @@
     closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
+    closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -7074,6 +7075,11 @@
     wireSpeakControls(root);
     // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
     window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    /* The walkthrough is deliberately NOT in the close list above: it NAVIGATES (the add-a-deck step routes
+       to the collections and back), so a render() that dismissed it would dismiss it at exactly the moment
+       it was doing its job. What it does need is re-measuring — the page it was pointing at has just been
+       rebuilt. See the GUIDED TOUR block. */
+    tourAfterRender();
   }
   /* Page transitions (Aug 2026, on request). `.page` has always faded IN; what was missing was the other
      half, so a navigation cut the old page away on the same frame the new one appeared. render() is
@@ -7776,6 +7782,412 @@
     // defer wiring a tick so the same click that graded the card (and spawned this) doesn't instantly dismiss it
     setTimeout(() => { ov.addEventListener("click", close); document.addEventListener("keydown", onKey, true); }, 0);
     requestAnimationFrame(() => ov.classList.add("show"));
+  }
+
+  /* ============================================================
+     THE GUIDED TOUR — a first visitor's few minutes (Aug 2026, on request)
+     ============================================================
+     A first-time reader meets a site that schedules cards for them, holds their decks in a review they have
+     not built yet, and hides a marker behind a floating button. None of that explains itself, and the
+     three-beat `.howit` strip on the home page is a summary rather than a lesson. So: an OPTIONAL walkthrough
+     that dims the page, puts one card in the middle of it, and points at the thing being described.
+
+     Five decisions are load-bearing.
+
+     · **THE OFFER IS INLINE, NOT MODAL.** It would have been one line of code to raise the tour over the home
+       page on a first visit, and it is the wrong line: a site that seizes the screen before the reader has
+       seen it is a site they leave. The offer is a card at the top of the home page's first-run stack, beside
+       the hero and the how-it-works strip that are already first-run-only, and it is dismissible. The tour
+       itself is the full-screen thing, and it opens only when asked for. (It is also what keeps every
+       Playwright test that boots a fresh reader from meeting an overlay it never asked about.)
+
+     · **THE SCREEN STAYS DARK — the target is RINGED, not spotlit.** A cut-out spotlight would mean holding a
+       hole in the scrim over an element that moves with every scroll and every reflow, and it reads as the
+       page half-lit rather than as an explanation. The scrim is uniform, and the step draws an ARROW from the
+       card to a ring around whatever it is talking about. Where the target is missing (a control that only
+       exists once a deck has been added, say), the arrow and the ring are simply not drawn and the step still
+       reads — a tour must never depend on the state of the page it is describing.
+
+     · **IT NAVIGATES.** "How to add a deck to your daily study" cannot be taught on the home page, so the
+       step that teaches it routes to the collections and points at a real + button. That is why the overlay
+       lives on document.body and is deliberately NOT in render()'s close list: it has to survive the very
+       navigations it performs. `tourAfterRender()` re-measures at the end of every render instead.
+
+     · **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED.** Dealing a real card mid-tour would hijack the
+       reader's schedule, and the grade bar is pinned to the bottom of the viewport where the scrim is. So the
+       card, the blank and the four grades are drawn INSIDE the popup — with the four intervals read from the
+       real scheduler (`schedPreview`), so the figures a reader is shown are the figures they will meet.
+
+     · **THE CARD IS NUDGED OFF ITS OWN TARGET, and its base rect is COMPUTED rather than measured.** A
+       centred popup lands on top of the thing it is describing about half the time, and then the arrow is a
+       stub between two overlapping boxes. See tourPlace for the placement search and for why reading the
+       card's own rect back — the obvious way to find the unshifted box — walks it off the screen instead. */
+  const TOUR_KEY = "folio_tour_v1";
+  function tourSeen() { try { return localStorage.getItem(TOUR_KEY) === "1"; } catch (e) { return true; } }
+  function setTourSeen() { try { localStorage.setItem(TOUR_KEY, "1"); } catch (e) {} }
+  // the demo grades carry the REAL first-step intervals rather than four plausible-looking strings — a
+  // tutorial that teaches numbers the site does not use is worse than one that teaches none
+  function tourGradeDemo() {
+    let p;
+    try { p = schedPreview(null, 0, Date.now()); } catch (e) { p = null; }
+    const iv = (v) => { try { return p ? fmtInterval(v) : ""; } catch (e) { return ""; } };
+    const cell = (cls, label, v) =>
+      '<span class="td-g ' + cls + '"><b>' + label + '</b>' + (p ? "<i>" + esc(iv(v)) + "</i>" : "") + "</span>";
+    return '<div class="td-grades" aria-hidden="true">' +
+      cell("again", "Again", p && p.again) + cell("hard", "Hard", p && p.hard) +
+      cell("good", "Good", p && p.good) + cell("easy", "Easy", p && p.easy) + "</div>";
+  }
+  const TOUR_PEN =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+  /* Each step: where it is taught, what it says, and — optionally — what it points at. `target` is a list of
+     selectors tried in order, so a step can name the ideal target and fall back to one that is always there. */
+  const TOUR_STEPS = [
+    {
+      route: "home",
+      title: "Welcome to Folio",
+      body: "Folio is a study companion for history — flashcards, a globe you can travel back through, and a " +
+        "library of whole books. This walkthrough takes about three minutes and covers the part that matters " +
+        "most: how the cards work.<p>Leave at any point with <b>Skip</b> or the Escape key.</p>",
+    },
+    {
+      route: "home",
+      title: "Why the cards come back",
+      body: "Everything you learn fades, steeply at first and then more slowly. <b>Spaced repetition</b> works " +
+        "with that curve instead of against it: a card you have just met returns within minutes, and one you " +
+        "have answered right several times may not return for months.<p>Each correct answer pushes the next " +
+        "sighting further out, so a collection of a thousand cards still costs a few minutes a day.</p>",
+      target: [".howit", ".banners"],
+    },
+    {
+      route: "home",
+      title: "Your daily study",
+      body: "This banner is the day's work. The three numbers under it are the three kinds of card waiting: " +
+        "<b>New</b> ones you have never seen, <b>Learning</b> ones you are still getting wrong, and " +
+        "<b>Review</b> ones that have come round again.<p>Press it and Folio deals them in order. When the " +
+        "three reach zero the day is done — there is no benefit in pushing on.</p>",
+      target: ["#b-review"],
+    },
+    {
+      route: "home",
+      title: "Nothing is scheduled until you choose it",
+      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>This tab under " +
+        "the banner is the way to them — it is the only route to the collections anywhere on the site.</p>",
+      target: [".rv-lip", "#b-addDecks"],
+    },
+    {
+      route: "decks",
+      title: "Adding a deck",
+      body: "Here are the collections. The <b>+</b> beside one adds the whole thing to your daily study; open " +
+        "it with the chevron to add a single deck inside it instead. Pressing + again takes it back out.<p>Your " +
+        "Folio level decides how many decks may sit in the review at once — one more with every level, so the " +
+        "pile grows as you do.</p>",
+      target: [".collection-add", ".collection-actions", ".collection-list"],
+    },
+    {
+      route: "home",
+      title: "Your decks, once they are added",
+      body: "Each added deck gets a row under the banner, with its own bar and its own share of the day. Tapping " +
+        "a row studies that deck alone.<p><b>Hold a row</b> — or right-click it — for its own options: extra " +
+        "cards today, daily limits of its own, sitting the day out, or removing it again. Holding the banner " +
+        "itself does the same for the whole review.</p>",
+      target: [".active-decks", "#b-review"],
+    },
+    {
+      route: "home",
+      title: "Studying a card",
+      body: "A card asks for one missing name, date or term. Answer it in your head, or type into the blank, " +
+        "then press <b>Show answer</b> — the space bar does the same.<p>Behind the answer sits a page of " +
+        "background and the sources it rests on. Terms in <b class=\"tour-gold\">gold</b> are glossary entries " +
+        "you have not opened yet; a tap defines them.</p>",
+      demo: '<div class="td-card" aria-hidden="true">' +
+        '<div class="td-q">Carthage was destroyed at the end of the <span class="td-blank"></span> Punic War, in 146 BCE.</div>' +
+        '<div class="td-btn">Show answer</div></div>',
+    },
+    {
+      route: "home",
+      title: "Grade yourself honestly",
+      body: "Then you say how it went. The figure on each button is when that card comes back — a moment, or " +
+        "months.<p>Honesty is the whole mechanism. Marking a card <b>Easy</b> that you actually fumbled buries " +
+        "it for weeks; <b>Again</b> costs you nothing but a minute. Keys <b>1</b>–<b>4</b> do the same, and " +
+        "Ctrl+Z takes back a misclick.</p>",
+      demo: tourGradeDemo,
+    },
+    {
+      route: "home",
+      title: "Write on the card",
+      body: "A <b>marker</b> floats over every study card. Tap it for pens, a highlighter, an eraser, undo and a " +
+        "colour of your own; tap the chosen tool again to put the pen down.<p>Drag it anywhere on the screen — " +
+        "it has weight, so it can be thrown out of the way. It works on the Atlas globe and on a book's page " +
+        "too, and in a book your notes are kept when you come back.</p>",
+      demo: '<div class="td-marker" aria-hidden="true"><span class="td-pen">' + TOUR_PEN + "</span>" +
+        '<svg class="td-scribble" viewBox="0 0 120 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">' +
+        '<path d="M6 30c14-22 22 8 34-6s16 14 30 2 20 6 26-4"/></svg></div>',
+    },
+    {
+      route: "home",
+      title: "And the rest of it",
+      body: "Six <b>minigames</b> sit under the review, one round of each per day. The <b>Atlas</b> is a globe " +
+        "you can wind back to 1000 BCE, and the <b>Library</b> holds whole books to read.<p>Both of those " +
+        "explain themselves the first time you open them, so this is where the tour stops. Your progress is " +
+        "kept on this device; an account carries it between them.</p>",
+      target: [".games-sec", ".game-grid"],
+    },
+  ];
+
+  let tourEl = null, tourAt = 0, _tourKeys = null, _tourWatch = null, _tourShift = [0, 0];
+  function tourRunning() { return !!tourEl; }
+  function tourStart(at) {
+    tourStop();
+    tourAt = Math.max(0, Math.min(TOUR_STEPS.length - 1, at || 0));
+    const ov = document.createElement("div");
+    ov.className = "folio-tour";
+    ov.innerHTML =
+      '<svg class="tour-draw" aria-hidden="true"><path class="tour-ring" fill="none"/><path class="tour-line" fill="none"/><path class="tour-head" fill="none"/></svg>' +
+      '<div class="tour-card" role="dialog" aria-modal="true" aria-label="Folio walkthrough" tabindex="-1">' +
+      '<button class="tour-x" type="button" aria-label="Close the walkthrough">×</button>' +
+      '<span class="tour-count"></span><h3></h3><div class="tour-body"></div><div class="tour-demo"></div>' +
+      '<div class="tour-nav"><button class="tour-skip" type="button">Skip</button>' +
+      '<span class="tour-nav-main"><button class="btn ghost tour-back" type="button">Back</button>' +
+      '<button class="btn tour-next" type="button">Next</button></span></div></div>';
+    document.body.appendChild(ov);
+    tourEl = ov;
+    ov.querySelector(".tour-x").addEventListener("click", () => tourStop(true));
+    ov.querySelector(".tour-skip").addEventListener("click", () => tourStop(true));
+    ov.querySelector(".tour-back").addEventListener("click", () => tourGo(tourAt - 1));
+    ov.querySelector(".tour-next").addEventListener("click", () => tourGo(tourAt + 1));
+    // the backdrop deliberately does NOT dismiss: a walkthrough is read, and a stray tap on a dimmed page
+    // is the likeliest gesture there is — losing the tour to one would be losing it silently
+    _tourKeys = (e) => {
+      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); tourStop(true); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); tourGo(tourAt + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); tourGo(tourAt - 1); }
+      else if (e.key === "Tab") {
+        // a light containment: the page behind is dimmed and inert to the pointer, so it must not be the
+        // next thing a Tab reaches either. Wraps within the card rather than fighting the browser.
+        const f = [...ov.querySelectorAll("button")].filter((b) => !b.disabled && b.offsetParent !== null);
+        if (!f.length) return;
+        const i = f.indexOf(document.activeElement);
+        if (e.shiftKey ? i <= 0 : i === f.length - 1) { e.preventDefault(); (e.shiftKey ? f[f.length - 1] : f[0]).focus(); }
+        else if (i < 0) { e.preventDefault(); f[0].focus(); }
+      }
+    };
+    document.addEventListener("keydown", _tourKeys, true);
+    _tourWatch = () => tourPlace();
+    window.addEventListener("resize", _tourWatch);
+    window.addEventListener("scroll", _tourWatch, true);
+    tourGo(tourAt, true);
+  }
+  function tourStop(remember) {
+    if (_tourKeys) { document.removeEventListener("keydown", _tourKeys, true); _tourKeys = null; }
+    if (_tourWatch) { window.removeEventListener("resize", _tourWatch); window.removeEventListener("scroll", _tourWatch, true); _tourWatch = null; }
+    if (tourEl) { tourEl.remove(); tourEl = null; }
+    _tourShift = [0, 0];   // the overlay is rebuilt centred; a stale shift would be subtracted from it
+    if (remember) {
+      setTourSeen();
+      // the offer card is first-run markup on the home page — drop it now rather than leave it standing
+      // behind a tour the reader has just finished
+      if (current && current.name === "home" && document.querySelector(".tour-offer")) render();
+    }
+  }
+  function tourGo(i, first) {
+    if (!tourEl) return;
+    if (i >= TOUR_STEPS.length) { tourStop(true); return; }
+    tourAt = Math.max(0, i);
+    const st = TOUR_STEPS[tourAt];
+    // routing repaints the page under the tour; the overlay is on document.body and survives it, and
+    // render() calls tourAfterRender() so nothing here has to wait on the paint
+    if (st.route && current && current.name !== st.route) route(st.route);
+    tourPaint(first);
+  }
+  function tourPaint(first) {
+    const ov = tourEl; if (!ov) return;
+    const st = TOUR_STEPS[tourAt], last = tourAt === TOUR_STEPS.length - 1;
+    ov.querySelector(".tour-count").textContent = "Step " + (tourAt + 1) + " of " + TOUR_STEPS.length;
+    ov.querySelector("h3").textContent = st.title;
+    ov.querySelector(".tour-body").innerHTML = "<p>" + st.body + "</p>";
+    const demo = ov.querySelector(".tour-demo");
+    const d = typeof st.demo === "function" ? st.demo() : st.demo;
+    demo.innerHTML = d || "";
+    demo.hidden = !d;
+    const back = ov.querySelector(".tour-back");
+    back.disabled = tourAt === 0;
+    ov.querySelector(".tour-next").textContent = last ? "Done" : "Next";
+    ov.querySelector(".tour-skip").textContent = last ? "Close" : "Skip";
+    // a target the reader cannot see is a target the arrow cannot usefully point at
+    const t = tourTarget();
+    if (t && t.scrollIntoView) {
+      const r = t.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > innerHeight) t.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    }
+    tourPlace();
+    requestAnimationFrame(() => { tourPlace(); if (first) ov.querySelector(".tour-card").focus(); });
+    // …and again once a smooth scroll has settled, since the arrow is drawn at the target's painted position
+    setTimeout(tourPlace, 260);
+  }
+  function tourTarget() {
+    const st = TOUR_STEPS[tourAt];
+    for (const sel of st.target || []) { const el = document.querySelector(sel); if (el && el.getBoundingClientRect().width) return el; }
+    return null;
+  }
+  /* The arrow. Both rects are in viewport coordinates and the SVG is a fixed full-screen layer with no
+     viewBox, so its user units are CSS pixels and nothing has to be converted. The line leaves the card's
+     own edge on the ray toward the target and stops just short of the ring — an arrow that starts in the
+     middle of the text it belongs to, or ends under the thing it points at, reads as a mistake. */
+  function tourPlace() {
+    const ov = tourEl; if (!ov) return;
+    const line = ov.querySelector(".tour-line"), head = ov.querySelector(".tour-head"), ring = ov.querySelector(".tour-ring");
+    const cardEl = ov.querySelector(".tour-card");
+    /* THE UNSHIFTED RECT IS COMPUTED, NEVER MEASURED, and that is the whole robustness of the nudge below.
+       `getBoundingClientRect()` includes the transform, and the transform is TRANSITIONED — so a rect read
+       during a step change is the card somewhere between its last position and its next, and subtracting
+       the shift we asked for does not recover the centred box. Every later call then shifts a base that is
+       already shifted, and on a long step the card walks off the side of the screen with its own Next
+       button (which is exactly how this was found). `offsetWidth`/`offsetHeight` are layout values that no
+       transform can touch, and .folio-tour centres its child in the viewport, so the centred box is
+       arithmetic and cannot drift. */
+    const cw = cardEl.offsetWidth, ch = cardEl.offsetHeight;
+    let card = { left: Math.round((innerWidth - cw) / 2), top: Math.round((innerHeight - ch) / 2), width: cw, height: ch };
+    const t = tourTarget();
+    const centre = () => { if (_tourShift[0] || _tourShift[1]) { _tourShift = [0, 0]; cardEl.style.transform = ""; } };
+    const clear = () => { line.setAttribute("d", ""); head.setAttribute("d", ""); ring.setAttribute("d", ""); centre(); };
+    if (!t) return clear();
+    const r = t.getBoundingClientRect();
+    if (!r.width || !r.height || r.bottom < 0 || r.top > innerHeight) return clear();
+    /* THE CARD MOVES OUT OF ITS TARGET'S WAY, and only that far. A centred popup lands on top of whatever
+       it is describing about half the time — the daily-study banner is most of the home page — and an
+       arrow that starts and ends inside the same box is a stub pointing at nothing. So four placements are
+       tried (below the target, above it, beside it either way), the smallest shift that keeps the whole
+       card on screen wins, and if none does the card stays centred and the ring speaks for itself. It is a
+       nudge rather than a repositioning: the popup is still in the middle of the screen, and the reader's
+       eye does not have to go looking for it between steps. */
+    { const m = 14, cR = card.left + card.width, cB = card.top + card.height;
+      /* The gap has to leave room for an ARROW, not merely for daylight: the line starts 10px outside the
+         card and stops 8px outside the ring, so a 26px gap draws an 8px stub the eye reads as a smudge.
+         The roomy gap is tried first and a tight one second — on a phone, or against a target that fills
+         most of the page, the roomy one simply will not fit and half an arrow beats none. */
+      let dx = 0, dy = 0;
+      if (r.bottom + 20 > card.top && r.top - 20 < cB && r.right + 20 > card.left && r.left - 20 < cR) {
+        for (const gap of [76, 40]) {
+          const fit = [
+            [0, r.bottom + gap - card.top], [0, r.top - gap - cB],
+            [r.right + gap - card.left, 0], [r.left - gap - cR, 0],
+          ].filter((o) =>
+            card.top + o[1] >= m && cB + o[1] <= innerHeight - m &&
+            card.left + o[0] >= m && cR + o[0] <= innerWidth - m
+          ).sort((a, b) => (Math.abs(a[0]) + Math.abs(a[1])) - (Math.abs(b[0]) + Math.abs(b[1])));
+          if (fit.length) { dx = Math.round(fit[0][0]); dy = Math.round(fit[0][1]); break; }
+        }
+      }
+      if (dx || dy) {
+        _tourShift = [dx, dy];
+        cardEl.style.transform = "translate(" + dx + "px," + dy + "px)";
+        // the arrow is drawn against where the card WILL be, not where it is mid-transition
+        card = { left: card.left + dx, top: card.top + dy, width: card.width, height: card.height };
+      } else centre();
+    }
+    // the ring: a rounded rectangle a little outside the target, drawn as a path so one element does both jobs
+    const pad = 7, rad = 11;
+    const x = r.left - pad, y = r.top - pad, w = r.width + pad * 2, h = r.height + pad * 2;
+    const rr = Math.min(rad, w / 2, h / 2);
+    ring.setAttribute("d",
+      "M" + (x + rr) + " " + y + "h" + (w - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + rr + " " + rr +
+      "v" + (h - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + -rr + " " + rr +
+      "h" + -(w - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + -rr + " " + -rr +
+      "v" + -(h - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + rr + " " + -rr + "z");
+    const cx = card.left + card.width / 2, cy = card.top + card.height / 2;
+    const tx = r.left + r.width / 2, ty = r.top + r.height / 2;
+    let ux = tx - cx, uy = ty - cy;
+    const len = Math.hypot(ux, uy);
+    if (len < 1) { line.setAttribute("d", ""); head.setAttribute("d", ""); return; }
+    ux /= len; uy /= len;
+    const exit = (hw, hh) => Math.min(Math.abs(ux) < 1e-4 ? Infinity : hw / Math.abs(ux), Math.abs(uy) < 1e-4 ? Infinity : hh / Math.abs(uy));
+    const sT = exit(card.width / 2, card.height / 2) + 10;
+    const eT = exit(w / 2, h / 2) + 8;
+    const sx = cx + ux * sT, sy = cy + uy * sT;
+    const ex = tx - ux * eT, ey = ty - uy * eT;
+    // too close to draw: the target is all but under the card, and a 20px arrow between two boxes is noise
+    if (Math.hypot(ex - sx, ey - sy) < 26) { line.setAttribute("d", ""); head.setAttribute("d", ""); return; }
+    // a slight bow, so the arrow reads as drawn by hand rather than as a rule between two boxes
+    const mx = (sx + ex) / 2, my = (sy + ey) / 2, bow = Math.min(34, Math.hypot(ex - sx, ey - sy) * 0.16);
+    const px = -(ey - sy), py = ex - sx, pl = Math.hypot(px, py) || 1;
+    const qx = mx + (px / pl) * bow, qy = my + (py / pl) * bow;
+    line.setAttribute("d", "M" + sx + " " + sy + "Q" + qx + " " + qy + " " + ex + " " + ey);
+    // the head follows the curve's own tangent at the end, not the straight line between the two boxes
+    let hx = ex - qx, hy = ey - qy; const hl = Math.hypot(hx, hy) || 1; hx /= hl; hy /= hl;
+    const wing = (a) => {
+      const c = Math.cos(a), s = Math.sin(a);
+      return [ex - (hx * c - hy * s) * 11, ey - (hx * s + hy * c) * 11];
+    };
+    const a1 = wing(0.45), a2 = wing(-0.45);
+    head.setAttribute("d", "M" + a1[0] + " " + a1[1] + "L" + ex + " " + ey + "L" + a2[0] + " " + a2[1]);
+  }
+  // every render() ends here: the page under the tour has just been rebuilt, so the arrow is pointing at an
+  // element that no longer exists
+  function tourAfterRender() { if (tourEl) requestAnimationFrame(tourPlace); }
+
+  /* ---------- a page's own first-visit coach marks ----------
+     The Atlas has had these since it shipped; the walkthrough above deliberately stops short of the Atlas
+     and the Library, so the Library needed its own (Aug 2026, on request). Same card, same three ways out,
+     its own remembered key.
+
+     IT LIVES ON document.body, and that is not a preference. The Atlas's card can be `position:absolute`
+     inside its own full-bleed stage; an ordinary page has no such stage, so this one has to be fixed to the
+     VIEWPORT — and `.page` carries `animation:pageIn … both`, which makes it the containing block for every
+     fixed descendant. Rendered inside the page, `inset:0` therefore resolves to the page's own box: on the
+     Library that is the whole shelf, several screens tall, so the card centres itself a screen and a half
+     below the fold and the reader sees a dimmed page with nothing on it. (It shipped that way for an hour.)
+     On the body it is render()'s to close, like every other overlay there — see closePageHelp. */
+  let _pageHelpEl = null;
+  function closePageHelp() { if (_pageHelpEl) { _pageHelpEl.remove(); _pageHelpEl = null; } }
+  function pageHelp(label, tips, goLabel, onDone) {
+    closePageHelp();
+    const ov = document.createElement("div");
+    ov.className = "page-help";
+    ov.innerHTML = '<div class="ah-card" role="dialog" aria-modal="true" aria-label="' + esc(label) + '">' +
+      '<button class="ah-close" type="button" aria-label="Close">×</button><h3>' + esc(label) + "</h3>" +
+      tips.map((t) => '<div class="ah-tip">' + t + "</div>").join("") +
+      '<button class="btn ah-go" type="button">' + esc(goLabel) + "</button></div>";
+    document.body.appendChild(ov);
+    _pageHelpEl = ov;
+    const done = () => { closePageHelp(); document.removeEventListener("keydown", onKey, true); if (onDone) onDone(); };
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); done(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("click", (e) => { if (e.target === ov) done(); });
+    ov.querySelector(".ah-close").addEventListener("click", done);
+    ov.querySelector(".ah-go").addEventListener("click", done);
+    setTimeout(() => { const f = ov.querySelector(".btn"); if (f) f.focus(); }, 0);
+    return ov;
+  }
+  const LIB_TOUR_KEY = "folio_library_tour_v1";
+  const LIB_HELP_TIPS = [
+    "<b>Whole books, not extracts</b> — every work here is out of copyright and complete, in a named edition, with the translator and the grounds for shelving it stated on the book's own first page.",
+    "<b>Open one</b> — the chapters run along a bar at the top; ‹ › and the arrow keys step through them, and on a phone a sideways swipe does the same. Folio remembers the paragraph you stopped at, on every device you are signed in to.",
+    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. The translator's own notes fold out under each chapter.",
+    "<b>Mark up the page</b> — the same floating marker as a study card's draws over a book, and here the strokes are kept. Select a passage and right-click it to highlight the words themselves, copy them, or have them read aloud.",
+    "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a book for its options: star it to the top of the shelf, or share it.",
+  ];
+  function openLibHelp() {
+    pageHelp("The Library", LIB_HELP_TIPS, "Start reading", () => { try { localStorage.setItem(LIB_TOUR_KEY, "1"); } catch (e) {} });
+  }
+
+  /* THE OFFER — first-run markup on the home page, beside the hero and the how-it-works strip. It is shown
+     to a reader who has never graded a card and has never answered this question, and either answer retires
+     it for good; Settings → Study brings the walkthrough back. */
+  function tourOfferHTML() {
+    if (tourSeen() || tourRunning()) return "";
+    if (Object.keys(S.cards).length) return "";   // not a first-time reader, whatever the key says
+    return '<div class="tour-offer">' +
+      '<span class="to-chip" aria-hidden="true">' + TOUR_PEN + "</span>" +
+      '<div class="to-body"><b>New here?</b>' +
+      "<span>A three-minute walkthrough of how the cards are scheduled, how to add a deck, and how to study one.</span></div>" +
+      '<div class="to-acts"><button class="btn" id="b-tour" type="button">Take the tour</button>' +
+      '<button class="to-no" id="b-tour-no" type="button">No thanks</button></div></div>';
+  }
+  function wireTourOffer(root) {
+    const go = root.querySelector("#b-tour"), no = root.querySelector("#b-tour-no");
+    if (go) go.addEventListener("click", () => tourStart(0));
+    if (no) no.addEventListener("click", () => { setTourSeen(); render(); });
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
@@ -10218,6 +10630,10 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
+        ${/* The walkthrough is OFFERED, never raised over the page unasked — see the GUIDED TOUR block. It
+              sits above the review with the hero and the how-it-works strip, which are first-run-only for
+              the same reason, and either answer retires it. Settings → Study brings it back. */""}
+        ${tourOfferHTML()}
         ${reviewGroup}
         ${howit}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
@@ -10263,6 +10679,7 @@
        down on the way in, so a listener installed by an older build in this same session goes with it. */
     if (_homeResize) { window.removeEventListener("resize", _homeResize); _homeResize = null; }
     wireDailyQuote(root);
+    wireTourOffer(root);
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
       const id = el.dataset.review;
@@ -11640,6 +12057,9 @@
       <div class="lib-tools">
         <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these books…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
         ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
+        ${/* the way back to the first-visit card, exactly as the Atlas's "?" is — a page that explains
+              itself once and then never again is a page whose explanation cannot be re-read */""}
+        <button class="gz-btn lib-help-btn" id="libHelpBtn" type="button" aria-label="How to use the Library">?</button>
       </div>
       ${/* The licence note that used to close this page is gone (Aug 2026, on request). The RULE it
             described has not changed and is not weakened by its going: it is still stated in
@@ -11671,6 +12091,15 @@
     if (so) so.addEventListener("change", () => { setBookSort(so.value, false); });
     const sd = root.querySelector("#bkSortDir");
     if (sd) sd.addEventListener("click", () => { setBookSort(bookSortKey(), !bookSortRev()); });
+    /* first-visit coach marks + the "?" that brings them back (see pageHelp). The card is built on
+       document.body rather than written into this page — the reason is worth reading there. */
+    { const helpBtn = root.querySelector("#libHelpBtn");
+      if (helpBtn) helpBtn.addEventListener("click", openLibHelp);
+      let seen = "1"; try { seen = localStorage.getItem(LIB_TOUR_KEY) || ""; } catch (err) {}
+      // never over the walkthrough — it routes through nothing but Home and the collections, but a reader
+      // who finished it and came straight here would otherwise meet two cards at once
+      if (!seen && !tourRunning()) openLibHelp();
+    }
   };
   /* The direction control. A real button rather than four more options in the select, because the field
      and the direction are two independent choices and a select of eight rows makes the reader find the
@@ -15890,6 +16319,7 @@
               <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
               <div class="ah-tip"><b>Time-travel</b> — the dots on the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
+              <div class="ah-tip"><b>Draw on it</b> — the marker floating over the globe is the same one that writes on a study card: tap it for pens, a highlighter and an eraser, and drag it out of the way. Strokes here are pinned to the map, so they turn with it.</div>
               <div class="ah-tip"><b>A caution</b> — historical borders are rough estimates and should never be taken as factually accurate. Many past frontiers were vague, disputed or simply never recorded, so read every old map as an approximation rather than a precise picture of the world.</div>
               <button class="btn" id="ahGo" type="button">Explore</button>
             </div>
@@ -20152,6 +20582,13 @@
             <div class="info"><h3>Day ends at</h3><p>When one study day becomes the next: the review's new cards reset, the daily quote and the card of the day change, and your streak counts. Useful if you study after midnight. Follows this device's clock.</p></div>
             <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
+          <div class="set-row">
+            ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
+                  — so without this it would be unreachable the moment either answer was given. The Atlas
+                  and the Library keep their own "?" for the same reason. */""}
+            <div class="info"><h3>Walkthrough</h3><p>The three-minute tour of how cards are scheduled, how to add a deck to your daily study, and how to study one.</p></div>
+            <div class="ctl"><button class="btn ghost" id="replayTour">Take the tour</button></div>
+          </div>
         </div>
         <div class="set-card">
           ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
@@ -20274,6 +20711,8 @@
       scheduleDayRoll();                    // the next roll-over is at a different hour now
       toast(mins ? "The day now ends at " + dayEndHHMM() : "The day now ends at midnight");
     });
+    // the walkthrough's step 1 is taught on the home page, so it routes there itself — see tourGo
+    { const rt = root.querySelector("#replayTour"); if (rt) rt.addEventListener("click", () => tourStart(0)); }
 
     const npVal = root.querySelector("#np-val");
     const setNp = (d) => {

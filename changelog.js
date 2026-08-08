@@ -14,13 +14,15 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.100", released: "2026-08-08T09:12Z" };
+window.FOLIO_VERSION = { v: "1.101", released: "2026-08-08T11:04Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-08",
-    t: "The site loads about a megabyte lighter, seven new cards in Ancient Greece, and the decks on the home page take their collection's colour properly",
+    t: "A walkthrough for new readers, the site loads about a megabyte lighter, seven new cards in Ancient Greece, and the decks on the home page take their collection's colour properly",
     items: [
+      "If you are new to Folio, the home page now offers you a three-minute walkthrough. It dims the page, puts one card in the middle of it, and points at what it is describing: why the cards come back when they do, how to add a deck to your daily study, how to answer one and grade yourself honestly, and the marker you can write on a card with. It is entirely optional — take it, or say no thanks and it will not ask again — and if you change your mind it is in Settings, under Study.",
+      "The Library now explains itself the first time you open it, as the Atlas already did: what may be shelved and why, how the chapters and your reading position work, the original language beside the translation, and the marker and highlights. The Atlas card has gained a line about the marker too, since the strokes you draw on the globe are pinned to the map and turn with it. Both can be reopened from the ? beside them, whenever you like.",
       "Folio now opens noticeably faster. The site has shipped in English for a while, but every visitor was still downloading the nine translations of the cards and the glossary before a single card could be turned over — about a megabyte of compressed text that nothing on screen could ever use. It has been taken out, so the first page you see costs a third less to load, on a phone signal as much as on a desk.",
       "Seven new cards in the Ancient Greece collection, in the deck on the polis and colonisation, with the glossary terms that go with them.",
       "These release notes read as notes again. A day that announced eleven books in five separate entries now announces them in one, and the longest entries — one ran to four thousand characters — have been cut back to a summary of what changed rather than a transcript of it. Nothing has been dropped: every change is still recorded, in a good deal less reading.",
