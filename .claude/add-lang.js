@@ -1,4 +1,12 @@
 #!/usr/bin/env node
+// ⚠ READ FIRST (2026-08-08): the CARD `i18n` blocks and every i18n/gloss-<lang>.js were REMOVED on
+// request — the site ships in English and they were 2.06 MB of the eager path no reader could reach.
+// This tool's `chrome` and `tree` sections are still live and still correct; its `cards` and `glossary`
+// sections would RECREATE what was deliberately deleted. `add-card.js` and `add-glossary.js` now drop
+// translations with a warning, and `test-i18n-lang.js` fails if any card carries an `i18n` block or any
+// gloss-<lang>.js reappears — so a batch run here would be caught, but it is cheaper not to run it.
+// Restoring the languages is a deliberate decision, not something to arrive at by using this tool.
+//
 // Backfill ONE site language into the existing content, in batches. This is the tool for adding a new
 // language to Folio (or topping up a partially-translated one) — add-card.js / add-glossary.js only
 // handle a whole NEW entry in every language at once, and both would clobber the languages already on
