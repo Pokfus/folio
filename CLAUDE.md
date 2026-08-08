@@ -1932,6 +1932,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
   regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
+- `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
+  after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
+  an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
+  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
+  the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
+  which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
+  assumed, with the routes that keep paying (a paper walled here is usually open at its **Europe PMC** copy;
+  where the modern synthesis is closed the **standard 19th-century monograph is on archive.org and is often
+  the origin of the type name**; and a family with no reachable database may still have a **subject-specialist
+  network's** curator guide, which is what carried the Qing cash coins). **Coins looked like the pass's thin
+  spot and were its easiest family** — `numismatics.org` is shut and the British Museum's own catalogues
+  (Mattingly, Grueber, Head, Wroth, Keary, Brooke, Terrien de Lacouperie) are all on archive.org with full
+  OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
+  only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
+  connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
@@ -2070,7 +2086,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
-- `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc } ]`, the pool a
+- `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc, sources } ]`, the pool a
   level-up chest draws from (see THE RELIQUARY under "How the app is wired"). **Eager**, and it can stay
   eager because it is metadata only: a picture is a LINK, never an upload, exactly as a card's is, so an
   artefact costs a few hundred bytes however many are added. Every entry is a REAL object and the content
@@ -2090,6 +2106,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is a fresh lowercase slug) and **rewrites the file in `serializeArtefacts`'s exact output format**, so a
   hand edit and the next Admin save cannot drift apart. Its imperial pattern is add-card.js's plus VOLUME
   (gallons, pints, quarts), which the card corpus never needed and a corpus of jars and cauldrons does.
+  **AN ARTEFACT IS CITED, at `ARTEFACT_SRC_TARGET` (3) works** (Aug 2026, on request), each ending in the
+  URL a reader can open and each pointed at by a `<sup class="fn" data-fn="N"></sup>` marker written EMPTY
+  in the description — the card's apparatus exactly, so the numbering, the links, the access chips and the
+  jump both ways all come free. Three sits between the glossary's two and a card's five because a
+  description is five sentences. **It is a REFUSAL rather than a target the editor reports against**:
+  `add-artefacts.js` and Admin → Artefacts both turn away an artefact under the bar, one with a citation
+  carrying no URL, one whose description points at nothing, or one whose marker runs past the end of its
+  list (`wireFootnotes` deletes those at render, so the claim silently loses its source). An artefact
+  ALREADY in the file is cited with **`node .claude/add-artefact-sources.js <batch.json>`**, and the markers
+  are placed by **`node .claude/mark-artefact-sources.js <plan.json> <batch.json>`** from a plan of
+  `{ id: { sources, marks: { "<sentence>": [srcNums] } } }` — never by hand, which is how a marker ends up
+  inside a tag or a sentence loses its full stop. That plan takes an optional `desc`, so a CORRECTION and
+  its markers land in one diff where a source turns out not to bear the prose out.
+  **ALL 100 ARE CITED** (batches 1–15, completed 2026-08-08); `docs/artefact-citation-plan.md` holds the
+  batch table, the reachable-host survey the pass is built on, and its findings. **What keeps it true is
+  the refusal, not the count** — a new artefact cannot be written below the bar — so re-run
+  `.claude/test-artefacts.js` after any batch, since it reports coverage and re-checks every shipped list.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
@@ -3321,13 +3354,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `showcaseIds` filters on the way OUT rather than on the way in: an artefact retired from the pool since
     it was pinned would otherwise leave a slot pointing at nothing, and a reader cannot unpin what they
     cannot see.
+    **…AND IT CARRIES THE WAY IN TO THE WHOLE COLLECTION** (`.ar-schead` → `openCollectionWin`, Aug 2026, on
+    request). Four artefacts out of however many a reader holds said nothing about the rest: on your own
+    account the inventory was three sections further down and on a friend's it was below their statistics,
+    so the four tiles read as the whole of it. It opens as an OVERLAY rather than scrolling to that section
+    — the same list wherever a showcase is rendered, including a page that carries no inventory section at
+    all — and it is built from **`reliquaryHTML`**, so the overlay and the page's own section cannot come to
+    disagree about what is collected. Two things: it is absent when nothing is owned ("See all 0" is a
+    control that does nothing), and **`wireReliquary(host, prog, own)` takes the progress it opens FOR** —
+    a friend's showcase must raise a friend's collection, and the earlier one-argument form would quietly
+    have shown the reader their own list under somebody else's name.
+  · **THE PLATE IS ONE BUILDER** (`artefactPlateHTML` + `wireArtefactPlate`, Aug 2026, on request). The frame
+    an artefact is READ in — picture, name, rarity, date, origin, the five sentences and the works behind
+    them — is built once and used by both `openArtefactWin` and the live preview in Admin → Artefacts. A
+    preview written from a second copy of the markup is a preview that drifts, and it drifts silently. The
+    overlay chrome (backdrop, ×, Escape) stays with `openArtefactWin`, since the preview has nothing to
+    close; the FOOTNOTE NUMBERING stays with `wireFootnotes`, which needs rendered nodes, so every caller
+    pairs the builder with `wireArtefactPlate` on the container it put the markup in.
   · **A GUEST'S ARTEFACTS SHOW ON THE SIGNED-OUT ACCOUNT PAGE TOO.** Everything else there is behind the
     sign-in wall because it is about an ACCOUNT; artefacts are not — a guest levels up, earns chests and
     opens them entirely on this device, so walling the inventory off would be a reward that can be won and
     never looked at. It appears only once there is something to show, and carries no showcase, that being
     the half an account is needed for.
   · **THE OVERLAYS LIVE ON `document.body`**, like the level-up popup and the image viewer, so — like them —
-    `render()` closes them (`closeChestPop`, `closeArtefactWin`, in the close list). The chest is
+    `render()` closes them (`closeChestPop`, `closeArtefactWin`, `closeCollectionWin`, in the close list). The chest is
     deliberately NOT dismissed by a backdrop click: unlike the level-up popup it holds buttons, and an
     overlay where a stray tap outside the card takes the reward away is one nobody trusts.
   `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` are in `defaultState` AND `PROGRESS_FIELDS` — an
@@ -6138,6 +6188,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A picture is never saved uncredited** — the same rule `add-card.js`, `add-glossary.js` and the editors'
     media gate enforce, and for the same reason: the editors save on every keystroke, so a URL pasted in and
     forgotten about would otherwise ship credited to nobody.
+  · **THE FORM SHOWS THE READER'S PLATE, LIVE** (Aug 2026, on request), drawn by `artefactPlateHTML` — the
+    reader's own builder, not a second rendering of the same fields — and repainted on every keystroke.
+    Three things hold it up. It is built from the **FORM, never from the store**, so it shows the edit in
+    progress rather than the last thing saved, which is the difference between a preview and a receipt; the
+    description goes through `sanitizeHTML` on the way in exactly as `artefactSanitize` would, so a typo in
+    a tag looks here the way it will look to a reader. **`wireArtefactPlate` runs on every repaint**, or the
+    citations render as an unnumbered list under blank superscripts. And the listeners are bound with
+    **`change` as well as `input`**, because the rarity is a `<select>` — the one field that would silently
+    stop updating on an `input`-only preview.
+  · **The citation bar is a refusal here too** — a save under `ARTEFACT_SRC_TARGET`, or with a citation that
+    carries no URL, is turned away with a reason, and a counter beside the sources box reports both the
+    count and how many markers the description carries.
   `serializeArtefacts` writes the file's whole head comment out rather than preserving what is on disk: this
   is the only copy of it once the file has been round-tripped, and a serializer that drops the documentation
   is how a file stops explaining itself. It is wired into `autoSaveFiles`, `adminExport` (including its
@@ -7800,8 +7862,22 @@ dead code (never rendered).
     where the numeral was, a studied/total bar where the XP bar was, and no numeral or `.lib-cap` left
     anywhere. **And the deck cap is gone**: a reader who has studied nothing may add every live collection,
     which is the one assertion that would catch a half-removal, the cap having lived in three places. Plus
-    the Admin tab, including its ≤860px panel cap and the never-save-a-picture-uncredited rule. **Re-run
-    after touching the `THE RELIQUARY` block, `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
+    the Admin tab, including its ≤860px panel cap and the never-save-a-picture-uncredited rule.
+    **THE CITATION APPARATUS (Aug 2026)** is asserted in two places and two ways. On the PAGE: the plate
+    carries the fold, its markers are numbered by `wireFootnotes` rather than left blank, and it renders
+    OPEN as a card's does — a plate looks identical whether its markers resolve or not, so only the numbers
+    prove the join. In the SHIPPED FILE: **the shape is an invariant and the coverage is a pass in progress**,
+    and the two are checked differently on purpose — anything cited must be cited properly (a URL on every
+    citation, no marker past the end of its list, no work nothing points at), while coverage is REPORTED,
+    exactly as the card and glossary passes were run, because a suite that goes red for a documented backlog
+    is a suite people learn to ignore. The bar is enforced where it bites: `add-artefacts.js` and the
+    editor's Save. **The admin PREVIEW** is asserted to be the reader's own plate, to follow the FORM rather
+    than the store, and to update on the rarity `<select>`, which fires `change` and not `input`.
+    **The showcase's "See all" is NOT here** — the signed-out account page has no showcase, so it lives in
+    `test-account-page.js`, which has the session; what this file asserts is the other half, that a guest is
+    shown no orphan control for a section they have not got. **Re-run
+    after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
+    `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
@@ -7933,8 +8009,12 @@ dead code (never rendered).
     them, that the glossary meter is a link on your own record, and that the dashboard's People panel fills
     from the database and still says in prose what RLS will not let it count. **The mock sends
     `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
-    mock that forgets it reports a connection failure that is really a CORS one. **Re-run after touching
-    `acctSelfView` / `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
+    mock that forgets it reports a connection failure that is really a CORS one. It also owns the **Profile
+    showcase's "See all" button** (Aug 2026) — absent when the reader holds nothing, labelled with how many
+    they DO hold, opening the collection and closing on Escape — because the signed-out account page carries
+    no showcase at all and `test-artefacts.js` therefore cannot reach one. **Re-run after touching
+    `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
+    `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve and community-deck **card types** (Aug 2026), 110
     assertions in three parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
     through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part

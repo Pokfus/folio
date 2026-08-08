@@ -16,6 +16,11 @@
      · The Content-Range header the counts arrive in is NOT CORS-safelisted: it is readable only because
        Supabase names it in Access-Control-Expose-Headers. A mock that forgets that header reports a
        connection failure that is really a CORS one, so the mock here sends it on purpose.
+     · The Profile showcase's "See all" button (Aug 2026, on request), which lives here rather than in
+       test-artefacts.js because the SIGNED-OUT account page has no showcase — a showcase is four artefacts
+       chosen to be seen, and there is nobody to see a guest's. It opens the whole collection, it is absent
+       when the reader holds nothing, and — the half that fails silently — it opens THEIR collection on a
+       friend's profile rather than yours.
 
    Run:  NODE_PATH=<playwright>/node_modules node .claude/test-account-page.js
    Env:  FOLIO_CHROMIUM=<path to chrome> if Chromium lives outside the playwright package. */
@@ -93,6 +98,34 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
 
   // …and the glossary meter is a link on your OWN record
   check("the glossary meter links to the discovered list", await page.evaluate(() => !!document.querySelector('[data-exgo="glossary"]')));
+
+  /* ---- the Profile showcase's way in to the whole collection ----
+     With nothing collected there must be no button: "See all 0" is a control that does nothing. Then two
+     artefacts are planted and the page re-rendered, which is also the cheapest proof that the label counts
+     what the reader actually holds rather than the size of the pool. */
+  check("an empty collection carries no 'See all'", await page.evaluate(() => !document.querySelector("#showcase [data-arall]")));
+  const owned = await page.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem("folio_v1"));
+    const ids = (window.ARTEFACTS || []).slice(0, 2).map((a) => a.id);
+    s.artefacts = {}; ids.forEach((id, i) => { s.artefacts[id] = Date.now() - i * 1000; });
+    localStorage.setItem("folio_v1", JSON.stringify(s));
+    return ids;
+  });
+  await page.reload({ waitUntil: "load" });
+  await page.waitForTimeout(2200);
+  const label = (await page.evaluate(() => { const b = document.querySelector("#showcase [data-arall]"); return b && b.textContent; })) || "";
+  check("…and a collection of two carries one", /\b2\b/.test(label), label.trim() + " (" + owned.join(", ") + ")");
+  await page.evaluate(() => document.querySelector("#showcase [data-arall]").click());
+  await page.waitForTimeout(400);
+  const coll = await page.evaluate(() => {
+    const w = document.querySelector(".collection-pop .ar-collwin");
+    return { open: !!w, tiles: w ? w.querySelectorAll(".ar-tile").length : -1, head: w ? w.querySelector(".ar-collhead").textContent : "" };
+  });
+  check("…which opens the collection", coll.open && coll.tiles === 2, JSON.stringify(coll));
+  check("…headed as the reader's own", /your/i.test(coll.head), coll.head);
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(250);
+  check("…and Escape closes it", await page.evaluate(() => !document.querySelector(".ar-collwin")));
 
   // the Edit page's dashboard reaches the account database through the same mock
   await page.evaluate(() => { location.hash = "admin"; });

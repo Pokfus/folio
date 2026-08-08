@@ -2208,6 +2208,10 @@ body.hc:not(.night){
 
 /* ---- the profile showcase: four slots, filled or empty ---- */
 .showcase{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:10px;}
+/* the way in to the whole collection. It sits ABOVE the four slots and to the right, where a "see the
+   rest of this" control belongs — under them it would read as a caption on the fourth tile. */
+.ar-schead{display:flex; justify-content:flex-end; margin-bottom:8px;}
+.ar-all{font-size:calc(12.5px * var(--fs));}
 .ar-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin:6px 2px 16px;}
 /* an empty slot is DRAWN rather than left out: four dashed frames say "four of these can go here", where
    two tiles and a gap say nothing at all */
@@ -2254,11 +2258,39 @@ body.hc:not(.night){
 .ar-wdesc b{color:var(--ink);}
 .ar-wcredit{font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin-bottom:10px;}
 .ar-pinbtn{font-size:calc(12.5px * var(--fs));}
+
+/* ---- the whole collection, raised from the showcase's "See all" ----
+   It reuses `.artefact-pop`'s backdrop and the inventory's own grid, so the list in here is byte-for-byte
+   the one the account page's Reliquary section renders. Only the frame is new. */
+.ar-collwin{position:relative; width:min(760px,96vw); max-height:min(88vh,820px); overflow-y:auto; padding:22px 24px; background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:0 26px 64px rgba(0,0,0,.42);}
+.ar-collhead{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); margin:0 0 14px;}
+/* the inventory's own bottom margin is for a page, not for the foot of a dialog */
+.ar-collbody .reliquary{margin-bottom:0;}
+
+/* ---- the plate, previewed live in Admin → Artefacts ----
+   The editor's column is narrow and the plate is a two-column frame, so the preview stacks and the
+   picture is capped; nothing else about it is restyled, which is the point of previewing it at all. */
+.a-edit{display:grid; gap:16px; margin-bottom:14px;}
+.a-preview{border:1px solid var(--rule); border-radius:12px; background:var(--paper-2); padding:12px;}
+.a-prevhead{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px;}
+.ar-win.ar-inline{width:auto; max-height:none; box-shadow:none; overflow:visible;}
+@media (min-width:900px){
+  /* wide enough for the two to sit side by side — the form on the left, what it makes on the right */
+  .a-edit{grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start;}
+  .a-edit .a-preview{order:2; position:sticky; top:8px;}
+  .a-edit .q-form{order:1;}
+}
+@media (max-width:899px){
+  .ar-win.ar-inline{flex-direction:column; gap:14px;}
+  .ar-win.ar-inline .ar-winart{width:100%; max-width:220px; align-self:center;}
+}
+
 @media (max-width:640px){
   .ar-win{flex-direction:column; gap:14px; padding:20px 18px;}
   .ar-winart{width:100%; max-width:260px; align-self:center;}
   .showcase{grid-template-columns:repeat(2,1fr);}
   .ar-grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));}
+  .ar-collwin{padding:18px 16px;}
 }
 
 /* ---- the chest ----
