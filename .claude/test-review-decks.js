@@ -670,12 +670,26 @@ const SETTINGS = {
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
     const q = await page.evaluate(() => {
+      /* The rendered question is NOT byte-identical to the stored one, and an exact match here is a test
+         that passes on luck: the units pass rewrites every text node on the page, so a card asking about
+         "140 metres (460 feet)" renders without the bracket in metric mode — 20 of the deck's cards carry
+         one in their first phrasing, so a five-round sample missed on most runs. Both sides are compared
+         with parentheticals removed (card prose carries no other kind — see the house rules), and the
+         exact match is still tried first so two phrasings differing only inside a bracket could not be
+         quietly read as the same one. */
+      const norm = (x) => String(x).replace(/\s*\([^)]*\)/g, "").replace(/\s+/g, " ").trim();
       const out = [];
       for (let n = 0; n < 5; n++) {
         const txt = (document.querySelector(".qtext") || {}).innerHTML;
         if (txt == null) break;
-        const card = (window.CARD_DATA || []).find((c) => c.question === txt || (c.questions || []).indexOf(txt) >= 0);
-        out.push({ first: !!(card && card.question === txt), extras: card ? (card.questions || []).length : -1 });
+        const all = window.CARD_DATA || [];
+        const has = (c, t) => c.question === t || (c.questions || []).indexOf(t) >= 0;
+        const hasN = (c, t) => norm(c.question) === norm(t) || (c.questions || []).some((x) => norm(x) === norm(t));
+        const card = all.find((c) => has(c, txt)) || all.find((c) => hasN(c, txt));
+        out.push({
+          first: !!(card && (card.question === txt || norm(card.question) === norm(txt))),
+          extras: card ? (card.questions || []).length : -1,
+        });
         const b = document.querySelector(".opts .opt"); if (!b) break;
         b.click();
         const nx = document.querySelector("#mc-next"); if (!nx) break;

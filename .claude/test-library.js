@@ -68,6 +68,38 @@ function shippedBookLeaks() {
   return bad;
 }
 
+/* Both halves of one book, read off the files that shipped and measured against each other. Written
+   for The City of God, whose reader serves one book and so cannot be proved inert by re-running a
+   sibling — see the note at its call site. Returns null when the book is not on disk. */
+function shippedPair(id) {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, id + ".js"), laF = path.join(dir, id + ".la.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(laF)) return null;
+  global.window = {};
+  [enF, laF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === id);
+  const la = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === id);
+  if (!en || !la) return null;
+  const nums = (h) => (h.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+  const out = { en: en.chapters, la: la.chapters, secEn: 0, secLa: 0, pairs: 0, gaps: [], notSeq: [], noteFaults: [], caput: 0 };
+  la.chapters.forEach((c) => { out.caput += (c.html.match(/CAPUT/g) || []).length; });
+  en.chapters.forEach((c) => {
+    const o = la.chapters.find((x) => x.n === c.n);
+    const a = nums(c.html), b = o ? nums(o.html) : [];
+    out.secEn += a.length; out.secLa += b.length;
+    if (!a.every((v, i) => v === i + 1)) out.notSeq.push("en " + c.n);
+    if (!b.every((v, i) => v === i + 1)) out.notSeq.push("la " + c.n);
+    const sa = new Set(a), sb = new Set(b);
+    const miss = a.filter((v) => !sb.has(v)), extra = b.filter((v) => !sa.has(v));
+    if (a.length && !miss.length && !extra.length) out.pairs++;
+    else out.gaps.push(c.n + ": en-only " + miss.join(",") + " la-only " + extra.join(","));
+    const m = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    if (m.some((v) => v > (c.notes || []).length)) out.noteFaults.push(c.n + " marker past end of list");
+    for (let i = 1; i <= (c.notes || []).length; i++) if (!m.includes(i)) { out.noteFaults.push(c.n + " note " + i + " unreferenced"); break; }
+  });
+  return out;
+}
+
 (async () => {
   // every request the page makes, so "is the book lazy?" is answered by observation
   const asked = [];
@@ -552,6 +584,34 @@ function shippedBookLeaks() {
     check("no note carries Wikisource's own stylesheet as text",
       leak.n > 0 && !leak.notes.length, JSON.stringify({ chapters: leak.n, bad: leak.notes.slice(0, 6) }));
     check("...nor does any chapter's prose", leak.n > 0 && !leak.html.length, JSON.stringify(leak.html.slice(0, 6)));
+
+    /* THE CAPUT READER HAS NO SIBLING TO DIFF AGAINST (Aug 2026, adding The City of God). Every other
+       book on this shelf shares its extractor with at least one more, so a change to one is proved
+       inert by re-running the other and comparing bytes; this reader serves one book. What stands in
+       for that is a sweep of the SHIPPED data — the same argument the Gita's stream cut rests on.
+
+       The assertion that earns its place is the last one: an unconverted CAPUT in the Latin is a
+       chapter mark wearing a costume the four the pass knows about do not cover, and it is silent
+       everywhere else — the prose is all present, the book is the right length, and that chapter's
+       Latin simply folds into the one above it. Exactly one is expected, Book I's bracketed
+       resumption, which Migne prints and which is deliberately left as printed. */
+    const cog = shippedPair("city-of-god");
+    if (cog) {
+      check("[city of god] the two columns carry the same number of chapters",
+        cog.en.length === 22 && cog.la.length === 22, `en ${cog.en.length} la ${cog.la.length}`);
+      check("...and 661 chapter numbers on each side",
+        cog.secEn === 661 && cog.secLa === 661, `en ${cog.secEn} la ${cog.secLa}`);
+      check("...numbered a clean 1..N in every book, both sides",
+        !cog.notSeq.length, JSON.stringify(cog.notSeq.slice(0, 6)));
+      check("...pairing exactly, every book, in both directions",
+        cog.pairs === 22, `${cog.pairs}/22 — ${JSON.stringify(cog.gaps.slice(0, 4))}`);
+      check("[city of god] every footnote marker resolves and every note is pointed at",
+        !cog.noteFaults.length, JSON.stringify(cog.noteFaults.slice(0, 6)));
+      check("[city of god] no unconverted CAPUT beyond Book I's bracketed resumption",
+        cog.caput === 1, `${cog.caput} left`);
+    } else {
+      check("[city of god] both halves of the book are on disk", false, "missing books/city-of-god*.js");
+    }
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there
        passes or fails on nothing. Letter 9 names the Greeks, which the glossary has. */

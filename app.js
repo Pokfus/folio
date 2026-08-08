@@ -5263,6 +5263,29 @@
        papers, against 1.0–1.2 on the eighteen dark ones as every swatch here does. Keyed by id, the
        treatises being anonymous. */
     "book-of-rites": "#460030",
+    /* Measured the same way as every row above, with twenty-seven colours already placed, and this
+       time the number and the grammar agreed — which after several rows where they did not is worth
+       recording as the easy case rather than assumed to be the normal one.
+
+       Searched over the shelf's own lightness and chroma band (L 12.7–47.8, C 18.3–64.1), under the
+       Book of Rites' second floor of 22 from every light theme's ink and the 4.5:1 bar test-a11y.js
+       holds the site to, only THREE hue families still hold anything at all: a very dark brown at
+       23.0, a deep blue-indigo at 22.6 and a dark red at 22.2. The band is as full as that row said
+       it was, and it did not have to be widened again.
+
+       THE BLUE WAS REJECTED ON THUCYDIDES' RULE. It is a fourth colour in a quarter that already
+       holds Aristotle, Machiavelli, Herodotus, the Song of Roland and, next door, Snorri Sturluson
+       and Seneca — and its two nearest neighbours at 22.6 and 22.9 are Snorri and Herodotus, so it
+       would be crowding the quarter to say nothing in particular.
+
+       So this very dark brown, which is the best number as well: it clears Sophocles by 23.0,
+       Confucius by 23.2 and Beowulf by 24.0 — evenly, which is Vyasa's test for a colour that reads
+       as its own rather than as a near-miss of one — against the shelf's tightest pair at 18.2. The
+       Euripides test costs nothing here, its three nearest being Greek tragedy, an Old English
+       heroic poem and the Analects: nobody reads The City of God against any of them, so no kinship
+       is asserted. It reads 9.42:1 on the tightest of the sixteen light papers, the highest of any
+       swatch on the shelf. */
+    "Augustine of Hippo": "#3F1800",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -6930,6 +6953,60 @@
       parts: [
         { n: 1, label: "Lays of the Gods", note: "14 poems" },
         { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
+    },
+    {
+      id: "city-of-god",
+      title: "The City of God",
+      subtitle: "De Civitate Dei contra Paganos",
+      author: "Augustine of Hippo",
+      /* Begun in 413, three years after the sack of Rome, and finished in 426. `year` is the single
+         number the shelf's date sort needs and is the year he began rather than the year he stopped:
+         it is what places the book against its neighbours, and the thirteen years between are the
+         work rather than a delay before it. */
+      written: "413–426 CE",
+      year: 413,
+      translator: "Marcus Dods",
+      edition:
+        "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+        "First Series, Vol. II, ed. Philip Schaff, Buffalo, 1887",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL — the fourth on this shelf after the Republic, the
+         Analects and the Peloponnesian War, and every one of its three layers is clear. Augustine
+         died in 430. Dods published in Edinburgh in 1871 and Schaff reprinted him in 1887, both long
+         before 1929, and Dods died in 1909, so the translation clears the publication rule,
+         life-plus-seventy and life-plus-a-hundred alike: no limit to state as Giles (2029) and Ross
+         (2042) need, and no modern editorial layer as the Histories and the Meditations' Greek carry.
+         Migne's Latin beside it is of 1841 and is free on the same three grounds. */
+      rights:
+        "Public domain worldwide. Augustine died in 430. Marcus Dods published this translation in " +
+        "Edinburgh in 1871 and Philip Schaff reprinted it in 1887 — both before 1929, so its United " +
+        "States copyright has expired — and Dods died in 1909, so it is out of copyright wherever the " +
+        "term runs for the author's life plus seventy or even a hundred years. Migne's Latin, printed " +
+        "in 1841, is free on the same grounds. (Henry Bettenson's translation of 1972, R. W. Dyson's " +
+        "of 1998 and William Babcock's of 2012–2013 are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl:
+        "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_II/City_of_God",
+      origLang: "la",
+      origName: "Latin",
+      /* THE CHAPTER IS ONE OF AUGUSTINE'S TWENTY-TWO BOOKS, and his own chapter is the SECTION. That
+         is the shape the citation already has — "City of God XIX.24" is book nineteen, chapter
+         twenty-four — and it is forced by the sizes: 661 chapters over 22 books averages thirty to a
+         book, and a great many of them run to a single paragraph, so cutting at the chapter would put
+         661 tabs on the bar and set one paragraph beside another. See .claude/fetch-book.js for the
+         measurement behind the pairing (661 chapters on each side, the same numbers in the same order
+         in all 22 books) and for why the Latin is the copy of Migne it is rather than the one a search
+         returns first. */
+      chapterWord: "Book",
+      count: 22,
+      total: 22,
+      /* The work's own division, which Augustine states himself at the head of Book XI: ten books
+         answering the charge that Rome fell because it left its gods, and twelve tracing the two
+         cities from the creation to the judgment. The `note` gives each half's share of the
+         chapters, since they are cut very unevenly against the books. */
+      parts: [
+        { n: 1, label: "Against the pagans", note: "Books I–X" },
+        { n: 2, label: "The two cities", note: "Books XI–XXII" },
       ],
     },
   ];
