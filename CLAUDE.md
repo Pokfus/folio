@@ -2802,6 +2802,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       Confucius's walnut is 26 from its nearest neighbour. The obvious green for the Analects was
       measured and REJECTED: every green that sits inside this palette lands 12–17 from Lucretius, and
       the only greens clearing that are bright enough to glow beside ten muted colours.
+    · **…AND ON A DARK PAPER IT IS A LIGHTER SHADE OF THAT COLOUR** (`--bk-accent`, Aug 2026, on a bug
+      report: "in night mode some of the books' authors and 'Start reading' are too dark to read"). Every
+      swatch above was chosen inside a deliberately dark lightness band and **measured against the SIXTEEN
+      LIGHT papers alone** — the Euripides row says outright that a swatch this dark reads 1.5–3.0 on the
+      dark ones. That is right for a SPINE seen against white and wrong the moment the same value is set
+      as TEXT on night's `--card`: the Book of Rites' dark plum reads **1.08:1** there, which is not low
+      contrast but none at all, and the spine that identifies the book disappears with the words.
+      **The lesson is that a palette is only measured against the papers somebody thought to measure it
+      against** — nothing here was wrong when it was chosen, and the same numbers stopped being the right
+      numbers when the accent was given a second job.
+      Three decisions. It is a **derived property** rather than a re-toned `--tile`, because `--tile` is
+      set INLINE by `bookColor` and a stylesheet cannot override an inline custom property — `.book-tile`
+      declares `--bk-accent`, `body.night .book-tile` redeclares it, and the seven rules that paint the
+      banner (spine, author, Start-reading/resume, the reading bar, the wash, the hover border, the focus
+      ring) all read the derived one. It is a **MIX toward white rather than a second table of colours**,
+      so a book added later is covered by having a colour at all. And **45% is measured, not guessed**: it
+      is the strongest mix at which the darkest swatch on the shelf still clears 4.5:1 on the lightest
+      night `--card` (#460030 → 5.0:1; all thirty books land 5.0–6.5; at 50% it falls to 4.3 and misses).
+      It keeps each hue and takes only chroma, so two books by one hand still wash, spine and read alike.
+      **Day mode is untouched** — `--bk-accent` resolves to `var(--tile, var(--indigo))` there, so the
+      light shelf is byte-identical.
     **The banner carries its book's colour as a WASH, not only on the spine** (Aug 2026, on request —
     "similar to the collection banners"). It is the collection banner's own bookplate treatment written
     the way `.active-deck` writes it: a gradient of the accent laid OVER `var(--card)` rather than mixed
@@ -4869,6 +4890,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   gate as its first act** — `challenge`, `truefalse`, `whosaid`, `chrono`, `thread`, and `findit`, where it
   goes in `PAGES.findit` rather than inside `PAGES.map` (that is the whole Atlas and knows nothing about
   daily games, and it is the only route into game mode). It renders an `emptyPlacard` naming today's score.
+  **ITS MARK IS THE GAME'S OWN TILE ICON, NOT A HAN GLYPH** (Aug 2026, on a report: "the 'Played today'
+  screen should not contain a Chinese character"). `GAME_NAMES` carried 选 / 真 / 言 / 序 / 紐 / 地 — the
+  glyphs the game TILES wore back when Folio was a China deck, and which the tiles gave up for the
+  line-drawn `ICON` marks when the site stopped being one. This placard kept its copy, and because it is
+  what a reader meets EVERY day once they have played it was the last place on the site regularly showing
+  a Chinese character to a reader of an English page — one that says nothing whatever about Timeline or
+  Find it. **`ICON` therefore moved out of `PAGES.home` to module scope** rather than being copied: two
+  tables of the same SVGs is how a tile and its placard come to disagree about which mark a game wears.
+  `.placard .big` sizes an inline SVG to the same 54px square a character occupied and **thins the stroke
+  from the tiles' 2 to 1.5** — at this size a 24-viewBox stroke of 2 draws 4.5px, which reads as a logo.
+  The OTHER placards still carry Han glyphs (`emptyPlacard`'s "Coming soon" / "Not enough cards" branches
+  inside the games); they are states a reader effectively never reaches, and they were deliberately left
+  rather than swept up with this — say so if one is ever seen.
   **TWO GAMES HAD GROWN THEIR OWN LOCAL VERSION OF THIS RULE AND BOTH ARE NOW RETIRED**, which is the shape
   of a rule that wants stating once rather than six times: Timeline recorded the FIRST check and ignored
   later ones (it now takes ONE check — `.chrono-done` on the list stops the grips and the arrows, in JS as
