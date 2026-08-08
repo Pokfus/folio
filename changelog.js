@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.111", released: "2026-08-08T23:04Z" };
+window.FOLIO_VERSION = { v: "1.130", released: "2026-08-08T23:44Z" };
 
 window.CHANGELOG = [
   {
@@ -43,7 +43,7 @@ window.CHANGELOG = [
       "The screen you meet after finishing a minigame for the day no longer greets you with a Chinese character. It shows that game's own mark instead — the one on the tile you pressed.",
       "Small things: drag the floating marker back to roughly where it started and it now slides the last of the way home, so it lines up with everything else in that corner again — and the present-day Atlas map is titled simply Today.",
       "Folio now opens noticeably faster. The site has shipped in English for a while, but every visitor was still downloading the nine translations of the cards and the glossary before a single card could be turned over — about a megabyte of compressed text that nothing on screen could ever use. It has been taken out, so the first page you see costs a third less to load, on a phone signal as much as on a desk.",
-      "Forty-seven new cards — seven in Ancient Greece, in its deck on the polis and colonisation, and the first forty of the <b>Ancient Rome</b> collection, in its Italy before Rome deck, which is no longer empty and can be grown a card at a time from here. Each comes with the glossary term that goes with it.",
+      "Seventy-five new cards — thirty-five in Ancient Greece, fifteen in its deck on the polis and colonisation and the first twenty of its Sparta deck, and the first forty of the <b>Ancient Rome</b> collection, in its Italy before Rome deck, which is no longer empty and can be grown a card at a time from here. Each comes with the glossary term that goes with it.",
       "These release notes read as notes again. A day that announced eleven books in five separate entries now announces them in one, and the longest entries — one ran to four thousand characters — have been cut back to a summary of what changed rather than a transcript of it. Nothing has been dropped: every change is still recorded, in a good deal less reading.",
       "Every card background on the site now sits inside its own length rule, and the two entries that fell outside it have been put right: seven backgrounds that ran slightly long were tightened without losing a claim, and a Syracuse card and glossary entry that stopped short gained the part they had left out.",
       "Eleven glossary entries and three Ancient Greece cards now spell, quote and number things the way the rest of the site does — British spellings throughout, the straight quotation marks the rest of the writing uses, and a figure above twenty written as a numeral rather than in words.",
