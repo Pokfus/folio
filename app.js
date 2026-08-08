@@ -1084,7 +1084,7 @@
          shelf a phone shows is the shelf the laptop shows. The timestamp rather than `true` is what lets
          the Favourites section keep the order they were starred in. */
       bookFavs: {},
-      daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
+      daily: { lastPlayed: 0, best: 0, games: 0, wins: 0 },   // `podiums` retired with the rival-bot race — nothing ever read it
       chrono: { date: "", best: 0, plays: 0, solved: false }, // timeline game daily record
       games: {}, // minigame id ("challenge"/"chrono"/"truefalse"/"whosaid") -> { date, played, won } for today's tile checkmarks + the daily-sweep badge
       intro: { date: "", count: 0, extra: 0 }, // new cards introduced today (+ today's Custom-study bump)
@@ -14947,13 +14947,10 @@
   }
 
   /* ============================================================
-     DAILY CHALLENGE
+     MULTIPLE CHOICE
      ============================================================ */
-  const BOTS = [
-    { name: "Mei", color: "#36357A", skill: 0.78, speed: [2.5, 7] },
-    { name: "Aric", color: "#B5722A", skill: 0.62, speed: [3, 9] },
-    { name: "Tomas", color: "#3F7E5C", skill: 0.7, speed: [2, 8] },
-  ];
+  // (The rival-bot race that used to live here is gone; `BOTS`, `drawRace` and the podium went with it.
+  //  `S.daily.wins` survives because the Victor/Champion badges read it — see checkAchievements.)
 
   // rough type of a card's answer, so the wrong options are the SAME KIND of thing (a person → other people,
   // a dynasty → other dynasties, an event → other events) and the choice is genuinely hard rather than obvious.

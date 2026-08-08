@@ -57,8 +57,15 @@ It is a plain static website — open `index.html` and it runs.
 
 ## File map
 
-**Only the study-critical files load eagerly** (~1.4 MB), in this order — it is significant:
+**Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js → app.js`.
+**That path was ~1.4 MB when the lazy split landed and is now 7.5 MB raw / 2.4 MB gzipped** (measured
+2026-08-08; the figure here said 1.4 MB for months and was five times out of date, so **re-measure it rather
+than quoting it**). The growth is content, not code: `data.js` alone is 4.3 MB, and **58% of it (2.06 MB) is
+the `i18n` translation blocks of 89 cards** — which `MULTILANG = false` means no reader can currently reach.
+That is the `quotes.js` mistake (27 KB → 312 KB for every visitor) at seven times the scale, and the fix is
+the same one: move card translations to a lazy `cardI18n:<lang>` bundle beside the glossary's. `glossary.js`
+is 1.15 MB, of which `GLOSSARY_SOURCES` is 479 KB (42%) and is only read once a popup opens.
 
 **Everything else is LAZY**, injected on demand by `DATA_BUNDLES` / `ensureData(name)` in app.js (see the
 "Lazy data bundles" bullet under "How the app is wired"). Before this split every visitor downloaded ~11.3 MB
@@ -3724,7 +3731,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **in English** — and batch 24 should clear them before marking any of those cards. And
     **`check-style.js` was applying the house rules to `sources`**, reporting a real paper's title as a
     century-word violation; in `--fix` mode it would have renamed the paper. Citations are now masked out
-    before any rule runs. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
+    before any rule runs. **THAT MASK ONLY EVER COVERED HALF THE CORPUS, and the other half was found on
+    2026-08-08**: it matches the CARD shape `"sources":[…]`, and glossary citations live in a TOP-LEVEL
+    `window.GLOSSARY_SOURCES` block with no such key, so nothing in the glossary was ever masked. Reproduced
+    before fixing by running `--fix` on a throwaway copy: it renamed **six real published works across twelve
+    citations** (Lemos's *…Late Eleventh and Tenth Centuries B.C.* → *…Late 11th and 10th Centuries B.C.*,
+    Camp's *A Drought in the Late Eighth Century B.C.*, Dickinson's *…Twelfth and Eighth Centuries BC*). The
+    whole block is masked now. **The lesson is that a mask keyed on one file's SHAPE is not a rule about
+    citations** — when a checker grows a second corpus, re-derive what it is meant to skip there rather than
+    assuming the existing guard travels. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
     the split rather than routing round it with a per-language marker map** — `add-sources.js` catches the
     divergence as a marker-count mismatch, and rejoining the sentences restores parity claim for claim.
     From Batch 24: **where a batch's cards share a DEBATE rather than a site, one review can carry
@@ -4387,7 +4402,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **True or False** (`truefalse`),
   **Who said it?** (`whosaid`, from `quotes.js`), **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), and **Common Thread**
-  (`thread` — see its own bullet below). `BOTS`/`drawRace`/podium are now dead code.
+  (`thread` — see its own bullet below). The rival-bot race is **gone, not merely unreachable**: `drawRace`
+  and the podium had already been deleted, and `BOTS` plus the write-only `S.daily.podiums` field followed on
+  2026-08-08 (nothing read either; `S.daily.wins` stays, since the Victor/Champion badges read it).
   Each of the 6 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline).
   **ONE PLAY A DAY, AND THE GATE IS `gameLockedToday(root, key)`** (Aug 2026, on request). Every one of the
@@ -6858,6 +6875,13 @@ dead code (never rendered).
     `GLOSSARY` is red by design and therefore read by nobody (it was, at 24/4, until Aug 2026). Both halves
     still bite: a batch that translates one language and forgets the rest fails, and so does a card
     translated into only some. **Tighten it back to `Object.keys(GLOSS).length` when translations resume.**
+    **THE CARD SIDE CARRIED THE SAME ROT and was fixed on 2026-08-08**: it asserted an ABSOLUTE floor of 100
+    fully-translated cards, which erodes on its own from two directions — cards written since the gate ship
+    English-only, and the 2026-08-04 World History renumbering **retired 20 cards that had been translated** —
+    so it went red at 89 of 334 with nothing whatever wrong. Verified before touching it (89 fully translated,
+    89 carrying any `i18n` at all, **0 partial**, every one a pre-gate `wh-` card), then replaced with the
+    invariant that does not erode: *a card carrying translations carries all nine*. **An absolute count of a
+    growing corpus is not an invariant** — assert the relationship, not the number.
     Also asserted: — the sharp edge of this layout — a `glossaryI18n` overlay
     delta records ONLY the edited language, LAYERS over the shipped text so an edit made in one language
     cannot wipe another's, bakes to one file per edited language holding every term, and NEVER bakes a
