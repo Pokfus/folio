@@ -13,13 +13,15 @@
   --ink:#1B1A17; --ink-soft:#4A4843; --ink-faint:#8B887F; --rule:#E3E0D7;
   --indigo:#36357A; --indigo-bright:#4E4CB0; --indigo-wash:#ECECF7; --ochre:#B5722A;
   --zh:#C8453C; --zh-wash:#FBECEA; --geo:#BC7A18; --good:#3F7E5C;
-  /* the BOOK's own note markers (Aug 2026, on request) — a hue of its own, because every neighbouring
-     one is already spoken for and a marker wearing a borrowed colour claims to be the thing that colour
-     means. --zh is the card's citation marker and the answer term, --indigo is a glossary link, --ochre
-     is a glossary term not yet opened, --good is completion. This teal is none of them, and it is far
-     enough round the wheel from --good's forest green (hue ~186 against ~152) to read as another thing
-     rather than as a shade of the same one. */
-  --bknote:#1E7A85;
+  /* an UNDISCOVERED glossary term (Aug 2026, on request). This teal began life as --bknote, the Library
+     books' own note colour, and the two roles were SWAPPED: a book's markers now take the card's
+     vermilion (--zh) like every other citation on the site, and the hue that distinguished them moved
+     to the one mark that had been borrowing --ochre — the gold of a card's blank. The reasoning that
+     chose the hue holds either way: every neighbouring token is spoken for (--zh is a citation marker
+     and the answer term, --indigo a glossary link, --good completion, --ochre the blank), and this teal
+     is none of them, far enough round the wheel from --good's forest green (hue ~186 against ~152) to
+     read as another thing rather than as a shade of the same one. */
+  --newterm:#1E7A85;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --serif:"Newsreader", Georgia, "Times New Roman", serif;
   --display:"Fraunces", Georgia, serif;
@@ -48,7 +50,7 @@ body.night{
   --ink:#ECEAE3; --ink-soft:#D6D2C8; --ink-faint:#8A877F; --rule:#34343C;
   --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
   --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
-  --bknote:#5FC2CE;
+  --newterm:#5FC2CE;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
@@ -82,7 +84,7 @@ body.night{
 body.night .btn:not(.ghost){color:var(--paper);}
 body.night .btn:not(.ghost):hover{color:var(--paper);}
 body.hc:not(.night){
-  --ink-faint:#6C6A63; --ochre:#945D22; --geo:#935F13; --zh:#BA4038; --good:#3B7556;
+  --ink-faint:#6C6A63; --ochre:#945D22; --geo:#935F13; --zh:#BA4038; --good:#3B7556; --newterm:#155E68;
 }
 body.hc.night{ --ink-faint:#918E87; }
 /* …and the borders, which are not text and so are not in the table above, but are what tells one card from
@@ -90,8 +92,8 @@ body.hc.night{ --ink-faint:#918E87; }
 body.hc:not(.night){ --rule:#B9B4A5; }
 body.hc.night{ --rule:#5A5A66; }
 body.hc .btn,body.hc .card,body.hc .set-card{border-width:1.5px;}
-/* the gold level numeral is 2.6:1 on card — decorative, but it carries a number a reader is meant to read */
-body.hc:not(.night) .lb-num,body.hc:not(.night) .banner .lb-num,body.hc:not(.night) .collection-row .lb-num{color:#81661E;}
+/* the gold collection icon is 2.6:1 on card — decorative, but it is the only thing naming the subject */
+body.hc:not(.night) .coll-ic{color:#81661E;}
 /* a focus ring the mode can't leave to chance: thicker, and always the bright indigo rather than the theme's */
 body.hc :focus-visible{outline:3px solid var(--indigo-bright) !important; outline-offset:2px;}
 
@@ -449,9 +451,12 @@ html[dir="rtl"] .site-ver{text-align:right;}
 .xp-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em; white-space:nowrap; font-weight:500;}
 .xp-track{height:8px; border-radius:99px; background:var(--paper-2); overflow:hidden; border:1px solid var(--rule);}
 .xp-fill{height:100%; border-radius:99px; background:linear-gradient(90deg, var(--indigo), var(--indigo-bright)); width:0; transition:width .9s var(--ease);}
-.xp.zh .xp-fill{background:linear-gradient(90deg, var(--zh), #E0786F);}
-/* Library: each collection's xp bar fills in its own identity hue */
+/* Library: each collection's bar fills in its own identity hue */
 .collection-row .xp-fill{background:linear-gradient(90deg, var(--coll-bg, var(--indigo)), color-mix(in srgb, var(--coll-bg, var(--indigo)) 62%, white));}
+/* A collection / deck PROGRESS bar (deckProgMarkup) borrows the .xp shape so every theme rule, hue and
+   animateProgs above applies unchanged. Only its head differs: "Studied" is a caption rather than a level,
+   so it takes the quiet ink instead of the indigo the level label wears. */
+.deck-prog .xp-lvl{color:var(--ink-faint); font-weight:500;}
 /* home banner stats: Anki's three piles in Anki's colours — blue new, red learning, green review. The same
    three run down the deck rows below the banner as .adc-new / .adc-learn / .adc-rev, and the study bar's
    own .cnt row has always used exactly these tokens; keep all three sites on the same palette. */
@@ -459,27 +464,26 @@ html[dir="rtl"] .site-ver{text-align:right;}
 .banner .stat.st-learn b{color:var(--zh);}
 .banner .stat.st-rev b{color:var(--good, #4F9D67);}
 .banner .stat.stat-zero b{color:var(--ink-faint);}
-/* large level numeral shown at the left of a collection / review banner */
-.level-badge{flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:56px; line-height:1;}
-.lb-num{font-family:var(--display); font-weight:600; font-size:calc(44px * var(--fs)); line-height:.82; color:var(--indigo); letter-spacing:-.02em;}
-.lb-lbl{font-family:var(--mono); font-size:calc(8px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); margin-top:4px;}
-/* home Daily-review banner numeral + Library collection numeral (incl. China's Chinese numeral): golden */
-.banner .lb-num, .collection-row .lb-num{color:#C39A2E;}
-body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}   /* brighter gold so it reads over the dark card/wash */
-/* China's level shows a Chinese numeral — render it in the Han font */
-.level-badge.zh .lb-num{font-family:var(--han); font-weight:600; font-size:calc(40px * var(--fs));}
-/* Japan counts in the same kanji, at the same size — but deliberately WITHOUT var(--han), which is a
-   Simplified Chinese face; this falls through to the reader's own system CJK font, as Japanese text does. */
-.level-badge.num-ja .lb-num{font-weight:600; font-size:calc(40px * var(--fs));}
-/* the other civilisations count in their own script too — letter numerals sit a touch smaller than digits */
-.level-badge.num-roman .lb-num{font-size:calc(36px * var(--fs)); letter-spacing:0;}
-.level-badge.num-greek .lb-num, .level-badge.num-cyrillic .lb-num{font-size:calc(38px * var(--fs));}
-.level-badge.num-devanagari .lb-num{font-size:calc(40px * var(--fs));}
-.lu-badge.num-roman, .lu-badge.num-greek, .lu-badge.num-cyrillic{font-size:calc(19px * var(--fs));}
+/* THE LEVEL BADGE IS GONE ENTIRELY (Aug 2026). `.level-badge` / `.lb-num` / `.lb-lbl` dressed a large
+   numeral in two places: the home Daily-study banner, which gave its numeral up earlier that month on
+   request, and the COLLECTION banners, which gave theirs up with collection levels themselves. Nothing
+   was left rendering one, so the rules went with `levelBadgeMarkup` — along with the per-script variants
+   (.level-badge.zh / .num-ja / .num-roman / .num-greek / .num-cyrillic / .num-devanagari) that counted a
+   collection's level in its own numerals. Folio's level is still spelled out in words by the banner's xp
+   bar (.xp-lvl). A collection carries a subject icon instead: */
+/* ---- a collection's subject icon (Aug 2026, on request) ----
+   It stands where the level numeral stood, at the same width, so nothing around it had to move. GOLD
+   rather than the collection's own hue: the banner wash IS that hue, and the gold is the one colour
+   already proven to read over all ten of them in all eight themes, light and dark. */
+.coll-ic{flex:none; display:flex; align-items:center; justify-content:center; min-width:56px; color:#C39A2E;}
+.coll-ic svg{width:calc(34px * var(--fs)); height:calc(34px * var(--fs)); display:block;}
+body.night .coll-ic{color:#E6C765;}
+.cl-row .coll-ic, .udeck .coll-ic{min-width:46px;}
+.cl-row .coll-ic svg{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
 /* The Daily-review banner carried a large plain golden numeral of its own — the day's whole pile — and it
    went in Aug 2026 on request, along with pileBadgeMarkup, the tick it showed on a cleared day and the
-   sizing rules that dressed it. `.banner` is that one button; the Library's collection banners are
-   `.collection-row`, whose own `.lb-num` gold sits a few lines above. */
+   sizing rules that dressed it. `.banner` is that one button; the Library's collection banners carry an
+   icon rather than a numeral (.coll-ic, a few lines above). */
 /* breathing room between the desc line above and the blue "Level X / X of X cards" row */
 .banner .xp{margin-top:12px;}
 /* the Daily-review banner's xp bar is GOLD, in the same metal as the level numeral beside it — downstairs the
@@ -490,11 +494,9 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
 body.night .banner .xp-fill{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}   /* brighter, like the numeral's night gold */
 .banner .xp-lvl{color:#8A6A1E;}   /* a deeper gold than the bar: at 10px this text needs the contrast, and #C39A2E on the card is only 3.6:1 */
 body.night .banner .xp-lvl{color:#E6C765;}
-/* profile: level held in each collection */
+/* profile: how far through each collection the reader has got */
 .coll-levels{display:flex; flex-direction:column; gap:12px; margin-bottom:16px;}
 .cl-row{display:flex; align-items:center; gap:16px; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:12px 18px;}
-.cl-row .level-badge{min-width:46px;}
-.cl-row .lb-num{font-size:calc(34px * var(--fs)); color:var(--indigo);}
 .cl-main{flex:1; min-width:0; display:flex; flex-direction:column; gap:8px;}
 .cl-name{font-family:var(--display); font-weight:600; font-size:calc(16px * var(--fs)); letter-spacing:-.01em;}
 .cl-empty{color:var(--ink-faint); font-size:calc(14px * var(--fs)); padding:4px 2px;}
@@ -808,7 +810,7 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 }
 /* NOTE: collection banners are deliberately STATIC — no drifting motifs, no animated pattern layers
    (a motif-drift system lived here once and was removed on request; don't reintroduce it). */
-.collection-row > .collection-main, .collection-row > .collection-actions, .collection-row > .level-badge{position:relative; z-index:1;}
+.collection-row > .collection-main, .collection-row > .collection-actions, .collection-row > .coll-ic{position:relative; z-index:1;}
 /* Default (folio) theme — "bookplate": a quiet wash of the collection's hue fading into the card
    and a fine inner rule like a book plate. */
 body[data-theme="folio"] .collection-deco{
@@ -1644,7 +1646,10 @@ body.grading .stage{padding-bottom:150px;}
 /* quotes-mode: the daily-quote pool takes over the admin area (like feedback, timeline and the dashboard) */
 .admin.quotes-mode .admin-tree,.admin.quotes-mode .admin-side-foot,.admin.quotes-mode .admin-collapse,.admin.quotes-mode .admin-editor,.admin.quotes-mode .admin-search,.admin.quotes-mode .alt-right,.admin.quotes-mode .alt-right-gloss,.admin.quotes-mode .admin-sel-bar,.admin.quotes-mode .admin-resizer{display:none;}
 .admin.quotes-mode .admin-list{width:auto; flex:1; border-right:0;}
-.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side,.admin.quotes-mode .admin-side{background:transparent; border-right:0;}
+/* artefacts-mode: the chest pool takes over the admin area, exactly as the four above do */
+.admin.artefacts-mode .admin-tree,.admin.artefacts-mode .admin-side-foot,.admin.artefacts-mode .admin-collapse,.admin.artefacts-mode .admin-editor,.admin.artefacts-mode .admin-search,.admin.artefacts-mode .alt-right,.admin.artefacts-mode .alt-right-gloss,.admin.artefacts-mode .admin-sel-bar,.admin.artefacts-mode .admin-resizer{display:none;}
+.admin.artefacts-mode .admin-list{width:auto; flex:1; border-right:0;}
+.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side,.admin.quotes-mode .admin-side,.admin.artefacts-mode .admin-side{background:transparent; border-right:0;}
 
 /* ---------- Admin → Quotes: the home page's daily quote (Aug 2026, on request) ----------
    A list in RUNNING ORDER rather than array order — the order is solved from the pool, so where a quote
@@ -2059,8 +2064,6 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .ip-actions .ip-ok:hover{filter:brightness(1.08);}
 
 /* the Library's line about how many decks the reader's level allows in the daily review */
-.page-head .lib-cap{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); margin-top:6px;}
-.page-head .lib-cap b{color:var(--ink-soft); font-weight:600;}
 
 /* ---------- the options sheet (held down on a deck's row, or on the review banner above them) ----------
    CENTRED at every width (Aug 2026, on request). It was a bottom sheet below 560px, on the reasoning that
@@ -2157,12 +2160,172 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .lu-rows{display:flex; flex-direction:column; gap:9px; margin-bottom:16px;}
 .lu-row{display:flex; align-items:center; gap:12px; text-align:left; border:1px solid var(--rule); border-radius:10px; padding:9px 12px;}
 .lu-badge{flex:none; min-width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:9px; background:var(--paper); border:1px solid var(--rule); font-family:var(--display); font-weight:600; font-size:calc(22px * var(--fs)); color:#C39A2E;}
-.lu-badge.zh{font-family:var(--han); font-size:calc(19px * var(--fs));}
-.lu-badge.num-ja{font-size:calc(19px * var(--fs));}
 .lu-text{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.35; color:var(--ink-soft);}
 .lu-text b{color:var(--ink); font-weight:600;}
 .lu-hint{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
 body.night .lu-badge{color:#E6C765;}
+
+/* ============================================================
+   THE RELIQUARY — artefact chests (Aug 2026, on request)
+   ============================================================
+   Four rarities, four colours, one token pair each so every surface that has to say "this is an epic"
+   — the chest, the reveal, the inventory tile, the admin row's swatch — says it the same way and none
+   of them carries a literal. `[data-rar]` is the switch, set on whatever element needs it.
+
+   NIGHT is a separate value rather than a mix, for the reason the collection hues are: a colour mixed
+   toward a dark paper loses the thing that identifies it, and the reader is being asked to tell four
+   apart at a glance. */
+:root{
+  --rar-common:#8A867C; --rar-rare:#3A6FB0; --rar-epic:#7B4BA8; --rar-legendary:#C2701E;
+}
+body.night{
+  --rar-common:#ADA99E; --rar-rare:#7FAEE8; --rar-epic:#B98BE0; --rar-legendary:#E9A24E;
+}
+body.hc:not(.night){
+  --rar-common:#6B675E; --rar-rare:#2A568D; --rar-epic:#603683; --rar-legendary:#94540F;
+}
+[data-rar="common"]{--rar:var(--rar-common);}
+[data-rar="rare"]{--rar:var(--rar-rare);}
+[data-rar="epic"]{--rar:var(--rar-epic);}
+[data-rar="legendary"]{--rar:var(--rar-legendary);}
+
+/* ---- the rarity chip ---- */
+.ar-chip{display:inline-flex; align-items:center; font-family:var(--mono); font-size:calc(9px * var(--fs)); font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:2px 7px; border-radius:99px; color:var(--rar,var(--ink-faint)); border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 40%,transparent); background:color-mix(in srgb,var(--rar,var(--rule)) 12%,transparent);}
+
+/* ---- the profile showcase: four slots, filled or empty ---- */
+.showcase{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:10px;}
+.ar-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin:6px 2px 16px;}
+/* an empty slot is DRAWN rather than left out: four dashed frames say "four of these can go here", where
+   two tiles and a gap say nothing at all */
+.ar-slot{border-style:dashed !important; background:transparent !important; cursor:default; align-items:center; justify-content:center;}
+.ar-slotmark{font-size:calc(22px * var(--fs)); color:var(--ink-faint); opacity:.5;}
+
+/* ---- the inventory ---- */
+.reliquary{margin-bottom:16px;}
+.ar-head{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
+.ar-count{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint);}
+.ar-open{font-size:calc(13px * var(--fs)); padding:8px 16px;}
+.ar-empty{color:var(--ink-faint); font-size:calc(14px * var(--fs)); padding:4px 2px 14px;}
+.ar-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(132px,1fr)); gap:12px;}
+/* the tile: a picture over its name, framed and washed in its own rarity. The colour is the whole of the
+   signal, so it is on the border, the wash AND the label rather than on one of the three. */
+.ar-tile{position:relative; display:flex; flex-direction:column; gap:6px; padding:10px; text-align:left; cursor:pointer;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--rar,var(--indigo)) 13%,var(--card)),var(--card) 62%);
+  border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 45%,transparent); border-radius:12px;
+  transition:transform .16s var(--ease), box-shadow .16s var(--ease);}
+.ar-tile:hover{transform:translateY(-2px); box-shadow:0 8px 22px color-mix(in srgb,var(--rar,var(--ink)) 22%,transparent);}
+.ar-tile:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.ar-img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px; display:block; background:var(--paper-2);}
+/* no picture yet → the object's initial on a wash of its rarity. An empty frame reads as a page that
+   failed to load; a lettered plate reads as a thing waiting for its photograph. */
+.ar-noimg{display:grid; place-items:center; background:linear-gradient(145deg,color-mix(in srgb,var(--rar,var(--indigo)) 30%,var(--paper-2)),var(--paper-2));}
+.ar-noimg span{font-family:var(--display); font-weight:600; font-size:calc(30px * var(--fs)); color:color-mix(in srgb,var(--rar,var(--ink)) 70%,var(--ink)); opacity:.75;}
+.ar-tname{font-family:var(--display); font-weight:600; font-size:calc(13.5px * var(--fs)); line-height:1.25; color:var(--ink);}
+.ar-trar{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--rar,var(--ink-faint));}
+/* a pinned artefact is MARKED, not made into a second control — the way to pin and unpin is the window */
+.ar-pin{position:absolute; top:7px; right:8px; font-size:calc(13px * var(--fs)); color:#C39A2E; pointer-events:none; text-shadow:0 1px 2px rgba(0,0,0,.35);}
+
+/* ---- one artefact, opened from a tile ---- */
+.artefact-pop{position:fixed; inset:0; z-index:9700; display:flex; align-items:center; justify-content:center; padding:20px; background:color-mix(in srgb,var(--ink) 52%,transparent); opacity:0; transition:opacity .18s ease; overflow-y:auto;}
+.artefact-pop.show{opacity:1;}
+.ar-win{position:relative; display:flex; gap:22px; width:min(720px,96vw); max-height:min(88vh,760px); overflow-y:auto; padding:24px 26px; background:var(--card); border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 45%,transparent); border-top:4px solid var(--rar,var(--indigo)); border-radius:14px; box-shadow:0 26px 64px rgba(0,0,0,.42);}
+.ar-close{position:absolute; top:8px; right:10px; width:28px; height:28px; border:0; background:transparent; color:var(--ink-faint); font-size:calc(20px * var(--fs)); line-height:1; cursor:pointer; border-radius:8px;}
+.ar-close:hover{background:var(--paper-2); color:var(--ink);}
+.ar-winart{flex:none; width:220px;}
+.ar-big{aspect-ratio:1/1;}
+.ar-wintext{flex:1; min-width:0;}
+.ar-wname{font-family:var(--display); font-weight:600; font-size:calc(22px * var(--fs)); letter-spacing:-.01em; margin:8px 0 6px;}
+.ar-wmeta{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.02em; margin-bottom:3px;}
+.ar-wdesc{font-family:var(--serif); font-size:calc(15px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:12px 0 10px;}
+.ar-wdesc b{color:var(--ink);}
+.ar-wcredit{font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin-bottom:10px;}
+.ar-pinbtn{font-size:calc(12.5px * var(--fs));}
+@media (max-width:640px){
+  .ar-win{flex-direction:column; gap:14px; padding:20px 18px;}
+  .ar-winart{width:100%; max-width:260px; align-self:center;}
+  .showcase{grid-template-columns:repeat(2,1fr);}
+  .ar-grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));}
+}
+
+/* ---- the chest ----
+   Phase 1 waits, phase 2 opens (its LENGTH is set in JS, from the rarity rolled), phase 3 reveals. The
+   overlay is NOT dismissed by clicking the backdrop: unlike the level-up popup it holds buttons, and an
+   overlay where a stray tap outside the card takes the reward away is one nobody trusts. */
+.chest-pop{position:fixed; inset:0; z-index:9750; display:flex; align-items:center; justify-content:center; padding:22px; background:color-mix(in srgb,var(--ink) 58%,transparent); opacity:0; transition:opacity .2s ease; overflow:hidden;}
+.chest-pop.show{opacity:1;}
+.chest-stage{position:relative; z-index:1; width:min(420px,94vw); max-height:92vh; overflow-y:auto; text-align:center; background:var(--card); border:1px solid var(--rule); border-radius:16px; box-shadow:0 26px 64px rgba(0,0,0,.45); padding:26px 24px 20px;}
+.chest-pop.opened .chest-stage{border-color:color-mix(in srgb,var(--rar,var(--rule)) 55%,transparent); border-top:4px solid var(--rar,var(--indigo));}
+.chest-lvl{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.18em; text-transform:uppercase; color:#C39A2E; margin-bottom:14px;}
+body.night .chest-lvl{color:#E6C765;}
+.chest-body{position:relative; display:grid; place-items:center; min-height:132px;}
+.chest-btn{border:0; background:transparent; padding:6px; cursor:pointer; color:#C39A2E; border-radius:14px;}
+body.night .chest-btn{color:#E6C765;}
+.chest-btn:disabled{color:var(--ink-faint); cursor:default;}
+.chest-btn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
+.chest-svg{width:min(190px,60vw); height:auto; display:block;}
+/* the idle breath, so a chest waiting to be tapped reads as a control rather than as a picture */
+.chest-pop:not(.opening) .chest-btn:not(:disabled) .chest-svg{animation:chest-breathe 2.4s ease-in-out infinite;}
+@keyframes chest-breathe{0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-4px) scale(1.02);}}
+.chest-pop:not(.opening) .chest-btn:not(:disabled):hover .chest-svg{transform:scale(1.05);}
+/* the opening: the box shudders, then the lid swings up and away. The DURATION of each is set once here
+   and the JS waits out a rarity-sized total, so a legendary lingers on the lid where a common snaps. */
+.chest-pop.opening .chest-svg{animation:chest-shake .42s cubic-bezier(.36,.07,.19,.97) 2;}
+@keyframes chest-shake{10%,90%{transform:translateX(-2px) rotate(-1deg);} 30%,70%{transform:translateX(3px) rotate(1.4deg);} 50%{transform:translateX(-3px) rotate(-1.4deg);}}
+.chest-pop.opening .chest-lid{animation:chest-open .5s cubic-bezier(.3,-.4,.4,1.5) .55s both; transform-origin:50% 92%;}
+@keyframes chest-open{0%{transform:rotate(0) translateY(0); opacity:1;} 100%{transform:rotate(-118deg) translateY(-16px); opacity:.15;}}
+/* once the lid is off, the chest's own slot collapses — leaving its 132px reserved would sit the
+   artefact under a band of nothing, which is exactly where the eye is at that moment */
+.chest-pop.opened .chest-btn{display:none;}
+.chest-pop.opened .chest-body{min-height:0;}
+/* the light out of the box — legendary only, where the wait is long enough for it to be worth the room */
+.chest-rays{position:absolute; left:50%; top:52%; width:280px; height:280px; margin:-140px 0 0 -140px; border-radius:50%; pointer-events:none; opacity:0;
+  background:radial-gradient(circle,color-mix(in srgb,var(--rar,#C39A2E) 55%,transparent),transparent 62%);}
+.chest-pop.opening[data-rar="epic"] .chest-rays{animation:chest-rays 1.5s ease-out .5s both;}
+.chest-pop.opening[data-rar="legendary"] .chest-rays{animation:chest-rays 2.1s ease-out .5s both;}
+@keyframes chest-rays{0%{transform:scale(.2); opacity:0;} 40%{opacity:1;} 100%{transform:scale(2.4); opacity:0;}}
+.chest-hint{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:12px; min-height:1em;}
+.chest-more{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); margin-top:6px;}
+.chest-reveal{margin-top:6px; opacity:0; transform:translateY(14px) scale(.94); animation:chest-reveal .5s cubic-bezier(.18,1.35,.34,1) both;}
+@keyframes chest-reveal{to{opacity:1; transform:none;}}
+.chest-art{width:min(190px,52vw); margin:12px auto 0;}
+.chest-name{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); letter-spacing:-.01em; margin:12px 0 5px;}
+.chest-meta{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); margin-bottom:3px;}
+.chest-acts{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:16px;}
+.chest-acts .btn{font-size:calc(13px * var(--fs)); padding:8px 16px;}
+.chest-conf{position:absolute; inset:0; overflow:hidden; pointer-events:none;}
+.chest-bit{position:absolute; top:-6vh; display:block; opacity:0; animation:lu-fall linear both;}
+/* a legendary flashes the whole screen once, which is the one thing the smaller rarities do not get */
+.chest-pop.opening[data-rar="legendary"]::after{content:""; position:absolute; inset:0; pointer-events:none; background:var(--rar-legendary); opacity:0; animation:chest-flash 1.1s ease-out .55s both;}
+@keyframes chest-flash{0%{opacity:0;} 22%{opacity:.34;} 100%{opacity:0;}}
+/* Under reduced motion the chest still OPENS — the JS drops the wait to a tick — but nothing travels,
+   nothing shakes and nothing falls. The reveal lands on its end state, as everything here does. */
+@media (prefers-reduced-motion: reduce){
+  .chest-bit,.chest-rays{display:none;}
+  .chest-pop.opening .chest-svg,.chest-pop:not(.opening) .chest-btn .chest-svg,.chest-pop.opening .chest-lid{animation:none;}
+  .chest-pop.opening[data-rar="legendary"]::after{animation:none; opacity:0;}
+}
+body.no-anim .chest-bit,body.no-anim .chest-rays{display:none;}
+body.no-anim .chest-pop.opening .chest-svg,body.no-anim .chest-pop:not(.opening) .chest-btn .chest-svg,body.no-anim .chest-pop.opening .chest-lid{animation:none;}
+body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opacity:0;}
+/* the home banner's chest chip — a target inside the review button, which the banner's own handler defers to */
+.chest-chip{cursor:pointer; border-radius:8px;}
+.chest-chip:hover{background:color-mix(in srgb,#C39A2E 16%,transparent);}
+.chest-chip b{color:#C39A2E;}
+body.night .chest-chip b{color:#E6C765;}
+
+/* ---- Admin → Artefacts ---- */
+.a-row{border:1px solid var(--rule); border-radius:10px; margin-bottom:7px; overflow:hidden; background:var(--card);}
+.a-row.a-open{border-color:var(--indigo);}
+.a-main{display:flex; align-items:center; gap:12px; width:100%; padding:10px 12px; border:0; background:transparent; text-align:left; cursor:pointer; color:var(--ink);}
+.a-main:hover{background:var(--paper-2);}
+.a-swatch{flex:none; width:12px; height:34px; border-radius:4px; background:var(--rar,var(--rule));}
+.a-name{flex:1; min-width:0; font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs));}
+.a-name small{display:block; font-family:var(--mono); font-weight:400; font-size:calc(10px * var(--fs)); color:var(--ink-faint); margin-top:2px;}
+.a-meta{display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;}
+.af-area{min-height:150px; resize:vertical; font-family:var(--serif); line-height:1.6;}
+.af-count{display:block; margin-top:5px; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.04em;}
+.af-count.ok{color:var(--good);}
+.af-count.warn{color:var(--ochre);}
 
 /* map placeholder */
 .map-wrap{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:var(--shadow-md); padding:40px; overflow:hidden; min-height:360px; display:grid; place-items:center; text-align:center;}
@@ -2899,16 +3062,13 @@ sup.fn{
 sup.fn:empty::before{content:attr(data-fn);}
 sup.fn:hover{background:color-mix(in srgb,var(--zh) 18%,transparent); color:var(--ink);}
 sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
-/* IN A BOOK THE MARKERS TAKE --bknote, NOT THE CARD'S VERMILION (Aug 2026, on request). A card's marker
-   points at a work Folio is citing in support of a claim it makes; a book's points at the translator's
-   own note on the line in front of you, which is a different KIND of thing, and on a page of continuous
-   prose a run of vermilion superscripts reads as a page full of corrections. Scoped to the reader — the
-   markers, the entry numbers a marker points at, and both hover washes together, so the two ends of a
-   jump keep saying they are one thing. Everything else about the apparatus is unchanged. */
-.bk-page sup.fn{color:var(--bknote);}
-.bk-page sup.fn:hover{background:color-mix(in srgb,var(--bknote) 20%,transparent); color:var(--ink);}
-.bk-page .src-n.src-back{color:var(--bknote);}
-.bk-page .src-n.src-back:hover{background:color-mix(in srgb,var(--bknote) 20%,transparent); color:var(--ink);}
+/* A BOOK'S MARKERS TAKE THE CARD'S VERMILION, like every other citation on the site (Aug 2026, on
+   request — they wore a teal of their own, --bknote, for a fortnight). The argument for separating them
+   was that a card's marker points at a work Folio is citing while a book's points at the translator's
+   own note, which is a different kind of thing; the argument against, and the one that won, is that a
+   reader meets both and one apparatus is easier to learn than two. So there is no .bk-page override here
+   at all — the reader inherits sup.fn and .src-n.src-back unchanged, and the teal moved to the mark that
+   had been borrowing --ochre (see --newterm and .ttip[data-new]). */
 /* the gloss-popup variant: narrower column, so everything steps down a size */
 .src-compact{margin:14px 0 0; padding-top:9px; clear:both;}
 .src-compact .src-label{font-size:calc(9px * var(--fs)); letter-spacing:.1em;}
@@ -3443,28 +3603,28 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
   transition:color .15s var(--ease), text-decoration-color .15s var(--ease), background .15s var(--ease);
   border-radius:3px;
 }
-/* An UNDISCOVERED term wears the gold of the blank in a card's question (--ochre, and theme-aware with
-   it), so a term not yet read looks like something waiting to be filled in. A term already read carries
-   no attribute and keeps the ordinary glossary-link styling above, unchanged — the mark is the
-   invitation, not a record of what is finished. (markTtipNew sets data-new; deck terms never get it.) */
+/* An UNDISCOVERED term wears --newterm, a teal of its own (Aug 2026, on request — it wore --ochre, the
+   gold of the blank in a card's question, until the Library books gave that teal up). A term already
+   read carries no attribute and keeps the ordinary glossary-link styling above, unchanged — the mark is
+   the invitation, not a record of what is finished. (markTtipNew sets data-new; deck terms never get it.) */
 .ttip[data-new]{
-  color:var(--ochre);
-  text-decoration-color:color-mix(in srgb,var(--ochre) 55%,transparent);
+  color:var(--newterm);
+  text-decoration-color:color-mix(in srgb,var(--newterm) 55%,transparent);
 }
 .ttip:hover,.ttip:focus-visible{
   color:var(--indigo-bright); text-decoration-color:var(--indigo-bright);
   background:var(--indigo-wash); outline:none;
 }
 .night .ttip:hover,.night .ttip:focus-visible{ color:var(--indigo); background:color-mix(in srgb,var(--indigo) 16%,transparent); }
-/* An undiscovered term stays gold under the cursor — jumping to the indigo hover would read as the term
-   changing state before it has been opened. These sit AFTER the rules above: equal specificity, so
-   source order decides (and the .night pair below outranks .night .ttip:hover outright). */
+/* An undiscovered term keeps its own colour under the cursor — jumping to the indigo hover would read as
+   the term changing state before it has been opened. These sit AFTER the rules above: equal specificity,
+   so source order decides (and the .night pair below outranks .night .ttip:hover outright). */
 .ttip[data-new]:hover,.ttip[data-new]:focus-visible{
-  color:var(--ochre); text-decoration-color:var(--ochre);
-  background:color-mix(in srgb,var(--ochre) 13%,transparent); outline:none;
+  color:var(--newterm); text-decoration-color:var(--newterm);
+  background:color-mix(in srgb,var(--newterm) 13%,transparent); outline:none;
 }
 .night .ttip[data-new]:hover,.night .ttip[data-new]:focus-visible{
-  color:var(--ochre); background:color-mix(in srgb,var(--ochre) 18%,transparent);
+  color:var(--newterm); background:color-mix(in srgb,var(--newterm) 18%,transparent);
 }
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
 
@@ -4143,10 +4303,11 @@ body.grading .admin-edit-fab{bottom:108px;}
      the Quotes tab looked like on a phone (Aug 2026, on a bug report): the edit form filled the box, its
      Save button sat at the fold, and the running order under it was cut off mid-row. Timeline and Feedback
      were listed here from the day they were built; the Dashboard and Quotes arrived later and were not,
-     which is the whole of the bug. FOUR tabs take the area over — keep this list in step with the
+     which is the whole of the bug. FIVE tabs take the area over — keep this list in step with the
      `*-mode` classes adminRefresh() sets, or the next one added will look broken the same way. */
   .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items,
-  .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items{max-height:none;}
+  .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items,
+  .admin.artefacts-mode .admin-list-items{max-height:none;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and
@@ -4342,8 +4503,6 @@ body[data-theme="arcade"] .daily-quote::after{ content:"\25BC"; position:absolut
 /* XP = chunky segmented HP bar; level numeral = score */
 body[data-theme="arcade"] .xp-track{ height:14px; border:2px solid var(--ink); background:var(--paper-2); }
 body[data-theme="arcade"] .xp-fill{ background:repeating-linear-gradient(90deg, var(--good) 0 8px, color-mix(in srgb,var(--good) 62%, #000) 8px 10px); }
-body[data-theme="arcade"] .lb-num{ font-family:var(--px); font-weight:400; font-size:calc(26px * var(--fs)); letter-spacing:0; line-height:1.05; text-shadow:2px 2px 0 var(--hard); }
-body[data-theme="arcade"] .banner .lb-num{ font-size:calc(36px * var(--fs)); }
 body[data-theme="arcade"] .banner .stat b{ font-family:var(--px); font-weight:400; font-size:calc(14px * var(--fs)); line-height:1.3; }
 /* daily banner = title screen */
 body[data-theme="arcade"] .banner, body[data-theme="arcade"] .banner:hover{ border:2px solid var(--ink); border-left:8px solid var(--tile); }
@@ -4601,7 +4760,6 @@ body[data-theme="marble"] .node{ border-radius:0; }
 body[data-theme="marble"] .gloss-bar{ font-family:var(--display); text-transform:uppercase; letter-spacing:.09em; font-size:calc(12px * var(--fs)); background:var(--paper-2); border-bottom:1px solid var(--rule); }
 body[data-theme="marble"] .xp .xp-track{ border-radius:0; box-shadow:inset 0 1px 2px rgba(0,0,0,.14); }
 body[data-theme="marble"] .xp .xp-fill{ border-radius:0; background:linear-gradient(180deg,var(--indigo-bright),var(--indigo)); }
-body[data-theme="marble"] .level-badge .lb-num{ font-family:var(--display); }
 body[data-theme="marble"] .daily-quote{ font-family:var(--serif); font-style:italic; font-size:1.08em; }
 
 /* ---- GAZETTE — 1940s newspaper press: black on newsprint grey, one rubber-stamp red ---- */
@@ -4696,7 +4854,7 @@ body[data-theme="gazette"] .daily-quote::before{ content:"\201C"; position:absol
 /* xp — solid ink column-inch bars; level numeral in stark ink, not gold */
 body[data-theme="gazette"] .xp-track{ border:1px solid var(--ink); background:var(--paper-2); }
 body[data-theme="gazette"] .xp-fill, body[data-theme="gazette"] .prog .fill{ background:var(--ink); }
-body[data-theme="gazette"] .banner .lb-num, body[data-theme="gazette"] .collection-row .lb-num{ color:var(--ink); }
+body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 
 /* ---- theme picker (settings) ---- */
 .set-row-block{flex-direction:column; align-items:stretch; gap:16px;}
