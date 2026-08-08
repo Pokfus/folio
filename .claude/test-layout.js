@@ -1836,9 +1836,20 @@ async function studyEasy(page, base, n) {
   }
 
   /* ================= 8. no overlay outlives the page that spawned it =================
-     The level-up card is dismissed by a click ANYWHERE, which hides the problem: clicking a nav tab takes it
-     away. But a back/forward, a deep link and any programmatic hash change move the route without a click,
-     and the overlay then sits over whatever renders next. It lives on document.body, so render() owns it. */
+     A back/forward, a deep link and any programmatic hash change move the route without a click, and an
+     overlay living on document.body then sits over whatever renders next. render() owns those, so it has to
+     clear them — and a hash change is the probe, never a click, since a click dismisses several of them
+     anyway and would prove nothing.
+
+     WHAT LEVELLING UP RAISES IS THE CHEST, NOT A CONFETTI CARD. This section watched `.levelup-pop` until
+     Aug 2026, and the Reliquary retired that path deliberately: `announceLevelUps` calls `grantChest()` and
+     `openChestPop({level})`, and the chest overlay IS the celebration, there being no sense in two overlays
+     for one event. The assertion went on looking for the popup and failed on a feature working exactly as
+     designed. `congratsPopup` itself is NOT dead — it survives for anything else that wants it, and
+     `closeCongrats` is still in render()'s close list — but nothing reaches it from a level-up, so testing
+     it here would be testing an unreachable path. The level is asserted on the overlay too: a chest opened
+     from the home banner's chip carries no `.chest-lvl`, and without that line this would pass on any chest
+     at all rather than on the level-up that was supposed to raise one. */
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     await watch(page);
@@ -1866,16 +1877,21 @@ async function studyEasy(page, base, n) {
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(900);
     await studyEasy(page, base, XP_STEP - 1);
-    const up = await page.locator(".levelup-pop").count();
-    check("levelling up raises its card", up === 1, XP_STEP + " cards studied → " + up + " popup(s)");
+    const up = await page.locator(".chest-pop").count();
+    check("levelling up raises its chest", up === 1, XP_STEP + " cards studied → " + up + " overlay(s)");
+    check("...and no confetti card behind it", await page.locator(".levelup-pop").count() === 0);
     if (up) {
+      // the level is announced ON the chest — that is what makes this one the celebration rather than
+      // an ordinary chest opened from the home banner's chip, which carries no such line
+      check("...announcing the level reached", /level/i.test((await page.locator(".chest-lvl").first().textContent().catch(() => "")) || ""),
+        (await page.locator(".chest-lvl").first().textContent().catch(() => "")) || "no .chest-lvl");
       // a hash change, NOT a click — a click would dismiss it and prove nothing
       await page.evaluate(() => { location.hash = "#decks"; });
       await page.waitForTimeout(900);
-      check("...and a hash change takes it away with the page", await page.locator(".levelup-pop").count() === 0);
+      check("...and a hash change takes it away with the page", await page.locator(".chest-pop").count() === 0);
       await page.evaluate(() => { location.hash = "#settings"; });
       await page.waitForTimeout(700);
-      check("...leaving nothing behind on the next page either", await page.locator(".levelup-pop").count() === 0);
+      check("...leaving nothing behind on the next page either", await page.locator(".chest-pop").count() === 0);
     }
     await page.close();
   }
