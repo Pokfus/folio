@@ -448,7 +448,8 @@ function simulate(days) {
 
   /* ============================ 4. the picture round ============================ */
   {
-    // as the corpus stands there is one picture in the whole of Folio, so the shipped state is the placard
+    /* The shipped corpus carried ONE picture when this game was written and now carries hundreds, so
+       this asserts the PAIR rather than either state — see the check's own comment below. */
     const [ctx, page] = await fresh();
     watch(page, "[pic]");
     await page.goto(base + "#picture", { waitUntil: "load" });
@@ -467,12 +468,22 @@ function simulate(days) {
     // …and with a pool planted the way an admin batch would, it deals
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(900);
+    /* THE PLANTED POOL MUST BE THE WHOLE POOL, not ten entries added on top of it.  `picturePool`
+       gathers every card, glossary and artefact picture, so once the corpus gained real pictures a
+       seeded draw of five reached the real ones and every assertion below — which is about the
+       PLANTED captions and credits — failed on content rather than on behaviour.  Replacing the
+       table and clearing the cards' pictures makes the draw deterministic at any corpus size. */
     const planted = await page.evaluate(() => {
       const keys = Object.keys(window.GLOSSARY).slice(0, 10);
-      window.GLOSSARY_IMAGES = window.GLOSSARY_IMAGES || {};
+      window.GLOSSARY_IMAGES = {};
       keys.forEach((k, i) => {
-        window.GLOSSARY_IMAGES[k] = { src: i === 0 ? "/no-such-picture.png" : "/icon.svg", title: "Plate " + i, desc: "A description naming " + k + ".", credit: "https://example.org/" + k };
+        /* Every planted src RESOLVES.  The rotted-link case below is driven by firing the error event
+           at the frame on the page, so a genuinely 404 src here buys nothing and costs a real console
+           error that the end-of-run "no page errors" watcher counts against the whole file. */
+        window.GLOSSARY_IMAGES[k] = { src: "/icon.svg", title: "Plate " + i, desc: "A description naming " + k + ".", credit: "https://example.org/" + k };
       });
+      (window.CARD_DATA || []).forEach((c) => { delete c.image; });
+      (window.ARTEFACTS || []).forEach((a) => { delete a.image; });
       location.hash = "#picture";
       return keys.map((k) => k.replace(/_/g, " "));
     });

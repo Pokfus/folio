@@ -156,7 +156,7 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
   out += section(ALIASES, "Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link.", "GLOSSARY_ALIASES");
   out += section(CASE, "Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven).", "GLOSSARY_CASESENSITIVE");
   out += section(TAGS, "Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar.", "GLOSSARY_TAGS");
-  out += section(IMAGES, "Optional illustration per term (slug -> { src, title, desc, credit }) — shown at the foot of the term's popup.", "GLOSSARY_IMAGES");
+  out += section(IMAGES, "Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup.", "GLOSSARY_IMAGES");
   out += section(VIDEOS, "Optional video per term (slug -> { src, title, desc, credit }) — a YouTube/Vimeo or direct file link, shown in the term's popup.", "GLOSSARY_VIDEOS");
   out += section(SOURCES, "Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.\n   Not translated: a citation names an edition that exists in one language.", "GLOSSARY_SOURCES");
   out += section(PLACES, "Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's\n   own primary coordinates by .claude/fetch-place-coords.js. Never hand-written.", "GLOSSARY_PLACES");

@@ -134,3 +134,16 @@ const byRar = {};
 all.forEach((a) => { byRar[a.rarity] = (byRar[a.rarity] || 0) + 1; });
 console.log("added " + list.length + " — the pool is now " + all.length + ": " +
   RARITIES.map((r) => (byRar[r] || 0) + " " + r).join(", ") + ".");
+
+/* Each new artefact looks for its picture here — see the same block in add-card.js for why.  The
+   search term is the artefact's NAME, which for half the reliquary is a KIND ("Acheulean hand
+   axe", "Flint scraper") rather than a thing: a kind is hard to search and almost impossible to
+   get wrong, since any real Acheulean hand axe IS one.  A named object is the opposite, and is
+   where the review matters. */
+if (!process.argv.includes("--no-image")) {
+  const want = list.filter((a) => !(a.image && a.image.src));
+  const { report } = require("./suggest-image.js");
+  (async () => {
+    for (const a of want) { console.log("\n" + a.id + ":"); await report("artefacts", a.id, a.name); }
+  })().catch((e) => console.log("  (no picture looked for: " + e.message + ")"));
+}

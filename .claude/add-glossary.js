@@ -15,7 +15,7 @@
 //                                              // (-> window.GLOSSARY_SOURCES, a numbered fold at the foot of the popup).
 //                                              // Pass "skipSources": true only for a maintenance edit of an older term.
 //                 "caseSensitive": true,   // optional: only auto-link when the surface matches the term's capitalization
-//                 "image": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" },
+//                 "image": { "src": "https://…", "title": "…", "desc": "…", "credit": "…", "alt": "…" },
 //                 "video": { "src": "https://www.youtube.com/watch?v=… | https://…/clip.mp4", "title": …, "desc": …, "credit": … } }
 //                                              // optional illustration, shown at the foot of the term's popup (click = fullscreen viewer)
 //   delete:     { "slug": "Some_Slug", "delete": true }
@@ -163,7 +163,7 @@ if (Object.keys(TAGS).length) {
 }
 if (Object.keys(IMAGES).length) {
   out +=
-    "\n/* Optional illustration per term (slug -> { src, title, desc, credit }) — shown at the foot of the term's popup. */\n" +
+    "\n/* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */\n" +
     "window.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + obj(IMAGES) + ");\n";
 }
 if (Object.keys(VIDEOS).length) {
@@ -197,3 +197,11 @@ loadWindow(glossPath);   // re-parse to confirm valid JS
 glossI18nIO.writeAll(I18N);
 const extra = e.delete ? "" : ((e.date ? " (" + e.date + ")" : "") + (Array.isArray(e.aliases) && e.aliases.length ? " [aliases: " + e.aliases.join(", ") + "]" : ""));
 console.log(action + " glossary term " + e.slug + extra + " | total terms: " + Object.keys(GLOSS).length);
+
+/* A new term looks for its picture here — see the same block in add-card.js for why this is not
+   left to a later sweep, and why it suggests rather than installs. */
+if (!e.delete && !(IMAGES[e.slug] && IMAGES[e.slug].src) && !(VIDEOS[e.slug] && VIDEOS[e.slug].src) &&
+    !process.argv.includes("--no-image")) {
+  require("./suggest-image.js").report("glossary", e.slug, ((win.GLOSSARY_TITLES || {})[e.slug] || e.slug.replace(/_/g, " ")))
+    .catch((err) => console.log("  (no picture looked for: " + err.message + ")"));
+}

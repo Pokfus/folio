@@ -81,15 +81,33 @@ async function openAnyGloss(page) {
   await page.locator(".ttip").first().click();
   await page.waitForTimeout(450);
 }
-async function openGlossEditor(page, base) {
+async function openGlossEditor(page, base, key) {
+  /* A REAL RELOAD, not just a hash change.  `page.goto` to a URL that differs only in its fragment
+     is a same-document navigation: the app keeps running and every in-page mutation the earlier
+     sections made survives — including section 3 emptying GLOSSARY_IMAGES, which then makes every
+     term look as though it ships no picture. */
   await page.goto(base + "#admin", { waitUntil: "load" });
+  await page.reload({ waitUntil: "load" });
+  await page.waitForFunction(() => !!window.GLOSSARY);
   await page.waitForTimeout(700);
   await page.evaluate(() => {
     const b = [...document.querySelectorAll("button")].find((x) => /^glossary$/i.test(x.textContent.trim()));
     if (b) b.click();
   });
   await page.waitForTimeout(400);
-  await page.evaluate(() => { const r = document.querySelector("[data-gkey]"); if (r) r.click(); });
+  /* A TERM THAT SHIPS NO PICTURE, deliberately.  Section 4 ends by asserting that clearing the URL
+     drops the overlay delta ENTIRELY — which is what happens on a term with nothing shipped.  On a
+     term that HAS a shipped picture the same gesture correctly writes a null tombstone instead (see
+     `setGlossImageEdit`), so opening the first row in the list made the test's meaning depend on
+     whether that row happened to have been illustrated yet. */
+  await page.evaluate((want) => {
+    const rows = [...document.querySelectorAll("[data-gkey]")];
+    /* Reopening a NAMED term matters on the second call: by then the first call's edit is in
+       GLOSSARY_IMAGES, so "the first term with no picture" is a different term. */
+    const pick = want ? rows.find((r) => r.getAttribute("data-gkey") === want)
+      : rows.find((r) => !(window.GLOSSARY_IMAGES || {})[r.getAttribute("data-gkey")]);
+    (pick || rows[0]).click();
+  }, key || null);
   await page.waitForTimeout(400);
 }
 
@@ -197,11 +215,13 @@ async function openGlossEditor(page, base) {
   check("Escape closes the viewer", await page.locator(".img-viewer").count() === 0);
   check("...and leaves the popup open underneath", await page.locator(".gloss-win").count() === 1);
 
-  /* ---------- 3. a term with no image renders nothing ---------- */
+  /* ---------- 3. a term with no image renders nothing ----------
+     This empties the live table, and `openGlossEditor` RELOADS to undo it — see the note there. */
   await page.evaluate(() => { window.GLOSSARY_IMAGES = {}; });
   await openAnyGloss(page);
   check("a term without an image renders no figure", await page.locator(".gloss-win .gloss-imgslot .card-img").count() === 0);
   check("...and the empty slot is hidden", await page.evaluate(() => document.querySelector(".gloss-win .gloss-imgslot").hidden));
+
 
   /* ---------- 4. the curated editor: panel, live preview, overlay delta, reload ---------- */
   await openGlossEditor(page, base);
@@ -238,12 +258,13 @@ async function openGlossEditor(page, base) {
   check("the overlay re-applies on reload",
     await page.evaluate((k) => (window.GLOSSARY_IMAGES[k] || {}).title, stored.k) === "Editor plate");
 
-  await openGlossEditor(page, base);
+  await openGlossEditor(page, base, stored.k);
   await page.fill('[data-gimgfield="src"]', "");
   await page.waitForTimeout(700);
   check("clearing the URL removes the image", await page.evaluate((k) => !window.GLOSSARY_IMAGES[k], stored.k));
+  const leftover = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").glossaryImages || {});
   check("...and the delta is dropped, back to shipped state",
-    await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").glossaryImages || {}).length === 0));
+    Object.keys(leftover).length === 0, JSON.stringify(leftover).slice(0, 200));
 
   /* ---------- 5. a community deck's own term images ---------- */
   const deckFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "folio-gimg-")), "d.folio-deck.json");
