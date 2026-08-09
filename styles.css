@@ -468,7 +468,7 @@ html[dir="rtl"] .site-ver{text-align:right;}
    so it takes the quiet ink instead of the indigo the level label wears. */
 .deck-prog .xp-lvl{color:var(--ink-faint); font-weight:500;}
 /* home banner stats: Anki's three piles in Anki's colours — blue new, red learning, green review. The same
-   three run down the deck rows below the banner as .adc-new / .adc-learn / .adc-rev, and the study bar's
+   three run down the deck rows below the banner as .dkc-new / .dkc-learn / .dkc-rev, and the study bar's
    own .cnt row has always used exactly these tokens; keep all three sites on the same palette. */
 .banner .stat.st-new b{color:var(--indigo-bright);}
 .banner .stat.st-learn b{color:var(--zh);}
@@ -2894,6 +2894,19 @@ body.night .chest-chip b{color:#E6C765;}
    banner's own long-press sheet now (openReviewMenu), beside the deck rows' options. */
 .review-group.has-active > #b-review{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .active-decks{display:flex; flex-direction:column;}
+/* NEVER NAME A CLASS `ad-…` (Aug 2026, on a bug report — and this whole block was renamed `ad-` → `dk-`
+   because of it). The parts of a review row were named for the ACTIVE DECK they belong to, and `.ad-body`
+   and `.ad-title` are also real advertisement class names, so EasyList and its relatives carry generic
+   cosmetic filters for them: on a reader with an ad blocker the deck's NAME and the bar beside it were
+   `display:none`, leaving a row of bare numbers with the chevron slid left against them. An ad blocker
+   injects those rules as an ORIGIN-LEVEL user stylesheet, so no specificity, no `!important` and no
+   inline style can outrank them — renaming is the only fix. It failed in exactly the way that never gets
+   reported as a bug in the site: the markup was perfect, the Collections page (which uses no `ad-` names)
+   was untouched, nothing threw, and no test could see it, since Playwright runs no extensions. The blocker
+   took `.ad-body` and `.ad-title` and left `.ad-counts`, `.ad-grip` and `.ad-chev` alone — being in the
+   lists is a matter of which names real ad markup happens to use, so the whole prefix goes rather than the
+   two that were caught. `ads-`, `advert…`, `sponsor…`, `promo…` and `banner-ad` are the same trap.
+   `.claude/test-layout.js` fails the build on any class name starting `ad-`/`ads-`. */
 /* ONE horizontal line (Aug 2026, on request): piles · title · progress · trash, all centred on the same
    baseline row. It was a two-line row — the title on top and the bar under it, indented past the piles —
    which left a band of empty card either side of a short deck name and made the bar read as belonging to
@@ -2918,48 +2931,48 @@ body.night .chest-chip b{color:#E6C765;}
    strongly there, which is why the banner's own night pair drops from 30% to 22% as well */
 body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--card);}
 /* THE SUBDECK FOLD (Aug 2026, on request) — see adSyncFold in app.js.
-   `.ad-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
+   `.dk-shut` is a CLASS rather than the `hidden` attribute on purpose: `.active-deck` carries an author
    `display:flex`, which beats the UA `[hidden]` rule outright, so the attribute would have needed an
    override of its own to mean anything (the same trap `.ces-imgpanel[hidden]` and `.gs-results[hidden]`
    already carry). Two classes against one, so this wins on specificity wherever it sits. */
-.active-deck.ad-shut{display:none;}
+.active-deck.dk-shut{display:none;}
 /* The rounded bottom corner belongs to the last VISIBLE row. `:last-child` cannot see a folded row, so with
    the list shut by default it would round a row nobody can see and square off the bottom of the card; both
    are kept, the class for the live page and the structural rule as the answer if adSyncFold never runs. */
-.active-deck:last-child, .active-deck.ad-last{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
+.active-deck:last-child, .active-deck.dk-last{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
 /* the deck's own share of the day's three piles, at the far left of its row — the same numbers the banner
    above carries, without the labels it has just spelled out. Tabular figures so the three columns line up
    from row to row rather than jittering with the digit widths. */
-.active-deck .ad-counts{
+.active-deck .dk-counts{
   flex:none; display:flex; align-items:baseline; gap:8px; min-width:46px;
   font-family:var(--mono); font-size:calc(13px * var(--fs)); font-weight:600; font-variant-numeric:tabular-nums;
 }
-.active-deck .adc-new{color:var(--indigo-bright);}
-.active-deck .adc-learn{color:var(--zh);}
-.active-deck .adc-rev{color:var(--good, #4F9D67);}
+.active-deck .dkc-new{color:var(--indigo-bright);}
+.active-deck .dkc-learn{color:var(--zh);}
+.active-deck .dkc-rev{color:var(--good, #4F9D67);}
 /* a pile at zero is GREY (Aug 2026, on request): the colour says "there is work of this kind here", so it
    has nothing to say on a 0. Written after the three coloured rules — equal specificity, source order. */
-.active-deck .adc.adc-zero{color:var(--ink-faint); font-weight:500;}
-.active-deck .ad-body{flex:1; min-width:0; display:flex; align-items:center; justify-content:space-between; gap:11px;}
+.active-deck .dkc.dkc-zero{color:var(--ink-faint); font-weight:500;}
+.active-deck .dk-body{flex:1; min-width:0; display:flex; align-items:center; justify-content:space-between; gap:11px;}
 /* the deck's name is the one part of the row that can be shortened, so it is the only thing that gives way
    when the row runs short — everything else is a number or an icon and has no shorter form */
-.active-deck .ad-line{flex:0 1 auto; min-width:0; display:flex; align-items:baseline; gap:10px;}
-.active-deck .ad-title{font-family:var(--display); font-weight:600; font-size:calc(16px * var(--fs)); color:var(--ink); letter-spacing:-.01em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.active-deck .ad-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); white-space:nowrap; flex:none;}
+.active-deck .dk-line{flex:0 1 auto; min-width:0; display:flex; align-items:baseline; gap:10px;}
+.active-deck .dk-title{font-family:var(--display); font-weight:600; font-size:calc(16px * var(--fs)); color:var(--ink); letter-spacing:-.01em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.active-deck .dk-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); white-space:nowrap; flex:none;}
 /* The fold's own control, at the right end of the row — where the Library puts the chevron on these very
    same collections, so the reader meets one disclosure gesture on the site and not two. It shares `.chev`
    for the icon, the 180° open state and the focus ring, and overrides the size and chrome: a 40px bordered
    disc is the Library banner's control and would be taller than this row, which is one tight line. Quiet by
    default — no border, no fill — because it must not compete with the three piles and the deck's own name;
    it takes the indigo on hover like every other control here. These rules MUST stay below `.chev`'s own
-   block: `.active-deck .ad-chev:hover` and `.chev:hover` are both two classes, so source order is all that
+   block: `.active-deck .dk-chev:hover` and `.chev:hover` are both two classes, so source order is all that
    decides which of them paints. */
-.active-deck .ad-chev{width:26px; height:26px; border:0; background:transparent; color:var(--ink-faint);}
-.active-deck .ad-chev svg{width:15px; height:15px; stroke-width:2.4;}
-.active-deck .ad-chev:hover{background:var(--indigo-wash); color:var(--indigo); border-color:transparent;}
+.active-deck .dk-chev{width:26px; height:26px; border:0; background:transparent; color:var(--ink-faint);}
+.active-deck .dk-chev svg{width:15px; height:15px; stroke-width:2.4;}
+.active-deck .dk-chev:hover{background:var(--indigo-wash); color:var(--indigo); border-color:transparent;}
 /* A row with nothing to fold reserves the same width, so the progress bars down the list all stop at one
    place instead of the right edge going ragged wherever a leaf deck sits. */
-.active-deck .ad-chev-gap{flex:none; width:26px;}
+.active-deck .dk-chev-gap{flex:none; width:26px;}
 /* THE DRAG HANDLE (Aug 2026, on request — see setupDeckDrag). It sits ABSOLUTELY in the row's own left
    padding rather than taking a column in the flex line, and the row's inline `padding-left` starts at 22px
    instead of 16 to make room for it: at 390px the row already carries three piles, a name, a bar and a
@@ -2972,47 +2985,47 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    Quiet by default and full strength on hover or focus: it is on every row of the list, and six handles
    competing with six deck names is a list about its own furniture. `touch-action:none` because a finger
    dragging it must not be handed to the page's scroller before pointermove ever fires. */
-.active-deck .ad-grip{
+.active-deck .dk-grip{
   position:absolute; inset-inline-start:0; top:0; bottom:0; width:20px;
   display:grid; place-items:center; padding:0; border:0; background:transparent;
   color:var(--ink-faint); opacity:.5; cursor:grab; touch-action:none;
   transition:opacity .15s var(--ease), color .15s var(--ease);
 }
-.active-deck .ad-grip svg{width:11px; height:11px;}
-.active-deck .ad-grip:hover{opacity:1; color:var(--indigo);}
-.active-deck .ad-grip:focus-visible{opacity:1; color:var(--indigo); outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:4px;}
-.active-deck .ad-grip:active{cursor:grabbing;}
+.active-deck .dk-grip svg{width:11px; height:11px;}
+.active-deck .dk-grip:hover{opacity:1; color:var(--indigo);}
+.active-deck .dk-grip:focus-visible{opacity:1; color:var(--indigo); outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:4px;}
+.active-deck .dk-grip:active{cursor:grabbing;}
 /* The row being carried, and the block of subdecks travelling with it. It is lifted rather than hidden —
    the list underneath opens a gap for it as the others FLIP out of the way, so what the reader is holding
-   has to read as being above the page. `.ad-settling` is the same row on release, easing the last few
+   has to read as being above the page. `.dk-settling` is the same row on release, easing the last few
    pixels into its slot instead of snapping to it (the transform is what JS animates, so only the shadow
    and the lift are transitioned here). */
-.active-deck.ad-dragging{z-index:3; box-shadow:0 10px 24px -8px color-mix(in srgb, var(--ink) 40%, transparent); cursor:grabbing;}
-.active-deck.ad-settling{transition:transform .2s var(--ease), box-shadow .2s var(--ease);}
+.active-deck.dk-dragging{z-index:3; box-shadow:0 10px 24px -8px color-mix(in srgb, var(--ink) 40%, transparent); cursor:grabbing;}
+.active-deck.dk-settling{transition:transform .2s var(--ease), box-shadow .2s var(--ease);}
 /* While a drag is live the rows stop being hit-tested, so none of them lights up as the carried row passes
    over it. `pointer-events:none` rather than an override of the hover wash: the wash is a different mix on
    dark themes, so restating it here would be two figures to keep in step with the resting rule for no gain
    — and an element that is not hit-tested cannot match `:hover` at all. The gesture is unaffected, the
    pointer having been captured by the LIST. */
-.active-decks.ad-reordering .active-deck{pointer-events:none;}
-.active-decks.ad-reordering{cursor:grabbing; user-select:none; -webkit-user-select:none;}
+.active-decks.dk-reordering .active-deck{pointer-events:none;}
+.active-decks.dk-reordering{cursor:grabbing; user-select:none; -webkit-user-select:none;}
 /* How far through the deck the reader is — the bar took the place of the blue dot that used to sit at the
    left of the row. With room it stays IN the line, stretched between the deck's name and the figure, which
    is what fills the middle of a wide row. */
-.active-deck .ad-prog{flex:1 1 auto; min-width:0; gap:10px;}
-.active-deck .ad-prog .track{height:6px; min-width:40px;}
-.active-deck .ad-prog .count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}
+.active-deck .dk-prog{flex:1 1 auto; min-width:0; gap:10px;}
+.active-deck .dk-prog .track{height:6px; min-width:40px;}
+.active-deck .dk-prog .count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}
 /* On a phone it leaves the line and becomes the row's own bottom edge. Five things — three piles, a name, a
    bar, a figure and a bin — cannot share 390px without the deck's NAME being cut off, and the name is the
    only one of them with no shorter form; an underline costs the line no width at all. MUST stay below the
    rules above: a media query adds no specificity, so source order is all that decides this. */
 @media (max-width:640px){
-  .active-deck .ad-prog{flex:none; gap:0;}
-  .active-deck .ad-prog .track{
+  .active-deck .dk-prog{flex:none; gap:0;}
+  .active-deck .dk-prog .track{
     position:absolute; left:0; right:0; bottom:0; flex:none;
     height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
   }
-  .active-deck .ad-prog .fill{border-radius:0;}
+  .active-deck .dk-prog .fill{border-radius:0;}
 }
 /* The bin at the right of every row is GONE (Aug 2026, on request) — Remove now lives in the row's
    options sheet, held down. A permanent column for one command was expensive on a 390px row that also
@@ -3036,7 +3049,7 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    (0,2,0) whatever the source order, so on every dark theme a context row silently lost both its weaker
    wash and the --paper-2 under it and rendered identically to an added deck's row. */
 body.night .active-deck.context{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 22%, transparent), transparent 64%) var(--paper-2);}
-.active-deck.context .ad-title{font-size:calc(14px * var(--fs)); color:var(--ink-faint); font-weight:600;}
+.active-deck.context .dk-title{font-size:calc(14px * var(--fs)); color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
    indent (data-depth padding) carries the hierarchy on its own. */

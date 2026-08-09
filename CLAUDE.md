@@ -3459,16 +3459,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px text. The earned
   `.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing.
   **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X studied` bar
-  (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
+  (`adProg` in `PAGES.home` → `.prog.dk-prog`, animated by the existing `animateProgs`) where a blue `.dk-dot` used to
   sit. (The bin at the right of each row went in Aug 2026 — Remove moved into the row's long-press options sheet;
-  see the per-deck-limits bullet above.) The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
+  see the per-deck-limits bullet above.) The dot and the ancestor rows' hollow `.dk-branch` went together — the branch existed only to line the two up,
   and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
-  the hierarchy. The bar's label also replaced the `.ad-count` "N cards" chip, which stated the same total twice.
+  the hierarchy. The bar's label also replaced the `.dk-count` "N cards" chip, which stated the same total twice.
   **The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
   level, with the row's vertical padding down to 10px. It was two lines — the title on top and the bar indented
   under it — which left a band of empty card either side of a short deck name. Two things had to give for five
   things to share a 390px screen. **Below 640px the bar leaves the line and becomes the row's own bottom edge**
-  (`.ad-prog .track` absolutely positioned along it; the row is `position:relative; overflow:hidden` so the last
+  (`.dk-prog .track` absolutely positioned along it; the row is `position:relative; overflow:hidden` so the last
   row's rounded corners clip it), an underline costing no width at all — measured, the label alone is ~88px and
   the name needs ~100, so an inline track of any useful length can only be paid for by cutting the deck's name.
   **Above the breakpoint it stays in the line**, stretched between the name and the figure, which is what fills
@@ -3476,7 +3476,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   specificity. And the label was shortened to **`X/X studied`** (its `I18N_RULES` pattern moved with it in all nine
   languages, the old one retired). The `data-depth` indent went with them, from `22 + depth*21` to
   `16 + depth*16`. The name is the only thing that ellipsises, since it is the only part of the row with a
-  shorter form. Each collection's PROGRESS is also listed on the **profile** (`renderCollectionLevels` in
+  shorter form.
+  **NEVER NAME A CLASS `ad-…`, AND THIS WHOLE ROW WAS RENAMED `ad-` → `dk-` BECAUSE OF IT** (Aug 2026, on a
+  bug report: "on desktop, the active decks don't display their names"). The row's parts were named for the
+  ACTIVE DECK they belong to — and `.ad-body` and `.ad-title` are also real advertisement class names, so
+  **EasyList and its relatives carry generic cosmetic filters for them**: on any reader with an ad blocker
+  the deck's NAME and the bar beside it were `display:none`, leaving a row of bare numbers with the chevron
+  slid left against them. An ad blocker injects those rules as an **origin-level user stylesheet**, so no
+  specificity, no `!important` and no inline style can outrank one — renaming is the only fix. Three things
+  are worth carrying. **It is the quietest failure shape this file records**: the markup was perfect (the
+  name is right there in `innerHTML`), nothing threw, every other page was untouched — the Collections page
+  renders the same titles through `nodeTitle` and uses no `ad-` names — and it could not be reproduced at
+  any width, font size, theme or state, because **Playwright runs no extensions**. It was settled only by
+  reading `getComputedStyle` off the reader's own machine. **The blocker took `.ad-body` and `.ad-title` and
+  left `.ad-counts`, `.ad-grip` and `.ad-chev` alone**, which is why the whole prefix went rather than the
+  two that were caught: being in the lists is a matter of which names real ad markup happens to use, and the
+  next list update is not something to find out about from a bug report. `ads-`, `advert…`, `sponsor…`,
+  `promo…` and `banner-ad` are the same trap. **The guard is a STATIC check** — `adBaitCheck()` at the top of
+  `.claude/test-layout.js` scans the stylesheet's selectors and every `class="…"` in `app.js`/`index.html`
+  and fails the build on one — because a browser test cannot see this at all; and the row's own assertion
+  now measures that the name is **drawn** (text, width, and a `.dk-body` that has not collapsed), the old
+  "not cut off" test having passed on a hidden title, whose `scrollWidth` and `clientWidth` are both 0.
+  Each collection's PROGRESS is also listed on the **profile** (`renderCollectionLevels` in
   `acctSelfView` — the name is historical; the section is headed "Collection progress" and shows an icon and a
   studied/total bar). `grade()` calls `announceLevelUps()` on a freshly-studied card, which grants a chest and
   **opens the chest overlay** — that overlay IS the level-up celebration now, so `congratsPopup` is no longer
@@ -3678,13 +3699,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     into it and on every dark theme an ancestor signpost row silently lost both its wash and the `--paper-2`
     under it and rendered as an added deck's row. What marks a context row is the paper and the quieter title,
     never a weaker hue — it names the very collection its children are washed in.
-  · **A pile at ZERO is grey** (`.adc-zero` on a row, `.stat-zero` on the banner, Aug 2026, on request): the
+  · **A pile at ZERO is grey** (`.dkc-zero` on a row, `.stat-zero` on the banner, Aug 2026, on request): the
     colour means "there is work of this kind here", so it has nothing to say on a 0.
   · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
     `buildSession` uses the same per-deck allowances for a `deck` / `udeck` scope, so tapping a row studies what its
     row promised.
   · **THE ROWS ARE DRAGGED INTO THE READER'S OWN ORDER** (`S.deckOrder` / `orderedIds` / `setDeckOrder` /
-    `setupDeckDrag` / `.ad-grip`, Aug 2026, on request — Anki lets a reader arrange their deck list, and this
+    `setupDeckDrag` / `.dk-grip`, Aug 2026, on request — Anki lets a reader arrange their deck list, and this
     is the same thing done by dragging). The list is built from the collection tree, so until now its order
     was the editorial one; a reader working through four collections at once has their own idea of which
     belongs at the top. Seven things are decisions rather than plumbing.
@@ -5149,7 +5170,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The banner counts ANKI'S THREE PILES** (Aug 2026, on request — it was a Due / New pair): **New** in blue,
   **Learning** in red, **Review** in green (`pileCounts` in `PAGES.home`; the tokens are the study bar's own
   `--indigo-bright` / `--zh` / `--good`, so all three sites agree). The same three numbers, unlabelled, open every
-  added deck's row below it (`adCounts` → `.ad-counts`), computed by the SAME function over that deck's ids, so a
+  added deck's row below it (`adCounts` → `.dk-counts`), computed by the SAME function over that deck's ids, so a
   row can never claim work the banner does not. Two things about the split are deliberate: **new** is the day's
   allowance (`reviewQueue().fresh`), not the whole unseen backlog, and a **learning** card counts from the moment
   it is answered wrong until it graduates — whether or not its ten-minute step has come round — because a count

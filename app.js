@@ -11227,8 +11227,8 @@
     rows.forEach((el) => {
       const node = NODE_BY_ID[el.dataset.node];
       const vis = adRowVisible(node, rowIds);
-      el.classList.toggle("ad-shut", !vis);
-      const chev = el.querySelector(".ad-chev");
+      el.classList.toggle("dk-shut", !vis);
+      const chev = el.querySelector(".dk-chev");
       if (chev) {
         const open = adOpen.has(el.dataset.node);
         chev.classList.toggle("open", open);
@@ -11244,9 +11244,9 @@
        drag a row anywhere in its own level (see setupDeckDrag) one of those may now be the FIRST thing in
        the list, and the corner has to follow wherever the last row actually is. */
     let last = null;
-    [...listEl.children].forEach((el) => { if (el.classList.contains("active-deck") && !el.classList.contains("ad-shut")) last = el; });
-    listEl.querySelectorAll(".ad-last").forEach((el) => el.classList.remove("ad-last"));
-    if (last) last.classList.add("ad-last");
+    [...listEl.children].forEach((el) => { if (el.classList.contains("active-deck") && !el.classList.contains("dk-shut")) last = el; });
+    listEl.querySelectorAll(".dk-last").forEach((el) => el.classList.remove("dk-last"));
+    if (last) last.classList.add("dk-last");
   }
   /* ---------- DRAGGING A ROW OF THE REVIEW LIST INTO PLACE (Aug 2026, on request) ----------
      Anki lets a reader arrange their deck list; this is the same thing done by dragging, which is what
@@ -11279,7 +11279,7 @@
   function setupDeckDrag(listEl, onDrop) {
     if (!listEl) return;
     const rows = () => [].slice.call(listEl.children).filter((el) => el.classList.contains("active-deck"));
-    const shown = (el) => !el.classList.contains("ad-shut");
+    const shown = (el) => !el.classList.contains("dk-shut");
     const depthOf = (el) => +el.dataset.depth || 0;
     // the row and everything nested under it: a contiguous run, hidden descendants included
     function blockOf(el) {
@@ -11321,7 +11321,7 @@
       const dy = e.clientY - drag.grabY;
       drag.vis.forEach((el, i) => deckSetY(el, (drag.tops[i] + dy) - deckLayoutTop(el)));
     };
-    listEl.querySelectorAll(".ad-grip").forEach((grip) => {
+    listEl.querySelectorAll(".dk-grip").forEach((grip) => {
       // the row underneath is a tap and a hold; neither may see this press or the click it ends in
       grip.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); });
       grip.addEventListener("keydown", (e) => {
@@ -11354,7 +11354,7 @@
       if (!drag.moved) {
         if (Math.abs(e.clientY - drag.grabY) < 4) return;   // a press that has not become a drag
         drag.moved = true;
-        listEl.classList.add("ad-reordering");
+        listEl.classList.add("dk-reordering");
         /* …and the row's OWN entrance animation has to go, which is the trap this file already carries
            twice (see .bk-page and gbSetCompact). `.active-deck` runs `pageIn` with `both`, so its last
            keyframe — `transform:none` — goes on applying for the life of the row and OUTRANKS an inline
@@ -11362,7 +11362,7 @@
            does not follow the finger. It is never put back: the animation has long since finished, and
            re-applying it would replay the fade-in under the reader's hand. flipMove is unaffected, being
            a script animation, which is why the list moves and the carried row would not have. */
-        drag.vis.forEach((b) => { b.style.animation = "none"; b.classList.add("ad-dragging"); });
+        drag.vis.forEach((b) => { b.style.animation = "none"; b.classList.add("dk-dragging"); });
       }
       pin(e);
       const carried = drag.el.getBoundingClientRect();
@@ -11377,10 +11377,10 @@
     const end = () => {
       if (!drag) return;
       const d = drag; drag = null;
-      listEl.classList.remove("ad-reordering");
+      listEl.classList.remove("dk-reordering");
       // let go and it settles into its slot rather than snapping to it
-      d.vis.forEach((el) => { el.classList.add("ad-settling"); deckSetY(el, 0); });
-      setTimeout(() => d.vis.forEach((el) => el.classList.remove("ad-dragging", "ad-settling")), DECK_FLIP_MS + 40);
+      d.vis.forEach((el) => { el.classList.add("dk-settling"); deckSetY(el, 0); });
+      setTimeout(() => d.vis.forEach((el) => el.classList.remove("dk-dragging", "dk-settling")), DECK_FLIP_MS + 40);
       if (d.moved) commit(d.el);
     };
     listEl.addEventListener("pointerup", end);
@@ -11473,9 +11473,9 @@
         : t("New") + " " + c.nw + " · " + t("Learning") + " " + c.lr + " · " + t("Review") + " " + c.rv;
       // a pile at zero goes GREY (Aug 2026, on request) — the colour means "there is work of this kind
       // here", so keeping it on a 0 spends the reader's attention on nothing
-      const z = (n) => (n ? "" : " adc-zero");
-      return `<div class="ad-counts" title="${esc(tip)}">
-        <span class="adc adc-new${z(c.nw)}">${c.nw}</span><span class="adc adc-learn${z(c.lr)}">${c.lr}</span><span class="adc adc-rev${z(c.rv)}">${c.rv}</span>
+      const z = (n) => (n ? "" : " dkc-zero");
+      return `<div class="dk-counts" title="${esc(tip)}">
+        <span class="dkc dkc-new${z(c.nw)}">${c.nw}</span><span class="dkc dkc-learn${z(c.lr)}">${c.lr}</span><span class="dkc dkc-rev${z(c.rv)}">${c.rv}</span>
       </div>`;
     };
     /* Every row in the review list carries how far through it the reader is — the bar replaced a bare blue
@@ -11485,7 +11485,7 @@
        the figure was taking on a 390px line. */
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
-      return `<div class="prog ad-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
+      return `<div class="prog dk-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
         <div class="track"><div class="fill"></div></div>
       </div>`;
     };
@@ -11514,7 +11514,7 @@
     const GRIP_SVG =
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>';
     const gripHTML = (name) =>
-      `<button class="ad-grip" type="button" aria-label="Reorder ${esc(name)}" title="Drag to reorder">${GRIP_SVG}</button>`;
+      `<button class="dk-grip" type="button" aria-label="Reorder ${esc(name)}" title="Drag to reorder">${GRIP_SVG}</button>`;
     const activeHTML = (function () {
       const activeSet = new Set(activeIds);
       const show = new Set();
@@ -11587,25 +11587,25 @@
             return `<div class="active-deck" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="0"${drag} style="padding-left:${pad}px" title="Review just ${esc(r.title)}">
               ${grip}
               ${adCounts(r.drag)}
-              <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(r.title)}</span></div>
+              <div class="dk-body">
+                <div class="dk-line"><span class="dk-title">${esc(r.title)}</span></div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
-              <span class="ad-chev-gap" aria-hidden="true"></span>
+              <span class="dk-chev-gap" aria-hidden="true"></span>
             </div>`;
           }
           // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
           // collapse in the reader's face on every visit to the page
-          const shut = adRowVisible(r.node, rowIds) ? "" : " ad-shut";
+          const shut = adRowVisible(r.node, rowIds) ? "" : " dk-shut";
           // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
           // of a leaf deck would stop at two different places and the list's right edge would go ragged
-          const chev = hasKids.has(r.node.id) ? chevBtn("ad-chev") : '<span class="ad-chev-gap" aria-hidden="true"></span>';
+          const chev = hasKids.has(r.node.id) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
           if (r.active) {
             return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}" data-node="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${grip}
               ${adCounts(r.node.id)}
-              <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
+              <div class="dk-body">
+                <div class="dk-line"><span class="dk-title">${esc(nodeTitle(r.node))}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
               ${chev}
@@ -11613,8 +11613,8 @@
           }
           return `<div class="active-deck context${shut}" data-node="${esc(r.node.id)}" data-depth="${r.depth}"${drag}${rowHue(r.node.id)}padding-left:${pad}px">
             ${grip}
-            <div class="ad-body">
-              <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
+            <div class="dk-body">
+              <div class="dk-line"><span class="dk-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
             ${chev}
           </div>`;
@@ -11969,7 +11969,7 @@
       // …and the rows can be dragged into the reader's own order (see setupDeckDrag). The list is repainted
       // in place by the fold below, which does not rebuild the rows, so this wiring survives it.
       setupDeckDrag(adList);
-      adList.querySelectorAll(".ad-chev").forEach((chev) => {
+      adList.querySelectorAll(".dk-chev").forEach((chev) => {
         const row = chev.closest(".active-deck");
         const id = row && row.dataset.node;
         if (!id) return;
@@ -11986,10 +11986,10 @@
           e.preventDefault();
           const open = !adOpen.has(id);
           if (open) adOpen.add(id); else adOpen.delete(id);
-          const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)")]);
+          const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.dk-shut)")]);
           adSyncFold(adList);
           if (open) {
-            adList.querySelectorAll(".active-deck[data-node]:not(.ad-shut)").forEach((el) => {
+            adList.querySelectorAll(".active-deck[data-node]:not(.dk-shut)").forEach((el) => {
               if (before.has(el)) return;
               el.style.animation = "none"; void el.offsetWidth; el.style.animation = "";
             });
