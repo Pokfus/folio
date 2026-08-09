@@ -3318,7 +3318,7 @@
     }
     if (id === COTD_ENTRY) return cotdIds();
     const ud = UDECKS[uDeckIdOf(id)];
-    if (ud) return (ud.cardIds || []).slice();
+    if (ud) { const sub = uSubOf(id); return sub ? uDeckCardsIn(ud.id, sub) : (ud.cardIds || []).slice(); }
     return subtreeCardIds(NODE_BY_ID[id]);
   }
   // cards inside at least one collection that is NOT coming soon — everything a visitor may study or be quizzed on.
@@ -3449,7 +3449,11 @@
     if (id === REVIEW_ENTRY) return { title: REVIEW_TITLE, parent: "", count: entryCardIds(REVIEW_ENTRY).length };
     if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
     const ud = UDECKS[uDeckIdOf(id)];
-    if (ud) return { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
+    if (ud) {
+      const sub = uSubOf(id);
+      return sub ? { title: sub, parent: ud.title, count: uDeckCardsIn(ud.id, sub).length }
+                 : { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
+    }
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
     return { title: nodeTitle(n), parent: nodeParentPath(n), count: subtreeCardIds(n).length };
@@ -3582,7 +3586,7 @@
   function scopeEntryId(scope) {
     if (!scope) return REVIEW_ENTRY;
     if (scope.type === "deck") return scope.id;
-    if (scope.type === "udeck") return uDeckEntry(scope.id);
+    if (scope.type === "udeck") return uSubEntry(scope.id, scope.sub || "");
     return REVIEW_ENTRY;
   }
   // today's per-deck scratch record: the Custom-study bump and the skip flag, both of which expire at
@@ -3724,8 +3728,52 @@
     for (let i = 0; i < n; i++) s += abc[(rnd ? rnd[i] : Math.floor(Math.random() * 4294967296)) % abc.length];
     return s;
   }
-  function uDeckIdOf(entryId) { return (typeof entryId === "string" && entryId.slice(0, 2) === "u:") ? entryId.slice(2) : null; }
+  /* ---------- SUBDECKS (Aug 2026, on request) ----------
+     A community deck may group its cards into subdecks, so one file can hold what would otherwise be two
+     decks — an HSK deck with a direction each way, a course with a chapter each. Each is studiable and
+     addable on its own, exactly as a curated collection's decks are.
+
+     A subdeck is a STRING ON THE CARD (`card.sub`, the subdeck's own title) and there is no list beside it:
+     the deck's subdecks are the distinct values in card order. That is the whole design decision, and it is
+     what makes the feature cost NO schema change — the title rides on each card, so it survives export,
+     import, publish and install through paths that already carry the card whole. An explicit list would
+     have needed a column on `user_decks`, which is exactly the migration card types are still waiting on.
+     What it gives up is an EMPTY subdeck, and ordering the subdecks independently of the cards; neither is
+     worth a blocked feature. Renaming one is rewriting `sub` on its cards.
+
+     An entry id is `u:<deckId>` for the whole deck and `u:<deckId>/<title>` for one subdeck. A deck id is
+     [a-z0-9]{4,16} and so can never contain the slash, which is what makes the split unambiguous; the title
+     is percent-encoded after it. Everything that only wants the DECK keeps calling uDeckIdOf and is
+     unchanged — it strips the suffix — and only the handful of places that must narrow call uSubOf. */
+  function uDeckIdOf(entryId) {
+    if (typeof entryId !== "string" || entryId.slice(0, 2) !== "u:") return null;
+    const rest = entryId.slice(2), cut = rest.indexOf("/");
+    return cut < 0 ? rest : rest.slice(0, cut);
+  }
+  function uSubOf(entryId) {
+    if (typeof entryId !== "string" || entryId.slice(0, 2) !== "u:") return "";
+    const cut = entryId.indexOf("/");
+    if (cut < 0) return "";
+    try { return decodeURIComponent(entryId.slice(cut + 1)); } catch (e) { return entryId.slice(cut + 1); }
+  }
   function uDeckEntry(deckId) { return "u:" + deckId; }
+  function uSubEntry(deckId, sub) { return sub ? "u:" + deckId + "/" + encodeURIComponent(sub) : "u:" + deckId; }
+  // the deck's subdecks: the distinct titles its cards name, in the order the cards are in
+  function uDeckSubs(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return [];
+    const out = [];
+    (d.cardIds || []).forEach((cid) => {
+      const s = (UCARDS[cid] && UCARDS[cid].sub) || "";
+      if (s && out.indexOf(s) < 0) out.push(s);
+    });
+    return out;
+  }
+  function uDeckCardsIn(deckId, sub) {
+    const d = UDECKS[deckId];
+    if (!d) return [];
+    return (d.cardIds || []).filter((cid) => (((UCARDS[cid] && UCARDS[cid].sub) || "") === sub));
+  }
   function uDeckOfCard(id) { const c = UCARDS[id]; return c && c.deckId ? UDECKS[c.deckId] || null : null; }
   function uDeckList() {
     return Object.keys(UDECKS).map((k) => UDECKS[k]).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
@@ -4008,6 +4056,9 @@
        held any carries no key at all. The field VALUES are rich HTML like everything else here; the NAMES are
        held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
        collides with something the renderer reads. */
+    // which subdeck this card is in, if any — a plain title, carried like `category`
+    const sub = sanitizePlain(raw && raw.sub).slice(0, 80).trim();
+    if (sub) c.sub = sub;
     const ty = String((raw && raw.type) || "").trim();
     if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
     if (raw && raw.fields && typeof raw.fields === "object") {
@@ -4300,6 +4351,16 @@
     uDeckSave(deckId);
     return c;
   }
+  /* A card's subdeck. It is NOT one of CARD_FIELDS — those are the Basic format's thirteen, and uCardSet
+     refuses anything outside them — so it gets its own setter, the way the type and its fields do. Empty
+     puts the card back in the deck itself. */
+  function uCardSetSub(cardId, sub) {
+    const c = UCARDS[cardId];
+    if (!c) return;
+    const v = sanitizePlain(sub).slice(0, 80).trim();
+    if (v) c.sub = v; else delete c.sub;
+    if (c.deckId) uDeckSave(c.deckId);
+  }
   function uCardSet(cardId, field, value) {
     const c = UCARDS[cardId];
     if (!c || CARD_FIELDS.indexOf(field) < 0) return;
@@ -4442,7 +4503,8 @@
     delete UDECKS[deckId];
     delete UGLOSS[deckId];
     invalidateGlossIndex("deck:" + deckId);   // else a re-created deck with the same id would inherit a stale index
-    S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => x !== uDeckEntry(deckId));
+    // …and every subdeck entry of it, which share the deck id before the slash
+    S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => uDeckIdOf(x) !== deckId);
     save();
     cdbDel(deckId);
   }
@@ -4592,6 +4654,7 @@
       CARD_FIELDS.forEach((f) => { data[f] = c[f] == null ? "" : c[f]; });
       if (Array.isArray(c.questions) && c.questions.length) data.questions = c.questions;   // the extra phrasings travel with the card
       if (Array.isArray(c.sources) && c.sources.length) data.sources = c.sources;           // and so do its citations
+      if (c.sub) data.sub = c.sub;   // and the subdeck it sits in — no column needed, it is part of the card
       if (c.image && c.image.src) data.image = c.image;
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
@@ -11681,7 +11744,11 @@
         const n = NODE_BY_ID[id];
         if (n) { walk(n, 0); return; }
         const ud = UDECKS[uDeckIdOf(id)];
-        rows.push({ flat: id, depth: 0, parent: "", drag: id, title: ud ? ud.title : COTD_TITLE });
+        // a SUBDECK added on its own is named by the subdeck, with its deck for context — the row is what
+        // the reader chose, and "HSK 1" over three of them says nothing about which is which
+        const sub = ud ? uSubOf(id) : "";
+        rows.push({ flat: id, depth: 0, parent: "", drag: id,
+                    title: ud ? (sub || ud.title) : COTD_TITLE, sup: sub ? ud.title : "" });
       });
       /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
          that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
@@ -11719,7 +11786,7 @@
               ${grip}
               ${adCounts(r.drag)}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(r.title)}</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(r.title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
               <span class="dk-chev-gap" aria-hidden="true"></span>
@@ -12328,7 +12395,35 @@
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>' +
           '</button>' +
         '</div>' +
-      '</div></div>';
+      '</div>' + udeckSubRowsHTML(d) + '</div>';
+  }
+  /* A deck's subdecks, each addable and studiable on its own — the same affordances a curated collection's
+     decks get, and the reason a deck may hold two directions in one file. A deck with no subdecks renders
+     nothing here, so a flat deck's row is exactly what it always was. Cards that name no subdeck are left
+     out of this list rather than given an "Other" row: on a fully-grouped deck there are none, and on a
+     partly-grouped one the parent row already studies the whole deck. */
+  function udeckSubRowsHTML(d) {
+    const subs = uDeckSubs(d.id);
+    if (!subs.length) return "";
+    return '<div class="udeck-subs">' + subs.map((sub) => {
+      const ids = uDeckCardsIn(d.id, sub), n = ids.length;
+      const entry = uSubEntry(d.id, sub), on = isActive(entry);
+      const studied = ids.filter(isSeen).length;
+      return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
+        '" data-usubname="' + esc(sub) + '">' +
+        '<div class="collection-main">' +
+          '<div class="collection-title-row">' +
+            '<span class="deck-title">' + esc(sub) + '</span>' +
+            '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
+          '</div>' +
+          deckProgMarkup(studied, n) +
+        '</div>' +
+        '<div class="collection-actions">' +
+          '<button class="collection-add' + (on ? " added" : "") + '" data-uaddsub="' + esc(entry) +
+            '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + '</button>' +
+        '</div>' +
+      '</div>';
+    }).join("") + '</div>';
   }
   function communityLibraryHTML() {
     const decks = uDeckList();
@@ -12360,6 +12455,18 @@
     const br = root.querySelector("#udBrowse");
     if (br) br.addEventListener("click", () => route("community"));
     root.querySelectorAll("[data-uadd]").forEach((b) => wireAddButton(b, uDeckEntry(b.dataset.uadd)));
+    // a subdeck's + carries its whole entry id, the deck and the title already joined
+    root.querySelectorAll("[data-uaddsub]").forEach((b) => wireAddButton(b, b.dataset.uaddsub));
+    root.querySelectorAll("[data-usub]").forEach((rowEl) => {
+      const go = (e) => {
+        if (e && e.target.closest && e.target.closest(".collection-actions")) return;   // the + is its own control
+        const d = UDECKS[rowEl.dataset.usub];
+        if (!d) return;
+        route("study", { scope: { type: "udeck", id: d.id, sub: rowEl.dataset.usubname } });
+      };
+      rowEl.addEventListener("click", go);
+      rowEl.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); } });
+    });
     root.querySelectorAll("[data-uedit]").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
       studioState.deck = b.dataset.uedit; studioState.card = null; route("studio");
@@ -12742,10 +12849,11 @@
     } else if (scope.type === "udeck") {
       const d = UDECKS[scope.id];
       if (!d) return null;
-      const ids = (d.cardIds || []).filter((id) => !isSuspended(id));
+      const sub = scope.sub || "";
+      const ids = (sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
-      const ue = uDeckEntry(d.id);
+      const ue = uSubEntry(d.id, sub);
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(ue));
       const unseen = ids.filter((id) => !isSeen(id));
       queue = [...due, ...unseen.slice(0, Math.max(deckNewRemaining(ue), 0))];
@@ -12755,7 +12863,7 @@
       if (deckRandom(ue)) shuffle(queue);
       queue._ud = d;
       queue._unseen = unseen;
-      where = d.title;
+      where = sub ? d.title + " · " + sub : d.title;
       total = queue.length;
     } else {
       const sd = NODE_BY_ID[scope.id];
@@ -15056,9 +15164,30 @@
           types.map((t) => '<option value="' + esc(t.id) + '"' + (cur === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") +
         "</select></label>" +
       (types.length ? "" : '<span class="ces-typenote">Write your own on the <b>Card types</b> tab.</span>') +
+      /* Which subdeck this card is in. A datalist rather than a <select> because the deck's subdecks ARE
+         the titles its cards name — there is no list to pick from until a card names one, so the first
+         has to be typed, and every one after it is offered. Leaving it empty puts the card in the deck
+         itself. */
+      '<label class="ces-typepick"><span>Subdeck</span>' +
+        '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="none" ' +
+          'value="' + esc((c && c.sub) || "") + '" />' +
+        '<datalist id="cesSubList">' +
+          uDeckSubs(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
+        "</datalist></label>" +
     "</div>";
   }
   function studioWireTypePicker(host, c) {
+    const sub = host.querySelector("#cesCardSub");
+    /* On `change` rather than every keystroke: the deck's subdeck list is derived from the cards, so each
+       keystroke would otherwise create a subdeck per prefix — "E", "En", "Eng" — and the row list under the
+       deck would grow a row for each. It re-renders because the Collections page and the card list group by
+       this, and the datalist behind the box is built from it. */
+    if (sub) sub.addEventListener("change", () => {
+      const v = sub.value.trim();
+      if (v === ((c.sub || ""))) return;
+      uCardSetSub(c.id, v);
+      render();
+    });
     const sel = host.querySelector("#cesCardType");
     if (!sel) return;
     sel.addEventListener("change", () => {
