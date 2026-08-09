@@ -60,11 +60,11 @@ It is a plain static website — open `index.html` and it runs.
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js →
 artefacts.js → app.js`.
-**That path is 5.64 MB raw / 1.57 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
+**That path is 5.77 MB raw / 1.61 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
 1.35 MB the day before, and it said "~1.4 MB" for months while being five times out of date, so
-**re-measure it rather than quoting it**). The picture pass added ~355 KB raw / ~220 KB gzipped, and that is
-metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 780 illustrations cost
-a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
+**re-measure it rather than quoting it**). The picture pass added ~485 KB raw / ~260 KB gzipped, and that is
+metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 1,076 illustrations
+cost a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
 **THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
 path was 7.5 MB raw / 2.4 MB gzipped, and **58% of `data.js` (2.06 MB) was the `i18n` blocks of 89 cards**,
 which `MULTILANG = false` meant no reader could reach — the `quotes.js` mistake (27 KB → 312 KB for every
@@ -1992,7 +1992,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter), `GLOSSARY_IMAGES` (per-term illustration, **547 of the 836 terms** since Aug 2026 — see the
+  filter), `GLOSSARY_IMAGES` (per-term illustration, **684 of the 836 terms** since Aug 2026 — see the
   "Glossary image" bullet below and the picture-pass scripts in this map) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
   **A DATE LINE MAY RUN TO SEVERAL LINES** (`glossDatesHTML` / `glossDatesFlat`, Aug 2026, on request). It
@@ -2101,10 +2101,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole file back as a JS literal (`serializeArtefacts`); an `ADMIN_EDITS.artefacts` overlay sits over it,
   keyed by id, exactly as the daily quotes' does over `SHIPPED_QUOTES`.
   **Currently 100 — 4 legendary, 13 epic, 27 rare, 56 common** (98 added on 2026-08-08 on request, to the
-  two the feature shipped with). **None carries a picture**, and that is a fact rather than a backlog: a
-  `src` is somebody else's URL and a `credit` is required beside it, so an invented one would be a
-  fabricated source holding up a real object — the rarity-coloured placeholder is what the shape was
-  designed for. A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
+  two the feature shipped with). **92 of the 100 carry a picture** since the Aug 2026 picture pass (see
+  `.claude/search-images.js --artefacts` in the File map); the eight without are ones whose Commons
+  candidates were reviewed and rejected as not being the object — `gladius` matches *Xiphias gladius*, the
+  swordfish. That is a fact rather than a backlog: a `src` is somebody else's URL and a `credit` is
+  required beside it, so an invented one would be a fabricated source holding up a real object, and the
+  rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
+  `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
+  five-sentence description, so `credit` is the only place the attribution can go and it is written there
+  in full, URL included, because `.ar-wcredit` renders it as plain text rather than as a link.
+  A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
   content rules the file's own header states (exactly five sentences, 180–220 words with the imperial
   conversion NOT charged against the budget, a bolded first mention, a credit on any picture, an id that
   is a fresh lowercase slug) and **rewrites the file in `serializeArtefacts`'s exact output format**, so a
@@ -2203,11 +2209,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   request; the site had exactly ONE picture before it). Standalone Node helpers, zero deps, resumable, cache
   in `.claude/image-cache/` (gitignored). Not part of the site. Read them in that order — each header carries
   what it found.
-  · **THE BAR IS PUBLIC DOMAIN, and that is a choice with a measured price.** The request was "copyright free
-    or public domain", so CC BY / CC BY-SA is refused even though Folio credits every picture anyway and
-    already ships CC BY-SA data elsewhere. **Measured: 133 further terms have a usable CC-BY picture and no
-    public-domain one**, so relaxing the bar would take the glossary from 547 to ~680 of 836. Recorded rather
-    than done, because it is the site owner's call.
+  · **THE BAR IS "FREE TO USE COMMERCIALLY", because Folio may sell premium accounts.** It began as public
+    domain only, on the request's wording, and was **widened to CC BY and CC BY-SA on request** once the
+    price of the narrow reading had been measured — 133 terms had a usable CC picture and no public-domain
+    one. Two facts make the wider bar safe and both are worth knowing before anyone narrows it again.
+    **Wikimedia Commons only accepts licences permitting commercial use AND derivatives**, so NC and ND are
+    outside its scope entirely and the corpus is past the hard part before this pass starts (the NC/ND test
+    in `licenceClass` is belt and braces, and finds nothing). And **share-alike does not reach the site**:
+    CC BY-SA's copyleft binds ADAPTATIONS of the picture, while a page showing one beside prose is a
+    COLLECTION — CC 4.0 says the licence "does not apply to the other parts of the Collection" — and
+    resizing to a thumbnail is a format change rather than an adaptation. So a CC BY-SA illustration does
+    not oblige Folio to license Folio under CC BY-SA and does not stand in the way of charging.
+    **GFDL, the Free Art Licence and the one-off national open licences are still refused**: GFDL permits
+    commercial use but wants its full text shipped with the work and a "transparent copy" made available,
+    which a card frame cannot do, and the others would each need reading on their own terms for a few dozen
+    files. **A CC FILE WHOSE AUTHOR CANNOT BE ESTABLISHED IS REFUSED TOO** (`attributableAuthor`) — naming
+    the creator is the condition of the grant, not a courtesy, so "Unknown author" is a fine answer for a
+    public-domain scan and no answer at all for a CC one. 501 files are dropped on that rule alone.
+  · **THE CAPTION IS THE ATTRIBUTION.** A CC picture's `desc` ends "<Author>, <licence>, via Wikimedia
+    Commons" and its `credit` is the Commons file page, which together carry creator, licence and source;
+    a public-domain one says "Public domain, via Wikimedia Commons" and needs none of it. An ARTEFACT has
+    no `desc` field (its entry already has name, date, origin and five sentences), so the whole attribution
+    goes in `credit`, which renders as plain text — hence the URL is written into it rather than linked.
   · **THE LEAD IMAGE ALONE IS NOT ENOUGH.** Taking Wikipedia's `pageimages` gave 128 usable pictures out of
     836 terms; reading EVERY file on the article and ranking them gave 628, for the same number of requests.
     An article routinely illustrates a public-domain OBJECT with a modern copyrighted PHOTOGRAPH of it.
@@ -2249,8 +2272,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     status where the reader can see it.
   · **`src` is the 1600px rendering for a raster and the original for an SVG.** The card frame caps at 680
     CSS px, so that is high-resolution with room to open fullscreen, and it spares the reader a 40 MB scan.
-  · Coverage today: **547 of 836 glossary terms, 233 of 409 cards.** What is left is 133 terms with a CC-BY
-    picture only, and ~75 with nothing openable either way.
+  · **A REVIEWED PICK IS FROZEN BY FILE NAME, NEVER BY INDEX** (`chosen-0-frozen.json`). The review lists
+    record an index into a RANKED candidate list, and widening the licence bar re-ranked every one of them
+    — so the second pass would have silently swapped the picture on terms already reviewed and shipped.
+    The shipped choices are resolved back to their `File:` titles from `glossary.js` and frozen; only a
+    list reviewed against the CURRENT ranking may stay an index. `chosen-0-frozen.json` also sorts first,
+    which matters because the first claimant of a file keeps it — and note that `chosen-10` sorts before
+    `chosen-2`.
+  · **ARTEFACTS HAVE NO ARTICLE TO WALK**, so they are searched by name (`search-images.js --artefacts`),
+    first for public domain and then `--wide` for CC. Half their names are a KIND rather than a thing
+    ("Flint scraper", "Roman gold aureus"), which cuts both ways: a kind is hard to search and almost
+    impossible to get wrong, a named object is easy to search and easy to get wrong by finding a replica —
+    the top hit for the Portland Vase is the Wedgwood copy and for the Mask of Agamemnon an electrotype.
+    Both were caught by eye. `gladius` matched *Xiphias gladius*, the swordfish, in both sweeps.
+  · Coverage today: **684 of 836 glossary terms, 300 of 409 cards, 92 of 100 artefacts.** Of the 152 terms
+    still without one, ~75 have nothing openable at any licence and the rest have only a candidate that was
+    reviewed and rejected as not being a picture of the subject.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
@@ -5301,11 +5338,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     picture in the whole of Folio — `data.js` had a single card image, `glossary.js` had no
     `GLOSSARY_IMAGES` table at all — so the game could only show its placard, which was recorded here as a
     CONTENT gap rather than a wiring one. The picture pass (see `.claude/fetch-images.js` and friends in the
-    File map) took it to **233 card images and 547 glossary images**, far past `PIC_MIN_POOL` (8), so the
-    game now deals real rounds. **None of the 100 artefacts carries a picture yet**, which is the remaining
-    half and is a sourcing job: Folio has no upload path, every picture being somebody else's credited URL.
-    The lesson worth keeping is that the game was built BEFORE the content and the gap was written down —
-    which is why closing it needed no change to the game at all.
+    File map) took it to **300 card images, 684 glossary images and 92 artefact images**, far past
+    `PIC_MIN_POOL` (8), so the game now deals real rounds from all three kinds. The lesson worth keeping is
+    that the game was built BEFORE the content and the gap was written down — which is why closing it
+    needed no change to the game at all.
+    **ITS TEST HAD TO LEARN THE SAME THING**: the planted pool used to be ten entries ADDED to the table,
+    which was only ever the whole pool because the table was empty. It now REPLACES `GLOSSARY_IMAGES` and
+    clears the card and artefact pictures, so the seeded draw is deterministic at any corpus size.
   · **THE TITLE, DESCRIPTION AND CREDIT ARE HELD BACK UNTIL THE GUESS IS IN.** Every one of them names the
     subject and the credit is usually a URL that spells it out, so showing any of them early leaves a game
     that works perfectly and teaches nothing — the one failure here nobody would report. The `alt` is

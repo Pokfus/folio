@@ -37,21 +37,60 @@ const UA = "FolioImagePass/1.0 (https://github.com/Pokfus/folio; study site cont
 
 /* ---------------------------------------------------------------- licences
 
-   "Copyright free or public domain" is the bar, so the accepted set is PD and the public-domain
-   dedications only.  A CC BY / CC BY-SA file is freely reusable WITH attribution and is NOT what
-   was asked for, so it is recorded and rejected rather than silently taken — the count is
-   reported, because it is the number that says what the bar costs.                             */
+   THE BAR IS "FREE TO USE COMMERCIALLY, INCLUDING ON A PAID SITE".  Folio may sell premium
+   accounts, so a picture must be usable in a commercial product — and that is a stronger test
+   than "free".  Two facts make it tractable:
+
+   · WIKIMEDIA COMMONS ONLY ACCEPTS LICENCES THAT PERMIT COMMERCIAL USE AND DERIVATIVES.  A
+     NonCommercial or NoDerivatives file is outside its scope entirely, so the whole corpus this
+     pass draws on is already past the hard part.  The NC/ND test below is therefore belt and
+     braces rather than the load-bearing check — but it is kept, because a licence field is free
+     text and this is the one mistake that cannot be undone by editing a caption.
+   · SHARE-ALIKE DOES NOT REACH THE SITE.  CC BY-SA's copyleft binds ADAPTATIONS of the picture.
+     A page that shows a picture beside prose is a COLLECTION, and CC 4.0 says so in as many
+     words — the licence "does not apply to the other parts of the Collection".  Resizing to a
+     thumbnail is a format change rather than an adaptation.  So a CC BY-SA illustration does not
+     oblige Folio to license Folio under CC BY-SA, and does not stand in the way of charging.
+
+   Accepted: public domain / CC0, CC BY, CC BY-SA.
+   Refused: GFDL (commercial use is permitted but it wants the full licence text shipped with the
+   work and a "transparent copy" made available, which is not a thing a card frame can do), the
+   Free Art Licence and the various one-off national open licences (each would need reading on its
+   own terms, and there are only a few dozen files between them), and anything unrecognised.     */
 
 const PD_ID_RX = /^(pd|cc0|cc-zero|public[ -]domain)/i;
 const PD_NAME_RX = /^(public domain|cc0|no restrictions|pd-|copyrighted free use)/i;
+const NONFREE_RX = /\b(nc|nd|non[- ]?commercial|no[- ]?deriv)\b/i;
 
 function licenceClass(md) {
   const id = String((md.License && md.License.value) || "").trim();
   const name = String((md.LicenseShortName && md.LicenseShortName.value) || "").trim();
+  if (NONFREE_RX.test(id) || NONFREE_RX.test(name)) return "nonfree";
   if (PD_ID_RX.test(id) || PD_NAME_RX.test(name)) return "pd";
+  if (/^cc-by-sa/i.test(id) || /^cc by-sa/i.test(name)) return "cc-by-sa";
   if (/^cc-by/i.test(id) || /^cc by/i.test(name)) return "cc-by";
+  /* Commons' bare {{Attribution}} template: freely reusable, commercially, on the single
+     condition that the author is named — so it is a CC BY in all but name and is treated as one. */
+  if (/^attribution$/i.test(name) || /^attribution$/i.test(id)) return "cc-by";
   if (/^gfdl/i.test(id)) return "gfdl";
   return id || name ? "other" : "unknown";
+}
+
+/* The licences that may be used, and the ones that need a CREDIT LINE NAMING THE AUTHOR.  For a
+   CC licence attribution is not politeness, it is the condition of the grant: a file whose author
+   cannot be established from its own record cannot be attributed and so cannot be used, however
+   good the picture is. */
+const OK_LICENCES = new Set(["pd", "cc-by", "cc-by-sa"]);
+const NEEDS_ATTRIBUTION = new Set(["cc-by", "cc-by-sa"]);
+
+/* "Unknown author" is a real and citable answer for a public-domain scan; it is not an answer for
+   a CC licence, where somebody is exercising a copyright they hold. */
+const NO_AUTHOR_RX = /^\s*(unknown|anonymous|unbekannt|no author|not (given|stated)|see (file )?(history|source|below))/i;
+
+function attributableAuthor(info) {
+  const a = String((info && info.artist) || "").replace(/\s+/g, " ").trim();
+  if (!a || a.length > 120 || NO_AUTHOR_RX.test(a)) return "";
+  return a;
 }
 
 /* A watermark cannot be seen from here, so what IS checkable is checked: Commons categorises and
@@ -268,7 +307,8 @@ async function fetchFiles(titles, files) {
 
 function usable(info) {
   if (!info || info.missing) return "no-file";
-  if (info.licence !== "pd") return "licence:" + info.licence;
+  if (!OK_LICENCES.has(info.licence)) return "licence:" + info.licence;
+  if (NEEDS_ATTRIBUTION.has(info.licence) && !attributableAuthor(info)) return "no-author";
   if (!MIME_OK.has(info.mime)) return "mime:" + (info.mime || "?");
   const long = Math.max(info.width || 0, info.height || 0);
   const short = Math.min(info.width || 0, info.height || 0);
@@ -371,6 +411,7 @@ function report(pages, files) {
   console.log(String(ok).padStart(5), "USABLE of", Object.keys(pages).length);
 }
 
-module.exports = { pick, usable, score, readJSON, PAGES_CACHE, FILES_CACHE, stripTags, MIN_LONG, MIN_SHORT };
+module.exports = { pick, usable, score, readJSON, PAGES_CACHE, FILES_CACHE, stripTags, MIN_LONG, MIN_SHORT,
+  licenceClass, attributableAuthor, OK_LICENCES, NEEDS_ATTRIBUTION };
 
 if (require.main === module) main().catch((e) => { console.error(e); process.exit(1); });

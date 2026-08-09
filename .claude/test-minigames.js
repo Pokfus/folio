@@ -483,6 +483,7 @@ function simulate(days) {
         window.GLOSSARY_IMAGES[k] = { src: "/icon.svg", title: "Plate " + i, desc: "A description naming " + k + ".", credit: "https://example.org/" + k };
       });
       (window.CARD_DATA || []).forEach((c) => { delete c.image; });
+      (window.ARTEFACTS || []).forEach((a) => { delete a.image; });
       location.hash = "#picture";
       return keys.map((k) => k.replace(/_/g, " "));
     });

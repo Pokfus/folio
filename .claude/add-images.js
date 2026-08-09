@@ -106,6 +106,40 @@ function writeCards(cardImages, dry) {
   return n;
 }
 
+/* artefacts.js is rewritten whole in `serializeArtefacts`'s exact output format — the same one
+   add-artefacts.js and add-artefact-sources.js emit, so a hand edit and the next save from
+   Admin → Artefacts cannot drift apart.  An artefact's image is three fields, not five. */
+function writeArtefacts(images, dry) {
+  const file = path.join(ROOT, "artefacts.js");
+  const win = loadWindow(file);
+  const all = win.ARTEFACTS;
+  const byId = new Map(all.map((a) => [a.id, a]));
+  let n = 0;
+  for (const [id, img] of Object.entries(images)) {
+    const a = byId.get(id);
+    if (!a) throw new Error("no artefact with id " + id);
+    if (a.image && a.image.src) {
+      if (a.image.src !== img.src) throw new Error(id + " already has a different picture");
+      continue;
+    }
+    a.image = { src: img.src, credit: img.credit, alt: img.alt };
+    n++;
+  }
+  const s = (v) => JSON.stringify(String(v == null ? "" : v));
+  const HEAD = fs.readFileSync(file, "utf8").split("window.ARTEFACTS")[0];
+  const body = all.map((a) => {
+    let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
+    if (a.date) out += "    date: " + s(a.date) + ",\n";
+    if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
+    if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+    out += "    desc: " + s(a.desc) + ",\n";
+    if (Array.isArray(a.sources) && a.sources.length) out += "    sources: [\n" + a.sources.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
+    return out + "  },";
+  }).join("\n");
+  if (!dry) { fs.writeFileSync(file, HEAD + "window.ARTEFACTS = [\n" + body + "\n];\n"); loadWindow(file); }
+  return n;
+}
+
 function main() {
   const args = process.argv.slice(2);
   const file = args.find((a) => !a.startsWith("--"));
@@ -115,6 +149,7 @@ function main() {
 
   const gloss = batch.glossary || {};
   const cards = batch.cards || {};
+  const arte = batch.artefacts || {};
   const problems = [];
 
   const win = loadWindow(GLOSS);
@@ -123,16 +158,28 @@ function main() {
     problems.push(...check("glossary " + slug, img));
   }
   for (const [id, img] of Object.entries(cards)) problems.push(...check("card " + id, img));
+  /* An artefact's image is the three-field shape, so it is checked against those three rather
+     than against the five a card and a term carry. */
+  for (const [id, img] of Object.entries(arte)) {
+    if (!/^https:\/\//.test(img.src || "")) problems.push(`artefact ${id}: src must be an https URL`);
+    if (!String(img.credit || "").trim()) problems.push(`artefact ${id}: no credit`);
+    if (!String(img.alt || "").trim()) problems.push(`artefact ${id}: no alt text`);
+    const extra = Object.keys(img).filter((k) => !["src", "credit", "alt"].includes(k));
+    if (extra.length) problems.push(`artefact ${id}: unknown field(s) ${extra.join(", ")}`);
+  }
 
   if (problems.length) { problems.forEach((p) => console.error("ERROR: " + p)); process.exit(1); }
 
   const merged = Object.assign({}, win.GLOSSARY_IMAGES || {}, gloss);
   const g = writeGlossary(merged, dry);
   const c = writeCards(cards, dry);
+  const ar = writeArtefacts(arte, dry);
 
   const total = loadWindow(DATA).CARD_DATA;
   console.log(`${dry ? "[dry] " : ""}glossary images: +${Object.keys(gloss).length} (table now ${g} of ${Object.keys(win.GLOSSARY).length} terms)`);
   console.log(`${dry ? "[dry] " : ""}card images:     +${c} (now ${total.filter((x) => x.image && x.image.src).length} of ${total.length} cards)`);
+  const arts = loadWindow(path.join(ROOT, "artefacts.js")).ARTEFACTS;
+  console.log(`${dry ? "[dry] " : ""}artefact images: +${ar} (now ${arts.filter((x) => x.image && x.image.src).length} of ${arts.length} artefacts)`);
 }
 
 if (require.main === module) main();

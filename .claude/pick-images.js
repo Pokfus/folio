@@ -20,7 +20,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { readJSON, PAGES_CACHE, FILES_CACHE, usable, score } = require("./fetch-images.js");
+const { readJSON, PAGES_CACHE, FILES_CACHE, usable, score, attributableAuthor, OK_LICENCES, NEEDS_ATTRIBUTION } = require("./fetch-images.js");
 
 const ROOT = path.join(__dirname, "..");
 const OUT_DIR = path.join(__dirname, "image-cache");
@@ -34,6 +34,7 @@ function corpus() {
   global.window = {};
   require(path.join(ROOT, "glossary.js"));
   require(path.join(ROOT, "data.js"));
+  require(path.join(ROOT, "artefacts.js"));
   const w = global.window;
   _corpus = {
     G: w.GLOSSARY || {},
@@ -42,6 +43,7 @@ function corpus() {
     TITLES: w.GLOSSARY_TITLES || {},
     ALIASES: w.GLOSSARY_ALIASES || {},
     CARDS: w.CARD_DATA || [],
+    ARTEFACTS: w.ARTEFACTS || [],
   };
   return _corpus;
 }
@@ -67,8 +69,10 @@ function review(args) {
   const count = Number((args.find((a) => a.startsWith("--count=")) || "--count=40").split("=")[1]);
   const tag = (args.find((a) => a.startsWith("--tag=")) || "").split("=")[1];
 
+  const have = global.window.GLOSSARY_IMAGES || {};
   let slugs = Object.keys(G)
     .filter((s) => !COUNTRY[s])
+    .filter((s) => !args.includes("--missing") || !have[s])   // only terms still without a picture
     .filter((s) => !tag || (TAGS[s] || []).includes(tag));
   slugs.sort();
 
@@ -85,7 +89,8 @@ function review(args) {
     const art = r.page.article === r.slug.replace(/_/g, " ") ? "" : ` <${r.page.article}>`;
     console.log(`${r.slug} [${kind}]${art}`);
     r.cands.slice(0, 3).forEach((c, i) => {
-      console.log(`  ${i} ${c.t.replace(/^File:/, "").replace(/\.(jpg|jpeg|png|webp)$/i, "")}`);
+      const lic = c.info.licence === "pd" ? "" : "  [" + (c.info.licenceName || c.info.licence) + "]";
+      console.log(`  ${i} ${c.t.replace(/^File:/, "").replace(/\.(jpg|jpeg|png|webp)$/i, "")}${lic}`);
     });
   }
 }
@@ -169,14 +174,18 @@ function prettyFile(title) {
   return s;
 }
 
-/* THE LICENCE IS PART OF THE CAPTION, not only of the file page.  The bar this pass was run to is
-   "copyright free or public domain", and a reader looking at a picture on a study card has no
-   other way to see that it clears it — the credit link does, one click away, but a line saying so
-   is what makes the corpus self-documenting. */
+/* THE LICENCE LINE IS PART OF THE CAPTION, and for a CC picture it is the ATTRIBUTION the licence
+   requires rather than a courtesy.  CC BY and CC BY-SA grant the use on condition the creator is
+   named, the licence is identified and the source can be reached; the caption carries the first
+   two and the `credit` field is the link that carries the third.  A public-domain file needs none
+   of it and says so plainly, which is also the line that shows the corpus clearing its own bar. */
 function provenance(info) {
   const n = (info.licenceName || "").trim();
-  if (!n || /^public domain$/i.test(n)) return "Public domain, via Wikimedia Commons.";
-  return `Public domain (${n}), via Wikimedia Commons.`;
+  if (info.licence === "pd") return n && !/^public domain$/i.test(n)
+    ? `Public domain (${n}), via Wikimedia Commons.`
+    : "Public domain, via Wikimedia Commons.";
+  const who = attributableAuthor(info);
+  return `${who}, ${n || "Creative Commons"}, via Wikimedia Commons.`;
 }
 
 function termTitle(slug, titles) {
@@ -197,7 +206,7 @@ function imageObject(slug, file, info, titles) {
     const bits = [alt];
     /* A Commons USERNAME is not an attribution a reader wants in a caption — the credit link
        carries the full author line, which is where an attribution belongs. */
-    if (info.artist && !/^(unknown|anonymous|user:|see (file )?(history|source))/i.test(info.artist) && info.artist.length < 90) bits.push(info.artist);
+    if (info.licence === "pd" && info.artist && !/^(unknown|anonymous|user:|see (file )?(history|source))/i.test(info.artist) && info.artist.length < 90) bits.push(info.artist);
     if (info.date && /\d{3}/.test(info.date) && info.date.length < 40) bits.push(info.date.replace(/\s*\.\s*$/, ""));
     desc = bits.join(". ").replace(/\.?$/, ".");
   } else if (!/[.!?…]$/.test(desc)) desc += ".";
@@ -228,7 +237,7 @@ function imageObject(slug, file, info, titles) {
 /* --------------------------------------------------------------- the build */
 
 function build() {
-  const { G, TITLES: titles, ALIASES: AL, CARDS } = corpus();
+  const { G, TITLES: titles, ALIASES: AL, CARDS, ARTEFACTS } = corpus();
   const pages = readJSON(PAGES_CACHE, {});
   const files = readJSON(FILES_CACHE, {});
 
@@ -240,16 +249,22 @@ function build() {
   const searches = readJSON(path.join(OUT_DIR, "searches.json"), {});
   const searchHits = (slug) => ((searches[slug] || {}).hits || []).filter((h) => files[h] && usable(files[h]) === "ok");
 
-  const chosen = {}; // slug -> File:
+  const chosen = {};   // slug -> File:
+  const chosenArt = {}; // artefact id -> File:
   for (const f of fs.readdirSync(OUT_DIR).filter((n) => /^chosen-.*\.json$/.test(n)).sort()) {
-    const fromSearch = /^chosen-s\d/.test(f);
+    const fromSearch = /^chosen-(s|a)\d/.test(f);
     const d = JSON.parse(fs.readFileSync(path.join(OUT_DIR, f), "utf8"));
-    for (const [slug, v] of Object.entries(d)) {
+    for (const [key, v] of Object.entries(d)) {
+      let file = null;
       if (typeof v === "number") {
-        const c = fromSearch ? searchHits(slug)[v] : (candidates(slug, pages[slug], files)[v] || {}).t;
-        if (!c) { console.warn("  no candidate " + v + " for " + slug + " (" + f + ")"); continue; }
-        chosen[slug] = c;
-      } else if (typeof v === "string") chosen[slug] = v;
+        file = fromSearch ? searchHits(key)[v] : (candidates(key, pages[key], files)[v] || {}).t;
+        if (!file) { console.warn("  no candidate " + v + " for " + key + " (" + f + ")"); continue; }
+      } else if (typeof v === "string") file = v;
+      if (!file) continue;
+      /* An artefact is keyed `artefact:<id>`, and a candidate list from the wide (CC-inclusive)
+         sweep carries a `|wide` suffix so both sweeps' results can live in one cache. */
+      if (key.startsWith("artefact:")) chosenArt[key.slice(9).replace(/\|wide$/, "")] = file;
+      else chosen[key] = file;
     }
   }
 
@@ -279,7 +294,12 @@ function build() {
     const file = chosen[slug];
     const info = files[file];
     if (!info || info.missing) { dropped.push(slug + " (no metadata)"); continue; }
-    if (info.licence !== "pd") { dropped.push(slug + " (licence " + info.licence + ")"); continue; }
+    /* The LICENCE and the ATTRIBUTION are re-checked here rather than trusted from the review
+       list, because this is the last gate before the file reaches the site.  Resolution and
+       format are NOT re-checked: the country flags are chosen by a rule of their own and are
+       SVG on purpose, so `usable()` would refuse every one of them. */
+    if (!OK_LICENCES.has(info.licence)) { dropped.push(slug + " (licence " + info.licence + ")"); continue; }
+    if (NEEDS_ATTRIBUTION.has(info.licence) && !attributableAuthor(info)) { dropped.push(slug + " (no attributable author)"); continue; }
     if (seen.has(info.url)) { dropped.push(slug + " (same file as " + seen.get(info.url) + ")"); continue; }
     const obj = imageObject(slug, file, info, titles);
     if (CAST_RX.test(`${file} ${info.categories}`) && !DECLARED_RX.test(`${obj.alt} ${obj.desc}`)) {
@@ -306,10 +326,44 @@ function build() {
     cards[c.id] = { ...glossary[term], title: c.answerText };
   }
 
-  const out = { glossary, cards };
+  /* An artefact's picture is keyed by its own id and titled with its own NAME.  It does not share
+     the glossary's one-file-one-subject register: an artefact and a glossary term may legitimately
+     be the same object seen twice (the Mask of Agamemnon is both), so the dedupe map is separate —
+     but WITHIN the reliquary a file is still claimed once. */
+  const artefacts = {};
+  const seenArt = new Map();
+  for (const a of ARTEFACTS) {
+    const file = chosenArt[a.id];
+    if (!file) continue;
+    if (a.image && a.image.src) { dropped.push("artefact " + a.id + " (already has a picture)"); continue; }
+    const info = files[file];
+    if (!info || info.missing) { dropped.push("artefact " + a.id + " (no metadata)"); continue; }
+    if (!OK_LICENCES.has(info.licence)) { dropped.push("artefact " + a.id + " (licence " + info.licence + ")"); continue; }
+    if (NEEDS_ATTRIBUTION.has(info.licence) && !attributableAuthor(info)) { dropped.push("artefact " + a.id + " (no attributable author)"); continue; }
+    if (seenArt.has(info.url)) { dropped.push("artefact " + a.id + " (same file as " + seenArt.get(info.url) + ")"); continue; }
+    const obj = imageObject(a.id, file, info, {});
+    if (CAST_RX.test(`${file} ${info.categories}`) && !DECLARED_RX.test(`${obj.alt} ${obj.desc}`)) {
+      dropped.push("artefact " + a.id + " (undeclared cast or replica)"); continue;
+    }
+    seenArt.set(info.url, a.id);
+    /* AN ARTEFACT'S IMAGE CARRIES ONLY src / credit / alt, which is what `serializeArtefacts` in
+       app.js writes and what `artefactArtHTML` reads — the entry already has its own name, date,
+       origin and five-sentence description, so a picture title and caption would say it twice.
+       That makes `credit` the ONLY place the attribution can go, and it renders as plain text
+       rather than as a link, so the whole line goes in it: who made the picture, under what
+       licence, and where the file is. */
+    artefacts[a.id] = {
+      src: obj.src,
+      credit: provenance(info).replace(/\.$/, "") + " — " + info.page,
+      alt: obj.alt,
+    };
+  }
+
+  const out = { glossary, cards, artefacts };
   fs.writeFileSync(path.join(OUT_DIR, "batch.json"), JSON.stringify(out, null, 1));
   console.log(`glossary images: ${Object.keys(glossary).length}`);
   console.log(`card images:     ${Object.keys(cards).length}`);
+  console.log(`artefact images: ${Object.keys(artefacts).length}`);
   if (dropped.length) { console.log(`dropped ${dropped.length}:`); dropped.forEach((d) => console.log("  " + d)); }
   console.log("wrote .claude/image-cache/batch.json");
 }

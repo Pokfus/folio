@@ -181,7 +181,16 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
     if (b) b.click();
   });
   await page.waitForTimeout(600);
-  await page.evaluate(() => { const r = document.querySelector("[data-gkey]"); if (r) r.click(); });
+  /* A TERM THAT SHIPS NO PICTURE.  This section is about the gate that holds an UNCREDITED url
+     back, so it needs a panel that starts empty: on a term that already carries a picture the
+     source box is filled, and a newly typed url is credited the moment it is typed — correct
+     behaviour, and not the behaviour under test.  Opening the first row made that a matter of
+     whether that row had been illustrated yet. */
+  await page.evaluate(() => {
+    const rows = [...document.querySelectorAll("[data-gkey]")];
+    const free = rows.find((r) => !(window.GLOSSARY_IMAGES || {})[r.getAttribute("data-gkey")]);
+    (free || rows[0]).click();
+  });
   await page.waitForTimeout(600);
   const glossImg = () => page.evaluate(() => {
     const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").glossaryImages || {};

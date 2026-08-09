@@ -16,14 +16,23 @@
   on that article".  So everything here is a CANDIDATE and nothing ships unreviewed.
 
   Usage:
-    node .claude/search-images.js --cards      # answer terms of cards that still have no picture
-    node .claude/search-images.js --terms      # every glossary term that still has none
-    node .claude/search-images.js --review [--from=N] [--count=N]
+    node .claude/search-images.js --cards       # answer terms of cards that still have no picture
+    node .claude/search-images.js --terms       # every glossary term that still has none
+    node .claude/search-images.js --artefacts   # the reliquary's objects, which have no article
+    node .claude/search-images.js --review [--from=N] [--count=N] [--artefacts]
+
+  THE ARTEFACTS ARE THE ONE FAMILY WITH NO WIKIPEDIA ARTICLE TO WALK.  A glossary key is a slug and a
+  card resolves to one; an artefact is a row in `artefacts.js` with a NAME, and half of those names are
+  a KIND rather than a thing — "Acheulean hand axe", "Flint scraper", "Roman gold aureus".  That cuts
+  both ways: a named object (the Rosetta Stone) is easy to search and easy to get wrong by finding a
+  replica or a different stone, while a kind is hard to search and almost impossible to get wrong,
+  since any real Acheulean hand axe IS an Acheulean hand axe.  Both are searched the same way and both
+  are reviewed by eye; the difference is only in what the reviewer is watching for.
 */
 
 const fs = require("fs");
 const path = require("path");
-const { readJSON, usable } = require("./fetch-images.js");
+const { readJSON, usable, licenceClass } = require("./fetch-images.js");
 
 const ROOT = path.join(__dirname, "..");
 const CACHE_DIR = path.join(__dirname, "image-cache");
@@ -51,14 +60,6 @@ const strip = (h) => String(h || "").replace(/<style[\s\S]*?<\/style>/gi, "").re
   .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'")
   .replace(/\s+/g, " ").trim();
 
-function licenceClass(md) {
-  const id = String((md.License && md.License.value) || "").trim();
-  const name = String((md.LicenseShortName && md.LicenseShortName.value) || "").trim();
-  if (/^(pd|cc0|cc-zero|public[ -]domain)/i.test(id) || /^(public domain|cc0|no restrictions|pd-|copyrighted free use)/i.test(name)) return "pd";
-  if (/^cc-by/i.test(id) || /^cc by/i.test(name)) return "cc-by";
-  return id || name ? "other" : "unknown";
-}
-
 /* `filetype:bitmap` keeps SVG and video out, and `haswbstatement:P6216=Q19652` is Commons' own
    structured statement that a file's copyright status IS public domain — which is what makes a
    15-result page worth reading rather than 15 CC-BY photographs.  It is asked for in the QUERY
@@ -68,19 +69,23 @@ function licenceClass(md) {
    An `incategory:"PD-old-100"|incategory:…` chain was tried first and returns nothing at all —
    the OR form is not supported the way it looks, and it fails by matching zero rather than by
    erroring, so it reads as "Commons has no public-domain picture of the Venus of Willendorf". */
-function query(term) {
+function query(term, wide) {
   const t = term.replace(/_/g, " ").replace(/\s*\([^)]*\)$/, "");
-  return `${t} filetype:bitmap haswbstatement:P6216=Q19652`;
+  /* `wide` drops the public-domain statement and leaves `filetype:bitmap`, for a second sweep once
+     CC BY and CC BY-SA are on the table.  It is a SEPARATE pass rather than the default because a
+     public-domain file costs the reader nothing and the site no attribution line, so it is worth
+     preferring where one exists — the wide sweep is for subjects where none does. */
+  return wide ? `${t} filetype:bitmap` : `${t} filetype:bitmap haswbstatement:P6216=Q19652`;
 }
 
-async function searchTerms(terms, cache, files) {
+async function searchTerms(terms, cache, files, queryOf, wide) {
   for (let i = 0; i < terms.length; i++) {
     const term = terms[i];
     if (cache[term]) continue;
     let j;
     try {
       j = await api("commons.wikimedia.org", {
-        action: "query", list: "search", srsearch: query(term), srnamespace: "6", srlimit: "15",
+        action: "query", list: "search", srsearch: query((queryOf && queryOf[term]) || term, wide), srnamespace: "6", srlimit: "15",
       });
     } catch { cache[term] = { state: "error" }; continue; }
     const hits = ((j.query && j.query.search) || []).map((h) => h.title);
@@ -149,19 +154,36 @@ function stillMissing() {
   return { cardTerms, allTerms, batch, G: w.GLOSSARY, TAGS: w.GLOSSARY_TAGS || {} };
 }
 
+/* An artefact is keyed `artefact:<id>` in the search cache so it cannot collide with a glossary
+   slug, and it is searched on its NAME plus its ORIGIN, which is where a generic name earns its
+   keep.  The ORIGIN is deliberately NOT added to the query: CirrusSearch ANDs its terms, so
+   "Corinthian bronze helmet The Greek world" matches nothing at all rather than matching better. */
+function artefactTargets() {
+  global.window = {};
+  require(path.join(ROOT, "artefacts.js"));
+  return (global.window.ARTEFACTS || []).filter((a) => !(a.image && a.image.src))
+    .map((a) => ({ key: "artefact:" + a.id, q: a.name, id: a.id, name: a.name, rarity: a.rarity }));
+}
+
 function review(args) {
-  const { TAGS } = stillMissing();
   const cache = readJSON(SEARCH_CACHE, {});
   const files = readJSON(FILES_CACHE, {});
   const from = Number((args.find((a) => a.startsWith("--from=")) || "--from=0").split("=")[1]);
   const count = Number((args.find((a) => a.startsWith("--count=")) || "--count=40").split("=")[1]);
-  const terms = Object.keys(cache).filter((t) => (cache[t].hits || []).some((h) => files[h] && usable(files[h]) === "ok"));
+  const wantArtefacts = args.includes("--artefacts");
+  const TAGS = wantArtefacts ? {} : stillMissing().TAGS;
+  const terms = Object.keys(cache)
+    .filter((t) => wantArtefacts === t.startsWith("artefact:"))
+    .filter((t) => (cache[t].hits || []).some((h) => files[h] && usable(files[h]) === "ok"));
   terms.sort();
   console.log(`# ${terms.length} terms with a searchable public-domain candidate; showing ${from}..${from + count}`);
   for (const t of terms.slice(from, from + count)) {
     console.log(`${t} [${(TAGS[t] || [])[0] || "?"}]`);
     (cache[t].hits || []).filter((h) => files[h] && usable(files[h]) === "ok").slice(0, 4)
-      .forEach((h, i) => console.log(`  ${i} ${h.replace(/^File:/, "").replace(/\.(jpg|jpeg|png|webp)$/i, "")}`));
+      .forEach((h, i) => {
+        const lic = files[h].licence === "pd" ? "" : "  [" + (files[h].licenceName || files[h].licence) + "]";
+        console.log(`  ${i} ${h.replace(/^File:/, "").replace(/\.(jpg|jpeg|png|webp)$/i, "")}${lic}`);
+      });
   }
 }
 
@@ -171,10 +193,26 @@ async function main() {
   if (args.includes("--review")) return review(args);
   const cache = readJSON(SEARCH_CACHE, {});
   const files = readJSON(FILES_CACHE, {});
-  const { cardTerms, allTerms } = stillMissing();
-  const want = args.includes("--terms") ? allTerms : cardTerms;
-  console.log(`${want.length} terms to search`);
-  await searchTerms(want, cache, files);
+  let want, queryOf = null;
+  const wide = args.includes("--wide");
+  if (args.includes("--artefacts")) {
+    let t = artefactTargets();
+    if (wide) {
+      /* only the ones the narrow sweep could not serve; a fresh key so both result sets survive */
+      const done = readJSON(path.join(CACHE_DIR, "chosen-a1.json"), {});
+      /* `in`, not a truthiness test: a chosen candidate INDEX is very often 0, and `!done[key]`
+         reads that as "not chosen" — which sent 89 artefacts to the wide sweep instead of 50. */
+      t = t.filter((x) => !(x.key in done)).map((x) => ({ ...x, key: x.key + "|wide" }));
+    }
+    want = t.map((x) => x.key);
+    queryOf = Object.fromEntries(t.map((x) => [x.key, x.q]));
+    console.log(`${want.length} artefacts to search`);
+  } else {
+    const { cardTerms, allTerms } = stillMissing();
+    want = args.includes("--terms") ? allTerms : cardTerms;
+    console.log(`${want.length} terms to search`);
+  }
+  await searchTerms(want, cache, files, queryOf, wide);
   const ok = want.filter((t) => (cache[t].hits || []).some((h) => files[h] && usable(files[h]) === "ok"));
   console.log(`${ok.length} of them have at least one usable public-domain candidate`);
 }
