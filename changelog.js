@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.140", released: "2026-08-09T16:49Z" };
+window.FOLIO_VERSION = { v: "1.141", released: "2026-08-09T17:30Z" };
 
 window.CHANGELOG = [
   {
@@ -38,6 +38,7 @@ window.CHANGELOG = [
       "Today's quote from Leopold von Ranke gives his whole sentence on both sides. Turning it over showed a single German clause against two English sentences, because only the famous last few words had been recorded.",
       "One Ancient Greece card asked its question by naming a modern scholar, which a card should never do — the question now names the argument instead. And the Mochlos glossary entry says who Seager was rather than mentioning him as though you would know.",
       "Your added decks show their names again under Daily study. If you use an ad blocker, its filter list was hiding the deck's name and the progress bar beside it on every row, leaving a line of bare numbers — the parts of that row were named after the active deck they belong to, and two of those names are also used by real adverts. They have been renamed, so the row reads properly whatever you have installed.",
+      "A vocabulary card in one of your own decks no longer shows its word twice when you turn it over. Card shapes whose back is written to repeat the question — the vocabulary and picture ones — now draw it once, with the answer under the rule, as they were meant to.",
     ],
   },
   {

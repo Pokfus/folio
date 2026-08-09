@@ -5351,6 +5351,14 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
    from the page's own typography rather than from a box that has already made decisions for them — and
    `position:relative` is what keeps an absolutely-positioned rule inside the card it belongs to. */
 .uc-card{position:relative;}
+/* A back template that renders {{FrontSide}} draws the question itself, so the shell must not draw it a
+   second time above the answer — Anki's rule, where the back replaces the whole card, and the reason the
+   vocabulary and picture shapes set a rule under it. Without this the word, its part of speech and its
+   closed blanks all print twice, one under the other. A template that does NOT ask for the front is
+   untouched: its question stays above the answer, as a Basic card's does, which is what keeps a reader's
+   graded cloze guess on the page beside what it should have been. */
+.study-card:has(.uc-back.uc-hasfront) > .label,
+.study-card:has(.uc-back.uc-hasfront) > .question{display:none;}
 /* ---------- the two behaviours Folio lends a card type ----------
    A type's own CSS is scoped to its own cards, so anything a type needs to LOOK like it must style itself.
    These two are different: they are things Folio DOES — reading a run of text aloud, and closing a blank —

@@ -6438,6 +6438,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **The template language is `{{Field}}`, `{{FrontSide}}`, `{{#Field}}…{{/Field}}` and `{{^Field}}…{{/Field}}`**
     (`tplRender`) — Anki's, minus the filters. There are deliberately no filters: a template needing more than
     this is a template that wants a build step, which Folio does not have.
+  · **A BACK THAT RENDERS `{{FrontSide}}` OWNS THE FRONT, AND THE SHELL MUST STOP DRAWING ITS OWN** (Aug 2026,
+    on a bug report: the vocabulary shape "adds the English a second time"). Anki's back template REPLACES the
+    card; Folio's study card and its three previews keep a `.question` block above the answer — right for a
+    Basic card, where the answer is a new block, and a duplicate for a template that opens on the front. So
+    `cardTypeSideHTML` marks the back wrapper **`uc-hasfront`** and one `:has()` rule in styles.css hides the
+    shell's `.question` and its label. Three things about it. **It is contingent on the TEMPLATE, not on the
+    card being typed** — a back that does not ask for the front keeps the question above it, which is what
+    leaves a reader's graded cloze guess on the page beside what it should have been (the Fill-in-the-blank
+    shape is exactly that case, and is untouched). **The flag is OBSERVED during the render**, through a sink
+    passed to `cardTypeFieldGetter`, rather than grepped off the template: a `{{FrontSide}}` inside a
+    conditional section that ends up dropped is a front the reader never sees. And **it is CSS rather than a
+    class toggled at each render site**, because four separate places build that shell and a fifth will be
+    added by someone who has never read this.
   · **THREE READY-MADE SHAPES, so writing a deck does not start with a blank template** (`CARD_TYPE_PRESETS` /
     `cardTypePreset` / `cardTypePresetSpec` / `openTypePresetSheet` / `.ut-preset`, Aug 2026, on request).
     **Vocabulary** (a word and its part of speech; the translation, its conjugations and a read-aloud button),
@@ -8550,8 +8563,13 @@ dead code (never rendered).
     reads the store back to prove the type travels with the DECK, and finally imports a **hostile deck file**
     through the real file picker: a type calling itself `basic`, a field name that is markup, an `onclick` in
     a template, a `javascript:` href, and CSS carrying `</style>`, `@import`, `url(javascript:)` and
-    `position:fixed`. **Re-run after touching the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle`
-    / `uCardSanitize` / `uDeckSanitizeMeta`, the Studio's Types tab, or `levelFromXP`.**
+    `position:fixed`. It also pins the **`{{FrontSide}}` rule in both directions** — the vocabulary shape's
+    front printed ONCE with the shell's own question hidden, and the cloze shape's question still shown above
+    an answer that does not repeat it — since each alone would pass on a rule that had stopped firing
+    everywhere, and the failure reads as a template mistake rather than as a missing stylesheet rule.
+    **Re-run after touching the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle` /
+    `cardTypeFieldGetter` / `.uc-hasfront` / `uCardSanitize` / `uDeckSanitizeMeta`, the Studio's Types tab, or
+    `levelFromXP`.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
