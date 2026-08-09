@@ -315,6 +315,20 @@ async function presetChecks(page, base) {
   // a span is not a button until something says so, and the delegated click handler cannot say it
   check("the control is focusable and named", await page.$eval("#stTypePv .uc-tts",
     (el) => el.getAttribute("role") + "/" + el.getAttribute("tabindex") + "/" + (el.getAttribute("aria-label") ? "named" : "unnamed")) === "button/0/named");
+  /* Its back opens on {{FrontSide}}, so the shell must not ALSO draw its own question above the answer —
+     reported once, as the word and its part of speech printed twice, one under the other. The count is read
+     off innerText rather than the markup because the shell's copy is hidden rather than removed, which is
+     what leaves the front intact before the reveal. Asserted on both surfaces: the rule reaches every one of
+     them through the stylesheet, so a scoping slip would take them all at once and either alone would
+     look deliberate. */
+  const vocabPv = await page.$eval("#stTypePv .study-card", (el) => el.innerText);
+  // case-insensitively: the shape sets the part of speech in capitals, so innerText reads it back uppercased
+  const twice = (s, re) => (String(s).match(re) || []).length;
+  check("a back that renders the front does not print it twice", twice(vocabPv, /word type/gi) === 1,
+    JSON.stringify(vocabPv.replace(/\s+/g, " ")));
+  check("…so the shell's own question block is the one hidden",
+    await page.$eval("#stTypePv .study-card > .question", (el) => getComputedStyle(el).display) === "none");
+  check("…and the back still says so on its wrapper", await page.$("#stTypePv .uc-back.uc-hasfront") !== null);
 
   // --- fill in the blank: no language asked for, and the blanks close on the front only ---
   await page.click("#stAddType");
@@ -340,6 +354,11 @@ async function presetChecks(page, base) {
   const a = await page.$eval("#stCardPv .reveal-inner", (el) => el.innerHTML);
   check("the question closes the blank", q.indexOf("1066") < 0 && /Hastings/.test(q), q.replace(/\s+/g, " ").slice(-120));
   check("the answer opens it, marked", /1066/.test(a) && /uc-cloze-on/.test(a), a.replace(/\s+/g, " ").slice(0, 160));
+  /* The other direction, and the reason the vocabulary rule is contingent on the template rather than on
+     being typed at all: this back does NOT ask for the front, so the question stays above it — which is what
+     leaves a reader's closed blank on the page beside what it should have been. */
+  check("a back that does not ask for the front keeps the question above it",
+    await page.$eval("#stCardPv .study-card > .question", (el) => getComputedStyle(el).display) !== "none");
   // the templates and CSS a preset ships are nobody's privilege — they pass the same sanitizers
   const injected = await page.$$eval("style[data-uct]", (els) => els.map((e) => e.textContent).join("\n"));
   check("every preset's stylesheet is scoped like anyone else's",

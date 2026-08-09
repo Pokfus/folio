@@ -16343,10 +16343,14 @@
     const d = UDECKS[c.deckId];
     return (d && d.types && d.types[c.type]) || null;
   }
-  function cardTypeFieldGetter(c, frontHTML) {
+  /* `seen` is an optional sink the caller reads back afterwards: it records that the template actually ASKED
+     for {{FrontSide}}, which is what tells the shell above not to draw the question a second time. It has to
+     be observed during the render rather than grepped off the template, because a {{FrontSide}} sitting
+     inside a conditional section that ends up dropped is a front the reader never sees. */
+  function cardTypeFieldGetter(c, frontHTML, seen) {
     const f = (c && c.fields) || {};
     return function (name) {
-      if (/^frontside$/i.test(name)) return frontHTML == null ? "" : frontHTML;
+      if (/^frontside$/i.test(name)) { if (seen) seen.front = true; return frontHTML == null ? "" : frontHTML; }
       if (Object.prototype.hasOwnProperty.call(f, name)) return f[name];
       // a template and its field list can differ in case; matching loosely beats rendering a silent blank
       const k = Object.keys(f).find((x) => x.toLowerCase() === String(name).toLowerCase());
@@ -16384,12 +16388,19 @@
        behaviour and the right one: the top of the back is the question AS IT WAS ASKED, so a reader
        comparing the two is looking at their own guess rather than at the answer twice. Its markers are
        already spent by then, so the back's own pass finds nothing left to close. */
+    const seen = {};
     const front = clozeMark(tplRender(t.front, cardTypeFieldGetter(c, null)), false);
-    const html = side === "front" ? front : clozeMark(tplRender(t.back, cardTypeFieldGetter(c, front)), true);
+    const html = side === "front" ? front : clozeMark(tplRender(t.back, cardTypeFieldGetter(c, front, seen)), true);
+    /* A back that renders the front OWNS it, and says so on the wrapper: the study card and the previews all
+       keep their own question block above the answer — right for a Basic card, where the answer is a new
+       block — and it would otherwise print the word, its part of speech and its blanks a second time under
+       themselves. The stylesheet hides the shell's copy off this class, so the rule reaches every surface
+       that shows a back rather than each of the four having to remember it. */
+    const owns = side === "back" && seen.front ? " uc-hasfront" : "";
     /* The spoken language goes on the WRAPPER, so every read-aloud control inside a card of this type
        inherits it and a template that wants a second language need only say so on the one element. */
     const lang = t.speechLang ? ' lang="' + esc(t.speechLang) + '"' : "";
-    return '<div class="uc-card uc-' + side + '" data-uct="' + esc(scopeId) + '"' + lang + ">" + sanitizeHTML(html) + "</div>";
+    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + lang + ">" + sanitizeHTML(html) + "</div>";
   }
   // what goes in the study card's question area: a custom type's front template, or the Basic question
   function cardFrontHTML(c) {
