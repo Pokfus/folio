@@ -134,7 +134,11 @@ function simulate(days) {
   const errs = [];
   const watch = (p, tag) => {
     p.on("pageerror", (e) => errs.push(tag + " pageerror: " + e.message));
-    p.on("console", (m) => { if (m.type() === "error" && !/ERR_(CONNECTION|ABORTED|NAME|INTERNET)/.test(m.text())) errs.push(tag + " console: " + m.text()); });
+    /* `net::ERR_*` is the TRANSPORT failing — DNS, TLS, a refused connection — which in a sandbox means
+       the webfont host and Supabase are simply unreachable, and says nothing about the site. Everything
+       that matters still fails this: a JS error arrives on `pageerror`, and a same-origin file that is
+       missing reports "the server responded with a status of 404", which carries no `net::` at all. */
+    p.on("console", (m) => { if (m.type() === "error" && !/net::ERR_/.test(m.text())) errs.push(tag + " console: " + m.text()); });
   };
   // a fresh browser context each time, so "played today" from one section cannot gate the next
   const fresh = async (viewport) => { const c = await browser.newContext({ viewport: viewport || PHONE }); const p = await c.newPage(); return [c, p]; };

@@ -281,6 +281,23 @@ function syntheticPool() {
     await page.evaluate(() => { location.hash = "admin"; });
     await page.waitForTimeout(800);
     check("there is an Artefacts tab", await page.locator('[data-atab="artefacts"]').count() === 1);
+    /* EVERY tab carries a colour of its own (Aug 2026, on a bug report: Quotes and Artefacts arrived after
+       the colours were placed, fell through to the bare `.admin-tab` rule, and read as DISABLED beside the
+       five that were lit). Asserted over the whole bar rather than over these two, so a tab added later
+       fails here instead of shipping grey; and on the RESTING state, since `.active` is a separate rule and
+       a tab styled only when selected is the same bug wearing a different hat. */
+    const tabCols = await page.evaluate(() => [...document.querySelectorAll(".admin-tab")].map((t) => {
+      const cs = getComputedStyle(t);
+      return { id: t.dataset.atab, bg: cs.backgroundColor, fg: cs.color, active: t.classList.contains("active") };
+    }));
+    const opaque = (c) => !/rgba\([^)]*,\s*0\s*\)/.test(c) && c !== "transparent";
+    const resting = tabCols.filter((t) => !t.active);
+    check("every admin tab is coloured, not just the ones that shipped first",
+      tabCols.length >= 7 && resting.every((t) => opaque(t.bg)),
+      JSON.stringify(resting.filter((t) => !opaque(t.bg)).map((t) => t.id)));
+    check("…and no two of them wear the same colour",
+      new Set(resting.map((t) => t.fg)).size === resting.length,
+      JSON.stringify(resting.map((t) => t.id + ":" + t.fg)));
     await page.locator('[data-atab="artefacts"]').click();
     await page.waitForTimeout(500);
     check("it takes the admin area over", await page.locator(".admin.artefacts-mode").count() === 1);

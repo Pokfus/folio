@@ -118,9 +118,16 @@ const check = (name, ok, extra) => {
   /* ================= 4. the marker in a gloss popup ================= */
   // popups are wired per render, so they are opened the way a reader opens them: from a study card's
   // background, whose prose is auto-linked
+  /* A collection has to be in the review before the hero deals a card — it routes to the collections now
+     (Aug 2026, on request) rather than adding one on the reader's behalf. Read off the shipped tree
+     rather than named: this seeding used to say `wh-prehistory`, a deck retired in the 2026-08-04
+     replan, so it had been putting nothing in the review for months and only the hero's own add was
+     keeping the section alive. */
   await page.evaluate(() => {
+    const cnt = (n) => (n.cardIds || []).length + (n.children || []).reduce((a, c) => a + cnt(c), 0);
+    const first = ((window.COLLECTION_TREE || {}).collections || []).find((c) => !c.placeholder && cnt(c) > 0);
     const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
-    S.active = ["wh-prehistory"]; localStorage.setItem("folio_v1", JSON.stringify(S));
+    S.active = first ? [first.id] : []; localStorage.setItem("folio_v1", JSON.stringify(S));
   });
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.reload({ waitUntil: "load" });

@@ -54,9 +54,24 @@ async function atlas(page, base, ms) {
   await page.goto(base + "#map", { waitUntil: "load" });
   await page.waitForTimeout(ms || 4500);
 }
+/* Put a collection in the daily review, the way a reader does. The first-run hero routes to the
+   COLLECTIONS now (Aug 2026, on request) rather than picking a subject on the reader's behalf, so nothing
+   can be studied until something has been added — and pressing the page's own + rather than writing
+   S.active by hand keeps this honest about the route a first visit actually takes. Always the FIRST
+   collection, and never twice, so a second call is a no-op rather than a second deck. */
+async function addFirstCollection(page, base) {
+  await page.goto(base + "#decks", { waitUntil: "load" });
+  await page.waitForTimeout(900);
+  await page.evaluate(() => {
+    const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+    if (b && !b.classList.contains("added")) b.click();
+  });
+  await page.waitForTimeout(300);
+}
 // grade `n` cards Easy — Easy graduates a new card outright, so each grade is a DISTINCT card
 // (Good makes it a learning step that comes back later in the same queue)
 async function studyEasy(page, base, n) {
+  await addFirstCollection(page, base);
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1300);
   await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
@@ -328,6 +343,35 @@ async function studyEasy(page, base, n) {
     const page = await browser.newPage({ viewport: PHONE });
     await watch(page);
     await studyEasy(page, base, 0);
+
+    /* THE CLOZE FIELD IS AS WIDE AS WHAT IS TYPED IN IT (Aug 2026, on a bug report: "the blank underscores
+       always extend far beyond the typed text"). It was sized in `ch`, the advance of the digit "0", which
+       in the card's serif is far wider than a lowercase letter — so the underline trailed a third of a line
+       past the last word. Measured against the hidden sizer span rather than against a number written down
+       here, since the right width IS the text's width and depends on the face, the letter-spacing and the
+       reader's text-size setting. Both ends matter: an EMPTY field must still be the static blank's width,
+       or an untouched question changes shape for no reason. */
+    {
+      const cz = await page.evaluate(() => {
+        const i = document.querySelector(".blank-input");
+        if (!i) return null;
+        const read = (t) => {
+          i.value = t; i.dispatchEvent(new Event("input", { bubbles: true }));
+          const s = i.parentElement.querySelector(".blank-sizer");
+          return { box: parseFloat(getComputedStyle(i).width), text: s ? s.getBoundingClientRect().width : null };
+        };
+        const empty = read("");
+        const short = read("Cy");
+        const long = read("Cycladic civilization");
+        i.value = ""; i.dispatchEvent(new Event("input", { bubbles: true }));
+        return { empty, short, long };
+      });
+      check("a typed cloze answer sizes the field to the TEXT, not to a character count",
+        cz && Math.abs(cz.long.box - cz.long.text) <= 2, JSON.stringify(cz && cz.long));
+      check("...and an empty one keeps the static blank's width",
+        cz && cz.empty.box > cz.short.text && Math.abs(cz.empty.box - cz.short.box) <= 1, JSON.stringify(cz && cz.empty));
+    }
+
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(700);
     const gb = await page.evaluate(() => {
@@ -799,6 +843,9 @@ async function studyEasy(page, base, n) {
     check("...and announcing which size it is on", !!pick && (pick.vt || "") === "Medium", JSON.stringify(pick));
     check("...without overflowing its row", !!pick && pick.fits && !pick.clipped, JSON.stringify(pick));
     const sizes = async () => {
+      // the review has to hold a collection before the banner deals a card — the first-run hero routes to
+      // the collections now (Aug 2026), so pressing it on an empty review lands on that page instead
+      await addFirstCollection(page, base);
       await page.goto(base + "#home", { waitUntil: "load" });
       await page.waitForTimeout(1200);
       await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
@@ -1224,7 +1271,9 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1600);
     const cleared = await page.evaluate(() => ({
       badge: !!document.querySelector(".review-group .banner .level-badge"),
-      piles: [...document.querySelectorAll(".review-group .banner .stat b")].map((x) => +x.textContent.trim()),
+      // the THREE pile stats only: the banner's row also carries the streak chip and the chest chip, whose
+      // figures are not counts of work (and whose "🗝 1" parses as NaN, quietly poisoning the sum)
+      piles: [...document.querySelectorAll(".review-group .banner .stat.st-new b, .review-group .banner .stat.st-learn b, .review-group .banner .stat.st-rev b")].map((x) => +x.textContent.trim()),
       desc: (document.querySelector(".review-group .banner .desc") || {}).textContent || "",
     }));
     check("...and a cleared day says so in words, with still no numeral",

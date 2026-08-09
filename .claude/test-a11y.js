@@ -238,6 +238,15 @@ const PROBE = () => {
   /* …and a glossary term, which is a span standing in for a button. It has to be found on a STUDY CARD:
      the home page carries none (the card of the day has its gloss links stripped), so pointing this at
      `#home` made it pass by finding nothing, which is the shape of assertion that guards nothing at all. */
+  /* …and a collection has to be IN the review first: the first-run hero routes to the collections now
+     (Aug 2026) rather than choosing a subject for the reader, so pressing it on an empty review lands on
+     that page rather than on a card. Added through the page's own +, which is the route a reader takes. */
+  await page.goto(base + "#decks", { waitUntil: "load" });
+  await page.waitForTimeout(1000);
+  await page.evaluate(() => {
+    const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+    if (b && !b.classList.contains("added")) b.click();
+  });
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1400);
   await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });

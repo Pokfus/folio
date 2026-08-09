@@ -1075,7 +1075,12 @@
       // themeAuto: a first-time visitor follows the operating system's light/dark setting (Aug 2026, on
       // request). `night` stays the RESOLVED value — every stylesheet rule and the canvas globe read
       // body.night — and applyTheme writes it from the system while themeAuto is on.
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
+      /* `newPerDay` is FIVE (Aug 2026, on request — it was 3). It is the number the rest of the site is
+         written against: XP_PER_LEVEL is 5, so a level now turns over on a full day's new cards rather
+         than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
+         the key has been in this object since the beginning, so every existing save carries its reader's
+         own figure and only a first-time visitor meets this one. */
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
@@ -1114,6 +1119,17 @@
       // without its whole deck coming with it — see the COTD block below.
       cotd: [],
       active: ["cn-qing"], // deck/subdeck ids added to the daily review
+      /* THE ORDER THE READER HAS PUT THE REVIEW LIST IN (Aug 2026, on request): parent id — "" for the
+         top level — -> that level's row ids, in the order they dragged them into. It is a fact about the
+         reader rather than about this device, so it rides in PROGRESS_FIELDS and the list a phone shows
+         is the list the laptop shows.
+         It is deliberately a SEPARATE register from `S.active` rather than an ordering of it: `active`
+         holds a flat set that a collection's cascade writes and rewrites (see addActive/removeActive),
+         where this is a per-level arrangement of a tree, and folding the two together would mean every
+         add re-deriving an order the reader had posed by hand. It is also read ONLY by the home page's
+         list — the Collections page keeps the editorial order, which is the one shared thing every
+         reader sees. */
+      deckOrder: {},
       achievements: {}, // achievement id -> unlock timestamp
       // ---- learning that happens outside the scheduler, for the account page's "Beyond the cards" panel.
       // Neither of these can be reconstructed after the fact: a glossary popup and an Atlas click leave no
@@ -1416,7 +1432,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2166,15 +2182,14 @@
     }
     return out;
   }
-  // The card as it should be SHOWN this time: one phrasing chosen from the pool (random by default, or by a
-  // caller-supplied picker for a deterministic choice), returned as a copy with `question` set to it — so every
-  // downstream consumer (cloze, TTS, the quiz summary) reads the same chosen phrasing without knowing about the pool.
-  function cardWithQuestion(c, pickIdx) {
-    const qs = cardQuestions(c);
-    if (qs.length <= 1) return c;
-    const i = typeof pickIdx === "function" ? pickIdx(qs.length) : Math.floor(Math.random() * qs.length);
-    return Object.assign({}, c, { question: qs[Math.max(0, Math.min(qs.length - 1, i))] });
-  }
+  /* `cardWithQuestion(c, pickIdx?)` — a copy of the card with `question` set to one phrasing out of the pool
+     — is GONE (Aug 2026), and it is worth saying where its three callers went rather than leaving the
+     function sitting here with none. The study page stopped using it when the phrasing became state a reader
+     can step through with the ‹ › chevrons (`qIdx`, which reads the pool directly); the Card of the day went
+     with the discovery row; and Multiple Choice, its last caller, now always asks the FIRST phrasing (see
+     `firstQ` in buildChallengeQuestions), which is a cut of the pool rather than a pick from it. A helper
+     nothing calls is the next person's bug, so it is deleted rather than kept warm. `cardQuestions(c)` is
+     what all three read now. */
   // The daily-game pools are content, like cards: each item carries an `i18n` lang-map of its own
   // translatable fields and falls back to English, exactly as cardLocalized() does. They are NOT routed
   // through the I18N chrome table — a statement is prose, and `who` names are data the quiz compares
@@ -3373,6 +3388,49 @@
     S.active = a.filter((x) => !drop.has(x) && !seen.has(x) && seen.add(x));
     save();
   }
+  /* ---------- the reader's own order for the review list (Aug 2026, on request) ----------
+     The home page's list of added decks is drawn from the collection tree, so until now its order was the
+     editorial one — the order the collections are written in and the order the Collections page shows.
+     A reader working through four collections at once has their own idea of which they want at the top,
+     and Anki lets them say so; here they say it by dragging a row (see setupDeckDrag).
+
+     `S.deckOrder` is keyed by PARENT, not by row, so an arrangement is scoped to the level it was made
+     at: dragging one subdeck above another says nothing about where its collection sits among the other
+     collections. The top level's key is the empty string, and it covers the collections, the reader's own
+     decks and the Card-of-the-day list together — they are one run of rows on the page, so they are one
+     run here (before this they were three blocks appended in a fixed order, and the last two could not be
+     moved at all).
+
+     NOTHING ELSE READS IT. The Collections page keeps the editorial order — it is the shelf every reader
+     shares and a browsing order rearranged by one reader's study habits would be a different page for
+     each of them — and the scheduler does not read it either: the day's new cards are drawn at random
+     across the added decks, so a row's position says how the reader wants to LOOK at their study, not
+     what it deals them. */
+  function deckOrderMap() {
+    if (!S.deckOrder || typeof S.deckOrder !== "object") S.deckOrder = {};   // back-fill for saves made before the register existed
+    return S.deckOrder;
+  }
+  /* `ids` in the order the reader put them, natural order where they have not said. An id the stored
+     order has never seen — a deck added since, or a subdeck whose collection has grown a card — files in
+     AFTER everything already arranged, keeping its natural order among the other newcomers. Putting it
+     where the tree would have it instead was considered and rejected: it would silently push a row the
+     reader had dragged to the top back down, which is the one thing an arrangement must never do. */
+  function orderedIds(parentKey, ids) {
+    const saved = deckOrderMap()[parentKey || ""];
+    if (!Array.isArray(saved) || !saved.length) return ids;
+    const at = Object.create(null);
+    saved.forEach((id, i) => { if (at[id] == null) at[id] = i; });
+    return ids
+      .map((id, i) => ({ id, k: at[id] != null ? at[id] : saved.length + i }))
+      .sort((a, b) => a.k - b.k)
+      .map((x) => x.id);
+  }
+  // The whole level is written, not just the pair that swapped: a partial record would leave the ids it
+  // omits filing in after the ones it names, which is not what the reader saw when they let go.
+  function setDeckOrder(parentKey, ids) {
+    deckOrderMap()[parentKey || ""] = ids.slice();
+    save();
+  }
   // label + card count for an active entry (deck, subdeck, one of the user's own decks, or the CotD additions)
   function entryInfo(id) {
     if (id === REVIEW_ENTRY) return { title: REVIEW_TITLE, parent: "", count: entryCardIds(REVIEW_ENTRY).length };
@@ -3457,6 +3515,23 @@
     return S.settings.questionVariety !== false;
   }
   function setDeckVariety(id, on) { setDeckLimits(id, { variety: !!on }); }
+  /* ORDERED / RANDOM, per entry (Aug 2026, on request: the switch used to appear on the review banner's
+     sheet alone, and a deck held on its own row had no way to ask for a shuffled session). It follows
+     question variety exactly — `S.deckOpts[id].random` where the reader has thrown the switch on that
+     deck, and `S.settings.reviewRandom` (Settings → Random review order) as the default everywhere else,
+     so nothing migrates and an untouched deck behaves as it always did.
+     The REVIEW is the one entry that writes the global rather than a per-entry flag, because the Settings
+     page's own switch shows that value: giving the review a private copy would leave the two disagreeing
+     about the pooled session with nothing on either page to say which was in force. */
+  function deckRandom(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    if (id !== REVIEW_ENTRY && typeof o.random === "boolean") return o.random;
+    return !!S.settings.reviewRandom;
+  }
+  function setDeckRandom(id, on) {
+    if (id === REVIEW_ENTRY) { S.settings.reviewRandom = !!on; save(); return; }
+    setDeckLimits(id, { random: !!on });
+  }
   /* Which entry's options a STUDY SCOPE follows. A deck tapped on its own row uses that deck's; the
      pooled review, the Card-of-the-day list and a single card off the home tile use the review's, since
      that is the entry whose sheet the reader would have opened to change it. */
@@ -7803,9 +7878,11 @@
   /* The options sheet, for an added deck's row AND for the daily review banner above them (Aug 2026, on
      request: "the same menu, without the delete option"). The review is an entry like any other under
      REVIEW_ENTRY, so the three shared rows need no special case — its settings simply apply to the pooled
-     session the banner starts, while a deck tapped on its own row keeps using its own. What differs is at
-     the ends: the review has no Remove (there is nothing to take it out OF) and carries the Ordered/Random
-     pair, which is a property of the pooled session and of nothing else. */
+     session the banner starts, while a deck tapped on its own row keeps using its own. The only thing that
+     differs is the last row: the review has no Remove, there being nothing to take it out OF.
+     The Ordered/Random switch was the review's alone until Aug 2026 and is now on every entry's sheet, on
+     request — see deckRandom, and the two shuffles in buildSession that make it mean something on a
+     deck-scoped session rather than appearing there and doing nothing. */
   function openDeckMenu(id) {
     const isReview = id === REVIEW_ENTRY;
     const info = entryInfo(id);
@@ -7826,7 +7903,7 @@
         '<div class="switch' + (on ? " on" : "") + '" role="switch" tabindex="0" aria-label="' + esc(label) +
           '" aria-checked="' + (on ? "true" : "false") + '"></div>' +
       "</div>";
-    const random = !!S.settings.reviewRandom;
+    const random = deckRandom(id);
     const variety = deckVariety(id);
     /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
        sit at the right of the row in the review list, where it competed with the deck's name for a 390px
@@ -7840,10 +7917,8 @@
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
                   : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
         (total ? '<span class="dm-studied">' + studied + "/" + total + " studied</span>" : "") + "</div>" +
-      (isReview
-        ? swRow("order", "Random order", "The session is shuffled each day",
-            "Cards come up in their deck order, oldest history first", random)
-        : "") +
+      swRow("order", "Random order", "The session is shuffled each day",
+        "Cards come up in their deck order, oldest history first", random) +
       swRow("variety", "Question variety",
         "Each card asks one of its phrasings at random",
         "Every card always asks its first phrasing", variety) +
@@ -7869,8 +7944,7 @@
           sw.classList.toggle("on", on);
           sw.setAttribute("aria-checked", on ? "true" : "false");
           if (rowEl.dataset.act === "order") {
-            S.settings.reviewRandom = on;
-            save();
+            setDeckRandom(id, on);
             note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
             toast(on ? "Review order: random" : "Review order: ordered");
           } else {
@@ -10087,8 +10161,15 @@
     "col-8": '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c3 3 3 14 0 17"/><path d="M12 3.5c-3 3-3 14 0 17"/>',
     // Doric column — capital, fluted shaft, base
     "col-13": '<path d="M5.5 5.5h13"/><path d="M7 8h10"/><path d="M9.5 8v9"/><path d="M12 8v9"/><path d="M14.5 8v9"/><path d="M7 17h10"/><path d="M5.5 20h13"/>',
-    // triumphal arch
-    "col-40": '<path d="M3 6.5h18"/><path d="M4.5 20V9.5"/><path d="M19.5 20V9.5"/><path d="M4.5 9.5a7.5 7.5 0 0 1 15 0"/><path d="M9 20v-6.5a3 3 0 0 1 6 0V20"/><path d="M2.5 20h19"/>',
+    /* laurel wreath — two branches meeting at the bottom, open at the top, three leaves each (Aug 2026,
+       on request; it was a triumphal arch). SVG y grows downward, so the bottom of the ring is at 90° and
+       the gap at the top: each branch is one arc, and each leaf is a teardrop whose base sits just
+       OUTSIDE that arc, leaning toward the branch's tip. Three leaves a side rather than four is what
+       keeps it legible at the 28px it renders at on a deck row — a fourth pair reads as a blob there. */
+    "col-40": '<path d="M11.2 19.8A7.2 7.2 0 0 1 8.8 6.1"/><path d="M12.8 19.8A7.2 7.2 0 0 0 15.2 6.1"/>' +
+      '<path d="M6.8 18.4Q5.2 17.4 3.8 18.6Q5.4 19.5 6.8 18.4Z"/><path d="M17.2 18.4Q18.6 19.5 20.2 18.6Q18.8 17.4 17.2 18.4Z"/>' +
+      '<path d="M4.3 13.7Q3.7 11.9 1.9 11.9Q2.5 13.6 4.3 13.7Z"/><path d="M19.7 13.7Q21.5 13.6 22.1 11.9Q20.3 11.9 19.7 13.7Z"/>' +
+      '<path d="M5.4 8.5Q6.1 6.8 4.7 5.6Q4 7.3 5.4 8.5Z"/><path d="M18.6 8.5Q20 7.3 19.3 5.6Q17.9 6.8 18.6 8.5Z"/>',
     // five-pointed star
     "col-41": '<path d="M12 3.4l2.6 5.5 6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.8l6-.9z"/>',
     // onion-domed church
@@ -10337,8 +10418,18 @@
   function showcaseHTML(prog, own) {
     const ids = showcaseIds(prog);
     let cells = ids.map((id) => artefactTileHTML(ARTEFACT_BY_ID[id])).join("");
+    /* AN EMPTY SLOT ON YOUR OWN PROFILE IS A CONTROL (Aug 2026, on a bug report: "when I click one of the
+       four empty squares, nothing happens"). It was a decorative `div` carrying a "+", which is the mark
+       for "you may add something here" and so invites exactly the click it could not answer. It opens the
+       collection, which is where an artefact is pinned from; where nothing is owned yet there is nothing to
+       pin, so it says so rather than raising an empty list — a control that explains itself beats one that
+       silently does nothing either way. On a FRIEND'S profile the slots stay decoration: their showcase is
+       not yours to fill. */
     for (let i = ids.length; i < SHOWCASE_MAX; i++) {
-      cells += '<div class="ar-tile ar-slot" aria-hidden="true"><span class="ar-slotmark">+</span></div>';
+      cells += own
+        ? '<button type="button" class="ar-tile ar-slot" data-arslot="1" title="Pin one of your artefacts here">' +
+          '<span class="ar-slotmark" aria-hidden="true">+</span><span class="ar-slotlbl">Pin an artefact</span></button>'
+        : '<div class="ar-tile ar-slot" aria-hidden="true"><span class="ar-slotmark">+</span></div>';
     }
     /* THE WAY IN TO THE WHOLE COLLECTION (Aug 2026, on request). The showcase is four artefacts out of
        however many a reader holds, and until now it said nothing about the rest: on your own account the
@@ -10356,6 +10447,24 @@
       : "";
     return head + '<div class="showcase">' + cells + '</div>' +
       (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
+  }
+  /* THE WAITING-CHESTS BANNER, at the very top of the account page (Aug 2026, on request, with the chest
+     overlay's own "Save for later"). The two halves are one feature: a chest may now be put by, so there
+     has to be somewhere obvious to come back to it, and the Reliquary's own "Open your chest" button is
+     four sections down a long page — a reader who deliberately deferred a reward should not have to go
+     looking for it. It is rendered by BOTH account views, since a guest earns chests too (see the note on
+     the signed-out Reliquary), and it renders nothing at all when none is waiting: a banner that says "0
+     chests" is a banner that reads as broken.
+     `chest-banner` is `#chestBanner`, so refreshReliquary can take it away the moment the last one is
+     opened without rebuilding the page under the reader. */
+  function chestBannerHTML() {
+    const n = chestCount();
+    if (!n) return "";
+    return '<div class="chest-banner" id="chestBanner">' +
+      '<span class="cb-ic" aria-hidden="true">' + CHEST_SVG + "</span>" +
+      '<div class="cb-text"><b>' + (n === 1 ? "A chest is waiting" : n + " chests are waiting") + "</b>" +
+      "<small>Every Folio level opens one, and so does winning every daily game in a day.</small></div>" +
+      '<button type="button" class="btn cb-open" id="cbOpen">Open ' + (n === 1 ? "it" : "one") + "</button></div>";
   }
   // the account page's inventory
   function reliquaryHTML(prog, own) {
@@ -10482,6 +10591,14 @@
     const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
     if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host, S, true); }
     if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc, S, true); }
+    // the waiting-chests banner is a count, so opening one changes it and emptying it retires it. It is
+    // replaced in place rather than through render(), for the reason the two blocks above are.
+    const slot = document.querySelector("#chestSlot");
+    if (slot) { slot.innerHTML = chestBannerHTML(); wireChestBanner(slot); }
+  }
+  function wireChestBanner(host) {
+    const b = host && host.querySelector("#cbOpen");
+    if (b) b.addEventListener("click", () => openChestPop());
   }
   /* one delegated listener per rendered container — the tiles are rebuilt whenever a pin changes.
      `prog` and `own` are what the "See all" button opens the collection FOR: a friend's showcase must
@@ -10494,6 +10611,11 @@
     const open = host.querySelector("#arOpen");
     if (open) open.addEventListener("click", () => openChestPop());
     host.querySelectorAll("[data-arall]").forEach((b) => b.addEventListener("click", () => openCollectionWin(p, mine)));
+    // an empty showcase slot opens the collection to pin from — see showcaseHTML
+    host.querySelectorAll("[data-arslot]").forEach((b) => b.addEventListener("click", () => {
+      if (!ownedArtefacts(p).length) { toast("Open a chest first — then pin an artefact from your collection."); return; }
+      openCollectionWin(p, mine);
+    }));
   }
 
   /* ---------- the chest ----------
@@ -10501,10 +10623,15 @@
      are chosen by the rarity that has just been rolled; phase 3 is the artefact. */
   const CHEST_MS = { common: 900, rare: 1300, epic: 1800, legendary: 2500 };
   const RARITY_HEX = { common: "#8A867C", rare: "#3A6FB0", epic: "#7B4BA8", legendary: "#C2701E" };
+  /* A SHALLOWER LID (Aug 2026, on request: "the top is too rounded"). The dome was an arc of ry 30 over a
+     92-wide lid, which is very nearly a half-circle — it read as a barrel or a cauldron rather than as a
+     chest. The rise is 16 now, a gentle curve over a lid band that keeps its own depth, and the 14 units
+     the dome gave up go to the box, so the thing is squarer and unmistakably a chest at every size it is
+     drawn at (190px in the overlay, 40px in the account banner). */
   const CHEST_SVG =
     '<svg class="chest-svg" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<g class="chest-lid"><path d="M14 44V34a46 30 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 44h108v10H6z" fill="currentColor" fill-opacity=".22"/></g>' +
-      '<g class="chest-box"><path d="M14 54h92v32a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 54h16v16H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 62v6"/></g>' +
+      '<g class="chest-lid"><path d="M14 40V30a46 16 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 40h108v11H6z" fill="currentColor" fill-opacity=".22"/></g>' +
+      '<g class="chest-box"><path d="M14 51h92v35a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 51h16v17H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 60v6"/></g>' +
     '</svg>';
   let _chestClose = null;
   function closeChestPop() { if (_chestClose) _chestClose(); }
@@ -10541,6 +10668,15 @@
 
     const btn = ov.querySelector("#chestBtn");
     if (nothingLeft) { btn.disabled = true; addAct("Close", close); return; }
+    /* SAVE FOR LATER (Aug 2026, on request). A chest arrives unasked — on the grade that happens to finish
+       an XP bar, in the middle of a study session — and the only ways out of the overlay were Escape and
+       the ×, neither of which says what happens to the chest. `S.chests` has always kept it, so this makes
+       an existing guarantee visible and gives it a name. It stands beside the closed chest and goes as soon
+       as the lid opens: once an artefact has been drawn there is nothing left to defer. */
+    const later = addAct("Save for later", () => {
+      close();
+      toast(chestCount() === 1 ? "Saved — it's waiting in your account." : chestCount() + " chests waiting in your account.");
+    }, true);
     let opening = false;
     btn.addEventListener("click", () => {
       if (opening) return;
@@ -10553,6 +10689,8 @@
       ov.classList.add("opening");
       ov.querySelector("#chestHint").textContent = "";
       const more = ov.querySelector("#chestMore"); if (more) more.hidden = true;
+      later.remove();   // the lid is open: there is nothing left to save
+      ov.querySelector("#chestActs").hidden = true;
       sfx("chest");
       if (!prefersReducedMotion()) chestConfetti(ov, r);
       setTimeout(() => {
@@ -10583,6 +10721,7 @@
       b.textContent = label;
       b.addEventListener("click", fn);
       acts.appendChild(b);
+      return b;
     }
   }
   // rarity-sized burst. Common gets a handful of grey flecks; a legendary gets a shower in its own colour
@@ -10720,8 +10859,12 @@
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
     { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
       o: { lang: "grc", t: "ὡς μήτε τὰ γενόμενα ἐξ ἀνθρώπων τῷ χρόνῳ ἐξίτηλα γένηται.", a: "Ἡρόδοτος", s: "Ἱστορίαι Α΄.1" } },
-    { t: "History has been assigned the task of judging the past. This work does not presume to such a task; it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
-      o: { lang: "de", t: "Er will bloß zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
+    /* The German carried only the closing clause — "Er will bloß zeigen…" — against an English of two
+       sentences, so flipping the quote over shrank it to a fragment (Aug 2026, on a report). Both halves
+       now give Ranke's whole sentence, and the original is his 1824 spelling verbatim ("blos", "Aemter"),
+       checked against the printed preface rather than the form the line is usually quoted in. */
+    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
+      o: { lang: "de", t: "Man hat der Historie das Amt, die Vergangenheit zu richten, die Mitwelt zum Nutzen zukünftiger Jahre zu belehren, beigemessen: so hoher Aemter unterwindet sich gegenwärtiger Versuch nicht: er will blos zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
     { t: "Misunderstanding of the present grows inevitably out of ignorance of the past.", a: "Marc Bloch", s: "The Historian's Craft, 1949",
       o: { lang: "fr", t: "L'incompréhension du présent naît fatalement de l'ignorance du passé.", a: "Marc Bloch", s: "Apologie pour l'histoire, 1949" } },
   ];
@@ -11037,12 +11180,10 @@
     if (!listEl) return;
     const rows = [...listEl.querySelectorAll(".active-deck[data-node]")];
     const rowIds = new Set(rows.map((el) => el.dataset.node));
-    let last = null;
     rows.forEach((el) => {
       const node = NODE_BY_ID[el.dataset.node];
       const vis = adRowVisible(node, rowIds);
       el.classList.toggle("ad-shut", !vis);
-      if (vis) last = el;
       const chev = el.querySelector(".ad-chev");
       if (chev) {
         const open = adOpen.has(el.dataset.node);
@@ -11053,12 +11194,153 @@
         chev.title = label;
       }
     });
-    // the community decks and the Card-of-the-day list sit after the tree and never fold, so the last row
-    // of the whole list is whichever of those came last — they carry no data-node and are always visible
-    const tail = [...listEl.children].filter((el) => !el.dataset.node);
-    if (tail.length) last = tail[tail.length - 1];
+    /* The rounded corner belongs to the last VISIBLE row of the whole list, whatever kind it is — read off
+       the DOM in document order rather than from the tree walk. It used to take the last of the community
+       decks and the Card-of-the-day list, which sat after the tree by construction; since the reader can
+       drag a row anywhere in its own level (see setupDeckDrag) one of those may now be the FIRST thing in
+       the list, and the corner has to follow wherever the last row actually is. */
+    let last = null;
+    [...listEl.children].forEach((el) => { if (el.classList.contains("active-deck") && !el.classList.contains("ad-shut")) last = el; });
     listEl.querySelectorAll(".ad-last").forEach((el) => el.classList.remove("ad-last"));
     if (last) last.classList.add("ad-last");
+  }
+  /* ---------- DRAGGING A ROW OF THE REVIEW LIST INTO PLACE (Aug 2026, on request) ----------
+     Anki lets a reader arrange their deck list; this is the same thing done by dragging, which is what
+     was asked for. The order is stored per level in S.deckOrder (see orderedIds) and read by nothing but
+     this list — the Collections page keeps the editorial order.
+
+     FIVE THINGS ARE THE WHOLE DIFFICULTY, and each of them is why this is not setupChronoDrag with the
+     selectors changed.
+     · A ROW BRINGS ITS SUBTREE. A collection's row is followed in the DOM by every deck under it, so what
+       moves is a contiguous BLOCK — the row plus every following row of greater depth, folded ones
+       included, or a shut collection would leave its children behind in the list it was dragged out of.
+     · IT MOVES AMONG ITS SIBLINGS AND NOWHERE ELSE. Re-parenting is not on offer: a subdeck dragged under
+       another collection would carry cards that collection does not contain, and its indent, its hue and
+       its counts would all then be lying. Sibling rows are found by `data-parent`, which is the node's own
+       parent id (and "" for the top level, where the collections, the community decks and the
+       Card-of-the-day list are one run).
+     · THE HANDLE MUST TAKE THE PRESS OUT OF THE ROW'S OWN HANDS. The row is a tap (study this deck) and a
+       hold (its options sheet), both wired by wireHoldMenu, so the grip stops its pointerdown and swallows
+       the click that follows — exactly as the fold chevron beside it does.
+     · POSITIONS ARE READ FROM THE LAYOUT, NEVER THE PAINT. A sibling part-way through its own FLIP is
+       painted somewhere it is not, and measuring that makes the list flicker between two orders. This is
+       setupChronoDrag's rule and it is load-bearing here too.
+     · AND THE ORDER IS WRITTEN ON RELEASE, not on every crossing: a drag through five rows would otherwise
+       be five saves and five pushes to the account.
+     There is a keyboard route as well — the grip is a real button and ↑/↓ move the row one place — because
+     a reorder reachable by pointer alone is a feature a keyboard reader simply does not have. */
+  const DECK_FLIP_MS = 200;
+  function deckSetY(el, y) { el._ddy = y; el.style.transform = y ? "translateY(" + y + "px)" : ""; }
+  function deckLayoutTop(el) { return el.getBoundingClientRect().top - (el._ddy || 0); }
+  function setupDeckDrag(listEl, onDrop) {
+    if (!listEl) return;
+    const rows = () => [].slice.call(listEl.children).filter((el) => el.classList.contains("active-deck"));
+    const shown = (el) => !el.classList.contains("ad-shut");
+    const depthOf = (el) => +el.dataset.depth || 0;
+    // the row and everything nested under it: a contiguous run, hidden descendants included
+    function blockOf(el) {
+      const all = rows(), i = all.indexOf(el), d = depthOf(el), out = [el];
+      for (let k = i + 1; k < all.length && depthOf(all[k]) > d; k++) out.push(all[k]);
+      return out;
+    }
+    const siblingsOf = (el) => rows().filter((r) => r.dataset.parent === el.dataset.parent && depthOf(r) === depthOf(el));
+    // where the block should be spliced in so that the level reads `ids`; null means "at the end of it"
+    function refFor(el, before) {
+      if (before) return before;
+      const sibs = siblingsOf(el).filter((r) => r !== el);
+      if (!sibs.length) return null;
+      const lastBlock = blockOf(sibs[sibs.length - 1]);
+      return lastBlock[lastBlock.length - 1].nextSibling;
+    }
+    // move `el`'s block so it lands before `before` (or last in its level), animating everything it passes
+    function place(el, before, animate) {
+      const cur = siblingsOf(el).map((r) => r.dataset.drag);
+      const want = cur.filter((x) => x !== el.dataset.drag);
+      want.splice(before ? want.indexOf(before.dataset.drag) : want.length, 0, el.dataset.drag);
+      if (want.join(" ") === cur.join(" ")) return false;
+      const block = blockOf(el);
+      const ref = refFor(el, before);
+      const others = rows().filter((r) => shown(r) && block.indexOf(r) === -1);
+      const mutate = () => block.forEach((n) => listEl.insertBefore(n, ref));
+      if (animate) flipMove(others, mutate, { duration: DECK_FLIP_MS }); else mutate();
+      return true;
+    }
+    function commit(el) {
+      setDeckOrder(el.dataset.parent || "", siblingsOf(el).map((r) => r.dataset.drag));
+      adSyncFold(listEl);   // the rounded bottom corner belongs to whichever row is last NOW
+      if (onDrop) onDrop();
+    }
+
+    let drag = null;
+    // glue the carried block to the pointer, whatever the list has done underneath it
+    const pin = (e) => {
+      const dy = e.clientY - drag.grabY;
+      drag.vis.forEach((el, i) => deckSetY(el, (drag.tops[i] + dy) - deckLayoutTop(el)));
+    };
+    listEl.querySelectorAll(".ad-grip").forEach((grip) => {
+      // the row underneath is a tap and a hold; neither may see this press or the click it ends in
+      grip.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); });
+      grip.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+        e.preventDefault(); e.stopPropagation();
+        const el = grip.closest(".active-deck");
+        const sibs = siblingsOf(el).filter(shown);
+        const i = sibs.indexOf(el), to = i + (e.key === "ArrowUp" ? -1 : 1);
+        if (i < 0 || to < 0 || to >= sibs.length) return;
+        // moving DOWN means landing before the sibling after the one being passed
+        if (!place(el, e.key === "ArrowUp" ? sibs[to] : sibs[to + 1] || null, true)) return;
+        commit(el);
+        grip.focus();   // the row has been re-inserted, and an element moved in the DOM loses focus
+      });
+      grip.addEventListener("pointerdown", (e) => {
+        if (e.button != null && e.button > 0) return;
+        e.stopPropagation();
+        const el = grip.closest(".active-deck");
+        if (!el || siblingsOf(el).length < 2) return;
+        const block = blockOf(el), vis = block.filter(shown);
+        drag = { el, block, vis, tops: vis.map((b) => b.getBoundingClientRect().top), grabY: e.clientY, moved: false, pid: e.pointerId };
+        // capture on the LIST, not the grip: the pointer spends the drag over other rows, and the grip is
+        // being transformed out from under it
+        try { listEl.setPointerCapture(e.pointerId); } catch (x) {}
+        e.preventDefault();
+      });
+    });
+    listEl.addEventListener("pointermove", (e) => {
+      if (!drag || (drag.pid != null && e.pointerId !== drag.pid)) return;
+      if (!drag.moved) {
+        if (Math.abs(e.clientY - drag.grabY) < 4) return;   // a press that has not become a drag
+        drag.moved = true;
+        listEl.classList.add("ad-reordering");
+        /* …and the row's OWN entrance animation has to go, which is the trap this file already carries
+           twice (see .bk-page and gbSetCompact). `.active-deck` runs `pageIn` with `both`, so its last
+           keyframe — `transform:none` — goes on applying for the life of the row and OUTRANKS an inline
+           style: without this, `deckSetY` writes a transform that is silently ignored and the row simply
+           does not follow the finger. It is never put back: the animation has long since finished, and
+           re-applying it would replay the fade-in under the reader's hand. flipMove is unaffected, being
+           a script animation, which is why the list moves and the carried row would not have. */
+        drag.vis.forEach((b) => { b.style.animation = "none"; b.classList.add("ad-dragging"); });
+      }
+      pin(e);
+      const carried = drag.el.getBoundingClientRect();
+      const mid = carried.top + carried.height / 2;
+      let before = null;
+      for (const r of siblingsOf(drag.el)) {
+        if (r === drag.el || !shown(r)) continue;
+        if (mid < deckLayoutTop(r) + r.offsetHeight / 2) { before = r; break; }
+      }
+      if (place(drag.el, before, true)) pin(e);   // the reorder moved its layout slot; keep it under the finger
+    });
+    const end = () => {
+      if (!drag) return;
+      const d = drag; drag = null;
+      listEl.classList.remove("ad-reordering");
+      // let go and it settles into its slot rather than snapping to it
+      d.vis.forEach((el) => { el.classList.add("ad-settling"); deckSetY(el, 0); });
+      setTimeout(() => d.vis.forEach((el) => el.classList.remove("ad-dragging", "ad-settling")), DECK_FLIP_MS + 40);
+      if (d.moved) commit(d.el);
+    };
+    listEl.addEventListener("pointerup", end);
+    listEl.addEventListener("pointercancel", end);
   }
   /* The line-drawn marks the home page's game tiles and the daily-review banner wear. Inline stroke SVGs
      (viewBox 0 0 24 24) that take the surrounding colour through currentColor, so one mark serves a tile,
@@ -11173,6 +11455,22 @@
       const th = n && COLL_THEME[n.id];
       return th ? ' style="--coll-bg:' + th.bg + ';' : ' style="';
     };
+    /* THE HANDLE a row is dragged by (Aug 2026, on request — see setupDeckDrag for the gesture). It is a
+       real <button>, not a decorative span: the grip is the only way to reorder, and a control reachable
+       by pointer alone is one a keyboard reader is simply shut out of — so it takes a tab stop and answers
+       to ↑/↓, which is the whole feature at one row a press. (The Timeline game's grip is aria-hidden
+       precisely because its own ‹ › buttons carry that job; there are none here, and two more buttons on a
+       row already carrying five things is not a trade worth making.)
+       It is drawn only where the row HAS somewhere to go — a level holding one row has nothing to reorder,
+       and a handle that does nothing is worse than none.
+       It sits ABSOLUTELY in the row's left padding rather than in the flex line, and that is the whole
+       reason the base indent went from 16px to 22px: at 390px the row is three piles, a name, a bar and a
+       chevron, and the name is the only part of it with a shorter form — so a handle taking a column of
+       its own would be paid for out of the deck's name, which is what the reader is reading. */
+    const GRIP_SVG =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>';
+    const gripHTML = (name) =>
+      `<button class="ad-grip" type="button" aria-label="Reorder ${esc(name)}" title="Drag to reorder">${GRIP_SVG}</button>`;
     const activeHTML = (function () {
       const activeSet = new Set(activeIds);
       const show = new Set();
@@ -11189,17 +11487,38 @@
       function walk(node, depth) {
         if (!show.has(node.id)) return;
         const live = activeSet.has(node.id) && entryCardIds(node.id).some((id) => availRows.has(id));
-        rows.push({ node, depth, active: live });
-        nodeChildren(node).forEach((ch) => walk(ch, depth + 1));
+        rows.push({ node, depth, active: live, parent: node.parentId || "", drag: node.id });
+        // …in the reader's own order at every level, theirs where they have dragged one and the tree's
+        // where they have not (orderedIds). The Collections page is untouched by this.
+        orderedIds(node.id, nodeChildren(node).map((c) => c.id))
+          .forEach((cid) => { const c = NODE_BY_ID[cid]; if (c) walk(c, depth + 1); });
       }
-      TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
+      /* THE TOP LEVEL IS ONE RUN, not three (Aug 2026). The collections, the reader's own community decks
+         and the Card-of-the-day list used to be three blocks appended in that fixed order — which meant a
+         community deck could never sit above a collection however the reader felt about it, and the two
+         tail rows could not be moved at all. They are one ordered level now, keyed "" in S.deckOrder, and
+         the tail rows are ordinary rows in `rows` rather than markup pasted on the end. */
+      const tops = [];
+      TREE.collections.forEach((d) => { if (!isComingSoon(d) && show.has(d.id)) tops.push(d.id); });   // a coming-soon collection's decks sit the review out
+      activeIds.forEach((id) => { if (UDECKS[uDeckIdOf(id)]) tops.push(id); });
+      if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
+      orderedIds("", tops).forEach((id) => {
+        const n = NODE_BY_ID[id];
+        if (n) { walk(n, 0); return; }
+        const ud = UDECKS[uDeckIdOf(id)];
+        rows.push({ flat: id, depth: 0, parent: "", drag: id, title: ud ? ud.title : COTD_TITLE });
+      });
       /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
          that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
          subdecks are all empty carry none. The default is seeded once per row (see adSeeded): an ADDED row
          starts shut, an ancestor context row starts open, for the reason set out above the fold helpers. */
-      const rowIds = new Set(rows.map((r) => r.node.id));
+      const treeRows = rows.filter((r) => r.node);
+      const rowIds = new Set(treeRows.map((r) => r.node.id));
       const hasKids = new Set();
-      rows.forEach((r) => { if (r.node.parentId && rowIds.has(r.node.parentId)) hasKids.add(r.node.parentId); });
+      treeRows.forEach((r) => { if (r.node.parentId && rowIds.has(r.node.parentId)) hasKids.add(r.node.parentId); });
+      // how many rows share each level — the grip is drawn only where there is a second row to trade places with
+      const levelSize = Object.create(null);
+      rows.forEach((r) => { levelSize[r.parent] = (levelSize[r.parent] || 0) + 1; });
       /* What starts OPEN is a row lying entirely ABOVE everything the reader added — nothing on the path
          from it down to their choice is in S.active. Those are the pure signposts, and folding one hides
          the reader's own deck behind a row they cannot even tap.
@@ -11208,14 +11527,29 @@
          is not a signpost at all — it is inside the very fold the reader just shut. Testing the drawn row
          instead let a collection open onto its whole 43-row tree again, which is the thing this replaced. */
       const seedOpen = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
-      rows.forEach((r) => {
+      treeRows.forEach((r) => {
         if (!hasKids.has(r.node.id) || adSeeded.has(r.node.id)) return;
         adSeeded.add(r.node.id);
         if (seedOpen(r.node)) adOpen.add(r.node.id);
       });
       return rows
         .map((r) => {
-          const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
+          const pad = 22 + r.depth * 16;   // the indent that carries the hierarchy, plus the grip's own column
+          const grip = levelSize[r.parent] > 1 ? gripHTML(r.node ? nodeTitle(r.node) : r.title) : "";
+          const drag = ` data-drag="${esc(r.drag)}" data-parent="${esc(r.parent)}"`;
+          // one of the reader's own decks, or the Card-of-the-day list: no tree under it, so no fold and no
+          // collection hue — but an ordinary row of the list in every other way, this one included
+          if (r.flat) {
+            return `<div class="active-deck" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="0"${drag} style="padding-left:${pad}px" title="Review just ${esc(r.title)}">
+              ${grip}
+              ${adCounts(r.drag)}
+              <div class="ad-body">
+                <div class="ad-line"><span class="ad-title">${esc(r.title)}</span></div>
+                ${adProg(entryCardIds(r.drag))}
+              </div>
+              <span class="ad-chev-gap" aria-hidden="true"></span>
+            </div>`;
+          }
           // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
           // collapse in the reader's face on every visit to the page
           const shut = adRowVisible(r.node, rowIds) ? "" : " ad-shut";
@@ -11223,7 +11557,8 @@
           // of a leaf deck would stop at two different places and the list's right edge would go ragged
           const chev = hasKids.has(r.node.id) ? chevBtn("ad-chev") : '<span class="ad-chev-gap" aria-hidden="true"></span>';
           if (r.active) {
-            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}" data-node="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}" data-node="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+              ${grip}
               ${adCounts(r.node.id)}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
@@ -11232,37 +11567,15 @@
               ${chev}
             </div>`;
           }
-          return `<div class="active-deck context${shut}" data-node="${esc(r.node.id)}" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px">
+          return `<div class="active-deck context${shut}" data-node="${esc(r.node.id)}" data-depth="${r.depth}"${drag}${rowHue(r.node.id)}padding-left:${pad}px">
+            ${grip}
             <div class="ad-body">
               <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
             ${chev}
           </div>`;
         })
-        .join("") +
-        // the user's own decks aren't in TREE, so they're listed after it — otherwise a community deck
-        // in the review could never be seen or removed from here
-        activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).map((id) => {
-          const d = UDECKS[uDeckIdOf(id)];
-          return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(d.title)}">
-              ${adCounts(id)}
-              <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
-                ${adProg(entryCardIds(id))}
-              </div>
-              <span class="ad-chev-gap" aria-hidden="true"></span>
-            </div>`;
-        }).join("") +
-        // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
-        // reader added. It reads as one more added collection, and Remove on it empties the whole list.
-        (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(COTD_TITLE)}">
-              ${adCounts(COTD_ENTRY)}
-              <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
-                ${adProg(entryCardIds(COTD_ENTRY))}
-              </div>
-              <span class="ad-chev-gap" aria-hidden="true"></span>
-            </div>`);
+        .join("");
     })();
     const greeting = (() => {
       const h = new Date().getHours();
@@ -11524,12 +11837,20 @@
       // the chest chip is a target inside the banner: it opens the chest rather than starting the review
       if (e.target.closest("[data-chest]")) { e.stopPropagation(); openChestPop(); return; }
       if (fresh) {
-        // first session: activate the first available collection and go — or browse the library while everything is still coming soon
-        const first = (TREE.collections || []).find((c) => !isComingSoon(c));
-        if (!first) { route("decks"); return; }
-        // through addActive like every other route in, so there is one door
-        if (activeIds.indexOf(first.id) < 0) addActive(first.id);
-        route("study", { scope: { type: "review" } });
+        /* THE FIRST PRESS GOES TO THE COLLECTIONS (Aug 2026, on request). It used to pick the first
+           collection that was not coming soon, add it on the reader's behalf and deal them a card —
+           which is quick, and makes for them the one decision this page exists to hand over. They are
+           sent to the collections instead, to choose their own.
+           IT CAN ROUTE UNCONDITIONALLY BECAUSE `fresh` ALREADY ASKS THE HARDER QUESTION. A reader who
+           has added a collection but not yet graded a card is no longer fresh — `fresh` is an empty
+           schedule AND an empty review — so they meet the ordinary banner, with their decks under it and
+           a Start button, and never reach this branch. That matters more than it looks: while the hero
+           IS the banner it is the only way into a session, since the deck list is not drawn under it, so
+           a version of this that sent every press to the collections left a reader who had just added
+           one looping back to the page they came from. The two changes landed on different branches and
+           the guard that used to stand here (`if (!pileIds.length)`) is redundant now rather than
+           wrong — kept as a sentence rather than as a line that can never be false. */
+        route("decks");
         return;
       }
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
@@ -11572,6 +11893,9 @@
     const adList = root.querySelector(".active-decks");
     if (adList) {
       adSyncFold(adList);
+      // …and the rows can be dragged into the reader's own order (see setupDeckDrag). The list is repainted
+      // in place by the fold below, which does not rebuild the rows, so this wiring survives it.
+      setupDeckDrag(adList);
       adList.querySelectorAll(".ad-chev").forEach((chev) => {
         const row = chev.closest(".active-deck");
         const id = row && row.dataset.node;
@@ -12185,7 +12509,7 @@
     if (scope.type === "review") {
       const q = reviewQueue();
       queue = q.all.slice();
-      if (S.settings.reviewRandom) shuffle(queue);                                             // daily-review order toggle (home banner)
+      if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
       else {                                                                                   // "Chrono" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
         Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));   // the user's own decks follow, in their authored order
@@ -12206,6 +12530,9 @@
       const ids = cotdIds().filter((id) => !isSuspended(id));
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
       queue = [...due, ...ids.filter((id) => !isSeen(id))];   // every card here was added BY being studied, so unseen is rare
+      // this list's own Random-order switch. It has a row on the home page, so its sheet can be held open,
+      // and a switch that is reachable and inert is the one thing the per-entry design must not produce.
+      if (deckRandom(COTD_ENTRY)) shuffle(queue);
       where = COTD_TITLE;
       total = queue.length;
     } else if (scope.type === "udeck") {
@@ -12218,6 +12545,10 @@
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(ue));
       const unseen = ids.filter((id) => !isSeen(id));
       queue = [...due, ...unseen.slice(0, Math.max(deckNewRemaining(ue), 0))];
+      // the deck's own Random-order switch (hold its row in the review). The PILES are chosen first and
+      // shuffled after, so a random session still deals the same cards a chrono one would — the setting
+      // decides presentation order and never which cards the day's allowances let through.
+      if (deckRandom(ue)) shuffle(queue);
       queue._ud = d;
       queue._unseen = unseen;
       where = d.title;
@@ -12235,6 +12566,8 @@
       const unseen = ids.filter((id) => !isSeen(id));
       const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
       queue = [...due, ...fresh];
+      if (deckRandom(sd.id)) shuffle(queue);   // this deck's own Random-order switch — see the udeck branch
+
       // if nothing scheduled and no new allowance left but deck still has unseen, let the user push through extras
       total = queue.length;
       queue._sd = sd;
@@ -15382,7 +15715,18 @@
     autoLinkGlossary(abs, card && card.answer, glossOffList(card && card.id), scope);
   }
 
-  // Turn each cloze blank in a question into a typed-answer field. Focuses the first one.
+  /* Turn each cloze blank in a question into a typed-answer field. Focuses the first one.
+
+     THE FIELD IS AS WIDE AS THE TEXT IN IT, MEASURED (Aug 2026, on a bug report: "the blank underscores
+     always extend far beyond the typed text"). It used to be `max(4, length + 1) + "ch"`, and `ch` is the
+     advance of the digit "0" — which in the card's serif is far wider than a lowercase letter, so a typed
+     "Cycladic civilization" reserved room for twenty-two zeroes and drew its underline a third of a line
+     past the last word. Length in characters cannot size a proportional font at all.
+     So each field carries a hidden SIZER SPAN beside it, styled `font:inherit` from the same parent: it
+     holds the same text and is measured, which picks up the font, the letter-spacing and the reader's own
+     text-size setting without any of them being named here. `getComputedStyle(...).font` was the other
+     candidate and is not reliable cross-browser, and a canvas measurement would miss letter-spacing.
+     `gradeCloze` removes the sizers when it replaces the fields, so none is left behind on a graded card. */
   function setupCloze(qEl) {
     if (!qEl) return;
     const blanks = qEl.querySelectorAll(".blank");
@@ -15393,9 +15737,17 @@
       input.autocomplete = "off"; input.autocapitalize = "off"; input.spellcheck = false;
       input.setAttribute("autocorrect", "off");
       input.setAttribute("aria-label", "Type the missing term");
-      const grow = () => { input.style.width = Math.max(4, input.value.length + 1) + "ch"; };
+      const sizer = document.createElement("span");
+      sizer.className = "blank-sizer";
+      sizer.setAttribute("aria-hidden", "true");
+      const grow = () => {
+        sizer.textContent = input.value;
+        // the empty field keeps the static blank's own width, so an untouched question looks unchanged
+        input.style.width = input.value ? Math.ceil(sizer.offsetWidth) + "px" : "";
+      };
       input.addEventListener("input", grow);
       span.replaceWith(input);
+      input.after(sizer);
       grow();
     });
     /* Focus the first blank on a machine with a keyboard, and NOT on a touch screen (Aug 2026, on request):
@@ -15425,6 +15777,8 @@
       }
       input.replaceWith(out);
     });
+    // the hidden measuring spans go with the fields they were sizing (see setupCloze)
+    qEl.querySelectorAll(".blank-sizer").forEach((s) => s.remove());
   }
 
   /* ============================================================
@@ -16335,10 +16689,20 @@
       const options = pick([correct, ...uniq]);
       return { card, options, correct };
     }).map((q) => {   // display in the site language when translations exist (typing/distractor matching stays English)
+      /* THE FIRST PHRASING, ALWAYS (Aug 2026, on request). A card carries three ways of asking the same
+         thing and the study page deals one at random; this game used to do the same, fixed per round so
+         the results summary repeated what was asked. Here it is the wrong default: the round is answered
+         from four options rather than from recall, so the phrasing has to be the one written to stand on
+         its own — `question` is that one, and the extras are angles on it. It also makes the day's quiz
+         reproducible, which the results summary and the score both read better for.
+         `firstQ` CUTS the pool rather than pinning an index — the study page's own move for a deck whose
+         question variety is off (see `varietyOn`): with one phrasing left there is nothing a later reader
+         of the card could pick another from. */
+      const firstQ = (c) => Object.assign({}, c, { question: cardQuestions(c)[0] || c.question, questions: undefined });
       const loc = cardLocalized(q.card);
-      if (loc === q.card) return Object.assign({}, q, { card: cardWithQuestion(q.card) });   // one phrasing per round, fixed at build so the results summary repeats what was asked
+      if (loc === q.card) return Object.assign({}, q, { card: firstQ(q.card) });
       const lat = (s) => { const src = CARDS.find((c) => c.answerText === s); const l = src && cardLocalized(src); return (l && l.answerText) || s; };
-      return { card: cardWithQuestion(loc), options: q.options.map(lat), correct: lat(q.correct) };
+      return { card: firstQ(loc), options: q.options.map(lat), correct: lat(q.correct) };
     });
   }
 
@@ -17650,7 +18014,7 @@
 
      THE HONEST LIMITS, since both are visible to a reader who plays for a fortnight. The five things are
      TERMS with dates rather than events — Folio's cards are terms, and Timeline already calls them events
-     for the same reason. And the deck currently holds 17 years carrying five or more datable terms, so a
+     for the same reason. And the deck currently holds 19 years carrying five or more datable terms, so a
      year comes round again every few weeks; the five terms shown are drawn separately, so a repeated year
      is at least a different puzzle, and the number grows with every dated card written. */
   const WY_EVENTS = 5, WY_TRIES = 3, WY_TICKS = 33, WY_EDGE = 4;
@@ -17673,7 +18037,7 @@
     return best;
   }
   /* THE ANSWER ROTATES RATHER THAN BEING DRAWN AT RANDOM, and the reason is arithmetic rather than taste.
-     The deck holds only so many years carrying five datable terms — 17 as of 2026-08-09 — so a year is
+     The deck holds only so many years carrying five datable terms — 19 as of 2026-08-09 — so a year is
      going to come round again whatever this does. Picking one at random per day makes that CLUMP: measured
      over 365 days the same answer landed 28 times, and nothing stopped two of them falling in the same
      week, which is the shape a reader notices and reads as the game being broken.
@@ -21460,6 +21824,8 @@
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
+      ${/* a guest earns chests too, so the banner is here as well — see chestBannerHTML */""}
+      <div id="chestSlot">${chestBannerHTML()}</div>
       ${/* The form is 460px wide inside an 800px stage, so signed out this page used to be half empty on a
             laptop. The three perks were already written — they were just stacked underneath the form, where
             they made a short card longer. Out beside it they fill the space and say what the account is FOR
@@ -21508,6 +21874,7 @@
         ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
         : ""}`;
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
+    wireChestBanner(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
       tabs.forEach((x) => x.classList.toggle("active", x === t));
@@ -21552,6 +21919,9 @@
     const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
+      ${/* Waiting chests, at the top, because that is what "save it for later" points at — see
+            chestBannerHTML. The slot is always in the markup so refreshReliquary can fill and empty it. */""}
+      <div id="chestSlot">${chestBannerHTML()}</div>
       <div class="profile">
         <div class="ph-ava">
           <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
@@ -21674,6 +22044,7 @@
     root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
+    wireChestBanner(root);
     const relHost = root.querySelector("#reliquary");
     relHost.innerHTML = reliquaryHTML(S, true);
     wireReliquary(relHost);
@@ -22252,7 +22623,7 @@
             <div class="ctl"><div class="stepper"><button id="np-dn" aria-label="Fewer">−</button><span class="val" id="np-val">${S.settings.newPerDay}</span><button id="np-up" aria-label="More">+</button></div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically.</p></div>
+            <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically. Any single deck can be set the other way by holding its row in the daily study.</p></div>
             <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" aria-label="Random review order" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
           </div>
           <div class="set-row">
