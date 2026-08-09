@@ -60,8 +60,11 @@ It is a plain static website — open `index.html` and it runs.
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js →
 artefacts.js → app.js`.
-**That path is 4.9 MB raw / 1.35 MB gzipped** (measured 2026-08-08 after the translation removal below; it
-said "~1.4 MB" for months and was five times out of date, so **re-measure it rather than quoting it**).
+**That path is 5.84 MB raw / 1.61 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
+1.35 MB the day before, and it said "~1.4 MB" for months while being five times out of date, so
+**re-measure it rather than quoting it**). The picture pass added ~555 KB raw / ~270 KB gzipped, and that is
+metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 1,230 illustrations
+cost a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
 **THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
 path was 7.5 MB raw / 2.4 MB gzipped, and **58% of `data.js` (2.06 MB) was the `i18n` blocks of 89 cards**,
 which `MULTILANG = false` meant no reader could reach — the `quotes.js` mistake (27 KB → 312 KB for every
@@ -1989,7 +1992,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
+  filter), `GLOSSARY_IMAGES` (per-term illustration, **771 of the 836 terms** since Aug 2026 — see the
+  "Glossary image" bullet below and the picture-pass scripts in this map) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
   **A DATE LINE MAY RUN TO SEVERAL LINES** (`glossDatesHTML` / `glossDatesFlat`, Aug 2026, on request). It
   was written into the popup with `textContent`, so a term wanting a birth on one line and a death on the
@@ -2097,10 +2101,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole file back as a JS literal (`serializeArtefacts`); an `ADMIN_EDITS.artefacts` overlay sits over it,
   keyed by id, exactly as the daily quotes' does over `SHIPPED_QUOTES`.
   **Currently 100 — 4 legendary, 13 epic, 27 rare, 56 common** (98 added on 2026-08-08 on request, to the
-  two the feature shipped with). **None carries a picture**, and that is a fact rather than a backlog: a
-  `src` is somebody else's URL and a `credit` is required beside it, so an invented one would be a
-  fabricated source holding up a real object — the rarity-coloured placeholder is what the shape was
-  designed for. A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
+  two the feature shipped with). **92 of the 100 carry a picture** since the Aug 2026 picture pass (see
+  `.claude/search-images.js --artefacts` in the File map); the eight without are ones whose Commons
+  candidates were reviewed and rejected as not being the object — `gladius` matches *Xiphias gladius*, the
+  swordfish. That is a fact rather than a backlog: a `src` is somebody else's URL and a `credit` is
+  required beside it, so an invented one would be a fabricated source holding up a real object, and the
+  rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
+  `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
+  five-sentence description, so `credit` is the only place the attribution can go and it is written there
+  in full, URL included, because `.ar-wcredit` renders it as plain text rather than as a link.
+  A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
   content rules the file's own header states (exactly five sentences, 180–220 words with the imperial
   conversion NOT charged against the budget, a bolded first mention, a credit on any picture, an id that
   is a fresh lowercase slug) and **rewrites the file in `serializeArtefacts`'s exact output format**, so a
@@ -2194,6 +2204,149 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   single-response reader records a handful and reports the rest as having no coordinate, which is
   indistinguishable from the truth. Rate-limited hard: it backs off and retries rather than recording a 429 as
   "no coordinate". Not part of the site.
+- `.claude/fetch-images.js` → `.claude/search-images.js` → `.claude/pick-images.js` → `.claude/add-images.js`
+  — the four-step **picture pass** that put an illustration on 233 cards and 547 glossary terms (Aug 2026, on
+  request; the site had exactly ONE picture before it). Standalone Node helpers, zero deps, resumable, cache
+  in `.claude/image-cache/` (gitignored). Not part of the site. Read them in that order — each header carries
+  what it found.
+  · **THE BAR IS "FREE TO USE COMMERCIALLY", because Folio may sell premium accounts.** It began as public
+    domain only, on the request's wording, and was **widened to CC BY and CC BY-SA on request** once the
+    price of the narrow reading had been measured — 133 terms had a usable CC picture and no public-domain
+    one. Two facts make the wider bar safe and both are worth knowing before anyone narrows it again.
+    **Wikimedia Commons only accepts licences permitting commercial use AND derivatives**, so NC and ND are
+    outside its scope entirely and the corpus is past the hard part before this pass starts (the NC/ND test
+    in `licenceClass` is belt and braces, and finds nothing). And **share-alike does not reach the site**:
+    CC BY-SA's copyleft binds ADAPTATIONS of the picture, while a page showing one beside prose is a
+    COLLECTION — CC 4.0 says the licence "does not apply to the other parts of the Collection" — and
+    resizing to a thumbnail is a format change rather than an adaptation. So a CC BY-SA illustration does
+    not oblige Folio to license Folio under CC BY-SA and does not stand in the way of charging.
+    **GFDL, the Free Art Licence and the one-off national open licences are still refused**: GFDL permits
+    commercial use but wants its full text shipped with the work and a "transparent copy" made available,
+    which a card frame cannot do, and the others would each need reading on their own terms for a few dozen
+    files. **A CC FILE WHOSE AUTHOR CANNOT BE ESTABLISHED IS REFUSED TOO** (`attributableAuthor`) — naming
+    the creator is the condition of the grant, not a courtesy, so "Unknown author" is a fine answer for a
+    public-domain scan and no answer at all for a CC one. 501 files are dropped on that rule alone.
+  · **THE CAPTION IS THE ATTRIBUTION.** A CC picture's `desc` ends "<Author>, <licence>, via Wikimedia
+    Commons" and its `credit` is the Commons file page, which together carry creator, licence and source;
+    a public-domain one says "Public domain, via Wikimedia Commons" and needs none of it. An ARTEFACT has
+    no `desc` field (its entry already has name, date, origin and five sentences), so the whole attribution
+    goes in `credit`, which renders as plain text — hence the URL is written into it rather than linked.
+  · **THE LEAD IMAGE ALONE IS NOT ENOUGH.** Taking Wikipedia's `pageimages` gave 128 usable pictures out of
+    836 terms; reading EVERY file on the article and ranking them gave 628, for the same number of requests.
+    An article routinely illustrates a public-domain OBJECT with a modern copyrighted PHOTOGRAPH of it.
+  · **`imlimit=max` IS A CAP ON THE WHOLE QUERY, NOT PER PAGE**, so batching twenty titles returns the first
+    article's files and silently nothing for most of the rest — 221 terms came back "no-image" that way,
+    France and Homo erectus among them. A truncation that reports as an absence is the worst shape a bug can
+    take here. One title per request.
+  · **`incategory:"PD-old-100"|incategory:…` RETURNS NOTHING AT ALL** — the OR form is not supported the way
+    it looks, and it fails by matching zero rather than by erroring, so it reads as "Commons has no
+    public-domain picture of the Venus of Willendorf". `haswbstatement:P6216=Q19652` is the working filter.
+  · **THE MACHINE RANKS AND A READER CHOOSES.** The scorer is a name match and a name match is confidently
+    wrong: the top candidate for `Jason_E._Lewis`, the palaeoanthropologist, was the official portrait of a
+    United States congressman of the same name — public domain, high resolution, no watermark, wrong man.
+    Every one of the 547 was read against its file name, its article and its Commons description before it
+    shipped. The rejects are the other half of the work: `Polis` matched Governor Jared Polis, `Levallois`
+    the Paris suburb, `Malia` the president's daughter, `Corinth` the painter Lovis Corinth, and
+    `Eighth-century_revival` resolved through the search fallback to *Futurama*.
+  · **A CAST IS NOT THE THING, and metadata cannot always tell you.** The best public-domain picture of the
+    Venus of Willendorf is a white plaster cast on a mounting block with an accession number inked on it, and
+    nothing in its Commons record says so — it was found by LOOKING at it. `--build` drops a file whose NAME
+    or CATEGORIES say cast/replica while its caption does not (the description is deliberately not read:
+    Hayes's biography mentions votes *cast*), and a labelled cast is kept, since in palaeoanthropology the
+    originals are rarely photographed and "museum replica" in the caption is honest. **The residual risk is
+    real**: a dozen were checked by eye, one was wrong, and it is the kind of error only a reader will find.
+  · **ONE PICTURE MAY NOT STAND FOR TWO TERMS** — sibling terms share a Wikipedia article, so the same file
+    ranks top for all of them, and a reader meeting the identical photograph under "Minoan civilisation" and
+    "Minoan trade with Egypt" learns that Folio is guessing. First claimant keeps it.
+  · **A CARD TAKES ITS ANSWER TERM'S PICTURE**, which is not a shortcut: the pairing rule already says every
+    card ships with a glossary entry for its own answer, so the term IS the card's subject. 394 of the 409
+    cards resolve to a term.
+  · **A COUNTRY TAKES ITS FLAG** (178 of them, plus Ireland by hand, whose article is the island). The
+    alternative is a photograph, and a photograph of a country is a photograph of one thing in it — the top
+    public-domain candidate for Georgia was a US Navy destroyer visiting Batumi and for Tanzania a giraffe.
+    An SVG flag is unambiguous, public domain everywhere, watermark-free and sharp at any zoom.
+  · **THE THREE TEXT FIELDS COME FROM THREE PLACES**: `title` is the TERM (what the picture is of), `alt` is
+    the cleaned FILE NAME (what the picture shows), `desc` is Commons' own English description — never a
+    sentence composed here, since a composed sentence about somebody else's photograph is a fabricated fact.
+    Every `desc` ends with the licence and "via Wikimedia Commons", so the corpus states its own copyright
+    status where the reader can see it.
+  · **`src` is the 1600px rendering for a raster and the original for an SVG.** The card frame caps at 680
+    CSS px, so that is high-resolution with room to open fullscreen, and it spares the reader a 40 MB scan.
+  · **A REVIEWED PICK IS FROZEN BY FILE NAME, NEVER BY INDEX** (`chosen-0-frozen.json`). The review lists
+    record an index into a RANKED candidate list, and widening the licence bar re-ranked every one of them
+    — so the second pass would have silently swapped the picture on terms already reviewed and shipped.
+    The shipped choices are resolved back to their `File:` titles from `glossary.js` and frozen; only a
+    list reviewed against the CURRENT ranking may stay an index. `chosen-0-frozen.json` also sorts first,
+    which matters because the first claimant of a file keeps it — and note that `chosen-10` sorts before
+    `chosen-2`.
+  · **ARTEFACTS HAVE NO ARTICLE TO WALK**, so they are searched by name (`search-images.js --artefacts`),
+    first for public domain and then `--wide` for CC. Half their names are a KIND rather than a thing
+    ("Flint scraper", "Roman gold aureus"), which cuts both ways: a kind is hard to search and almost
+    impossible to get wrong, a named object is easy to search and easy to get wrong by finding a replica —
+    the top hit for the Portland Vase is the Wedgwood copy and for the Mask of Agamemnon an electrotype.
+    Both were caught by eye. `gladius` matched *Xiphias gladius*, the swordfish, in both sweeps.
+  · **A HAND-WRITTEN QUERY IS THE LAST RESORT AND IT HAS TO EXIST** (`search-images.js --queries=<file>`,
+    a `{ "<key>": "<query>" }` map whose results are cached under a `|q` suffix). The automatic query is
+    the subject's own NAME, and a name is sometimes the worst search term there is: CirrusSearch ANDs its
+    terms, so "Roman bronze as" matches nothing at all, and "Gladius" matches *Xiphias gladius*. What works
+    is naming the thing the way a MUSEUM catalogues it — "Roman sword Mainz", "Kangxi Tongbao", "Post
+    Medieval pewter spoon" — and that is a judgement no rule makes. Seven of the eight artefacts the two
+    automatic sweeps could not serve went through on one hand-written query each.
+  · **A CAPTION IN A SCRIPT THE READER CANNOT READ IS NOT A CAPTION.** Where the uploader wrote the
+    description only in their own language there is no English part for `englishPart` to take, and the raw
+    text arrives under an English term as a line of Belarusian or Arabic; translating it here would be
+    composing a sentence about somebody else's photograph, which is the one thing this pipeline must not
+    do. So the description is dropped and the cleaned FILE NAME carries the caption — and where the file
+    name is in that script too, the pick is dropped outright, since `alt` is the one field that exists for
+    the reader who cannot see the picture at all.
+  · **THE HAND-WRITTEN QUERY IS WHERE THE LAST THIRD CAME FROM, and it needs a `--tag`.** Four rounds of
+    them took the glossary from 684 to 771: the automatic sweep had already been run over every one of
+    those terms and found nothing usable, and naming the subject the way a museum or an excavation report
+    names it found a picture for a third of them (`Acragas` → "Temple of Concordia Agrigento",
+    `Mycenaean_road_network` → "Arkadiko Mycenaean bridge", `Ledi-Geraru` → "LD 350-1 mandible"). **A
+    second round for the same subject needs `--tag=q2`**, because `searchTerms` skips a key already in the
+    cache — which is what makes the whole pass resumable, and which means a better query re-run under the
+    same key does nothing at all, silently, and reads as the better query having found no more than the
+    worse one.
+  · Coverage today: **771 of 836 glossary terms, 360 of 409 cards, 99 of 100 artefacts.** The 65 terms
+    still without one are not a backlog: **41 are ABSTRACT** — Greek institutional vocabulary (`Apella`,
+    `Gerousia`, `Phratry`, `Synoecism`, `Xenia`), the Linear B titles (`Lawagetas`, `Qa-si-re-u`), the
+    chronozones (`Boreal`, `Atlantic_period`, `Chronozone`) and the theories (`Cooking_hypothesis`,
+    `Mosaic_evolution`, `Southern_dispersal_route`) — and **10 are living or recent scholars** with no
+    freely licensed portrait (`Sonia_Harmand`, `Mark_Collard`, `Todd_Whitelaw`). The remaining 14 are
+    places and cultures Commons genuinely does not illustrate freely (`Madjedbebe`, `Nyayanga`,
+    `Wonderwerk_Cave`, `Al_Mina`, the Ahrensburg, Bromme and Pitted Ware cultures — the last three
+    photographed only in Swedish and Danish museum uploads whose file names and captions are in those
+    languages, which the Latin-script rule above refuses). **Say which of those a later attempt is for**:
+    a term with no picture because none exists is finished, and a term with no picture because the caption
+    was unreadable is not. The one artefact without a picture is the Lord of Sipán's turquoise ear
+    ornaments: Commons holds no free photograph of them at all.
+  · **A CARD'S ANSWER IS OFTEN THE PLURAL OF ITS TERM, and matching only the exact surface loses the
+    picture the pairing rule already paid for.** "Denisovans", "Mesara tholos tombs", "bronze tripod
+    cauldrons" and `Lucy` (whose key is `Lucy_(Australopithecus)`) all resolve now — the site's own
+    auto-linker pluralises a key when it scans prose, and this is that rule read backwards. A COMPOUND
+    answer is deliberately not resolved to its head noun: "Euboean trade" is not Euboea and "Chalcis and
+    Eretria" is neither of them. Those **8 cards are reported by name** at the end of a build rather than
+    passed over, since an answer naming no term is a break in the card→glossary pairing rule and this is
+    where it shows up first.
+  · **A NEW ITEM NO LONGER WAITS FOR A SWEEP.** This pipeline is a BATCH over the whole corpus, which is
+    the right shape for 836 terms at once and the wrong shape for the one term written this morning — it
+    is how the corpus went from one picture to several hundred in a day and then began drifting out of
+    date the next. `.claude/suggest-image.js` is the single-item version, and `add-card.js`,
+    `add-glossary.js` and `add-artefacts.js` each call it at the end of a successful add.
+- `.claude/suggest-image.js` — the SINGLE-ITEM half of that pass, and the reason the corpus should not
+  drift out of date again: `add-card.js`, `add-glossary.js` and `add-artefacts.js` each call
+  `report(kind, key, subject)` at the end of a successful add, so a new card, term or artefact looks for
+  its picture the moment it is written, exactly as it ships with its own citations. It **suggests and
+  never installs** — the candidate list is a name match, and a name match is confidently wrong in a way
+  nothing downstream can catch (the top public-domain hit for `Jason_E._Lewis`, the palaeoanthropologist,
+  is a United States congressman of the same name), so it prints candidates, their licences, their sizes
+  and their Commons pages, and a person picks. It applies the same last-gate bar `pick-images.js --build`
+  applies, so a candidate it shows is one that could actually ship. It is **best-effort and never fatal**:
+  it runs after the content has been written and it needs the network, so a failure prints one line and
+  leaves the exit status alone — a content tool must not start failing because Commons is slow.
+  `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
+  Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
@@ -5240,14 +5393,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   pictures, four options each, drawn from **every** illustration Folio holds — a card's `image`, a glossary
   term's `GLOSSARY_IMAGES` entry, an artefact's — so a picture added anywhere feeds the game and there is
   no second registry to keep in step.
-  · **⚠ THE CORPUS HOLDS ONE PICTURE, so the game currently shows its placard rather than a round.** That
-    is a CONTENT gap and not a wiring one, and it is worth stating plainly rather than leaving someone to
-    find it: measured 2026-08-09, `data.js` has one card with an `image` (`wh-046`), `glossary.js` has no
-    `GLOSSARY_IMAGES` table at all, and none of the 100 artefacts carries one. Folio has no upload path —
-    every picture is somebody else's URL, credited — so filling this is a sourcing pass, and the fields
-    already exist on all three kinds of record. `PIC_MIN_POOL` is 8. The game ships now so the pass has
-    somewhere to land, and the tile says "Coming soon" until then rather than promising a round it cannot
-    deal.
+  · **THE CORPUS GAP IT SHIPPED INTO IS CLOSED** (2026-08-09, later the same day). It went out with one
+    picture in the whole of Folio — `data.js` had a single card image, `glossary.js` had no
+    `GLOSSARY_IMAGES` table at all — so the game could only show its placard, which was recorded here as a
+    CONTENT gap rather than a wiring one. The picture pass (see `.claude/fetch-images.js` and friends in the
+    File map) took it to **300 card images, 684 glossary images and 92 artefact images**, far past
+    `PIC_MIN_POOL` (8), so the game now deals real rounds from all three kinds. The lesson worth keeping is
+    that the game was built BEFORE the content and the gap was written down — which is why closing it
+    needed no change to the game at all.
+    **ITS TEST HAD TO LEARN THE SAME THING**: the planted pool used to be ten entries ADDED to the table,
+    which was only ever the whole pool because the table was empty. It now REPLACES `GLOSSARY_IMAGES` and
+    clears the card and artefact pictures, so the seeded draw is deterministic at any corpus size.
   · **THE TITLE, DESCRIPTION AND CREDIT ARE HELD BACK UNTIL THE GUESS IS IN.** Every one of them names the
     subject and the credit is usually a URL that spells it out, so showing any of them early leaves a game
     that works perfectly and teaches nothing — the one failure here nobody would report. The `alt` is
@@ -6615,6 +6771,31 @@ on the question rule and 12 majority-historiography** — and `docs/history-focu
 table and the five batches. The worst offenders are `gr-174`–`gr-180`, written in the session that produced
 this rule; that a whole run of cards can drift this way without anything complaining is precisely why the
 measure is committed rather than done by eye.
+
+**A NEW CARD, GLOSSARY TERM OR ARTEFACT SHIPS WITH A PICTURE, OR WITH A STATED REASON WHY NOT (Aug 2026,
+on request).** A picture is part of a content item the way its citations are, and the picture pass that put
+an illustration on 771 glossary terms, 360 cards and 99 of the 100 artefacts was a BATCH over the whole
+corpus — which is the right shape for 836 terms at once and the wrong shape for the one term written this
+morning. A batch goes out of date the next day; a rule does not. So the three content tools now LOOK, on
+their own: `add-card.js`, `add-glossary.js` and `add-artefacts.js` each call `.claude/suggest-image.js` at
+the end of a successful add and print the candidates, their licences, their sizes and their Commons pages.
+· **THEY SUGGEST AND NEVER INSTALL, and that is not caution for its own sake.** The candidate list is a
+  name match, and a name match is confidently wrong in exactly the way this site must never be — see the
+  `Jason_E._Lewis` case in `pick-images.js`'s own header. **Look at the picture before using it**, and
+  watch for the three faults the pass kept finding: the right name and the wrong person, an unlabelled
+  plaster CAST standing in for the object, and a modern reproduction sold as the ancient thing.
+· **THE BAR IS THE PIPELINE'S BAR** — public domain, CC BY or CC BY-SA (never NC or ND, which Commons does
+  not host and which would forbid selling access to the site), an attributable author where the licence
+  needs one, ~900px on the long side, no watermark. `suggest-image.js` applies it, so anything it offers
+  could actually ship.
+· **A PICTURE THAT IS NOT FOUND IS RECORDED, not silently skipped.** Where nothing openable exists — 65
+  glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
+  commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
+  batch run with no network.
+· It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
+  artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
+  somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the
+  editors' media gate all refuse an uncredited one.
 
 **A NEW CARD SHIPS WITH A GLOSSARY ENTRY FOR ITS OWN ANSWER TERM, IN THE SAME COMMIT (Aug 2026, on
 request).** Not afterwards and not in a later batch: a card's answer is exactly the word its siblings will

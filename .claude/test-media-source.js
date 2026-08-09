@@ -32,10 +32,28 @@ const server = http.createServer((req, res) => {
   if (!file.startsWith(ROOT)) { res.writeHead(403); res.end(); return; }
   fs.readFile(file, (err, data) => {
     if (err) { res.writeHead(404); res.end("not found"); return; }
+    /* SERVE A data.js WITH NO CARD PICTURES.  This whole file is about the gate that stands between
+       a pasted URL and the store, so every check needs a card that starts with an empty media panel.
+       It used to name `wh-002` and rely on that card shipping none, which stopped being true the day
+       the picture pass ran — and it failed at the third assertion with nine confusing failures behind
+       it rather than saying "that card has a picture now".  Stripping them here makes the test a test
+       of the GATE at any corpus size, the same move test-i18n-lang.js makes on app.js. */
+    if (p === "/data.js") data = Buffer.from(stripCardImages(data.toString("utf8")), "utf8");
     res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream" });
     res.end(data);
   });
 });
+
+function stripCardImages(src) {
+  const win = {};
+  new Function("window", src)(win);
+  /* …except `wh-046`, which section 2 needs: the other half of this test is that a picture already
+     in the store, with its source, is untouched by the gate.  Strip every one and there is nothing
+     left to prove that with. */
+  win.CARD_DATA.forEach((c) => { if (c.id !== "wh-046") delete c.image; delete c.video; });
+  return "window.CARD_DATA = [\n" + win.CARD_DATA.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n" +
+    "window.COLLECTION_TREE = " + JSON.stringify(win.COLLECTION_TREE) + ";\n";
+}
 
 let pass = 0, fail = 0;
 function check(name, ok, extra) {
@@ -163,7 +181,16 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
     if (b) b.click();
   });
   await page.waitForTimeout(600);
-  await page.evaluate(() => { const r = document.querySelector("[data-gkey]"); if (r) r.click(); });
+  /* A TERM THAT SHIPS NO PICTURE.  This section is about the gate that holds an UNCREDITED url
+     back, so it needs a panel that starts empty: on a term that already carries a picture the
+     source box is filled, and a newly typed url is credited the moment it is typed — correct
+     behaviour, and not the behaviour under test.  Opening the first row made that a matter of
+     whether that row had been illustrated yet. */
+  await page.evaluate(() => {
+    const rows = [...document.querySelectorAll("[data-gkey]")];
+    const free = rows.find((r) => !(window.GLOSSARY_IMAGES || {})[r.getAttribute("data-gkey")]);
+    (free || rows[0]).click();
+  });
   await page.waitForTimeout(600);
   const glossImg = () => page.evaluate(() => {
     const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").glossaryImages || {};

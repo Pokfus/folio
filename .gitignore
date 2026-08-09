@@ -16,3 +16,7 @@ node_modules/
 # per-chapter scratch for .claude/fetch-book.js, so a re-run costs no refetch. The generated
 # books/<id>.js IS committed — this is only the working cache behind it.
 .claude/book-cache/
+
+# Commons image-candidate cache for .claude/fetch-images.js. The chosen pictures ARE committed
+# (into data.js / glossary.js) — this is only the working list of what was looked at.
+.claude/image-cache/
