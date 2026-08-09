@@ -25,11 +25,13 @@
      "English",
      "Simplified",
      "Traditional",
-     "Pinyin"
+     "Pinyin",
+     "Bopomofo",
+     "Measure word"
     ],
-    "front": "<div class=\"uc-ask\">Say it in Chinese</div><div class=\"uc-senses\">{{English}}</div><div class=\"uc-hint\">simplified · traditional · pinyin</div>",
-    "back": "{{FrontSide}}<hr><div class=\"uc-simp\">{{Simplified}}</div>{{#Traditional}}<div class=\"uc-trad\">{{Traditional}}</div>{{/Traditional}}<div class=\"uc-pinyin\">{{Pinyin}}</div><div class=\"uc-say\"><span class=\"uc-tts\">{{Simplified}}</span></div>",
-    "css": ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n.uc-ask {\n  margin-bottom: 14px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n.uc-hint {\n  margin-top: 16px;\n  font-size: 10px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.4;\n}\n.uc-simp {\n  font-size: 46px;\n  font-weight: 400;\n  line-height: 1.15;\n}\n.uc-trad {\n  margin-top: 8px;\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 1.25;\n  opacity: 0.5;\n}\n.uc-pinyin {\n  margin-top: 12px;\n  font-size: 21px;\n  letter-spacing: 0.01em;\n  opacity: 0.85;\n}\n.uc-senses {\n  display: inline-block;\n  margin: 0 auto;\n  text-align: left;\n}\n.uc-sense {\n  line-height: 1.6;\n}\n.uc-sense + .uc-sense {\n  margin-top: 2px;\n}\n.uc-say {\n  margin-top: 18px;\n  font-size: 15px;\n  font-weight: 400;\n  opacity: 0.7;\n}\nhr {\n  margin: 18px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n.uc-sense {\n  font-size: 18px;\n}\n"
+    "front": "<div class=\"uc-ask\">Say it in Chinese</div><div class=\"uc-field\">{{English}}</div>",
+    "back": "{{FrontSide}}<hr><div class=\"uc-simp\">{{Simplified}}</div>{{#Traditional}}<div class=\"uc-trad\">{{Traditional}}</div>{{/Traditional}}<div class=\"uc-pinyin\"><span class=\"uc-tts\" data-say=\"{{Simplified}}\">{{Pinyin}}</span></div>{{#Bopomofo}}<div class=\"uc-zhuyin\">{{Bopomofo}}</div>{{/Bopomofo}}{{#Measure word}}<div class=\"uc-mw\">{{Measure word}}</div>{{/Measure word}}",
+    "css": ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n.uc-ask {\n  margin-bottom: 14px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n.uc-simp {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-size: 46px;\n  font-weight: 400;\n  line-height: 1.15;\n}\n.uc-trad {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  margin-top: 8px;\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 1.25;\n  opacity: 0.5;\n}\n.uc-pinyin {\n  margin-top: 12px;\n  font-size: 21px;\n  letter-spacing: 0.01em;\n  opacity: 0.85;\n}\n.uc-zhuyin {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  margin-top: 5px;\n  font-size: 17px;\n  letter-spacing: 0.06em;\n  opacity: 0.72;\n}\n.uc-mw {\n  margin-top: 12px;\n  font-size: 15px;\n  line-height: 1.5;\n}\n.uc-mwlab {\n  margin-right: 8px;\n  font-size: 9.5px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.5;\n}\n.uc-mwi + .uc-mwi {\n  margin-left: 12px;\n}\n.uc-mwc {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n}\n.uc-mwt {\n  margin-left: 4px;\n  opacity: 0.5;\n}\n.uc-mwp {\n  margin-left: 6px;\n  opacity: 0.75;\n}\n.uc-field {\n  display: inline-block;\n  max-width: 100%;\n  margin-top: 14px;\n  padding: 11px 15px;\n  border: 1px solid var(--rule, rgba(0,0,0,0.12));\n  border-radius: 11px;\n  text-align: left;\n  background: var(--paper-2, rgba(0,0,0,0.05));\n  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));\n}\n.uc-sense {\n  line-height: 1.6;\n}\n.uc-sense + .uc-sense {\n  margin-top: 2px;\n}\nhr {\n  margin: 18px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n.uc-sense {\n  font-size: 18px;\n}\n"
    }
   },
   "version": 1,
@@ -57,7 +59,9 @@
     "English": "<div class=\"uc-sense\">love</div><div class=\"uc-sense\">to love</div><div class=\"uc-sense\">to be fond of</div><div class=\"uc-sense\">to like</div><div class=\"uc-sense\">affection</div><div class=\"uc-sense\">to be inclined (to do sth)</div><div class=\"uc-sense\">to tend to (happen)</div>",
     "Simplified": "爱",
     "Traditional": "愛",
-    "Pinyin": "ài"
+    "Pinyin": "ài",
+    "Bopomofo": "ㄞˋ",
+    "Measure word": ""
    }
   },
   {
@@ -79,7 +83,9 @@
     "English": "<div class=\"uc-sense\">eight</div><div class=\"uc-sense\">8</div>",
     "Simplified": "八",
     "Traditional": "",
-    "Pinyin": "bā"
+    "Pinyin": "bā",
+    "Bopomofo": "ㄅㄚ",
+    "Measure word": ""
    }
   },
   {
@@ -101,7 +107,9 @@
     "English": "<div class=\"uc-sense\">Dad</div><div class=\"uc-sense\">(coll.) father</div>",
     "Simplified": "爸爸",
     "Traditional": "",
-    "Pinyin": "bàba"
+    "Pinyin": "bàba",
+    "Bopomofo": "ㄅㄚˋ ㄅㄚ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -123,7 +131,9 @@
     "English": "<div class=\"uc-sense\">cup</div><div class=\"uc-sense\">glass</div>",
     "Simplified": "杯子",
     "Traditional": "",
-    "Pinyin": "bēizi"
+    "Pinyin": "bēizi",
+    "Bopomofo": "ㄅㄟ ㄗ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span>"
    }
   },
   {
@@ -145,7 +155,9 @@
     "English": "<div class=\"uc-sense\">Beijing</div><div class=\"uc-sense\">Beijing, capital of the People's Republic of China</div>",
     "Simplified": "北京",
     "Traditional": "",
-    "Pinyin": "Běijīng"
+    "Pinyin": "Běijīng",
+    "Bopomofo": "ㄅㄟˇ ㄐㄧㄥ",
+    "Measure word": ""
    }
   },
   {
@@ -167,7 +179,9 @@
     "English": "<div class=\"uc-sense\">measure word for books</div><div class=\"uc-sense\">root</div><div class=\"uc-sense\">stem</div><div class=\"uc-sense\">origin</div><div class=\"uc-sense\">source</div><div class=\"uc-sense\">this</div><div class=\"uc-sense\">the current</div><div class=\"uc-sense\">original</div><div class=\"uc-sense\">inherent</div><div class=\"uc-sense\">originally</div><div class=\"uc-sense\">classifier for books, periodicals, files etc</div>",
     "Simplified": "本",
     "Traditional": "",
-    "Pinyin": "běn"
+    "Pinyin": "běn",
+    "Bopomofo": "ㄅㄣˇ",
+    "Measure word": ""
    }
   },
   {
@@ -189,7 +203,9 @@
     "English": "<div class=\"uc-sense\">you're welcome</div><div class=\"uc-sense\">don't be polite</div><div class=\"uc-sense\">don't mention it</div><div class=\"uc-sense\">impolite</div><div class=\"uc-sense\">rude</div><div class=\"uc-sense\">blunt</div>",
     "Simplified": "不客气",
     "Traditional": "不客氣",
-    "Pinyin": "bú kèqi"
+    "Pinyin": "bú kèqi",
+    "Bopomofo": "ㄅㄨˋ ㄎㄜˋ ㄑㄧ˙",
+    "Measure word": ""
    }
   },
   {
@@ -211,7 +227,9 @@
     "English": "<div class=\"uc-sense\">no</div><div class=\"uc-sense\">not</div><div class=\"uc-sense\">not so</div><div class=\"uc-sense\">un-</div>",
     "Simplified": "不",
     "Traditional": "",
-    "Pinyin": "bù"
+    "Pinyin": "bù",
+    "Bopomofo": "ㄅㄨˋ",
+    "Measure word": ""
    }
   },
   {
@@ -233,7 +251,9 @@
     "English": "<div class=\"uc-sense\">dish (type of food)</div><div class=\"uc-sense\">vegetables</div><div class=\"uc-sense\">vegetable</div><div class=\"uc-sense\">cuisine</div><div class=\"uc-sense\">(coll.) (one's) type</div><div class=\"uc-sense\">(of one's skills etc) weak</div><div class=\"uc-sense\">poor</div>",
     "Simplified": "菜",
     "Traditional": "",
-    "Pinyin": "cài"
+    "Pinyin": "cài",
+    "Bopomofo": "ㄘㄞˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">盘</span><span class=\"uc-mwc uc-mwt\">盤</span><span class=\"uc-mwp\">pán</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">道</span><span class=\"uc-mwp\">dào</span></span>"
    }
   },
   {
@@ -255,7 +275,9 @@
     "English": "<div class=\"uc-sense\">tea</div><div class=\"uc-sense\">tea plant</div>",
     "Simplified": "茶",
     "Traditional": "",
-    "Pinyin": "chá"
+    "Pinyin": "chá",
+    "Bopomofo": "ㄔㄚˊ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">杯</span><span class=\"uc-mwp\">bēi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">壶</span><span class=\"uc-mwc uc-mwt\">壺</span><span class=\"uc-mwp\">hú</span></span>"
    }
   },
   {
@@ -277,7 +299,9 @@
     "English": "<div class=\"uc-sense\">eat</div><div class=\"uc-sense\">to eat</div><div class=\"uc-sense\">to consume</div><div class=\"uc-sense\">to eat at (a cafeteria etc)</div><div class=\"uc-sense\">to eradicate</div><div class=\"uc-sense\">to destroy</div><div class=\"uc-sense\">to absorb</div><div class=\"uc-sense\">to suffer (shock, injury, defeat etc)</div>",
     "Simplified": "吃",
     "Traditional": "",
-    "Pinyin": "chī"
+    "Pinyin": "chī",
+    "Bopomofo": "ㄔ",
+    "Measure word": ""
    }
   },
   {
@@ -299,7 +323,9 @@
     "English": "<div class=\"uc-sense\">taxi</div><div class=\"uc-sense\">cab</div>",
     "Simplified": "出租车",
     "Traditional": "出租車",
-    "Pinyin": "chūzūchē"
+    "Pinyin": "chūzūchē",
+    "Bopomofo": "ㄔㄨ ㄗㄨ ㄔㄜ",
+    "Measure word": ""
    }
   },
   {
@@ -321,7 +347,9 @@
     "English": "<div class=\"uc-sense\">make a phone call</div><div class=\"uc-sense\">to make a telephone call</div>",
     "Simplified": "打电话",
     "Traditional": "打電話",
-    "Pinyin": "dǎ diànhuà"
+    "Pinyin": "dǎ diànhuà",
+    "Bopomofo": "ㄉㄚˇ ㄉㄧㄢˋ ㄏㄨㄚˋ",
+    "Measure word": ""
    }
   },
   {
@@ -343,7 +371,9 @@
     "English": "<div class=\"uc-sense\">big</div><div class=\"uc-sense\">large</div><div class=\"uc-sense\">great</div><div class=\"uc-sense\">older (than another person)</div><div class=\"uc-sense\">eldest</div><div class=\"uc-sense\">greatly</div><div class=\"uc-sense\">freely</div><div class=\"uc-sense\">fully</div>",
     "Simplified": "大",
     "Traditional": "",
-    "Pinyin": "dà"
+    "Pinyin": "dà",
+    "Bopomofo": "ㄉㄚˋ",
+    "Measure word": ""
    }
   },
   {
@@ -365,7 +395,9 @@
     "English": "<div class=\"uc-sense\">indicates possession, like adding 's to a noun</div><div class=\"uc-sense\">of</div><div class=\"uc-sense\">~'s (possessive particle)</div><div class=\"uc-sense\">(used after an attribute)</div><div class=\"uc-sense\">(used to form a nominal expression)</div><div class=\"uc-sense\">(used at the end of a declarative sentence for emphasis)</div>",
     "Simplified": "的",
     "Traditional": "",
-    "Pinyin": "de"
+    "Pinyin": "de",
+    "Bopomofo": "ㄉㄜ˙",
+    "Measure word": ""
    }
   },
   {
@@ -387,7 +419,9 @@
     "English": "<div class=\"uc-sense\">a dot</div><div class=\"uc-sense\">a little</div><div class=\"uc-sense\">o'clock</div><div class=\"uc-sense\">point</div><div class=\"uc-sense\">dot</div><div class=\"uc-sense\">drop</div><div class=\"uc-sense\">speck</div><div class=\"uc-sense\">point (in space or time)</div><div class=\"uc-sense\">to draw a dot</div><div class=\"uc-sense\">to check on a list</div><div class=\"uc-sense\">to choose</div><div class=\"uc-sense\">to order (food in a restaurant)</div><div class=\"uc-sense\">to touch briefly</div><div class=\"uc-sense\">to hint</div><div class=\"uc-sense\">to light</div><div class=\"uc-sense\">to ignite</div><div class=\"uc-sense\">to pour a liquid drop by drop</div><div class=\"uc-sense\">dot stroke in Chinese characters</div><div class=\"uc-sense\">classifier for items</div>",
     "Simplified": "点",
     "Traditional": "點",
-    "Pinyin": "diǎn"
+    "Pinyin": "diǎn",
+    "Bopomofo": "ㄉㄧㄢˇ",
+    "Measure word": ""
    }
   },
   {
@@ -409,7 +443,9 @@
     "English": "<div class=\"uc-sense\">computer</div>",
     "Simplified": "电脑",
     "Traditional": "電腦",
-    "Pinyin": "diànnǎo"
+    "Pinyin": "diànnǎo",
+    "Bopomofo": "ㄉㄧㄢˋ ㄋㄠˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">台</span><span class=\"uc-mwc uc-mwt\">臺</span><span class=\"uc-mwp\">tái</span></span>"
    }
   },
   {
@@ -431,7 +467,9 @@
     "English": "<div class=\"uc-sense\">television</div><div class=\"uc-sense\">TV</div>",
     "Simplified": "电视",
     "Traditional": "電視",
-    "Pinyin": "diànshì"
+    "Pinyin": "diànshì",
+    "Bopomofo": "ㄉㄧㄢˋ ㄕˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">台</span><span class=\"uc-mwc uc-mwt\">臺</span><span class=\"uc-mwp\">tái</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -453,7 +491,9 @@
     "English": "<div class=\"uc-sense\">movie</div><div class=\"uc-sense\">film</div>",
     "Simplified": "电影",
     "Traditional": "電影",
-    "Pinyin": "diànyǐng"
+    "Pinyin": "diànyǐng",
+    "Bopomofo": "ㄉㄧㄢˋ ㄧㄥˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">部</span><span class=\"uc-mwp\">bù</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">片</span><span class=\"uc-mwp\">piàn</span></span>"
    }
   },
   {
@@ -475,7 +515,9 @@
     "English": "<div class=\"uc-sense\">things</div><div class=\"uc-sense\">stuff</div><div class=\"uc-sense\">thing</div><div class=\"uc-sense\">person</div>",
     "Simplified": "东西",
     "Traditional": "東西",
-    "Pinyin": "dōngxi"
+    "Pinyin": "dōngxi",
+    "Bopomofo": "ㄉㄨㄥ ㄒㄧ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">件</span><span class=\"uc-mwp\">jiàn</span></span>"
    }
   },
   {
@@ -497,7 +539,9 @@
     "English": "<div class=\"uc-sense\">all</div><div class=\"uc-sense\">both</div><div class=\"uc-sense\">entirely</div><div class=\"uc-sense\">(used for emphasis) even</div><div class=\"uc-sense\">already</div><div class=\"uc-sense\">(not) at all</div>",
     "Simplified": "都",
     "Traditional": "",
-    "Pinyin": "dōu"
+    "Pinyin": "dōu",
+    "Bopomofo": "ㄉㄡ",
+    "Measure word": ""
    }
   },
   {
@@ -519,7 +563,9 @@
     "English": "<div class=\"uc-sense\">to read</div><div class=\"uc-sense\">to study</div><div class=\"uc-sense\">to read out</div><div class=\"uc-sense\">to read aloud</div><div class=\"uc-sense\">to attend (school)</div><div class=\"uc-sense\">to study (a subject in school)</div><div class=\"uc-sense\">to pronounce</div>",
     "Simplified": "读",
     "Traditional": "讀",
-    "Pinyin": "dú"
+    "Pinyin": "dú",
+    "Bopomofo": "ㄉㄨˊ",
+    "Measure word": ""
    }
   },
   {
@@ -541,7 +587,9 @@
     "English": "<div class=\"uc-sense\">sorry</div><div class=\"uc-sense\">I'm sorry</div><div class=\"uc-sense\">excuse me</div><div class=\"uc-sense\">I beg your pardon</div><div class=\"uc-sense\">to let (sb) down</div><div class=\"uc-sense\">to disappoint</div>",
     "Simplified": "对不起",
     "Traditional": "對不起",
-    "Pinyin": "duìbuqǐ"
+    "Pinyin": "duìbuqǐ",
+    "Bopomofo": "ㄉㄨㄟˋ ㄅㄨ˙ ㄑㄧˇ",
+    "Measure word": ""
    }
   },
   {
@@ -563,7 +611,9 @@
     "English": "<div class=\"uc-sense\">many</div><div class=\"uc-sense\">much</div><div class=\"uc-sense\">too many</div><div class=\"uc-sense\">in excess</div><div class=\"uc-sense\">(after a numeral)... odd</div><div class=\"uc-sense\">how (to what extent)</div><div class=\"uc-sense\">multi-</div><div class=\"uc-sense\">poly-</div>",
     "Simplified": "多",
     "Traditional": "",
-    "Pinyin": "duō"
+    "Pinyin": "duō",
+    "Bopomofo": "ㄉㄨㄛ",
+    "Measure word": ""
    }
   },
   {
@@ -585,7 +635,9 @@
     "English": "<div class=\"uc-sense\">how much?</div><div class=\"uc-sense\">how many?</div><div class=\"uc-sense\">(phone number, student ID etc) what number?</div>",
     "Simplified": "多少",
     "Traditional": "",
-    "Pinyin": "duōshao"
+    "Pinyin": "duōshao",
+    "Bopomofo": "ㄉㄨㄛ ㄕㄠ˙",
+    "Measure word": ""
    }
   },
   {
@@ -607,7 +659,9 @@
     "English": "<div class=\"uc-sense\">son</div>",
     "Simplified": "儿子",
     "Traditional": "兒子",
-    "Pinyin": "érzi"
+    "Pinyin": "érzi",
+    "Bopomofo": "ㄦˊ ㄗ˙",
+    "Measure word": ""
    }
   },
   {
@@ -629,7 +683,9 @@
     "English": "<div class=\"uc-sense\">two</div><div class=\"uc-sense\">2</div>",
     "Simplified": "二",
     "Traditional": "",
-    "Pinyin": "èr"
+    "Pinyin": "èr",
+    "Bopomofo": "ㄦˋ",
+    "Measure word": ""
    }
   },
   {
@@ -651,7 +707,9 @@
     "English": "<div class=\"uc-sense\">restaurant</div><div class=\"uc-sense\">hotel</div>",
     "Simplified": "饭店",
     "Traditional": "飯店",
-    "Pinyin": "fàndiàn"
+    "Pinyin": "fàndiàn",
+    "Bopomofo": "ㄈㄢˋ ㄉㄧㄢˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -673,7 +731,9 @@
     "English": "<div class=\"uc-sense\">airplane</div>",
     "Simplified": "飞机",
     "Traditional": "飛機",
-    "Pinyin": "fēijī"
+    "Pinyin": "fēijī",
+    "Bopomofo": "ㄈㄟ ㄐㄧ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">架</span><span class=\"uc-mwp\">jià</span></span>"
    }
   },
   {
@@ -695,7 +755,9 @@
     "English": "<div class=\"uc-sense\">minute</div><div class=\"uc-sense\">(measure word for time)</div>",
     "Simplified": "分钟",
     "Traditional": "分鐘",
-    "Pinyin": "fēnzhōng"
+    "Pinyin": "fēnzhōng",
+    "Bopomofo": "ㄈㄣ ㄓㄨㄥ",
+    "Measure word": ""
    }
   },
   {
@@ -717,7 +779,9 @@
     "English": "<div class=\"uc-sense\">happy</div><div class=\"uc-sense\">glad</div><div class=\"uc-sense\">willing (to do sth)</div><div class=\"uc-sense\">in a cheerful mood</div>",
     "Simplified": "高兴",
     "Traditional": "高興",
-    "Pinyin": "gāoxìng"
+    "Pinyin": "gāoxìng",
+    "Bopomofo": "ㄍㄠ ㄒㄧㄥˋ",
+    "Measure word": ""
    }
   },
   {
@@ -739,7 +803,9 @@
     "English": "<div class=\"uc-sense\">general measure word</div><div class=\"uc-sense\">(classifier used before a noun that has no specific classifier)</div><div class=\"uc-sense\">individual</div>",
     "Simplified": "个",
     "Traditional": "個",
-    "Pinyin": "gè"
+    "Pinyin": "gè",
+    "Bopomofo": "ㄍㄜˋ",
+    "Measure word": ""
    }
   },
   {
@@ -761,7 +827,9 @@
     "English": "<div class=\"uc-sense\">work</div><div class=\"uc-sense\">a job</div><div class=\"uc-sense\">to work</div><div class=\"uc-sense\">(of a machine) to operate</div><div class=\"uc-sense\">job</div><div class=\"uc-sense\">task</div>",
     "Simplified": "工作",
     "Traditional": "",
-    "Pinyin": "gōngzuò"
+    "Pinyin": "gōngzuò",
+    "Bopomofo": "ㄍㄨㄥ ㄗㄨㄛˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">份</span><span class=\"uc-mwp\">fèn</span></span>"
    }
   },
   {
@@ -783,7 +851,9 @@
     "English": "<div class=\"uc-sense\">dog</div>",
     "Simplified": "狗",
     "Traditional": "",
-    "Pinyin": "gǒu"
+    "Pinyin": "gǒu",
+    "Bopomofo": "ㄍㄡˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">条</span><span class=\"uc-mwc uc-mwt\">條</span><span class=\"uc-mwp\">tiáo</span></span>"
    }
   },
   {
@@ -805,7 +875,9 @@
     "English": "<div class=\"uc-sense\">Chinese language</div>",
     "Simplified": "汉语",
     "Traditional": "漢語",
-    "Pinyin": "Hànyǔ"
+    "Pinyin": "Hànyǔ",
+    "Bopomofo": "ㄏㄢˋ ㄩˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">门</span><span class=\"uc-mwc uc-mwt\">門</span><span class=\"uc-mwp\">mén</span></span>"
    }
   },
   {
@@ -827,7 +899,9 @@
     "English": "<div class=\"uc-sense\">good</div><div class=\"uc-sense\">appropriate</div><div class=\"uc-sense\">proper</div><div class=\"uc-sense\">all right!</div><div class=\"uc-sense\">(before a verb) easy to</div><div class=\"uc-sense\">(before a verb) good to</div><div class=\"uc-sense\">(before an adjective for exclamatory effect) so</div><div class=\"uc-sense\">(verb complement indicating completion)</div><div class=\"uc-sense\">(of two people) close</div><div class=\"uc-sense\">on intimate terms</div><div class=\"uc-sense\">(after a personal pronoun) hello</div>",
     "Simplified": "好",
     "Traditional": "",
-    "Pinyin": "hǎo"
+    "Pinyin": "hǎo",
+    "Bopomofo": "ㄏㄠˇ",
+    "Measure word": ""
    }
   },
   {
@@ -849,7 +923,9 @@
     "English": "<div class=\"uc-sense\">number</div><div class=\"uc-sense\">day of a month</div><div class=\"uc-sense\">ordinal number</div><div class=\"uc-sense\">mark</div><div class=\"uc-sense\">sign</div><div class=\"uc-sense\">business establishment</div><div class=\"uc-sense\">size</div><div class=\"uc-sense\">ship suffix</div><div class=\"uc-sense\">horn (wind instrument)</div><div class=\"uc-sense\">bugle call</div><div class=\"uc-sense\">assumed name</div><div class=\"uc-sense\">to take a pulse</div><div class=\"uc-sense\">classifier used to indicate number of people</div>",
     "Simplified": "号",
     "Traditional": "號",
-    "Pinyin": "hào"
+    "Pinyin": "hào",
+    "Bopomofo": "ㄏㄠˋ",
+    "Measure word": ""
    }
   },
   {
@@ -871,7 +947,9 @@
     "English": "<div class=\"uc-sense\">to drink</div>",
     "Simplified": "喝",
     "Traditional": "",
-    "Pinyin": "hē"
+    "Pinyin": "hē",
+    "Bopomofo": "ㄏㄜ",
+    "Measure word": ""
    }
   },
   {
@@ -893,7 +971,9 @@
     "English": "<div class=\"uc-sense\">and</div><div class=\"uc-sense\">with</div><div class=\"uc-sense\">(joining two nouns) and</div><div class=\"uc-sense\">together with</div><div class=\"uc-sense\">(math.) sum</div><div class=\"uc-sense\">to make peace</div><div class=\"uc-sense\">(sports) to draw</div><div class=\"uc-sense\">to tie</div><div class=\"uc-sense\">harmonious</div><div class=\"uc-sense\">Japan</div><div class=\"uc-sense\">Japanese</div>",
     "Simplified": "和",
     "Traditional": "",
-    "Pinyin": "hé"
+    "Pinyin": "hé",
+    "Bopomofo": "ㄏㄜˊ",
+    "Measure word": ""
    }
   },
   {
@@ -915,7 +995,9 @@
     "English": "<div class=\"uc-sense\">very</div><div class=\"uc-sense\">quite</div><div class=\"uc-sense\">(adverb of degree)</div><div class=\"uc-sense\">awfully</div>",
     "Simplified": "很",
     "Traditional": "",
-    "Pinyin": "hěn"
+    "Pinyin": "hěn",
+    "Bopomofo": "ㄏㄣˇ",
+    "Measure word": ""
    }
   },
   {
@@ -937,7 +1019,9 @@
     "English": "<div class=\"uc-sense\">back</div><div class=\"uc-sense\">behind</div><div class=\"uc-sense\">the back</div><div class=\"uc-sense\">the rear</div><div class=\"uc-sense\">the last bit</div><div class=\"uc-sense\">near the end</div><div class=\"uc-sense\">at the back</div><div class=\"uc-sense\">later</div><div class=\"uc-sense\">afterwards</div>",
     "Simplified": "后面",
     "Traditional": "後面",
-    "Pinyin": "hòumian"
+    "Pinyin": "hòumian",
+    "Bopomofo": "ㄏㄡˋ ㄇㄧㄢ˙",
+    "Measure word": ""
    }
   },
   {
@@ -959,7 +1043,9 @@
     "English": "<div class=\"uc-sense\">to return</div><div class=\"uc-sense\">to reply</div><div class=\"uc-sense\">to go back</div><div class=\"uc-sense\">to circle</div><div class=\"uc-sense\">to turn around</div><div class=\"uc-sense\">to answer</div><div class=\"uc-sense\">to revolve</div><div class=\"uc-sense\">Hui ethnic group (Chinese Muslims)</div><div class=\"uc-sense\">time</div><div class=\"uc-sense\">classifier for acts of a play</div><div class=\"uc-sense\">section or chapter (of a classic book)</div><div class=\"uc-sense\">to curve</div>",
     "Simplified": "回",
     "Traditional": "",
-    "Pinyin": "huí"
+    "Pinyin": "huí",
+    "Bopomofo": "ㄏㄨㄟˊ",
+    "Measure word": ""
    }
   },
   {
@@ -981,7 +1067,9 @@
     "English": "<div class=\"uc-sense\">know how to</div><div class=\"uc-sense\">can</div><div class=\"uc-sense\">to have the skill</div><div class=\"uc-sense\">to know how to</div><div class=\"uc-sense\">to be likely to</div><div class=\"uc-sense\">to be sure to</div><div class=\"uc-sense\">to meet</div><div class=\"uc-sense\">to get together</div><div class=\"uc-sense\">meeting</div><div class=\"uc-sense\">gathering</div><div class=\"uc-sense\">(suffix) union</div><div class=\"uc-sense\">group</div><div class=\"uc-sense\">association</div><div class=\"uc-sense\">a moment</div>",
     "Simplified": "会",
     "Traditional": "會",
-    "Pinyin": "huì"
+    "Pinyin": "huì",
+    "Bopomofo": "ㄏㄨㄟˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1003,7 +1091,9 @@
     "English": "<div class=\"uc-sense\">how many</div><div class=\"uc-sense\">several</div><div class=\"uc-sense\">a few</div><div class=\"uc-sense\">how much</div>",
     "Simplified": "几",
     "Traditional": "幾",
-    "Pinyin": "jǐ"
+    "Pinyin": "jǐ",
+    "Bopomofo": "ㄐㄧˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1025,7 +1115,9 @@
     "English": "<div class=\"uc-sense\">family</div><div class=\"uc-sense\">home</div><div class=\"uc-sense\">(polite) my (sister, uncle etc)</div><div class=\"uc-sense\">classifier for families or businesses</div><div class=\"uc-sense\">refers to the philosophical schools of pre-Han China</div><div class=\"uc-sense\">noun suffix for a specialist in some activity, such as a musician or revolutionary, corresponding to English -ist, -er, -ary or -ian</div>",
     "Simplified": "家",
     "Traditional": "",
-    "Pinyin": "jiā"
+    "Pinyin": "jiā",
+    "Bopomofo": "ㄐㄧㄚ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -1047,7 +1139,9 @@
     "English": "<div class=\"uc-sense\">to be called</div><div class=\"uc-sense\">to shout</div><div class=\"uc-sense\">to call</div><div class=\"uc-sense\">to order</div><div class=\"uc-sense\">to ask</div><div class=\"uc-sense\">by (indicates agent in the passive mood)</div>",
     "Simplified": "叫",
     "Traditional": "",
-    "Pinyin": "jiào"
+    "Pinyin": "jiào",
+    "Bopomofo": "ㄐㄧㄠˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1069,7 +1163,9 @@
     "English": "<div class=\"uc-sense\">today</div><div class=\"uc-sense\">at the present</div><div class=\"uc-sense\">now</div>",
     "Simplified": "今天",
     "Traditional": "",
-    "Pinyin": "jīntiān"
+    "Pinyin": "jīntiān",
+    "Bopomofo": "ㄐㄧㄣ ㄊㄧㄢ",
+    "Measure word": ""
    }
   },
   {
@@ -1091,7 +1187,9 @@
     "English": "<div class=\"uc-sense\">nine</div><div class=\"uc-sense\">9</div>",
     "Simplified": "九",
     "Traditional": "",
-    "Pinyin": "jiǔ"
+    "Pinyin": "jiǔ",
+    "Bopomofo": "ㄐㄧㄡˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1113,7 +1211,9 @@
     "English": "<div class=\"uc-sense\">to open</div><div class=\"uc-sense\">to start</div><div class=\"uc-sense\">to operate (a vehicle)</div><div class=\"uc-sense\">to open (transitive or intransitive)</div><div class=\"uc-sense\">(of ships, vehicles, troops etc) to start</div><div class=\"uc-sense\">to turn on</div><div class=\"uc-sense\">to put in operation</div><div class=\"uc-sense\">to operate</div><div class=\"uc-sense\">to run</div><div class=\"uc-sense\">to boil</div><div class=\"uc-sense\">to write out (a prescription, check, invoice etc)</div><div class=\"uc-sense\">(directional complement) away</div><div class=\"uc-sense\">off</div><div class=\"uc-sense\">carat (gold)</div>",
     "Simplified": "开",
     "Traditional": "開",
-    "Pinyin": "kāi"
+    "Pinyin": "kāi",
+    "Bopomofo": "ㄎㄞ",
+    "Measure word": ""
    }
   },
   {
@@ -1135,7 +1235,9 @@
     "English": "<div class=\"uc-sense\">see</div><div class=\"uc-sense\">look at</div><div class=\"uc-sense\">to watch</div><div class=\"uc-sense\">to see</div><div class=\"uc-sense\">to look at</div><div class=\"uc-sense\">to read</div><div class=\"uc-sense\">to visit</div><div class=\"uc-sense\">to call on</div><div class=\"uc-sense\">to consider</div><div class=\"uc-sense\">to regard as</div><div class=\"uc-sense\">to look after</div><div class=\"uc-sense\">to treat (a patient or illness)</div><div class=\"uc-sense\">to depend on</div><div class=\"uc-sense\">to feel (that)</div><div class=\"uc-sense\">(after a verb) to give it a try</div><div class=\"uc-sense\">to watch out for</div>",
     "Simplified": "看",
     "Traditional": "",
-    "Pinyin": "kàn"
+    "Pinyin": "kàn",
+    "Bopomofo": "ㄎㄢˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1157,7 +1259,9 @@
     "English": "<div class=\"uc-sense\">see</div><div class=\"uc-sense\">catch sight of</div><div class=\"uc-sense\">to see</div><div class=\"uc-sense\">to catch sight of</div>",
     "Simplified": "看见",
     "Traditional": "看見",
-    "Pinyin": "kànjiàn"
+    "Pinyin": "kànjiàn",
+    "Bopomofo": "ㄎㄢˋ ㄐㄧㄢˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1179,7 +1283,9 @@
     "English": "<div class=\"uc-sense\">lump</div><div class=\"uc-sense\">piece</div><div class=\"uc-sense\">sum of money</div><div class=\"uc-sense\">chunk</div><div class=\"uc-sense\">classifier for pieces of cloth, cake, soap etc</div><div class=\"uc-sense\">(coll.) classifier for money and currency units</div>",
     "Simplified": "块",
     "Traditional": "塊",
-    "Pinyin": "kuài"
+    "Pinyin": "kuài",
+    "Bopomofo": "ㄎㄨㄞˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1201,7 +1307,9 @@
     "English": "<div class=\"uc-sense\">come</div><div class=\"uc-sense\">arrive</div><div class=\"uc-sense\">ever since</div><div class=\"uc-sense\">next</div><div class=\"uc-sense\">to come</div><div class=\"uc-sense\">(used as a substitute for a more specific verb)</div><div class=\"uc-sense\">hither</div><div class=\"uc-sense\">for the past (amount of time)</div><div class=\"uc-sense\">(prefix) the coming...</div><div class=\"uc-sense\">the next...</div><div class=\"uc-sense\">(between two verbs) in order to</div><div class=\"uc-sense\">(after a round number) approximately</div>",
     "Simplified": "来",
     "Traditional": "來",
-    "Pinyin": "lái"
+    "Pinyin": "lái",
+    "Bopomofo": "ㄌㄞˊ",
+    "Measure word": ""
    }
   },
   {
@@ -1223,7 +1331,9 @@
     "English": "<div class=\"uc-sense\">teacher</div>",
     "Simplified": "老师",
     "Traditional": "老師",
-    "Pinyin": "lǎoshī"
+    "Pinyin": "lǎoshī",
+    "Bopomofo": "ㄌㄠˇ ㄕ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -1245,7 +1355,9 @@
     "English": "<div class=\"uc-sense\">indicates a completed or finished action</div><div class=\"uc-sense\">(completed action marker)</div><div class=\"uc-sense\">(modal particle indicating change of state, situation now)</div><div class=\"uc-sense\">(modal particle intensifying preceding clause)</div>",
     "Simplified": "了",
     "Traditional": "",
-    "Pinyin": "le"
+    "Pinyin": "le",
+    "Bopomofo": "ㄌㄜ˙",
+    "Measure word": ""
    }
   },
   {
@@ -1267,7 +1379,9 @@
     "English": "<div class=\"uc-sense\">cold</div>",
     "Simplified": "冷",
     "Traditional": "",
-    "Pinyin": "lěng"
+    "Pinyin": "lěng",
+    "Bopomofo": "ㄌㄥˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1289,7 +1403,9 @@
     "English": "<div class=\"uc-sense\">inside</div><div class=\"uc-sense\">Chinese mile (~.5 km)</div><div class=\"uc-sense\">lining</div><div class=\"uc-sense\">interior</div><div class=\"uc-sense\">internal</div><div class=\"uc-sense\">li, ancient measure of length, approx. 500 m</div><div class=\"uc-sense\">neighborhood</div><div class=\"uc-sense\">ancient administrative unit of 25 families</div>",
     "Simplified": "里",
     "Traditional": "裡",
-    "Pinyin": "lǐ"
+    "Pinyin": "lǐ",
+    "Bopomofo": "ㄌㄧˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1311,7 +1427,9 @@
     "English": "<div class=\"uc-sense\">six</div><div class=\"uc-sense\">6</div>",
     "Simplified": "六",
     "Traditional": "",
-    "Pinyin": "liù"
+    "Pinyin": "liù",
+    "Bopomofo": "ㄌㄧㄡˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1333,7 +1451,9 @@
     "English": "<div class=\"uc-sense\">mom</div><div class=\"uc-sense\">mum</div><div class=\"uc-sense\">mama</div><div class=\"uc-sense\">mommy</div><div class=\"uc-sense\">mother</div>",
     "Simplified": "妈妈",
     "Traditional": "媽媽",
-    "Pinyin": "māma"
+    "Pinyin": "māma",
+    "Bopomofo": "ㄇㄚ ㄇㄚ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -1355,7 +1475,9 @@
     "English": "<div class=\"uc-sense\">indicates a yes/no question (added to a statement)</div><div class=\"uc-sense\">(question particle for \"yes-no\" questions)</div>",
     "Simplified": "吗",
     "Traditional": "嗎",
-    "Pinyin": "ma"
+    "Pinyin": "ma",
+    "Bopomofo": "ㄇㄚ˙",
+    "Measure word": ""
    }
   },
   {
@@ -1377,7 +1499,9 @@
     "English": "<div class=\"uc-sense\">to buy</div><div class=\"uc-sense\">to purchase</div>",
     "Simplified": "买",
     "Traditional": "買",
-    "Pinyin": "mǎi"
+    "Pinyin": "mǎi",
+    "Bopomofo": "ㄇㄞˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1399,7 +1523,9 @@
     "English": "<div class=\"uc-sense\">cat</div><div class=\"uc-sense\">(coll.) modem</div>",
     "Simplified": "猫",
     "Traditional": "貓",
-    "Pinyin": "māo"
+    "Pinyin": "māo",
+    "Bopomofo": "ㄇㄠ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span>"
    }
   },
   {
@@ -1421,7 +1547,9 @@
     "English": "<div class=\"uc-sense\">it doesn't matter</div><div class=\"uc-sense\">never mind</div>",
     "Simplified": "没关系",
     "Traditional": "沒關係",
-    "Pinyin": "méi guānxi"
+    "Pinyin": "méi guānxi",
+    "Bopomofo": "ㄇㄟˊ ㄍㄨㄢ ㄒㄧ˙",
+    "Measure word": ""
    }
   },
   {
@@ -1443,7 +1571,9 @@
     "English": "<div class=\"uc-sense\">not have</div><div class=\"uc-sense\">there is not</div><div class=\"uc-sense\">haven't</div><div class=\"uc-sense\">hasn't</div><div class=\"uc-sense\">doesn't exist</div><div class=\"uc-sense\">to not have</div><div class=\"uc-sense\">to not be</div>",
     "Simplified": "没有",
     "Traditional": "沒有",
-    "Pinyin": "méiyǒu"
+    "Pinyin": "méiyǒu",
+    "Bopomofo": "ㄇㄟˊ ㄧㄡˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1465,7 +1595,9 @@
     "English": "<div class=\"uc-sense\">(cooked) rice</div>",
     "Simplified": "米饭",
     "Traditional": "米飯",
-    "Pinyin": "mǐfàn"
+    "Pinyin": "mǐfàn",
+    "Bopomofo": "ㄇㄧˇ ㄈㄢˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1487,7 +1619,9 @@
     "English": "<div class=\"uc-sense\">tomorrow</div>",
     "Simplified": "明天",
     "Traditional": "",
-    "Pinyin": "míngtiān"
+    "Pinyin": "míngtiān",
+    "Bopomofo": "ㄇㄧㄥˊ ㄊㄧㄢ",
+    "Measure word": ""
    }
   },
   {
@@ -1509,7 +1643,9 @@
     "English": "<div class=\"uc-sense\">name</div><div class=\"uc-sense\">name (of a person or thing)</div>",
     "Simplified": "名字",
     "Traditional": "",
-    "Pinyin": "míngzi"
+    "Pinyin": "míngzi",
+    "Bopomofo": "ㄇㄧㄥˊ ㄗ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -1531,7 +1667,9 @@
     "English": "<div class=\"uc-sense\">which</div><div class=\"uc-sense\">how</div><div class=\"uc-sense\">which? (interrogative, followed by classifier or numeral-classifier)</div>",
     "Simplified": "哪",
     "Traditional": "",
-    "Pinyin": "nǎ"
+    "Pinyin": "nǎ",
+    "Bopomofo": "ㄋㄚˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1553,7 +1691,9 @@
     "English": "<div class=\"uc-sense\">where? (Beijing accent)</div><div class=\"uc-sense\">where?</div><div class=\"uc-sense\">wherever</div><div class=\"uc-sense\">anywhere</div><div class=\"uc-sense\">somewhere</div><div class=\"uc-sense\">(used in rhetorical questions) how can...?</div><div class=\"uc-sense\">how could...?</div>",
     "Simplified": "哪儿",
     "Traditional": "哪兒",
-    "Pinyin": "nǎr"
+    "Pinyin": "nǎr",
+    "Bopomofo": "ㄋㄚˇ ㄦ˙",
+    "Measure word": ""
    }
   },
   {
@@ -1575,7 +1715,9 @@
     "English": "<div class=\"uc-sense\">that</div><div class=\"uc-sense\">then</div><div class=\"uc-sense\">(specifier) that</div><div class=\"uc-sense\">the</div><div class=\"uc-sense\">those</div><div class=\"uc-sense\">(pronoun) that (referring to persons, things or situations)</div><div class=\"uc-sense\">then (in that case)</div>",
     "Simplified": "那",
     "Traditional": "",
-    "Pinyin": "nà"
+    "Pinyin": "nà",
+    "Bopomofo": "ㄋㄚˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1597,7 +1739,9 @@
     "English": "<div class=\"uc-sense\">indicates a question</div><div class=\"uc-sense\">how about...?</div><div class=\"uc-sense\">particle indicating that a previously asked question is to be applied to the preceding word (\"What about...?\", \"And...?\")</div><div class=\"uc-sense\">particle for inquiring about location (\"Where is...?\")</div><div class=\"uc-sense\">particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\")</div><div class=\"uc-sense\">(at the end of a declarative sentence) particle indicating continuation of a state or action</div><div class=\"uc-sense\">particle indicating strong affirmation</div>",
     "Simplified": "呢",
     "Traditional": "",
-    "Pinyin": "ne"
+    "Pinyin": "ne",
+    "Bopomofo": "ㄋㄜ˙",
+    "Measure word": ""
    }
   },
   {
@@ -1619,7 +1763,9 @@
     "English": "<div class=\"uc-sense\">can</div><div class=\"uc-sense\">be able</div><div class=\"uc-sense\">to be able to</div><div class=\"uc-sense\">might possibly</div><div class=\"uc-sense\">ability</div><div class=\"uc-sense\">(physics) energy</div>",
     "Simplified": "能",
     "Traditional": "",
-    "Pinyin": "néng"
+    "Pinyin": "néng",
+    "Bopomofo": "ㄋㄥˊ",
+    "Measure word": ""
    }
   },
   {
@@ -1641,7 +1787,9 @@
     "English": "<div class=\"uc-sense\">you (singular)</div><div class=\"uc-sense\">you</div>",
     "Simplified": "你",
     "Traditional": "",
-    "Pinyin": "nǐ"
+    "Pinyin": "nǐ",
+    "Bopomofo": "ㄋㄧˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1663,7 +1811,9 @@
     "English": "<div class=\"uc-sense\">year</div><div class=\"uc-sense\">grain</div>",
     "Simplified": "年",
     "Traditional": "",
-    "Pinyin": "nián"
+    "Pinyin": "nián",
+    "Bopomofo": "ㄋㄧㄢˊ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -1685,7 +1835,9 @@
     "English": "<div class=\"uc-sense\">daughter</div>",
     "Simplified": "女儿",
     "Traditional": "女兒",
-    "Pinyin": "nǚ'ér"
+    "Pinyin": "nǚ'ér",
+    "Bopomofo": "ㄋㄩˇ ㄦˊ",
+    "Measure word": ""
    }
   },
   {
@@ -1707,7 +1859,9 @@
     "English": "<div class=\"uc-sense\">friend</div>",
     "Simplified": "朋友",
     "Traditional": "",
-    "Pinyin": "péngyou"
+    "Pinyin": "péngyou",
+    "Bopomofo": "ㄆㄥˊ ㄧㄡ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -1729,7 +1883,9 @@
     "English": "<div class=\"uc-sense\">pretty</div><div class=\"uc-sense\">beautiful</div>",
     "Simplified": "漂亮",
     "Traditional": "",
-    "Pinyin": "piàoliang"
+    "Pinyin": "piàoliang",
+    "Bopomofo": "ㄆㄧㄠˋ ㄌㄧㄤ˙",
+    "Measure word": ""
    }
   },
   {
@@ -1751,7 +1907,9 @@
     "English": "<div class=\"uc-sense\">apple</div>",
     "Simplified": "苹果",
     "Traditional": "蘋果",
-    "Pinyin": "píngguǒ"
+    "Pinyin": "píngguǒ",
+    "Bopomofo": "ㄆㄧㄥˊ ㄍㄨㄛˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">颗</span><span class=\"uc-mwc uc-mwt\">顆</span><span class=\"uc-mwp\">kē</span></span>"
    }
   },
   {
@@ -1773,7 +1931,9 @@
     "English": "<div class=\"uc-sense\">seven</div><div class=\"uc-sense\">7</div>",
     "Simplified": "七",
     "Traditional": "",
-    "Pinyin": "qī"
+    "Pinyin": "qī",
+    "Bopomofo": "ㄑㄧ",
+    "Measure word": ""
    }
   },
   {
@@ -1795,7 +1955,9 @@
     "English": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael 两</div>",
     "Simplified": "钱",
     "Traditional": "錢",
-    "Pinyin": "qián"
+    "Pinyin": "qián",
+    "Bopomofo": "ㄑㄧㄢˊ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">笔</span><span class=\"uc-mwc uc-mwt\">筆</span><span class=\"uc-mwp\">bǐ</span></span>"
    }
   },
   {
@@ -1817,7 +1979,9 @@
     "English": "<div class=\"uc-sense\">in front</div><div class=\"uc-sense\">ahead</div><div class=\"uc-sense\">preceding</div><div class=\"uc-sense\">above</div>",
     "Simplified": "前面",
     "Traditional": "",
-    "Pinyin": "qiánmiàn"
+    "Pinyin": "qiánmiàn",
+    "Bopomofo": "ㄑㄧㄢˊ ㄇㄧㄢˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1839,7 +2003,9 @@
     "English": "<div class=\"uc-sense\">please</div><div class=\"uc-sense\">invite</div><div class=\"uc-sense\">to treat someone to something</div><div class=\"uc-sense\">to ask</div><div class=\"uc-sense\">to invite</div><div class=\"uc-sense\">please (do sth)</div><div class=\"uc-sense\">to treat (to a meal etc)</div><div class=\"uc-sense\">to request</div>",
     "Simplified": "请",
     "Traditional": "請",
-    "Pinyin": "qǐng"
+    "Pinyin": "qǐng",
+    "Bopomofo": "ㄑㄧㄥˇ",
+    "Measure word": ""
    }
   },
   {
@@ -1861,7 +2027,9 @@
     "English": "<div class=\"uc-sense\">go</div><div class=\"uc-sense\">to leave</div><div class=\"uc-sense\">to go</div><div class=\"uc-sense\">to go to (a place)</div><div class=\"uc-sense\">(of a time etc) last</div><div class=\"uc-sense\">just passed</div><div class=\"uc-sense\">to send</div><div class=\"uc-sense\">to remove</div><div class=\"uc-sense\">to get rid of</div><div class=\"uc-sense\">to reduce</div><div class=\"uc-sense\">to be apart from in space or time</div><div class=\"uc-sense\">to die (euphemism)</div><div class=\"uc-sense\">to play (a part)</div><div class=\"uc-sense\">(when used either before or after a verb) to go in order to do sth</div><div class=\"uc-sense\">(after a verb of motion indicates movement away from the speaker)</div><div class=\"uc-sense\">(used after certain verbs to indicate detachment or separation)</div>",
     "Simplified": "去",
     "Traditional": "",
-    "Pinyin": "qù"
+    "Pinyin": "qù",
+    "Bopomofo": "ㄑㄩˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1883,7 +2051,9 @@
     "English": "<div class=\"uc-sense\">heat</div><div class=\"uc-sense\">hot</div><div class=\"uc-sense\">to warm up</div><div class=\"uc-sense\">to heat up</div><div class=\"uc-sense\">hot (of weather)</div><div class=\"uc-sense\">fervent</div>",
     "Simplified": "热",
     "Traditional": "熱",
-    "Pinyin": "rè"
+    "Pinyin": "rè",
+    "Bopomofo": "ㄖㄜˋ",
+    "Measure word": ""
    }
   },
   {
@@ -1905,7 +2075,9 @@
     "English": "<div class=\"uc-sense\">person</div><div class=\"uc-sense\">man</div><div class=\"uc-sense\">people</div>",
     "Simplified": "人",
     "Traditional": "",
-    "Pinyin": "rén"
+    "Pinyin": "rén",
+    "Bopomofo": "ㄖㄣˊ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -1927,7 +2099,9 @@
     "English": "<div class=\"uc-sense\">recognize</div><div class=\"uc-sense\">know (a person)</div><div class=\"uc-sense\">to know</div><div class=\"uc-sense\">to recognize</div><div class=\"uc-sense\">to be familiar with</div><div class=\"uc-sense\">to get acquainted with sb</div><div class=\"uc-sense\">knowledge</div><div class=\"uc-sense\">understanding</div><div class=\"uc-sense\">awareness</div><div class=\"uc-sense\">cognition</div>",
     "Simplified": "认识",
     "Traditional": "認識",
-    "Pinyin": "rènshi"
+    "Pinyin": "rènshi",
+    "Bopomofo": "ㄖㄣˋ ㄕ˙",
+    "Measure word": ""
    }
   },
   {
@@ -1949,7 +2123,9 @@
     "English": "<div class=\"uc-sense\">three</div><div class=\"uc-sense\">3</div>",
     "Simplified": "三",
     "Traditional": "",
-    "Pinyin": "sān"
+    "Pinyin": "sān",
+    "Bopomofo": "ㄙㄢ",
+    "Measure word": ""
    }
   },
   {
@@ -1971,7 +2147,9 @@
     "English": "<div class=\"uc-sense\">shop</div><div class=\"uc-sense\">store</div>",
     "Simplified": "商店",
     "Traditional": "",
-    "Pinyin": "shāngdiàn"
+    "Pinyin": "shāngdiàn",
+    "Bopomofo": "ㄕㄤ ㄉㄧㄢˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -1993,7 +2171,9 @@
     "English": "<div class=\"uc-sense\">above</div><div class=\"uc-sense\">up</div><div class=\"uc-sense\">upper</div><div class=\"uc-sense\">previous</div><div class=\"uc-sense\">first (of multiple parts)</div><div class=\"uc-sense\">to climb</div><div class=\"uc-sense\">to get onto</div><div class=\"uc-sense\">to go up</div><div class=\"uc-sense\">to attend (class or university)</div><div class=\"uc-sense\">(directional complement) up</div><div class=\"uc-sense\">(noun suffix) on</div>",
     "Simplified": "上",
     "Traditional": "",
-    "Pinyin": "shàng"
+    "Pinyin": "shàng",
+    "Bopomofo": "ㄕㄤˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2015,7 +2195,9 @@
     "English": "<div class=\"uc-sense\">late morning (before noon)</div><div class=\"uc-sense\">morning</div>",
     "Simplified": "上午",
     "Traditional": "",
-    "Pinyin": "shàngwǔ"
+    "Pinyin": "shàngwǔ",
+    "Bopomofo": "ㄕㄤˋ ㄨˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -2037,7 +2219,9 @@
     "English": "<div class=\"uc-sense\">few</div><div class=\"uc-sense\">little</div><div class=\"uc-sense\">less</div><div class=\"uc-sense\">to lack</div><div class=\"uc-sense\">to be missing</div><div class=\"uc-sense\">to stop (doing sth)</div><div class=\"uc-sense\">seldom</div>",
     "Simplified": "少",
     "Traditional": "",
-    "Pinyin": "shǎo"
+    "Pinyin": "shǎo",
+    "Bopomofo": "ㄕㄠˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2059,7 +2243,9 @@
     "English": "<div class=\"uc-sense\">who</div>",
     "Simplified": "谁",
     "Traditional": "誰",
-    "Pinyin": "shéi"
+    "Pinyin": "shéi",
+    "Bopomofo": "ㄕㄟˊ",
+    "Measure word": ""
    }
   },
   {
@@ -2081,7 +2267,9 @@
     "English": "<div class=\"uc-sense\">what? (replaces the noun to turn a statement into a question)</div><div class=\"uc-sense\">what?</div><div class=\"uc-sense\">something</div><div class=\"uc-sense\">anything</div>",
     "Simplified": "什么",
     "Traditional": "什麼",
-    "Pinyin": "shénme"
+    "Pinyin": "shénme",
+    "Bopomofo": "ㄕㄣˊ ㄇㄜ˙",
+    "Measure word": ""
    }
   },
   {
@@ -2103,7 +2291,9 @@
     "English": "<div class=\"uc-sense\">ten</div><div class=\"uc-sense\">10</div>",
     "Simplified": "十",
     "Traditional": "",
-    "Pinyin": "shí"
+    "Pinyin": "shí",
+    "Bopomofo": "ㄕˊ",
+    "Measure word": ""
    }
   },
   {
@@ -2125,7 +2315,9 @@
     "English": "<div class=\"uc-sense\">time</div><div class=\"uc-sense\">length of time</div><div class=\"uc-sense\">moment</div><div class=\"uc-sense\">period</div>",
     "Simplified": "时候",
     "Traditional": "時候",
-    "Pinyin": "shíhou"
+    "Pinyin": "shíhou",
+    "Bopomofo": "ㄕˊ ㄏㄡ˙",
+    "Measure word": ""
    }
   },
   {
@@ -2147,7 +2339,9 @@
     "English": "<div class=\"uc-sense\">be</div><div class=\"uc-sense\">is</div><div class=\"uc-sense\">are</div><div class=\"uc-sense\">am</div><div class=\"uc-sense\">to be (followed by substantives only)</div><div class=\"uc-sense\">correct</div><div class=\"uc-sense\">right</div><div class=\"uc-sense\">true</div><div class=\"uc-sense\">(respectful acknowledgement of a command) very well</div><div class=\"uc-sense\">(adverb for emphatic assertion)</div>",
     "Simplified": "是",
     "Traditional": "",
-    "Pinyin": "shì"
+    "Pinyin": "shì",
+    "Bopomofo": "ㄕˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2169,7 +2363,9 @@
     "English": "<div class=\"uc-sense\">book</div><div class=\"uc-sense\">letter</div><div class=\"uc-sense\">document</div><div class=\"uc-sense\">to write</div>",
     "Simplified": "书",
     "Traditional": "書",
-    "Pinyin": "shū"
+    "Pinyin": "shū",
+    "Bopomofo": "ㄕㄨ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">本</span><span class=\"uc-mwp\">běn</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">册</span><span class=\"uc-mwc uc-mwt\">冊</span><span class=\"uc-mwp\">cè</span></span>"
    }
   },
   {
@@ -2191,7 +2387,9 @@
     "English": "<div class=\"uc-sense\">water</div><div class=\"uc-sense\">river</div><div class=\"uc-sense\">liquid</div><div class=\"uc-sense\">beverage</div><div class=\"uc-sense\">additional charges or income</div><div class=\"uc-sense\">(of clothes) classifier for number of washes</div>",
     "Simplified": "水",
     "Traditional": "",
-    "Pinyin": "shuǐ"
+    "Pinyin": "shuǐ",
+    "Bopomofo": "ㄕㄨㄟˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2213,7 +2411,9 @@
     "English": "<div class=\"uc-sense\">fruit</div>",
     "Simplified": "水果",
     "Traditional": "",
-    "Pinyin": "shuǐguǒ"
+    "Pinyin": "shuǐguǒ",
+    "Bopomofo": "ㄕㄨㄟˇ ㄍㄨㄛˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -2235,7 +2435,9 @@
     "English": "<div class=\"uc-sense\">to sleep</div><div class=\"uc-sense\">go to bed</div><div class=\"uc-sense\">to go to bed</div>",
     "Simplified": "睡觉",
     "Traditional": "睡覺",
-    "Pinyin": "shuì jiào"
+    "Pinyin": "shuì jiào",
+    "Bopomofo": "ㄕㄨㄟˋ ㄐㄧㄠˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2257,7 +2459,9 @@
     "English": "<div class=\"uc-sense\">speak</div><div class=\"uc-sense\">to speak</div><div class=\"uc-sense\">to talk</div><div class=\"uc-sense\">to say</div><div class=\"uc-sense\">to explain</div><div class=\"uc-sense\">to comment</div><div class=\"uc-sense\">to scold</div><div class=\"uc-sense\">to tell off</div><div class=\"uc-sense\">theory</div><div class=\"uc-sense\">doctrine</div>",
     "Simplified": "说",
     "Traditional": "說",
-    "Pinyin": "shuō"
+    "Pinyin": "shuō",
+    "Bopomofo": "ㄕㄨㄛ",
+    "Measure word": ""
    }
   },
   {
@@ -2279,7 +2483,9 @@
     "English": "<div class=\"uc-sense\">four</div><div class=\"uc-sense\">4</div>",
     "Simplified": "四",
     "Traditional": "",
-    "Pinyin": "sì"
+    "Pinyin": "sì",
+    "Bopomofo": "ㄙˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2301,7 +2507,9 @@
     "English": "<div class=\"uc-sense\">years old</div><div class=\"uc-sense\">age</div><div class=\"uc-sense\">classifier for years (of age)</div><div class=\"uc-sense\">year</div><div class=\"uc-sense\">year (of crop harvests)</div>",
     "Simplified": "岁",
     "Traditional": "歲",
-    "Pinyin": "suì"
+    "Pinyin": "suì",
+    "Bopomofo": "ㄙㄨㄟˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2323,7 +2531,9 @@
     "English": "<div class=\"uc-sense\">he</div><div class=\"uc-sense\">him</div><div class=\"uc-sense\">him (used for either sex when the sex is unknown or unimportant)</div><div class=\"uc-sense\">(used before sb's name for emphasis)</div><div class=\"uc-sense\">(used as a meaningless mock object)</div>",
     "Simplified": "他",
     "Traditional": "",
-    "Pinyin": "tā"
+    "Pinyin": "tā",
+    "Bopomofo": "ㄊㄚ",
+    "Measure word": ""
    }
   },
   {
@@ -2345,7 +2555,9 @@
     "English": "<div class=\"uc-sense\">she</div>",
     "Simplified": "她",
     "Traditional": "",
-    "Pinyin": "tā"
+    "Pinyin": "tā",
+    "Bopomofo": "ㄊㄚ",
+    "Measure word": ""
    }
   },
   {
@@ -2367,7 +2579,9 @@
     "English": "<div class=\"uc-sense\">too (much)</div><div class=\"uc-sense\">highest</div><div class=\"uc-sense\">greatest</div><div class=\"uc-sense\">very</div><div class=\"uc-sense\">extremely</div>",
     "Simplified": "太",
     "Traditional": "",
-    "Pinyin": "tài"
+    "Pinyin": "tài",
+    "Bopomofo": "ㄊㄞˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2389,7 +2603,9 @@
     "English": "<div class=\"uc-sense\">weather</div>",
     "Simplified": "天气",
     "Traditional": "天氣",
-    "Pinyin": "tiānqì"
+    "Pinyin": "tiānqì",
+    "Bopomofo": "ㄊㄧㄢ ㄑㄧˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2411,7 +2627,9 @@
     "English": "<div class=\"uc-sense\">listen</div><div class=\"uc-sense\">hear</div><div class=\"uc-sense\">to listen to</div><div class=\"uc-sense\">to hear</div><div class=\"uc-sense\">to heed</div><div class=\"uc-sense\">to obey</div><div class=\"uc-sense\">a can (loanword from English \"tin\")</div><div class=\"uc-sense\">classifier for canned beverages</div><div class=\"uc-sense\">to let be</div><div class=\"uc-sense\">to allow</div><div class=\"uc-sense\">to deal with</div>",
     "Simplified": "听",
     "Traditional": "聽",
-    "Pinyin": "tīng"
+    "Pinyin": "tīng",
+    "Bopomofo": "ㄊㄧㄥ",
+    "Measure word": ""
    }
   },
   {
@@ -2433,7 +2651,9 @@
     "English": "<div class=\"uc-sense\">fellow student</div><div class=\"uc-sense\">schoolmate</div><div class=\"uc-sense\">to study at the same school</div><div class=\"uc-sense\">classmate</div>",
     "Simplified": "同学",
     "Traditional": "同學",
-    "Pinyin": "tóngxué"
+    "Pinyin": "tóngxué",
+    "Bopomofo": "ㄊㄨㄥˊ ㄒㄩㄝˊ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -2455,7 +2675,9 @@
     "English": "<div class=\"uc-sense\">hello (on the phone)</div><div class=\"uc-sense\">hey</div><div class=\"uc-sense\">to feed (an animal, baby, invalid etc)</div><div class=\"uc-sense\">to feed</div>",
     "Simplified": "喂",
     "Traditional": "",
-    "Pinyin": "wèi"
+    "Pinyin": "wèi",
+    "Bopomofo": "ㄨㄟˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2477,7 +2699,9 @@
     "English": "<div class=\"uc-sense\">I</div><div class=\"uc-sense\">me</div><div class=\"uc-sense\">my</div>",
     "Simplified": "我",
     "Traditional": "",
-    "Pinyin": "wǒ"
+    "Pinyin": "wǒ",
+    "Bopomofo": "ㄨㄛˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2499,7 +2723,9 @@
     "English": "<div class=\"uc-sense\">we</div><div class=\"uc-sense\">us</div><div class=\"uc-sense\">ourselves</div><div class=\"uc-sense\">our</div>",
     "Simplified": "我们",
     "Traditional": "我們",
-    "Pinyin": "wǒmen"
+    "Pinyin": "wǒmen",
+    "Bopomofo": "ㄨㄛˇ ㄇㄣ˙",
+    "Measure word": ""
    }
   },
   {
@@ -2521,7 +2747,9 @@
     "English": "<div class=\"uc-sense\">five</div><div class=\"uc-sense\">5</div>",
     "Simplified": "五",
     "Traditional": "",
-    "Pinyin": "wǔ"
+    "Pinyin": "wǔ",
+    "Bopomofo": "ㄨˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2543,7 +2771,9 @@
     "English": "<div class=\"uc-sense\">to like</div><div class=\"uc-sense\">to be fond of</div>",
     "Simplified": "喜欢",
     "Traditional": "喜歡",
-    "Pinyin": "xǐhuan"
+    "Pinyin": "xǐhuan",
+    "Bopomofo": "ㄒㄧˇ ㄏㄨㄢ˙",
+    "Measure word": ""
    }
   },
   {
@@ -2565,7 +2795,9 @@
     "English": "<div class=\"uc-sense\">fall</div><div class=\"uc-sense\">below</div><div class=\"uc-sense\">down</div><div class=\"uc-sense\">downwards</div><div class=\"uc-sense\">lower</div><div class=\"uc-sense\">later</div><div class=\"uc-sense\">next (week etc)</div><div class=\"uc-sense\">second (of two parts)</div><div class=\"uc-sense\">to decline</div><div class=\"uc-sense\">to go down</div><div class=\"uc-sense\">to arrive at (a decision, conclusion etc)</div><div class=\"uc-sense\">measure word to show the frequency of an action</div>",
     "Simplified": "下",
     "Traditional": "",
-    "Pinyin": "xià"
+    "Pinyin": "xià",
+    "Bopomofo": "ㄒㄧㄚˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2587,7 +2819,9 @@
     "English": "<div class=\"uc-sense\">afternoon</div><div class=\"uc-sense\">p.m.</div>",
     "Simplified": "下午",
     "Traditional": "",
-    "Pinyin": "xiàwǔ"
+    "Pinyin": "xiàwǔ",
+    "Bopomofo": "ㄒㄧㄚˋ ㄨˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -2609,7 +2843,9 @@
     "English": "<div class=\"uc-sense\">to rain</div>",
     "Simplified": "下雨",
     "Traditional": "",
-    "Pinyin": "xiàyǔ"
+    "Pinyin": "xiàyǔ",
+    "Bopomofo": "ㄒㄧㄚˋ ㄩˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2631,7 +2867,9 @@
     "English": "<div class=\"uc-sense\">Mr.</div><div class=\"uc-sense\">Sir</div><div class=\"uc-sense\">teacher</div><div class=\"uc-sense\">gentleman</div><div class=\"uc-sense\">mister (Mr.)</div><div class=\"uc-sense\">husband</div>",
     "Simplified": "先生",
     "Traditional": "",
-    "Pinyin": "xiānsheng"
+    "Pinyin": "xiānsheng",
+    "Bopomofo": "ㄒㄧㄢ ㄕㄥ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -2653,7 +2891,9 @@
     "English": "<div class=\"uc-sense\">now</div><div class=\"uc-sense\">at present</div><div class=\"uc-sense\">at the moment</div><div class=\"uc-sense\">modern</div><div class=\"uc-sense\">current</div><div class=\"uc-sense\">nowadays</div>",
     "Simplified": "现在",
     "Traditional": "現在",
-    "Pinyin": "xiànzài"
+    "Pinyin": "xiànzài",
+    "Bopomofo": "ㄒㄧㄢˋ ㄗㄞˋ",
+    "Measure word": ""
    }
   },
   {
@@ -2675,7 +2915,9 @@
     "English": "<div class=\"uc-sense\">think</div><div class=\"uc-sense\">believe</div><div class=\"uc-sense\">suppose</div><div class=\"uc-sense\">would like to</div><div class=\"uc-sense\">to think (about)</div><div class=\"uc-sense\">to think of</div><div class=\"uc-sense\">to devise</div><div class=\"uc-sense\">to think (that)</div><div class=\"uc-sense\">to believe (that)</div><div class=\"uc-sense\">to desire</div><div class=\"uc-sense\">to want (to)</div><div class=\"uc-sense\">to miss (feel wistful about the absence of)</div>",
     "Simplified": "想",
     "Traditional": "",
-    "Pinyin": "xiǎng"
+    "Pinyin": "xiǎng",
+    "Bopomofo": "ㄒㄧㄤˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2697,7 +2939,9 @@
     "English": "<div class=\"uc-sense\">small</div><div class=\"uc-sense\">young</div><div class=\"uc-sense\">tiny</div><div class=\"uc-sense\">few</div>",
     "Simplified": "小",
     "Traditional": "",
-    "Pinyin": "xiǎo"
+    "Pinyin": "xiǎo",
+    "Bopomofo": "ㄒㄧㄠˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2719,7 +2963,9 @@
     "English": "<div class=\"uc-sense\">young lady</div><div class=\"uc-sense\">miss</div><div class=\"uc-sense\">Ms.</div><div class=\"uc-sense\">(slang) prostitute</div>",
     "Simplified": "小姐",
     "Traditional": "",
-    "Pinyin": "xiǎojie"
+    "Pinyin": "xiǎojie",
+    "Bopomofo": "ㄒㄧㄠˇ ㄐㄧㄝ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -2741,7 +2987,9 @@
     "English": "<div class=\"uc-sense\">some</div><div class=\"uc-sense\">few</div><div class=\"uc-sense\">several</div><div class=\"uc-sense\">classifier indicating a small amount or small number greater than 1: some, a few, several</div>",
     "Simplified": "些",
     "Traditional": "",
-    "Pinyin": "xiē"
+    "Pinyin": "xiē",
+    "Bopomofo": "ㄒㄧㄝ",
+    "Measure word": ""
    }
   },
   {
@@ -2763,7 +3011,9 @@
     "English": "<div class=\"uc-sense\">to write</div><div class=\"uc-sense\">to compose</div>",
     "Simplified": "写",
     "Traditional": "寫",
-    "Pinyin": "xiě"
+    "Pinyin": "xiě",
+    "Bopomofo": "ㄒㄧㄝˇ",
+    "Measure word": ""
    }
   },
   {
@@ -2785,7 +3035,9 @@
     "English": "<div class=\"uc-sense\">thank you</div><div class=\"uc-sense\">to thank</div><div class=\"uc-sense\">thanks</div>",
     "Simplified": "谢谢",
     "Traditional": "謝謝",
-    "Pinyin": "xièxie"
+    "Pinyin": "xièxie",
+    "Bopomofo": "ㄒㄧㄝˋ ㄒㄧㄝ˙",
+    "Measure word": ""
    }
   },
   {
@@ -2807,7 +3059,9 @@
     "English": "<div class=\"uc-sense\">week</div><div class=\"uc-sense\">day of the week</div><div class=\"uc-sense\">Sunday</div>",
     "Simplified": "星期",
     "Traditional": "",
-    "Pinyin": "xīngqī"
+    "Pinyin": "xīngqī",
+    "Bopomofo": "ㄒㄧㄥ ㄑㄧ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -2829,7 +3083,9 @@
     "English": "<div class=\"uc-sense\">student</div><div class=\"uc-sense\">schoolchild</div>",
     "Simplified": "学生",
     "Traditional": "學生",
-    "Pinyin": "xuésheng"
+    "Pinyin": "xuésheng",
+    "Bopomofo": "ㄒㄩㄝˊ ㄕㄥ˙",
+    "Measure word": ""
    }
   },
   {
@@ -2851,7 +3107,9 @@
     "English": "<div class=\"uc-sense\">learn</div><div class=\"uc-sense\">to study</div><div class=\"uc-sense\">to learn</div>",
     "Simplified": "学习",
     "Traditional": "學習",
-    "Pinyin": "xuéxí"
+    "Pinyin": "xuéxí",
+    "Bopomofo": "ㄒㄩㄝˊ ㄒㄧˊ",
+    "Measure word": ""
    }
   },
   {
@@ -2873,7 +3131,9 @@
     "English": "<div class=\"uc-sense\">school</div>",
     "Simplified": "学校",
     "Traditional": "學校",
-    "Pinyin": "xuéxiào"
+    "Pinyin": "xuéxiào",
+    "Bopomofo": "ㄒㄩㄝˊ ㄒㄧㄠˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">所</span><span class=\"uc-mwp\">suǒ</span></span>"
    }
   },
   {
@@ -2895,7 +3155,9 @@
     "English": "<div class=\"uc-sense\">one</div><div class=\"uc-sense\">once</div><div class=\"uc-sense\">a</div><div class=\"uc-sense\">single</div><div class=\"uc-sense\">a (article)</div><div class=\"uc-sense\">as soon as</div><div class=\"uc-sense\">entire</div><div class=\"uc-sense\">whole</div><div class=\"uc-sense\">all</div><div class=\"uc-sense\">throughout</div><div class=\"uc-sense\">\"one\" radical in Chinese characters (Kangxi radical 1)</div>",
     "Simplified": "一",
     "Traditional": "",
-    "Pinyin": "yī"
+    "Pinyin": "yī",
+    "Bopomofo": "ㄧ",
+    "Measure word": ""
    }
   },
   {
@@ -2917,7 +3179,9 @@
     "English": "<div class=\"uc-sense\">clothes</div>",
     "Simplified": "衣服",
     "Traditional": "",
-    "Pinyin": "yīfu"
+    "Pinyin": "yīfu",
+    "Bopomofo": "ㄧ ㄈㄨ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">件</span><span class=\"uc-mwp\">jiàn</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>"
    }
   },
   {
@@ -2939,7 +3203,9 @@
     "English": "<div class=\"uc-sense\">doctor</div>",
     "Simplified": "医生",
     "Traditional": "醫生",
-    "Pinyin": "yīshēng"
+    "Pinyin": "yīshēng",
+    "Bopomofo": "ㄧ ㄕㄥ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
    }
   },
   {
@@ -2961,7 +3227,9 @@
     "English": "<div class=\"uc-sense\">hospital</div>",
     "Simplified": "医院",
     "Traditional": "醫院",
-    "Pinyin": "yīyuàn"
+    "Pinyin": "yīyuàn",
+    "Bopomofo": "ㄧ ㄩㄢˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">所</span><span class=\"uc-mwp\">suǒ</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span>"
    }
   },
   {
@@ -2983,7 +3251,9 @@
     "English": "<div class=\"uc-sense\">chair</div>",
     "Simplified": "椅子",
     "Traditional": "",
-    "Pinyin": "yǐzi"
+    "Pinyin": "yǐzi",
+    "Bopomofo": "ㄧˇ ㄗ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">把</span><span class=\"uc-mwp\">bǎ</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>"
    }
   },
   {
@@ -3005,7 +3275,9 @@
     "English": "<div class=\"uc-sense\">a bit</div><div class=\"uc-sense\">a few</div><div class=\"uc-sense\">a little bit</div><div class=\"uc-sense\">(used in negative expressions) (not) the least bit</div><div class=\"uc-sense\">(after an adjective, used to form the comparative) a bit more</div>",
     "Simplified": "一点儿",
     "Traditional": "一點兒",
-    "Pinyin": "yìdiǎnr"
+    "Pinyin": "yìdiǎnr",
+    "Bopomofo": "ㄧ ㄉㄧㄢˇ ㄦ˙",
+    "Measure word": ""
    }
   },
   {
@@ -3027,7 +3299,9 @@
     "English": "<div class=\"uc-sense\">have</div><div class=\"uc-sense\">to have</div><div class=\"uc-sense\">there is</div><div class=\"uc-sense\">having</div><div class=\"uc-sense\">with</div><div class=\"uc-sense\">-ful</div><div class=\"uc-sense\">-ed</div><div class=\"uc-sense\">-al</div>",
     "Simplified": "有",
     "Traditional": "",
-    "Pinyin": "yǒu"
+    "Pinyin": "yǒu",
+    "Bopomofo": "ㄧㄡˇ",
+    "Measure word": ""
    }
   },
   {
@@ -3049,7 +3323,9 @@
     "English": "<div class=\"uc-sense\">moon</div><div class=\"uc-sense\">month</div><div class=\"uc-sense\">monthly</div>",
     "Simplified": "月",
     "Traditional": "",
-    "Pinyin": "yuè"
+    "Pinyin": "yuè",
+    "Bopomofo": "ㄩㄝˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">轮</span><span class=\"uc-mwc uc-mwt\">輪</span><span class=\"uc-mwp\">lún</span></span>"
    }
   },
   {
@@ -3071,7 +3347,9 @@
     "English": "<div class=\"uc-sense\">at</div><div class=\"uc-sense\">on</div><div class=\"uc-sense\">in</div><div class=\"uc-sense\">indicates an action in progress</div><div class=\"uc-sense\">to exist</div><div class=\"uc-sense\">to be alive</div><div class=\"uc-sense\">(of sb or sth) to be (located) at</div><div class=\"uc-sense\">(used before a verb to indicate an action in progress)</div>",
     "Simplified": "在",
     "Traditional": "",
-    "Pinyin": "zài"
+    "Pinyin": "zài",
+    "Bopomofo": "ㄗㄞˋ",
+    "Measure word": ""
    }
   },
   {
@@ -3093,7 +3371,9 @@
     "English": "<div class=\"uc-sense\">goodbye</div><div class=\"uc-sense\">see you later</div><div class=\"uc-sense\">see you again later</div>",
     "Simplified": "再见",
     "Traditional": "再見",
-    "Pinyin": "zàijiàn"
+    "Pinyin": "zàijiàn",
+    "Bopomofo": "ㄗㄞˋ ㄐㄧㄢˋ",
+    "Measure word": ""
    }
   },
   {
@@ -3115,7 +3395,9 @@
     "English": "<div class=\"uc-sense\">how?</div><div class=\"uc-sense\">what?</div><div class=\"uc-sense\">why?</div>",
     "Simplified": "怎么",
     "Traditional": "怎麼",
-    "Pinyin": "zěnme"
+    "Pinyin": "zěnme",
+    "Bopomofo": "ㄗㄣˇ ㄇㄜ˙",
+    "Measure word": ""
    }
   },
   {
@@ -3137,7 +3419,9 @@
     "English": "<div class=\"uc-sense\">how about?</div><div class=\"uc-sense\">how is/was it?</div><div class=\"uc-sense\">how?</div><div class=\"uc-sense\">how was it?</div><div class=\"uc-sense\">how are things?</div>",
     "Simplified": "怎么样",
     "Traditional": "怎麼樣",
-    "Pinyin": "zěnmeyàng"
+    "Pinyin": "zěnmeyàng",
+    "Bopomofo": "ㄗㄣˇ ㄇㄜ˙ ㄧㄤˋ",
+    "Measure word": ""
    }
   },
   {
@@ -3159,7 +3443,9 @@
     "English": "<div class=\"uc-sense\">this</div><div class=\"uc-sense\">(pronoun) this</div><div class=\"uc-sense\">these</div><div class=\"uc-sense\">the (followed by a noun)</div><div class=\"uc-sense\">these (followed by a classifier)</div>",
     "Simplified": "这",
     "Traditional": "這",
-    "Pinyin": "zhè"
+    "Pinyin": "zhè",
+    "Bopomofo": "ㄓㄜˋ",
+    "Measure word": ""
    }
   },
   {
@@ -3181,7 +3467,9 @@
     "English": "<div class=\"uc-sense\">China</div>",
     "Simplified": "中国",
     "Traditional": "中國",
-    "Pinyin": "Zhōngguó"
+    "Pinyin": "Zhōngguó",
+    "Bopomofo": "ㄓㄨㄥ ㄍㄨㄛˊ",
+    "Measure word": ""
    }
   },
   {
@@ -3203,7 +3491,9 @@
     "English": "<div class=\"uc-sense\">noon</div><div class=\"uc-sense\">midday</div>",
     "Simplified": "中午",
     "Traditional": "",
-    "Pinyin": "zhōngwǔ"
+    "Pinyin": "zhōngwǔ",
+    "Bopomofo": "ㄓㄨㄥ ㄨˇ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -3225,7 +3515,9 @@
     "English": "<div class=\"uc-sense\">to live</div><div class=\"uc-sense\">reside</div><div class=\"uc-sense\">to stop</div><div class=\"uc-sense\">to dwell</div><div class=\"uc-sense\">to stay</div><div class=\"uc-sense\">to reside</div><div class=\"uc-sense\">(suffix indicating firmness, steadiness, or coming to a halt)</div>",
     "Simplified": "住",
     "Traditional": "",
-    "Pinyin": "zhù"
+    "Pinyin": "zhù",
+    "Bopomofo": "ㄓㄨˋ",
+    "Measure word": ""
    }
   },
   {
@@ -3247,7 +3539,9 @@
     "English": "<div class=\"uc-sense\">table</div><div class=\"uc-sense\">desk</div>",
     "Simplified": "桌子",
     "Traditional": "",
-    "Pinyin": "zhuōzi"
+    "Pinyin": "zhuōzi",
+    "Bopomofo": "ㄓㄨㄛ ㄗ˙",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">张</span><span class=\"uc-mwc uc-mwt\">張</span><span class=\"uc-mwp\">zhāng</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>"
    }
   },
   {
@@ -3269,7 +3563,9 @@
     "English": "<div class=\"uc-sense\">letter</div><div class=\"uc-sense\">character</div><div class=\"uc-sense\">symbol</div><div class=\"uc-sense\">word</div><div class=\"uc-sense\">courtesy or style name traditionally given to males aged 20 in dynastic China</div>",
     "Simplified": "字",
     "Traditional": "",
-    "Pinyin": "zì"
+    "Pinyin": "zì",
+    "Bopomofo": "ㄗˋ",
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
    }
   },
   {
@@ -3291,7 +3587,9 @@
     "English": "<div class=\"uc-sense\">yesterday</div>",
     "Simplified": "昨天",
     "Traditional": "",
-    "Pinyin": "zuótiān"
+    "Pinyin": "zuótiān",
+    "Bopomofo": "ㄗㄨㄛˊ ㄊㄧㄢ",
+    "Measure word": ""
    }
   },
   {
@@ -3313,7 +3611,9 @@
     "English": "<div class=\"uc-sense\">do</div><div class=\"uc-sense\">make</div><div class=\"uc-sense\">to make</div><div class=\"uc-sense\">to produce</div><div class=\"uc-sense\">to write</div><div class=\"uc-sense\">to compose</div><div class=\"uc-sense\">to do</div><div class=\"uc-sense\">to engage in</div><div class=\"uc-sense\">to hold (a party etc)</div><div class=\"uc-sense\">(of a person) to be (an intermediary, a good student etc)</div><div class=\"uc-sense\">to become (husband and wife, friends etc)</div><div class=\"uc-sense\">(of a thing) to serve as</div><div class=\"uc-sense\">to be used for</div><div class=\"uc-sense\">to assume (an air or manner)</div>",
     "Simplified": "做",
     "Traditional": "",
-    "Pinyin": "zuò"
+    "Pinyin": "zuò",
+    "Bopomofo": "ㄗㄨㄛˋ",
+    "Measure word": ""
    }
   },
   {
@@ -3335,7 +3635,9 @@
     "English": "<div class=\"uc-sense\">sit</div><div class=\"uc-sense\">to sit</div><div class=\"uc-sense\">to take a seat</div><div class=\"uc-sense\">to take (a bus, airplane etc)</div><div class=\"uc-sense\">to bear fruit</div>",
     "Simplified": "坐",
     "Traditional": "",
-    "Pinyin": "zuò"
+    "Pinyin": "zuò",
+    "Bopomofo": "ㄗㄨㄛˋ",
+    "Measure word": ""
    }
   }
  ],

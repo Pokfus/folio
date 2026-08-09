@@ -6564,6 +6564,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `wireSpeakControls` adds only what a delegated listener cannot (role, tab stop, name), so a paint path
     that forgets it loses keyboard access rather than the feature; `body.no-tts` (written by `applyTheme`,
     like `no-anim`) takes the button chrome away where there is no engine, leaving the words as words.
+    **A CONTROL MAY SHOW ONE THING AND SAY ANOTHER** (`data-say`, read by `cardSpeakText`; Aug 2026, on
+    request, for the HSK decks' pinyin). `<span class="uc-tts" data-say="{{Simplified}}">{{Pinyin}}</span>`
+    shows the romanisation and pronounces the characters — which is the only way that control can work, since
+    a Mandarin voice handed "bēizi" reads the letters rather than the word. It is **the same contract the
+    site's own `.tr-play` buttons already use**, which is why it is spelled `data-say` and not something new,
+    and `data-say` had to be added to the sanitizer's `span` allowlist to survive ingest: it never reaches
+    the DOM as markup, only `SpeechSynthesisUtterance.text`, so the worst a deck can do with it is make the
+    speaker say something other than what is written — which the visible text could already do.
+    `wireSpeakControls` names the control by what it will SAY rather than by what it shows, that being the
+    thing a reader pressing it is after. Guarded in `.claude/test-speak.js`, whose third fixture deck exists
+    only for this: the failure is silent, because a dropped attribute leaves a control that still works and
+    simply pronounces the wrong string.
   · **CLOZE DELETIONS — `{{c1::answer}}` / `{{c1::answer::hint}}`** (`clozeMark` / `CLOZE_RX` /
     `CLOZE_NAME_RX` / `.uc-cloze`). Anki's syntax, because a learner who has written cloze cards before will
     type it without being told. **The braces go in the CARD'S TEXT, not in the template** — a substituted

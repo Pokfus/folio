@@ -1991,7 +1991,11 @@
     "*": new Set(["class", "dir", "lang", "title", "style"]),
     a: new Set(["href", "rel", "target"]),
     img: new Set(["src", "alt", "width", "height", "loading"]),
-    span: new Set(["data-k"]),
+    // data-k is a glossary term's key; data-say is what a `.uc-tts` control should SPEAK when that differs
+    // from the words it shows — a pinyin button that has to pronounce the characters, say. It never reaches
+    // the DOM as markup, only SpeechSynthesisUtterance.text, so the worst a deck can do with it is make the
+    // speaker say something other than what is written, which it could already do with the visible text.
+    span: new Set(["data-k", "data-say"]),
     sup: new Set(["data-fn"]),   // a footnote marker pointing into the surface's source list; the digit itself is written by wireFootnotes
   };
   // `style` survives ONLY as a colour. The rich-text ribbon's colour button emits
@@ -10065,9 +10069,16 @@
     return ttsPickVoice(pool, /$^/, /$^/, null) || pool[0];
   }
   const SPEECH_RATE = 0.85;   // the same deliberate slowness the English narration reads at
+  // What a control SAYS is its own text, unless it carries data-say — which is how a control can show one
+  // thing and pronounce another (a pinyin button that has to speak the characters, since a Mandarin voice
+  // handed "bēizi" reads the romanisation rather than the word). The site's own .tr-play buttons already
+  // work this way; this is the same contract for a card type's .uc-tts.
+  function cardSpeakText(el) {
+    return String((el && (el.getAttribute("data-say") || el.textContent)) || "").replace(/\s+/g, " ").trim();
+  }
   function cardSpeak(el) {
     if (!el || !ttsSupported()) return;
-    const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+    const text = cardSpeakText(el);
     if (!text) return;
     const holder = el.closest("[lang]");
     const lang = holder ? holder.getAttribute("lang") : "";
@@ -10104,7 +10115,7 @@
     if (!scope || !ttsSupported()) return;
     scope.querySelectorAll(".uc-tts").forEach((el) => {
       if (el.getAttribute("role") === "button") return;
-      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      const text = cardSpeakText(el);   // name it by what it will SAY, which is the thing the reader is after
       el.setAttribute("role", "button");
       el.setAttribute("tabindex", "0");
       el.setAttribute("aria-label", text ? "Hear “" + text + "” read aloud" : "Read aloud");
