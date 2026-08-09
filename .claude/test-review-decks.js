@@ -283,6 +283,19 @@ const SETTINGS = {
     check("an explicit review limit caps the pooled draw", capped.banner[0] === 2, JSON.stringify(capped));
     check("...without changing what each deck offers on its own", capped.rows.every((n) => n === 5), JSON.stringify(capped.rows));
     check("...and is stored under the review's own entry", capped.stored && capped.stored.newPerDay === 2, JSON.stringify(capped.stored));
+
+    // …and the REVIEW's order switch writes the GLOBAL, which is what Settings shows — the other half of
+    // the per-deck assertion in section 4, and they fail in opposite directions
+    await page.evaluate(() => document.querySelector("#b-review").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
+    await page.waitForTimeout(300);
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="order"]').click());
+    await page.waitForTimeout(400);
+    const revOrder = await page.evaluate(() => {
+      const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      return { global: !!(S.settings || {}).reviewRandom, entry: ((S.deckOpts || {})["review:all"] || {}).random };
+    });
+    check("the review's own order switch writes the global setting, not a per-entry flag",
+      revOrder.global === true && revOrder.entry === undefined, JSON.stringify(revOrder));
     await page.close();
   }
 
@@ -349,11 +362,34 @@ const SETTINGS = {
       items: [...document.querySelectorAll(".dm-item b")].map((b) => b.textContent.trim()),
     }));
     /* Question variety joined the deck's own sheet as well as the review's (Aug 2026, on request) — it is
-       stored per entry, so it has to be settable on the entry it applies to. The order switch is NOT here:
-       it is a property of the pooled session and of nothing else. */
+       stored per entry, so it has to be settable on the entry it applies to. The ORDER switch joined it a
+       day later, on request, for the same reason: it was on the review banner's sheet alone, so a deck held
+       on its own row had no way to ask for a shuffled session. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Question variety", "Custom study", "Daily limits", "Skip today", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Custom study", "Daily limits", "Skip today", "Remove"]),
       JSON.stringify(menu.items));
+
+    /* THE ORDER SWITCH IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they
+       are stored in different places on purpose (see deckRandom): a deck writes `S.deckOpts[id].random`
+       while the review writes `S.settings.reviewRandom`, which is what Settings → Random review order
+       shows — a private copy there would leave two controls disagreeing with nothing to say which wins.
+       Throwing it must also NOT close the sheet, which is the rule every switch row here follows. */
+    const throwOrder = () => page.evaluate(() => {
+      document.querySelector('.dm-switch[data-act="order"]').click();
+      return { open: !!document.querySelector(".deck-menu"), on: document.querySelector('.dm-switch[data-act="order"] .switch').classList.contains("on") };
+    });
+    const flipped = await throwOrder();
+    await page.waitForTimeout(300);
+    const storedRandom = await page.evaluate(() => {
+      const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      const id = document.querySelector(".active-deck[data-review]").dataset.review;
+      return { deck: (S.deckOpts || {})[id] && (S.deckOpts || {})[id].random, global: !!(S.settings || {}).reviewRandom, id };
+    });
+    check("a deck's Random-order switch stores against that DECK, not the global setting",
+      flipped.open && flipped.on === true && storedRandom.deck === true && storedRandom.global === false,
+      JSON.stringify({ flipped, storedRandom }));
+    await throwOrder();   // put it back, so the sections below deal in deck order
+    await page.waitForTimeout(300);
 
     // Daily limits — Anki's three, and the deck's own new count follows the one it sets
     await page.evaluate(() => document.querySelector('.dm-item[data-act="limits"]').click());

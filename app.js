@@ -3513,6 +3513,23 @@
     return S.settings.questionVariety !== false;
   }
   function setDeckVariety(id, on) { setDeckLimits(id, { variety: !!on }); }
+  /* ORDERED / RANDOM, per entry (Aug 2026, on request: the switch used to appear on the review banner's
+     sheet alone, and a deck held on its own row had no way to ask for a shuffled session). It follows
+     question variety exactly — `S.deckOpts[id].random` where the reader has thrown the switch on that
+     deck, and `S.settings.reviewRandom` (Settings → Random review order) as the default everywhere else,
+     so nothing migrates and an untouched deck behaves as it always did.
+     The REVIEW is the one entry that writes the global rather than a per-entry flag, because the Settings
+     page's own switch shows that value: giving the review a private copy would leave the two disagreeing
+     about the pooled session with nothing on either page to say which was in force. */
+  function deckRandom(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    if (id !== REVIEW_ENTRY && typeof o.random === "boolean") return o.random;
+    return !!S.settings.reviewRandom;
+  }
+  function setDeckRandom(id, on) {
+    if (id === REVIEW_ENTRY) { S.settings.reviewRandom = !!on; save(); return; }
+    setDeckLimits(id, { random: !!on });
+  }
   /* Which entry's options a STUDY SCOPE follows. A deck tapped on its own row uses that deck's; the
      pooled review, the Card-of-the-day list and a single card off the home tile use the review's, since
      that is the entry whose sheet the reader would have opened to change it. */
@@ -7856,9 +7873,11 @@
   /* The options sheet, for an added deck's row AND for the daily review banner above them (Aug 2026, on
      request: "the same menu, without the delete option"). The review is an entry like any other under
      REVIEW_ENTRY, so the three shared rows need no special case — its settings simply apply to the pooled
-     session the banner starts, while a deck tapped on its own row keeps using its own. What differs is at
-     the ends: the review has no Remove (there is nothing to take it out OF) and carries the Ordered/Random
-     pair, which is a property of the pooled session and of nothing else. */
+     session the banner starts, while a deck tapped on its own row keeps using its own. The only thing that
+     differs is the last row: the review has no Remove, there being nothing to take it out OF.
+     The Ordered/Random switch was the review's alone until Aug 2026 and is now on every entry's sheet, on
+     request — see deckRandom, and the two shuffles in buildSession that make it mean something on a
+     deck-scoped session rather than appearing there and doing nothing. */
   function openDeckMenu(id) {
     const isReview = id === REVIEW_ENTRY;
     const info = entryInfo(id);
@@ -7879,7 +7898,7 @@
         '<div class="switch' + (on ? " on" : "") + '" role="switch" tabindex="0" aria-label="' + esc(label) +
           '" aria-checked="' + (on ? "true" : "false") + '"></div>' +
       "</div>";
-    const random = !!S.settings.reviewRandom;
+    const random = deckRandom(id);
     const variety = deckVariety(id);
     /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
        sit at the right of the row in the review list, where it competed with the deck's name for a 390px
@@ -7893,10 +7912,8 @@
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
                   : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
         (total ? '<span class="dm-studied">' + studied + "/" + total + " studied</span>" : "") + "</div>" +
-      (isReview
-        ? swRow("order", "Random order", "The session is shuffled each day",
-            "Cards come up in their deck order, oldest history first", random)
-        : "") +
+      swRow("order", "Random order", "The session is shuffled each day",
+        "Cards come up in their deck order, oldest history first", random) +
       swRow("variety", "Question variety",
         "Each card asks one of its phrasings at random",
         "Every card always asks its first phrasing", variety) +
@@ -7922,8 +7939,7 @@
           sw.classList.toggle("on", on);
           sw.setAttribute("aria-checked", on ? "true" : "false");
           if (rowEl.dataset.act === "order") {
-            S.settings.reviewRandom = on;
-            save();
+            setDeckRandom(id, on);
             note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
             toast(on ? "Review order: random" : "Review order: ordered");
           } else {
@@ -10138,8 +10154,15 @@
     "col-8": '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c3 3 3 14 0 17"/><path d="M12 3.5c-3 3-3 14 0 17"/>',
     // Doric column — capital, fluted shaft, base
     "col-13": '<path d="M5.5 5.5h13"/><path d="M7 8h10"/><path d="M9.5 8v9"/><path d="M12 8v9"/><path d="M14.5 8v9"/><path d="M7 17h10"/><path d="M5.5 20h13"/>',
-    // triumphal arch
-    "col-40": '<path d="M3 6.5h18"/><path d="M4.5 20V9.5"/><path d="M19.5 20V9.5"/><path d="M4.5 9.5a7.5 7.5 0 0 1 15 0"/><path d="M9 20v-6.5a3 3 0 0 1 6 0V20"/><path d="M2.5 20h19"/>',
+    /* laurel wreath — two branches meeting at the bottom, open at the top, three leaves each (Aug 2026,
+       on request; it was a triumphal arch). SVG y grows downward, so the bottom of the ring is at 90° and
+       the gap at the top: each branch is one arc, and each leaf is a teardrop whose base sits just
+       OUTSIDE that arc, leaning toward the branch's tip. Three leaves a side rather than four is what
+       keeps it legible at the 28px it renders at on a deck row — a fourth pair reads as a blob there. */
+    "col-40": '<path d="M11.2 19.8A7.2 7.2 0 0 1 8.8 6.1"/><path d="M12.8 19.8A7.2 7.2 0 0 0 15.2 6.1"/>' +
+      '<path d="M6.8 18.4Q5.2 17.4 3.8 18.6Q5.4 19.5 6.8 18.4Z"/><path d="M17.2 18.4Q18.6 19.5 20.2 18.6Q18.8 17.4 17.2 18.4Z"/>' +
+      '<path d="M4.3 13.7Q3.7 11.9 1.9 11.9Q2.5 13.6 4.3 13.7Z"/><path d="M19.7 13.7Q21.5 13.6 22.1 11.9Q20.3 11.9 19.7 13.7Z"/>' +
+      '<path d="M5.4 8.5Q6.1 6.8 4.7 5.6Q4 7.3 5.4 8.5Z"/><path d="M18.6 8.5Q20 7.3 19.3 5.6Q17.9 6.8 18.6 8.5Z"/>',
     // five-pointed star
     "col-41": '<path d="M12 3.4l2.6 5.5 6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.8l6-.9z"/>',
     // onion-domed church
@@ -10388,8 +10411,18 @@
   function showcaseHTML(prog, own) {
     const ids = showcaseIds(prog);
     let cells = ids.map((id) => artefactTileHTML(ARTEFACT_BY_ID[id])).join("");
+    /* AN EMPTY SLOT ON YOUR OWN PROFILE IS A CONTROL (Aug 2026, on a bug report: "when I click one of the
+       four empty squares, nothing happens"). It was a decorative `div` carrying a "+", which is the mark
+       for "you may add something here" and so invites exactly the click it could not answer. It opens the
+       collection, which is where an artefact is pinned from; where nothing is owned yet there is nothing to
+       pin, so it says so rather than raising an empty list — a control that explains itself beats one that
+       silently does nothing either way. On a FRIEND'S profile the slots stay decoration: their showcase is
+       not yours to fill. */
     for (let i = ids.length; i < SHOWCASE_MAX; i++) {
-      cells += '<div class="ar-tile ar-slot" aria-hidden="true"><span class="ar-slotmark">+</span></div>';
+      cells += own
+        ? '<button type="button" class="ar-tile ar-slot" data-arslot="1" title="Pin one of your artefacts here">' +
+          '<span class="ar-slotmark" aria-hidden="true">+</span><span class="ar-slotlbl">Pin an artefact</span></button>'
+        : '<div class="ar-tile ar-slot" aria-hidden="true"><span class="ar-slotmark">+</span></div>';
     }
     /* THE WAY IN TO THE WHOLE COLLECTION (Aug 2026, on request). The showcase is four artefacts out of
        however many a reader holds, and until now it said nothing about the rest: on your own account the
@@ -10407,6 +10440,24 @@
       : "";
     return head + '<div class="showcase">' + cells + '</div>' +
       (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
+  }
+  /* THE WAITING-CHESTS BANNER, at the very top of the account page (Aug 2026, on request, with the chest
+     overlay's own "Save for later"). The two halves are one feature: a chest may now be put by, so there
+     has to be somewhere obvious to come back to it, and the Reliquary's own "Open your chest" button is
+     four sections down a long page — a reader who deliberately deferred a reward should not have to go
+     looking for it. It is rendered by BOTH account views, since a guest earns chests too (see the note on
+     the signed-out Reliquary), and it renders nothing at all when none is waiting: a banner that says "0
+     chests" is a banner that reads as broken.
+     `chest-banner` is `#chestBanner`, so refreshReliquary can take it away the moment the last one is
+     opened without rebuilding the page under the reader. */
+  function chestBannerHTML() {
+    const n = chestCount();
+    if (!n) return "";
+    return '<div class="chest-banner" id="chestBanner">' +
+      '<span class="cb-ic" aria-hidden="true">' + CHEST_SVG + "</span>" +
+      '<div class="cb-text"><b>' + (n === 1 ? "A chest is waiting" : n + " chests are waiting") + "</b>" +
+      "<small>Every Folio level opens one, and so does winning all six daily games in a day.</small></div>" +
+      '<button type="button" class="btn cb-open" id="cbOpen">Open ' + (n === 1 ? "it" : "one") + "</button></div>";
   }
   // the account page's inventory
   function reliquaryHTML(prog, own) {
@@ -10533,6 +10584,14 @@
     const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
     if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host, S, true); }
     if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc, S, true); }
+    // the waiting-chests banner is a count, so opening one changes it and emptying it retires it. It is
+    // replaced in place rather than through render(), for the reason the two blocks above are.
+    const slot = document.querySelector("#chestSlot");
+    if (slot) { slot.innerHTML = chestBannerHTML(); wireChestBanner(slot); }
+  }
+  function wireChestBanner(host) {
+    const b = host && host.querySelector("#cbOpen");
+    if (b) b.addEventListener("click", () => openChestPop());
   }
   /* one delegated listener per rendered container — the tiles are rebuilt whenever a pin changes.
      `prog` and `own` are what the "See all" button opens the collection FOR: a friend's showcase must
@@ -10545,6 +10604,11 @@
     const open = host.querySelector("#arOpen");
     if (open) open.addEventListener("click", () => openChestPop());
     host.querySelectorAll("[data-arall]").forEach((b) => b.addEventListener("click", () => openCollectionWin(p, mine)));
+    // an empty showcase slot opens the collection to pin from — see showcaseHTML
+    host.querySelectorAll("[data-arslot]").forEach((b) => b.addEventListener("click", () => {
+      if (!ownedArtefacts(p).length) { toast("Open a chest first — then pin an artefact from your collection."); return; }
+      openCollectionWin(p, mine);
+    }));
   }
 
   /* ---------- the chest ----------
@@ -10552,10 +10616,15 @@
      are chosen by the rarity that has just been rolled; phase 3 is the artefact. */
   const CHEST_MS = { common: 900, rare: 1300, epic: 1800, legendary: 2500 };
   const RARITY_HEX = { common: "#8A867C", rare: "#3A6FB0", epic: "#7B4BA8", legendary: "#C2701E" };
+  /* A SHALLOWER LID (Aug 2026, on request: "the top is too rounded"). The dome was an arc of ry 30 over a
+     92-wide lid, which is very nearly a half-circle — it read as a barrel or a cauldron rather than as a
+     chest. The rise is 16 now, a gentle curve over a lid band that keeps its own depth, and the 14 units
+     the dome gave up go to the box, so the thing is squarer and unmistakably a chest at every size it is
+     drawn at (190px in the overlay, 40px in the account banner). */
   const CHEST_SVG =
     '<svg class="chest-svg" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<g class="chest-lid"><path d="M14 44V34a46 30 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 44h108v10H6z" fill="currentColor" fill-opacity=".22"/></g>' +
-      '<g class="chest-box"><path d="M14 54h92v32a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 54h16v16H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 62v6"/></g>' +
+      '<g class="chest-lid"><path d="M14 40V30a46 16 0 0 1 92 0v10z" fill="currentColor" fill-opacity=".14"/><path d="M6 40h108v11H6z" fill="currentColor" fill-opacity=".22"/></g>' +
+      '<g class="chest-box"><path d="M14 51h92v35a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="currentColor" fill-opacity=".14"/><path d="M52 51h16v17H52z" fill="currentColor" fill-opacity=".3"/><path d="M60 60v6"/></g>' +
     '</svg>';
   let _chestClose = null;
   function closeChestPop() { if (_chestClose) _chestClose(); }
@@ -10592,6 +10661,15 @@
 
     const btn = ov.querySelector("#chestBtn");
     if (nothingLeft) { btn.disabled = true; addAct("Close", close); return; }
+    /* SAVE FOR LATER (Aug 2026, on request). A chest arrives unasked — on the grade that happens to finish
+       an XP bar, in the middle of a study session — and the only ways out of the overlay were Escape and
+       the ×, neither of which says what happens to the chest. `S.chests` has always kept it, so this makes
+       an existing guarantee visible and gives it a name. It stands beside the closed chest and goes as soon
+       as the lid opens: once an artefact has been drawn there is nothing left to defer. */
+    const later = addAct("Save for later", () => {
+      close();
+      toast(chestCount() === 1 ? "Saved — it's waiting in your account." : chestCount() + " chests waiting in your account.");
+    }, true);
     let opening = false;
     btn.addEventListener("click", () => {
       if (opening) return;
@@ -10604,6 +10682,8 @@
       ov.classList.add("opening");
       ov.querySelector("#chestHint").textContent = "";
       const more = ov.querySelector("#chestMore"); if (more) more.hidden = true;
+      later.remove();   // the lid is open: there is nothing left to save
+      ov.querySelector("#chestActs").hidden = true;
       sfx("chest");
       if (!prefersReducedMotion()) chestConfetti(ov, r);
       setTimeout(() => {
@@ -10634,6 +10714,7 @@
       b.textContent = label;
       b.addEventListener("click", fn);
       acts.appendChild(b);
+      return b;
     }
   }
   // rarity-sized burst. Common gets a handful of grey flecks; a legendary gets a shower in its own colour
@@ -10771,8 +10852,12 @@
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
     { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
       o: { lang: "grc", t: "ὡς μήτε τὰ γενόμενα ἐξ ἀνθρώπων τῷ χρόνῳ ἐξίτηλα γένηται.", a: "Ἡρόδοτος", s: "Ἱστορίαι Α΄.1" } },
-    { t: "History has been assigned the task of judging the past. This work does not presume to such a task; it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
-      o: { lang: "de", t: "Er will bloß zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
+    /* The German carried only the closing clause — "Er will bloß zeigen…" — against an English of two
+       sentences, so flipping the quote over shrank it to a fragment (Aug 2026, on a report). Both halves
+       now give Ranke's whole sentence, and the original is his 1824 spelling verbatim ("blos", "Aemter"),
+       checked against the printed preface rather than the form the line is usually quoted in. */
+    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
+      o: { lang: "de", t: "Man hat der Historie das Amt, die Vergangenheit zu richten, die Mitwelt zum Nutzen zukünftiger Jahre zu belehren, beigemessen: so hoher Aemter unterwindet sich gegenwärtiger Versuch nicht: er will blos zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
     { t: "Misunderstanding of the present grows inevitably out of ignorance of the past.", a: "Marc Bloch", s: "The Historian's Craft, 1949",
       o: { lang: "fr", t: "L'incompréhension du présent naît fatalement de l'ignorance du passé.", a: "Marc Bloch", s: "Apologie pour l'histoire, 1949" } },
   ];
@@ -12391,7 +12476,7 @@
     if (scope.type === "review") {
       const q = reviewQueue();
       queue = q.all.slice();
-      if (S.settings.reviewRandom) shuffle(queue);                                             // daily-review order toggle (home banner)
+      if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
       else {                                                                                   // "Chrono" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
         Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));   // the user's own decks follow, in their authored order
@@ -12412,6 +12497,9 @@
       const ids = cotdIds().filter((id) => !isSuspended(id));
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
       queue = [...due, ...ids.filter((id) => !isSeen(id))];   // every card here was added BY being studied, so unseen is rare
+      // this list's own Random-order switch. It has a row on the home page, so its sheet can be held open,
+      // and a switch that is reachable and inert is the one thing the per-entry design must not produce.
+      if (deckRandom(COTD_ENTRY)) shuffle(queue);
       where = COTD_TITLE;
       total = queue.length;
     } else if (scope.type === "udeck") {
@@ -12424,6 +12512,10 @@
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(ue));
       const unseen = ids.filter((id) => !isSeen(id));
       queue = [...due, ...unseen.slice(0, Math.max(deckNewRemaining(ue), 0))];
+      // the deck's own Random-order switch (hold its row in the review). The PILES are chosen first and
+      // shuffled after, so a random session still deals the same cards a chrono one would — the setting
+      // decides presentation order and never which cards the day's allowances let through.
+      if (deckRandom(ue)) shuffle(queue);
       queue._ud = d;
       queue._unseen = unseen;
       where = d.title;
@@ -12441,6 +12533,8 @@
       const unseen = ids.filter((id) => !isSeen(id));
       const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
       queue = [...due, ...fresh];
+      if (deckRandom(sd.id)) shuffle(queue);   // this deck's own Random-order switch — see the udeck branch
+
       // if nothing scheduled and no new allowance left but deck still has unseen, let the user push through extras
       total = queue.length;
       queue._sd = sd;
@@ -15588,7 +15682,18 @@
     autoLinkGlossary(abs, card && card.answer, glossOffList(card && card.id), scope);
   }
 
-  // Turn each cloze blank in a question into a typed-answer field. Focuses the first one.
+  /* Turn each cloze blank in a question into a typed-answer field. Focuses the first one.
+
+     THE FIELD IS AS WIDE AS THE TEXT IN IT, MEASURED (Aug 2026, on a bug report: "the blank underscores
+     always extend far beyond the typed text"). It used to be `max(4, length + 1) + "ch"`, and `ch` is the
+     advance of the digit "0" — which in the card's serif is far wider than a lowercase letter, so a typed
+     "Cycladic civilization" reserved room for twenty-two zeroes and drew its underline a third of a line
+     past the last word. Length in characters cannot size a proportional font at all.
+     So each field carries a hidden SIZER SPAN beside it, styled `font:inherit` from the same parent: it
+     holds the same text and is measured, which picks up the font, the letter-spacing and the reader's own
+     text-size setting without any of them being named here. `getComputedStyle(...).font` was the other
+     candidate and is not reliable cross-browser, and a canvas measurement would miss letter-spacing.
+     `gradeCloze` removes the sizers when it replaces the fields, so none is left behind on a graded card. */
   function setupCloze(qEl) {
     if (!qEl) return;
     const blanks = qEl.querySelectorAll(".blank");
@@ -15599,9 +15704,17 @@
       input.autocomplete = "off"; input.autocapitalize = "off"; input.spellcheck = false;
       input.setAttribute("autocorrect", "off");
       input.setAttribute("aria-label", "Type the missing term");
-      const grow = () => { input.style.width = Math.max(4, input.value.length + 1) + "ch"; };
+      const sizer = document.createElement("span");
+      sizer.className = "blank-sizer";
+      sizer.setAttribute("aria-hidden", "true");
+      const grow = () => {
+        sizer.textContent = input.value;
+        // the empty field keeps the static blank's own width, so an untouched question looks unchanged
+        input.style.width = input.value ? Math.ceil(sizer.offsetWidth) + "px" : "";
+      };
       input.addEventListener("input", grow);
       span.replaceWith(input);
+      input.after(sizer);
       grow();
     });
     /* Focus the first blank on a machine with a keyboard, and NOT on a touch screen (Aug 2026, on request):
@@ -15631,6 +15744,8 @@
       }
       input.replaceWith(out);
     });
+    // the hidden measuring spans go with the fields they were sizing (see setupCloze)
+    qEl.querySelectorAll(".blank-sizer").forEach((s) => s.remove());
   }
 
   /* ============================================================
@@ -20986,6 +21101,8 @@
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
+      ${/* a guest earns chests too, so the banner is here as well — see chestBannerHTML */""}
+      <div id="chestSlot">${chestBannerHTML()}</div>
       ${/* The form is 460px wide inside an 800px stage, so signed out this page used to be half empty on a
             laptop. The three perks were already written — they were just stacked underneath the form, where
             they made a short card longer. Out beside it they fill the space and say what the account is FOR
@@ -21034,6 +21151,7 @@
         ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
         : ""}`;
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
+    wireChestBanner(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
       tabs.forEach((x) => x.classList.toggle("active", x === t));
@@ -21078,6 +21196,9 @@
     const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
+      ${/* Waiting chests, at the top, because that is what "save it for later" points at — see
+            chestBannerHTML. The slot is always in the markup so refreshReliquary can fill and empty it. */""}
+      <div id="chestSlot">${chestBannerHTML()}</div>
       <div class="profile">
         <div class="ph-ava">
           <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
@@ -21200,6 +21321,7 @@
     root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
+    wireChestBanner(root);
     const relHost = root.querySelector("#reliquary");
     relHost.innerHTML = reliquaryHTML(S, true);
     wireReliquary(relHost);
@@ -21778,7 +21900,7 @@
             <div class="ctl"><div class="stepper"><button id="np-dn" aria-label="Fewer">−</button><span class="val" id="np-val">${S.settings.newPerDay}</span><button id="np-up" aria-label="More">+</button></div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically.</p></div>
+            <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically. Any single deck can be set the other way by holding its row in the daily study.</p></div>
             <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" aria-label="Random review order" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
           </div>
           <div class="set-row">

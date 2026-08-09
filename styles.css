@@ -987,7 +987,14 @@ body[data-theme="folio"] .collection-deco::after{
 .study-card .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
 /* the golden blank becomes a typing field; on reveal it is replaced by the typed letters, coloured
    green where they directly matched the answer (case-insensitive) and red where they didn't */
-.study-card .blank-input{display:inline-block; box-sizing:content-box; width:4ch; min-width:4ch; font:inherit; color:var(--ink); background:none; border:0; border-bottom:2px solid var(--ochre); padding:0 2px; margin:0 3px; line-height:1; vertical-align:baseline; outline:none; transition:border-color .18s;}
+/* The width is set in px by setupCloze from a measured sizer span, because a proportional serif makes
+   `ch` — the width of "0" — a third wider than the letters actually typed, and the underline then ran well
+   past the last word. `min-width` matches the untouched `.blank` above so an empty field looks the same as
+   a question nobody has typed in yet. */
+.study-card .blank-input{display:inline-block; box-sizing:content-box; width:2.7em; min-width:2.7em; max-width:100%; font:inherit; color:var(--ink); background:none; border:0; border-bottom:2px solid var(--ochre); padding:0 2px; margin:0 3px; line-height:1; vertical-align:baseline; outline:none; transition:border-color .18s;}
+/* the hidden ruler the field is measured against: same font by inheritance, out of the flow and out of the
+   accessibility tree, never `display:none` (a box with no layout cannot be measured) */
+.study-card .blank-sizer{position:absolute; visibility:hidden; white-space:pre; pointer-events:none; left:-9999px; top:0; font:inherit; letter-spacing:inherit; padding:0; border:0;}
 .study-card .blank-input:focus{border-bottom-color:var(--indigo);}
 .study-card .blank-graded{display:inline-block; border-bottom:2px solid var(--ochre); margin:0 3px; padding:0 2px; line-height:1; font-weight:600; white-space:pre;}
 .study-card .blank-graded.empty{color:var(--ink-faint);}
@@ -2214,9 +2221,34 @@ body.hc:not(.night){
 .ar-all{font-size:calc(12.5px * var(--fs));}
 .ar-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin:6px 2px 16px;}
 /* an empty slot is DRAWN rather than left out: four dashed frames say "four of these can go here", where
-   two tiles and a gap say nothing at all */
-.ar-slot{border-style:dashed !important; background:transparent !important; cursor:default; align-items:center; justify-content:center;}
-.ar-slotmark{font-size:calc(22px * var(--fs)); color:var(--ink-faint); opacity:.5;}
+   two tiles and a gap say nothing at all.
+   On your own profile it is a BUTTON that opens the collection to pin from (see showcaseHTML) — the "+"
+   invites a click, so it had better answer one — and it says so in words under the mark, since a lone "+"
+   on a dashed frame is the one thing on this page whose meaning has to be guessed. On a friend's it stays
+   the decoration it always was, hence `cursor:default` on the div and a pointer only on the button. */
+.ar-slot{border-style:dashed !important; background:transparent !important; cursor:default; align-items:center; justify-content:center; gap:2px;}
+.ar-slotmark{font-size:calc(22px * var(--fs)); color:var(--ink-faint); opacity:.5; line-height:1;}
+button.ar-slot{cursor:pointer; transition:border-color .14s var(--ease), background .14s var(--ease);}
+button.ar-slot:hover{border-color:color-mix(in srgb,var(--indigo) 55%,var(--rule)) !important; background:color-mix(in srgb,var(--indigo) 7%,transparent) !important;}
+button.ar-slot:hover .ar-slotmark,button.ar-slot:hover .ar-slotlbl{color:var(--indigo); opacity:1;}
+.ar-slotlbl{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); text-align:center; line-height:1.25;}
+
+/* ---- waiting chests, at the top of the account page (see chestBannerHTML) ---- */
+.chest-banner{display:flex; align-items:center; gap:14px; padding:14px 16px; margin:0 0 18px;
+  background:linear-gradient(105deg, color-mix(in srgb,#C39A2E 22%,transparent), transparent 68%) var(--card);
+  border:1px solid color-mix(in srgb,#C39A2E 40%,var(--rule)); border-radius:14px; box-shadow:var(--shadow-sm);}
+body.night .chest-banner{background:linear-gradient(105deg, color-mix(in srgb,#E6C765 16%,transparent), transparent 68%) var(--card); border-color:color-mix(in srgb,#E6C765 34%,var(--rule));}
+.cb-ic{flex:none; display:block; color:#C39A2E;}
+body.night .cb-ic{color:#E6C765;}
+.cb-ic .chest-svg{width:calc(42px * var(--fs)); height:auto;}
+.cb-text{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;}
+.cb-text b{font-family:var(--sans); font-size:calc(14px * var(--fs)); font-weight:700; color:var(--ink);}
+.cb-text small{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.4;}
+.cb-open{flex:none;}
+@media (max-width:520px){
+  .chest-banner{gap:11px; padding:12px 13px;}
+  .cb-text small{display:none;}   /* the headline says it on a narrow screen; the reason is a tap away */
+}
 
 /* ---- the inventory ---- */
 .reliquary{margin-bottom:16px;}
@@ -3949,6 +3981,17 @@ body.admin-mode .page{animation:none;}
 .admin-tab[data-atab="cards"].active{color:#fff; background:#4f6bed; border-color:#4f6bed; box-shadow:0 5px 15px -7px rgba(79,107,237,.9);}
 .admin-tab[data-atab="glossary"]{color:#1f9d63; background:rgba(38,158,107,.13); border-color:rgba(38,158,107,.32);}
 .admin-tab[data-atab="glossary"].active{color:#fff; background:#2e9e6b; border-color:#2e9e6b; box-shadow:0 5px 15px -7px rgba(38,158,107,.9);}
+/* Quotes and Artefacts shipped without a colour of their own and fell through to the bare `.admin-tab`
+   rule — transparent, in the inherited ink — so two of the seven tabs read as disabled beside five that
+   are lit (Aug 2026, on a bug report). Both hues are placed rather than picked: the four that existed took
+   blue (cards), green (glossary), amber (timeline) and red (feedback), with purple over them all for the
+   dashboard, so what was left free was TEAL and MAGENTA. Quotes takes the teal and Artefacts the magenta,
+   which also puts the two content tabs that write into app.js's own literals at opposite ends of the wheel
+   from each other. */
+.admin-tab[data-atab="quotes"]{color:#0f8a91; background:rgba(15,138,145,.13); border-color:rgba(15,138,145,.32);}
+.admin-tab[data-atab="quotes"].active{color:#fff; background:#118e96; border-color:#118e96; box-shadow:0 5px 15px -7px rgba(15,138,145,.9);}
+.admin-tab[data-atab="artefacts"]{color:#a8478f; background:rgba(168,71,143,.13); border-color:rgba(168,71,143,.32);}
+.admin-tab[data-atab="artefacts"].active{color:#fff; background:#a8478f; border-color:#a8478f; box-shadow:0 5px 15px -7px rgba(168,71,143,.9);}
 .admin-tab[data-atab="timeline"]{color:#bd831f; background:rgba(201,138,43,.14); border-color:rgba(201,138,43,.33);}
 .admin-tab[data-atab="timeline"].active{color:#fff; background:#c98a2b; border-color:#c98a2b; box-shadow:0 5px 15px -7px rgba(201,138,43,.9);}
 .admin-tab[data-atab="feedback"]{color:#c0463a; background:rgba(192,70,58,.13); border-color:rgba(192,70,58,.32);}
@@ -5303,14 +5346,35 @@ body.night .rv-star.on{color:#E6C765;}
 .book-tile{
   --bk-accent:var(--tile, var(--indigo));
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 26%, transparent), transparent 64%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 34%, transparent), transparent 64%) var(--card);
   border:1px solid var(--rule); border-radius:14px;
   box-shadow:var(--shadow-sm); cursor:pointer; font:inherit; color:inherit;
   transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease), background-color .14s var(--ease);
 }
 body.night .book-tile{
   --bk-accent:color-mix(in srgb, var(--tile, var(--indigo)) 45%, #FFFFFF);
-  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 15%, transparent), transparent 64%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 20%, transparent), transparent 64%) var(--card);
+}
+/* MORE COLOUR AT BOTH ENDS, AND IT IS CHROMA THAT WAS MISSING RATHER THAN LIGHTNESS (Aug 2026, on a
+   report: the banners read "too dark in day mode and too whited out in dark mode").
+   Both faults are the same one seen from either side. The swatches were chosen dark and muted, so at
+   full strength on white the hue barely declares itself; and lifting them for night by MIXING WITH WHITE
+   raises lightness by taking chroma away — measured over all 28, `color-mix(… 45%, #FFF)` cuts the Book
+   of Rites' chroma from 11.1 to 4.9 and Augustine's from 7.1 to 2.7, which is not a lighter plum and a
+   lighter brown but two greys.
+   So the accent is now derived in OKLCh, where lightness and chroma are separate axes: day keeps the
+   lightness it always had and takes 50% more chroma, night sets lightness to 0.74 and takes 30% MORE
+   chroma rather than less. Measured against every theme's `--card`, this is better on contrast as well as
+   on colour — day's worst case goes 3.88 → 3.96 (gazette's paper; 4.85 → 4.94 on white, which is what
+   the a11y test measures) and night's 5.03 → 5.62. The gradient washes go up with them, 26% → 34% by day
+   and 15% → 20% at night, since a wash of a greyish colour is what made the banner itself look flat.
+   It is gated on `@supports` rather than layered as a fallback declaration, because a custom property
+   accepts ANY token stream at parse time: an unsupported `oklch(from …)` would not be dropped in favour
+   of the declaration above it, it would poison every property that reads it. Browsers without relative
+   colour keep exactly the two rules above. */
+@supports (color: oklch(from red l c h)){
+  .book-tile{--bk-accent:oklch(from var(--tile, var(--indigo)) calc(l - 0.01) calc(c * 1.5) h);}
+  body.night .book-tile{--bk-accent:oklch(from var(--tile, var(--indigo)) 0.74 calc(c * 1.3) h);}
 }
 /* A banner is HELD for its options sheet, so holding it must not select the title under the finger, and on
    iOS must not raise the platform's own callout — the guard the daily review's rows already carry. */
