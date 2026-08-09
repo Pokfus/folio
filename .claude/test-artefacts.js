@@ -66,7 +66,15 @@ function syntheticPool() {
       // path refuses anything under the bar, and a pool of uncited test objects would test the refusal
       // rather than everything downstream of it
       out[id] = { id, name: "Test " + r + " " + i, rarity: r, date: "c. 100 BCE", origin: "Nowhere",
-        desc: 'A test object.<sup class="fn" data-fn="1"></sup> Another sentence.<sup class="fn" data-fn="2"></sup> A third.<sup class="fn" data-fn="3"></sup> A fourth. A fifth.',
+        /* one of them carries a PICTURE and a word the glossary knows, which is what the plate section
+           below needs: the picture is same-origin so it really loads (an external one would 404 in a
+           sandbox and be marked dead), and "Bronze Age" is a shipped term, so the auto-linker has
+           something to find without the test asserting anything about which terms exist. ONE artefact
+           carries it, and deliberately not the first in the list: the admin section below picks the first
+           row to prove a picture is never saved uncredited, and an artefact that already has a credit
+           would save cleanly and pass that check for the wrong reason. */
+        image: r === "legendary" && i === 1 ? { src: "/icon.svg", credit: "Public domain, via a test", alt: "A test picture" } : undefined,
+        desc: 'A test object of the Bronze Age.<sup class="fn" data-fn="1"></sup> Another sentence.<sup class="fn" data-fn="2"></sup> A third.<sup class="fn" data-fn="3"></sup> A fourth. A fifth.',
         sources: [
           "Someone, “A Test Work,” <i>Test Journal</i> 1 (2026): 1–2, https://example.org/one. [Open access]",
           "Someone Else, “A Second Test Work,” <i>Test Journal</i> 2 (2026): 3–4, https://example.org/two. [Open access]",
@@ -276,6 +284,82 @@ function syntheticPool() {
     check("…and so no orphan way in to it", await page.locator("[data-arall]").count() === 0);
   }
 
+  /* ================= 4b. the plate: its picture, its rarity, its prose =================
+     All four of these fail SILENTLY. A picture that does not open just looks like a picture; a rarity
+     border read off a hex literal goes on passing after the token is re-toned; a chip that has drifted
+     back above the title still renders; and a glossary popup opened from a plate whose stacking is wrong
+     is really there, behind the plate, so the reader sees a click that did nothing. */
+  {
+    await page.evaluate(() => { location.hash = "account"; });
+    await page.waitForTimeout(500);
+    await page.locator('#reliquary [data-artefact="t-legendary-1"]').click();
+    await page.waitForTimeout(300);
+    const plate = await page.evaluate(() => {
+      const w = document.querySelector(".ar-win");
+      const fr = w.querySelector(".ar-frame");
+      const h = w.querySelector(".ar-wname"), chip = w.querySelector(".ar-chip");
+      // the border is measured against the RARITY TOKEN rather than a hex literal, by mixing it the same
+      // way the rule does on a probe inside the same plate — so re-toning a rarity moves both together
+      const probe = document.createElement("span");
+      probe.style.color = "color-mix(in srgb, var(--rar) 70%, transparent)";
+      w.appendChild(probe);
+      const want = getComputedStyle(probe).color;
+      probe.remove();
+      const hb = h.getBoundingClientRect(), cb = chip.getBoundingClientRect();
+      return {
+        frame: !!fr, tile: !!w.querySelector(".ar-img:not(.ar-noimg)"),
+        title: fr && fr.dataset.imgTitle, credit: fr && fr.dataset.imgCredit,
+        border: fr && getComputedStyle(fr).borderTopColor, want: want,
+        width: fr && getComputedStyle(fr).borderTopWidth,
+        chipAfter: !!(h.compareDocumentPosition(chip) & Node.DOCUMENT_POSITION_FOLLOWING),
+        sameLine: Math.abs(hb.top - cb.top) < 24 && cb.left >= hb.right - 2,
+        ttips: [...w.querySelectorAll(".ar-wdesc .ttip")].map((t) => t.textContent),
+        selfLinked: [...w.querySelectorAll(".ar-wdesc .ttip")].some((t) => /Test legendary/i.test(t.textContent)),
+      };
+    });
+    check("the plate's picture is the site's media frame", plate.frame && !plate.tile, JSON.stringify({ frame: plate.frame, bareImg: plate.tile }));
+    check("…carrying the artefact's name and its credit into the viewer",
+      plate.title === "Test legendary 1" && /Public domain/.test(plate.credit || ""), plate.title + " / " + plate.credit);
+    check("…bordered in its own rarity", plate.border === plate.want && plate.width === "2px", plate.border + " vs " + plate.want);
+    check("the rarity chip sits after the name, on its line", plate.chipAfter && plate.sameLine, JSON.stringify({ after: plate.chipAfter, same: plate.sameLine }));
+    check("the description links the glossary", plate.ttips.length > 0, JSON.stringify(plate.ttips));
+    check("…but never the artefact's own name", !plate.selfLinked);
+
+    // the picture enlarges, and Escape gives the plate back rather than closing it too
+    await page.locator(".ar-frame").click();
+    await page.waitForTimeout(300);
+    const viewer = await page.evaluate(() => {
+      const v = document.querySelector(".img-viewer");
+      return v ? { open: true, title: (v.querySelector(".iv-title") || {}).textContent, credit: (v.querySelector(".iv-credit") || {}).textContent } : { open: false };
+    });
+    check("clicking the picture enlarges it", viewer.open && viewer.title === "Test legendary 1", JSON.stringify(viewer));
+    check("…with its source under it", /Source:/.test(viewer.credit || ""), (viewer.credit || "").slice(0, 40));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(250);
+    check("…and Escape closes the picture and LEAVES the plate",
+      await page.locator(".img-viewer").count() === 0 && await page.locator(".ar-win").count() === 1);
+
+    /* A DEFINITION OPENED FROM A PLATE HAS TO BE ON TOP OF IT. The plate is an overlay and the popups are
+       overlays, so this is a stacking question and the failure is a click that appears to do nothing. */
+    await page.locator(".ar-wdesc .ttip").first().click();
+    await page.waitForTimeout(400);
+    const gloss = await page.evaluate(() => {
+      const w = document.querySelector(".gloss-win");
+      if (!w) return { open: false };
+      const r = w.getBoundingClientRect();
+      const hit = document.elementFromPoint(Math.round(r.left + r.width / 2), Math.round(r.top + 20));
+      return { open: true, onTop: !!(hit && hit.closest(".gloss-win")), title: (w.querySelector(".gloss-title") || {}).textContent };
+    });
+    check("a glossary link on a plate opens its popup", gloss.open, JSON.stringify(gloss));
+    check("…in front of the plate, not behind it", gloss.onTop === true, JSON.stringify(gloss));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(250);
+    check("…and Escape closes the popup and LEAVES the plate",
+      await page.locator(".gloss-win").count() === 0 && await page.locator(".ar-win").count() === 1);
+    await page.locator(".ar-close").click();
+    await page.waitForTimeout(200);
+  }
+
   /* ================= 5. Admin → Artefacts ================= */
   {
     await page.evaluate(() => { location.hash = "admin"; });
@@ -309,8 +393,11 @@ function syntheticPool() {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.waitForTimeout(300);
     check("it lists the pool", await page.locator(".a-row").count() === 32);
-    // a picture is never saved uncredited — the same rule the cards and the glossary enforce
-    await page.locator(".a-row .a-main").first().click();
+    /* A picture is never saved uncredited — the same rule the cards and the glossary enforce. The row is
+       named rather than taken by position, and it is one with NO picture: an artefact that already has a
+       credit saves cleanly, so a positional pick would pass this for the wrong reason the day the pool's
+       order changes. */
+    await page.locator('.a-row [data-aopen="t-common-1"]').click();
     await page.waitForTimeout(300);
     await page.fill("#aImg", "https://example.org/thing.jpg");
     await page.locator("#aSave").click();
@@ -322,9 +409,10 @@ function syntheticPool() {
     check("…and saved once it has one", await page.locator("#aForm").count() === 0);
     const withImg = await page.evaluate(() => {
       const ov = JSON.parse(localStorage.getItem("folio_admin_v1")).artefacts;
-      return Object.values(ov).filter((a) => a && a.image && a.image.src).length;
+      const a = ov["t-common-1"];
+      return { on: !!(a && a.image && a.image.src && a.image.credit), all: Object.values(ov).filter((x) => x && x.image && x.image.src).length };
     });
-    check("the picture reached the overlay", withImg === 1, String(withImg));
+    check("the picture reached the overlay", withImg.on && withImg.all === 2, JSON.stringify(withImg));
 
     /* THE LIVE PLATE PREVIEW. Two things worth asserting and they fail in opposite directions: that the
        preview exists and is the READER's plate (same builder, so the same classes), and that it follows the

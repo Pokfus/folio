@@ -2109,7 +2109,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
   `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
   five-sentence description, so `credit` is the only place the attribution can go and it is written there
-  in full, URL included, because `.ar-wcredit` renders it as plain text rather than as a link.
+  in full, URL included, because `.ar-wcredit` renders it as plain text rather than as a link. Since
+  Aug 2026 the plate's picture also OPENS (see "THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME" under
+  THE RELIQUARY), and the viewer's caption is built from those same three fields plus the artefact's own
+  name — nothing new is asked of an entry, and nothing is composed for it.
   A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
   content rules the file's own header states (exactly five sentences, 180–220 words with the imperial
   conversion NOT charged against the budget, a bolded first mention, a credit on any picture, an id that
@@ -3585,6 +3588,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     overlay chrome (backdrop, ×, Escape) stays with `openArtefactWin`, since the preview has nothing to
     close; the FOOTNOTE NUMBERING stays with `wireFootnotes`, which needs rendered nodes, so every caller
     pairs the builder with `wireArtefactPlate` on the container it put the markup in.
+  · **THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME** (`artefactPlateArtHTML`, Aug 2026, on a bug
+    report: "there's no way to zoom in on artefact images"). A TILE's `.ar-img` is a bare `<img>` inside a
+    `<button>` and must stay one — a `role="button"` figure nested in a button is invalid markup and would
+    fight the tile's own click — but the plate emits **`.card-img`**, the same frame a card and a glossary
+    term wear, so the delegated listener that opens the fullscreen viewer, the Enter/Space handler, the
+    `pop` sound and the dead-link marking all cover it with **no wiring of its own**. Two decisions in it.
+    **THE VIEWER'S TITLE IS THE ARTEFACT'S NAME**, which is a statement rather than a shortcut: an
+    artefact's image carries `src`, `credit` and `alt` and no title (the entry above it already names,
+    dates and places the object), so what the picture is OF is the artefact — and composing a caption for
+    somebody else's photograph is the one thing this must not do. The credit becomes the viewer's
+    "Source:" line exactly as a card's does. And **THE FRAME IS BORDERED IN THE ARTEFACT'S RARITY** (also
+    on request), reading `--rar` off the `[data-rar]` on `.ar-win`, so the picture speaks the same
+    language the chip, the tile and the chest already do; `test-artefacts.js` measures that border against
+    the TOKEN rather than a hex literal, so re-toning a rarity moves both together. A dead link takes the
+    whole 220px column with it (`.ar-winart:has(.card-img.media-dead)`), or the text sits beside a gap.
+  · **AN ARTEFACT'S FIVE SENTENCES LINK THE GLOSSARY** (Aug 2026, on request), on `processAbstract`'s
+    shape: the first bold is the object's own name and is marked `ans-term` so the linker steps over it,
+    the artefact's NAME is passed as the answer term, and the SITE scope is passed explicitly — a plate is
+    curated content and must never link a community deck's terms. A term first met on a plate counts on
+    the account page's meter exactly as one met on a card, `setupTooltips` doing the discovery marking.
+    **IT IS WHY `.artefact-pop` DROPPED FROM z-index 9700 TO 7600.** A gloss popup opens at 8000–9400 on a
+    desktop and 9600 as a phone sheet, so at 9700 every definition opened from a plate rendered BEHIND the
+    plate that raised it: nothing throws, the popup is really there, and the reader sees a click that did
+    nothing. **AND ESCAPE HAD TO LEARN TO STAND DOWN** (`escTakenAbovePlate`) — the plate, the image viewer
+    and the gloss popups all listen on `document`, and `stopPropagation` does NOT stop a sibling listener
+    on the same node (that needs `stopImmediatePropagation`), so one press was closing the plate as well as
+    the thing on top of it. The guard is keyed on what is actually on screen rather than on a flag, and the
+    collection overlay takes it too plus "a plate is open", so Escape peels one layer at a time.
   · **A GUEST'S ARTEFACTS SHOW ON THE SIGNED-OUT ACCOUNT PAGE TOO.** Everything else there is behind the
     sign-in wall because it is about an ACCOUNT; artefacts are not — a guest levels up, earns chests and
     opens them entirely on this device, so walling the inventory off would be a reward that can be won and
@@ -5412,14 +5443,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     thirteen tracks each claim that much, the board runs to some 2,000px and hangs off the side of a phone.
     It reads as a board too big for the screen rather than as a sizing rule that never fired, and it
     shipped that way for an hour. `.xw-sq` / `.xw-block` / `.xw-cell` carry `min-width:0` with it.
-  · **THE READER'S LETTERS ARE READ OFF THE GRID BEFORE ONE IS OVERWRITTEN.** A crossing square belongs to
-    TWO entries, so a loop that marks and fills in the same pass reaches it again and compares the letter
-    it wrote itself against the letter it wanted — which always agrees. Every crossing came out marked
-    wrong AND right at once (65 squares yielding 65 `bad` and 10 `ok`), on a grid whose whole point is its
-    crossings, **and the SCORE was correct throughout**, since that runs in an earlier pass — so nothing
-    else could have caught it.
-  · **ONE CHECK A DAY**, which is Timeline's rule for Timeline's reason: the check FILLS IN the letters the
-    solver got wrong, so a second check would be a second attempt with the answers already on the page.
+  · **IT MARKS ITSELF AS IT IS FILLED, AND THERE IS NO CHECK BUTTON** (Aug 2026, on request — it was a
+    single "Check the grid" that scored the board, filled every wrong square in and locked the lot). The
+    moment an entry's last square is typed it is judged: right, it turns green and its squares lock;
+    wrong, it turns red and every square of it can be typed over. Since nothing is ever revealed, nothing
+    is spent by coming back — so **THE GRID STAYS OPEN ALL DAY** (`gameLockedToday(…, {untilSolved:true})`,
+    the letters kept in `XW_KEY`, device-local like the marker's position) and **the only way to lose is
+    for the day to end with an answer still missing**, which is the whole shape of the request. Four
+    things hold it up and each fails silently.
+    **THE MARKS ARE DERIVED FROM THE WHOLE BOARD, never toggled square by square.** A crossing square
+    belongs to TWO entries, so anything marking one entry at a time has to answer for both at once and the
+    square ends up carrying whichever verdict ran last; `evaluate()` recomputes every square from the
+    letters on the board instead, so a crossing shared by a solved entry and a wrong one is GREEN — the
+    letter is right, and it is the other entry's remaining letters that are not. (The old check had the
+    same fault in its worst form: it marked and filled in one pass, compared each crossing against the
+    letter it had just written itself, and every crossing came out marked wrong AND right at once — 65
+    squares yielding 65 `bad` and 10 `ok` — **with the SCORE correct throughout**, since that ran in an
+    earlier pass.)
+    **A SOLVED ENTRY'S SQUARES ARE LOCKED** (`readOnly`), which is what stops a reader typing away a
+    crossing letter they have already earned and is also what makes the marking stable: a green entry can
+    never become ungreen, so the derivation cannot oscillate.
+    **THE SCORE IS WRITTEN UP AS IT RISES**, through `markGamePlayed`'s new `progress` flag — a grid
+    abandoned at four still reads four on the tile, and the flag is what keeps the LIFETIME tally at one
+    play and one win for the day however many times the score changes.
+    And **"Clear the wrong letters" is not a shortcut for anything** — a red square can simply be typed
+    over — but it says outright that red is erasable, which the old check (whose red squares were the
+    final verdict, filled in and locked) had taught a reader it was not. It appears only while there is
+    something red to clear, and touches nothing else.
   · The layout is the ordinary greedy crossing search under a seeded RNG, best of `XW_TRIES` word orders,
     scored on **most words placed and then tightest bounding box** — a grid that crosses once per word
     strings out into a chain, which is a word list rather than a crossword. Its adjacency rule (an empty
