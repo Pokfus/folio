@@ -92,7 +92,21 @@ async function closeGloss(page) {
    glossary link in the card's background. It stays inside ONE document — hash navigation and clicks, never
    page.goto — which matters in this file because it mutates window.GLOSSARY / GLOSSARY_SOURCES in the page
    first, and a reload would throw those mutations away. */
+/* A collection has to be IN the daily review before there is a card to open: the first-run hero routes to
+   the collections now (Aug 2026, on request) rather than adding one on the reader's behalf. Done through
+   the page's own + and inside this ONE document, like everything else here — a reload would throw away
+   the GLOSSARY mutations this file makes. The `.added` test makes a second call a no-op. */
+async function ensureReviewDeck(page) {
+  await page.evaluate(() => { location.hash = "decks"; });
+  await page.waitForTimeout(700);
+  await page.evaluate(() => {
+    const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+    if (b && !b.classList.contains("added")) b.click();
+  });
+  await page.waitForTimeout(200);
+}
 async function openStudyCard(page) {
+  await ensureReviewDeck(page);
   await page.evaluate(() => { location.hash = "home"; });
   await page.waitForTimeout(450);
   await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });

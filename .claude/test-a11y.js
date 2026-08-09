@@ -47,7 +47,12 @@ const DESKTOP = { width: 1280, height: 900 };
    globe) and the contrast walk skips `.globe-stage`, whose labels are ctx.fillText and invisible to CSS.
    Deliberately NOT here: the editor, the Studio and the community pages, which are tools rather than
    reading surfaces and would need their own fixtures; they are an honest gap, not a clean bill. */
-const ROUTES = ["home", "decks", "library", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "glossary", "map"];
+/* The crossword and What year? joined in Aug 2026 with the other games, and both bring text the earlier
+   routes do not: an enumeration and a clue number, and a rail's two end labels, all in `--ink-faint` —
+   which is exactly the quiet token the high-contrast mode exists to re-tone. The picture round is left out
+   because as the corpus stands it renders a placard rather than a round, so it would be measuring the
+   placard; add it the day Folio has pictures. */
+const ROUTES = ["home", "decks", "library", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "crossword", "whatyear", "glossary", "map"];
 const SLOW = { map: 5000, home: 1400 };
 const settle = (r) => SLOW[r] || 700;
 
@@ -233,6 +238,15 @@ const PROBE = () => {
   /* …and a glossary term, which is a span standing in for a button. It has to be found on a STUDY CARD:
      the home page carries none (the card of the day has its gloss links stripped), so pointing this at
      `#home` made it pass by finding nothing, which is the shape of assertion that guards nothing at all. */
+  /* …and a collection has to be IN the review first: the first-run hero routes to the collections now
+     (Aug 2026) rather than choosing a subject for the reader, so pressing it on an empty review lands on
+     that page rather than on a card. Added through the page's own +, which is the route a reader takes. */
+  await page.goto(base + "#decks", { waitUntil: "load" });
+  await page.waitForTimeout(1000);
+  await page.evaluate(() => {
+    const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+    if (b && !b.classList.contains("added")) b.click();
+  });
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1400);
   await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });

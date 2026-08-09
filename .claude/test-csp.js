@@ -38,7 +38,12 @@ const server = http.createServer((req, res) => {
   });
 });
 
-const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "mission", "studio", "community", "deck/does-not-exist",
+const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread",
+  // the three games added Aug 2026. The crossword's board is a grid of <input>s written with an inline
+  // `grid-template-columns`, and the picture round loads an image from whatever host credited it — inline
+  // style and img-src are both things the policy has an opinion about, so both routes are walked
+  "crossword", "picture", "whatyear",
+  "mission", "studio", "community", "deck/does-not-exist",
   // the Library: the shelf, a real book (its text arrives as a lazily injected <script>, which is
   // exactly the kind of thing script-src 'self' is there to police) and a book that does not exist
   "library", "book/seneca-letters", "book/does-not-exist"];
