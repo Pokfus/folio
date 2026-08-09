@@ -1069,18 +1069,20 @@ body[data-theme="folio"] .collection-deco::after{
 .tr-k{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; flex:none; align-self:center;}
 .py{font-family:var(--sans); font-style:normal; font-weight:400;}
 
-/* card illustration: a 16:9 frame at the top of the Background section, click to open the viewer */
+/* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
+   picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
+   media slot, the deck page's sample and the picture round want, and the picture's own proportions
+   inside `.card-imgslot` / `.gloss-imgslot`. Click to open the viewer. */
 .card-img{
   position:relative; display:block; margin:2px 0 18px; padding:0; cursor:zoom-in;
   aspect-ratio:16/9; width:100%; overflow:hidden; border-radius:10px;
   border:1px solid var(--rule); background:var(--paper-2); box-shadow:var(--shadow-sm);
 }
-/* CONTAIN, not cover.  The frame is 16:9 and a great many illustrations are not: a museum
-   portrait is 3:4 and a standing skeleton nearer 2:3, and `cover` shows one of those as a
-   horizontal band across its middle — the whole picture is there and none of it is legible.
-   Contained, a tall picture is centred with paper either side, which is what the gloss popup
-   has always done (`.gloss-imgslot .card-img img`) and what a museum plate looks like; the
-   viewer still opens the full-size file either way. */
+/* CONTAIN, not cover.  Where the frame's shape is fixed and a great many illustrations are not — a
+   museum portrait is 3:4 and a standing skeleton nearer 2:3 — `cover` shows one of those as a
+   horizontal band across its middle: the whole picture is there and none of it is legible. Contained,
+   a tall picture is whole, with paper either side. Inside the two floated slots there is no band to
+   fill, the frame taking the picture's shape instead (Aug 2026, on request), and the rule is inert. */
 .card-img img{width:100%; height:100%; object-fit:contain; display:block; transition:transform .35s var(--ease);}
 .card-img:hover img{transform:scale(1.025);}
 .card-img:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
@@ -1113,6 +1115,34 @@ body[data-theme="folio"] .collection-deco::after{
 .card-vid .ci-zoom{opacity:.72; pointer-events:auto; border:0; padding:0; cursor:pointer; top:10px; bottom:auto;}
 .card-vid:hover .ci-zoom, .card-vid .ci-zoom:focus-visible{opacity:1;}
 .card-vid .ci-zoom:focus-visible{outline:2px solid #fff; outline-offset:1px;}
+
+/* THE CARD'S MEDIA SLOT — floated to the TOP-RIGHT of the background prose, which the opening sentences
+   then run down the left of (Aug 2026, on request). It is the glossary popup's `.gloss-imgslot` on a
+   card, and it changes two things at once.
+   THE FRAME NO LONGER LETTERBOXES. Above the prose the frame was a fixed 16:9 band and a great many
+   illustrations are not — a museum portrait is 3:4 — so the picture sat in the middle of it with grey
+   paper down both sides. Here the frame has no shape of its own: `aspect-ratio:auto` and `width:auto`
+   make it shrink to fit whatever the picture is, capped by the slot's own width and the image's
+   max-height, so a tall picture is narrow and a wide one short and neither carries bars.
+   A VIDEO KEEPS 16:9, because it has no intrinsic size to shrink to — an iframe is whatever it is told
+   to be — so the two frames share their chrome and part company on shape alone.
+   The float must be CONTAINED: `.bg-collapse-inner` is `display:flow-root` for that, or a picture taller
+   than its prose hangs out of the section and is cut off by `.bg-collapse`'s own overflow. */
+.card-imgslot{float:right; max-width:44%; margin:2px 0 12px 18px;}
+.card-imgslot[hidden]{display:none;}                       /* set when the file never arrives — see the `error` listener */
+.card-imgslot .card-img{margin:0; aspect-ratio:auto; width:auto; max-width:100%; line-height:0;}
+.card-imgslot .card-img img{width:auto; height:auto; max-width:100%; max-height:280px; object-fit:contain;}
+.card-imgslot .card-vid{aspect-ratio:16/9; width:100%;}
+.card-imgslot .ci-zoom{right:8px; bottom:8px; width:24px; height:24px; border-radius:7px;}
+.card-imgslot .ci-zoom svg{width:13px; height:13px;}
+.card-imgslot .card-vid .ci-zoom{top:8px; bottom:auto;}
+@media (max-width:640px){
+  /* a phone's card column is about 330px wide, so the slot gives back height as well as width: a float
+     that runs deeper than a couple of sentences leaves the prose threading down a narrow gutter for the
+     length of the card. The glossary sheet makes the same trade one surface over. */
+  .card-imgslot{max-width:42%; margin:2px 0 10px 13px;}
+  .card-imgslot .card-img img{max-height:150px;}
+}
 /* fullscreen image viewer */
 .img-viewer{
   /* above the gloss popups (8000–9400) and the mobile gloss sheet (9600) — a term's illustration opens it from inside one */
@@ -3221,7 +3251,10 @@ body.grading .wb-tools{bottom:108px;}
 .bg-toggle.collapsed{transform:rotate(-90deg);}
 .bg-collapse{overflow:hidden; display:grid; grid-template-rows:1fr; transition:grid-template-rows .42s var(--ease);}
 .bg-collapse.collapsed{grid-template-rows:0fr;}
-.bg-collapse-inner{min-height:0; min-width:0;}   /* see .reveal-inner — min-width:0 or a wide child clips the whole section */
+/* min-width:0 — see .reveal-inner, or a wide child clips the whole section. `flow-root` is what CONTAINS
+   the floated `.card-imgslot`: without it a picture taller than the prose beside it hangs below this box
+   and is cut off by the overflow:hidden above, which is also what the collapse animation needs. */
+.bg-collapse-inner{min-height:0; min-width:0; display:flow-root;}
 
 /* ============================================================
    SOURCE FOOTNOTES — the apparatus under a card / gloss popup
@@ -5565,6 +5598,19 @@ body.night .book-tile{
 .bk-tile-foot{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:none; min-width:0;}
 .bk-tile-meta{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
 .bk-of{opacity:.72;}
+/* THE ORIGINAL-LANGUAGE CHIP (Aug 2026, on request): between how long the book is and the way into it,
+   and drawn only on the twenty books that actually carry a facing original. It takes `--bk-accent` — the
+   book's own colour, lightened for the paper in use — so it belongs to its banner rather than reading as
+   a system label, and it is an OUTLINE rather than a filled pill: "Start reading" directly under it is
+   the banner's one call to action and is set in the same accent, and two solid marks in one colour a
+   line apart would make the reader look twice to see which of them is the control. */
+.bk-tile-orig{
+  font-family:var(--sans); font-size:calc(9.5px * var(--fs)); font-weight:600; letter-spacing:.03em;
+  line-height:1; padding:3px 7px 4px; border-radius:999px; flex:none; white-space:nowrap;
+  color:var(--bk-accent);
+  border:1px solid color-mix(in srgb, var(--bk-accent) 42%, transparent);
+  background:color-mix(in srgb, var(--bk-accent) 9%, transparent);
+}
 .bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
 /* where the reader left off — the tile's one changing fact, so it takes the accent colour */
 .bk-tile-resume{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--bk-accent);}
@@ -5813,6 +5859,9 @@ body.night .book-tile{
   .bk-tile-when,.bk-tile-sub{font-size:calc(12px * var(--fs));}
   .bk-tile-meta{font-size:calc(9px * var(--fs));}
   .bk-tile-new,.bk-tile-resume{font-size:calc(11px * var(--fs));}
+  /* three things share one line here, so the chip gives back what it can: it is `flex:none` and cannot
+     shrink, and the length line beside it is the only part of the foot with a shorter form */
+  .bk-tile-orig{font-size:calc(9px * var(--fs)); padding:2px 6px 3px;}
 
   /* the top bar is gone on a phone (--bar-h is 0), so the chapter bar pins to the very top */
   .bk-barwrap{top:4px;}
