@@ -4525,6 +4525,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and was widened on a second request; **the wording on the Settings row names what it now reaches, so keep the
   two in step.** What it deliberately does NOT do is move the LAYOUT: the boxes are still laid out in px and
   only the text inside them grows, which is what keeps a four-cell grade bar four cells at Large.
+  **There is ONE declared exception in the stylesheet and it is the crossword's letter** (`.xw-cell`, added
+  2026-08-09): a square's SIZE comes from the grid's own width rather than from a px value, so a letter
+  scaled by `--fs` would grow out of a box that cannot grow with it. It is `clamp(13px, 3.4vw, 20px)`, which
+  tracks the board instead. Everything else on that page — the clues, the enumeration, the pinned clue —
+  scales as usual. **If a second exception is ever needed, say so here**: an unstated one is how the claim
+  above stops being true.
   **The one thing outside its reach is the Atlas's own map labels**, which are `ctx.fillText` on a canvas —
   CSS cannot see them, and their collision arithmetic (`computeCityLayout`'s grid, the leader lines, `CITY_SEP`)
   is written against those numbers, so scaling them would rearrange the map rather than enlarge it. The setting
@@ -4957,8 +4963,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   two on a second request. A **perfect** score keeps it — the shining gold (`.gt-ribbon.gr-gold`,
   `gt-gold-shine`) reading "Perfect!". Merely **having played** is a small green circled check
   (`.gt-check`, `--good`) instead of a green band reading "Done!": a ribbon is a lot of tile for a fact that
-  only says "you have been here today", and six of them across the grid read as six announcements rather
-  than six ticked-off games. **Both still carry a NAME** — the ribbon its word, the circle an `aria-label` —
+  only says "you have been here today", and a gridful of them read as a row of announcements rather
+  than as games ticked off. **Both still carry a NAME** — the ribbon its word, the circle an `aria-label` —
   because an unlabelled patch of colour says nothing to a screen reader and little more to the eye, which is
   the reasoning the ribbon was built on and is not weakened by the mark getting smaller. `.done` / `.won`
   stay on the element (they are what the tests and the achievements read); all they do now is carry the mark.
@@ -5083,14 +5089,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   instead. The ‹ › arrows FLIP the same way, or they would be the one remaining way to reorder with a cut),
   **True or False** (`truefalse`),
   **Who said it?** (`whosaid`, from `quotes.js`), **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
-  below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), and **Common Thread**
-  (`thread` — see its own bullet below). The rival-bot race is **gone, not merely unreachable**: `drawRace`
+  below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), **Common Thread**
+  (`thread` — see its own bullet below), and the three added on 2026-08-09 on request — **Crossword**
+  (`crossword`), **Picture round** (`picture`) and **What year?** (`whatyear`), each with a bullet of its
+  own below. The rival-bot race is **gone, not merely unreachable**: `drawRace`
   and the podium had already been deleted, and `BOTS` plus the write-only `S.daily.podiums` field followed on
   2026-08-08 (nothing read either; `S.daily.wins` stays, since the Victor/Champion badges read it).
-  Each of the 6 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
+  Each of the 9 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline).
+  **A NEW GAME IS WIRED IN SIX PLACES AND FIVE OF THEM FAIL SILENTLY**: `PAGES.<key>`, the `valid` route
+  list (a deep link that is not there simply goes home), `PAGE_META` (a missing row inherits the HOME page's
+  title into the browser tab and every link preview), `DAILY_GAMES` (a game on the grid but not in that list
+  is one the Clean Sweep badge and the daily chest claim without measuring), `GAME_NAMES` + `GAME_SET_WORD`
+  (the played-today placard), and the tile plus its click handler in `PAGES.home`. `.claude/test-minigames.js`
+  asserts all six, and asserts the sweep against **the tiles the home page actually paints** rather than
+  against a list copied into the test, so a tenth game fails on the rule rather than on a stale copy of it.
   **ONE PLAY A DAY, AND THE GATE IS `gameLockedToday(root, key)`** (Aug 2026, on request). Every one of the
-  six is a DAILY game — its rounds are drawn once for today, its score is today's on the tile, the tile turns
+  nine is a DAILY game — its rounds are drawn once for today, its score is today's on the tile, the tile turns
   gold for a perfect run — and a **Play again** button under the results contradicted all of it: the set had
   been revealed answer by answer, so a second run was a run with the answers in hand, and the tile's figure
   came from whichever attempt went best. The three "Play again" buttons are gone, each results screen carries
@@ -5134,12 +5149,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   darkened far corner (`body:not(.night)` override). A played tile's tagline becomes **today's best score** ("4/5 correct!",
   chrono: "in order!") — `markGamePlayed(key, won, score, total)` stores `{s, n}` per day, `gameSub()` renders it. The
   Daily-review banner's CTA sits at the **bottom-left inside `.body`** (below the full-width xp bar), on mobile too. The **"Clean Sweep" achievement**
-  (`sweep`, 🎯) unlocks when **all six are `won` on the same day** (`DAILY_GAMES` includes `findit` and `thread`;
-  `allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
+  (`sweep`, 🎯) unlocks when **every game on the grid is `won` on the same day** — nine of them since
+  2026-08-09, `DAILY_GAMES` being the list and `allGamesWonToday` → `progStats().dailySweep` the test. **The
+  badge gets harder each time the grid grows, and that is deliberate**: it is the honest reading of "every
+  game today", and the alternative is a sweep that means less every year. Nobody loses one they already
+  hold, `checkAchievements` only ever adding. A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
-  The grid's sixth slot is **Common Thread** since Aug 2026; **`blankTile` survives unused** (the grid is 3 × 2,
-  so a seventh game would leave a hole again) and reads "Coming soon / More games", having once been
+  The grid is **3 × 3 since 2026-08-09**, Common Thread having taken the sixth slot earlier that month and
+  the crossword, the picture round and What year? the last three; **`blankTile` survives unused** (a tenth
+  game would leave a hole again) and reads "Coming soon / More games", having once been
   "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
   tile type shrinks, or "Multiple Choice" breaks across two lines and its tagline across two more. The **Card-of-the-day tile carries the card's DECK** in its head
   row (`.cod-where` ← `cardLeaves(id)[0]` → `nodeWhere`) — the tile is a fixed height, so a short question left
@@ -5177,6 +5196,113 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **"One away"** is counted over the four submitted, so it can only ever report a genuine 3-of-4. Without it
     a wrong guess teaches nothing, which is most of the texture of a grouping puzzle.
   · `won` (the gold tile) is **solved with NO mistakes**; `score` is groups found, out of 4.
+- **CROSSWORD — the seventh daily game, and the first whose CLUE IS A CARD'S OWN QUESTION** (`PAGES.crossword`
+  at `#crossword`, the `PAGE: CROSSWORD` block in app.js; 2026-08-09, on request). Nine entries clued from
+  the cards' answer terms. It needed no authored content at all, and that is the point of it: a Folio
+  question is already a fill-in-the-blank clue with the answer taken out of the middle, so the crossword is
+  the study deck read sideways — the same 28-word clue the study card asks, answered a letter at a time.
+  · **FOUR RULES DECIDE WHAT MAY BE AN ENTRY, and three are about the ANSWER rather than the clue.**
+    **ONE WORD ONLY** — a crossword entry is an unbroken run of letters, so `cist grave` and `control of
+    fire` would have to be run together into CISTGRAVE and CONTROLOFFIRE, which a solver cannot enumerate
+    and would not recognise as the term they studied. Measured over the shipped deck: **134 of the 381
+    answers are single words of a usable length**, far more than a nine-word grid needs. **FOUR TO ELEVEN
+    LETTERS** (under four there is nothing to cross; over eleven the grid outgrows a 390px phone).
+    **THE ENUMERATION IS SHOWN** — `(9)` beside each clue — because `xwNorm` drops diacritics and hyphens,
+    so `Cro-Magnon` is entered CROMAGNON; that is the ordinary crossword convention and it is what makes
+    the dropped punctuation honest rather than a trap. And **THE LETTERS KEY THE POOL, NOT THE ID**, or two
+    answers normalising alike would be two clues to one entry.
+  · **`repeat(N, minmax(0,1fr))`, NEVER a bare `1fr`.** A grid item's automatic minimum is its content's,
+    and the content of a square is an `<input>` — about 150px of intrinsic width — so with `1fr` the
+    thirteen tracks each claim that much, the board runs to some 2,000px and hangs off the side of a phone.
+    It reads as a board too big for the screen rather than as a sizing rule that never fired, and it
+    shipped that way for an hour. `.xw-sq` / `.xw-block` / `.xw-cell` carry `min-width:0` with it.
+  · **THE READER'S LETTERS ARE READ OFF THE GRID BEFORE ONE IS OVERWRITTEN.** A crossing square belongs to
+    TWO entries, so a loop that marks and fills in the same pass reaches it again and compares the letter
+    it wrote itself against the letter it wanted — which always agrees. Every crossing came out marked
+    wrong AND right at once (65 squares yielding 65 `bad` and 10 `ok`), on a grid whose whole point is its
+    crossings, **and the SCORE was correct throughout**, since that runs in an earlier pass — so nothing
+    else could have caught it.
+  · **ONE CHECK A DAY**, which is Timeline's rule for Timeline's reason: the check FILLS IN the letters the
+    solver got wrong, so a second check would be a second attempt with the answers already on the page.
+  · The layout is the ordinary greedy crossing search under a seeded RNG, best of `XW_TRIES` word orders,
+    scored on **most words placed and then tightest bounding box** — a grid that crosses once per word
+    strings out into a chain, which is a word list rather than a crossword. Its adjacency rule (an empty
+    square may not touch anything sideways) is what stops parallel entries forming words nobody clued;
+    `.claude/test-minigames.js` re-derives every maximal run on the board and demands each one be a clue,
+    which is the only check that can see that rule going.
+  · **MEASURED OVER 730 DAYS BEFORE IT SHIPPED, and the check is committed rather than thrown away**
+    (`simulate` in `.claude/test-minigames.js`, which slices the generator out of app.js and stands it on
+    the real `data.js` with no browser at all): **not one blank day, all nine entries every day, no grid
+    over 13 squares a side, 730 distinct grids, and no unclued run or unnumbered entry anywhere.** A
+    generator can be flawless on the day it is written and degenerate on a date nobody tried, which is what
+    a one-day browser test cannot see.
+- **PICTURE ROUND — the eighth daily game** (`PAGES.picture` at `#picture`; 2026-08-09, on request). Five
+  pictures, four options each, drawn from **every** illustration Folio holds — a card's `image`, a glossary
+  term's `GLOSSARY_IMAGES` entry, an artefact's — so a picture added anywhere feeds the game and there is
+  no second registry to keep in step.
+  · **⚠ THE CORPUS HOLDS ONE PICTURE, so the game currently shows its placard rather than a round.** That
+    is a CONTENT gap and not a wiring one, and it is worth stating plainly rather than leaving someone to
+    find it: measured 2026-08-09, `data.js` has one card with an `image` (`wh-046`), `glossary.js` has no
+    `GLOSSARY_IMAGES` table at all, and none of the 100 artefacts carries one. Folio has no upload path —
+    every picture is somebody else's URL, credited — so filling this is a sourcing pass, and the fields
+    already exist on all three kinds of record. `PIC_MIN_POOL` is 8. The game ships now so the pass has
+    somewhere to land, and the tile says "Coming soon" until then rather than promising a round it cannot
+    deal.
+  · **THE TITLE, DESCRIPTION AND CREDIT ARE HELD BACK UNTIL THE GUESS IS IN.** Every one of them names the
+    subject and the credit is usually a URL that spells it out, so showing any of them early leaves a game
+    that works perfectly and teaches nothing — the one failure here nobody would report. The `alt` is
+    deliberately generic for the same reason. `test-minigames.js` asserts the page contains none of the
+    three before a choice is made.
+  · The decoys are other real subjects from the same pool, which is Who said it?'s rule: three plausible
+    wrong answers teach something, three obvious ones teach nothing.
+  · **`mediaCreditHTML` is shared with the fullscreen viewer** rather than copied, or the two would come to
+    disagree about whether a credit is a link. A dead `src` marks its frame (`.pic-dead`) instead of asking
+    the reader to name an empty box — a certainty rather than an edge case, there being no upload path.
+- **WHAT YEAR? — the ninth daily game** (`PAGES.whatyear` at `#whatyear`; 2026-08-09, on request). Five
+  terms whose date lines all give the same year, and a timeline to put that year on. It is the second game
+  built on the cards' dates and it is worth saying how it differs from Timeline: **that one gives five
+  different years and asks for their ORDER, this one gives five things from ONE year and asks what the year
+  was.** Ordering needs no absolute knowledge at all — a Timeline puzzle is solvable knowing only which came
+  first — and this cannot be solved without it.
+  · **THE RAIL IS A LATTICE, NOT A CONTINUUM**, and the whole game turns on it. A card's date line gives a
+    conventional round figure (`c. 1400 BCE`), not a calendar date, and a free-dragging picker over a corpus
+    running from 3.3 Mya to the present would be a pixel lottery in which no guess is ever exactly right. So
+    the rail carries `WY_TICKS` (33) ticks a round `step` apart, the answer sits on one, and a guess is right
+    or wrong with nothing in between.
+  · **`wyStep` CAPS THE SPAN, and the first cut did not.** It took the largest divisor leaving four ticks,
+    which for a Late Bronze Age puzzle gave a step of 100 and therefore a rail running **1600 BCE to 1600
+    CE** — every clue naming a Mycenaean palace and half the rail the Renaissance. Capping at `|year|` keeps
+    the rail as precise as the date it asks about: 800 years around 1200 BCE, 1.6 My around 2.6 Mya, 32
+    years around a date given to the year. It also means **a BCE answer's rail can never reach across 0**,
+    which is what stops a tick reading "0 CE", a year the calendar has not got.
+  · **The answer is NOT at the centre** — its tick is seeded, `WY_EDGE` in from either end — or the midpoint
+    would be the answer every day.
+  · **It is a native `<input type="range">`**, which snaps to the lattice for nothing and is the one control
+    the browser already gives arrow keys, Home/End and a drag to. The same call the Text size setting makes
+    about the same problem.
+  · **A WRONG GUESS NARROWS THE RAIL** rather than merely being marked: told "too early", the range's own
+    `min` moves past the guess, so three tries are a real search. The ruled-out span stays DRAWN, greyed
+    (`.wy-out`), so the scale does not silently change under the reader between guesses.
+  · **THE ANSWER ROTATES; IT IS NOT DRAWN AT RANDOM** (`wyRotation`), and this is the subtlest thing in
+    the three games. The deck holds only 19 years carrying five datable terms, so a year WILL come round
+    again; what a random draw adds is clumping — measured over 365 days, one answer landed 28 times against
+    another's 16, with nothing to stop two falling in the same week. The years therefore lie on a ring and
+    the day walks one place along it. **The ring is TURNED between cycles rather than reshuffled**, because
+    a fresh shuffle bounds nothing: the year closing one cycle can open the next or fall second in it, and
+    a first attempt that guarded only the JOIN still let a repeat land **two days apart**. Turning by `r`
+    moves every year exactly `n - r` days later than last time, so capping `r` at `n - ceil(n/2)` floors
+    every gap at half a cycle while the order still changes. `wyRotation` is cumulative for that reason
+    (cycle c's ring is defined against c-1's) — a few hundred short hashes, once per page open. **Measured
+    over 730 days: 18–20 turns each against 16–28, and the closest repeat 10 days apart.** A rule
+    about a WINDOW cannot be enforced by a rule about one boundary — `quoteRunningOrder`'s lesson in
+    miniature.
+  · **THE HONEST LIMITS, both visible to a reader who plays for a fortnight.** The five things are TERMS
+    with dates rather than events — Folio's cards are terms, and Timeline already calls them events for the
+    same reason. And **19 years** is the whole pool, so a year comes round every nineteen days however
+    evenly it is spread; the five terms are drawn separately, so a repeat is at least a different puzzle,
+    and the pool grows with every dated card written.
+  · `score` is the guesses left when it landed (3/2/1, `total` 3 — Common Thread's precedent for a total
+    that is not 5); `won`, and the gold tile, is first go.
 - **Settings and Account fill the stage** (Aug 2026). Both were a narrow column hard-LEFT inside the 800px
   stage — the settings cards stopped 180px short of a heading that spanned the whole width, and the signed-out
   sign-in form 340px short — so each page read as half-drawn on a laptop. `.settings` is now a grid that fills
@@ -7629,7 +7755,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty committed regression tests** (in `.claude/`, not loaded by the site): twenty-five drive a real browser with
+- **Thirty-one committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
   `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -7973,6 +8099,35 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
+  · `node .claude/test-minigames.js` — the three games added on 2026-08-09 (65 assertions), and every one of
+    its checks is for something that fails SILENTLY. **The wiring**: each of the three is a route, has a
+    `PAGE_META` row and a played-today name — a missing route is a deep link that goes home and a missing
+    meta row puts the HOME page's title in the tab and in every link preview — and **the sweep is asserted
+    against the tiles the home page actually paints** rather than against a list copied into the test, so a
+    tenth game fails on the rule and not on a stale copy of it. **The crossword**: the grid fits a 390px
+    column with no sideways scroll (the `1fr` track-sizing bug), every clue carries its enumeration, and —
+    the assertion nothing else could make — **every maximal run of squares on the board is re-derived and
+    must be a clue**, which is the only way to see the layout's adjacency rule going and the board filling
+    with words nobody clued. A deliberately wrong grid scores 0, marks every square wrong and **marks none
+    both wrong and right**, which is the crossing-square bug the score itself cannot see. **What year?**:
+    the rail is ruled in one era rather than across the whole of history, a too-early guess rules out
+    everything below it, and three misses name the year. **The picture round**: with a pool planted the way
+    an admin batch would, five rounds of four deal — and **nothing on the page names the subject before the
+    guess**, the failure that leaves a game working perfectly and teaching nothing.
+    **It opens with 730 DAYS OF PUZZLES generated in Node** (`simulate`, slicing the two daily builders out
+    of app.js and standing them on the real `data.js`) — because a generator can be flawless on the day it
+    was written and degenerate on a date nobody tried, which is exactly what both of this game's real bugs
+    were. That sweep is what pins the crossword dealing a full grid every day with no unclued run in any of
+    them, and What year?'s rail staying inside the answer's own age, never crossing year 0, and no answer
+    repeating inside half a cycle.
+    **Two of the harder assertions run the same day in two fresh contexts**: the first plays badly and reads
+    the answer off the result screen, the second is handed it and must win. That proves the puzzle is seeded,
+    that its answer is REACHABLE (the crossword's letters fit its own squares; the year sits on a tick of its
+    own rail — get that wrong and the puzzle is unwinnable every day with nothing on screen to say so), and
+    that a correct solve is scored as correct rather than only a wrong one being scored as wrong.
+    **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
+    `xwLayout` / `dailyCrossword`, `picturePool` / `dailyPictureRounds`, `wyStep` / `dailyWhatYear`,
+    `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, or the home page's tile grid.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
     (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
