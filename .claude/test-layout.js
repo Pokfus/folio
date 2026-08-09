@@ -328,6 +328,35 @@ async function studyEasy(page, base, n) {
     const page = await browser.newPage({ viewport: PHONE });
     await watch(page);
     await studyEasy(page, base, 0);
+
+    /* THE CLOZE FIELD IS AS WIDE AS WHAT IS TYPED IN IT (Aug 2026, on a bug report: "the blank underscores
+       always extend far beyond the typed text"). It was sized in `ch`, the advance of the digit "0", which
+       in the card's serif is far wider than a lowercase letter — so the underline trailed a third of a line
+       past the last word. Measured against the hidden sizer span rather than against a number written down
+       here, since the right width IS the text's width and depends on the face, the letter-spacing and the
+       reader's text-size setting. Both ends matter: an EMPTY field must still be the static blank's width,
+       or an untouched question changes shape for no reason. */
+    {
+      const cz = await page.evaluate(() => {
+        const i = document.querySelector(".blank-input");
+        if (!i) return null;
+        const read = (t) => {
+          i.value = t; i.dispatchEvent(new Event("input", { bubbles: true }));
+          const s = i.parentElement.querySelector(".blank-sizer");
+          return { box: parseFloat(getComputedStyle(i).width), text: s ? s.getBoundingClientRect().width : null };
+        };
+        const empty = read("");
+        const short = read("Cy");
+        const long = read("Cycladic civilization");
+        i.value = ""; i.dispatchEvent(new Event("input", { bubbles: true }));
+        return { empty, short, long };
+      });
+      check("a typed cloze answer sizes the field to the TEXT, not to a character count",
+        cz && Math.abs(cz.long.box - cz.long.text) <= 2, JSON.stringify(cz && cz.long));
+      check("...and an empty one keeps the static blank's width",
+        cz && cz.empty.box > cz.short.text && Math.abs(cz.empty.box - cz.short.box) <= 1, JSON.stringify(cz && cz.empty));
+    }
+
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(700);
     const gb = await page.evaluate(() => {

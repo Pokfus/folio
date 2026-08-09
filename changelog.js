@@ -14,9 +14,23 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.110", released: "2026-08-08T22:44Z" };
+window.FOLIO_VERSION = { v: "1.111", released: "2026-08-09T00:35Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-09",
+    t: "A chest can be put by for later, the Library shelf gets its colour back, and the blank you type into fits what you typed",
+    items: [
+      "A chest no longer has to be opened the moment it arrives. There is a Save for later button beside it, and every chest you have put by waits in a banner at the top of your account page, ready whenever you are. The chest itself has a flatter lid, so it looks less like a cauldron.",
+      "The books on the Library shelf are properly coloured again, in daylight and after dark. Each book's colour was going grey at both ends — too dark to tell apart on a white page, and washed out almost to nothing on a black one — because lightening a colour by adding white takes the colour out of it. Every spine, author line and wash now keeps its own hue at full strength, and reads more clearly against the page than before.",
+      "The blank you type your answer into now fits the words you have typed. It was reserving room by counting characters, which in the card's typeface left the underline trailing a third of a line past the last letter.",
+      "Any single deck can now be set to shuffle, or not to, by holding its row under Daily study — the choice used to be available only for the whole day's study at once. Settings still sets what a deck does until you say otherwise.",
+      "Ancient Rome wears a laurel wreath instead of a triumphal arch, the Second World War collection is now called World War II, and in the editor the Quotes and Artefacts tabs have colours of their own like the other five.",
+      "An empty slot on your profile showcase now does something when you click it: it opens your collection, so you can pick the artefact to pin there.",
+      "Today's quote from Leopold von Ranke gives his whole sentence on both sides. Turning it over showed a single German clause against two English sentences, because only the famous last few words had been recorded.",
+      "One Ancient Greece card asked its question by naming a modern scholar, which a card should never do — the question now names the argument instead. And the Mochlos glossary entry says who Seager was rather than mentioning him as though you would know.",
+    ],
+  },
   {
     d: "2026-08-08",
     t: "Levelling up now opens a chest holding a real historical artefact, collections show how far through them you are, the first forty Ancient Rome cards arrive, the Book of Rites and The City of God join the Library, and a walkthrough for new readers",

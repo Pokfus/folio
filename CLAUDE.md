@@ -2854,8 +2854,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       is the strongest mix at which the darkest swatch on the shelf still clears 4.5:1 on the lightest
       night `--card` (#460030 → 5.0:1; all thirty books land 5.0–6.5; at 50% it falls to 4.3 and misses).
       It keeps each hue and takes only chroma, so two books by one hand still wash, spine and read alike.
-      **Day mode is untouched** — `--bk-accent` resolves to `var(--tile, var(--indigo))` there, so the
-      light shelf is byte-identical.
+    · **…AND THAT WHITE MIX IS WHY THE SHELF WENT GREY, WHICH IS THE SAME FAULT AS THE DAY SHELF'S**
+      (Aug 2026, on a report: "too dark in day mode and too whited out in dark mode"). **Lightening a
+      colour by adding white raises lightness by TAKING CHROMA AWAY** — measured over all 28 swatches,
+      `color-mix(… 45%, #FFF)` cuts the Book of Rites' chroma from 11.1 to 4.9 and Augustine's from 7.1 to
+      2.7, so what a reader met after dark was not a lighter plum and a lighter brown but two greys; and by
+      day the raw swatches are so muted that at full strength on white the hue barely declares itself. One
+      fault, seen from either side. Both are now derived in **OKLCh, where lightness and chroma are separate
+      axes**: day keeps the lightness it always had and takes **50% more chroma**, night sets lightness to
+      **0.74 and takes 30% MORE chroma** rather than less, and the washes go up with them (26% → 34% by day,
+      15% → 20% at night), a wash of a greyish colour being what made the banner itself look flat.
+      **Measured against every theme's `--card`, it is better on CONTRAST as well as on colour** — day's
+      worst case 3.88 → 3.96 (gazette's paper, the tightest of the sixteen; 4.85 → 4.94 on white, which is
+      what `test-a11y.js` measures) and night's 5.03 → 5.62. **It is gated on `@supports (color: oklch(from
+      red l c h))` rather than layered as a fallback declaration, and that is the load-bearing part**: a
+      custom property accepts ANY token stream at parse time, so an unsupported `oklch(from …)` would not be
+      dropped in favour of the declaration above it — it would be invalid at computed-value time and poison
+      every property that reads it. A browser without relative colour keeps the raw swatch by day and the
+      white mix at night, which is exactly what shipped before.
     **The banner carries its book's colour as a WASH, not only on the spine** (Aug 2026, on request —
     "similar to the collection banners"). It is the collection banner's own bookplate treatment written
     the way `.active-deck` writes it: a gradient of the accent laid OVER `var(--card)` rather than mixed
@@ -3346,6 +3362,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a second level while one waits adds to it, and both the home banner (`.chest-chip`, a `role="button"`
     span inside the review BUTTON — a button inside a button is invalid, so the banner's own click handler
     defers to it) and the account page say how many are owed.
+    **…AND SINCE AUG 2026 THE READER CAN SAY SO, which is two changes that are one feature** (on request).
+    `Save for later` stands beside the CLOSED chest and is removed the moment the lid opens — once an artefact
+    has been drawn there is nothing left to defer — and it makes an existing guarantee visible rather than
+    changing behaviour: dismissing the overlay always kept the chest, and nothing said so. Since a chest may
+    now be deliberately put by, there has to be somewhere obvious to come back to it, so
+    **`chestBannerHTML` puts one at the very TOP of the account page** (`#chestSlot` / `#chestBanner`), rendered
+    by BOTH account views — a guest earns chests too, for the reason the signed-out Reliquary exists — and
+    rendered as nothing at all when none is waiting, a banner reading "0 chests" being one that looks broken.
+    The Reliquary's own "Open your chest" button stays; it is four sections down a long page, which is exactly
+    why the banner is not it. `refreshReliquary` fills and empties the slot in place, like the two blocks below.
+  · **THE LID IS SHALLOW ON PURPOSE** (Aug 2026, on request: "the top is too rounded"). The dome was an arc of
+    ry 30 over a 92-wide lid — very nearly a half-circle, which reads as a barrel or a cauldron rather than a
+    chest — and is ry 16 now, with the 14 units it gave up going to the box. `CHEST_SVG` is drawn at 190px in
+    the overlay and 42px in the account banner, so it has to hold up at both.
   · **THE SECOND CHANNEL is the daily sweep** (`maybeSweepChest`, called from `markGamePlayed`): all six
     games won in one day, once a day. `S.sweepChest` records the DAY rather than a boolean — a flag would
     need clearing at midnight by something, and nothing runs at midnight.
@@ -3354,6 +3384,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `showcaseIds` filters on the way OUT rather than on the way in: an artefact retired from the pool since
     it was pinned would otherwise leave a slot pointing at nothing, and a reader cannot unpin what they
     cannot see.
+    **AN EMPTY SLOT ON YOUR OWN PROFILE IS A CONTROL** (`[data-arslot]`, Aug 2026, on a bug report: "when I
+    click one of the four empty squares, nothing happens"). It was a decorative `div` carrying a "+", which is
+    the mark for *something goes here* and so invites exactly the click it could not answer; it opens the
+    collection now, that being where an artefact is pinned from, and where nothing is owned yet it says so
+    rather than raising an empty list. On a FRIEND'S showcase the slots stay decoration — their profile is not
+    yours to fill — which is why the markup branches on `own` and only `button.ar-slot` takes a pointer.
     **…AND IT CARRIES THE WAY IN TO THE WHOLE COLLECTION** (`.ar-schead` → `openCollectionWin`, Aug 2026, on
     request). Four artefacts out of however many a reader holds said nothing about the rest: on your own
     account the inventory was three sections further down and on a friend's it was below their statistics,
@@ -3399,11 +3435,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
   modes now (see the next bullet) — the setting decides presentation order only.
+  **IT IS PER ENTRY, LIKE QUESTION VARIETY AND THE DAILY LIMITS** (`deckRandom` / `setDeckRandom`, Aug 2026, on
+  request: the switch appeared on the review banner's sheet alone, so a deck held on its own row had no way to
+  ask for a shuffled session). `S.deckOpts[id].random` where the reader has thrown it on that deck,
+  `S.settings.reviewRandom` as the default everywhere else, so **nothing migrates**. Two things are decisions
+  rather than plumbing. **The REVIEW writes the GLOBAL rather than a per-entry flag** — Settings → Random review
+  order shows that value, and giving the review a private copy would leave two controls disagreeing about the
+  pooled session with nothing on either page to say which was in force (this is where it differs from
+  `deckVariety`, whose review flag is per-entry because Settings has no switch for it). And **`buildSession`
+  shuffles the DECK and UDECK branches too**: those queues were never shuffled at all, so without that the
+  switch would appear on a deck's sheet and do nothing — the piles are chosen first and shuffled after, so the
+  setting decides presentation order and never which cards the day's allowances let through.
   **It is chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request),
   plus the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
   on request: "the same menu, without the delete option"): Custom study, Daily limits and Skip today above it, no
-  Remove — there is nothing to take the review out OF — and the order kept, being a property of the
-  pooled session and of nothing else. It was a `.review-order` pill absolutely positioned in the banner's top-right
+  Remove — there is nothing to take the review out OF. It was a `.review-order` pill absolutely positioned in the banner's top-right
   corner: a permanent control, in the corner of the one block on the home page that has something to say, for a
   setting almost nobody changes twice. The sheet is the same `deckSheet` shell the deck rows use one level down,
   so the gesture is the same one step up the hierarchy.
@@ -3634,6 +3680,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   i.e. `(hover:none)`, added Aug 2026 on request: on a phone it summoned the on-screen keyboard over half the card
   on every card, before the reader had decided to type. The guard is unaffected — a touch reader who has not
   focused the box is exactly the case it already lets through.)
+  **THE FIELD IS AS WIDE AS THE TEXT IN IT, MEASURED** (`.blank-sizer`, Aug 2026, on a bug report: "the blank
+  underscores always extend far beyond the typed text"). It was `max(4, length + 1) + "ch"`, and **`ch` is the
+  advance of the digit "0"** — far wider than a lowercase letter in the card's serif — so a typed "Cycladic
+  civilization" reserved room for twenty-two zeroes and drew its underline a third of a line past the last
+  word. **A count of characters cannot size a proportional font at all.** Each field now carries a hidden
+  sizer span beside it, `font:inherit` from the same parent, whose `offsetWidth` sets the field's px width:
+  that picks up the face, the letter-spacing AND the reader's own text-size setting without naming any of
+  them. The two candidates rejected are worth knowing — `getComputedStyle(el).font` is not reliable
+  cross-browser, and a canvas `measureText` cannot see letter-spacing. It must be `position:absolute` and
+  `visibility:hidden` and **never `display:none`**, a box with no layout having no width to read; the empty
+  field falls back to the CSS `min-width`, which matches the static `.blank`, so an untouched question looks
+  exactly as it did; and **`gradeCloze` removes the sizers** with the fields they were measuring.
   **The shortcuts are written down in the grade bar's `?` bubble** (`.ghb-keys`, Aug 2026) — Space reveals,
   1–4 grade, Enter is Good, Ctrl+Z takes the last one back. They all existed and nothing said so, and that
   bubble is where a reader already goes to ask what the buttons do. (The Atlas's own coach marks already
@@ -5110,11 +5168,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `deckProgMarkup(studied, total)`, Aug 2026, on request). Both replace something a level used to occupy:
   the icon stands where the per-script level numeral stood (`.coll-ic`, at the same 56px width, so nothing
   around it moved) and the bar where the XP bar did. It is one line-drawn mark per collection, chosen for the
-  SUBJECT rather than for the script — a pagoda for China, a Doric column for Greece, a triumphal arch for
+  SUBJECT rather than for the script — a pagoda for China, a Doric column for Greece, a **laurel wreath** for
   Rome, a pyramid for Egypt, a torii for Japan, an onion dome for Russia, a lotus for India, a star for the
   United States, an aeroplane for the Second World War, a globe for World History, and a stack of cards for
   anything with no row (a community deck, or a collection added later). Three decisions are load-bearing.
   They are **decorative** (`aria-hidden`), because the collection is named in words directly beside them.
+  (**Rome's arch became a LAUREL WREATH on request, Aug 2026.** Worth carrying from drawing it: an icon here
+  renders at 34px on a banner and **28px on a deck row**, and a wreath is where that bites — the first cut gave
+  each branch four leaves and read as a blob at 28px, so it is three a side, each leaf a teardrop whose base
+  sits just OUTSIDE the branch arc with a visible gap. Mind that SVG y grows downward, so the bottom of the
+  ring is at 90° and the wreath's opening at the top; the mirror of an angle about the vertical is `180 - a`,
+  not `360 - a`, which is the slip that drew one branch and a stub of the other.)
   They take the **same gold the numeral did** rather than the collection's own hue: the banner wash IS that
   hue, and the gold is the one colour already proven to read over all ten of them in all eight themes, light
   and dark (the `body.hc` re-tone moved across with it). And `deckProgMarkup` **reuses the `.xp` markup**
@@ -6174,6 +6238,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   joined in Aug 2026) — **keep the list in step with the `*-mode` classes `adminRefresh()` sets**, or the next
   tab added will look broken the same way. Guarded by `test-layout.js`, which reads the cap back and checks the
   pane is not clipped, and by `test-artefacts.js` for the Artefacts tab's own copy of it.
+  **AND A TAB NEEDS A COLOUR, for the same reason and with the same failure mode** (Aug 2026, on a bug
+  report). `.admin-tab` on its own is transparent in the inherited ink, so **Quotes and Artefacts — the two
+  that arrived after the colours were placed — read as DISABLED beside five that are lit**, which is what a
+  tab with no rule of its own looks like rather than what it is. Both hues are placed rather than picked:
+  the original four took blue (cards), green (glossary), amber (timeline) and red (feedback) with purple
+  spanning both columns above them (dashboard), so what was free was TEAL and MAGENTA — Quotes takes the
+  teal (`#118e96`) and Artefacts the magenta (`#a8478f`), which also puts the two tabs that write back into
+  app.js's own literals at opposite ends of the wheel. **Every `data-atab` needs a pair of rules** (the rest
+  state and `.active`); adding a tab and not adding them is invisible in code review and obvious on screen.
 - **Admin → Artefacts: the pool a chest draws from (Aug 2026, on request).** `adminRenderArtefacts`, a sixth
   tab taking over the admin area the way the Dashboard, Quotes, Timeline and Feedback do (`artefacts-mode`,
   the same hide list, and the panel-cap exception above). It follows the Quotes tab exactly — `artefacts.js`
@@ -6745,10 +6818,14 @@ deck from that plan, research it, and add it** with `node .claude/add-card.js <c
 next number is:
 `node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='ww2-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
 (the padding is right for every id but `ww2-1000`). It is the **second plan to CREATE its collection**,
-after Egypt, so the same four things were decided here: the id is **`ww2`** and the title **"The Second
-World War"**, the British form, because the site's register is en-GB throughout and World History's own
-deck is already `wh-ww2` — two names for one subject inside one site is how a reader searches for the
-wrong thing; the card prefix is **`ww2-`**; the hue is **`#4A4038` dark iron**, **measured rather than
+after Egypt, so the same four things were decided here: the id is **`ww2`** and the title was **"The Second
+World War"**, the British form, because the site's register is en-GB throughout — **renamed to "World War
+II" on request, Aug 2026**, and the rule that title was chosen under is what decided the SCOPE of the
+rename: two names for one subject inside one site is how a reader searches for the wrong thing, so all
+THREE nodes carrying it moved together (the collection, plus the `wh-ww2` and `us-ww2` subdecks inside
+World History and the United States), which also brings them into line with `col-37`, the China
+collection's deck, which was already "World War II". The ids, the prefix and this plan's own prose are
+untouched; the card prefix is **`ww2-`**; the hue is **`#4A4038` dark iron**, **measured rather than
 picked** (30.9 from its nearest neighbour in CIELAB against a tightest existing pair of 12.9 — every
 other collection hue is a saturated colour, and the sober greys and slates all crowd within 15–24 of
 Greece's Aegean blue); and there is **deliberately NO `COLLECTION_NUMERALS` entry**, there being no
