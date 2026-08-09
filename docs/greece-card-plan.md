@@ -448,7 +448,7 @@ out-of-copyright Loebs are all open.
     gr-231  Sparta
     gr-232  Laconia
     gr-233  Lacedaemon
-    gr-234  Dorian Sparta
+    gr-234  The Herakleidai and Dorian Sparta
     gr-235  The Messenian Wars
     gr-236  First Messenian War
     gr-237  Second Messenian War

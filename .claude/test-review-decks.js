@@ -551,6 +551,188 @@ const SETTINGS = {
     await page.close();
   }
 
+  /* ================= 8. dragging the list into the reader's own order (Aug 2026, on request) =========
+     Everything here fails silently. A grip that does nothing looks like a grip; an order that is not
+     written down looks right until the next visit; a subtree left behind by the row it belongs to reads
+     as decks having been dropped from the review; and an arrangement that leaked into the Collections
+     page would rearrange a shelf every reader shares.
+     The drag is driven with real mouse input rather than synthesised PointerEvents so that the pointer
+     capture, the `touch-action` and the 4px slop are all exercised as a hand exercises them. */
+  {
+    const page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: { a: done() } });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+
+    check("every row of the review list carries a handle",
+      await page.evaluate(() => {
+        const rows = [...document.querySelectorAll(".active-deck")];
+        // …except where its level holds one row, which has nothing to trade places with
+        const size = {}; rows.forEach((r) => { size[r.dataset.parent] = (size[r.dataset.parent] || 0) + 1; });
+        return rows.length > 1 && rows.every((r) => !!r.querySelector(".ad-grip") === size[r.dataset.parent] > 1);
+      }));
+    /* The level to work on is found rather than assumed: which of them holds two rows depends on what the
+       seed put in the review — here two leaves of one collection, so the reorderable level is their shared
+       parent's, not the top. */
+    const lvl = await page.evaluate(() => {
+      const vis = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("ad-shut"));
+      const by = {}; vis.forEach((r) => (by[r.dataset.parent] = by[r.dataset.parent] || []).push(r.dataset.drag));
+      const k = Object.keys(by).find((p) => by[p].length > 1);
+      return k == null ? null : { parent: k, ids: by[k] };
+    });
+    check("...and some level of it holds more than one row to reorder", !!lvl, JSON.stringify(lvl));
+    const level = () => page.evaluate((p) => [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p).map((r) => r.dataset.drag), lvl.parent);
+    const before = await level();
+
+    // carry the first row of that level to the foot of it
+    const geo = await page.evaluate(([id, p]) => {
+      const rows = [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p);
+      const g = document.querySelector(`.active-deck[data-drag="${id}"] .ad-grip`).getBoundingClientRect();
+      const last = rows[rows.length - 1].getBoundingClientRect();
+      return { x: g.x + g.width / 2, y: g.y + g.height / 2, ty: last.y + last.height - 4 };
+    }, [before[0], lvl.parent]);
+    await page.mouse.move(geo.x, geo.y);
+    await page.mouse.down();
+    for (let i = 1; i <= 10; i++) { await page.mouse.move(geo.x, geo.y + ((geo.ty - geo.y) * i) / 10); await page.waitForTimeout(30); }
+    await page.mouse.up();
+    await page.waitForTimeout(450);
+
+    const after = await level();
+    check("dragging a row down moves it", after[after.length - 1] === before[0] && after.length === before.length,
+      JSON.stringify({ before, after }));
+    check("...leaving no transform behind on any row",
+      await page.evaluate(() => ![...document.querySelectorAll(".active-deck")].some((r) => r.style.transform)));
+    /* A row brings its subtree: rebuilt from the depths, every row's parent must still be the row above
+       it at one less depth. A collection dragged out of the middle of the list leaving its decks behind
+       is the failure this is here for, and the list looks perfectly ordinary when it happens. */
+    check("...and every subtree travels with the row it belongs to",
+      await page.evaluate(() => {
+        const stack = [];
+        for (const r of document.querySelectorAll(".active-deck")) {
+          const d = +r.dataset.depth; stack.length = d;
+          if (r.dataset.parent !== (d === 0 ? "" : stack[d - 1] || "??")) return false;
+          stack[d] = r.dataset.drag;
+        }
+        return true;
+      }));
+    check("...the order is written down under that level's own key",
+      await page.evaluate((p) => JSON.stringify((JSON.parse(localStorage.getItem("folio_v1")).deckOrder || {})[p]), lvl.parent) === JSON.stringify(after));
+    // the rounded bottom corner belongs to whichever row is last NOW, which a drag can change
+    check("...and the last row is the one that is rounded",
+      await page.evaluate(() => {
+        const vis = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("ad-shut"));
+        return vis.length ? vis[vis.length - 1].classList.contains("ad-last") : false;
+      }));
+
+    /* …and it is READ BACK. It cannot be shown with a reload here — `newPage` re-seeds folio_v1 through an
+       addInitScript on every load, which would put the seed's own order back and the assertion would pass
+       or fail for a reason that has nothing to do with the app. So the saved blob is carried to a page
+       that has never seen this list, which is the journey a second device makes anyway. */
+    const blob = await page.evaluate(() => localStorage.getItem("folio_v1"));
+    const fresh = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    fresh.on("pageerror", (e) => errs.push(e.message));
+    await fresh.addInitScript((b) => { try { localStorage.setItem("folio_v1", b); } catch (e) {} }, blob);
+    await fresh.goto(base + "#home", { waitUntil: "load" });
+    await fresh.waitForTimeout(1400);
+    const reread = await fresh.evaluate((p) => [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p).map((r) => r.dataset.drag), lvl.parent);
+    check("...and a device reading that record back lists them the same way",
+      JSON.stringify(reread) === JSON.stringify(after), JSON.stringify({ reread, after }));
+    await fresh.close();
+
+    // a keyboard can do it too — a reorder reachable by pointer alone is one a keyboard reader has not got
+    const kb = await page.evaluate(async (p) => {
+      const at = () => [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p);
+      const was = at().map((r) => r.dataset.drag);
+      const g = at()[0].querySelector(".ad-grip");
+      g.focus();
+      const focused = document.activeElement === g;
+      g.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }));
+      await new Promise((r) => setTimeout(r, 350));
+      return { focused, was, order: at().map((r) => r.dataset.drag) };
+    }, lvl.parent);
+    check("the handle takes focus and answers to ↓",
+      kb.focused && kb.order[0] === kb.was[1] && kb.order[1] === kb.was[0], JSON.stringify(kb));
+
+    /* THE COLLECTIONS PAGE IS UNTOUCHED BY ANY OF IT. That page is the shelf every reader shares, and one
+       reader's study habits rearranging it would make it a different page for each of them. */
+    await page.goto(base + "#decks", { waitUntil: "load" });
+    await page.waitForTimeout(1000);
+    const shelf = await page.evaluate(() =>
+      [...document.querySelectorAll('#collection-list-all [data-libkind="col"]')].map((e) => e.dataset.libitem));
+    const tree = await page.evaluate(() => (window.COLLECTION_TREE.collections || []).map((c) => c.id));
+    check("the Collections page keeps the editorial order",
+      shelf.length > 1 && shelf.join() === tree.filter((id) => shelf.indexOf(id) >= 0).join(),
+      JSON.stringify(shelf));
+    await page.close();
+  }
+
+  /* ================= 9. five new cards a day, by default (Aug 2026, on request) =================
+     A first-time reader's allowance, read off a save that has never had one written into it. Asserted in
+     the store AND on the Settings stepper: the default lives in defaultState() and the stepper reads it
+     back, so a change to one that misses the other shows the reader a figure the review is not using.
+     It is also the figure XP_PER_LEVEL is meant to be read against — a level costs 5 cards, so a level
+     turns over on a full day's new cards rather than in the middle of one. */
+  {
+    const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    page.on("pageerror", (e) => errs.push(e.message));
+    await page.goto(base + "#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    const np = await page.evaluate(() => ({
+      shown: (document.querySelector("#np-val") || {}).textContent,
+      stored: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).newPerDay,
+    }));
+    check("a new reader's allowance is five new cards a day", np.shown === "5", JSON.stringify(np));
+    check("...and the stepper shows the figure the review is using",
+      np.stored === undefined || np.stored === 5, JSON.stringify(np));
+    await page.close();
+  }
+
+  /* ================= 10. Multiple Choice asks the FIRST phrasing (Aug 2026, on request) =============
+     A card carries three ways of asking the same thing and the study page deals one at random — which is
+     right there and wrong here, where the round is answered from four options rather than from recall, so
+     the phrasing has to be the one written to stand on its own. It sits beside section 3's chevrons for
+     that reason: both are about which phrasing a card is asked with, and this one is invisible from the
+     outside, a second phrasing being a perfectly good sentence. */
+  {
+    const page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: {} });
+    await page.goto(base + "#challenge", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const q = await page.evaluate(() => {
+      /* The rendered question is NOT byte-identical to the stored one, and an exact match here is a test
+         that passes on luck: the units pass rewrites every text node on the page, so a card asking about
+         "140 metres (460 feet)" renders without the bracket in metric mode — 20 of the deck's cards carry
+         one in their first phrasing, so a five-round sample missed on most runs. Both sides are compared
+         with parentheticals removed (card prose carries no other kind — see the house rules), and the
+         exact match is still tried first so two phrasings differing only inside a bracket could not be
+         quietly read as the same one. */
+      const norm = (x) => String(x).replace(/\s*\([^)]*\)/g, "").replace(/\s+/g, " ").trim();
+      const out = [];
+      for (let n = 0; n < 5; n++) {
+        const txt = (document.querySelector(".qtext") || {}).innerHTML;
+        if (txt == null) break;
+        const all = window.CARD_DATA || [];
+        const has = (c, t) => c.question === t || (c.questions || []).indexOf(t) >= 0;
+        const hasN = (c, t) => norm(c.question) === norm(t) || (c.questions || []).some((x) => norm(x) === norm(t));
+        const card = all.find((c) => has(c, txt)) || all.find((c) => hasN(c, txt));
+        out.push({
+          first: !!(card && (card.question === txt || norm(card.question) === norm(txt))),
+          extras: card ? (card.questions || []).length : -1,
+        });
+        const b = document.querySelector(".opts .opt"); if (!b) break;
+        b.click();
+        const nx = document.querySelector("#mc-next"); if (!nx) break;
+        nx.click();
+      }
+      return out;
+    });
+    check("every Multiple Choice round asks its card's first phrasing",
+      q.length > 1 && q.every((r) => r.first), JSON.stringify(q));
+    // …and the cards it drew really do have extras, or the assertion above passes on cards with one
+    check("...on cards that genuinely carry other phrasings", q.some((r) => r.extras > 0), JSON.stringify(q));
+    await page.close();
+  }
+
   console.log("");
   if (errs.length) { console.log("page errors:"); errs.forEach((e) => console.log("  " + e)); fail += errs.length; }
   console.log(pass + " passed, " + fail + " failed");

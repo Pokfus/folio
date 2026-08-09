@@ -3277,9 +3277,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **XP / levels** (`levelFromXP` / `xpBarMarkup` / `levelBadgeMarkup` in app.js): **XP = the number of distinct cards
   studied** (derived from `S.cards`; no separate persistence). Each level costs **`XP_PER_LEVEL × level`** more cards,
   and **`XP_PER_LEVEL` is 5** (bar starts at 0/5, then 0/10, 0/15, …). It was 3 until Aug 2026 and was raised on
-  request, because the daily allowance now defaults to FIVE new cards: at a step of three a level turned over in the
+  request, because the daily allowance defaults to FIVE new cards: at a step of three a level turned over in the
   middle of an ordinary day's work, which made the badge mean nothing. **Keep the step and the default allowance in
-  step** — the number is a constant precisely so the two can be read against each other. Nothing migrates: XP is
+  step** — the number is a constant precisely so the two can be read against each other, and the two had come
+  APART: this paragraph said the allowance was five from the day the step was raised and
+  `defaultState().settings.newPerDay` said 3 until Aug 2026, when it was set to 5 on request. Nothing migrates
+  there either — the key has been in that object since the beginning, so every existing save carries its reader's
+  own figure and only a first-time visitor meets the new one. Nothing migrates for the level: XP is
   derived from `S.cards` on every read, so an existing reader's level simply recomputes on the new curve (roughly
   ×0.77 of the old level number at the same card count). Guarded by `test-card-types.js`, which slices `levelFromXP`
   out of app.js and walks every threshold through level 13.
@@ -3526,6 +3530,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
     `buildSession` uses the same per-deck allowances for a `deck` / `udeck` scope, so tapping a row studies what its
     row promised.
+  · **THE ROWS ARE DRAGGED INTO THE READER'S OWN ORDER** (`S.deckOrder` / `orderedIds` / `setDeckOrder` /
+    `setupDeckDrag` / `.ad-grip`, Aug 2026, on request — Anki lets a reader arrange their deck list, and this
+    is the same thing done by dragging). The list is built from the collection tree, so until now its order
+    was the editorial one; a reader working through four collections at once has their own idea of which
+    belongs at the top. Seven things are decisions rather than plumbing.
+    **THE ORDER IS PER LEVEL, keyed by PARENT** (`""` for the top level), so an arrangement is scoped to
+    where it was made: dragging one subdeck above another says nothing about where its collection sits.
+    **THE TOP LEVEL IS ONE RUN** — the collections, the reader's own community decks and the Card-of-the-day
+    list used to be three blocks appended in a fixed order, so a community deck could never sit above a
+    collection and the two tail rows could not be moved at all; they are one ordered level now, and the tail
+    rows are ordinary rows in the build rather than markup pasted on the end. **NOTHING ELSE READS IT**: the
+    Collections page keeps the editorial order (it is the shelf every reader shares, and one reader's study
+    habits rearranging it would make it a different page for each of them), and the scheduler does not read
+    it either — the day's new cards are drawn at random across the added decks, so a row's position says how
+    the reader wants to LOOK at their study, not what it deals them.
+    **A ROW BRINGS ITS SUBTREE**: a collection's row is followed in the DOM by every deck under it, so what
+    moves is a contiguous BLOCK — the row plus every following row of greater depth, folded ones included, or
+    a shut collection would leave its children behind. **IT MOVES AMONG ITS SIBLINGS AND NOWHERE ELSE**;
+    re-parenting is deliberately not on offer, since a subdeck dragged under another collection would carry
+    cards that collection does not contain and its indent, its hue and its counts would all then be lying.
+    **THE HANDLE TAKES THE PRESS OUT OF THE ROW'S OWN HANDS** — the row is a tap (study this deck) and a hold
+    (its options sheet), so the grip stops its pointerdown and swallows the click that follows, exactly as
+    the fold chevron beside it does — and it is a real `<button>` answering to ↑/↓, because a reorder
+    reachable by pointer alone is one a keyboard reader simply has not got. It is drawn only where its level
+    holds a second row, and it sits ABSOLUTELY in the row's left padding rather than taking a column: the
+    base indent went 16px → 22px to make room, because at 390px the deck's NAME is the only part of the row
+    with a shorter form and a handle in the line would have been paid for out of it.
+    **AND THE ROW'S OWN `pageIn` ANIMATION HAS TO GO before it can be moved** — `both`-filled, so its last
+    keyframe (`transform:none`) outranks an inline style and `deckSetY` would be silently ignored, leaving a
+    row that does not follow the finger while the list around it FLIPs perfectly (a script animation wins,
+    which is why only the carried row would have been stuck). This file's third instance of that trap, after
+    `.bk-page` and `gbSetCompact`.
+    `S.deckOrder` is in `defaultState` AND `PROGRESS_FIELDS` — an arrangement is a fact about the reader, so
+    the list a phone shows is the list the laptop shows. Guarded by `test-review-decks.js` section 8.
   · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
     bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
     dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
@@ -4310,10 +4348,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
   under the same rules (mid-sentence blank, ~28 words), each testing the concept from a different angle so
-  students learn the concept rather than one sentence's shape. `cardQuestions(c)` returns the non-blank pool;
-  **`cardWithQuestion(c, pickIdx?)`** returns a COPY with `question` set to one of them — **random per show**
-  on the study page, **date-seeded** for the card of the day, **fixed per round** in Multiple Choice (so the
-  results summary repeats what was asked). Translations carry their own pool (`i18n[lang].questions`), and
+  students learn the concept rather than one sentence's shape. **`cardQuestions(c)` returns the non-blank
+  pool, and every reader of it now reads it directly**: the study page keeps the chosen phrasing as state a
+  reader can step through with the ‹ › chevrons (`qIdx`), and Multiple Choice always asks the FIRST one
+  (`firstQ`, which CUTS the pool). `cardWithQuestion(c, pickIdx?)` — the copy-with-one-phrasing helper those
+  two used to go through, and the card of the day with them — was **deleted in Aug 2026** when the last of
+  its three callers stopped needing it; a helper nothing calls is the next person's bug.
+  Translations carry their own pool (`i18n[lang].questions`), and
   `cardLocalized` **falls back to the single translated question when a language hasn't translated the
   extras** — never a translated question mixed with English extras. In the editors the question box gets
   **chevrons (‹ ›) that cycle the pool** plus a "1 / 3" counter and add/remove controls; edits write through
@@ -4872,9 +4913,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   breakpoint: the reasoning applies at every width, and the phone/desktop divergence is what this page has
   spent Aug 2026 removing. `TOUR_STEPS`' second step no longer names it as a target and falls to `.banners`.
   **Until the first card is ever graded**
-  (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
-  `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
+  (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards"; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that.
+  **ITS FIRST PRESS GOES TO THE COLLECTIONS** (Aug 2026, on request). It used to pick the first collection
+  that was not coming soon, add it on the reader's behalf and deal them a card — quick, and making for them
+  the one decision this page exists to hand over. They are sent to `#decks` instead, to choose their own.
+  It can route there UNCONDITIONALLY because `fresh` already asks the harder question (next paragraph): a
+  reader who has added a collection but not yet graded a card is no longer fresh, so they meet the ordinary
+  banner with their decks under it and never reach that branch. That matters more than it looks — while the
+  hero IS the banner it is the only way into a session, the deck list not being drawn under it, so a
+  version of this that sent every press to the collections left a reader who had just added one looping
+  back to the page they came from. The two changes landed on different branches; `test-tour.js` section 5b
+  asserts both ends of it. The LABEL is untouched: the button is named for what it is for, and the
+  collections are the first step of it.
   **A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY** (`fresh`, Aug 2026, on a bug
   report: "I am now always forced into the first-time visitor view, and can no longer see my Daily study
   active decks" — from a reader who had used **Settings → Reset progress**). `fresh` was `S.cards` being
@@ -5004,7 +5055,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the cards most AKIN
-  to the answer, by `cardKinship` — see the card-tags bullet below), **Timeline** (`chrono` — **the FIRST "Check order" of the day is the answer that counts**, Aug 2026, on
+  to the answer, by `cardKinship` — see the card-tags bullet below. **It always asks a card's FIRST phrasing**
+  (`firstQ` in `buildChallengeQuestions`, Aug 2026, on request): a card carries three ways of asking the same
+  thing and the study page deals one at random, which is right there and wrong here, where the round is
+  answered from four options rather than from recall — so the phrasing has to be the one written to stand on
+  its own, and `question` is that one while the extras are angles on it. It also makes the day's quiz
+  reproducible, which the results summary and the score both read better for. `firstQ` CUTS the pool rather
+  than pinning an index, the study page's own move for a deck with question variety off), **Timeline** (`chrono` — **the FIRST "Check order" of the day is the answer that counts**, Aug 2026, on
   request: checking used to record the BEST of any number of tries, and since a check reveals every event's
   date a reader could check once, read the years off the rows and reorder to a perfect score every day. Later
   checks still mark the rows and show the dates — the puzzle stays usable for learning the order — they just
@@ -7700,7 +7757,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 259 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 291 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -7764,7 +7821,18 @@ dead code (never rendered).
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` /
     the ink layer's pass-through /
     `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on `.admin-list-items` /
-    `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
+    `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.**
+    **`studyEasy` PUTS A COLLECTION IN THE REVIEW FIRST** (Aug 2026), through the collections page's own +:
+    the first-run hero routes there now rather than choosing a subject for the reader, so nothing studies
+    until something has been added, and every section that wanted a card was reporting an empty page.
+    **Section 8 watches the CHEST, not `.levelup-pop`** — the Reliquary retired that path deliberately
+    (`announceLevelUps` calls `grantChest()` and `openChestPop({level})`, the chest overlay BEING the
+    celebration), so the old assertion could only ever count zero and had been failing on a feature working
+    exactly as designed. `congratsPopup` is not dead code — it survives for anything else that wants it and
+    `closeCongrats` is still in `render()`'s close list — but nothing reaches it from a level-up, so
+    asserting it here was testing an unreachable path. The level is checked ON the overlay (`.chest-lvl`),
+    or this would pass on any chest at all rather than on the level-up that raised one. Its clicks go
+    through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
     catch — it has to report, not abort the file. Verified against six deliberately reintroduced
@@ -7871,10 +7939,27 @@ dead code (never rendered).
     each time it is shown, so comparing the prose reports a card that never returned when it returned wearing
     another sentence — and assert the banner's **"Start"** button on a reader who has STUDIED, since with no
     cards graded at all the banner is the first-run hero and its button says something else entirely.
+    **Section 8 (Aug 2026) pins DRAGGING THE LIST INTO ORDER**, driven with real mouse input so the pointer
+    capture, the `touch-action` and the 4px slop are exercised as a hand exercises them: every row carries a
+    handle exactly where its level holds a second row, a drag moves it, the order is written down under that
+    level's own key, **every subtree travels with the row it belongs to** (rebuilt from the depths — a
+    collection dragged out of the middle leaving its decks behind is the failure this is for, and the list
+    looks perfectly ordinary when it happens), no transform is left behind, the rounded corner follows
+    whichever row is last NOW, ↑/↓ do it from the keyboard, and **the Collections page keeps the editorial
+    order**. Persistence is proved by carrying the saved blob to a page that has never seen the list — a
+    reload cannot show it here, since `newPage` re-seeds `folio_v1` on every load and would put the seed's
+    own order back. **Sections 9 and 10** pin the day's default allowance at FIVE new cards (in the store and
+    on the Settings stepper, which read the same constant from two directions) and that **every Multiple
+    Choice round asks its card's FIRST phrasing** — with a second assertion that the cards it drew genuinely
+    carry others, or the first passes on cards that have only one. **That comparison strips parentheticals
+    from both sides**: the units pass rewrites every text node, so a card asking about "140 metres (460
+    feet)" renders without the bracket, and 20 of the deck's cards carry one in their first phrasing — an
+    exact string match passed on most runs and failed on the rest, which is worse than not asserting it.
     **Re-run after
     touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `deckDoneToday` / `entryPiles` /
-    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx`, `buildSession`'s per-deck
-    allowances, or anything named `sched*`.**
+    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` /
+    `setupDeckDrag` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
+    per-deck allowances, or anything named `sched*`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
     glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
     overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that
@@ -7889,7 +7974,7 @@ dead code (never rendered).
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
-    (Aug 2026), 61 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+    (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
     **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
     obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
@@ -7907,9 +7992,14 @@ dead code (never rendered).
     card carries the search and the reading position and NOT the marker, the book card carries the marker,
     the chapters and the facing original, and the two are remembered under separate keys — because a tip
     filed in the wrong half is invisible from either side on its own, and the half that fires on opening a
-    book is the one nothing else in the suite would ever see. **Re-run after touching the `THE GUIDED TOUR`
-    block, `pageHelp` / `closePageHelp` / `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `tourOfferHTML`'s place on the
-    home page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
+    book is the one nothing else in the suite would ever see.
+    **SECTION 5b IS A ROUTE RATHER THAN A CARD** (Aug 2026): the hero's first press lands on `#decks`, a
+    collection can be added there, and — the half that closes a loop — **with one added the banner deals a
+    card after all**. Both ends are needed because they fail in opposite directions and either alone looks
+    deliberate: a hero that still deals a card bypasses the page, and one that never does strands a reader
+    on it. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
+    `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home
+    page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
     `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
     figures (read them structurally); and a step-change reads mid-transition, so anything measured during
     one has to be measured again after it settles.
