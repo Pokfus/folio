@@ -94,6 +94,16 @@ body.hc.night{ --rule:#5A5A66; }
 body.hc .btn,body.hc .card,body.hc .set-card{border-width:1.5px;}
 /* the gold collection icon is 2.6:1 on card — decorative, but it is the only thing naming the subject */
 body.hc:not(.night) .coll-ic{color:#81661E;}
+/* A QUIET TOKEN OVER A TINTED BACKGROUND IS NOT COVERED BY THE RE-TONE ABOVE, and the crossword is the
+   site's only case (Aug 2026, found the day test-a11y.js learned to read a `color(srgb …)` computed
+   value — until then it could not parse a `color-mix` BACKGROUND at all, walked past it to the plain
+   paper behind, and reported these three as clean).
+   `--ink-faint` is solved against `--paper-2`, the darkest of the three papers. The SELECTED clue and
+   the SELECTED square are neither: each is that paper with 12–14% indigo mixed into it, which is enough
+   to take the clue number and the enumeration to 3.78 and the square's number to 4.24. They are the
+   clue's own text rather than furniture once a reader is in this mode, so they take `--ink-soft`, which
+   is a solved ink rather than a quiet one and clears the bar on every surface the grid uses. */
+body.hc .xw-cn, body.hc .xw-len, body.hc .xw-n{color:var(--ink-soft);}
 /* a focus ring the mode can't leave to chance: thicker, and always the bright indigo rather than the theme's */
 body.hc :focus-visible{outline:3px solid var(--indigo-bright) !important; outline-offset:2px;}
 
@@ -5502,7 +5512,32 @@ body.night .book-tile{
 /* the banner's own row: who and what on the left, how long and where you got to on the right */
 .bk-tile-body{display:flex; flex-flow:row wrap; align-items:center; gap:6px 18px; padding:13px 18px; min-width:0; flex:1;}
 .bk-tile-main{display:flex; flex-direction:column; gap:2px; min-width:0; flex:1 1 220px;}
-.bk-tile-author{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--bk-accent);}
+/* THE AUTHOR LINE IS THE ONE PLACE THE ACCENT IS ASKED TO BE READ AS TYPE, AND IT WAS THE SMALLEST TYPE
+   ON THE BANNER (Aug 2026, on a report: "the authors' names are sometimes quite hard to read in their
+   book banners"). Three things were against it at once and each is worth naming, because fixing only the
+   obvious one would have left it hard to read.
+   · SIZE AND WEIGHT. 9.5px of uppercase MONOSPACE at the face's default weight is the least legible
+     combination on the site — a mono face gives a capital I and a capital M the same width, so the word
+     shapes that carry a name are flattened, and uppercase removes the ascenders that carry them too.
+     11px at 600 restores the stroke without touching the eyebrow grammar the shelf is built on; the
+     tracking stays at .08em, which HELPS uppercase rather than hurting it, and is not the fault here.
+   · CONTRAST — and this is why the report says "sometimes". The colour is the book's AUTHOR'S, so how
+     legible the line is depends on which book it is: measured over all 28 author colours against all six
+     light and six dark papers, the day accent falls below 4.5:1 on 6 of those 168 pairings (worst 3.88,
+     Marcus Aurelius's teal on the gazette paper), while night — already lightened for its own bug report
+     below — clears it everywhere at 4.84 and up. Small text needs the 4.5 bar, so those six are exactly
+     the books a reader would call hard to read, and no amount of extra weight fixes a colour.
+   · SO THE TEXT TAKES ITS OWN DERIVED COLOUR, `--bk-ink`, mixed 80% accent into `var(--ink)` — toward
+     the paper's own ink, which DARKENS by day and LIGHTENS at night without needing to know which it is.
+     80% is measured, not guessed: it is the lightest mix that clears 4.5:1 on every one of those 168
+     pairings (worst 5.11 by day, 5.64 at night; at 85% the gazette pairing scrapes 4.76 and the headroom
+     goes). It keeps the hue almost entirely, so two books by one hand still read alike — which is the
+     whole point of the colour — and it is deliberately NOT applied to the spine, the wash or the reading
+     bar, which are shapes rather than words and are legible at the accent's own strength.
+   It is declared on `.book-tile` rather than beside the rule below so it derives from whichever
+   `--bk-accent` won — the base one, the night one, or the OKLCh one in the @supports block. */
+.book-tile{--bk-ink:color-mix(in srgb, var(--bk-accent) 80%, var(--ink));}
+.bk-tile-author{font-family:var(--mono); font-size:calc(11px * var(--fs)); font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--bk-ink);}
 .bk-tile-title{font-family:var(--display); font-size:calc(19px * var(--fs)); font-weight:600; line-height:1.2; color:var(--ink);}
 .bk-tile-sub{font-family:var(--serif); font-style:italic; font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); margin-top:-2px;}
 /* When it was written — the one fact about a work of history a reader wants before opening it, and

@@ -119,11 +119,28 @@ const PROBE = () => {
   });
 
   // ---- 3: contrast
+  /* `color(srgb …)` HAS TO BE PARSED TOO, and skipping it is the worst of the three things this could do
+     (Aug 2026). A computed colour is `rgb()` only while it came from a plain value: the moment a rule
+     goes through `color-mix()` or a relative `oklch(from …)`, Chromium serializes the result as
+     `color(srgb 0.64 0.75 0.63)` with components 0–1 rather than 0–255. This parser returned null for
+     those, and the caller SKIPS an element it cannot read — so a colour computed that way was not
+     measured at all and reported as clean. It bit on the Library's author line, whose colour is derived
+     from the book's accent, and styles.css uses color-mix in dozens of places, so the next such rule
+     would have gone unmeasured too. Out-of-range components (a wide-gamut mix) are clamped, which is
+     what the screen shows anyway. */
   const hexOf = (c) => {
-    const m = /rgba?\(([^)]+)\)/.exec(c || "");
-    if (!m) return null;
-    const p = m[1].split(",").map((x) => parseFloat(x));
-    return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    let m = /rgba?\(([^)]+)\)/.exec(c || "");
+    if (m) {
+      const p = m[1].split(/[,\s/]+/).filter(Boolean).map((x) => parseFloat(x));
+      return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    }
+    m = /color\(\s*srgb\s+([^)]+)\)/.exec(c || "");
+    if (m) {
+      const p = m[1].split(/[\s/]+/).filter(Boolean).map((x) => parseFloat(x));
+      const q = (v) => Math.min(255, Math.max(0, (v || 0) * 255));
+      return { r: q(p[0]), g: q(p[1]), b: q(p[2]), a: p.length > 3 ? p[3] : 1 };
+    }
+    return null;
   };
   const lin = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
   const lum = (c) => 0.2126 * lin(c.r) + 0.7152 * lin(c.g) + 0.0722 * lin(c.b);

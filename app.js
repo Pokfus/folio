@@ -10244,6 +10244,12 @@
        chest, a second level while one is waiting adds to it, and the account page and the home banner
        both say how many are owed. Nothing is ever lost to a mistimed tap.
 
+     · **THREE THINGS GRANT ONE, and only the level opens it.** A level (`announceLevelUps`), a BADGE
+       (`checkAchievements`, Aug 2026 on request — one chest per badge unlocked) and the daily sweep
+       (`maybeSweepChest`). The last two only ever queue: a badge and a sweep are already announced by a
+       toast, they can land in the same grade as a level-up, and stacking a second chest overlay on the
+       first is exactly the "two overlays for one event" the bullet above rules out.
+
      · **THE OVERLAY LIVES ON `document.body`**, like the level-up popup and the image viewer, so — like
        them — `render()` has to close it. See `closeChestPop` in the close list. */
 
@@ -10338,11 +10344,17 @@
   }
   function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
   function chestCount() { return Math.max(0, (S.chests | 0)); }
+  /* THREE THINGS GRANT A CHEST, and they are deliberately in three different places: a LEVEL
+     (announceLevelUps, which also opens it — there the chest is the celebration), a BADGE
+     (checkAchievements, which queues it — there the toast is), and the daily sweep below. */
   function grantChest(n) { S.chests = chestCount() + (n || 1); save(); }
   /* A second channel, so a reader who plays the daily games has something to open without waiting thirty
      cards for the next level (Aug 2026, on request). Once a day, on the same condition the Clean Sweep
      badge already measures. `S.sweepChest` records the day rather than a boolean: a flag would need
-     clearing at midnight by something, and nothing runs at midnight. */
+     clearing at midnight by something, and nothing runs at midnight.
+     Note that a reader's FIRST sweep pays twice, and that is correct rather than a double-count: the
+     Clean Sweep badge unlocks on the same day and badges earn chests too, so one chest is for the day's
+     games and one is for the badge, which can never be earned again. */
   function maybeSweepChest() {
     if (S.sweepChest === todayStr() || !allGamesWonToday(S)) return;
     S.sweepChest = todayStr();
@@ -10822,6 +10834,16 @@
       o: { lang: "sa", t: "प्रजासुखे सुखं राज्ञः प्रजानां च हिते हितम्।", a: "कौटिल्य", s: "अर्थशास्त्र १.१९" } },
     { t: "Yoga is the stilling of the movements of the mind.", a: "Patanjali", s: "Yoga Sutras 1.2",
       o: { lang: "sa", t: "योगश्चित्तवृत्तिनिरोधः।", a: "पतञ्जलि", s: "योगसूत्र १.२" } },
+    // NO ORIGINAL, AND THE REASON IS THE DIACRITICS RATHER THAN THE TEXT (Aug 2026, looked for on
+    // request). The Prakrit exists and is not in doubt: Hultzsch prints the Girnar version of clause (H)
+    // in the Corpus Inscriptionum Indicarum I (1925), which is the edition the English above follows.
+    // What could not be had is a copy that survives being read. The volume is on the Internet Archive
+    // twice and BOTH are OCR of a 1925 type-facsimile: the two scans agree on the letters and disagree
+    // on the macrons, and neither preserves an under-dot at all — so ātpa/atpa is a guess and every
+    // retroflex ḍ and ṇ in pāsaṁḍa is unrecoverable. A transliteration of an inscription is exactly the
+    // place where a plausible reconstruction is a fabrication, so none is written; en.wikipedia's Major
+    // Rock Edicts carries Hultzsch's ENGLISH only, and no Unicode edition was found on Wikisource,
+    // GRETIL or SARIT. Ship it the day a keyed text turns up — the sentence wanted is Girnar XII (H).
     { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII" },
     { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912",
       // Tagore's own English of his Bengali poem, so the "original" is Naibedya 72 (1901) rather than
@@ -10840,8 +10862,15 @@
       o: { lang: "ar", t: "وينبغي لنا أن لا نستحي من استحسان الحق، واقتناء الحق من أين أتى، وإن أتى من الأجناس القاصية عنا، والأمم المباينة.", a: "الكندي", s: "الفلسفة الأولى، خطبة الكتاب" } },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
-    { t: "The seeker after truth is not one who studies the writings of the ancients and trusts them, but one who questions what he gathers from them.", a: "Ibn al-Haytham", s: "Doubts Concerning Ptolemy, 11th century" },
-    { t: "Knowledge without action is madness, and action without knowledge is vanity.", a: "Al-Ghazali", s: "Ayyuha'l-Walad (O Youth)" },
+    // Read off the printed Arabic (Madkour's edition of al-Shukūk, scanned on the Internet Archive) and
+    // checked against the copies circulating separately, which agree word for word. It opens on the
+    // connective fa- because the sentence ANSWERS the paragraph before it — Ibn al-Haytham has just said
+    // that thinking well of the learned is in everyone's nature — and it is kept, as Ranke's 1824
+    // spelling is, rather than tidied into the form the line is usually quoted in.
+    { t: "The seeker after truth is not one who studies the writings of the ancients and trusts them, but one who questions what he gathers from them.", a: "Ibn al-Haytham", s: "Doubts Concerning Ptolemy, 11th century",
+      o: { lang: "ar", t: "فطالب الحق ليس هو الناظر في كتب المتقدمين المسترسل مع طبعه في حسن الظن بهم، بل طالب الحق هو المتهم لظنه فيهم، المتوقف فيما يفهمه عنهم، المتبع الحجة والبرهان.", a: "ابن الهيثم", s: "الشكوك على بطليموس" } },
+    { t: "Knowledge without action is madness, and action without knowledge is vanity.", a: "Al-Ghazali", s: "Ayyuha'l-Walad (O Youth)",
+      o: { lang: "ar", t: "العلم بلا عمل جنون، والعمل بغير علم لا يكون.", a: "الغزالي", s: "أيها الولد" } },
     // Checked against Sachau on both sides — his Arabic edition (London 1887, p. 2) and his own English
     // of it (Alberuni's India, PREFACE, p. 3). Two things came out of that. The printed translation reads
     // "hearsay does not equal EYE-WITNESS"; "eyesight", which this line carried, is a paraphrase that
@@ -10851,9 +10880,24 @@
     // the line for himself, which is worth a reader seeing when they flip it.
     { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030",
       o: { lang: "ar", t: "إنما صدق قول القائل ليس الخبر كالعيان.", a: "البيروني", s: "تحقيق ما للهند، المقدمة" } },
-    { t: "Untruth naturally afflicts historical information, and there are various reasons that make this unavoidable.", a: "Ibn Khaldun", s: "Muqaddimah I, 1377" },
+    // TWO SOURCES WERE READ AND THEY DISAGREE BY ONE LETTER, WHICH IS WHY BOTH WERE READ. Arabic
+    // Wikisource's Muqaddimah has "بطبعته" where the printed text has "بطبيعته" — the second is the
+    // reading of every other copy checked and the one the sense requires (untruth afflicts a report BY
+    // ITS NATURE), so the Wikisource form is a slip and is not what ships. The sentence opens on
+    // "ولما كان" because it heads Ibn Khaldun's list of the causes of untruth, which is the point of it.
+    { t: "Untruth naturally afflicts historical information, and there are various reasons that make this unavoidable.", a: "Ibn Khaldun", s: "Muqaddimah I, 1377",
+      o: { lang: "ar", t: "ولما كان الكذب متطرقاً للخبر بطبيعته وله أسباب تقتضيه.", a: "ابن خلدون", s: "المقدمة" } },
     { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
       o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
+    // NO ORIGINAL, AND HERE THE REASON IS THE ATTRIBUTION (Aug 2026, looked for on request). The Hebrew
+    // is easy to find and that is the trap: "למד לשונך לומר איני יודע" is the BABYLONIAN TALMUD, Berakhot
+    // 4a, where it is introduced with "דאמר מר" — "as the Master said" — so even the Talmud is quoting it
+    // as a saying already received. Maimonides repeats it; he did not write it. Setting it as this entry's
+    // `o` would put those words in his mouth in the one place a reader goes to see what he actually
+    // wrote, which is worse than the blank — the `s` here already hedges with "Attributed". The honest
+    // fixes are to re-attribute the quote to the Talmud and give it the Hebrew, or to drop it for a line
+    // Maimonides did write; both change who speaks, which changes the running order (the no-repeat rule
+    // is keyed on the author), so neither is done in passing. Flagged rather than papered over.
     { t: "Teach your tongue to say \"I do not know\", and you will make progress.", a: "Maimonides", s: "Attributed; cf. Commentary on the Mishnah" },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
@@ -11651,10 +11695,39 @@
             is the colour furthest in CIELAB from everything already placed. They clear their nearest
             neighbour by 44.6 / 41.1 / 32.9 against the shipped palette's own tightest pair at 27.8, so the
             row adds no crowding. What year? is deliberately NOT the remaining blue: Timeline is blue and is
-            the other game built on the cards' dates, so a second blue would say the two are a set. */""}
+            the other game built on the cards' dates, so a second blue would say the two are a set.
+            WHAT YEAR? WAS RE-COLOURED IN AUG 2026, ON REQUEST, AND IT IS THE FIRST TILE WHOSE COLOUR THE
+            SWEEP ABOVE COULD NOT CHOOSE. Two things came out of it and both are worth carrying.
+            FIRST, THE WHOLE YELLOW FAMILY IS OUT, AND ON A GROUND RATHER THAN ON A NUMBER. The sweep put
+            it at #787C00 and, re-run today, that answer still wins by a distance: the largest empty
+            stretch of the wheel is the 84° between Common Thread's orange and True or False's green, so
+            all twelve of the best-separated colours in the band are olives around hue 106, the top of
+            them clearing its nearest neighbour by 41.8 against a tightest shipped pair of 27.8. But a
+            dark yellow is not a yellow. Yellow reaches its chroma at a lightness this row cannot use —
+            white has to stay legible on the filled tile, which is what holds the band's ceiling at L 65 —
+            so forcing it down to L 50 produces mustard, and mustard is what was disliked. Brighter is the
+            same colour louder (#889202, sep 43.7) and no answer at all.
+            SECOND, AND THE PART A SWEEP CANNOT SEE: THE NUMBERS ARE MEASURED AT FULL STRENGTH AND THE
+            TILE IS USUALLY SEEN AS A ~10% WASH. An unplayed tile states its hue as a wash and a tinted
+            title, which takes most of the chroma out — so two colours a comfortable ΔE apart can still
+            read as a pair, and what decides it is ADJACENCY rather than distance, the eye comparing the
+            tile beside a tile and not the one three cells away. The best colour outside the yellows is a
+            deep cerise (#CA2E70, 34.0 from Picture round and 34.7 from Multiple Choice, evenly clear of
+            both, 5.08:1 on the fill) — and RENDERED it sits immediately beside Picture round's dusty pink
+            in the bottom row and the two washes read as a set. Measured fine, looked wrong; rejected on
+            the page. A russet at 32.1 was rejected the same way, washing out to a colourless beige, and a
+            deep green at 29.0 read as True or False.
+            So this vivid leaf green, which is the best-separated colour that survives being looked at:
+            35.1 from True or False, its only neighbour of a family, which is two rows up in the same
+            column rather than beside it, and 57.2 and 62.5 from everything else. It does NOT tighten the
+            palette — the closest pair stays True or False against Find it at 27.8 — and white reads
+            4.20:1 on the fill, well clear of Common Thread's 2.70 floor. In the bottom row it stands
+            plainly apart from Crossword's cyan and Picture round's pink, which is the whole test.
+            THE RULE FOR THE NEXT TILE: sweep for the shortlist, then RENDER it beside its neighbours in
+            the unplayed state before believing the winner. */""}
       ${tile({ id: "g-crossword", cls: "g-crossword", color: "#00A4D6", glyph: ICON.crossword, title: "Crossword", sub: gameSub("crossword"), done: playedCrosswordToday, won: wonToday.crossword })}
       ${tile({ id: "g-picture", cls: "g-picture", color: "#CE80A8", glyph: ICON.picture, title: "Picture round", sub: gameSub("picture"), done: playedPictureToday, won: wonToday.picture })}
-      ${tile({ id: "g-whatyear", cls: "g-whatyear", color: "#787C00", glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
+      ${tile({ id: "g-whatyear", cls: "g-whatyear", color: "#5E8802", glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
@@ -21787,12 +21860,36 @@
       terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0 };
   }
   // unlock any newly-earned achievements for the active (S) profile; toast each unless silent
+  /* A BADGE EARNS A CHEST — one per badge, so unlocking three at once grants three (Aug 2026, on
+     request). It is the THIRD channel after the level-up and the daily sweep, and the reasoning that
+     shaped those two decides how this one behaves.
+     · IT IS NOT OPENED ON THE SPOT. A level-up opens the chest overlay because the chest IS that
+       celebration; a badge already has one — the toast and the win chime — and badges arrive mid-card,
+       often in the same grade as a level-up (grade() calls announceLevelUps and then this), so opening
+       here would raise a second overlay over the first. The chest QUEUES instead, which is what
+       `S.chests` being a count rather than a flag is for, and the home banner's chip and the account
+       page's own banner carry it until the reader opens it. The toast says so, in the daily sweep's
+       words, so nothing is won silently.
+     · IT IS GRANTED ON THE SILENT PATH TOO. `silent` suppresses the ANNOUNCEMENT, not the unlock — the
+       boot backfill and the account page's own call unlock badges the reader genuinely earned, and a
+       badge that lands without a chest because of where it was noticed would be the odder rule. The
+       backfill runs once per reader (a badge already in `S.achievements` is never "newly" again), so
+       this cannot pay out twice for the same badge.
+     `grantChest` saves, which is what the bare `save()` here used to do. */
   function checkAchievements(silent) {
     if (!S.achievements) S.achievements = {};
     const s = progStats(S, currentUser() ? (currentUser().friends || []).length : 0);
     const newly = [];
     ACHIEVEMENTS.forEach((a) => { if (!S.achievements[a.id] && a.test(s)) { S.achievements[a.id] = Date.now(); newly.push(a); } });
-    if (newly.length) { save(); if (!silent) { sfx("win"); toast(newly.length === 1 ? newly[0].icon + " Achievement unlocked: " + newly[0].name : "🏆 " + newly.length + " achievements unlocked: " + newly.map((a) => a.name).join(", ")); } }
+    if (newly.length) {
+      grantChest(newly.length);
+      if (!silent) {
+        sfx("win");
+        toast((newly.length === 1 ? newly[0].icon + " Achievement unlocked: " + newly[0].name
+                                  : "🏆 " + newly.length + " achievements unlocked: " + newly.map((a) => a.name).join(", ")) +
+              (newly.length === 1 ? " — a chest is waiting in your account." : " — " + newly.length + " chests are waiting in your account."));
+      }
+    }
     return newly;
   }
   function badgesHTML(achObj, stats) {

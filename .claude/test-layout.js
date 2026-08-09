@@ -1104,12 +1104,19 @@ async function studyEasy(page, base, n) {
     /* Anki's three piles, in Anki's order, each in its own colour — three numbers in one colour say nothing,
        and the labels are the only thing that would tell them apart. Read AFTER a card is graded: until the
        first one the banner is the first-run hero and carries no stats at all. The same three, unlabelled,
-       must open the deck's own row, computed by the same function so a row cannot outrun the banner. */
+       must open the deck's own row, computed by the same function so a row cannot outrun the banner.
+       THE STAT ROW IS NOT ONLY PILES, AND THE EXCLUSIONS ARE THE ASSERTION'S SCOPE RATHER THAN A LOOSENING.
+       Two CHIPS share `.stat` with them by design — the day-streak chip and, since Aug 2026, the chest chip
+       that says a chest is waiting. This block excluded the streak alone and passed for months because the
+       test's reader never had a chest; the day badges began earning them it went red on a banner that was
+       rendering exactly as designed. Both are matched off in the SELECTOR now rather than filtered after,
+       so the four reads cannot come to disagree about what a pile is. A chip also has no number to speak of
+       (the chest's `<b>` is "🗝 1"), so leaving one in fed a NaN to the colour and zero checks below. */
     await studyEasy(page, base, 1);
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1600);
     const piles = await page.evaluate(() => ({
-      stats: [...document.querySelectorAll(".banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => ({
+      stats: [...document.querySelectorAll(".banner .stat:not(.streak):not(.chest-chip)")].map((s) => ({
         label: s.querySelector("span").textContent.trim(),
         n: +s.querySelector("b").textContent.trim(),
         col: getComputedStyle(s.querySelector("b")).color,
@@ -1122,13 +1129,13 @@ async function studyEasy(page, base, n) {
       desc: (document.querySelector(".review-group .banner .desc") || {}).textContent || "",
       xpLevel: (document.querySelector(".review-group .banner .xp-lvl") || {}).textContent || "",
       // each figure centred over its own label, and the whole row on the button's line
-      centred: [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => {
+      centred: [...document.querySelectorAll(".review-group .banner .stat:not(.streak):not(.chest-chip)")].map((s) => {
         const w = s.getBoundingClientRect(), n = s.querySelector("b").getBoundingClientRect(), l = s.querySelector("span").getBoundingClientRect();
         return Math.round(Math.abs((n.left + n.width / 2) - (l.left + l.width / 2)) * 10) / 10;
       }),
       onCtaRow: (() => {
         const cta = document.querySelector(".review-group .banner .cta").getBoundingClientRect();
-        return [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak"))
+        return [...document.querySelectorAll(".review-group .banner .stat:not(.streak):not(.chest-chip)")]
           .every((s) => { const b = s.getBoundingClientRect(); return b.top < cta.bottom && b.bottom > cta.top; });
       })(),
       // …and centred against them rather than sat on their baseline (Aug 2026, on request). The row was
@@ -1136,7 +1143,7 @@ async function studyEasy(page, base, n) {
       // and read as having slipped down.
       ctaOffset: (() => {
         const cta = document.querySelector(".review-group .banner .cta .btn").getBoundingClientRect();
-        const st = [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak"))
+        const st = [...document.querySelectorAll(".review-group .banner .stat:not(.streak):not(.chest-chip)")]
           .map((s) => s.getBoundingClientRect());
         if (!st.length) return 999;
         const mid = (Math.min(...st.map((b) => b.top)) + Math.max(...st.map((b) => b.bottom))) / 2;
