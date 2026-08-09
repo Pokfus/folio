@@ -6496,7 +6496,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
   thirteen `CARD_FIELDS`. **⚠ Publishing a deck that uses one needs the `8) CARD TYPES` block at the end of
   `.claude/supabase-schema.sql` run once** — everything else (writing, studying, export, import) is entirely
-  local and needs nothing.
+  local and needs nothing. It is one `alter table … add column if not exists types jsonb`, it is re-run safe,
+  and **it cannot be done from the app**: the publishable key the site ships with has no DDL rights, so this
+  is a step in the Supabase SQL editor and nowhere else. Until it runs, `typesColumnMissing` turns
+  PostgREST's PGRST204 into a sentence rather than a raw error — and **an admin gets a DIFFERENT sentence
+  from everyone else** (`typesColumnMsg`), naming the block to run, because the site's owner is the one
+  person who can clear it and "isn't set up yet" is a dead end for exactly them. The publish payload sends
+  `types` **only when the deck has any**, which is what lets a Basic-only deck still publish from an
+  un-migrated database; the read path is `select=*` (`communityFetchDeck`), so an installed copy gets the
+  templates the moment the column exists. One consequence of that `undefined`, recorded rather than fixed:
+  removing every type from an ALREADY-published deck does not clear the remote column, since the key is
+  omitted rather than sent empty.
   · **"Basic" is Folio's own format and is NOT one of these records.** It is what a card with no `type`
     renders as — question, answer, date line, background, sources — so **every card written before this
     existed is a Basic card and nothing migrates**. `CARD_TYPE_BASIC` is a reserved id: `uTypeSanitize`
@@ -6554,6 +6564,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `wireSpeakControls` adds only what a delegated listener cannot (role, tab stop, name), so a paint path
     that forgets it loses keyboard access rather than the feature; `body.no-tts` (written by `applyTheme`,
     like `no-anim`) takes the button chrome away where there is no engine, leaving the words as words.
+    **A CONTROL MAY SHOW ONE THING AND SAY ANOTHER** (`data-say`, read by `cardSpeakText`; Aug 2026, on
+    request, for the HSK decks' pinyin). `<span class="uc-tts" data-say="{{Simplified}}">{{Pinyin}}</span>`
+    shows the romanisation and pronounces the characters — which is the only way that control can work, since
+    a Mandarin voice handed "bēizi" reads the letters rather than the word. It is **the same contract the
+    site's own `.tr-play` buttons already use**, which is why it is spelled `data-say` and not something new,
+    and `data-say` had to be added to the sanitizer's `span` allowlist to survive ingest: it never reaches
+    the DOM as markup, only `SpeechSynthesisUtterance.text`, so the worst a deck can do with it is make the
+    speaker say something other than what is written — which the visible text could already do.
+    `wireSpeakControls` names the control by what it will SAY rather than by what it shows, that being the
+    thing a reader pressing it is after. Guarded in `.claude/test-speak.js`, whose third fixture deck exists
+    only for this: the failure is silent, because a dropped attribute leaves a control that still works and
+    simply pronounces the wrong string.
   · **CLOZE DELETIONS — `{{c1::answer}}` / `{{c1::answer::hint}}`** (`clozeMark` / `CLOZE_RX` /
     `CLOZE_NAME_RX` / `.uc-cloze`). Anki's syntax, because a learner who has written cloze cards before will
     type it without being told. **The braces go in the CARD'S TEXT, not in the template** — a substituted

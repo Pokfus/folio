@@ -1991,7 +1991,11 @@
     "*": new Set(["class", "dir", "lang", "title", "style"]),
     a: new Set(["href", "rel", "target"]),
     img: new Set(["src", "alt", "width", "height", "loading"]),
-    span: new Set(["data-k"]),
+    // data-k is a glossary term's key; data-say is what a `.uc-tts` control should SPEAK when that differs
+    // from the words it shows — a pinyin button that has to pronounce the characters, say. It never reaches
+    // the DOM as markup, only SpeechSynthesisUtterance.text, so the worst a deck can do with it is make the
+    // speaker say something other than what is written, which it could already do with the visible text.
+    span: new Set(["data-k", "data-say"]),
     sup: new Set(["data-fn"]),   // a footnote marker pointing into the surface's source list; the digit itself is written by wireFootnotes
   };
   // `style` survives ONLY as a colour. The rich-text ribbon's colour button emits
@@ -4534,9 +4538,16 @@
       types: Object.keys(uDeckTypes(d)).length ? uDeckTypes(d) : undefined,
     };
   }
-  // PostgREST answers an unknown column with PGRST204. It means one thing here and it is worth saying plainly,
-  // since the deck itself is fine and only the templates have nowhere to go.
+  /* PostgREST answers an unknown column with PGRST204. It means one thing here and it is worth saying
+     plainly, since the deck itself is fine and only the templates have nowhere to go.
+
+     An ADMIN gets a different sentence, because they are the one person who can clear it: the fix is one
+     `alter table` in the Supabase SQL editor, and telling the site's owner "isn't set up yet" without
+     saying what to run leaves the only person who can act on it at a dead end. Everyone else is told the
+     two things they CAN do instead. */
   const TYPES_COLUMN_MSG = "This deck uses custom card types, and card-type sharing isn't set up on this site yet. Export the deck as a file, or turn its cards back to Basic to publish.";
+  const TYPES_COLUMN_MSG_ADMIN = "Card-type sharing isn't set up on this database yet. Run section 8 (CARD TYPES) of .claude/supabase-schema.sql once in the Supabase SQL editor, then publish again.";
+  function typesColumnMsg() { return isAdmin() ? TYPES_COLUMN_MSG_ADMIN : TYPES_COLUMN_MSG; }
   function typesColumnMissing(r) {
     const body = r && r.data;
     const msg = (body && (body.message || body.code)) ? String(body.message || "") + " " + String(body.code || "") : "";
@@ -4558,7 +4569,7 @@
       const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
         method: "PATCH", body: uDeckRemotePayload(d), headers: { Prefer: "return=representation" },
       });
-      if (!r.ok) return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't update the published deck.") };
+      if (!r.ok) return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't update the published deck.") };
       row = Array.isArray(r.data) ? r.data[0] : r.data;
     } else {
       let attempt = 0;
@@ -4568,7 +4579,7 @@
         if (r.ok) { row = Array.isArray(r.data) ? r.data[0] : r.data; break; }
         // 409 = the slug is taken; try another suffix before giving up
         if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
-        return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't publish the deck.") };
+        return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't publish the deck.") };
       }
       if (!row) return { error: "That deck name is taken — try a different title." };
     }
@@ -10058,9 +10069,16 @@
     return ttsPickVoice(pool, /$^/, /$^/, null) || pool[0];
   }
   const SPEECH_RATE = 0.85;   // the same deliberate slowness the English narration reads at
+  // What a control SAYS is its own text, unless it carries data-say — which is how a control can show one
+  // thing and pronounce another (a pinyin button that has to speak the characters, since a Mandarin voice
+  // handed "bēizi" reads the romanisation rather than the word). The site's own .tr-play buttons already
+  // work this way; this is the same contract for a card type's .uc-tts.
+  function cardSpeakText(el) {
+    return String((el && (el.getAttribute("data-say") || el.textContent)) || "").replace(/\s+/g, " ").trim();
+  }
   function cardSpeak(el) {
     if (!el || !ttsSupported()) return;
-    const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+    const text = cardSpeakText(el);
     if (!text) return;
     const holder = el.closest("[lang]");
     const lang = holder ? holder.getAttribute("lang") : "";
@@ -10097,7 +10115,7 @@
     if (!scope || !ttsSupported()) return;
     scope.querySelectorAll(".uc-tts").forEach((el) => {
       if (el.getAttribute("role") === "button") return;
-      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      const text = cardSpeakText(el);   // name it by what it will SAY, which is the thing the reader is after
       el.setAttribute("role", "button");
       el.setAttribute("tabindex", "0");
       el.setAttribute("aria-label", text ? "Hear “" + text + "” read aloud" : "Read aloud");
