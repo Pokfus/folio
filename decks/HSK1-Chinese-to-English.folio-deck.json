@@ -1941,7 +1941,7 @@
    "num": "80",
    "category": "HSK 1",
    "question": "钱 / 錢",
-   "answer": "qián — money; coin; unit of weight, one tenth of a tael 两",
+   "answer": "qián — money; coin; unit of weight, one tenth of a tael",
    "answerDate": "",
    "traditional": "錢",
    "hanzi": "钱",
@@ -1949,7 +1949,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "money; coin; unit of weight, one tenth of a tael 两",
+   "answerText": "money; coin; unit of weight, one tenth of a tael",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "钱",
@@ -1957,7 +1957,7 @@
     "Pinyin": "qián",
     "Bopomofo": "ㄑㄧㄢˊ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">笔</span><span class=\"uc-mwc uc-mwt\">筆</span><span class=\"uc-mwp\">bǐ</span></span>",
-    "English": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael 两</div>"
+    "English": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael</div>"
    }
   },
   {

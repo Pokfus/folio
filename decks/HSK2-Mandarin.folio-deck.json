@@ -1862,7 +1862,7 @@
    "category": "HSK 2",
    "sub": "Chinese → English",
    "question": "男",
-   "answer": "nán — male; Baron, lowest of five orders of nobility 位",
+   "answer": "nán — male; Baron, lowest of five orders of nobility",
    "answerDate": "",
    "traditional": "",
    "hanzi": "男",
@@ -1870,7 +1870,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "male; Baron, lowest of five orders of nobility 位",
+   "answerText": "male; Baron, lowest of five orders of nobility",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "男",
@@ -1878,7 +1878,7 @@
     "Pinyin": "nán",
     "Bopomofo": "ㄋㄢˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">male</div><div class=\"uc-sense\">Baron, lowest of five orders of nobility 位</div>"
+    "English": "<div class=\"uc-sense\">male</div><div class=\"uc-sense\">Baron, lowest of five orders of nobility</div>"
    }
   },
   {
@@ -5636,7 +5636,7 @@
    "num": "73",
    "category": "HSK 2",
    "sub": "English → Chinese",
-   "question": "<div class=\"uc-sense\">male</div><div class=\"uc-sense\">Baron, lowest of five orders of nobility 位</div>",
+   "question": "<div class=\"uc-sense\">male</div><div class=\"uc-sense\">Baron, lowest of five orders of nobility</div>",
    "answer": "男 — nán",
    "answerDate": "",
    "traditional": "",
@@ -5648,7 +5648,7 @@
    "answerText": "男 nán",
    "type": "en-to-zh",
    "fields": {
-    "English": "<div class=\"uc-sense\">male</div><div class=\"uc-sense\">Baron, lowest of five orders of nobility 位</div>",
+    "English": "<div class=\"uc-sense\">male</div><div class=\"uc-sense\">Baron, lowest of five orders of nobility</div>",
     "Simplified": "男",
     "Traditional": "",
     "Pinyin": "nán",
