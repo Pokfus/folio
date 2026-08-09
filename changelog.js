@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.110", released: "2026-08-08T22:44Z" };
+window.FOLIO_VERSION = { v: "1.111", released: "2026-08-09T00:25Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-09",
+    t: "Twenty more glossary terms behind the Ancient Greece cards",
+    items: [
+      "Twenty more glossary terms, covering the islands, seas, sites, materials and dating methods that the Ancient Greece cards lean on, along with a few that belong to no deck in particular. Every one arrives cited, with the works behind it listed at the foot of its popup. One term already on the shelf now also answers to a shorter form of its name, so it opens where the cards actually use the word.",
+    ],
+  },
   {
     d: "2026-08-08",
     t: "Levelling up now opens a chest holding a real historical artefact, collections show how far through them you are, the first forty Ancient Rome cards arrive, the Book of Rites and The City of God join the Library, and a walkthrough for new readers",
