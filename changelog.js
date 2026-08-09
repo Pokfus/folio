@@ -14,9 +14,17 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.110", released: "2026-08-08T22:44Z" };
+window.FOLIO_VERSION = { v: "1.111", released: "2026-08-09T00:08Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-09",
+    t: "Three new daily games — a crossword clued from the cards, a picture round, and a year to find on a timeline",
+    items: [
+      "<b>Three new daily games</b>, taking the home page's grid to nine. <b>Crossword</b> builds a fresh grid every morning out of the cards' own answer terms, and every clue is a card's own question with the answer taken out of it — so it is the deck read sideways, answered a letter at a time. You get one check, as Timeline does, and it fills in what you missed. <b>What year?</b> lists five things that all belong to one year and gives you a timeline and three guesses to find it; guess too early and the rail tells you so and rules out everything below. And a <b>Picture round</b> asks you to name what is in five illustrations — that one is waiting on the pictures themselves, since Folio has only one so far, so for now it says so rather than dealing a round it cannot fill.",
+      "Winning every daily game in one day still earns the Clean Sweep badge and a chest — and now means all nine of them.",
+    ],
+  },
   {
     d: "2026-08-08",
     t: "Levelling up now opens a chest holding a real historical artefact, collections show how far through them you are, the first forty Ancient Rome cards arrive, the Book of Rites and The City of God join the Library, and a walkthrough for new readers",

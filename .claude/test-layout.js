@@ -1034,7 +1034,13 @@ async function studyEasy(page, base, n) {
     check("the games sit under the review, under a Minigames heading",
       /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
     check("...centred over the grid it names", Math.abs(h.headOff) <= 2, h.headOff);
-    check("...three wide and two tall", h.cols === 3 && h.rows === 2 && h.tiles === 6, JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
+    /* Three to a row, in FULL rows — the count is derived from the tiles rather than written down, because
+       the grid has gone from four games to six to nine and a hard-coded 6 is one more thing to remember
+       when it grows again. What matters at this width is that it stays three wide (a fourth column at
+       390px is unreadable) and that the last row is not a ragged one or two. */
+    check("...three to a row, in full rows",
+      h.cols === 3 && h.tiles >= 6 && h.tiles % 3 === 0 && h.rows === h.tiles / 3,
+      JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
     check("...the quote still above it all", h.quoteAbove);
     check("...and the About link last, About having left the tab bar", /about/i.test(h.about) && h.aboutLast, JSON.stringify({ about: h.about, last: h.aboutLast }));
