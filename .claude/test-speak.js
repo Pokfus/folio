@@ -1,0 +1,220 @@
+// Automatic read-aloud on reveal — the per-deck switch, and the guard that keeps it quiet.
+//
+// Both halves fail silently and in opposite directions, which is why each is asserted from both sides. A
+// switch that appears on a deck with nothing to say is a control that answers a press with silence; a
+// switch that never appears is a feature nobody can find. And a card that speaks on every repaint — not
+// only when a reader asked for the answer — is a card nobody can leave open, which no count of assertions
+// about the happy path would ever notice.
+//
+// The deck is built here rather than read off decks/, so this tests the FEATURE and not a content file.
+//
+//   NODE_PATH=<scratch>/node_modules node .claude/test-speak.js
+//   FOLIO_CHROMIUM=<path to chrome>   if Chromium lives outside the playwright package
+const http = require("http");
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
+const { chromium } = require("playwright");
+
+const ROOT = path.resolve(__dirname, "..");
+const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
+const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml" };
+
+const server = http.createServer((req, res) => {
+  let p = decodeURIComponent(req.url.split("?")[0]);
+  if (p === "/") p = "/index.html";
+  const file = path.join(ROOT, p);
+  if (!file.startsWith(ROOT)) { res.writeHead(403); res.end(); return; }
+  fs.readFile(file, (err, data) => {
+    if (err) { res.writeHead(404); res.end("not found"); return; }
+    res.writeHead(200, { "Content-Type": TYPES[path.extname(file)] || "application/octet-stream" });
+    res.end(data);
+  });
+});
+
+let pass = 0, fail = 0;
+function check(name, ok, extra) {
+  if (ok) { pass++; console.log("ok    " + name + (extra ? "  " + extra : "")); }
+  else { fail++; console.log("FAIL  " + name + (extra ? "  " + extra : "")); }
+}
+
+// two decks of the same shape: one whose type marks text to be read aloud, one whose type does not
+function deckFile(id, title, speaks) {
+  const type = {
+    id: "vocab", name: "Vocab", speechLang: speaks ? "zh-CN" : "",
+    fields: ["Word", "Meaning"],
+    front: '<div class="uc-q">{{Meaning}}</div>',
+    back: "{{FrontSide}}<hr><div class=\"uc-a\">" +
+      (speaks ? '<span class="uc-tts">{{Word}}</span>' : "{{Word}}") + "</div>",
+    css: ".card {\n  font-size: 17px;\n}\n",
+  };
+  const words = [["爱", "love"], ["八", "eight"], ["茶", "tea"]];
+  return {
+    folioDeck: 1,
+    meta: { id, title, subtitle: "", desc: "", author: "", language: "en", tags: [],
+            glossMode: "site", types: { vocab: type }, version: 1 },
+    cards: words.map((w, i) => ({
+      id: "u_" + id + "_" + (i + 1), num: String(i + 1), category: "",
+      question: "", answer: "", answerDate: "", traditional: "", hanzi: "", pinyin: "",
+      translations: "", abstract: "", citation: "", answerText: "",
+      type: "vocab", fields: { Word: w[0], Meaning: w[1] },
+    })),
+    gloss: {},
+  };
+}
+
+const opts = (page) => page.evaluate(() => {
+  try { return JSON.parse(localStorage.getItem("folio_v1") || "{}").deckOpts || {}; } catch (e) { return {}; }
+});
+const sheetInfo = (page) => page.evaluate(() => {
+  const sp = document.querySelector('[data-act="speak"]');
+  return {
+    open: !!document.querySelector(".dm-head"),
+    title: (document.querySelector(".dm-title") || {}).textContent || "",
+    has: !!sp,
+    label: sp ? (sp.querySelector("b") || {}).textContent : "",
+    note: sp ? (sp.querySelector("small") || {}).textContent : "",
+    on: sp ? sp.querySelector(".switch").classList.contains("on") : null,
+  };
+});
+// the sheet is opened by a long press; contextmenu is the same way in and is what a mouse uses
+const holdRow = (page, match) => page.evaluate((m) => {
+  const r = [...document.querySelectorAll(".active-deck")].find((e) => new RegExp(m, "i").test(e.textContent));
+  if (!r) return false;
+  r.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
+  return true;
+}, match);
+
+(async () => {
+  await new Promise((r) => server.listen(0, r));
+  const base = "http://127.0.0.1:" + server.address().port;
+  const browser = await chromium.launch(LAUNCH);
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  // the spy goes in before any page script, so it is watching from the first frame
+  await ctx.addInitScript(() => {
+    window.__spoke = [];
+    try {
+      const orig = speechSynthesis.speak.bind(speechSynthesis);
+      speechSynthesis.speak = (u) => { window.__spoke.push({ text: u.text, lang: u.lang }); try { orig(u); } catch (e) {} };
+    } catch (e) {}
+  });
+  const page = await ctx.newPage();
+  const errs = [];
+  page.on("pageerror", (e) => errs.push(String(e)));
+  page.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
+
+  check("the browser has a speech engine to gate on",
+    await page.evaluate(() => !!(window.speechSynthesis && window.SpeechSynthesisUtterance)));
+
+  for (const [id, title, speaks] of [["spkdeck", "Speaking deck", true], ["quietdeck", "Quiet deck", false]]) {
+    const tmp = path.join(os.tmpdir(), "folio-" + id + ".folio-deck.json");
+    fs.writeFileSync(tmp, JSON.stringify(deckFile(id, title, speaks)));
+    await page.goto(base + "/#studio");
+    await page.reload();
+    await page.waitForTimeout(900);
+    const chooser = page.waitForEvent("filechooser");
+    await page.click("#stImport");
+    await (await chooser).setFiles(tmp);
+    await page.waitForTimeout(1300);
+  }
+
+  /* ---------- the switch is offered only where something can speak ---------- */
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(1300);
+  for (const id of ["spkdeck", "quietdeck"]) {
+    const add = await page.$('[data-uadd="' + id + '"]');
+    if (add) { await add.click(); await page.waitForTimeout(600); }
+  }
+  await page.goto(base + "/#home");
+  await page.waitForTimeout(1200);
+
+  check("the speaking deck has a row on the home page", await holdRow(page, "Speaking deck"));
+  await page.waitForTimeout(600);
+  let s = await sheetInfo(page);
+  check("holding it opens its options", s.open, JSON.stringify(s.title));
+  check("…which offer 'Read aloud automatically'", s.has, JSON.stringify(s.label));
+  check("…starting OFF (a site that makes a noise is asked first)", s.on === false, String(s.on));
+  check("…and saying meanwhile how to hear a card", /speaker/i.test(s.note), JSON.stringify(s.note));
+
+  await page.click('[data-act="speak"]');
+  await page.waitForTimeout(500);
+  s = await sheetInfo(page);
+  check("throwing it leaves the sheet open (a switch is a setting, not a command)", s.open);
+  check("…the switch reads on", s.on === true);
+  check("…and its note now says what it is doing", /revealed/i.test(s.note), JSON.stringify(s.note));
+  const stored = await opts(page);
+  check("the choice is stored against that deck alone",
+    stored["u:spkdeck"] && stored["u:spkdeck"].autoSpeak === true && !(stored["u:quietdeck"] || {}).autoSpeak,
+    JSON.stringify(stored["u:spkdeck"] || null));
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(400);
+
+  check("a deck whose type marks nothing to read offers no switch", await holdRow(page, "Quiet deck"));
+  await page.waitForTimeout(600);
+  s = await sheetInfo(page);
+  check("…its sheet opened", s.open, JSON.stringify(s.title));
+  check("…and carries no read-aloud row", s.open && s.has === false);
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(400);
+
+  // the pooled review answers for whatever is added to it right now
+  await page.evaluate(() => {
+    const b = document.querySelector(".review-group .banner");
+    if (b) b.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
+  });
+  await page.waitForTimeout(600);
+  check("the pooled review offers it too, a speaking deck being added to it", (await sheetInfo(page)).has);
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(400);
+
+  /* ---------- revealing speaks, and nothing else does ---------- */
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(1300);
+  await (await page.$('[data-udeck="spkdeck"]')).click();
+  await page.waitForTimeout(1300);
+  await page.evaluate(() => { window.__spoke = []; });
+  const rev = await page.$("#reveal-btn");
+  check("a card of the speaking deck is showing", !!rev);
+  check("…and showing it has said nothing yet", (await page.evaluate(() => window.__spoke)).length === 0);
+  if (rev) { await rev.click(); await page.waitForTimeout(900); }
+  const spoke = await page.evaluate(() => window.__spoke);
+  check("revealing speaks, with no button pressed", spoke.length === 1, JSON.stringify(spoke));
+  if (spoke.length) {
+    check("…it speaks the marked run", spoke[0].text === "爱", JSON.stringify(spoke[0].text));
+    check("…in the language the type declares", /^zh/i.test(spoke[0].lang || ""), spoke[0].lang);
+  }
+
+  /* The restore path must stay SILENT. showAnswer() runs again from renderCard's own tail whenever an
+     already-revealed card is re-opened — after a reload, a language switch, or an undo. Undo is the
+     reachable one, and it is the same branch. */
+  await page.keyboard.press("3");
+  await page.waitForTimeout(900);
+  if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(500); }
+  check("grading moves on to the next card, unrevealed",
+    await page.evaluate(() => !document.querySelector(".uc-card.uc-back")));
+  const before = (await page.evaluate(() => window.__spoke)).length;
+  await page.keyboard.press("Control+z");
+  await page.waitForTimeout(1000);
+  const undone = await page.evaluate(() => ({ back: !!document.querySelector(".uc-card.uc-back"), n: window.__spoke.length }));
+  check("undo brings the card back revealed", undone.back);
+  check("…and it does NOT speak again — only a reader's own reveal speaks", undone.n === before, before + " -> " + undone.n);
+
+  /* ---------- and the quiet deck stays quiet ---------- */
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(1300);
+  await (await page.$('[data-udeck="quietdeck"]')).click();
+  await page.waitForTimeout(1300);
+  await page.evaluate(() => { window.__spoke = []; });
+  const rev2 = await page.$("#reveal-btn");
+  if (rev2) { await rev2.click(); await page.waitForTimeout(900); }
+  check("a deck with nothing marked to read says nothing on reveal",
+    (await page.evaluate(() => window.__spoke)).length === 0);
+
+  const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
+  check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
+
+  console.log("\n" + pass + " passed, " + fail + " failed");
+  await browser.close();
+  server.close();
+  process.exit(fail ? 1 : 0);
+})();

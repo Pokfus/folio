@@ -3541,6 +3541,37 @@
     if (id === REVIEW_ENTRY) { S.settings.reviewRandom = !!on; save(); return; }
     setDeckLimits(id, { random: !!on });
   }
+  /* AUTOMATIC READ-ALOUD, per entry (Aug 2026, on request — Anki's "read the answer aloud"). A card type
+     may mark a run of text as something to hear (`<span class="uc-tts">` — see the read-aloud block further
+     down); this is the reader asking for that to happen BY ITSELF the moment the answer is revealed, rather
+     than being a button they press on every card of a session.
+
+     It is per entry like the two switches above, and unlike them it has NO global default and starts OFF.
+     That asymmetry is deliberate: those two choose between two ways of doing something the reader already
+     asked for, where this one makes the site start making a noise on its own. A thing done TO a reader is
+     opted into, which is the same line the site-wide `ttsEnabled()` switch draws.
+
+     It rides in `S.deckOpts`, so it is carried by the synced progress blob and survives a reset (deckOpts is
+     in RESET_KEEPS) with no field of its own. */
+  function deckAutoSpeak(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    return o.autoSpeak === true;
+  }
+  function setDeckAutoSpeak(id, on) { setDeckLimits(id, { autoSpeak: !!on }); }
+  /* Has this entry anything to say? The switch is offered only where the answer is yes, because a control
+     that answers a press with silence is worse than no control at all — the same test the `.uc-tts` chrome
+     itself applies through `body.no-tts`.
+     A curated card has no templates and so never speaks; a community deck speaks when one of its OWN card
+     types marks text to be read. The pooled review answers for whatever is added to it right now, so the
+     switch appears there the day such a deck is added and goes when it is removed — which is why this is
+     derived on each open rather than stored. */
+  function typeSpeaks(t) { return !!t && /\buc-tts\b/.test(String(t.front || "") + String(t.back || "")); }
+  function entryHasSpeech(id) {
+    if (!ttsSupported()) return false;
+    if (id === REVIEW_ENTRY) return activeEntryIds().some((e) => e !== REVIEW_ENTRY && entryHasSpeech(e));
+    const d = UDECKS[uDeckIdOf(id) || ""];
+    return !!(d && d.types && Object.keys(d.types).some((k) => typeSpeaks(d.types[k])));
+  }
   /* Which entry's options a STUDY SCOPE follows. A deck tapped on its own row uses that deck's; the
      pooled review, the Card-of-the-day list and a single card off the home tile use the review's, since
      that is the entry whose sheet the reader would have opened to change it. */
@@ -7923,6 +7954,8 @@
       "</div>";
     const random = deckRandom(id);
     const variety = deckVariety(id);
+    // shown only where something in this entry can actually speak — see entryHasSpeech
+    const canSpeak = entryHasSpeech(id), autoSpeak = deckAutoSpeak(id);
     /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
        sit at the right of the row in the review list, where it competed with the deck's name for a 390px
        line; the bar stays there and says the same thing at a glance, and the count is here, where a reader
@@ -7940,6 +7973,9 @@
       swRow("variety", "Question variety",
         "Each card asks one of its phrasings at random",
         "Every card always asks its first phrasing", variety) +
+      (canSpeak ? swRow("speak", "Read aloud automatically",
+        "The answer is spoken as soon as it is revealed",
+        "Press the speaker on a card to hear it", autoSpeak) : "") +
       item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
       item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
       item("skip", skipped ? "Study today after all" : "Skip today",
@@ -7965,6 +8001,10 @@
             setDeckRandom(id, on);
             note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
             toast(on ? "Review order: random" : "Review order: ordered");
+          } else if (rowEl.dataset.act === "speak") {
+            setDeckAutoSpeak(id, on);
+            note.textContent = on ? "The answer is spoken as soon as it is revealed" : "Press the speaker on a card to hear it";
+            toast(on ? "Reading answers aloud" : "Automatic reading off");
           } else {
             setDeckVariety(id, on);
             note.textContent = on ? "Each card asks one of its phrasings at random" : "Every card always asks its first phrasing";
@@ -15410,6 +15450,9 @@
     // session rather than per card: the setting is changed from the home page, so it cannot move mid-session,
     // and a card requeued ten minutes later must not suddenly be asked a different way.
     const varietyOn = deckVariety(scopeEntryId(params.scope));
+    // …and whether revealing an answer should speak it. Read once for the session for the same reason:
+    // it is changed from the home page, so it cannot move mid-session.
+    const autoSpeakOn = deckAutoSpeak(scopeEntryId(params.scope));
 
     // placeholder / coming-soon deck — or a deck whose cards are all inside coming-soon collections (e.g. China set aside)
     const availStudy = availableCardIdSet();
@@ -15655,9 +15698,13 @@
 
       const actions = root.querySelector("#actions");
       actions.innerHTML = '<div class="reveal-cta"><button class="btn" id="reveal-btn">Reveal answer</button></div>';
-      root.querySelector("#reveal-btn").addEventListener("click", showAnswer);
+      root.querySelector("#reveal-btn").addEventListener("click", () => showAnswer(true));
 
-      function showAnswer() {
+      /* `fromReader` is true only when a person asked for the answer — the button, Enter, Space. It is what
+         the automatic read-aloud below keys on, because showAnswer also runs from the restore line at the
+         foot of renderCard, which re-opens an ALREADY-revealed card after a reload, a language switch or an
+         undo. A card that spoke again on every repaint would be a card nobody could leave open. */
+      function showAnswer(fromReader) {
         if (revealed) return;
         revealed = true;
         studyRevealId = id;   // so a language switch re-render re-opens this card rather than resetting it
@@ -15670,6 +15717,12 @@
         setupTooltips(inner);
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
         wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
+        /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
+           only: a type that marks several runs is asking for a control on each, not for a recital. */
+        if (fromReader && autoSpeakOn) {
+          const say = inner.querySelector(".uc-tts");
+          if (say) cardSpeak(say);
+        }
         const bgHead = inner.querySelector(".bg-head");
         const bgToggle = inner.querySelector(".bg-toggle");
         const bgCollapse = inner.querySelector(".bg-collapse");
@@ -15781,10 +15834,10 @@
         if ((e.key === "Enter" || e.key === " ") && focusOwnsKey) return;
         if (!revealed && e.key === "Enter") {
           e.preventDefault();
-          showAnswer();
+          showAnswer(true);
         } else if (!revealed && e.key === " " && !typing) {
           e.preventDefault();
-          showAnswer();
+          showAnswer(true);
         } else if (revealed && ["1", "2", "3", "4"].includes(e.key)) {
           e.preventDefault();
           doGrade({ 1: "again", 2: "hard", 3: "good", 4: "easy" }[e.key]);
