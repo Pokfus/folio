@@ -318,9 +318,16 @@ async function openGlossEditor(page, base) {
     const fig = document.querySelector(".reveal .card-img");
     if (!fig) return null;
     const cs = getComputedStyle(fig), r = fig.getBoundingClientRect(), inner = fig.querySelector(".cv-media");
+    const slot = fig.closest(".card-imgslot");
     return {
-      style: ["borderRadius", "aspectRatio", "borderTopWidth", "borderTopColor", "overflow", "boxShadow", "marginTop", "marginBottom"].map((p) => cs[p]).join("|"),
+      // the CHROME the two frames share. `aspectRatio` is deliberately NOT in this list since Aug 2026:
+      // a picture's frame takes the picture's own shape and a video's stays 16:9, which is asserted
+      // separately below — an iframe has no intrinsic size to shrink to.
+      style: ["borderRadius", "borderTopWidth", "borderTopColor", "overflow", "boxShadow", "marginTop", "marginBottom"].map((p) => cs[p]).join("|"),
+      aspect: cs.aspectRatio,
+      float: slot ? getComputedStyle(slot).float : null,
       w: Math.round(r.width), h: Math.round(r.height),
+      innerW: Math.round(document.querySelector(".reveal .bg-collapse-inner").getBoundingClientRect().width),
       isVid: fig.classList.contains("card-vid"),
       frames: document.querySelectorAll(".reveal .card-img").length,
       order: [...document.querySelectorAll(".reveal .bg-collapse-inner > *")].map((e) => e.className.split(" ")[0]).join(","),
@@ -335,9 +342,20 @@ async function openGlossEditor(page, base) {
   await next();
   const vidCard = await measure();
   check("a card with a video renders one frame", vidCard && vidCard.frames === 1 && vidCard.isVid === true, JSON.stringify(vidCard).slice(0, 120));
-  check("...in the image's exact frame", vidCard && vidCard.style === imgCard.style, (vidCard || {}).style + "  vs  " + imgCard.style);
-  check("...at the image's exact size", vidCard && vidCard.w === imgCard.w && vidCard.h === imgCard.h, (vidCard || {}).w + "x" + (vidCard || {}).h + " vs " + imgCard.w + "x" + imgCard.h);
-  check("...above the prose, where the picture sits", /^card-img,abstract$/.test((vidCard || {}).order || ""), (vidCard || {}).order);
+  check("...in the image's frame, chrome for chrome", vidCard && vidCard.style === imgCard.style, (vidCard || {}).style + "  vs  " + imgCard.style);
+  // ...and never wider than the slot allows, which is what leaves the prose a column to run down. The two
+  // are no longer the same SIZE — an image sizes to itself and a video to the slot — so the shared bound
+  // is what there is to compare (both files here are unreachable by design, so neither ever paints).
+  check("...neither wider than the slot allows", vidCard && vidCard.w <= vidCard.innerW * 0.46 && imgCard.w <= imgCard.innerW * 0.46,
+    (vidCard || {}).w + " / " + (imgCard || {}).w + " of " + imgCard.innerW);
+  // the one place the two shapes part company (Aug 2026): a picture's frame shrinks to the picture, so it
+  // can never letterbox it; a video has no intrinsic size to shrink to and keeps the band it always had
+  check("a picture's frame takes the picture's own shape", imgCard && imgCard.aspect === "auto", (imgCard || {}).aspect);
+  check("...while a video keeps 16:9", vidCard && /^16\s*\/\s*9$/.test(vidCard.aspect || ""), (vidCard || {}).aspect);
+  check("...both in the slot floated to the top-right of the prose", vidCard && vidCard.float === "right" && imgCard.float === "right",
+    (vidCard || {}).float + " / " + (imgCard || {}).float);
+  check("...which is FIRST in the background, or the prose cannot wrap it",
+    /^card-imgslot,abstract$/.test((vidCard || {}).order || ""), (vidCard || {}).order);
   check("...as a <video> for a direct file link", vidCard && vidCard.tag === "video" && vidCard.src === MP4, (vidCard || {}).tag + " " + (vidCard || {}).src);
   check("the video figure is not itself a button (the player owns its clicks)", vidCard && !vidCard.role, String((vidCard || {}).role));
 

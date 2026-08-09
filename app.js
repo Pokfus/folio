@@ -5368,7 +5368,12 @@
          file (books/<id>.<lang>.js, bundle "bookOrig:<id>"), and the two are kept apart deliberately:
          Seneca's English runs to 1.37 MB and his Latin to another 862 KB, so folding them into one
          file would make every reader of the translation download a column they may never open.
-         A book with no `origLang` simply has no original here and shows no control for one. */
+         A book with no `origLang` simply has no original here and shows no control for one.
+         `origName` is the language in the reader's own words, and it is printed in TWO places — the
+         reader page's language button, and the shelf banner's chip saying this book carries its
+         original at all — so a book given an `origLang` and no name announces itself as "Original"
+         twice over. Four books went without one until Aug 2026, when the chip was added and the
+         omission became visible; every one of the twenty now names its language. */
       origLang: "la",
       origName: "Latin",
       /* The tile's `blurb` is gone (Aug 2026, on request: the tiles are small now and a paragraph was
@@ -5569,6 +5574,7 @@
          the next, and BOTH columns repeat exactly the same ten in the same places — checked, since
          a duplicate on one side only is what would quietly merge two passages into one row. */
       origLang: "grc",
+      origName: "Greek",
       /* A CHAPTER IS A WHOLE DIALOGUE, a division the transmission states rather than one composed
          here. Nothing is subdivided, not even the Laws, which is much the longest and which the
          edition splits over two volumes: its 327 Stephanus sections carry its twelve books' worth of
@@ -5794,6 +5800,7 @@
          1094a and 1094b collapse onto one section and take the ordering with them. See bookSections
          below and the entry in .claude/fetch-book.js. */
       origLang: "grc",
+      origName: "Greek",
       chapterWord: "Book",
       // ten books is the whole work, so the two agree and will stay agreed
       count: 10,
@@ -6405,6 +6412,7 @@
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
       origLang: "la",
+      origName: "Latin",
       chapterWord: "Book",
       /* The whole work, and the eighth of them is not Caesar's — Hirtius finished what he left, and
          says so in the letter that opens it. `count` and `total` are equal because all eight are here;
@@ -6464,6 +6472,7 @@
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/History_of_the_Peloponnesian_War",
       origLang: "grc",
+      origName: "Greek",
       chapterWord: "Book",
       /* The whole of what survives, which is not the whole of the war. `count` and `total` are equal
          because all eight books are here; they part company the moment a book arrives in instalments. */
@@ -13260,8 +13269,17 @@
         ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
         : `${b.count} ${unit}`;
       const fav = isBookFav(b.id);
+      /* A CHIP FOR A BOOK THAT CARRIES ITS ORIGINAL (Aug 2026, on request). Ten of the thirty books here
+         are a translation with nothing to set beside it and twenty print the text the author actually
+         wrote on the facing page, and until now the only way to find out which was to open the book and
+         look for the language button. The chip names the language rather than merely saying "bilingual",
+         since which original it is decides whether a reader wants it — and it is keyed off `origLang`,
+         the same field the reader page reads, so a book can never advertise a column it has not got.
+         It goes in the ARIA LABEL as well: that label REPLACES the banner's own text for a screen
+         reader, so a chip left out of it is a chip only the sighted reader is told about. */
+      const orig = b.origLang ? (b.origName || "Original") + " original" : "";
       return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}"
-                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${fav ? ", a favourite" : ""}">
+                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${orig ? ", with the " + esc(orig) : ""}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
               second target here would be a second answer to the same question sitting 8px from the first */""}
@@ -13274,6 +13292,7 @@
           </span>
           <span class="bk-tile-foot">
             <span class="bk-tile-meta">${len}</span>
+            ${orig ? `<span class="bk-tile-orig">${esc(orig)}</span>` : ""}
             ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
           </span>
         </span>
@@ -16419,8 +16438,16 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
         "</span>" + ttsPlayHTML("background", true) + "</button>";
       html += '<div class="bg-collapse' + (bgCol ? " collapsed" : "") + '"><div class="bg-collapse-inner">';
-      if (hasImg) html += cardImageHTML(c.image);   // sits at the top of the background, above the prose
-      else if (hasVid) html += cardVideoHTML(c.video);   // or the video, in the identical frame — never both
+      /* THE ILLUSTRATION IS FLOATED TO THE TOP-RIGHT OF THE PROSE (Aug 2026, on request), which is what
+         the glossary popup has always done with a term's picture — the opening sentences run down its
+         left and the background resumes the card's full width below it. It sat ABOVE the prose in a band
+         of its own, which pushed the first sentence a picture's height down the card and left a wide
+         empty margin beside a portrait. The slot is a WRAPPER for the reason `.gloss-imgslot` is one:
+         the float, its margins and the space it holds belong to the slot, so the figure inside keeps its
+         own frame rules and a dead file can hide the slot rather than leave a margin around nothing.
+         It must stay FIRST in the inner box — a float only wraps what follows it. */
+      if (hasImg) html += '<div class="card-imgslot">' + cardImageHTML(c.image) + "</div>";
+      else if (hasVid) html += '<div class="card-imgslot">' + cardVideoHTML(c.video) + "</div>";   // the same slot, never both
       if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
       html += "</div></div>";
     }
@@ -16429,8 +16456,9 @@
     html += sourcesHTML(cardSources(c));
     return html;
   }
-  // the card's illustration: a 16:9 frame at the top of the Background section; clicking opens the
-  // fullscreen viewer (a single delegated listener reads the data- attributes — no per-render wiring)
+  // the card's illustration: a frame floated to the top-right of the Background prose, sized to the
+  // picture's own proportions (see `.card-imgslot`); clicking opens the fullscreen viewer (a single
+  // delegated listener reads the data- attributes — no per-render wiring)
   /* "Source: …" for a picture or a clip, with a URL turned into a link and anything else left as words.
      ONE builder, because the fullscreen viewer and the Picture round both print it and a second copy is
      how the two come to disagree about whether a credit is a link. */
@@ -26195,7 +26223,8 @@
     }
     const fig = el.closest && el.closest(".card-img"); if (!fig) return;
     fig.classList.add("media-dead");
-    const slot = fig.closest(".gloss-imgslot"); if (slot) slot.hidden = true;   // the popup's float would otherwise keep its margin around nothing
+    // a floated slot would otherwise keep its margin — and the space the prose wraps around — about nothing
+    const slot = fig.closest(".gloss-imgslot, .card-imgslot"); if (slot) slot.hidden = true;
   }, true);
   document.addEventListener("click", (e) => {
     const fig = e.target.closest(".card-img"); if (!fig) return;
