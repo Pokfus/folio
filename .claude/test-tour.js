@@ -325,6 +325,48 @@ const CARD = () => {
     await page.close();
   }
 
+  /* ================= 5b. where the first-run hero sends a reader ================= */
+  /* Aug 2026, on request: the hero used to pick the first live collection, add it on the reader's behalf
+     and deal them a card; it takes them to the collections to choose their own. Both ends are asserted
+     because they fail in opposite directions and either alone looks deliberate — a hero that still deals
+     a card bypasses the page, and one that never deals a card strands a reader who has just added a
+     collection on the page they came from. */
+  console.log("\n5b. The first-run hero sends a new reader to the collections");
+  {
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1300);
+    const hero = await page.evaluate(() => {
+      const b = document.querySelector(".banner.hero");
+      return b ? (b.querySelector(".cta .btn") || {}).textContent : null;
+    });
+    check("a first-time reader meets the hero", !!hero, String(hero));
+    await page.evaluate(() => document.querySelector(".banner.hero").click());
+    await page.waitForTimeout(900);
+    check("...and its first press goes to the collections, not into a session",
+      await page.evaluate(() => location.hash === "#decks"), await page.evaluate(() => location.hash));
+
+    check("...and the page is live, with collections to add", await page.evaluate(() =>
+      document.querySelectorAll("#collection-list-all .collection-add[data-id]").length > 0));
+    await page.click("#collection-list-all .collection-add");
+    await page.waitForTimeout(400);
+    check("...one of which can be added", await page.evaluate(() =>
+      !!document.querySelector("#collection-list-all .collection-add.added")));
+    /* THE LOOP THIS CLOSES: the deck list under the banner is not drawn while the hero IS the banner, so
+       that button is the only way into a session. `fresh` is an empty schedule AND an empty review, so a
+       reader who has just added a collection meets the ordinary banner and its Start — and a version of
+       this that sent every press to the collections would leave them going round in a circle. */
+    await page.evaluate(() => { location.hash = "home"; });
+    await page.waitForTimeout(1300);
+    await page.evaluate(() => document.querySelector(".banner .cta .btn").click());
+    await page.waitForTimeout(1400);
+    check("...and with a collection added the banner deals a card after all",
+      await page.evaluate(() => location.hash === "#study" && !!document.querySelector("#reveal-btn")),
+      await page.evaluate(() => location.hash));
+    await page.close();
+  }
+
   /* ================= 6. the Atlas's card ================= */
   console.log("\n6. The Atlas says the marker works there too");
   {
