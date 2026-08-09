@@ -84,7 +84,34 @@ async function studyEasy(page, base, n) {
   }
 }
 
+/* NO CLASS MAY BE NAMED `ad-…` (Aug 2026, on a bug report). This is a static string check rather than a
+   browser one, and it has to be: the fault it guards is an AD BLOCKER, and Playwright runs no extensions,
+   so no amount of rendering can see it. A reader with a blocker had the deck's name and the bar beside it
+   hidden on every row of the daily review, because `.ad-body` and `.ad-title` are also real advertisement
+   class names and sit in EasyList's generic cosmetic filters — injected as an origin-level user
+   stylesheet, which nothing in our CSS can outrank. It failed in the quiet way: perfect markup, no error,
+   and every other page fine. The whole prefix is banned rather than the two names that were caught, since
+   which names are in the lists is a matter of what real ad markup happens to use. */
+function adBaitCheck() {
+  const BAIT = /\b(ads?|advert(?:ising|isement)?|sponsored?|promo)-[a-z0-9-]+/i;
+  const found = [];
+  // selectors in the stylesheet — comments stripped first, since the block explaining this rule names the
+  // very classes it bans and would otherwise fail the build for describing itself
+  const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, " ");
+  (css.match(/\.[A-Za-z][\w-]*/g) || []).forEach((s) => { if (BAIT.test(s.slice(1))) found.push("styles.css " + s); });
+  // …and every class actually written into the markup, by app.js or by hand
+  ["app.js", "index.html"].forEach((f) => {
+    const src = fs.readFileSync(path.join(ROOT, f), "utf8");
+    (src.match(/class="[^"]*"/g) || []).forEach((attr) => {
+      attr.slice(7, -1).split(/[\s${}]+/).forEach((c) => { if (c && BAIT.test(c)) found.push(f + " ." + c); });
+    });
+  });
+  check("no class is named ad-… (an ad blocker hides those, and no browser test can see it)",
+    found.length === 0, found.slice(0, 6).join(", "));
+}
+
 (async () => {
+  adBaitCheck();
   const server = serve();
   await new Promise((r) => server.listen(0, r));
   const base = "http://127.0.0.1:" + server.address().port + "/";
@@ -1121,8 +1148,8 @@ async function studyEasy(page, base, n) {
         n: +s.querySelector("b").textContent.trim(),
         col: getComputedStyle(s.querySelector("b")).color,
       })),
-      row: [...document.querySelectorAll(".active-deck .ad-counts .adc")].map((s) => ({ n: +s.textContent.trim(), col: getComputedStyle(s).color })),
-      rowLabels: (document.querySelector(".active-deck .ad-counts") || {}).title || "",
+      row: [...document.querySelectorAll(".active-deck .dk-counts .dkc")].map((s) => ({ n: +s.textContent.trim(), col: getComputedStyle(s).color })),
+      rowLabels: (document.querySelector(".active-deck .dk-counts") || {}).title || "",
       // the big gold numeral is GONE (Aug 2026, on request) — it carried the day's whole pile unlabelled,
       // over three labelled counts that break the same total up. So is the line that described them.
       badge: !!document.querySelector(".review-group .banner .level-badge"),
@@ -1201,21 +1228,29 @@ async function studyEasy(page, base, n) {
     const row = await page.evaluate(() => {
       const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
       const rb = r.getBoundingClientRect();
-      const t = r.querySelector(".ad-title"), k = r.querySelector(".ad-prog .track");
-      const parts = [r.querySelector(".ad-counts"), t].filter(Boolean);
+      const t = r.querySelector(".dk-title"), k = r.querySelector(".dk-prog .track");
+      const parts = [r.querySelector(".dk-counts"), t].filter(Boolean);
       const boxes = parts.map((e) => e.getBoundingClientRect());
       return {
         n: parts.length,
         // one line ⇔ every part overlaps one horizontal band
         band: Math.max(...boxes.map((b) => b.top)) < Math.min(...boxes.map((b) => b.bottom)),
         rowH: Math.round(rb.height),
-        figure: !!r.querySelector(".ad-prog .count"),
+        figure: !!r.querySelector(".dk-prog .count"),
         titleClipped: t ? t.scrollWidth > t.clientWidth + 1 : true,
-        trash: !!r.querySelector(".ad-trash"),
+        /* …and that it is DRAWN AT ALL. The clip test above passes on a name that has been hidden — a
+           display:none title measures scrollWidth 0 against clientWidth 0 — which is exactly how an ad
+           blocker's cosmetic filter on the old `.ad-title` name went unseen here for weeks. The text, its
+           painted width and the body around it are each read separately: an empty string, a hidden element
+           and a collapsed flex item are three different faults with the same appearance. */
+        titleText: t ? t.textContent.trim() : "",
+        titleW: t ? Math.round(t.getBoundingClientRect().width) : 0,
+        bodyW: (() => { const b = r.querySelector(".dk-body"); return b ? Math.round(b.getBoundingClientRect().width) : 0; })(),
+        trash: !!r.querySelector(".dk-trash"),
         // the bar underlines the row rather than sitting in the line
         trackWide: k ? k.getBoundingClientRect().width > rb.width * 0.8 : false,
         trackAtFoot: k ? Math.abs(k.getBoundingClientRect().bottom - rb.bottom) <= 1 : false,
-        fills: !!r.querySelector(".ad-prog .fill"),
+        fills: !!r.querySelector(".dk-prog .fill"),
       };
     });
     check("an added deck's row is one horizontal line", !!row && row.band && row.n === 2, JSON.stringify(row));
@@ -1225,6 +1260,8 @@ async function studyEasy(page, base, n) {
     check("...its bar underlining the row instead of taking width from it",
       !!row && row.trackWide && row.trackAtFoot && row.fills, JSON.stringify(row));
     check("...and the deck's name not cut off at 390px", !!row && !row.titleClipped, JSON.stringify(row));
+    check("...the name actually rendered, with width, inside a body that has not collapsed",
+      !!row && row.titleText.length > 0 && row.titleW > 0 && row.bodyW > 0, JSON.stringify(row));
 
     /* …and the sheet it moved into: the figure on the title's own LINE (a figure that has merely landed
        somewhere in the head is not what was asked for), and Remove carrying its red in the TEXT with no
@@ -1331,12 +1368,12 @@ async function studyEasy(page, base, n) {
         const last = vis[vis.length - 1];
         return {
           rows: rows.length, vis: vis.length,
-          topChev: !!(t && t.querySelector(".ad-chev")),
-          expanded: t && t.querySelector(".ad-chev") ? t.querySelector(".ad-chev").getAttribute("aria-expanded") : null,
-          named: t && t.querySelector(".ad-chev") ? (t.querySelector(".ad-chev").getAttribute("aria-label") || "") : "",
+          topChev: !!(t && t.querySelector(".dk-chev")),
+          expanded: t && t.querySelector(".dk-chev") ? t.querySelector(".dk-chev").getAttribute("aria-expanded") : null,
+          named: t && t.querySelector(".dk-chev") ? (t.querySelector(".dk-chev").getAttribute("aria-label") || "") : "",
           // a leaf has nothing to fold and must carry no chevron — but must still reserve its width, or the
           // bars down the list stop at different places
-          leafChev: vis.some((r) => !r.querySelector(".ad-chev") && !r.querySelector(".ad-chev-gap")),
+          leafChev: vis.some((r) => !r.querySelector(".dk-chev") && !r.querySelector(".dk-chev-gap")),
           lastRounded: last ? parseFloat(getComputedStyle(last).borderBottomLeftRadius) : 0,
           hash: location.hash,
         };
@@ -1351,7 +1388,7 @@ async function studyEasy(page, base, n) {
       check("...and the rounded corner following the last VISIBLE row", f.lastRounded > 0, f.lastRounded);
 
       // the KEYBOARD half — the bug a mouse cannot see
-      await page.focus(`.active-deck[data-node="${seeded.id}"] .ad-chev`);
+      await page.focus(`.active-deck[data-node="${seeded.id}"] .dk-chev`);
       await page.keyboard.press("Enter");
       await page.waitForTimeout(500);
       f = await read();
@@ -1363,7 +1400,7 @@ async function studyEasy(page, base, n) {
       check("...the corner still following the last visible row", f.lastRounded > 0, f.lastRounded);
 
       // a click on the chevron must not start one either
-      await page.click(`.active-deck[data-node="${seeded.id}"] .ad-chev`);
+      await page.click(`.active-deck[data-node="${seeded.id}"] .dk-chev`);
       await page.waitForTimeout(450);
       f = await read();
       check("...and clicking it folds rather than studying",

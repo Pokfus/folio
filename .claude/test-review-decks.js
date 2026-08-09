@@ -110,11 +110,11 @@ const SETTINGS = {
     await page.waitForTimeout(1400);
     const home = await page.evaluate(() => ({
       rows: [...document.querySelectorAll(".active-deck[data-review]")].map((r) => ({
-        title: r.querySelector(".ad-title").textContent.trim(),
-        counts: [...r.querySelectorAll(".adc")].map((x) => +x.textContent.trim()),
+        title: r.querySelector(".dk-title").textContent.trim(),
+        counts: [...r.querySelectorAll(".dkc")].map((x) => +x.textContent.trim()),
       })),
       banner: [...document.querySelectorAll(".banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => +s.querySelector("b").textContent.trim()),
-      trash: document.querySelectorAll(".ad-trash").length,
+      trash: document.querySelectorAll(".dk-trash").length,
       badge: !!document.querySelector(".review-group .banner .level-badge"),
       desc: (document.querySelector(".review-group .banner .desc") || {}).textContent || "",
     }));
@@ -230,7 +230,7 @@ const SETTINGS = {
         if (ids.indexOf(n.id) >= 0) from[n.id] = (n.cardIds || []).filter((c) => S.cards[c] && S.cards[c].first === today).length;
       });
       return { from: from, intro: S.intro.count,
-        rows: [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".adc-new").textContent.trim()) };
+        rows: [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".dkc-new").textContent.trim()) };
     }, [deckA, deckB]);
     /* THE bug this replaced: the whole day's new-card allowance came off the front of one deck's list.
        Both decks must have given cards, and the total must still be the review's own allowance. */
@@ -277,7 +277,7 @@ const SETTINGS = {
     const capped = await page.evaluate(() => ({
       banner: [...document.querySelectorAll(".banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => +s.querySelector("b").textContent.trim()),
       // the DECKS are untouched: the cap is on the pooled draw, not on what a deck offers when tapped
-      rows: [...document.querySelectorAll(".active-deck[data-review] .adc-new")].map((x) => +x.textContent.trim()),
+      rows: [...document.querySelectorAll(".active-deck[data-review] .dkc-new")].map((x) => +x.textContent.trim()),
       stored: (JSON.parse(localStorage.getItem("folio_v1")).deckOpts || {})["review:all"],
     }));
     check("an explicit review limit caps the pooled draw", capped.banner[0] === 2, JSON.stringify(capped));
@@ -398,7 +398,7 @@ const SETTINGS = {
       await page.evaluate(() => !!(document.querySelector("#dlNew") && document.querySelector("#dlRev") && document.querySelector("#dlIgn"))));
     await page.evaluate(() => { document.querySelector("#dlNew").value = "1"; document.querySelector('[data-act="save"]').click(); });
     await page.waitForTimeout(800);
-    const limited = await page.evaluate(() => [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".adc-new").textContent.trim()));
+    const limited = await page.evaluate(() => [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".dkc-new").textContent.trim()));
     check("...and the deck's own new count follows it", limited[0] === 1, JSON.stringify(limited));
 
     // Custom study — today only, and it moves the number it says it moves
@@ -408,7 +408,7 @@ const SETTINGS = {
     await page.waitForTimeout(300);
     await page.evaluate(() => { document.querySelector("#csN").value = "3"; document.querySelector('[data-act="more"]').click(); });
     await page.waitForTimeout(800);
-    const bumped = await page.evaluate(() => [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".adc-new").textContent.trim()));
+    const bumped = await page.evaluate(() => [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".dkc-new").textContent.trim()));
     check("Custom study adds new cards for today only", bumped[0] === 4, JSON.stringify({ was: limited, now: bumped }));
 
     // Skip today — the deck sits out without leaving the review
@@ -418,7 +418,7 @@ const SETTINGS = {
     await page.waitForTimeout(800);
     const skipped = await page.evaluate(() => {
       const rows = [...document.querySelectorAll(".active-deck[data-review]")];
-      return { n: rows.length, first: [...rows[0].querySelectorAll(".adc")].map((x) => +x.textContent.trim()) };
+      return { n: rows.length, first: [...rows[0].querySelectorAll(".dkc")].map((x) => +x.textContent.trim()) };
     });
     check("Skip today empties that deck's piles without removing it",
       skipped.n >= 2 && skipped.first.every((n) => n === 0), JSON.stringify(skipped));
@@ -569,13 +569,13 @@ const SETTINGS = {
         const rows = [...document.querySelectorAll(".active-deck")];
         // …except where its level holds one row, which has nothing to trade places with
         const size = {}; rows.forEach((r) => { size[r.dataset.parent] = (size[r.dataset.parent] || 0) + 1; });
-        return rows.length > 1 && rows.every((r) => !!r.querySelector(".ad-grip") === size[r.dataset.parent] > 1);
+        return rows.length > 1 && rows.every((r) => !!r.querySelector(".dk-grip") === size[r.dataset.parent] > 1);
       }));
     /* The level to work on is found rather than assumed: which of them holds two rows depends on what the
        seed put in the review — here two leaves of one collection, so the reorderable level is their shared
        parent's, not the top. */
     const lvl = await page.evaluate(() => {
-      const vis = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("ad-shut"));
+      const vis = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("dk-shut"));
       const by = {}; vis.forEach((r) => (by[r.dataset.parent] = by[r.dataset.parent] || []).push(r.dataset.drag));
       const k = Object.keys(by).find((p) => by[p].length > 1);
       return k == null ? null : { parent: k, ids: by[k] };
@@ -587,7 +587,7 @@ const SETTINGS = {
     // carry the first row of that level to the foot of it
     const geo = await page.evaluate(([id, p]) => {
       const rows = [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p);
-      const g = document.querySelector(`.active-deck[data-drag="${id}"] .ad-grip`).getBoundingClientRect();
+      const g = document.querySelector(`.active-deck[data-drag="${id}"] .dk-grip`).getBoundingClientRect();
       const last = rows[rows.length - 1].getBoundingClientRect();
       return { x: g.x + g.width / 2, y: g.y + g.height / 2, ty: last.y + last.height - 4 };
     }, [before[0], lvl.parent]);
@@ -620,8 +620,8 @@ const SETTINGS = {
     // the rounded bottom corner belongs to whichever row is last NOW, which a drag can change
     check("...and the last row is the one that is rounded",
       await page.evaluate(() => {
-        const vis = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("ad-shut"));
-        return vis.length ? vis[vis.length - 1].classList.contains("ad-last") : false;
+        const vis = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("dk-shut"));
+        return vis.length ? vis[vis.length - 1].classList.contains("dk-last") : false;
       }));
 
     /* …and it is READ BACK. It cannot be shown with a reload here — `newPage` re-seeds folio_v1 through an
@@ -643,7 +643,7 @@ const SETTINGS = {
     const kb = await page.evaluate(async (p) => {
       const at = () => [...document.querySelectorAll(".active-deck")].filter((r) => r.dataset.parent === p);
       const was = at().map((r) => r.dataset.drag);
-      const g = at()[0].querySelector(".ad-grip");
+      const g = at()[0].querySelector(".dk-grip");
       g.focus();
       const focused = document.activeElement === g;
       g.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }));
