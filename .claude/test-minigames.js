@@ -8,10 +8,14 @@
        content of a square is an `<input>` — about 150px of intrinsic width. Written `repeat(N,1fr)` the
        board runs to some 2,000px and hangs off the side of a phone, which reads as a board too big for the
        screen rather than as a rule that never fired. It shipped that way for an hour.
-     · **MARKING A CROSSING SQUARE TWICE.** A crossing belongs to two entries, so a loop that marks and
-       fills in one pass reaches it again and compares the letter it wrote itself against the letter it
-       wanted. Every crossing came out marked wrong AND right at once — on a grid whose whole point is its
-       crossings, and with the score still reading correctly, so nothing else could have caught it.
+     · **MARKING A CROSSING SQUARE TWICE.** A crossing belongs to two entries, so anything that marks one
+       entry at a time has to answer for both at once, and the square comes out carrying whichever verdict
+       ran last — green from a solved entry, red from a wrong one, or in the old check-button version both
+       at once. The score reads correctly either way, so nothing else could have caught it.
+     · **THE GRID NOT SURVIVING A VISIT.** It marks itself as it is filled and reveals nothing, so it stays
+       open all day and a reader may leave it half done — which only works if the letters are kept and the
+       played-today gate holds off until the thing is actually solved. Both fail silently: one loses the
+       work, the other locks the reader out of a puzzle they could still finish.
      · **A GRID THAT MAKES WORDS NOBODY CLUED.** The adjacency rule in the layout search is what stops two
        parallel entries touching down their whole length. Relax it and the board fills with unclued
        two-letter runs; it still renders, still checks, and is simply not a crossword.
@@ -27,11 +31,12 @@
      · **A NEW GAME NOT JOINING THE SWEEP.** DAILY_GAMES drives the Clean Sweep badge and the daily chest.
        A game on the grid but not in that list means a sweep claiming something it never measured.
 
-   Two of the harder assertions are made by running the SAME DAY in two fresh browser contexts: the first
-   plays badly and reads the answer off the result, the second is handed that answer and must win. That
-   proves three things at once — the puzzle is seeded (both contexts get the same one), the answer is
-   reachable (the crossword's letters fit its own grid; the year sits on a tick), and the check scores a
-   correct solve as correct rather than only scoring a wrong one as wrong.
+   TODAY'S ANSWERS ARE GENERATED HERE, in Node, and handed to the browser (`crosswordForPage`). They used
+   to be read off the check button's reveal, and there is no reveal any more — which is a better position
+   anyway: the Node build and the page are given nothing but the date and must produce the identical grid,
+   so the seeding is proved by the two agreeing rather than by two browser contexts agreeing with each
+   other. What Year? still runs its answer twice, once played badly and once played right, since its rail
+   has to be shown to be able to express the answer at all.
 
    Run:  NODE_PATH=<playwright>/node_modules node .claude/test-minigames.js
    Env:  FOLIO_CHROMIUM=<path to chrome> if Chromium lives outside the playwright package. */
@@ -44,7 +49,6 @@ const { chromium } = require("playwright");
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
 const PHONE = { width: 390, height: 844 };
-const DESKTOP = { width: 1280, height: 900 };
 
 let pass = 0, fail = 0;
 function check(name, ok, extra) {
@@ -96,7 +100,10 @@ const NEW_GAMES = [
    real `data.js`, and walked over 730 days with no browser at all.
    The shims are the smallest thing that will do: no admin overlay, every card available, and the localiser
    an identity, which is what the site does anyway while MULTILANG is off. */
-function simulate(days) {
+/* `builder()` returns "give me a day, get that day's puzzles" — used both by the 730-day sweep below and
+   by the crossword's browser section, which needs TODAY'S ANSWERS and can no longer read them off the
+   page: the grid marks itself as it is filled and never reveals anything, which is the whole point of it. */
+function builder() {
   const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
   const sl = (a, b) => { const i = src.indexOf(a); if (i < 0) throw new Error("test-minigames: can't find " + a); const j = src.indexOf(b, i); if (j < 0) throw new Error("test-minigames: no end for " + a); return src.slice(i, j); };
   const body = [
@@ -110,22 +117,48 @@ function simulate(days) {
     const ADMIN_EDITS = {};
     const cardLocalized = (c) => c;
     const availableCardIdSet = () => new Set(CARDS.map((c) => c.id));
+    const localStorage = { getItem: () => null, setItem: () => {} };
     const chronoYear = (c) => { const y = cardStartYear(c); return y ? y : null; };
     const chronoPool = () => CARDS.map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter((x) => x.year != null && x.name);
   `;
   // data.js assigns onto `window`; require() caches, so only prime the global if it has not been loaded yet
   if (!(global.window && global.window.CARD_DATA)) { global.window = global.window || {}; require(path.join(ROOT, "data.js")); }
   const CARDS = global.window.CARD_DATA;
-  const build = new Function("CARDS", "todayStr", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear};})()");
+  const make = new Function("CARDS", "todayStr", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear};})()");
+  return (day) => make(CARDS, () => day);
+}
+function simulate(days) {
+  const build = builder();
   const out = { xw: [], wy: [] };
   const d0 = Date.UTC(2026, 0, 1);
   for (let i = 0; i < days; i++) {
     const day = new Date(d0 + i * 86400000).toISOString().slice(0, 10);
-    const M = build(CARDS, () => day);
+    const M = build(day);
     out.xw.push(M.dailyCrossword());
     out.wy.push(M.dailyWhatYear());
   }
   return out;
+}
+/* The page's grid, generated here so the test knows its answers. The site's day runs on the reader's own
+   clock with a settable boundary, which need not be Node's UTC date, so the neighbouring days are tried
+   too and the one whose entries MATCH the rendered clue list is the one the page is showing — which also
+   re-proves the seeding the two-context run used to prove: a browser and a bare Node process, given only
+   the date, deal the identical grid. */
+function crosswordForPage(clueIds) {
+  const build = builder();
+  const want = clueIds.slice().sort().join("|");
+  for (let off = -1; off <= 1; off++) {
+    const day = new Date(Date.now() + off * 86400000).toISOString().slice(0, 10);
+    const p = build(day).dailyCrossword();
+    if (!p) continue;
+    if (p.entries.map((e) => e.n + e.dir).sort().join("|") !== want) continue;
+    const letters = {};
+    p.entries.forEach((e) => {
+      for (let i = 0; i < e.w.length; i++) letters[(e.dir === "a" ? e.x + i : e.x) + "," + (e.dir === "a" ? e.y : e.y + i)] = e.w[i];
+    });
+    return { puz: p, letters: letters, day: day };
+  }
+  return null;
 }
 
 (async () => {
@@ -244,7 +277,6 @@ function simulate(days) {
   }
 
   /* ============================ 2. the crossword ============================ */
-  let xwAnswers = null;
   {
     const [ctx, page] = await fresh();
     watch(page, "[xw]");
@@ -304,59 +336,105 @@ function simulate(days) {
       check("[xw] …the entries genuinely crossing", built.cells.length < built.clues.reduce((s, c) => s + c.len, 0),
         built.cells.length + " squares for " + built.clues.reduce((s, c) => s + c.len, 0) + " letters");
 
-      /* A DELIBERATELY WRONG GRID: nothing right, every square marked wrong and NONE marked both — which
-         is the crossing-square bug, invisible in the score, which is correct either way. */
-      await page.evaluate(() => document.querySelectorAll(".xw-cell").forEach((el) => {
-        el.focus(); el.value = "Z"; el.dispatchEvent(new Event("input", { bubbles: true }));
-      }));
-      await page.click("#xw-check");
-      await page.waitForTimeout(300);
-      const marked = await page.evaluate(() => ({
-        title: (document.querySelector(".cr-title") || {}).textContent || "",
-        bad: document.querySelectorAll(".xw-cell.bad").length,
-        both: document.querySelectorAll(".xw-cell.ok.bad").length,
-        cells: document.querySelectorAll(".xw-cell").length,
-        revealed: [...document.querySelectorAll(".xw-cell")].every((el) => /^[A-Z]$/.test(el.value)),
-        locked: [...document.querySelectorAll(".xw-cell")].every((el) => el.readOnly),
-        checkGone: !document.querySelector("#xw-check"),
-        letters: [...document.querySelectorAll(".xw-cell")].map((el) => [el.dataset.k, el.value]),
-      }));
-      xwAnswers = marked.letters;
-      check("[xw] a wrong grid scores nothing", /^0 \//.test(marked.title), marked.title);
-      check("[xw] …every square marked wrong", marked.bad === marked.cells, marked.bad + " of " + marked.cells);
-      check("[xw] …and NO square marked wrong and right at once", marked.both === 0, marked.both + " doubly marked");
-      check("[xw] …the answers filled in and the grid locked", marked.revealed && marked.locked && marked.checkGone);
+      /* ---- IT MARKS ITSELF AS IT IS FILLED (Aug 2026) ----
+         There is no check button any more, so the answers cannot be read off a reveal; they are generated
+         here instead (see `crosswordForPage`, which also re-proves that browser and bare Node deal the
+         same grid from the date alone). Everything below fails silently: an entry that never turns colour
+         is a game with no feedback, red squares that lock are a game that cannot be retried, and a grid
+         that forgets itself between visits is one a reader cannot finish. */
+      const today = crosswordForPage(built.clues.map((c) => c.e));
+      check("[xw] the page's grid is the one the date deals", !!today, today ? today.day : "no matching day");
+      if (today) {
+        const first = today.puz.entries[0];
+        const firstCells = Array.from({ length: first.w.length }, (_, i) =>
+          (first.dir === "a" ? first.x + i : first.x) + "," + (first.dir === "a" ? first.y : first.y + i));
+        // one entry, every letter wrong
+        const wrong = await page.evaluate((cells) => {
+          cells.forEach((k) => {
+            const el = document.querySelector('.xw-cell[data-k="' + k + '"]');
+            el.focus(); el.value = "Z"; el.dispatchEvent(new Event("input", { bubbles: true }));
+          });
+          return {
+            bad: cells.filter((k) => document.querySelector('.xw-cell[data-k="' + k + '"]').classList.contains("bad")).length,
+            ok: document.querySelectorAll(".xw-cell.ok").length,
+            both: document.querySelectorAll(".xw-cell.ok.bad").length,
+            editable: cells.every((k) => !document.querySelector('.xw-cell[data-k="' + k + '"]').readOnly),
+            noCheck: !document.querySelector("#xw-check"),
+            clearShown: !document.querySelector("#xw-clear").hidden,
+            result: (document.querySelector("#xwResult") || {}).textContent.trim(),
+          };
+        }, firstCells);
+        check("[xw] a filled-in wrong answer turns red at once, with no check button anywhere",
+          wrong.bad === firstCells.length && wrong.ok === 0 && wrong.noCheck, JSON.stringify(wrong));
+        check("[xw] …its letters still typeable, so it can be guessed again", wrong.editable && wrong.clearShown);
+        check("[xw] …and nothing is scored for it", wrong.result === "", wrong.result.slice(0, 60));
 
-      // one check a day: a reload lands on the played-today gate rather than a fresh grid
-      await page.reload({ waitUntil: "load" });
-      await page.waitForTimeout(800);
-      const gate = await page.evaluate(() => ({ placard: !!document.querySelector(".placard"), txt: (document.querySelector("#view") || {}).textContent.replace(/\s+/g, " ") }));
-      check("[xw] …and the day is spent", gate.placard && /played today/i.test(gate.txt) && /crossword/i.test(gate.txt), gate.txt.slice(0, 90));
+        // …and the red letters can be swept away in one press
+        await page.click("#xw-clear");
+        await page.waitForTimeout(120);
+        const cleared = await page.evaluate((cells) => ({
+          bad: document.querySelectorAll(".xw-cell.bad").length,
+          empty: cells.every((k) => !document.querySelector('.xw-cell[data-k="' + k + '"]').value),
+          hidden: document.querySelector("#xw-clear").hidden,
+        }), firstCells);
+        check("[xw] …and 'Clear the wrong letters' empties exactly those", cleared.bad === 0 && cleared.empty && cleared.hidden, JSON.stringify(cleared));
+
+        // the same entry, right this time: green, locked, and counted
+        const right = await page.evaluate((arg) => {
+          arg.cells.forEach((k) => {
+            const el = document.querySelector('.xw-cell[data-k="' + k + '"]');
+            el.focus(); el.value = arg.letters[k]; el.dispatchEvent(new Event("input", { bubbles: true }));
+          });
+          return {
+            ok: arg.cells.filter((k) => document.querySelector('.xw-cell[data-k="' + k + '"]').classList.contains("ok")).length,
+            locked: arg.cells.every((k) => document.querySelector('.xw-cell[data-k="' + k + '"]').readOnly),
+            bad: document.querySelectorAll(".xw-cell.bad").length,
+            done: document.querySelectorAll(".xw-clue.done").length,
+            result: (document.querySelector("#xwResult") || {}).textContent.trim(),
+          };
+        }, { cells: firstCells, letters: today.letters });
+        check("[xw] a right answer turns green the moment it is filled", right.ok === firstCells.length && right.bad === 0, JSON.stringify(right));
+        check("[xw] …its squares locked and its clue struck through", right.locked && right.done === 1);
+        check("[xw] …and the score written up as it rises", /^1 of \d+ answers found/.test(right.result), right.result.slice(0, 50));
+
+        /* THE GRID IS STILL THERE TOMORROW MORNING — that is, after a reload. The whole point of marking
+           as you go is that nothing is revealed, so nothing is spent by coming back; a reader who leaves a
+           grid half done must not meet the played-today gate. */
+        await page.reload({ waitUntil: "load" });
+        await page.waitForTimeout(900);
+        const back = await page.evaluate(() => ({
+          grid: !!document.querySelector(".xw-grid"),
+          placard: !!document.querySelector(".placard"),
+          ok: document.querySelectorAll(".xw-cell.ok").length,
+          result: (document.querySelector("#xwResult") || {}).textContent.trim(),
+        }));
+        check("[xw] an unfinished grid is still open on the next visit", back.grid && !back.placard, JSON.stringify(back));
+        check("[xw] …with the answers already found still on it", back.ok === firstCells.length && /^1 of /.test(back.result), JSON.stringify(back));
+
+        // …and filling the rest correctly wins
+        const won = await page.evaluate((letters) => {
+          [...document.querySelectorAll(".xw-cell")].forEach((el) => {
+            if (el.readOnly) return;
+            el.focus(); el.value = letters[el.dataset.k] || ""; el.dispatchEvent(new Event("input", { bubbles: true }));
+          });
+          return {
+            win: !!document.querySelector(".chrono-result.win"),
+            title: (document.querySelector(".cr-title") || {}).textContent || "",
+            bad: document.querySelectorAll(".xw-cell.bad").length,
+            locked: [...document.querySelectorAll(".xw-cell")].every((el) => el.readOnly),
+            clear: !document.querySelector("#xw-clear") || document.querySelector("#xw-clear").hidden,
+          };
+        }, today.letters);
+        check("[xw] a completed grid wins", won.win && /solved/i.test(won.title) && won.bad === 0, JSON.stringify(won));
+        check("[xw] …and the finished board is put beyond editing", won.locked && won.clear);
+
+        // …and NOW the day is spent
+        await page.reload({ waitUntil: "load" });
+        await page.waitForTimeout(800);
+        const gate = await page.evaluate(() => ({ placard: !!document.querySelector(".placard"), txt: (document.querySelector("#view") || {}).textContent.replace(/\s+/g, " ") }));
+        check("[xw] …and only a SOLVED grid spends the day", gate.placard && /played today/i.test(gate.txt) && /crossword/i.test(gate.txt), gate.txt.slice(0, 90));
+      }
     }
-    await ctx.close();
-  }
-  /* THE SAME DAY, A FRESH READER, THE RIGHT LETTERS. This proves what the wrong-run cannot: that the
-     puzzle is seeded (this context is dealt the same grid), that its answers fit their own squares, and
-     that a correct solve is scored as correct and wins. */
-  if (xwAnswers) {
-    const [ctx, page] = await fresh(DESKTOP);
-    watch(page, "[xw2]");
-    await page.goto(base + "#crossword", { waitUntil: "load" });
-    await page.waitForTimeout(1200);
-    const won = await page.evaluate((letters) => {
-      const map = new Map(letters);
-      const cells = [...document.querySelectorAll(".xw-cell")];
-      if (cells.length !== map.size) return { mismatch: cells.length + " vs " + map.size };
-      cells.forEach((el) => { el.value = map.get(el.dataset.k) || ""; });
-      document.querySelector("#xw-check").click();
-      return {
-        title: (document.querySelector(".cr-title") || {}).textContent || "",
-        win: !!document.querySelector(".chrono-result.win"),
-        bad: document.querySelectorAll(".xw-cell.bad").length,
-      };
-    }, xwAnswers);
-    check("[xw] the same day deals the same grid to a fresh reader", !won.mismatch, won.mismatch || "");
-    check("[xw] …and a correct solve wins", !won.mismatch && won.win && won.bad === 0 && /solved/i.test(won.title), JSON.stringify(won));
     await ctx.close();
   }
 

@@ -1402,17 +1402,26 @@
   // be claiming something it had not measured. The badge does get harder each time the grid grows; that is
   // the honest reading of "every game today" and the alternative is a sweep that means less every year.
   const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear"];
-  function markGamePlayed(key, won, score, total) {
+  /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
+     stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
+     this many times a day, so the lifetime tally has to count ONE play for the day and ONE win however
+     often the score rises; without that a nine-entry grid would read as nine plays on the account page.
+     Every other game calls this once and is untouched by the flag. */
+  function markGamePlayed(key, won, score, total, opts) {
     if (!S.games) S.games = {};
     const t = todayStr();
     let g = S.games[key];
     if (!g || g.date !== t) g = { date: t, played: false, won: false };
+    const running = !!(opts && opts.progress);
+    const counted = running && g.played;      // this game already took its play for the day
+    const freshWin = won && !g.won;
     g.played = true;
     if (!S.gameLog || typeof S.gameLog !== "object") S.gameLog = {};   // lifetime tally — S.games only holds today
     const gl = S.gameLog[key] || { plays: 0, wins: 0 };
-    gl.plays += 1; if (won) gl.wins += 1;
+    if (!counted) gl.plays += 1;
+    if (won && (!running || freshWin)) gl.wins += 1;
     S.gameLog[key] = gl;
-    if (won && !g.won) sfx("win");   // a perfect run earns the gold tile — and a little fanfare, once per day
+    if (freshWin) sfx("win");   // a perfect run earns the gold tile — and a little fanfare, once per day
     if (won) g.won = true;
     if (typeof score === "number" && typeof total === "number") {   // remember today's BEST score (games can be replayed) — shown on the home tile
       if (!(typeof g.s === "number" && g.s >= score)) g.s = score;
@@ -10425,6 +10434,27 @@
     }
     return '<div class="ar-img ar-noimg ' + (cls || "") + '" data-rar="' + r + '" aria-hidden="true"><span>' + esc(a.name.slice(0, 1).toUpperCase()) + '</span></div>';
   }
+  /* THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME (Aug 2026, on a bug report: "there's no way to zoom
+     in on artefact images"). A tile's `.ar-img` is a bare `<img>` inside a `<button>` and must stay one —
+     a `role="button"` figure nested in a button is invalid markup and would fight the tile's own click —
+     but the PLATE has room for the real thing, so it emits `.card-img`: the same frame a card and a
+     glossary term wear, which means the delegated listener that opens the fullscreen viewer, the Enter/
+     Space handler, the `pop` sound and the dead-link marking all cover it with no wiring of its own.
+     THE TITLE IN THE VIEWER IS THE ARTEFACT'S NAME, and that is a statement rather than a shortcut: an
+     artefact's image carries `src`, `credit` and `alt` and no title of its own (the entry above it already
+     names, dates and places the object), so what the picture is OF is the artefact — and inventing a
+     caption for somebody else's photograph is the one thing this must not do. The credit becomes the
+     viewer's "Source:" line exactly as a card's does. */
+  function artefactPlateArtHTML(a) {
+    const img = a.image;
+    if (!img || !img.src) return artefactArtHTML(a, "ar-big");
+    return '<figure class="card-img ar-frame" role="button" tabindex="0" title="Click to enlarge"' +
+      ' data-img-src="' + esc(img.src) + '" data-img-title="' + esc(a.name || "") + '"' +
+      ' data-img-desc="' + esc(img.desc || "") + '" data-img-credit="' + esc(img.credit || "") + '">' +
+      '<img src="' + esc(img.src) + '" alt="' + esc(img.alt || a.name || "Artefact") + '" loading="lazy" draggable="false">' +
+      '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>' +
+      "</figure>";
+  }
   function artefactTileHTML(a, opts) {
     const r = rarityId(a);
     const pinned = opts && opts.pinned;
@@ -10521,10 +10551,15 @@
     const src = normSources(a.sources);
     return '<div class="ar-win' + (o.cls ? " " + o.cls : "") + '"' + (o.attrs || "") + ' data-rar="' + r + '">' +
       (o.close ? '<button class="ar-close" type="button" aria-label="Close">×</button>' : "") +
-      '<div class="ar-winart">' + artefactArtHTML(a, "ar-big") + '</div>' +
+      '<div class="ar-winart">' + artefactPlateArtHTML(a) + '</div>' +
       '<div class="ar-wintext">' +
-        '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
-        '<h3 class="ar-wname">' + esc(a.name || "") + '</h3>' +
+        /* The rarity sits AFTER the name on its own line (Aug 2026, on request) rather than above it: a
+           chip standing alone over a title reads as a section heading for the whole plate, where beside
+           the name it reads as what it is — an adjective on this object. `.ar-wtop` is a baseline-aligned
+           flex row so the small-caps chip sits on the title's own baseline, and it wraps rather than
+           squeezing the name on a narrow plate. */
+        '<div class="ar-wtop"><h3 class="ar-wname">' + esc(a.name || "") + "</h3>" +
+        '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + "</span></div>" +
         (a.date ? '<div class="ar-wmeta">' + esc(a.date) + '</div>' : "") +
         (a.origin ? '<div class="ar-wmeta">' + esc(a.origin) + '</div>' : "") +
         '<div class="ar-wdesc">' + (a.desc || "") + '</div>' +
@@ -10538,7 +10573,34 @@
         (o.pin ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + esc(o.pin) + "</button>" : "") +
       "</div></div>";
   }
-  function wireArtefactPlate(scope) { if (scope) wireFootnotes(scope); }
+  /* AN ARTEFACT'S FIVE SENTENCES LINK THE GLOSSARY, like a card's background (Aug 2026, on request). The
+     description is written to the cards' own rules and is full of the same vocabulary — a stone industry,
+     a period, a people — so a reader meeting `Acheulean` on a plate should get the same definition they
+     get meeting it on a card, and the auto-linker is what already keeps that promise everywhere else.
+     Three things it borrows from `processAbstract`, which is the shape this follows. The first bold is the
+     object's own name and is marked `ans-term`, so the linker steps over it; the artefact's NAME is passed
+     as the answer term, so a glossary entry for the object itself is not offered as a definition of the
+     thing the reader is already looking at; and the SITE scope is used explicitly — a plate is curated
+     content and must never link a community deck's terms.
+     `setupTooltips` is what turns the marked spans into openable ones, and it also does the discovery
+     marking, so a term first met on a plate counts exactly as one first met on a card. */
+  function wireArtefactPlate(scope, a) {
+    if (!scope) return;
+    wireFootnotes(scope);
+    const desc = scope.querySelector(".ar-wdesc");
+    if (!desc) return;
+    const first = desc.querySelector("b, strong");
+    if (first) first.classList.add("ans-term");
+    autoLinkGlossary(desc, a && a.name, null, "site");
+    setupTooltips(desc);
+  }
+  /* ESCAPE BELONGS TO WHATEVER IS OPEN ON TOP OF THE PLATE, and the plate now has two such things: the
+     fullscreen picture its own image raises, and the glossary popups its prose links. Both listen on
+     `document`, and `stopPropagation` does NOT stop a sibling listener on the same node — that needs
+     `stopImmediatePropagation` — so with no guard the reader pressing Escape to shut a definition loses
+     the artefact underneath it as well, which is exactly what shipped for the hour before this was
+     written. Keyed on what is actually on screen rather than on a flag, so nothing has to be kept in step. */
+  function escTakenAbovePlate() { return !!document.querySelector(".img-viewer") || glossWins.length > 0; }
   // one artefact, opened from a tile: the plate, over a backdrop, with the pin control on your own copy
   let _artefactClose = null;
   function closeArtefactWin() { if (_artefactClose) _artefactClose(); }
@@ -10555,10 +10617,10 @@
       pin: own ? (inShowcase(id) ? "Remove from profile" : "Show on profile") : "",
     });
     document.body.appendChild(ov);
-    wireArtefactPlate(ov);
+    wireArtefactPlate(ov, a);
     const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _artefactClose = null; };
     _artefactClose = close;
-    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
+    function onKey(e) { if (e.key === "Escape" && !escTakenAbovePlate()) { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
     ov.addEventListener("click", (e) => { if (e.target === ov) close(); });
     ov.querySelector(".ar-close").addEventListener("click", close);
@@ -10594,7 +10656,9 @@
     document.body.appendChild(ov);
     const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _collectionClose = null; };
     _collectionClose = close;
-    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
+    // …and a plate raised from a tile in here is above this too, so Escape shuts the plate and leaves the
+    // collection standing rather than taking both away in one press
+    function onKey(e) { if (e.key === "Escape" && !escTakenAbovePlate() && !_artefactClose) { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
     ov.addEventListener("click", (e) => { if (e.target === ov) close(); });
     ov.querySelector(".ar-close").addEventListener("click", close);
@@ -16859,8 +16923,13 @@
   function gameCapFirst(s) {
     return String(s == null ? "" : s).replace(/^\p{L}/u, (c) => c.toUpperCase());
   }
-  function gameLockedToday(root, key) {
+  /* `opts.untilSolved` — a game the reader may leave and come back to for the rest of the day. Only the
+     crossword is one: its answers turn green as they are found rather than being revealed by a check, so
+     there is nothing an unfinished grid could give away and no reason to shut a reader out of a puzzle
+     they have half done. Every other game reveals its answers as it is played and is spent when it ends. */
+  function gameLockedToday(root, key, opts) {
     if (!gamePlayedToday(key)) return false;
+    if (opts && opts.untilSolved && !gameWonToday(key)) return false;
     const g = (S.games && S.games[key]) || {};
     const meta = GAME_NAMES[key] || [key, "—"];
     const scored = typeof g.s === "number" && typeof g.n === "number";
@@ -17646,8 +17715,21 @@
      most words placed and then the tightest bounding box: a sparse grid of nine words strung end to end
      is a word list, and the crossings are the whole game.
 
-     ONE CHECK A DAY, which is Timeline's rule and for Timeline's reason: checking FILLS IN the letters a
-     solver got wrong, so a second check would be a second attempt with the answers already on the page.
+     IT MARKS ITSELF AS IT IS FILLED, and there is no check button at all (Aug 2026, on request). The
+     moment an entry's last square is typed it is judged: right, it turns green and its squares lock;
+     wrong, it turns red and every one of its squares can be typed over again. Nothing is ever revealed,
+     so nothing is spent by a second look — which is why THE GRID STAYS OPEN ALL DAY and the reader may
+     leave it half done and come back (`gameLockedToday(..., {untilSolved:true})`, and the letters are kept
+     in `XW_KEY`). The only way to lose is for the day to end with an answer still missing.
+     Three things follow from that and each is load-bearing. A SOLVED ENTRY'S SQUARES ARE LOCKED, so a
+     crossing letter that is already known cannot be typed away while the reader works on the entry
+     through it — which is also what makes the marking stable, since a green entry can never become
+     ungreen. THE MARKS ARE DERIVED, never toggled: `evaluate()` recomputes every square from the letters
+     on the board, so a crossing square shared by a solved entry and a wrong one is green (the letter is
+     right; it is the other entry's remaining letters that are not) rather than carrying whichever class
+     was written last. And THE SCORE IS WRITTEN AS IT RISES rather than once at the end, through
+     `markGamePlayed`'s `progress` flag, so a reader who abandons a grid at four still has four on the
+     tile and the lifetime tally still counts one play.
 
      MEASURED OVER 730 DAYS BEFORE IT SHIPPED, and the sweep is committed rather than thrown away (see
      `simulate` in `.claude/test-minigames.js`): not one blank day, all nine entries every day, no grid over
@@ -17657,6 +17739,21 @@
   const XW_MAX = 13;         // …and the grid may not outgrow this many squares either way
   const XW_MIN_LEN = 4, XW_MAX_LEN = 11;
   const XW_TRIES = 24;       // seeded attempts at a layout; the best one is kept
+  /* The letters on today's board, so a grid can be left half done and come back to. DEVICE-LOCAL, like
+     where the marker sits and how tall the Atlas sheet is: the puzzle is date-seeded, so the same grid is
+     dealt on every machine, and the SCORE already syncs through `S.games` — what is kept here is a
+     half-finished sheet of paper, which belongs to the screen it was started on. The day stamp is what
+     retires it, so yesterday's letters can never be restored into today's grid. */
+  const XW_KEY = "folio_xw_v1";
+  function xwLoadCells() {
+    try {
+      const r = JSON.parse(localStorage.getItem(XW_KEY) || "null");
+      return r && r.d === todayStr() && r.c && typeof r.c === "object" ? r.c : {};
+    } catch (e) { return {}; }
+  }
+  function xwSaveCells(c) {
+    try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: c })); } catch (e) {}
+  }
 
   // An answer term as a crossword entry: no diacritics, no punctuation, no case. Deliberately NOT the same
   // normalising the glossary index does — a crossword square holds one letter of the Latin alphabet and
@@ -17777,12 +17874,12 @@
 
   PAGES.crossword = function (root) {
     detachKeys();
-    if (gameLockedToday(root, "crossword")) return;
+    if (gameLockedToday(root, "crossword", { untilSolved: true })) return;
     const puz = dailyCrossword();
     if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.crossword, "There aren't enough one-word answer terms to build today's grid yet.", () => route("home"), "Back home"); return; }
 
     const N = puz.entries.length;
-    let cur = puz.entries[0], checked = false;
+    let cur = puz.entries[0], solved = 0, finished = false;
     const key = (x, y) => x + "," + y;
     const cellsOf = (e) => Array.from({ length: e.w.length }, (_, i) => (e.dir === "a" ? key(e.x + i, e.y) : key(e.x, e.y + i)));
     const entriesAt = (k) => puz.entries.filter((e) => cellsOf(e).indexOf(k) >= 0);
@@ -17818,7 +17915,7 @@
           <div class="page-head" style="margin-bottom:14px">
             <span class="eyebrow">Daily puzzle</span>
             <h1>Crossword</h1>
-            <p>Every clue is a card's own question, with the answer taken out. You get one check.</p>
+            <p>Every clue is a card's own question, with the answer taken out. An answer turns green the moment it is right; a wrong one turns red and can be typed over. The grid stays open until the day ends.</p>
           </div>
           <div class="xw-cur" id="xwCur"></div>
           ${/* minmax(0,1fr), NEVER a bare 1fr: a grid item's automatic minimum is its content's, and the
@@ -17827,8 +17924,13 @@
                 of a phone — which looks like a board too big for the screen rather than like a sizing rule
                 that never fired. */""}
           <div class="xw-grid" id="xwGrid" style="grid-template-columns:repeat(${puz.w},minmax(0,1fr)); max-width:${Math.min(puz.w * 44, 560)}px">${squares.join("")}</div>
+          ${/* No check button: an entry judges itself the moment its last square is typed. "Clear the
+                wrong letters" is not a shortcut for anything — a red square can simply be typed over —
+                but it SAYS that red is erasable, which the old check (whose red squares were the final
+                verdict, locked and filled in) taught a reader it was not. It appears only while there is
+                something red to clear. */""}
           <div class="xw-actions">
-            <button class="btn" id="xw-check">Check the grid</button>
+            <button class="btn ghost" id="xw-clear" hidden>Clear the wrong letters</button>
             <button class="btn ghost" id="xw-home">Back home</button>
           </div>
           <div class="chrono-result" id="xwResult"></div>
@@ -17838,7 +17940,69 @@
           </div>
         </div>`;
       wire();
+      // the letters this reader left on today's board, put back before anything is judged — so a grid
+      // returned to opens exactly as it was left, greens and all
+      const kept = xwLoadCells();
+      Object.keys(kept).forEach((k) => { const el = input(k); if (el) el.value = xwNorm(kept[k]).slice(0, 1); });
+      evaluate({ restoring: true });
       focusEntry(cur, true);
+    }
+    /* THE MARKS ARE DERIVED FROM THE BOARD, never toggled square by square as letters are typed. A crossing
+       square belongs to two entries, so "mark what I just changed" has to answer for both of them at once
+       and gets it wrong in a way no count can see: the same square would carry green from one entry and red
+       from the other, whichever ran last. Recomputing all of it costs nothing (169 squares at the very
+       largest) and cannot come out inconsistent.
+       A square is GREEN when some solved entry owns it, RED when a fully-filled wrong entry owns it and no
+       solved one does — the letter in a crossing is right, and it is the rest of the other entry that is
+       not — and neither while its entry is still being filled. Green squares are locked: the letter is
+       settled, and unlocking it would let a reader type away a letter they have already earned. */
+    function evaluate(opts) {
+      const typed = {};
+      root.querySelectorAll(".xw-cell").forEach((el) => { if (el.value) typed[el.dataset.k] = el.value; });
+      const ok = new Set(), bad = new Set(), done = new Set();
+      puz.entries.forEach((e) => {
+        const cells = cellsOf(e), got = cells.map((k) => typed[k] || "");
+        if (got.some((c) => !c)) return;              // still being filled — nothing to judge yet
+        if (got.join("") === e.w) { done.add(e.n + e.dir); cells.forEach((k) => ok.add(k)); }
+        else cells.forEach((k) => bad.add(k));
+      });
+      root.querySelectorAll(".xw-cell").forEach((el) => {
+        const k = el.dataset.k, right = ok.has(k);
+        el.classList.toggle("ok", right);
+        el.classList.toggle("bad", !right && bad.has(k));
+        el.readOnly = right || finished;
+      });
+      root.querySelectorAll(".xw-clue").forEach((b) => b.classList.toggle("done", done.has(b.dataset.e)));
+      const clr = root.querySelector("#xw-clear");
+      if (clr) clr.hidden = !bad.size || finished;
+      xwSaveCells(typed);
+      const n = done.size;
+      const rose = n !== solved;
+      solved = n;
+      // the score is written up as it rises, so a grid abandoned at four still reads four on the tile;
+      // `progress` is what keeps the lifetime tally at one play for the day however often this runs
+      if (rose && n > 0) { markGamePlayed("crossword", n === N, n, N, { progress: true }); save(); checkAchievements(); }
+      if (n === N && !finished) finish();
+      else paintProgress(opts && opts.restoring);
+    }
+    function paintProgress(quiet) {
+      const res = root.querySelector("#xwResult");
+      if (!res) return;
+      if (!solved) { res.className = "chrono-result"; res.innerHTML = ""; return; }
+      res.className = "chrono-result show";
+      res.innerHTML = '<div class="cr-title">' + solved + " of " + N + " answers found</div>" +
+        '<div class="cr-sub">' + (quiet ? "Picking up where you left off. " : "") +
+        "Keep going — the grid is yours until the day ends.</div>";
+    }
+    function finish() {
+      finished = true;
+      root.querySelectorAll(".xw-cell").forEach((el) => { el.readOnly = true; });
+      const clr = root.querySelector("#xw-clear");
+      if (clr) clr.hidden = true;
+      const res = root.querySelector("#xwResult");
+      res.className = "chrono-result show win";
+      res.innerHTML = '<div class="cr-title">Solved — every answer right!</div>' +
+        '<div class="cr-sub">All ' + N + " entries filled correctly. A fresh grid arrives tomorrow.</div>";
     }
     // the clue for the entry being typed, pinned above the grid — on a phone the clue lists are below the
     // fold while the grid is in front of the reader, so without this they are typing at a clue they cannot see
@@ -17889,7 +18053,7 @@
         if (!el) return;
         const v = xwNorm(el.value).slice(-1);   // the LAST letter typed, so typing over a filled square replaces it
         el.value = v;
-        el.classList.remove("ok", "bad");
+        evaluate();                             // an entry judges itself the moment its last square is filled
         if (v) step(el.dataset.k, 1);
       });
       grid.addEventListener("keydown", (ev) => {
@@ -17914,6 +18078,8 @@
         else if (ev.key === "ArrowRight") { ev.preventDefault(); go(1, 0); }
         else if (ev.key === "ArrowUp") { ev.preventDefault(); go(0, -1); }
         else if (ev.key === "ArrowDown") { ev.preventDefault(); go(0, 1); }
+        // emptying a square needs no branch of its own: the browser's own delete fires `input`, which
+        // re-judges. A locked green square is readOnly and fires nothing, which is the point of locking it.
         else if (ev.key === "Backspace" && !el.value) { ev.preventDefault(); step(k, -1); }
         else if (ev.key === "Enter" || ev.key === "Tab") {
           // Enter moves to the next clue; Tab is left to the browser so the page stays escapable by keyboard
@@ -17927,43 +18093,16 @@
         const e = puz.entries.find((x) => x.n + x.dir === b.dataset.e);
         if (e) focusEntry(e);
       }));
-      root.querySelector("#xw-check").addEventListener("click", check);
+      /* Clearing the red letters touches ONLY red ones. A green square is locked and stays locked, and an
+         empty square has nothing to clear — a "clear the grid" that swept a reader's earned answers away
+         would be a very expensive misclick. */
+      root.querySelector("#xw-clear").addEventListener("click", () => {
+        root.querySelectorAll(".xw-cell.bad").forEach((el) => { el.value = ""; });
+        evaluate();
+        const first = puz.entries.map((e) => cellsOf(e).map(input).find((el) => el && !el.value)).find(Boolean);
+        if (first) { first.focus(); first.select(); }
+      });
       root.querySelector("#xw-home").addEventListener("click", () => route("home"));
-    }
-    function check() {
-      if (checked) return;
-      checked = true;
-      /* THE READER'S LETTERS ARE READ OFF THE GRID BEFORE A SINGLE ONE IS OVERWRITTEN, and that is not
-         tidiness. A crossing square belongs to TWO entries, so a loop that marks and fills in the same
-         pass reaches that square a second time and compares the letter it wrote itself against the letter
-         it wanted — which always agrees. Every crossing square then came out marked both wrong and right
-         at once (65 squares yielding 65 `bad` and 10 `ok`), so on a grid whose whole point is its
-         crossings the marks were wrong at exactly the squares that matter. */
-      const typed = new Map();
-      root.querySelectorAll(".xw-cell").forEach((el) => typed.set(el.dataset.k, el.value));
-      let score = 0;
-      puz.entries.forEach((e) => { if (cellsOf(e).map((k) => typed.get(k) || "").join("") === e.w) score++; });
-      /* Every square is then marked and FILLED with the letter it wanted, which is the learning half of
-         the check and is also why there is only one of them: a second check would be a second attempt with
-         the answers already on the page. Timeline reveals its dates for the same reason and at the same
-         cost. */
-      puz.entries.forEach((e) => cellsOf(e).forEach((k, i) => {
-        const el = input(k);
-        if (!el) return;
-        el.classList.add(typed.get(k) === e.w[i] ? "ok" : "bad");
-        el.value = e.w[i];
-        el.readOnly = true;
-      }));
-      const won = score === N;
-      markGamePlayed("crossword", won, score, N);
-      save();
-      checkAchievements();
-      const res = root.querySelector("#xwResult");
-      res.className = "chrono-result show" + (won ? " win" : "");
-      res.innerHTML = won
-        ? `<div class="cr-title">Solved — every answer right!</div><div class="cr-sub">All ${N} entries filled correctly. A fresh grid arrives tomorrow.</div>`
-        : `<div class="cr-title">${score} / ${N} answers right</div><div class="cr-sub">Green letters were yours; the rest have been filled in. A fresh grid arrives tomorrow.</div>`;
-      root.querySelector("#xw-check").remove();
     }
   };
 
@@ -25851,7 +25990,7 @@
             // reader will never be shown is not a preview
             d.desc = sanitizeHTML(d.desc);
             prev.innerHTML = artefactPlateHTML(d, { cls: "ar-inline" });
-            wireArtefactPlate(prev);
+            wireArtefactPlate(prev, d);
             unitizeTree(prev);
           }
         };
