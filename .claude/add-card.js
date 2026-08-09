@@ -235,3 +235,15 @@ const out =
 fs.writeFileSync(dataPath, out);
 loadWindow(dataPath);   // re-parse to confirm the written file is valid JS
 console.log("added card " + card.id + " -> deck " + deck.id + " | total cards: " + cards.length);
+
+/* A NEW CARD LOOKS FOR ITS PICTURE HERE, not in a later sweep.  The picture pass that put an
+   illustration on several hundred cards was a batch over the whole corpus, and a batch is a thing
+   that goes out of date the next morning — so a card written today asks for a picture today, the
+   way it ships with its own citations and its own glossary entry.  It SUGGESTS and never installs:
+   the candidate list is a name match, and a name match is confidently wrong in a way nothing
+   downstream can catch, so a person picks.  Best-effort — it needs the network and this has
+   already written the card, so a failure prints a line and changes no exit status. */
+if (!(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
+  require("./suggest-image.js").report("cards", card.id, card.answerText || card.answer || card.id)
+    .catch((e) => console.log("  (no picture looked for: " + e.message + ")"));
+}

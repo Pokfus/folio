@@ -169,6 +169,11 @@ function prettyFile(title) {
   s = s.replace(/\s*\bWGA\d+\b/g, " ").replace(/\s*\bMET\s+[A-Za-z]{0,3}[\d.]{3,}[\w.]*/g, " ");
   s = s.replace(/^\s*(?:Ubekendt|Unknown|Anonymous|Ukjent|Okänd)\s*,\s*/i, "");
   s = s.replace(/\s*\b\d{6,}\b\s*/g, " ");
+  /* An emptied bracket is the residue of the rules above — a Flickr id, an accession number or a
+     find reference stripped from inside one — and it reads as a picture whose caption has lost a
+     word ("Postmedieval gunflints (FindID )").  A bracket left holding only punctuation goes with
+     whatever was in it, and a word that only ever precedes a number goes with the bracket. */
+  s = s.replace(/\s*\(\s*(?:FindID|ID|No\.?|Nr\.?|inv\.?|n[°º])?\s*[\s,;:.\-–—]*\)/gi, "");
   s = s.replace(/\s*,\s*(?=,)/g, "").replace(/\s*,\s*$/, "");                  // ", ," and a trailing comma
   s = s.replace(/\s*[-—]\s*$/, "").replace(/\s{2,}/g, " ").trim();
   return s;
@@ -193,9 +198,23 @@ function termTitle(slug, titles) {
   return slug.replace(/_/g, " ").replace(/\s*\([^)]*\)$/, "").trim();
 }
 
+/* A CAPTION IN A SCRIPT THE READER CANNOT READ IS NOT A CAPTION.  `englishPart` splits a
+   multilingual Commons description and takes the English; where the uploader wrote only in their
+   own language there is no English part to take, and the raw text then arrives under an English
+   term as a line of Belarusian or Arabic.  Translating it here would be composing a sentence about
+   somebody else's photograph, which is the one thing this pipeline must not do — so the text is
+   simply not used, and the cleaned file name carries the caption instead. */
+const NON_LATIN_RX = /[Ѐ-ԯ֐-ࣿऀ-෿฀-࿿ᄀ-ᇿ぀-ヿ㐀-鿿가-힯]/g;
+function mostlyNonLatin(s) {
+  const letters = s.replace(/[^\p{L}]/gu, "");
+  if (letters.length < 8) return false;
+  return (s.match(NON_LATIN_RX) || []).length / letters.length > 0.3;
+}
+
 function imageObject(slug, file, info, titles) {
   const alt = prettyFile(file);
   let desc = englishPart(info.desc || "");
+  if (mostlyNonLatin(desc)) desc = "";
   if (desc.length < 15 || desc.replace(/\W+/g, "").toLowerCase() === alt.replace(/\W+/g, "").toLowerCase()) desc = "";
   if (desc.length > 300) {
     const cut = desc.slice(0, 300);
@@ -261,10 +280,11 @@ function build() {
         if (!file) { console.warn("  no candidate " + v + " for " + key + " (" + f + ")"); continue; }
       } else if (typeof v === "string") file = v;
       if (!file) continue;
-      /* An artefact is keyed `artefact:<id>`, and a candidate list from the wide (CC-inclusive)
-         sweep carries a `|wide` suffix so both sweeps' results can live in one cache. */
-      if (key.startsWith("artefact:")) chosenArt[key.slice(9).replace(/\|wide$/, "")] = file;
-      else chosen[key] = file;
+      /* An artefact is keyed `artefact:<id>`; a candidate list carries a `|wide` suffix from the
+         CC-inclusive sweep and a `|q` suffix from a hand-written query, so all three sweeps' results
+         live in one cache without overwriting each other. */
+      if (key.startsWith("artefact:")) chosenArt[key.slice(9).replace(/\|(wide|q)$/, "")] = file;
+      else chosen[key.replace(/\|(wide|q)$/, "")] = file;
     }
   }
 
@@ -305,6 +325,10 @@ function build() {
     if (CAST_RX.test(`${file} ${info.categories}`) && !DECLARED_RX.test(`${obj.alt} ${obj.desc}`)) {
       dropped.push(slug + " (undeclared cast or replica)"); continue;
     }
+    /* With no English description the file NAME carries the caption, so a file named in another
+       script leaves the picture with no text a reader of this site can use — alt included, which
+       is the one field that exists for the reader who cannot see it at all. */
+    if (mostlyNonLatin(obj.alt)) { dropped.push(slug + " (no caption in Latin script)"); continue; }
     seen.set(info.url, slug);
     glossary[slug] = obj;
   }
@@ -345,6 +369,7 @@ function build() {
     if (CAST_RX.test(`${file} ${info.categories}`) && !DECLARED_RX.test(`${obj.alt} ${obj.desc}`)) {
       dropped.push("artefact " + a.id + " (undeclared cast or replica)"); continue;
     }
+    if (mostlyNonLatin(obj.alt)) { dropped.push("artefact " + a.id + " (no caption in Latin script)"); continue; }
     seenArt.set(info.url, a.id);
     /* AN ARTEFACT'S IMAGE CARRIES ONLY src / credit / alt, which is what `serializeArtefacts` in
        app.js writes and what `artefactArtHTML` reads — the entry already has its own name, date,

@@ -20,6 +20,7 @@
     node .claude/search-images.js --terms       # every glossary term that still has none
     node .claude/search-images.js --artefacts   # the reliquary's objects, which have no article
     node .claude/search-images.js --review [--from=N] [--count=N] [--artefacts]
+    node .claude/search-images.js --queries=<map.json>   # hand-written queries, when a name is a bad search term
 
   THE ARTEFACTS ARE THE ONE FAMILY WITH NO WIKIPEDIA ARTICLE TO WALK.  A glossary key is a slug and a
   card resolves to one; an artefact is a row in `artefacts.js` with a NAME, and half of those names are
@@ -150,7 +151,8 @@ function stillMissing() {
     const t = byName[norm(c.answerText)];
     if (t && !batch.glossary[t] && !cardTerms.includes(t)) cardTerms.push(t);
   }
-  const allTerms = Object.keys(w.GLOSSARY).filter((t) => !batch.glossary[t]);
+  const shipped = w.GLOSSARY_IMAGES || {};
+  const allTerms = Object.keys(w.GLOSSARY).filter((t) => !shipped[t] && !batch.glossary[t]);
   return { cardTerms, allTerms, batch, G: w.GLOSSARY, TAGS: w.GLOSSARY_TAGS || {} };
 }
 
@@ -195,6 +197,26 @@ async function main() {
   const files = readJSON(FILES_CACHE, {});
   let want, queryOf = null;
   const wide = args.includes("--wide");
+
+  /* A HAND-WRITTEN QUERY IS THE LAST RESORT AND IT HAS TO EXIST, because the automatic one is the
+     subject's own NAME and a name is sometimes the worst search term there is.  "Gladius" returns
+     the swordfish, "Malia" a president's daughter, "Roman as" nothing at all — CirrusSearch ANDs
+     its terms and `as` is a stopword.  What works is naming the thing the way a MUSEUM catalogues
+     it ("Roman sword Mainz type", "Kangxi Tongbao"), and that is a judgement no rule makes.
+     The file is `{ "<key>": "<query>" }` and the keys are the ordinary ones (`artefact:<id>`, a
+     glossary slug), suffixed here with `|q` so a hand query's results sit beside the automatic
+     sweep's rather than overwriting them. */
+  const qf = args.find((a) => a.startsWith("--queries="));
+  if (qf) {
+    const map = JSON.parse(fs.readFileSync(qf.split("=").slice(1).join("="), "utf8"));
+    want = Object.keys(map).map((k) => k + "|q");
+    queryOf = Object.fromEntries(Object.keys(map).map((k) => [k + "|q", map[k]]));
+    console.log(`${want.length} hand-written queries`);
+    await searchTerms(want, cache, files, queryOf, true);
+    const got = want.filter((t) => (cache[t].hits || []).some((h) => files[h] && usable(files[h]) === "ok"));
+    console.log(`${got.length} of them returned a usable candidate`);
+    return;
+  }
   if (args.includes("--artefacts")) {
     let t = artefactTargets();
     if (wide) {
@@ -209,7 +231,9 @@ async function main() {
     console.log(`${want.length} artefacts to search`);
   } else {
     const { cardTerms, allTerms } = stillMissing();
-    want = args.includes("--terms") ? allTerms : cardTerms;
+    const base = args.includes("--terms") ? allTerms : cardTerms;
+    want = wide ? base.map((t) => t + "|wide") : base;
+    if (wide) queryOf = Object.fromEntries(base.map((t) => [t + "|wide", t]));
     console.log(`${want.length} terms to search`);
   }
   await searchTerms(want, cache, files, queryOf, wide);

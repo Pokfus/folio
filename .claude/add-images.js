@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 "use strict";
 /*
-  add-images.js — write a reviewed batch of pictures into glossary.js (window.GLOSSARY_IMAGES)
-  and data.js (card.image).  Standalone Node helper, zero deps.  Not part of the site.
+  add-images.js — write a reviewed batch of pictures into glossary.js (window.GLOSSARY_IMAGES),
+  data.js (card.image) and artefacts.js (artefact.image).  Standalone Node helper, zero deps.  Not
+  part of the site.
 
     node .claude/add-images.js <batch.json> [--dry]
 
-  <batch.json> is { "glossary": { "<slug>": {src,title,desc,credit,alt} },
-                    "cards":    { "<cardId>": {src,title,desc,credit,alt} } }
-  — the shape `.claude/pick-images.js --build` writes.
+  <batch.json> is { "glossary":  { "<slug>":   {src,title,desc,credit,alt} },
+                    "cards":     { "<cardId>": {src,title,desc,credit,alt} },
+                    "artefacts": { "<id>":     {src,credit,alt} } }
+  — the shape `.claude/pick-images.js --build` writes.  An artefact's image is THREE fields, which
+  is what `serializeArtefacts` in app.js writes and what the reliquary reads: the entry already has
+  its own name, date, origin and five-sentence description, so a title and a caption would say it
+  twice, and `credit` is therefore the only place the attribution can go.
 
   WHAT IT REFUSES, and why each rule is here rather than left to the reader's eye:
    · a `src` that is not https — the CSP allows `img-src https:` and nothing else off-origin, so
@@ -60,7 +65,11 @@ function check(where, img) {
    and before the sources — so a later `add-glossary.js` run reproduces the same file order. */
 function writeGlossary(images, dry) {
   let text = fs.readFileSync(GLOSS, "utf8");
-  const body = Object.keys(images).sort().map((k) => "  " + JSON.stringify(k) + ": " + JSON.stringify(images[k])).join(",\n");
+  /* Written in `add-glossary.js`'s exact `obj()` shape — no indent, one entry per line, keys sorted.
+     Those two scripts REBUILD glossary.js from a fixed list of tables, so whichever ran last decides
+     the file's formatting; matching them here is what keeps a content batch from re-laying-out all
+     735 rows and burying its own two-line change in a 1,400-line diff. */
+  const body = Object.keys(images).sort().map((k) => JSON.stringify(k) + ": " + JSON.stringify(images[k])).join(",\n");
   const block =
     "/* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */\n" +
     "window.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, {\n" + body + "\n});\n\n";
