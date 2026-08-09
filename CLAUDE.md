@@ -60,8 +60,11 @@ It is a plain static website — open `index.html` and it runs.
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js →
 artefacts.js → app.js`.
-**That path is 4.9 MB raw / 1.35 MB gzipped** (measured 2026-08-08 after the translation removal below; it
-said "~1.4 MB" for months and was five times out of date, so **re-measure it rather than quoting it**).
+**That path is 5.64 MB raw / 1.57 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
+1.35 MB the day before, and it said "~1.4 MB" for months while being five times out of date, so
+**re-measure it rather than quoting it**). The picture pass added ~355 KB raw / ~220 KB gzipped, and that is
+metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 780 illustrations cost
+a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
 **THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
 path was 7.5 MB raw / 2.4 MB gzipped, and **58% of `data.js` (2.06 MB) was the `i18n` blocks of 89 cards**,
 which `MULTILANG = false` meant no reader could reach — the `quotes.js` mistake (27 KB → 312 KB for every
@@ -1989,7 +1992,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
+  filter), `GLOSSARY_IMAGES` (per-term illustration, **547 of the 836 terms** since Aug 2026 — see the
+  "Glossary image" bullet below and the picture-pass scripts in this map) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
   **A DATE LINE MAY RUN TO SEVERAL LINES** (`glossDatesHTML` / `glossDatesFlat`, Aug 2026, on request). It
   was written into the popup with `textContent`, so a term wanting a birth on one line and a death on the
@@ -2194,6 +2198,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   single-response reader records a handful and reports the rest as having no coordinate, which is
   indistinguishable from the truth. Rate-limited hard: it backs off and retries rather than recording a 429 as
   "no coordinate". Not part of the site.
+- `.claude/fetch-images.js` → `.claude/search-images.js` → `.claude/pick-images.js` → `.claude/add-images.js`
+  — the four-step **picture pass** that put an illustration on 233 cards and 547 glossary terms (Aug 2026, on
+  request; the site had exactly ONE picture before it). Standalone Node helpers, zero deps, resumable, cache
+  in `.claude/image-cache/` (gitignored). Not part of the site. Read them in that order — each header carries
+  what it found.
+  · **THE BAR IS PUBLIC DOMAIN, and that is a choice with a measured price.** The request was "copyright free
+    or public domain", so CC BY / CC BY-SA is refused even though Folio credits every picture anyway and
+    already ships CC BY-SA data elsewhere. **Measured: 133 further terms have a usable CC-BY picture and no
+    public-domain one**, so relaxing the bar would take the glossary from 547 to ~680 of 836. Recorded rather
+    than done, because it is the site owner's call.
+  · **THE LEAD IMAGE ALONE IS NOT ENOUGH.** Taking Wikipedia's `pageimages` gave 128 usable pictures out of
+    836 terms; reading EVERY file on the article and ranking them gave 628, for the same number of requests.
+    An article routinely illustrates a public-domain OBJECT with a modern copyrighted PHOTOGRAPH of it.
+  · **`imlimit=max` IS A CAP ON THE WHOLE QUERY, NOT PER PAGE**, so batching twenty titles returns the first
+    article's files and silently nothing for most of the rest — 221 terms came back "no-image" that way,
+    France and Homo erectus among them. A truncation that reports as an absence is the worst shape a bug can
+    take here. One title per request.
+  · **`incategory:"PD-old-100"|incategory:…` RETURNS NOTHING AT ALL** — the OR form is not supported the way
+    it looks, and it fails by matching zero rather than by erroring, so it reads as "Commons has no
+    public-domain picture of the Venus of Willendorf". `haswbstatement:P6216=Q19652` is the working filter.
+  · **THE MACHINE RANKS AND A READER CHOOSES.** The scorer is a name match and a name match is confidently
+    wrong: the top candidate for `Jason_E._Lewis`, the palaeoanthropologist, was the official portrait of a
+    United States congressman of the same name — public domain, high resolution, no watermark, wrong man.
+    Every one of the 547 was read against its file name, its article and its Commons description before it
+    shipped. The rejects are the other half of the work: `Polis` matched Governor Jared Polis, `Levallois`
+    the Paris suburb, `Malia` the president's daughter, `Corinth` the painter Lovis Corinth, and
+    `Eighth-century_revival` resolved through the search fallback to *Futurama*.
+  · **A CAST IS NOT THE THING, and metadata cannot always tell you.** The best public-domain picture of the
+    Venus of Willendorf is a white plaster cast on a mounting block with an accession number inked on it, and
+    nothing in its Commons record says so — it was found by LOOKING at it. `--build` drops a file whose NAME
+    or CATEGORIES say cast/replica while its caption does not (the description is deliberately not read:
+    Hayes's biography mentions votes *cast*), and a labelled cast is kept, since in palaeoanthropology the
+    originals are rarely photographed and "museum replica" in the caption is honest. **The residual risk is
+    real**: a dozen were checked by eye, one was wrong, and it is the kind of error only a reader will find.
+  · **ONE PICTURE MAY NOT STAND FOR TWO TERMS** — sibling terms share a Wikipedia article, so the same file
+    ranks top for all of them, and a reader meeting the identical photograph under "Minoan civilisation" and
+    "Minoan trade with Egypt" learns that Folio is guessing. First claimant keeps it.
+  · **A CARD TAKES ITS ANSWER TERM'S PICTURE**, which is not a shortcut: the pairing rule already says every
+    card ships with a glossary entry for its own answer, so the term IS the card's subject. 394 of the 409
+    cards resolve to a term.
+  · **A COUNTRY TAKES ITS FLAG** (178 of them, plus Ireland by hand, whose article is the island). The
+    alternative is a photograph, and a photograph of a country is a photograph of one thing in it — the top
+    public-domain candidate for Georgia was a US Navy destroyer visiting Batumi and for Tanzania a giraffe.
+    An SVG flag is unambiguous, public domain everywhere, watermark-free and sharp at any zoom.
+  · **THE THREE TEXT FIELDS COME FROM THREE PLACES**: `title` is the TERM (what the picture is of), `alt` is
+    the cleaned FILE NAME (what the picture shows), `desc` is Commons' own English description — never a
+    sentence composed here, since a composed sentence about somebody else's photograph is a fabricated fact.
+    Every `desc` ends with the licence and "via Wikimedia Commons", so the corpus states its own copyright
+    status where the reader can see it.
+  · **`src` is the 1600px rendering for a raster and the original for an SVG.** The card frame caps at 680
+    CSS px, so that is high-resolution with room to open fullscreen, and it spares the reader a 40 MB scan.
+  · Coverage today: **547 of 836 glossary terms, 233 of 409 cards.** What is left is 133 terms with a CC-BY
+    picture only, and ~75 with nothing openable either way.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
@@ -5240,14 +5297,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   pictures, four options each, drawn from **every** illustration Folio holds — a card's `image`, a glossary
   term's `GLOSSARY_IMAGES` entry, an artefact's — so a picture added anywhere feeds the game and there is
   no second registry to keep in step.
-  · **⚠ THE CORPUS HOLDS ONE PICTURE, so the game currently shows its placard rather than a round.** That
-    is a CONTENT gap and not a wiring one, and it is worth stating plainly rather than leaving someone to
-    find it: measured 2026-08-09, `data.js` has one card with an `image` (`wh-046`), `glossary.js` has no
-    `GLOSSARY_IMAGES` table at all, and none of the 100 artefacts carries one. Folio has no upload path —
-    every picture is somebody else's URL, credited — so filling this is a sourcing pass, and the fields
-    already exist on all three kinds of record. `PIC_MIN_POOL` is 8. The game ships now so the pass has
-    somewhere to land, and the tile says "Coming soon" until then rather than promising a round it cannot
-    deal.
+  · **THE CORPUS GAP IT SHIPPED INTO IS CLOSED** (2026-08-09, later the same day). It went out with one
+    picture in the whole of Folio — `data.js` had a single card image, `glossary.js` had no
+    `GLOSSARY_IMAGES` table at all — so the game could only show its placard, which was recorded here as a
+    CONTENT gap rather than a wiring one. The picture pass (see `.claude/fetch-images.js` and friends in the
+    File map) took it to **233 card images and 547 glossary images**, far past `PIC_MIN_POOL` (8), so the
+    game now deals real rounds. **None of the 100 artefacts carries a picture yet**, which is the remaining
+    half and is a sourcing job: Folio has no upload path, every picture being somebody else's credited URL.
+    The lesson worth keeping is that the game was built BEFORE the content and the gap was written down —
+    which is why closing it needed no change to the game at all.
   · **THE TITLE, DESCRIPTION AND CREDIT ARE HELD BACK UNTIL THE GUESS IS IN.** Every one of them names the
     subject and the credit is usually a URL that spells it out, so showing any of them early leaves a game
     that works perfectly and teaches nothing — the one failure here nobody would report. The `alt` is
