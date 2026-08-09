@@ -3768,6 +3768,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and the "1 / 3" counter are drawn from `pool.length`, so they simply do not appear, and there is no
     second state in which the counter says 1 / 3 and the arrows do nothing. The daily GAMES are untouched
     — they draw from every card and are not deck-scoped, so a per-deck setting has no business there.
+  · **AUTOMATIC READ-ALOUD** (`deckAutoSpeak` / `setDeckAutoSpeak` / `entryHasSpeech` / `typeSpeaks`, and the
+    `fromReader` argument to `PAGES.study`'s `showAnswer`; Aug 2026, on request — Anki's "read the answer
+    aloud"). Revealing a card speaks it, with no button pressed. Four things are decisions rather than
+    plumbing.
+    **IT IS PER ENTRY WITH NO GLOBAL DEFAULT AND IT STARTS OFF**, which is the opposite of the two switches
+    above and is the point: those choose between two ways of doing something the reader has already asked
+    for, where this one makes the site start making a noise on its own. A thing done TO a reader is opted
+    into — the same line `ttsEnabled()` draws site-wide. It rides in `S.deckOpts`, so it syncs and survives a
+    reset (`deckOpts` is in `RESET_KEEPS`) with no field of its own and nothing to migrate.
+    **THE SWITCH APPEARS ONLY WHERE SOMETHING CAN SPEAK** (`entryHasSpeech`), because a control that answers
+    a press with silence is worse than none — the test `.uc-tts` already applies to its own chrome through
+    `body.no-tts`. A curated card has no templates and so never speaks; a community deck speaks when one of
+    its own card types marks text with `.uc-tts`. It is **derived on each open rather than stored**, so the
+    pooled review grows the switch the day such a deck is added to it and loses it when the deck is removed.
+    **ONLY A READER'S REVEAL SPEAKS** — hence `fromReader`, passed by the Reveal button and by Enter/Space
+    and by nothing else. `showAnswer` also runs from `renderCard`'s own tail (`if (studyRevealId === id)`),
+    which re-opens an ALREADY-revealed card after a reload, a language switch or an **undo**; without the
+    flag a card would speak again on every repaint, which is a card nobody can leave open. Guarded in both
+    directions by `.claude/test-speak.js`, and the undo path is how that test reaches the restore branch.
+    **THE FIRST MARKED RUN IS THE ONE SPOKEN.** A type that marks several is asking for a control on each,
+    not for a recital — and `cardSpeak` calls `ttsStop()` first, so queuing several would cancel all but the
+    last anyway.
   · **The N/N STUDIED figure lives in the sheet's head, not on the row** (`.dm-studied`, Aug 2026, on request).
     It sat at the right of the row, where on a 390px line it competed with the deck's own name — the one part
     of the row with a shorter form, so the name is what gave way. The **bar stays on the row** and says the
