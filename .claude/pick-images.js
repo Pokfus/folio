@@ -281,10 +281,12 @@ function build() {
       } else if (typeof v === "string") file = v;
       if (!file) continue;
       /* An artefact is keyed `artefact:<id>`; a candidate list carries a `|wide` suffix from the
-         CC-inclusive sweep and a `|q` suffix from a hand-written query, so all three sweeps' results
-         live in one cache without overwriting each other. */
-      if (key.startsWith("artefact:")) chosenArt[key.slice(9).replace(/\|(wide|q)$/, "")] = file;
-      else chosen[key.replace(/\|(wide|q)$/, "")] = file;
+         CC-inclusive sweep and a `|q…` one from a hand-written round, so every sweep's results live
+         in one cache without overwriting each other.  Any trailing `|token` is stripped, since a
+         glossary slug and an artefact id never contain a pipe and a later round only needs a name. */
+      const id = key.replace(/\|[A-Za-z0-9]+$/, "");
+      if (id.startsWith("artefact:")) chosenArt[id.slice(9)] = file;
+      else chosen[id] = file;
     }
   }
 
@@ -340,13 +342,38 @@ function build() {
   const byName = {};
   Object.keys(G).forEach((k) => { byName[norm(k)] = k; });
   Object.keys(AL).forEach((k) => (AL[k] || []).forEach((a) => { if (!byName[norm(a)]) byName[norm(a)] = k; }));
+  /* A KEY MAY CARRY A DISAMBIGUATOR THE CARD DOES NOT.  `Lucy_(Australopithecus)` is the glossary's
+     key and `Lucy` is what the card answers, and matching only the full key leaves that card with
+     no picture while its own term has one.  Registered second, so a bare key of the same name
+     always wins. */
+  Object.keys(G).forEach((k) => {
+    const bare = norm(k.replace(/\s*\([^)]*\)$/, ""));
+    if (bare && !byName[bare]) byName[bare] = k;
+  });
+  /* AND THE CARD'S ANSWER IS OFTEN THE PLURAL OF THE TERM — "Denisovans", "Mesara tholos tombs",
+     "bronze tripod cauldrons".  The site's own auto-linker pluralises a glossary key when it scans
+     prose; this is the same rule read backwards, and without it the pairing rule ("every card ships
+     with a glossary entry for its own answer") silently stops delivering the picture that entry has.
+     A COMPOUND answer is deliberately NOT resolved to its head noun: "Euboean trade" is not Euboea
+     and "Chalcis and Eretria" is neither of them, and giving those a term's picture would be the
+     one-picture-two-subjects fault the dedupe below exists to prevent. */
+  const resolveTerm = (answer) => {
+    const n = norm(answer);
+    if (byName[n]) return byName[n];
+    for (const sing of [n.replace(/ies$/, "y"), n.replace(/es$/, ""), n.replace(/s$/, "")]) {
+      if (sing !== n && byName[sing]) return byName[sing];
+    }
+    return null;
+  };
 
   const cards = {};
+  const cardless = [];
   for (const c of CARDS) {
     if (c.image && c.image.src) continue;          // never overwrite a picture already chosen
     if (c.video && c.video.src) continue;          // one frame per card
-    const term = byName[norm(c.answerText)];
-    if (!term || !glossary[term]) continue;
+    const term = resolveTerm(c.answerText);
+    if (!term) { cardless.push(c.id + ' "' + c.answerText + '" (no glossary term)'); continue; }
+    if (!glossary[term]) continue;
     cards[c.id] = { ...glossary[term], title: c.answerText };
   }
 
@@ -390,6 +417,9 @@ function build() {
   console.log(`card images:     ${Object.keys(cards).length}`);
   console.log(`artefact images: ${Object.keys(artefacts).length}`);
   if (dropped.length) { console.log(`dropped ${dropped.length}:`); dropped.forEach((d) => console.log("  " + d)); }
+  /* Reported rather than silent: a card whose answer resolves to no glossary term breaks the
+     card→glossary pairing rule, and the picture pass is where that shows up first. */
+  if (cardless.length) { console.log(`${cardless.length} card(s) whose answer names no term:`); cardless.forEach((d) => console.log("  " + d)); }
   console.log("wrote .claude/image-cache/batch.json");
 }
 

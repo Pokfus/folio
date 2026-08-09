@@ -60,10 +60,10 @@ It is a plain static website — open `index.html` and it runs.
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js →
 artefacts.js → app.js`.
-**That path is 5.81 MB raw / 1.61 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
+**That path is 5.84 MB raw / 1.61 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
 1.35 MB the day before, and it said "~1.4 MB" for months while being five times out of date, so
-**re-measure it rather than quoting it**). The picture pass added ~525 KB raw / ~265 KB gzipped, and that is
-metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 1,161 illustrations
+**re-measure it rather than quoting it**). The picture pass added ~555 KB raw / ~270 KB gzipped, and that is
+metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 1,230 illustrations
 cost a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
 **THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
 path was 7.5 MB raw / 2.4 MB gzipped, and **58% of `data.js` (2.06 MB) was the `i18n` blocks of 89 cards**,
@@ -1992,7 +1992,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter), `GLOSSARY_IMAGES` (per-term illustration, **735 of the 836 terms** since Aug 2026 — see the
+  filter), `GLOSSARY_IMAGES` (per-term illustration, **771 of the 836 terms** since Aug 2026 — see the
   "Glossary image" bullet below and the picture-pass scripts in this map) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
   **A DATE LINE MAY RUN TO SEVERAL LINES** (`glossDatesHTML` / `glossDatesFlat`, Aug 2026, on request). It
@@ -2299,10 +2299,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     do. So the description is dropped and the cleaned FILE NAME carries the caption — and where the file
     name is in that script too, the pick is dropped outright, since `alt` is the one field that exists for
     the reader who cannot see the picture at all.
-  · Coverage today: **735 of 836 glossary terms, 327 of 409 cards, 99 of 100 artefacts.** Of the 101 terms
-    still without one, ~75 have nothing openable at any licence and the rest have only a candidate that was
-    reviewed and rejected as not being a picture of the subject. The one artefact without a picture is the
-    Lord of Sipán's turquoise ear ornaments: Commons holds no free photograph of them at all.
+  · **THE HAND-WRITTEN QUERY IS WHERE THE LAST THIRD CAME FROM, and it needs a `--tag`.** Four rounds of
+    them took the glossary from 684 to 771: the automatic sweep had already been run over every one of
+    those terms and found nothing usable, and naming the subject the way a museum or an excavation report
+    names it found a picture for a third of them (`Acragas` → "Temple of Concordia Agrigento",
+    `Mycenaean_road_network` → "Arkadiko Mycenaean bridge", `Ledi-Geraru` → "LD 350-1 mandible"). **A
+    second round for the same subject needs `--tag=q2`**, because `searchTerms` skips a key already in the
+    cache — which is what makes the whole pass resumable, and which means a better query re-run under the
+    same key does nothing at all, silently, and reads as the better query having found no more than the
+    worse one.
+  · Coverage today: **771 of 836 glossary terms, 360 of 409 cards, 99 of 100 artefacts.** The 65 terms
+    still without one are not a backlog: **41 are ABSTRACT** — Greek institutional vocabulary (`Apella`,
+    `Gerousia`, `Phratry`, `Synoecism`, `Xenia`), the Linear B titles (`Lawagetas`, `Qa-si-re-u`), the
+    chronozones (`Boreal`, `Atlantic_period`, `Chronozone`) and the theories (`Cooking_hypothesis`,
+    `Mosaic_evolution`, `Southern_dispersal_route`) — and **10 are living or recent scholars** with no
+    freely licensed portrait (`Sonia_Harmand`, `Mark_Collard`, `Todd_Whitelaw`). The remaining 14 are
+    places and cultures Commons genuinely does not illustrate freely (`Madjedbebe`, `Nyayanga`,
+    `Wonderwerk_Cave`, `Al_Mina`, the Ahrensburg, Bromme and Pitted Ware cultures — the last three
+    photographed only in Swedish and Danish museum uploads whose file names and captions are in those
+    languages, which the Latin-script rule above refuses). **Say which of those a later attempt is for**:
+    a term with no picture because none exists is finished, and a term with no picture because the caption
+    was unreadable is not. The one artefact without a picture is the Lord of Sipán's turquoise ear
+    ornaments: Commons holds no free photograph of them at all.
+  · **A CARD'S ANSWER IS OFTEN THE PLURAL OF ITS TERM, and matching only the exact surface loses the
+    picture the pairing rule already paid for.** "Denisovans", "Mesara tholos tombs", "bronze tripod
+    cauldrons" and `Lucy` (whose key is `Lucy_(Australopithecus)`) all resolve now — the site's own
+    auto-linker pluralises a key when it scans prose, and this is that rule read backwards. A COMPOUND
+    answer is deliberately not resolved to its head noun: "Euboean trade" is not Euboea and "Chalcis and
+    Eretria" is neither of them. Those **8 cards are reported by name** at the end of a build rather than
+    passed over, since an answer naming no term is a break in the card→glossary pairing rule and this is
+    where it shows up first.
   · **A NEW ITEM NO LONGER WAITS FOR A SWEEP.** This pipeline is a BATCH over the whole corpus, which is
     the right shape for 836 terms at once and the wrong shape for the one term written this morning — it
     is how the corpus went from one picture to several hundred in a day and then began drifting out of
@@ -6748,7 +6774,7 @@ measure is committed rather than done by eye.
 
 **A NEW CARD, GLOSSARY TERM OR ARTEFACT SHIPS WITH A PICTURE, OR WITH A STATED REASON WHY NOT (Aug 2026,
 on request).** A picture is part of a content item the way its citations are, and the picture pass that put
-an illustration on 735 glossary terms, 327 cards and 99 of the 100 artefacts was a BATCH over the whole
+an illustration on 771 glossary terms, 360 cards and 99 of the 100 artefacts was a BATCH over the whole
 corpus — which is the right shape for 836 terms at once and the wrong shape for the one term written this
 morning. A batch goes out of date the next day; a rule does not. So the three content tools now LOOK, on
 their own: `add-card.js`, `add-glossary.js` and `add-artefacts.js` each call `.claude/suggest-image.js` at
@@ -6762,9 +6788,10 @@ the end of a successful add and print the candidates, their licences, their size
   not host and which would forbid selling access to the site), an attributable author where the licence
   needs one, ~900px on the long side, no watermark. `suggest-image.js` applies it, so anything it offers
   could actually ship.
-· **A PICTURE THAT IS NOT FOUND IS RECORDED, not silently skipped.** Where nothing openable exists — 101
-  glossary terms and one artefact today — say so in the commit message rather than leaving the gap looking
-  like an oversight. `--no-image` skips the lookup for a batch run with no network.
+· **A PICTURE THAT IS NOT FOUND IS RECORDED, not silently skipped.** Where nothing openable exists — 65
+  glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
+  commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
+  batch run with no network.
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the

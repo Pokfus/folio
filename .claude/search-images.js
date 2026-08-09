@@ -205,12 +205,18 @@ async function main() {
      it ("Roman sword Mainz type", "Kangxi Tongbao"), and that is a judgement no rule makes.
      The file is `{ "<key>": "<query>" }` and the keys are the ordinary ones (`artefact:<id>`, a
      glossary slug), suffixed here with `|q` so a hand query's results sit beside the automatic
-     sweep's rather than overwriting them. */
+     sweep's rather than overwriting them.
+     `--tag=<suffix>` names that suffix, and a SECOND round of queries for the same subjects needs
+     one: `searchTerms` skips a key already in the cache, which is what makes the whole pass
+     resumable — so re-running with a better query under the same key does nothing at all, silently,
+     and reads as the better query having found no more than the worse one.  Give round two
+     `--tag=q2`. */
   const qf = args.find((a) => a.startsWith("--queries="));
   if (qf) {
     const map = JSON.parse(fs.readFileSync(qf.split("=").slice(1).join("="), "utf8"));
-    want = Object.keys(map).map((k) => k + "|q");
-    queryOf = Object.fromEntries(Object.keys(map).map((k) => [k + "|q", map[k]]));
+    const sfx = "|" + ((args.find((a) => a.startsWith("--tag=")) || "--tag=q").split("=")[1] || "q");
+    want = Object.keys(map).map((k) => k + sfx);
+    queryOf = Object.fromEntries(Object.keys(map).map((k) => [k + sfx, map[k]]));
     console.log(`${want.length} hand-written queries`);
     await searchTerms(want, cache, files, queryOf, true);
     const got = want.filter((t) => (cache[t].hits || []).some((h) => files[h] && usable(files[h]) === "ok"));
