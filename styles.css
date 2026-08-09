@@ -5339,6 +5339,24 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .sp-acts{display:flex; gap:7px; flex-wrap:wrap;}
 .studio-cardlist-ro .scr-open{cursor:default;}
 .udeck-tag{font-size:calc(9px * var(--fs)); letter-spacing:.07em;}
+
+/* ---- a community deck's subdecks (Aug 2026) ----
+   Indented rows under their deck's own row, each addable and studiable on its own. They are deliberately
+   quieter than the deck above them — a hairline down the left instead of a card of their own — so the deck
+   still reads as one thing rather than as three siblings. A flat deck renders none of this. */
+/* a subdeck added to the review on its own: named by itself, with its deck for context */
+.dk-sup{margin-left:8px; font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.udeck-subs{display:flex; flex-direction:column; border-top:1px solid var(--rule);}
+.udeck-subrow{display:flex; align-items:center; gap:12px; padding:11px 16px 11px 22px; cursor:pointer; position:relative;
+  border-top:1px solid var(--rule); transition:background .18s var(--ease);}
+.udeck-subs > .udeck-subrow:first-child{border-top:0;}
+.udeck-subrow::before{content:""; position:absolute; left:10px; top:9px; bottom:9px; width:2px; border-radius:2px;
+  background:var(--coll-bg, var(--indigo)); opacity:.5;}
+.udeck-subrow:hover{background:var(--paper-2);}
+.udeck-subrow:focus-visible{outline:2px solid var(--indigo); outline-offset:-2px;}
+.udeck-subrow .collection-main{flex:1; min-width:0;}
+.udeck-subrow .deck-title{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); font-weight:600; color:var(--ink);}
+.udeck-subrow .collection-count{font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
 .udeck-upd{font-size:calc(9px * var(--fs)); letter-spacing:.07em; color:#fff; background:var(--indigo); border-color:var(--indigo);}
 .collection.udeck-installed > .collection-row{border-left-color:var(--indigo);}
 

@@ -6491,6 +6491,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     which publishes every user's username and display name — a privacy decision for the site owner, not
     one to make in passing. "More from this author" queries `user_decks` by `owner` instead, which is
     already public, and gets most of the value.
+- **Community decks — SUBDECKS (Aug 2026, on request).** A community deck may group its cards into
+  subdecks, so one file holds what would otherwise be several decks — an HSK deck with a direction each way,
+  a course with a chapter each. Each is addable and studiable on its own, exactly as a curated collection's
+  decks are, and it needs **no schema change anywhere**, which is the whole of the design.
+  · **A SUBDECK IS A STRING ON THE CARD** (`card.sub`, its own title) **and there is no list beside it**: the
+    deck's subdecks are the distinct values in card order (`uDeckSubs`). That is what makes it free — the
+    title rides on each card, so it survives export, import, publish and install through paths that already
+    carry the card whole (`uCardSanitize` keeps it; the publish payload adds one line). An explicit list
+    would have needed a column on `user_decks`, which is exactly the migration card types are still waiting
+    on, and a second blocked feature is worse than a smaller one. What it gives up is an EMPTY subdeck and
+    ordering the subdecks independently of the cards; **renaming one is rewriting `sub` on its cards.**
+  · **THE ENTRY ID IS `u:<deckId>/<title>`**, the title percent-encoded. A deck id is `[a-z0-9]{4,16}` and so
+    can never contain the slash, which is what makes the split unambiguous. **`uDeckIdOf` strips the suffix**,
+    so every one of its ten-odd callers keeps working untouched and resolves to the parent deck; only the
+    three places that must narrow call **`uSubOf`** (`entryCardIds`, `entryInfo`, `buildSession`'s udeck
+    branch, plus `scopeEntryId` composing one). A study scope carries `{type:"udeck", id, sub}`.
+    Deleting a deck now filters `S.active` on `uDeckIdOf(x) === deckId` rather than on one exact string, or
+    its subdeck entries would outlive it.
+  · **`uCardSetSub` is its own setter** — `sub` is NOT one of `CARD_FIELDS` (those are the Basic format's
+    thirteen and `uCardSet` refuses anything outside them), so a `uCardSet(id, "sub", …)` would silently do
+    nothing. The Studio's control is a **datalist rather than a `<select>`**, because the deck's subdecks ARE
+    the titles its cards name: there is nothing to pick from until a card names one. It writes on `change`
+    and not per keystroke, or typing "Eng" would create a subdeck per prefix and the deck would grow a row
+    for each.
+  · **A partly-grouped deck is fine and its loose cards get no row.** On a fully-grouped deck there are none,
+    and on a partly-grouped one the parent row already studies the whole deck — an "Other" row would be a
+    third thing to explain. The home review names an added subdeck **by the subdeck**, with its deck in
+    `.dk-sup` for context: "HSK 1" over three rows says nothing about which is which.
+  · Guarded by `.claude/test-subdecks.js` (13 assertions), which builds its own partly-grouped deck rather
+    than reading the shipped ones. **The failure mode is silent** — the list is derived on every read, so a
+    `sub` dropped anywhere along the way just drops that card back into the parent deck and everything still
+    works — which is why the assertions follow one card's `sub` through ingest, the row list, the review and
+    the session rather than testing any one of them.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
