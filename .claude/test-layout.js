@@ -110,8 +110,27 @@ function adBaitCheck() {
     found.length === 0, found.slice(0, 6).join(", "));
 }
 
+/* A MODAL SCRIM MUST BE THEME-INDEPENDENT BLACK (Aug 2026, on a bug report: "the whole background is
+   whited out"). Five full-screen overlays were mixes of `var(--ink)` — the darkest thing a LIGHT theme
+   has, and the LIGHTEST thing a dark one has, so at night each became a 38–58% white veil over the whole
+   page. It is checked statically rather than in the browser because the failure is invisible from the
+   light side: every screenshot taken in light mode is correct, nothing throws, and the sheet in front is
+   perfectly readable. A `var(--paper)` mix is fine and is not matched here — paper is dark at night, so
+   `.gloss-scrim` and `.atlas-help` darken as they should. */
+function scrimCheck() {
+  const css = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, " ");
+  const bad = [];
+  (css.match(/\.[\w-]+\{[^{}]*position:\s*fixed[^{}]*\}/g) || []).forEach((rule) => {
+    if (!/inset:\s*0/.test(rule)) return;                            // a full-screen overlay, not a pinned bar
+    if (/background:[^;}]*var\(--ink\)/.test(rule)) bad.push((/^\.[\w-]+/.exec(rule) || [""])[0]);
+  });
+  check("no full-screen scrim is built from var(--ink) (it inverts to a white veil at night)",
+    bad.length === 0, bad.join(", "));
+}
+
 (async () => {
   adBaitCheck();
+  scrimCheck();
   const server = serve();
   await new Promise((r) => server.listen(0, r));
   const base = "http://127.0.0.1:" + server.address().port + "/";
