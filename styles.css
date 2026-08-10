@@ -5527,6 +5527,14 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .studio-deck-actions{display:flex; align-items:center; gap:7px; flex-wrap:wrap;}
 .studio-empty{margin-top:6px;}
 .studio-empty code{font-family:var(--mono); font-size:calc(11px * var(--fs));}
+/* Decks this account has published that this device holds no copy of (Aug 2026 — the other half of the
+   delete fix). DASHED, like a community row, because these are not decks that can be opened or studied
+   here: the only thing this device holds is the right to take them down. */
+.studio-orphans{margin-top:30px;}
+.studio-sec{margin:0 0 6px; font-family:var(--display); font-size:calc(19px * var(--fs)); font-weight:600; letter-spacing:-.01em; color:var(--ink);}
+.studio-sec-note{margin:0 0 13px; max-width:62ch; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+.orphan-deck{border-style:dashed;}
+.orphan-deck .sd-title{color:var(--ink-soft);}
 
 /* --- Studio: one deck --- */
 .studio-head{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:16px;}

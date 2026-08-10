@@ -6421,6 +6421,12 @@
     d.cardIds.splice(j, 0, cardId);
     uDeckSave(d.id);
   }
+  /* LOCAL ONLY, and every caller has to know it. This removes the deck from this device and touches no
+     server: a deck the reader PUBLISHED keeps its row on the shared page, and a deck they INSTALLED must
+     keep the author's. The two callers answer for that difference themselves — `uDeckUninstall` deletes
+     only the reader's own install record, and the Studio's Delete calls `uDeckRemoteDelete` first. Calling
+     this on a published deck of your own and nothing else is precisely the bug of Aug 2026: it left an
+     orphan on the shared page that the author had no way to take down. */
   function uDeckDelete(deckId) {
     const d = UDECKS[deckId];
     if (!d) return;
@@ -6686,6 +6692,51 @@
     uDeckSave(deckId);
     return { ok: true };
   }
+  /* DELETING A DECK YOU PUBLISHED DELETES THE SHARED COPY TOO (Aug 2026, on a bug report: decks deleted in
+     the Studio "still appear on the shared decks page"). `uDeckDelete` only ever removed the LOCAL record,
+     so the published row stayed live for ever — and unreachably, since the Studio's Unpublish button reads
+     `remoteId` off the local deck, which is exactly the thing that has just been thrown away. Every
+     publish-then-delete left an orphan its own author could not take down.
+
+     A row DELETE rather than status='draft', on request: the cards, the glossary, the ratings and the
+     install records all cascade (see the foreign keys in .claude/supabase-schema.sql) and the slug is
+     freed, which is what "I deleted it" means. People who already installed it keep their copy — it simply
+     stops offering them updates.
+
+     `Prefer: return=representation` is not decoration. RLS decides which ROWS a DELETE may touch, and a
+     DELETE that matches none still answers 204: signed in as somebody else, or with the session expired
+     under a stale token, the request "succeeds" and removes nothing. Reading the rows back is the only way
+     to tell the difference — and reporting a silent failure as success is the exact shape of the bug this
+     function exists to fix. */
+  async function uDeckRemoteDelete(remoteId) {
+    if (!remoteId) return { ok: true };
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to remove the shared copy." };
+    const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(remoteId),
+      { method: "DELETE", headers: { Prefer: "return=representation" } });
+    if (!r.ok) return { error: communityErr(r, "Couldn't remove the shared copy.") };
+    if (Array.isArray(r.data) && !r.data.length) return { error: "That shared deck belongs to another account — sign in as its author to remove it." };
+    return { ok: true };
+  }
+  /* ---------- decks you published that this device has no copy of ----------
+     The other half of the same fix. A deck can lose its local record and keep its published row — deleted
+     on another device, deleted before the rule above shipped, or deleted here while signed out — and with
+     no local record there is nothing in the Studio holding its `remoteId`, so Unpublish can never be
+     reached. So the Studio asks the server what YOU own and lists whatever is missing here.
+
+     Fetched once per session, and only for a signed-in reader: signed out there is nothing to ask about,
+     and `_myRemote` stays an empty list rather than null so the caller need not tell "none" from "not yet". */
+  let _myRemote = null;        // rows owned by the signed-in user, or null = not asked yet
+  let _myRemoteAsked = false;
+  async function myRemoteDecksLoad() {
+    if (!supaLoggedIn()) { _myRemote = []; return; }
+    const r = await supaFetch("/rest/v1/user_decks?owner=eq." + encodeURIComponent(SUPA.user.id) +
+      "&select=id,slug,title,status,card_count,install_count,updated_at&order=updated_at.desc&limit=200");
+    _myRemote = (r.ok && Array.isArray(r.data)) ? r.data : [];
+  }
+  function myRemoteReset() { _myRemote = null; _myRemoteAsked = false; }
+  // A published row with nothing local pointing at it. localDeckForRemote is the same lookup an update
+  // check uses, so a deck that IS installed here can never be listed as an orphan.
+  function orphanRemoteDecks() { return (_myRemote || []).filter((row) => !localDeckForRemote(row.id)); }
 
   // Until the phase-2 SQL in .claude/supabase-schema.sql has been run, every one of these calls 404s with
   // PostgREST's "relation ... does not exist". Say what actually needs doing rather than leaking that.
@@ -18205,6 +18256,14 @@
 
   function studioRenderList(root) {
     const decks = uDeckList();
+    /* Ask the server, once a session, which decks this account owns — the list below shows whichever of
+       them this device has no copy of. Never blocks the page: it paints without them and repaints when
+       they land, which is the pattern the update check already uses, and a failed or offline request just
+       leaves the section absent rather than showing an empty heading. */
+    if (!_myRemoteAsked && supaLoggedIn()) {
+      _myRemoteAsked = true;
+      myRemoteDecksLoad().then(() => { if (current && current.name === "studio" && !studioState.deck) render(); });
+    }
     /* The way back stands at the TOP LEFT of the page, above the heading, rather than in the row of actions
        under it (Aug 2026, on request) — a back link belongs where a reader looks for one, and standing in a
        line beside "New deck" and "Import" it read as a third thing to do rather than as the way out. It also
@@ -18232,7 +18291,8 @@
                 '<button class="btn tiny danger" type="button" data-del="' + esc(d.id) + '">Delete</button>' +
               '</div></div>';
           }).join("") + '</div>'
-        : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>');
+        : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>') +
+      orphanSectionHTML();
 
     root.querySelector("#stNew").addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.deck = d.id; studioState.card = null; render(); });
     root.querySelector("#stBack").addEventListener("click", () => route("decks"));
@@ -18242,10 +18302,76 @@
     root.querySelectorAll("[data-export]").forEach((b) => b.addEventListener("click", () => uDeckExport(b.dataset.export)));
     root.querySelectorAll("[data-del]").forEach((b) => b.addEventListener("click", () => {
       const d = UDECKS[b.dataset.del]; if (!d) return;
-      inlineConfirm("Delete “" + d.title + "” and its " + (d.cardIds || []).length + " cards? This can't be undone — export it first if you want to keep a copy.", () => {
-        uDeckDelete(d.id); toast("Deck deleted"); render();
-      }, "Delete");
+      confirmDeleteDeck(d);
     }));
+    root.querySelectorAll("[data-orphopen]").forEach((b) => b.addEventListener("click", () => { location.hash = "#deck/" + encodeURIComponent(b.dataset.orphopen); }));
+    root.querySelectorAll("[data-orphdel]").forEach((b) => b.addEventListener("click", () => {
+      const row = (_myRemote || []).find((x) => x.id === b.dataset.orphdel); if (!row) return;
+      inlineConfirm("Remove “" + (row.title || "Untitled deck") + "” from the shared decks page? This deletes it and its cards, ratings and reviews for good. Anyone who already installed it keeps their copy.", async () => {
+        b.disabled = true;
+        const r = await uDeckRemoteDelete(row.id);
+        if (r.error) { b.disabled = false; toast(r.error); return; }
+        myRemoteReset();
+        toast("Removed from the shared decks page");
+        render();
+      }, "Remove");
+    }));
+  }
+
+  /* Deleting a deck of your own that is on the shared page takes the shared copy with it — see
+     `uDeckRemoteDelete`. Three cases, and each is said out loud rather than left to be discovered:
+
+     · not shared → the message it always had;
+     · shared, signed in → the shared copy goes FIRST, and a failure stops the whole thing. That is
+       deliberate: the local record is the only handle on the remote row, so throwing it away while the
+       delete is failing manufactures the very orphan this exists to prevent. Nothing is lost by retrying.
+     · shared, signed out → the local copy can go and the shared one cannot, so the confirmation says so
+       BEFORE the reader agrees and names where to finish the job, rather than reporting it afterwards. */
+  function confirmDeleteDeck(d) {
+    const n = (d.cardIds || []).length;
+    const shared = !!(uDeckIsMine(d) && d.remoteId);
+    const keep = " This can't be undone — export it first if you want to keep a copy.";
+    const tail = !shared ? keep
+      : supaLoggedIn() ? " It comes off the shared decks page too, for good." + keep
+      : " You're signed out, so its copy on the shared decks page will stay — sign in and remove it from the Studio." + keep;
+    inlineConfirm("Delete “" + d.title + "” and its " + n + " " + (n === 1 ? "card" : "cards") + "?" + tail, async () => {
+      if (shared && supaLoggedIn()) {
+        toast("Removing the shared copy…");
+        const r = await uDeckRemoteDelete(d.remoteId);
+        if (r.error) { toast(r.error + " The deck is still here — try again."); return; }
+      }
+      uDeckDelete(d.id);
+      myRemoteReset();   // this device's picture of what it owns on the server is now a version behind
+      toast(shared && supaLoggedIn() ? "Deck deleted, and taken off the shared page" : "Deck deleted");
+      render();
+    }, "Delete");
+  }
+
+  /* The listing of those orphans. ABSENT rather than empty when there is nothing to show — a heading over
+     no rows reads as a section that failed to load, and for almost every reader there will never be
+     anything here at all. A row carries what the server knows and nothing this device has, since by
+     definition it has nothing: the title, the size, where the deck currently stands and how many people
+     hold a copy, which is the fact a reader wants before removing something for good. */
+  function orphanSectionHTML() {
+    const rows = orphanRemoteDecks();
+    if (!rows.length) return "";
+    const where = { published: "on the shared decks page", draft: "unlisted — it has a page, but nobody can find it", hidden: "hidden by a moderator" };
+    return '<div class="studio-orphans">' +
+      '<h2 class="studio-sec">Published, but not on this device</h2>' +
+      '<p class="studio-sec-note">Your account owns these and there is no copy here — deleted on another device, or before deleting a deck took its shared copy with it. Removing one deletes it, its cards and its reviews for good; anyone who already installed it keeps their copy.</p>' +
+      '<div class="studio-list">' + rows.map((row) => {
+        const n = Number(row.card_count || 0), inst = Number(row.install_count || 0);
+        const meta = '<span class="sd-title">' + esc(row.title || "Untitled deck") + '</span>' +
+          '<span class="sd-meta">' + n + " " + (n === 1 ? "card" : "cards") + " &middot; " + esc(where[row.status] || String(row.status || "")) +
+            (inst ? " &middot; " + inst + " " + (inst === 1 ? "install" : "installs") : "") + '</span>';
+        return '<div class="studio-deck orphan-deck">' +
+          (row.slug
+            ? '<button class="studio-deck-open" type="button" data-orphopen="' + esc(row.slug) + '">' + meta + '</button>'
+            : '<div class="studio-deck-open">' + meta + '</div>') +
+          '<div class="studio-deck-actions">' +
+            '<button class="btn tiny danger" type="button" data-orphdel="' + esc(row.id) + '">Remove</button>' +
+          '</div></div>';
+      }).join("") + '</div></div>';
   }
 
   function fmtWhen(ts) {
