@@ -7775,6 +7775,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Update checks** — `communityCheckUpdates()` runs once at idle after boot, in ONE request for all
     installed decks, and fills `_deckUpdates` (Library and Studio show an "update" pill). A failed or
     offline check just leaves it empty.
+  · **DELETING A DECK YOU PUBLISHED DELETES THE SHARED COPY** (`uDeckRemoteDelete` / `confirmDeleteDeck`,
+    Aug 2026, on a bug report: decks deleted in the Studio "still appear on the shared decks page"). It is
+    the shape of failure this file keeps recording, at its worst. `uDeckDelete` only ever removed the LOCAL
+    record — nothing threw, the deck vanished from the author's own Studio, and only somebody ELSE browsing
+    ever saw what was left behind. And it was UNRECOVERABLE from inside the app: the Unpublish button reads
+    `remoteId` off the local deck, which is precisely the thing just thrown away, so every publish-then-delete
+    left an orphan its own author could not take down. Five things.
+    **A ROW DELETE, NOT `status='draft'`** (on request): the cards, glossary, ratings, reports and install
+    records all cascade and the slug is freed, which is what "I deleted it" means. Someone who already
+    installed it keeps their copy — it simply stops offering updates.
+    **THE STATUS CANNOT BE TRUSTED, SO THE ROWS ARE READ BACK.** RLS picks ROWS, never permission to try, so
+    a DELETE matching nothing still answers 204 — signed in as another account, or under a stale token, the
+    request "succeeds" and removes nothing. `Prefer: return=representation` is the only way to tell, and
+    reporting a silent failure as success is the exact bug being fixed.
+    **THE REMOTE GOES FIRST AND A FAILURE STOPS THE WHOLE THING**: the local record is the only handle on the
+    remote row, so deleting it while the server call is failing manufactures the very orphan this prevents.
+    **SIGNED OUT, THE CONFIRMATION SAYS SO BEFORE THE READER AGREES** rather than reporting it afterwards.
+    **AND `uDeckUninstall` MUST NOT GO THROUGH ANY OF IT** — an installed deck's row is the AUTHOR's, so the
+    gate is `uDeckIsMine`, not merely having a `remoteId`. `uDeckDelete` is documented local-only for that
+    reason; a third caller has to answer the same question.
+  · **…AND THE STUDIO LISTS PUBLISHED DECKS THIS DEVICE HAS NO COPY OF** (`myRemoteDecksLoad` /
+    `orphanRemoteDecks` / `orphanSectionHTML` / `_myRemote`, same batch). The other half: a row can lose its
+    local counterpart for reasons the rule above cannot cover — deleted on another device, deleted while
+    signed out, or left by the bug itself — and with nothing local holding its `remoteId` there is no way
+    back. So the Studio asks the server what this ACCOUNT owns and lists whatever is missing here, each with
+    a Remove. Fetched once a session and only when signed in; **absent, not empty, when there is nothing to
+    show**, since for almost every reader there never will be. `localDeckForRemote` is the same lookup the
+    update check uses, so a deck that IS installed here can never be offered for removal.
   · **The column guard — `guard_user_deck_columns()`.** RLS decides which ROWS you may write, **never which
     COLUMNS**. "edit your own decks" therefore let an owner PATCH their own `install_count`, `rating_avg`,
     `staff_pick` or even `owner` — inventing an editorial endorsement and a five-star average for
@@ -9668,17 +9696,30 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 75 assertions across three browser sessions (an author, a reader, an
-    admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export. It runs against an
+  · `node .claude/test-publish.js` — 84 assertions across three browser sessions (an author, a reader, an
+    admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export → delete. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
     ownership rule, which is how "a stranger cannot patch someone's deck" is asserted — and, since Aug 2026,
     **it truncates a card request that carries no `Range`**, which is what stands in for PostgREST's
     `db-max-rows`: a deck of 7 is published and installed and every card must arrive at both ends, so an
     unpaged fetch loses cards HERE rather than on somebody's live project. Verified by removing the paging
-    and watching it fail. **Re-run after
-    touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
-    the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
+    and watching it fail.
+    **Its DELETE section (Aug 2026) is the one that has to be read before it is trusted**, because every
+    assertion in it fails silently on a real site: the deck vanishes from the author's own Studio either
+    way, and only somebody ELSE browsing ever sees the difference. So it checks the author's Studio not at
+    all and the SERVER instead — the row, its cards and the reader's install record all gone — then Bob's
+    browse, then that Bob's installed copy survives on his own device. **One of those passed with the bug
+    deliberately reintroduced and had to be fixed**: Bob's `#community` was reached by a hash-only `goto`,
+    which is a same-document navigation, so the page repainted the browse results it already held — a list
+    fetched before that deck was ever published, and an assertion that would have passed whatever the server
+    said. It takes a real `reload()` now. Verified in both directions: 84 pass with the fix, 5 fail without.
+    The orphan half plants a row straight into the mock's store, which is exactly what an orphan IS, and
+    asserts the negative as well — a deck this device DOES hold is never offered for removal.
+    **Re-run after
+    touching the publishing functions, `uDeckDelete` / `uDeckRemoteDelete` / `confirmDeleteDeck` /
+    `myRemoteDecksLoad` / `orphanSectionHTML`, or `.claude/supabase-schema.sql` — and keep the mock in step
+    with the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
   · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the `glossMode`s,
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching

@@ -104,8 +104,27 @@ function handleSupa(db, url, method, body, asUser, headers) {
       Object.assign(row, patch, { updated_at: new Date().toISOString() });
       return [200, [row]];
     }
+    /* The "delete your own decks" policy, and the cascades hanging off it. Two things here are the whole
+       point of the test that uses it. RLS picks ROWS, so a DELETE that matches none is not an error: it
+       answers 204 having removed nothing, exactly as a delete by a non-owner does — which is why the app
+       asks for the rows back instead of trusting the status. And the cards, installs, ratings and reports
+       go with the deck because their foreign keys say `on delete cascade`; a mock that kept them would let
+       an orphaned-row bug pass unnoticed here. */
+    if (method === "DELETE") {
+      const id = eqOf("id");
+      const gone = db.decks.filter((d) => d.id === id && (d.owner === asUser.id || asUser.role === "admin"));
+      db.decks = db.decks.filter((d) => gone.indexOf(d) < 0);
+      gone.forEach((d) => {
+        db.cards = db.cards.filter((c) => c.deck_id !== d.id);
+        db.installs = db.installs.filter((i) => i.deck_id !== d.id);
+        db.ratings = db.ratings.filter((r) => r.deck_id !== d.id);
+        db.reports = db.reports.filter((r) => r.deck_id !== d.id);
+      });
+      const wants = /return=representation/.test(String((headers && (headers.prefer || headers.Prefer)) || ""));
+      return wants ? [200, gone] : [204, null];
+    }
     // GET
-    const id = eqOf("id"), slug = eqOf("slug"), status = eqOf("status");
+    const id = eqOf("id"), slug = eqOf("slug"), status = eqOf("status"), owner = eqOf("owner");
     const inIds = (u.searchParams.get("id") || "").startsWith("in.")
       ? (u.searchParams.get("id") || "").slice(4, -1).split(",") : null;
     let rows = db.decks.slice();
@@ -113,6 +132,7 @@ function handleSupa(db, url, method, body, asUser, headers) {
     rows = rows.filter((d) => d.status === "published" || d.owner === asUser.id || asUser.role === "admin");
     if (id) rows = rows.filter((d) => d.id === id);
     if (inIds) rows = rows.filter((d) => inIds.indexOf(d.id) >= 0);
+    if (owner) rows = rows.filter((d) => d.owner === owner);
     if (slug) rows = rows.filter((d) => d.slug === slug);
     if (status) rows = rows.filter((d) => d.status === status);
     const or = u.searchParams.get("or");
@@ -764,6 +784,83 @@ async function typeField(page, field, text) {
   const exported = JSON.parse(fs.readFileSync(f, "utf8"));
   check("export omits the publish state", !exported.meta.remoteId && !exported.meta.slug && !exported.meta.origin,
     JSON.stringify(Object.keys(exported.meta)));
+
+  /* ================= deleting a published deck takes the shared copy with it =================
+     The bug this is for (Aug 2026): `uDeckDelete` only ever removed the LOCAL record, so a deck the author
+     published and then deleted stayed on the shared page for ever — and unreachably, the Studio's Unpublish
+     button reading `remoteId` off the local deck that had just been thrown away. Every assertion below
+     fails silently on a real site: the deck vanishes from the author's Studio either way, and only somebody
+     ELSE browsing the shared page ever sees what was left behind. */
+  async function studioDeleteByTitle(page, title) {
+    await page.evaluate((t) => {
+      const row = [...document.querySelectorAll(".studio-deck")].find((r) => ((r.querySelector(".sd-title") || {}).textContent || "") === t);
+      const b = row && row.querySelector("[data-del]");
+      if (b) b.click();
+    }, title);
+    await page.waitForTimeout(300);
+    await page.click(".ip-ok");
+    await page.waitForTimeout(1800);
+  }
+  /* Landing on the deck LIST is not automatic and the reason is a house gotcha worth repeating: `goto` to a
+     URL that differs only in its #fragment is a SAME-DOCUMENT navigation, so the app keeps running and
+     `studioState.deck` survives — the Studio then opens on whichever deck was last edited. */
+  async function studioListView(page) {
+    await page.waitForTimeout(1200);
+    if (await page.evaluate(() => !!document.querySelector("#stAll"))) {
+      await page.click("#stAll");
+      await page.waitForTimeout(500);
+    }
+    await page.waitForSelector(".studio-list, .studio-empty", { timeout: 15000 }).catch(() => {});
+  }
+  await A.page.bringToFront();
+  await gotoFresh(A.page, base + "#studio");
+  await studioListView(A.page);
+  const pagedId = pagedRow && pagedRow.id;
+  await studioDeleteByTitle(A.page, "Paged Deck");
+  check("deleting a published deck removes the shared row", !db.decks.some((d) => d.id === pagedId));
+  check("...and its cards go with it", !db.cards.some((c) => c.deck_id === pagedId), "left=" + db.cards.filter((c) => c.deck_id === pagedId).length);
+  check("...and the reader's install record with it", !db.installs.some((i) => i.deck_id === pagedId));
+
+  /* A REAL reload, not a hash change. Bob was last on a deck page, so `goto` here is same-document: the app
+     keeps running and PAGES.community paints the browse results it already had — a list fetched before this
+     deck was ever published. The assertion then passes whatever the server says, which is worse than not
+     making it. Verified by reintroducing the bug: stale, it passes; reloaded, it fails. */
+  await B.page.bringToFront();
+  await B.page.goto(base + "#community", { waitUntil: "load" });
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(1800);
+  check("...so it is off the shared decks page", !(await B.page.evaluate(() => document.body.textContent.includes("Paged Deck"))));
+  // …while the person who installed it keeps their own copy: a delete takes the deck off the shelf, it does
+  // not reach into anybody's device.
+  await gotoFresh(B.page, base + "#studio");
+  await studioListView(B.page);
+  check("...but an installed copy survives on its reader's device", await B.page.evaluate(() => document.body.textContent.includes("Paged Deck")));
+
+  /* ================= the Studio lists shared decks this device has no copy of =================
+     The other half. An orphan is planted straight into the mock's store — which is exactly what one IS: a
+     row this account owns with nothing local pointing at it, whether it was left by the old bug, by a
+     delete on another device, or by one made while signed out. */
+  db.decks.push({
+    id: uuid(700), owner: ALICE.id, slug: "ghost-deck-x9", title: "Ghost Deck", subtitle: "", description: "",
+    author: "Alice", language: "en", tags: [], status: "published", version: 1, card_count: 12, install_count: 0,
+    rating_avg: 0, rating_count: 0, rating_1: 0, rating_2: 0, rating_3: 0, rating_4: 0, rating_5: 0,
+    rank_score: 3.5, staff_pick: false, forked_from: null, price_cents: 0,
+    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+  });
+  await A.page.bringToFront();
+  await gotoFresh(A.page, base + "#studio");
+  await studioListView(A.page);
+  await A.page.waitForTimeout(900);   // the owned-decks request lands after the first paint
+  const orph = await A.page.evaluate(() => [...document.querySelectorAll(".orphan-deck .sd-title")].map((e) => e.textContent));
+  check("a published deck with no local copy is listed", orph.indexOf("Ghost Deck") >= 0, JSON.stringify(orph));
+  // the negative, and the one that matters: a deck that IS on this device must never be offered for removal
+  check("...and a deck this device does hold is not", orph.indexOf("Byzantine Emperors") < 0, JSON.stringify(orph));
+  await A.page.click("[data-orphdel]");
+  await A.page.waitForTimeout(300);
+  await A.page.click(".ip-ok");
+  await A.page.waitForTimeout(1800);
+  check("removing it deletes the shared row", !db.decks.some((d) => d.slug === "ghost-deck-x9"));
+  check("...and the section goes with the last orphan", await A.page.evaluate(() => !document.querySelector(".studio-orphans")));
 
   const errs = [...A.errs, ...B.errs, ...M.errs];
   check("no console/page errors", errs.length === 0, [...new Set(errs)].join(" | "));
