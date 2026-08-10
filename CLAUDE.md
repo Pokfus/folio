@@ -3923,7 +3923,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a few minutes the wrong side of the cut-off.
   · `S.intro.count` (the daily new-card cap via `newRemainingToday`) is still incremented only on a card's FIRST grade
     (`fresh`), so a requeued learning card is never re-counted.
-  · **Guarded by `.claude/test-scheduler.js` (91 assertions, no browser, no dependencies)** — including the ordering
+  · **Guarded by `.claude/test-scheduler.js` (116 assertions, no browser, no dependencies)** — including the ordering
     guarantee Hard < Good < Easy over 1,600 interval/ease combinations, that preview and grade agree over 360 cases,
     that nothing is ever scheduled into the past, and that old records back-fill. Its two most useful finds were both
     invisible on the page: the ordering floor walking Easy past the maximum interval, and the preview/grade clock
@@ -3970,7 +3970,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every card's stability goes with it, but how the reader wants their decks scheduled is a preference, not history.
   · **A READER'S OWN PARAMETERS ARE ACCEPTED OR REFUSED, never half-taken** (`setDeckFsrsParams`): 21 finite numbers or an
     error naming the count, and an empty box clears them back to the defaults. Somebody who has had FSRS optimised in Anki
-    should not have to lose that, and Folio has no optimiser yet — see the next-step note in `revlog`'s bullet.
+    should not have to lose that; Folio fits its own from the review archive (see THE FSRS OPTIMISER below).
+  · **ELAPSED DAYS ARE WHOLE AND FLOORED**, which is the reference's convention (`(now - last).days`) and which Folio got
+    WRONG for the first few hours of FSRS's life, reading the same delay as a fraction. It is not a rounding detail: the
+    forgetting curve is evaluated at that number, so a card answered 1.9 days late was scored at 1.9 where every parameter
+    set in the world — the defaults, and any set a reader pastes out of Anki — was fitted against 1. **The fixture could
+    not see it because every gap in it was a whole number of days**; there are fractional gaps in it now, and they fail
+    loudly if this is ever un-fixed (worst stability error 7.65 when it was).
   · **The sheet is `openDeckSched(id)`**, reached from a deck's own long-press options ("Scheduling"). The retention box
     and the parameters box are drawn only under FSRS, since neither means anything under SM-2. **`deckSheet` honours
     `[data-dmfocus]`** because of this sheet: its own `setTimeout(0)` focus ran after the caller's and left a focus ring on
@@ -3992,6 +3998,56 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stability never falls below its floor, nothing is scheduled into the past, and seeding takes the interval and not the
     ease) and by **`.claude/test-review-decks.js` sections 11–14** end to end — the sheet, the per-deck isolation (one deck
     on FSRS while its neighbour stays on SM-2, both studied from the pooled review), the seeding, and what Card info says.
+- **THE FSRS OPTIMISER (Aug 2026, on request).** The `THE FSRS OPTIMISER` block in app.js, inside the pure scheduler slice.
+  FSRS's 21 parameters describe how a memory fades; the defaults describe the average of millions of reviews and these
+  describe the reader's own. It is what the per-review log was uncapped FOR — a card record keeps only its latest review,
+  so none of this can be reconstructed after the fact.
+  · **WHAT IS FITTED.** Each card's reviews are a sequence: from the state after review i-1 and the delay to review i,
+    FSRS predicts the chance of recall and the answer says what happened (anything but Again is a recall). The loss is the
+    mean binary cross-entropy between the two. **Same-day reviews are excluded** (retrievability is defined at a scale of
+    days) **and so is a card's first review** (no prior state to predict from) — both the reference's exclusions, and both
+    the reason `fsrsLossReviews` is much smaller than the row count and is computed rather than approximated.
+  · **THE LOSS IS CHECKED AGAINST THE REFERENCE; THE DESCENT IS NOT, and that division is the whole design.** Two gradient
+    descents never land on the same 21 numbers, so comparing the OUTPUT against py-fsrs would be comparing noise — while
+    the loss being descended is a fixed function of the parameters and the data, and getting it wrong is how an optimiser
+    confidently walks a reader's schedule somewhere worse. So the fixture carries a synthetic 60-card history scored by
+    the reference's own `Optimizer._compute_batch_loss` at two parameter sets, and `fsrsBatchLoss` is held to it **to
+    1e-9**. (That needs torch/pandas/tqdm in the scratch venv beside `fsrs`: `pip install torch --index-url
+    https://download.pytorch.org/whl/cpu`, then `pip install pandas tqdm`.)
+  · **THE GRADIENT IS NUMERICAL**, the other deliberate departure: the reference differentiates a torch graph and Folio has
+    no torch and no build step. Hand-derived analytic gradients over 21 parameters would be ~200 lines of calculus with
+    nothing to check them against — the exact mistake this feature exists to avoid — where a finite difference is derived
+    mechanically from the loss, which IS checked. It costs 22 evaluations a step. **Full-batch, where the reference takes
+    mini-batches**: a mini-batch gradient needs card states carried across the batch boundary, which autograd gets free and
+    a finite difference does not, and the full batch is what the reference itself selects its best epoch on anyway.
+  · **IT IS ALLOWED TO REFUSE, and both refusals matter.** Too little history — the reference's own floor of one
+    mini-batch, 512 loss-bearing reviews — returns `reason:"few"` **naming the number it has and the number it wants**,
+    because "not enough" with no figure is untestable by the reader. And a fit that does not beat the defaults **on a
+    held-out tail it never trained on** returns `reason:"noBetter"`: that guard is Folio's own and is the one that counts,
+    since a reader pressing this is handing over their schedule and the honest answer to "your history does not support
+    better parameters" is to say so. The split is **within each card's sequence, not by card** — splitting by card would
+    judge a card the fit had never seen from a cold start, where a tail is the fair question (given what this card did,
+    does the fitted set predict what it did NEXT any better?).
+  · **A SEQUENCE MUST BEGIN AT THE CARD'S FIRST REVIEW** (`fsrsSequences`, which lives beside `revRead` and NOT in the
+    optimiser — it is the only part that knows what a row is, and the row shape is documented as living in exactly two
+    places). A card whose earliest row is already in the review state has a stability the log does not record, so it is
+    dropped rather than guessed at. That is why the optimiser stays quiet until a reader has history made SINCE the log
+    started, and why the refusal says so in those words.
+  · **The whole ARCHIVE is fetched, paged** (`revFetchAll`) — PostgREST caps a response at 1,000 rows, and fitting to the
+    first thousand of somebody's four thousand reviews without saying so is the quiet kind of wrong. A failure returns
+    `null`, which the caller tells apart from a reader who genuinely has nothing; signed out, the local window is used.
+  · **It runs ON THE PAGE, a step at a time** (`fsrsOptimiseStart` / `fsrsOptimiseStep` / `fsrsOptimiseFinish`, with
+    `fsrsOptimise` as the one-call form the tests use), repainting between steps — a few seconds of arithmetic behind a
+    frozen dialog reads as a crash. **There is deliberately no Web Worker**: one needs its own file or a `blob:` URL, and
+    `script-src 'self'` is the one line of the CSP this project will not weaken for a progress bar.
+  · **The result is STAGED in the parameters box, not saved** — Optimise asks, Save answers, which is the two-step every
+    other field on that sheet already has and the difference between offering a schedule and changing one behind the
+    reader's back.
+  · **Guarded by `.claude/test-scheduler.js` section 10c** (the loss against the reference, the reference's own clamp
+    bounds, both refusals, and a RECOVERY test — a history generated from a known parameter set must be predicted better
+    than the defaults on a held-out tail, which is what stands in for a reference check on the output) and by
+    **`.claude/test-review-decks.js` section 15** for the path (the button under FSRS and not under SM-2, a run that
+    finishes without freezing its sheet, nothing saved until Save, and the too-little-history refusal in words).
 - **BURY SIBLINGS (Aug 2026, on request).** Answering one card of a note puts the note's OTHER cards off until tomorrow.
   It is what makes asking a word in both directions worth doing: 中 → middle and then middle → 中 an hour later tests the
   last hour rather than the word. Template-major ordering (see the card-types bullet) keeps siblings apart WITHIN a
@@ -4157,9 +4213,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     · **`REV_CAP` (20000) still exists and is a LOCAL bound, not a limit on the archive** — the rows are on
       the server, and what is kept on the device is what Card info and the answer-buttons chart read. ~42
       bytes a row, so a full local log is ~840 KB, about three years at twenty reviews a day.
-    · What wants the uncapped archive is the **FSRS optimiser** — fitting a reader's own 21 parameters to
-      their own history, which needs every row they have ever made. That is the natural next step and it is
-      now unblocked; until it exists, parameters are pasted in from Anki (see the FSRS bullet).
+    · What wanted the uncapped archive is the **FSRS optimiser**, which shipped days later and reads every row
+      through `revFetchAll` — see THE FSRS OPTIMISER above. This is the bullet to read before adding anything
+      else that grows per review: give it a table.
   · **UNDO TAKES BACK ITS OWN ROW BY IDENTITY** (`lastRevRow` → the snapshot's `revRow` → `undoRevRow`), and
     this is the one piece that cannot be done the obvious way. The undo snapshot is taken BEFORE the grade,
     so it cannot hold a row that does not exist yet: `grade()` leaves the row it appended in `lastRevRow` and
@@ -8591,7 +8647,7 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
-  · `node .claude/test-scheduler.js` — 91 assertions on **the schedule itself**, which is the thing a study site is
+  · `node .claude/test-scheduler.js` — 116 assertions on **the schedule itself**, which is the thing a study site is
     most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
     and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
     less. So it is pinned as ARITHMETIC — the pure `THE SCHEDULER` block is sliced out of app.js by text and run in a
@@ -8613,6 +8669,13 @@ dead code (never rendered).
     never gains it, difficulty stays in 1–10, nothing lands in the past, seeding takes the interval and not the ease) and
     that the mode selection reads the deck. **The slice ends at `/* ---------- SRS ---------- */`** — the four impure
     config lookups live below it, and the purity assertion is what caught them being written above it.
+    **Section 10c is the OPTIMISER**: the loss to 1e-9 against the reference's own `_compute_batch_loss`, the reference's
+    clamp bounds, both refusals, and a **recovery** test — history generated from a known parameter set must be predicted
+    better than the defaults on a held-out tail, which is what stands in for a reference check on an output two gradient
+    descents can never agree on. It also pins that the stepwise and one-call forms land on the same parameters, and that
+    fitting mutates neither the defaults nor the history handed to it.
+    **The fixture's step count is now DERIVED from the fixture** rather than written down (`walked === wantWalked`) —
+    widening the grid, which is exactly what adding fractional gaps did, must not fail on an arithmetic constant.
   · `node .claude/test-revlog.js` — 58 assertions on **the per-review log**, Card info and the Answer-buttons
     card (Aug 2026), and every one of them is for a silent failure: a log that stops being written throws
     nothing and looks exactly like a reader who has not studied, and a duration that stops being measured
@@ -8696,6 +8759,11 @@ dead code (never rendered).
     from the existing interval** rather than starting the card over; and (section 14) what **Card info** says
     about an FSRS card, read off the rendered panel because both of its faults were in the wording rather than
     in the numbers.
+    **Section 15 is the OPTIMISER's path**, where test-scheduler.js has its arithmetic: the button under FSRS and
+    NOT under SM-2, a fit that runs to a verdict without freezing the sheet it lives in, 21 parameters STAGED in the
+    box with nothing saved until Save is pressed, and the too-little-history refusal naming both numbers. Its log is
+    synthesised in the shipped row shape with **every card starting at state 0**, since a sequence whose beginning is
+    missing is dropped — which is the likeliest way to make the whole thing silently refuse.
     **SECTION 14 SEEDS ITS CARD'S MEMORY STATE AND ITS ONE LOGGED REVIEW rather than grading into them**, and
     that is this file's own `addInitScript` warning being obeyed after ignoring it cost two runs: grading the
     deck's only due card ENDS the session and the completion screen has no Info button, while re-entering a
@@ -8705,7 +8773,7 @@ dead code (never rendered).
     **Re-run after
     touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `deckDoneToday` / `entryPiles` /
     `openDeckMenu` / `openDeckSched` / `setDeckSched` / `setDeckRetention` / `setDeckFsrsParams` /
-    `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` /
+    `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll` / `fsrsSequences` /
     `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` /
     `setupDeckDrag` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
     per-deck allowances, or anything named `sched*` or `fsrs*`.**

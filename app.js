@@ -1854,6 +1854,31 @@
     _revPushTimer = setTimeout(() => { _revPushTimer = null; revPush(); }, 8000);
   }
   window.addEventListener("online", () => revQueuePush());
+  /* THE WHOLE ARCHIVE, for the optimiser — the one caller that wants more than the local window. It is paged
+     because PostgREST caps a response (1,000 rows by default) and answering "here are the first thousand of
+     your four thousand reviews" would fit a reader's parameters to a quarter of their history without
+     saying so. Rows come back in the row shape `revRead` unpacks, so nothing downstream knows where they
+     came from; a failure returns null rather than an empty list, which the caller must tell apart from a
+     reader who genuinely has nothing. */
+  async function revFetchAll(onPage) {
+    if (!supaLoggedIn() || _revTableMissing) return null;
+    const out = [];
+    const page = 1000;
+    for (let from = 0; ; from += page) {
+      const r = await supaFetch(
+        "/rest/v1/review_log?user_id=eq." + encodeURIComponent(SUPA.user.id) +
+        "&select=card_id,reviewed_at,grade,state,prev_min,next_min,ease100,ds&order=reviewed_at.asc",
+        { headers: { Range: from + "-" + (from + page - 1) } });
+      if (revTableMissing(r)) { _revTableMissing = true; return null; }
+      if (!r.ok || !Array.isArray(r.data)) return from ? out : null;   // a half-read archive is still a truthful prefix
+      r.data.forEach((row) => out.push([
+        row.card_id, Date.parse(row.reviewed_at), row.grade, row.state,
+        row.prev_min, row.next_min, row.ease100, row.ds,
+      ]));
+      if (onPage) onPage(out.length);
+      if (r.data.length < page) return out;
+    }
+  }
   /* Reset progress says it clears the study history, so it has to mean the ARCHIVE too — the local window
      going while a year of it sat on the server would be a reset that undid itself on the next device. */
   async function revWipeRemote() {
@@ -3313,7 +3338,12 @@
     const w = fsrsWeights(cfg);
     const c = fsrsSeed(w, Object.assign({}, card || schedBlank()));
     const grade = FSRS_G[g] || FSRS_G.good;
-    const elapsed = c.last ? Math.max(0, (t - c.last) / DAY) : null;
+    /* WHOLE DAYS, FLOORED — the reference's own convention (`(now - last).days`), and Folio read it as a
+       FRACTION for the first few hours of FSRS's life. It is not a rounding detail: the forgetting curve is
+       evaluated at this number, so a card answered 1.9 days late was scored at 1.9 where every parameter set
+       in the world — including one a reader pastes out of Anki — was fitted against 1. The fixture could not
+       see it because every gap in it was a whole number of days; there are fractional gaps in it now. */
+    const elapsed = c.last ? Math.max(0, Math.floor((t - c.last) / DAY)) : null;
     const st = fsrsNextState(w, c, grade, c.status === "new" ? null : elapsed);
     c.stability = st.s;
     c.difficulty = st.d;
@@ -3355,6 +3385,171 @@
       out[g] = Math.max(0, (next.due - t) / DAY);
     });
     return out;
+  }
+  /* ================= THE FSRS OPTIMISER =====================================================
+     FSRS's 21 parameters describe how a memory fades. The defaults describe the AVERAGE of millions of
+     reviews; these describe the reader's. Fitting them is the whole reason the per-review log was moved to
+     a table of its own and uncapped — a card record keeps only its latest review, so nothing here can be
+     reconstructed after the fact.
+
+     WHAT IS BEING FITTED. Each card's reviews are a sequence: from the state after review i-1 and the delay
+     to review i, FSRS predicts the chance of recall; the answer says what happened (anything but Again is a
+     recall). The loss is the binary cross-entropy between the two, averaged, and the parameters are moved
+     to reduce it. Same-day reviews are excluded from the loss — retrievability is defined at a scale of
+     days and a card answered again ten minutes later says nothing about forgetting — and so is a card's
+     FIRST review, which has no prior state to predict from. Both exclusions are the reference's.
+
+     THE LOSS IS CHECKED AGAINST THE REFERENCE; THE DESCENT IS NOT, and that division is deliberate. Two
+     gradient descents never land on the same 21 numbers, so comparing the OUTPUT against py-fsrs would be
+     comparing noise — but the loss being descended is a fixed function of the parameters and the data, and
+     getting it wrong is how an optimiser confidently walks a reader's schedule somewhere worse. So
+     `.claude/fsrs-vectors.json` carries a synthetic review history scored by the reference's own
+     `Optimizer._compute_batch_loss` at two parameter sets, and test-scheduler.js holds `fsrsBatchLoss` to it.
+
+     THE GRADIENT IS NUMERICAL, which is the other deliberate departure: the reference differentiates a
+     torch graph, and Folio has no torch and no build step. Hand-derived analytic gradients over 21
+     parameters would be ~200 lines of calculus with nothing to check them against — the exact shape of
+     mistake this whole feature is written to avoid — where a finite difference is derived mechanically
+     from the loss, which IS checked. It costs 22 evaluations a step and buys certainty.
+
+     AND IT IS ALLOWED TO REFUSE. `fsrsOptimise` returns `ok:false` rather than a worse schedule when there
+     is too little history (the reference's own floor of one mini-batch), or when the fitted set does not
+     beat the defaults on reviews it never saw. That last guard is Folio's own and is the one that matters:
+     a reader pressing this button is handing over their schedule, and the honest answer to "your history
+     does not support better parameters than the defaults" is to say so. */
+  const FSRS_OPT = {
+    maxSeq: 64,        // the reference's max_seq_len — the first 64 reviews of any one card
+    minReviews: 512,   // …and its mini_batch_size, which is also its "too little data, keep the defaults" floor
+    epochs: 24,        // full-batch steps, where the reference takes mini-batch ones (see fsrsOptimise)
+    lr: 0.04,          // the reference's learning_rate
+    beta1: 0.9, beta2: 0.999, eps: 1e-8,    // Adam's own defaults, which is what the reference constructs
+    h: 1e-4,           // the finite-difference step, relative to each parameter's own size
+    holdout: 0.2,      // the last fifth of each card's sequence, kept back to judge the result on
+  };
+  /* The reference's clamp, read off `fsrs.scheduler.LOWER/UPPER_BOUNDS_PARAMETERS` rather than invented:
+     these are what keep a descent from wandering into a parameter set the scheduler cannot use (a negative
+     stability, a difficulty scale that inverts). Carried in the fixture too, so they cannot drift. */
+  const FSRS_LO = [0.001, 0.001, 0.001, 0.001, 1, 0.001, 0.001, 0.001, 0, 0, 0.001, 0.001, 0.001, 0.001, 0, 0, 1, 0, 0, 0, 0.1];
+  const FSRS_HI = [100, 100, 100, 100, 10, 4, 4, 0.75, 4.5, 0.8, 3.5, 5, 0.25, 0.9, 4, 1, 6, 2, 2, 0.8, 0.8];
+  const fsrsClampW = (w) => w.map((x, i) => Math.min(FSRS_HI[i], Math.max(FSRS_LO[i], isFinite(x) ? x : FSRS_PARAMS[i])));
+
+  /* How many reviews a set of sequences actually contributes to the loss — every review that is neither a
+     card's first nor a same-day repeat. It is what the minimum is measured against, and it is a good deal
+     smaller than the row count, so it is computed rather than approximated. */
+  function fsrsLossReviews(seqs) {
+    let n = 0;
+    (seqs || []).forEach((seq) => {
+      for (let i = 1; i < seq.length; i++) if (Math.floor((seq[i].t - seq[i - 1].t) / DAY) > 0) n++;
+    });
+    return n;
+  }
+  /* THE LOSS: mean binary cross-entropy of predicted recall against what happened. `part` takes a slice of
+     each sequence — but the walk always starts at the card's first review, because the state at review i is
+     the product of every review before it. A held-out tail is scored on a state built from the head, which
+     is what makes it a fair test rather than a different problem. */
+  function fsrsBatchLoss(w, seqs, part) {
+    const from = part && part.from ? part.from : 0;
+    const to = part && part.to != null ? part.to : 1;
+    let sum = 0, n = 0;
+    for (let k = 0; k < seqs.length; k++) {
+      const seq = seqs[k];
+      let s = 0, d = 0, first = true;
+      const lo = Math.floor(seq.length * from), hi = Math.floor(seq.length * to);
+      for (let i = 0; i < seq.length; i++) {
+        const rev = seq[i];
+        if (!first) {
+          const elapsed = Math.max(0, Math.floor((rev.t - seq[i - 1].t) / DAY));
+          if (elapsed > 0 && i >= lo && i < hi) {
+            const r = Math.min(1 - 1e-9, Math.max(1e-9, fsrsRetrievability(w, elapsed, s)));
+            const y = rev.g > FSRS_G.again ? 1 : 0;
+            sum += -(y * Math.log(r) + (1 - y) * Math.log(1 - r));
+            n++;
+          }
+          const st = fsrsNextState(w, { status: "review", stability: s, difficulty: d }, rev.g, elapsed);
+          s = st.s; d = st.d;
+        } else {
+          s = fsrsInitS(w, rev.g); d = fsrsInitD(w, rev.g, true); first = false;
+        }
+      }
+    }
+    return n ? sum / n : NaN;
+  }
+  /* One Adam step on a numerical gradient. FULL-BATCH where the reference takes mini-batches: a mini-batch
+     gradient needs the card states carried across the batch boundary, which autograd gets for free and a
+     finite difference does not — recomputing them per perturbation is what makes the full batch simpler AND
+     the thing the reference itself selects its best epoch on. Fewer, better-aimed steps rather than many
+     noisy ones. */
+  function fsrsOptStep(w, seqs, part, m, v, step) {
+    const base = fsrsBatchLoss(w, seqs, part);
+    if (!isFinite(base)) return { w: w, loss: base };
+    const next = w.slice();
+    // bias-corrected Adam, exactly as the optimiser it is named after
+    const bc1 = 1 - Math.pow(FSRS_OPT.beta1, step), bc2 = 1 - Math.pow(FSRS_OPT.beta2, step);
+    for (let i = 0; i < w.length; i++) {
+      const h = Math.max(FSRS_OPT.h, Math.abs(w[i]) * FSRS_OPT.h);
+      const probe = w.slice();
+      probe[i] = Math.min(FSRS_HI[i], w[i] + h);
+      const dh = probe[i] - w[i];
+      const g = dh > 0 ? (fsrsBatchLoss(probe, seqs, part) - base) / dh : 0;
+      const gr = isFinite(g) ? g : 0;
+      m[i] = FSRS_OPT.beta1 * m[i] + (1 - FSRS_OPT.beta1) * gr;
+      v[i] = FSRS_OPT.beta2 * v[i] + (1 - FSRS_OPT.beta2) * gr * gr;
+      next[i] = w[i] - FSRS_OPT.lr * (m[i] / bc1) / (Math.sqrt(v[i] / bc2) + FSRS_OPT.eps);
+    }
+    return { w: fsrsClampW(next), loss: base };
+  }
+  /* Fit parameters to a reader's own history. Synchronous and pure — the caller drives it a step at a time
+     (`fsrsOptimiseStart` / `fsrsOptimiseStep`) so the page keeps painting; this is the whole run in one
+     call, which is what the tests use. */
+  function fsrsOptimise(seqs, onStep) {
+    const run = fsrsOptimiseStart(seqs);
+    if (!run.ok) return run;
+    while (!run.done) { fsrsOptimiseStep(run); if (onStep) onStep(run); }
+    return fsrsOptimiseFinish(run);
+  }
+  function fsrsOptimiseStart(seqs) {
+    const usable = (seqs || []).filter((s) => s.length > 1);
+    const n = fsrsLossReviews(usable);
+    if (n < FSRS_OPT.minReviews) {
+      return { ok: false, done: true, reason: "few", reviews: n, need: FSRS_OPT.minReviews };
+    }
+    /* TRAIN ON THE HEAD OF EACH SEQUENCE, JUDGE ON THE TAIL. Splitting by CARD would let a card the fit had
+       never seen be judged from a cold start; splitting within each card keeps the walk intact and asks the
+       fair question — given what this card did, does the fitted set predict what it did NEXT any better? */
+    const train = { from: 0, to: 1 - FSRS_OPT.holdout };
+    const test = { from: 1 - FSRS_OPT.holdout, to: 1 };
+    return {
+      ok: true, done: false, seqs: usable, train: train, test: test, reviews: n,
+      w: FSRS_PARAMS.slice(), best: FSRS_PARAMS.slice(), bestLoss: Infinity,
+      m: FSRS_PARAMS.map(() => 0), v: FSRS_PARAMS.map(() => 0),
+      step: 0, epochs: FSRS_OPT.epochs, loss: NaN,
+    };
+  }
+  function fsrsOptimiseStep(run) {
+    if (run.done) return run;
+    run.step++;
+    const r = fsrsOptStep(run.w, run.seqs, run.train, run.m, run.v, run.step);
+    run.loss = r.loss;
+    // keep the best set SEEN, not the last one: a descent can step past its own minimum
+    if (isFinite(r.loss) && r.loss < run.bestLoss) { run.bestLoss = r.loss; run.best = run.w.slice(); }
+    run.w = r.w;
+    if (run.step >= run.epochs) run.done = true;
+    return run;
+  }
+  function fsrsOptimiseFinish(run) {
+    if (!run.ok) return run;
+    const before = fsrsBatchLoss(FSRS_PARAMS, run.seqs, run.test);
+    const after = fsrsBatchLoss(run.best, run.seqs, run.test);
+    /* THE REFUSAL, and it is the point of the whole guard: a fit that does not beat the defaults on reviews
+       it never saw is a fit that has learned this reader's noise. Saying so is more use than handing over 21
+       numbers that will quietly schedule them worse. */
+    const better = isFinite(before) && isFinite(after) && after < before;
+    return {
+      ok: better, done: true, reason: better ? null : "noBetter",
+      w: run.best, reviews: run.reviews, cards: run.seqs.length,
+      trainLoss: run.bestLoss, before: before, after: after,
+      gain: isFinite(before) && isFinite(after) ? (before - after) / before : 0,
+    };
   }
   function schedAnswer(card, g, t, seed, cfg) {
     cfg = cfg || SCHED;
@@ -3721,6 +3916,33 @@
     const out = [];
     for (let i = 0; i < log.length; i++) if (log[i] && log[i][0] === id) out.push(revRead(log[i]));
     return out;
+  }
+  /* Rows → one sequence of `{t, g}` per card, in order: the shape the FSRS optimiser fits against.
+     IT LIVES HERE, BESIDE `revRead`, and not in the optimiser, because it is the only part of the fit that
+     knows what a row IS — the row shape is documented as living in exactly two places and this would have
+     made a third. What it hands over is plain data, which is what keeps the arithmetic pure and testable.
+
+     A SEQUENCE MUST BEGIN AT THE CARD'S FIRST REVIEW, and that is the one thing it cannot fake: the model is
+     a walk from a new card, so a card whose earliest row is already in the review state has a stability the
+     log simply does not record. Those cards are dropped rather than guessed at — which is why the optimiser
+     stays quiet until a reader has enough history made SINCE the log started, and why it says so in those
+     words rather than reporting a count that looks wrong. */
+  function fsrsSequences(rows, maxSeq) {
+    const by = {};
+    (rows || []).forEach((row) => {
+      const r = revRead(row);
+      if (!r || !r.id || !isFinite(r.t)) return;
+      (by[r.id] || (by[r.id] = [])).push(r);
+    });
+    const cap = maxSeq || 64;
+    const out = [];
+    Object.keys(by).forEach((id) => {
+      const seq = by[id].sort((a, b) => a.t - b.t);
+      if (!seq.length || seq[0].st !== REV_ST.new) return;   // its beginning is missing: nothing to walk from
+      out.push(seq.slice(0, cap).map((r) => ({ t: r.t, g: r.g })));
+    });
+    // oldest card first, so a split by position within the run is a split in time as well
+    return out.sort((a, b) => a[0].t - b[0].t);
   }
   // every row in the last `days` days, and the day the log itself begins — a window that reaches back
   // further than the log does must SAY so rather than reporting a quiet month as a quiet year
@@ -9090,11 +9312,15 @@
           '<p class="dm-note">The percentage of these cards you want to still recall when each one comes back. ' +
             'Higher means shorter intervals and more reviews; 90% is the default and what most readers should leave it at.</p>' +
           '<label class="dm-field dm-fieldcol"><span>Your own FSRS parameters <small>optional</small></span>' +
-            '<textarea class="af-input ds-params" id="dsParams" rows="3" spellcheck="false" placeholder="21 numbers, separated by commas">' +
+            // four rows because a fitted set fills exactly that, and a box that scrolls its own answer reads as an error
+            '<textarea class="af-input ds-params" id="dsParams" rows="4" spellcheck="false" placeholder="21 numbers, separated by commas">' +
             esc(custom ? own.fsrsParams.join(", ") : "") + "</textarea></label>" +
-          '<p class="dm-note">Folio cannot fit these to your history yet, so it uses the reference defaults — ' +
-            'which are trained on millions of reviews and are a sound choice. If Anki has already optimised ' +
-            'parameters for you, paste them here. Clear the box to go back to the defaults.</p>'
+          '<p class="dm-note">Left empty, Folio uses the reference defaults — trained on millions of reviews ' +
+            'and a sound choice. <b>Optimise</b> fits them to your own review history instead; if Anki has ' +
+            'already optimised parameters for you, you can paste those here too. Clear the box to go back to ' +
+            'the defaults.</p>' +
+          '<div class="ds-optrow"><button type="button" class="btn ghost" id="dsOpt">Optimise from my reviews</button>' +
+            '<span class="ds-optmsg" id="dsOptMsg"></span></div>'
         : '<p class="dm-note">Switching to FSRS keeps everything you have already studied: a card\u2019s current ' +
             'interval becomes its starting stability, which is the same measurement under another name.</p>') +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="close">Close</button>' +
@@ -9126,6 +9352,56 @@
         toast(res.cleared && Array.isArray(own.fsrsParams)
           ? "Saved — back to the default parameters"
           : "Scheduling saved");
+      });
+
+      /* ---------- OPTIMISE ----------
+         The fit runs on THIS page, a step at a time, with the sheet repainting between steps: it is a few
+         seconds of arithmetic and a frozen dialog would read as a crash. There is deliberately no worker —
+         a worker needs its own file or a blob: URL, and `script-src 'self'` is the one line of the CSP this
+         project will not weaken for a progress bar. */
+      const optBtn = ov.querySelector("#dsOpt"), optMsg = ov.querySelector("#dsOptMsg");
+      if (optBtn) optBtn.addEventListener("click", async () => {
+        if (optBtn.disabled) return;
+        optBtn.disabled = true;
+        const say = (t, cls) => { if (optMsg) { optMsg.textContent = t; optMsg.className = "ds-optmsg" + (cls ? " " + cls : ""); } };
+        say("Collecting your reviews…");
+        /* THE ARCHIVE FIRST, and the local window only as a fallback. The point of the table is that a fit
+           sees everything; fitting to the last few thousand rows while a year sits on the server would be
+           the quiet kind of wrong — so a signed-in reader waits for the fetch. */
+        let rows = null;
+        try { rows = await revFetchAll((n) => say("Collecting your reviews… " + n)); } catch (e) { rows = null; }
+        const local = Array.isArray(S.revlog) ? S.revlog : [];
+        const source = rows && rows.length >= local.length ? rows : local;
+        const seqs = fsrsSequences(source, FSRS_OPT.maxSeq);
+        const run = fsrsOptimiseStart(seqs);
+        if (!run.ok) {
+          optBtn.disabled = false;
+          /* The refusal is worded as a FACT about the history rather than as a failure, because that is what
+             it is — and it names the number, since "not enough" with no figure is untestable by the reader. */
+          say("Not enough history yet — " + run.reviews + " of the " + run.need + " reviews a fit needs. " +
+              "Only reviews of cards Folio has watched from their first sighting can be used.", "ds-optwarn");
+          return;
+        }
+        const paint = () => new Promise((r) => setTimeout(r, 0));
+        while (!run.done) {
+          fsrsOptimiseStep(run);
+          say("Fitting to " + run.reviews.toLocaleString() + " reviews… " + Math.round((run.step / run.epochs) * 100) + "%");
+          await paint();
+        }
+        const res = fsrsOptimiseFinish(run);
+        optBtn.disabled = false;
+        if (!res.ok) {
+          say("Your history is already well described by the default parameters — nothing here would " +
+              "schedule you better, so they have been left alone.", "ds-optwarn");
+          return;
+        }
+        /* The numbers are STAGED IN THE BOX, not saved: pressing Optimise asks a question and Save answers
+           it, which is the same two-step every other field on this sheet already has. */
+        const pEl = ov.querySelector("#dsParams");
+        if (pEl) pEl.value = res.w.map((x) => Number(x.toFixed(6))).join(", ");
+        say("Fitted to " + res.reviews.toLocaleString() + " reviews across " + res.cards.toLocaleString() +
+            " cards — " + (res.gain * 100).toFixed(1) + "% better at predicting reviews it had not seen. " +
+            "Press Save to keep them.", "ds-optok");
       });
     });
   }

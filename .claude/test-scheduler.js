@@ -35,7 +35,9 @@ const SCHED_SRC = src.slice(a, b);
 const api = new Function("DAY", SCHED_SRC + `
   return { SCHED, SCHED_AHEAD_MS, schedAnswer, schedPreview, schedBlank, schedIsLearning, schedFuzz, schedHardDelay, schedStep,
            FSRS_PARAMS, fsrsRetrievability, fsrsInterval, fsrsInitS, fsrsInitD, fsrsNextD, fsrsRecallS,
-           fsrsForgetS, fsrsShortS, fsrsNextState, fsrsAnswer, fsrsSeed, fsrsPreviewIvs };
+           fsrsForgetS, fsrsShortS, fsrsNextState, fsrsAnswer, fsrsSeed, fsrsPreviewIvs,
+           FSRS_OPT, FSRS_LO, FSRS_HI, fsrsClampW, fsrsLossReviews, fsrsBatchLoss,
+           fsrsOptimise, fsrsOptimiseStart, fsrsOptimiseStep, fsrsOptimiseFinish };
 `)(DAY);
 const { SCHED, schedAnswer, schedPreview, schedBlank, schedIsLearning } = api;
 
@@ -339,7 +341,9 @@ section("10. FSRS agrees with the reference implementation");
       t += (cs.gap_min || 1) * MIN;
     });
   });
-  ok(walked === 768, "walked every step of every case (" + walked + ")");
+  // derived from the fixture, never written down: widening the grid must not fail on an arithmetic count
+  const wantWalked = V.cases.reduce((n, c) => n + c.steps.length, 0);
+  ok(walked === wantWalked && walked > 0, "walked every step of every case (" + walked + " of " + wantWalked + ")");
   ok(sBad === 0, "stability matches the reference at every step (worst " + worstS.toExponential(2) + ")");
   ok(dBad === 0, "difficulty matches the reference at every step (worst " + worstD.toExponential(2) + ")");
   ok(stBad === 0, "the state matches the reference at every step");
@@ -417,6 +421,144 @@ section("10. FSRS agrees with the reference implementation");
   eq(sm2.stability, undefined, "an SM-2 answer writes no memory state");
   ok(fs.stability > 0, "an FSRS answer does");
   eq(sm2.status, fs.status, "…and both still walk the same learning ladder");
+}
+
+/* ================= 10c. THE OPTIMISER =====================================================
+   The loss is checked against the REFERENCE and the descent is not, and that division is the whole design:
+   two gradient descents never land on the same 21 numbers, so comparing the output against py-fsrs would be
+   comparing noise — while the loss being descended is a fixed function of the parameters and the data, and
+   getting it wrong is how an optimiser confidently walks a reader's schedule somewhere worse.
+   What replaces a reference check on the OUTPUT is a recovery test: history is generated from a KNOWN
+   parameter set, and the fit is asked to predict it better than the defaults do on reviews it never saw. */
+section("10c. the FSRS optimiser");
+{
+  const V = require("./fsrs-vectors.json");
+  const F = api;
+
+  // --- the reference's own clamp, carried in the fixture so it cannot drift
+  eq(JSON.stringify(F.FSRS_LO), JSON.stringify(V.bounds.lower), "the lower parameter bounds are the reference's");
+  eq(JSON.stringify(F.FSRS_HI), JSON.stringify(V.bounds.upper), "…and the upper ones");
+  const wild = F.fsrsClampW(F.FSRS_PARAMS.map(() => 1e9));
+  ok(wild.every((x, i) => x === V.bounds.upper[i]), "a runaway parameter set is clamped to them");
+  const nan = F.fsrsClampW(F.FSRS_PARAMS.map(() => NaN));
+  ok(nan.every((x, i) => x === F.FSRS_PARAMS[i]), "…and a NaN falls back to the default rather than poisoning the fit");
+
+  /* --- THE LOSS, against the reference's `Optimizer._compute_batch_loss` on its own synthetic history.
+     The fixture stores reviews as {card, t, g}; the optimiser wants sequences, which is what the log-side
+     `fsrsSequences` builds — rebuilt here from the fixture directly so this section tests the arithmetic
+     rather than the row encoding (test-revlog owns that). */
+  const byCard = {};
+  V.loss.reviews.forEach((r) => { (byCard[r.card] || (byCard[r.card] = [])).push(r); });
+  const seqs = Object.keys(byCard).map((k) =>
+    byCard[k].map((r) => ({ t: Date.parse(r.t), g: r.g })).sort((a, b) => a.t - b.t));
+  ok(seqs.length === 60 && V.loss.reviews.length > 300, "the fixture's history is 60 cards of real sequences");
+  const lossDef = F.fsrsBatchLoss(F.FSRS_PARAMS, seqs);
+  near(lossDef, V.loss.default, 1e-9, "the loss at the default parameters matches the reference");
+  const lossPer = F.fsrsBatchLoss(V.loss.perturbed_params, seqs);
+  near(lossPer, V.loss.perturbed, 1e-9, "…and at a perturbed set");
+  ok(lossPer > lossDef, "…which is the worse of the two, as the reference scores it");
+
+  // the count that the minimum is measured against skips first reviews and same-day repeats
+  const counted = F.fsrsLossReviews(seqs);
+  ok(counted > 0 && counted < V.loss.reviews.length,
+    "only non-same-day reviews after the first count towards the loss (" + counted + " of " + V.loss.reviews.length + ")");
+
+  // --- IT REFUSES ON TOO LITTLE HISTORY, which is the reference's own floor of one mini-batch
+  const tiny = F.fsrsOptimise(seqs);
+  eq(tiny.ok, false, "too little history is refused rather than fitted");
+  eq(tiny.reason, "few", "…and says which of the two refusals it is");
+  ok(tiny.reviews === counted && tiny.need === F.FSRS_OPT.minReviews, "…reporting what it had and what it needs");
+
+  /* --- RECOVERY. A history is generated with a KNOWN parameter set, using Folio's own scheduler to place
+     each review at the interval it asks for, and the grade drawn from the model's own predicted recall — so
+     the data really is FSRS data, with a seeded RNG so the run is deterministic. The fit is then judged on a
+     tail it never trained on. */
+  const mul = (a, i) => Math.min(F.FSRS_HI[i], Math.max(F.FSRS_LO[i], a));
+  const TRUE_W = F.FSRS_PARAMS.map((x, i) => mul(x * (i % 3 === 0 ? 1.45 : i % 3 === 1 ? 0.68 : 1.12), i));
+  let seed = 12345;
+  const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+  const gen = [];
+  for (let card = 0; card < 400; card++) {
+    let t = T - (300 - (card % 120)) * DAY;
+    let s = 0, d = 0, first = true;
+    const seq = [];
+    for (let i = 0; i < 9; i++) {
+      let g;
+      if (first) { g = rnd() < 0.2 ? 1 : rnd() < 0.35 ? 2 : rnd() < 0.9 ? 3 : 4; }
+      else {
+        const elapsed = Math.max(0, Math.floor((t - seq[seq.length - 1].t) / DAY));
+        const r = F.fsrsRetrievability(TRUE_W, elapsed, s);
+        g = rnd() < r ? (rnd() < 0.15 ? 4 : rnd() < 0.3 ? 2 : 3) : 1;   // recalled → hard/good/easy, else Again
+      }
+      seq.push({ t: t, g: g });
+      if (first) { s = F.fsrsInitS(TRUE_W, g); d = F.fsrsInitD(TRUE_W, g, true); first = false; }
+      else {
+        const elapsed = Math.max(0, Math.floor((t - seq[seq.length - 2].t) / DAY));
+        const st = F.fsrsNextState(TRUE_W, { status: "review", stability: s, difficulty: d }, g, elapsed);
+        s = st.s; d = st.d;
+      }
+      t += Math.max(1, Math.round(F.fsrsInterval(TRUE_W, s, 0.9))) * DAY;
+    }
+    gen.push(seq);
+  }
+  const genReviews = F.fsrsLossReviews(gen);
+  ok(genReviews >= F.FSRS_OPT.minReviews, "the generated history clears the minimum (" + genReviews + " reviews)");
+  const fit = F.fsrsOptimise(gen);
+  eq(fit.ok, true, "a history generated by a different parameter set IS fitted");
+  ok(fit.after < fit.before, "…and predicts a held-out tail better than the defaults do (" +
+    fit.before.toFixed(4) + " → " + fit.after.toFixed(4) + ")");
+  ok(fit.gain > 0.001, "…by a margin worth showing a reader (" + (fit.gain * 100).toFixed(1) + "%)");
+  ok(fit.w.length === 21 && fit.w.every((x) => isFinite(x)), "…returning 21 finite numbers");
+  ok(fit.w.every((x, i) => x >= F.FSRS_LO[i] - 1e-12 && x <= F.FSRS_HI[i] + 1e-12), "…all inside the reference's bounds");
+  ok(fit.reviews === genReviews && fit.cards === gen.length, "…and reports what it was fitted on");
+
+  /* --- THE REFUSAL THAT MATTERS. Fed history the DEFAULTS already generated, a fit can only chase noise —
+     and the honest answer is that this reader's own history does not support better parameters. */
+  const genDef = [];
+  seed = 999;
+  for (let card = 0; card < 400; card++) {
+    let t = T - (300 - (card % 120)) * DAY;
+    let s = 0, d = 0, first = true;
+    const seq = [];
+    for (let i = 0; i < 9; i++) {
+      let g;
+      if (first) g = rnd() < 0.2 ? 1 : rnd() < 0.35 ? 2 : rnd() < 0.9 ? 3 : 4;
+      else {
+        const elapsed = Math.max(0, Math.floor((t - seq[seq.length - 1].t) / DAY));
+        const r = F.fsrsRetrievability(F.FSRS_PARAMS, elapsed, s);
+        g = rnd() < r ? (rnd() < 0.15 ? 4 : rnd() < 0.3 ? 2 : 3) : 1;
+      }
+      seq.push({ t: t, g: g });
+      if (first) { s = F.fsrsInitS(F.FSRS_PARAMS, g); d = F.fsrsInitD(F.FSRS_PARAMS, g, true); first = false; }
+      else {
+        const elapsed = Math.max(0, Math.floor((t - seq[seq.length - 2].t) / DAY));
+        const st = F.fsrsNextState(F.FSRS_PARAMS, { status: "review", stability: s, difficulty: d }, g, elapsed);
+        s = st.s; d = st.d;
+      }
+      t += Math.max(1, Math.round(F.fsrsInterval(F.FSRS_PARAMS, s, 0.9))) * DAY;
+    }
+    genDef.push(seq);
+  }
+  const fitDef = F.fsrsOptimise(genDef);
+  ok(fitDef.ok === false ? fitDef.reason === "noBetter" : fitDef.after < fitDef.before,
+    "on history the defaults already explain, the fit either beats them or refuses — never accepted while worse");
+
+  // --- the run is stepwise, so a page can paint between steps, and the two forms agree
+  const run = F.fsrsOptimiseStart(gen);
+  ok(run.ok && !run.done, "a run can be started and driven a step at a time");
+  let steps = 0;
+  while (!run.done) { F.fsrsOptimiseStep(run); steps++; }
+  const stepwise = F.fsrsOptimiseFinish(run);
+  eq(steps, F.FSRS_OPT.epochs, "…for exactly the number of steps it declares");
+  eq(JSON.stringify(stepwise.w), JSON.stringify(fit.w), "…and lands on the same parameters as the one-call form");
+
+  // --- purity: the fit reads nothing but its arguments
+  const before = JSON.stringify(F.FSRS_PARAMS);
+  F.fsrsOptimise(gen);
+  eq(JSON.stringify(F.FSRS_PARAMS), before, "fitting never mutates the default parameters");
+  const snapshot = JSON.stringify(gen);
+  F.fsrsOptimise(gen);
+  eq(JSON.stringify(gen), snapshot, "…nor the history it was given");
 }
 
 console.log("\n" + (fail ? "FAILED" : "PASSED") + " — " + pass + " passed, " + fail + " failed");

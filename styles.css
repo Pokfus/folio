@@ -2398,6 +2398,14 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 /* a UNIT carried in a row's own label, because the field beside it is a bare number box */
 .dm-field > span small{color:var(--ink-faint); font-size:calc(11.5px * var(--fs));}
 textarea.ds-params{width:100%; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.5; resize:vertical;}
+/* the optimiser's row: a button and the sentence it answers with, which runs to three lines on a phone and
+   so is a BLOCK under the button rather than a label beside it */
+.ds-optrow{display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:2px 14px 8px;}
+.ds-optrow .btn{flex:none;}
+.ds-optmsg:empty{display:none;}
+.ds-optmsg{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint);}
+.ds-optmsg.ds-optok{color:var(--good);}
+.ds-optmsg.ds-optwarn{color:var(--ink-soft);}
 /* a sheet row holding a picker rather than a number — the label stays on the left and the control takes
    what is left, which on a 390px screen is most of the row */
 .dm-field select.af-input{flex:1 1 auto; min-width:0; width:auto; max-width:62%;}

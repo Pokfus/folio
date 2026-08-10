@@ -947,6 +947,114 @@ const SETTINGS = {
     await page.close();
   }
 
+  /* ================= 15. the FSRS optimiser, through the sheet =================
+     test-scheduler.js owns the arithmetic — the loss against the reference, the recovery of a known
+     parameter set, the refusals. What can only be seen here is the PATH: that the button exists under FSRS
+     and not under SM-2, that a run finishes without freezing the dialog it is inside, that what it produces
+     is STAGED in the box rather than saved behind the reader's back, and that Save is what keeps it. */
+  {
+    /* A synthetic log in the shipped row shape — [id, t, grade, state-before, prevMin, nextMin, ease100,
+       tenths] — big enough to clear the fit's own minimum. Every card starts at state 0, because a sequence
+       whose beginning is missing is dropped, which is the thing most likely to make this silently refuse. */
+    const DAYMS = 864e5, now = Date.now();
+    let seed = 4242;
+    const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+    const revlog = [];
+    for (let c = 0; c < 500; c++) {
+      let t = now - (320 - (c % 150)) * DAYMS, prev = 0;
+      for (let i = 0; i < 8; i++) {
+        const g = i === 0 ? (rnd() < 0.25 ? 1 : 3) : (rnd() < 0.22 ? 1 : rnd() < 0.4 ? 2 : rnd() < 0.92 ? 3 : 4);
+        const gap = i === 0 ? 0 : Math.max(1, Math.round(prev * (g === 1 ? 0.4 : 2.1)));
+        revlog.push(["u_opt_" + c, t, g, i === 0 ? 0 : 3, prev * 1440, gap * 1440, 250, 40]);
+        prev = gap || 1;
+        t += Math.max(1, gap) * DAYMS;
+      }
+    }
+    const page = await newPage({
+      active: [deckA], settings: SETTINGS,
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      cards: { a: done(), b: done(), c: done() },
+      revlog: revlog,
+    });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const openSched = async () => {
+      await page.evaluate((d) => {
+        const row = [...document.querySelectorAll("[data-review]")].find((x) => x.dataset.review === d);
+        if (row) row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
+      }, deckA);
+      await page.waitForTimeout(450);
+      await page.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+      await page.waitForTimeout(550);
+    };
+    await openSched();
+    check("the Scheduling sheet offers Optimise under FSRS", await page.evaluate(() => !!document.querySelector("#dsOpt")));
+    // …and not under SM-2, where there are no parameters to fit
+    await page.evaluate(() => document.querySelector('[data-sched="sm2"]')?.click());
+    await page.waitForTimeout(700);
+    check("…and NOT under SM-2, which has no parameters to fit", await page.evaluate(() => !document.querySelector("#dsOpt")));
+    await page.evaluate(() => document.querySelector('[data-sched="fsrs"]')?.click());
+    await page.waitForTimeout(700);
+
+    await page.evaluate(() => document.querySelector("#dsOpt")?.click());
+    let msg = "";
+    for (let i = 0; i < 90; i++) {
+      msg = await page.evaluate(() => (document.querySelector("#dsOptMsg") || {}).textContent || "");
+      if (/Fitted|already well described|Not enough/.test(msg)) break;
+      await page.waitForTimeout(400);
+    }
+    check("a fit runs to a verdict without freezing the sheet", /Fitted|already well described/.test(msg), msg.slice(0, 120));
+    /* IT MUST NOT HAVE SAVED ANYTHING YET. Pressing Optimise asks a question; Save answers it — the same two
+       steps every other field on this sheet has, and the difference between offering a schedule and changing
+       one behind the reader's back. */
+    const staged = await page.evaluate((d) => ({
+      box: (document.querySelector("#dsParams") || {}).value || "",
+      stored: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams || null,
+      enabled: !(document.querySelector("#dsOpt") || {}).disabled,
+    }), deckA);
+    const nums = staged.box.split(",").map((s) => parseFloat(s)).filter((x) => !isNaN(x));
+    check("…staging 21 parameters in the box", nums.length === 21, nums.length + " · " + staged.box.slice(0, 60));
+    check("…and saving NOTHING until Save is pressed", staged.stored === null, JSON.stringify(staged.stored));
+    check("…with the button usable again", staged.enabled);
+    await page.evaluate(() => document.querySelector('[data-act="save"]')?.click());
+    await page.waitForTimeout(800);
+    const kept = await page.evaluate((d) => ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams, deckA);
+    check("Save keeps the fitted parameters, on that deck", Array.isArray(kept) && kept.length === 21, kept && kept.length);
+    check("…all finite", Array.isArray(kept) && kept.every((x) => isFinite(x)));
+
+    /* THE REFUSAL A READER IS FAR LIKELIER TO MEET: almost nobody has 512 usable reviews on their first day,
+       and "nothing happened" would read as a broken button. It says the number it has and the number it
+       wants, and it says WHY a review might not count. */
+    const page2 = await newPage({
+      active: [deckA], settings: SETTINGS,
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      cards: { a: done(), b: done(), c: done() },
+      revlog: revlog.slice(0, 40),
+    });
+    await page2.goto(base + "#home", { waitUntil: "load" });
+    await page2.reload({ waitUntil: "load" });
+    await page2.waitForTimeout(1400);
+    await page2.evaluate((d) => {
+      const row = [...document.querySelectorAll("[data-review]")].find((x) => x.dataset.review === d);
+      if (row) row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
+    }, deckA);
+    await page2.waitForTimeout(450);
+    await page2.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+    await page2.waitForTimeout(550);
+    await page2.evaluate(() => document.querySelector("#dsOpt")?.click());
+    await page2.waitForTimeout(1200);
+    const few = await page2.evaluate((d) => ({
+      msg: (document.querySelector("#dsOptMsg") || {}).textContent || "",
+      stored: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams || null,
+      box: (document.querySelector("#dsParams") || {}).value || "",
+    }), deckA);
+    check("too little history is refused in words, with the numbers", /Not enough history/.test(few.msg) && /\d+ of the 512/.test(few.msg), few.msg.slice(0, 120));
+    check("…and nothing is staged or saved", few.stored === null && few.box === "", JSON.stringify(few).slice(0, 80));
+    await page2.close();
+    await page.close();
+  }
+
   console.log("");
   if (errs.length) { console.log("page errors:"); errs.forEach((e) => console.log("  " + e)); fail += errs.length; }
   console.log(pass + " passed, " + fail + " failed");
