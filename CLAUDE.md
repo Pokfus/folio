@@ -20,9 +20,14 @@ It is a plain static website — open `index.html` and it runs.
   very small in the top-left corner of the home page, and it is the reader's answer to "which Folio am I
   looking at?" — so it must be bumped **in the same commit as the changelog line**, on every merge to main.
   `v` is MAJOR.MINOR: the minor goes up by one per release, the major only when a whole new area of the site
-  lands (the Library would have been one). `released` is an ISO instant in **UTC** and must be the real moment
-  the work was finished — the page prints it in the reader's own clock, so a placeholder rounded to midnight
-  is wrong in every timezone at once. It lives in `changelog.js` rather than app.js precisely so that
+  lands (the Library would have been one). **`released` IS CAPTURED, NEVER COMPOSED — read it off the clock
+  with `date -u "+%Y-%m-%dT%H:%MZ"`.** It is an ISO instant in UTC and must be the real moment the work was
+  finished; the page prints it in the READER's own clock, so a stamp that is really a local time with a `Z`
+  on the end is shown shifted by the writer's own offset — which is how a release made at half past nine in
+  the morning came to be announced at half past eleven, and one made just before noon as an afternoon
+  (reported Aug 2026). An explicit offset is equally safe (`2026-08-10T11:24+02:00`); what is never safe is
+  typing the hour on your own clock and calling it UTC, and a placeholder rounded to midnight is wrong in
+  every timezone at once. It lives in `changelog.js` rather than app.js precisely so that
   bumping it and writing the day's line are one file open and two edits, and the two can never come to
   disagree about what shipped when. It is **not** sw.js's `VERSION`, which is a cache generation — bumping
   that one throws every cached file away and costs each reader ~1.4 MB, so the two are counted separately and
@@ -37,17 +42,26 @@ It is a plain static website — open `index.html` and it runs.
   lines**: a day gets ONE localisation line per area (the daily games, the Atlas, the site chrome), extended as
   more of that area lands — 2026-07-27/28 once carried eight and five of them, each announcing another corner of
   the same rollout. The Mission page renders it.
-  **Keep an item SHORT — a summary, not a transcript.** Two entries once ran to 12,000 and 15,000 characters
-  because a citation batch listed every correction it made; they were compressed on request (2026-08-01) into
-  one line a day saying what changed and what KIND of corrections came out of it. The counts and the finding
-  belong here; the per-card detail belongs in the batch log in `docs/`. Anything past ~1,000 characters is a
-  transcript.
+  **ONE SENTENCE PER ITEM, AND ONE SENTENCE PER DAY TITLE** (Aug 2026, on request, after a reader met this
+  page on a phone). Items had grown back into whole paragraphs — the longest ran to 1,216 characters and one
+  day title to 300 — which on a narrow screen is a wall of prose where a list of changes should be. The whole
+  file was cut to each line's own FIRST SENTENCE and the ones still long were rewritten by hand; it went
+  127 KB → 54 KB, which every visitor pays for, this file being in the eager load path. **Aim for about 120
+  characters and treat 200 as the ceiling**; a line that wants a second sentence wants to be two items, or to
+  be shorter. The counts and the finding belong here; the per-card detail belongs in the batch log in `docs/`.
+  (This supersedes an earlier "anything past ~1,000 characters is a transcript", which two 12,000- and
+  15,000-character citation entries had already broken once, in 2026-08-01.)
+  **An item is rendered as HTML, not escaped** (through `sanitizeHTML`), so `<b>` and `<i>` work and bold
+  marks the thing that changed. It was escaped until Aug 2026, which printed the tags themselves on the page
+  — reported as "bold text doesn't display properly".
   **ENGLISH ONLY, for now (Aug 2026, on request): a new line does NOT need its nine translations.** The site
   ships in English while the work is on making the English as good as it can be — see the `MULTILANG` bullet
   under "How the app is wired". Write the line, ship it, move on. The rest of this paragraph is the rule to
-  resume when translations do: the whole changelog (27 day titles + 196 items) is already live in
-  es/fr/de/it/nl/ru/ar/zh/ja as `chrome.exact` rows in `i18n/ui-<lang>.js` — the items are plain text nodes, so
-  `localizeTree` picks them up with no code. They must NOT go inline into `changelog.js`, which is in the eager
+  resume when translations do: part of the changelog is already live in es/fr/de/it/nl/ru/ar/zh/ja as
+  `chrome.exact` rows in `i18n/ui-<lang>.js` (the one-sentence rewrite retired 93 rows per language, so the
+  coverage is thinner than it was). An item is now an HTML block rather than a plain text node, so a
+  translated one belongs in `chrome.html` rather than `chrome.exact` wherever it carries a tag. They must NOT
+  go inline into `changelog.js`, which is in the eager
   load path (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js`
   chrome batches, and **if you reword or merge an existing line, retire the old translations** in the same pass
   via the `chrome.remove` list, or nine files keep a dead row that matches nothing and reads like coverage.
@@ -2210,10 +2224,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
   `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
   five-sentence description, so `credit` is the only place the attribution can go and it is written there
-  in full, URL included, because `.ar-wcredit` renders it as plain text rather than as a link. Since
-  Aug 2026 the plate's picture also OPENS (see "THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME" under
-  THE RELIQUARY), and the viewer's caption is built from those same three fields plus the artefact's own
-  name — nothing new is asked of an entry, and nothing is composed for it.
+  in full, URL included. Since Aug 2026 the plate's picture OPENS (see "THE PLATE'S PICTURE IS THE SITE'S
+  OWN MEDIA FRAME" under THE RELIQUARY), and the viewer's caption is built from those same three fields
+  plus the artefact's own name — nothing new is asked of an entry, and nothing is composed for it.
+  **THE PLATE ITSELF NO LONGER PRINTS THE CREDIT** (`.ar-wcredit`, deleted Aug 2026 on request): the viewer
+  carries it a tap away from the picture it belongs to, where on the plate it was a grey line under five
+  sentences it is not about. **The field is still REQUIRED** — `add-artefacts.js` and Admin → Artefacts both
+  refuse a `src` with no `credit`, and the viewer is what shows it — so this changes where the attribution
+  is read, never whether it exists.
   A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
   content rules the file's own header states (exactly five sentences, 180–220 words with the imperial
   conversion NOT charged against the budget, a bolded first mention, a credit on any picture, an id that
@@ -2241,7 +2259,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
   walkthrough + feature blurbs → FAQ (collapsible `.faq-item`s) → **beta feedback form** → changelog →
-  credits/licenses). See the golden rule: append to today's entry on every ship.
+  credits/licenses). See the golden rule: append to today's entry on every ship, in ONE sentence.
+  **A 0fr GRID ROW ONLY COLLAPSES A CHILD WHOSE OWN MINIMUM IS ZERO, AND PADDING COUNTS TOWARDS THAT
+  MINIMUM** (Aug 2026, on a report from a phone: "collapsible sections don't collapse fully"). Both folds
+  here are the standard `display:grid; grid-template-rows:0fr → 1fr` with `min-height:0` on the child — and
+  the child was the padded `<ul>` / `<p>` itself, so a shut fold stayed ~16–18px tall and showed a CLIPPED
+  LINE of its own first sentence through that padding. It reads as a fold that half-works, and it was true
+  at every width; a phone is only where it was noticed. The fix is an unpadded wrapper (`.clog-in` /
+  `.faq-in`, `overflow:hidden`) between the grid and the padded content: the wrapper is what the row sizes,
+  and it really does go to 0. **Reach for the wrapper whenever a 0fr fold's content carries padding.**
   It also carries **`window.FOLIO_VERSION = { v, released }`** at the top — the shipped version, printed in the
   top-left corner of the home page by `versionLineHTML()` (see the golden rule above, and the bullet under
   "How the app is wired"). Nothing rewrites this file programmatically, so both are hand-edited together.
@@ -3703,19 +3729,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it.** `announceLevelUps` grants and
     opens; `congratsPopup` is no longer raised behind it, since two overlays for one event is two.
   · **AN UNOPENED CHEST QUEUES.** `S.chests` is a COUNT, not a flag: dismissing the overlay keeps the chest,
-    a second level while one waits adds to it, and both the home banner (`.chest-chip`, a `role="button"`
-    span inside the review BUTTON — a button inside a button is invalid, so the banner's own click handler
-    defers to it) and the account page say how many are owed.
+    and a second level while one waits adds to it.
     **…AND SINCE AUG 2026 THE READER CAN SAY SO, which is two changes that are one feature** (on request).
     `Save for later` stands beside the CLOSED chest and is removed the moment the lid opens — once an artefact
     has been drawn there is nothing left to defer — and it makes an existing guarantee visible rather than
     changing behaviour: dismissing the overlay always kept the chest, and nothing said so. Since a chest may
     now be deliberately put by, there has to be somewhere obvious to come back to it, so
-    **`chestBannerHTML` puts one at the very TOP of the account page** (`#chestSlot` / `#chestBanner`), rendered
-    by BOTH account views — a guest earns chests too, for the reason the signed-out Reliquary exists — and
-    rendered as nothing at all when none is waiting, a banner reading "0 chests" being one that looks broken.
-    The Reliquary's own "Open your chest" button stays; it is four sections down a long page, which is exactly
-    why the banner is not it. `refreshReliquary` fills and empties the slot in place, like the two blocks below.
+    **`chestBannerHTML` says one is waiting DIRECTLY ABOVE THE DAILY-STUDY BANNER** (`#chestSlot` /
+    `#chestBanner` in `PAGES.home`) — rendered as nothing at all when none is, a banner reading "0 chests"
+    being one that looks broken. `refreshReliquary` fills and empties the slot in place on whichever page is
+    open, so a chest opened from the home page can take its own notice away without a repaint.
+    **IT MOVED THERE FROM THE ACCOUNT PAGE, AND THE BANNER'S COUNT WENT WITH IT** (Aug 2026, on request:
+    "never display the number of chests in the daily study banner"). The two were the wrong way round — the
+    NOTICE, a sentence with a button beside it, sat on a page a reader has to go to, while the DAILY-STUDY
+    BANNER carried a bare `.chest-chip` count in its meta row: a fourth figure in a row of three, counting
+    something that is not a pile of cards. Both `#chestSlot`s are gone from the account views and
+    `.chest-chip` is deleted from app.js and styles.css alike. The Reliquary's own "Open your chest" button
+    stays, since that page still holds the collection. `#chestSlot:empty{display:none}` matters on the home
+    page in a way it never did on the account one: `.banners` is a flex column with a gap, so an empty slot
+    would spend one and leave a hole above the banner on every day nothing is waiting.
   · **THE LID IS SHALLOW ON PURPOSE** (Aug 2026, on request: "the top is too rounded"). The dome was an arc of
     ry 30 over a 92-wide lid — very nearly a half-circle, which reads as a barrel or a cauldron rather than a
     chest — and is ry 16 now, with the 14 units it gave up going to the box. `CHEST_SVG` is drawn at 190px in
@@ -3941,9 +3973,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **GROUPS — the reader's own containers in the review list** (`S.deckGroups` / `S.deckNest`, `GROUP_PREFIX`
     / `isGroupId` / `groupCreate` / `groupDelete` / `groupTitle` / `groupColor` / `setNestParent` /
     `nestChildren` / `nestForget` / `nestWouldLoop` / `repaintReviewHues`; `.deck-group` / `.dk-into` /
-    `.rv-newgroup` / `.dm-swatch` in styles.css. Aug 2026, on request). A group is made from **"+ New group"
-    at the bottom left of the Daily-study banner**, holds decks dragged into it, folds with a chevron, can be
-    renamed, can be given a colour every deck inside takes, and studies everything under it. **AN ADDED
+    `.rv-newgroup` / `.rv-foot` / `.dm-swatch` in styles.css. Aug 2026, on request). A group is made from
+    **"+ New group" at the bottom left of the DECK LIST**, holds decks dragged into it, folds with a chevron,
+    can be renamed, can be given a colour every deck inside takes, and studies everything under it.
+    **THAT CONTROL STOOD INSIDE THE DAILY-STUDY BANNER FOR A FORTNIGHT AND MOVED OUT ON REQUEST** (Aug 2026):
+    a group is made out of the rows BELOW the banner, so the control belongs at the end of those rows rather
+    than in the block above them. It shares a footer line (`.rv-foot`) with `.rv-lip`, which hangs off the
+    group's bottom edge at the other end — a block stacked between the two would take that edge away from the
+    lip, which is why they are one row and not two — and the lip is held right by `margin-inline-start:auto`
+    rather than by `justify-content:space-between`, which on a one-item row (no decks yet, so no "+ New
+    group") would put the lip at the START. Out of the banner it is also a real `<button>` again, where a
+    control inside a button had to be a `role="button"` span with its own keydown handler that the banner's
+    click handler deferred to. **AN ADDED
     COLLECTION IS ONE TOO** — that is the request's own reasoning and it decided the shape of the rest: a
     collection holds no cards itself, only the decks inside it do, so a root collection with rows under it is
     drawn as a group header rather than as a deck row.
@@ -3967,9 +4008,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     record with a `title` is a group the reader made, a record with only a `color` is an override on
     something the tree already names.
     **THE HUE IS INHERITED DOWN THE CONTAINER CHAIN** rather than looked up per row — that is the whole of
-    "changes the colour of all decks inside it" — and **only the header is darkened** (52% against the rows'
-    30%, with its own `body.night` pair, which `.active-deck.context` already had to learn: `body.night
-    .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order).
+    "changes the colour of all decks inside it" — and **only the header is darkened** (38% against the rows'
+    30%, with its own `body.night` pair at 28%, which `.active-deck.context` already had to learn: `body.night
+    .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order). It was 52% / 40% and
+    came down on request (Aug 2026): the three pile counts sit at the LEFT of the header, in the darkest end
+    of the gradient, and at that strength they were hard to read.
+    **A HEADER IS SET AND FURNISHED LIKE THE ROWS UNDER IT** (Aug 2026, on request). Its title used to take
+    `--display` two sizes down, bolder, letterspaced and in capitals, and it carried a small mono `.dg-count`
+    ("N cards") where a deck row carries its progress bar. Both are gone: `.active-deck .dk-title` answers for
+    the header too, and it draws `adProg` like everything else on the list, so a header and its decks no
+    longer answer the same question two different ways. What still marks it as a header is the wash above and
+    the indent of the rows below. `adProg` gained `data-total` / `data-studied` with it — nothing renders
+    them, but a percentage alone cannot say how many cards a row counts, which is exactly what has to be
+    readable when a deck is dragged from one container into another (`test-review-decks` reads them).
     **THE MIDDLE OF A ROW MEANS "INSIDE", THE EDGES MEAN "BESIDE"** (`dropTargetAt`, `DROP_EDGE` 0.34). One
     gesture does both "drag a deck into a group" and "drop a deck on another deck to make it a subdeck", and
     without that split there would be nowhere left to aim between two rows. Positions are read from the
@@ -4222,6 +4273,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     set in the world — the defaults, and any set a reader pastes out of Anki — was fitted against 1. **The fixture could
     not see it because every gap in it was a whole number of days**; there are fractional gaps in it now, and they fail
     loudly if this is ever un-fixed (worst stability error 7.65 when it was).
+  · **NO OTHER STUDY APP IS NAMED IN A SETTINGS SHEET** (Aug 2026, on request). The deck sheet's Scheduling row read
+    "SM-2, the classic Anki schedule", the two Scheduling rows called SM-2 "the classic Anki schedule" and FSRS "Anki's
+    default", and the parameters note offered to take a set "if Anki has already optimised parameters for you" — all
+    four are reworded to describe what the thing DOES, which is what a reader choosing between two schedulers needs;
+    the last says "fitted for you elsewhere". **The debt is real, so it is stated once and properly**: Anki and FSRS
+    are both credited in the About page's "Credits & sources" list, naming what Folio's schedule is modelled on and
+    that it shares no code with either. The code COMMENTS in the scheduler blocks still name Anki freely — they are
+    where the reasoning lives and are not user-facing.
   · **The sheet is `openDeckSched(id)`**, reached from a deck's own long-press options ("Scheduling"). The retention box
     and the parameters box are drawn only under FSRS, since neither means anything under SM-2. **`deckSheet` honours
     `[data-dmfocus]`** because of this sheet: its own `setTimeout(0)` focus ran after the caller's and left a focus ring on
@@ -5535,7 +5594,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     placeholder, which is the honest failure.
   · **The instant is stored in UTC and printed in the READER's own clock and locale**, like the day boundary
     and unlike the changelog's day headings, which are deliberately fixed to the site language: this is a
-    moment in time rather than a day of publication.
+    moment in time rather than a day of publication. **That is also why the stored stamp has to be CAPTURED
+    rather than typed** — see the golden rule: a local hour written with a `Z` on the end is shown shifted by
+    the writer's own offset, which is how a morning release came to be announced in the afternoon (reported
+    Aug 2026). Nothing in the code can detect that, since a wrong instant is a perfectly valid one; the fix
+    is `date -u` at the moment of writing it.
   · It is a **sibling BEFORE `.page-head`, not inside it**, and carries its own `text-align:left`: below 640px
     and in the academy and gazette themes the page head is centred or boxed in a rule, and a centred version
     number reads as a title rather than as a stamp. `notranslate` for the reason the discovery chip's figure
@@ -5775,13 +5838,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   having to know about the other — and the DECK ROWS below keep `.review-group`'s static value, or the whole
   list would change colour every morning with it. The light blue above is Tuesday's, and the stylesheet's
   copy is still what a theme, a hero and every fallback read.
-  **"+ NEW GROUP" sits at the bottom left of it** (`.rv-tools` / `.rv-newgroup`, Aug 2026, on request), a row
-  of its own under the piles rather than an absolutely-positioned corner — the meta row already owns that
-  corner, and a floating control there would have to guess its height on every render, which is the reasoning
-  that keeps `.rv-lip` in flow. Like the chest chip it is a **button inside a button**, which markup does not
-  allow, so it is a `role="button"` span carrying `data-newgroup` that the banner's own click handler defers
-  to (and which needs its own Enter/Space handler for the same reason the chest chip does). It is drawn only
-  once there is something to group: a control whose whole result is an empty container teaches nothing.
+  **"+ NEW GROUP" AND THE CHEST COUNT HAVE BOTH LEFT THE BANNER** (Aug 2026, on request), and with them the
+  last two things nested inside that button: `#b-review`'s click handler no longer steps around any target of
+  its own. The group control is at the bottom left of the DECK LIST now (`.rv-foot` / `.rv-tools` /
+  `#b-newgroup` — see the GROUPS bullet), and a waiting chest is announced by `chestBannerHTML` in
+  `#chestSlot` ABOVE the banner rather than counted as a fourth stat inside it (see THE RELIQUARY). Both are
+  real `<button>`s out here, so neither needs the `role="button"` span and hand-written Enter/Space handler
+  that a control inside a button required.
 - **The home page is ONE COLUMN and, since Aug 2026, LITERALLY THE SAME PAGE at every width** (`PAGES.home`).
   It was three swiped panes for a week (`.home-pager` / `.hp-pane` / `#homeDots` — all
   gone, along with their ≤640px rules), then one column on a phone and a longer page on a desktop, and is now the
@@ -6139,8 +6202,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
   first, and the drop targets are reachable the moment it is open). This exists because
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
-  the Library read as empty. A live collection's banner also carries a **card count** (`.collection-count`, from
-  `subtreeCardIds`) — the one number that says there is something to study here.
+  the Library read as empty.
+  **A COLLECTION STATES ITS SIZE ONCE, ON THE BAR** (Aug 2026, on request). Its banner carried a
+  `.collection-count` behind the title AND a studied/total bar under it, so the row read "412 cards" beside
+  "0 / 412 cards" — one number, said twice, in two registers. The count behind the title is gone and the bar
+  is what says it. **The DECK rows inside keep theirs** (`.node-count`, next paragraph) precisely because
+  they have no bar; a coming-soon collection keeps its pill for the same reason, that being the only thing
+  its row has to say. Nothing else changed — `total` still feeds `deckProgMarkup` and the study guard.
   **A DECK ROW SAYS HOW MANY CARDS IT HOLDS, not what years they cover** (`.node-count`, Aug 2026, on
   request). The banner one level up had said this all along, and the two rows disagreeing about what the
   small grey figure on the right MEANS is the whole reason to change it. What is dropped is the
@@ -8924,7 +8992,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 297 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 301 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -8934,7 +9002,10 @@ dead code (never rendered).
     BUILT at any width, watched on the desktop through the REQUEST LOG as well as the markup, since the
     teaser's ornament was the only thing outside the Atlas that fetched the ~1.6 MB globe; the "+ Add decks" lip hanging off
     the bottom of the review group, centred, narrower than the group, routing to the collections and filled
-    in the site's own `--indigo` read off a probe rather than hard-coded; the
+    in the site's own `--indigo` read off a probe rather than hard-coded — and, since Aug 2026, sharing a
+    `.rv-foot` line with "+ New group", which is asserted OUT of the banner while the chest is asserted out
+    of it too and its notice IN a slot above it, both directions each, since a control that has stopped
+    rendering looks from one side exactly like one that has moved; the
     Minigames heading over a 3 × 2 grid whose tiles carry no tagline; the About link last, routing to the
     About page and with room above and below it; no Seen total; the review's three Anki piles — new /
     learning / review, in order, no two
@@ -8975,7 +9046,9 @@ dead code (never rendered).
     visible half of the request) and which must
     grow the card and the glossary popup and must leave a tab label and a grade button exactly where they
     were, that being the difference between a reading scale and a page zoom; Settings and Account filling the stage;
-    a coming-soon collection carrying no level badge and no XP bar; and **no overlay outliving the page
+    a coming-soon collection carrying no level badge and no XP bar, and a live one stating its size ONCE —
+    the bar and no `.collection-count`, with a DECK row inside asserted the other way round, since a count
+    with no bar and a bar with no count are opposite regressions; and **no overlay outliving the page
     that spawned it** — a real level-up is raised (three cards graded Easy) and dismissed by a HASH CHANGE,
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
@@ -9172,7 +9245,10 @@ dead code (never rendered).
     the review**. Two things it must keep doing: **open every fold first** (an added collection seeds SHUT, so
     without it the only visible rows are two headers and there is nothing to carry), and **drag a LEAF whose
     parent keeps a sibling** — a leaf carries no subtree so the group's count IS that deck's, and a container
-    left with another child stays a header whose own count can be read before and after.
+    left with another child stays a header whose own count can be read before and after. **Those counts are
+    read off each header's `.dk-prog` `data-total` since Aug 2026**, the header having given up its "N cards"
+    line for a progress bar like the rows inside it — the same number, from the row's own reckoning rather
+    than the test's.
     **Sections 12–15 are FSRS end to end**, where `test-scheduler.js` has the arithmetic: the Scheduling sheet
     (both modes offered, the retention and parameters boxes drawn only under FSRS, a parameter list of the wrong
     length refused with a reason, the sheet fitting the screen, and the focus following the CHOICE rather than

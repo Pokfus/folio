@@ -993,6 +993,8 @@ function adBaitCheck() {
         groupLabel: groupLabel.trim(), soonTitleOffset: off,
         soonBadge: has(soon, ".coll-ic"), soonXp: has(soon, ".xp"), soonPill: has(soon, ".pill.soon"),
         liveBadge: has(live, ".coll-ic"), liveXp: has(live, ".deck-prog"), liveCount: has(live, ".collection-count"),
+        // …and the DECK rows inside keep theirs, which is what makes the line above a rule rather than a loss
+        deckCount: !!document.querySelector(".node .node-count"), deckBar: !!document.querySelector(".node .deck-prog"),
         anyNumeral: !!document.querySelector(".collection-row .lb-num"),
       };
     });
@@ -1006,8 +1008,14 @@ function adBaitCheck() {
     // Aug 2026, on request: collections lost their level. The banner carries a SUBJECT ICON where the
     // per-script numeral was and a studied/total bar where the XP bar was — see test-artefacts.js, which
     // pins the pair properly. Here it is only the shell: both present, and no numeral left anywhere.
-    check("a live collection keeps both, and its card count", lib.liveBadge && lib.liveXp && lib.liveCount, JSON.stringify(lib));
+    /* A LIVE COLLECTION STATES ITS SIZE ONCE, ON THE BAR (Aug 2026, on request): the `.collection-count`
+       behind the title said the same number the bar under it says, so the row read "412 cards" beside
+       "0 / 412 cards". Asserted in BOTH directions in one line, since a count with no bar and a bar with no
+       count are opposite regressions and either alone would pass half of it. */
+    check("a live collection keeps its icon and bar, and states its size once", lib.liveBadge && lib.liveXp && !lib.liveCount, JSON.stringify(lib));
     check("...and no level numeral survives on any collection banner", !lib.anyNumeral);
+    // the DECK rows inside are the other half of that rule: they have no bar, so they keep their count
+    check("...while a deck row inside keeps its card count, having no bar to state it", lib.deckCount && !lib.deckBar, JSON.stringify(lib));
     await page.close();
   }
 
@@ -1041,11 +1049,28 @@ function adBaitCheck() {
         // corner rather than sitting on it, which is the whole of "a lip" as against "a button somebody
         // left there"
         lip: lip ? lip.textContent.trim() : "",
-        lipLast: !!(lip && grp && lip.parentElement === grp && lip === grp.lastElementChild),
+        /* The lip shares a footer row with "+ New group" since Aug 2026 (on request), so it is the last
+           thing in `.rv-foot` and `.rv-foot` is the last thing in the group — which is the same claim as
+           before ("nothing is drawn below it"), one element deeper. */
+        lipLast: !!(lip && grp && lip.parentElement && lip.parentElement.classList.contains("rv-foot") &&
+                    lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
         lipInsetR: lip && grp ? Math.round(grp.getBoundingClientRect().right - lip.getBoundingClientRect().right) : 999,
         lipCentreOff: lip && grp ? Math.round(Math.abs((lip.getBoundingClientRect().left + lip.getBoundingClientRect().width / 2)
           - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 0,
         lipAtBottom: lip && grp ? Math.round(lip.getBoundingClientRect().bottom - grp.getBoundingClientRect().bottom) : 999,
+        /* THE CHEST AND "+ NEW GROUP" HAVE BOTH LEFT THE BANNER (Aug 2026, on request). Each is asserted
+           in both directions, since a control that has merely stopped rendering looks the same from one
+           side as one that has moved: the chip must be GONE from the banner and the notice must be a real
+           slot ABOVE it, and the group control must be out of the banner and present under the deck list.
+           This reader has studied nothing, so no chest is owed and no deck is added — hence the slot and
+           the button are read for their PLACE (`#chestSlot` is always in the markup; the button is drawn
+           with the list) rather than for being filled. */
+        chestChip: !!document.querySelector(".banner .chest-chip, .banner [data-chest]"),
+        chestSlotAbove: (() => {
+          const s = document.querySelector("#chestSlot"), b = document.querySelector("#b-review");
+          return !!(s && b && s.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
+        })(),
+        newGroupInBanner: !!document.querySelector("#b-review .rv-newgroup, #b-review [data-newgroup]"),
         // a TAB, not another full-width banner — which is what it replaced
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
         /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
@@ -1099,6 +1124,9 @@ function adBaitCheck() {
     check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
     check("the collections banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
     check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
+    check("the banner never counts chests: the notice is a slot above it instead",
+      !h.chestChip && h.chestSlotAbove, JSON.stringify({ chip: h.chestChip, above: h.chestSlotAbove }));
+    check("...and \"+ New group\" is out of the banner, with the deck list it acts on", !h.newGroupInBanner);
     /* …at the RIGHT-HAND end of that edge, not the middle (Aug 2026, on request) — asserted in BOTH
        directions, since "somewhere near the right" is also true of a lip that has simply overflowed its
        group: it must be inset from the corner rather than flush with it, and plainly off centre. */
@@ -1304,12 +1332,23 @@ function adBaitCheck() {
         gh: Math.round(g.getBoundingClientRect().height), dh: Math.round(d.getBoundingClientRect().height),
         count: !!g.querySelector(".dg-count"), bar: !!g.querySelector(".dk-prog"),
         gWash: wash(g).slice(0, 60), dWash: wash(d).slice(0, 60), differs: wash(g) !== wash(d) && /gradient/.test(wash(g)),
+        /* THE HEADER IS SET LIKE THE ROWS UNDER IT (Aug 2026, on request). Read as the computed font
+           shorthand of each title, which carries family, size and weight at once — the header used to take
+           a smaller, heavier, letterspaced, uppercased face of its own, and the request is that it stop. */
+        gFont: getComputedStyle(g.querySelector(".dk-title")).font,
+        dFont: getComputedStyle(d.querySelector(".dk-title")).font,
+        gCase: getComputedStyle(g.querySelector(".dk-title")).textTransform,
       };
     });
-    check("a group header is thinner than a deck row, and says what is inside instead of drawing a bar",
-      !!grpRow && grpRow.gh < grpRow.dh && grpRow.count && !grpRow.bar, JSON.stringify(grpRow));
+    /* It carries the BAR now, where it used to carry a small "N cards" line instead (Aug 2026, on request):
+       a header and the decks under it should not answer the same question two different ways. Both halves
+       are asserted, since a header that kept both would pass either one alone. */
+    check("a group header is thinner than a deck row, and carries a progress bar like the rows inside it",
+      !!grpRow && grpRow.gh < grpRow.dh && grpRow.bar && !grpRow.count, JSON.stringify(grpRow));
     check("...in a deeper wash of the same colour, so the run below reads as belonging to it",
       !!grpRow && grpRow.differs, JSON.stringify(grpRow));
+    check("...and its title is set in the same face as the decks within, not capitalised into a label",
+      !!grpRow && grpRow.gFont === grpRow.dFont && grpRow.gCase === "none", JSON.stringify(grpRow));
 
     /* …and the sheet it moved into: the figure on the title's own LINE (a figure that has merely landed
        somewhere in the head is not what was asked for), and Remove carrying its red in the TEXT with no
@@ -1518,7 +1557,8 @@ function adBaitCheck() {
         subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
         mgHead: head ? head.textContent.trim() : "",
         lip: lip ? lip.textContent.trim() : "",
-        lipLast: !!(lip && grp && lip === grp.lastElementChild),
+        // …one element deeper since the lip shares `.rv-foot` with "+ New group" — see the phone block above
+        lipLast: !!(lip && grp && lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
         about: !!document.querySelector(".home-about"),
         // Collections left the top bar with the tile row; the lip is the only way to it now
         decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
