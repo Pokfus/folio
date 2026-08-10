@@ -375,9 +375,11 @@ const SETTINGS = {
     /* Question variety joined the deck's own sheet as well as the review's (Aug 2026, on request) — it is
        stored per entry, so it has to be settable on the entry it applies to. The ORDER switch joined it a
        day later, on request, for the same reason: it was on the review banner's sheet alone, so a deck held
-       on its own row had no way to ask for a shuffled session. */
+       on its own row had no way to ask for a shuffled session. SCHEDULING joined it in Aug 2026 and is the
+       one row here that a DECK has and the pooled review does not — the review schedules nothing of its own,
+       so the choice would govern nothing there (asserted the other way round in section 11). */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Custom study", "Daily limits", "Skip today", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Custom study", "Daily limits", "Scheduling", "Skip today", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER SWITCH IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they
@@ -990,6 +992,325 @@ const SETTINGS = {
     }, [geo && geo.gid, geo && geo.id]);
     check("ungrouping takes the container away and leaves the deck in the review",
       freed.gone && freed.deck && freed.active && freed.nest === null, JSON.stringify(freed));
+    await page.close();
+  }
+
+  /* ================= 12. FSRS, chosen per deck =================
+     The maths is pinned against the reference implementation in test-scheduler.js section 10; what is pinned
+     HERE is the wiring, which fails in ways arithmetic cannot see:
+       · the choice is per DECK, and a card is scheduled by ITS OWN deck's choice wherever it was studied
+         from — a card that schedules one way from its row and another from the pooled review has two
+         schedules and nothing on screen to say which is in force;
+       · the grade buttons show what the grade will apply, which under FSRS is a different number;
+       · a card studied under SM-2 keeps what it has: its interval becomes its stability, and turning FSRS on
+         must not read as having reset the deck;
+       · and the review's own sheet must NOT offer the switch, since it schedules nothing. */
+  {
+    const page = await newPage({ active: [deckA, deckB], settings: SETTINGS, cards: { a: done(), b: done(), c: done() } });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+
+    // the review's sheet has no Scheduling row; a deck's has
+    await page.evaluate(() => document.querySelector(".review-group .banner")?.dispatchEvent(new Event("contextmenu", { bubbles: true })));
+    await page.waitForTimeout(500);
+    const rows = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()));
+    check("the pooled review's sheet does NOT offer Scheduling", rows.length > 0 && !rows.includes("Scheduling"), rows.join(" / "));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
+    const deckRows = await page.evaluate((d) => {
+      const row = document.querySelector('[data-review="' + d + '"]');
+      if (!row) return null;
+      row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
+      return true;
+    }, deckA);
+    check("a deck's row opens its own sheet", deckRows === true);
+    await page.waitForTimeout(500);
+    const dRows = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()));
+    check("…and a deck's sheet DOES offer Scheduling", dRows.includes("Scheduling"), dRows.join(" / "));
+    await page.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+    await page.waitForTimeout(500);
+    const both = await page.evaluate(() => [...document.querySelectorAll("[data-sched]")].map((x) => x.querySelector("b").textContent + (x.classList.contains("on") ? "*" : "")));
+    check("SM-2 is the default and is marked", both.join(",") === "SM-2*,FSRS", both.join(","));
+    check("…and no retention box is offered under SM-2", await page.evaluate(() => !document.querySelector("#dsRet")));
+    await page.evaluate(() => document.querySelector('[data-sched="fsrs"]')?.click());
+    await page.waitForTimeout(700);
+    check("choosing FSRS reveals the retention it is aiming at",
+      await page.evaluate(() => { const r = document.querySelector("#dsRet"); return !!r && r.value === "90"; }));
+    /* The focus lands on the CHOSEN row, not on the one just clicked — otherwise the sheet shows a focus ring
+       on SM-2 and a tick on FSRS and leaves the reader to work out which of the two means anything. */
+    check("…and the focus follows the choice rather than the click",
+      await page.evaluate(() => !!document.activeElement && document.activeElement.dataset.sched === "fsrs"),
+      await page.evaluate(() => (document.activeElement || {}).dataset && document.activeElement.dataset.sched));
+    // a parameter list of the wrong length is refused, and refusing must not save the retention behind it
+    await page.evaluate(() => { const t = document.querySelector("#dsParams"); t.value = "0.1, 0.2"; t.dispatchEvent(new Event("input", { bubbles: true })); });
+    await page.evaluate(() => { const r = document.querySelector("#dsRet"); r.value = "80"; r.dispatchEvent(new Event("input", { bubbles: true })); });
+    await page.evaluate(() => document.querySelector('[data-act="save"]')?.click());
+    await page.waitForTimeout(500);
+    const refused = await page.evaluate((d) => ({
+      open: !!document.querySelector(".ds-sheet"),
+      toast: (document.querySelector("#toast") || {}).textContent || "",
+      ret: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).retention,
+    }), deckA);
+    check("21 numbers or nothing — a short list is refused", refused.open && /21 numbers/.test(refused.toast), JSON.stringify(refused));
+    check("…and the retention beside it is NOT saved by a refused list", refused.ret === undefined || refused.ret === 0.9, String(refused.ret));
+    // …and a real list of 21 is taken
+    const twentyOne = Array.from({ length: 21 }, (_, i) => (i + 1) / 100).join(", ");
+    await page.evaluate((v) => { const t = document.querySelector("#dsParams"); t.value = v; t.dispatchEvent(new Event("input", { bubbles: true })); }, twentyOne);
+    await page.evaluate(() => document.querySelector('[data-act="save"]')?.click());
+    await page.waitForTimeout(700);
+    const opts = await page.evaluate((d) => (JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d], deckA);
+    check("a list of 21 parameters is kept", !!opts && Array.isArray(opts.fsrsParams) && opts.fsrsParams.length === 21, JSON.stringify(opts && opts.fsrsParams && opts.fsrsParams.length));
+    check("…with the retention saved beside it", !!opts && Math.abs(opts.retention - 0.8) < 1e-9, String(opts && opts.retention));
+    check("…and the deck is on FSRS", !!opts && opts.sched === "fsrs", String(opts && opts.sched));
+    /* ONE DECK ONLY. The other added deck must be untouched — that is the whole of "deck-specific", and it is
+       the assertion that would catch the setting being written somewhere global by mistake. */
+    const otherOpts = await page.evaluate((d) => (JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d], deckB);
+    check("the OTHER deck is left on SM-2", !otherOpts || otherOpts.sched !== "fsrs", JSON.stringify(otherOpts));
+    await page.close();
+  }
+
+  /* ================= 13. an FSRS deck is scheduled by FSRS, from either route ================= */
+  {
+    /* Deck A on FSRS, deck B not, and one card of each already studied under SM-2 so the seeding path is
+       exercised too. Studied through the POOLED review, which is the case that matters: the card must be
+       scheduled by its own deck's choice, not by the review's. */
+    const state = {
+      active: [deckA, deckB],
+      settings: SETTINGS,
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      cards: { a: done(), b: done(), c: done() },
+    };
+    const page = await newPage(state);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => document.querySelector("#b-review")?.click());
+    await page.waitForTimeout(900);
+
+    // walk the whole session, recording which deck each card came from and what its record looks like after
+    const seen = [];
+    for (let i = 0; i < 12; i++) {
+      const id = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0] || null);
+      if (!id) break;
+      await page.evaluate(() => {
+        const b = [...document.querySelectorAll(".actions button, .study-card button")]
+          .find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className));
+        if (b) b.click();
+      });
+      await page.waitForTimeout(320);
+      await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
+      await page.waitForTimeout(420);
+      const rec = await page.evaluate((cid) => (JSON.parse(localStorage.folio_v1 || "{}").cards || {})[cid], id);
+      seen.push({ id: id, fsrs: !!(rec && rec.stability > 0) });
+    }
+    check("the session dealt cards from both decks", seen.length >= 4, JSON.stringify(seen.length));
+    const fromA = seen.filter((x) => x.id.indexOf("wh-") === 0);
+    void fromA;
+    /* The load-bearing pair: some cards came out with a memory state and some did not, and which is which
+       follows the DECK. If the review's own setting were deciding, every card would be one or the other. */
+    check("some cards were scheduled by FSRS", seen.some((x) => x.fsrs), JSON.stringify(seen));
+    check("…and some by SM-2, in the same pooled session", seen.some((x) => !x.fsrs), JSON.stringify(seen));
+    await page.close();
+  }
+
+  /* ================= 14. turning FSRS on keeps what SM-2 built ================= */
+  {
+    const mature = { reps: 9, lapses: 1, ease: 2.6, interval: 34, due: Date.now() - 36e5, status: "review", last: Date.now() - 34 * 864e5, step: 0, first: "2026-05-01" };
+    const page = await newPage({
+      active: [deckA], settings: SETTINGS,
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      cards: { a: done(), b: done(), c: done(), "wh-001": mature },
+    });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => document.querySelector("#b-review")?.click());
+    await page.waitForTimeout(900);
+    // find the mature card in the queue and answer it
+    const cur = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
+    if (cur === "wh-001") {
+      await page.evaluate(() => {
+        const b = [...document.querySelectorAll(".actions button, .study-card button")]
+          .find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className));
+        if (b) b.click();
+      });
+      await page.waitForTimeout(350);
+      const shown = await page.evaluate(() => [...document.querySelectorAll(".grade")].map((g) => g.querySelector(".gi").textContent));
+      check("an SM-2 card's grade buttons still show intervals under FSRS", shown.length === 4 && shown.every((x) => /\d/.test(x)), shown.join(" · "));
+      await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
+      await page.waitForTimeout(500);
+      const rec = await page.evaluate(() => (JSON.parse(localStorage.folio_v1 || "{}").cards || {})["wh-001"]);
+      /* The interval BECAME the stability, so a card with 34 days behind it does not restart: it is answered
+         from a stability of at least what SM-2 had reached. This is the assertion that would catch the seeding
+         being dropped — the card would come out with a stability of about 2 days and read as reset. */
+      check("an SM-2 card's interval seeded its stability rather than restarting it", !!rec && rec.stability > 20, JSON.stringify(rec && rec.stability));
+      check("…and its next interval is measured in weeks, not days", !!rec && (rec.due - Date.now()) / 864e5 > 14, String(rec && Math.round((rec.due - Date.now()) / 864e5)));
+    } else {
+      check("the mature card was dealt first (queue order)", false, "queue head was " + cur);
+    }
+    await page.close();
+  }
+
+  /* ================= 15. what Card info says about an FSRS card =================
+     Two things shipped WRONG here for an hour and only a reader could see either: the stability's annotation
+     named the 90% the measurement is defined at, which four rows above "aiming to remember 85%" read as the
+     reader's setting having been ignored; and the review-history table headed its sixth column "Ease" on a
+     card that has no ease, showing a stale 2.5 from whatever SM-2 last did. Every number was right
+     throughout, so this reads the RENDERED panel.
+     THE CARD IS SEEDED WITH ITS MEMORY STATE AND ONE LOGGED REVIEW rather than graded into one, and that is
+     the file's own warning about `addInitScript` being obeyed: grading the deck's only due card ends the
+     session (the completion screen has no Info button), and re-entering one needs a reload — which re-seeds
+     `folio_v1` from `state` and throws the graded record away. So the state to be looked at is the state
+     that is seeded. */
+  {
+    const t = Date.now();
+    const page = await newPage({
+      active: [deckA], settings: SETTINGS,
+      // 85%, deliberately NOT 90 — the two numbers on that panel mean different things and must read as it
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.85 } },
+      cards: { a: done(), b: done(), c: done(), "wh-001": {
+        status: "review", step: 0, reps: 6, lapses: 1, interval: 34, ease: 2.6,
+        stability: 34.2, difficulty: 6.4, due: t - 36e5, last: t - 34 * 864e5, first: "2026-05-01",
+      } },
+      // one row in the documented shape: [id, t, grade, state-before, prevMin, nextMin, ease100, tenths].
+      // ease100 carries the FSRS DIFFICULTY ×100 here, which is what review_log.ease100 documents.
+      revlog: [["wh-001", t - 34 * 864e5, 3, 3, 21 * 1440, 34 * 1440, 640, 62]],
+    });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => document.querySelector("#b-review")?.click());
+    await page.waitForTimeout(900);
+    const head = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
+    check("the seeded FSRS card is the one on screen", head === "wh-001", String(head));
+    await page.evaluate(() => document.querySelector("#cardInfo")?.click());
+    await page.waitForTimeout(600);
+    const ci = await page.evaluate(() => {
+      const box = document.querySelector(".deck-menu.ci-sheet .dm-box");
+      if (!box) return null;
+      return {
+        keys: [...box.querySelectorAll(".ci-k")].map((e) => e.textContent.trim()),
+        vals: [...box.querySelectorAll(".ci-v")].map((e) => e.textContent.replace(/\s+/g, " ").trim()),
+        heads: [...box.querySelectorAll(".ci-hist th")].map((e) => e.textContent.trim()),
+        row: [...box.querySelectorAll(".ci-hist tbody tr:first-child td")].map((e) => e.textContent.trim()),
+      };
+    });
+    check("card info shows stability and difficulty, never the ease", !!ci && ci.keys.includes("Stability") && ci.keys.includes("Difficulty") && !ci.keys.includes("Ease"), ci && ci.keys.join("/"));
+    check("…and names the scheduler with the reader's own target", !!ci && /85%/.test(ci.vals.join(" ")), ci && ci.vals.join(" | ").slice(0, 160));
+    check("…while the stability's 90% is the MEASUREMENT, not that target",
+      !!ci && /at ~90% recall/.test(ci.vals.join(" ")) && !/the 90% interval/.test(ci.vals.join(" ")), ci && ci.vals.join(" | ").slice(0, 160));
+    check("…and the history column is headed Difficulty rather than Ease", !!ci && ci.heads.includes("Difficulty") && !ci.heads.includes("Ease"), ci && ci.heads.join("/"));
+    // a difficulty out of 10 (one decimal, up to 10.0) — a percentage there is a stale ease under a new heading
+    check("…carrying a difficulty out of 10, not a percentage", !!ci && ci.row.length > 5 && /^(10|\d)\.\d$/.test(ci.row[5]), ci && ci.row.join(" | "));
+    await page.close();
+  }
+
+  /* ================= 16. the FSRS optimiser, through the sheet =================
+     test-scheduler.js owns the arithmetic — the loss against the reference, the recovery of a known
+     parameter set, the refusals. What can only be seen here is the PATH: that the button exists under FSRS
+     and not under SM-2, that a run finishes without freezing the dialog it is inside, that what it produces
+     is STAGED in the box rather than saved behind the reader's back, and that Save is what keeps it. */
+  {
+    /* A synthetic log in the shipped row shape — [id, t, grade, state-before, prevMin, nextMin, ease100,
+       tenths] — big enough to clear the fit's own minimum. Every card starts at state 0, because a sequence
+       whose beginning is missing is dropped, which is the thing most likely to make this silently refuse. */
+    const DAYMS = 864e5, now = Date.now();
+    let seed = 4242;
+    const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+    const revlog = [];
+    for (let c = 0; c < 500; c++) {
+      let t = now - (320 - (c % 150)) * DAYMS, prev = 0;
+      for (let i = 0; i < 8; i++) {
+        const g = i === 0 ? (rnd() < 0.25 ? 1 : 3) : (rnd() < 0.22 ? 1 : rnd() < 0.4 ? 2 : rnd() < 0.92 ? 3 : 4);
+        const gap = i === 0 ? 0 : Math.max(1, Math.round(prev * (g === 1 ? 0.4 : 2.1)));
+        revlog.push(["u_opt_" + c, t, g, i === 0 ? 0 : 3, prev * 1440, gap * 1440, 250, 40]);
+        prev = gap || 1;
+        t += Math.max(1, gap) * DAYMS;
+      }
+    }
+    const page = await newPage({
+      active: [deckA], settings: SETTINGS,
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      cards: { a: done(), b: done(), c: done() },
+      revlog: revlog,
+    });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const openSched = async () => {
+      await page.evaluate((d) => {
+        const row = [...document.querySelectorAll("[data-review]")].find((x) => x.dataset.review === d);
+        if (row) row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
+      }, deckA);
+      await page.waitForTimeout(450);
+      await page.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+      await page.waitForTimeout(550);
+    };
+    await openSched();
+    check("the Scheduling sheet offers Optimise under FSRS", await page.evaluate(() => !!document.querySelector("#dsOpt")));
+    // …and not under SM-2, where there are no parameters to fit
+    await page.evaluate(() => document.querySelector('[data-sched="sm2"]')?.click());
+    await page.waitForTimeout(700);
+    check("…and NOT under SM-2, which has no parameters to fit", await page.evaluate(() => !document.querySelector("#dsOpt")));
+    await page.evaluate(() => document.querySelector('[data-sched="fsrs"]')?.click());
+    await page.waitForTimeout(700);
+
+    await page.evaluate(() => document.querySelector("#dsOpt")?.click());
+    let msg = "";
+    for (let i = 0; i < 90; i++) {
+      msg = await page.evaluate(() => (document.querySelector("#dsOptMsg") || {}).textContent || "");
+      if (/Fitted|already well described|Not enough/.test(msg)) break;
+      await page.waitForTimeout(400);
+    }
+    check("a fit runs to a verdict without freezing the sheet", /Fitted|already well described/.test(msg), msg.slice(0, 120));
+    /* IT MUST NOT HAVE SAVED ANYTHING YET. Pressing Optimise asks a question; Save answers it — the same two
+       steps every other field on this sheet has, and the difference between offering a schedule and changing
+       one behind the reader's back. */
+    const staged = await page.evaluate((d) => ({
+      box: (document.querySelector("#dsParams") || {}).value || "",
+      stored: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams || null,
+      enabled: !(document.querySelector("#dsOpt") || {}).disabled,
+    }), deckA);
+    const nums = staged.box.split(",").map((s) => parseFloat(s)).filter((x) => !isNaN(x));
+    check("…staging 21 parameters in the box", nums.length === 21, nums.length + " · " + staged.box.slice(0, 60));
+    check("…and saving NOTHING until Save is pressed", staged.stored === null, JSON.stringify(staged.stored));
+    check("…with the button usable again", staged.enabled);
+    await page.evaluate(() => document.querySelector('[data-act="save"]')?.click());
+    await page.waitForTimeout(800);
+    const kept = await page.evaluate((d) => ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams, deckA);
+    check("Save keeps the fitted parameters, on that deck", Array.isArray(kept) && kept.length === 21, kept && kept.length);
+    check("…all finite", Array.isArray(kept) && kept.every((x) => isFinite(x)));
+
+    /* THE REFUSAL A READER IS FAR LIKELIER TO MEET: almost nobody has 512 usable reviews on their first day,
+       and "nothing happened" would read as a broken button. It says the number it has and the number it
+       wants, and it says WHY a review might not count. */
+    const page2 = await newPage({
+      active: [deckA], settings: SETTINGS,
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      cards: { a: done(), b: done(), c: done() },
+      revlog: revlog.slice(0, 40),
+    });
+    await page2.goto(base + "#home", { waitUntil: "load" });
+    await page2.reload({ waitUntil: "load" });
+    await page2.waitForTimeout(1400);
+    await page2.evaluate((d) => {
+      const row = [...document.querySelectorAll("[data-review]")].find((x) => x.dataset.review === d);
+      if (row) row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
+    }, deckA);
+    await page2.waitForTimeout(450);
+    await page2.evaluate(() => document.querySelector('[data-act="sched"]')?.click());
+    await page2.waitForTimeout(550);
+    await page2.evaluate(() => document.querySelector("#dsOpt")?.click());
+    await page2.waitForTimeout(1200);
+    const few = await page2.evaluate((d) => ({
+      msg: (document.querySelector("#dsOptMsg") || {}).textContent || "",
+      stored: ((JSON.parse(localStorage.folio_v1 || "{}").deckOpts || {})[d] || {}).fsrsParams || null,
+      box: (document.querySelector("#dsParams") || {}).value || "",
+    }), deckA);
+    check("too little history is refused in words, with the numbers", /Not enough history/.test(few.msg) && /\d+ of the 512/.test(few.msg), few.msg.slice(0, 120));
+    check("…and nothing is staged or saved", few.stored === null && few.box === "", JSON.stringify(few).slice(0, 80));
+    await page2.close();
     await page.close();
   }
 

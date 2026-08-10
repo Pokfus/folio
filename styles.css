@@ -1673,10 +1673,81 @@ body.grading .stage{padding-bottom:150px;}
 /* "Today" is wider than one narrow weekday letter — let it overhang its column rather than clip to "To…" */
 .fc-bar.fc-today em{color:var(--zh); font-weight:600; overflow:visible; max-width:none;}
 .fc-bar.fc-zero i{height:2px !important; background:var(--rule);}   /* nothing due — a flat tick keeps the axis continuous */
+
+/* answer buttons — one bar per grade, in the grade bar's OWN four colours so the two surfaces cannot come
+   to disagree about which colour "Hard" is. It is the forecast's shape deliberately: the two cards sit in
+   one grid and a second bar idiom on the same page would read as two unrelated charts. */
+.ab-bars{display:flex; align-items:flex-end; gap:8px; height:104px; padding-top:4px;}
+.ab-bar{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:4px;}
+/* the bar's own track — see the note where the markup is built: a percentage height needs a containing
+   block that the labels are OUTSIDE of, or the tallest bar grows over the word beneath it */
+.ab-track{flex:1 1 auto; min-height:0; width:100%; display:flex; align-items:flex-end; justify-content:center;}
+.ab-bar i{display:block; width:100%; max-width:34px; border-radius:3px 3px 0 0; background:var(--rule); transition:height .35s var(--ease);}
+.ab-bar b{font-family:var(--mono); font-weight:600; font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-soft);}
+.ab-bar em{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;}
+.ab-g1 i{background:#D9544C;}
+.ab-g2 i{background:#DB8B3A;}
+.ab-g3 i{background:#4F9D67;}
+.ab-g4 i{background:#4F74C2;}
+.night .ab-g1 i{background:#E26B62;}
+.night .ab-g2 i{background:#E0A057;}
+.night .ab-g3 i{background:#5FB07E;}
+.night .ab-g4 i{background:#6E8FD6;}
+.ab-bar.ab-zero i{height:2px !important; background:var(--rule);}   /* never pressed — the flat tick, as above */
+.ab-bar.ab-zero b{color:var(--ink-faint);}
 @media (max-width:720px){
   .revstats{grid-template-columns:1fr;}
   .hm-best{margin-left:0; width:100%;}
 }
+
+/* card types — the list of card templates a type declares. The picker and the name sit side by side on a
+   wide editor and stack on a narrow one; the two buttons are their own row so "Remove this card", which is
+   the destructive one, is never adjacent to the select a finger is aiming at. */
+.ut-cards{display:grid; grid-template-columns:1fr 1fr; gap:10px 14px; align-items:end; margin:2px 0 4px; padding:11px 0 12px; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);}
+.ut-cards .admin-field{margin:0;}
+.ut-cardacts{grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+@media (max-width:720px){
+  .ut-cards{grid-template-columns:1fr;}
+}
+
+/* ---------- card info: the state block and the per-review history table ----------
+   Both live inside a `.dm-box` sheet, which is why the widths below are caps rather than fixed sizes: the
+   sheet is centred at every screen width and the table has to be able to scroll inside it rather than
+   stretch it (a seven-column table on a 390px phone is wider than the phone). */
+/* Wider than the ordinary options sheet, because a seven-column history table in 400px is a table read
+   entirely by scrolling. The class goes on the OVERLAY (deckSheet owns the box) — see openCardInfo.
+   It is also the one sheet that can outgrow the screen: an options sheet is four rows, and this is a state
+   block plus however many reviews a card has. So the BOX is capped and the TABLE is the part that gives —
+   `flex:1 1 auto; min-height:0` on the wrap, which is what lets a flex item shrink below its content — so
+   the state block and the Close button stay put and the history scrolls between them. Without the cap a
+   card with a year of reviews runs off both ends of a phone, taking Close with it. */
+/* `vh` first and `dvh` after it: on a phone `vh` ignores the browser's own retracting toolbars, and a
+   browser that does not know `dvh` simply drops the second line and keeps the first. */
+.deck-menu.ci-sheet .dm-box{width:min(580px,94vw); max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px);}
+.deck-menu.ci-sheet .ci-histwrap{flex:1 1 auto; min-height:0;}
+.ci-grid{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; align-items:baseline; padding:4px 14px 6px;}
+.ci-k{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
+.ci-v{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); min-width:0; overflow-wrap:anywhere;}
+.ci-due-now{color:var(--zh); font-weight:600;}
+.ci-leech{color:var(--zh);}
+.ci-id{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
+.ci-of{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint); margin-left:6px;}
+.ci-h{font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink); margin:6px 0 0; padding:11px 14px 0; border-top:1px solid var(--rule);}
+.ci-none{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin:0; padding:7px 14px 2px;}
+.ci-histwrap{overflow-x:auto; overflow-y:auto; max-height:44vh; padding:7px 14px 2px;}   /* the cap above is what makes this a floor rather than the whole rule */
+table.ci-hist{border-collapse:collapse; width:100%; font-family:var(--sans); font-size:calc(11.5px * var(--fs)); white-space:nowrap;}
+table.ci-hist th{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; text-align:left; padding:0 10px 5px 0; position:sticky; top:0; background:var(--card);}
+table.ci-hist td{padding:4px 10px 4px 0; border-top:1px solid var(--rule); color:var(--ink); vertical-align:baseline;}
+table.ci-hist tr td:first-child{color:var(--ink-soft);}
+.ci-st{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+.ci-st-3{color:var(--indigo);}
+/* the rating, in the grade bar's own colours — see the answer-buttons note above */
+.ci-g{font-weight:600;}
+.ci-g-1{color:#B8433C;} .ci-g-2{color:#A9682A;} .ci-g-3{color:#3D7A50;} .ci-g-4{color:#3D5C9C;}
+.night .ci-g-1{color:#E26B62;} .night .ci-g-2{color:#E0A057;} .night .ci-g-3{color:#5FB07E;} .night .ci-g-4{color:#6E8FD6;}
+.ci-sum{font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-soft); margin:0; padding:6px 14px 0;}
+/* the Info button in the study bar wears the same quiet chrome as Undo beside it */
+.infobtn svg{opacity:.85;}
 
 /* ---------- deck statistics: a picker over collections/decks and the panel it drives ---------- */
 .ds-pick{display:flex; align-items:center; gap:12px; margin-bottom:12px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
@@ -2378,6 +2449,23 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .dm-pane[hidden]{display:none;}
 .dm-clear{width:100%;}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
+/* the Scheduling sheet: a wider box than an options sheet (it carries two paragraphs of explanation and a
+   parameter box), and one field that stacks because a 21-number list has nowhere to sit beside its label */
+.deck-menu.ds-sheet .dm-box{width:min(480px,94vw); max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); overflow-y:auto;}
+.dm-field.dm-fieldcol{flex-direction:column; align-items:stretch; gap:6px;}
+.dm-field.dm-fieldcol > span{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.dm-field.dm-fieldcol > span small{font-family:var(--sans); letter-spacing:0; text-transform:none; margin-left:6px;}
+/* a UNIT carried in a row's own label, because the field beside it is a bare number box */
+.dm-field > span small{color:var(--ink-faint); font-size:calc(11.5px * var(--fs));}
+textarea.ds-params{width:100%; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.5; resize:vertical;}
+/* the optimiser's row: a button and the sentence it answers with, which runs to three lines on a phone and
+   so is a BLOCK under the button rather than a label beside it */
+.ds-optrow{display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:2px 14px 8px;}
+.ds-optrow .btn{flex:none;}
+.ds-optmsg:empty{display:none;}
+.ds-optmsg{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint);}
+.ds-optmsg.ds-optok{color:var(--good);}
+.ds-optmsg.ds-optwarn{color:var(--ink-soft);}
 /* a sheet row holding a picker rather than a number — the label stays on the left and the control takes
    what is left, which on a 390px screen is most of the row */
 .dm-field select.af-input{flex:1 1 auto; min-width:0; width:auto; max-width:62%;}
