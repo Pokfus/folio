@@ -560,15 +560,20 @@ body.night .banner{
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
-/* ---------- "+ New group", bottom left of the Daily-study banner (Aug 2026, on request) ----------
-   A row of its own under the piles rather than an absolutely-positioned corner: the meta row already owns
-   the bottom-left of the banner, and a floating control there would have to guess its height on every
-   render (the same reasoning that keeps `.rv-lip` in flow). Quiet by default — it is a way of tidying the
-   list, not the thing the banner is for — and it must clear the decorative glyph at the bottom right, which
-   `pointer-events:none` already keeps out of its way. */
-.rv-tools{margin-top:12px; display:flex;}
+/* ---------- "+ New group", bottom left of the DECK LIST (Aug 2026, on request) ----------
+   It stood inside the Daily-study banner for a fortnight, under the three piles. A group is made out of the
+   rows BELOW the banner, so the control now sits at the end of those rows instead — beside the thing it
+   acts on rather than above it. It shares a footer line with `.rv-lip`, which hangs off the group's bottom
+   edge at the other end: a block stacked between the two would take that edge away from the lip.
+   Quiet by default — it is a way of tidying the list, not the thing the page is for. */
+.rv-foot{display:flex; align-items:flex-start; gap:12px;}
+.rv-tools{margin-top:9px; margin-inline-start:20px; display:flex;}
+/* with no decks yet there is no "+ New group" to sit beside, and `margin-inline-start:auto` is what keeps
+   the lip at the right-hand end of the line in both cases (`justify-content` could not: on a one-item row
+   `space-between` puts that item at the START) */
+.rv-foot .rv-lip{align-self:flex-start; margin-inline-start:auto;}
 .rv-newgroup{
-  cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:5px 11px;
+  appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:5px 11px;
   border:1px dashed color-mix(in srgb, var(--ink) 26%, transparent); border-radius:99px;
   font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-faint); background:color-mix(in srgb, var(--card) 70%, transparent);
@@ -2554,7 +2559,12 @@ button.ar-slot:hover{border-color:color-mix(in srgb,var(--indigo) 55%,var(--rule
 button.ar-slot:hover .ar-slotmark,button.ar-slot:hover .ar-slotlbl{color:var(--indigo); opacity:1;}
 .ar-slotlbl{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); text-align:center; line-height:1.25;}
 
-/* ---- waiting chests, at the top of the account page (see chestBannerHTML) ---- */
+/* ---- waiting chests, directly above the Daily-study banner (see chestBannerHTML) ---- */
+/* Its slot on the home page sits in `.banners`, a flex column with a gap — so an EMPTY slot would still
+   spend a gap and leave a hole above the Daily-study banner on every day nothing is waiting. */
+#chestSlot:empty{display:none;}
+/* …and inside that column the gap is what separates it, so it carries no bottom margin of its own there. */
+.banners .chest-banner{margin-bottom:0;}
 .chest-banner{display:flex; align-items:center; gap:14px; padding:14px 16px; margin:0 0 18px;
   background:linear-gradient(105deg, color-mix(in srgb,#C39A2E 22%,transparent), transparent 68%) var(--card);
   border:1px solid color-mix(in srgb,#C39A2E 40%,var(--rule)); border-radius:14px; box-shadow:var(--shadow-sm);}
@@ -2629,7 +2639,9 @@ body.night .cb-ic{color:#E6C765;}
 .ar-wmeta{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.02em; margin-bottom:3px;}
 .ar-wdesc{font-family:var(--serif); font-size:calc(15px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:12px 0 10px;}
 .ar-wdesc b{color:var(--ink);}
-.ar-wcredit{font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin-bottom:10px;}
+/* `.ar-wcredit` — the picture's credit under the plate's prose — is gone (Aug 2026, on request): the
+   plate's picture opens the site's fullscreen viewer, whose caption bar carries the credit, so the plate
+   itself no longer repeats it. */
 .ar-pinbtn{font-size:calc(12.5px * var(--fs));}
 
 /* ---- the whole collection, raised from the showcase's "See all" ----
@@ -2726,11 +2738,9 @@ body.night .chest-btn{color:#E6C765;}
 body.no-anim .chest-bit,body.no-anim .chest-rays{display:none;}
 body.no-anim .chest-pop.opening .chest-svg,body.no-anim .chest-pop:not(.opening) .chest-btn .chest-svg,body.no-anim .chest-pop.opening .chest-lid{animation:none;}
 body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opacity:0;}
-/* the home banner's chest chip — a target inside the review button, which the banner's own handler defers to */
-.chest-chip{cursor:pointer; border-radius:8px;}
-.chest-chip:hover{background:color-mix(in srgb,#C39A2E 16%,transparent);}
-.chest-chip b{color:#C39A2E;}
-body.night .chest-chip b{color:#E6C765;}
+/* The home banner's chest CHIP is gone (Aug 2026, on request): a chest is never shown as a number there.
+   What says one is waiting is `.chest-banner` above the banner — the notice that used to sit on the
+   account page — so the rules that dressed the chip as a fourth stat went with it. */
 
 /* ---- Admin → Artefacts ---- */
 .a-row{border:1px solid var(--rule); border-radius:10px; margin-bottom:7px; overflow:hidden; background:var(--card);}
@@ -3250,19 +3260,21 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
 .active-deck.deck-group{
   padding-top:7px; padding-bottom:7px;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 52%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 38%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
 }
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
 body.night .active-deck.deck-group{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 40%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 28%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 9%, transparent) 78%) var(--card);
 }
-.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 62%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 20%, transparent) 78%) var(--card);}
-.active-deck.deck-group .dk-title{font-family:var(--display); font-size:calc(13.5px * var(--fs)); font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
-/* how much is inside, in place of the progress bar a deck row carries: a header states its extent, and a
-   header wearing a full deck row's furniture is just another deck row */
-.active-deck.deck-group .dg-count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; flex:none;}
+.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+/* THE HEADER IS SET IN THE ROWS' OWN FACE (Aug 2026, on request). It used to take `--display` two sizes
+   down, bolder, letterspaced and in capitals — which read as a different KIND of thing from the decks under
+   it rather than as the heading of them — so the rule that did all that is gone and `.active-deck .dk-title`
+   answers for the group header too. What still marks it as a header is the wash above and the indent below.
+   `.dg-count` — the small mono "N cards" it carried where a deck row carries its bar — went at the same
+   time: the header now carries the bar, like everything else on the list. */
 /* THE DROP TARGET while a row is being carried over the middle of another (see dropTargetAt). It has to
    read as "inside this" rather than "next to this", which is what the inset ring says and a line between
    two rows would not. */
@@ -3734,9 +3746,14 @@ button.game-tile .gt-glyph{opacity:.14;}
 .clog-chev svg{width:14px; height:14px; display:block; transition:transform .18s var(--ease);}
 .clog-day.open .clog-chev svg{transform:rotate(180deg);}
 /* …and the changelog's days, the same way */
+/* A 0fr grid row only collapses a child whose own MINIMUM height is zero, and an element's padding counts
+   towards that minimum whatever `min-height` says about its content box. With the padded <ul> as the grid
+   item, a shut day therefore stayed ~16px tall and showed a clipped line of its first entry through it —
+   which is what "the collapsible sections don't collapse fully" was (Aug 2026, reported from a phone).
+   `.clog-in` is an unpadded wrapper that clips: it is what the row sizes, and it really does go to 0. */
 .clog-body{display:grid; grid-template-rows:0fr; overflow:hidden; transition:grid-template-rows .32s var(--ease);}
 .clog-day.open .clog-body{grid-template-rows:1fr;}
-.clog-body > *{min-height:0;}
+.clog-body > *{min-height:0; overflow:hidden;}
 .clog-body ul{margin:0; padding:10px 2px 6px 20px;}
 .clog-body li{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin-bottom:7px;}
 /* about page: per-card accent hue + icon chip, forgetting-curve diagram, how-to steps, FAQ */
@@ -3784,10 +3801,12 @@ button.game-tile .gt-glyph{opacity:.14;}
 /* The fold OPENS rather than appearing (Aug 2026). Same technique as the sources fold above — a grid row
    eased from 0fr to 1fr — which is the only way to animate "as tall as the content is" without measuring
    it in JS. The padding rides on the inner element, or it would be there while the row is still zero and
-   the shut state would carry an 18px gap. */
+   the shut state would carry an 18px gap — which is exactly what it DID until Aug 2026: the padded `<p>`
+   was the grid item itself, so the comment was right and the markup was not. `.faq-in` is that inner
+   element now; see `.clog-body` above for the whole of it. */
 .faq-a{display:grid; grid-template-rows:0fr; overflow:hidden; transition:grid-template-rows .32s var(--ease);}
 .faq-item.open .faq-a{grid-template-rows:1fr;}
-.faq-a > *{min-height:0;}
+.faq-a > *{min-height:0; overflow:hidden;}
 .faq-a p{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.65; color:var(--ink-soft); margin:0; padding:10px 2px 8px;}
 .faq-a b{color:var(--ink); font-weight:600;}
 /* admin: the Mission title/paragraphs are click-to-edit */

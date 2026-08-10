@@ -825,8 +825,9 @@ const SETTINGS = {
     await page.keyboard.press("Escape");
     await page.waitForTimeout(300);
 
-    // make a group
-    await page.click("[data-newgroup]");
+    // make a group. The control left the banner in Aug 2026 (on request) for the bottom left of the deck
+    // list, and is a real button there rather than a role="button" span nested inside the banner.
+    await page.click("#b-newgroup");
     await page.waitForTimeout(300);
     await page.fill(".inline-prompt input", "Exam revision");
     await page.click(".inline-prompt .ip-ok");
@@ -835,7 +836,7 @@ const SETTINGS = {
       const g = [...document.querySelectorAll(".active-deck")].find((r) => r.dataset.drag.slice(0, 2) === "g:");
       return g ? { title: g.querySelector(".dk-title").textContent.trim(), header: g.classList.contains("deck-group"), depth: g.dataset.depth } : null;
     });
-    check("a group can be made from the banner, and arrives as a header at the top level",
+    check("a group can be made from under the deck list, and arrives as a header at the top level",
       !!made && made.title === "Exam revision" && made.header && made.depth === "0", JSON.stringify(made));
 
     /* Drag a deck onto the MIDDLE of the group. The middle band means "inside"; the edges still mean
@@ -881,8 +882,8 @@ const SETTINGS = {
       return root;
     }, geo && geo.id);
     const rootBefore = await page.evaluate((d) => {
-      const r = document.querySelector(`.active-deck[data-drag="${d}"] .dg-count`);
-      return r ? parseInt(r.textContent, 10) : null;
+      const r = document.querySelector(`.active-deck[data-drag="${d}"] .dk-prog`);
+      return r ? parseInt(r.dataset.total, 10) : null;
     }, rootOf);
     let lit = "NONE";
     if (geo) {
@@ -907,12 +908,13 @@ const SETTINGS = {
 
     /* THE CARDS MOVE WITH IT. A container counts what is drawn UNDER it: the group gains the deck's cards
        and the collection it came from stops claiming them, or the two rows would offer the reader the same
-       new cards twice on one screen with nothing to say which is which. Read off the headers' own "N cards"
-       — the figure a reader is actually shown — and compared against the app's own reckoning of the deck. */
+       new cards twice on one screen with nothing to say which is which. Read off each header's own progress
+       bar, which since Aug 2026 is what a group header carries in place of an "N cards" line: `data-total`
+       is the denominator that bar is drawn from, so it is the row's own reckoning rather than the test's. */
     const counts = await page.evaluate(([gid, root]) => {
       const num = (d) => {
-        const r = document.querySelector(`.active-deck[data-drag="${d}"] .dg-count`);
-        return r ? parseInt(r.textContent, 10) : null;
+        const r = document.querySelector(`.active-deck[data-drag="${d}"] .dk-prog`);
+        return r ? parseInt(r.dataset.total, 10) : null;
       };
       return { group: num(gid), rootAfter: num(root) };
     }, [geo && geo.gid, rootOf]);
