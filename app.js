@@ -4478,7 +4478,10 @@
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) {
       const sub = uSubOf(id);
-      return sub ? { title: sub, parent: ud.title, count: uDeckCardsIn(ud.id, sub).length }
+      /* BOTH branches expand the notes to their cards. The subdeck one did not, and the two disagreed by a
+         factor of two on a deck that both groups its notes and asks them in more than one direction — the
+         quiet miss the reverse-cards note warns about, and invisible until a deck was both at once. */
+      return sub ? { title: sub, parent: ud.title, count: uDeckStudyIds(uDeckCardsIn(ud.id, sub)).length }
                  : { title: ud.title, parent: "Your decks", count: uDeckStudyIds(ud.cardIds || []).length };
     }
     const n = NODE_BY_ID[id];
@@ -5255,13 +5258,16 @@
     if (!src) return null;
     return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, then 2,000 held until a bigger one did. The number is not a
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
      view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought: HSK 3.0 runs to 1,800 words at level 6 and
-     a deck that studies both directions cards each word twice, which is ~3,600. An over-size file is
-     REFUSED with both figures rather than silently trimmed (see uDeckImportText), so raising this cannot
-     hide anything; what a bigger number costs is the size of the file a stranger can make us parse. */
-  const UDECK_MAX_CARDS = 4000, UDECK_MAX_TERMS = 400;
+     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
+     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
+     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
+     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
+     rather than on the thing the reader studies, since what it guards against is the cost of parsing
+     somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
+     uDeckImportText), so raising this cannot hide anything. */
+  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -5875,9 +5881,22 @@
     cdbPut(uDeckRecord(d.id));
     return { ok: true, deck: d };
   }
+  /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
+     different files for different reasons. This one guards the READ: a card count can only be taken after
+     the whole file is a string and then an object, so something has to stop a 500 MB file before that. At
+     ~2 KB a note — measured over the HSK decks, whose notes are the largest here — UDECK_MAX_CARDS notes
+     come to ~24 MB, and this is set at twice that so a legitimate file at the card cap is never turned away
+     by the byte one. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
+     600 KB of; a deck refused here says nothing about how to split it, so the message now gives both
+     figures rather than "too large to be a deck". */
+  const UDECK_MAX_BYTES = 48 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
-    if (file.size > 8 * 1024 * 1024) { cb({ error: "That file is too large to be a deck." }); return; }
+    if (file.size > UDECK_MAX_BYTES) {
+      cb({ error: "That file is " + Math.round(file.size / 1048576) + " MB and a deck file may be at most "
+        + Math.round(UDECK_MAX_BYTES / 1048576) + " MB. Split it and import the parts." });
+      return;
+    }
     const fr = new FileReader();
     fr.onload = () => cb(uDeckImportText(String(fr.result || ""), false));
     fr.onerror = () => cb({ error: "Couldn't read that file." });
@@ -14528,7 +14547,9 @@
     const subs = uDeckSubs(d.id);
     if (!subs.length) return "";
     return '<div class="udeck-subs">' + subs.map((sub) => {
-      const ids = uDeckCardsIn(d.id, sub), n = ids.length;
+      // the CARDS of the subdeck's notes, not the notes — a two-way note is two cards to study, and this
+      // row sits directly under a deck row that has always counted them expanded
+      const ids = uDeckStudyIds(uDeckCardsIn(d.id, sub)), n = ids.length;
       const entry = uSubEntry(d.id, sub), on = isActive(entry);
       const studied = ids.filter(isSeen).length;
       return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +

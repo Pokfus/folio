@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.152", released: "2026-08-10T10:34Z" };
+window.FOLIO_VERSION = { v: "1.153", released: "2026-08-10T11:00Z" };
 
 window.CHANGELOG = [
   {
@@ -81,7 +81,9 @@ window.CHANGELOG = [
     items: [
       "<b>Your own decks can have subdecks.</b>",
       "<b>A card in one of your own decks can fold a section away.</b>",
-      "<b>A deck of your own can now hold up to 4,000 cards</b>, where it used to stop at 500 — enough for the largest exam level there is, studied in both directions at once.",
+      "<b>A deck of your own can now hold up to 12,000 cards, in a file of up to 48 MB</b>, where this morning it stopped at 500 — enough for a whole language syllabus, every level of it, in both directions at once.",
+      "A deck file too large to import is now turned away with its size and the limit, rather than “too large to be a deck”, and there is no longer a second size limit disagreeing with the first.",
+      "A correction to the reverse cards that shipped a few hours ago: a deck that both groups its cards into subdecks <i>and</i> asks them in more than one direction was counting each subdeck at half, so the row said 197 where the subdeck holds 394.",
       "<b>A deck can read its answers aloud by itself.</b>",
       "<b>Folio has pictures</b> — 360 cards, 771 glossary terms and 99 of the 100 artefacts now carry an illustration, where before there was exactly one on the whole site.",
       "<b>A card's picture now sits at the top right of its background</b>, with the prose running down beside it — the way a glossary term's picture has always sat in its popup.",

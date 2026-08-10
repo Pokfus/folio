@@ -2042,6 +2042,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
+- `decks/*.folio-deck.json` — **the Mandarin community decks**, five files a reader imports through the
+  Studio. Not part of the site and never loaded by it: a deck file is somebody else's content that happens
+  to have been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
+  **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), **HSK 3.0** — all seven levels of the 2026
+  standard in ONE file, 10,896 notes as seven subdecks — and two decks of what the syllabus leaves out:
+  **Mandarin phrases** (159) and **Chinese idioms** (477 chengyu). 22 MB in all.
+  · **EVERY WORD IS ONE NOTE WITH TWO CARDS** (Aug 2026, once the reverse-cards feature landed on main).
+    Each deck used to write a word out twice, once per direction, and the two rows were identical field for
+    field — the same characters, reading, character breakdown and three example sentences, which between
+    them are nine tenths of a row. The eleven HSK 3.0 files were 44.7 MB and are 19.3. What matters more
+    than the bytes is that a word is now one RECORD: a definition corrected or a better example found is
+    corrected in both directions at once, where two rows drift with nothing to say so. Each direction keeps
+    its own schedule, which is the point of a reverse card.
+  · **THE SUBDECK AXIS WENT TO THE LEVEL, and that is what let HSK 3.0 become one deck.** The old combined
+    files spent their one `sub` axis on the study DIRECTION — two subdecks, Chinese → English and English →
+    Chinese — and that is exactly what the two templates now express, so the axis came free for the thing a
+    learner actually works along. **A note's `sub` is per note, so direction can never be a subdeck again**
+    while the two directions are one note; that is the trade, and it was worth making.
+  · **THE OLD "TOO BIG FOR ONE DECK" MEASUREMENT WAS RE-TAKEN RATHER THAN CARRIED FORWARD.** The 7–9 band
+    shipped as five files because level 6 alone (3,554 rows, 7.4 MB) measured 3.6s to import and 2.7s to the
+    first card. Measured again on the whole of 3.0 at 10,896 notes: **JSON.parse 81 ms, import 10.0s once,
+    the Studio 3.2s, adding a subdeck 0.8s, home → first card 1.1s** — faster to a card than one level was,
+    because the study path touches a subdeck rather than the deck. **A conclusion drawn from a measurement
+    expires when the thing it measured changes.**
+  · **THE TWO NEW DECKS ARE DERIVED, NOT WRITTEN.** Candidates are CC-CEDICT entries not already carded in
+    any HSK deck; whether one is an IDIOM is CC-CEDICT's own `(idiom)` marker; how common each is comes from
+    the OpenSubtitles 2018 frequency list (hermitdave/FrequencyWords, CC BY-SA 4.0) and from counting the
+    Tatoeba corpus. **The two measure different things and neither replaces the other**: the frequency list
+    is SEGMENTED, so it counts a four-character idiom (which every segmenter treats as one token) and cannot
+    see a free phrase like 对我来说 at all, while Tatoeba reads running text and can.
+  · **WHAT COUNTS AS A PHRASE RATHER THAN A WORD is the hardest judgement in the two decks**, and the
+    generous version of the rule was tried and measured and thrown away — see `.claude/`'s `phrasepick.js`
+    for the whole of it. The short version: the test is on the entry's FIRST sense (奶油 is "cream" and
+    carries "(coll.) effeminate" third), it is case-SENSITIVE (run blind it matched the "US" in "United
+    States" and the "i" in "i.e."), a `(coll.)` marker is NOT a third test (it admits a colloquial WORD as
+    readily as a phrase), and **length is no guide at all** — "a three-character headword is more often a
+    construction" took the candidate list from 472 to 37,681, Chinese having an enormous stock of
+    three-character nouns. Recall is stated rather than guessed: on a probe of thirty-six expressions a
+    beginner meets, 24 are already carded in the HSK decks, 5 are not in CC-CEDICT, 2 are idioms, and the
+    rule takes 4 of the remaining 5.
+  · **AN IDIOM MOSTLY HAS NO EXAMPLE SENTENCE, and that is the subject rather than a gap**: of 5,227
+    non-syllabus idioms only 361 appear in the Tatoeba corpus even once, an idiom being literary and the
+    corpus conversational. What stands in for it is CC-CEDICT's own lit./fig. gloss and the character
+    breakdown, which for a chengyu is most of the explanation.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
@@ -7001,7 +7045,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
     contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
     would fight the sanitizer.
-  · **`UDECK_MAX_CARDS` is 2,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -7009,8 +7053,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `uDeckImportText` turns any positive value into an error naming both numbers. **The slice stays** as the
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
-    view about how big a deck should be: an HSK 3.0 level is 500–973 words and a deck studying both
-    directions cards each word twice, so ~1,900 is a legitimate size and 500 was not a real ceiling.
+    view about how big a deck should be, and it is set from the largest legitimate deck anyone has brought:
+    the whole of HSK 3.0 in one file is 10,896 notes. **IT COUNTS NOTES, NOT CARDS**, which since reverse
+    cards is a real distinction — those 10,896 notes carry 21,792 cards to study — and it is deliberately
+    left on the thing the FILE holds, since what it guards is the cost of parsing somebody else's file.
+  · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
+    48 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    whole file is a string and then an object, so something has to stop a 500 MB file before that. Two
+    things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
+    for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
+    number is how a legitimate deck comes to be refused for a reason nobody can find. At ~2 KB a note
+    (measured over these decks, whose notes are the largest here) the card cap comes to ~24 MB, and this is
+    twice that so a file at one cap can never be turned away by the other. And **the message names the
+    figures**: "too large to be a deck" tells a reader nothing they can act on, where the size and the limit
+    tell them how far to split it.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT
@@ -7340,6 +7396,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       the cram offer, `entryInfo`'s count, `uDeckStudied`, the deck-statistics scope and the rating gate all
       expand.** A missed one fails QUIETLY and differently each time — a reverse card that is never dealt, a
       progress bar over the wrong denominator, a sort that dumps every second card at the end.
+      **TWO WERE MISSED AND BOTH WERE THE SUBDECK CASE** (found Aug 2026 by the first deck that is a
+      two-way type AND grouped into subdecks — the whole of HSK 3.0 in one file): `entryInfo`'s SUB branch
+      and `udeckSubRowsHTML` each counted `uDeckCardsIn(...).length`, which is NOTES, so every subdeck row
+      read half its real size (197 where the subdeck holds 394) directly beneath a deck row that had always
+      counted them expanded. **A count that is wrong by exactly two looks like a count**, and the two
+      display sites disagreeing with each other on the same page is the only thing that showed it. The
+      lesson for the next expansion: the list above is a list of FUNCTIONS, and a function may take the
+      subdeck path and the whole-deck path through different code — check both branches, not both callers.
     · **Removing a template destroys a SCHEDULE**, which nothing else in the Studio does (a dropped field
       leaves its values, a deleted type puts its cards back to Basic intact), so it asks first. The records
       from the removed position onwards are dropped rather than shifted down — card 3's schedule is not
