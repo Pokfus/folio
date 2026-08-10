@@ -8595,6 +8595,71 @@
          an apparatus, which is what the titleOf note in the importer entry declines to do for the
          book titles for the same reason. */
     },
+    {
+      id: "homer-odyssey",
+      title: "The Odyssey",
+      subtitle: "Ὀδύσσεια",
+      author: "Homer",
+      /* Composed somewhere in the late eighth or early seventh century BCE and not datable more
+         closely than that; `year` is the single signed number the shelf's date sort needs, and the
+         prose `written` carries the hedge, as it should. The usual reckoning puts it a generation or
+         so after the Iliad, which is why −700 sits just behind that poem's −750 on a date sort. Both
+         figures are a convention for sorting rather than a claim this shelf is in a position to
+         make. */
+      written: "composed c. 725–675 BCE",
+      year: -700,
+      translator: "A. T. Murray",
+      edition: "Loeb Classical Library, London and New York, 1919",
+      /* THE SIMPLEST LICENCE OF ANY TWO-COLUMN BOOK HERE, and it is worth saying why rather than
+         letting the short paragraph look like carelessness. Everywhere else the two columns are two
+         modern hands — a translator and an editor, dying decades apart, the longer term deciding the
+         book, and the original usually the harder half. Here the Greek is not a separate edition set
+         beside the Loeb but the text printed on the facing half of the SAME 1919 volumes, credited
+         by the source to Murray himself, so one life answers for both columns: pre-1929 publication
+         clears the United States outright, Murray died in 1940 so life-plus-seventy cleared in 2011,
+         and only life-plus-a-hundred is still running, to 2041. Stated with the limit named rather
+         than smoothed away, as the Lucretius entry says: claim less, and put on the page what cannot
+         be said. See .claude/fetch-book.js for why Perseus's OTHER English Odyssey — Butler's, whose
+         own copyright is easier — is not used: what it carries is Butler revised by two living
+         scholars, which is the same trap its Iliad sets. */
+      rights:
+        "Three layers, and the two modern ones are the same hand. The poem is some twenty-seven " +
+        "centuries old and is in the public domain everywhere. A. T. Murray's translation was " +
+        "published in 1919 — before 1929 — so its United States copyright has expired, and Murray " +
+        "died in 1940, so it is also public domain wherever the term is the author's life plus " +
+        "seventy years; where the term is life plus a hundred it remains in copyright until 2041. " +
+        "The Greek is the text printed facing that translation in the same 1919 volumes, which the " +
+        "edition used here credits to Murray as its editor and for which it names no one else, so it " +
+        "stands on the same publication date and the same life. Both digital editions are prepared " +
+        "by the Perseus Digital Library at Tufts University and are released under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence. (The modern translations by " +
+        "Robert Fitzgerald, 1961, Richmond Lattimore, 1965, Robert Fagles, 1996, and Emily Wilson, " +
+        "2017, are still in copyright and are not used here, nor is George E. Dimock's 1995 revision " +
+        "of Murray.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg002/",
+      origLang: "grc",
+      origName: "Greek",
+      /* THE CHAPTER IS ONE OF THE TWENTY-FOUR BOOKS and the SECTION is the line the passage opens at,
+         which is how Homer is cited in every language — "Odyssey 9.366" is book nine, line 366. The
+         two columns divide the poem into the same 288 cards, so a card number is the same claim on
+         both sides; see .claude/fetch-book.js for the measurement (288 cards each, 23 of the 24 books
+         with byte-identical card lists, 286 of 288 numbers on both sides, and the two exceptions —
+         both in book 14, one line apart each — read passage by passage before either was moved). The
+         book division is Alexandrian rather than Homer's own, which the front matter says.
+         THE TRANSLATION IS PROSE AND THE ORIGINAL IS VERSE, which is the shape teiVerseBooks grew its
+         prose branch for and the second book to need it. */
+      chapterWord: "Book",
+      count: 24,
+      total: 24,
+      /* No `parts`, and the tempting division is the binder's rather than the poem's: the Loeb prints
+         this in two volumes, books 1–12 and 13–24, and while that break does fall where Odysseus
+         reaches Ithaca, the volume is a fact about the printing and the edition claims nothing by it.
+         The divisions a reader may have met — the Telemachy, the wanderings — are modern reading aids
+         rather than anything the poem or this edition states, and inventing two would be composing an
+         apparatus, which the importer's titleOf note declines to do for the book titles for the same
+         reason. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
