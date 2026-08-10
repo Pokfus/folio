@@ -2007,7 +2007,11 @@
     "*": new Set(["class", "dir", "lang", "title", "style"]),
     a: new Set(["href", "rel", "target"]),
     img: new Set(["src", "alt", "width", "height", "loading"]),
-    span: new Set(["data-k"]),
+    // data-k is a glossary term's key; data-say is what a `.uc-tts` control should SPEAK when that differs
+    // from the words it shows — a pinyin button that has to pronounce the characters, say. It never reaches
+    // the DOM as markup, only SpeechSynthesisUtterance.text, so the worst a deck can do with it is make the
+    // speaker say something other than what is written, which it could already do with the visible text.
+    span: new Set(["data-k", "data-say"]),
     sup: new Set(["data-fn"]),   // a footnote marker pointing into the surface's source list; the digit itself is written by wireFootnotes
   };
   // `style` survives ONLY as a colour. The rich-text ribbon's colour button emits
@@ -3345,12 +3349,19 @@
       activeEntryIds().forEach((e) => entryCardIds(e).forEach((c) => seen.add(c)));
       return [...seen];
     }
+    // one of the reader's own decks, or one subdeck of it — the cards it names, in either case
+    const own = (e) => {
+      const d = UDECKS[uDeckIdOf(e)];
+      if (!d) return null;
+      const sub = uSubOf(e);
+      return sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || []).slice();
+    };
     // the common case, and the one nearly every reader is in: nothing has been dragged anywhere
     if (!Object.keys(deckNestMap()).length) {
       if (isGroupId(id)) return [];
       if (id === COTD_ENTRY) return cotdIds();
-      const ud0 = UDECKS[uDeckIdOf(id)];
-      if (ud0) return (ud0.cardIds || []).slice();
+      const mine = own(id);
+      if (mine) return mine;
       return subtreeCardIds(NODE_BY_ID[id]);
     }
     const guard = _guard || new Set();
@@ -3360,8 +3371,8 @@
     if (!isGroupId(id)) {
       if (id === COTD_ENTRY) cotdIds().forEach((c) => out.add(c));
       else {
-        const ud = UDECKS[uDeckIdOf(id)];
-        if (ud) (ud.cardIds || []).forEach((c) => out.add(c));
+        const mine = own(id);
+        if (mine) mine.forEach((c) => out.add(c));
         else {
           /* A tree node's own subtree MINUS any branch the reader has dragged out from under it. What a row
              counts has to be what the list shows under it: a collection still claiming a deck that is now
@@ -3656,7 +3667,11 @@
     if (isGroupId(id)) return { title: groupTitle(id), parent: "Your groups", count: entryCardIds(id).length };
     if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
     const ud = UDECKS[uDeckIdOf(id)];
-    if (ud) return { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
+    if (ud) {
+      const sub = uSubOf(id);
+      return sub ? { title: sub, parent: ud.title, count: uDeckCardsIn(ud.id, sub).length }
+                 : { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
+    }
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
     // entryCardIds, not subtreeCardIds: the sheet's figures must be the row's, and a branch dragged into a
@@ -3817,7 +3832,7 @@
   function scopeEntryId(scope) {
     if (!scope) return REVIEW_ENTRY;
     if (scope.type === "deck" || scope.type === "group") return scope.id;
-    if (scope.type === "udeck") return uDeckEntry(scope.id);
+    if (scope.type === "udeck") return uSubEntry(scope.id, scope.sub || "");
     return REVIEW_ENTRY;
   }
   // today's per-deck scratch record: the Custom-study bump and the skip flag, both of which expire at
@@ -3959,8 +3974,52 @@
     for (let i = 0; i < n; i++) s += abc[(rnd ? rnd[i] : Math.floor(Math.random() * 4294967296)) % abc.length];
     return s;
   }
-  function uDeckIdOf(entryId) { return (typeof entryId === "string" && entryId.slice(0, 2) === "u:") ? entryId.slice(2) : null; }
+  /* ---------- SUBDECKS (Aug 2026, on request) ----------
+     A community deck may group its cards into subdecks, so one file can hold what would otherwise be two
+     decks — an HSK deck with a direction each way, a course with a chapter each. Each is studiable and
+     addable on its own, exactly as a curated collection's decks are.
+
+     A subdeck is a STRING ON THE CARD (`card.sub`, the subdeck's own title) and there is no list beside it:
+     the deck's subdecks are the distinct values in card order. That is the whole design decision, and it is
+     what makes the feature cost NO schema change — the title rides on each card, so it survives export,
+     import, publish and install through paths that already carry the card whole. An explicit list would
+     have needed a column on `user_decks`, which is exactly the migration card types are still waiting on.
+     What it gives up is an EMPTY subdeck, and ordering the subdecks independently of the cards; neither is
+     worth a blocked feature. Renaming one is rewriting `sub` on its cards.
+
+     An entry id is `u:<deckId>` for the whole deck and `u:<deckId>/<title>` for one subdeck. A deck id is
+     [a-z0-9]{4,16} and so can never contain the slash, which is what makes the split unambiguous; the title
+     is percent-encoded after it. Everything that only wants the DECK keeps calling uDeckIdOf and is
+     unchanged — it strips the suffix — and only the handful of places that must narrow call uSubOf. */
+  function uDeckIdOf(entryId) {
+    if (typeof entryId !== "string" || entryId.slice(0, 2) !== "u:") return null;
+    const rest = entryId.slice(2), cut = rest.indexOf("/");
+    return cut < 0 ? rest : rest.slice(0, cut);
+  }
+  function uSubOf(entryId) {
+    if (typeof entryId !== "string" || entryId.slice(0, 2) !== "u:") return "";
+    const cut = entryId.indexOf("/");
+    if (cut < 0) return "";
+    try { return decodeURIComponent(entryId.slice(cut + 1)); } catch (e) { return entryId.slice(cut + 1); }
+  }
   function uDeckEntry(deckId) { return "u:" + deckId; }
+  function uSubEntry(deckId, sub) { return sub ? "u:" + deckId + "/" + encodeURIComponent(sub) : "u:" + deckId; }
+  // the deck's subdecks: the distinct titles its cards name, in the order the cards are in
+  function uDeckSubs(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return [];
+    const out = [];
+    (d.cardIds || []).forEach((cid) => {
+      const s = (UCARDS[cid] && UCARDS[cid].sub) || "";
+      if (s && out.indexOf(s) < 0) out.push(s);
+    });
+    return out;
+  }
+  function uDeckCardsIn(deckId, sub) {
+    const d = UDECKS[deckId];
+    if (!d) return [];
+    return (d.cardIds || []).filter((cid) => (((UCARDS[cid] && UCARDS[cid].sub) || "") === sub));
+  }
   function uDeckOfCard(id) { const c = UCARDS[id]; return c && c.deckId ? UDECKS[c.deckId] || null : null; }
   function uDeckList() {
     return Object.keys(UDECKS).map((k) => UDECKS[k]).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
@@ -4243,6 +4302,9 @@
        held any carries no key at all. The field VALUES are rich HTML like everything else here; the NAMES are
        held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
        collides with something the renderer reads. */
+    // which subdeck this card is in, if any — a plain title, carried like `category`
+    const sub = sanitizePlain(raw && raw.sub).slice(0, 80).trim();
+    if (sub) c.sub = sub;
     const ty = String((raw && raw.type) || "").trim();
     if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
     if (raw && raw.fields && typeof raw.fields === "object") {
@@ -4265,7 +4327,11 @@
     if (!src) return null;
     return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
   }
-  const UDECK_MAX_CARDS = 500, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it: an HSK 3.0 level is 500 to 973 words, and a deck that studies
+     both directions cards each word twice, so the largest legitimate deck here is ~1,900. The cap is a guard
+     against a hostile or runaway file rather than a statement about how big a deck may usefully be, so it is
+     raised to a number that comfortably holds one exam level both ways and is still bounded. */
+  const UDECK_MAX_CARDS = 2000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -4299,7 +4365,8 @@
   function uDeckNormalize(rec) {
     if (!rec || typeof rec !== "object") return null;
     const meta = uDeckSanitizeMeta(rec.meta || rec);
-    const rawCards = Array.isArray(rec.cards) ? rec.cards.slice(0, UDECK_MAX_CARDS) : [];
+    const all = Array.isArray(rec.cards) ? rec.cards : [];
+    const rawCards = all.slice(0, UDECK_MAX_CARDS);
     const seen = new Set();
     const cards = [];
     rawCards.forEach((rc, i) => {
@@ -4308,7 +4375,8 @@
       seen.add(c.id);
       cards.push(c);
     });
-    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss) };
+    // what the cap cost, so a caller can SAY so — a deck quietly missing its last cards looks like a deck
+    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss), over: all.length - rawCards.length };
   }
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
@@ -4535,6 +4603,16 @@
     uDeckSave(deckId);
     return c;
   }
+  /* A card's subdeck. It is NOT one of CARD_FIELDS — those are the Basic format's thirteen, and uCardSet
+     refuses anything outside them — so it gets its own setter, the way the type and its fields do. Empty
+     puts the card back in the deck itself. */
+  function uCardSetSub(cardId, sub) {
+    const c = UCARDS[cardId];
+    if (!c) return;
+    const v = sanitizePlain(sub).slice(0, 80).trim();
+    if (v) c.sub = v; else delete c.sub;
+    if (c.deckId) uDeckSave(c.deckId);
+  }
   function uCardSet(cardId, field, value) {
     const c = UCARDS[cardId];
     if (!c || CARD_FIELDS.indexOf(field) < 0) return;
@@ -4677,7 +4755,8 @@
     delete UDECKS[deckId];
     delete UGLOSS[deckId];
     invalidateGlossIndex("deck:" + deckId);   // else a re-created deck with the same id would inherit a stale index
-    S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => x !== uDeckEntry(deckId));
+    // …and every subdeck entry of it, which share the deck id before the slash
+    S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => uDeckIdOf(x) !== deckId);
     save();
     cdbDel(deckId);
   }
@@ -4728,6 +4807,11 @@
     const norm = uDeckNormalize(raw);
     if (!norm) return { error: "That deck file couldn't be read." };
     if (!norm.cards.length) return { error: "That deck has no cards in it." };
+    /* REFUSED RATHER THAN TRUNCATED. The cap used to be applied by a silent slice, so a file over it
+       imported cleanly, said nothing, and was simply missing its last cards — which reads as a deck rather
+       than as a failure. Splitting it is the reader's call to make, and they can only make it if told. */
+    if (norm.over > 0) return { error: "That deck has " + (norm.cards.length + norm.over).toLocaleString() +
+      " cards and a deck holds at most " + UDECK_MAX_CARDS.toLocaleString() + ". Split it and import the parts." };
     UDECK_PUBLISH_KEYS.forEach((f) => { norm.meta[f] = (f === "origin") ? "mine" : (typeof norm.meta[f] === "number" ? 0 : ""); });   // an imported file is always a fresh, unpublished deck of your own
     if (asCopy || UDECKS[norm.id]) {
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and
@@ -4789,9 +4873,16 @@
       types: Object.keys(uDeckTypes(d)).length ? uDeckTypes(d) : undefined,
     };
   }
-  // PostgREST answers an unknown column with PGRST204. It means one thing here and it is worth saying plainly,
-  // since the deck itself is fine and only the templates have nowhere to go.
+  /* PostgREST answers an unknown column with PGRST204. It means one thing here and it is worth saying
+     plainly, since the deck itself is fine and only the templates have nowhere to go.
+
+     An ADMIN gets a different sentence, because they are the one person who can clear it: the fix is one
+     `alter table` in the Supabase SQL editor, and telling the site's owner "isn't set up yet" without
+     saying what to run leaves the only person who can act on it at a dead end. Everyone else is told the
+     two things they CAN do instead. */
   const TYPES_COLUMN_MSG = "This deck uses custom card types, and card-type sharing isn't set up on this site yet. Export the deck as a file, or turn its cards back to Basic to publish.";
+  const TYPES_COLUMN_MSG_ADMIN = "Card-type sharing isn't set up on this database yet. Run section 8 (CARD TYPES) of .claude/supabase-schema.sql once in the Supabase SQL editor, then publish again.";
+  function typesColumnMsg() { return isAdmin() ? TYPES_COLUMN_MSG_ADMIN : TYPES_COLUMN_MSG; }
   function typesColumnMissing(r) {
     const body = r && r.data;
     const msg = (body && (body.message || body.code)) ? String(body.message || "") + " " + String(body.code || "") : "";
@@ -4813,7 +4904,7 @@
       const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
         method: "PATCH", body: uDeckRemotePayload(d), headers: { Prefer: "return=representation" },
       });
-      if (!r.ok) return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't update the published deck.") };
+      if (!r.ok) return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't update the published deck.") };
       row = Array.isArray(r.data) ? r.data[0] : r.data;
     } else {
       let attempt = 0;
@@ -4823,7 +4914,7 @@
         if (r.ok) { row = Array.isArray(r.data) ? r.data[0] : r.data; break; }
         // 409 = the slug is taken; try another suffix before giving up
         if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
-        return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't publish the deck.") };
+        return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't publish the deck.") };
       }
       if (!row) return { error: "That deck name is taken — try a different title." };
     }
@@ -4836,6 +4927,7 @@
       CARD_FIELDS.forEach((f) => { data[f] = c[f] == null ? "" : c[f]; });
       if (Array.isArray(c.questions) && c.questions.length) data.questions = c.questions;   // the extra phrasings travel with the card
       if (Array.isArray(c.sources) && c.sources.length) data.sources = c.sources;           // and so do its citations
+      if (c.sub) data.sub = c.sub;   // and the subdeck it sits in — no column needed, it is part of the card
       if (c.image && c.image.src) data.image = c.image;
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
@@ -5632,6 +5724,36 @@
        is asserted. It reads 9.42:1 on the tightest of the sixteen light papers, the highest of any
        swatch on the shelf. */
     "Augustine of Hippo": "#3F1800",
+    /* THIS ROW REVERSES THE ONE ABOVE, AND SAYS SO RATHER THAN QUIETLY TAKING WHAT IT TURNED DOWN.
+       The City of God's entry measured a deep blue-indigo at 22.6, rejected it on Thucydides' rule as
+       a colour that would crowd an already-blue quarter "to say nothing in particular", and took the
+       dark brown instead. This is that colour. Three things changed, and only the first is really an
+       argument:
+
+       · IT IS NO LONGER A NEAR-TIE. When that row chose, three families sat at 23.0, 22.6 and 22.2 —
+         near enough that the crowding objection could decide it for free. With twenty-eight colours
+         placed the field is 22.6 against 19.9 for the next best (a magenta whose second neighbour is
+         Euripides at 21.0) and 19.7 for a green that reads 4.63:1 and so all but fails the bar
+         test-a11y.js holds the site to. Paying 2.7 points of separation and most of the contrast
+         headroom to avoid a crowded hue is a worse trade than the crowding.
+       · THE QUARTER IS CROWDED IN HUE AND EMPTY AT THIS LIGHTNESS, which the earlier row measured in
+         hue alone. Every existing blue sits at L 30–46 — Herodotus 34, Song of Roland 30, Aristotle
+         44, Machiavelli 46, Seneca 46 — and this sits at L 13.2, just above the floor. Counting
+         swatches within 40 rather than counting the hue family, it has FIVE neighbours, fewer than
+         any other family's best (the magenta and the green have six, the reds eleven and twelve).
+       · ITS NEAREST IS SNORRI, NOT HERODOTUS. 22.6 to the Prose Edda's dark violet and 24.3 to
+         Herodotus's indigo, so the Euripides test is asked about Homer against a thirteenth-century
+         Icelandic handbook of poetics, which nobody reads as a pair. Herodotus is the one real
+         question and he is the further of the two; epic verse and prose history are not a set the
+         way Sophocles and Euripides are.
+
+       THE BAND WAS NOT WIDENED, and it was tested rather than assumed: with the lightness and chroma
+       limits removed entirely the search returns a pure electric blue at chroma 133, which is exactly
+       the "bright enough to glow beside twenty muted colours" that Vyasa's row rejected and the band
+       exists to prevent. It reads 9.58:1 on the tightest of the sixteen light papers, second only to
+       the Book of Rites' 9.70 — which also corrects the claim in the row above: that brown's 9.42 was
+       not the highest on the shelf when it was written. */
+    "Homer": "#001270",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -7363,6 +7485,68 @@
         { n: 1, label: "Against the pagans", note: "Books I–X" },
         { n: 2, label: "The two cities", note: "Books XI–XXII" },
       ],
+    },
+    {
+      id: "homer-iliad",
+      title: "The Iliad",
+      subtitle: "Ἰλιάς",
+      author: "Homer",
+      /* Composed somewhere in the eighth or seventh century BCE and not datable more closely than
+         that; `year` is the single signed number the shelf's date sort needs, and the prose
+         `written` carries the hedge, as it should. Measured rather than asserted: −750 puts it
+         FOURTH on a date sort, behind Gilgamesh at −1200 and the Classic of Poetry and the Book of
+         Documents at −1000. It is the oldest work of European literature and not the oldest book on
+         this shelf, and those are easy to confuse. */
+      written: "composed c. 750–700 BCE",
+      year: -750,
+      translator: "A. T. Murray",
+      edition: "Loeb Classical Library, London and New York, 1924",
+      /* A LIMIT ON EACH COLUMN, which puts this with the Song of Roland rather than with the four
+         licences needing no qualification. Both modern layers are 1920s scholarship: they clear the
+         pre-1929 publication rule and life-plus-seventy outright, and neither has yet cleared life
+         plus a hundred. Murray died in 1940, so his translation runs to 2041; the Greek is a JOINT
+         work whose term runs from the last surviving author, and Monro died in 1905 while Allen
+         lived until 1950, so it runs to 2051 — the original being the harder half of the pair, which
+         is the Medea's position rather than a new one. Stated outright rather than smoothed into the
+         easier sentence, as the Lucretius entry says: claim less, and put on the page what cannot be
+         said. See .claude/fetch-book.js for why Perseus's OTHER English Iliad — Butler's, whose own
+         copyright is easier — is not used: what it carries is Butler revised by two living scholars. */
+      rights:
+        "Three layers, and a limit on each of the two modern ones. The poem is some twenty-seven " +
+        "centuries old and is in the public domain everywhere. A. T. Murray's translation was " +
+        "published in 1924 — before 1929 — so its United States copyright has expired, and Murray " +
+        "died in 1940, so it is also public domain wherever the term is the author's life plus " +
+        "seventy years; where the term is life plus a hundred it remains in copyright until 2041. " +
+        "The Greek is David B. Monro and Thomas W. Allen's Oxford text of 1908–1920, likewise " +
+        "published before 1929; the term for a joint work runs from the last surviving author, and " +
+        "Allen died in 1950, so it cleared life plus seventy at the start of 2021 and remains in " +
+        "copyright until 2051 where the term is life plus a hundred. Both digital editions are " +
+        "prepared by the Perseus Digital Library at Tufts University and are released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern translations " +
+        "by Richmond Lattimore, 1951, Robert Fagles, 1990, Caroline Alexander, 2015, and Emily " +
+        "Wilson, 2023, are still in copyright and are not used here, nor is William F. Wyatt's 1999 " +
+        "revision of Murray.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
+      origLang: "grc",
+      origName: "Greek",
+      /* THE CHAPTER IS ONE OF THE TWENTY-FOUR BOOKS and the SECTION is the line the passage opens at,
+         which is how Homer is cited in every language — "Iliad 1.348" is book one, line 348. The two
+         editions divide the poem into the same 425 cards, so a card number is the same claim on both
+         sides; see .claude/fetch-book.js for the measurement (425 cards each, 22 of the 24 books
+         identical, 423 of 425 numbers on both sides, and the two exceptions read passage by passage
+         before either was moved). The book division is Alexandrian rather than Homer's own, which the
+         front matter says.
+         THE TRANSLATION IS PROSE AND THE ORIGINAL IS VERSE — the first book here that way round, and
+         the reason teiVerseBooks grew a prose branch. */
+      chapterWord: "Book",
+      count: 24,
+      total: 24,
+      /* No `parts`. The Iliad has no division above the book: the twenty-four are a single run, and
+         the halves a reader may have met — the embassy, the death of Patroclus — are modern reading
+         aids rather than anything the poem or this edition states. Inventing two would be composing
+         an apparatus, which is what the titleOf note in the importer entry declines to do for the
+         book titles for the same reason. */
     },
   ];
   const BOOK_BY_ID = {};
@@ -10459,9 +10643,16 @@
     return ttsPickVoice(pool, /$^/, /$^/, null) || pool[0];
   }
   const SPEECH_RATE = 0.85;   // the same deliberate slowness the English narration reads at
+  // What a control SAYS is its own text, unless it carries data-say — which is how a control can show one
+  // thing and pronounce another (a pinyin button that has to speak the characters, since a Mandarin voice
+  // handed "bēizi" reads the romanisation rather than the word). The site's own .tr-play buttons already
+  // work this way; this is the same contract for a card type's .uc-tts.
+  function cardSpeakText(el) {
+    return String((el && (el.getAttribute("data-say") || el.textContent)) || "").replace(/\s+/g, " ").trim();
+  }
   function cardSpeak(el) {
     if (!el || !ttsSupported()) return;
-    const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+    const text = cardSpeakText(el);
     if (!text) return;
     const holder = el.closest("[lang]");
     const lang = holder ? holder.getAttribute("lang") : "";
@@ -10498,7 +10689,7 @@
     if (!scope || !ttsSupported()) return;
     scope.querySelectorAll(".uc-tts").forEach((el) => {
       if (el.getAttribute("role") === "button") return;
-      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      const text = cardSpeakText(el);   // name it by what it will SAY, which is the thing the reader is after
       el.setAttribute("role", "button");
       el.setAttribute("tabindex", "0");
       el.setAttribute("aria-label", text ? "Hear “" + text + "” read aloud" : "Read aloud");
@@ -12164,7 +12355,11 @@
         const ud = UDECKS[uDeckIdOf(id)];
         const h = groupColor(id) || hue;
         const kids = kidsOf(id);
-        rows.push({ flat: id, id, depth, parent: parentKey, drag: id, title: ud ? ud.title : COTD_TITLE, hue: h, kids });
+        // a SUBDECK of one of the reader's own decks is named by the subdeck, with its deck for context —
+        // the row is what the reader chose, and "HSK 1" over three of them says nothing about which is which
+        const sub = ud ? uSubOf(id) : "";
+        rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
+                    title: ud ? (sub || ud.title) : COTD_TITLE, sup: sub ? ud.title : "", hue: h, kids });
         orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
       };
       function walk(node, depth, parentKey, hue) {
@@ -12257,7 +12452,7 @@
               ${grip}
               ${adCounts(r.drag)}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 <span class="dg-count">${cards} ${cards === 1 ? "card" : "cards"}</span>
               </div>
               ${chev}
@@ -12270,7 +12465,7 @@
               ${grip}
               ${adCounts(r.drag)}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
               ${chev}
@@ -12645,7 +12840,8 @@
             // a GROUP the reader made has no cards of its own — see buildSession's group branch. A
             // collection drawn as a group header is still a tree node and still studies as one.
             : isGroupId(id) ? { type: "group", id }
-            : ud ? { type: "udeck", id: ud } : { type: "deck", id },
+            // …and a subdeck of one of the reader's own decks studies just that subdeck
+            : ud ? { type: "udeck", id: ud, sub: uSubOf(id) } : { type: "deck", id },
         });
       });
     });
@@ -12893,7 +13089,35 @@
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>' +
           '</button>' +
         '</div>' +
-      '</div></div>';
+      '</div>' + udeckSubRowsHTML(d) + '</div>';
+  }
+  /* A deck's subdecks, each addable and studiable on its own — the same affordances a curated collection's
+     decks get, and the reason a deck may hold two directions in one file. A deck with no subdecks renders
+     nothing here, so a flat deck's row is exactly what it always was. Cards that name no subdeck are left
+     out of this list rather than given an "Other" row: on a fully-grouped deck there are none, and on a
+     partly-grouped one the parent row already studies the whole deck. */
+  function udeckSubRowsHTML(d) {
+    const subs = uDeckSubs(d.id);
+    if (!subs.length) return "";
+    return '<div class="udeck-subs">' + subs.map((sub) => {
+      const ids = uDeckCardsIn(d.id, sub), n = ids.length;
+      const entry = uSubEntry(d.id, sub), on = isActive(entry);
+      const studied = ids.filter(isSeen).length;
+      return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
+        '" data-usubname="' + esc(sub) + '">' +
+        '<div class="collection-main">' +
+          '<div class="collection-title-row">' +
+            '<span class="deck-title">' + esc(sub) + '</span>' +
+            '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
+          '</div>' +
+          deckProgMarkup(studied, n) +
+        '</div>' +
+        '<div class="collection-actions">' +
+          '<button class="collection-add' + (on ? " added" : "") + '" data-uaddsub="' + esc(entry) +
+            '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + '</button>' +
+        '</div>' +
+      '</div>';
+    }).join("") + '</div>';
   }
   function communityLibraryHTML() {
     const decks = uDeckList();
@@ -12925,6 +13149,18 @@
     const br = root.querySelector("#udBrowse");
     if (br) br.addEventListener("click", () => route("community"));
     root.querySelectorAll("[data-uadd]").forEach((b) => wireAddButton(b, uDeckEntry(b.dataset.uadd)));
+    // a subdeck's + carries its whole entry id, the deck and the title already joined
+    root.querySelectorAll("[data-uaddsub]").forEach((b) => wireAddButton(b, b.dataset.uaddsub));
+    root.querySelectorAll("[data-usub]").forEach((rowEl) => {
+      const go = (e) => {
+        if (e && e.target.closest && e.target.closest(".collection-actions")) return;   // the + is its own control
+        const d = UDECKS[rowEl.dataset.usub];
+        if (!d) return;
+        route("study", { scope: { type: "udeck", id: d.id, sub: rowEl.dataset.usubname } });
+      };
+      rowEl.addEventListener("click", go);
+      rowEl.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); } });
+    });
     root.querySelectorAll("[data-uedit]").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
       studioState.deck = b.dataset.uedit; studioState.card = null; route("studio");
@@ -13321,10 +13557,11 @@
     } else if (scope.type === "udeck") {
       const d = UDECKS[scope.id];
       if (!d) return null;
-      const ids = (d.cardIds || []).filter((id) => !isSuspended(id));
+      const sub = scope.sub || "";
+      const ids = (sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
-      const ue = uDeckEntry(d.id);
+      const ue = uSubEntry(d.id, sub);
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(ue));
       const unseen = ids.filter((id) => !isSeen(id));
       queue = [...due, ...unseen.slice(0, Math.max(deckNewRemaining(ue), 0))];
@@ -13334,7 +13571,7 @@
       if (deckRandom(ue)) shuffle(queue);
       queue._ud = d;
       queue._unseen = unseen;
-      where = d.title;
+      where = sub ? d.title + " · " + sub : d.title;
       total = queue.length;
     } else {
       const sd = NODE_BY_ID[scope.id];
@@ -15649,9 +15886,30 @@
           types.map((t) => '<option value="' + esc(t.id) + '"' + (cur === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") +
         "</select></label>" +
       (types.length ? "" : '<span class="ces-typenote">Write your own on the <b>Card types</b> tab.</span>') +
+      /* Which subdeck this card is in. A datalist rather than a <select> because the deck's subdecks ARE
+         the titles its cards name — there is no list to pick from until a card names one, so the first
+         has to be typed, and every one after it is offered. Leaving it empty puts the card in the deck
+         itself. */
+      '<label class="ces-typepick"><span>Subdeck</span>' +
+        '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="none" ' +
+          'value="' + esc((c && c.sub) || "") + '" />' +
+        '<datalist id="cesSubList">' +
+          uDeckSubs(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
+        "</datalist></label>" +
     "</div>";
   }
   function studioWireTypePicker(host, c) {
+    const sub = host.querySelector("#cesCardSub");
+    /* On `change` rather than every keystroke: the deck's subdeck list is derived from the cards, so each
+       keystroke would otherwise create a subdeck per prefix — "E", "En", "Eng" — and the row list under the
+       deck would grow a row for each. It re-renders because the Collections page and the card list group by
+       this, and the datalist behind the box is built from it. */
+    if (sub) sub.addEventListener("change", () => {
+      const v = sub.value.trim();
+      if (v === ((c.sub || ""))) return;
+      uCardSetSub(c.id, v);
+      render();
+    });
     const sel = host.querySelector("#cesCardType");
     if (!sel) return;
     sel.addEventListener("change", () => {

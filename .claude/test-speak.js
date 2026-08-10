@@ -39,13 +39,18 @@ function check(name, ok, extra) {
 }
 
 // two decks of the same shape: one whose type marks text to be read aloud, one whose type does not
-function deckFile(id, title, speaks) {
+function deckFile(id, title, speaks, saysOther) {
+  /* saysOther gives the control a data-say: it SHOWS the meaning and PRONOUNCES the word. That is what a
+     pinyin button needs — a Mandarin voice handed a romanisation reads the letters — and it fails silently
+     if the attribute is ever dropped, because the control still works and simply says the wrong thing. */
+  const ctl = saysOther
+    ? '<span class="uc-tts" data-say="{{Word}}">{{Meaning}}</span>'
+    : '<span class="uc-tts">{{Word}}</span>';
   const type = {
     id: "vocab", name: "Vocab", speechLang: speaks ? "zh-CN" : "",
     fields: ["Word", "Meaning"],
     front: '<div class="uc-q">{{Meaning}}</div>',
-    back: "{{FrontSide}}<hr><div class=\"uc-a\">" +
-      (speaks ? '<span class="uc-tts">{{Word}}</span>' : "{{Word}}") + "</div>",
+    back: "{{FrontSide}}<hr><div class=\"uc-a\">" + (speaks ? ctl : "{{Word}}") + "</div>",
     css: ".card {\n  font-size: 17px;\n}\n",
   };
   const words = [["爱", "love"], ["八", "eight"], ["茶", "tea"]];
@@ -106,9 +111,11 @@ const holdRow = (page, match) => page.evaluate((m) => {
   check("the browser has a speech engine to gate on",
     await page.evaluate(() => !!(window.speechSynthesis && window.SpeechSynthesisUtterance)));
 
-  for (const [id, title, speaks] of [["spkdeck", "Speaking deck", true], ["quietdeck", "Quiet deck", false]]) {
+  for (const [id, title, speaks, saysOther] of [["spkdeck", "Speaking deck", true, false],
+                                                 ["quietdeck", "Quiet deck", false, false],
+                                                 ["saydeck", "Says other", true, true]]) {
     const tmp = path.join(os.tmpdir(), "folio-" + id + ".folio-deck.json");
-    fs.writeFileSync(tmp, JSON.stringify(deckFile(id, title, speaks)));
+    fs.writeFileSync(tmp, JSON.stringify(deckFile(id, title, speaks, saysOther)));
     await page.goto(base + "/#studio");
     await page.reload();
     await page.waitForTimeout(900);
@@ -209,6 +216,28 @@ const holdRow = (page, match) => page.evaluate((m) => {
   if (rev2) { await rev2.click(); await page.waitForTimeout(900); }
   check("a deck with nothing marked to read says nothing on reveal",
     (await page.evaluate(() => window.__spoke)).length === 0);
+
+  /* ---------- a control may show one thing and say another ---------- */
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(1300);
+  await (await page.$('[data-udeck="saydeck"]')).click();
+  await page.waitForTimeout(1300);
+  await page.evaluate(() => { window.__spoke = []; });
+  const rev3 = await page.$("#reveal-btn");
+  if (rev3) { await rev3.click(); await page.waitForTimeout(900); }
+  const ds = await page.evaluate(() => {
+    const el = document.querySelector(".uc-card.uc-back .uc-tts");
+    return el ? { say: el.getAttribute("data-say"), shown: el.textContent.trim(), aria: el.getAttribute("aria-label") } : null;
+  });
+  check("data-say survives the sanitiser", ds && ds.say === "\u7231", JSON.stringify(ds && ds.say));
+  check("…while the control still shows its own words", ds && ds.shown === "love", JSON.stringify(ds && ds.shown));
+  check("…and is named by what it will SAY", ds && /\u7231/.test(ds.aria || ""), JSON.stringify(ds && ds.aria));
+  await page.evaluate(() => { window.__spoke = []; });
+  await page.click(".uc-card.uc-back .uc-tts");
+  await page.waitForTimeout(800);
+  const said = await page.evaluate(() => window.__spoke);
+  check("pressing it speaks data-say, not the visible text",
+    said.length === 1 && said[0].text === "\u7231", JSON.stringify(said));
 
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
