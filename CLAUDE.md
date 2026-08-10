@@ -2415,6 +2415,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
+- `.claude/dele/` — the generator behind `decks/DELE-A1-Spanish.folio-deck.json`, a community deck rather
+  than site content: `python3 .claude/dele/run.py` (`--no-fetch` to reuse the cache). Seven stages, run by
+  `run.py`, caching four corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every
+  other helper here is Node** — a deliberate exception, committed on request so A2 and B1 are a re-run
+  against the next column rather than a rebuild. The stage headers carry what the build found, and four of
+  those findings are the ones to read before touching it. **A CONJUGATION TABLE CANNOT BE A `<table>`**:
+  `SANITIZE_TAGS` has no `table`/`tr`/`td`, and an unknown tag is UNWRAPPED rather than dropped, so the whole
+  paradigm arrives as one run-on line of words — it is a CSS grid of divs. **A REFLEXIVE'S FORMS ARE ITS BASE
+  VERB'S**, so matching a sentence on the form alone teaches the wrong word (every `llamarse` example came
+  back as `llamar` "to phone"), and requiring the pronoun merely to be NEARBY is not enough either, since
+  "él me llamará por teléfono" is a dative object of a third-person verb — the clitic has to AGREE.
+  **NEARLY EVERY SPANISH NOUN COLLIDES WITH SOME VERB FORM** (`libro` is a book and the 1sg of `librar`,
+  `vino` is wine and the preterite of `venir`), so a word is only an inflected form when NOT ONE of its
+  records carries a sense of its own; the naive test threw out `hablar` and `estar` while `libro` survived on
+  kaikki's key order alone. And **TATOEBA IS A GENERAL CORPUS**, which a deck for exam candidates cannot deal
+  out unfiltered — `millón` first came back offering "Would you have sex with me for a million dollars?".
+  **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
+  since every fault above is silent. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's

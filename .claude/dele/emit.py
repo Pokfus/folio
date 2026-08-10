@@ -1,0 +1,257 @@
+#!/usr/bin/env python3
+"""Write the .folio-deck.json file."""
+import json, time
+
+cards = json.load(open('cards.json'))
+words = json.load(open('wordlist500.json'))
+
+# Templates.  A conjugation table cannot be a <table>: the deck sanitizer's tag
+# allowlist has no table/tr/td, and an unknown tag is UNWRAPPED, so the whole
+# paradigm would arrive as one run-on line of words.  It is a CSS grid of divs.
+# The word is set as plain text with an EMPTY speaker beside it, not inside it.
+# `.uc-tts` is a bordered, filled control, so wrapping the headword put the word
+# a reader is trying to recall inside a grey box; and where the device has no
+# speech engine the site hides an empty control outright, so the word still reads.
+FRONT_ES = ('<div class="uc-word">{{Spanish}}'
+            '<span class="uc-tts uc-say" data-say="{{Word}}"></span></div>')
+FRONT_EN = '<div class="uc-ask">Say it in Spanish</div><div class="uc-field">{{English}}</div>'
+
+TAIL = ('{{#Forms}}{{Forms}}{{/Forms}}'
+        '{{#Conjugation}}<details class="uc-fold"><summary>Conjugation</summary>'
+        '<div class="uc-conj">{{Conjugation}}</div></details>{{/Conjugation}}'
+        '{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
+        '<div class="uc-exs">{{Examples}}</div></details>{{/Examples}}')
+
+BACK_ES = '{{FrontSide}}<hr><div class="uc-field">{{English}}</div>' + TAIL
+BACK_EN = ('{{FrontSide}}<hr>'
+           '<div class="uc-word">{{Spanish}}'
+           '<span class="uc-tts uc-say" data-say="{{Word}}"></span></div>'
+           + TAIL)
+
+CSS = """.card {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.uc-ask {
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.uc-word {
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.uc-say {
+  margin-left: 14px;
+  vertical-align: middle;
+  font-size: 15px;
+}
+.uc-field {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 14px auto 0;
+  padding: 11px 15px;
+  border: 1px solid var(--rule, rgba(0,0,0,0.12));
+  border-radius: 11px;
+  text-align: left;
+  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));
+}
+.uc-sense {
+  line-height: 1.6;
+}
+.uc-pos {
+  margin-right: 0.4em;
+  font-size: 0.78em;
+  font-style: italic;
+  color: var(--ink-faint, #6C6A63);
+}
+.uc-forms {
+  margin-top: 12px;
+  font-size: 14px;
+}
+.uc-fi + .uc-fi {
+  margin-left: 14px;
+}
+.uc-fl {
+  margin-right: 6px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.uc-fold {
+  margin-top: 14px;
+  text-align: left;
+}
+.uc-fold summary {
+  cursor: pointer;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  text-align: center;
+}
+.uc-conj {
+  margin-top: 10px;
+  font-size: 13px;
+}
+.uc-cj-nf {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule, rgba(0,0,0,0.10));
+}
+.uc-cj-nfi i {
+  margin-right: 6px;
+  font-size: 9.5px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.uc-cj-nfi b {
+  font-weight: 500;
+}
+.uc-cj-mood {
+  margin: 14px 0 8px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--zh, #C8453C);
+}
+.uc-cj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
+  gap: 10px 16px;
+}
+.uc-cj-h {
+  margin-bottom: 4px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--rule, rgba(0,0,0,0.10));
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+.uc-cj-r {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 1px 0;
+}
+.uc-cj-p {
+  flex: 0 0 auto;
+  font-size: 10.5px;
+  opacity: 0.5;
+}
+.uc-cj-f {
+  flex: 1 1 auto;
+  text-align: right;
+  font-weight: 500;
+}
+.uc-exs {
+  margin-top: 10px;
+}
+.uc-exi {
+  padding: 9px 0;
+  text-align: center;
+}
+.uc-exi + .uc-exi {
+  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));
+}
+.uc-exz {
+  font-size: 16px;
+  line-height: 1.55;
+}
+.uc-exz b {
+  font-weight: 600;
+  color: var(--zh, #C8453C);
+}
+.uc-exe {
+  margin-top: 3px;
+  font-size: 13px;
+  opacity: 0.62;
+}
+.uc-exsay {
+  margin-right: 7px;
+}
+"""
+
+FIELDS_ES = ['Spanish', 'Word', 'English', 'Forms', 'Conjugation', 'Examples']
+FIELDS_EN = ['English', 'Spanish', 'Word', 'Forms', 'Conjugation', 'Examples']
+
+nverbs = sum(1 for c in cards if c['sub'].startswith('Spanish') and c['fields']['Conjugation'])
+narts = sum(1 for c in cards if c['sub'].startswith('Spanish')
+            and c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las', 'el/la', 'los/las'))
+
+DESC = (
+    "Both study directions in one deck, as subdecks you can add and study separately: "
+    "Spanish → English (see the Spanish, recall the meaning) and English → Spanish "
+    "(see an English meaning, recall the Spanish). 500 words for level A1 of the DELE, the "
+    "Spanish qualification awarded by the Instituto Cervantes. "
+    "There is no official published DELE word list, so the vocabulary is taken from the body that "
+    "sets the exam: the A1 column of the Instituto Cervantes' own Plan curricular — its "
+    "inventories of Nociones específicas and Nociones generales, which are printed as two "
+    "columns, A1 and A2, so the A1 half can be read off on its own. Those inventories list topics "
+    "rather than words, so the closed classes they name without writing out — the numbers, the "
+    "days, the months, the seasons, and the pronouns, articles, prepositions and conjunctions that "
+    "are inventoried separately under Gramática — are supplied here, and the rest of the "
+    "500 is filled from the A1 column in order of frequency. "
+    f"Every noun carries its article, so the gender is learnt with the word ({narts} of them); a "
+    "noun beginning with a stressed a- is given the el it takes in the singular and the las it takes "
+    "in the plural (el agua, las aguas). "
+    f"Each of the {nverbs} verbs carries its full conjugation: the non-finite forms, all five simple "
+    "tenses of the indicative, the present, both imperfects and the future of the subjunctive, and "
+    "the imperative in both its affirmative and its negative. Six persons are shown, from yo to "
+    "ellos; the Rioplatense vos is not. Compound tenses are formed with haber and the past "
+    "participle, which is given. The seven reflexive verbs are conjugated with their pronouns "
+    "(me llamo, te llamas), including the written accent the imperative takes when the pronoun is "
+    "attached (llámate, levántense). "
+    "Every word also carries three real example sentences, chosen where possible to show three "
+    "different inflected forms rather than the same one three times, with the word picked out in "
+    "colour and a speaker beside it. "
+    "Word list: Plan curricular del Instituto Cervantes (cvc.cervantes.es). "
+    "Meanings, genders, plurals and conjugations: English Wiktionary, via the kaikki.org extraction "
+    "(CC BY-SA 4.0). Frequency ordering: a word list built from OpenSubtitles (hermitdave/"
+    "FrequencyWords, CC BY-SA 4.0). Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+)
+
+meta = {
+    'id': 'delea1',
+    'title': 'DELE A1 — Spanish',
+    'subtitle': '500 words · both directions, as two subdecks',
+    'desc': DESC,
+    'author': '',
+    'language': 'en',
+    'tags': ['spanish', 'dele', 'a1', 'cefr', 'vocabulary'],
+    'glossMode': 'site',
+    'types': {
+        'es-to-en': {'id': 'es-to-en', 'name': 'Spanish → English', 'speechLang': 'es-ES',
+                     'fields': FIELDS_ES, 'front': FRONT_ES, 'back': BACK_ES, 'css': CSS},
+        'en-to-es': {'id': 'en-to-es', 'name': 'English → Spanish', 'speechLang': 'es-ES',
+                     'fields': FIELDS_EN, 'front': FRONT_EN, 'back': BACK_EN, 'css': CSS},
+    },
+    'version': 1,
+    'createdAt': 1786665600000,
+    'updatedAt': 1786665600000,
+    'forkedFrom': None,
+}
+
+deck = {'folioDeck': 1, 'exportedAt': 1786665600000, 'meta': meta,
+        'cards': cards, 'gloss': {}}
+
+# stages run with the cache as the working directory: .claude/dele-cache/
+import os
+out = os.path.abspath(os.path.join('..', '..', 'decks', 'DELE-A1-Spanish.folio-deck.json'))
+with open(out, 'w', encoding='utf-8') as f:
+    json.dump(deck, f, ensure_ascii=False)
+print('wrote', out)
+print('cards', len(cards), 'verbs with conjugation', nverbs, 'nouns with article', narts)
+print('bytes', os.path.getsize(out))
