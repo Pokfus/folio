@@ -6369,6 +6369,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
     contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
     would fight the sanitizer.
+  · **`UDECK_MAX_CARDS` is 2,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+    applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
+    recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
+    the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
+    reader who cannot find a word. `uDeckNormalize` now returns `over` (how many the cap cost) and
+    `uDeckImportText` turns any positive value into an error naming both numbers. **The slice stays** as the
+    defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
+    a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
+    view about how big a deck should be: an HSK 3.0 level is 500–973 words and a deck studying both
+    directions cards each word twice, so ~1,900 is a legitimate size and 500 was not a real ceiling.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT

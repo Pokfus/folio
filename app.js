@@ -4081,7 +4081,11 @@
     if (!src) return null;
     return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
   }
-  const UDECK_MAX_CARDS = 500, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it: an HSK 3.0 level is 500 to 973 words, and a deck that studies
+     both directions cards each word twice, so the largest legitimate deck here is ~1,900. The cap is a guard
+     against a hostile or runaway file rather than a statement about how big a deck may usefully be, so it is
+     raised to a number that comfortably holds one exam level both ways and is still bounded. */
+  const UDECK_MAX_CARDS = 2000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -4115,7 +4119,8 @@
   function uDeckNormalize(rec) {
     if (!rec || typeof rec !== "object") return null;
     const meta = uDeckSanitizeMeta(rec.meta || rec);
-    const rawCards = Array.isArray(rec.cards) ? rec.cards.slice(0, UDECK_MAX_CARDS) : [];
+    const all = Array.isArray(rec.cards) ? rec.cards : [];
+    const rawCards = all.slice(0, UDECK_MAX_CARDS);
     const seen = new Set();
     const cards = [];
     rawCards.forEach((rc, i) => {
@@ -4124,7 +4129,8 @@
       seen.add(c.id);
       cards.push(c);
     });
-    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss) };
+    // what the cap cost, so a caller can SAY so — a deck quietly missing its last cards looks like a deck
+    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss), over: all.length - rawCards.length };
   }
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
@@ -4539,6 +4545,11 @@
     const norm = uDeckNormalize(raw);
     if (!norm) return { error: "That deck file couldn't be read." };
     if (!norm.cards.length) return { error: "That deck has no cards in it." };
+    /* REFUSED RATHER THAN TRUNCATED. The cap used to be applied by a silent slice, so a file over it
+       imported cleanly, said nothing, and was simply missing its last cards — which reads as a deck rather
+       than as a failure. Splitting it is the reader's call to make, and they can only make it if told. */
+    if (norm.over > 0) return { error: "That deck has " + (norm.cards.length + norm.over).toLocaleString() +
+      " cards and a deck holds at most " + UDECK_MAX_CARDS.toLocaleString() + ". Split it and import the parts." };
     UDECK_PUBLISH_KEYS.forEach((f) => { norm.meta[f] = (f === "origin") ? "mine" : (typeof norm.meta[f] === "number" ? 0 : ""); });   // an imported file is always a fresh, unpublished deck of your own
     if (asCopy || UDECKS[norm.id]) {
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and

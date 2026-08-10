@@ -1940,7 +1940,7 @@
    "id": "u_hsk1entozh_80",
    "num": "80",
    "category": "HSK 1",
-   "question": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael 两</div>",
+   "question": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael</div>",
    "answer": "钱 / 錢 — qián",
    "answerDate": "",
    "traditional": "錢",
@@ -1952,7 +1952,7 @@
    "answerText": "钱 / 錢 qián",
    "type": "en-to-zh",
    "fields": {
-    "English": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael 两</div>",
+    "English": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael</div>",
     "Simplified": "钱",
     "Traditional": "錢",
     "Pinyin": "qián",
