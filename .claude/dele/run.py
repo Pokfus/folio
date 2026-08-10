@@ -13,7 +13,7 @@ shipped A1 deck contains, read out of `decks/DELE-A1-Spanish.folio-deck.json`
 rather than out of a working file, so the two can never drift apart and a
 rebuilt A2 cannot start teaching a word A1 already covers.
 
-Downloads its four sources into `.claude/dele-cache/` (gitignored) and leaves
+Downloads its sources into `.claude/dele-cache/` (gitignored) and leaves
 them there, so a re-run costs nothing.  The largest is the Wiktionary dump at
 about 1 GB; the rest come to some 180 MB.  Not part of the site.
 
@@ -54,9 +54,13 @@ PCIC = 'https://cvc.cervantes.es/ensenanza/biblioteca_ele/plan_curricular/nivele
 TATOEBA = 'https://downloads.tatoeba.org/exports/per_language/'
 
 # (local name, url, bunzip2?)
+# The Nociones inventories are printed two levels to a page, A1 beside A2 and B1
+# beside B2, so a level needs one pair and both pairs are kept in the cache.
 SOURCES = [
     ('pcic_a1a2.htm',      PCIC + '09_nociones_especificas_inventario_a1-a2.htm', False),
     ('pcic_gen_a1a2.htm',  PCIC + '08_nociones_generales_inventario_a1-a2.htm',   False),
+    ('pcic_b1b2.htm',      PCIC + '09_nociones_especificas_inventario_b1-b2.htm', False),
+    ('pcic_gen_b1b2.htm',  PCIC + '08_nociones_generales_inventario_b1-b2.htm',   False),
     ('es_50k.txt',         'https://raw.githubusercontent.com/hermitdave/FrequencyWords/'
                            'master/content/2018/es/es_50k.txt',                   False),
     ('kaikki-es.jsonl',    'https://kaikki.org/dictionary/Spanish/'
@@ -118,7 +122,7 @@ def main():
     # the words are chosen -- derived from the selection rather than named here,
     # or a level whose inventory lists different reflexives would silently get
     # no conjugation for them.
-    chosen = json.load(open(lvlf('wordlist500.json')))
+    chosen = json.load(open(lvlf('wordlist.json')))
     bases = sorted({k[:-2] for k in chosen if k.endswith(('arse', 'erse', 'irse'))})
     print(f'    reflexives: {len(bases)} base verbs to fetch')
     json.dump(bases, open(lvlf('bases.json'), 'w'), ensure_ascii=False)
@@ -134,7 +138,7 @@ def main():
     # it fires on the rarer words a smaller pool pulls in.
     for attempt in range(4):
         ex = json.load(open(lvlf('examples.json')))
-        chosen = json.load(open(lvlf('wordlist500.json')))
+        chosen = json.load(open(lvlf('wordlist.json')))
         empty = [k for k in chosen if not ex.get(k)]
         if not empty:
             break
@@ -147,7 +151,7 @@ def main():
         print(f'    no sentences for {", ".join(empty)} -- swapping in '
               f'{", ".join(spare[:len(empty)])}')
         keep = [k for k in chosen if k not in set(empty)] + spare[:len(empty)]
-        json.dump(keep, open(lvlf('wordlist500.json'), 'w'), ensure_ascii=False, indent=0)
+        json.dump(keep, open(lvlf('wordlist.json'), 'w'), ensure_ascii=False, indent=0)
         bases = sorted({k[:-2] for k in keep if k.endswith(('arse', 'erse', 'irse'))})
         json.dump(bases, open(lvlf('bases.json'), 'w'), ensure_ascii=False)
         sys.argv = ['extract_kaikki.py', lvlf('bases.json'), lvlf('wikt_bases.json')]

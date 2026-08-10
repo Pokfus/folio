@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Turn the Instituto Cervantes A1 inventory cells into candidate lemmas.
+"""Turn this level's Instituto Cervantes inventory cells into candidate lemmas.
 
 The cells are not a word list: they mix vocabulary with collocation frames
 (`ser ~ alto/bajo`), metalinguistic labels (`[números cardinales]`),
@@ -7,14 +7,15 @@ cross-references (`[v. Gramática 9.1.1.]`) and worked example sentences
 (`Hay mucha gente en la calle.`).  Everything here is about separating those.
 """
 import json, re, sys, html as _html
-from dele_level import COLUMN, f as lvlf
+from dele_level import COLUMN, PAGES, f as lvlf
 
 def cells(fn):
     """This level's half of a two-column inventory page.
 
-    Each notion is a table with an A1 column beside an A2 one, and the cells
-    are tied to their column by a `headers` attribute ending in a1 or a2 --
-    which is the only thing on the page that separates the two levels.
+    Each notion is a table with one level's column beside the next one's -- A1
+    beside A2, B1 beside B2 -- and the cells are tied to their column by a
+    `headers` attribute ending in a1/a2/b1/b2, which is the only thing on the
+    page that separates the two.
     """
     s = open(fn, encoding='utf-8').read()
     out = []
@@ -26,8 +27,9 @@ def cells(fn):
                 out.append(t)
     return out
 
-items = ([('esp', x) for x in cells('pcic_a1a2.htm')] +
-         [('gen', x) for x in cells('pcic_gen_a1a2.htm')])
+P = PAGES[COLUMN]
+items = ([('esp', x) for x in cells(f'pcic_{P}.htm')] +
+         [('gen', x) for x in cells(f'pcic_gen_{P}.htm')])
 
 CAP = r'[A-ZÁÉÍÓÚÜÑ]'
 

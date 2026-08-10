@@ -3,7 +3,7 @@
 import json, re, html
 from dele_level import LEVEL, DECK_IDS, f as lvlf
 
-words = json.load(open(lvlf('wordlist500.json')))
+words = json.load(open(lvlf('wordlist.json')))
 W = json.load(open(lvlf('wikt.json')))
 BASES = json.load(open(lvlf('wikt_bases.json')))
 EX = json.load(open(lvlf('examples.json')))
@@ -98,8 +98,12 @@ report_missing(words, 'build_deck.py')
 # and `quizás`, whose entire Wiktionary entry is "alternative form of quizá" --
 # a pointer at a word the extraction does not carry, so there is nothing to
 # follow it to
+# and `hecho`, whose commonest meaning by far -- "el hecho de que", "de hecho" --
+# Wiktionary tags ARCHAIC, so the sense filter drops it and the card came out
+# "act, deed"
 AUTHORED = {'gustar': ['to like (literally: to please)'],
-            'quizás': ['maybe, perhaps']}
+            'quizás': ['maybe, perhaps'],
+            'hecho': ['fact', 'act, deed']}
 
 # grammar words Wiktionary files as a form of another word ("muy: apocopic form
 # of mucho"), which leaves the card with no meaning on it
@@ -206,10 +210,31 @@ def merges_with(word, fem, rec, vocab):
 # `la de`, `la te` and `la ese`, glossed "the name of the Latin script letter
 # D/d".  Each read as a perfectly well-formed noun card with an article and a
 # plural, which is why nothing downstream complained.
+#
+# AND A PAST PARTICIPLE IS FILED BEFORE THE NOUN IT SHARES ITS SPELLING WITH,
+# which is a whole class rather than a handful once the vocabulary gets past
+# A2: `hecho` came out as "done, completed" rather than "the fact", `sentido`
+# as "deeply felt", `vestido` as "dressed" rather than "a dress", `atentado`
+# as "moderate, prudent" rather than "an attack".  Each is a well-formed
+# adjective card carrying a real sense of the word -- and the wrong one for a
+# learner, since it is the noun the inventory lists.  They are named because
+# the test cannot be mechanical: `preparado`, `ocupado`, `perdido`, `mojado`
+# and thirty more of the same shape genuinely want the adjective.
 FORCE_POS = {'café': 'noun', 'periódico': 'noun', 'móvil': 'noun', 'chico': 'noun',
              'norte': 'noun', 'animal': 'noun', 'tarde': 'noun',
              'primero': 'adj', 'guapo': 'adj',
-             'de': 'prep', 'te': 'pron', 'ese': 'det'}
+             'de': 'prep', 'te': 'pron', 'ese': 'det',
+             # B1
+             'titular': 'noun', 'hecho': 'noun', 'sentido': 'noun', 'vestido': 'noun',
+             'ladrón': 'noun', 'tamaño': 'noun', 'plata': 'noun', 'ayudante': 'noun',
+             'aniversario': 'noun', 'horario': 'noun', 'presupuesto': 'noun',
+             'ciudadano': 'noun', 'contenedor': 'noun', 'aficionado': 'noun',
+             'atentado': 'noun', 'cereza': 'noun', 'contestador': 'noun',
+             'buscador': 'noun', 'sustituto': 'noun', 'cazador': 'noun',
+             'pescador': 'noun', 'veterinario': 'noun', 'bailarín': 'noun',
+             'vigilante': 'noun', 'perdedor': 'noun', 'ganador': 'noun',
+             'voluntario': 'noun', 'diario': 'noun', 'anciano': 'noun',
+             'resfriado': 'noun', 'anular': 'verb'}
 
 def has_real_sense(r):
     return any(not (x.get('form_of') or x.get('alt_of')) for x in r.get('senses', []))

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Core A1 vocabulary the Cervantes inventory carries as FRAMES rather than as words.
+"""Core vocabulary the Cervantes inventory carries as FRAMES rather than as words.
 
 The A1 column of the Plan curricular is a list of notions, so a whole closed class
 can appear in it as one bracketed label -- `[números cardinales]`, `[día de la
@@ -112,8 +112,156 @@ sorprendente increíble estupendo horrible maravilloso""".split()
 
 A2_ALL = A2_GRAMMAR + A2_VERBS + A2_EVERYDAY
 
+# ---------------------------------------------------------------- B1
+# B1 is the CEFR's step from surviving to holding a conversation: giving reasons
+# and opinions, narrating, describing hopes and plans.  Its column of the
+# Nociones inventories is more than twice the size of A2's and carries most of
+# the topical vocabulary on its own -- what it still cannot carry is what it
+# could not carry at either level below: the DISCOURSE layer, inventoried
+# separately under Gramática and under Tácticas pragmáticas.  At B1 that layer
+# is most of what separates the level from A2, so it is the largest supplement
+# of the three, and much of it is MULTI-WORD (`sin embargo`, `a pesar de`),
+# which is exactly the shape the inventory writes as a frame.  A phrase with no
+# Wiktionary entry simply falls out of the pool.
+# ONE ITEM PER LINE, because half of these are PHRASES.  Every other list here is
+# `.split()` on whitespace, which is right for single words and silently tears a
+# phrase into its pieces: `o sea` became `o` and `sea`, and `sea` is the present
+# subjunctive of `ser` -- which the closed-class escape hatch then waved past the
+# inflection test, so the deck grew a card for a verb form with no meaning on it.
+def _lines(s):
+    return [x.strip() for x in s.strip().splitlines() if x.strip()]
+
+B1_DISCOURSE = _lines("""
+sin embargo
+no obstante
+por lo tanto
+en cambio
+asimismo
+es decir
+o sea
+de hecho
+en realidad
+por supuesto
+desde luego
+en resumen
+por ejemplo
+en primer lugar
+mientras tanto
+a pesar de
+siempre que
+a menos que
+en cuanto
+puesto que
+ya que
+dado que
+debido a
+gracias a
+por si acaso
+de modo que
+de manera que
+así que
+en fin
+por cierto
+tal vez
+ojalá
+siquiera
+aun
+sobre todo
+más bien
+al menos
+por lo menos
+en absoluto
+de repente
+de pronto
+a menudo
+a veces
+en seguida
+de vez en cuando
+poco a poco
+por fin
+de nuevo
+otra vez
+quizá
+conforme
+respecto
+cual
+quien
+cuyo
+alrededor
+mediante
+frente
+ante
+tras
+apenas
+suficiente
+""")
+
+B1_VERBS = """lograr suponer tratar resultar mantener permitir impedir evitar alcanzar
+sugerir proponer aconsejar advertir prometer negar admitir reconocer discutir opinar
+comentar describir resumir comparar rechazar aceptar apoyar criticar exigir reclamar
+influir contribuir aumentar disminuir reducir desarrollar producir fabricar construir
+destruir reparar sustituir invertir gastar cobrar contratar despedir emplear
+agradecer disculpar perdonar animar molestar preocupar sorprender emocionar
+aprovechar arriesgar intentar procurar pretender conseguir merecer soportar aguantar
+resistir superar fracasar triunfar grabar imprimir descargar conectar instalar
+programar diseñar recorrer atravesar reservar alquilar trasladar firmar rellenar
+solicitar aprobar suspender curar recetar operar concluir señalar destacar añadir
+citar mencionar plantear resolver suceder surgir provocar causar afectar implicar
+considerar establecer incluir obtener realizar suponer indicar demostrar comprobar
+observar analizar estudiar investigar descubrir inventar publicar traducir corregir
+elegir escoger votar gobernar dirigir organizar coordinar colaborar participar
+competir entrenar ensayar interpretar actuar dibujar pintar componer
+arrepentirse atreverse enterarse fijarse acostumbrarse adaptarse esforzarse
+comprometerse mudarse matricularse jubilarse""".split()
+
+B1_NOUNS = """sociedad gobierno política economía cultura educación ambiente contaminación
+desarrollo crecimiento crisis desempleo paro pobreza riqueza igualdad desigualdad
+libertad justicia derecho deber ley norma delito castigo tribunal juicio
+ciudadano población habitante inmigración emigración guerra paz ejército
+elección voto partido ministro alcalde ayuntamiento
+negocio industria comercio producto consumo consumidor
+publicidad marca calidad cantidad impuesto beneficio pérdida
+investigación ciencia tecnología red conexión archivo pantalla teclado
+energía electricidad combustible residuo reciclaje basura clima temperatura
+naturaleza especie selva océano
+tratamiento síntoma vacuna virus farmacia clínica
+carrera título asignatura examen nota beca
+literatura novela poesía cuento autor personaje argumento
+pintura escultura exposición obra artista
+guion escenario público espectáculo escena
+periodismo titular reportaje canal emisora
+sentimiento emoción actitud comportamiento personalidad
+esperanza ilusión decepción preocupación tensión
+relación amistad pareja matrimonio divorcio convivencia
+acuerdo desacuerdo discusión conflicto solución
+ventaja inconveniente riesgo peligro seguridad
+capacidad habilidad talento
+propósito objetivo meta etapa proceso
+efecto medida cifra dato detalle ejemplo
+época siglo década generación juventud vejez infancia
+barrio vivienda edificio obra ruido silencio
+huelga sindicato jornada horario descanso vacaciones
+mensaje contraseña usuario correo""".split()
+
+B1_ADJ = """amplio escaso diverso semejante distinto frecuente habitual constante evidente
+obvio complejo sencillo complicado exigente adecuado apropiado conveniente
+imprescindible suficiente insuficiente eficaz útil inútil
+razonable lógico absurdo justo injusto legal ilegal público privado
+actual reciente tradicional innovador
+económico social cultural natural artificial ambiental
+mental físico emocional intelectual profesional laboral personal
+capaz incapaz dispuesto consciente responsable
+grave leve profundo superficial escaso abundante
+harto lleno vacío disponible ocupado gratuito
+propio ajeno común general particular concreto abstracto""".split()
+
+B1_ALL = B1_DISCOURSE + B1_VERBS + B1_NOUNS + B1_ADJ
+
 from dele_level import LEVEL as _LEVEL
-if _LEVEL == 'a2':
+if _LEVEL == 'b1':
+    ESSENTIAL_LIST = B1_DISCOURSE
+    ALL = B1_ALL
+elif _LEVEL == 'a2':
     ESSENTIAL_LIST = A2_GRAMMAR
     ALL = A2_ALL
 else:

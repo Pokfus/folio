@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Choose the 500 A1 words from the validated pool."""
+"""Choose this level's words from the validated pool."""
 import json, re
 import supplement as S0
-from dele_level import LEVEL, f as lvlf, words_below
+from dele_level import LEVEL, TARGET, f as lvlf, words_below
 
 w = json.load(open(lvlf('wikt.json')))
 pcic = set(json.load(open(lvlf('pcic_candidates.json'))).keys())
@@ -208,14 +208,14 @@ take(['huevo'])
 take(sorted([k for k in pool if k in suppset], key=rank))
 take(sorted(pool, key=rank))
 
-final = chosen[:500]
+final = chosen[:TARGET[LEVEL]]
 print('essential   :', len(ESSENTIAL))
 print('chosen      :', len(chosen), '-> taking', len(final))
 src = lambda k: ('C' if k in pcic else '') + ('S' if k in suppset else '')
 from collections import Counter
 print('sources     :', Counter(src(k) for k in final))
 pass
-json.dump(final, open(lvlf('wordlist500.json'), 'w'), ensure_ascii=False, indent=0)
+json.dump(final, open(lvlf('wordlist.json'), 'w'), ensure_ascii=False, indent=0)
 # the whole ranked order, so the driver can swap in a replacement for a word the
 # sentence corpus turns out not to cover
 json.dump(chosen, open(lvlf('ranked.json'), 'w'), ensure_ascii=False, indent=0)

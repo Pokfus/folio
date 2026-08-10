@@ -2415,20 +2415,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/dele/` — the generator behind `decks/DELE-A1-Spanish.folio-deck.json` and
-  `decks/DELE-A2-Spanish.folio-deck.json`, community decks rather than site content:
-  `python3 .claude/dele/run.py [--level a2] [--no-fetch]`. Seven stages, run by `run.py`, caching four
-  corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every other helper here is
-  Node** — a deliberate exception, committed on request so A2 and B1 are a re-run against the next column
-  rather than a rebuild.
+- `.claude/dele/` — the generator behind `decks/DELE-A1-Spanish.folio-deck.json`,
+  `decks/DELE-A2-Spanish.folio-deck.json` and `decks/DELE-B1-Spanish.folio-deck.json`, community decks
+  rather than site content: `python3 .claude/dele/run.py [--level a2|b1] [--no-fetch]`. Seven stages, run
+  by `run.py`, caching its corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where
+  every other helper here is Node** — a deliberate exception, committed on request so a further level is a
+  re-run against the next column rather than a rebuild, which is exactly what B1 turned out to be.
   **ONE LEVEL PER RUN** (`dele_level` reads the level once, at import), and **a level is taught on top of
-  the ones below it**: A2 excludes every word the SHIPPED A1 deck contains, read out of the deck file
-  rather than a working file, so the two cannot drift and a rebuilt A2 cannot start teaching a word A1
-  already covers — **both halves of a paired headword**, so A2 cannot re-teach a feminine A1 already shows
-  (that exclusion is what took four feminine adjectives out of A2 and let four new words in). The
-  intermediates are level-suffixed so both can sit in one cache.
-  The stage headers carry what the build found, and seven of those findings are the ones to read before
+  the ones below it**: a level excludes every word the SHIPPED decks below it contain, read out of the
+  deck files rather than a working file, so they cannot drift and a rebuilt level cannot start teaching a
+  word a lower one already covers — **both halves of a paired headword**, so A2 cannot re-teach a feminine
+  A1 already shows (that exclusion is what took four feminine adjectives out of A2 and let four new words
+  in). The intermediates are level-suffixed so all three can sit in one cache. **A level is four table
+  rows in `dele_level`** — its title, deck id and file, which levels are below it, how many words it
+  teaches (`TARGET`: 500, 500, 1,000) and which pair of inventory pages its column is printed on (`PAGES`:
+  A1 and A2 share a page, B1 and B2 share another) — plus a supplement list and, at B1, a batch of
+  reflexives.
+  The stage headers carry what the build found, and nine of those findings are the ones to read before
   touching it.
+  **ONE ITEM PER LINE WHERE AN ITEM MAY BE A PHRASE, and this is the fault B1 introduced and caught in one
+  run.** Every supplement list is a triple-quoted block ending in `.split()`, which is right for single
+  words and silently tears a phrase into its pieces: B1's discourse layer is half phrases (`sin embargo`,
+  `a pesar de`, `de vez en cuando`), and `o sea` became `o` and `sea` — where `sea` is the present
+  subjunctive of `ser`, which the closed-class escape hatch then waved past the inflection test, so the
+  deck grew a card for a verb form with no meaning on it. It was loud rather than quiet only because
+  `build_deck` refuses to write a card with no meaning. `_lines()` keeps the phrases whole; the rest of
+  the pipeline already handled them (`PHRASES` in `examples.py` matches them as substrings), so the 44
+  that survive are the best cards in the deck.
+  **A PAST PARTICIPLE IS FILED BEFORE THE NOUN IT SHARES ITS SPELLING WITH** (`FORCE_POS`), which is a
+  handful of words at A1 and a whole class once the vocabulary gets past A2: `hecho` came out as "done,
+  completed" rather than "the fact", `sentido` as "deeply felt", `vestido` as "dressed" rather than "a
+  dress", `atentado` as "moderate, prudent" rather than "an attack". Each is a well-formed adjective card
+  carrying a real sense of the word and the wrong one for a learner. **The test cannot be mechanical** —
+  `preparado`, `ocupado`, `perdido`, `mojado` and thirty more of the same shape genuinely want the
+  adjective — so the thirty that do not are named, and forcing the noun IMPROVES the gendered pairing for
+  free (`el ciudadano, la ciudadana`, `el aficionado, la aficionada`). Watch for the tag as well as the
+  order: `hecho`'s "fact" sense is tagged **archaic** in Wiktionary, which is wrong and which the sense
+  filter obeys, so that one is authored.
   **A CARD ID MUST CARRY ITS DECK, and this is the loudest silent fault the generator has had** (Aug 2026).
   Both levels wrote `u_delea1_N`, because the id was a literal in a file first written for A1 — and a deck
   FILE import only mints fresh card ids when the DECK id already exists, which `delea2` does not. So

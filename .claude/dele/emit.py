@@ -4,7 +4,7 @@ import json, time
 from dele_level import LEVEL, f as lvlf, TITLES, DECK_IDS, DECK_FILES
 
 cards = json.load(open(lvlf('cards.json')))
-words = json.load(open(lvlf('wordlist500.json')))
+words = json.load(open(lvlf('wordlist.json')))
 
 # Templates.  A conjugation table cannot be a <table>: the deck sanitizer's tag
 # allowlist has no table/tr/td, and an unknown tag is UNWRAPPED, so the whole
@@ -227,9 +227,15 @@ npairs = sum(1 for c in cards if c['sub'].startswith('Spanish')
              and ', ' in c['fields']['Spanish'])
 
 LEVEL_U = LEVEL.upper()
-BELOW_NOTE = ('' if LEVEL == 'a1' else
-              ' None of them appears in the A1 deck, so the two together come to 1,000 words.')
-COLUMN_NOTE = ('the A1 column' if LEVEL == 'a1' else 'the A2 column')
+NWORDS = len(words)
+NW = f'{NWORDS:,}'
+BELOW_NOTE = {
+    'a1': '',
+    'a2': ' None of them appears in the A1 deck, so the two together come to 1,000 words.',
+    'b1': ' None of them appears in the A1 or A2 deck, so the three together come to 2,000 words.',
+}[LEVEL]
+COLUMN_NOTE = f'the {LEVEL_U} column'
+PAIRED_WITH = 'A1 and A2' if LEVEL in ('a1', 'a2') else 'B1 and B2'
 CLOSED_NOTE = (
     "Those inventories list topics rather than words, so the closed classes they name without "
     "writing out — the numbers, the days, the months, the seasons, and the pronouns, articles, "
@@ -239,17 +245,23 @@ CLOSED_NOTE = (
     "Those inventories list topics rather than words, and the grammar layer is inventoried "
     "separately under Gramática, so the connectives, comparatives and everyday verbs an A2 "
     "candidate is expected to have are supplied here; the rest of the 500 is filled from the A2 "
-    "column in order of frequency. ")
+    "column in order of frequency. "
+    if LEVEL == 'a2' else
+    "Those inventories list topics rather than words, and what they cannot carry at this level is "
+    "the discourse layer — the connectives and markers a B1 candidate is expected to join an "
+    "argument with, inventoried separately under Gramática and Tácticas pragmáticas — so those are "
+    "supplied here, several of them as the phrases they are (sin embargo, a pesar de, de vez en "
+    f"cuando); the rest of the {NW} is filled from the B1 column in order of frequency. ")
 
 DESC = (
     "Both study directions in one deck, as subdecks you can add and study separately: "
     "Spanish → English (see the Spanish, recall the meaning) and English → Spanish "
-    f"(see an English meaning, recall the Spanish). 500 words for level {LEVEL_U} of the DELE, the "
+    f"(see an English meaning, recall the Spanish). {NW} words for level {LEVEL_U} of the DELE, the "
     f"Spanish qualification awarded by the Instituto Cervantes.{BELOW_NOTE} "
     "There is no official published DELE word list, so the vocabulary is taken from the body that "
     f"sets the exam: {COLUMN_NOTE} of the Instituto Cervantes' own Plan curricular — its "
     "inventories of Nociones específicas and Nociones generales, which are printed as two "
-    f"columns, A1 and A2, so the {LEVEL_U} half can be read off on its own. "
+    f"columns, {PAIRED_WITH}, so the {LEVEL_U} half can be read off on its own. "
     + CLOSED_NOTE +
     f"Every noun carries its article, so the gender is learnt with the word ({narts} of them), and "
     "its plural sits directly beneath it; a noun beginning with a stressed a- is given the el it "
@@ -277,7 +289,9 @@ meta = {
     'id': DECK_IDS[LEVEL],
     'title': TITLES[LEVEL],
     'subtitle': ('500 words · both directions, as two subdecks' if LEVEL == 'a1' else
-                 '500 more words, none of them in A1 · both directions, as two subdecks'),
+                 '500 more words, none of them in A1 · both directions, as two subdecks'
+                 if LEVEL == 'a2' else
+                 f'{NW} more words, none of them in A1 or A2 · both directions, as two subdecks'),
     'desc': DESC,
     'author': '',
     'language': 'en',
@@ -304,6 +318,6 @@ out = os.path.abspath(os.path.join('..', '..', 'decks', DECK_FILES[LEVEL]))
 with open(out, 'w', encoding='utf-8') as f:
     json.dump(deck, f, ensure_ascii=False)
 print('wrote', out)
-print('cards', len(cards), 'verbs with conjugation', nverbs, 'nouns with article', narts,
+print('cards', len(cards), 'words', NWORDS, 'verbs with conjugation', nverbs, 'nouns with article', narts,
       'gendered pairs', npairs)
 print('bytes', os.path.getsize(out))

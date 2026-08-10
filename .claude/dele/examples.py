@@ -4,7 +4,7 @@ import json, re, unicodedata
 from dele_level import f as lvlf
 from collections import defaultdict
 
-words = json.load(open(lvlf('wordlist500.json')))
+words = json.load(open(lvlf('wordlist.json')))
 w = json.load(open(lvlf('wikt.json')))
 bases = json.load(open(lvlf('wikt_bases.json')))
 wordset = set(words)
