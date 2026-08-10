@@ -6820,6 +6820,51 @@
        the Book of Rites' 9.70 — which also corrects the claim in the row above: that brown's 9.42 was
        not the highest on the shelf when it was written. */
     "Homer": "#001270",
+    /* Measured the same way, with twenty-nine colours placed, and the number and the grammar pointed at
+       different swatches again — which by now is the normal outcome rather than the exception.
+
+       THE FIELD, searched over the shelf's own lightness and chroma band (L 12.7–47.8, C 18.3–64.1)
+       under the Book of Rites' ink floor and the 4.5:1 bar: the best separation available anywhere is
+       19.7, and the shelf's own tightest pair is now 18.2 (the Classic of Poetry against Beowulf — the
+       figure earlier rows in this table give as 20.4, which was true when they were written and is not
+       now). So nothing on offer is comfortable, and the choice is between six candidates within 1.2
+       points of each other.
+
+       WHAT DECIDED IT IS THE EURIPIDES TEST, and the Aeneid has the sharpest version of it on the
+       shelf, because it has TWO works a reader automatically pairs it with rather than one. It is the
+       poem written in answer to HOMER, and it is the other great hexameter poem of the Augustan
+       moment beside OVID. Three of the six best candidates fail on exactly that:
+       · a blue at 18.5, whose nearest neighbour is Homer at 24 — the loudest false kinship this shelf
+         could assert, and in the most crowded family it has (six blues already);
+       · a magenta-crimson at 19.6, 20 from Ovid — a near-tie, in the one pairing that must not be
+         asserted, and barely above the shelf's tightest pair;
+       · the best number of all, a green-teal at 19.7, 20 from LUCRETIUS — the other Latin hexameter
+         poem, which Virgil imitates closely in the Georgics — and a fifth green.
+       A saturated green at 19.0 was rejected twice over: 22 from Lucretius, and at chroma 59 it clears
+       the existing greens only from the top of the band, which is the "bright enough to glow beside
+       twenty muted colours" that Vyasa's row turned down.
+
+       SO THIS DARK OXBLOOD, at 19.0, and it is the Homer row's own argument applied to a HUE rather
+       than to a quarter. Red holds three — Sophocles L 30, the Poetic Edda L 22, Aristophanes L 34,
+       with Ovid's crimson at L 38 beside them — and this sits at L 13.3, nine points below the darkest
+       of them, so the family is crowded in hue and empty at this lightness. Its nearest are Sophocles
+       at 19.0 and the Lî Kî's plum at 19.1, both clear of the shelf's tightest pair, and NEITHER is a
+       book anyone reads against the Aeneid.
+
+       IT IS ALSO THE ONLY CANDIDATE THAT CLEARS ALL THREE KINSHIP RISKS BY MORE THAN THE SHELF'S
+       TIGHTEST PAIR — Ovid 29, Homer 62, Lucretius 72 — which is the measurement that actually settled
+       it, since every rival clears two and fails the third. And it is the strongest on the
+       accessibility axis by a wide margin: 9.57:1 on the tightest of the sixteen light papers, against
+       4.60–4.63 for three of the six, second on the shelf only to the Book of Rites' 9.70. Chroma 33
+       sits in the lower half of the band, so it cannot glow. Its derived accents land where the shelf's
+       do — 9.08 worst on the light papers by day and 6.12 worst on the six night cards, against the Lî
+       Kî's 9.11 and 6.09 — so the darkness costs the banner nothing.
+
+       THE BAND WAS NOT WIDENED, and as in the Homer row it was tested rather than assumed: allowing
+       chroma to 78 offers a strong red at 25.6 and allowing it to 95 offers an electric blue-violet at
+       35.6, which is precisely what the band exists to exclude. Paying six points of separation to keep
+       the shelf reading as one system is the trade every row here has made. */
+    "Virgil": "#4A0418",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -8678,6 +8723,66 @@
          rather than anything the poem or this edition states, and inventing two would be composing an
          apparatus, which the importer's titleOf note declines to do for the book titles for the same
          reason. */
+    },
+    {
+      id: "virgil-aeneid",
+      title: "The Aeneid",
+      subtitle: "Aeneis",
+      author: "Virgil",
+      /* Begun about 29 BCE and unfinished when Virgil died in 19 BCE, so the composition is a decade
+         rather than a date; `year` is the single signed number the shelf's date sort needs and −25 is
+         the middle of that decade, with the prose `written` carrying the range. It therefore sorts
+         between Lucretius's poem of the 50s BCE and Ovid's of 8 CE, which is where it belongs. */
+      written: "c. 29–19 BCE",
+      year: -25,
+      translator: "Theodore C. Williams",
+      edition: "Houghton Mifflin Company, Boston, 1910",
+      /* AN EASY LICENCE, AND THE FIFTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
+         Republic, the Analects, the Peloponnesian War and the City of God. Every layer clears every
+         rule: the poem is two thousand years old; Williams published in Boston in 1910 and lived
+         1855–1915, so his English clears pre-1929 publication, life-plus-seventy and
+         life-plus-a-hundred alike; Greenough's Latin was published in 1881 and he lived 1833–1901,
+         which clears the same three with a century to spare. There is no limit to state as Giles
+         (2029), Ross (2042), Murray (2028 and 2041) or the Song of Roland need, and no modern
+         editorial layer to declare as the Histories, the Antigone and the Oedipus Rex carry — both
+         revision histories were READ before that was concluded, which is the Antigone's rule.
+         Williams's dates needed the Beowulf check on top of the Hugo Magnus one: Wikisource carries a
+         stray 1864 in its metadata beside 1855–1915 in its text, and it resolves rather than blocking
+         anything, two independent sources agreeing at day precision. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated, and no limit on either. The poem is two thousand years old and is " +
+        "in the public domain everywhere. Theodore C. Williams's translation was published in Boston " +
+        "in 1910 — before 1929 — so its copyright has expired in the United States; he lived " +
+        "1855–1915, so it is also public domain wherever the term is the author's life plus seventy " +
+        "years or plus a hundred. The Latin printed beside it is J. B. Greenough's edition of 1881, " +
+        "and he lived 1833–1901, which clears the same rules. The digital editions both columns are " +
+        "taken from are prepared by the Perseus Digital Library at Tufts University and are released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+        "translations by Allen Mandelbaum, 1971, Robert Fitzgerald, 1983, Robert Fagles, 2006, Sarah " +
+        "Ruden, 2008, and Shadi Bartsch, 2021, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0690.phi003/",
+      origLang: "la",
+      origName: "Latin",
+      /* THE CHAPTER IS ONE OF THE TWELVE BOOKS and the SECTION is the Latin line the passage opens at,
+         which is how Virgil is cited in every language — "Aeneid 6.847" is book six, line 847. Both
+         editions divide the poem into cards labelled by that line, so a card number is the same claim
+         on both sides; see .claude/fetch-book.js for the measurement (392 Latin cards against 396
+         English, 390 carrying the identical number in the same order, nine of the twelve books pairing
+         on every card they have, and the seven exceptions each read passage by passage — there being no
+         tale names here to check a reconciled pair against, which is both Homers' position).
+         THE ENGLISH MARKS ITS CARDS TWO WAYS AT ONCE, which is what this book taught the importer: 327
+         divisions and 69 milestones standing inside a line. */
+      chapterWord: "Book",
+      count: 12,
+      total: 12,
+      /* No `parts`, and here the tempting division is a real one that the edition still does not make:
+         the poem falls into an Odyssean half and an Iliadic half at book 7, and Virgil marks the turn
+         with a second invocation of the Muse. It is a division readers have drawn for two thousand
+         years, but neither Williams nor Greenough prints a heading for it, and putting two parts on the
+         bar would be composing an apparatus out of a commonplace — which is what the importer's titleOf
+         note declines to do for the book titles, and what the Iliad's and Odyssey's rows decline for
+         their own halves. */
     },
   ];
   const BOOK_BY_ID = {};
