@@ -37,6 +37,14 @@ It is a plain static website — open `index.html` and it runs.
   lines**: a day gets ONE localisation line per area (the daily games, the Atlas, the site chrome), extended as
   more of that area lands — 2026-07-27/28 once carried eight and five of them, each announcing another corner of
   the same rollout. The Mission page renders it.
+  **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO AND DOES NOT GO IN IT** (on request, 2026-08-10). The changelog
+  is Folio's own record; the decks under `decks/` — the DELE Spanish set, the HSK Mandarin set — are
+  USER-UPLOADED content that nothing on the site links to or serves, so announcing one there posts it as
+  though it were official. Two lines about the Spanish decks were written and removed the same day. What DOES
+  belong is any change to the APP that a deck happened to force: the import caps went up because a 4,000-card
+  deck could not be imported at all, and that line stays, worded as a fact about deck files rather than about
+  any deck. The same test settles a fault found in a deck FILE — a card-id collision between two of them was
+  a bug in the generator's output, not in Folio, and has no line.
   **Keep an item SHORT — a summary, not a transcript.** Two entries once ran to 12,000 and 15,000 characters
   because a citation batch listed every correction it made; they were compressed on request (2026-08-01) into
   one line a day saying what changed and what KIND of corrections came out of it. The counts and the finding
