@@ -183,11 +183,11 @@ async function studioChecks(page, base) {
   /* Adding a type starts with a SHAPE (Aug 2026, on request): the button opens a sheet of ready-made types
      with "Start from scratch" last. The presets are covered further down; this is the blank one, which is
      what the rest of this section then programs by hand. */
-  check("the ready-made shapes are offered in the pane itself", (await page.$$(".ut-preset")).length === 3,
+  check("the ready-made shapes are offered in the pane itself", (await page.$$(".ut-preset")).length === 4,
     String((await page.$$(".ut-preset")).length));
   await page.click("#stAddType");
   await page.waitForTimeout(350);
-  check("Add a type offers the same shapes plus a blank one", (await page.$$(".deck-menu [data-preset]")).length === 4,
+  check("Add a type offers the same shapes plus a blank one", (await page.$$(".deck-menu [data-preset]")).length === 5,
     String((await page.$$(".deck-menu [data-preset]")).length));
   await page.click('.deck-menu [data-preset=""]');
   await page.waitForTimeout(400);
@@ -293,7 +293,7 @@ async function presetChecks(page, base) {
   await page.click('[data-topensel="basic"]');
   await page.waitForTimeout(350);
   const names = await page.$$eval(".ut-preset-name", (els) => els.map((e) => e.textContent));
-  check("the pane names all three shapes", JSON.stringify(names) === '["Vocabulary","Picture","Fill in the blank"]', JSON.stringify(names));
+  check("the pane names all four shapes", JSON.stringify(names) === '["Vocabulary","Picture","Two-way","Fill in the blank"]', JSON.stringify(names));
 
   // --- vocabulary: the one that reads its answer aloud ---
   await page.click("#stAddType");
@@ -421,7 +421,11 @@ async function travelChecks(page, base) {
   check("its types are stored on the DECK, not the device", !!(deck.meta.types && Object.keys(deck.meta.types).length === 1));
   const t = deck.meta.types[Object.keys(deck.meta.types)[0]];
   check("the stored type carries its field list", JSON.stringify(t.fields) === JSON.stringify(["Latin", "English", "Note"]), JSON.stringify(t.fields));
-  check("the stored type carries both templates", /\{\{Latin\}\}/.test(t.front) && /\{\{English\}\}/.test(t.back));
+  /* The templates live in the canonical `cards` list — one entry for a one-card type — and the legacy
+     top-level front/back are GONE from a stored record, which is what stops the two ever disagreeing. */
+  check("the stored type carries its card templates", Array.isArray(t.cards) && t.cards.length === 1, JSON.stringify(t.cards && t.cards.length));
+  check("…both sides of the one it has", /\{\{Latin\}\}/.test(t.cards[0].front) && /\{\{English\}\}/.test(t.cards[0].back));
+  check("…and no stale top-level front/back beside them", !("front" in t) && !("back" in t), Object.keys(t).join(","));
   check("the stored CSS is already sanitized", t.css.indexOf("<") < 0 && !/position\s*:\s*fixed/i.test(t.css));
   const card = deck.cards.find((c) => c.type);
   check("the card records its type", !!card && card.type === t.id);
@@ -456,6 +460,16 @@ async function hostileChecks(page, base) {
         },
         // "basic" is the built-in format's name — a deck must not be able to take it and shadow it
         basic: { id: "basic", name: "Impostor", fields: ["X"], front: "{{X}}", back: "" },
+        /* A note may make several cards, so a file can ask for any number of them — capped, or a deck could
+           turn one note into hundreds of cards and a reader's daily review with it. */
+        many: {
+          id: "many", name: "Many", fields: ["A"],
+          cards: Array.from({ length: 9 }, (_, i) => ({
+            name: i === 3 ? '<img src=x onerror="alert(1)">' : "C" + i,
+            front: i === 2 ? '<div onclick="alert(1)">{{A}}</div><script>alert(1)<\/script>' : "{{A}}",
+            back: "{{A}}",
+          })),
+        },
       },
     },
     cards: [{ id: "u_h_1", type: "bad", fields: { A: '<img src=x onerror="alert(1)">ok', "bad name!!": "sneak" } }],
@@ -478,20 +492,34 @@ async function hostileChecks(page, base) {
   const h = rec.find((r) => r.meta && r.meta.title === "Hostile");
   check("the hostile deck imported (it must not be silently swallowed)", !!h);
   if (!h) return;
+  /* A file with no id of its own is given one. It used to mount under the empty string, which addressed the
+     whole deck by "" — half working, and only for the first such import. */
+  check("a deck file with no id is given one", !!h.id && /^[a-z0-9]{4,16}$/.test(h.id), JSON.stringify(h.id));
   const types = h.meta.types || {};
   check('a type may not call itself "basic"', !types.basic, JSON.stringify(Object.keys(types)));
   const bad = types.bad;
   check("the hostile type survived, cleaned", !!bad);
   if (bad) {
+    const bt = (bad.cards || [])[0] || {};
     check("a field name that is markup is rejected", JSON.stringify(bad.fields) === JSON.stringify(["A"]), JSON.stringify(bad.fields));
-    check("an inline handler is stripped from the front template", !/onclick/i.test(bad.front), bad.front);
-    check("a <script> is stripped from the front template", !/<script/i.test(bad.front));
-    check("{{A}} survives sanitizing", /\{\{A\}\}/.test(bad.front), bad.front);
-    check("a javascript: href is stripped from the back template", !/javascript:/i.test(bad.back), bad.back);
+    check("the legacy front/back folded into one card template", (bad.cards || []).length === 1, JSON.stringify((bad.cards || []).length));
+    check("an inline handler is stripped from the front template", !/onclick/i.test(bt.front), bt.front);
+    check("a <script> is stripped from the front template", !/<script/i.test(bt.front));
+    check("{{A}} survives sanitizing", /\{\{A\}\}/.test(bt.front), bt.front);
+    check("a javascript: href is stripped from the back template", !/javascript:/i.test(bt.back), bt.back);
     check("the CSS cannot close its <style>", bad.css.indexOf("<") < 0, bad.css.slice(0, 80));
     check("the CSS @import is gone", !/@import/i.test(bad.css));
     check("the CSS javascript: url is gone", !/javascript/i.test(bad.css));
     check("the CSS position:fixed is demoted", !/fixed/i.test(bad.css));
+  }
+  /* The card-template cap and the sanitizing of a template arriving in the `cards` list rather than at the
+     top level — the same rules, on the new path, since that is the path every deck now travels by. */
+  const many = types.many;
+  check("a type asking for more card templates than the cap gets the cap", !!many && many.cards.length === 6, String(many && many.cards.length));
+  if (many) {
+    check("a template inside the list is sanitized too", !/onclick/i.test(many.cards[2].front) && !/<script/i.test(many.cards[2].front), many.cards[2].front);
+    check("…and a template NAME that is markup is cleaned", !/</.test(many.cards[3].name), many.cards[3].name);
+    check("a template still renders its field", /\{\{A\}\}/.test(many.cards[0].front), many.cards[0].front);
   }
   const card = (h.cards || [])[0];
   check("a hostile field VALUE is sanitized", !!card && !/onerror/i.test(JSON.stringify(card.fields || {})), JSON.stringify(card && card.fields));
@@ -501,6 +529,220 @@ async function hostileChecks(page, base) {
   // and nothing executed along the way
   const alerts = await page.evaluate(() => window.__alerted || 0);
   check("nothing in the hostile deck executed", !alerts);
+}
+
+
+/* ---------- ONE NOTE, SEVERAL CARDS (Aug 2026) ----------
+   A type may declare a LIST of card templates, and one note then makes one card per template — Anki's
+   reverse cards. Nearly everything here fails silently, which is why the section is long:
+
+     · THE FIRST TEMPLATE KEEPS THE BARE NOTE ID. That is the whole promise of the id scheme — adding a
+       reverse card to a type must not move the schedule of the card a reader has been studying for a month —
+       and nothing on screen would say if it broke.
+     · SIBLINGS ARE NOT DEALT BACK TO BACK. The queue is template-major, so answering "water → 水" is not
+       immediately followed by "水 → water", which would teach the answer rather than test it. A note-major
+       queue is not an error anything reports; it just makes the feature useless.
+     · EACH CARD IS SCHEDULED ON ITS OWN. Two ids in the schedule from one note, or the two directions share
+       one interval and the reverse card is decoration.
+     · REMOVING A TEMPLATE takes its cards' progress and NOTHING ELSE. The ids shift, so a survivor's record
+       must still describe the survivor.
+   The type is built through the real Studio (it is the new surface) and the notes arrive by an imported deck
+   FILE, which exercises the travel of the templates at the same time. */
+async function reverseChecks(page, base) {
+  await page.goto(base + "/#studio");
+  await page.reload();
+  await page.waitForTimeout(900);
+  await page.click("#stNew");
+  await page.waitForTimeout(500);
+  await page.click('[data-tab="types"]');
+  await page.waitForTimeout(350);
+
+  // --- the Two-way preset, and the template controls it produces
+  await page.click("#stAddType");
+  await page.waitForTimeout(350);
+  check("Add a type offers the Two-way shape", await page.$('.deck-menu [data-preset="two-way"]') !== null);
+  await page.click('.deck-menu [data-preset="two-way"]');
+  await page.waitForTimeout(600);
+  check("the card-template controls are drawn", await page.$(".ut-cards") !== null);
+  const opts = await page.$$eval("#stTplPick option", (o) => o.map((x) => x.textContent));
+  check("the preset declares two card templates", opts.length === 2, opts.join(" | "));
+  check("…named for their direction", /→/.test(opts[0]) && /→/.test(opts[1]), opts.join(" | "));
+  check("the first is open", await page.$eval("#stTplName", (el) => el.value) === opts[0], opts[0]);
+  check("a second template can be removed", await page.$("#stTplDel") !== null);
+  const front1 = await page.$eval('[data-utype="front"]', (el) => el.value);
+  await page.selectOption("#stTplPick", "1");
+  await page.waitForTimeout(700);
+  const front2 = await page.$eval('[data-utype="front"]', (el) => el.value);
+  check("switching template opens the other one's own front", front1 !== front2 && /\{\{Back\}\}/.test(front2), front2.slice(0, 40));
+  check("…and the picker says which of how many", /Card 2 of 2/.test(await page.$eval(".ut-cards .af-label", (el) => el.textContent.replace(/\s+/g, " "))));
+  /* The preview follows the OPEN template rather than always the first — on a two-way type the card being
+     edited is the second one half the time, and a preview that ignores that is answering another question. */
+  const pv2 = await page.$eval("#stTypePv", (el) => el.textContent.replace(/\s+/g, " "));
+  check("the preview follows the open template", /Back/.test(pv2), pv2.slice(0, 70));
+
+  // --- three notes of a two-template type, arriving as a deck FILE
+  const two = {
+    folioDeck: 1,
+    meta: {
+      // an explicit id, as Folio's own export always writes — so the card ids below survive the import and
+      // the assertions can name them. The idless case is covered on the hostile deck.
+      id: "twoway01",
+      title: "Two-way deck",
+      types: {
+        pair: {
+          id: "pair", name: "Pair", fields: ["Word", "Meaning"],
+          cards: [
+            { name: "Word → Meaning", front: '<div class="uc-q">{{Word}}</div>', back: '{{FrontSide}}<div class="uc-a">{{Meaning}}</div>' },
+            { name: "Meaning → Word", front: '<div class="uc-q">{{Meaning}}</div>', back: '{{FrontSide}}<div class="uc-a">{{Word}}</div>' },
+          ],
+        },
+        // a LEGACY type in the same file: the shape every deck published before templates existed carries
+        solo: { id: "solo", name: "Solo", fields: ["Q", "A"], front: "{{Q}}", back: "{{A}}" },
+      },
+    },
+    cards: [
+      { id: "u_twoway01_1", type: "pair", fields: { Word: "aqua", Meaning: "water" } },
+      { id: "u_twoway01_2", type: "pair", fields: { Word: "ignis", Meaning: "fire" } },
+      { id: "u_twoway01_3", type: "pair", fields: { Word: "terra", Meaning: "earth" } },
+      { id: "u_twoway01_4", type: "solo", fields: { Q: "one way", A: "only" } },
+    ],
+  };
+  const tmp = path.join(require("os").tmpdir(), "folio-twoway.folio-deck.json");
+  fs.writeFileSync(tmp, JSON.stringify(two));
+  await page.goto(base + "/#studio");
+  await page.reload();
+  await page.waitForTimeout(900);
+  const chooser = page.waitForEvent("filechooser");
+  await page.click("#stImport");
+  await (await chooser).setFiles(tmp);
+  await page.waitForTimeout(1300);
+
+  const rec = await readDecks(page);
+  const deck = rec.find((r) => r.meta && r.meta.title === "Two-way deck");
+  check("the two-way deck imported", !!deck);
+  if (!deck) return;
+  const pair = (deck.meta.types || {}).pair, solo = (deck.meta.types || {}).solo;
+  check("both card templates travelled in the file", !!pair && pair.cards.length === 2, JSON.stringify(pair && pair.cards.length));
+  check("…with their names", !!pair && pair.cards[1].name === "Meaning → Word", pair && pair.cards[1].name);
+  check("a LEGACY front/back type migrates to a one-card list", !!solo && solo.cards.length === 1 && /\{\{Q\}\}/.test(solo.cards[0].front), JSON.stringify(solo && solo.cards));
+
+  // --- the ids and the ordering, read off the queue the study page actually builds
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(800);
+  const added = await page.evaluate((did) => {
+    const b = document.querySelector('[data-uadd="' + did + '"]');
+    if (!b) return "no [data-uadd] for " + did + " — found: " + [...document.querySelectorAll("[data-uadd]")].map((x) => x.dataset.uadd).join(",") +
+      " · rows: " + [...document.querySelectorAll(".udeck .collection-title")].map((x) => x.textContent).join("/");
+    b.click();
+    return "ok";
+  }, deck.id);
+  check("the deck can be added to the daily review", added === "ok", String(added).slice(0, 200));
+  await page.evaluate(() => { const S = JSON.parse(localStorage.folio_v1 || "{}"); S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false }); localStorage.folio_v1 = JSON.stringify(S); localStorage.folio_tour_v1 = "no"; });
+  await page.goto(base + "/#home");
+  await page.reload();
+  await page.waitForTimeout(900);
+  const pile = await page.$eval(".review-group .banner", (el) => el.textContent.replace(/\s+/g, " "));
+  /* Seven cards from four notes: three notes of the two-way type make six, and the one-way note makes one.
+     A count of four would mean the notes never expanded; a count of eight would mean the one-way note
+     expanded too. */
+  check("three two-way notes and one one-way note deal SEVEN cards", /\b7\s*New/.test(pile) || /7New/.test(pile), pile.slice(0, 90));
+
+  await page.evaluate(() => document.querySelector("#b-review")?.click());
+  await page.waitForTimeout(900);
+  const queue = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || []));
+  check("the queue holds seven cards", queue.length === 7, JSON.stringify(queue));
+  const bare = queue.filter((x) => x.indexOf("~") < 0), sib = queue.filter((x) => x.indexOf("~") >= 0);
+  check("the FIRST template of every note keeps the bare note id", bare.length === 4, JSON.stringify(bare));
+  check("…and only the second takes a suffix", sib.length === 3 && sib.every((x) => /~2$/.test(x)), JSON.stringify(sib));
+  /* THE ORDERING ASSERTION. Template-major, so no note's two cards are neighbours — which is what makes a
+     reverse card a test rather than a prompt, and what stands in for day-long sibling burying. */
+  let adjacent = 0;
+  for (let i = 1; i < queue.length; i++) {
+    const a = queue[i - 1].split("~")[0], b = queue[i].split("~")[0];
+    if (a === b && queue[i - 1] !== queue[i]) adjacent++;
+  }
+  check("no note's two cards are dealt back to back", adjacent === 0, JSON.stringify(queue));
+
+  // --- studying it: the two directions render their own template, and are scheduled apart
+  const reveal = async () => {
+    await page.evaluate(() => { const b = [...document.querySelectorAll(".actions button, .study-card button")].find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className)); if (b) b.click(); });
+    await page.waitForTimeout(400);
+  };
+  const shown = async () => page.evaluate(() => ({
+    q: (document.querySelector(".question") || {}).textContent.replace(/\s+/g, " ").trim(),
+    tpl: document.querySelector(".uc-card") ? document.querySelector(".uc-card").dataset.uctpl : null,
+  }));
+  const first = await shown();
+  check("a two-way card renders its own template", first.tpl === "1", JSON.stringify(first));
+  await reveal();
+  const back = await page.$eval(".reveal-inner", (el) => el.textContent.replace(/\s+/g, " ").trim());
+  check("…and its back carries the front and then the answer", /aqua/.test(back) && /water/.test(back), back.slice(0, 60));
+  // card info names which of the note's cards this is — the question a reverse card provokes
+  await page.evaluate(() => document.querySelector("#cardInfo")?.click());
+  await page.waitForTimeout(450);
+  const ci = await page.evaluate(() => {
+    const box = document.querySelector(".deck-menu.ci-sheet .dm-box");
+    if (!box) return null;
+    const keys = [...box.querySelectorAll(".ci-k")].map((e) => e.textContent.trim());
+    const i = keys.indexOf("Card");
+    return { keys: keys, val: i < 0 ? "" : [...box.querySelectorAll(".ci-v")][i].textContent.replace(/\s+/g, " ").trim(), where: (box.querySelector(".dm-where") || {}).textContent };
+  });
+  check("card info names which card of the note it is", !!ci && ci.keys.indexOf("Card") >= 0, ci ? ci.keys.join("/") : "no sheet");
+  check("…by the template's own name, and which of how many", !!ci && /Word → Meaning/.test(ci.val) && /1 of 2/.test(ci.val), ci && ci.val);
+  check("…and titles the sheet from a field, since a typed card has no answer", !!ci && /aqua|water/.test(ci.where || ""), ci && ci.where);
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(300);
+
+  await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
+  await page.waitForTimeout(600);
+  const second = await shown();
+  check("the next card is a DIFFERENT note, not the sibling", second.tpl === "1" && second.q !== first.q, JSON.stringify(second));
+
+  // grade the rest so both directions of note 1 are scheduled
+  for (let i = 0; i < 6; i++) {
+    await reveal();
+    await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
+    await page.waitForTimeout(420);
+  }
+  const sched = await page.evaluate(() => Object.keys(JSON.parse(localStorage.folio_v1 || "{}").cards || {}));
+  check("each direction is scheduled on its own", sched.indexOf("u_twoway01_1") >= 0 && sched.indexOf("u_twoway01_1~2") >= 0, JSON.stringify(sched));
+  check("…and the one-way note has exactly one schedule", sched.filter((x) => x.indexOf("u_twoway01_4") === 0).length === 1, JSON.stringify(sched.filter((x) => x.indexOf("u_twoway01_4") === 0)));
+
+  // --- removing a template takes ITS cards' progress and nothing else
+  await page.goto(base + "/#studio");
+  await page.reload();
+  await page.waitForTimeout(900);
+  const opened = await page.evaluate((did) => {
+    const b = document.querySelector('[data-open="' + did + '"]');
+    if (!b) return "no [data-open] for " + did + " — " + [...document.querySelectorAll("[data-open]")].map((x) => x.dataset.open).join(",");
+    b.click();
+    return "ok";
+  }, deck.id);
+  check("the deck reopens in the Studio", opened === "ok", String(opened).slice(0, 120));
+  await page.waitForTimeout(800);
+  await page.click('[data-tab="types"]');
+  await page.waitForTimeout(400);
+  await page.evaluate(() => { const b = [...document.querySelectorAll("[data-topensel]")].find((x) => /Pair/.test(x.textContent)); if (b) b.click(); });
+  await page.waitForTimeout(600);
+  await page.selectOption("#stTplPick", "1");
+  await page.waitForTimeout(700);
+  check("the second template is open, ready to remove", /Card 2 of 2/.test(await page.$eval(".ut-cards .af-label", (el) => el.textContent.replace(/\s+/g, " "))));
+  await page.click("#stTplDel");
+  await page.waitForTimeout(400);
+  // it asks first — this is the only thing in the Studio that destroys a schedule
+  const asked = await page.$(".inline-prompt, .ip-box");
+  check("removing a card template asks first", asked !== null);
+  await page.evaluate(() => {
+    const b = [...document.querySelectorAll(".inline-prompt button, .ip-box button")].find((x) => /remove the card/i.test(x.textContent));
+    if (b) b.click();
+  });
+  await page.waitForTimeout(1100);
+  const after = await page.evaluate(() => Object.keys(JSON.parse(localStorage.folio_v1 || "{}").cards || {}));
+  check("the removed template's cards lose their schedule", after.every((x) => !/~2$/.test(x)), JSON.stringify(after.filter((x) => /~/.test(x))));
+  check("…and the surviving card keeps its own", after.indexOf("u_twoway01_1") >= 0, JSON.stringify(after.slice(0, 4)));
+  const rec2 = await readDecks(page);
+  const d2 = rec2.find((r) => r.meta && r.meta.title === "Two-way deck");
+  check("the type is down to one card template", !!d2 && d2.meta.types.pair.cards.length === 1, JSON.stringify(d2 && d2.meta.types.pair.cards.length));
 }
 
 (async () => {
@@ -522,6 +764,7 @@ async function hostileChecks(page, base) {
     await travelChecks(page, base);
     await presetChecks(page, base);
     await hostileChecks(page, base);
+    await reverseChecks(page, base);
   } catch (e) {
     check("the run completed", false, String(e && e.message).split("\n")[0]);
   }

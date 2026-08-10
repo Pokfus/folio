@@ -22,9 +22,23 @@
   const UDECKS = {};                       // deckId -> { id, title, subtitle, desc, author, language, tags, glossMode, version, createdAt, updatedAt, cardIds }
   const UGLOSS = {};                       // deckId -> { slug -> { desc, date, title, tags, aliases } } — reserved for the per-deck glossary
   function isCommunityCard(id) { return typeof id === "string" && id.slice(0, 2) === "u_"; }
-  // The lookup for the STUDY path (scheduling, rendering, progress), which must see both stores.
-  // The admin editor deliberately keeps reading CARD_BY_ID directly: it may only ever edit curated cards.
-  function cardById(id) { return CARD_BY_ID[id] || UCARDS[id] || null; }
+  /* The lookup for the STUDY path (scheduling, rendering, progress), which must see both stores.
+     The admin editor deliberately keeps reading CARD_BY_ID directly: it may only ever edit curated cards.
+
+     A community note whose type declares SEVERAL card templates yields several cards, and the second and
+     later ones are ids derived from the note's (`u_abcd1234_7~2` — see CARD_SIB). They are resolved here, at
+     the one place everything downstream already goes through, so the study page, the scheduler, the review
+     counts and Card info all get a card without one of them having to know how the id is built. What comes
+     back is a COPY carrying `_tpl`, never the stored note: the note is shared by every one of its cards, and
+     writing the template index onto it would make whichever card rendered last the answer for all of them. */
+  function cardById(id) {
+    const direct = CARD_BY_ID[id] || UCARDS[id];
+    if (direct) return direct;
+    const base = uCardBaseId(id);
+    const note = base === id ? null : UCARDS[base];
+    if (!note) return null;
+    return Object.assign({}, note, { id: id, _tpl: uCardTplIndex(id) });
+  }
 
   // recursive node registry (collection → deck → subdeck, arbitrary depth)
   const COLLECTION_BY_ID = {};
@@ -3450,8 +3464,9 @@
       return [...seen];
     }
     if (id === COTD_ENTRY) return cotdIds();
+    // a community deck's NOTES expand into their cards here, which is what puts a reverse card in the review
     const ud = UDECKS[uDeckIdOf(id)];
-    if (ud) { const sub = uSubOf(id); return sub ? uDeckCardsIn(ud.id, sub) : (ud.cardIds || []).slice(); }
+    if (ud) { const sub = uSubOf(id); return uDeckStudyIds(sub ? uDeckCardsIn(ud.id, sub) : (ud.cardIds || [])); }
     return subtreeCardIds(NODE_BY_ID[id]);
   }
   // cards inside at least one collection that is NOT coming soon — everything a visitor may study or be quizzed on.
@@ -3462,7 +3477,8 @@
   function availableCardIdSet() {
     const s = new Set();
     (TREE.collections || []).forEach((c) => { if (!isComingSoon(c)) subtreeCardIds(c).forEach((id) => s.add(id)); });
-    Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => s.add(id)));
+    // …expanded into cards, like entryCardIds: a note's reverse card is studiable and must be listed here too
+    Object.keys(UDECKS).forEach((k) => uDeckStudyIds(UDECKS[k].cardIds || []).forEach((id) => s.add(id)));
     return s;
   }
   function activeCardIds() {
@@ -3585,7 +3601,7 @@
     if (ud) {
       const sub = uSubOf(id);
       return sub ? { title: sub, parent: ud.title, count: uDeckCardsIn(ud.id, sub).length }
-                 : { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
+                 : { title: ud.title, parent: "Your decks", count: uDeckStudyIds(ud.cardIds || []).length };
     }
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
@@ -3706,7 +3722,13 @@
      types marks text to be read. The pooled review answers for whatever is added to it right now, so the
      switch appears there the day such a deck is added and goes when it is removed — which is why this is
      derived on each open rather than stored. */
-  function typeSpeaks(t) { return !!t && /\buc-tts\b/.test(String(t.front || "") + String(t.back || "")); }
+  /* Does this type mark anything to be read aloud — in ANY of its card templates? A two-way type may put the
+     control on one direction only, and the switch it gates is per DECK, so one template asking for it is
+     enough. Reading only the first would hide the switch on exactly the reversed card that wanted it. */
+  function typeSpeaks(t) {
+    if (!t) return false;
+    return typeCards(t).some((c) => /\buc-tts\b/.test(String(c.front || "") + String(c.back || "")));
+  }
   function entryHasSpeech(id) {
     if (!ttsSupported()) return false;
     if (id === REVIEW_ENTRY) return activeEntryIds().some((e) => e !== REVIEW_ENTRY && entryHasSpeech(e));
@@ -4048,6 +4070,81 @@
   const UTYPE_ID_RX = /^[a-z0-9][a-z0-9-]{0,31}$/;
   const UTYPE_FIELD_RX = /^[A-Za-z0-9][\w .'-]{0,39}$/;
   const UDECK_MAX_TYPES = 20, UTYPE_MAX_FIELDS = 24, UTYPE_TPL_MAX = 8000, UTYPE_CSS_MAX = 20000, UTYPE_VALUE_MAX = 20000;
+  /* ---------- ONE NOTE, SEVERAL CARDS (Aug 2026, on request) ----------
+     Anki's note types, finally: a type declares a LIST of card templates, and one record yields one card per
+     template. A vocabulary deck's note becomes two cards — the word asked from its meaning and the meaning
+     asked from the word — with a schedule each, which is what "reverse cards" means and the reason the HSK
+     decks currently carry two hand-written cards for every word.
+
+     THE RECORD STAYS ONE NOTE. Duplicating it per direction was the obvious implementation and is the wrong
+     one: an edit to a shared field would have to be written to every copy, and the day one copy is missed the
+     two drift with nothing to say so. So `UCARDS` keeps one row per note, exactly as it did, and the extra
+     CARDS are ids derived from it — Anki's own notes-versus-cards split.
+
+     `type.cards` is that list, `[{ name, front, back }, …]`. A type written before today carried `front` and
+     `back` at the top level; `uTypeSanitize` folds those into `cards[0]` and emits `cards` alone, so an
+     existing deck file, an installed copy and a published row all normalise on ingest with nothing to
+     migrate by hand — and every type ends up with at least one template, which is what lets every reader
+     below assume one rather than testing for none. */
+  const UTYPE_MAX_CARDS = 6;
+  const UTYPE_CARD_NAME_MAX = 40;
+  /* THE SIBLING SEPARATOR, and the reason template 0 keeps the bare note id: a reader who has been studying
+     `u_abcd1234_7` for a month must go on studying it. Only the SECOND and later templates take a suffix, so
+     adding a reverse card to a type nobody has finished studying costs no progress at all.
+     `~` cannot appear in a note id (`^u_[a-z0-9]{4,16}_\d+$`), so the split is unambiguous in both
+     directions, and it is safe unescaped inside a quoted attribute selector, which `.` and `:` are not. */
+  const CARD_SIB = "~";
+  function typeCards(t) {
+    const list = t && Array.isArray(t.cards) ? t.cards : null;
+    return list && list.length ? list : [{ name: "Card 1", front: (t && t.front) || "", back: (t && t.back) || "" }];
+  }
+  function uTypeCardSanitize(raw, i) {
+    return {
+      name: sanitizePlain(raw && raw.name).slice(0, UTYPE_CARD_NAME_MAX) || "Card " + (i + 1),
+      front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
+      back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
+    };
+  }
+  // a note id (no suffix) and the 0-based template a derived card id names
+  function uCardBaseId(id) {
+    const s = String(id || ""), i = s.indexOf(CARD_SIB);
+    return i < 0 ? s : s.slice(0, i);
+  }
+  function uCardTplIndex(id) {
+    const s = String(id || ""), i = s.indexOf(CARD_SIB);
+    if (i < 0) return 0;
+    const n = parseInt(s.slice(i + 1), 10);
+    return n > 1 ? n - 1 : 0;      // the suffix is 1-based and human-facing; template 0 never carries one
+  }
+  function uCardIdFor(noteId, tpl) { return tpl > 0 ? noteId + CARD_SIB + (tpl + 1) : String(noteId); }
+  /* How many cards a note yields — its type's template count, and 1 for a Basic card or a type that has
+     since been deleted. Read from the note's OWN deck, so two decks' types cannot be confused. */
+  function uNoteCardCount(noteId) {
+    const note = UCARDS[uCardBaseId(noteId)];
+    if (!note) return 1;
+    const t = cardTypeOf(note);
+    return t ? Math.min(typeCards(t).length, UTYPE_MAX_CARDS) : 1;
+  }
+  function uNoteCardIds(noteId) {
+    const n = uNoteCardCount(noteId), out = [];
+    for (let i = 0; i < n; i++) out.push(uCardIdFor(noteId, i));
+    return out;
+  }
+  /* A deck's cards for STUDY, expanded from its notes — and ordered TEMPLATE-MAJOR, every note's first card
+     before any note's second. That ordering is the whole of what keeps a reverse card usable without a
+     burying mechanism: note-major would deal "水 → water" and then "water → 水" back to back, which teaches
+     the answer rather than testing it. It is also one of Anki's own new-card sort orders, so it is a
+     defensible reading rather than a workaround. Day-long sibling burying is a separate feature and is not
+     implemented; this is what makes its absence bearable. */
+  function uDeckStudyIds(noteIds) {
+    const notes = noteIds || [], out = [];
+    let most = 1;
+    notes.forEach((n) => { const c = uNoteCardCount(n); if (c > most) most = c; });
+    for (let tpl = 0; tpl < most; tpl++) {
+      notes.forEach((n) => { if (uNoteCardCount(n) > tpl) out.push(uCardIdFor(n, tpl)); });
+    }
+    return out;
+  }
 
   /* A type's stylesheet, cleaned. It is not executable, so this is about three narrower things:
      · `<` goes, because the text is written into a <style> ELEMENT and "</style>" would end it early. Only
@@ -4132,12 +4229,18 @@
     });
     if (!fields.length) fields.push("Front", "Back");
     const lang = sanitizePlain(raw && raw.speechLang).trim();
+    /* The card templates, in the canonical `cards` list. A type written before card templates existed
+       carries `front`/`back` at the top level and is folded into a single-card list here — which is what
+       makes every existing deck file, installed copy and published row normalise on ingest with nothing to
+       migrate. There is ALWAYS at least one template, so no reader below has to test for none. */
+    const cards = (Array.isArray(raw && raw.cards) ? raw.cards : [])
+      .slice(0, UTYPE_MAX_CARDS).map(uTypeCardSanitize);
+    if (!cards.length) cards.push(uTypeCardSanitize({ name: raw && raw.cardName, front: raw && raw.front, back: raw && raw.back }, 0));
     return {
       id: id,
       name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
       fields: fields,
-      front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
-      back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
+      cards: cards,
       css: sanitizeCSSText(raw && raw.css),
       speechLang: SPEECH_LANG_RX.test(lang) ? lang : "",
     };
@@ -4384,6 +4487,41 @@
         ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
     },
     {
+      /* Anki's "Basic (and reversed card)", and the shape reverse cards exist for: ONE note, asked both ways.
+         Deliberately plain — Front / Back / Notes rather than a vocabulary's five fields — because what an
+         author needs to see here is the two-template idea, and a preset that also has opinions about
+         conjugations teaches two things at once. The Vocabulary preset above is two clicks from being
+         two-way: add a card and swap the fields in its front. */
+      id: "two-way",
+      name: "Two-way",
+      blurb: "One note asked in both directions — front to back and back to front — as two cards with a schedule each.",
+      fields: ["Front", "Back", "Notes"],
+      cards: [
+        {
+          name: "Front → Back",
+          front: '<div class="uc-q">{{Front}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Back}}</div>{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+        },
+        {
+          name: "Back → Front",
+          front: '<div class="uc-q">{{Back}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Front}}</div>{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+        },
+      ],
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-q {\n  font-size: 25px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-a {\n  font-size: 25px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
+        /* Which way round this card is, in the reader's own margin — the one thing a two-way note needs
+           that a one-way one does not, since the two cards otherwise look identical. It doubles as the
+           worked example of `data-uctpl` that the type editor's help points at. */
+        /* the arrow is the CHARACTER, not a `\\2190` escape: sanitizeCSSText strips backslashes, because a
+           CSS escape can spell any of the keywords it refuses, and this is the cost its own note names. */
+        '.card[data-uctpl="2"] .uc-q::after {\n  content: "←";\n  margin-left: 9px;\n  font-size: 15px;\n  opacity: 0.4;\n}\n',
+    },
+    {
       id: "cloze",
       name: "Fill in the blank",
       blurb: "One passage with the words to recall wrapped in {{c1::…}}. They close on the front and open on the back.",
@@ -4404,7 +4542,12 @@
   // what a preset contributes to a new type record — everything but the id and the name, which uTypeCreate
   // owns because it is the one that has to keep them unique within the deck
   function cardTypePresetSpec(p, lang) {
-    return { id: p.id, fields: p.fields.slice(), front: p.front, back: p.back, css: p.css, speechLang: lang || "" };
+    const spec = { id: p.id, fields: p.fields.slice(), css: p.css, speechLang: lang || "" };
+    /* A preset declares EITHER a `cards` list or the single `front`/`back` pair the older three were written
+       with; uTypeSanitize folds the second form into a one-card list, so nothing here has to choose. */
+    if (Array.isArray(p.cards)) spec.cards = p.cards.map((c) => Object.assign({}, c));
+    else { spec.front = p.front; spec.back = p.back; }
+    return spec;
   }
   function uTypeCreate(deckId, name, spec) {
     const d = UDECKS[deckId];
@@ -4428,11 +4571,70 @@
     uDeckSave(deckId);
     return t;
   }
+  /* The type's own fields. `front`/`back` are NOT here any more — they belong to a card template, and there
+     may be several — so they go through uTypeSetCard, which is what stops an edit meant for the second card
+     silently landing on the first. */
   function uTypeSet(deckId, typeId, field, value) {
     const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
-    if (!t || ["name", "front", "back", "css", "speechLang"].indexOf(field) < 0) return;
+    if (!t || ["name", "css", "speechLang"].indexOf(field) < 0) return;
     const next = uTypeSanitize(Object.assign({}, t, { [field]: value }));
     if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  // one card template's name, front or back
+  function uTypeSetCard(deckId, typeId, idx, field, value) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t || ["name", "front", "back"].indexOf(field) < 0) return;
+    const cards = typeCards(t).map((c, i) => (i === idx ? Object.assign({}, c, { [field]: value }) : c));
+    if (!cards[idx]) return;
+    const next = uTypeSanitize(Object.assign({}, t, { cards: cards }));
+    if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  /* A new card template, seeded from the FIRST one rather than blank: a second template is nearly always the
+     first read the other way round, and an author who is handed the shape they already wrote has one edit to
+     make instead of two templates to write. */
+  function uTypeAddCard(deckId, typeId) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t) return -1;
+    const cards = typeCards(t).slice();
+    if (cards.length >= UTYPE_MAX_CARDS) { toast("A card type has at most " + UTYPE_MAX_CARDS + " cards."); return -1; }
+    const first = cards[0] || {};
+    cards.push({ name: "Card " + (cards.length + 1), front: first.front || "", back: first.back || "" });
+    const next = uTypeSanitize(Object.assign({}, t, { cards: cards }));
+    if (!next) return -1;
+    d.types[typeId] = next; uDeckSave(deckId);
+    return cards.length - 1;
+  }
+  /* Removing a template destroys the SCHEDULE of every card it was making, which nothing else in the Studio
+     does — a field dropped from a type leaves its values on the notes, and a type deleted puts its cards back
+     to Basic with their records intact. Here the cards simply stop existing, so their progress goes with them
+     rather than being left in `S.cards` pointing at a template that is not there, and the caller asks first.
+     The LAST template can never be removed: a type with no cards is a type whose notes render nothing. */
+  function uTypeDeleteCard(deckId, typeId, idx) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t) return;
+    const cards = typeCards(t).slice();
+    if (cards.length <= 1 || idx < 0 || idx >= cards.length) return;
+    const wasCount = cards.length;
+    cards.splice(idx, 1);
+    const next = uTypeSanitize(Object.assign({}, t, { cards: cards }));
+    if (!next) return;
+    d.types[typeId] = next;
+    /* Every id from the removed position onwards now names a DIFFERENT template than the record stored under
+       it — remove template 2 of 3 and `~2`, which held template 2's schedule, is template 3's card. So those
+       records are dropped rather than shifted down: card 3's schedule is not card 2's, and carrying it over
+       would tell the reader they had studied something they have not. Ids BEFORE the removed one still mean
+       exactly what they meant and are left alone, which is why removing the last template costs only itself.
+       The revlog is deliberately NOT swept: those reviews did happen, and a row whose card no longer exists
+       is simply never looked up (`revForCard` matches an exact id). */
+    uDeckCards(d).filter((c) => c.type === typeId).forEach((note) => {
+      for (let i = idx; i < wasCount; i++) {
+        const gone = uCardIdFor(note.id, i);
+        delete S.cards[gone];
+        if (S.suspended) delete S.suspended[gone];
+      }
+    });
+    uDeckSave(deckId);
+    save();
   }
   // the field list, written as one comma-separated line. A field dropped here leaves the values behind on
   // the cards rather than deleting them — re-adding the name brings the text back, and a typo costs nothing.
@@ -4459,8 +4661,20 @@
     // Basic keeps its question and background, and one turned back to a type finds its fields as they were.
     // Deleting the TYPE is the destructive act, and that one asks first. A card that has never held a field
     // still gets no `fields` key, so a Basic-only deck's export is unchanged.
+    const was = uNoteCardCount(cardId);
     if (t) { c.type = t.id; if (!c.fields || typeof c.fields !== "object") c.fields = {}; }
     else delete c.type;   // anything unrecognised — "basic" included — is the built-in format
+    /* A type change can change how many CARDS this note makes, and the records of any it no longer makes are
+       swept: a note moved from a two-way type to Basic would otherwise leave `…~2` sitting in the schedule
+       with nothing to render it. Only the ids past the new count go — the ones that survive still name the
+       same template position, which is what makes switching type and back again cost no progress. */
+    const now = uNoteCardCount(cardId);
+    for (let i = now; i < was; i++) {
+      const gone = uCardIdFor(cardId, i);
+      delete S.cards[gone];
+      if (S.suspended) delete S.suspended[gone];
+    }
+    if (now < was) save();
     if (c.deckId) uDeckSave(c.deckId);
   }
   function uCardSetFieldValue(cardId, name, value) {
@@ -4673,7 +4887,13 @@
     if (!norm) return { error: "That deck file couldn't be read." };
     if (!norm.cards.length) return { error: "That deck has no cards in it." };
     UDECK_PUBLISH_KEYS.forEach((f) => { norm.meta[f] = (f === "origin") ? "mine" : (typeof norm.meta[f] === "number" ? 0 : ""); });   // an imported file is always a fresh, unpublished deck of your own
-    if (asCopy || UDECKS[norm.id]) {
+    /* …or one that has NO id at all, which a hand-written file plausibly has and which Folio's own export
+       never does. Without that clause such a deck mounted under the empty string: it half worked (its entry
+       id was the bare "u:", its rows carried an empty data-uadd), it kept the file's own card ids where every
+       other import remaps them, and a SECOND idless import took the fresh-id branch and left the first as the
+       only broken one. Found while importing a two-way deck, which is why it is fixed here rather than
+       recorded — an id is what the whole deck is addressed by. */
+    if (asCopy || !norm.id || UDECKS[norm.id]) {
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and
       // so two copies of the same deck keep separate study progress
       const newId = uid(8);
@@ -4929,7 +5149,7 @@
   // properly would mean shipping per-deck progress to the server, which is not worth the privacy cost.
   function deckStudiedCount(localDeck) {
     if (!localDeck) return 0;
-    return (localDeck.cardIds || []).filter((id) => isSeen(id)).length;
+    return uDeckStudyIds(localDeck.cardIds || []).filter((id) => isSeen(id)).length;
   }
   async function deckRatings(remoteId) {
     const r = await supaFetch("/rest/v1/deck_ratings?deck_id=eq." + encodeURIComponent(remoteId) +
@@ -8309,6 +8529,16 @@
     }
     const where = cardLeaves(id).map((n) => nodeWhere(n)).filter(Boolean);
     if (where.length) add(where.length > 1 ? "Decks" : "Deck", esc(where.join(" · ")));
+    /* WHICH card of its note this is — drawn only where a note makes more than one, since on every other
+       card in Folio the row would say "1 of 1" and mean nothing. It is the question a reverse card provokes
+       and the only thing on screen that can answer it: the two directions of one note are separate cards
+       with separate schedules, and everything above describes exactly one of them. */
+    const cc = cardById(id);
+    const ct = cc && cardTypeOf(cc);
+    if (ct && typeCards(ct).length > 1) {
+      const list = typeCards(ct), i = Math.min((cc._tpl || 0), list.length - 1);
+      add("Card", esc(list[i].name || "Card " + (i + 1)) + ' <span class="ci-of">' + (i + 1) + " of " + list.length + "</span>");
+    }
     add("Card id", '<code class="ci-id">' + esc(id) + "</code>");
     return '<div class="ci-grid">' + rows.join("") + "</div>";
   }
@@ -8342,7 +8572,16 @@
   }
   function openCardInfo(id) {
     const c = cardById(id);
-    const title = c ? stripHtml(c.answerText || c.answer || "") : id;
+    /* What to call the card. A Basic card is named by its answer; a card of one of a deck's own types has no
+       `answer` at all — the template owns the back — so it is named by the first field that has anything in
+       it, which is the word or the picture's subject and is what an author would call it. */
+    let title = c ? stripHtml(c.answerText || c.answer || "") : "";
+    if (!title && c && c.fields) {
+      const t = cardTypeOf(c), order = (t && t.fields) || Object.keys(c.fields);
+      const k = order.find((f) => String(c.fields[f] || "").trim());
+      if (k) title = stripHtml(String(c.fields[k]));
+    }
+    title = String(title || "").slice(0, 90);
     const html =
       '<div class="dm-head"><span class="dm-title">Card info</span><span class="dm-where">' + esc(title || id) + "</span></div>" +
       cardInfoRowsHTML(S, id) +
@@ -12591,9 +12830,11 @@
      Community decks sit BELOW the curated collections and are visually marked, because Folio's own
      content is fact-checked to a documented standard and a stranger's deck is not. That distinction is
      the project's core value; it belongs in the UI, not in a policy page. */
-  function uDeckStudied(d) { return (d.cardIds || []).filter((id) => isSeen(id)).length; }
+  // in CARDS rather than notes, so the bar agrees with the number the daily review deals from this deck
+  function uDeckStudied(d) { return uDeckStudyIds(d.cardIds || []).filter((id) => isSeen(id)).length; }
   function udeckRowHTML(d) {
-    const n = (d.cardIds || []).length, studied = uDeckStudied(d);
+    // both figures in CARDS, so the bar's denominator is the pile the deck actually deals
+    const n = uDeckStudyIds(d.cardIds || []).length, studied = uDeckStudied(d);
     const entry = uDeckEntry(d.id), on = isActive(entry);
     const installed = !uDeckIsMine(d);
     return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
@@ -13043,7 +13284,9 @@
       if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
       else {                                                                                   // "Chrono" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
-        Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));   // the user's own decks follow, in their authored order
+        // the user's own decks follow, in their authored order — expanded, or a note's second card would
+        // have no place in the sequence and every one of them would sort to the very end together
+        Object.keys(UDECKS).forEach((k) => uDeckStudyIds(UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));
         for (let i = 0; i < seq.length; i++) if (!(seq[i] in oi)) oi[seq[i]] = i;
         queue.sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
       }
@@ -13070,7 +13313,8 @@
       const d = UDECKS[scope.id];
       if (!d) return null;
       const sub = scope.sub || "";
-      const ids = (sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id));
+      // the deck's notes expanded into their cards (a reverse card is its own card here), template-major
+      const ids = uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
       const ue = uSubEntry(d.id, sub);
@@ -14719,7 +14963,8 @@
      ADMIN_EDITS, adminUndo, Save-to-project) and may only ever touch curated cards. What the two share is
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
-  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "" };   // type "" = the built-in Basic row
+  // type "" = the built-in Basic row; `tpl` is which of the open type's card templates is being edited
+  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "", tpl: 0 };
   let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
@@ -15014,7 +15259,33 @@
           '<span class="ut-preset-fields">' + esc(p.fields.join(" · ")) + "</span></button>").join("") +
       "</div>";
   }
+  /* The type's card templates: which one is being edited, and the controls to add and remove one. A SELECT
+     rather than a row of tabs — six templates' names do not fit across a 390px phone, and the browser's own
+     control is already keyboard-operable and already announces which of N is chosen. It is drawn at all times,
+     one template included, because a control that appears the day a second template exists is one nobody
+     knows to look for; on a single-card type it reads "Card 1 of 1" and offers Add. */
+  function studioTypeCardsHTML(t, idx) {
+    const cards = typeCards(t);
+    const opts = cards.map((c, i) =>
+      '<option value="' + i + '"' + (i === idx ? " selected" : "") + ">" + esc(c.name || "Card " + (i + 1)) + "</option>"
+    ).join("");
+    return '<div class="ut-cards">' +
+      '<label class="admin-field ut-cardpick"><span class="af-label">Card ' + (idx + 1) + " of " + cards.length +
+        ' <small>&mdash; each card of a note is scheduled on its own</small></span>' +
+        '<select class="af-input" id="stTplPick">' + opts + "</select></label>" +
+      '<label class="admin-field ut-cardname"><span class="af-label">This card&rsquo;s name</span>' +
+        '<input class="af-input" id="stTplName" type="text" value="' + esc(cards[idx].name || "") + '" /></label>' +
+      '<div class="ut-cardacts">' +
+        '<button class="btn ghost" id="stTplAdd" type="button"' + (cards.length >= UTYPE_MAX_CARDS ? " disabled" : "") + ">Add a card</button>" +
+        (cards.length > 1 ? '<button class="admin-delete" id="stTplDel" type="button">Remove this card</button>' : "") +
+      "</div></div>";
+  }
   function studioTypeFormHTML(d, t) {
+    const cards = typeCards(t);
+    // the open template, clamped — a stored index outlives the template it named when one is removed
+    const tplIdx = Math.max(0, Math.min(studioState.tpl | 0, cards.length - 1));
+    studioState.tpl = tplIdx;
+    const tpl = cards[tplIdx];
     // a LABEL rather than a div: it is what gives the textarea its accessible name, and these boxes are the
     // only thing on the page a screen reader has to tell apart
     const box = (key, label, hint, value, rows) =>
@@ -15044,10 +15315,17 @@
           "<br>Wrap anything in <code>&lt;span class=\"uc-tts\"&gt;…&lt;/span&gt;</code> and it becomes a button that reads " +
           "those words aloud in the language above. Wrap the words to recall in a card's own text in " +
           "<code>{{c1::…}}</code> — or <code>{{c1::…::a hint}}</code> — and they close on the front and open on the back. " +
-          "Every blank on a card opens together: a Folio card is one card, where Anki would make one per number.</div>" +
-        box("front", "Front template", "the HTML shown before the answer", t.front, 7) +
-        box("back", "Back template", "the HTML shown once the card is turned over", t.back, 7) +
-        box("css", "CSS", "styles this type&rsquo;s cards and nothing else; <code>.card</code> is the card itself", t.css, 10) +
+          "Every blank on a card opens together: a Folio card is one card, where Anki would make one per number." +
+          /* The two-template idea, said where the templates are — an author who does not know a note can make
+             several cards will not go looking for the control that says so. */
+          "<br>A type can make <b>more than one card from each note</b>: add a card below and every note of this " +
+          "type becomes that many cards, each with its own schedule — a word asked from its meaning and the " +
+          "meaning asked from the word. Style one of them differently with " +
+          "<code>.card[data-uctpl=\"2\"]</code>, which is the second card of the note.</div>" +
+        studioTypeCardsHTML(t, tplIdx) +
+        box("front", "Front template", "the HTML shown before the answer", tpl.front, 7) +
+        box("back", "Back template", "the HTML shown once the card is turned over", tpl.back, 7) +
+        box("css", "CSS", "styles every card of this type; <code>.card</code> is the card itself", t.css, 10) +
         '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
       "</div>";
   }
@@ -15060,7 +15338,9 @@
     const real = uDeckCards(d).find((c) => c.type === t.id && Object.keys(c.fields || {}).some((k) => String(c.fields[k]).trim()));
     const fields = {};
     t.fields.forEach((f) => { fields[f] = real && real.fields && String(real.fields[f] || "").trim() ? real.fields[f] : esc(f); });
-    const stand = { id: "preview", deckId: d.id, type: t.id, fields: fields };
+    // …of the template that is OPEN, not always the first: the preview is the answer to "what does the edit I
+    // just made look like", and on a two-way type the first card is not the one being edited half the time
+    const stand = { id: "preview", deckId: d.id, type: t.id, fields: fields, _tpl: Math.max(0, Math.min(studioState.tpl | 0, typeCards(t).length - 1)) };
     box.innerHTML =
       '<div class="study-card admin-pv-card">' +
         '<span class="label">Question</span><div class="question">' + cardFrontHTML(stand) + "</div>" +
@@ -15089,17 +15369,59 @@
     const t = studioState.type ? uTypeGet(d.id, studioState.type) : null;
     if (!t) return;
     studioTypePreview(d, t);
-    // Every keystroke saves and repaints the preview IN PLACE — a full render() would take the caret out of
-    // the textarea the author is typing in, which is why the type list is not rebuilt here either.
+    /* Every keystroke saves and repaints the preview IN PLACE — a full render() would take the caret out of
+       the textarea the author is typing in, which is why the type list is not rebuilt here either.
+       `front` and `back` belong to the OPEN CARD TEMPLATE rather than to the type, so they are routed to
+       uTypeSetCard with the index read live off studioState: without that an edit made after switching
+       templates lands on whichever one was open when the listener was installed. */
     root.querySelectorAll("[data-utype]").forEach((el) => el.addEventListener("input", () => {
-      uTypeSet(d.id, t.id, el.dataset.utype, el.value);
+      const k = el.dataset.utype;
+      if (k === "front" || k === "back") uTypeSetCard(d.id, t.id, studioState.tpl | 0, k, el.value);
+      else uTypeSet(d.id, t.id, k, el.value);
       adminFlashSaved();
       const live = uTypeGet(d.id, t.id);
       if (live) studioTypePreview(d, live);
-      if (el.dataset.utype === "name") {
+      if (k === "name") {
         const h = root.querySelector(".admin-ed-title"); if (h) h.textContent = live ? live.name : el.value;
       }
     }));
+    /* The card-template controls. Switching, adding and removing all re-render — each changes which template
+       the two big boxes are showing, which is not something to patch in place — and each blurs first, for the
+       reason the field list does: removing a focused control mid-innerHTML is what Chrome refuses. */
+    const rerender = (el) => { if (el) el.blur(); setTimeout(render, 0); };
+    const pick = root.querySelector("#stTplPick");
+    if (pick) pick.addEventListener("change", () => { studioState.tpl = pick.value | 0; rerender(pick); });
+    const tname = root.querySelector("#stTplName");
+    if (tname) tname.addEventListener("input", () => {
+      uTypeSetCard(d.id, t.id, studioState.tpl | 0, "name", tname.value);
+      adminFlashSaved();
+      const opt = pick && pick.options[studioState.tpl | 0];
+      if (opt) opt.textContent = tname.value || "Card " + ((studioState.tpl | 0) + 1);   // the picker names it — keep the two in step
+    });
+    const tplAdd = root.querySelector("#stTplAdd");
+    if (tplAdd) tplAdd.addEventListener("click", () => {
+      const i = uTypeAddCard(d.id, t.id);
+      if (i < 0) return;
+      studioState.tpl = i;
+      const n = uDeckCards(d).filter((c) => c.type === t.id).length;
+      toast(n ? "Added — every " + t.name + " note is now " + typeCards(uTypeGet(d.id, t.id)).length + " cards" : "Card added");
+      rerender(tplAdd);
+    });
+    const tdel = root.querySelector("#stTplDel");
+    if (tdel) tdel.addEventListener("click", () => {
+      const i = studioState.tpl | 0, cards = typeCards(t);
+      const n = uDeckCards(d).filter((c) => c.type === t.id).length;
+      /* Asked for, because this is the one thing in the Studio that destroys a SCHEDULE: a field dropped from
+         a type leaves its values behind and a type deleted puts its cards back to Basic with their records
+         intact, where the cards this template was making simply stop existing. */
+      inlineConfirm(
+        "Remove “" + (cards[i].name || "Card " + (i + 1)) + "” from " + t.name + "?" +
+          (n ? " " + n + (n === 1 ? " note" : " notes") + " will each lose that card, and its study progress with it." : "") +
+          " This can't be undone.",
+        () => { uTypeDeleteCard(d.id, t.id, i); studioState.tpl = Math.max(0, i - 1); rerender(tdel); },
+        "Remove the card"
+      );
+    });
     const ff = root.querySelector("#stTypeFields");
     // the field LIST does re-render: it changes which boxes a card of this type offers, and the help line above
     // …and it does so OUT of the event. render() replaces #view, and removing a still-focused input fires
@@ -15927,7 +16249,7 @@
     if (queue.length === 0) {
       // nothing due / no new left — offer to cram remaining unseen, or report all caught up
       const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => availStudy.has(id) && !isSeen(id) && !isSuspended(id))
-        : ud ? (ud.cardIds || []).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
+        : ud ? uDeckStudyIds(ud.cardIds || []).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
       if ((sd || ud) && remainingUnseen.length) {
         root.innerHTML = emptyPlacard(
           "Daily limit reached",
@@ -16909,18 +17231,28 @@
     if (el.textContent !== css) el.textContent = css;
     return scopeId;
   }
+  /* WHICH of the type's card templates this card is. `_tpl` is written by cardById when it resolves a derived
+     id and is absent everywhere else, so a card that has never been anything but the first template — every
+     card written before templates existed — takes index 0 and renders exactly as it did. An index past the
+     end (a template removed while the card sat in a queue) falls back to the first rather than rendering
+     nothing, which is the difference between a stale card and a blank one. */
+  function cardTypeTemplate(c, t) {
+    const list = typeCards(t);
+    return list[(c && c._tpl) || 0] || list[0];
+  }
   // the card's front or back as HTML, or null when the card is a Basic one (which every caller falls back on)
   function cardTypeSideHTML(c, side) {
     const t = cardTypeOf(c);
     if (!t) return null;
+    const tpl = cardTypeTemplate(c, t);
     const scopeId = ensureCardTypeStyle(c.deckId, t);
     /* The front's blanks are closed before it is handed to the back as {{FrontSide}} — which is Anki's
        behaviour and the right one: the top of the back is the question AS IT WAS ASKED, so a reader
        comparing the two is looking at their own guess rather than at the answer twice. Its markers are
        already spent by then, so the back's own pass finds nothing left to close. */
     const seen = {};
-    const front = clozeMark(tplRender(t.front, cardTypeFieldGetter(c, null)), false);
-    const html = side === "front" ? front : clozeMark(tplRender(t.back, cardTypeFieldGetter(c, front, seen)), true);
+    const front = clozeMark(tplRender(tpl.front, cardTypeFieldGetter(c, null)), false);
+    const html = side === "front" ? front : clozeMark(tplRender(tpl.back, cardTypeFieldGetter(c, front, seen)), true);
     /* A back that renders the front OWNS it, and says so on the wrapper: the study card and the previews all
        keep their own question block above the answer — right for a Basic card, where the answer is a new
        block — and it would otherwise print the word, its part of speech and its blanks a second time under
@@ -16930,7 +17262,11 @@
     /* The spoken language goes on the WRAPPER, so every read-aloud control inside a card of this type
        inherits it and a template that wants a second language need only say so on the one element. */
     const lang = t.speechLang ? ' lang="' + esc(t.speechLang) + '"' : "";
-    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + lang + ">" + sanitizeHTML(html) + "</div>";
+    /* WHICH card of the note this is, 1-based, on the wrapper — the element a type's own `.card` selector is
+       scoped to. So a type whose two directions want to look different says `.card[data-uctpl="2"] { … }`,
+       which is Anki's `.card2` in the shape this scoper can already rewrite. */
+    const tplN = ' data-uctpl="' + (((c && c._tpl) || 0) + 1) + '"';
+    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" + sanitizeHTML(html) + "</div>";
   }
   // what goes in the study card's question area: a custom type's front template, or the Basic question
   function cardFrontHTML(c) {
@@ -22351,7 +22687,7 @@
         if (ids.length) out.push({ id: nid, label: nodeTitle(n), group: g, ids: ids });
       });
     });
-    if (withCommunity) uDeckList().forEach((d) => { if ((d.cardIds || []).length) out.push({ id: "u:" + d.id, label: d.title || "Untitled deck", group: "Your decks", ids: d.cardIds.slice() }); });
+    if (withCommunity) uDeckList().forEach((d) => { if ((d.cardIds || []).length) out.push({ id: "u:" + d.id, label: d.title || "Untitled deck", group: "Your decks", ids: uDeckStudyIds(d.cardIds || []) }); });
     return out;
   }
   function deckStatsPanelHTML(prog, scope) {

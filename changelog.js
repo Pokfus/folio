@@ -14,15 +14,17 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.145", released: "2026-08-10T01:10Z" };
+window.FOLIO_VERSION = { v: "1.146", released: "2026-08-10T03:25Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-10",
-    t: "Every review is written down, so a card can tell you why it is due — and the four grade buttons get a chart of their own",
+    t: "One note can now make several cards, so a word can be asked in both directions — plus every review is written down, a card can tell you why it is due, and the four grade buttons get a chart of their own",
     items: [
+      "<b>A card type can now make more than one card from each note.</b> A deck of your own can ask one word in both directions \u2014 the word from its meaning and the meaning from the word \u2014 as two cards with a schedule of their own, so each direction is learned rather than one standing in for both. There is a ready-made <b>Two-way</b> shape to start from, and any type you have already written can be given a second card in two clicks. Folio deals the second card of every note only after the first card of all of them, so a word and its reverse never arrive one after the other. Adding a reverse card to a type you have been studying for months costs you none of that progress, and a card can tell you which of its note's cards you are looking at.",
       "<b>Folio now keeps a record of each review as you make it</b> — which card, which button you pressed, what the interval was before and after, and how long you took. Until today only a daily total was kept, which is enough for the heatmap and the retention figure and can say nothing about a single card. The record starts from today: anything you studied before this is still in the card's own state, but its individual reviews were never written down, and no later release can reconstruct them.",
       "<b>A card can now tell you why it is due when it is.</b> Press <b>Info</b> at the top of a card you are studying — or <b>I</b> on a keyboard — for its state, its interval, its ease, how many times you have seen it and how often you have forgotten it, followed by every review the record holds: when, which button, the interval it came from and went to, and the time it took. A card studied before today shows its state and says plainly why its history is short.",
+      "A deck file written by hand rather than exported from Folio \u2014 one with no id of its own \u2014 now gets one when you import it. Such a deck came in half-addressed: it worked, but it could not be added to your daily study from the Collections page.",
       "Keys pressed while a panel is open over a card no longer reach the card behind it. Reading a definition or a card's history and pressing a number graded the card underneath, out of sight; the panel now has the keyboard until you close it.",
       "<b>Your statistics now show which of the four buttons you actually press</b>, as a bar for each over the last month in the grade buttons' own colours, with how many you remembered against how many you forgot, the time you spent, and your average per card — the first time Folio has measured how long a card takes you. A card left open is counted at a minute at most, so an interrupted session cannot inflate the figure.",
     ],

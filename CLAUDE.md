@@ -6685,6 +6685,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     hidden**: Anki turns one note into one card per number, where a Folio card is a single record, so every
     blank on a card is hidden and revealed together. The numbers are still read, so a deck written elsewhere
     renders as its author wrote it.
+  · **ONE NOTE, SEVERAL CARDS — reverse cards** (`type.cards` / `typeCards` / `CARD_SIB` / `uCardBaseId` /
+    `uCardTplIndex` / `uCardIdFor` / `uNoteCardCount` / `uNoteCardIds` / `uDeckStudyIds` /
+    `cardTypeTemplate`; Aug 2026, on request). A type declares a LIST of card templates and one note yields
+    one card per template, each with a schedule of its own — Anki's note types, and the thing the HSK decks
+    needed, since recognition and production were two separately written cards with separate progress.
+    · **THE RECORD STAYS ONE NOTE.** Duplicating it per direction is the obvious implementation and is
+      wrong: a shared field edited on one copy and missed on the other leaves two cards drifting with
+      nothing to say so. `UCARDS` keeps one row per note and the extra CARDS are ids derived from it, which
+      is Anki's own notes-versus-cards split.
+    · **`type.cards` is `[{ name, front, back }, …]` and the LEGACY `front`/`back` fold into `cards[0]` on
+      ingest.** `uTypeSanitize` emits the canonical list and nothing else reads the old keys, so every deck
+      file, installed copy and published row normalises itself with nothing to migrate by hand — and every
+      type has at least one template, which is what lets every reader assume one rather than test for none.
+      **`typeSpeaks` had to learn to look at ALL of them**: a two-way type may put the read-aloud control on
+      one direction only, and reading the first template alone hides the switch on the reverse card.
+    · **TEMPLATE 0 KEEPS THE BARE NOTE ID**; only the second and later take a `~N` suffix (1-based, so
+      `u_abcd1234_7~2`). That is the whole point of the scheme: adding a reverse card must not move the
+      schedule of a card a reader has been studying for a month. `~` cannot occur in a note id
+      (`^u_[a-z0-9]{4,16}_\d+$`), so the split is unambiguous, and unlike `.` or `:` it is safe unescaped
+      inside a quoted attribute selector.
+    · **`cardById` RESOLVES a derived id** and returns a COPY carrying `_tpl` — never the stored note, which
+      every one of its cards shares, and writing the index onto it would make whichever card rendered last
+      the answer for all of them. It is the one place that has to know how the id is built; the study page,
+      the scheduler, the counts and Card info all go through it already.
+    · **THE QUEUE IS TEMPLATE-MAJOR** (`uDeckStudyIds`): every note's first card before any note's second.
+      That is what makes a reverse card a test rather than a prompt — note-major deals "水 → water" straight
+      after "water → 水" — and it is one of Anki's own new-card sort orders rather than a workaround.
+      **Day-long sibling burying is NOT implemented**; this is what makes its absence bearable.
+    · **`entryCardIds`, `availableCardIdSet`, `buildSession`'s udeck branch, the review's Chrono sequence,
+      the cram offer, `entryInfo`'s count, `uDeckStudied`, the deck-statistics scope and the rating gate all
+      expand.** A missed one fails QUIETLY and differently each time — a reverse card that is never dealt, a
+      progress bar over the wrong denominator, a sort that dumps every second card at the end.
+    · **Removing a template destroys a SCHEDULE**, which nothing else in the Studio does (a dropped field
+      leaves its values, a deleted type puts its cards back to Basic intact), so it asks first. The records
+      from the removed position onwards are dropped rather than shifted down — card 3's schedule is not
+      card 2's — and the ids before it still mean what they meant. The revlog is deliberately not swept:
+      those reviews happened, and a row whose card is gone is simply never looked up.
+    · **The "Two-way" preset** is Anki's "Basic (and reversed card)": Front / Back / Notes and two
+      templates. Deliberately plainer than the Vocabulary preset — what an author needs to see here is the
+      two-template idea — and its CSS is the worked example of **`.card[data-uctpl="2"]`**, the 1-based
+      template index on the wrapper, which is Anki's `.card2` in the shape `cssScoped` can rewrite. Note
+      that its arrow is the CHARACTER: `sanitizeCSSText` strips backslashes, so a `\2190` escape prints
+      literally.
+    · The Studio's type form gains a template picker, a name box and Add/Remove (`studioTypeCardsHTML`,
+      `studioState.tpl`). `front`/`back` route to **`uTypeSetCard` with the index read live off
+      `studioState`** — a listener that closed over the index would write an edit to whichever template was
+      open when it was installed. The preview follows the OPEN template, since on a two-way type the card
+      being edited is the second one half the time.
+    · **A pre-existing import bug was fixed alongside it** (`uDeckImportText`): a deck file with no
+      `meta.id` — which a hand-written one plausibly has and Folio's own export never does — mounted under
+      the EMPTY STRING. It half worked (entry id `"u:"`, an empty `data-uadd`), it kept the file's own card
+      ids where every other import remaps them, and a second idless import took the fresh-id branch and
+      left the first as the only broken one.
   · **The safety rests on the LAST sanitize, not the first.** The templates and the field values are each
     cleaned on ingest, and that is not enough — a value dropped into `<img src="{{X}}">` is only checkable once
     the two are one string. So `cardTypeSideHTML` is the single choke point, and it runs `sanitizeHTML` over
@@ -6718,7 +6771,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     "1 / 3" counter are about the Basic format's `questions` array.
   · **The deck PAGE's sample card** belongs to no local deck, so it carries its type on `card._type`
     (sanitized from `row.types` there) — `cardTypeOf` reads that before looking a deck up.
-  · Guarded by **`.claude/test-card-types.js` (139 assertions)**, which tests the CSS scoper, the template
+  · Guarded by **`.claude/test-card-types.js` (186 assertions)**, which tests the CSS scoper, the template
     engine and the cloze pass as pure string functions (a scoping bug reads far better as a failed comparison
     than as a screenshot of a restyled page), then drives the real Studio, then imports a **hostile deck file**
     through the real file picker. Its preset section (`presetChecks`) runs LAST, after the export round trip,
@@ -6726,7 +6779,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and it therefore finds its own way back to the Studio. **Re-run after touching `sanitizeCSSText` /
     `cssScoped` / `cssScopeSelector` / `tplRender` / `clozeMark` / `cardTypeSideHTML` / `ensureCardTypeStyle` /
     `uTypeSanitize` / `uTypeCreate` / `uCardSanitize` / `CARD_TYPE_PRESETS` / `wireSpeakControls`, or
-    `levelFromXP`.**
+    `levelFromXP`.** Its `reverseChecks` section runs LAST and builds its own deck: it covers the whole of
+    one-note-several-cards, and the three assertions worth knowing about are that **template 0 keeps the bare
+    note id** (the promise no screen would report breaking), that **no note's two cards are dealt back to
+    back**, and that **removing a template drops its cards' progress and not the survivors'**. It also pins
+    the shape in the FILE, since a type now travels as a `cards` list and an installed copy renders raw prose
+    if it does not.
     Two things that bit while writing it and will bit again: **`render()` called from inside a `change` handler
     throws** — removing the still-focused input fires blur in the middle of `#view`'s innerHTML assignment, so
     blur first and defer the render out of the event; and a test that opens IndexedDB **must close it**, or the

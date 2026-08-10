@@ -1677,6 +1677,16 @@ body.grading .stage{padding-bottom:150px;}
   .hm-best{margin-left:0; width:100%;}
 }
 
+/* card types — the list of card templates a type declares. The picker and the name sit side by side on a
+   wide editor and stack on a narrow one; the two buttons are their own row so "Remove this card", which is
+   the destructive one, is never adjacent to the select a finger is aiming at. */
+.ut-cards{display:grid; grid-template-columns:1fr 1fr; gap:10px 14px; align-items:end; margin:2px 0 4px; padding:11px 0 12px; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);}
+.ut-cards .admin-field{margin:0;}
+.ut-cardacts{grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+@media (max-width:720px){
+  .ut-cards{grid-template-columns:1fr;}
+}
+
 /* ---------- card info: the state block and the per-review history table ----------
    Both live inside a `.dm-box` sheet, which is why the widths below are caps rather than fixed sizes: the
    sheet is centred at every screen width and the table has to be able to scroll inside it rather than
@@ -1698,6 +1708,7 @@ body.grading .stage{padding-bottom:150px;}
 .ci-due-now{color:var(--zh); font-weight:600;}
 .ci-leech{color:var(--zh);}
 .ci-id{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
+.ci-of{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint); margin-left:6px;}
 .ci-h{font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink); margin:6px 0 0; padding:11px 14px 0; border-top:1px solid var(--rule);}
 .ci-none{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin:0; padding:7px 14px 2px;}
 .ci-histwrap{overflow-x:auto; overflow-y:auto; max-height:44vh; padding:7px 14px 2px;}   /* the cap above is what makes this a floor rather than the whole rule */
