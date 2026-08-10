@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.143", released: "2026-08-09T20:49Z" };
+window.FOLIO_VERSION = { v: "1.144", released: "2026-08-09T23:20Z" };
 
 window.CHANGELOG = [
   {
@@ -41,6 +41,14 @@ window.CHANGELOG = [
       "Your added decks show their names again under Daily study. If you use an ad blocker, its filter list was hiding the deck's name and the progress bar beside it on every row, leaving a line of bare numbers — the parts of that row were named after the active deck they belong to, and two of those names are also used by real adverts. They have been renamed, so the row reads properly whatever you have installed.",
       "A vocabulary card in one of your own decks no longer shows its word twice when you turn it over. Card shapes whose back is written to repeat the question — the vocabulary and picture ones — now draw it once, with the answer under the rule, as they were meant to.",
       "An artefact's picture can be opened full size, like a card's, with the object's name and the source of the photograph under it. It is framed in the colour of the artefact's rarity, its rarity now sits beside the name rather than on the line above it, and the five sentences link the glossary wherever they use a word it defines — so a term met on an artefact opens the same definition it opens anywhere else.",
+      "<b>You can gather your decks into groups.</b> There is a “New group” button at the foot of the Daily study banner: name one, then drag any deck or subdeck onto it to put it inside. A group is a thin heading over the decks it holds, it folds away with the chevron like a collection does, tapping it studies everything inside at once, and holding it — or right-clicking — lets you rename it, take it apart again, or give it a colour that every deck inside then wears. Dropping a deck onto the middle of another deck makes it a subdeck of that one; the top and bottom of a row still mean “put it here in the order”. Taking a group apart never removes the decks in it. An added collection is now drawn as a group too, since a collection has no cards of its own — only the decks inside it do — and a deck moved out of one stops being counted by it, so the same cards are never offered twice on one screen.",
+      "<b>The Daily study banner changes colour every day</b>, through twelve colours in turn — and its resting colour is a light blue rather than the old bronze. The decks listed under it keep their own collections' colours.",
+      "The “Add decks” tab under your daily study now sits at the right-hand end of the card rather than in the middle of it.",
+      "<b>Daily limits has two tabs.</b> One sets the limits for the deck you are holding, as before; the other sets the default that every deck follows until you give it one of its own — which is where “New cards per day” has moved to from the Settings page, along with a maximum reviews a day to go with it. A deck you have already set keeps its own figures, and there is a way to hand one back to the default.",
+      "<b>Shared decks are a list rather than a grid of tiles</b>, so a deck's title has the full width of the row and the ratings line up down the page. A deck's own page now opens with the description its author wrote — and says plainly when they wrote none — carries a link to download the deck as a file, and names the other readers' comments as comments.",
+      "A deck of your own can now turn the glossary off altogether, beside the three settings it already had. It is for a deck whose own words keep colliding with a glossary written about something else.",
+      "In your own decks, the Studio's way back is a link at the top left of the page, and it says “Back to Collections” — the page it returns to was renamed when the Library became the books.",
+      "The Timeline puzzle capitalises the terms it lists, as the Multiple Choice options already did.",
     ],
   },
   {

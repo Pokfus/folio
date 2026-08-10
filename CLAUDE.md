@@ -3705,8 +3705,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     arithmetically incapable of disagreeing. Two things about it are decisions rather than plumbing.
     **Its DEFAULT new-card limit is the LARGEST any added deck offers** (`reviewLimits`), not the global number: a
     pooled view must not impose a figure none of the things it pools has agreed to. An explicit limit set in its own
-    sheet wins outright, exactly as a parent deck's does in Anki, and Settings → New cards per day remains what a DECK
-    follows until it is given limits of its own. **And `newRemainingToday()` is now `deckNewRemaining(REVIEW_ENTRY)`,
+    sheet wins outright, exactly as a parent deck's does in Anki, and the **"All decks" tab of the Daily limits
+    dialog** — which is where Settings → New cards per day moved to in Aug 2026 — remains what a DECK follows until
+    it is given limits of its own. **And `newRemainingToday()` is now `deckNewRemaining(REVIEW_ENTRY)`,
     derived from the card records** — it used to read `S.intro.count`, a running tally `grade()` increments on ANY
     card's first grade, so a Card of the day or a deck tapped into directly silently ate the review's allowance and an
     undo did not give it back. The decks' counts were derived all along; the banner above them was not, and the two
@@ -3752,16 +3753,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the reader wants to LOOK at their study, not what it deals them.
     **A ROW BRINGS ITS SUBTREE**: a collection's row is followed in the DOM by every deck under it, so what
     moves is a contiguous BLOCK — the row plus every following row of greater depth, folded ones included, or
-    a shut collection would leave its children behind. **IT MOVES AMONG ITS SIBLINGS AND NOWHERE ELSE**;
-    re-parenting is deliberately not on offer, since a subdeck dragged under another collection would carry
-    cards that collection does not contain and its indent, its hue and its counts would all then be lying.
+    a shut collection would leave its children behind. **IT MOVES AMONG ITS SIBLINGS, AND — SINCE GROUPS
+    (Aug 2026, on request) — INTO ANY CONTAINER**: the note that used to stand here said re-parenting was
+    deliberately not on offer, because a subdeck dragged under another collection would carry cards that
+    collection does not contain and its indent, its hue and its counts would all then be lying. The request
+    reversed the policy, and the "lying" half of it is answered rather than accepted — see the GROUPS
+    bullet: a container counts what is drawn UNDER it, so a branch dragged out of a collection stops being
+    counted by it.
     **THE HANDLE TAKES THE PRESS OUT OF THE ROW'S OWN HANDS** — the row is a tap (study this deck) and a hold
     (its options sheet), so the grip stops its pointerdown and swallows the click that follows, exactly as
     the fold chevron beside it does — and it is a real `<button>` answering to ↑/↓, because a reorder
-    reachable by pointer alone is one a keyboard reader simply has not got. It is drawn only where its level
-    holds a second row, and it sits ABSOLUTELY in the row's left padding rather than taking a column: the
-    base indent went 16px → 22px to make room, because at 390px the deck's NAME is the only part of the row
-    with a shorter form and a handle in the line would have been paid for out of it.
+    reachable by pointer alone is one a keyboard reader simply has not got. It is drawn wherever the LIST
+    holds a second row — it used to be wherever a LEVEL did, which is too narrow now that the only row in
+    its level can still be dropped into a group — and it sits ABSOLUTELY in the row's left padding rather
+    than taking a column: the base indent went 16px → 22px to make room, because at 390px the deck's NAME is
+    the only part of the row with a shorter form and a handle in the line would have been paid for out of it.
     **AND THE ROW'S OWN `pageIn` ANIMATION HAS TO GO before it can be moved** — `both`-filled, so its last
     keyframe (`transform:none`) outranks an inline style and `deckSetY` would be silently ignored, leaving a
     row that does not follow the finger while the list around it FLIPs perfectly (a script animation wins,
@@ -3769,6 +3775,63 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `.bk-page` and `gbSetCompact`.
     `S.deckOrder` is in `defaultState` AND `PROGRESS_FIELDS` — an arrangement is a fact about the reader, so
     the list a phone shows is the list the laptop shows. Guarded by `test-review-decks.js` section 8.
+  · **GROUPS — the reader's own containers in the review list** (`S.deckGroups` / `S.deckNest`, `GROUP_PREFIX`
+    / `isGroupId` / `groupCreate` / `groupDelete` / `groupTitle` / `groupColor` / `setNestParent` /
+    `nestChildren` / `nestForget` / `nestWouldLoop` / `repaintReviewHues`; `.deck-group` / `.dk-into` /
+    `.rv-newgroup` / `.dm-swatch` in styles.css. Aug 2026, on request). A group is made from **"+ New group"
+    at the bottom left of the Daily-study banner**, holds decks dragged into it, folds with a chevron, can be
+    renamed, can be given a colour every deck inside takes, and studies everything under it. **AN ADDED
+    COLLECTION IS ONE TOO** — that is the request's own reasoning and it decided the shape of the rest: a
+    collection holds no cards itself, only the decks inside it do, so a root collection with rows under it is
+    drawn as a group header rather than as a deck row.
+    Nine things are decisions rather than plumbing.
+    **A GROUP IS NOT IN `S.active`.** It has no cards of its own, so putting it there would make `reviewQueue`
+    offer its members' cards a second time under the GROUP's allowance as well as each member's — deduped to
+    the same set, but drawn against the wrong limits. It is a display-and-scope construct; the decks inside it
+    are what the daily review iterates, exactly as before, so a group can be made, filled and taken apart
+    without the review's arithmetic moving at all.
+    **A CONTAINER COUNTS WHAT IS DRAWN UNDER IT, which is what answers the old "its counts would be lying"
+    objection.** `entryCardIds` on a tree node walks its subtree MINUS any branch dragged out from under it,
+    and adds whatever has been dragged in — so a collection that has lost two decks to a group stops claiming
+    their cards, and the two rows do not both offer the reader the same five new cards. Nothing is lost from
+    the review: the deck dragged away is still in `S.active` and still offers its own cards on its own
+    account. `buildSession`'s deck branch and `entryInfo` read `entryCardIds` for the same reason — **a row,
+    its sheet and the session it starts must all be counting one thing.**
+    **THE ID CARRIES A COLON** (`g:`), like `COTD_ENTRY` and `REVIEW_ENTRY`, so it can never collide with a
+    node id (plain slugs) or with the `u:` of one of the reader's own decks.
+    **`deckGroups` IS KEYED BY CONTAINER, NOT BY GROUP.** A colour set on an added collection has to live
+    somewhere, and a second register for tree nodes would be two lookups and two chances to forget one: a
+    record with a `title` is a group the reader made, a record with only a `color` is an override on
+    something the tree already names.
+    **THE HUE IS INHERITED DOWN THE CONTAINER CHAIN** rather than looked up per row — that is the whole of
+    "changes the colour of all decks inside it" — and **only the header is darkened** (52% against the rows'
+    30%, with its own `body.night` pair, which `.active-deck.context` already had to learn: `body.night
+    .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order).
+    **THE MIDDLE OF A ROW MEANS "INSIDE", THE EDGES MEAN "BESIDE"** (`dropTargetAt`, `DROP_EDGE` 0.34). One
+    gesture does both "drag a deck into a group" and "drop a deck on another deck to make it a subdeck", and
+    without that split there would be nowhere left to aim between two rows. Positions are read from the
+    LAYOUT, never the paint, for the reason the reorder is — and `elementFromPoint` is no use, since
+    `.dk-reordering` takes the rows out of hit-testing. A drop into a container goes through `render()`
+    (depth, indent, hue and fold are all derived at build time) where a reorder does not, and the container
+    is opened first or the deck reads as having been swallowed.
+    **A DESCENDANT CANNOT BE A DROP TARGET, and it is the BLOCK that says so** rather than a tree walk:
+    `blockOf` is the row plus every following row of greater depth, folded ones included, so a collection's
+    whole subtree is skipped when the collection itself is being carried. `nestWouldLoop` is the belt to that
+    braces, for a cycle that could only arrive out of an older save or two devices reconciling — and
+    `entryCardIds` / `nestDescendants` / `adChainVisible` all carry a guard for the same reason: a cycle must
+    draw a wrong list, never hang the page.
+    **THE FOLD NOW WALKS THE CONTAINER CHAIN, NOT THE TREE** (`adChainVisible`, and `adSyncFold` reading
+    `data-parent`/`data-drag` off the DOM). It used to walk `node.parentId`, which stopped being the whole
+    answer the moment a row could be drawn somewhere the tree does not put it. A group seeds OPEN where an
+    added collection seeds shut: the reader has just built it and put things in it.
+    **UNGROUP DISSOLVES, IT DOES NOT DELETE.** The members are freed to the level the group stood at, keeping
+    the order they had inside it — losing a deck because you tidied a container away is the one outcome a
+    grouping feature must never produce — and `removeActive` re-homes a container's children one level up for
+    the same reason, since a child whose container is no longer drawn would be in the review and invisible.
+    **THE COLOUR SWATCHES REPAINT IN PLACE** (`repaintReviewHues`): the sheet is where a colour is chosen and
+    `render()` closes that sheet, so repainting the ordinary way would dismiss the very control the reader is
+    using to compare two colours. Both registers are in `defaultState`, `PROGRESS_FIELDS` **and
+    `RESET_KEEPS`** — a group is how the reader has arranged the decks `active` already keeps.
   · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
     bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
     dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
@@ -3785,6 +3848,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the whiteboard marker's drag — a finger that moves more than `AD_SLOP` is scrolling, not holding — and
     `contextmenu` plus the ContextMenu key give a mouse and a keyboard the same way in. The sheet lives on
     `document.body`, so **`render()` closes it** (`closeDeckMenu`).
+  · **DAILY LIMITS HAS TWO TABS, and the Settings page has no allowance any more** (`globalLimits` /
+    `setGlobalLimits` / `clearDeckLimits` / `.dm-tabs`, Aug 2026, on request). **This deck** writes
+    `S.deckOpts[id]`, as it always did; **All decks** writes the DEFAULT every deck follows until it has
+    limits of its own — which is where **Settings → New cards per day** moved to when it was removed from
+    that page. The value is the same (`S.settings.newPerDay`, so no save migrates) and its companion is new
+    (`S.settings.maxReviewsPerDay`, back-filling from `DECK_MAX_REVIEWS` by its own absence): the maximum
+    reviews a day had only ever been settable per deck, so the two halves of one idea lived in two places
+    three navigations apart, and the global one read as a rule about Folio rather than as the fallback
+    behind a per-deck figure.
+    Three things are decisions. **The tabs swap PANES rather than rebuilding the sheet**, and Save writes
+    both, so a reader can change the default and this deck's override in one visit without either being
+    thrown away by looking at the other. **The per-deck tab shows the INHERITED figure where nothing has
+    been set**, and says so under the fields — `deckLimits` already falls back, so the box would otherwise
+    show a number the reader might take for something they had chosen. And **"Clear back to the default"
+    DELETES the three keys** rather than writing the global's current values into them, which is the whole
+    difference: a deck cleared this way follows a later change to the default, where one holding a copy of
+    today's figures would silently stop following it. It is offered only where there is something to clear.
+    `.dm-pane[hidden]{display:none}` is required — the author `display` beats the UA rule, the trap
+    `.ces-imgpanel[hidden]` already carries.
   · **QUESTION VARIETY** (`deckVariety` / `setDeckVariety` / `scopeEntryId` / `S.settings.questionVariety`,
     Aug 2026, on request). Whether a card asks one of its three phrasings at random or always the first.
     It is **PER ENTRY with a global default**, exactly like the daily limits and for the same reason: this
@@ -5234,6 +5316,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The button is **CENTRED against them** (`align-items:center`, Aug 2026, on request): a figure over a label is a
   two-line column, and the `flex-end` this rule used to carry put a one-line button on its baseline, reading as
   having slipped down.
+  **THE BANNER IS LIGHT BLUE** (`--tile:#5AA9DC`, Aug 2026, on request — it was a bronze, `#9A6634`, from the
+  days when the tile earned that colour as a fill). It is set TWICE and the two must be kept in step:
+  `.banner` carries it because `.banner` is the review banner and nothing else on the site, and
+  `.review-group` carries it because that is what a row with no collection hue of its own falls back to — and
+  a value set on the banner element itself outranks anything inherited, so the group's copy cannot serve for
+  both. `.deck-group`'s own fallback is a third copy of the same figure.
+  **…AND IT CHANGES EVERY DAY** (`DAY_HUES` / `dayHue`, Aug 2026, on request). Twelve hues round the wheel,
+  one per day, taken IN ORDER rather than at random — a random pick repeats, and two days the same colour
+  reads as the feature having stopped rather than as chance. The index comes from `dayKey`, so it turns over
+  at the reader's OWN day boundary, the same moment the quote and the day's allowance do, rather than at
+  some hour of its own. They are lighter and brighter than the collection hues on purpose: a collection's
+  colour has to stay legible under 30% of it behind body text, where this is a wash across a whole banner.
+  It is set INLINE on the banner element, so it beats the stylesheet's own `--tile` without either of them
+  having to know about the other — and the DECK ROWS below keep `.review-group`'s static value, or the whole
+  list would change colour every morning with it. The light blue above is Tuesday's, and the stylesheet's
+  copy is still what a theme, a hero and every fallback read.
+  **"+ NEW GROUP" sits at the bottom left of it** (`.rv-tools` / `.rv-newgroup`, Aug 2026, on request), a row
+  of its own under the piles rather than an absolutely-positioned corner — the meta row already owns that
+  corner, and a floating control there would have to guess its height on every render, which is the reasoning
+  that keeps `.rv-lip` in flow. Like the chest chip it is a **button inside a button**, which markup does not
+  allow, so it is a `role="button"` span carrying `data-newgroup` that the banner's own click handler defers
+  to (and which needs its own Enter/Space handler for the same reason the chest chip does). It is drawn only
+  once there is something to group: a control whose whole result is an empty container teaches nothing.
 - **The home page is ONE COLUMN and, since Aug 2026, LITERALLY THE SAME PAGE at every width** (`PAGES.home`).
   It was three swiped panes for a week (`.home-pager` / `.hp-pane` / `#homeDots` — all
   gone, along with their ≤640px rules), then one column on a phone and a longer page on a desktop, and is now the
@@ -5273,6 +5378,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It is **filled indigo with white text** (Aug 2026, on request), not the paper tab it started as: it is the
     only route to the collections down here, and paper-on-paper it read as part of the card's own edge. The
     blue is the site's primary-button indigo, so it matches Start review directly above it.
+    It hangs at the **RIGHT-HAND end** of that edge rather than in the middle of it (Aug 2026, on request):
+    `align-self:flex-end` with a 20px `margin-inline-end`, so it clears the card's own rounded corner instead
+    of sitting on it, and the inset is written logical-side so Arabic finds it where Arabic reads from.
   · **`.home-about`** — a centred grey "About Folio" line (`#b-about` → `route("mission")`) at the foot, from
     when About left the tab bar. It was phone-only for a fortnight and now ships at **EVERY width** (Aug
     2026, on request), the About tab having left the DESKTOP's top bar too: this is the only route to the
@@ -5366,6 +5474,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and it is `\p{L}`-anchored so a term opening on a numeral or a Han character is passed through rather than
   sliced through a surrogate pair. The study card makes the same move for the same reason and makes it in
   CSS (`.answer .val::first-letter`), which is not available to a text node inside a button.
+  **TIMELINE'S ROWS TAKE IT TOO** (Aug 2026, on request): a row of that list is a heading naming the thing,
+  not a word inside a sentence, and a good half of the deck's answers are common nouns stored lower-case.
+  Applied at the one DISPLAY site (`.ci-name`) rather than in `chronoPool`, so the row is still tracked and
+  compared by its card id and nothing downstream ever sees the capital.
   The home tile has **three daily states** (state classes set by
   `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
@@ -6375,10 +6487,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     bridged** — they draw from `ALL_CARD_IDS`, which is TREE-derived, so unvetted cards can't reach them.
     That's asserted by the test, not just intended.
   · **Studio** (`PAGES.studio`, `#studio`, `studioState`) — deck list → one deck (details, card list with
-    reorder, the shared card surface). Reached from the Library's **"Your decks"** section, not the nav bar.
-    Community rows are visually distinct (dashed rule, no collection hue) and the section says plainly that
-    these decks are **not fact-checked by Folio** — Folio's content rules can't be imposed on a stranger, and
-    the credibility of the curated decks is the whole product.
+    reorder, the shared card surface). Reached from the **Collections page's "Your decks" section**, not the
+    nav bar. Community rows are visually distinct (dashed rule, no collection hue) and the section says
+    plainly that these decks are **not fact-checked by Folio** — Folio's content rules can't be imposed on a
+    stranger, and the credibility of the curated decks is the whole product.
+    **The way back is a `.back-link` at the TOP LEFT, above the heading, reading "← Back to Collections"**
+    (Aug 2026, on request). It was a third ghost button in the row of actions under the heading, where it
+    read as another thing to do rather than as the way out, and it said "Back to the Library" — the page it
+    returns to was renamed Collections when the books took that name, and two pages called Library is how a
+    reader ends up on the wrong one.
   · **Deck files** — `uDeckExport` writes `<name>.folio-deck.json` (`{ folioDeck: 1, meta, cards, gloss }`);
     `uDeckPickFile` → `uDeckImportText` reads one back. An import always takes a **fresh deck id and fresh
     card ids** when the id already exists, so importing can never overwrite a deck you're working on and two
@@ -6404,10 +6521,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`UDECK_PUBLISH_KEYS` never leave the device.** `uDeckExport` strips them and `uDeckImportText` zeroes
     them, so a deck *file* can't claim someone else's slug, masquerade as installed, or suppress an update
     prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`.
-  · **Pages** — `PAGES.community` (`#community`: search, sort, grid) and `PAGES.deck` (`#deck/<slug>`, a
+  · **Pages** — `PAGES.community` (`#community`: search, sort and a LIST) and `PAGES.deck` (`#deck/<slug>`, a
     shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
     deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
     copy is never trusted just because it came from our own API.
+    **THE SHELF IS A LIST, NOT A GRID OF TILES** (`deckRowHTML` / `.cdeck-list`, Aug 2026, on request; the
+    old `deckCardHTML` / `.cdeck-grid` are gone). A tile gives every deck the same area whatever it has to
+    say, so a title, a subtitle, a rating and three figures were stacked into a card the width of a phrase
+    and two decks differing in the fourth word of their titles looked identical. A row lets the title run at
+    full width and puts the rating in a column that lines up down the list, which is what a reader scanning
+    twenty decks is doing; below 560px the rating drops under the title rather than squeezing it, the title
+    being the one part with no shorter form. The whole row is the button, so the row IS the way to the
+    deck's page — which is what the tile already was.
+    **AND THE DECK'S PAGE IS WHERE EVERYTHING ABOUT IT IS** (same request). Four things were named and three
+    of them were already there — its information, the author's own description (the Studio's `desc`,
+    published as `description`), and other people's comments (see the ratings bullet: a comment is a rating
+    with something written on it, which is the shape the schema holds and the right one, since a comment on
+    a stranger's deck is an opinion about whether it is worth using). What was ADDED is **a download link**
+    (`deckFileDownload` → `downloadDeckFile`): "Add to my decks" installs it into Folio, and this writes the
+    same `.folio-deck.json` a Studio export writes, for a reader who wants a copy, wants to pass it on, or
+    is not signed in to anything. It goes through `remoteToLocal` and then strips the publishing keys
+    exactly as `uDeckExport` does — one importer, one file format, one set of rules about what may travel —
+    and `uDeckExport` now shares `downloadDeckFile` rather than carrying its own copy of the blob dance.
+    The description is set as PROSE under a heading of its own, and where there is none the page says so:
+    a reader deciding whether to install a stranger's deck is owed the difference between "the author said
+    nothing" and a gap where something might have failed to load.
   · **Installs** — `deck_installs` is one row per user per deck, which both syncs a signed-in learner's
     installs and gives `install_count` an honest trigger-maintained source. Installing works **signed out**
     too (the deck lands in IndexedDB; only the row and the count need an account).
@@ -6431,8 +6569,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Community decks — Phase 4: a deck's own glossary (July 2026).** A deck can define its own terms, which
   auto-link inside its cards and **nowhere else**. This is what the Phase 0 glossary scoping was built for.
   · **`deck.glossMode`** — `site` (default: link the curated glossary, exactly as before), `own` (only the
-    deck's terms; the site glossary is invisible), `both` (deck terms layered over the site's). Set in the
-    Studio under **Deck details**; stored, exported and published.
+    deck's terms; the site glossary is invisible), `both` (deck terms layered over the site's), and — since
+    Aug 2026, on request — **`off`: link nothing at all**. Set in the Studio under **Deck details**; stored,
+    exported and published. The four values are declared ONCE, in `GLOSS_MODES`, and read by the ingest
+    sanitizer, the picker and the setter alike: three lists is how `off` would come to be accepted from a
+    deck file and refused from the picker, or the other way about.
+    **`off` returns EMPTY TABLES rather than being special-cased at each call site.** `buildGlossIndex` over
+    nothing yields an index that matches nothing, so every reader of a scope — the auto-linker, the
+    hand-authored `.ttip` pruning in `processAbstract`, `resolveGlossKey` — was already written correctly
+    for it and not one of them needed a branch. It is for a deck whose own vocabulary keeps colliding with a
+    glossary written about something else, where every match is a link telling the reader something untrue
+    about the sentence in front of them; a per-term blocklist cannot fix that, since the same key is right
+    or wrong depending on the sentence.
+    **⚠ Publishing a deck set to `off` needs the `9) GLOSSARY OFF` block at the end of
+    `.claude/supabase-schema.sql` run once** — `user_decks.gloss_mode` carries a CHECK constraint listing
+    the three older values. Until it runs, such a deck studies correctly on the device that wrote it and
+    refuses to publish, which is the loud failure rather than the silent one. The Studio's glossary tab
+    warns an author that their terms are being kept and not shown, exactly as it does under `site`.
   · **Keys are namespaced `u:<deckId>:<slug>`** (`uGlossKey` / `uGlossParse` / `isDeckGlossKey`). That
     namespacing is the isolation mechanism: `glossText` / `glossTitle` / `glossDates` / `glossTags` each
     branch on it and read `UGLOSS`, so a deck term resolves inside its deck and does not exist outside it.
@@ -8066,14 +8219,14 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 62 assertions across three browser sessions (an author, a reader, an
+  · `node .claude/test-publish.js` — 72 assertions across three browser sessions (an author, a reader, an
     admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
     ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
     touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
     the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
-  · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the three `glossMode`s,
+  · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the `glossMode`s,
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
@@ -8354,25 +8507,43 @@ dead code (never rendered).
     cards graded at all the banner is the first-run hero and its button says something else entirely.
     **Section 8 (Aug 2026) pins DRAGGING THE LIST INTO ORDER**, driven with real mouse input so the pointer
     capture, the `touch-action` and the 4px slop are exercised as a hand exercises them: every row carries a
-    handle exactly where its level holds a second row, a drag moves it, the order is written down under that
-    level's own key, **every subtree travels with the row it belongs to** (rebuilt from the depths — a
+    handle wherever the LIST holds a second row (it used to be wherever a LEVEL did — too narrow since a row
+    can be dropped into a group), a drag moves it, the order is written down under that level's own key, **every subtree travels with the row it belongs to** (rebuilt from the depths — a
     collection dragged out of the middle leaving its decks behind is the failure this is for, and the list
     looks perfectly ordinary when it happens), no transform is left behind, the rounded corner follows
     whichever row is last NOW, ↑/↓ do it from the keyboard, and **the Collections page keeps the editorial
     order**. Persistence is proved by carrying the saved blob to a page that has never seen the list — a
     reload cannot show it here, since `newPage` re-seeds `folio_v1` on every load and would put the seed's
-    own order back. **Sections 9 and 10** pin the day's default allowance at FIVE new cards (in the store and
-    on the Settings stepper, which read the same constant from two directions) and that **every Multiple
-    Choice round asks its card's FIRST phrasing** — with a second assertion that the cards it drew genuinely
+    own order back. **Sections 9 and 10** pin the day's default allowance at FIVE new cards — in the store, and
+    on the control that shows it, which since Aug 2026 is the Daily limits dialog's "All decks" tab rather
+    than a Settings stepper (both halves asserted: the stepper is GONE from Settings and the figure is on
+    the tab, since either alone would pass on a move that had only half happened) — and that **every
+    Multiple Choice round asks its card's FIRST phrasing** — with a second assertion that the cards it drew genuinely
     carry others, or the first passes on cards that have only one. **That comparison strips parentheticals
     from both sides**: the units pass rewrites every text node, so a card asking about "140 metres (460
     feet)" renders without the bracket, and 20 of the deck's cards carry one in their first phrasing — an
     exact string match passed on most runs and failed on the rest, which is worse than not asserting it.
+    **Section 11 (Aug 2026) pins GROUPS**, and almost everything in it fails silently: a group that studies
+    nothing looks like a group, a colour that reaches the header and not the decks inside looks like a design
+    choice, a deck counted by both its collection and the group it moved into shows the reader the same five
+    new cards twice, and a drop that lands as a REORDER rather than a nesting just looks like a drag that did
+    not take. It asserts an added collection drawn as a header (and NOT a collection the reader never added —
+    that is a signpost, and making it a counted, tappable header would offer them a collection they did not
+    ask for), the sheet's Rename / Colour / Ungroup and the absence of the daily-allowance rows, a real-mouse
+    drag lighting the group and landing inside it, the CARDS moving with it — the group's header count up by
+    exactly what the collection's went down — the colour reaching every deck inside, the whole arrangement
+    surviving a move to another device, tapping a group studying its cards, and **Ungroup leaving the decks in
+    the review**. Two things it must keep doing: **open every fold first** (an added collection seeds SHUT, so
+    without it the only visible rows are two headers and there is nothing to carry), and **drag a LEAF whose
+    parent keeps a sibling** — a leaf carries no subtree so the group's count IS that deck's, and a container
+    left with another child stays a header whose own count can be read before and after.
     **Re-run after
-    touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `deckDoneToday` / `entryPiles` /
-    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` /
-    `setupDeckDrag` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
-    per-deck allowances, or anything named `sched*`.**
+    touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `globalLimits` /
+    `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `openDeckLimits` / `addActive` /
+    `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` / `setupDeckDrag` /
+    `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` / `setNestParent` / `nestChildren` /
+    `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s per-deck allowances,
+    or anything named `sched*`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
     glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
     overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that

@@ -516,11 +516,15 @@ body.night .banner .xp-lvl{color:#E6C765;}
    ============================================================ */
 .banners{display:flex; flex-direction:column; gap:14px;}   /* matches .game-grid's tile gap, so the review banner + tiles read as one grid */
 .banner{
-  /* bronze is the Daily-review tile's own hue, mixed through --tile exactly like a game tile's colour.
+  /* LIGHT BLUE is the Daily-study tile's own hue, mixed through --tile exactly like a game tile's colour.
+     (It was a bronze, #9A6634, until Aug 2026 and was changed on request.) `.banner` is the review banner
+     and nothing else on the site, so this and `.review-group`'s copy — which is what the deck rows under it
+     fall back to — are the same colour and must be kept in step; the group sets its own because a value set
+     on the banner element itself would otherwise outrank an inherited one.
      The idle wash is declared here on .banner itself rather than on a state selector, so a theme that gives
      the banner a surface of its own (marble's veining, academy's stationery) still wins — the earned .done /
      .won fills below outrank both. */
-  --tile:#9A6634;
+  --tile:#5AA9DC;
   position:relative; overflow:hidden; cursor:pointer; text-align:left;
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile) 22%, transparent), transparent 64%),
              linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile) 13%, var(--card)));
@@ -556,6 +560,22 @@ body.night .banner{
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
+/* ---------- "+ New group", bottom left of the Daily-study banner (Aug 2026, on request) ----------
+   A row of its own under the piles rather than an absolutely-positioned corner: the meta row already owns
+   the bottom-left of the banner, and a floating control there would have to guess its height on every
+   render (the same reasoning that keeps `.rv-lip` in flow). Quiet by default — it is a way of tidying the
+   list, not the thing the banner is for — and it must clear the decorative glyph at the bottom right, which
+   `pointer-events:none` already keeps out of its way. */
+.rv-tools{margin-top:12px; display:flex;}
+.rv-newgroup{
+  cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:5px 11px;
+  border:1px dashed color-mix(in srgb, var(--ink) 26%, transparent); border-radius:99px;
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint); background:color-mix(in srgb, var(--card) 70%, transparent);
+  transition:color .16s var(--ease), border-color .16s var(--ease), background .16s var(--ease);
+}
+.rv-newgroup:hover{color:var(--indigo); border-color:var(--indigo); background:var(--indigo-wash);}
+.rv-newgroup:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:calc(150px * var(--fs)); line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -652,9 +672,12 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
    desktop's top bar too (on request): this is the ONLY route to the collections anywhere on the site.
    It is INDIGO (Aug 2026, on request), not a quiet paper tab: paper-on-paper it read as part of the card's
    edge rather than as the way onward, and the blue is the site's own primary-button indigo, so it matches
-   Start review directly above it. */
+   Start review directly above it.
+   …and it hangs at the RIGHT-HAND end of that edge rather than in the middle of it (Aug 2026, on request).
+   `align-self:flex-end` with an inset, so it clears the card's own rounded corner instead of sitting on it;
+   `margin-inline-end` rather than `margin-right`, so Arabic finds it on the side Arabic reads from. */
 .rv-lip{
-  appearance:none; cursor:pointer; align-self:center; margin-top:-1px; position:relative; z-index:3;
+  appearance:none; cursor:pointer; align-self:flex-end; margin-inline-end:20px; margin-top:-1px; position:relative; z-index:3;
   display:inline-flex; align-items:center; padding:6px 17px 7px;
   border:1px solid var(--indigo); border-top:0; border-radius:0 0 12px 12px;
   background:var(--indigo); box-shadow:0 3px 7px rgba(0,0,0,.07);
@@ -2313,10 +2336,47 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 /* a sheet row that is one of a SET rather than a command: the chosen one carries a tick, so the sheet
    says what the setting currently is and not only what it can be changed to. (No longer used by the
    review's order, which is a switch above; kept for the book shelf's own favourite row.) */
+/* THE GROUP COLOUR ROW (Aug 2026, on request: right-click a group to set its colour). A closed set of
+   swatches laid out in the sheet itself rather than a submenu — eight circles take less room than the words
+   naming them, and a menu inside a menu is a target inside a target on a phone (the book's own context menu
+   makes the same call). It is a DIV carrying .dm-item, like .dm-switch, because it CONTAINS buttons and a
+   control inside a button is invalid and unreachable by keyboard. */
+.dm-colors{cursor:default;}
+.dm-colors:hover{background:none; border-color:transparent;}
+.dm-swatches{display:flex; flex-wrap:wrap; gap:7px; margin:7px 0 3px;}
+.dm-swatch{
+  appearance:none; cursor:pointer; width:24px; height:24px; flex:none; padding:0; border-radius:99px;
+  background:var(--sw, var(--paper-2)); border:2px solid transparent; box-shadow:0 0 0 1px var(--rule) inset;
+  transition:transform .14s var(--ease), border-color .14s var(--ease);
+}
+.dm-swatch:hover{transform:scale(1.12);}
+.dm-swatch.on{border-color:var(--ink); box-shadow:0 0 0 1px var(--card) inset;}
+.dm-swatch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* "no colour of its own" — a slash across the swatch, which says *cleared* where an empty circle would just
+   read as one more colour that happens to match the paper */
+.dm-swatch-off{position:relative; background:var(--paper-2); overflow:hidden;}
+.dm-swatch-off::after{content:""; position:absolute; left:-2px; right:-2px; top:50%; height:1.5px; background:var(--ink-faint); transform:rotate(-45deg);}
 .dm-choice{position:relative; padding-right:38px;}
 .dm-choice.on{background:var(--indigo-wash); border-color:color-mix(in srgb,var(--indigo) 26%,transparent);}
 .dm-choice.on b{color:var(--indigo);}
 .dm-choice.on::after{content:""; position:absolute; right:16px; top:50%; width:6px; height:11px; margin-top:-7px; border:solid var(--indigo); border-width:0 2px 2px 0; transform:rotate(45deg);}
+/* THE DAILY-LIMITS TABS (Aug 2026, on request): this deck's own figures, and the default every deck follows
+   — which is where Settings → New cards per day moved to when it was taken off that page. A tab bar rather
+   than two sections stacked, because the two panes hold the SAME two fields and stacking them would ask the
+   reader to tell four identical boxes apart by the sentence above them. */
+.dm-tabs{display:flex; gap:4px; padding:4px; margin:2px 10px 8px; background:var(--paper-2); border-radius:9px;}
+.dm-tab{
+  flex:1; appearance:none; cursor:pointer; border:0; background:none; border-radius:7px; padding:7px 8px;
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+  transition:background .14s var(--ease), color .14s var(--ease);
+}
+.dm-tab:hover{color:var(--ink-soft);}
+.dm-tab.active{background:var(--card); color:var(--indigo); box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.dm-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* the author `display:block` a pane would otherwise take beats the UA [hidden] rule — the trap
+   `.ces-imgpanel[hidden]` and `.gs-results[hidden]` already carry */
+.dm-pane[hidden]{display:none;}
+.dm-clear{width:100%;}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
 /* a sheet row holding a picker rather than a number — the label stays on the left and the control takes
    what is left, which on a 390px screen is most of the row */
@@ -2952,9 +3012,10 @@ body.night .chest-chip b{color:#E6C765;}
 /* ============================================================
    HOME — active decks attached to the Review banner
    ============================================================ */
-/* the group carries the Daily-review tile's bronze so the added-deck rows below the banner
-   share its coloration (left bar + wash + earned fills) instead of sitting there colourless */
-.review-group{display:flex; flex-direction:column; position:relative; --tile:#9A6634;}
+/* the group carries the Daily-study tile's light blue so the added-deck rows below the banner
+   share its coloration (left bar + wash + earned fills) instead of sitting there colourless.
+   KEEP IT IN STEP WITH `.banner`'s own --tile — the two exist to state one colour. */
+.review-group{display:flex; flex-direction:column; position:relative; --tile:#5AA9DC;}
 /* the Ordered/Random pill that used to sit in the banner's corner is gone (Aug 2026) — it lives in the
    banner's own long-press sheet now (openReviewMenu), beside the deck rows' options. */
 .review-group.has-active > #b-review{border-bottom-left-radius:0; border-bottom-right-radius:0;}
@@ -3091,6 +3152,35 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
     height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
   }
   .active-deck .dk-prog .fill{border-radius:0;}
+}
+/* ---------- A GROUP HEADER (Aug 2026, on request) ----------
+   "A group should appear as a thinner banner": shorter than a deck row, in a DEEPER wash of its own colour,
+   with the name set smaller and letterspaced so it reads as a heading over the run beneath rather than as
+   one more deck. Everything under it takes the same `--coll-bg`, inherited down the container chain by the
+   review list's build — only the header is darkened, which is what the request asks for and what keeps the
+   decks inside legible.
+   An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
+.active-deck.deck-group{
+  padding-top:7px; padding-bottom:7px;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 52%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);
+}
+/* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
+   (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
+   theme silently lost the darkening that makes it a header at all. */
+body.night .active-deck.deck-group{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 40%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
+}
+.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 62%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 20%, transparent) 78%) var(--card);}
+.active-deck.deck-group .dk-title{font-family:var(--display); font-size:calc(13.5px * var(--fs)); font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+/* how much is inside, in place of the progress bar a deck row carries: a header states its extent, and a
+   header wearing a full deck row's furniture is just another deck row */
+.active-deck.deck-group .dg-count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; flex:none;}
+/* THE DROP TARGET while a row is being carried over the middle of another (see dropTargetAt). It has to
+   read as "inside this" rather than "next to this", which is what the inset ring says and a line between
+   two rows would not. */
+.active-deck.dk-into{
+  box-shadow:inset 0 0 0 2px var(--indigo-bright);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--indigo) 22%, transparent), transparent 70%) var(--card);
 }
 /* The bin at the right of every row is GONE (Aug 2026, on request) — Remove now lives in the row's
    options sheet, held down. A permanent column for one command was expensive on a 390px row that also
@@ -5307,19 +5397,47 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 /* --- Community: browse + one deck's page (phase 2) --- */
 .cbrowse-bar{display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin-bottom:18px;}
 .cbrowse-q{flex:1; min-width:180px;}
-.cdeck-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:13px;}
-.cdeck{display:flex; flex-direction:column; gap:5px; text-align:left; padding:15px 16px; border:1px solid var(--rule); border-radius:13px; background:var(--card); cursor:pointer; position:relative; transition:border-color .18s var(--ease), transform .12s var(--ease);}
-.cdeck:hover{border-color:var(--indigo); transform:translateY(-1px);}
+/* ---------- shared decks: a LIST, not a grid of tiles (Aug 2026, on request) ----------
+   A tile gives every deck the same area whatever it has to say, so a title, a subtitle, a rating and three
+   figures were stacked into a card the width of a phrase, and two decks whose titles differ in the fourth
+   word looked identical. A row lets the title run at full width and puts the rating in a column that lines
+   up down the list, which is what a reader scanning twenty decks is actually reading. The whole row is the
+   button, so the row IS the way to the deck's page. */
+.cdeck-list{display:flex; flex-direction:column; border:1px solid var(--rule); border-radius:13px; overflow:hidden; background:var(--card);}
+.cdeck{display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding:13px 15px; border:0; border-top:1px solid var(--rule); background:none; cursor:pointer; position:relative; transition:background .16s var(--ease);}
+.cdeck:first-child{border-top:0;}
+.cdeck:hover{background:var(--paper-2);}
+.cdeck:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.cdeck-main{flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:3px;}
+.cdeck-titleline{display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;}
 .cdeck-title{font-family:var(--display); font-size:calc(17px * var(--fs)); font-weight:600; letter-spacing:-.01em; color:var(--ink);}
-.cdeck-sub{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); line-height:1.45;}
-.cdeck-meta{display:flex; flex-wrap:wrap; gap:9px; margin-top:3px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
-.cdeck-have{position:absolute; top:11px; right:12px; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--indigo); background:var(--indigo-wash); border-radius:5px; padding:3px 6px;}
+.cdeck-sub{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); line-height:1.45; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.cdeck-meta{display:flex; flex-wrap:wrap; gap:9px; margin-top:2px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+/* the chevron says the row goes somewhere, which a tile said by being a tile */
+.cdeck-go{flex:none; width:16px; height:16px; color:var(--ink-faint); display:grid; place-items:center;}
+.cdeck-go svg{width:16px; height:16px;}
+.cdeck:hover .cdeck-go{color:var(--indigo);}
+.cdeck-have{flex:none; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--indigo); background:var(--indigo-wash); border-radius:5px; padding:3px 6px;}
+/* …and below 560px the rating drops under the title rather than squeezing it: the title is the one part of
+   the row with no shorter form, which is the rule the review list's own rows already follow */
+@media (max-width:560px){
+  .cdeck{flex-wrap:wrap;}
+  .cdeck-main{flex:1 1 100%;}
+  .cdeck-rate{flex:1 1 auto;}
+}
 .ddetail-head{display:flex; align-items:center; gap:10px; margin-bottom:8px;}
 .ddetail-title{margin-bottom:8px;}
 .ddetail-sub{font-family:var(--sans); font-size:calc(15px * var(--fs)); color:var(--ink-soft);}
 .ddetail-meta{display:flex; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px;}
 .ddetail-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:13px;}
-.ddetail-desc{font-family:var(--sans); font-size:calc(14.5px * var(--fs)); line-height:1.65; color:var(--ink-soft); max-width:66ch; margin:0 0 15px;}
+/* the author's own paragraph about their deck, under a heading of its own since Aug 2026 — it is the one
+   thing on this page written BY the person whose deck it is, and it used to be a loose paragraph among the
+   metadata */
+.ddetail-desc{max-width:66ch; margin:0 0 15px;}
+.ddetail-desc h2{font-family:var(--display); font-size:calc(15px * var(--fs)); font-weight:600; letter-spacing:-.01em; color:var(--ink); margin:0 0 5px;}
+.ddetail-desc p{font-family:var(--sans); font-size:calc(14.5px * var(--fs)); line-height:1.65; color:var(--ink-soft); margin:0 0 8px;}
+.ddetail-desc p:last-child{margin-bottom:0;}
+.ddetail-nodesc p{color:var(--ink-faint); font-style:italic;}
 .ddetail-warn{border-left:3px solid var(--ochre,var(--ink-faint)); background:color-mix(in srgb,var(--ochre,#8A6D3F) 7%, transparent); padding:11px 14px; border-radius:0 9px 9px 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); max-width:66ch; margin-bottom:18px;}
 .ddetail-actions{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:28px;}
 .ddetail-sample h2{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin:0 0 12px;}
@@ -5447,10 +5565,9 @@ body.night .star.on{color:#E6C765;}
 body.night .star.half{background:linear-gradient(90deg,#E6C765 50%,var(--rule) 50%); -webkit-background-clip:text; background-clip:text;}
 .stars-n{margin-left:5px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); vertical-align:middle;}
 .stars-none{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
-.cdeck-rate{display:flex; align-items:center; margin-top:2px;}
-.cdeck-pick{position:absolute; top:11px; right:12px; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:#8A6D3F; background:color-mix(in srgb,#C39A2E 16%, transparent); border-radius:5px; padding:3px 6px;}
+.cdeck-rate{flex:none; display:flex; align-items:center;}
+.cdeck-pick{flex:none; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:#8A6D3F; background:color-mix(in srgb,#C39A2E 16%, transparent); border-radius:5px; padding:3px 6px;}
 body.night .cdeck-pick{color:#E6C765;}
-.cdeck-pick + .cdeck-title{padding-right:78px;}
 .btn.tiny.on{background:var(--indigo); color:#fff; border-color:var(--indigo);}
 .ddetail-pick{display:inline-block; margin-bottom:10px; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:#8A6D3F; background:color-mix(in srgb,#C39A2E 15%, transparent); border-radius:7px; padding:6px 10px;}
 body.night .ddetail-pick{color:#E6C765;}
@@ -5480,6 +5597,10 @@ body.night .rv-bar-fill{background:#E6C765;}
 body.night .rv-star.on{color:#E6C765;}
 .rv-text{width:100%; resize:vertical; margin-bottom:10px;}
 .rv-form-acts{display:flex; gap:7px; flex-wrap:wrap;}
+/* the comments have a heading and a count of their own (Aug 2026, on request), so the list reads as a
+   comments section rather than as an unlabelled run under "Ratings" */
+.rv-listhead{font-family:var(--display); font-size:calc(15px * var(--fs)); font-weight:600; letter-spacing:-.01em; color:var(--ink); margin:18px 0 9px; display:flex; align-items:baseline; gap:8px;}
+.rv-listhead span{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint);}
 .rv-list{display:flex; flex-direction:column; gap:11px;}
 .rv-item{border-top:1px solid var(--rule); padding-top:11px;}
 .rv-item.own{border-left:3px solid var(--indigo); padding-left:11px; border-top-color:transparent;}
