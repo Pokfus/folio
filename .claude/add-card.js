@@ -102,6 +102,27 @@ if (/^<b>(the|a|an)\s/i.test(card.abstract || "")) {
   process.exit(1);
 }
 
+/* EVERY NEW CARD IS RATED FOR HOW OBSCURE ITS ANSWER TERM IS (Aug 2026, on request). `difficulty` is an
+   integer 1–5 — 1 a household name, 5 a word met in the scholarship and almost nowhere else — and it is
+   what the daily minigames draw under: they deal a term COLD, with no background to read first, so a pool
+   holding `qa-si-re-u` deals unanswerable rounds. Study is unaffected at every rating.
+
+   It is REFUSED rather than defaulted, and that is the whole reason it is here. A default would have to be
+   a guess, and the safe guess (too obscure for the games) is invisible — the card simply never appears in
+   one, and nothing anywhere says so. The 409 cards shipped before this existed were rated in one pass; the
+   corpus stays rated only if a card cannot be written without one. Batch-rate an older card with
+   `.claude/add-card-difficulty.js`, which carries the same scale in its header. */
+const DIFF_MIN = 1, DIFF_MAX = 5;
+const DIFF_LABELS = { 1: "household name", 2: "generally familiar", 3: "known to the interested", 4: "specialist", 5: "highly obscure" };
+if (!Number.isInteger(card.difficulty) || card.difficulty < DIFF_MIN || card.difficulty > DIFF_MAX) {
+  console.error("ERROR: card needs a `difficulty` — an integer " + DIFF_MIN + "–" + DIFF_MAX + " rating how well known its ANSWER TERM is to the general population:\n" +
+    Object.keys(DIFF_LABELS).map(n => "         " + n + "  " + DIFF_LABELS[n]).join("\n") + "\n" +
+    "       It rates the TERM, not the card — a subtle card about " + JSON.stringify("Homer") + " is still a 1, and a\n" +
+    "       beautifully clear one about " + JSON.stringify("qa-si-re-u") + " is still a 5. The daily minigames deal only\n" +
+    "       terms at or below the bar in app.js (GAME_MAX_DIFFICULTY); every card is studiable whatever its rating.");
+  process.exit(1);
+}
+
 const aWords = qWords(card.abstract);
 if (aWords < A_MIN || aWords > A_MAX) {
   console.error("ERROR: the background is " + aWords + " words — it must be " + A_MIN + "–" + A_MAX +

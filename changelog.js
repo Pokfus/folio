@@ -14,9 +14,18 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.144", released: "2026-08-09T22:05Z" };
+window.FOLIO_VERSION = { v: "1.145", released: "2026-08-10T14:40Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-10",
+    t: "The daily games stop asking about words nobody has heard of, and What year? gets real events",
+    items: [
+      "<b>The daily games now only ask about terms you have a chance of knowing.</b> Every one of Folio's 409 cards has been rated for how well known its answer term is, from 1 for a household name like the Stone Age or Homer to 5 for a word met only in the scholarship, and Multiple Choice, Timeline, the Crossword and the Picture round now draw only from the first two levels. A round dealt cold, with no background to read first, was asking you to name things like the Mycenaean palace title <i>qa-si-re-u</i> from four options. Studying is completely unchanged: every card is still in its deck, still in your daily study, and the obscure ones are the point of studying.",
+      "<b>What year? is now built on real historical events instead of card terms.</b> It lists five things that happened in one year — the Bastille, the Tennis Court Oath, Washington's inauguration, the mutiny on the Bounty — and asks you to place the year on a rail. It used to list five card terms sharing a date, which meant five Bronze Age palace words with nothing to go on. The pool starts with fifteen years spanning the 11th century to the 20th, from Hastings and Magna Carta to the Moon landing and the fall of the Berlin Wall, so it is a fortnight before a year comes round again — and even then the five events shown are drawn afresh.",
+      "The Crossword now has more variety from day to day: it was quietly drawing from the same handful of words each morning and building much the same grid every fortnight.",
+    ],
+  },
   {
     d: "2026-08-09",
     t: "Pictures on the cards and in the glossary, three new daily games, a chest you can put by for later, the Library shelf gets its colour back, the blank you type into fits what you typed, and twenty more glossary terms",
