@@ -122,6 +122,12 @@ def desc(s, per_level):
         'consiguiente, aun cuando, en la medida en que, a diferencia de). The '
         'rest of each level is filled from its own column in order of '
         'frequency. '
+        'Within each subdeck the cards are ordered roughly by how common the '
+        'word is in everyday Spanish, so the words you will meet most often '
+        'come first: the order is taken from a frequency list built from film '
+        'and television subtitles, with a reflexive verb placed by the verb it '
+        'is formed from and a phrase, which a list of single words cannot see, '
+        'placed by how often it turns up in a corpus of everyday sentences. '
         f"Every noun carries its article, so the gender is learnt with the word "
         f"({s['nouns']:,} of them), and its plural sits directly beneath it; a "
         'noun beginning with a stressed a- is given the el it takes in the '

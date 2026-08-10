@@ -281,6 +281,11 @@ DESC = (
     "inventories of Nociones específicas and Nociones generales, which are printed as two "
     f"columns, {PAIRED_WITH}, so the {LEVEL_U} half can be read off on its own. "
     + CLOSED_NOTE +
+    "The cards are ordered roughly by how common the word is in everyday Spanish, so the words you "
+    "will meet most often come first: the order is taken from a frequency list built from film and "
+    "television subtitles, with a reflexive verb placed by the verb it is formed from and a phrase, "
+    "which a list of single words cannot see, placed by how often it turns up in a corpus of "
+    "everyday sentences. "
     f"Every noun carries its article, so the gender is learnt with the word ({narts} of them), and "
     "its plural sits directly beneath it; a noun beginning with a stressed a- is given the el it "
     "takes in the singular and the las it takes in the plural (el agua, las aguas). "

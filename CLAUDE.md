@@ -2627,6 +2627,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   reflexives. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
   one failure that stage can have that looks like success: the deck builds, every card is well formed, and
   the level quietly teaches fewer words than it says it does.
+  **THE CARDS SHIP IN FREQUENCY ORDER, AND THAT IS A SEPARATE QUESTION FROM WHICH WORDS ARE CHOSEN**
+  (Aug 2026, on request). `select.py`'s cascade decides WHICH words a level teaches — it exists to stop
+  the closed classes and the verbs competing with nouns on raw frequency, a 500-word A1 list without `yo`
+  and `tú` not being an A1 list — and it deliberately does not rank the result, which left `uno` as A1's
+  first card and `de`, `que` and `no` several hundred cards in. The chosen list is now re-sorted for
+  OUTPUT, most frequent first, and **nothing about the selection moves**: the same 500/500/1,000/2,000
+  words ship, so the exclusion sets the higher levels are built against are untouched and a rebuilt level
+  cannot come out teaching something else. Two classes of word need repairing, because `es_50k.txt` counts
+  SURFACE FORMS rather than lemmas. A **reflexive** takes its BASE VERB's rank (`llamarse` is 14,131st
+  where `llamar` is 580th, and the paradigm the card teaches is the base's anyway). And **a PHRASE cannot
+  appear in a segmented list at all, where the obvious fallback is wrong in a way worth recording**: giving
+  `por consiguiente` the rank of its RAREST COMPONENT is a true ceiling on how often it can be said and a
+  hopeless estimate of it, since a phrase built out of very common words gets a very low ceiling — tried,
+  and `si bien`, `con todo`, `es más` and `ahora bien` all led the B2 deck ahead of `razón` and `problema`.
+  So a phrase is COUNTED in the Tatoeba corpus this pipeline already downloads for its examples, and that
+  count is calibrated onto the subtitle list's own scale through the level's single words, which carry both
+  a count and a rank; it puts `es más` 307th and `en la medida en que` last, which is the right shape.
+  **What is NOT done is summing a lemma's inflected forms**, which looks like the rigorous answer and is
+  worse: a paradigm routinely holds a form that is common for another reason entirely, and `comer` would
+  inherit the 1.6 million hits of `como` — overwhelmingly "as, like" and not "I eat" — and lead the deck.
+  The cost of the change is that the thematic runs the cascade produced are now scattered, the numbers and
+  the days no longer arriving together; that is what ordering by frequency MEANS, and the deck's own
+  description says which order it is in.
   **`combine.py` is the ONE-FILE version of all four** (`python3 .claude/dele/combine.py [out.json]`), on
   request: 7,986 cards under a fresh deck id `deleall`, whose **eight** subdecks are the four levels' two
   directions (`A1 · Spanish → English` … `B2 · English → Spanish`), so the levels stay separable inside one
@@ -2728,6 +2751,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   records carries a sense of its own; the naive test threw out `hablar` and `estar` while `libro` survived on
   kaikki's key order alone. And **TATOEBA IS A GENERAL CORPUS**, which a deck for exam candidates cannot deal
   out unfiltered — `millón` first came back offering "Would you have sex with me for a million dollars?".
+  **A STAGE RUN BY HAND CAN SHIP A DECK NO CLEAN RUN REPRODUCES** (found Aug 2026, reordering the four).
+  Rebuilding B2 swapped one word — `ilusionado, ilusionada` out, `flexible` in — and the reorder was
+  innocent: checking the OLD `select.py` out and running it against the same cache produced the swap too,
+  so the shipped B2 was built on a cache that a full `run.py` no longer produces. The cause is that
+  `run.py` refreshes `lookup` and `wikt` on every run while a stage invoked directly does not, and B2's
+  last stages were driven by hand while its `AUTHORED` entry was being sorted out. It is one word out of
+  2,000, both of them B2-appropriate adjectives, and the fix is to keep the clean run's answer rather than
+  pin the deck to a cache nobody can reconstruct. **Drive a rebuild through `run.py`, not through the
+  stage you are debugging** — and note the check below could not have caught this by itself, since it
+  compares a rebuild against a shipped file that was already unreproducible.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
