@@ -1738,6 +1738,23 @@ body.grading .stage{padding-bottom:150px;}
 .ci-id{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
 .ci-of{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint); margin-left:6px;}
 .ci-h{font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink); margin:6px 0 0; padding:11px 14px 0; border-top:1px solid var(--rule);}
+
+/* The actions row inside Card info — flag, set due date, forget, suspend. It wraps rather than scrolling,
+   because four ghost buttons at Very large text do not fit one 390px line and a row that scrolls sideways
+   hides whichever action happens to be last. */
+.ci-acts{display:flex; flex-wrap:wrap; gap:8px; padding:8px 14px 2px;}
+.ci-acts .btn{font-size:calc(12px * var(--fs)); padding:6px 12px;}
+
+/* The flag picker's swatch row. The number is printed ON the swatch, so the seven are told apart by
+   position and figure as well as by hue — which is what makes it usable to a reader who cannot separate
+   red from green, and is why the keyboard shortcut is the same figure. */
+.fl-row{display:flex; flex-wrap:wrap; gap:8px; padding:10px 14px 4px;}
+.fl-sw{display:flex; flex-direction:column; align-items:center; gap:4px; padding:7px 9px; border:1px solid var(--rule); border-radius:10px; background:var(--card); cursor:pointer; transition:border-color .16s var(--ease), background .16s var(--ease);}
+.fl-sw .flag-dot{width:calc(16px * var(--fs)); height:calc(16px * var(--fs));}
+.fl-sw .fl-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); color:var(--ink-faint);}
+.fl-sw:hover{border-color:color-mix(in srgb,var(--flag) 55%,var(--rule)); background:color-mix(in srgb,var(--flag) 8%,var(--card));}
+.fl-sw.sel{border-color:var(--flag); background:color-mix(in srgb,var(--flag) 14%,var(--card));}
+.fl-sw.sel .fl-n{color:var(--ink);}
 .ci-none{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin:0; padding:7px 14px 2px;}
 .ci-histwrap{overflow-x:auto; overflow-y:auto; max-height:44vh; padding:7px 14px 2px;}   /* the cap above is what makes this a floor rather than the whole rule */
 table.ci-hist{border-collapse:collapse; width:100%; font-family:var(--sans); font-size:calc(11.5px * var(--fs)); white-space:nowrap;}
@@ -1753,6 +1770,14 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .ci-sum{font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-soft); margin:0; padding:6px 14px 0;}
 /* the Info button in the study bar wears the same quiet chrome as Undo beside it */
 .infobtn svg{opacity:.85;}
+/* …and so does the Flag button, until the card HAS a flag, at which point the button becomes the one place
+   on the study page that says so — the flag is invisible otherwise, and a marker nobody can see mid-review
+   is a marker nobody trusts. The colour is on the mark and the label, never a fill: this bar is four small
+   controls in a row and a filled one would read as the selected tab of something. */
+.flagbtn svg{opacity:.85;}
+.flagbtn.on{color:var(--flag);}
+.flagbtn.on svg{opacity:1; fill:color-mix(in srgb,var(--flag) 30%,transparent);}
+.ci-flag{display:inline-flex; align-items:center; gap:7px;}
 
 /* ---------- deck statistics: a picker over collections/decks and the panel it drives ---------- */
 .ds-pick{display:flex; align-items:center; gap:12px; margin-bottom:12px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
@@ -2535,6 +2560,35 @@ body.hc:not(.night){
 [data-rar="rare"]{--rar:var(--rar-rare);}
 [data-rar="epic"]{--rar:var(--rar-epic);}
 [data-rar="legendary"]{--rar:var(--rar-legendary);}
+
+/* ---- CARD FLAGS (Aug 2026) — the reader's own seven, Anki's order and Anki's names -------------------
+   Tokens for exactly the reason the rarities above are: the reader is being asked to tell SEVEN apart at a
+   glance, which is more than any other palette on the site asks, so each one is a value chosen per paper
+   rather than one value mixed toward whatever paper is under it. `[data-flag="N"]` is the switch.
+
+   The dot is a filled circle with a ring, never coloured TEXT: seven hues that are all legible as 10px
+   type on sixteen light papers and eighteen dark ones do not exist, and the name is always beside it in
+   the ordinary ink anyway. */
+:root{
+  --flag-1:#C1392B; --flag-2:#C07213; --flag-3:#3F8F43; --flag-4:#2F6DB5;
+  --flag-5:#BC4396; --flag-6:#15837F; --flag-7:#7B4BC0;
+}
+body.night{
+  --flag-1:#F07A6B; --flag-2:#E9A648; --flag-3:#6FC073; --flag-4:#6FA7E8;
+  --flag-5:#EC85C4; --flag-6:#4FC3BD; --flag-7:#B08BEA;
+}
+body.hc:not(.night){
+  --flag-1:#97281C; --flag-2:#8E540A; --flag-3:#2C6C30; --flag-4:#21528C;
+  --flag-5:#8E2F6B; --flag-6:#0B6360; --flag-7:#5C3494;
+}
+[data-flag="1"]{--flag:var(--flag-1);}
+[data-flag="2"]{--flag:var(--flag-2);}
+[data-flag="3"]{--flag:var(--flag-3);}
+[data-flag="4"]{--flag:var(--flag-4);}
+[data-flag="5"]{--flag:var(--flag-5);}
+[data-flag="6"]{--flag:var(--flag-6);}
+[data-flag="7"]{--flag:var(--flag-7);}
+.flag-dot{display:inline-block; width:calc(10px * var(--fs)); height:calc(10px * var(--fs)); border-radius:99px; background:var(--flag,var(--ink-faint)); box-shadow:0 0 0 1px color-mix(in srgb,var(--flag,var(--rule)) 55%,transparent); vertical-align:middle; flex:0 0 auto;}
 
 /* ---- the rarity chip ---- */
 .ar-chip{display:inline-flex; align-items:center; font-family:var(--mono); font-size:calc(9px * var(--fs)); font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:2px 7px; border-radius:99px; color:var(--rar,var(--ink-faint)); border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 40%,transparent); background:color-mix(in srgb,var(--rar,var(--rule)) 12%,transparent);}
@@ -5675,6 +5729,12 @@ body.no-tts .uc-tts::before{display:none;}
   color:inherit; background:var(--indigo-wash); border-radius:5px; padding:0 .18em;
   box-shadow:inset 0 -.42em 0 var(--indigo-wash);
 }
+/* A blank this card is NOT asking about, on a type that makes one card per blank. It reads as ORDINARY
+   PROSE — no colour, no weight — because that is exactly what it is here: the rest of the sentence, which is
+   the context the reader is recalling from. It keeps a class of its own only so a type can style it if it
+   wants to; without this rule it would inherit .uc-cloze's indigo and every card would look as though it
+   were asking about every blank at once, which is the behaviour this replaced. */
+.uc-cloze-other{color:inherit; font-weight:inherit;}
 .ces-typebar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
 .ces-typepick{display:flex; align-items:center; gap:8px;}
 .ces-typepick span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
@@ -6170,3 +6230,91 @@ body.night .book-tile{
   .bk-ch-t{font-size:calc(23px * var(--fs));}
   .bk-toc-list{grid-template-columns:1fr;}
 }
+
+/* ================= THE CARD BROWSER (Aug 2026) =====================================================
+   A table, and the two things that make a table on a phone bearable: it SCROLLS SIDEWAYS INSIDE ITS OWN
+   BOX (never widening the page — the house rule for every wide block on the site), and below the phone
+   breakpoint four of its nine columns go, leaving the ones a reader is scanning for. The grid is declared
+   once and the widths are `minmax(0, …)` throughout, because a cell's automatic minimum is its content's
+   and a long card title would otherwise push the table to the width of the longest one. */
+.bw-tools{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:10px;}
+.bw-search{flex:1 1 260px; min-width:0;}
+.bw-search input{width:100%; appearance:none; background:var(--card); border:1px solid var(--rule); border-radius:99px; padding:9px 15px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink);}
+.bw-search input:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.bw-help{flex:0 0 auto; font-size:calc(12px * var(--fs)); padding:7px 13px;}
+.bw-helpbox{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 18px; margin-bottom:12px; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.bw-helpbox[hidden]{display:none;}
+.bw-helpbox dl{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin:0 0 10px;}
+.bw-helpbox dt{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink); white-space:nowrap;}
+.bw-helpbox dd{margin:0;}
+.bw-helpbox code{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); background:var(--paper-2); border-radius:4px; padding:1px 5px;}
+.bw-helpbox p{margin:0 0 8px;}
+.bw-helpbox .bw-helpnote{color:var(--ink-faint); font-size:calc(11.5px * var(--fs)); margin-bottom:0;}
+.bw-countline{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px;}
+.bw-countline b{color:var(--ink);}
+.bw-cap{text-transform:none; letter-spacing:0; font-family:var(--sans); font-size:calc(11.5px * var(--fs));}
+
+/* The bulk bar. It exists only while something is selected, so it needs no disabled state and no empty
+   height — the slot it lives in collapses to nothing. */
+.bw-bulkslot:empty{display:none;}
+.bw-bulk{display:flex; flex-wrap:wrap; align-items:center; gap:8px; background:color-mix(in srgb,var(--indigo) 8%,var(--card)); border:1px solid color-mix(in srgb,var(--indigo) 30%,var(--rule)); border-radius:12px; padding:9px 14px; margin-bottom:10px;}
+.bw-bulkn{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-right:4px;}
+.bw-bulkn b{color:var(--ink);}
+.bw-bulk .btn{font-size:calc(11.5px * var(--fs)); padding:5px 11px;}
+
+.bw-wrap{overflow-x:auto; background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);}
+.bw-table{min-width:760px;}
+.bw-head, .bw-row{display:grid; grid-template-columns:minmax(0,34px) minmax(0,26px) minmax(0,4fr) minmax(0,1.5fr) minmax(0,88px) minmax(0,92px) minmax(0,78px) minmax(0,68px) minmax(0,68px); align-items:center; gap:0 8px;}
+.bw-head{border-bottom:1px solid var(--rule); background:var(--paper-2); position:sticky; top:0; z-index:2;}
+.bw-th{appearance:none; background:none; border:0; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.11em; text-transform:uppercase; color:var(--ink-faint); text-align:left; padding:10px 4px; cursor:pointer; display:flex; align-items:center; gap:4px; min-width:0;}
+.bw-th:not([data-sort]){cursor:default;}
+.bw-th.sorted{color:var(--ink);}
+.bw-arrow{font-size:calc(9px * var(--fs));}
+.bw-th-check, .bw-th-flag{justify-content:center; padding-inline:0;}
+.bw-row{border-bottom:1px solid color-mix(in srgb,var(--rule) 55%,transparent); transition:background .13s var(--ease);}
+.bw-row:last-child{border-bottom:0;}
+.bw-row:hover{background:color-mix(in srgb,var(--indigo) 5%,transparent);}
+.bw-row.sel{background:color-mix(in srgb,var(--indigo) 11%,transparent);}
+/* a suspended card is set aside, and the row says so by being quieter as well as by its chip */
+.bw-row.bw-susp .bw-name, .bw-row.bw-susp .bw-deck{opacity:.6;}
+.bw-cell{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); padding:9px 4px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.bw-cell-check, .bw-cell-flag{display:flex; align-items:center; justify-content:center; padding-inline:0;}
+.bw-name{appearance:none; background:none; border:0; text-align:left; font:inherit; font-size:calc(13px * var(--fs)); color:var(--ink); cursor:pointer; text-decoration:underline; text-decoration-color:transparent; text-underline-offset:3px; transition:text-decoration-color .14s var(--ease);}
+.bw-name:hover{text-decoration-color:var(--indigo);}
+.bw-deck{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint);}
+.bw-due, .bw-ivl, .bw-reps, .bw-lapses{font-family:var(--mono); font-size:calc(11.5px * var(--fs));}
+.bw-overdue{color:var(--zh); font-weight:600;}
+.bw-tag{display:inline-block; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule); border-radius:99px; padding:0 6px; margin-left:5px; vertical-align:middle;}
+.bw-tag-leech{color:var(--zh); border-color:color-mix(in srgb,var(--zh) 40%,transparent);}
+.bw-none{margin:0; padding:20px 18px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-faint);}
+.bw-entry .rs-sub{max-width:60ch;}
+
+@media (max-width:640px){
+  /* Four columns go rather than being squeezed: at 390px the card's own title is the only part of a row
+     with no shorter form, so anything that takes width from it is what has to give. The data is still a
+     tap away in Card info, which is what the row opens. */
+  .bw-table{min-width:0;}
+  .bw-head, .bw-row{grid-template-columns:minmax(0,32px) minmax(0,24px) minmax(0,1fr) minmax(0,84px);}
+  .bw-th-deck, .bw-th-ivl, .bw-th-reps, .bw-th-lapses, .bw-deck, .bw-ivl, .bw-reps, .bw-lapses{display:none;}
+  .bw-th-state, .bw-state{display:none;}
+  .bw-wrap{overflow-x:hidden;}
+}
+
+/* ---- EASY DAYS: the seven weekday toggles in Settings → Study (Aug 2026) --------------------------
+   `role="switch"` rather than checkboxes, because each one is independently on or off and there is no
+   "choose one" among them. Marked-off is the LOUD state — it is the thing the reader has said, and the
+   unmarked six are just the ordinary week — so it takes the colour and the strike, and the label stays a
+   word rather than becoming an icon: three letters are already the short form. */
+/* THE ROW STACKS. `.set-row` is a flex line with the prose at `flex:1` and the control at `flex:none`, which
+   is right for a switch and hopeless for seven buttons: at the settings column's ~370px they claim the whole
+   line and the description beside them wraps to one word per line. So this row alone lays its control out
+   UNDER the prose, full width — found by looking at the page, which is the only way a squeeze like that
+   shows up. */
+.set-row-stack{flex-direction:column; align-items:stretch; gap:12px;}
+.set-row-stack .ctl{flex:none; width:100%;}
+.ed-days{display:flex; flex-wrap:wrap; gap:6px;}
+.ed-day{appearance:none; background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:7px 9px; cursor:pointer; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); transition:background .14s var(--ease), border-color .14s var(--ease), color .14s var(--ease);}
+.ed-day:hover{border-color:color-mix(in srgb,var(--indigo) 45%,var(--rule));}
+.ed-day:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.ed-day.off{background:color-mix(in srgb,var(--zh) 12%,var(--card)); border-color:color-mix(in srgb,var(--zh) 45%,transparent); color:var(--zh);}
+.ed-day.off span{text-decoration:line-through; text-decoration-thickness:1px;}
