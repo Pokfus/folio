@@ -5729,6 +5729,12 @@ body.no-tts .uc-tts::before{display:none;}
   color:inherit; background:var(--indigo-wash); border-radius:5px; padding:0 .18em;
   box-shadow:inset 0 -.42em 0 var(--indigo-wash);
 }
+/* A blank this card is NOT asking about, on a type that makes one card per blank. It reads as ORDINARY
+   PROSE — no colour, no weight — because that is exactly what it is here: the rest of the sentence, which is
+   the context the reader is recalling from. It keeps a class of its own only so a type can style it if it
+   wants to; without this rule it would inherit .uc-cloze's indigo and every card would look as though it
+   were asking about every blank at once, which is the behaviour this replaced. */
+.uc-cloze-other{color:inherit; font-weight:inherit;}
 .ces-typebar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
 .ces-typepick{display:flex; align-items:center; gap:8px;}
 .ces-typepick span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}

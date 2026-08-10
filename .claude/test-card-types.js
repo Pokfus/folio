@@ -80,7 +80,9 @@ function pureChecks() {
     slice(/  function tplRender\(tpl, get\) \{[\s\S]*?\n  \}/, "tplRender"),
     // tplRender defers to these — a cloze marker is not a field reference — so they are sliced with it
     slice(/  const CLOZE_NAME_RX = [^\n]*\n  const CLOZE_RX = [^\n]*\n/, "the cloze patterns"),
-    slice(/  function clozeMark\(html, reveal\) \{[\s\S]*?\n  \}/, "clozeMark"),
+    slice(/  const UTYPE_MAX_CLOZE = [^\n]*\n/, "UTYPE_MAX_CLOZE"),
+    slice(/  const clozeOrd = [^\n]*\n/, "clozeOrd"),
+    slice(/  function clozeMark\(html, reveal, ord\) \{[\s\S]*?\n  \}/, "clozeMark"),
     slice(/  const SPEECH_LANG_RX = [^\n]*\n/, "SPEECH_LANG_RX"),
   ].join("\n");
   const api = new Function(parts + "; return { sanitizeCSSText, cssScoped, cssScopeSelector, tplRender, clozeMark, SPEECH_LANG_RX };")();
@@ -155,6 +157,23 @@ function pureChecks() {
   check("a marker written into a TEMPLATE is left for the cloze pass", api.tplRender("{{c1::x}}", get) === "{{c1::x}}");
   check("…and is then closed like any other", /uc-cloze/.test(api.clozeMark(api.tplRender("{{c1::x}}", get), false)));
   check("text with no marker is returned untouched", api.clozeMark("<p>plain</p>", false) === "<p>plain</p>");
+  /* ONE CARD PER BLANK (Aug 2026). The fourth argument is WHICH deletion this card asks about; 0 or absent
+     is the older behaviour, every blank together, which is what the six assertions above still describe and
+     what every type written before this shipped still gets. */
+  const f1 = api.clozeMark(api.tplRender("<p>{{Text}}</p>", clozeGet), false, 1);
+  const f2 = api.clozeMark(api.tplRender("<p>{{Text}}</p>", clozeGet), false, 2);
+  check("asking about blank 1 closes only that one", (f1.match(/class="uc-cloze"/g) || []).length === 1, f1);
+  check("…and SHOWS the other in its own words", /William/.test(f1) && f1.indexOf("1066") < 0, f1);
+  check("asking about blank 2 is the mirror of it", /1066/.test(f2) && f2.indexOf("William") < 0, f2);
+  check("a blank this card is not asking about is marked, so a type can style it", /uc-cloze-other/.test(f1), f1);
+  check("…and its HINT is not printed, only the answer", f1.indexOf("which duke") < 0, f1);
+  const b1 = api.clozeMark(api.tplRender("<p>{{Text}}</p>", clozeGet), true, 1);
+  check("the back opens the one it asked about", /uc-cloze-on/.test(b1) && /1066/.test(b1), b1);
+  check("…and leaves the others as they were", (b1.match(/uc-cloze-on/g) || []).length === 1, b1);
+  // `{{c::x}}` with no figure is the first deletion — Anki wants the number, and a reader who leaves it out
+  // plainly means the only blank they have written rather than a card belonging to nothing
+  check("a marker with no number is blank 1", api.clozeMark("{{c::x}}", false, 1).indexOf("uc-cloze-other") < 0, api.clozeMark("{{c::x}}", false, 1));
+  check("…and is therefore shown when another blank is asked", /uc-cloze-other/.test(api.clozeMark("{{c::x}}", false, 2)));
 
   // --- the spoken language a type may declare ---
   check("a language tag is accepted", api.SPEECH_LANG_RX.test("es") && api.SPEECH_LANG_RX.test("pt-BR") && api.SPEECH_LANG_RX.test("zh-CN"));
@@ -548,6 +567,123 @@ async function hostileChecks(page, base) {
        must still describe the survivor.
    The type is built through the real Studio (it is the new surface) and the notes arrive by an imported deck
    FILE, which exercises the travel of the templates at the same time. */
+
+/* ---------------------------------------------------------------------------------------------------
+   ONE CARD PER CLOZE (Aug 2026). Until this month Folio hid and revealed every blank on a card together
+   and this file's own help text called it a deliberate simplification — a Folio card was one record, so
+   there was nowhere for a second card to live. The note→several-cards machinery removed the reason.
+
+   The sharpest assertions here are the two that no screen would report: that the ordinals may be SPARSE
+   (c1, c2, c9 is three cards numbered 1, 2 and 9, not three cards numbered 1, 2 and 3 — building ids by
+   position would deal `note~2` and `note~3`, which name deletions that do not exist), and that a type with
+   the switch OFF renders exactly as every deck written before this shipped.
+--------------------------------------------------------------------------------------------------- */
+async function clozeChecks(page, base) {
+  const deckFile = {
+    folioDeck: 1,
+    meta: {
+      id: "cloze001",
+      title: "Cloze deck",
+      types: {
+        // sparse ordinals on purpose, and a SECOND type with the switch off — the two must not behave alike
+        gap: { id: "gap", name: "Gap", cloze: true, fields: ["Text", "Notes"], cards: [{ name: "Card 1", front: "<p>{{Text}}</p>", back: "{{FrontSide}}<i>{{Notes}}</i>" }] },
+        together: { id: "together", name: "Together", fields: ["Text"], cards: [{ name: "Card 1", front: "<p>{{Text}}</p>", back: "{{FrontSide}}" }] },
+      },
+    },
+    cards: [
+      { id: "u_cloze001_1", type: "gap", fields: { Text: "The {{c1::Nile}} flows through {{c2::Egypt}} and rises in {{c9::Ethiopia}}.", Notes: "geography" } },
+      { id: "u_cloze001_2", type: "gap", fields: { Text: "One blank only: {{c1::alpha}}.", Notes: "" } },
+      { id: "u_cloze001_3", type: "gap", fields: { Text: "No markers here yet.", Notes: "" } },
+      { id: "u_cloze001_4", type: "together", fields: { Text: "Both {{c1::one}} and {{c2::two}} at once." } },
+    ],
+  };
+  const tmp = path.join(require("os").tmpdir(), "folio-cloze.folio-deck.json");
+  fs.writeFileSync(tmp, JSON.stringify(deckFile));
+  await page.goto(base + "/#studio");
+  await page.reload();
+  await page.waitForTimeout(900);
+  const chooser = page.waitForEvent("filechooser");
+  await page.click("#stImport");
+  await (await chooser).setFiles(tmp);
+  await page.waitForTimeout(1300);
+
+  const rec = await readDecks(page);
+  const deck = rec.find((r) => r.meta && r.meta.title === "Cloze deck");
+  check("the cloze deck imported", !!deck);
+  if (!deck) return;
+  check("the `cloze` flag travels in the deck file", ((deck.meta.types || {}).gap || {}).cloze === true, JSON.stringify((deck.meta.types || {}).gap || {}).slice(0, 90));
+  check("…and a type without it is not made one", !((deck.meta.types || {}).together || {}).cloze);
+
+  /* The expansion is asserted through the SCHEDULE, which is the thing that matters: each card must be able
+     to hold one. Adding the deck to the review and studying it deals the cards one at a time. */
+  await page.evaluate((d) => {
+    const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    s.active = ["u:" + d];
+    s.settings = Object.assign({}, s.settings, { newPerDay: 20, sfx: false, animations: false });
+    // burying would put a note's other cards off until tomorrow, and this section is about which cards EXIST
+    s.deckOpts = Object.assign({}, s.deckOpts, { ["u:" + d]: { burySiblings: false, newPerDay: 20, maxReviews: 200 } });
+    localStorage.setItem("folio_v1", JSON.stringify(s));
+  }, deck.id);
+  await page.goto(base + "/#home");
+  await page.reload();
+  await page.waitForTimeout(1200);
+  await page.evaluate(() => { const b = document.querySelector(".review-group .banner .cta .btn"); if (b) b.click(); });
+  await page.waitForTimeout(1000);
+
+  const seen = [];
+  for (let i = 0; i < 8; i++) {
+    const cur = await page.evaluate(() => {
+      const rec2 = JSON.parse(sessionStorage.getItem("folio_study_v1") || "{}");
+      const q2 = document.querySelector(".study-card .question");
+      return { id: rec2.id || "", text: q2 ? q2.textContent.replace(/\s+/g, " ").trim() : "" };
+    });
+    if (!cur.id) break;
+    seen.push(cur);
+    await page.evaluate(() => { const b = document.querySelector("#reveal-btn"); if (b) b.click(); });
+    await page.waitForTimeout(320);
+    await page.evaluate(() => { const b = [...document.querySelectorAll("#gradebar .grade")].find((x) => /Easy/i.test(x.textContent)); if (b) b.click(); });
+    await page.waitForTimeout(420);
+  }
+
+  const idsSeen = seen.map((s) => s.id);
+  /* SPARSE ORDINALS. Three blanks numbered 1, 2 and 9 make three cards whose ids carry those numbers —
+     `note~2` and `note~9`, never `note~2` and `note~3`. Getting this wrong deals a card that names a
+     deletion the note has not got, which renders as a passage with nothing blanked at all. */
+  check("a note with c1, c2 and c9 makes THREE cards", idsSeen.filter((i) => i.indexOf("u_cloze001_1") === 0).length === 3, idsSeen.join(" "));
+  check("…numbered by the DELETION, not by position", idsSeen.includes("u_cloze001_1") && idsSeen.includes("u_cloze001_1~2") && idsSeen.includes("u_cloze001_1~9"), idsSeen.join(" "));
+  check("a note with one blank makes one card", idsSeen.filter((i) => i.indexOf("u_cloze001_2") === 0).length === 1, idsSeen.join(" "));
+  /* A note somebody is part-way through writing is still a card. Returning nothing would take it out of its
+     own deck with nothing on screen to say why. */
+  check("a note with no marker yet is still one card", idsSeen.includes("u_cloze001_3"), idsSeen.join(" "));
+  check("a type with the switch OFF is one card however many blanks it has", idsSeen.filter((i) => i.indexOf("u_cloze001_4") === 0).length === 1, idsSeen.join(" "));
+
+  /* THE OTHER BLANKS ARE SHOWN, which is the whole point: the rest of the sentence is what you are recalling
+     from. Card 1 hides the Nile and shows Egypt and Ethiopia; card 2 hides Egypt and shows the other two. */
+  const c1 = seen.find((s) => s.id === "u_cloze001_1"), c2 = seen.find((s) => s.id === "u_cloze001_1~2"), c9 = seen.find((s) => s.id === "u_cloze001_1~9");
+  if (c1 && c2 && c9) {
+    check("card 1 hides its own blank", !/Nile/.test(c1.text), c1.text);
+    check("…and SHOWS the other two", /Egypt/.test(c1.text) && /Ethiopia/.test(c1.text), c1.text);
+    check("card 2 hides the second blank and shows the first", !/Egypt/.test(c2.text) && /Nile/.test(c2.text), c2.text);
+    check("card 9 hides the ninth and shows the rest", !/Ethiopia/.test(c9.text) && /Nile/.test(c9.text) && /Egypt/.test(c9.text), c9.text);
+  } else {
+    check("all three cloze cards were dealt", false, idsSeen.join(" "));
+  }
+  const both = seen.find((s) => s.id === "u_cloze001_4");
+  if (both) check("with the switch off, EVERY blank is hidden together", !/one/.test(both.text) && !/two/.test(both.text), both.text);
+
+  /* NOTE-MAJOR IS THE FAULT, template-major is the rule: a note's own blanks must not arrive back to back,
+     or the second card is answered from the first rather than from memory. */
+  const firstIdx = idsSeen.indexOf("u_cloze001_1"), secondIdx = idsSeen.indexOf("u_cloze001_1~2");
+  check("a note's blanks are not dealt one after the other", firstIdx >= 0 && secondIdx >= 0 && Math.abs(secondIdx - firstIdx) > 1, idsSeen.join(" "));
+
+  // each card carries a schedule of its OWN — the reason for splitting at all
+  const sched = await page.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    return ["u_cloze001_1", "u_cloze001_1~2", "u_cloze001_1~9"].map((k) => !!(s.cards || {})[k]);
+  });
+  check("each blank has a schedule of its own", sched.every(Boolean), JSON.stringify(sched));
+}
+
 async function reverseChecks(page, base) {
   await page.goto(base + "/#studio");
   await page.reload();
@@ -942,6 +1078,7 @@ async function buryChecks(page, base) {
     await hostileChecks(page, base);
     await reverseChecks(page, base);
     await buryChecks(page, base);
+    await clozeChecks(page, base);
   } catch (e) {
     check("the run completed", false, String(e && e.message).split("\n")[0]);
   }

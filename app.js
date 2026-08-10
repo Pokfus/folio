@@ -5175,17 +5175,30 @@
   function uCardIdFor(noteId, tpl) { return tpl > 0 ? noteId + CARD_SIB + (tpl + 1) : String(noteId); }
   /* How many cards a note yields — its type's template count, and 1 for a Basic card or a type that has
      since been deleted. Read from the note's OWN deck, so two decks' types cannot be confused. */
-  function uNoteCardCount(noteId) {
-    const note = UCARDS[uCardBaseId(noteId)];
-    if (!note) return 1;
-    const t = cardTypeOf(note);
-    return t ? Math.min(typeCards(t).length, UTYPE_MAX_CARDS) : 1;
-  }
+  /* THE CARDS A NOTE MAKES, and this is the one place that knows there are two ways to make them. An
+     ordinary type makes one card per TEMPLATE, numbered by position. A CLOZE type has a single template and
+     makes one card per DELETION, numbered by the deletion's own ordinal — which is why this returns the
+     LIST and the count is derived from it rather than the other way round: cloze ordinals may be sparse
+     (c1, c2, c9 is three cards) and a count of three says nothing about which three ids they are.
+     The id scheme needs no extension for it. `uCardIdFor(note, ord - 1)` gives the bare note id for c1 and
+     `note~9` for c9, so a note that gains a second deletion does not move the first one's schedule — the
+     same promise template 0 already makes. */
   function uNoteCardIds(noteId) {
-    const n = uNoteCardCount(noteId), out = [];
-    for (let i = 0; i < n; i++) out.push(uCardIdFor(noteId, i));
+    const base = uCardBaseId(noteId), note = UCARDS[base];
+    if (!note) return [String(noteId)];
+    const t = cardTypeOf(note);
+    if (!t) return [base];
+    if (t.cloze) {
+      const ords = clozeOrds(note);
+      // a cloze note with no marker yet is still ONE card: it is a note somebody is part-way through writing,
+      // and returning nothing would take it out of its own deck without saying so
+      return ords.length ? ords.map((o) => uCardIdFor(base, o - 1)) : [base];
+    }
+    const n = Math.min(typeCards(t).length, UTYPE_MAX_CARDS), out = [];
+    for (let i = 0; i < n; i++) out.push(uCardIdFor(base, i));
     return out;
   }
+  function uNoteCardCount(noteId) { return uNoteCardIds(noteId).length; }
   /* A deck's cards for STUDY, expanded from its notes — and ordered TEMPLATE-MAJOR, every note's first card
      before any note's second. That ordering is the whole of what keeps a reverse card usable without a
      burying mechanism: note-major would deal "水 → water" and then "water → 水" back to back, which teaches
@@ -5193,12 +5206,14 @@
      defensible reading rather than a workaround. Day-long sibling burying is a separate feature and is not
      implemented; this is what makes its absence bearable. */
   function uDeckStudyIds(noteIds) {
-    const notes = noteIds || [], out = [];
+    /* Each note's own list, then interleaved by POSITION in it — which is the template-major rule stated in
+       a way that survives sparse cloze ordinals. Building the ids here by index (`uCardIdFor(n, tpl)`) is
+       what this used to do and is wrong the moment a note's cards are c1, c2 and c9: it would deal ids
+       `note~2` and `note~3`, which name deletions that do not exist. */
+    const notes = noteIds || [], lists = notes.map(uNoteCardIds), out = [];
     let most = 1;
-    notes.forEach((n) => { const c = uNoteCardCount(n); if (c > most) most = c; });
-    for (let tpl = 0; tpl < most; tpl++) {
-      notes.forEach((n) => { if (uNoteCardCount(n) > tpl) out.push(uCardIdFor(n, tpl)); });
-    }
+    lists.forEach((l) => { if (l.length > most) most = l.length; });
+    for (let i = 0; i < most; i++) lists.forEach((l) => { if (i < l.length) out.push(l[i]); });
     return out;
   }
 
@@ -5299,6 +5314,12 @@
       cards: cards,
       css: sanitizeCSSText(raw && raw.css),
       speechLang: SPEECH_LANG_RX.test(lang) ? lang : "",
+      /* ONE CARD PER DELETION. It is a property of the TYPE rather than something detected from the fields,
+         and it has to be: the markers live in a card's values, so a type could only be recognised as a cloze
+         type by looking at its cards — and a type whose cards happen to carry no marker yet would then not
+         be one. Declared, it also means NOTHING MIGRATES: every deck written before this shipped renders
+         exactly as it did, all of its blanks together, until somebody says otherwise. */
+      cloze: !!(raw && raw.cloze),
     };
   }
   function uTypesSanitize(raw) {
@@ -5591,7 +5612,8 @@
     {
       id: "cloze",
       name: "Fill in the blank",
-      blurb: "One passage with the words to recall wrapped in {{c1::…}}. They close on the front and open on the back.",
+      blurb: "One passage with the words to recall wrapped in {{c1::…}}. Each numbered blank becomes a card of its own.",
+      cloze: true,
       fields: ["Text", "Notes", "Source"],
       front: '<div class="uc-passage">{{Text}}</div>',
       back:
@@ -5609,7 +5631,7 @@
   // what a preset contributes to a new type record — everything but the id and the name, which uTypeCreate
   // owns because it is the one that has to keep them unique within the deck
   function cardTypePresetSpec(p, lang) {
-    const spec = { id: p.id, fields: p.fields.slice(), css: p.css, speechLang: lang || "" };
+    const spec = { id: p.id, fields: p.fields.slice(), css: p.css, speechLang: lang || "", cloze: !!p.cloze };
     /* A preset declares EITHER a `cards` list or the single `front`/`back` pair the older three were written
        with; uTypeSanitize folds the second form into a one-card list, so nothing here has to choose. */
     if (Array.isArray(p.cards)) spec.cards = p.cards.map((c) => Object.assign({}, c));
@@ -5643,7 +5665,7 @@
      silently landing on the first. */
   function uTypeSet(deckId, typeId, field, value) {
     const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
-    if (!t || ["name", "css", "speechLang"].indexOf(field) < 0) return;
+    if (!t || ["name", "css", "speechLang", "cloze"].indexOf(field) < 0) return;
     const next = uTypeSanitize(Object.assign({}, t, { [field]: value }));
     if (next) { d.types[typeId] = next; uDeckSave(deckId); }
   }
@@ -9940,7 +9962,13 @@
        with separate schedules, and everything above describes exactly one of them. */
     const cc = cardById(id);
     const ct = cc && cardTypeOf(cc);
-    if (ct && typeCards(ct).length > 1) {
+    if (ct && ct.cloze) {
+      /* A cloze card is named by the DELETION it asks about, not by a template — there is only one template
+         — and the ordinals may be sparse, so "3 of 5" would be a lie where the fifth blank is numbered 9.
+         The row is drawn only where the note makes more than one card, like the template row below it. */
+      const ords = clozeOrds(cc), o = ((cc._tpl || 0) + 1);
+      if (ords.length > 1) add("Card", "Blank " + o + ' <span class="ci-of">' + (ords.indexOf(o) + 1 || 1) + " of " + ords.length + "</span>");
+    } else if (ct && typeCards(ct).length > 1) {
       const list = typeCards(ct), i = Math.min((cc._tpl || 0), list.length - 1);
       add("Card", esc(list[i].name || "Card " + (i + 1)) + ' <span class="ci-of">' + (i + 1) + " of " + list.length + "</span>");
     }
@@ -17712,6 +17740,17 @@
             '<option value=""' + (t.speechLang ? "" : " selected") + ">Not set &mdash; the device&rsquo;s own voice</option>" +
             speechLangOptions(t.speechLang) +
           "</select></label>" +
+        /* ONE CARD PER BLANK. A switch rather than something detected from the fields, for uTypeSanitize's
+           reason — and it is drawn on every type rather than only on the cloze preset, since a type written
+           by hand may use the markers too. The label under it says what the switch is currently doing, which
+           is the shape every switch on the site uses. */
+        '<div class="dm-item dm-switch ut-switch" id="utClozeRow">' +
+          '<div class="dm-switchmain"><b>One card per blank</b><small>' +
+          (t.cloze
+            ? "Each numbered blank in a note becomes a card of its own, showing the others"
+            : "Every blank on a note is hidden and revealed together, on one card") + "</small></div>" +
+          '<div class="switch' + (t.cloze ? " on" : "") + '" id="utCloze" role="switch" tabindex="0" aria-label="One card per blank" aria-checked="' + (t.cloze ? "true" : "false") + '"></div>' +
+        "</div>" +
         '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
           "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
           "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
@@ -17721,7 +17760,9 @@
           "<br>Wrap anything in <code>&lt;span class=\"uc-tts\"&gt;…&lt;/span&gt;</code> and it becomes a button that reads " +
           "those words aloud in the language above. Wrap the words to recall in a card's own text in " +
           "<code>{{c1::…}}</code> — or <code>{{c1::…::a hint}}</code> — and they close on the front and open on the back. " +
-          "Every blank on a card opens together: a Folio card is one card, where Anki would make one per number." +
+          "With <b>One card per blank</b> on, each number makes a card of its own — <code>{{c2::…}}</code> is the second — " +
+          "and the blanks a card is not asking about are shown as their own words, since the rest of the sentence " +
+          "is what you are recalling from. With it off, every blank on a note is hidden and revealed together." +
           /* The two-template idea, said where the templates are — an author who does not know a note can make
              several cards will not go looking for the control that says so. */
           "<br>A type can make <b>more than one card from each note</b>: add a card below and every note of this " +
@@ -17795,6 +17836,28 @@
        the two big boxes are showing, which is not something to patch in place — and each blurs first, for the
        reason the field list does: removing a focused control mid-innerHTML is what Chrome refuses. */
     const rerender = (el) => { if (el) el.blur(); setTimeout(render, 0); };
+    /* THE CLOZE SWITCH RE-RENDERS, unlike every other field on this form. It changes how many cards each
+       note of the type makes — so the card list, the preview and the note counts under it are all describing
+       something else the moment it is thrown — and the switch's own note has to be rewritten with it. */
+    {
+      const row = root.querySelector("#utClozeRow"), sw = root.querySelector("#utCloze");
+      if (row && sw) {
+        const flip = () => {
+          const on = sw.getAttribute("aria-checked") !== "true";
+          uTypeSet(d.id, t.id, "cloze", on);
+          adminFlashSaved();
+          const live = uTypeGet(d.id, t.id);
+          const notes = uDeckCards(d).filter((c) => c.type === t.id);
+          if (on && notes.length) {
+            const made = notes.reduce((a, c) => a + uNoteCardIds(c.id).length, 0);
+            toast(plural(notes.length, "note", "notes") + " now " + plural(made, "card", "cards"));
+          }
+          rerender(sw);
+        };
+        row.addEventListener("click", flip);
+        sw.addEventListener("keydown", (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); flip(); } });
+      }
+    }
     const pick = root.querySelector("#stTplPick");
     if (pick) pick.addEventListener("change", () => { studioState.tpl = pick.value | 0; rerender(pick); });
     const tname = root.querySelector("#stTplName");
@@ -19670,14 +19733,42 @@
      what it emits around the author's own text is a span, not an attribute, so a value that ends mid-tag
      cannot escape into one. */
   const CLOZE_NAME_RX = /^c\d{0,2}::/i;
-  const CLOZE_RX = /\{\{\s*c\d{0,2}::([\s\S]*?)(?:::([\s\S]*?))?\s*\}\}/gi;
-  function clozeMark(html, reveal) {
+  const CLOZE_RX = /\{\{\s*c(\d{0,2})::([\s\S]*?)(?:::([\s\S]*?))?\s*\}\}/gi;
+  const UTYPE_MAX_CLOZE = 20;      // how many cards ONE note may make; a bound, not a view about how many blanks a passage should have
+  // `{{c::x}}` with no figure is ordinal 1 — Anki requires the number, and a reader who leaves it out plainly
+  // means the first (and usually only) deletion rather than a card that belongs to nothing
+  const clozeOrd = (n) => { const v = parseInt(n, 10); return v >= 1 ? v : 1; };
+  /* Which deletions a note actually carries, in order. Read from the FIELDS rather than from the rendered
+     card, because that is where the markers live: a template says `{{Text}}` once and the braces are in the
+     value it pulls in. Capped at UTYPE_MAX_CLOZE cards — the ordinals themselves may be sparse (c1, c2, c9
+     is three cards numbered 1, 2 and 9), which is Anki's behaviour and falls out of keying the id on the
+     ordinal rather than on a position. */
+  function clozeOrds(note) {
+    const f = (note && note.fields) || {};
+    const seen = {};
+    Object.keys(f).forEach((k) => {
+      String(f[k] == null ? "" : f[k]).replace(CLOZE_RX, (m, num) => { seen[clozeOrd(num)] = 1; return m; });
+    });
+    return Object.keys(seen).map(Number).sort((a, b) => a - b).slice(0, UTYPE_MAX_CLOZE);
+  }
+  /* `ord` is WHICH deletion this card is asking about, 1-based, or 0 for a type that does not split.
+     ONE CARD PER DELETION IS ANKI'S BEHAVIOUR AND IT IS WHAT THE MARKERS ARE FOR. Until Aug 2026 Folio hid
+     and revealed every blank on a card together, which this file called a deliberate simplification and
+     which it was — a Folio card was one record, so there was nowhere for a second card to live. The
+     note→several-cards machinery and sibling burying between them removed the reason, so a cloze type now
+     splits like any other multi-card note: card 3 asks c3 and SHOWS c1 and c2, which is the whole point,
+     since the rest of the sentence is the context you are recalling from. */
+  function clozeMark(html, reveal, ord) {
     const s = String(html == null ? "" : html);
     if (s.indexOf("{{") < 0) return s;   // the common case: no markers at all
-    return s.replace(CLOZE_RX, (m, answer, hint) =>
-      reveal
+    return s.replace(CLOZE_RX, (m, num, answer, hint) => {
+      /* A deletion this card is not asking about is shown as its own words — plainly, and marked so a type
+         can style it if it wants to. It is NOT blanked: blanking every deletion is what this replaced. */
+      if (ord && clozeOrd(num) !== ord) return '<span class="uc-cloze uc-cloze-other">' + answer + "</span>";
+      return reveal
         ? '<span class="uc-cloze uc-cloze-on">' + answer + "</span>"
-        : '<span class="uc-cloze">' + (String(hint == null ? "" : hint).trim() ? "[" + hint + "]" : "[&hellip;]") + "</span>");
+        : '<span class="uc-cloze">' + (String(hint == null ? "" : hint).trim() ? "[" + hint + "]" : "[&hellip;]") + "</span>";
+    });
   }
   function cardTypeOf(c) {
     if (!c || !c.type || c.type === CARD_TYPE_BASIC) return null;
@@ -19729,6 +19820,8 @@
      nothing, which is the difference between a stale card and a blank one. */
   function cardTypeTemplate(c, t) {
     const list = typeCards(t);
+    // a cloze type has ONE template and many cards; `_tpl` there is a deletion's ordinal, not an index into this
+    if (t && t.cloze) return list[0];
     return list[(c && c._tpl) || 0] || list[0];
   }
   // the card's front or back as HTML, or null when the card is a Basic one (which every caller falls back on)
@@ -19742,8 +19835,12 @@
        comparing the two is looking at their own guess rather than at the answer twice. Its markers are
        already spent by then, so the back's own pass finds nothing left to close. */
     const seen = {};
-    const front = clozeMark(tplRender(tpl.front, cardTypeFieldGetter(c, null)), false);
-    const html = side === "front" ? front : clozeMark(tplRender(tpl.back, cardTypeFieldGetter(c, front, seen)), true);
+    /* On a CLOZE type `_tpl` is the deletion's ordinal minus one rather than a template index — one template,
+       several cards — so it is turned back into the 1-based ordinal here and every other type passes 0,
+       which is what makes clozeMark behave for them exactly as it always did. */
+    const ord = t.cloze ? (((c && c._tpl) || 0) + 1) : 0;
+    const front = clozeMark(tplRender(tpl.front, cardTypeFieldGetter(c, null)), false, ord);
+    const html = side === "front" ? front : clozeMark(tplRender(tpl.back, cardTypeFieldGetter(c, front, seen)), true, ord);
     /* A back that renders the front OWNS it, and says so on the wrapper: the study card and the previews all
        keep their own question block above the answer — right for a Basic card, where the answer is a new
        block — and it would otherwise print the word, its part of speech and its blanks a second time under

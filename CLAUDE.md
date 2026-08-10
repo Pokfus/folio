@@ -7447,10 +7447,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     composed string is sanitized, and what it emits around the author's text is a span rather than an
     attribute, so a value ending mid-tag cannot escape into one. The FRONT's blanks are closed before it is
     handed to the back as `{{FrontSide}}`, which is Anki's behaviour and the right one — the top of the back
-    is the question as it was asked. **ONE simplification, said in the type editor's own help rather than
-    hidden**: Anki turns one note into one card per number, where a Folio card is a single record, so every
-    blank on a card is hidden and revealed together. The numbers are still read, so a deck written elsewhere
-    renders as its author wrote it.
+    is the question as it was asked.
+    **ONE CARD PER BLANK (Aug 2026, on request) — and this bullet used to record the opposite.** Until then
+    every blank on a card was hidden and revealed together, and that was written down here as a deliberate
+    simplification: Anki turns one note into one card per number, and a Folio card was a single record, so
+    there was nowhere for a second card to live. The note→several-cards machinery and sibling burying between
+    them removed the reason, so a cloze type now splits like any other multi-card note.
+    · **`type.cloze` is DECLARED, never detected.** The markers live in a card's VALUES, so a type could only
+      be recognised as a cloze type by looking at its cards — and a type whose cards happen to carry no
+      marker yet would then not be one. Declared, it also means **nothing migrates**: every deck written
+      before this renders exactly as it did, all of its blanks together, until somebody throws the switch.
+      The "Fill in the blank" preset ships with it on.
+    · **THE ID SCHEME NEEDED NO EXTENSION**, which is what made this a small job rather than the one it was
+      written off as. `uCardIdFor(note, ord - 1)` gives the bare note id for c1 and `note~9` for c9, so a
+      note that gains a second deletion does not move the first one's schedule — the same promise template 0
+      already makes.
+    · **THE ORDINALS MAY BE SPARSE**, and this is the trap: c1, c2, c9 is THREE cards numbered 1, 2 and 9.
+      `uDeckStudyIds` used to build ids by POSITION (`uCardIdFor(n, tpl)` for tpl 0…most-1), which would deal
+      `note~2` and `note~3` — ids naming deletions the note has not got, which render as a passage with
+      nothing blanked at all. It walks each note's own `uNoteCardIds` list and interleaves BY POSITION IN IT,
+      which is the template-major rule restated in a way sparse ordinals survive.
+    · **A BLANK THIS CARD IS NOT ASKING ABOUT IS SHOWN AS ITS OWN WORDS** (`.uc-cloze-other`, which is given
+      `color:inherit; font-weight:inherit` precisely so it does NOT inherit `.uc-cloze`'s indigo). That is
+      the whole point of splitting: the rest of the sentence is the context the reader is recalling from.
+      Its hint is not printed — only a blank being ASKED about wears a hint.
+    · **`{{c::x}}` with no figure is ordinal 1.** Anki requires the number; a reader who leaves it out plainly
+      means the only blank they have written rather than a card belonging to nothing.
+    · `UTYPE_MAX_CLOZE` (20) bounds how many cards ONE note may make. A bound, not a view about how many
+      blanks a passage should have — and it caps the LIST, so sparse high ordinals still work.
+    · Card info names a cloze card by its **deletion** ("Blank 9, 3 of 3") rather than by a template: there is
+      only one template, and "3 of 5" would be a lie where the fifth blank is numbered 9.
   · **ONE NOTE, SEVERAL CARDS — reverse cards** (`type.cards` / `typeCards` / `CARD_SIB` / `uCardBaseId` /
     `uCardTplIndex` / `uCardIdFor` / `uNoteCardCount` / `uNoteCardIds` / `uDeckStudyIds` /
     `cardTypeTemplate`; Aug 2026, on request). A type declares a LIST of card templates and one note yields
@@ -7555,7 +7581,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     "1 / 3" counter are about the Basic format's `questions` array.
   · **The deck PAGE's sample card** belongs to no local deck, so it carries its type on `card._type`
     (sanitized from `row.types` there) — `cardTypeOf` reads that before looking a deck up.
-  · Guarded by **`.claude/test-card-types.js` (198 assertions)**, which tests the CSS scoper, the template
+  · Guarded by **`.claude/test-card-types.js` (224 assertions)**, which tests the CSS scoper, the template
     engine and the cloze pass as pure string functions (a scoping bug reads far better as a failed comparison
     than as a screenshot of a restyled page), then drives the real Studio, then imports a **hostile deck file**
     through the real file picker. Its preset section (`presetChecks`) runs LAST, after the export round trip,
@@ -9745,8 +9771,8 @@ dead code (never rendered).
     no showcase at all and `test-artefacts.js` therefore cannot reach one. **Re-run after touching
     `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
     `supaFetch`'s count parsing.**
-  · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards and
-    **bury siblings** (Aug 2026), 198 assertions in four parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
+  · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
+    **bury siblings** and **one card per cloze** (Aug 2026), 224 assertions in five parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
     through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part
     runs `sanitizeCSSText` / `cssScoped` / `tplRender` as string functions with no browser at all — a scoping
     bug reads far better as a failed comparison than as a screenshot of a restyled page — and its central
@@ -9769,9 +9795,17 @@ dead code (never rendered).
     already pinned by test-revlog, and the key reaches the card only while nothing else holds the keyboard —
     this section has just been through a deck sheet and its focus trap), and it proves the day-expiry by
     **ageing the register** rather than by waiting.
+    **`clozeChecks` runs LAST and is the ONE-CARD-PER-BLANK section** (Aug 2026): its deck declares a note
+    with c1, c2 and **c9** on purpose, because the sparse case is where building ids by position deals
+    `note~2` and `note~3` and renders a passage with nothing blanked — and a second type with the switch OFF
+    beside it, since the two must not behave alike. It asserts through the SCHEDULE (each blank holds one of
+    its own), through the dealt ORDER (a note's blanks never arrive back to back) and through the rendered
+    TEXT (card 2 hides Egypt and shows the Nile), and it turns burying off for its own deck for
+    `reverseChecks`' reason — with it on, no session can reach a note's second blank at all.
     **Re-run after touching the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle` /
     `cardTypeFieldGetter` / `.uc-hasfront` / `uCardSanitize` / `uDeckSanitizeMeta` / `typeCards` /
-    `uCardIdFor` / `uDeckStudyIds` / `isBuried` / `buryCard` / `burySiblings` / `deckBurySiblings` /
+    `uCardIdFor` / `uDeckStudyIds` / `clozeMark` / `clozeOrds` / `clozeOrd` / `CLOZE_RX` / `type.cloze` /
+    `isBuried` / `buryCard` / `burySiblings` / `deckBurySiblings` /
     `entryHasSiblings`, the Studio's Types tab, or `levelFromXP`.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
