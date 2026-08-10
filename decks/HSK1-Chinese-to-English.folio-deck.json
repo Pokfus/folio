@@ -5,7 +5,7 @@
   "id": "hsk1zhtoen",
   "title": "HSK 1 — Chinese to English",
   "subtitle": "150 words · recall the meaning and pinyin",
-  "desc": "Shown the characters, recall the English meanings and the pinyin. All 150 words of the official HSK 1 vocabulary list (HSK 2.0, the 2012 syllabus). Every card carries the simplified form, the traditional form, pinyin, bopomofo, the measure word where the word takes one, and the full range of English translations rather than a single gloss. Traditional characters are shown at half strength, and are omitted entirely where they are identical to the simplified — 82 of the 150 words. Each card also breaks the word into its characters, giving each one's reading, its meaning and the radical it is filed under, and carries a fold of real example sentences with the word underlined in each. Word list: the official HSK 2012 Level 1 syllabus. Definitions, readings and measure words: CC-CEDICT (CC BY-SA 4.0). Radicals and character meanings: Make Me a Hanzi. Example sentences: Tatoeba (CC BY 2.0 FR).",
+  "desc": "Shown the characters, recall the English meanings and the pinyin. All 150 words of the official HSK 1 vocabulary list (HSK 2.0, the 2012 syllabus). Every card carries the simplified form, the traditional form, pinyin, bopomofo, the measure word where the word takes one, and the syllabus's own definition — the sense the exam means, rather than every sense the word has. Traditional characters are shown at half strength, and are omitted entirely where they are identical to the simplified — 82 of the 150 words. Each card also breaks the word into its characters, giving each one's reading, its meaning and the radical it is filed under, and carries a fold of real example sentences with the word underlined in each. Word list and definitions: the official HSK 2012 Level 1 syllabus. Traditional forms, bopomofo and measure words: CC-CEDICT (CC BY-SA 4.0). Radicals and character meanings: Make Me a Hanzi. Example sentences: Tatoeba (CC BY 2.0 FR).",
   "author": "",
   "language": "en",
   "tags": [
@@ -47,7 +47,7 @@
    "num": "1",
    "category": "HSK 1",
    "question": "爱 / 愛",
-   "answer": "ài — love; to love; to be fond of; to like; affection; to be inclined (to do sth); to tend to (happen)",
+   "answer": "ài — love",
    "answerDate": "",
    "traditional": "愛",
    "hanzi": "爱",
@@ -55,7 +55,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "love; to love; to be fond of; to like; affection; to be inclined (to do sth); to tend to (happen)",
+   "answerText": "love",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "爱",
@@ -63,7 +63,7 @@
     "Pinyin": "ài",
     "Bopomofo": "ㄞˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">love</div><div class=\"uc-sense\">to love</div><div class=\"uc-sense\">to be fond of</div><div class=\"uc-sense\">to like</div><div class=\"uc-sense\">affection</div><div class=\"uc-sense\">to be inclined (to do sth)</div><div class=\"uc-sense\">to tend to (happen)</div>",
+    "English": "<div class=\"uc-sense\">love</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">爱</span><span class=\"uc-chp\">ài</span><span class=\"uc-chm\">to love</span><span class=\"uc-chr\">radical <b>爫</b> zhǎo · claws</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>爱</b>看足球。</div><div class=\"uc-exe\">I love watching soccer games.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给<b>爱</b>情开门！</div><div class=\"uc-exe\">Open the door for love.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -73,7 +73,7 @@
    "num": "2",
    "category": "HSK 1",
    "question": "八",
-   "answer": "bā — eight; 8",
+   "answer": "bā — eight",
    "answerDate": "",
    "traditional": "",
    "hanzi": "八",
@@ -81,7 +81,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "eight; 8",
+   "answerText": "eight",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "八",
@@ -89,7 +89,7 @@
     "Pinyin": "bā",
     "Bopomofo": "ㄅㄚ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">eight</div><div class=\"uc-sense\">8</div>",
+    "English": "<div class=\"uc-sense\">eight</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">八</span><span class=\"uc-chp\">bā</span><span class=\"uc-chm\">eight</span><span class=\"uc-chr\">radical <b>八</b> bā · eight</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">现在<b>八</b>点钟。</div><div class=\"uc-exe\">It's eight o'clock.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我有<b>八</b>个哥哥。</div><div class=\"uc-exe\">I have eight brothers.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -99,7 +99,7 @@
    "num": "3",
    "category": "HSK 1",
    "question": "爸爸",
-   "answer": "bàba — Dad; (coll.) father",
+   "answer": "bàba — Dad",
    "answerDate": "",
    "traditional": "",
    "hanzi": "爸爸",
@@ -107,7 +107,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "Dad; (coll.) father",
+   "answerText": "Dad",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "爸爸",
@@ -115,7 +115,7 @@
     "Pinyin": "bàba",
     "Bopomofo": "ㄅㄚˋ ㄅㄚ˙",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
-    "English": "<div class=\"uc-sense\">Dad</div><div class=\"uc-sense\">(coll.) father</div>",
+    "English": "<div class=\"uc-sense\">Dad</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">爸</span><span class=\"uc-chp\">bà</span><span class=\"uc-chm\">father</span><span class=\"uc-chr\">radical <b>父</b> fù · father</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">爸</span><span class=\"uc-chp\">ba</span><span class=\"uc-chm\">father</span><span class=\"uc-chr\">radical <b>父</b> fù · father</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>爸爸</b>很忙。</div><div class=\"uc-exe\">My father is busy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>爸爸</b>很高。</div><div class=\"uc-exe\">Your father is tall.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -151,7 +151,7 @@
    "num": "5",
    "category": "HSK 1",
    "question": "北京",
-   "answer": "Běijīng — Beijing; Beijing, capital of the People's Republic of China",
+   "answer": "Běijīng — Beijing",
    "answerDate": "",
    "traditional": "",
    "hanzi": "北京",
@@ -159,7 +159,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "Beijing; Beijing, capital of the People's Republic of China",
+   "answerText": "Beijing",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "北京",
@@ -167,7 +167,7 @@
     "Pinyin": "Běijīng",
     "Bopomofo": "ㄅㄟˇ ㄐㄧㄥ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">Beijing</div><div class=\"uc-sense\">Beijing, capital of the People's Republic of China</div>",
+    "English": "<div class=\"uc-sense\">Beijing</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">北</span><span class=\"uc-chp\">Běi</span><span class=\"uc-chm\">north</span><span class=\"uc-chr\">radical <b>匕</b> bǐ · spoon</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">京</span><span class=\"uc-chp\">jīng</span><span class=\"uc-chm\">capital city</span><span class=\"uc-chr\">radical <b>亠</b> tóu · lid</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我也想去<b>北京</b>。</div><div class=\"uc-exe\">I also want to go to Beijing.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我现在在<b>北京</b>。</div><div class=\"uc-exe\">I am in Beijing right now.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -177,7 +177,7 @@
    "num": "6",
    "category": "HSK 1",
    "question": "本",
-   "answer": "běn — measure word for books; root; stem; origin; source; this; the current; original; inherent; originally; classifier for books, periodicals, files etc",
+   "answer": "běn — measure word for books",
    "answerDate": "",
    "traditional": "",
    "hanzi": "本",
@@ -185,7 +185,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "measure word for books; root; stem; origin; source; this; the current; original; inherent; originally; classifier for books, periodicals, files etc",
+   "answerText": "measure word for books",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "本",
@@ -193,7 +193,7 @@
     "Pinyin": "běn",
     "Bopomofo": "ㄅㄣˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">measure word for books</div><div class=\"uc-sense\">root</div><div class=\"uc-sense\">stem</div><div class=\"uc-sense\">origin</div><div class=\"uc-sense\">source</div><div class=\"uc-sense\">this</div><div class=\"uc-sense\">the current</div><div class=\"uc-sense\">original</div><div class=\"uc-sense\">inherent</div><div class=\"uc-sense\">originally</div><div class=\"uc-sense\">classifier for books, periodicals, files etc</div>",
+    "English": "<div class=\"uc-sense\">measure word for books</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">本</span><span class=\"uc-chp\">běn</span><span class=\"uc-chm\">root</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你有几<b>本</b>书?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是一<b>本</b>书。</div><div class=\"uc-exe\">This is a book.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -203,7 +203,7 @@
    "num": "7",
    "category": "HSK 1",
    "question": "不客气 / 不客氣",
-   "answer": "bú kèqi — you're welcome; don't be polite; don't mention it; impolite; rude; blunt",
+   "answer": "bú kèqi — you're welcome; don't be polite",
    "answerDate": "",
    "traditional": "不客氣",
    "hanzi": "不客气",
@@ -211,7 +211,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "you're welcome; don't be polite; don't mention it; impolite; rude; blunt",
+   "answerText": "you're welcome; don't be polite",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "不客气",
@@ -219,7 +219,7 @@
     "Pinyin": "bú kèqi",
     "Bopomofo": "ㄅㄨˋ ㄎㄜˋ ㄑㄧ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">you're welcome</div><div class=\"uc-sense\">don't be polite</div><div class=\"uc-sense\">don't mention it</div><div class=\"uc-sense\">impolite</div><div class=\"uc-sense\">rude</div><div class=\"uc-sense\">blunt</div>",
+    "English": "<div class=\"uc-sense\">you're welcome</div><div class=\"uc-sense\">don't be polite</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">不</span><span class=\"uc-chp\">bù</span><span class=\"uc-chm\">no</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">客</span><span class=\"uc-chp\">kè</span><span class=\"uc-chm\">guest</span><span class=\"uc-chr\">radical <b>宀</b> gài · roof</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">气</span><span class=\"uc-chp\">qi</span><span class=\"uc-chm\">air</span><span class=\"uc-chr\">radical <b>气</b> qì · air</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你要是再给我们公司出洋相，我可就<b>不客气</b>了。</div><div class=\"uc-exe\">If you make fun of our company again, we certainly won’t be polite to you.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -229,7 +229,7 @@
    "num": "8",
    "category": "HSK 1",
    "question": "不",
-   "answer": "bù — no; not; not so; un-",
+   "answer": "bù — no; not",
    "answerDate": "",
    "traditional": "",
    "hanzi": "不",
@@ -237,7 +237,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "no; not; not so; un-",
+   "answerText": "no; not",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "不",
@@ -245,7 +245,7 @@
     "Pinyin": "bù",
     "Bopomofo": "ㄅㄨˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">no</div><div class=\"uc-sense\">not</div><div class=\"uc-sense\">not so</div><div class=\"uc-sense\">un-</div>",
+    "English": "<div class=\"uc-sense\">no</div><div class=\"uc-sense\">not</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">不</span><span class=\"uc-chp\">bù</span><span class=\"uc-chm\">no</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他是非<b>不</b>分。</div><div class=\"uc-exe\">He has no sense of right and wrong.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">妈的！真<b>不</b>错！</div><div class=\"uc-exe\">Damn! It's not bad!</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -255,7 +255,7 @@
    "num": "9",
    "category": "HSK 1",
    "question": "菜",
-   "answer": "cài — dish (type of food); vegetables; vegetable; cuisine; (coll.) (one's) type; (of one's skills etc) weak; poor",
+   "answer": "cài — dish (type of food); vegetables",
    "answerDate": "",
    "traditional": "",
    "hanzi": "菜",
@@ -263,7 +263,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "dish (type of food); vegetables; vegetable; cuisine; (coll.) (one's) type; (of one's skills etc) weak; poor",
+   "answerText": "dish (type of food); vegetables",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "菜",
@@ -271,7 +271,7 @@
     "Pinyin": "cài",
     "Bopomofo": "ㄘㄞˋ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">盘</span><span class=\"uc-mwc uc-mwt\">盤</span><span class=\"uc-mwp\">pán</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">道</span><span class=\"uc-mwp\">dào</span></span>",
-    "English": "<div class=\"uc-sense\">dish (type of food)</div><div class=\"uc-sense\">vegetables</div><div class=\"uc-sense\">vegetable</div><div class=\"uc-sense\">cuisine</div><div class=\"uc-sense\">(coll.) (one's) type</div><div class=\"uc-sense\">(of one's skills etc) weak</div><div class=\"uc-sense\">poor</div>",
+    "English": "<div class=\"uc-sense\">dish (type of food)</div><div class=\"uc-sense\">vegetables</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">菜</span><span class=\"uc-chp\">cài</span><span class=\"uc-chm\">vegetables</span><span class=\"uc-chr\">radical <b>艹</b> cǎo · grass</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你要点<b>菜</b>吗？</div><div class=\"uc-exe\">Would you like to order?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他是我的<b>菜</b>!</div><div class=\"uc-exe\">He is my type!</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -281,7 +281,7 @@
    "num": "10",
    "category": "HSK 1",
    "question": "茶",
-   "answer": "chá — tea; tea plant",
+   "answer": "chá — tea",
    "answerDate": "",
    "traditional": "",
    "hanzi": "茶",
@@ -289,7 +289,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "tea; tea plant",
+   "answerText": "tea",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "茶",
@@ -297,7 +297,7 @@
     "Pinyin": "chá",
     "Bopomofo": "ㄔㄚˊ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">杯</span><span class=\"uc-mwp\">bēi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">壶</span><span class=\"uc-mwc uc-mwt\">壺</span><span class=\"uc-mwp\">hú</span></span>",
-    "English": "<div class=\"uc-sense\">tea</div><div class=\"uc-sense\">tea plant</div>",
+    "English": "<div class=\"uc-sense\">tea</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">茶</span><span class=\"uc-chp\">chá</span><span class=\"uc-chm\">tea</span><span class=\"uc-chr\">radical <b>艹</b> cǎo · grass</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">奶<b>茶</b>在哪里？</div><div class=\"uc-exe\">Where is the milk tea?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">真男人喝<b>茶</b>。</div><div class=\"uc-exe\">Real men drink tea.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -307,7 +307,7 @@
    "num": "11",
    "category": "HSK 1",
    "question": "吃",
-   "answer": "chī — eat; to eat; to consume; to eat at (a cafeteria etc); to eradicate; to destroy; to absorb; to suffer (shock, injury, defeat etc)",
+   "answer": "chī — eat",
    "answerDate": "",
    "traditional": "",
    "hanzi": "吃",
@@ -315,7 +315,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "eat; to eat; to consume; to eat at (a cafeteria etc); to eradicate; to destroy; to absorb; to suffer (shock, injury, defeat etc)",
+   "answerText": "eat",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "吃",
@@ -323,7 +323,7 @@
     "Pinyin": "chī",
     "Bopomofo": "ㄔ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">eat</div><div class=\"uc-sense\">to eat</div><div class=\"uc-sense\">to consume</div><div class=\"uc-sense\">to eat at (a cafeteria etc)</div><div class=\"uc-sense\">to eradicate</div><div class=\"uc-sense\">to destroy</div><div class=\"uc-sense\">to absorb</div><div class=\"uc-sense\">to suffer (shock, injury, defeat etc)</div>",
+    "English": "<div class=\"uc-sense\">eat</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">吃</span><span class=\"uc-chp\">chī</span><span class=\"uc-chm\">to eat</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我在<b>吃</b>米饭。</div><div class=\"uc-exe\">I am eating rice.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>吃</b>得很多。</div><div class=\"uc-exe\">He eats a lot.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -359,7 +359,7 @@
    "num": "13",
    "category": "HSK 1",
    "question": "打电话 / 打電話",
-   "answer": "dǎ diànhuà — make a phone call; to make a telephone call",
+   "answer": "dǎ diànhuà — make a phone call",
    "answerDate": "",
    "traditional": "打電話",
    "hanzi": "打电话",
@@ -367,7 +367,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "make a phone call; to make a telephone call",
+   "answerText": "make a phone call",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "打电话",
@@ -375,7 +375,7 @@
     "Pinyin": "dǎ diànhuà",
     "Bopomofo": "ㄉㄚˇ ㄉㄧㄢˋ ㄏㄨㄚˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">make a phone call</div><div class=\"uc-sense\">to make a telephone call</div>",
+    "English": "<div class=\"uc-sense\">make a phone call</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">打</span><span class=\"uc-chp\">dǎ</span><span class=\"uc-chm\">to attack</span><span class=\"uc-chr\">radical <b>扌</b> shǒu · hand</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">电</span><span class=\"uc-chp\">diàn</span><span class=\"uc-chm\">electricity</span><span class=\"uc-chr\">radical <b>曰</b> yuē · to speak</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">话</span><span class=\"uc-chp\">huà</span><span class=\"uc-chm\">talk</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>打电话</b>回家！</div><div class=\"uc-exe\">Call home!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我在<b>打电话</b>。</div><div class=\"uc-exe\">I'm on the phone.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -385,7 +385,7 @@
    "num": "14",
    "category": "HSK 1",
    "question": "大",
-   "answer": "dà — big; large; great; older (than another person); eldest; greatly; freely; fully",
+   "answer": "dà — big; large",
    "answerDate": "",
    "traditional": "",
    "hanzi": "大",
@@ -393,7 +393,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "big; large; great; older (than another person); eldest; greatly; freely; fully",
+   "answerText": "big; large",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "大",
@@ -401,7 +401,7 @@
     "Pinyin": "dà",
     "Bopomofo": "ㄉㄚˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">big</div><div class=\"uc-sense\">large</div><div class=\"uc-sense\">great</div><div class=\"uc-sense\">older (than another person)</div><div class=\"uc-sense\">eldest</div><div class=\"uc-sense\">greatly</div><div class=\"uc-sense\">freely</div><div class=\"uc-sense\">fully</div>",
+    "English": "<div class=\"uc-sense\">big</div><div class=\"uc-sense\">large</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">大</span><span class=\"uc-chp\">dà</span><span class=\"uc-chm\">big</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">John比我<b>大</b>两岁。</div><div class=\"uc-exe\">John's two years older than me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他在读<b>大</b>学。</div><div class=\"uc-exe\">He is in college.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -411,7 +411,7 @@
    "num": "15",
    "category": "HSK 1",
    "question": "的",
-   "answer": "de — indicates possession, like adding 's to a noun; of; ~'s (possessive particle); (used after an attribute); (used to form a nominal expression); (used at the end of a declarative sentence for emphasis)",
+   "answer": "de — indicates possession, like adding 's to a noun",
    "answerDate": "",
    "traditional": "",
    "hanzi": "的",
@@ -419,7 +419,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "indicates possession, like adding 's to a noun; of; ~'s (possessive particle); (used after an attribute); (used to form a nominal expression); (used at the end of a declarative sentence for emphasis)",
+   "answerText": "indicates possession, like adding 's to a noun",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "的",
@@ -427,7 +427,7 @@
     "Pinyin": "de",
     "Bopomofo": "ㄉㄜ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">indicates possession, like adding 's to a noun</div><div class=\"uc-sense\">of</div><div class=\"uc-sense\">~'s (possessive particle)</div><div class=\"uc-sense\">(used after an attribute)</div><div class=\"uc-sense\">(used to form a nominal expression)</div><div class=\"uc-sense\">(used at the end of a declarative sentence for emphasis)</div>",
+    "English": "<div class=\"uc-sense\">indicates possession, like adding 's to a noun</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">的</span><span class=\"uc-chp\">de</span><span class=\"uc-chm\">aim</span><span class=\"uc-chr\">radical <b>白</b> bái · white</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">做你想做<b>的</b>。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是我<b>的</b>书。</div><div class=\"uc-exe\">This is my book.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -437,7 +437,7 @@
    "num": "16",
    "category": "HSK 1",
    "question": "点 / 點",
-   "answer": "diǎn — a dot; a little; o'clock; point; dot; drop; speck; point (in space or time); to draw a dot; to check on a list; to choose; to order (food in a restaurant); to touch briefly; to hint; to light; to ignite; to pour a liquid drop by drop; dot stroke in Chinese characters; classifier for items",
+   "answer": "diǎn — a dot; a little; o'clock",
    "answerDate": "",
    "traditional": "點",
    "hanzi": "点",
@@ -445,7 +445,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "a dot; a little; o'clock; point; dot; drop; speck; point (in space or time); to draw a dot; to check on a list; to choose; to order (food in a restaurant); to touch briefly; to hint; to light; to ignite; to pour a liquid drop by drop; dot stroke in Chinese characters; classifier for items",
+   "answerText": "a dot; a little; o'clock",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "点",
@@ -453,7 +453,7 @@
     "Pinyin": "diǎn",
     "Bopomofo": "ㄉㄧㄢˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">a dot</div><div class=\"uc-sense\">a little</div><div class=\"uc-sense\">o'clock</div><div class=\"uc-sense\">point</div><div class=\"uc-sense\">dot</div><div class=\"uc-sense\">drop</div><div class=\"uc-sense\">speck</div><div class=\"uc-sense\">point (in space or time)</div><div class=\"uc-sense\">to draw a dot</div><div class=\"uc-sense\">to check on a list</div><div class=\"uc-sense\">to choose</div><div class=\"uc-sense\">to order (food in a restaurant)</div><div class=\"uc-sense\">to touch briefly</div><div class=\"uc-sense\">to hint</div><div class=\"uc-sense\">to light</div><div class=\"uc-sense\">to ignite</div><div class=\"uc-sense\">to pour a liquid drop by drop</div><div class=\"uc-sense\">dot stroke in Chinese characters</div><div class=\"uc-sense\">classifier for items</div>",
+    "English": "<div class=\"uc-sense\">a dot</div><div class=\"uc-sense\">a little</div><div class=\"uc-sense\">o'clock</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">点</span><span class=\"uc-chp\">diǎn</span><span class=\"uc-chm\">dot</span><span class=\"uc-chr\">radical <b>灬</b> huǒ · fire</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">已经是11<b>点</b>了。</div><div class=\"uc-exe\">It's already 11.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我表上是4<b>点</b>。</div><div class=\"uc-exe\">It's four o'clock by my watch.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -541,7 +541,7 @@
    "num": "20",
    "category": "HSK 1",
    "question": "东西 / 東西",
-   "answer": "dōngxi — things; stuff; thing; person",
+   "answer": "dōngxi — things; stuff",
    "answerDate": "",
    "traditional": "東西",
    "hanzi": "东西",
@@ -549,7 +549,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "things; stuff; thing; person",
+   "answerText": "things; stuff",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "东西",
@@ -557,7 +557,7 @@
     "Pinyin": "dōngxi",
     "Bopomofo": "ㄉㄨㄥ ㄒㄧ˙",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">件</span><span class=\"uc-mwp\">jiàn</span></span>",
-    "English": "<div class=\"uc-sense\">things</div><div class=\"uc-sense\">stuff</div><div class=\"uc-sense\">thing</div><div class=\"uc-sense\">person</div>",
+    "English": "<div class=\"uc-sense\">things</div><div class=\"uc-sense\">stuff</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">东</span><span class=\"uc-chp\">dōng</span><span class=\"uc-chm\">east</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">西</span><span class=\"uc-chp\">xī</span><span class=\"uc-chm\">west</span><span class=\"uc-chr\">radical <b>西</b> xī · west</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她去买<b>东西</b>。</div><div class=\"uc-exe\">She's going out to buy some things.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是什么<b>东西</b>？</div><div class=\"uc-exe\">What the hell is this?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -567,7 +567,7 @@
    "num": "21",
    "category": "HSK 1",
    "question": "都",
-   "answer": "dōu — all; both; entirely; (used for emphasis) even; already; (not) at all",
+   "answer": "dōu — all; both",
    "answerDate": "",
    "traditional": "",
    "hanzi": "都",
@@ -575,7 +575,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "all; both; entirely; (used for emphasis) even; already; (not) at all",
+   "answerText": "all; both",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "都",
@@ -583,7 +583,7 @@
     "Pinyin": "dōu",
     "Bopomofo": "ㄉㄡ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">all</div><div class=\"uc-sense\">both</div><div class=\"uc-sense\">entirely</div><div class=\"uc-sense\">(used for emphasis) even</div><div class=\"uc-sense\">already</div><div class=\"uc-sense\">(not) at all</div>",
+    "English": "<div class=\"uc-sense\">all</div><div class=\"uc-sense\">both</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">都</span><span class=\"uc-chp\">dōu</span><span class=\"uc-chm\">all</span><span class=\"uc-chr\">radical <b>阝</b> yì · place</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我每年<b>都</b>去。</div><div class=\"uc-exe\">I go every year.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">大家<b>都</b>笑我。</div><div class=\"uc-exe\">I was laughed at by everyone.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -593,7 +593,7 @@
    "num": "22",
    "category": "HSK 1",
    "question": "读 / 讀",
-   "answer": "dú — to read; to study; to read out; to read aloud; to attend (school); to study (a subject in school); to pronounce",
+   "answer": "dú — to read; to study",
    "answerDate": "",
    "traditional": "讀",
    "hanzi": "读",
@@ -601,7 +601,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to read; to study; to read out; to read aloud; to attend (school); to study (a subject in school); to pronounce",
+   "answerText": "to read; to study",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "读",
@@ -609,7 +609,7 @@
     "Pinyin": "dú",
     "Bopomofo": "ㄉㄨˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to read</div><div class=\"uc-sense\">to study</div><div class=\"uc-sense\">to read out</div><div class=\"uc-sense\">to read aloud</div><div class=\"uc-sense\">to attend (school)</div><div class=\"uc-sense\">to study (a subject in school)</div><div class=\"uc-sense\">to pronounce</div>",
+    "English": "<div class=\"uc-sense\">to read</div><div class=\"uc-sense\">to study</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">读</span><span class=\"uc-chp\">dú</span><span class=\"uc-chm\">to study</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他在<b>读</b>大学。</div><div class=\"uc-exe\">He is in college.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我没书可<b>读</b>。</div><div class=\"uc-exe\">I have no books to read.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -619,7 +619,7 @@
    "num": "23",
    "category": "HSK 1",
    "question": "对不起 / 對不起",
-   "answer": "duìbuqǐ — sorry; I'm sorry; excuse me; I beg your pardon; to let (sb) down; to disappoint",
+   "answer": "duìbuqǐ — sorry",
    "answerDate": "",
    "traditional": "對不起",
    "hanzi": "对不起",
@@ -627,7 +627,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "sorry; I'm sorry; excuse me; I beg your pardon; to let (sb) down; to disappoint",
+   "answerText": "sorry",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "对不起",
@@ -635,7 +635,7 @@
     "Pinyin": "duìbuqǐ",
     "Bopomofo": "ㄉㄨㄟˋ ㄅㄨ˙ ㄑㄧˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">sorry</div><div class=\"uc-sense\">I'm sorry</div><div class=\"uc-sense\">excuse me</div><div class=\"uc-sense\">I beg your pardon</div><div class=\"uc-sense\">to let (sb) down</div><div class=\"uc-sense\">to disappoint</div>",
+    "English": "<div class=\"uc-sense\">sorry</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">对</span><span class=\"uc-chp\">duì</span><span class=\"uc-chm\">correct</span><span class=\"uc-chr\">radical <b>寸</b> cùn · inch</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">不</span><span class=\"uc-chp\">bu</span><span class=\"uc-chm\">no</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">起</span><span class=\"uc-chp\">qǐ</span><span class=\"uc-chm\">to begin</span><span class=\"uc-chr\">radical <b>走</b> zǒu · to walk</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>对不起</b>我。</div><div class=\"uc-exe\">You do me wrong.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>对不起</b>，我爱你。</div><div class=\"uc-exe\">I'm sorry, I love you.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -645,7 +645,7 @@
    "num": "24",
    "category": "HSK 1",
    "question": "多",
-   "answer": "duō — many; much; too many; in excess; (after a numeral)... odd; how (to what extent); multi-; poly-",
+   "answer": "duō — many",
    "answerDate": "",
    "traditional": "",
    "hanzi": "多",
@@ -653,7 +653,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "many; much; too many; in excess; (after a numeral)... odd; how (to what extent); multi-; poly-",
+   "answerText": "many",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "多",
@@ -661,7 +661,7 @@
     "Pinyin": "duō",
     "Bopomofo": "ㄉㄨㄛ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">many</div><div class=\"uc-sense\">much</div><div class=\"uc-sense\">too many</div><div class=\"uc-sense\">in excess</div><div class=\"uc-sense\">(after a numeral)... odd</div><div class=\"uc-sense\">how (to what extent)</div><div class=\"uc-sense\">multi-</div><div class=\"uc-sense\">poly-</div>",
+    "English": "<div class=\"uc-sense\">many</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">多</span><span class=\"uc-chp\">duō</span><span class=\"uc-chm\">much</span><span class=\"uc-chr\">radical <b>夕</b> xī · evening</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要<b>多</b>少钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他能跑<b>多</b>快？</div><div class=\"uc-exe\">How fast can he run?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -671,7 +671,7 @@
    "num": "25",
    "category": "HSK 1",
    "question": "多少",
-   "answer": "duōshao — how much?; how many?; (phone number, student ID etc) what number?",
+   "answer": "duōshao — how much?; how many?",
    "answerDate": "",
    "traditional": "",
    "hanzi": "多少",
@@ -679,7 +679,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "how much?; how many?; (phone number, student ID etc) what number?",
+   "answerText": "how much?; how many?",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "多少",
@@ -687,7 +687,7 @@
     "Pinyin": "duōshao",
     "Bopomofo": "ㄉㄨㄛ ㄕㄠ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">how much?</div><div class=\"uc-sense\">how many?</div><div class=\"uc-sense\">(phone number, student ID etc) what number?</div>",
+    "English": "<div class=\"uc-sense\">how much?</div><div class=\"uc-sense\">how many?</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">多</span><span class=\"uc-chp\">duō</span><span class=\"uc-chm\">much</span><span class=\"uc-chr\">radical <b>夕</b> xī · evening</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">少</span><span class=\"uc-chp\">shǎo</span><span class=\"uc-chm\">few</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要<b>多少</b>钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">门票<b>多少</b>钱？</div><div class=\"uc-exe\">How much is the entrance fee?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -723,7 +723,7 @@
    "num": "27",
    "category": "HSK 1",
    "question": "二",
-   "answer": "èr — two; 2",
+   "answer": "èr — two",
    "answerDate": "",
    "traditional": "",
    "hanzi": "二",
@@ -731,7 +731,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "two; 2",
+   "answerText": "two",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "二",
@@ -739,7 +739,7 @@
     "Pinyin": "èr",
     "Bopomofo": "ㄦˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">two</div><div class=\"uc-sense\">2</div>",
+    "English": "<div class=\"uc-sense\">two</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">二</span><span class=\"uc-chp\">èr</span><span class=\"uc-chm\">two</span><span class=\"uc-chr\">radical <b>二</b> èr · two</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">不，是<b>二</b>手的。</div><div class=\"uc-exe\">No, it's second-hand.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我十<b>二</b>岁了。</div><div class=\"uc-exe\">I'm twelve years old.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -827,7 +827,7 @@
    "num": "31",
    "category": "HSK 1",
    "question": "高兴 / 高興",
-   "answer": "gāoxìng — happy; glad; willing (to do sth); in a cheerful mood",
+   "answer": "gāoxìng — happy; glad",
    "answerDate": "",
    "traditional": "高興",
    "hanzi": "高兴",
@@ -835,7 +835,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "happy; glad; willing (to do sth); in a cheerful mood",
+   "answerText": "happy; glad",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "高兴",
@@ -843,7 +843,7 @@
     "Pinyin": "gāoxìng",
     "Bopomofo": "ㄍㄠ ㄒㄧㄥˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">happy</div><div class=\"uc-sense\">glad</div><div class=\"uc-sense\">willing (to do sth)</div><div class=\"uc-sense\">in a cheerful mood</div>",
+    "English": "<div class=\"uc-sense\">happy</div><div class=\"uc-sense\">glad</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">高</span><span class=\"uc-chp\">gāo</span><span class=\"uc-chm\">tall</span><span class=\"uc-chr\">radical <b>高</b> gāo · tall</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">兴</span><span class=\"uc-chp\">xìng</span><span class=\"uc-chm\">to thrive</span><span class=\"uc-chr\">radical <b>八</b> bā · eight</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我让John<b>高兴</b>了。</div><div class=\"uc-exe\">I made John happy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我太<b>高兴</b>了！</div><div class=\"uc-exe\">I'm too happy!</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -853,7 +853,7 @@
    "num": "32",
    "category": "HSK 1",
    "question": "个 / 個",
-   "answer": "gè — general measure word; (classifier used before a noun that has no specific classifier); individual",
+   "answer": "gè — general measure word",
    "answerDate": "",
    "traditional": "個",
    "hanzi": "个",
@@ -861,7 +861,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "general measure word; (classifier used before a noun that has no specific classifier); individual",
+   "answerText": "general measure word",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "个",
@@ -869,7 +869,7 @@
     "Pinyin": "gè",
     "Bopomofo": "ㄍㄜˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">general measure word</div><div class=\"uc-sense\">(classifier used before a noun that has no specific classifier)</div><div class=\"uc-sense\">individual</div>",
+    "English": "<div class=\"uc-sense\">general measure word</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">个</span><span class=\"uc-chp\">gè</span><span class=\"uc-chm\">this</span><span class=\"uc-chr\">radical <b>丨</b> shù · number one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我是<b>个</b>男人。</div><div class=\"uc-exe\">I am a man.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">看那<b>个</b>房子。</div><div class=\"uc-exe\">Look at that house.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -879,7 +879,7 @@
    "num": "33",
    "category": "HSK 1",
    "question": "工作",
-   "answer": "gōngzuò — work; a job; to work; (of a machine) to operate; job; task",
+   "answer": "gōngzuò — work; a job",
    "answerDate": "",
    "traditional": "",
    "hanzi": "工作",
@@ -887,7 +887,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "work; a job; to work; (of a machine) to operate; job; task",
+   "answerText": "work; a job",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "工作",
@@ -895,7 +895,7 @@
     "Pinyin": "gōngzuò",
     "Bopomofo": "ㄍㄨㄥ ㄗㄨㄛˋ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">份</span><span class=\"uc-mwp\">fèn</span></span>",
-    "English": "<div class=\"uc-sense\">work</div><div class=\"uc-sense\">a job</div><div class=\"uc-sense\">to work</div><div class=\"uc-sense\">(of a machine) to operate</div><div class=\"uc-sense\">job</div><div class=\"uc-sense\">task</div>",
+    "English": "<div class=\"uc-sense\">work</div><div class=\"uc-sense\">a job</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">工</span><span class=\"uc-chp\">gōng</span><span class=\"uc-chm\">labor</span><span class=\"uc-chr\">radical <b>工</b> gōng · labor</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">作</span><span class=\"uc-chp\">zuò</span><span class=\"uc-chm\">to make</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他为她<b>工作</b>。</div><div class=\"uc-exe\">He works for her.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我在找<b>工作</b>。</div><div class=\"uc-exe\">I'm looking for a job.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -957,7 +957,7 @@
    "num": "36",
    "category": "HSK 1",
    "question": "好",
-   "answer": "hǎo — good; appropriate; proper; all right!; (before a verb) easy to; (before a verb) good to; (before an adjective for exclamatory effect) so; (verb complement indicating completion); (of two people) close; on intimate terms; (after a personal pronoun) hello",
+   "answer": "hǎo — good",
    "answerDate": "",
    "traditional": "",
    "hanzi": "好",
@@ -965,7 +965,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "good; appropriate; proper; all right!; (before a verb) easy to; (before a verb) good to; (before an adjective for exclamatory effect) so; (verb complement indicating completion); (of two people) close; on intimate terms; (after a personal pronoun) hello",
+   "answerText": "good",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "好",
@@ -973,7 +973,7 @@
     "Pinyin": "hǎo",
     "Bopomofo": "ㄏㄠˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">good</div><div class=\"uc-sense\">appropriate</div><div class=\"uc-sense\">proper</div><div class=\"uc-sense\">all right!</div><div class=\"uc-sense\">(before a verb) easy to</div><div class=\"uc-sense\">(before a verb) good to</div><div class=\"uc-sense\">(before an adjective for exclamatory effect) so</div><div class=\"uc-sense\">(verb complement indicating completion)</div><div class=\"uc-sense\">(of two people) close</div><div class=\"uc-sense\">on intimate terms</div><div class=\"uc-sense\">(after a personal pronoun) hello</div>",
+    "English": "<div class=\"uc-sense\">good</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">好</span><span class=\"uc-chp\">hǎo</span><span class=\"uc-chm\">good</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Tom 和 John 是<b>好</b>朋友。</div><div class=\"uc-exe\">Tom and John are good friends.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他唱得不<b>好</b>。</div><div class=\"uc-exe\">He doesn't sing well.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -983,7 +983,7 @@
    "num": "37",
    "category": "HSK 1",
    "question": "号 / 號",
-   "answer": "hào — number; day of a month; ordinal number; mark; sign; business establishment; size; ship suffix; horn (wind instrument); bugle call; assumed name; to take a pulse; classifier used to indicate number of people",
+   "answer": "hào — number; day of a month",
    "answerDate": "",
    "traditional": "號",
    "hanzi": "号",
@@ -991,7 +991,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "number; day of a month; ordinal number; mark; sign; business establishment; size; ship suffix; horn (wind instrument); bugle call; assumed name; to take a pulse; classifier used to indicate number of people",
+   "answerText": "number; day of a month",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "号",
@@ -999,7 +999,7 @@
     "Pinyin": "hào",
     "Bopomofo": "ㄏㄠˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">number</div><div class=\"uc-sense\">day of a month</div><div class=\"uc-sense\">ordinal number</div><div class=\"uc-sense\">mark</div><div class=\"uc-sense\">sign</div><div class=\"uc-sense\">business establishment</div><div class=\"uc-sense\">size</div><div class=\"uc-sense\">ship suffix</div><div class=\"uc-sense\">horn (wind instrument)</div><div class=\"uc-sense\">bugle call</div><div class=\"uc-sense\">assumed name</div><div class=\"uc-sense\">to take a pulse</div><div class=\"uc-sense\">classifier used to indicate number of people</div>",
+    "English": "<div class=\"uc-sense\">number</div><div class=\"uc-sense\">day of a month</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">号</span><span class=\"uc-chp\">hào</span><span class=\"uc-chm\">mark</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这是839<b>号</b>房间。</div><div class=\"uc-exe\">This is Room 839.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天是几<b>号</b>？</div><div class=\"uc-exe\">What's the date today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1035,7 +1035,7 @@
    "num": "39",
    "category": "HSK 1",
    "question": "和",
-   "answer": "hé — and; with; (joining two nouns) and; together with; (math.) sum; to make peace; (sports) to draw; to tie; harmonious; Japan; Japanese",
+   "answer": "hé — and; with",
    "answerDate": "",
    "traditional": "",
    "hanzi": "和",
@@ -1043,7 +1043,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "and; with; (joining two nouns) and; together with; (math.) sum; to make peace; (sports) to draw; to tie; harmonious; Japan; Japanese",
+   "answerText": "and; with",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "和",
@@ -1051,7 +1051,7 @@
     "Pinyin": "hé",
     "Bopomofo": "ㄏㄜˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">and</div><div class=\"uc-sense\">with</div><div class=\"uc-sense\">(joining two nouns) and</div><div class=\"uc-sense\">together with</div><div class=\"uc-sense\">(math.) sum</div><div class=\"uc-sense\">to make peace</div><div class=\"uc-sense\">(sports) to draw</div><div class=\"uc-sense\">to tie</div><div class=\"uc-sense\">harmonious</div><div class=\"uc-sense\">Japan</div><div class=\"uc-sense\">Japanese</div>",
+    "English": "<div class=\"uc-sense\">and</div><div class=\"uc-sense\">with</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">和</span><span class=\"uc-chp\">hé</span><span class=\"uc-chm\">harmony</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>和</b>我同岁。</div><div class=\"uc-exe\">We're the same age.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Tom <b>和</b> John 是好朋友。</div><div class=\"uc-exe\">Tom and John are good friends.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1061,7 +1061,7 @@
    "num": "40",
    "category": "HSK 1",
    "question": "很",
-   "answer": "hěn — very; quite; (adverb of degree); awfully",
+   "answer": "hěn — very; quite",
    "answerDate": "",
    "traditional": "",
    "hanzi": "很",
@@ -1069,7 +1069,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "very; quite; (adverb of degree); awfully",
+   "answerText": "very; quite",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "很",
@@ -1077,7 +1077,7 @@
     "Pinyin": "hěn",
     "Bopomofo": "ㄏㄣˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">very</div><div class=\"uc-sense\">quite</div><div class=\"uc-sense\">(adverb of degree)</div><div class=\"uc-sense\">awfully</div>",
+    "English": "<div class=\"uc-sense\">very</div><div class=\"uc-sense\">quite</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">很</span><span class=\"uc-chp\">hěn</span><span class=\"uc-chm\">very</span><span class=\"uc-chr\">radical <b>彳</b> chì · to step with the left foot</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我爸爸<b>很</b>忙。</div><div class=\"uc-exe\">My father is busy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你爸爸<b>很</b>高。</div><div class=\"uc-exe\">Your father is tall.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1087,7 +1087,7 @@
    "num": "41",
    "category": "HSK 1",
    "question": "后面 / 後面",
-   "answer": "hòumian — back; behind; the back; the rear; the last bit; near the end; at the back; later; afterwards",
+   "answer": "hòumian — back; behind",
    "answerDate": "",
    "traditional": "後面",
    "hanzi": "后面",
@@ -1095,7 +1095,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "back; behind; the back; the rear; the last bit; near the end; at the back; later; afterwards",
+   "answerText": "back; behind",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "后面",
@@ -1103,7 +1103,7 @@
     "Pinyin": "hòumian",
     "Bopomofo": "ㄏㄡˋ ㄇㄧㄢ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">back</div><div class=\"uc-sense\">behind</div><div class=\"uc-sense\">the back</div><div class=\"uc-sense\">the rear</div><div class=\"uc-sense\">the last bit</div><div class=\"uc-sense\">near the end</div><div class=\"uc-sense\">at the back</div><div class=\"uc-sense\">later</div><div class=\"uc-sense\">afterwards</div>",
+    "English": "<div class=\"uc-sense\">back</div><div class=\"uc-sense\">behind</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">后</span><span class=\"uc-chp\">hòu</span><span class=\"uc-chm\">after</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">面</span><span class=\"uc-chp\">mian</span><span class=\"uc-chm\">face</span><span class=\"uc-chr\">radical <b>面</b> miàn · face</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我就在你<b>后面</b>。</div><div class=\"uc-exe\">I was right behind you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">请你站在我<b>后面</b>。</div><div class=\"uc-exe\">Please stand behind me.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1113,7 +1113,7 @@
    "num": "42",
    "category": "HSK 1",
    "question": "回",
-   "answer": "huí — to return; to reply; to go back; to circle; to turn around; to answer; to revolve; Hui ethnic group (Chinese Muslims); time; classifier for acts of a play; section or chapter (of a classic book); to curve",
+   "answer": "huí — to return; to reply; to go back",
    "answerDate": "",
    "traditional": "",
    "hanzi": "回",
@@ -1121,7 +1121,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to return; to reply; to go back; to circle; to turn around; to answer; to revolve; Hui ethnic group (Chinese Muslims); time; classifier for acts of a play; section or chapter (of a classic book); to curve",
+   "answerText": "to return; to reply; to go back",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "回",
@@ -1129,7 +1129,7 @@
     "Pinyin": "huí",
     "Bopomofo": "ㄏㄨㄟˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to return</div><div class=\"uc-sense\">to reply</div><div class=\"uc-sense\">to go back</div><div class=\"uc-sense\">to circle</div><div class=\"uc-sense\">to turn around</div><div class=\"uc-sense\">to answer</div><div class=\"uc-sense\">to revolve</div><div class=\"uc-sense\">Hui ethnic group (Chinese Muslims)</div><div class=\"uc-sense\">time</div><div class=\"uc-sense\">classifier for acts of a play</div><div class=\"uc-sense\">section or chapter (of a classic book)</div><div class=\"uc-sense\">to curve</div>",
+    "English": "<div class=\"uc-sense\">to return</div><div class=\"uc-sense\">to reply</div><div class=\"uc-sense\">to go back</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">回</span><span class=\"uc-chp\">huí</span><span class=\"uc-chm\">to return</span><span class=\"uc-chr\">radical <b>囗</b> wéi · enclosure</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他会<b>回</b>来的。</div><div class=\"uc-exe\">He will come back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我要<b>回</b>来了。</div><div class=\"uc-exe\">I'll come back.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1139,7 +1139,7 @@
    "num": "43",
    "category": "HSK 1",
    "question": "会 / 會",
-   "answer": "huì — know how to; can; to have the skill; to know how to; to be likely to; to be sure to; to meet; to get together; meeting; gathering; (suffix) union; group; association; a moment",
+   "answer": "huì — know how to",
    "answerDate": "",
    "traditional": "會",
    "hanzi": "会",
@@ -1147,7 +1147,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "know how to; can; to have the skill; to know how to; to be likely to; to be sure to; to meet; to get together; meeting; gathering; (suffix) union; group; association; a moment",
+   "answerText": "know how to",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "会",
@@ -1155,7 +1155,7 @@
     "Pinyin": "huì",
     "Bopomofo": "ㄏㄨㄟˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">know how to</div><div class=\"uc-sense\">can</div><div class=\"uc-sense\">to have the skill</div><div class=\"uc-sense\">to know how to</div><div class=\"uc-sense\">to be likely to</div><div class=\"uc-sense\">to be sure to</div><div class=\"uc-sense\">to meet</div><div class=\"uc-sense\">to get together</div><div class=\"uc-sense\">meeting</div><div class=\"uc-sense\">gathering</div><div class=\"uc-sense\">(suffix) union</div><div class=\"uc-sense\">group</div><div class=\"uc-sense\">association</div><div class=\"uc-sense\">a moment</div>",
+    "English": "<div class=\"uc-sense\">know how to</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">会</span><span class=\"uc-chp\">huì</span><span class=\"uc-chm\">to assemble</span><span class=\"uc-chr\">radical <b>人</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>会</b>回来的。</div><div class=\"uc-exe\">He will come back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他不<b>会</b>游泳。</div><div class=\"uc-exe\">He doesn't know how to swim.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1165,7 +1165,7 @@
    "num": "44",
    "category": "HSK 1",
    "question": "几 / 幾",
-   "answer": "jǐ — how many; several; a few; how much",
+   "answer": "jǐ — how many; several; a few",
    "answerDate": "",
    "traditional": "幾",
    "hanzi": "几",
@@ -1173,7 +1173,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "how many; several; a few; how much",
+   "answerText": "how many; several; a few",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "几",
@@ -1181,7 +1181,7 @@
     "Pinyin": "jǐ",
     "Bopomofo": "ㄐㄧˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">how many</div><div class=\"uc-sense\">several</div><div class=\"uc-sense\">a few</div><div class=\"uc-sense\">how much</div>",
+    "English": "<div class=\"uc-sense\">how many</div><div class=\"uc-sense\">several</div><div class=\"uc-sense\">a few</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">几</span><span class=\"uc-chp\">jǐ</span><span class=\"uc-chm\">small table</span><span class=\"uc-chr\">radical <b>几</b> jǐ · small table</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你有<b>几</b>本书?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天星期<b>几</b>？</div><div class=\"uc-exe\">What day is it today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1191,7 +1191,7 @@
    "num": "45",
    "category": "HSK 1",
    "question": "家",
-   "answer": "jiā — family; home; (polite) my (sister, uncle etc); classifier for families or businesses; refers to the philosophical schools of pre-Han China; noun suffix for a specialist in some activity, such as a musician or revolutionary, corresponding to English -ist, -er, -ary or -ian",
+   "answer": "jiā — family; home",
    "answerDate": "",
    "traditional": "",
    "hanzi": "家",
@@ -1199,7 +1199,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "family; home; (polite) my (sister, uncle etc); classifier for families or businesses; refers to the philosophical schools of pre-Han China; noun suffix for a specialist in some activity, such as a musician or revolutionary, corresponding to English -ist, -er, -ary or -ian",
+   "answerText": "family; home",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "家",
@@ -1207,7 +1207,7 @@
     "Pinyin": "jiā",
     "Bopomofo": "ㄐㄧㄚ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">family</div><div class=\"uc-sense\">home</div><div class=\"uc-sense\">(polite) my (sister, uncle etc)</div><div class=\"uc-sense\">classifier for families or businesses</div><div class=\"uc-sense\">refers to the philosophical schools of pre-Han China</div><div class=\"uc-sense\">noun suffix for a specialist in some activity, such as a musician or revolutionary, corresponding to English -ist, -er, -ary or -ian</div>",
+    "English": "<div class=\"uc-sense\">family</div><div class=\"uc-sense\">home</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">家</span><span class=\"uc-chp\">jiā</span><span class=\"uc-chm\">house</span><span class=\"uc-chr\">radical <b>宀</b> gài · roof</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Jane正要离开<b>家</b>。</div><div class=\"uc-exe\">Jane was about to leave the house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Ken昨天在<b>家</b>吗？</div><div class=\"uc-exe\">Was Ken at home yesterday?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1217,7 +1217,7 @@
    "num": "46",
    "category": "HSK 1",
    "question": "叫",
-   "answer": "jiào — to be called; to shout; to call; to order; to ask; by (indicates agent in the passive mood)",
+   "answer": "jiào — to be called",
    "answerDate": "",
    "traditional": "",
    "hanzi": "叫",
@@ -1225,7 +1225,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to be called; to shout; to call; to order; to ask; by (indicates agent in the passive mood)",
+   "answerText": "to be called",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "叫",
@@ -1233,7 +1233,7 @@
     "Pinyin": "jiào",
     "Bopomofo": "ㄐㄧㄠˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to be called</div><div class=\"uc-sense\">to shout</div><div class=\"uc-sense\">to call</div><div class=\"uc-sense\">to order</div><div class=\"uc-sense\">to ask</div><div class=\"uc-sense\">by (indicates agent in the passive mood)</div>",
+    "English": "<div class=\"uc-sense\">to be called</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">叫</span><span class=\"uc-chp\">jiào</span><span class=\"uc-chm\">cry</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我能<b>叫</b>你Bob吗？</div><div class=\"uc-exe\">Can I call you Bob?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我的名字<b>叫</b>Hopkins。</div><div class=\"uc-exe\">My name is Hopkins.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1243,7 +1243,7 @@
    "num": "47",
    "category": "HSK 1",
    "question": "今天",
-   "answer": "jīntiān — today; at the present; now",
+   "answer": "jīntiān — today",
    "answerDate": "",
    "traditional": "",
    "hanzi": "今天",
@@ -1251,7 +1251,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "today; at the present; now",
+   "answerText": "today",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "今天",
@@ -1259,7 +1259,7 @@
     "Pinyin": "jīntiān",
     "Bopomofo": "ㄐㄧㄣ ㄊㄧㄢ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">today</div><div class=\"uc-sense\">at the present</div><div class=\"uc-sense\">now</div>",
+    "English": "<div class=\"uc-sense\">today</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">今</span><span class=\"uc-chp\">jīn</span><span class=\"uc-chm\">modern</span><span class=\"uc-chr\">radical <b>人</b> rén · man</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">天</span><span class=\"uc-chp\">tiān</span><span class=\"uc-chm\">sky</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>今天</b>忙吗？</div><div class=\"uc-exe\">Are you busy today?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>今天</b>有点冷。</div><div class=\"uc-exe\">It's a little cold today.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1269,7 +1269,7 @@
    "num": "48",
    "category": "HSK 1",
    "question": "九",
-   "answer": "jiǔ — nine; 9",
+   "answer": "jiǔ — nine",
    "answerDate": "",
    "traditional": "",
    "hanzi": "九",
@@ -1277,7 +1277,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "nine; 9",
+   "answerText": "nine",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "九",
@@ -1285,7 +1285,7 @@
     "Pinyin": "jiǔ",
     "Bopomofo": "ㄐㄧㄡˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">nine</div><div class=\"uc-sense\">9</div>",
+    "English": "<div class=\"uc-sense\">nine</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">九</span><span class=\"uc-chp\">jiǔ</span><span class=\"uc-chm\">nine</span><span class=\"uc-chr\">radical <b>乙</b> yǐ · second</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他说<b>九</b>点了。</div><div class=\"uc-exe\">He said that it was nine o'clock.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>九</b>点上班。</div><div class=\"uc-exe\">You start working at nine.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1295,7 +1295,7 @@
    "num": "49",
    "category": "HSK 1",
    "question": "开 / 開",
-   "answer": "kāi — to open; to start; to operate (a vehicle); to open (transitive or intransitive); (of ships, vehicles, troops etc) to start; to turn on; to put in operation; to operate; to run; to boil; to write out (a prescription, check, invoice etc); (directional complement) away; off; carat (gold)",
+   "answer": "kāi — to open; to start; to operate (a vehicle)",
    "answerDate": "",
    "traditional": "開",
    "hanzi": "开",
@@ -1303,7 +1303,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to open; to start; to operate (a vehicle); to open (transitive or intransitive); (of ships, vehicles, troops etc) to start; to turn on; to put in operation; to operate; to run; to boil; to write out (a prescription, check, invoice etc); (directional complement) away; off; carat (gold)",
+   "answerText": "to open; to start; to operate (a vehicle)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "开",
@@ -1311,7 +1311,7 @@
     "Pinyin": "kāi",
     "Bopomofo": "ㄎㄞ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to open</div><div class=\"uc-sense\">to start</div><div class=\"uc-sense\">to operate (a vehicle)</div><div class=\"uc-sense\">to open (transitive or intransitive)</div><div class=\"uc-sense\">(of ships, vehicles, troops etc) to start</div><div class=\"uc-sense\">to turn on</div><div class=\"uc-sense\">to put in operation</div><div class=\"uc-sense\">to operate</div><div class=\"uc-sense\">to run</div><div class=\"uc-sense\">to boil</div><div class=\"uc-sense\">to write out (a prescription, check, invoice etc)</div><div class=\"uc-sense\">(directional complement) away</div><div class=\"uc-sense\">off</div><div class=\"uc-sense\">carat (gold)</div>",
+    "English": "<div class=\"uc-sense\">to open</div><div class=\"uc-sense\">to start</div><div class=\"uc-sense\">to operate (a vehicle)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">开</span><span class=\"uc-chp\">kāi</span><span class=\"uc-chm\">to open</span><span class=\"uc-chr\">radical <b>廾</b> gǒng · two hands</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Jane正要离<b>开</b>家。</div><div class=\"uc-exe\">Jane was about to leave the house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">车<b>开</b>得很快。</div><div class=\"uc-exe\">The car is driving quickly.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1321,7 +1321,7 @@
    "num": "50",
    "category": "HSK 1",
    "question": "看",
-   "answer": "kàn — see; look at; to watch; to see; to look at; to read; to visit; to call on; to consider; to regard as; to look after; to treat (a patient or illness); to depend on; to feel (that); (after a verb) to give it a try; to watch out for",
+   "answer": "kàn — see; look at; to watch",
    "answerDate": "",
    "traditional": "",
    "hanzi": "看",
@@ -1329,7 +1329,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "see; look at; to watch; to see; to look at; to read; to visit; to call on; to consider; to regard as; to look after; to treat (a patient or illness); to depend on; to feel (that); (after a verb) to give it a try; to watch out for",
+   "answerText": "see; look at; to watch",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "看",
@@ -1337,7 +1337,7 @@
     "Pinyin": "kàn",
     "Bopomofo": "ㄎㄢˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">see</div><div class=\"uc-sense\">look at</div><div class=\"uc-sense\">to watch</div><div class=\"uc-sense\">to see</div><div class=\"uc-sense\">to look at</div><div class=\"uc-sense\">to read</div><div class=\"uc-sense\">to visit</div><div class=\"uc-sense\">to call on</div><div class=\"uc-sense\">to consider</div><div class=\"uc-sense\">to regard as</div><div class=\"uc-sense\">to look after</div><div class=\"uc-sense\">to treat (a patient or illness)</div><div class=\"uc-sense\">to depend on</div><div class=\"uc-sense\">to feel (that)</div><div class=\"uc-sense\">(after a verb) to give it a try</div><div class=\"uc-sense\">to watch out for</div>",
+    "English": "<div class=\"uc-sense\">see</div><div class=\"uc-sense\">look at</div><div class=\"uc-sense\">to watch</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">看</span><span class=\"uc-chp\">kàn</span><span class=\"uc-chm\">to look</span><span class=\"uc-chr\">radical <b>目</b> mù · eye</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>看</b>那个房子。</div><div class=\"uc-exe\">Look at that house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他在<b>看</b>电视。</div><div class=\"uc-exe\">He is watching TV.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1347,7 +1347,7 @@
    "num": "51",
    "category": "HSK 1",
    "question": "看见 / 看見",
-   "answer": "kànjiàn — see; catch sight of; to see; to catch sight of",
+   "answer": "kànjiàn — see; catch sight of",
    "answerDate": "",
    "traditional": "看見",
    "hanzi": "看见",
@@ -1355,7 +1355,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "see; catch sight of; to see; to catch sight of",
+   "answerText": "see; catch sight of",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "看见",
@@ -1363,7 +1363,7 @@
     "Pinyin": "kànjiàn",
     "Bopomofo": "ㄎㄢˋ ㄐㄧㄢˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">see</div><div class=\"uc-sense\">catch sight of</div><div class=\"uc-sense\">to see</div><div class=\"uc-sense\">to catch sight of</div>",
+    "English": "<div class=\"uc-sense\">see</div><div class=\"uc-sense\">catch sight of</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">看</span><span class=\"uc-chp\">kàn</span><span class=\"uc-chm\">to look</span><span class=\"uc-chr\">radical <b>目</b> mù · eye</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">见</span><span class=\"uc-chp\">jiàn</span><span class=\"uc-chm\">to see</span><span class=\"uc-chr\">radical <b>见</b> jiàn · to see</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">没人<b>看见</b>你。</div><div class=\"uc-exe\">No one has seen you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我们没<b>看见</b>。</div><div class=\"uc-exe\">We didn't see it.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1373,7 +1373,7 @@
    "num": "52",
    "category": "HSK 1",
    "question": "块 / 塊",
-   "answer": "kuài — lump; piece; sum of money; chunk; classifier for pieces of cloth, cake, soap etc; (coll.) classifier for money and currency units",
+   "answer": "kuài — lump; piece; sum of money",
    "answerDate": "",
    "traditional": "塊",
    "hanzi": "块",
@@ -1381,7 +1381,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "lump; piece; sum of money; chunk; classifier for pieces of cloth, cake, soap etc; (coll.) classifier for money and currency units",
+   "answerText": "lump; piece; sum of money",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "块",
@@ -1389,7 +1389,7 @@
     "Pinyin": "kuài",
     "Bopomofo": "ㄎㄨㄞˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">lump</div><div class=\"uc-sense\">piece</div><div class=\"uc-sense\">sum of money</div><div class=\"uc-sense\">chunk</div><div class=\"uc-sense\">classifier for pieces of cloth, cake, soap etc</div><div class=\"uc-sense\">(coll.) classifier for money and currency units</div>",
+    "English": "<div class=\"uc-sense\">lump</div><div class=\"uc-sense\">piece</div><div class=\"uc-sense\">sum of money</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">块</span><span class=\"uc-chp\">kuài</span><span class=\"uc-chm\">piece</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她给了他一<b>块</b>表。</div><div class=\"uc-exe\">She gave him a watch.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你喜欢哪一<b>块</b>？这<b>块</b>还是那<b>块</b>？</div><div class=\"uc-exe\">Which one do you prefer, this one or that one?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1399,7 +1399,7 @@
    "num": "53",
    "category": "HSK 1",
    "question": "来 / 來",
-   "answer": "lái — come; arrive; ever since; next; to come; (used as a substitute for a more specific verb); hither; for the past (amount of time); (prefix) the coming...; the next...; (between two verbs) in order to; (after a round number) approximately",
+   "answer": "lái — come; arrive; ever since; next",
    "answerDate": "",
    "traditional": "來",
    "hanzi": "来",
@@ -1407,7 +1407,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "come; arrive; ever since; next; to come; (used as a substitute for a more specific verb); hither; for the past (amount of time); (prefix) the coming...; the next...; (between two verbs) in order to; (after a round number) approximately",
+   "answerText": "come; arrive; ever since; next",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "来",
@@ -1415,7 +1415,7 @@
     "Pinyin": "lái",
     "Bopomofo": "ㄌㄞˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">come</div><div class=\"uc-sense\">arrive</div><div class=\"uc-sense\">ever since</div><div class=\"uc-sense\">next</div><div class=\"uc-sense\">to come</div><div class=\"uc-sense\">(used as a substitute for a more specific verb)</div><div class=\"uc-sense\">hither</div><div class=\"uc-sense\">for the past (amount of time)</div><div class=\"uc-sense\">(prefix) the coming...</div><div class=\"uc-sense\">the next...</div><div class=\"uc-sense\">(between two verbs) in order to</div><div class=\"uc-sense\">(after a round number) approximately</div>",
+    "English": "<div class=\"uc-sense\">come</div><div class=\"uc-sense\">arrive</div><div class=\"uc-sense\">ever since</div><div class=\"uc-sense\">next</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">来</span><span class=\"uc-chp\">lái</span><span class=\"uc-chm\">to arrive</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他会回<b>来</b>的。</div><div class=\"uc-exe\">He will come back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">请后天<b>来</b>吧。</div><div class=\"uc-exe\">Please come the day after tomorrow.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1451,7 +1451,7 @@
    "num": "55",
    "category": "HSK 1",
    "question": "了",
-   "answer": "le — indicates a completed or finished action; (completed action marker); (modal particle indicating change of state, situation now); (modal particle intensifying preceding clause)",
+   "answer": "le — indicates a completed or finished action",
    "answerDate": "",
    "traditional": "",
    "hanzi": "了",
@@ -1459,7 +1459,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "indicates a completed or finished action; (completed action marker); (modal particle indicating change of state, situation now); (modal particle intensifying preceding clause)",
+   "answerText": "indicates a completed or finished action",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "了",
@@ -1467,7 +1467,7 @@
     "Pinyin": "le",
     "Bopomofo": "ㄌㄜ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">indicates a completed or finished action</div><div class=\"uc-sense\">(completed action marker)</div><div class=\"uc-sense\">(modal particle indicating change of state, situation now)</div><div class=\"uc-sense\">(modal particle intensifying preceding clause)</div>",
+    "English": "<div class=\"uc-sense\">indicates a completed or finished action</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">了</span><span class=\"uc-chp\">le</span><span class=\"uc-chm\">clear</span><span class=\"uc-chr\">radical <b>亅</b> jué · hook</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他出卖<b>了</b>我。</div><div class=\"uc-exe\">He sold me down the river.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你做<b>了</b>什么？</div><div class=\"uc-exe\">What did you make?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1503,7 +1503,7 @@
    "num": "57",
    "category": "HSK 1",
    "question": "里 / 裡",
-   "answer": "lǐ — inside; Chinese mile (~.5 km); lining; interior; internal; li, ancient measure of length, approx. 500 m; neighborhood; ancient administrative unit of 25 families",
+   "answer": "lǐ — inside; Chinese mile (~.5 km)",
    "answerDate": "",
    "traditional": "裡",
    "hanzi": "里",
@@ -1511,7 +1511,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "inside; Chinese mile (~.5 km); lining; interior; internal; li, ancient measure of length, approx. 500 m; neighborhood; ancient administrative unit of 25 families",
+   "answerText": "inside; Chinese mile (~.5 km)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "里",
@@ -1519,7 +1519,7 @@
     "Pinyin": "lǐ",
     "Bopomofo": "ㄌㄧˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">inside</div><div class=\"uc-sense\">Chinese mile (~.5 km)</div><div class=\"uc-sense\">lining</div><div class=\"uc-sense\">interior</div><div class=\"uc-sense\">internal</div><div class=\"uc-sense\">li, ancient measure of length, approx. 500 m</div><div class=\"uc-sense\">neighborhood</div><div class=\"uc-sense\">ancient administrative unit of 25 families</div>",
+    "English": "<div class=\"uc-sense\">inside</div><div class=\"uc-sense\">Chinese mile (~.5 km)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">里</span><span class=\"uc-chp\">lǐ</span><span class=\"uc-chm\">unit of distance equal to 0.5km</span><span class=\"uc-chr\">radical <b>里</b> lǐ · unit of distance equal to 0.5km</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你住在哪<b>里</b>？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你是哪<b>里</b>人？</div><div class=\"uc-exe\">Where are you from?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1529,7 +1529,7 @@
    "num": "58",
    "category": "HSK 1",
    "question": "六",
-   "answer": "liù — six; 6",
+   "answer": "liù — six",
    "answerDate": "",
    "traditional": "",
    "hanzi": "六",
@@ -1537,7 +1537,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "six; 6",
+   "answerText": "six",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "六",
@@ -1545,7 +1545,7 @@
     "Pinyin": "liù",
     "Bopomofo": "ㄌㄧㄡˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">six</div><div class=\"uc-sense\">6</div>",
+    "English": "<div class=\"uc-sense\">six</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">六</span><span class=\"uc-chp\">liù</span><span class=\"uc-chm\">six</span><span class=\"uc-chr\">radical <b>八</b> bā · eight</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他年近<b>六</b>十。</div><div class=\"uc-exe\">He is close to sixty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">昨天星期<b>六</b>。</div><div class=\"uc-exe\">Yesterday was Saturday.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1555,7 +1555,7 @@
    "num": "59",
    "category": "HSK 1",
    "question": "妈妈 / 媽媽",
-   "answer": "māma — mom; mum; mama; mommy; mother",
+   "answer": "māma — mom; mum",
    "answerDate": "",
    "traditional": "媽媽",
    "hanzi": "妈妈",
@@ -1563,7 +1563,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "mom; mum; mama; mommy; mother",
+   "answerText": "mom; mum",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "妈妈",
@@ -1571,7 +1571,7 @@
     "Pinyin": "māma",
     "Bopomofo": "ㄇㄚ ㄇㄚ˙",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
-    "English": "<div class=\"uc-sense\">mom</div><div class=\"uc-sense\">mum</div><div class=\"uc-sense\">mama</div><div class=\"uc-sense\">mommy</div><div class=\"uc-sense\">mother</div>",
+    "English": "<div class=\"uc-sense\">mom</div><div class=\"uc-sense\">mum</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">妈</span><span class=\"uc-chp\">mā</span><span class=\"uc-chm\">mother</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">妈</span><span class=\"uc-chp\">ma</span><span class=\"uc-chm\">mother</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你是我<b>妈妈</b>。</div><div class=\"uc-exe\">You are my mother.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是我的<b>妈妈</b>。</div><div class=\"uc-exe\">This is my mother.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1581,7 +1581,7 @@
    "num": "60",
    "category": "HSK 1",
    "question": "吗 / 嗎",
-   "answer": "ma — indicates a yes/no question (added to a statement); (question particle for \"yes-no\" questions)",
+   "answer": "ma — indicates a yes/no question (added to a statement)",
    "answerDate": "",
    "traditional": "嗎",
    "hanzi": "吗",
@@ -1589,7 +1589,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "indicates a yes/no question (added to a statement); (question particle for \"yes-no\" questions)",
+   "answerText": "indicates a yes/no question (added to a statement)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "吗",
@@ -1597,7 +1597,7 @@
     "Pinyin": "ma",
     "Bopomofo": "ㄇㄚ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">indicates a yes/no question (added to a statement)</div><div class=\"uc-sense\">(question particle for \"yes-no\" questions)</div>",
+    "English": "<div class=\"uc-sense\">indicates a yes/no question (added to a statement)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">吗</span><span class=\"uc-chp\">ma</span><span class=\"uc-chm\">final interrogative particle</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你听得见<b>吗</b>？</div><div class=\"uc-exe\">Do you hear me?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你今天忙<b>吗</b>？</div><div class=\"uc-exe\">Are you busy today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1607,7 +1607,7 @@
    "num": "61",
    "category": "HSK 1",
    "question": "买 / 買",
-   "answer": "mǎi — to buy; to purchase",
+   "answer": "mǎi — to buy",
    "answerDate": "",
    "traditional": "買",
    "hanzi": "买",
@@ -1615,7 +1615,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to buy; to purchase",
+   "answerText": "to buy",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "买",
@@ -1623,7 +1623,7 @@
     "Pinyin": "mǎi",
     "Bopomofo": "ㄇㄞˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to buy</div><div class=\"uc-sense\">to purchase</div>",
+    "English": "<div class=\"uc-sense\">to buy</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">买</span><span class=\"uc-chp\">mǎi</span><span class=\"uc-chm\">to buy</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">A4纸到哪儿<b>买</b>？</div><div class=\"uc-exe\">Where can I buy A4 paper?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我要<b>买</b>什么？</div><div class=\"uc-exe\">What should I buy?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1633,7 +1633,7 @@
    "num": "62",
    "category": "HSK 1",
    "question": "猫 / 貓",
-   "answer": "māo — cat; (coll.) modem",
+   "answer": "māo — cat",
    "answerDate": "",
    "traditional": "貓",
    "hanzi": "猫",
@@ -1641,7 +1641,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "cat; (coll.) modem",
+   "answerText": "cat",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "猫",
@@ -1649,7 +1649,7 @@
     "Pinyin": "māo",
     "Bopomofo": "ㄇㄠ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span>",
-    "English": "<div class=\"uc-sense\">cat</div><div class=\"uc-sense\">(coll.) modem</div>",
+    "English": "<div class=\"uc-sense\">cat</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">猫</span><span class=\"uc-chp\">māo</span><span class=\"uc-chm\">cat</span><span class=\"uc-chr\">radical <b>犭</b> quǎn · dog</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">那是我的<b>猫</b>。</div><div class=\"uc-exe\">That's my cat.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">都是<b>猫</b>的错。</div><div class=\"uc-exe\">It is only the cat's fault.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1685,7 +1685,7 @@
    "num": "64",
    "category": "HSK 1",
    "question": "没有 / 沒有",
-   "answer": "méiyǒu — not have; there is not; haven't; hasn't; doesn't exist; to not have; to not be",
+   "answer": "méiyǒu — not have; there is not",
    "answerDate": "",
    "traditional": "沒有",
    "hanzi": "没有",
@@ -1693,7 +1693,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "not have; there is not; haven't; hasn't; doesn't exist; to not have; to not be",
+   "answerText": "not have; there is not",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "没有",
@@ -1701,7 +1701,7 @@
     "Pinyin": "méiyǒu",
     "Bopomofo": "ㄇㄟˊ ㄧㄡˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">not have</div><div class=\"uc-sense\">there is not</div><div class=\"uc-sense\">haven't</div><div class=\"uc-sense\">hasn't</div><div class=\"uc-sense\">doesn't exist</div><div class=\"uc-sense\">to not have</div><div class=\"uc-sense\">to not be</div>",
+    "English": "<div class=\"uc-sense\">not have</div><div class=\"uc-sense\">there is not</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">没</span><span class=\"uc-chp\">méi</span><span class=\"uc-chm\">not</span><span class=\"uc-chr\">radical <b>氵</b> shuǐ · water</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">有</span><span class=\"uc-chp\">yǒu</span><span class=\"uc-chm\">to have</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>没有</b>孩子。</div><div class=\"uc-exe\">He has no children.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>没有</b>早起。</div><div class=\"uc-exe\">He did not get up early.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1763,7 +1763,7 @@
    "num": "67",
    "category": "HSK 1",
    "question": "名字",
-   "answer": "míngzi — name; name (of a person or thing)",
+   "answer": "míngzi — name",
    "answerDate": "",
    "traditional": "",
    "hanzi": "名字",
@@ -1771,7 +1771,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "name; name (of a person or thing)",
+   "answerText": "name",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "名字",
@@ -1779,7 +1779,7 @@
     "Pinyin": "míngzi",
     "Bopomofo": "ㄇㄧㄥˊ ㄗ˙",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">name</div><div class=\"uc-sense\">name (of a person or thing)</div>",
+    "English": "<div class=\"uc-sense\">name</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">名</span><span class=\"uc-chp\">míng</span><span class=\"uc-chm\">name</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">字</span><span class=\"uc-chp\">zi</span><span class=\"uc-chm\">character</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我的<b>名字</b>叫Hopkins。</div><div class=\"uc-exe\">My name is Hopkins.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我的<b>名字</b>是Yatarou.</div><div class=\"uc-exe\">My name is Yatarou.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1789,7 +1789,7 @@
    "num": "68",
    "category": "HSK 1",
    "question": "哪",
-   "answer": "nǎ — which; how; which? (interrogative, followed by classifier or numeral-classifier)",
+   "answer": "nǎ — which; how",
    "answerDate": "",
    "traditional": "",
    "hanzi": "哪",
@@ -1797,7 +1797,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "which; how; which? (interrogative, followed by classifier or numeral-classifier)",
+   "answerText": "which; how",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "哪",
@@ -1805,7 +1805,7 @@
     "Pinyin": "nǎ",
     "Bopomofo": "ㄋㄚˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">which</div><div class=\"uc-sense\">how</div><div class=\"uc-sense\">which? (interrogative, followed by classifier or numeral-classifier)</div>",
+    "English": "<div class=\"uc-sense\">which</div><div class=\"uc-sense\">how</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">哪</span><span class=\"uc-chp\">nǎ</span><span class=\"uc-chm\">which? where? how?</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你住在<b>哪</b>里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">报纸在<b>哪</b>儿？</div><div class=\"uc-exe\">Where is the newspaper?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1815,7 +1815,7 @@
    "num": "69",
    "category": "HSK 1",
    "question": "哪儿 / 哪兒",
-   "answer": "nǎr — where? (Beijing accent); where?; wherever; anywhere; somewhere; (used in rhetorical questions) how can...?; how could...?",
+   "answer": "nǎr — where? (Beijing accent)",
    "answerDate": "",
    "traditional": "哪兒",
    "hanzi": "哪儿",
@@ -1823,7 +1823,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "where? (Beijing accent); where?; wherever; anywhere; somewhere; (used in rhetorical questions) how can...?; how could...?",
+   "answerText": "where? (Beijing accent)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "哪儿",
@@ -1831,7 +1831,7 @@
     "Pinyin": "nǎr",
     "Bopomofo": "ㄋㄚˇ ㄦ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">where? (Beijing accent)</div><div class=\"uc-sense\">where?</div><div class=\"uc-sense\">wherever</div><div class=\"uc-sense\">anywhere</div><div class=\"uc-sense\">somewhere</div><div class=\"uc-sense\">(used in rhetorical questions) how can...?</div><div class=\"uc-sense\">how could...?</div>",
+    "English": "<div class=\"uc-sense\">where? (Beijing accent)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">哪</span><span class=\"uc-chp\">nǎ</span><span class=\"uc-chm\">which? where? how?</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">儿</span><span class=\"uc-chp\">r</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">报纸在<b>哪儿</b>？</div><div class=\"uc-exe\">Where is the newspaper?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你住在<b>哪儿</b>？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1841,7 +1841,7 @@
    "num": "70",
    "category": "HSK 1",
    "question": "那",
-   "answer": "nà — that; then; (specifier) that; the; those; (pronoun) that (referring to persons, things or situations); then (in that case)",
+   "answer": "nà — that; then",
    "answerDate": "",
    "traditional": "",
    "hanzi": "那",
@@ -1849,7 +1849,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "that; then; (specifier) that; the; those; (pronoun) that (referring to persons, things or situations); then (in that case)",
+   "answerText": "that; then",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "那",
@@ -1857,7 +1857,7 @@
     "Pinyin": "nà",
     "Bopomofo": "ㄋㄚˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">that</div><div class=\"uc-sense\">then</div><div class=\"uc-sense\">(specifier) that</div><div class=\"uc-sense\">the</div><div class=\"uc-sense\">those</div><div class=\"uc-sense\">(pronoun) that (referring to persons, things or situations)</div><div class=\"uc-sense\">then (in that case)</div>",
+    "English": "<div class=\"uc-sense\">that</div><div class=\"uc-sense\">then</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">那</span><span class=\"uc-chp\">nà</span><span class=\"uc-chm\">that</span><span class=\"uc-chr\">radical <b>阝</b> yì · place</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">看<b>那</b>个房子。</div><div class=\"uc-exe\">Look at that house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>那</b>太过分了。</div><div class=\"uc-exe\">That's too much.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1867,7 +1867,7 @@
    "num": "71",
    "category": "HSK 1",
    "question": "呢",
-   "answer": "ne — indicates a question; how about...?; particle indicating that a previously asked question is to be applied to the preceding word (\"What about...?\", \"And...?\"); particle for inquiring about location (\"Where is...?\"); particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\"); (at the end of a declarative sentence) particle indicating continuation of a state or action; particle indicating strong affirmation",
+   "answer": "ne — indicates a question; how about...?",
    "answerDate": "",
    "traditional": "",
    "hanzi": "呢",
@@ -1875,7 +1875,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "indicates a question; how about...?; particle indicating that a previously asked question is to be applied to the preceding word (\"What about...?\", \"And...?\"); particle for inquiring about location (\"Where is...?\"); particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\"); (at the end of a declarative sentence) particle indicating continuation of a state or action; particle indicating strong affirmation",
+   "answerText": "indicates a question; how about...?",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "呢",
@@ -1883,7 +1883,7 @@
     "Pinyin": "ne",
     "Bopomofo": "ㄋㄜ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">indicates a question</div><div class=\"uc-sense\">how about...?</div><div class=\"uc-sense\">particle indicating that a previously asked question is to be applied to the preceding word (\"What about...?\", \"And...?\")</div><div class=\"uc-sense\">particle for inquiring about location (\"Where is...?\")</div><div class=\"uc-sense\">particle signaling a pause, to emphasize the preceding words and allow the listener time to take them on board (\"ok?\", \"are you with me?\")</div><div class=\"uc-sense\">(at the end of a declarative sentence) particle indicating continuation of a state or action</div><div class=\"uc-sense\">particle indicating strong affirmation</div>",
+    "English": "<div class=\"uc-sense\">indicates a question</div><div class=\"uc-sense\">how about...?</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">呢</span><span class=\"uc-chp\">ne</span><span class=\"uc-chm\">wool</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">在吃什么<b>呢</b>？</div><div class=\"uc-exe\">What are you eating?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">在笑什么<b>呢</b>？</div><div class=\"uc-exe\">What are you laughing at?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1893,7 +1893,7 @@
    "num": "72",
    "category": "HSK 1",
    "question": "能",
-   "answer": "néng — can; be able; to be able to; might possibly; ability; (physics) energy",
+   "answer": "néng — can; be able",
    "answerDate": "",
    "traditional": "",
    "hanzi": "能",
@@ -1901,7 +1901,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "can; be able; to be able to; might possibly; ability; (physics) energy",
+   "answerText": "can; be able",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "能",
@@ -1909,7 +1909,7 @@
     "Pinyin": "néng",
     "Bopomofo": "ㄋㄥˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">can</div><div class=\"uc-sense\">be able</div><div class=\"uc-sense\">to be able to</div><div class=\"uc-sense\">might possibly</div><div class=\"uc-sense\">ability</div><div class=\"uc-sense\">(physics) energy</div>",
+    "English": "<div class=\"uc-sense\">can</div><div class=\"uc-sense\">be able</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">能</span><span class=\"uc-chp\">néng</span><span class=\"uc-chm\">can</span><span class=\"uc-chr\">radical <b>⺼</b> · meat</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>能</b>跑多快？</div><div class=\"uc-exe\">How fast can he run?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>能</b>叫你Bob吗？</div><div class=\"uc-exe\">Can I call you Bob?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1919,7 +1919,7 @@
    "num": "73",
    "category": "HSK 1",
    "question": "你",
-   "answer": "nǐ — you (singular); you",
+   "answer": "nǐ — you (singular)",
    "answerDate": "",
    "traditional": "",
    "hanzi": "你",
@@ -1927,7 +1927,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "you (singular); you",
+   "answerText": "you (singular)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "你",
@@ -1935,7 +1935,7 @@
     "Pinyin": "nǐ",
     "Bopomofo": "ㄋㄧˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">you (singular)</div><div class=\"uc-sense\">you</div>",
+    "English": "<div class=\"uc-sense\">you (singular)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">你</span><span class=\"uc-chp\">nǐ</span><span class=\"uc-chm\">you</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>你</b>住在哪里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">做<b>你</b>想做的。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -1945,7 +1945,7 @@
    "num": "74",
    "category": "HSK 1",
    "question": "年",
-   "answer": "nián — year; grain",
+   "answer": "nián — year",
    "answerDate": "",
    "traditional": "",
    "hanzi": "年",
@@ -1953,7 +1953,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "year; grain",
+   "answerText": "year",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "年",
@@ -1961,7 +1961,7 @@
     "Pinyin": "nián",
     "Bopomofo": "ㄋㄧㄢˊ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">year</div><div class=\"uc-sense\">grain</div>",
+    "English": "<div class=\"uc-sense\">year</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">年</span><span class=\"uc-chp\">nián</span><span class=\"uc-chm\">year</span><span class=\"uc-chr\">radical <b>干</b> gàn · arid</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">新<b>年</b>快到了。</div><div class=\"uc-exe\">The new year drew closer.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我每<b>年</b>都去。</div><div class=\"uc-exe\">I go every year.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2075,7 +2075,7 @@
    "num": "79",
    "category": "HSK 1",
    "question": "七",
-   "answer": "qī — seven; 7",
+   "answer": "qī — seven",
    "answerDate": "",
    "traditional": "",
    "hanzi": "七",
@@ -2083,7 +2083,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "seven; 7",
+   "answerText": "seven",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "七",
@@ -2091,7 +2091,7 @@
     "Pinyin": "qī",
     "Bopomofo": "ㄑㄧ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">seven</div><div class=\"uc-sense\">7</div>",
+    "English": "<div class=\"uc-sense\">seven</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">七</span><span class=\"uc-chp\">qī</span><span class=\"uc-chm\">seven</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她<b>七</b>点起床。</div><div class=\"uc-exe\">She gets up at seven.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>七</b>点起床。</div><div class=\"uc-exe\">He gets up at seven.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2101,7 +2101,7 @@
    "num": "80",
    "category": "HSK 1",
    "question": "钱 / 錢",
-   "answer": "qián — money; coin; unit of weight, one tenth of a tael",
+   "answer": "qián — money; coin",
    "answerDate": "",
    "traditional": "錢",
    "hanzi": "钱",
@@ -2109,7 +2109,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "money; coin; unit of weight, one tenth of a tael",
+   "answerText": "money; coin",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "钱",
@@ -2117,7 +2117,7 @@
     "Pinyin": "qián",
     "Bopomofo": "ㄑㄧㄢˊ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">笔</span><span class=\"uc-mwc uc-mwt\">筆</span><span class=\"uc-mwp\">bǐ</span></span>",
-    "English": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div><div class=\"uc-sense\">unit of weight, one tenth of a tael</div>",
+    "English": "<div class=\"uc-sense\">money</div><div class=\"uc-sense\">coin</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">钱</span><span class=\"uc-chp\">qián</span><span class=\"uc-chm\">money</span><span class=\"uc-chr\">radical <b>钅</b> jīn · gold</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要多少<b>钱</b>？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给我一点<b>钱</b>。</div><div class=\"uc-exe\">Give me a little money.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2127,7 +2127,7 @@
    "num": "81",
    "category": "HSK 1",
    "question": "前面",
-   "answer": "qiánmiàn — in front; ahead; preceding; above",
+   "answer": "qiánmiàn — in front",
    "answerDate": "",
    "traditional": "",
    "hanzi": "前面",
@@ -2135,7 +2135,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "in front; ahead; preceding; above",
+   "answerText": "in front",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "前面",
@@ -2143,7 +2143,7 @@
     "Pinyin": "qiánmiàn",
     "Bopomofo": "ㄑㄧㄢˊ ㄇㄧㄢˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">in front</div><div class=\"uc-sense\">ahead</div><div class=\"uc-sense\">preceding</div><div class=\"uc-sense\">above</div>",
+    "English": "<div class=\"uc-sense\">in front</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">前</span><span class=\"uc-chp\">qián</span><span class=\"uc-chm\">in front</span><span class=\"uc-chr\">radical <b>刂</b> dāo · knife</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">面</span><span class=\"uc-chp\">miàn</span><span class=\"uc-chm\">face</span><span class=\"uc-chr\">radical <b>面</b> miàn · face</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">在我<b>前面</b>走。</div><div class=\"uc-exe\">Walk ahead of me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">零在一<b>前面</b>。</div><div class=\"uc-exe\">Zero comes before one.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2153,7 +2153,7 @@
    "num": "82",
    "category": "HSK 1",
    "question": "请 / 請",
-   "answer": "qǐng — please; invite; to treat someone to something; to ask; to invite; please (do sth); to treat (to a meal etc); to request",
+   "answer": "qǐng — please; invite; to treat someone to something",
    "answerDate": "",
    "traditional": "請",
    "hanzi": "请",
@@ -2161,7 +2161,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "please; invite; to treat someone to something; to ask; to invite; please (do sth); to treat (to a meal etc); to request",
+   "answerText": "please; invite; to treat someone to something",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "请",
@@ -2169,7 +2169,7 @@
     "Pinyin": "qǐng",
     "Bopomofo": "ㄑㄧㄥˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">please</div><div class=\"uc-sense\">invite</div><div class=\"uc-sense\">to treat someone to something</div><div class=\"uc-sense\">to ask</div><div class=\"uc-sense\">to invite</div><div class=\"uc-sense\">please (do sth)</div><div class=\"uc-sense\">to treat (to a meal etc)</div><div class=\"uc-sense\">to request</div>",
+    "English": "<div class=\"uc-sense\">please</div><div class=\"uc-sense\">invite</div><div class=\"uc-sense\">to treat someone to something</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">请</span><span class=\"uc-chp\">qǐng</span><span class=\"uc-chm\">to ask</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">便后<b>请</b>洗手。</div><div class=\"uc-exe\">Please wash your hands after using the bathroom.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>请</b>问你贵姓？</div><div class=\"uc-exe\">May I ask your name?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2179,7 +2179,7 @@
    "num": "83",
    "category": "HSK 1",
    "question": "去",
-   "answer": "qù — go; to leave; to go; to go to (a place); (of a time etc) last; just passed; to send; to remove; to get rid of; to reduce; to be apart from in space or time; to die (euphemism); to play (a part); (when used either before or after a verb) to go in order to do sth; (after a verb of motion indicates movement away from the speaker); (used after certain verbs to indicate detachment or separation)",
+   "answer": "qù — go; to leave",
    "answerDate": "",
    "traditional": "",
    "hanzi": "去",
@@ -2187,7 +2187,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "go; to leave; to go; to go to (a place); (of a time etc) last; just passed; to send; to remove; to get rid of; to reduce; to be apart from in space or time; to die (euphemism); to play (a part); (when used either before or after a verb) to go in order to do sth; (after a verb of motion indicates movement away from the speaker); (used after certain verbs to indicate detachment or separation)",
+   "answerText": "go; to leave",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "去",
@@ -2195,7 +2195,7 @@
     "Pinyin": "qù",
     "Bopomofo": "ㄑㄩˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">go</div><div class=\"uc-sense\">to leave</div><div class=\"uc-sense\">to go</div><div class=\"uc-sense\">to go to (a place)</div><div class=\"uc-sense\">(of a time etc) last</div><div class=\"uc-sense\">just passed</div><div class=\"uc-sense\">to send</div><div class=\"uc-sense\">to remove</div><div class=\"uc-sense\">to get rid of</div><div class=\"uc-sense\">to reduce</div><div class=\"uc-sense\">to be apart from in space or time</div><div class=\"uc-sense\">to die (euphemism)</div><div class=\"uc-sense\">to play (a part)</div><div class=\"uc-sense\">(when used either before or after a verb) to go in order to do sth</div><div class=\"uc-sense\">(after a verb of motion indicates movement away from the speaker)</div><div class=\"uc-sense\">(used after certain verbs to indicate detachment or separation)</div>",
+    "English": "<div class=\"uc-sense\">go</div><div class=\"uc-sense\">to leave</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">去</span><span class=\"uc-chp\">qù</span><span class=\"uc-chm\">to go away</span><span class=\"uc-chr\">radical <b>厶</b> sī · private</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>去</b>踢足球吧。</div><div class=\"uc-exe\">Let's play soccer.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他要<b>去</b>车站。</div><div class=\"uc-exe\">He will have to go to the station.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2205,7 +2205,7 @@
    "num": "84",
    "category": "HSK 1",
    "question": "热 / 熱",
-   "answer": "rè — heat; hot; to warm up; to heat up; hot (of weather); fervent",
+   "answer": "rè — heat; hot",
    "answerDate": "",
    "traditional": "熱",
    "hanzi": "热",
@@ -2213,7 +2213,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "heat; hot; to warm up; to heat up; hot (of weather); fervent",
+   "answerText": "heat; hot",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "热",
@@ -2221,7 +2221,7 @@
     "Pinyin": "rè",
     "Bopomofo": "ㄖㄜˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">heat</div><div class=\"uc-sense\">hot</div><div class=\"uc-sense\">to warm up</div><div class=\"uc-sense\">to heat up</div><div class=\"uc-sense\">hot (of weather)</div><div class=\"uc-sense\">fervent</div>",
+    "English": "<div class=\"uc-sense\">heat</div><div class=\"uc-sense\">hot</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">热</span><span class=\"uc-chp\">rè</span><span class=\"uc-chm\">heat</span><span class=\"uc-chr\">radical <b>灬</b> huǒ · fire</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我觉得很<b>热</b>。</div><div class=\"uc-exe\">I am hot.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天天气很<b>热</b>。</div><div class=\"uc-exe\">It's hot today.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2257,7 +2257,7 @@
    "num": "86",
    "category": "HSK 1",
    "question": "认识 / 認識",
-   "answer": "rènshi — recognize; know (a person); to know; to recognize; to be familiar with; to get acquainted with sb; knowledge; understanding; awareness; cognition",
+   "answer": "rènshi — recognize; know (a person)",
    "answerDate": "",
    "traditional": "認識",
    "hanzi": "认识",
@@ -2265,7 +2265,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "recognize; know (a person); to know; to recognize; to be familiar with; to get acquainted with sb; knowledge; understanding; awareness; cognition",
+   "answerText": "recognize; know (a person)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "认识",
@@ -2273,7 +2273,7 @@
     "Pinyin": "rènshi",
     "Bopomofo": "ㄖㄣˋ ㄕ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">recognize</div><div class=\"uc-sense\">know (a person)</div><div class=\"uc-sense\">to know</div><div class=\"uc-sense\">to recognize</div><div class=\"uc-sense\">to be familiar with</div><div class=\"uc-sense\">to get acquainted with sb</div><div class=\"uc-sense\">knowledge</div><div class=\"uc-sense\">understanding</div><div class=\"uc-sense\">awareness</div><div class=\"uc-sense\">cognition</div>",
+    "English": "<div class=\"uc-sense\">recognize</div><div class=\"uc-sense\">know (a person)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">认</span><span class=\"uc-chp\">rèn</span><span class=\"uc-chm\">to know</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">识</span><span class=\"uc-chp\">shi</span><span class=\"uc-chm\">knowledge</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>认识</b>他吗?</div><div class=\"uc-exe\">Do you know him?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">她<b>认识</b>你吗？</div><div class=\"uc-exe\">Does she know you?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2283,7 +2283,7 @@
    "num": "87",
    "category": "HSK 1",
    "question": "三",
-   "answer": "sān — three; 3",
+   "answer": "sān — three",
    "answerDate": "",
    "traditional": "",
    "hanzi": "三",
@@ -2291,7 +2291,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "three; 3",
+   "answerText": "three",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "三",
@@ -2299,7 +2299,7 @@
     "Pinyin": "sān",
     "Bopomofo": "ㄙㄢ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">three</div><div class=\"uc-sense\">3</div>",
+    "English": "<div class=\"uc-sense\">three</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">三</span><span class=\"uc-chp\">sān</span><span class=\"uc-chm\">three</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">是十月<b>三</b>日。</div><div class=\"uc-exe\">It's the third of October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这我要<b>三</b>个。</div><div class=\"uc-exe\">I'd like three of these.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2335,7 +2335,7 @@
    "num": "89",
    "category": "HSK 1",
    "question": "上",
-   "answer": "shàng — above; up; upper; previous; first (of multiple parts); to climb; to get onto; to go up; to attend (class or university); (directional complement) up; (noun suffix) on",
+   "answer": "shàng — above; up",
    "answerDate": "",
    "traditional": "",
    "hanzi": "上",
@@ -2343,7 +2343,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "above; up; upper; previous; first (of multiple parts); to climb; to get onto; to go up; to attend (class or university); (directional complement) up; (noun suffix) on",
+   "answerText": "above; up",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "上",
@@ -2351,7 +2351,7 @@
     "Pinyin": "shàng",
     "Bopomofo": "ㄕㄤˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">above</div><div class=\"uc-sense\">up</div><div class=\"uc-sense\">upper</div><div class=\"uc-sense\">previous</div><div class=\"uc-sense\">first (of multiple parts)</div><div class=\"uc-sense\">to climb</div><div class=\"uc-sense\">to get onto</div><div class=\"uc-sense\">to go up</div><div class=\"uc-sense\">to attend (class or university)</div><div class=\"uc-sense\">(directional complement) up</div><div class=\"uc-sense\">(noun suffix) on</div>",
+    "English": "<div class=\"uc-sense\">above</div><div class=\"uc-sense\">up</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">上</span><span class=\"uc-chp\">shàng</span><span class=\"uc-chm\">above</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我表<b>上</b>是4点。</div><div class=\"uc-exe\">It's four o'clock by my watch.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">大家早<b>上</b>好。</div><div class=\"uc-exe\">Good morning, everybody.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2361,7 +2361,7 @@
    "num": "90",
    "category": "HSK 1",
    "question": "上午",
-   "answer": "shàngwǔ — late morning (before noon); morning",
+   "answer": "shàngwǔ — late morning (before noon)",
    "answerDate": "",
    "traditional": "",
    "hanzi": "上午",
@@ -2369,7 +2369,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "late morning (before noon); morning",
+   "answerText": "late morning (before noon)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "上午",
@@ -2377,7 +2377,7 @@
     "Pinyin": "shàngwǔ",
     "Bopomofo": "ㄕㄤˋ ㄨˇ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">late morning (before noon)</div><div class=\"uc-sense\">morning</div>",
+    "English": "<div class=\"uc-sense\">late morning (before noon)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">上</span><span class=\"uc-chp\">shàng</span><span class=\"uc-chm\">above</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">午</span><span class=\"uc-chp\">wǔ</span><span class=\"uc-chm\">noon</span><span class=\"uc-chr\">radical <b>十</b> shí · ten</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>上午</b>慢跑。</div><div class=\"uc-exe\">I jog in the morning.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天<b>上午</b>下雨。</div><div class=\"uc-exe\">It will rain this morning.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2387,7 +2387,7 @@
    "num": "91",
    "category": "HSK 1",
    "question": "少",
-   "answer": "shǎo — few; little; less; to lack; to be missing; to stop (doing sth); seldom",
+   "answer": "shǎo — few; little",
    "answerDate": "",
    "traditional": "",
    "hanzi": "少",
@@ -2395,7 +2395,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "few; little; less; to lack; to be missing; to stop (doing sth); seldom",
+   "answerText": "few; little",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "少",
@@ -2403,7 +2403,7 @@
     "Pinyin": "shǎo",
     "Bopomofo": "ㄕㄠˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">few</div><div class=\"uc-sense\">little</div><div class=\"uc-sense\">less</div><div class=\"uc-sense\">to lack</div><div class=\"uc-sense\">to be missing</div><div class=\"uc-sense\">to stop (doing sth)</div><div class=\"uc-sense\">seldom</div>",
+    "English": "<div class=\"uc-sense\">few</div><div class=\"uc-sense\">little</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">少</span><span class=\"uc-chp\">shǎo</span><span class=\"uc-chm\">few</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要多<b>少</b>钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">她很<b>少</b>出去。</div><div class=\"uc-exe\">She seldom goes out.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2439,7 +2439,7 @@
    "num": "93",
    "category": "HSK 1",
    "question": "什么 / 什麼",
-   "answer": "shénme — what? (replaces the noun to turn a statement into a question); what?; something; anything",
+   "answer": "shénme — what? (replaces the noun to turn a statement into a question)",
    "answerDate": "",
    "traditional": "什麼",
    "hanzi": "什么",
@@ -2447,7 +2447,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "what? (replaces the noun to turn a statement into a question); what?; something; anything",
+   "answerText": "what? (replaces the noun to turn a statement into a question)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "什么",
@@ -2455,7 +2455,7 @@
     "Pinyin": "shénme",
     "Bopomofo": "ㄕㄣˊ ㄇㄜ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">what? (replaces the noun to turn a statement into a question)</div><div class=\"uc-sense\">what?</div><div class=\"uc-sense\">something</div><div class=\"uc-sense\">anything</div>",
+    "English": "<div class=\"uc-sense\">what? (replaces the noun to turn a statement into a question)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">什</span><span class=\"uc-chp\">shén</span><span class=\"uc-chm\">what? mixed</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">么</span><span class=\"uc-chp\">me</span><span class=\"uc-chm\">interrogative particle</span><span class=\"uc-chr\">radical <b>丿</b> piě · slash</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你做了<b>什么</b>？</div><div class=\"uc-exe\">What did you make?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你想要<b>什么</b>？</div><div class=\"uc-exe\">What do you want?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2465,7 +2465,7 @@
    "num": "94",
    "category": "HSK 1",
    "question": "十",
-   "answer": "shí — ten; 10",
+   "answer": "shí — ten",
    "answerDate": "",
    "traditional": "",
    "hanzi": "十",
@@ -2473,7 +2473,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "ten; 10",
+   "answerText": "ten",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "十",
@@ -2481,7 +2481,7 @@
     "Pinyin": "shí",
     "Bopomofo": "ㄕˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">ten</div><div class=\"uc-sense\">10</div>",
+    "English": "<div class=\"uc-sense\">ten</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">十</span><span class=\"uc-chp\">shí</span><span class=\"uc-chm\">ten</span><span class=\"uc-chr\">radical <b>十</b> shí · ten</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">是<b>十</b>月三日。</div><div class=\"uc-exe\">It's the third of October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他年近六<b>十</b>。</div><div class=\"uc-exe\">He is close to sixty.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2491,7 +2491,7 @@
    "num": "95",
    "category": "HSK 1",
    "question": "时候 / 時候",
-   "answer": "shíhou — time; length of time; moment; period",
+   "answer": "shíhou — time",
    "answerDate": "",
    "traditional": "時候",
    "hanzi": "时候",
@@ -2499,7 +2499,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "time; length of time; moment; period",
+   "answerText": "time",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "时候",
@@ -2507,7 +2507,7 @@
     "Pinyin": "shíhou",
     "Bopomofo": "ㄕˊ ㄏㄡ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">time</div><div class=\"uc-sense\">length of time</div><div class=\"uc-sense\">moment</div><div class=\"uc-sense\">period</div>",
+    "English": "<div class=\"uc-sense\">time</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">时</span><span class=\"uc-chp\">shí</span><span class=\"uc-chm\">time</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">候</span><span class=\"uc-chp\">hou</span><span class=\"uc-chm\">to wait</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">什么<b>时候</b>开始？</div><div class=\"uc-exe\">What time does it start?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">什么<b>时候</b>开门？</div><div class=\"uc-exe\">What time does it open?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2517,7 +2517,7 @@
    "num": "96",
    "category": "HSK 1",
    "question": "是",
-   "answer": "shì — be; is; are; am; to be (followed by substantives only); correct; right; true; (respectful acknowledgement of a command) very well; (adverb for emphatic assertion)",
+   "answer": "shì — be; is; are; am",
    "answerDate": "",
    "traditional": "",
    "hanzi": "是",
@@ -2525,7 +2525,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "be; is; are; am; to be (followed by substantives only); correct; right; true; (respectful acknowledgement of a command) very well; (adverb for emphatic assertion)",
+   "answerText": "be; is; are; am",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "是",
@@ -2533,7 +2533,7 @@
     "Pinyin": "shì",
     "Bopomofo": "ㄕˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">be</div><div class=\"uc-sense\">is</div><div class=\"uc-sense\">are</div><div class=\"uc-sense\">am</div><div class=\"uc-sense\">to be (followed by substantives only)</div><div class=\"uc-sense\">correct</div><div class=\"uc-sense\">right</div><div class=\"uc-sense\">true</div><div class=\"uc-sense\">(respectful acknowledgement of a command) very well</div><div class=\"uc-sense\">(adverb for emphatic assertion)</div>",
+    "English": "<div class=\"uc-sense\">be</div><div class=\"uc-sense\">is</div><div class=\"uc-sense\">are</div><div class=\"uc-sense\">am</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">是</span><span class=\"uc-chp\">shì</span><span class=\"uc-chm\">to be</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>是</b>非不分。</div><div class=\"uc-exe\">He has no sense of right and wrong.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>是</b>个男人。</div><div class=\"uc-exe\">I am a man.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2543,7 +2543,7 @@
    "num": "97",
    "category": "HSK 1",
    "question": "书 / 書",
-   "answer": "shū — book; letter; document; to write",
+   "answer": "shū — book; letter",
    "answerDate": "",
    "traditional": "書",
    "hanzi": "书",
@@ -2551,7 +2551,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "book; letter; document; to write",
+   "answerText": "book; letter",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "书",
@@ -2559,7 +2559,7 @@
     "Pinyin": "shū",
     "Bopomofo": "ㄕㄨ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">本</span><span class=\"uc-mwp\">běn</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">册</span><span class=\"uc-mwc uc-mwt\">冊</span><span class=\"uc-mwp\">cè</span></span>",
-    "English": "<div class=\"uc-sense\">book</div><div class=\"uc-sense\">letter</div><div class=\"uc-sense\">document</div><div class=\"uc-sense\">to write</div>",
+    "English": "<div class=\"uc-sense\">book</div><div class=\"uc-sense\">letter</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">书</span><span class=\"uc-chp\">shū</span><span class=\"uc-chm\">book</span><span class=\"uc-chr\">radical <b>丨</b> shù · number one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你有几本<b>书</b>?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是我的<b>书</b>。</div><div class=\"uc-exe\">This is my book.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2569,7 +2569,7 @@
    "num": "98",
    "category": "HSK 1",
    "question": "水",
-   "answer": "shuǐ — water; river; liquid; beverage; additional charges or income; (of clothes) classifier for number of washes",
+   "answer": "shuǐ — water",
    "answerDate": "",
    "traditional": "",
    "hanzi": "水",
@@ -2577,7 +2577,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "water; river; liquid; beverage; additional charges or income; (of clothes) classifier for number of washes",
+   "answerText": "water",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "水",
@@ -2585,7 +2585,7 @@
     "Pinyin": "shuǐ",
     "Bopomofo": "ㄕㄨㄟˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">water</div><div class=\"uc-sense\">river</div><div class=\"uc-sense\">liquid</div><div class=\"uc-sense\">beverage</div><div class=\"uc-sense\">additional charges or income</div><div class=\"uc-sense\">(of clothes) classifier for number of washes</div>",
+    "English": "<div class=\"uc-sense\">water</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">水</span><span class=\"uc-chp\">shuǐ</span><span class=\"uc-chm\">water</span><span class=\"uc-chr\">radical <b>水</b> shuǐ · water</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他要了<b>水</b>喝。</div><div class=\"uc-exe\">He asked for a drink of water.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我喜欢<b>水</b>果。</div><div class=\"uc-exe\">I like fruit.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2621,7 +2621,7 @@
    "num": "100",
    "category": "HSK 1",
    "question": "睡觉 / 睡覺",
-   "answer": "shuì jiào — to sleep; go to bed; to go to bed",
+   "answer": "shuì jiào — to sleep; go to bed",
    "answerDate": "",
    "traditional": "睡覺",
    "hanzi": "睡觉",
@@ -2629,7 +2629,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to sleep; go to bed; to go to bed",
+   "answerText": "to sleep; go to bed",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "睡觉",
@@ -2637,7 +2637,7 @@
     "Pinyin": "shuì jiào",
     "Bopomofo": "ㄕㄨㄟˋ ㄐㄧㄠˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to sleep</div><div class=\"uc-sense\">go to bed</div><div class=\"uc-sense\">to go to bed</div>",
+    "English": "<div class=\"uc-sense\">to sleep</div><div class=\"uc-sense\">go to bed</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">睡</span><span class=\"uc-chp\">shuì</span><span class=\"uc-chm\">to sleep</span><span class=\"uc-chr\">radical <b>目</b> mù · eye</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">觉</span><span class=\"uc-chp\">jiào</span><span class=\"uc-chm\">conscious</span><span class=\"uc-chr\">radical <b>见</b> jiàn · to see</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他在<b>睡觉</b>吗?</div><div class=\"uc-exe\">Is he sleeping?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他喜欢<b>睡觉</b>。</div><div class=\"uc-exe\">He likes sleeping.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2647,7 +2647,7 @@
    "num": "101",
    "category": "HSK 1",
    "question": "说 / 說",
-   "answer": "shuō — speak; to speak; to talk; to say; to explain; to comment; to scold; to tell off; theory; doctrine",
+   "answer": "shuō — speak",
    "answerDate": "",
    "traditional": "說",
    "hanzi": "说",
@@ -2655,7 +2655,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "speak; to speak; to talk; to say; to explain; to comment; to scold; to tell off; theory; doctrine",
+   "answerText": "speak",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "说",
@@ -2663,7 +2663,7 @@
     "Pinyin": "shuō",
     "Bopomofo": "ㄕㄨㄛ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">speak</div><div class=\"uc-sense\">to speak</div><div class=\"uc-sense\">to talk</div><div class=\"uc-sense\">to say</div><div class=\"uc-sense\">to explain</div><div class=\"uc-sense\">to comment</div><div class=\"uc-sense\">to scold</div><div class=\"uc-sense\">to tell off</div><div class=\"uc-sense\">theory</div><div class=\"uc-sense\">doctrine</div>",
+    "English": "<div class=\"uc-sense\">speak</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">说</span><span class=\"uc-chp\">shuō</span><span class=\"uc-chm\">to speak</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我不<b>说</b>日语。</div><div class=\"uc-exe\">I don't speak Japanese.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>说</b>话很快。</div><div class=\"uc-exe\">He is speaking quickly.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2673,7 +2673,7 @@
    "num": "102",
    "category": "HSK 1",
    "question": "四",
-   "answer": "sì — four; 4",
+   "answer": "sì — four",
    "answerDate": "",
    "traditional": "",
    "hanzi": "四",
@@ -2681,7 +2681,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "four; 4",
+   "answerText": "four",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "四",
@@ -2689,7 +2689,7 @@
     "Pinyin": "sì",
     "Bopomofo": "ㄙˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">four</div><div class=\"uc-sense\">4</div>",
+    "English": "<div class=\"uc-sense\">four</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">四</span><span class=\"uc-chp\">sì</span><span class=\"uc-chm\">four</span><span class=\"uc-chr\">radical <b>囗</b> wéi · enclosure</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他年近<b>四</b>十。</div><div class=\"uc-exe\">He is near forty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">她是<b>四</b>十岁。</div><div class=\"uc-exe\">She is forty years old.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2699,7 +2699,7 @@
    "num": "103",
    "category": "HSK 1",
    "question": "岁 / 歲",
-   "answer": "suì — years old; age; classifier for years (of age); year; year (of crop harvests)",
+   "answer": "suì — years old; age",
    "answerDate": "",
    "traditional": "歲",
    "hanzi": "岁",
@@ -2707,7 +2707,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "years old; age; classifier for years (of age); year; year (of crop harvests)",
+   "answerText": "years old; age",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "岁",
@@ -2715,7 +2715,7 @@
     "Pinyin": "suì",
     "Bopomofo": "ㄙㄨㄟˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">years old</div><div class=\"uc-sense\">age</div><div class=\"uc-sense\">classifier for years (of age)</div><div class=\"uc-sense\">year</div><div class=\"uc-sense\">year (of crop harvests)</div>",
+    "English": "<div class=\"uc-sense\">years old</div><div class=\"uc-sense\">age</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">岁</span><span class=\"uc-chp\">suì</span><span class=\"uc-chm\">year</span><span class=\"uc-chr\">radical <b>山</b> shān · mountain</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他和我同<b>岁</b>。</div><div class=\"uc-exe\">We're the same age.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我现在30<b>岁</b>了。</div><div class=\"uc-exe\">I am 30 years old now.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2725,7 +2725,7 @@
    "num": "104",
    "category": "HSK 1",
    "question": "他",
-   "answer": "tā — he; him; him (used for either sex when the sex is unknown or unimportant); (used before sb's name for emphasis); (used as a meaningless mock object)",
+   "answer": "tā — he; him",
    "answerDate": "",
    "traditional": "",
    "hanzi": "他",
@@ -2733,7 +2733,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "he; him; him (used for either sex when the sex is unknown or unimportant); (used before sb's name for emphasis); (used as a meaningless mock object)",
+   "answerText": "he; him",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "他",
@@ -2741,7 +2741,7 @@
     "Pinyin": "tā",
     "Bopomofo": "ㄊㄚ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">he</div><div class=\"uc-sense\">him</div><div class=\"uc-sense\">him (used for either sex when the sex is unknown or unimportant)</div><div class=\"uc-sense\">(used before sb's name for emphasis)</div><div class=\"uc-sense\">(used as a meaningless mock object)</div>",
+    "English": "<div class=\"uc-sense\">he</div><div class=\"uc-sense\">him</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">他</span><span class=\"uc-chp\">tā</span><span class=\"uc-chm\">other</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>他</b>没有孩子。</div><div class=\"uc-exe\">He has no children.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>他</b>出卖了我。</div><div class=\"uc-exe\">He sold me down the river.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2777,7 +2777,7 @@
    "num": "106",
    "category": "HSK 1",
    "question": "太",
-   "answer": "tài — too (much); highest; greatest; very; extremely",
+   "answer": "tài — too (much)",
    "answerDate": "",
    "traditional": "",
    "hanzi": "太",
@@ -2785,7 +2785,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "too (much); highest; greatest; very; extremely",
+   "answerText": "too (much)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "太",
@@ -2793,7 +2793,7 @@
     "Pinyin": "tài",
     "Bopomofo": "ㄊㄞˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">too (much)</div><div class=\"uc-sense\">highest</div><div class=\"uc-sense\">greatest</div><div class=\"uc-sense\">very</div><div class=\"uc-sense\">extremely</div>",
+    "English": "<div class=\"uc-sense\">too (much)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">太</span><span class=\"uc-chp\">tài</span><span class=\"uc-chm\">very</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你想<b>太</b>多了。</div><div class=\"uc-exe\">I think you worry too much.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">钱<b>太</b>多了吗？</div><div class=\"uc-exe\">Too much money?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2829,7 +2829,7 @@
    "num": "108",
    "category": "HSK 1",
    "question": "听 / 聽",
-   "answer": "tīng — listen; hear; to listen to; to hear; to heed; to obey; a can (loanword from English \"tin\"); classifier for canned beverages; to let be; to allow; to deal with",
+   "answer": "tīng — listen; hear",
    "answerDate": "",
    "traditional": "聽",
    "hanzi": "听",
@@ -2837,7 +2837,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "listen; hear; to listen to; to hear; to heed; to obey; a can (loanword from English \"tin\"); classifier for canned beverages; to let be; to allow; to deal with",
+   "answerText": "listen; hear",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "听",
@@ -2845,7 +2845,7 @@
     "Pinyin": "tīng",
     "Bopomofo": "ㄊㄧㄥ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">listen</div><div class=\"uc-sense\">hear</div><div class=\"uc-sense\">to listen to</div><div class=\"uc-sense\">to hear</div><div class=\"uc-sense\">to heed</div><div class=\"uc-sense\">to obey</div><div class=\"uc-sense\">a can (loanword from English \"tin\")</div><div class=\"uc-sense\">classifier for canned beverages</div><div class=\"uc-sense\">to let be</div><div class=\"uc-sense\">to allow</div><div class=\"uc-sense\">to deal with</div>",
+    "English": "<div class=\"uc-sense\">listen</div><div class=\"uc-sense\">hear</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">听</span><span class=\"uc-chp\">tīng</span><span class=\"uc-chm\">to hear</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>听</b>得见吗？</div><div class=\"uc-exe\">Do you hear me?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>听</b>到没有！</div><div class=\"uc-exe\">Did you hear me?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2855,7 +2855,7 @@
    "num": "109",
    "category": "HSK 1",
    "question": "同学 / 同學",
-   "answer": "tóngxué — fellow student; schoolmate; to study at the same school; classmate",
+   "answer": "tóngxué — fellow student; schoolmate",
    "answerDate": "",
    "traditional": "同學",
    "hanzi": "同学",
@@ -2863,7 +2863,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "fellow student; schoolmate; to study at the same school; classmate",
+   "answerText": "fellow student; schoolmate",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "同学",
@@ -2871,7 +2871,7 @@
     "Pinyin": "tóngxué",
     "Bopomofo": "ㄊㄨㄥˊ ㄒㄩㄝˊ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">fellow student</div><div class=\"uc-sense\">schoolmate</div><div class=\"uc-sense\">to study at the same school</div><div class=\"uc-sense\">classmate</div>",
+    "English": "<div class=\"uc-sense\">fellow student</div><div class=\"uc-sense\">schoolmate</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">同</span><span class=\"uc-chp\">tóng</span><span class=\"uc-chm\">same</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">学</span><span class=\"uc-chp\">xué</span><span class=\"uc-chm\">learning</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我们是<b>同学</b>。</div><div class=\"uc-exe\">We're classmates.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他是我的<b>同学</b>。</div><div class=\"uc-exe\">He is my classmate.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2881,7 +2881,7 @@
    "num": "110",
    "category": "HSK 1",
    "question": "喂",
-   "answer": "wèi — hello (on the phone); hey; to feed (an animal, baby, invalid etc); to feed",
+   "answer": "wèi — hello (on the phone)",
    "answerDate": "",
    "traditional": "",
    "hanzi": "喂",
@@ -2889,7 +2889,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "hello (on the phone); hey; to feed (an animal, baby, invalid etc); to feed",
+   "answerText": "hello (on the phone)",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "喂",
@@ -2897,7 +2897,7 @@
     "Pinyin": "wèi",
     "Bopomofo": "ㄨㄟˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">hello (on the phone)</div><div class=\"uc-sense\">hey</div><div class=\"uc-sense\">to feed (an animal, baby, invalid etc)</div><div class=\"uc-sense\">to feed</div>",
+    "English": "<div class=\"uc-sense\">hello (on the phone)</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">喂</span><span class=\"uc-chp\">wèi</span><span class=\"uc-chm\">interjection used to call attention</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>喂</b>？你还在吗？</div><div class=\"uc-exe\">Hello? Are you still here?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">是时候<b>喂</b>羊了。</div><div class=\"uc-exe\">It's time to feed the sheep.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2907,7 +2907,7 @@
    "num": "111",
    "category": "HSK 1",
    "question": "我",
-   "answer": "wǒ — I; me; my",
+   "answer": "wǒ — I; me",
    "answerDate": "",
    "traditional": "",
    "hanzi": "我",
@@ -2915,7 +2915,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "I; me; my",
+   "answerText": "I; me",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "我",
@@ -2923,7 +2923,7 @@
     "Pinyin": "wǒ",
     "Bopomofo": "ㄨㄛˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">I</div><div class=\"uc-sense\">me</div><div class=\"uc-sense\">my</div>",
+    "English": "<div class=\"uc-sense\">I</div><div class=\"uc-sense\">me</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">我</span><span class=\"uc-chp\">wǒ</span><span class=\"uc-chm\">I</span><span class=\"uc-chr\">radical <b>戈</b> gē · spear</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>我</b>爸爸很忙。</div><div class=\"uc-exe\">My father is busy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他出卖了<b>我</b>。</div><div class=\"uc-exe\">He sold me down the river.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2933,7 +2933,7 @@
    "num": "112",
    "category": "HSK 1",
    "question": "我们 / 我們",
-   "answer": "wǒmen — we; us; ourselves; our",
+   "answer": "wǒmen — we; us",
    "answerDate": "",
    "traditional": "我們",
    "hanzi": "我们",
@@ -2941,7 +2941,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "we; us; ourselves; our",
+   "answerText": "we; us",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "我们",
@@ -2949,7 +2949,7 @@
     "Pinyin": "wǒmen",
     "Bopomofo": "ㄨㄛˇ ㄇㄣ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">we</div><div class=\"uc-sense\">us</div><div class=\"uc-sense\">ourselves</div><div class=\"uc-sense\">our</div>",
+    "English": "<div class=\"uc-sense\">we</div><div class=\"uc-sense\">us</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">我</span><span class=\"uc-chp\">wǒ</span><span class=\"uc-chm\">I</span><span class=\"uc-chr\">radical <b>戈</b> gē · spear</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">们</span><span class=\"uc-chp\">men</span><span class=\"uc-chm\">plural marker for pronouns and some nouns</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>我们</b>是同学。</div><div class=\"uc-exe\">We're classmates.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>我们</b>没时间。</div><div class=\"uc-exe\">We have no time.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2959,7 +2959,7 @@
    "num": "113",
    "category": "HSK 1",
    "question": "五",
-   "answer": "wǔ — five; 5",
+   "answer": "wǔ — five",
    "answerDate": "",
    "traditional": "",
    "hanzi": "五",
@@ -2967,7 +2967,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "five; 5",
+   "answerText": "five",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "五",
@@ -2975,7 +2975,7 @@
     "Pinyin": "wǔ",
     "Bopomofo": "ㄨˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">five</div><div class=\"uc-sense\">5</div>",
+    "English": "<div class=\"uc-sense\">five</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">五</span><span class=\"uc-chp\">wǔ</span><span class=\"uc-chm\">five</span><span class=\"uc-chr\">radical <b>二</b> èr · two</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">现在<b>五</b>点钟.</div><div class=\"uc-exe\">It's five o'clock.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">一，二，三，四，<b>五</b>。</div><div class=\"uc-exe\">One, two, three, four, five.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -2985,7 +2985,7 @@
    "num": "114",
    "category": "HSK 1",
    "question": "喜欢 / 喜歡",
-   "answer": "xǐhuan — to like; to be fond of",
+   "answer": "xǐhuan — to like",
    "answerDate": "",
    "traditional": "喜歡",
    "hanzi": "喜欢",
@@ -2993,7 +2993,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to like; to be fond of",
+   "answerText": "to like",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "喜欢",
@@ -3001,7 +3001,7 @@
     "Pinyin": "xǐhuan",
     "Bopomofo": "ㄒㄧˇ ㄏㄨㄢ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to like</div><div class=\"uc-sense\">to be fond of</div>",
+    "English": "<div class=\"uc-sense\">to like</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">喜</span><span class=\"uc-chp\">xǐ</span><span class=\"uc-chm\">to love</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">欢</span><span class=\"uc-chp\">huan</span><span class=\"uc-chm\">happy</span><span class=\"uc-chr\">radical <b>欠</b> qiàn · to lack</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>喜欢</b>唱歌。</div><div class=\"uc-exe\">I like to sing.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>喜欢</b>跑步。</div><div class=\"uc-exe\">I like to run.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3011,7 +3011,7 @@
    "num": "115",
    "category": "HSK 1",
    "question": "下",
-   "answer": "xià — fall; below; down; downwards; lower; later; next (week etc); second (of two parts); to decline; to go down; to arrive at (a decision, conclusion etc); measure word to show the frequency of an action",
+   "answer": "xià — fall; below",
    "answerDate": "",
    "traditional": "",
    "hanzi": "下",
@@ -3019,7 +3019,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "fall; below; down; downwards; lower; later; next (week etc); second (of two parts); to decline; to go down; to arrive at (a decision, conclusion etc); measure word to show the frequency of an action",
+   "answerText": "fall; below",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "下",
@@ -3027,7 +3027,7 @@
     "Pinyin": "xià",
     "Bopomofo": "ㄒㄧㄚˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">fall</div><div class=\"uc-sense\">below</div><div class=\"uc-sense\">down</div><div class=\"uc-sense\">downwards</div><div class=\"uc-sense\">lower</div><div class=\"uc-sense\">later</div><div class=\"uc-sense\">next (week etc)</div><div class=\"uc-sense\">second (of two parts)</div><div class=\"uc-sense\">to decline</div><div class=\"uc-sense\">to go down</div><div class=\"uc-sense\">to arrive at (a decision, conclusion etc)</div><div class=\"uc-sense\">measure word to show the frequency of an action</div>",
+    "English": "<div class=\"uc-sense\">fall</div><div class=\"uc-sense\">below</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">下</span><span class=\"uc-chp\">xià</span><span class=\"uc-chm\">below</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>下</b>个星期见！</div><div class=\"uc-exe\">See you next week!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">明天要<b>下</b>雪。</div><div class=\"uc-exe\">It will snow tomorrow.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3037,7 +3037,7 @@
    "num": "116",
    "category": "HSK 1",
    "question": "下午",
-   "answer": "xiàwǔ — afternoon; p.m.",
+   "answer": "xiàwǔ — afternoon",
    "answerDate": "",
    "traditional": "",
    "hanzi": "下午",
@@ -3045,7 +3045,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "afternoon; p.m.",
+   "answerText": "afternoon",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "下午",
@@ -3053,7 +3053,7 @@
     "Pinyin": "xiàwǔ",
     "Bopomofo": "ㄒㄧㄚˋ ㄨˇ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">afternoon</div><div class=\"uc-sense\">p.m.</div>",
+    "English": "<div class=\"uc-sense\">afternoon</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">下</span><span class=\"uc-chp\">xià</span><span class=\"uc-chm\">below</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">午</span><span class=\"uc-chp\">wǔ</span><span class=\"uc-chm\">noon</span><span class=\"uc-chr\">radical <b>十</b> shí · ten</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>下午</b>我不在家。</div><div class=\"uc-exe\">I'll be absent from home in the afternoon.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Ken今天<b>下午</b>很忙。</div><div class=\"uc-exe\">Ken is busy this afternoon.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3089,7 +3089,7 @@
    "num": "118",
    "category": "HSK 1",
    "question": "先生",
-   "answer": "xiānsheng — Mr.; Sir; teacher; gentleman; mister (Mr.); husband",
+   "answer": "xiānsheng — Mr.; Sir",
    "answerDate": "",
    "traditional": "",
    "hanzi": "先生",
@@ -3097,7 +3097,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "Mr.; Sir; teacher; gentleman; mister (Mr.); husband",
+   "answerText": "Mr.; Sir",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "先生",
@@ -3105,7 +3105,7 @@
     "Pinyin": "xiānsheng",
     "Bopomofo": "ㄒㄧㄢ ㄕㄥ˙",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
-    "English": "<div class=\"uc-sense\">Mr.</div><div class=\"uc-sense\">Sir</div><div class=\"uc-sense\">teacher</div><div class=\"uc-sense\">gentleman</div><div class=\"uc-sense\">mister (Mr.)</div><div class=\"uc-sense\">husband</div>",
+    "English": "<div class=\"uc-sense\">Mr.</div><div class=\"uc-sense\">Sir</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">先</span><span class=\"uc-chp\">xiān</span><span class=\"uc-chm\">first</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">生</span><span class=\"uc-chp\">sheng</span><span class=\"uc-chm\">life</span><span class=\"uc-chr\">radical <b>生</b> shēng · life</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">谢谢您，<b>先生</b>。</div><div class=\"uc-exe\">Thank you, sir.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Davis<b>先生</b>看上去很累。</div><div class=\"uc-exe\">Mr Davis looks very tired.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3115,7 +3115,7 @@
    "num": "119",
    "category": "HSK 1",
    "question": "现在 / 現在",
-   "answer": "xiànzài — now; at present; at the moment; modern; current; nowadays",
+   "answer": "xiànzài — now",
    "answerDate": "",
    "traditional": "現在",
    "hanzi": "现在",
@@ -3123,7 +3123,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "now; at present; at the moment; modern; current; nowadays",
+   "answerText": "now",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "现在",
@@ -3131,7 +3131,7 @@
     "Pinyin": "xiànzài",
     "Bopomofo": "ㄒㄧㄢˋ ㄗㄞˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">now</div><div class=\"uc-sense\">at present</div><div class=\"uc-sense\">at the moment</div><div class=\"uc-sense\">modern</div><div class=\"uc-sense\">current</div><div class=\"uc-sense\">nowadays</div>",
+    "English": "<div class=\"uc-sense\">now</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">现</span><span class=\"uc-chp\">xiàn</span><span class=\"uc-chm\">to appear</span><span class=\"uc-chr\">radical <b>王</b> wáng · king</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">在</span><span class=\"uc-chp\">zài</span><span class=\"uc-chm\">at</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>现在</b>30岁了。</div><div class=\"uc-exe\">I am 30 years old now.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>现在</b>不累。</div><div class=\"uc-exe\">I'm not tired right now.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3141,7 +3141,7 @@
    "num": "120",
    "category": "HSK 1",
    "question": "想",
-   "answer": "xiǎng — think; believe; suppose; would like to; to think (about); to think of; to devise; to think (that); to believe (that); to desire; to want (to); to miss (feel wistful about the absence of)",
+   "answer": "xiǎng — think; believe; suppose; would like to",
    "answerDate": "",
    "traditional": "",
    "hanzi": "想",
@@ -3149,7 +3149,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "think; believe; suppose; would like to; to think (about); to think of; to devise; to think (that); to believe (that); to desire; to want (to); to miss (feel wistful about the absence of)",
+   "answerText": "think; believe; suppose; would like to",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "想",
@@ -3157,7 +3157,7 @@
     "Pinyin": "xiǎng",
     "Bopomofo": "ㄒㄧㄤˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">think</div><div class=\"uc-sense\">believe</div><div class=\"uc-sense\">suppose</div><div class=\"uc-sense\">would like to</div><div class=\"uc-sense\">to think (about)</div><div class=\"uc-sense\">to think of</div><div class=\"uc-sense\">to devise</div><div class=\"uc-sense\">to think (that)</div><div class=\"uc-sense\">to believe (that)</div><div class=\"uc-sense\">to desire</div><div class=\"uc-sense\">to want (to)</div><div class=\"uc-sense\">to miss (feel wistful about the absence of)</div>",
+    "English": "<div class=\"uc-sense\">think</div><div class=\"uc-sense\">believe</div><div class=\"uc-sense\">suppose</div><div class=\"uc-sense\">would like to</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">想</span><span class=\"uc-chp\">xiǎng</span><span class=\"uc-chm\">to believe</span><span class=\"uc-chr\">radical <b>心</b> xīn · heart</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">做你<b>想</b>做的。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>想</b>要什么？</div><div class=\"uc-exe\">What do you want?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3167,7 +3167,7 @@
    "num": "121",
    "category": "HSK 1",
    "question": "小",
-   "answer": "xiǎo — small; young; tiny; few",
+   "answer": "xiǎo — small; young",
    "answerDate": "",
    "traditional": "",
    "hanzi": "小",
@@ -3175,7 +3175,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "small; young; tiny; few",
+   "answerText": "small; young",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "小",
@@ -3183,7 +3183,7 @@
     "Pinyin": "xiǎo",
     "Bopomofo": "ㄒㄧㄠˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">small</div><div class=\"uc-sense\">young</div><div class=\"uc-sense\">tiny</div><div class=\"uc-sense\">few</div>",
+    "English": "<div class=\"uc-sense\">small</div><div class=\"uc-sense\">young</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">小</span><span class=\"uc-chp\">xiǎo</span><span class=\"uc-chm\">small</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这本书很<b>小</b>。</div><div class=\"uc-exe\">This book is very small.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">大鱼吃<b>小</b>鱼。</div><div class=\"uc-exe\">Big fish eat little fish.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3193,7 +3193,7 @@
    "num": "122",
    "category": "HSK 1",
    "question": "小姐",
-   "answer": "xiǎojie — young lady; miss; Ms.; (slang) prostitute",
+   "answer": "xiǎojie — young lady; miss; Ms.",
    "answerDate": "",
    "traditional": "",
    "hanzi": "小姐",
@@ -3201,7 +3201,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "young lady; miss; Ms.; (slang) prostitute",
+   "answerText": "young lady; miss; Ms.",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "小姐",
@@ -3209,7 +3209,7 @@
     "Pinyin": "xiǎojie",
     "Bopomofo": "ㄒㄧㄠˇ ㄐㄧㄝ˙",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
-    "English": "<div class=\"uc-sense\">young lady</div><div class=\"uc-sense\">miss</div><div class=\"uc-sense\">Ms.</div><div class=\"uc-sense\">(slang) prostitute</div>",
+    "English": "<div class=\"uc-sense\">young lady</div><div class=\"uc-sense\">miss</div><div class=\"uc-sense\">Ms.</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">小</span><span class=\"uc-chp\">xiǎo</span><span class=\"uc-chm\">small</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">姐</span><span class=\"uc-chp\">jie</span><span class=\"uc-chm\">elder sister</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>小姐</b>，今天晚上有没有空房间？</div><div class=\"uc-exe\">Miss, are there any available rooms for tonight?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我看到一位漂亮<b>小姐</b>。</div><div class=\"uc-exe\">I saw a beautiful lady.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3219,7 +3219,7 @@
    "num": "123",
    "category": "HSK 1",
    "question": "些",
-   "answer": "xiē — some; few; several; classifier indicating a small amount or small number greater than 1: some, a few, several",
+   "answer": "xiē — some; few; several",
    "answerDate": "",
    "traditional": "",
    "hanzi": "些",
@@ -3227,7 +3227,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "some; few; several; classifier indicating a small amount or small number greater than 1: some, a few, several",
+   "answerText": "some; few; several",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "些",
@@ -3235,7 +3235,7 @@
     "Pinyin": "xiē",
     "Bopomofo": "ㄒㄧㄝ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">some</div><div class=\"uc-sense\">few</div><div class=\"uc-sense\">several</div><div class=\"uc-sense\">classifier indicating a small amount or small number greater than 1: some, a few, several</div>",
+    "English": "<div class=\"uc-sense\">some</div><div class=\"uc-sense\">few</div><div class=\"uc-sense\">several</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">些</span><span class=\"uc-chp\">xiē</span><span class=\"uc-chm\">little</span><span class=\"uc-chr\">radical <b>二</b> èr · two</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">您有一<b>些</b>书。</div><div class=\"uc-exe\">You have some books.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你有一<b>些</b>书。</div><div class=\"uc-exe\">You have some books.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3271,7 +3271,7 @@
    "num": "125",
    "category": "HSK 1",
    "question": "谢谢 / 謝謝",
-   "answer": "xièxie — thank you; to thank; thanks",
+   "answer": "xièxie — thank you",
    "answerDate": "",
    "traditional": "謝謝",
    "hanzi": "谢谢",
@@ -3279,7 +3279,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "thank you; to thank; thanks",
+   "answerText": "thank you",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "谢谢",
@@ -3287,7 +3287,7 @@
     "Pinyin": "xièxie",
     "Bopomofo": "ㄒㄧㄝˋ ㄒㄧㄝ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">thank you</div><div class=\"uc-sense\">to thank</div><div class=\"uc-sense\">thanks</div>",
+    "English": "<div class=\"uc-sense\">thank you</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">谢</span><span class=\"uc-chp\">xiè</span><span class=\"uc-chm\">to thank</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">谢</span><span class=\"uc-chp\">xie</span><span class=\"uc-chm\">to thank</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>谢谢</b>您，先生。</div><div class=\"uc-exe\">Thank you, sir.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">没有了，<b>谢谢</b>。</div><div class=\"uc-exe\">It's sold out, thank you.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3297,7 +3297,7 @@
    "num": "126",
    "category": "HSK 1",
    "question": "星期",
-   "answer": "xīngqī — week; day of the week; Sunday",
+   "answer": "xīngqī — week",
    "answerDate": "",
    "traditional": "",
    "hanzi": "星期",
@@ -3305,7 +3305,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "week; day of the week; Sunday",
+   "answerText": "week",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "星期",
@@ -3313,7 +3313,7 @@
     "Pinyin": "xīngqī",
     "Bopomofo": "ㄒㄧㄥ ㄑㄧ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">week</div><div class=\"uc-sense\">day of the week</div><div class=\"uc-sense\">Sunday</div>",
+    "English": "<div class=\"uc-sense\">week</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">星</span><span class=\"uc-chp\">xīng</span><span class=\"uc-chm\">star</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">期</span><span class=\"uc-chp\">qī</span><span class=\"uc-chm\">a period of time</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">下个<b>星期</b>见！</div><div class=\"uc-exe\">See you next week!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天<b>星期</b>几？</div><div class=\"uc-exe\">What day is it today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3323,7 +3323,7 @@
    "num": "127",
    "category": "HSK 1",
    "question": "学生 / 學生",
-   "answer": "xuésheng — student; schoolchild",
+   "answer": "xuésheng — student",
    "answerDate": "",
    "traditional": "學生",
    "hanzi": "学生",
@@ -3331,7 +3331,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "student; schoolchild",
+   "answerText": "student",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "学生",
@@ -3339,7 +3339,7 @@
     "Pinyin": "xuésheng",
     "Bopomofo": "ㄒㄩㄝˊ ㄕㄥ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">student</div><div class=\"uc-sense\">schoolchild</div>",
+    "English": "<div class=\"uc-sense\">student</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">学</span><span class=\"uc-chp\">xué</span><span class=\"uc-chm\">learning</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">生</span><span class=\"uc-chp\">sheng</span><span class=\"uc-chm\">life</span><span class=\"uc-chr\">radical <b>生</b> shēng · life</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你是<b>学生</b>吗？</div><div class=\"uc-exe\">Are you a student?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我是大<b>学生</b>。</div><div class=\"uc-exe\">I am a university student.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3349,7 +3349,7 @@
    "num": "128",
    "category": "HSK 1",
    "question": "学习 / 學習",
-   "answer": "xuéxí — learn; to study; to learn",
+   "answer": "xuéxí — learn; to study",
    "answerDate": "",
    "traditional": "學習",
    "hanzi": "学习",
@@ -3357,7 +3357,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "learn; to study; to learn",
+   "answerText": "learn; to study",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "学习",
@@ -3365,7 +3365,7 @@
     "Pinyin": "xuéxí",
     "Bopomofo": "ㄒㄩㄝˊ ㄒㄧˊ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">learn</div><div class=\"uc-sense\">to study</div><div class=\"uc-sense\">to learn</div>",
+    "English": "<div class=\"uc-sense\">learn</div><div class=\"uc-sense\">to study</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">学</span><span class=\"uc-chp\">xué</span><span class=\"uc-chm\">learning</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">习</span><span class=\"uc-chp\">xí</span><span class=\"uc-chm\">to study</span><span class=\"uc-chr\">radical <b>冫</b> bīng · ice</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>学习</b>汉语。</div><div class=\"uc-exe\">He studies Chinese.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>学习</b>汉语。</div><div class=\"uc-exe\">I am learning Chinese.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3401,7 +3401,7 @@
    "num": "130",
    "category": "HSK 1",
    "question": "一",
-   "answer": "yī — one; once; a; single; a (article); as soon as; entire; whole; all; throughout; \"one\" radical in Chinese characters (Kangxi radical 1)",
+   "answer": "yī — one; once; a",
    "answerDate": "",
    "traditional": "",
    "hanzi": "一",
@@ -3409,7 +3409,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "one; once; a; single; a (article); as soon as; entire; whole; all; throughout; \"one\" radical in Chinese characters (Kangxi radical 1)",
+   "answerText": "one; once; a",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "一",
@@ -3417,7 +3417,7 @@
     "Pinyin": "yī",
     "Bopomofo": "ㄧ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">one</div><div class=\"uc-sense\">once</div><div class=\"uc-sense\">a</div><div class=\"uc-sense\">single</div><div class=\"uc-sense\">a (article)</div><div class=\"uc-sense\">as soon as</div><div class=\"uc-sense\">entire</div><div class=\"uc-sense\">whole</div><div class=\"uc-sense\">all</div><div class=\"uc-sense\">throughout</div><div class=\"uc-sense\">\"one\" radical in Chinese characters (Kangxi radical 1)</div>",
+    "English": "<div class=\"uc-sense\">one</div><div class=\"uc-sense\">once</div><div class=\"uc-sense\">a</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">一</span><span class=\"uc-chp\">yī</span><span class=\"uc-chm\">one</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这是<b>一</b>本书。</div><div class=\"uc-exe\">This is a book.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给我<b>一</b>点钱。</div><div class=\"uc-exe\">Give me a little money.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3531,7 +3531,7 @@
    "num": "135",
    "category": "HSK 1",
    "question": "一点儿 / 一點兒",
-   "answer": "yìdiǎnr — a bit; a few; a little bit; (used in negative expressions) (not) the least bit; (after an adjective, used to form the comparative) a bit more",
+   "answer": "yìdiǎnr — a bit; a few",
    "answerDate": "",
    "traditional": "一點兒",
    "hanzi": "一点儿",
@@ -3539,7 +3539,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "a bit; a few; a little bit; (used in negative expressions) (not) the least bit; (after an adjective, used to form the comparative) a bit more",
+   "answerText": "a bit; a few",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "一点儿",
@@ -3547,7 +3547,7 @@
     "Pinyin": "yìdiǎnr",
     "Bopomofo": "ㄧ ㄉㄧㄢˇ ㄦ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">a bit</div><div class=\"uc-sense\">a few</div><div class=\"uc-sense\">a little bit</div><div class=\"uc-sense\">(used in negative expressions) (not) the least bit</div><div class=\"uc-sense\">(after an adjective, used to form the comparative) a bit more</div>",
+    "English": "<div class=\"uc-sense\">a bit</div><div class=\"uc-sense\">a few</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">一</span><span class=\"uc-chp\">yī</span><span class=\"uc-chm\">one</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">点</span><span class=\"uc-chp\">diǎn</span><span class=\"uc-chm\">dot</span><span class=\"uc-chr\">radical <b>灬</b> huǒ · fire</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">儿</span><span class=\"uc-chp\">r</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">还要<b>一点儿</b>。</div><div class=\"uc-exe\">Just a little more.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给我<b>一点儿</b>。</div><div class=\"uc-exe\">Give me a little.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3557,7 +3557,7 @@
    "num": "136",
    "category": "HSK 1",
    "question": "有",
-   "answer": "yǒu — have; to have; there is; having; with; -ful; -ed; -al",
+   "answer": "yǒu — have",
    "answerDate": "",
    "traditional": "",
    "hanzi": "有",
@@ -3565,7 +3565,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "have; to have; there is; having; with; -ful; -ed; -al",
+   "answerText": "have",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "有",
@@ -3573,7 +3573,7 @@
     "Pinyin": "yǒu",
     "Bopomofo": "ㄧㄡˇ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">have</div><div class=\"uc-sense\">to have</div><div class=\"uc-sense\">there is</div><div class=\"uc-sense\">having</div><div class=\"uc-sense\">with</div><div class=\"uc-sense\">-ful</div><div class=\"uc-sense\">-ed</div><div class=\"uc-sense\">-al</div>",
+    "English": "<div class=\"uc-sense\">have</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">有</span><span class=\"uc-chp\">yǒu</span><span class=\"uc-chm\">to have</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他没<b>有</b>孩子。</div><div class=\"uc-exe\">He has no children.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>有</b>几本书?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3583,7 +3583,7 @@
    "num": "137",
    "category": "HSK 1",
    "question": "月",
-   "answer": "yuè — moon; month; monthly",
+   "answer": "yuè — moon; month",
    "answerDate": "",
    "traditional": "",
    "hanzi": "月",
@@ -3591,7 +3591,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "moon; month; monthly",
+   "answerText": "moon; month",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "月",
@@ -3599,7 +3599,7 @@
     "Pinyin": "yuè",
     "Bopomofo": "ㄩㄝˋ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">轮</span><span class=\"uc-mwc uc-mwt\">輪</span><span class=\"uc-mwp\">lún</span></span>",
-    "English": "<div class=\"uc-sense\">moon</div><div class=\"uc-sense\">month</div><div class=\"uc-sense\">monthly</div>",
+    "English": "<div class=\"uc-sense\">moon</div><div class=\"uc-sense\">month</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">月</span><span class=\"uc-chp\">yuè</span><span class=\"uc-chm\">moon</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">是十<b>月</b>三日。</div><div class=\"uc-exe\">It's the third of October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">是十<b>月</b>三号。</div><div class=\"uc-exe\">It's October the third.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3609,7 +3609,7 @@
    "num": "138",
    "category": "HSK 1",
    "question": "在",
-   "answer": "zài — at; on; in; indicates an action in progress; to exist; to be alive; (of sb or sth) to be (located) at; (used before a verb to indicate an action in progress)",
+   "answer": "zài — at; on; in; indicates an action in progress",
    "answerDate": "",
    "traditional": "",
    "hanzi": "在",
@@ -3617,7 +3617,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "at; on; in; indicates an action in progress; to exist; to be alive; (of sb or sth) to be (located) at; (used before a verb to indicate an action in progress)",
+   "answerText": "at; on; in; indicates an action in progress",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "在",
@@ -3625,7 +3625,7 @@
     "Pinyin": "zài",
     "Bopomofo": "ㄗㄞˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">at</div><div class=\"uc-sense\">on</div><div class=\"uc-sense\">in</div><div class=\"uc-sense\">indicates an action in progress</div><div class=\"uc-sense\">to exist</div><div class=\"uc-sense\">to be alive</div><div class=\"uc-sense\">(of sb or sth) to be (located) at</div><div class=\"uc-sense\">(used before a verb to indicate an action in progress)</div>",
+    "English": "<div class=\"uc-sense\">at</div><div class=\"uc-sense\">on</div><div class=\"uc-sense\">in</div><div class=\"uc-sense\">indicates an action in progress</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">在</span><span class=\"uc-chp\">zài</span><span class=\"uc-chm\">at</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你住<b>在</b>哪里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Ken昨天<b>在</b>家吗？</div><div class=\"uc-exe\">Was Ken at home yesterday?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3635,7 +3635,7 @@
    "num": "139",
    "category": "HSK 1",
    "question": "再见 / 再見",
-   "answer": "zàijiàn — goodbye; see you later; see you again later",
+   "answer": "zàijiàn — goodbye; see you later",
    "answerDate": "",
    "traditional": "再見",
    "hanzi": "再见",
@@ -3643,7 +3643,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "goodbye; see you later; see you again later",
+   "answerText": "goodbye; see you later",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "再见",
@@ -3651,7 +3651,7 @@
     "Pinyin": "zàijiàn",
     "Bopomofo": "ㄗㄞˋ ㄐㄧㄢˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">goodbye</div><div class=\"uc-sense\">see you later</div><div class=\"uc-sense\">see you again later</div>",
+    "English": "<div class=\"uc-sense\">goodbye</div><div class=\"uc-sense\">see you later</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">再</span><span class=\"uc-chp\">zài</span><span class=\"uc-chm\">again</span><span class=\"uc-chr\">radical <b>冂</b> jiōng · wide</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">见</span><span class=\"uc-chp\">jiàn</span><span class=\"uc-chm\">to see</span><span class=\"uc-chr\">radical <b>见</b> jiàn · to see</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">很高兴<b>再见</b>到您。</div><div class=\"uc-exe\">I'm glad to see you back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">很高兴<b>再见</b>到你。</div><div class=\"uc-exe\">I'm glad to see you back.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3661,7 +3661,7 @@
    "num": "140",
    "category": "HSK 1",
    "question": "怎么 / 怎麼",
-   "answer": "zěnme — how?; what?; why?",
+   "answer": "zěnme — how?",
    "answerDate": "",
    "traditional": "怎麼",
    "hanzi": "怎么",
@@ -3669,7 +3669,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "how?; what?; why?",
+   "answerText": "how?",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "怎么",
@@ -3677,7 +3677,7 @@
     "Pinyin": "zěnme",
     "Bopomofo": "ㄗㄣˇ ㄇㄜ˙",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">how?</div><div class=\"uc-sense\">what?</div><div class=\"uc-sense\">why?</div>",
+    "English": "<div class=\"uc-sense\">how?</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">怎</span><span class=\"uc-chp\">zěn</span><span class=\"uc-chm\">what? why? how?</span><span class=\"uc-chr\">radical <b>心</b> xīn · heart</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">么</span><span class=\"uc-chp\">me</span><span class=\"uc-chm\">interrogative particle</span><span class=\"uc-chr\">radical <b>丿</b> piě · slash</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你好，<b>怎么</b>样？</div><div class=\"uc-exe\">Good day, how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">生意<b>怎么</b>样？</div><div class=\"uc-exe\">How's business?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3687,7 +3687,7 @@
    "num": "141",
    "category": "HSK 1",
    "question": "怎么样 / 怎麼樣",
-   "answer": "zěnmeyàng — how about?; how is/was it?; how?; how was it?; how are things?",
+   "answer": "zěnmeyàng — how about?; how is/was it?",
    "answerDate": "",
    "traditional": "怎麼樣",
    "hanzi": "怎么样",
@@ -3695,7 +3695,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "how about?; how is/was it?; how?; how was it?; how are things?",
+   "answerText": "how about?; how is/was it?",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "怎么样",
@@ -3703,7 +3703,7 @@
     "Pinyin": "zěnmeyàng",
     "Bopomofo": "ㄗㄣˇ ㄇㄜ˙ ㄧㄤˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">how about?</div><div class=\"uc-sense\">how is/was it?</div><div class=\"uc-sense\">how?</div><div class=\"uc-sense\">how was it?</div><div class=\"uc-sense\">how are things?</div>",
+    "English": "<div class=\"uc-sense\">how about?</div><div class=\"uc-sense\">how is/was it?</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">怎</span><span class=\"uc-chp\">zěn</span><span class=\"uc-chm\">what? why? how?</span><span class=\"uc-chr\">radical <b>心</b> xīn · heart</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">么</span><span class=\"uc-chp\">me</span><span class=\"uc-chm\">interrogative particle</span><span class=\"uc-chr\">radical <b>丿</b> piě · slash</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">样</span><span class=\"uc-chp\">yàng</span><span class=\"uc-chm\">form</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你好，<b>怎么样</b>？</div><div class=\"uc-exe\">Good day, how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">生意<b>怎么样</b>？</div><div class=\"uc-exe\">How's business?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3713,7 +3713,7 @@
    "num": "142",
    "category": "HSK 1",
    "question": "这 / 這",
-   "answer": "zhè — this; (pronoun) this; these; the (followed by a noun); these (followed by a classifier)",
+   "answer": "zhè — this",
    "answerDate": "",
    "traditional": "這",
    "hanzi": "这",
@@ -3721,7 +3721,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "this; (pronoun) this; these; the (followed by a noun); these (followed by a classifier)",
+   "answerText": "this",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "这",
@@ -3729,7 +3729,7 @@
     "Pinyin": "zhè",
     "Bopomofo": "ㄓㄜˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">this</div><div class=\"uc-sense\">(pronoun) this</div><div class=\"uc-sense\">these</div><div class=\"uc-sense\">the (followed by a noun)</div><div class=\"uc-sense\">these (followed by a classifier)</div>",
+    "English": "<div class=\"uc-sense\">this</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">这</span><span class=\"uc-chp\">zhè</span><span class=\"uc-chm\">this</span><span class=\"uc-chr\">radical <b>辶</b> chuò · to walk</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>这</b>是我的书。</div><div class=\"uc-exe\">This is my book.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>这</b>要多少钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3791,7 +3791,7 @@
    "num": "145",
    "category": "HSK 1",
    "question": "住",
-   "answer": "zhù — to live; reside; to stop; to dwell; to stay; to reside; (suffix indicating firmness, steadiness, or coming to a halt)",
+   "answer": "zhù — to live; reside; to stop",
    "answerDate": "",
    "traditional": "",
    "hanzi": "住",
@@ -3799,7 +3799,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "to live; reside; to stop; to dwell; to stay; to reside; (suffix indicating firmness, steadiness, or coming to a halt)",
+   "answerText": "to live; reside; to stop",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "住",
@@ -3807,7 +3807,7 @@
     "Pinyin": "zhù",
     "Bopomofo": "ㄓㄨˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">to live</div><div class=\"uc-sense\">reside</div><div class=\"uc-sense\">to stop</div><div class=\"uc-sense\">to dwell</div><div class=\"uc-sense\">to stay</div><div class=\"uc-sense\">to reside</div><div class=\"uc-sense\">(suffix indicating firmness, steadiness, or coming to a halt)</div>",
+    "English": "<div class=\"uc-sense\">to live</div><div class=\"uc-sense\">reside</div><div class=\"uc-sense\">to stop</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">住</span><span class=\"uc-chp\">zhù</span><span class=\"uc-chm\">to reside</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>住</b>在哪里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>住</b>在哪儿？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3843,7 +3843,7 @@
    "num": "147",
    "category": "HSK 1",
    "question": "字",
-   "answer": "zì — letter; character; symbol; word; courtesy or style name traditionally given to males aged 20 in dynastic China",
+   "answer": "zì — letter; character",
    "answerDate": "",
    "traditional": "",
    "hanzi": "字",
@@ -3851,7 +3851,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "letter; character; symbol; word; courtesy or style name traditionally given to males aged 20 in dynastic China",
+   "answerText": "letter; character",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "字",
@@ -3859,7 +3859,7 @@
     "Pinyin": "zì",
     "Bopomofo": "ㄗˋ",
     "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
-    "English": "<div class=\"uc-sense\">letter</div><div class=\"uc-sense\">character</div><div class=\"uc-sense\">symbol</div><div class=\"uc-sense\">word</div><div class=\"uc-sense\">courtesy or style name traditionally given to males aged 20 in dynastic China</div>",
+    "English": "<div class=\"uc-sense\">letter</div><div class=\"uc-sense\">character</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">字</span><span class=\"uc-chp\">zì</span><span class=\"uc-chm\">character</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我的名<b>字</b>叫Hopkins。</div><div class=\"uc-exe\">My name is Hopkins.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我的名<b>字</b>是Yatarou.</div><div class=\"uc-exe\">My name is Yatarou.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3895,7 +3895,7 @@
    "num": "149",
    "category": "HSK 1",
    "question": "做",
-   "answer": "zuò — do; make; to make; to produce; to write; to compose; to do; to engage in; to hold (a party etc); (of a person) to be (an intermediary, a good student etc); to become (husband and wife, friends etc); (of a thing) to serve as; to be used for; to assume (an air or manner)",
+   "answer": "zuò — do; make",
    "answerDate": "",
    "traditional": "",
    "hanzi": "做",
@@ -3903,7 +3903,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "do; make; to make; to produce; to write; to compose; to do; to engage in; to hold (a party etc); (of a person) to be (an intermediary, a good student etc); to become (husband and wife, friends etc); (of a thing) to serve as; to be used for; to assume (an air or manner)",
+   "answerText": "do; make",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "做",
@@ -3911,7 +3911,7 @@
     "Pinyin": "zuò",
     "Bopomofo": "ㄗㄨㄛˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">do</div><div class=\"uc-sense\">make</div><div class=\"uc-sense\">to make</div><div class=\"uc-sense\">to produce</div><div class=\"uc-sense\">to write</div><div class=\"uc-sense\">to compose</div><div class=\"uc-sense\">to do</div><div class=\"uc-sense\">to engage in</div><div class=\"uc-sense\">to hold (a party etc)</div><div class=\"uc-sense\">(of a person) to be (an intermediary, a good student etc)</div><div class=\"uc-sense\">to become (husband and wife, friends etc)</div><div class=\"uc-sense\">(of a thing) to serve as</div><div class=\"uc-sense\">to be used for</div><div class=\"uc-sense\">to assume (an air or manner)</div>",
+    "English": "<div class=\"uc-sense\">do</div><div class=\"uc-sense\">make</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">做</span><span class=\"uc-chp\">zuò</span><span class=\"uc-chm\">to work</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>做</b>你想<b>做</b>的。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>做</b>了什么？</div><div class=\"uc-exe\">What did you make?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
@@ -3921,7 +3921,7 @@
    "num": "150",
    "category": "HSK 1",
    "question": "坐",
-   "answer": "zuò — sit; to sit; to take a seat; to take (a bus, airplane etc); to bear fruit",
+   "answer": "zuò — sit",
    "answerDate": "",
    "traditional": "",
    "hanzi": "坐",
@@ -3929,7 +3929,7 @@
    "translations": "",
    "abstract": "",
    "citation": "",
-   "answerText": "sit; to sit; to take a seat; to take (a bus, airplane etc); to bear fruit",
+   "answerText": "sit",
    "type": "zh-to-en",
    "fields": {
     "Simplified": "坐",
@@ -3937,7 +3937,7 @@
     "Pinyin": "zuò",
     "Bopomofo": "ㄗㄨㄛˋ",
     "Measure word": "",
-    "English": "<div class=\"uc-sense\">sit</div><div class=\"uc-sense\">to sit</div><div class=\"uc-sense\">to take a seat</div><div class=\"uc-sense\">to take (a bus, airplane etc)</div><div class=\"uc-sense\">to bear fruit</div>",
+    "English": "<div class=\"uc-sense\">sit</div>",
     "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">坐</span><span class=\"uc-chp\">zuò</span><span class=\"uc-chm\">seat</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Ken<b>坐</b>在我旁边。</div><div class=\"uc-exe\">Ken sat next to me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>坐</b>在桌旁。</div><div class=\"uc-exe\">I am sitting at the table.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
