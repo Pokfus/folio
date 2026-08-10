@@ -2389,6 +2389,15 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .dm-choice.on b{color:var(--indigo);}
 .dm-choice.on::after{content:""; position:absolute; right:16px; top:50%; width:6px; height:11px; margin-top:-7px; border:solid var(--indigo); border-width:0 2px 2px 0; transform:rotate(45deg);}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
+/* the Scheduling sheet: a wider box than an options sheet (it carries two paragraphs of explanation and a
+   parameter box), and one field that stacks because a 21-number list has nowhere to sit beside its label */
+.deck-menu.ds-sheet .dm-box{width:min(480px,94vw); max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); overflow-y:auto;}
+.dm-field.dm-fieldcol{flex-direction:column; align-items:stretch; gap:6px;}
+.dm-field.dm-fieldcol > span{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.dm-field.dm-fieldcol > span small{font-family:var(--sans); letter-spacing:0; text-transform:none; margin-left:6px;}
+/* a UNIT carried in a row's own label, because the field beside it is a bare number box */
+.dm-field > span small{color:var(--ink-faint); font-size:calc(11.5px * var(--fs));}
+textarea.ds-params{width:100%; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.5; resize:vertical;}
 /* a sheet row holding a picker rather than a number — the label stays on the left and the control takes
    what is left, which on a 390px screen is most of the row */
 .dm-field select.af-input{flex:1 1 auto; min-width:0; width:auto; max-width:62%;}

@@ -156,6 +156,8 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
   check("field 3 is the state BEFORE the grade (new = 0)", r[3] === 0, String(r[3]));
   check("field 4 is 0 — a new card was on no interval", r[4] === 0, String(r[4]));
   check("field 5 is the delay in MINUTES (the 10m step)", r[5] === 10, String(r[5]));
+  /* ×100 of whatever the card is scheduled BY — its ease here, since this is a curated deck and those are on
+     SM-2, and its FSRS difficulty on a deck that has been switched (which `test-review-decks.js` covers). */
   check("field 6 is the ease ×100, an integer", Number.isInteger(r[6]) && r[6] >= 130 && r[6] <= 400, String(r[6]));
   check("field 7 is a measured duration in tenths", r[7] >= 5, String(r[7]) + " tenths");
   check("the duration is capped at 60s", log.every((x) => x[7] <= 600));

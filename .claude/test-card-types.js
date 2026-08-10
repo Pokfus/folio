@@ -637,7 +637,16 @@ async function reverseChecks(page, base) {
     return "ok";
   }, deck.id);
   check("the deck can be added to the daily review", added === "ok", String(added).slice(0, 200));
-  await page.evaluate(() => { const S = JSON.parse(localStorage.folio_v1 || "{}"); S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false }); localStorage.folio_v1 = JSON.stringify(S); localStorage.folio_tour_v1 = "no"; });
+  /* BURYING IS TURNED OFF FOR THIS DECK, deliberately: this section is about the ORDERING and about each
+     direction carrying a schedule of its own, and with burying on (the default) the reverse cards are put off
+     until tomorrow the moment their siblings are answered, so no session can ever reach both. Burying has a
+     deck and a section of its own below. */
+  await page.evaluate((did) => {
+    const S = JSON.parse(localStorage.folio_v1 || "{}");
+    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false });
+    S.deckOpts = Object.assign({}, S.deckOpts); S.deckOpts["u:" + did] = Object.assign({}, S.deckOpts["u:" + did], { burySiblings: false });
+    localStorage.folio_v1 = JSON.stringify(S); localStorage.folio_tour_v1 = "no";
+  }, deck.id);
   await page.goto(base + "/#home");
   await page.reload();
   await page.waitForTimeout(900);
@@ -655,7 +664,8 @@ async function reverseChecks(page, base) {
   check("the FIRST template of every note keeps the bare note id", bare.length === 4, JSON.stringify(bare));
   check("…and only the second takes a suffix", sib.length === 3 && sib.every((x) => /~2$/.test(x)), JSON.stringify(sib));
   /* THE ORDERING ASSERTION. Template-major, so no note's two cards are neighbours — which is what makes a
-     reverse card a test rather than a prompt, and what stands in for day-long sibling burying. */
+     reverse card a test rather than a prompt WITHIN a session, where burying is what keeps them apart across
+     the day. Asserted here with burying off, so it is the ordering being measured and not the burying. */
   let adjacent = 0;
   for (let i = 1; i < queue.length; i++) {
     const a = queue[i - 1].split("~")[0], b = queue[i].split("~")[0];
@@ -745,6 +755,172 @@ async function reverseChecks(page, base) {
   check("the type is down to one card template", !!d2 && d2.meta.types.pair.cards.length === 1, JSON.stringify(d2 && d2.meta.types.pair.cards.length));
 }
 
+/* ---------- BURYING SIBLINGS (Aug 2026, on request) ----------
+   Template-major ordering keeps a note's two cards apart WITHIN a session; burying keeps them apart across
+   the DAY, which ordering cannot do — a second session, or a deck small enough that the two meet anyway.
+   Everything here fails quietly: a register that stops being read means a reader is asked "水 → water" an
+   hour after "water → 水", which tests the last hour and not the memory, and nothing reports it.
+
+   The one thing to be careful about in reading this section: burying makes the day's count fall by MORE than
+   the number of cards answered, which is exactly what looks like a bug, so the study page says so once. */
+async function buryChecks(page, base) {
+  const deck = {
+    folioDeck: 1,
+    meta: {
+      id: "burydeck", title: "Bury deck",
+      types: {
+        pair: {
+          id: "pair", name: "Pair", fields: ["Word", "Meaning"],
+          cards: [
+            { name: "Word → Meaning", front: "{{Word}}", back: "{{Meaning}}" },
+            { name: "Meaning → Word", front: "{{Meaning}}", back: "{{Word}}" },
+          ],
+        },
+      },
+    },
+    cards: [
+      { id: "u_burydeck_1", type: "pair", fields: { Word: "unus", Meaning: "one" } },
+      { id: "u_burydeck_2", type: "pair", fields: { Word: "duo", Meaning: "two" } },
+    ],
+  };
+  const tmp = path.join(require("os").tmpdir(), "folio-bury.folio-deck.json");
+  fs.writeFileSync(tmp, JSON.stringify(deck));
+  await page.goto(base + "/#studio");
+  await page.reload();
+  await page.waitForTimeout(900);
+  const chooser = page.waitForEvent("filechooser");
+  await page.click("#stImport");
+  await (await chooser).setFiles(tmp);
+  await page.waitForTimeout(1300);
+
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(800);
+  const added = await page.evaluate(() => {
+    const b = document.querySelector('[data-uadd="burydeck"]');
+    if (!b) return false;
+    b.click();
+    return true;
+  });
+  check("the bury deck is added to the review", added);
+  /* THE REVIEW IS NARROWED TO THIS DECK, and it has to be: burying is per deck, and the counts below are read
+     off the pooled banner, so the two-way deck left over from the section above would be counted too — its
+     seven cards reappear the moment `S.cards` is cleared to set up a case here, and the pile assertion then
+     measures both decks at once. */
+  await page.evaluate(() => {
+    const S = JSON.parse(localStorage.folio_v1 || "{}");
+    S.active = ["u:burydeck"];
+    S.buried = {};
+    S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 20, reviewRandom: false });
+    localStorage.folio_v1 = JSON.stringify(S);
+    localStorage.folio_tour_v1 = "no";
+    sessionStorage.removeItem("folio_study_v1");
+  });
+  await page.goto(base + "/#home");
+  await page.reload();
+  await page.waitForTimeout(900);
+
+  /* The switch is offered on a deck that HAS siblings and on no other — the same test the read-aloud switch
+     makes, since a control that cannot change anything is worse than none. */
+  await page.evaluate(() => {
+    const row = [...document.querySelectorAll("[data-review]")].find((x) => /Bury deck/.test(x.textContent));
+    if (row) row.dispatchEvent(new Event("contextmenu", { bubbles: true }));
+  });
+  await page.waitForTimeout(500);
+  const rows = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()));
+  check("a deck whose notes make several cards offers Bury siblings", rows.includes("Bury siblings"), rows.join(" / "));
+  const on = await page.evaluate(() => {
+    const r = [...document.querySelectorAll(".dm-switch")].find((x) => /Bury siblings/.test(x.textContent));
+    return r ? r.querySelector(".switch").classList.contains("on") : null;
+  });
+  // Anki's default, and the behaviour that makes a note with several cards work without being found first
+  check("…and it starts ON", on === true, String(on));
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(300);
+
+  // four cards from two notes
+  const before = await page.evaluate(() => (document.querySelector(".review-group .banner") || {}).textContent.replace(/\s+/g, " "));
+  check("two two-way notes deal four cards", /\b4\s*New|4New/.test(before), before.slice(0, 80));
+
+  await page.evaluate(() => document.querySelector("#b-review")?.click());
+  await page.waitForTimeout(800);
+  const first = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
+  await page.evaluate(() => {
+    const b = [...document.querySelectorAll(".actions button, .study-card button")]
+      .find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className));
+    if (b) b.click();
+  });
+  await page.waitForTimeout(350);
+  await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
+  await page.waitForTimeout(700);
+
+  const st = await page.evaluate(() => JSON.parse(localStorage.folio_v1 || "{}"));
+  const sib = first + "~2";
+  check("answering one card buries its sibling", !!(st.buried || {})[sib], JSON.stringify(st.buried));
+  /* The register holds the DAY, not `true`, so it expires by being read rather than by anything running at
+     midnight — which is what lets the reader's own day boundary decide when a buried card comes back. */
+  check("…recorded as the day rather than a flag", /^\d{4}-\d{2}-\d{2}$/.test(String((st.buried || {})[sib])), String((st.buried || {})[sib]));
+  check("…and the card just answered is NOT buried", !(st.buried || {})[first], JSON.stringify(st.buried));
+  // it leaves the LIVE queue too: the queue in hand was built before the grade
+  const q = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || []));
+  check("the buried sibling leaves the session in hand", q.indexOf(sib) < 0, JSON.stringify(q));
+  // …and it is said once, because the day's count falling by two when one card was answered reads as a bug
+  const toast = await page.evaluate(() => (document.querySelector("#toast") || {}).textContent || "");
+  check("…and the reader is told why the count fell by two", /put off until tomorrow/i.test(toast), toast.slice(0, 90));
+
+  /* Undo gives it back — a grade that buried a sibling must be undoable whole. Pressed on the VISIBLE control
+     rather than with Ctrl+Z, which is the same code path and is already pinned by test-revlog: the key reaches
+     the card's handler only while nothing else has the keyboard, and this section has just been through a
+     deck sheet and a focus trap. */
+  await page.evaluate(() => document.querySelector("#undoGrade")?.click());
+  await page.waitForTimeout(600);
+  const back = await page.evaluate(() => (JSON.parse(localStorage.folio_v1 || "{}").buried) || {});
+  check("undoing the grade un-buries the sibling", !back[sib], JSON.stringify(back));
+
+  /* With the switch OFF the sibling is not buried — asserted because a default-on setting that cannot be
+     turned off is indistinguishable from a hard-coded rule. */
+  await page.evaluate((d) => {
+    const S = JSON.parse(localStorage.folio_v1 || "{}");
+    S.deckOpts = S.deckOpts || {};
+    S.deckOpts[d] = Object.assign({}, S.deckOpts[d], { burySiblings: false });
+    S.buried = {};
+    S.cards = {};
+    localStorage.folio_v1 = JSON.stringify(S);
+    sessionStorage.removeItem("folio_study_v1");
+  }, "u:burydeck");
+  await page.reload();
+  await page.waitForTimeout(900);
+  await page.evaluate(() => document.querySelector("#b-review")?.click());
+  await page.waitForTimeout(800);
+  await page.evaluate(() => {
+    const b = [...document.querySelectorAll(".actions button, .study-card button")]
+      .find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className));
+    if (b) b.click();
+  });
+  await page.waitForTimeout(350);
+  await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
+  await page.waitForTimeout(600);
+  const off = await page.evaluate(() => (JSON.parse(localStorage.folio_v1 || "{}").buried) || {});
+  check("with the switch off nothing is buried", Object.keys(off).length === 0, JSON.stringify(off));
+
+  /* A buried card comes back TOMORROW. Rather than waiting a day, the register is aged by a day — which is
+     the same thing from the code's point of view, and is what proves the expiry is read rather than swept. */
+  await page.evaluate((d) => {
+    const S = JSON.parse(localStorage.folio_v1 || "{}");
+    S.deckOpts[d] = Object.assign({}, S.deckOpts[d], { burySiblings: true });
+    S.cards = {};
+    const y = new Date(Date.now() - 864e5).toISOString().slice(0, 10);
+    S.buried = { "u_burydeck_1~2": y, "u_burydeck_2~2": new Date().toISOString().slice(0, 10) };
+    localStorage.folio_v1 = JSON.stringify(S);
+    sessionStorage.removeItem("folio_study_v1");
+  }, "u:burydeck");
+  await page.reload();
+  await page.waitForTimeout(900);
+  const piles = await page.evaluate(() => (document.querySelector(".review-group .banner") || {}).textContent.replace(/\s+/g, " "));
+  /* Three of the four: yesterday's burial has expired and today's has not. A count of 4 would mean the
+     register is never read; a count of 2 would mean it never expires. */
+  check("yesterday's burial has expired and today's has not", /\b3\s*New|3New/.test(piles), piles.slice(0, 80));
+}
+
 (async () => {
   xpChecks();
   pureChecks();
@@ -765,6 +941,7 @@ async function reverseChecks(page, base) {
     await presetChecks(page, base);
     await hostileChecks(page, base);
     await reverseChecks(page, base);
+    await buryChecks(page, base);
   } catch (e) {
     check("the run completed", false, String(e && e.message).split("\n")[0]);
   }

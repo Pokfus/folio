@@ -1097,6 +1097,12 @@
       settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
+      /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
+         rather than by anything running at midnight. Burying is what makes a note's several cards bearable:
+         answer "water → 水" and its reverse is put off until tomorrow, because asking it an hour later tests
+         nothing but the last hour. Suspending is for ever and is the reader's decision; burying is for today
+         and is the scheduler's, which is why they are separate registers and not one field with two meanings. */
+      buried: {},
       /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
          hundreds of screens, so "open it again where I left off" is not a convenience but the only way
          it is usable at all. It is PROGRESS, not a device setting — it rides in PROGRESS_FIELDS so a
@@ -1462,7 +1468,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "revlog", "reviewDay", "streak", "active", "deckOrder", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1494,8 +1500,32 @@
     return (h >>> 0).toString(16) + salt;
   }
   // study progress <-> account record
-  function extractProgress() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
-  function applyProgress(p) { const base = emptyProgress(); PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); }); }
+  /* A whole progress record, for the guest stash and for migrating a device's study up into its first
+     account. `revlog` is included even though it is NOT in PROGRESS_FIELDS — those are the fields the SERVER
+     BLOB carries, and the log has a table of its own — because a guest who studied before making an account
+     should keep their card-by-card history when they make one, and signing out should hand it back.
+     `supaPush` sends PROGRESS_FIELDS only, so the log never travels inside the blob. */
+  function extractProgress() {
+    const p = progressBlob();
+    p.revlog = Array.isArray(S.revlog) ? JSON.parse(JSON.stringify(S.revlog)) : [];
+    return p;
+  }
+  /* …and WITHOUT it: exactly PROGRESS_FIELDS, which is what `supaPush` PATCHes into `progress.data`. The two
+     are separate functions rather than one with a flag because the difference matters in one direction only
+     and getting it wrong is invisible: a blob that carries the log is a log that is capped again, since the
+     whole record is re-sent on every save. */
+  function progressBlob() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
+  /* Install a whole progress record. The per-review log rides ALONGSIDE rather than inside it — it has a
+     table of its own — so it is cleared here by name, which is the load-bearing half: without it, signing
+     into a second account on one device would leave the first reader's card-by-card history sitting in Card
+     info under somebody else's name. The high-water mark goes with it, or the new account's first push would
+     start from where the old one stopped and skip everything before it. */
+  function applyProgress(p) {
+    const base = emptyProgress();
+    PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); });
+    S.revlog = Array.isArray(p && p.revlog) ? JSON.parse(JSON.stringify(p.revlog)) : [];
+    try { localStorage.removeItem(REV_SYNC_KEY); } catch (e) {}
+  }
   function emptyProgress() { const d = defaultState(), p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = d[k]; }); return p; }
   /* SETTINGS → DANGER ZONE → RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE (Aug 2026, on a bug report:
      "I purposely reset my study progress and then encountered that bug" — the bug being that the home page
@@ -1520,6 +1550,11 @@
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
+    /* The per-review log is NOT in PROGRESS_FIELDS — it has a table of its own — so it is cleared here by
+       name, at both ends. Clearing the local window while a year of it sat on the server would be a reset
+       that quietly undid itself the next time anything read the archive. */
+    S.revlog = [];
+    revWipeRemote();
   }
   function syncProgressToAccount() {
     const u = currentUser(); if (!u) return;
@@ -1729,7 +1764,7 @@
   }
   async function supaPush() {
     if (!supaLoggedIn()) return false;
-    const p = extractProgress(), sent = stableJson(p);
+    const p = progressBlob(), sent = stableJson(p);   // …the blob, never the review log — see progressBlob
     const r = await supaFetch("/rest/v1/progress?user_id=eq." + SUPA.user.id + "&select=updated_at", { method: "PATCH", body: { data: p }, headers: { Prefer: "return=representation" } });
     if (r.ok && Array.isArray(r.data) && r.data.length) {
       _supaLastSent = sent;
@@ -1744,10 +1779,90 @@
     clearTimeout(_supaPushTimer);
     _supaPushTimer = setTimeout(() => {
       _supaPushTimer = null;
-      if (stableJson(extractProgress()) !== _supaLastSent) supaPush();
+      if (stableJson(progressBlob()) !== _supaLastSent) supaPush();
     }, 6000);
   }
   window.addEventListener("online", () => supaQueuePush());   // flush anything written while offline
+  /* ---------- THE REVIEW LOG'S OWN TABLE (Aug 2026, on request) ----------
+     `S.revlog` is a rolling WINDOW so that Card info, the answer-buttons chart and a signed-out reader all
+     work offline and instantly; `public.review_log` is the whole of it, for ever. The split exists because
+     the progress blob is PATCHed WHOLE on every save — a log kept in it is a log that has to be capped, and
+     what wants an uncapped one is the FSRS optimiser, which fits a reader's own parameters to their own
+     history and can only ever fit part of one from a truncated log.
+
+     APPEND-ONLY, and the sync is deliberately the simplest thing that cannot lose or double a row:
+     · a device-local HIGH-WATER MARK (`REV_SYNC_KEY`, the newest `t` it has pushed — not a count, which a
+       prune from the front invalidates) says where to carry on from;
+     · rows newer than it are POSTed in batches;
+     · the table carries a unique index on (user_id, card_id, reviewed_at), so a device that loses its mark
+       and re-sends is harmless — `Prefer: resolution=ignore-duplicates` turns the collision into a no-op
+       rather than an error. Without that a re-push would double every count built on the log.
+     It is never PULLED into `S.revlog`. The window is this device's own recent history and the table is the
+     archive; a reader who signs in on a new device sees Card info fill up as they study rather than being
+     handed a year of somebody else's-shaped local data, and the optimiser will read the table directly. */
+  const REV_SYNC_KEY = "folio_revsync_v1";
+  const REV_BATCH = 400;
+  let _revPushTimer = null, _revTableMissing = false, _revPushing = false;
+  function revHighWater() { const v = Number(localStorage.getItem(REV_SYNC_KEY) || 0); return isFinite(v) ? v : 0; }
+  function revSetHighWater(t) { try { localStorage.setItem(REV_SYNC_KEY, String(t)); } catch (e) {} }
+  // PostgREST answers a missing table with PGRST205 (or a 404 on the path) — told apart from a real failure
+  // so a site whose owner has not run the SQL degrades to the local window instead of retrying all session
+  function revTableMissing(r) {
+    if (!r) return false;
+    const body = r.data, msg = String((body && (body.message || body.code)) || "");
+    return r.status === 404 || /PGRST205/.test(msg) || /review_log/.test(msg) && r.status === 400;
+  }
+  async function revPush() {
+    if (!supaLoggedIn() || _revTableMissing || _revPushing) return;
+    const log = Array.isArray(S.revlog) ? S.revlog : [];
+    if (!log.length) return;
+    const mark = revHighWater();
+    const rows = [];
+    for (let i = 0; i < log.length; i++) {
+      const r = revRead(log[i]);
+      if (r && r.t > mark) rows.push(r);
+    }
+    if (!rows.length) return;
+    rows.sort((a, b) => a.t - b.t);
+    _revPushing = true;
+    try {
+      for (let i = 0; i < rows.length; i += REV_BATCH) {
+        const batch = rows.slice(i, i + REV_BATCH);
+        const r = await supaFetch("/rest/v1/review_log", {
+          method: "POST",
+          headers: { Prefer: "resolution=ignore-duplicates,return=minimal" },
+          body: batch.map((x) => ({
+            user_id: SUPA.user.id, card_id: x.id, reviewed_at: new Date(x.t).toISOString(),
+            grade: x.g, state: x.st, prev_min: x.prevMin, next_min: x.nextMin,
+            ease100: Math.round(x.ease * 100), ds: Math.round(x.secs * 10),
+          })),
+        });
+        if (revTableMissing(r)) {
+          _revTableMissing = true;
+          // said once, and only to the person who can clear it — see typesColumnMsg for the same shape
+          if (isAdmin()) toast("Review-log table missing — run block 9 of .claude/supabase-schema.sql.");
+          return;
+        }
+        if (!r.ok) return;                                  // offline or a real error: keep the mark, try later
+        revSetHighWater(batch[batch.length - 1].t);          // …only after the rows are actually in
+      }
+    } finally { _revPushing = false; }
+  }
+  function revQueuePush() {
+    if (!supaLoggedIn() || _revTableMissing) return;
+    clearTimeout(_revPushTimer);
+    _revPushTimer = setTimeout(() => { _revPushTimer = null; revPush(); }, 8000);
+  }
+  window.addEventListener("online", () => revQueuePush());
+  /* Reset progress says it clears the study history, so it has to mean the ARCHIVE too — the local window
+     going while a year of it sat on the server would be a reset that undid itself on the next device. */
+  async function revWipeRemote() {
+    if (!supaLoggedIn() || _revTableMissing) return;
+    revSetHighWater(0);
+    await supaFetch("/rest/v1/review_log?user_id=eq." + encodeURIComponent(SUPA.user.id), {
+      method: "DELETE", headers: { Prefer: "return=minimal" },
+    });
+  }
   /* --- auth flows --- */
   // `S._supaOwner` records WHICH account the progress currently in localStorage belongs to. It is device-local
   // (not in PROGRESS_FIELDS, like _supaTs, so it never syncs itself) and it is what stops one account's levels,
@@ -3079,10 +3194,171 @@
     return { hard: hard, good: good, easy: easy };
   }
   const schedBlank = () => ({ reps: 0, lapses: 0, ease: SCHED.startEase, interval: 0, due: Date.now(), status: "new", last: 0, step: 0 });
-  /* Answer a card. Returns a NEW record — the caller's is untouched, so the undo snapshot taken before
-     this runs stays valid whatever happens in here. `seed` should be the card id: see schedFuzz. */
+
+  /* ================= FSRS ==================================================================
+     The Free Spaced Repetition Scheduler, chosen PER DECK beside the SM-2 above (Aug 2026, on request).
+     SM-2 asks "how did that go?" and multiplies an interval; FSRS models the memory itself — a STABILITY
+     (the interval at which recall is 90% likely) and a DIFFICULTY (1–10) — and then solves for the interval
+     that lands on the retention the reader asked for. It is Anki's default since 23.10, and their own
+     benchmarks put it ahead of SM-2 at predicting recall — which in practice means the same retention out of
+     fewer reviews. That is a claim about somebody else's measurements rather than one made here, so the
+     reader is offered BOTH and told plainly what each does, and SM-2 stays the default for every existing
+     deck; a scheduler is not something to switch under someone.
+
+     IT IS FSRS-6, AND IT WAS NOT WRITTEN FROM MEMORY. Every formula and all 21 default parameters below were
+     read off the reference implementation (`py-fsrs`, open-spaced-repetition) and the arithmetic is checked
+     against vectors GENERATED by it — see `.claude/fsrs-vectors.json` and test-scheduler.js. A scheduler
+     reconstructed from prose is exactly the kind of thing that looks right and quietly teaches people less,
+     which is the one failure a study site cannot afford; so the check is a committed fixture rather than a
+     reading of the maths.
+
+     WHAT IT SHARES WITH SM-2, deliberately: the learning steps, the relearning steps, the daily allowances,
+     the fuzz, the day boundary and the requeue rule. FSRS replaces the interval arithmetic and nothing else,
+     which is also how Anki does it — a new card still walks 1m/10m, and FSRS decides where it lands after. */
+  const FSRS_PARAMS = [
+    0.212, 1.2931, 2.3065, 8.2956, 6.4133, 0.8334, 3.0194, 0.001, 1.8722, 0.1666, 0.796,
+    1.4835, 0.0614, 0.2629, 1.6483, 0.6014, 1.8729, 0.5425, 0.0912, 0.0658, 0.1542,
+  ];
+  const FSRS_S_MIN = 0.001, FSRS_D_MIN = 1, FSRS_D_MAX = 10;
+  const FSRS_RETENTION = 0.9;                 // the reader's target: what fraction they want to still recall
+  const FSRS_RET_MIN = 0.7, FSRS_RET_MAX = 0.98;
+  const FSRS_G = { again: 1, hard: 2, good: 3, easy: 4 };
+  const fsrsClampS = (s) => Math.max(FSRS_S_MIN, s);
+  const fsrsClampD = (d) => Math.min(FSRS_D_MAX, Math.max(FSRS_D_MIN, d));
+  /* DECAY and FACTOR are derived from w20 rather than fixed: FSRS-6's whole addition over FSRS-5 is that the
+     shape of the forgetting curve is itself learnable. FACTOR is whatever makes R(S, S) come out at exactly
+     0.9, which is what makes "stability" mean "the 90% interval" for any decay. */
+  function fsrsDecay(w) { return -(Number(w[20]) || FSRS_PARAMS[20]); }
+  function fsrsFactor(w) { return Math.pow(0.9, 1 / fsrsDecay(w)) - 1; }
+  // R(t, S) — the chance of recall t days after a review of a memory with this stability
+  function fsrsRetrievability(w, elapsedDays, stability) {
+    const s = fsrsClampS(Number(stability) || FSRS_S_MIN);
+    return Math.pow(1 + fsrsFactor(w) * Math.max(0, elapsedDays) / s, fsrsDecay(w));
+  }
+  // the interval that lands on `retention`, in days — the inverse of the curve above
+  function fsrsInterval(w, stability, retention) {
+    const r = Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(retention) || FSRS_RETENTION));
+    return (stability / fsrsFactor(w)) * (Math.pow(r, 1 / fsrsDecay(w)) - 1);
+  }
+  const fsrsInitS = (w, g) => fsrsClampS(Number(w[g - 1]) || FSRS_S_MIN);
+  // the difficulty a card starts at, from the grade it was first answered with. `clamp` is false where this
+  // is used as the mean-reversion target, which is the reference's own distinction and is not cosmetic.
+  function fsrsInitD(w, g, clamp) {
+    const d = w[4] - Math.exp(w[5] * (g - 1)) + 1;
+    return clamp === false ? d : fsrsClampD(d);
+  }
+  /* Difficulty after a grade. Two pieces worth naming: LINEAR DAMPING makes a hard grade move a card that is
+     already difficult less than one that is easy, so difficulty approaches 10 without ever being pinned
+     there; and MEAN REVERSION pulls every card slowly back towards the difficulty an Easy first answer would
+     have given it, which is what stops a run of bad days marking a card difficult for ever. */
+  function fsrsNextD(w, difficulty, g) {
+    const d = fsrsClampD(Number(difficulty) || FSRS_D_MIN);
+    const delta = -(w[6] * (g - 3));
+    const damped = d + (10 - d) * delta / 9;
+    return fsrsClampD(w[7] * fsrsInitD(w, FSRS_G.easy, false) + (1 - w[7]) * damped);
+  }
+  // stability after a SUCCESSFUL review. It can only grow: a card recalled is not less well known than before
+  function fsrsRecallS(w, difficulty, stability, r, g) {
+    const hard = g === FSRS_G.hard ? w[15] : 1;
+    const easy = g === FSRS_G.easy ? w[16] : 1;
+    return stability * (1 + Math.exp(w[8]) * (11 - difficulty) * Math.pow(stability, -w[9]) *
+      (Math.exp((1 - r) * w[10]) - 1) * hard * easy);
+  }
+  /* …and after a LAPSE. The `min` is the load-bearing half: post-lapse stability may never exceed what the
+     card had before it was forgotten, which is what stops a card that keeps lapsing from drifting upwards. */
+  function fsrsForgetS(w, difficulty, stability, r) {
+    const long = w[11] * Math.pow(difficulty, -w[12]) * (Math.pow(stability + 1, w[13]) - 1) *
+      Math.exp((1 - r) * w[14]);
+    const short = stability / Math.exp(w[17] * w[18]);
+    return Math.min(long, short);
+  }
+  /* A SAME-DAY review — the second answer on a card still walking its learning steps. It is a different
+     formula because no measurable time has passed, so there is no retrievability to work from: all the
+     information is in the grade. Anything but Again is floored at 1, so a same-day pass cannot lose ground. */
+  function fsrsShortS(w, stability, g) {
+    let inc = Math.exp(w[17] * (g - 3 + w[18])) * Math.pow(stability, -w[19]);
+    if (g >= FSRS_G.hard) inc = Math.max(inc, 1);
+    return fsrsClampS(stability * inc);
+  }
+  // the memory state a grade moves a card to, given how long it has actually been
+  function fsrsNextState(w, c, g, elapsedDays) {
+    const fresh = !(Number(c.stability) > 0) || !(Number(c.difficulty) > 0);
+    if (fresh) return { s: fsrsInitS(w, g), d: fsrsInitD(w, g, true) };
+    const s = Number(c.stability), d = Number(c.difficulty);
+    // "same day" is the reference's own test: fewer than one whole day since the last review
+    if (elapsedDays != null && elapsedDays < 1) return { s: fsrsShortS(w, s, g), d: fsrsNextD(w, d, g) };
+    const r = fsrsRetrievability(w, elapsedDays == null ? 0 : elapsedDays, s);
+    const s2 = g === FSRS_G.again ? fsrsForgetS(w, d, s, r) : fsrsRecallS(w, d, s, r, g);
+    return { s: fsrsClampS(s2), d: fsrsNextD(w, d, g) };
+  }
+  /* SEEDING A CARD THAT WAS STUDIED UNDER SM-2. Turning FSRS on mid-deck must not throw away what the reader
+     has already built, and the one quantity that genuinely transfers is the INTERVAL: SM-2's interval and
+     FSRS's stability are the same thing measured the same way — the delay at which recall is about 90%
+     likely. So stability is seeded from it and DIFFICULTY IS NOT GUESSED: it starts at the value a Good
+     first answer would give and moves from there, because SM-2's ease is a multiplier of a different shape
+     and mapping one onto the other would be inventing a number. Anki reschedules from the review log
+     instead, which Folio will be able to do once the optimiser lands; until then this is the honest version
+     and it says so. A card with no interval at all is simply new to FSRS. */
+  function fsrsSeed(w, c) {
+    if (Number(c.stability) > 0 && Number(c.difficulty) > 0) return c;
+    if (!(Number(c.interval) > 0)) return c;
+    c.stability = fsrsClampS(Number(c.interval));
+    c.difficulty = fsrsInitD(w, FSRS_G.good, true);
+    return c;
+  }
+  const fsrsWeights = (cfg) => (Array.isArray(cfg && cfg.fsrsParams) && cfg.fsrsParams.length === 21 ? cfg.fsrsParams : FSRS_PARAMS);
+  /* The FSRS half of schedAnswer: same shape, same states, same steps — only the interval a graduating or
+     passing card lands on is computed from the memory state rather than from an ease multiplier. */
+  function fsrsAnswer(card, g, t, seed, cfg) {
+    const w = fsrsWeights(cfg);
+    const c = fsrsSeed(w, Object.assign({}, card || schedBlank()));
+    const grade = FSRS_G[g] || FSRS_G.good;
+    const elapsed = c.last ? Math.max(0, (t - c.last) / DAY) : null;
+    const st = fsrsNextState(w, c, grade, c.status === "new" ? null : elapsed);
+    c.stability = st.s;
+    c.difficulty = st.d;
+    const land = () => {
+      c.status = "review";
+      c.step = 0;
+      c.interval = schedPass(fsrsInterval(w, c.stability, cfg.retention), 1, cfg, String(seed) + ":" + (c.reps || 0));
+      c.due = t + c.interval * DAY;
+      delete c.lapseIv;
+    };
+    if (c.status === "new" || schedIsLearning(c.status)) {
+      const steps = schedSteps(c, cfg);
+      const step = schedStep(c, steps);
+      if (!steps.length) land();
+      else if (g === "again") { c.status = c.status === "relearn" ? "relearn" : "learning"; c.step = 0; c.due = t + steps[0] * MIN_MS; }
+      else if (g === "hard") { c.status = c.status === "relearn" ? "relearn" : "learning"; c.step = step; c.due = t + schedHardDelay(steps, step) * MIN_MS; }
+      else if (g === "easy") land();
+      else if (step + 1 < steps.length) { c.status = c.status === "relearn" ? "relearn" : "learning"; c.step = step + 1; c.due = t + steps[step + 1] * MIN_MS; }
+      else land();
+      if (c.status === "review") c.reps = (c.reps || 0) + 1;
+    } else if (g === "again") {
+      c.lapses = (c.lapses || 0) + 1;
+      if (cfg.relearnSteps.length) { c.status = "relearn"; c.step = 0; c.due = t + cfg.relearnSteps[0] * MIN_MS; }
+      else land();
+      if (c.lapses >= cfg.leech) c.leech = true;
+    } else {
+      land();
+      c.reps = (c.reps || 0) + 1;
+    }
+    c.last = t;
+    return c;
+  }
+  // …and its preview, computed exactly as the grade will be, which is the property the whole grade bar rests on
+  function fsrsPreviewIvs(card, seed, t, cfg) {
+    const w = fsrsWeights(cfg);
+    const out = {};
+    ["again", "hard", "good", "easy"].forEach((g) => {
+      const next = fsrsAnswer(card, g, t, seed, cfg);
+      out[g] = Math.max(0, (next.due - t) / DAY);
+    });
+    return out;
+  }
   function schedAnswer(card, g, t, seed, cfg) {
     cfg = cfg || SCHED;
+    if (cfg.mode === "fsrs") return fsrsAnswer(card, g, t, seed, cfg);   // the same states and steps, a different interval
     const c = Object.assign({}, card || schedBlank());
     const relearn = c.status === "relearn";
     c.ease = Math.max(cfg.minEase, Number(c.ease) || cfg.startEase);
@@ -3153,8 +3429,10 @@
      A learning delay comes back as a fraction of a day, which is what fmtInterval renders in minutes. */
   function schedPreview(card, seed, t, cfg) {
     cfg = cfg || SCHED;
+    if (t == null) t = Date.now();
+    if (cfg.mode === "fsrs") return fsrsPreviewIvs(card, seed, t, cfg);
     const c = card || schedBlank();
-    if (t == null) t = Date.now();   // …but it must be the SAME instant schedAnswer will use, or an overdue
+    // …but it must be the SAME instant schedAnswer will use, or an overdue
     const day = (m) => m / 1440;     // card previews one interval and schedules another (caught by the test)
     if (c.status === "new" || schedIsLearning(c.status)) {
       const steps = schedSteps(c, cfg);
@@ -3178,6 +3456,50 @@
   }
 
   /* ---------- SRS ---------- */
+  /* ---------- which scheduler a card is on ----------
+     Below the marker above ON PURPOSE: everything before it is PURE — no S, no DOM, no clock but the one
+     passed in — which is what lets test-scheduler.js slice the two schedulers out and run them as
+     arithmetic. Deciding WHICH scheduler a card is on has to read the reader's own deck options, so it
+     lives on this side of the line and the purity assertion stays true.
+     PER DECK, and it is the CARD'S OWN deck that decides — never the pooled review's setting. A card
+     scheduled one way from its own row and another way from the daily review would have two schedules and no
+     way to tell which was in force, which is the one thing a per-deck choice must not produce. So the daily
+     review's own sheet does not offer the switch: it schedules nothing of its own, it deals what its decks
+     hand it. A card in more than one deck takes the first, deterministically. */
+  function schedModeOf(entryId) {
+    const o = (S.deckOpts || {})[entryId] || {};
+    return o.sched === "fsrs" ? "fsrs" : "sm2";
+  }
+  function deckSchedCfg(entryId) {
+    const o = (S.deckOpts || {})[entryId] || {};
+    const cfg = Object.assign({}, SCHED, {
+      mode: schedModeOf(entryId),
+      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(o.retention) || FSRS_RETENTION)),
+    });
+    if (Array.isArray(o.fsrsParams) && o.fsrsParams.length === 21) cfg.fsrsParams = o.fsrsParams;
+    return cfg;
+  }
+  // the entry whose options govern this card: its community deck, or the leaf it sits in
+  function cardEntryId(id) {
+    if (isCommunityCard(id)) {
+      const note = UCARDS[uCardBaseId(id)];
+      if (note && note.deckId) {
+        const sub = note.sub ? uSubEntry(note.deckId, note.sub) : null;
+        // a subdeck's own row can carry options; fall back to the deck's
+        if (sub && (S.deckOpts || {})[sub]) return sub;
+        return uDeckEntry(note.deckId);
+      }
+      return null;
+    }
+    const leaf = cardLeaves(id)[0];
+    return leaf ? leaf.id : null;
+  }
+  function schedCfgFor(id) {
+    const e = cardEntryId(id);
+    return e ? deckSchedCfg(e) : SCHED;
+  }
+  /* Answer a card. Returns a NEW record — the caller's is untouched, so the undo snapshot taken before
+     this runs stays valid whatever happens in here. `seed` should be the card id: see schedFuzz. */
   function cardState(id) {
     return S.cards[id] || null;
   }
@@ -3187,13 +3509,55 @@
   function isSuspended(id) {
     return !!(S.suspended && S.suspended[id]);
   }
+  /* ---------- BURYING (Aug 2026, on request) ----------
+     A buried card is out of the way until tomorrow. It exists for SIBLINGS: a note with several card
+     templates makes two or more cards, and answering one of them tells you nothing about the others for the
+     rest of the day — asking "水 → water" an hour after "water → 水" tests the last hour and not the memory.
+     Template-major ordering keeps them apart within a session; burying keeps them apart across the day, which
+     is the part ordering cannot do (a second session, or a deck small enough that the two meet anyway).
+
+     THE REGISTER EXPIRES BY BEING READ. `S.buried[id]` is the DAY it was buried, so nothing has to run at
+     midnight — the day boundary is the reader's own (see dayKey) and a card buried yesterday simply reads as
+     not buried today. Stale entries are swept on write, which is where deckDay does it too. */
+  function isBuried(id) {
+    const d = S.buried && S.buried[id];
+    return !!d && d === todayStr();
+  }
+  function buryCard(id) {
+    if (!S.buried || typeof S.buried !== "object") S.buried = {};   // back-fill for saves made before the register existed
+    const today = todayStr();
+    // sweep yesterday's on the way past, so the register can never outgrow the cards in use
+    Object.keys(S.buried).forEach((k) => { if (S.buried[k] !== today) delete S.buried[k]; });
+    S.buried[id] = today;
+  }
+  /* Bury the OTHER cards of this card's note, if its deck asks for it. Only a community note can have
+     siblings (a curated card is one card), and only cards that have not yet been answered today are buried —
+     burying one already answered would be recording a fact about it that changes nothing and would show in
+     the account page's counts as work put off that was in fact done. */
+  function burySiblings(id) {
+    if (!isCommunityCard(id)) return 0;
+    const base = uCardBaseId(id);
+    const ids = uNoteCardIds(base);
+    if (ids.length < 2) return 0;
+    const e = cardEntryId(id);
+    if (!e || !deckBurySiblings(e)) return 0;
+    let n = 0;
+    ids.forEach((sib) => {
+      if (sib === id || isSuspended(sib) || isBuried(sib)) return;
+      const c = S.cards[sib];
+      if (c && c.last && dayKey(c.last) === todayStr()) return;   // already answered today: nothing to put off
+      buryCard(sib);
+      n++;
+    });
+    return n;
+  }
   function isDueNow(id) {
     const c = S.cards[id];
     return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= now();
   }
   // preview next intervals (in days) for a grade, given current card
   function preview(id) {
-    return schedPreview(S.cards[id], id);
+    return schedPreview(S.cards[id], id, null, schedCfgFor(id));
   }
   /* apply a grade; returns {requeue: bool} for in-session relearning.
      `ms` is how long the reader spent on the card — measured by the caller, since only the study page knows
@@ -3209,7 +3573,9 @@
     const firstToday = !c.last || dayKey(c.last) !== todayStr();
     const t = now();
 
-    c = schedAnswer(c, g, t, id);   // the whole of the schedule — see THE SCHEDULER above
+    // the whole of the schedule — see THE SCHEDULER above. The config comes from the card's OWN deck, so a
+    // deck on FSRS is scheduled by FSRS wherever it was studied from (see cardEntryId).
+    c = schedAnswer(c, g, t, id, schedCfgFor(id));
     S.cards[id] = c;
     logReview(preStatus === "review", g !== "again");
     logReviewDay(firstToday, g !== "again");
@@ -3229,8 +3595,12 @@
       S.intro.count += 1;
       announceLevelUps();   // a newly-studied card may complete the Folio XP bar → level up, and a level buys a chest
     }
+    /* …and put this note's OTHER cards off until tomorrow, if its deck asks for it. AFTER the grade, so the
+       card just answered is already recorded as answered today and cannot bury itself. */
+    const buried = burySiblings(id);
     bumpStreak();
     save();
+    revQueuePush();   // the row just written joins the archive on the next quiet moment
     checkAchievements();   // unlock study / streak / deck milestones (toasts any new badge)
     /* Does this card come back in THIS session? Anki's rule, and the reader-visible half of the whole
        block above: a card still walking its learning steps is unfinished work for today, so it goes to
@@ -3238,7 +3608,12 @@
        which quietly stopped requeuing the moment a step ran longer than it) — plus Anki's learn-ahead
        allowance, so the last card of a late-night session is still finishable rather than stranded a
        few minutes the wrong side of the cut-off. */
-    return { requeue: schedIsLearning(c.status) && (c.due < dayEndTs() || c.due - now() <= SCHED_AHEAD_MS) };
+    return {
+      requeue: schedIsLearning(c.status) && (c.due < dayEndTs() || c.due - now() <= SCHED_AHEAD_MS),
+      // how many of this note's other cards were put off — the study page drops them from the live queue and
+      // says so once, because a count falling by two when you answered one card is what reads as a bug
+      buried: buried,
+    };
   }
   /* ---------- review history ----------
      S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
@@ -3283,8 +3658,12 @@
      · `ds` is the time from the question appearing to the button, in TENTHS OF A SECOND, and it is CAPPED
        at REV_MAX_DS. The cap is the honest half of it: a card left open over lunch would otherwise claim
        two hours of study and make every time figure a lie. Anki caps the same way, at the same 60s. */
-  const REV_CAP = 3000;      // rows kept, oldest pruned first
-  const REV_SLACK = 200;     // …pruned in one sweep once it is this far over, so an append is not a shift
+  /* THE LOCAL WINDOW. It stopped being the whole record when the log got a table of its own (see revPush),
+     so this is no longer a cap on a reader's history — it is how much of it this device keeps to hand for
+     Card info, the statistics and offline study. 20,000 rows is ~840 KB of the localStorage item and about
+     two years at twenty-five reviews a day; the archive behind it is uncapped. */
+  const REV_CAP = 20000;     // rows kept locally, oldest pruned first
+  const REV_SLACK = 500;     // …pruned in one sweep once it is this far over, so an append is not a shift
   const REV_MAX_DS = 600;    // 60s — Anki's own `maxTaken`; see `ds` above
   const REV_G = { again: 1, hard: 2, good: 3, easy: 4 };
   const REV_GRADE_NAME = ["", "Again", "Hard", "Good", "Easy"];
@@ -3293,11 +3672,9 @@
   /* The row `grade()` last appended, by REFERENCE — the handle an undo needs. See the comment at its
      assignment in grade() for why a length or a "last row" test cannot do this job. */
   let lastRevRow = null;
-  /* Roughly 42 bytes a row, so a full log is ~125 KB — about 150 days at twenty reviews a day, or two
-     years at four. It is capped rather than kept for ever because it travels inside the one progress blob
-     that `save()` PATCHes whole; if it ever needs to be longer than this (FSRS would want every row a
-     reader has), the log is the first thing that should move to a table of its own rather than the cap
-     being raised until the blob is slow. */
+  /* Roughly 42 bytes a row. It used to ride in the progress blob and be capped at 3,000 for that reason;
+     since Aug 2026 it has `public.review_log` behind it (see revPush) and the local array is a WINDOW over
+     an uncapped archive, which is what the FSRS optimiser will read. */
   function logReviewEntry(id, g, pre, prevIvDays, post, t, ms) {
     if (!Array.isArray(S.revlog)) S.revlog = [];   // back-fill for saves made before the log existed
     if (S.revlog.length > REV_CAP + REV_SLACK) S.revlog.splice(0, S.revlog.length - REV_CAP);
@@ -3311,7 +3688,12 @@
       // at all, so it reads 0 — which `revRead` renders as a dash rather than as "0 minutes".
       pre === "review" ? mins((Number(prevIvDays) || 0) * DAY) : 0,
       mins((Number(post.due) || t) - t),
-      Math.round((Number(post.ease) || 0) * 100),
+      /* THE NUMBER THE CARD IS ACTUALLY SCHEDULED BY, ×100 — its ease under SM-2 and its DIFFICULTY under
+         FSRS, which is what `review_log.ease100` documents. It is read off `post` rather than from the deck's
+         config because only `fsrsAnswer` ever writes a difficulty, so the record says for itself which
+         scheduler produced it; a card's ease is left untouched by FSRS and logging it there would put a stale
+         2.5 beside every FSRS review, which is worse than useless in a column headed "ease". */
+      Math.round((Number(post.difficulty) > 0 ? Number(post.difficulty) : (Number(post.ease) || 0)) * 100),
       Math.max(0, Math.min(REV_MAX_DS, Math.round((Number(ms) || 0) / 100))),
     ];
     S.revlog.push(row);
@@ -3715,6 +4097,37 @@
     return o.autoSpeak === true;
   }
   function setDeckAutoSpeak(id, on) { setDeckLimits(id, { autoSpeak: !!on }); }
+  /* BURY SIBLINGS, per entry (Aug 2026, on request). Default ON, which is the opposite of how the other
+     per-deck switches default and is deliberate: it is Anki's default, and it is the behaviour that makes a
+     note with several cards work at all — a reader who has just met reverse cards should not have to find a
+     setting before they behave sensibly. It costs nothing on a deck whose notes make one card each, since
+     `burySiblings` returns immediately when there are no siblings to bury. */
+  function deckBurySiblings(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    return o.burySiblings !== false;
+  }
+  function setDeckBurySiblings(id, on) { setDeckLimits(id, { burySiblings: !!on }); }
+  /* WHICH SCHEDULER, per entry — SM-2 or FSRS (Aug 2026, on request). Read by deckSchedCfg beside the
+     scheduler itself; these two are the writers. `retention` is what a reader is asking FSRS for: the
+     fraction of cards they want to still remember when each one comes back. */
+  function setDeckSched(id, mode) { setDeckLimits(id, { sched: mode === "fsrs" ? "fsrs" : "sm2" }); }
+  function setDeckRetention(id, r) {
+    setDeckLimits(id, { retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(r) || FSRS_RETENTION)) });
+  }
+  /* A reader's own FSRS parameters, pasted from Anki. Folio has no optimiser yet, and somebody who has
+     already had Anki fit their 21 numbers to their own review history should not have to give that up to
+     study here — so they can be entered as text and are held to exactly 21 finite numbers, or refused.
+     Clearing the box returns the deck to the reference defaults. */
+  function setDeckFsrsParams(id, text) {
+    const raw = String(text || "").trim();
+    if (!raw) { setDeckLimits(id, { fsrsParams: null }); return { ok: true, cleared: true }; }
+    const nums = raw.replace(/[\[\]]/g, " ").split(/[,\s]+/).filter(Boolean).map(Number);
+    if (nums.length !== 21 || nums.some((n) => !isFinite(n))) {
+      return { ok: false, error: "FSRS parameters are 21 numbers. That was " + nums.length + "." };
+    }
+    setDeckLimits(id, { fsrsParams: nums });
+    return { ok: true };
+  }
   /* Has this entry anything to say? The switch is offered only where the answer is yes, because a control
      that answers a press with silence is worse than no control at all — the same test the `.uc-tts` chrome
      itself applies through `body.no-tts`.
@@ -3801,7 +4214,8 @@
   function entryPiles(id) {
     if (deckSkippedToday(id)) return { nw: 0, lr: 0, rv: 0, skip: true };
     const avail = availableCardIdSet();
-    const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c));
+    // buried too: a card put off until tomorrow is not part of what this deck offers today
+    const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
     let lr = 0, rv = 0, unseen = 0;
     ids.forEach((cid) => {
       const c = S.cards[cid];
@@ -3834,7 +4248,7 @@
     if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
     activeEntryIds().forEach((e) => {
       if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
-      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id));
+      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
         .sort((a, b) => S.cards[a].due - S.cards[b].due)
@@ -3856,7 +4270,7 @@
     return { due: dueCapped, fresh, all: [...dueCapped, ...fresh] };
   }
   function dueCountNow() {
-    return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id)).length;
+    return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id) && !isBuried(id)).length;
   }
 
   /* ============================================================
@@ -8312,7 +8726,12 @@
     ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
     _deckMenuClose = close;
     wire(ov, close);
-    setTimeout(() => { const f = ov.querySelector("button, input"); if (f) f.focus(); }, 0);
+    /* The first control, unless the sheet has nominated one with `data-dmfocus`. A sheet whose rows are a
+       CHOICE wants the focus on the current value: without this the Scheduling sheet, which rebuilds itself
+       when the choice changes, showed a focus ring on the row just clicked — the one NOT chosen — beside a
+       tick on the one that was, and left the reader to work out which of the two meant anything. Nominating
+       it here rather than in the sheet's own wire() is what avoids racing this very timer. */
+    setTimeout(() => { const f = ov.querySelector("[data-dmfocus]") || ov.querySelector("button, input"); if (f) f.focus(); }, 0);
     return ov;
   }
   /* HOLD to open an options sheet — used by the daily review's deck rows and by the review banner above
@@ -8409,8 +8828,20 @@
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
         "Press the speaker on a card to hear it", autoSpeak) : "") +
+      // only where something in this entry can HAVE siblings — a curated card is one card, and a switch that
+      // cannot change anything is the thing the read-aloud row's own note warns against
+      (entryHasSiblings(id) ? swRow("bury", "Bury siblings",
+        "A note's other cards wait until tomorrow",
+        "Every card of a note can come up the same day", deckBurySiblings(id)) : "") +
       item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
       item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
+      /* Which scheduler, on a DECK only. The pooled review schedules nothing of its own — it deals what its
+         decks hand it, each on its own deck's schedule — so offering the choice there would be offering a
+         setting that governs nothing, which is worse than not offering it. See cardEntryId. */
+      (isReview ? "" : item("sched", "Scheduling",
+        schedModeOf(id) === "fsrs"
+          ? "FSRS · aiming to remember " + Math.round(deckSchedCfg(id).retention * 100) + "%"
+          : "SM-2, the classic Anki schedule")) +
       item("skip", skipped ? "Study today after all" : "Skip today",
         skipped ? "This " + thing + " is sitting today out"
                 : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review")) +
@@ -8434,6 +8865,10 @@
             setDeckRandom(id, on);
             note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
             toast(on ? "Review order: random" : "Review order: ordered");
+          } else if (rowEl.dataset.act === "bury") {
+            setDeckBurySiblings(id, on);
+            note.textContent = on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
+            toast(on ? "Burying siblings" : "Siblings can come up together");
           } else if (rowEl.dataset.act === "speak") {
             setDeckAutoSpeak(id, on);
             note.textContent = on ? "The answer is spoken as soon as it is revealed" : "Press the speaker on a card to hear it";
@@ -8451,6 +8886,7 @@
         const act = b.dataset.act;
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
+        if (act === "sched") { close(); openDeckSched(id); return; }
         if (act === "skip") {
           setDeckSkip(id, !skipped);
           close();
@@ -8520,7 +8956,20 @@
         add("Due", '<span class="' + (overdue ? "ci-due-now" : "") + '">' + fmtStamp(c.due) + (overdue ? " · now" : "") + "</span>");
       }
       if (c.status === "review" && c.interval) add("Interval", esc(fmtInterval(c.interval)));
-      if (c.ease) add("Ease", (c.ease * 100).toFixed(0) + "%");
+      /* Under FSRS the pair that MEANS something is stability and difficulty, and the ease is a leftover from
+         whatever SM-2 last did with the card — so the row that is shown is the one the card's own deck is
+         actually scheduling by. Stability is given as a duration because that is what it is: the delay at
+         which recall is about 90% likely.
+         THE 90 IS NOT THE READER'S TARGET AND MUST NOT READ AS IT. Stability is defined at 90% whatever
+         retention the deck asks for (it is where `fsrsFactor`'s 0.9 comes from), and the Scheduler row a few
+         lines below names the reader's own figure — so on a deck set to 85% the two numbers sit four rows
+         apart meaning different things. Hence "at ~90% recall" rather than "the 90% interval", which read like
+         the setting had been ignored. */
+      const fsrs = Number(c.stability) > 0 && schedModeOf(cardEntryId(id)) === "fsrs";
+      if (fsrs) {
+        add("Stability", esc(fmtInterval(c.stability)) + ' <span class="ci-of">the delay at ~90% recall</span>');
+        if (Number(c.difficulty) > 0) add("Difficulty", c.difficulty.toFixed(1) + ' <span class="ci-of">of 10</span>');
+      } else if (c.ease) add("Ease", (c.ease * 100).toFixed(0) + "%");
       add("Reviews", String(c.reps || 0));
       // a lapse count is worth naming as a leech at Anki's threshold, which the scheduler already records
       if (c.lapses) add("Lapses", String(c.lapses) + (c.leech ? ' · <b class="ci-leech">leech</b>' : ""));
@@ -8539,6 +8988,10 @@
       const list = typeCards(ct), i = Math.min((cc._tpl || 0), list.length - 1);
       add("Card", esc(list[i].name || "Card " + (i + 1)) + ' <span class="ci-of">' + (i + 1) + " of " + list.length + "</span>");
     }
+    const ent = cardEntryId(id);
+    if (ent && schedModeOf(ent) === "fsrs") {
+      add("Scheduler", 'FSRS <span class="ci-of">aiming to remember ' + Math.round(deckSchedCfg(ent).retention * 100) + "%</span>");
+    }
     add("Card id", '<code class="ci-id">' + esc(id) + "</code>");
     return '<div class="ci-grid">' + rows.join("") + "</div>";
   }
@@ -8549,6 +9002,13 @@
         'August 2026 — anything you studied before then is in the state above, but its individual reviews ' +
         "were never written down.</p>";
     }
+    /* THE SIXTH COLUMN IS WHICHEVER NUMBER THE SCHEDULER USES, so it is HEADED by the card's own mode — an
+       ease under SM-2 (a percentage, 250%) and a difficulty under FSRS (6.4 of 10). The row itself does not
+       record which, since only FSRS ever writes a difficulty and a card belongs to one deck; the one case the
+       two can disagree is a deck switched between schedulers part-way through, where the older rows keep their
+       own values under the newer heading. Said here rather than papered over: the alternative is a column
+       reading "Ease 250%" on a card that has no ease, which is what shipped for an hour. */
+    const fsrs = schedModeOf(cardEntryId(id)) === "fsrs";
     const body = hist.slice().reverse().map((r) => {
       // the delay this answer bought, which is the row's whole point: it is what the button did
       const next = r.nextMin ? fmtInterval(r.nextDays) : "—";
@@ -8558,14 +9018,15 @@
         '<td><span class="ci-g ci-g-' + r.g + '">' + esc(r.grade) + "</span></td>" +
         "<td>" + (r.prevMin ? esc(fmtInterval(r.prevDays)) : "—") + "</td>" +
         "<td>" + esc(next) + "</td>" +
-        "<td>" + (r.ease ? (r.ease * 100).toFixed(0) + "%" : "—") + "</td>" +
+        "<td>" + (r.ease ? (fsrs ? r.ease.toFixed(1) : (r.ease * 100).toFixed(0) + "%") : "—") + "</td>" +
         "<td>" + (r.secs ? esc(fmtSecs(r.secs)) : "—") + "</td>" +
         "</tr>";
     }).join("");
     const secs = hist.reduce((a, r) => a + r.secs, 0);
     const right = hist.filter((r) => r.correct).length;
     return '<div class="ci-histwrap"><table class="ci-hist">' +
-      "<thead><tr><th>When</th><th>Type</th><th>Rating</th><th>From</th><th>To</th><th>Ease</th><th>Time</th></tr></thead>" +
+      "<thead><tr><th>When</th><th>Type</th><th>Rating</th><th>From</th><th>To</th><th>" +
+      (fsrs ? "Difficulty" : "Ease") + "</th><th>Time</th></tr></thead>" +
       "<tbody>" + body + "</tbody></table></div>" +
       '<p class="ci-sum">' + hist.length + (hist.length === 1 ? " review" : " reviews") + " recorded · " +
       right + " of " + hist.length + " remembered" + (secs ? " · " + esc(fmtSecs(secs)) + " spent" : "") + "</p>";
@@ -8591,6 +9052,81 @@
     deckSheet("Card info", html, (ov, close) => {
       ov.classList.add("ci-sheet");   // a wider box than an options sheet — see the CSS note
       ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+  /* Has this entry any card that HAS siblings? Only a community note whose type declares more than one card
+     template can, so on every curated deck the answer is no and the Bury-siblings switch is not drawn — the
+     same test `entryHasSpeech` makes for the read-aloud switch, and for the same reason: a control that
+     cannot change anything is worse than no control. */
+  function entryHasSiblings(id) {
+    return entryCardIds(id).some((c) => uNoteCardCount(c) > 1);
+  }
+  /* ---------- SCHEDULING, per deck (Aug 2026, on request) ----------
+     SM-2 or FSRS, the target retention, and a box for a reader's own parameters. It is a sheet of its own
+     rather than three more rows on the options sheet because it is the only setting here that changes what
+     the numbers on the grade buttons MEAN, and it deserves the room to say so. */
+  function openDeckSched(id) {
+    const info = entryInfo(id), cfg = deckSchedCfg(id);
+    const fsrs = cfg.mode === "fsrs";
+    const own = (S.deckOpts || {})[id] || {};
+    const custom = Array.isArray(own.fsrsParams) && own.fsrsParams.length === 21;
+    const pct = Math.round(cfg.retention * 100);
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Scheduling</span>' +
+        '<span class="dm-where">' + esc(info.title) + "</span></div></div>" +
+      /* Two ROWS rather than a switch, deliberately against the house preference: these are two named
+         algorithms rather than one setting being on or off, and each needs a sentence of its own. */
+      '<button type="button" class="dm-item dm-choice' + (fsrs ? "" : " on") + '" data-sched="sm2"' + (fsrs ? "" : " data-dmfocus") + ">" +
+        "<b>SM-2</b><small>The classic Anki schedule. Each answer multiplies the interval by an ease the card " +
+        "carries.</small></button>" +
+      '<button type="button" class="dm-item dm-choice' + (fsrs ? " on" : "") + '" data-sched="fsrs"' + (fsrs ? " data-dmfocus" : "") + ">" +
+        "<b>FSRS</b><small>Models how fast you forget each card and picks the interval that lands on the " +
+        "retention you ask for. Anki's default, and usually the same retention from fewer reviews.</small></button>" +
+      (fsrs
+        // the unit is IN the label: the field is a bare number box, and "Remember this much — 90" says nothing
+        ? '<label class="dm-field"><span>Remember this much <small>%</small></span>' +
+            '<input class="dm-num" id="dsRet" type="number" min="' + Math.round(FSRS_RET_MIN * 100) + '" max="' +
+            Math.round(FSRS_RET_MAX * 100) + '" step="1" value="' + pct + '" inputmode="numeric"></label>' +
+          '<p class="dm-note">The percentage of these cards you want to still recall when each one comes back. ' +
+            'Higher means shorter intervals and more reviews; 90% is the default and what most readers should leave it at.</p>' +
+          '<label class="dm-field dm-fieldcol"><span>Your own FSRS parameters <small>optional</small></span>' +
+            '<textarea class="af-input ds-params" id="dsParams" rows="3" spellcheck="false" placeholder="21 numbers, separated by commas">' +
+            esc(custom ? own.fsrsParams.join(", ") : "") + "</textarea></label>" +
+          '<p class="dm-note">Folio cannot fit these to your history yet, so it uses the reference defaults — ' +
+            'which are trained on millions of reviews and are a sound choice. If Anki has already optimised ' +
+            'parameters for you, paste them here. Clear the box to go back to the defaults.</p>'
+        : '<p class="dm-note">Switching to FSRS keeps everything you have already studied: a card\u2019s current ' +
+            'interval becomes its starting stability, which is the same measurement under another name.</p>') +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-act="close">Close</button>' +
+      (fsrs ? '<button type="button" class="btn" data-act="save">Save</button>' : "") + "</div>";
+    deckSheet("Scheduling", html, (ov, close) => {
+      ov.classList.add("ds-sheet");
+
+      /* Choosing the scheduler REBUILDS the sheet, which is the one place in this file that is right to do:
+         the retention box and the parameters box exist only under FSRS, so the sheet is a different sheet. */
+      ov.querySelectorAll("[data-sched]").forEach((b) => b.addEventListener("click", () => {
+        const mode = b.dataset.sched;
+        if (mode === cfg.mode) return;
+        setDeckSched(id, mode);
+        toast(mode === "fsrs" ? "This deck is on FSRS" : "This deck is on SM-2");
+        close();
+        openDeckSched(id);
+      }));
+      const closeBtn = ov.querySelector('[data-act="close"]');
+      if (closeBtn) closeBtn.addEventListener("click", close);
+      const saveBtn = ov.querySelector('[data-act="save"]');
+      if (saveBtn) saveBtn.addEventListener("click", () => {
+        const r = ov.querySelector("#dsRet"), pEl = ov.querySelector("#dsParams");
+        // the parameters first: a refusal must not leave the retention saved and the sheet shut
+        const res = setDeckFsrsParams(id, pEl ? pEl.value : "");
+        if (!res.ok) { toast(res.error); return; }
+        setDeckRetention(id, (Number(r && r.value) || pct) / 100);
+        close();
+        render();
+        toast(res.cleared && Array.isArray(own.fsrsParams)
+          ? "Saved — back to the default parameters"
+          : "Scheduling saved");
+      });
     });
   }
   // Daily limits — Anki's three, and Anki's names for them, so a reader who knows Anki needs no explanation.
@@ -12095,7 +12631,7 @@
        the banner does not — the sets already exclude suspended and coming-soon cards, and `fresh` is today's
        allowance rather than the whole unseen backlog. */
     const freshSet = new Set(q.fresh), dueSet = new Set(q.due);
-    const pileIds = activeCardIds().filter((id) => !isSuspended(id));
+    const pileIds = activeCardIds().filter((id) => !isSuspended(id) && !isBuried(id));
     const pileSet = new Set(pileIds);
     const pileCounts = (ids) => {
       let nw = 0, lr = 0, rv = 0;
@@ -13301,7 +13837,7 @@
       where = leaf ? nodeWhere(leaf) : "Card of the day";
       total = 1;
     } else if (scope.type === "cotd") {
-      const ids = cotdIds().filter((id) => !isSuspended(id));
+      const ids = cotdIds().filter((id) => !isSuspended(id) && !isBuried(id));
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
       queue = [...due, ...ids.filter((id) => !isSeen(id))];   // every card here was added BY being studied, so unseen is rare
       // this list's own Random-order switch. It has a row on the home page, so its sheet can be held open,
@@ -13314,7 +13850,7 @@
       if (!d) return null;
       const sub = scope.sub || "";
       // the deck's notes expanded into their cards (a reverse card is its own card here), template-major
-      const ids = uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id));
+      const ids = uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
       const ue = uSubEntry(d.id, sub);
@@ -13334,7 +13870,7 @@
       if (!sd) return null;
       where = nodeWhere(sd);
       const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
-      const ids = subtreeCardIds(sd).filter((id) => !isSuspended(id) && availDeck.has(id));
+      const ids = subtreeCardIds(sd).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id));
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
@@ -16166,6 +16702,7 @@
        A resumed session stamps afresh on the render that resumes it, so a card left open in a closed tab
        reports the time spent looking at it after coming back rather than the hours in between. */
     let shownAt = 0;
+    let buriedToldThisSession = false;   // see doGrade: the sibling-burying note is worth making once
     /* Which of the card's phrasings is being asked. null means "not chosen yet" — renderCard picks one and
        every move to another card sets it back to null, so a phrasing belongs to the card that is on screen
        and never leaks onto the next one. A resumed session gets its saved index back, which is the half of
@@ -16175,7 +16712,7 @@
     if (resume) {
       // the saved queue rather than a freshly built one: a rebuilt session cannot say where a requeued
       // learning step was sitting, and the reader was mid-way through this order, not that one
-      const ok = resume.queue.filter((id) => cardById(id) && !isSuspended(id));
+      const ok = resume.queue.filter((id) => cardById(id) && !isSuspended(id) && !isBuried(id));
       if (ok.length) {
         queue = ok;
         if (Number.isInteger(resume.qi) && resume.id === queue[0]) qIdx = resume.qi;
@@ -16206,6 +16743,8 @@
         id: id,
         queue: queue.slice(),
         card: S.cards[id] ? JSON.parse(JSON.stringify(S.cards[id])) : null,
+        // …and whatever this grade buried, since undoing it must give the sibling back to today
+        buried: S.buried ? Object.assign({}, S.buried) : null,
         day: d,
         log: (S.reviewLog && S.reviewLog[d]) ? S.reviewLog[d].slice() : null,
         reviewDay: S.reviewDay ? Object.assign({}, S.reviewDay) : null,
@@ -16234,6 +16773,7 @@
       if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};
       if (s.log) S.reviewLog[s.day] = s.log; else delete S.reviewLog[s.day];
       undoRevRow(s.revRow);
+      S.buried = s.buried || {};
       S.reviewDay = s.reviewDay || null;
       if (s.intro) S.intro = s.intro;
       if (s.streak) S.streak = s.streak;
@@ -16522,6 +17062,20 @@
         // "later" — the card would reappear instantly, looking like the grade never landed. It is properly
         // scheduled either way, and it has just joined the daily review, so it comes back there instead.
         if (res.requeue && params.scope.type !== "card") queue.push(id); // relearn within session
+        /* A sibling buried by that grade must leave the LIVE queue too — it is already out of every queue
+           built from now on, but the one in hand was built before the grade. Said once a session: the first
+           time it happens the day's count drops by more than one and that needs explaining; the tenth time
+           it is just how the deck works. */
+        if (res.buried) {
+          const base = uCardBaseId(id);
+          queue = queue.filter((q) => q === id || uCardBaseId(q) !== base);
+          if (!buriedToldThisSession) {
+            buriedToldThisSession = true;
+            toast(res.buried === 1
+              ? "Its other card is put off until tomorrow — answering both today would only test the last few minutes."
+              : "Its other " + res.buried + " cards are put off until tomorrow.");
+          }
+        }
         studyRevealId = null;   // moving on: the next card (or a requeued step) opens at its question, unrevealed
         qIdx = null;            // …and picks a phrasing of its own rather than inheriting this card's
         // swap animation handled by re-render
