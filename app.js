@@ -1986,7 +1986,11 @@
   // kept — everything a card's question / answer / date line / background legitimately needs
   const SANITIZE_TAGS = new Set(["p", "div", "span", "br", "hr", "b", "strong", "i", "em", "u", "s", "sub", "sup",
     "small", "mark", "abbr", "code", "pre", "kbd", "blockquote", "q", "cite", "ul", "ol", "li", "dl", "dt", "dd",
-    "h3", "h4", "h5", "h6", "a", "img", "figure", "figcaption"]);
+    "h3", "h4", "h5", "h6", "a", "img", "figure", "figcaption",
+    /* the platform's own disclosure widget, so a card type can fold a long section away without script —
+       which is the only way it could, deck CSS being scoped and deck JS not existing. Neither element has a
+       scripting surface or takes a URL; `open` is the one attribute and it is a boolean. */
+    "details", "summary"]);
   const SANITIZE_ATTRS = {
     "*": new Set(["class", "dir", "lang", "title", "style"]),
     a: new Set(["href", "rel", "target"]),
@@ -1996,6 +2000,7 @@
     // the DOM as markup, only SpeechSynthesisUtterance.text, so the worst a deck can do with it is make the
     // speaker say something other than what is written, which it could already do with the visible text.
     span: new Set(["data-k", "data-say"]),
+    details: new Set(["open"]),
     sup: new Set(["data-fn"]),   // a footnote marker pointing into the surface's source list; the digit itself is written by wireFootnotes
   };
   // `style` survives ONLY as a colour. The rich-text ribbon's colour button emits

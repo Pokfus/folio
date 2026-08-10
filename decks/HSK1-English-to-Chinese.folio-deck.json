@@ -5,7 +5,7 @@
   "id": "hsk1entozh",
   "title": "HSK 1 — English to Chinese",
   "subtitle": "150 words · recall the characters and pinyin",
-  "desc": "Shown an English meaning, recall the simplified form, the traditional form and the pinyin. All 150 words of the official HSK 1 vocabulary list (HSK 2.0, the 2012 syllabus). Every card carries the simplified form, the traditional form, pinyin, bopomofo, the measure word where the word takes one, and the full range of English translations rather than a single gloss. Traditional characters are shown at half strength, and are omitted entirely where they are identical to the simplified — 82 of the 150 words. Word list: the official HSK 2012 Level 1 syllabus. Definitions: CC-CEDICT (CC BY-SA 4.0).",
+  "desc": "Shown an English meaning, recall the simplified form, the traditional form and the pinyin. All 150 words of the official HSK 1 vocabulary list (HSK 2.0, the 2012 syllabus). Every card carries the simplified form, the traditional form, pinyin, bopomofo, the measure word where the word takes one, and the full range of English translations rather than a single gloss. Traditional characters are shown at half strength, and are omitted entirely where they are identical to the simplified — 82 of the 150 words. Each card also breaks the word into its characters, giving each one's reading, its meaning and the radical it is filed under, and carries a fold of real example sentences with the word underlined in each. Word list: the official HSK 2012 Level 1 syllabus. Definitions, readings and measure words: CC-CEDICT (CC BY-SA 4.0). Radicals and character meanings: Make Me a Hanzi. Example sentences: Tatoeba (CC BY 2.0 FR).",
   "author": "",
   "language": "en",
   "tags": [
@@ -27,11 +27,13 @@
      "Traditional",
      "Pinyin",
      "Bopomofo",
-     "Measure word"
+     "Measure word",
+     "Characters",
+     "Examples"
     ],
     "front": "<div class=\"uc-ask\">Say it in Chinese</div><div class=\"uc-field\">{{English}}</div>",
-    "back": "{{FrontSide}}<hr><div class=\"uc-simp\">{{Simplified}}</div>{{#Traditional}}<div class=\"uc-trad\">{{Traditional}}</div>{{/Traditional}}<div class=\"uc-pinyin\"><span class=\"uc-tts\" data-say=\"{{Simplified}}\">{{Pinyin}}</span></div>{{#Bopomofo}}<div class=\"uc-zhuyin\">{{Bopomofo}}</div>{{/Bopomofo}}{{#Measure word}}<div class=\"uc-mw\">{{Measure word}}</div>{{/Measure word}}",
-    "css": ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n.uc-ask {\n  margin-bottom: 14px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n.uc-simp {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-size: 46px;\n  font-weight: 400;\n  line-height: 1.15;\n}\n.uc-trad {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  margin-top: 8px;\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 1.25;\n  opacity: 0.5;\n}\n.uc-pinyin {\n  margin-top: 12px;\n  font-size: 21px;\n  letter-spacing: 0.01em;\n  opacity: 0.85;\n}\n.uc-zhuyin {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  margin-top: 5px;\n  font-size: 17px;\n  letter-spacing: 0.06em;\n  opacity: 0.72;\n}\n.uc-mw {\n  margin-top: 12px;\n  font-size: 15px;\n  line-height: 1.5;\n}\n.uc-mwlab {\n  margin-right: 8px;\n  font-size: 9.5px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.5;\n}\n.uc-mwi + .uc-mwi {\n  margin-left: 12px;\n}\n.uc-mwc {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n}\n.uc-mwt {\n  margin-left: 4px;\n  opacity: 0.5;\n}\n.uc-mwp {\n  margin-left: 6px;\n  opacity: 0.75;\n}\n.uc-field {\n  display: inline-block;\n  max-width: 100%;\n  margin-top: 14px;\n  padding: 11px 15px;\n  border: 1px solid var(--rule, rgba(0,0,0,0.12));\n  border-radius: 11px;\n  text-align: left;\n  background: var(--paper-2, rgba(0,0,0,0.05));\n  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));\n}\n.uc-sense {\n  line-height: 1.6;\n}\n.uc-sense + .uc-sense {\n  margin-top: 2px;\n}\nhr {\n  margin: 18px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n.uc-sense {\n  font-size: 18px;\n}\n"
+    "back": "{{FrontSide}}<hr><div class=\"uc-simp\">{{Simplified}}</div>{{#Traditional}}<div class=\"uc-trad\">{{Traditional}}</div>{{/Traditional}}<div class=\"uc-pinyin\"><span class=\"uc-tts\" data-say=\"{{Simplified}}\">{{Pinyin}}</span></div>{{#Bopomofo}}<div class=\"uc-zhuyin\">{{Bopomofo}}</div>{{/Bopomofo}}{{#Measure word}}<div class=\"uc-mw\">{{Measure word}}</div>{{/Measure word}}{{#Characters}}<div class=\"uc-chars\">{{Characters}}</div>{{/Characters}}{{#Examples}}<details class=\"uc-ex\"><summary>In a sentence</summary><div class=\"uc-exs\">{{Examples}}</div></details>{{/Examples}}",
+    "css": ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n.uc-ask {\n  margin-bottom: 14px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n.uc-simp {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-size: 46px;\n  font-weight: 400;\n  line-height: 1.15;\n}\n.uc-trad {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  margin-top: 8px;\n  font-size: 34px;\n  font-weight: 400;\n  line-height: 1.25;\n  opacity: 0.5;\n}\n.uc-pinyin {\n  margin-top: 12px;\n  font-size: 21px;\n  letter-spacing: 0.01em;\n  opacity: 0.85;\n}\n.uc-zhuyin {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  margin-top: 5px;\n  font-size: 17px;\n  letter-spacing: 0.06em;\n  opacity: 0.72;\n}\n.uc-mw {\n  margin-top: 12px;\n  font-size: 15px;\n  line-height: 1.5;\n}\n.uc-mwlab {\n  margin-right: 8px;\n  font-size: 9.5px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.5;\n}\n.uc-mwi + .uc-mwi {\n  margin-left: 12px;\n}\n.uc-mwc {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n}\n.uc-mwt {\n  margin-left: 4px;\n  opacity: 0.5;\n}\n.uc-mwp {\n  margin-left: 6px;\n  opacity: 0.75;\n}\n.uc-field {\n  display: block;\n  width: fit-content;\n  max-width: 100%;\n  margin: 14px auto 0;\n  padding: 11px 15px;\n  border: 1px solid var(--rule, rgba(0,0,0,0.12));\n  border-radius: 11px;\n  text-align: left;\n  background: var(--paper-2, rgba(0,0,0,0.05));\n  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));\n}\n.uc-sense {\n  line-height: 1.6;\n}\n.uc-chars {\n  display: block;\n  width: fit-content;\n  max-width: 100%;\n  margin: 14px auto 0;\n  text-align: left;\n}\n.uc-ch {\n  display: flex;\n  align-items: baseline;\n  gap: 8px;\n  padding: 3px 0;\n  font-size: 14px;\n}\n.uc-ch + .uc-ch {\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n}\n.uc-chc {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n  font-size: 22px;\n  line-height: 1.1;\n  min-width: 26px;\n}\n.uc-chp {\n  min-width: 52px;\n  opacity: 0.8;\n}\n.uc-chm {\n  flex: 1 1 auto;\n}\n.uc-chr {\n  opacity: 0.6;\n  font-size: 12.5px;\n  white-space: nowrap;\n}\n.uc-chr b {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n  font-size: 15px;\n}\n.uc-ex {\n  display: block;\n  width: fit-content;\n  max-width: 100%;\n  margin: 14px auto 0;\n  text-align: left;\n}\n.uc-ex > summary {\n  cursor: pointer;\n  list-style: none;\n  font-size: 11px;\n  letter-spacing: 0.12em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n.uc-ex > summary::-webkit-details-marker {\n  display: none;\n}\n.uc-ex > summary::after {\n  content: \" ▾\";\n}\n.uc-ex[open] > summary::after {\n  content: \" ▴\";\n}\n.uc-exs {\n  margin-top: 9px;\n}\n.uc-exi + .uc-exi {\n  margin-top: 9px;\n}\n.uc-exz {\n  font-family: var(--han, \"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif);\n  font-weight: 400;\n  font-size: 18px;\n  line-height: 1.5;\n}\n.uc-exz b {\n  font-weight: 400;\n  border-bottom: 2px solid currentColor;\n}\n.uc-exe {\n  margin-top: 1px;\n  font-size: 14px;\n  opacity: 0.75;\n}\n.uc-excr {\n  margin-top: 9px;\n  font-size: 10.5px;\n  opacity: 0.45;\n}\n.uc-sense + .uc-sense {\n  margin-top: 2px;\n}\nhr {\n  margin: 18px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n.uc-sense {\n  font-size: 18px;\n}\n"
    }
   },
   "version": 1,
@@ -61,7 +63,9 @@
     "Traditional": "愛",
     "Pinyin": "ài",
     "Bopomofo": "ㄞˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">爱</span><span class=\"uc-chp\">ài</span><span class=\"uc-chm\">to love</span><span class=\"uc-chr\">radical <b>爫</b> zhǎo · claws</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>爱</b>看足球。</div><div class=\"uc-exe\">I love watching soccer games.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给<b>爱</b>情开门！</div><div class=\"uc-exe\">Open the door for love.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -85,7 +89,9 @@
     "Traditional": "",
     "Pinyin": "bā",
     "Bopomofo": "ㄅㄚ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">八</span><span class=\"uc-chp\">bā</span><span class=\"uc-chm\">eight</span><span class=\"uc-chr\">radical <b>八</b> bā · eight</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">现在<b>八</b>点钟。</div><div class=\"uc-exe\">It's eight o'clock.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我有<b>八</b>个哥哥。</div><div class=\"uc-exe\">I have eight brothers.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -109,7 +115,9 @@
     "Traditional": "",
     "Pinyin": "bàba",
     "Bopomofo": "ㄅㄚˋ ㄅㄚ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">爸</span><span class=\"uc-chp\">bà</span><span class=\"uc-chm\">father</span><span class=\"uc-chr\">radical <b>父</b> fù · father</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">爸</span><span class=\"uc-chp\">ba</span><span class=\"uc-chm\">father</span><span class=\"uc-chr\">radical <b>父</b> fù · father</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>爸爸</b>很忙。</div><div class=\"uc-exe\">My father is busy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>爸爸</b>很高。</div><div class=\"uc-exe\">Your father is tall.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -133,7 +141,9 @@
     "Traditional": "",
     "Pinyin": "bēizi",
     "Bopomofo": "ㄅㄟ ㄗ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">杯</span><span class=\"uc-chp\">bēi</span><span class=\"uc-chm\">cup</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">子</span><span class=\"uc-chp\">zi</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>杯子</b>在桌上。</div><div class=\"uc-exe\">The cup is on the table.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>杯子</b>里有水。</div><div class=\"uc-exe\">There is water in the glass.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -157,7 +167,9 @@
     "Traditional": "",
     "Pinyin": "Běijīng",
     "Bopomofo": "ㄅㄟˇ ㄐㄧㄥ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">北</span><span class=\"uc-chp\">Běi</span><span class=\"uc-chm\">north</span><span class=\"uc-chr\">radical <b>匕</b> bǐ · spoon</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">京</span><span class=\"uc-chp\">jīng</span><span class=\"uc-chm\">capital city</span><span class=\"uc-chr\">radical <b>亠</b> tóu · lid</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我也想去<b>北京</b>。</div><div class=\"uc-exe\">I also want to go to Beijing.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我现在在<b>北京</b>。</div><div class=\"uc-exe\">I am in Beijing right now.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -181,7 +193,9 @@
     "Traditional": "",
     "Pinyin": "běn",
     "Bopomofo": "ㄅㄣˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">本</span><span class=\"uc-chp\">běn</span><span class=\"uc-chm\">root</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你有几<b>本</b>书?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是一<b>本</b>书。</div><div class=\"uc-exe\">This is a book.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -205,7 +219,9 @@
     "Traditional": "不客氣",
     "Pinyin": "bú kèqi",
     "Bopomofo": "ㄅㄨˋ ㄎㄜˋ ㄑㄧ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">不</span><span class=\"uc-chp\">bù</span><span class=\"uc-chm\">no</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">客</span><span class=\"uc-chp\">kè</span><span class=\"uc-chm\">guest</span><span class=\"uc-chr\">radical <b>宀</b> gài · roof</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">气</span><span class=\"uc-chp\">qi</span><span class=\"uc-chm\">air</span><span class=\"uc-chr\">radical <b>气</b> qì · air</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你要是再给我们公司出洋相，我可就<b>不客气</b>了。</div><div class=\"uc-exe\">If you make fun of our company again, we certainly won’t be polite to you.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -229,7 +245,9 @@
     "Traditional": "",
     "Pinyin": "bù",
     "Bopomofo": "ㄅㄨˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">不</span><span class=\"uc-chp\">bù</span><span class=\"uc-chm\">no</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他是非<b>不</b>分。</div><div class=\"uc-exe\">He has no sense of right and wrong.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">妈的！真<b>不</b>错！</div><div class=\"uc-exe\">Damn! It's not bad!</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -253,7 +271,9 @@
     "Traditional": "",
     "Pinyin": "cài",
     "Bopomofo": "ㄘㄞˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">盘</span><span class=\"uc-mwc uc-mwt\">盤</span><span class=\"uc-mwp\">pán</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">道</span><span class=\"uc-mwp\">dào</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">盘</span><span class=\"uc-mwc uc-mwt\">盤</span><span class=\"uc-mwp\">pán</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">道</span><span class=\"uc-mwp\">dào</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">菜</span><span class=\"uc-chp\">cài</span><span class=\"uc-chm\">vegetables</span><span class=\"uc-chr\">radical <b>艹</b> cǎo · grass</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你要点<b>菜</b>吗？</div><div class=\"uc-exe\">Would you like to order?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他是我的<b>菜</b>!</div><div class=\"uc-exe\">He is my type!</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -277,7 +297,9 @@
     "Traditional": "",
     "Pinyin": "chá",
     "Bopomofo": "ㄔㄚˊ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">杯</span><span class=\"uc-mwp\">bēi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">壶</span><span class=\"uc-mwc uc-mwt\">壺</span><span class=\"uc-mwp\">hú</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">杯</span><span class=\"uc-mwp\">bēi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">壶</span><span class=\"uc-mwc uc-mwt\">壺</span><span class=\"uc-mwp\">hú</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">茶</span><span class=\"uc-chp\">chá</span><span class=\"uc-chm\">tea</span><span class=\"uc-chr\">radical <b>艹</b> cǎo · grass</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">奶<b>茶</b>在哪里？</div><div class=\"uc-exe\">Where is the milk tea?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">真男人喝<b>茶</b>。</div><div class=\"uc-exe\">Real men drink tea.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -301,7 +323,9 @@
     "Traditional": "",
     "Pinyin": "chī",
     "Bopomofo": "ㄔ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">吃</span><span class=\"uc-chp\">chī</span><span class=\"uc-chm\">to eat</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我在<b>吃</b>米饭。</div><div class=\"uc-exe\">I am eating rice.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>吃</b>得很多。</div><div class=\"uc-exe\">He eats a lot.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -325,7 +349,9 @@
     "Traditional": "出租車",
     "Pinyin": "chūzūchē",
     "Bopomofo": "ㄔㄨ ㄗㄨ ㄔㄜ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">出</span><span class=\"uc-chp\">chū</span><span class=\"uc-chm\">to go out</span><span class=\"uc-chr\">radical <b>凵</b> qiǎn · container</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">租</span><span class=\"uc-chp\">zū</span><span class=\"uc-chm\">to rent</span><span class=\"uc-chr\">radical <b>禾</b> hé · cereal</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">车</span><span class=\"uc-chp\">chē</span><span class=\"uc-chm\">cart</span><span class=\"uc-chr\">radical <b>车</b> chē · cart</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>出租车</b>到了。</div><div class=\"uc-exe\">The taxi has arrived.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">坐<b>出租车</b>吧。</div><div class=\"uc-exe\">Let's take a cab.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -349,7 +375,9 @@
     "Traditional": "打電話",
     "Pinyin": "dǎ diànhuà",
     "Bopomofo": "ㄉㄚˇ ㄉㄧㄢˋ ㄏㄨㄚˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">打</span><span class=\"uc-chp\">dǎ</span><span class=\"uc-chm\">to attack</span><span class=\"uc-chr\">radical <b>扌</b> shǒu · hand</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">电</span><span class=\"uc-chp\">diàn</span><span class=\"uc-chm\">electricity</span><span class=\"uc-chr\">radical <b>曰</b> yuē · to speak</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">话</span><span class=\"uc-chp\">huà</span><span class=\"uc-chm\">talk</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>打电话</b>回家！</div><div class=\"uc-exe\">Call home!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我在<b>打电话</b>。</div><div class=\"uc-exe\">I'm on the phone.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -373,7 +401,9 @@
     "Traditional": "",
     "Pinyin": "dà",
     "Bopomofo": "ㄉㄚˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">大</span><span class=\"uc-chp\">dà</span><span class=\"uc-chm\">big</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">John比我<b>大</b>两岁。</div><div class=\"uc-exe\">John's two years older than me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他在读<b>大</b>学。</div><div class=\"uc-exe\">He is in college.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -397,7 +427,9 @@
     "Traditional": "",
     "Pinyin": "de",
     "Bopomofo": "ㄉㄜ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">的</span><span class=\"uc-chp\">de</span><span class=\"uc-chm\">aim</span><span class=\"uc-chr\">radical <b>白</b> bái · white</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">做你想做<b>的</b>。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是我<b>的</b>书。</div><div class=\"uc-exe\">This is my book.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -421,7 +453,9 @@
     "Traditional": "點",
     "Pinyin": "diǎn",
     "Bopomofo": "ㄉㄧㄢˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">点</span><span class=\"uc-chp\">diǎn</span><span class=\"uc-chm\">dot</span><span class=\"uc-chr\">radical <b>灬</b> huǒ · fire</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">已经是11<b>点</b>了。</div><div class=\"uc-exe\">It's already 11.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我表上是4<b>点</b>。</div><div class=\"uc-exe\">It's four o'clock by my watch.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -445,7 +479,9 @@
     "Traditional": "電腦",
     "Pinyin": "diànnǎo",
     "Bopomofo": "ㄉㄧㄢˋ ㄋㄠˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">台</span><span class=\"uc-mwc uc-mwt\">臺</span><span class=\"uc-mwp\">tái</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">台</span><span class=\"uc-mwc uc-mwt\">臺</span><span class=\"uc-mwp\">tái</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">电</span><span class=\"uc-chp\">diàn</span><span class=\"uc-chm\">electricity</span><span class=\"uc-chr\">radical <b>曰</b> yuē · to speak</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">脑</span><span class=\"uc-chp\">nǎo</span><span class=\"uc-chm\">brain</span><span class=\"uc-chr\">radical <b>⺼</b> · meat</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我想玩<b>电脑</b>。</div><div class=\"uc-exe\">I want to play on the computer.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>电脑</b>是新的。</div><div class=\"uc-exe\">The computer is new.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -469,7 +505,9 @@
     "Traditional": "電視",
     "Pinyin": "diànshì",
     "Bopomofo": "ㄉㄧㄢˋ ㄕˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">台</span><span class=\"uc-mwc uc-mwt\">臺</span><span class=\"uc-mwp\">tái</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">台</span><span class=\"uc-mwc uc-mwt\">臺</span><span class=\"uc-mwp\">tái</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">电</span><span class=\"uc-chp\">diàn</span><span class=\"uc-chm\">electricity</span><span class=\"uc-chr\">radical <b>曰</b> yuē · to speak</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">视</span><span class=\"uc-chp\">shì</span><span class=\"uc-chm\">to look at</span><span class=\"uc-chr\">radical <b>见</b> jiàn · to see</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他在看<b>电视</b>。</div><div class=\"uc-exe\">He is watching TV.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">您看<b>电视</b>吗？</div><div class=\"uc-exe\">Do you watch television?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -493,7 +531,9 @@
     "Traditional": "電影",
     "Pinyin": "diànyǐng",
     "Bopomofo": "ㄉㄧㄢˋ ㄧㄥˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">部</span><span class=\"uc-mwp\">bù</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">片</span><span class=\"uc-mwp\">piàn</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">部</span><span class=\"uc-mwp\">bù</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">片</span><span class=\"uc-mwp\">piàn</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">电</span><span class=\"uc-chp\">diàn</span><span class=\"uc-chm\">electricity</span><span class=\"uc-chr\">radical <b>曰</b> yuē · to speak</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">影</span><span class=\"uc-chp\">yǐng</span><span class=\"uc-chm\">shadow</span><span class=\"uc-chr\">radical <b>彡</b> shān · hair</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我去看<b>电影</b>。</div><div class=\"uc-exe\">I'm going to the cinema.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你看<b>电影</b>吗？</div><div class=\"uc-exe\">Do you watch movies?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -517,7 +557,9 @@
     "Traditional": "東西",
     "Pinyin": "dōngxi",
     "Bopomofo": "ㄉㄨㄥ ㄒㄧ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">件</span><span class=\"uc-mwp\">jiàn</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">件</span><span class=\"uc-mwp\">jiàn</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">东</span><span class=\"uc-chp\">dōng</span><span class=\"uc-chm\">east</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">西</span><span class=\"uc-chp\">xī</span><span class=\"uc-chm\">west</span><span class=\"uc-chr\">radical <b>西</b> xī · west</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她去买<b>东西</b>。</div><div class=\"uc-exe\">She's going out to buy some things.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是什么<b>东西</b>？</div><div class=\"uc-exe\">What the hell is this?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -541,7 +583,9 @@
     "Traditional": "",
     "Pinyin": "dōu",
     "Bopomofo": "ㄉㄡ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">都</span><span class=\"uc-chp\">dōu</span><span class=\"uc-chm\">all</span><span class=\"uc-chr\">radical <b>阝</b> yì · place</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我每年<b>都</b>去。</div><div class=\"uc-exe\">I go every year.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">大家<b>都</b>笑我。</div><div class=\"uc-exe\">I was laughed at by everyone.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -565,7 +609,9 @@
     "Traditional": "讀",
     "Pinyin": "dú",
     "Bopomofo": "ㄉㄨˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">读</span><span class=\"uc-chp\">dú</span><span class=\"uc-chm\">to study</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他在<b>读</b>大学。</div><div class=\"uc-exe\">He is in college.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我没书可<b>读</b>。</div><div class=\"uc-exe\">I have no books to read.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -589,7 +635,9 @@
     "Traditional": "對不起",
     "Pinyin": "duìbuqǐ",
     "Bopomofo": "ㄉㄨㄟˋ ㄅㄨ˙ ㄑㄧˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">对</span><span class=\"uc-chp\">duì</span><span class=\"uc-chm\">correct</span><span class=\"uc-chr\">radical <b>寸</b> cùn · inch</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">不</span><span class=\"uc-chp\">bu</span><span class=\"uc-chm\">no</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">起</span><span class=\"uc-chp\">qǐ</span><span class=\"uc-chm\">to begin</span><span class=\"uc-chr\">radical <b>走</b> zǒu · to walk</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>对不起</b>我。</div><div class=\"uc-exe\">You do me wrong.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>对不起</b>，我爱你。</div><div class=\"uc-exe\">I'm sorry, I love you.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -613,7 +661,9 @@
     "Traditional": "",
     "Pinyin": "duō",
     "Bopomofo": "ㄉㄨㄛ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">多</span><span class=\"uc-chp\">duō</span><span class=\"uc-chm\">much</span><span class=\"uc-chr\">radical <b>夕</b> xī · evening</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要<b>多</b>少钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他能跑<b>多</b>快？</div><div class=\"uc-exe\">How fast can he run?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -637,7 +687,9 @@
     "Traditional": "",
     "Pinyin": "duōshao",
     "Bopomofo": "ㄉㄨㄛ ㄕㄠ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">多</span><span class=\"uc-chp\">duō</span><span class=\"uc-chm\">much</span><span class=\"uc-chr\">radical <b>夕</b> xī · evening</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">少</span><span class=\"uc-chp\">shǎo</span><span class=\"uc-chm\">few</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要<b>多少</b>钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">门票<b>多少</b>钱？</div><div class=\"uc-exe\">How much is the entrance fee?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -661,7 +713,9 @@
     "Traditional": "兒子",
     "Pinyin": "érzi",
     "Bopomofo": "ㄦˊ ㄗ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">儿</span><span class=\"uc-chp\">ér</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">子</span><span class=\"uc-chp\">zi</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你也是，<b>儿子</b>！</div><div class=\"uc-exe\">You are too, son!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他有三个<b>儿子</b>。</div><div class=\"uc-exe\">He has three sons.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -685,7 +739,9 @@
     "Traditional": "",
     "Pinyin": "èr",
     "Bopomofo": "ㄦˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">二</span><span class=\"uc-chp\">èr</span><span class=\"uc-chm\">two</span><span class=\"uc-chr\">radical <b>二</b> èr · two</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">不，是<b>二</b>手的。</div><div class=\"uc-exe\">No, it's second-hand.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我十<b>二</b>岁了。</div><div class=\"uc-exe\">I'm twelve years old.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -709,7 +765,9 @@
     "Traditional": "飯店",
     "Pinyin": "fàndiàn",
     "Bopomofo": "ㄈㄢˋ ㄉㄧㄢˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">饭</span><span class=\"uc-chp\">fàn</span><span class=\"uc-chm\">meal</span><span class=\"uc-chr\">radical <b>饣</b> shí · food</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">店</span><span class=\"uc-chp\">diàn</span><span class=\"uc-chm\">shop</span><span class=\"uc-chr\">radical <b>广</b> guǎng · broad</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我要去<b>饭店</b>。</div><div class=\"uc-exe\">I'm going to the restaurant.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我想去<b>饭店</b>吃晚饭。</div><div class=\"uc-exe\">I wanna have dinner in a restaurant.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -733,7 +791,9 @@
     "Traditional": "飛機",
     "Pinyin": "fēijī",
     "Bopomofo": "ㄈㄟ ㄐㄧ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">架</span><span class=\"uc-mwp\">jià</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">架</span><span class=\"uc-mwp\">jià</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">飞</span><span class=\"uc-chp\">fēi</span><span class=\"uc-chm\">to fly</span><span class=\"uc-chr\">radical <b>飞</b> fēi · to fly</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">机</span><span class=\"uc-chp\">jī</span><span class=\"uc-chm\">desk</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">那<b>飞机</b>真大！</div><div class=\"uc-exe\">How huge that airship is!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>飞机</b>场在那边。</div><div class=\"uc-exe\">The airport is over there.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -757,7 +817,9 @@
     "Traditional": "分鐘",
     "Pinyin": "fēnzhōng",
     "Bopomofo": "ㄈㄣ ㄓㄨㄥ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">分</span><span class=\"uc-chp\">fēn</span><span class=\"uc-chm\">to divide</span><span class=\"uc-chr\">radical <b>刀</b> dāo · knife</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">钟</span><span class=\"uc-chp\">zhōng</span><span class=\"uc-chm\">clock</span><span class=\"uc-chr\">radical <b>钅</b> jīn · gold</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">再等十<b>分钟</b>！</div><div class=\"uc-exe\">Wait ten more minutes!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我10<b>分钟</b>后回来。</div><div class=\"uc-exe\">I'll be back in ten minutes.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -781,7 +843,9 @@
     "Traditional": "高興",
     "Pinyin": "gāoxìng",
     "Bopomofo": "ㄍㄠ ㄒㄧㄥˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">高</span><span class=\"uc-chp\">gāo</span><span class=\"uc-chm\">tall</span><span class=\"uc-chr\">radical <b>高</b> gāo · tall</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">兴</span><span class=\"uc-chp\">xìng</span><span class=\"uc-chm\">to thrive</span><span class=\"uc-chr\">radical <b>八</b> bā · eight</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我让John<b>高兴</b>了。</div><div class=\"uc-exe\">I made John happy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我太<b>高兴</b>了！</div><div class=\"uc-exe\">I'm too happy!</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -805,7 +869,9 @@
     "Traditional": "個",
     "Pinyin": "gè",
     "Bopomofo": "ㄍㄜˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">个</span><span class=\"uc-chp\">gè</span><span class=\"uc-chm\">this</span><span class=\"uc-chr\">radical <b>丨</b> shù · number one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我是<b>个</b>男人。</div><div class=\"uc-exe\">I am a man.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">看那<b>个</b>房子。</div><div class=\"uc-exe\">Look at that house.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -829,7 +895,9 @@
     "Traditional": "",
     "Pinyin": "gōngzuò",
     "Bopomofo": "ㄍㄨㄥ ㄗㄨㄛˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">份</span><span class=\"uc-mwp\">fèn</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">份</span><span class=\"uc-mwp\">fèn</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">工</span><span class=\"uc-chp\">gōng</span><span class=\"uc-chm\">labor</span><span class=\"uc-chr\">radical <b>工</b> gōng · labor</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">作</span><span class=\"uc-chp\">zuò</span><span class=\"uc-chm\">to make</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他为她<b>工作</b>。</div><div class=\"uc-exe\">He works for her.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我在找<b>工作</b>。</div><div class=\"uc-exe\">I'm looking for a job.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -853,7 +921,9 @@
     "Traditional": "",
     "Pinyin": "gǒu",
     "Bopomofo": "ㄍㄡˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">条</span><span class=\"uc-mwc uc-mwt\">條</span><span class=\"uc-mwp\">tiáo</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">条</span><span class=\"uc-mwc uc-mwt\">條</span><span class=\"uc-mwp\">tiáo</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">狗</span><span class=\"uc-chp\">gǒu</span><span class=\"uc-chm\">dog</span><span class=\"uc-chr\">radical <b>犭</b> quǎn · dog</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这是我的<b>狗</b>。</div><div class=\"uc-exe\">This is my dog.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我有一条<b>狗</b>。</div><div class=\"uc-exe\">I have a dog.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -877,7 +947,9 @@
     "Traditional": "漢語",
     "Pinyin": "Hànyǔ",
     "Bopomofo": "ㄏㄢˋ ㄩˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">门</span><span class=\"uc-mwc uc-mwt\">門</span><span class=\"uc-mwp\">mén</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">门</span><span class=\"uc-mwc uc-mwt\">門</span><span class=\"uc-mwp\">mén</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">汉</span><span class=\"uc-chp\">Hàn</span><span class=\"uc-chm\">Chinese people</span><span class=\"uc-chr\">radical <b>氵</b> shuǐ · water</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">语</span><span class=\"uc-chp\">yǔ</span><span class=\"uc-chm\">words</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他学习<b>汉语</b>。</div><div class=\"uc-exe\">He studies Chinese.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我学习<b>汉语</b>。</div><div class=\"uc-exe\">I am learning Chinese.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -901,7 +973,9 @@
     "Traditional": "",
     "Pinyin": "hǎo",
     "Bopomofo": "ㄏㄠˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">好</span><span class=\"uc-chp\">hǎo</span><span class=\"uc-chm\">good</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Tom 和 John 是<b>好</b>朋友。</div><div class=\"uc-exe\">Tom and John are good friends.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他唱得不<b>好</b>。</div><div class=\"uc-exe\">He doesn't sing well.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -925,7 +999,9 @@
     "Traditional": "號",
     "Pinyin": "hào",
     "Bopomofo": "ㄏㄠˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">号</span><span class=\"uc-chp\">hào</span><span class=\"uc-chm\">mark</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这是839<b>号</b>房间。</div><div class=\"uc-exe\">This is Room 839.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天是几<b>号</b>？</div><div class=\"uc-exe\">What's the date today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -949,7 +1025,9 @@
     "Traditional": "",
     "Pinyin": "hē",
     "Bopomofo": "ㄏㄜ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">喝</span><span class=\"uc-chp\">hē</span><span class=\"uc-chm\">to drink</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">给我点<b>喝</b>的。</div><div class=\"uc-exe\">Give me something to drink.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你想<b>喝</b>什么？</div><div class=\"uc-exe\">What would you like to drink?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -973,7 +1051,9 @@
     "Traditional": "",
     "Pinyin": "hé",
     "Bopomofo": "ㄏㄜˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">和</span><span class=\"uc-chp\">hé</span><span class=\"uc-chm\">harmony</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>和</b>我同岁。</div><div class=\"uc-exe\">We're the same age.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Tom <b>和</b> John 是好朋友。</div><div class=\"uc-exe\">Tom and John are good friends.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -997,7 +1077,9 @@
     "Traditional": "",
     "Pinyin": "hěn",
     "Bopomofo": "ㄏㄣˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">很</span><span class=\"uc-chp\">hěn</span><span class=\"uc-chm\">very</span><span class=\"uc-chr\">radical <b>彳</b> chì · to step with the left foot</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我爸爸<b>很</b>忙。</div><div class=\"uc-exe\">My father is busy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你爸爸<b>很</b>高。</div><div class=\"uc-exe\">Your father is tall.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1021,7 +1103,9 @@
     "Traditional": "後面",
     "Pinyin": "hòumian",
     "Bopomofo": "ㄏㄡˋ ㄇㄧㄢ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">后</span><span class=\"uc-chp\">hòu</span><span class=\"uc-chm\">after</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">面</span><span class=\"uc-chp\">mian</span><span class=\"uc-chm\">face</span><span class=\"uc-chr\">radical <b>面</b> miàn · face</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我就在你<b>后面</b>。</div><div class=\"uc-exe\">I was right behind you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">请你站在我<b>后面</b>。</div><div class=\"uc-exe\">Please stand behind me.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1045,7 +1129,9 @@
     "Traditional": "",
     "Pinyin": "huí",
     "Bopomofo": "ㄏㄨㄟˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">回</span><span class=\"uc-chp\">huí</span><span class=\"uc-chm\">to return</span><span class=\"uc-chr\">radical <b>囗</b> wéi · enclosure</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他会<b>回</b>来的。</div><div class=\"uc-exe\">He will come back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我要<b>回</b>来了。</div><div class=\"uc-exe\">I'll come back.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1069,7 +1155,9 @@
     "Traditional": "會",
     "Pinyin": "huì",
     "Bopomofo": "ㄏㄨㄟˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">会</span><span class=\"uc-chp\">huì</span><span class=\"uc-chm\">to assemble</span><span class=\"uc-chr\">radical <b>人</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>会</b>回来的。</div><div class=\"uc-exe\">He will come back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他不<b>会</b>游泳。</div><div class=\"uc-exe\">He doesn't know how to swim.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1093,7 +1181,9 @@
     "Traditional": "幾",
     "Pinyin": "jǐ",
     "Bopomofo": "ㄐㄧˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">几</span><span class=\"uc-chp\">jǐ</span><span class=\"uc-chm\">small table</span><span class=\"uc-chr\">radical <b>几</b> jǐ · small table</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你有<b>几</b>本书?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天星期<b>几</b>？</div><div class=\"uc-exe\">What day is it today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1117,7 +1207,9 @@
     "Traditional": "",
     "Pinyin": "jiā",
     "Bopomofo": "ㄐㄧㄚ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">家</span><span class=\"uc-chp\">jiā</span><span class=\"uc-chm\">house</span><span class=\"uc-chr\">radical <b>宀</b> gài · roof</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Jane正要离开<b>家</b>。</div><div class=\"uc-exe\">Jane was about to leave the house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Ken昨天在<b>家</b>吗？</div><div class=\"uc-exe\">Was Ken at home yesterday?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1141,7 +1233,9 @@
     "Traditional": "",
     "Pinyin": "jiào",
     "Bopomofo": "ㄐㄧㄠˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">叫</span><span class=\"uc-chp\">jiào</span><span class=\"uc-chm\">cry</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我能<b>叫</b>你Bob吗？</div><div class=\"uc-exe\">Can I call you Bob?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我的名字<b>叫</b>Hopkins。</div><div class=\"uc-exe\">My name is Hopkins.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1165,7 +1259,9 @@
     "Traditional": "",
     "Pinyin": "jīntiān",
     "Bopomofo": "ㄐㄧㄣ ㄊㄧㄢ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">今</span><span class=\"uc-chp\">jīn</span><span class=\"uc-chm\">modern</span><span class=\"uc-chr\">radical <b>人</b> rén · man</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">天</span><span class=\"uc-chp\">tiān</span><span class=\"uc-chm\">sky</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>今天</b>忙吗？</div><div class=\"uc-exe\">Are you busy today?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>今天</b>有点冷。</div><div class=\"uc-exe\">It's a little cold today.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1189,7 +1285,9 @@
     "Traditional": "",
     "Pinyin": "jiǔ",
     "Bopomofo": "ㄐㄧㄡˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">九</span><span class=\"uc-chp\">jiǔ</span><span class=\"uc-chm\">nine</span><span class=\"uc-chr\">radical <b>乙</b> yǐ · second</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他说<b>九</b>点了。</div><div class=\"uc-exe\">He said that it was nine o'clock.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>九</b>点上班。</div><div class=\"uc-exe\">You start working at nine.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1213,7 +1311,9 @@
     "Traditional": "開",
     "Pinyin": "kāi",
     "Bopomofo": "ㄎㄞ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">开</span><span class=\"uc-chp\">kāi</span><span class=\"uc-chm\">to open</span><span class=\"uc-chr\">radical <b>廾</b> gǒng · two hands</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Jane正要离<b>开</b>家。</div><div class=\"uc-exe\">Jane was about to leave the house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">车<b>开</b>得很快。</div><div class=\"uc-exe\">The car is driving quickly.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1237,7 +1337,9 @@
     "Traditional": "",
     "Pinyin": "kàn",
     "Bopomofo": "ㄎㄢˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">看</span><span class=\"uc-chp\">kàn</span><span class=\"uc-chm\">to look</span><span class=\"uc-chr\">radical <b>目</b> mù · eye</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>看</b>那个房子。</div><div class=\"uc-exe\">Look at that house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他在<b>看</b>电视。</div><div class=\"uc-exe\">He is watching TV.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1261,7 +1363,9 @@
     "Traditional": "看見",
     "Pinyin": "kànjiàn",
     "Bopomofo": "ㄎㄢˋ ㄐㄧㄢˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">看</span><span class=\"uc-chp\">kàn</span><span class=\"uc-chm\">to look</span><span class=\"uc-chr\">radical <b>目</b> mù · eye</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">见</span><span class=\"uc-chp\">jiàn</span><span class=\"uc-chm\">to see</span><span class=\"uc-chr\">radical <b>见</b> jiàn · to see</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">没人<b>看见</b>你。</div><div class=\"uc-exe\">No one has seen you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我们没<b>看见</b>。</div><div class=\"uc-exe\">We didn't see it.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1285,7 +1389,9 @@
     "Traditional": "塊",
     "Pinyin": "kuài",
     "Bopomofo": "ㄎㄨㄞˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">块</span><span class=\"uc-chp\">kuài</span><span class=\"uc-chm\">piece</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她给了他一<b>块</b>表。</div><div class=\"uc-exe\">She gave him a watch.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你喜欢哪一<b>块</b>？这<b>块</b>还是那<b>块</b>？</div><div class=\"uc-exe\">Which one do you prefer, this one or that one?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1309,7 +1415,9 @@
     "Traditional": "來",
     "Pinyin": "lái",
     "Bopomofo": "ㄌㄞˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">来</span><span class=\"uc-chp\">lái</span><span class=\"uc-chm\">to arrive</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他会回<b>来</b>的。</div><div class=\"uc-exe\">He will come back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">请后天<b>来</b>吧。</div><div class=\"uc-exe\">Please come the day after tomorrow.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1333,7 +1441,9 @@
     "Traditional": "老師",
     "Pinyin": "lǎoshī",
     "Bopomofo": "ㄌㄠˇ ㄕ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">老</span><span class=\"uc-chp\">lǎo</span><span class=\"uc-chm\">old</span><span class=\"uc-chr\">radical <b>老</b> lǎo · old</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">师</span><span class=\"uc-chp\">shī</span><span class=\"uc-chm\">teacher</span><span class=\"uc-chr\">radical <b>巾</b> jīn · cloth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">谁是你<b>老师</b>？</div><div class=\"uc-exe\">Who is your teacher?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他是<b>老师</b>吗?</div><div class=\"uc-exe\">Is he a teacher?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1357,7 +1467,9 @@
     "Traditional": "",
     "Pinyin": "le",
     "Bopomofo": "ㄌㄜ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">了</span><span class=\"uc-chp\">le</span><span class=\"uc-chm\">clear</span><span class=\"uc-chr\">radical <b>亅</b> jué · hook</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他出卖<b>了</b>我。</div><div class=\"uc-exe\">He sold me down the river.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你做<b>了</b>什么？</div><div class=\"uc-exe\">What did you make?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1381,7 +1493,9 @@
     "Traditional": "",
     "Pinyin": "lěng",
     "Bopomofo": "ㄌㄥˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">冷</span><span class=\"uc-chp\">lěng</span><span class=\"uc-chm\">cold</span><span class=\"uc-chr\">radical <b>冫</b> bīng · ice</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">今天有点<b>冷</b>。</div><div class=\"uc-exe\">It's a little cold today.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">咖啡是<b>冷</b>的。</div><div class=\"uc-exe\">The coffee is cold.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1405,7 +1519,9 @@
     "Traditional": "裡",
     "Pinyin": "lǐ",
     "Bopomofo": "ㄌㄧˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">里</span><span class=\"uc-chp\">lǐ</span><span class=\"uc-chm\">unit of distance equal to 0.5km</span><span class=\"uc-chr\">radical <b>里</b> lǐ · unit of distance equal to 0.5km</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你住在哪<b>里</b>？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你是哪<b>里</b>人？</div><div class=\"uc-exe\">Where are you from?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1429,7 +1545,9 @@
     "Traditional": "",
     "Pinyin": "liù",
     "Bopomofo": "ㄌㄧㄡˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">六</span><span class=\"uc-chp\">liù</span><span class=\"uc-chm\">six</span><span class=\"uc-chr\">radical <b>八</b> bā · eight</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他年近<b>六</b>十。</div><div class=\"uc-exe\">He is close to sixty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">昨天星期<b>六</b>。</div><div class=\"uc-exe\">Yesterday was Saturday.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1453,7 +1571,9 @@
     "Traditional": "媽媽",
     "Pinyin": "māma",
     "Bopomofo": "ㄇㄚ ㄇㄚ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">妈</span><span class=\"uc-chp\">mā</span><span class=\"uc-chm\">mother</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">妈</span><span class=\"uc-chp\">ma</span><span class=\"uc-chm\">mother</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你是我<b>妈妈</b>。</div><div class=\"uc-exe\">You are my mother.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是我的<b>妈妈</b>。</div><div class=\"uc-exe\">This is my mother.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1477,7 +1597,9 @@
     "Traditional": "嗎",
     "Pinyin": "ma",
     "Bopomofo": "ㄇㄚ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">吗</span><span class=\"uc-chp\">ma</span><span class=\"uc-chm\">final interrogative particle</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你听得见<b>吗</b>？</div><div class=\"uc-exe\">Do you hear me?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你今天忙<b>吗</b>？</div><div class=\"uc-exe\">Are you busy today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1501,7 +1623,9 @@
     "Traditional": "買",
     "Pinyin": "mǎi",
     "Bopomofo": "ㄇㄞˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">买</span><span class=\"uc-chp\">mǎi</span><span class=\"uc-chm\">to buy</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">A4纸到哪儿<b>买</b>？</div><div class=\"uc-exe\">Where can I buy A4 paper?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我要<b>买</b>什么？</div><div class=\"uc-exe\">What should I buy?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1525,7 +1649,9 @@
     "Traditional": "貓",
     "Pinyin": "māo",
     "Bopomofo": "ㄇㄠ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">只</span><span class=\"uc-mwc uc-mwt\">隻</span><span class=\"uc-mwp\">zhī</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">猫</span><span class=\"uc-chp\">māo</span><span class=\"uc-chm\">cat</span><span class=\"uc-chr\">radical <b>犭</b> quǎn · dog</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">那是我的<b>猫</b>。</div><div class=\"uc-exe\">That's my cat.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">都是<b>猫</b>的错。</div><div class=\"uc-exe\">It is only the cat's fault.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1549,7 +1675,9 @@
     "Traditional": "沒關係",
     "Pinyin": "méi guānxi",
     "Bopomofo": "ㄇㄟˊ ㄍㄨㄢ ㄒㄧ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">没</span><span class=\"uc-chp\">méi</span><span class=\"uc-chm\">not</span><span class=\"uc-chr\">radical <b>氵</b> shuǐ · water</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">关</span><span class=\"uc-chp\">guān</span><span class=\"uc-chm\">frontier pass</span><span class=\"uc-chr\">radical <b>丷</b> ha · kwukyel</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">系</span><span class=\"uc-chp\">xi</span><span class=\"uc-chm\">system</span><span class=\"uc-chr\">radical <b>糸</b> mì · silk</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">对，我<b>没关系</b>。</div><div class=\"uc-exe\">Yes, I'm fine.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>没关系</b>！我来做！</div><div class=\"uc-exe\">Don't worry. I'll do it.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1573,7 +1701,9 @@
     "Traditional": "沒有",
     "Pinyin": "méiyǒu",
     "Bopomofo": "ㄇㄟˊ ㄧㄡˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">没</span><span class=\"uc-chp\">méi</span><span class=\"uc-chm\">not</span><span class=\"uc-chr\">radical <b>氵</b> shuǐ · water</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">有</span><span class=\"uc-chp\">yǒu</span><span class=\"uc-chm\">to have</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>没有</b>孩子。</div><div class=\"uc-exe\">He has no children.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>没有</b>早起。</div><div class=\"uc-exe\">He did not get up early.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1597,7 +1727,9 @@
     "Traditional": "米飯",
     "Pinyin": "mǐfàn",
     "Bopomofo": "ㄇㄧˇ ㄈㄢˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">米</span><span class=\"uc-chp\">mǐ</span><span class=\"uc-chm\">rice</span><span class=\"uc-chr\">radical <b>米</b> mǐ · rice</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">饭</span><span class=\"uc-chp\">fàn</span><span class=\"uc-chm\">meal</span><span class=\"uc-chr\">radical <b>饣</b> shí · food</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我在吃<b>米饭</b>。</div><div class=\"uc-exe\">I am eating rice.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你们有没有<b>米饭</b>？</div><div class=\"uc-exe\">Do you have rice?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1621,7 +1753,9 @@
     "Traditional": "",
     "Pinyin": "míngtiān",
     "Bopomofo": "ㄇㄧㄥˊ ㄊㄧㄢ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">明</span><span class=\"uc-chp\">míng</span><span class=\"uc-chm\">bright</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">天</span><span class=\"uc-chp\">tiān</span><span class=\"uc-chm\">sky</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>明天</b>要下雪。</div><div class=\"uc-exe\">It will snow tomorrow.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>明天</b>能来。</div><div class=\"uc-exe\">I can come tomorrow.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1645,7 +1779,9 @@
     "Traditional": "",
     "Pinyin": "míngzi",
     "Bopomofo": "ㄇㄧㄥˊ ㄗ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">名</span><span class=\"uc-chp\">míng</span><span class=\"uc-chm\">name</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">字</span><span class=\"uc-chp\">zi</span><span class=\"uc-chm\">character</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我的<b>名字</b>叫Hopkins。</div><div class=\"uc-exe\">My name is Hopkins.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我的<b>名字</b>是Yatarou.</div><div class=\"uc-exe\">My name is Yatarou.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1669,7 +1805,9 @@
     "Traditional": "",
     "Pinyin": "nǎ",
     "Bopomofo": "ㄋㄚˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">哪</span><span class=\"uc-chp\">nǎ</span><span class=\"uc-chm\">which? where? how?</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你住在<b>哪</b>里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">报纸在<b>哪</b>儿？</div><div class=\"uc-exe\">Where is the newspaper?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1693,7 +1831,9 @@
     "Traditional": "哪兒",
     "Pinyin": "nǎr",
     "Bopomofo": "ㄋㄚˇ ㄦ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">哪</span><span class=\"uc-chp\">nǎ</span><span class=\"uc-chm\">which? where? how?</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">儿</span><span class=\"uc-chp\">r</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">报纸在<b>哪儿</b>？</div><div class=\"uc-exe\">Where is the newspaper?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你住在<b>哪儿</b>？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1717,7 +1857,9 @@
     "Traditional": "",
     "Pinyin": "nà",
     "Bopomofo": "ㄋㄚˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">那</span><span class=\"uc-chp\">nà</span><span class=\"uc-chm\">that</span><span class=\"uc-chr\">radical <b>阝</b> yì · place</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">看<b>那</b>个房子。</div><div class=\"uc-exe\">Look at that house.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>那</b>太过分了。</div><div class=\"uc-exe\">That's too much.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1741,7 +1883,9 @@
     "Traditional": "",
     "Pinyin": "ne",
     "Bopomofo": "ㄋㄜ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">呢</span><span class=\"uc-chp\">ne</span><span class=\"uc-chm\">wool</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">在吃什么<b>呢</b>？</div><div class=\"uc-exe\">What are you eating?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">在笑什么<b>呢</b>？</div><div class=\"uc-exe\">What are you laughing at?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1765,7 +1909,9 @@
     "Traditional": "",
     "Pinyin": "néng",
     "Bopomofo": "ㄋㄥˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">能</span><span class=\"uc-chp\">néng</span><span class=\"uc-chm\">can</span><span class=\"uc-chr\">radical <b>⺼</b> · meat</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>能</b>跑多快？</div><div class=\"uc-exe\">How fast can he run?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>能</b>叫你Bob吗？</div><div class=\"uc-exe\">Can I call you Bob?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1789,7 +1935,9 @@
     "Traditional": "",
     "Pinyin": "nǐ",
     "Bopomofo": "ㄋㄧˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">你</span><span class=\"uc-chp\">nǐ</span><span class=\"uc-chm\">you</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>你</b>住在哪里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">做<b>你</b>想做的。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1813,7 +1961,9 @@
     "Traditional": "",
     "Pinyin": "nián",
     "Bopomofo": "ㄋㄧㄢˊ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">年</span><span class=\"uc-chp\">nián</span><span class=\"uc-chm\">year</span><span class=\"uc-chr\">radical <b>干</b> gàn · arid</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">新<b>年</b>快到了。</div><div class=\"uc-exe\">The new year drew closer.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我每<b>年</b>都去。</div><div class=\"uc-exe\">I go every year.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1837,7 +1987,9 @@
     "Traditional": "女兒",
     "Pinyin": "nǚ'ér",
     "Bopomofo": "ㄋㄩˇ ㄦˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">女</span><span class=\"uc-chp\">nǚ</span><span class=\"uc-chm\">woman</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">儿</span><span class=\"uc-chp\">ér</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她是我<b>女儿</b>。</div><div class=\"uc-exe\">She's my daughter.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他有三个<b>女儿</b>。</div><div class=\"uc-exe\">He has three daughters.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1861,7 +2013,9 @@
     "Traditional": "",
     "Pinyin": "péngyou",
     "Bopomofo": "ㄆㄥˊ ㄧㄡ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">朋</span><span class=\"uc-chp\">péng</span><span class=\"uc-chm\">friend</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">友</span><span class=\"uc-chp\">you</span><span class=\"uc-chm\">friend</span><span class=\"uc-chr\">radical <b>又</b> yòu · and</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Tom 和 John 是好<b>朋友</b>。</div><div class=\"uc-exe\">Tom and John are good friends.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Bill有很多<b>朋友</b>。</div><div class=\"uc-exe\">Bill has many friends.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1885,7 +2039,9 @@
     "Traditional": "",
     "Pinyin": "piàoliang",
     "Bopomofo": "ㄆㄧㄠˋ ㄌㄧㄤ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">漂</span><span class=\"uc-chp\">piào</span><span class=\"uc-chm\">to drift</span><span class=\"uc-chr\">radical <b>氵</b> shuǐ · water</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">亮</span><span class=\"uc-chp\">liang</span><span class=\"uc-chm\">bright</span><span class=\"uc-chr\">radical <b>亠</b> tóu · lid</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她非常<b>漂亮</b>。</div><div class=\"uc-exe\">She's very beautiful.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你太<b>漂亮</b>了！</div><div class=\"uc-exe\">You're so beautiful!</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1909,7 +2065,9 @@
     "Traditional": "蘋果",
     "Pinyin": "píngguǒ",
     "Bopomofo": "ㄆㄧㄥˊ ㄍㄨㄛˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">颗</span><span class=\"uc-mwc uc-mwt\">顆</span><span class=\"uc-mwp\">kē</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">颗</span><span class=\"uc-mwc uc-mwt\">顆</span><span class=\"uc-mwp\">kē</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">苹</span><span class=\"uc-chp\">píng</span><span class=\"uc-chm\">apple</span><span class=\"uc-chr\">radical <b>艹</b> cǎo · grass</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">果</span><span class=\"uc-chp\">guǒ</span><span class=\"uc-chm\">fruit</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他在买<b>苹果</b></div><div class=\"uc-exe\">He's buying apples.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我吃<b>苹果</b>了。</div><div class=\"uc-exe\">I ate apples.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1933,7 +2091,9 @@
     "Traditional": "",
     "Pinyin": "qī",
     "Bopomofo": "ㄑㄧ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">七</span><span class=\"uc-chp\">qī</span><span class=\"uc-chm\">seven</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">她<b>七</b>点起床。</div><div class=\"uc-exe\">She gets up at seven.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>七</b>点起床。</div><div class=\"uc-exe\">He gets up at seven.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1957,7 +2117,9 @@
     "Traditional": "錢",
     "Pinyin": "qián",
     "Bopomofo": "ㄑㄧㄢˊ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">笔</span><span class=\"uc-mwc uc-mwt\">筆</span><span class=\"uc-mwp\">bǐ</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">笔</span><span class=\"uc-mwc uc-mwt\">筆</span><span class=\"uc-mwp\">bǐ</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">钱</span><span class=\"uc-chp\">qián</span><span class=\"uc-chm\">money</span><span class=\"uc-chr\">radical <b>钅</b> jīn · gold</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要多少<b>钱</b>？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给我一点<b>钱</b>。</div><div class=\"uc-exe\">Give me a little money.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -1981,7 +2143,9 @@
     "Traditional": "",
     "Pinyin": "qiánmiàn",
     "Bopomofo": "ㄑㄧㄢˊ ㄇㄧㄢˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">前</span><span class=\"uc-chp\">qián</span><span class=\"uc-chm\">in front</span><span class=\"uc-chr\">radical <b>刂</b> dāo · knife</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">面</span><span class=\"uc-chp\">miàn</span><span class=\"uc-chm\">face</span><span class=\"uc-chr\">radical <b>面</b> miàn · face</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">在我<b>前面</b>走。</div><div class=\"uc-exe\">Walk ahead of me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">零在一<b>前面</b>。</div><div class=\"uc-exe\">Zero comes before one.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2005,7 +2169,9 @@
     "Traditional": "請",
     "Pinyin": "qǐng",
     "Bopomofo": "ㄑㄧㄥˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">请</span><span class=\"uc-chp\">qǐng</span><span class=\"uc-chm\">to ask</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">便后<b>请</b>洗手。</div><div class=\"uc-exe\">Please wash your hands after using the bathroom.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>请</b>问你贵姓？</div><div class=\"uc-exe\">May I ask your name?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2029,7 +2195,9 @@
     "Traditional": "",
     "Pinyin": "qù",
     "Bopomofo": "ㄑㄩˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">去</span><span class=\"uc-chp\">qù</span><span class=\"uc-chm\">to go away</span><span class=\"uc-chr\">radical <b>厶</b> sī · private</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>去</b>踢足球吧。</div><div class=\"uc-exe\">Let's play soccer.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他要<b>去</b>车站。</div><div class=\"uc-exe\">He will have to go to the station.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2053,7 +2221,9 @@
     "Traditional": "熱",
     "Pinyin": "rè",
     "Bopomofo": "ㄖㄜˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">热</span><span class=\"uc-chp\">rè</span><span class=\"uc-chm\">heat</span><span class=\"uc-chr\">radical <b>灬</b> huǒ · fire</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我觉得很<b>热</b>。</div><div class=\"uc-exe\">I am hot.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天天气很<b>热</b>。</div><div class=\"uc-exe\">It's hot today.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2077,7 +2247,9 @@
     "Traditional": "",
     "Pinyin": "rén",
     "Bopomofo": "ㄖㄣˊ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">人</span><span class=\"uc-chp\">rén</span><span class=\"uc-chm\">man</span><span class=\"uc-chr\">radical <b>人</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我是个男<b>人</b>。</div><div class=\"uc-exe\">I am a man.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我是中国<b>人</b>。</div><div class=\"uc-exe\">I am Chinese.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2101,7 +2273,9 @@
     "Traditional": "認識",
     "Pinyin": "rènshi",
     "Bopomofo": "ㄖㄣˋ ㄕ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">认</span><span class=\"uc-chp\">rèn</span><span class=\"uc-chm\">to know</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">识</span><span class=\"uc-chp\">shi</span><span class=\"uc-chm\">knowledge</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>认识</b>他吗?</div><div class=\"uc-exe\">Do you know him?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">她<b>认识</b>你吗？</div><div class=\"uc-exe\">Does she know you?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2125,7 +2299,9 @@
     "Traditional": "",
     "Pinyin": "sān",
     "Bopomofo": "ㄙㄢ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">三</span><span class=\"uc-chp\">sān</span><span class=\"uc-chm\">three</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">是十月<b>三</b>日。</div><div class=\"uc-exe\">It's the third of October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这我要<b>三</b>个。</div><div class=\"uc-exe\">I'd like three of these.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2149,7 +2325,9 @@
     "Traditional": "",
     "Pinyin": "shāngdiàn",
     "Bopomofo": "ㄕㄤ ㄉㄧㄢˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">商</span><span class=\"uc-chp\">shāng</span><span class=\"uc-chm\">commerce</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">店</span><span class=\"uc-chp\">diàn</span><span class=\"uc-chm\">shop</span><span class=\"uc-chr\">radical <b>广</b> guǎng · broad</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他去了<b>商店</b>。</div><div class=\"uc-exe\">He went to the store.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我想去<b>商店</b>。</div><div class=\"uc-exe\">I want to go to the store.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2173,7 +2351,9 @@
     "Traditional": "",
     "Pinyin": "shàng",
     "Bopomofo": "ㄕㄤˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">上</span><span class=\"uc-chp\">shàng</span><span class=\"uc-chm\">above</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我表<b>上</b>是4点。</div><div class=\"uc-exe\">It's four o'clock by my watch.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">大家早<b>上</b>好。</div><div class=\"uc-exe\">Good morning, everybody.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2197,7 +2377,9 @@
     "Traditional": "",
     "Pinyin": "shàngwǔ",
     "Bopomofo": "ㄕㄤˋ ㄨˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">上</span><span class=\"uc-chp\">shàng</span><span class=\"uc-chm\">above</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">午</span><span class=\"uc-chp\">wǔ</span><span class=\"uc-chm\">noon</span><span class=\"uc-chr\">radical <b>十</b> shí · ten</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>上午</b>慢跑。</div><div class=\"uc-exe\">I jog in the morning.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天<b>上午</b>下雨。</div><div class=\"uc-exe\">It will rain this morning.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2221,7 +2403,9 @@
     "Traditional": "",
     "Pinyin": "shǎo",
     "Bopomofo": "ㄕㄠˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">少</span><span class=\"uc-chp\">shǎo</span><span class=\"uc-chm\">few</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这要多<b>少</b>钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">她很<b>少</b>出去。</div><div class=\"uc-exe\">She seldom goes out.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2245,7 +2429,9 @@
     "Traditional": "誰",
     "Pinyin": "shéi",
     "Bopomofo": "ㄕㄟˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">谁</span><span class=\"uc-chp\">shéi</span><span class=\"uc-chm\">who? whom? whose? anyone?</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">今晚<b>谁</b>上班？</div><div class=\"uc-exe\">Who's working tonight?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这个人是<b>谁</b>？</div><div class=\"uc-exe\">Who is this person?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2269,7 +2455,9 @@
     "Traditional": "什麼",
     "Pinyin": "shénme",
     "Bopomofo": "ㄕㄣˊ ㄇㄜ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">什</span><span class=\"uc-chp\">shén</span><span class=\"uc-chm\">what? mixed</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">么</span><span class=\"uc-chp\">me</span><span class=\"uc-chm\">interrogative particle</span><span class=\"uc-chr\">radical <b>丿</b> piě · slash</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你做了<b>什么</b>？</div><div class=\"uc-exe\">What did you make?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你想要<b>什么</b>？</div><div class=\"uc-exe\">What do you want?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2293,7 +2481,9 @@
     "Traditional": "",
     "Pinyin": "shí",
     "Bopomofo": "ㄕˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">十</span><span class=\"uc-chp\">shí</span><span class=\"uc-chm\">ten</span><span class=\"uc-chr\">radical <b>十</b> shí · ten</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">是<b>十</b>月三日。</div><div class=\"uc-exe\">It's the third of October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他年近六<b>十</b>。</div><div class=\"uc-exe\">He is close to sixty.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2317,7 +2507,9 @@
     "Traditional": "時候",
     "Pinyin": "shíhou",
     "Bopomofo": "ㄕˊ ㄏㄡ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">时</span><span class=\"uc-chp\">shí</span><span class=\"uc-chm\">time</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">候</span><span class=\"uc-chp\">hou</span><span class=\"uc-chm\">to wait</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">什么<b>时候</b>开始？</div><div class=\"uc-exe\">What time does it start?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">什么<b>时候</b>开门？</div><div class=\"uc-exe\">What time does it open?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2341,7 +2533,9 @@
     "Traditional": "",
     "Pinyin": "shì",
     "Bopomofo": "ㄕˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">是</span><span class=\"uc-chp\">shì</span><span class=\"uc-chm\">to be</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>是</b>非不分。</div><div class=\"uc-exe\">He has no sense of right and wrong.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>是</b>个男人。</div><div class=\"uc-exe\">I am a man.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2365,7 +2559,9 @@
     "Traditional": "書",
     "Pinyin": "shū",
     "Bopomofo": "ㄕㄨ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">本</span><span class=\"uc-mwp\">běn</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">册</span><span class=\"uc-mwc uc-mwt\">冊</span><span class=\"uc-mwp\">cè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">本</span><span class=\"uc-mwp\">běn</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">册</span><span class=\"uc-mwc uc-mwt\">冊</span><span class=\"uc-mwp\">cè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">书</span><span class=\"uc-chp\">shū</span><span class=\"uc-chm\">book</span><span class=\"uc-chr\">radical <b>丨</b> shù · number one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你有几本<b>书</b>?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这是我的<b>书</b>。</div><div class=\"uc-exe\">This is my book.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2389,7 +2585,9 @@
     "Traditional": "",
     "Pinyin": "shuǐ",
     "Bopomofo": "ㄕㄨㄟˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">水</span><span class=\"uc-chp\">shuǐ</span><span class=\"uc-chm\">water</span><span class=\"uc-chr\">radical <b>水</b> shuǐ · water</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他要了<b>水</b>喝。</div><div class=\"uc-exe\">He asked for a drink of water.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我喜欢<b>水</b>果。</div><div class=\"uc-exe\">I like fruit.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2413,7 +2611,9 @@
     "Traditional": "",
     "Pinyin": "shuǐguǒ",
     "Bopomofo": "ㄕㄨㄟˇ ㄍㄨㄛˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">水</span><span class=\"uc-chp\">shuǐ</span><span class=\"uc-chm\">water</span><span class=\"uc-chr\">radical <b>水</b> shuǐ · water</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">果</span><span class=\"uc-chp\">guǒ</span><span class=\"uc-chm\">fruit</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我喜欢<b>水果</b>。</div><div class=\"uc-exe\">I like fruit.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你得吃<b>水果</b>。</div><div class=\"uc-exe\">You must eat fruits.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2437,7 +2637,9 @@
     "Traditional": "睡覺",
     "Pinyin": "shuì jiào",
     "Bopomofo": "ㄕㄨㄟˋ ㄐㄧㄠˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">睡</span><span class=\"uc-chp\">shuì</span><span class=\"uc-chm\">to sleep</span><span class=\"uc-chr\">radical <b>目</b> mù · eye</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">觉</span><span class=\"uc-chp\">jiào</span><span class=\"uc-chm\">conscious</span><span class=\"uc-chr\">radical <b>见</b> jiàn · to see</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他在<b>睡觉</b>吗?</div><div class=\"uc-exe\">Is he sleeping?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他喜欢<b>睡觉</b>。</div><div class=\"uc-exe\">He likes sleeping.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2461,7 +2663,9 @@
     "Traditional": "說",
     "Pinyin": "shuō",
     "Bopomofo": "ㄕㄨㄛ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">说</span><span class=\"uc-chp\">shuō</span><span class=\"uc-chm\">to speak</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我不<b>说</b>日语。</div><div class=\"uc-exe\">I don't speak Japanese.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>说</b>话很快。</div><div class=\"uc-exe\">He is speaking quickly.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2485,7 +2689,9 @@
     "Traditional": "",
     "Pinyin": "sì",
     "Bopomofo": "ㄙˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">四</span><span class=\"uc-chp\">sì</span><span class=\"uc-chm\">four</span><span class=\"uc-chr\">radical <b>囗</b> wéi · enclosure</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他年近<b>四</b>十。</div><div class=\"uc-exe\">He is near forty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">她是<b>四</b>十岁。</div><div class=\"uc-exe\">She is forty years old.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2509,7 +2715,9 @@
     "Traditional": "歲",
     "Pinyin": "suì",
     "Bopomofo": "ㄙㄨㄟˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">岁</span><span class=\"uc-chp\">suì</span><span class=\"uc-chm\">year</span><span class=\"uc-chr\">radical <b>山</b> shān · mountain</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他和我同<b>岁</b>。</div><div class=\"uc-exe\">We're the same age.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我现在30<b>岁</b>了。</div><div class=\"uc-exe\">I am 30 years old now.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2533,7 +2741,9 @@
     "Traditional": "",
     "Pinyin": "tā",
     "Bopomofo": "ㄊㄚ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">他</span><span class=\"uc-chp\">tā</span><span class=\"uc-chm\">other</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>他</b>没有孩子。</div><div class=\"uc-exe\">He has no children.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>他</b>出卖了我。</div><div class=\"uc-exe\">He sold me down the river.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2557,7 +2767,9 @@
     "Traditional": "",
     "Pinyin": "tā",
     "Bopomofo": "ㄊㄚ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">她</span><span class=\"uc-chp\">tā</span><span class=\"uc-chm\">she</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他为<b>她</b>工作。</div><div class=\"uc-exe\">He works for her.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>她</b>很少出去。</div><div class=\"uc-exe\">She seldom goes out.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2581,7 +2793,9 @@
     "Traditional": "",
     "Pinyin": "tài",
     "Bopomofo": "ㄊㄞˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">太</span><span class=\"uc-chp\">tài</span><span class=\"uc-chm\">very</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你想<b>太</b>多了。</div><div class=\"uc-exe\">I think you worry too much.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">钱<b>太</b>多了吗？</div><div class=\"uc-exe\">Too much money?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2605,7 +2819,9 @@
     "Traditional": "天氣",
     "Pinyin": "tiānqì",
     "Bopomofo": "ㄊㄧㄢ ㄑㄧˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">天</span><span class=\"uc-chp\">tiān</span><span class=\"uc-chm\">sky</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">气</span><span class=\"uc-chp\">qì</span><span class=\"uc-chm\">air</span><span class=\"uc-chr\">radical <b>气</b> qì · air</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>天气</b>怎么样？</div><div class=\"uc-exe\">What is the weather like?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天<b>天气</b>很好。</div><div class=\"uc-exe\">It's fine today.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2629,7 +2845,9 @@
     "Traditional": "聽",
     "Pinyin": "tīng",
     "Bopomofo": "ㄊㄧㄥ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">听</span><span class=\"uc-chp\">tīng</span><span class=\"uc-chm\">to hear</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>听</b>得见吗？</div><div class=\"uc-exe\">Do you hear me?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>听</b>到没有！</div><div class=\"uc-exe\">Did you hear me?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2653,7 +2871,9 @@
     "Traditional": "同學",
     "Pinyin": "tóngxué",
     "Bopomofo": "ㄊㄨㄥˊ ㄒㄩㄝˊ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">同</span><span class=\"uc-chp\">tóng</span><span class=\"uc-chm\">same</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">学</span><span class=\"uc-chp\">xué</span><span class=\"uc-chm\">learning</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我们是<b>同学</b>。</div><div class=\"uc-exe\">We're classmates.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他是我的<b>同学</b>。</div><div class=\"uc-exe\">He is my classmate.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2677,7 +2897,9 @@
     "Traditional": "",
     "Pinyin": "wèi",
     "Bopomofo": "ㄨㄟˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">喂</span><span class=\"uc-chp\">wèi</span><span class=\"uc-chm\">interjection used to call attention</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>喂</b>？你还在吗？</div><div class=\"uc-exe\">Hello? Are you still here?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">是时候<b>喂</b>羊了。</div><div class=\"uc-exe\">It's time to feed the sheep.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2701,7 +2923,9 @@
     "Traditional": "",
     "Pinyin": "wǒ",
     "Bopomofo": "ㄨㄛˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">我</span><span class=\"uc-chp\">wǒ</span><span class=\"uc-chm\">I</span><span class=\"uc-chr\">radical <b>戈</b> gē · spear</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>我</b>爸爸很忙。</div><div class=\"uc-exe\">My father is busy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他出卖了<b>我</b>。</div><div class=\"uc-exe\">He sold me down the river.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2725,7 +2949,9 @@
     "Traditional": "我們",
     "Pinyin": "wǒmen",
     "Bopomofo": "ㄨㄛˇ ㄇㄣ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">我</span><span class=\"uc-chp\">wǒ</span><span class=\"uc-chm\">I</span><span class=\"uc-chr\">radical <b>戈</b> gē · spear</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">们</span><span class=\"uc-chp\">men</span><span class=\"uc-chm\">plural marker for pronouns and some nouns</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>我们</b>是同学。</div><div class=\"uc-exe\">We're classmates.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>我们</b>没时间。</div><div class=\"uc-exe\">We have no time.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2749,7 +2975,9 @@
     "Traditional": "",
     "Pinyin": "wǔ",
     "Bopomofo": "ㄨˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">五</span><span class=\"uc-chp\">wǔ</span><span class=\"uc-chm\">five</span><span class=\"uc-chr\">radical <b>二</b> èr · two</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">现在<b>五</b>点钟.</div><div class=\"uc-exe\">It's five o'clock.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">一，二，三，四，<b>五</b>。</div><div class=\"uc-exe\">One, two, three, four, five.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2773,7 +3001,9 @@
     "Traditional": "喜歡",
     "Pinyin": "xǐhuan",
     "Bopomofo": "ㄒㄧˇ ㄏㄨㄢ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">喜</span><span class=\"uc-chp\">xǐ</span><span class=\"uc-chm\">to love</span><span class=\"uc-chr\">radical <b>口</b> kǒu · mouth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">欢</span><span class=\"uc-chp\">huan</span><span class=\"uc-chm\">happy</span><span class=\"uc-chr\">radical <b>欠</b> qiàn · to lack</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>喜欢</b>唱歌。</div><div class=\"uc-exe\">I like to sing.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>喜欢</b>跑步。</div><div class=\"uc-exe\">I like to run.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2797,7 +3027,9 @@
     "Traditional": "",
     "Pinyin": "xià",
     "Bopomofo": "ㄒㄧㄚˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">下</span><span class=\"uc-chp\">xià</span><span class=\"uc-chm\">below</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>下</b>个星期见！</div><div class=\"uc-exe\">See you next week!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">明天要<b>下</b>雪。</div><div class=\"uc-exe\">It will snow tomorrow.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2821,7 +3053,9 @@
     "Traditional": "",
     "Pinyin": "xiàwǔ",
     "Bopomofo": "ㄒㄧㄚˋ ㄨˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">下</span><span class=\"uc-chp\">xià</span><span class=\"uc-chm\">below</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">午</span><span class=\"uc-chp\">wǔ</span><span class=\"uc-chm\">noon</span><span class=\"uc-chr\">radical <b>十</b> shí · ten</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>下午</b>我不在家。</div><div class=\"uc-exe\">I'll be absent from home in the afternoon.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Ken今天<b>下午</b>很忙。</div><div class=\"uc-exe\">Ken is busy this afternoon.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2845,7 +3079,9 @@
     "Traditional": "",
     "Pinyin": "xiàyǔ",
     "Bopomofo": "ㄒㄧㄚˋ ㄩˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">下</span><span class=\"uc-chp\">xià</span><span class=\"uc-chm\">below</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">雨</span><span class=\"uc-chp\">yǔ</span><span class=\"uc-chm\">rain</span><span class=\"uc-chr\">radical <b>雨</b> yǔ · rain</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">可能会<b>下雨</b>。</div><div class=\"uc-exe\">It might rain.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天<b>下雨</b>了。</div><div class=\"uc-exe\">It's rainy today.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2869,7 +3105,9 @@
     "Traditional": "",
     "Pinyin": "xiānsheng",
     "Bopomofo": "ㄒㄧㄢ ㄕㄥ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">先</span><span class=\"uc-chp\">xiān</span><span class=\"uc-chm\">first</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">生</span><span class=\"uc-chp\">sheng</span><span class=\"uc-chm\">life</span><span class=\"uc-chr\">radical <b>生</b> shēng · life</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">谢谢您，<b>先生</b>。</div><div class=\"uc-exe\">Thank you, sir.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Davis<b>先生</b>看上去很累。</div><div class=\"uc-exe\">Mr Davis looks very tired.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2893,7 +3131,9 @@
     "Traditional": "現在",
     "Pinyin": "xiànzài",
     "Bopomofo": "ㄒㄧㄢˋ ㄗㄞˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">现</span><span class=\"uc-chp\">xiàn</span><span class=\"uc-chm\">to appear</span><span class=\"uc-chr\">radical <b>王</b> wáng · king</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">在</span><span class=\"uc-chp\">zài</span><span class=\"uc-chm\">at</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>现在</b>30岁了。</div><div class=\"uc-exe\">I am 30 years old now.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>现在</b>不累。</div><div class=\"uc-exe\">I'm not tired right now.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2917,7 +3157,9 @@
     "Traditional": "",
     "Pinyin": "xiǎng",
     "Bopomofo": "ㄒㄧㄤˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">想</span><span class=\"uc-chp\">xiǎng</span><span class=\"uc-chm\">to believe</span><span class=\"uc-chr\">radical <b>心</b> xīn · heart</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">做你<b>想</b>做的。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>想</b>要什么？</div><div class=\"uc-exe\">What do you want?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2941,7 +3183,9 @@
     "Traditional": "",
     "Pinyin": "xiǎo",
     "Bopomofo": "ㄒㄧㄠˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">小</span><span class=\"uc-chp\">xiǎo</span><span class=\"uc-chm\">small</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这本书很<b>小</b>。</div><div class=\"uc-exe\">This book is very small.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">大鱼吃<b>小</b>鱼。</div><div class=\"uc-exe\">Big fish eat little fish.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2965,7 +3209,9 @@
     "Traditional": "",
     "Pinyin": "xiǎojie",
     "Bopomofo": "ㄒㄧㄠˇ ㄐㄧㄝ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">小</span><span class=\"uc-chp\">xiǎo</span><span class=\"uc-chm\">small</span><span class=\"uc-chr\">radical <b>小</b> xiǎo · small</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">姐</span><span class=\"uc-chp\">jie</span><span class=\"uc-chm\">elder sister</span><span class=\"uc-chr\">radical <b>女</b> nǚ · woman</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>小姐</b>，今天晚上有没有空房间？</div><div class=\"uc-exe\">Miss, are there any available rooms for tonight?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我看到一位漂亮<b>小姐</b>。</div><div class=\"uc-exe\">I saw a beautiful lady.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -2989,7 +3235,9 @@
     "Traditional": "",
     "Pinyin": "xiē",
     "Bopomofo": "ㄒㄧㄝ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">些</span><span class=\"uc-chp\">xiē</span><span class=\"uc-chm\">little</span><span class=\"uc-chr\">radical <b>二</b> èr · two</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">您有一<b>些</b>书。</div><div class=\"uc-exe\">You have some books.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你有一<b>些</b>书。</div><div class=\"uc-exe\">You have some books.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3013,7 +3261,9 @@
     "Traditional": "寫",
     "Pinyin": "xiě",
     "Bopomofo": "ㄒㄧㄝˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">写</span><span class=\"uc-chp\">xiě</span><span class=\"uc-chm\">to write</span><span class=\"uc-chr\">radical <b>冖</b> mì · cover</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我<b>写</b>了这本书。</div><div class=\"uc-exe\">I wrote this book.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">他<b>写</b>了两本书。</div><div class=\"uc-exe\">He has written two books.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3037,7 +3287,9 @@
     "Traditional": "謝謝",
     "Pinyin": "xièxie",
     "Bopomofo": "ㄒㄧㄝˋ ㄒㄧㄝ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">谢</span><span class=\"uc-chp\">xiè</span><span class=\"uc-chm\">to thank</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">谢</span><span class=\"uc-chp\">xie</span><span class=\"uc-chm\">to thank</span><span class=\"uc-chr\">radical <b>讠</b> yán · words</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>谢谢</b>您，先生。</div><div class=\"uc-exe\">Thank you, sir.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">没有了，<b>谢谢</b>。</div><div class=\"uc-exe\">It's sold out, thank you.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3061,7 +3313,9 @@
     "Traditional": "",
     "Pinyin": "xīngqī",
     "Bopomofo": "ㄒㄧㄥ ㄑㄧ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">星</span><span class=\"uc-chp\">xīng</span><span class=\"uc-chm\">star</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">期</span><span class=\"uc-chp\">qī</span><span class=\"uc-chm\">a period of time</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">下个<b>星期</b>见！</div><div class=\"uc-exe\">See you next week!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天<b>星期</b>几？</div><div class=\"uc-exe\">What day is it today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3085,7 +3339,9 @@
     "Traditional": "學生",
     "Pinyin": "xuésheng",
     "Bopomofo": "ㄒㄩㄝˊ ㄕㄥ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">学</span><span class=\"uc-chp\">xué</span><span class=\"uc-chm\">learning</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">生</span><span class=\"uc-chp\">sheng</span><span class=\"uc-chm\">life</span><span class=\"uc-chr\">radical <b>生</b> shēng · life</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你是<b>学生</b>吗？</div><div class=\"uc-exe\">Are you a student?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我是大<b>学生</b>。</div><div class=\"uc-exe\">I am a university student.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3109,7 +3365,9 @@
     "Traditional": "學習",
     "Pinyin": "xuéxí",
     "Bopomofo": "ㄒㄩㄝˊ ㄒㄧˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">学</span><span class=\"uc-chp\">xué</span><span class=\"uc-chm\">learning</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">习</span><span class=\"uc-chp\">xí</span><span class=\"uc-chm\">to study</span><span class=\"uc-chr\">radical <b>冫</b> bīng · ice</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他<b>学习</b>汉语。</div><div class=\"uc-exe\">He studies Chinese.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>学习</b>汉语。</div><div class=\"uc-exe\">I am learning Chinese.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3133,7 +3391,9 @@
     "Traditional": "學校",
     "Pinyin": "xuéxiào",
     "Bopomofo": "ㄒㄩㄝˊ ㄒㄧㄠˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">所</span><span class=\"uc-mwp\">suǒ</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">所</span><span class=\"uc-mwp\">suǒ</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">学</span><span class=\"uc-chp\">xué</span><span class=\"uc-chm\">learning</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">校</span><span class=\"uc-chp\">xiào</span><span class=\"uc-chm\">school</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>学校</b>在哪儿？</div><div class=\"uc-exe\">Where is the school?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我想去<b>学校</b>。</div><div class=\"uc-exe\">I want to go to school.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3157,7 +3417,9 @@
     "Traditional": "",
     "Pinyin": "yī",
     "Bopomofo": "ㄧ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">一</span><span class=\"uc-chp\">yī</span><span class=\"uc-chm\">one</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">这是<b>一</b>本书。</div><div class=\"uc-exe\">This is a book.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给我<b>一</b>点钱。</div><div class=\"uc-exe\">Give me a little money.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3181,7 +3443,9 @@
     "Traditional": "",
     "Pinyin": "yīfu",
     "Bopomofo": "ㄧ ㄈㄨ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">件</span><span class=\"uc-mwp\">jiàn</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">件</span><span class=\"uc-mwp\">jiàn</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">衣</span><span class=\"uc-chp\">yī</span><span class=\"uc-chm\">cloth</span><span class=\"uc-chr\">radical <b>衣</b> yī · cloth</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">服</span><span class=\"uc-chp\">fu</span><span class=\"uc-chm\">clothes</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我买了些<b>衣服</b>。</div><div class=\"uc-exe\">I have bought some clothes.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">这件<b>衣服</b>真漂亮。</div><div class=\"uc-exe\">This piece of clothing is really pretty.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3205,7 +3469,9 @@
     "Traditional": "醫生",
     "Pinyin": "yīshēng",
     "Bopomofo": "ㄧ ㄕㄥ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">位</span><span class=\"uc-mwp\">wèi</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">医</span><span class=\"uc-chp\">yī</span><span class=\"uc-chm\">to cure</span><span class=\"uc-chr\">radical <b>匸</b> xì · box</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">生</span><span class=\"uc-chp\">shēng</span><span class=\"uc-chm\">life</span><span class=\"uc-chr\">radical <b>生</b> shēng · life</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">您不是<b>医生</b>。</div><div class=\"uc-exe\">You are not a doctor.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">她是<b>医生</b>了。</div><div class=\"uc-exe\">She's a doctor now.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3229,7 +3495,9 @@
     "Traditional": "醫院",
     "Pinyin": "yīyuàn",
     "Bopomofo": "ㄧ ㄩㄢˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">所</span><span class=\"uc-mwp\">suǒ</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">所</span><span class=\"uc-mwp\">suǒ</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">家</span><span class=\"uc-mwp\">jiā</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">医</span><span class=\"uc-chp\">yī</span><span class=\"uc-chm\">to cure</span><span class=\"uc-chr\">radical <b>匸</b> xì · box</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">院</span><span class=\"uc-chp\">yuàn</span><span class=\"uc-chm\">court</span><span class=\"uc-chr\">radical <b>阝</b> yì · place</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我去了<b>医院</b>。</div><div class=\"uc-exe\">I went to the hospital.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我得去<b>医院</b>。</div><div class=\"uc-exe\">I have to get to the hospital.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3253,7 +3521,9 @@
     "Traditional": "",
     "Pinyin": "yǐzi",
     "Bopomofo": "ㄧˇ ㄗ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">把</span><span class=\"uc-mwp\">bǎ</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">把</span><span class=\"uc-mwp\">bǎ</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">椅</span><span class=\"uc-chp\">yǐ</span><span class=\"uc-chm\">chair</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">子</span><span class=\"uc-chp\">zi</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">猫在<b>椅子</b>上睡觉。</div><div class=\"uc-exe\">The cat sleeps on the chair.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">猫儿在<b>椅子</b>上睡觉。</div><div class=\"uc-exe\">The cat is sleeping on the chair.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3277,7 +3547,9 @@
     "Traditional": "一點兒",
     "Pinyin": "yìdiǎnr",
     "Bopomofo": "ㄧ ㄉㄧㄢˇ ㄦ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">一</span><span class=\"uc-chp\">yī</span><span class=\"uc-chm\">one</span><span class=\"uc-chr\">radical <b>一</b> yī · one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">点</span><span class=\"uc-chp\">diǎn</span><span class=\"uc-chm\">dot</span><span class=\"uc-chr\">radical <b>灬</b> huǒ · fire</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">儿</span><span class=\"uc-chp\">r</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>儿</b> ér · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">还要<b>一点儿</b>。</div><div class=\"uc-exe\">Just a little more.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">给我<b>一点儿</b>。</div><div class=\"uc-exe\">Give me a little.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3301,7 +3573,9 @@
     "Traditional": "",
     "Pinyin": "yǒu",
     "Bopomofo": "ㄧㄡˇ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">有</span><span class=\"uc-chp\">yǒu</span><span class=\"uc-chm\">to have</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">他没<b>有</b>孩子。</div><div class=\"uc-exe\">He has no children.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>有</b>几本书?</div><div class=\"uc-exe\">How many books do you have?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3325,7 +3599,9 @@
     "Traditional": "",
     "Pinyin": "yuè",
     "Bopomofo": "ㄩㄝˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">轮</span><span class=\"uc-mwc uc-mwt\">輪</span><span class=\"uc-mwp\">lún</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">轮</span><span class=\"uc-mwc uc-mwt\">輪</span><span class=\"uc-mwp\">lún</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">月</span><span class=\"uc-chp\">yuè</span><span class=\"uc-chm\">moon</span><span class=\"uc-chr\">radical <b>月</b> yuè · moon</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">是十<b>月</b>三日。</div><div class=\"uc-exe\">It's the third of October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">是十<b>月</b>三号。</div><div class=\"uc-exe\">It's October the third.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3349,7 +3625,9 @@
     "Traditional": "",
     "Pinyin": "zài",
     "Bopomofo": "ㄗㄞˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">在</span><span class=\"uc-chp\">zài</span><span class=\"uc-chm\">at</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你住<b>在</b>哪里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">Ken昨天<b>在</b>家吗？</div><div class=\"uc-exe\">Was Ken at home yesterday?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3373,7 +3651,9 @@
     "Traditional": "再見",
     "Pinyin": "zàijiàn",
     "Bopomofo": "ㄗㄞˋ ㄐㄧㄢˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">再</span><span class=\"uc-chp\">zài</span><span class=\"uc-chm\">again</span><span class=\"uc-chr\">radical <b>冂</b> jiōng · wide</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">见</span><span class=\"uc-chp\">jiàn</span><span class=\"uc-chm\">to see</span><span class=\"uc-chr\">radical <b>见</b> jiàn · to see</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">很高兴<b>再见</b>到您。</div><div class=\"uc-exe\">I'm glad to see you back.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">很高兴<b>再见</b>到你。</div><div class=\"uc-exe\">I'm glad to see you back.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3397,7 +3677,9 @@
     "Traditional": "怎麼",
     "Pinyin": "zěnme",
     "Bopomofo": "ㄗㄣˇ ㄇㄜ˙",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">怎</span><span class=\"uc-chp\">zěn</span><span class=\"uc-chm\">what? why? how?</span><span class=\"uc-chr\">radical <b>心</b> xīn · heart</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">么</span><span class=\"uc-chp\">me</span><span class=\"uc-chm\">interrogative particle</span><span class=\"uc-chr\">radical <b>丿</b> piě · slash</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你好，<b>怎么</b>样？</div><div class=\"uc-exe\">Good day, how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">生意<b>怎么</b>样？</div><div class=\"uc-exe\">How's business?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3421,7 +3703,9 @@
     "Traditional": "怎麼樣",
     "Pinyin": "zěnmeyàng",
     "Bopomofo": "ㄗㄣˇ ㄇㄜ˙ ㄧㄤˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">怎</span><span class=\"uc-chp\">zěn</span><span class=\"uc-chm\">what? why? how?</span><span class=\"uc-chr\">radical <b>心</b> xīn · heart</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">么</span><span class=\"uc-chp\">me</span><span class=\"uc-chm\">interrogative particle</span><span class=\"uc-chr\">radical <b>丿</b> piě · slash</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">样</span><span class=\"uc-chp\">yàng</span><span class=\"uc-chm\">form</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你好，<b>怎么样</b>？</div><div class=\"uc-exe\">Good day, how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">生意<b>怎么样</b>？</div><div class=\"uc-exe\">How's business?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3445,7 +3729,9 @@
     "Traditional": "這",
     "Pinyin": "zhè",
     "Bopomofo": "ㄓㄜˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">这</span><span class=\"uc-chp\">zhè</span><span class=\"uc-chm\">this</span><span class=\"uc-chr\">radical <b>辶</b> chuò · to walk</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>这</b>是我的书。</div><div class=\"uc-exe\">This is my book.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><b>这</b>要多少钱？</div><div class=\"uc-exe\">How much will it cost?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3469,7 +3755,9 @@
     "Traditional": "中國",
     "Pinyin": "Zhōngguó",
     "Bopomofo": "ㄓㄨㄥ ㄍㄨㄛˊ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">中</span><span class=\"uc-chp\">Zhōng</span><span class=\"uc-chm\">central</span><span class=\"uc-chr\">radical <b>丨</b> shù · number one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">国</span><span class=\"uc-chp\">guó</span><span class=\"uc-chm\">country</span><span class=\"uc-chr\">radical <b>囗</b> wéi · enclosure</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我是<b>中国</b>人。</div><div class=\"uc-exe\">I am Chinese.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我喜欢<b>中国</b>。</div><div class=\"uc-exe\">I like China.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3493,7 +3781,9 @@
     "Traditional": "",
     "Pinyin": "zhōngwǔ",
     "Bopomofo": "ㄓㄨㄥ ㄨˇ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">中</span><span class=\"uc-chp\">zhōng</span><span class=\"uc-chm\">central</span><span class=\"uc-chr\">radical <b>丨</b> shù · number one</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">午</span><span class=\"uc-chp\">wǔ</span><span class=\"uc-chm\">noon</span><span class=\"uc-chr\">radical <b>十</b> shí · ten</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">让她<b>中午</b>过来。</div><div class=\"uc-exe\">Tell her to come at noon.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">今天<b>中午</b>你在家吗？</div><div class=\"uc-exe\">Will you be at home at midday today?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3517,7 +3807,9 @@
     "Traditional": "",
     "Pinyin": "zhù",
     "Bopomofo": "ㄓㄨˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">住</span><span class=\"uc-chp\">zhù</span><span class=\"uc-chm\">to reside</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">你<b>住</b>在哪里？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>住</b>在哪儿？</div><div class=\"uc-exe\">Where do you live?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3541,7 +3833,9 @@
     "Traditional": "",
     "Pinyin": "zhuōzi",
     "Bopomofo": "ㄓㄨㄛ ㄗ˙",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">张</span><span class=\"uc-mwc uc-mwt\">張</span><span class=\"uc-mwp\">zhāng</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">张</span><span class=\"uc-mwc uc-mwt\">張</span><span class=\"uc-mwp\">zhāng</span></span><span class=\"uc-mwi\"><span class=\"uc-mwc\">套</span><span class=\"uc-mwp\">tào</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">桌</span><span class=\"uc-chp\">zhuō</span><span class=\"uc-chm\">table</span><span class=\"uc-chr\">radical <b>木</b> mù · tree</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">子</span><span class=\"uc-chp\">zi</span><span class=\"uc-chm\">son</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">书在<b>桌子</b>上。</div><div class=\"uc-exe\">The book is on the table.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">笔在<b>桌子</b>上。</div><div class=\"uc-exe\">The pen is on the table.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3565,7 +3859,9 @@
     "Traditional": "",
     "Pinyin": "zì",
     "Bopomofo": "ㄗˋ",
-    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>"
+    "Measure word": "<span class=\"uc-mwlab\">measure word</span><span class=\"uc-mwi\"><span class=\"uc-mwc\">个</span><span class=\"uc-mwc uc-mwt\">個</span><span class=\"uc-mwp\">gè</span></span>",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">字</span><span class=\"uc-chp\">zì</span><span class=\"uc-chm\">character</span><span class=\"uc-chr\">radical <b>子</b> zi · son</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">我的名<b>字</b>叫Hopkins。</div><div class=\"uc-exe\">My name is Hopkins.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我的名<b>字</b>是Yatarou.</div><div class=\"uc-exe\">My name is Yatarou.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3589,7 +3885,9 @@
     "Traditional": "",
     "Pinyin": "zuótiān",
     "Bopomofo": "ㄗㄨㄛˊ ㄊㄧㄢ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">昨</span><span class=\"uc-chp\">zuó</span><span class=\"uc-chm\">yesterday</span><span class=\"uc-chr\">radical <b>日</b> rì · sun</span></div><div class=\"uc-ch\"><span class=\"uc-chc\">天</span><span class=\"uc-chp\">tiān</span><span class=\"uc-chm\">sky</span><span class=\"uc-chr\">radical <b>大</b> dà · big</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Ken<b>昨天</b>在家吗？</div><div class=\"uc-exe\">Was Ken at home yesterday?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>昨天</b>很忙。</div><div class=\"uc-exe\">I was busy yesterday.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3613,7 +3911,9 @@
     "Traditional": "",
     "Pinyin": "zuò",
     "Bopomofo": "ㄗㄨㄛˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">做</span><span class=\"uc-chp\">zuò</span><span class=\"uc-chm\">to work</span><span class=\"uc-chr\">radical <b>亻</b> rén · man</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><b>做</b>你想<b>做</b>的。</div><div class=\"uc-exe\">Do whatever you want.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">你<b>做</b>了什么？</div><div class=\"uc-exe\">What did you make?</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   },
   {
@@ -3637,7 +3937,9 @@
     "Traditional": "",
     "Pinyin": "zuò",
     "Bopomofo": "ㄗㄨㄛˋ",
-    "Measure word": ""
+    "Measure word": "",
+    "Characters": "<div class=\"uc-ch\"><span class=\"uc-chc\">坐</span><span class=\"uc-chp\">zuò</span><span class=\"uc-chm\">seat</span><span class=\"uc-chr\">radical <b>土</b> tǔ · soil</span></div>",
+    "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\">Ken<b>坐</b>在我旁边。</div><div class=\"uc-exe\">Ken sat next to me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\">我<b>坐</b>在桌旁。</div><div class=\"uc-exe\">I am sitting at the table.</div></div><div class=\"uc-excr\">Sentences from Tatoeba (CC BY 2.0 FR)</div>"
    }
   }
  ],
