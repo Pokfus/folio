@@ -5780,6 +5780,226 @@ const BOOKS = {
     },
   },
 
+  "homer-iliad": {
+    title: "The Iliad",
+    subtitle: "Ἰλιάς",
+    author: "Homer",
+    translator: "A. T. Murray",
+    edition: "Loeb Classical Library, William Heinemann / G. P. Putnam's Sons, London and New York, 1924",
+    written: "composed c. 750–700 BCE",
+
+    /* ---------- THE LICENCE, and it states a LIMIT ON EACH COLUMN ----------
+       The poem itself is the easiest layer on the shelf: composed some twenty-seven centuries ago and
+       in the public domain everywhere, on every rule anyone has ever written.
+
+       Both MODERN layers are 1920s scholarship, so both clear the pre-1929 publication rule outright
+       and both need a limit stating beyond it — which is the Song of Roland's shape, the only other
+       book here whose limit falls on both columns at once.
+
+       · A. T. MURRAY, the translator, lived 1866–1940 and published this Iliad in two volumes in 1924.
+         United States copyright expired on the publication date; life-plus-seventy expired at the
+         start of 2011; LIFE PLUS A HUNDRED RUNS TO 2041.
+       · MONRO AND ALLEN, the Greek. Their Oxford Classical Text was published 1908–1920, so the
+         publication ground is clear. The life-plus-seventy term of a JOINT work runs from the LAST
+         surviving author, which is the Gallic War's rule and matters here because the two men died
+         forty-five years apart: David Binning Monro died in 1905 and Thomas William Allen not until
+         1950, so the term ran from Allen and expired at the start of 2021. LIFE PLUS A HUNDRED RUNS
+         TO 2051.
+
+       So the ORIGINAL is the harder half of the pair, which is the Medea's finding rather than a new
+       one: everywhere else on this shelf the original is the older and easier column, and here the
+       Greek stays encumbered ten years longer than the English does. Every date above was looked up
+       rather than recalled, for the Hugo Magnus reason — and it is worth saying that A. T. Murray is
+       NOT Gilbert Murray, who edited the Greek of the Medea on this same shelf. The two were born in
+       the same year, 1866, and are different men; taking one's dates for the other's would have put a
+       wrong death year under the whole of this licence.
+
+       BOTH DIGITAL EDITIONS carry the Perseus CC BY-SA 4.0 layer, as Ovid's, Lucretius's and
+       Suetonius's do on both of their columns.
+
+       AND NEITHER TEXT CARRIES A MODERN EDITORIAL LAYER, which was CHECKED rather than assumed — the
+       Antigone found the shipped Oedipus Rex claiming to be "public domain on every ground" while
+       silently carrying Perseus's own modernization of Jebb's prose. Both of these files' revision
+       histories were read: they record card breaks, DTD revisions, EpiDoc conversion and four fixed
+       typos, and nothing else. Perseus's OTHER English Iliad does carry such a layer and is the
+       reason this one was chosen; see the note under `url` below.
+
+       The modern translations a reader is likeliest to own — Richmond Lattimore (1951), Robert
+       Fitzgerald (1974), Robert Fagles (1990), Stanley Lombardo (1997), Caroline Alexander (2015),
+       Peter Green (2015) and Emily Wilson (2023) — are all firmly in copyright and none is used here.
+       Named for the reason Campbell, Hays, Griffith and Lee are named above: so that nobody reaches
+       for one later. So, particularly, is the LOEB ITSELF AS A READER WILL FIND IT TODAY: Murray's
+       Iliad was revised by William F. Wyatt in 1999 and that revision is a separate copyrighted work.
+       What is here is Murray's own 1924 text. */
+    rights:
+      "Three layers, and a limit on each of the two modern ones. The poem is some twenty-seven " +
+      "centuries old and is in the public domain everywhere. A. T. Murray's translation was " +
+      "published in 1924 — before 1929 — so its copyright has expired in the United States, and " +
+      "Murray died in 1940, so it is also public domain wherever the term is the author's life plus " +
+      "seventy years; where the term is life plus a hundred it remains in copyright until 2041. The " +
+      "Greek is David B. Monro and Thomas W. Allen's Oxford text of 1908–1920, likewise published " +
+      "before 1929; the term for a joint work runs from the last surviving author, and Allen died in " +
+      "1950, so it cleared life plus seventy at the start of 2021 and remains in copyright until " +
+      "2051 where the term is life plus a hundred. Both digital editions are prepared by the Perseus " +
+      "Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by Richmond " +
+      "Lattimore, 1951, Robert Fagles, 1990, Caroline Alexander, 2015, and Emily Wilson, 2023, are " +
+      "still in copyright and are not used here, nor is William F. Wyatt's 1999 revision of Murray.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. It says
+       what the poem is and where it stops, what the translation is and what it is not, and how the
+       numbers work — and it says outright that the notes are missing, because a reader who meets a
+       Loeb without its footnotes is owed the reason rather than left to assume Folio dropped them. */
+    about: [
+      "<b>The Iliad</b> is the oldest surviving work of European literature, and it is about roughly " +
+        "seven weeks in the tenth year of a ten-year war. It does not begin at the beginning and it " +
+        "does not reach the end: there is no judgement of Paris here, no abduction of Helen, no " +
+        "wooden horse and no fall of Troy. What there is instead is an argument between two Greek " +
+        "commanders over a captured woman, and everything that follows from one of them refusing to " +
+        "fight. The poem announces its true subject in its first word — <i>mēnis</i>, wrath — and the " +
+        "last line buries a man.",
+      "It runs to 15,693 lines of dactylic hexameter in twenty-four books, and the division into " +
+        "books is not Homer's: it is Alexandrian, the work of scholars at the Library some five " +
+        "hundred years after the poem was composed, and it is why they are lettered with the " +
+        "twenty-four letters of the Greek alphabet as often as they are numbered. The poem was made " +
+        "to be heard rather than read. Its repeated epithets and whole repeated lines — the " +
+        "wine-dark sea, swift-footed Achilles, rosy-fingered dawn — are the working equipment of oral " +
+        "composition, a system of ready-made phrases that let a singer build a line in performance, " +
+        "and they are not the padding they can look like on a page.",
+      "Who Homer was is the oldest open question in classical scholarship and this edition cannot " +
+        "settle it. The ancient world took him for a single blind poet of Chios or Smyrna; since the " +
+        "eighteenth century the weight of argument has moved towards a long tradition of singers, " +
+        "with the poem reaching something like its present shape in the eighth or seventh century " +
+        "BCE and being written down at some point thereafter. Nothing in the text names its author. " +
+        "What is not in doubt is what it did afterwards: it was the book Greeks learned to read on, " +
+        "quoted in court and in argument for a thousand years, and it stands behind the Aeneid, " +
+        "Dante, Milton and a great deal since.",
+      "The translation here is A. T. Murray's, made for the Loeb Classical Library in 1924. It is " +
+        "PROSE, and that is a real choice rather than an accident of the edition: Murray was setting " +
+        "his English on the page facing the Greek for readers working between the two, so he " +
+        "translates closely and keeps Homer's formulae as formulae rather than varying them for " +
+        "effect. His English is deliberately a little archaic. What it is not is a poem, and a reader " +
+        "who wants the hexameters in English verse should know that is a different book from this one.",
+      "The small raised figures running through both columns are LINE numbers of the Greek, marking " +
+        "where each passage begins — so a reference such as 'Iliad 1.348' is book 1, line 348, and " +
+        "the figures are how you find it. They are also what pairs the two columns: an English " +
+        "passage and a Greek one carrying the same figure are the same place in the poem. Two things " +
+        "this edition does not give you. Murray's printed page carries 144 footnotes, and the " +
+        "transcription used here preserves only the numbers that pointed at them and not a word of " +
+        "their text, so they are dropped and there is no fold of notes under the chapters. And the " +
+        "Greek is a constituted text like any other: Monro and Allen omit four lines of book 9 " +
+        "altogether and bracket four more in book 8 as later insertions, so those eight places stand " +
+        "empty in the Greek column where the English still translates them.",
+    ],
+
+    /* ---------- A TEI EDITION ON BOTH SIDES, and the English one had to be chosen ----------
+       Perseus carries TWO English Iliads and the difference between them decided this book.
+
+       · `perseus-eng4` is Samuel Butler's prose of 1898 — whose own copyright is the easiest on the
+         shelf, Butler having died in 1902 — and it is NOT usable, because what Perseus carries is
+         not Butler. Its header states it plainly: "Based on public domain editon of Samuel Butler,
+         revised by Timothy Power and Gregory Nagy." That is a substantive modern revision by living
+         scholars, carried by CC BY-SA rather than by an expiry, and it is visible in the text, which
+         inserts transliterated Greek terms into the English ("the anger [mênis] of Achilles"). It is
+         also far more thinly marked: 190 cards and 1,450 line milestones against Murray's 425 and
+         3,143, so it states its line numbers less than half as often.
+       · `perseus-eng3` is Murray's Loeb, complete, densely numbered, with no revision layer.
+
+       So the easier copyright is attached to the text that cannot honestly be shipped as its named
+       translator's work, and the harder one to the text that can. That is the Nicomachean Ethics'
+       trade made again — there the free Chase paired on 18 Bekker pages of 181 and the encumbered
+       Ross on 173 of 173 — and it is decided the same way: the licence question and the pairing
+       question are settled together, and a stated limit is worth paying for a column that is
+       actually what it says it is. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0012/tlg001/tlg0012.tlg001.perseus-eng3.xml",
+    layout: "verse",
+    /* The cards are real divisions in the English file and bare milestones in the Greek one, exactly
+       as Ovid's two sides are, so each column says how to find its own. */
+    cards: "div",
+    /* THE TRANSLATION IS PROSE AND THE ORIGINAL IS VERSE, which is new — see the note in
+       teiVerseBooks. Every earlier book on this path has verse on both sides. */
+    cardProse: true,
+    chapterWord: "Book",
+    /* The twenty-four books have no titles. This edition heads them "Book 1" … "Book 24" and gives
+       them no names, as Haines's Meditations and More's Ovid do. The tale headings a modern reader
+       knows — "The Quarrel", "The Embassy to Achilles", "The Shield of Achilles" — are editors'
+       inventions rather than anything the poem or this edition carries, and composing them here would
+       be building an apparatus the book has not got. */
+    titleOf: (n) => "Book " + toRoman(n),
+    chapters: Array.from({ length: 24 }, (_, i) => i + 1),
+
+    /* ---------- THE ORIGINAL, AND WHY IT PAIRS ----------
+       The question that decides every original here is not "does a text of it exist?" but "does that
+       text say which section each passage is?", because app.js pairs the two columns on the section
+       number and never on paragraph order. Homer passes about as well as any work can: he is cited by
+       BOOK AND LINE everywhere in every language, both editions state the line, and both are divided
+       into the same 425 CARDS — passages of thirty-odd lines labelled with the line each one begins
+       at. A card number is therefore the same claim on both sides, stated by the editions rather than
+       counted off a list.
+
+       MEASURED BEFORE IT WAS BELIEVED, over all twenty-four books: 24 books and 425 cards on each
+       side; the card lists of 22 of the 24 books are IDENTICAL; 423 of the 425 numbers appear on both
+       sides. That is the cleanest pairing of two independently edited texts on the shelf bar the
+       Gallic War, and it needed no new reader on the Greek side at all.
+
+       THE TWO EXCEPTIONS ARE ONE BOUNDARY EACH, drawn a line or two apart, and each was READ rather
+       than assumed to be the same passage before reconcileCards was allowed to move it:
+         · book 3, English card 381 against Greek 383. The English opens "But him Aphrodite snatched
+           up ... and herself went to summon Helen"; the Greek opens two lines later at exactly that
+           clause, αὐτὴ δʼ αὖ Ἑλένην καλέουσʼ ἴε.
+         · book 13, English card 82 against Greek 81. Word for word the same sentence, one line apart:
+           "On this wise spake they one to the other, rejoicing in the fury of fight" against ὣς οἳ μὲν
+           τοιαῦτα πρὸς ἀλλήλους ἀγόρευον / χάρμῃ γηθόσυνοι.
+       Both are a clean re-sync — every other card in both books agrees — which is the Bhagavad Gita's
+       test for telling an editor's different cut from a misaligned extractor.
+
+       THE GREEK IS SHORT OF THE STANDARD LINE COUNT AND EVERY MISSING LINE IS ACCOUNTED FOR, which is
+       worth recording because a count that is nearly right is how a truncated import hides. The file
+       carries 15,687 <l> elements against the traditional 15,693. Six are simply absent: 9.458–461,
+       which the edition's own single note says it omits, and 11.543 and 14.269, both lines Aristarchus
+       athetized. Four more are PRESENT but wrapped in <del> — 8.548 and 8.550–552 — which teiVerseBooks
+       drops with their words, on the same judgement the Meditations' Greek makes: what ships is the
+       text the edition constitutes. So 15,683 lines ship, 15,687 − 4, and 15,687 + 6 = 15,693.
+       Measure this rather than assuming the rule is inert: Lucretius's 116 <del> marks cost that poem
+       thirty whole lines.
+
+       THIRTEEN RUN-TOGETHER WORDS ARE THE SOURCE'S OWN AND ARE LEFT AS THEY ARE — "yoke of
+       horses.But Rhesus", "There Poseidon,the Shaker of Earth", "even as thou sayest,make for the
+       left". Each was checked against the transcription and is present there verbatim, with no tag
+       anywhere near it, so they are Perseus's typing rather than anything this importer did. They
+       are recorded instead of repaired for the reason the Song of Roland records its two malformed
+       numerals: a hand-written list of corrections to somebody else's text is an apparatus, and
+       thirteen missing spaces in 955 KB change nothing a reader relies on. It matters mainly that
+       they are WRITTEN DOWN, because the same shape — two words welded by a stripped tag — was a
+       real fault of this import affecting 2,787 places, and without this paragraph the survivors
+       would read as that fault not having been fixed. See the milestone rule in teiVerseBooks. */
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "verse",
+      cards: "milestone",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0012/tlg001/tlg0012.tlg001.perseus-grc2.xml",
+      edition:
+        "Homeri Opera, ed. David B. Monro and Thomas W. Allen, editio tertia, Clarendon Press, " +
+        "Oxford, 1908–1920, from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. The poem is some twenty-seven centuries old and is in the public " +
+        "domain everywhere. Monro and Allen's Oxford text was published between 1908 and 1920 — " +
+        "before 1929 — so its copyright has expired in the United States; the term for a joint work " +
+        "runs from the last surviving author, and Thomas W. Allen died in 1950, so it cleared life " +
+        "plus seventy at the start of 2021 and remains in copyright until 2051 where the term is " +
+        "life plus a hundred. The digital edition it is taken from is prepared by the Perseus " +
+        "Digital Library at Tufts University and is released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -9775,8 +9995,21 @@ function teiVerseBooks(xml, opts, warn) {
      rejects, and the lines he brackets as spurious, each written out as a line of verse inside the
      note. A line sweep run before the notes are removed therefore pulls the apparatus into the poem:
      nothing throws, no book is missing, and the text is simply longer than Ovid wrote it with variant
-     half-lines scattered through it. Seventy-four notes, every one of them in the Latin. */
-  let b = body.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
+     half-lines scattered through it. Seventy-four notes, every one of them in the Latin.
+
+     THEY ARE COUNTED BEFORE THEY GO, and that is the Medea's lesson rather than bookkeeping. That
+     play's edition prints 38 notes into a reader written for one that prints none, and would have
+     lost the lot in silence. Here the count is returned and the caller prints it, so an edition whose
+     apparatus is being dropped says so on every run instead of being quietly thinner than its source. */
+  const dropped = (body.match(/<note\b/g) || []).length;
+  /* A DROPPED NOTE LEAVES A SPACE BEHIND IT ON A PROSE COLUMN, for the reason the milestone rule
+     below gives: Murray's markers sit hard against the words on both sides ("So spake he,<note>1
+     </note>and Patroclus"), so removing them outright welds the sentence. 137 of the 144 sit that
+     way. It is scoped to the prose branch rather than applied to everything because Ovid's Latin
+     apparatus is 37 notes standing between LINES, where teiVerse joins with <br> and a space would
+     change bytes in a shipped book for no gain — and that book is the check this whole change is
+     held to. */
+  let b = body.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, opts.prose ? " " : "");
   /* The editor's marks of SPURIOUS text, dropped with their words — the same judgement teiProse makes
      for the Meditations, and for the same reason: what ships is the text the printed page constitutes.
      Every <del> in this edition happens to sit inside a note and so has already gone, which is checked
@@ -9821,7 +10054,8 @@ function teiVerseBooks(xml, opts, warn) {
     const cs = cardMarks(seg);
     if (!cs.length) { warn("book " + bk[1] + ": no cards — it would pair as one whole block"); return; }
     // verse before the first card would be dropped in silence; say so instead
-    const stray = (seg.slice(0, cs[0].index).match(/<l\b/g) || []).length;
+    const unit = opts.prose ? /<p\b/g : /<l\b/g;
+    const stray = (seg.slice(0, cs[0].index).match(unit) || []).length;
     if (stray) warn("book " + bk[1] + ": " + stray + " line(s) stand before the first card");
     let seq = 0;
     out[+bk[1]] = cs.map((c, j) => {
@@ -9832,10 +10066,44 @@ function teiVerseBooks(xml, opts, warn) {
       /* The tale name each edition prints at this boundary — Magnus's, which BOTH files carry, and
          which reconcileCards uses to check that a reconciled pair really is the same passage. */
       const t = raw.match(/<milestone[^>]*ed="Magnus"[^>]*\bn="([^"]*)"[^>]*unit="tale"[^>]*\/>/);
-      return { n: n, tale: t ? t[1].trim() : "", html: teiVerse(raw), lines: (raw.match(/<l\b/g) || []).length };
+      /* A CARD MAY BE PROSE RATHER THAN VERSE, and the two columns of one book may differ (Aug 2026,
+         adding the Iliad — the first work here whose translation is prose and whose original is
+         verse). Murray's Loeb renders Homer as continuous prose, one paragraph to a card, while
+         Monro and Allen's Greek is 15,687 <l> elements; teiVerse reads <l> and nothing else, so
+         pointed at the English it returns twenty-four empty books. The prose branch walks
+         teiSectionProse instead — the reader Suetonius's and Herodotus's prose already use, which
+         resolves <quote> to an inline <q> and unwraps Perseus's placeName tagging keeping the words.
+         Measured before it was reused: none of this edition's 710 quotations crosses a card or a
+         paragraph boundary and every card balances, so the tag swap cannot strand an opener. */
+      /* A STRIPPED MILESTONE MUST LEAVE A SPACE BEHIND IT, and this is the fault that shipped for an
+         hour and was found by LOOKING at the rendered page rather than by any count. Murray prints
+         Homer's line numbers in the margin every fifth line and the transcription sets them inline,
+         hard against the words on both sides — "came to fulfillment,<milestone n="5"/>from the time
+         when". teiInline unwraps whatever it does not recognise, so left to the generic sweep the tag
+         simply vanishes and the words on either side of it are welded: "fulfillment,from",
+         "perish,because", "the old man prayedto the lord Apollo", "covered quiver.The arrows".
+         MEASURED over the whole book: 2,787 of the 3,143 milestones weld two words together — nearly
+         every fifth line of the poem, some 2,800 typos in a book whose every other check reads
+         healthy. The section count is right, the tag balance is right, no word is lost and nothing
+         throws; it is only wrong to read, which is the quiet shape this file keeps recording.
+         Replacing rather than removing costs nothing where a space is already there, since teiInline
+         collapses runs of whitespace at the end. Scoped to the prose branch and read independently of
+         attribute order, so the verse books are untouched — Ovid and Lucretius join their lines with
+         <br> and have nothing to weld. */
+      const prepared = opts.prose
+        ? raw.replace(/<milestone\b[^>]*?\/>/g, (t) => (/\bunit="line"/i.test(t) ? " " : t))
+        : raw;
+      const html = opts.prose ? teiSectionProse(prepared, []) : teiVerse(prepared);
+      /* What is COUNTED as a line differs with it. The Greek states every line as an element; the
+         English states Homer's line numbers as milestones every fifth line, which is the apparatus a
+         printed translation carries. Reporting <l> for a prose column would report nought. */
+      const lines = opts.prose
+        ? (raw.match(/<milestone\b[^>]*unit="line"/g) || []).length
+        : (raw.match(/<l\b/g) || []).length;
+      return { n: n, tale: t ? t[1].trim() : "", html: html, lines: lines };
     }).filter((c) => { if (!c.html) warn("card " + c.n + " came back empty"); return c.html; });
   });
-  return out;
+  return { books: out, dropped: dropped };
 }
 
 /* One card's lines, as verse rather than as a paragraph of prose. The para milestones are the
@@ -10154,7 +10422,12 @@ function dramaHtml(sections) {
    (Those names are read for this check only and are never printed. More's tale names in the English
    file are run together in places — two headings concatenated into one string — and splitting them
    would mean guessing where one ends, which is composing an apparatus rather than transcribing it.) */
-function reconcileCards(enBooks, laBooks, warn, log) {
+/* `langName` is the original's own language, because this function stopped being Latin-only when the
+   Iliad arrived (Aug 2026) and a run that reports "Latin card 383 → 381" over a column of Greek is
+   telling the reader something untrue about what it just did. It defaults to Latin so Ovid's and
+   Lucretius's output is unchanged to the character. */
+function reconcileCards(enBooks, laBooks, warn, log, langName) {
+  const L_ = langName || "Latin";
   const TOL = 4;
   let exact = 0, moved = 0, unEN = 0, unLA = 0;
   Object.keys(laBooks).forEach((k) => {
@@ -10172,7 +10445,7 @@ function reconcileCards(enBooks, laBooks, warn, log) {
           if (d < 0) { unLA++; j++; } else { unEN++; i++; }
           continue;
         }
-        log("    book " + k + ": Latin card " + L[j].n + " → " + E[i].n +
+        log("    book " + k + ": " + L_ + " card " + L[j].n + " → " + E[i].n +
           " (" + Math.abs(d) + " line" + (Math.abs(d) === 1 ? "" : "s") + ", " +
           (a && c ? "tale name agrees" : "no tale name on either side") + ")");
         L[j].n = E[i].n;
@@ -10185,7 +10458,7 @@ function reconcileCards(enBooks, laBooks, warn, log) {
     unLA += L.length - j;
   });
   log("  " + exact + " cards pair exactly, " + moved + " reconciled, " +
-    unEN + " English and " + unLA + " Latin left unpaired (they draw as an empty cell).");
+    unEN + " English and " + unLA + " " + L_ + " left unpaired (they draw as an empty cell).");
   return { exact: exact, moved: moved, unEN: unEN, unLA: unLA };
 }
 
@@ -10316,7 +10589,15 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    const books = teiVerseBooks(xml, { cards: BOOK.cards }, warn);
+    const got = teiVerseBooks(xml, { cards: BOOK.cards, prose: BOOK.cardProse }, warn);
+    const books = got.books;
+    /* Said out loud, every run. This edition's apparatus is dropped rather than folded under the
+       chapter, and on the Iliad that is 144 markers whose note TEXT Perseus never transcribed — each
+       <note> holds a bare reference number and nothing else, so lifting them would build a fold of
+       144 entries reading "1", "2", "161.1". A book that silently ships thinner than its source is
+       the fault this line exists to prevent; the book's own front matter says the same thing. */
+    if (got.dropped) console.log("  dropped " + got.dropped +
+      " note(s) — this edition's apparatus is not folded under the chapters");
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const cards = books[n];
@@ -10734,10 +11015,16 @@ async function fetchOriginal() {
       let enXml;
       if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
       else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-      const enBooks = teiVerseBooks(enXml, { cards: BOOK.cards }, warn);
-      const laBooks = teiVerseBooks(xml, { cards: O.cards }, warn);
+      const enBooks = teiVerseBooks(enXml, { cards: BOOK.cards, prose: BOOK.cardProse }, warn).books;
+      const laGot = teiVerseBooks(xml, { cards: O.cards, prose: O.cardProse }, warn);
+      const laBooks = laGot.books;
+      /* The original's notes have nowhere to go — Folio folds notes under the translation alone — so
+         they are dropped and the count printed, exactly as the drama branch prints Herodotus's 83.
+         Monro and Allen's Greek carries one, recording that the edition omits Iliad 9.458–461. */
+      if (laGot.dropped) console.log("  dropped " + laGot.dropped + " note(s) from the " +
+        O.langName + " — the reader folds notes under the translation alone");
       console.log("  reconciling the two columns' section numbers:");
-      reconcileCards(enBooks, laBooks, warn, (m) => console.log(m));
+      reconcileCards(enBooks, laBooks, warn, (m) => console.log(m), O.langName);
       Object.keys(laBooks).forEach((n) => { byNum[n] = teiVerseHtml(laBooks[n]); });
       return writeOriginal(byNum, warnings);
     }
