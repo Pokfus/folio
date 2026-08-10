@@ -23,10 +23,14 @@ FRONT_EN = '<div class="uc-ask">Say it in Spanish</div><div class="uc-field">{{E
 # translation of it.
 FORMS = '{{#Forms}}{{Forms}}{{/Forms}}'
 
-TAIL = ('{{#Conjugation}}<details class="uc-fold"><summary>Conjugation</summary>'
-        '<div class="uc-conj">{{Conjugation}}</div></details>{{/Conjugation}}'
-        '{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
-        '<div class="uc-exs">{{Examples}}</div></details>{{/Examples}}')
+# The sentences come FIRST and the paradigm after it.  A verb's conjugation runs
+# to seventy-odd forms, so a reader who opens both folds has to scroll past the
+# whole of it to reach the three sentences that show the word being used -- and
+# the sentences are the part a beginner reads.
+TAIL = ('{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
+        '<div class="uc-exs">{{Examples}}</div></details>{{/Examples}}'
+        '{{#Conjugation}}<details class="uc-fold"><summary>Conjugation</summary>'
+        '<div class="uc-conj">{{Conjugation}}</div></details>{{/Conjugation}}')
 
 BACK_ES = ('{{FrontSide}}' + FORMS +
            '<hr><div class="uc-field">{{English}}</div>' + TAIL)
@@ -219,6 +223,8 @@ EX_NOTE = ('Every word also carries three real example sentences'
            f'{ntot} and one or two where the corpus had no more')
 narts = sum(1 for c in cards if c['sub'].startswith('Spanish')
             and c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las', 'el/la', 'los/las'))
+npairs = sum(1 for c in cards if c['sub'].startswith('Spanish')
+             and ', ' in c['fields']['Spanish'])
 
 LEVEL_U = LEVEL.upper()
 BELOW_NOTE = ('' if LEVEL == 'a1' else
@@ -248,6 +254,9 @@ DESC = (
     f"Every noun carries its article, so the gender is learnt with the word ({narts} of them), and "
     "its plural sits directly beneath it; a noun beginning with a stressed a- is given the el it "
     "takes in the singular and the las it takes in the plural (el agua, las aguas). "
+    f"A noun or adjective with a distinct feminine is taught as a pair rather than as two words "
+    f"({npairs} of them): el niño, la niña above los niños, las niñas, and rojo, roja above rojos, "
+    "rojas. Where both halves are in the word list they share one card. "
     f"Each of the {nverbs} verbs carries its full conjugation: the non-finite forms, all five simple "
     "tenses of the indicative, the present, both imperfects and the future of the subjunctive, and "
     "the imperative in both its affirmative and its negative. Six persons are shown, from yo to "
@@ -295,5 +304,6 @@ out = os.path.abspath(os.path.join('..', '..', 'decks', DECK_FILES[LEVEL]))
 with open(out, 'w', encoding='utf-8') as f:
     json.dump(deck, f, ensure_ascii=False)
 print('wrote', out)
-print('cards', len(cards), 'verbs with conjugation', nverbs, 'nouns with article', narts)
+print('cards', len(cards), 'verbs with conjugation', nverbs, 'nouns with article', narts,
+      'gendered pairs', npairs)
 print('bytes', os.path.getsize(out))

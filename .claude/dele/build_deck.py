@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Assemble the DELE A1 Spanish deck."""
+"""Assemble one level's DELE Spanish deck."""
 import json, re, html
-from dele_level import f as lvlf
+from dele_level import LEVEL, DECK_IDS, f as lvlf
 
 words = json.load(open(lvlf('wordlist500.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -107,6 +107,8 @@ CLOSED_GLOSS = {
     'ellos': ['they, them'], 'me': ['me, to me, myself'],
     'eso': ['that (neuter)'], 'unas': ['some, a few'],
     'muy': ['very'], 'tu': ['your'], 'su': ['his, her, its, their, your (formal)'],
+    # every plain sense of the object pronoun is filed as a form of `tú`
+    'te': ['you (object of a verb)', 'yourself'],
 }
 
 # and the plural-only words, which it files under a singular nobody uses
@@ -132,6 +134,115 @@ def gender_of(rec):
     if g in ('es',):
         g = a.get('g', '')
     return g
+
+# --------------------------------------------------------- male/female pairs
+# A word with a distinct feminine is one word wearing two endings, not two
+# words, so it is taught on one card: `el nino, la nina` over `los ninos, las
+# ninas`.  NOTHING IS DERIVED HERE.  The naive rule -- swap a final -o for -a,
+# add -a to a consonant -- gets `senor` wrong ("senoa"), and gets every
+# suppletive pair wrong (padre/madre, rey/reina, caballo/yegua).  kaikki has
+# already expanded Wiktionary's own template arguments into the record's `forms`
+# list, tagged ['feminine'] and ['feminine','plural'], so the four costumes the
+# argument wears -- an explicit word, `+` for the default derivation, `#` for
+# the headword itself, `#a` for the headword plus -a -- have all been resolved
+# before this code ever sees them.  Read the forms; never compose one.
+def fem_forms(rec, word):
+    """The feminine singular and plural of a record, or ('', '')."""
+    mpl = ''
+    fems, fpls = [], []
+    for f in rec.get('forms', []):
+        tg = set(f.get('tags') or [])
+        s = f.get('form', '')
+        if not s or s == '-' or 'table-tags' in tg:
+            continue
+        if 'feminine' in tg:
+            (fpls if 'plural' in tg else fems).append(s)
+        elif 'plural' in tg and not mpl and 'masculine' not in tg:
+            mpl = s
+    # a common-gender noun lists the headword itself as its own feminine
+    # (`el/la cliente`), so the pair is the first form that is a different word
+    fem = next((s for s in fems if s != word), '')
+    if not fem:
+        return '', ''
+    fpl = next((s for s in fpls if s == fem + 's'), '') or \
+          next((s for s in fpls if s != mpl), '')
+    return fem, fpl
+
+def merges_with(word, fem, rec, vocab):
+    """Should the feminine's own card be folded into the masculine's?
+
+    Only where the two are genuinely one entry seen from both sides, which is
+    what stops `caro`/`cara` (dear/face), `medio`/`media` (half/stocking),
+    `politico`/`politica` and `chino`/`china` being merged: each of those is a
+    real feminine FORM of the masculine and also, separately, a noun of its own,
+    and the deck teaches the noun.  Two signals separate them, and either will
+    do -- the feminine's own entry points back at this word (`senora` carries
+    `senor` as its masculine, `nina` carries `nino`), or this word's entry names
+    the feminine outright rather than deriving it (`rey` names `reina`).  Every
+    false pair above is a bare `+` derivation with no back-link.
+    """
+    if fem not in vocab:
+        return False
+    for rr in W.get(fem, []):
+        if rr.get('pos') != 'noun':
+            continue
+        args = (rr.get('head_templates') or [{}])[0].get('args', {})
+        if args.get('m') and any(
+                f.get('form') == word and 'masculine' in (f.get('tags') or [])
+                for f in rr.get('forms', [])):
+            return True
+    named = (rec.get('head_templates') or [{}])[0].get('args', {}).get('f', '')
+    return fem in [x.strip() for x in named.split(',')]
+
+# Wiktionary's record order decides which sense a card teaches, and for a
+# handful of words it puts the one a beginner does not want first: `cafe` as
+# "brown" rather than coffee, `periodico` as "periodic", `movil` as "mobile",
+# and `guapo` as "arrowroot".
+#
+# THE LAST THREE ARE THE WORST OF IT AND THE EASIEST TO MISS: Wiktionary gives
+# every Spanish letter a NOUN entry named after it, and files it first.  So
+# `de`, `te` and `ese` -- the preposition, the object pronoun and the
+# demonstrative, three of the commonest words in the language -- came out as
+# `la de`, `la te` and `la ese`, glossed "the name of the Latin script letter
+# D/d".  Each read as a perfectly well-formed noun card with an article and a
+# plural, which is why nothing downstream complained.
+FORCE_POS = {'café': 'noun', 'periódico': 'noun', 'móvil': 'noun', 'chico': 'noun',
+             'norte': 'noun', 'animal': 'noun', 'tarde': 'noun',
+             'primero': 'adj', 'guapo': 'adj',
+             'de': 'prep', 'te': 'pron', 'ese': 'det'}
+
+def has_real_sense(r):
+    return any(not (x.get('form_of') or x.get('alt_of')) for x in r.get('senses', []))
+
+def pick_primary(word, recs):
+    want = FORCE_POS.get(word)
+    p = next((r for r in recs if r['pos'] == want and has_real_sense(r)), None) if want else None
+    if p is None and want:
+        p = next((r for r in recs if r['pos'] == want), None)
+    return p or next((r for r in recs if has_real_sense(r)), recs[0] if recs else None)
+
+def pair_for(word, recs, primary, reflexive):
+    """The feminine to set beside the headword, and its plural, or ('', '').
+
+    Read off the record the CARD teaches, never off the first one that happens
+    to carry a feminine: `mano` has a masculine record meaning "bro" whose
+    feminine is "mana", and the card is about the hand.
+    """
+    if reflexive or primary is None:
+        return '', ''
+    if primary['pos'] == 'adj':
+        return fem_forms(primary, word)
+    if primary['pos'] != 'noun':
+        return '', ''
+    nrec = next((r for r in recs if r['pos'] == 'noun'), None)
+    if nrec is None:
+        return '', ''
+    g = gender_of(nrec)
+    # a common-gender noun is already given as `el/la juez`, and a plural-only
+    # one has no singular pair to make
+    if not g.startswith('m') or g.startswith(('mf', 'm-f', 'm-p')):
+        return '', ''
+    return fem_forms(nrec, word)
 
 def article(word, g):
     if g.startswith('m-p'):
@@ -355,7 +466,11 @@ def meanings_html(glosses):
             ''.join(f'<li>{esc(x)}</li>' for x in lines) + '</ul>')
 
 # ---------------------------------------------------------------- other forms
-def forms_html(word, recs, art, primary):
+def forms_html(word, recs, primary, pair):
+    """The line under the headword.  A paired word gives BOTH plurals on it --
+    `los ninos, las ninas` -- since the feminine is already on the headword and
+    a separate `feminine` row would say it twice."""
+    fem, fpl = pair
     bits = []
     for rec in recs:
         pos = rec['pos']
@@ -365,7 +480,8 @@ def forms_html(word, recs, art, primary):
             g = gender_of(rec)
             pl = ''
             for f in rec.get('forms', []):
-                if 'plural' in f.get('tags', []) and f.get('form') not in ('', '-'):
+                tg = set(f.get('tags') or [])
+                if 'plural' in tg and 'feminine' not in tg and f.get('form') not in ('', '-'):
                     pl = f['form']; break
             # `el lunes` pluralises to `los lunes`: the noun does not change but
             # the article does, which is the half of it worth learning.  A noun
@@ -373,22 +489,21 @@ def forms_html(word, recs, art, primary):
             if pl and not g.startswith(('f-p', 'm-p')):
                 a = ('los/las' if g.startswith(('mf', 'm-f')) else
                      'las' if g.startswith('f') else 'los' if g.startswith('m') else '')
-                bits.append(('plural', (a + ' ' if a else '') + pl))
+                v = (a + ' ' if a else '') + pl
+                if fem and fpl:
+                    v += ', las ' + fpl
+                bits.append(('plural', v))
             break
         if pos == 'adj':
-            fem = pls = ''
+            pls = ''
             for f in rec.get('forms', []):
                 tg = set(f.get('tags', [])); s = f.get('form', '')
                 if not s or s == '-':
                     continue
-                if 'feminine' in tg and 'plural' not in tg and not fem:
-                    fem = s
                 if 'plural' in tg and 'masculine' in tg and not pls:
                     pls = s
-            if fem and fem != word:
-                bits.append(('feminine', fem))
             if pls and pls != word:
-                bits.append(('plural', pls))
+                bits.append(('plural', pls + (', ' + fpl if fem and fpl else '')))
             break
     if not bits:
         return ''
@@ -408,12 +523,38 @@ def examples_html(word, exs):
                    f'<div class="uc-exe">{esc(en)}</div></div>')
     return ''.join(out)
 
+# ------------------------------------------------------- pairs, in a pre-pass
+# Which words are paired, and which of them lose their own card, is settled
+# before any card is built: `nina` may be listed before `nino`, and whichever
+# comes first must already know the other is coming.
+VOCAB = set(words)
+
+def recs_of(word):
+    return [r for r in W.get(word, []) if r.get('pos') in POS_NAME]
+
+PAIR, MERGED = {}, {}
+for word in words:
+    recs = recs_of(word)
+    refl = word.endswith(('arse', 'erse', 'irse')) and word[:-2] in BASES
+    prim = pick_primary(word, recs)
+    fem, fpl = pair_for(word, recs, prim, refl)
+    PAIR[word] = (fem, fpl)
+    if fem and prim is not None and prim['pos'] == 'noun':
+        nrec = next((r for r in recs if r['pos'] == 'noun'), None)
+        if nrec is not None and merges_with(word, fem, nrec, VOCAB):
+            MERGED[fem] = word
+print('gendered pairs:', sum(1 for v in PAIR.values() if v[0]),
+      ' folded onto one card:', ', '.join(f'{m}+{f}' for f, m in MERGED.items()) or 'none')
+
 # ---------------------------------------------------------------- build
-cards, n = [], 0
+cards, n, idx = [], 0, 0
 stats = {'noun': 0, 'verb': 0, 'conj': 0, 'article': 0, 'noexample': 0}
 
-for idx, word in enumerate(words, 1):
-    recs = [r for r in W.get(word, []) if r.get('pos') in POS_NAME]
+for word in words:
+    if word in MERGED:            # taught on its masculine's card
+        continue
+    idx += 1
+    recs = recs_of(word)
     # a verb paradigm may live on the base of a reflexive
     reflexive = word.endswith(('arse', 'erse', 'irse')) and word[:-2] in BASES
     vrec = None
@@ -425,21 +566,12 @@ for idx, word in enumerate(words, 1):
         vrec = next((r for r in BASES[word[:-2]] if r['pos'] == 'verb'), None)
         derived = vrec is not None
 
-    # Wiktionary's record order decides which sense a card teaches, and for a
-    # handful of words it puts the one a beginner does not want first: `cafe`
-    # as "brown" rather than coffee, `periodico` as "periodic", `movil` as
-    # "mobile", and `guapo` as "arrowroot".  Nine words, so they are named.
-    NOUN_FIRST = {'café', 'periódico', 'móvil', 'chico', 'norte', 'animal', 'tarde'}
-    ADJ_FIRST = {'primero', 'guapo'}
+    primary = pick_primary(word, recs)
+    fem, fpl = PAIR[word]
+    absorbed = fem if MERGED.get(fem) == word else ''
 
-    def has_real_sense(r):
-        return any(not (x.get('form_of') or x.get('alt_of')) for x in r.get('senses', []))
-    want = 'noun' if word in NOUN_FIRST else 'adj' if word in ADJ_FIRST else None
-    primary = (next((r for r in recs if r['pos'] == want and has_real_sense(r)), None) if want else None)
-    if primary is None:
-        primary = next((r for r in recs if has_real_sense(r)), recs[0] if recs else None)
-
-    # headword: a noun carries its article
+    # headword: a noun carries its article, and a word with a distinct feminine
+    # carries it too -- `el nino, la nina`, `rojo, roja`
     art, headword, gender = '', word, ''
     nrec = next((r for r in recs if r['pos'] == 'noun'), None)
     if nrec is not None and not reflexive and primary is not None and primary['pos'] == 'noun':
@@ -448,6 +580,8 @@ for idx, word in enumerate(words, 1):
         if art:
             headword = art + ' ' + word
             stats['article'] += 1
+    if fem:
+        headword += ', ' + (article(fem, 'f') + ' ' if art else '') + fem
 
     # meanings
     senses = []
@@ -456,7 +590,7 @@ for idx, word in enumerate(words, 1):
     elif word in REFL_GLOSS:
         senses.append(('verb', REFL_GLOSS[word]))
     elif word in CLOSED_GLOSS:
-        senses.append((next((r['pos'] for r in recs), 'particle'), CLOSED_GLOSS[word]))
+        senses.append((primary['pos'] if primary is not None else 'particle', CLOSED_GLOSS[word]))
     elif word in PLURAL_GLOSS:
         senses.append(('noun', PLURAL_GLOSS[word]))
     else:
@@ -495,11 +629,21 @@ for idx, word in enumerate(words, 1):
             if got:
                 senses.append((r['pos'], got)); break
 
+    # A pair that has swallowed the feminine's own card gives its meaning too --
+    # `el padre, la madre` above "father" alone reads as a card that has lost
+    # half of itself.  One gloss each, so the two lines answer to the two words.
+    if absorbed and senses:
+        fprim = pick_primary(absorbed, recs_of(absorbed))
+        fg = glosses_for(fprim, limit=1) if fprim is not None else []
+        if fg and fg[0] != senses[0][1][0]:
+            senses[0] = (senses[0][0], [senses[0][1][0], fg[0]])
+
     def pos_label(p):
         lab = POS_NAME.get(p, p)
         if p == 'noun' and gender:
             g = gender
-            lab += (', masculine' if g.startswith('m') and 'f' not in g[:2] else
+            lab += (', masculine and feminine' if fem else
+                    ', masculine' if g.startswith('m') and 'f' not in g[:2] else
                     ', feminine' if g.startswith('f') else
                     ', masculine or feminine' if g.startswith(('mf', 'm-f')) else '')
         return lab
@@ -512,7 +656,7 @@ for idx, word in enumerate(words, 1):
     conj = conjugation_html(word, vrec, derived, reflexive) if vrec is not None else ''
     if conj:
         stats['conj'] += 1
-    forms = forms_html(word, recs, art, primary) if not conj else ''
+    forms = forms_html(word, recs, primary, (fem, fpl)) if not conj else ''
     exs = EX.get(word, [])
     if not exs:
         stats['noexample'] += 1
@@ -527,7 +671,13 @@ for idx, word in enumerate(words, 1):
                                 ('en', 'English → Spanish', 'en-to-es')):
         n += 1
         cards.append({
-            'id': f'u_delea1_{n}', 'num': str(idx), 'category': 'DELE A1',
+            # THE ID CARRIES THE DECK, and did not until Aug 2026: both levels
+            # wrote `u_delea1_N`, and a file import only mints fresh ids when
+            # the DECK id already exists -- which `delea2` does not -- so
+            # installing A2 after A1 overwrote A1's cards in the shared store
+            # one for one, silently, with both decks still on the shelf.
+            'id': f'u_{DECK_IDS[LEVEL]}_{n}', 'num': str(idx),
+            'category': 'DELE ' + LEVEL.upper(),
             'sub': sub,
             'question': headword if direction == 'es' else plain,
             'answer': plain if direction == 'es' else headword,

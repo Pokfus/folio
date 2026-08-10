@@ -44,8 +44,12 @@ def words_below():
         deck = json.load(open(p, encoding='utf-8'))
         for c in deck['cards']:
             w = (c.get('fields') or {}).get('Spanish', '')
-            # the headword carries its article; the word is what follows it
-            parts = w.split(' ', 1)
-            out.add(parts[1] if parts[0] in ('el', 'la', 'los', 'las',
-                                             'el/la', 'los/las') and len(parts) > 1 else w)
+            # A headword may carry TWO words -- `el nino, la nina` -- and both
+            # are taught, so both are excluded.  Reading only the first would
+            # let A2 re-teach a feminine A1 already covers.
+            for half in w.split(', '):
+                parts = half.split(' ', 1)
+                out.add(parts[1] if parts[0] in ('el', 'la', 'los', 'las',
+                                                 'el/la', 'los/las') and len(parts) > 1
+                        else half)
     return out

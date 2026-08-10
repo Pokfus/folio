@@ -2424,9 +2424,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **ONE LEVEL PER RUN** (`dele_level` reads the level once, at import), and **a level is taught on top of
   the ones below it**: A2 excludes every word the SHIPPED A1 deck contains, read out of the deck file
   rather than a working file, so the two cannot drift and a rebuilt A2 cannot start teaching a word A1
-  already covers. The intermediates are level-suffixed so both can sit in one cache.
-  The stage headers carry what the build found, and five of those findings are the ones to read before
+  already covers — **both halves of a paired headword**, so A2 cannot re-teach a feminine A1 already shows
+  (that exclusion is what took four feminine adjectives out of A2 and let four new words in). The
+  intermediates are level-suffixed so both can sit in one cache.
+  The stage headers carry what the build found, and seven of those findings are the ones to read before
   touching it.
+  **A CARD ID MUST CARRY ITS DECK, and this is the loudest silent fault the generator has had** (Aug 2026).
+  Both levels wrote `u_delea1_N`, because the id was a literal in a file first written for A1 — and a deck
+  FILE import only mints fresh card ids when the DECK id already exists, which `delea2` does not. So
+  installing both decks put two different cards under one key in the shared `UCARDS` store, and **studying
+  the A1 subdeck dealt A2's cards — all twenty-five of a twenty-five-card probe.** Both decks were on the
+  shelf, both had their full card counts on disk, and nothing threw. The check to run after any change to
+  the emitter is to import BOTH levels into one device and study the lower one.
+  **A MALE/FEMALE PAIR IS ONE WORD WEARING TWO ENDINGS, AND NOTHING ABOUT IT MAY BE DERIVED**
+  (`fem_forms` / `merges_with` / `pair_for` in `build_deck.py`). The naive rule — swap a final `-o` for
+  `-a`, add `-a` to a consonant — gets `señor` wrong ("señoa") and every suppletive pair wrong
+  (padre/madre, rey/reina, caballo/yegua). It does not have to be derived at all: kaikki has already
+  expanded Wiktionary's own template arguments into the record's `forms`, tagged `['feminine']` and
+  `['feminine','plural']`, so the four costumes the argument wears — an explicit word, `+` for the default
+  derivation, `#` for the headword itself, `#a` for the headword plus `-a` — are resolved before this code
+  sees them. **Read the record the CARD teaches, not the first one carrying a feminine**: `mano` has a
+  masculine record meaning "bro" whose feminine is "mana", and the card is about the hand. And **a real
+  feminine FORM is very often a different WORD as well**, which is what decides whether the two share a
+  card: `caro`/`cara` (dear/face), `medio`/`media` (half/stocking), `político`/`política` and
+  `chino`/`china` are all genuine feminines and all separately nouns the deck teaches. Two signals
+  separate them and either will do — the feminine's own entry points back (`señora` carries `señor` as its
+  masculine) or the masculine names the feminine outright rather than deriving it (`rey` names `reina`) —
+  and every false pair is a bare `+` with no back-link. Measured: 63 pairs in A1 and 70 in A2, of which 4
+  and 1 fold two cards into one.
+  **A LETTER HAS A NOUN ENTRY, AND WIKTIONARY FILES IT FIRST** (`FORCE_POS`). `de`, `te` and `ese` — the
+  preposition, the object pronoun and the demonstrative — came out as `la de`, `la te` and `la ese`,
+  glossed "the name of the Latin script letter D/d", each a perfectly well-formed noun card with an
+  article and a plural, which is why nothing downstream complained.
   **A WORD THAT IS ANOTHER WORD WEARING AN ENDING IS NOT A CARD, AND THE TEST FOR IT IS THE SUBTLEST
   THING HERE** (`is_inflection` in `select.py`). `flores`, `roja`, `clases` and `mala` are the plural or
   the feminine of words already taught, and they get past the lemma test because Wiktionary records some
