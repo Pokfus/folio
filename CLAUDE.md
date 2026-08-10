@@ -4514,6 +4514,96 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `body.grading .study-shell .undobtn{display:none}` is what keeps a revealed card from showing two, and
   `.grade-wrap .gb-undo{display:none}` keeps the desktop on the study bar's single copy. Both halves are
   asserted by `test-layout.js` — a duplicate and a disappearance look identical in a screenshot of one state.
+- **FLAGS, SET DUE DATE, FORGET, AND THE CARD BROWSER (Aug 2026, on request).** Folio had come to record a
+  great deal about every card — a state, an interval, an ease or a stability, a lapse count, tags, and since
+  this month every individual review — and gave a reader no way to look at any of it except one card at a
+  time, on whichever card happened to be in front of them. These four land together because they are one
+  gesture: find the card, then do something to it.
+  · **A FLAG IS NOT `cardColor`, and the two must never be merged however alike they look.** `cardColor` is
+    an ADMIN's private marker on a card in the editor: it rides in `ADMIN_EDITS`, it is published to every
+    reader through the content overrides, and it means "I, who write these cards, have a note about this
+    one". A **flag** (`S.flags[id]` → 1–7) is the READER's, it rides in their own progress, and nobody else
+    ever sees it. One is a fact about the content, the other a fact about somebody's studying.
+    Anki's seven, in Anki's order and under Anki's names, because a reader who has flagged cards before will
+    press Ctrl+1 and mean red by it. **The chord has to be Ctrl** — 1–4 are the grade keys — and it sits
+    ABOVE the Enter/Space guard in the study page's key handler but is deliberately allowed to fire while
+    the cloze box has focus, since Ctrl+digit types nothing into a text box and a reader mid-guess is
+    exactly who wants to flag the card. **Setting the flag a card already carries CLEARS it**, which is what
+    makes one chord enough for both directions; the sheet toggles on ONE card for the same reason and SETS
+    on many, a bulk action that toggled leaving a mixed selection half red and half not.
+    **It is in `RESET_KEEPS`**: a flag is an annotation rather than history, and Settings → Reset progress
+    names the study history, the streak and the badges, none of which a flag is.
+    **The colours are TOKENS** (`--flag-1` … `--flag-7`, with night and high-contrast values of their own),
+    for the rarity palette's reason at more than twice the scale — seven hues told apart at a glance, and a
+    hue mixed toward a dark paper stops being the hue that identifies it. **The dot is never coloured TEXT**:
+    seven hues legible as 10px type on sixteen light papers and eighteen dark ones do not exist, the name is
+    beside it in the ordinary ink, and the picker prints the FIGURE on each swatch so the seven are told
+    apart by position and number as well as by colour.
+    **Flagging repaints the CARD, not the page** (`renderCard()`, never `render()`) — `render()` rebuilds the
+    study page from the stored session and would take a revealed answer away, and flagging a card is not a
+    reason to un-reveal it. Guarded in both directions.
+  · **`schedSetDue` and `schedForget` are PURE and live above the `/* ---------- SRS ---------- */` marker**,
+    beside `schedAnswer`, so `test-cards.js` walks them as arithmetic and the undo snapshot stays valid (each
+    returns a NEW record; the caller's is never mutated). **They belong to the scheduler rather than to a
+    button** because either written at the call site would be five field writes with a rule behind each —
+    what happens to a learning card's step, whether a lapsed card keeps the interval it was returning to,
+    whether the FSRS memory state survives — and those rules would then exist in as many places as offered
+    the action. Here there is one of each, and the browser's bulk actions and the single-card sheets are the
+    same code.
+    **Set due date takes Anki's own input** (`7`, `7!`, `4-7`) and its instant is `t + days * DAY`, computed
+    the way `schedAnswer` computes every other due date rather than snapped to the reader's day boundary —
+    deliberate consistency, since a card graded at ten in the evening with a one-day interval already comes
+    due at ten the next evening. A **new or learning card becomes a REVIEW card**, which is Anki's behaviour
+    and the only coherent one: left in learning, the date the reader has just chosen is overwritten by the
+    very next grade, which walks the steps, and nothing on screen would say so. A **range is resolved per
+    card, seeded by the card's own id**, so pushing a hundred cards spreads them — the point of offering a
+    range — and re-running the same action puts them on the same days rather than reshuffling.
+    **Forget KEEPS the record rather than deleting it**, and that is the load-bearing part: Folio's XP is the
+    number of distinct cards studied, so dropping the record would silently take back a level earned by
+    studying something the reader did in fact study, and `first` is what every per-deck new-card count is
+    derived from. `resetCounts` is Anki's own checkbox and is off by default — those reviews happened. The
+    FSRS memory state always goes, forgetting being exactly the assertion that it was wrong.
+  · **THE BROWSER (`PAGES.browse` at `#browse`)** — a searchable, sortable table over every card
+    `availableCardIdSet()` yields, which is the right universe rather than every id in the tree: it already
+    leaves out the coming-soon collections and already expands a community note into its several cards, so
+    the browser lists exactly what the review could deal. Rows carry a checkbox, the flag, the card, its
+    deck, its state, when it is due, its interval, its reviews and its lapses; selecting any of them raises a
+    bulk bar (flag, set due date, forget, suspend, unsuspend). A row opens Card info, where the same actions
+    live on one card — **the actions are IN Card info because that panel is already "everything about this
+    card", and the two calls it was missing are both answers to what it shows**: a due date the reader
+    disagrees with, and a lapse count saying the card never stuck.
+    **THE SEARCH IS THE HALF THAT MATTERS**, and it is Anki's syntax cut to a documented subset: `is:`,
+    `flag:`, `prop:`, `deck:`, `tag:`, `introduced:`, `rated:`, terms ANDed, any of them negatable with a
+    leading `-`, phrases quotable. `browseTokens` and `browsePredicate` are **PURE** — a row is a plain
+    object and nothing in them reads `S` — which is what lets the test put thirty queries through them as
+    arithmetic. **An operator Folio does not know stays FREE TEXT rather than being dropped**, so a typo
+    searches for itself and narrows to nothing instead of matching everything; and **an operator whose VALUE
+    makes no sense matches NOTHING rather than everything**, for the same reason. Both failures look like
+    "the search is broken" from one side only.
+    **TWO DEPARTURES FROM ANKI, and the page says so rather than leaving them to be discovered.** There is
+    **no `added:`** — Anki's counts from when a note was created and a curated Folio card has no creation
+    date at all, it ships in `data.js` — so the operator is `introduced:` and means the day a card was first
+    STUDIED, which `first` already records. Calling it `added:` would have been a figure that looks like
+    Anki's and answers a different question. And **`rated:` reads the per-review log**, so it cannot see
+    further back than the log does.
+    **The deck column prints the LEAF's title and the full path is on the row's tooltip** — a full path is
+    forty-odd characters, which in a table column is an ellipsis and nothing else ("World History · Or…"
+    tells a reader strictly less than "Origins"). **Below 640px five of the nine columns go** rather than
+    being squeezed: at 390px the card's own title is the only part of a row with no shorter form, so anything
+    taking width from it is what gives, and the rest is one tap away in Card info.
+    **`BROWSE_CAP` (300) bounds what is DRAWN and the count line always states the true total** with the cap
+    named — a silent truncation would read as a search that found 300 things.
+    **The query, the column and the selection are module-level and deliberately NOT in `S`**: they are a way
+    of LOOKING at the collection rather than a preference about Folio, so they survive navigating away and
+    back within a session and reset on reload — the glossary record's own call. Typing repaints IN PLACE
+    rather than re-rendering, or the caret leaves the box being typed in.
+    **THERE ARE TWO WAYS IN and both are asserted**, because they serve different readers: the **account
+    page**, at the head of the reader's own record — **including the SIGNED-OUT one**, which is the case that
+    would have been missed, since everything else there is behind the sign-in wall for being about an ACCOUNT
+    where this is about the cards on this device, and a guest studies, flags and forgets like anybody else —
+    and a **deck's long-press options sheet**, which is the everyday path, the moment somebody wants to find
+    a card usually being the moment they are looking at their decks. `setActiveTab` maps the route to
+    `account`, as it does `glossary`.
 - **THE PER-REVIEW LOG (Aug 2026, on request)** — `S.revlog`, one row per answer, written by
   **`logReviewEntry`** from `grade()` and read by **`revRead`** / `revForCard` / `revWindow`. The daily
   `reviewLog` below keeps three numbers a day, which is all a heatmap and a retention rate need and is the
@@ -8925,7 +9015,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-five committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-six committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -9221,6 +9311,26 @@ dead code (never rendered).
     fitting mutates neither the defaults nor the history handed to it.
     **The fixture's step count is now DERIVED from the fixture** rather than written down (`walked === wantWalked`) —
     widening the grid, which is exactly what adding fractional gaps did, must not fail on an arithmetic constant.
+  · `node .claude/test-cards.js` — **flags, Set due date, Forget and the card browser** (114 assertions,
+    Aug 2026), in two halves for the reason `test-card-types.js` is. The **pure** half slices `schedSetDue`,
+    `schedForget`, `parseSetDue`, `browseTokens` and `browsePredicate` out of app.js and runs them with no
+    browser at all — a scheduling rule reads far better as a failed comparison than as a screenshot — and its
+    sharpest assertions are the ones no screen could report: that a forgotten card KEEPS its record (deleting
+    it would put the card back to new just as well and silently take back a level, Folio's XP being the
+    number of distinct cards studied), that a card given a due date comes out as a REVIEW card (left in
+    learning, the very next grade walks the steps and overwrites the date), and that a forgotten card walks
+    the learning steps again, which is a property of the pair rather than of either function. On the search:
+    that an **empty query matches everything** and a **nonsense one matches nothing** — opposite failures,
+    each of which looks like "the search is broken" from one side only — and that an unknown operator stays
+    free text rather than being dropped. The **browser** half drives a real one: the flag chord in both
+    directions, that flagging a REVEALED card leaves it revealed (a `render()` here would un-reveal it),
+    Card info's four actions and its re-opening on the state it has just changed, the search, the sort and
+    its reversal, a bulk action reaching the selected card, and **both ways in** — the SIGNED-OUT account
+    page and a deck's options sheet, asserted separately because they serve different readers and fail
+    differently. **Re-run after touching `schedSetDue` / `schedForget` / `parseSetDue` / `browseTokens` /
+    `browseTerm` / `browsePredicate` / `browseRowData` / `BROWSE_COLS` / `PAGES.browse` / `openFlagSheet` /
+    `openSetDueSheet` / `openForgetSheet` / `openCardInfo` / `cardFlag` / `setCardFlag` / `S.flags`, or the
+    account page's and the deck sheet's entries.**
   · `node .claude/test-revlog.js` — 58 assertions on **the per-review log**, Card info and the Answer-buttons
     card (Aug 2026), and every one of them is for a silent failure: a log that stops being written throws
     nothing and looks exactly like a reader who has not studied, and a duration that stops being measured

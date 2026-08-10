@@ -35,13 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.153", released: "2026-08-10T11:00Z" };
+window.FOLIO_VERSION = { v: "1.154", released: "2026-08-10T12:26Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-10",
-    t: "A second scheduler you can pick deck by deck, decks you can group, and both of Homer's poems",
+    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and both of Homer's poems",
     items: [
+      "<b>There is a card browser</b> — a searchable table of every card you could study, on your account page and in any deck's options.",
+      "It takes Anki-style searches: <b>is:due</b>, <b>flag:1</b>, <b>prop:lapses&gt;3</b> for the ones that keep slipping, <b>introduced:7</b> for what you met this week.",
+      "<b>You can flag a card while you are studying it</b>, in seven colours, with Ctrl+1 to Ctrl+7 — and find it again with <b>flag:3</b>.",
+      "<b>You can push a card to a date, or put one back to new</b>, from any card's Info panel or the browser's selection bar, on one card or a hundred.",
       "<b>These release notes are one sentence a line now</b>, and the bold in them shows as bold rather than as the tags around it.",
       "On a phone the About page's questions and release-note days now fold away completely, instead of leaving a clipped line of the answer showing.",
       "<b>A waiting chest is announced above your Daily study</b> rather than on the account page, and the banner no longer carries a count of them.",

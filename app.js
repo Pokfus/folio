@@ -1133,6 +1133,10 @@
          nothing but the last hour. Suspending is for ever and is the reader's decision; burying is for today
          and is the scheduler's, which is why they are separate registers and not one field with two meanings. */
       buried: {},
+      /* FLAGGED CARDS — id -> 1..7, the reader's own colour on a card they mean to come back to. Absent
+         means unflagged; nothing stores a 0. It is a marker rather than history, which is why it survives
+         Settings → Reset progress (see RESET_KEEPS) while the schedule beside it does not. */
+      flags: {},
       /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
          hundreds of screens, so "open it again where I left off" is not a convenience but the only way
          it is usable at all. It is PROGRESS, not a device setting — it rides in PROGRESS_FIELDS so a
@@ -1511,7 +1515,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1592,7 +1596,10 @@
   /* …and the reader's GROUPS with them (Aug 2026): a group is how they have arranged the decks `active`
      already keeps, so clearing a study schedule and taking the arrangement of it with them would be the
      same surprise this list exists to prevent. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest"];
+  /* …and the reader's FLAGS (Aug 2026). A flag is an annotation, not history: "come back to this one" is
+     the kind of note that survives clearing a schedule, exactly as a starred book and a reader's place in
+     one do. The dialog names the study history, the streak and the badges, and a flag is none of them. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags"];
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
@@ -3711,6 +3718,73 @@
     return { again: again, hard: ivs.hard, good: ivs.good, easy: ivs.easy };
   }
 
+  /* ---------- SET DUE DATE and FORGET (Aug 2026, on request) ----------
+     Anki's two escape hatches, and between them they cover the two things a schedule cannot say for itself:
+     "I am away next week" and "this one never stuck". Both are PURE and both return a NEW record, like
+     schedAnswer — so the undo snapshot stays valid, the caller's record is never mutated, and
+     test-scheduler.js can walk them as arithmetic.
+
+     WHY THEY BELONG TO THE SCHEDULER RATHER THAN TO A BUTTON. Either one written at the call site would be
+     four or five field writes with a rule behind each (what happens to a learning card's step, whether a
+     lapsed card keeps the interval it was returning to, whether FSRS's memory state survives), and those
+     rules would then exist in however many places offered the action. Here there is one of each, and the
+     browser's bulk actions and the single-card sheets are the same code. */
+
+  /* Push a card to a day. `days` is whole days from `t` — 0 meaning now — and the instant is computed the
+     same way schedAnswer computes every other due date (`t + days * DAY`) rather than being snapped to the
+     reader's day boundary. That is deliberate consistency rather than laziness: a card graded at ten in the
+     evening with a one-day interval already comes due at ten the next evening, so a Set-due-date that
+     behaved differently would be the one place in Folio where "a day" meant something else.
+
+     A NEW or LEARNING card becomes a REVIEW card, which is Anki's behaviour and the only coherent one — a
+     due date is a review card's property, and leaving it in learning would have the next grade walk the
+     steps and overwrite the date the reader had just chosen. What it does NOT touch is the memory: reps,
+     lapses, ease, stability and difficulty all survive, because pushing a card to Friday says nothing about
+     how well it is known. `setInterval` is Anki's `N!` — it moves the interval to match, which is what a
+     reader means when the old interval is the thing that was wrong. */
+  function schedSetDue(card, days, t, setInterval, cfg) {
+    cfg = cfg || SCHED;
+    const c = Object.assign({}, card || schedBlank());
+    const d = Math.max(0, Math.min(cfg.maxIv, Math.floor(Number(days) || 0)));
+    c.status = "review";
+    c.step = 0;
+    c.due = t + d * DAY;
+    /* A card that has never been a review card has no interval to keep, so it takes the one it was just
+       given — a floor of a day, since a review card with an interval of 0 would be scheduled by nothing.
+       An existing review card keeps its own unless the reader asked otherwise. */
+    if (setInterval || !(Number(c.interval) > 0)) c.interval = Math.max(1, d);
+    delete c.lapseIv;      // it is no longer relearning, so there is nowhere to return to
+    return c;
+  }
+
+  /* Back to new. Anki keeps the card and resets its scheduling, and so does this — the record is NOT
+     deleted, which matters for two reasons worth stating. Folio's XP is the number of distinct cards
+     studied, so dropping the record would take back a level the reader had earned by studying something
+     they did in fact study; and `first` is what every per-deck new-card count is derived from, so a
+     forgotten card would stop being counted against the day it was introduced.
+
+     `resetCounts` is Anki's own checkbox and is off by default: the reps and lapses HAPPENED, and a reader
+     who wants the card treated as though it had never been seen can say so. The FSRS memory state always
+     goes — a stability is a claim about how well the card is known, and forgetting is exactly the assertion
+     that the claim was wrong. */
+  function schedForget(card, resetCounts, t) {
+    const c = Object.assign({}, card || schedBlank());
+    c.status = "new";
+    c.step = 0;
+    c.interval = 0;
+    c.due = t;
+    c.ease = SCHED.startEase;
+    delete c.stability;
+    delete c.difficulty;
+    delete c.lapseIv;
+    if (resetCounts) {
+      c.reps = 0;
+      c.lapses = 0;
+      delete c.leech;
+    }
+    return c;
+  }
+
   /* ---------- SRS ---------- */
   /* ---------- which scheduler a card is on ----------
      Below the marker above ON PURPOSE: everything before it is PURE — no S, no DOM, no clock but the one
@@ -3807,6 +3881,47 @@
     });
     return n;
   }
+  /* ---------- FLAGS (Aug 2026, on request) ----------
+     Colour a card mid-review, find it later. Anki's seven, in Anki's own order and under Anki's own names,
+     because a reader who has flagged cards before will reach for Ctrl+1 and mean red by it.
+
+     A FLAG IS NOT `cardColor`, and the two must not be merged however similar they look. `cardColor` is an
+     ADMIN's private marker on a card in the editor — it rides in `ADMIN_EDITS`, it is published to every
+     reader through the content overrides, and it means "I, the person who writes these cards, have a note
+     about this one". A flag is the READER's, it rides in their own progress, and nobody else ever sees it.
+     One is a fact about the content; the other is a fact about somebody's studying.
+
+     The colours are TOKENS rather than literals (`--flag-1` … `--flag-7`, with night values of their own),
+     for the reason the rarity colours are: the reader is being asked to tell seven apart at a glance, and a
+     hue mixed toward a dark paper stops being the hue that identifies it. */
+  const FLAGS = [
+    { n: 1, name: "Red" },
+    { n: 2, name: "Orange" },
+    { n: 3, name: "Green" },
+    { n: 4, name: "Blue" },
+    { n: 5, name: "Pink" },
+    { n: 6, name: "Turquoise" },
+    { n: 7, name: "Purple" },
+  ];
+  const FLAG_NAME = (n) => (FLAGS.find((f) => f.n === n) || {}).name || "";
+  function cardFlag(id) {
+    const n = S.flags && S.flags[id];
+    return n >= 1 && n <= 7 ? n : 0;
+  }
+  /* Setting the flag a card already carries CLEARS it, which is Anki's behaviour and is what makes the
+     keyboard shortcut usable: Ctrl+1 on a red card is how you take the red off, and without it the only way
+     back to no flag would be a different control. Storing 0 is storing nothing, so the key is deleted —
+     a register of zeroes would ride in the synced blob for ever saying that nothing is flagged. */
+  function setCardFlag(id, n) {
+    if (!S.flags || typeof S.flags !== "object") S.flags = {};   // back-fill for saves made before the register existed
+    const want = n >= 1 && n <= 7 ? n : 0;
+    const now = cardFlag(id);
+    if (!want || want === now) delete S.flags[id]; else S.flags[id] = want;
+    save();
+    return cardFlag(id);
+  }
+  const flagDotHTML = (n) => (n ? '<span class="flag-dot" data-flag="' + n + '" title="' + esc(FLAG_NAME(n)) + ' flag" aria-label="' + esc(FLAG_NAME(n)) + ' flag"></span>' : "");
+
   function isDueNow(id) {
     const c = S.cards[id];
     return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= now();
@@ -8799,7 +8914,7 @@
     // stays lit there rather than the bar going blank under a page that is plainly part of "your record"
     // A route with no tab of its own lights the tab it plainly belongs under: the discovered-terms list
     // is part of "your record", and one book is part of the Library it was opened from.
-    const lit = name === "glossary" ? "account" : name === "book" ? "library" : name;
+    const lit = name === "glossary" || name === "browse" ? "account" : name === "book" ? "library" : name;
     document.querySelectorAll(".tab").forEach((t) => {
       t.classList.toggle("active", t.dataset.route === lit);
     });
@@ -8821,6 +8936,7 @@
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
     glossary:  ["Glossary discovered — Folio", "Every glossary term you have opened while studying."],
+    browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
     challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
@@ -9623,6 +9739,12 @@
       (entryHasSiblings(id) ? swRow("bury", "Bury siblings",
         "A note's other cards wait until tomorrow",
         "Every card of a note can come up the same day", deckBurySiblings(id)) : "") +
+      /* THE EVERYDAY WAY INTO THE BROWSER. The account page has the other one, at the head of the reader's
+         record where the rest of their statistics live — but the moment somebody wants to find a card is
+         usually the moment they are looking at their decks, and this sheet is one press from any of them.
+         It goes on every entry, the pooled review included: the browser searches the whole collection
+         rather than the thing the sheet was opened on, which is why the row says "your cards". */
+      item("browse", "Browse your cards", "Search everything by state, flag, deck or how often you forget it") +
       (isGroup ? item("rename", "Rename", "Call this group something else") : "") +
       (isGroup ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
@@ -9694,6 +9816,7 @@
       }));
       ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors)").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
+        if (act === "browse") { close(); route("browse"); return; }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "rename") {
@@ -9804,6 +9927,11 @@
       if (c.first) add("First studied", esc(c.first));
       if (c.last) add("Last review", fmtStamp(c.last));
     }
+    /* The reader's own flag, read off `prog` like everything else here so a friend's card would show
+       theirs rather than this device's. Drawn only when there is one: an unflagged card is every card by
+       default, and a row saying "Flag: none" on all of them is a row that says nothing. */
+    const fl = ((prog.flags || {})[id]) | 0;
+    if (fl >= 1 && fl <= 7) add("Flag", '<span class="ci-flag" data-flag="' + fl + '">' + flagDotHTML(fl) + esc(FLAG_NAME(fl)) + "</span>");
     const where = cardLeaves(id).map((n) => nodeWhere(n)).filter(Boolean);
     if (where.length) add(where.length > 1 ? "Decks" : "Deck", esc(where.join(" · ")));
     /* WHICH card of its note this is — drawn only where a note makes more than one, since on every other
@@ -9859,29 +9987,413 @@
       '<p class="ci-sum">' + hist.length + (hist.length === 1 ? " review" : " reviews") + " recorded · " +
       right + " of " + hist.length + " remembered" + (secs ? " · " + esc(fmtSecs(secs)) + " spent" : "") + "</p>";
   }
-  function openCardInfo(id) {
+  /* What to call a card in a heading, a row of the browser or a toast. A Basic card is named by its answer;
+     a card of one of a deck's own types has no `answer` at all — the template owns the back — so it is named
+     by the first field that has anything in it, which is the word or the picture's subject and is what an
+     author would call it. Pulled out of openCardInfo when the browser needed the same answer for 400 rows. */
+  function cardTitle(id, max) {
     const c = cardById(id);
-    /* What to call the card. A Basic card is named by its answer; a card of one of a deck's own types has no
-       `answer` at all — the template owns the back — so it is named by the first field that has anything in
-       it, which is the word or the picture's subject and is what an author would call it. */
     let title = c ? stripHtml(c.answerText || c.answer || "") : "";
     if (!title && c && c.fields) {
       const t = cardTypeOf(c), order = (t && t.fields) || Object.keys(c.fields);
       const k = order.find((f) => String(c.fields[f] || "").trim());
       if (k) title = stripHtml(String(c.fields[k]));
     }
-    title = String(title || "").slice(0, 90);
+    return String(title || "").slice(0, max || 90);
+  }
+
+  /* ---------- ACTING ON CARDS: flag, set due date, forget (Aug 2026, on request) ----------
+     EVERY ONE OF THESE TAKES A LIST, and that is the whole reason they read as they do. The card browser's
+     bulk actions and the single-card sheets reached from Card info and the study bar are the same functions
+     with a list of one — so "set due date" cannot come to mean two slightly different things depending on
+     which control the reader pressed, which is what would happen if the sheet did the work and the browser
+     grew its own copy. `after` is the caller's repaint: the study bar re-renders a card, the browser
+     repaints its table in place, and neither can be done from here. */
+  function applyCardFlag(ids, n) {
+    if (!S.flags || typeof S.flags !== "object") S.flags = {};
+    const want = n >= 1 && n <= 7 ? n : 0;
+    ids.forEach((id) => { if (want) S.flags[id] = want; else delete S.flags[id]; });
+    save();
+    return want;
+  }
+  function applySetDue(ids, days, setInterval) {
+    const t = now();
+    ids.forEach((id) => {
+      /* A card with NO record is given one. That is what makes "set due date" work on a card the reader has
+         never seen — which is most of a fresh collection — and it is why schedSetDue takes a null card. */
+      S.cards[id] = schedSetDue(S.cards[id] || null, days, t, setInterval, schedCfgFor(id));
+    });
+    save();
+  }
+  function applyForget(ids, resetCounts) {
+    const t = now();
+    ids.forEach((id) => {
+      if (!S.cards[id]) return;   // never studied: there is nothing to forget, and writing a record would claim otherwise
+      S.cards[id] = schedForget(S.cards[id], resetCounts, t);
+    });
+    save();
+  }
+  const plural = (n, one, many) => n + " " + (n === 1 ? one : many);
+
+  /* The flag picker: eight swatches, none of them a colour name in coloured type (see the CSS note). It is a
+     sheet rather than a popover for the reason every other per-card action is one — the same shell, the same
+     Escape, the same focus trap — and the fast path is the keyboard, which is why the shortcut is printed on
+     it rather than left to be discovered. */
+  function openFlagSheet(ids, after) {
+    const one = ids.length === 1 ? ids[0] : null;
+    const cur = one ? cardFlag(one) : 0;
+    const sw = FLAGS.map((f) =>
+      '<button type="button" class="fl-sw' + (cur === f.n ? " sel" : "") + '" data-flag="' + f.n + '" data-fn="' + f.n +
+      '" title="' + esc(f.name) + ' (Ctrl+' + f.n + ')" aria-label="' + esc(f.name) + ' flag">' +
+      '<span class="flag-dot"></span><span class="fl-n">' + f.n + "</span></button>").join("");
+    const html =
+      '<div class="dm-head"><span class="dm-title">Flag</span><span class="dm-where">' +
+      esc(one ? cardTitle(one, 60) || one : plural(ids.length, "card", "cards")) + "</span></div>" +
+      '<div class="fl-row">' + sw + "</div>" +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-fn="0">' +
+      (cur ? "Remove the flag" : "No flag") + '</button><button type="button" class="btn ghost" data-act="close">Close</button></div>' +
+      '<p class="dm-note">On a keyboard, Ctrl+1 to Ctrl+7 flags the card you are studying and Ctrl+0 takes the flag off. ' +
+      "Flagging a card the same colour twice removes the flag.</p>";
+    deckSheet("Flag", html, (ov, close) => {
+      ov.querySelectorAll("[data-fn]").forEach((b) => b.addEventListener("click", () => {
+        const n = +b.dataset.fn;
+        /* On ONE card the picker toggles, exactly as the shortcut does, so the two controls cannot disagree
+           about what pressing red twice means. On MANY it SETS — a bulk action that toggled would leave a
+           mixed selection half red and half not, which is not a thing anybody asked for. */
+        applyCardFlag(ids, one ? (n === cur ? 0 : n) : n);
+        close();
+        if (after) after();
+      }));
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+
+  /* Set due date. Anki's own input, and its syntax is worth keeping because it is the only compact way to say
+     the three things a reader means: `7` a week from now, `7!` a week from now AND make that the interval,
+     `4-7` somewhere in that range so a hundred cards pushed together do not all come back on one day. */
+  const SETDUE_RX = /^\s*(\d{1,5})\s*(?:-\s*(\d{1,5})\s*)?(!?)\s*$/;
+  function parseSetDue(text) {
+    const m = SETDUE_RX.exec(String(text || ""));
+    if (!m) return null;
+    const a = parseInt(m[1], 10);
+    const b = m[2] == null ? a : parseInt(m[2], 10);
+    if (!(a >= 0) || !(b >= 0)) return null;
+    return { lo: Math.min(a, b), hi: Math.max(a, b), setInterval: m[3] === "!" };
+  }
+  function openSetDueSheet(ids, after) {
+    const html =
+      '<div class="dm-head"><span class="dm-title">Set due date</span><span class="dm-where">' +
+      esc(ids.length === 1 ? cardTitle(ids[0], 60) || ids[0] : plural(ids.length, "card", "cards")) + "</span></div>" +
+      '<label class="dm-field"><span>Days from now<small>0 is today</small></span>' +
+      '<input type="text" inputmode="numeric" id="sdDays" value="1" autocomplete="off"></label>' +
+      '<p class="dm-note">A plain number is a day: <b>7</b> puts the card a week from now and leaves its interval alone. ' +
+      "<b>7!</b> also makes seven days its new interval, which is what you want when the old interval was the thing that was wrong. " +
+      "<b>4-7</b> picks a day in that range for each card, so a pile pushed together does not come back together.</p>" +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="ok">Set the date</button>' +
+      '<button type="button" class="btn ghost" data-act="close">Cancel</button></div>';
+    deckSheet("Set due date", html, (ov, close) => {
+      const box = ov.querySelector("#sdDays");
+      const go = () => {
+        const p = parseSetDue(box.value);
+        if (!p) { toast("Give a number of days — 7, 7! or 4-7."); box.focus(); box.select(); return; }
+        /* The range is resolved PER CARD, seeded by the card's own id, so pushing a hundred cards spreads
+           them — which is the entire point of offering a range — and re-running the same action on the same
+           cards puts them on the same days rather than shuffling them again. */
+        if (p.lo === p.hi) applySetDue(ids, p.lo, p.setInterval);
+        else ids.forEach((id) => applySetDue([id], p.lo + Math.floor(schedFuzzRand("setdue:" + id + ":" + p.lo + ":" + p.hi) * (p.hi - p.lo + 1)), p.setInterval));
+        close();
+        toast(plural(ids.length, "card", "cards") + " moved" + (p.lo === p.hi ? (p.lo === 0 ? " to today" : " to " + plural(p.lo, "day", "days") + " from now") : " into the next " + p.hi + " days"));
+        if (after) after();
+      };
+      ov.querySelector('[data-act="ok"]').addEventListener("click", go);
+      box.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); go(); } });
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+      setTimeout(() => { box.focus(); box.select(); }, 0);
+    });
+  }
+
+  /* Forget. The sheet IS the confirmation — it says what will go and what will stay, and nothing happens
+     until a button with those words on it is pressed. It is the one action here that throws work away, so it
+     says so in the ordinary prose rather than behind a warning colour. */
+  function openForgetSheet(ids, after) {
+    const known = ids.filter((id) => S.cards[id]);
+    const html =
+      '<div class="dm-head"><span class="dm-title">Forget</span><span class="dm-where">' +
+      esc(ids.length === 1 ? cardTitle(ids[0], 60) || ids[0] : plural(ids.length, "card", "cards")) + "</span></div>" +
+      (known.length
+        ? '<p class="dm-note">' + (known.length === ids.length ? "" : plural(known.length, "card", "cards") + " of " + ids.length + " has been studied. ") +
+          "Forgetting puts a card back to new: its interval, its due date and — under FSRS — everything Folio " +
+          "had worked out about how well you know it. It keeps its place in its deck, and it keeps having been " +
+          "studied, so no level you have earned is taken back.</p>" +
+          /* The same `dm-switch` shape the deck options sheet uses, so it needs no CSS of its own — but its
+             wiring is this sheet's, `swRow` being local to that one. */
+          '<div class="dm-item dm-switch" id="fgResetRow">' +
+          '<div class="dm-switchmain"><b>Also reset the counts</b><small>How many times you have seen it, and how often you have forgotten it</small></div>' +
+          '<div class="switch" id="fgReset" role="switch" tabindex="0" aria-label="Also reset the review and lapse counts" aria-checked="false"></div></div>' +
+          '<div class="dm-actions"><button type="button" class="btn" data-act="ok">Forget ' + (ids.length === 1 ? "this card" : plural(known.length, "card", "cards")) + "</button>" +
+          '<button type="button" class="btn ghost" data-act="close">Cancel</button></div>'
+        : '<p class="dm-note">Nothing to forget — ' + (ids.length === 1 ? "this card has" : "none of these cards has") +
+          " been studied yet, so there is no schedule to put back.</p>" +
+          '<div class="dm-actions"><button type="button" class="btn" data-act="close">Close</button></div>');
+    deckSheet("Forget", html, (ov, close) => {
+      const ok = ov.querySelector('[data-act="ok"]');
+      const row = ov.querySelector("#fgResetRow"), sw0 = ov.querySelector("#fgReset");
+      if (row && sw0) {
+        // a click anywhere on the row throws it, and the switch itself takes the tab stop and the keys —
+        // the deck options sheet's own rule, restated here because swRow's wiring lives in that closure
+        const flip = () => {
+          const on = sw0.getAttribute("aria-checked") !== "true";
+          sw0.setAttribute("aria-checked", on ? "true" : "false");
+          sw0.classList.toggle("on", on);
+        };
+        row.addEventListener("click", flip);
+        sw0.addEventListener("keydown", (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); flip(); } });
+      }
+      if (ok) ok.addEventListener("click", () => {
+        const sw = ov.querySelector("#fgReset");
+        applyForget(ids, !!(sw && sw.getAttribute("aria-checked") === "true"));
+        close();
+        toast(plural(known.length, "card", "cards") + " put back to new");
+        if (after) after();
+      });
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+
+  function openCardInfo(id, after) {
+    const title = cardTitle(id);
+    const susp = isSuspended(id);
     const html =
       '<div class="dm-head"><span class="dm-title">Card info</span><span class="dm-where">' + esc(title || id) + "</span></div>" +
       cardInfoRowsHTML(S, id) +
+      /* THE ACTIONS LIVE HERE because this panel is already "everything about this card", and the two Anki
+         calls it was missing are both answers to what it shows: a due date the reader disagrees with, and a
+         card whose lapse count says it never stuck. Each opens its own sheet ON TOP of this one and repaints
+         these rows on the way back, so the reader sees the state they have just changed. */
+      '<div class="ci-acts">' +
+      '<button type="button" class="btn ghost" data-act="flag">' + (cardFlag(id) ? "Flag: " + esc(FLAG_NAME(cardFlag(id))) : "Flag") + "</button>" +
+      '<button type="button" class="btn ghost" data-act="due">Set due date</button>' +
+      '<button type="button" class="btn ghost" data-act="forget">Forget</button>' +
+      '<button type="button" class="btn ghost" data-act="susp">' + (susp ? "Unsuspend" : "Suspend") + "</button>" +
+      "</div>" +
       '<h4 class="ci-h">Review history</h4>' +
       cardInfoHistHTML(S, id) +
       '<div class="dm-actions"><button type="button" class="btn" data-act="close">Close</button></div>';
     deckSheet("Card info", html, (ov, close) => {
       ov.classList.add("ci-sheet");   // a wider box than an options sheet — see the CSS note
+      // re-open on the same card so the rows show the change, and pass the caller's repaint along
+      const again = () => { openCardInfo(id, after); if (after) after(); };
+      ov.querySelector('[data-act="flag"]').addEventListener("click", () => { close(); openFlagSheet([id], again); });
+      ov.querySelector('[data-act="due"]').addEventListener("click", () => { close(); openSetDueSheet([id], again); });
+      ov.querySelector('[data-act="forget"]').addEventListener("click", () => { close(); openForgetSheet([id], again); });
+      ov.querySelector('[data-act="susp"]').addEventListener("click", () => {
+        if (!S.suspended) S.suspended = {};
+        if (susp) delete S.suspended[id]; else S.suspended[id] = Date.now();
+        save();
+        toast(susp ? "Card unsuspended" : "Card suspended — it won't appear again");
+        close();
+        again();
+      });
       ov.querySelector('[data-act="close"]').addEventListener("click", close);
     });
   }
+  /* ================= THE CARD BROWSER (Aug 2026, on request) ================================
+     Folio records a great deal about every card — a state, an interval, an ease or a stability, a lapse
+     count, tags, and since this month every individual review — and until now gave a reader no way to look
+     at any of it except one card at a time, on the card that happened to be in front of them. This is the
+     table. It answers the three questions a browser exists for: what do I keep failing, what did I meet
+     lately, and where did that card go.
+
+     THE SEARCH IS THE HALF THAT MATTERS, and it is Anki's syntax cut to a documented subset rather than a
+     free-text box: `is:` for the states, `flag:` for the colours, `prop:` for the numbers, plus `deck:`,
+     `tag:`, `introduced:` and `rated:`. Terms are ANDed and any of them may be negated with a leading `-`.
+
+     TWO DEPARTURES FROM ANKI, both because Folio does not hold what Anki holds:
+       · there is no `added:`. Anki's counts from when a note was CREATED, and a curated Folio card has no
+         creation date at all — it ships in data.js. What Folio does record is the day a card was first
+         studied (`first`, which every per-deck new count is already derived from), so the operator is
+         called `introduced:` and means that. Calling it `added:` would have been a figure that looks like
+         Anki's and answers a different question.
+       · `rated:` reads the per-review log, so it can only see back to the day that log shipped. A card
+         reviewed for months before then is not `rated:365`, and the page says so where it would mislead.
+
+     THE PARSER AND THE PREDICATE ARE PURE — a row is a plain object and nothing here reads S — which is
+     what lets test-cards.js slice them out and put thirty queries through them as arithmetic. Building the
+     rows is the impure half and is done once per repaint. */
+  const BROWSE_CAP = 300;          // rows drawn at once; the count line always states the true total
+  const BROWSE_OPS = { is: 1, flag: 1, deck: 1, tag: 1, prop: 1, introduced: 1, rated: 1 };
+
+  /* Split a query into terms, honouring quotes so `"stone age"` is one term and not two. A leading `-`
+     negates. An `op:` prefix is only taken as an operator when it is one Folio KNOWS — otherwise the whole
+     token stays free text, so a typo searches for itself rather than silently matching everything, which is
+     the failure a reader would never report. */
+  function browseTokens(q) {
+    const s = String(q == null ? "" : q);
+    const out = [];
+    let i = 0;
+    while (i < s.length) {
+      while (i < s.length && /\s/.test(s[i])) i++;
+      if (i >= s.length) break;
+      let neg = false;
+      if (s[i] === "-" && i + 1 < s.length && !/\s/.test(s[i + 1])) { neg = true; i++; }
+      let buf = "", quote = "";
+      while (i < s.length) {
+        const ch = s[i];
+        if (quote) { if (ch === quote) quote = ""; else buf += ch; i++; continue; }
+        if (ch === '"' || ch === "'") { quote = ch; i++; continue; }
+        if (/\s/.test(ch)) break;
+        buf += ch; i++;
+      }
+      if (!buf) continue;
+      const m = /^([A-Za-z]+):([\s\S]*)$/.exec(buf);
+      const op = m && BROWSE_OPS[m[1].toLowerCase()] ? m[1].toLowerCase() : "";
+      out.push({ neg: neg, op: op, text: op ? m[2] : buf, raw: buf });
+    }
+    return out;
+  }
+  const BROWSE_PROP_RX = /^(ivl|due|reps|lapses|ease|stability|difficulty)\s*(>=|<=|!=|=|>|<)\s*(-?\d+(?:\.\d+)?)$/i;
+  /* One term → one test. An operator whose VALUE makes no sense returns a test that matches nothing rather
+     than one that matches everything: a mistyped `prop:lapsse>3` must narrow to nothing and be obvious, not
+     widen to the whole collection and look like a search that found it all. */
+  function browseTerm(tm) {
+    const v = String(tm.text || "").toLowerCase();
+    const hay = (r) => (r.title + " " + r.deck + " " + (r.tags || []).join(" ") + " " + r.id).toLowerCase();
+    const text = () => { const needle = v; return (r) => hay(r).indexOf(needle) >= 0; };
+    if (!tm.op) return text();
+    if (tm.op === "is") {
+      switch (v) {
+        case "new": return (r) => r.state === "new";
+        case "learn": case "learning": return (r) => r.state === "learning" || r.state === "relearn";
+        case "relearn": return (r) => r.state === "relearn";
+        case "review": return (r) => r.state === "review";
+        case "due": return (r) => (r.state === "review" || r.state === "learning" || r.state === "relearn") && r.due <= 0;
+        case "suspended": return (r) => !!r.suspended;
+        case "buried": return (r) => !!r.buried;
+        case "flagged": return (r) => r.flag > 0;
+        case "leech": return (r) => !!r.leech;
+        default: return () => false;
+      }
+    }
+    if (tm.op === "flag") {
+      if (v === "none" || v === "0") return (r) => !r.flag;
+      const n = parseInt(v, 10);
+      if (!(n >= 1 && n <= 7)) return () => false;
+      return (r) => r.flag === n;
+    }
+    if (tm.op === "deck") return (r) => r.deck.toLowerCase().indexOf(v) >= 0;
+    if (tm.op === "tag") {
+      if (v === "none") return (r) => !(r.tags || []).length;
+      return (r) => (r.tags || []).some((x) => String(x).toLowerCase().indexOf(v) >= 0);
+    }
+    if (tm.op === "prop") {
+      const m = BROWSE_PROP_RX.exec(v);
+      if (!m) return () => false;
+      const key = m[1].toLowerCase(), cmp = m[2], num = parseFloat(m[3]);
+      return (r) => {
+        const x = r[key === "ivl" ? "ivl" : key];
+        if (typeof x !== "number" || !isFinite(x)) return false;
+        if (cmp === ">") return x > num;
+        if (cmp === "<") return x < num;
+        if (cmp === ">=") return x >= num;
+        if (cmp === "<=") return x <= num;
+        if (cmp === "!=") return x !== num;
+        return x === num;
+      };
+    }
+    if (tm.op === "introduced") {
+      const n = parseInt(v, 10);
+      if (!(n >= 0)) return () => false;
+      return (r) => typeof r.introduced === "number" && r.introduced <= n;
+    }
+    if (tm.op === "rated") {
+      const m = /^(\d{1,5})(?::([1-4]))?$/.exec(v);
+      if (!m) return () => false;
+      const n = parseInt(m[1], 10), g = m[2] ? parseInt(m[2], 10) : 0;
+      return (r) => typeof r.rated === "number" && r.rated <= n && (!g || r.ratedG === g);
+    }
+    return text();
+  }
+  function browsePredicate(terms) {
+    const tests = (terms || []).map((tm) => { const f = browseTerm(tm); return tm.neg ? (r) => !f(r) : f; });
+    return (row) => tests.every((f) => f(row));
+  }
+
+  /* Every card a reader could study, as rows. `availableCardIdSet` is the right universe rather than every
+     id in the tree: it already leaves out the coming-soon collections and already expands a community note
+     into its several cards, so the browser lists exactly what the review could deal. */
+  function browseRowData() {
+    const avail = availableCardIdSet();
+    /* The most recent LOGGED review per card, from one pass over the log rather than revForCard per row —
+       which would be a scan of the whole log for each of several hundred cards. */
+    const last = {};
+    (S.revlog || []).forEach((row) => {
+      const r = revRead(row);
+      if (r && (!last[r.id] || r.t > last[r.id].t)) last[r.id] = r;
+    });
+    const nowT = now(), today = todayStr();
+    const dayOf = (s) => { const p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || "")); return p ? Date.UTC(+p[1], +p[2] - 1, +p[3]) : null; };
+    const todayN = dayOf(today);
+    const rows = [];
+    avail.forEach((id) => {
+      const c = S.cards[id] || null;
+      const lv = cardLeaves(id);
+      /* TWO deck strings, and the split is not cosmetic. `deck` is the FULL path and is what `deck:` searches,
+         so `deck:World` finds a card three levels down a World History branch. `deckShort` is the leaf's own
+         title and is what the column PRINTS: a full path is 40-odd characters, which in a table column is an
+         ellipsis and nothing else — "World History · Or…" tells a reader strictly less than "Origins" does.
+         The full path is on the row's tooltip, so nothing is lost, it is just not spent on width. */
+      let deck = lv.length ? lv.map((n) => nodeWhere(n)).join(" · ") : "";
+      let deckShort = lv.length ? nodeTitle(lv[0]) : "";
+      if (!deck && isCommunityCard(id)) {
+        const note = UCARDS[uCardBaseId(id)], d = note && UDECKS[note.deckId];
+        deck = d ? (d.meta && d.meta.title ? d.meta.title : d.id) + (note.sub ? " · " + note.sub : "") : "";
+        deckShort = note && note.sub ? note.sub : deck;
+      }
+      const base = cardById(id);
+      const lr = last[id];
+      /* `introduced` and `rated` are WHOLE DAYS, computed here so the predicate can stay pure arithmetic —
+         and `first` is compared as a day rather than a timestamp, since it is written by dayKey and the
+         reader's own day boundary is what it means. */
+      const fd = c && c.first ? dayOf(c.first) : null;
+      rows.push({
+        id: id,
+        title: cardTitle(id, 120) || id,
+        deck: deck,
+        deckShort: deckShort || deck,
+        tags: (base && Array.isArray(base.tags) ? base.tags : []),
+        flag: cardFlag(id),
+        state: c ? (c.status || "new") : "new",
+        due: c && c.due ? Math.floor((c.due - nowT) / DAY) : (c ? 0 : Infinity),
+        dueAt: c && c.due ? c.due : 0,
+        ivl: c && c.status === "review" ? (Number(c.interval) || 0) : 0,
+        reps: c ? (Number(c.reps) || 0) : 0,
+        lapses: c ? (Number(c.lapses) || 0) : 0,
+        ease: c && Number(c.ease) ? Number(c.ease) : 0,
+        stability: c && Number(c.stability) ? Number(c.stability) : 0,
+        difficulty: c && Number(c.difficulty) ? Number(c.difficulty) : 0,
+        suspended: isSuspended(id),
+        buried: isBuried(id),
+        leech: !!(c && c.leech),
+        introduced: fd != null && todayN != null ? Math.round((todayN - fd) / DAY) : null,
+        rated: lr ? Math.floor((nowT - lr.t) / DAY) : null,
+        ratedG: lr ? lr.g : 0,
+      });
+    });
+    return rows;
+  }
+  /* The columns, and what each sorts BY. A sort key is a function of the row rather than a field name
+     because three of them are not fields: the state sorts in the order a card moves through it (new →
+     learning → review), not alphabetically, and due sorts by the stamp while the column prints a day. */
+  const BROWSE_COLS = [
+    { k: "name", label: "Card", sort: (r) => r.title.toLowerCase() },
+    { k: "deck", label: "Deck", sort: (r) => r.deck.toLowerCase() },
+    { k: "state", label: "State", sort: (r) => ({ new: 0, learning: 1, relearn: 2, review: 3 })[r.state] || 0 },
+    { k: "due", label: "Due", sort: (r) => (r.state === "new" ? Infinity : r.dueAt) },
+    { k: "ivl", label: "Interval", sort: (r) => r.ivl },
+    { k: "reps", label: "Reviews", sort: (r) => r.reps },
+    { k: "lapses", label: "Lapses", sort: (r) => r.lapses },
+  ];
+
   /* Has this entry any card that HAS siblings? Only a community note whose type declares more than one card
      template can, so on every curated deck the answer is no and the Bury-siblings switch is not drawn — the
      same test `entryHasSpeech` makes for the read-aloud switch, and for the same reason: a control that
@@ -14381,6 +14893,188 @@
     ["za", "Z – A"],
   ];
   let glossSort = "recent";
+  /* ---------- the page. Module-level state, deliberately NOT in S, for the reason the glossary record's
+     sort picker is not: a query and a column are a way of LOOKING at the collection rather than a preference
+     about Folio, so they survive navigating away and back within a session and reset on reload. */
+  let browseQ = "", browseSort = "due", browseRev = false, browseSel = Object.create(null);
+  PAGES.browse = function (root) {
+    const stateName = { new: "New", learning: "Learning", relearn: "Relearning", review: "Review" };
+    const fmtDue = (r) => {
+      if (r.state === "new") return "—";
+      if (!r.dueAt) return "—";
+      if (r.due < 0) return '<span class="bw-overdue">' + (r.due === -1 ? "yesterday" : Math.abs(r.due) + "d ago") + "</span>";
+      if (r.due === 0) return '<span class="bw-overdue">today</span>';
+      return r.due === 1 ? "tomorrow" : "in " + r.due + "d";
+    };
+    const head = BROWSE_COLS.map((c) =>
+      '<button type="button" class="bw-th bw-th-' + c.k + (browseSort === c.k ? " sorted" : "") + '" data-sort="' + c.k + '">' +
+      esc(c.label) + (browseSort === c.k ? '<span class="bw-arrow">' + (browseRev ? "▾" : "▴") + "</span>" : "") + "</button>").join("");
+
+    root.innerHTML =
+      '<div class="page-head"><span class="eyebrow">Your record</span><h1>Card browser</h1>' +
+      "<p>Every card you could study, with what Folio knows about it. Search, sort, and act on as many as you like at once.</p></div>" +
+      '<div class="bw-tools">' +
+        '<div class="bw-search"><input type="search" id="bwQ" placeholder="Search — try is:due, flag:1, prop:lapses&gt;3" autocomplete="off" aria-label="Search your cards"></div>' +
+        '<button type="button" class="btn ghost bw-help" id="bwHelp" aria-expanded="false">Search help</button>' +
+      "</div>" +
+      '<div class="bw-helpbox" id="bwHelpBox" hidden></div>' +
+      '<div class="bw-bulkslot" id="bwBulk"></div>' +
+      '<div class="bw-countline"><span id="bwCount"></span></div>' +
+      '<div class="bw-wrap"><div class="bw-table" id="bwTable">' +
+        '<div class="bw-head"><span class="bw-th bw-th-check"><input type="checkbox" id="bwAll" aria-label="Select every card shown"></span>' +
+        '<span class="bw-th bw-th-flag" title="Flag">⚑</span>' + head + "</div>" +
+        '<div class="bw-body" id="bwBody"></div>' +
+      "</div></div>";
+
+    const body = root.querySelector("#bwBody");
+    const countEl = root.querySelector("#bwCount");
+    const bulkEl = root.querySelector("#bwBulk");
+    const qBox = root.querySelector("#bwQ");
+    qBox.value = browseQ;
+
+    /* Built ONCE per render rather than per repaint: the rows are derived from several hundred card records,
+       the leaf lookup for each, and a pass over the review log, and none of that changes while the reader is
+       typing in the search box. Only the filter and the sort re-run. */
+    const all = browseRowData();
+
+    let shown = [];
+    const repaint = () => {
+      const pred = browsePredicate(browseTokens(browseQ));
+      const col = BROWSE_COLS.find((c) => c.k === browseSort) || BROWSE_COLS[0];
+      shown = all.filter(pred).sort((a, b) => {
+        const x = col.sort(a), y = col.sort(b);
+        // one comparator, negated whole — so the title tie-break reverses with it and two cards of the same
+        // interval keep a stable order instead of swapping about between repaints
+        let d = x < y ? -1 : x > y ? 1 : 0;
+        if (!d) d = a.title.toLowerCase() < b.title.toLowerCase() ? -1 : a.title.toLowerCase() > b.title.toLowerCase() ? 1 : 0;
+        return browseRev ? -d : d;
+      });
+      const cut = shown.slice(0, BROWSE_CAP);
+      body.innerHTML = shown.length
+        ? cut.map((r) =>
+            /* The full deck path and anything the row could not fit go on the TOOLTIP rather than being
+               dropped: a title long enough to push its "suspended" chip out of the cell is exactly the row
+               whose state a reader most needs told. */
+            '<div class="bw-row' + (browseSel[r.id] ? " sel" : "") + (r.suspended ? " bw-susp" : "") + '" data-id="' + esc(r.id) + '"' + (r.flag ? ' data-flag="' + r.flag + '"' : "") +
+            ' title="' + esc(r.title + (r.deck ? "\n" + r.deck : "") + (r.flag ? "\n" + FLAG_NAME(r.flag) + " flag" : "") +
+              (r.suspended ? "\nsuspended" : "") + (r.buried ? "\nburied today" : "") + (r.leech ? "\nleech" : "")) + '">' +
+            '<span class="bw-cell bw-cell-check"><input type="checkbox" class="bw-check" ' + (browseSel[r.id] ? "checked" : "") + ' aria-label="Select this card"></span>' +
+            '<span class="bw-cell bw-cell-flag">' + (r.flag ? '<span class="flag-dot"></span>' : "") + "</span>" +
+            '<button type="button" class="bw-cell bw-name">' + esc(r.title) +
+              (r.suspended ? ' <span class="bw-tag">suspended</span>' : "") +
+              (r.buried ? ' <span class="bw-tag">buried today</span>' : "") +
+              (r.leech ? ' <span class="bw-tag bw-tag-leech">leech</span>' : "") + "</button>" +
+            '<span class="bw-cell bw-deck">' + esc(r.deckShort) + "</span>" +
+            '<span class="bw-cell bw-state"><span class="ci-st ci-st-' + (REV_ST[r.state] || 0) + '">' + esc(stateName[r.state] || r.state) + "</span></span>" +
+            '<span class="bw-cell bw-due">' + fmtDue(r) + "</span>" +
+            '<span class="bw-cell bw-ivl">' + (r.ivl ? esc(fmtInterval(r.ivl)) : "—") + "</span>" +
+            '<span class="bw-cell bw-reps">' + (r.reps || "—") + "</span>" +
+            '<span class="bw-cell bw-lapses">' + (r.lapses || "—") + "</span>" +
+            "</div>").join("")
+        : '<p class="bw-none">Nothing matches that search. ' + (browseQ.trim() ? "Try fewer terms, or clear the box." : "") + "</p>";
+      countEl.innerHTML = shown.length === all.length
+        ? "<b>" + all.length + "</b> " + (all.length === 1 ? "card" : "cards")
+        : "<b>" + shown.length + "</b> of " + all.length + " cards" +
+          (shown.length > BROWSE_CAP ? ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>" : "");
+      if (shown.length > BROWSE_CAP && shown.length === all.length) {
+        countEl.innerHTML = "<b>" + all.length + "</b> cards" + ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>";
+      }
+      const allBox = root.querySelector("#bwAll");
+      if (allBox) allBox.checked = cut.length > 0 && cut.every((r) => browseSel[r.id]);
+      paintBulk();
+    };
+
+    /* The bulk bar. It appears only when something is selected — a permanent row of disabled buttons is a
+       row of things that look broken — and it is rebuilt rather than hidden, so the count in it can never
+       be left describing a selection the reader has since changed. */
+    function paintBulk() {
+      const ids = Object.keys(browseSel).filter((k) => browseSel[k]);
+      if (!ids.length) { bulkEl.innerHTML = ""; return; }
+      bulkEl.innerHTML =
+        '<div class="bw-bulk"><span class="bw-bulkn"><b>' + ids.length + "</b> " + (ids.length === 1 ? "card" : "cards") + " selected</span>" +
+        '<button type="button" class="btn ghost" data-b="flag">Flag</button>' +
+        '<button type="button" class="btn ghost" data-b="due">Set due date</button>' +
+        '<button type="button" class="btn ghost" data-b="forget">Forget</button>' +
+        '<button type="button" class="btn ghost" data-b="susp">Suspend</button>' +
+        '<button type="button" class="btn ghost" data-b="unsusp">Unsuspend</button>' +
+        '<button type="button" class="btn ghost" data-b="none">Clear</button></div>';
+      /* The rows are rebuilt on every repaint, so a card's own record may have changed under the selection —
+         the ids are re-read at the moment a button is pressed rather than captured when the bar was drawn. */
+      bulkEl.querySelectorAll("[data-b]").forEach((btn) => btn.addEventListener("click", () => {
+        const sel = Object.keys(browseSel).filter((k) => browseSel[k]);
+        const b = btn.dataset.b;
+        const refresh = () => { PAGES.browse(root); };   // the rows are derived, so the whole table is rebuilt
+        if (b === "flag") return openFlagSheet(sel, refresh);
+        if (b === "due") return openSetDueSheet(sel, refresh);
+        if (b === "forget") return openForgetSheet(sel, refresh);
+        if (b === "none") { browseSel = Object.create(null); repaint(); return; }
+        if (!S.suspended) S.suspended = {};
+        sel.forEach((id) => { if (b === "susp") S.suspended[id] = Date.now(); else delete S.suspended[id]; });
+        save();
+        toast(plural(sel.length, "card", "cards") + (b === "susp" ? " suspended" : " unsuspended"));
+        refresh();
+      }));
+    }
+
+    // one delegated listener over the body, so filtering and re-sorting rebuild the rows without rewiring
+    body.addEventListener("click", (e) => {
+      const row = e.target.closest(".bw-row");
+      if (!row) return;
+      const id = row.dataset.id;
+      if (e.target.closest(".bw-check")) {
+        if (browseSel[id]) delete browseSel[id]; else browseSel[id] = true;
+        row.classList.toggle("sel", !!browseSel[id]);
+        const allBox = root.querySelector("#bwAll");
+        if (allBox) allBox.checked = shown.slice(0, BROWSE_CAP).every((r) => browseSel[r.id]);
+        paintBulk();
+        return;
+      }
+      if (e.target.closest(".bw-name")) openCardInfo(id, () => PAGES.browse(root));
+    });
+    root.querySelector("#bwAll").addEventListener("change", (e) => {
+      const cut = shown.slice(0, BROWSE_CAP);
+      if (e.target.checked) cut.forEach((r) => { browseSel[r.id] = true; });
+      else cut.forEach((r) => { delete browseSel[r.id]; });
+      repaint();
+    });
+    root.querySelectorAll(".bw-th[data-sort]").forEach((th) => th.addEventListener("click", () => {
+      const k = th.dataset.sort;
+      if (browseSort === k) browseRev = !browseRev; else { browseSort = k; browseRev = false; }
+      PAGES.browse(root);
+    }));
+    /* Typing repaints IN PLACE rather than re-rendering: a re-render per keystroke takes the caret out of
+       the box being typed in, which is the glossary record's own documented lesson one page over. */
+    qBox.addEventListener("input", () => { browseQ = qBox.value; repaint(); });
+
+    const hb = root.querySelector("#bwHelpBox"), hbtn = root.querySelector("#bwHelp");
+    hb.innerHTML =
+      "<dl>" +
+      "<dt>is:</dt><dd><code>new</code> <code>learn</code> <code>review</code> <code>due</code> <code>suspended</code> <code>buried</code> <code>flagged</code> <code>leech</code></dd>" +
+      "<dt>flag:</dt><dd><code>1</code>–<code>7</code>, or <code>none</code>. " + FLAGS.map((f) => f.n + " " + f.name.toLowerCase()).join(", ") + "</dd>" +
+      "<dt>prop:</dt><dd>a number and a comparison — <code>prop:lapses&gt;3</code>, <code>prop:ivl&gt;=21</code>, <code>prop:reps&lt;5</code>, <code>prop:ease&lt;2</code></dd>" +
+      "<dt>deck:</dt><dd>part of a deck's name</dd>" +
+      "<dt>tag:</dt><dd>part of a tag, or <code>none</code></dd>" +
+      "<dt>introduced:</dt><dd>first studied within that many days — <code>introduced:7</code></dd>" +
+      "<dt>rated:</dt><dd>reviewed within that many days, optionally with the button — <code>rated:7</code>, <code>rated:7:1</code></dd>" +
+      "</dl>" +
+      "<p>Anything else is searched for in the card, its deck and its tags. Put a phrase in quotes. " +
+      "Every term has to match; put a <code>-</code> in front of one to exclude it.</p>" +
+      /* Said here rather than left to be discovered: `introduced:` is not Anki's `added:` and `rated:` cannot
+         see further back than the log does. A figure that looks like Anki's and answers a different question
+         is worse than one with a different name. */
+      "<p class=\"bw-helpnote\">Two of these differ from Anki, because Folio does not hold what Anki holds. " +
+      "There is no <code>added:</code> — a card in one of Folio's own collections has no date it was created, it ships with the site — " +
+      "so <code>introduced:</code> means the day you first studied it. And <code>rated:</code> reads the per-review log, " +
+      "which Folio only began keeping in August 2026: a card you were studying before then will not answer to it.</p>";
+    hbtn.addEventListener("click", () => {
+      const open = hb.hasAttribute("hidden");
+      if (open) hb.removeAttribute("hidden"); else hb.setAttribute("hidden", "");
+      hbtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    repaint();
+  };
+
   PAGES.glossary = function (root) {
     const G = window.GLOSSARY || {};
     const reg = S.glossSeen || {};
@@ -18103,6 +18797,10 @@
                   and Undo is duplicated down there because a misclick is URGENT; asking why a card is due is
                   not, so it belongs with the session's other quiet controls and costs that grid nothing. */""}
             <button class="backbtn infobtn" id="cardInfo" type="button" title="Why is this card due now? Its state and review history (I)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6v.6"/></svg> Info</button>
+            ${/* The flag, beside Info and for the same reason it is here rather than in the grade bar: it is
+                  a quiet control, and the grade bar's phone row has three fixed cells. It carries the card's
+                  own colour when it has one, so the bar itself says what is flagged without being opened. */""}
+            <button class="backbtn flagbtn${cardFlag(id) ? " on" : ""}" id="flagBtn" type="button"${cardFlag(id) ? ' data-flag="' + cardFlag(id) + '"' : ""} title="Flag this card to find it later (Ctrl+1 to Ctrl+7)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5"/><path d="M5 5h11l-2.2 3.4L16 12H5z"/></svg> ${cardFlag(id) ? esc(FLAG_NAME(cardFlag(id))) : "Flag"}</button>
             <span class="study-where">${esc(sess.where)}</span>
             <div class="counts">
               <span class="cnt new">${rc.nw}</span>
@@ -18159,7 +18857,12 @@
         route(fromHome ? "home" : "decks")
       );
       { const ub = root.querySelector("#undoGrade"); if (ub) ub.addEventListener("click", undoGrade); }
-      { const ib = root.querySelector("#cardInfo"); if (ib) ib.addEventListener("click", () => openCardInfo(id)); }
+      { const ib = root.querySelector("#cardInfo"); if (ib) ib.addEventListener("click", () => openCardInfo(id, () => renderCard())); }
+      /* The flag button repaints the CARD rather than the page: `render()` would rebuild the study page from
+         the stored session and, on a card already revealed, take the answer away — flagging a card is not a
+         reason to un-reveal it. renderCard() re-runs this same function, which redraws the bar with the new
+         colour on it and calls showAnswer() again for a card that was open. */
+      { const fb = root.querySelector("#flagBtn"); if (fb) fb.addEventListener("click", () => openFlagSheet([id], () => renderCard())); }
       function suspendCurrent() {
         if (!S.suspended) S.suspended = {};
         S.suspended[id] = Date.now();
@@ -18319,6 +19022,20 @@
         if ((e.ctrlKey || e.metaKey) && !e.altKey && String(e.key).toLowerCase() === "z" && !clozeTyping) {
           e.preventDefault();
           if (canUndo()) undoGrade(); else toast("Nothing to undo — this is the first card of the session.");
+          return;
+        }
+        /* FLAGS — Ctrl+1 … Ctrl+7, and Ctrl+0 to clear. Anki's own chord, and it has to be Ctrl: 1–4 are the
+           grade keys, so the bare digits are spoken for. It sits ABOVE the Enter/Space guard and above the
+           grade keys for the reason `I` does — but unlike `I` it is allowed to fire while the cloze box has
+           focus, because Ctrl+digit types nothing into a text box and a reader mid-guess is exactly who
+           wants to flag the card. Setting the flag a card already has takes it off, which is what makes one
+           chord enough for both directions. */
+        if ((e.ctrlKey || e.metaKey) && !e.altKey && /^[0-7]$/.test(e.key)) {
+          e.preventDefault();
+          const n = +e.key;
+          const got = setCardFlag(id, n === 0 ? 0 : (cardFlag(id) === n ? 0 : n));
+          toast(got ? FLAG_NAME(got) + " flag" : "Flag removed");
+          renderCard();   // repaints the bar with the colour on it; render() would un-reveal a revealed card
           return;
         }
         /* A CONTROL ON THE CARD OWNS ITS OWN Enter/Space (Aug 2026, found by test-a11y.js). Pressing Enter
@@ -24815,7 +25532,20 @@
             showcase, which is the half that needs an account to have any point. */""}
       ${(Object.keys(S.artefacts || {}).length || chestCount())
         ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
-        : ""}`;
+        : ""}
+      ${/* THE CARD BROWSER IS SHOWN SIGNED OUT TOO, for the Reliquary's reason one section up: it is about
+            the cards on THIS DEVICE and not about an account. A guest studies, flags and forgets cards like
+            anybody else, and walling the only way to look at them behind a sign-in would make the browser
+            unreachable for exactly the reader who has no other record of their studying. It appears only
+            once something has been studied — on a first visit there is nothing to browse. */""}
+      ${Object.keys(S.cards || {}).length ? `
+      <div class="section-label">Your cards</div>
+      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
+        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
+        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
+        <span class="ex-go" aria-hidden="true">&rarr;</span>
+      </button>` : ""}`;
+    root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
@@ -24918,6 +25648,16 @@
       <div class="section-label">Collection progress</div>
       <div class="coll-levels" id="collLevels"></div>
       <div id="statWrap"></div>
+      <div class="section-label">Your cards</div>
+      ${/* THE WAY INTO THE BROWSER. It sits at the head of the statistics rather than among them, because
+            everything below is a summary and this is the thing that lets a reader ask their own question of
+            it — "what do I keep failing" is one search and no chart. It is a link on your OWN record only,
+            like the glossary meter beside it: a friend's cards are not yours to act on. */""}
+      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
+        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
+        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
+        <span class="ex-go" aria-hidden="true">&rarr;</span>
+      </button>
       <div class="section-label">Review statistics</div>
       <div id="reviewStats"></div>
       <div class="section-label">Deck statistics</div>
@@ -28991,7 +29731,7 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "community", "deck", "glossary", "library", "book"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "community", "deck", "glossary", "browse", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
