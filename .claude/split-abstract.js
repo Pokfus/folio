@@ -54,6 +54,17 @@ function pieces(block) {
   // sentence boundary is always followed by a capital, so a single capital letter, a full stop and a
   // LOWERCASE word can only ever be an abbreviated genus.
   hold(/(?<=^|[\s>(«"'‘\[])\p{Lu}\.\s(?=\p{Ll})/gu);
+  // A TAXONOMIC RANK inside a binomial — "Zea mays ssp. parviglumis", "Panicum miliaceum subsp.
+  // ruderale". The abbreviated-genus rule above cannot see these: it wants a single CAPITAL before the
+  // full stop, where a rank abbreviation is lowercase. It split the maize card after "ssp." and would
+  // split any card naming a subspecies. The test is the genus rule's: what follows a real sentence
+  // boundary is always a capital, so a rank abbreviation followed by a LOWERCASE word is mid-binomial.
+  // Keeping the lookahead is what lets "…of the genus Oryza spp. The next…" still break correctly.
+  // The lookahead has to step over an opening TAG, because the epithet is italicised and the rank
+  // usually is not — "<i>Zea mays</i> ssp. <i>parviglumis</i>" is the shape a binomial is written in
+  // here, and a lookahead anchored straight to a letter matches none of them. (The genus rule above
+  // carries the same blind spot on its lookahead; nothing in the corpus writes "H. <i>sapiens</i>" yet.)
+  hold(/\b(?:ssp|subsp|var|cf|aff|sp|spp)\.\s(?=(?:<[^>]*>)*\p{Ll})/gu);
   hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
