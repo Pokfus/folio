@@ -4086,11 +4086,13 @@
     if (!src) return null;
     return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it: an HSK 3.0 level is 500 to 973 words, and a deck that studies
-     both directions cards each word twice, so the largest legitimate deck here is ~1,900. The cap is a guard
-     against a hostile or runaway file rather than a statement about how big a deck may usefully be, so it is
-     raised to a number that comfortably holds one exam level both ways and is still bounded. */
-  const UDECK_MAX_CARDS = 2000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, then 2,000 held until a bigger one did. The number is not a
+     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
+     is set from the largest legitimate deck anyone has brought: HSK 3.0 runs to 1,800 words at level 6 and
+     a deck that studies both directions cards each word twice, which is ~3,600. An over-size file is
+     REFUSED with both figures rather than silently trimmed (see uDeckImportText), so raising this cannot
+     hide anything; what a bigger number costs is the size of the file a stranger can make us parse. */
+  const UDECK_MAX_CARDS = 4000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
