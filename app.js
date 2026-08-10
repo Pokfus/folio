@@ -1108,6 +1108,13 @@
       // reconstructed from S.cards — it has to be logged as it happens. "Mature" = the card was in review status
       // when graded (a real recall attempt, not a learning step); correct = anything but Again. Pruned to REVIEW_LOG_DAYS.
       reviewLog: {},
+      /* THE PER-REVIEW LOG — one row per answer, newest last. `reviewLog` above is a DAILY TOTAL of three
+         numbers, which is all a heatmap and a retention rate need and is the whole of what a past day can
+         say: it cannot tell you what happened to one card, how long an answer took, or which button you
+         pressed. Those are separate questions and none of them is reconstructable later, so the detail has
+         to be written down as it happens — which is why this exists and why it was added before the things
+         that read it (see REV_CAP for the size, and revRead for the shape). */
+      revlog: [],
       // today's review tally for the home Daily-review tile: { d, n, miss } — n = cards attempted for the
       // FIRST time today, miss = how many of those first attempts were wrong. The tile fills bronze once the
       // day's pile is cleared and turns gold when miss === 0. reviewLog can't answer this: it counts every
@@ -1441,7 +1448,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "revlog", "reviewDay", "streak", "active", "deckOrder", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2127,6 +2134,25 @@
       [a[i], a[j]] = [a[j], a[i]];
     }
     return n == null ? a : a.slice(0, n);
+  }
+  /* A moment, in the READER'S own clock and locale — for the per-review log's timestamps, which are
+     recorded in UTC ms and are meaningless to a reader in any other form. Deliberately not the changelog's
+     `fmtDay`, which fixes its dates to the SITE language on purpose (a publication date is the same day
+     everywhere); this is an event in one reader's own day, like the version line's `released`. */
+  function fmtStamp(ts) {
+    if (!ts) return "—";
+    const d = new Date(ts);
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) +
+      ", " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  }
+  /* A duration in seconds. Below a minute it keeps a decimal, because the difference between 4 and 4.6
+     seconds on a card is real and rounding it away makes every quick answer look identical. */
+  function fmtSecs(s) {
+    if (!s) return "—";
+    if (s < 60) return (s < 10 ? s.toFixed(1) : String(Math.round(s))) + "s";
+    const m = Math.floor(s / 60);
+    if (m < 60) return m + "m" + (Math.round(s % 60) ? " " + Math.round(s % 60) + "s" : "");
+    return Math.floor(m / 60) + "h" + (m % 60 ? " " + (m % 60) + "m" : "");
   }
   /* A grade button's next interval. Sub-day values are real MINUTES now that the learning steps differ
      from each other (1m then 10m): it used to answer "<10m" for anything under an hour and then label
@@ -3155,19 +3181,29 @@
   function preview(id) {
     return schedPreview(S.cards[id], id);
   }
-  // apply a grade; returns {requeue: bool} for in-session relearning
-  function grade(id, g) {
+  /* apply a grade; returns {requeue: bool} for in-session relearning.
+     `ms` is how long the reader spent on the card — measured by the caller, since only the study page knows
+     when the question appeared. It is optional: a grade applied with no timing logs a 0 rather than refusing,
+     because a missing duration must never be able to cost the schedule. */
+  function grade(id, g, ms) {
     const fresh = !S.cards[id];
     let c = S.cards[id] || schedBlank();
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
+    const preInterval = Number(c.interval) || 0;   // …and the interval it was on, which the grade overwrites
     // the card's FIRST attempt today (c.last is still the previous review) — only a first attempt can decide
     // "right first try", since a learning card comes back later in the same session
     const firstToday = !c.last || dayKey(c.last) !== todayStr();
+    const t = now();
 
-    c = schedAnswer(c, g, now(), id);   // the whole of the schedule — see THE SCHEDULER above
+    c = schedAnswer(c, g, t, id);   // the whole of the schedule — see THE SCHEDULER above
     S.cards[id] = c;
     logReview(preStatus === "review", g !== "again");
     logReviewDay(firstToday, g !== "again");
+    /* The per-review row, and the object it returns is kept so an undo can take back THIS row rather than
+       "the last one" or "one row off the end". Identity is the only exact handle: the log prunes from the
+       front, so a length recorded before the append can be the same length after it, and truncating to it
+       would leave the phantom review behind — with the reader's own history quietly one review wrong. */
+    lastRevRow = logReviewEntry(id, g, preStatus, preInterval, c, t, ms);
 
     // count new-card introductions per day
     if (fresh) {
@@ -3207,6 +3243,103 @@
       const cut = dayKey(Date.now() - REVIEW_LOG_DAYS * DAY);
       Object.keys(S.reviewLog).forEach((k) => { if (k < cut) delete S.reviewLog[k]; });
     }
+  }
+  /* ---------- THE PER-REVIEW LOG (Aug 2026, on request) ----------
+     One row per answer, appended as it happens. `reviewLog` above keeps three numbers a day, which is all
+     a heatmap and a retention rate need; this keeps what a day cannot say — which card, which button, from
+     what interval to what, and how long the answer took. Nothing about a past review is recoverable from
+     `S.cards` (a card record holds only its LATEST review) or from the daily totals, so every day this is
+     not being written is history that no later feature can reconstruct. That is the whole argument for it,
+     and it is why it landed before the screens that read it.
+
+     THE ROW IS AN ARRAY, NOT AN OBJECT, and the shape lives in exactly two places — `logReviewEntry` writes
+     it and `revRead` unpacks it. Every reader goes through `revRead`, so the compact form is an encoding
+     detail rather than something eight call sites have to agree about. Keys on 3,000 rows would be about
+     four times the bytes for nothing: this rides in the synced progress blob, which is PATCHed whole.
+
+       [ id, t, g, st, prevMin, nextMin, ease100, ds ]
+
+     · `t` is a plain ms timestamp — the unit every other stamp in this file uses (`c.due`, `c.last`). A
+       minutes-since-epoch would save five characters a row and give the file a second time unit to
+       remember, which is a bad trade at this size.
+     · `prevMin` / `nextMin` are the interval BEFORE and the delay the grade bought, both in MINUTES, one
+       unit for both: a learning step is 10 minutes and a mature review is 36,000, and a field that is
+       sometimes days and sometimes minutes is the kind of thing that reads correctly and computes wrongly.
+     · `ease100` is the ease AFTER the answer, ×100 (250, not 2.5) — an integer, so no float noise in JSON.
+     · `ds` is the time from the question appearing to the button, in TENTHS OF A SECOND, and it is CAPPED
+       at REV_MAX_DS. The cap is the honest half of it: a card left open over lunch would otherwise claim
+       two hours of study and make every time figure a lie. Anki caps the same way, at the same 60s. */
+  const REV_CAP = 3000;      // rows kept, oldest pruned first
+  const REV_SLACK = 200;     // …pruned in one sweep once it is this far over, so an append is not a shift
+  const REV_MAX_DS = 600;    // 60s — Anki's own `maxTaken`; see `ds` above
+  const REV_G = { again: 1, hard: 2, good: 3, easy: 4 };
+  const REV_GRADE_NAME = ["", "Again", "Hard", "Good", "Easy"];
+  const REV_ST = { new: 0, learning: 1, relearn: 2, review: 3 };
+  const REV_ST_NAME = ["New", "Learning", "Relearning", "Review"];
+  /* The row `grade()` last appended, by REFERENCE — the handle an undo needs. See the comment at its
+     assignment in grade() for why a length or a "last row" test cannot do this job. */
+  let lastRevRow = null;
+  /* Roughly 42 bytes a row, so a full log is ~125 KB — about 150 days at twenty reviews a day, or two
+     years at four. It is capped rather than kept for ever because it travels inside the one progress blob
+     that `save()` PATCHes whole; if it ever needs to be longer than this (FSRS would want every row a
+     reader has), the log is the first thing that should move to a table of its own rather than the cap
+     being raised until the blob is slow. */
+  function logReviewEntry(id, g, pre, prevIvDays, post, t, ms) {
+    if (!Array.isArray(S.revlog)) S.revlog = [];   // back-fill for saves made before the log existed
+    if (S.revlog.length > REV_CAP + REV_SLACK) S.revlog.splice(0, S.revlog.length - REV_CAP);
+    const mins = (msSpan) => Math.max(0, Math.round(msSpan / MIN_MS));
+    const row = [
+      id,
+      t,
+      REV_G[g] || 0,
+      REV_ST[pre] === undefined ? REV_ST.new : REV_ST[pre],
+      // the interval the card was ON. A review card states it in days; a card in learning has no interval
+      // at all, so it reads 0 — which `revRead` renders as a dash rather than as "0 minutes".
+      pre === "review" ? mins((Number(prevIvDays) || 0) * DAY) : 0,
+      mins((Number(post.due) || t) - t),
+      Math.round((Number(post.ease) || 0) * 100),
+      Math.max(0, Math.min(REV_MAX_DS, Math.round((Number(ms) || 0) / 100))),
+    ];
+    S.revlog.push(row);
+    return row;
+  }
+  /* The only reader of the row shape. Returns days as well as minutes because every existing formatter on
+     the page (`fmtInterval`, `fmtIntervalDays`) speaks days. */
+  function revRead(row) {
+    if (!Array.isArray(row)) return null;
+    const nextMin = Number(row[5]) || 0, prevMin = Number(row[4]) || 0, g = Number(row[2]) || 0;
+    return {
+      id: row[0], t: Number(row[1]) || 0,
+      g: g, grade: REV_GRADE_NAME[g] || "?",
+      st: Number(row[3]) || 0, state: REV_ST_NAME[Number(row[3]) || 0] || "?",
+      prevMin: prevMin, prevDays: prevMin / 1440,
+      nextMin: nextMin, nextDays: nextMin / 1440,
+      ease: (Number(row[6]) || 0) / 100,
+      secs: (Number(row[7]) || 0) / 10,
+      correct: g > 1,
+    };
+  }
+  // one card's history, oldest first — what a Card info panel is for
+  function revForCard(prog, id) {
+    const log = (prog && prog.revlog) || [];
+    const out = [];
+    for (let i = 0; i < log.length; i++) if (log[i] && log[i][0] === id) out.push(revRead(log[i]));
+    return out;
+  }
+  // every row in the last `days` days, and the day the log itself begins — a window that reaches back
+  // further than the log does must SAY so rather than reporting a quiet month as a quiet year
+  function revWindow(prog, days) {
+    const log = (prog && prog.revlog) || [];
+    const cut = Date.now() - days * DAY;
+    const rows = [];
+    let first = 0;
+    for (let i = 0; i < log.length; i++) {
+      const r = revRead(log[i]);
+      if (!r) continue;
+      if (!first || r.t < first) first = r.t;
+      if (r.t >= cut) rows.push(r);
+    }
+    return { rows: rows, first: first };
   }
   /* today's review, for the home Daily-review tile's earned colour (see defaultState). Only a card's FIRST
      attempt of the day counts: "again" on a card that comes back 10 minutes later is one miss, not two, and
@@ -7414,11 +7547,17 @@
     }
     return false;
   }
+  /* Everything that sits OVER a page and takes the reader's attention with it. One list, because two things
+     ask the same question of it: a page swipe must not fire under an open sheet, and neither must a study
+     page's keyboard shortcuts — `3` with a panel open grades the card the reader is reading ABOUT, and
+     Ctrl+Z undoes a grade they cannot see. Written twice they would drift, and the drift is invisible. */
+  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour, .artefact-pop, .chest-pop";
+  function overlayOpen() { return !!document.querySelector(OVERLAY_SEL); }
   function swipeEnabled() {
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
     if (SWIPE_ORDER.indexOf(current.name) < 0) return false;
     if (document.body.classList.contains("grading")) return false;
-    return !document.querySelector(".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour");
+    return !overlayOpen();
   }
   function wirePageSwipe() {
     let st = null;
@@ -8132,6 +8271,87 @@
         render();
         toast(d > 0 ? "Added " + n + " new cards for today" : "Removed " + n + " new cards from today");
       }));
+    });
+  }
+  /* ---------- CARD INFO (Aug 2026, on request) ----------
+     Anki's card info, and the first reader of the per-review log. It answers the question a scheduler
+     always provokes and could never answer here: *why is this card due when it is?*
+
+     It is deliberately in TWO halves, because they come from different places and one of them is older
+     than the other. The STATE block is derived from the card record, so it is complete for every card a
+     reader has ever studied, this morning's or last year's. The HISTORY table can only show what the log
+     holds, which begins the day the log shipped — so a card studied for months before that shows its true
+     state above an honestly short history, and says which it is rather than reading as a card with no
+     past. Fabricating rows from the interval and ease would be inventing a reader's own history, which is
+     the one thing this panel must not do.
+
+     `prog` rather than `S` so a friend's card could be shown from their synced record with no change here. */
+  function cardInfoRowsHTML(prog, id) {
+    const c = (prog.cards || {})[id] || null;
+    const rows = [];
+    const add = (k, v) => { if (v) rows.push('<div class="ci-k">' + esc(k) + '</div><div class="ci-v">' + v + "</div>"); };
+    if (!c) {
+      add("State", "New — not studied yet");
+    } else {
+      const st = REV_ST_NAME[REV_ST[c.status] === undefined ? 0 : REV_ST[c.status]] || "New";
+      add("State", esc(st) + ((prog.suspended || {})[id] ? " · <b>suspended</b>" : ""));
+      if (c.due) {
+        const overdue = c.due <= Date.now();
+        add("Due", '<span class="' + (overdue ? "ci-due-now" : "") + '">' + fmtStamp(c.due) + (overdue ? " · now" : "") + "</span>");
+      }
+      if (c.status === "review" && c.interval) add("Interval", esc(fmtInterval(c.interval)));
+      if (c.ease) add("Ease", (c.ease * 100).toFixed(0) + "%");
+      add("Reviews", String(c.reps || 0));
+      // a lapse count is worth naming as a leech at Anki's threshold, which the scheduler already records
+      if (c.lapses) add("Lapses", String(c.lapses) + (c.leech ? ' · <b class="ci-leech">leech</b>' : ""));
+      if (c.first) add("First studied", esc(c.first));
+      if (c.last) add("Last review", fmtStamp(c.last));
+    }
+    const where = cardLeaves(id).map((n) => nodeWhere(n)).filter(Boolean);
+    if (where.length) add(where.length > 1 ? "Decks" : "Deck", esc(where.join(" · ")));
+    add("Card id", '<code class="ci-id">' + esc(id) + "</code>");
+    return '<div class="ci-grid">' + rows.join("") + "</div>";
+  }
+  function cardInfoHistHTML(prog, id) {
+    const hist = revForCard(prog, id);
+    if (!hist.length) {
+      return '<p class="ci-none">No reviews recorded yet. Folio began keeping a per-review history in ' +
+        'August 2026 — anything you studied before then is in the state above, but its individual reviews ' +
+        "were never written down.</p>";
+    }
+    const body = hist.slice().reverse().map((r) => {
+      // the delay this answer bought, which is the row's whole point: it is what the button did
+      const next = r.nextMin ? fmtInterval(r.nextDays) : "—";
+      return "<tr>" +
+        "<td>" + fmtStamp(r.t) + "</td>" +
+        '<td><span class="ci-st ci-st-' + r.st + '">' + esc(r.state) + "</span></td>" +
+        '<td><span class="ci-g ci-g-' + r.g + '">' + esc(r.grade) + "</span></td>" +
+        "<td>" + (r.prevMin ? esc(fmtInterval(r.prevDays)) : "—") + "</td>" +
+        "<td>" + esc(next) + "</td>" +
+        "<td>" + (r.ease ? (r.ease * 100).toFixed(0) + "%" : "—") + "</td>" +
+        "<td>" + (r.secs ? esc(fmtSecs(r.secs)) : "—") + "</td>" +
+        "</tr>";
+    }).join("");
+    const secs = hist.reduce((a, r) => a + r.secs, 0);
+    const right = hist.filter((r) => r.correct).length;
+    return '<div class="ci-histwrap"><table class="ci-hist">' +
+      "<thead><tr><th>When</th><th>Type</th><th>Rating</th><th>From</th><th>To</th><th>Ease</th><th>Time</th></tr></thead>" +
+      "<tbody>" + body + "</tbody></table></div>" +
+      '<p class="ci-sum">' + hist.length + (hist.length === 1 ? " review" : " reviews") + " recorded · " +
+      right + " of " + hist.length + " remembered" + (secs ? " · " + esc(fmtSecs(secs)) + " spent" : "") + "</p>";
+  }
+  function openCardInfo(id) {
+    const c = cardById(id);
+    const title = c ? stripHtml(c.answerText || c.answer || "") : id;
+    const html =
+      '<div class="dm-head"><span class="dm-title">Card info</span><span class="dm-where">' + esc(title || id) + "</span></div>" +
+      cardInfoRowsHTML(S, id) +
+      '<h4 class="ci-h">Review history</h4>' +
+      cardInfoHistHTML(S, id) +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="close">Close</button></div>';
+    deckSheet("Card info", html, (ov, close) => {
+      ov.classList.add("ci-sheet");   // a wider box than an options sheet — see the CSS note
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
     });
   }
   // Daily limits — Anki's three, and Anki's names for them, so a reader who knows Anki needs no explanation.
@@ -15617,6 +15837,13 @@
     let queue = sess.queue.slice();
     let studiedThisSession = 0;
     let revealed = false;
+    /* When the card on screen had its question painted, which is what makes the per-review log's duration a
+       real figure rather than a guess. It is stamped by renderCard rather than by the reveal, so it measures
+       what the reader actually spent — recalling AND checking — which is what Anki times too. A requeued
+       learning step re-renders and is timed again from scratch, correctly: it is a second attempt.
+       A resumed session stamps afresh on the render that resumes it, so a card left open in a closed tab
+       reports the time spent looking at it after coming back rather than the hours in between. */
+    let shownAt = 0;
     /* Which of the card's phrasings is being asked. null means "not chosen yet" — renderCard picks one and
        every move to another card sets it back to null, so a phrasing belongs to the card that is on screen
        and never leaks onto the next one. A resumed session gets its saved index back, which is the half of
@@ -15665,6 +15892,18 @@
         studied: studiedThisSession,
       };
     }
+    /* The per-review row is taken back BY IDENTITY, not by position. The snapshot above is taken before the
+       grade, so it cannot hold a row that does not exist yet; `grade()` leaves the row it wrote in
+       `lastRevRow` and `doGrade` copies it onto the snapshot afterwards. Splicing what `indexOf` finds is
+       exact under pruning, under a requeued step and under a session's fortieth undo alike — where "remove
+       the last row" would take somebody else's review off if anything had been logged in between, and a
+       recorded length would silently keep the phantom one. A row that is no longer there (pruned out from
+       under a very long session) simply finds nothing, which is the right answer. */
+    function undoRevRow(row) {
+      if (!row || !Array.isArray(S.revlog)) return;
+      const i = S.revlog.indexOf(row);
+      if (i >= 0) S.revlog.splice(i, 1);
+    }
     function canUndo() { return undoStack.length > 0; }
     function undoGrade() {
       const s = undoStack.pop();
@@ -15672,6 +15911,7 @@
       if (s.card) S.cards[s.id] = s.card; else delete S.cards[s.id];   // a card graded for the FIRST time goes back to having no record at all
       if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};
       if (s.log) S.reviewLog[s.day] = s.log; else delete S.reviewLog[s.day];
+      undoRevRow(s.revRow);
       S.reviewDay = s.reviewDay || null;
       if (s.intro) S.intro = s.intro;
       if (s.streak) S.streak = s.streak;
@@ -15776,6 +16016,11 @@
               fromHome ? "Home" : "Collections"
             }</button>
             ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
+            ${/* Card info — Anki's `I`, and deliberately in the study BAR rather than in the grade bar. The
+                  grade bar's phone layout is a fixed three-cell row under the grades ("help undo suspend"),
+                  and Undo is duplicated down there because a misclick is URGENT; asking why a card is due is
+                  not, so it belongs with the session's other quiet controls and costs that grid nothing. */""}
+            <button class="backbtn infobtn" id="cardInfo" type="button" title="Why is this card due now? Its state and review history (I)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6v.6"/></svg> Info</button>
             <span class="study-where">${esc(sess.where)}</span>
             <div class="counts">
               <span class="cnt new">${rc.nw}</span>
@@ -15795,6 +16040,7 @@
         </div>`;
 
       const cardRoot = root.querySelector(".study-card");
+      shownAt = Date.now();   // the question is on screen — the per-review log times from here (see the declaration)
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
       /* Stepping through the card's phrasings. It swaps the question IN PLACE rather than re-rendering the
@@ -15831,6 +16077,7 @@
         route(fromHome ? "home" : "decks")
       );
       { const ub = root.querySelector("#undoGrade"); if (ub) ub.addEventListener("click", undoGrade); }
+      { const ib = root.querySelector("#cardInfo"); if (ib) ib.addEventListener("click", () => openCardInfo(id)); }
       function suspendCurrent() {
         if (!S.suspended) S.suspended = {};
         S.suspended[id] = Date.now();
@@ -15908,7 +16155,7 @@
         actions.innerHTML = "";
         showGradeBar(
           `<div class="grade-wrap">
-            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
+            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
             <div class="grades">
               <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${fmtInterval(p.again)}</span><span class="gk">1</span></button>
               <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${fmtInterval(p.hard)}</span><span class="gk">2</span></button>
@@ -15933,10 +16180,16 @@
       function doGrade(g) {
         // snapshot BEFORE anything is written, and before the queue is shifted — the queue is half of what
         // an undo has to restore, since a learning step is requeued and a graduated card is not
-        undoStack.push(undoSnapshot(id));
+        const snap = undoSnapshot(id);
+        undoStack.push(snap);
         if (undoStack.length > UNDO_CAP) undoStack.shift();
         const wasSeen = isSeen(id);
-        const res = grade(id, g);
+        /* How long this card took, measured from the moment its question was painted (`shownAt`). It is the
+           reader's own thinking time, so a card revealed and left for lunch is CAPPED rather than counted —
+           the cap lives in logReviewEntry, which is where the figure is stored and where the reason is. */
+        const res = grade(id, g, shownAt ? Date.now() - shownAt : 0);
+        // …and the row that logged it, onto the snapshot the grade could not yet see (see undoRevRow)
+        snap.revRow = lastRevRow;
         if (!wasSeen) studiedThisSession++;
         else studiedThisSession++; // count every review as a study event for the session tally
         // grading the Card of the day is what adds it to the reader's daily review — reading it and walking
@@ -15955,6 +16208,11 @@
 
       // keyboard
       cardRoot._keys = function (e) {
+        /* AN OVERLAY OVER THE CARD OWNS THE KEYBOARD. Every shortcut below acts on the card underneath, so
+           with a Card info sheet or a gloss popup open `3` would grade the card the reader is reading about
+           and Ctrl+Z would undo a grade they cannot see. It is the Enter-on-a-glossary-term bug below, one
+           level up: there a CONTROL owned the key, here a whole panel does. See OVERLAY_SEL. */
+        if (overlayOpen()) return;
         const typing = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("blank-input");
         /* Ctrl/Cmd+Z steps back a card and takes its grade off — the same shortcut the editor uses, and for
            the same reason. The cloze box takes focus as each card opens, so refusing outright whenever it is
@@ -15979,6 +16237,14 @@
         const focusOwnsKey = !!(ae && ae !== document.body && !ae.classList.contains("blank-input") &&
           ae.matches && ae.matches('button, a[href], select, textarea, summary, [role="button"], [role="switch"], [contenteditable=""], [contenteditable="true"]'));
         if ((e.key === "Enter" || e.key === " ") && focusOwnsKey) return;
+        /* `I` opens Card info — Anki's own key. It must come BEFORE the grade keys but after the typing
+           guard: the cloze box takes focus as every card opens, so an unguarded letter key would open a
+           panel instead of typing the letter, which is exactly the trap Ctrl+Z avoids one line up. */
+        if (!typing && !e.ctrlKey && !e.metaKey && !e.altKey && String(e.key).toLowerCase() === "i") {
+          e.preventDefault();
+          openCardInfo(id);
+          return;
+        }
         if (!revealed && e.key === "Enter") {
           e.preventDefault();
           showAnswer(true);
@@ -21974,6 +22240,59 @@
           <div class="fc-bars">${bars}</div>
           <span class="rs-sub">${fcNote}</span>
         </div>
+        ${answerButtonsHTML(prog)}
+      </div>`;
+  }
+
+  /* ---------- ANSWER BUTTONS (Aug 2026) ----------
+     Which of the four you press, and how long a card takes you — the second reader of the per-review log,
+     and the aggregate half of what Card info shows one card at a time. Anki has had both for years and
+     neither was answerable here: the daily totals count reviews without recording which button ended them,
+     and nothing in Folio timed an answer at all before the log.
+
+     IT RENDERS NOTHING UNTIL THERE IS SOMETHING TO SHOW, which is the honest behaviour rather than a
+     shortcut. The log begins the day it shipped, so on an established reader's account this card would
+     otherwise appear empty beside a heatmap holding a year of real history — reading as a broken panel
+     rather than as a measurement that has not started yet. Once rows exist it says which window it is
+     describing and, where the log is younger than the window, says that too. */
+  const ANSWER_WINDOW_DAYS = 30;
+  function answerButtonsHTML(prog) {
+    const w = revWindow(prog, ANSWER_WINDOW_DAYS);
+    if (!w.rows.length) return "";
+    const counts = [0, 0, 0, 0, 0];   // index by REV_G, so 1..4 — [0] is never used and keeps the arithmetic plain
+    let secs = 0, timed = 0;
+    w.rows.forEach((r) => {
+      if (r.g >= 1 && r.g <= 4) counts[r.g] += 1;
+      if (r.secs) { secs += r.secs; timed += 1; }
+    });
+    const total = w.rows.length;
+    const peak = Math.max(1, counts[1], counts[2], counts[3], counts[4]);
+    const bars = [1, 2, 3, 4].map((g) => {
+      const n = counts[g], pct = Math.round((n / total) * 100);
+      // a zero still gets a hairline stub, so the four read as one axis — the forecast bars' own rule
+      const h = n === 0 ? 0 : Math.max(4, Math.round((n / peak) * 100));
+      /* The bar sits in a TRACK of its own rather than beside the two labels: a percentage height resolves
+         against its containing block, so an `<i>` that is a sibling of the labels measures itself against a
+         box the labels are also inside — and the tallest bar then grows over the word underneath it. */
+      return `<span class="ab-bar ab-g${g}${n === 0 ? " ab-zero" : ""}" title="${REV_GRADE_NAME[g]}: ${n} of ${total} (${pct}%)">
+        <b>${pct}%</b><span class="ab-track"><i style="height:${h}%"></i></span><em>${REV_GRADE_NAME[g]}</em>
+      </span>`;
+    }).join("");
+    const again = counts[1];
+    const kept = total - again;
+    const avg = timed ? secs / timed : 0;
+    // the log's own age, so a 30-day card built on nine days of history says nine days rather than implying thirty
+    const days = w.first ? Math.max(1, Math.round((Date.now() - w.first) / DAY)) : 0;
+    const scope = days && days < ANSWER_WINDOW_DAYS
+      ? `Since ${fmtStamp(w.first).split(",")[0]}`
+      : `Last ${ANSWER_WINDOW_DAYS} days`;
+    return `
+      <div class="rs-card rs-ab">
+        <div class="rs-head"><h3>Answer buttons</h3><span class="rs-meta">${esc(scope)}</span></div>
+        <div class="ab-bars">${bars}</div>
+        <span class="rs-sub">${total} ${total === 1 ? "answer" : "answers"} · ${kept} remembered, ${again} forgotten${
+          avg ? ` · ${esc(fmtSecs(avg))} a card on average` : ""
+        }${secs ? ` · ${esc(fmtSecs(secs))} studied` : ""}</span>
       </div>`;
   }
 

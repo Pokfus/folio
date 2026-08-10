@@ -4022,6 +4022,69 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `body.grading .study-shell .undobtn{display:none}` is what keeps a revealed card from showing two, and
   `.grade-wrap .gb-undo{display:none}` keeps the desktop on the study bar's single copy. Both halves are
   asserted by `test-layout.js` — a duplicate and a disappearance look identical in a screenshot of one state.
+- **THE PER-REVIEW LOG (Aug 2026, on request)** — `S.revlog`, one row per answer, written by
+  **`logReviewEntry`** from `grade()` and read by **`revRead`** / `revForCard` / `revWindow`. The daily
+  `reviewLog` below keeps three numbers a day, which is all a heatmap and a retention rate need and is the
+  whole of what a past day can say; this keeps what a day cannot — which card, which button, from what
+  interval to what, and how long the answer took. **It is the foundational half of the feature and it landed
+  before the screens that read it, deliberately**: a card record holds only its LATEST review, so every day
+  the log is not being written is detail no later release can reconstruct. It is what a **card-info** panel,
+  an **answer-buttons** breakdown, any **time** figure and (the real prize) **FSRS** all need, and none of
+  them can be retrofitted onto history that was never kept.
+  · **THE ROW IS AN ARRAY and its shape lives in exactly TWO places** — `logReviewEntry` writes it and
+    `revRead` unpacks it, so every reader goes through one function and the compact form is an encoding
+    detail rather than something eight call sites agree about. `[ id, t, g, st, prevMin, nextMin, ease100, ds ]`:
+    `t` is plain **ms** (the unit every other stamp in app.js uses — a minutes-since-epoch would save five
+    characters a row and give the file a second time unit to remember); `prevMin`/`nextMin` are the interval
+    before and the delay the grade bought, **both in MINUTES**, one unit for both, because a field that is
+    sometimes days and sometimes minutes reads correctly and computes wrongly; `ease100` is an integer, so no
+    float noise in JSON; `ds` is **tenths of a second**.
+  · **THE DURATION IS CAPPED at `REV_MAX_DS` (60s, Anki's own `maxTaken`)**, and the cap is the honest half
+    of it: a card left open over lunch would otherwise claim two hours of study and make every time figure a
+    lie. It is measured by the STUDY PAGE (`shownAt`, stamped in `renderCard`) and passed into `grade(id, g,
+    ms)`, since only the page knows when the question appeared; a grade with no timing logs a 0 rather than
+    refusing, because a missing duration must never be able to cost the schedule.
+  · **`REV_CAP` (3000) rows, pruned oldest-first with `REV_SLACK` so an append is not a shift.** ~42 bytes a
+    row, so a full log is ~125 KB — about 150 days at twenty reviews a day, or two years at four. It is
+    capped rather than kept for ever because it travels inside the one progress blob `save()` PATCHes whole;
+    **if it ever needs to be longer (FSRS wants every row a reader has), move the log to a table of its own
+    rather than raising the cap until the blob is slow.**
+  · **UNDO TAKES BACK ITS OWN ROW BY IDENTITY** (`lastRevRow` → the snapshot's `revRow` → `undoRevRow`), and
+    this is the one piece that cannot be done the obvious way. The undo snapshot is taken BEFORE the grade,
+    so it cannot hold a row that does not exist yet: `grade()` leaves the row it appended in `lastRevRow` and
+    `doGrade` copies it onto the snapshot afterwards. Splicing what `indexOf` finds is exact under pruning,
+    under a requeued step and under a session's fortieth undo alike — where **"remove the last row" takes
+    somebody else's review off** and **a recorded length silently keeps the phantom one**, since the log
+    prunes from the front and a length taken before an append can equal the length after it.
+  · **Read by two surfaces, and they are deliberately different shapes.** **Card info** (`openCardInfo` /
+    `cardInfoRowsHTML` / `cardInfoHistHTML`, on a `deckSheet`) is reached by **Info** in the study bar or
+    **`I`** — Anki's key — and is in two halves for a reason: the STATE block comes from the card record, so
+    it is complete for every card ever studied, and the HISTORY table can only show what the log holds, which
+    begins the day the log shipped. **A card studied for months before that shows its true state above an
+    honestly short history and says which it is** — fabricating rows from the interval and ease would be
+    inventing a reader's own past. The **Answer buttons** card (`answerButtonsHTML`, `ANSWER_WINDOW_DAYS` 30)
+    renders **nothing at all** on an empty log rather than an empty panel beside a heatmap holding a year of
+    real history, and where the log is younger than its window it names its own age instead of reporting a
+    quiet month as a quiet thirty days.
+  · The Info button is in the **study bar**, not the grade bar: that bar's phone layout is a fixed three-cell
+    row (`"help undo suspend"`) and Undo is duplicated down there because a misclick is URGENT, where asking
+    why a card is due is not. The `I` key is guarded on `typing` for the reason Ctrl+Z is — the cloze box
+    takes focus as every card opens.
+  · The card-info sheet is the one `deckSheet` that can outgrow the screen, so `.ci-sheet .dm-box` is capped
+    and **`.ci-histwrap` is the part that gives** (`flex:1 1 auto; min-height:0`), keeping the state block and
+    Close put while the history scrolls between them. The answer-buttons bar sits in a **track of its own**
+    (`.ab-track`) because a percentage height resolves against its containing block, and an `<i>` that is a
+    sibling of the labels grows over the word beneath it.
+  · **AN OVERLAY OVER THE CARD OWNS THE KEYBOARD** (`OVERLAY_SEL` / `overlayOpen`, beside `swipeEnabled`),
+    which this panel is what forced: every study shortcut acts on the card UNDERNEATH, so a reader who opened
+    Card info mid-card and pressed `3` graded the card they were reading about — invisibly, the sheet being
+    over it — and Ctrl+Z undid a grade they could not see. It is the Enter-on-a-focused-glossary-term bug one
+    level up: there a CONTROL owned the key, here a whole panel does, and the fix also covers the gloss popup
+    and the image viewer, which had the same hole. **ONE list, shared with the page swipe**, since both ask
+    the same question of it and a second copy would drift invisibly.
+  · Guarded by **`.claude/test-revlog.js` (58 assertions)**. **Re-run after touching `logReviewEntry` /
+    `revRead` / `revForCard` / `revWindow` / `grade()`'s logging / `shownAt` / `undoRevRow` /
+    `openCardInfo` / `answerButtonsHTML` / `OVERLAY_SEL`.**
 - **Review history + statistics:** `grade()` calls **`logReview(mature, correct)`**, which tallies
   `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal]` (in `defaultState()` so old saves
   back-fill, and in `PROGRESS_FIELDS` so it syncs and a friend's shows too). **This log has to exist**: a card
@@ -8097,7 +8160,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-one committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-four committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
   `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -8370,6 +8433,26 @@ dead code (never rendered).
     maximum interval, and a preview that read the live clock while the grade took the passed one, so an overdue card
     previewed one interval and scheduled another. **Re-run after touching anything named `sched*`, `SCHED`, or
     `fmtInterval`** — and note that the end-to-end half lives in `test-review-decks.js` section 6.
+  · `node .claude/test-revlog.js` — 58 assertions on **the per-review log**, Card info and the Answer-buttons
+    card (Aug 2026), and every one of them is for a silent failure: a log that stops being written throws
+    nothing and looks exactly like a reader who has not studied, and a duration that stops being measured
+    leaves a card of dashes that reads as a reader who answers instantly. It reads the row off the **SHIPPED
+    SAVE** rather than from a function sliced out of app.js, because an encoding only its writer and its
+    reader agree about is exactly the thing that drifts — eight fields, the documented order, minutes for
+    both intervals, tenths for the duration, the cap. Its sharpest assertion is the one a count cannot make:
+    **undo must take back ITS OWN row**, so two reviews of the same card are logged and the row that survives
+    is checked to be the FIRST — "remove the last row" passes a count check and fails this. Card info is
+    exercised in **both** its states (a card with history shows the table; a card whose reviews predate the
+    log shows its state and says why), since those fail in opposite directions and either alone would pass on
+    a panel that had stopped working. The Answer-buttons card needs a SESSION, so Supabase is
+    `test-account-page.js`'s `page.route` stand-in, and for the same reason: the publishable key in app.js
+    points at the real project. **Re-run after touching `logReviewEntry` / `revRead` / `revForCard` /
+    `revWindow` / `grade()`'s logging / `shownAt` / `undoRevRow` / `openCardInfo` / `answerButtonsHTML`.**
+    Two things it had to learn, both of which made a first draft report faults that were not there:
+    **`#study` is deliberately not a restorable hash**, so a session can only be started through the review
+    banner; and a card-info panel must be exercised on a card the SESSION IS ACTUALLY SHOWING — seeding a
+    record for the queue's first card and then reloading makes the test depend on the order the scheduler and
+    the seed happen in, so it seeds every card the deck might deal instead.
   · `node .claude/test-date-line.js` — 13 assertions on the card date line, run against the real `data.js`:
     that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it replaced
     (the check is content-aware, since an old date line wore exactly the same tags), that the limits in

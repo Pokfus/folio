@@ -14,9 +14,19 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.144", released: "2026-08-09T22:05Z" };
+window.FOLIO_VERSION = { v: "1.145", released: "2026-08-10T01:10Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-10",
+    t: "Every review is written down, so a card can tell you why it is due — and the four grade buttons get a chart of their own",
+    items: [
+      "<b>Folio now keeps a record of each review as you make it</b> — which card, which button you pressed, what the interval was before and after, and how long you took. Until today only a daily total was kept, which is enough for the heatmap and the retention figure and can say nothing about a single card. The record starts from today: anything you studied before this is still in the card's own state, but its individual reviews were never written down, and no later release can reconstruct them.",
+      "<b>A card can now tell you why it is due when it is.</b> Press <b>Info</b> at the top of a card you are studying — or <b>I</b> on a keyboard — for its state, its interval, its ease, how many times you have seen it and how often you have forgotten it, followed by every review the record holds: when, which button, the interval it came from and went to, and the time it took. A card studied before today shows its state and says plainly why its history is short.",
+      "Keys pressed while a panel is open over a card no longer reach the card behind it. Reading a definition or a card's history and pressing a number graded the card underneath, out of sight; the panel now has the keyboard until you close it.",
+      "<b>Your statistics now show which of the four buttons you actually press</b>, as a bar for each over the last month in the grade buttons' own colours, with how many you remembered against how many you forgot, the time you spent, and your average per card — the first time Folio has measured how long a card takes you. A card left open is counted at a minute at most, so an interrupted session cannot inflate the figure.",
+    ],
+  },
   {
     d: "2026-08-09",
     t: "Pictures on the cards and in the glossary, three new daily games, a chest you can put by for later, the Library shelf gets its colour back, the blank you type into fits what you typed, and twenty more glossary terms",
