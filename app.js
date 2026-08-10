@@ -4131,7 +4131,11 @@
     if (!src) return null;
     return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
   }
-  const UDECK_MAX_CARDS = 500, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it: an HSK 3.0 level is 500 to 973 words, and a deck that studies
+     both directions cards each word twice, so the largest legitimate deck here is ~1,900. The cap is a guard
+     against a hostile or runaway file rather than a statement about how big a deck may usefully be, so it is
+     raised to a number that comfortably holds one exam level both ways and is still bounded. */
+  const UDECK_MAX_CARDS = 2000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -4165,7 +4169,8 @@
   function uDeckNormalize(rec) {
     if (!rec || typeof rec !== "object") return null;
     const meta = uDeckSanitizeMeta(rec.meta || rec);
-    const rawCards = Array.isArray(rec.cards) ? rec.cards.slice(0, UDECK_MAX_CARDS) : [];
+    const all = Array.isArray(rec.cards) ? rec.cards : [];
+    const rawCards = all.slice(0, UDECK_MAX_CARDS);
     const seen = new Set();
     const cards = [];
     rawCards.forEach((rc, i) => {
@@ -4174,7 +4179,8 @@
       seen.add(c.id);
       cards.push(c);
     });
-    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss) };
+    // what the cap cost, so a caller can SAY so — a deck quietly missing its last cards looks like a deck
+    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss), over: all.length - rawCards.length };
   }
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
@@ -4589,6 +4595,11 @@
     const norm = uDeckNormalize(raw);
     if (!norm) return { error: "That deck file couldn't be read." };
     if (!norm.cards.length) return { error: "That deck has no cards in it." };
+    /* REFUSED RATHER THAN TRUNCATED. The cap used to be applied by a silent slice, so a file over it
+       imported cleanly, said nothing, and was simply missing its last cards — which reads as a deck rather
+       than as a failure. Splitting it is the reader's call to make, and they can only make it if told. */
+    if (norm.over > 0) return { error: "That deck has " + (norm.cards.length + norm.over).toLocaleString() +
+      " cards and a deck holds at most " + UDECK_MAX_CARDS.toLocaleString() + ". Split it and import the parts." };
     UDECK_PUBLISH_KEYS.forEach((f) => { norm.meta[f] = (f === "origin") ? "mine" : (typeof norm.meta[f] === "number" ? 0 : ""); });   // an imported file is always a fresh, unpublished deck of your own
     if (asCopy || UDECKS[norm.id]) {
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and
@@ -5501,6 +5512,36 @@
        is asserted. It reads 9.42:1 on the tightest of the sixteen light papers, the highest of any
        swatch on the shelf. */
     "Augustine of Hippo": "#3F1800",
+    /* THIS ROW REVERSES THE ONE ABOVE, AND SAYS SO RATHER THAN QUIETLY TAKING WHAT IT TURNED DOWN.
+       The City of God's entry measured a deep blue-indigo at 22.6, rejected it on Thucydides' rule as
+       a colour that would crowd an already-blue quarter "to say nothing in particular", and took the
+       dark brown instead. This is that colour. Three things changed, and only the first is really an
+       argument:
+
+       · IT IS NO LONGER A NEAR-TIE. When that row chose, three families sat at 23.0, 22.6 and 22.2 —
+         near enough that the crowding objection could decide it for free. With twenty-eight colours
+         placed the field is 22.6 against 19.9 for the next best (a magenta whose second neighbour is
+         Euripides at 21.0) and 19.7 for a green that reads 4.63:1 and so all but fails the bar
+         test-a11y.js holds the site to. Paying 2.7 points of separation and most of the contrast
+         headroom to avoid a crowded hue is a worse trade than the crowding.
+       · THE QUARTER IS CROWDED IN HUE AND EMPTY AT THIS LIGHTNESS, which the earlier row measured in
+         hue alone. Every existing blue sits at L 30–46 — Herodotus 34, Song of Roland 30, Aristotle
+         44, Machiavelli 46, Seneca 46 — and this sits at L 13.2, just above the floor. Counting
+         swatches within 40 rather than counting the hue family, it has FIVE neighbours, fewer than
+         any other family's best (the magenta and the green have six, the reds eleven and twelve).
+       · ITS NEAREST IS SNORRI, NOT HERODOTUS. 22.6 to the Prose Edda's dark violet and 24.3 to
+         Herodotus's indigo, so the Euripides test is asked about Homer against a thirteenth-century
+         Icelandic handbook of poetics, which nobody reads as a pair. Herodotus is the one real
+         question and he is the further of the two; epic verse and prose history are not a set the
+         way Sophocles and Euripides are.
+
+       THE BAND WAS NOT WIDENED, and it was tested rather than assumed: with the lightness and chroma
+       limits removed entirely the search returns a pure electric blue at chroma 133, which is exactly
+       the "bright enough to glow beside twenty muted colours" that Vyasa's row rejected and the band
+       exists to prevent. It reads 9.58:1 on the tightest of the sixteen light papers, second only to
+       the Book of Rites' 9.70 — which also corrects the claim in the row above: that brown's 9.42 was
+       not the highest on the shelf when it was written. */
+    "Homer": "#001270",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -7232,6 +7273,68 @@
         { n: 1, label: "Against the pagans", note: "Books I–X" },
         { n: 2, label: "The two cities", note: "Books XI–XXII" },
       ],
+    },
+    {
+      id: "homer-iliad",
+      title: "The Iliad",
+      subtitle: "Ἰλιάς",
+      author: "Homer",
+      /* Composed somewhere in the eighth or seventh century BCE and not datable more closely than
+         that; `year` is the single signed number the shelf's date sort needs, and the prose
+         `written` carries the hedge, as it should. Measured rather than asserted: −750 puts it
+         FOURTH on a date sort, behind Gilgamesh at −1200 and the Classic of Poetry and the Book of
+         Documents at −1000. It is the oldest work of European literature and not the oldest book on
+         this shelf, and those are easy to confuse. */
+      written: "composed c. 750–700 BCE",
+      year: -750,
+      translator: "A. T. Murray",
+      edition: "Loeb Classical Library, London and New York, 1924",
+      /* A LIMIT ON EACH COLUMN, which puts this with the Song of Roland rather than with the four
+         licences needing no qualification. Both modern layers are 1920s scholarship: they clear the
+         pre-1929 publication rule and life-plus-seventy outright, and neither has yet cleared life
+         plus a hundred. Murray died in 1940, so his translation runs to 2041; the Greek is a JOINT
+         work whose term runs from the last surviving author, and Monro died in 1905 while Allen
+         lived until 1950, so it runs to 2051 — the original being the harder half of the pair, which
+         is the Medea's position rather than a new one. Stated outright rather than smoothed into the
+         easier sentence, as the Lucretius entry says: claim less, and put on the page what cannot be
+         said. See .claude/fetch-book.js for why Perseus's OTHER English Iliad — Butler's, whose own
+         copyright is easier — is not used: what it carries is Butler revised by two living scholars. */
+      rights:
+        "Three layers, and a limit on each of the two modern ones. The poem is some twenty-seven " +
+        "centuries old and is in the public domain everywhere. A. T. Murray's translation was " +
+        "published in 1924 — before 1929 — so its United States copyright has expired, and Murray " +
+        "died in 1940, so it is also public domain wherever the term is the author's life plus " +
+        "seventy years; where the term is life plus a hundred it remains in copyright until 2041. " +
+        "The Greek is David B. Monro and Thomas W. Allen's Oxford text of 1908–1920, likewise " +
+        "published before 1929; the term for a joint work runs from the last surviving author, and " +
+        "Allen died in 1950, so it cleared life plus seventy at the start of 2021 and remains in " +
+        "copyright until 2051 where the term is life plus a hundred. Both digital editions are " +
+        "prepared by the Perseus Digital Library at Tufts University and are released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern translations " +
+        "by Richmond Lattimore, 1951, Robert Fagles, 1990, Caroline Alexander, 2015, and Emily " +
+        "Wilson, 2023, are still in copyright and are not used here, nor is William F. Wyatt's 1999 " +
+        "revision of Murray.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
+      origLang: "grc",
+      origName: "Greek",
+      /* THE CHAPTER IS ONE OF THE TWENTY-FOUR BOOKS and the SECTION is the line the passage opens at,
+         which is how Homer is cited in every language — "Iliad 1.348" is book one, line 348. The two
+         editions divide the poem into the same 425 cards, so a card number is the same claim on both
+         sides; see .claude/fetch-book.js for the measurement (425 cards each, 22 of the 24 books
+         identical, 423 of 425 numbers on both sides, and the two exceptions read passage by passage
+         before either was moved). The book division is Alexandrian rather than Homer's own, which the
+         front matter says.
+         THE TRANSLATION IS PROSE AND THE ORIGINAL IS VERSE — the first book here that way round, and
+         the reason teiVerseBooks grew a prose branch. */
+      chapterWord: "Book",
+      count: 24,
+      total: 24,
+      /* No `parts`. The Iliad has no division above the book: the twenty-four are a single run, and
+         the halves a reader may have met — the embassy, the death of Patroclus — are modern reading
+         aids rather than anything the poem or this edition states. Inventing two would be composing
+         an apparatus, which is what the titleOf note in the importer entry declines to do for the
+         book titles for the same reason. */
     },
   ];
   const BOOK_BY_ID = {};
