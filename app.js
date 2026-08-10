@@ -9633,7 +9633,10 @@
         (isReview ? "" : item("sched", "Scheduling",
           schedModeOf(id) === "fsrs"
             ? "FSRS · aiming to remember " + Math.round(deckSchedCfg(id).retention * 100) + "%"
-            : "SM-2, the classic Anki schedule")) +
+            /* NO OTHER APP IS NAMED IN A SETTINGS SHEET (Aug 2026, on request). A reader choosing how their
+               own deck is scheduled is not helped by being told whose default it is, and the two algorithms
+               have names of their own. Anki is credited where a credit belongs — on the About page. */
+            : "SM-2, the classic interval schedule")) +
         item("skip", skipped ? "Study today after all" : "Skip today",
           skipped ? "This " + thing + " is sitting today out"
                   : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review"))) +
@@ -9902,11 +9905,14 @@
       /* Two ROWS rather than a switch, deliberately against the house preference: these are two named
          algorithms rather than one setting being on or off, and each needs a sentence of its own. */
       '<button type="button" class="dm-item dm-choice' + (fsrs ? "" : " on") + '" data-sched="sm2"' + (fsrs ? "" : " data-dmfocus") + ">" +
-        "<b>SM-2</b><small>The classic Anki schedule. Each answer multiplies the interval by an ease the card " +
-        "carries.</small></button>" +
+        /* Neither row names another app (Aug 2026, on request) — see the deck sheet's own note. Both
+           algorithms are described by what they DO, which is what a reader deciding between them needs;
+           Anki is credited on the About page. */
+        "<b>SM-2</b><small>The classic interval schedule. Each answer multiplies the interval by an ease the " +
+        "card carries.</small></button>" +
       '<button type="button" class="dm-item dm-choice' + (fsrs ? " on" : "") + '" data-sched="fsrs"' + (fsrs ? " data-dmfocus" : "") + ">" +
         "<b>FSRS</b><small>Models how fast you forget each card and picks the interval that lands on the " +
-        "retention you ask for. Anki's default, and usually the same retention from fewer reviews.</small></button>" +
+        "retention you ask for. Usually the same retention from fewer reviews.</small></button>" +
       (fsrs
         // the unit is IN the label: the field is a bare number box, and "Remember this much — 90" says nothing
         ? '<label class="dm-field"><span>Remember this much <small>%</small></span>' +
@@ -9919,9 +9925,9 @@
             '<textarea class="af-input ds-params" id="dsParams" rows="4" spellcheck="false" placeholder="21 numbers, separated by commas">' +
             esc(custom ? own.fsrsParams.join(", ") : "") + "</textarea></label>" +
           '<p class="dm-note">Left empty, Folio uses the reference defaults — trained on millions of reviews ' +
-            'and a sound choice. <b>Optimise</b> fits them to your own review history instead; if Anki has ' +
-            'already optimised parameters for you, you can paste those here too. Clear the box to go back to ' +
-            'the defaults.</p>' +
+            'and a sound choice. <b>Optimise</b> fits them to your own review history instead; if you already ' +
+            'have a set of FSRS parameters fitted for you elsewhere, you can paste those here too. Clear the ' +
+            'box to go back to the defaults.</p>' +
           '<div class="ds-optrow"><button type="button" class="btn ghost" id="dsOpt">Optimise from my reviews</button>' +
             '<span class="ds-optmsg" id="dsOptMsg"></span></div>'
         : '<p class="dm-note">Switching to FSRS keeps everything you have already studied: a card\u2019s current ' +
@@ -12608,7 +12614,12 @@
         (a.date ? '<div class="ar-wmeta">' + esc(a.date) + '</div>' : "") +
         (a.origin ? '<div class="ar-wmeta">' + esc(a.origin) + '</div>' : "") +
         '<div class="ar-wdesc">' + (a.desc || "") + '</div>' +
-        (a.image && a.image.credit ? '<div class="ar-wcredit">' + esc(a.image.credit) + '</div>' : "") +
+        /* THE PICTURE'S CREDIT IS NOT REPEATED HERE (Aug 2026, on request). The plate's frame is the
+           site's own `.card-img`, so tapping the picture opens the fullscreen viewer and the viewer's
+           caption bar carries the credit in full — the attribution is one tap from the picture it belongs
+           to rather than set as a grey line under five sentences it is not about.
+           It is still REQUIRED on the artefact itself: `add-artefacts.js` and Admin → Artefacts both refuse
+           a `src` with no `credit`, and the viewer is what shows it. */
         /* The apparatus is the site's own — `sourcesHTML` and the delegated fold/marker listeners, so the
            numbers, the links, the access chips and the jump both ways all work here with no wiring of
            their own. It renders OPEN like a card's and unlike a gloss popup's: an artefact plate is a
@@ -12717,14 +12728,18 @@
      over it, redrawing the very thing they are looking through. Both blocks are optional (a friend's page
      and the signed-out page carry one or neither), so each is guarded. */
   function refreshReliquary() {
-    if (!current || current.name !== "account") return;
+    /* The waiting-chests notice lives on the HOME page now (Aug 2026, on request) and the two Reliquary
+       blocks on the account page, so this runs on either — a chest opened from the home page has to be
+       able to take its own notice away. It is replaced in place rather than through render(), for the
+       reason the two blocks below are: a repaint would lose the reader's scroll and redraw the page they
+       are looking at an overlay through. */
+    if (!current) return;
+    const slot = document.querySelector("#chestSlot");
+    if (slot) { slot.innerHTML = chestBannerHTML(); wireChestBanner(slot); }
+    if (current.name !== "account") return;
     const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
     if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host, S, true); }
     if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc, S, true); }
-    // the waiting-chests banner is a count, so opening one changes it and emptying it retires it. It is
-    // replaced in place rather than through render(), for the reason the two blocks above are.
-    const slot = document.querySelector("#chestSlot");
-    if (slot) { slot.innerHTML = chestBannerHTML(); wireChestBanner(slot); }
   }
   function wireChestBanner(host) {
     const b = host && host.querySelector("#cbOpen");
@@ -13698,7 +13713,11 @@
        the figure was taking on a 390px line. */
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
-      return `<div class="prog dk-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
+      /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
+         percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
+         percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
+         readable when a deck is dragged from one container into another (see test-review-decks). */
+      return `<div class="prog dk-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
         <div class="track"><div class="fill"></div></div>
       </div>`;
     };
@@ -13853,20 +13872,22 @@
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
           const title = r.title || (r.node ? nodeTitle(r.node) : r.drag);
           const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
-          /* A GROUP HEADER — a thinner banner over the decks it holds, in a deeper wash of its own colour so
-             the run below reads as belonging to it. It carries the three piles (the most useful thing on any
-             row here, and they cost one line) and deliberately not the progress bar: this is a header, and a
-             header with a full deck row's furniture is just another deck row. Tapping it studies everything
-             inside; holding it — or right-clicking — opens its options, which is where the colour, the name
-             and Ungroup live. */
+          /* A GROUP HEADER — a thinner banner over the decks it holds, in a slightly deeper wash of its own
+             colour so the run below reads as belonging to it. Tapping it studies everything inside; holding
+             it — or right-clicking — opens its options, which is where the colour, the name and Ungroup live.
+             IT IS SET AND FURNISHED LIKE THE ROWS INSIDE IT (Aug 2026, on request): the same title face at
+             the same size, and the same PROGRESS BAR, where it used to carry a small mono "N cards" instead.
+             The `.dg-count` line said how much was inside; the bar says that AND how far through it the
+             reader is, which is what every other row on the list says, so a header and its decks no longer
+             answer the same question two different ways. What still marks it as a header is the wash and the
+             deeper indent of the rows beneath it. */
           if (r.group) {
-            const cards = entryCardIds(r.drag).length;
             return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
               ${grip}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
-                <span class="dg-count">${cards} ${cards === 1 ? "card" : "cards"}</span>
+                ${adProg(entryCardIds(r.drag))}
               </div>
               ${chev}
             </div>`;
@@ -14049,13 +14070,12 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
-    /* An unopened chest says so on the banner (Aug 2026, on request), because a chest can be dismissed and
-       queued and there would otherwise be nothing on the home page to say one is owed. It is a BUTTON
-       inside a button, which the markup cannot allow, so it is a span carrying `data-chest` and the
-       banner's own click handler defers to it. */
-    const chestChip = chestCount()
-      ? `<span class="stat chest-chip" role="button" tabindex="0" data-chest="1" title="Open your artefact chest"><b>🗝 ${chestCount()}</b><span>${chestCount() === 1 ? "Chest" : "Chests"}</span></span>`
-      : "";
+    /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
+       standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
+       something that is not a pile of cards at all — and it is gone from both branches. What replaces it is
+       `chestBannerHTML()` directly ABOVE the banner (see `#chestSlot` below), which is the same notice the
+       account page used to carry: a sentence and a button rather than a count, at the top of the page a
+       reader lands on. */
     // The Daily-review tile earns its bronze exactly as a game tile earns its hue: a wash while the day's pile
     // is still open, the full bronze fill once it's cleared (something was studied today and nothing is left
     // due or new), and the same shining gold as a perfect game when every card today was right on the first try.
@@ -14079,9 +14099,6 @@
                     page advertises; a second, quieter link in the same row only asks a first-time
                     reader to choose between two things they cannot yet tell apart. */""}
               <span class="cta"><span class="btn">${(TREE.collections || []).some((c) => !isComingSoon(c)) ? "Study your first cards" : "Browse the collections"}</span></span>
-              ${/* the hero carries the chest chip too: the daily-sweep chest can be won without studying a
-                    single card, so a reader can be holding one while this is still the banner they see */""}
-              ${chestChip}
             </div>
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
@@ -14119,17 +14136,15 @@
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
               ${streakChip}
-              ${chestChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
         }</span></span>
             </div>
-            ${/* THE WAY TO MAKE A GROUP (Aug 2026, on request), at the bottom left of the banner. Like the
-                  chest chip above it, it is a BUTTON INSIDE A BUTTON, which markup does not allow — so it is
-                  a span carrying `data-newgroup` and the banner's own click handler defers to it. It is
-                  drawn only once there is something to group: an empty review has nothing to put in one, and
-                  a control whose whole result is an empty container teaches nothing about what it does. */""}
-            ${activeIds.length ? `<div class="rv-tools"><span class="rv-newgroup" role="button" tabindex="0" data-newgroup="1" title="Gather decks under a heading of your own">+ New group</span></div>` : ""}
+            ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
+                  row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
+                  block above it. Being out of the banner it is also an ordinary <button> again, where a
+                  control inside a button had to be a `role="button"` span the banner's own handler deferred
+                  to. */""}
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
@@ -14150,12 +14165,26 @@
        Collections before it), so this is the ONLY route to it anywhere on the site and ships at every
        width. The #mission route itself is untouched — every link ever shared still resolves. */
     const aboutLink = `<button class="home-about" id="b-about" type="button">About Folio</button>`;
+    /* THE WAY TO MAKE A GROUP (Aug 2026, on request): at the bottom LEFT, under the last deck in the list
+       rather than inside the banner above it. A group is made out of the rows underneath, so the control
+       belongs at the end of those rows — in the banner it sat above the thing it acts on and read as one
+       more of the banner's own affordances. It is drawn only once there is something to group: an empty
+       review has nothing to put in one, and a control whose whole result is an empty container teaches
+       nothing about what it does.
+       Out of the banner it is a real <button> again: inside one it had to be a `role="button"` span, since
+       markup does not allow a button inside a button, and the banner's click handler had to defer to it. */
+    const newGroupTools = activeIds.length && !fresh
+      ? `<div class="rv-tools"><button class="rv-newgroup" type="button" id="b-newgroup" title="Gather decks under a heading of your own">+ New group</button></div>`
+      : "";
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${addDecksLip}
+            ${/* One footer row under the deck list: "+ New group" at its left, the lip to the collections
+                  at its right. They share a line because the lip has always hung off the group's bottom
+                  EDGE, and a block stacked between the two would have taken that edge away from it. */""}
+            <div class="rv-foot">${newGroupTools}${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -14176,6 +14205,13 @@
               and either answer retires it. Settings → Study brings it back. It is what the three-beat
               how-it-works strip under the review used to say, said properly and only where asked for. */""}
         ${tourOfferHTML()}
+        ${/* WAITING CHESTS, DIRECTLY ABOVE THE DAILY-STUDY BANNER (Aug 2026, on request). It was on the
+              account page, two taps away from where a chest is actually earned, while the banner carried a
+              bare count in its meta row — so the number was where nobody could act on it and the notice
+              was where nobody would look. Both moved here, and the count is gone: this says it in a
+              sentence with the button beside it. The slot is always in the markup so `refreshReliquary`
+              can fill and empty it in place, without rebuilding the page under a reader. */""}
+        <div id="chestSlot">${chestBannerHTML()}</div>
         ${reviewGroup}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
@@ -14197,9 +14233,10 @@
     { const gp = root.querySelector("#g-picture"); if (gp) gp.addEventListener("click", () => route("picture")); }
     { const gy = root.querySelector("#g-whatyear"); if (gy) gy.addEventListener("click", () => route("whatyear")); }
     root.querySelector("#b-review").addEventListener("click", (e) => {
-      // the chest chip is a target inside the banner: it opens the chest rather than starting the review
-      if (e.target.closest("[data-chest]")) { e.stopPropagation(); openChestPop(); return; }
-      if (e.target.closest("[data-newgroup]")) { e.stopPropagation(); promptNewGroup(); return; }
+      /* The chest chip and the "+ New group" span both used to be targets INSIDE this button and were
+         deferred to here. Both have left it (Aug 2026, on request) — the chest to `#chestSlot` above the
+         banner and the group control to `#b-newgroup` under the last deck row — so the banner is one
+         button again with nothing nested in it to step around. */
       if (fresh) {
         /* THE FIRST PRESS GOES TO THE COLLECTIONS (Aug 2026, on request). It used to pick the first
            collection that was not coming soon, add it on the reader's behalf and deal them a card —
@@ -14220,16 +14257,11 @@
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
-    // …and the chest chip answers to a keyboard, since it declares role="button" and a role without keys
-    // is a control a screen-reader user is told about and cannot use
-    { const cc = root.querySelector("[data-chest]"); if (cc) cc.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); openChestPop(); }
-    }); }
-    // …and so does the New group control beside it, for the same reason: it declares role="button", and a
-    // role without keys is a control a screen-reader user is told about and cannot use
-    { const ng = root.querySelector("[data-newgroup]"); if (ng) ng.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); promptNewGroup(); }
-    }); }
+    /* The waiting-chests notice above the banner, and the way to make a group under the last deck row.
+       Both are real <button>s now that neither is nested inside the banner, so neither needs a keydown
+       handler of its own — which is the whole reason for getting them out of it. */
+    wireChestBanner(root);
+    { const ng = root.querySelector("#b-newgroup"); if (ng) ng.addEventListener("click", () => promptNewGroup()); }
     // the lip under the review group and the About line under the games — both at every width now, each
     // being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
@@ -14880,7 +14912,12 @@
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
               ${spanHTML}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : `<span class="collection-count">${total} ${total === 1 ? "card" : "cards"}</span>`}
+              ${/* A LIVE collection states its size ONCE, on the bar (Aug 2026, on request). The count
+                    behind the title said the same number the studied/total bar directly under it already
+                    says, so the row carried "412 cards" beside "0 / 412 cards" — and the DECK rows inside
+                    keep theirs precisely because they have no bar. A coming-soon collection has no bar, so
+                    its pill stays: that is the one thing its row has to say. */""}
+              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
             </div>
             ${
               /* A coming-soon collection shows the pill and nothing else. It used to carry a Level 1 badge over
@@ -24729,8 +24766,9 @@
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
-      ${/* a guest earns chests too, so the banner is here as well — see chestBannerHTML */""}
-      <div id="chestSlot">${chestBannerHTML()}</div>
+      ${/* The waiting-chests notice stood here and is now above the Daily-study banner on the home page
+            (Aug 2026, on request) — the page a reader lands on, rather than one they have to go to. The
+            Reliquary's own "Open your chest" button below is still the way in from here. */""}
       ${/* The form is 460px wide inside an 800px stage, so signed out this page used to be half empty on a
             laptop. The three perks were already written — they were just stacked underneath the form, where
             they made a short card longer. Out beside it they fill the space and say what the account is FOR
@@ -24779,7 +24817,6 @@
         ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
         : ""}`;
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
-    wireChestBanner(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
       tabs.forEach((x) => x.classList.toggle("active", x === t));
@@ -24824,9 +24861,8 @@
     const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
-      ${/* Waiting chests, at the top, because that is what "save it for later" points at — see
-            chestBannerHTML. The slot is always in the markup so refreshReliquary can fill and empty it. */""}
-      <div id="chestSlot">${chestBannerHTML()}</div>
+      ${/* Waiting chests were announced here and are now above the Daily-study banner on the home page
+            (Aug 2026, on request), which is where a reader who deferred one lands. */""}
       <div class="profile">
         <div class="ph-ava">
           <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
@@ -24949,7 +24985,6 @@
     root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
-    wireChestBanner(root);
     const relHost = root.querySelector("#reliquary");
     relHost.innerHTML = reliquaryHTML(S, true);
     wireReliquary(relHost);
@@ -25208,7 +25243,17 @@
           '<span class="clog-date">' + esc(fmtDay(e)) + '</span>' +
           '<span class="clog-title">' + esc(e.t || "") + '</span>' + chev +
         '</button>' +
-        '<div class="clog-body"><ul>' + (e.items || []).map((it) => "<li>" + esc(it) + "</li>").join("") + "</ul></div>" +
+        /* TWO THINGS ABOUT THE BODY, both fixed Aug 2026 on a report from a phone.
+           A WRAPPER, because `grid-template-rows:0fr` only collapses a child whose own MINIMUM size is
+           zero — and the `<ul>`'s padding counts towards that minimum however small its content box is
+           forced. So a shut day was never shut: it kept the list's ~16px of padding and showed a clipped
+           sliver of the first line through it, which reads as a fold that half-works. The padding moves
+           inside `.clog-in`, which is what the grid row now sizes, and the whole thing collapses to 0.
+           And the item is written as HTML rather than escaped: a changelog line bolds the thing that
+           changed, and `esc` printed the `<b>` tags themselves. `sanitizeHTML` is the site's own
+           allowlist, so this cannot become a way to put anything else on the page. */
+        '<div class="clog-body"><div class="clog-in"><ul>' +
+          (e.items || []).map((it) => "<li>" + sanitizeHTML(it) + "</li>").join("") + "</ul></div></div>" +
       "</div>").join("");
     // the forgetting curve, drawn in theme colours: memory fading without help (dashed), and the same
     // memory lifted by reviews timed just before the fall — each hop longer than the last
@@ -25244,7 +25289,9 @@
       <figcaption>Each review lands just before you would forget — and each one makes the memory last longer.</figcaption>
     </figure>`;
     const step = (n, b, s) => `<li><span class="hi-num">${n}</span><div class="ms-body"><b>${b}</b><span>${s}</span></div></li>`;
-    const faq = (q, a) => `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">${esc(q)}${chev}</button><div class="faq-a"><p>${a}</p></div></div>`;
+    // …and the same wrapper the changelog body needed, for the same reason: the answer's own padding was
+    // keeping a shut question ~18px tall and letting a clipped line of the answer show through it.
+    const faq = (q, a) => `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">${esc(q)}${chev}</button><div class="faq-a"><div class="faq-in"><p>${a}</p></div></div></div>`;
     // small accent chip beside each section title (icon inherits the card's --msn-accent hue)
     const chip = (svg) => `<span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span>`;
     const CHIP = {
@@ -25321,6 +25368,14 @@
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
             <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
             <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887) and <i>Antigone</i> (Jebb's of 1891), both with Francis Storr's Greek of 1912 and both Englished from Jebb by way of Perseus's 1988 modernization to remove archaisms — Alex Sens on the <i>Oedipus Rex</i> and Pierre Habel on the <i>Antigone</i>, each reviewed by John Gibert; and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English likewise modernized, a revision by Steven Ott reviewed by John Marincola).</li>
+            ${/* THE SCHEDULERS ARE CREDITED HERE AND NOWHERE ELSE (Aug 2026, on request). The deck and
+                  Scheduling sheets used to name Anki in passing — "the classic Anki schedule", "Anki's
+                  default" — which tells a reader choosing how their own deck is scheduled something about
+                  another program rather than about their deck. The debt is real, so it is stated once,
+                  properly, on the page that states Folio's debts. FSRS is separately credited because the
+                  optimiser's arithmetic is held to its reference implementation. */""}
+            <li><a href="https://apps.ankiweb.net" target="_blank" rel="noopener">Anki</a> <span class="cr-lic">AGPL-3.0</span> — Folio's study schedule follows Anki's: the SM-2 intervals, the learning steps, the daily limits, the four grades and the way sibling cards are buried are all modelled on it. Folio shares no code with Anki and is not connected with the project.</li>
+            <li><a href="https://github.com/open-spaced-repetition/py-fsrs" target="_blank" rel="noopener">FSRS</a> <span class="cr-lic">MIT</span> — the second scheduler and its optimiser, implemented from the open-spaced-repetition reference and checked against it.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
