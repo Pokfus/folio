@@ -4438,6 +4438,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than the defaults on a held-out tail, which is what stands in for a reference check on the output) and by
     **`.claude/test-review-decks.js` section 15** for the path (the button under FSRS and not under SM-2, a run that
     finishes without freezing its sheet, nothing saved until Save, and the too-little-history refusal in words).
+- **THE NOTE→CARDS EXPANSION AND `availableCardIdSet` ARE CACHED** (`_uStudyCache` / `_availCache` /
+  `uCacheBust` / `uDeckStudyIdsFor`, Aug 2026, same report as the sanitizer revision stamp under COMMUNITY
+  DECKS). Both are DERIVED on every read, which is what keeps them honest — a card's `sub` and a type's
+  template list change under them and nothing has to be kept in step — and both are O(the whole deck). One
+  home render asked for the expansion **sixteen times**: `entryPiles` per row, `reviewQueue`, `entryInfo`,
+  the progress bar on each row, and `availableCardIdSet`, itself called nine times. On the HSK 3.0 deck
+  that was 174,336 `uNoteCardIds` calls and ~270ms per repaint **with a single row on the page**, before
+  its nine subdecks were drawn at all; it is ~150ms with ten rows now.
+  · **Keyed by (deck, subdeck), and thrown away WHOLE** rather than reasoned about: a stale entry would
+    silently deal the wrong cards, so `uCacheBust` keeps nothing. Every write goes through it — the
+    Studio's mutations all end in `uDeckSave`, and `uDeckMount` / `uDeckDelete` are the only other ways
+    the stores move. `availableCardIdSet` depends on ONE thing more, the collection tree, hence the bust
+    in **`applyAdminEdits`**.
+  · **The declarations sit beside `applyAdminEdits`, far from the code that fills them**, and must stay
+    there: that function busts them and runs at BOOT, so a `let` down beside the community block would
+    still be in its temporal dead zone — a ReferenceError before the first paint rather than anything
+    subtle.
+  · **Both hand back the live array/Set, not a copy.** Every caller was audited first: they all `filter`,
+    `forEach`, `some` or read `.length`, and nothing sorts or pushes in place. **Keep it that way** — a
+    caller that sorted what `entryCardIds` returns would corrupt the cache for everything else on the page.
 - **BURY SIBLINGS (Aug 2026, on request).** Answering one card of a note puts the note's OTHER cards off until tomorrow.
   It is what makes asking a word in both directions worth doing: 中 → middle and then middle → 中 an hour later tests the
   last hour rather than the word. Template-major ordering (see the card-types bullet) keeps siblings apart WITHIN a
@@ -7177,6 +7197,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
     contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
     would fight the sanitizer.
+  · **…EXCEPT WHERE THE SAME SANITIZER PROVABLY WROTE IT, WHICH IS ARITHMETIC RATHER THAN TRUST**
+    (`SANITIZE_REV` / `srev` / `_uTrusted` / `uSH` / `uSP` / `uSCSS`; Aug 2026, on a report that the site
+    had become very slow with a large deck installed). `sanitizeHTML` returns a **FIXED POINT** by
+    construction — it loops until another pass changes nothing — and `sanitizePlain` / `sanitizeCSSText`
+    are idempotent the same way, so re-cleaning a record this build's own sanitizer produced cannot alter
+    a character. It was doing exactly that on **every page load**: on HSK 3.0 (10,896 notes) **5.7 seconds
+    and 174,741 `sanitizeHTML` calls** of provable no-op before the first paint, most of them DOM-parsing
+    the same Chinese markup for the fourth time. A stored record now carries **`srev`**, and
+    **`communityBoot` — reading OUR store, and nothing else — passes `trusted`**, which skips the per-field
+    string work while every structural guard still runs: the id patterns, the key whitelists, the URL
+    schemes, the caps, the shape. Measured on the same harness: the deck's cost on a reload went from
+    **+5.8s to +0.4s**, and `uDeckNormalize` from 5,756ms to 33ms.
+    · **What it gives up is EXACTLY what the stamp exists to catch** — a deck cleaned by an OLDER and
+      possibly buggier sanitizer, which is what a record with no matching `srev` is. Those are re-cleaned
+      once, on the next load. An import, an install and a published payload are **never** trusted whatever
+      they claim to carry, since only `communityBoot` passes the flag.
+    · **BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES** — `sanitizePass`, `sanitizeHTML`,
+      `sanitizePlain`, `sanitizeCSSText`, `sanitizeUrl` or any `SANITIZE_*` / `UTYPE_*` allowlist.
+      Forgetting to is the one way this can be wrong, and it is silent: already-stored decks keep being
+      read under the old rules.
+    · **`srev` sits at the record's TOP level, never inside `meta`** — `meta` is what an export copies, and
+      a deck FILE must never carry a stamp, being not our store. Verified: `uDeckExport`, the Studio's fork
+      and `uDeckRemotePayload` each pick their fields explicitly, so only `cdbPut` ever stores it.
+    · **`_uTrusted` is a module flag set around a SYNCHRONOUS body and restored in a `finally`** — nothing
+      awaits inside `uDeckNormalizeInner`, so it cannot leak into a Studio mutation that shares those same
+      sanitizers.
+    · Guarded by **`.claude/test-deck-trust.js`**, in both directions — a planted record with no `srev` is
+      still cleaned (verified by reintroducing the fault: the hostile card's fields reach the page and its
+      payload runs), and a record we write really does carry the stamp, which is a PERFORMANCE guarantee
+      and therefore one that looks identical whether it holds or not.
+  · **`sanitizePlain` gained `sanitizeHTML`'s own fast path** in the same pass: a string with no `<` and no
+    `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
+    the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
+    DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
   · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
@@ -7390,7 +7444,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and on a partly-grouped one the parent row already studies the whole deck — an "Other" row would be a
     third thing to explain. The home review names an added subdeck **by the subdeck**, with its deck in
     `.dk-sup` for context: "HSK 1" over three rows says nothing about which is which.
-  · Guarded by `.claude/test-subdecks.js` (13 assertions), which builds its own partly-grouped deck rather
+  · **ADDING A DECK ADDS ITS SUBDECKS, and the home list draws them UNDER it** (Aug 2026, on a report:
+    "when I add our custom Mandarin HSK deck I still don't see any subdecks in it on the home page"). This
+    is the collection rule one store over — `addActive` on a tree node has always brought the whole subtree
+    in — and it was the one place a container did not. Three halves, and each fails differently:
+    `addActive` adds `u:<deck>` plus one entry per subdeck (adding a SUBDECK on its own still adds only
+    that subdeck — a narrower choice is never widened); `removeActive` mirrors it in **both** directions,
+    a deck taking its subdeck rows with it and a subdeck taking the whole-deck row, which would otherwise
+    go on offering the very cards just removed while its + still read as added; and `emit` in `PAGES.home`
+    gives a deck row its active subdecks as CHILDREN, with the top-level run skipping any subdeck whose own
+    deck is on the list, so they nest instead of standing beside it in a flat run of ten.
+  · **A NESTED ROW DROPS ITS CONTEXT LINE, and only looking at the page shows why.** A subdeck row names
+    itself with its deck in the quiet `.dk-sup` beside it, which is right for a subdeck added ON ITS OWN at
+    the top level ("Level 1" over three of them says nothing about which is which) and wrong the moment the
+    deck is the row directly above: at 390px the name is the only part of the row with no shorter form, so
+    a repeated "HSK 3.0 — Mandarin Chinese" crushed every subdeck to **"Lev…"** — nine rows reading the
+    same three letters. Kept where the row stands alone, dropped where `parentKey` is its own deck's entry.
+  · **…and such a row seeds OPEN**, where an added collection seeds shut. A collection's subtree runs to
+    forty-odd rows; a deck's subdecks are a handful, and they are the reason it has rows at all — a deck
+    that swallows them the moment it is added is exactly what this was reported as.
+  · **`refreshAddButtons` had to learn `[data-uaddsub]`** with it: one press now changes a dozen buttons
+    further down the Collections page, and that sweep is what stops the rows below the one pressed reading
+    "add" over something already added.
+  · **THERE IS NO SUBDECK PER DIRECTION AND THERE CANNOT BE** — worth stating, because it is the other half
+    of what was asked for. Since reverse cards, a word is ONE note carrying two cards (recognition and
+    production), and `sub` is a property of the NOTE, so the two directions cannot be in different
+    subdecks while they are one record. That is the trade the note→cards change made deliberately (see the
+    reverse-cards bullet): what it buys is one record per word — a definition corrected once rather than
+    twice, with no chance of the two drifting — and each direction still keeps a schedule of its own. A
+    subdeck's count already includes both, which is why the HSK 3.0 deck reads 23,064 cards over 11,532
+    words.
+  · Guarded by `.claude/test-subdecks.js` (18 assertions), which builds its own partly-grouped deck rather
     than reading the shipped ones. **The failure mode is silent** — the list is derived on every read, so a
     `sub` dropped anywhere along the way just drops that card back into the parent deck and everything still
     works — which is why the assertions follow one card's `sub` through ingest, the row list, the review and
@@ -9083,7 +9167,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-six committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-seven committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -9099,6 +9183,16 @@ dead code (never rendered).
   **And close any IndexedDB connection the test itself opens** — an idle one blocks the app's own open after a
   reload, which silently pushes it onto the localStorage fallback, and the test then goes looking for a deck in
   the store the app has just stopped using (`test-card-types.js` learned this the hard way).
+  · `node .claude/test-deck-trust.js` — **the sanitizer revision stamp** (9 assertions), which is what lets
+    boot skip re-cleaning a deck it has already cleaned. Two directions, failing in opposite ways: a stored
+    record with **no `srev`** — what an older and possibly buggier sanitizer left — is still cleaned, meta
+    and card fields alike, with nothing executing (verified by reintroducing the fault: the payload runs);
+    and a record we write really does **carry** the stamp, at the record's top level where an export cannot
+    copy it. That second one is the assertion nothing else can make, because it guards a PERFORMANCE
+    promise, and a performance promise that has quietly stopped holding looks exactly like one that holds.
+    Its fixture writes to IndexedDB **and** localStorage, since `cdbAll` falls back and a fixture in the
+    store the app is not reading proves nothing. **Re-run after touching `SANITIZE_REV` / `uDeckNormalize`
+    / `uDeckRecord` / `communityBoot`, or any `sanitize*` function.**
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,

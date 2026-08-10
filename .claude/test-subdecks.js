@@ -143,6 +143,40 @@ const active = (page) => page.evaluate(() => {
   // Alpha is cards 1-2, Beta 3-4, and the ungrouped pair is 5-6
   check("studying a subdeck deals only its cards", /Q3|Q4/.test(q), JSON.stringify(q.slice(0, 24)));
 
+  /* ---------- adding the WHOLE deck brings its subdecks, nested under it ----------
+     Reported (Aug 2026): a deck added from Collections arrived in the daily study as one undivided row,
+     with nothing to say it had subdecks at all. Adding a collection has always brought its whole subtree
+     in; this is the same rule one store over. Four things are checked because each fails differently and
+     three of them are silent — an entry not added, a row drawn beside its deck instead of under it, a fold
+     that hides what was just added, and a context line that crushes the name it sits beside. */
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(1300);
+  await page.click(".udeck [data-uadd]");
+  await page.waitForTimeout(900);
+  act = await active(page);
+  check("adding the deck adds its subdecks too",
+    act.indexOf("u:subdeck1") !== -1 && SUBS.filter(Boolean).every((sb) => act.indexOf("u:subdeck1/" + encodeURIComponent(sb)) !== -1),
+    JSON.stringify(act));
+  check("...and every subdeck row's + follows in the same sweep",
+    await page.evaluate(() => [...document.querySelectorAll("[data-uaddsub]")].every((b) => b.classList.contains("added"))));
+
+  await page.goto(base + "/#home");
+  await page.waitForTimeout(1400);
+  const nested = await page.evaluate(() => [...document.querySelectorAll(".active-deck")].map((r) => ({
+    title: (r.querySelector(".dk-title") || {}).textContent || "",
+    sup: (r.querySelector(".dk-sup") || {}).textContent || "",
+    depth: r.dataset.depth,
+  })));
+  check("the deck's row comes first, at the top level",
+    nested.length === 3 && nested[0].title === "Grouped deck" && nested[0].depth === "0", JSON.stringify(nested));
+  check("...with its subdecks indented UNDER it rather than beside it",
+    nested.slice(1).every((r) => r.depth === "1") && nested[1].title === "Alpha" && nested[2].title === "Beta",
+    JSON.stringify(nested.map((r) => r.depth + ":" + r.title)));
+  /* The row is drawn under the deck that names it, so repeating that name is not merely redundant: at
+     390px it is the deck's title and the subdeck's competing for one line, and the subdeck loses. */
+  check("...and drops the context line, which is now the row above them",
+    nested.slice(1).every((r) => !r.sup), JSON.stringify(nested.map((r) => r.sup)));
+
   /* ---------- removing the deck takes its subdeck entries with it ---------- */
   await page.goto(base + "/#studio");
   await page.waitForTimeout(1200);
