@@ -58,11 +58,12 @@ It is a plain static website — open `index.html` and it runs.
 ## File map
 
 **Only the study-critical files load eagerly**, in this order — it is significant:
-`data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js →
-artefacts.js → app.js`.
-**That path is 5.84 MB raw / 1.61 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
-1.35 MB the day before, and it said "~1.4 MB" for months while being five times out of date, so
-**re-measure it rather than quoting it**). The picture pass added ~555 KB raw / ~270 KB gzipped, and that is
+`data.js → truefalse.js → quotes.js → whatyear.js → changelog.js → mission.js → glossary.js →
+glossary-wikipedia.js → artefacts.js → app.js`.
+**That path is 5.90 MB raw / 1.65 MB gzipped** (re-measured 2026-08-10 after `whatyear.js` joined it, which
+cost 14 KB raw / 6 KB gzipped; it was 5.84 MB / 1.61 MB after the picture pass of 2026-08-09 and
+4.9 MB / 1.35 MB the day before that, and it said "~1.4 MB" for months while being five times out of
+date, so **re-measure it rather than quoting it**). The picture pass added ~555 KB raw / ~270 KB gzipped, and that is
 metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 1,230 illustrations
 cost a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
 **THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
@@ -2003,10 +2004,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 99 cards** — 89 in World
-  History (`col-8`, scattered across the first three subdecks of its 1000-slot plan) and 10 in Ancient
-  Greece (`gr-001`…`gr-010`) — **each carrying its full pool of 3 question phrasings** (`question` + 2
-  `questions` extras), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
+- `data.js` (~2.1 MB) — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 409 cards** (measured
+  2026-08-10; this line said 99 for weeks, so **count them rather than quoting it**:
+  `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **119 in World
+  History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **250 in Ancient Greece**
+  (`gr-001`…`gr-250`) and **40 in Ancient Rome** (`rm-001`…`rm-040`) — **each carrying its full pool of 3
+  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all 409 rated on
+  2026-08-10; see the card-difficulty bullet under "How the app is wired"), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
   request** — 2.06 MB, 58% of the file, that `MULTILANG = false` put beyond every reader's reach, and the
   file went 4.32 MB → 1.64 MB with them. `add-card.js` now DROPS a supplied `i18n` block with a warning and
   `test-i18n-lang.js` fails if one reappears, so the eager path cannot silently regain it; both collections are grown one card at a time (see "Generating cards & glossary
@@ -2130,6 +2134,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
+- `whatyear.js` (~14 KB) — `window.WHATYEAR = [ { y, e } ]`, the pool for the **What year?** minigame: a year
+  (negative for BCE) and a ONE-SENTENCE description of something that happened in it. **Currently 98 events
+  across 15 years**, 1066 to 1989, each verified against a reference source when it was written.
+  **The game drew from the CARDS until Aug 2026 and was moved off them on request**, for two reasons worth
+  keeping. A card names a TERM where this game wants an EVENT — Timeline has the same mismatch and calls its
+  terms "events" in its own prose. And the game needs FIVE things sharing one exact year, which a corpus of
+  terms almost never supplies: of 409 cards only 19 years carried five, and once the minigames were narrowed
+  to well-known terms (see the difficulty bullet under "How the app is wired") exactly **one** did — the game
+  would have asked about c. 700 BCE every day for ever. **Timeline still draws from the cards and should**:
+  it asks for an ORDER, which terms give perfectly well.
+  Four rules for an entry, all forced by the game or by the rendering, and all in the file's own header:
+  **no markup** (the clue list renders through `esc()`, so an `<i>` around a book title prints as the
+  characters — this is the one place on the site where a title is not italicised, and it is a rendering fact
+  rather than a change of house style); **it may not name its own year or a nearby one**, the year being the
+  answer; **the dating is not in dispute**, since a guessing game cannot rest on a contested date; and **it
+  is recognisable**, which is the same argument `card.difficulty` makes one file over — a round dealt cold
+  has to be answerable cold. **A year needs at least `WY_EVENTS` (5) entries or it is skipped in silence**,
+  and a sixth and seventh are not waste: the game draws five at random, so the extras are what stop a
+  repeated year being a repeated puzzle. Eager, like the two pools it sits beside. **Not translated** —
+  when translations resume it belongs in `i18n/games-<lang>.js` beside them, keyed by its English sentence,
+  never inline (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Guarded by `test-difficulty.js`.
 - `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc, sources } ]`, the pool a
   level-up chest draws from (see THE RELIQUARY under "How the app is wired"). **Eager**, and it can stay
   eager because it is metadata only: a picture is a LINK, never an upload, exactly as a card's is, so an
@@ -2392,6 +2417,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
+- `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
+  ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
+  `{ "cards": { "wh-001": 1, … } }`. It validates the WHOLE batch before writing anything (a half-applied
+  batch is worse than a refused one), reads `GAME_MAX_DIFFICULTY` out of app.js rather than restating it, and
+  reports coverage and the resulting minigame pool on every run. It is the BATCH tool for cards already
+  shipped; a NEW card carries its own rating and `add-card.js` refuses one without it, so the corpus cannot
+  quietly regrow an unrated tail. The scale is in its header and under "Generating cards" below — keep the
+  three copies in step. Not part of the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
   Wikipedia summaries into `countries.js` for every clickable name. Re-run after adding timeline eras so
   their new territories get descriptions. Not loaded by the site.
@@ -4318,6 +4351,56 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   bucket — a stone industry answered against a cave, an ice age and a fossil, where the odd one out was the
   right one. Now the Mousterian is answered against the Oldowan, the Acheulean and the Aurignacian.
   `answerType` survives as the fallback for a card with no tags (a community deck's).
+- **CARDS CARRY A DIFFICULTY, AND THE MINIGAMES DRAW UNDER IT** (`card.difficulty`,
+  `CARD_DIFFICULTY_MIN/MAX`, `GAME_MAX_DIFFICULTY`, `cardDifficulty()`, `difficultyOK()`, `gameCardIdSet()`;
+  Aug 2026, on request). An integer **1–5 rating HOW WELL KNOWN THE ANSWER TERM IS to the general
+  population** — not how hard the card is, which is a different question and conflating the two is the one
+  way this scale stops meaning anything. **All 409 shipped cards are rated** (19 / 39 / 91 / 122 / 138
+  across the five rungs, so 58 sit at or below the games' bar).
+  · **THE SCALE** (stated identically in app.js, `.claude/add-card-difficulty.js`, `add-card.js` and here —
+    keep the four in step): **1** household name, almost any adult would recognise it (Stone Age, Homer,
+    Sparta, Neanderthal); **2** generally familiar, an ordinary secondary education reaches it (Neolithic,
+    Knossos, phalanx, Lascaux); **3** known to the interested, a reader who follows history (Linear B,
+    hoplite, helots, Clovis culture); **4** specialist, mostly met inside the subject (Gravettian, megaron,
+    bucchero, Kamares ware); **5** highly obscure, named in the scholarship and almost nowhere else
+    (`qa-si-re-u`, Nichoria, Howiesons Poort, Iguvine Tables). **Rate the WORD a stranger would be shown**:
+    a subtle card about `Homer` is still a 1, and a beautifully clear one about `qa-si-re-u` is still a 5,
+    because a reader who has never met a word cannot be eased into recognising it by prose.
+  · **WHAT IT IS FOR is the daily games, and STUDY IS UNTOUCHED.** A study card arrives with three hundred
+    words of background behind it and comes back tomorrow if you miss it, so an obscure term there is the
+    point of studying. A minigame deals the term COLD — four options, a crossword square, a picture — and a
+    pool holding `qa-si-re-u` and `Howiesons Poort` deals unanswerable rounds. Every card is studiable, in
+    every deck, at every rating; `availableCardIdSet` knows nothing about difficulty and must not learn.
+  · **`gameCardIdSet()` IS THE ONE DOOR, and that is the point of it being a function.** It is
+    `availableCardIdSet()` narrowed by `difficultyOK`, and **every card-fed game goes through it** —
+    Multiple Choice, Timeline, the Crossword and the card half of the Picture round. A sixth game added
+    later reaches for this instead of `availableCardIdSet` and is covered without anybody remembering the
+    rule; `test-difficulty.js` reads each pool function out of app.js and asserts there is no other path.
+    It filters the **distractors** as well as the answers: a round whose wrong options are `lawagetas`,
+    `qa-si-re-u` and `damos` is answerable by elimination and teaches nothing.
+  · **AN UNRATED CARD IS TREATED AS TOO OBSCURE, deliberately.** Erring the other way would let one unrated
+    card deal a round nobody can answer, silently. The cost is that the failure is silent in the other
+    direction too — a card arriving unrated simply stops appearing in the games, with nothing on screen to
+    say so — which is why `add-card.js` REFUSES a new card without a rating rather than defaulting one, and
+    why `test-difficulty.js` asserts the whole corpus is rated on every run.
+  · **THE PICTURE ROUND IS PARTLY FILTERED and the limit is stated rather than hidden**: its pool reaches
+    past the cards into the glossary and the artefacts, and `difficulty` is a card field, so those two enter
+    as they always did. Rating the 836 glossary terms is a separate content pass.
+  · **What year? is NOT on this filter — it left the cards entirely** (see the `whatyear.js` bullet in the
+    File map). Under the bar exactly one year kept five cards, so the game would have asked the same
+    question every day; it has an event pool of its own now.
+  · **THE CROSSWORD'S DRAW CAP HAD TO SCALE WITH THE POOL** (`dailyCrossword`), found by the 730-day sweep
+    the day the filter landed. It was a flat `slice(0, 40)`, which samples nothing once the pool is smaller
+    than 40: every day drew the whole pool, the length sort put it in the same order, and only the layout
+    RNG differed — **730 distinct grids became 60**, a repeat every fortnight. Nothing throws and every grid
+    is still full; the game just quietly stops being daily. Taking a fraction restored it to 577, and a
+    pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was.
+  · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
+    the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
+    undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
+    of the games by accident is not worth having). Carried by `serializeCardData` and restored by
+    `revertCard` — **a serializer that forgot it would strip all 409 ratings from data.js on the next admin
+    keystroke**, which is why that is asserted rather than assumed.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -5468,7 +5551,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     wide window has the room to let the last line of the page read plainly as the end of it. It is
     `padding-top` rather than a margin so the space stays part of the button's own target.
     Guarded by `test-layout.js`.
-- **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
+- **Home minigames** (game-grid tiles → `PAGES.*`). **Four of the nine are fed by the cards and all four draw
+  through `gameCardIdSet()`, not `availableCardIdSet()`** — the well-known terms only, at or below
+  `GAME_MAX_DIFFICULTY`; see the card-difficulty bullet above, and reach for that function rather than the
+  wider one when adding a tenth game. **What year? left the cards entirely in Aug 2026** and has its own
+  event pool in `whatyear.js`; True or False, Who said it and Find it never used them. The games:
+  **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the cards most AKIN
   to the answer, by `cardKinship` — see the card-tags bullet below. **It always asks a card's FIRST phrasing**
   (`firstQ` in `buildChallengeQuestions`, Aug 2026, on request): a card carries three ways of asking the same
@@ -5694,13 +5782,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     disagree about whether a credit is a link. A dead `src` marks its frame (`.pic-dead`) instead of asking
     the reader to name an empty box — a certainty rather than an edge case, there being no upload path.
 - **WHAT YEAR? — the ninth daily game** (`PAGES.whatyear` at `#whatyear`; 2026-08-09, on request). Five
-  terms whose date lines all give the same year, and a timeline to put that year on. It is the second game
-  built on the cards' dates and it is worth saying how it differs from Timeline: **that one gives five
-  different years and asks for their ORDER, this one gives five things from ONE year and asks what the year
-  was.** Ordering needs no absolute knowledge at all — a Timeline puzzle is solvable knowing only which came
-  first — and this cannot be solved without it.
-  · **THE RAIL IS A LATTICE, NOT A CONTINUUM**, and the whole game turns on it. A card's date line gives a
-    conventional round figure (`c. 1400 BCE`), not a calendar date, and a free-dragging picker over a corpus
+  events from one year, and a timeline to put that year on. It is worth saying how it differs from Timeline:
+  **that one gives five different years and asks for their ORDER, this one gives five things from ONE year
+  and asks what the year was.** Ordering needs no absolute knowledge at all — a Timeline puzzle is solvable
+  knowing only which came first — and this cannot be solved without it.
+  · **IT LEFT THE CARDS IN AUG 2026, on request** (`wyPool`, `whatyear.js` — the reasoning is in that file's
+    map entry). It was built on `chronoPool` and the cards were the wrong material twice over: a card names
+    a TERM where this wants an EVENT, and the game needs five things sharing one exact year, which a corpus
+    of terms almost never supplies — 19 years of 409 cards carried five, and once the minigames were
+    narrowed to well-known terms **exactly one** did. `wyPool` hands back `chronoPool`'s own
+    `{ id, name, year }` shape, so nothing downstream of it changed.
+  · **THE RAIL IS A LATTICE, NOT A CONTINUUM**, and the whole game turns on it. The pool reaches back to
+    conventional round figures rather than calendar dates, and a free-dragging picker over a range
     running from 3.3 Mya to the present would be a pixel lottery in which no guess is ever exactly right. So
     the rail carries `WY_TICKS` (33) ticks a round `step` apart, the answer sits on one, and a guess is right
     or wrong with nothing in between.
@@ -5719,7 +5812,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `min` moves past the guess, so three tries are a real search. The ruled-out span stays DRAWN, greyed
     (`.wy-out`), so the scale does not silently change under the reader between guesses.
   · **THE ANSWER ROTATES; IT IS NOT DRAWN AT RANDOM** (`wyRotation`), and this is the subtlest thing in
-    the three games. The deck holds only 19 years carrying five datable terms, so a year WILL come round
+    the three games. The pool holds only so many years carrying five events — 15 — so a year WILL come round
     again; what a random draw adds is clumping — measured over 365 days, one answer landed 28 times against
     another's 16, with nothing to stop two falling in the same week. The years therefore lie on a ring and
     the day walks one place along it. **The ring is TURNED between cycles rather than reshuffled**, because
@@ -5728,14 +5821,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     moves every year exactly `n - r` days later than last time, so capping `r` at `n - ceil(n/2)` floors
     every gap at half a cycle while the order still changes. `wyRotation` is cumulative for that reason
     (cycle c's ring is defined against c-1's) — a few hundred short hashes, once per page open. **Measured
-    over 730 days: 18–20 turns each against 16–28, and the closest repeat 10 days apart.** A rule
+    over 730 days: 48–49 turns each on the 15-year pool, and the closest repeat 8 days apart.** A rule
     about a WINDOW cannot be enforced by a rule about one boundary — `quoteRunningOrder`'s lesson in
     miniature.
-  · **THE HONEST LIMITS, both visible to a reader who plays for a fortnight.** The five things are TERMS
-    with dates rather than events — Folio's cards are terms, and Timeline already calls them events for the
-    same reason. And **19 years** is the whole pool, so a year comes round every nineteen days however
-    evenly it is spread; the five terms are drawn separately, so a repeat is at least a different puzzle,
-    and the pool grows with every dated card written.
+  · **THE HONEST LIMIT, visible to a reader who plays for a fortnight**: **15 years** is the whole pool, so
+    a year comes round about that often. The five events are drawn separately from however many that year
+    has, so a repeat is at least a different puzzle — which is why a year already carrying five is still
+    worth a sixth and a seventh — and the cycle lengthens with every year added to `whatyear.js`.
   · `score` is the guesses left when it landed (3/2/1, `total` 3 — Common Thread's precedent for a total
     that is not 5); `won`, and the gold tile, is first go.
 - **Settings and Account fill the stage** (Aug 2026). Both were a narrow column hard-LEFT inside the 800px
@@ -7745,6 +7837,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   the same claims in all 9 translated abstracts, or that language silently loses the apparatus
   (`add-card.js` warns when the counts differ). Escape hatch: `"skipSources": true`, only for a
   deliberate maintenance edit of a card written before citations existed.
+- `difficulty` — **REQUIRED for every new card: an integer 1–5 rating how well known the ANSWER TERM is to
+  the general population.** **1** household name (Stone Age, Homer, Sparta, Neanderthal); **2** generally
+  familiar, an ordinary secondary education reaches it (Neolithic, Knossos, phalanx, Lascaux); **3** known
+  to the interested (Linear B, hoplite, helots); **4** specialist (Gravettian, megaron, bucchero); **5**
+  highly obscure, named in the scholarship and almost nowhere else (`qa-si-re-u`, Nichoria, Iguvine Tables).
+  **It rates the WORD, not the card** — how hard the prose is, how subtle the point and how tricky the cloze
+  are separate questions, and conflating them is the one way the scale stops meaning anything: a subtle card
+  about `Homer` is still a 1 and a beautifully clear one about `qa-si-re-u` is still a 5, because a reader
+  who has never met a word cannot be eased into recognising it by prose. It decides only whether the daily
+  minigames may deal the term (see the card-difficulty bullet under "How the app is wired"); **every card is
+  studiable at every rating**, and most cards worth writing are 3s, 4s and 5s. `add-card.js` REFUSES a card
+  without one rather than defaulting — the safe default is invisible, since the card simply never appears in
+  a game and nothing says so. Batch-rate older cards with `.claude/add-card-difficulty.js`.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -8334,12 +8439,15 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-one committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
-  Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
-  `test-scheduler.js` are plain Node with
+- **Thirty-four committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+  Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
+  `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
-  no browser). **The split is `grep -L playwright .claude/test-*.js`, not a number to keep in your head** — the
-  headline count had drifted one behind before this line was last rewritten.
+  no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
+  for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
+  behind by 2026-08-10, having been corrected once already for the same reason, so the bullet list below is
+  the thing to trust; two files are described in prose elsewhere rather than listed here
+  (`test-speak.js`, `test-subdecks.js`).
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -8712,11 +8820,19 @@ dead code (never rendered).
     an admin batch would, five rounds of four deal — and **nothing on the page names the subject before the
     guess**, the failure that leaves a game working perfectly and teaching nothing.
     **It opens with 730 DAYS OF PUZZLES generated in Node** (`simulate`, slicing the two daily builders out
-    of app.js and standing them on the real `data.js`) — because a generator can be flawless on the day it
-    was written and degenerate on a date nobody tried, which is exactly what both of this game's real bugs
-    were. That sweep is what pins the crossword dealing a full grid every day with no unclued run in any of
-    them, and What year?'s rail staying inside the answer's own age, never crossing year 0, and no answer
-    repeating inside half a cycle.
+    of app.js and standing them on the real `data.js` and `whatyear.js`) — because a generator can be
+    flawless on the day it was written and degenerate on a date nobody tried, which is exactly what both of
+    this game's real bugs were. That sweep is what pins the crossword dealing a full grid every day with no
+    unclued run in any of them, and What year?'s rail staying inside the answer's own age, never crossing
+    year 0, and no answer repeating inside half a cycle.
+    **`gameCardIdSet` IS SHIMMED TO THE REAL RULE, and that is load-bearing** (Aug 2026): the shim reads
+    `GAME_MAX_DIFFICULTY` out of app.js rather than writing it down, because the whole value of the sweep is
+    that it deals from the pool the SITE deals from. Shimmed to "every card", the way `availableCardIdSet`
+    is, it would sweep two years of puzzles no reader ever sees and would go on passing on the day the
+    filter starved a game. **The crossword's variety assertion is a BOUND, not "all 730 distinct"** — with
+    the filtered pool at 30 words, choosing nine over two years collides however good the shuffle is, so
+    uniqueness is arithmetically impossible; the bound still catches the collapse to 60 that the unscaled
+    draw cap caused. Raise the floor if the pool grows; don't lower it.
     **Two of the harder assertions run the same day in two fresh contexts**: the first plays badly and reads
     the answer off the result screen, the second is handed it and must win. That proves the puzzle is seeded,
     that its answer is REACHABLE (the crossword's letters fit its own squares; the year sits on a tick of its
@@ -8724,7 +8840,30 @@ dead code (never rendered).
     that a correct solve is scored as correct rather than only a wrong one being scored as wrong.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword`, `picturePool` / `dailyPictureRounds`, `wyStep` / `dailyWhatYear`,
-    `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, or the home page's tile grid.**
+    `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, `gameCardIdSet` /
+    `GAME_MAX_DIFFICULTY`, `whatyear.js`, or the home page's tile grid.**
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filter** (53 assertions,
+    Aug 2026). No browser and no dependencies: the rule is arithmetic over the shipped data plus a few
+    structural reads of app.js, the shape `test-date-line.js` uses. Every one of its checks is for something
+    that fails silently on the page — a wrongly-filtered game still deals a puzzle, still scores it and still
+    turns the tile gold. It asserts that **every shipped card is rated 1–5** (an unrated card silently stops
+    appearing in the games); that the bar is read from ONE place, `add-card-difficulty.js` grepping it out of
+    app.js rather than restating it, **and that the grep still matches**; that **every card-fed game goes
+    through `gameCardIdSet()` and none reaches for the unfiltered set** — the assertion that matters most,
+    and the only one that can catch a tenth game added later reaching for `availableCardIdSet` out of habit;
+    that the filtered pool **can still deal** (the opposite failure, and just as quiet — the game shows a
+    "Coming soon" placard that reads as content nobody has written); that **study is untouched**, with
+    `availableCardIdSet` knowing nothing about difficulty; that `serializeCardData` **emits** the rating,
+    since a serializer that forgot it would strip all 409 from data.js on the next admin keystroke; and that
+    `add-card-difficulty.js` refuses a bad batch **and writes nothing at all** when it does, which it proves
+    by running the tool for real and comparing the file's bytes. It also owns the **What year? event pool**:
+    every year carrying at least `WY_EVENTS`, no entry with markup (the clue list escapes, so a stray `<i>`
+    would print its own tags), no entry naming the year it asks about, no duplicate event, and at least ten
+    usable years. Verified against three injected faults — an unrated card, a game reverted to the
+    unfiltered set, and a serializer that drops the field; each was caught. **Re-run after touching
+    `cardDifficulty` / `difficultyOK` / `gameCardIdSet` / `GAME_MAX_DIFFICULTY` / `serializeCardData` /
+    `revertCard`, any game's pool function, `add-card.js`'s difficulty guard, `add-card-difficulty.js`, or
+    `whatyear.js` — and after any batch of ratings.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
     (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
