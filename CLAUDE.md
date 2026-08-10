@@ -2627,6 +2627,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   reflexives. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
   one failure that stage can have that looks like success: the deck builds, every card is well formed, and
   the level quietly teaches fewer words than it says it does.
+  **`combine.py` is the ONE-FILE version of all four** (`python3 .claude/dele/combine.py [out.json]`), on
+  request: 7,986 cards under a fresh deck id `deleall`, whose **eight** subdecks are the four levels' two
+  directions (`A1 · Spanish → English` … `B2 · English → Spanish`), so the levels stay separable inside one
+  file rather than being poured together. Three things it has to get right and two of them are silent.
+  **A CARD ID MUST CARRY THE DECK** — every card is renumbered `u_deleall_N`, since a deck FILE import only
+  mints fresh ids when the DECK id already exists, so reusing `u_delea1_1` would collide with an installed
+  A1 in the shared `UCARDS` store and study the wrong card. **THE TYPE BLOCK IS ASSERTED IDENTICAL** across
+  the four rather than assumed, a level rebuilt against a changed template otherwise having its cards
+  rendered silently by another level's. And **THE WORD COUNT IS NOT DERIVABLE FROM THE FILES**: a pair card
+  teaches two headwords where both were selected and one where only the masculine was, and the shipped
+  files do not record which, so the 4,000 comes from `TARGET` and only the CARD counts are counted. It reads
+  no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
+  **The combined file is deliberately NOT committed** — it duplicates ~27 MB already in the repo and this
+  regenerates it. **Combining ALL nine decks in `decks/` is not possible as one importable file**: 19,819
+  cards against `UDECK_MAX_CARDS` and 50.4 MB against `UDECK_MAX_BYTES`, measured, which is why the
+  combined deck is the four Spanish levels and not everything.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
   **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
