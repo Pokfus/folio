@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.156", released: "2026-08-10T12:28Z" };
+window.FOLIO_VERSION = { v: "1.157", released: "2026-08-10T14:11Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-10",
-    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and both of Homer's poems",
+    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and three epics on the shelf",
     items: [
       "<b>Folio can even out the daily pile</b>, putting each card on the quietest of the few days the scheduler was already free to choose between.",
       "<b>You can mark the days you don't study</b> and Folio schedules around them where it can; both settings start off, so nothing already learned is rescheduled.",
@@ -76,7 +76,7 @@ window.CHANGELOG = [
       "A deck of your own can now turn the glossary off altogether, beside the three settings it already had.",
       "In your own decks, the Studio's way back is a link at the top left of the page, and it says “Back to Collections” — the page it returns to was renamed when the Library became the books.",
       "The Timeline puzzle capitalises the terms it lists, as the Multiple Choice options already did.",
-      "<b>Both of Homer's poems are on the shelf</b> — the Iliad and the Odyssey, twenty-four books each, in A. T. Murray's Loeb translations of 1924 and 1919, with the Greek facing them.",
+      "<b>Three epics are on the shelf</b> — Homer's Iliad and Odyssey and Virgil's Aeneid, twelve to twenty-four books each, with the Greek or Latin facing the translation.",
       "<b>The daily games now only ask about terms you have a chance of knowing.</b>",
       "<b>What year? is now built on real historical events instead of card terms.</b>",
       "The Crossword now has more variety from day to day: it was quietly drawing from the same handful of words each morning and building much the same grid every fortnight.",
