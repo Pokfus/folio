@@ -7,9 +7,10 @@ cross-references (`[v. Gramática 9.1.1.]`) and worked example sentences
 (`Hay mucha gente en la calle.`).  Everything here is about separating those.
 """
 import json, re, sys, html as _html
+from dele_level import COLUMN, f as lvlf
 
 def cells(fn):
-    """The A1 half of a two-column inventory page.
+    """This level's half of a two-column inventory page.
 
     Each notion is a table with an A1 column beside an A2 one, and the cells
     are tied to their column by a `headers` attribute ending in a1 or a2 --
@@ -17,7 +18,7 @@ def cells(fn):
     """
     s = open(fn, encoding='utf-8').read()
     out = []
-    for m in re.finditer(r'<td[^>]*headers="[^"]*a1"[^>]*>(.*?)</td>', s, re.S):
+    for m in re.finditer(r'<td[^>]*headers="[^"]*%s"[^>]*>(.*?)</td>' % COLUMN, s, re.S):
         for li in re.findall(r'<li>(.*?)</li>', m.group(1), re.S):
             t = _html.unescape(re.sub(r'<[^>]+>', '', li))
             t = re.sub(r'\s+', ' ', t).strip()
@@ -93,6 +94,6 @@ print('candidates   :', len(cands))
 multi = [c for c in cands if ' ' in c]
 print('multi-word   :', len(multi))
 json.dump({k: sorted(v) for k, v in sorted(cands.items())},
-          open('pcic_a1_candidates.json', 'w'), ensure_ascii=False, indent=0)
+          open(lvlf('pcic_candidates.json'), 'w'), ensure_ascii=False, indent=0)
 for c in sorted(cands)[:40]:
     print('  ', c)

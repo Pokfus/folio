@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Write the .folio-deck.json file."""
 import json, time
+from dele_level import LEVEL, f as lvlf, TITLES, DECK_IDS, DECK_FILES
 
-cards = json.load(open('cards.json'))
-words = json.load(open('wordlist500.json'))
+cards = json.load(open(lvlf('cards.json')))
+words = json.load(open(lvlf('wordlist500.json')))
 
 # Templates.  A conjugation table cannot be a <table>: the deck sanitizer's tag
 # allowlist has no table/tr/td, and an unknown tag is UNWRAPPED, so the whole
@@ -207,35 +208,56 @@ FIELDS_ES = ['Spanish', 'Word', 'English', 'Forms', 'Conjugation', 'Examples']
 FIELDS_EN = ['English', 'Spanish', 'Word', 'Forms', 'Conjugation', 'Examples']
 
 nverbs = sum(1 for c in cards if c['sub'].startswith('Spanish') and c['fields']['Conjugation'])
+nrefl = sum(1 for c in cards if c['sub'].startswith('Spanish')
+            and c['fields']['Spanish'].endswith(('arse', 'erse', 'irse')))
+n3 = sum(1 for c in cards if c['sub'].startswith('Spanish')
+         and c['fields']['Examples'].count('uc-exi') == 3)
+ntot = sum(1 for c in cards if c['sub'].startswith('Spanish'))
+EX_NOTE = ('Every word also carries three real example sentences'
+           if n3 == ntot else
+           f'Every word also carries real example sentences, three of them for {n3} of the '
+           f'{ntot} and one or two where the corpus had no more')
 narts = sum(1 for c in cards if c['sub'].startswith('Spanish')
             and c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las', 'el/la', 'los/las'))
+
+LEVEL_U = LEVEL.upper()
+BELOW_NOTE = ('' if LEVEL == 'a1' else
+              ' None of them appears in the A1 deck, so the two together come to 1,000 words.')
+COLUMN_NOTE = ('the A1 column' if LEVEL == 'a1' else 'the A2 column')
+CLOSED_NOTE = (
+    "Those inventories list topics rather than words, so the closed classes they name without "
+    "writing out — the numbers, the days, the months, the seasons, and the pronouns, articles, "
+    "prepositions and conjunctions that are inventoried separately under Gramática — are "
+    "supplied here, and the rest of the 500 is filled from the A1 column in order of frequency. "
+    if LEVEL == 'a1' else
+    "Those inventories list topics rather than words, and the grammar layer is inventoried "
+    "separately under Gramática, so the connectives, comparatives and everyday verbs an A2 "
+    "candidate is expected to have are supplied here; the rest of the 500 is filled from the A2 "
+    "column in order of frequency. ")
 
 DESC = (
     "Both study directions in one deck, as subdecks you can add and study separately: "
     "Spanish → English (see the Spanish, recall the meaning) and English → Spanish "
-    "(see an English meaning, recall the Spanish). 500 words for level A1 of the DELE, the "
-    "Spanish qualification awarded by the Instituto Cervantes. "
+    f"(see an English meaning, recall the Spanish). 500 words for level {LEVEL_U} of the DELE, the "
+    f"Spanish qualification awarded by the Instituto Cervantes.{BELOW_NOTE} "
     "There is no official published DELE word list, so the vocabulary is taken from the body that "
-    "sets the exam: the A1 column of the Instituto Cervantes' own Plan curricular — its "
+    f"sets the exam: {COLUMN_NOTE} of the Instituto Cervantes' own Plan curricular — its "
     "inventories of Nociones específicas and Nociones generales, which are printed as two "
-    "columns, A1 and A2, so the A1 half can be read off on its own. Those inventories list topics "
-    "rather than words, so the closed classes they name without writing out — the numbers, the "
-    "days, the months, the seasons, and the pronouns, articles, prepositions and conjunctions that "
-    "are inventoried separately under Gramática — are supplied here, and the rest of the "
-    "500 is filled from the A1 column in order of frequency. "
-    f"Every noun carries its article, so the gender is learnt with the word ({narts} of them); a "
-    "noun beginning with a stressed a- is given the el it takes in the singular and the las it takes "
-    "in the plural (el agua, las aguas). "
+    f"columns, A1 and A2, so the {LEVEL_U} half can be read off on its own. "
+    + CLOSED_NOTE +
+    f"Every noun carries its article, so the gender is learnt with the word ({narts} of them), and "
+    "its plural sits directly beneath it; a noun beginning with a stressed a- is given the el it "
+    "takes in the singular and the las it takes in the plural (el agua, las aguas). "
     f"Each of the {nverbs} verbs carries its full conjugation: the non-finite forms, all five simple "
     "tenses of the indicative, the present, both imperfects and the future of the subjunctive, and "
     "the imperative in both its affirmative and its negative. Six persons are shown, from yo to "
     "ellos; the Rioplatense vos is not. Compound tenses are formed with haber and the past "
-    "participle, which is given. The seven reflexive verbs are conjugated with their pronouns "
+    f"participle, which is given. The {nrefl} reflexive verbs are conjugated with their pronouns "
     "(me llamo, te llamas), including the written accent the imperative takes when the pronoun is "
     "attached (llámate, levántense). "
-    "Every word also carries three real example sentences, chosen where possible to show three "
-    "different inflected forms rather than the same one three times, with the word picked out in "
-    "colour and a speaker beside it. "
+    + EX_NOTE +
+    ", chosen where possible to show three different inflected forms rather than the same one "
+    "three times, with the word picked out in colour and a speaker beside it. "
     "Word list: Plan curricular del Instituto Cervantes (cvc.cervantes.es). "
     "Meanings, genders, plurals and conjugations: English Wiktionary, via the kaikki.org extraction "
     "(CC BY-SA 4.0). Frequency ordering: a word list built from OpenSubtitles (hermitdave/"
@@ -243,13 +265,14 @@ DESC = (
 )
 
 meta = {
-    'id': 'delea1',
-    'title': 'DELE A1 — Spanish',
-    'subtitle': '500 words · both directions, as two subdecks',
+    'id': DECK_IDS[LEVEL],
+    'title': TITLES[LEVEL],
+    'subtitle': ('500 words · both directions, as two subdecks' if LEVEL == 'a1' else
+                 '500 more words, none of them in A1 · both directions, as two subdecks'),
     'desc': DESC,
     'author': '',
     'language': 'en',
-    'tags': ['spanish', 'dele', 'a1', 'cefr', 'vocabulary'],
+    'tags': ['spanish', 'dele', LEVEL, 'cefr', 'vocabulary'],
     'glossMode': 'site',
     'types': {
         'es-to-en': {'id': 'es-to-en', 'name': 'Spanish → English', 'speechLang': 'es-ES',
@@ -268,7 +291,7 @@ deck = {'folioDeck': 1, 'exportedAt': 1786665600000, 'meta': meta,
 
 # stages run with the cache as the working directory: .claude/dele-cache/
 import os
-out = os.path.abspath(os.path.join('..', '..', 'decks', 'DELE-A1-Spanish.folio-deck.json'))
+out = os.path.abspath(os.path.join('..', '..', 'decks', DECK_FILES[LEVEL]))
 with open(out, 'w', encoding='utf-8') as f:
     json.dump(deck, f, ensure_ascii=False)
 print('wrote', out)

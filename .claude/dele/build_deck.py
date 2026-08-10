@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Assemble the DELE A1 Spanish deck."""
 import json, re, html
+from dele_level import f as lvlf
 
-words = json.load(open('wordlist500.json'))
-W = json.load(open('wikt.json'))
-BASES = json.load(open('wikt_bases.json'))
-EX = json.load(open('examples.json'))
+words = json.load(open(lvlf('wordlist500.json')))
+W = json.load(open(lvlf('wikt.json')))
+BASES = json.load(open(lvlf('wikt_bases.json')))
+EX = json.load(open(lvlf('examples.json')))
 
 esc = lambda s: html.escape(s, quote=True)
 
@@ -24,7 +25,11 @@ def sense_rank(s):
     # the exam means: `movil` is a mobile phone in Spain and a Calder sculpture
     # everywhere else, and demoting Spain put the sculpture on the card.
     t = [x for x in s.get('tags', []) if x != 'Spain']
-    return sum(1 for x in t if x[:1].isupper())
+    n = sum(1 for x in t if x[:1].isupper())
+    # `queso` is cheese, and in Spain also slang for a foot; a register label is
+    # not a reason to drop a sense, but it is a reason to prefer a plain one
+    n += sum(1 for x in t if x in ('colloquial', 'informal', 'figuratively', 'broadly'))
+    return n
 
 def tidy(g):
     """A card wants a translation, not a dictionary definition.
@@ -35,6 +40,9 @@ def tidy(g):
     "a living organism of the"; dropping the parenthetical leaves "plant".
     """
     g = re.sub(r'\s*\[[^\]]*\]', '', g).strip(' ;,')
+    g = re.sub(r'\s*[;,]?\s*\b(fe)?male equivalent of \S+', '', g, flags=re.I)
+    g = re.sub(r'^\s*(alternative (form|letter-case form)|clipping|apocopic form) of \S+\s*[;:,]?\s*',
+               '', g, flags=re.I).strip(' ;,')
     if len(g) > 58 and ' (' in g:
         head = re.sub(r'\s*\([^)]*\)', '', g).strip(' ;,')
         if len(head) >= 3:
@@ -62,8 +70,12 @@ def tidy(g):
 
 def glosses_for(rec, limit=2):
     out = []
+    # a sense carrying a form_of FIELD is a cross-reference, not a translation:
+    # `santa` offered "saintess" and then "female equivalent of santo".  The
+    # 'form-of' TAG alone does not catch it -- Wiktionary does not always set it.
     cands = [s for s in rec.get('senses', [])
-             if not (BAD_TAGS & set(s.get('tags', []))) and s.get('glosses')]
+             if not (BAD_TAGS & set(s.get('tags', [])))
+             and not (s.get('form_of') or s.get('alt_of')) and s.get('glosses')]
     if any(sense_rank(s) == 0 for s in cands):
         cands = [s for s in cands if sense_rank(s) == 0]
     for s in sorted(cands, key=sense_rank):
@@ -77,22 +89,18 @@ def glosses_for(rec, limit=2):
             break
     return out
 
-# Wiktionary files a reflexive as a form of its base verb and gives it no
-# meaning of its own, so these are authored.
+from reflexives import GLOSS as REFL_GLOSS, report_missing
+report_missing(words, 'build_deck.py')
+
 # Wiktionary's entry for `gustar` is a note on how the verb is analysed rather
 # than a meaning ('translated as "to like", analyzable in structure as "to
 # please" [with dative...]'), which is no use on a card
-AUTHORED = {'gustar': ['to like (literally: to please)']}
+# and `quizás`, whose entire Wiktionary entry is "alternative form of quizá" --
+# a pointer at a word the extraction does not carry, so there is nothing to
+# follow it to
+AUTHORED = {'gustar': ['to like (literally: to please)'],
+            'quizás': ['maybe, perhaps']}
 
-REFL_GLOSS = {
-    'llamarse':    ['to be called, to be named'],
-    'levantarse':  ['to get up, to stand up'],
-    'ducharse':    ['to have a shower, to shower'],
-    'lavarse':     ['to wash (oneself)'],
-    'bañarse':     ['to have a bath, to bathe'],
-    'despertarse': ['to wake up'],
-    'dedicarse':   ['to work as, to devote oneself to'],
-}
 # grammar words Wiktionary files as a form of another word ("muy: apocopic form
 # of mucho"), which leaves the card with no meaning on it
 CLOSED_GLOSS = {
@@ -100,6 +108,7 @@ CLOSED_GLOSS = {
     'eso': ['that (neuter)'], 'unas': ['some, a few'],
     'muy': ['very'], 'tu': ['your'], 'su': ['his, her, its, their, your (formal)'],
 }
+
 # and the plural-only words, which it files under a singular nobody uses
 PLURAL_GLOSS = {
     'gafas': ['glasses, spectacles'], 'vacaciones': ['holiday, vacation'],
@@ -460,10 +469,31 @@ for idx, word in enumerate(words, 1):
                 senses.append((r['pos'], g))
                 break
     if not senses:
+        # Everything this word has is a cross-reference.  Printing it raw put
+        # "alternative form of quizá" and "female equivalent of santo" on cards
+        # as if they were translations, so the meaning is recovered instead:
+        # from the tail of the gloss where it carries one ("female equivalent of
+        # chico: girl"), else from the entry of the word it points at.
         for r in recs:
-            g = [s['glosses'][0] for s in r.get('senses', []) if s.get('glosses')][:2]
-            if g:
-                senses.append((r['pos'], g)); break
+            got = []
+            for sn in r.get('senses', []):
+                g = (sn.get('glosses') or [''])[0]
+                if not g:
+                    continue
+                if (sn.get('form_of') or sn.get('alt_of')):
+                    if ':' in g:
+                        got.append(g.split(':', 1)[1].strip())
+                        continue
+                    base = ((sn.get('form_of') or sn.get('alt_of'))[0] or {}).get('word', '')
+                    for br in W.get(base, []):
+                        bg = glosses_for(br)
+                        if bg:
+                            got.extend(bg); break
+                    continue
+                got.append(tidy(g))
+            got = [x for i, x in enumerate(got) if x and x not in got[:i]][:2]
+            if got:
+                senses.append((r['pos'], got)); break
 
     def pos_label(p):
         lab = POS_NAME.get(p, p)
@@ -507,5 +537,9 @@ for idx, word in enumerate(words, 1):
             'type': typ, 'fields': dict(fields),
         })
 
+blank = [c['fields']['Spanish'] for c in cards
+         if c['sub'].startswith('Spanish') and not re.sub(r'<[^>]+>', '', c['fields']['English']).strip()]
+if blank:
+    raise SystemExit('cards with no meaning at all: ' + ', '.join(blank))
 print('cards:', len(cards), 'stats:', stats)
-json.dump(cards, open('cards.json', 'w'), ensure_ascii=False)
+json.dump(cards, open(lvlf('cards.json'), 'w'), ensure_ascii=False)

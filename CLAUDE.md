@@ -2415,12 +2415,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/dele/` — the generator behind `decks/DELE-A1-Spanish.folio-deck.json`, a community deck rather
-  than site content: `python3 .claude/dele/run.py` (`--no-fetch` to reuse the cache). Seven stages, run by
-  `run.py`, caching four corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every
-  other helper here is Node** — a deliberate exception, committed on request so A2 and B1 are a re-run
-  against the next column rather than a rebuild. The stage headers carry what the build found, and four of
-  those findings are the ones to read before touching it. **A CONJUGATION TABLE CANNOT BE A `<table>`**:
+- `.claude/dele/` — the generator behind `decks/DELE-A1-Spanish.folio-deck.json` and
+  `decks/DELE-A2-Spanish.folio-deck.json`, community decks rather than site content:
+  `python3 .claude/dele/run.py [--level a2] [--no-fetch]`. Seven stages, run by `run.py`, caching four
+  corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every other helper here is
+  Node** — a deliberate exception, committed on request so A2 and B1 are a re-run against the next column
+  rather than a rebuild.
+  **ONE LEVEL PER RUN** (`dele_level` reads the level once, at import), and **a level is taught on top of
+  the ones below it**: A2 excludes every word the SHIPPED A1 deck contains, read out of the deck file
+  rather than a working file, so the two cannot drift and a rebuilt A2 cannot start teaching a word A1
+  already covers. The intermediates are level-suffixed so both can sit in one cache.
+  The stage headers carry what the build found, and five of those findings are the ones to read before
+  touching it.
+  **A WORD THAT IS ANOTHER WORD WEARING AN ENDING IS NOT A CARD, AND THE TEST FOR IT IS THE SUBTLEST
+  THING HERE** (`is_inflection` in `select.py`). `flores`, `roja`, `clases` and `mala` are the plural or
+  the feminine of words already taught, and they get past the lemma test because Wiktionary records some
+  marginal homonym for each — `roja` is "the Chile national football team" and `mala` "a suitcase", which
+  is what the card would have shown. But the obvious test, *some record calls it an inflection*, is
+  **wrong in exactly the way this file already warns about**: nearly every Spanish noun collides with a
+  verb form, so it read `casa` as the third person of `casar` and **threw `la casa`, `el libro` and `el
+  agua` out of A1** while letting `el jersey` in. A word goes only when its entry OPENS by declaring
+  itself an inflection of a word the decks actually teach, or when it declares itself one anywhere and
+  has no showable meaning of its own at all. **A derivation is not an inflection**: `peor` is the
+  comparative of `malo`, `quizás` an alternative form of `quizá` and `moto` a clipping of `motocicleta`,
+  and none of the three has a single clean sense in Wiktionary, so a test on usable senses would have
+  kept `roja` and thrown out `peor`.
+  **A CROSS-REFERENCE IS NOT A TRANSLATION, and it arrives three ways**: as a `form_of` field, as a tag,
+  and — the one that got through — as plain prose inside the gloss (`niña` is "girl, female equivalent of
+  niño", `santa` is "saintess; female equivalent of santo"). All three are stripped, the meaning is
+  recovered from the tail of the gloss or from the entry it points at, and `build_deck` now REFUSES to
+  write a card with no meaning at all rather than shipping a blank one. **A CONJUGATION TABLE CANNOT BE A `<table>`**:
   `SANITIZE_TAGS` has no `table`/`tr`/`td`, and an unknown tag is UNWRAPPED rather than dropped, so the whole
   paradigm arrives as one run-on line of words — it is a CSS grid of divs. **A REFLEXIVE'S FORMS ARE ITS BASE
   VERB'S**, so matching a sentence on the form alone teaches the wrong word (every `llamarse` example came

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Pick three Tatoeba example sentences for each of the 500 words."""
 import json, re, unicodedata
+from dele_level import f as lvlf
 from collections import defaultdict
 
-words = json.load(open('wordlist500.json'))
-w = json.load(open('wikt.json'))
-bases = json.load(open('wikt_bases.json'))
+words = json.load(open(lvlf('wordlist500.json')))
+w = json.load(open(lvlf('wikt.json')))
+bases = json.load(open(lvlf('wikt_bases.json')))
 wordset = set(words)
 
 # ---------------------------------------------------------------- forms index
@@ -144,19 +145,8 @@ def reflexive_here(toks, i, form, k):
 
 ALLFORMS = set(FORM2WORD)
 
-# Wiktionary gives a reflexive no gloss of its own, so these are authored here --
-# and they double as a filter on the English side.  `llamar` + a dative object is
-# so common ("I asked her to call me") that the Spanish alone cannot settle
-# whether an occurrence is reflexive; the aligned translation can.
-REFL_EN = {
-    'llamarse':    ('name', 'called'),
-    'levantarse':  ('get up', 'gets up', 'got up', 'getting up', 'rise', 'rose', 'stand up'),
-    'ducharse':    ('shower',),
-    'lavarse':     ('wash', 'brush'),
-    'bañarse':     ('bath', 'swim', 'swam'),
-    'despertarse': ('wake', 'woke', 'awake'),
-    'dedicarse':   ('devote', 'dedicat', 'for a living', 'do you do'),
-}
+from reflexives import KEYWORDS as REFL_EN, report_missing
+report_missing(words, 'examples.py')
 
 # a noun sits after a determiner or a preposition; a verb form that collides
 # with one ("Kate se vino a la casa" against `vino` = wine) does not
@@ -165,6 +155,7 @@ NOUNCTX = {'el','la','los','las','un','una','unos','unas','lo','al','del',
            'este','esta','estos','estas','ese','esa','esos','esas','aquel',
            'de','en','con','sin','por','para','sobre','tanto','mucho','mucha',
            'muchos','muchas','otro','otra','poco','poca','algún','alguna'}
+
 def real_pos(k):
     out = set()
     for r in w.get(k, []):
@@ -172,6 +163,7 @@ def real_pos(k):
             if not (s_.get('form_of') or s_.get('alt_of')):
                 out.add(r['pos']); break
     return out
+
 # only a PURE noun: an adjective follows a verb ("la puerta esta cerrada"), so
 # demanding a determiner in front of it rejects every real sentence -- which is
 # what left `cerrado` with no examples at all.
@@ -197,9 +189,11 @@ for sid, text in spa.items():
             if k in REFLEXIVES:
                 if not reflexive_here(toks, i, t, k):
                     continue
-                el = eng[eid].lower()
-                if not any(m in el for m in REFL_EN.get(k, ())):
-                    continue
+                kw = REFL_EN.get(k)
+                if kw:
+                    el = eng[eid].lower()
+                    if not any(m in el for m in kw):
+                        continue
             if (k in NOUNS and len(FORM2WORD.get(t, ())) > 1
                     and (i == 0 or toks[i - 1] not in NOUNCTX)):
                 continue
@@ -265,4 +259,4 @@ n3 = sum(1 for v in chosen.values() if len(v) == 3)
 print('words with 3 examples:', n3, '/', len(words))
 missing = [k for k in words if len(chosen.get(k, [])) == 0]
 print('words with NO example:', len(missing), missing[:30])
-json.dump(chosen, open('examples.json', 'w'), ensure_ascii=False)
+json.dump(chosen, open(lvlf('examples.json'), 'w'), ensure_ascii=False)

@@ -61,6 +61,65 @@ salud fiesta música deporte fútbol película televisión ordenador teléfono i
 ALL = (NUMBERS + ORDINALS + DAYS + MONTHS + SEASONS + VERBS + PRONOUNS +
        QUESTION + FUNCTION + FAMILY + EVERYDAY)
 
+# ---------------------------------------------------------------- A2
+# The A2 column of the Nociones inventories is larger than the A1 one, so most
+# of this level comes straight from it.  What it still cannot carry is the same
+# thing it could not carry at A1: the grammar layer, inventoried separately
+# under Gramática.  At A2 that is the connectives an A2 candidate is expected to
+# join sentences with, the comparatives, and the everyday verbs a course drills
+# at this level -- most of which the column does list, so the overlap is
+# harmless and the union is taken.
+A2_GRAMMAR = """aunque mientras además entonces luego pues así sino cuando donde quien cual
+cuyo alguno ninguno cualquiera varios ambos cada tanto tan tal propio cierto
+mayor menor mejor peor tampoco quizás acaso apenas incluso excepto salvo
+mediante durante contra hacia según tras sobre bajo dentro fuera encima debajo
+delante detrás alrededor enfrente junto lejos cerca arriba abajo adelante atrás
+anteayer anoche pronto temprano enseguida mientras normalmente generalmente
+seguramente realmente finalmente actualmente solamente especialmente""".split()
+
+A2_VERBS = """conocer parecer seguir quedar dejar recordar olvidar preferir decidir intentar
+conseguir perder ganar ocurrir devolver prestar romper arreglar mejorar mandar
+enviar recibir contar explicar sentarse acostarse vestirse casarse divertirse
+aburrirse cansarse preocuparse enfadarse alegrarse acordarse quejarse ponerse
+quitarse quedarse irse moverse caerse morir nacer crecer subir bajar andar
+pasear peinarse afeitarse despedirse reunirse encontrarse sentirse llamar
+ayudar cambiar apagar encender guardar sacar meter tirar coger soler
+doler parecerse repetir servir pedir traducir escoger elegir
+invitar felicitar regalar cocinar limpiar planchar barrer ordenar""".split()
+
+A2_EVERYDAY = """empresa sueldo contrato entrevista reunión proyecto informe cliente factura
+recibo cuenta ahorro préstamo tarjeta moneda billete descuento oferta rebaja
+enfermedad dolor fiebre gripe resfriado medicina receta pastilla herida accidente
+consulta cita seguro urgencia ambulancia dentista enfermería
+paisaje bosque isla lago desierto costa colina valle sendero
+carretera autopista semáforo esquina acera peatón conductor pasajero maleta billete
+frontera aduana equipaje vuelo retraso llegada salida horario andén
+noticia periodista anuncio publicidad programa concurso entrevista
+opinión consejo idea propuesta razón motivo causa consecuencia resultado
+carácter costumbre afición hobby recuerdo sueño deseo miedo alegría tristeza
+sorpresa vergüenza suerte esfuerzo experiencia oportunidad ventaja desventaja
+receta ingrediente sartén horno nevera congelador plato cuchara tenedor cuchillo
+servilleta mantel vaso taza botella lata paquete bolsa caja
+sello sobre buzón paquete mensaje llamada contestador
+vecino portero alquiler hipoteca mueble alfombra cortina lámpara espejo estante
+ascensor escalera terraza balcón garaje trastero calefacción
+manga bolsillo botón cremallera talla moda tejido algodón lana cuero
+sucio limpio estrecho ancho profundo ligero pesado blando duro suave áspero
+amable simpático generoso egoísta valiente cobarde honesto perezoso trabajador
+tranquilo nervioso orgulloso celoso educado maleducado
+peligroso seguro tranquilo ruidoso silencioso agradable desagradable
+sorprendente increíble estupendo horrible maravilloso""".split()
+
+A2_ALL = A2_GRAMMAR + A2_VERBS + A2_EVERYDAY
+
+from dele_level import LEVEL as _LEVEL
+if _LEVEL == 'a2':
+    ESSENTIAL_LIST = A2_GRAMMAR
+    ALL = A2_ALL
+else:
+    ESSENTIAL_LIST = (NUMBERS + ORDINALS + DAYS + MONTHS + SEASONS +
+                      PRONOUNS + QUESTION + FUNCTION)
+
 if __name__ == '__main__':
     import json
     seen, out = set(), []
@@ -68,4 +127,5 @@ if __name__ == '__main__':
         if w not in seen:
             seen.add(w); out.append(w)
     print(len(out))
-    json.dump(out, open('supplement.json', 'w'), ensure_ascii=False, indent=0)
+    from dele_level import f as lvlf
+    json.dump(out, open(lvlf('supplement.json'), 'w'), ensure_ascii=False, indent=0)
