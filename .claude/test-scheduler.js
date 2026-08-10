@@ -37,7 +37,8 @@ const api = new Function("DAY", SCHED_SRC + `
            FSRS_PARAMS, fsrsRetrievability, fsrsInterval, fsrsInitS, fsrsInitD, fsrsNextD, fsrsRecallS,
            fsrsForgetS, fsrsShortS, fsrsNextState, fsrsAnswer, fsrsSeed, fsrsPreviewIvs,
            FSRS_OPT, FSRS_LO, FSRS_HI, fsrsClampW, fsrsLossReviews, fsrsBatchLoss,
-           fsrsOptimise, fsrsOptimiseStart, fsrsOptimiseStep, fsrsOptimiseFinish };
+           fsrsOptimise, fsrsOptimiseStart, fsrsOptimiseStep, fsrsOptimiseFinish,
+           schedFuzzRange, schedSpread, schedPass, LOAD_AVOID };
 `)(DAY);
 const { SCHED, schedAnswer, schedPreview, schedBlank, schedIsLearning } = api;
 
@@ -559,6 +560,96 @@ section("10c. the FSRS optimiser");
   const snapshot = JSON.stringify(gen);
   F.fsrsOptimise(gen);
   eq(JSON.stringify(gen), snapshot, "…nor the history it was given");
+}
+
+/* ================= 11. LOAD BALANCING and EASY DAYS (Aug 2026) =====================================
+   The fuzz already spread an interval over a few days at random; this picks WHICH of those days. Everything
+   here is a property of the pure arithmetic, and the two that matter most are the ones a reader could never
+   see going wrong: that the balancer NEVER moves a card outside the range the fuzz was already free to move
+   it (so it cannot quietly lengthen or shorten a schedule), and that Hard < Good < Easy survives it — two
+   grades whose ranges overlap can pick the SAME day, and only schedPass's floor separates them again. */
+{
+  console.log("\n--- load balancing and easy days ---");
+  const F = api;
+  const cfg = (load) => Object.assign({}, F.SCHED, load ? { load: load } : {});
+  const flat = { due: {}, week: [1, 1, 1, 1, 1, 1, 1], dow0: 1 };
+
+  // --- the range is the fuzz's own range, unchanged
+  const r = F.schedFuzzRange(30);
+  ok(r && r.lo < 30 && r.hi > 30, "a long interval has a range to choose in", JSON.stringify(r));
+  eq(F.schedFuzzRange(2), null, "…and a short one has none, so nothing is balanced there");
+  eq(F.schedSpread(2, "s", cfg(flat)), 2, "a short interval is returned untouched even with a map");
+
+  /* NEVER OUTSIDE THE RANGE. Whatever the load says, the day chosen is one the unbalanced fuzz could
+     already have chosen — which is what makes this safe to turn on mid-collection. */
+  let outside = 0;
+  for (let iv = 3; iv <= 400; iv += 7) {
+    const rr = F.schedFuzzRange(iv);
+    const busy = { due: {}, week: [1, 1, 1, 1, 1, 1, 1], dow0: 3 };
+    for (let d = rr.lo; d <= rr.hi; d++) busy.due[d] = (d * 7) % 5;   // an uneven pile across the range
+    const v = F.schedSpread(iv, "x", cfg(busy));
+    if (v < rr.lo || v > rr.hi) outside++;
+  }
+  eq(outside, 0, "the balanced day is always inside the fuzz's own range");
+
+  // --- it picks the quietest day
+  const rr = F.schedFuzzRange(30);
+  const busy = { due: {}, week: [1, 1, 1, 1, 1, 1, 1], dow0: 0 };
+  for (let d = rr.lo; d <= rr.hi; d++) busy.due[d] = 100;
+  busy.due[rr.hi - 1] = 0;
+  eq(F.schedSpread(30, "x", cfg(busy)), rr.hi - 1, "it lands on the one quiet day in the range");
+  const tie = { due: {}, week: [1, 1, 1, 1, 1, 1, 1], dow0: 0 };
+  for (let d = rr.lo; d <= rr.hi; d++) tie.due[d] = 5;
+  ok(Math.abs(F.schedSpread(30, "x", cfg(tie)) - 30) <= 1, "…and on a level pile it stays next to the interval asked for", String(F.schedSpread(30, "x", cfg(tie))));
+
+  // --- easy days
+  const week = [1, 1, 1, 1, 1, 1, 1];
+  week[0] = 0;   // Sunday off
+  const wk = { due: {}, week: week, dow0: 0 };   // today IS Sunday, so day 7 and day 14 are Sundays too
+  const got = F.schedSpread(7, "x", cfg(wk));
+  ok(((0 + got) % 7) !== 0, "a card is steered off a day the reader does not study", String(got));
+  /* A day is AVOIDED, not forbidden. If the whole range is marked the card still lands on one — a card that
+     cannot be scheduled at all is worse than one that arrives on a Sunday, and it must not loop or throw. */
+  const allOff = { due: {}, week: [0, 0, 0, 0, 0, 0, 0], dow0: 2 };
+  const v2 = F.schedSpread(30, "x", cfg(allOff));
+  ok(v2 >= rr.lo && v2 <= rr.hi, "…and with every day marked it still schedules, in range", String(v2));
+
+  // --- nothing changes for a reader who has not asked for it
+  let same = 0, n = 0;
+  for (let iv = 3; iv <= 300; iv += 3) { n++; if (F.schedSpread(iv, "seed" + iv, cfg(null)) === F.schedFuzz(iv, "seed" + iv)) same++; }
+  eq(same, n, "with no map the result is byte-for-byte the fuzz it always was");
+
+  /* HARD < GOOD < EASY SURVIVES IT. The three ranges overlap, so the balancer can hand back the same day
+     for two of them; schedPass's floor is what pulls them apart, and this is the assertion that would catch
+     the balancing being moved above it. */
+  let bad = 0;
+  for (let iv = 3; iv <= 200; iv += 1) {
+    for (let ease = 1.3; ease <= 3.0; ease += 0.4) {
+      const c = Object.assign(F.schedBlank(), { status: "review", interval: iv, ease: ease, reps: 3, due: 0, last: 0 });
+      const one = { due: {}, week: [1, 1, 1, 1, 1, 1, 1], dow0: 4 };
+      for (let d = 0; d < 900; d++) one.due[d] = d % 3 === 0 ? 0 : 90;   // a lumpy pile, so the balancer really moves things
+      const t = 1770000000000;
+      const p = F.schedPreview(c, "id" + iv, t, cfg(one));
+      if (!(p.hard < p.good && p.good < p.easy)) bad++;
+    }
+  }
+  eq(bad, 0, "Hard < Good < Easy over every interval and ease, with the balancer on");
+
+  /* AND THE PREVIEW STILL AGREES WITH THE GRADE, which is the property the whole grade bar rests on and the
+     one a load map read from a global rather than passed in would break. */
+  let dis = 0;
+  for (let iv = 4; iv <= 120; iv += 7) {
+    const one = { due: {}, week: [1, 1, 0, 1, 1, 1, 1], dow0: 2 };
+    for (let d = 0; d < 400; d++) one.due[d] = (d * 13) % 7;
+    const t = 1770000000000;
+    const c = Object.assign(F.schedBlank(), { status: "review", interval: iv, ease: 2.5, reps: 4, due: t - DAY, last: t - DAY * (iv + 1) });
+    ["hard", "good", "easy"].forEach((g) => {
+      const p = F.schedPreview(c, "z" + iv, t, cfg(one))[g];
+      const a = F.schedAnswer(c, g, t, "z" + iv, cfg(one));
+      if (Math.round((a.due - t) / DAY) !== Math.round(p)) dis++;
+    });
+  }
+  eq(dis, 0, "the button still schedules exactly what it says, with the balancer on");
 }
 
 console.log("\n" + (fail ? "FAILED" : "PASSED") + " — " + pass + " passed, " + fail + " failed");

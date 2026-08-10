@@ -167,8 +167,12 @@ const SETTINGS = {
        two rows for one bit of state spent a third of a phone sheet saying what one line says. QUESTION
        VARIETY arrived beside it the same day and takes the same shape. Both start OFF here, since this
        harness boots with reviewRandom false and no per-deck override. */
+    /* BROWSE YOUR CARDS joined both sheets in Aug 2026 — the everyday way into the card browser, since the
+       moment somebody wants to find a card is usually the moment they are looking at their decks. It is on
+       EVERY entry, the pooled review included: the browser searches the whole collection rather than the
+       thing the sheet was opened on. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Random order,Question variety,Custom study,Daily limits,Skip today", JSON.stringify(rm));
+      rm && rm.items.join(",") === "Random order,Question variety,Browse your cards,Custom study,Daily limits,Skip today", JSON.stringify(rm));
     check("...the order and the phrasing pool are SWITCHES, not a pair of rows",
       rm && rm.switches.join(",") === "Random order,Question variety" && rm.choices === 0, JSON.stringify(rm));
     check("...each showing its own current state — Ordered, and variety on by default",
@@ -379,7 +383,7 @@ const SETTINGS = {
        one row here that a DECK has and the pooled review does not — the review schedules nothing of its own,
        so the choice would govern nothing there (asserted the other way round in section 11). */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Custom study", "Daily limits", "Scheduling", "Skip today", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER SWITCH IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they
@@ -1313,6 +1317,63 @@ const SETTINGS = {
     check("too little history is refused in words, with the numbers", /Not enough history/.test(few.msg) && /\d+ of the 512/.test(few.msg), few.msg.slice(0, 120));
     check("…and nothing is staged or saved", few.stored === null && few.box === "", JSON.stringify(few).slice(0, 80));
     await page2.close();
+    await page.close();
+  }
+
+  /* ================= 17. load balancing and easy days, in Settings (Aug 2026) =================
+     The arithmetic is test-scheduler's; this is the path. Both are DEFAULT OFF, which is the assertion most
+     worth having — they change what the scheduler does, and an existing reader's intervals must not move
+     because they updated — and the seven days are drawn Monday-first while being stored Sunday-first, a
+     conversion nothing on screen would report getting wrong. */
+  {
+    const page = await newPage(seeded);
+    await page.goto(base + "#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1300);
+    const start = await page.evaluate(() => {
+      const sw = document.querySelector("#sw-load"), days = [...document.querySelectorAll("#edDays [data-ed]")];
+      return {
+        sw: sw ? sw.getAttribute("aria-checked") : null,
+        order: days.map((d) => d.textContent.trim()),
+        stored: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).loadBalance,
+        // the control must not be squeezing its own description into one word a line
+        wrap: (() => {
+          const row = [...document.querySelectorAll(".set-row")].find((r) => /Days you don/.test(r.textContent));
+          if (!row) return null;
+          const pEl = row.querySelector(".info p");
+          return pEl ? Math.round(pEl.getBoundingClientRect().width) : null;
+        })(),
+      };
+    });
+    check("the load-balance switch is on the Settings page", start.sw !== null);
+    check("…and is OFF by default, so no existing schedule moves", start.sw === "false" && !start.stored, JSON.stringify(start.sw));
+    check("the seven days are drawn Monday first", start.order.join(" ").toUpperCase() === "MON TUE WED THU FRI SAT SUN", start.order.join(" "));
+    /* The row STACKS: seven buttons on a `flex:none` control beside `flex:1` prose squeezed the description
+       to one word per line in the settings column, which is what looking at the page found. */
+    check("…on a line of their own, not squeezing the prose", start.wrap > 200, String(start.wrap));
+
+    await page.evaluate(() => document.querySelector("#sw-load").click());
+    await page.waitForTimeout(400);
+    await page.evaluate(() => document.querySelector('#edDays [data-ed="0"]').click());   // Sunday
+    await page.waitForTimeout(400);
+    const after = await page.evaluate(() => {
+      const st = JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {};
+      const sun = document.querySelector('#edDays [data-ed="0"]');
+      return { lb: !!st.loadBalance, days: st.easyDays, marked: sun.classList.contains("off"), aria: sun.getAttribute("aria-checked") };
+    });
+    check("throwing the switch stores it", after.lb === true);
+    /* STORED SUNDAY-FIRST to match Date#getDay, which is what lets the scheduler step the weekday
+       modularly with no conversion — the UI's Monday-first order is a rendering decision only. */
+    check("a marked day is stored at its getDay index", Array.isArray(after.days) && after.days[0] === 0 && after.days.slice(1).every((x) => x === 1), JSON.stringify(after.days));
+    check("…and the button says so", after.marked && after.aria === "true");
+    await page.reload();
+    await page.waitForTimeout(1200);
+    // seeded state is re-written by addInitScript on every load, so the reload proves the RENDER reads the
+    // stored value rather than proving persistence — which section 8's device-carry already covers
+    const back = await page.evaluate(() => {
+      const st = JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {};
+      return { lb: !!st.loadBalance, sun: (document.querySelector('#edDays [data-ed="0"]') || {}).className || "" };
+    });
+    check("a fresh load paints the switch from what is stored", back.lb === false && !/off/.test(back.sun), JSON.stringify(back));
     await page.close();
   }
 
