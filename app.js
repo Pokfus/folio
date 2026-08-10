@@ -411,9 +411,18 @@
       if (leaf && leaf.cardIds) T.cardOrder[leafId] = leaf.cardIds.slice();
     });
   }
+  /* The community-deck caches (see uCacheBust's note down in the COMMUNITY DECKS block for what they hold
+     and why). They are DECLARED here, far from the code that fills them, because applyAdminEdits() busts
+     them and runs at boot — a `let` beside that block would still be in its temporal dead zone when it did,
+     which is a ReferenceError before the first paint rather than anything subtle. */
+  let _uStudyCache = new Map();
+  let _availCache = null;
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; }
+
   function applyAdminEdits() {
     buildTreeStructure();
     rebuildNodeRegistry();
+    uCacheBust();   // the tree it just rebuilt is the other half of what availableCardIdSet() reads
     if (Array.isArray(ADMIN_EDITS.timeline)) window.TIMELINE = ADMIN_EDITS.timeline;   // the working set of historical border eras overrides the shipped timeline.js
     if (!Array.isArray(window.TIMELINE)) window.TIMELINE = [];
     Object.keys(ADMIN_EDITS.cards).forEach((id) => { const c = CARD_BY_ID[id]; if (c) Object.assign(c, ADMIN_EDITS.cards[id]); });
@@ -2327,6 +2336,12 @@
   function sanitizePlain(s) {
     const v = String(s == null ? "" : s);
     if (!v) return "";
+    /* Nothing to parse: with no "<" the parser can build no element, and with no "&" it can decode no
+       entity, so `body.textContent` is provably the input itself and the only work left is the whitespace
+       collapse below. sanitizeHTML has had this door since it was written; this one did not, and it is the
+       hotter of the two on a large deck — 88% of the string fields in HSK 3.0 carry neither character, and
+       that was a DOMParser round trip each, on every page load. */
+    if (v.indexOf("<") < 0 && v.indexOf("&") < 0) return v.replace(/\s+/g, " ").trim();
     try {
       const doc = new DOMParser().parseFromString("<body>" + v + "</body>", "text/html");
       const body = doc && doc.body;
@@ -4348,7 +4363,7 @@
       const sub = uSubOf(e);
       /* …expanded from NOTES into CARDS, which is what puts a reverse card in the review: a note whose
          type declares two templates is two cards with two schedules, and `cardIds` names the note. */
-      return uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || []));
+      return uDeckStudyIdsFor(d.id, sub);
     };
     // the common case, and the one nearly every reader is in: nothing has been dragged anywhere
     if (!Object.keys(deckNestMap()).length) {
@@ -4390,11 +4405,14 @@
   // review, the games and the card of the day, even for users who still have it in S.active.)
   // The user's own decks are studiable too, so they belong here — but NOT in the games, which draw from
   // ALL_CARD_IDS (TREE-derived) and must stay fact-checked content only.
+  // Memoised — see uCacheBust: nine calls a render, each walking the whole tree and every deck.
   function availableCardIdSet() {
+    if (_availCache) return _availCache;
     const s = new Set();
     (TREE.collections || []).forEach((c) => { if (!isComingSoon(c)) subtreeCardIds(c).forEach((id) => s.add(id)); });
     // …expanded into cards, like entryCardIds: a note's reverse card is studiable and must be listed here too
-    Object.keys(UDECKS).forEach((k) => uDeckStudyIds(UDECKS[k].cardIds || []).forEach((id) => s.add(id)));
+    Object.keys(UDECKS).forEach((k) => uDeckStudyIdsFor(k, "").forEach((id) => s.add(id)));
+    _availCache = s;
     return s;
   }
   /* THE CARDS A MINIGAME MAY DEAL (Aug 2026, on request): the available cards whose answer term is at or
@@ -4456,7 +4474,14 @@
     const a = activeEntryIds();
     if (a.indexOf(id) !== -1) return true;
     const n = NODE_BY_ID[id];
-    const wanted = n ? nodeSubtreeIds(n) : [id];
+    /* One of the reader's OWN decks brings its subdecks in with it, which is the collection rule one store
+       over: a deck divided into subdecks is divided for the same reason a collection is divided into decks,
+       and adding it and then finding a single undivided row is the thing this was reported as. Adding one
+       SUBDECK on its own still adds only that subdeck — a narrower choice is never widened. */
+    const ud = !n && !uSubOf(id) ? UDECKS[uDeckIdOf(id)] : null;
+    const wanted = n ? nodeSubtreeIds(n)
+      : ud ? [id].concat(uDeckSubs(ud.id).map((sub) => uSubEntry(ud.id, sub)))
+      : [id];
     S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
     save();
     return true;
@@ -4484,7 +4509,22 @@
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
     const n = NODE_BY_ID[id];
-    if (!n) { nestForget([id]); S.active = activeEntryIds().filter((x) => x !== id); save(); return; }
+    if (!n) {
+      /* The mirror of the add above, and it goes BOTH ways for the collection rule's own reason: a deck
+         removed takes its subdeck rows with it, and a subdeck removed takes the whole-deck row with it,
+         since that row would otherwise go on offering the very cards just removed while its + still read
+         as added. The deck's OTHER subdecks are separate entries and stay — nothing else is lost. */
+      const deckId = uDeckIdOf(id), sub = uSubOf(id);
+      const drop = new Set([id]);
+      if (deckId && UDECKS[deckId]) {
+        if (sub) drop.add(uDeckEntry(deckId));
+        else uDeckSubs(deckId).forEach((sb) => drop.add(uSubEntry(deckId, sb)));
+      }
+      nestForget([...drop]);
+      S.active = activeEntryIds().filter((x) => !drop.has(x));
+      save();
+      return;
+    }
     nestForget(nodeSubtreeIds(n));
     const drop = new Set(nodeSubtreeIds(n));
     let a = activeEntryIds();
@@ -4687,8 +4727,8 @@
       /* BOTH branches expand the notes to their cards. The subdeck one did not, and the two disagreed by a
          factor of two on a deck that both groups its notes and asks them in more than one direction — the
          quiet miss the reverse-cards note warns about, and invisible until a deck was both at once. */
-      return sub ? { title: sub, parent: ud.title, count: uDeckStudyIds(uDeckCardsIn(ud.id, sub)).length }
-                 : { title: ud.title, parent: "Your decks", count: uDeckStudyIds(ud.cardIds || []).length };
+      return sub ? { title: sub, parent: ud.title, count: uDeckStudyIdsFor(ud.id, sub).length }
+                 : { title: ud.title, parent: "Your decks", count: uDeckStudyIdsFor(ud.id, "").length };
     }
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
@@ -5167,13 +5207,37 @@
      The ONLY way a deck enters the in-memory store. Everything is sanitized here — imports obviously, but
      also what comes back out of IndexedDB, because the store is writable by anything running on this
      origin and "it was already in our database" is not a safety argument. Sanitizing at this one choke
-     point is what lets every downstream render (study, previews, the Library) stay ordinary innerHTML. */
+     point is what lets every downstream render (study, previews, the Library) stay ordinary innerHTML.
+
+     …EXCEPT WHERE THE SAME SANITIZER PROVABLY WROTE IT, WHICH IS AN ARITHMETIC ARGUMENT RATHER THAN A
+     TRUST ONE (Aug 2026, on a report that the site had become very slow with a large deck installed).
+     `sanitizeHTML` returns a FIXED POINT by construction — it loops until another pass changes nothing —
+     so re-running it on its own output cannot alter a character; `sanitizePlain` and `sanitizeCSSText` are
+     idempotent in the same way. Re-cleaning a record this build's own sanitizer produced is therefore
+     provably a no-op, and on a 10,896-note deck it was 5.7 SECONDS of no-op on every single page load
+     (174,741 sanitizeHTML calls, most of them DOM-parsing the same Chinese markup for the fourth time).
+
+     So a record we write carries `srev`, the sanitizer's own revision, and `communityBoot` — and ONLY
+     communityBoot, reading OUR store — may pass `trusted` to skip the string work while every structural
+     guard still runs: the id patterns, the key whitelists, the URL schemes, the caps, the shape. What
+     that gives up is exactly the case the revision stamp exists to catch, a deck cleaned by an OLDER and
+     possibly buggier sanitizer, and those are re-cleaned once, on the next load, because `srev` will not
+     match. An import, an install and a published payload are never trusted whatever they claim to carry.
+
+     BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES — sanitizePass, sanitizeHTML, sanitizePlain,
+     sanitizeCSSText, sanitizeUrl or any of the SANITIZE_* / UTYPE_* allowlists. Forgetting to leaves
+     already-stored decks cleaned by the old rules, which is the one way this can be wrong. */
+  const SANITIZE_REV = 1;
+  let _uTrusted = false;   // set ONLY inside uDeckNormalize, around a synchronous body, and restored in a finally
+  const uSH = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeHTML(v));
+  const uSP = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizePlain(v));
+  const uSCSS = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeCSSText(v));
   const UDECK_TEXT_FIELDS = ["title", "subtitle", "desc", "author", "language"];
   function uDeckSanitizeMeta(m) {
     const o = {};
-    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = sanitizePlain(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
+    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = uSP(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
     o.id = /^[a-z0-9]{4,16}$/.test(String(m && m.id)) ? m.id : uid(8);
-    o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
+    o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => uSP(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
     o.glossMode = GLOSS_MODES.indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
     o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
@@ -5188,11 +5252,11 @@
     o.remoteStatus = ["draft", "published", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
     o.publishedVersion = Number(m && m.publishedVersion) || 0;
     o.installedVersion = Number(m && m.installedVersion) || 0;
-    o.ownerName = sanitizePlain(m && m.ownerName).slice(0, 80);
+    o.ownerName = uSP(m && m.ownerName).slice(0, 80);
     // attribution for a duplicated deck — travels in the file and in a publish, so credit survives a copy
     const ff = m && m.forkedFrom;
     o.forkedFrom = (ff && typeof ff === "object" && (ff.title || ff.slug))
-      ? { slug: sanitizePlain(ff.slug).slice(0, 64), title: sanitizePlain(ff.title).slice(0, 200), author: sanitizePlain(ff.author).slice(0, 80) }
+      ? { slug: uSP(ff.slug).slice(0, 64), title: uSP(ff.title).slice(0, 200), author: uSP(ff.author).slice(0, 80) }
       : null;
     return o;
   }
@@ -5247,9 +5311,9 @@
   }
   function uTypeCardSanitize(raw, i) {
     return {
-      name: sanitizePlain(raw && raw.name).slice(0, UTYPE_CARD_NAME_MAX) || "Card " + (i + 1),
-      front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
-      back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
+      name: uSP(raw && raw.name).slice(0, UTYPE_CARD_NAME_MAX) || "Card " + (i + 1),
+      front: uSH(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
+      back: uSH(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
     };
   }
   // a note id (no suffix) and the 0-based template a derived card id names
@@ -5306,6 +5370,32 @@
     lists.forEach((l) => { if (l.length > most) most = l.length; });
     for (let i = 0; i < most; i++) lists.forEach((l) => { if (i < l.length) out.push(l[i]); });
     return out;
+  }
+  /* ---------- …CACHED, because a render asks for it a dozen times (Aug 2026) ----------
+     The expansion is derived from the deck on every read, which is what keeps it honest — a card's `sub`
+     and a type's template list can change under it and nothing has to be kept in step. It is also O(notes),
+     and one home render asked for it SIXTEEN times: `entryPiles` per row, `reviewQueue`, `entryInfo`,
+     `availableCardIdSet` (itself called nine times), the progress bar on each row. On HSK 3.0 that was
+     174,336 `uNoteCardIds` calls and ~270ms per repaint with a single row on the page, before the deck's
+     nine subdecks were drawn at all.
+
+     Keyed by (deck, subdeck) and thrown away WHOLE by `uCacheBust`, which every write goes through: the
+     Studio's mutations all end in `uDeckSave`, and mounting or deleting a deck is the only other way the
+     stores move. Coarse on purpose — a stale entry here would silently deal the wrong cards, so the cheap
+     correct thing is to keep nothing rather than to reason about what changed.
+
+     `availableCardIdSet` is memoised beside it and depends on ONE thing more: the collection tree, which an
+     admin edit rewrites — hence the bust in `applyAdminEdits`. Both hand back the live array/Set rather than
+     a copy; nothing mutates what they return, and every caller was checked before this was written. */
+  function uDeckStudyIdsFor(deckId, sub) {
+    const key = deckId + "/" + (sub || "");
+    let v = _uStudyCache.get(key);
+    if (!v) {
+      const d = UDECKS[deckId];
+      v = d ? uDeckStudyIds(sub ? uDeckCardsIn(deckId, sub) : (d.cardIds || [])) : [];
+      _uStudyCache.set(key, v);
+    }
+    return v;
   }
 
   /* A type's stylesheet, cleaned. It is not executable, so this is about three narrower things:
@@ -5386,11 +5476,11 @@
     if (!UTYPE_ID_RX.test(id) || id === CARD_TYPE_BASIC) return null;   // "basic" is the built-in format's name and cannot be taken
     const fields = [];
     (Array.isArray(raw && raw.fields) ? raw.fields : []).forEach((f) => {
-      const n = sanitizePlain(f).trim();
+      const n = uSP(f).trim();
       if (UTYPE_FIELD_RX.test(n) && fields.indexOf(n) < 0 && fields.length < UTYPE_MAX_FIELDS) fields.push(n);
     });
     if (!fields.length) fields.push("Front", "Back");
-    const lang = sanitizePlain(raw && raw.speechLang).trim();
+    const lang = uSP(raw && raw.speechLang).trim();
     /* The card templates, in the canonical `cards` list. A type written before card templates existed
        carries `front`/`back` at the top level and is folded into a single-card list here — which is what
        makes every existing deck file, installed copy and published row normalise on ingest with nothing to
@@ -5400,10 +5490,10 @@
     if (!cards.length) cards.push(uTypeCardSanitize({ name: raw && raw.cardName, front: raw && raw.front, back: raw && raw.back }, 0));
     return {
       id: id,
-      name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
+      name: uSP(raw && raw.name).slice(0, 60) || id,
       fields: fields,
       cards: cards,
-      css: sanitizeCSSText(raw && raw.css),
+      css: uSCSS(raw && raw.css),
       speechLang: SPEECH_LANG_RX.test(lang) ? lang : "",
       /* ONE CARD PER DELETION. It is a property of the TYPE rather than something detected from the fields,
          and it has to be: the markers live in a card's values, so a type could only be recognised as a cloze
@@ -5431,25 +5521,25 @@
     CARD_FIELDS.forEach((f) => {
       const v = raw ? raw[f] : "";
       c[f] = (f === "answerText" || f === "num" || f === "category" || f === "pinyin")
-        ? sanitizePlain(v).slice(0, 400)
-        : sanitizeHTML(v == null ? "" : String(v)).slice(0, 20000);
+        ? uSP(v).slice(0, 400)
+        : uSH(v == null ? "" : String(v)).slice(0, 20000);
     });
     // extra question phrasings: rich HTML like `question`, capped so a hostile file can't smuggle hundreds
     if (raw && Array.isArray(raw.questions)) {
       const extras = raw.questions.slice(0, CARD_MAX_QUESTIONS - 1)
-        .map((q) => sanitizeHTML(q == null ? "" : String(q)).slice(0, 20000))
+        .map((q) => uSH(q == null ? "" : String(q)).slice(0, 20000))
         .filter((q) => q.trim());
       if (extras.length) c.questions = extras;
     }
     // source footnotes: short rich HTML (a citation italicises a title), sanitized like every other rich field
     if (raw && (Array.isArray(raw.sources) || typeof raw.sources === "string")) {
       const src = (Array.isArray(raw.sources) ? raw.sources : [raw.sources]).slice(0, SRC_MAX)
-        .map((s) => sanitizeHTML(s == null ? "" : String(s)).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
+        .map((s) => uSH(s == null ? "" : String(s)).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
       if (src.length) c.sources = src;
     }
     if (raw && raw.image && raw.image.src) {
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
-      if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300), alt: sanitizePlain(raw.image.alt).slice(0, 400) };
+      if (src) c.image = { src: src, title: uSP(raw.image.title).slice(0, 200), desc: uSP(raw.image.desc).slice(0, 1000), credit: uSP(raw.image.credit).slice(0, 300), alt: uSP(raw.image.alt).slice(0, 400) };
     }
     // one frame per card: a record carrying both resolves the same way the renderers do — the picture wins
     if (!c.image) { const v = uMediaSanitize(raw && raw.video); if (v) c.video = v; }
@@ -5461,7 +5551,7 @@
        held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
        collides with something the renderer reads. */
     // which subdeck this card is in, if any — a plain title, carried like `category`
-    const sub = sanitizePlain(raw && raw.sub).slice(0, 80).trim();
+    const sub = uSP(raw && raw.sub).slice(0, 80).trim();
     if (sub) c.sub = sub;
     const ty = String((raw && raw.type) || "").trim();
     if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
@@ -5469,7 +5559,7 @@
       const f = {};
       Object.keys(raw.fields).slice(0, UTYPE_MAX_FIELDS).forEach((k) => {
         const name = String(k).trim();
-        if (UTYPE_FIELD_RX.test(name)) f[name] = sanitizeHTML(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
+        if (UTYPE_FIELD_RX.test(name)) f[name] = uSH(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
       });
       if (c.type || Object.keys(f).length) c.fields = f;
     }
@@ -5483,7 +5573,7 @@
     if (!raw || !raw.src) return null;
     const src = sanitizeUrl(String(raw.src), ["http", "https"]);
     if (!src) return null;
-    return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
+    return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
   /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
      view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
@@ -5506,17 +5596,17 @@
       if (!/^[\w.-]{1,80}$/.test(slug)) return;
       const t = raw[slugRaw] || {};
       const e = {
-        desc: sanitizeHTML(t.desc == null ? "" : String(t.desc)).slice(0, 4000),
-        title: sanitizePlain(t.title).slice(0, 120),
-        date: sanitizePlain(t.date).slice(0, 60),
-        tags: Array.isArray(t.tags) ? t.tags.map((x) => sanitizePlain(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
-        aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
+        desc: uSH(t.desc == null ? "" : String(t.desc)).slice(0, 4000),
+        title: uSP(t.title).slice(0, 120),
+        date: uSP(t.date).slice(0, 60),
+        tags: Array.isArray(t.tags) ? t.tags.map((x) => uSP(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
+        aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => uSP(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
         // the works behind the description — rich HTML like the description itself, so sanitized the same way
-        sources: Array.isArray(t.sources) ? t.sources.slice(0, SRC_MAX).map((x) => sanitizeHTML(x == null ? "" : String(x)).slice(0, SRC_MAX_LEN)).filter((x) => x.trim()) : [],
+        sources: Array.isArray(t.sources) ? t.sources.slice(0, SRC_MAX).map((x) => uSH(x == null ? "" : String(x)).slice(0, SRC_MAX_LEN)).filter((x) => x.trim()) : [],
       };
       if (t.image && t.image.src) {   // the term's illustration, on the same footing as a card image
         const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
-        if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300), alt: sanitizePlain(t.image.alt).slice(0, 400) };
+        if (src) e.image = { src: src, title: uSP(t.image.title).slice(0, 200), desc: uSP(t.image.desc).slice(0, 1000), credit: uSP(t.image.credit).slice(0, 300), alt: uSP(t.image.alt).slice(0, 400) };
       }
       if (!e.image) { const tv = uMediaSanitize(t.video); if (tv) e.video = tv; }   // the term's video — one frame, so only when there is no picture
       if (!e.desc && !e.title) return;
@@ -5524,9 +5614,19 @@
     });
     return out;
   }
-  // Turn an arbitrary record (IDB row or imported file) into a clean deck, or null if it isn't one.
-  function uDeckNormalize(rec) {
+  /* Turn an arbitrary record (IDB row or imported file) into a clean deck, or null if it isn't one.
+     `fromOwnStore` is passed by communityBoot and by nothing else: with it, and with the record carrying
+     THIS sanitizer's revision, the per-field string cleaning is skipped as the provable no-op it is — see
+     the note above the ingest block. Every structural guard below still runs either way. */
+  function uDeckNormalize(rec, fromOwnStore) {
     if (!rec || typeof rec !== "object") return null;
+    const wasTrusted = _uTrusted;
+    _uTrusted = !!fromOwnStore && rec.srev === SANITIZE_REV;
+    try {
+      return uDeckNormalizeInner(rec);
+    } finally { _uTrusted = wasTrusted; }   // the body is synchronous, so this cannot leak into anything else
+  }
+  function uDeckNormalizeInner(rec) {
     const meta = uDeckSanitizeMeta(rec.meta || rec);
     const all = Array.isArray(rec.cards) ? rec.cards : [];
     const rawCards = all.slice(0, UDECK_MAX_CARDS);
@@ -5544,6 +5644,7 @@
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
     if (!norm) return null;
+    uCacheBust();
     const d = Object.assign({}, norm.meta, { cardIds: norm.cards.map((c) => c.id) });
     UDECKS[d.id] = d;
     UGLOSS[d.id] = norm.gloss || {};
@@ -5557,11 +5658,15 @@
     if (!d) return null;
     const meta = {};
     UDECK_META_KEYS.concat(UDECK_PUBLISH_KEYS).forEach((f) => { meta[f] = d[f]; });
-    return { id: d.id, meta: meta, cards: uDeckCards(d).map((c) => { const o = {}; Object.keys(c).forEach((k) => { if (k !== "deckId") o[k] = c[k]; }); return o; }), gloss: UGLOSS[d.id] || {} };
+    /* `srev` says which sanitizer cleaned this, so the next boot can skip re-cleaning it — see the ingest
+       note. It is deliberately at the TOP level of the record and not inside `meta`, which is what an
+       export copies: a deck FILE must never carry it, since a file is not our store and is never trusted. */
+    return { id: d.id, srev: SANITIZE_REV, meta: meta, cards: uDeckCards(d).map((c) => { const o = {}; Object.keys(c).forEach((k) => { if (k !== "deckId") o[k] = c[k]; }); return o; }), gloss: UGLOSS[d.id] || {} };
   }
   function uDeckSave(deckId) {
     const d = UDECKS[deckId];
     if (!d) return Promise.resolve(false);
+    uCacheBust();   // every Studio mutation ends here, so this is the one place the expansion can go stale
     d.updatedAt = Date.now();
     return cdbPut(uDeckRecord(deckId));
   }
@@ -6029,6 +6134,7 @@
     (d.cardIds || []).forEach((id) => { delete UCARDS[id]; });
     delete UDECKS[deckId];
     delete UGLOSS[deckId];
+    uCacheBust();
     invalidateGlossIndex("deck:" + deckId);   // else a re-created deck with the same id would inherit a stale index
     // …and every subdeck entry of it, which share the deck id before the slash
     S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => uDeckIdOf(x) !== deckId);
@@ -6363,7 +6469,7 @@
   // properly would mean shipping per-deck progress to the server, which is not worth the privacy cost.
   function deckStudiedCount(localDeck) {
     if (!localDeck) return 0;
-    return uDeckStudyIds(localDeck.cardIds || []).filter((id) => isSeen(id)).length;
+    return uDeckStudyIdsFor(localDeck.id, "").filter((id) => isSeen(id)).length;
   }
   async function deckRatings(remoteId) {
     const r = await supaFetch("/rest/v1/deck_ratings?deck_id=eq." + encodeURIComponent(remoteId) +
@@ -6518,7 +6624,8 @@
     let rows = [];
     try { rows = await cdbAll(); } catch (e) { rows = []; }
     let n = 0;
-    rows.forEach((r) => { const norm = uDeckNormalize(r); if (norm) { uDeckMount(norm); n++; } });
+    // …`true`: this is OUR store, so a record still carrying this sanitizer's revision is taken as cleaned
+    rows.forEach((r) => { const norm = uDeckNormalize(r, true); if (norm) { uDeckMount(norm); n++; } });
     _communityReady = true;
     // Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
     // skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
@@ -12450,8 +12557,12 @@
   // re-state every + / ✓ on the page from S.active. `data-id` is a tree node, `data-uadd` one of the
   // reader's own decks (whose entry id carries the "u:" prefix).
   function refreshAddButtons() {
-    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd]").forEach((b) => {
-      const eid = b.dataset.id != null ? b.dataset.id : uDeckEntry(b.dataset.uadd);
+    // …[data-uaddsub] with them: adding a deck now adds its subdecks, so their own buttons have to follow
+    // in the same sweep, or the rows below the one just pressed go on reading "add" over something added
+    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd], .collection-add[data-uaddsub]").forEach((b) => {
+      const eid = b.dataset.id != null ? b.dataset.id
+        : b.dataset.uaddsub != null ? b.dataset.uaddsub
+        : uDeckEntry(b.dataset.uadd);
       const on = isActive(eid);
       b.classList.toggle("added", on);
       b.innerHTML = addIcon(on);
@@ -14524,12 +14635,27 @@
         if (n) { walk(n, depth, parentKey, hue); return; }
         const ud = UDECKS[uDeckIdOf(id)];
         const h = groupColor(id) || hue;
-        const kids = kidsOf(id);
         // a SUBDECK of one of the reader's own decks is named by the subdeck, with its deck for context —
         // the row is what the reader chose, and "HSK 1" over three of them says nothing about which is which
         const sub = ud ? uSubOf(id) : "";
+        /* …and a WHOLE deck draws its added subdecks UNDER it, which is what a collection does with its
+           decks one store over. Without this they were siblings at the top level: nine "Level" rows in a
+           flat run with the deck they belong to somewhere among them, saying nothing about what contains
+           what. A subdeck the reader has not added is not drawn — the list is what they chose, not a
+           catalogue of the deck — and one dragged into a group is drawn there instead, like any other row. */
+        const subKids = (ud && !sub)
+          ? uDeckSubs(ud.id).map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
+          : [];
+        const kids = subKids.concat(kidsOf(id));
+        /* …and the context line goes when the row is drawn UNDER its own deck, because then the deck IS
+           the row above it. It is worth the extra condition: at 390px the name is the only part of the row
+           with no shorter form, so a repeated "HSK 3.0 — Mandarin Chinese" beside it crushes "Level 1" to
+           "Lev…" — every subdeck reading the same three letters under the deck that names them. It stays
+           where a subdeck is added on its own and stands at the top level, which is what it was for. */
+        const underOwnDeck = !!(sub && ud && parentKey === uDeckEntry(ud.id));
         rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
-                    title: ud ? (sub || ud.title) : COTD_TITLE, sup: sub ? ud.title : "", hue: h, kids });
+                    title: ud ? (sub || ud.title) : COTD_TITLE,
+                    sup: (sub && !underOwnDeck) ? ud.title : "", hue: h, kids });
         orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
       };
       function walk(node, depth, parentKey, hue) {
@@ -14562,7 +14688,13 @@
          has made join that same run; anything dragged INTO one leaves it, being drawn under its container. */
       const tops = [];
       TREE.collections.forEach((d) => { if (!isComingSoon(d) && show.has(d.id)) tops.push(d.id); });   // a coming-soon collection's decks sit the review out
-      activeIds.forEach((id) => { if (UDECKS[uDeckIdOf(id)]) tops.push(id); });
+      activeIds.forEach((id) => {
+        const dId = uDeckIdOf(id);
+        if (!dId || !UDECKS[dId]) return;
+        // …unless its own deck is on the list too, in which case emit() has just drawn it as a child
+        if (uSubOf(id) && activeIds.indexOf(uDeckEntry(dId)) !== -1) return;
+        tops.push(id);
+      });
       if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
       Object.keys(deckGroupMap()).forEach((id) => { if (isGroupId(id)) tops.push(id); });
       orderedIds("", tops.filter((id) => !nestParentOf(id))).forEach((id) => emit(id, 0, "", ""));
@@ -14592,7 +14724,11 @@
       rows.forEach((r) => {
         if (!hasKids.has(r.drag) || adSeeded.has(r.drag)) return;
         adSeeded.add(r.drag);
-        if (isGroupId(r.drag) || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
+        /* An added deck of the reader's OWN opens: its subdecks are the reason it has rows at all, and a
+           deck that swallows them the moment it is added is exactly what this was reported as. A curated
+           collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
+        const ownDeck = r.flat && UDECKS[uDeckIdOf(r.flat)] && !uSubOf(r.flat);
+        if (isGroupId(r.drag) || ownDeck || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
       });
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
@@ -15469,7 +15605,7 @@
     return '<div class="udeck-subs">' + subs.map((sub) => {
       // the CARDS of the subdeck's notes, not the notes — a two-way note is two cards to study, and this
       // row sits directly under a deck row that has always counted them expanded
-      const ids = uDeckStudyIds(uDeckCardsIn(d.id, sub)), n = ids.length;
+      const ids = uDeckStudyIdsFor(d.id, sub), n = ids.length;
       const entry = uSubEntry(d.id, sub), on = isActive(entry);
       const studied = ids.filter(isSeen).length;
       return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
