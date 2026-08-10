@@ -712,9 +712,26 @@ create trigger feedback_touch before update on public.feedback
 -- ============================================================
 alter table public.user_decks add column if not exists types jsonb not null default '{}'::jsonb;
 
+-- ============================================================
+-- 9) GLOSSARY OFF  (run once, on top of the phase-2 block)
+-- ------------------------------------------------------------
+-- A deck may now say it wants NO glossary at all (Aug 2026, on request), beside the three it already had:
+-- Folio's terms, only its own, or its own layered over Folio's. It is for a deck whose vocabulary keeps
+-- colliding with a glossary written about something else — every match is then a link telling the reader
+-- something untrue about the sentence in front of them, and no per-term blocklist can fix that, because the
+-- same key is right or wrong depending on the sentence.
+--
+-- The column already exists; only its CHECK has to learn the fourth value. Until this runs, a deck set to
+-- "off" studies correctly on the device that wrote it and REFUSES TO PUBLISH — the insert fails the
+-- constraint — so the site keeps working and the failure is loud rather than silent.
+-- ============================================================
+alter table public.user_decks drop constraint if exists user_decks_gloss_mode_check;
+alter table public.user_decks add constraint user_decks_gloss_mode_check
+  check (gloss_mode in ('site','own','both','off'));
+
 
 -- ============================================================
--- 9) REVIEW LOG  (run once, on top of the phase-2 block)
+-- 10) REVIEW LOG  (run once, on top of the phase-2 block)
 --
 -- One row per answer, for ever. `progress.data` already carries a rolling window of the same rows so that
 -- Card info, the answer-buttons chart and a signed-out reader all work offline — but that blob is PATCHed

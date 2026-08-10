@@ -1036,12 +1036,15 @@ function adBaitCheck() {
         atlasTile: !!document.querySelector("#exp-atlas"), cod: !!document.querySelector("#exp-card"),
         tod: !!document.querySelector("#exp-term"), explore: !!document.querySelector(".explore-grid"),
         libBanner: !!document.querySelector("#b-library"),
-        // the lip hangs off the BOTTOM of the review group, under the deck list it adds to — and centred,
-        // which is the whole of "a lip" as against "a button somebody left there"
+        // the lip hangs off the BOTTOM of the review group, under the deck list it adds to — at its
+        // RIGHT-HAND end since Aug 2026 (on request; it was centred), and clear of the card's rounded
+        // corner rather than sitting on it, which is the whole of "a lip" as against "a button somebody
+        // left there"
         lip: lip ? lip.textContent.trim() : "",
         lipLast: !!(lip && grp && lip.parentElement === grp && lip === grp.lastElementChild),
-        lipCentred: lip && grp ? Math.round(Math.abs((lip.getBoundingClientRect().left + lip.getBoundingClientRect().width / 2)
-          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 999,
+        lipInsetR: lip && grp ? Math.round(grp.getBoundingClientRect().right - lip.getBoundingClientRect().right) : 999,
+        lipCentreOff: lip && grp ? Math.round(Math.abs((lip.getBoundingClientRect().left + lip.getBoundingClientRect().width / 2)
+          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 0,
         lipAtBottom: lip && grp ? Math.round(lip.getBoundingClientRect().bottom - grp.getBoundingClientRect().bottom) : 999,
         // a TAB, not another full-width banner — which is what it replaced
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
@@ -1096,7 +1099,12 @@ function adBaitCheck() {
     check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
     check("the collections banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
     check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
-    check("...centred on it, and a tab rather than a second banner", h.lipCentred <= 2 && h.lipFrac < 0.7, JSON.stringify({ off: h.lipCentred, frac: h.lipFrac }));
+    /* …at the RIGHT-HAND end of that edge, not the middle (Aug 2026, on request) — asserted in BOTH
+       directions, since "somewhere near the right" is also true of a lip that has simply overflowed its
+       group: it must be inset from the corner rather than flush with it, and plainly off centre. */
+    check("...at its right-hand end, inset from the corner, and a tab rather than a second banner",
+      h.lipInsetR >= 8 && h.lipInsetR <= 40 && h.lipCentreOff > 40 && h.lipFrac < 0.7,
+      JSON.stringify({ insetR: h.lipInsetR, offCentre: h.lipCentreOff, frac: h.lipFrac }));
     check("...filled in the same indigo as Start review, not paper on paper", h.lipBlue === "ok", h.lipBlue);
     check("...and routing to the collections", await page.evaluate(async () => {
       document.querySelector(".rv-lip").click();
@@ -1225,8 +1233,25 @@ function adBaitCheck() {
        The N/N figure left the row for the options sheet (Aug 2026, on request), so its ABSENCE is asserted
        here and its presence in the sheet below — the two halves of one move, and each looks deliberate on
        its own. */
+    /* …with the folds opened first. An added collection is drawn as a group header (Aug 2026) and its decks
+       start SHUT under it, so a selector reaching straight for the first deck row would measure one that is
+       `display:none` — height 0, title width 0 — and report a row that never wrapped as having collapsed. */
+    for (let i = 0; i < 4; i++) {
+      const opened = await page.evaluate(() => {
+        const shut = [...document.querySelectorAll(".active-deck:not(.dk-shut) .dk-chev:not(.open)")];
+        shut.forEach((c) => c.click());
+        return shut.length;
+      });
+      await page.waitForTimeout(300);
+      if (!opened) break;
+    }
     const row = await page.evaluate(() => {
-      const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
+      /* …a DECK row, not a group header, and one that is actually on screen. Since Aug 2026 an added
+         collection is drawn as a thinner group header, which carries a card count where a deck row carries
+         the bar — so a selector that took the first row in the list would be measuring a header against a
+         deck row's rules and reading its missing bar as a regression. The header's own shape is asserted
+         separately below. */
+      const r = document.querySelector(".active-deck[data-review]:not(.deck-group):not(.dk-shut)"); if (!r) return null;
       const rb = r.getBoundingClientRect();
       const t = r.querySelector(".dk-title"), k = r.querySelector(".dk-prog .track");
       const parts = [r.querySelector(".dk-counts"), t].filter(Boolean);
@@ -1262,6 +1287,29 @@ function adBaitCheck() {
     check("...and the deck's name not cut off at 390px", !!row && !row.titleClipped, JSON.stringify(row));
     check("...the name actually rendered, with width, inside a body that has not collapsed",
       !!row && row.titleText.length > 0 && row.titleW > 0 && row.bodyW > 0, JSON.stringify(row));
+    /* THE GROUP HEADER IS THE THINNER OF THE TWO (Aug 2026, on request: "a group should appear as a thinner
+       banner"). Both halves are asserted, because each is true of a header that has stopped being one: it
+       must be SHORTER than a deck row, and it must be DARKER — a header at the rows' own strength is just a
+       row with a different font, which is what the wash exists to prevent. */
+    const grpRow = await page.evaluate(() => {
+      const g = document.querySelector(".active-deck.deck-group:not(.dk-shut)"), d = document.querySelector(".active-deck[data-review]:not(.deck-group):not(.dk-shut)");
+      if (!g || !d) return null;
+      /* The wash is compared as the COMPUTED background-image string rather than as a luminance: the
+         gradient is built out of `color-mix`, which different engines serialise differently (and Chrome
+         may leave it in a colour space a naive rgb() regex cannot read), so parsing a number out of it is
+         a check that can fail on a browser update while the page is perfect. What the assertion is about
+         is that the header is painted DIFFERENTLY from the rows under it, and two strings say that. */
+      const wash = (el) => getComputedStyle(el).backgroundImage || "";
+      return {
+        gh: Math.round(g.getBoundingClientRect().height), dh: Math.round(d.getBoundingClientRect().height),
+        count: !!g.querySelector(".dg-count"), bar: !!g.querySelector(".dk-prog"),
+        gWash: wash(g).slice(0, 60), dWash: wash(d).slice(0, 60), differs: wash(g) !== wash(d) && /gradient/.test(wash(g)),
+      };
+    });
+    check("a group header is thinner than a deck row, and says what is inside instead of drawing a bar",
+      !!grpRow && grpRow.gh < grpRow.dh && grpRow.count && !grpRow.bar, JSON.stringify(grpRow));
+    check("...in a deeper wash of the same colour, so the run below reads as belonging to it",
+      !!grpRow && grpRow.differs, JSON.stringify(grpRow));
 
     /* …and the sheet it moved into: the figure on the title's own LINE (a figure that has merely landed
        somewhere in the head is not what was asked for), and Remove carrying its red in the TEXT with no
