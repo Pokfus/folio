@@ -365,7 +365,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-127  Sedentism
     wh-128  Pottery
     wh-129  Rice domestication
-    wh-130  Early farming in China
+    wh-130  Millet domestication
     wh-131  Maize domestication
     wh-132  Independent origins of agriculture
     wh-133  Neolithic demographic transition
