@@ -1124,7 +1124,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1] },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -3257,21 +3257,63 @@
     for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
     return ((h >>> 0) % 100000) / 100000;
   }
-  function schedFuzz(iv, seed) {
-    if (!(iv >= 2.5)) return iv;
+  function schedFuzzRange(iv) {
+    if (!(iv >= 2.5)) return null;
     const d = 1
       + Math.max(0, Math.min(iv, 7) - 2.5) * 0.15
       + Math.max(0, Math.min(iv, 20) - 7) * 0.1
       + Math.max(0, iv - 20) * 0.05;
     const lo = Math.max(1, Math.round(iv - d)), hi = Math.max(lo, Math.round(iv + d));
-    return lo + Math.floor(schedFuzzRand(seed) * (hi - lo + 1));
+    return { lo: lo, hi: hi };
+  }
+  function schedFuzz(iv, seed) {
+    const r = schedFuzzRange(iv);
+    if (!r) return iv;
+    return r.lo + Math.floor(schedFuzzRand(seed) * (r.hi - r.lo + 1));
+  }
+  /* ---------- LOAD BALANCING and EASY DAYS (Aug 2026, on request) ----------
+     Anki's two, and they are one mechanism: the fuzz above already spreads an interval over a few days at
+     random, and this picks WHICH of those days rather than leaving it to a hash — the least-loaded one, and
+     never a day the reader has said they do not study if the range holds anything else.
+
+     IT REPLACES THE FUZZ'S CHOICE AND NOTHING ELSE, which is what makes it safe. The range is the same range,
+     so an interval never moves further than the fuzz was already free to move it; `schedPass` still applies
+     the floor AFTER, so Hard < Good < Easy is untouched (two grades whose ranges overlap can pick the same
+     day, and the floor is what separates them); and because it is in `schedPass` it covers **both
+     schedulers**, FSRS routing its own interval through the same function.
+
+     THE LOAD MAP COMES IN VIA `cfg`, so the arithmetic stays PURE — no reader of S below the SRS marker —
+     and, more importantly, so the PREVIEW AND THE GRADE AGREE: both are handed the same cfg, so the button
+     reading "12d" still schedules twelve days. A map read from a global at each call could differ between
+     the two and would be the fuzz-seeded-by-the-clock mistake in a new coat.
+
+     `cfg.load` is `{ due: {dayOffset: count}, week: [7 weights, Sunday first], dow0: today's weekday }`.
+     Two honest approximations, stated rather than hidden: the weekday is stepped modularly from `dow0`
+     rather than re-derived per candidate, so it can be a day out across a daylight-saving change; and the
+     card being rescheduled still counts itself in its OLD bucket, which is almost never inside the range
+     it is moving to. */
+  const LOAD_AVOID = 1e6;    // a day the reader does not study: dominated only by there being no alternative
+  const LOAD_NEAR = 0.01;    // …and among equals, stay near the interval the scheduler actually wanted
+  function schedSpread(iv, seed, cfg) {
+    const r = schedFuzzRange(iv);
+    if (!r) return iv;
+    const L = cfg && cfg.load;
+    if (!L) return r.lo + Math.floor(schedFuzzRand(seed) * (r.hi - r.lo + 1));
+    let best = r.lo, bestCost = Infinity;
+    for (let d = r.lo; d <= r.hi; d++) {
+      const dow = (((L.dow0 | 0) + d) % 7 + 7) % 7;
+      const w = L.week && L.week[dow] === 0 ? LOAD_AVOID : 0;
+      const cost = ((L.due && L.due[d]) || 0) + w + Math.abs(d - iv) * LOAD_NEAR;
+      if (cost < bestCost) { bestCost = cost; best = d; }
+    }
+    return best;
   }
   /* A passing interval: fuzzed, never below its floor (which is what keeps Hard < Good < Easy), capped.
      The cap is applied LAST, after the floor — the other order lets the "one day longer than the button
      to my left" rule walk Easy past the ceiling on a card already sitting at it. At the ceiling the three
      buttons converge, which is correct and is the only place the ordering does not hold. */
   function schedPass(iv, floor, cfg, seed) {
-    const v = Math.round(schedFuzz(iv * cfg.ivMult, seed));
+    const v = Math.round(schedSpread(iv * cfg.ivMult, seed, cfg));
     return Math.min(cfg.maxIv, Math.max(floor, Math.max(1, v)));
   }
   /* The three passing intervals of a REVIEW card, in days. Days LATE are credited back — a card
@@ -3807,6 +3849,11 @@
       retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(o.retention) || FSRS_RETENTION)),
     });
     if (Array.isArray(o.fsrsParams) && o.fsrsParams.length === 21) cfg.fsrsParams = o.fsrsParams;
+    /* The load map rides on the cfg so the pure scheduler can read it and so the preview and the grade are
+       handed the SAME one — see schedSpread. It is null unless the reader has asked for one of the two
+       settings, which is what keeps every existing schedule exactly as it was. */
+    const lm = loadMapNow();
+    if (lm) cfg.load = lm;
     return cfg;
   }
   // the entry whose options govern this card: its community deck, or the leaf it sits in
@@ -3827,6 +3874,49 @@
   function schedCfgFor(id) {
     const e = cardEntryId(id);
     return e ? deckSchedCfg(e) : SCHED;
+  }
+  /* ---------- the load map (Aug 2026) ----------
+     The impure half of load balancing: how many cards are already due on each of the next few weeks' days,
+     and which weekdays the reader has said they do not study. It is built HERE and handed to the pure
+     scheduler through `cfg.load` — see schedSpread for why it travels rather than being read.
+
+     CACHED FOR THE DAY, and invalidated by anything that moves a due date. Rebuilding is one pass over the
+     card records, which is a millisecond or two, but it happens on every grade and every preview — so it is
+     cached, and `bumpLoadMap()` is called wherever a due date changes. A STALE map would not corrupt
+     anything (the worst case is a card landing on a day that filled up since), but it would slowly stop
+     doing the job it exists for. */
+  const LOAD_DAYS = 90;             // how far ahead to count; past this a card is not competing with anything soon
+  const EASY_DAYS_DEFAULT = [1, 1, 1, 1, 1, 1, 1];   // Sunday first, matching Date#getDay
+  function easyDays() {
+    const a = S.settings && S.settings.easyDays;
+    if (!Array.isArray(a) || a.length !== 7) return EASY_DAYS_DEFAULT;
+    return a.map((x) => (x === 0 ? 0 : 1));
+  }
+  const easyDaysOn = () => easyDays().some((x) => x === 0);
+  const loadBalanceOn = () => !!(S.settings && S.settings.loadBalance);
+  let _loadMap = null, _loadMapDay = "";
+  function bumpLoadMap() { _loadMap = null; }
+  function loadMapNow() {
+    /* Neither setting on → no map, and the scheduler falls back to the hash-seeded fuzz it always used. That
+       is what makes this cost nothing for a reader who has not asked for it, and what makes "nothing
+       migrates" true: an existing reader's intervals are byte-for-byte what they were. */
+    if (!loadBalanceOn() && !easyDaysOn()) return null;
+    const today = todayStr();
+    if (_loadMap && _loadMapDay === today) return _loadMap;
+    const due = Object.create(null);
+    if (loadBalanceOn()) {
+      const avail = availableCardIdSet(), t = now();
+      Object.keys(S.cards).forEach((id) => {
+        const c = S.cards[id];
+        if (!c || !c.due || c.status === "new") return;
+        if (isSuspended(id) || !avail.has(id)) return;   // set aside or in a coming-soon collection: not work
+        const d = Math.round((c.due - t) / DAY);
+        if (d >= 0 && d <= LOAD_DAYS) due[d] = (due[d] || 0) + 1;
+      });
+    }
+    _loadMap = { due: due, week: easyDays(), dow0: new Date(now()).getDay() };
+    _loadMapDay = today;
+    return _loadMap;
   }
   /* Answer a card. Returns a NEW record — the caller's is untouched, so the undo snapshot taken before
      this runs stays valid whatever happens in here. `seed` should be the card id: see schedFuzz. */
@@ -3948,6 +4038,7 @@
     // deck on FSRS is scheduled by FSRS wherever it was studied from (see cardEntryId).
     c = schedAnswer(c, g, t, id, schedCfgFor(id));
     S.cards[id] = c;
+    bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
     logReview(preStatus === "review", g !== "again");
     logReviewDay(firstToday, g !== "again");
     /* The per-review row, and the object it returns is kept so an undo can take back THIS row rather than
@@ -10051,6 +10142,7 @@
          never seen — which is most of a fresh collection — and it is why schedSetDue takes a null card. */
       S.cards[id] = schedSetDue(S.cards[id] || null, days, t, setInterval, schedCfgFor(id));
     });
+    bumpLoadMap();
     save();
   }
   function applyForget(ids, resetCounts) {
@@ -10059,6 +10151,7 @@
       if (!S.cards[id]) return;   // never studied: there is nothing to forget, and writing a record would claim otherwise
       S.cards[id] = schedForget(S.cards[id], resetCounts, t);
     });
+    bumpLoadMap();
     save();
   }
   const plural = (n, one, many) => n + " " + (n === 1 ? one : many);
@@ -26434,6 +26527,29 @@
             <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
           <div class="set-row">
+            ${/* LOAD BALANCING (Aug 2026, on request) — Anki's, and it is DEFAULT OFF for the house rule's
+                  sake: it changes what the scheduler does, and an existing reader's intervals must not move
+                  because they updated. What it can and cannot do is said plainly, since "evens out the load"
+                  invites a reader to expect more than a few days either way. */""}
+            <div class="info"><h3>Even out the daily pile</h3><p>When a card's next interval is worked out, put it on the quietest of the few days the scheduler was already free to choose between &mdash; so a hundred cards learned in one week do not all come back on one day. It never moves a card further than it would have moved anyway, and it works with both schedulers. The 14-day forecast on your account page shows the effect.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.loadBalance ? "on" : ""}" id="sw-load" role="switch" aria-label="Even out the daily pile" tabindex="0" aria-checked="${!!S.settings.loadBalance}"></div></div>
+          </div>
+          <div class="set-row set-row-stack">
+            ${/* EASY DAYS. Monday-first in the UI, matching the heatmap; stored Sunday-first, matching
+                  Date#getDay, so the scheduler needs no conversion at all. A day is AVOIDED rather than
+                  forbidden — if every day in a card's range is marked it still lands on one, because a card
+                  that cannot be scheduled at all is worse than one that arrives on a Sunday. */""}
+            <div class="info"><h3>Days you don't study</h3><p>Mark a day and Folio schedules around it where it can, moving a card to a neighbouring day instead. It cannot always: a card whose whole range falls on marked days still lands on one, and nothing already scheduled is moved.</p></div>
+            <div class="ctl"><div class="ed-days" id="edDays">${
+              [1, 2, 3, 4, 5, 6, 0].map((d) => {
+                const off = easyDays()[d] === 0;
+                const nm = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][d];
+                return '<button type="button" class="ed-day' + (off ? " off" : "") + '" data-ed="' + d + '" role="switch" aria-checked="' + (off ? "true" : "false") +
+                  '" aria-label="' + nm + '"><span>' + nm.slice(0, 3) + "</span></button>";
+              }).join("")
+            }</div></div>
+          </div>
+          <div class="set-row">
             ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
                   — so without this it would be unreachable the moment either answer was given. The Atlas
                   and the Library keep their own "?" for the same reason. */""}
@@ -26548,6 +26664,28 @@
     };
     wireSwitch("#sw-anim", () => S.settings.animations !== false, (v) => { S.settings.animations = v; });
     wireSwitch("#sw-contrast", () => !!S.settings.contrast, (v) => { S.settings.contrast = v; });
+    /* Load balancing. It goes through the same wireSwitch as the two above — the extra call is
+       `bumpLoadMap()`, because the map is cached for the day and turning either setting on or off is
+       exactly the case a day-keyed cache cannot see. */
+    wireSwitch("#sw-load", () => !!S.settings.loadBalance, (v) => { S.settings.loadBalance = v; bumpLoadMap(); });
+    /* The seven days. Stored Sunday-first to match Date#getDay, so the scheduler does no conversion; drawn
+       Monday-first to match the heatmap. Written as a WHOLE array rather than an index, because a save made
+       before this existed has no `easyDays` at all and easyDays() is what fills that in. */
+    const edWrap = root.querySelector("#edDays");
+    if (edWrap) edWrap.querySelectorAll("[data-ed]").forEach((b) => {
+      const flip = () => {
+        const d = +b.dataset.ed, cur = easyDays().slice();
+        cur[d] = cur[d] === 0 ? 1 : 0;
+        S.settings.easyDays = cur;
+        bumpLoadMap();
+        save();
+        const off = cur[d] === 0;
+        b.classList.toggle("off", off);
+        b.setAttribute("aria-checked", off ? "true" : "false");
+      };
+      b.addEventListener("click", flip);
+      b.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+    });
 
     /* Day ends at. `change`, not `input`: a time field fires input on every digit typed, and a half-typed
        hour would move the day boundary — and with it the review's counts and the day's quote — under the

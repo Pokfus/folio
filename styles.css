@@ -6299,3 +6299,22 @@ body.night .book-tile{
   .bw-th-state, .bw-state{display:none;}
   .bw-wrap{overflow-x:hidden;}
 }
+
+/* ---- EASY DAYS: the seven weekday toggles in Settings → Study (Aug 2026) --------------------------
+   `role="switch"` rather than checkboxes, because each one is independently on or off and there is no
+   "choose one" among them. Marked-off is the LOUD state — it is the thing the reader has said, and the
+   unmarked six are just the ordinary week — so it takes the colour and the strike, and the label stays a
+   word rather than becoming an icon: three letters are already the short form. */
+/* THE ROW STACKS. `.set-row` is a flex line with the prose at `flex:1` and the control at `flex:none`, which
+   is right for a switch and hopeless for seven buttons: at the settings column's ~370px they claim the whole
+   line and the description beside them wraps to one word per line. So this row alone lays its control out
+   UNDER the prose, full width — found by looking at the page, which is the only way a squeeze like that
+   shows up. */
+.set-row-stack{flex-direction:column; align-items:stretch; gap:12px;}
+.set-row-stack .ctl{flex:none; width:100%;}
+.ed-days{display:flex; flex-wrap:wrap; gap:6px;}
+.ed-day{appearance:none; background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:7px 9px; cursor:pointer; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); transition:background .14s var(--ease), border-color .14s var(--ease), color .14s var(--ease);}
+.ed-day:hover{border-color:color-mix(in srgb,var(--indigo) 45%,var(--rule));}
+.ed-day:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.ed-day.off{background:color-mix(in srgb,var(--zh) 12%,var(--card)); border-color:color-mix(in srgb,var(--zh) 45%,transparent); color:var(--zh);}
+.ed-day.off span{text-decoration:line-through; text-decoration-thickness:1px;}

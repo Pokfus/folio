@@ -4263,7 +4263,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a few minutes the wrong side of the cut-off.
   · `S.intro.count` (the daily new-card cap via `newRemainingToday`) is still incremented only on a card's FIRST grade
     (`fresh`), so a requeued learning card is never re-counted.
-  · **Guarded by `.claude/test-scheduler.js` (116 assertions, no browser, no dependencies)** — including the ordering
+  · **Guarded by `.claude/test-scheduler.js` (127 assertions, no browser, no dependencies)** — including the ordering
     guarantee Hard < Good < Easy over 1,600 interval/ease combinations, that preview and grade agree over 360 cases,
     that nothing is ever scheduled into the past, and that old records back-fill. Its two most useful finds were both
     invisible on the page: the ordering floor walking Easy past the maximum interval, and the preview/grade clock
@@ -4346,6 +4346,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stability never falls below its floor, nothing is scheduled into the past, and seeding takes the interval and not the
     ease) and by **`.claude/test-review-decks.js` sections 11–14** end to end — the sheet, the per-deck isolation (one deck
     on FSRS while its neighbour stays on SM-2, both studied from the pooled review), the seeding, and what Card info says.
+- **LOAD BALANCING AND EASY DAYS (Aug 2026, on request).** `schedFuzzRange` / `schedSpread` / `LOAD_AVOID` /
+  `LOAD_NEAR` in the pure scheduler, `loadMapNow` / `bumpLoadMap` / `easyDays` / `easyDaysOn` /
+  `loadBalanceOn` below the SRS marker, and two rows in **Settings → Study**. Anki's two features, and they
+  are one mechanism: the fuzz has always spread an interval over a few days at random, and this decides
+  WHICH of those days rather than leaving it to a hash — the quietest one, and never a day the reader has
+  said they do not study if the range holds anything else.
+  · **IT REPLACES THE FUZZ'S CHOICE AND NOTHING ELSE**, which is what makes it safe to turn on mid-collection
+    and is asserted directly: the day chosen is always inside the range the unbalanced fuzz could already
+    have chosen, so a schedule cannot be quietly lengthened or shortened. `schedFuzz` is now `schedFuzzRange`
+    plus the same hash pick, so with no map the result is byte-for-byte what it always was.
+  · **ONE INSERTION POINT COVERS BOTH SCHEDULERS.** It is in `schedPass`, and `fsrsAnswer` routes its own
+    interval through `schedPass` too — so FSRS and SM-2 are balanced by the same code and neither knows about
+    it. Anki ties easy days to FSRS; there is no reason to here.
+  · **HARD < GOOD < EASY SURVIVES IT because the floor is applied AFTER.** The three ranges overlap, so the
+    balancer can hand back the same day for two grades; `schedPass`'s `Math.max(floor, …)` is what pulls them
+    apart again. Move the balancing below the floor and the ordering goes — which is why the test walks every
+    interval and ease with a deliberately lumpy pile.
+  · **THE MAP TRAVELS ON `cfg`, and that is the load-bearing decision.** It keeps the arithmetic pure (no
+    reader of `S` above the marker) and, more importantly, it is what keeps **the preview and the grade in
+    agreement**: both are handed the same cfg, so a button reading "12d" still schedules twelve days. A map
+    read from a global at each call could differ between the two, which is the clock-seeded-fuzz mistake in a
+    new coat — and it is asserted, not assumed.
+  · **BOTH ARE DEFAULT OFF**, and `loadMapNow` returns null unless one of them is on, so a reader who has not
+    asked pays nothing and their intervals are exactly what they were. That is the house rule rather than a
+    view about which default is better — Anki's own balancer defaults on.
+  · **A MARKED DAY IS AVOIDED, NOT FORBIDDEN** (`LOAD_AVOID` is a large number, not `Infinity`). If every day
+    in a card's range is marked it still lands on one: a card that cannot be scheduled at all is worse than
+    one arriving on a Sunday, and the loop must not fall through to nothing. `LOAD_NEAR` breaks ties toward
+    the interval the scheduler actually wanted, so a level pile leaves the card where it would have been.
+  · **STORED SUNDAY-FIRST, DRAWN MONDAY-FIRST.** `S.settings.easyDays` is indexed by `Date#getDay`, so the
+    scheduler steps the weekday modularly with no conversion at all; the UI orders them Monday-first to match
+    the heatmap. Two honest approximations are stated in the code rather than hidden: the weekday is stepped
+    from `dow0` rather than re-derived per candidate, so it can be a day out across a daylight-saving change,
+    and the card being rescheduled still counts itself in its OLD bucket, which is almost never inside the
+    range it is moving to.
+  · **The map is cached for the DAY and `bumpLoadMap()` is called wherever a due date moves** — `grade()`,
+    `applySetDue`, `applyForget`, and both settings. A stale map corrupts nothing (the worst case is a card
+    landing on a day that filled up since) but would slowly stop doing the job it exists for.
+  · **The row for the seven days STACKS** (`.set-row-stack`): `.set-row` is a flex line with `flex:1` prose
+    and a `flex:none` control, which is right for a switch and hopeless for seven buttons — in the settings
+    column they claimed the whole line and squeezed the description to one word per line. Found by looking at
+    the page, which is the only way a squeeze like that shows up.
 - **THE FSRS OPTIMISER (Aug 2026, on request).** The `THE FSRS OPTIMISER` block in app.js, inside the pure scheduler slice.
   FSRS's 21 parameters describe how a memory fades; the defaults describe the average of millions of reviews and these
   describe the reader's own. It is what the per-review log was uncapped FOR — a card record keeps only its latest review,
@@ -9308,7 +9350,7 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
-  · `node .claude/test-scheduler.js` — 116 assertions on **the schedule itself**, which is the thing a study site is
+  · `node .claude/test-scheduler.js` — 127 assertions on **the schedule itself**, which is the thing a study site is
     most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
     and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
     less. So it is pinned as ARITHMETIC — the pure `THE SCHEDULER` block is sliced out of app.js by text and run in a
@@ -9320,8 +9362,8 @@ dead code (never rendered).
     back-fill, that the block is pure and reads no global, and that **no state × grade is ever scheduled into the
     past** (24 cases). Its two finds were both invisible on the page: the Hard<Good<Easy floor walking Easy past the
     maximum interval, and a preview that read the live clock while the grade took the passed one, so an overdue card
-    previewed one interval and scheduled another. **Re-run after touching anything named `sched*`, `SCHED`, or
-    `fmtInterval`** — and note that the end-to-end half lives in `test-review-decks.js` section 6.
+    previewed one interval and scheduled another. **Re-run after touching anything named `sched*`, `SCHED`,
+    `fmtInterval`, or the load map (`loadMapNow` / `easyDays` / `LOAD_AVOID` / `LOAD_NEAR`)** — and note that the end-to-end half lives in `test-review-decks.js` section 6.
     **Sections 10 and 10b are FSRS**, and they are a different kind of check from everything above them: the arithmetic is
     compared against `.claude/fsrs-vectors.json`, generated by the reference implementation, to 1e-9 over 768 steps —
     stability and difficulty at every step of 256 seeded histories, plus the forgetting curve and the interval formula.
@@ -9335,6 +9377,14 @@ dead code (never rendered).
     better than the defaults on a held-out tail, which is what stands in for a reference check on an output two gradient
     descents can never agree on. It also pins that the stepwise and one-call forms land on the same parameters, and that
     fitting mutates neither the defaults nor the history handed to it.
+    **Section 11 is LOAD BALANCING and EASY DAYS**, and its two sharpest assertions are properties rather
+    than values: that the balanced day is ALWAYS inside the fuzz's own range (so turning it on cannot
+    lengthen or shorten a schedule), and that **Hard < Good < Easy survives it** over every interval and ease
+    with a deliberately lumpy pile — the three ranges overlap, so the balancer can hand back the same day for
+    two grades and only `schedPass`'s floor separates them, which is what would break if the balancing were
+    moved below it. It also re-asserts that the **preview still schedules what it says** with a map in play,
+    that a marked day is AVOIDED rather than forbidden (every day marked still schedules, in range), and that
+    with no map the result is byte-for-byte the fuzz it always was.
     **The fixture's step count is now DERIVED from the fixture** rather than written down (`walked === wantWalked`) —
     widening the grid, which is exactly what adding fractional gaps did, must not fail on an arithmetic constant.
   · `node .claude/test-cards.js` — **flags, Set due date, Forget and the card browser** (114 assertions,
@@ -9459,6 +9509,12 @@ dead code (never rendered).
     from the existing interval** rather than starting the card over; and (section 15) what **Card info** says
     about an FSRS card, read off the rendered panel because both of its faults were in the wording rather than
     in the numbers.
+    **Section 17 is LOAD BALANCING and EASY DAYS in Settings**, where test-scheduler has the arithmetic: that
+    both are **OFF by default** (the assertion most worth having — they change what the scheduler does, and
+    an existing reader's intervals must not move because they updated), that the seven days are drawn
+    Monday-first while being STORED Sunday-first by `Date#getDay` index (a conversion nothing on screen would
+    report getting wrong), and that the row STACKS rather than squeezing its own description to one word a
+    line, which is what looking at the page found.
     **Section 16 is the OPTIMISER's path**, where test-scheduler.js has its arithmetic: the button under FSRS and
     NOT under SM-2, a fit that runs to a verdict without freezing the sheet it lives in, 21 parameters STAGED in the
     box with nothing saved until Save is pressed, and the too-little-history refusal naming both numbers. Its log is
