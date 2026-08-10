@@ -103,7 +103,10 @@ report_missing(words, 'build_deck.py')
 # "act, deed"
 AUTHORED = {'gustar': ['to like (literally: to please)'],
             'quizás': ['maybe, perhaps'],
-            'hecho': ['fact', 'act, deed']}
+            'hecho': ['fact', 'act, deed'],
+            # "alternative form of por lo que respecta a", which the extraction
+            # does not carry either -- the `quizás` shape on a phrase
+            'en lo que respecta a': ['as regards, with regard to']}
 
 # grammar words Wiktionary files as a form of another word ("muy: apocopic form
 # of mucho"), which leaves the card with no meaning on it

@@ -209,6 +209,13 @@ take(sorted([k for k in pool if k in suppset], key=rank))
 take(sorted(pool, key=rank))
 
 final = chosen[:TARGET[LEVEL]]
+# A short list is the one failure this stage can have that LOOKS like success:
+# the deck builds, every card is well formed, and the level quietly teaches
+# fewer words than it says it does.  Say so instead.
+if len(final) < TARGET[LEVEL]:
+    raise SystemExit(
+        f'{LEVEL} wants {TARGET[LEVEL]} words and the pool yields only {len(final)}. '
+        f'Widen the supplement or lower TARGET -- do not ship a short deck.')
 print('essential   :', len(ESSENTIAL))
 print('chosen      :', len(chosen), '-> taking', len(final))
 src = lambda k: ('C' if k in pcic else '') + ('S' if k in suppset else '')

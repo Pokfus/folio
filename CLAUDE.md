@@ -2415,24 +2415,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/dele/` — the generator behind `decks/DELE-A1-Spanish.folio-deck.json`,
-  `decks/DELE-A2-Spanish.folio-deck.json` and `decks/DELE-B1-Spanish.folio-deck.json`, community decks
-  rather than site content: `python3 .claude/dele/run.py [--level a2|b1] [--no-fetch]`. Seven stages, run
-  by `run.py`, caching its corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where
-  every other helper here is Node** — a deliberate exception, committed on request so a further level is a
-  re-run against the next column rather than a rebuild, which is exactly what B1 turned out to be.
+- `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
+  (A1, A2, B1, B2), community decks rather than site content:
+  `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching
+  its corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every other helper here
+  is Node** — a deliberate exception, committed on request so a further level is a re-run against the next
+  column rather than a rebuild, which is exactly what B1 and B2 turned out to be.
   **ONE LEVEL PER RUN** (`dele_level` reads the level once, at import), and **a level is taught on top of
   the ones below it**: a level excludes every word the SHIPPED decks below it contain, read out of the
   deck files rather than a working file, so they cannot drift and a rebuilt level cannot start teaching a
   word a lower one already covers — **both halves of a paired headword**, so A2 cannot re-teach a feminine
   A1 already shows (that exclusion is what took four feminine adjectives out of A2 and let four new words
-  in). The intermediates are level-suffixed so all three can sit in one cache. **A level is four table
+  in). The intermediates are level-suffixed so all four can sit in one cache. **A level is four table
   rows in `dele_level`** — its title, deck id and file, which levels are below it, how many words it
-  teaches (`TARGET`: 500, 500, 1,000) and which pair of inventory pages its column is printed on (`PAGES`:
-  A1 and A2 share a page, B1 and B2 share another) — plus a supplement list and, at B1, a batch of
-  reflexives.
-  The stage headers carry what the build found, and nine of those findings are the ones to read before
+  teaches (`TARGET`: 500, 500, 1,000, 2,000) and which pair of inventory pages its column is printed on
+  (`PAGES`: A1 and A2 share a page, B1 and B2 share another) — plus a supplement list and a batch of
+  reflexives. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
+  one failure that stage can have that looks like success: the deck builds, every card is well formed, and
+  the level quietly teaches fewer words than it says it does.
+  The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
+  **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
+  otherwise survived three levels because it was firing on five words in a thousand. A word Tatoeba could
+  not illustrate used to be swapped for the next word in the ranked order — which comes from the RARE TAIL
+  by construction — and at B2 it fired on **117 of 2,000**: it proposed dropping `matizar`, `constatar`,
+  `vincular` and `incidir`, the argumentative verbs the level is examined on, along with seven of the
+  connectives it is built around (`por consiguiente`, `en conclusión`, `en la medida en que`), and putting
+  `sopera`, `gomina` and `colorete` in their place. The loop is gone; a word the corpus cannot illustrate
+  ships without sentences and the deck's own description states how many do. **Removing it changed B1 by
+  five words**, restoring `asesino`, `delta`, `bufete`, `nublarse` and `pintado`.
   **ONE ITEM PER LINE WHERE AN ITEM MAY BE A PHRASE, and this is the fault B1 introduced and caught in one
   run.** Every supplement list is a triple-quoted block ending in `.split()`, which is right for single
   words and silently tears a phrase into its pieces: B1's discourse layer is half phrases (`sin embargo`,
@@ -6741,7 +6752,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
     contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
     would fight the sanitizer.
-  · **`UDECK_MAX_CARDS` is 2,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 8,000 and a file over it is REFUSED, not trimmed** (Aug 2026; this line said
+    2,000 for a while after the constant had already been raised twice — **read the constant, not this**).
+    It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -6749,8 +6762,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `uDeckImportText` turns any positive value into an error naming both numbers. **The slice stays** as the
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
-    view about how big a deck should be: an HSK 3.0 level is 500–973 words and a deck studying both
-    directions cards each word twice, so ~1,900 is a legitimate size and 500 was not a real ceiling.
+    view about how big a deck should be, so it is set from the largest legitimate deck anyone has brought
+    **with room above it**: HSK 3.0 level 6 is 1,800 words and DELE B2 is 2,000, and a deck studying both
+    directions cards each word twice — so B2 is ~4,000 cards against a cap that was 4,000, and fit by two.
+    A margin that thin is luck rather than a limit, which is why the number is now double the largest deck
+    rather than equal to it.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT

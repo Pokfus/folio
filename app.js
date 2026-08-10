@@ -4382,13 +4382,14 @@
     if (!src) return null;
     return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, then 2,000 held until a bigger one did. The number is not a
-     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought: HSK 3.0 runs to 1,800 words at level 6 and
-     a deck that studies both directions cards each word twice, which is ~3,600. An over-size file is
-     REFUSED with both figures rather than silently trimmed (see uDeckImportText), so raising this cannot
-     hide anything; what a bigger number costs is the size of the file a stranger can make us parse. */
-  const UDECK_MAX_CARDS = 4000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, then 2,000 did, then 4,000. The number is not a view about how
+     large a deck may usefully be — it is a guard against a hostile or runaway file — so it is set from the
+     largest legitimate deck anyone has brought, with room above it: DELE B2 is 2,000 words and a deck that
+     studies both directions cards each word twice, which is ~4,000, and 4,000 was the cap, so the deck fit
+     by two cards. A margin that thin is luck rather than a limit. An over-size file is REFUSED with both
+     figures rather than silently trimmed (see uDeckImportText), so raising this cannot hide anything; what
+     a bigger number costs is the size of the file a stranger can make us parse. */
+  const UDECK_MAX_CARDS = 8000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -4885,9 +4886,19 @@
     cdbPut(uDeckRecord(d.id));
     return { ok: true, deck: d };
   }
+  /* The FIRST line of defence, ahead of the parse: a runaway file is turned away before it is read into a
+     string at all. It has to be kept in step with UDECK_MAX_CARDS or it becomes the real cap and a
+     surprising one — 8 MB held while the card cap was 4,000, and DELE B2 (2,000 words, both directions,
+     ~3.5 KB of markup a card) is 14 MB, so it was refused for its SIZE with a message that says nothing
+     about cards while sitting comfortably inside the card limit. 8,000 cards at ~4 KB apiece is ~32 MB. */
+  const UDECK_MAX_BYTES = 32 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
-    if (file.size > 8 * 1024 * 1024) { cb({ error: "That file is too large to be a deck." }); return; }
+    if (file.size > UDECK_MAX_BYTES) {
+      cb({ error: "That file is " + Math.round(file.size / 1048576) + " MB and a deck file may be at most "
+                  + Math.round(UDECK_MAX_BYTES / 1048576) + " MB." });
+      return;
+    }
     const fr = new FileReader();
     fr.onload = () => cb(uDeckImportText(String(fr.result || ""), false));
     fr.onerror = () => cb({ error: "Couldn't read that file." });

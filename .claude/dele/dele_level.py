@@ -15,24 +15,26 @@ LEVEL = os.environ.get('DELE_LEVEL', 'a1').lower()
 COLUMN = LEVEL
 
 TITLES = {'a1': 'DELE A1 — Spanish', 'a2': 'DELE A2 — Spanish',
-          'b1': 'DELE B1 — Spanish'}
-DECK_IDS = {'a1': 'delea1', 'a2': 'delea2', 'b1': 'deleb1'}
+          'b1': 'DELE B1 — Spanish', 'b2': 'DELE B2 — Spanish'}
+DECK_IDS = {'a1': 'delea1', 'a2': 'delea2', 'b1': 'deleb1', 'b2': 'deleb2'}
 DECK_FILES = {'a1': 'DELE-A1-Spanish.folio-deck.json',
               'a2': 'DELE-A2-Spanish.folio-deck.json',
-              'b1': 'DELE-B1-Spanish.folio-deck.json'}
+              'b1': 'DELE-B1-Spanish.folio-deck.json',
+              'b2': 'DELE-B2-Spanish.folio-deck.json'}
 
 # a level is taught on top of the ones below it, so their words are excluded
-BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2']}
+BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1']}
 
 # HOW MANY WORDS the level teaches.  A1 and A2 are 500 apiece; B1 is the CEFR's
 # own step up -- it is where a learner goes from surviving to holding a
 # conversation -- and its column of the inventory is more than twice the size of
-# A2's, so it carries 1,000.
-TARGET = {'a1': 500, 'a2': 500, 'b1': 1000}
+# A2's, so it carries 1,000.  B2 doubles again, which is what the jump from
+# holding a conversation to arguing a case actually costs.
+TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 2000}
 
 # the two Nociones pages this level's column is printed on.  A1 and A2 share a
 # page, and so do B1 and B2.
-PAGES = {'a1': 'a1a2', 'a2': 'a1a2', 'b1': 'b1b2'}
+PAGES = {'a1': 'a1a2', 'a2': 'a1a2', 'b1': 'b1b2', 'b2': 'b1b2'}
 
 
 def f(name):

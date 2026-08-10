@@ -217,10 +217,20 @@ nrefl = sum(1 for c in cards if c['sub'].startswith('Spanish')
 n3 = sum(1 for c in cards if c['sub'].startswith('Spanish')
          and c['fields']['Examples'].count('uc-exi') == 3)
 ntot = sum(1 for c in cards if c['sub'].startswith('Spanish'))
+n0 = sum(1 for c in cards if c['sub'].startswith('Spanish') and not c['fields']['Examples'])
+# A word the sentence corpus cannot illustrate is SAID, not swapped out: the
+# word list is chosen by the inventory and by frequency, and dropping `matizar`
+# because Tatoeba has no sentence for it would be letting the corpus set the
+# syllabus.  So the count is stated rather than engineered away.
 EX_NOTE = ('Every word also carries three real example sentences'
            if n3 == ntot else
            f'Every word also carries real example sentences, three of them for {n3} of the '
-           f'{ntot} and one or two where the corpus had no more')
+           f'{ntot} and one or two where the corpus had no more'
+           if not n0 else
+           f'Real example sentences come with {ntot - n0} of the {ntot} words, three apiece for '
+           f'{n3} of them and one or two for the rest; the sentence corpus has nothing at all for '
+           f'the remaining {n0}, which are kept because the word list is set by the exam board and '
+           f'not by the corpus')
 narts = sum(1 for c in cards if c['sub'].startswith('Spanish')
             and c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las', 'el/la', 'los/las'))
 npairs = sum(1 for c in cards if c['sub'].startswith('Spanish')
@@ -233,6 +243,7 @@ BELOW_NOTE = {
     'a1': '',
     'a2': ' None of them appears in the A1 deck, so the two together come to 1,000 words.',
     'b1': ' None of them appears in the A1 or A2 deck, so the three together come to 2,000 words.',
+    'b2': ' None of them appears in the A1, A2 or B1 deck, so the four together come to 4,000 words.',
 }[LEVEL]
 COLUMN_NOTE = f'the {LEVEL_U} column'
 PAIRED_WITH = 'A1 and A2' if LEVEL in ('a1', 'a2') else 'B1 and B2'
@@ -251,7 +262,14 @@ CLOSED_NOTE = (
     "the discourse layer — the connectives and markers a B1 candidate is expected to join an "
     "argument with, inventoried separately under Gramática and Tácticas pragmáticas — so those are "
     "supplied here, several of them as the phrases they are (sin embargo, a pesar de, de vez en "
-    f"cuando); the rest of the {NW} is filled from the B1 column in order of frequency. ")
+    f"cuando); the rest of the {NW} is filled from the B1 column in order of frequency. "
+    if LEVEL == 'b1' else
+    "Those inventories list topics rather than words, and what they cannot carry at this level is "
+    "the layer that STRUCTURES an argument — the connectives that concede, contrast, qualify and "
+    "conclude, inventoried separately under Gramática and Tácticas pragmáticas — so those are "
+    "supplied here, most of them as the phrases they are (por consiguiente, aun cuando, en la "
+    f"medida en que, a diferencia de); the rest of the {NW} is filled from the B2 column in order "
+    "of frequency. ")
 
 DESC = (
     "Both study directions in one deck, as subdecks you can add and study separately: "
@@ -291,7 +309,9 @@ meta = {
     'subtitle': ('500 words · both directions, as two subdecks' if LEVEL == 'a1' else
                  '500 more words, none of them in A1 · both directions, as two subdecks'
                  if LEVEL == 'a2' else
-                 f'{NW} more words, none of them in A1 or A2 · both directions, as two subdecks'),
+                 f'{NW} more words, none of them in A1 or A2 · both directions, as two subdecks'
+                 if LEVEL == 'b1' else
+                 f'{NW} more words, none of them in A1, A2 or B1 · both directions, as two subdecks'),
     'desc': DESC,
     'author': '',
     'language': 'en',

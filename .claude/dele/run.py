@@ -3,15 +3,18 @@
 
     python3 .claude/dele/run.py                       # A1
     python3 .claude/dele/run.py --level a2            # A2, on top of A1
-    python3 .claude/dele/run.py --level a2 --no-fetch # reuse whatever is cached
+    python3 .claude/dele/run.py --level b1            # B1, on top of A1 and A2
+    python3 .claude/dele/run.py --level b2            # B2, on top of all three
+    python3 .claude/dele/run.py --level b2 --no-fetch # reuse whatever is cached
 
 ONE LEVEL PER RUN.  `dele_level` reads the level once, at import, so a second
 level in the same process would be built against the first one's settings.
 
-A LEVEL IS TAUGHT ON TOP OF THE ONES BELOW IT: A2 excludes every word the
-shipped A1 deck contains, read out of `decks/DELE-A1-Spanish.folio-deck.json`
-rather than out of a working file, so the two can never drift apart and a
-rebuilt A2 cannot start teaching a word A1 already covers.
+A LEVEL IS TAUGHT ON TOP OF THE ONES BELOW IT: each level excludes every word
+the SHIPPED decks below it contain, read out of `decks/DELE-*.folio-deck.json`
+rather than out of a working file, so they can never drift apart and a rebuilt
+level cannot start teaching a word a lower one already covers.  The four come
+to 500 + 500 + 1,000 + 2,000 = 4,000 words with no overlap.
 
 Downloads its sources into `.claude/dele-cache/` (gitignored) and leaves
 them there, so a re-run costs nothing.  The largest is the Wiktionary dump at
@@ -132,32 +135,19 @@ def main():
     print('--- examples.py')
     runpy.run_path(os.path.join(HERE, 'examples.py'), run_name='__main__')
 
-    # A word the sentence corpus does not cover would ship with no examples at
-    # all, which the deck's own description promises it has.  Swap it for the
-    # next word in the ranked order and look again.  A1 needs no pass of this;
-    # it fires on the rarer words a smaller pool pulls in.
-    for attempt in range(4):
-        ex = json.load(open(lvlf('examples.json')))
-        chosen = json.load(open(lvlf('wordlist.json')))
-        empty = [k for k in chosen if not ex.get(k)]
-        if not empty:
-            break
-        ranked = json.load(open(lvlf('ranked.json')))
-        spare = [k for k in ranked if k not in set(chosen)]
-        if not spare:
-            print(f'    {len(empty)} word(s) with no example and no replacement left: '
-                  f'{", ".join(empty)}')
-            break
-        print(f'    no sentences for {", ".join(empty)} -- swapping in '
-              f'{", ".join(spare[:len(empty)])}')
-        keep = [k for k in chosen if k not in set(empty)] + spare[:len(empty)]
-        json.dump(keep, open(lvlf('wordlist.json'), 'w'), ensure_ascii=False, indent=0)
-        bases = sorted({k[:-2] for k in keep if k.endswith(('arse', 'erse', 'irse'))})
-        json.dump(bases, open(lvlf('bases.json'), 'w'), ensure_ascii=False)
-        sys.argv = ['extract_kaikki.py', lvlf('bases.json'), lvlf('wikt_bases.json')]
-        runpy.run_path(os.path.join(HERE, 'extract_kaikki.py'), run_name='__main__')
-        runpy.run_path(os.path.join(HERE, 'examples.py'), run_name='__main__')
-
+    # THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES.
+    # A word Tatoeba does not cover used to be swapped for the next word in the
+    # ranked order, on the reasoning that the deck's description promises three
+    # sentences -- which was harmless while it fired on five words in a thousand
+    # and became indefensible at B2, where it fired on 117 of two thousand and
+    # the replacements come from the RARE TAIL of the ranked order by
+    # construction.  It was proposing to drop `matizar`, `constatar`, `vincular`
+    # and `incidir` -- the argumentative verbs a B2 candidate is examined on --
+    # along with seven of the connectives the level is built around
+    # (`por consiguiente`, `en conclusion`, `en la medida en que`), and to put
+    # `sopera`, `gomina` and `colorete` in their place.  The word list is chosen
+    # by the inventory and by frequency; a word the corpus cannot illustrate
+    # ships without sentences and the deck's own description says how many do.
     for s in STAGES[1:]:
         print(f'--- {s}')
         runpy.run_path(os.path.join(HERE, s), run_name='__main__')

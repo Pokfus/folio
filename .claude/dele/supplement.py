@@ -257,8 +257,168 @@ propio ajeno común general particular concreto abstracto""".split()
 
 B1_ALL = B1_DISCOURSE + B1_VERBS + B1_NOUNS + B1_ADJ
 
+# ---------------------------------------------------------------- B2
+# B2 is the step from holding a conversation to arguing a case, so its layer is
+# the one that STRUCTURES an argument: the connectives that concede, contrast,
+# qualify and conclude.  Most of them are phrases, so this list is written one
+# item to a line for the reason B1_DISCOURSE is.
+B2_DISCOURSE = _lines("""
+por consiguiente
+en consecuencia
+en definitiva
+en conclusión
+en cualquier caso
+en todo caso
+de todos modos
+de todas formas
+por otra parte
+por otro lado
+por un lado
+ahora bien
+es más
+aun así
+con todo
+así pues
+por el contrario
+al contrario
+en contraste
+en comparación
+a diferencia de
+frente a
+a fin de que
+con el fin de
+con objeto de
+a condición de que
+siempre y cuando
+a no ser que
+en la medida en que
+por más que
+aun cuando
+si bien
+de ahí que
+hasta el punto de
+en lo que respecta a
+en cuanto a
+con respecto a
+a propósito de
+en otras palabras
+dicho de otro modo
+por lo visto
+al parecer
+sin duda
+en principio
+a primera vista
+en el fondo
+por lo demás
+a su vez
+en su lugar
+por regla general
+en general
+por lo general
+a largo plazo
+a corto plazo
+de hecho
+en efecto
+ni siquiera
+más aún
+tanto más
+cuanto antes
+a la larga
+a menudo
+""")
+
+B2_VERBS = """abarcar acatar acceder acudir adquirir afrontar alegar aludir ampliar
+anticipar aportar apreciar argumentar asegurar asumir atender atribuir avanzar averiguar
+calificar carecer cesar comprobar conceder concebir conllevar consolidar constatar
+contemplar convencer cuestionar deducir definir delimitar denunciar derivar descartar
+desempeñar destacar determinar dificultar difundir disponer distinguir ejercer elaborar
+emitir emprender encabezar enfocar especificar establecer estimar evaluar exponer extender
+facilitar favorecer fomentar formular fortalecer garantizar generar gestionar identificar
+ilustrar impartir implantar imponer impulsar incidir incorporar incrementar informar
+iniciar innovar integrar intervenir justificar limitar manifestar matizar mostrar negociar
+obtener optar otorgar percibir perjudicar permanecer persistir potenciar precisar predecir
+prescindir presenciar prevalecer prevenir prever proceder promover proporcionar publicar
+ratificar rebatir recalcar recopilar recurrir reflejar reforzar refutar regir relacionar
+remitir reproducir requerir resaltar revelar revisar simplificar someter sostener subrayar
+sufrir suprimir sustentar transmitir trasladar valorar vincular
+adelantar acompañar advertir aparentar apostar arraigar asemejar asignar asociar
+atravesar aumentar bastar brindar castigar circular coincidir combatir compartir competir
+comprometer concentrar concluir concretar confiar confirmar conformar confundir conquistar
+conservar consistir consumir contagiar contradecir contribuir convertir corresponder
+criticar cubrir cumplir dedicar demostrar depender desaparecer desconfiar deshacer
+despertar destinar detener dirigir disfrutar disminuir distribuir dividir dudar durar
+elegir eliminar emigrar encargar enfrentar engañar enseñar entregar enviar equilibrar
+escapar escoger evitar evolucionar exagerar exigir existir experimentar explotar expresar
+fallar figurar financiar fingir firmar fracasar frenar funcionar
+heredar idear ignorar impedir importar imprimir incluir indicar influir insistir inspirar
+instalar intentar invadir inventar investigar juzgar lamentar lanzar liberar lograr luchar
+manejar mantener mejorar merecer modificar molestar motivar mover multiplicar
+nombrar notar obligar observar ocultar ocupar ofrecer oponer ordenar organizar
+padecer participar pertenecer pesar planificar practicar predominar preferir preparar
+presentar presionar prestar pretender producir prohibir prolongar prometer proponer
+proteger protestar provocar publicar quitar reaccionar realizar reanudar rebajar recaudar
+recibir reclamar recomendar reconocer reconstruir recordar recorrer recuperar reducir
+reemplazar reflexionar regalar registrar regresar regular rehacer reinar renunciar
+repartir repetir representar rescatar reservar residir resistir resolver respetar
+responder restar resumir retirar retrasar reunir revolver rodear romper
+sacrificar salvar sanar satisfacer seleccionar sembrar sentenciar separar servir señalar
+significar simular sobrevivir solicitar solucionar soportar sorprender sospechar sostener
+subir sumar superar suplir surgir suspender sustituir talar temer tender terminar tolerar
+traicionar tramitar tranquilizar transformar tratar tropezar unir utilizar vencer vender
+verificar viajar vigilar violar visitar vivir votar""".split()
+
+B2_NOUNS = """ámbito índole enfoque planteamiento alcance magnitud envergadura índice
+tendencia pauta criterio parámetro matiz sesgo prejuicio estereotipo tópico argumento
+premisa hipótesis tesis conclusión evidencia indicio prueba fundamento respaldo apoyo
+rechazo recelo escepticismo controversia polémica debate disputa litigio demanda denuncia
+sentencia fallo veredicto condena absolución indulto amnistía
+brecha exclusión marginación integración cohesión sostenibilidad gobernanza transparencia
+corrupción soborno fraude evasión desigualdad privilegio prestigio reputación
+cobertura audiencia difusión tirada portada columnista corresponsal tertulia rumor
+emisión huella vertido sequía inundación incendio deshielo biodiversidad ecosistema hábitat
+vertedero contaminante combustible renovable residuo consumo despilfarro
+plantilla convenio nómina indemnización despido contratación becario autónomo emprendedor
+competencia currículo desempeño rendimiento productividad jerarquía sindicato huelga
+patrimonio herencia hipoteca inversión rentabilidad accionista bolsa deuda déficit superávit
+inflación recesión auge crecimiento presupuesto subvención impuesto tasa arancel
+ciudadanía soberanía autonomía federación monarquía república dictadura democracia
+constitución enmienda reforma legislación decreto reglamento tratado alianza cumbre
+migración refugiado asilo frontera ciudadano identidad diversidad convivencia tolerancia
+prejuicio discriminación acoso violencia delincuencia seguridad vigilancia
+alfabetización matrícula titulación posgrado docencia pedagogía currículum aula
+diagnóstico terapia cirugía epidemia contagio prevención dolencia trastorno adicción
+avance descubrimiento hallazgo invento patente prototipo ensayo experimento laboratorio
+algoritmo dispositivo aplicación plataforma usuario privacidad ciberseguridad
+guion trama desenlace protagonista antagonista reparto crítica reseña galería vanguardia
+paisaje patrimonio yacimiento monumento restauración
+recorrido trayecto itinerario destino alojamiento estancia temporada afluencia
+"""
+B2_NOUNS = B2_NOUNS.split()
+
+B2_ADJ = """ambiguo arbitrario asequible autónomo cotidiano crucial decisivo deliberado
+destacado determinante discutible drástico duradero engañoso escéptico estricto exhaustivo
+factible ficticio fiable frágil generalizado ineludible inevitable inminente innegable
+insólito irrelevante minucioso notorio novedoso obsoleto palpable paulatino perjudicial
+pertinente polémico previsible primordial prominente rentable riguroso rotundo sensato
+sesgado significativo sostenible subjetivo sutil tajante transitorio veraz verosímil
+vigente viable objetivo relevante creciente decreciente elevado reducido moderado extremo
+amplio restringido flexible rígido estable inestable sólido endeble diverso homogéneo
+heterogéneo desigual equitativo justo arbitrario legítimo ilícito lícito válido nulo
+consciente inconsciente voluntario involuntario intencionado accidental casual
+imprescindible prescindible complementario alternativo paralelo simultáneo sucesivo previo
+posterior inmediato tardío temprano frecuente esporádico habitual excepcional
+llamativo discreto ostentoso austero lujoso modesto humilde altivo
+acogedor hostil agradable desagradable soportable insoportable
+"""
+B2_ADJ = B2_ADJ.split()
+
+B2_ALL = B2_DISCOURSE + B2_VERBS + B2_NOUNS + B2_ADJ
+
 from dele_level import LEVEL as _LEVEL
-if _LEVEL == 'b1':
+if _LEVEL == 'b2':
+    ESSENTIAL_LIST = B2_DISCOURSE
+    ALL = B2_ALL
+elif _LEVEL == 'b1':
     ESSENTIAL_LIST = B1_DISCOURSE
     ALL = B1_ALL
 elif _LEVEL == 'a2':
