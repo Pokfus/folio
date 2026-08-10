@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.145", released: "2026-08-09T23:55Z" };
+window.FOLIO_VERSION = { v: "1.146", released: "2026-08-10T01:05Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-10",
+    t: "The Iliad joins the Library, with the Greek facing it",
+    items: [
+      "<b>The Iliad is on the shelf</b> — all twenty-four books, in A. T. Murray's Loeb translation of 1924, with Monro and Allen's Oxford Greek facing it. The two columns are paired on Homer's own line numbers, so an English passage and the Greek beside it are the same place in the poem, and on a phone you can tap the page to turn it over from one to the other. Murray translates into prose rather than verse, which is a first for the Library: every book here that carries its original has had verse facing verse or prose facing prose. His printed page also carries footnotes, and the transcription Folio works from kept only the numbers that pointed at them and none of their text, so this edition ships without them — the book's own front matter says so, along with the eight lines its Greek editors leave out or bracket.",
+    ],
+  },
   {
     d: "2026-08-09",
     t: "Pictures on the cards and in the glossary, three new daily games, a chest you can put by for later, the Library shelf gets its colour back, the blank you type into fits what you typed, and twenty more glossary terms",
