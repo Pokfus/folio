@@ -2651,9 +2651,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the days no longer arriving together; that is what ordering by frequency MEANS, and the deck's own
   description says which order it is in.
   **`combine.py` is the ONE-FILE version of all four** (`python3 .claude/dele/combine.py [out.json]`), on
-  request: 7,986 cards under a fresh deck id `deleall`, whose **eight** subdecks are the four levels' two
-  directions (`A1 · Spanish → English` … `B2 · English → Spanish`), so the levels stay separable inside one
-  file rather than being poured together. Three things it has to get right and two of them are silent.
+  request: 7,986 cards under a fresh deck id `deleall`, whose subdecks **NEST** — a level, with its two
+  directions inside it (`A1`, then `A1::Spanish → English` and `A1::English → Spanish`) — so the levels
+  stay separable inside one file rather than being poured together. Nesting is the `::` path app.js grew
+  for this in Aug 2026 (see the SUBDECKS bullet under "How the app is wired"); it was `A1 · Spanish →
+  English` as eight flat subdecks for a day. Three things it has to get right and two of them are silent.
   **A CARD ID MUST CARRY THE DECK** — every card is renumbered `u_deleall_N`, since a deck FILE import only
   mints fresh ids when the DECK id already exists, so reusing `u_delea1_1` would collide with an installed
   A1 in the shared `UCARDS` store and study the wrong card. **THE TYPE BLOCK IS ASSERTED IDENTICAL** across
@@ -7693,6 +7695,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   subdecks, so one file holds what would otherwise be several decks — an HSK deck with a direction each way,
   a course with a chapter each. Each is addable and studiable on its own, exactly as a curated collection's
   decks are, and it needs **no schema change anywhere**, which is the whole of the design.
+  · **A SUBDECK MAY HOLD SUBDECKS** (Aug 2026, on request — `SUB_SEP` / `SUB_MAX_DEPTH` / `uSubParts` /
+    `uSubNormalize` / `uSubName` / `uSubParent` / `uSubUnder` / `uSubNodes` / `uSubChildren`). `card.sub` is
+    a **PATH** whose segments are separated by **`::`** — `A1` is a subdeck and `A1::Spanish → English` is a
+    subdeck of it — which is Anki's own deck separator, and this file copies Anki wherever Anki has already
+    answered the question. It is a convention over the SAME string field, so like subdecks themselves it
+    **costs no schema change** and travels wherever the card does; every deck written before it reads as a
+    one-segment path, so **nothing migrates**. Five things are decisions rather than plumbing.
+    **THE ENTRY ID DID NOT CONSTRAIN THE SEPARATOR**, which is worth knowing before reaching for a different
+    one: `uSubEntry` percent-encodes the whole path, so the `/` that `uDeckIdOf` splits on is always the one
+    after the deck id whatever the path contains. What constrains it is that a segment is a title somebody
+    typed, so it has to be something nobody types by accident. **THE TREE IS DERIVED, like the subdecks
+    themselves** — `uSubNodes` walks the paths the cards name AND every prefix of one, so an intermediate
+    node exists exactly when something under it does; that is what keeps a rename a matter of rewriting
+    `sub`, and it is why an EMPTY intermediate is not expressible, which is the same thing one level up
+    already gives up. **A PATH MATCHES ITSELF AND EVERYTHING UNDER IT** (`uSubUnder`, read by
+    `uDeckCardsIn`), which is the whole of what makes a branch studiable: written as the equality test a
+    one-segment sub needed, every intermediate row reads "0 cards" and studies nothing — no error, no
+    warning, just a row that does not work. **THE TOP-LEVEL RUN TESTS THE CONTAINER, NOT THE DECK**: a row
+    is skipped there when the thing that CONTAINS it is also active, which for a nested path is the subdeck
+    above it — testing only the deck draws a nested row twice, once under its parent and once at the top of
+    the list, and it reads as the deck having two of them. And **`cardEntryId` WALKS THE PATH UPWARD**, so
+    daily limits or a scheduler set on `A1` govern the cards filed in `A1::Spanish → English`; without the
+    walk they would be silently ignored by every card in the deck.
   · **A SUBDECK IS A STRING ON THE CARD** (`card.sub`, its own title) **and there is no list beside it**: the
     deck's subdecks are the distinct values in card order (`uDeckSubs`). That is what makes it free — the
     title rides on each card, so it survives export, import, publish and install through paths that already

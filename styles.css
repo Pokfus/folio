@@ -5630,11 +5630,17 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 /* a subdeck added to the review on its own: named by itself, with its deck for context */
 .dk-sup{margin-left:8px; font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .udeck-subs{display:flex; flex-direction:column; border-top:1px solid var(--rule);}
+/* --sd is the row's DEPTH in the subdeck path, set inline by udeckSubRowsHTML. Both the padding and the
+   left rail take it, because an indent with the rail left behind at the same x reads as one flat list
+   whose titles happen to start further in. */
 .udeck-subrow{display:flex; align-items:center; gap:12px; padding:11px 16px 11px 22px; cursor:pointer; position:relative;
+  padding-inline-start:calc(22px + var(--sd, 0) * 18px);
   border-top:1px solid var(--rule); transition:background .18s var(--ease);}
 .udeck-subs > .udeck-subrow:first-child{border-top:0;}
-.udeck-subrow::before{content:""; position:absolute; left:10px; top:9px; bottom:9px; width:2px; border-radius:2px;
-  background:var(--coll-bg, var(--indigo)); opacity:.5;}
+.udeck-subrow::before{content:""; position:absolute; left:calc(10px + var(--sd, 0) * 18px); top:9px; bottom:9px;
+  width:2px; border-radius:2px; background:var(--coll-bg, var(--indigo)); opacity:.5;}
+.udeck-subrow[data-depth="1"]::before{opacity:.32;}
+.udeck-subrow[data-depth="2"]::before,.udeck-subrow[data-depth="3"]::before{opacity:.22;}
 .udeck-subrow:hover{background:var(--paper-2);}
 .udeck-subrow:focus-visible{outline:2px solid var(--indigo); outline-offset:-2px;}
 .udeck-subrow .collection-main{flex:1; min-width:0;}

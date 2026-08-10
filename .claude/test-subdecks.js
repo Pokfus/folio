@@ -41,6 +41,23 @@ function check(name, ok, extra) {
 // A deck of six Basic cards: two in "Alpha", two in "Beta", two in no subdeck at all. The third group is
 // the case worth having — a partly-grouped deck must still work, and its loose cards must not invent a row.
 const SUBS = ["Alpha", "Beta", ""];
+/* A deck whose subdecks hold subdecks: two levels, four leaves, and NO card naming `A1` or `A2` on its
+   own — an intermediate node exists exactly when something under it does, so if the tree is not derived
+   from the path those two rows never appear. Plain ASCII names on purpose: the entry id percent-encodes
+   the path, and a test that also exercised the arrow would not say which of the two had broken. */
+const NESTED = ["A1::Spanish to English", "A1::English to Spanish",
+                "A2::Spanish to English", "A2::English to Spanish"];
+function nestedDeckFile(id, title) {
+  const d = deckFile(id, title);
+  d.meta.id = id;
+  d.cards = NESTED.map((sub, i) => ({
+    id: "u_" + id + "_" + (i + 1), num: String(i + 1), category: "", sub,
+    question: "N" + (i + 1) + " <span class=\"blank\">_____</span> end", answer: "A" + (i + 1),
+    answerDate: "", traditional: "", hanzi: "", pinyin: "", translations: "", abstract: "",
+    citation: "", answerText: "A" + (i + 1),
+  }));
+  return d;
+}
 function deckFile(id, title) {
   const cards = [];
   SUBS.forEach((sub) => {
@@ -192,6 +209,112 @@ const active = (page) => page.evaluate(() => {
   await page.waitForTimeout(1000);
   act = await active(page);
   check("deleting the deck clears its subdeck entry from the review", act.length === 0, JSON.stringify(act));
+
+  /* ---------- A SUBDECK MAY HOLD SUBDECKS (Aug 2026, on request) ----------
+     `card.sub` is a PATH separated by `::`, so the tree is still derived from the cards and still costs no
+     schema change. Every assertion here is for a silent failure: an intermediate node that never appears,
+     a parent row that counts zero because the match is an equality test rather than a prefix one, rows
+     drawn flat so `A1` and `A1::Spanish → English` are siblings, or an add that brings the leaves and not
+     the branch. None of them throws and the deck goes on working. */
+  const tmp2 = path.join(os.tmpdir(), "folio-subdeck-nested.folio-deck.json");
+  fs.writeFileSync(tmp2, JSON.stringify(nestedDeckFile("subdeck2", "Nested deck")));
+  await page.goto(base + "/#studio");
+  await page.waitForTimeout(1200);
+  const chooser2 = page.waitForEvent("filechooser");
+  await page.click("#stImport");
+  await (await chooser2).setFiles(tmp2);
+  await page.waitForTimeout(2500);
+
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(1300);
+  const tree = await page.evaluate(() => [...document.querySelectorAll(".udeck-subrow")].map((r) => ({
+    title: (r.querySelector(".deck-title") || {}).textContent || "",
+    depth: r.dataset.depth,
+    path: r.dataset.usubname,
+    count: (r.querySelector(".collection-count") || {}).textContent || "",
+  })));
+  check("an intermediate subdeck exists even though no card names it on its own",
+    tree.length === 6 && tree[0].path === "A1" && tree[0].depth === "0",
+    JSON.stringify(tree.map((r) => r.depth + ":" + r.path)));
+  check("...with the two directions nested inside it",
+    tree[1].path === "A1::Spanish to English" && tree[1].depth === "1" &&
+    tree[2].path === "A1::English to Spanish" && tree[2].depth === "1",
+    JSON.stringify(tree.map((r) => r.depth + ":" + r.path)));
+  check("...each row named by its own segment, not the whole path",
+    tree[1].title === "Spanish to English", JSON.stringify(tree.map((r) => r.title)));
+  /* The one that would go quiet: a parent's cards are its DESCENDANTS' cards. Written as an equality test
+     — which is what a one-segment `sub` needed — every branch row reads "0 cards" and studies nothing. */
+  check("a parent subdeck counts the cards of everything under it",
+    tree[0].count === "2 cards" && tree[1].count === "1 card",
+    JSON.stringify(tree.map((r) => r.path + "=" + r.count)));
+
+  await page.evaluate(() => { document.querySelector("[data-uaddsub]").click(); });
+  await page.waitForTimeout(900);
+  act = await active(page);
+  check("adding a branch adds everything under it and nothing beside it",
+    act.indexOf("u:subdeck2/" + encodeURIComponent("A1")) !== -1 &&
+    act.indexOf("u:subdeck2/" + encodeURIComponent("A1::Spanish to English")) !== -1 &&
+    act.indexOf("u:subdeck2/" + encodeURIComponent("A1::English to Spanish")) !== -1 &&
+    act.indexOf("u:subdeck2/" + encodeURIComponent("A2")) === -1,
+    JSON.stringify(act));
+
+  await page.goto(base + "/#home");
+  await page.waitForTimeout(1400);
+  const deep = await page.evaluate(() => [...document.querySelectorAll(".active-deck")].map((r) => ({
+    title: (r.querySelector(".dk-title") || {}).textContent || "",
+    sup: (r.querySelector(".dk-sup") || {}).textContent || "",
+    depth: r.dataset.depth,
+  })));
+  check("the review nests them two deep",
+    deep.length === 3 && deep[0].depth === "0" && deep[0].title === "A1" &&
+    deep.slice(1).every((r) => r.depth === "1"),
+    JSON.stringify(deep.map((r) => r.depth + ":" + r.title)));
+  check("...and a nested row drops the context line its parent row now supplies",
+    deep.slice(1).every((r) => !r.sup), JSON.stringify(deep.map((r) => r.sup)));
+
+  // studying the BRANCH deals cards from both directions under it
+  await page.evaluate(() => {
+    const st = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    st.settings = Object.assign({}, st.settings, { newPerDay: 20, maxReviewsPerDay: 20 });
+    localStorage.setItem("folio_v1", JSON.stringify(st));
+  });
+  await page.goto(base + "/#home");
+  await page.reload();
+  await page.waitForTimeout(1600);
+  await page.evaluate(() => { const r = document.querySelector(".active-deck"); if (r) r.click(); });
+  await page.waitForTimeout(1500);
+  const dealt = [];
+  for (let i = 0; i < 4; i++) {
+    const t = await page.evaluate(() => {
+      document.querySelectorAll(".chest-pop,.levelup-pop").forEach((e) => e.remove());
+      const q = document.querySelector(".question");
+      return q ? q.textContent.trim() : null;
+    });
+    if (t) dealt.push(t.slice(0, 3));
+    const on = await page.evaluate(() => { const b = document.querySelector("#reveal-btn"); if (!b) return false; b.click(); return true; });
+    if (!on) break;
+    await page.waitForTimeout(80);
+    const g = await page.evaluate(() => { const b = document.querySelector("button.grade[data-g='good']"); if (!b) return false; b.click(); return true; });
+    if (!g) break;
+    await page.waitForTimeout(80);
+  }
+  check("studying the branch deals the cards of both subdecks under it",
+    dealt.length === 4, JSON.stringify(dealt));
+
+  /* Removing a LEAF takes its ancestors, which is the collection rule: an ancestor left active would go on
+     offering the very cards just removed while its + still read as added. */
+  await page.goto(base + "/#decks");
+  await page.waitForTimeout(1300);
+  await page.evaluate(() => {
+    const b = [...document.querySelectorAll("[data-uaddsub]")]
+      .find((x) => /A1::Spanish to English/.test(x.dataset.uaddsub ? decodeURIComponent(x.dataset.uaddsub) : ""));
+    if (b) b.click();
+  });
+  await page.waitForTimeout(900);
+  act = await active(page);
+  check("removing a nested subdeck takes its ancestors with it",
+    act.every((e) => !/subdeck2/.test(e)) || act.indexOf("u:subdeck2/" + encodeURIComponent("A1")) === -1,
+    JSON.stringify(act));
 
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));

@@ -3,15 +3,16 @@
 
     python3 .claude/dele/combine.py [out.folio-deck.json]
 
-It reads `decks/DELE-*.folio-deck.json` and writes a single deck whose eight
-subdecks are the four levels' two directions, in order:
+It reads `decks/DELE-*.folio-deck.json` and writes a single deck whose
+subdecks NEST, a direction inside a level:
 
-    A1 · Spanish → English      A1 · English → Spanish
-    A2 · Spanish → English      A2 · English → Spanish
-    B1 · …                      B1 · …
-    B2 · …                      B2 · …
+    A1                        B1
+      Spanish → English         …
+      English → Spanish       B2
+    A2                          …
+      …
 
-so a reader adds exactly the level and direction they want, and the four levels
+so a reader adds a whole level or one direction of it, and the four levels
 stay separable inside one file rather than being poured together.
 
 FIVE THINGS IT HAS TO GET RIGHT, and four of them fail silently.
@@ -25,8 +26,10 @@ their full counts and nothing threw.  `deleall` is likewise its own deck id.
 
 THE SUBDECK IS A STRING ON THE CARD and the deck's subdecks are the DISTINCT
 values in CARD ORDER, so the cards are concatenated level by level and the
-order above follows.  A sub title may not contain `/`: the entry id is
-`u:<deckId>/<title>` and `uDeckIdOf` splits on the first one.
+order above follows.  NESTING is `::` inside that same string — Anki's deck
+separator, which app.js adopted for this in Aug 2026 — so it needs no field of
+its own and travels wherever the card does.  A segment may not contain `::`,
+and none of these does.
 
 THE TYPE BLOCK IS SHARED.  All four decks carry byte-identical `types`, which
 is asserted rather than assumed — a level rebuilt against a changed template
@@ -54,6 +57,7 @@ from dele_level import TARGET          # the syllabus sizes, in one place
 
 LEVELS = ['A1', 'A2', 'B1', 'B2']
 DECK_ID = 'deleall'
+SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
 TITLE = 'DELE A1–B2 — Spanish'
 
 # app.js's own limits, restated here so this refuses to write a file that
@@ -96,11 +100,11 @@ def desc(s, per_level):
     n = f"{s['cards']:,}"
     sizes = [TARGET[lv.lower()] for lv, _ in per_level]
     return (
-        'All four DELE levels in one deck. The eight subdecks can be added and '
-        'studied separately, so you take the level you are working at and the '
-        'direction you want: for each of A1, A2, B1 and B2, Spanish → English '
-        '(see the Spanish, recall the meaning) and English → Spanish (see an '
-        'English meaning, recall the Spanish). '
+        'All four DELE levels in one deck. The subdecks nest — a level, and the '
+        'two study directions inside it — so you can add a whole level or just '
+        'the direction you want, and study each on its own: for each of A1, A2, '
+        'B1 and B2, Spanish → English (see the Spanish, recall the meaning) and '
+        'English → Spanish (see an English meaning, recall the Spanish). '
         + 'The four levels teach '
         + ', '.join(f'{c:,}' for c in sizes[:-1]) + f' and {sizes[-1]:,} words '
         f'— {sum(sizes):,} in all, and no word is taught twice, since each '
@@ -181,12 +185,12 @@ def main():
             by_sub.setdefault(c['sub'], []).append(c)
         per_level.append((lv, sum(1 for c in d['cards'] if c['type'] == 'es-to-en')))
         for sub in by_sub:                       # insertion order = card order
-            if '/' in sub:
-                raise SystemExit(f'sub title contains a slash: {sub!r}')
+            if SUB_SEP in sub:
+                raise SystemExit(f'sub title contains {SUB_SEP!r}: {sub!r}')
             for c in by_sub[sub]:
                 n = len(cards) + 1
                 cards.append(dict(c, id=f'u_{DECK_ID}_{n}', num=str(n),
-                                  category='DELE', sub=f'{lv} · {sub}'))
+                                  category='DELE', sub=f'{lv}{SUB_SEP}{sub}'))
 
     if len(cards) > MAX_CARDS:
         raise SystemExit(f'{len(cards)} cards, over app.js\'s {MAX_CARDS} cap')
@@ -200,8 +204,8 @@ def main():
             'id': DECK_ID,
             'title': TITLE,
             'subtitle': f'{sum(TARGET[l.lower()] for l in LEVELS):,} words '
-                        'across all four levels · both directions, as eight '
-                        'subdecks',
+                        'across all four levels · a subdeck per level, and the '
+                        'two directions inside it',
             'desc': desc(s, per_level),
             'author': '',
             'language': 'en',
@@ -225,14 +229,21 @@ def main():
     with open(out, 'w', encoding='utf-8') as f:
         f.write(text)
 
-    subs = []
+    subs, nodes = [], []
     for c in cards:
         if c['sub'] not in subs:
             subs.append(c['sub'])
+            parts = c['sub'].split(SUB_SEP)
+            for i in range(1, len(parts) + 1):
+                q = SUB_SEP.join(parts[:i])
+                if q not in nodes:
+                    nodes.append(q)
     print(f'{out}')
     print(f'  {len(cards):,} cards, {len(text.encode("utf-8"))/1048576:.1f} MB '
           f'(caps: {MAX_CARDS:,} cards, {MAX_BYTES/1048576:.0f} MB)')
-    print(f'  {len(subs)} subdecks: ' + ', '.join(subs))
+    print(f'  {len(nodes)} subdecks ({len(subs)} of them leaves):')
+    for q in nodes:
+        print('    ' + '  ' * q.count(SUB_SEP) + q.split(SUB_SEP)[-1])
     print('  ' + '  '.join(f'{k} {v:,}' for k, v in s.items()))
 
 
