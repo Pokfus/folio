@@ -100,6 +100,64 @@ function shippedPair(id) {
   return out;
 }
 
+/* THE AENEID, read off the two files that shipped. Its reader is `cards: "both"` plus the mid-line
+   lift, and like The City of God's it serves ONE book, so it cannot be proved inert by re-running a
+   sibling — the shipped-data sweep is what stands in for that check.
+
+   Every fault it looks for is SILENT on the page. Williams marks 69 of his 396 card boundaries as
+   milestones standing INSIDE a line, and slicing the book at one cuts the <l> in half: teiVerse matches
+   a complete <l>…</l> pair and nothing else, so both halves vanish and one line of verse disappears at
+   each of the 69 — with every book still pairing, nothing throwing, and the poem 99.5% present. Hence
+   the line COUNTS, which are the only thing that can see it. The weld sweep is the second half of the
+   same rule (the tag sat where the space belonged at 13 of the 69), and the <choice> sweep is a third
+   fault that shipped live in Lucretius's Latin for weeks as "aeraër" for aër. */
+function aeneidChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "virgil-aeneid.js"), laF = path.join(dir, "virgil-aeneid.la.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(laF)) return null;
+  global.window = {};
+  [enF, laF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "virgil-aeneid");
+  const la = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "virgil-aeneid");
+  if (!en || !la) return null;
+  const nums = (h) => (h.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+  // a line of verse is one <br> or one opening <p>; that is how teiVerse joins them
+  const lines = (h) => (h.match(/<br>/g) || []).length + (h.match(/<p>/g) || []).length;
+  const o = {
+    enBooks: en.chapters.length, laBooks: la.chapters.length,
+    enCards: 0, laCards: 0, enLines: 0, laLines: 0,
+    shared: 0, enOnly: [], laOnly: [], exact: 0, disorder: [], welds: [], doubled: [],
+  };
+  en.chapters.forEach((c) => {
+    const p = la.chapters.find((x) => x.n === c.n);
+    const a = nums(c.html), b = p ? nums(p.html) : [];
+    o.enCards += a.length; o.laCards += b.length;
+    o.enLines += lines(c.html); o.laLines += p ? lines(p.html) : 0;
+    if (!a.every((v, i) => i === 0 || v > a[i - 1])) o.disorder.push("en " + c.n);
+    if (!b.every((v, i) => i === 0 || v > b[i - 1])) o.disorder.push("la " + c.n);
+    if (new Set(a).size !== a.length) o.disorder.push("en dup " + c.n);
+    if (new Set(b).size !== b.length) o.disorder.push("la dup " + c.n);
+    const sa = new Set(a), sb = new Set(b);
+    a.forEach((v) => { if (sb.has(v)) o.shared++; else o.enOnly.push(c.n + "." + v); });
+    b.forEach((v) => { if (!sa.has(v)) o.laOnly.push(c.n + "." + v); });
+    if (a.length && b.length && !a.filter((v) => !sb.has(v)).length && !b.filter((v) => !sa.has(v)).length) o.exact++;
+  });
+  // two words run together by a stripped tag — the shape the space rule exists to prevent
+  [[en, "en"], [la, "la"]].forEach(([bk, tag]) => {
+    bk.chapters.forEach((c) => {
+      const txt = c.html.replace(/<[^>]*>/g, " ");
+      for (const m of txt.matchAll(/[a-z”’][,;:.!?][“‘A-Za-z]/g)) {
+        o.welds.push(tag + " " + c.n + ": " + txt.slice(Math.max(0, m.index - 24), m.index + 18).trim());
+      }
+    });
+  });
+  // a <choice> printing BOTH of its readings, which is what the resolver exists to stop
+  const hay = JSON.stringify(en) + JSON.stringify(la);
+  ["Pasiphae Pasiph", "PasiphaePasiph", "Deiphobus Deïph", "Aloidae Aloïd", "gesture gestare", "gesturegestare"]
+    .forEach((s) => { if (hay.includes(s)) o.doubled.push(s); });
+  return o;
+}
+
 (async () => {
   // every request the page makes, so "is the book lazy?" is answered by observation
   const asked = [];
@@ -610,6 +668,42 @@ function shippedPair(id) {
         cog.caput === 1, `${cog.caput} left`);
     } else {
       check("[city of god] both halves of the book are on disk", false, "missing books/city-of-god*.js");
+    }
+
+    /* THE AENEID — the same kind of check and for the same reason: one book on its own reader, so the
+       shipped data is what stands in for a sibling diff. See aeneidChecks above for why each of these
+       is here; all three faults it hunts are invisible on the page. */
+    const ae = aeneidChecks();
+    if (ae) {
+      check("[aeneid] twelve books on each side", ae.enBooks === 12 && ae.laBooks === 12,
+        `en ${ae.enBooks} la ${ae.laBooks}`);
+      /* THE LINE COUNTS ARE THE ASSERTION THAT MATTERS, because they are the only thing that can see the
+         mid-line lift failing: 13,336 lines of Williams, and 9,843 of Greenough — the traditional 9,896
+         plus book 10's split half-line 62b, less the 54 the editor brackets as spurious. Break the lift
+         and the English drops by up to 69 with every other check still reading healthy. */
+      check("[aeneid] all 13,336 lines of the English are present", ae.enLines === 13336, String(ae.enLines));
+      check("[aeneid] ...and all 9,843 of the Latin (9,896 + one split line − 54 bracketed)",
+        ae.laLines === 9843, String(ae.laLines));
+      check("[aeneid] 396 English card marks and 391 Latin",
+        ae.enCards === 396 && ae.laCards === 391, `en ${ae.enCards} la ${ae.laCards}`);
+      check("[aeneid] every card number ascends, with no duplicate, on both sides",
+        !ae.disorder.length, JSON.stringify(ae.disorder.slice(0, 6)));
+      check("[aeneid] 391 numbers carry on both sides and none is Latin-only",
+        ae.shared === 391 && !ae.laOnly.length, `shared ${ae.shared}, latin-only ${JSON.stringify(ae.laOnly)}`);
+      /* The five English-only cards, named: four are places Williams divides and Greenough does not, and
+         2.567 is the Helen episode, whose card empties when its 22 bracketed lines go. */
+      check("[aeneid] exactly five English cards draw beside an empty Latin cell",
+        ae.enOnly.join(" ") === "2.13 2.567 7.45 12.672 12.728", ae.enOnly.join(" "));
+      check("[aeneid] nine of the twelve books pair on every card they have", ae.exact === 9, String(ae.exact));
+      /* One run-together survives and it is Perseus's own OCR — book 6 line 1171 reads "the.dead employ"
+         in the source verbatim, with no tag near it. Asserted as exactly one so that a regression in the
+         space rule (which would return 13) fails here, and so that the survivor cannot later be read as
+         that rule having broken. */
+      check("[aeneid] no words welded by a stripped tag, bar the source's own 'the.dead'",
+        ae.welds.length === 1 && /the\.dead/.test(ae.welds[0]), JSON.stringify(ae.welds.slice(0, 5)));
+      check("[aeneid] no <choice> printing both of its readings", !ae.doubled.length, JSON.stringify(ae.doubled));
+    } else {
+      check("[aeneid] both halves of the book are on disk", false, "missing books/virgil-aeneid*.js");
     }
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there

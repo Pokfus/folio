@@ -52,7 +52,7 @@ const DESKTOP = { width: 1280, height: 900 };
    which is exactly the quiet token the high-contrast mode exists to re-tone. The picture round is left out
    because as the corpus stands it renders a placard rather than a round, so it would be measuring the
    placard; add it the day Folio has pictures. */
-const ROUTES = ["home", "decks", "library", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "crossword", "whatyear", "glossary", "map"];
+const ROUTES = ["home", "decks", "library", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "crossword", "whatyear", "glossary", "browse", "map"];
 const SLOW = { map: 5000, home: 1400 };
 const settle = (r) => SLOW[r] || 700;
 

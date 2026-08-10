@@ -728,3 +728,66 @@ alter table public.user_decks add column if not exists types jsonb not null defa
 alter table public.user_decks drop constraint if exists user_decks_gloss_mode_check;
 alter table public.user_decks add constraint user_decks_gloss_mode_check
   check (gloss_mode in ('site','own','both','off'));
+
+
+-- ============================================================
+-- 10) REVIEW LOG  (run once, on top of the phase-2 block)
+--
+-- One row per answer, for ever. `progress.data` already carries a rolling window of the same rows so that
+-- Card info, the answer-buttons chart and a signed-out reader all work offline — but that blob is PATCHed
+-- WHOLE on every save, so it cannot be where a reader's whole history lives. This table is.
+--
+-- WHY IT HAS TO BE COMPLETE. A card record keeps only its latest review, so nothing about a past one is
+-- reconstructable later: every day it is not being written is detail no future release can recover. What
+-- wants all of it is the FSRS optimiser, which fits a reader's own 21 parameters to their own review history
+-- — with a truncated log it can only ever fit part of one.
+--
+-- APPEND-ONLY BY POLICY, not just by habit: there is no update policy at all, so a row cannot be edited
+-- after the fact by anyone, the owner included. Deletes ARE allowed, because Settings → Reset progress says
+-- it clears the study history and must be able to mean it.
+--
+-- READABLE BY ITS OWNER ALONE — deliberately narrower than `progress`, which accepted friends may read for
+-- the badges view. A per-answer log is a minute-by-minute record of when somebody was at their desk and how
+-- long they hesitated; that is not something to hand to a friend for a leaderboard, and nothing in the app
+-- asks for it.
+--
+-- Until this runs, everything carries on with the local window alone: app.js reports the missing table once,
+-- to an admin only, and stops trying for the session.
+-- ============================================================
+create table if not exists public.review_log (
+  id          bigserial primary key,
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  card_id     text not null,
+  reviewed_at timestamptz not null,
+  grade       smallint not null check (grade between 1 and 4),
+  state       smallint not null check (state between 0 and 3),  -- 0 new, 1 learning, 2 relearning, 3 review
+  prev_min    integer  not null default 0,                     -- the interval the card was on, in minutes
+  next_min    integer  not null default 0,                     -- the delay the grade bought, in minutes
+  ease100     integer  not null default 0,                     -- ease x100, or FSRS difficulty x100
+  ds          integer  not null default 0,                     -- time taken, in tenths of a second, capped
+  created_at  timestamptz not null default now()
+);
+
+-- the two queries that exist: "everything of mine, oldest first" (the optimiser) and "this card's history"
+create index if not exists review_log_user_time_idx on public.review_log (user_id, reviewed_at);
+create index if not exists review_log_user_card_idx on public.review_log (user_id, card_id);
+
+-- …and the one that makes a re-push harmless. A device that loses its high-water mark re-sends rows it has
+-- already sent; without this they would double, and every count built on the log would drift upwards.
+-- (card_id, reviewed_at) is unique per user in practice: one card cannot be answered twice in one millisecond.
+create unique index if not exists review_log_dedupe_idx on public.review_log (user_id, card_id, reviewed_at);
+
+alter table public.review_log enable row level security;
+
+drop policy if exists "own review log readable" on public.review_log;
+create policy "own review log readable" on public.review_log
+  for select using (auth.uid() = user_id);
+
+drop policy if exists "own review log insertable" on public.review_log;
+create policy "own review log insertable" on public.review_log
+  for insert with check (auth.uid() = user_id);
+
+-- no update policy on purpose: the log is append-only, for its owner as much as for anyone else
+drop policy if exists "own review log deletable" on public.review_log;
+create policy "own review log deletable" on public.review_log
+  for delete using (auth.uid() = user_id);

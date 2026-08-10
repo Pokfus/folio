@@ -22,9 +22,23 @@
   const UDECKS = {};                       // deckId -> { id, title, subtitle, desc, author, language, tags, glossMode, version, createdAt, updatedAt, cardIds }
   const UGLOSS = {};                       // deckId -> { slug -> { desc, date, title, tags, aliases } } — reserved for the per-deck glossary
   function isCommunityCard(id) { return typeof id === "string" && id.slice(0, 2) === "u_"; }
-  // The lookup for the STUDY path (scheduling, rendering, progress), which must see both stores.
-  // The admin editor deliberately keeps reading CARD_BY_ID directly: it may only ever edit curated cards.
-  function cardById(id) { return CARD_BY_ID[id] || UCARDS[id] || null; }
+  /* The lookup for the STUDY path (scheduling, rendering, progress), which must see both stores.
+     The admin editor deliberately keeps reading CARD_BY_ID directly: it may only ever edit curated cards.
+
+     A community note whose type declares SEVERAL card templates yields several cards, and the second and
+     later ones are ids derived from the note's (`u_abcd1234_7~2` — see CARD_SIB). They are resolved here, at
+     the one place everything downstream already goes through, so the study page, the scheduler, the review
+     counts and Card info all get a card without one of them having to know how the id is built. What comes
+     back is a COPY carrying `_tpl`, never the stored note: the note is shared by every one of its cards, and
+     writing the template index onto it would make whichever card rendered last the answer for all of them. */
+  function cardById(id) {
+    const direct = CARD_BY_ID[id] || UCARDS[id];
+    if (direct) return direct;
+    const base = uCardBaseId(id);
+    const note = base === id ? null : UCARDS[base];
+    if (!note) return null;
+    return Object.assign({}, note, { id: id, _tpl: uCardTplIndex(id) });
+  }
 
   // recursive node registry (collection → deck → subdeck, arbitrary depth)
   const COLLECTION_BY_ID = {};
@@ -397,9 +411,18 @@
       if (leaf && leaf.cardIds) T.cardOrder[leafId] = leaf.cardIds.slice();
     });
   }
+  /* The community-deck caches (see uCacheBust's note down in the COMMUNITY DECKS block for what they hold
+     and why). They are DECLARED here, far from the code that fills them, because applyAdminEdits() busts
+     them and runs at boot — a `let` beside that block would still be in its temporal dead zone when it did,
+     which is a ReferenceError before the first paint rather than anything subtle. */
+  let _uStudyCache = new Map();
+  let _availCache = null;
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; }
+
   function applyAdminEdits() {
     buildTreeStructure();
     rebuildNodeRegistry();
+    uCacheBust();   // the tree it just rebuilt is the other half of what availableCardIdSet() reads
     if (Array.isArray(ADMIN_EDITS.timeline)) window.TIMELINE = ADMIN_EDITS.timeline;   // the working set of historical border eras overrides the shipped timeline.js
     if (!Array.isArray(window.TIMELINE)) window.TIMELINE = [];
     Object.keys(ADMIN_EDITS.cards).forEach((id) => { const c = CARD_BY_ID[id]; if (c) Object.assign(c, ADMIN_EDITS.cards[id]); });
@@ -1110,9 +1133,19 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1] },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
+      /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
+         rather than by anything running at midnight. Burying is what makes a note's several cards bearable:
+         answer "water → 水" and its reverse is put off until tomorrow, because asking it an hour later tests
+         nothing but the last hour. Suspending is for ever and is the reader's decision; burying is for today
+         and is the scheduler's, which is why they are separate registers and not one field with two meanings. */
+      buried: {},
+      /* FLAGGED CARDS — id -> 1..7, the reader's own colour on a card they mean to come back to. Absent
+         means unflagged; nothing stores a 0. It is a marker rather than history, which is why it survives
+         Settings → Reset progress (see RESET_KEEPS) while the schedule beside it does not. */
+      flags: {},
       /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
          hundreds of screens, so "open it again where I left off" is not a convenience but the only way
          it is usable at all. It is PROGRESS, not a device setting — it rides in PROGRESS_FIELDS so a
@@ -1138,6 +1171,13 @@
       // reconstructed from S.cards — it has to be logged as it happens. "Mature" = the card was in review status
       // when graded (a real recall attempt, not a learning step); correct = anything but Again. Pruned to REVIEW_LOG_DAYS.
       reviewLog: {},
+      /* THE PER-REVIEW LOG — one row per answer, newest last. `reviewLog` above is a DAILY TOTAL of three
+         numbers, which is all a heatmap and a retention rate need and is the whole of what a past day can
+         say: it cannot tell you what happened to one card, how long an answer took, or which button you
+         pressed. Those are separate questions and none of them is reconstructable later, so the detail has
+         to be written down as it happens — which is why this exists and why it was added before the things
+         that read it (see REV_CAP for the size, and revRead for the shape). */
+      revlog: [],
       // today's review tally for the home Daily-review tile: { d, n, miss } — n = cards attempted for the
       // FIRST time today, miss = how many of those first attempts were wrong. The tile fills bronze once the
       // day's pile is cleared and turns gold when miss === 0. reviewLog can't answer this: it counts every
@@ -1484,7 +1524,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1516,8 +1556,32 @@
     return (h >>> 0).toString(16) + salt;
   }
   // study progress <-> account record
-  function extractProgress() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
-  function applyProgress(p) { const base = emptyProgress(); PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); }); }
+  /* A whole progress record, for the guest stash and for migrating a device's study up into its first
+     account. `revlog` is included even though it is NOT in PROGRESS_FIELDS — those are the fields the SERVER
+     BLOB carries, and the log has a table of its own — because a guest who studied before making an account
+     should keep their card-by-card history when they make one, and signing out should hand it back.
+     `supaPush` sends PROGRESS_FIELDS only, so the log never travels inside the blob. */
+  function extractProgress() {
+    const p = progressBlob();
+    p.revlog = Array.isArray(S.revlog) ? JSON.parse(JSON.stringify(S.revlog)) : [];
+    return p;
+  }
+  /* …and WITHOUT it: exactly PROGRESS_FIELDS, which is what `supaPush` PATCHes into `progress.data`. The two
+     are separate functions rather than one with a flag because the difference matters in one direction only
+     and getting it wrong is invisible: a blob that carries the log is a log that is capped again, since the
+     whole record is re-sent on every save. */
+  function progressBlob() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
+  /* Install a whole progress record. The per-review log rides ALONGSIDE rather than inside it — it has a
+     table of its own — so it is cleared here by name, which is the load-bearing half: without it, signing
+     into a second account on one device would leave the first reader's card-by-card history sitting in Card
+     info under somebody else's name. The high-water mark goes with it, or the new account's first push would
+     start from where the old one stopped and skip everything before it. */
+  function applyProgress(p) {
+    const base = emptyProgress();
+    PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); });
+    S.revlog = Array.isArray(p && p.revlog) ? JSON.parse(JSON.stringify(p.revlog)) : [];
+    try { localStorage.removeItem(REV_SYNC_KEY); } catch (e) {}
+  }
   function emptyProgress() { const d = defaultState(), p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = d[k]; }); return p; }
   /* SETTINGS → DANGER ZONE → RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE (Aug 2026, on a bug report:
      "I purposely reset my study progress and then encountered that bug" — the bug being that the home page
@@ -1541,10 +1605,18 @@
   /* …and the reader's GROUPS with them (Aug 2026): a group is how they have arranged the decks `active`
      already keeps, so clearing a study schedule and taking the arrangement of it with them would be the
      same surprise this list exists to prevent. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest"];
+  /* …and the reader's FLAGS (Aug 2026). A flag is an annotation, not history: "come back to this one" is
+     the kind of note that survives clearing a schedule, exactly as a starred book and a reader's place in
+     one do. The dialog names the study history, the streak and the badges, and a flag is none of them. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags"];
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
+    /* The per-review log is NOT in PROGRESS_FIELDS — it has a table of its own — so it is cleared here by
+       name, at both ends. Clearing the local window while a year of it sat on the server would be a reset
+       that quietly undid itself the next time anything read the archive. */
+    S.revlog = [];
+    revWipeRemote();
   }
   function syncProgressToAccount() {
     const u = currentUser(); if (!u) return;
@@ -1754,7 +1826,7 @@
   }
   async function supaPush() {
     if (!supaLoggedIn()) return false;
-    const p = extractProgress(), sent = stableJson(p);
+    const p = progressBlob(), sent = stableJson(p);   // …the blob, never the review log — see progressBlob
     const r = await supaFetch("/rest/v1/progress?user_id=eq." + SUPA.user.id + "&select=updated_at", { method: "PATCH", body: { data: p }, headers: { Prefer: "return=representation" } });
     if (r.ok && Array.isArray(r.data) && r.data.length) {
       _supaLastSent = sent;
@@ -1769,10 +1841,115 @@
     clearTimeout(_supaPushTimer);
     _supaPushTimer = setTimeout(() => {
       _supaPushTimer = null;
-      if (stableJson(extractProgress()) !== _supaLastSent) supaPush();
+      if (stableJson(progressBlob()) !== _supaLastSent) supaPush();
     }, 6000);
   }
   window.addEventListener("online", () => supaQueuePush());   // flush anything written while offline
+  /* ---------- THE REVIEW LOG'S OWN TABLE (Aug 2026, on request) ----------
+     `S.revlog` is a rolling WINDOW so that Card info, the answer-buttons chart and a signed-out reader all
+     work offline and instantly; `public.review_log` is the whole of it, for ever. The split exists because
+     the progress blob is PATCHed WHOLE on every save — a log kept in it is a log that has to be capped, and
+     what wants an uncapped one is the FSRS optimiser, which fits a reader's own parameters to their own
+     history and can only ever fit part of one from a truncated log.
+
+     APPEND-ONLY, and the sync is deliberately the simplest thing that cannot lose or double a row:
+     · a device-local HIGH-WATER MARK (`REV_SYNC_KEY`, the newest `t` it has pushed — not a count, which a
+       prune from the front invalidates) says where to carry on from;
+     · rows newer than it are POSTed in batches;
+     · the table carries a unique index on (user_id, card_id, reviewed_at), so a device that loses its mark
+       and re-sends is harmless — `Prefer: resolution=ignore-duplicates` turns the collision into a no-op
+       rather than an error. Without that a re-push would double every count built on the log.
+     It is never PULLED into `S.revlog`. The window is this device's own recent history and the table is the
+     archive; a reader who signs in on a new device sees Card info fill up as they study rather than being
+     handed a year of somebody else's-shaped local data, and the optimiser will read the table directly. */
+  const REV_SYNC_KEY = "folio_revsync_v1";
+  const REV_BATCH = 400;
+  let _revPushTimer = null, _revTableMissing = false, _revPushing = false;
+  function revHighWater() { const v = Number(localStorage.getItem(REV_SYNC_KEY) || 0); return isFinite(v) ? v : 0; }
+  function revSetHighWater(t) { try { localStorage.setItem(REV_SYNC_KEY, String(t)); } catch (e) {} }
+  // PostgREST answers a missing table with PGRST205 (or a 404 on the path) — told apart from a real failure
+  // so a site whose owner has not run the SQL degrades to the local window instead of retrying all session
+  function revTableMissing(r) {
+    if (!r) return false;
+    const body = r.data, msg = String((body && (body.message || body.code)) || "");
+    return r.status === 404 || /PGRST205/.test(msg) || /review_log/.test(msg) && r.status === 400;
+  }
+  async function revPush() {
+    if (!supaLoggedIn() || _revTableMissing || _revPushing) return;
+    const log = Array.isArray(S.revlog) ? S.revlog : [];
+    if (!log.length) return;
+    const mark = revHighWater();
+    const rows = [];
+    for (let i = 0; i < log.length; i++) {
+      const r = revRead(log[i]);
+      if (r && r.t > mark) rows.push(r);
+    }
+    if (!rows.length) return;
+    rows.sort((a, b) => a.t - b.t);
+    _revPushing = true;
+    try {
+      for (let i = 0; i < rows.length; i += REV_BATCH) {
+        const batch = rows.slice(i, i + REV_BATCH);
+        const r = await supaFetch("/rest/v1/review_log", {
+          method: "POST",
+          headers: { Prefer: "resolution=ignore-duplicates,return=minimal" },
+          body: batch.map((x) => ({
+            user_id: SUPA.user.id, card_id: x.id, reviewed_at: new Date(x.t).toISOString(),
+            grade: x.g, state: x.st, prev_min: x.prevMin, next_min: x.nextMin,
+            ease100: Math.round(x.ease * 100), ds: Math.round(x.secs * 10),
+          })),
+        });
+        if (revTableMissing(r)) {
+          _revTableMissing = true;
+          // said once, and only to the person who can clear it — see typesColumnMsg for the same shape
+          if (isAdmin()) toast("Review-log table missing — run block 10 of .claude/supabase-schema.sql.");
+          return;
+        }
+        if (!r.ok) return;                                  // offline or a real error: keep the mark, try later
+        revSetHighWater(batch[batch.length - 1].t);          // …only after the rows are actually in
+      }
+    } finally { _revPushing = false; }
+  }
+  function revQueuePush() {
+    if (!supaLoggedIn() || _revTableMissing) return;
+    clearTimeout(_revPushTimer);
+    _revPushTimer = setTimeout(() => { _revPushTimer = null; revPush(); }, 8000);
+  }
+  window.addEventListener("online", () => revQueuePush());
+  /* THE WHOLE ARCHIVE, for the optimiser — the one caller that wants more than the local window. It is paged
+     because PostgREST caps a response (1,000 rows by default) and answering "here are the first thousand of
+     your four thousand reviews" would fit a reader's parameters to a quarter of their history without
+     saying so. Rows come back in the row shape `revRead` unpacks, so nothing downstream knows where they
+     came from; a failure returns null rather than an empty list, which the caller must tell apart from a
+     reader who genuinely has nothing. */
+  async function revFetchAll(onPage) {
+    if (!supaLoggedIn() || _revTableMissing) return null;
+    const out = [];
+    const page = 1000;
+    for (let from = 0; ; from += page) {
+      const r = await supaFetch(
+        "/rest/v1/review_log?user_id=eq." + encodeURIComponent(SUPA.user.id) +
+        "&select=card_id,reviewed_at,grade,state,prev_min,next_min,ease100,ds&order=reviewed_at.asc",
+        { headers: { Range: from + "-" + (from + page - 1) } });
+      if (revTableMissing(r)) { _revTableMissing = true; return null; }
+      if (!r.ok || !Array.isArray(r.data)) return from ? out : null;   // a half-read archive is still a truthful prefix
+      r.data.forEach((row) => out.push([
+        row.card_id, Date.parse(row.reviewed_at), row.grade, row.state,
+        row.prev_min, row.next_min, row.ease100, row.ds,
+      ]));
+      if (onPage) onPage(out.length);
+      if (r.data.length < page) return out;
+    }
+  }
+  /* Reset progress says it clears the study history, so it has to mean the ARCHIVE too — the local window
+     going while a year of it sat on the server would be a reset that undid itself on the next device. */
+  async function revWipeRemote() {
+    if (!supaLoggedIn() || _revTableMissing) return;
+    revSetHighWater(0);
+    await supaFetch("/rest/v1/review_log?user_id=eq." + encodeURIComponent(SUPA.user.id), {
+      method: "DELETE", headers: { Prefer: "return=minimal" },
+    });
+  }
   /* --- auth flows --- */
   // `S._supaOwner` records WHICH account the progress currently in localStorage belongs to. It is device-local
   // (not in PROGRESS_FIELDS, like _supaTs, so it never syncs itself) and it is what stops one account's levels,
@@ -2159,6 +2336,12 @@
   function sanitizePlain(s) {
     const v = String(s == null ? "" : s);
     if (!v) return "";
+    /* Nothing to parse: with no "<" the parser can build no element, and with no "&" it can decode no
+       entity, so `body.textContent` is provably the input itself and the only work left is the whitespace
+       collapse below. sanitizeHTML has had this door since it was written; this one did not, and it is the
+       hotter of the two on a large deck — 88% of the string fields in HSK 3.0 carry neither character, and
+       that was a DOMParser round trip each, on every page load. */
+    if (v.indexOf("<") < 0 && v.indexOf("&") < 0) return v.replace(/\s+/g, " ").trim();
     try {
       const doc = new DOMParser().parseFromString("<body>" + v + "</body>", "text/html");
       const body = doc && doc.body;
@@ -2178,6 +2361,25 @@
       [a[i], a[j]] = [a[j], a[i]];
     }
     return n == null ? a : a.slice(0, n);
+  }
+  /* A moment, in the READER'S own clock and locale — for the per-review log's timestamps, which are
+     recorded in UTC ms and are meaningless to a reader in any other form. Deliberately not the changelog's
+     `fmtDay`, which fixes its dates to the SITE language on purpose (a publication date is the same day
+     everywhere); this is an event in one reader's own day, like the version line's `released`. */
+  function fmtStamp(ts) {
+    if (!ts) return "—";
+    const d = new Date(ts);
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) +
+      ", " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  }
+  /* A duration in seconds. Below a minute it keeps a decimal, because the difference between 4 and 4.6
+     seconds on a card is real and rounding it away makes every quick answer look identical. */
+  function fmtSecs(s) {
+    if (!s) return "—";
+    if (s < 60) return (s < 10 ? s.toFixed(1) : String(Math.round(s))) + "s";
+    const m = Math.floor(s / 60);
+    if (m < 60) return m + "m" + (Math.round(s % 60) ? " " + Math.round(s % 60) + "s" : "");
+    return Math.floor(m / 60) + "h" + (m % 60 ? " " + (m % 60) + "m" : "");
   }
   /* A grade button's next interval. Sub-day values are real MINUTES now that the learning steps differ
      from each other (1m then 10m): it used to answer "<10m" for anything under an hour and then label
@@ -3070,21 +3272,63 @@
     for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
     return ((h >>> 0) % 100000) / 100000;
   }
-  function schedFuzz(iv, seed) {
-    if (!(iv >= 2.5)) return iv;
+  function schedFuzzRange(iv) {
+    if (!(iv >= 2.5)) return null;
     const d = 1
       + Math.max(0, Math.min(iv, 7) - 2.5) * 0.15
       + Math.max(0, Math.min(iv, 20) - 7) * 0.1
       + Math.max(0, iv - 20) * 0.05;
     const lo = Math.max(1, Math.round(iv - d)), hi = Math.max(lo, Math.round(iv + d));
-    return lo + Math.floor(schedFuzzRand(seed) * (hi - lo + 1));
+    return { lo: lo, hi: hi };
+  }
+  function schedFuzz(iv, seed) {
+    const r = schedFuzzRange(iv);
+    if (!r) return iv;
+    return r.lo + Math.floor(schedFuzzRand(seed) * (r.hi - r.lo + 1));
+  }
+  /* ---------- LOAD BALANCING and EASY DAYS (Aug 2026, on request) ----------
+     Anki's two, and they are one mechanism: the fuzz above already spreads an interval over a few days at
+     random, and this picks WHICH of those days rather than leaving it to a hash — the least-loaded one, and
+     never a day the reader has said they do not study if the range holds anything else.
+
+     IT REPLACES THE FUZZ'S CHOICE AND NOTHING ELSE, which is what makes it safe. The range is the same range,
+     so an interval never moves further than the fuzz was already free to move it; `schedPass` still applies
+     the floor AFTER, so Hard < Good < Easy is untouched (two grades whose ranges overlap can pick the same
+     day, and the floor is what separates them); and because it is in `schedPass` it covers **both
+     schedulers**, FSRS routing its own interval through the same function.
+
+     THE LOAD MAP COMES IN VIA `cfg`, so the arithmetic stays PURE — no reader of S below the SRS marker —
+     and, more importantly, so the PREVIEW AND THE GRADE AGREE: both are handed the same cfg, so the button
+     reading "12d" still schedules twelve days. A map read from a global at each call could differ between
+     the two and would be the fuzz-seeded-by-the-clock mistake in a new coat.
+
+     `cfg.load` is `{ due: {dayOffset: count}, week: [7 weights, Sunday first], dow0: today's weekday }`.
+     Two honest approximations, stated rather than hidden: the weekday is stepped modularly from `dow0`
+     rather than re-derived per candidate, so it can be a day out across a daylight-saving change; and the
+     card being rescheduled still counts itself in its OLD bucket, which is almost never inside the range
+     it is moving to. */
+  const LOAD_AVOID = 1e6;    // a day the reader does not study: dominated only by there being no alternative
+  const LOAD_NEAR = 0.01;    // …and among equals, stay near the interval the scheduler actually wanted
+  function schedSpread(iv, seed, cfg) {
+    const r = schedFuzzRange(iv);
+    if (!r) return iv;
+    const L = cfg && cfg.load;
+    if (!L) return r.lo + Math.floor(schedFuzzRand(seed) * (r.hi - r.lo + 1));
+    let best = r.lo, bestCost = Infinity;
+    for (let d = r.lo; d <= r.hi; d++) {
+      const dow = (((L.dow0 | 0) + d) % 7 + 7) % 7;
+      const w = L.week && L.week[dow] === 0 ? LOAD_AVOID : 0;
+      const cost = ((L.due && L.due[d]) || 0) + w + Math.abs(d - iv) * LOAD_NEAR;
+      if (cost < bestCost) { bestCost = cost; best = d; }
+    }
+    return best;
   }
   /* A passing interval: fuzzed, never below its floor (which is what keeps Hard < Good < Easy), capped.
      The cap is applied LAST, after the floor — the other order lets the "one day longer than the button
      to my left" rule walk Easy past the ceiling on a card already sitting at it. At the ceiling the three
      buttons converge, which is correct and is the only place the ordering does not hold. */
   function schedPass(iv, floor, cfg, seed) {
-    const v = Math.round(schedFuzz(iv * cfg.ivMult, seed));
+    const v = Math.round(schedSpread(iv * cfg.ivMult, seed, cfg));
     return Math.min(cfg.maxIv, Math.max(floor, Math.max(1, v)));
   }
   /* The three passing intervals of a REVIEW card, in days. Days LATE are credited back — a card
@@ -3100,10 +3344,341 @@
     return { hard: hard, good: good, easy: easy };
   }
   const schedBlank = () => ({ reps: 0, lapses: 0, ease: SCHED.startEase, interval: 0, due: Date.now(), status: "new", last: 0, step: 0 });
-  /* Answer a card. Returns a NEW record — the caller's is untouched, so the undo snapshot taken before
-     this runs stays valid whatever happens in here. `seed` should be the card id: see schedFuzz. */
+
+  /* ================= FSRS ==================================================================
+     The Free Spaced Repetition Scheduler, chosen PER DECK beside the SM-2 above (Aug 2026, on request).
+     SM-2 asks "how did that go?" and multiplies an interval; FSRS models the memory itself — a STABILITY
+     (the interval at which recall is 90% likely) and a DIFFICULTY (1–10) — and then solves for the interval
+     that lands on the retention the reader asked for. It is Anki's default since 23.10, and their own
+     benchmarks put it ahead of SM-2 at predicting recall — which in practice means the same retention out of
+     fewer reviews. That is a claim about somebody else's measurements rather than one made here, so the
+     reader is offered BOTH and told plainly what each does, and SM-2 stays the default for every existing
+     deck; a scheduler is not something to switch under someone.
+
+     IT IS FSRS-6, AND IT WAS NOT WRITTEN FROM MEMORY. Every formula and all 21 default parameters below were
+     read off the reference implementation (`py-fsrs`, open-spaced-repetition) and the arithmetic is checked
+     against vectors GENERATED by it — see `.claude/fsrs-vectors.json` and test-scheduler.js. A scheduler
+     reconstructed from prose is exactly the kind of thing that looks right and quietly teaches people less,
+     which is the one failure a study site cannot afford; so the check is a committed fixture rather than a
+     reading of the maths.
+
+     WHAT IT SHARES WITH SM-2, deliberately: the learning steps, the relearning steps, the daily allowances,
+     the fuzz, the day boundary and the requeue rule. FSRS replaces the interval arithmetic and nothing else,
+     which is also how Anki does it — a new card still walks 1m/10m, and FSRS decides where it lands after. */
+  const FSRS_PARAMS = [
+    0.212, 1.2931, 2.3065, 8.2956, 6.4133, 0.8334, 3.0194, 0.001, 1.8722, 0.1666, 0.796,
+    1.4835, 0.0614, 0.2629, 1.6483, 0.6014, 1.8729, 0.5425, 0.0912, 0.0658, 0.1542,
+  ];
+  const FSRS_S_MIN = 0.001, FSRS_D_MIN = 1, FSRS_D_MAX = 10;
+  const FSRS_RETENTION = 0.9;                 // the reader's target: what fraction they want to still recall
+  const FSRS_RET_MIN = 0.7, FSRS_RET_MAX = 0.98;
+  const FSRS_G = { again: 1, hard: 2, good: 3, easy: 4 };
+  const fsrsClampS = (s) => Math.max(FSRS_S_MIN, s);
+  const fsrsClampD = (d) => Math.min(FSRS_D_MAX, Math.max(FSRS_D_MIN, d));
+  /* DECAY and FACTOR are derived from w20 rather than fixed: FSRS-6's whole addition over FSRS-5 is that the
+     shape of the forgetting curve is itself learnable. FACTOR is whatever makes R(S, S) come out at exactly
+     0.9, which is what makes "stability" mean "the 90% interval" for any decay. */
+  function fsrsDecay(w) { return -(Number(w[20]) || FSRS_PARAMS[20]); }
+  function fsrsFactor(w) { return Math.pow(0.9, 1 / fsrsDecay(w)) - 1; }
+  // R(t, S) — the chance of recall t days after a review of a memory with this stability
+  function fsrsRetrievability(w, elapsedDays, stability) {
+    const s = fsrsClampS(Number(stability) || FSRS_S_MIN);
+    return Math.pow(1 + fsrsFactor(w) * Math.max(0, elapsedDays) / s, fsrsDecay(w));
+  }
+  // the interval that lands on `retention`, in days — the inverse of the curve above
+  function fsrsInterval(w, stability, retention) {
+    const r = Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(retention) || FSRS_RETENTION));
+    return (stability / fsrsFactor(w)) * (Math.pow(r, 1 / fsrsDecay(w)) - 1);
+  }
+  const fsrsInitS = (w, g) => fsrsClampS(Number(w[g - 1]) || FSRS_S_MIN);
+  // the difficulty a card starts at, from the grade it was first answered with. `clamp` is false where this
+  // is used as the mean-reversion target, which is the reference's own distinction and is not cosmetic.
+  function fsrsInitD(w, g, clamp) {
+    const d = w[4] - Math.exp(w[5] * (g - 1)) + 1;
+    return clamp === false ? d : fsrsClampD(d);
+  }
+  /* Difficulty after a grade. Two pieces worth naming: LINEAR DAMPING makes a hard grade move a card that is
+     already difficult less than one that is easy, so difficulty approaches 10 without ever being pinned
+     there; and MEAN REVERSION pulls every card slowly back towards the difficulty an Easy first answer would
+     have given it, which is what stops a run of bad days marking a card difficult for ever. */
+  function fsrsNextD(w, difficulty, g) {
+    const d = fsrsClampD(Number(difficulty) || FSRS_D_MIN);
+    const delta = -(w[6] * (g - 3));
+    const damped = d + (10 - d) * delta / 9;
+    return fsrsClampD(w[7] * fsrsInitD(w, FSRS_G.easy, false) + (1 - w[7]) * damped);
+  }
+  // stability after a SUCCESSFUL review. It can only grow: a card recalled is not less well known than before
+  function fsrsRecallS(w, difficulty, stability, r, g) {
+    const hard = g === FSRS_G.hard ? w[15] : 1;
+    const easy = g === FSRS_G.easy ? w[16] : 1;
+    return stability * (1 + Math.exp(w[8]) * (11 - difficulty) * Math.pow(stability, -w[9]) *
+      (Math.exp((1 - r) * w[10]) - 1) * hard * easy);
+  }
+  /* …and after a LAPSE. The `min` is the load-bearing half: post-lapse stability may never exceed what the
+     card had before it was forgotten, which is what stops a card that keeps lapsing from drifting upwards. */
+  function fsrsForgetS(w, difficulty, stability, r) {
+    const long = w[11] * Math.pow(difficulty, -w[12]) * (Math.pow(stability + 1, w[13]) - 1) *
+      Math.exp((1 - r) * w[14]);
+    const short = stability / Math.exp(w[17] * w[18]);
+    return Math.min(long, short);
+  }
+  /* A SAME-DAY review — the second answer on a card still walking its learning steps. It is a different
+     formula because no measurable time has passed, so there is no retrievability to work from: all the
+     information is in the grade. Anything but Again is floored at 1, so a same-day pass cannot lose ground. */
+  function fsrsShortS(w, stability, g) {
+    let inc = Math.exp(w[17] * (g - 3 + w[18])) * Math.pow(stability, -w[19]);
+    if (g >= FSRS_G.hard) inc = Math.max(inc, 1);
+    return fsrsClampS(stability * inc);
+  }
+  // the memory state a grade moves a card to, given how long it has actually been
+  function fsrsNextState(w, c, g, elapsedDays) {
+    const fresh = !(Number(c.stability) > 0) || !(Number(c.difficulty) > 0);
+    if (fresh) return { s: fsrsInitS(w, g), d: fsrsInitD(w, g, true) };
+    const s = Number(c.stability), d = Number(c.difficulty);
+    // "same day" is the reference's own test: fewer than one whole day since the last review
+    if (elapsedDays != null && elapsedDays < 1) return { s: fsrsShortS(w, s, g), d: fsrsNextD(w, d, g) };
+    const r = fsrsRetrievability(w, elapsedDays == null ? 0 : elapsedDays, s);
+    const s2 = g === FSRS_G.again ? fsrsForgetS(w, d, s, r) : fsrsRecallS(w, d, s, r, g);
+    return { s: fsrsClampS(s2), d: fsrsNextD(w, d, g) };
+  }
+  /* SEEDING A CARD THAT WAS STUDIED UNDER SM-2. Turning FSRS on mid-deck must not throw away what the reader
+     has already built, and the one quantity that genuinely transfers is the INTERVAL: SM-2's interval and
+     FSRS's stability are the same thing measured the same way — the delay at which recall is about 90%
+     likely. So stability is seeded from it and DIFFICULTY IS NOT GUESSED: it starts at the value a Good
+     first answer would give and moves from there, because SM-2's ease is a multiplier of a different shape
+     and mapping one onto the other would be inventing a number. Anki reschedules from the review log
+     instead, which Folio will be able to do once the optimiser lands; until then this is the honest version
+     and it says so. A card with no interval at all is simply new to FSRS. */
+  function fsrsSeed(w, c) {
+    if (Number(c.stability) > 0 && Number(c.difficulty) > 0) return c;
+    if (!(Number(c.interval) > 0)) return c;
+    c.stability = fsrsClampS(Number(c.interval));
+    c.difficulty = fsrsInitD(w, FSRS_G.good, true);
+    return c;
+  }
+  const fsrsWeights = (cfg) => (Array.isArray(cfg && cfg.fsrsParams) && cfg.fsrsParams.length === 21 ? cfg.fsrsParams : FSRS_PARAMS);
+  /* The FSRS half of schedAnswer: same shape, same states, same steps — only the interval a graduating or
+     passing card lands on is computed from the memory state rather than from an ease multiplier. */
+  function fsrsAnswer(card, g, t, seed, cfg) {
+    const w = fsrsWeights(cfg);
+    const c = fsrsSeed(w, Object.assign({}, card || schedBlank()));
+    const grade = FSRS_G[g] || FSRS_G.good;
+    /* WHOLE DAYS, FLOORED — the reference's own convention (`(now - last).days`), and Folio read it as a
+       FRACTION for the first few hours of FSRS's life. It is not a rounding detail: the forgetting curve is
+       evaluated at this number, so a card answered 1.9 days late was scored at 1.9 where every parameter set
+       in the world — including one a reader pastes out of Anki — was fitted against 1. The fixture could not
+       see it because every gap in it was a whole number of days; there are fractional gaps in it now. */
+    const elapsed = c.last ? Math.max(0, Math.floor((t - c.last) / DAY)) : null;
+    const st = fsrsNextState(w, c, grade, c.status === "new" ? null : elapsed);
+    c.stability = st.s;
+    c.difficulty = st.d;
+    const land = () => {
+      c.status = "review";
+      c.step = 0;
+      c.interval = schedPass(fsrsInterval(w, c.stability, cfg.retention), 1, cfg, String(seed) + ":" + (c.reps || 0));
+      c.due = t + c.interval * DAY;
+      delete c.lapseIv;
+    };
+    if (c.status === "new" || schedIsLearning(c.status)) {
+      const steps = schedSteps(c, cfg);
+      const step = schedStep(c, steps);
+      if (!steps.length) land();
+      else if (g === "again") { c.status = c.status === "relearn" ? "relearn" : "learning"; c.step = 0; c.due = t + steps[0] * MIN_MS; }
+      else if (g === "hard") { c.status = c.status === "relearn" ? "relearn" : "learning"; c.step = step; c.due = t + schedHardDelay(steps, step) * MIN_MS; }
+      else if (g === "easy") land();
+      else if (step + 1 < steps.length) { c.status = c.status === "relearn" ? "relearn" : "learning"; c.step = step + 1; c.due = t + steps[step + 1] * MIN_MS; }
+      else land();
+      if (c.status === "review") c.reps = (c.reps || 0) + 1;
+    } else if (g === "again") {
+      c.lapses = (c.lapses || 0) + 1;
+      if (cfg.relearnSteps.length) { c.status = "relearn"; c.step = 0; c.due = t + cfg.relearnSteps[0] * MIN_MS; }
+      else land();
+      if (c.lapses >= cfg.leech) c.leech = true;
+    } else {
+      land();
+      c.reps = (c.reps || 0) + 1;
+    }
+    c.last = t;
+    return c;
+  }
+  // …and its preview, computed exactly as the grade will be, which is the property the whole grade bar rests on
+  function fsrsPreviewIvs(card, seed, t, cfg) {
+    const w = fsrsWeights(cfg);
+    const out = {};
+    ["again", "hard", "good", "easy"].forEach((g) => {
+      const next = fsrsAnswer(card, g, t, seed, cfg);
+      out[g] = Math.max(0, (next.due - t) / DAY);
+    });
+    return out;
+  }
+  /* ================= THE FSRS OPTIMISER =====================================================
+     FSRS's 21 parameters describe how a memory fades. The defaults describe the AVERAGE of millions of
+     reviews; these describe the reader's. Fitting them is the whole reason the per-review log was moved to
+     a table of its own and uncapped — a card record keeps only its latest review, so nothing here can be
+     reconstructed after the fact.
+
+     WHAT IS BEING FITTED. Each card's reviews are a sequence: from the state after review i-1 and the delay
+     to review i, FSRS predicts the chance of recall; the answer says what happened (anything but Again is a
+     recall). The loss is the binary cross-entropy between the two, averaged, and the parameters are moved
+     to reduce it. Same-day reviews are excluded from the loss — retrievability is defined at a scale of
+     days and a card answered again ten minutes later says nothing about forgetting — and so is a card's
+     FIRST review, which has no prior state to predict from. Both exclusions are the reference's.
+
+     THE LOSS IS CHECKED AGAINST THE REFERENCE; THE DESCENT IS NOT, and that division is deliberate. Two
+     gradient descents never land on the same 21 numbers, so comparing the OUTPUT against py-fsrs would be
+     comparing noise — but the loss being descended is a fixed function of the parameters and the data, and
+     getting it wrong is how an optimiser confidently walks a reader's schedule somewhere worse. So
+     `.claude/fsrs-vectors.json` carries a synthetic review history scored by the reference's own
+     `Optimizer._compute_batch_loss` at two parameter sets, and test-scheduler.js holds `fsrsBatchLoss` to it.
+
+     THE GRADIENT IS NUMERICAL, which is the other deliberate departure: the reference differentiates a
+     torch graph, and Folio has no torch and no build step. Hand-derived analytic gradients over 21
+     parameters would be ~200 lines of calculus with nothing to check them against — the exact shape of
+     mistake this whole feature is written to avoid — where a finite difference is derived mechanically
+     from the loss, which IS checked. It costs 22 evaluations a step and buys certainty.
+
+     AND IT IS ALLOWED TO REFUSE. `fsrsOptimise` returns `ok:false` rather than a worse schedule when there
+     is too little history (the reference's own floor of one mini-batch), or when the fitted set does not
+     beat the defaults on reviews it never saw. That last guard is Folio's own and is the one that matters:
+     a reader pressing this button is handing over their schedule, and the honest answer to "your history
+     does not support better parameters than the defaults" is to say so. */
+  const FSRS_OPT = {
+    maxSeq: 64,        // the reference's max_seq_len — the first 64 reviews of any one card
+    minReviews: 512,   // …and its mini_batch_size, which is also its "too little data, keep the defaults" floor
+    epochs: 24,        // full-batch steps, where the reference takes mini-batch ones (see fsrsOptimise)
+    lr: 0.04,          // the reference's learning_rate
+    beta1: 0.9, beta2: 0.999, eps: 1e-8,    // Adam's own defaults, which is what the reference constructs
+    h: 1e-4,           // the finite-difference step, relative to each parameter's own size
+    holdout: 0.2,      // the last fifth of each card's sequence, kept back to judge the result on
+  };
+  /* The reference's clamp, read off `fsrs.scheduler.LOWER/UPPER_BOUNDS_PARAMETERS` rather than invented:
+     these are what keep a descent from wandering into a parameter set the scheduler cannot use (a negative
+     stability, a difficulty scale that inverts). Carried in the fixture too, so they cannot drift. */
+  const FSRS_LO = [0.001, 0.001, 0.001, 0.001, 1, 0.001, 0.001, 0.001, 0, 0, 0.001, 0.001, 0.001, 0.001, 0, 0, 1, 0, 0, 0, 0.1];
+  const FSRS_HI = [100, 100, 100, 100, 10, 4, 4, 0.75, 4.5, 0.8, 3.5, 5, 0.25, 0.9, 4, 1, 6, 2, 2, 0.8, 0.8];
+  const fsrsClampW = (w) => w.map((x, i) => Math.min(FSRS_HI[i], Math.max(FSRS_LO[i], isFinite(x) ? x : FSRS_PARAMS[i])));
+
+  /* How many reviews a set of sequences actually contributes to the loss — every review that is neither a
+     card's first nor a same-day repeat. It is what the minimum is measured against, and it is a good deal
+     smaller than the row count, so it is computed rather than approximated. */
+  function fsrsLossReviews(seqs) {
+    let n = 0;
+    (seqs || []).forEach((seq) => {
+      for (let i = 1; i < seq.length; i++) if (Math.floor((seq[i].t - seq[i - 1].t) / DAY) > 0) n++;
+    });
+    return n;
+  }
+  /* THE LOSS: mean binary cross-entropy of predicted recall against what happened. `part` takes a slice of
+     each sequence — but the walk always starts at the card's first review, because the state at review i is
+     the product of every review before it. A held-out tail is scored on a state built from the head, which
+     is what makes it a fair test rather than a different problem. */
+  function fsrsBatchLoss(w, seqs, part) {
+    const from = part && part.from ? part.from : 0;
+    const to = part && part.to != null ? part.to : 1;
+    let sum = 0, n = 0;
+    for (let k = 0; k < seqs.length; k++) {
+      const seq = seqs[k];
+      let s = 0, d = 0, first = true;
+      const lo = Math.floor(seq.length * from), hi = Math.floor(seq.length * to);
+      for (let i = 0; i < seq.length; i++) {
+        const rev = seq[i];
+        if (!first) {
+          const elapsed = Math.max(0, Math.floor((rev.t - seq[i - 1].t) / DAY));
+          if (elapsed > 0 && i >= lo && i < hi) {
+            const r = Math.min(1 - 1e-9, Math.max(1e-9, fsrsRetrievability(w, elapsed, s)));
+            const y = rev.g > FSRS_G.again ? 1 : 0;
+            sum += -(y * Math.log(r) + (1 - y) * Math.log(1 - r));
+            n++;
+          }
+          const st = fsrsNextState(w, { status: "review", stability: s, difficulty: d }, rev.g, elapsed);
+          s = st.s; d = st.d;
+        } else {
+          s = fsrsInitS(w, rev.g); d = fsrsInitD(w, rev.g, true); first = false;
+        }
+      }
+    }
+    return n ? sum / n : NaN;
+  }
+  /* One Adam step on a numerical gradient. FULL-BATCH where the reference takes mini-batches: a mini-batch
+     gradient needs the card states carried across the batch boundary, which autograd gets for free and a
+     finite difference does not — recomputing them per perturbation is what makes the full batch simpler AND
+     the thing the reference itself selects its best epoch on. Fewer, better-aimed steps rather than many
+     noisy ones. */
+  function fsrsOptStep(w, seqs, part, m, v, step) {
+    const base = fsrsBatchLoss(w, seqs, part);
+    if (!isFinite(base)) return { w: w, loss: base };
+    const next = w.slice();
+    // bias-corrected Adam, exactly as the optimiser it is named after
+    const bc1 = 1 - Math.pow(FSRS_OPT.beta1, step), bc2 = 1 - Math.pow(FSRS_OPT.beta2, step);
+    for (let i = 0; i < w.length; i++) {
+      const h = Math.max(FSRS_OPT.h, Math.abs(w[i]) * FSRS_OPT.h);
+      const probe = w.slice();
+      probe[i] = Math.min(FSRS_HI[i], w[i] + h);
+      const dh = probe[i] - w[i];
+      const g = dh > 0 ? (fsrsBatchLoss(probe, seqs, part) - base) / dh : 0;
+      const gr = isFinite(g) ? g : 0;
+      m[i] = FSRS_OPT.beta1 * m[i] + (1 - FSRS_OPT.beta1) * gr;
+      v[i] = FSRS_OPT.beta2 * v[i] + (1 - FSRS_OPT.beta2) * gr * gr;
+      next[i] = w[i] - FSRS_OPT.lr * (m[i] / bc1) / (Math.sqrt(v[i] / bc2) + FSRS_OPT.eps);
+    }
+    return { w: fsrsClampW(next), loss: base };
+  }
+  /* Fit parameters to a reader's own history. Synchronous and pure — the caller drives it a step at a time
+     (`fsrsOptimiseStart` / `fsrsOptimiseStep`) so the page keeps painting; this is the whole run in one
+     call, which is what the tests use. */
+  function fsrsOptimise(seqs, onStep) {
+    const run = fsrsOptimiseStart(seqs);
+    if (!run.ok) return run;
+    while (!run.done) { fsrsOptimiseStep(run); if (onStep) onStep(run); }
+    return fsrsOptimiseFinish(run);
+  }
+  function fsrsOptimiseStart(seqs) {
+    const usable = (seqs || []).filter((s) => s.length > 1);
+    const n = fsrsLossReviews(usable);
+    if (n < FSRS_OPT.minReviews) {
+      return { ok: false, done: true, reason: "few", reviews: n, need: FSRS_OPT.minReviews };
+    }
+    /* TRAIN ON THE HEAD OF EACH SEQUENCE, JUDGE ON THE TAIL. Splitting by CARD would let a card the fit had
+       never seen be judged from a cold start; splitting within each card keeps the walk intact and asks the
+       fair question — given what this card did, does the fitted set predict what it did NEXT any better? */
+    const train = { from: 0, to: 1 - FSRS_OPT.holdout };
+    const test = { from: 1 - FSRS_OPT.holdout, to: 1 };
+    return {
+      ok: true, done: false, seqs: usable, train: train, test: test, reviews: n,
+      w: FSRS_PARAMS.slice(), best: FSRS_PARAMS.slice(), bestLoss: Infinity,
+      m: FSRS_PARAMS.map(() => 0), v: FSRS_PARAMS.map(() => 0),
+      step: 0, epochs: FSRS_OPT.epochs, loss: NaN,
+    };
+  }
+  function fsrsOptimiseStep(run) {
+    if (run.done) return run;
+    run.step++;
+    const r = fsrsOptStep(run.w, run.seqs, run.train, run.m, run.v, run.step);
+    run.loss = r.loss;
+    // keep the best set SEEN, not the last one: a descent can step past its own minimum
+    if (isFinite(r.loss) && r.loss < run.bestLoss) { run.bestLoss = r.loss; run.best = run.w.slice(); }
+    run.w = r.w;
+    if (run.step >= run.epochs) run.done = true;
+    return run;
+  }
+  function fsrsOptimiseFinish(run) {
+    if (!run.ok) return run;
+    const before = fsrsBatchLoss(FSRS_PARAMS, run.seqs, run.test);
+    const after = fsrsBatchLoss(run.best, run.seqs, run.test);
+    /* THE REFUSAL, and it is the point of the whole guard: a fit that does not beat the defaults on reviews
+       it never saw is a fit that has learned this reader's noise. Saying so is more use than handing over 21
+       numbers that will quietly schedule them worse. */
+    const better = isFinite(before) && isFinite(after) && after < before;
+    return {
+      ok: better, done: true, reason: better ? null : "noBetter",
+      w: run.best, reviews: run.reviews, cards: run.seqs.length,
+      trainLoss: run.bestLoss, before: before, after: after,
+      gain: isFinite(before) && isFinite(after) ? (before - after) / before : 0,
+    };
+  }
   function schedAnswer(card, g, t, seed, cfg) {
     cfg = cfg || SCHED;
+    if (cfg.mode === "fsrs") return fsrsAnswer(card, g, t, seed, cfg);   // the same states and steps, a different interval
     const c = Object.assign({}, card || schedBlank());
     const relearn = c.status === "relearn";
     c.ease = Math.max(cfg.minEase, Number(c.ease) || cfg.startEase);
@@ -3174,8 +3749,10 @@
      A learning delay comes back as a fraction of a day, which is what fmtInterval renders in minutes. */
   function schedPreview(card, seed, t, cfg) {
     cfg = cfg || SCHED;
+    if (t == null) t = Date.now();
+    if (cfg.mode === "fsrs") return fsrsPreviewIvs(card, seed, t, cfg);
     const c = card || schedBlank();
-    if (t == null) t = Date.now();   // …but it must be the SAME instant schedAnswer will use, or an overdue
+    // …but it must be the SAME instant schedAnswer will use, or an overdue
     const day = (m) => m / 1440;     // card previews one interval and schedules another (caught by the test)
     if (c.status === "new" || schedIsLearning(c.status)) {
       const steps = schedSteps(c, cfg);
@@ -3198,7 +3775,166 @@
     return { again: again, hard: ivs.hard, good: ivs.good, easy: ivs.easy };
   }
 
+  /* ---------- SET DUE DATE and FORGET (Aug 2026, on request) ----------
+     Anki's two escape hatches, and between them they cover the two things a schedule cannot say for itself:
+     "I am away next week" and "this one never stuck". Both are PURE and both return a NEW record, like
+     schedAnswer — so the undo snapshot stays valid, the caller's record is never mutated, and
+     test-scheduler.js can walk them as arithmetic.
+
+     WHY THEY BELONG TO THE SCHEDULER RATHER THAN TO A BUTTON. Either one written at the call site would be
+     four or five field writes with a rule behind each (what happens to a learning card's step, whether a
+     lapsed card keeps the interval it was returning to, whether FSRS's memory state survives), and those
+     rules would then exist in however many places offered the action. Here there is one of each, and the
+     browser's bulk actions and the single-card sheets are the same code. */
+
+  /* Push a card to a day. `days` is whole days from `t` — 0 meaning now — and the instant is computed the
+     same way schedAnswer computes every other due date (`t + days * DAY`) rather than being snapped to the
+     reader's day boundary. That is deliberate consistency rather than laziness: a card graded at ten in the
+     evening with a one-day interval already comes due at ten the next evening, so a Set-due-date that
+     behaved differently would be the one place in Folio where "a day" meant something else.
+
+     A NEW or LEARNING card becomes a REVIEW card, which is Anki's behaviour and the only coherent one — a
+     due date is a review card's property, and leaving it in learning would have the next grade walk the
+     steps and overwrite the date the reader had just chosen. What it does NOT touch is the memory: reps,
+     lapses, ease, stability and difficulty all survive, because pushing a card to Friday says nothing about
+     how well it is known. `setInterval` is Anki's `N!` — it moves the interval to match, which is what a
+     reader means when the old interval is the thing that was wrong. */
+  function schedSetDue(card, days, t, setInterval, cfg) {
+    cfg = cfg || SCHED;
+    const c = Object.assign({}, card || schedBlank());
+    const d = Math.max(0, Math.min(cfg.maxIv, Math.floor(Number(days) || 0)));
+    c.status = "review";
+    c.step = 0;
+    c.due = t + d * DAY;
+    /* A card that has never been a review card has no interval to keep, so it takes the one it was just
+       given — a floor of a day, since a review card with an interval of 0 would be scheduled by nothing.
+       An existing review card keeps its own unless the reader asked otherwise. */
+    if (setInterval || !(Number(c.interval) > 0)) c.interval = Math.max(1, d);
+    delete c.lapseIv;      // it is no longer relearning, so there is nowhere to return to
+    return c;
+  }
+
+  /* Back to new. Anki keeps the card and resets its scheduling, and so does this — the record is NOT
+     deleted, which matters for two reasons worth stating. Folio's XP is the number of distinct cards
+     studied, so dropping the record would take back a level the reader had earned by studying something
+     they did in fact study; and `first` is what every per-deck new-card count is derived from, so a
+     forgotten card would stop being counted against the day it was introduced.
+
+     `resetCounts` is Anki's own checkbox and is off by default: the reps and lapses HAPPENED, and a reader
+     who wants the card treated as though it had never been seen can say so. The FSRS memory state always
+     goes — a stability is a claim about how well the card is known, and forgetting is exactly the assertion
+     that the claim was wrong. */
+  function schedForget(card, resetCounts, t) {
+    const c = Object.assign({}, card || schedBlank());
+    c.status = "new";
+    c.step = 0;
+    c.interval = 0;
+    c.due = t;
+    c.ease = SCHED.startEase;
+    delete c.stability;
+    delete c.difficulty;
+    delete c.lapseIv;
+    if (resetCounts) {
+      c.reps = 0;
+      c.lapses = 0;
+      delete c.leech;
+    }
+    return c;
+  }
+
   /* ---------- SRS ---------- */
+  /* ---------- which scheduler a card is on ----------
+     Below the marker above ON PURPOSE: everything before it is PURE — no S, no DOM, no clock but the one
+     passed in — which is what lets test-scheduler.js slice the two schedulers out and run them as
+     arithmetic. Deciding WHICH scheduler a card is on has to read the reader's own deck options, so it
+     lives on this side of the line and the purity assertion stays true.
+     PER DECK, and it is the CARD'S OWN deck that decides — never the pooled review's setting. A card
+     scheduled one way from its own row and another way from the daily review would have two schedules and no
+     way to tell which was in force, which is the one thing a per-deck choice must not produce. So the daily
+     review's own sheet does not offer the switch: it schedules nothing of its own, it deals what its decks
+     hand it. A card in more than one deck takes the first, deterministically. */
+  function schedModeOf(entryId) {
+    const o = (S.deckOpts || {})[entryId] || {};
+    return o.sched === "fsrs" ? "fsrs" : "sm2";
+  }
+  function deckSchedCfg(entryId) {
+    const o = (S.deckOpts || {})[entryId] || {};
+    const cfg = Object.assign({}, SCHED, {
+      mode: schedModeOf(entryId),
+      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(o.retention) || FSRS_RETENTION)),
+    });
+    if (Array.isArray(o.fsrsParams) && o.fsrsParams.length === 21) cfg.fsrsParams = o.fsrsParams;
+    /* The load map rides on the cfg so the pure scheduler can read it and so the preview and the grade are
+       handed the SAME one — see schedSpread. It is null unless the reader has asked for one of the two
+       settings, which is what keeps every existing schedule exactly as it was. */
+    const lm = loadMapNow();
+    if (lm) cfg.load = lm;
+    return cfg;
+  }
+  // the entry whose options govern this card: its community deck, or the leaf it sits in
+  function cardEntryId(id) {
+    if (isCommunityCard(id)) {
+      const note = UCARDS[uCardBaseId(id)];
+      if (note && note.deckId) {
+        const sub = note.sub ? uSubEntry(note.deckId, note.sub) : null;
+        // a subdeck's own row can carry options; fall back to the deck's
+        if (sub && (S.deckOpts || {})[sub]) return sub;
+        return uDeckEntry(note.deckId);
+      }
+      return null;
+    }
+    const leaf = cardLeaves(id)[0];
+    return leaf ? leaf.id : null;
+  }
+  function schedCfgFor(id) {
+    const e = cardEntryId(id);
+    return e ? deckSchedCfg(e) : SCHED;
+  }
+  /* ---------- the load map (Aug 2026) ----------
+     The impure half of load balancing: how many cards are already due on each of the next few weeks' days,
+     and which weekdays the reader has said they do not study. It is built HERE and handed to the pure
+     scheduler through `cfg.load` — see schedSpread for why it travels rather than being read.
+
+     CACHED FOR THE DAY, and invalidated by anything that moves a due date. Rebuilding is one pass over the
+     card records, which is a millisecond or two, but it happens on every grade and every preview — so it is
+     cached, and `bumpLoadMap()` is called wherever a due date changes. A STALE map would not corrupt
+     anything (the worst case is a card landing on a day that filled up since), but it would slowly stop
+     doing the job it exists for. */
+  const LOAD_DAYS = 90;             // how far ahead to count; past this a card is not competing with anything soon
+  const EASY_DAYS_DEFAULT = [1, 1, 1, 1, 1, 1, 1];   // Sunday first, matching Date#getDay
+  function easyDays() {
+    const a = S.settings && S.settings.easyDays;
+    if (!Array.isArray(a) || a.length !== 7) return EASY_DAYS_DEFAULT;
+    return a.map((x) => (x === 0 ? 0 : 1));
+  }
+  const easyDaysOn = () => easyDays().some((x) => x === 0);
+  const loadBalanceOn = () => !!(S.settings && S.settings.loadBalance);
+  let _loadMap = null, _loadMapDay = "";
+  function bumpLoadMap() { _loadMap = null; }
+  function loadMapNow() {
+    /* Neither setting on → no map, and the scheduler falls back to the hash-seeded fuzz it always used. That
+       is what makes this cost nothing for a reader who has not asked for it, and what makes "nothing
+       migrates" true: an existing reader's intervals are byte-for-byte what they were. */
+    if (!loadBalanceOn() && !easyDaysOn()) return null;
+    const today = todayStr();
+    if (_loadMap && _loadMapDay === today) return _loadMap;
+    const due = Object.create(null);
+    if (loadBalanceOn()) {
+      const avail = availableCardIdSet(), t = now();
+      Object.keys(S.cards).forEach((id) => {
+        const c = S.cards[id];
+        if (!c || !c.due || c.status === "new") return;
+        if (isSuspended(id) || !avail.has(id)) return;   // set aside or in a coming-soon collection: not work
+        const d = Math.round((c.due - t) / DAY);
+        if (d >= 0 && d <= LOAD_DAYS) due[d] = (due[d] || 0) + 1;
+      });
+    }
+    _loadMap = { due: due, week: easyDays(), dow0: new Date(now()).getDay() };
+    _loadMapDay = today;
+    return _loadMap;
+  }
+  /* Answer a card. Returns a NEW record — the caller's is untouched, so the undo snapshot taken before
+     this runs stays valid whatever happens in here. `seed` should be the card id: see schedFuzz. */
   function cardState(id) {
     return S.cards[id] || null;
   }
@@ -3208,27 +3944,123 @@
   function isSuspended(id) {
     return !!(S.suspended && S.suspended[id]);
   }
+  /* ---------- BURYING (Aug 2026, on request) ----------
+     A buried card is out of the way until tomorrow. It exists for SIBLINGS: a note with several card
+     templates makes two or more cards, and answering one of them tells you nothing about the others for the
+     rest of the day — asking "水 → water" an hour after "water → 水" tests the last hour and not the memory.
+     Template-major ordering keeps them apart within a session; burying keeps them apart across the day, which
+     is the part ordering cannot do (a second session, or a deck small enough that the two meet anyway).
+
+     THE REGISTER EXPIRES BY BEING READ. `S.buried[id]` is the DAY it was buried, so nothing has to run at
+     midnight — the day boundary is the reader's own (see dayKey) and a card buried yesterday simply reads as
+     not buried today. Stale entries are swept on write, which is where deckDay does it too. */
+  function isBuried(id) {
+    const d = S.buried && S.buried[id];
+    return !!d && d === todayStr();
+  }
+  function buryCard(id) {
+    if (!S.buried || typeof S.buried !== "object") S.buried = {};   // back-fill for saves made before the register existed
+    const today = todayStr();
+    // sweep yesterday's on the way past, so the register can never outgrow the cards in use
+    Object.keys(S.buried).forEach((k) => { if (S.buried[k] !== today) delete S.buried[k]; });
+    S.buried[id] = today;
+  }
+  /* Bury the OTHER cards of this card's note, if its deck asks for it. Only a community note can have
+     siblings (a curated card is one card), and only cards that have not yet been answered today are buried —
+     burying one already answered would be recording a fact about it that changes nothing and would show in
+     the account page's counts as work put off that was in fact done. */
+  function burySiblings(id) {
+    if (!isCommunityCard(id)) return 0;
+    const base = uCardBaseId(id);
+    const ids = uNoteCardIds(base);
+    if (ids.length < 2) return 0;
+    const e = cardEntryId(id);
+    if (!e || !deckBurySiblings(e)) return 0;
+    let n = 0;
+    ids.forEach((sib) => {
+      if (sib === id || isSuspended(sib) || isBuried(sib)) return;
+      const c = S.cards[sib];
+      if (c && c.last && dayKey(c.last) === todayStr()) return;   // already answered today: nothing to put off
+      buryCard(sib);
+      n++;
+    });
+    return n;
+  }
+  /* ---------- FLAGS (Aug 2026, on request) ----------
+     Colour a card mid-review, find it later. Anki's seven, in Anki's own order and under Anki's own names,
+     because a reader who has flagged cards before will reach for Ctrl+1 and mean red by it.
+
+     A FLAG IS NOT `cardColor`, and the two must not be merged however similar they look. `cardColor` is an
+     ADMIN's private marker on a card in the editor — it rides in `ADMIN_EDITS`, it is published to every
+     reader through the content overrides, and it means "I, the person who writes these cards, have a note
+     about this one". A flag is the READER's, it rides in their own progress, and nobody else ever sees it.
+     One is a fact about the content; the other is a fact about somebody's studying.
+
+     The colours are TOKENS rather than literals (`--flag-1` … `--flag-7`, with night values of their own),
+     for the reason the rarity colours are: the reader is being asked to tell seven apart at a glance, and a
+     hue mixed toward a dark paper stops being the hue that identifies it. */
+  const FLAGS = [
+    { n: 1, name: "Red" },
+    { n: 2, name: "Orange" },
+    { n: 3, name: "Green" },
+    { n: 4, name: "Blue" },
+    { n: 5, name: "Pink" },
+    { n: 6, name: "Turquoise" },
+    { n: 7, name: "Purple" },
+  ];
+  const FLAG_NAME = (n) => (FLAGS.find((f) => f.n === n) || {}).name || "";
+  function cardFlag(id) {
+    const n = S.flags && S.flags[id];
+    return n >= 1 && n <= 7 ? n : 0;
+  }
+  /* Setting the flag a card already carries CLEARS it, which is Anki's behaviour and is what makes the
+     keyboard shortcut usable: Ctrl+1 on a red card is how you take the red off, and without it the only way
+     back to no flag would be a different control. Storing 0 is storing nothing, so the key is deleted —
+     a register of zeroes would ride in the synced blob for ever saying that nothing is flagged. */
+  function setCardFlag(id, n) {
+    if (!S.flags || typeof S.flags !== "object") S.flags = {};   // back-fill for saves made before the register existed
+    const want = n >= 1 && n <= 7 ? n : 0;
+    const now = cardFlag(id);
+    if (!want || want === now) delete S.flags[id]; else S.flags[id] = want;
+    save();
+    return cardFlag(id);
+  }
+  const flagDotHTML = (n) => (n ? '<span class="flag-dot" data-flag="' + n + '" title="' + esc(FLAG_NAME(n)) + ' flag" aria-label="' + esc(FLAG_NAME(n)) + ' flag"></span>' : "");
+
   function isDueNow(id) {
     const c = S.cards[id];
     return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= now();
   }
   // preview next intervals (in days) for a grade, given current card
   function preview(id) {
-    return schedPreview(S.cards[id], id);
+    return schedPreview(S.cards[id], id, null, schedCfgFor(id));
   }
-  // apply a grade; returns {requeue: bool} for in-session relearning
-  function grade(id, g) {
+  /* apply a grade; returns {requeue: bool} for in-session relearning.
+     `ms` is how long the reader spent on the card — measured by the caller, since only the study page knows
+     when the question appeared. It is optional: a grade applied with no timing logs a 0 rather than refusing,
+     because a missing duration must never be able to cost the schedule. */
+  function grade(id, g, ms) {
     const fresh = !S.cards[id];
     let c = S.cards[id] || schedBlank();
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
+    const preInterval = Number(c.interval) || 0;   // …and the interval it was on, which the grade overwrites
     // the card's FIRST attempt today (c.last is still the previous review) — only a first attempt can decide
     // "right first try", since a learning card comes back later in the same session
     const firstToday = !c.last || dayKey(c.last) !== todayStr();
+    const t = now();
 
-    c = schedAnswer(c, g, now(), id);   // the whole of the schedule — see THE SCHEDULER above
+    // the whole of the schedule — see THE SCHEDULER above. The config comes from the card's OWN deck, so a
+    // deck on FSRS is scheduled by FSRS wherever it was studied from (see cardEntryId).
+    c = schedAnswer(c, g, t, id, schedCfgFor(id));
     S.cards[id] = c;
+    bumpLoadMap();   // a due date has moved: the day-load histogram the balancer reads is now one card out
     logReview(preStatus === "review", g !== "again");
     logReviewDay(firstToday, g !== "again");
+    /* The per-review row, and the object it returns is kept so an undo can take back THIS row rather than
+       "the last one" or "one row off the end". Identity is the only exact handle: the log prunes from the
+       front, so a length recorded before the append can be the same length after it, and truncating to it
+       would leave the phantom review behind — with the reader's own history quietly one review wrong. */
+    lastRevRow = logReviewEntry(id, g, preStatus, preInterval, c, t, ms);
 
     // count new-card introductions per day
     if (fresh) {
@@ -3240,8 +4072,12 @@
       S.intro.count += 1;
       announceLevelUps();   // a newly-studied card may complete the Folio XP bar → level up, and a level buys a chest
     }
+    /* …and put this note's OTHER cards off until tomorrow, if its deck asks for it. AFTER the grade, so the
+       card just answered is already recorded as answered today and cannot bury itself. */
+    const buried = burySiblings(id);
     bumpStreak();
     save();
+    revQueuePush();   // the row just written joins the archive on the next quiet moment
     checkAchievements();   // unlock study / streak / deck milestones (toasts any new badge)
     /* Does this card come back in THIS session? Anki's rule, and the reader-visible half of the whole
        block above: a card still walking its learning steps is unfinished work for today, so it goes to
@@ -3249,7 +4085,12 @@
        which quietly stopped requeuing the moment a step ran longer than it) — plus Anki's learn-ahead
        allowance, so the last card of a late-night session is still finishable rather than stranded a
        few minutes the wrong side of the cut-off. */
-    return { requeue: schedIsLearning(c.status) && (c.due < dayEndTs() || c.due - now() <= SCHED_AHEAD_MS) };
+    return {
+      requeue: schedIsLearning(c.status) && (c.due < dayEndTs() || c.due - now() <= SCHED_AHEAD_MS),
+      // how many of this note's other cards were put off — the study page drops them from the live queue and
+      // says so once, because a count falling by two when you answered one card is what reads as a bug
+      buried: buried,
+    };
   }
   /* ---------- review history ----------
      S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
@@ -3268,6 +4109,137 @@
       const cut = dayKey(Date.now() - REVIEW_LOG_DAYS * DAY);
       Object.keys(S.reviewLog).forEach((k) => { if (k < cut) delete S.reviewLog[k]; });
     }
+  }
+  /* ---------- THE PER-REVIEW LOG (Aug 2026, on request) ----------
+     One row per answer, appended as it happens. `reviewLog` above keeps three numbers a day, which is all
+     a heatmap and a retention rate need; this keeps what a day cannot say — which card, which button, from
+     what interval to what, and how long the answer took. Nothing about a past review is recoverable from
+     `S.cards` (a card record holds only its LATEST review) or from the daily totals, so every day this is
+     not being written is history that no later feature can reconstruct. That is the whole argument for it,
+     and it is why it landed before the screens that read it.
+
+     THE ROW IS AN ARRAY, NOT AN OBJECT, and the shape lives in exactly two places — `logReviewEntry` writes
+     it and `revRead` unpacks it. Every reader goes through `revRead`, so the compact form is an encoding
+     detail rather than something eight call sites have to agree about. Keys on 3,000 rows would be about
+     four times the bytes for nothing: this rides in the synced progress blob, which is PATCHed whole.
+
+       [ id, t, g, st, prevMin, nextMin, ease100, ds ]
+
+     · `t` is a plain ms timestamp — the unit every other stamp in this file uses (`c.due`, `c.last`). A
+       minutes-since-epoch would save five characters a row and give the file a second time unit to
+       remember, which is a bad trade at this size.
+     · `prevMin` / `nextMin` are the interval BEFORE and the delay the grade bought, both in MINUTES, one
+       unit for both: a learning step is 10 minutes and a mature review is 36,000, and a field that is
+       sometimes days and sometimes minutes is the kind of thing that reads correctly and computes wrongly.
+     · `ease100` is the ease AFTER the answer, ×100 (250, not 2.5) — an integer, so no float noise in JSON.
+     · `ds` is the time from the question appearing to the button, in TENTHS OF A SECOND, and it is CAPPED
+       at REV_MAX_DS. The cap is the honest half of it: a card left open over lunch would otherwise claim
+       two hours of study and make every time figure a lie. Anki caps the same way, at the same 60s. */
+  /* THE LOCAL WINDOW. It stopped being the whole record when the log got a table of its own (see revPush),
+     so this is no longer a cap on a reader's history — it is how much of it this device keeps to hand for
+     Card info, the statistics and offline study. 20,000 rows is ~840 KB of the localStorage item and about
+     two years at twenty-five reviews a day; the archive behind it is uncapped. */
+  const REV_CAP = 20000;     // rows kept locally, oldest pruned first
+  const REV_SLACK = 500;     // …pruned in one sweep once it is this far over, so an append is not a shift
+  const REV_MAX_DS = 600;    // 60s — Anki's own `maxTaken`; see `ds` above
+  const REV_G = { again: 1, hard: 2, good: 3, easy: 4 };
+  const REV_GRADE_NAME = ["", "Again", "Hard", "Good", "Easy"];
+  const REV_ST = { new: 0, learning: 1, relearn: 2, review: 3 };
+  const REV_ST_NAME = ["New", "Learning", "Relearning", "Review"];
+  /* The row `grade()` last appended, by REFERENCE — the handle an undo needs. See the comment at its
+     assignment in grade() for why a length or a "last row" test cannot do this job. */
+  let lastRevRow = null;
+  /* Roughly 42 bytes a row. It used to ride in the progress blob and be capped at 3,000 for that reason;
+     since Aug 2026 it has `public.review_log` behind it (see revPush) and the local array is a WINDOW over
+     an uncapped archive, which is what the FSRS optimiser will read. */
+  function logReviewEntry(id, g, pre, prevIvDays, post, t, ms) {
+    if (!Array.isArray(S.revlog)) S.revlog = [];   // back-fill for saves made before the log existed
+    if (S.revlog.length > REV_CAP + REV_SLACK) S.revlog.splice(0, S.revlog.length - REV_CAP);
+    const mins = (msSpan) => Math.max(0, Math.round(msSpan / MIN_MS));
+    const row = [
+      id,
+      t,
+      REV_G[g] || 0,
+      REV_ST[pre] === undefined ? REV_ST.new : REV_ST[pre],
+      // the interval the card was ON. A review card states it in days; a card in learning has no interval
+      // at all, so it reads 0 — which `revRead` renders as a dash rather than as "0 minutes".
+      pre === "review" ? mins((Number(prevIvDays) || 0) * DAY) : 0,
+      mins((Number(post.due) || t) - t),
+      /* THE NUMBER THE CARD IS ACTUALLY SCHEDULED BY, ×100 — its ease under SM-2 and its DIFFICULTY under
+         FSRS, which is what `review_log.ease100` documents. It is read off `post` rather than from the deck's
+         config because only `fsrsAnswer` ever writes a difficulty, so the record says for itself which
+         scheduler produced it; a card's ease is left untouched by FSRS and logging it there would put a stale
+         2.5 beside every FSRS review, which is worse than useless in a column headed "ease". */
+      Math.round((Number(post.difficulty) > 0 ? Number(post.difficulty) : (Number(post.ease) || 0)) * 100),
+      Math.max(0, Math.min(REV_MAX_DS, Math.round((Number(ms) || 0) / 100))),
+    ];
+    S.revlog.push(row);
+    return row;
+  }
+  /* The only reader of the row shape. Returns days as well as minutes because every existing formatter on
+     the page (`fmtInterval`, `fmtIntervalDays`) speaks days. */
+  function revRead(row) {
+    if (!Array.isArray(row)) return null;
+    const nextMin = Number(row[5]) || 0, prevMin = Number(row[4]) || 0, g = Number(row[2]) || 0;
+    return {
+      id: row[0], t: Number(row[1]) || 0,
+      g: g, grade: REV_GRADE_NAME[g] || "?",
+      st: Number(row[3]) || 0, state: REV_ST_NAME[Number(row[3]) || 0] || "?",
+      prevMin: prevMin, prevDays: prevMin / 1440,
+      nextMin: nextMin, nextDays: nextMin / 1440,
+      ease: (Number(row[6]) || 0) / 100,
+      secs: (Number(row[7]) || 0) / 10,
+      correct: g > 1,
+    };
+  }
+  // one card's history, oldest first — what a Card info panel is for
+  function revForCard(prog, id) {
+    const log = (prog && prog.revlog) || [];
+    const out = [];
+    for (let i = 0; i < log.length; i++) if (log[i] && log[i][0] === id) out.push(revRead(log[i]));
+    return out;
+  }
+  /* Rows → one sequence of `{t, g}` per card, in order: the shape the FSRS optimiser fits against.
+     IT LIVES HERE, BESIDE `revRead`, and not in the optimiser, because it is the only part of the fit that
+     knows what a row IS — the row shape is documented as living in exactly two places and this would have
+     made a third. What it hands over is plain data, which is what keeps the arithmetic pure and testable.
+
+     A SEQUENCE MUST BEGIN AT THE CARD'S FIRST REVIEW, and that is the one thing it cannot fake: the model is
+     a walk from a new card, so a card whose earliest row is already in the review state has a stability the
+     log simply does not record. Those cards are dropped rather than guessed at — which is why the optimiser
+     stays quiet until a reader has enough history made SINCE the log started, and why it says so in those
+     words rather than reporting a count that looks wrong. */
+  function fsrsSequences(rows, maxSeq) {
+    const by = {};
+    (rows || []).forEach((row) => {
+      const r = revRead(row);
+      if (!r || !r.id || !isFinite(r.t)) return;
+      (by[r.id] || (by[r.id] = [])).push(r);
+    });
+    const cap = maxSeq || 64;
+    const out = [];
+    Object.keys(by).forEach((id) => {
+      const seq = by[id].sort((a, b) => a.t - b.t);
+      if (!seq.length || seq[0].st !== REV_ST.new) return;   // its beginning is missing: nothing to walk from
+      out.push(seq.slice(0, cap).map((r) => ({ t: r.t, g: r.g })));
+    });
+    // oldest card first, so a split by position within the run is a split in time as well
+    return out.sort((a, b) => a[0].t - b[0].t);
+  }
+  // every row in the last `days` days, and the day the log itself begins — a window that reaches back
+  // further than the log does must SAY so rather than reporting a quiet month as a quiet year
+  function revWindow(prog, days) {
+    const log = (prog && prog.revlog) || [];
+    const cut = Date.now() - days * DAY;
+    const rows = [];
+    let first = 0;
+    for (let i = 0; i < log.length; i++) {
+      const r = revRead(log[i]);
+      if (!r) continue;
+      if (!first || r.t < first) first = r.t;
+      if (r.t >= cut) rows.push(r);
+    }
+    return { rows: rows, first: first };
   }
   /* today's review, for the home Daily-review tile's earned colour (see defaultState). Only a card's FIRST
      attempt of the day counts: "again" on a card that comes back 10 minutes later is one miss, not two, and
@@ -3389,7 +4361,9 @@
       const d = UDECKS[uDeckIdOf(e)];
       if (!d) return null;
       const sub = uSubOf(e);
-      return sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || []).slice();
+      /* …expanded from NOTES into CARDS, which is what puts a reverse card in the review: a note whose
+         type declares two templates is two cards with two schedules, and `cardIds` names the note. */
+      return uDeckStudyIdsFor(d.id, sub);
     };
     // the common case, and the one nearly every reader is in: nothing has been dragged anywhere
     if (!Object.keys(deckNestMap()).length) {
@@ -3431,10 +4405,14 @@
   // review, the games and the card of the day, even for users who still have it in S.active.)
   // The user's own decks are studiable too, so they belong here — but NOT in the games, which draw from
   // ALL_CARD_IDS (TREE-derived) and must stay fact-checked content only.
+  // Memoised — see uCacheBust: nine calls a render, each walking the whole tree and every deck.
   function availableCardIdSet() {
+    if (_availCache) return _availCache;
     const s = new Set();
     (TREE.collections || []).forEach((c) => { if (!isComingSoon(c)) subtreeCardIds(c).forEach((id) => s.add(id)); });
-    Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => s.add(id)));
+    // …expanded into cards, like entryCardIds: a note's reverse card is studiable and must be listed here too
+    Object.keys(UDECKS).forEach((k) => uDeckStudyIdsFor(k, "").forEach((id) => s.add(id)));
+    _availCache = s;
     return s;
   }
   /* THE CARDS A MINIGAME MAY DEAL (Aug 2026, on request): the available cards whose answer term is at or
@@ -3496,7 +4474,14 @@
     const a = activeEntryIds();
     if (a.indexOf(id) !== -1) return true;
     const n = NODE_BY_ID[id];
-    const wanted = n ? nodeSubtreeIds(n) : [id];
+    /* One of the reader's OWN decks brings its subdecks in with it, which is the collection rule one store
+       over: a deck divided into subdecks is divided for the same reason a collection is divided into decks,
+       and adding it and then finding a single undivided row is the thing this was reported as. Adding one
+       SUBDECK on its own still adds only that subdeck — a narrower choice is never widened. */
+    const ud = !n && !uSubOf(id) ? UDECKS[uDeckIdOf(id)] : null;
+    const wanted = n ? nodeSubtreeIds(n)
+      : ud ? [id].concat(uDeckSubs(ud.id).map((sub) => uSubEntry(ud.id, sub)))
+      : [id];
     S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
     save();
     return true;
@@ -3524,7 +4509,22 @@
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
     const n = NODE_BY_ID[id];
-    if (!n) { nestForget([id]); S.active = activeEntryIds().filter((x) => x !== id); save(); return; }
+    if (!n) {
+      /* The mirror of the add above, and it goes BOTH ways for the collection rule's own reason: a deck
+         removed takes its subdeck rows with it, and a subdeck removed takes the whole-deck row with it,
+         since that row would otherwise go on offering the very cards just removed while its + still read
+         as added. The deck's OTHER subdecks are separate entries and stay — nothing else is lost. */
+      const deckId = uDeckIdOf(id), sub = uSubOf(id);
+      const drop = new Set([id]);
+      if (deckId && UDECKS[deckId]) {
+        if (sub) drop.add(uDeckEntry(deckId));
+        else uDeckSubs(deckId).forEach((sb) => drop.add(uSubEntry(deckId, sb)));
+      }
+      nestForget([...drop]);
+      S.active = activeEntryIds().filter((x) => !drop.has(x));
+      save();
+      return;
+    }
     nestForget(nodeSubtreeIds(n));
     const drop = new Set(nodeSubtreeIds(n));
     let a = activeEntryIds();
@@ -3724,8 +4724,11 @@
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) {
       const sub = uSubOf(id);
-      return sub ? { title: sub, parent: ud.title, count: uDeckCardsIn(ud.id, sub).length }
-                 : { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
+      /* BOTH branches expand the notes to their cards. The subdeck one did not, and the two disagreed by a
+         factor of two on a deck that both groups its notes and asks them in more than one direction — the
+         quiet miss the reverse-cards note warns about, and invisible until a deck was both at once. */
+      return sub ? { title: sub, parent: ud.title, count: uDeckStudyIdsFor(ud.id, sub).length }
+                 : { title: ud.title, parent: "Your decks", count: uDeckStudyIdsFor(ud.id, "").length };
     }
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
@@ -3867,6 +4870,37 @@
     return o.autoSpeak === true;
   }
   function setDeckAutoSpeak(id, on) { setDeckLimits(id, { autoSpeak: !!on }); }
+  /* BURY SIBLINGS, per entry (Aug 2026, on request). Default ON, which is the opposite of how the other
+     per-deck switches default and is deliberate: it is Anki's default, and it is the behaviour that makes a
+     note with several cards work at all — a reader who has just met reverse cards should not have to find a
+     setting before they behave sensibly. It costs nothing on a deck whose notes make one card each, since
+     `burySiblings` returns immediately when there are no siblings to bury. */
+  function deckBurySiblings(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    return o.burySiblings !== false;
+  }
+  function setDeckBurySiblings(id, on) { setDeckLimits(id, { burySiblings: !!on }); }
+  /* WHICH SCHEDULER, per entry — SM-2 or FSRS (Aug 2026, on request). Read by deckSchedCfg beside the
+     scheduler itself; these two are the writers. `retention` is what a reader is asking FSRS for: the
+     fraction of cards they want to still remember when each one comes back. */
+  function setDeckSched(id, mode) { setDeckLimits(id, { sched: mode === "fsrs" ? "fsrs" : "sm2" }); }
+  function setDeckRetention(id, r) {
+    setDeckLimits(id, { retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(r) || FSRS_RETENTION)) });
+  }
+  /* A reader's own FSRS parameters, pasted from Anki. Folio has no optimiser yet, and somebody who has
+     already had Anki fit their 21 numbers to their own review history should not have to give that up to
+     study here — so they can be entered as text and are held to exactly 21 finite numbers, or refused.
+     Clearing the box returns the deck to the reference defaults. */
+  function setDeckFsrsParams(id, text) {
+    const raw = String(text || "").trim();
+    if (!raw) { setDeckLimits(id, { fsrsParams: null }); return { ok: true, cleared: true }; }
+    const nums = raw.replace(/[\[\]]/g, " ").split(/[,\s]+/).filter(Boolean).map(Number);
+    if (nums.length !== 21 || nums.some((n) => !isFinite(n))) {
+      return { ok: false, error: "FSRS parameters are 21 numbers. That was " + nums.length + "." };
+    }
+    setDeckLimits(id, { fsrsParams: nums });
+    return { ok: true };
+  }
   /* Has this entry anything to say? The switch is offered only where the answer is yes, because a control
      that answers a press with silence is worse than no control at all — the same test the `.uc-tts` chrome
      itself applies through `body.no-tts`.
@@ -3874,7 +4908,13 @@
      types marks text to be read. The pooled review answers for whatever is added to it right now, so the
      switch appears there the day such a deck is added and goes when it is removed — which is why this is
      derived on each open rather than stored. */
-  function typeSpeaks(t) { return !!t && /\buc-tts\b/.test(String(t.front || "") + String(t.back || "")); }
+  /* Does this type mark anything to be read aloud — in ANY of its card templates? A two-way type may put the
+     control on one direction only, and the switch it gates is per DECK, so one template asking for it is
+     enough. Reading only the first would hide the switch on exactly the reversed card that wanted it. */
+  function typeSpeaks(t) {
+    if (!t) return false;
+    return typeCards(t).some((c) => /\buc-tts\b/.test(String(c.front || "") + String(c.back || "")));
+  }
   function entryHasSpeech(id) {
     if (!ttsSupported()) return false;
     if (id === REVIEW_ENTRY) return activeEntryIds().some((e) => e !== REVIEW_ENTRY && entryHasSpeech(e));
@@ -3947,7 +4987,8 @@
   function entryPiles(id) {
     if (deckSkippedToday(id)) return { nw: 0, lr: 0, rv: 0, skip: true };
     const avail = availableCardIdSet();
-    const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c));
+    // buried too: a card put off until tomorrow is not part of what this deck offers today
+    const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
     let lr = 0, rv = 0, unseen = 0;
     ids.forEach((cid) => {
       const c = S.cards[cid];
@@ -3980,7 +5021,7 @@
     if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
     activeEntryIds().forEach((e) => {
       if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
-      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id));
+      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
         .sort((a, b) => S.cards[a].due - S.cards[b].due)
@@ -4002,7 +5043,7 @@
     return { due: dueCapped, fresh, all: [...dueCapped, ...fresh] };
   }
   function dueCountNow() {
-    return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id)).length;
+    return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id) && !isBuried(id)).length;
   }
 
   /* ============================================================
@@ -4166,13 +5207,37 @@
      The ONLY way a deck enters the in-memory store. Everything is sanitized here — imports obviously, but
      also what comes back out of IndexedDB, because the store is writable by anything running on this
      origin and "it was already in our database" is not a safety argument. Sanitizing at this one choke
-     point is what lets every downstream render (study, previews, the Library) stay ordinary innerHTML. */
+     point is what lets every downstream render (study, previews, the Library) stay ordinary innerHTML.
+
+     …EXCEPT WHERE THE SAME SANITIZER PROVABLY WROTE IT, WHICH IS AN ARITHMETIC ARGUMENT RATHER THAN A
+     TRUST ONE (Aug 2026, on a report that the site had become very slow with a large deck installed).
+     `sanitizeHTML` returns a FIXED POINT by construction — it loops until another pass changes nothing —
+     so re-running it on its own output cannot alter a character; `sanitizePlain` and `sanitizeCSSText` are
+     idempotent in the same way. Re-cleaning a record this build's own sanitizer produced is therefore
+     provably a no-op, and on a 10,896-note deck it was 5.7 SECONDS of no-op on every single page load
+     (174,741 sanitizeHTML calls, most of them DOM-parsing the same Chinese markup for the fourth time).
+
+     So a record we write carries `srev`, the sanitizer's own revision, and `communityBoot` — and ONLY
+     communityBoot, reading OUR store — may pass `trusted` to skip the string work while every structural
+     guard still runs: the id patterns, the key whitelists, the URL schemes, the caps, the shape. What
+     that gives up is exactly the case the revision stamp exists to catch, a deck cleaned by an OLDER and
+     possibly buggier sanitizer, and those are re-cleaned once, on the next load, because `srev` will not
+     match. An import, an install and a published payload are never trusted whatever they claim to carry.
+
+     BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES — sanitizePass, sanitizeHTML, sanitizePlain,
+     sanitizeCSSText, sanitizeUrl or any of the SANITIZE_* / UTYPE_* allowlists. Forgetting to leaves
+     already-stored decks cleaned by the old rules, which is the one way this can be wrong. */
+  const SANITIZE_REV = 1;
+  let _uTrusted = false;   // set ONLY inside uDeckNormalize, around a synchronous body, and restored in a finally
+  const uSH = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeHTML(v));
+  const uSP = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizePlain(v));
+  const uSCSS = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeCSSText(v));
   const UDECK_TEXT_FIELDS = ["title", "subtitle", "desc", "author", "language"];
   function uDeckSanitizeMeta(m) {
     const o = {};
-    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = sanitizePlain(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
+    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = uSP(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
     o.id = /^[a-z0-9]{4,16}$/.test(String(m && m.id)) ? m.id : uid(8);
-    o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
+    o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => uSP(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
     o.glossMode = GLOSS_MODES.indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
     o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
@@ -4187,11 +5252,11 @@
     o.remoteStatus = ["draft", "published", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
     o.publishedVersion = Number(m && m.publishedVersion) || 0;
     o.installedVersion = Number(m && m.installedVersion) || 0;
-    o.ownerName = sanitizePlain(m && m.ownerName).slice(0, 80);
+    o.ownerName = uSP(m && m.ownerName).slice(0, 80);
     // attribution for a duplicated deck — travels in the file and in a publish, so credit survives a copy
     const ff = m && m.forkedFrom;
     o.forkedFrom = (ff && typeof ff === "object" && (ff.title || ff.slug))
-      ? { slug: sanitizePlain(ff.slug).slice(0, 64), title: sanitizePlain(ff.title).slice(0, 200), author: sanitizePlain(ff.author).slice(0, 80) }
+      ? { slug: uSP(ff.slug).slice(0, 64), title: uSP(ff.title).slice(0, 200), author: uSP(ff.author).slice(0, 80) }
       : null;
     return o;
   }
@@ -4216,6 +5281,122 @@
   const UTYPE_ID_RX = /^[a-z0-9][a-z0-9-]{0,31}$/;
   const UTYPE_FIELD_RX = /^[A-Za-z0-9][\w .'-]{0,39}$/;
   const UDECK_MAX_TYPES = 20, UTYPE_MAX_FIELDS = 24, UTYPE_TPL_MAX = 8000, UTYPE_CSS_MAX = 20000, UTYPE_VALUE_MAX = 20000;
+  /* ---------- ONE NOTE, SEVERAL CARDS (Aug 2026, on request) ----------
+     Anki's note types, finally: a type declares a LIST of card templates, and one record yields one card per
+     template. A vocabulary deck's note becomes two cards — the word asked from its meaning and the meaning
+     asked from the word — with a schedule each, which is what "reverse cards" means and the reason the HSK
+     decks currently carry two hand-written cards for every word.
+
+     THE RECORD STAYS ONE NOTE. Duplicating it per direction was the obvious implementation and is the wrong
+     one: an edit to a shared field would have to be written to every copy, and the day one copy is missed the
+     two drift with nothing to say so. So `UCARDS` keeps one row per note, exactly as it did, and the extra
+     CARDS are ids derived from it — Anki's own notes-versus-cards split.
+
+     `type.cards` is that list, `[{ name, front, back }, …]`. A type written before today carried `front` and
+     `back` at the top level; `uTypeSanitize` folds those into `cards[0]` and emits `cards` alone, so an
+     existing deck file, an installed copy and a published row all normalise on ingest with nothing to
+     migrate by hand — and every type ends up with at least one template, which is what lets every reader
+     below assume one rather than testing for none. */
+  const UTYPE_MAX_CARDS = 6;
+  const UTYPE_CARD_NAME_MAX = 40;
+  /* THE SIBLING SEPARATOR, and the reason template 0 keeps the bare note id: a reader who has been studying
+     `u_abcd1234_7` for a month must go on studying it. Only the SECOND and later templates take a suffix, so
+     adding a reverse card to a type nobody has finished studying costs no progress at all.
+     `~` cannot appear in a note id (`^u_[a-z0-9]{4,16}_\d+$`), so the split is unambiguous in both
+     directions, and it is safe unescaped inside a quoted attribute selector, which `.` and `:` are not. */
+  const CARD_SIB = "~";
+  function typeCards(t) {
+    const list = t && Array.isArray(t.cards) ? t.cards : null;
+    return list && list.length ? list : [{ name: "Card 1", front: (t && t.front) || "", back: (t && t.back) || "" }];
+  }
+  function uTypeCardSanitize(raw, i) {
+    return {
+      name: uSP(raw && raw.name).slice(0, UTYPE_CARD_NAME_MAX) || "Card " + (i + 1),
+      front: uSH(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
+      back: uSH(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
+    };
+  }
+  // a note id (no suffix) and the 0-based template a derived card id names
+  function uCardBaseId(id) {
+    const s = String(id || ""), i = s.indexOf(CARD_SIB);
+    return i < 0 ? s : s.slice(0, i);
+  }
+  function uCardTplIndex(id) {
+    const s = String(id || ""), i = s.indexOf(CARD_SIB);
+    if (i < 0) return 0;
+    const n = parseInt(s.slice(i + 1), 10);
+    return n > 1 ? n - 1 : 0;      // the suffix is 1-based and human-facing; template 0 never carries one
+  }
+  function uCardIdFor(noteId, tpl) { return tpl > 0 ? noteId + CARD_SIB + (tpl + 1) : String(noteId); }
+  /* How many cards a note yields — its type's template count, and 1 for a Basic card or a type that has
+     since been deleted. Read from the note's OWN deck, so two decks' types cannot be confused. */
+  /* THE CARDS A NOTE MAKES, and this is the one place that knows there are two ways to make them. An
+     ordinary type makes one card per TEMPLATE, numbered by position. A CLOZE type has a single template and
+     makes one card per DELETION, numbered by the deletion's own ordinal — which is why this returns the
+     LIST and the count is derived from it rather than the other way round: cloze ordinals may be sparse
+     (c1, c2, c9 is three cards) and a count of three says nothing about which three ids they are.
+     The id scheme needs no extension for it. `uCardIdFor(note, ord - 1)` gives the bare note id for c1 and
+     `note~9` for c9, so a note that gains a second deletion does not move the first one's schedule — the
+     same promise template 0 already makes. */
+  function uNoteCardIds(noteId) {
+    const base = uCardBaseId(noteId), note = UCARDS[base];
+    if (!note) return [String(noteId)];
+    const t = cardTypeOf(note);
+    if (!t) return [base];
+    if (t.cloze) {
+      const ords = clozeOrds(note);
+      // a cloze note with no marker yet is still ONE card: it is a note somebody is part-way through writing,
+      // and returning nothing would take it out of its own deck without saying so
+      return ords.length ? ords.map((o) => uCardIdFor(base, o - 1)) : [base];
+    }
+    const n = Math.min(typeCards(t).length, UTYPE_MAX_CARDS), out = [];
+    for (let i = 0; i < n; i++) out.push(uCardIdFor(base, i));
+    return out;
+  }
+  function uNoteCardCount(noteId) { return uNoteCardIds(noteId).length; }
+  /* A deck's cards for STUDY, expanded from its notes — and ordered TEMPLATE-MAJOR, every note's first card
+     before any note's second. That ordering is the whole of what keeps a reverse card usable without a
+     burying mechanism: note-major would deal "水 → water" and then "water → 水" back to back, which teaches
+     the answer rather than testing it. It is also one of Anki's own new-card sort orders, so it is a
+     defensible reading rather than a workaround. Day-long sibling burying is a separate feature and is not
+     implemented; this is what makes its absence bearable. */
+  function uDeckStudyIds(noteIds) {
+    /* Each note's own list, then interleaved by POSITION in it — which is the template-major rule stated in
+       a way that survives sparse cloze ordinals. Building the ids here by index (`uCardIdFor(n, tpl)`) is
+       what this used to do and is wrong the moment a note's cards are c1, c2 and c9: it would deal ids
+       `note~2` and `note~3`, which name deletions that do not exist. */
+    const notes = noteIds || [], lists = notes.map(uNoteCardIds), out = [];
+    let most = 1;
+    lists.forEach((l) => { if (l.length > most) most = l.length; });
+    for (let i = 0; i < most; i++) lists.forEach((l) => { if (i < l.length) out.push(l[i]); });
+    return out;
+  }
+  /* ---------- …CACHED, because a render asks for it a dozen times (Aug 2026) ----------
+     The expansion is derived from the deck on every read, which is what keeps it honest — a card's `sub`
+     and a type's template list can change under it and nothing has to be kept in step. It is also O(notes),
+     and one home render asked for it SIXTEEN times: `entryPiles` per row, `reviewQueue`, `entryInfo`,
+     `availableCardIdSet` (itself called nine times), the progress bar on each row. On HSK 3.0 that was
+     174,336 `uNoteCardIds` calls and ~270ms per repaint with a single row on the page, before the deck's
+     nine subdecks were drawn at all.
+
+     Keyed by (deck, subdeck) and thrown away WHOLE by `uCacheBust`, which every write goes through: the
+     Studio's mutations all end in `uDeckSave`, and mounting or deleting a deck is the only other way the
+     stores move. Coarse on purpose — a stale entry here would silently deal the wrong cards, so the cheap
+     correct thing is to keep nothing rather than to reason about what changed.
+
+     `availableCardIdSet` is memoised beside it and depends on ONE thing more: the collection tree, which an
+     admin edit rewrites — hence the bust in `applyAdminEdits`. Both hand back the live array/Set rather than
+     a copy; nothing mutates what they return, and every caller was checked before this was written. */
+  function uDeckStudyIdsFor(deckId, sub) {
+    const key = deckId + "/" + (sub || "");
+    let v = _uStudyCache.get(key);
+    if (!v) {
+      const d = UDECKS[deckId];
+      v = d ? uDeckStudyIds(sub ? uDeckCardsIn(deckId, sub) : (d.cardIds || [])) : [];
+      _uStudyCache.set(key, v);
+    }
+    return v;
+  }
 
   /* A type's stylesheet, cleaned. It is not executable, so this is about three narrower things:
      · `<` goes, because the text is written into a <style> ELEMENT and "</style>" would end it early. Only
@@ -4295,19 +5476,31 @@
     if (!UTYPE_ID_RX.test(id) || id === CARD_TYPE_BASIC) return null;   // "basic" is the built-in format's name and cannot be taken
     const fields = [];
     (Array.isArray(raw && raw.fields) ? raw.fields : []).forEach((f) => {
-      const n = sanitizePlain(f).trim();
+      const n = uSP(f).trim();
       if (UTYPE_FIELD_RX.test(n) && fields.indexOf(n) < 0 && fields.length < UTYPE_MAX_FIELDS) fields.push(n);
     });
     if (!fields.length) fields.push("Front", "Back");
-    const lang = sanitizePlain(raw && raw.speechLang).trim();
+    const lang = uSP(raw && raw.speechLang).trim();
+    /* The card templates, in the canonical `cards` list. A type written before card templates existed
+       carries `front`/`back` at the top level and is folded into a single-card list here — which is what
+       makes every existing deck file, installed copy and published row normalise on ingest with nothing to
+       migrate. There is ALWAYS at least one template, so no reader below has to test for none. */
+    const cards = (Array.isArray(raw && raw.cards) ? raw.cards : [])
+      .slice(0, UTYPE_MAX_CARDS).map(uTypeCardSanitize);
+    if (!cards.length) cards.push(uTypeCardSanitize({ name: raw && raw.cardName, front: raw && raw.front, back: raw && raw.back }, 0));
     return {
       id: id,
-      name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
+      name: uSP(raw && raw.name).slice(0, 60) || id,
       fields: fields,
-      front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
-      back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
-      css: sanitizeCSSText(raw && raw.css),
+      cards: cards,
+      css: uSCSS(raw && raw.css),
       speechLang: SPEECH_LANG_RX.test(lang) ? lang : "",
+      /* ONE CARD PER DELETION. It is a property of the TYPE rather than something detected from the fields,
+         and it has to be: the markers live in a card's values, so a type could only be recognised as a cloze
+         type by looking at its cards — and a type whose cards happen to carry no marker yet would then not
+         be one. Declared, it also means NOTHING MIGRATES: every deck written before this shipped renders
+         exactly as it did, all of its blanks together, until somebody says otherwise. */
+      cloze: !!(raw && raw.cloze),
     };
   }
   function uTypesSanitize(raw) {
@@ -4328,25 +5521,25 @@
     CARD_FIELDS.forEach((f) => {
       const v = raw ? raw[f] : "";
       c[f] = (f === "answerText" || f === "num" || f === "category" || f === "pinyin")
-        ? sanitizePlain(v).slice(0, 400)
-        : sanitizeHTML(v == null ? "" : String(v)).slice(0, 20000);
+        ? uSP(v).slice(0, 400)
+        : uSH(v == null ? "" : String(v)).slice(0, 20000);
     });
     // extra question phrasings: rich HTML like `question`, capped so a hostile file can't smuggle hundreds
     if (raw && Array.isArray(raw.questions)) {
       const extras = raw.questions.slice(0, CARD_MAX_QUESTIONS - 1)
-        .map((q) => sanitizeHTML(q == null ? "" : String(q)).slice(0, 20000))
+        .map((q) => uSH(q == null ? "" : String(q)).slice(0, 20000))
         .filter((q) => q.trim());
       if (extras.length) c.questions = extras;
     }
     // source footnotes: short rich HTML (a citation italicises a title), sanitized like every other rich field
     if (raw && (Array.isArray(raw.sources) || typeof raw.sources === "string")) {
       const src = (Array.isArray(raw.sources) ? raw.sources : [raw.sources]).slice(0, SRC_MAX)
-        .map((s) => sanitizeHTML(s == null ? "" : String(s)).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
+        .map((s) => uSH(s == null ? "" : String(s)).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
       if (src.length) c.sources = src;
     }
     if (raw && raw.image && raw.image.src) {
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
-      if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300), alt: sanitizePlain(raw.image.alt).slice(0, 400) };
+      if (src) c.image = { src: src, title: uSP(raw.image.title).slice(0, 200), desc: uSP(raw.image.desc).slice(0, 1000), credit: uSP(raw.image.credit).slice(0, 300), alt: uSP(raw.image.alt).slice(0, 400) };
     }
     // one frame per card: a record carrying both resolves the same way the renderers do — the picture wins
     if (!c.image) { const v = uMediaSanitize(raw && raw.video); if (v) c.video = v; }
@@ -4358,7 +5551,7 @@
        held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
        collides with something the renderer reads. */
     // which subdeck this card is in, if any — a plain title, carried like `category`
-    const sub = sanitizePlain(raw && raw.sub).slice(0, 80).trim();
+    const sub = uSP(raw && raw.sub).slice(0, 80).trim();
     if (sub) c.sub = sub;
     const ty = String((raw && raw.type) || "").trim();
     if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
@@ -4366,7 +5559,7 @@
       const f = {};
       Object.keys(raw.fields).slice(0, UTYPE_MAX_FIELDS).forEach((k) => {
         const name = String(k).trim();
-        if (UTYPE_FIELD_RX.test(name)) f[name] = sanitizeHTML(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
+        if (UTYPE_FIELD_RX.test(name)) f[name] = uSH(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
       });
       if (c.type || Object.keys(f).length) c.fields = f;
     }
@@ -4380,16 +5573,18 @@
     if (!raw || !raw.src) return null;
     const src = sanitizeUrl(String(raw.src), ["http", "https"]);
     if (!src) return null;
-    return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
+    return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, then 2,000 did, then 4,000. The number is not a view about how
-     large a deck may usefully be — it is a guard against a hostile or runaway file — so it is set from the
-     largest legitimate deck anyone has brought, with room above it: DELE B2 is 2,000 words and a deck that
-     studies both directions cards each word twice, which is ~4,000, and 4,000 was the cap, so the deck fit
-     by two cards. A margin that thin is luck rather than a limit. An over-size file is REFUSED with both
-     figures rather than silently trimmed (see uDeckImportText), so raising this cannot hide anything; what
-     a bigger number costs is the size of the file a stranger can make us parse. */
-  const UDECK_MAX_CARDS = 8000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
+     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
+     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
+     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
+     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
+     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
+     rather than on the thing the reader studies, since what it guards against is the cost of parsing
+     somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
+     uDeckImportText), so raising this cannot hide anything. */
+  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -4401,17 +5596,17 @@
       if (!/^[\w.-]{1,80}$/.test(slug)) return;
       const t = raw[slugRaw] || {};
       const e = {
-        desc: sanitizeHTML(t.desc == null ? "" : String(t.desc)).slice(0, 4000),
-        title: sanitizePlain(t.title).slice(0, 120),
-        date: sanitizePlain(t.date).slice(0, 60),
-        tags: Array.isArray(t.tags) ? t.tags.map((x) => sanitizePlain(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
-        aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
+        desc: uSH(t.desc == null ? "" : String(t.desc)).slice(0, 4000),
+        title: uSP(t.title).slice(0, 120),
+        date: uSP(t.date).slice(0, 60),
+        tags: Array.isArray(t.tags) ? t.tags.map((x) => uSP(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
+        aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => uSP(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
         // the works behind the description — rich HTML like the description itself, so sanitized the same way
-        sources: Array.isArray(t.sources) ? t.sources.slice(0, SRC_MAX).map((x) => sanitizeHTML(x == null ? "" : String(x)).slice(0, SRC_MAX_LEN)).filter((x) => x.trim()) : [],
+        sources: Array.isArray(t.sources) ? t.sources.slice(0, SRC_MAX).map((x) => uSH(x == null ? "" : String(x)).slice(0, SRC_MAX_LEN)).filter((x) => x.trim()) : [],
       };
       if (t.image && t.image.src) {   // the term's illustration, on the same footing as a card image
         const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
-        if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300), alt: sanitizePlain(t.image.alt).slice(0, 400) };
+        if (src) e.image = { src: src, title: uSP(t.image.title).slice(0, 200), desc: uSP(t.image.desc).slice(0, 1000), credit: uSP(t.image.credit).slice(0, 300), alt: uSP(t.image.alt).slice(0, 400) };
       }
       if (!e.image) { const tv = uMediaSanitize(t.video); if (tv) e.video = tv; }   // the term's video — one frame, so only when there is no picture
       if (!e.desc && !e.title) return;
@@ -4419,9 +5614,19 @@
     });
     return out;
   }
-  // Turn an arbitrary record (IDB row or imported file) into a clean deck, or null if it isn't one.
-  function uDeckNormalize(rec) {
+  /* Turn an arbitrary record (IDB row or imported file) into a clean deck, or null if it isn't one.
+     `fromOwnStore` is passed by communityBoot and by nothing else: with it, and with the record carrying
+     THIS sanitizer's revision, the per-field string cleaning is skipped as the provable no-op it is — see
+     the note above the ingest block. Every structural guard below still runs either way. */
+  function uDeckNormalize(rec, fromOwnStore) {
     if (!rec || typeof rec !== "object") return null;
+    const wasTrusted = _uTrusted;
+    _uTrusted = !!fromOwnStore && rec.srev === SANITIZE_REV;
+    try {
+      return uDeckNormalizeInner(rec);
+    } finally { _uTrusted = wasTrusted; }   // the body is synchronous, so this cannot leak into anything else
+  }
+  function uDeckNormalizeInner(rec) {
     const meta = uDeckSanitizeMeta(rec.meta || rec);
     const all = Array.isArray(rec.cards) ? rec.cards : [];
     const rawCards = all.slice(0, UDECK_MAX_CARDS);
@@ -4439,6 +5644,7 @@
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
     if (!norm) return null;
+    uCacheBust();
     const d = Object.assign({}, norm.meta, { cardIds: norm.cards.map((c) => c.id) });
     UDECKS[d.id] = d;
     UGLOSS[d.id] = norm.gloss || {};
@@ -4452,11 +5658,15 @@
     if (!d) return null;
     const meta = {};
     UDECK_META_KEYS.concat(UDECK_PUBLISH_KEYS).forEach((f) => { meta[f] = d[f]; });
-    return { id: d.id, meta: meta, cards: uDeckCards(d).map((c) => { const o = {}; Object.keys(c).forEach((k) => { if (k !== "deckId") o[k] = c[k]; }); return o; }), gloss: UGLOSS[d.id] || {} };
+    /* `srev` says which sanitizer cleaned this, so the next boot can skip re-cleaning it — see the ingest
+       note. It is deliberately at the TOP level of the record and not inside `meta`, which is what an
+       export copies: a deck FILE must never carry it, since a file is not our store and is never trusted. */
+    return { id: d.id, srev: SANITIZE_REV, meta: meta, cards: uDeckCards(d).map((c) => { const o = {}; Object.keys(c).forEach((k) => { if (k !== "deckId") o[k] = c[k]; }); return o; }), gloss: UGLOSS[d.id] || {} };
   }
   function uDeckSave(deckId) {
     const d = UDECKS[deckId];
     if (!d) return Promise.resolve(false);
+    uCacheBust();   // every Studio mutation ends here, so this is the one place the expansion can go stale
     d.updatedAt = Date.now();
     return cdbPut(uDeckRecord(deckId));
   }
@@ -4561,9 +5771,45 @@
         ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
     },
     {
+      /* Anki's "Basic (and reversed card)", and the shape reverse cards exist for: ONE note, asked both ways.
+         Deliberately plain — Front / Back / Notes rather than a vocabulary's five fields — because what an
+         author needs to see here is the two-template idea, and a preset that also has opinions about
+         conjugations teaches two things at once. The Vocabulary preset above is two clicks from being
+         two-way: add a card and swap the fields in its front. */
+      id: "two-way",
+      name: "Two-way",
+      blurb: "One note asked in both directions — front to back and back to front — as two cards with a schedule each.",
+      fields: ["Front", "Back", "Notes"],
+      cards: [
+        {
+          name: "Front → Back",
+          front: '<div class="uc-q">{{Front}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Back}}</div>{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+        },
+        {
+          name: "Back → Front",
+          front: '<div class="uc-q">{{Back}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Front}}</div>{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+        },
+      ],
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-q {\n  font-size: 25px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-a {\n  font-size: 25px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
+        /* Which way round this card is, in the reader's own margin — the one thing a two-way note needs
+           that a one-way one does not, since the two cards otherwise look identical. It doubles as the
+           worked example of `data-uctpl` that the type editor's help points at. */
+        /* the arrow is the CHARACTER, not a `\\2190` escape: sanitizeCSSText strips backslashes, because a
+           CSS escape can spell any of the keywords it refuses, and this is the cost its own note names. */
+        '.card[data-uctpl="2"] .uc-q::after {\n  content: "←";\n  margin-left: 9px;\n  font-size: 15px;\n  opacity: 0.4;\n}\n',
+    },
+    {
       id: "cloze",
       name: "Fill in the blank",
-      blurb: "One passage with the words to recall wrapped in {{c1::…}}. They close on the front and open on the back.",
+      blurb: "One passage with the words to recall wrapped in {{c1::…}}. Each numbered blank becomes a card of its own.",
+      cloze: true,
       fields: ["Text", "Notes", "Source"],
       front: '<div class="uc-passage">{{Text}}</div>',
       back:
@@ -4581,7 +5827,12 @@
   // what a preset contributes to a new type record — everything but the id and the name, which uTypeCreate
   // owns because it is the one that has to keep them unique within the deck
   function cardTypePresetSpec(p, lang) {
-    return { id: p.id, fields: p.fields.slice(), front: p.front, back: p.back, css: p.css, speechLang: lang || "" };
+    const spec = { id: p.id, fields: p.fields.slice(), css: p.css, speechLang: lang || "", cloze: !!p.cloze };
+    /* A preset declares EITHER a `cards` list or the single `front`/`back` pair the older three were written
+       with; uTypeSanitize folds the second form into a one-card list, so nothing here has to choose. */
+    if (Array.isArray(p.cards)) spec.cards = p.cards.map((c) => Object.assign({}, c));
+    else { spec.front = p.front; spec.back = p.back; }
+    return spec;
   }
   function uTypeCreate(deckId, name, spec) {
     const d = UDECKS[deckId];
@@ -4605,11 +5856,70 @@
     uDeckSave(deckId);
     return t;
   }
+  /* The type's own fields. `front`/`back` are NOT here any more — they belong to a card template, and there
+     may be several — so they go through uTypeSetCard, which is what stops an edit meant for the second card
+     silently landing on the first. */
   function uTypeSet(deckId, typeId, field, value) {
     const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
-    if (!t || ["name", "front", "back", "css", "speechLang"].indexOf(field) < 0) return;
+    if (!t || ["name", "css", "speechLang", "cloze"].indexOf(field) < 0) return;
     const next = uTypeSanitize(Object.assign({}, t, { [field]: value }));
     if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  // one card template's name, front or back
+  function uTypeSetCard(deckId, typeId, idx, field, value) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t || ["name", "front", "back"].indexOf(field) < 0) return;
+    const cards = typeCards(t).map((c, i) => (i === idx ? Object.assign({}, c, { [field]: value }) : c));
+    if (!cards[idx]) return;
+    const next = uTypeSanitize(Object.assign({}, t, { cards: cards }));
+    if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  /* A new card template, seeded from the FIRST one rather than blank: a second template is nearly always the
+     first read the other way round, and an author who is handed the shape they already wrote has one edit to
+     make instead of two templates to write. */
+  function uTypeAddCard(deckId, typeId) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t) return -1;
+    const cards = typeCards(t).slice();
+    if (cards.length >= UTYPE_MAX_CARDS) { toast("A card type has at most " + UTYPE_MAX_CARDS + " cards."); return -1; }
+    const first = cards[0] || {};
+    cards.push({ name: "Card " + (cards.length + 1), front: first.front || "", back: first.back || "" });
+    const next = uTypeSanitize(Object.assign({}, t, { cards: cards }));
+    if (!next) return -1;
+    d.types[typeId] = next; uDeckSave(deckId);
+    return cards.length - 1;
+  }
+  /* Removing a template destroys the SCHEDULE of every card it was making, which nothing else in the Studio
+     does — a field dropped from a type leaves its values on the notes, and a type deleted puts its cards back
+     to Basic with their records intact. Here the cards simply stop existing, so their progress goes with them
+     rather than being left in `S.cards` pointing at a template that is not there, and the caller asks first.
+     The LAST template can never be removed: a type with no cards is a type whose notes render nothing. */
+  function uTypeDeleteCard(deckId, typeId, idx) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t) return;
+    const cards = typeCards(t).slice();
+    if (cards.length <= 1 || idx < 0 || idx >= cards.length) return;
+    const wasCount = cards.length;
+    cards.splice(idx, 1);
+    const next = uTypeSanitize(Object.assign({}, t, { cards: cards }));
+    if (!next) return;
+    d.types[typeId] = next;
+    /* Every id from the removed position onwards now names a DIFFERENT template than the record stored under
+       it — remove template 2 of 3 and `~2`, which held template 2's schedule, is template 3's card. So those
+       records are dropped rather than shifted down: card 3's schedule is not card 2's, and carrying it over
+       would tell the reader they had studied something they have not. Ids BEFORE the removed one still mean
+       exactly what they meant and are left alone, which is why removing the last template costs only itself.
+       The revlog is deliberately NOT swept: those reviews did happen, and a row whose card no longer exists
+       is simply never looked up (`revForCard` matches an exact id). */
+    uDeckCards(d).filter((c) => c.type === typeId).forEach((note) => {
+      for (let i = idx; i < wasCount; i++) {
+        const gone = uCardIdFor(note.id, i);
+        delete S.cards[gone];
+        if (S.suspended) delete S.suspended[gone];
+      }
+    });
+    uDeckSave(deckId);
+    save();
   }
   // the field list, written as one comma-separated line. A field dropped here leaves the values behind on
   // the cards rather than deleting them — re-adding the name brings the text back, and a typo costs nothing.
@@ -4636,8 +5946,20 @@
     // Basic keeps its question and background, and one turned back to a type finds its fields as they were.
     // Deleting the TYPE is the destructive act, and that one asks first. A card that has never held a field
     // still gets no `fields` key, so a Basic-only deck's export is unchanged.
+    const was = uNoteCardCount(cardId);
     if (t) { c.type = t.id; if (!c.fields || typeof c.fields !== "object") c.fields = {}; }
     else delete c.type;   // anything unrecognised — "basic" included — is the built-in format
+    /* A type change can change how many CARDS this note makes, and the records of any it no longer makes are
+       swept: a note moved from a two-way type to Basic would otherwise leave `…~2` sitting in the schedule
+       with nothing to render it. Only the ids past the new count go — the ones that survive still name the
+       same template position, which is what makes switching type and back again cost no progress. */
+    const now = uNoteCardCount(cardId);
+    for (let i = now; i < was; i++) {
+      const gone = uCardIdFor(cardId, i);
+      delete S.cards[gone];
+      if (S.suspended) delete S.suspended[gone];
+    }
+    if (now < was) save();
     if (c.deckId) uDeckSave(c.deckId);
   }
   function uCardSetFieldValue(cardId, name, value) {
@@ -4812,6 +6134,7 @@
     (d.cardIds || []).forEach((id) => { delete UCARDS[id]; });
     delete UDECKS[deckId];
     delete UGLOSS[deckId];
+    uCacheBust();
     invalidateGlossIndex("deck:" + deckId);   // else a re-created deck with the same id would inherit a stale index
     // …and every subdeck entry of it, which share the deck id before the slash
     S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => uDeckIdOf(x) !== deckId);
@@ -4871,7 +6194,13 @@
     if (norm.over > 0) return { error: "That deck has " + (norm.cards.length + norm.over).toLocaleString() +
       " cards and a deck holds at most " + UDECK_MAX_CARDS.toLocaleString() + ". Split it and import the parts." };
     UDECK_PUBLISH_KEYS.forEach((f) => { norm.meta[f] = (f === "origin") ? "mine" : (typeof norm.meta[f] === "number" ? 0 : ""); });   // an imported file is always a fresh, unpublished deck of your own
-    if (asCopy || UDECKS[norm.id]) {
+    /* …or one that has NO id at all, which a hand-written file plausibly has and which Folio's own export
+       never does. Without that clause such a deck mounted under the empty string: it half worked (its entry
+       id was the bare "u:", its rows carried an empty data-uadd), it kept the file's own card ids where every
+       other import remaps them, and a SECOND idless import took the fresh-id branch and left the first as the
+       only broken one. Found while importing a two-way deck, which is why it is fixed here rather than
+       recorded — an id is what the whole deck is addressed by. */
+    if (asCopy || !norm.id || UDECKS[norm.id]) {
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and
       // so two copies of the same deck keep separate study progress
       const newId = uid(8);
@@ -4886,17 +6215,20 @@
     cdbPut(uDeckRecord(d.id));
     return { ok: true, deck: d };
   }
-  /* The FIRST line of defence, ahead of the parse: a runaway file is turned away before it is read into a
-     string at all. It has to be kept in step with UDECK_MAX_CARDS or it becomes the real cap and a
-     surprising one — 8 MB held while the card cap was 4,000, and DELE B2 (2,000 words, both directions,
-     ~3.5 KB of markup a card) is 14 MB, so it was refused for its SIZE with a message that says nothing
-     about cards while sitting comfortably inside the card limit. 8,000 cards at ~4 KB apiece is ~32 MB. */
-  const UDECK_MAX_BYTES = 32 * 1024 * 1024;
+  /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
+     different files for different reasons. This one guards the READ: a card count can only be taken after
+     the whole file is a string and then an object, so something has to stop a 500 MB file before that. At
+     ~2 KB a note — measured over the HSK decks, whose notes are the largest here — UDECK_MAX_CARDS notes
+     come to ~24 MB, and this is set at twice that so a legitimate file at the card cap is never turned away
+     by the byte one. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
+     600 KB of; a deck refused here says nothing about how to split it, so the message now gives both
+     figures rather than "too large to be a deck". */
+  const UDECK_MAX_BYTES = 48 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
       cb({ error: "That file is " + Math.round(file.size / 1048576) + " MB and a deck file may be at most "
-                  + Math.round(UDECK_MAX_BYTES / 1048576) + " MB." });
+        + Math.round(UDECK_MAX_BYTES / 1048576) + " MB. Split it and import the parts." });
       return;
     }
     const fr = new FileReader();
@@ -5137,7 +6469,7 @@
   // properly would mean shipping per-deck progress to the server, which is not worth the privacy cost.
   function deckStudiedCount(localDeck) {
     if (!localDeck) return 0;
-    return (localDeck.cardIds || []).filter((id) => isSeen(id)).length;
+    return uDeckStudyIdsFor(localDeck.id, "").filter((id) => isSeen(id)).length;
   }
   async function deckRatings(remoteId) {
     const r = await supaFetch("/rest/v1/deck_ratings?deck_id=eq." + encodeURIComponent(remoteId) +
@@ -5292,7 +6624,8 @@
     let rows = [];
     try { rows = await cdbAll(); } catch (e) { rows = []; }
     let n = 0;
-    rows.forEach((r) => { const norm = uDeckNormalize(r); if (norm) { uDeckMount(norm); n++; } });
+    // …`true`: this is OUR store, so a record still carrying this sanitizer's revision is taken as cleaned
+    rows.forEach((r) => { const norm = uDeckNormalize(r, true); if (norm) { uDeckMount(norm); n++; } });
     _communityReady = true;
     // Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
     // skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
@@ -5822,6 +7155,51 @@
        the Book of Rites' 9.70 — which also corrects the claim in the row above: that brown's 9.42 was
        not the highest on the shelf when it was written. */
     "Homer": "#001270",
+    /* Measured the same way, with twenty-nine colours placed, and the number and the grammar pointed at
+       different swatches again — which by now is the normal outcome rather than the exception.
+
+       THE FIELD, searched over the shelf's own lightness and chroma band (L 12.7–47.8, C 18.3–64.1)
+       under the Book of Rites' ink floor and the 4.5:1 bar: the best separation available anywhere is
+       19.7, and the shelf's own tightest pair is now 18.2 (the Classic of Poetry against Beowulf — the
+       figure earlier rows in this table give as 20.4, which was true when they were written and is not
+       now). So nothing on offer is comfortable, and the choice is between six candidates within 1.2
+       points of each other.
+
+       WHAT DECIDED IT IS THE EURIPIDES TEST, and the Aeneid has the sharpest version of it on the
+       shelf, because it has TWO works a reader automatically pairs it with rather than one. It is the
+       poem written in answer to HOMER, and it is the other great hexameter poem of the Augustan
+       moment beside OVID. Three of the six best candidates fail on exactly that:
+       · a blue at 18.5, whose nearest neighbour is Homer at 24 — the loudest false kinship this shelf
+         could assert, and in the most crowded family it has (six blues already);
+       · a magenta-crimson at 19.6, 20 from Ovid — a near-tie, in the one pairing that must not be
+         asserted, and barely above the shelf's tightest pair;
+       · the best number of all, a green-teal at 19.7, 20 from LUCRETIUS — the other Latin hexameter
+         poem, which Virgil imitates closely in the Georgics — and a fifth green.
+       A saturated green at 19.0 was rejected twice over: 22 from Lucretius, and at chroma 59 it clears
+       the existing greens only from the top of the band, which is the "bright enough to glow beside
+       twenty muted colours" that Vyasa's row turned down.
+
+       SO THIS DARK OXBLOOD, at 19.0, and it is the Homer row's own argument applied to a HUE rather
+       than to a quarter. Red holds three — Sophocles L 30, the Poetic Edda L 22, Aristophanes L 34,
+       with Ovid's crimson at L 38 beside them — and this sits at L 13.3, nine points below the darkest
+       of them, so the family is crowded in hue and empty at this lightness. Its nearest are Sophocles
+       at 19.0 and the Lî Kî's plum at 19.1, both clear of the shelf's tightest pair, and NEITHER is a
+       book anyone reads against the Aeneid.
+
+       IT IS ALSO THE ONLY CANDIDATE THAT CLEARS ALL THREE KINSHIP RISKS BY MORE THAN THE SHELF'S
+       TIGHTEST PAIR — Ovid 29, Homer 62, Lucretius 72 — which is the measurement that actually settled
+       it, since every rival clears two and fails the third. And it is the strongest on the
+       accessibility axis by a wide margin: 9.57:1 on the tightest of the sixteen light papers, against
+       4.60–4.63 for three of the six, second on the shelf only to the Book of Rites' 9.70. Chroma 33
+       sits in the lower half of the band, so it cannot glow. Its derived accents land where the shelf's
+       do — 9.08 worst on the light papers by day and 6.12 worst on the six night cards, against the Lî
+       Kî's 9.11 and 6.09 — so the darkness costs the banner nothing.
+
+       THE BAND WAS NOT WIDENED, and as in the Homer row it was tested rather than assumed: allowing
+       chroma to 78 offers a strong red at 25.6 and allowing it to 95 offers an electric blue-violet at
+       35.6, which is precisely what the band exists to exclude. Paying six points of separation to keep
+       the shelf reading as one system is the trade every row here has made. */
+    "Virgil": "#4A0418",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -7616,6 +8994,131 @@
          an apparatus, which is what the titleOf note in the importer entry declines to do for the
          book titles for the same reason. */
     },
+    {
+      id: "homer-odyssey",
+      title: "The Odyssey",
+      subtitle: "Ὀδύσσεια",
+      author: "Homer",
+      /* Composed somewhere in the late eighth or early seventh century BCE and not datable more
+         closely than that; `year` is the single signed number the shelf's date sort needs, and the
+         prose `written` carries the hedge, as it should. The usual reckoning puts it a generation or
+         so after the Iliad, which is why −700 sits just behind that poem's −750 on a date sort. Both
+         figures are a convention for sorting rather than a claim this shelf is in a position to
+         make. */
+      written: "composed c. 725–675 BCE",
+      year: -700,
+      translator: "A. T. Murray",
+      edition: "Loeb Classical Library, London and New York, 1919",
+      /* THE SIMPLEST LICENCE OF ANY TWO-COLUMN BOOK HERE, and it is worth saying why rather than
+         letting the short paragraph look like carelessness. Everywhere else the two columns are two
+         modern hands — a translator and an editor, dying decades apart, the longer term deciding the
+         book, and the original usually the harder half. Here the Greek is not a separate edition set
+         beside the Loeb but the text printed on the facing half of the SAME 1919 volumes, credited
+         by the source to Murray himself, so one life answers for both columns: pre-1929 publication
+         clears the United States outright, Murray died in 1940 so life-plus-seventy cleared in 2011,
+         and only life-plus-a-hundred is still running, to 2041. Stated with the limit named rather
+         than smoothed away, as the Lucretius entry says: claim less, and put on the page what cannot
+         be said. See .claude/fetch-book.js for why Perseus's OTHER English Odyssey — Butler's, whose
+         own copyright is easier — is not used: what it carries is Butler revised by two living
+         scholars, which is the same trap its Iliad sets. */
+      rights:
+        "Three layers, and the two modern ones are the same hand. The poem is some twenty-seven " +
+        "centuries old and is in the public domain everywhere. A. T. Murray's translation was " +
+        "published in 1919 — before 1929 — so its United States copyright has expired, and Murray " +
+        "died in 1940, so it is also public domain wherever the term is the author's life plus " +
+        "seventy years; where the term is life plus a hundred it remains in copyright until 2041. " +
+        "The Greek is the text printed facing that translation in the same 1919 volumes, which the " +
+        "edition used here credits to Murray as its editor and for which it names no one else, so it " +
+        "stands on the same publication date and the same life. Both digital editions are prepared " +
+        "by the Perseus Digital Library at Tufts University and are released under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence. (The modern translations by " +
+        "Robert Fitzgerald, 1961, Richmond Lattimore, 1965, Robert Fagles, 1996, and Emily Wilson, " +
+        "2017, are still in copyright and are not used here, nor is George E. Dimock's 1995 revision " +
+        "of Murray.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg002/",
+      origLang: "grc",
+      origName: "Greek",
+      /* THE CHAPTER IS ONE OF THE TWENTY-FOUR BOOKS and the SECTION is the line the passage opens at,
+         which is how Homer is cited in every language — "Odyssey 9.366" is book nine, line 366. The
+         two columns divide the poem into the same 288 cards, so a card number is the same claim on
+         both sides; see .claude/fetch-book.js for the measurement (288 cards each, 23 of the 24 books
+         with byte-identical card lists, 286 of 288 numbers on both sides, and the two exceptions —
+         both in book 14, one line apart each — read passage by passage before either was moved). The
+         book division is Alexandrian rather than Homer's own, which the front matter says.
+         THE TRANSLATION IS PROSE AND THE ORIGINAL IS VERSE, which is the shape teiVerseBooks grew its
+         prose branch for and the second book to need it. */
+      chapterWord: "Book",
+      count: 24,
+      total: 24,
+      /* No `parts`, and the tempting division is the binder's rather than the poem's: the Loeb prints
+         this in two volumes, books 1–12 and 13–24, and while that break does fall where Odysseus
+         reaches Ithaca, the volume is a fact about the printing and the edition claims nothing by it.
+         The divisions a reader may have met — the Telemachy, the wanderings — are modern reading aids
+         rather than anything the poem or this edition states, and inventing two would be composing an
+         apparatus, which the importer's titleOf note declines to do for the book titles for the same
+         reason. */
+    },
+    {
+      id: "virgil-aeneid",
+      title: "The Aeneid",
+      subtitle: "Aeneis",
+      author: "Virgil",
+      /* Begun about 29 BCE and unfinished when Virgil died in 19 BCE, so the composition is a decade
+         rather than a date; `year` is the single signed number the shelf's date sort needs and −25 is
+         the middle of that decade, with the prose `written` carrying the range. It therefore sorts
+         between Lucretius's poem of the 50s BCE and Ovid's of 8 CE, which is where it belongs. */
+      written: "c. 29–19 BCE",
+      year: -25,
+      translator: "Theodore C. Williams",
+      edition: "Houghton Mifflin Company, Boston, 1910",
+      /* AN EASY LICENCE, AND THE FIFTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
+         Republic, the Analects, the Peloponnesian War and the City of God. Every layer clears every
+         rule: the poem is two thousand years old; Williams published in Boston in 1910 and lived
+         1855–1915, so his English clears pre-1929 publication, life-plus-seventy and
+         life-plus-a-hundred alike; Greenough's Latin was published in 1881 and he lived 1833–1901,
+         which clears the same three with a century to spare. There is no limit to state as Giles
+         (2029), Ross (2042), Murray (2028 and 2041) or the Song of Roland need, and no modern
+         editorial layer to declare as the Histories, the Antigone and the Oedipus Rex carry — both
+         revision histories were READ before that was concluded, which is the Antigone's rule.
+         Williams's dates needed the Beowulf check on top of the Hugo Magnus one: Wikisource carries a
+         stray 1864 in its metadata beside 1855–1915 in its text, and it resolves rather than blocking
+         anything, two independent sources agreeing at day precision. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated, and no limit on either. The poem is two thousand years old and is " +
+        "in the public domain everywhere. Theodore C. Williams's translation was published in Boston " +
+        "in 1910 — before 1929 — so its copyright has expired in the United States; he lived " +
+        "1855–1915, so it is also public domain wherever the term is the author's life plus seventy " +
+        "years or plus a hundred. The Latin printed beside it is J. B. Greenough's edition of 1881, " +
+        "and he lived 1833–1901, which clears the same rules. The digital editions both columns are " +
+        "taken from are prepared by the Perseus Digital Library at Tufts University and are released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+        "translations by Allen Mandelbaum, 1971, Robert Fitzgerald, 1983, Robert Fagles, 2006, Sarah " +
+        "Ruden, 2008, and Shadi Bartsch, 2021, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0690.phi003/",
+      origLang: "la",
+      origName: "Latin",
+      /* THE CHAPTER IS ONE OF THE TWELVE BOOKS and the SECTION is the Latin line the passage opens at,
+         which is how Virgil is cited in every language — "Aeneid 6.847" is book six, line 847. Both
+         editions divide the poem into cards labelled by that line, so a card number is the same claim
+         on both sides; see .claude/fetch-book.js for the measurement (392 Latin cards against 396
+         English, 390 carrying the identical number in the same order, nine of the twelve books pairing
+         on every card they have, and the seven exceptions each read passage by passage — there being no
+         tale names here to check a reconciled pair against, which is both Homers' position).
+         THE ENGLISH MARKS ITS CARDS TWO WAYS AT ONCE, which is what this book taught the importer: 327
+         divisions and 69 milestones standing inside a line. */
+      chapterWord: "Book",
+      count: 12,
+      total: 12,
+      /* No `parts`, and here the tempting division is a real one that the edition still does not make:
+         the poem falls into an Odyssean half and an Iliadic half at book 7, and Virgil marks the turn
+         with a second invocation of the Muse. It is a division readers have drawn for two thousand
+         years, but neither Williams nor Greenough prints a heading for it, and putting two parts on the
+         bar would be composing an apparatus out of a commonplace — which is what the importer's titleOf
+         note declines to do for the book titles, and what the Iliad's and Odyssey's rows decline for
+         their own halves. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -7736,7 +9239,7 @@
     // stays lit there rather than the bar going blank under a page that is plainly part of "your record"
     // A route with no tab of its own lights the tab it plainly belongs under: the discovered-terms list
     // is part of "your record", and one book is part of the Library it was opened from.
-    const lit = name === "glossary" ? "account" : name === "book" ? "library" : name;
+    const lit = name === "glossary" || name === "browse" ? "account" : name === "book" ? "library" : name;
     document.querySelectorAll(".tab").forEach((t) => {
       t.classList.toggle("active", t.dataset.route === lit);
     });
@@ -7758,6 +9261,7 @@
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
     glossary:  ["Glossary discovered — Folio", "Every glossary term you have opened while studying."],
+    browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
     challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
@@ -7847,11 +9351,17 @@
     }
     return false;
   }
+  /* Everything that sits OVER a page and takes the reader's attention with it. One list, because two things
+     ask the same question of it: a page swipe must not fire under an open sheet, and neither must a study
+     page's keyboard shortcuts — `3` with a panel open grades the card the reader is reading ABOUT, and
+     Ctrl+Z undoes a grade they cannot see. Written twice they would drift, and the drift is invisible. */
+  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour, .artefact-pop, .chest-pop";
+  function overlayOpen() { return !!document.querySelector(OVERLAY_SEL); }
   function swipeEnabled() {
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
     if (SWIPE_ORDER.indexOf(current.name) < 0) return false;
     if (document.body.classList.contains("grading")) return false;
-    return !document.querySelector(".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour");
+    return !overlayOpen();
   }
   function wirePageSwipe() {
     let st = null;
@@ -8386,7 +9896,12 @@
     ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
     _deckMenuClose = close;
     wire(ov, close);
-    setTimeout(() => { const f = ov.querySelector("button, input"); if (f) f.focus(); }, 0);
+    /* The first control, unless the sheet has nominated one with `data-dmfocus`. A sheet whose rows are a
+       CHOICE wants the focus on the current value: without this the Scheduling sheet, which rebuilds itself
+       when the choice changes, showed a focus ring on the row just clicked — the one NOT chosen — beside a
+       tick on the one that was, and left the reader to work out which of the two meant anything. Nominating
+       it here rather than in the sheet's own wire() is what avoids racing this very timer. */
+    setTimeout(() => { const f = ov.querySelector("[data-dmfocus]") || ov.querySelector("button, input"); if (f) f.focus(); }, 0);
     return ov;
   }
   /* HOLD to open an options sheet — used by the daily review's deck rows and by the review banner above
@@ -8544,10 +10059,31 @@
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
         "Press the speaker on a card to hear it", autoSpeak) : "") +
+      // only where something in this entry can HAVE siblings — a curated card is one card, and a switch that
+      // cannot change anything is the thing the read-aloud row's own note warns against
+      (entryHasSiblings(id) ? swRow("bury", "Bury siblings",
+        "A note's other cards wait until tomorrow",
+        "Every card of a note can come up the same day", deckBurySiblings(id)) : "") +
+      /* THE EVERYDAY WAY INTO THE BROWSER. The account page has the other one, at the head of the reader's
+         record where the rest of their statistics live — but the moment somebody wants to find a card is
+         usually the moment they are looking at their decks, and this sheet is one press from any of them.
+         It goes on every entry, the pooled review included: the browser searches the whole collection
+         rather than the thing the sheet was opened on, which is why the row says "your cards". */
+      item("browse", "Browse your cards", "Search everything by state, flag, deck or how often you forget it") +
       (isGroup ? item("rename", "Rename", "Call this group something else") : "") +
       (isGroup ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
+        /* Which scheduler, on a DECK only. The pooled review schedules nothing of its own — it deals what
+           its decks hand it, each on its own deck's schedule — and a GROUP is a container rather than a
+           deck, so offering the choice on either would be offering a setting that governs nothing. */
+        (isReview ? "" : item("sched", "Scheduling",
+          schedModeOf(id) === "fsrs"
+            ? "FSRS · aiming to remember " + Math.round(deckSchedCfg(id).retention * 100) + "%"
+            /* NO OTHER APP IS NAMED IN A SETTINGS SHEET (Aug 2026, on request). A reader choosing how their
+               own deck is scheduled is not helped by being told whose default it is, and the two algorithms
+               have names of their own. Anki is credited where a credit belongs — on the About page. */
+            : "SM-2, the classic interval schedule")) +
         item("skip", skipped ? "Study today after all" : "Skip today",
           skipped ? "This " + thing + " is sitting today out"
                   : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review"))) +
@@ -8577,6 +10113,10 @@
             setDeckRandom(id, on);
             note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
             toast(on ? "Review order: random" : "Review order: ordered");
+          } else if (rowEl.dataset.act === "bury") {
+            setDeckBurySiblings(id, on);
+            note.textContent = on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
+            toast(on ? "Burying siblings" : "Siblings can come up together");
           } else if (rowEl.dataset.act === "speak") {
             setDeckAutoSpeak(id, on);
             note.textContent = on ? "The answer is spoken as soon as it is revealed" : "Press the speaker on a card to hear it";
@@ -8601,6 +10141,7 @@
       }));
       ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors)").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
+        if (act === "browse") { close(); route("browse"); return; }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "rename") {
@@ -8621,6 +10162,7 @@
           }, "Ungroup");
           return;
         }
+        if (act === "sched") { close(); openDeckSched(id); return; }
         if (act === "skip") {
           setDeckSkip(id, !skipped);
           close();
@@ -8661,6 +10203,660 @@
         render();
         toast(d > 0 ? "Added " + n + " new cards for today" : "Removed " + n + " new cards from today");
       }));
+    });
+  }
+  /* ---------- CARD INFO (Aug 2026, on request) ----------
+     Anki's card info, and the first reader of the per-review log. It answers the question a scheduler
+     always provokes and could never answer here: *why is this card due when it is?*
+
+     It is deliberately in TWO halves, because they come from different places and one of them is older
+     than the other. The STATE block is derived from the card record, so it is complete for every card a
+     reader has ever studied, this morning's or last year's. The HISTORY table can only show what the log
+     holds, which begins the day the log shipped — so a card studied for months before that shows its true
+     state above an honestly short history, and says which it is rather than reading as a card with no
+     past. Fabricating rows from the interval and ease would be inventing a reader's own history, which is
+     the one thing this panel must not do.
+
+     `prog` rather than `S` so a friend's card could be shown from their synced record with no change here. */
+  function cardInfoRowsHTML(prog, id) {
+    const c = (prog.cards || {})[id] || null;
+    const rows = [];
+    const add = (k, v) => { if (v) rows.push('<div class="ci-k">' + esc(k) + '</div><div class="ci-v">' + v + "</div>"); };
+    if (!c) {
+      add("State", "New — not studied yet");
+    } else {
+      const st = REV_ST_NAME[REV_ST[c.status] === undefined ? 0 : REV_ST[c.status]] || "New";
+      add("State", esc(st) + ((prog.suspended || {})[id] ? " · <b>suspended</b>" : ""));
+      if (c.due) {
+        const overdue = c.due <= Date.now();
+        add("Due", '<span class="' + (overdue ? "ci-due-now" : "") + '">' + fmtStamp(c.due) + (overdue ? " · now" : "") + "</span>");
+      }
+      if (c.status === "review" && c.interval) add("Interval", esc(fmtInterval(c.interval)));
+      /* Under FSRS the pair that MEANS something is stability and difficulty, and the ease is a leftover from
+         whatever SM-2 last did with the card — so the row that is shown is the one the card's own deck is
+         actually scheduling by. Stability is given as a duration because that is what it is: the delay at
+         which recall is about 90% likely.
+         THE 90 IS NOT THE READER'S TARGET AND MUST NOT READ AS IT. Stability is defined at 90% whatever
+         retention the deck asks for (it is where `fsrsFactor`'s 0.9 comes from), and the Scheduler row a few
+         lines below names the reader's own figure — so on a deck set to 85% the two numbers sit four rows
+         apart meaning different things. Hence "at ~90% recall" rather than "the 90% interval", which read like
+         the setting had been ignored. */
+      const fsrs = Number(c.stability) > 0 && schedModeOf(cardEntryId(id)) === "fsrs";
+      if (fsrs) {
+        add("Stability", esc(fmtInterval(c.stability)) + ' <span class="ci-of">the delay at ~90% recall</span>');
+        if (Number(c.difficulty) > 0) add("Difficulty", c.difficulty.toFixed(1) + ' <span class="ci-of">of 10</span>');
+      } else if (c.ease) add("Ease", (c.ease * 100).toFixed(0) + "%");
+      add("Reviews", String(c.reps || 0));
+      // a lapse count is worth naming as a leech at Anki's threshold, which the scheduler already records
+      if (c.lapses) add("Lapses", String(c.lapses) + (c.leech ? ' · <b class="ci-leech">leech</b>' : ""));
+      if (c.first) add("First studied", esc(c.first));
+      if (c.last) add("Last review", fmtStamp(c.last));
+    }
+    /* The reader's own flag, read off `prog` like everything else here so a friend's card would show
+       theirs rather than this device's. Drawn only when there is one: an unflagged card is every card by
+       default, and a row saying "Flag: none" on all of them is a row that says nothing. */
+    const fl = ((prog.flags || {})[id]) | 0;
+    if (fl >= 1 && fl <= 7) add("Flag", '<span class="ci-flag" data-flag="' + fl + '">' + flagDotHTML(fl) + esc(FLAG_NAME(fl)) + "</span>");
+    const where = cardLeaves(id).map((n) => nodeWhere(n)).filter(Boolean);
+    if (where.length) add(where.length > 1 ? "Decks" : "Deck", esc(where.join(" · ")));
+    /* WHICH card of its note this is — drawn only where a note makes more than one, since on every other
+       card in Folio the row would say "1 of 1" and mean nothing. It is the question a reverse card provokes
+       and the only thing on screen that can answer it: the two directions of one note are separate cards
+       with separate schedules, and everything above describes exactly one of them. */
+    const cc = cardById(id);
+    const ct = cc && cardTypeOf(cc);
+    if (ct && ct.cloze) {
+      /* A cloze card is named by the DELETION it asks about, not by a template — there is only one template
+         — and the ordinals may be sparse, so "3 of 5" would be a lie where the fifth blank is numbered 9.
+         The row is drawn only where the note makes more than one card, like the template row below it. */
+      const ords = clozeOrds(cc), o = ((cc._tpl || 0) + 1);
+      if (ords.length > 1) add("Card", "Blank " + o + ' <span class="ci-of">' + (ords.indexOf(o) + 1 || 1) + " of " + ords.length + "</span>");
+    } else if (ct && typeCards(ct).length > 1) {
+      const list = typeCards(ct), i = Math.min((cc._tpl || 0), list.length - 1);
+      add("Card", esc(list[i].name || "Card " + (i + 1)) + ' <span class="ci-of">' + (i + 1) + " of " + list.length + "</span>");
+    }
+    const ent = cardEntryId(id);
+    if (ent && schedModeOf(ent) === "fsrs") {
+      add("Scheduler", 'FSRS <span class="ci-of">aiming to remember ' + Math.round(deckSchedCfg(ent).retention * 100) + "%</span>");
+    }
+    add("Card id", '<code class="ci-id">' + esc(id) + "</code>");
+    return '<div class="ci-grid">' + rows.join("") + "</div>";
+  }
+  function cardInfoHistHTML(prog, id) {
+    const hist = revForCard(prog, id);
+    if (!hist.length) {
+      return '<p class="ci-none">No reviews recorded yet. Folio began keeping a per-review history in ' +
+        'August 2026 — anything you studied before then is in the state above, but its individual reviews ' +
+        "were never written down.</p>";
+    }
+    /* THE SIXTH COLUMN IS WHICHEVER NUMBER THE SCHEDULER USES, so it is HEADED by the card's own mode — an
+       ease under SM-2 (a percentage, 250%) and a difficulty under FSRS (6.4 of 10). The row itself does not
+       record which, since only FSRS ever writes a difficulty and a card belongs to one deck; the one case the
+       two can disagree is a deck switched between schedulers part-way through, where the older rows keep their
+       own values under the newer heading. Said here rather than papered over: the alternative is a column
+       reading "Ease 250%" on a card that has no ease, which is what shipped for an hour. */
+    const fsrs = schedModeOf(cardEntryId(id)) === "fsrs";
+    const body = hist.slice().reverse().map((r) => {
+      // the delay this answer bought, which is the row's whole point: it is what the button did
+      const next = r.nextMin ? fmtInterval(r.nextDays) : "—";
+      return "<tr>" +
+        "<td>" + fmtStamp(r.t) + "</td>" +
+        '<td><span class="ci-st ci-st-' + r.st + '">' + esc(r.state) + "</span></td>" +
+        '<td><span class="ci-g ci-g-' + r.g + '">' + esc(r.grade) + "</span></td>" +
+        "<td>" + (r.prevMin ? esc(fmtInterval(r.prevDays)) : "—") + "</td>" +
+        "<td>" + esc(next) + "</td>" +
+        "<td>" + (r.ease ? (fsrs ? r.ease.toFixed(1) : (r.ease * 100).toFixed(0) + "%") : "—") + "</td>" +
+        "<td>" + (r.secs ? esc(fmtSecs(r.secs)) : "—") + "</td>" +
+        "</tr>";
+    }).join("");
+    const secs = hist.reduce((a, r) => a + r.secs, 0);
+    const right = hist.filter((r) => r.correct).length;
+    return '<div class="ci-histwrap"><table class="ci-hist">' +
+      "<thead><tr><th>When</th><th>Type</th><th>Rating</th><th>From</th><th>To</th><th>" +
+      (fsrs ? "Difficulty" : "Ease") + "</th><th>Time</th></tr></thead>" +
+      "<tbody>" + body + "</tbody></table></div>" +
+      '<p class="ci-sum">' + hist.length + (hist.length === 1 ? " review" : " reviews") + " recorded · " +
+      right + " of " + hist.length + " remembered" + (secs ? " · " + esc(fmtSecs(secs)) + " spent" : "") + "</p>";
+  }
+  /* What to call a card in a heading, a row of the browser or a toast. A Basic card is named by its answer;
+     a card of one of a deck's own types has no `answer` at all — the template owns the back — so it is named
+     by the first field that has anything in it, which is the word or the picture's subject and is what an
+     author would call it. Pulled out of openCardInfo when the browser needed the same answer for 400 rows. */
+  function cardTitle(id, max) {
+    const c = cardById(id);
+    let title = c ? stripHtml(c.answerText || c.answer || "") : "";
+    if (!title && c && c.fields) {
+      const t = cardTypeOf(c), order = (t && t.fields) || Object.keys(c.fields);
+      const k = order.find((f) => String(c.fields[f] || "").trim());
+      if (k) title = stripHtml(String(c.fields[k]));
+    }
+    return String(title || "").slice(0, max || 90);
+  }
+
+  /* ---------- ACTING ON CARDS: flag, set due date, forget (Aug 2026, on request) ----------
+     EVERY ONE OF THESE TAKES A LIST, and that is the whole reason they read as they do. The card browser's
+     bulk actions and the single-card sheets reached from Card info and the study bar are the same functions
+     with a list of one — so "set due date" cannot come to mean two slightly different things depending on
+     which control the reader pressed, which is what would happen if the sheet did the work and the browser
+     grew its own copy. `after` is the caller's repaint: the study bar re-renders a card, the browser
+     repaints its table in place, and neither can be done from here. */
+  function applyCardFlag(ids, n) {
+    if (!S.flags || typeof S.flags !== "object") S.flags = {};
+    const want = n >= 1 && n <= 7 ? n : 0;
+    ids.forEach((id) => { if (want) S.flags[id] = want; else delete S.flags[id]; });
+    save();
+    return want;
+  }
+  function applySetDue(ids, days, setInterval) {
+    const t = now();
+    ids.forEach((id) => {
+      /* A card with NO record is given one. That is what makes "set due date" work on a card the reader has
+         never seen — which is most of a fresh collection — and it is why schedSetDue takes a null card. */
+      S.cards[id] = schedSetDue(S.cards[id] || null, days, t, setInterval, schedCfgFor(id));
+    });
+    bumpLoadMap();
+    save();
+  }
+  function applyForget(ids, resetCounts) {
+    const t = now();
+    ids.forEach((id) => {
+      if (!S.cards[id]) return;   // never studied: there is nothing to forget, and writing a record would claim otherwise
+      S.cards[id] = schedForget(S.cards[id], resetCounts, t);
+    });
+    bumpLoadMap();
+    save();
+  }
+  const plural = (n, one, many) => n + " " + (n === 1 ? one : many);
+
+  /* The flag picker: eight swatches, none of them a colour name in coloured type (see the CSS note). It is a
+     sheet rather than a popover for the reason every other per-card action is one — the same shell, the same
+     Escape, the same focus trap — and the fast path is the keyboard, which is why the shortcut is printed on
+     it rather than left to be discovered. */
+  function openFlagSheet(ids, after) {
+    const one = ids.length === 1 ? ids[0] : null;
+    const cur = one ? cardFlag(one) : 0;
+    const sw = FLAGS.map((f) =>
+      '<button type="button" class="fl-sw' + (cur === f.n ? " sel" : "") + '" data-flag="' + f.n + '" data-fn="' + f.n +
+      '" title="' + esc(f.name) + ' (Ctrl+' + f.n + ')" aria-label="' + esc(f.name) + ' flag">' +
+      '<span class="flag-dot"></span><span class="fl-n">' + f.n + "</span></button>").join("");
+    const html =
+      '<div class="dm-head"><span class="dm-title">Flag</span><span class="dm-where">' +
+      esc(one ? cardTitle(one, 60) || one : plural(ids.length, "card", "cards")) + "</span></div>" +
+      '<div class="fl-row">' + sw + "</div>" +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-fn="0">' +
+      (cur ? "Remove the flag" : "No flag") + '</button><button type="button" class="btn ghost" data-act="close">Close</button></div>' +
+      '<p class="dm-note">On a keyboard, Ctrl+1 to Ctrl+7 flags the card you are studying and Ctrl+0 takes the flag off. ' +
+      "Flagging a card the same colour twice removes the flag.</p>";
+    deckSheet("Flag", html, (ov, close) => {
+      ov.querySelectorAll("[data-fn]").forEach((b) => b.addEventListener("click", () => {
+        const n = +b.dataset.fn;
+        /* On ONE card the picker toggles, exactly as the shortcut does, so the two controls cannot disagree
+           about what pressing red twice means. On MANY it SETS — a bulk action that toggled would leave a
+           mixed selection half red and half not, which is not a thing anybody asked for. */
+        applyCardFlag(ids, one ? (n === cur ? 0 : n) : n);
+        close();
+        if (after) after();
+      }));
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+
+  /* Set due date. Anki's own input, and its syntax is worth keeping because it is the only compact way to say
+     the three things a reader means: `7` a week from now, `7!` a week from now AND make that the interval,
+     `4-7` somewhere in that range so a hundred cards pushed together do not all come back on one day. */
+  const SETDUE_RX = /^\s*(\d{1,5})\s*(?:-\s*(\d{1,5})\s*)?(!?)\s*$/;
+  function parseSetDue(text) {
+    const m = SETDUE_RX.exec(String(text || ""));
+    if (!m) return null;
+    const a = parseInt(m[1], 10);
+    const b = m[2] == null ? a : parseInt(m[2], 10);
+    if (!(a >= 0) || !(b >= 0)) return null;
+    return { lo: Math.min(a, b), hi: Math.max(a, b), setInterval: m[3] === "!" };
+  }
+  function openSetDueSheet(ids, after) {
+    const html =
+      '<div class="dm-head"><span class="dm-title">Set due date</span><span class="dm-where">' +
+      esc(ids.length === 1 ? cardTitle(ids[0], 60) || ids[0] : plural(ids.length, "card", "cards")) + "</span></div>" +
+      '<label class="dm-field"><span>Days from now<small>0 is today</small></span>' +
+      '<input type="text" inputmode="numeric" id="sdDays" value="1" autocomplete="off"></label>' +
+      '<p class="dm-note">A plain number is a day: <b>7</b> puts the card a week from now and leaves its interval alone. ' +
+      "<b>7!</b> also makes seven days its new interval, which is what you want when the old interval was the thing that was wrong. " +
+      "<b>4-7</b> picks a day in that range for each card, so a pile pushed together does not come back together.</p>" +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="ok">Set the date</button>' +
+      '<button type="button" class="btn ghost" data-act="close">Cancel</button></div>';
+    deckSheet("Set due date", html, (ov, close) => {
+      const box = ov.querySelector("#sdDays");
+      const go = () => {
+        const p = parseSetDue(box.value);
+        if (!p) { toast("Give a number of days — 7, 7! or 4-7."); box.focus(); box.select(); return; }
+        /* The range is resolved PER CARD, seeded by the card's own id, so pushing a hundred cards spreads
+           them — which is the entire point of offering a range — and re-running the same action on the same
+           cards puts them on the same days rather than shuffling them again. */
+        if (p.lo === p.hi) applySetDue(ids, p.lo, p.setInterval);
+        else ids.forEach((id) => applySetDue([id], p.lo + Math.floor(schedFuzzRand("setdue:" + id + ":" + p.lo + ":" + p.hi) * (p.hi - p.lo + 1)), p.setInterval));
+        close();
+        toast(plural(ids.length, "card", "cards") + " moved" + (p.lo === p.hi ? (p.lo === 0 ? " to today" : " to " + plural(p.lo, "day", "days") + " from now") : " into the next " + p.hi + " days"));
+        if (after) after();
+      };
+      ov.querySelector('[data-act="ok"]').addEventListener("click", go);
+      box.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); go(); } });
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+      setTimeout(() => { box.focus(); box.select(); }, 0);
+    });
+  }
+
+  /* Forget. The sheet IS the confirmation — it says what will go and what will stay, and nothing happens
+     until a button with those words on it is pressed. It is the one action here that throws work away, so it
+     says so in the ordinary prose rather than behind a warning colour. */
+  function openForgetSheet(ids, after) {
+    const known = ids.filter((id) => S.cards[id]);
+    const html =
+      '<div class="dm-head"><span class="dm-title">Forget</span><span class="dm-where">' +
+      esc(ids.length === 1 ? cardTitle(ids[0], 60) || ids[0] : plural(ids.length, "card", "cards")) + "</span></div>" +
+      (known.length
+        ? '<p class="dm-note">' + (known.length === ids.length ? "" : plural(known.length, "card", "cards") + " of " + ids.length + " has been studied. ") +
+          "Forgetting puts a card back to new: its interval, its due date and — under FSRS — everything Folio " +
+          "had worked out about how well you know it. It keeps its place in its deck, and it keeps having been " +
+          "studied, so no level you have earned is taken back.</p>" +
+          /* The same `dm-switch` shape the deck options sheet uses, so it needs no CSS of its own — but its
+             wiring is this sheet's, `swRow` being local to that one. */
+          '<div class="dm-item dm-switch" id="fgResetRow">' +
+          '<div class="dm-switchmain"><b>Also reset the counts</b><small>How many times you have seen it, and how often you have forgotten it</small></div>' +
+          '<div class="switch" id="fgReset" role="switch" tabindex="0" aria-label="Also reset the review and lapse counts" aria-checked="false"></div></div>' +
+          '<div class="dm-actions"><button type="button" class="btn" data-act="ok">Forget ' + (ids.length === 1 ? "this card" : plural(known.length, "card", "cards")) + "</button>" +
+          '<button type="button" class="btn ghost" data-act="close">Cancel</button></div>'
+        : '<p class="dm-note">Nothing to forget — ' + (ids.length === 1 ? "this card has" : "none of these cards has") +
+          " been studied yet, so there is no schedule to put back.</p>" +
+          '<div class="dm-actions"><button type="button" class="btn" data-act="close">Close</button></div>');
+    deckSheet("Forget", html, (ov, close) => {
+      const ok = ov.querySelector('[data-act="ok"]');
+      const row = ov.querySelector("#fgResetRow"), sw0 = ov.querySelector("#fgReset");
+      if (row && sw0) {
+        // a click anywhere on the row throws it, and the switch itself takes the tab stop and the keys —
+        // the deck options sheet's own rule, restated here because swRow's wiring lives in that closure
+        const flip = () => {
+          const on = sw0.getAttribute("aria-checked") !== "true";
+          sw0.setAttribute("aria-checked", on ? "true" : "false");
+          sw0.classList.toggle("on", on);
+        };
+        row.addEventListener("click", flip);
+        sw0.addEventListener("keydown", (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); flip(); } });
+      }
+      if (ok) ok.addEventListener("click", () => {
+        const sw = ov.querySelector("#fgReset");
+        applyForget(ids, !!(sw && sw.getAttribute("aria-checked") === "true"));
+        close();
+        toast(plural(known.length, "card", "cards") + " put back to new");
+        if (after) after();
+      });
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+
+  function openCardInfo(id, after) {
+    const title = cardTitle(id);
+    const susp = isSuspended(id);
+    const html =
+      '<div class="dm-head"><span class="dm-title">Card info</span><span class="dm-where">' + esc(title || id) + "</span></div>" +
+      cardInfoRowsHTML(S, id) +
+      /* THE ACTIONS LIVE HERE because this panel is already "everything about this card", and the two Anki
+         calls it was missing are both answers to what it shows: a due date the reader disagrees with, and a
+         card whose lapse count says it never stuck. Each opens its own sheet ON TOP of this one and repaints
+         these rows on the way back, so the reader sees the state they have just changed. */
+      '<div class="ci-acts">' +
+      '<button type="button" class="btn ghost" data-act="flag">' + (cardFlag(id) ? "Flag: " + esc(FLAG_NAME(cardFlag(id))) : "Flag") + "</button>" +
+      '<button type="button" class="btn ghost" data-act="due">Set due date</button>' +
+      '<button type="button" class="btn ghost" data-act="forget">Forget</button>' +
+      '<button type="button" class="btn ghost" data-act="susp">' + (susp ? "Unsuspend" : "Suspend") + "</button>" +
+      "</div>" +
+      '<h4 class="ci-h">Review history</h4>' +
+      cardInfoHistHTML(S, id) +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="close">Close</button></div>';
+    deckSheet("Card info", html, (ov, close) => {
+      ov.classList.add("ci-sheet");   // a wider box than an options sheet — see the CSS note
+      // re-open on the same card so the rows show the change, and pass the caller's repaint along
+      const again = () => { openCardInfo(id, after); if (after) after(); };
+      ov.querySelector('[data-act="flag"]').addEventListener("click", () => { close(); openFlagSheet([id], again); });
+      ov.querySelector('[data-act="due"]').addEventListener("click", () => { close(); openSetDueSheet([id], again); });
+      ov.querySelector('[data-act="forget"]').addEventListener("click", () => { close(); openForgetSheet([id], again); });
+      ov.querySelector('[data-act="susp"]').addEventListener("click", () => {
+        if (!S.suspended) S.suspended = {};
+        if (susp) delete S.suspended[id]; else S.suspended[id] = Date.now();
+        save();
+        toast(susp ? "Card unsuspended" : "Card suspended — it won't appear again");
+        close();
+        again();
+      });
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+  /* ================= THE CARD BROWSER (Aug 2026, on request) ================================
+     Folio records a great deal about every card — a state, an interval, an ease or a stability, a lapse
+     count, tags, and since this month every individual review — and until now gave a reader no way to look
+     at any of it except one card at a time, on the card that happened to be in front of them. This is the
+     table. It answers the three questions a browser exists for: what do I keep failing, what did I meet
+     lately, and where did that card go.
+
+     THE SEARCH IS THE HALF THAT MATTERS, and it is Anki's syntax cut to a documented subset rather than a
+     free-text box: `is:` for the states, `flag:` for the colours, `prop:` for the numbers, plus `deck:`,
+     `tag:`, `introduced:` and `rated:`. Terms are ANDed and any of them may be negated with a leading `-`.
+
+     TWO DEPARTURES FROM ANKI, both because Folio does not hold what Anki holds:
+       · there is no `added:`. Anki's counts from when a note was CREATED, and a curated Folio card has no
+         creation date at all — it ships in data.js. What Folio does record is the day a card was first
+         studied (`first`, which every per-deck new count is already derived from), so the operator is
+         called `introduced:` and means that. Calling it `added:` would have been a figure that looks like
+         Anki's and answers a different question.
+       · `rated:` reads the per-review log, so it can only see back to the day that log shipped. A card
+         reviewed for months before then is not `rated:365`, and the page says so where it would mislead.
+
+     THE PARSER AND THE PREDICATE ARE PURE — a row is a plain object and nothing here reads S — which is
+     what lets test-cards.js slice them out and put thirty queries through them as arithmetic. Building the
+     rows is the impure half and is done once per repaint. */
+  const BROWSE_CAP = 300;          // rows drawn at once; the count line always states the true total
+  const BROWSE_OPS = { is: 1, flag: 1, deck: 1, tag: 1, prop: 1, introduced: 1, rated: 1 };
+
+  /* Split a query into terms, honouring quotes so `"stone age"` is one term and not two. A leading `-`
+     negates. An `op:` prefix is only taken as an operator when it is one Folio KNOWS — otherwise the whole
+     token stays free text, so a typo searches for itself rather than silently matching everything, which is
+     the failure a reader would never report. */
+  function browseTokens(q) {
+    const s = String(q == null ? "" : q);
+    const out = [];
+    let i = 0;
+    while (i < s.length) {
+      while (i < s.length && /\s/.test(s[i])) i++;
+      if (i >= s.length) break;
+      let neg = false;
+      if (s[i] === "-" && i + 1 < s.length && !/\s/.test(s[i + 1])) { neg = true; i++; }
+      let buf = "", quote = "";
+      while (i < s.length) {
+        const ch = s[i];
+        if (quote) { if (ch === quote) quote = ""; else buf += ch; i++; continue; }
+        if (ch === '"' || ch === "'") { quote = ch; i++; continue; }
+        if (/\s/.test(ch)) break;
+        buf += ch; i++;
+      }
+      if (!buf) continue;
+      const m = /^([A-Za-z]+):([\s\S]*)$/.exec(buf);
+      const op = m && BROWSE_OPS[m[1].toLowerCase()] ? m[1].toLowerCase() : "";
+      out.push({ neg: neg, op: op, text: op ? m[2] : buf, raw: buf });
+    }
+    return out;
+  }
+  const BROWSE_PROP_RX = /^(ivl|due|reps|lapses|ease|stability|difficulty)\s*(>=|<=|!=|=|>|<)\s*(-?\d+(?:\.\d+)?)$/i;
+  /* One term → one test. An operator whose VALUE makes no sense returns a test that matches nothing rather
+     than one that matches everything: a mistyped `prop:lapsse>3` must narrow to nothing and be obvious, not
+     widen to the whole collection and look like a search that found it all. */
+  function browseTerm(tm) {
+    const v = String(tm.text || "").toLowerCase();
+    const hay = (r) => (r.title + " " + r.deck + " " + (r.tags || []).join(" ") + " " + r.id).toLowerCase();
+    const text = () => { const needle = v; return (r) => hay(r).indexOf(needle) >= 0; };
+    if (!tm.op) return text();
+    if (tm.op === "is") {
+      switch (v) {
+        case "new": return (r) => r.state === "new";
+        case "learn": case "learning": return (r) => r.state === "learning" || r.state === "relearn";
+        case "relearn": return (r) => r.state === "relearn";
+        case "review": return (r) => r.state === "review";
+        case "due": return (r) => (r.state === "review" || r.state === "learning" || r.state === "relearn") && r.due <= 0;
+        case "suspended": return (r) => !!r.suspended;
+        case "buried": return (r) => !!r.buried;
+        case "flagged": return (r) => r.flag > 0;
+        case "leech": return (r) => !!r.leech;
+        default: return () => false;
+      }
+    }
+    if (tm.op === "flag") {
+      if (v === "none" || v === "0") return (r) => !r.flag;
+      const n = parseInt(v, 10);
+      if (!(n >= 1 && n <= 7)) return () => false;
+      return (r) => r.flag === n;
+    }
+    if (tm.op === "deck") return (r) => r.deck.toLowerCase().indexOf(v) >= 0;
+    if (tm.op === "tag") {
+      if (v === "none") return (r) => !(r.tags || []).length;
+      return (r) => (r.tags || []).some((x) => String(x).toLowerCase().indexOf(v) >= 0);
+    }
+    if (tm.op === "prop") {
+      const m = BROWSE_PROP_RX.exec(v);
+      if (!m) return () => false;
+      const key = m[1].toLowerCase(), cmp = m[2], num = parseFloat(m[3]);
+      return (r) => {
+        const x = r[key === "ivl" ? "ivl" : key];
+        if (typeof x !== "number" || !isFinite(x)) return false;
+        if (cmp === ">") return x > num;
+        if (cmp === "<") return x < num;
+        if (cmp === ">=") return x >= num;
+        if (cmp === "<=") return x <= num;
+        if (cmp === "!=") return x !== num;
+        return x === num;
+      };
+    }
+    if (tm.op === "introduced") {
+      const n = parseInt(v, 10);
+      if (!(n >= 0)) return () => false;
+      return (r) => typeof r.introduced === "number" && r.introduced <= n;
+    }
+    if (tm.op === "rated") {
+      const m = /^(\d{1,5})(?::([1-4]))?$/.exec(v);
+      if (!m) return () => false;
+      const n = parseInt(m[1], 10), g = m[2] ? parseInt(m[2], 10) : 0;
+      return (r) => typeof r.rated === "number" && r.rated <= n && (!g || r.ratedG === g);
+    }
+    return text();
+  }
+  function browsePredicate(terms) {
+    const tests = (terms || []).map((tm) => { const f = browseTerm(tm); return tm.neg ? (r) => !f(r) : f; });
+    return (row) => tests.every((f) => f(row));
+  }
+
+  /* Every card a reader could study, as rows. `availableCardIdSet` is the right universe rather than every
+     id in the tree: it already leaves out the coming-soon collections and already expands a community note
+     into its several cards, so the browser lists exactly what the review could deal. */
+  function browseRowData() {
+    const avail = availableCardIdSet();
+    /* The most recent LOGGED review per card, from one pass over the log rather than revForCard per row —
+       which would be a scan of the whole log for each of several hundred cards. */
+    const last = {};
+    (S.revlog || []).forEach((row) => {
+      const r = revRead(row);
+      if (r && (!last[r.id] || r.t > last[r.id].t)) last[r.id] = r;
+    });
+    const nowT = now(), today = todayStr();
+    const dayOf = (s) => { const p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || "")); return p ? Date.UTC(+p[1], +p[2] - 1, +p[3]) : null; };
+    const todayN = dayOf(today);
+    const rows = [];
+    avail.forEach((id) => {
+      const c = S.cards[id] || null;
+      const lv = cardLeaves(id);
+      /* TWO deck strings, and the split is not cosmetic. `deck` is the FULL path and is what `deck:` searches,
+         so `deck:World` finds a card three levels down a World History branch. `deckShort` is the leaf's own
+         title and is what the column PRINTS: a full path is 40-odd characters, which in a table column is an
+         ellipsis and nothing else — "World History · Or…" tells a reader strictly less than "Origins" does.
+         The full path is on the row's tooltip, so nothing is lost, it is just not spent on width. */
+      let deck = lv.length ? lv.map((n) => nodeWhere(n)).join(" · ") : "";
+      let deckShort = lv.length ? nodeTitle(lv[0]) : "";
+      if (!deck && isCommunityCard(id)) {
+        const note = UCARDS[uCardBaseId(id)], d = note && UDECKS[note.deckId];
+        deck = d ? (d.meta && d.meta.title ? d.meta.title : d.id) + (note.sub ? " · " + note.sub : "") : "";
+        deckShort = note && note.sub ? note.sub : deck;
+      }
+      const base = cardById(id);
+      const lr = last[id];
+      /* `introduced` and `rated` are WHOLE DAYS, computed here so the predicate can stay pure arithmetic —
+         and `first` is compared as a day rather than a timestamp, since it is written by dayKey and the
+         reader's own day boundary is what it means. */
+      const fd = c && c.first ? dayOf(c.first) : null;
+      rows.push({
+        id: id,
+        title: cardTitle(id, 120) || id,
+        deck: deck,
+        deckShort: deckShort || deck,
+        tags: (base && Array.isArray(base.tags) ? base.tags : []),
+        flag: cardFlag(id),
+        state: c ? (c.status || "new") : "new",
+        due: c && c.due ? Math.floor((c.due - nowT) / DAY) : (c ? 0 : Infinity),
+        dueAt: c && c.due ? c.due : 0,
+        ivl: c && c.status === "review" ? (Number(c.interval) || 0) : 0,
+        reps: c ? (Number(c.reps) || 0) : 0,
+        lapses: c ? (Number(c.lapses) || 0) : 0,
+        ease: c && Number(c.ease) ? Number(c.ease) : 0,
+        stability: c && Number(c.stability) ? Number(c.stability) : 0,
+        difficulty: c && Number(c.difficulty) ? Number(c.difficulty) : 0,
+        suspended: isSuspended(id),
+        buried: isBuried(id),
+        leech: !!(c && c.leech),
+        introduced: fd != null && todayN != null ? Math.round((todayN - fd) / DAY) : null,
+        rated: lr ? Math.floor((nowT - lr.t) / DAY) : null,
+        ratedG: lr ? lr.g : 0,
+      });
+    });
+    return rows;
+  }
+  /* The columns, and what each sorts BY. A sort key is a function of the row rather than a field name
+     because three of them are not fields: the state sorts in the order a card moves through it (new →
+     learning → review), not alphabetically, and due sorts by the stamp while the column prints a day. */
+  const BROWSE_COLS = [
+    { k: "name", label: "Card", sort: (r) => r.title.toLowerCase() },
+    { k: "deck", label: "Deck", sort: (r) => r.deck.toLowerCase() },
+    { k: "state", label: "State", sort: (r) => ({ new: 0, learning: 1, relearn: 2, review: 3 })[r.state] || 0 },
+    { k: "due", label: "Due", sort: (r) => (r.state === "new" ? Infinity : r.dueAt) },
+    { k: "ivl", label: "Interval", sort: (r) => r.ivl },
+    { k: "reps", label: "Reviews", sort: (r) => r.reps },
+    { k: "lapses", label: "Lapses", sort: (r) => r.lapses },
+  ];
+
+  /* Has this entry any card that HAS siblings? Only a community note whose type declares more than one card
+     template can, so on every curated deck the answer is no and the Bury-siblings switch is not drawn — the
+     same test `entryHasSpeech` makes for the read-aloud switch, and for the same reason: a control that
+     cannot change anything is worse than no control. */
+  function entryHasSiblings(id) {
+    return entryCardIds(id).some((c) => uNoteCardCount(c) > 1);
+  }
+  /* ---------- SCHEDULING, per deck (Aug 2026, on request) ----------
+     SM-2 or FSRS, the target retention, and a box for a reader's own parameters. It is a sheet of its own
+     rather than three more rows on the options sheet because it is the only setting here that changes what
+     the numbers on the grade buttons MEAN, and it deserves the room to say so. */
+  function openDeckSched(id) {
+    const info = entryInfo(id), cfg = deckSchedCfg(id);
+    const fsrs = cfg.mode === "fsrs";
+    const own = (S.deckOpts || {})[id] || {};
+    const custom = Array.isArray(own.fsrsParams) && own.fsrsParams.length === 21;
+    const pct = Math.round(cfg.retention * 100);
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Scheduling</span>' +
+        '<span class="dm-where">' + esc(info.title) + "</span></div></div>" +
+      /* Two ROWS rather than a switch, deliberately against the house preference: these are two named
+         algorithms rather than one setting being on or off, and each needs a sentence of its own. */
+      '<button type="button" class="dm-item dm-choice' + (fsrs ? "" : " on") + '" data-sched="sm2"' + (fsrs ? "" : " data-dmfocus") + ">" +
+        /* Neither row names another app (Aug 2026, on request) — see the deck sheet's own note. Both
+           algorithms are described by what they DO, which is what a reader deciding between them needs;
+           Anki is credited on the About page. */
+        "<b>SM-2</b><small>The classic interval schedule. Each answer multiplies the interval by an ease the " +
+        "card carries.</small></button>" +
+      '<button type="button" class="dm-item dm-choice' + (fsrs ? " on" : "") + '" data-sched="fsrs"' + (fsrs ? " data-dmfocus" : "") + ">" +
+        "<b>FSRS</b><small>Models how fast you forget each card and picks the interval that lands on the " +
+        "retention you ask for. Usually the same retention from fewer reviews.</small></button>" +
+      (fsrs
+        // the unit is IN the label: the field is a bare number box, and "Remember this much — 90" says nothing
+        ? '<label class="dm-field"><span>Remember this much <small>%</small></span>' +
+            '<input class="dm-num" id="dsRet" type="number" min="' + Math.round(FSRS_RET_MIN * 100) + '" max="' +
+            Math.round(FSRS_RET_MAX * 100) + '" step="1" value="' + pct + '" inputmode="numeric"></label>' +
+          '<p class="dm-note">The percentage of these cards you want to still recall when each one comes back. ' +
+            'Higher means shorter intervals and more reviews; 90% is the default and what most readers should leave it at.</p>' +
+          '<label class="dm-field dm-fieldcol"><span>Your own FSRS parameters <small>optional</small></span>' +
+            // four rows because a fitted set fills exactly that, and a box that scrolls its own answer reads as an error
+            '<textarea class="af-input ds-params" id="dsParams" rows="4" spellcheck="false" placeholder="21 numbers, separated by commas">' +
+            esc(custom ? own.fsrsParams.join(", ") : "") + "</textarea></label>" +
+          '<p class="dm-note">Left empty, Folio uses the reference defaults — trained on millions of reviews ' +
+            'and a sound choice. <b>Optimise</b> fits them to your own review history instead; if you already ' +
+            'have a set of FSRS parameters fitted for you elsewhere, you can paste those here too. Clear the ' +
+            'box to go back to the defaults.</p>' +
+          '<div class="ds-optrow"><button type="button" class="btn ghost" id="dsOpt">Optimise from my reviews</button>' +
+            '<span class="ds-optmsg" id="dsOptMsg"></span></div>'
+        : '<p class="dm-note">Switching to FSRS keeps everything you have already studied: a card\u2019s current ' +
+            'interval becomes its starting stability, which is the same measurement under another name.</p>') +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-act="close">Close</button>' +
+      (fsrs ? '<button type="button" class="btn" data-act="save">Save</button>' : "") + "</div>";
+    deckSheet("Scheduling", html, (ov, close) => {
+      ov.classList.add("ds-sheet");
+
+      /* Choosing the scheduler REBUILDS the sheet, which is the one place in this file that is right to do:
+         the retention box and the parameters box exist only under FSRS, so the sheet is a different sheet. */
+      ov.querySelectorAll("[data-sched]").forEach((b) => b.addEventListener("click", () => {
+        const mode = b.dataset.sched;
+        if (mode === cfg.mode) return;
+        setDeckSched(id, mode);
+        toast(mode === "fsrs" ? "This deck is on FSRS" : "This deck is on SM-2");
+        close();
+        openDeckSched(id);
+      }));
+      const closeBtn = ov.querySelector('[data-act="close"]');
+      if (closeBtn) closeBtn.addEventListener("click", close);
+      const saveBtn = ov.querySelector('[data-act="save"]');
+      if (saveBtn) saveBtn.addEventListener("click", () => {
+        const r = ov.querySelector("#dsRet"), pEl = ov.querySelector("#dsParams");
+        // the parameters first: a refusal must not leave the retention saved and the sheet shut
+        const res = setDeckFsrsParams(id, pEl ? pEl.value : "");
+        if (!res.ok) { toast(res.error); return; }
+        setDeckRetention(id, (Number(r && r.value) || pct) / 100);
+        close();
+        render();
+        toast(res.cleared && Array.isArray(own.fsrsParams)
+          ? "Saved — back to the default parameters"
+          : "Scheduling saved");
+      });
+
+      /* ---------- OPTIMISE ----------
+         The fit runs on THIS page, a step at a time, with the sheet repainting between steps: it is a few
+         seconds of arithmetic and a frozen dialog would read as a crash. There is deliberately no worker —
+         a worker needs its own file or a blob: URL, and `script-src 'self'` is the one line of the CSP this
+         project will not weaken for a progress bar. */
+      const optBtn = ov.querySelector("#dsOpt"), optMsg = ov.querySelector("#dsOptMsg");
+      if (optBtn) optBtn.addEventListener("click", async () => {
+        if (optBtn.disabled) return;
+        optBtn.disabled = true;
+        const say = (t, cls) => { if (optMsg) { optMsg.textContent = t; optMsg.className = "ds-optmsg" + (cls ? " " + cls : ""); } };
+        say("Collecting your reviews…");
+        /* THE ARCHIVE FIRST, and the local window only as a fallback. The point of the table is that a fit
+           sees everything; fitting to the last few thousand rows while a year sits on the server would be
+           the quiet kind of wrong — so a signed-in reader waits for the fetch. */
+        let rows = null;
+        try { rows = await revFetchAll((n) => say("Collecting your reviews… " + n)); } catch (e) { rows = null; }
+        const local = Array.isArray(S.revlog) ? S.revlog : [];
+        const source = rows && rows.length >= local.length ? rows : local;
+        const seqs = fsrsSequences(source, FSRS_OPT.maxSeq);
+        const run = fsrsOptimiseStart(seqs);
+        if (!run.ok) {
+          optBtn.disabled = false;
+          /* The refusal is worded as a FACT about the history rather than as a failure, because that is what
+             it is — and it names the number, since "not enough" with no figure is untestable by the reader. */
+          say("Not enough history yet — " + run.reviews + " of the " + run.need + " reviews a fit needs. " +
+              "Only reviews of cards Folio has watched from their first sighting can be used.", "ds-optwarn");
+          return;
+        }
+        const paint = () => new Promise((r) => setTimeout(r, 0));
+        while (!run.done) {
+          fsrsOptimiseStep(run);
+          say("Fitting to " + run.reviews.toLocaleString() + " reviews… " + Math.round((run.step / run.epochs) * 100) + "%");
+          await paint();
+        }
+        const res = fsrsOptimiseFinish(run);
+        optBtn.disabled = false;
+        if (!res.ok) {
+          say("Your history is already well described by the default parameters — nothing here would " +
+              "schedule you better, so they have been left alone.", "ds-optwarn");
+          return;
+        }
+        /* The numbers are STAGED IN THE BOX, not saved: pressing Optimise asks a question and Save answers
+           it, which is the same two-step every other field on this sheet already has. */
+        const pEl = ov.querySelector("#dsParams");
+        if (pEl) pEl.value = res.w.map((x) => Number(x.toFixed(6))).join(", ");
+        say("Fitted to " + res.reviews.toLocaleString() + " reviews across " + res.cards.toLocaleString() +
+            " cards — " + (res.gain * 100).toFixed(1) + "% better at predicting reviews it had not seen. " +
+            "Press Save to keep them.", "ds-optok");
+      });
     });
   }
   /* Daily limits — Anki's three, and Anki's names for them, so a reader who knows Anki needs no explanation.
@@ -10361,8 +12557,12 @@
   // re-state every + / ✓ on the page from S.active. `data-id` is a tree node, `data-uadd` one of the
   // reader's own decks (whose entry id carries the "u:" prefix).
   function refreshAddButtons() {
-    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd]").forEach((b) => {
-      const eid = b.dataset.id != null ? b.dataset.id : uDeckEntry(b.dataset.uadd);
+    // …[data-uaddsub] with them: adding a deck now adds its subdecks, so their own buttons have to follow
+    // in the same sweep, or the rows below the one just pressed go on reading "add" over something added
+    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd], .collection-add[data-uaddsub]").forEach((b) => {
+      const eid = b.dataset.id != null ? b.dataset.id
+        : b.dataset.uaddsub != null ? b.dataset.uaddsub
+        : uDeckEntry(b.dataset.uadd);
       const on = isActive(eid);
       b.classList.toggle("added", on);
       b.innerHTML = addIcon(on);
@@ -11263,7 +13463,12 @@
         (a.date ? '<div class="ar-wmeta">' + esc(a.date) + '</div>' : "") +
         (a.origin ? '<div class="ar-wmeta">' + esc(a.origin) + '</div>' : "") +
         '<div class="ar-wdesc">' + (a.desc || "") + '</div>' +
-        (a.image && a.image.credit ? '<div class="ar-wcredit">' + esc(a.image.credit) + '</div>' : "") +
+        /* THE PICTURE'S CREDIT IS NOT REPEATED HERE (Aug 2026, on request). The plate's frame is the
+           site's own `.card-img`, so tapping the picture opens the fullscreen viewer and the viewer's
+           caption bar carries the credit in full — the attribution is one tap from the picture it belongs
+           to rather than set as a grey line under five sentences it is not about.
+           It is still REQUIRED on the artefact itself: `add-artefacts.js` and Admin → Artefacts both refuse
+           a `src` with no `credit`, and the viewer is what shows it. */
         /* The apparatus is the site's own — `sourcesHTML` and the delegated fold/marker listeners, so the
            numbers, the links, the access chips and the jump both ways all work here with no wiring of
            their own. It renders OPEN like a card's and unlike a gloss popup's: an artefact plate is a
@@ -11372,14 +13577,18 @@
      over it, redrawing the very thing they are looking through. Both blocks are optional (a friend's page
      and the signed-out page carry one or neither), so each is guarded. */
   function refreshReliquary() {
-    if (!current || current.name !== "account") return;
+    /* The waiting-chests notice lives on the HOME page now (Aug 2026, on request) and the two Reliquary
+       blocks on the account page, so this runs on either — a chest opened from the home page has to be
+       able to take its own notice away. It is replaced in place rather than through render(), for the
+       reason the two blocks below are: a repaint would lose the reader's scroll and redraw the page they
+       are looking at an overlay through. */
+    if (!current) return;
+    const slot = document.querySelector("#chestSlot");
+    if (slot) { slot.innerHTML = chestBannerHTML(); wireChestBanner(slot); }
+    if (current.name !== "account") return;
     const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
     if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host, S, true); }
     if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc, S, true); }
-    // the waiting-chests banner is a count, so opening one changes it and emptying it retires it. It is
-    // replaced in place rather than through render(), for the reason the two blocks above are.
-    const slot = document.querySelector("#chestSlot");
-    if (slot) { slot.innerHTML = chestBannerHTML(); wireChestBanner(slot); }
   }
   function wireChestBanner(host) {
     const b = host && host.querySelector("#cbOpen");
@@ -12310,7 +14519,7 @@
        the banner does not — the sets already exclude suspended and coming-soon cards, and `fresh` is today's
        allowance rather than the whole unseen backlog. */
     const freshSet = new Set(q.fresh), dueSet = new Set(q.due);
-    const pileIds = activeCardIds().filter((id) => !isSuspended(id));
+    const pileIds = activeCardIds().filter((id) => !isSuspended(id) && !isBuried(id));
     const pileSet = new Set(pileIds);
     const pileCounts = (ids) => {
       let nw = 0, lr = 0, rv = 0;
@@ -12353,7 +14562,11 @@
        the figure was taking on a 390px line. */
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
-      return `<div class="prog dk-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
+      /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
+         percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
+         percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
+         readable when a deck is dragged from one container into another (see test-review-decks). */
+      return `<div class="prog dk-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
         <div class="track"><div class="fill"></div></div>
       </div>`;
     };
@@ -12422,12 +14635,27 @@
         if (n) { walk(n, depth, parentKey, hue); return; }
         const ud = UDECKS[uDeckIdOf(id)];
         const h = groupColor(id) || hue;
-        const kids = kidsOf(id);
         // a SUBDECK of one of the reader's own decks is named by the subdeck, with its deck for context —
         // the row is what the reader chose, and "HSK 1" over three of them says nothing about which is which
         const sub = ud ? uSubOf(id) : "";
+        /* …and a WHOLE deck draws its added subdecks UNDER it, which is what a collection does with its
+           decks one store over. Without this they were siblings at the top level: nine "Level" rows in a
+           flat run with the deck they belong to somewhere among them, saying nothing about what contains
+           what. A subdeck the reader has not added is not drawn — the list is what they chose, not a
+           catalogue of the deck — and one dragged into a group is drawn there instead, like any other row. */
+        const subKids = (ud && !sub)
+          ? uDeckSubs(ud.id).map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
+          : [];
+        const kids = subKids.concat(kidsOf(id));
+        /* …and the context line goes when the row is drawn UNDER its own deck, because then the deck IS
+           the row above it. It is worth the extra condition: at 390px the name is the only part of the row
+           with no shorter form, so a repeated "HSK 3.0 — Mandarin Chinese" beside it crushes "Level 1" to
+           "Lev…" — every subdeck reading the same three letters under the deck that names them. It stays
+           where a subdeck is added on its own and stands at the top level, which is what it was for. */
+        const underOwnDeck = !!(sub && ud && parentKey === uDeckEntry(ud.id));
         rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
-                    title: ud ? (sub || ud.title) : COTD_TITLE, sup: sub ? ud.title : "", hue: h, kids });
+                    title: ud ? (sub || ud.title) : COTD_TITLE,
+                    sup: (sub && !underOwnDeck) ? ud.title : "", hue: h, kids });
         orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
       };
       function walk(node, depth, parentKey, hue) {
@@ -12460,7 +14688,13 @@
          has made join that same run; anything dragged INTO one leaves it, being drawn under its container. */
       const tops = [];
       TREE.collections.forEach((d) => { if (!isComingSoon(d) && show.has(d.id)) tops.push(d.id); });   // a coming-soon collection's decks sit the review out
-      activeIds.forEach((id) => { if (UDECKS[uDeckIdOf(id)]) tops.push(id); });
+      activeIds.forEach((id) => {
+        const dId = uDeckIdOf(id);
+        if (!dId || !UDECKS[dId]) return;
+        // …unless its own deck is on the list too, in which case emit() has just drawn it as a child
+        if (uSubOf(id) && activeIds.indexOf(uDeckEntry(dId)) !== -1) return;
+        tops.push(id);
+      });
       if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
       Object.keys(deckGroupMap()).forEach((id) => { if (isGroupId(id)) tops.push(id); });
       orderedIds("", tops.filter((id) => !nestParentOf(id))).forEach((id) => emit(id, 0, "", ""));
@@ -12490,7 +14724,11 @@
       rows.forEach((r) => {
         if (!hasKids.has(r.drag) || adSeeded.has(r.drag)) return;
         adSeeded.add(r.drag);
-        if (isGroupId(r.drag) || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
+        /* An added deck of the reader's OWN opens: its subdecks are the reason it has rows at all, and a
+           deck that swallows them the moment it is added is exactly what this was reported as. A curated
+           collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
+        const ownDeck = r.flat && UDECKS[uDeckIdOf(r.flat)] && !uSubOf(r.flat);
+        if (isGroupId(r.drag) || ownDeck || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
       });
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
@@ -12508,20 +14746,22 @@
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
           const title = r.title || (r.node ? nodeTitle(r.node) : r.drag);
           const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
-          /* A GROUP HEADER — a thinner banner over the decks it holds, in a deeper wash of its own colour so
-             the run below reads as belonging to it. It carries the three piles (the most useful thing on any
-             row here, and they cost one line) and deliberately not the progress bar: this is a header, and a
-             header with a full deck row's furniture is just another deck row. Tapping it studies everything
-             inside; holding it — or right-clicking — opens its options, which is where the colour, the name
-             and Ungroup live. */
+          /* A GROUP HEADER — a thinner banner over the decks it holds, in a slightly deeper wash of its own
+             colour so the run below reads as belonging to it. Tapping it studies everything inside; holding
+             it — or right-clicking — opens its options, which is where the colour, the name and Ungroup live.
+             IT IS SET AND FURNISHED LIKE THE ROWS INSIDE IT (Aug 2026, on request): the same title face at
+             the same size, and the same PROGRESS BAR, where it used to carry a small mono "N cards" instead.
+             The `.dg-count` line said how much was inside; the bar says that AND how far through it the
+             reader is, which is what every other row on the list says, so a header and its decks no longer
+             answer the same question two different ways. What still marks it as a header is the wash and the
+             deeper indent of the rows beneath it. */
           if (r.group) {
-            const cards = entryCardIds(r.drag).length;
             return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
               ${grip}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
-                <span class="dg-count">${cards} ${cards === 1 ? "card" : "cards"}</span>
+                ${adProg(entryCardIds(r.drag))}
               </div>
               ${chev}
             </div>`;
@@ -12704,13 +14944,12 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
-    /* An unopened chest says so on the banner (Aug 2026, on request), because a chest can be dismissed and
-       queued and there would otherwise be nothing on the home page to say one is owed. It is a BUTTON
-       inside a button, which the markup cannot allow, so it is a span carrying `data-chest` and the
-       banner's own click handler defers to it. */
-    const chestChip = chestCount()
-      ? `<span class="stat chest-chip" role="button" tabindex="0" data-chest="1" title="Open your artefact chest"><b>🗝 ${chestCount()}</b><span>${chestCount() === 1 ? "Chest" : "Chests"}</span></span>`
-      : "";
+    /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
+       standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
+       something that is not a pile of cards at all — and it is gone from both branches. What replaces it is
+       `chestBannerHTML()` directly ABOVE the banner (see `#chestSlot` below), which is the same notice the
+       account page used to carry: a sentence and a button rather than a count, at the top of the page a
+       reader lands on. */
     // The Daily-review tile earns its bronze exactly as a game tile earns its hue: a wash while the day's pile
     // is still open, the full bronze fill once it's cleared (something was studied today and nothing is left
     // due or new), and the same shining gold as a perfect game when every card today was right on the first try.
@@ -12734,9 +14973,6 @@
                     page advertises; a second, quieter link in the same row only asks a first-time
                     reader to choose between two things they cannot yet tell apart. */""}
               <span class="cta"><span class="btn">${(TREE.collections || []).some((c) => !isComingSoon(c)) ? "Study your first cards" : "Browse the collections"}</span></span>
-              ${/* the hero carries the chest chip too: the daily-sweep chest can be won without studying a
-                    single card, so a reader can be holding one while this is still the banner they see */""}
-              ${chestChip}
             </div>
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
@@ -12774,17 +15010,15 @@
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
               ${streakChip}
-              ${chestChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
         }</span></span>
             </div>
-            ${/* THE WAY TO MAKE A GROUP (Aug 2026, on request), at the bottom left of the banner. Like the
-                  chest chip above it, it is a BUTTON INSIDE A BUTTON, which markup does not allow — so it is
-                  a span carrying `data-newgroup` and the banner's own click handler defers to it. It is
-                  drawn only once there is something to group: an empty review has nothing to put in one, and
-                  a control whose whole result is an empty container teaches nothing about what it does. */""}
-            ${activeIds.length ? `<div class="rv-tools"><span class="rv-newgroup" role="button" tabindex="0" data-newgroup="1" title="Gather decks under a heading of your own">+ New group</span></div>` : ""}
+            ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
+                  row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
+                  block above it. Being out of the banner it is also an ordinary <button> again, where a
+                  control inside a button had to be a `role="button"` span the banner's own handler deferred
+                  to. */""}
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
@@ -12805,12 +15039,26 @@
        Collections before it), so this is the ONLY route to it anywhere on the site and ships at every
        width. The #mission route itself is untouched — every link ever shared still resolves. */
     const aboutLink = `<button class="home-about" id="b-about" type="button">About Folio</button>`;
+    /* THE WAY TO MAKE A GROUP (Aug 2026, on request): at the bottom LEFT, under the last deck in the list
+       rather than inside the banner above it. A group is made out of the rows underneath, so the control
+       belongs at the end of those rows — in the banner it sat above the thing it acts on and read as one
+       more of the banner's own affordances. It is drawn only once there is something to group: an empty
+       review has nothing to put in one, and a control whose whole result is an empty container teaches
+       nothing about what it does.
+       Out of the banner it is a real <button> again: inside one it had to be a `role="button"` span, since
+       markup does not allow a button inside a button, and the banner's click handler had to defer to it. */
+    const newGroupTools = activeIds.length && !fresh
+      ? `<div class="rv-tools"><button class="rv-newgroup" type="button" id="b-newgroup" title="Gather decks under a heading of your own">+ New group</button></div>`
+      : "";
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${addDecksLip}
+            ${/* One footer row under the deck list: "+ New group" at its left, the lip to the collections
+                  at its right. They share a line because the lip has always hung off the group's bottom
+                  EDGE, and a block stacked between the two would have taken that edge away from it. */""}
+            <div class="rv-foot">${newGroupTools}${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -12831,6 +15079,13 @@
               and either answer retires it. Settings → Study brings it back. It is what the three-beat
               how-it-works strip under the review used to say, said properly and only where asked for. */""}
         ${tourOfferHTML()}
+        ${/* WAITING CHESTS, DIRECTLY ABOVE THE DAILY-STUDY BANNER (Aug 2026, on request). It was on the
+              account page, two taps away from where a chest is actually earned, while the banner carried a
+              bare count in its meta row — so the number was where nobody could act on it and the notice
+              was where nobody would look. Both moved here, and the count is gone: this says it in a
+              sentence with the button beside it. The slot is always in the markup so `refreshReliquary`
+              can fill and empty it in place, without rebuilding the page under a reader. */""}
+        <div id="chestSlot">${chestBannerHTML()}</div>
         ${reviewGroup}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
@@ -12852,9 +15107,10 @@
     { const gp = root.querySelector("#g-picture"); if (gp) gp.addEventListener("click", () => route("picture")); }
     { const gy = root.querySelector("#g-whatyear"); if (gy) gy.addEventListener("click", () => route("whatyear")); }
     root.querySelector("#b-review").addEventListener("click", (e) => {
-      // the chest chip is a target inside the banner: it opens the chest rather than starting the review
-      if (e.target.closest("[data-chest]")) { e.stopPropagation(); openChestPop(); return; }
-      if (e.target.closest("[data-newgroup]")) { e.stopPropagation(); promptNewGroup(); return; }
+      /* The chest chip and the "+ New group" span both used to be targets INSIDE this button and were
+         deferred to here. Both have left it (Aug 2026, on request) — the chest to `#chestSlot` above the
+         banner and the group control to `#b-newgroup` under the last deck row — so the banner is one
+         button again with nothing nested in it to step around. */
       if (fresh) {
         /* THE FIRST PRESS GOES TO THE COLLECTIONS (Aug 2026, on request). It used to pick the first
            collection that was not coming soon, add it on the reader's behalf and deal them a card —
@@ -12875,16 +15131,11 @@
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
-    // …and the chest chip answers to a keyboard, since it declares role="button" and a role without keys
-    // is a control a screen-reader user is told about and cannot use
-    { const cc = root.querySelector("[data-chest]"); if (cc) cc.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); openChestPop(); }
-    }); }
-    // …and so does the New group control beside it, for the same reason: it declares role="button", and a
-    // role without keys is a control a screen-reader user is told about and cannot use
-    { const ng = root.querySelector("[data-newgroup]"); if (ng) ng.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); promptNewGroup(); }
-    }); }
+    /* The waiting-chests notice above the banner, and the way to make a group under the last deck row.
+       Both are real <button>s now that neither is nested inside the banner, so neither needs a keydown
+       handler of its own — which is the whole reason for getting them out of it. */
+    wireChestBanner(root);
+    { const ng = root.querySelector("#b-newgroup"); if (ng) ng.addEventListener("click", () => promptNewGroup()); }
     // the lip under the review group and the About line under the games — both at every width now, each
     // being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
@@ -13004,6 +15255,188 @@
     ["za", "Z – A"],
   ];
   let glossSort = "recent";
+  /* ---------- the page. Module-level state, deliberately NOT in S, for the reason the glossary record's
+     sort picker is not: a query and a column are a way of LOOKING at the collection rather than a preference
+     about Folio, so they survive navigating away and back within a session and reset on reload. */
+  let browseQ = "", browseSort = "due", browseRev = false, browseSel = Object.create(null);
+  PAGES.browse = function (root) {
+    const stateName = { new: "New", learning: "Learning", relearn: "Relearning", review: "Review" };
+    const fmtDue = (r) => {
+      if (r.state === "new") return "—";
+      if (!r.dueAt) return "—";
+      if (r.due < 0) return '<span class="bw-overdue">' + (r.due === -1 ? "yesterday" : Math.abs(r.due) + "d ago") + "</span>";
+      if (r.due === 0) return '<span class="bw-overdue">today</span>';
+      return r.due === 1 ? "tomorrow" : "in " + r.due + "d";
+    };
+    const head = BROWSE_COLS.map((c) =>
+      '<button type="button" class="bw-th bw-th-' + c.k + (browseSort === c.k ? " sorted" : "") + '" data-sort="' + c.k + '">' +
+      esc(c.label) + (browseSort === c.k ? '<span class="bw-arrow">' + (browseRev ? "▾" : "▴") + "</span>" : "") + "</button>").join("");
+
+    root.innerHTML =
+      '<div class="page-head"><span class="eyebrow">Your record</span><h1>Card browser</h1>' +
+      "<p>Every card you could study, with what Folio knows about it. Search, sort, and act on as many as you like at once.</p></div>" +
+      '<div class="bw-tools">' +
+        '<div class="bw-search"><input type="search" id="bwQ" placeholder="Search — try is:due, flag:1, prop:lapses&gt;3" autocomplete="off" aria-label="Search your cards"></div>' +
+        '<button type="button" class="btn ghost bw-help" id="bwHelp" aria-expanded="false">Search help</button>' +
+      "</div>" +
+      '<div class="bw-helpbox" id="bwHelpBox" hidden></div>' +
+      '<div class="bw-bulkslot" id="bwBulk"></div>' +
+      '<div class="bw-countline"><span id="bwCount"></span></div>' +
+      '<div class="bw-wrap"><div class="bw-table" id="bwTable">' +
+        '<div class="bw-head"><span class="bw-th bw-th-check"><input type="checkbox" id="bwAll" aria-label="Select every card shown"></span>' +
+        '<span class="bw-th bw-th-flag" title="Flag">⚑</span>' + head + "</div>" +
+        '<div class="bw-body" id="bwBody"></div>' +
+      "</div></div>";
+
+    const body = root.querySelector("#bwBody");
+    const countEl = root.querySelector("#bwCount");
+    const bulkEl = root.querySelector("#bwBulk");
+    const qBox = root.querySelector("#bwQ");
+    qBox.value = browseQ;
+
+    /* Built ONCE per render rather than per repaint: the rows are derived from several hundred card records,
+       the leaf lookup for each, and a pass over the review log, and none of that changes while the reader is
+       typing in the search box. Only the filter and the sort re-run. */
+    const all = browseRowData();
+
+    let shown = [];
+    const repaint = () => {
+      const pred = browsePredicate(browseTokens(browseQ));
+      const col = BROWSE_COLS.find((c) => c.k === browseSort) || BROWSE_COLS[0];
+      shown = all.filter(pred).sort((a, b) => {
+        const x = col.sort(a), y = col.sort(b);
+        // one comparator, negated whole — so the title tie-break reverses with it and two cards of the same
+        // interval keep a stable order instead of swapping about between repaints
+        let d = x < y ? -1 : x > y ? 1 : 0;
+        if (!d) d = a.title.toLowerCase() < b.title.toLowerCase() ? -1 : a.title.toLowerCase() > b.title.toLowerCase() ? 1 : 0;
+        return browseRev ? -d : d;
+      });
+      const cut = shown.slice(0, BROWSE_CAP);
+      body.innerHTML = shown.length
+        ? cut.map((r) =>
+            /* The full deck path and anything the row could not fit go on the TOOLTIP rather than being
+               dropped: a title long enough to push its "suspended" chip out of the cell is exactly the row
+               whose state a reader most needs told. */
+            '<div class="bw-row' + (browseSel[r.id] ? " sel" : "") + (r.suspended ? " bw-susp" : "") + '" data-id="' + esc(r.id) + '"' + (r.flag ? ' data-flag="' + r.flag + '"' : "") +
+            ' title="' + esc(r.title + (r.deck ? "\n" + r.deck : "") + (r.flag ? "\n" + FLAG_NAME(r.flag) + " flag" : "") +
+              (r.suspended ? "\nsuspended" : "") + (r.buried ? "\nburied today" : "") + (r.leech ? "\nleech" : "")) + '">' +
+            '<span class="bw-cell bw-cell-check"><input type="checkbox" class="bw-check" ' + (browseSel[r.id] ? "checked" : "") + ' aria-label="Select this card"></span>' +
+            '<span class="bw-cell bw-cell-flag">' + (r.flag ? '<span class="flag-dot"></span>' : "") + "</span>" +
+            '<button type="button" class="bw-cell bw-name">' + esc(r.title) +
+              (r.suspended ? ' <span class="bw-tag">suspended</span>' : "") +
+              (r.buried ? ' <span class="bw-tag">buried today</span>' : "") +
+              (r.leech ? ' <span class="bw-tag bw-tag-leech">leech</span>' : "") + "</button>" +
+            '<span class="bw-cell bw-deck">' + esc(r.deckShort) + "</span>" +
+            '<span class="bw-cell bw-state"><span class="ci-st ci-st-' + (REV_ST[r.state] || 0) + '">' + esc(stateName[r.state] || r.state) + "</span></span>" +
+            '<span class="bw-cell bw-due">' + fmtDue(r) + "</span>" +
+            '<span class="bw-cell bw-ivl">' + (r.ivl ? esc(fmtInterval(r.ivl)) : "—") + "</span>" +
+            '<span class="bw-cell bw-reps">' + (r.reps || "—") + "</span>" +
+            '<span class="bw-cell bw-lapses">' + (r.lapses || "—") + "</span>" +
+            "</div>").join("")
+        : '<p class="bw-none">Nothing matches that search. ' + (browseQ.trim() ? "Try fewer terms, or clear the box." : "") + "</p>";
+      countEl.innerHTML = shown.length === all.length
+        ? "<b>" + all.length + "</b> " + (all.length === 1 ? "card" : "cards")
+        : "<b>" + shown.length + "</b> of " + all.length + " cards" +
+          (shown.length > BROWSE_CAP ? ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>" : "");
+      if (shown.length > BROWSE_CAP && shown.length === all.length) {
+        countEl.innerHTML = "<b>" + all.length + "</b> cards" + ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>";
+      }
+      const allBox = root.querySelector("#bwAll");
+      if (allBox) allBox.checked = cut.length > 0 && cut.every((r) => browseSel[r.id]);
+      paintBulk();
+    };
+
+    /* The bulk bar. It appears only when something is selected — a permanent row of disabled buttons is a
+       row of things that look broken — and it is rebuilt rather than hidden, so the count in it can never
+       be left describing a selection the reader has since changed. */
+    function paintBulk() {
+      const ids = Object.keys(browseSel).filter((k) => browseSel[k]);
+      if (!ids.length) { bulkEl.innerHTML = ""; return; }
+      bulkEl.innerHTML =
+        '<div class="bw-bulk"><span class="bw-bulkn"><b>' + ids.length + "</b> " + (ids.length === 1 ? "card" : "cards") + " selected</span>" +
+        '<button type="button" class="btn ghost" data-b="flag">Flag</button>' +
+        '<button type="button" class="btn ghost" data-b="due">Set due date</button>' +
+        '<button type="button" class="btn ghost" data-b="forget">Forget</button>' +
+        '<button type="button" class="btn ghost" data-b="susp">Suspend</button>' +
+        '<button type="button" class="btn ghost" data-b="unsusp">Unsuspend</button>' +
+        '<button type="button" class="btn ghost" data-b="none">Clear</button></div>';
+      /* The rows are rebuilt on every repaint, so a card's own record may have changed under the selection —
+         the ids are re-read at the moment a button is pressed rather than captured when the bar was drawn. */
+      bulkEl.querySelectorAll("[data-b]").forEach((btn) => btn.addEventListener("click", () => {
+        const sel = Object.keys(browseSel).filter((k) => browseSel[k]);
+        const b = btn.dataset.b;
+        const refresh = () => { PAGES.browse(root); };   // the rows are derived, so the whole table is rebuilt
+        if (b === "flag") return openFlagSheet(sel, refresh);
+        if (b === "due") return openSetDueSheet(sel, refresh);
+        if (b === "forget") return openForgetSheet(sel, refresh);
+        if (b === "none") { browseSel = Object.create(null); repaint(); return; }
+        if (!S.suspended) S.suspended = {};
+        sel.forEach((id) => { if (b === "susp") S.suspended[id] = Date.now(); else delete S.suspended[id]; });
+        save();
+        toast(plural(sel.length, "card", "cards") + (b === "susp" ? " suspended" : " unsuspended"));
+        refresh();
+      }));
+    }
+
+    // one delegated listener over the body, so filtering and re-sorting rebuild the rows without rewiring
+    body.addEventListener("click", (e) => {
+      const row = e.target.closest(".bw-row");
+      if (!row) return;
+      const id = row.dataset.id;
+      if (e.target.closest(".bw-check")) {
+        if (browseSel[id]) delete browseSel[id]; else browseSel[id] = true;
+        row.classList.toggle("sel", !!browseSel[id]);
+        const allBox = root.querySelector("#bwAll");
+        if (allBox) allBox.checked = shown.slice(0, BROWSE_CAP).every((r) => browseSel[r.id]);
+        paintBulk();
+        return;
+      }
+      if (e.target.closest(".bw-name")) openCardInfo(id, () => PAGES.browse(root));
+    });
+    root.querySelector("#bwAll").addEventListener("change", (e) => {
+      const cut = shown.slice(0, BROWSE_CAP);
+      if (e.target.checked) cut.forEach((r) => { browseSel[r.id] = true; });
+      else cut.forEach((r) => { delete browseSel[r.id]; });
+      repaint();
+    });
+    root.querySelectorAll(".bw-th[data-sort]").forEach((th) => th.addEventListener("click", () => {
+      const k = th.dataset.sort;
+      if (browseSort === k) browseRev = !browseRev; else { browseSort = k; browseRev = false; }
+      PAGES.browse(root);
+    }));
+    /* Typing repaints IN PLACE rather than re-rendering: a re-render per keystroke takes the caret out of
+       the box being typed in, which is the glossary record's own documented lesson one page over. */
+    qBox.addEventListener("input", () => { browseQ = qBox.value; repaint(); });
+
+    const hb = root.querySelector("#bwHelpBox"), hbtn = root.querySelector("#bwHelp");
+    hb.innerHTML =
+      "<dl>" +
+      "<dt>is:</dt><dd><code>new</code> <code>learn</code> <code>review</code> <code>due</code> <code>suspended</code> <code>buried</code> <code>flagged</code> <code>leech</code></dd>" +
+      "<dt>flag:</dt><dd><code>1</code>–<code>7</code>, or <code>none</code>. " + FLAGS.map((f) => f.n + " " + f.name.toLowerCase()).join(", ") + "</dd>" +
+      "<dt>prop:</dt><dd>a number and a comparison — <code>prop:lapses&gt;3</code>, <code>prop:ivl&gt;=21</code>, <code>prop:reps&lt;5</code>, <code>prop:ease&lt;2</code></dd>" +
+      "<dt>deck:</dt><dd>part of a deck's name</dd>" +
+      "<dt>tag:</dt><dd>part of a tag, or <code>none</code></dd>" +
+      "<dt>introduced:</dt><dd>first studied within that many days — <code>introduced:7</code></dd>" +
+      "<dt>rated:</dt><dd>reviewed within that many days, optionally with the button — <code>rated:7</code>, <code>rated:7:1</code></dd>" +
+      "</dl>" +
+      "<p>Anything else is searched for in the card, its deck and its tags. Put a phrase in quotes. " +
+      "Every term has to match; put a <code>-</code> in front of one to exclude it.</p>" +
+      /* Said here rather than left to be discovered: `introduced:` is not Anki's `added:` and `rated:` cannot
+         see further back than the log does. A figure that looks like Anki's and answers a different question
+         is worse than one with a different name. */
+      "<p class=\"bw-helpnote\">Two of these differ from Anki, because Folio does not hold what Anki holds. " +
+      "There is no <code>added:</code> — a card in one of Folio's own collections has no date it was created, it ships with the site — " +
+      "so <code>introduced:</code> means the day you first studied it. And <code>rated:</code> reads the per-review log, " +
+      "which Folio only began keeping in August 2026: a card you were studying before then will not answer to it.</p>";
+    hbtn.addEventListener("click", () => {
+      const open = hb.hasAttribute("hidden");
+      if (open) hb.removeAttribute("hidden"); else hb.setAttribute("hidden", "");
+      hbtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    repaint();
+  };
+
   PAGES.glossary = function (root) {
     const G = window.GLOSSARY || {};
     const reg = S.glossSeen || {};
@@ -13133,9 +15566,11 @@
      Community decks sit BELOW the curated collections and are visually marked, because Folio's own
      content is fact-checked to a documented standard and a stranger's deck is not. That distinction is
      the project's core value; it belongs in the UI, not in a policy page. */
-  function uDeckStudied(d) { return (d.cardIds || []).filter((id) => isSeen(id)).length; }
+  // in CARDS rather than notes, so the bar agrees with the number the daily review deals from this deck
+  function uDeckStudied(d) { return uDeckStudyIds(d.cardIds || []).filter((id) => isSeen(id)).length; }
   function udeckRowHTML(d) {
-    const n = (d.cardIds || []).length, studied = uDeckStudied(d);
+    // both figures in CARDS, so the bar's denominator is the pile the deck actually deals
+    const n = uDeckStudyIds(d.cardIds || []).length, studied = uDeckStudied(d);
     const entry = uDeckEntry(d.id), on = isActive(entry);
     const installed = !uDeckIsMine(d);
     return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
@@ -13168,7 +15603,9 @@
     const subs = uDeckSubs(d.id);
     if (!subs.length) return "";
     return '<div class="udeck-subs">' + subs.map((sub) => {
-      const ids = uDeckCardsIn(d.id, sub), n = ids.length;
+      // the CARDS of the subdeck's notes, not the notes — a two-way note is two cards to study, and this
+      // row sits directly under a deck row that has always counted them expanded
+      const ids = uDeckStudyIdsFor(d.id, sub), n = ids.length;
       const entry = uSubEntry(d.id, sub), on = isActive(entry);
       const studied = ids.filter(isSeen).length;
       return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
@@ -13531,7 +15968,12 @@
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
               ${spanHTML}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : `<span class="collection-count">${total} ${total === 1 ? "card" : "cards"}</span>`}
+              ${/* A LIVE collection states its size ONCE, on the bar (Aug 2026, on request). The count
+                    behind the title said the same number the studied/total bar directly under it already
+                    says, so the row carried "412 cards" beside "0 / 412 cards" — and the DECK rows inside
+                    keep theirs precisely because they have no bar. A coming-soon collection has no bar, so
+                    its pill stays: that is the one thing its row has to say. */""}
+              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
             </div>
             ${
               /* A coming-soon collection shows the pill and nothing else. It used to carry a Level 1 badge over
@@ -13585,7 +16027,9 @@
       if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
       else {                                                                                   // "Chrono" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
-        Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));   // the user's own decks follow, in their authored order
+        // the user's own decks follow, in their authored order — expanded, or a note's second card would
+        // have no place in the sequence and every one of them would sort to the very end together
+        Object.keys(UDECKS).forEach((k) => uDeckStudyIds(UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));
         for (let i = 0; i < seq.length; i++) if (!(seq[i] in oi)) oi[seq[i]] = i;
         queue.sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
       }
@@ -13600,7 +16044,7 @@
       where = leaf ? nodeWhere(leaf) : "Card of the day";
       total = 1;
     } else if (scope.type === "cotd") {
-      const ids = cotdIds().filter((id) => !isSuspended(id));
+      const ids = cotdIds().filter((id) => !isSuspended(id) && !isBuried(id));
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
       queue = [...due, ...ids.filter((id) => !isSeen(id))];   // every card here was added BY being studied, so unseen is rare
       // this list's own Random-order switch. It has a row on the home page, so its sheet can be held open,
@@ -13616,7 +16060,9 @@
       if (!groupRec(scope.id)) return null;
       where = groupTitle(scope.id);
       const availG = availableCardIdSet();
-      const gIds = entryCardIds(scope.id).filter((id) => !isSuspended(id) && availG.has(id));
+      // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
+      // cards, so leaving it out here would let a buried card come back through one
+      const gIds = entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id));
       const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = [...gDue, ...gNew];
@@ -13626,7 +16072,8 @@
       const d = UDECKS[scope.id];
       if (!d) return null;
       const sub = scope.sub || "";
-      const ids = (sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id));
+      // the deck's notes expanded into their cards (a reverse card is its own card here), template-major
+      const ids = uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
       const ue = uSubEntry(d.id, sub);
@@ -13648,7 +16095,7 @@
       const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
       // entryCardIds rather than subtreeCardIds, so tapping a row studies exactly what that row promised:
       // a branch dragged into a group is studied there, and a guest dragged in here is studied here
-      const ids = entryCardIds(sd.id).filter((id) => !isSuspended(id) && availDeck.has(id));
+      const ids = entryCardIds(sd.id).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id));
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
@@ -15277,7 +17724,8 @@
      ADMIN_EDITS, adminUndo, Save-to-project) and may only ever touch curated cards. What the two share is
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
-  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "" };   // type "" = the built-in Basic row
+  // type "" = the built-in Basic row; `tpl` is which of the open type's card templates is being edited
+  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "", tpl: 0 };
   let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
@@ -15579,7 +18027,33 @@
           '<span class="ut-preset-fields">' + esc(p.fields.join(" · ")) + "</span></button>").join("") +
       "</div>";
   }
+  /* The type's card templates: which one is being edited, and the controls to add and remove one. A SELECT
+     rather than a row of tabs — six templates' names do not fit across a 390px phone, and the browser's own
+     control is already keyboard-operable and already announces which of N is chosen. It is drawn at all times,
+     one template included, because a control that appears the day a second template exists is one nobody
+     knows to look for; on a single-card type it reads "Card 1 of 1" and offers Add. */
+  function studioTypeCardsHTML(t, idx) {
+    const cards = typeCards(t);
+    const opts = cards.map((c, i) =>
+      '<option value="' + i + '"' + (i === idx ? " selected" : "") + ">" + esc(c.name || "Card " + (i + 1)) + "</option>"
+    ).join("");
+    return '<div class="ut-cards">' +
+      '<label class="admin-field ut-cardpick"><span class="af-label">Card ' + (idx + 1) + " of " + cards.length +
+        ' <small>&mdash; each card of a note is scheduled on its own</small></span>' +
+        '<select class="af-input" id="stTplPick">' + opts + "</select></label>" +
+      '<label class="admin-field ut-cardname"><span class="af-label">This card&rsquo;s name</span>' +
+        '<input class="af-input" id="stTplName" type="text" value="' + esc(cards[idx].name || "") + '" /></label>' +
+      '<div class="ut-cardacts">' +
+        '<button class="btn ghost" id="stTplAdd" type="button"' + (cards.length >= UTYPE_MAX_CARDS ? " disabled" : "") + ">Add a card</button>" +
+        (cards.length > 1 ? '<button class="admin-delete" id="stTplDel" type="button">Remove this card</button>' : "") +
+      "</div></div>";
+  }
   function studioTypeFormHTML(d, t) {
+    const cards = typeCards(t);
+    // the open template, clamped — a stored index outlives the template it named when one is removed
+    const tplIdx = Math.max(0, Math.min(studioState.tpl | 0, cards.length - 1));
+    studioState.tpl = tplIdx;
+    const tpl = cards[tplIdx];
     // a LABEL rather than a div: it is what gives the textarea its accessible name, and these boxes are the
     // only thing on the page a screen reader has to tell apart
     const box = (key, label, hint, value, rows) =>
@@ -15600,6 +18074,17 @@
             '<option value=""' + (t.speechLang ? "" : " selected") + ">Not set &mdash; the device&rsquo;s own voice</option>" +
             speechLangOptions(t.speechLang) +
           "</select></label>" +
+        /* ONE CARD PER BLANK. A switch rather than something detected from the fields, for uTypeSanitize's
+           reason — and it is drawn on every type rather than only on the cloze preset, since a type written
+           by hand may use the markers too. The label under it says what the switch is currently doing, which
+           is the shape every switch on the site uses. */
+        '<div class="dm-item dm-switch ut-switch" id="utClozeRow">' +
+          '<div class="dm-switchmain"><b>One card per blank</b><small>' +
+          (t.cloze
+            ? "Each numbered blank in a note becomes a card of its own, showing the others"
+            : "Every blank on a note is hidden and revealed together, on one card") + "</small></div>" +
+          '<div class="switch' + (t.cloze ? " on" : "") + '" id="utCloze" role="switch" tabindex="0" aria-label="One card per blank" aria-checked="' + (t.cloze ? "true" : "false") + '"></div>' +
+        "</div>" +
         '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
           "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
           "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
@@ -15609,10 +18094,19 @@
           "<br>Wrap anything in <code>&lt;span class=\"uc-tts\"&gt;…&lt;/span&gt;</code> and it becomes a button that reads " +
           "those words aloud in the language above. Wrap the words to recall in a card's own text in " +
           "<code>{{c1::…}}</code> — or <code>{{c1::…::a hint}}</code> — and they close on the front and open on the back. " +
-          "Every blank on a card opens together: a Folio card is one card, where Anki would make one per number.</div>" +
-        box("front", "Front template", "the HTML shown before the answer", t.front, 7) +
-        box("back", "Back template", "the HTML shown once the card is turned over", t.back, 7) +
-        box("css", "CSS", "styles this type&rsquo;s cards and nothing else; <code>.card</code> is the card itself", t.css, 10) +
+          "With <b>One card per blank</b> on, each number makes a card of its own — <code>{{c2::…}}</code> is the second — " +
+          "and the blanks a card is not asking about are shown as their own words, since the rest of the sentence " +
+          "is what you are recalling from. With it off, every blank on a note is hidden and revealed together." +
+          /* The two-template idea, said where the templates are — an author who does not know a note can make
+             several cards will not go looking for the control that says so. */
+          "<br>A type can make <b>more than one card from each note</b>: add a card below and every note of this " +
+          "type becomes that many cards, each with its own schedule — a word asked from its meaning and the " +
+          "meaning asked from the word. Style one of them differently with " +
+          "<code>.card[data-uctpl=\"2\"]</code>, which is the second card of the note.</div>" +
+        studioTypeCardsHTML(t, tplIdx) +
+        box("front", "Front template", "the HTML shown before the answer", tpl.front, 7) +
+        box("back", "Back template", "the HTML shown once the card is turned over", tpl.back, 7) +
+        box("css", "CSS", "styles every card of this type; <code>.card</code> is the card itself", t.css, 10) +
         '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
       "</div>";
   }
@@ -15625,7 +18119,9 @@
     const real = uDeckCards(d).find((c) => c.type === t.id && Object.keys(c.fields || {}).some((k) => String(c.fields[k]).trim()));
     const fields = {};
     t.fields.forEach((f) => { fields[f] = real && real.fields && String(real.fields[f] || "").trim() ? real.fields[f] : esc(f); });
-    const stand = { id: "preview", deckId: d.id, type: t.id, fields: fields };
+    // …of the template that is OPEN, not always the first: the preview is the answer to "what does the edit I
+    // just made look like", and on a two-way type the first card is not the one being edited half the time
+    const stand = { id: "preview", deckId: d.id, type: t.id, fields: fields, _tpl: Math.max(0, Math.min(studioState.tpl | 0, typeCards(t).length - 1)) };
     box.innerHTML =
       '<div class="study-card admin-pv-card">' +
         '<span class="label">Question</span><div class="question">' + cardFrontHTML(stand) + "</div>" +
@@ -15654,17 +18150,81 @@
     const t = studioState.type ? uTypeGet(d.id, studioState.type) : null;
     if (!t) return;
     studioTypePreview(d, t);
-    // Every keystroke saves and repaints the preview IN PLACE — a full render() would take the caret out of
-    // the textarea the author is typing in, which is why the type list is not rebuilt here either.
+    /* Every keystroke saves and repaints the preview IN PLACE — a full render() would take the caret out of
+       the textarea the author is typing in, which is why the type list is not rebuilt here either.
+       `front` and `back` belong to the OPEN CARD TEMPLATE rather than to the type, so they are routed to
+       uTypeSetCard with the index read live off studioState: without that an edit made after switching
+       templates lands on whichever one was open when the listener was installed. */
     root.querySelectorAll("[data-utype]").forEach((el) => el.addEventListener("input", () => {
-      uTypeSet(d.id, t.id, el.dataset.utype, el.value);
+      const k = el.dataset.utype;
+      if (k === "front" || k === "back") uTypeSetCard(d.id, t.id, studioState.tpl | 0, k, el.value);
+      else uTypeSet(d.id, t.id, k, el.value);
       adminFlashSaved();
       const live = uTypeGet(d.id, t.id);
       if (live) studioTypePreview(d, live);
-      if (el.dataset.utype === "name") {
+      if (k === "name") {
         const h = root.querySelector(".admin-ed-title"); if (h) h.textContent = live ? live.name : el.value;
       }
     }));
+    /* The card-template controls. Switching, adding and removing all re-render — each changes which template
+       the two big boxes are showing, which is not something to patch in place — and each blurs first, for the
+       reason the field list does: removing a focused control mid-innerHTML is what Chrome refuses. */
+    const rerender = (el) => { if (el) el.blur(); setTimeout(render, 0); };
+    /* THE CLOZE SWITCH RE-RENDERS, unlike every other field on this form. It changes how many cards each
+       note of the type makes — so the card list, the preview and the note counts under it are all describing
+       something else the moment it is thrown — and the switch's own note has to be rewritten with it. */
+    {
+      const row = root.querySelector("#utClozeRow"), sw = root.querySelector("#utCloze");
+      if (row && sw) {
+        const flip = () => {
+          const on = sw.getAttribute("aria-checked") !== "true";
+          uTypeSet(d.id, t.id, "cloze", on);
+          adminFlashSaved();
+          const live = uTypeGet(d.id, t.id);
+          const notes = uDeckCards(d).filter((c) => c.type === t.id);
+          if (on && notes.length) {
+            const made = notes.reduce((a, c) => a + uNoteCardIds(c.id).length, 0);
+            toast(plural(notes.length, "note", "notes") + " now " + plural(made, "card", "cards"));
+          }
+          rerender(sw);
+        };
+        row.addEventListener("click", flip);
+        sw.addEventListener("keydown", (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); flip(); } });
+      }
+    }
+    const pick = root.querySelector("#stTplPick");
+    if (pick) pick.addEventListener("change", () => { studioState.tpl = pick.value | 0; rerender(pick); });
+    const tname = root.querySelector("#stTplName");
+    if (tname) tname.addEventListener("input", () => {
+      uTypeSetCard(d.id, t.id, studioState.tpl | 0, "name", tname.value);
+      adminFlashSaved();
+      const opt = pick && pick.options[studioState.tpl | 0];
+      if (opt) opt.textContent = tname.value || "Card " + ((studioState.tpl | 0) + 1);   // the picker names it — keep the two in step
+    });
+    const tplAdd = root.querySelector("#stTplAdd");
+    if (tplAdd) tplAdd.addEventListener("click", () => {
+      const i = uTypeAddCard(d.id, t.id);
+      if (i < 0) return;
+      studioState.tpl = i;
+      const n = uDeckCards(d).filter((c) => c.type === t.id).length;
+      toast(n ? "Added — every " + t.name + " note is now " + typeCards(uTypeGet(d.id, t.id)).length + " cards" : "Card added");
+      rerender(tplAdd);
+    });
+    const tdel = root.querySelector("#stTplDel");
+    if (tdel) tdel.addEventListener("click", () => {
+      const i = studioState.tpl | 0, cards = typeCards(t);
+      const n = uDeckCards(d).filter((c) => c.type === t.id).length;
+      /* Asked for, because this is the one thing in the Studio that destroys a SCHEDULE: a field dropped from
+         a type leaves its values behind and a type deleted puts its cards back to Basic with their records
+         intact, where the cards this template was making simply stop existing. */
+      inlineConfirm(
+        "Remove “" + (cards[i].name || "Card " + (i + 1)) + "” from " + t.name + "?" +
+          (n ? " " + n + (n === 1 ? " note" : " notes") + " will each lose that card, and its study progress with it." : "") +
+          " This can't be undone.",
+        () => { uTypeDeleteCard(d.id, t.id, i); studioState.tpl = Math.max(0, i - 1); rerender(tdel); },
+        "Remove the card"
+      );
+    });
     const ff = root.querySelector("#stTypeFields");
     // the field LIST does re-render: it changes which boxes a card of this type offers, and the help line above
     // …and it does so OUT of the event. render() replaces #view, and removing a still-focused input fires
@@ -16446,6 +19006,14 @@
     let queue = sess.queue.slice();
     let studiedThisSession = 0;
     let revealed = false;
+    /* When the card on screen had its question painted, which is what makes the per-review log's duration a
+       real figure rather than a guess. It is stamped by renderCard rather than by the reveal, so it measures
+       what the reader actually spent — recalling AND checking — which is what Anki times too. A requeued
+       learning step re-renders and is timed again from scratch, correctly: it is a second attempt.
+       A resumed session stamps afresh on the render that resumes it, so a card left open in a closed tab
+       reports the time spent looking at it after coming back rather than the hours in between. */
+    let shownAt = 0;
+    let buriedToldThisSession = false;   // see doGrade: the sibling-burying note is worth making once
     /* Which of the card's phrasings is being asked. null means "not chosen yet" — renderCard picks one and
        every move to another card sets it back to null, so a phrasing belongs to the card that is on screen
        and never leaks onto the next one. A resumed session gets its saved index back, which is the half of
@@ -16455,7 +19023,7 @@
     if (resume) {
       // the saved queue rather than a freshly built one: a rebuilt session cannot say where a requeued
       // learning step was sitting, and the reader was mid-way through this order, not that one
-      const ok = resume.queue.filter((id) => cardById(id) && !isSuspended(id));
+      const ok = resume.queue.filter((id) => cardById(id) && !isSuspended(id) && !isBuried(id));
       if (ok.length) {
         queue = ok;
         if (Number.isInteger(resume.qi) && resume.id === queue[0]) qIdx = resume.qi;
@@ -16486,6 +19054,8 @@
         id: id,
         queue: queue.slice(),
         card: S.cards[id] ? JSON.parse(JSON.stringify(S.cards[id])) : null,
+        // …and whatever this grade buried, since undoing it must give the sibling back to today
+        buried: S.buried ? Object.assign({}, S.buried) : null,
         day: d,
         log: (S.reviewLog && S.reviewLog[d]) ? S.reviewLog[d].slice() : null,
         reviewDay: S.reviewDay ? Object.assign({}, S.reviewDay) : null,
@@ -16494,6 +19064,18 @@
         studied: studiedThisSession,
       };
     }
+    /* The per-review row is taken back BY IDENTITY, not by position. The snapshot above is taken before the
+       grade, so it cannot hold a row that does not exist yet; `grade()` leaves the row it wrote in
+       `lastRevRow` and `doGrade` copies it onto the snapshot afterwards. Splicing what `indexOf` finds is
+       exact under pruning, under a requeued step and under a session's fortieth undo alike — where "remove
+       the last row" would take somebody else's review off if anything had been logged in between, and a
+       recorded length would silently keep the phantom one. A row that is no longer there (pruned out from
+       under a very long session) simply finds nothing, which is the right answer. */
+    function undoRevRow(row) {
+      if (!row || !Array.isArray(S.revlog)) return;
+      const i = S.revlog.indexOf(row);
+      if (i >= 0) S.revlog.splice(i, 1);
+    }
     function canUndo() { return undoStack.length > 0; }
     function undoGrade() {
       const s = undoStack.pop();
@@ -16501,6 +19083,8 @@
       if (s.card) S.cards[s.id] = s.card; else delete S.cards[s.id];   // a card graded for the FIRST time goes back to having no record at all
       if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};
       if (s.log) S.reviewLog[s.day] = s.log; else delete S.reviewLog[s.day];
+      undoRevRow(s.revRow);
+      S.buried = s.buried || {};
       S.reviewDay = s.reviewDay || null;
       if (s.intro) S.intro = s.intro;
       if (s.streak) S.streak = s.streak;
@@ -16516,7 +19100,7 @@
     if (queue.length === 0) {
       // nothing due / no new left — offer to cram remaining unseen, or report all caught up
       const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => availStudy.has(id) && !isSeen(id) && !isSuspended(id))
-        : ud ? (ud.cardIds || []).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
+        : ud ? uDeckStudyIds(ud.cardIds || []).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
       if ((sd || ud) && remainingUnseen.length) {
         root.innerHTML = emptyPlacard(
           "Daily limit reached",
@@ -16605,6 +19189,15 @@
               fromHome ? "Home" : "Collections"
             }</button>
             ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
+            ${/* Card info — Anki's `I`, and deliberately in the study BAR rather than in the grade bar. The
+                  grade bar's phone layout is a fixed three-cell row under the grades ("help undo suspend"),
+                  and Undo is duplicated down there because a misclick is URGENT; asking why a card is due is
+                  not, so it belongs with the session's other quiet controls and costs that grid nothing. */""}
+            <button class="backbtn infobtn" id="cardInfo" type="button" title="Why is this card due now? Its state and review history (I)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6v.6"/></svg> Info</button>
+            ${/* The flag, beside Info and for the same reason it is here rather than in the grade bar: it is
+                  a quiet control, and the grade bar's phone row has three fixed cells. It carries the card's
+                  own colour when it has one, so the bar itself says what is flagged without being opened. */""}
+            <button class="backbtn flagbtn${cardFlag(id) ? " on" : ""}" id="flagBtn" type="button"${cardFlag(id) ? ' data-flag="' + cardFlag(id) + '"' : ""} title="Flag this card to find it later (Ctrl+1 to Ctrl+7)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5"/><path d="M5 5h11l-2.2 3.4L16 12H5z"/></svg> ${cardFlag(id) ? esc(FLAG_NAME(cardFlag(id))) : "Flag"}</button>
             <span class="study-where">${esc(sess.where)}</span>
             <div class="counts">
               <span class="cnt new">${rc.nw}</span>
@@ -16624,6 +19217,7 @@
         </div>`;
 
       const cardRoot = root.querySelector(".study-card");
+      shownAt = Date.now();   // the question is on screen — the per-review log times from here (see the declaration)
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
       /* Stepping through the card's phrasings. It swaps the question IN PLACE rather than re-rendering the
@@ -16660,6 +19254,12 @@
         route(fromHome ? "home" : "decks")
       );
       { const ub = root.querySelector("#undoGrade"); if (ub) ub.addEventListener("click", undoGrade); }
+      { const ib = root.querySelector("#cardInfo"); if (ib) ib.addEventListener("click", () => openCardInfo(id, () => renderCard())); }
+      /* The flag button repaints the CARD rather than the page: `render()` would rebuild the study page from
+         the stored session and, on a card already revealed, take the answer away — flagging a card is not a
+         reason to un-reveal it. renderCard() re-runs this same function, which redraws the bar with the new
+         colour on it and calls showAnswer() again for a card that was open. */
+      { const fb = root.querySelector("#flagBtn"); if (fb) fb.addEventListener("click", () => openFlagSheet([id], () => renderCard())); }
       function suspendCurrent() {
         if (!S.suspended) S.suspended = {};
         S.suspended[id] = Date.now();
@@ -16737,7 +19337,7 @@
         actions.innerHTML = "";
         showGradeBar(
           `<div class="grade-wrap">
-            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
+            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
             <div class="grades">
               <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${fmtInterval(p.again)}</span><span class="gk">1</span></button>
               <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${fmtInterval(p.hard)}</span><span class="gk">2</span></button>
@@ -16762,10 +19362,16 @@
       function doGrade(g) {
         // snapshot BEFORE anything is written, and before the queue is shifted — the queue is half of what
         // an undo has to restore, since a learning step is requeued and a graduated card is not
-        undoStack.push(undoSnapshot(id));
+        const snap = undoSnapshot(id);
+        undoStack.push(snap);
         if (undoStack.length > UNDO_CAP) undoStack.shift();
         const wasSeen = isSeen(id);
-        const res = grade(id, g);
+        /* How long this card took, measured from the moment its question was painted (`shownAt`). It is the
+           reader's own thinking time, so a card revealed and left for lunch is CAPPED rather than counted —
+           the cap lives in logReviewEntry, which is where the figure is stored and where the reason is. */
+        const res = grade(id, g, shownAt ? Date.now() - shownAt : 0);
+        // …and the row that logged it, onto the snapshot the grade could not yet see (see undoRevRow)
+        snap.revRow = lastRevRow;
         if (!wasSeen) studiedThisSession++;
         else studiedThisSession++; // count every review as a study event for the session tally
         // grading the Card of the day is what adds it to the reader's daily review — reading it and walking
@@ -16776,6 +19382,20 @@
         // "later" — the card would reappear instantly, looking like the grade never landed. It is properly
         // scheduled either way, and it has just joined the daily review, so it comes back there instead.
         if (res.requeue && params.scope.type !== "card") queue.push(id); // relearn within session
+        /* A sibling buried by that grade must leave the LIVE queue too — it is already out of every queue
+           built from now on, but the one in hand was built before the grade. Said once a session: the first
+           time it happens the day's count drops by more than one and that needs explaining; the tenth time
+           it is just how the deck works. */
+        if (res.buried) {
+          const base = uCardBaseId(id);
+          queue = queue.filter((q) => q === id || uCardBaseId(q) !== base);
+          if (!buriedToldThisSession) {
+            buriedToldThisSession = true;
+            toast(res.buried === 1
+              ? "Its other card is put off until tomorrow — answering both today would only test the last few minutes."
+              : "Its other " + res.buried + " cards are put off until tomorrow.");
+          }
+        }
         studyRevealId = null;   // moving on: the next card (or a requeued step) opens at its question, unrevealed
         qIdx = null;            // …and picks a phrasing of its own rather than inheriting this card's
         // swap animation handled by re-render
@@ -16784,6 +19404,11 @@
 
       // keyboard
       cardRoot._keys = function (e) {
+        /* AN OVERLAY OVER THE CARD OWNS THE KEYBOARD. Every shortcut below acts on the card underneath, so
+           with a Card info sheet or a gloss popup open `3` would grade the card the reader is reading about
+           and Ctrl+Z would undo a grade they cannot see. It is the Enter-on-a-glossary-term bug below, one
+           level up: there a CONTROL owned the key, here a whole panel does. See OVERLAY_SEL. */
+        if (overlayOpen()) return;
         const typing = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("blank-input");
         /* Ctrl/Cmd+Z steps back a card and takes its grade off — the same shortcut the editor uses, and for
            the same reason. The cloze box takes focus as each card opens, so refusing outright whenever it is
@@ -16794,6 +19419,20 @@
         if ((e.ctrlKey || e.metaKey) && !e.altKey && String(e.key).toLowerCase() === "z" && !clozeTyping) {
           e.preventDefault();
           if (canUndo()) undoGrade(); else toast("Nothing to undo — this is the first card of the session.");
+          return;
+        }
+        /* FLAGS — Ctrl+1 … Ctrl+7, and Ctrl+0 to clear. Anki's own chord, and it has to be Ctrl: 1–4 are the
+           grade keys, so the bare digits are spoken for. It sits ABOVE the Enter/Space guard and above the
+           grade keys for the reason `I` does — but unlike `I` it is allowed to fire while the cloze box has
+           focus, because Ctrl+digit types nothing into a text box and a reader mid-guess is exactly who
+           wants to flag the card. Setting the flag a card already has takes it off, which is what makes one
+           chord enough for both directions. */
+        if ((e.ctrlKey || e.metaKey) && !e.altKey && /^[0-7]$/.test(e.key)) {
+          e.preventDefault();
+          const n = +e.key;
+          const got = setCardFlag(id, n === 0 ? 0 : (cardFlag(id) === n ? 0 : n));
+          toast(got ? FLAG_NAME(got) + " flag" : "Flag removed");
+          renderCard();   // repaints the bar with the colour on it; render() would un-reveal a revealed card
           return;
         }
         /* A CONTROL ON THE CARD OWNS ITS OWN Enter/Space (Aug 2026, found by test-a11y.js). Pressing Enter
@@ -16808,6 +19447,14 @@
         const focusOwnsKey = !!(ae && ae !== document.body && !ae.classList.contains("blank-input") &&
           ae.matches && ae.matches('button, a[href], select, textarea, summary, [role="button"], [role="switch"], [contenteditable=""], [contenteditable="true"]'));
         if ((e.key === "Enter" || e.key === " ") && focusOwnsKey) return;
+        /* `I` opens Card info — Anki's own key. It must come BEFORE the grade keys but after the typing
+           guard: the cloze box takes focus as every card opens, so an unguarded letter key would open a
+           panel instead of typing the letter, which is exactly the trap Ctrl+Z avoids one line up. */
+        if (!typing && !e.ctrlKey && !e.metaKey && !e.altKey && String(e.key).toLowerCase() === "i") {
+          e.preventDefault();
+          openCardInfo(id);
+          return;
+        }
         if (!revealed && e.key === "Enter") {
           e.preventDefault();
           showAnswer(true);
@@ -17420,14 +20067,42 @@
      what it emits around the author's own text is a span, not an attribute, so a value that ends mid-tag
      cannot escape into one. */
   const CLOZE_NAME_RX = /^c\d{0,2}::/i;
-  const CLOZE_RX = /\{\{\s*c\d{0,2}::([\s\S]*?)(?:::([\s\S]*?))?\s*\}\}/gi;
-  function clozeMark(html, reveal) {
+  const CLOZE_RX = /\{\{\s*c(\d{0,2})::([\s\S]*?)(?:::([\s\S]*?))?\s*\}\}/gi;
+  const UTYPE_MAX_CLOZE = 20;      // how many cards ONE note may make; a bound, not a view about how many blanks a passage should have
+  // `{{c::x}}` with no figure is ordinal 1 — Anki requires the number, and a reader who leaves it out plainly
+  // means the first (and usually only) deletion rather than a card that belongs to nothing
+  const clozeOrd = (n) => { const v = parseInt(n, 10); return v >= 1 ? v : 1; };
+  /* Which deletions a note actually carries, in order. Read from the FIELDS rather than from the rendered
+     card, because that is where the markers live: a template says `{{Text}}` once and the braces are in the
+     value it pulls in. Capped at UTYPE_MAX_CLOZE cards — the ordinals themselves may be sparse (c1, c2, c9
+     is three cards numbered 1, 2 and 9), which is Anki's behaviour and falls out of keying the id on the
+     ordinal rather than on a position. */
+  function clozeOrds(note) {
+    const f = (note && note.fields) || {};
+    const seen = {};
+    Object.keys(f).forEach((k) => {
+      String(f[k] == null ? "" : f[k]).replace(CLOZE_RX, (m, num) => { seen[clozeOrd(num)] = 1; return m; });
+    });
+    return Object.keys(seen).map(Number).sort((a, b) => a - b).slice(0, UTYPE_MAX_CLOZE);
+  }
+  /* `ord` is WHICH deletion this card is asking about, 1-based, or 0 for a type that does not split.
+     ONE CARD PER DELETION IS ANKI'S BEHAVIOUR AND IT IS WHAT THE MARKERS ARE FOR. Until Aug 2026 Folio hid
+     and revealed every blank on a card together, which this file called a deliberate simplification and
+     which it was — a Folio card was one record, so there was nowhere for a second card to live. The
+     note→several-cards machinery and sibling burying between them removed the reason, so a cloze type now
+     splits like any other multi-card note: card 3 asks c3 and SHOWS c1 and c2, which is the whole point,
+     since the rest of the sentence is the context you are recalling from. */
+  function clozeMark(html, reveal, ord) {
     const s = String(html == null ? "" : html);
     if (s.indexOf("{{") < 0) return s;   // the common case: no markers at all
-    return s.replace(CLOZE_RX, (m, answer, hint) =>
-      reveal
+    return s.replace(CLOZE_RX, (m, num, answer, hint) => {
+      /* A deletion this card is not asking about is shown as its own words — plainly, and marked so a type
+         can style it if it wants to. It is NOT blanked: blanking every deletion is what this replaced. */
+      if (ord && clozeOrd(num) !== ord) return '<span class="uc-cloze uc-cloze-other">' + answer + "</span>";
+      return reveal
         ? '<span class="uc-cloze uc-cloze-on">' + answer + "</span>"
-        : '<span class="uc-cloze">' + (String(hint == null ? "" : hint).trim() ? "[" + hint + "]" : "[&hellip;]") + "</span>");
+        : '<span class="uc-cloze">' + (String(hint == null ? "" : hint).trim() ? "[" + hint + "]" : "[&hellip;]") + "</span>";
+    });
   }
   function cardTypeOf(c) {
     if (!c || !c.type || c.type === CARD_TYPE_BASIC) return null;
@@ -17472,18 +20147,34 @@
     if (el.textContent !== css) el.textContent = css;
     return scopeId;
   }
+  /* WHICH of the type's card templates this card is. `_tpl` is written by cardById when it resolves a derived
+     id and is absent everywhere else, so a card that has never been anything but the first template — every
+     card written before templates existed — takes index 0 and renders exactly as it did. An index past the
+     end (a template removed while the card sat in a queue) falls back to the first rather than rendering
+     nothing, which is the difference between a stale card and a blank one. */
+  function cardTypeTemplate(c, t) {
+    const list = typeCards(t);
+    // a cloze type has ONE template and many cards; `_tpl` there is a deletion's ordinal, not an index into this
+    if (t && t.cloze) return list[0];
+    return list[(c && c._tpl) || 0] || list[0];
+  }
   // the card's front or back as HTML, or null when the card is a Basic one (which every caller falls back on)
   function cardTypeSideHTML(c, side) {
     const t = cardTypeOf(c);
     if (!t) return null;
+    const tpl = cardTypeTemplate(c, t);
     const scopeId = ensureCardTypeStyle(c.deckId, t);
     /* The front's blanks are closed before it is handed to the back as {{FrontSide}} — which is Anki's
        behaviour and the right one: the top of the back is the question AS IT WAS ASKED, so a reader
        comparing the two is looking at their own guess rather than at the answer twice. Its markers are
        already spent by then, so the back's own pass finds nothing left to close. */
     const seen = {};
-    const front = clozeMark(tplRender(t.front, cardTypeFieldGetter(c, null)), false);
-    const html = side === "front" ? front : clozeMark(tplRender(t.back, cardTypeFieldGetter(c, front, seen)), true);
+    /* On a CLOZE type `_tpl` is the deletion's ordinal minus one rather than a template index — one template,
+       several cards — so it is turned back into the 1-based ordinal here and every other type passes 0,
+       which is what makes clozeMark behave for them exactly as it always did. */
+    const ord = t.cloze ? (((c && c._tpl) || 0) + 1) : 0;
+    const front = clozeMark(tplRender(tpl.front, cardTypeFieldGetter(c, null)), false, ord);
+    const html = side === "front" ? front : clozeMark(tplRender(tpl.back, cardTypeFieldGetter(c, front, seen)), true, ord);
     /* A back that renders the front OWNS it, and says so on the wrapper: the study card and the previews all
        keep their own question block above the answer — right for a Basic card, where the answer is a new
        block — and it would otherwise print the word, its part of speech and its blanks a second time under
@@ -17493,7 +20184,11 @@
     /* The spoken language goes on the WRAPPER, so every read-aloud control inside a card of this type
        inherits it and a template that wants a second language need only say so on the one element. */
     const lang = t.speechLang ? ' lang="' + esc(t.speechLang) + '"' : "";
-    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + lang + ">" + sanitizeHTML(html) + "</div>";
+    /* WHICH card of the note this is, 1-based, on the wrapper — the element a type's own `.card` selector is
+       scoped to. So a type whose two directions want to look different says `.card[data-uctpl="2"] { … }`,
+       which is Anki's `.card2` in the shape this scoper can already rewrite. */
+    const tplN = ' data-uctpl="' + (((c && c._tpl) || 0) + 1) + '"';
+    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" + sanitizeHTML(html) + "</div>";
   }
   // what goes in the study card's question area: a custom type's front template, or the Basic question
   function cardFrontHTML(c) {
@@ -22841,6 +25536,59 @@
           <div class="fc-bars">${bars}</div>
           <span class="rs-sub">${fcNote}</span>
         </div>
+        ${answerButtonsHTML(prog)}
+      </div>`;
+  }
+
+  /* ---------- ANSWER BUTTONS (Aug 2026) ----------
+     Which of the four you press, and how long a card takes you — the second reader of the per-review log,
+     and the aggregate half of what Card info shows one card at a time. Anki has had both for years and
+     neither was answerable here: the daily totals count reviews without recording which button ended them,
+     and nothing in Folio timed an answer at all before the log.
+
+     IT RENDERS NOTHING UNTIL THERE IS SOMETHING TO SHOW, which is the honest behaviour rather than a
+     shortcut. The log begins the day it shipped, so on an established reader's account this card would
+     otherwise appear empty beside a heatmap holding a year of real history — reading as a broken panel
+     rather than as a measurement that has not started yet. Once rows exist it says which window it is
+     describing and, where the log is younger than the window, says that too. */
+  const ANSWER_WINDOW_DAYS = 30;
+  function answerButtonsHTML(prog) {
+    const w = revWindow(prog, ANSWER_WINDOW_DAYS);
+    if (!w.rows.length) return "";
+    const counts = [0, 0, 0, 0, 0];   // index by REV_G, so 1..4 — [0] is never used and keeps the arithmetic plain
+    let secs = 0, timed = 0;
+    w.rows.forEach((r) => {
+      if (r.g >= 1 && r.g <= 4) counts[r.g] += 1;
+      if (r.secs) { secs += r.secs; timed += 1; }
+    });
+    const total = w.rows.length;
+    const peak = Math.max(1, counts[1], counts[2], counts[3], counts[4]);
+    const bars = [1, 2, 3, 4].map((g) => {
+      const n = counts[g], pct = Math.round((n / total) * 100);
+      // a zero still gets a hairline stub, so the four read as one axis — the forecast bars' own rule
+      const h = n === 0 ? 0 : Math.max(4, Math.round((n / peak) * 100));
+      /* The bar sits in a TRACK of its own rather than beside the two labels: a percentage height resolves
+         against its containing block, so an `<i>` that is a sibling of the labels measures itself against a
+         box the labels are also inside — and the tallest bar then grows over the word underneath it. */
+      return `<span class="ab-bar ab-g${g}${n === 0 ? " ab-zero" : ""}" title="${REV_GRADE_NAME[g]}: ${n} of ${total} (${pct}%)">
+        <b>${pct}%</b><span class="ab-track"><i style="height:${h}%"></i></span><em>${REV_GRADE_NAME[g]}</em>
+      </span>`;
+    }).join("");
+    const again = counts[1];
+    const kept = total - again;
+    const avg = timed ? secs / timed : 0;
+    // the log's own age, so a 30-day card built on nine days of history says nine days rather than implying thirty
+    const days = w.first ? Math.max(1, Math.round((Date.now() - w.first) / DAY)) : 0;
+    const scope = days && days < ANSWER_WINDOW_DAYS
+      ? `Since ${fmtStamp(w.first).split(",")[0]}`
+      : `Last ${ANSWER_WINDOW_DAYS} days`;
+    return `
+      <div class="rs-card rs-ab">
+        <div class="rs-head"><h3>Answer buttons</h3><span class="rs-meta">${esc(scope)}</span></div>
+        <div class="ab-bars">${bars}</div>
+        <span class="rs-sub">${total} ${total === 1 ? "answer" : "answers"} · ${kept} remembered, ${again} forgotten${
+          avg ? ` · ${esc(fmtSecs(avg))} a card on average` : ""
+        }${secs ? ` · ${esc(fmtSecs(secs))} studied` : ""}</span>
       </div>`;
   }
 
@@ -22899,7 +25647,7 @@
         if (ids.length) out.push({ id: nid, label: nodeTitle(n), group: g, ids: ids });
       });
     });
-    if (withCommunity) uDeckList().forEach((d) => { if ((d.cardIds || []).length) out.push({ id: "u:" + d.id, label: d.title || "Untitled deck", group: "Your decks", ids: d.cardIds.slice() }); });
+    if (withCommunity) uDeckList().forEach((d) => { if ((d.cardIds || []).length) out.push({ id: "u:" + d.id, label: d.title || "Untitled deck", group: "Your decks", ids: uDeckStudyIds(d.cardIds || []) }); });
     return out;
   }
   function deckStatsPanelHTML(prog, scope) {
@@ -23166,8 +25914,9 @@
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
-      ${/* a guest earns chests too, so the banner is here as well — see chestBannerHTML */""}
-      <div id="chestSlot">${chestBannerHTML()}</div>
+      ${/* The waiting-chests notice stood here and is now above the Daily-study banner on the home page
+            (Aug 2026, on request) — the page a reader lands on, rather than one they have to go to. The
+            Reliquary's own "Open your chest" button below is still the way in from here. */""}
       ${/* The form is 460px wide inside an 800px stage, so signed out this page used to be half empty on a
             laptop. The three perks were already written — they were just stacked underneath the form, where
             they made a short card longer. Out beside it they fill the space and say what the account is FOR
@@ -23214,9 +25963,21 @@
             showcase, which is the half that needs an account to have any point. */""}
       ${(Object.keys(S.artefacts || {}).length || chestCount())
         ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
-        : ""}`;
+        : ""}
+      ${/* THE CARD BROWSER IS SHOWN SIGNED OUT TOO, for the Reliquary's reason one section up: it is about
+            the cards on THIS DEVICE and not about an account. A guest studies, flags and forgets cards like
+            anybody else, and walling the only way to look at them behind a sign-in would make the browser
+            unreachable for exactly the reader who has no other record of their studying. It appears only
+            once something has been studied — on a first visit there is nothing to browse. */""}
+      ${Object.keys(S.cards || {}).length ? `
+      <div class="section-label">Your cards</div>
+      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
+        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
+        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
+        <span class="ex-go" aria-hidden="true">&rarr;</span>
+      </button>` : ""}`;
+    root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
-    wireChestBanner(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
       tabs.forEach((x) => x.classList.toggle("active", x === t));
@@ -23261,9 +26022,8 @@
     const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
-      ${/* Waiting chests, at the top, because that is what "save it for later" points at — see
-            chestBannerHTML. The slot is always in the markup so refreshReliquary can fill and empty it. */""}
-      <div id="chestSlot">${chestBannerHTML()}</div>
+      ${/* Waiting chests were announced here and are now above the Daily-study banner on the home page
+            (Aug 2026, on request), which is where a reader who deferred one lands. */""}
       <div class="profile">
         <div class="ph-ava">
           <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
@@ -23319,6 +26079,16 @@
       <div class="section-label">Collection progress</div>
       <div class="coll-levels" id="collLevels"></div>
       <div id="statWrap"></div>
+      <div class="section-label">Your cards</div>
+      ${/* THE WAY INTO THE BROWSER. It sits at the head of the statistics rather than among them, because
+            everything below is a summary and this is the thing that lets a reader ask their own question of
+            it — "what do I keep failing" is one search and no chart. It is a link on your OWN record only,
+            like the glossary meter beside it: a friend's cards are not yours to act on. */""}
+      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
+        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
+        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
+        <span class="ex-go" aria-hidden="true">&rarr;</span>
+      </button>
       <div class="section-label">Review statistics</div>
       <div id="reviewStats"></div>
       <div class="section-label">Deck statistics</div>
@@ -23386,7 +26156,6 @@
     root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
-    wireChestBanner(root);
     const relHost = root.querySelector("#reliquary");
     relHost.innerHTML = reliquaryHTML(S, true);
     wireReliquary(relHost);
@@ -23645,7 +26414,17 @@
           '<span class="clog-date">' + esc(fmtDay(e)) + '</span>' +
           '<span class="clog-title">' + esc(e.t || "") + '</span>' + chev +
         '</button>' +
-        '<div class="clog-body"><ul>' + (e.items || []).map((it) => "<li>" + esc(it) + "</li>").join("") + "</ul></div>" +
+        /* TWO THINGS ABOUT THE BODY, both fixed Aug 2026 on a report from a phone.
+           A WRAPPER, because `grid-template-rows:0fr` only collapses a child whose own MINIMUM size is
+           zero — and the `<ul>`'s padding counts towards that minimum however small its content box is
+           forced. So a shut day was never shut: it kept the list's ~16px of padding and showed a clipped
+           sliver of the first line through it, which reads as a fold that half-works. The padding moves
+           inside `.clog-in`, which is what the grid row now sizes, and the whole thing collapses to 0.
+           And the item is written as HTML rather than escaped: a changelog line bolds the thing that
+           changed, and `esc` printed the `<b>` tags themselves. `sanitizeHTML` is the site's own
+           allowlist, so this cannot become a way to put anything else on the page. */
+        '<div class="clog-body"><div class="clog-in"><ul>' +
+          (e.items || []).map((it) => "<li>" + sanitizeHTML(it) + "</li>").join("") + "</ul></div></div>" +
       "</div>").join("");
     // the forgetting curve, drawn in theme colours: memory fading without help (dashed), and the same
     // memory lifted by reviews timed just before the fall — each hop longer than the last
@@ -23681,7 +26460,9 @@
       <figcaption>Each review lands just before you would forget — and each one makes the memory last longer.</figcaption>
     </figure>`;
     const step = (n, b, s) => `<li><span class="hi-num">${n}</span><div class="ms-body"><b>${b}</b><span>${s}</span></div></li>`;
-    const faq = (q, a) => `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">${esc(q)}${chev}</button><div class="faq-a"><p>${a}</p></div></div>`;
+    // …and the same wrapper the changelog body needed, for the same reason: the answer's own padding was
+    // keeping a shut question ~18px tall and letting a clipped line of the answer show through it.
+    const faq = (q, a) => `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">${esc(q)}${chev}</button><div class="faq-a"><div class="faq-in"><p>${a}</p></div></div></div>`;
     // small accent chip beside each section title (icon inherits the card's --msn-accent hue)
     const chip = (svg) => `<span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span>`;
     const CHIP = {
@@ -23758,6 +26539,14 @@
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
             <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
             <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887) and <i>Antigone</i> (Jebb's of 1891), both with Francis Storr's Greek of 1912 and both Englished from Jebb by way of Perseus's 1988 modernization to remove archaisms — Alex Sens on the <i>Oedipus Rex</i> and Pierre Habel on the <i>Antigone</i>, each reviewed by John Gibert; and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English likewise modernized, a revision by Steven Ott reviewed by John Marincola).</li>
+            ${/* THE SCHEDULERS ARE CREDITED HERE AND NOWHERE ELSE (Aug 2026, on request). The deck and
+                  Scheduling sheets used to name Anki in passing — "the classic Anki schedule", "Anki's
+                  default" — which tells a reader choosing how their own deck is scheduled something about
+                  another program rather than about their deck. The debt is real, so it is stated once,
+                  properly, on the page that states Folio's debts. FSRS is separately credited because the
+                  optimiser's arithmetic is held to its reference implementation. */""}
+            <li><a href="https://apps.ankiweb.net" target="_blank" rel="noopener">Anki</a> <span class="cr-lic">AGPL-3.0</span> — Folio's study schedule follows Anki's: the SM-2 intervals, the learning steps, the daily limits, the four grades and the way sibling cards are buried are all modelled on it. Folio shares no code with Anki and is not connected with the project.</li>
+            <li><a href="https://github.com/open-spaced-repetition/py-fsrs" target="_blank" rel="noopener">FSRS</a> <span class="cr-lic">MIT</span> — the second scheduler and its optimiser, implemented from the open-spaced-repetition reference and checked against it.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
@@ -23979,6 +26768,29 @@
             <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
           <div class="set-row">
+            ${/* LOAD BALANCING (Aug 2026, on request) — Anki's, and it is DEFAULT OFF for the house rule's
+                  sake: it changes what the scheduler does, and an existing reader's intervals must not move
+                  because they updated. What it can and cannot do is said plainly, since "evens out the load"
+                  invites a reader to expect more than a few days either way. */""}
+            <div class="info"><h3>Even out the daily pile</h3><p>When a card's next interval is worked out, put it on the quietest of the few days the scheduler was already free to choose between &mdash; so a hundred cards learned in one week do not all come back on one day. It never moves a card further than it would have moved anyway, and it works with both schedulers. The 14-day forecast on your account page shows the effect.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.loadBalance ? "on" : ""}" id="sw-load" role="switch" aria-label="Even out the daily pile" tabindex="0" aria-checked="${!!S.settings.loadBalance}"></div></div>
+          </div>
+          <div class="set-row set-row-stack">
+            ${/* EASY DAYS. Monday-first in the UI, matching the heatmap; stored Sunday-first, matching
+                  Date#getDay, so the scheduler needs no conversion at all. A day is AVOIDED rather than
+                  forbidden — if every day in a card's range is marked it still lands on one, because a card
+                  that cannot be scheduled at all is worse than one that arrives on a Sunday. */""}
+            <div class="info"><h3>Days you don't study</h3><p>Mark a day and Folio schedules around it where it can, moving a card to a neighbouring day instead. It cannot always: a card whose whole range falls on marked days still lands on one, and nothing already scheduled is moved.</p></div>
+            <div class="ctl"><div class="ed-days" id="edDays">${
+              [1, 2, 3, 4, 5, 6, 0].map((d) => {
+                const off = easyDays()[d] === 0;
+                const nm = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][d];
+                return '<button type="button" class="ed-day' + (off ? " off" : "") + '" data-ed="' + d + '" role="switch" aria-checked="' + (off ? "true" : "false") +
+                  '" aria-label="' + nm + '"><span>' + nm.slice(0, 3) + "</span></button>";
+              }).join("")
+            }</div></div>
+          </div>
+          <div class="set-row">
             ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
                   — so without this it would be unreachable the moment either answer was given. The Atlas
                   and the Library keep their own "?" for the same reason. */""}
@@ -24093,6 +26905,28 @@
     };
     wireSwitch("#sw-anim", () => S.settings.animations !== false, (v) => { S.settings.animations = v; });
     wireSwitch("#sw-contrast", () => !!S.settings.contrast, (v) => { S.settings.contrast = v; });
+    /* Load balancing. It goes through the same wireSwitch as the two above — the extra call is
+       `bumpLoadMap()`, because the map is cached for the day and turning either setting on or off is
+       exactly the case a day-keyed cache cannot see. */
+    wireSwitch("#sw-load", () => !!S.settings.loadBalance, (v) => { S.settings.loadBalance = v; bumpLoadMap(); });
+    /* The seven days. Stored Sunday-first to match Date#getDay, so the scheduler does no conversion; drawn
+       Monday-first to match the heatmap. Written as a WHOLE array rather than an index, because a save made
+       before this existed has no `easyDays` at all and easyDays() is what fills that in. */
+    const edWrap = root.querySelector("#edDays");
+    if (edWrap) edWrap.querySelectorAll("[data-ed]").forEach((b) => {
+      const flip = () => {
+        const d = +b.dataset.ed, cur = easyDays().slice();
+        cur[d] = cur[d] === 0 ? 1 : 0;
+        S.settings.easyDays = cur;
+        bumpLoadMap();
+        save();
+        const off = cur[d] === 0;
+        b.classList.toggle("off", off);
+        b.setAttribute("aria-checked", off ? "true" : "false");
+      };
+      b.addEventListener("click", flip);
+      b.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+    });
 
     /* Day ends at. `change`, not `input`: a time field fires input on every digit typed, and a half-typed
        hour would move the day boundary — and with it the review's counts and the day's quote — under the
@@ -27373,7 +30207,7 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "community", "deck", "glossary", "library", "book"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "community", "deck", "glossary", "browse", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";

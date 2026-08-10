@@ -22,7 +22,9 @@
 #   frame-src           the two video hosts a link can be turned into a player for. youtube-nocookie.com is
 #                       YouTube's own no-tracking-until-play domain. Nothing else may be framed, and the
 #                       embed URL is always built by app.js from a matched video id, never from raw input.
-#   connect-src         the Supabase project: auth, progress sync and the content_overrides overlay.
+#   connect-src         the Supabase project: auth, progress sync, the review-log archive and the
+#                       content_overrides overlay. All on the one host, so nothing here changes as tables
+#                       are added.
 #   frame-ancestors     Folio is never meant to be embedded; this blocks clickjacking.
 #
 # If this ever breaks something on the live site, rename the header to

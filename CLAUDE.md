@@ -20,9 +20,14 @@ It is a plain static website — open `index.html` and it runs.
   very small in the top-left corner of the home page, and it is the reader's answer to "which Folio am I
   looking at?" — so it must be bumped **in the same commit as the changelog line**, on every merge to main.
   `v` is MAJOR.MINOR: the minor goes up by one per release, the major only when a whole new area of the site
-  lands (the Library would have been one). `released` is an ISO instant in **UTC** and must be the real moment
-  the work was finished — the page prints it in the reader's own clock, so a placeholder rounded to midnight
-  is wrong in every timezone at once. It lives in `changelog.js` rather than app.js precisely so that
+  lands (the Library would have been one). **`released` IS CAPTURED, NEVER COMPOSED — read it off the clock
+  with `date -u "+%Y-%m-%dT%H:%MZ"`.** It is an ISO instant in UTC and must be the real moment the work was
+  finished; the page prints it in the READER's own clock, so a stamp that is really a local time with a `Z`
+  on the end is shown shifted by the writer's own offset — which is how a release made at half past nine in
+  the morning came to be announced at half past eleven, and one made just before noon as an afternoon
+  (reported Aug 2026). An explicit offset is equally safe (`2026-08-10T11:24+02:00`); what is never safe is
+  typing the hour on your own clock and calling it UTC, and a placeholder rounded to midnight is wrong in
+  every timezone at once. It lives in `changelog.js` rather than app.js precisely so that
   bumping it and writing the day's line are one file open and two edits, and the two can never come to
   disagree about what shipped when. It is **not** sw.js's `VERSION`, which is a cache generation — bumping
   that one throws every cached file away and costs each reader ~1.4 MB, so the two are counted separately and
@@ -41,21 +46,30 @@ It is a plain static website — open `index.html` and it runs.
   is Folio's own record; the decks under `decks/` — the DELE Spanish set, the HSK Mandarin set — are
   USER-UPLOADED content that nothing on the site links to or serves, so announcing one there posts it as
   though it were official. Two lines about the Spanish decks were written and removed the same day. What DOES
-  belong is any change to the APP that a deck happened to force: the import caps went up because a 4,000-card
-  deck could not be imported at all, and that line stays, worded as a fact about deck files rather than about
-  any deck. The same test settles a fault found in a deck FILE — a card-id collision between two of them was
-  a bug in the generator's output, not in Folio, and has no line.
-  **Keep an item SHORT — a summary, not a transcript.** Two entries once ran to 12,000 and 15,000 characters
-  because a citation batch listed every correction it made; they were compressed on request (2026-08-01) into
-  one line a day saying what changed and what KIND of corrections came out of it. The counts and the finding
-  belong here; the per-card detail belongs in the batch log in `docs/`. Anything past ~1,000 characters is a
-  transcript.
+  belong is a change to the APP that a deck happened to force — the import caps have been raised twice by
+  decks that would not fit — worded as a fact about deck files rather than about any deck. The same test
+  settles a fault found in a deck FILE: a card-id collision between two of them was a bug in the generator's
+  output, not in Folio, and gets no line.
+  **ONE SENTENCE PER ITEM, AND ONE SENTENCE PER DAY TITLE** (Aug 2026, on request, after a reader met this
+  page on a phone). Items had grown back into whole paragraphs — the longest ran to 1,216 characters and one
+  day title to 300 — which on a narrow screen is a wall of prose where a list of changes should be. The whole
+  file was cut to each line's own FIRST SENTENCE and the ones still long were rewritten by hand; it went
+  127 KB → 54 KB, which every visitor pays for, this file being in the eager load path. **Aim for about 120
+  characters and treat 200 as the ceiling**; a line that wants a second sentence wants to be two items, or to
+  be shorter. The counts and the finding belong here; the per-card detail belongs in the batch log in `docs/`.
+  (This supersedes an earlier "anything past ~1,000 characters is a transcript", which two 12,000- and
+  15,000-character citation entries had already broken once, in 2026-08-01.)
+  **An item is rendered as HTML, not escaped** (through `sanitizeHTML`), so `<b>` and `<i>` work and bold
+  marks the thing that changed. It was escaped until Aug 2026, which printed the tags themselves on the page
+  — reported as "bold text doesn't display properly".
   **ENGLISH ONLY, for now (Aug 2026, on request): a new line does NOT need its nine translations.** The site
   ships in English while the work is on making the English as good as it can be — see the `MULTILANG` bullet
   under "How the app is wired". Write the line, ship it, move on. The rest of this paragraph is the rule to
-  resume when translations do: the whole changelog (27 day titles + 196 items) is already live in
-  es/fr/de/it/nl/ru/ar/zh/ja as `chrome.exact` rows in `i18n/ui-<lang>.js` — the items are plain text nodes, so
-  `localizeTree` picks them up with no code. They must NOT go inline into `changelog.js`, which is in the eager
+  resume when translations do: part of the changelog is already live in es/fr/de/it/nl/ru/ar/zh/ja as
+  `chrome.exact` rows in `i18n/ui-<lang>.js` (the one-sentence rewrite retired 93 rows per language, so the
+  coverage is thinner than it was). An item is now an HTML block rather than a plain text node, so a
+  translated one belongs in `chrome.html` rather than `chrome.exact` wherever it carries a tag. They must NOT
+  go inline into `changelog.js`, which is in the eager
   load path (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js`
   chrome batches, and **if you reword or merge an existing line, retire the old translations** in the same pass
   via the `chrome.remove` list, or nine files keep a dead row that matches nothing and reads like coverage.
@@ -114,7 +128,57 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-one:
+  matter (chapter 0 — see the Library bullet). Currently thirty-three:
+  `virgil-aeneid` (~621 KB, all 12 books, **396 card sections**, **0 notes** — Theodore C. Williams's
+  blank verse of 1910, and **the first book here whose TRANSLATION MARKS ITS CARDS TWO WAYS AT ONCE.**
+  Every earlier file on the TEI card path picks one mechanism and keeps to it — Ovid's English divides
+  into `<div subtype="card">` and its Latin marks `<milestone unit="card"/>` — and Williams uses BOTH,
+  327 divisions and 69 milestones, because the choice follows where the boundary falls: a card opening
+  where an English line opens gets a division, and one opening PART WAY THROUGH a line cannot, so it is
+  set as a milestone inside the line at the word the new card begins on. Hence `cards: "both"`, which
+  matches either in ONE sweep in reading order — the Meditations' rule, since two passes leave the
+  counter at the end of the book and the forward-only guard then declines everything the second finds.
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** **A MID-LINE CARD MARK MUST BE LIFTED TO THE LINE'S
+  EDGE BEFORE THE BOOK IS SLICED AT IT**, and this is the quiet fault of the batch: cards are cut by
+  slicing, so a mark inside a line cuts the `<l>` in half, and `teiVerse` matches a complete `<l>…</l>`
+  pair and nothing else — so it matches NEITHER half and **one line of verse disappears at every one of
+  the 69**, with all twelve books still pairing, nothing thrown and the poem 99.5% present. The lift
+  moves the mark past the line's own `</l>`, keeping the line whole and giving it to the card it begins
+  in; the cost is a boundary drawn at the nearest line break, which is the Antigone's and Beowulf's case
+  (two editions dividing a line apart, recorded rather than repaired). **AND IT MUST LEAVE A SPACE
+  BEHIND IT** — the Iliad's rule in a fourth edition, measured: 13 of the 69 sit hard against the words
+  on both sides ("he voiced this word:“What pride of birth"), so removing rather than replacing shipped
+  "word:“What" and "acclaim.Ourselves" for one run. **AND `<del>` COSTS A WHOLE CARD HERE, WHICH IS
+  LUCRETIUS'S RULE ONE NOTCH STRONGER**: Greenough brackets 54 lines as spurious and 22 of them are the
+  entire content of his card 567, the Helen episode, so that card empties and is dropped, taking the
+  Latin from 392 cards to 391 — measure what `<del>` costs in LINES and then in CARDS, because a card
+  that empties changes the pairing and a line that goes does not. The English translates the passage, so
+  **book 2 shows it in the English beside an empty Latin cell**, which is the two editors disagreeing in
+  the plainest way the page can show, and the front matter says so. Its licence is the easy kind — see
+  the Library bullet — and its ~120 l→I OCR slips are the SOURCE's and are recorded rather than
+  repaired, because the same pattern spells Iulus, Ilium, Italy, Ida and Ithaca in the same text and
+  "Iove" is undecidable between love and Jove),
+  `homer-odyssey` (~701 KB, all 24 books, **288 card sections**, **0 notes** — A. T. Murray's Loeb
+  prose of 1919, the SECOND book on the prose-translation-against-verse-original path and the first
+  to confirm the rule that path was written for rather than to discover it: of its 2,434 line
+  milestones **2,097 would weld two words together** if the tag were simply dropped, and 2 of its 192
+  note stubs do the same, all of them repaired by the space rule. **TWO WELDS SURVIVE AND ARE THE
+  SOURCE'S OWN** — "in thy insolence,ever roaming" at 17.245 and "ask thee;to speak out plainly" in
+  book 8 — checked against the transcription, present there verbatim with no tag near them, and
+  recorded rather than repaired for the reason the Iliad's thirteen are. **THREE THINGS IT SETTLED
+  ARE WORTH CARRYING.** **A BOOK DIVISION'S ATTRIBUTES MUST BE READ INDEPENDENTLY OF THEIR ORDER**,
+  which is the fault `cardMarks` already records met one element higher up: every earlier file on
+  this path writes `<div type="textpart" subtype="book" n="1">` and this one's Greek writes
+  `<div n="1" type="textpart" subtype="book">`, so the old order-fixed pattern matched **not one of
+  the twenty-four**. It is the rare LOUD one — no book division means no book, so it throws on a file
+  holding the whole poem — where the card version of the same fault returns a poem with nothing to
+  pair on. Fixed in `teiVerseBooks` and proved inert on Ovid, Lucretius and the Iliad, **both columns
+  of each, byte-for-byte**. **ITS LICENCE IS THE SIMPLEST OF ANY TWO-COLUMN BOOK HERE**, because
+  Perseus's Greek for the Odyssey is not a separate Oxford text set beside the Loeb but the Greek
+  printed on the facing half of the SAME 1919 volumes, credited to Murray; one life answers for both
+  columns and there is no harder half to state. **AND `<del>` IS INERT HERE, MEASURED RATHER THAN
+  ASSUMED**: zero in either file, and zero `<gap>` — worth the measurement every time, since
+  Lucretius's 116 marks cost that poem thirty whole lines and the Iliad's cost it four),
   `homer-iliad` (~955 KB, all 24 books, **425 card sections**, **0 notes** — A. T. Murray's Loeb
   prose of 1924, and **the first book here whose TRANSLATION IS PROSE while its ORIGINAL IS VERSE.**
   Every earlier book on the TEI card path has verse facing verse, so `teiVerseBooks` read `<l>` and
@@ -432,7 +496,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-one:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-two:
+  `virgil-aeneid.la.js` (~475 KB, all 12 books, **391 cards, 9,843 lines of hexameter** — J. B.
+  Greenough's Oxford-shaped text published by Ginn and Company in Boston in 1881, and after the Gallic
+  War the cleanest pairing of two independently edited texts on the shelf: 390 of its numbers appear on
+  both sides in the same order, nine of the twelve books pair on every card they have, and the two
+  reconcilable pairs (Latin 7.705 against English 7.706, 11.397 against 11.399) were READ passage by
+  passage before either was moved, there being no tale names here for `reconcileCards` to check against —
+  both Homers' position. **ITS LINE COUNT IS ONE OVER THE STANDARD AND FIFTY-FOUR UNDER IT, and both are
+  accounted for**, which is the arithmetic to run rather than the total to glance at: 9,897 `<l>` against
+  the traditional 9,896, the extra being book 10's `<l n="62b" part="F">`, a half-line the file's own
+  revision history records being renumbered for in 2015; and 54 of those wrapped whole in `<del>` and
+  dropped on the Meditations' judgement, of which 22 are one run — 2.567–588, the Helen episode — that
+  empties a whole card. **Its `<q>` marks are the only speech punctuation it has**, 3,833 of them, so the
+  Latin column prints no quotation marks at all where the English has them: rendering each as an HTML
+  `<q>` was measured and rejected, since they nest three deep and `rend="merge"` repeats the tag on every
+  line of a continuing speech, which would put quotation marks on every line of every one of Virgil's
+  long speeches. Said in the front matter instead),
+  `homer-odyssey.grc.js` (~574 KB, all 24 books, **all 288 of the translation's card sections** — the
+  Greek printed facing Murray's English in the same 1919 Loeb volumes, which is why it is the ONLY
+  original here that costs its book no second licence to reason about: one publication, one editor,
+  one death year, both columns. **23 of the 24 books carry byte-identical card lists and 286 of the
+  288 numbers appear on both sides**, with no duplicate and nothing out of order either way. The two
+  exceptions are both in book 14 — English 147 against Greek 148, and English 234 against Greek 235 —
+  each one line apart, each READ passage by passage before `reconcileCards` was allowed to move it,
+  since a Homeric card carries no tale name to check a reconciled pair against; in both the English
+  boundary is drawn one line early and the passage is plainly the same passage, and every other card
+  in that book agrees, which is the clean re-sync that tells an editor's different cut from a
+  misaligned extractor. **ITS LINE COUNT IS THREE SHORT OF THE STANDARD AND ALL THREE ARE ACCOUNTED
+  FOR**: 12,107 `<l>` against the traditional 12,110, the missing lines being 10.456, 16.101 and
+  23.49, and in each the edition's own numbering steps straight over the gap (…455, 457…), so the
+  omission is the EDITION'S and not a line the importer lost. Do the arithmetic rather than glancing
+  at the total — a count that is nearly right is how a truncated import hides),
   `homer-iliad.grc.js` (~1.38 MB, all 24 books, **all 425 of the translation's card sections** —
   Monro and Allen's Oxford Classical Text of 1908–1920, and **the cleanest pairing of two
   independently edited texts on the shelf bar the Gallic War**: 425 cards a side, 22 of the 24 books
@@ -478,7 +573,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   books, 486 sections), `sun-tzu-art-of-war.zh.js` (~34 KB, all 13 chapters — classical Chinese is terse,
   and this is the whole work), `ovid-metamorphoses.la.js` (~575 KB, all 15 books, 156 cards, 11,927
   lines of hexameter), `suetonius-twelve-caesars.la.js` (~530 KB, all 12 lives, 541 chapters) and
-  `lucretius-nature-of-things.la.js` (~352 KB, all 6 books, 213 cards, 7,382 lines of hexameter) and
+  `lucretius-nature-of-things.la.js` (~352 KB, all 6 books, 213 cards, 7,382 lines of hexameter —
+  **and the book whose shipped text a LATER book's inertness check found broken, which is the argument
+  for running that check across the SIBLINGS rather than only over the book being added**, exactly as
+  the Antigone's licence pass is. Adding the Aeneid taught `teiVerse` to resolve TEI's `<choice>`, which
+  offers two readings of the same word; unwrapping it the way everything else inside a line is unwrapped
+  keeps BOTH, and this file had been shipping all **110** of its `<choice>` elements doubled since the
+  day it was added — *aër* as "aeraër" 23 times, *aëris* as "aerisaëris" 15, *poëtae* as "poetaepoëtae",
+  *coërcet* as "coercetcoërcet". Every count read healthy throughout: the line total is right, the cards
+  pair, tag balance is clean, nothing threw. The rule keeps `<corr>` over `<sic>` and `<orig>` over
+  `<reg>` — the reading the edition means to stand — and all 110 now read correctly. **24 of them still
+  carry a doubled vowel that is the SOURCE's own** (`aeera`/`aeëra` for *aera*, both readings wrong),
+  recorded rather than repaired) and
   `aristotle-nicomachean-ethics.grc.js` (~335 KB, all 10 books, 181 Bekker pages) and
   `plato-dialogues.grc.js` (**~5.6 MB, much the largest file in the project** — all thirty-five works,
   1,484 Stephanus sections. Burnet's Oxford Classical Text, and the FIRST original assembled from a
@@ -529,7 +635,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-one books, twenty-one originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Thirty-three books, twenty-three originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
@@ -1170,6 +1276,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     7,412 lines to 7,382. Dropping them is the same judgement the Meditations' Greek makes — what ships is
     the text the edition constitutes — but here it changes the COUNT, so measure it rather than assuming
     the rule is inert.
+    **A FIFTH thing, added Aug 2026 by the Aeneid: AN EDITION MAY MARK ITS CARDS TWO WAYS AT ONCE, AND
+    THEN BOTH MUST BE READ IN ONE SWEEP** (`cards: "both"`). Every earlier file here picks one mechanism
+    and keeps to it, and Williams's Aeneid uses both — 327 `<div subtype="card">` and 69
+    `<milestone unit="card"/>` — because the choice follows where the boundary falls: a card opening
+    where an English line opens gets a division, and one opening PART WAY THROUGH a line cannot, so it
+    is a milestone standing inside the line at the word the card begins on. Read with the Ovid setting
+    the poem is complete, nothing throws, every book pairs, and 69 passages sit against Latin that is
+    not theirs. One sweep in READING ORDER, never two passes — the Meditations' rule.
+    **AND A MID-LINE MARK MUST BE LIFTED TO THE LINE'S EDGE BEFORE THE BOOK IS SLICED AT IT**, which is
+    the quiet half: cards are cut by slicing, so a mark inside a line cuts the `<l>` in two, and
+    `teiVerse` matches a complete `<l>…</l>` pair and nothing else — so it matches NEITHER half and one
+    line of verse vanishes at each of the 69. Invisible to every count but the line total. The lift
+    moves the mark past the closing `</l>` (keeping the line whole, at the price of a boundary drawn at
+    the nearest line break — the Antigone's case) **and leaves a SPACE where it stood**, since 13 of the
+    69 sit hard against the words either side and removing rather than replacing shipped "word:“What"
+    for one run. Gated on `cards: "both"`, and measured on the siblings as well as reasoned about:
+    Ovid's Latin has four milestones inside lines and every one is `unit="tale"`.
+    **A SIXTH: A `<choice>` OFFERS TWO READINGS AND THE TAG SWEEP KEEPS BOTH** (same batch). Unwrapping
+    it the way everything else inside a line is unwrapped prints them one after the other, and this
+    found a live fault in a SHIPPED book — see `lucretius-nature-of-things.la.js`, which had been
+    printing all 110 of its choices doubled ("aeraër" for *aër*) since the day it was added. One child
+    is kept: `<corr>` over `<sic>` and `<orig>` over `<reg>`, the reading the edition means to stand.
   · **the wiki walk** (`wiki` + `pages` + `originalChapters`) — one page per book of the collection, the
     numbers printed in the text and read back out. Everything below is about this shape.
     **`layout: "caput"` → `extractCaput` is that shape with a page per FOLIO CHAPTER** (Aug 2026,
@@ -1278,7 +1406,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · It also carries each book's **`about`** — the front matter prose, authored by hand here and emitted as
     `intro`. It lives in the generator rather than in app.js's eager `BOOKS` registry (a page of prose every
     visitor would pay for) or in the generated file (the next run would destroy it).
-- `styles.css` (~235 KB) — editorial design system; 8 themes via CSS custom properties.
+- `styles.css` (~235 KB) — editorial design system; **6 themes** via CSS custom properties (`THEMES` in
+  app.js — folio, synth, arcade, academy, marble, gazette; this line said 8 for months, after clay and
+  garden were removed with the other retired themes, so **read `THEMES` rather than quoting it**).
   **All theme color variables are hex** (e.g. `--ink:#1B1A17`) so the canvas globe can parse and
   blend them — keep them hex, not `rgb()`/`hsl()`.
 - `app.js` (~684 KB) — all logic, written as a single IIFE. Hash-based routing via the `PAGES`
@@ -2000,6 +2130,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
+- `decks/*.folio-deck.json` — **the Mandarin community decks**, five files a reader imports through the
+  Studio. Not part of the site and never loaded by it: a deck file is somebody else's content that happens
+  to have been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
+  **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), **HSK 3.0** — all seven levels of the 2026
+  standard in ONE file, 10,896 notes as seven subdecks — and two decks of what the syllabus leaves out:
+  **Mandarin phrases** (159) and **Chinese idioms** (477 chengyu). 22 MB in all.
+  · **EVERY WORD IS ONE NOTE WITH TWO CARDS** (Aug 2026, once the reverse-cards feature landed on main).
+    Each deck used to write a word out twice, once per direction, and the two rows were identical field for
+    field — the same characters, reading, character breakdown and three example sentences, which between
+    them are nine tenths of a row. The eleven HSK 3.0 files were 44.7 MB and are 19.3. What matters more
+    than the bytes is that a word is now one RECORD: a definition corrected or a better example found is
+    corrected in both directions at once, where two rows drift with nothing to say so. Each direction keeps
+    its own schedule, which is the point of a reverse card.
+  · **THE SUBDECK AXIS WENT TO THE LEVEL, and that is what let HSK 3.0 become one deck.** The old combined
+    files spent their one `sub` axis on the study DIRECTION — two subdecks, Chinese → English and English →
+    Chinese — and that is exactly what the two templates now express, so the axis came free for the thing a
+    learner actually works along. **A note's `sub` is per note, so direction can never be a subdeck again**
+    while the two directions are one note; that is the trade, and it was worth making.
+  · **THE OLD "TOO BIG FOR ONE DECK" MEASUREMENT WAS RE-TAKEN RATHER THAN CARRIED FORWARD.** The 7–9 band
+    shipped as five files because level 6 alone (3,554 rows, 7.4 MB) measured 3.6s to import and 2.7s to the
+    first card. Measured again on the whole of 3.0 at 10,896 notes: **JSON.parse 81 ms, import 10.0s once,
+    the Studio 3.2s, adding a subdeck 0.8s, home → first card 1.1s** — faster to a card than one level was,
+    because the study path touches a subdeck rather than the deck. **A conclusion drawn from a measurement
+    expires when the thing it measured changes.**
+  · **THE TWO NEW DECKS ARE DERIVED, NOT WRITTEN.** Candidates are CC-CEDICT entries not already carded in
+    any HSK deck; whether one is an IDIOM is CC-CEDICT's own `(idiom)` marker; how common each is comes from
+    the OpenSubtitles 2018 frequency list (hermitdave/FrequencyWords, CC BY-SA 4.0) and from counting the
+    Tatoeba corpus. **The two measure different things and neither replaces the other**: the frequency list
+    is SEGMENTED, so it counts a four-character idiom (which every segmenter treats as one token) and cannot
+    see a free phrase like 对我来说 at all, while Tatoeba reads running text and can.
+  · **WHAT COUNTS AS A PHRASE RATHER THAN A WORD is the hardest judgement in the two decks**, and the
+    generous version of the rule was tried and measured and thrown away — see `.claude/`'s `phrasepick.js`
+    for the whole of it. The short version: the test is on the entry's FIRST sense (奶油 is "cream" and
+    carries "(coll.) effeminate" third), it is case-SENSITIVE (run blind it matched the "US" in "United
+    States" and the "i" in "i.e."), a `(coll.)` marker is NOT a third test (it admits a colloquial WORD as
+    readily as a phrase), and **length is no guide at all** — "a three-character headword is more often a
+    construction" took the candidate list from 472 to 37,681, Chinese having an enormous stock of
+    three-character nouns. Recall is stated rather than guessed: on a probe of thirty-six expressions a
+    beginner meets, 24 are already carded in the HSK decks, 5 are not in CC-CEDICT, 2 are idioms, and the
+    rule takes 4 of the remaining 5.
+  · **AN IDIOM MOSTLY HAS NO EXAMPLE SENTENCE, and that is the subject rather than a gap**: of 5,227
+    non-syllabus idioms only 361 appear in the Tatoeba corpus even once, an idiom being literary and the
+    corpus conversational. What stands in for it is CC-CEDICT's own lit./fig. gloss and the character
+    breakdown, which for a chengyu is most of the explanation.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/audit-2026-08-08.md` — a whole-project sweep for bugs, obsolete code and inconsistency: what was fixed
@@ -2182,10 +2356,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
   `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
   five-sentence description, so `credit` is the only place the attribution can go and it is written there
-  in full, URL included, because `.ar-wcredit` renders it as plain text rather than as a link. Since
-  Aug 2026 the plate's picture also OPENS (see "THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME" under
-  THE RELIQUARY), and the viewer's caption is built from those same three fields plus the artefact's own
-  name — nothing new is asked of an entry, and nothing is composed for it.
+  in full, URL included. Since Aug 2026 the plate's picture OPENS (see "THE PLATE'S PICTURE IS THE SITE'S
+  OWN MEDIA FRAME" under THE RELIQUARY), and the viewer's caption is built from those same three fields
+  plus the artefact's own name — nothing new is asked of an entry, and nothing is composed for it.
+  **THE PLATE ITSELF NO LONGER PRINTS THE CREDIT** (`.ar-wcredit`, deleted Aug 2026 on request): the viewer
+  carries it a tap away from the picture it belongs to, where on the plate it was a grey line under five
+  sentences it is not about. **The field is still REQUIRED** — `add-artefacts.js` and Admin → Artefacts both
+  refuse a `src` with no `credit`, and the viewer is what shows it — so this changes where the attribution
+  is read, never whether it exists.
   A batch is added with `node .claude/add-artefacts.js <batch.json>`, which enforces the
   content rules the file's own header states (exactly five sentences, 180–220 words with the imperial
   conversion NOT charged against the budget, a bolded first mention, a credit on any picture, an id that
@@ -2213,7 +2391,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
   walkthrough + feature blurbs → FAQ (collapsible `.faq-item`s) → **beta feedback form** → changelog →
-  credits/licenses). See the golden rule: append to today's entry on every ship.
+  credits/licenses). See the golden rule: append to today's entry on every ship, in ONE sentence.
+  **A 0fr GRID ROW ONLY COLLAPSES A CHILD WHOSE OWN MINIMUM IS ZERO, AND PADDING COUNTS TOWARDS THAT
+  MINIMUM** (Aug 2026, on a report from a phone: "collapsible sections don't collapse fully"). Both folds
+  here are the standard `display:grid; grid-template-rows:0fr → 1fr` with `min-height:0` on the child — and
+  the child was the padded `<ul>` / `<p>` itself, so a shut fold stayed ~16–18px tall and showed a CLIPPED
+  LINE of its own first sentence through that padding. It reads as a fold that half-works, and it was true
+  at every width; a phone is only where it was noticed. The fix is an unpadded wrapper (`.clog-in` /
+  `.faq-in`, `overflow:hidden`) between the grid and the padded content: the wrapper is what the row sizes,
+  and it really does go to 0. **Reach for the wrapper whenever a 0fr fold's content carries padding.**
   It also carries **`window.FOLIO_VERSION = { v, released }`** at the top — the shipped version, printed in the
   top-left corner of the home page by `versionLineHTML()` (see the golden rule above, and the bullet under
   "How the app is wired"). Nothing rewrites this file programmatically, so both are hand-edited together.
@@ -2958,6 +3144,57 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the search returns a pure electric blue at chroma 133, which is what the band exists to prevent.
     It reads 9.58:1, second only to the Book of Rites' 9.70 — which also corrects the City of God
     row's claim that its 9.42 was the highest on the shelf.
+    **The Odyssey COSTS NO COLOUR AT ALL, and that is the point of keying them by author** (Aug 2026):
+    `BOOK_AUTHOR_COLOR` is keyed on the `author` string the banner already prints, so Homer's second
+    book takes Homer's blue-indigo with no row added and no search run — which is exactly the outcome
+    the two Platos were the argument for. The band being as full as the Beowulf row records, a shelf
+    that keyed colour per BOOK rather than per author would by now be picking between a pair nobody
+    can tell apart and a hue that asserts a kinship the shelf does not mean.
+    **AND IT IS THE SIMPLEST LICENCE OF ANY TWO-COLUMN BOOK HERE** — the counterpart of the Iliad's,
+    on the same shelf and by the same translator, which is worth stating because the difference is
+    instructive rather than lucky. Perseus's Greek for the ILIAD is Monro and Allen's Oxford text, a
+    separate edition by two other men, so that book has to reason about a joint work's term and the
+    original comes out the harder half at 2051. Perseus's Greek for the ODYSSEY is the text printed on
+    the facing half of Murray's OWN 1919 Loeb volumes, credited to Murray: one publication, one life,
+    one date, both columns, life plus a hundred running to 2041 and nothing else to say. **Ask whose
+    text the original actually is before assuming a facing-page book inherits the translation's
+    licence** — and equally before assuming it does not. Its three layers were checked the same way
+    the Iliad's were: both revision histories READ (card breaks, proofreading, a DTD revision and the
+    EpiDoc conversion, and nothing else), and Perseus's OTHER English Odyssey rejected for the same
+    reason as its other Iliad — `perseus-eng4` is Butler "revised by Timothy Power and Gregory Nagy",
+    a modern layer carried by CC BY-SA rather than by an expiry. The easier copyright is attached to
+    the text that cannot honestly be shipped as its named translator's work, twice over now.
+    **The Aeneid is the FIFTH licence needing no qualification at all** (Aug 2026), after the Republic,
+    the Analects, the Peloponnesian War and the City of God, and it is the plainest of the five: the
+    poem is two thousand years old, Theodore C. Williams published his blank verse in Boston in 1910
+    and lived 1855–1915, and J. B. Greenough's Latin was published in 1881 and he lived 1833–1901, so
+    every layer clears the pre-1929 rule, life-plus-seventy AND life-plus-a-hundred, with the Perseus
+    CC BY-SA 4.0 layer on both columns as Ovid, Lucretius and Suetonius carry. Neither TEI header states
+    a licence, so both are covered by the repository's blanket grant, which is Suetonius's position.
+    **WILLIAMS'S DATES NEEDED THE BEOWULF CHECK ON TOP OF THE HUGO MAGNUS ONE**: Wikisource carries a
+    stray 1864 in its metadata beside 1855–1915 in its text, which is the shape that made A. J. Wyatt's
+    dates unusable — here it RESOLVES rather than blocking anything, Wikidata and his biography agreeing
+    at day precision, so the odd figure is a data slip. **A date that exists is not the same as a date
+    that is established, and the difference is whether anything else says the same thing.** There is
+    also a second Williams to keep apart from this one, as the Iliad has two Murrays: this is Theodore
+    CHICKERING Williams, the American Unitarian minister who Englished Virgil and Tibullus. Both
+    revision histories were READ, on the Antigone's rule, and neither carries a modern editorial layer —
+    they are scans, XML conversions and single-word OCR fixes. **DRYDEN WAS WEIGHED AND COST NOTHING TO
+    REFUSE**, which is the Nicomachean Ethics' trade in its easy direction: his 1697 Aeneid is free
+    everywhere and is seventeenth-century heroic couplets, the objection that ruled out Golding's Ovid
+    and Hobbes's Thucydides — and Perseus carries no Dryden here anyway, so unlike the Ethics the
+    readable column and the pairable column are the same column. Mandelbaum (1971), Fitzgerald (1983),
+    Lombardo (2005), Fagles (2006), Ruden (2008), Ferry (2017) and Bartsch (2021), with C. Day Lewis
+    (1952), are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the EURIPIDES
+    TEST had two kinship risks to clear rather than one — the Aeneid is the poem written in answer to
+    HOMER and the other great hexameter poem of the Augustan moment beside OVID — and three of the six
+    best candidates fail on exactly that (a blue 24 from Homer, a magenta-crimson 20 from Ovid, and the
+    best number of all, a green-teal at 19.7, 20 from LUCRETIUS). The dark oxblood taken instead is the
+    HOMER row's argument applied to a hue rather than a quarter: red holds three at L 22–34 and this
+    sits at L 13.3, so the family is crowded in hue and empty at this lightness; it is the only
+    candidate clearing all three kinship risks by more than the shelf's tightest pair (Ovid 29, Homer
+    62, Lucretius 72), and at 9.57:1 it is second on the shelf for contrast where three rivals scrape
+    4.60. The band was not widened, and was tested rather than assumed.
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
@@ -3760,19 +3997,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE CHEST IS THE LEVEL-UP CELEBRATION, not a second one after it.** `announceLevelUps` grants and
     opens; `congratsPopup` is no longer raised behind it, since two overlays for one event is two.
   · **AN UNOPENED CHEST QUEUES.** `S.chests` is a COUNT, not a flag: dismissing the overlay keeps the chest,
-    a second level while one waits adds to it, and both the home banner (`.chest-chip`, a `role="button"`
-    span inside the review BUTTON — a button inside a button is invalid, so the banner's own click handler
-    defers to it) and the account page say how many are owed.
+    and a second level while one waits adds to it.
     **…AND SINCE AUG 2026 THE READER CAN SAY SO, which is two changes that are one feature** (on request).
     `Save for later` stands beside the CLOSED chest and is removed the moment the lid opens — once an artefact
     has been drawn there is nothing left to defer — and it makes an existing guarantee visible rather than
     changing behaviour: dismissing the overlay always kept the chest, and nothing said so. Since a chest may
     now be deliberately put by, there has to be somewhere obvious to come back to it, so
-    **`chestBannerHTML` puts one at the very TOP of the account page** (`#chestSlot` / `#chestBanner`), rendered
-    by BOTH account views — a guest earns chests too, for the reason the signed-out Reliquary exists — and
-    rendered as nothing at all when none is waiting, a banner reading "0 chests" being one that looks broken.
-    The Reliquary's own "Open your chest" button stays; it is four sections down a long page, which is exactly
-    why the banner is not it. `refreshReliquary` fills and empties the slot in place, like the two blocks below.
+    **`chestBannerHTML` says one is waiting DIRECTLY ABOVE THE DAILY-STUDY BANNER** (`#chestSlot` /
+    `#chestBanner` in `PAGES.home`) — rendered as nothing at all when none is, a banner reading "0 chests"
+    being one that looks broken. `refreshReliquary` fills and empties the slot in place on whichever page is
+    open, so a chest opened from the home page can take its own notice away without a repaint.
+    **IT MOVED THERE FROM THE ACCOUNT PAGE, AND THE BANNER'S COUNT WENT WITH IT** (Aug 2026, on request:
+    "never display the number of chests in the daily study banner"). The two were the wrong way round — the
+    NOTICE, a sentence with a button beside it, sat on a page a reader has to go to, while the DAILY-STUDY
+    BANNER carried a bare `.chest-chip` count in its meta row: a fourth figure in a row of three, counting
+    something that is not a pile of cards. Both `#chestSlot`s are gone from the account views and
+    `.chest-chip` is deleted from app.js and styles.css alike. The Reliquary's own "Open your chest" button
+    stays, since that page still holds the collection. `#chestSlot:empty{display:none}` matters on the home
+    page in a way it never did on the account one: `.banners` is a flex column with a gap, so an empty slot
+    would spend one and leave a hole above the banner on every day nothing is waiting.
   · **THE LID IS SHALLOW ON PURPOSE** (Aug 2026, on request: "the top is too rounded"). The dome was an arc of
     ry 30 over a 92-wide lid — very nearly a half-circle, which reads as a barrel or a cauldron rather than a
     chest — and is ry 16 now, with the 14 units it gave up going to the box. `CHEST_SVG` is drawn at 190px in
@@ -3998,9 +4241,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **GROUPS — the reader's own containers in the review list** (`S.deckGroups` / `S.deckNest`, `GROUP_PREFIX`
     / `isGroupId` / `groupCreate` / `groupDelete` / `groupTitle` / `groupColor` / `setNestParent` /
     `nestChildren` / `nestForget` / `nestWouldLoop` / `repaintReviewHues`; `.deck-group` / `.dk-into` /
-    `.rv-newgroup` / `.dm-swatch` in styles.css. Aug 2026, on request). A group is made from **"+ New group"
-    at the bottom left of the Daily-study banner**, holds decks dragged into it, folds with a chevron, can be
-    renamed, can be given a colour every deck inside takes, and studies everything under it. **AN ADDED
+    `.rv-newgroup` / `.rv-foot` / `.dm-swatch` in styles.css. Aug 2026, on request). A group is made from
+    **"+ New group" at the bottom left of the DECK LIST**, holds decks dragged into it, folds with a chevron,
+    can be renamed, can be given a colour every deck inside takes, and studies everything under it.
+    **THAT CONTROL STOOD INSIDE THE DAILY-STUDY BANNER FOR A FORTNIGHT AND MOVED OUT ON REQUEST** (Aug 2026):
+    a group is made out of the rows BELOW the banner, so the control belongs at the end of those rows rather
+    than in the block above them. It shares a footer line (`.rv-foot`) with `.rv-lip`, which hangs off the
+    group's bottom edge at the other end — a block stacked between the two would take that edge away from the
+    lip, which is why they are one row and not two — and the lip is held right by `margin-inline-start:auto`
+    rather than by `justify-content:space-between`, which on a one-item row (no decks yet, so no "+ New
+    group") would put the lip at the START. Out of the banner it is also a real `<button>` again, where a
+    control inside a button had to be a `role="button"` span with its own keydown handler that the banner's
+    click handler deferred to. **AN ADDED
     COLLECTION IS ONE TOO** — that is the request's own reasoning and it decided the shape of the rest: a
     collection holds no cards itself, only the decks inside it do, so a root collection with rows under it is
     drawn as a group header rather than as a deck row.
@@ -4024,9 +4276,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     record with a `title` is a group the reader made, a record with only a `color` is an override on
     something the tree already names.
     **THE HUE IS INHERITED DOWN THE CONTAINER CHAIN** rather than looked up per row — that is the whole of
-    "changes the colour of all decks inside it" — and **only the header is darkened** (52% against the rows'
-    30%, with its own `body.night` pair, which `.active-deck.context` already had to learn: `body.night
-    .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order).
+    "changes the colour of all decks inside it" — and **only the header is darkened** (38% against the rows'
+    30%, with its own `body.night` pair at 28%, which `.active-deck.context` already had to learn: `body.night
+    .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order). It was 52% / 40% and
+    came down on request (Aug 2026): the three pile counts sit at the LEFT of the header, in the darkest end
+    of the gradient, and at that strength they were hard to read.
+    **A HEADER IS SET AND FURNISHED LIKE THE ROWS UNDER IT** (Aug 2026, on request). Its title used to take
+    `--display` two sizes down, bolder, letterspaced and in capitals, and it carried a small mono `.dg-count`
+    ("N cards") where a deck row carries its progress bar. Both are gone: `.active-deck .dk-title` answers for
+    the header too, and it draws `adProg` like everything else on the list, so a header and its decks no
+    longer answer the same question two different ways. What still marks it as a header is the wash above and
+    the indent of the rows below. `adProg` gained `data-total` / `data-studied` with it — nothing renders
+    them, but a percentage alone cannot say how many cards a row counts, which is exactly what has to be
+    readable when a deck is dragged from one container into another (`test-review-decks` reads them).
     **THE MIDDLE OF A ROW MEANS "INSIDE", THE EDGES MEAN "BESIDE"** (`dropTargetAt`, `DROP_EDGE` 0.34). One
     gesture does both "drag a deck into a group" and "drop a deck on another deck to make it a subdeck", and
     without that split there would be nowhere left to aim between two rows. Positions are read from the
@@ -4190,10 +4452,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **THE SCHEDULER — Anki's SM-2, ported (Aug 2026, on request).** The `THE SCHEDULER` block in app.js, just above the SRS
   helpers. It replaced an approximation of Anki with the thing itself, on the request to "copy the entire spaced interval
   system exactly from Anki".
-  · **The whole of it is PURE** — `schedAnswer(card, grade, t, seed)` returns a NEW record and reads no global, no DOM and
-    no clock beyond its `t`. That is what lets `.claude/test-scheduler.js` walk every path as arithmetic rather than
+  · **The whole of it is PURE** — `schedAnswer(card, grade, t, seed, cfg)` returns a NEW record and reads no global, no DOM
+    and no clock beyond its `t`. That is what lets `.claude/test-scheduler.js` walk every path as arithmetic rather than
     through a browser, and it is also what keeps the undo snapshot valid (the caller's record is never mutated).
     `grade()` is now only the bookkeeping around it: the review log, the streak, the day's new-card count, level-ups.
+    **THE FOUR IMPURE LOOKUPS SIT BELOW THE `/* ---------- SRS ---------- */` MARKER ON PURPOSE** — `schedModeOf`,
+    `deckSchedCfg`, `cardEntryId` and `schedCfgFor` read `S`, `UCARDS` and `cardLeaves`, and that marker is where
+    `test-scheduler.js` STOPS SLICING. They were written above it first and the purity assertion caught them at once;
+    keep new config readers on that side of the line, and pass the resolved `cfg` down rather than looking it up inside
+    the arithmetic.
   · **`SCHED` holds Anki's defaults in one place** — learning steps `1m 10m`, relearning `10m`, graduating 1 day, easy
     4 days, starting ease 2.5 (floor 1.3), hard ×1.2, easy bonus ×1.35, lapse ×0 with a 1-day minimum, max 36500 days,
     leech at 8 lapses. There is deliberately **no UI for these** — the request was for Anki's schedule, not Anki's deck
@@ -4220,7 +4487,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a few minutes the wrong side of the cut-off.
   · `S.intro.count` (the daily new-card cap via `newRemainingToday`) is still incremented only on a card's FIRST grade
     (`fresh`), so a requeued learning card is never re-counted.
-  · **Guarded by `.claude/test-scheduler.js` (62 assertions, no browser, no dependencies)** — including the ordering
+  · **Guarded by `.claude/test-scheduler.js` (127 assertions, no browser, no dependencies)** — including the ordering
     guarantee Hard < Good < Easy over 1,600 interval/ease combinations, that preview and grade agree over 360 cases,
     that nothing is ever scheduled into the past, and that old records back-fill. Its two most useful finds were both
     invisible on the page: the ordering floor walking Easy past the maximum interval, and the preview/grade clock
@@ -4229,6 +4496,215 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     its three phrasings each time it is shown.
   · **Re-run both after touching `SCHED` / `schedAnswer` / `schedPreview` / `schedPass` / `schedFuzz` / `schedIsLearning`
     / `fmtInterval`, or the requeue line in `grade()`.**
+- **FSRS, CHOSEN PER DECK (Aug 2026, on request).** The `FSRS` block in app.js, between SM-2 and the SRS helpers.
+  SM-2 asks *how did that go* and multiplies an interval; FSRS models the memory — a **stability** (the delay at which
+  recall is about 90%) and a **difficulty** (1–10) carried on the card record beside the interval — and computes the delay
+  at which the reader's own target retention is reached. A deck is on one or the other; the reader also says what they are
+  aiming for (`retention`, 0.70–0.98, default 0.90).
+  · **IT IS FSRS-6 AND IT WAS NOT WRITTEN FROM MEMORY, which is the most important thing on this bullet.** Every formula
+    and all 21 default parameters were read off the reference implementation (`py-fsrs`, open-spaced-repetition), and the
+    arithmetic is pinned against vectors **generated by it** — `.claude/fsrs-vectors.json`, written by
+    `.claude/gen-fsrs-vectors.py` (a dev-only script; `py-fsrs` is installed OUTSIDE the repo, like Playwright). A
+    scheduler that is subtly wrong reports nothing, throws nothing and quietly teaches every reader worse, so **a change
+    to any `fsrs*` function is verified against the fixture and never by eye**. Regenerate the fixture only when
+    deliberately moving to a new FSRS version, and say so — a fixture regenerated to match a change proves nothing.
+    **The fixture RECORDS which reference produced it** (`ref`, printed by test-scheduler.js — `py-fsrs 6.3.2` today),
+    for exactly that reason: without it there is nothing to tell a deliberate version bump from a file edited to fit a
+    bug. Verified with `/tmp/fsrsenv/bin/python .claude/gen-fsrs-vectors.py` regenerating it byte-identically.
+  · **FSRS REPLACES THE INTERVAL ARITHMETIC AND NOTHING ELSE**, which is also how Anki does it. The statuses, the learning
+    steps (`1m 10m`), the relearning step, the fuzz, the day boundary, the requeue rule, the leech count and the whole of
+    `grade()`'s bookkeeping are untouched: a new card still walks the steps, and FSRS decides where it lands when it
+    graduates. So `fsrsAnswer` mirrors `schedAnswer`'s shape exactly and `fsrsPreviewIvs` mirrors `schedPreview`'s, which
+    is what keeps the grade buttons honest under both.
+  · **DECAY AND FACTOR ARE DERIVED FROM `w20`, not fixed** — that is FSRS-6's whole addition over FSRS-5 (the forgetting
+    curve's shape became a fitted parameter), so `fsrsDecay`/`fsrsFactor` must never be written as constants or a reader's
+    own pasted parameters would be half-ignored.
+  · **SEEDING: interval → stability, and the difficulty is NOT guessed from the ease** (`fsrsSeed`). Turning FSRS on
+    mid-deck must not throw away what the reader has learned, and an SM-2 interval and an FSRS stability are the same
+    thing measured the same way, so the interval carries straight across. The ease is a different quantity on a different
+    scale with a different meaning, so a seeded card starts at the **Good initial difficulty** and lets its next few
+    reviews say what it really is; a confident wrong difficulty is worse than an honest default. A card with no interval
+    at all is simply new to FSRS.
+  · **PER-DECK, and the pooled review honours each card's OWN deck** (`schedModeOf` / `deckSchedCfg` / `cardEntryId` /
+    `schedCfgFor`, all below the purity marker). The mode lives in `S.deckOpts[entryId].sched`, beside the daily limits
+    and question variety and written by the same `setDeckLimits`, so it syncs and needs no field of its own and **nothing
+    migrates** — an absent key is SM-2, which is every existing deck. `cardEntryId` is what makes a card studied from the
+    pooled review, from its own row or from a deep link get the same scheduler. Being in `deckOpts` also means the choice
+    **survives Settings → Reset progress** (`deckOpts` is in `RESET_KEEPS`), which is right: the schedule is cleared and
+    every card's stability goes with it, but how the reader wants their decks scheduled is a preference, not history.
+  · **A READER'S OWN PARAMETERS ARE ACCEPTED OR REFUSED, never half-taken** (`setDeckFsrsParams`): 21 finite numbers or an
+    error naming the count, and an empty box clears them back to the defaults. Somebody who has had FSRS optimised in Anki
+    should not have to lose that; Folio fits its own from the review archive (see THE FSRS OPTIMISER below).
+  · **ELAPSED DAYS ARE WHOLE AND FLOORED**, which is the reference's convention (`(now - last).days`) and which Folio got
+    WRONG for the first few hours of FSRS's life, reading the same delay as a fraction. It is not a rounding detail: the
+    forgetting curve is evaluated at that number, so a card answered 1.9 days late was scored at 1.9 where every parameter
+    set in the world — the defaults, and any set a reader pastes out of Anki — was fitted against 1. **The fixture could
+    not see it because every gap in it was a whole number of days**; there are fractional gaps in it now, and they fail
+    loudly if this is ever un-fixed (worst stability error 7.65 when it was).
+  · **NO OTHER STUDY APP IS NAMED IN A SETTINGS SHEET** (Aug 2026, on request). The deck sheet's Scheduling row read
+    "SM-2, the classic Anki schedule", the two Scheduling rows called SM-2 "the classic Anki schedule" and FSRS "Anki's
+    default", and the parameters note offered to take a set "if Anki has already optimised parameters for you" — all
+    four are reworded to describe what the thing DOES, which is what a reader choosing between two schedulers needs;
+    the last says "fitted for you elsewhere". **The debt is real, so it is stated once and properly**: Anki and FSRS
+    are both credited in the About page's "Credits & sources" list, naming what Folio's schedule is modelled on and
+    that it shares no code with either. The code COMMENTS in the scheduler blocks still name Anki freely — they are
+    where the reasoning lives and are not user-facing.
+  · **The sheet is `openDeckSched(id)`**, reached from a deck's own long-press options ("Scheduling"). The retention box
+    and the parameters box are drawn only under FSRS, since neither means anything under SM-2. **`deckSheet` honours
+    `[data-dmfocus]`** because of this sheet: its own `setTimeout(0)` focus ran after the caller's and left a focus ring on
+    the un-chosen row beside a tick on the chosen one — a general fix, so any sheet may nominate its initial focus now.
+  · Card info shows **stability and difficulty instead of the ease** under FSRS, and names the scheduler with the target
+    retention — the ease is a leftover there and showing it would invite a reader to read meaning into a number nothing
+    uses. Two things about that panel are worth carrying, and both shipped WRONG for an hour and were caught by looking
+    at it rather than by any test. **THE 90 IN "the delay at ~90% recall" IS NOT THE READER'S TARGET**: stability is
+    defined at 90% whatever retention the deck asks for, so on a deck set to 85% that annotation sat four rows above
+    "aiming to remember 85%" and read as the setting having been ignored — it said "the 90% interval" and now says what
+    it measures. And the review-history table's sixth column is **whichever number the scheduler actually uses**, headed
+    from the card's own mode (an ease as a percentage under SM-2, a difficulty out of 10 under FSRS): `logReviewEntry`
+    writes `post.difficulty` where there is one and `post.ease` otherwise, since **only `fsrsAnswer` ever writes a
+    difficulty**, so the row says for itself which scheduler produced it with no extra field. That is also what
+    `review_log.ease100` has always documented. The one case the two can disagree is a deck switched between schedulers
+    part-way through, where older rows keep their own values under the newer heading — recorded rather than repaired.
+  · **Guarded by `.claude/test-scheduler.js` sections 10 and 10b** (the fixture, to 1e-9, over 768 steps, plus the
+    properties a fixture cannot state: recall never loses stability, a lapse never gains it, difficulty stays in 1–10,
+    stability never falls below its floor, nothing is scheduled into the past, and seeding takes the interval and not the
+    ease) and by **`.claude/test-review-decks.js` sections 11–14** end to end — the sheet, the per-deck isolation (one deck
+    on FSRS while its neighbour stays on SM-2, both studied from the pooled review), the seeding, and what Card info says.
+- **LOAD BALANCING AND EASY DAYS (Aug 2026, on request).** `schedFuzzRange` / `schedSpread` / `LOAD_AVOID` /
+  `LOAD_NEAR` in the pure scheduler, `loadMapNow` / `bumpLoadMap` / `easyDays` / `easyDaysOn` /
+  `loadBalanceOn` below the SRS marker, and two rows in **Settings → Study**. Anki's two features, and they
+  are one mechanism: the fuzz has always spread an interval over a few days at random, and this decides
+  WHICH of those days rather than leaving it to a hash — the quietest one, and never a day the reader has
+  said they do not study if the range holds anything else.
+  · **IT REPLACES THE FUZZ'S CHOICE AND NOTHING ELSE**, which is what makes it safe to turn on mid-collection
+    and is asserted directly: the day chosen is always inside the range the unbalanced fuzz could already
+    have chosen, so a schedule cannot be quietly lengthened or shortened. `schedFuzz` is now `schedFuzzRange`
+    plus the same hash pick, so with no map the result is byte-for-byte what it always was.
+  · **ONE INSERTION POINT COVERS BOTH SCHEDULERS.** It is in `schedPass`, and `fsrsAnswer` routes its own
+    interval through `schedPass` too — so FSRS and SM-2 are balanced by the same code and neither knows about
+    it. Anki ties easy days to FSRS; there is no reason to here.
+  · **HARD < GOOD < EASY SURVIVES IT because the floor is applied AFTER.** The three ranges overlap, so the
+    balancer can hand back the same day for two grades; `schedPass`'s `Math.max(floor, …)` is what pulls them
+    apart again. Move the balancing below the floor and the ordering goes — which is why the test walks every
+    interval and ease with a deliberately lumpy pile.
+  · **THE MAP TRAVELS ON `cfg`, and that is the load-bearing decision.** It keeps the arithmetic pure (no
+    reader of `S` above the marker) and, more importantly, it is what keeps **the preview and the grade in
+    agreement**: both are handed the same cfg, so a button reading "12d" still schedules twelve days. A map
+    read from a global at each call could differ between the two, which is the clock-seeded-fuzz mistake in a
+    new coat — and it is asserted, not assumed.
+  · **BOTH ARE DEFAULT OFF**, and `loadMapNow` returns null unless one of them is on, so a reader who has not
+    asked pays nothing and their intervals are exactly what they were. That is the house rule rather than a
+    view about which default is better — Anki's own balancer defaults on.
+  · **A MARKED DAY IS AVOIDED, NOT FORBIDDEN** (`LOAD_AVOID` is a large number, not `Infinity`). If every day
+    in a card's range is marked it still lands on one: a card that cannot be scheduled at all is worse than
+    one arriving on a Sunday, and the loop must not fall through to nothing. `LOAD_NEAR` breaks ties toward
+    the interval the scheduler actually wanted, so a level pile leaves the card where it would have been.
+  · **STORED SUNDAY-FIRST, DRAWN MONDAY-FIRST.** `S.settings.easyDays` is indexed by `Date#getDay`, so the
+    scheduler steps the weekday modularly with no conversion at all; the UI orders them Monday-first to match
+    the heatmap. Two honest approximations are stated in the code rather than hidden: the weekday is stepped
+    from `dow0` rather than re-derived per candidate, so it can be a day out across a daylight-saving change,
+    and the card being rescheduled still counts itself in its OLD bucket, which is almost never inside the
+    range it is moving to.
+  · **The map is cached for the DAY and `bumpLoadMap()` is called wherever a due date moves** — `grade()`,
+    `applySetDue`, `applyForget`, and both settings. A stale map corrupts nothing (the worst case is a card
+    landing on a day that filled up since) but would slowly stop doing the job it exists for.
+  · **The row for the seven days STACKS** (`.set-row-stack`): `.set-row` is a flex line with `flex:1` prose
+    and a `flex:none` control, which is right for a switch and hopeless for seven buttons — in the settings
+    column they claimed the whole line and squeezed the description to one word per line. Found by looking at
+    the page, which is the only way a squeeze like that shows up.
+- **THE FSRS OPTIMISER (Aug 2026, on request).** The `THE FSRS OPTIMISER` block in app.js, inside the pure scheduler slice.
+  FSRS's 21 parameters describe how a memory fades; the defaults describe the average of millions of reviews and these
+  describe the reader's own. It is what the per-review log was uncapped FOR — a card record keeps only its latest review,
+  so none of this can be reconstructed after the fact.
+  · **WHAT IS FITTED.** Each card's reviews are a sequence: from the state after review i-1 and the delay to review i,
+    FSRS predicts the chance of recall and the answer says what happened (anything but Again is a recall). The loss is the
+    mean binary cross-entropy between the two. **Same-day reviews are excluded** (retrievability is defined at a scale of
+    days) **and so is a card's first review** (no prior state to predict from) — both the reference's exclusions, and both
+    the reason `fsrsLossReviews` is much smaller than the row count and is computed rather than approximated.
+  · **THE LOSS IS CHECKED AGAINST THE REFERENCE; THE DESCENT IS NOT, and that division is the whole design.** Two gradient
+    descents never land on the same 21 numbers, so comparing the OUTPUT against py-fsrs would be comparing noise — while
+    the loss being descended is a fixed function of the parameters and the data, and getting it wrong is how an optimiser
+    confidently walks a reader's schedule somewhere worse. So the fixture carries a synthetic 60-card history scored by
+    the reference's own `Optimizer._compute_batch_loss` at two parameter sets, and `fsrsBatchLoss` is held to it **to
+    1e-9**. (That needs torch/pandas/tqdm in the scratch venv beside `fsrs`: `pip install torch --index-url
+    https://download.pytorch.org/whl/cpu`, then `pip install pandas tqdm`.)
+  · **THE GRADIENT IS NUMERICAL**, the other deliberate departure: the reference differentiates a torch graph and Folio has
+    no torch and no build step. Hand-derived analytic gradients over 21 parameters would be ~200 lines of calculus with
+    nothing to check them against — the exact mistake this feature exists to avoid — where a finite difference is derived
+    mechanically from the loss, which IS checked. It costs 22 evaluations a step. **Full-batch, where the reference takes
+    mini-batches**: a mini-batch gradient needs card states carried across the batch boundary, which autograd gets free and
+    a finite difference does not, and the full batch is what the reference itself selects its best epoch on anyway.
+  · **IT IS ALLOWED TO REFUSE, and both refusals matter.** Too little history — the reference's own floor of one
+    mini-batch, 512 loss-bearing reviews — returns `reason:"few"` **naming the number it has and the number it wants**,
+    because "not enough" with no figure is untestable by the reader. And a fit that does not beat the defaults **on a
+    held-out tail it never trained on** returns `reason:"noBetter"`: that guard is Folio's own and is the one that counts,
+    since a reader pressing this is handing over their schedule and the honest answer to "your history does not support
+    better parameters" is to say so. The split is **within each card's sequence, not by card** — splitting by card would
+    judge a card the fit had never seen from a cold start, where a tail is the fair question (given what this card did,
+    does the fitted set predict what it did NEXT any better?).
+  · **A SEQUENCE MUST BEGIN AT THE CARD'S FIRST REVIEW** (`fsrsSequences`, which lives beside `revRead` and NOT in the
+    optimiser — it is the only part that knows what a row is, and the row shape is documented as living in exactly two
+    places). A card whose earliest row is already in the review state has a stability the log does not record, so it is
+    dropped rather than guessed at. That is why the optimiser stays quiet until a reader has history made SINCE the log
+    started, and why the refusal says so in those words.
+  · **The whole ARCHIVE is fetched, paged** (`revFetchAll`) — PostgREST caps a response at 1,000 rows, and fitting to the
+    first thousand of somebody's four thousand reviews without saying so is the quiet kind of wrong. A failure returns
+    `null`, which the caller tells apart from a reader who genuinely has nothing; signed out, the local window is used.
+  · **It runs ON THE PAGE, a step at a time** (`fsrsOptimiseStart` / `fsrsOptimiseStep` / `fsrsOptimiseFinish`, with
+    `fsrsOptimise` as the one-call form the tests use), repainting between steps — a few seconds of arithmetic behind a
+    frozen dialog reads as a crash. **There is deliberately no Web Worker**: one needs its own file or a `blob:` URL, and
+    `script-src 'self'` is the one line of the CSP this project will not weaken for a progress bar.
+  · **The result is STAGED in the parameters box, not saved** — Optimise asks, Save answers, which is the two-step every
+    other field on that sheet already has and the difference between offering a schedule and changing one behind the
+    reader's back.
+  · **Guarded by `.claude/test-scheduler.js` section 10c** (the loss against the reference, the reference's own clamp
+    bounds, both refusals, and a RECOVERY test — a history generated from a known parameter set must be predicted better
+    than the defaults on a held-out tail, which is what stands in for a reference check on the output) and by
+    **`.claude/test-review-decks.js` section 15** for the path (the button under FSRS and not under SM-2, a run that
+    finishes without freezing its sheet, nothing saved until Save, and the too-little-history refusal in words).
+- **THE NOTE→CARDS EXPANSION AND `availableCardIdSet` ARE CACHED** (`_uStudyCache` / `_availCache` /
+  `uCacheBust` / `uDeckStudyIdsFor`, Aug 2026, same report as the sanitizer revision stamp under COMMUNITY
+  DECKS). Both are DERIVED on every read, which is what keeps them honest — a card's `sub` and a type's
+  template list change under them and nothing has to be kept in step — and both are O(the whole deck). One
+  home render asked for the expansion **sixteen times**: `entryPiles` per row, `reviewQueue`, `entryInfo`,
+  the progress bar on each row, and `availableCardIdSet`, itself called nine times. On the HSK 3.0 deck
+  that was 174,336 `uNoteCardIds` calls and ~270ms per repaint **with a single row on the page**, before
+  its nine subdecks were drawn at all; it is ~150ms with ten rows now.
+  · **Keyed by (deck, subdeck), and thrown away WHOLE** rather than reasoned about: a stale entry would
+    silently deal the wrong cards, so `uCacheBust` keeps nothing. Every write goes through it — the
+    Studio's mutations all end in `uDeckSave`, and `uDeckMount` / `uDeckDelete` are the only other ways
+    the stores move. `availableCardIdSet` depends on ONE thing more, the collection tree, hence the bust
+    in **`applyAdminEdits`**.
+  · **The declarations sit beside `applyAdminEdits`, far from the code that fills them**, and must stay
+    there: that function busts them and runs at BOOT, so a `let` down beside the community block would
+    still be in its temporal dead zone — a ReferenceError before the first paint rather than anything
+    subtle.
+  · **Both hand back the live array/Set, not a copy.** Every caller was audited first: they all `filter`,
+    `forEach`, `some` or read `.length`, and nothing sorts or pushes in place. **Keep it that way** — a
+    caller that sorted what `entryCardIds` returns would corrupt the cache for everything else on the page.
+- **BURY SIBLINGS (Aug 2026, on request).** Answering one card of a note puts the note's OTHER cards off until tomorrow.
+  It is what makes asking a word in both directions worth doing: 中 → middle and then middle → 中 an hour later tests the
+  last hour rather than the word. Template-major ordering (see the card-types bullet) keeps siblings apart WITHIN a
+  session; this keeps them apart across the day, which is the half that matters.
+  · **THE REGISTER EXPIRES BY BEING READ.** `S.buried[id]` is the DAY it was buried (`dayKey`, so the reader's own day
+    boundary), never a boolean — so nothing has to run at midnight, and a card buried yesterday simply reads as not buried
+    today. Stale entries are swept on write, which is where `deckDay` does it too. It is in `defaultState` AND
+    `PROGRESS_FIELDS`: burying is a fact about the reader's day, so a phone and a laptop agree about it.
+  · **Burying is for today and is Folio's decision; SUSPENDING is for ever and is the reader's** — two registers, two
+    meanings, and neither should grow into the other.
+  · **Only a community note can have siblings** (a curated card is one card), so `burySiblings` returns immediately
+    everywhere else, and `entryHasSiblings(id)` is what decides whether the switch is drawn at all — a control that can
+    only ever do nothing is worse than none. Default **ON** (`deckBurySiblings` tests `!== false`), so nothing migrates.
+  · **A card already answered today is not buried.** Burying it would record a fact that changes nothing and would show in
+    the count as work removed that had already been done.
+  · **THE LIVE QUEUE HAS TO BE FILTERED TOO.** Every queue built after the grade already excludes the buried sibling; the
+    one in hand was built before it, so `doGrade` filters it — and **the reader is told once a session**, because the first
+    time the day's count drops by more than one that needs explaining and the tenth time it is just how the deck works.
+  · **Undo un-buries**, through the ordinary snapshot (`buried` is copied into it whole), so a mis-grade does not cost a
+    day on two cards.
+  · Guarded by `.claude/test-card-types.js`'s `buryChecks` — including that the register records the DAY (asserted by
+    **ageing it** rather than by waiting), that the switch is absent on a curated deck, and that with it off nothing is
+    buried.
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
@@ -4324,6 +4800,182 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `body.grading .study-shell .undobtn{display:none}` is what keeps a revealed card from showing two, and
   `.grade-wrap .gb-undo{display:none}` keeps the desktop on the study bar's single copy. Both halves are
   asserted by `test-layout.js` — a duplicate and a disappearance look identical in a screenshot of one state.
+- **FLAGS, SET DUE DATE, FORGET, AND THE CARD BROWSER (Aug 2026, on request).** Folio had come to record a
+  great deal about every card — a state, an interval, an ease or a stability, a lapse count, tags, and since
+  this month every individual review — and gave a reader no way to look at any of it except one card at a
+  time, on whichever card happened to be in front of them. These four land together because they are one
+  gesture: find the card, then do something to it.
+  · **A FLAG IS NOT `cardColor`, and the two must never be merged however alike they look.** `cardColor` is
+    an ADMIN's private marker on a card in the editor: it rides in `ADMIN_EDITS`, it is published to every
+    reader through the content overrides, and it means "I, who write these cards, have a note about this
+    one". A **flag** (`S.flags[id]` → 1–7) is the READER's, it rides in their own progress, and nobody else
+    ever sees it. One is a fact about the content, the other a fact about somebody's studying.
+    Anki's seven, in Anki's order and under Anki's names, because a reader who has flagged cards before will
+    press Ctrl+1 and mean red by it. **The chord has to be Ctrl** — 1–4 are the grade keys — and it sits
+    ABOVE the Enter/Space guard in the study page's key handler but is deliberately allowed to fire while
+    the cloze box has focus, since Ctrl+digit types nothing into a text box and a reader mid-guess is
+    exactly who wants to flag the card. **Setting the flag a card already carries CLEARS it**, which is what
+    makes one chord enough for both directions; the sheet toggles on ONE card for the same reason and SETS
+    on many, a bulk action that toggled leaving a mixed selection half red and half not.
+    **It is in `RESET_KEEPS`**: a flag is an annotation rather than history, and Settings → Reset progress
+    names the study history, the streak and the badges, none of which a flag is.
+    **The colours are TOKENS** (`--flag-1` … `--flag-7`, with night and high-contrast values of their own),
+    for the rarity palette's reason at more than twice the scale — seven hues told apart at a glance, and a
+    hue mixed toward a dark paper stops being the hue that identifies it. **The dot is never coloured TEXT**:
+    seven hues legible as 10px type on sixteen light papers and eighteen dark ones do not exist, the name is
+    beside it in the ordinary ink, and the picker prints the FIGURE on each swatch so the seven are told
+    apart by position and number as well as by colour.
+    **Flagging repaints the CARD, not the page** (`renderCard()`, never `render()`) — `render()` rebuilds the
+    study page from the stored session and would take a revealed answer away, and flagging a card is not a
+    reason to un-reveal it. Guarded in both directions.
+  · **`schedSetDue` and `schedForget` are PURE and live above the `/* ---------- SRS ---------- */` marker**,
+    beside `schedAnswer`, so `test-cards.js` walks them as arithmetic and the undo snapshot stays valid (each
+    returns a NEW record; the caller's is never mutated). **They belong to the scheduler rather than to a
+    button** because either written at the call site would be five field writes with a rule behind each —
+    what happens to a learning card's step, whether a lapsed card keeps the interval it was returning to,
+    whether the FSRS memory state survives — and those rules would then exist in as many places as offered
+    the action. Here there is one of each, and the browser's bulk actions and the single-card sheets are the
+    same code.
+    **Set due date takes Anki's own input** (`7`, `7!`, `4-7`) and its instant is `t + days * DAY`, computed
+    the way `schedAnswer` computes every other due date rather than snapped to the reader's day boundary —
+    deliberate consistency, since a card graded at ten in the evening with a one-day interval already comes
+    due at ten the next evening. A **new or learning card becomes a REVIEW card**, which is Anki's behaviour
+    and the only coherent one: left in learning, the date the reader has just chosen is overwritten by the
+    very next grade, which walks the steps, and nothing on screen would say so. A **range is resolved per
+    card, seeded by the card's own id**, so pushing a hundred cards spreads them — the point of offering a
+    range — and re-running the same action puts them on the same days rather than reshuffling.
+    **Forget KEEPS the record rather than deleting it**, and that is the load-bearing part: Folio's XP is the
+    number of distinct cards studied, so dropping the record would silently take back a level earned by
+    studying something the reader did in fact study, and `first` is what every per-deck new-card count is
+    derived from. `resetCounts` is Anki's own checkbox and is off by default — those reviews happened. The
+    FSRS memory state always goes, forgetting being exactly the assertion that it was wrong.
+  · **THE BROWSER (`PAGES.browse` at `#browse`)** — a searchable, sortable table over every card
+    `availableCardIdSet()` yields, which is the right universe rather than every id in the tree: it already
+    leaves out the coming-soon collections and already expands a community note into its several cards, so
+    the browser lists exactly what the review could deal. Rows carry a checkbox, the flag, the card, its
+    deck, its state, when it is due, its interval, its reviews and its lapses; selecting any of them raises a
+    bulk bar (flag, set due date, forget, suspend, unsuspend). A row opens Card info, where the same actions
+    live on one card — **the actions are IN Card info because that panel is already "everything about this
+    card", and the two calls it was missing are both answers to what it shows**: a due date the reader
+    disagrees with, and a lapse count saying the card never stuck.
+    **THE SEARCH IS THE HALF THAT MATTERS**, and it is Anki's syntax cut to a documented subset: `is:`,
+    `flag:`, `prop:`, `deck:`, `tag:`, `introduced:`, `rated:`, terms ANDed, any of them negatable with a
+    leading `-`, phrases quotable. `browseTokens` and `browsePredicate` are **PURE** — a row is a plain
+    object and nothing in them reads `S` — which is what lets the test put thirty queries through them as
+    arithmetic. **An operator Folio does not know stays FREE TEXT rather than being dropped**, so a typo
+    searches for itself and narrows to nothing instead of matching everything; and **an operator whose VALUE
+    makes no sense matches NOTHING rather than everything**, for the same reason. Both failures look like
+    "the search is broken" from one side only.
+    **TWO DEPARTURES FROM ANKI, and the page says so rather than leaving them to be discovered.** There is
+    **no `added:`** — Anki's counts from when a note was created and a curated Folio card has no creation
+    date at all, it ships in `data.js` — so the operator is `introduced:` and means the day a card was first
+    STUDIED, which `first` already records. Calling it `added:` would have been a figure that looks like
+    Anki's and answers a different question. And **`rated:` reads the per-review log**, so it cannot see
+    further back than the log does.
+    **The deck column prints the LEAF's title and the full path is on the row's tooltip** — a full path is
+    forty-odd characters, which in a table column is an ellipsis and nothing else ("World History · Or…"
+    tells a reader strictly less than "Origins"). **Below 640px five of the nine columns go** rather than
+    being squeezed: at 390px the card's own title is the only part of a row with no shorter form, so anything
+    taking width from it is what gives, and the rest is one tap away in Card info.
+    **`BROWSE_CAP` (300) bounds what is DRAWN and the count line always states the true total** with the cap
+    named — a silent truncation would read as a search that found 300 things.
+    **The query, the column and the selection are module-level and deliberately NOT in `S`**: they are a way
+    of LOOKING at the collection rather than a preference about Folio, so they survive navigating away and
+    back within a session and reset on reload — the glossary record's own call. Typing repaints IN PLACE
+    rather than re-rendering, or the caret leaves the box being typed in.
+    **THERE ARE TWO WAYS IN and both are asserted**, because they serve different readers: the **account
+    page**, at the head of the reader's own record — **including the SIGNED-OUT one**, which is the case that
+    would have been missed, since everything else there is behind the sign-in wall for being about an ACCOUNT
+    where this is about the cards on this device, and a guest studies, flags and forgets like anybody else —
+    and a **deck's long-press options sheet**, which is the everyday path, the moment somebody wants to find
+    a card usually being the moment they are looking at their decks. `setActiveTab` maps the route to
+    `account`, as it does `glossary`.
+- **THE PER-REVIEW LOG (Aug 2026, on request)** — `S.revlog`, one row per answer, written by
+  **`logReviewEntry`** from `grade()` and read by **`revRead`** / `revForCard` / `revWindow`. The daily
+  `reviewLog` below keeps three numbers a day, which is all a heatmap and a retention rate need and is the
+  whole of what a past day can say; this keeps what a day cannot — which card, which button, from what
+  interval to what, and how long the answer took. **It is the foundational half of the feature and it landed
+  before the screens that read it, deliberately**: a card record holds only its LATEST review, so every day
+  the log is not being written is detail no later release can reconstruct. It is what a **card-info** panel,
+  an **answer-buttons** breakdown, any **time** figure and (the real prize) **FSRS** all need, and none of
+  them can be retrofitted onto history that was never kept.
+  · **THE ROW IS AN ARRAY and its shape lives in exactly TWO places** — `logReviewEntry` writes it and
+    `revRead` unpacks it, so every reader goes through one function and the compact form is an encoding
+    detail rather than something eight call sites agree about. `[ id, t, g, st, prevMin, nextMin, ease100, ds ]`:
+    `t` is plain **ms** (the unit every other stamp in app.js uses — a minutes-since-epoch would save five
+    characters a row and give the file a second time unit to remember); `prevMin`/`nextMin` are the interval
+    before and the delay the grade bought, **both in MINUTES**, one unit for both, because a field that is
+    sometimes days and sometimes minutes reads correctly and computes wrongly; `ease100` is an integer, so no
+    float noise in JSON, and is **whichever number the card's scheduler uses ×100** — its ease under SM-2, its
+    difficulty under FSRS (see the FSRS bullet for why that needs no extra field); `ds` is **tenths of a second**.
+  · **THE DURATION IS CAPPED at `REV_MAX_DS` (60s, Anki's own `maxTaken`)**, and the cap is the honest half
+    of it: a card left open over lunch would otherwise claim two hours of study and make every time figure a
+    lie. It is measured by the STUDY PAGE (`shownAt`, stamped in `renderCard`) and passed into `grade(id, g,
+    ms)`, since only the page knows when the question appeared; a grade with no timing logs a 0 rather than
+    refusing, because a missing duration must never be able to cost the schedule.
+  · **THE LOG IS NO LONGER IN THE SYNCED BLOB, AND THAT IS WHAT LIFTED THE CAP** (Aug 2026, on request —
+    "with no cap, I don't mind adding a supabase table"). It shipped at `REV_CAP` 3000 rows because it rode
+    inside the one progress blob `save()` PATCHes whole, and this bullet said outright that the fix was a
+    table of its own rather than a bigger cap. That is what happened: **`review_log`** (the `10) REVIEW LOG`
+    block at the end of `.claude/supabase-schema.sql` — **the user must run it once**, and until then
+    `revTableMissing` turns PostgREST's 404 into a silent no-op rather than an error on every grade), one row
+    per review, owner-only, **insert and delete but deliberately NO update policy** — a review is a record of
+    something that happened and nothing should be able to rewrite one.
+    · **`revlog` came OUT of `PROGRESS_FIELDS`**, so `save()` no longer carries it, and **`progressBlob()`
+      (PROGRESS_FIELDS only) is what `supaPush`/`supaQueuePush` now send** where they used to send
+      `extractProgress()`. `extractProgress()` still INCLUDES `revlog`, because the guest stash is a whole
+      device state rather than a synced blob and a guest's history must survive a sign-in.
+    · **THAT SPLIT OPENED AN ACCOUNT-SWITCH LEAK and closing it is not optional**: with the log outside the
+      blob, adopting a second account's progress left the first account's card history sitting in
+      localStorage. `applyProgress` clears `S.revlog` and removes `REV_SYNC_KEY` — the same rule
+      `_supaOwner` exists for one level up.
+    · **The push is INCREMENTAL and keyed on a HIGH-WATER TIMESTAMP** (`REV_SYNC_KEY`, device-local like
+      `_supaTs`), in batches of `REV_BATCH`, with `Prefer: resolution=ignore-duplicates` over the unique
+      `(user_id, card_id, reviewed_at)` index — so two devices pushing the same session, or a retry after a
+      half-failed batch, cannot double-count. `resetProgress` calls `revWipeRemote()`, or a reset would clear
+      the device and leave the archive behind to be re-adopted.
+    · **`REV_CAP` (20000) still exists and is a LOCAL bound, not a limit on the archive** — the rows are on
+      the server, and what is kept on the device is what Card info and the answer-buttons chart read. ~42
+      bytes a row, so a full local log is ~840 KB, about three years at twenty reviews a day.
+    · What wanted the uncapped archive is the **FSRS optimiser**, which shipped days later and reads every row
+      through `revFetchAll` — see THE FSRS OPTIMISER above. This is the bullet to read before adding anything
+      else that grows per review: give it a table.
+  · **UNDO TAKES BACK ITS OWN ROW BY IDENTITY** (`lastRevRow` → the snapshot's `revRow` → `undoRevRow`), and
+    this is the one piece that cannot be done the obvious way. The undo snapshot is taken BEFORE the grade,
+    so it cannot hold a row that does not exist yet: `grade()` leaves the row it appended in `lastRevRow` and
+    `doGrade` copies it onto the snapshot afterwards. Splicing what `indexOf` finds is exact under pruning,
+    under a requeued step and under a session's fortieth undo alike — where **"remove the last row" takes
+    somebody else's review off** and **a recorded length silently keeps the phantom one**, since the log
+    prunes from the front and a length taken before an append can equal the length after it.
+  · **Read by two surfaces, and they are deliberately different shapes.** **Card info** (`openCardInfo` /
+    `cardInfoRowsHTML` / `cardInfoHistHTML`, on a `deckSheet`) is reached by **Info** in the study bar or
+    **`I`** — Anki's key — and is in two halves for a reason: the STATE block comes from the card record, so
+    it is complete for every card ever studied, and the HISTORY table can only show what the log holds, which
+    begins the day the log shipped. **A card studied for months before that shows its true state above an
+    honestly short history and says which it is** — fabricating rows from the interval and ease would be
+    inventing a reader's own past. The **Answer buttons** card (`answerButtonsHTML`, `ANSWER_WINDOW_DAYS` 30)
+    renders **nothing at all** on an empty log rather than an empty panel beside a heatmap holding a year of
+    real history, and where the log is younger than its window it names its own age instead of reporting a
+    quiet month as a quiet thirty days.
+  · The Info button is in the **study bar**, not the grade bar: that bar's phone layout is a fixed three-cell
+    row (`"help undo suspend"`) and Undo is duplicated down there because a misclick is URGENT, where asking
+    why a card is due is not. The `I` key is guarded on `typing` for the reason Ctrl+Z is — the cloze box
+    takes focus as every card opens.
+  · The card-info sheet is the one `deckSheet` that can outgrow the screen, so `.ci-sheet .dm-box` is capped
+    and **`.ci-histwrap` is the part that gives** (`flex:1 1 auto; min-height:0`), keeping the state block and
+    Close put while the history scrolls between them. The answer-buttons bar sits in a **track of its own**
+    (`.ab-track`) because a percentage height resolves against its containing block, and an `<i>` that is a
+    sibling of the labels grows over the word beneath it.
+  · **AN OVERLAY OVER THE CARD OWNS THE KEYBOARD** (`OVERLAY_SEL` / `overlayOpen`, beside `swipeEnabled`),
+    which this panel is what forced: every study shortcut acts on the card UNDERNEATH, so a reader who opened
+    Card info mid-card and pressed `3` graded the card they were reading about — invisibly, the sheet being
+    over it — and Ctrl+Z undid a grade they could not see. It is the Enter-on-a-focused-glossary-term bug one
+    level up: there a CONTROL owned the key, here a whole panel does, and the fix also covers the gloss popup
+    and the image viewer, which had the same hole. **ONE list, shared with the page swipe**, since both ask
+    the same question of it and a second copy would drift invisibly.
+  · Guarded by **`.claude/test-revlog.js` (58 assertions)**. **Re-run after touching `logReviewEntry` /
+    `revRead` / `revForCard` / `revWindow` / `grade()`'s logging / `shownAt` / `undoRevRow` /
+    `openCardInfo` / `answerButtonsHTML` / `OVERLAY_SEL`.**
 - **Review history + statistics:** `grade()` calls **`logReview(mature, correct)`**, which tallies
   `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal]` (in `defaultState()` so old saves
   back-fill, and in `PROGRESS_FIELDS` so it syncs and a friend's shows too). **This log has to exist**: a card
@@ -5362,7 +6014,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     placeholder, which is the honest failure.
   · **The instant is stored in UTC and printed in the READER's own clock and locale**, like the day boundary
     and unlike the changelog's day headings, which are deliberately fixed to the site language: this is a
-    moment in time rather than a day of publication.
+    moment in time rather than a day of publication. **That is also why the stored stamp has to be CAPTURED
+    rather than typed** — see the golden rule: a local hour written with a `Z` on the end is shown shifted by
+    the writer's own offset, which is how a morning release came to be announced in the afternoon (reported
+    Aug 2026). Nothing in the code can detect that, since a wrong instant is a perfectly valid one; the fix
+    is `date -u` at the moment of writing it.
   · It is a **sibling BEFORE `.page-head`, not inside it**, and carries its own `text-align:left`: below 640px
     and in the academy and gazette themes the page head is centred or boxed in a rule, and a centred version
     number reads as a title rather than as a stamp. `notranslate` for the reason the discovery chip's figure
@@ -5602,13 +6258,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   having to know about the other — and the DECK ROWS below keep `.review-group`'s static value, or the whole
   list would change colour every morning with it. The light blue above is Tuesday's, and the stylesheet's
   copy is still what a theme, a hero and every fallback read.
-  **"+ NEW GROUP" sits at the bottom left of it** (`.rv-tools` / `.rv-newgroup`, Aug 2026, on request), a row
-  of its own under the piles rather than an absolutely-positioned corner — the meta row already owns that
-  corner, and a floating control there would have to guess its height on every render, which is the reasoning
-  that keeps `.rv-lip` in flow. Like the chest chip it is a **button inside a button**, which markup does not
-  allow, so it is a `role="button"` span carrying `data-newgroup` that the banner's own click handler defers
-  to (and which needs its own Enter/Space handler for the same reason the chest chip does). It is drawn only
-  once there is something to group: a control whose whole result is an empty container teaches nothing.
+  **"+ NEW GROUP" AND THE CHEST COUNT HAVE BOTH LEFT THE BANNER** (Aug 2026, on request), and with them the
+  last two things nested inside that button: `#b-review`'s click handler no longer steps around any target of
+  its own. The group control is at the bottom left of the DECK LIST now (`.rv-foot` / `.rv-tools` /
+  `#b-newgroup` — see the GROUPS bullet), and a waiting chest is announced by `chestBannerHTML` in
+  `#chestSlot` ABOVE the banner rather than counted as a fourth stat inside it (see THE RELIQUARY). Both are
+  real `<button>`s out here, so neither needs the `role="button"` span and hand-written Enter/Space handler
+  that a control inside a button required.
 - **The home page is ONE COLUMN and, since Aug 2026, LITERALLY THE SAME PAGE at every width** (`PAGES.home`).
   It was three swiped panes for a week (`.home-pager` / `.hp-pane` / `#homeDots` — all
   gone, along with their ≤640px rules), then one column on a phone and a longer page on a desktop, and is now the
@@ -5966,8 +6622,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
   first, and the drop targets are reachable the moment it is open). This exists because
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
-  the Library read as empty. A live collection's banner also carries a **card count** (`.collection-count`, from
-  `subtreeCardIds`) — the one number that says there is something to study here.
+  the Library read as empty.
+  **A COLLECTION STATES ITS SIZE ONCE, ON THE BAR** (Aug 2026, on request). Its banner carried a
+  `.collection-count` behind the title AND a studied/total bar under it, so the row read "412 cards" beside
+  "0 / 412 cards" — one number, said twice, in two registers. The count behind the title is gone and the bar
+  is what says it. **The DECK rows inside keep theirs** (`.node-count`, next paragraph) precisely because
+  they have no bar; a coming-soon collection keeps its pill for the same reason, that being the only thing
+  its row has to say. Nothing else changed — `total` still feeds `deckProgMarkup` and the study guard.
   **A DECK ROW SAYS HOW MANY CARDS IT HOLDS, not what years they cover** (`.node-count`, Aug 2026, on
   request). The banner one level up had said this all along, and the two rows disagreeing about what the
   small grey figure on the right MEANS is the whole reason to change it. What is dropped is the
@@ -6760,9 +7421,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
     contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
     would fight the sanitizer.
-  · **`UDECK_MAX_CARDS` is 8,000 and a file over it is REFUSED, not trimmed** (Aug 2026; this line said
-    2,000 for a while after the constant had already been raised twice — **read the constant, not this**).
-    It was 500,
+  · **…EXCEPT WHERE THE SAME SANITIZER PROVABLY WROTE IT, WHICH IS ARITHMETIC RATHER THAN TRUST**
+    (`SANITIZE_REV` / `srev` / `_uTrusted` / `uSH` / `uSP` / `uSCSS`; Aug 2026, on a report that the site
+    had become very slow with a large deck installed). `sanitizeHTML` returns a **FIXED POINT** by
+    construction — it loops until another pass changes nothing — and `sanitizePlain` / `sanitizeCSSText`
+    are idempotent the same way, so re-cleaning a record this build's own sanitizer produced cannot alter
+    a character. It was doing exactly that on **every page load**: on HSK 3.0 (10,896 notes) **5.7 seconds
+    and 174,741 `sanitizeHTML` calls** of provable no-op before the first paint, most of them DOM-parsing
+    the same Chinese markup for the fourth time. A stored record now carries **`srev`**, and
+    **`communityBoot` — reading OUR store, and nothing else — passes `trusted`**, which skips the per-field
+    string work while every structural guard still runs: the id patterns, the key whitelists, the URL
+    schemes, the caps, the shape. Measured on the same harness: the deck's cost on a reload went from
+    **+5.8s to +0.4s**, and `uDeckNormalize` from 5,756ms to 33ms.
+    · **What it gives up is EXACTLY what the stamp exists to catch** — a deck cleaned by an OLDER and
+      possibly buggier sanitizer, which is what a record with no matching `srev` is. Those are re-cleaned
+      once, on the next load. An import, an install and a published payload are **never** trusted whatever
+      they claim to carry, since only `communityBoot` passes the flag.
+    · **BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES** — `sanitizePass`, `sanitizeHTML`,
+      `sanitizePlain`, `sanitizeCSSText`, `sanitizeUrl` or any `SANITIZE_*` / `UTYPE_*` allowlist.
+      Forgetting to is the one way this can be wrong, and it is silent: already-stored decks keep being
+      read under the old rules.
+    · **`srev` sits at the record's TOP level, never inside `meta`** — `meta` is what an export copies, and
+      a deck FILE must never carry a stamp, being not our store. Verified: `uDeckExport`, the Studio's fork
+      and `uDeckRemotePayload` each pick their fields explicitly, so only `cdbPut` ever stores it.
+    · **`_uTrusted` is a module flag set around a SYNCHRONOUS body and restored in a `finally`** — nothing
+      awaits inside `uDeckNormalizeInner`, so it cannot leak into a Studio mutation that shares those same
+      sanitizers.
+    · Guarded by **`.claude/test-deck-trust.js`**, in both directions — a planted record with no `srev` is
+      still cleaned (verified by reintroducing the fault: the hostile card's fields reach the page and its
+      payload runs), and a record we write really does carry the stamp, which is a PERFORMANCE guarantee
+      and therefore one that looks identical whether it holds or not.
+  · **`sanitizePlain` gained `sanitizeHTML`'s own fast path** in the same pass: a string with no `<` and no
+    `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
+    the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
+    DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
+  · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -6770,11 +7463,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `uDeckImportText` turns any positive value into an error naming both numbers. **The slice stays** as the
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
-    view about how big a deck should be, so it is set from the largest legitimate deck anyone has brought
-    **with room above it**: HSK 3.0 level 6 is 1,800 words and DELE B2 is 2,000, and a deck studying both
-    directions cards each word twice — so B2 is ~4,000 cards against a cap that was 4,000, and fit by two.
-    A margin that thin is luck rather than a limit, which is why the number is now double the largest deck
-    rather than equal to it.
+    view about how big a deck should be, and it is set from the largest legitimate deck anyone has brought:
+    the whole of HSK 3.0 in one file is 10,896 notes. **IT COUNTS NOTES, NOT CARDS**, which since reverse
+    cards is a real distinction — those 10,896 notes carry 21,792 cards to study — and it is deliberately
+    left on the thing the FILE holds, since what it guards is the cost of parsing somebody else's file.
+  · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
+    48 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    whole file is a string and then an object, so something has to stop a 500 MB file before that. Two
+    things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
+    for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
+    number is how a legitimate deck comes to be refused for a reason nobody can find. At ~2 KB a note
+    (measured over these decks, whose notes are the largest here) the card cap comes to ~24 MB, and this is
+    twice that so a file at one cap can never be turned away by the other. And **the message names the
+    figures**: "too large to be a deck" tells a reader nothing they can act on, where the size and the limit
+    tell them how far to split it.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT
@@ -6966,7 +7668,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and on a partly-grouped one the parent row already studies the whole deck — an "Other" row would be a
     third thing to explain. The home review names an added subdeck **by the subdeck**, with its deck in
     `.dk-sup` for context: "HSK 1" over three rows says nothing about which is which.
-  · Guarded by `.claude/test-subdecks.js` (13 assertions), which builds its own partly-grouped deck rather
+  · **ADDING A DECK ADDS ITS SUBDECKS, and the home list draws them UNDER it** (Aug 2026, on a report:
+    "when I add our custom Mandarin HSK deck I still don't see any subdecks in it on the home page"). This
+    is the collection rule one store over — `addActive` on a tree node has always brought the whole subtree
+    in — and it was the one place a container did not. Three halves, and each fails differently:
+    `addActive` adds `u:<deck>` plus one entry per subdeck (adding a SUBDECK on its own still adds only
+    that subdeck — a narrower choice is never widened); `removeActive` mirrors it in **both** directions,
+    a deck taking its subdeck rows with it and a subdeck taking the whole-deck row, which would otherwise
+    go on offering the very cards just removed while its + still read as added; and `emit` in `PAGES.home`
+    gives a deck row its active subdecks as CHILDREN, with the top-level run skipping any subdeck whose own
+    deck is on the list, so they nest instead of standing beside it in a flat run of ten.
+  · **A NESTED ROW DROPS ITS CONTEXT LINE, and only looking at the page shows why.** A subdeck row names
+    itself with its deck in the quiet `.dk-sup` beside it, which is right for a subdeck added ON ITS OWN at
+    the top level ("Level 1" over three of them says nothing about which is which) and wrong the moment the
+    deck is the row directly above: at 390px the name is the only part of the row with no shorter form, so
+    a repeated "HSK 3.0 — Mandarin Chinese" crushed every subdeck to **"Lev…"** — nine rows reading the
+    same three letters. Kept where the row stands alone, dropped where `parentKey` is its own deck's entry.
+  · **…and such a row seeds OPEN**, where an added collection seeds shut. A collection's subtree runs to
+    forty-odd rows; a deck's subdecks are a handful, and they are the reason it has rows at all — a deck
+    that swallows them the moment it is added is exactly what this was reported as.
+  · **`refreshAddButtons` had to learn `[data-uaddsub]`** with it: one press now changes a dozen buttons
+    further down the Collections page, and that sweep is what stops the rows below the one pressed reading
+    "add" over something already added.
+  · **THERE IS NO SUBDECK PER DIRECTION AND THERE CANNOT BE** — worth stating, because it is the other half
+    of what was asked for. Since reverse cards, a word is ONE note carrying two cards (recognition and
+    production), and `sub` is a property of the NOTE, so the two directions cannot be in different
+    subdecks while they are one record. That is the trade the note→cards change made deliberately (see the
+    reverse-cards bullet): what it buys is one record per word — a definition corrected once rather than
+    twice, with no chance of the two drifting — and each direction still keeps a schedule of its own. A
+    subdeck's count already includes both, which is why the HSK 3.0 deck reads 23,064 cards over 11,532
+    words.
+  · Guarded by `.claude/test-subdecks.js` (18 assertions), which builds its own partly-grouped deck rather
     than reading the shipped ones. **The failure mode is silent** — the list is derived on every read, so a
     `sub` dropped anywhere along the way just drops that card back into the parent deck and everything still
     works — which is why the assertions follow one card's `sub` through ingest, the row list, the review and
@@ -7065,10 +7797,100 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     composed string is sanitized, and what it emits around the author's text is a span rather than an
     attribute, so a value ending mid-tag cannot escape into one. The FRONT's blanks are closed before it is
     handed to the back as `{{FrontSide}}`, which is Anki's behaviour and the right one — the top of the back
-    is the question as it was asked. **ONE simplification, said in the type editor's own help rather than
-    hidden**: Anki turns one note into one card per number, where a Folio card is a single record, so every
-    blank on a card is hidden and revealed together. The numbers are still read, so a deck written elsewhere
-    renders as its author wrote it.
+    is the question as it was asked.
+    **ONE CARD PER BLANK (Aug 2026, on request) — and this bullet used to record the opposite.** Until then
+    every blank on a card was hidden and revealed together, and that was written down here as a deliberate
+    simplification: Anki turns one note into one card per number, and a Folio card was a single record, so
+    there was nowhere for a second card to live. The note→several-cards machinery and sibling burying between
+    them removed the reason, so a cloze type now splits like any other multi-card note.
+    · **`type.cloze` is DECLARED, never detected.** The markers live in a card's VALUES, so a type could only
+      be recognised as a cloze type by looking at its cards — and a type whose cards happen to carry no
+      marker yet would then not be one. Declared, it also means **nothing migrates**: every deck written
+      before this renders exactly as it did, all of its blanks together, until somebody throws the switch.
+      The "Fill in the blank" preset ships with it on.
+    · **THE ID SCHEME NEEDED NO EXTENSION**, which is what made this a small job rather than the one it was
+      written off as. `uCardIdFor(note, ord - 1)` gives the bare note id for c1 and `note~9` for c9, so a
+      note that gains a second deletion does not move the first one's schedule — the same promise template 0
+      already makes.
+    · **THE ORDINALS MAY BE SPARSE**, and this is the trap: c1, c2, c9 is THREE cards numbered 1, 2 and 9.
+      `uDeckStudyIds` used to build ids by POSITION (`uCardIdFor(n, tpl)` for tpl 0…most-1), which would deal
+      `note~2` and `note~3` — ids naming deletions the note has not got, which render as a passage with
+      nothing blanked at all. It walks each note's own `uNoteCardIds` list and interleaves BY POSITION IN IT,
+      which is the template-major rule restated in a way sparse ordinals survive.
+    · **A BLANK THIS CARD IS NOT ASKING ABOUT IS SHOWN AS ITS OWN WORDS** (`.uc-cloze-other`, which is given
+      `color:inherit; font-weight:inherit` precisely so it does NOT inherit `.uc-cloze`'s indigo). That is
+      the whole point of splitting: the rest of the sentence is the context the reader is recalling from.
+      Its hint is not printed — only a blank being ASKED about wears a hint.
+    · **`{{c::x}}` with no figure is ordinal 1.** Anki requires the number; a reader who leaves it out plainly
+      means the only blank they have written rather than a card belonging to nothing.
+    · `UTYPE_MAX_CLOZE` (20) bounds how many cards ONE note may make. A bound, not a view about how many
+      blanks a passage should have — and it caps the LIST, so sparse high ordinals still work.
+    · Card info names a cloze card by its **deletion** ("Blank 9, 3 of 3") rather than by a template: there is
+      only one template, and "3 of 5" would be a lie where the fifth blank is numbered 9.
+  · **ONE NOTE, SEVERAL CARDS — reverse cards** (`type.cards` / `typeCards` / `CARD_SIB` / `uCardBaseId` /
+    `uCardTplIndex` / `uCardIdFor` / `uNoteCardCount` / `uNoteCardIds` / `uDeckStudyIds` /
+    `cardTypeTemplate`; Aug 2026, on request). A type declares a LIST of card templates and one note yields
+    one card per template, each with a schedule of its own — Anki's note types, and the thing the HSK decks
+    needed, since recognition and production were two separately written cards with separate progress.
+    · **THE RECORD STAYS ONE NOTE.** Duplicating it per direction is the obvious implementation and is
+      wrong: a shared field edited on one copy and missed on the other leaves two cards drifting with
+      nothing to say so. `UCARDS` keeps one row per note and the extra CARDS are ids derived from it, which
+      is Anki's own notes-versus-cards split.
+    · **`type.cards` is `[{ name, front, back }, …]` and the LEGACY `front`/`back` fold into `cards[0]` on
+      ingest.** `uTypeSanitize` emits the canonical list and nothing else reads the old keys, so every deck
+      file, installed copy and published row normalises itself with nothing to migrate by hand — and every
+      type has at least one template, which is what lets every reader assume one rather than test for none.
+      **`typeSpeaks` had to learn to look at ALL of them**: a two-way type may put the read-aloud control on
+      one direction only, and reading the first template alone hides the switch on the reverse card.
+    · **TEMPLATE 0 KEEPS THE BARE NOTE ID**; only the second and later take a `~N` suffix (1-based, so
+      `u_abcd1234_7~2`). That is the whole point of the scheme: adding a reverse card must not move the
+      schedule of a card a reader has been studying for a month. `~` cannot occur in a note id
+      (`^u_[a-z0-9]{4,16}_\d+$`), so the split is unambiguous, and unlike `.` or `:` it is safe unescaped
+      inside a quoted attribute selector.
+    · **`cardById` RESOLVES a derived id** and returns a COPY carrying `_tpl` — never the stored note, which
+      every one of its cards shares, and writing the index onto it would make whichever card rendered last
+      the answer for all of them. It is the one place that has to know how the id is built; the study page,
+      the scheduler, the counts and Card info all go through it already.
+    · **THE QUEUE IS TEMPLATE-MAJOR** (`uDeckStudyIds`): every note's first card before any note's second.
+      That is what makes a reverse card a test rather than a prompt — note-major deals "水 → water" straight
+      after "water → 水" — and it is one of Anki's own new-card sort orders rather than a workaround.
+      It is what keeps siblings apart WITHIN a session; **day-long sibling burying** (added days later, on
+      request — see the BURY SIBLINGS bullet under "How the app is wired") is what keeps them apart ACROSS the
+      day, and the two are separate mechanisms doing the same job at two scales. This one still matters with
+      burying off, and burying is what the reader can turn off.
+    · **`entryCardIds`, `availableCardIdSet`, `buildSession`'s udeck branch, the review's Chrono sequence,
+      the cram offer, `entryInfo`'s count, `uDeckStudied`, the deck-statistics scope and the rating gate all
+      expand.** A missed one fails QUIETLY and differently each time — a reverse card that is never dealt, a
+      progress bar over the wrong denominator, a sort that dumps every second card at the end.
+      **TWO WERE MISSED AND BOTH WERE THE SUBDECK CASE** (found Aug 2026 by the first deck that is a
+      two-way type AND grouped into subdecks — the whole of HSK 3.0 in one file): `entryInfo`'s SUB branch
+      and `udeckSubRowsHTML` each counted `uDeckCardsIn(...).length`, which is NOTES, so every subdeck row
+      read half its real size (197 where the subdeck holds 394) directly beneath a deck row that had always
+      counted them expanded. **A count that is wrong by exactly two looks like a count**, and the two
+      display sites disagreeing with each other on the same page is the only thing that showed it. The
+      lesson for the next expansion: the list above is a list of FUNCTIONS, and a function may take the
+      subdeck path and the whole-deck path through different code — check both branches, not both callers.
+    · **Removing a template destroys a SCHEDULE**, which nothing else in the Studio does (a dropped field
+      leaves its values, a deleted type puts its cards back to Basic intact), so it asks first. The records
+      from the removed position onwards are dropped rather than shifted down — card 3's schedule is not
+      card 2's — and the ids before it still mean what they meant. The revlog is deliberately not swept:
+      those reviews happened, and a row whose card is gone is simply never looked up.
+    · **The "Two-way" preset** is Anki's "Basic (and reversed card)": Front / Back / Notes and two
+      templates. Deliberately plainer than the Vocabulary preset — what an author needs to see here is the
+      two-template idea — and its CSS is the worked example of **`.card[data-uctpl="2"]`**, the 1-based
+      template index on the wrapper, which is Anki's `.card2` in the shape `cssScoped` can rewrite. Note
+      that its arrow is the CHARACTER: `sanitizeCSSText` strips backslashes, so a `\2190` escape prints
+      literally.
+    · The Studio's type form gains a template picker, a name box and Add/Remove (`studioTypeCardsHTML`,
+      `studioState.tpl`). `front`/`back` route to **`uTypeSetCard` with the index read live off
+      `studioState`** — a listener that closed over the index would write an edit to whichever template was
+      open when it was installed. The preview follows the OPEN template, since on a two-way type the card
+      being edited is the second one half the time.
+    · **A pre-existing import bug was fixed alongside it** (`uDeckImportText`): a deck file with no
+      `meta.id` — which a hand-written one plausibly has and Folio's own export never does — mounted under
+      the EMPTY STRING. It half worked (entry id `"u:"`, an empty `data-uadd`), it kept the file's own card
+      ids where every other import remaps them, and a second idless import took the fresh-id branch and
+      left the first as the only broken one.
   · **The safety rests on the LAST sanitize, not the first.** The templates and the field values are each
     cleaned on ingest, and that is not enough — a value dropped into `<img src="{{X}}">` is only checkable once
     the two are one string. So `cardTypeSideHTML` is the single choke point, and it runs `sanitizeHTML` over
@@ -7109,7 +7931,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     "1 / 3" counter are about the Basic format's `questions` array.
   · **The deck PAGE's sample card** belongs to no local deck, so it carries its type on `card._type`
     (sanitized from `row.types` there) — `cardTypeOf` reads that before looking a deck up.
-  · Guarded by **`.claude/test-card-types.js` (139 assertions)**, which tests the CSS scoper, the template
+  · Guarded by **`.claude/test-card-types.js` (224 assertions)**, which tests the CSS scoper, the template
     engine and the cloze pass as pure string functions (a scoping bug reads far better as a failed comparison
     than as a screenshot of a restyled page), then drives the real Studio, then imports a **hostile deck file**
     through the real file picker. Its preset section (`presetChecks`) runs LAST, after the export round trip,
@@ -7117,7 +7939,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and it therefore finds its own way back to the Studio. **Re-run after touching `sanitizeCSSText` /
     `cssScoped` / `cssScopeSelector` / `tplRender` / `clozeMark` / `cardTypeSideHTML` / `ensureCardTypeStyle` /
     `uTypeSanitize` / `uTypeCreate` / `uCardSanitize` / `CARD_TYPE_PRESETS` / `wireSpeakControls`, or
-    `levelFromXP`.**
+    `levelFromXP`.** Its `reverseChecks` section runs LAST and builds its own deck: it covers the whole of
+    one-note-several-cards, and the three assertions worth knowing about are that **template 0 keeps the bare
+    note id** (the promise no screen would report breaking), that **no note's two cards are dealt back to
+    back**, and that **removing a template drops its cards' progress and not the survivors'**. It also pins
+    the shape in the FILE, since a type now travels as a `cards` list and an installed copy renders raw prose
+    if it does not.
     Two things that bit while writing it and will bit again: **`render()` called from inside a `change` handler
     throws** — removing the still-focused input fires blur in the middle of `#view`'s innerHTML assignment, so
     blur first and defer the render out of the event; and a test that opens IndexedDB **must close it**, or the
@@ -8564,7 +9391,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-four committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-seven committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -8580,6 +9407,16 @@ dead code (never rendered).
   **And close any IndexedDB connection the test itself opens** — an idle one blocks the app's own open after a
   reload, which silently pushes it onto the localStorage fallback, and the test then goes looking for a deck in
   the store the app has just stopped using (`test-card-types.js` learned this the hard way).
+  · `node .claude/test-deck-trust.js` — **the sanitizer revision stamp** (9 assertions), which is what lets
+    boot skip re-cleaning a deck it has already cleaned. Two directions, failing in opposite ways: a stored
+    record with **no `srev`** — what an older and possibly buggier sanitizer left — is still cleaned, meta
+    and card fields alike, with nothing executing (verified by reintroducing the fault: the payload runs);
+    and a record we write really does **carry** the stamp, at the record's top level where an export cannot
+    copy it. That second one is the assertion nothing else can make, because it guards a PERFORMANCE
+    promise, and a performance promise that has quietly stopped holding looks exactly like one that holds.
+    Its fixture writes to IndexedDB **and** localStorage, since `cdbAll` falls back and a fixture in the
+    store the app is not reading proves nothing. **Re-run after touching `SANITIZE_REV` / `uDeckNormalize`
+    / `uDeckRecord` / `communityBoot`, or any `sanitize*` function.**
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
@@ -8695,7 +9532,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 291 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 301 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -8705,7 +9542,10 @@ dead code (never rendered).
     BUILT at any width, watched on the desktop through the REQUEST LOG as well as the markup, since the
     teaser's ornament was the only thing outside the Atlas that fetched the ~1.6 MB globe; the "+ Add decks" lip hanging off
     the bottom of the review group, centred, narrower than the group, routing to the collections and filled
-    in the site's own `--indigo` read off a probe rather than hard-coded; the
+    in the site's own `--indigo` read off a probe rather than hard-coded — and, since Aug 2026, sharing a
+    `.rv-foot` line with "+ New group", which is asserted OUT of the banner while the chest is asserted out
+    of it too and its notice IN a slot above it, both directions each, since a control that has stopped
+    rendering looks from one side exactly like one that has moved; the
     Minigames heading over a 3 × 2 grid whose tiles carry no tagline; the About link last, routing to the
     About page and with room above and below it; no Seen total; the review's three Anki piles — new /
     learning / review, in order, no two
@@ -8746,7 +9586,9 @@ dead code (never rendered).
     visible half of the request) and which must
     grow the card and the glossary popup and must leave a tab label and a grade button exactly where they
     were, that being the difference between a reading scale and a page zoom; Settings and Account filling the stage;
-    a coming-soon collection carrying no level badge and no XP bar; and **no overlay outliving the page
+    a coming-soon collection carrying no level badge and no XP bar, and a live one stating its size ONCE —
+    the bar and no `.collection-count`, with a DECK row inside asserted the other way round, since a count
+    with no bar and a bar with no count are opposite regressions; and **no overlay outliving the page
     that spawned it** — a real level-up is raised (three cards graded Easy) and dismissed by a HASH CHANGE,
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
@@ -8826,7 +9668,7 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
-  · `node .claude/test-scheduler.js` — 62 assertions on **the schedule itself**, which is the thing a study site is
+  · `node .claude/test-scheduler.js` — 127 assertions on **the schedule itself**, which is the thing a study site is
     most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
     and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
     less. So it is pinned as ARITHMETIC — the pure `THE SCHEDULER` block is sliced out of app.js by text and run in a
@@ -8838,8 +9680,71 @@ dead code (never rendered).
     back-fill, that the block is pure and reads no global, and that **no state × grade is ever scheduled into the
     past** (24 cases). Its two finds were both invisible on the page: the Hard<Good<Easy floor walking Easy past the
     maximum interval, and a preview that read the live clock while the grade took the passed one, so an overdue card
-    previewed one interval and scheduled another. **Re-run after touching anything named `sched*`, `SCHED`, or
-    `fmtInterval`** — and note that the end-to-end half lives in `test-review-decks.js` section 6.
+    previewed one interval and scheduled another. **Re-run after touching anything named `sched*`, `SCHED`,
+    `fmtInterval`, or the load map (`loadMapNow` / `easyDays` / `LOAD_AVOID` / `LOAD_NEAR`)** — and note that the end-to-end half lives in `test-review-decks.js` section 6.
+    **Sections 10 and 10b are FSRS**, and they are a different kind of check from everything above them: the arithmetic is
+    compared against `.claude/fsrs-vectors.json`, generated by the reference implementation, to 1e-9 over 768 steps —
+    stability and difficulty at every step of 256 seeded histories, plus the forgetting curve and the interval formula.
+    **A fixture regenerated to match a change proves nothing**, so `gen-fsrs-vectors.py` is re-run only when deliberately
+    moving to a new FSRS version. 10b adds the properties a fixture cannot state (recall never loses stability, a lapse
+    never gains it, difficulty stays in 1–10, nothing lands in the past, seeding takes the interval and not the ease) and
+    that the mode selection reads the deck. **The slice ends at `/* ---------- SRS ---------- */`** — the four impure
+    config lookups live below it, and the purity assertion is what caught them being written above it.
+    **Section 10c is the OPTIMISER**: the loss to 1e-9 against the reference's own `_compute_batch_loss`, the reference's
+    clamp bounds, both refusals, and a **recovery** test — history generated from a known parameter set must be predicted
+    better than the defaults on a held-out tail, which is what stands in for a reference check on an output two gradient
+    descents can never agree on. It also pins that the stepwise and one-call forms land on the same parameters, and that
+    fitting mutates neither the defaults nor the history handed to it.
+    **Section 11 is LOAD BALANCING and EASY DAYS**, and its two sharpest assertions are properties rather
+    than values: that the balanced day is ALWAYS inside the fuzz's own range (so turning it on cannot
+    lengthen or shorten a schedule), and that **Hard < Good < Easy survives it** over every interval and ease
+    with a deliberately lumpy pile — the three ranges overlap, so the balancer can hand back the same day for
+    two grades and only `schedPass`'s floor separates them, which is what would break if the balancing were
+    moved below it. It also re-asserts that the **preview still schedules what it says** with a map in play,
+    that a marked day is AVOIDED rather than forbidden (every day marked still schedules, in range), and that
+    with no map the result is byte-for-byte the fuzz it always was.
+    **The fixture's step count is now DERIVED from the fixture** rather than written down (`walked === wantWalked`) —
+    widening the grid, which is exactly what adding fractional gaps did, must not fail on an arithmetic constant.
+  · `node .claude/test-cards.js` — **flags, Set due date, Forget and the card browser** (114 assertions,
+    Aug 2026), in two halves for the reason `test-card-types.js` is. The **pure** half slices `schedSetDue`,
+    `schedForget`, `parseSetDue`, `browseTokens` and `browsePredicate` out of app.js and runs them with no
+    browser at all — a scheduling rule reads far better as a failed comparison than as a screenshot — and its
+    sharpest assertions are the ones no screen could report: that a forgotten card KEEPS its record (deleting
+    it would put the card back to new just as well and silently take back a level, Folio's XP being the
+    number of distinct cards studied), that a card given a due date comes out as a REVIEW card (left in
+    learning, the very next grade walks the steps and overwrites the date), and that a forgotten card walks
+    the learning steps again, which is a property of the pair rather than of either function. On the search:
+    that an **empty query matches everything** and a **nonsense one matches nothing** — opposite failures,
+    each of which looks like "the search is broken" from one side only — and that an unknown operator stays
+    free text rather than being dropped. The **browser** half drives a real one: the flag chord in both
+    directions, that flagging a REVEALED card leaves it revealed (a `render()` here would un-reveal it),
+    Card info's four actions and its re-opening on the state it has just changed, the search, the sort and
+    its reversal, a bulk action reaching the selected card, and **both ways in** — the SIGNED-OUT account
+    page and a deck's options sheet, asserted separately because they serve different readers and fail
+    differently. **Re-run after touching `schedSetDue` / `schedForget` / `parseSetDue` / `browseTokens` /
+    `browseTerm` / `browsePredicate` / `browseRowData` / `BROWSE_COLS` / `PAGES.browse` / `openFlagSheet` /
+    `openSetDueSheet` / `openForgetSheet` / `openCardInfo` / `cardFlag` / `setCardFlag` / `S.flags`, or the
+    account page's and the deck sheet's entries.**
+  · `node .claude/test-revlog.js` — 58 assertions on **the per-review log**, Card info and the Answer-buttons
+    card (Aug 2026), and every one of them is for a silent failure: a log that stops being written throws
+    nothing and looks exactly like a reader who has not studied, and a duration that stops being measured
+    leaves a card of dashes that reads as a reader who answers instantly. It reads the row off the **SHIPPED
+    SAVE** rather than from a function sliced out of app.js, because an encoding only its writer and its
+    reader agree about is exactly the thing that drifts — eight fields, the documented order, minutes for
+    both intervals, tenths for the duration, the cap. Its sharpest assertion is the one a count cannot make:
+    **undo must take back ITS OWN row**, so two reviews of the same card are logged and the row that survives
+    is checked to be the FIRST — "remove the last row" passes a count check and fails this. Card info is
+    exercised in **both** its states (a card with history shows the table; a card whose reviews predate the
+    log shows its state and says why), since those fail in opposite directions and either alone would pass on
+    a panel that had stopped working. The Answer-buttons card needs a SESSION, so Supabase is
+    `test-account-page.js`'s `page.route` stand-in, and for the same reason: the publishable key in app.js
+    points at the real project. **Re-run after touching `logReviewEntry` / `revRead` / `revForCard` /
+    `revWindow` / `grade()`'s logging / `shownAt` / `undoRevRow` / `openCardInfo` / `answerButtonsHTML`.**
+    Two things it had to learn, both of which made a first draft report faults that were not there:
+    **`#study` is deliberately not a restorable hash**, so a session can only be started through the review
+    banner; and a card-info panel must be exercised on a card the SESSION IS ACTUALLY SHOWING — seeding a
+    record for the queue's first card and then reloading makes the test depend on the order the scheduler and
+    the seed happen in, so it seeds every card the deck might deal instead.
   · `node .claude/test-date-line.js` — 13 assertions on the card date line, run against the real `data.js`:
     that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it replaced
     (the check is content-aware, since an old date line wore exactly the same tags), that the limits in
@@ -8908,14 +9813,46 @@ dead code (never rendered).
     the review**. Two things it must keep doing: **open every fold first** (an added collection seeds SHUT, so
     without it the only visible rows are two headers and there is nothing to carry), and **drag a LEAF whose
     parent keeps a sibling** — a leaf carries no subtree so the group's count IS that deck's, and a container
-    left with another child stays a header whose own count can be read before and after.
+    left with another child stays a header whose own count can be read before and after. **Those counts are
+    read off each header's `.dk-prog` `data-total` since Aug 2026**, the header having given up its "N cards"
+    line for a progress bar like the rows inside it — the same number, from the row's own reckoning rather
+    than the test's.
+    **Sections 12–15 are FSRS end to end**, where `test-scheduler.js` has the arithmetic: the Scheduling sheet
+    (both modes offered, the retention and parameters boxes drawn only under FSRS, a parameter list of the wrong
+    length refused with a reason, the sheet fitting the screen, and the focus following the CHOICE rather than
+    the click — the `data-dmfocus` race); that a card graded under FSRS gains a stability and a difficulty and
+    that Card info then shows those instead of the ease and names the scheduler; **that one deck on FSRS and
+    its neighbour on SM-2 are each scheduled their own way from the POOLED review**, which is the whole of what
+    "deck-specific" means and which no unit test can see; that turning FSRS on mid-deck **seeds stability
+    from the existing interval** rather than starting the card over; and (section 15) what **Card info** says
+    about an FSRS card, read off the rendered panel because both of its faults were in the wording rather than
+    in the numbers.
+    **Section 17 is LOAD BALANCING and EASY DAYS in Settings**, where test-scheduler has the arithmetic: that
+    both are **OFF by default** (the assertion most worth having — they change what the scheduler does, and
+    an existing reader's intervals must not move because they updated), that the seven days are drawn
+    Monday-first while being STORED Sunday-first by `Date#getDay` index (a conversion nothing on screen would
+    report getting wrong), and that the row STACKS rather than squeezing its own description to one word a
+    line, which is what looking at the page found.
+    **Section 16 is the OPTIMISER's path**, where test-scheduler.js has its arithmetic: the button under FSRS and
+    NOT under SM-2, a fit that runs to a verdict without freezing the sheet it lives in, 21 parameters STAGED in the
+    box with nothing saved until Save is pressed, and the too-little-history refusal naming both numbers. Its log is
+    synthesised in the shipped row shape with **every card starting at state 0**, since a sequence whose beginning is
+    missing is dropped — which is the likeliest way to make the whole thing silently refuse.
+    **SECTION 15 SEEDS ITS CARD'S MEMORY STATE AND ITS ONE LOGGED REVIEW rather than grading into them**, and
+    that is this file's own `addInitScript` warning being obeyed after ignoring it cost two runs: grading the
+    deck's only due card ENDS the session and the completion screen has no Info button, while re-entering a
+    session needs a `reload()` — which re-seeds `folio_v1` from `state` and throws the graded record away. The
+    panel then honestly showed `Ease 260%`, the seeded SM-2 value, and read as the FSRS rows having been lost.
+    **In this file, the state to look at is the state that is seeded.**
     **Re-run after
     touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `globalLimits` /
     `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `openDeckLimits` / `addActive` /
     `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` / `setupDeckDrag` /
     `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` / `setNestParent` / `nestChildren` /
+    `openDeckSched` / `setDeckSched` / `setDeckRetention` / `setDeckFsrsParams` / `schedModeOf` /
+    `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll` / `fsrsSequences` /
     `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s per-deck allowances,
-    or anything named `sched*`.**
+    or anything named `sched*` or `fsrs*`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
     glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
     overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that
@@ -9131,15 +10068,33 @@ dead code (never rendered).
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `extractCaput` /
-    `teiVerseBooks`' `prose` branch and its two spacing rules / `reconcileCards`' `langName` /
+    `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the
+    mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
-    **A change to `teiVerseBooks` needs OVID AND LUCRETIUS, both columns, all four files** — they are
-    the only other books on that path, and the Iliad's prose branch and its two spacing rules were
-    each proved inert against all four byte-for-byte before being kept. Note that the two rules are
+    **It carries an AENEID section (`aeneidChecks`) for the reason it carries a City of God one**: that
+    book's reader — `cards: "both"` plus the mid-line lift — serves one book, so it cannot be proved
+    inert by re-running a sibling and the shipped data stands in. Every fault it hunts is silent, and the
+    LINE COUNTS are the assertions that matter (13,336 English and 9,843 Latin): break the lift and up to
+    69 lines of verse vanish with all twelve books still pairing and nothing thrown. Its weld sweep
+    asserts EXACTLY ONE survivor — the source's own "the.dead" — so that a regression in the space rule
+    returns 13 and fails here, and so the survivor cannot later be read as that rule having broken. It
+    also caught the one claim this batch got wrong: nine of the twelve books pair on every card, not ten.
+    **A change to `teiVerseBooks` needs OVID, LUCRETIUS, THE ILIAD AND THE ODYSSEY, both columns** —
+    they are the only other books on that path, and the Iliad's prose branch and its two spacing rules
+    were each proved inert against all four of the files that then existed, byte-for-byte, before being
+    kept; the Odyssey's order-independent book-division rule was proved inert against all six the same
+    way. `--force` is what re-runs the EXTRACTOR, the cache holding the extracted prose rather than the
+    fetched page. Note that the two spacing rules are
     gated on `opts.prose` precisely so that check can pass: dropping a note or a milestone for a SPACE
     rather than for nothing would rewrite Ovid's Latin, which joins its lines with `<br>` and has
     nothing to weld.
+    **AND THAT CHECK IS NOT A FORMALITY — IT FOUND A LIVE FAULT IN A SHIPPED BOOK** (Aug 2026, adding the
+    Aeneid). Five of the six files came back byte-identical and Lucretius's Latin did not, because the
+    new `<choice>` resolver corrected 110 doubled words that book had been printing since the day it was
+    added ("aeraër" for *aër*). **A sibling diff is worth reading rather than glancing at**: a file that
+    changes is not automatically a regression, and here the one that changed was the one that had been
+    wrong all along. Record the intended diff and re-baseline deliberately.
     **A change to the CAPUT reader likewise has no sibling to diff against** — The City of God is the
     only book on that path — so what stands in for it is the shipped-data sweep: 661 marks a side,
     both columns a clean 1..N in every one of the 22 books, tag balance on both, every footnote
@@ -9205,8 +10160,8 @@ dead code (never rendered).
     no showcase at all and `test-artefacts.js` therefore cannot reach one. **Re-run after touching
     `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
     `supaFetch`'s count parsing.**
-  · `node .claude/test-card-types.js` — the XP curve and community-deck **card types** (Aug 2026), 110
-    assertions in three parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
+  · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
+    **bury siblings** and **one card per cloze** (Aug 2026), 224 assertions in five parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
     through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part
     runs `sanitizeCSSText` / `cssScoped` / `tplRender` as string functions with no browser at all — a scoping
     bug reads far better as a failed comparison than as a screenshot of a restyled page — and its central
@@ -9220,9 +10175,27 @@ dead code (never rendered).
     front printed ONCE with the shell's own question hidden, and the cloze shape's question still shown above
     an answer that does not repeat it — since each alone would pass on a rule that had stopped firing
     everywhere, and the failure reads as a template mistake rather than as a missing stylesheet rule.
+    **`reverseChecks` runs with burying TURNED OFF for its deck, deliberately** — it is measuring the
+    template-major ordering and each direction carrying a schedule of its own, and with burying on (the
+    default) no session can reach both directions of a note at all, so its last assertion failed the day
+    burying shipped. **`buryChecks` narrows `S.active` to its OWN deck** for the same reason in reverse: its
+    counts are read off the pooled banner, and the two-way deck's seven cards reappear the moment `S.cards` is
+    cleared to set a case up. It presses the visible **Undo** control rather than Ctrl+Z (the same code path,
+    already pinned by test-revlog, and the key reaches the card only while nothing else holds the keyboard —
+    this section has just been through a deck sheet and its focus trap), and it proves the day-expiry by
+    **ageing the register** rather than by waiting.
+    **`clozeChecks` runs LAST and is the ONE-CARD-PER-BLANK section** (Aug 2026): its deck declares a note
+    with c1, c2 and **c9** on purpose, because the sparse case is where building ids by position deals
+    `note~2` and `note~3` and renders a passage with nothing blanked — and a second type with the switch OFF
+    beside it, since the two must not behave alike. It asserts through the SCHEDULE (each blank holds one of
+    its own), through the dealt ORDER (a note's blanks never arrive back to back) and through the rendered
+    TEXT (card 2 hides Egypt and shows the Nile), and it turns burying off for its own deck for
+    `reverseChecks`' reason — with it on, no session can reach a note's second blank at all.
     **Re-run after touching the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle` /
-    `cardTypeFieldGetter` / `.uc-hasfront` / `uCardSanitize` / `uDeckSanitizeMeta`, the Studio's Types tab, or
-    `levelFromXP`.**
+    `cardTypeFieldGetter` / `.uc-hasfront` / `uCardSanitize` / `uDeckSanitizeMeta` / `typeCards` /
+    `uCardIdFor` / `uDeckStudyIds` / `clozeMark` / `clozeOrds` / `clozeOrd` / `CLOZE_RX` / `type.cloze` /
+    `isBuried` / `buryCard` / `burySiblings` / `deckBurySiblings` /
+    `entryHasSiblings`, the Studio's Types tab, or `levelFromXP`.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
@@ -9247,11 +10220,16 @@ dead code (never rendered).
   (Supabase Table Editor) per the hygiene rule above.
 - **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy accounts block).
   Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
-  Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`; signup trigger creates the
+  Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the later blocks'
+  `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`; signup trigger creates the
   profile + empty progress row). Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
   (security = RLS). **Offline-first**: localStorage stays the working copy; `save()` → `supaQueuePush()` (6s debounce, skips
   no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`) refreshes the session, pulls, and
   reconciles — server wins when its `updated_at` ≠ the device's `S._supaTs` baseline (another device wrote), else local pushes.
+  **`progressBlob()` is what it sends, and that is NOT `extractProgress()`** — the per-review log has a table of its own
+  (`review_log`, block 10; see the `revlog` bullet) precisely because this blob is PATCHed whole, so anything that must grow
+  without bound belongs beside it rather than in it. `extractProgress()` still includes the log, since the guest stash is a
+  whole device state; **if you add a field that grows per review, give it a table and keep it out of PROGRESS_FIELDS.**
   Sign-in adopts server progress (or MIGRATES local progress up if the server row is empty); the pre-sign-in device state is
   stashed (`folio_supa_guest_v1`) and restored on sign-out. **That migration is OWNERSHIP-GATED by `S._supaOwner`** —
   the account id the progress currently in localStorage belongs to (device-local like `_supaTs`, so it never syncs

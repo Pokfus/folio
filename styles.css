@@ -560,15 +560,20 @@ body.night .banner{
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
-/* ---------- "+ New group", bottom left of the Daily-study banner (Aug 2026, on request) ----------
-   A row of its own under the piles rather than an absolutely-positioned corner: the meta row already owns
-   the bottom-left of the banner, and a floating control there would have to guess its height on every
-   render (the same reasoning that keeps `.rv-lip` in flow). Quiet by default — it is a way of tidying the
-   list, not the thing the banner is for — and it must clear the decorative glyph at the bottom right, which
-   `pointer-events:none` already keeps out of its way. */
-.rv-tools{margin-top:12px; display:flex;}
+/* ---------- "+ New group", bottom left of the DECK LIST (Aug 2026, on request) ----------
+   It stood inside the Daily-study banner for a fortnight, under the three piles. A group is made out of the
+   rows BELOW the banner, so the control now sits at the end of those rows instead — beside the thing it
+   acts on rather than above it. It shares a footer line with `.rv-lip`, which hangs off the group's bottom
+   edge at the other end: a block stacked between the two would take that edge away from the lip.
+   Quiet by default — it is a way of tidying the list, not the thing the page is for. */
+.rv-foot{display:flex; align-items:flex-start; gap:12px;}
+.rv-tools{margin-top:9px; margin-inline-start:20px; display:flex;}
+/* with no decks yet there is no "+ New group" to sit beside, and `margin-inline-start:auto` is what keeps
+   the lip at the right-hand end of the line in both cases (`justify-content` could not: on a one-item row
+   `space-between` puts that item at the START) */
+.rv-foot .rv-lip{align-self:flex-start; margin-inline-start:auto;}
 .rv-newgroup{
-  cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:5px 11px;
+  appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:5px 11px;
   border:1px dashed color-mix(in srgb, var(--ink) 26%, transparent); border-radius:99px;
   font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-faint); background:color-mix(in srgb, var(--card) 70%, transparent);
@@ -1673,10 +1678,106 @@ body.grading .stage{padding-bottom:150px;}
 /* "Today" is wider than one narrow weekday letter — let it overhang its column rather than clip to "To…" */
 .fc-bar.fc-today em{color:var(--zh); font-weight:600; overflow:visible; max-width:none;}
 .fc-bar.fc-zero i{height:2px !important; background:var(--rule);}   /* nothing due — a flat tick keeps the axis continuous */
+
+/* answer buttons — one bar per grade, in the grade bar's OWN four colours so the two surfaces cannot come
+   to disagree about which colour "Hard" is. It is the forecast's shape deliberately: the two cards sit in
+   one grid and a second bar idiom on the same page would read as two unrelated charts. */
+.ab-bars{display:flex; align-items:flex-end; gap:8px; height:104px; padding-top:4px;}
+.ab-bar{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:4px;}
+/* the bar's own track — see the note where the markup is built: a percentage height needs a containing
+   block that the labels are OUTSIDE of, or the tallest bar grows over the word beneath it */
+.ab-track{flex:1 1 auto; min-height:0; width:100%; display:flex; align-items:flex-end; justify-content:center;}
+.ab-bar i{display:block; width:100%; max-width:34px; border-radius:3px 3px 0 0; background:var(--rule); transition:height .35s var(--ease);}
+.ab-bar b{font-family:var(--mono); font-weight:600; font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-soft);}
+.ab-bar em{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;}
+.ab-g1 i{background:#D9544C;}
+.ab-g2 i{background:#DB8B3A;}
+.ab-g3 i{background:#4F9D67;}
+.ab-g4 i{background:#4F74C2;}
+.night .ab-g1 i{background:#E26B62;}
+.night .ab-g2 i{background:#E0A057;}
+.night .ab-g3 i{background:#5FB07E;}
+.night .ab-g4 i{background:#6E8FD6;}
+.ab-bar.ab-zero i{height:2px !important; background:var(--rule);}   /* never pressed — the flat tick, as above */
+.ab-bar.ab-zero b{color:var(--ink-faint);}
 @media (max-width:720px){
   .revstats{grid-template-columns:1fr;}
   .hm-best{margin-left:0; width:100%;}
 }
+
+/* card types — the list of card templates a type declares. The picker and the name sit side by side on a
+   wide editor and stack on a narrow one; the two buttons are their own row so "Remove this card", which is
+   the destructive one, is never adjacent to the select a finger is aiming at. */
+.ut-cards{display:grid; grid-template-columns:1fr 1fr; gap:10px 14px; align-items:end; margin:2px 0 4px; padding:11px 0 12px; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);}
+.ut-cards .admin-field{margin:0;}
+.ut-cardacts{grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+@media (max-width:720px){
+  .ut-cards{grid-template-columns:1fr;}
+}
+
+/* ---------- card info: the state block and the per-review history table ----------
+   Both live inside a `.dm-box` sheet, which is why the widths below are caps rather than fixed sizes: the
+   sheet is centred at every screen width and the table has to be able to scroll inside it rather than
+   stretch it (a seven-column table on a 390px phone is wider than the phone). */
+/* Wider than the ordinary options sheet, because a seven-column history table in 400px is a table read
+   entirely by scrolling. The class goes on the OVERLAY (deckSheet owns the box) — see openCardInfo.
+   It is also the one sheet that can outgrow the screen: an options sheet is four rows, and this is a state
+   block plus however many reviews a card has. So the BOX is capped and the TABLE is the part that gives —
+   `flex:1 1 auto; min-height:0` on the wrap, which is what lets a flex item shrink below its content — so
+   the state block and the Close button stay put and the history scrolls between them. Without the cap a
+   card with a year of reviews runs off both ends of a phone, taking Close with it. */
+/* `vh` first and `dvh` after it: on a phone `vh` ignores the browser's own retracting toolbars, and a
+   browser that does not know `dvh` simply drops the second line and keeps the first. */
+.deck-menu.ci-sheet .dm-box{width:min(580px,94vw); max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px);}
+.deck-menu.ci-sheet .ci-histwrap{flex:1 1 auto; min-height:0;}
+.ci-grid{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; align-items:baseline; padding:4px 14px 6px;}
+.ci-k{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
+.ci-v{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); min-width:0; overflow-wrap:anywhere;}
+.ci-due-now{color:var(--zh); font-weight:600;}
+.ci-leech{color:var(--zh);}
+.ci-id{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
+.ci-of{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint); margin-left:6px;}
+.ci-h{font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink); margin:6px 0 0; padding:11px 14px 0; border-top:1px solid var(--rule);}
+
+/* The actions row inside Card info — flag, set due date, forget, suspend. It wraps rather than scrolling,
+   because four ghost buttons at Very large text do not fit one 390px line and a row that scrolls sideways
+   hides whichever action happens to be last. */
+.ci-acts{display:flex; flex-wrap:wrap; gap:8px; padding:8px 14px 2px;}
+.ci-acts .btn{font-size:calc(12px * var(--fs)); padding:6px 12px;}
+
+/* The flag picker's swatch row. The number is printed ON the swatch, so the seven are told apart by
+   position and figure as well as by hue — which is what makes it usable to a reader who cannot separate
+   red from green, and is why the keyboard shortcut is the same figure. */
+.fl-row{display:flex; flex-wrap:wrap; gap:8px; padding:10px 14px 4px;}
+.fl-sw{display:flex; flex-direction:column; align-items:center; gap:4px; padding:7px 9px; border:1px solid var(--rule); border-radius:10px; background:var(--card); cursor:pointer; transition:border-color .16s var(--ease), background .16s var(--ease);}
+.fl-sw .flag-dot{width:calc(16px * var(--fs)); height:calc(16px * var(--fs));}
+.fl-sw .fl-n{font-family:var(--mono); font-size:calc(10px * var(--fs)); color:var(--ink-faint);}
+.fl-sw:hover{border-color:color-mix(in srgb,var(--flag) 55%,var(--rule)); background:color-mix(in srgb,var(--flag) 8%,var(--card));}
+.fl-sw.sel{border-color:var(--flag); background:color-mix(in srgb,var(--flag) 14%,var(--card));}
+.fl-sw.sel .fl-n{color:var(--ink);}
+.ci-none{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin:0; padding:7px 14px 2px;}
+.ci-histwrap{overflow-x:auto; overflow-y:auto; max-height:44vh; padding:7px 14px 2px;}   /* the cap above is what makes this a floor rather than the whole rule */
+table.ci-hist{border-collapse:collapse; width:100%; font-family:var(--sans); font-size:calc(11.5px * var(--fs)); white-space:nowrap;}
+table.ci-hist th{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; text-align:left; padding:0 10px 5px 0; position:sticky; top:0; background:var(--card);}
+table.ci-hist td{padding:4px 10px 4px 0; border-top:1px solid var(--rule); color:var(--ink); vertical-align:baseline;}
+table.ci-hist tr td:first-child{color:var(--ink-soft);}
+.ci-st{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+.ci-st-3{color:var(--indigo);}
+/* the rating, in the grade bar's own colours — see the answer-buttons note above */
+.ci-g{font-weight:600;}
+.ci-g-1{color:#B8433C;} .ci-g-2{color:#A9682A;} .ci-g-3{color:#3D7A50;} .ci-g-4{color:#3D5C9C;}
+.night .ci-g-1{color:#E26B62;} .night .ci-g-2{color:#E0A057;} .night .ci-g-3{color:#5FB07E;} .night .ci-g-4{color:#6E8FD6;}
+.ci-sum{font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-soft); margin:0; padding:6px 14px 0;}
+/* the Info button in the study bar wears the same quiet chrome as Undo beside it */
+.infobtn svg{opacity:.85;}
+/* …and so does the Flag button, until the card HAS a flag, at which point the button becomes the one place
+   on the study page that says so — the flag is invisible otherwise, and a marker nobody can see mid-review
+   is a marker nobody trusts. The colour is on the mark and the label, never a fill: this bar is four small
+   controls in a row and a filled one would read as the selected tab of something. */
+.flagbtn svg{opacity:.85;}
+.flagbtn.on{color:var(--flag);}
+.flagbtn.on svg{opacity:1; fill:color-mix(in srgb,var(--flag) 30%,transparent);}
+.ci-flag{display:inline-flex; align-items:center; gap:7px;}
 
 /* ---------- deck statistics: a picker over collections/decks and the panel it drives ---------- */
 .ds-pick{display:flex; align-items:center; gap:12px; margin-bottom:12px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
@@ -2378,6 +2479,23 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .dm-pane[hidden]{display:none;}
 .dm-clear{width:100%;}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
+/* the Scheduling sheet: a wider box than an options sheet (it carries two paragraphs of explanation and a
+   parameter box), and one field that stacks because a 21-number list has nowhere to sit beside its label */
+.deck-menu.ds-sheet .dm-box{width:min(480px,94vw); max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); overflow-y:auto;}
+.dm-field.dm-fieldcol{flex-direction:column; align-items:stretch; gap:6px;}
+.dm-field.dm-fieldcol > span{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.dm-field.dm-fieldcol > span small{font-family:var(--sans); letter-spacing:0; text-transform:none; margin-left:6px;}
+/* a UNIT carried in a row's own label, because the field beside it is a bare number box */
+.dm-field > span small{color:var(--ink-faint); font-size:calc(11.5px * var(--fs));}
+textarea.ds-params{width:100%; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.5; resize:vertical;}
+/* the optimiser's row: a button and the sentence it answers with, which runs to three lines on a phone and
+   so is a BLOCK under the button rather than a label beside it */
+.ds-optrow{display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:2px 14px 8px;}
+.ds-optrow .btn{flex:none;}
+.ds-optmsg:empty{display:none;}
+.ds-optmsg{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint);}
+.ds-optmsg.ds-optok{color:var(--good);}
+.ds-optmsg.ds-optwarn{color:var(--ink-soft);}
 /* a sheet row holding a picker rather than a number — the label stays on the left and the control takes
    what is left, which on a 390px screen is most of the row */
 .dm-field select.af-input{flex:1 1 auto; min-width:0; width:auto; max-width:62%;}
@@ -2443,6 +2561,35 @@ body.hc:not(.night){
 [data-rar="epic"]{--rar:var(--rar-epic);}
 [data-rar="legendary"]{--rar:var(--rar-legendary);}
 
+/* ---- CARD FLAGS (Aug 2026) — the reader's own seven, Anki's order and Anki's names -------------------
+   Tokens for exactly the reason the rarities above are: the reader is being asked to tell SEVEN apart at a
+   glance, which is more than any other palette on the site asks, so each one is a value chosen per paper
+   rather than one value mixed toward whatever paper is under it. `[data-flag="N"]` is the switch.
+
+   The dot is a filled circle with a ring, never coloured TEXT: seven hues that are all legible as 10px
+   type on sixteen light papers and eighteen dark ones do not exist, and the name is always beside it in
+   the ordinary ink anyway. */
+:root{
+  --flag-1:#C1392B; --flag-2:#C07213; --flag-3:#3F8F43; --flag-4:#2F6DB5;
+  --flag-5:#BC4396; --flag-6:#15837F; --flag-7:#7B4BC0;
+}
+body.night{
+  --flag-1:#F07A6B; --flag-2:#E9A648; --flag-3:#6FC073; --flag-4:#6FA7E8;
+  --flag-5:#EC85C4; --flag-6:#4FC3BD; --flag-7:#B08BEA;
+}
+body.hc:not(.night){
+  --flag-1:#97281C; --flag-2:#8E540A; --flag-3:#2C6C30; --flag-4:#21528C;
+  --flag-5:#8E2F6B; --flag-6:#0B6360; --flag-7:#5C3494;
+}
+[data-flag="1"]{--flag:var(--flag-1);}
+[data-flag="2"]{--flag:var(--flag-2);}
+[data-flag="3"]{--flag:var(--flag-3);}
+[data-flag="4"]{--flag:var(--flag-4);}
+[data-flag="5"]{--flag:var(--flag-5);}
+[data-flag="6"]{--flag:var(--flag-6);}
+[data-flag="7"]{--flag:var(--flag-7);}
+.flag-dot{display:inline-block; width:calc(10px * var(--fs)); height:calc(10px * var(--fs)); border-radius:99px; background:var(--flag,var(--ink-faint)); box-shadow:0 0 0 1px color-mix(in srgb,var(--flag,var(--rule)) 55%,transparent); vertical-align:middle; flex:0 0 auto;}
+
 /* ---- the rarity chip ---- */
 .ar-chip{display:inline-flex; align-items:center; font-family:var(--mono); font-size:calc(9px * var(--fs)); font-weight:600; letter-spacing:.14em; text-transform:uppercase; padding:2px 7px; border-radius:99px; color:var(--rar,var(--ink-faint)); border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 40%,transparent); background:color-mix(in srgb,var(--rar,var(--rule)) 12%,transparent);}
 
@@ -2466,7 +2613,12 @@ button.ar-slot:hover{border-color:color-mix(in srgb,var(--indigo) 55%,var(--rule
 button.ar-slot:hover .ar-slotmark,button.ar-slot:hover .ar-slotlbl{color:var(--indigo); opacity:1;}
 .ar-slotlbl{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); text-align:center; line-height:1.25;}
 
-/* ---- waiting chests, at the top of the account page (see chestBannerHTML) ---- */
+/* ---- waiting chests, directly above the Daily-study banner (see chestBannerHTML) ---- */
+/* Its slot on the home page sits in `.banners`, a flex column with a gap — so an EMPTY slot would still
+   spend a gap and leave a hole above the Daily-study banner on every day nothing is waiting. */
+#chestSlot:empty{display:none;}
+/* …and inside that column the gap is what separates it, so it carries no bottom margin of its own there. */
+.banners .chest-banner{margin-bottom:0;}
 .chest-banner{display:flex; align-items:center; gap:14px; padding:14px 16px; margin:0 0 18px;
   background:linear-gradient(105deg, color-mix(in srgb,#C39A2E 22%,transparent), transparent 68%) var(--card);
   border:1px solid color-mix(in srgb,#C39A2E 40%,var(--rule)); border-radius:14px; box-shadow:var(--shadow-sm);}
@@ -2541,7 +2693,9 @@ body.night .cb-ic{color:#E6C765;}
 .ar-wmeta{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.02em; margin-bottom:3px;}
 .ar-wdesc{font-family:var(--serif); font-size:calc(15px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:12px 0 10px;}
 .ar-wdesc b{color:var(--ink);}
-.ar-wcredit{font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin-bottom:10px;}
+/* `.ar-wcredit` — the picture's credit under the plate's prose — is gone (Aug 2026, on request): the
+   plate's picture opens the site's fullscreen viewer, whose caption bar carries the credit, so the plate
+   itself no longer repeats it. */
 .ar-pinbtn{font-size:calc(12.5px * var(--fs));}
 
 /* ---- the whole collection, raised from the showcase's "See all" ----
@@ -2638,11 +2792,9 @@ body.night .chest-btn{color:#E6C765;}
 body.no-anim .chest-bit,body.no-anim .chest-rays{display:none;}
 body.no-anim .chest-pop.opening .chest-svg,body.no-anim .chest-pop:not(.opening) .chest-btn .chest-svg,body.no-anim .chest-pop.opening .chest-lid{animation:none;}
 body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opacity:0;}
-/* the home banner's chest chip — a target inside the review button, which the banner's own handler defers to */
-.chest-chip{cursor:pointer; border-radius:8px;}
-.chest-chip:hover{background:color-mix(in srgb,#C39A2E 16%,transparent);}
-.chest-chip b{color:#C39A2E;}
-body.night .chest-chip b{color:#E6C765;}
+/* The home banner's chest CHIP is gone (Aug 2026, on request): a chest is never shown as a number there.
+   What says one is waiting is `.chest-banner` above the banner — the notice that used to sit on the
+   account page — so the rules that dressed the chip as a fourth stat went with it. */
 
 /* ---- Admin → Artefacts ---- */
 .a-row{border:1px solid var(--rule); border-radius:10px; margin-bottom:7px; overflow:hidden; background:var(--card);}
@@ -3162,19 +3314,21 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
 .active-deck.deck-group{
   padding-top:7px; padding-bottom:7px;
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 52%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 38%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
 }
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
 body.night .active-deck.deck-group{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 40%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 28%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 9%, transparent) 78%) var(--card);
 }
-.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 62%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 20%, transparent) 78%) var(--card);}
-.active-deck.deck-group .dk-title{font-family:var(--display); font-size:calc(13.5px * var(--fs)); font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
-/* how much is inside, in place of the progress bar a deck row carries: a header states its extent, and a
-   header wearing a full deck row's furniture is just another deck row */
-.active-deck.deck-group .dg-count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; flex:none;}
+.active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+/* THE HEADER IS SET IN THE ROWS' OWN FACE (Aug 2026, on request). It used to take `--display` two sizes
+   down, bolder, letterspaced and in capitals — which read as a different KIND of thing from the decks under
+   it rather than as the heading of them — so the rule that did all that is gone and `.active-deck .dk-title`
+   answers for the group header too. What still marks it as a header is the wash above and the indent below.
+   `.dg-count` — the small mono "N cards" it carried where a deck row carries its bar — went at the same
+   time: the header now carries the bar, like everything else on the list. */
 /* THE DROP TARGET while a row is being carried over the middle of another (see dropTargetAt). It has to
    read as "inside this" rather than "next to this", which is what the inset ring says and a line between
    two rows would not. */
@@ -3646,9 +3800,14 @@ button.game-tile .gt-glyph{opacity:.14;}
 .clog-chev svg{width:14px; height:14px; display:block; transition:transform .18s var(--ease);}
 .clog-day.open .clog-chev svg{transform:rotate(180deg);}
 /* …and the changelog's days, the same way */
+/* A 0fr grid row only collapses a child whose own MINIMUM height is zero, and an element's padding counts
+   towards that minimum whatever `min-height` says about its content box. With the padded <ul> as the grid
+   item, a shut day therefore stayed ~16px tall and showed a clipped line of its first entry through it —
+   which is what "the collapsible sections don't collapse fully" was (Aug 2026, reported from a phone).
+   `.clog-in` is an unpadded wrapper that clips: it is what the row sizes, and it really does go to 0. */
 .clog-body{display:grid; grid-template-rows:0fr; overflow:hidden; transition:grid-template-rows .32s var(--ease);}
 .clog-day.open .clog-body{grid-template-rows:1fr;}
-.clog-body > *{min-height:0;}
+.clog-body > *{min-height:0; overflow:hidden;}
 .clog-body ul{margin:0; padding:10px 2px 6px 20px;}
 .clog-body li{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin-bottom:7px;}
 /* about page: per-card accent hue + icon chip, forgetting-curve diagram, how-to steps, FAQ */
@@ -3696,10 +3855,12 @@ button.game-tile .gt-glyph{opacity:.14;}
 /* The fold OPENS rather than appearing (Aug 2026). Same technique as the sources fold above — a grid row
    eased from 0fr to 1fr — which is the only way to animate "as tall as the content is" without measuring
    it in JS. The padding rides on the inner element, or it would be there while the row is still zero and
-   the shut state would carry an 18px gap. */
+   the shut state would carry an 18px gap — which is exactly what it DID until Aug 2026: the padded `<p>`
+   was the grid item itself, so the comment was right and the markup was not. `.faq-in` is that inner
+   element now; see `.clog-body` above for the whole of it. */
 .faq-a{display:grid; grid-template-rows:0fr; overflow:hidden; transition:grid-template-rows .32s var(--ease);}
 .faq-item.open .faq-a{grid-template-rows:1fr;}
-.faq-a > *{min-height:0;}
+.faq-a > *{min-height:0; overflow:hidden;}
 .faq-a p{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.65; color:var(--ink-soft); margin:0; padding:10px 2px 8px;}
 .faq-a b{color:var(--ink); font-weight:600;}
 /* admin: the Mission title/paragraphs are click-to-edit */
@@ -5568,6 +5729,12 @@ body.no-tts .uc-tts::before{display:none;}
   color:inherit; background:var(--indigo-wash); border-radius:5px; padding:0 .18em;
   box-shadow:inset 0 -.42em 0 var(--indigo-wash);
 }
+/* A blank this card is NOT asking about, on a type that makes one card per blank. It reads as ORDINARY
+   PROSE — no colour, no weight — because that is exactly what it is here: the rest of the sentence, which is
+   the context the reader is recalling from. It keeps a class of its own only so a type can style it if it
+   wants to; without this rule it would inherit .uc-cloze's indigo and every card would look as though it
+   were asking about every blank at once, which is the behaviour this replaced. */
+.uc-cloze-other{color:inherit; font-weight:inherit;}
 .ces-typebar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
 .ces-typepick{display:flex; align-items:center; gap:8px;}
 .ces-typepick span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
@@ -6063,3 +6230,91 @@ body.night .book-tile{
   .bk-ch-t{font-size:calc(23px * var(--fs));}
   .bk-toc-list{grid-template-columns:1fr;}
 }
+
+/* ================= THE CARD BROWSER (Aug 2026) =====================================================
+   A table, and the two things that make a table on a phone bearable: it SCROLLS SIDEWAYS INSIDE ITS OWN
+   BOX (never widening the page — the house rule for every wide block on the site), and below the phone
+   breakpoint four of its nine columns go, leaving the ones a reader is scanning for. The grid is declared
+   once and the widths are `minmax(0, …)` throughout, because a cell's automatic minimum is its content's
+   and a long card title would otherwise push the table to the width of the longest one. */
+.bw-tools{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:10px;}
+.bw-search{flex:1 1 260px; min-width:0;}
+.bw-search input{width:100%; appearance:none; background:var(--card); border:1px solid var(--rule); border-radius:99px; padding:9px 15px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink);}
+.bw-search input:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.bw-help{flex:0 0 auto; font-size:calc(12px * var(--fs)); padding:7px 13px;}
+.bw-helpbox{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 18px; margin-bottom:12px; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.bw-helpbox[hidden]{display:none;}
+.bw-helpbox dl{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin:0 0 10px;}
+.bw-helpbox dt{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink); white-space:nowrap;}
+.bw-helpbox dd{margin:0;}
+.bw-helpbox code{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); background:var(--paper-2); border-radius:4px; padding:1px 5px;}
+.bw-helpbox p{margin:0 0 8px;}
+.bw-helpbox .bw-helpnote{color:var(--ink-faint); font-size:calc(11.5px * var(--fs)); margin-bottom:0;}
+.bw-countline{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px;}
+.bw-countline b{color:var(--ink);}
+.bw-cap{text-transform:none; letter-spacing:0; font-family:var(--sans); font-size:calc(11.5px * var(--fs));}
+
+/* The bulk bar. It exists only while something is selected, so it needs no disabled state and no empty
+   height — the slot it lives in collapses to nothing. */
+.bw-bulkslot:empty{display:none;}
+.bw-bulk{display:flex; flex-wrap:wrap; align-items:center; gap:8px; background:color-mix(in srgb,var(--indigo) 8%,var(--card)); border:1px solid color-mix(in srgb,var(--indigo) 30%,var(--rule)); border-radius:12px; padding:9px 14px; margin-bottom:10px;}
+.bw-bulkn{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-right:4px;}
+.bw-bulkn b{color:var(--ink);}
+.bw-bulk .btn{font-size:calc(11.5px * var(--fs)); padding:5px 11px;}
+
+.bw-wrap{overflow-x:auto; background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);}
+.bw-table{min-width:760px;}
+.bw-head, .bw-row{display:grid; grid-template-columns:minmax(0,34px) minmax(0,26px) minmax(0,4fr) minmax(0,1.5fr) minmax(0,88px) minmax(0,92px) minmax(0,78px) minmax(0,68px) minmax(0,68px); align-items:center; gap:0 8px;}
+.bw-head{border-bottom:1px solid var(--rule); background:var(--paper-2); position:sticky; top:0; z-index:2;}
+.bw-th{appearance:none; background:none; border:0; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.11em; text-transform:uppercase; color:var(--ink-faint); text-align:left; padding:10px 4px; cursor:pointer; display:flex; align-items:center; gap:4px; min-width:0;}
+.bw-th:not([data-sort]){cursor:default;}
+.bw-th.sorted{color:var(--ink);}
+.bw-arrow{font-size:calc(9px * var(--fs));}
+.bw-th-check, .bw-th-flag{justify-content:center; padding-inline:0;}
+.bw-row{border-bottom:1px solid color-mix(in srgb,var(--rule) 55%,transparent); transition:background .13s var(--ease);}
+.bw-row:last-child{border-bottom:0;}
+.bw-row:hover{background:color-mix(in srgb,var(--indigo) 5%,transparent);}
+.bw-row.sel{background:color-mix(in srgb,var(--indigo) 11%,transparent);}
+/* a suspended card is set aside, and the row says so by being quieter as well as by its chip */
+.bw-row.bw-susp .bw-name, .bw-row.bw-susp .bw-deck{opacity:.6;}
+.bw-cell{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); padding:9px 4px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.bw-cell-check, .bw-cell-flag{display:flex; align-items:center; justify-content:center; padding-inline:0;}
+.bw-name{appearance:none; background:none; border:0; text-align:left; font:inherit; font-size:calc(13px * var(--fs)); color:var(--ink); cursor:pointer; text-decoration:underline; text-decoration-color:transparent; text-underline-offset:3px; transition:text-decoration-color .14s var(--ease);}
+.bw-name:hover{text-decoration-color:var(--indigo);}
+.bw-deck{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint);}
+.bw-due, .bw-ivl, .bw-reps, .bw-lapses{font-family:var(--mono); font-size:calc(11.5px * var(--fs));}
+.bw-overdue{color:var(--zh); font-weight:600;}
+.bw-tag{display:inline-block; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule); border-radius:99px; padding:0 6px; margin-left:5px; vertical-align:middle;}
+.bw-tag-leech{color:var(--zh); border-color:color-mix(in srgb,var(--zh) 40%,transparent);}
+.bw-none{margin:0; padding:20px 18px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-faint);}
+.bw-entry .rs-sub{max-width:60ch;}
+
+@media (max-width:640px){
+  /* Four columns go rather than being squeezed: at 390px the card's own title is the only part of a row
+     with no shorter form, so anything that takes width from it is what has to give. The data is still a
+     tap away in Card info, which is what the row opens. */
+  .bw-table{min-width:0;}
+  .bw-head, .bw-row{grid-template-columns:minmax(0,32px) minmax(0,24px) minmax(0,1fr) minmax(0,84px);}
+  .bw-th-deck, .bw-th-ivl, .bw-th-reps, .bw-th-lapses, .bw-deck, .bw-ivl, .bw-reps, .bw-lapses{display:none;}
+  .bw-th-state, .bw-state{display:none;}
+  .bw-wrap{overflow-x:hidden;}
+}
+
+/* ---- EASY DAYS: the seven weekday toggles in Settings → Study (Aug 2026) --------------------------
+   `role="switch"` rather than checkboxes, because each one is independently on or off and there is no
+   "choose one" among them. Marked-off is the LOUD state — it is the thing the reader has said, and the
+   unmarked six are just the ordinary week — so it takes the colour and the strike, and the label stays a
+   word rather than becoming an icon: three letters are already the short form. */
+/* THE ROW STACKS. `.set-row` is a flex line with the prose at `flex:1` and the control at `flex:none`, which
+   is right for a switch and hopeless for seven buttons: at the settings column's ~370px they claim the whole
+   line and the description beside them wraps to one word per line. So this row alone lays its control out
+   UNDER the prose, full width — found by looking at the page, which is the only way a squeeze like that
+   shows up. */
+.set-row-stack{flex-direction:column; align-items:stretch; gap:12px;}
+.set-row-stack .ctl{flex:none; width:100%;}
+.ed-days{display:flex; flex-wrap:wrap; gap:6px;}
+.ed-day{appearance:none; background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:7px 9px; cursor:pointer; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); transition:background .14s var(--ease), border-color .14s var(--ease), color .14s var(--ease);}
+.ed-day:hover{border-color:color-mix(in srgb,var(--indigo) 45%,var(--rule));}
+.ed-day:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.ed-day.off{background:color-mix(in srgb,var(--zh) 12%,var(--card)); border-color:color-mix(in srgb,var(--zh) 45%,transparent); color:var(--zh);}
+.ed-day.off span{text-decoration:line-through; text-decoration-thickness:1px;}

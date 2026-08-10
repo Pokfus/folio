@@ -6000,6 +6000,530 @@ const BOOKS = {
     },
   },
 
+  "homer-odyssey": {
+    title: "The Odyssey",
+    subtitle: "Ὀδύσσεια",
+    author: "Homer",
+    translator: "A. T. Murray",
+    edition: "Loeb Classical Library, William Heinemann / G. P. Putnam's Sons, London and New York, 1919",
+    written: "composed c. 725–675 BCE",
+
+    /* ---------- THE LICENCE, and it is the SIMPLEST of any two-column book here ----------
+       Every other pairing on this shelf sets two modern hands beside each other and has to reason
+       about both — a translator on one side and an editor on the other, dying decades apart, with the
+       longer of the two terms deciding the book. Here there is ONE modern hand and it holds both
+       columns: Perseus's Greek for the Odyssey is not an Oxford Classical Text set beside the Loeb but
+       the Greek printed on the facing half of the SAME 1919 Loeb volumes, and its file credits A. T.
+       Murray as its editor. So the two halves clear together and there is no harder half to state.
+
+       · A. T. MURRAY lived 1866–1940 and published this Odyssey in two volumes in 1919 (books 1–12
+         and 13–24). United States copyright expired on the publication date, 1919 being well before
+         1929; life-plus-seventy expired at the start of 2011; LIFE PLUS A HUNDRED RUNS TO 2041.
+       · THE GREEK rests first on the same 1919 publication, which is a ground needing no attribution
+         at all, and then on Murray's own death year under the attribution the source file states. NO
+         OTHER EDITOR IS NAMED ANYWHERE IN THAT FILE — not in the title statement, not in the source
+         description, not in the revision history, all of which were read rather than assumed — so
+         nothing here rests on a name that could not be checked. That is the Gallic War's discipline
+         in an easier case: claim the ground that is certain, name the attribution the source gives,
+         and do not round a gap up into a fact.
+
+       Every date was looked up rather than recalled, for the Hugo Magnus reason. It is worth writing
+       down once that A. T. Murray is NOT Gilbert Murray, who edited the Greek of the Medea on this
+       same shelf: the two were born in the same year, 1866, are different men, and taking one's dates
+       for the other's would put a wrong death year under this whole paragraph.
+
+       BOTH DIGITAL EDITIONS carry the Perseus CC BY-SA 4.0 layer, as the Iliad's, Ovid's, Lucretius's
+       and Suetonius's do on both of their columns. NEITHER TEXT CARRIES A MODERN EDITORIAL LAYER,
+       which was CHECKED and not assumed — the Antigone found the shipped Oedipus Rex claiming to be
+       clean while silently carrying Perseus's own modernization of Jebb. Both revision histories were
+       read: they record card breaks, proofreading, a DTD revision and the EpiDoc conversion, and
+       nothing else. Perseus's OTHER English Odyssey does carry such a layer and is the reason this one
+       was chosen; see the note under `url` below.
+
+       The modern translations a reader is likeliest to own — Robert Fitzgerald (1961), Richmond
+       Lattimore (1965), Robert Fagles (1996), Stanley Lombardo (2000), Emily Wilson (2017) and Peter
+       Green (2018) — are all firmly in copyright and none is used here. Named so that nobody reaches
+       for one later. So, particularly, is THE LOEB ITSELF AS A READER WILL FIND IT TODAY: Murray's
+       Odyssey was revised by George E. Dimock and reissued in 1995 as Loeb 104 and 105, and that
+       revision is a separate copyrighted work. What is here is Murray's own 1919 text. */
+    rights:
+      "Three layers, and the two modern ones are the same hand. The poem is some twenty-seven " +
+      "centuries old and is in the public domain everywhere. A. T. Murray's translation was " +
+      "published in 1919 — before 1929 — so its copyright has expired in the United States, and " +
+      "Murray died in 1940, so it is also public domain wherever the term is the author's life plus " +
+      "seventy years; where the term is life plus a hundred it remains in copyright until 2041. The " +
+      "Greek is the text printed facing that translation in the same 1919 volumes, which the edition " +
+      "used here credits to Murray as its editor and for which it names no one else, so it stands on " +
+      "the same publication date and the same life. Both digital editions are prepared by the " +
+      "Perseus Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by Robert " +
+      "Fitzgerald, 1961, Richmond Lattimore, 1965, Robert Fagles, 1996, and Emily Wilson, 2017, are " +
+      "still in copyright and are not used here, nor is George E. Dimock's 1995 revision of Murray.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg002/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. It says
+       what the poem is, how it is put together, what the translation is and what it is not, and how
+       the numbers work — and it says outright that the notes are missing and that three lines of the
+       Greek are absent, because a reader who meets a Loeb without its footnotes is owed the reason
+       rather than left to assume Folio dropped them. */
+    about: [
+      "<b>The Odyssey</b> is a poem about getting home, and it takes its hero four books to appear " +
+        "in it. Troy has been sacked for ten years when it opens; every other Greek commander who " +
+        "survived the war is back or dead, and Odysseus alone is still missing, held on an island by " +
+        "a goddess who wants to keep him. The first four books are about his son, who was an infant " +
+        "when his father sailed and is now a young man with a house full of suitors eating his " +
+        "inheritance while they wait for his mother to choose one of them. The poem is as much about " +
+        "what a twenty-year absence does to a household as it is about the sea.",
+      "It runs to 12,110 lines of dactylic hexameter in twenty-four books, and the division into " +
+        "books is not Homer's: it is Alexandrian, the work of scholars at the Library some five " +
+        "hundred years after the poem was composed, which is why they are lettered with the " +
+        "twenty-four letters of the Greek alphabet as often as they are numbered. The shape underneath " +
+        "that division is the poem's own and is worth knowing before starting. Books 1 to 4 follow " +
+        "Telemachus; 5 to 8 bring Odysseus off Calypso's island to the court of the Phaeacians; in 9 " +
+        "to 12 he tells that court the story of his own wanderings, so the Cyclops, Circe, the land of " +
+        "the dead, the Sirens and Scylla are all told in the first person by a man with reasons to " +
+        "make himself sound well; and the remaining twelve books are Ithaca, where he comes ashore at " +
+        "the opening of book 13 and spends most of what is left disguised as a beggar in his own " +
+        "house, in a slow, domestic, dangerous business of being recognised.",
+      "Who Homer was is the oldest open question in classical scholarship and this edition cannot " +
+        "settle it. The ancient world took the Iliad and the Odyssey for the work of one blind poet; " +
+        "since the eighteenth century the weight of argument has moved towards a long tradition of " +
+        "singers, and many scholars now hold that the Odyssey took shape a generation or so after the " +
+        "Iliad, in the late eighth or early seventh century BCE. Nothing in the text names its author. " +
+        "The repeated epithets and whole repeated lines — the wine-dark sea, rosy-fingered dawn, " +
+        "resourceful Odysseus — are the working equipment of oral composition, a system of ready-made " +
+        "phrases that let a singer build a line in performance, and they are not the padding they can " +
+        "look like on a page.",
+      "The translation here is A. T. Murray's, made for the Loeb Classical Library in 1919 and " +
+        "printed in two volumes, books 1 to 12 and 13 to 24. It is PROSE, and that is a real choice " +
+        "rather than an accident of the edition: Murray was setting his English on the page facing " +
+        "the Greek for readers working between the two, so he translates closely and keeps Homer's " +
+        "formulae as formulae rather than varying them for effect. His English is deliberately a " +
+        "little archaic — thou and thee, aye and sore and verily. What it is not is a poem, and a " +
+        "reader who wants the hexameters in English verse should know that is a different book from " +
+        "this one.",
+      "The small raised figures running through both columns are LINE numbers of the Greek, marking " +
+        "where each passage begins — so a reference such as 'Odyssey 9.366' is book 9, line 366, and " +
+        "the figures are how you find it. They are also what pairs the two columns: an English " +
+        "passage and a Greek one carrying the same figure are the same place in the poem. Two things " +
+        "this edition does not give you. Murray's printed page carries 192 footnotes, and the " +
+        "transcription used here preserves only the numbers that pointed at them and not a word of " +
+        "their text, so they are dropped and there is no fold of notes under the chapters. And the " +
+        "Greek column is three lines short of the poem's traditional 12,110: this text omits 10.456, " +
+        "16.101 and 23.49, numbering straight past each of them, so those three places stand empty in " +
+        "the Greek where the English still translates them.",
+    ],
+
+    /* ---------- A TEI EDITION ON BOTH SIDES, and the English one had to be chosen ----------
+       Perseus carries TWO English Odysseys and the choice between them is the same one the Iliad's
+       entry sets out, which is worth restating rather than cross-referencing because it is a trap on
+       a different work rather than a fact about a neighbour.
+
+       · `perseus-eng4` is Samuel Butler's prose — whose own copyright is the easiest available, Butler
+         having died in 1902 — and it is NOT usable, because what Perseus carries is not Butler. Its
+         header states it plainly, in the title statement as a subtitle and again in the notes: "Based
+         on public domain edition of Samuel Butler, revised by Timothy Power and Gregory Nagy." That is
+         a substantive modern revision by living scholars, carried by CC BY-SA rather than by an
+         expiry.
+       · `perseus-eng3` is Murray's Loeb, complete, densely numbered, with no revision layer.
+
+       So the easier copyright is again attached to the text that cannot honestly be shipped as its
+       named translator's work, and the harder one to the text that can — and here "harder" costs
+       almost nothing, since Murray's own term is the only one either column has to answer for. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0012/tlg002/tlg0012.tlg002.perseus-eng3.xml",
+    layout: "verse",
+    /* The cards are real divisions in the English file and bare milestones in the Greek one, exactly
+       as the Iliad's and Ovid's two sides are, so each column says how to find its own. */
+    cards: "div",
+    /* The translation is prose and the original is verse — the shape the Iliad's import gave
+       teiVerseBooks its prose branch for, met a second time in the same translator's other Homer. */
+    cardProse: true,
+    chapterWord: "Book",
+    /* THE TWENTY-FOUR BOOKS HAVE NO TITLES, and this edition prints no headings at all — measured
+       rather than assumed: there is not one <head> element in either file. The names a modern reader
+       knows — "The Cyclops", "The Slaying of the Suitors", the Telemachy, the Apologoi — are editors'
+       and scholars' labels rather than anything the poem or this edition carries, and composing them
+       here would be building an apparatus the book has not got. So the tab wears Folio's own chapter
+       word and the numeral, and nothing else. */
+    titleOf: (n) => "Book " + toRoman(n),
+    chapters: Array.from({ length: 24 }, (_, i) => i + 1),
+    /* NO `parts`, and the tempting one is the printing's rather than the poem's. The Loeb binds this
+       in two volumes, books 1–12 and 13–24, and that break does fall where the poem turns for home —
+       but the volume is the binder's unit, the coincidence is not something the edition claims, and
+       the divisions a reader may have met (the Telemachy, the wanderings) are modern reading aids.
+       Inventing two parts would be composing an apparatus, which the titleOf note above declines to
+       do for the book titles for the same reason. */
+
+    /* ---------- THE ORIGINAL, AND WHY IT PAIRS ----------
+       The question that decides every original here is not "does a text of it exist?" but "does that
+       text say which section each passage is?", because app.js pairs the two columns on the section
+       number and never on paragraph order. Homer passes about as well as any work can: he is cited by
+       BOOK AND LINE everywhere in every language, both editions state the line, and both are divided
+       into the same 288 CARDS — passages of forty-odd lines labelled with the line each one begins at.
+       A card number is therefore the same claim on both sides, stated by the editions rather than
+       counted off a list. And here the two columns are not merely two editions that agree: they are
+       the two halves of one printed opening, so the agreement is nearly by construction.
+
+       MEASURED BEFORE IT WAS BELIEVED, over all twenty-four books: 24 books and 288 cards on each
+       side; the card lists of 23 of the 24 books are IDENTICAL; 286 of the 288 numbers appear on both
+       sides; no duplicate and nothing out of order on either side.
+
+       THE TWO EXCEPTIONS ARE BOTH IN BOOK 14, one line apart each, and each was READ passage by
+       passage before reconcileCards was allowed to move it — which is the discipline that matters
+       here, since a Homeric card has no tale name to check a reconciled pair against:
+         · English card 147 against Greek 148. The English opens "Then the much-enduring, goodly
+           Odysseus answered him"; Greek 148 is τὸν δʼ αὖτε προσέειπε πολύτλας δῖος Ὀδυσσεύς, word for
+           word that line, while Greek 147 (ἀλλά μιν ἠθεῖον καλέω καὶ νόσφιν ἐόντα) closes the speech
+           before it.
+         · English card 234 against Greek 235. The English opens "But when Zeus, whose voice is borne
+           afar, devised that hateful journey which loosened the knees of many a warrior"; Greek 235–236
+           are ἀλλʼ ὅτε δὴ τήν γε στυγερὴν ὁδὸν εὐρύοπα Ζεὺς / ἐφράσαθʼ, ἣ πολλῶν ἀνδρῶν ὑπὸ γούνατʼ
+           ἔλυσε, and Greek 234 closes the sentence before it.
+       In both the English boundary is drawn one line early and the passage is the same passage; every
+       other card in book 14 agrees, which is the clean re-sync that tells an editor's different cut
+       from a misaligned extractor.
+
+       THE GREEK IS THREE LINES SHORT OF THE STANDARD COUNT AND ALL THREE ARE ACCOUNTED FOR, which is
+       worth doing rather than glancing at a total, because a count that is nearly right is how a
+       truncated import hides. The file carries 12,107 <l> elements. Book by book its own numbering
+       runs a clean 1..N against the traditional length of every book, with exactly three gaps —
+       10.456, 16.101 and 23.49 — and in each the numbering steps straight over the missing line
+       (…455, 457…), so the omission is the EDITION'S and not a line this importer lost. 12,107 + 3 =
+       12,110. The edition prints no note explaining them and none is invented here.
+
+       <del> IS INERT IN THIS BOOK AND THAT WAS MEASURED, not assumed: zero <del> elements in either
+       file, and zero <gap>. It is worth the measurement every time, since Lucretius's 116 <del> marks
+       cost that poem thirty whole lines while the Iliad's cost it four.
+
+       THE WELDING RULE IS WHAT THIS EDITION NEEDS MOST, and the numbers say how much. Murray prints
+       Homer's line numbers every fifth line and the transcription sets them inline, hard against the
+       words on both sides ("upon the sea,<milestone n="5"/>seeking to win his own life"). Of the 2,434
+       line milestones in the English, 2,097 stand between two non-space characters and would weld two
+       words together if the tag were simply dropped; 2 of the 192 note stubs do the same. Both are
+       replaced with a space by the prose branch of teiVerseBooks rather than removed — see the rule
+       there, which this book is the second to depend on and the first to confirm it on.
+
+       TWO RUN-TOGETHER WORDS SURVIVE AND ARE THE SOURCE'S OWN — "in thy insolence,ever roaming about
+       the city" at 17.245 and "whatever I shall ask thee;to speak out plainly" in book 8. Each was
+       checked against the transcription and is present there verbatim with no tag anywhere near it,
+       so they are Perseus's typing rather than anything this importer did, and they are recorded
+       instead of repaired: a hand-written list of corrections to somebody else's text is an
+       apparatus, and two missing spaces in 701 KB change nothing a reader relies on. It matters
+       mainly that they are WRITTEN DOWN, because the same shape — two words welded by a stripped tag
+       — is what the rule above exists to prevent in 2,097 other places, and without this paragraph
+       the two survivors would read as that rule having failed. The sweep to re-run after any change
+       to it is a scan of the shipped chapters for a lower-case letter on both sides of a comma, a
+       semicolon or a full stop; today it returns exactly these two and nothing else. */
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "verse",
+      cards: "milestone",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0012/tlg002/tlg0012.tlg002.perseus-grc2.xml",
+      edition:
+        "The Greek printed facing A. T. Murray's translation in the Loeb Classical Library, " +
+        "William Heinemann / G. P. Putnam's Sons, London and New York, 1919, from the Perseus " +
+        "Digital Library",
+      rights:
+        "Two layers, both stated. The poem is some twenty-seven centuries old and is in the public " +
+        "domain everywhere. The Greek here is the text printed facing Murray's English in the same " +
+        "1919 Loeb volumes — before 1929, so its copyright has expired in the United States — and " +
+        "the edition used here credits it to Murray as editor, naming no one else; Murray died in " +
+        "1940, so it is also public domain wherever the term is the author's life plus seventy " +
+        "years, and where the term is life plus a hundred it remains in copyright until 2041. The " +
+        "digital edition it is taken from is prepared by the Perseus Digital Library at Tufts " +
+        "University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg002/",
+    },
+  },
+
+  "virgil-aeneid": {
+    title: "The Aeneid",
+    author: "Virgil",
+    translator: "Theodore C. Williams",
+    edition: "Houghton Mifflin Company, Boston, 1910",
+    written: "c. 29–19 BCE",
+    year: -25,
+
+    /* ---------- THE LICENCE, and it is the EASIEST on the shelf after the four clean ones ----------
+       Everything here is stated by a date that can be checked from the editions themselves, and every
+       layer clears every rule, so there is no limit to state as the Art of War (Giles, 2029), the
+       Nicomachean Ethics (Ross, 2042), the Song of Roland, the Medea (Murray, 2028), Gilgamesh, the
+       Gita and the two Homers all need. That puts it with the Republic, the Analects, the
+       Peloponnesian War, the City of God and Shakuntala.
+
+       The poem is two thousand years old. Theodore C. Williams's translation was published in Boston
+       in 1910 — before 1929, so its United States copyright has expired on exactly the ground Gummere,
+       Haines, Giles and Jowett are served on — and he lived 1855–1915, so it also cleared
+       life-plus-seventy in 1986 and life-plus-a-hundred in 2016. J. B. Greenough's Latin was published
+       by Ginn and Company in Boston in 1881 and he lived 1833–1901, which clears the same three rules
+       with a century to spare; Wikisource's author page carries the public-domain-worldwide tag for
+       both men outright.
+
+       BOTH DEATH YEARS WERE LOOKED UP RATHER THAN RECALLED, for the Hugo Magnus reason, and Williams's
+       needed the Beowulf check on top of it: Wikisource's page for him carries 1855–1915 in its text
+       and a stray 1864 in its metadata, which is the shape that made A. J. Wyatt's dates unusable.
+       Here it resolves rather than blocking anything — Wikidata gives 1855–1915, and his own biography
+       gives 2 July 1855 at Brookline and 6 May 1915 at Boston, so the two independent sources agree at
+       day precision and the odd figure is a data slip. A DATE THAT EXISTS IS NOT THE SAME AS A DATE
+       THAT IS ESTABLISHED; the difference is whether anything else says the same thing.
+
+       There is a second Williams to keep apart from this one, which the Iliad's entry has already had
+       to do for the two Murrays: this is Theodore CHICKERING Williams, the American Unitarian minister
+       who translated Virgil and Tibullus, and not any of the several other Williamses who have
+       Englished Latin poetry.
+
+       The SECOND layer is Perseus's, and it applies to both columns because both come from there —
+       the position the Metamorphoses, On the Nature of Things and the Twelve Caesars are all in.
+       Neither of these two files states a licence in its own TEI header, so both are covered by the
+       repository's blanket CC BY-SA 4.0, exactly as Suetonius's twenty-two older files are. Named in
+       `rights`, printed on the book's own page, credited on the About page.
+
+       BOTH REVISION HISTORIES WERE READ BEFORE THIS WAS CONCLUDED, which is the Antigone's rule and
+       the reason it exists: that play found the shipped Oedipus Rex silently carrying a modern
+       editorial layer while its `rights` called it clean. Neither of these carries one. The English's
+       twenty-odd changes are a 1996 scan and proofread, the XML conversions, and single-word OCR fixes
+       ("UIysses for Ulysses", "Glaucus, to Glaucus'"); the Latin's are the same plus a handful of
+       readings corrected against the printed source and named individually ("2.338 ullo fremitus
+       changed to quo fremitus verified against source", "candientem on 12.91 changed to candentem").
+       Typo fixes are not a revision in the sense that matters — nobody is credited with revising the
+       translation, and neither file says it has been modernised, as Perseus's Herodotus, Oedipus Rex
+       and Antigone all say in their own headers.
+
+       THE OTHER ENGLISH AENEID WAS WEIGHED AND IS NOT USED. Dryden's of 1697 is out of copyright
+       everywhere and is the most famous English Virgil there is; it is also heroic couplets in
+       seventeenth-century English, which is the objection that ruled out Golding's Ovid and Hobbes's
+       Thucydides — the Library is a reading room, and the cleanest text to import is not always the
+       one worth reading. Perseus carries no Dryden for the Aeneid in any case, so unlike the
+       Nicomachean Ethics's Chase-against-Ross choice this cost nothing: here the readable column and
+       the pairable column are the same column.
+
+       The modern translations a reader is likeliest to own — Allen Mandelbaum (1971), Robert
+       Fitzgerald (1983), Stanley Lombardo (2005), Robert Fagles (2006), Sarah Ruden (2008), David
+       Ferry (2017) and Shadi Bartsch (2021), along with C. Day Lewis's verse of 1952 — are all firmly
+       in copyright, and are named here for the reason Campbell, Hays, Griffith, Lee, Humphries and
+       Graves are named above: so that nobody reaches for one later. */
+    rights:
+      "Two layers, both stated, and no limit on either. The poem is two thousand years old and is in " +
+      "the public domain everywhere. Theodore C. Williams's translation was published in Boston in " +
+      "1910 — before 1929 — so its copyright has expired in the United States; he lived 1855–1915, so " +
+      "it is also public domain wherever the term is the author's life plus seventy years or plus a " +
+      "hundred. The Latin printed beside it is J. B. Greenough's edition of 1881, and he lived " +
+      "1833–1901, which clears the same rules. The digital editions both columns are taken from are " +
+      "prepared by the Perseus Digital Library at Tufts University and are released under a Creative " +
+      "Commons Attribution-ShareAlike 4.0 International licence. (The modern translations by Allen " +
+      "Mandelbaum, 1971, Robert Fitzgerald, 1983, Robert Fagles, 2006, Sarah Ruden, 2008, and Shadi " +
+      "Bartsch, 2021, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0690.phi003/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Five things a reader should be told plainly rather than discover late: the poem was unfinished
+       when its author died and he wanted it burned, it breaks off in mid-sentence, the numbers running
+       through both columns are Latin line numbers, this Latin brackets fifty-four lines as spurious —
+       including the whole Helen episode a reader may come looking for — and the Latin column carries no
+       quotation marks. The last three would otherwise read as faults in the page. */
+    about: [
+      "<b>The Aeneid</b> is a poem in twelve books, some ten thousand lines of Latin hexameter, in " +
+        "which Virgil follows Aeneas from the burning of Troy to the founding of the Roman race in " +
+        "Italy. The first half is a voyage and the second a war: storms and a shipwreck, the queen of " +
+        "Carthage who loves Aeneas and kills herself when he leaves, a descent into the underworld to " +
+        "meet his father, and then seven books of fighting in Latium against Turnus. It became the " +
+        "central poem of Latin literature within its author's lifetime, was taught in Roman schools " +
+        "for four centuries, and carried straight on through Dante — who makes Virgil his guide — into " +
+        "Milton, Dryden and almost every European epic since.",
+      "It is a poem with an argument, and that is the thing most often missed about it. Virgil wrote " +
+        "under Augustus, who had ended a century of civil war and claimed descent from Aeneas, and the " +
+        "poem gives Rome a founding story reaching back to Troy and a prophecy of empire without end. " +
+        "But it is not a celebration, or not only one: it dwells on what the founding costs — Dido " +
+        "abandoned, Turnus killed, Italian towns burned — and it ends not in triumph but on Aeneas " +
+        "standing over a beaten enemy who has asked for mercy. Readers have argued for two thousand " +
+        "years about how much sympathy the poem asks for the losing side, and it does not settle the " +
+        "question itself.",
+      "Publius Vergilius Maro was born near Mantua in 70 BCE, wrote the <i>Eclogues</i> and the " +
+        "<i>Georgics</i> first, and spent the last ten years of his life on this poem. He had not " +
+        "finished it. In 19 BCE he went to Greece meaning to spend three more years revising, fell ill " +
+        "at Megara, and died at Brundisium on the way home, aged fifty. By the ancient accounts he " +
+        "asked for the manuscript to be burned; Augustus overrode him and had it published, and it is " +
+        "difficult to think of a literary decision with larger consequences. What that means for a " +
+        "reader is that the poem was never revised: it carries a number of half-lines, and the last " +
+        "book stops on Turnus's death with no closing scene of any kind.",
+      "The small raised figures running through both columns are LINE numbers of the Latin, marking " +
+        "where each passage begins — so a reference such as 'Aeneid 6.847' is book 6, line 847, and " +
+        "the figures are how you find it. They are also what pairs the two texts: an English passage " +
+        "and a Latin one carrying the same figure are the same place in the poem. Williams's blank " +
+        "verse runs about a third longer than Virgil's hexameters, so the two columns are never the " +
+        "same length line for line, and five passages of the English mark a break where this Latin " +
+        "does not, drawing beside an empty cell. This edition prints no translator's notes, so there " +
+        "is no fold of them under each chapter.",
+      "Two things about the Latin are the edition's doing rather than the poem's. Greenough brackets " +
+        "fifty-four lines as not Virgil's, and they are not printed here — most of them in ones and " +
+        "twos, but including the twenty-two lines of the second book in which Aeneas sees Helen " +
+        "hiding at the threshold of Vesta and means to kill her. It is one of the most discussed " +
+        "passages in the poem and a reader who goes looking for it should know why it is absent " +
+        "rather than assume something has been lost — Williams translated it, so in the second book " +
+        "you will find it in the English with nothing beside it, which is the two editors disagreeing " +
+        "in the plainest way the page can show. And this Latin marks speech structurally instead " +
+        "of with punctuation, so the Latin column prints no quotation marks at all where the English " +
+        "has them; the speeches are still there, and where one begins is a thing the sense tells you " +
+        "and the page does not.",
+      "One last thing, so that it reads as what it is rather than as a fault here: the English is a " +
+        "scan, and about a hundred and twenty of its words carry a capital I where the 1910 page has a " +
+        "small l — <i>Iong</i> for long, <i>Ioud</i> for loud, <i>Iofty</i>, <i>Iord</i>. They are left " +
+        "exactly as the transcription has them, because the same pattern spells a great many real names " +
+        "in this poem — Iulus, Ilium, Italy, Ida, Iris, Ithaca — and in a handful of places there is no " +
+        "telling the two apart, <i>Iove</i> being either love or Jove in a poem with room for both. " +
+        "Correcting them by guesswork would put words into Williams's mouth that he may not have " +
+        "written, which is worse than a reader meeting an obvious misprint and reading straight past it.",
+    ],
+
+    /* ---------- A TEI EDITION ON BOTH SIDES, the Ovid shape ----------
+       Both columns are Perseus TEI, which is the shape the Metamorphoses established and On the
+       Nature of Things confirmed: one file each, fetched over plain HTTPS, cached whole, and the
+       section numbers are STRUCTURE rather than something read back out of the prose. There is no
+       Wikisource walk here and there does not need to be — the two files carry the same citation
+       scheme, which is the whole question an original has to answer.
+
+       WHAT IS NEW IS THAT THE ENGLISH MARKS ITS CARDS TWO WAYS AT ONCE, and it is the reason this
+       book needed any code at all. See the long note on cardMarks in teiVerseBooks: 327 of Williams's
+       396 card boundaries are <div subtype="card"> and the other 69 are <milestone unit="card"/>
+       standing INSIDE a line, because that is where the Latin line they name begins. Read with the
+       Ovid setting (`cards: "div"`) the poem is complete, nothing throws, every book pairs — and 69
+       passages sit against Latin that is not theirs. Hence `cards: "both"`, which matches either in
+       one sweep in reading order, and the lift that moves a mid-line mark to the line's own edge so
+       that slicing the book at it cannot cut an <l> in half. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0690/phi003/phi0690.phi003.perseus-eng2.xml",
+    layout: "verse",
+    cards: "both",
+    chapterWord: "Book",
+    /* The twelve books have no titles: this edition gives them none, exactly as Haines's Meditations
+       and Magnus's Ovid give theirs none. Composing names for them — "The Sack of Troy", "The
+       Underworld" — would be inventing an apparatus the poem does not have. */
+    titleOf: (n) => "Book " + toRoman(n),
+    chapters: Array.from({ length: 12 }, (_, i) => i + 1),
+
+    /* ---------- THE ORIGINAL, and it is the cleanest pairing of two independently edited texts here
+       ----------
+       The question every original has to answer is not "does a text of it exist?" but "does that text
+       say which section each passage is?", and the Aeneid answers it twice over: it is cited by book
+       and line, both editions state the line, and both mark the same CARD boundaries — passages of
+       twenty-five or thirty lines labelled with the Latin line each one opens at, which is the one
+       figure both editors state about the same thing.
+
+       MEASURED OVER BOTH FILES BEFORE ANY OF IT WAS BELIEVED, all twelve books: 392 Latin cards and
+       396 English ones, of which 390 carry the IDENTICAL number, in the same order, with no duplicate
+       on either side and nothing out of sequence. NINE OF THE TWELVE BOOKS pair on every card they
+       have once the two reconcilable pairs below are settled. Only the Art of War, the Analects and the Gallic War do better, and the first two do it by
+       construction — one editor numbering both columns at once. The exceptions are seven rows and
+       every one was read rather than reconciled on trust, since the Aeneid carries no tale names for
+       reconcileCards to check a moved pair against, which is the position both Homers are in:
+         · Latin 7.705 against English 7.706, one line apart. Latin "Ecce Sabinorum prisco de sanguine
+           magnum / agmen agens Clausus"; English "Then, one of far-descended Sabine name, / Clausus
+           advanced, the captain of a host". Clausus the Sabine on both sides — the same passage, and
+           reconciled.
+         · Latin 11.397 against English 11.399, two lines apart. Latin "Nulla salus bello. Capiti cane
+           talia, demens, / Dardanio"; English "War will not save us? Fling that prophecy / on the
+           doomed Dardan's head". Turnus answering Drances on both sides — reconciled.
+         · Four English cards have no Latin counterpart at all and draw beside an empty cell, as the
+           Metamorphoses' 1.650 and the Histories' 6.122 do: 2.13, 7.45, 12.672 and 12.728. Three of
+           the four sit exactly on their own Latin line — English 12.728 is "Soon Turnus, reckless of
+           the risk, leaped forth, / upreached his whole height to his lifted sword" against Latin 728
+           "Emicat hic, impune putans, et corpore toto / alte sublatum consurgit Turnus in ensem" — so
+           they are places Williams divides and Greenough does not, rather than anything mislaid. The
+           fourth, 12.672, falls three lines from its content and is recorded rather than moved, there
+           being no Latin card within reach to move it to.
+         · AND A FIFTH, 2.567, WHICH IS THERE FOR A DIFFERENT REASON AND IS THE ONE WORTH KNOWING.
+           Greenough DOES divide at 2.567; his card is the Helen episode, and he brackets every one of
+           its twenty-two lines as spurious, so once the <del> rule has run there is nothing left in it
+           and the card is dropped as empty — with a warning naming it on every run, which is how this
+           was found rather than assumed. So 391 Latin cards ship, not 392, and the English passage in
+           which Aeneas comes on Helen at Vesta's threshold draws beside an empty Latin cell. That is
+           the honest rendering and it reads as one: Williams translated the passage, Greenough declined
+           to print it, and the page shows exactly that.
+       Note what books 2 and 7 do, because it is a pleasing check rather than a fault: the two English
+       cards with no counterpart at 2.13 and 7.45 are exactly the two lines where GREENOUGH sets a
+       paragraph break of his own. Both editors mark a division there; only one of them calls it a card.
+
+       THE LINE COUNT IS ONE OVER THE STANDARD AND FIFTY-FOUR UNDER IT, and both figures are accounted
+       for, which is the arithmetic to run rather than the total to glance at — a count that is nearly
+       right is how a truncated import hides. The traditional Aeneid is 9,896 lines and this file holds
+       9,897 <l> elements: book by book its numbering runs a clean 1..N against the traditional length
+       of every book, and the one extra is book 10's <l n="62b" part="F">, a half-line Greenough sets
+       apart, which the file's own revision history records being renumbered for in 2015. Of those
+       9,897, fifty-four are wrapped whole in <del> — the editor's mark of what he takes to be
+       spurious — and are dropped with their words on the judgement the Meditations' Greek established
+       and Ovid, Lucretius and the Iliad have each followed since: what ships is the text the printed
+       page constitutes. So 9,843 lines of Latin ship. That is LUCRETIUS'S FINDING AT NEARLY TWICE THE
+       SCALE and it is exactly why that entry says to measure it rather than assume the rule is inert:
+       116 <del> marks cost that poem thirty lines, the Iliad's cost it four, the Odyssey has none at
+       all, and this one loses fifty-four — 2.567–588, the Helen episode, being twenty-two of them in
+       one run. AND HERE THEY COST A WHOLE CARD, which no earlier book on this path has: that run is
+       the entirety of Greenough's card 567, so the card empties and is dropped, taking the Latin from
+       392 cards to 391. Lucretius's rule therefore wants stating one notch stronger than that entry
+       puts it — measure what <del> costs in LINES and then measure what it costs in CARDS, because a
+       card that empties changes the pairing and a line that goes does not. The book's own front matter
+       tells a reader what is missing and why.
+
+       THIRTEEN OF THE LIFTED CARD MARKS WERE KEEPING TWO WORDS APART, which is the Iliad's welding
+       fault in a fourth edition and is measured rather than assumed — see the note on the lift in
+       teiVerseBooks. ONE RUN-TOGETHER SURVIVES AND IS THE SOURCE'S OWN: book 6 line 1171 reads "With
+       polished ivory, the.dead employ" in Perseus's file verbatim, with no tag anywhere near it, so it
+       is their OCR and not anything this importer did. Recorded rather than repaired, for the Odyssey's
+       reason — a hand-written list of corrections to somebody else's text is an apparatus — and
+       recorded chiefly so that it cannot later be read as the space rule having failed. The sweep to
+       re-run after any change to that rule is a scan of the shipped chapters for a letter on both sides
+       of a full stop, comma, colon or semicolon; today it returns this one line in the English and
+       nothing at all in the Latin.
+
+       THE ENGLISH TRANSCRIPTION ALSO CARRIES ABOUT 120 l→I OCR SLIPS, and they are recorded here rather
+       than repaired, which is a decision and not laziness. Perseus's scan reads a lower-case l as a
+       capital I in 115 words unambiguously — "Iong" for long 20 times, "Ioud" 12, "Iost" 11, "Iofty"
+       10, "Iord" 8, "Iying" 7, across 32 distinct words — and in 8 more it is genuinely undecidable,
+       "Iove" being either love or Jove and this poem full of both. The file's own revision history shows
+       Perseus fixing this class when they notice it ("ocr error—UIysses for Ulysses"), so these are
+       simply the ones they have not reached.
+       THE REASON NOT TO FIX THEM IS THAT THE PATTERN IS NOT SEPARABLE BY RULE. The same shape produces
+       real Virgilian names in the same text — Iulus 37 times, Ilium 19, Italy 52, Ida, Iris, Ithaca,
+       Iapyx, Ismarus, Imbrasides, Io — so any repair would be a hand-written list of corrections to
+       somebody else's translation, which is the apparatus this file declines to compose everywhere else,
+       and on "Iove" and "Io" it would risk substituting the wrong word outright. Deciding those eight
+       would mean collating against the 1910 printing, which is a different job from importing it. So the
+       count is measured, written down, and said to the reader in the front matter, which is the same
+       treatment the Odyssey's two welds and the Iliad's thirteen get.
+
+       ONE <gap extent="unknown" unit="lines" reason="lost"/> stands inside book 12 line 732, where
+       Turnus's sword breaks. It marks text the edition does NOT have, so nothing this importer prints
+       is short of the source; it is recorded because a lacuna vanishing into a tag sweep is the kind
+       of thing that should be measured once and written down rather than discovered twice. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "verse",
+      cards: "milestone",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0690/phi003/phi0690.phi003.perseus-lat2.xml",
+      edition:
+        "J. B. Greenough's edition, in The Bucolics, Aeneid, and Georgics of Virgil, Ginn and " +
+        "Company, Boston, 1881, from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated, and no limit on either. The poem is two thousand years old and is " +
+        "in the public domain everywhere, and J. B. Greenough's edition of it was published in " +
+        "Boston in 1881; he lived 1833–1901, so it is public domain on the United States publication " +
+        "rule and wherever the term is the editor's life plus seventy years or plus a hundred. The " +
+        "digital edition it is taken from is prepared by the Perseus Digital Library at Tufts " +
+        "University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0690.phi003/",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -10018,11 +10542,84 @@ function teiVerseBooks(xml, opts, warn) {
   // the file's own "Book 1" head, where Folio prints its own chapter title
   b = b.replace(/<head\b[^>]*>[\s\S]*?<\/head>/g, "");
 
+  /* A CARD BOUNDARY INSIDE A LINE IS LIFTED TO THE LINE'S EDGE, and skipping this loses the line
+     (Aug 2026, adding the Aeneid). Williams sets 69 of his 396 card marks as milestones standing
+     mid-line, because that is where the Latin line they name begins:
+
+        <l n="54">their weariness consoled. <milestone ed="p" n="42" unit="card"/>The morrow morn,</l>
+
+     Cards are cut by SLICING the book at each mark, so a mark inside a line cuts the element in
+     half: the card above ends on an <l> with no </l>, the card below opens on a </l> with no <l>,
+     and teiVerse — which matches a complete <l>…</l> pair and nothing else — silently matches
+     NEITHER. One line of verse disappears at every one of the 69 boundaries. It is the shape this
+     file keeps meeting: nothing throws, the poem is 99.5% present, all twelve books pair, and only
+     counting lines against the edition shows it. The Song of Roland records the same fault from the
+     other side (strip the whole unit before splitting it into lines) and the Gita from a third (cut
+     the original as a stream, not block by block).
+
+     So the mark is moved to just after the line's own </l>, which keeps the LINE whole and gives it
+     to the card it begins in. The cost is that a card's first line may hold a few words belonging to
+     the card above — a boundary drawn at the nearest line break rather than mid-word — which is the
+     Antigone's and Beowulf's case exactly: two editions dividing at slightly different points is
+     recorded rather than repaired, and here the two are never more than one line apart because the
+     mark names the line it sits in. It also removes the WELD for free: 13 of the 69 sit hard against
+     the words on both sides ("he voiced this word:“What pride of birth", "in general
+     acclaim.Ourselves did make"), which is the Iliad's 2,787-weld fault in a third edition, and a
+     tag lifted out of the line cannot weld the words left inside it.
+
+     Gated on `cards: "both"`, so the four verse books already on this shelf cannot be touched by it
+     — and measured on them as well as reasoned about: Ovid's Latin carries four milestones inside
+     lines and every one is `unit="tale"`, not a card. */
+  let lifted = 0;
+  if (opts.cards === "both") {
+    b = b.replace(/<l\b[^>]*>[\s\S]*?<\/l>/g, (line) => {
+      const marks = [];
+      /* THE MARK LEAVES A SPACE BEHIND IT, which is the Iliad's rule and is needed here for the same
+         13 boundaries the weld count found. Williams sets a good many of these marks hard against the
+         words on both sides — "he voiced this word:<milestone n="132"/>“What pride of birth", "in
+         general acclaim.<milestone n="234"/>Ourselves did make" — so the tag is standing exactly
+         where the space would be, and lifting it out of the line welds the two words it was keeping
+         apart. Removing rather than replacing shipped that way for one run and left "word:“What" and
+         "acclaim.Ourselves" in the text. It costs nothing at the other 56, where a space is already
+         there, because the whitespace run is collapsed in teiVerse two steps later. */
+      const stripped = line.replace(/<milestone\b[^>]*?\/>/g, (t) => {
+        if (!/\bunit="card"/i.test(t)) return t;
+        marks.push(t);
+        return " ";
+      });
+      if (!marks.length) return line;
+      lifted += marks.length;
+      return stripped + marks.join("");
+    });
+  }
+
   /* CASE-INSENSITIVE, and that is load-bearing rather than defensive. The English file spells Book 3
      `subtype="BOOK"` in capitals and every other book lowercase, so a case-sensitive match returns
      fourteen books and quietly files Book 3's ten cards inside Book 2 — no error, no missing text, and
-     a book that has silently ceased to exist as a book. */
-  const bs = [...b.matchAll(/<div[^>]*subtype="book"[^>]*\bn="(\d+)"[^>]*>/gi)];
+     a book that has silently ceased to exist as a book.
+
+     AND THE TWO ATTRIBUTES ARE READ INDEPENDENTLY OF THEIR ORDER, which is the same fault the card
+     rule below already records, met one element higher up (Aug 2026, adding the Odyssey). Every
+     earlier file on this path writes the book division `<div type="textpart" subtype="book" n="1">`
+     — Ovid's, Lucretius's, both of the Iliad's — and the Odyssey's Greek writes `<div n="1"
+     type="textpart" subtype="book">`, the same three attributes in another order. A pattern that
+     fixes the order matches NOT ONE of the twenty-four.
+
+     This one fails LOUDLY, which is the good outcome and worth saying, since almost every fault this
+     file records is silent: no book division means no book, so the guard below throws on a file
+     holding the whole poem rather than returning a thinner one. The card rule's version of the same
+     fault is the quiet one — it returns a poem with nothing to pair on. */
+  const battr = (t, a) => (t.match(new RegExp("\\b" + a + '="([^"]*)"', "i")) || [])[1] || "";
+  const bs = [];
+  {
+    const bre = /<div\b([^>]*)>/g;
+    let bm;
+    while ((bm = bre.exec(b))) {
+      if (battr(bm[1], "subtype").toLowerCase() !== "book") continue;
+      const bn = battr(bm[1], "n");
+      if (/^\d+$/.test(bn)) bs.push({ n: +bn, index: bm.index });
+    }
+  }
   if (!bs.length) throw new Error("no book divisions in the TEI file");
   /* THE ATTRIBUTES ARE READ INDEPENDENTLY OF THEIR ORDER, and that is load-bearing rather than
      tidiness — it is the Suetonius fault (`subtype` before `n` in one file of twelve and after it in
@@ -10035,14 +10632,41 @@ function teiVerseBooks(xml, opts, warn) {
      boundaries there is nothing for app.js to pair the two columns on. The English side would look
      perfect throughout. Measured on Lucretius before this was changed: 213 English cards against 0
      Latin ones. */
+  /* AN EDITION MAY MARK ITS CARDS TWO WAYS AT ONCE, AND THEN BOTH HAVE TO BE READ IN ONE SWEEP
+     (Aug 2026, adding the Aeneid — the first book here whose translation does this). Every earlier
+     file on this path picks one mechanism and keeps to it: Ovid's English divides into
+     <div subtype="card">, its Latin marks <milestone unit="card"/>, and `cards` names which to look
+     for. Williams's Aeneid uses BOTH, and not at random — the choice follows where the boundary
+     falls. A card that begins where an English line begins gets a division; a card that begins
+     PART WAY THROUGH a line cannot, since a division would have to break the <l> element, so it is
+     set as a milestone standing inside the line at the exact word the new card opens on.
+
+     MEASURED over all twelve books before this was written: 327 divisions and 69 milestones, one
+     ascending run per book with no duplicate and nothing out of order. So they are one sequence in
+     two costumes, and the Meditations' rule applies — match both forms in ONE sweep in READING
+     ORDER, never as two passes, or the second pass starts from a counter the first left at the end
+     of the book and the forward-only guard declines everything it finds.
+
+     Read either alone and the failure is the quiet kind this file keeps recording. `cards: "div"`
+     returns 327 of the 396 boundaries: nothing throws, every line of the poem is present, and 69
+     passages fold into the card above them, where they sit against Latin that is not theirs. */
   const cardMarks = (seg) => {
-    const tag = opts.cards === "milestone" ? /<milestone\b([^>]*?)\/?>/g : /<div\b([^>]*)>/g;
-    const key = opts.cards === "milestone" ? /\bunit="([^"]*)"/i : /\bsubtype="([^"]*)"/i;
+    const both = opts.cards === "both";
+    const tag = both
+      ? /<milestone\b([^>]*?)\/?>|<div\b([^>]*)>/g
+      : opts.cards === "milestone" ? /<milestone\b([^>]*?)\/?>/g : /<div\b([^>]*)>/g;
     const marks = [];
     let m;
     while ((m = tag.exec(seg))) {
-      const k = key.exec(m[1]);
-      const n = /\bn="(\d+)"/.exec(m[1]);
+      const attrs = both ? (m[1] === undefined ? m[2] : m[1]) : m[1];
+      /* Which attribute says "card" depends on the element, not on the book: a milestone carries
+         `unit` and a division carries `subtype`. Both are read wherever both elements are in play,
+         and — the Suetonius fault this file records twice already — INDEPENDENTLY OF THEIR ORDER,
+         since Williams writes `<milestone ed="p" n="42" unit="card"/>` with `n` before `unit`. */
+      const k = both
+        ? (m[1] === undefined ? /\bsubtype="([^"]*)"/i : /\bunit="([^"]*)"/i).exec(attrs)
+        : (opts.cards === "milestone" ? /\bunit="([^"]*)"/i : /\bsubtype="([^"]*)"/i).exec(attrs);
+      const n = /\bn="(\d+)"/.exec(attrs);
       if (k && k[1].toLowerCase() === "card" && n) marks.push({ n: +n[1], index: m.index });
     }
     return marks;
@@ -10052,16 +10676,16 @@ function teiVerseBooks(xml, opts, warn) {
   bs.forEach((bk, i) => {
     const seg = b.slice(bk.index, i + 1 < bs.length ? bs[i + 1].index : b.length);
     const cs = cardMarks(seg);
-    if (!cs.length) { warn("book " + bk[1] + ": no cards — it would pair as one whole block"); return; }
+    if (!cs.length) { warn("book " + bk.n + ": no cards — it would pair as one whole block"); return; }
     // verse before the first card would be dropped in silence; say so instead
     const unit = opts.prose ? /<p\b/g : /<l\b/g;
     const stray = (seg.slice(0, cs[0].index).match(unit) || []).length;
-    if (stray) warn("book " + bk[1] + ": " + stray + " line(s) stand before the first card");
+    if (stray) warn("book " + bk.n + ": " + stray + " line(s) stand before the first card");
     let seq = 0;
-    out[+bk[1]] = cs.map((c, j) => {
+    out[bk.n] = cs.map((c, j) => {
       const raw = seg.slice(c.index, j + 1 < cs.length ? cs[j + 1].index : seg.length);
       const n = c.n;
-      if (n <= seq) warn("book " + bk[1] + ": card " + n + " follows " + seq + " — out of order");
+      if (n <= seq) warn("book " + bk.n + ": card " + n + " follows " + seq + " — out of order");
       seq = n;
       /* The tale name each edition prints at this boundary — Magnus's, which BOTH files carry, and
          which reconcileCards uses to check that a reconciled pair really is the same passage. */
@@ -10103,7 +10727,7 @@ function teiVerseBooks(xml, opts, warn) {
       return { n: n, tale: t ? t[1].trim() : "", html: html, lines: lines };
     }).filter((c) => { if (!c.html) warn("card " + c.n + " came back empty"); return c.html; });
   });
-  return { books: out, dropped: dropped };
+  return { books: out, dropped: dropped, lifted: lifted };
 }
 
 /* One card's lines, as verse rather than as a paragraph of prose. The para milestones are the
@@ -10117,7 +10741,39 @@ function teiVerse(raw) {
   let m;
   while ((m = rx.exec(raw))) {
     if (m[1] === undefined) { if (cur.length) { paras.push(cur); cur = []; } continue; }
-    const line = m[1].replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+    /* A <choice> OFFERS TWO READINGS OF THE SAME WORDS AND THE TAG SWEEP KEEPS BOTH (Aug 2026,
+       adding the Aeneid — the first book on this path to carry one). TEI's <choice> wraps a pair of
+       alternatives, and unwrapping it the way everything else inside a line is unwrapped prints them
+       one after the other: Williams's "And foul Pasiphaë are seen" arrives as "And foul Pasiphae
+       Pasiphaë are seen", and Greenough's "gestare Latinis" as "gesture gestare Latinis". Four lines
+       of the English and one of the Latin, every other check reading healthy — the Herodotus <reg>
+       fault (4,305 gazetteer entries in the prose) in a different wrapper and at a scale small enough
+       to ship unnoticed.
+
+       ONE child is kept, and which one is the edition's own answer rather than a preference: <corr>
+       over <sic>, because <sic> flags an error and <corr> supplies the reading meant to stand (the
+       Latin's single case is the plainly impossible "gesture", an English word in a Latin hexameter);
+       and <orig> over <reg>, because Folio ships what the printed page carries and the 1910 page sets
+       "Pasiphaë" with the diaeresis Williams chose. A <choice> whose children are neither is left to
+       the generic sweep rather than guessed at, and reported by the caller's line count if it ever
+       shortens a line to nothing. */
+    const resolved = m[1].replace(/<choice\b[^>]*>([\s\S]*?)<\/choice>/gi, (all, inner) => {
+      const pick = /<corr\b[^>]*>([\s\S]*?)<\/corr>/i.exec(inner) ||
+                   /<orig\b[^>]*>([\s\S]*?)<\/orig>/i.exec(inner);
+      return pick ? pick[1] : all;
+    });
+    /* AND A MILESTONE STANDING INSIDE A LINE WELDS THE WORDS EITHER SIDE OF IT — the Iliad's rule,
+       met here on the stanza break rather than on a line number. This edition sets two of its own
+       paragraph marks inside a line ("incipiam.<milestone unit='para'/>Fracti bello", "maius opus
+       moveo.<milestone unit='para'/>Rex arva Latinus") and Williams one, and left to the generic
+       sweep the tag simply vanishes: "incipiam.Fracti", "moveo.Rex", "hastes.Then". Replacing rather
+       than removing costs nothing where a space is already there, since the whitespace run is
+       collapsed two steps below — which is what makes it safe to apply to every book on this path
+       rather than gate it, and Ovid's four inline milestones (all `unit="tale"`, none welding) are
+       the proof it is inert on what already ships. */
+    const line = resolved
+      .replace(/<milestone\b[^>]*?\/>/g, " ")
+      .replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
     if (line) cur.push(line);
   }
   if (cur.length) paras.push(cur);
@@ -10598,6 +11254,9 @@ async function fetchEnglish() {
        the fault this line exists to prevent; the book's own front matter says the same thing. */
     if (got.dropped) console.log("  dropped " + got.dropped +
       " note(s) — this edition's apparatus is not folded under the chapters");
+    /* Said out loud for the same reason: a repair the reader cannot see is one nobody re-measures. */
+    if (got.lifted) console.log("  lifted " + got.lifted +
+      " mid-line card mark(s) to the nearest line boundary, keeping the line whole");
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const cards = books[n];
