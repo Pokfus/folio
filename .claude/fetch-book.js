@@ -6524,6 +6524,188 @@ const BOOKS = {
     },
   },
 
+  "journey-to-the-west": {
+    title: "Journey to the West",
+    author: "Wu Cheng'en",
+    /* THE ATTRIBUTION IS TRADITIONAL AND CONTESTED, and the shelf says so on the book's own page
+       rather than in a hedge nobody reads. The novel was printed anonymously in 1592; Wu Cheng'en's
+       name was attached to it by Qing scholars on the strength of a county gazetteer listing a work
+       of that title among his writings, and a good deal of modern scholarship is unconvinced. It is
+       the name under which the book is catalogued in every language, so it is the name on the spine.
+       Richard's own title page says something else again — see `rights`. */
+    translator: "Timothy Richard",
+    edition:
+      "A Mission to Heaven: A Great Chinese Epic and Allegory, The Christian Literature Society's " +
+      "Depot, Shanghai, 1913",
+    written: "1592",
+    /* The date of the earliest surviving printing, the Shidetang edition of 1592, which is the only
+       date the book itself supports; when it was composed is not known. */
+    year: 1592,
+
+    /* ---------- THE LICENCE — one modern layer, and no limit to state ----------
+       The novel is a Ming work of the sixteenth century and free everywhere. The only modern layer
+       is Richard's translation, published in Shanghai in 1913, and he lived 1845–1919 — dates looked
+       up on Wikidata at day precision and corroborated by its own description, rather than recalled.
+       So it is public domain in the United States on the pre-1929 publication rule, and out of
+       copyright wherever the term is the translator's life plus seventy years (expired 1990) or plus
+       a hundred (expired 2020). That puts it with the plainest licences on this shelf and there is no
+       limit to state.
+
+       WHAT IS AND IS NOT TAKEN. The hundred chapters. Richard's dedication, his long introduction
+       arguing the novel is a disguised Nestorian Christian allegory, and the plates are left behind.
+
+       THE COMPLETE MODERN TRANSLATIONS ARE ALL IN COPYRIGHT and are named here so that nobody
+       reaches for one later: Arthur Waley's Monkey (1942) — which is also an abridgement, thirty of
+       the hundred chapters — Anthony C. Yu's four volumes (1977–1983, revised 2012), which is the
+       complete scholarly translation and the one to buy, W. J. F. Jenner's (1982–1986) and Julia
+       Lovell's Monkey King (2021). */
+    rights:
+      "Public domain, on every ground, with nothing to qualify. The novel is a Chinese work of the " +
+      "sixteenth century, first printed in 1592, so the words behind it have been free for as long " +
+      "as copyright has existed. The only modern layer is the translation: Timothy Richard published " +
+      "it in Shanghai in 1913 and lived from 1845 to 1919, so it is public domain in the United " +
+      "States, where the term for a work published before 1929 has expired, and out of copyright " +
+      "wherever the term is the translator's life plus seventy years or plus a hundred. Richard's " +
+      "dedication, his introduction and the plates are not reproduced here; what is taken is the " +
+      "hundred chapters. (The complete modern translations — Anthony C. Yu's of 1977–1983, revised " +
+      "in 2012, W. J. F. Jenner's of 1982–1986 and Julia Lovell's of 2021, and Arthur Waley's " +
+      "abridgement Monkey of 1942 — are all still in copyright and are not used.)",
+
+    about: [
+      "<i>Journey to the West</i> is one of the four great novels of Ming China and, by a wide " +
+        "margin, the most read. Behind it is a real journey: in 629 a monk named Xuanzang left " +
+        "Tang China without permission, walked to India, spent sixteen years there and came back " +
+        "with hundreds of Buddhist texts to translate. Nine centuries of storytelling turned that " +
+        "into something else entirely. In the novel the monk is a timid and rather exasperating " +
+        "holy man escorted by three converted monsters, and the one everybody remembers is the " +
+        "first of them — Sun Wukong, the Monkey King, born from a stone egg, who learns immortality " +
+        "and seventy-two transformations, fights the entire bureaucracy of heaven to a standstill " +
+        "over a stolen banquet, and is pinned under a mountain for five hundred years until the " +
+        "pilgrimage gives him something better to do. The book is a comedy, a satire on officialdom " +
+        "in this world and the next, and a religious allegory, usually on the same page.",
+      "The English here is the first there ever was, and a reader should know exactly what it is " +
+        "before opening it. Timothy Richard was a Welsh Baptist missionary who spent forty-five " +
+        "years in China, and he published this in Shanghai in 1913 under the title <i>A Mission to " +
+        "Heaven</i>. Most of it is not a translation. He renders about ten chapters at something " +
+        "like full length — the seven that tell Monkey's story, and three near the end — and the " +
+        "rest he condenses, most of them to a few hundred words. He says so himself: under the " +
+        "heading of eighty-nine of the hundred chapters he prints the word <i>[outline.]</i>, and " +
+        "that mark is kept exactly where he put it. The eleven he leaves unmarked average about " +
+        "3,700 words and the eighty-nine marked ones about 570, so the mark is a reliable guide " +
+        "even though it is not a strict one — the last chapter carries it and is the longest in the " +
+        "book, and chapter 88 carries no mark and is plainly a summary all the same.",
+      "That is a real limitation and it is not a hidden one. Every complete English translation is " +
+        "still in copyright, and this library serves only books whose copyright has expired, so the " +
+        "choice was this text or none. What makes it worth having anyway is the column beside it: " +
+        "the Chinese is the whole novel, all hundred chapters, nothing summarised. This is the one " +
+        "book here where the original is the fuller of the two texts, and on the chapters Richard " +
+        "outlined it is not merely fuller but the only place the story is actually told.",
+      "Richard also read the novel as a secretly Christian book — a Nestorian allegory smuggled " +
+        "into Chinese fiction — and believed it had been written by the Taoist master Qiu Chuji, " +
+        "who died three centuries before it appeared. Both ideas are on his title page and neither " +
+        "is now accepted. They colour his English more than his introduction does: heaven acquires " +
+        "angels and cherubim, the Jade Emperor's court starts to sound like a Christian one, and " +
+        "the Buddhist vocabulary is repeatedly rendered in the words of another religion. Read it " +
+        "as one missionary's account of what he thought the book was, rather than as what the " +
+        "Chinese says.",
+      "The chapter titles are his, in the capitals his printer set them in, and the text has been " +
+        "read by a machine rather than a person: about one word in two hundred carries a slip of " +
+        "the sort a scanner makes, and they are left as they are rather than corrected by guess. " +
+        "Only one copy of this book has ever been transcribed, and this is it.",
+    ],
+
+    /* THE TRANSCRIPTION IS AN OCR, AND IT IS THE ONLY ONE THERE IS. Neither Wikisource nor any other
+       transcription project carries this book in any language; what exists is the Internet Archive's
+       scan of the Cornell copy with its machine-read text layer. Measured before it was accepted:
+       about one word in two hundred carries a slip, which is a good deal better than it sounds and
+       is why the book is here at all — the damage is in the letters ("Avas" for "was", "vmitcd" for
+       "united", "deviL" for "devil"), never in whole lines, and it is recorded rather than repaired,
+       since a repair pass over ninety thousand words would be rewriting somebody's book by guess. */
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/cu31924074502034",
+    source: "html",
+    layout: "journey",
+    url: "https://archive.org/download/cu31924074502034/cu31924074502034_djvu.txt",
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 100 }, (_, i) => i + 1),
+    /* The one running head the OCR split across two lines, so that the line sweep can see neither
+       half — see the note beside `runningHead` in extractJourney. Declared here because it is this
+       edition's own running title and nobody else's, which is why dropHeads is declared per book too.
+       Two of them are broken that way, and the page number is not always digits ("U2", "Mo") nor the
+       title always spelled ("MISSION TO HEA^TiN"), so the stable part is "MISSION TO HEA" and what
+       sits either side of it is allowed to be any short token. That cannot reach prose: it matches
+       only a block whose WHOLE text is those three words with at most one short token at each end,
+       and no paragraph of a novel is that. */
+    runningHead: /^(?:\S{1,4}\s+)?MISSION TO HEA\S{0,4}(?:\s+\S{1,4})?$/i,
+    /* THE TITLES ARE READ OFF THE BODY HEADINGS AND THE CAPITALS ARE KEPT, which is a measurement
+       rather than a habit. The printed page heads each chapter in capitals, so its case is not
+       recoverable there — but unlike most books set that way this one ALSO prints a contents page in
+       title case, so the case looked recoverable from it. It is not: compared chapter by chapter, the
+       contents page agrees with the body heading on 53 of the 100 and the disagreements are its own
+       OCR ("Eeeonciliation", "Tt-rragli Dead, shall live", "Bartdhists and Taoists compete"). The
+       body headings are much the cleaner reading, so they are what ships, capitals and all.
+       THREE OF THEM CARRY A VISIBLE SLIP and are left as they are: "HUEN CHWA^^G'S PARENTAGE" (9),
+       "COlSrVERTED BY KWANYIN" (42) and "TflE THREE DEMONS" (74). The contents page happens to read
+       the second cleanly and mangles the first differently again, which is exactly why it is not
+       used as a corrector: repairing three tabs by choosing between two damaged readings is editing
+       somebody's book by guess, and the same judgement is made about the ~400 letter-slips in the
+       prose. Leading scan dirt is a different thing and does go — see the note in extractJourney.
+
+       No `parts`. The edition divides the book into a hundred chapters and nothing above them, so the
+       Contents panel falls back to a single unlabelled group. The three movements a reader may have
+       met elsewhere — Monkey's origin, Tripitaka's, and the pilgrimage — are not this edition's
+       divisions and composing them here would be composing an apparatus.
+
+       The floor stays at the default 200: Richard's shortest chapter is an outline of about seven
+       hundred characters, so nothing here needs a lower guard. */
+
+    /* ---------- THE ORIGINAL, WHICH IS THE FULLER OF THE TWO COLUMNS ----------
+       Everywhere else on this shelf the translation is the complete text and the original is the
+       harder thing to find. Here it is the other way about, and that is the fact this book turns on:
+       the Chinese is all hundred chapters entire, and the English beside it renders about ten of
+       them at length and condenses the rest.
+
+       THE PAIRING IS THE CHAPTER, which is what the work is divided into, what both editions state
+       and how any passage of it is cited in any language. Neither side numbers anything inside a
+       chapter, so there is nothing finer to pair on and none is invented: one row per chapter, each
+       column at its own length. It is a coarse join and a true one — nothing is claimed about where
+       in the Chinese a given English sentence falls, which on a text this unevenly rendered is the
+       only honest thing to claim.
+
+       AND THE NUMBERING WAS CHECKED RATHER THAN ASSUMED, because this novel has a known place where
+       two recensions disagree. The story of Tripitaka's parentage is chapter 9 in the Qing recension
+       and stands outside the numbered sequence in the earlier one, so the two orderings run a chapter
+       apart from there to the end. Measured on the source itself: this transcription's index and its
+       own chapter 9 both carry 陳光蕊赴任逢災, the parentage story, which is Richard's chapter IX
+       word for word in subject, and chapters 10, 11 and 12 follow his X, XI and XII exactly. So the
+       two columns agree chapter for chapter over all hundred.
+       ITS 附錄 IS NOT A 101st CHAPTER and is deliberately not fetched: it is a second copy of that
+       same ninth chapter, carrying the other recension's placement in a note of its own. */
+    sections: "whole",
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      perChapter: true,
+      wiki: "zh.wikisource.org",
+      page: (n) => "西遊記/第" + String(n).padStart(3, "0") + "回",
+      /* This transcription names no printed edition anywhere on the work's own page — it says only
+         that the novel is Ming, in 20 volumes and 100 chapters — so none is asserted here. What can
+         be said is what it is and where it came from, which is what a reader needs to check it. */
+      edition: "西遊記, as transcribed at Chinese Wikisource; the transcription names no printed edition",
+      rights:
+        "Public domain worldwide: the novel was first printed in 1592, so no copyright has subsisted " +
+        "in the words for as long as copyright has existed.",
+      sourceName: "Wikisource (Chinese)",
+      sourceUrl: "https://zh.wikisource.org/wiki/%E8%A5%BF%E9%81%8A%E8%A8%98",
+      /* Typed onto the wiki rather than transcluded from a scan, so there is no transclusion wrapper
+         to slice at, and the novel's constant quoted verse — the poems that open a scene or describe
+         a mountain — is set as a definition list, which the tag stripper would unwrap into run-on
+         prose on a book that is half poetry. */
+      body: "plain",
+      verse: "dl",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -9546,6 +9728,248 @@ function markTabletLines(html, warn, where) {
    edition numbers its 166 notes straight through the book while a Folio chapter carries its own
    list, so each marker is rewritten to point at this chapter's index — and a note cited twice keeps
    ONE entry and both markers point at it, rather than the list gaining a duplicate. */
+/* ---------------------------------------------------------------------------------------------
+   A BOOK THAT IS NOT MARKUP AT ALL — PLAIN OCR TEXT   (layout: "journey")
+
+   Every other reader on this shelf is handed markup somebody has already made decisions in: a wiki
+   page whose paragraphs are <p>, a TEI file whose lines are <l>. Richard's Mission to Heaven exists
+   in exactly one transcription anywhere — the Internet Archive's OCR of the Cornell copy — and that
+   is a plain text file with hard line wraps, running heads, hyphenation across the wrap and page
+   numbers in the middle of sentences. So this is the first extractor here that has to BUILD the
+   structure rather than read it, and the four things it builds are worth naming because each of them
+   fails silently if it is got wrong.
+
+   · THE RUNNING HEADS ARE MATCHED ON SHAPE, NOT ON WORDING. The verso carries "44 MISSION TO HEAVEN"
+     and the recto the chapter's own title with the page number after it — and the OCR mangles the
+     words differently on almost every page ("iaSSION TO HEAVEN", "SEAECH FOR BOIORTAIJTY 13",
+     "VISITS DKAGONS AND 'JUDGES OF HELL 37"), so a rule that knew the words would drop some and leave
+     the rest standing mid-sentence. The shape does not vary: a short line, mostly capitals, with a
+     page number at one end. Measured over the whole book — 250 lines go and every one of them was
+     read to confirm it is a running head.
+
+   · LIFTING A RUNNING HEAD OUT OF A PAGE LEAVES A HOLE WHERE IT STOOD, and a blank line is what
+     separates one paragraph from the next, so a sentence that ran across a page arrives as two
+     paragraphs broken at the word the page turned on. 359 of them. Rejoined on the Analects' test and
+     only on it — the first block must end on no sentence punctuation AND the second must open
+     lower-case — which is narrow enough that no paragraph of Richard's own can be swallowed by it.
+
+   · THE CHAPTER NUMERALS ARE OCR AND THREE OF THEM DO NOT PARSE ("XLT" for XLI, "LXVIIl" for LXVIII,
+     "XCni" for XCIII), while a fourth heading carries junk in front of it ("'-' . CHAPTER XI."). What
+     is reliable is that a heading line exists for every chapter and that the chapters are consecutive,
+     so the line is matched loosely and NUMBERED FORWARD-ONLY — the Song of Roland's and the Analects'
+     rule — with every repair named on the run. Exactly 100 heading lines are found and they number
+     1..100 with no gap, which is the check that makes the loose matching safe.
+
+   · VERSE IS TOLD FROM PROSE BY LINE LENGTH, because nothing else distinguishes them here: both
+     arrive as runs of short lines. Measured over the whole book, a wrapped prose line runs to a
+     median of 52 characters and a line of verse to the high thirties, so the cut is at 44. Consecutive
+     short blocks are merged first, since Richard sets a couplet with a blank line between its halves
+     as often as not and two stray one-line paragraphs is the Prose Edda's run-on-verse fault wearing
+     the opposite coat.
+
+   AND THE TEXT IS ESCAPED RATHER THAN STRIPPED, which is the reverse of every other reader here. They
+   are given markup and take tags out; this is given prose and puts tags in, so an ampersand or an
+   angle bracket in the OCR is content and has to be escaped or it becomes markup by accident. */
+function extractJourney(text, book, warn) {
+  const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const capsRatio = (s) => {
+    const ls = s.replace(/[^A-Za-z]/g, "");
+    return ls ? ls.replace(/[^A-Z]/g, "").length / ls.length : 0;
+  };
+  const editDist = (a, b) => {
+    let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+    for (let i = 1; i <= a.length; i++) {
+      const cur = [i];
+      for (let j = 1; j <= b.length; j++)
+        cur.push(Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] !== b[j - 1] ? 1 : 0)));
+      prev = cur;
+    }
+    return prev[b.length];
+  };
+  /* THE CLOSING BRACKET IS OFTEN A LETTER, and it has to come off before the word is compared or it
+     is measured as part of it. The scan reads "]" as "J" or "j" about a third of the time, so
+     "[ouTLrsrE.J" carries a ninth letter that no amount of editing distance can account for — it was
+     one edit over the threshold and shipped as prose, which put chapter 70 in the translated column
+     when Richard had marked it an outline. Stripping the first and last characters first costs
+     nothing and cannot mis-read a real bracket. */
+  /* THE OPENING BRACKET IS OCR TOO, and one chapter's reads "f OUTLINE.]" — so the opener is the
+     handful of characters a "[" is read as, and the word inside still has to survive the distance
+     test below, which is what keeps the wider class from matching anything else. */
+  const isOutlineMark = (s) => {
+    const t = s.trim();
+    if (!/^[[({fF1lI|]/.test(t) || t.length > 16) return false;
+    const core = t.slice(1, -1).replace(/[^A-Za-z]/g, "").toLowerCase();
+    return core.length >= 4 && core.length <= 12 && editDist(core, "outline") <= 3;
+  };
+  const medianLen = (ls) => {
+    const a = ls.map((x) => x.length).sort((p, q) => p - q);
+    return a.length ? a[a.length >> 1] : 0;
+  };
+  const CHAP_LINE = /^[^A-Za-z0-9]{0,6}(?:C[HKB][AEPR][PFR]?T?E?R?)\.?\s+([A-Za-z]{1,9})\.?$/;
+  /* THE PAGE NUMBER IN A RUNNING HEAD IS ALSO OCR, so it is not always digits: one head in the book
+     reads "U2 MISSION TO HEAVEN" where the page is 112, and anchored to \d it survived the sweep and
+     shipped as a two-line quotation in the middle of a sentence — the one leak in 251. The character
+     class is the handful of letters a digit is read as and nothing else, so it stays a rule about the
+     SHAPE of a head rather than becoming a rule about its words. It is widened on the LEADING form
+     alone: a verso head opens on its page number, where the recto's trailing number read cleanly in
+     all 106 cases, and a line ending in a lone "I" or "U" is something a page of verse can plausibly
+     contain. */
+  const HEAD_NUM = /^(?:[\dOoIlUu|]{1,3}\s+(.{6,45})|(.{6,45}?)\s+\d{1,3})$/;
+  const VERSE_MAX = book.verseMax || 44;
+
+  let src = String(text).replace(/\r\n?/g, "\n");
+  const first = src.search(/\n[^A-Za-z0-9]{0,6}C[HKB][AEPR][PFR]?T?E?R?\.?\s+I\.?[ \t]*\n/);
+  if (first < 0) throw new Error("no chapter heading — the transcription has changed shape");
+  src = src.slice(first);
+
+  let heads = 0;
+  src = src
+    .split("\n")
+    .filter((line) => {
+      const s = line.trim();
+      const m = HEAD_NUM.exec(s);
+      const cand = m && (m[1] || m[2]);
+      if (cand && capsRatio(cand) > 0.75 && cand.replace(/[^A-Za-z]/g, "").length >= 6) { heads++; return false; }
+      return true;
+    })
+    .join("\n");
+  /* The scan's own line wrap, which breaks a word with a hyphen. Only where a lower-case letter
+     follows, so a real hyphenated compound broken across the wrap keeps its hyphen. */
+  src = src.replace(/([A-Za-z])-[ \t]*\n[ \t]*([a-z])/g, "$1$2");
+
+  const lines = src.split("\n");
+  const starts = [];
+  lines.forEach((l, i) => {
+    const m = CHAP_LINE.exec(l.trim());
+    if (m) starts.push({ i: i, num: m[1] });
+  });
+  if (!starts.length) throw new Error("no chapter headings found");
+
+  let seq = 0;
+  const repairs = [];
+  starts.forEach((s) => {
+    const v = romanValue(s.num);
+    if (v === seq + 1) seq = v;
+    else { repairs.push('"' + s.num + '" read as ' + (seq + 1)); seq += 1; }
+    s.n = seq;
+  });
+
+  const out = [];
+  let outlines = 0, verseBlocks = 0, joins = 0, lateHeads = 0;
+  const marks = [];
+  starts.forEach((s, k) => {
+    const end = k + 1 < starts.length ? starts[k + 1].i : lines.length;
+    const seg = lines.slice(s.i + 1, end);
+    const ti = seg.findIndex((l) => l.trim());
+    /* Leading scan noise, which four of the headings carry: chapter 11's "CHAPTER XI." line is
+       printed with "'-' . " in front of it and its title line with "',' - ", neither of which is
+       anything but dirt on the page. Only non-letters go, so a title is never shortened. */
+    const title = ti < 0 ? "" : seg[ti].trim().replace(/^[^A-Za-z0-9]+/, "").replace(/[.\s]+$/, "");
+    const blocks = [];
+    let cur = [];
+    seg.slice(ti + 1).forEach((l) => {
+      if (l.trim()) cur.push(l.trim());
+      else if (cur.length) { blocks.push(cur); cur = []; }
+    });
+    if (cur.length) blocks.push(cur);
+
+    for (let i = blocks.length - 1; i > 0; i--) {
+      const prev = blocks[i - 1];
+      if (!/[.!?:;"']\s*$/.test(prev[prev.length - 1]) && /^[a-z]/.test(blocks[i][0])) {
+        blocks.splice(i - 1, 2, prev.concat(blocks[i]));
+        joins++;
+      }
+    }
+
+    /* RICHARD'S OWN OUTLINE MARK. He sets the one word "[outline.]" under the argument of every
+       chapter he summarises rather than translates — eighty-nine of the hundred — and the OCR
+       mangles it twenty-two different ways ("[ouTLrsrE.J", "[OUTLINK. j", "[ODTLLNE.J", "[outlixk]",
+       "f OUTLINE.]"), brackets included at both ends. It is normalised, which asserts
+       nothing about what he printed — only that whatever he printed, he printed one thing, which is
+       the glyphs rule — and every raw form seen is reported on the run. It is taken out of the RUN OF
+       TEXT rather than off the head of a block, because it is not always a block of its own: where
+       the scan set no blank line under it the OCR runs it straight into the paragraph below, and
+       reading it as a block finds 85 of the 89. */
+    let outline = false;
+    for (let i = 0; i < blocks.length; i++)
+      blocks[i] = blocks[i].map((l) =>
+        l.replace(/[[({fF1lI|][A-Za-z0-9,.\-' \t]{2,14}?[\])}Jj1](?=[\s.,]|$)[ \t.,]*/g, (tok) => {
+          if (!isOutlineMark(tok)) return tok;
+          outline = true;
+          if (marks.indexOf(tok.trim()) < 0) marks.push(tok.trim());
+          return "";
+        })
+      );
+
+    /* A RUNNING HEAD THE OCR BROKE IN TWO. The sweep above works on LINES and one head in the book
+       arrives as two of them — its page number on the first and "MISSION TO HEAVEN" on the second —
+       so neither half carries the shape the sweep looks for and the pair shipped as a two-line
+       quotation in the middle of a sentence. This catches the block instead, on a pattern the book
+       declares for itself, exactly as dropHeads is declared per book: a phrase worth deleting in one
+       edition is prose in another. It can match only a block that is WHOLLY the running title, which
+       no chapter of a novel is, and every hit is counted so a rule that starts eating text cannot do
+       it quietly. */
+    if (book.runningHead)
+      for (let i = blocks.length - 1; i >= 0; i--) {
+        const txt = blocks[i].join(" ").replace(/\s+/g, " ").trim();
+        if (book.runningHead.test(txt)) { blocks.splice(i, 1); heads++; lateHeads++; }
+      }
+
+    const shortB = (b) => b.length <= 2 && medianLen(b) <= 46;
+    for (let i = blocks.length - 1; i > 0; i--)
+      if (shortB(blocks[i]) && shortB(blocks[i - 1]))
+        blocks.splice(i - 1, 2, blocks[i - 1].concat(blocks[i]));
+
+    const parts = [];
+    let inHead = true, argue = [];
+    const flushArg = () => {
+      if (!argue.length) return;
+      verseBlocks++;
+      parts.push('<blockquote><p>' + argue.map(escHtml).join(" <br>\n") + "</p></blockquote>");
+      argue = [];
+    };
+    blocks.forEach((b) => {
+      b = b.filter((l) => l.trim());
+      if (!b.length) return;
+      const med = medianLen(b);
+      const argy = inHead && b.length <= 4 && med <= 46;
+      const versey = b.length >= 2 && med <= VERSE_MAX;
+      if (argy) { argue = argue.concat(b); return; }
+      flushArg();
+      if (!versey) inHead = false;
+      if (versey) {
+        verseBlocks++;
+        parts.push("<blockquote><p>" + b.map(escHtml).join(" <br>\n") + "</p></blockquote>");
+      } else parts.push("<p>" + escHtml(b.join(" ").replace(/\s+/g, " ").trim()) + "</p>");
+    });
+    flushArg();
+    /* The mark goes back where Richard prints it — under the chapter's argument and above the summary
+       it introduces — rather than wherever the OCR happened to leave it in the run of text. */
+    if (outline) {
+      const at = parts.findIndex((p) => /^<p>/.test(p) && p.length > 220);
+      parts.splice(at < 0 ? parts.length : at, 0, '<p><i>[outline.]</i></p>');
+      outlines++;
+    }
+
+    /* ONE MARKER FOR THE WHOLE CHAPTER, because the chapter is what the two columns are cited by and
+       neither edition numbers anything inside it — see the note on `original` in this book's entry.
+       Written here rather than by cleanBody's `sections: "whole"` branch, which this book never
+       reaches: that one is for the wiki walk and this text is not markup at all. */
+    out.push({
+      n: s.n,
+      t: title,
+      outline: outline,
+      html: '<p><span class="bk-n" data-n="' + s.n + '">' + s.n + "</span></p>" + parts.join("\n"),
+    });
+  });
+
+  const missing = [];
+  for (let i = 1; i <= out.length; i++) if (!out.some((c) => c.n === i)) missing.push(i);
+  if (missing.length) warn("chapter(s) with no heading found: " + missing.join(", "));
+  return { chapters: out, repairs: repairs, heads: heads, outlines: outlines, marks: marks,
+    verseBlocks: verseBlocks, joins: joins, lateHeads: lateHeads };
+}
+
 function extractTablets(h, book, warn) {
   /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
      the page with Windows line endings; every other source on the shelf does not, so `esc` — which
@@ -9803,11 +10227,37 @@ function originalChapter(h, O, warn) {
      proofread page HAS the parser's own container too, outside the transclusion wrapper, so an
      automatic fallback would silently widen the slice of every scan-backed original the day this
      wiki next moves its markup. Hence a per-book opt-in. */
-  const i = b.indexOf('<div class="prp-pages-output"');
+  let i = b.indexOf('<div class="prp-pages-output"');
+  /* A PAGE TYPED ONTO THE WIKI HAS NO TRANSCLUSION WRAPPER — the same gate cleanBody carries for the
+     translation side, added here (Aug 2026) for the first original that needs it, and gated per book
+     for exactly the reason the English one is: a scan-backed original has the parser's own container
+     TOO, outside the wrapper, so an automatic fallback would silently widen the slice of the two
+     originals already shipped on this path the day a wiki moves its markup. */
+  if (i < 0 && O && O.body === "plain") {
+    const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
+    if (m) { i = m.index; b = b.slice(0, m.index) + b.slice(m.index + m[0].length); }
+  }
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
+  /* MediaWiki's own navigation header — the work's title, its author and the previous/next links.
+     On a scan-backed page it sits OUTSIDE the transclusion wrapper and the slice above has always
+     dropped it for free; on a typed page it is the first thing INSIDE the parser container, so
+     without this every chapter opens on a quotation of its own bibliographic header. Removed with a
+     BALANCED match because it holds nested tables. */
+  if (O && O.body === "plain") {
+    const m = /<div id="headerContainer"[^>]*>/.exec(b);
+    if (m) {
+      const end = blockEnd(b, m.index, "div");
+      if (end > 0) b = b.slice(0, m.index) + b.slice(end);
+      else warn("the page's header block is unbalanced and was left in place");
+    }
+  }
   b = b.split(/<div class="reflist|<ol class="references"|<div class="mw-heading[^"]*"><h2/)[0];
   b = b.replace(/<div class="prp-pages-output"[^>]*>/g, "");
+  /* The edition's quoted VERSE, which this transcription sets as a definition list — see
+     verseFromLists, written for the Prose Edda's skaldic stanzas. Gated per book, like every other
+     rule in this function, so it is provably inert on the originals already shipped. */
+  if (O && O.verse === "dl") b = verseFromLists(b);
   for (let k = 0; k < 200; k++) {
     const m = /<span class="numeropagina\b[^>]*>/.exec(b);
     if (!m) break;
@@ -11374,6 +11824,42 @@ async function fetchEnglish() {
      why this book needs a third source at all and what was measured before it was chosen. One
      request for the lot, cached exactly as a TEI file is: --from/--to cost nothing, a re-extract
      needs no network, and the site is asked once rather than once per tablet. */
+  /* A WHOLE BOOK IN ONE PLAIN-TEXT FILE — see the block above extractJourney for why this book has
+     no markup to read and what the reader has to build instead. One request for the lot, cached like
+     a TEI file, so --from/--to cost nothing and a re-extract needs no network. */
+  if (BOOK.layout === "journey") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractJourney(raw, BOOK, warn);
+    if (got.chapters.length !== BOOK.chapters.length)
+      warn("the transcription carries " + got.chapters.length + " chapters; the entry expects " +
+        BOOK.chapters.length);
+    got.repairs.forEach((r) => warn("malformed chapter numeral, " + r));
+    got.chapters.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      chapters.push({ n: c.n, t: titles[c.n] || c.t || chapterTitle(c.n), p: partOf(c.n), html: c.html, notes: [] });
+    });
+    console.log("  " + chapters.length + " chapters, " + got.heads + " running heads removed, " +
+      got.joins + " paragraphs rejoined across a page break, " + got.verseBlocks + " verse blocks" +
+      (got.lateHeads ? " (" + got.lateHeads + " of the heads the OCR split in two, caught as blocks)" : ""));
+    /* THE ONE FIGURE THIS BOOK IS ABOUT. Richard condenses most of the novel and marks the chapters
+       he condensed himself, so this count is the single most important thing a reader can be told
+       about the text — and a change in it means the mark has stopped being recognised, which is how
+       every one of the four OCR shapes below was found. Printed on every run for both reasons. */
+    console.log("  " + got.outlines + " of " + got.chapters.length +
+      " chapters carry Richard's own [outline.] mark — " + (got.chapters.length - got.outlines) +
+      " are translated at length: " +
+      got.chapters.filter((c) => !c.outline).map((c) => c.n).join(", "));
+    console.log("  the mark is printed " + got.marks.length + " different ways by the OCR: " +
+      got.marks.slice(0, 8).join(" ") + (got.marks.length > 8 ? " …" : ""));
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "tablets") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");

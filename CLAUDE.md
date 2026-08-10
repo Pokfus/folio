@@ -42,6 +42,14 @@ It is a plain static website — open `index.html` and it runs.
   lines**: a day gets ONE localisation line per area (the daily games, the Atlas, the site chrome), extended as
   more of that area lands — 2026-07-27/28 once carried eight and five of them, each announcing another corner of
   the same rollout. The Mission page renders it.
+  **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO AND DOES NOT GO IN IT** (on request, 2026-08-10). The changelog
+  is Folio's own record; the decks under `decks/` — the DELE Spanish set, the HSK Mandarin set — are
+  USER-UPLOADED content that nothing on the site links to or serves, so announcing one there posts it as
+  though it were official. Two lines about the Spanish decks were written and removed the same day. What DOES
+  belong is a change to the APP that a deck happened to force — the import caps have been raised twice by
+  decks that would not fit — worded as a fact about deck files rather than about any deck. The same test
+  settles a fault found in a deck FILE: a card-id collision between two of them was a bug in the generator's
+  output, not in Folio, and gets no line.
   **ONE SENTENCE PER ITEM, AND ONE SENTENCE PER DAY TITLE** (Aug 2026, on request, after a reader met this
   page on a phone). Items had grown back into whole paragraphs — the longest ran to 1,216 characters and one
   day title to 300 — which on a narrow screen is a wall of prose where a list of changes should be. The whole
@@ -120,7 +128,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-three:
+  matter (chapter 0 — see the Library bullet). Currently thirty-four:
+  `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
+  Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
+  first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the
+  shelf is handed decisions somebody has already made — a wiki page whose paragraphs are `<p>`, a TEI
+  file whose lines are `<l>` — and this transcription is a text file with hard line wraps, running
+  heads, hyphenation across the wrap and page numbers mid-sentence, so `extractJourney` has to BUILD
+  the structure and then ESCAPE what it finds rather than strip tags out of it (the reverse of every
+  other extractor here, and the reason an ampersand in the scan is content).
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **A RUNNING HEAD IS MATCHED ON SHAPE, NEVER ON
+  WORDING** — the OCR spells this book's own title differently on almost every page ("iaSSION TO
+  HEAVEN", "SEAECH FOR BOIORTAIJTY 13", "VISITS DKAGONS AND 'JUDGES OF HELL 37"), so a rule that knew
+  the words would drop some and leave the rest standing mid-sentence; 250 go on the shape (a short
+  mostly-capital line with a page number at one end) and every one was read to confirm it.
+  **AND LIFTING ONE OUT LEAVES A HOLE WHERE IT STOOD**, which is the quiet half: a blank line is what
+  separates paragraphs, so a sentence running across a page arrives as two of them broken at the word
+  the page turned on — 359 of those, rejoined on the Analects' test and only on it. **A COUNT THAT
+  MOVES IS HOW EVERY OCR SHAPE WAS FOUND**: Richard marks the chapters he condensed with the word
+  `[outline.]` and the scan mangles it twenty-two ways, brackets included at BOTH ends
+  (`[ouTLrsrE.J`, `f OUTLINE.]`, `[ODTLLNE.J`), so the mark's own count is printed on every run and
+  each widening of the matcher was prompted by that number being wrong — 85, then 87, then 88, then
+  89. **AND THE CONTENTS PAGE IS NOT ALWAYS THE BETTER READING**: this edition prints its titles in
+  capitals in the body and in title case on the contents page, so the case looked recoverable — and
+  measured chapter by chapter the contents agrees with the body on only 53 of the 100, the
+  disagreements being its own OCR ("Eeeonciliation", "Tt-rragli Dead, shall live"). The body headings
+  ship, capitals and all, which is Aesop's outcome reached by measurement rather than by assumption.
+  **ITS REAL LIMITATION IS THE TEXT AND NOT THE IMPORT, and it is the shelf's first of this kind**:
+  every earlier short book is short by CHAPTERS — 102 of 305 poems, 10 of 46 treatises, 3 parts of 4
+  — where this one has all hundred and is short WITHIN them. Richard renders about ten at length and
+  condenses the rest, marking eighty-nine of the hundred himself; the unmarked eleven average ~3,700
+  words and the marked eighty-nine ~570. The mark is a reliable guide and not a strict one — chapter
+  100 carries it and is the longest in the book, and chapter 88 carries none and is plainly a summary
+  all the same. **The book's own front matter says all of this on its first page**, because it is the
+  first thing a reader needs to know. See the `journey-to-the-west.zh.js` entry for why it is worth
+  shelving anyway),
   `virgil-aeneid` (~621 KB, all 12 books, **396 card sections**, **0 notes** — Theodore C. Williams's
   blank verse of 1910, and **the first book here whose TRANSLATION MARKS ITS CARDS TWO WAYS AT ONCE.**
   Every earlier file on the TEI card path picks one mechanism and keeps to it — Ovid's English divides
@@ -488,7 +530,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-two:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-three:
+  `journey-to-the-west.zh.js` (~762 KB, all 100 chapters — the received Ming novel as transcribed at
+  Chinese Wikisource, and **the only original on the shelf that is FULLER THAN ITS TRANSLATION.**
+  Everywhere else the translation is the complete text and the original is the harder half to find;
+  here the Chinese is all hundred chapters entire while the English condenses eighty-nine of them, so
+  on most of the book this column is not merely fuller but the only place the story is actually told.
+  That is also the answer to why the book is shelved at all: every complete English translation is
+  still in copyright, so the choice was this pairing or none.
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** **A KNOWN RECENSION SPLIT MUST BE MEASURED BEFORE
+  THE COLUMNS ARE TRUSTED**: the story of Tripitaka's parentage is chapter 9 in the Qing recension and
+  stands outside the numbered sequence in the earlier one, so the two orderings run a chapter apart
+  from there to the end and a pairing built on the assumption would be wrong for ninety-two chapters
+  while looking perfect. Checked on the source itself — this transcription's index and its own
+  chapter 9 both carry 陳光蕊赴任逢災, which is Richard's chapter IX, and 10, 11 and 12 follow his X,
+  XI and XII — so the columns agree chapter for chapter over all hundred. **ITS 附錄 IS NOT A 101st
+  CHAPTER** and is deliberately not fetched: it is a second copy of that same ninth chapter carrying
+  the other recension's placement in a note of its own, and a walk that read the index rather than
+  naming the pages wanted would pick it up as an extra. **AND IT IS THE FIRST ORIGINAL TYPED ONTO A
+  WIKI RATHER THAN TRANSCLUDED FROM A SCAN**, so `originalChapter` gained the `body: "plain"` gate
+  cleanBody already carried for the translation side, plus a balanced drop of that wiki's own
+  `headerContainer` — without which every chapter opens on a quotation of its own bibliographic
+  header. Its constant quoted verse (the poems that open a scene or describe a mountain, several a
+  chapter) is set as `<dl><dd>`, which the tag stripper would unwrap into run-on prose on a book that
+  is half poetry, so it takes `verse: "dl"` — the Prose Edda's `verseFromLists`, reused unchanged.
+  All three options are gated per book and the change was proved inert on the shipped Prince,
+  byte-for-byte, which is the standing discipline for any edit to a shared extractor),
   `virgil-aeneid.la.js` (~475 KB, all 12 books, **391 cards, 9,843 lines of hexameter** — J. B.
   Greenough's Oxford-shaped text published by Ginn and Company in Boston in 1881, and after the Gallic
   War the cleanest pairing of two independently edited texts on the shelf: 390 of its numbers appear on
@@ -627,7 +694,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-three books, twenty-three originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Thirty-four books, twenty-four originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
@@ -1016,6 +1083,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     manuscript does and brackets a section [XXIX] that Gummere runs on inside his XXVIII; folding the
     two into one chapter is what keeps the columns dividing alike, the alternative being a chapter tab
     with an original and no translation.
+  **A BOOK MAY BE NO MARKUP AT ALL, and then the structure is BUILT rather than read**
+  (`layout: "journey"` → `extractJourney`, plus a per-book `runningHead`; Aug 2026, adding Journey to
+  the West — the thirty-fourth book, and the eleventh layout). Every earlier reader is handed
+  decisions somebody has already made: a wiki page whose paragraphs are `<p>`, a TEI file whose lines
+  are `<l>`. Richard's translation exists in exactly one transcription anywhere — the Internet
+  Archive's OCR of the Cornell copy — and that is a plain text file. **So this is the first extractor
+  here that ESCAPES its input rather than stripping tags out of it**: it is given prose and puts tags
+  in, so an ampersand or an angle bracket in the scan is content and becomes markup by accident if
+  it is not escaped. Five things it settled:
+  · **A RUNNING HEAD IS MATCHED ON SHAPE, NEVER ON WORDING.** The OCR spells this book's own title
+    differently on almost every page, so a rule that knew the words would drop some and leave the
+    rest standing mid-sentence; what does not vary is a short mostly-capital line with a page number
+    at one end. 250 go that way and all 250 were read to confirm it.
+  · **…AND LIFTING ONE OUT LEAVES A HOLE WHERE IT STOOD.** A blank line is what separates blocks, so
+    a sentence running across a page arrives as two paragraphs broken at the word the page turned on
+    — 359 of them, rejoined on the Analects' test and only on it (the first must end on no sentence
+    punctuation AND the second open lower-case), which is narrow enough that no real paragraph can be
+    swallowed.
+  · **A HEAD THE OCR SPLIT IN TWO NEEDS A DIFFERENT RULE FROM ONE IT MERELY MISSPELLED**, and this is
+    where the shape rule runs out: two heads arrive as two lines each, so neither half carries the
+    shape at all. Caught as a BLOCK instead, on a `runningHead` pattern the book declares for itself
+    exactly as `dropHeads` is declared per book — matching only a block that is WHOLLY the running
+    title, which no chapter of a novel is — and counted, so a rule that starts eating text cannot do
+    it quietly.
+  · **A COUNT THAT MOVES IS HOW AN OCR SHAPE GETS FOUND.** The mark Richard prints on the chapters he
+    condensed is mangled twenty-two ways, and it is bracketed at BOTH ends, so the closing "]" is
+    read as "J" a third of the time and the opening "[" as "f" once. The count is printed on every
+    run, and every widening of the matcher was prompted by that number being wrong — 85, then 87,
+    then 88, then 89. Nothing else would have shown it: a mark not recognised is simply a chapter
+    filed under the wrong description.
+  · **A CONTENTS PAGE IS NOT ALWAYS THE BETTER READING**, which is worth knowing because the opposite
+    is usually true. This edition heads its chapters in capitals and lists them in title case, so the
+    case looked recoverable — and the contents agrees with the body on only 53 of the 100, the
+    disagreements being its own OCR. The body headings ship, capitals and all, which is Aesop's
+    outcome reached by measurement rather than by assumption.
+  **AND `originalChapter` GAINED THE TWO GATES `cleanBody` ALREADY HAD** (`O.body === "plain"`,
+  `O.verse === "dl"`), plus a balanced drop of that wiki's `headerContainer`, for the first original
+  typed onto a wiki rather than transcluded from a scan. All three are gated per book for the reason
+  the English-side gates are, and the change was proved inert on the shipped Prince byte-for-byte.
+
   **A WHOLE BOOK MAY ARRIVE ON ONE PAGE, and then the chapters are CUT rather than walked**
   (`layout: "laisses"` → `extractLaisses` / `extractLaissesFr` / `laisseHtml` / `laisseNumber` /
   `dropLineNumbers`; Aug 2026, adding the Song of Roland — the seventeenth book, and the eighth
@@ -2605,6 +2712,111 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
+- `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
+  (A1, A2, B1, B2), community decks rather than site content:
+  `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching
+  its corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every other helper here
+  is Node** — a deliberate exception, committed on request so a further level is a re-run against the next
+  column rather than a rebuild, which is exactly what B1 and B2 turned out to be.
+  **ONE LEVEL PER RUN** (`dele_level` reads the level once, at import), and **a level is taught on top of
+  the ones below it**: a level excludes every word the SHIPPED decks below it contain, read out of the
+  deck files rather than a working file, so they cannot drift and a rebuilt level cannot start teaching a
+  word a lower one already covers — **both halves of a paired headword**, so A2 cannot re-teach a feminine
+  A1 already shows (that exclusion is what took four feminine adjectives out of A2 and let four new words
+  in). The intermediates are level-suffixed so all four can sit in one cache. **A level is four table
+  rows in `dele_level`** — its title, deck id and file, which levels are below it, how many words it
+  teaches (`TARGET`: 500, 500, 1,000, 2,000) and which pair of inventory pages its column is printed on
+  (`PAGES`: A1 and A2 share a page, B1 and B2 share another) — plus a supplement list and a batch of
+  reflexives. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
+  one failure that stage can have that looks like success: the deck builds, every card is well formed, and
+  the level quietly teaches fewer words than it says it does.
+  The stage headers carry what the build found, and ten of those findings are the ones to read before
+  touching it.
+  **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
+  otherwise survived three levels because it was firing on five words in a thousand. A word Tatoeba could
+  not illustrate used to be swapped for the next word in the ranked order — which comes from the RARE TAIL
+  by construction — and at B2 it fired on **117 of 2,000**: it proposed dropping `matizar`, `constatar`,
+  `vincular` and `incidir`, the argumentative verbs the level is examined on, along with seven of the
+  connectives it is built around (`por consiguiente`, `en conclusión`, `en la medida en que`), and putting
+  `sopera`, `gomina` and `colorete` in their place. The loop is gone; a word the corpus cannot illustrate
+  ships without sentences and the deck's own description states how many do. **Removing it changed B1 by
+  five words**, restoring `asesino`, `delta`, `bufete`, `nublarse` and `pintado`.
+  **ONE ITEM PER LINE WHERE AN ITEM MAY BE A PHRASE, and this is the fault B1 introduced and caught in one
+  run.** Every supplement list is a triple-quoted block ending in `.split()`, which is right for single
+  words and silently tears a phrase into its pieces: B1's discourse layer is half phrases (`sin embargo`,
+  `a pesar de`, `de vez en cuando`), and `o sea` became `o` and `sea` — where `sea` is the present
+  subjunctive of `ser`, which the closed-class escape hatch then waved past the inflection test, so the
+  deck grew a card for a verb form with no meaning on it. It was loud rather than quiet only because
+  `build_deck` refuses to write a card with no meaning. `_lines()` keeps the phrases whole; the rest of
+  the pipeline already handled them (`PHRASES` in `examples.py` matches them as substrings), so the 44
+  that survive are the best cards in the deck.
+  **A PAST PARTICIPLE IS FILED BEFORE THE NOUN IT SHARES ITS SPELLING WITH** (`FORCE_POS`), which is a
+  handful of words at A1 and a whole class once the vocabulary gets past A2: `hecho` came out as "done,
+  completed" rather than "the fact", `sentido` as "deeply felt", `vestido` as "dressed" rather than "a
+  dress", `atentado` as "moderate, prudent" rather than "an attack". Each is a well-formed adjective card
+  carrying a real sense of the word and the wrong one for a learner. **The test cannot be mechanical** —
+  `preparado`, `ocupado`, `perdido`, `mojado` and thirty more of the same shape genuinely want the
+  adjective — so the thirty that do not are named, and forcing the noun IMPROVES the gendered pairing for
+  free (`el ciudadano, la ciudadana`, `el aficionado, la aficionada`). Watch for the tag as well as the
+  order: `hecho`'s "fact" sense is tagged **archaic** in Wiktionary, which is wrong and which the sense
+  filter obeys, so that one is authored.
+  **A CARD ID MUST CARRY ITS DECK, and this is the loudest silent fault the generator has had** (Aug 2026).
+  Both levels wrote `u_delea1_N`, because the id was a literal in a file first written for A1 — and a deck
+  FILE import only mints fresh card ids when the DECK id already exists, which `delea2` does not. So
+  installing both decks put two different cards under one key in the shared `UCARDS` store, and **studying
+  the A1 subdeck dealt A2's cards — all twenty-five of a twenty-five-card probe.** Both decks were on the
+  shelf, both had their full card counts on disk, and nothing threw. The check to run after any change to
+  the emitter is to import BOTH levels into one device and study the lower one.
+  **A MALE/FEMALE PAIR IS ONE WORD WEARING TWO ENDINGS, AND NOTHING ABOUT IT MAY BE DERIVED**
+  (`fem_forms` / `merges_with` / `pair_for` in `build_deck.py`). The naive rule — swap a final `-o` for
+  `-a`, add `-a` to a consonant — gets `señor` wrong ("señoa") and every suppletive pair wrong
+  (padre/madre, rey/reina, caballo/yegua). It does not have to be derived at all: kaikki has already
+  expanded Wiktionary's own template arguments into the record's `forms`, tagged `['feminine']` and
+  `['feminine','plural']`, so the four costumes the argument wears — an explicit word, `+` for the default
+  derivation, `#` for the headword itself, `#a` for the headword plus `-a` — are resolved before this code
+  sees them. **Read the record the CARD teaches, not the first one carrying a feminine**: `mano` has a
+  masculine record meaning "bro" whose feminine is "mana", and the card is about the hand. And **a real
+  feminine FORM is very often a different WORD as well**, which is what decides whether the two share a
+  card: `caro`/`cara` (dear/face), `medio`/`media` (half/stocking), `político`/`política` and
+  `chino`/`china` are all genuine feminines and all separately nouns the deck teaches. Two signals
+  separate them and either will do — the feminine's own entry points back (`señora` carries `señor` as its
+  masculine) or the masculine names the feminine outright rather than deriving it (`rey` names `reina`) —
+  and every false pair is a bare `+` with no back-link. Measured: 63 pairs in A1 and 70 in A2, of which 4
+  and 1 fold two cards into one.
+  **A LETTER HAS A NOUN ENTRY, AND WIKTIONARY FILES IT FIRST** (`FORCE_POS`). `de`, `te` and `ese` — the
+  preposition, the object pronoun and the demonstrative — came out as `la de`, `la te` and `la ese`,
+  glossed "the name of the Latin script letter D/d", each a perfectly well-formed noun card with an
+  article and a plural, which is why nothing downstream complained.
+  **A WORD THAT IS ANOTHER WORD WEARING AN ENDING IS NOT A CARD, AND THE TEST FOR IT IS THE SUBTLEST
+  THING HERE** (`is_inflection` in `select.py`). `flores`, `roja`, `clases` and `mala` are the plural or
+  the feminine of words already taught, and they get past the lemma test because Wiktionary records some
+  marginal homonym for each — `roja` is "the Chile national football team" and `mala` "a suitcase", which
+  is what the card would have shown. But the obvious test, *some record calls it an inflection*, is
+  **wrong in exactly the way this file already warns about**: nearly every Spanish noun collides with a
+  verb form, so it read `casa` as the third person of `casar` and **threw `la casa`, `el libro` and `el
+  agua` out of A1** while letting `el jersey` in. A word goes only when its entry OPENS by declaring
+  itself an inflection of a word the decks actually teach, or when it declares itself one anywhere and
+  has no showable meaning of its own at all. **A derivation is not an inflection**: `peor` is the
+  comparative of `malo`, `quizás` an alternative form of `quizá` and `moto` a clipping of `motocicleta`,
+  and none of the three has a single clean sense in Wiktionary, so a test on usable senses would have
+  kept `roja` and thrown out `peor`.
+  **A CROSS-REFERENCE IS NOT A TRANSLATION, and it arrives three ways**: as a `form_of` field, as a tag,
+  and — the one that got through — as plain prose inside the gloss (`niña` is "girl, female equivalent of
+  niño", `santa` is "saintess; female equivalent of santo"). All three are stripped, the meaning is
+  recovered from the tail of the gloss or from the entry it points at, and `build_deck` now REFUSES to
+  write a card with no meaning at all rather than shipping a blank one. **A CONJUGATION TABLE CANNOT BE A `<table>`**:
+  `SANITIZE_TAGS` has no `table`/`tr`/`td`, and an unknown tag is UNWRAPPED rather than dropped, so the whole
+  paradigm arrives as one run-on line of words — it is a CSS grid of divs. **A REFLEXIVE'S FORMS ARE ITS BASE
+  VERB'S**, so matching a sentence on the form alone teaches the wrong word (every `llamarse` example came
+  back as `llamar` "to phone"), and requiring the pronoun merely to be NEARBY is not enough either, since
+  "él me llamará por teléfono" is a dative object of a third-person verb — the clitic has to AGREE.
+  **NEARLY EVERY SPANISH NOUN COLLIDES WITH SOME VERB FORM** (`libro` is a book and the 1sg of `librar`,
+  `vino` is wine and the preterite of `venir`), so a word is only an inflected form when NOT ONE of its
+  records carries a sense of its own; the naive test threw out `hablar` and `estar` while `libro` survived on
+  kaikki's key order alone. And **TATOEBA IS A GENERAL CORPUS**, which a deck for exam candidates cannot deal
+  out unfiltered — `millón` first came back offering "Would you have sex with me for a million dollars?".
+  **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
+  since every fault above is silent. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
@@ -3086,6 +3298,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     candidate clearing all three kinship risks by more than the shelf's tightest pair (Ovid 29, Homer
     62, Lucretius 72), and at 9.57:1 it is second on the shelf for contrast where three rivals scrape
     4.60. The band was not widened, and was tested rather than assumed.
+    **Journey to the West is the SIXTH licence needing no qualification at all** (Aug 2026), after
+    the Republic, the Analects, the Peloponnesian War, the City of God and the Aeneid, and its
+    interest is not in the licence but in what the licence RULED OUT. The novel was first printed in
+    1592 and Timothy Richard published his English in Shanghai in 1913, living 1845–1919 — dates read
+    off Wikidata at day precision and corroborated by its own description — so both layers clear the
+    pre-1929 rule, life-plus-seventy and life-plus-a-hundred, with no limit to state and no modern
+    editorial layer. **THE HARD PART WAS THAT NO PUBLIC-DOMAIN ENGLISH TRANSLATION OF THIS NOVEL IS
+    ACTUALLY A TRANSLATION OF IT**, which was established rather than assumed: Anthony C. Yu's
+    complete four volumes (1977–1983, revised 2012), W. J. F. Jenner's (1982–1986) and Julia
+    Lovell's (2021) are all in copyright; Arthur Waley's *Monkey* (1942) is both in copyright until
+    2037 and an abridgement of thirty chapters; Helen M. Hayes's *The Buddhist Pilgrim's Progress*
+    (1930) is six chapters; and the Project Gutenberg text that search results offer as a
+    public-domain English *Journey to the West* is the CHINESE — checked, not inferred. So the shelf's
+    own bar left exactly one candidate, and it is a condensation. **The choice made was to ship it and
+    say so on the book's first page**, which is the Classic of Poetry's judgement (102 of 305 poems)
+    applied to a book that is short WITHIN its chapters rather than short OF them — and what makes it
+    bearable here is the Chinese column, which is complete. Richard's dedication, his introduction
+    arguing the novel is a disguised Nestorian Christian allegory, and the plates are left behind, as
+    the Republic's introduction and plates were. Two facts about his edition are stated on the page
+    rather than smoothed over, because a reader will meet them in the prose: he believed the Taoist
+    master Qiu Chuji wrote the novel, three centuries before it appeared, and his English renders the
+    Buddhist heaven in the vocabulary of another religion — cherubim, angels, Providence. Its
+    `BOOK_AUTHOR_COLOR` row is where the band is genuinely FULL rather than nearly so; see the note
+    beside `"Wu Cheng'en"` in app.js for the search, and for the Euripides test being run and NOT
+    biting — the alternative it offered was a fifth blue at 18.5, below the shelf's own tightest pair.
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.

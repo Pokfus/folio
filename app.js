@@ -7551,6 +7551,35 @@
        35.6, which is precisely what the band exists to exclude. Paying six points of separation to keep
        the shelf reading as one system is the trade every row here has made. */
     "Virgil": "#4A0418",
+    /* Measured the same way, and this is the row where the band is FULL rather than nearly full: with
+       thirty colours placed, the best-separated colour anywhere inside the shelf's own lightness and
+       chroma band, under the Book of Rites' ink floor and the 4.5:1 bar, clears its nearest neighbour
+       by 19.7 — where Virgil could still find 19.0-and-clear and Beowulf 23.3. The shelf's own
+       tightest pair is now 18.2 (the Classic of Poetry against Beowulf), so 19.7 still clears it, and
+       that is the honest report: no widening was needed and none would have helped much, because what
+       is left is not one gap but the gaps between thirty colours.
+
+       THE EURIPIDES TEST WAS RUN AND DOES NOT BITE HERE, which is worth saying because the obvious
+       reading of it would have chosen differently. Four of the five other Chinese works on the shelf
+       are far away (Sun Tzu 49, Confucius 56, the Classic of Poetry 39, the Book of Documents 93) and
+       the fifth, the Lî Kî's dark plum, is 21.0 — closer than any of them and still above the shelf's
+       own tightest pair. The test forbids a colour that says two books are a SET, and it is Sophocles
+       against Euripides, or Herodotus against Thucydides, that the rule was written for: a Ming comic
+       fantasy and a Confucian ritual compendium are not read as a pair by anybody. The alternative
+       was measured rather than waved away — every candidate holding 25 or more from all five Chinese
+       works is a BLUE at 18.5, below the shelf's tightest pair, joining the most crowded quarter here
+       as its fifth or sixth member. Paying 1.2 points and taking a fifth blue to avoid a kinship
+       nobody would read is the wrong trade.
+
+       The green that scored the same 19.6 was rejected outright, and on the test proper: its nearest
+       neighbour IS the Book of Documents, at 19.6, and two Chinese classics in neighbouring greens is
+       exactly the claim the shelf must not make. This deep magenta clears Ovid, Plato and Thucydides
+       at 19.7, 19.7 and 19.9 — evenly, so it reads as its own colour against all three rather than as
+       a near-miss of one — and reads 6.46:1 on the tightest of the sixteen light papers. Chroma 53 in
+       an 18–64 band and lightness 26 in a 12–48 one, so it cannot glow. It suits the book, which is a
+       comedy about a monkey wrecking heaven and not a sober one; that cost nothing, the numbers led
+       there. The thirty-second colour will have to widen the band or take a pair tighter than 18.2. */
+    "Wu Cheng'en": "#7B0050",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9469,6 +9498,67 @@
          bar would be composing an apparatus out of a commonplace — which is what the importer's titleOf
          note declines to do for the book titles, and what the Iliad's and Odyssey's rows decline for
          their own halves. */
+    },
+    {
+      id: "journey-to-the-west",
+      title: "Journey to the West",
+      subtitle: "西遊記",
+      author: "Wu Cheng'en",
+      /* THE ATTRIBUTION IS TRADITIONAL AND CONTESTED. The novel was printed anonymously in 1592 and
+         Wu Cheng'en's name was attached to it by Qing scholars on the strength of a county gazetteer
+         listing a work of that title among his writings; a good deal of modern scholarship is
+         unconvinced. It is the name the book is catalogued under in every language, so it is the name
+         on the spine, and the book's own front matter says what the name rests on. Richard's title
+         page says something else again — he thought the Taoist master Qiu Chuji wrote it, three
+         centuries before it appeared. */
+      written: "first printed 1592",
+      year: 1592,
+      translator: "Timothy Richard",
+      edition: "The Christian Literature Society's Depot, Shanghai, 1913",
+      /* AN EASY LICENCE, AND THE SIXTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
+         Republic, the Analects, the Peloponnesian War, the City of God and the Aeneid. The novel is a
+         Ming work of the sixteenth century; Richard published in Shanghai in 1913 and lived
+         1845–1919, dates read off Wikidata at day precision and corroborated by its own description
+         rather than recalled, so his English clears pre-1929 publication, life-plus-seventy and
+         life-plus-a-hundred alike. There is no limit to state and no modern editorial layer to
+         declare. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, on every ground, with nothing to qualify. The novel is a Chinese work of the " +
+        "sixteenth century, first printed in 1592, so the words behind it have been free for as long " +
+        "as copyright has existed. The only modern layer is the translation: Timothy Richard " +
+        "published it in Shanghai in 1913 and lived from 1845 to 1919, so it is public domain in the " +
+        "United States, where the term for a work published before 1929 has expired, and out of " +
+        "copyright wherever the term is the translator's life plus seventy years or plus a hundred. " +
+        "Richard's dedication, his introduction and the plates are not reproduced here; what is taken " +
+        "is the hundred chapters. (The complete modern translations — Anthony C. Yu's of 1977–1983, " +
+        "revised in 2012, W. J. F. Jenner's of 1982–1986 and Julia Lovell's of 2021, and Arthur " +
+        "Waley's abridgement Monkey of 1942 — are all still in copyright and are not used.)",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/cu31924074502034",
+      origLang: "zh",
+      origName: "Chinese",
+      /* THE CHAPTER IS THE PAIRING UNIT — it is what the work is divided into, what both editions
+         state and how any passage of it is cited in any language. Neither side numbers anything
+         inside a chapter, so there is nothing finer to pair on and none is invented: one row per
+         chapter, each column at its own length.
+         THE ORIGINAL IS THE FULLER OF THE TWO COLUMNS, which is true of no other book here. The
+         Chinese is all hundred chapters entire; Richard renders about ten of them at length and
+         condenses the rest, marking eighty-nine of the hundred himself with the word "[outline.]",
+         which ships exactly where he put it — the unmarked eleven average 3,700 words and the marked
+         eighty-nine about 570. The book's own front matter says so on its first page, because it is
+         the first thing a reader needs to know about this text.
+         The numbering was checked rather than assumed: this novel has a known place where two
+         recensions disagree about whether the story of Tripitaka's parentage is chapter 9, and the
+         two orderings run a chapter apart from there on. Measured on the source — the Chinese
+         chapters 9 to 12 are Richard's IX to XII in subject, so the columns agree over all hundred.
+         See .claude/fetch-book.js. */
+      chapterWord: "Chapter",
+      count: 100,
+      total: 100,
+      /* No `parts`. The edition divides the book into a hundred chapters and nothing above them. The
+         three movements a reader may have met elsewhere — Monkey's origin, Tripitaka's, and the
+         pilgrimage — are not this edition's divisions, and putting them on the bar would be composing
+         an apparatus, which is what the Aeneid's row declines to do for its own two halves. */
     },
   ];
   const BOOK_BY_ID = {};
