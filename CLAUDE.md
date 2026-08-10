@@ -6955,6 +6955,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cleaned on ingest, and that is not enough — a value dropped into `<img src="{{X}}">` is only checkable once
     the two are one string. So `cardTypeSideHTML` is the single choke point, and it runs `sanitizeHTML` over
     the COMPOSED result at render. Don't "optimise" that pass away.
+  · **`<details>`/`<summary>` ARE ALLOWED, and they are the only fold a deck can have** (Aug 2026). A card
+    type may not carry script and its CSS is scoped to the card, so the platform's own disclosure widget is
+    the whole of what is available for hiding a long section behind a heading — which is what the HSK decks'
+    example sentences sit in. Neither element has a scripting surface or takes a URL, and `open` is the one
+    attribute either accepts. **A CSS ESCAPE CANNOT BE USED TO DRAW ITS MARKER**: `sanitizeCSSText` strips
+    backslashes, so `content:" \\25BE"` reaches the card as the characters `25BE` — write the ▾ itself, as
+    the `content:"\\201C"` note above already says for a quotation mark.
   · **The CSS gets its own treatment, because it is not HTML and cannot go through the HTML sanitizer** (which
     drops `<style>` outright). `sanitizeCSSText` strips comments, strips `<` (so `</style>` cannot be spelled —
     **`>` is deliberately KEPT**, it is the child combinator and only the opening bracket can end the element)
