@@ -8286,12 +8286,15 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-two committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-four committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
-  no browser). **The split is `grep -L playwright .claude/test-*.js`, not a number to keep in your head** — the
-  headline count had drifted one behind before this line was last rewritten.
+  no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
+  for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
+  behind by 2026-08-10, having been corrected once already for the same reason, so the bullet list below is
+  the thing to trust; two files are described in prose elsewhere rather than listed here
+  (`test-speak.js`, `test-subdecks.js`).
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
