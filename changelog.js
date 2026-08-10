@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.158", released: "2026-08-10T16:12Z" };
+window.FOLIO_VERSION = { v: "1.159", released: "2026-08-10T17:09Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-10",
-    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and three epics on the shelf",
+    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and four books on the shelf",
     items: [
       "<b>A big deck no longer makes the site slow to open</b> — Folio was re-checking every card of it on every single load, and now checks each one once.",
       "<b>Adding one of your own decks now brings its subdecks with it</b>, listed under it in your daily study rather than hidden inside one row.",
@@ -78,7 +78,8 @@ window.CHANGELOG = [
       "A deck of your own can now turn the glossary off altogether, beside the three settings it already had.",
       "In your own decks, the Studio's way back is a link at the top left of the page, and it says “Back to Collections” — the page it returns to was renamed when the Library became the books.",
       "The Timeline puzzle capitalises the terms it lists, as the Multiple Choice options already did.",
-      "<b>Three epics are on the shelf</b> — Homer's Iliad and Odyssey and Virgil's Aeneid, twelve to twenty-four books each, with the Greek or Latin facing the translation.",
+      "<b>Four books are on the shelf</b> — Homer's Iliad and Odyssey, Virgil's Aeneid and Wu Cheng'en's Journey to the West, each with the Greek, Latin or Chinese facing the translation.",
+      "Journey to the West is here in the first English version ever made, which summarises most chapters rather than translating them — the complete Chinese faces it.",
       "<b>The daily games now only ask about terms you have a chance of knowing.</b>",
       "<b>What year? is now built on real historical events instead of card terms.</b>",
       "The Crossword now has more variety from day to day: it was quietly drawing from the same handful of words each morning and building much the same grid every fortnight.",
