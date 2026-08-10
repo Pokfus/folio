@@ -42,6 +42,14 @@ It is a plain static website — open `index.html` and it runs.
   lines**: a day gets ONE localisation line per area (the daily games, the Atlas, the site chrome), extended as
   more of that area lands — 2026-07-27/28 once carried eight and five of them, each announcing another corner of
   the same rollout. The Mission page renders it.
+  **A COMMUNITY DECK IS NOT A CHANGE TO FOLIO AND DOES NOT GO IN IT** (on request, 2026-08-10). The changelog
+  is Folio's own record; the decks under `decks/` — the DELE Spanish set, the HSK Mandarin set — are
+  USER-UPLOADED content that nothing on the site links to or serves, so announcing one there posts it as
+  though it were official. Two lines about the Spanish decks were written and removed the same day. What DOES
+  belong is a change to the APP that a deck happened to force — the import caps have been raised twice by
+  decks that would not fit — worded as a fact about deck files rather than about any deck. The same test
+  settles a fault found in a deck FILE: a card-id collision between two of them was a bug in the generator's
+  output, not in Folio, and gets no line.
   **ONE SENTENCE PER ITEM, AND ONE SENTENCE PER DAY TITLE** (Aug 2026, on request, after a reader met this
   page on a phone). Items had grown back into whole paragraphs — the longest ran to 1,216 characters and one
   day title to 300 — which on a narrow screen is a wall of prose where a list of changes should be. The whole
@@ -2700,6 +2708,111 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
+- `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
+  (A1, A2, B1, B2), community decks rather than site content:
+  `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching
+  its corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every other helper here
+  is Node** — a deliberate exception, committed on request so a further level is a re-run against the next
+  column rather than a rebuild, which is exactly what B1 and B2 turned out to be.
+  **ONE LEVEL PER RUN** (`dele_level` reads the level once, at import), and **a level is taught on top of
+  the ones below it**: a level excludes every word the SHIPPED decks below it contain, read out of the
+  deck files rather than a working file, so they cannot drift and a rebuilt level cannot start teaching a
+  word a lower one already covers — **both halves of a paired headword**, so A2 cannot re-teach a feminine
+  A1 already shows (that exclusion is what took four feminine adjectives out of A2 and let four new words
+  in). The intermediates are level-suffixed so all four can sit in one cache. **A level is four table
+  rows in `dele_level`** — its title, deck id and file, which levels are below it, how many words it
+  teaches (`TARGET`: 500, 500, 1,000, 2,000) and which pair of inventory pages its column is printed on
+  (`PAGES`: A1 and A2 share a page, B1 and B2 share another) — plus a supplement list and a batch of
+  reflexives. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
+  one failure that stage can have that looks like success: the deck builds, every card is well formed, and
+  the level quietly teaches fewer words than it says it does.
+  The stage headers carry what the build found, and ten of those findings are the ones to read before
+  touching it.
+  **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
+  otherwise survived three levels because it was firing on five words in a thousand. A word Tatoeba could
+  not illustrate used to be swapped for the next word in the ranked order — which comes from the RARE TAIL
+  by construction — and at B2 it fired on **117 of 2,000**: it proposed dropping `matizar`, `constatar`,
+  `vincular` and `incidir`, the argumentative verbs the level is examined on, along with seven of the
+  connectives it is built around (`por consiguiente`, `en conclusión`, `en la medida en que`), and putting
+  `sopera`, `gomina` and `colorete` in their place. The loop is gone; a word the corpus cannot illustrate
+  ships without sentences and the deck's own description states how many do. **Removing it changed B1 by
+  five words**, restoring `asesino`, `delta`, `bufete`, `nublarse` and `pintado`.
+  **ONE ITEM PER LINE WHERE AN ITEM MAY BE A PHRASE, and this is the fault B1 introduced and caught in one
+  run.** Every supplement list is a triple-quoted block ending in `.split()`, which is right for single
+  words and silently tears a phrase into its pieces: B1's discourse layer is half phrases (`sin embargo`,
+  `a pesar de`, `de vez en cuando`), and `o sea` became `o` and `sea` — where `sea` is the present
+  subjunctive of `ser`, which the closed-class escape hatch then waved past the inflection test, so the
+  deck grew a card for a verb form with no meaning on it. It was loud rather than quiet only because
+  `build_deck` refuses to write a card with no meaning. `_lines()` keeps the phrases whole; the rest of
+  the pipeline already handled them (`PHRASES` in `examples.py` matches them as substrings), so the 44
+  that survive are the best cards in the deck.
+  **A PAST PARTICIPLE IS FILED BEFORE THE NOUN IT SHARES ITS SPELLING WITH** (`FORCE_POS`), which is a
+  handful of words at A1 and a whole class once the vocabulary gets past A2: `hecho` came out as "done,
+  completed" rather than "the fact", `sentido` as "deeply felt", `vestido` as "dressed" rather than "a
+  dress", `atentado` as "moderate, prudent" rather than "an attack". Each is a well-formed adjective card
+  carrying a real sense of the word and the wrong one for a learner. **The test cannot be mechanical** —
+  `preparado`, `ocupado`, `perdido`, `mojado` and thirty more of the same shape genuinely want the
+  adjective — so the thirty that do not are named, and forcing the noun IMPROVES the gendered pairing for
+  free (`el ciudadano, la ciudadana`, `el aficionado, la aficionada`). Watch for the tag as well as the
+  order: `hecho`'s "fact" sense is tagged **archaic** in Wiktionary, which is wrong and which the sense
+  filter obeys, so that one is authored.
+  **A CARD ID MUST CARRY ITS DECK, and this is the loudest silent fault the generator has had** (Aug 2026).
+  Both levels wrote `u_delea1_N`, because the id was a literal in a file first written for A1 — and a deck
+  FILE import only mints fresh card ids when the DECK id already exists, which `delea2` does not. So
+  installing both decks put two different cards under one key in the shared `UCARDS` store, and **studying
+  the A1 subdeck dealt A2's cards — all twenty-five of a twenty-five-card probe.** Both decks were on the
+  shelf, both had their full card counts on disk, and nothing threw. The check to run after any change to
+  the emitter is to import BOTH levels into one device and study the lower one.
+  **A MALE/FEMALE PAIR IS ONE WORD WEARING TWO ENDINGS, AND NOTHING ABOUT IT MAY BE DERIVED**
+  (`fem_forms` / `merges_with` / `pair_for` in `build_deck.py`). The naive rule — swap a final `-o` for
+  `-a`, add `-a` to a consonant — gets `señor` wrong ("señoa") and every suppletive pair wrong
+  (padre/madre, rey/reina, caballo/yegua). It does not have to be derived at all: kaikki has already
+  expanded Wiktionary's own template arguments into the record's `forms`, tagged `['feminine']` and
+  `['feminine','plural']`, so the four costumes the argument wears — an explicit word, `+` for the default
+  derivation, `#` for the headword itself, `#a` for the headword plus `-a` — are resolved before this code
+  sees them. **Read the record the CARD teaches, not the first one carrying a feminine**: `mano` has a
+  masculine record meaning "bro" whose feminine is "mana", and the card is about the hand. And **a real
+  feminine FORM is very often a different WORD as well**, which is what decides whether the two share a
+  card: `caro`/`cara` (dear/face), `medio`/`media` (half/stocking), `político`/`política` and
+  `chino`/`china` are all genuine feminines and all separately nouns the deck teaches. Two signals
+  separate them and either will do — the feminine's own entry points back (`señora` carries `señor` as its
+  masculine) or the masculine names the feminine outright rather than deriving it (`rey` names `reina`) —
+  and every false pair is a bare `+` with no back-link. Measured: 63 pairs in A1 and 70 in A2, of which 4
+  and 1 fold two cards into one.
+  **A LETTER HAS A NOUN ENTRY, AND WIKTIONARY FILES IT FIRST** (`FORCE_POS`). `de`, `te` and `ese` — the
+  preposition, the object pronoun and the demonstrative — came out as `la de`, `la te` and `la ese`,
+  glossed "the name of the Latin script letter D/d", each a perfectly well-formed noun card with an
+  article and a plural, which is why nothing downstream complained.
+  **A WORD THAT IS ANOTHER WORD WEARING AN ENDING IS NOT A CARD, AND THE TEST FOR IT IS THE SUBTLEST
+  THING HERE** (`is_inflection` in `select.py`). `flores`, `roja`, `clases` and `mala` are the plural or
+  the feminine of words already taught, and they get past the lemma test because Wiktionary records some
+  marginal homonym for each — `roja` is "the Chile national football team" and `mala` "a suitcase", which
+  is what the card would have shown. But the obvious test, *some record calls it an inflection*, is
+  **wrong in exactly the way this file already warns about**: nearly every Spanish noun collides with a
+  verb form, so it read `casa` as the third person of `casar` and **threw `la casa`, `el libro` and `el
+  agua` out of A1** while letting `el jersey` in. A word goes only when its entry OPENS by declaring
+  itself an inflection of a word the decks actually teach, or when it declares itself one anywhere and
+  has no showable meaning of its own at all. **A derivation is not an inflection**: `peor` is the
+  comparative of `malo`, `quizás` an alternative form of `quizá` and `moto` a clipping of `motocicleta`,
+  and none of the three has a single clean sense in Wiktionary, so a test on usable senses would have
+  kept `roja` and thrown out `peor`.
+  **A CROSS-REFERENCE IS NOT A TRANSLATION, and it arrives three ways**: as a `form_of` field, as a tag,
+  and — the one that got through — as plain prose inside the gloss (`niña` is "girl, female equivalent of
+  niño", `santa` is "saintess; female equivalent of santo"). All three are stripped, the meaning is
+  recovered from the tail of the gloss or from the entry it points at, and `build_deck` now REFUSES to
+  write a card with no meaning at all rather than shipping a blank one. **A CONJUGATION TABLE CANNOT BE A `<table>`**:
+  `SANITIZE_TAGS` has no `table`/`tr`/`td`, and an unknown tag is UNWRAPPED rather than dropped, so the whole
+  paradigm arrives as one run-on line of words — it is a CSS grid of divs. **A REFLEXIVE'S FORMS ARE ITS BASE
+  VERB'S**, so matching a sentence on the form alone teaches the wrong word (every `llamarse` example came
+  back as `llamar` "to phone"), and requiring the pronoun merely to be NEARBY is not enough either, since
+  "él me llamará por teléfono" is a dative object of a third-person verb — the clitic has to AGREE.
+  **NEARLY EVERY SPANISH NOUN COLLIDES WITH SOME VERB FORM** (`libro` is a book and the 1sg of `librar`,
+  `vino` is wine and the preterite of `venir`), so a word is only an inflected form when NOT ONE of its
+  records carries a sense of its own; the naive test threw out `hablar` and `estar` while `libro` survived on
+  kaikki's key order alone. And **TATOEBA IS A GENERAL CORPUS**, which a deck for exam candidates cannot deal
+  out unfiltered — `millón` first came back offering "Would you have sex with me for a million dollars?".
+  **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
+  since every fault above is silent. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
@@ -4673,6 +4786,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than the defaults on a held-out tail, which is what stands in for a reference check on the output) and by
     **`.claude/test-review-decks.js` section 15** for the path (the button under FSRS and not under SM-2, a run that
     finishes without freezing its sheet, nothing saved until Save, and the too-little-history refusal in words).
+- **THE NOTE→CARDS EXPANSION AND `availableCardIdSet` ARE CACHED** (`_uStudyCache` / `_availCache` /
+  `uCacheBust` / `uDeckStudyIdsFor`, Aug 2026, same report as the sanitizer revision stamp under COMMUNITY
+  DECKS). Both are DERIVED on every read, which is what keeps them honest — a card's `sub` and a type's
+  template list change under them and nothing has to be kept in step — and both are O(the whole deck). One
+  home render asked for the expansion **sixteen times**: `entryPiles` per row, `reviewQueue`, `entryInfo`,
+  the progress bar on each row, and `availableCardIdSet`, itself called nine times. On the HSK 3.0 deck
+  that was 174,336 `uNoteCardIds` calls and ~270ms per repaint **with a single row on the page**, before
+  its nine subdecks were drawn at all; it is ~150ms with ten rows now.
+  · **Keyed by (deck, subdeck), and thrown away WHOLE** rather than reasoned about: a stale entry would
+    silently deal the wrong cards, so `uCacheBust` keeps nothing. Every write goes through it — the
+    Studio's mutations all end in `uDeckSave`, and `uDeckMount` / `uDeckDelete` are the only other ways
+    the stores move. `availableCardIdSet` depends on ONE thing more, the collection tree, hence the bust
+    in **`applyAdminEdits`**.
+  · **The declarations sit beside `applyAdminEdits`, far from the code that fills them**, and must stay
+    there: that function busts them and runs at BOOT, so a `let` down beside the community block would
+    still be in its temporal dead zone — a ReferenceError before the first paint rather than anything
+    subtle.
+  · **Both hand back the live array/Set, not a copy.** Every caller was audited first: they all `filter`,
+    `forEach`, `some` or read `.length`, and nothing sorts or pushes in place. **Keep it that way** — a
+    caller that sorted what `entryCardIds` returns would corrupt the cache for everything else on the page.
 - **BURY SIBLINGS (Aug 2026, on request).** Answering one card of a note puts the note's OTHER cards off until tomorrow.
   It is what makes asking a word in both directions worth doing: 中 → middle and then middle → 中 an hour later tests the
   last hour rather than the word. Template-major ordering (see the card-types bullet) keeps siblings apart WITHIN a
@@ -7412,6 +7545,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
     contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
     would fight the sanitizer.
+  · **…EXCEPT WHERE THE SAME SANITIZER PROVABLY WROTE IT, WHICH IS ARITHMETIC RATHER THAN TRUST**
+    (`SANITIZE_REV` / `srev` / `_uTrusted` / `uSH` / `uSP` / `uSCSS`; Aug 2026, on a report that the site
+    had become very slow with a large deck installed). `sanitizeHTML` returns a **FIXED POINT** by
+    construction — it loops until another pass changes nothing — and `sanitizePlain` / `sanitizeCSSText`
+    are idempotent the same way, so re-cleaning a record this build's own sanitizer produced cannot alter
+    a character. It was doing exactly that on **every page load**: on HSK 3.0 (10,896 notes) **5.7 seconds
+    and 174,741 `sanitizeHTML` calls** of provable no-op before the first paint, most of them DOM-parsing
+    the same Chinese markup for the fourth time. A stored record now carries **`srev`**, and
+    **`communityBoot` — reading OUR store, and nothing else — passes `trusted`**, which skips the per-field
+    string work while every structural guard still runs: the id patterns, the key whitelists, the URL
+    schemes, the caps, the shape. Measured on the same harness: the deck's cost on a reload went from
+    **+5.8s to +0.4s**, and `uDeckNormalize` from 5,756ms to 33ms.
+    · **What it gives up is EXACTLY what the stamp exists to catch** — a deck cleaned by an OLDER and
+      possibly buggier sanitizer, which is what a record with no matching `srev` is. Those are re-cleaned
+      once, on the next load. An import, an install and a published payload are **never** trusted whatever
+      they claim to carry, since only `communityBoot` passes the flag.
+    · **BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES** — `sanitizePass`, `sanitizeHTML`,
+      `sanitizePlain`, `sanitizeCSSText`, `sanitizeUrl` or any `SANITIZE_*` / `UTYPE_*` allowlist.
+      Forgetting to is the one way this can be wrong, and it is silent: already-stored decks keep being
+      read under the old rules.
+    · **`srev` sits at the record's TOP level, never inside `meta`** — `meta` is what an export copies, and
+      a deck FILE must never carry a stamp, being not our store. Verified: `uDeckExport`, the Studio's fork
+      and `uDeckRemotePayload` each pick their fields explicitly, so only `cdbPut` ever stores it.
+    · **`_uTrusted` is a module flag set around a SYNCHRONOUS body and restored in a `finally`** — nothing
+      awaits inside `uDeckNormalizeInner`, so it cannot leak into a Studio mutation that shares those same
+      sanitizers.
+    · Guarded by **`.claude/test-deck-trust.js`**, in both directions — a planted record with no `srev` is
+      still cleaned (verified by reintroducing the fault: the hostile card's fields reach the page and its
+      payload runs), and a record we write really does carry the stamp, which is a PERFORMANCE guarantee
+      and therefore one that looks identical whether it holds or not.
+  · **`sanitizePlain` gained `sanitizeHTML`'s own fast path** in the same pass: a string with no `<` and no
+    `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
+    the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
+    DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
   · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
@@ -7625,7 +7792,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and on a partly-grouped one the parent row already studies the whole deck — an "Other" row would be a
     third thing to explain. The home review names an added subdeck **by the subdeck**, with its deck in
     `.dk-sup` for context: "HSK 1" over three rows says nothing about which is which.
-  · Guarded by `.claude/test-subdecks.js` (13 assertions), which builds its own partly-grouped deck rather
+  · **ADDING A DECK ADDS ITS SUBDECKS, and the home list draws them UNDER it** (Aug 2026, on a report:
+    "when I add our custom Mandarin HSK deck I still don't see any subdecks in it on the home page"). This
+    is the collection rule one store over — `addActive` on a tree node has always brought the whole subtree
+    in — and it was the one place a container did not. Three halves, and each fails differently:
+    `addActive` adds `u:<deck>` plus one entry per subdeck (adding a SUBDECK on its own still adds only
+    that subdeck — a narrower choice is never widened); `removeActive` mirrors it in **both** directions,
+    a deck taking its subdeck rows with it and a subdeck taking the whole-deck row, which would otherwise
+    go on offering the very cards just removed while its + still read as added; and `emit` in `PAGES.home`
+    gives a deck row its active subdecks as CHILDREN, with the top-level run skipping any subdeck whose own
+    deck is on the list, so they nest instead of standing beside it in a flat run of ten.
+  · **A NESTED ROW DROPS ITS CONTEXT LINE, and only looking at the page shows why.** A subdeck row names
+    itself with its deck in the quiet `.dk-sup` beside it, which is right for a subdeck added ON ITS OWN at
+    the top level ("Level 1" over three of them says nothing about which is which) and wrong the moment the
+    deck is the row directly above: at 390px the name is the only part of the row with no shorter form, so
+    a repeated "HSK 3.0 — Mandarin Chinese" crushed every subdeck to **"Lev…"** — nine rows reading the
+    same three letters. Kept where the row stands alone, dropped where `parentKey` is its own deck's entry.
+  · **…and such a row seeds OPEN**, where an added collection seeds shut. A collection's subtree runs to
+    forty-odd rows; a deck's subdecks are a handful, and they are the reason it has rows at all — a deck
+    that swallows them the moment it is added is exactly what this was reported as.
+  · **`refreshAddButtons` had to learn `[data-uaddsub]`** with it: one press now changes a dozen buttons
+    further down the Collections page, and that sweep is what stops the rows below the one pressed reading
+    "add" over something already added.
+  · **THERE IS NO SUBDECK PER DIRECTION AND THERE CANNOT BE** — worth stating, because it is the other half
+    of what was asked for. Since reverse cards, a word is ONE note carrying two cards (recognition and
+    production), and `sub` is a property of the NOTE, so the two directions cannot be in different
+    subdecks while they are one record. That is the trade the note→cards change made deliberately (see the
+    reverse-cards bullet): what it buys is one record per word — a definition corrected once rather than
+    twice, with no chance of the two drifting — and each direction still keeps a schedule of its own. A
+    subdeck's count already includes both, which is why the HSK 3.0 deck reads 23,064 cards over 11,532
+    words.
+  · Guarded by `.claude/test-subdecks.js` (18 assertions), which builds its own partly-grouped deck rather
     than reading the shipped ones. **The failure mode is silent** — the list is derived on every read, so a
     `sub` dropped anywhere along the way just drops that card back into the parent deck and everything still
     works — which is why the assertions follow one card's `sub` through ingest, the row list, the review and
@@ -9318,7 +9515,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-six committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-seven committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -9334,6 +9531,16 @@ dead code (never rendered).
   **And close any IndexedDB connection the test itself opens** — an idle one blocks the app's own open after a
   reload, which silently pushes it onto the localStorage fallback, and the test then goes looking for a deck in
   the store the app has just stopped using (`test-card-types.js` learned this the hard way).
+  · `node .claude/test-deck-trust.js` — **the sanitizer revision stamp** (9 assertions), which is what lets
+    boot skip re-cleaning a deck it has already cleaned. Two directions, failing in opposite ways: a stored
+    record with **no `srev`** — what an older and possibly buggier sanitizer left — is still cleaned, meta
+    and card fields alike, with nothing executing (verified by reintroducing the fault: the payload runs);
+    and a record we write really does **carry** the stamp, at the record's top level where an export cannot
+    copy it. That second one is the assertion nothing else can make, because it guards a PERFORMANCE
+    promise, and a performance promise that has quietly stopped holding looks exactly like one that holds.
+    Its fixture writes to IndexedDB **and** localStorage, since `cdbAll` falls back and a fixture in the
+    store the app is not reading proves nothing. **Re-run after touching `SANITIZE_REV` / `uDeckNormalize`
+    / `uDeckRecord` / `communityBoot`, or any `sanitize*` function.**
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
