@@ -2145,7 +2145,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     first card. Measured again on the whole of 3.0 at 10,896 notes: **JSON.parse 81 ms, import 10.0s once,
     the Studio 3.2s, adding a subdeck 0.8s, home → first card 1.1s** — faster to a card than one level was,
     because the study path touches a subdeck rather than the deck. **A conclusion drawn from a measurement
-    expires when the thing it measured changes.**
+    expires when the thing it measured changes**, and this one has since: the store was split in Aug 2026 so
+    a deck's cards live one record per note, which moved the cost squarely onto the import — **the deck is
+    visible in ~6.8s and fully written in ~19s, against 6.6s and 10.7s before** — and took it off every
+    load after it (boot 501 ms → 213, 18.19 MB resident → 1.01). See the Persistence bullet under COMMUNITY
+    DECKS for the whole table; the case for one file rather than five is only stronger.
   · **THE TWO NEW DECKS ARE DERIVED, NOT WRITTEN.** Candidates are CC-CEDICT entries not already carded in
     any HSK deck; whether one is an IDIOM is CC-CEDICT's own `(idiom)` marker; how common each is comes from
     the OpenSubtitles 2018 frequency list (hermitdave/FrequencyWords, CC BY-SA 4.0) and from counting the
@@ -7298,10 +7302,74 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `image`), `UGLOSS` (reserved for the per-deck glossary). Card ids are `u_<deck8>_<n>`; a deck's active
     entry in `S.active` is `"u:<deckId>"` (`uDeckIdOf` / `uDeckEntry`). The whole module sits under the
     `COMMUNITY DECKS` banner in app.js.
-  · **Persistence** — IndexedDB `folio-community`, store `decks`, one record per deck
-    (`{ id, meta, cards, gloss }` — also the export-file shape). **An unusable IndexedDB silently falls back
-    to `localStorage["folio_community_v1"]`** (`_communityLS`): the golden rule is that opening index.html
-    directly keeps working, and private mode / blocked storage are real too. Verified both ways.
+  · **Persistence** — IndexedDB `folio-community`, at version **2**, in TWO object stores (Aug 2026, on the
+    report that loading thousands of cards to study a few made no sense). `decks` holds one SMALL record per
+    deck — `{ id, srev, fmt, meta, gloss, index }` — and `notes` holds one record per note, keyed
+    `"<deckId>/<noteId>"` with a `deckId` index for bulk reads. **Boot reads only the first.** `fmt` is the
+    STORE's shape version and is not the export file's: a deck FILE has looked the same throughout
+    (`{ id, meta, cards, gloss }`, still what `uDeckRecordFull` builds), while a record with no `fmt` is a
+    fmt-1 record with its cards inline and is migrated on the next boot.
+    **WHAT MAKES THE SPLIT POSSIBLE is that boot needs a card's IDENTITY and never its CONTENT.** An index
+    entry is `{ id, sub, type, ords? }` — the subdeck it sits in, the card type it uses, and for a cloze note
+    its deletion ordinals — which is everything needed to COUNT, GROUP, ORDER and SCHEDULE a card; content is
+    needed only to RENDER one. `fields` alone is 81% of a deck, so the index is a thirtieth of it.
+    **Measured on one machine, same harness, the 10,896-note HSK 3.0 deck installed** (`.claude/` has no
+    committed benchmark; this was `compare.js` in a scratchpad, and the way to re-take it is to instrument
+    `communityBoot` and read `JSON.stringify` sizes off `rows` and `UCARDS`):
+    | | before | after |
+    |---|---|---|
+    | `communityBoot` | 501 ms (IDB read 326, mount 57) | **213 ms** (IDB read 191, mount 16) |
+    | read at boot | 17.87 MB | **0.55 MB** |
+    | resident after boot | 18.19 MB | **1.01 MB** |
+    | import — deck visible | 6.6 s | 6.8 s |
+    | import — fully written | 10.7 s | **18.9 s** |
+    Note what the first row does NOT say: most of what is left is the fixed cost of opening IndexedDB at all
+    (a boot with NO deck installed measures ~195 ms here), so the deck's own marginal cost is now the 16 ms
+    of mounting. A session then reads its own cards in **8 ms / 109 KB**.
+    **`ords` MUST be precomputed** (`uNoteIndexEntry`), because `clozeOrds` reads the note's own fields:
+    without it a cloze deck could not be counted or scheduled until its content had loaded, and the counts
+    are wanted on the home page long before a card is rendered. It is computed only for a type that declares
+    `cloze`, or importing that deck would mean a regex sweep of 14 MB of fields for nothing.
+    **THE COST IS AT IMPORT and it is real**: 10,896 individual puts take ~7.4 s where one blob took 246 ms.
+    It is ONE transaction, so it is atomic — an interrupted import or migration leaves the old state rather
+    than half a deck, which is what makes the migration safe to run on somebody's own data without asking.
+    **AND IT MADE A LATENT RACE WORTH HANDLING**: the deck is usable from memory the moment it mounts, but a
+    page closed or navigated before the transaction commits aborts it and loses the import in silence — a
+    window that was 246 ms and is now several seconds. So `uDeckImportText` hands its write BACK
+    (`r.saved`) and **`uImportDone` waits on it before saying "Imported"**, announcing "Saving…" if the wait
+    passes 400 ms. `uDeckInstall` already awaited its own. Found by the measurement rather than by a
+    reader: the harness reloaded 6 s after importing and the deck was simply not there.
+    **Chunking notes in groups of 25 was measured and rejected** (import 1.6 s): a due-card session is
+    SCATTERED, so it hits about the same number of records whatever their size, and chunks of 25 pulled
+    1.7 MB to read the same 60 notes that cost 109 KB one at a time.
+    **An unusable IndexedDB silently falls back to `localStorage["folio_community_v1"]`** (`_communityLS`),
+    which keeps the **fmt-1 whole-record shape** and mounts every card eagerly: the golden rule is that
+    opening index.html directly keeps working, and private mode / blocked storage are real too. That is a
+    decision rather than an omission — the ~5 MB quota means a deck big enough to want splitting cannot be
+    stored there at all, so a lazy path there would be written for a case that cannot arise. Verified both ways.
+  · **WARMING — how `cardById` stays synchronous** (`uWarm` / `uWarmed` / `uWarmDeck` / `uWarmDecks` /
+    `uAdoptNotes` / `uNoteStub` / `uIsLazy`). `cardById` is called from rendering, scheduling, grading and
+    undo, so content cannot be fetched at the moment it is asked for — making it async would be a rewrite of
+    the study path. It is loaded BEFORE it is needed instead, which is the pattern the lazy data bundles
+    already use: ask, hold a `.data-loading` placard, re-render when it lands.
+    **A stub is a CARD-SHAPED object living in `UCARDS`**, deliberately not a second map beside it —
+    everything that reads `.deckId`, `.sub` or `.type` off a note (the subdeck list, `cardEntryId`,
+    `glossScopeForCard`, the browser's deck column) keeps working untouched, and only the places that read a
+    card's PROSE need a warm first. **`PAGES.study` warms its own queue** behind the placard; **`PAGES.home`
+    warms the day's review at idle**, so in ordinary use the placard is never seen. The bulk surfaces —
+    the Studio with a deck open, `PAGES.browse` (it searches card TEXT, so it genuinely needs all of it),
+    `uDeckExport`, `uDeckPublish` and the Studio's duplicate — call `uWarmDeck`, one read through the
+    `deckId` index (~557 ms for 10,896 notes). **`_gone` is the guard against a hang**: a note the index
+    names but the store cannot hand back would leave `uWarmed` false for ever and a placard that never
+    lifts, so the stub stops claiming to be loadable — while staying LAZY, so `uNoteRecord` goes on refusing
+    to write it and a transient read error can never overwrite good content with a blank.
+  · **`uDeckSave(deckId, putIds, delIds)` writes what changed.** Passing neither list writes only the index,
+    which is what a renamed deck, a reordered card or an edited type needs; a card mutation goes through
+    **`uCardTouched(cardId)`** so "which note changed" is never a caller's guess, and a whole-deck write
+    (import, install, duplicate, migration) goes through **`uDeckSaveAll`**. Before this, all 26 `uDeckSave`
+    call sites rewrote the entire record — **a keystroke in the Studio rewrote 19 MB.** `uTypeDelete` is the
+    one non-card mutation that must name notes: it strips `type` and `fields` from every card of that type,
+    and an index-only write would leave every one of them still carrying the dead type on disk.
   · **`uDeckNormalize` is the single ingest choke point** — everything entering the store passes through it,
     imports *and* what comes back out of IndexedDB, because that store is writable by anything on the origin.
     Rich fields go through `sanitizeHTML`, plain ones through `sanitizePlain`, image `src` through
@@ -7324,10 +7392,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       possibly buggier sanitizer, which is what a record with no matching `srev` is. Those are re-cleaned
       once, on the next load. An import, an install and a published payload are **never** trusted whatever
       they claim to carry, since only `communityBoot` passes the flag.
+    · **…and the same stamp answers for the deck's NOTES, which now arrive later than it does**
+      (`_deckTrusted`, Aug 2026, with the store split). A note's content is read out of the `notes` store
+      long after boot decided whether its deck's record was trustworthy, so that verdict is kept per deck
+      and `uAdoptNotes` cleans under it. The two were written in the same transaction by the same
+      sanitizer, so one answer is honestly good for both — but it must be the answer boot reached, never a
+      fresh assumption at warm time, or a deck cleaned by an older sanitizer would have its cards trusted
+      on the strength of nothing.
     · **BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES** — `sanitizePass`, `sanitizeHTML`,
       `sanitizePlain`, `sanitizeCSSText`, `sanitizeUrl` or any `SANITIZE_*` / `UTYPE_*` allowlist.
       Forgetting to is the one way this can be wrong, and it is silent: already-stored decks keep being
       read under the old rules.
+    · **It was NOT bumped for the deck-id guard of Aug 2026, and the reasoning is worth keeping** because
+      "did you bump it?" is the first question the next reader will ask. `uDeckSanitizeMeta` used to test
+      `String(m && m.id)`, and `String(undefined)` is the WORD "undefined" — nine lowercase letters, which
+      matches the id pattern — so a deck file with no id of its own was given the literal id `undefined`.
+      That is a sanitizer fix, but **no STORED record can carry it**: every path that reaches the store
+      either supplies a real id (`remoteToLocal`, `communityBoot`) or replaces a falsy one before mounting
+      (`uDeckImportText`). Nothing needs re-cleaning, and bumping would have cost every reader a one-time
+      full re-sanitize — 5.7 s on HSK 3.0 — to fix nothing. **Bump it when a stored record could be
+      wrong, not merely when a sanitizer line moved.**
     · **`srev` sits at the record's TOP level, never inside `meta`** — `meta` is what an export copies, and
       a deck FILE must never carry a stamp, being not our store. Verified: `uDeckExport`, the Studio's fork
       and `uDeckRemotePayload` each pick their fields explicitly, so only `cdbPut` ever stores it.
@@ -7401,9 +7485,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     scheduling survives an update**). Installed decks are **read-only in the Studio** — editing would
     silently fork them and then the author's next update would either clobber the edits or be refused;
     "Duplicate to edit" makes the copy explicit (it round-trips through `uDeckImportText(..., true)`).
+  · **THE CARD FETCH IS PAGED, AND WENT UNPAGED FOR A YEAR** (`SUPA_PAGE`, Aug 2026). PostgREST hands back
+    at most `db-max-rows` — 1,000 — and says nothing about what it dropped, so `communityFetchDeck`, which
+    asked for a deck's `user_cards` in one request, **returned the first thousand cards of anything larger
+    and installed it as though that were the deck.** A truncated deck is indistinguishable from a small one:
+    nothing throws, it opens, it studies, and the missing cards are found weeks later by a reader who cannot
+    find a word. The loop is `revFetchAll`'s, which had the rule right from the day it shipped and states it
+    in a comment two thousand lines further up — so the constant now lives beside that reader as a fact
+    about the API rather than inside it, and `uDeckPublish` POSTs its rows in batches of the same size
+    rather than putting 10,896 of them in one body. **`.claude/test-publish.js`'s mock truncates a request
+    that carries no `Range`**, so an unpaged fetch fails there instead of on somebody's live project; its
+    cap is deliberately NOT below the client's own page size, which would be a server no client could page
+    correctly at all — asking for 1,000 and being given 3 is indistinguishable from a table holding 3.
   · **`UDECK_PUBLISH_KEYS` never leave the device.** `uDeckExport` strips them and `uDeckImportText` zeroes
     them, so a deck *file* can't claim someone else's slug, masquerade as installed, or suppress an update
-    prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`.
+    prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`. **`srev` and `fmt` never leave it
+    either**, and for a stronger reason: they are the store's own bookkeeping, and a file carrying them
+    would be claiming to have been cleaned by a sanitizer it has never met.
   · **Pages** — `PAGES.community` (`#community`: search, sort and a LIST) and `PAGES.deck` (`#deck/<slug>`, a
     shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
     deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
@@ -9278,7 +9376,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-seven committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-eight committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -9303,7 +9401,25 @@ dead code (never rendered).
     promise, and a performance promise that has quietly stopped holding looks exactly like one that holds.
     Its fixture writes to IndexedDB **and** localStorage, since `cdbAll` falls back and a fixture in the
     store the app is not reading proves nothing. **Re-run after touching `SANITIZE_REV` / `uDeckNormalize`
-    / `uDeckRecord` / `communityBoot`, or any `sanitize*` function.**
+    / `uDeckIndexRecord` / `communityBoot`, or any `sanitize*` function.**
+  · `node .claude/test-deck-lazy.js` — **the split store** (27 assertions, Aug 2026): a deck's cards live
+    one record per note and are loaded when needed, and EVERY failure that change can produce is invisible
+    from the outside, which is why this is a file of its own. A boot that quietly went back to loading
+    everything still works, only slower — there is nothing on screen to see, which is exactly how the cost
+    it replaced went unnoticed for months. A session whose cards were never warmed renders BLANK cards
+    rather than throwing. A save that writes the whole deck instead of the one note it touched shows up
+    only on a deck nobody in a test has. So the assertions are made against the STORE: the deck record
+    carries an index and **no prose**, the notes store holds one record each keyed `<deckId>/<noteId>`,
+    the Studio's shelf warms nothing while opening a deck warms all of it, a real edit rewrites **exactly
+    one note of twelve**, and a session started from the home page shows a card **with its words in it**.
+    Its sharpest section is the **fmt-1 migration**, the one path that can lose somebody's deck: a
+    record in the old shape is planted directly in the store with prose no other deck has, and after a
+    boot it must be rewritten, keep every word, and still open. It also pins that an export carries real
+    cards rather than empty stubs and smuggles no `srev` / `fmt` / `_lazy` into the file. **Re-run after
+    touching `cdbPutDeck` / `cdbGetNotes` / `cdbAllNotes` / `uDeckIndexRecord` / `uNoteRecord` /
+    `uDeckRecordFull` / `uNoteIndexEntry` / `uIndexSanitize` / `uNoteStub` / `uDeckMount` / `uDeckSave` /
+    `uCardTouched` / `uWarm` / `uWarmDeck` / `uAdoptNotes` / `communityBoot`'s migration, or the loading
+    placards in `PAGES.study` / `PAGES.studio` / `PAGES.browse`.**
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
@@ -9315,11 +9431,15 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 72 assertions across three browser sessions (an author, a reader, an
+  · `node .claude/test-publish.js` — 75 assertions across three browser sessions (an author, a reader, an
     admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
-    ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
+    ownership rule, which is how "a stranger cannot patch someone's deck" is asserted — and, since Aug 2026,
+    **it truncates a card request that carries no `Range`**, which is what stands in for PostgREST's
+    `db-max-rows`: a deck of 7 is published and installed and every card must arrive at both ends, so an
+    unpaged fetch loses cards HERE rather than on somebody's live project. Verified by removing the paging
+    and watching it fail. **Re-run after
     touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
     the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
   · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the `glossMode`s,
