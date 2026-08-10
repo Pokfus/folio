@@ -202,6 +202,35 @@
   // A card may carry up to this many question phrasings in all: `question` plus at most 9 in the optional
   // `questions` extras array (curated cards carry 3; the higher cap is room for community decks to experiment).
   const CARD_MAX_QUESTIONS = 10;
+  /* ---------- HOW OBSCURE THE ANSWER TERM IS (Aug 2026, on request) ----------
+     `card.difficulty` is an integer 1–5 rating HOW WELL KNOWN THE TERM IS to the general population —
+     1 a household name, 5 a word met in the scholarship and almost nowhere else. It rates the WORD, not
+     the card: how hard the prose is, how subtle the point and how tricky the cloze are all separate
+     questions, and conflating them is the one way this scale stops meaning anything. The full definition
+     of each rung lives in CLAUDE.md and in `.claude/add-card-difficulty.js`, which is the batch tool.
+
+     WHAT IT IS FOR is the daily minigames. A study card arrives with three hundred words of background
+     behind it and comes back tomorrow if you miss it, so an obscure term there is the point of studying;
+     a minigame deals the term COLD — four options, a crossword square, a picture, a year — and a pool
+     holding `qa-si-re-u` and `Howiesons Poort` is a pool that deals unanswerable rounds. So the games
+     draw from `gameCardIdSet()`, which is the available cards at or below GAME_MAX_DIFFICULTY, and
+     STUDY IS UNTOUCHED: every card is studiable, in every deck, at every rating.
+
+     An UNRATED card (no `difficulty` at all) is deliberately treated as too obscure rather than as easy:
+     a community deck carries no ratings, and the games have never drawn from those anyway, but the same
+     rule means a curated card that somehow arrives unrated stays out of the games until somebody rates
+     it. Erring the other way would let one unrated card deal a round nobody can answer, silently.
+     add-card.js refuses a new card with no rating, so the corpus cannot regrow an unrated tail. */
+  const CARD_DIFFICULTY_MIN = 1, CARD_DIFFICULTY_MAX = 5;
+  const GAME_MAX_DIFFICULTY = 2;
+  const CARD_DIFFICULTY_LABELS = { 1: "household name", 2: "generally familiar", 3: "known to the interested", 4: "specialist", 5: "highly obscure" };
+  // the rating as a number, or 0 for a card that has none (a community deck's, or a curated card not yet rated)
+  function cardDifficulty(c) {
+    const card = typeof c === "string" ? cardById(c) : c;
+    const n = card && card.difficulty;
+    return typeof n === "number" && n >= CARD_DIFFICULTY_MIN && n <= CARD_DIFFICULTY_MAX ? n : 0;
+  }
+  function difficultyOK(c) { const n = cardDifficulty(c); return n > 0 && n <= GAME_MAX_DIFFICULTY; }
   // pristine copies (taken before edits are applied) so any field can be reverted to what shipped
   const PRISTINE_CARDS = Object.fromEntries(CARDS.map((c) => [c.id, Object.assign({}, c)]));
   const BASE_CARD_IDS = new Set(Object.keys(PRISTINE_CARDS));   // shipped card ids (before any admin-created cards) — used to rebuild the deck from base on undo
@@ -618,6 +647,7 @@
     CARD_BY_ID[id].video = p.video; // and its video
     CARD_BY_ID[id].questions = p.questions; // and its extra question phrasings
     CARD_BY_ID[id].sources = p.sources;     // and the citations behind it
+    CARD_BY_ID[id].difficulty = p.difficulty; // and how obscure its answer term was rated (see cardDifficulty)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -3330,6 +3360,26 @@
     const s = new Set();
     (TREE.collections || []).forEach((c) => { if (!isComingSoon(c)) subtreeCardIds(c).forEach((id) => s.add(id)); });
     Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => s.add(id)));
+    return s;
+  }
+  /* THE CARDS A MINIGAME MAY DEAL (Aug 2026, on request): the available cards whose answer term is at or
+     below GAME_MAX_DIFFICULTY. It is `availableCardIdSet()` narrowed, never a set of its own, so a
+     coming-soon collection stays out of the games by the rule it always did and only one thing is added.
+
+     EVERY CARD-FED GAME GOES THROUGH THIS ONE FUNCTION — Multiple Choice, Timeline (by way of
+     `chronoPool`), the Crossword and the card half of the Picture round. That is the whole point of it
+     being a function rather than a filter written four times: a tenth game added later reaches for this
+     instead of `availableCardIdSet` and is covered without anybody remembering the rule.
+     `test-difficulty.js` asserts there is no other path. (What year? is not on this list because it is
+     not card-fed at all any more — see `wyPool`.)
+
+     It also filters the DISTRACTORS, not merely the answers: a Multiple Choice round whose wrong options
+     are `lawagetas`, `qa-si-re-u` and `damos` is a round answerable by elimination and teaches nothing —
+     three plausible wrong answers are what make the question, which is the same reasoning that had them
+     drawn by tag kinship in the first place. */
+  function gameCardIdSet() {
+    const s = new Set();
+    availableCardIdSet().forEach((id) => { if (difficultyOK(cardById(id))) s.add(id); });
     return s;
   }
   function activeCardIds() {
@@ -17151,7 +17201,7 @@
     return n;
   }
   function buildChallengeQuestions() {
-    const avail = availableCardIdSet();
+    const avail = gameCardIdSet();   // well-known terms only — a round is answered cold, with no background to read
     const poolIds = ALL_CARD_IDS.filter((id) => avail.has(id));
     const chosen = pick(poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
     return chosen.map((card) => {
@@ -17506,8 +17556,9 @@
     const y = cardStartYear(c);   // honour the manual chronology override; include BCE / ancient cards, not just 1500–2099 CE
     return y ? y : null;          // 0 = timeless → excluded from the puzzle
   }
+  // Shared by the Timeline game and by What year?, so both draw under the difficulty bar from one place.
   function chronoPool() {
-    const avail = availableCardIdSet();
+    const avail = gameCardIdSet();
     return CARDS.filter((c) => avail.has(c.id)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c) })).filter(
       (x) => x.year != null && x.name
     );
@@ -18065,7 +18116,7 @@
     return String(s == null ? "" : s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z]/g, "");
   }
   function xwPool() {
-    const avail = availableCardIdSet(), seen = new Set(), out = [];
+    const avail = gameCardIdSet(), seen = new Set(), out = [];
     CARDS.forEach((c) => {
       if (!avail.has(c.id)) return;
       const loc = cardLocalized(c);
@@ -18148,9 +18199,17 @@
     const rng = mulberry32(hashStr("crossword-" + todayStr()));
     let best = null;
     for (let t = 0; t < XW_TRIES; t++) {
-      // long words first inside a shuffled draw: the opening word is the spine every later one hangs off,
-      // and a four-letter spine has almost nowhere to cross
-      const draw = seededShuffle(pool, rng).slice(0, 40).sort((a, b) => b.w.length - a.w.length);
+      /* Long words first inside a shuffled draw: the opening word is the spine every later one hangs off,
+         and a four-letter spine has almost nowhere to cross.
+         THE DRAW IS A SAMPLE, AND THE CAP HAS TO SCALE WITH THE POOL (Aug 2026). It was a flat
+         `slice(0, 40)`, which samples nothing at all once the pool is smaller than 40: every day drew the
+         WHOLE pool, the length sort then put it in the same order, and only the layout RNG differed —
+         so over 730 days the difficulty filter took the crossword from 730 distinct grids to 60, a
+         repeat every fortnight or so. Nothing throws and every grid is still full; the game just
+         quietly stops being daily. Taking a fraction keeps the shuffle doing real work at any pool
+         size, and a pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was. */
+      const cap = Math.max(XW_ENTRIES + 5, Math.min(40, Math.ceil(pool.length * 0.7)));
+      const draw = seededShuffle(pool, rng).slice(0, cap).sort((a, b) => b.w.length - a.w.length);
       const lay = xwLayout(draw);
       const score = lay.placed.length * 1000 - lay.w * lay.h;
       if (!best || score > best.score) best = { lay: lay, score: score };
@@ -18438,7 +18497,12 @@
       seen.add(l.toLowerCase());
       out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "", kind: kind, gloss: gloss || "" });
     };
-    const avail = availableCardIdSet();
+    /* The CARD half draws under the difficulty bar, like every other card-fed game. The glossary and
+       artefact halves are not rated at all — `difficulty` is a card field, and this is the one game
+       whose pool reaches past the cards — so they enter as they always did. Said here rather than left
+       to be discovered: rating the 836 glossary terms is a separate content pass, and until it happens
+       this game's answers are easier than the others' on average rather than uniformly so. */
+    const avail = gameCardIdSet();
     CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card"); });
     Object.keys(window.GLOSSARY || {}).forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k); });
     artefactsMerged().forEach((a) => add(a.image, a.name, "artefact"));
@@ -18540,14 +18604,15 @@
   /* ============================================================
      PAGE: WHAT YEAR? (five things from one year, placed on a rail)
      ============================================================
-     Five terms whose date lines all give the same year, and a timeline to put that year on. It is the
-     ninth daily game and the second built on the cards' dates, so it is worth saying how it differs from
-     Timeline: that one gives five different years and asks for their ORDER, this one gives five things
-     from ONE year and asks what the year was. Ordering needs no absolute knowledge at all — you can solve
-     a Timeline puzzle knowing only which came first — and this cannot be solved without it.
+     Five events from one year, and a timeline to put that year on. It is the ninth daily game, and it is
+     worth saying how it differs from Timeline: that one gives five different years and asks for their
+     ORDER, this one gives five things from ONE year and asks what the year was. Ordering needs no absolute
+     knowledge at all — you can solve a Timeline puzzle knowing only which came first — and this cannot be
+     solved without it. The events come from `whatyear.js`, a pool of its own; see `wyPool` below for why
+     it is not built on the cards, as it was until Aug 2026.
 
-     THE RAIL IS A LATTICE, NOT A CONTINUUM, and that is the decision the whole game turns on. A card's
-     date line gives a conventional round figure (`c. 1400 BCE`), not a calendar date, and a free-dragging
+     THE RAIL IS A LATTICE, NOT A CONTINUUM, and that is the decision the whole game turns on. The pool
+     reaches back to conventional round figures rather than calendar dates, and a free-dragging
      year picker over a corpus running from 3.3 Mya to the present would be a pixel lottery in which no
      guess is ever exactly right. So the rail carries 33 ticks a round `step` apart, the answer sits on
      one of them, and a guess is right or wrong with nothing in between. `step` is the largest round figure
@@ -18566,11 +18631,11 @@
        tries are a real search rather than three stabs. What it costs is that the range the reader can see
        shrinks under them, which is why the ruled-out span stays drawn, greyed, rather than vanishing.
 
-     THE HONEST LIMITS, since both are visible to a reader who plays for a fortnight. The five things are
-     TERMS with dates rather than events — Folio's cards are terms, and Timeline already calls them events
-     for the same reason. And the deck currently holds 19 years carrying five or more datable terms, so a
-     year comes round again every few weeks; the five terms shown are drawn separately, so a repeated year
-     is at least a different puzzle, and the number grows with every dated card written. */
+     THE HONEST LIMIT, visible to a reader who plays for a fortnight: `whatyear.js` currently holds 15
+     years, so a year comes round again about that often. The five events shown are drawn separately from
+     however many that year has, so a repeated year is at least a different puzzle — which is why a year
+     already carrying five is still worth a sixth and a seventh — and the cycle lengthens with every year
+     added to the pool. */
   const WY_EVENTS = 5, WY_TRIES = 3, WY_TICKS = 33, WY_EDGE = 4;
   /* The rail's step: the largest round figure the answer sits squarely on that still keeps the WHOLE RAIL
      inside about the answer's own age. Both halves are load-bearing.
@@ -18591,7 +18656,7 @@
     return best;
   }
   /* THE ANSWER ROTATES RATHER THAN BEING DRAWN AT RANDOM, and the reason is arithmetic rather than taste.
-     The deck holds only so many years carrying five datable terms — 19 as of 2026-08-09 — so a year is
+     The pool holds only so many years carrying five events — 15 as of 2026-08-10 — so a year is
      going to come round again whatever this does. Picking one at random per day makes that CLUMP: measured
      over 365 days the same answer landed 28 times, and nothing stopped two of them falling in the same
      week, which is the shape a reader notices and reads as the game being broken.
@@ -18619,9 +18684,28 @@
     for (let c = 1; c <= cycle; c++) r = (r + 1 + Math.floor(mulberry32(hashStr("whatyear-turn-" + c))() * maxR)) % n;
     return r;
   }
+  /* THE POOL IS `whatyear.js`, NOT THE CARDS (Aug 2026, on request). This game was built on `chronoPool`
+     and the cards are the wrong material for it twice over: a card names a TERM where the game wants an
+     EVENT, and the game needs FIVE things sharing one exact year, which a corpus of terms almost never
+     supplies — 19 years of 409 cards carried five, and once the minigames were narrowed to well-known
+     terms (see gameCardIdSet) exactly ONE did, which would have asked about c. 700 BCE every day for ever.
+     So it has a pool of its own, like True or False and Who said it, and it hands back `chronoPool`'s own
+     `{ id, name, year }` shape so nothing downstream of here changed. Timeline still draws from
+     `chronoPool` and still wants cards: it asks for an ORDER, which terms give perfectly well.
+
+     The `id` is a position within the year rather than the sentence itself: the day's five are drawn with
+     `seededShuffle` and deduped, and comparing whole sentences to do that is a lot of string for a handle
+     that only has to be unique. It is stable as long as a year's entries keep their order in the file,
+     which is all it is asked to be — nothing stores it. */
+  function wyPool() {
+    const n = {};
+    return (window.WHATYEAR || [])
+      .filter((x) => x && typeof x.y === "number" && x.e)
+      .map((x) => { n[x.y] = (n[x.y] || 0) + 1; return { id: "wy-" + x.y + "-" + n[x.y], name: String(x.e), year: x.y }; });
+  }
   function dailyWhatYear() {
     const byYear = new Map();
-    chronoPool().forEach((x) => { const a = byYear.get(x.year) || []; a.push(x); byYear.set(x.year, a); });
+    wyPool().forEach((x) => { const a = byYear.get(x.year) || []; a.push(x); byYear.set(x.year, a); });
     const years = [...byYear.keys()].filter((y) => byYear.get(y).length >= WY_EVENTS).sort((a, b) => a - b);
     if (!years.length) return null;
     const day = todayStr().split("-").map(Number);
@@ -18639,7 +18723,7 @@
     detachKeys();
     if (gameLockedToday(root, "whatyear")) return;
     const puz = dailyWhatYear();
-    if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "There aren't yet five dated cards sharing a year to build today's puzzle from.", () => route("home"), "Back home"); return; }
+    if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "Folio doesn't yet have five events from one year to build today's puzzle from.", () => route("home"), "Back home"); return; }
 
     const yearAt = (i) => puz.from + i * puz.step;
     let lo = 0, hi = puz.ticks - 1, tries = 0, over = false;
@@ -23904,7 +23988,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -25128,6 +25212,18 @@
       ? '<div class="ces-meta">' +
           '<label class="ces-m"><span>id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' +
           '<label class="ces-m"><span>chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" title="Sort / timeline year — overrides the date for ordering, e.g. 200 BCE, 618, 12 kya, 3.3 Mya, 2.5 million BCE, 780,000 years ago. Blank = automatic; type none for no year." /></label>' +
+          /* How obscure the ANSWER TERM is, 1–5 (see cardDifficulty). The select offers the five ratings and
+             no "unrated" row: every curated card carries one, add-card.js refuses a new card without one,
+             and an editor able to take it away would be a control whose only use is to drop a card out of
+             the minigames by accident. Re-rating is what this is for. */
+          /* The LABEL is one word, like `id` and `chronology` beside it: `.ces-m > span` ellipsises, and the
+             column is ~240px, so anything longer is cut off mid-explanation. The explanation lives in the
+             tooltip and, more usefully, in the option text — which names the rung and says outright which
+             ratings the games can reach, so the consequence is visible without hovering anything. */
+          '<label class="ces-m"><span>difficulty</span><select class="af-input af-sel" id="adminDifficulty" title="How well known the answer term is to the general population, 1 (household name) to 5 (highly obscure). It rates the TERM, not the card. The daily minigames deal only terms rated ' + GAME_MAX_DIFFICULTY + ' or lower; studying is unaffected.">' +
+            (cardDifficulty(c) ? "" : '<option value="">— not yet rated —</option>') +
+            [1, 2, 3, 4, 5].map((n) => '<option value="' + n + '"' + (cardDifficulty(c) === n ? " selected" : "") + '>' + n + ' — ' + esc(CARD_DIFFICULTY_LABELS[n]) + (n <= GAME_MAX_DIFFICULTY ? " (in the games)" : "") + '</option>').join("") +
+          '</select></label>' +
           '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
         '</div>' +
         '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Deck: <b id="cesDeckName">' + esc(node ? node.title : "not in a deck") + '</b></button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
@@ -25191,6 +25287,15 @@
         const row = adminFindRow("card", id); if (row) { const rs = row.querySelector(".acr-sub"); if (rs) rs.textContent = fmtYear(c); }
       });
     }
+    const diffS = host.querySelector("#adminDifficulty");
+    if (diffS) diffS.addEventListener("change", () => {
+      const n = +diffS.value; if (!n) return;
+      setCardEdit(id, "difficulty", n);
+      // the "not yet rated" row exists only until a rating is given; leaving it would offer a way back to
+      // a state the editor cannot actually write (an undefined delta does not survive JSON round-tripping)
+      const blank = diffS.querySelector('option[value=""]'); if (blank) blank.remove();
+      adminFlashSaved(); adminUpdateCount(); editedFx();
+    });
     // deck-picker toggles (inside the collapsible "Appears in N decks" box)
     const dh = host.querySelector("#cesDecksHead"), db = host.querySelector("#cesDecksBody");
     if (dh && db) dh.addEventListener("click", () => { const show = db.hidden; db.hidden = !show; dh.classList.toggle("open", show); dh.setAttribute("aria-expanded", String(show)); });
