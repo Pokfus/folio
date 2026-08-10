@@ -39,6 +39,22 @@ def tidy(g):
         head = re.sub(r'\s*\([^)]*\)', '', g).strip(' ;,')
         if len(head) >= 3:
             g = head
+    # A gloss is sometimes a DEFINITION rather than a translation, and then the
+    # translation is its head: `carne` is glossed "flesh, the soft part of a
+    # body which covers the bones", so the card said that instead of "meat" --
+    # and the real sense, "an animal's meat, or by extension...", was 89
+    # characters and fell off the end of the length budget.  Where the leading
+    # comma-separated pieces are short and one long piece follows, the short
+    # ones are the word and the long one is the explanation.
+    if len(g) > 48 and ',' in g:
+        parts = [x.strip() for x in g.split(',')]
+        head = []
+        for x in parts:
+            if len(x) > 24 or not x:
+                break
+            head.append(x)
+        if head and len(head) < len(parts):
+            g = ', '.join(head)
     if len(g) > 92:
         cut = g.rfind(';', 0, 92)
         g = (g[:cut] if cut > 24 else g[:92].rsplit(' ', 1)[0]).rstrip(' ;,(')
@@ -310,8 +326,16 @@ def meaning_lines(glosses, cap=5):
                 continue
             for part in comma_parts(semi):
                 part = part.strip(' ;,')
-                if part and part not in out:
-                    out.append(part)
+                if not part or part in out:
+                    continue
+                # a piece that is nothing BUT a parenthetical qualifies the
+                # meaning before it -- "man" / "(adult male human)" is one
+                # meaning split in two.  "(US) college" carries a word after
+                # the bracket and is a meaning in its own right.
+                if re.fullmatch(r'\([^)]*\)', part) and out:
+                    out[-1] += ' ' + part
+                    continue
+                out.append(part)
     return out[:cap]
 
 def meanings_html(glosses):

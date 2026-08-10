@@ -16,17 +16,23 @@ FRONT_ES = ('<div class="uc-word">{{Spanish}}'
             '<span class="uc-tts uc-say" data-say="{{Word}}"></span></div>')
 FRONT_EN = '<div class="uc-ask">Say it in Spanish</div><div class="uc-field">{{English}}</div>'
 
-TAIL = ('{{#Forms}}{{Forms}}{{/Forms}}'
-        '{{#Conjugation}}<details class="uc-fold"><summary>Conjugation</summary>'
+# The plural sits with the singular it belongs to, above the rule that divides
+# the word from its meaning -- `el otono` / `los otonos` is one fact in two
+# halves, and a line about the word read better beside the word than under the
+# translation of it.
+FORMS = '{{#Forms}}{{Forms}}{{/Forms}}'
+
+TAIL = ('{{#Conjugation}}<details class="uc-fold"><summary>Conjugation</summary>'
         '<div class="uc-conj">{{Conjugation}}</div></details>{{/Conjugation}}'
         '{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
         '<div class="uc-exs">{{Examples}}</div></details>{{/Examples}}')
 
-BACK_ES = '{{FrontSide}}<hr><div class="uc-field">{{English}}</div>' + TAIL
+BACK_ES = ('{{FrontSide}}' + FORMS +
+           '<hr><div class="uc-field">{{English}}</div>' + TAIL)
 BACK_EN = ('{{FrontSide}}<hr>'
            '<div class="uc-word">{{Spanish}}'
            '<span class="uc-tts uc-say" data-say="{{Word}}"></span></div>'
-           + TAIL)
+           + FORMS + TAIL)
 
 CSS = """.card {
   text-align: center;
@@ -79,14 +85,12 @@ CSS = """.card {
 }
 .uc-gls {
   margin: 0;
-  padding-left: 1.1em;
-  line-height: 1.55;
-}
-.uc-gls li {
-  padding-left: 2px;
+  padding-left: 0;
+  list-style: none;
+  line-height: 1.5;
 }
 .uc-forms {
-  margin-top: 12px;
+  margin-top: 7px;
   font-size: 14px;
 }
 .uc-fi + .uc-fi {
