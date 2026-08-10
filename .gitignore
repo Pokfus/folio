@@ -25,3 +25,5 @@ node_modules/
 # Wiktionary dump being most of it), plus the intermediate files between its stages.
 # The deck it writes IS committed — this is only the working cache behind it.
 .claude/dele-cache/
+# run.py imports one stage from another, so Python leaves bytecode beside them
+__pycache__/

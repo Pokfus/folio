@@ -283,6 +283,44 @@ def add_stress(s):
     return s[:i] + VOWEL_ACCENT[s[i]] + s[i + 1:]
 
 
+# ---------------------------------------------------------------- meanings
+def comma_parts(s):
+    """Split a gloss on commas, but only where every piece stands on its own.
+
+    "glasses, spectacles" and "to get up, to stand up" are two translations
+    apiece and read better on two lines.  "leader of a business, political
+    party, or other organization" is ONE, and splitting it yields the nonsense
+    "political party" and "or other organization" -- so a comma only separates
+    when the pieces are short, few, and none of them opens on a continuation.
+    """
+    parts = [x.strip() for x in s.split(',')]
+    if len(parts) < 2 or len(parts) > 3:
+        return [s]
+    for p in parts:
+        if not p or len(p) > 24 or re.match(r'(or|and|nor|but)\b', p):
+            return [s]
+    return parts
+
+def meaning_lines(glosses, cap=5):
+    out = []
+    for g in glosses:
+        for semi in g.split(';'):
+            semi = semi.strip(' ;,')
+            if not semi:
+                continue
+            for part in comma_parts(semi):
+                part = part.strip(' ;,')
+                if part and part not in out:
+                    out.append(part)
+    return out[:cap]
+
+def meanings_html(glosses):
+    lines = meaning_lines(glosses)
+    if len(lines) <= 1:
+        return f'<div class="uc-gl">{esc(lines[0] if lines else "")}</div>'
+    return ('<ul class="uc-gls">' +
+            ''.join(f'<li>{esc(x)}</li>' for x in lines) + '</ul>')
+
 # ---------------------------------------------------------------- other forms
 def forms_html(word, recs, art, primary):
     bits = []
@@ -413,7 +451,8 @@ for idx, word in enumerate(words, 1):
         return lab
 
     english = ''.join(
-        f'<div class="uc-sense"><i class="uc-pos">{esc(pos_label(p))}</i>{esc("; ".join(g))}</div>'
+        f'<div class="uc-sense"><div class="uc-pos">{esc(pos_label(p))}</div>'
+        f'{meanings_html(g)}</div>'
         for p, g in senses)
 
     conj = conjugation_html(word, vrec, derived, reflexive) if vrec is not None else ''

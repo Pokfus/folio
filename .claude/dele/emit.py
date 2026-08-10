@@ -65,10 +65,25 @@ CSS = """.card {
   line-height: 1.6;
 }
 .uc-pos {
-  margin-right: 0.4em;
-  font-size: 0.78em;
-  font-style: italic;
+  margin-bottom: 3px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ink-faint, #6C6A63);
+}
+.uc-sense + .uc-sense {
+  margin-top: 9px;
+}
+.uc-gl {
+  line-height: 1.5;
+}
+.uc-gls {
+  margin: 0;
+  padding-left: 1.1em;
+  line-height: 1.55;
+}
+.uc-gls li {
+  padding-left: 2px;
 }
 .uc-forms {
   margin-top: 12px;
