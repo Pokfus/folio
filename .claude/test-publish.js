@@ -302,7 +302,8 @@ async function typeField(page, field, text) {
   await B.page.goto(base + "#community", { waitUntil: "load" });
   await B.page.waitForTimeout(1200);
   check("browse lists the published deck", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 1));
-  check("browse shows the title", /Byzantine Emperors/.test(await B.page.textContent(".cdeck-grid")));
+  // `.cdeck-list` since Aug 2026 — the shelf is a list of rows rather than a grid of tiles (on request)
+  check("browse shows the title", /Byzantine Emperors/.test(await B.page.textContent(".cdeck-list")));
 
   await B.page.fill("#cq", "nothing-matches-this");
   await B.page.waitForTimeout(900);
@@ -320,6 +321,20 @@ async function typeField(page, field, text) {
     const s = document.querySelector("#ddSample");
     return !!s && /Constantinople/.test(s.textContent || "");
   }));
+  /* EVERYTHING ABOUT THE DECK IS ON ITS OWN PAGE (Aug 2026, on request): its information, the author's own
+     description, a way to download the file, and other people's comments. Each is asserted for PRESENCE —
+     the failure they share is a section quietly not rendering, which on a page of stacked blocks looks
+     exactly like a deck that has nothing to say. */
+  const dpage = await B.page.evaluate(() => ({
+    desc: !!document.querySelector(".ddetail-desc h2"),
+    // …and it says so when the author wrote nothing, rather than leaving a gap that reads as a load failure
+    noDesc: !!document.querySelector(".ddetail-nodesc"),
+    download: !!document.querySelector("#ddDownload"),
+    comments: /comment/i.test((document.querySelector(".ddetail-reviews") || {}).textContent || ""),
+  }));
+  check("...the author's description has a place of its own, filled or not", dpage.desc, JSON.stringify(dpage));
+  check("...a download link for the deck file", dpage.download, JSON.stringify(dpage));
+  check("...and other people's comments, named as comments", dpage.comments, JSON.stringify(dpage));
 
   await B.page.click("#ddInstall");
   await B.page.waitForTimeout(1000);

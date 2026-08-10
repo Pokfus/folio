@@ -113,19 +113,29 @@ function builder() {
     sl("  const XW_ENTRIES =", "  PAGES.crossword = function"),
     sl("  const WY_EVENTS = 5", "  PAGES.whatyear = function"),
   ].join("\n");
+  /* `gameCardIdSet` is shimmed to the REAL rule — the available cards at or below GAME_MAX_DIFFICULTY,
+     with the bar read out of app.js rather than written down here — because the whole value of the
+     730-day sweep is that it deals from the pool the site deals from. Shimming it to "every card", the
+     way `availableCardIdSet` is shimmed, would sweep two years of puzzles the reader never sees and
+     would go on passing on the day the filter starved a game. */
+  const GAME_MAX = (() => { const m = /const GAME_MAX_DIFFICULTY = (\d+);/.exec(src); if (!m) throw new Error("test-minigames: no GAME_MAX_DIFFICULTY in app.js"); return +m[1]; })();
   const shim = `
     const ADMIN_EDITS = {};
     const cardLocalized = (c) => c;
+    const GAME_MAX_DIFFICULTY = ${GAME_MAX};
     const availableCardIdSet = () => new Set(CARDS.map((c) => c.id));
+    const difficultyOK = (c) => typeof (c && c.difficulty) === "number" && c.difficulty >= 1 && c.difficulty <= GAME_MAX_DIFFICULTY;
+    const gameCardIdSet = () => new Set(CARDS.filter(difficultyOK).map((c) => c.id));
     const localStorage = { getItem: () => null, setItem: () => {} };
     const chronoYear = (c) => { const y = cardStartYear(c); return y ? y : null; };
-    const chronoPool = () => CARDS.map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter((x) => x.year != null && x.name);
+    const chronoPool = () => CARDS.filter(difficultyOK).map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter((x) => x.year != null && x.name);
   `;
-  // data.js assigns onto `window`; require() caches, so only prime the global if it has not been loaded yet
+  // data.js and whatyear.js assign onto `window`; require() caches, so only prime the global if unloaded
   if (!(global.window && global.window.CARD_DATA)) { global.window = global.window || {}; require(path.join(ROOT, "data.js")); }
+  if (!global.window.WHATYEAR) require(path.join(ROOT, "whatyear.js"));
   const CARDS = global.window.CARD_DATA;
-  const make = new Function("CARDS", "todayStr", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear};})()");
-  return (day) => make(CARDS, () => day);
+  const make = new Function("CARDS", "todayStr", "window", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear};})()");
+  return (day) => make(CARDS, () => day, global.window);
 }
 function simulate(days) {
   const build = builder();
@@ -191,7 +201,18 @@ function crosswordForPage(clueIds) {
       "min " + Math.min(...grids.map((g) => g.entries.length)));
     check("[sim] …never outgrowing the board cap", grids.every((g) => g.w <= 13 && g.h <= 13),
       "max side " + Math.max(...grids.map((g) => Math.max(g.w, g.h))));
-    check("[sim] …and a different grid each day", new Set(grids.map((g) => g.entries.map((e) => e.w).sort().join("|"))).size === grids.length);
+    /* VARIETY, and it is a BOUND rather than "all distinct" (relaxed Aug 2026 when the minigames were
+       narrowed to well-known terms — see gameCardIdSet). This asserted 730 of 730 distinct back when the
+       crossword drew from all 409 cards, and with a pool of ~134 usable words that held; the filtered pool
+       is 30 words, and choosing nine of thirty over two years collides however good the shuffle is, so
+       demanding uniqueness would be demanding something arithmetic forbids.
+       The bound is what still catches the failure this is FOR. When the filter first landed the draw cap
+       stopped sampling — every day drew the whole pool and only the layout RNG differed — and the count
+       fell to 60 in 730, a repeat every fortnight, with every grid still full and nothing thrown. 60 fails
+       this; the 577 the fixed cap gives passes. Raise the floor if the pool grows, don't lower it. */
+    const distinctGrids = new Set(grids.map((g) => g.entries.map((e) => e.w).sort().join("|"))).size;
+    check("[sim] …and enough different grids that it reads as daily", distinctGrids >= grids.length * 0.5,
+      distinctGrids + " distinct in " + grids.length + " days");
     // …and no run of squares anywhere in two years that no clue accounts for
     let bad = 0;
     grids.forEach((g) => {

@@ -259,7 +259,13 @@ const SETTINGS = {
       const ov = document.querySelector(".deck-menu");
       return ov ? {
         where: (ov.querySelector(".dm-where") || {}).textContent || "",
-        n: (ov.querySelector("#dlNew") || {}).value,
+        // the per-deck box of the "This deck" tab. The ids became `data-lim` keys when the dialog grew its
+        // second tab (Aug 2026) — see openDeckLimits
+        n: (ov.querySelector('[data-lim="dNew"]') || {}).value,
+        // …and the tabs themselves: one pane writes this entry's own figures, the other the default every
+        // deck follows, which is where Settings' own stepper moved to
+        tabs: [...ov.querySelectorAll(".dm-tab")].map((t) => t.textContent.trim()),
+        globalN: (ov.querySelector('[data-lim="gNew"]') || {}).value,
         // the banner's own heading, read off the page rather than written down here: this assertion is
         // "the sheet opened on the REVIEW and not on a deck", and hard-coding the title made it fail on
         // the Aug 2026 rename ("Daily review" → "Daily study") while the behaviour was perfectly correct
@@ -269,8 +275,13 @@ const SETTINGS = {
     check("the review's Daily limits opens on the review, not a deck",
       dl && !!dl.title.trim() && dl.where.trim() === dl.title.trim(), JSON.stringify(dl));
     check("...showing the allowance it is actually using", dl && dl.n === "5", JSON.stringify(dl));
+    /* TWO TABS since Aug 2026, on request: this entry's own limits, and the default every deck follows —
+       which is where Settings → New cards per day moved to when it was removed from that page. Both panes
+       are asserted, because a tab bar with one live pane looks exactly like a tab bar. */
+    check("...with a second tab for the default every deck follows",
+      dl && dl.tabs.length === 2 && /all decks/i.test(dl.tabs[1]) && dl.globalN === "5", JSON.stringify(dl));
     await page.evaluate(() => {
-      document.querySelector("#dlNew").value = "2";
+      document.querySelector('[data-lim="dNew"]').value = "2";
       document.querySelector('.deck-menu [data-act="save"]').click();
     });
     await page.waitForTimeout(700);
@@ -394,9 +405,10 @@ const SETTINGS = {
     // Daily limits — Anki's three, and the deck's own new count follows the one it sets
     await page.evaluate(() => document.querySelector('.dm-item[data-act="limits"]').click());
     await page.waitForTimeout(300);
+    // the fields became `data-lim` keys when the dialog grew its "All decks" tab (Aug 2026) — see openDeckLimits
     check("Daily limits offers new/day, max reviews/day and the ignore switch",
-      await page.evaluate(() => !!(document.querySelector("#dlNew") && document.querySelector("#dlRev") && document.querySelector("#dlIgn"))));
-    await page.evaluate(() => { document.querySelector("#dlNew").value = "1"; document.querySelector('[data-act="save"]').click(); });
+      await page.evaluate(() => !!(document.querySelector('[data-lim="dNew"]') && document.querySelector('[data-lim="dRev"]') && document.querySelector('[data-lim="dIgn"]'))));
+    await page.evaluate(() => { document.querySelector('[data-lim="dNew"]').value = "1"; document.querySelector('[data-act="save"]').click(); });
     await page.waitForTimeout(800);
     const limited = await page.evaluate(() => [...document.querySelectorAll(".active-deck[data-review]")].map((r) => +r.querySelector(".dkc-new").textContent.trim()));
     check("...and the deck's own new count follows it", limited[0] === 1, JSON.stringify(limited));
@@ -564,12 +576,13 @@ const SETTINGS = {
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1400);
 
+    /* Every row carries a handle wherever the LIST holds a second row. It used to be wherever a LEVEL did —
+       too narrow since groups (Aug 2026), because the only row in its level can still be dropped into a
+       group or onto another deck, and without a handle there is no way to take it there. */
     check("every row of the review list carries a handle",
       await page.evaluate(() => {
         const rows = [...document.querySelectorAll(".active-deck")];
-        // …except where its level holds one row, which has nothing to trade places with
-        const size = {}; rows.forEach((r) => { size[r.dataset.parent] = (size[r.dataset.parent] || 0) + 1; });
-        return rows.length > 1 && rows.every((r) => !!r.querySelector(".dk-grip") === size[r.dataset.parent] > 1);
+        return rows.length > 1 && rows.every((r) => !!r.querySelector(".dk-grip"));
       }));
     /* The level to work on is found rather than assumed: which of them holds two rows depends on what the
        seed put in the review — here two leaves of one collection, so the reorderable level is their shared
@@ -668,8 +681,12 @@ const SETTINGS = {
 
   /* ================= 9. five new cards a day, by default (Aug 2026, on request) =================
      A first-time reader's allowance, read off a save that has never had one written into it. Asserted in
-     the store AND on the Settings stepper: the default lives in defaultState() and the stepper reads it
-     back, so a change to one that misses the other shows the reader a figure the review is not using.
+     the store AND on the control that shows it, so a change to one that misses the other cannot leave the
+     reader looking at a figure the review is not using.
+     THAT CONTROL IS NO LONGER ON THE SETTINGS PAGE (Aug 2026, on request): "New cards per day" moved to the
+     "All decks" tab of a deck's own Daily limits dialog, beside the per-deck figure it stands behind. Both
+     halves are asserted — the stepper is GONE from Settings, and the figure is on the tab — because each
+     alone would pass on a move that had only half happened.
      It is also the figure XP_PER_LEVEL is meant to be read against — a level costs 5 cards, so a level
      turns over on a full day's new cards rather than in the middle of one. */
   {
@@ -678,13 +695,37 @@ const SETTINGS = {
     await page.goto(base + "#settings", { waitUntil: "load" });
     await page.waitForTimeout(1200);
     const np = await page.evaluate(() => ({
-      shown: (document.querySelector("#np-val") || {}).textContent,
+      stepper: !!(document.querySelector("#np-val") || document.querySelector("#np-up")),
       stored: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).newPerDay,
     }));
-    check("a new reader's allowance is five new cards a day", np.shown === "5", JSON.stringify(np));
-    check("...and the stepper shows the figure the review is using",
+    check("the Settings page carries no daily allowance any more", np.stepper === false, JSON.stringify(np));
+    check("...and a new reader's stored allowance is untouched at five",
       np.stored === undefined || np.stored === 5, JSON.stringify(np));
     await page.close();
+
+    const p2 = await newPage({ active: [deckA], settings: SETTINGS, cards: { a: done() } });
+    await p2.goto(base + "#home", { waitUntil: "load" });
+    await p2.reload({ waitUntil: "load" });
+    await p2.waitForTimeout(1400);
+    await p2.evaluate(() => document.querySelector("#b-review").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
+    await p2.waitForTimeout(300);
+    await p2.evaluate(() => document.querySelector('.deck-menu .dm-item[data-act="limits"]').click());
+    await p2.waitForTimeout(300);
+    const gl = await p2.evaluate(() => {
+      const t = [...document.querySelectorAll(".dm-tab")].find((x) => /all decks/i.test(x.textContent));
+      if (t) t.click();
+      const pane = document.querySelector('.dm-pane[data-pane="all"]');
+      return {
+        moved: !!t,
+        shown: (document.querySelector('[data-lim="gNew"]') || {}).value,
+        visible: !!pane && !pane.hidden,
+        // …and the per-deck pane is put away, or the reader is looking at four identical boxes
+        other: (document.querySelector('.dm-pane[data-pane="deck"]') || {}).hidden,
+      };
+    });
+    check("the allowance moved to the Daily limits dialog's All decks tab",
+      gl.moved && gl.visible && gl.other === true && gl.shown === "5", JSON.stringify(gl));
+    await p2.close();
   }
 
   /* ================= 10. Multiple Choice asks the FIRST phrasing (Aug 2026, on request) =============
@@ -730,6 +771,225 @@ const SETTINGS = {
       q.length > 1 && q.every((r) => r.first), JSON.stringify(q));
     // …and the cards it drew really do have extras, or the assertion above passes on cards with one
     check("...on cards that genuinely carry other phrasings", q.some((r) => r.extras > 0), JSON.stringify(q));
+    await page.close();
+  }
+
+  /* ================= 11. GROUPS (Aug 2026, on request) =================
+     A container the reader makes, drags decks into, folds, colours and studies. Almost everything about it
+     fails SILENTLY: a group that studies nothing looks like a group; a colour that reaches the header and
+     not the decks inside looks like a design choice; a deck counted by both its collection and the group it
+     was moved into shows the reader the same five new cards twice with nothing on the page to say so; and a
+     drop that lands as a REORDER rather than a nesting simply looks like a drag that did not take.
+     The drag is driven with real mouse input, like section 8's, so the middle-band test, the pointer capture
+     and the slop are exercised as a hand exercises them. */
+  {
+    /* The COLLECTION is seeded active as well as its leaves — which is what `addActive`'s cascade does when
+       a reader adds one — because a collection the reader never added is a greyed signpost rather than a
+       group header, and this section is about the header. */
+    const probe2 = await browser.newPage();
+    await probe2.goto(base, { waitUntil: "load" });
+    await probe2.waitForTimeout(1000);
+    const rootA = await probe2.evaluate((id) => {
+      let root = null;
+      (window.COLLECTION_TREE.collections || []).forEach((c) => (function w(n, top) {
+        if (n.id === id) root = top;
+        (n.children || []).forEach((ch) => w(ch, top));
+      })(c, c.id));
+      return root;
+    }, deckA);
+    await probe2.close();
+    const page = await newPage({ active: [rootA, deckA, deckB], settings: SETTINGS, cards: { a: done() } });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+
+    // an ADDED COLLECTION is drawn as a group header — it holds no cards itself, only the decks inside it do
+    const cols = await page.evaluate(() =>
+      [...document.querySelectorAll('.active-deck[data-depth="0"]')].map((r) => ({
+        id: r.dataset.drag, group: r.classList.contains("deck-group"),
+        kids: [...document.querySelectorAll(".active-deck")].filter((x) => x.dataset.parent === r.dataset.drag).length,
+      })));
+    check("an added collection with decks under it is drawn as a group header",
+      cols.length > 0 && cols.every((c) => c.group === c.kids > 0), JSON.stringify(cols));
+
+    // …and it is offered a colour, being a container
+    await page.evaluate(() => {
+      const r = document.querySelector(".active-deck.deck-group") || document.querySelector(".active-deck");
+      r.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
+    });
+    await page.waitForTimeout(350);
+    check("holding a container offers its colour",
+      await page.evaluate(() => document.querySelectorAll(".deck-menu .dm-swatch").length > 4));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
+
+    // make a group
+    await page.click("[data-newgroup]");
+    await page.waitForTimeout(300);
+    await page.fill(".inline-prompt input", "Exam revision");
+    await page.click(".inline-prompt .ip-ok");
+    await page.waitForTimeout(700);
+    const made = await page.evaluate(() => {
+      const g = [...document.querySelectorAll(".active-deck")].find((r) => r.dataset.drag.slice(0, 2) === "g:");
+      return g ? { title: g.querySelector(".dk-title").textContent.trim(), header: g.classList.contains("deck-group"), depth: g.dataset.depth } : null;
+    });
+    check("a group can be made from the banner, and arrives as a header at the top level",
+      !!made && made.title === "Exam revision" && made.header && made.depth === "0", JSON.stringify(made));
+
+    /* Drag a deck onto the MIDDLE of the group. The middle band means "inside"; the edges still mean
+       "beside", which is what keeps reordering possible at all.
+       The collection's fold is opened first: an ADDED collection seeds SHUT, so with it closed the only
+       visible rows are two headers and there is nothing to carry. */
+    for (let i = 0; i < 4; i++) {
+      const opened = await page.evaluate(() => {
+        const shut = [...document.querySelectorAll(".active-deck:not(.dk-shut) .dk-chev:not(.open)")];
+        shut.forEach((c) => c.click());
+        return shut.length;
+      });
+      await page.waitForTimeout(350);
+      if (!opened) break;
+    }
+    /* THE SOURCE IS A LEAF WHOSE PARENT KEEPS A SIBLING, and both halves are deliberate. A leaf carries no
+       subtree, so the group's count afterwards IS that deck's; and a parent left with another child is a
+       parent that stays a group header, so its own count can be read before and after. Drag the LAST child
+       out of a collection and it stops being a group at all, which is correct and would make the
+       before/after comparison below a comparison with nothing. */
+    const geo = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("dk-shut"));
+      const g = rows.find((r) => r.dataset.drag.slice(0, 2) === "g:");
+      const kidsOf = (id) => rows.filter((r) => r.dataset.parent === id).length;
+      const src = rows.find((r) => r !== g && !r.classList.contains("deck-group") && r.querySelector(".dk-grip") &&
+        r.dataset.parent && kidsOf(r.dataset.drag) === 0 && kidsOf(r.dataset.parent) > 1);
+      if (!g || !src) return null;
+      const s = src.querySelector(".dk-grip").getBoundingClientRect(), d = g.getBoundingClientRect();
+      return { id: src.dataset.drag, gid: g.dataset.drag, parent: src.dataset.parent,
+        x: s.x + s.width / 2, y: s.y + s.height / 2, tx: d.x + d.width / 2, ty: d.y + d.height / 2 };
+    });
+    check("...with a deck to drag into it", !!geo, JSON.stringify(geo));
+    /* …and what its COLLECTION says it holds before the move. The collection, not the row's immediate
+       parent: only a root collection is drawn as a group header, so a mid-tree deck has no count on it to
+       read — and the collection is the container whose figure the request is about, since that is where a
+       deck moved into a group is no longer to be counted. */
+    const rootOf = await page.evaluate((id) => {
+      let root = null;
+      (window.COLLECTION_TREE.collections || []).forEach((c) => (function w(n, top) {
+        if (n.id === id) root = top;
+        (n.children || []).forEach((ch) => w(ch, top));
+      })(c, c.id));
+      return root;
+    }, geo && geo.id);
+    const rootBefore = await page.evaluate((d) => {
+      const r = document.querySelector(`.active-deck[data-drag="${d}"] .dg-count`);
+      return r ? parseInt(r.textContent, 10) : null;
+    }, rootOf);
+    let lit = "NONE";
+    if (geo) {
+      await page.mouse.move(geo.x, geo.y);
+      await page.mouse.down();
+      const N = 40;
+      for (let i = 1; i <= N; i++) { await page.mouse.move(geo.x + ((geo.tx - geo.x) * i) / N, geo.y + ((geo.ty - geo.y) * i) / N); await page.waitForTimeout(8); }
+      await page.waitForTimeout(140);
+      lit = await page.evaluate(() => { const e = document.querySelector(".dk-into"); return e ? e.dataset.drag : "NONE"; });
+      await page.mouse.up();
+      await page.waitForTimeout(700);
+    }
+    check("...the group lights up as the drop target while the deck is over its middle", lit === (geo && geo.gid), lit);
+
+    const nested = await page.evaluate((id) => {
+      const r = document.querySelector(`.active-deck[data-drag="${id}"]`);
+      const store = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      return r ? { parent: r.dataset.parent, depth: r.dataset.depth, saved: (store.deckNest || {})[id] || null } : null;
+    }, geo && geo.id);
+    check("...and dropping it puts the deck inside the group, in the store as well as on the page",
+      !!nested && nested.parent === geo.gid && nested.depth === "1" && nested.saved === geo.gid, JSON.stringify(nested));
+
+    /* THE CARDS MOVE WITH IT. A container counts what is drawn UNDER it: the group gains the deck's cards
+       and the collection it came from stops claiming them, or the two rows would offer the reader the same
+       new cards twice on one screen with nothing to say which is which. Read off the headers' own "N cards"
+       — the figure a reader is actually shown — and compared against the app's own reckoning of the deck. */
+    const counts = await page.evaluate(([gid, root]) => {
+      const num = (d) => {
+        const r = document.querySelector(`.active-deck[data-drag="${d}"] .dg-count`);
+        return r ? parseInt(r.textContent, 10) : null;
+      };
+      return { group: num(gid), rootAfter: num(root) };
+    }, [geo && geo.gid, rootOf]);
+    check("...the group's header counts the cards now inside it", counts.group > 0, JSON.stringify(counts));
+    check("...and the container it came from stops counting them, exactly once",
+      rootBefore != null && counts.rootAfter != null && rootBefore - counts.rootAfter === counts.group,
+      JSON.stringify({ rootBefore, ...counts }));
+
+    // the colour reaches every deck inside, not just the header
+    await page.evaluate((gid) => {
+      document.querySelector(`.active-deck[data-drag="${gid}"]`).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true }));
+    }, geo && geo.gid);
+    await page.waitForTimeout(350);
+    const sheet = await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item b")].map((b) => b.textContent));
+    check("a group's sheet offers Rename, Colour and Ungroup",
+      ["Rename", "Colour", "Ungroup"].every((k) => sheet.indexOf(k) >= 0), JSON.stringify(sheet));
+    // …and NOT the daily-allowance rows, which belong to something the review actually iterates
+    check("...and not the daily limits, which a group does not have",
+      sheet.indexOf("Daily limits") < 0 && sheet.indexOf("Custom study") < 0, JSON.stringify(sheet));
+    await page.evaluate(() => { const s = document.querySelectorAll(".dm-swatch"); s[3].click(); });
+    await page.waitForTimeout(300);
+    const hue = await page.evaluate(([gid, id]) => {
+      const v = (d) => { const r = document.querySelector(`.active-deck[data-drag="${d}"]`); return r ? r.style.getPropertyValue("--coll-bg").trim() : ""; };
+      return { header: v(gid), inside: v(id) };
+    }, [geo && geo.gid, geo && geo.id]);
+    check("a colour set on the group reaches every deck inside it",
+      !!hue.header && hue.header === hue.inside, JSON.stringify(hue));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
+
+    /* It survives being carried to a page that has never seen the list — a group is a fact about the reader,
+       not about this paint. It has to be the SAVED blob on a FRESH page rather than a reload here: `newPage`
+       re-seeds `folio_v1` from its init script on every load, so a plain reload would put the seed's own
+       state back and this would be testing the seed. */
+    const blob = await page.evaluate(() => localStorage.getItem("folio_v1"));
+    const carried = await browser.newPage({ viewport: { width: 1200, height: 900 } });
+    carried.on("pageerror", (e) => errs.push(e.message));
+    await carried.addInitScript((b) => { try { localStorage.setItem("folio_v1", b); } catch (e) {} }, blob);
+    await carried.goto(base + "#home", { waitUntil: "load" });
+    await carried.waitForTimeout(1300);
+    const kept = await carried.evaluate((id) => {
+      const r = document.querySelector(`.active-deck[data-drag="${id}"]`);
+      return r ? { parent: r.dataset.parent, hue: r.style.getPropertyValue("--coll-bg").trim() } : null;
+    }, geo && geo.id);
+    check("the group, its member and its colour all survive being carried to another device",
+      !!kept && kept.parent === geo.gid && !!kept.hue, JSON.stringify(kept));
+    await carried.close();
+
+    // tapping it studies everything inside
+    await page.evaluate((gid) => document.querySelector(`.active-deck[data-drag="${gid}"]`).click(), geo && geo.gid);
+    await page.waitForTimeout(900);
+    const studying = await page.evaluate(() => ({ hash: location.hash, card: !!document.querySelector(".question, .cardwrap") }));
+    check("tapping a group studies the cards inside it",
+      studying.hash.indexOf("study") >= 0 && studying.card, JSON.stringify(studying));
+
+    /* UNGROUP DISSOLVES rather than deletes: the decks inside stay in the review. Losing a deck because you
+       tidied a container away is the one outcome a grouping feature must never produce. */
+    /* Back to the home page by HASH, never `goto`: `newPage`'s init script re-seeds `folio_v1` on every
+       navigation, so a goto here would put the seed's own state back and everything below would be testing
+       a page on which no group was ever made. */
+    await page.evaluate(() => { location.hash = "#home"; });
+    await page.waitForTimeout(1000);
+    await page.evaluate((gid) => document.querySelector(`.active-deck[data-drag="${gid}"]`).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true })), geo && geo.gid);
+    await page.waitForTimeout(350);
+    await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].find((b) => b.dataset.act === "ungroup").click());
+    await page.waitForTimeout(350);
+    await page.evaluate(() => { const b = document.querySelector(".inline-prompt .ip-ok"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    const freed = await page.evaluate(([gid, id]) => {
+      const store = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      return {
+        gone: !document.querySelector(`.active-deck[data-drag="${gid}"]`),
+        deck: !!document.querySelector(`.active-deck[data-drag="${id}"]`),
+        active: (store.active || []).indexOf(id) >= 0,
+        nest: (store.deckNest || {})[id] || null,
+      };
+    }, [geo && geo.gid, geo && geo.id]);
+    check("ungrouping takes the container away and leaves the deck in the review",
+      freed.gone && freed.deck && freed.active && freed.nest === null, JSON.stringify(freed));
     await page.close();
   }
 

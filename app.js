@@ -202,6 +202,35 @@
   // A card may carry up to this many question phrasings in all: `question` plus at most 9 in the optional
   // `questions` extras array (curated cards carry 3; the higher cap is room for community decks to experiment).
   const CARD_MAX_QUESTIONS = 10;
+  /* ---------- HOW OBSCURE THE ANSWER TERM IS (Aug 2026, on request) ----------
+     `card.difficulty` is an integer 1–5 rating HOW WELL KNOWN THE TERM IS to the general population —
+     1 a household name, 5 a word met in the scholarship and almost nowhere else. It rates the WORD, not
+     the card: how hard the prose is, how subtle the point and how tricky the cloze are all separate
+     questions, and conflating them is the one way this scale stops meaning anything. The full definition
+     of each rung lives in CLAUDE.md and in `.claude/add-card-difficulty.js`, which is the batch tool.
+
+     WHAT IT IS FOR is the daily minigames. A study card arrives with three hundred words of background
+     behind it and comes back tomorrow if you miss it, so an obscure term there is the point of studying;
+     a minigame deals the term COLD — four options, a crossword square, a picture, a year — and a pool
+     holding `qa-si-re-u` and `Howiesons Poort` is a pool that deals unanswerable rounds. So the games
+     draw from `gameCardIdSet()`, which is the available cards at or below GAME_MAX_DIFFICULTY, and
+     STUDY IS UNTOUCHED: every card is studiable, in every deck, at every rating.
+
+     An UNRATED card (no `difficulty` at all) is deliberately treated as too obscure rather than as easy:
+     a community deck carries no ratings, and the games have never drawn from those anyway, but the same
+     rule means a curated card that somehow arrives unrated stays out of the games until somebody rates
+     it. Erring the other way would let one unrated card deal a round nobody can answer, silently.
+     add-card.js refuses a new card with no rating, so the corpus cannot regrow an unrated tail. */
+  const CARD_DIFFICULTY_MIN = 1, CARD_DIFFICULTY_MAX = 5;
+  const GAME_MAX_DIFFICULTY = 2;
+  const CARD_DIFFICULTY_LABELS = { 1: "household name", 2: "generally familiar", 3: "known to the interested", 4: "specialist", 5: "highly obscure" };
+  // the rating as a number, or 0 for a card that has none (a community deck's, or a curated card not yet rated)
+  function cardDifficulty(c) {
+    const card = typeof c === "string" ? cardById(c) : c;
+    const n = card && card.difficulty;
+    return typeof n === "number" && n >= CARD_DIFFICULTY_MIN && n <= CARD_DIFFICULTY_MAX ? n : 0;
+  }
+  function difficultyOK(c) { const n = cardDifficulty(c); return n > 0 && n <= GAME_MAX_DIFFICULTY; }
   // pristine copies (taken before edits are applied) so any field can be reverted to what shipped
   const PRISTINE_CARDS = Object.fromEntries(CARDS.map((c) => [c.id, Object.assign({}, c)]));
   const BASE_CARD_IDS = new Set(Object.keys(PRISTINE_CARDS));   // shipped card ids (before any admin-created cards) — used to rebuild the deck from base on undo
@@ -618,6 +647,7 @@
     CARD_BY_ID[id].video = p.video; // and its video
     CARD_BY_ID[id].questions = p.questions; // and its extra question phrasings
     CARD_BY_ID[id].sources = p.sources;     // and the citations behind it
+    CARD_BY_ID[id].difficulty = p.difficulty; // and how obscure its answer term was rated (see cardDifficulty)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -1130,6 +1160,19 @@
          list — the Collections page keeps the editorial order, which is the one shared thing every
          reader sees. */
       deckOrder: {},
+      /* THE READER'S OWN GROUPS (Aug 2026, on request). Two registers, and they are separate because they
+         answer different questions.
+         `deckGroups` is a record PER CONTAINER — `{ title, color }` — and it is keyed by a user group's id
+         (`g:…`) OR by a tree node's, because "set a group colour" is offered on an added collection as well
+         as on a group the reader made. A record with a title is a group; a record with only a colour is an
+         override on something the tree already names.
+         `deckNest` is child entry id -> the container it has been dragged into, which may be a group or
+         another row. It OVERRIDES the tree position for display and for what a container studies, and
+         nothing else reads it — `S.active` still holds the flat set of what is in the review, so removing a
+         deck and re-adding it cannot resurrect an arrangement it was dragged out of.
+         Both are facts about the reader rather than about this device, so they ride in PROGRESS_FIELDS. */
+      deckGroups: {},
+      deckNest: {},
       achievements: {}, // achievement id -> unlock timestamp
       // ---- learning that happens outside the scheduler, for the account page's "Beyond the cards" panel.
       // Neither of these can be reconstructed after the fact: a glossary popup and an Atlas click leave no
@@ -1441,7 +1484,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1495,7 +1538,10 @@
          book because you reset a card schedule is a surprise nothing warned you about.
      Field-wise rather than whole-object, so a PROGRESS_FIELD added later is reset by default and has to be
      named here to survive — the safe direction for a control with "cannot be undone" written on it. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs"];
+  /* …and the reader's GROUPS with them (Aug 2026): a group is how they have arranged the decks `active`
+     already keeps, so clearing a study schedule and taking the arrangement of it with them would be the
+     same surprise this list exists to prevent. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest"];
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
@@ -2309,20 +2355,30 @@
      a single global index would leak a stranger's terms into curated backgrounds. */
   const _glossIndexes = new Map();   // scope -> { byName, byNameCS, re }
   const GLOSS_SCOPE_SITE = "site";
+  /* What a community deck may do about the glossary. Declared ONCE and read by the ingest sanitizer, the
+     Studio picker and the setter alike — three lists to keep in step is how `off` would have been accepted
+     from a deck file and refused from the picker, or the other way about. */
+  const GLOSS_MODES = ["site", "own", "both", "off"];
   function invalidateGlossIndex(scope) { if (scope == null) _glossIndexes.clear(); else _glossIndexes.delete(scope); }
   /* The term tables a scope draws on.
      "site" is the curated glossary. A community deck's scope is "deck:<id>", and what it resolves to
      depends on the deck's own glossMode: `site` reuses the curated tables untouched, `own` sees ONLY the
-     deck's terms, `both` layers the deck's over the site's. Deck terms are added FIRST in `both` so that
-     when a deck defines a word the site also defines, the deck's meaning wins inside that deck — the
-     author knows what their own cards mean. Keys are namespaced `u:<deckId>:<slug>`, which is what keeps a
-     stranger's terms from ever resolving anywhere but inside their own deck. */
+     deck's terms, `both` layers the deck's over the site's, and `off` links NOTHING AT ALL (Aug 2026, on
+     request). Deck terms are added FIRST in `both` so that when a deck defines a word the site also
+     defines, the deck's meaning wins inside that deck — the author knows what their own cards mean. Keys
+     are namespaced `u:<deckId>:<slug>`, which is what keeps a stranger's terms from ever resolving
+     anywhere but inside their own deck.
+     `off` returns EMPTY TABLES rather than being special-cased at each call site: `buildGlossIndex` over
+     nothing yields an index that matches nothing, so every reader of a scope — the auto-linker, the
+     hand-authored `.ttip` pruning in `processAbstract`, `resolveGlossKey` — is already written correctly
+     for it and none of them needed a branch. */
   function glossSourcesFor(scope) {
     const siteSrc = { G: window.GLOSSARY || {}, A: window.GLOSSARY_ALIASES || {}, CS: window.GLOSSARY_CASESENSITIVE || {} };
     const deckId = (typeof scope === "string" && scope.slice(0, 5) === "deck:") ? scope.slice(5) : null;
     const deck = deckId && UDECKS[deckId];
     if (!deck) return siteSrc;
     const mode = deck.glossMode || "site";
+    if (mode === "off") return { G: {}, A: {}, CS: {} };
     if (mode === "site") return siteSrc;
     const terms = UGLOSS[deckId] || {};
     const G = {}, A = {}, CS = {};
@@ -3314,17 +3370,61 @@
   function isActive(id) {
     return activeEntryIds().indexOf(id) !== -1;
   }
-  function entryCardIds(id) {
+  /* A container's cards are its OWN plus everything nested under it, which is Anki's parent-deck rule and
+     the whole meaning of "dragging a deck on top of another deck makes it a subdeck". A group id has no
+     cards of its own, so it is exactly the union of its members.
+     `_guard` is not defensive tidiness: `setNestParent` refuses a cycle, but a save written by an older
+     build — or two devices reconciling — could carry one, and an unguarded walk would hang the page rather
+     than draw a wrong list. The nest map is empty for almost every reader, so the common path is one
+     `Object.keys` on `{}`. */
+  function entryCardIds(id, _guard) {
     // the daily review answers for every added deck at once — see REVIEW_ENTRY
     if (id === REVIEW_ENTRY) {
       const seen = new Set();
       activeEntryIds().forEach((e) => entryCardIds(e).forEach((c) => seen.add(c)));
       return [...seen];
     }
-    if (id === COTD_ENTRY) return cotdIds();
-    const ud = UDECKS[uDeckIdOf(id)];
-    if (ud) { const sub = uSubOf(id); return sub ? uDeckCardsIn(ud.id, sub) : (ud.cardIds || []).slice(); }
-    return subtreeCardIds(NODE_BY_ID[id]);
+    // one of the reader's own decks, or one subdeck of it — the cards it names, in either case
+    const own = (e) => {
+      const d = UDECKS[uDeckIdOf(e)];
+      if (!d) return null;
+      const sub = uSubOf(e);
+      return sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || []).slice();
+    };
+    // the common case, and the one nearly every reader is in: nothing has been dragged anywhere
+    if (!Object.keys(deckNestMap()).length) {
+      if (isGroupId(id)) return [];
+      if (id === COTD_ENTRY) return cotdIds();
+      const mine = own(id);
+      if (mine) return mine;
+      return subtreeCardIds(NODE_BY_ID[id]);
+    }
+    const guard = _guard || new Set();
+    if (guard.has(id)) return [];
+    guard.add(id);
+    const out = new Set();
+    if (!isGroupId(id)) {
+      if (id === COTD_ENTRY) cotdIds().forEach((c) => out.add(c));
+      else {
+        const mine = own(id);
+        if (mine) mine.forEach((c) => out.add(c));
+        else {
+          /* A tree node's own subtree MINUS any branch the reader has dragged out from under it. What a row
+             counts has to be what the list shows under it: a collection still claiming a deck that is now
+             sitting in another group would count the same cards twice on one screen, and both rows would
+             offer the reader the same five new cards.
+             Nothing is lost from the daily review by this — the deck dragged away is still in `S.active` and
+             still offers its own cards on its own account; it simply stops being counted twice. */
+          (function branch(n) {
+            if (!n) return;
+            if (!nodeIsBranch(n)) { (n.cardIds || []).forEach((c) => out.add(c)); return; }
+            nodeChildren(n).forEach((ch) => { if (!nestParentOf(ch.id)) branch(ch); });
+          })(NODE_BY_ID[id]);
+        }
+      }
+    }
+    nestChildren(id).forEach((k) => entryCardIds(k, guard).forEach((c) => out.add(c)));
+    return [...out];
   }
   // cards inside at least one collection that is NOT coming soon — everything a visitor may study or be quizzed on.
   // (A collection set aside as coming soon — e.g. China while its deck is rebuilt — keeps its cards out of the daily
@@ -3335,6 +3435,26 @@
     const s = new Set();
     (TREE.collections || []).forEach((c) => { if (!isComingSoon(c)) subtreeCardIds(c).forEach((id) => s.add(id)); });
     Object.keys(UDECKS).forEach((k) => (UDECKS[k].cardIds || []).forEach((id) => s.add(id)));
+    return s;
+  }
+  /* THE CARDS A MINIGAME MAY DEAL (Aug 2026, on request): the available cards whose answer term is at or
+     below GAME_MAX_DIFFICULTY. It is `availableCardIdSet()` narrowed, never a set of its own, so a
+     coming-soon collection stays out of the games by the rule it always did and only one thing is added.
+
+     EVERY CARD-FED GAME GOES THROUGH THIS ONE FUNCTION — Multiple Choice, Timeline (by way of
+     `chronoPool`), the Crossword and the card half of the Picture round. That is the whole point of it
+     being a function rather than a filter written four times: a tenth game added later reaches for this
+     instead of `availableCardIdSet` and is covered without anybody remembering the rule.
+     `test-difficulty.js` asserts there is no other path. (What year? is not on this list because it is
+     not card-fed at all any more — see `wyPool`.)
+
+     It also filters the DISTRACTORS, not merely the answers: a Multiple Choice round whose wrong options
+     are `lawagetas`, `qa-si-re-u` and `damos` is a round answerable by elimination and teaches nothing —
+     three plausible wrong answers are what make the question, which is the same reasoning that had them
+     drawn by tag kinship in the first place. */
+  function gameCardIdSet() {
+    const s = new Set();
+    availableCardIdSet().forEach((id) => { if (difficultyOK(cardById(id))) s.add(id); });
     return s;
   }
   function activeCardIds() {
@@ -3388,10 +3508,24 @@
      one is re-added explicitly before the ancestor is dropped. Usually they are already there (the
      cascade above put them there), and the exception is the case that makes this necessary — a save
      written before this existed, where only the collection is listed and its decks are implied by it. */
+  /* A row leaving the review takes its place in the arrangement with it. Anything nested INSIDE it is
+     re-homed one level up rather than dropped: those decks are still in the review, and a child whose
+     container is no longer drawn would simply stop appearing in the list — present in `S.active`, offering
+     its cards to the daily review, and invisible. */
+  function nestForget(ids) {
+    const map = deckNestMap();
+    if (!Object.keys(map).length) return;
+    ids.forEach((x) => {
+      const up = nestParentOf(x);
+      Object.keys(map).forEach((k) => { if (map[k] === x) { if (up) map[k] = up; else delete map[k]; } });
+      delete map[x];
+    });
+  }
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
     const n = NODE_BY_ID[id];
-    if (!n) { S.active = activeEntryIds().filter((x) => x !== id); save(); return; }
+    if (!n) { nestForget([id]); S.active = activeEntryIds().filter((x) => x !== id); save(); return; }
+    nestForget(nodeSubtreeIds(n));
     const drop = new Set(nodeSubtreeIds(n));
     let a = activeEntryIds();
     let cur = n, p = cur.parentId ? NODE_BY_ID[cur.parentId] : null;
@@ -3449,9 +3583,143 @@
     deckOrderMap()[parentKey || ""] = ids.slice();
     save();
   }
+  /* ---------- GROUPS, and decks nested inside them (Aug 2026, on request) ----------
+     A group is a container the reader makes on the home page: it holds decks, it folds, it can be renamed,
+     it can be given a colour that every deck inside it takes, and tapping it studies everything under it.
+     An ADDED COLLECTION is one too — it has no cards of its own, only the decks beneath it do, so it is
+     drawn as a group header rather than as a deck row (see the review list's `walk`).
+
+     THREE DECISIONS ARE WORTH KEEPING.
+     · A GROUP IS NOT IN `S.active`. It has no cards of its own, so putting it there would make `reviewQueue`
+       offer its members' cards a second time under the GROUP's allowance as well as each member's — deduped
+       to the same set, but drawn against the wrong limits. It is a display-and-scope construct, and the
+       decks inside it are what the review iterates, exactly as before.
+     · THE ID CARRIES A COLON, like COTD_ENTRY and REVIEW_ENTRY, so it can never collide with a node id
+       (plain slugs) or with the `u:` of one of the reader's own decks.
+     · `deckGroups` IS KEYED BY CONTAINER, NOT BY GROUP. A colour set on an added collection has to live
+       somewhere, and giving tree nodes a second register of their own would mean two lookups and two
+       chances to forget one. A record with a `title` is a group the reader made; a record with only a
+       `color` is an override on something the tree already names. */
+  const GROUP_PREFIX = "g:";
+  function isGroupId(id) { return typeof id === "string" && id.slice(0, 2) === GROUP_PREFIX; }
+  function deckGroupMap() {
+    if (!S.deckGroups || typeof S.deckGroups !== "object") S.deckGroups = {};
+    return S.deckGroups;
+  }
+  function deckNestMap() {
+    if (!S.deckNest || typeof S.deckNest !== "object") S.deckNest = {};
+    return S.deckNest;
+  }
+  function groupRec(id) { return deckGroupMap()[id] || null; }
+  // does this id name something the list can actually draw? A stale nest entry pointing at a deleted group
+  // or a retired node is ignored rather than cleaned up on read — a read must not write.
+  function entryExists(id) {
+    if (isGroupId(id)) return !!groupRec(id);
+    return !!(NODE_BY_ID[id] || UDECKS[uDeckIdOf(id)] || (id === COTD_ENTRY && cotdIds().length));
+  }
+  function nestParentOf(id) {
+    const p = deckNestMap()[id];
+    return p && p !== id && entryExists(p) ? p : null;
+  }
+  /* What has been dragged into `id`, in the order the reader left them. The order key is the container's own
+     id, shared with its tree children where it has both — they are one run of rows on the page, so they are
+     one run here, and a reader can interleave a group's guests among a collection's own decks. */
+  function nestChildren(id) {
+    const map = deckNestMap();
+    const keys = Object.keys(map);
+    if (!keys.length) return [];
+    return orderedIds(id, keys.filter((k) => map[k] === id && k !== id && entryExists(k)));
+  }
+  function groupTitle(id) {
+    const r = groupRec(id);
+    if (r && r.title) return r.title;
+    const n = NODE_BY_ID[id];
+    return n ? nodeTitle(n) : id;
+  }
+  function groupColor(id) {
+    const r = groupRec(id);
+    return (r && r.color) || "";
+  }
+  function setGroupColor(id, color) {
+    const m = deckGroupMap();
+    const r = m[id] || (m[id] = {});
+    if (color) r.color = color; else delete r.color;
+    if (!r.title && !r.color) delete m[id];   // an empty record is a row of noise in the synced blob
+    save();
+  }
+  function setGroupTitle(id, title) {
+    const m = deckGroupMap();
+    const t2 = String(title || "").trim().slice(0, 80);
+    if (!t2) return;
+    const r = m[id] || (m[id] = {});
+    r.title = t2;
+    save();
+  }
+  function groupCreate(title) {
+    const m = deckGroupMap();
+    let id;
+    do { id = GROUP_PREFIX + Math.random().toString(36).slice(2, 10); } while (m[id]);
+    m[id] = { title: String(title || "New group").trim().slice(0, 80) || "New group" };
+    save();
+    return id;
+  }
+  /* Deleting a group DISSOLVES it: its members are freed to the level the group itself was at, keeping the
+     order they had inside it, rather than being removed from the review with it. Losing a deck because you
+     tidied a container away is the one outcome a grouping feature must never produce. */
+  function groupDelete(id) {
+    if (!isGroupId(id)) return;
+    const map = deckNestMap();
+    const up = nestParentOf(id);
+    const freed = nestChildren(id);
+    freed.forEach((k) => { if (up) map[k] = up; else delete map[k]; });
+    /* …and they land WHERE THE GROUP STOOD, in the order they had inside it, rather than filing in at the
+       end of the level: `orderedIds` puts an id the saved order has never seen after everything it has, so
+       without this the freed decks would jump to the bottom of the list the moment the container round them
+       went. Only touched where that level has an order at all — with none, natural order already applies. */
+    const level = up || "";
+    const saved = deckOrderMap()[level];
+    if (Array.isArray(saved) && saved.length) {
+      const at = saved.indexOf(id);
+      const rest = saved.filter((k) => k !== id && freed.indexOf(k) < 0);
+      const where = at < 0 ? rest.length : Math.min(at, rest.length);
+      rest.splice(where, 0, ...freed);
+      deckOrderMap()[level] = rest;
+    }
+    delete map[id];
+    delete deckGroupMap()[id];
+    save();
+  }
+  // Would putting `child` inside `parent` close a loop? Walk up from the parent; if we meet the child, it
+  // would. A container cannot hold itself, and nor can two hold each other.
+  function nestWouldLoop(child, parent) {
+    let p = parent, hops = 0;
+    while (p && hops++ < 64) {
+      if (p === child) return true;
+      p = nestParentOf(p);
+    }
+    return false;
+  }
+  function setNestParent(child, parent) {
+    if (!child || child === parent) return false;
+    if (parent && (!entryExists(parent) || nestWouldLoop(child, parent))) return false;
+    const map = deckNestMap();
+    if (parent) map[child] = parent; else delete map[child];
+    save();
+    return true;
+  }
+  // every id nested under `id`, at any depth — what a container studies, and what has to go when it does
+  function nestDescendants(id, _guard) {
+    const guard = _guard || new Set();
+    if (guard.has(id)) return [];
+    guard.add(id);
+    const out = [];
+    nestChildren(id).forEach((k) => { out.push(k); nestDescendants(k, guard).forEach((x) => out.push(x)); });
+    return out;
+  }
   // label + card count for an active entry (deck, subdeck, one of the user's own decks, or the CotD additions)
   function entryInfo(id) {
     if (id === REVIEW_ENTRY) return { title: REVIEW_TITLE, parent: "", count: entryCardIds(REVIEW_ENTRY).length };
+    if (isGroupId(id)) return { title: groupTitle(id), parent: "Your groups", count: entryCardIds(id).length };
     if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) {
@@ -3461,7 +3729,9 @@
     }
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
-    return { title: nodeTitle(n), parent: nodeParentPath(n), count: subtreeCardIds(n).length };
+    // entryCardIds, not subtreeCardIds: the sheet's figures must be the row's, and a branch dragged into a
+    // group is no longer counted under the collection it came from
+    return { title: nodeTitle(n), parent: nodeParentPath(n), count: entryCardIds(id).length };
   }
   /* ---------- per-deck daily limits (Aug 2026, on request) ----------
      Every added deck now carries Anki's three settings of its own — new cards/day, maximum reviews/day, and
@@ -3503,20 +3773,46 @@
       newIgnoresReview: o.newIgnoresReview !== false,
     };
   }
+  /* THE DEFAULT EVERY DECK FOLLOWS until it is given limits of its own — the "All decks" tab of the Daily
+     limits dialog (Aug 2026, on request), which is where these moved to when the Settings page's own
+     "New cards per day" stepper was removed. `newPerDay` keeps its old home in `S.settings` so that no
+     save migrates; `maxReviewsPerDay` is new and back-fills from `DECK_MAX_REVIEWS` by its own absence. */
+  function globalLimits() {
+    const s = S.settings || {};
+    return {
+      newPerDay: Number.isFinite(s.newPerDay) ? Math.max(0, s.newPerDay) : 5,
+      maxReviews: Number.isFinite(s.maxReviewsPerDay) ? Math.max(0, s.maxReviewsPerDay) : DECK_MAX_REVIEWS,
+    };
+  }
+  function setGlobalLimits(patch) {
+    if (Number.isFinite(patch.newPerDay)) S.settings.newPerDay = Math.max(0, patch.newPerDay);
+    if (Number.isFinite(patch.maxReviews)) S.settings.maxReviewsPerDay = Math.max(0, patch.maxReviews);
+    save();
+  }
   function deckLimits(id) {
     if (id === REVIEW_ENTRY) return reviewLimits();
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    const o = (S.deckOpts && S.deckOpts[id]) || {}, G = globalLimits();
     return {
       // the global setting is the DEFAULT rather than a competing limit — a deck the reader has never
-      // opened the sheet on simply follows Settings → New cards per day, as it always did
-      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : S.settings.newPerDay,
-      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : DECK_MAX_REVIEWS,
+      // opened the sheet on simply follows the "All decks" figures, as it always did
+      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : G.newPerDay,
+      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : G.maxReviews,
       newIgnoresReview: o.newIgnoresReview !== false,
     };
   }
   function setDeckLimits(id, patch) {
     if (!S.deckOpts || typeof S.deckOpts !== "object") S.deckOpts = {};
     S.deckOpts[id] = Object.assign({}, S.deckOpts[id] || {}, patch);
+    save();
+  }
+  /* Give a deck back to the default. It DELETES the three keys rather than writing the global's current
+     values into them, which is the whole difference: a deck cleared this way follows a later change to the
+     default too, where a deck holding a copy of today's figures would silently stop following it. The rest
+     of `deckOpts[id]` — the switches, the colour of the day it was skipped — is left alone. */
+  function clearDeckLimits(id) {
+    const o = S.deckOpts && S.deckOpts[id];
+    if (!o) return;
+    delete o.newPerDay; delete o.maxReviews; delete o.newIgnoresReview;
     save();
   }
   /* QUESTION VARIETY (Aug 2026, on request) — whether a card asks one of its three phrasings at random,
@@ -3590,7 +3886,7 @@
      that is the entry whose sheet the reader would have opened to change it. */
   function scopeEntryId(scope) {
     if (!scope) return REVIEW_ENTRY;
-    if (scope.type === "deck") return scope.id;
+    if (scope.type === "deck" || scope.type === "group") return scope.id;
     if (scope.type === "udeck") return uSubEntry(scope.id, scope.sub || "");
     return REVIEW_ENTRY;
   }
@@ -3877,7 +4173,7 @@
     UDECK_TEXT_FIELDS.forEach((f) => { o[f] = sanitizePlain(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
     o.id = /^[a-z0-9]{4,16}$/.test(String(m && m.id)) ? m.id : uid(8);
     o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
-    o.glossMode = ["site", "own", "both"].indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
+    o.glossMode = GLOSS_MODES.indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
     o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
     o.createdAt = Number(m && m.createdAt) || Date.now();
@@ -4429,7 +4725,7 @@
   function uGlossTouched(deckId) { invalidateGlossIndex("deck:" + deckId); uDeckSave(deckId); }
   function uDeckSetGlossMode(deckId, mode) {
     const d = UDECKS[deckId];
-    if (!d || ["site", "own", "both"].indexOf(mode) < 0) return;
+    if (!d || GLOSS_MODES.indexOf(mode) < 0) return;
     d.glossMode = mode;
     uGlossTouched(deckId);
   }
@@ -4532,8 +4828,24 @@
     // can't claim someone's slug, masquerade as installed, or suppress an update prompt.
     const meta = {};
     UDECK_META_KEYS.forEach((f) => { meta[f] = rec.meta[f]; });
-    const out = { folioDeck: UDECK_FORMAT, exportedAt: new Date().toISOString(), meta: meta, cards: rec.cards, gloss: rec.gloss };
-    const name = (rec.meta.title || "deck").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48) || "deck";
+    downloadDeckFile(meta, rec.cards, rec.gloss);
+  }
+  /* The same file, for a deck the reader has NOT installed (Aug 2026, on request — the deck page's
+     "Download the deck file"). It goes through `remoteToLocal` and then strips the publishing keys exactly
+     as `uDeckExport` does, so the file a reader downloads from someone's page is byte-for-byte the shape
+     they would get by installing it and exporting it — one importer, one file format, one set of rules
+     about what may travel. The server's copy is sanitized on the way through, `remoteToLocal` calling
+     `uDeckNormalize`, because a file written from untrusted JSON is a file somebody else will open. */
+  function deckFileDownload(row, cards, gloss) {
+    const rec = remoteToLocal(row, cards || [], null, gloss);
+    if (!rec) { toast("That deck couldn't be read."); return; }
+    const meta = {};
+    UDECK_META_KEYS.forEach((f) => { meta[f] = rec.meta[f]; });
+    downloadDeckFile(meta, rec.cards, rec.gloss);
+  }
+  function downloadDeckFile(meta, cards, gloss) {
+    const out = { folioDeck: UDECK_FORMAT, exportedAt: new Date().toISOString(), meta: meta, cards: cards, gloss: gloss };
+    const name = (meta.title || "deck").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48) || "deck";
     const url = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" }));
     const a = document.createElement("a");
     a.href = url; a.download = name + ".folio-deck.json";
@@ -4541,7 +4853,7 @@
     // revoke on a later tick: tearing the blob down in the same task can cancel the download before the
     // browser has finished reading it
     setTimeout(() => URL.revokeObjectURL(url), 30000);
-    toast("Deck exported");
+    toast("Deck file downloaded");
   }
   // returns { ok, deck } | { error }
   function uDeckImportText(text, asCopy) {
@@ -5469,6 +5781,36 @@
        is asserted. It reads 9.42:1 on the tightest of the sixteen light papers, the highest of any
        swatch on the shelf. */
     "Augustine of Hippo": "#3F1800",
+    /* THIS ROW REVERSES THE ONE ABOVE, AND SAYS SO RATHER THAN QUIETLY TAKING WHAT IT TURNED DOWN.
+       The City of God's entry measured a deep blue-indigo at 22.6, rejected it on Thucydides' rule as
+       a colour that would crowd an already-blue quarter "to say nothing in particular", and took the
+       dark brown instead. This is that colour. Three things changed, and only the first is really an
+       argument:
+
+       · IT IS NO LONGER A NEAR-TIE. When that row chose, three families sat at 23.0, 22.6 and 22.2 —
+         near enough that the crowding objection could decide it for free. With twenty-eight colours
+         placed the field is 22.6 against 19.9 for the next best (a magenta whose second neighbour is
+         Euripides at 21.0) and 19.7 for a green that reads 4.63:1 and so all but fails the bar
+         test-a11y.js holds the site to. Paying 2.7 points of separation and most of the contrast
+         headroom to avoid a crowded hue is a worse trade than the crowding.
+       · THE QUARTER IS CROWDED IN HUE AND EMPTY AT THIS LIGHTNESS, which the earlier row measured in
+         hue alone. Every existing blue sits at L 30–46 — Herodotus 34, Song of Roland 30, Aristotle
+         44, Machiavelli 46, Seneca 46 — and this sits at L 13.2, just above the floor. Counting
+         swatches within 40 rather than counting the hue family, it has FIVE neighbours, fewer than
+         any other family's best (the magenta and the green have six, the reds eleven and twelve).
+       · ITS NEAREST IS SNORRI, NOT HERODOTUS. 22.6 to the Prose Edda's dark violet and 24.3 to
+         Herodotus's indigo, so the Euripides test is asked about Homer against a thirteenth-century
+         Icelandic handbook of poetics, which nobody reads as a pair. Herodotus is the one real
+         question and he is the further of the two; epic verse and prose history are not a set the
+         way Sophocles and Euripides are.
+
+       THE BAND WAS NOT WIDENED, and it was tested rather than assumed: with the lightness and chroma
+       limits removed entirely the search returns a pure electric blue at chroma 133, which is exactly
+       the "bright enough to glow beside twenty muted colours" that Vyasa's row rejected and the band
+       exists to prevent. It reads 9.58:1 on the tightest of the sixteen light papers, second only to
+       the Book of Rites' 9.70 — which also corrects the claim in the row above: that brown's 9.42 was
+       not the highest on the shelf when it was written. */
+    "Homer": "#001270",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -7201,6 +7543,68 @@
         { n: 2, label: "The two cities", note: "Books XI–XXII" },
       ],
     },
+    {
+      id: "homer-iliad",
+      title: "The Iliad",
+      subtitle: "Ἰλιάς",
+      author: "Homer",
+      /* Composed somewhere in the eighth or seventh century BCE and not datable more closely than
+         that; `year` is the single signed number the shelf's date sort needs, and the prose
+         `written` carries the hedge, as it should. Measured rather than asserted: −750 puts it
+         FOURTH on a date sort, behind Gilgamesh at −1200 and the Classic of Poetry and the Book of
+         Documents at −1000. It is the oldest work of European literature and not the oldest book on
+         this shelf, and those are easy to confuse. */
+      written: "composed c. 750–700 BCE",
+      year: -750,
+      translator: "A. T. Murray",
+      edition: "Loeb Classical Library, London and New York, 1924",
+      /* A LIMIT ON EACH COLUMN, which puts this with the Song of Roland rather than with the four
+         licences needing no qualification. Both modern layers are 1920s scholarship: they clear the
+         pre-1929 publication rule and life-plus-seventy outright, and neither has yet cleared life
+         plus a hundred. Murray died in 1940, so his translation runs to 2041; the Greek is a JOINT
+         work whose term runs from the last surviving author, and Monro died in 1905 while Allen
+         lived until 1950, so it runs to 2051 — the original being the harder half of the pair, which
+         is the Medea's position rather than a new one. Stated outright rather than smoothed into the
+         easier sentence, as the Lucretius entry says: claim less, and put on the page what cannot be
+         said. See .claude/fetch-book.js for why Perseus's OTHER English Iliad — Butler's, whose own
+         copyright is easier — is not used: what it carries is Butler revised by two living scholars. */
+      rights:
+        "Three layers, and a limit on each of the two modern ones. The poem is some twenty-seven " +
+        "centuries old and is in the public domain everywhere. A. T. Murray's translation was " +
+        "published in 1924 — before 1929 — so its United States copyright has expired, and Murray " +
+        "died in 1940, so it is also public domain wherever the term is the author's life plus " +
+        "seventy years; where the term is life plus a hundred it remains in copyright until 2041. " +
+        "The Greek is David B. Monro and Thomas W. Allen's Oxford text of 1908–1920, likewise " +
+        "published before 1929; the term for a joint work runs from the last surviving author, and " +
+        "Allen died in 1950, so it cleared life plus seventy at the start of 2021 and remains in " +
+        "copyright until 2051 where the term is life plus a hundred. Both digital editions are " +
+        "prepared by the Perseus Digital Library at Tufts University and are released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern translations " +
+        "by Richmond Lattimore, 1951, Robert Fagles, 1990, Caroline Alexander, 2015, and Emily " +
+        "Wilson, 2023, are still in copyright and are not used here, nor is William F. Wyatt's 1999 " +
+        "revision of Murray.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
+      origLang: "grc",
+      origName: "Greek",
+      /* THE CHAPTER IS ONE OF THE TWENTY-FOUR BOOKS and the SECTION is the line the passage opens at,
+         which is how Homer is cited in every language — "Iliad 1.348" is book one, line 348. The two
+         editions divide the poem into the same 425 cards, so a card number is the same claim on both
+         sides; see .claude/fetch-book.js for the measurement (425 cards each, 22 of the 24 books
+         identical, 423 of 425 numbers on both sides, and the two exceptions read passage by passage
+         before either was moved). The book division is Alexandrian rather than Homer's own, which the
+         front matter says.
+         THE TRANSLATION IS PROSE AND THE ORIGINAL IS VERSE — the first book here that way round, and
+         the reason teiVerseBooks grew a prose branch. */
+      chapterWord: "Book",
+      count: 24,
+      total: 24,
+      /* No `parts`. The Iliad has no division above the book: the twenty-four are a single run, and
+         the halves a reader may have met — the embassy, the death of Patroclus — are modern reading
+         aids rather than anything the poem or this edition states. Inventing two would be composing
+         an apparatus, which is what the titleOf note in the importer entry declines to do for the
+         book titles for the same reason. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -8024,8 +8428,53 @@
      The Ordered/Random switch was the review's alone until Aug 2026 and is now on every entry's sheet, on
      request — see deckRandom, and the two shuffles in buildSession that make it mean something on a
      deck-scoped session rather than appearing there and doing nothing. */
+  /* The eight colours a group may be given (Aug 2026, on request). A closed set rather than a free picker:
+     these are washed behind text at 30%, painted as a 4px bar and darkened again for the header, so the
+     range that works is narrow — and the marker's own custom picker exists because ink on a page is a
+     different problem from a label on a list. They are spread round the wheel and share the collections'
+     own depth, so a group sits beside a collection without shouting over it. */
+  const GROUP_COLORS = ["#2E6E8E", "#1F6F5C", "#7A8A2E", "#C2701E", "#9E2B25", "#8A2E5C", "#664C9A", "#4A4038"];
+  /* ---------- THE DAILY-STUDY BANNER CHANGES COLOUR EVERY DAY (Aug 2026, on request) ----------
+     Twelve hues round the wheel, one per day, taken in order rather than at random: a random pick repeats,
+     and two days the same colour reads as the feature having stopped rather than as chance. The day index
+     comes from `dayKey`, so it turns over at the reader's OWN day boundary — the same moment the quote, the
+     card of the day and the day's allowance turn over, rather than at some hour of its own.
+     They are LIGHTER and brighter than the collection hues on purpose: a collection's colour identifies a
+     subject and has to stay legible under 30% of it behind body text, where this one is a wash across a
+     whole banner and a 4px bar, and the banner it replaced was a single light blue (#5AA9DC, which is
+     Tuesday's). `--tile` is set inline on the banner element, so it beats the stylesheet's own value
+     without either of them having to know about the other; the deck rows below keep `.review-group`'s
+     static fallback, or the whole list would change colour with it every morning. */
+  const DAY_HUES = [
+    "#5AA9DC", "#4FA3A0", "#63A85C", "#9DA83F", "#D3A03C", "#D98A4E",
+    "#D2705F", "#C86D8E", "#A876C4", "#7B85D6", "#4E93C9", "#6FAF8A",
+  ];
+  function dayHue(ts) {
+    const k = dayKey(ts);   // the reader's own day, so it turns with everything else dated on this page
+    const d = Date.parse(k + "T00:00:00Z");
+    if (!Number.isFinite(d)) return DAY_HUES[0];
+    return DAY_HUES[(Math.floor(d / DAY) % DAY_HUES.length + DAY_HUES.length) % DAY_HUES.length];
+  }
+  // a row that can hold other rows: a group the reader made, an added collection, or anything they have
+  // already dragged something into. Only these are offered a colour, since the colour is inherited downward.
+  function isContainerEntry(id) {
+    if (isGroupId(id)) return true;
+    const n = NODE_BY_ID[id];
+    if (n && !n.parentId) return true;
+    return nestChildren(id).length > 0;
+  }
+  function promptNewGroup() {
+    inlinePrompt("Name this group — decks you drag into it are studied together.", "New group", (val) => {
+      const t2 = String(val || "").trim();
+      if (!t2) { toast("Group not created — it needs a name"); return; }
+      groupCreate(t2);
+      render();
+      toast("Group created — drag decks into it");
+    });
+  }
   function openDeckMenu(id) {
     const isReview = id === REVIEW_ENTRY;
+    const isGroup = isGroupId(id);
     const info = entryInfo(id);
     const L = deckLimits(id), skipped = deckSkippedToday(id), left = deckNewRemaining(id);
     const thing = isReview ? "review" : "deck";
@@ -8055,6 +8504,22 @@
        sheet, so it answers for a deck, for a community deck, for the Card-of-the-day list and for the
        pooled review alike. */
     const ids = entryCardIds(id), total = ids.length, studied = ids.filter(isSeen).length;
+    /* A GROUP is not in `S.active` — it has no cards of its own and the review iterates the decks inside
+       it, not the container round them — so the three daily-allowance rows are left off its sheet rather
+       than shown doing nothing to the pooled review. What it DOES have is a session of its own, which is
+       what the three switches above govern, plus the things a group is for: a name, a colour and a way to
+       take it apart again. */
+    const nestedIn = nestParentOf(id);
+    const colorRow = isContainerEntry(id)
+      ? '<div class="dm-item dm-colors"><b>Colour</b>' +
+          '<div class="dm-swatches">' +
+            '<button type="button" class="dm-swatch dm-swatch-off' + (groupColor(id) ? "" : " on") + '" data-color="" aria-label="Default colour" title="Default colour"></button>' +
+            GROUP_COLORS.map((c) =>
+              '<button type="button" class="dm-swatch' + (groupColor(id).toLowerCase() === c.toLowerCase() ? " on" : "") +
+              '" data-color="' + esc(c) + '" style="--sw:' + esc(c) + '" aria-label="Colour ' + esc(c) + '" title="' + esc(c) + '"></button>').join("") +
+          "</div>" +
+          "<small>Every deck inside takes this colour</small></div>"
+      : "";
     const html =
       '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(info.title) + "</span>" +
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
@@ -8068,12 +8533,20 @@
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
         "Press the speaker on a card to hear it", autoSpeak) : "") +
-      item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
-      item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
-      item("skip", skipped ? "Study today after all" : "Skip today",
-        skipped ? "This " + thing + " is sitting today out"
-                : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review")) +
-      (isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
+      (isGroup ? item("rename", "Rename", "Call this group something else") : "") +
+      (isGroup ? "" :
+        item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
+        item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
+        item("skip", skipped ? "Study today after all" : "Skip today",
+          skipped ? "This " + thing + " is sitting today out"
+                  : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review"))) +
+      /* The colour row sits AFTER the commands rather than among them, and that placement is load-bearing
+         for more than reading order: `deckSheet` focuses the sheet's first button, and with the swatches
+         first the sheet would open with the caret on a colour nobody asked to change. */
+      colorRow +
+      (nestedIn ? item("unnest", "Move out of " + groupTitle(nestedIn), "Put it back at the top of the list") : "") +
+      (isGroup ? item("ungroup", "Ungroup", "Take the group apart — the decks inside stay in your review", "dm-danger")
+       : isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
     return deckSheet("Options for " + info.title, html, (ov, close) => {
       /* A SWITCH ROW STAYS PUT WHEN THROWN. Every other row here is a command and closes the sheet
          behind it; a switch is a setting, and taking the sheet away is what makes a reader wonder
@@ -8106,10 +8579,37 @@
         rowEl.addEventListener("click", flip);
         sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); flip(); } });
       });
-      ov.querySelectorAll(".dm-item:not(.dm-switch)").forEach((b) => b.addEventListener("click", () => {
+      /* The colour swatches stay put when pressed, like the switches above them: choosing a colour is a
+         setting, and the reader may well want to try a second one. They repaint the PAGE (unlike a switch,
+         which changes only what a session deals out) — but render() closes this sheet, so the list behind
+         is repainted in place instead, by hand, and the sheet survives to be pressed again. */
+      ov.querySelectorAll(".dm-swatch").forEach((sw) => sw.addEventListener("click", () => {
+        setGroupColor(id, sw.dataset.color || "");
+        ov.querySelectorAll(".dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
+        repaintReviewHues();
+      }));
+      ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors)").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
+        if (act === "rename") {
+          close();
+          inlinePrompt("What should this group be called?", groupTitle(id), (val) => {
+            const t2 = String(val || "").trim();
+            if (!t2) { toast("Name unchanged"); return; }
+            setGroupTitle(id, t2);
+            render();
+          });
+          return;
+        }
+        if (act === "unnest") { close(); setNestParent(id, null); render(); toast("Moved out"); return; }
+        if (act === "ungroup") {
+          close();
+          inlineConfirm("Take “" + groupTitle(id) + "” apart? The decks inside stay in your daily review.", () => {
+            groupDelete(id); render(); toast("Group removed");
+          }, "Ungroup");
+          return;
+        }
         if (act === "skip") {
           setDeckSkip(id, !skipped);
           close();
@@ -8152,29 +8652,79 @@
       }));
     });
   }
-  // Daily limits — Anki's three, and Anki's names for them, so a reader who knows Anki needs no explanation.
+  /* Daily limits — Anki's three, and Anki's names for them, so a reader who knows Anki needs no explanation.
+     TWO TABS since Aug 2026, on request: **This deck** writes `S.deckOpts[id]`, as it always did, and
+     **All decks** writes the DEFAULT every deck follows until it has been given limits of its own.
+
+     THE DEFAULTS MOVED HERE FROM THE SETTINGS PAGE, which is the other half of the same request and the
+     reason the second tab is worth having: "New cards per day" lived under Settings → Study, three
+     navigations away from the deck whose allowance a reader had come to change, and it read as a rule about
+     Folio rather than as the fallback for a per-deck number. Both figures now sit beside the per-deck ones
+     they stand behind, and a reader can see which of the two they are editing.
+
+     THE PER-DECK TAB SHOWS THE INHERITED FIGURE WHERE NOTHING HAS BEEN SET, and says so — `deckLimits`
+     already falls back to the global, so the box would otherwise show a number the reader might take for
+     something they had chosen. **Clear it back to the default** does that (it deletes the keys rather than
+     writing the global's current value into them, so a later change to the default still reaches this deck),
+     and is offered only where there is something to clear. */
   function openDeckLimits(id) {
     const info = entryInfo(id), L = deckLimits(id);
+    const own = (S.deckOpts && S.deckOpts[id]) || {};
+    const hasOwn = Number.isFinite(own.newPerDay) || Number.isFinite(own.maxReviews) || own.newIgnoresReview === false;
+    const G = globalLimits();
+    const numRow = (key, label, val, max) =>
+      '<label class="dm-field"><span>' + esc(label) + '</span><input class="dm-num" data-lim="' + key +
+      '" type="number" min="0" max="' + max + '" step="1" value="' + val + '" inputmode="numeric"></label>';
+    const swRow2 = (key, on) =>
+      '<div class="dm-field dm-switchrow"><span>New cards ignore review limit</span>' +
+      '<div class="switch' + (on ? " on" : "") + '" data-lim="' + key + '" role="switch" aria-label="New cards ignore review limit" tabindex="0" aria-checked="' + (on ? "true" : "false") + '"></div></div>';
     const html =
       '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
-      '<label class="dm-field"><span>New cards/day</span><input class="dm-num" id="dlNew" type="number" min="0" max="999" step="1" value="' + L.newPerDay + '" inputmode="numeric"></label>' +
-      '<label class="dm-field"><span>Maximum reviews/day</span><input class="dm-num" id="dlRev" type="number" min="0" max="9999" step="1" value="' + L.maxReviews + '" inputmode="numeric"></label>' +
-      '<div class="dm-field dm-switchrow"><span>New cards ignore review limit</span>' +
-      '<div class="switch' + (L.newIgnoresReview ? " on" : "") + '" id="dlIgn" role="switch" aria-label="New cards ignore review limit" tabindex="0" aria-checked="' + (L.newIgnoresReview ? "true" : "false") + '"></div></div>' +
+      '<div class="dm-tabs" role="tablist">' +
+        '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + (id === REVIEW_ENTRY ? "review" : "deck") + '</button>' +
+        '<button type="button" class="dm-tab" role="tab" aria-selected="false" data-pane="all">All decks</button>' +
+      '</div>' +
+      '<div class="dm-pane" data-pane="deck">' +
+        numRow("dNew", "New cards/day", L.newPerDay, 999) +
+        numRow("dRev", "Maximum reviews/day", L.maxReviews, 9999) +
+        swRow2("dIgn", L.newIgnoresReview) +
+        '<p class="dm-note">' + (hasOwn
+          ? "Set for this " + (id === REVIEW_ENTRY ? "review" : "deck") + " alone."
+          : "Following the default for all decks. Change a figure here and only this " + (id === REVIEW_ENTRY ? "review" : "deck") + " follows it.") + '</p>' +
+        (hasOwn ? '<button type="button" class="dm-item dm-clear" data-act="clear"><b>Clear back to the default</b>' +
+          '<small>Follow whatever “All decks” says, now and later</small></button>' : "") +
+      '</div>' +
+      '<div class="dm-pane" data-pane="all" hidden>' +
+        numRow("gNew", "New cards/day", G.newPerDay, 999) +
+        numRow("gRev", "Maximum reviews/day", G.maxReviews, 9999) +
+        '<p class="dm-note">What every deck follows until it is given limits of its own. A deck you have already set keeps its own figures.</p>' +
+      '</div>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
       '<button type="button" class="btn" data-act="save">Save</button></div>';
     deckSheet("Daily limits", html, (ov, close) => {
-      const sw = ov.querySelector("#dlIgn");
+      const num = (k) => ov.querySelector('[data-lim="' + k + '"]');
+      const sw = num("dIgn");
       const flip = () => { const on = sw.classList.toggle("on"); sw.setAttribute("aria-checked", on ? "true" : "false"); };
       sw.addEventListener("click", flip);
       sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+      /* The tabs swap PANES rather than rebuilding the sheet: both sets of figures are typed into live
+         inputs and Save writes both, so a reader can change the default and this deck's override in one
+         visit and neither is thrown away by looking at the other. */
+      ov.querySelectorAll(".dm-tab").forEach((t) => t.addEventListener("click", () => {
+        ov.querySelectorAll(".dm-tab").forEach((o) => { o.classList.toggle("active", o === t); o.setAttribute("aria-selected", o === t ? "true" : "false"); });
+        ov.querySelectorAll(".dm-pane").forEach((p) => { p.hidden = p.dataset.pane !== t.dataset.pane; });
+      }));
+      const clear = ov.querySelector('[data-act="clear"]');
+      if (clear) clear.addEventListener("click", () => {
+        clearDeckLimits(id);
+        close(); render();
+        toast("Following the default for all decks");
+      });
       ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
       ov.querySelector('[data-act="save"]').addEventListener("click", () => {
-        setDeckLimits(id, {
-          newPerDay: Math.max(0, Math.min(999, Math.round(+ov.querySelector("#dlNew").value || 0))),
-          maxReviews: Math.max(0, Math.min(9999, Math.round(+ov.querySelector("#dlRev").value || 0))),
-          newIgnoresReview: sw.classList.contains("on"),
-        });
+        const n = (k, cap) => Math.max(0, Math.min(cap, Math.round(+num(k).value || 0)));
+        setGlobalLimits({ newPerDay: n("gNew", 999), maxReviews: n("gRev", 9999) });
+        setDeckLimits(id, { newPerDay: n("dNew", 999), maxReviews: n("dRev", 9999), newIgnoresReview: sw.classList.contains("on") });
         close();
         render();
         toast("Daily limits saved");
@@ -11417,13 +11967,18 @@
      it every re-render (a grade, a navigation back to the page) would re-seed the defaults and undo a fold the
      reader had just opened; with it, a collection added later in the same session still starts shut. */
   const adSeeded = new Set();
-  /* A row is visible when every ANCESTOR OF IT THAT IS ALSO A ROW is open. Walking the node's own parent
-     chain rather than the DOM keeps this true for a tree whose middle levels are not all drawn. */
-  function adRowVisible(node, rowIds) {
-    let p = node && node.parentId ? NODE_BY_ID[node.parentId] : null;
-    while (p) {
-      if (rowIds.has(p.id) && !adOpen.has(p.id)) return false;
-      p = p.parentId ? NODE_BY_ID[p.parentId] : null;
+  /* A row is visible when every CONTAINER above it is open. It used to walk the node's own tree parents,
+     which stopped being the whole answer once a row can be dragged into a group (Aug 2026): the chain that
+     matters is the one the list is actually drawn in — a collection, a group, or another deck the reader
+     nested this one under — so it is walked through `parentOf`, the container key each row was emitted
+     with. `present` is the set of rows in the list, since a container that is not drawn cannot hide
+     anything, and the hop cap is the same belt-and-braces `entryCardIds` carries: a cycle out of an older
+     save must draw a wrong list rather than hang the page. */
+  function adChainVisible(parentKey, parentOf, present) {
+    let p = parentKey || "", hops = 0;
+    while (p && present.has(p) && hops++ < 64) {
+      if (!adOpen.has(p)) return false;
+      p = parentOf.get(p) || "";
     }
     return true;
   }
@@ -11432,17 +11987,50 @@
      a screen reader), and the rounded bottom corner belongs to the last VISIBLE row rather than to the last
      DOM child — `:last-child` cannot see a folded row, so with the list shut by default the bottom of the
      card would square off under whatever row happened to be last in the markup. */
+  // the identity hue COLL_THEME gives a node's ROOT collection, "" for anything outside the tree. At module
+  // scope because both the review list's build and repaintReviewHues below need it.
+  function collectionHue(nodeId) {
+    let n = NODE_BY_ID[nodeId];
+    while (n && n.parentId) n = NODE_BY_ID[n.parentId];
+    const th = n && COLL_THEME[n.id];
+    return th ? th.bg : "";
+  }
+  /* Re-apply the review list's colours WITHOUT rebuilding it (Aug 2026, with groups). A colour is chosen in
+     the options sheet, and `render()` closes that sheet — so a swatch that repainted the ordinary way would
+     dismiss the very control the reader is using to compare two colours. The rule is the build's: a row's
+     own colour if it has one, otherwise its container's, all the way up, and the root collection's hue at
+     the end of the chain. */
+  function repaintReviewHues() {
+    const list = document.querySelector(".active-decks");
+    if (!list) return;
+    const rows = [...list.querySelectorAll(".active-deck[data-drag]")];
+    const byId = new Map(rows.map((el) => [el.dataset.drag, el]));
+    const hueOf = (el, hops) => {
+      if (!el || hops > 64) return "";
+      const own = groupColor(el.dataset.drag);
+      if (own) return own;
+      const p = el.dataset.parent && byId.get(el.dataset.parent);
+      if (p) return hueOf(p, hops + 1);
+      return el.dataset.node ? collectionHue(el.dataset.node) : "";
+    };
+    rows.forEach((el) => {
+      const h = hueOf(el, 0);
+      if (h) el.style.setProperty("--coll-bg", h); else el.style.removeProperty("--coll-bg");
+    });
+  }
   function adSyncFold(listEl) {
     if (!listEl) return;
-    const rows = [...listEl.querySelectorAll(".active-deck[data-node]")];
-    const rowIds = new Set(rows.map((el) => el.dataset.node));
+    // …read off the DOM's own container keys rather than the tree, so a group and a deck nested inside one
+    // fold exactly as a collection's subdecks do, with no second rule to keep in step
+    const rows = [...listEl.querySelectorAll(".active-deck[data-drag]")];
+    const parentOf = new Map(), present = new Set();
+    rows.forEach((el) => { parentOf.set(el.dataset.drag, el.dataset.parent || ""); present.add(el.dataset.drag); });
     rows.forEach((el) => {
-      const node = NODE_BY_ID[el.dataset.node];
-      const vis = adRowVisible(node, rowIds);
+      const vis = adChainVisible(el.dataset.parent || "", parentOf, present);
       el.classList.toggle("dk-shut", !vis);
       const chev = el.querySelector(".dk-chev");
       if (chev) {
-        const open = adOpen.has(el.dataset.node);
+        const open = adOpen.has(el.dataset.drag);
         chev.classList.toggle("open", open);
         chev.setAttribute("aria-expanded", open ? "true" : "false");
         const label = t(open ? "Hide the decks inside" : "Show the decks inside");
@@ -11526,6 +12114,38 @@
       adSyncFold(listEl);   // the rounded bottom corner belongs to whichever row is last NOW
       if (onDrop) onDrop();
     }
+    /* ---------- DROPPING A ROW *INTO* ANOTHER (Aug 2026, on request) ----------
+       "Dragging a deck on top of another deck also makes it a subdeck", and dragging one onto a group puts
+       it in the group. Both are the same gesture and the same target test: the row under the pointer, taken
+       as a CONTAINER when the pointer is in its middle band and as a neighbour to reorder against when it is
+       near either edge. That split is what keeps reordering possible at all — with the whole row as a drop
+       target there would be nowhere left to aim between two rows.
+
+       Positions are read from the LAYOUT (deckLayoutTop + offsetHeight), never the paint, for the reason the
+       reorder does: a sibling part-way through its own FLIP is painted somewhere it is not. `elementFromPoint`
+       is no use here either — `.dk-reordering` takes the rows out of hit-testing so none of them lights up
+       under the carried block. */
+    const DROP_EDGE = 0.34;   // the top and bottom third of a row stay "reorder"; the middle is "put it inside"
+    function dropTargetAt(e, d) {
+      const block = new Set(d.block);
+      for (const r of rows()) {
+        if (block.has(r) || !shown(r)) continue;
+        const top = deckLayoutTop(r), h = r.offsetHeight;
+        if (e.clientY < top || e.clientY > top + h) continue;
+        const f = (e.clientY - top) / (h || 1);
+        if (f < DROP_EDGE || f > 1 - DROP_EDGE) return null;
+        // a container cannot be put inside something it already holds
+        if (nestWouldLoop(d.el.dataset.drag, r.dataset.drag)) return null;
+        return r;
+      }
+      return null;
+    }
+    function setInto(el, d) {
+      if (d.into === el) return;
+      if (d.into) d.into.classList.remove("dk-into");
+      d.into = el || null;
+      if (el) el.classList.add("dk-into");
+    }
 
     let drag = null;
     // glue the carried block to the pointer, whatever the list has done underneath it
@@ -11552,9 +12172,11 @@
         if (e.button != null && e.button > 0) return;
         e.stopPropagation();
         const el = grip.closest(".active-deck");
-        if (!el || siblingsOf(el).length < 2) return;
+        if (!el) return;
         const block = blockOf(el), vis = block.filter(shown);
-        drag = { el, block, vis, tops: vis.map((b) => b.getBoundingClientRect().top), grabY: e.clientY, moved: false, pid: e.pointerId };
+        // …and a row may now be dragged even where it is the only one at its level: it has nowhere to go
+        // among its siblings, but it can still be dropped INTO a group or another deck
+        drag = { el, block, vis, tops: vis.map((b) => b.getBoundingClientRect().top), grabY: e.clientY, moved: false, pid: e.pointerId, into: null };
         // capture on the LIST, not the grip: the pointer spends the drag over other rows, and the grip is
         // being transformed out from under it
         try { listEl.setPointerCapture(e.pointerId); } catch (x) {}
@@ -11577,6 +12199,11 @@
         drag.vis.forEach((b) => { b.style.animation = "none"; b.classList.add("dk-dragging"); });
       }
       pin(e);
+      // NESTING TAKES PRECEDENCE over reordering: while the pointer is in the middle of another row, that
+      // row is where this one is going, and shuffling the level underneath at the same time would say two
+      // things at once
+      setInto(dropTargetAt(e, drag), drag);
+      if (drag.into) return;
       const carried = drag.el.getBoundingClientRect();
       const mid = carried.top + carried.height / 2;
       let before = null;
@@ -11590,6 +12217,24 @@
       if (!drag) return;
       const d = drag; drag = null;
       listEl.classList.remove("dk-reordering");
+      // read the target BEFORE clearing its highlight — `setInto(null, …)` is what un-lights the row, and it
+      // nulls `d.into` on the way past
+      const target = d.into;
+      setInto(null, d);
+      /* DROPPED INSIDE SOMETHING: this is a change of structure rather than of order, so it goes through
+         render() — the list's depths, indents, colours and fold state all move with it, and every one of
+         them is derived at build time. The container is opened first, or a deck dragged into a shut group
+         would appear to have been swallowed. */
+      if (d.moved && target) {
+        const parent = target.dataset.drag;
+        d.vis.forEach((el) => el.classList.remove("dk-dragging", "dk-settling"));
+        if (setNestParent(d.el.dataset.drag, parent)) {
+          adOpen.add(parent);
+          render();
+          toast("Moved into " + groupTitle(parent));
+        } else render();
+        return;
+      }
       // let go and it settles into its slot rather than snapping to it
       d.vis.forEach((el) => { el.classList.add("dk-settling"); deckSetY(el, 0); });
       setTimeout(() => d.vis.forEach((el) => el.classList.remove("dk-dragging", "dk-settling")), DECK_FLIP_MS + 40);
@@ -11701,16 +12346,15 @@
         <div class="track"><div class="fill"></div></div>
       </div>`;
     };
-    /* Each added deck's row wears its COLLECTION's identity hue rather than the review's bronze (Aug 2026,
-       on request), so the list under the banner reads as the same decks the reader picked out of the
-       Library. The hue is the one COLL_THEME gives the root collection, set as `--coll-bg` on the row; a
-       community deck and the Card-of-the-day list belong to no collection and keep the neutral wash. */
-    const rowHue = (nodeId) => {
-      let n = NODE_BY_ID[nodeId];
-      while (n && n.parentId) n = NODE_BY_ID[n.parentId];
-      const th = n && COLL_THEME[n.id];
-      return th ? ' style="--coll-bg:' + th.bg + ';' : ' style="';
-    };
+    /* Each added deck's row wears its COLLECTION's identity hue rather than the review's own (Aug 2026, on
+       request), so the list under the banner reads as the same decks the reader picked out of the Library.
+       The hue is the one COLL_THEME gives the root collection, set as `--coll-bg` on the row; a community
+       deck and the Card-of-the-day list belong to no collection and keep the neutral wash.
+       SINCE GROUPS (Aug 2026) THE HUE IS INHERITED DOWN THE CONTAINER CHAIN rather than looked up per row:
+       a colour set on a group has to reach every deck inside it, which is the whole of what that control
+       was asked for, and a collection's own hue is simply the case where the container is a collection. So
+       the walk PASSES a colour down and a row only computes one when nothing above it has. */
+    const hueStyle = (hue) => (hue ? ' style="--coll-bg:' + esc(hue) + ";" : ' style="');
     /* THE HANDLE a row is dragged by (Aug 2026, on request — see setupDeckDrag for the gesture). It is a
        real <button>, not a decorative span: the grip is the only way to reorder, and a control reachable
        by pointer alone is one a keyboard reader is simply shut out of — so it takes a tab stop and answers
@@ -11740,97 +12384,165 @@
          holds a card. It stays in `S.active` throughout, so nothing is silently left out of the review
          when the cards arrive. */
       const availRows = availableCardIdSet();
-      function walk(node, depth) {
+      /* GROUPS AND NESTING (Aug 2026, on request) turn this from a walk of the tree into a walk of a
+         FOREST, and three rules are what keep the two readings of "what is inside this" from disagreeing.
+         · A child the reader has dragged elsewhere is skipped where the tree would have drawn it and drawn
+           under its container instead — otherwise it would appear twice, and its cards would be counted
+           into two rows the reader can see at once.
+         · A container's tree children and its GUESTS are ONE ordered run, keyed by the container's own id,
+           so a guest can be dragged in among a collection's own decks rather than always landing after
+           them.
+         · An added ROOT COLLECTION is drawn as a group header rather than as a deck row, which is the
+           request's own reasoning: a collection holds no cards itself, only the decks inside it do. A
+           collection with nothing under it in this list is still an ordinary row — there is no group
+           without members. */
+      const nestUsed = Object.keys(deckNestMap()).length > 0;
+      const kidsOf = (id) => (nestUsed ? nestChildren(id) : []);
+      const emit = (id, depth, parentKey, hue) => {
+        if (isGroupId(id)) {
+          const g = groupRec(id);
+          if (!g) return;
+          const h = g.color || hue;
+          rows.push({ group: true, id, title: groupTitle(id), depth, parent: parentKey, drag: id, hue: h, kids: kidsOf(id) });
+          orderedIds(id, kidsOf(id)).forEach((c) => emit(c, depth + 1, id, h));
+          return;
+        }
+        const n = NODE_BY_ID[id];
+        if (n) { walk(n, depth, parentKey, hue); return; }
+        const ud = UDECKS[uDeckIdOf(id)];
+        const h = groupColor(id) || hue;
+        const kids = kidsOf(id);
+        // a SUBDECK of one of the reader's own decks is named by the subdeck, with its deck for context —
+        // the row is what the reader chose, and "HSK 1" over three of them says nothing about which is which
+        const sub = ud ? uSubOf(id) : "";
+        rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
+                    title: ud ? (sub || ud.title) : COTD_TITLE, sup: sub ? ud.title : "", hue: h, kids });
+        orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
+      };
+      function walk(node, depth, parentKey, hue) {
         if (!show.has(node.id)) return;
         const live = activeSet.has(node.id) && entryCardIds(node.id).some((id) => availRows.has(id));
-        rows.push({ node, depth, active: live, parent: node.parentId || "", drag: node.id });
+        // the reader's own colour on this container beats the collection's, and either is passed down
+        const h = groupColor(node.id) || hue || collectionHue(node.id);
+        const treeKids = nodeChildren(node).map((c) => c.id).filter((cid) => show.has(cid) && !nestParentOf(cid));
+        const guests = kidsOf(node.id);
+        const kids = treeKids.concat(guests);
+        /* An ADDED collection with rows under it is a group header. `live` is load-bearing and not a
+           tidy-up: a collection the reader never added is drawn as a greyed CONTEXT signpost above the
+           subdeck they did add, and making that a group header would turn a row they cannot tap into one
+           that is tappable, counted and studiable — offering them a whole collection they did not ask for. */
+        const asGroup = !node.parentId && kids.length > 0 && live;
+        rows.push({ node, id: node.id, depth, active: live, parent: parentKey, drag: node.id, hue: h, kids, group: asGroup });
         // …in the reader's own order at every level, theirs where they have dragged one and the tree's
         // where they have not (orderedIds). The Collections page is untouched by this.
-        orderedIds(node.id, nodeChildren(node).map((c) => c.id))
-          .forEach((cid) => { const c = NODE_BY_ID[cid]; if (c) walk(c, depth + 1); });
+        orderedIds(node.id, kids).forEach((cid) => {
+          const c = NODE_BY_ID[cid];
+          if (c && treeKids.indexOf(cid) !== -1) walk(c, depth + 1, node.id, h);
+          else emit(cid, depth + 1, node.id, h);
+        });
       }
       /* THE TOP LEVEL IS ONE RUN, not three (Aug 2026). The collections, the reader's own community decks
          and the Card-of-the-day list used to be three blocks appended in that fixed order — which meant a
          community deck could never sit above a collection however the reader felt about it, and the two
          tail rows could not be moved at all. They are one ordered level now, keyed "" in S.deckOrder, and
-         the tail rows are ordinary rows in `rows` rather than markup pasted on the end. */
+         the tail rows are ordinary rows in `rows` rather than markup pasted on the end. Groups the reader
+         has made join that same run; anything dragged INTO one leaves it, being drawn under its container. */
       const tops = [];
       TREE.collections.forEach((d) => { if (!isComingSoon(d) && show.has(d.id)) tops.push(d.id); });   // a coming-soon collection's decks sit the review out
       activeIds.forEach((id) => { if (UDECKS[uDeckIdOf(id)]) tops.push(id); });
       if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
-      orderedIds("", tops).forEach((id) => {
-        const n = NODE_BY_ID[id];
-        if (n) { walk(n, 0); return; }
-        const ud = UDECKS[uDeckIdOf(id)];
-        // a SUBDECK added on its own is named by the subdeck, with its deck for context — the row is what
-        // the reader chose, and "HSK 1" over three of them says nothing about which is which
-        const sub = ud ? uSubOf(id) : "";
-        rows.push({ flat: id, depth: 0, parent: "", drag: id,
-                    title: ud ? (sub || ud.title) : COTD_TITLE, sup: sub ? ud.title : "" });
-      });
+      Object.keys(deckGroupMap()).forEach((id) => { if (isGroupId(id)) tops.push(id); });
+      orderedIds("", tops.filter((id) => !nestParentOf(id))).forEach((id) => emit(id, 0, "", ""));
       /* Which rows have something to fold, and which start folded. A chevron is drawn "where appropriate" —
          that is, only where a row genuinely has children IN THIS LIST, so a leaf deck and an added deck whose
          subdecks are all empty carry none. The default is seeded once per row (see adSeeded): an ADDED row
          starts shut, an ancestor context row starts open, for the reason set out above the fold helpers. */
-      const treeRows = rows.filter((r) => r.node);
-      const rowIds = new Set(treeRows.map((r) => r.node.id));
+      const drawn = new Set(rows.map((r) => r.drag));
       const hasKids = new Set();
-      treeRows.forEach((r) => { if (r.node.parentId && rowIds.has(r.node.parentId)) hasKids.add(r.node.parentId); });
-      // how many rows share each level — the grip is drawn only where there is a second row to trade places with
-      const levelSize = Object.create(null);
-      rows.forEach((r) => { levelSize[r.parent] = (levelSize[r.parent] || 0) + 1; });
+      rows.forEach((r) => { if (r.parent && drawn.has(r.parent)) hasKids.add(r.parent); });
+      /* The grip used to be drawn only where a level held a second row to trade places with. Since a row can
+         be dropped INTO a group or another deck (Aug 2026) that test is too narrow: the only row in its
+         level still has somewhere to go, and without a handle there is no way to take it there. So it is
+         drawn wherever the LIST holds more than one row, which is the honest reading of "has somewhere to
+         go" now, and still nowhere on a list of one. */
+      const canDrag = rows.length > 1;
       /* What starts OPEN is a row lying entirely ABOVE everything the reader added — nothing on the path
          from it down to their choice is in S.active. Those are the pure signposts, and folding one hides
          the reader's own deck behind a row they cannot even tap.
          The test is on `activeSet` rather than on the row being drawn as a context row, and the difference
          is the whole of it: an EMPTY deck inside an added collection also draws as a context row, and it
          is not a signpost at all — it is inside the very fold the reader just shut. Testing the drawn row
-         instead let a collection open onto its whole 43-row tree again, which is the thing this replaced. */
+         instead let a collection open onto its whole 43-row tree again, which is the thing this replaced.
+         A GROUP the reader made starts OPEN: they have just built it and put things in it, and a container
+         that hides its contents the moment it is filled reads as having eaten them. */
       const seedOpen = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
-      treeRows.forEach((r) => {
-        if (!hasKids.has(r.node.id) || adSeeded.has(r.node.id)) return;
-        adSeeded.add(r.node.id);
-        if (seedOpen(r.node)) adOpen.add(r.node.id);
+      rows.forEach((r) => {
+        if (!hasKids.has(r.drag) || adSeeded.has(r.drag)) return;
+        adSeeded.add(r.drag);
+        if (isGroupId(r.drag) || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
       });
+      // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
+      const parentOf = new Map();
+      rows.forEach((r) => parentOf.set(r.drag, r.parent || ""));
       return rows
         .map((r) => {
           const pad = 22 + r.depth * 16;   // the indent that carries the hierarchy, plus the grip's own column
-          const grip = levelSize[r.parent] > 1 ? gripHTML(r.node ? nodeTitle(r.node) : r.title) : "";
+          const grip = canDrag ? gripHTML(r.title || (r.node ? nodeTitle(r.node) : r.drag)) : "";
           const drag = ` data-drag="${esc(r.drag)}" data-parent="${esc(r.parent)}"`;
-          // one of the reader's own decks, or the Card-of-the-day list: no tree under it, so no fold and no
-          // collection hue — but an ordinary row of the list in every other way, this one included
-          if (r.flat) {
-            return `<div class="active-deck" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="0"${drag} style="padding-left:${pad}px" title="Review just ${esc(r.title)}">
+          // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
+          // collapse in the reader's face on every visit to the page
+          const shut = adChainVisible(r.parent, parentOf, drawn) ? "" : " dk-shut";
+          // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
+          // of a leaf deck would stop at two different places and the list's right edge would go ragged
+          const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
+          const title = r.title || (r.node ? nodeTitle(r.node) : r.drag);
+          const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
+          /* A GROUP HEADER — a thinner banner over the decks it holds, in a deeper wash of its own colour so
+             the run below reads as belonging to it. It carries the three piles (the most useful thing on any
+             row here, and they cost one line) and deliberately not the progress bar: this is a header, and a
+             header with a full deck row's furniture is just another deck row. Tapping it studies everything
+             inside; holding it — or right-clicking — opens its options, which is where the colour, the name
+             and Ungroup live. */
+          if (r.group) {
+            const cards = entryCardIds(r.drag).length;
+            return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
               ${grip}
               ${adCounts(r.drag)}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(r.title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
-                ${adProg(entryCardIds(r.drag))}
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
+                <span class="dg-count">${cards} ${cards === 1 ? "card" : "cards"}</span>
               </div>
-              <span class="dk-chev-gap" aria-hidden="true"></span>
+              ${chev}
             </div>`;
           }
-          // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
-          // collapse in the reader's face on every visit to the page
-          const shut = adRowVisible(r.node, rowIds) ? "" : " dk-shut";
-          // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
-          // of a leaf deck would stop at two different places and the list's right edge would go ragged
-          const chev = hasKids.has(r.node.id) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
+          // one of the reader's own decks, or the Card-of-the-day list: nothing of the tree under it, but an
+          // ordinary row of the list in every other way — this one included
+          if (r.flat) {
+            return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(title)}">
+              ${grip}
+              ${adCounts(r.drag)}
+              <div class="dk-body">
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
+                ${adProg(entryCardIds(r.drag))}
+              </div>
+              ${chev}
+            </div>`;
+          }
           if (r.active) {
-            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}" data-node="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${grip}
               ${adCounts(r.node.id)}
               <div class="dk-body">
-                <div class="dk-line"><span class="dk-title">${esc(nodeTitle(r.node))}</span></div>
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
               ${chev}
             </div>`;
           }
-          return `<div class="active-deck context${shut}" data-node="${esc(r.node.id)}" data-depth="${r.depth}"${drag}${rowHue(r.node.id)}padding-left:${pad}px">
+          return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
             ${grip}
             <div class="dk-body">
-              <div class="dk-line"><span class="dk-title">${esc(nodeTitle(r.node))}</span></div>
+              <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
             </div>
             ${chev}
           </div>`;
@@ -11996,7 +12708,7 @@
     const reviewWon = reviewDone && rday.miss === 0;
     // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
     const bannerHTML = fresh
-      ? `<button class="banner hero" id="b-review">
+      ? `<button class="banner hero" id="b-review" style="--tile:${esc(dayHue())}">
           <div class="body">
             <span class="hero-eyebrow">Start here</span>
             ${/* The break is written in the markup rather than left to the wrap (Aug 2026, on request):
@@ -12018,7 +12730,7 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
-      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review">
+      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" style="--tile:${esc(dayHue())}">
           ${doneMarkHTML(reviewDone, reviewWon)}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
@@ -12056,6 +12768,12 @@
           dueN + newN ? "Start" : "Browse collections"
         }</span></span>
             </div>
+            ${/* THE WAY TO MAKE A GROUP (Aug 2026, on request), at the bottom left of the banner. Like the
+                  chest chip above it, it is a BUTTON INSIDE A BUTTON, which markup does not allow — so it is
+                  a span carrying `data-newgroup` and the banner's own click handler defers to it. It is
+                  drawn only once there is something to group: an empty review has nothing to put in one, and
+                  a control whose whole result is an empty container teaches nothing about what it does. */""}
+            ${activeIds.length ? `<div class="rv-tools"><span class="rv-newgroup" role="button" tabindex="0" data-newgroup="1" title="Gather decks under a heading of your own">+ New group</span></div>` : ""}
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
@@ -12125,6 +12843,7 @@
     root.querySelector("#b-review").addEventListener("click", (e) => {
       // the chest chip is a target inside the banner: it opens the chest rather than starting the review
       if (e.target.closest("[data-chest]")) { e.stopPropagation(); openChestPop(); return; }
+      if (e.target.closest("[data-newgroup]")) { e.stopPropagation(); promptNewGroup(); return; }
       if (fresh) {
         /* THE FIRST PRESS GOES TO THE COLLECTIONS (Aug 2026, on request). It used to pick the first
            collection that was not coming soon, add it on the reader's behalf and deal them a card —
@@ -12150,6 +12869,11 @@
     { const cc = root.querySelector("[data-chest]"); if (cc) cc.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); openChestPop(); }
     }); }
+    // …and so does the New group control beside it, for the same reason: it declares role="button", and a
+    // role without keys is a control a screen-reader user is told about and cannot use
+    { const ng = root.querySelector("[data-newgroup]"); if (ng) ng.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); promptNewGroup(); }
+    }); }
     // the lip under the review group and the About line under the games — both at every width now, each
     // being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
@@ -12168,7 +12892,14 @@
       const id = el.dataset.review;
       wireHoldMenu(el, () => openDeckMenu(id), () => {
         const ud = uDeckIdOf(id);
-        route("study", { scope: id === COTD_ENTRY ? { type: "cotd" } : ud ? { type: "udeck", id: ud } : { type: "deck", id } });
+        route("study", {
+          scope: id === COTD_ENTRY ? { type: "cotd" }
+            // a GROUP the reader made has no cards of its own — see buildSession's group branch. A
+            // collection drawn as a group header is still a tree node and still studies as one.
+            : isGroupId(id) ? { type: "group", id }
+            // …and a subdeck of one of the reader's own decks studies just that subdeck
+            : ud ? { type: "udeck", id: ud, sub: uSubOf(id) } : { type: "deck", id },
+        });
       });
     });
     /* The subdeck fold. The chevron sits INSIDE a row whose own click starts a session and whose own hold
@@ -12187,7 +12918,9 @@
       setupDeckDrag(adList);
       adList.querySelectorAll(".dk-chev").forEach((chev) => {
         const row = chev.closest(".active-deck");
-        const id = row && row.dataset.node;
+        // keyed on the row's DRAG id rather than its node id, so a group folds by exactly the same route a
+        // collection does — a group has no node behind it and would otherwise carry a chevron that does nothing
+        const id = row && row.dataset.drag;
         if (!id) return;
         chev.addEventListener("pointerdown", (e) => e.stopPropagation());
         /* …and the KEYBOARD needs the same treatment, which the pointer half does not make obvious.
@@ -12864,6 +13597,20 @@
       if (deckRandom(COTD_ENTRY)) shuffle(queue);
       where = COTD_TITLE;
       total = queue.length;
+    } else if (scope.type === "group") {
+      /* One of the reader's own groups. It has no cards of its own — `entryCardIds` gives it the union of
+         everything nested under it, at any depth — but in every other way it is the deck branch below: its
+         own review and new-card allowances, its own Random-order switch, the piles chosen before the
+         shuffle so the setting decides presentation order and never which cards get through. */
+      if (!groupRec(scope.id)) return null;
+      where = groupTitle(scope.id);
+      const availG = availableCardIdSet();
+      const gIds = entryCardIds(scope.id).filter((id) => !isSuspended(id) && availG.has(id));
+      const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
+      const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
+      queue = [...gDue, ...gNew];
+      if (deckRandom(scope.id)) shuffle(queue);
+      total = queue.length;
     } else if (scope.type === "udeck") {
       const d = UDECKS[scope.id];
       if (!d) return null;
@@ -12888,7 +13635,9 @@
       if (!sd) return null;
       where = nodeWhere(sd);
       const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
-      const ids = subtreeCardIds(sd).filter((id) => !isSuspended(id) && availDeck.has(id));
+      // entryCardIds rather than subtreeCardIds, so tapping a row studies exactly what that row promised:
+      // a branch dragged into a group is studied there, and a guest dragged in here is studied here
+      const ids = entryCardIds(sd.id).filter((id) => !isSuspended(id) && availDeck.has(id));
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
@@ -14534,13 +15283,17 @@
 
   function studioRenderList(root) {
     const decks = uDeckList();
+    /* The way back stands at the TOP LEFT of the page, above the heading, rather than in the row of actions
+       under it (Aug 2026, on request) — a back link belongs where a reader looks for one, and standing in a
+       line beside "New deck" and "Import" it read as a third thing to do rather than as the way out. It also
+       says COLLECTIONS: the page it returns to was renamed from Library, and the Library is now the books. */
     root.innerHTML =
+      '<button class="back-link" type="button" id="stBack">← Back to Collections</button>' +
       '<div class="page-head"><span class="eyebrow">Studio</span><h1>Your decks</h1>' +
         '<p>Write your own flashcards. Everything here stays on this device — export a deck to a file to keep it safe or pass it on.</p></div>' +
       '<div class="udeck-actions studio-actions">' +
         '<button class="btn" type="button" id="stNew">New deck</button>' +
         '<button class="btn ghost" type="button" id="stImport">Import a deck…</button>' +
-        '<button class="btn ghost" type="button" id="stBack">Back to the Library</button>' +
       '</div>' +
       (decks.length
         ? '<div class="studio-list">' + decks.map((d) => {
@@ -14627,6 +15380,9 @@
             ["site", "Folio&rsquo;s glossary", "Link the site&rsquo;s own terms, like the curated decks do."],
             ["own", "Only my own terms", "Nothing from Folio&rsquo;s glossary — just the terms you write here."],
             ["both", "Mine, then Folio&rsquo;s", "Your terms win; Folio&rsquo;s fill in the rest."],
+            // …and off altogether (Aug 2026, on request), for a deck whose own words keep colliding with a
+            // glossary written about something else
+            ["off", "No glossary at all", "Nothing in these cards links anywhere."],
           ].map(([v, label, hint]) =>
             '<label class="gm-opt' + ((d.glossMode || "site") === v ? " on" : "") + '"><input type="radio" name="glossmode" value="' + v + '"' + ((d.glossMode || "site") === v ? " checked" : "") + ' />' +
             '<span class="gm-label">' + label + '</span><span class="gm-hint">' + hint + '</span></label>').join("") +
@@ -14927,8 +15683,13 @@
     if (studioState.term && !(UGLOSS[d.id] || {})[studioState.term]) studioState.term = null;
     if (!studioState.term && slugs.length) studioState.term = slugs[0];
     const t = studioState.term ? UGLOSS[d.id][studioState.term] : null;
+    /* …and the same warning for a deck that has turned linking off altogether (Aug 2026): the terms below
+       are still written, still exported and still published — they simply do not appear on the cards, and
+       an author who has just written six of them is owed that sentence rather than left wondering. */
     return (mode === "site"
       ? '<div class="gm-warn">This deck links <b>Folio&rsquo;s glossary</b>, so the terms below won&rsquo;t appear on its cards. Change the glossary setting in <b>Deck details</b> to use them.</div>'
+      : mode === "off"
+      ? '<div class="gm-warn">This deck links <b>no glossary at all</b>, so the terms below won&rsquo;t appear on its cards. They are kept, and travel with the deck. Change the glossary setting in <b>Deck details</b> to use them.</div>'
       : "") +
       '<div class="studio-cols">' +
         '<div class="studio-cardlist">' +
@@ -15284,20 +16045,33 @@
      ============================================================ */
   const communityState = { q: "", sort: "rated", picks: false, decks: null, loading: false, error: "" };
 
-  function deckCardHTML(row) {
+  /* ONE ROW PER DECK, not a tile in a grid (Aug 2026, on request). A shelf of side-by-side tiles gives each
+     deck the same area whatever it has to say, so a title, a subtitle, a rating and three figures were
+     stacked into a card the width of a phrase — and two decks whose titles differ in the fourth word looked
+     identical. A row lets the title run at full width, puts the rating and the figures in columns that line
+     up down the list, and is what a reader scanning twenty decks is actually doing. Below 560px the meta
+     columns wrap under the title rather than squeezing it.
+     It is a `<button>` covering the whole row, so the row IS the way to the deck's page — which is what the
+     request asks for and what the tile already did. */
+  function deckRowHTML(row) {
     const local = localDeckForRemote(row.id);
     const n = row.card_count || 0;
     return '<button class="cdeck" type="button" data-slug="' + esc(row.slug) + '">' +
-      (row.staff_pick ? '<span class="cdeck-pick" title="Chosen by Folio&rsquo;s editors">✦ Staff pick</span>' : "") +
-      '<span class="cdeck-title">' + esc(row.title) + '</span>' +
-      (row.subtitle ? '<span class="cdeck-sub">' + esc(row.subtitle) + '</span>' : "") +
-      '<span class="cdeck-rate">' + (row.rating_count ? starsHTML(row.rating_avg, row.rating_count) : '<span class="stars-none">Not yet rated</span>') + '</span>' +
-      '<span class="cdeck-meta">' +
-        '<span>' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
-        (row.author ? '<span>by ' + esc(row.author) + '</span>' : "") +
-        (row.install_count ? '<span>' + row.install_count + " installed" + '</span>' : "") +
+      '<span class="cdeck-main">' +
+        '<span class="cdeck-titleline">' +
+          '<span class="cdeck-title">' + esc(row.title) + '</span>' +
+          (row.staff_pick ? '<span class="cdeck-pick" title="Chosen by Folio&rsquo;s editors">✦ Staff pick</span>' : "") +
+          (local ? '<span class="cdeck-have">Installed</span>' : "") +
+        '</span>' +
+        (row.subtitle ? '<span class="cdeck-sub">' + esc(row.subtitle) + '</span>' : "") +
+        '<span class="cdeck-meta">' +
+          '<span>' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
+          (row.author ? '<span>by ' + esc(row.author) + '</span>' : "") +
+          (row.install_count ? '<span>' + row.install_count + " installed" + '</span>' : "") +
+        '</span>' +
       '</span>' +
-      (local ? '<span class="cdeck-have">Installed</span>' : "") +
+      '<span class="cdeck-rate">' + (row.rating_count ? starsHTML(row.rating_avg, row.rating_count) : '<span class="stars-none">Not yet rated</span>') + '</span>' +
+      '<span class="cdeck-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></span>' +
     '</button>';
   }
 
@@ -15323,7 +16097,7 @@
       if (communityState.error) { results.innerHTML = '<div class="lib-empty">' + esc(communityState.error) + '</div>'; return; }
       const list = communityState.decks || [];
       results.innerHTML = list.length
-        ? '<div class="cdeck-grid">' + list.map(deckCardHTML).join("") + '</div>'
+        ? '<div class="cdeck-list">' + list.map(deckRowHTML).join("") + '</div>'
         : '<div class="lib-empty">' + (communityState.q ? "No decks match that search." : "No decks have been shared yet. Yours could be the first.") + '</div>';
       results.querySelectorAll("[data-slug]").forEach((b) => b.addEventListener("click", () => route("deck", { slug: b.dataset.slug })));
     };
@@ -15417,13 +16191,25 @@
       (row.tags && row.tags.length ? '<div class="ddetail-tags">' + row.tags.map((t) => '<span class="pill">' + esc(t) + '</span>').join("") + '</div>' : "") +
       (row.forked_from && row.forked_from.title
         ? '<p class="ddetail-fork">Based on <b>' + esc(row.forked_from.title) + '</b>' + (row.forked_from.author ? " by " + esc(row.forked_from.author) : "") + '</p>' : "") +
-      (row.description ? '<p class="ddetail-desc">' + esc(row.description) + '</p>' : "") +
+      /* THE AUTHOR'S OWN DESCRIPTION (the Studio's "Description" field, published as `description`). It is
+         a paragraph the author wrote about their deck, so it is set as prose rather than as another line of
+         metadata — and where there is none the page says so plainly, since a reader deciding whether to
+         install a stranger's deck is owed the difference between "the author said nothing" and a gap where
+         something might have failed to load. */
+      (row.description
+        ? '<div class="ddetail-desc"><h2>About this deck</h2><p>' + esc(row.description).replace(/\n+/g, "</p><p>") + '</p></div>'
+        : '<div class="ddetail-desc ddetail-nodesc"><h2>About this deck</h2><p>The author hasn&rsquo;t written a description.</p></div>') +
       '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       '<div class="ddetail-actions">' +
         (local
           ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>') +
             '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>'
           : '<button class="btn" type="button" id="ddInstall">Add to my decks</button>') +
+        /* …and the file itself (Aug 2026, on request). "Add to my decks" installs it into Folio; this
+           downloads the same `.folio-deck.json` a Studio export writes, which is what lets a reader keep a
+           copy, pass it on, or open it in a Folio that is not signed in to anything. It needs no install
+           and no account — the deck's cards are already in hand, this page having fetched them. */
+        '<button class="btn ghost" type="button" id="ddDownload">Download the deck file</button>' +
         (mine ? "" : '<button class="btn ghost" type="button" id="ddReport">Report</button>') +
         (isAdmin() && row.status === "published" ? '<button class="btn ghost danger" type="button" id="ddHide">Hide (admin)</button>' : "") +
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
@@ -15470,6 +16256,8 @@
     if (rem) rem.addEventListener("click", () => inlineConfirm("Remove “" + row.title + "” from this device? Your progress on its cards goes too.", async () => {
       await uDeckUninstall(local.id); toast("Removed"); render();
     }, "Remove"));
+    const dl = root.querySelector("#ddDownload");
+    if (dl) dl.addEventListener("click", () => deckFileDownload(row, cards, gloss));
     const rep = root.querySelector("#ddReport");
     if (rep) rep.addEventListener("click", () => deckReportPrompt(row));
     const hide = root.querySelector("#ddHide");
@@ -15488,19 +16276,26 @@
       const box = root.querySelector("#ddMore");
       if (!box || !others.length || !current || current.name !== "deck") return;
       box.innerHTML = '<h2>More from ' + esc(row.author || "this author") + '</h2>' +
-        '<div class="cdeck-grid">' + others.map(deckCardHTML).join("") + '</div>';
+        '<div class="cdeck-list">' + others.map(deckRowHTML).join("") + '</div>';
       box.querySelectorAll("[data-slug]").forEach((b) => b.addEventListener("click", () => route("deck", { slug: b.dataset.slug })));
     });
   }
 
-  /* Ratings on a deck page: the summary + distribution, your own rating, and what other people wrote.
-     The form only unlocks once this device has studied RATE_MIN_STUDIED of the deck's cards — a rating
-     from someone who never opened it is noise, and the whole point of the number is to be worth trusting. */
+  /* Ratings AND COMMENTS on a deck page: the summary + distribution, your own rating, and what other people
+     wrote. The form only unlocks once this device has studied RATE_MIN_STUDIED of the deck's cards — a
+     rating from someone who never opened it is noise, and the whole point of the number is to be worth
+     trusting.
+     A COMMENT IS A RATING WITH SOMETHING WRITTEN ON IT, and the section says so rather than pretending to
+     two features (Aug 2026, on request for "comments by other users"). One record per person per deck is
+     what the schema holds, and it is the right shape here: a comment on a stranger's deck is an opinion
+     about whether it is worth using, which is the same thing the star is. The list has a heading and a
+     count of its own now, and says plainly when it is empty — a silent gap under "Ratings" reads as
+     something that failed to load. */
   function deckRenderReviews(box, row, local, mine) {
     if (!box) return;
     const total = row.rating_count || 0;
     const dist = [row.rating_5, row.rating_4, row.rating_3, row.rating_2, row.rating_1].map((n) => Number(n) || 0);
-    box.innerHTML = '<h2>Ratings</h2><div class="rv-summary">' +
+    box.innerHTML = '<h2>Ratings and comments</h2><div class="rv-summary">' +
       '<div class="rv-big">' + (total ? '<span class="rv-avg">' + (Number(row.rating_avg) || 0).toFixed(1) + '</span>' + starsHTML(row.rating_avg, 0) +
         '<span class="rv-count">' + total + " " + (total === 1 ? "rating" : "ratings") + '</span>'
         : '<span class="stars-none">No ratings yet</span>') + '</div>' +
@@ -15524,8 +16319,12 @@
       if (!current || current.name !== "deck") return;
       const mineId = supaLoggedIn() ? SUPA.user.id : null;
       const withText = rows.filter((r) => (r.body || "").trim());
-      if (!withText.length) { listBox.innerHTML = ""; return; }
-      listBox.innerHTML = '<div class="rv-list">' + withText.map((r) =>
+      if (!withText.length) {
+        listBox.innerHTML = '<h3 class="rv-listhead">Comments</h3><p class="rv-note">Nobody has written about this deck yet.</p>';
+        return;
+      }
+      listBox.innerHTML = '<h3 class="rv-listhead">Comments <span>' + withText.length + '</span></h3>' +
+        '<div class="rv-list">' + withText.map((r) =>
         '<div class="rv-item' + (r.user_id === mineId ? " own" : "") + '">' +
           '<div class="rv-head">' + starsHTML(r.stars, 0) +
             '<span class="rv-who">' + esc(sanitizePlain(r.author) || "A reader") + (r.user_id === mineId ? " (you)" : "") + '</span>' +
@@ -15602,7 +16401,8 @@
     const resume = params.resume && Array.isArray(params.resume.queue) ? params.resume : null;
     // a session that starts from the home page goes back there: the daily review, the Card of the day and the
     // cards it has added are all launched from that page, and "Collections" would strand the reader
-    const fromHome = params.scope.type === "review" || params.scope.type === "card" || params.scope.type === "cotd";
+    // …and a GROUP is the reader's own arrangement of the home page's list, so it goes back there too
+    const fromHome = params.scope.type === "review" || params.scope.type === "card" || params.scope.type === "cotd" || params.scope.type === "group";
     if (!sess) {
       root.innerHTML = params.scope.type === "card"
         ? emptyPlacard("Card not found", "—", "We couldn't find that card.", () => route("home"), "Back home")
@@ -17066,7 +17866,7 @@
     return n;
   }
   function buildChallengeQuestions() {
-    const avail = availableCardIdSet();
+    const avail = gameCardIdSet();   // well-known terms only — a round is answered cold, with no background to read
     const poolIds = ALL_CARD_IDS.filter((id) => avail.has(id));
     const chosen = pick(poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
     return chosen.map((card) => {
@@ -17421,8 +18221,9 @@
     const y = cardStartYear(c);   // honour the manual chronology override; include BCE / ancient cards, not just 1500–2099 CE
     return y ? y : null;          // 0 = timeless → excluded from the puzzle
   }
+  // Shared by the Timeline game and by What year?, so both draw under the difficulty bar from one place.
   function chronoPool() {
-    const avail = availableCardIdSet();
+    const avail = gameCardIdSet();
     return CARDS.filter((c) => avail.has(c.id)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c) })).filter(
       (x) => x.year != null && x.name
     );
@@ -17574,7 +18375,11 @@
       const x = byId[id];
       return `<div class="chrono-item" data-id="${esc(id)}">
         <span class="ci-grip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></svg></span>
-        <span class="ci-name">${esc(x.name)}</span>
+        ${/* The term is CAPITALISED here (Aug 2026, on request), as Multiple Choice's options are and for
+              the same reason: a row of a list is a heading naming the thing, not a word inside a sentence,
+              and half the deck's answers are common nouns stored lower-case. Display only — the row is
+              tracked by its card id, so nothing downstream sees the capital. */""}
+        <span class="ci-name">${esc(gameCapFirst(x.name))}</span>
         <span class="ci-year"></span>
         <div class="ci-arrows">
           <button class="ci-up" aria-label="Move earlier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
@@ -17980,7 +18785,7 @@
     return String(s == null ? "" : s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z]/g, "");
   }
   function xwPool() {
-    const avail = availableCardIdSet(), seen = new Set(), out = [];
+    const avail = gameCardIdSet(), seen = new Set(), out = [];
     CARDS.forEach((c) => {
       if (!avail.has(c.id)) return;
       const loc = cardLocalized(c);
@@ -18063,9 +18868,17 @@
     const rng = mulberry32(hashStr("crossword-" + todayStr()));
     let best = null;
     for (let t = 0; t < XW_TRIES; t++) {
-      // long words first inside a shuffled draw: the opening word is the spine every later one hangs off,
-      // and a four-letter spine has almost nowhere to cross
-      const draw = seededShuffle(pool, rng).slice(0, 40).sort((a, b) => b.w.length - a.w.length);
+      /* Long words first inside a shuffled draw: the opening word is the spine every later one hangs off,
+         and a four-letter spine has almost nowhere to cross.
+         THE DRAW IS A SAMPLE, AND THE CAP HAS TO SCALE WITH THE POOL (Aug 2026). It was a flat
+         `slice(0, 40)`, which samples nothing at all once the pool is smaller than 40: every day drew the
+         WHOLE pool, the length sort then put it in the same order, and only the layout RNG differed —
+         so over 730 days the difficulty filter took the crossword from 730 distinct grids to 60, a
+         repeat every fortnight or so. Nothing throws and every grid is still full; the game just
+         quietly stops being daily. Taking a fraction keeps the shuffle doing real work at any pool
+         size, and a pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was. */
+      const cap = Math.max(XW_ENTRIES + 5, Math.min(40, Math.ceil(pool.length * 0.7)));
+      const draw = seededShuffle(pool, rng).slice(0, cap).sort((a, b) => b.w.length - a.w.length);
       const lay = xwLayout(draw);
       const score = lay.placed.length * 1000 - lay.w * lay.h;
       if (!best || score > best.score) best = { lay: lay, score: score };
@@ -18353,7 +19166,12 @@
       seen.add(l.toLowerCase());
       out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "", kind: kind, gloss: gloss || "" });
     };
-    const avail = availableCardIdSet();
+    /* The CARD half draws under the difficulty bar, like every other card-fed game. The glossary and
+       artefact halves are not rated at all — `difficulty` is a card field, and this is the one game
+       whose pool reaches past the cards — so they enter as they always did. Said here rather than left
+       to be discovered: rating the 836 glossary terms is a separate content pass, and until it happens
+       this game's answers are easier than the others' on average rather than uniformly so. */
+    const avail = gameCardIdSet();
     CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card"); });
     Object.keys(window.GLOSSARY || {}).forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k); });
     artefactsMerged().forEach((a) => add(a.image, a.name, "artefact"));
@@ -18455,14 +19273,15 @@
   /* ============================================================
      PAGE: WHAT YEAR? (five things from one year, placed on a rail)
      ============================================================
-     Five terms whose date lines all give the same year, and a timeline to put that year on. It is the
-     ninth daily game and the second built on the cards' dates, so it is worth saying how it differs from
-     Timeline: that one gives five different years and asks for their ORDER, this one gives five things
-     from ONE year and asks what the year was. Ordering needs no absolute knowledge at all — you can solve
-     a Timeline puzzle knowing only which came first — and this cannot be solved without it.
+     Five events from one year, and a timeline to put that year on. It is the ninth daily game, and it is
+     worth saying how it differs from Timeline: that one gives five different years and asks for their
+     ORDER, this one gives five things from ONE year and asks what the year was. Ordering needs no absolute
+     knowledge at all — you can solve a Timeline puzzle knowing only which came first — and this cannot be
+     solved without it. The events come from `whatyear.js`, a pool of its own; see `wyPool` below for why
+     it is not built on the cards, as it was until Aug 2026.
 
-     THE RAIL IS A LATTICE, NOT A CONTINUUM, and that is the decision the whole game turns on. A card's
-     date line gives a conventional round figure (`c. 1400 BCE`), not a calendar date, and a free-dragging
+     THE RAIL IS A LATTICE, NOT A CONTINUUM, and that is the decision the whole game turns on. The pool
+     reaches back to conventional round figures rather than calendar dates, and a free-dragging
      year picker over a corpus running from 3.3 Mya to the present would be a pixel lottery in which no
      guess is ever exactly right. So the rail carries 33 ticks a round `step` apart, the answer sits on
      one of them, and a guess is right or wrong with nothing in between. `step` is the largest round figure
@@ -18481,11 +19300,11 @@
        tries are a real search rather than three stabs. What it costs is that the range the reader can see
        shrinks under them, which is why the ruled-out span stays drawn, greyed, rather than vanishing.
 
-     THE HONEST LIMITS, since both are visible to a reader who plays for a fortnight. The five things are
-     TERMS with dates rather than events — Folio's cards are terms, and Timeline already calls them events
-     for the same reason. And the deck currently holds 19 years carrying five or more datable terms, so a
-     year comes round again every few weeks; the five terms shown are drawn separately, so a repeated year
-     is at least a different puzzle, and the number grows with every dated card written. */
+     THE HONEST LIMIT, visible to a reader who plays for a fortnight: `whatyear.js` currently holds 15
+     years, so a year comes round again about that often. The five events shown are drawn separately from
+     however many that year has, so a repeated year is at least a different puzzle — which is why a year
+     already carrying five is still worth a sixth and a seventh — and the cycle lengthens with every year
+     added to the pool. */
   const WY_EVENTS = 5, WY_TRIES = 3, WY_TICKS = 33, WY_EDGE = 4;
   /* The rail's step: the largest round figure the answer sits squarely on that still keeps the WHOLE RAIL
      inside about the answer's own age. Both halves are load-bearing.
@@ -18506,7 +19325,7 @@
     return best;
   }
   /* THE ANSWER ROTATES RATHER THAN BEING DRAWN AT RANDOM, and the reason is arithmetic rather than taste.
-     The deck holds only so many years carrying five datable terms — 19 as of 2026-08-09 — so a year is
+     The pool holds only so many years carrying five events — 15 as of 2026-08-10 — so a year is
      going to come round again whatever this does. Picking one at random per day makes that CLUMP: measured
      over 365 days the same answer landed 28 times, and nothing stopped two of them falling in the same
      week, which is the shape a reader notices and reads as the game being broken.
@@ -18534,9 +19353,28 @@
     for (let c = 1; c <= cycle; c++) r = (r + 1 + Math.floor(mulberry32(hashStr("whatyear-turn-" + c))() * maxR)) % n;
     return r;
   }
+  /* THE POOL IS `whatyear.js`, NOT THE CARDS (Aug 2026, on request). This game was built on `chronoPool`
+     and the cards are the wrong material for it twice over: a card names a TERM where the game wants an
+     EVENT, and the game needs FIVE things sharing one exact year, which a corpus of terms almost never
+     supplies — 19 years of 409 cards carried five, and once the minigames were narrowed to well-known
+     terms (see gameCardIdSet) exactly ONE did, which would have asked about c. 700 BCE every day for ever.
+     So it has a pool of its own, like True or False and Who said it, and it hands back `chronoPool`'s own
+     `{ id, name, year }` shape so nothing downstream of here changed. Timeline still draws from
+     `chronoPool` and still wants cards: it asks for an ORDER, which terms give perfectly well.
+
+     The `id` is a position within the year rather than the sentence itself: the day's five are drawn with
+     `seededShuffle` and deduped, and comparing whole sentences to do that is a lot of string for a handle
+     that only has to be unique. It is stable as long as a year's entries keep their order in the file,
+     which is all it is asked to be — nothing stores it. */
+  function wyPool() {
+    const n = {};
+    return (window.WHATYEAR || [])
+      .filter((x) => x && typeof x.y === "number" && x.e)
+      .map((x) => { n[x.y] = (n[x.y] || 0) + 1; return { id: "wy-" + x.y + "-" + n[x.y], name: String(x.e), year: x.y }; });
+  }
   function dailyWhatYear() {
     const byYear = new Map();
-    chronoPool().forEach((x) => { const a = byYear.get(x.year) || []; a.push(x); byYear.set(x.year, a); });
+    wyPool().forEach((x) => { const a = byYear.get(x.year) || []; a.push(x); byYear.set(x.year, a); });
     const years = [...byYear.keys()].filter((y) => byYear.get(y).length >= WY_EVENTS).sort((a, b) => a - b);
     if (!years.length) return null;
     const day = todayStr().split("-").map(Number);
@@ -18554,7 +19392,7 @@
     detachKeys();
     if (gameLockedToday(root, "whatyear")) return;
     const puz = dailyWhatYear();
-    if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "There aren't yet five dated cards sharing a year to build today's puzzle from.", () => route("home"), "Back home"); return; }
+    if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "Folio doesn't yet have five events from one year to build today's puzzle from.", () => route("home"), "Back home"); return; }
 
     const yearAt = (i) => puz.from + i * puz.step;
     let lo = 0, hi = puz.ticks - 1, tries = 0, over = false;
@@ -23108,13 +23946,13 @@
         </div>` : ""}
         <div class="set-card">
           ${setHead("#4F9D67", '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', "Study")}
-          <div class="set-row">
-            ${/* This setting now does two jobs, so the sentence says both: it caps the DAILY REVIEW's own
-                  draw, and it is the DEFAULT each added deck follows until its own Daily limits are set
-                  (long-press a deck's row in the review). */""}
-            <div class="info"><h3>New cards per day</h3><p>How many unseen cards enter your daily review each day, and the starting limit for every deck you add. Hold a deck in the review to give it limits of its own.</p></div>
-            <div class="ctl"><div class="stepper"><button id="np-dn" aria-label="Fewer">−</button><span class="val" id="np-val">${S.settings.newPerDay}</span><button id="np-up" aria-label="More">+</button></div></div>
-          </div>
+          ${/* "New cards per day" stood here until Aug 2026 and was REMOVED on request, with the rest of the
+                daily allowance, to the "All decks" tab of a deck's own Daily limits dialog (long-press any
+                row of the daily study). It is the same value — `S.settings.newPerDay`, so nothing migrates —
+                and the reason for moving it is that it was three navigations away from the deck whose
+                allowance a reader had come to change, and read as a rule about Folio rather than as the
+                fallback behind a per-deck figure. It also had no companion: the maximum reviews a day was
+                only ever settable per deck, so the two halves of one idea lived in two places. */""}
           <div class="set-row">
             <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically. Any single deck can be set the other way by holding its row in the daily study.</p></div>
             <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" aria-label="Random review order" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
@@ -23261,15 +24099,7 @@
     // the walkthrough's step 1 is taught on the home page, so it routes there itself — see tourGo
     { const rt = root.querySelector("#replayTour"); if (rt) rt.addEventListener("click", () => tourStart(0)); }
 
-    const npVal = root.querySelector("#np-val");
-    const setNp = (d) => {
-      S.settings.newPerDay = Math.max(0, Math.min(50, S.settings.newPerDay + d));
-      npVal.textContent = S.settings.newPerDay;
-      save();
-    };
-    root.querySelector("#np-up").addEventListener("click", () => setNp(1));
-    root.querySelector("#np-dn").addEventListener("click", () => setNp(-1));
-
+    // (the "New cards per day" stepper's wiring went with the row — see the note where it stood)
     const homeSel = root.querySelector("#homeSel");
     // fill the picker once world.js lands (it holds only the current home until then)
     if (homeSel && !dataReady("world")) {
@@ -23819,7 +24649,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -25043,6 +25873,18 @@
       ? '<div class="ces-meta">' +
           '<label class="ces-m"><span>id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' +
           '<label class="ces-m"><span>chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" title="Sort / timeline year — overrides the date for ordering, e.g. 200 BCE, 618, 12 kya, 3.3 Mya, 2.5 million BCE, 780,000 years ago. Blank = automatic; type none for no year." /></label>' +
+          /* How obscure the ANSWER TERM is, 1–5 (see cardDifficulty). The select offers the five ratings and
+             no "unrated" row: every curated card carries one, add-card.js refuses a new card without one,
+             and an editor able to take it away would be a control whose only use is to drop a card out of
+             the minigames by accident. Re-rating is what this is for. */
+          /* The LABEL is one word, like `id` and `chronology` beside it: `.ces-m > span` ellipsises, and the
+             column is ~240px, so anything longer is cut off mid-explanation. The explanation lives in the
+             tooltip and, more usefully, in the option text — which names the rung and says outright which
+             ratings the games can reach, so the consequence is visible without hovering anything. */
+          '<label class="ces-m"><span>difficulty</span><select class="af-input af-sel" id="adminDifficulty" title="How well known the answer term is to the general population, 1 (household name) to 5 (highly obscure). It rates the TERM, not the card. The daily minigames deal only terms rated ' + GAME_MAX_DIFFICULTY + ' or lower; studying is unaffected.">' +
+            (cardDifficulty(c) ? "" : '<option value="">— not yet rated —</option>') +
+            [1, 2, 3, 4, 5].map((n) => '<option value="' + n + '"' + (cardDifficulty(c) === n ? " selected" : "") + '>' + n + ' — ' + esc(CARD_DIFFICULTY_LABELS[n]) + (n <= GAME_MAX_DIFFICULTY ? " (in the games)" : "") + '</option>').join("") +
+          '</select></label>' +
           '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
         '</div>' +
         '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Deck: <b id="cesDeckName">' + esc(node ? node.title : "not in a deck") + '</b></button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
@@ -25106,6 +25948,15 @@
         const row = adminFindRow("card", id); if (row) { const rs = row.querySelector(".acr-sub"); if (rs) rs.textContent = fmtYear(c); }
       });
     }
+    const diffS = host.querySelector("#adminDifficulty");
+    if (diffS) diffS.addEventListener("change", () => {
+      const n = +diffS.value; if (!n) return;
+      setCardEdit(id, "difficulty", n);
+      // the "not yet rated" row exists only until a rating is given; leaving it would offer a way back to
+      // a state the editor cannot actually write (an undefined delta does not survive JSON round-tripping)
+      const blank = diffS.querySelector('option[value=""]'); if (blank) blank.remove();
+      adminFlashSaved(); adminUpdateCount(); editedFx();
+    });
     // deck-picker toggles (inside the collapsible "Appears in N decks" box)
     const dh = host.querySelector("#cesDecksHead"), db = host.querySelector("#cesDecksBody");
     if (dh && db) dh.addEventListener("click", () => { const show = db.hidden; db.hidden = !show; dh.classList.toggle("open", show); dh.setAttribute("aria-expanded", String(show)); });

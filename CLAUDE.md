@@ -58,11 +58,12 @@ It is a plain static website — open `index.html` and it runs.
 ## File map
 
 **Only the study-critical files load eagerly**, in this order — it is significant:
-`data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js →
-artefacts.js → app.js`.
-**That path is 5.84 MB raw / 1.61 MB gzipped** (measured 2026-08-09 after the picture pass; it was 4.9 MB /
-1.35 MB the day before, and it said "~1.4 MB" for months while being five times out of date, so
-**re-measure it rather than quoting it**). The picture pass added ~555 KB raw / ~270 KB gzipped, and that is
+`data.js → truefalse.js → quotes.js → whatyear.js → changelog.js → mission.js → glossary.js →
+glossary-wikipedia.js → artefacts.js → app.js`.
+**That path is 5.90 MB raw / 1.65 MB gzipped** (re-measured 2026-08-10 after `whatyear.js` joined it, which
+cost 14 KB raw / 6 KB gzipped; it was 5.84 MB / 1.61 MB after the picture pass of 2026-08-09 and
+4.9 MB / 1.35 MB the day before that, and it said "~1.4 MB" for months while being five times out of
+date, so **re-measure it rather than quoting it**). The picture pass added ~555 KB raw / ~270 KB gzipped, and that is
 metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 1,230 illustrations
 cost a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
 **THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
@@ -105,7 +106,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty:
+  matter (chapter 0 — see the Library bullet). Currently thirty-one:
+  `homer-iliad` (~955 KB, all 24 books, **425 card sections**, **0 notes** — A. T. Murray's Loeb
+  prose of 1924, and **the first book here whose TRANSLATION IS PROSE while its ORIGINAL IS VERSE.**
+  Every earlier book on the TEI card path has verse facing verse, so `teiVerseBooks` read `<l>` and
+  nothing else and returned twenty-four empty books when pointed at Murray; it grew a gated `prose`
+  branch that walks `teiSectionProse` instead — the reader Suetonius and Herodotus already use.
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** **A STRIPPED TAG WELDS THE WORDS EITHER SIDE OF IT,
+  and this is the loudest silent fault this file has recorded**: Murray prints Homer's line numbers
+  every fifth line and the transcription sets them inline, hard against the words on both sides, so
+  the generic tag sweep produced "came to fulfillment,from the time", "the people began to
+  perish,because", "the old man prayedto the lord Apollo" — **2,787 of the 3,143 milestones, nearly
+  every fifth line of the poem.** Every count read healthy throughout: 425 sections, tag balance
+  clean on both columns, no word lost, nothing thrown. It was found by LOOKING AT THE RENDERED PAGE,
+  which is the golden rule earning its keep for the second time after the Gita. The 137 note stubs
+  weld the same way and take the same repair; **replacing a dropped tag with a SPACE costs nothing
+  where one already exists**, since `teiInline` collapses runs of whitespace last. Thirteen welds
+  survive and are the SOURCE's own typing, checked one by one against the transcription and recorded
+  rather than repaired. **A `<note>` MAY CARRY NO NOTE**: all 144 of Murray's hold nothing but a
+  reference number — "1", "2", "161.1" — because the Loeb's footnote TEXT was never transcribed and
+  there is no back matter holding it, so lifting them would build a fold of 144 entries saying
+  nothing and leaving them inline puts stray digits mid-sentence. They are dropped, the count is
+  printed on every run, and the book's front matter tells the reader why it has no note fold. **AND
+  THE EASIER COPYRIGHT WAS ATTACHED TO THE UNUSABLE TEXT** — see the Library bullet for the choice
+  between Perseus's two English Iliads),
   `city-of-god` (**~2.4 MB, the largest English text on the shelf** — Augustine's twenty-two books as
   **22 chapters**, **661 chapter numbers**, 1,675 notes — and the first book here whose CHAPTER IS
   ASSEMBLED FROM HUNDREDS OF WIKI PAGES. The Book of Documents established that `page(n)` may return an
@@ -400,7 +424,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-one:
+  `homer-iliad.grc.js` (~1.38 MB, all 24 books, **all 425 of the translation's card sections** —
+  Monro and Allen's Oxford Classical Text of 1908–1920, and **the cleanest pairing of two
+  independently edited texts on the shelf bar the Gallic War**: 425 cards a side, 22 of the 24 books
+  carrying byte-identical card lists, 423 of the 425 numbers on both sides, and the two exceptions
+  each one boundary drawn a line or two apart — book 3's 381 against 383 and book 13's 82 against 81
+  — READ passage by passage before `reconcileCards` was allowed to move either, since without a tale
+  name to check against there is nothing else to tell an editor's different cut from a bad one.
+  **ITS LINE COUNT IS SHORT OF THE STANDARD AND EVERY MISSING LINE IS ACCOUNTED FOR**, which is the
+  arithmetic to run rather than the count to glance at: 15,687 `<l>` elements against the traditional
+  15,693, six simply absent (9.458–461, which the edition's own single note says it omits, plus
+  11.543 and 14.269) and four more present but `<del>`-wrapped in book 8, which are dropped with
+  their words on the Meditations' judgement — so 15,683 ship, and 15,687 + 6 = 15,693. Lucretius's
+  116 `<del>` marks cost that poem thirty whole lines, so measure this rather than assuming the rule
+  is inert. **Its licence is the harder half of the pair**, which is the Medea's position: Allen
+  lived until 1950 against Murray's 1940, and a joint work's term runs from the last surviving
+  author, so the Greek stays encumbered ten years longer than the English where the term is life plus
+  a hundred),
   `city-of-god.la.js` (**~2.0 MB**, all 22 books, **all 661 of the translation's chapter numbers** —
   Migne's Patrologia Latina 41 of 1841, which prints the Maurist text of 1685 that Dods was
   translating, so the two columns are a translation and its own original rather than two independent
@@ -480,7 +521,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty books, twenty originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Thirty-one books, twenty-one originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
@@ -1963,10 +2004,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 99 cards** — 89 in World
-  History (`col-8`, scattered across the first three subdecks of its 1000-slot plan) and 10 in Ancient
-  Greece (`gr-001`…`gr-010`) — **each carrying its full pool of 3 question phrasings** (`question` + 2
-  `questions` extras), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
+- `data.js` (~2.1 MB) — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 409 cards** (measured
+  2026-08-10; this line said 99 for weeks, so **count them rather than quoting it**:
+  `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **119 in World
+  History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **250 in Ancient Greece**
+  (`gr-001`…`gr-250`) and **40 in Ancient Rome** (`rm-001`…`rm-040`) — **each carrying its full pool of 3
+  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all 409 rated on
+  2026-08-10; see the card-difficulty bullet under "How the app is wired"), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
   request** — 2.06 MB, 58% of the file, that `MULTILANG = false` put beyond every reader's reach, and the
   file went 4.32 MB → 1.64 MB with them. `add-card.js` now DROPS a supplied `i18n` block with a warning and
   `test-i18n-lang.js` fails if one reappears, so the eager path cannot silently regain it; both collections are grown one card at a time (see "Generating cards & glossary
@@ -2090,6 +2134,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
+- `whatyear.js` (~14 KB) — `window.WHATYEAR = [ { y, e } ]`, the pool for the **What year?** minigame: a year
+  (negative for BCE) and a ONE-SENTENCE description of something that happened in it. **Currently 98 events
+  across 15 years**, 1066 to 1989, each verified against a reference source when it was written.
+  **The game drew from the CARDS until Aug 2026 and was moved off them on request**, for two reasons worth
+  keeping. A card names a TERM where this game wants an EVENT — Timeline has the same mismatch and calls its
+  terms "events" in its own prose. And the game needs FIVE things sharing one exact year, which a corpus of
+  terms almost never supplies: of 409 cards only 19 years carried five, and once the minigames were narrowed
+  to well-known terms (see the difficulty bullet under "How the app is wired") exactly **one** did — the game
+  would have asked about c. 700 BCE every day for ever. **Timeline still draws from the cards and should**:
+  it asks for an ORDER, which terms give perfectly well.
+  Four rules for an entry, all forced by the game or by the rendering, and all in the file's own header:
+  **no markup** (the clue list renders through `esc()`, so an `<i>` around a book title prints as the
+  characters — this is the one place on the site where a title is not italicised, and it is a rendering fact
+  rather than a change of house style); **it may not name its own year or a nearby one**, the year being the
+  answer; **the dating is not in dispute**, since a guessing game cannot rest on a contested date; and **it
+  is recognisable**, which is the same argument `card.difficulty` makes one file over — a round dealt cold
+  has to be answerable cold. **A year needs at least `WY_EVENTS` (5) entries or it is skipped in silence**,
+  and a sixth and seventh are not waste: the game draws five at random, so the extras are what stop a
+  repeated year being a repeated puzzle. Eager, like the two pools it sits beside. **Not translated** —
+  when translations resume it belongs in `i18n/games-<lang>.js` beside them, keyed by its English sentence,
+  never inline (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Guarded by `test-difficulty.js`.
 - `artefacts.js` — `window.ARTEFACTS = [ { id, name, rarity, date, origin, image?, desc, sources } ]`, the pool a
   level-up chest draws from (see THE RELIQUARY under "How the app is wired"). **Eager**, and it can stay
   eager because it is metadata only: a picture is a LINK, never an upload, exactly as a card's is, so an
@@ -2352,6 +2417,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
+- `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
+  ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
+  `{ "cards": { "wh-001": 1, … } }`. It validates the WHOLE batch before writing anything (a half-applied
+  batch is worse than a refused one), reads `GAME_MAX_DIFFICULTY` out of app.js rather than restating it, and
+  reports coverage and the resulting minigame pool on every run. It is the BATCH tool for cards already
+  shipped; a NEW card carries its own rating and `add-card.js` refuses one without it, so the corpus cannot
+  quietly regrow an unrated tail. The scale is in its header and under "Generating cards" below — keep the
+  three copies in step. Not part of the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
   Wikipedia summaries into `countries.js` for every clickable name. Re-run after adding timeline eras so
   their new territories get descriptions. Not loaded by the site.
@@ -2738,6 +2811,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     here. The blue at 22.6 was rejected on Thucydides' rule, being a fourth colour in a quarter that
     already holds Aristotle, Machiavelli, Herodotus, the Song of Roland, Snorri and Seneca. The band
     did not have to be widened again.
+    **The Iliad states a LIMIT ON EACH COLUMN** (Aug 2026), which puts it with the Song of Roland
+    rather than with the four needing no qualification, and every date was looked up rather than
+    recalled. The poem is free everywhere; both modern layers are 1920s scholarship, clearing the
+    pre-1929 rule and life-plus-seventy and neither yet clearing life plus a hundred — Murray died in
+    1940 so the English runs to 2041, and the Greek is a JOINT work whose term runs from the last
+    surviving author (Monro 1905, Allen 1950), so it runs to 2051. **The original is therefore the
+    harder half**, which is the Medea's position rather than a new one. **A. T. MURRAY IS NOT GILBERT
+    MURRAY**, who edited the Medea's Greek on this same shelf: both born 1866, different men, and
+    taking one's death year for the other's would have put a wrong date under the whole licence —
+    the Hugo Magnus trap wearing a surname this shelf already uses.
+    **AND THE EASIER COPYRIGHT WAS ATTACHED TO THE TEXT THAT CANNOT BE SHIPPED**, which is the
+    Nicomachean Ethics' trade in a new form. Perseus carries two English Iliads: Butler's of 1898,
+    whose own copyright expired long ago (he died in 1902), and Murray's Loeb. Butler's is NOT usable
+    — its header states it is "revised by Timothy Power and Gregory Nagy", a substantive modern
+    revision by living scholars carried by CC BY-SA rather than by an expiry, and visible in the text,
+    which inserts transliterated Greek into the English ("the anger [mênis] of Achilles"). It is also
+    half as densely numbered (190 cards and 1,450 line milestones against 425 and 3,143). So the
+    licence question and the pairing question were settled together again, and a stated limit was
+    worth paying for a column that is actually what it says it is. **Both files' revision histories
+    were READ before this was concluded** — the Antigone found the shipped Oedipus Rex silently
+    carrying exactly such a layer while its `rights` called it clean.
+    Its `BOOK_AUTHOR_COLOR` row **REVERSES the City of God's decision above and says so**: `#001270`
+    is the deep blue-indigo that row measured at 22.6 and rejected on Thucydides' rule. Three things
+    changed. It is no longer a near-tie — with twenty-eight colours placed the field is 22.6 against
+    19.9 for the next best and 19.7 for a green reading 4.63:1, so avoiding a crowded hue now costs
+    2.7 points of separation and most of the contrast headroom. The quarter is crowded in HUE and
+    empty at this LIGHTNESS (every existing blue sits at L 30–46, this at L 13.2), and counting
+    swatches within 40 rather than counting the hue family it has FIVE neighbours, fewer than any
+    other family's best. And its nearest is Snorri at 22.6 rather than Herodotus at 24.3, so the
+    Euripides test is asked about Homer against the Prose Edda, which nobody reads as a pair.
+    **The band was TESTED rather than assumed full**: with the lightness and chroma limits removed
+    the search returns a pure electric blue at chroma 133, which is what the band exists to prevent.
+    It reads 9.58:1, second only to the Book of Rites' 9.70 — which also corrects the City of God
+    row's claim that its 9.42 was the highest on the shelf.
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
@@ -3705,8 +3812,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     arithmetically incapable of disagreeing. Two things about it are decisions rather than plumbing.
     **Its DEFAULT new-card limit is the LARGEST any added deck offers** (`reviewLimits`), not the global number: a
     pooled view must not impose a figure none of the things it pools has agreed to. An explicit limit set in its own
-    sheet wins outright, exactly as a parent deck's does in Anki, and Settings → New cards per day remains what a DECK
-    follows until it is given limits of its own. **And `newRemainingToday()` is now `deckNewRemaining(REVIEW_ENTRY)`,
+    sheet wins outright, exactly as a parent deck's does in Anki, and the **"All decks" tab of the Daily limits
+    dialog** — which is where Settings → New cards per day moved to in Aug 2026 — remains what a DECK follows until
+    it is given limits of its own. **And `newRemainingToday()` is now `deckNewRemaining(REVIEW_ENTRY)`,
     derived from the card records** — it used to read `S.intro.count`, a running tally `grade()` increments on ANY
     card's first grade, so a Card of the day or a deck tapped into directly silently ate the review's allowance and an
     undo did not give it back. The decks' counts were derived all along; the banner above them was not, and the two
@@ -3752,16 +3860,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the reader wants to LOOK at their study, not what it deals them.
     **A ROW BRINGS ITS SUBTREE**: a collection's row is followed in the DOM by every deck under it, so what
     moves is a contiguous BLOCK — the row plus every following row of greater depth, folded ones included, or
-    a shut collection would leave its children behind. **IT MOVES AMONG ITS SIBLINGS AND NOWHERE ELSE**;
-    re-parenting is deliberately not on offer, since a subdeck dragged under another collection would carry
-    cards that collection does not contain and its indent, its hue and its counts would all then be lying.
+    a shut collection would leave its children behind. **IT MOVES AMONG ITS SIBLINGS, AND — SINCE GROUPS
+    (Aug 2026, on request) — INTO ANY CONTAINER**: the note that used to stand here said re-parenting was
+    deliberately not on offer, because a subdeck dragged under another collection would carry cards that
+    collection does not contain and its indent, its hue and its counts would all then be lying. The request
+    reversed the policy, and the "lying" half of it is answered rather than accepted — see the GROUPS
+    bullet: a container counts what is drawn UNDER it, so a branch dragged out of a collection stops being
+    counted by it.
     **THE HANDLE TAKES THE PRESS OUT OF THE ROW'S OWN HANDS** — the row is a tap (study this deck) and a hold
     (its options sheet), so the grip stops its pointerdown and swallows the click that follows, exactly as
     the fold chevron beside it does — and it is a real `<button>` answering to ↑/↓, because a reorder
-    reachable by pointer alone is one a keyboard reader simply has not got. It is drawn only where its level
-    holds a second row, and it sits ABSOLUTELY in the row's left padding rather than taking a column: the
-    base indent went 16px → 22px to make room, because at 390px the deck's NAME is the only part of the row
-    with a shorter form and a handle in the line would have been paid for out of it.
+    reachable by pointer alone is one a keyboard reader simply has not got. It is drawn wherever the LIST
+    holds a second row — it used to be wherever a LEVEL did, which is too narrow now that the only row in
+    its level can still be dropped into a group — and it sits ABSOLUTELY in the row's left padding rather
+    than taking a column: the base indent went 16px → 22px to make room, because at 390px the deck's NAME is
+    the only part of the row with a shorter form and a handle in the line would have been paid for out of it.
     **AND THE ROW'S OWN `pageIn` ANIMATION HAS TO GO before it can be moved** — `both`-filled, so its last
     keyframe (`transform:none`) outranks an inline style and `deckSetY` would be silently ignored, leaving a
     row that does not follow the finger while the list around it FLIPs perfectly (a script animation wins,
@@ -3769,6 +3882,63 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `.bk-page` and `gbSetCompact`.
     `S.deckOrder` is in `defaultState` AND `PROGRESS_FIELDS` — an arrangement is a fact about the reader, so
     the list a phone shows is the list the laptop shows. Guarded by `test-review-decks.js` section 8.
+  · **GROUPS — the reader's own containers in the review list** (`S.deckGroups` / `S.deckNest`, `GROUP_PREFIX`
+    / `isGroupId` / `groupCreate` / `groupDelete` / `groupTitle` / `groupColor` / `setNestParent` /
+    `nestChildren` / `nestForget` / `nestWouldLoop` / `repaintReviewHues`; `.deck-group` / `.dk-into` /
+    `.rv-newgroup` / `.dm-swatch` in styles.css. Aug 2026, on request). A group is made from **"+ New group"
+    at the bottom left of the Daily-study banner**, holds decks dragged into it, folds with a chevron, can be
+    renamed, can be given a colour every deck inside takes, and studies everything under it. **AN ADDED
+    COLLECTION IS ONE TOO** — that is the request's own reasoning and it decided the shape of the rest: a
+    collection holds no cards itself, only the decks inside it do, so a root collection with rows under it is
+    drawn as a group header rather than as a deck row.
+    Nine things are decisions rather than plumbing.
+    **A GROUP IS NOT IN `S.active`.** It has no cards of its own, so putting it there would make `reviewQueue`
+    offer its members' cards a second time under the GROUP's allowance as well as each member's — deduped to
+    the same set, but drawn against the wrong limits. It is a display-and-scope construct; the decks inside it
+    are what the daily review iterates, exactly as before, so a group can be made, filled and taken apart
+    without the review's arithmetic moving at all.
+    **A CONTAINER COUNTS WHAT IS DRAWN UNDER IT, which is what answers the old "its counts would be lying"
+    objection.** `entryCardIds` on a tree node walks its subtree MINUS any branch dragged out from under it,
+    and adds whatever has been dragged in — so a collection that has lost two decks to a group stops claiming
+    their cards, and the two rows do not both offer the reader the same five new cards. Nothing is lost from
+    the review: the deck dragged away is still in `S.active` and still offers its own cards on its own
+    account. `buildSession`'s deck branch and `entryInfo` read `entryCardIds` for the same reason — **a row,
+    its sheet and the session it starts must all be counting one thing.**
+    **THE ID CARRIES A COLON** (`g:`), like `COTD_ENTRY` and `REVIEW_ENTRY`, so it can never collide with a
+    node id (plain slugs) or with the `u:` of one of the reader's own decks.
+    **`deckGroups` IS KEYED BY CONTAINER, NOT BY GROUP.** A colour set on an added collection has to live
+    somewhere, and a second register for tree nodes would be two lookups and two chances to forget one: a
+    record with a `title` is a group the reader made, a record with only a `color` is an override on
+    something the tree already names.
+    **THE HUE IS INHERITED DOWN THE CONTAINER CHAIN** rather than looked up per row — that is the whole of
+    "changes the colour of all decks inside it" — and **only the header is darkened** (52% against the rows'
+    30%, with its own `body.night` pair, which `.active-deck.context` already had to learn: `body.night
+    .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order).
+    **THE MIDDLE OF A ROW MEANS "INSIDE", THE EDGES MEAN "BESIDE"** (`dropTargetAt`, `DROP_EDGE` 0.34). One
+    gesture does both "drag a deck into a group" and "drop a deck on another deck to make it a subdeck", and
+    without that split there would be nowhere left to aim between two rows. Positions are read from the
+    LAYOUT, never the paint, for the reason the reorder is — and `elementFromPoint` is no use, since
+    `.dk-reordering` takes the rows out of hit-testing. A drop into a container goes through `render()`
+    (depth, indent, hue and fold are all derived at build time) where a reorder does not, and the container
+    is opened first or the deck reads as having been swallowed.
+    **A DESCENDANT CANNOT BE A DROP TARGET, and it is the BLOCK that says so** rather than a tree walk:
+    `blockOf` is the row plus every following row of greater depth, folded ones included, so a collection's
+    whole subtree is skipped when the collection itself is being carried. `nestWouldLoop` is the belt to that
+    braces, for a cycle that could only arrive out of an older save or two devices reconciling — and
+    `entryCardIds` / `nestDescendants` / `adChainVisible` all carry a guard for the same reason: a cycle must
+    draw a wrong list, never hang the page.
+    **THE FOLD NOW WALKS THE CONTAINER CHAIN, NOT THE TREE** (`adChainVisible`, and `adSyncFold` reading
+    `data-parent`/`data-drag` off the DOM). It used to walk `node.parentId`, which stopped being the whole
+    answer the moment a row could be drawn somewhere the tree does not put it. A group seeds OPEN where an
+    added collection seeds shut: the reader has just built it and put things in it.
+    **UNGROUP DISSOLVES, IT DOES NOT DELETE.** The members are freed to the level the group stood at, keeping
+    the order they had inside it — losing a deck because you tidied a container away is the one outcome a
+    grouping feature must never produce — and `removeActive` re-homes a container's children one level up for
+    the same reason, since a child whose container is no longer drawn would be in the review and invisible.
+    **THE COLOUR SWATCHES REPAINT IN PLACE** (`repaintReviewHues`): the sheet is where a colour is chosen and
+    `render()` closes that sheet, so repainting the ordinary way would dismiss the very control the reader is
+    using to compare two colours. Both registers are in `defaultState`, `PROGRESS_FIELDS` **and
+    `RESET_KEEPS`** — a group is how the reader has arranged the decks `active` already keeps.
   · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
     bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
     dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
@@ -3785,6 +3955,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the whiteboard marker's drag — a finger that moves more than `AD_SLOP` is scrolling, not holding — and
     `contextmenu` plus the ContextMenu key give a mouse and a keyboard the same way in. The sheet lives on
     `document.body`, so **`render()` closes it** (`closeDeckMenu`).
+  · **DAILY LIMITS HAS TWO TABS, and the Settings page has no allowance any more** (`globalLimits` /
+    `setGlobalLimits` / `clearDeckLimits` / `.dm-tabs`, Aug 2026, on request). **This deck** writes
+    `S.deckOpts[id]`, as it always did; **All decks** writes the DEFAULT every deck follows until it has
+    limits of its own — which is where **Settings → New cards per day** moved to when it was removed from
+    that page. The value is the same (`S.settings.newPerDay`, so no save migrates) and its companion is new
+    (`S.settings.maxReviewsPerDay`, back-filling from `DECK_MAX_REVIEWS` by its own absence): the maximum
+    reviews a day had only ever been settable per deck, so the two halves of one idea lived in two places
+    three navigations apart, and the global one read as a rule about Folio rather than as the fallback
+    behind a per-deck figure.
+    Three things are decisions. **The tabs swap PANES rather than rebuilding the sheet**, and Save writes
+    both, so a reader can change the default and this deck's override in one visit without either being
+    thrown away by looking at the other. **The per-deck tab shows the INHERITED figure where nothing has
+    been set**, and says so under the fields — `deckLimits` already falls back, so the box would otherwise
+    show a number the reader might take for something they had chosen. And **"Clear back to the default"
+    DELETES the three keys** rather than writing the global's current values into them, which is the whole
+    difference: a deck cleared this way follows a later change to the default, where one holding a copy of
+    today's figures would silently stop following it. It is offered only where there is something to clear.
+    `.dm-pane[hidden]{display:none}` is required — the author `display` beats the UA rule, the trap
+    `.ces-imgpanel[hidden]` already carries.
   · **QUESTION VARIETY** (`deckVariety` / `setDeckVariety` / `scopeEntryId` / `S.settings.questionVariety`,
     Aug 2026, on request). Whether a card asks one of its three phrasings at random or always the first.
     It is **PER ENTRY with a global default**, exactly like the daily limits and for the same reason: this
@@ -4162,6 +4351,56 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   bucket — a stone industry answered against a cave, an ice age and a fossil, where the odd one out was the
   right one. Now the Mousterian is answered against the Oldowan, the Acheulean and the Aurignacian.
   `answerType` survives as the fallback for a card with no tags (a community deck's).
+- **CARDS CARRY A DIFFICULTY, AND THE MINIGAMES DRAW UNDER IT** (`card.difficulty`,
+  `CARD_DIFFICULTY_MIN/MAX`, `GAME_MAX_DIFFICULTY`, `cardDifficulty()`, `difficultyOK()`, `gameCardIdSet()`;
+  Aug 2026, on request). An integer **1–5 rating HOW WELL KNOWN THE ANSWER TERM IS to the general
+  population** — not how hard the card is, which is a different question and conflating the two is the one
+  way this scale stops meaning anything. **All 409 shipped cards are rated** (19 / 39 / 91 / 122 / 138
+  across the five rungs, so 58 sit at or below the games' bar).
+  · **THE SCALE** (stated identically in app.js, `.claude/add-card-difficulty.js`, `add-card.js` and here —
+    keep the four in step): **1** household name, almost any adult would recognise it (Stone Age, Homer,
+    Sparta, Neanderthal); **2** generally familiar, an ordinary secondary education reaches it (Neolithic,
+    Knossos, phalanx, Lascaux); **3** known to the interested, a reader who follows history (Linear B,
+    hoplite, helots, Clovis culture); **4** specialist, mostly met inside the subject (Gravettian, megaron,
+    bucchero, Kamares ware); **5** highly obscure, named in the scholarship and almost nowhere else
+    (`qa-si-re-u`, Nichoria, Howiesons Poort, Iguvine Tables). **Rate the WORD a stranger would be shown**:
+    a subtle card about `Homer` is still a 1, and a beautifully clear one about `qa-si-re-u` is still a 5,
+    because a reader who has never met a word cannot be eased into recognising it by prose.
+  · **WHAT IT IS FOR is the daily games, and STUDY IS UNTOUCHED.** A study card arrives with three hundred
+    words of background behind it and comes back tomorrow if you miss it, so an obscure term there is the
+    point of studying. A minigame deals the term COLD — four options, a crossword square, a picture — and a
+    pool holding `qa-si-re-u` and `Howiesons Poort` deals unanswerable rounds. Every card is studiable, in
+    every deck, at every rating; `availableCardIdSet` knows nothing about difficulty and must not learn.
+  · **`gameCardIdSet()` IS THE ONE DOOR, and that is the point of it being a function.** It is
+    `availableCardIdSet()` narrowed by `difficultyOK`, and **every card-fed game goes through it** —
+    Multiple Choice, Timeline, the Crossword and the card half of the Picture round. A sixth game added
+    later reaches for this instead of `availableCardIdSet` and is covered without anybody remembering the
+    rule; `test-difficulty.js` reads each pool function out of app.js and asserts there is no other path.
+    It filters the **distractors** as well as the answers: a round whose wrong options are `lawagetas`,
+    `qa-si-re-u` and `damos` is answerable by elimination and teaches nothing.
+  · **AN UNRATED CARD IS TREATED AS TOO OBSCURE, deliberately.** Erring the other way would let one unrated
+    card deal a round nobody can answer, silently. The cost is that the failure is silent in the other
+    direction too — a card arriving unrated simply stops appearing in the games, with nothing on screen to
+    say so — which is why `add-card.js` REFUSES a new card without a rating rather than defaulting one, and
+    why `test-difficulty.js` asserts the whole corpus is rated on every run.
+  · **THE PICTURE ROUND IS PARTLY FILTERED and the limit is stated rather than hidden**: its pool reaches
+    past the cards into the glossary and the artefacts, and `difficulty` is a card field, so those two enter
+    as they always did. Rating the 836 glossary terms is a separate content pass.
+  · **What year? is NOT on this filter — it left the cards entirely** (see the `whatyear.js` bullet in the
+    File map). Under the bar exactly one year kept five cards, so the game would have asked the same
+    question every day; it has an event pool of its own now.
+  · **THE CROSSWORD'S DRAW CAP HAD TO SCALE WITH THE POOL** (`dailyCrossword`), found by the 730-day sweep
+    the day the filter landed. It was a flat `slice(0, 40)`, which samples nothing once the pool is smaller
+    than 40: every day drew the whole pool, the length sort put it in the same order, and only the layout
+    RNG differed — **730 distinct grids became 60**, a repeat every fortnight. Nothing throws and every grid
+    is still full; the game just quietly stops being daily. Taking a fraction restored it to 577, and a
+    pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was.
+  · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
+    the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
+    undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
+    of the games by accident is not worth having). Carried by `serializeCardData` and restored by
+    `revertCard` — **a serializer that forgot it would strip all 409 ratings from data.js on the next admin
+    keystroke**, which is why that is asserted rather than assumed.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -5234,6 +5473,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The button is **CENTRED against them** (`align-items:center`, Aug 2026, on request): a figure over a label is a
   two-line column, and the `flex-end` this rule used to carry put a one-line button on its baseline, reading as
   having slipped down.
+  **THE BANNER IS LIGHT BLUE** (`--tile:#5AA9DC`, Aug 2026, on request — it was a bronze, `#9A6634`, from the
+  days when the tile earned that colour as a fill). It is set TWICE and the two must be kept in step:
+  `.banner` carries it because `.banner` is the review banner and nothing else on the site, and
+  `.review-group` carries it because that is what a row with no collection hue of its own falls back to — and
+  a value set on the banner element itself outranks anything inherited, so the group's copy cannot serve for
+  both. `.deck-group`'s own fallback is a third copy of the same figure.
+  **…AND IT CHANGES EVERY DAY** (`DAY_HUES` / `dayHue`, Aug 2026, on request). Twelve hues round the wheel,
+  one per day, taken IN ORDER rather than at random — a random pick repeats, and two days the same colour
+  reads as the feature having stopped rather than as chance. The index comes from `dayKey`, so it turns over
+  at the reader's OWN day boundary, the same moment the quote and the day's allowance do, rather than at
+  some hour of its own. They are lighter and brighter than the collection hues on purpose: a collection's
+  colour has to stay legible under 30% of it behind body text, where this is a wash across a whole banner.
+  It is set INLINE on the banner element, so it beats the stylesheet's own `--tile` without either of them
+  having to know about the other — and the DECK ROWS below keep `.review-group`'s static value, or the whole
+  list would change colour every morning with it. The light blue above is Tuesday's, and the stylesheet's
+  copy is still what a theme, a hero and every fallback read.
+  **"+ NEW GROUP" sits at the bottom left of it** (`.rv-tools` / `.rv-newgroup`, Aug 2026, on request), a row
+  of its own under the piles rather than an absolutely-positioned corner — the meta row already owns that
+  corner, and a floating control there would have to guess its height on every render, which is the reasoning
+  that keeps `.rv-lip` in flow. Like the chest chip it is a **button inside a button**, which markup does not
+  allow, so it is a `role="button"` span carrying `data-newgroup` that the banner's own click handler defers
+  to (and which needs its own Enter/Space handler for the same reason the chest chip does). It is drawn only
+  once there is something to group: a control whose whole result is an empty container teaches nothing.
 - **The home page is ONE COLUMN and, since Aug 2026, LITERALLY THE SAME PAGE at every width** (`PAGES.home`).
   It was three swiped panes for a week (`.home-pager` / `.hp-pane` / `#homeDots` — all
   gone, along with their ≤640px rules), then one column on a phone and a longer page on a desktop, and is now the
@@ -5273,6 +5535,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It is **filled indigo with white text** (Aug 2026, on request), not the paper tab it started as: it is the
     only route to the collections down here, and paper-on-paper it read as part of the card's own edge. The
     blue is the site's primary-button indigo, so it matches Start review directly above it.
+    It hangs at the **RIGHT-HAND end** of that edge rather than in the middle of it (Aug 2026, on request):
+    `align-self:flex-end` with a 20px `margin-inline-end`, so it clears the card's own rounded corner instead
+    of sitting on it, and the inset is written logical-side so Arabic finds it where Arabic reads from.
   · **`.home-about`** — a centred grey "About Folio" line (`#b-about` → `route("mission")`) at the foot, from
     when About left the tab bar. It was phone-only for a fortnight and now ships at **EVERY width** (Aug
     2026, on request), the About tab having left the DESKTOP's top bar too: this is the only route to the
@@ -5286,7 +5551,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     wide window has the room to let the last line of the page read plainly as the end of it. It is
     `padding-top` rather than a margin so the space stays part of the button's own target.
     Guarded by `test-layout.js`.
-- **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
+- **Home minigames** (game-grid tiles → `PAGES.*`). **Four of the nine are fed by the cards and all four draw
+  through `gameCardIdSet()`, not `availableCardIdSet()`** — the well-known terms only, at or below
+  `GAME_MAX_DIFFICULTY`; see the card-difficulty bullet above, and reach for that function rather than the
+  wider one when adding a tenth game. **What year? left the cards entirely in Aug 2026** and has its own
+  event pool in `whatyear.js`; True or False, Who said it and Find it never used them. The games:
+  **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the cards most AKIN
   to the answer, by `cardKinship` — see the card-tags bullet below. **It always asks a card's FIRST phrasing**
   (`firstQ` in `buildChallengeQuestions`, Aug 2026, on request): a card carries three ways of asking the same
@@ -5366,6 +5636,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and it is `\p{L}`-anchored so a term opening on a numeral or a Han character is passed through rather than
   sliced through a surrogate pair. The study card makes the same move for the same reason and makes it in
   CSS (`.answer .val::first-letter`), which is not available to a text node inside a button.
+  **TIMELINE'S ROWS TAKE IT TOO** (Aug 2026, on request): a row of that list is a heading naming the thing,
+  not a word inside a sentence, and a good half of the deck's answers are common nouns stored lower-case.
+  Applied at the one DISPLAY site (`.ci-name`) rather than in `chronoPool`, so the row is still tracked and
+  compared by its card id and nothing downstream ever sees the capital.
   The home tile has **three daily states** (state classes set by
   `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
@@ -5508,13 +5782,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     disagree about whether a credit is a link. A dead `src` marks its frame (`.pic-dead`) instead of asking
     the reader to name an empty box — a certainty rather than an edge case, there being no upload path.
 - **WHAT YEAR? — the ninth daily game** (`PAGES.whatyear` at `#whatyear`; 2026-08-09, on request). Five
-  terms whose date lines all give the same year, and a timeline to put that year on. It is the second game
-  built on the cards' dates and it is worth saying how it differs from Timeline: **that one gives five
-  different years and asks for their ORDER, this one gives five things from ONE year and asks what the year
-  was.** Ordering needs no absolute knowledge at all — a Timeline puzzle is solvable knowing only which came
-  first — and this cannot be solved without it.
-  · **THE RAIL IS A LATTICE, NOT A CONTINUUM**, and the whole game turns on it. A card's date line gives a
-    conventional round figure (`c. 1400 BCE`), not a calendar date, and a free-dragging picker over a corpus
+  events from one year, and a timeline to put that year on. It is worth saying how it differs from Timeline:
+  **that one gives five different years and asks for their ORDER, this one gives five things from ONE year
+  and asks what the year was.** Ordering needs no absolute knowledge at all — a Timeline puzzle is solvable
+  knowing only which came first — and this cannot be solved without it.
+  · **IT LEFT THE CARDS IN AUG 2026, on request** (`wyPool`, `whatyear.js` — the reasoning is in that file's
+    map entry). It was built on `chronoPool` and the cards were the wrong material twice over: a card names
+    a TERM where this wants an EVENT, and the game needs five things sharing one exact year, which a corpus
+    of terms almost never supplies — 19 years of 409 cards carried five, and once the minigames were
+    narrowed to well-known terms **exactly one** did. `wyPool` hands back `chronoPool`'s own
+    `{ id, name, year }` shape, so nothing downstream of it changed.
+  · **THE RAIL IS A LATTICE, NOT A CONTINUUM**, and the whole game turns on it. The pool reaches back to
+    conventional round figures rather than calendar dates, and a free-dragging picker over a range
     running from 3.3 Mya to the present would be a pixel lottery in which no guess is ever exactly right. So
     the rail carries `WY_TICKS` (33) ticks a round `step` apart, the answer sits on one, and a guess is right
     or wrong with nothing in between.
@@ -5533,7 +5812,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `min` moves past the guess, so three tries are a real search. The ruled-out span stays DRAWN, greyed
     (`.wy-out`), so the scale does not silently change under the reader between guesses.
   · **THE ANSWER ROTATES; IT IS NOT DRAWN AT RANDOM** (`wyRotation`), and this is the subtlest thing in
-    the three games. The deck holds only 19 years carrying five datable terms, so a year WILL come round
+    the three games. The pool holds only so many years carrying five events — 15 — so a year WILL come round
     again; what a random draw adds is clumping — measured over 365 days, one answer landed 28 times against
     another's 16, with nothing to stop two falling in the same week. The years therefore lie on a ring and
     the day walks one place along it. **The ring is TURNED between cycles rather than reshuffled**, because
@@ -5542,14 +5821,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     moves every year exactly `n - r` days later than last time, so capping `r` at `n - ceil(n/2)` floors
     every gap at half a cycle while the order still changes. `wyRotation` is cumulative for that reason
     (cycle c's ring is defined against c-1's) — a few hundred short hashes, once per page open. **Measured
-    over 730 days: 18–20 turns each against 16–28, and the closest repeat 10 days apart.** A rule
+    over 730 days: 48–49 turns each on the 15-year pool, and the closest repeat 8 days apart.** A rule
     about a WINDOW cannot be enforced by a rule about one boundary — `quoteRunningOrder`'s lesson in
     miniature.
-  · **THE HONEST LIMITS, both visible to a reader who plays for a fortnight.** The five things are TERMS
-    with dates rather than events — Folio's cards are terms, and Timeline already calls them events for the
-    same reason. And **19 years** is the whole pool, so a year comes round every nineteen days however
-    evenly it is spread; the five terms are drawn separately, so a repeat is at least a different puzzle,
-    and the pool grows with every dated card written.
+  · **THE HONEST LIMIT, visible to a reader who plays for a fortnight**: **15 years** is the whole pool, so
+    a year comes round about that often. The five events are drawn separately from however many that year
+    has, so a repeat is at least a different puzzle — which is why a year already carrying five is still
+    worth a sixth and a seventh — and the cycle lengthens with every year added to `whatyear.js`.
   · `score` is the guesses left when it landed (3/2/1, `total` 3 — Common Thread's precedent for a total
     that is not 5); `won`, and the gold tile, is first go.
 - **Settings and Account fill the stage** (Aug 2026). Both were a narrow column hard-LEFT inside the 800px
@@ -6385,10 +6663,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     bridged** — they draw from `ALL_CARD_IDS`, which is TREE-derived, so unvetted cards can't reach them.
     That's asserted by the test, not just intended.
   · **Studio** (`PAGES.studio`, `#studio`, `studioState`) — deck list → one deck (details, card list with
-    reorder, the shared card surface). Reached from the Library's **"Your decks"** section, not the nav bar.
-    Community rows are visually distinct (dashed rule, no collection hue) and the section says plainly that
-    these decks are **not fact-checked by Folio** — Folio's content rules can't be imposed on a stranger, and
-    the credibility of the curated decks is the whole product.
+    reorder, the shared card surface). Reached from the **Collections page's "Your decks" section**, not the
+    nav bar. Community rows are visually distinct (dashed rule, no collection hue) and the section says
+    plainly that these decks are **not fact-checked by Folio** — Folio's content rules can't be imposed on a
+    stranger, and the credibility of the curated decks is the whole product.
+    **The way back is a `.back-link` at the TOP LEFT, above the heading, reading "← Back to Collections"**
+    (Aug 2026, on request). It was a third ghost button in the row of actions under the heading, where it
+    read as another thing to do rather than as the way out, and it said "Back to the Library" — the page it
+    returns to was renamed Collections when the books took that name, and two pages called Library is how a
+    reader ends up on the wrong one.
   · **Deck files** — `uDeckExport` writes `<name>.folio-deck.json` (`{ folioDeck: 1, meta, cards, gloss }`);
     `uDeckPickFile` → `uDeckImportText` reads one back. An import always takes a **fresh deck id and fresh
     card ids** when the id already exists, so importing can never overwrite a deck you're working on and two
@@ -6414,10 +6697,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`UDECK_PUBLISH_KEYS` never leave the device.** `uDeckExport` strips them and `uDeckImportText` zeroes
     them, so a deck *file* can't claim someone else's slug, masquerade as installed, or suppress an update
     prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`.
-  · **Pages** — `PAGES.community` (`#community`: search, sort, grid) and `PAGES.deck` (`#deck/<slug>`, a
+  · **Pages** — `PAGES.community` (`#community`: search, sort and a LIST) and `PAGES.deck` (`#deck/<slug>`, a
     shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
     deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
     copy is never trusted just because it came from our own API.
+    **THE SHELF IS A LIST, NOT A GRID OF TILES** (`deckRowHTML` / `.cdeck-list`, Aug 2026, on request; the
+    old `deckCardHTML` / `.cdeck-grid` are gone). A tile gives every deck the same area whatever it has to
+    say, so a title, a subtitle, a rating and three figures were stacked into a card the width of a phrase
+    and two decks differing in the fourth word of their titles looked identical. A row lets the title run at
+    full width and puts the rating in a column that lines up down the list, which is what a reader scanning
+    twenty decks is doing; below 560px the rating drops under the title rather than squeezing it, the title
+    being the one part with no shorter form. The whole row is the button, so the row IS the way to the
+    deck's page — which is what the tile already was.
+    **AND THE DECK'S PAGE IS WHERE EVERYTHING ABOUT IT IS** (same request). Four things were named and three
+    of them were already there — its information, the author's own description (the Studio's `desc`,
+    published as `description`), and other people's comments (see the ratings bullet: a comment is a rating
+    with something written on it, which is the shape the schema holds and the right one, since a comment on
+    a stranger's deck is an opinion about whether it is worth using). What was ADDED is **a download link**
+    (`deckFileDownload` → `downloadDeckFile`): "Add to my decks" installs it into Folio, and this writes the
+    same `.folio-deck.json` a Studio export writes, for a reader who wants a copy, wants to pass it on, or
+    is not signed in to anything. It goes through `remoteToLocal` and then strips the publishing keys
+    exactly as `uDeckExport` does — one importer, one file format, one set of rules about what may travel —
+    and `uDeckExport` now shares `downloadDeckFile` rather than carrying its own copy of the blob dance.
+    The description is set as PROSE under a heading of its own, and where there is none the page says so:
+    a reader deciding whether to install a stranger's deck is owed the difference between "the author said
+    nothing" and a gap where something might have failed to load.
   · **Installs** — `deck_installs` is one row per user per deck, which both syncs a signed-in learner's
     installs and gives `install_count` an honest trigger-maintained source. Installing works **signed out**
     too (the deck lands in IndexedDB; only the row and the count need an account).
@@ -6441,8 +6745,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Community decks — Phase 4: a deck's own glossary (July 2026).** A deck can define its own terms, which
   auto-link inside its cards and **nowhere else**. This is what the Phase 0 glossary scoping was built for.
   · **`deck.glossMode`** — `site` (default: link the curated glossary, exactly as before), `own` (only the
-    deck's terms; the site glossary is invisible), `both` (deck terms layered over the site's). Set in the
-    Studio under **Deck details**; stored, exported and published.
+    deck's terms; the site glossary is invisible), `both` (deck terms layered over the site's), and — since
+    Aug 2026, on request — **`off`: link nothing at all**. Set in the Studio under **Deck details**; stored,
+    exported and published. The four values are declared ONCE, in `GLOSS_MODES`, and read by the ingest
+    sanitizer, the picker and the setter alike: three lists is how `off` would come to be accepted from a
+    deck file and refused from the picker, or the other way about.
+    **`off` returns EMPTY TABLES rather than being special-cased at each call site.** `buildGlossIndex` over
+    nothing yields an index that matches nothing, so every reader of a scope — the auto-linker, the
+    hand-authored `.ttip` pruning in `processAbstract`, `resolveGlossKey` — was already written correctly
+    for it and not one of them needed a branch. It is for a deck whose own vocabulary keeps colliding with a
+    glossary written about something else, where every match is a link telling the reader something untrue
+    about the sentence in front of them; a per-term blocklist cannot fix that, since the same key is right
+    or wrong depending on the sentence.
+    **⚠ Publishing a deck set to `off` needs the `9) GLOSSARY OFF` block at the end of
+    `.claude/supabase-schema.sql` run once** — `user_decks.gloss_mode` carries a CHECK constraint listing
+    the three older values. Until it runs, such a deck studies correctly on the device that wrote it and
+    refuses to publish, which is the loud failure rather than the silent one. The Studio's glossary tab
+    warns an author that their terms are being kept and not shown, exactly as it does under `site`.
   · **Keys are namespaced `u:<deckId>:<slug>`** (`uGlossKey` / `uGlossParse` / `isDeckGlossKey`). That
     namespacing is the isolation mechanism: `glossText` / `glossTitle` / `glossDates` / `glossTags` each
     branch on it and read `UGLOSS`, so a deck term resolves inside its deck and does not exist outside it.
@@ -7525,6 +7844,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   the same claims in all 9 translated abstracts, or that language silently loses the apparatus
   (`add-card.js` warns when the counts differ). Escape hatch: `"skipSources": true`, only for a
   deliberate maintenance edit of a card written before citations existed.
+- `difficulty` — **REQUIRED for every new card: an integer 1–5 rating how well known the ANSWER TERM is to
+  the general population.** **1** household name (Stone Age, Homer, Sparta, Neanderthal); **2** generally
+  familiar, an ordinary secondary education reaches it (Neolithic, Knossos, phalanx, Lascaux); **3** known
+  to the interested (Linear B, hoplite, helots); **4** specialist (Gravettian, megaron, bucchero); **5**
+  highly obscure, named in the scholarship and almost nowhere else (`qa-si-re-u`, Nichoria, Iguvine Tables).
+  **It rates the WORD, not the card** — how hard the prose is, how subtle the point and how tricky the cloze
+  are separate questions, and conflating them is the one way the scale stops meaning anything: a subtle card
+  about `Homer` is still a 1 and a beautifully clear one about `qa-si-re-u` is still a 5, because a reader
+  who has never met a word cannot be eased into recognising it by prose. It decides only whether the daily
+  minigames may deal the term (see the card-difficulty bullet under "How the app is wired"); **every card is
+  studiable at every rating**, and most cards worth writing are 3s, 4s and 5s. `add-card.js` REFUSES a card
+  without one rather than defaulting — the safe default is invisible, since the card simply never appears in
+  a game and nothing says so. Batch-rate older cards with `.claude/add-card-difficulty.js`.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -8114,12 +8446,15 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-one committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
-  Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-discovery.js` and
-  `test-scheduler.js` are plain Node with
+- **Thirty-four committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+  Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
+  `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
-  no browser). **The split is `grep -L playwright .claude/test-*.js`, not a number to keep in your head** — the
-  headline count had drifted one behind before this line was last rewritten.
+  no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
+  for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
+  behind by 2026-08-10, having been corrected once already for the same reason, so the bullet list below is
+  the thing to trust; two files are described in prose elsewhere rather than listed here
+  (`test-speak.js`, `test-subdecks.js`).
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -8138,14 +8473,14 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 62 assertions across three browser sessions (an author, a reader, an
+  · `node .claude/test-publish.js` — 72 assertions across three browser sessions (an author, a reader, an
     admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
     ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
     touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
     the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
-  · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the three `glossMode`s,
+  · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the `glossMode`s,
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
@@ -8426,25 +8761,43 @@ dead code (never rendered).
     cards graded at all the banner is the first-run hero and its button says something else entirely.
     **Section 8 (Aug 2026) pins DRAGGING THE LIST INTO ORDER**, driven with real mouse input so the pointer
     capture, the `touch-action` and the 4px slop are exercised as a hand exercises them: every row carries a
-    handle exactly where its level holds a second row, a drag moves it, the order is written down under that
-    level's own key, **every subtree travels with the row it belongs to** (rebuilt from the depths — a
+    handle wherever the LIST holds a second row (it used to be wherever a LEVEL did — too narrow since a row
+    can be dropped into a group), a drag moves it, the order is written down under that level's own key, **every subtree travels with the row it belongs to** (rebuilt from the depths — a
     collection dragged out of the middle leaving its decks behind is the failure this is for, and the list
     looks perfectly ordinary when it happens), no transform is left behind, the rounded corner follows
     whichever row is last NOW, ↑/↓ do it from the keyboard, and **the Collections page keeps the editorial
     order**. Persistence is proved by carrying the saved blob to a page that has never seen the list — a
     reload cannot show it here, since `newPage` re-seeds `folio_v1` on every load and would put the seed's
-    own order back. **Sections 9 and 10** pin the day's default allowance at FIVE new cards (in the store and
-    on the Settings stepper, which read the same constant from two directions) and that **every Multiple
-    Choice round asks its card's FIRST phrasing** — with a second assertion that the cards it drew genuinely
+    own order back. **Sections 9 and 10** pin the day's default allowance at FIVE new cards — in the store, and
+    on the control that shows it, which since Aug 2026 is the Daily limits dialog's "All decks" tab rather
+    than a Settings stepper (both halves asserted: the stepper is GONE from Settings and the figure is on
+    the tab, since either alone would pass on a move that had only half happened) — and that **every
+    Multiple Choice round asks its card's FIRST phrasing** — with a second assertion that the cards it drew genuinely
     carry others, or the first passes on cards that have only one. **That comparison strips parentheticals
     from both sides**: the units pass rewrites every text node, so a card asking about "140 metres (460
     feet)" renders without the bracket, and 20 of the deck's cards carry one in their first phrasing — an
     exact string match passed on most runs and failed on the rest, which is worse than not asserting it.
+    **Section 11 (Aug 2026) pins GROUPS**, and almost everything in it fails silently: a group that studies
+    nothing looks like a group, a colour that reaches the header and not the decks inside looks like a design
+    choice, a deck counted by both its collection and the group it moved into shows the reader the same five
+    new cards twice, and a drop that lands as a REORDER rather than a nesting just looks like a drag that did
+    not take. It asserts an added collection drawn as a header (and NOT a collection the reader never added —
+    that is a signpost, and making it a counted, tappable header would offer them a collection they did not
+    ask for), the sheet's Rename / Colour / Ungroup and the absence of the daily-allowance rows, a real-mouse
+    drag lighting the group and landing inside it, the CARDS moving with it — the group's header count up by
+    exactly what the collection's went down — the colour reaching every deck inside, the whole arrangement
+    surviving a move to another device, tapping a group studying its cards, and **Ungroup leaving the decks in
+    the review**. Two things it must keep doing: **open every fold first** (an added collection seeds SHUT, so
+    without it the only visible rows are two headers and there is nothing to carry), and **drag a LEAF whose
+    parent keeps a sibling** — a leaf carries no subtree so the group's count IS that deck's, and a container
+    left with another child stays a header whose own count can be read before and after.
     **Re-run after
-    touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `deckDoneToday` / `entryPiles` /
-    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` /
-    `setupDeckDrag` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
-    per-deck allowances, or anything named `sched*`.**
+    touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `globalLimits` /
+    `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `openDeckLimits` / `addActive` /
+    `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` / `setupDeckDrag` /
+    `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` / `setNestParent` / `nestChildren` /
+    `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s per-deck allowances,
+    or anything named `sched*`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
     glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
     overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that
@@ -8474,11 +8827,19 @@ dead code (never rendered).
     an admin batch would, five rounds of four deal — and **nothing on the page names the subject before the
     guess**, the failure that leaves a game working perfectly and teaching nothing.
     **It opens with 730 DAYS OF PUZZLES generated in Node** (`simulate`, slicing the two daily builders out
-    of app.js and standing them on the real `data.js`) — because a generator can be flawless on the day it
-    was written and degenerate on a date nobody tried, which is exactly what both of this game's real bugs
-    were. That sweep is what pins the crossword dealing a full grid every day with no unclued run in any of
-    them, and What year?'s rail staying inside the answer's own age, never crossing year 0, and no answer
-    repeating inside half a cycle.
+    of app.js and standing them on the real `data.js` and `whatyear.js`) — because a generator can be
+    flawless on the day it was written and degenerate on a date nobody tried, which is exactly what both of
+    this game's real bugs were. That sweep is what pins the crossword dealing a full grid every day with no
+    unclued run in any of them, and What year?'s rail staying inside the answer's own age, never crossing
+    year 0, and no answer repeating inside half a cycle.
+    **`gameCardIdSet` IS SHIMMED TO THE REAL RULE, and that is load-bearing** (Aug 2026): the shim reads
+    `GAME_MAX_DIFFICULTY` out of app.js rather than writing it down, because the whole value of the sweep is
+    that it deals from the pool the SITE deals from. Shimmed to "every card", the way `availableCardIdSet`
+    is, it would sweep two years of puzzles no reader ever sees and would go on passing on the day the
+    filter starved a game. **The crossword's variety assertion is a BOUND, not "all 730 distinct"** — with
+    the filtered pool at 30 words, choosing nine over two years collides however good the shuffle is, so
+    uniqueness is arithmetically impossible; the bound still catches the collapse to 60 that the unscaled
+    draw cap caused. Raise the floor if the pool grows; don't lower it.
     **Two of the harder assertions run the same day in two fresh contexts**: the first plays badly and reads
     the answer off the result screen, the second is handed it and must win. That proves the puzzle is seeded,
     that its answer is REACHABLE (the crossword's letters fit its own squares; the year sits on a tick of its
@@ -8486,7 +8847,30 @@ dead code (never rendered).
     that a correct solve is scored as correct rather than only a wrong one being scored as wrong.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword`, `picturePool` / `dailyPictureRounds`, `wyStep` / `dailyWhatYear`,
-    `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, or the home page's tile grid.**
+    `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, `gameCardIdSet` /
+    `GAME_MAX_DIFFICULTY`, `whatyear.js`, or the home page's tile grid.**
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filter** (53 assertions,
+    Aug 2026). No browser and no dependencies: the rule is arithmetic over the shipped data plus a few
+    structural reads of app.js, the shape `test-date-line.js` uses. Every one of its checks is for something
+    that fails silently on the page — a wrongly-filtered game still deals a puzzle, still scores it and still
+    turns the tile gold. It asserts that **every shipped card is rated 1–5** (an unrated card silently stops
+    appearing in the games); that the bar is read from ONE place, `add-card-difficulty.js` grepping it out of
+    app.js rather than restating it, **and that the grep still matches**; that **every card-fed game goes
+    through `gameCardIdSet()` and none reaches for the unfiltered set** — the assertion that matters most,
+    and the only one that can catch a tenth game added later reaching for `availableCardIdSet` out of habit;
+    that the filtered pool **can still deal** (the opposite failure, and just as quiet — the game shows a
+    "Coming soon" placard that reads as content nobody has written); that **study is untouched**, with
+    `availableCardIdSet` knowing nothing about difficulty; that `serializeCardData` **emits** the rating,
+    since a serializer that forgot it would strip all 409 from data.js on the next admin keystroke; and that
+    `add-card-difficulty.js` refuses a bad batch **and writes nothing at all** when it does, which it proves
+    by running the tool for real and comparing the file's bytes. It also owns the **What year? event pool**:
+    every year carrying at least `WY_EVENTS`, no entry with markup (the clue list escapes, so a stray `<i>`
+    would print its own tags), no entry naming the year it asks about, no duplicate event, and at least ten
+    usable years. Verified against three injected faults — an unrated card, a game reverted to the
+    unfiltered set, and a serializer that drops the field; each was caught. **Re-run after touching
+    `cardDifficulty` / `difficultyOK` / `gameCardIdSet` / `GAME_MAX_DIFFICULTY` / `serializeCardData` /
+    `revertCard`, any game's pool function, `add-card.js`'s difficulty guard, `add-card-difficulty.js`, or
+    `whatyear.js` — and after any batch of ratings.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
     (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
@@ -8629,8 +9013,15 @@ dead code (never rendered).
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `extractCaput` /
+    `teiVerseBooks`' `prose` branch and its two spacing rules / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
+    **A change to `teiVerseBooks` needs OVID AND LUCRETIUS, both columns, all four files** — they are
+    the only other books on that path, and the Iliad's prose branch and its two spacing rules were
+    each proved inert against all four byte-for-byte before being kept. Note that the two rules are
+    gated on `opts.prose` precisely so that check can pass: dropping a note or a milestone for a SPACE
+    rather than for nothing would rewrite Ovid's Latin, which joins its lines with `<br>` and has
+    nothing to weld.
     **A change to the CAPUT reader likewise has no sibling to diff against** — The City of God is the
     only book on that path — so what stands in for it is the shipped-data sweep: 661 marks a side,
     both columns a clean 1..N in every one of the 22 books, tag balance on both, every footnote
