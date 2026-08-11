@@ -6497,6 +6497,204 @@ const BOOKS = {
     },
   },
 
+  satyricon: {
+    title: "The Satyricon",
+    author: "Petronius",
+    translator: "Michael Heseltine",
+    edition: "Loeb Classical Library, William Heinemann, London, 1913",
+    written: "c. 60s CE",
+    year: 65,
+
+    /* ---------- THE LICENCE, and it is the Odyssey's easy case with one limit to state ----------
+       Three layers, and the two modern ones are the same hand — which on a facing-page Loeb is worth
+       CHECKING rather than assuming, in either direction. The Iliad's Greek is Monro and Allen's
+       Oxford text set beside Murray's English, so that book has to reason about a joint work's term
+       and its original comes out the harder half at 2051; the Odyssey's is the Greek printed on the
+       facing half of Murray's own volumes, so one life answers for both columns. This is the second
+       kind. BOTH Perseus files were read: each names Michael Heseltine as editor, each gives William
+       Heinemann, London, 1913 as its source, and neither credits anyone else with the Latin.
+
+       · PETRONIUS died in 66 CE and the work is free everywhere on every ground.
+       · MICHAEL HESELTINE lived 4 September 1886 – 13 March 1952 and published this translation in
+         1913. United States copyright expired on the publication date, 1913 being well before 1929;
+         life-plus-seventy expired at the start of 2023; LIFE PLUS A HUNDRED RUNS TO 2053. Said
+         outright rather than smoothed into the easier sentence the Republic and the Analects can
+         honestly use, which is the Song of Roland's discipline and Lucretius's judgement: claim
+         less, and put on the page what cannot be said.
+
+       HIS DATES WERE LOOKED UP AND CORROBORATED TWICE, for the Hugo Magnus reason and the A. J.
+       Wyatt one. Wikidata gives both at DAY precision with the death year referenced to Britannica,
+       and Wikisource's own author page gives (1886–1952) and lists exactly ONE work for him — this
+       Satyricon, in the Loeb Classical Library, 1913 and 1930. That is what makes the pair usable
+       where Wyatt's 1835–1935 at year precision, a suspiciously round hundred with nothing else
+       agreeing, was not. THERE IS ALSO A MICHAEL HESELTINE TO KEEP HIM APART FROM: the British
+       Conservative politician, who is alive, and whose Wikidata entity is what a search returns
+       first. This one is Q90025266, Registrar of the General Medical Council.
+
+       BOTH DIGITAL EDITIONS carry the Perseus CC BY-SA 4.0 layer, as Ovid's, Lucretius's,
+       Suetonius's, the Aeneid's and both Homers' do on both of their columns. NEITHER CARRIES A
+       MODERN EDITORIAL LAYER, which was CHECKED and not assumed — the Antigone found the shipped
+       Oedipus Rex claiming to be clean while silently carrying Perseus's own modernization of Jebb.
+       Both revision histories were read and record exactly three things: Greek tagging in 2006, and
+       in July 2014 a split of the composite Latin-and-English file into two and a conversion of the
+       text to Unicode. Nothing edits the prose. (That Unicode conversion is also why the Greek
+       QUOTATIONS are still in beta code: the conversion reached the Latin and the English and left
+       the `<foreign>` elements as they were. See `greek` below.)
+
+       THE OTHER FREE ENGLISH WAS MEASURED AND REJECTED, and the reason is not its age.
+       W. C. Firebaugh's translation of 1922 is out of copyright, is complete where Heseltine is not,
+       and is on Project Gutenberg — and its own title page says it is "complete and unexpurgated"
+       and incorporates "the forgeries of Nodot and Marchena". Those are two eighteenth-century
+       fabrications passed off as newly discovered Petronius, and an edition that weaves them into
+       the text without marking them is not the Satyricon however unexpurgated it is. Shipping it
+       would be the Divine Comedy's question answered the wrong way: ask what text an edition
+       actually IS, not only whether it is free and complete. Burnaby's of 1694 is free and is
+       seventeenth-century English, which is the objection that ruled out Golding's Ovid and Hobbes's
+       Thucydides. So the choice was Heseltine's genuine and partly untranslated text or a complete
+       one with forgeries in it, and the front matter says which was taken and what it costs.
+
+       The modern translations a reader is likeliest to own — Paul Dinnage (1953), William Arrowsmith
+       (1959), J. P. Sullivan (1965), P. G. Walsh (1996), Sarah Ruden (2000) and Frederic Raphael
+       (2003) — are all firmly in copyright and none is used here. Named so that nobody reaches for
+       one later, and with them E. H. Warmington's 1969 revision of THIS translation, which is the
+       Loeb a reader will find in a shop today and which fills in the Latin passages Heseltine left:
+       that revision is a separate copyrighted work and what is here is the 1913 text as printed. */
+    rights:
+      "Three layers, and the two modern ones are the same hand. Petronius died in 66 CE and the " +
+      "work is in the public domain everywhere. Michael Heseltine's translation was published in " +
+      "1913 — before 1929 — so its copyright has expired in the United States, and Heseltine died " +
+      "in 1952, so it is also public domain wherever the term is the author's life plus seventy " +
+      "years; where the term is life plus a hundred it remains in copyright until 2053. The Latin " +
+      "is the text printed facing that translation in the same 1913 volume, which the edition used " +
+      "here credits to Heseltine as its editor and for which it names no one else, so it stands on " +
+      "the same publication date and the same life. Both digital editions are prepared by the " +
+      "Perseus Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by William " +
+      "Arrowsmith, 1959, J. P. Sullivan, 1965, P. G. Walsh, 1996, and Sarah Ruden, 2000, are still " +
+      "in copyright and are not used here, nor is E. H. Warmington's 1969 revision of this one.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Two
+       things in it are not optional. It says on the first page that the book is a RUIN, because a
+       reader who opens at section 1 and finds a conversation already in progress is owed the reason;
+       and it says that this translator leaves ten sections in Latin, with the figure, because that
+       is a fact about what is on the page and finding it out by meeting it is worse. */
+    about: [
+      "<b>The Satyricon</b> is the oldest comic novel in Latin that survives at all, and it survives " +
+        "in pieces. What we have is a set of long excerpts from somewhere in the middle of a much " +
+        "longer work — the manuscripts label parts of it books fourteen, fifteen and sixteen, so the " +
+        "whole may have run to twenty books or more, of which perhaps a tenth is left. It is narrated " +
+        "by Encolpius, a young man of no fixed occupation who is travelling around the Greek towns of " +
+        "southern Italy with a friend he is quarrelling with and a boy they are both in love with, " +
+        "and it is about eating, borrowing, lying, seducing and running away. Nothing else from the " +
+        "ancient world reads remotely like it.",
+      "Because it is a ruin, it begins in the middle of a sentence and ends in the middle of an " +
+        "episode, and it breaks off 147 times in between: the gaps are marked in this text with an " +
+        "ellipsis, and some of them swallow whole scenes. Reading it is therefore not like reading a " +
+        "novel with chapters. What holds it together is a run of set pieces — a rant about the " +
+        "decline of rhetoric, a night at an inn, a shipwreck, a poet who cannot stop reciting, a town " +
+        "where the rich are courted by legacy-hunters — and one enormous continuous stretch in the " +
+        "middle, sections 26 to 78, which is the dinner party of Trimalchio.",
+      "That dinner is the reason the book is famous. Trimalchio is a freed slave who has become " +
+        "immensely rich, and the whole long scene is his party seen through the eyes of guests who " +
+        "cannot afford to leave: courses that arrive disguised as other things, a clock and a " +
+        "trumpeter to tell him how much of his life has gone, the will read aloud at table, the " +
+        "tomb described in detail while everyone eats. His guests talk in a Latin nobody else in " +
+        "ancient literature is allowed to speak — full of slang, wrong genders and proverbs — and it " +
+        "is the closest thing there is to a recording of how ordinary Romans actually spoke.",
+      "The author is given by the manuscripts as Petronius and is usually identified with the " +
+        "Petronius whom Tacitus describes at Nero's court as the arbiter of taste, a man who slept " +
+        "by day and worked by night and was admired for a kind of studied carelessness. Tacitus also " +
+        "describes his death in 66 CE: accused of conspiracy, he opened his veins and closed them " +
+        "again by turns so that he could go on talking with his friends over dinner, and sent Nero a " +
+        "sealed document listing the emperor's own debaucheries by name. The identification is not " +
+        "certain and rests on the manner of the book as much as on anything external.",
+      "This translation is Michael Heseltine's, made for the Loeb Classical Library in 1913, and it " +
+        "has one defect a reader should know about before starting. <b>Ten of the 141 sections are " +
+        "left in Latin</b> — about 2,400 words, one in twenty of the English column — because the " +
+        "Loeb of 1913 would not print those passages in English. They are sections 23 to 26, 85 to " +
+        "87, 132, 138 and 140, and they are the frankly sexual ones. The passages are not missing: " +
+        "they stand in the Latin, which is the same on both sides of the page here, and a reader " +
+        "who wants them in English will find them in any translation made after about 1960. The " +
+        "alternative was the one other free English version, which is complete and weaves in two " +
+        "eighteenth-century forgeries without marking them, and a text with fabrications in it " +
+        "seemed the worse bargain than a text with gaps that are labelled.",
+      "One more thing about the translation is worth knowing, because it shows on every page where " +
+        "it happens. Petronius writes a good deal of verse — his characters recite it, and two long " +
+        "poems on the fall of Troy and the civil war are quoted entire — and Heseltine renders all " +
+        "of it as prose. The Latin here marks 607 lines of verse in 54 passages; the English marks " +
+        "23. So where the left-hand column breaks into lines, the right-hand one is a paragraph " +
+        "saying the same thing, and the two are not out of step: that is what the translator did.",
+      "The work is cited by section and by nothing else — “Satyricon 48” — and this edition states " +
+        "no books, parts or chapters above that, so the section is the tab here as well as the unit " +
+        "the two columns are set beside each other in. The Latin is the text printed facing the " +
+        "translation in the same 1913 volume. Its editor's apparatus — several hundred notes " +
+        "recording which manuscript a reading comes from and which scholar proposed it — is not " +
+        "reproduced, since it is a specialist's tool in Latin abbreviations rather than anything " +
+        "that would help a reader here; Heseltine's own notes are, and in the ten sections he left " +
+        "untranslated a few of those are textual as well, because there the English column is " +
+        "Latin and the notes on those pages are notes about it. Petronius quotes " +
+        "a few phrases of Greek, and two of them appear as the letters this transcription writes " +
+        "them in rather than in Greek script, because the way it has written the accents on those " +
+        "two does not correspond to any Greek that could be printed.",
+    ],
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0972/phi001/phi0972.phi001.perseus-eng1.xml",
+    layout: "satyricon",
+    /* THE GREEK IS BETA CODE — see betaGreek, which decodes it and refuses where the source's own
+       mark placement will not compose. Declared per column because it is a fact about the file. */
+    greek: "beta",
+    chapterWord: "Section",
+    /* NO `titleOf`. The edition prints no headings at all — zero <head> elements in either file —
+       and the names a reader may have met (the Cena Trimalchionis, the Bellum Civile, the Widow of
+       Ephesus) are editors' labels for episodes whose boundaries the editors themselves disagree
+       about. Composing them here would be building an apparatus the book has not got, which is the
+       Odyssey's judgement about its own book titles. So the tab wears the word and the numeral. */
+    chapters: Array.from({ length: 141 }, (_, i) => i + 1),
+    /* NO `parts`. The manuscripts' book numbers — fourteen, fifteen, sixteen — are the tempting
+       ones and they cannot be used: they are what the excerptors labelled their extracts, they do
+       not divide the surviving text at any stated point, and where one book ends and the next
+       begins is exactly what is lost. */
+    /* The shortest section is 618 characters of English and 556 of Latin, measured across all 141,
+       so the short-chapter guard is set from the real minimum rather than from the default 200 —
+       which would still catch an extraction that had returned the file's navigation furniture. */
+    minChars: 400,
+
+    /* ---------- THE ORIGINAL, AND WHY IT PAIRS ----------
+       The question that decides every original here is not "does a text of it exist?" but "does that
+       text say which section each passage is?" — and this is the easiest yes on the shelf after the
+       facing-page constructions, because the two columns are not two editions at all. They are the
+       two halves of one printed page, split into two files by Perseus in 2014, carrying the same 141
+       section milestones in the same order because one editor set them once. Measured anyway, which
+       is the standing discipline: 141 on each side, 1..141 with no gap and no duplicate either way,
+       and the reconciliation the fetch prints reports 141 of 141 paired.
+
+       WHAT THE COLUMNS DO NOT SHARE is the verse and the notes, and both are the translator's doing
+       rather than a pairing fault: 607 lines of verse in the Latin against 23 in the English, and an
+       apparatus criticus of 385 notes against 134 notes on Roman custom. See extractSatyricon. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "satyricon",
+      greek: "beta",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0972/phi001/phi0972.phi001.perseus-lat1.xml",
+      edition:
+        "The Latin printed facing Michael Heseltine's translation in the Loeb Classical Library, " +
+        "William Heinemann, London, 1913",
+      rights:
+        "Petronius died in 66 CE, so the work itself is in the public domain everywhere. This is " +
+        "the Latin printed facing the translation in the same 1913 Loeb volume; the edition used " +
+        "here credits Michael Heseltine as its editor and names no one else, so it rests on the " +
+        "1913 publication date and on his death in 1952, exactly as the English does. The digital " +
+        "edition is prepared by the Perseus Digital Library at Tufts University and is released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
+    },
+  },
+
   "virgil-aeneid": {
     title: "The Aeneid",
     author: "Virgil",
@@ -14222,6 +14420,320 @@ function dramaHtml(sections) {
     .join("\n");
 }
 
+/* ============================================================
+   BETA CODE                       (Perseus's older files, where the Greek is not Greek)
+   ============================================================
+   Beta code is the ASCII transport encoding for polytonic Greek from before Unicode, and Perseus's
+   older TEI still carries it: `Si/bulla, ti/ qe/leis;` is Σίβυλλα, τί θέλεις;. Decoding it RECOVERS
+   what the edition prints rather than composing anything — the beta code is a lossless encoding of
+   the Greek, so this is a decode in the same sense that an HTML entity is one, not a repair.
+
+   TWO THINGS MAKE IT SAFE, AND WITHOUT EITHER IT WOULD BE THE WRONG TOOL.
+
+   · THE MARKS MUST BE SORTED, because Unicode will not do it. A breathing (U+0313) and an acute
+     (U+0301) are both canonical combining class 230, and normalization NEVER reorders marks of the
+     same class — order is significant to it. The Satyricon's file writes οἴνῳ as `oi/)nw|`, accent
+     before breathing, and composed in that order it yields ο + ί + a loose combining smooth
+     breathing rather than the single character ἴ. Sorting them into the order the precomposed
+     characters decompose to — breathing/dialytika, then accent, then iota subscript — is not a
+     repair; it is the ordering composition requires.
+
+   · IT REFUSES RATHER THAN GUESSING, and that is what this function is really for. Where the source
+     puts a mark on the FIRST vowel of a diphthong, decoding produces a letter Greek has not got:
+     `de=uro` is δεῦρο, but the `=` follows the ε, so a decoder yields ε with a circumflex, which no
+     precomposed character exists for and which no printed page has ever carried. Any residual
+     combining mark after NFC means exactly that, so the whole string is REFUSED and the caller
+     leaves the beta code standing. Shipping a plausible-looking repair of somebody else's Greek is
+     the one thing worse than shipping the ASCII.
+
+   Measured over the Satyricon's sixteen before this was written: fourteen decode to real polytonic
+   Greek and two do not, and BOTH failures are the same `de=uro`. All five instances in the running
+   text of either column decode cleanly, §48's Sibyl among them; the failures are inside notes. Two
+   more (`ka\i`, `kradih/`) compose to real characters with the accent in the wrong place — the
+   source's, recorded rather than repaired, exactly as the Aeneid's l→I slips are. */
+const BETA_LET = { a: "α", b: "β", g: "γ", d: "δ", e: "ε", z: "ζ", h: "η", q: "θ", i: "ι", k: "κ",
+  l: "λ", m: "μ", n: "ν", c: "ξ", o: "ο", p: "π", r: "ρ", s: "σ", t: "τ", u: "υ",
+  f: "φ", x: "χ", y: "ψ", w: "ω" };
+const BETA_BREATH = { ")": "̓", "(": "̔", "+": "̈" };
+const BETA_ACCENT = { "/": "́", "\\": "̀", "=": "͂" };
+const BETA_SUB = { "|": "ͅ" };
+const BETA_MARKS = /[̀-ͯ]/;
+
+function betaGreek(s) {
+  let out = "";
+  for (let i = 0; i < s.length; ) {
+    let ch = s[i], star = false;
+    if (ch === "*") { star = true; i++; ch = s[i] || ""; }        // the strict capital form
+    const base = BETA_LET[ch.toLowerCase()];
+    if (!base) {
+      // a mark with no letter in front of it is not beta code we understand
+      if (BETA_BREATH[ch] || BETA_ACCENT[ch] || BETA_SUB[ch]) return null;
+      out += ch; i++; continue;
+    }
+    i++;
+    let br = "", ac = "", sub = "";
+    for (; i < s.length; i++) {
+      const m = s[i];
+      if (BETA_BREATH[m]) br += BETA_BREATH[m];
+      else if (BETA_ACCENT[m]) ac += BETA_ACCENT[m];
+      else if (BETA_SUB[m]) sub += BETA_SUB[m];
+      else break;
+    }
+    let g = star || ch !== ch.toLowerCase() ? base.toUpperCase() : base;
+    // a sigma ending a word is written ς — the one letter whose shape depends on what follows it
+    if (g === "σ" && (i >= s.length || !BETA_LET[(s[i] || "").toLowerCase()])) g = "ς";
+    const seq = (g + br + ac + sub).normalize("NFC");
+    if (BETA_MARKS.test(seq)) return null;   // a mark that will not compose: see above
+    out += seq;
+  }
+  return out;
+}
+
+/* ============================================================
+   A WORK CITED BY SECTION AND DIVIDED INTO NOTHING ELSE
+                                   (layout: "satyricon" — the seventeenth)
+   ============================================================
+   Aug 2026, adding the Satyricon. The fifth TEI reader, and it exists because this edition states
+   ONE level of citation and no structure whatever above it: 141 `<milestone unit="section"/>` in
+   each column, zero `<div>`, zero `<head>`, and a `refsDecl` that says so outright —
+   `<state delim="." unit="text"/><refState unit="section"/>`. So the section is the chapter AND the
+   row, which is the Rigveda's shape (the chapter is the smallest unit of the work) and the Song of
+   Roland's (a chapter is short, and that is the work rather than the import).
+
+   NO `bk-n` MARKER IS WRITTEN, and that is a decision rather than an omission. With the chapter and
+   the section the same thing there is nothing below the tab to pair on, so each column comes back as
+   a single unnumbered block and `bookRows` pairs the two on `key -1 === -1` — deterministically,
+   since NEITHER side carries a marker anywhere, which is what separates this from the Gallic War's
+   chapter 0 pairing "by luck". Writing one anyway would print the section number at the head of a
+   chapter whose tab already says it, which is what Beowulf's `dropFittHead` exists to avoid.
+
+   FOUR THINGS IT WAS WORTH MEASURING BEFORE WRITING THIS RATHER THAN AFTER, and two of them
+   corrected an earlier measurement of my own.
+
+   · THE DISPLAY QUOTATIONS MUST BE MATCHED BALANCED, and so must the notes. `<quote>` NESTS inside
+     `<l>` — `<l><quote>Quis furor</quote> exclamat...` — so a non-greedy `<quote>…</quote>` pair
+     closes on the INNER tag and leaves the rest of the poem outside the block it belongs to. It is
+     the Prose Edda's nested-`<dl>` lesson on a new element, and it reported ten of the Latin's 607
+     lines as standing outside any display quotation when in fact none does. The Latin's `<note>`
+     nests once and its `<p>` sixteen times, so the same rule covers all three.
+
+   · THE PARAGRAPHS ARE CUT WITH SENTINELS, NOT WITH A `<p>` WALK. 92% of the Latin's text sits
+     inside a `<p>` and 8% does not, so a `<p>`-anchored reader loses a twelfth of the column in
+     silence — the Art of War's `wrapBareRuns` fault in a TEI file. Replacing every `<p>` tag, open
+     and close, with one sentinel and splitting there keeps a bare run as its own paragraph and, as a
+     free consequence, survives the sixteen nested `<p>` (which yield an empty piece and are dropped)
+     where any paired match would not.
+
+   · HESELTINE RENDERS PETRONIUS'S VERSE AS PROSE. The Latin marks 607 lines in 53 display
+     quotations and the English 23 in 8, and in each of the eight longest poems the English's own
+     `<l>` count is ZERO — §89's 65 lines of the Troiae Halosis face a single English paragraph. So a
+     display quotation is a DISPLAY QUOTATION and not a verse block: it is set as a blockquote and
+     what is inside it decides whether the lines break. One of the Latin's 54 holds no line at all,
+     being Trimalchio's riddle set as a quotation in prose.
+
+   · THE LATIN'S NOTES ARE AN APPARATUS AND ARE DROPPED. 385 of them against the English's 134, with
+     a median length of 25 characters against 82; 113 are `place="marg"` sigla reading "L" or "LO",
+     and 162 of the rest name an editor or a manuscript. Folded under the chapter they would build a
+     list of variant readings in Latin abbreviations under every one of 141 tabs, which is the Art of
+     War's rule about what a note fold is for. They are counted and said out loud, and the book's own
+     front matter says it too. The cost, measured: about five explanatory glosses on Trimalchio's
+     Latin go with them, and a rule that told those from the apparatus would have to know every
+     editor's name — a list I have already watched come up short (it missed Haasius, Friedlaender,
+     Sambucus and Tornaesius), and a rule that misclassifies is worse than one that drops and says
+     so. The English's own three `place="marg"` sigla go the same way on both sides. */
+/* A QUOTATION MAY CROSS A SECTION BOUNDARY, and since the section is the chapter it has to be cut
+   at one — so every quotation still open at a section milestone is CLOSED before it and REOPENED
+   after it, innermost last, and each section comes out well-formed on its own.
+
+   IT IS THE AENEID'S MID-LINE CARD LIFT IN A NEW SHAPE. There a card mark standing inside a line of
+   verse had to be moved to the line's edge before the book was sliced at it, because slicing cut the
+   `<l>` in two and the reader matched neither half. Here the block is the thing sliced, and the fix
+   is to close and reopen rather than to move, because the boundary is the edition's own and must not
+   shift: the Bellum Civile at sections 119–124 is ONE `<quote rend="blockquote">` with five section
+   milestones inside it, so the poem is a display quotation the edition's own numbering divides.
+
+   WITHOUT IT THE FAULT IS THE QUIET KIND, in both directions. A display quotation whose opener is in
+   one section and whose closer is in the next comes back unclosed, and the whole poem then renders
+   as a run-on paragraph instead of a block — every word present, every line still broken, and only
+   the setting wrong; measured before this was written, that was 5 of the Latin's 54 blocks and 101
+   of its 607 lines. And an INLINE quotation crossing a boundary is worse rather than better: the
+   opener with no closer leaves the rest of that section inside quotation marks, which reads as the
+   narrator having started quoting somebody. Eighteen milestones in the Latin stand inside a
+   quotation of one kind or the other, most of them in Trimalchio's dinner, where the guests quote
+   proverbs at each other across the section marks.
+
+   IT IS NEEDED AT TWO KINDS OF BOUNDARY, which is why it takes one, and the second was found by
+   counting tags over the shipped file rather than by reading a page. A display quotation is pulled
+   out of the flow into a block of its own, and an inline quotation may WRAP one — §83 is a speech
+   that quotes a poem, "as the Greeks call it… [verse] …", and there are eight such places. Pulling
+   the block out leaves that speech's opener in the paragraph before and its closer in the paragraph
+   after, so the browser auto-closes the first at the end of its paragraph and drops the second, and
+   what a reader sees is a quotation mark opening where nothing is being quoted. Every word is
+   present and every count reads healthy; only counting an opening tag against its closer over the
+   shipped data shows it, which is this file's standing sweep after any extractor change.
+
+   AND THIS EDITION MARKS A QUOTATION TWO WAYS, which is the third time one bad assumption about
+   these tags has cost something today. Almost everything is `<quote>`; the Latin also carries three
+   bare `<q>` elements, and one of THOSE is the one wrapping a display quotation — Quartilla's speech
+   at §18, which quotes four lines of verse and then goes on talking. So the walk tracks both and
+   closes whichever is actually open, in reverse order, rather than assuming one element. Measured
+   over both columns: `<quote>` 585 in the Latin and 423 in the English, `<q>` 3 and 0. */
+function closeQuotesAt(text, boundary, isBoundary) {
+  const open = [];
+  let out = "", last = 0, cuts = 0;
+  const rx = new RegExp("<(\\/?)(quote|q)\\b[^>]*>|" + boundary, "g");
+  let m;
+  while ((m = rx.exec(text))) {
+    if (m[2]) {
+      if (!m[1]) { open.push({ tag: m[2], raw: m[0] }); continue; }
+      for (let k = open.length - 1; k >= 0; k--) if (open[k].tag === m[2]) { open.splice(k, 1); break; }
+      continue;
+    }
+    if (!open.length || (isBoundary && !isBoundary(m[0]))) continue;
+    const shut = open.slice().reverse().map((o) => "</" + o.tag + ">").join("");
+    out += text.slice(last, m.index) + shut + m[0] + open.map((o) => o.raw).join("");
+    last = rx.lastIndex;
+    cuts++;
+  }
+  return { text: out + text.slice(last), cuts: cuts };
+}
+
+function cutAcrossSections(body) {
+  return closeQuotesAt(body, "<milestone\\b[^>]*?\\/?>", (s) => {
+    // read the attributes independently of their order, for the Odyssey's reason
+    const u = /\bunit="([^"]*)"/.exec(s);
+    return !!u && u[1].toLowerCase() === "section";
+  });
+}
+
+function extractSatyricon(xml, opts, warn) {
+  const raw0 = xml.slice(xml.indexOf("<body"));
+  if (raw0.length < 1000) throw new Error("no <body> in the TEI file");
+  if (raw0.includes("@@")) throw new Error("the sentinel '@@' occurs in the source text");
+  const cut = cutAcrossSections(raw0);
+  const body = cut.text;
+
+  /* Read the milestone's attributes independently of their order — the Odyssey's rule, whose Greek
+     writes `<div n="1" type="textpart" subtype="book">` where every sibling writes the other order
+     and whose old order-fixed pattern therefore matched not one of the twenty-four. */
+  const marks = [];
+  const mre = /<milestone\b([^>]*?)\/?>/g;
+  let m;
+  while ((m = mre.exec(body))) {
+    const u = /\bunit="([^"]*)"/.exec(m[1]);
+    const n = /\bn="([^"]*)"/.exec(m[1]);
+    if (u && u[1].toLowerCase() === "section" && n && /^\d+$/.test(n[1]))
+      marks.push({ n: +n[1], at: m.index, end: mre.lastIndex });
+  }
+  if (!marks.length) throw new Error("no section milestones in the TEI file");
+
+  const out = {};
+  const counts = { notes: 0, dropped: 0, sigla: 0, verse: 0, lines: 0, quotes: 0,
+                   greek: 0, greekLeft: [], gaps: 0, cuts: cut.cuts };
+  let seq = 0;
+  marks.forEach((c, i) => {
+    if (c.n <= seq) warn("section " + c.n + " follows " + seq + " — out of order");
+    seq = c.n;
+    const raw = body.slice(c.end, i + 1 < marks.length ? marks[i + 1].at : body.length);
+    const notes = [];
+    const html = satyriconSection(raw, notes, opts, counts, warn);
+    if (!html) { warn("section " + c.n + " came back empty"); return; }
+    out[c.n] = { html: html, notes: notes };
+  });
+  return { sections: out, counts: counts };
+}
+
+/* Everything after an opening tag up to its own matching close, counting depth — the one thing a
+   non-greedy pair cannot do, and the reason this file has met the same bug three times now. */
+function balancedSpan(s, from, name) {
+  const tag = new RegExp("<(/?)" + name + "\\b[^>]*>", "g");
+  tag.lastIndex = from;
+  let depth = 0, t;
+  while ((t = tag.exec(s))) {
+    depth += t[1] ? -1 : 1;
+    if (!depth) return tag.lastIndex;
+  }
+  return -1;
+}
+
+function satyriconSection(raw, notes, opts, counts, warn) {
+  /* 1. THE GREEK, first, so that a <foreign> inside a note is decoded before the note is lifted. */
+  let b = raw.replace(/<foreign\b([^>]*)>([\s\S]*?)<\/foreign>/g, (whole, attrs, inner) => {
+    if (!/lang="grc"/.test(attrs)) return whole;
+    const src = inner.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    const got = opts.greek === "beta" ? betaGreek(src) : null;
+    if (got == null) { if (opts.greek === "beta") counts.greekLeft.push(src); return whole; }
+    counts.greek++;
+    return "<foreign" + attrs + ">" + got + "</foreign>";
+  });
+
+  /* 2. The scan's page breaks are furniture. */
+  b = b.replace(/<pb\b[^>]*?\/?>/g, " ");
+  counts.gaps += (b.match(/<gap\b/g) || []).length;
+
+  /* 3. THE NOTES, balanced. A marginal siglum is not a note on either side: the English's three and
+        the Latin's 113 all read "L" or "LO", which is the manuscript the reading comes from, and
+        lifted into the fold they are three entries saying nothing. */
+  for (let i = 0; (i = b.indexOf("<note", i)) !== -1; ) {
+    const end = balancedSpan(b, i, "note");
+    if (end === -1) { warn("an unclosed <note> — left in place"); break; }
+    const whole = b.slice(i, end);
+    const attrs = (/<note\b([^>]*)>/.exec(whole) || ["", ""])[1];
+    const inner = whole.replace(/^<note\b[^>]*>/, "").replace(/<\/note>$/, "");
+    let rep = "";
+    if (/place="marg"/.test(attrs)) counts.sigla++;
+    else if (opts.dropNotes) counts.dropped++;
+    else {
+      const t = teiInline(inner);
+      if (t) { notes.push(t); counts.notes++; rep = '<sup class="fn" data-fn="' + notes.length + '"></sup>'; }
+    }
+    b = b.slice(0, i) + rep + b.slice(end);
+    i += rep.length;
+  }
+
+  /* 4. THE DISPLAY QUOTATIONS, balanced, out to sentinels — what is inside decides whether the
+        lines break, since this translator sets Petronius's verse as prose. */
+  const blocks = [];
+  for (let i = 0; (i = b.indexOf("<quote", i)) !== -1; ) {
+    const open = /^<quote\b([^>]*)>/.exec(b.slice(i));
+    if (!open) { i += 6; continue; }
+    if (!/rend="blockquote"/.test(open[1])) { i += 6; continue; }
+    /* cutAcrossSections has already closed anything that ran over a section boundary, so this can
+       only fire on markup neither it nor the source anticipated. Step PAST the opener rather than
+       breaking, or one unbalanced block would silently cost every quotation after it in the same
+       section as well — which is how the five crossing blocks first cost more than five. */
+    const end = balancedSpan(b, i, "quote");
+    if (end === -1) { warn("an unclosed display quotation — left in place"); i += open[0].length; continue; }
+    const inner = b.slice(i + open[0].length, end - "</quote>".length);
+    const lines = (inner.match(/<l\b/g) || []).length;
+    const t = teiInline(inner);
+    const tok = "@@V" + blocks.length + "@@";
+    blocks.push(t ? "<blockquote><p>" + t + "</p></blockquote>" : "");
+    if (t) { counts.quotes++; if (lines) { counts.verse++; counts.lines += lines; } }
+    b = b.slice(0, i) + tok + b.slice(end);
+    i += tok.length;
+  }
+
+  /* 5. THE PARAGRAPHS. Every <p> tag, open or close, becomes one sentinel — see the header for why
+        this is not a <p> walk. Then the same close-and-reopen rule runs over EVERY boundary this
+        section is about to be cut at, block sentinels included: a speech spanning two paragraphs,
+        or wrapping a poem, must not leave half its tagging on either side of the cut. */
+  b = b.replace(/<\/?p\b[^>]*>/g, "@@P@@");
+  const rebal = closeQuotesAt(b, "@@P@@|@@V\\d+@@");
+  b = rebal.text;
+  counts.cuts += rebal.cuts;
+
+  const pieces = b.split(/(@@V\d+@@)|@@P@@/).filter((x) => x != null);
+  const html = [];
+  for (const piece of pieces) {
+    const v = /^@@V(\d+)@@$/.exec(piece);
+    if (v) { if (blocks[+v[1]]) html.push(blocks[+v[1]]); continue; }
+    const t = teiInline(piece);
+    if (t) html.push("<p>" + t + "</p>");
+  }
+  return html.join("\n");
+}
+
 /* ---------- reconciling the two columns' card numbers ----------
    142 of the 156 cards carry the identical number on both sides and need nothing. Thirteen are one to
    three Latin lines apart, because Magnus and the editor who aligned More's translation put the same
@@ -14384,6 +14896,40 @@ async function fetchEnglish() {
 
   /* A PROSE WORK IN BOOKS OF NUMBERED CHAPTERS — see teiBookChapters. One fetch for the whole
      history, cached whole, so --from/--to cost nothing and a re-extract needs no network at all. */
+  /* A WORK WHOSE SECTION IS ITS CHAPTER — one TEI file, 141 sections, nothing above them. See
+     extractSatyricon for why the section is the tab as well as the row, and why no marker is
+     written. The counts are printed rather than summarised, because every one of them is a decision
+     the reader would otherwise have to take on trust: what was dropped, what was left in beta code,
+     and how much of Petronius's verse the translator set as prose. */
+  if (BOOK.source === "tei" && BOOK.layout === "satyricon") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    const got = extractSatyricon(xml, { greek: BOOK.greek }, warn);
+    const c = got.counts;
+    console.log("  " + Object.keys(got.sections).length + " sections, " + c.notes + " notes, " +
+      c.quotes + " display quotations (" + c.verse + " of them verse, " + c.lines + " lines), " +
+      c.gaps + " lacunae");
+    if (c.cuts) console.log("    closed and reopened " + c.cuts + " quotation(s) at a boundary the text " +
+      "is cut at — a section mark, a paragraph, or a display quotation lifted out of the flow");
+    if (c.sigla) console.log("    dropped " + c.sigla + " marginal siglum note(s) — a manuscript letter is not a note");
+    if (c.greek || c.greekLeft.length)
+      console.log("    decoded " + c.greek + " Greek passage(s) out of beta code" +
+        (c.greekLeft.length ? "; LEFT " + c.greekLeft.length + " that will not compose: " +
+          c.greekLeft.map((s) => JSON.stringify(s)).join(", ") : ""));
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const s = got.sections[n];
+      if (!s) { warn(BOOK.chapterWord + " " + n + " is missing from the edition"); continue; }
+      if (s.html.length < (BOOK.minChars || 200))
+        throw new Error("section " + n + " came back short (" + s.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: s.html, notes: s.notes });
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.source === "tei" && BOOK.layout === "chaptered") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-tei.xml");
@@ -15059,6 +15605,44 @@ async function fetchOriginal() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+
+    /* THE SECTION IS THE CHAPTER, so there is nothing below it to reconcile — the pairing question
+       this branch usually answers ("do the two columns state the same numbers inside each chapter?")
+       becomes "does each column have the same 141 sections?", which is checked here against the
+       ENGLISH THAT SHIPPED rather than asserted from the entry, the discipline every branch above
+       follows. The original's notes have nowhere to go — Folio folds notes under the translation
+       alone — and here they are an apparatus criticus besides, so the count is printed. */
+    if (O.layout === "satyricon") {
+      const enCache = path.join(CACHE, "en-tei.xml");
+      let enXml;
+      if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
+      else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+      const en = extractSatyricon(enXml, { greek: BOOK.greek }, warn).sections;
+      const got = extractSatyricon(xml, { greek: O.greek, dropNotes: true }, warn);
+      const or = got.sections;
+      const c = got.counts;
+      console.log("  " + Object.keys(or).length + " sections, " + c.quotes + " display quotations (" +
+        c.verse + " of them verse, " + c.lines + " lines), " + c.gaps + " lacunae");
+      if (c.cuts) console.log("  closed and reopened " + c.cuts + " quotation(s) at a boundary the text " +
+        "is cut at — a section mark, a paragraph, or a display quotation lifted out of the flow");
+      console.log("  dropped " + c.dropped + " apparatus note(s) and " + c.sigla +
+        " marginal siglum note(s) from the " + O.langName + " — the reader folds notes under the " +
+        "translation alone, and this edition's are an apparatus criticus besides");
+      if (c.greek || c.greekLeft.length)
+        console.log("  decoded " + c.greek + " Greek passage(s) out of beta code" +
+          (c.greekLeft.length ? "; LEFT " + c.greekLeft.length + " that will not compose: " +
+            c.greekLeft.map((s) => JSON.stringify(s)).join(", ") : ""));
+      const eKeys = Object.keys(en).map(Number).sort((a, b) => a - b);
+      const oKeys = Object.keys(or).map(Number).sort((a, b) => a - b);
+      const oSet = new Set(oKeys), eSet = new Set(eKeys);
+      const miss = eKeys.filter((n) => !oSet.has(n)), extra = oKeys.filter((n) => !eSet.has(n));
+      console.log("  paired " + eKeys.filter((n) => oSet.has(n)).length + " of " + eKeys.length +
+        " sections" + (miss.length ? "; " + miss.length + " draw an empty " + O.langName +
+        " cell (" + miss.slice(0, 8).join(", ") + ")" : "") +
+        (extra.length ? "; " + extra.length + " an empty English one (" + extra.slice(0, 8).join(", ") + ")" : ""));
+      oKeys.forEach((n) => { byNum[n] = or[n].html; });
+      return writeOriginal(byNum, warnings);
+    }
 
     /* A VERSE edition pairs on CARDS rather than on prose chapters, and the two sides' card numbers
        have to be reconciled before either is written — see reconcileCards, which is where the thirteen

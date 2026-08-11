@@ -35,18 +35,19 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.167", released: "2026-08-11T15:48Z" };
+window.FOLIO_VERSION = { v: "1.168", released: "2026-08-11T20:02Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-11",
-    t: "Five books join the Library, including the whole of the Rigveda with its Sanskrit",
+    t: "Six books join the Library, including the whole of the Rigveda with its Sanskrit",
     items: [
       "<b>Dante's <i>Divine Comedy</i> is on the shelf</b> — all one hundred cantos in Henry Wadsworth Longfellow's 1867 verse translation, three lines to a row.",
       "<b>Augustine's <i>Confessions</i> is on the shelf</b> — all thirteen books in J. G. Pilkington's 1886 translation, with Migne's Latin on the facing page.",
       "<b>Aquinas's <i>Summa Theologica</i> is on the shelf</b> — all 614 questions and 3,094 articles of it, in the Dominican Fathers' translation of 1920.",
       "<b>The <i>Rigveda</i> is on the shelf</b> — all 1,028 hymns in Ralph Griffith's 1896 translation, with the Sanskrit facing it verse by verse.",
       "<b>Cervantes's <i>Don Quixote</i> is on the shelf</b> — both parts entire, all 126 chapters, in John Ormsby's translation of 1885.",
+      "<b>Petronius's <i>Satyricon</i> is on the shelf</b> — all 141 sections in Michael Heseltine's 1913 translation, with the Latin facing it.",
     ],
   },
   {

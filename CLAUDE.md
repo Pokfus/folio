@@ -128,7 +128,62 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty:
+  matter (chapter 0 — see the Library bullet). Currently forty-one:
+  `satyricon` (~288 KB, all 141 sections, **55 display quotations**, **131 notes** — Michael
+  Heseltine's Loeb of 1913, and **the first book here whose CHAPTER, SECTION AND CITATION ARE ALL
+  ONE THING.** The Rigveda's chapter is the smallest unit of the work and its verses still divide it;
+  here there is nothing below the section and nothing above it either. Both files state 141
+  `<milestone unit="section"/>`, **zero `<div>` and zero `<head>`**, and each declares the scheme in
+  its own header — `<refState unit="section"/>`, one level — so a passage is "Satyricon 48" and the
+  tab is the citation. **NO `bk-n` MARKER IS WRITTEN**, which is a decision: with the chapter and the
+  section the same thing there is nothing left to pair on, so each column comes back as a single
+  unnumbered block and `bookRows` pairs them on `key -1 === -1` — deterministically, since NEITHER
+  side carries a marker anywhere, which is what separates this from the Gallic War's chapter 0
+  pairing "by luck". Writing one would print the section number at the head of a chapter whose tab
+  already says it, which is Beowulf's `dropFittHead` rule.
+  **FIVE THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE TRANSLATION IS PARTLY UNTRANSLATED, and no ratio test can see it.** The Loeb of 1913 would
+  not print Petronius's frankly sexual passages in English, so it printed the LATIN: ten sections
+  entire or nearly so — 23–26, 85–87, 132, 138, 140 — **2,389 words, 4.9% of the English column**.
+  The obvious measure is a per-section length ratio, and it reported §138 healthy at 1.36 while its
+  "English" opens *Profert Oenothea scorteum fascinum* — **untranslated text is still text**. What
+  DOES see it is word overlap between the two columns of the same section: a real translation shares
+  only proper names, a few per cent, where these share nearly everything. It is the Rigveda's
+  Griffith problem (thirteen verses turned into Latin rather than English) met on a Latin original,
+  and the book's own front matter names the ten sections and the figure.
+  **A NON-GREEDY TAG PAIR IS WRONG THREE TIMES IN ONE FILE**, which is the Prose Edda's nested-`<dl>`
+  lesson at scale. `<quote>` nests inside `<l>` (`<l><quote>Quis furor</quote> exclamat…`), the
+  Latin's `<note>` nests once and its `<p>` sixteen times, so everything is matched BALANCED — and
+  the fault was quiet in the usual way: a non-greedy pair reported ten of the Latin's 607 lines as
+  standing outside any display quotation when in fact none does.
+  **A BLOCK MUST BE CLOSED AND REOPENED AT EVERY BOUNDARY THE TEXT IS CUT AT** — the Aeneid's
+  mid-line card lift in a new shape, and the cut this book most needed. The Bellum Civile at
+  sections 119–124 is **ONE `<quote rend="blockquote">` with five section milestones inside it**, so
+  the poem is a display quotation the edition's own numbering divides; cut at the milestones without
+  closing it, five blocks come back unclosed and 101 of the 607 lines render as run-on paragraphs
+  with every word present. The same rule is needed at a PARAGRAPH and at a display quotation lifted
+  out of the flow, since an inline quotation may wrap one (§83 is a speech quoting a poem) — and
+  **the edition marks a quotation TWO ways**, 585 `<quote>` and three bare `<q>` in the Latin, one
+  of the three being exactly the one that wraps a block. 58 cuts on the Latin side, 7 on the English.
+  **ONLY COUNTING A TAG AGAINST ITS CLOSER OVER THE SHIPPED FILE SHOWS ANY OF IT.**
+  **HESELTINE SETS PETRONIUS'S VERSE AS PROSE**, which is a fact about the translator rather than a
+  pairing fault and shows on every page it happens: the Latin marks **607 lines in 54 blocks** and
+  the English **23 in 8**, and in each of the eight longest poems the English's own `<l>` count is
+  ZERO — §89's 65 lines of the Troiae Halosis face a single English paragraph. So a display
+  quotation is a DISPLAY QUOTATION and not a verse block; what is inside decides whether the lines
+  break, and one of the Latin's 55 holds no line at all, being Trimalchio's riddle set as a
+  quotation in prose.
+  **AND THE GREEK IS BETA CODE IN ALL THREE CANDIDATE FILES** — zero Unicode Greek anywhere — so
+  there was no sibling to take it from; see `betaGreek`. **ITS REAL LIMITATION IS THE APPARATUS AND
+  IT IS DELIBERATE**: the Latin's 385 notes are a critical apparatus (median 25 characters against
+  the English's 82; 113 `place="marg"` sigla reading "L" or "LO", and 162 of the rest naming an
+  editor or a manuscript), dropped and counted, because folded under the chapter they would put a
+  list of variant readings in Latin abbreviations under every one of 141 tabs — the Art of War's
+  rule about what a note fold is for. The cost is about five explanatory glosses on Trimalchio's
+  Latin, and a rule that told those from the apparatus would have to know every editor's name, a
+  list already watched come up short. Six apparatus notes DO ship, in the English fold, and are
+  right there: they sit in the ten untranslated sections, where the English column is Latin and a
+  textual note is a note about the text that column carries),
   `don-quixote` (~2.22 MB, both parts entire as **126 chapters**, **143 verse blocks**, **0 notes** —
   Ormsby's translation of 1885, and **the first book here that was BUILT ON ONE SOURCE, CHECKED, AND
   THEN THROWN AWAY FOR ANOTHER.** Everything said use Wikisource: it carries this translation
@@ -782,7 +837,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-six:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-seven:
+  `satyricon.la.js` (~230 KB, all 141 sections, **607 lines of verse in 54 blocks**, **147
+  lacunae** — the Latin printed facing Heseltine's English in the same 1913 Loeb volume, and **the
+  EASIEST original on the shelf to justify and the hardest to read**. Easy because the two columns
+  are not two editions at all: they are the two halves of one printed page, split into two files by
+  Perseus in 2014, carrying the same 141 section milestones in the same order because one editor set
+  them once — so the pairing is exact by construction and one life answers for both columns, the
+  Odyssey's position rather than the Iliad's. Measured anyway: 141 a side, 1..141 with no gap or
+  duplicate either way, 141 of 141 paired. Hard because the text is a RUIN — 147 `<gap/>`s across
+  half its sections, each rendering as an ellipsis, and it breaks off mid-sentence at both ends.
+  **IT IS THE FULLER COLUMN IN ONE RESPECT AND THE ONLY ONE IN ANOTHER**: where the translator left
+  ten sections in Latin the two columns say the same thing twice, and where he set Petronius's verse
+  as prose this is the only column that shows it as verse. `<del>` is live and costs 53 words across
+  44 elements with **none wrapping a whole line**, measured rather than assumed — Lucretius's 116
+  marks cost that poem thirty whole lines. Its 385 notes are an apparatus and are dropped; see the
+  `satyricon` entry above),
   `canterbury-tales.enm.js` (~1.05 MB, the Prologue and all 24 tales, **17,581 lines of verse** plus the
   two prose tales entire — Walter W. Skeat's Oxford text of 1900, the first original here in **Middle
   English** (`enm`), and **the only one on the shelf that its own translation was made FROM.** Everywhere
@@ -1015,7 +1085,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty books, twenty-seven originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-one books, twenty-eight originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
   Divine Comedy, the Summa Theologica and Don Quixote
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
@@ -1577,6 +1647,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Part I; and **a short-lined block is not always verse** — a heading is short-lined too, so a block
   that is WHOLLY CAPITAL is kept as a paragraph and every one is counted and printed, since a rule
   that started eating headings must not do it quietly.
+
+  **AN EDITION MAY STATE ONE LEVEL OF CITATION AND NOTHING ELSE AT ALL** (`layout: "satyricon"` →
+  `extractSatyricon` / `satyriconSection` / `cutAcrossSections` / `closeQuotesAt` / `balancedSpan` /
+  `betaGreek`; Aug 2026, adding the Satyricon — the forty-first book, and the seventeenth layout).
+  The fifth TEI reader. Every earlier one takes its numbers from a `<div>` or from a milestone
+  standing inside a division; this edition has **zero `<div>`, zero `<head>` and 141 section
+  milestones**, and says so in its own header (`<refState unit="section"/>`, one level). So the
+  section is the chapter and the row at once, and no `bk-n` marker is written — see the `satyricon`
+  entry in the File map for why that pairs deterministically rather than by luck. Five things it
+  settled, and three are about not trusting a tag pair:
+  · **MATCH BALANCED, ALWAYS.** `<quote>` nests inside `<l>`, `<note>` nests once and `<p>` sixteen
+    times, and a non-greedy pair reported ten of 607 verse lines as standing outside any block when
+    none does. Third instance of this fault in the file after the Prose Edda's `<dl>`.
+  · **CLOSE AND REOPEN AT EVERY BOUNDARY THE TEXT IS CUT AT** — a section mark, a paragraph, and a
+    display quotation lifted out of the flow. The Bellum Civile is one quotation with five section
+    milestones inside it; an inline quotation may WRAP a block (a speech quoting a poem); and **the
+    edition marks a quotation two ways**, so the walk tracks `<quote>` and `<q>` and closes whichever
+    is open. Every one of those is invisible except by counting a tag against its closer over the
+    SHIPPED file.
+  · **CUT PARAGRAPHS WITH SENTINELS, NOT WITH A `<p>` WALK.** 92% of the Latin's text is inside a
+    `<p>` and 8% is not, so a `<p>`-anchored reader loses a twelfth of the column in silence — the
+    Art of War's `wrapBareRuns` fault in a TEI file — and replacing every `<p>` tag with one sentinel
+    survives the sixteen nested ones for free, where a paired match would not.
+  · **A LENGTH RATIO CANNOT SEE AN UNTRANSLATED PASSAGE**, because untranslated text is still text.
+    Word overlap between the two columns of the same section can: a real translation shares only
+    proper names. That is what found the ten sections this Loeb left in Latin.
+  · **AND BETA CODE IS DECODED, NOT REPAIRED** — see `betaGreek`, which sorts the combining marks
+    (Unicode never reorders two of the same canonical class, so `oi/)nw|` composes to nothing) and
+    REFUSES any string whose marks will not compose, leaving the ASCII rather than inventing a Greek
+    letter the language has not got.
 
   **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
   `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
@@ -3945,6 +4045,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     what to take — the violet family's best lands 19 from the SONG OF ROLAND, and Don Quixote is
     written against the chivalric romance while Roland is this shelf's chanson de geste, which is the
     one pair a reader would read as a set.
+    **The Satyricon states a LIMIT and it is the Odyssey's easy case underneath** (Aug 2026), which
+    puts it with the Song of Roland, the Gita and the two Homers rather than with the ten needing no
+    qualification. Petronius died in 66 CE. Michael Heseltine published this translation in 1913 and
+    lived 4 September 1886 – 13 March 1952, so it clears the pre-1929 rule and life-plus-seventy
+    (2023) and **not life plus a hundred, which runs to 2053** — said outright rather than smoothed
+    into the easier sentence. **BOTH COLUMNS ARE ONE HAND, AND ON A FACING-PAGE LOEB THAT IS WORTH
+    CHECKING IN EITHER DIRECTION**: the Iliad's Greek is a separate Oxford text and drags that book's
+    original out to 2051, where both Perseus files here name Heseltine as editor and nobody else, so
+    one life answers for both columns. His dates were corroborated twice for the A. J. Wyatt reason —
+    Wikidata at day precision with the death referenced to Britannica, and Wikisource's author page
+    giving (1886–1952) and listing exactly ONE work for him, this Satyricon — and **there is another
+    Michael Heseltine to keep him apart from**, the living British politician, whose entity a search
+    returns first. Both revision histories were READ on the Antigone's rule and record only tagging,
+    a composite split and a Unicode conversion.
+    **THE OTHER FREE ENGLISH WAS MEASURED AND REJECTED, and not for its age.** W. C. Firebaugh's of
+    1922 is out of copyright, is complete where Heseltine is not, and says on its own title page that
+    it incorporates "the forgeries of Nodot and Marchena" — two eighteenth-century fabrications
+    passed off as newly found Petronius. An edition that weaves those into the text without marking
+    them is not the Satyricon however unexpurgated it is: **ask what text an edition actually IS, not
+    only whether it is free and complete**, which is the Divine Comedy's question answered the same
+    way. Burnaby's of 1694 is free and is seventeenth-century English, the objection that ruled out
+    Golding's Ovid and Hobbes's Thucydides. So the choice was a genuine text with ten sections left
+    in Latin or a complete one with forgeries in it, and the front matter says which was taken and
+    what it costs. Arrowsmith (1959), Sullivan (1965), Walsh (1996) and Ruden (2000) are named as the
+    ones not to reach for, and with them **E. H. Warmington's 1969 revision of THIS translation**,
+    which is the Loeb in shops today and which fills in exactly the passages Heseltine left.
+
     **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
     the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
     the point of it: Augustine died in 430, J. G. Pilkington published this translation in Schaff's
@@ -11030,13 +11157,24 @@ dead code (never rendered).
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `markArticuli` /
     `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` /
-    `extractQuixote` /
+    `extractQuixote` / `extractSatyricon` / `satyriconSection` / `cutAcrossSections` /
+    `closeQuotesAt` / `balancedSpan` / `betaGreek` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the
     mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
+    **A SATYRICON section (`satyriconChecks`) is there for the same reason**, and every assertion in
+    it guards something that renders perfectly while being wrong. The balanced-matching and
+    close-and-reopen rules fail by leaving a poem's words on the page in the wrong setting, so the
+    check is a TAG BALANCE over both shipped columns plus the block and line counts (55 display
+    quotations, 607 Latin lines against 23 English, and §120 opening mid-poem inside the Bellum
+    Civile). The apparatus check runs the other way round from every count in this file — a leak makes
+    a chapter LONGER — and the Greek one asserts §48's Sibyl is Greek rather than `Si/bulla, ti/
+    qe/leis;`, that being the sentence a reader would report. Both of the first two were verified by
+    having caught real faults on the way in: 49 blocks of 55 and 8 unbalanced sections.
+
     **It carries an AENEID section (`aeneidChecks`) for the reason it carries a City of God one**: that
     book's reader — `cards: "both"` plus the mid-line lift — serves one book, so it cannot be proved
     inert by re-running a sibling and the shipped data stands in. Every fault it hunts is silent, and the

@@ -240,6 +240,77 @@ function quixoteChecks() {
   o.front = /DEDICATION OF VOLUME|COUNT OF LEMOS/i.test((b.chapters[51] || {}).html || "");
   return o;
 }
+/* THE SATYRICON, read off the two files that shipped. Its reader is the seventeenth layout and it
+   serves ONE book, so like the City of God's and the Aeneid's it cannot be proved inert by re-running
+   a sibling — the shipped-data sweep is what stands in for that check.
+
+   EVERY FAULT IT HUNTS IS SILENT. The display quotations are matched BALANCED because <quote> nests
+   inside <l>, and a non-greedy pair reports lines as standing outside any block; the block is closed
+   and reopened at every boundary the text is cut at, and without that the Bellum Civile — one
+   quotation with five section milestones inside it — comes back as five unclosed blocks that still
+   render every word. The Latin's 385 notes are an apparatus and are dropped, so a leak makes a
+   chapter LONGER. And the Greek is beta code, so a decoder that stopped firing would leave
+   "Si/bulla, ti/ qe/leis;" in the most-quoted sentence in the book. Not one of those throws, shortens
+   a chapter or disturbs the pairing. */
+function satyriconChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "satyricon.js"), laF = path.join(dir, "satyricon.la.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(laF)) return null;
+  global.window = {};
+  [enF, laF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "satyricon");
+  const la = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "satyricon");
+  if (!en || !la) return null;
+  const o = { en: en.chapters.length, la: la.chapters.length, intro: en.intro || "",
+              enQ: 0, laQ: 0, laLines: 0, enLines: 0, notes: 0, markers: 0, dead: 0, unref: 0,
+              marks: 0, apparatus: [], beta: [], greek: 0, gaps: 0, bal: [], shortest: 1e9,
+              paired: 0, sentinel: false };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup"];
+  const laBy = {};
+  la.chapters.forEach((c) => {
+    laBy[c.n] = c.html;
+    o.laQ += (c.html.match(/<blockquote>/g) || []).length;
+    o.laLines += (c.html.match(/<br>/g) || []).length;
+    o.gaps += (c.html.match(/…/g) || []).length;
+    o.greek += (c.html.match(/[Ͱ-Ͽἀ-῿]/g) || []).length;
+    /* the apparatus, which would make a chapter longer rather than shorter if it leaked */
+    if (/Buecheler|Heinsius|Salmasius|Tornaesius|<hi\b/.test(c.html)) o.apparatus.push(c.n);
+    if (c.html.includes("@@")) o.sentinel = true;
+    if (c.html.length < o.shortest) o.shortest = c.html.length;
+  });
+  en.chapters.forEach((c) => {
+    o.enQ += (c.html.match(/<blockquote>/g) || []).length;
+    o.enLines += (c.html.match(/<br>/g) || []).length;
+    o.marks += (c.html.match(/class="bk-n"/g) || []).length;
+    if (laBy[c.n] != null) o.paired++;
+    if (c.html.includes("@@")) o.sentinel = true;
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    o.markers += ms.length;
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    if (c.html.length < o.shortest) o.shortest = c.html.length;
+  });
+  /* beta code left standing anywhere: a letter run broken by one of its mark characters */
+  [en, la].forEach((bk) => bk.chapters.forEach((c) => {
+    if (/[a-z]{2,}[)(\\/\\\\=|][a-z]/.test(c.html.replace(/<[^>]*>/g, ""))) o.beta.push(c.n);
+  }));
+  /* tag balance over BOTH shipped columns — the sweep this repo prescribes after any stripTags- or
+     extractor-adjacent change, and the only thing that can see the crossing-quotation fault */
+  [["en", en], ["la", la]].forEach(([tag, bk]) => bk.chapters.forEach((c) => {
+    TAGS.forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(tag + " §" + c.n + " " + t + " " + open + "/" + shut);
+    });
+  }));
+  o.sibyl = /Σίβυλλα, τί θέλεις;/.test(laBy[48] || "") && /ἀποθανεῖν θέλω/.test(laBy[48] || "");
+  /* §120 sits INSIDE the Bellum Civile, so it must open on a block rather than on prose */
+  o.midPoem = /^<blockquote>/.test(laBy[120] || "");
+  return o;
+}
+
 /* THE AENEID, read off the two files that shipped. Its reader is `cards: "both"` plus the mid-line
    lift, and like The City of God's it serves ONE book, so it cannot be proved inert by re-running a
    sibling — the shipped-data sweep is what stands in for that check.
@@ -998,6 +1069,57 @@ function aeneidChecks() {
         /Spanish Wikisource/.test(dq.intro) && /names no editor/.test(dq.intro), "");
       check("[quixote] ...and that Ormsby's notes are in neither free transcription",
         /note fold/.test(dq.intro) && /footnotes/.test(dq.intro), "");
+    }
+
+    /* THE SATYRICON — see satyriconChecks above. */
+    const sat = satyriconChecks();
+    if (sat) {
+      check("[satyricon] 141 sections in each column, all of them paired",
+        sat.en === 141 && sat.la === 141 && sat.paired === 141,
+        `${sat.en} / ${sat.la}, ${sat.paired} paired`);
+      /* THE SECTION IS THE CHAPTER, so there is nothing below it to mark — and both columns being
+         unnumbered is what makes the pairing deterministic rather than the Gallic War's luck. */
+      check("...and no section markers, because the section IS the tab",
+        sat.marks === 0, String(sat.marks));
+
+      /* THE VERSE, and it is the finding this book turns on: the Latin marks 607 lines in 54
+         blocks and the translator sets every one of them as prose. Break the balanced matching or
+         the boundary rule and the blocks fall apart while every word stays on the page. */
+      check("[satyricon] 55 display quotations in the Latin, 54 of them verse, 607 lines",
+        sat.laQ === 55 && sat.laLines === 607 - 54, `${sat.laQ} blocks, ${sat.laLines} <br>`);
+      check("...and 8 in the English, which renders Petronius's verse as prose",
+        sat.enQ === 8 && sat.enLines === 23 - 8, `${sat.enQ} blocks, ${sat.enLines} <br>`);
+      /* §120 is INSIDE one quotation spanning six sections — it must open mid-poem. */
+      check("...so the Bellum Civile is cut at its boundaries, and §120 opens on a block",
+        sat.midPoem, (sat.la ? "§120 opens on prose" : ""));
+      /* The crossing-quotation fault is invisible except here. */
+      check("[satyricon] every tag balances in both columns",
+        !sat.bal.length, JSON.stringify(sat.bal.slice(0, 6)));
+
+      /* THE GREEK. Beta code decoded where it composes and LEFT where it does not; the Sibyl is the
+         most quoted sentence in the book and is the one a reader would report. */
+      check("[satyricon] §48's Sibyl is in Greek, not in beta code", sat.sibyl, "");
+      check("...with no beta code left standing anywhere else",
+        !sat.beta.length && sat.greek > 40, JSON.stringify(sat.beta.slice(0, 6)) + ` (${sat.greek} Greek chars)`);
+
+      /* THE APPARATUS is dropped, so a leak makes a chapter LONGER — which no count of chapters,
+         sections or words reads as a fault. */
+      check("[satyricon] the Latin's apparatus criticus is not in the text",
+        !sat.apparatus.length, JSON.stringify(sat.apparatus.slice(0, 6)));
+      check("...and no sentinel leaked into either column", !sat.sentinel, "");
+      check("[satyricon] 131 notes, every marker resolving and every note referenced",
+        sat.notes === 131 && sat.markers === 131 && !sat.dead && !sat.unref,
+        `${sat.notes} notes, ${sat.markers} markers, ${sat.dead} dead, ${sat.unref} unreferenced`);
+      /* 147 lacunae — the book is a ruin, and the mark the edition prints for that is content. */
+      check("[satyricon] the 147 lacunae are marked in the Latin", sat.gaps === 147, String(sat.gaps));
+      check("[satyricon] every section clears the short-chapter guard",
+        sat.shortest >= 400, String(sat.shortest));
+
+      /* The two things a reader meets as absences, both stated on the book's own first page. */
+      check("[satyricon] the front matter says which sections are left in Latin",
+        /left in Latin/.test(sat.intro) && /23 to 26/.test(sat.intro), "");
+      check("...and that the translator sets the verse as prose",
+        /renders all of it as prose|as prose/.test(sat.intro) && /607 lines/.test(sat.intro), "");
       /* the words the OTHER copy has lost, named on the page, so a reader who has met that copy
          elsewhere knows what they are looking at */
       check("[quixote] ...and which words the Wikisource copy drops, and that nothing is merged",

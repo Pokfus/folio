@@ -7752,6 +7752,31 @@
        novel and a Chinese one of the same century, from traditions with no contact. */
     "Miguel de Cervantes": "#B10960",
     "Thomas Aquinas": "#006C00",
+    /* Measured the same way, with 36 colours placed, and this is the row where the EURIPIDES TEST
+       does the most work it has ever done — it is worth 0.4 of a point on the raw number and it is
+       still obviously right.
+       Searched over the shelf's own lightness and chroma band, held 22 clear of every light theme's
+       ink and 4.5:1 on the tightest light paper, the best colour anywhere clears 19.2 and the whole
+       clear field is essentially ONE violet family — which is in line with Don Quixote's 19.3 at 35
+       colours and Chaucer's 19.7 at 31, the band tightening a little with each book, against a
+       shelf whose own tightest pair is 18.2. So the band was not widened and no pair tighter than
+       that was taken.
+       EVERY VIOLET WAS REJECTED, and for one reason: SENECA. He is 19 to 26 from all of them, and
+       he is the one author on this shelf a reader would genuinely set beside Petronius — the two
+       were contemporaries at Nero's court, both were forced to kill themselves within a year of
+       each other, and Seneca's Apocolocyntosis is bound in the very Loeb volume this text comes
+       from. A violet next to his violet would say they are a set. This muted olive is 89 from him.
+       THE INHERITED OBJECTION TO GREEN WAS RE-MEASURED AND DOES NOT APPLY, which is the Summa's
+       rule about not carrying an objection forward unexamined. The Vyasa and Dante rows each turned
+       a green down because every green clearing Lucretius and Aesop sat at the TOP of the chroma
+       band, bright enough to glow beside thirty muted colours — an objection about CHROMA. This one
+       is chroma 26 in a band running 18 to 64, seventh-lowest of the 36 placed, so it is an olive
+       rather than anything that glows.
+       What it costs is a close green quarter: Gilgamesh 18.8, Aesop 18.9, Confucius 19.2 and
+       Lucretius 19.9, all at or above the shelf's own tightest pair, and none of the four a book
+       anybody reads beside a comic Roman novel. It reads 4.60:1 on the tightest of the light papers
+       and 5.75:1 on white. */
+    "Petronius": "#66693C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9487,6 +9512,64 @@
         { n: 1, label: "Part I", note: "52 chapters · 1605 — the windmills, the galley slaves, the burning of the library" },
         { n: 2, label: "Part II", note: "74 · 1615 — in which everyone he meets has read Part I" },
       ],
+    },
+    {
+      id: "satyricon",
+      title: "The Satyricon",
+      subtitle: "Satyricon",
+      author: "Petronius",
+      /* Written under Nero and usually dated to the early 60s. `year` is the single number the
+         shelf's date sort needs; the prose carries the hedge, which is where a contested date
+         belongs — the attribution to Nero's arbiter of taste is probable rather than certain, and
+         with it goes the date. */
+      written: "c. 60s CE",
+      year: 65,
+      translator: "Michael Heseltine",
+      edition: "Loeb Classical Library, William Heinemann, London, 1913",
+      /* A LIMIT TO STATE, which puts it with the Song of Roland, the Gita and the two Homers rather
+         than with the ten needing no qualification. Petronius died in 66 CE. Heseltine published in
+         1913 and lived 1886–1952, so the English clears the pre-1929 rule and life plus seventy
+         (2023) and NOT life plus a hundred, which runs to 2053.
+
+         HIS DATES WERE CORROBORATED TWICE, for the A. J. Wyatt reason: Wikidata gives both at day
+         precision with the death referenced to Britannica, and Wikisource's author page gives
+         (1886–1952) and lists exactly one work for him — this Satyricon. He is also not the living
+         British politician of the same name, whose entity a search returns first.
+
+         BOTH COLUMNS ARE THE SAME HAND, which on a facing-page Loeb is worth checking rather than
+         assuming: the Iliad's Greek is a separate Oxford text and has to answer for a second life,
+         where here both Perseus files name Heseltine as editor and no one else. */
+      rights:
+        "Three layers, and the two modern ones are the same hand. Petronius died in 66 CE, so the " +
+        "work itself has long been out of copyright. Michael Heseltine's translation was published " +
+        "in London in 1913 and he lived from 1886 to 1952, so it is out of copyright under the rule " +
+        "for works published before 1929 and under the translator's life plus seventy years; where " +
+        "the term is life plus a hundred it remains in copyright until 2053. The facing Latin is " +
+        "the text printed opposite that translation in the same 1913 volume, credited by the " +
+        "edition used here to Heseltine and to no one else, so it rests on the same date and the " +
+        "same life. Both digital editions are prepared by the Perseus Digital Library at Tufts " +
+        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. The editor's apparatus of variant readings is not reproduced. " +
+        "(The modern translations by William Arrowsmith, 1959, J. P. Sullivan, 1965, P. G. Walsh, " +
+        "1996, and Sarah Ruden, 2000, are still in copyright and are not used here, nor is " +
+        "E. H. Warmington's 1969 revision of this one.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
+      origLang: "la",
+      origName: "Latina",
+      /* THE CHAPTER IS THE SECTION, because the section is the whole of the citation. A passage of
+         the Satyricon is "Satyricon 48" and nothing else: both files state 141 section milestones
+         and carry no book, part or chapter above them at all, and each declares as much in its own
+         header — `<refState unit="section"/>`, one level. So the tab is the citation, which is the
+         Rigveda's shape (the chapter is the smallest unit of the work) and the Song of Roland's (a
+         chapter is short, and that is the work rather than the import).
+
+         NO `parts`. The manuscripts' book numbers — fourteen, fifteen, sixteen — are the tempting
+         ones and cannot be used: they are what the excerptors labelled their extracts, they divide
+         the surviving text at no stated point, and where one book ends is exactly what is lost. */
+      chapterWord: "Section",
+      count: 141,
+      total: 141,
     },
     {
       id: "rigveda",
