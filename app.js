@@ -411,9 +411,18 @@
       if (leaf && leaf.cardIds) T.cardOrder[leafId] = leaf.cardIds.slice();
     });
   }
+  /* The community-deck caches (see uCacheBust's note down in the COMMUNITY DECKS block for what they hold
+     and why). They are DECLARED here, far from the code that fills them, because applyAdminEdits() busts
+     them and runs at boot — a `let` beside that block would still be in its temporal dead zone when it did,
+     which is a ReferenceError before the first paint rather than anything subtle. */
+  let _uStudyCache = new Map();
+  let _availCache = null;
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; }
+
   function applyAdminEdits() {
     buildTreeStructure();
     rebuildNodeRegistry();
+    uCacheBust();   // the tree it just rebuilt is the other half of what availableCardIdSet() reads
     if (Array.isArray(ADMIN_EDITS.timeline)) window.TIMELINE = ADMIN_EDITS.timeline;   // the working set of historical border eras overrides the shipped timeline.js
     if (!Array.isArray(window.TIMELINE)) window.TIMELINE = [];
     Object.keys(ADMIN_EDITS.cards).forEach((id) => { const c = CARD_BY_ID[id]; if (c) Object.assign(c, ADMIN_EDITS.cards[id]); });
@@ -1913,10 +1922,15 @@
      saying so. Rows come back in the row shape `revRead` unpacks, so nothing downstream knows where they
      came from; a failure returns null rather than an empty list, which the caller must tell apart from a
      reader who genuinely has nothing. */
+  /* PostgREST hands back at most this many rows in one response, so anything that can exceed it must be
+     PAGED — and the failure is silent, since a truncated array is a perfectly good array. It lives here
+     rather than inside the one reader that first needed it because it is a fact about the API, not about
+     the review archive: the community deck fetch pages on it too, and its cards go up in batches of it. */
+  const SUPA_PAGE = 1000;
   async function revFetchAll(onPage) {
     if (!supaLoggedIn() || _revTableMissing) return null;
     const out = [];
-    const page = 1000;
+    const page = SUPA_PAGE;
     for (let from = 0; ; from += page) {
       const r = await supaFetch(
         "/rest/v1/review_log?user_id=eq." + encodeURIComponent(SUPA.user.id) +
@@ -2327,6 +2341,12 @@
   function sanitizePlain(s) {
     const v = String(s == null ? "" : s);
     if (!v) return "";
+    /* Nothing to parse: with no "<" the parser can build no element, and with no "&" it can decode no
+       entity, so `body.textContent` is provably the input itself and the only work left is the whitespace
+       collapse below. sanitizeHTML has had this door since it was written; this one did not, and it is the
+       hotter of the two on a large deck — 88% of the string fields in HSK 3.0 carry neither character, and
+       that was a DOMParser round trip each, on every page load. */
+    if (v.indexOf("<") < 0 && v.indexOf("&") < 0) return v.replace(/\s+/g, " ").trim();
     try {
       const doc = new DOMParser().parseFromString("<body>" + v + "</body>", "text/html");
       const body = doc && doc.body;
@@ -3861,9 +3881,14 @@
     if (isCommunityCard(id)) {
       const note = UCARDS[uCardBaseId(id)];
       if (note && note.deckId) {
-        const sub = note.sub ? uSubEntry(note.deckId, note.sub) : null;
-        // a subdeck's own row can carry options; fall back to the deck's
-        if (sub && (S.deckOpts || {})[sub]) return sub;
+        /* a subdeck's own row can carry options, and since a subdeck may sit inside another the path is
+           walked upward: the nearest ancestor that has been given options governs, and the deck's own row
+           is the last of them. Without the walk, options set on `A1` would be ignored by every card
+           actually filed in `A1::Spanish → English`. */
+        for (let p = note.sub || ""; p; p = uSubParent(p)) {
+          const e = uSubEntry(note.deckId, p);
+          if ((S.deckOpts || {})[e]) return e;
+        }
         return uDeckEntry(note.deckId);
       }
       return null;
@@ -4334,6 +4359,67 @@
      build — or two devices reconciling — could carry one, and an unguarded walk would hang the page rather
      than draw a wrong list. The nest map is empty for almost every reader, so the common path is one
      `Object.keys` on `{}`. */
+  /* THE ORDER A SUBDECKED ENTRY DEALS ITS CARDS IN (Aug 2026, on request, after a reader studying a
+     level of a two-direction deck was given one direction and never the other).
+
+     A deck stores its cards one subdeck after another, and both the pooled review and a deck-scoped
+     session take the day's new cards as a SLICE off the front of that list — so on the DELE decks the
+     slice never reached the second subdeck at all, and Ordered meant "Spanish → English, for a hundred
+     days". Random was no answer: it shuffles the whole session and throws the word order away with the
+     problem.
+
+     So an entry whose cards come from more than one leaf subdeck deals them ROUND-ROBIN by position:
+     each subdeck keeps its own 1, 2, 3…, and the day gives position 1 from every subdeck, then position
+     2, and so on. Because the reorder happens BEFORE the allowance is sliced, this decides both WHICH
+     cards the day gives and WHAT ORDER they arrive in, from one place — so the pooled review, a session
+     started from a row, and that row's own counts cannot come to disagree.
+
+     THE LAG IS THE POINT OF THE DESIGN AND NOT A DETAIL. On a two-direction deck, position N is the SAME
+     WORD in both subdecks — measured on the DELE A1 deck, 496 of 496 — so a plain round robin deals
+     `de → of` and then `of → de` a second later. The reverse is then answered out of short-term memory
+     and scheduled far further out than it has been earned, and Folio's bury-siblings cannot save it:
+     these are two independent cards rather than two cards of one note, so nothing separates them. Each
+     later subdeck therefore runs `lag` positions BEHIND the first, where the lag is the entry's own
+     new-card allowance — one day's worth — so the reverse of a word arrives on the NEXT day rather than
+     in the next breath. Sorting on `position + groupIndex * lag` needs no state and self-corrects as
+     cards are consumed: the position is the card's place in its own subdeck, not its place in whatever
+     is left unseen today.
+
+     It applies to Folio's own collections too (on request), where the groups are the leaf decks: a
+     collection is met a few cards from each of its decks at a time, each deck a day behind the one
+     before it, rather than one deck worked through end to end.
+
+     A card's group is its LEAF SUBDECK, not its card template. A note's own reverse card is a separate
+     axis with a separate answer already — bury-siblings — and interleaving it here would be two
+     mechanisms arguing over the same pair. */
+  function studyGroupOf(id) {
+    if (isCommunityCard(id)) {
+      const n = UCARDS[uCardBaseId(id)];
+      return "u\u0000" + ((n && n.sub) || "");
+    }
+    const leaf = cardLeaves(id)[0];
+    return "n\u0000" + (leaf ? leaf.id : "");
+  }
+  function studyOrder(entryId, ids) {
+    const groups = new Map();                       // group -> its cards, in the deck's own order
+    ids.forEach((id) => {
+      const g = studyGroupOf(id);
+      let a = groups.get(g);
+      if (!a) { a = []; groups.set(g, a); }
+      a.push(id);
+    });
+    if (groups.size < 2) return ids;                // one group: the round robin is the identity
+    const lag = Math.max(1, deckLimits(entryId).newPerDay | 0);
+    const keyed = [];
+    let gi = 0;
+    groups.forEach((arr) => {                       // Map iterates in first-appearance order
+      const off = gi * lag;
+      arr.forEach((id, i) => keyed.push([i + off, gi, keyed.length, id]));
+      gi++;
+    });
+    keyed.sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]) || (a[2] - b[2]));
+    return keyed.map((k) => k[3]);
+  }
   function entryCardIds(id, _guard) {
     // the daily review answers for every added deck at once — see REVIEW_ENTRY
     if (id === REVIEW_ENTRY) {
@@ -4348,7 +4434,7 @@
       const sub = uSubOf(e);
       /* …expanded from NOTES into CARDS, which is what puts a reverse card in the review: a note whose
          type declares two templates is two cards with two schedules, and `cardIds` names the note. */
-      return uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || []));
+      return uDeckStudyIdsFor(d.id, sub);
     };
     // the common case, and the one nearly every reader is in: nothing has been dragged anywhere
     if (!Object.keys(deckNestMap()).length) {
@@ -4390,11 +4476,14 @@
   // review, the games and the card of the day, even for users who still have it in S.active.)
   // The user's own decks are studiable too, so they belong here — but NOT in the games, which draw from
   // ALL_CARD_IDS (TREE-derived) and must stay fact-checked content only.
+  // Memoised — see uCacheBust: nine calls a render, each walking the whole tree and every deck.
   function availableCardIdSet() {
+    if (_availCache) return _availCache;
     const s = new Set();
     (TREE.collections || []).forEach((c) => { if (!isComingSoon(c)) subtreeCardIds(c).forEach((id) => s.add(id)); });
     // …expanded into cards, like entryCardIds: a note's reverse card is studiable and must be listed here too
-    Object.keys(UDECKS).forEach((k) => uDeckStudyIds(UDECKS[k].cardIds || []).forEach((id) => s.add(id)));
+    Object.keys(UDECKS).forEach((k) => uDeckStudyIdsFor(k, "").forEach((id) => s.add(id)));
+    _availCache = s;
     return s;
   }
   /* THE CARDS A MINIGAME MAY DEAL (Aug 2026, on request): the available cards whose answer term is at or
@@ -4456,7 +4545,21 @@
     const a = activeEntryIds();
     if (a.indexOf(id) !== -1) return true;
     const n = NODE_BY_ID[id];
-    const wanted = n ? nodeSubtreeIds(n) : [id];
+    /* One of the reader's OWN decks brings its subdecks in with it, which is the collection rule one store
+       over: a deck divided into subdecks is divided for the same reason a collection is divided into decks,
+       and adding it and then finding a single undivided row is the thing this was reported as. Adding one
+       SUBDECK on its own still adds only that subdeck — a narrower choice is never widened. */
+    const ud = !n && !uSubOf(id) ? UDECKS[uDeckIdOf(id)] : null;
+    /* …and a SUBDECK brings the subdecks under IT, now that a subdeck may have them: adding `A1` and
+       finding one undivided row is the same report this bullet already records one level up. It is still
+       true that a narrower choice is never widened — what comes in is what is UNDER the row pressed. */
+    const usubId = !n && !ud ? uDeckIdOf(id) : null, usub = usubId ? uSubOf(id) : "";
+    const wanted = n ? nodeSubtreeIds(n)
+      : ud ? [id].concat(uSubNodes(ud.id).map((sub) => uSubEntry(ud.id, sub)))
+      : (usubId && UDECKS[usubId])
+        ? [id].concat(uSubNodes(usubId).filter((p) => p !== usub && uSubUnder(p, usub))
+                                       .map((p) => uSubEntry(usubId, p)))
+      : [id];
     S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
     save();
     return true;
@@ -4484,7 +4587,28 @@
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
     const n = NODE_BY_ID[id];
-    if (!n) { nestForget([id]); S.active = activeEntryIds().filter((x) => x !== id); save(); return; }
+    if (!n) {
+      /* The mirror of the add above, and it goes BOTH ways for the collection rule's own reason: a deck
+         removed takes its subdeck rows with it, and a subdeck removed takes the whole-deck row with it,
+         since that row would otherwise go on offering the very cards just removed while its + still read
+         as added. The deck's OTHER subdecks are separate entries and stay — nothing else is lost. */
+      const deckId = uDeckIdOf(id), sub = uSubOf(id);
+      const drop = new Set([id]);
+      if (deckId && UDECKS[deckId]) {
+        if (sub) {
+          // the ancestors, for the reason above — every one of them offers the cards just removed — and
+          // everything UNDER it, which is the mirror of the add
+          drop.add(uDeckEntry(deckId));
+          uSubNodes(deckId).forEach((p) => {
+            if (uSubUnder(sub, p) || uSubUnder(p, sub)) drop.add(uSubEntry(deckId, p));
+          });
+        } else uSubNodes(deckId).forEach((sb) => drop.add(uSubEntry(deckId, sb)));
+      }
+      nestForget([...drop]);
+      S.active = activeEntryIds().filter((x) => !drop.has(x));
+      save();
+      return;
+    }
     nestForget(nodeSubtreeIds(n));
     const drop = new Set(nodeSubtreeIds(n));
     let a = activeEntryIds();
@@ -4687,8 +4811,11 @@
       /* BOTH branches expand the notes to their cards. The subdeck one did not, and the two disagreed by a
          factor of two on a deck that both groups its notes and asks them in more than one direction — the
          quiet miss the reverse-cards note warns about, and invisible until a deck was both at once. */
-      return sub ? { title: sub, parent: ud.title, count: uDeckStudyIds(uDeckCardsIn(ud.id, sub)).length }
-                 : { title: ud.title, parent: "Your decks", count: uDeckStudyIds(ud.cardIds || []).length };
+      // a NESTED subdeck names itself by its own last segment and takes the one above it for context, so
+      // the sheet reads "Spanish → English / A1" rather than repeating the whole path twice over
+      return sub ? { title: uSubName(sub), parent: uSubName(uSubParent(sub)) || ud.title,
+                     count: uDeckStudyIdsFor(ud.id, sub).length }
+                 : { title: ud.title, parent: "Your decks", count: uDeckStudyIdsFor(ud.id, "").length };
     }
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
@@ -4981,7 +5108,7 @@
     if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
     activeEntryIds().forEach((e) => {
       if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
-      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id));
+      const ids = studyOrder(e, entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id)));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
         .sort((a, b) => S.cards[a].due - S.cards[b].due)
@@ -5017,9 +5144,14 @@
      bridges into the rest of the app are narrow and all in one place: entryCardIds / availableCardIdSet /
      buildSession / cardById.
      ============================================================ */
-  const UDECK_DB = "folio-community", UDECK_STORE = "decks";
+  const UDECK_DB = "folio-community", UDECK_STORE = "decks", UNOTE_STORE = "notes";
   const UDECK_LS_KEY = "folio_community_v1";   // fallback store — see communityUseLS below
   const UDECK_FORMAT = 1;                       // export-file version
+  /* The STORE's own shape version, which is not the export file's and must not be confused with it: a deck
+     FILE has looked the same throughout and still does, while `fmt` says whether a record on this device
+     keeps its cards inline (1, everything before Aug 2026) or in the `notes` store beside it (2). A record
+     with no `fmt` is a 1 and is migrated on the next boot — see uDeckSplitLegacy. */
+  const UDECK_FMT = 2;
   let _communityLS = false;                     // true once we know IndexedDB is unusable here
   let _communityReady = false;
 
@@ -5060,7 +5192,37 @@
   }
   function uDeckEntry(deckId) { return "u:" + deckId; }
   function uSubEntry(deckId, sub) { return sub ? "u:" + deckId + "/" + encodeURIComponent(sub) : "u:" + deckId; }
-  // the deck's subdecks: the distinct titles its cards name, in the order the cards are in
+  /* A SUBDECK MAY HOLD SUBDECKS, and it costs no schema change either (Aug 2026, on request). `card.sub`
+     is a PATH whose segments are separated by `::` — `A1` is a subdeck and `A1::Spanish → English` is a
+     subdeck of it — which is Anki's own deck separator, and this file copies Anki wherever Anki has
+     already answered the question. It is a convention over the SAME string field, so like subdecks
+     themselves it survives export, import, publish and install through paths that already carry the card
+     whole, and every deck written before this reads as a one-segment path.
+
+     `SUB_SEP` may be any string that cannot appear in a title, and the entry id does not constrain it:
+     `uSubEntry` percent-encodes the whole path, so the `/` that `uDeckIdOf` splits on is always the one
+     after the deck id whatever the path contains. What DOES constrain it is that a segment is a title a
+     reader typed, so the separator has to be something nobody types by accident.
+
+     THE TREE IS DERIVED, LIKE THE SUBDECKS THEMSELVES: there is no list of nodes anywhere, only the paths
+     the cards name, so an intermediate node exists exactly when something under it does. That is what
+     keeps a rename a matter of rewriting `sub` on the cards, and it is why an EMPTY intermediate subdeck
+     is not expressible — the same thing one level up gives up, for the same reason. */
+  const SUB_SEP = "::", SUB_MAX_DEPTH = 4;
+  function uSubParts(sub) {
+    return String(sub || "").split(SUB_SEP).map((s) => s.trim()).filter(Boolean);
+  }
+  function uSubNormalize(sub) {
+    return uSubParts(sub).slice(0, SUB_MAX_DEPTH).join(SUB_SEP);
+  }
+  function uSubName(sub) { const p = uSubParts(sub); return p.length ? p[p.length - 1] : ""; }
+  function uSubParent(sub) { return uSubParts(sub).slice(0, -1).join(SUB_SEP); }
+  // is `sub` this path or anything under it?  The test a parent row's card list is built on.
+  function uSubUnder(sub, prefix) {
+    if (!prefix) return true;
+    return sub === prefix || sub.slice(0, prefix.length + SUB_SEP.length) === prefix + SUB_SEP;
+  }
+  // the deck's subdecks: the distinct paths its cards name, in the order the cards are in
   function uDeckSubs(deckId) {
     const d = UDECKS[deckId];
     if (!d) return [];
@@ -5071,10 +5233,38 @@
     });
     return out;
   }
+  /* EVERY NODE OF THE TREE, parents before children — the paths the cards name AND every prefix of one,
+     since a card filed in `A1::Spanish → English` puts an `A1` on the bar whether or not any card names
+     `A1` on its own. This is what "adding a deck adds what is inside it" has to walk. */
+  function uSubNodes(deckId) {
+    const out = [];
+    uDeckSubs(deckId).forEach((sub) => {
+      const parts = uSubParts(sub);
+      for (let i = 1; i <= parts.length; i++) {
+        const p = parts.slice(0, i).join(SUB_SEP);
+        if (out.indexOf(p) < 0) out.push(p);
+      }
+    });
+    return out;
+  }
+  // the immediate children of a path ("" for the top level), in card order
+  function uSubChildren(deckId, prefix) {
+    const depth = prefix ? uSubParts(prefix).length : 0;
+    const out = [];
+    uSubNodes(deckId).forEach((p) => {
+      if (uSubParts(p).length !== depth + 1 || !uSubUnder(p, prefix)) return;
+      if (out.indexOf(p) < 0) out.push(p);
+    });
+    return out;
+  }
+  /* A PATH MATCHES ITSELF AND EVERYTHING UNDER IT, which is the whole of what makes a parent subdeck
+     studiable: `A1` deals the cards of `A1::Spanish → English` as well as any filed directly in `A1`.
+     It was an equality test while a sub was one segment, and an equality test here would give every
+     intermediate row a count of zero and a session with nothing in it. */
   function uDeckCardsIn(deckId, sub) {
     const d = UDECKS[deckId];
     if (!d) return [];
-    return (d.cardIds || []).filter((cid) => (((UCARDS[cid] && UCARDS[cid].sub) || "") === sub));
+    return (d.cardIds || []).filter((cid) => uSubUnder(((UCARDS[cid] && UCARDS[cid].sub) || ""), sub));
   }
   function uDeckOfCard(id) { const c = UCARDS[id]; return c && c.deckId ? UDECKS[c.deckId] || null : null; }
   function uDeckList() {
@@ -5088,21 +5278,52 @@
   }
 
   /* ---------- persistence ----------
-     IndexedDB is the store. On a file:// origin Chrome refuses IndexedDB outright (opaque origin), and
-     the golden rule is that Folio keeps working when index.html is opened directly — so an unusable IDB
-     silently falls back to localStorage. Decks are text, so the ~5 MB quota is roomy for Phase 1; the
-     fallback would need revisiting if decks ever carry inline image data. */
+     IndexedDB is the store, in TWO object stores, and that split is the whole of what makes a large deck
+     cheap to live with (Aug 2026, on the report that loading thousands of cards to study a few made no
+     sense). `decks` holds one SMALL record per deck — its meta, its glossary and an INDEX of its notes —
+     and `notes` holds one record per note, keyed "<deckId>/<noteId>". Boot reads only the first.
+
+     WHAT MAKES THE SPLIT POSSIBLE is that boot needs a card's IDENTITY and never its CONTENT: an index
+     entry carries the subdeck it sits in, the card type it uses and, for a cloze note, its deletion
+     ordinals — which is everything the app needs to COUNT, GROUP, ORDER and SCHEDULE a card. Content is
+     needed only to RENDER one, and rendering happens a few dozen cards at a time. Measured over the
+     10,896-note HSK 3.0 deck: the index is 546 KB against 17.9 MB of cards (3.1%, 53 bytes a note against
+     1,719), because `fields` alone is 81% of a deck. Boot went 305–900 ms to under 40, a session's own
+     cards read in 8 ms, and a Studio keystroke writes one note where it used to rewrite 19 MB.
+
+     THE COST IS AT IMPORT, and it is real: 10,896 individual puts take ~7.4 s where one blob took 246 ms.
+     It is one transaction, so it is atomic — an interrupted import leaves no deck rather than half of one
+     — and it is paid once, against a saving paid on every load. Chunking notes in groups of 25 was
+     measured as the alternative (import 1.6 s) and rejected: a due-card session is SCATTERED, so it hits
+     about the same number of records whatever their size, and chunks of 25 pulled 1.7 MB to read the same
+     60 notes that cost 109 KB one at a time.
+
+     On a file:// origin Chrome refuses IndexedDB outright (opaque origin), and the golden rule is that
+     Folio keeps working when index.html is opened directly — so an unusable IDB falls back to
+     localStorage, which keeps the OLD whole-record shape and mounts every card eagerly. That is a
+     decision rather than an omission: the ~5 MB quota means a deck big enough to want splitting cannot be
+     stored there at all, so a lazy path there would be one written for a case that cannot arise. */
   function cdbOpen() {
     return new Promise((resolve) => {
       let req;
-      try { req = indexedDB.open(UDECK_DB, 1); } catch (e) { resolve(null); return; }
+      try { req = indexedDB.open(UDECK_DB, 2); } catch (e) { resolve(null); return; }
       if (!req) { resolve(null); return; }
-      req.onupgradeneeded = () => { try { const db = req.result; if (!db.objectStoreNames.contains(UDECK_STORE)) db.createObjectStore(UDECK_STORE, { keyPath: "id" }); } catch (e) {} };
+      req.onupgradeneeded = () => {
+        try {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(UDECK_STORE)) db.createObjectStore(UDECK_STORE, { keyPath: "id" });
+          // v2. `deckId` is indexed so a deck's notes can be read or dropped whole without knowing their ids.
+          if (!db.objectStoreNames.contains(UNOTE_STORE)) {
+            db.createObjectStore(UNOTE_STORE, { keyPath: "k" }).createIndex("deckId", "deckId", { unique: false });
+          }
+        } catch (e) {}
+      };
       req.onerror = () => resolve(null);
       req.onblocked = () => resolve(null);
       req.onsuccess = () => resolve(req.result);
     });
   }
+  function noteKey(deckId, noteId) { return deckId + "/" + noteId; }
   function lsDecks() { try { const r = JSON.parse(localStorage.getItem(UDECK_LS_KEY)); return Array.isArray(r) ? r : []; } catch (e) { return []; } }
   function lsWrite(rows) { try { localStorage.setItem(UDECK_LS_KEY, JSON.stringify(rows)); return true; } catch (e) { toast("This device is out of storage — the deck may not be saved."); return false; } }
 
@@ -5123,14 +5344,21 @@
     }
     return lsDecks();
   }
-  async function cdbPut(rec) {
+  /* Write a deck's index record, and the content of whichever of its notes changed, in ONE transaction.
+     `putIds` is the notes to write and `delIds` the notes to remove; both empty means only the index moved
+     (a renamed deck, a reordered card, an edited type), which is the common case and now costs a few KB.
+     The whole deck is written by passing every id, which import, install and duplicate do. */
+  async function cdbPutDeck(rec, putIds, delIds) {
     if (!_communityLS) {
       const db = await cdbOpen();
       if (db) {
         const ok = await new Promise((resolve) => {
           try {
-            const tx = db.transaction(UDECK_STORE, "readwrite");
+            const tx = db.transaction([UDECK_STORE, UNOTE_STORE], "readwrite");
             tx.objectStore(UDECK_STORE).put(rec);
+            const st = tx.objectStore(UNOTE_STORE);
+            (putIds || []).forEach((id) => { const n = uNoteRecord(rec.id, id); if (n) st.put(n); });
+            (delIds || []).forEach((id) => st.delete(noteKey(rec.id, id)));
             tx.oncomplete = () => resolve(true);
             tx.onerror = () => resolve(false);
             tx.onabort = () => resolve(false);
@@ -5140,9 +5368,46 @@
       }
       _communityLS = true;
     }
+    // the fallback keeps the old whole-record shape, where every card is resident anyway
+    const full = uDeckRecordFull(rec.id);
+    if (!full) return false;
     const rows = lsDecks().filter((r) => r.id !== rec.id);
-    rows.push(rec);
+    rows.push(full);
     return lsWrite(rows);
+  }
+  // A deck's notes, by id. Missing ids simply come back absent — the caller is the one that knows whether
+  // that matters, and a note the index names but the store has lost must not take the read down with it.
+  async function cdbGetNotes(deckId, ids) {
+    if (_communityLS || !ids || !ids.length) return [];
+    const db = await cdbOpen();
+    if (!db) { _communityLS = true; return []; }
+    return new Promise((resolve) => {
+      try {
+        const tx = db.transaction(UNOTE_STORE, "readonly");
+        const st = tx.objectStore(UNOTE_STORE);
+        const out = [];
+        let left = ids.length;
+        const done = () => { if (!--left) resolve(out); };
+        ids.forEach((id) => {
+          const g = st.get(noteKey(deckId, id));
+          g.onsuccess = () => { if (g.result && g.result.c) out.push(g.result.c); done(); };
+          g.onerror = done;
+        });
+      } catch (e) { resolve([]); }
+    });
+  }
+  // every note of one deck, through the deckId index — the Studio's and the browser's read
+  async function cdbAllNotes(deckId) {
+    if (_communityLS) return [];
+    const db = await cdbOpen();
+    if (!db) { _communityLS = true; return []; }
+    return new Promise((resolve) => {
+      try {
+        const g = db.transaction(UNOTE_STORE, "readonly").objectStore(UNOTE_STORE).index("deckId").getAll(deckId);
+        g.onsuccess = () => resolve((g.result || []).map((r) => r && r.c).filter(Boolean));
+        g.onerror = () => resolve([]);
+      } catch (e) { resolve([]); }
+    });
   }
   async function cdbDel(id) {
     if (!_communityLS) {
@@ -5150,10 +5415,14 @@
       if (db) {
         const ok = await new Promise((resolve) => {
           try {
-            const tx = db.transaction(UDECK_STORE, "readwrite");
+            const tx = db.transaction([UDECK_STORE, UNOTE_STORE], "readwrite");
             tx.objectStore(UDECK_STORE).delete(id);
+            // the deck's notes go with it, or a deck re-created under the same id would inherit them
+            const cur = tx.objectStore(UNOTE_STORE).index("deckId").openKeyCursor(IDBKeyRange.only(id));
+            cur.onsuccess = () => { const k = cur.result; if (k) { tx.objectStore(UNOTE_STORE).delete(k.primaryKey); k.continue(); } };
             tx.oncomplete = () => resolve(true);
             tx.onerror = () => resolve(false);
+            tx.onabort = () => resolve(false);
           } catch (e) { resolve(false); }
         });
         if (ok) return true;
@@ -5167,13 +5436,41 @@
      The ONLY way a deck enters the in-memory store. Everything is sanitized here — imports obviously, but
      also what comes back out of IndexedDB, because the store is writable by anything running on this
      origin and "it was already in our database" is not a safety argument. Sanitizing at this one choke
-     point is what lets every downstream render (study, previews, the Library) stay ordinary innerHTML. */
+     point is what lets every downstream render (study, previews, the Library) stay ordinary innerHTML.
+
+     …EXCEPT WHERE THE SAME SANITIZER PROVABLY WROTE IT, WHICH IS AN ARITHMETIC ARGUMENT RATHER THAN A
+     TRUST ONE (Aug 2026, on a report that the site had become very slow with a large deck installed).
+     `sanitizeHTML` returns a FIXED POINT by construction — it loops until another pass changes nothing —
+     so re-running it on its own output cannot alter a character; `sanitizePlain` and `sanitizeCSSText` are
+     idempotent in the same way. Re-cleaning a record this build's own sanitizer produced is therefore
+     provably a no-op, and on a 10,896-note deck it was 5.7 SECONDS of no-op on every single page load
+     (174,741 sanitizeHTML calls, most of them DOM-parsing the same Chinese markup for the fourth time).
+
+     So a record we write carries `srev`, the sanitizer's own revision, and `communityBoot` — and ONLY
+     communityBoot, reading OUR store — may pass `trusted` to skip the string work while every structural
+     guard still runs: the id patterns, the key whitelists, the URL schemes, the caps, the shape. What
+     that gives up is exactly the case the revision stamp exists to catch, a deck cleaned by an OLDER and
+     possibly buggier sanitizer, and those are re-cleaned once, on the next load, because `srev` will not
+     match. An import, an install and a published payload are never trusted whatever they claim to carry.
+
+     BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES — sanitizePass, sanitizeHTML, sanitizePlain,
+     sanitizeCSSText, sanitizeUrl or any of the SANITIZE_* / UTYPE_* allowlists. Forgetting to leaves
+     already-stored decks cleaned by the old rules, which is the one way this can be wrong. */
+  const SANITIZE_REV = 1;
+  let _uTrusted = false;   // set ONLY inside uDeckNormalize, around a synchronous body, and restored in a finally
+  const uSH = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeHTML(v));
+  const uSP = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizePlain(v));
+  const uSCSS = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeCSSText(v));
   const UDECK_TEXT_FIELDS = ["title", "subtitle", "desc", "author", "language"];
   function uDeckSanitizeMeta(m) {
     const o = {};
-    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = sanitizePlain(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
-    o.id = /^[a-z0-9]{4,16}$/.test(String(m && m.id)) ? m.id : uid(8);
-    o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
+    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = uSP(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
+    /* `typeof` first, because String(undefined) is the WORD "undefined" — nine lowercase letters, which
+       matches the pattern below and handed a deck file with no id of its own the literal id `undefined`.
+       It was survivable while uDeckImportText caught the falsy id downstream and renamed everything; it
+       stopped being survivable once a card's deckId had to name a store key, so it is fixed at the source. */
+    o.id = (typeof (m && m.id) === "string" && /^[a-z0-9]{4,16}$/.test(m.id)) ? m.id : uid(8);
+    o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => uSP(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
     o.glossMode = GLOSS_MODES.indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
     o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
@@ -5188,11 +5485,11 @@
     o.remoteStatus = ["draft", "published", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
     o.publishedVersion = Number(m && m.publishedVersion) || 0;
     o.installedVersion = Number(m && m.installedVersion) || 0;
-    o.ownerName = sanitizePlain(m && m.ownerName).slice(0, 80);
+    o.ownerName = uSP(m && m.ownerName).slice(0, 80);
     // attribution for a duplicated deck — travels in the file and in a publish, so credit survives a copy
     const ff = m && m.forkedFrom;
     o.forkedFrom = (ff && typeof ff === "object" && (ff.title || ff.slug))
-      ? { slug: sanitizePlain(ff.slug).slice(0, 64), title: sanitizePlain(ff.title).slice(0, 200), author: sanitizePlain(ff.author).slice(0, 80) }
+      ? { slug: uSP(ff.slug).slice(0, 64), title: uSP(ff.title).slice(0, 200), author: uSP(ff.author).slice(0, 80) }
       : null;
     return o;
   }
@@ -5247,9 +5544,9 @@
   }
   function uTypeCardSanitize(raw, i) {
     return {
-      name: sanitizePlain(raw && raw.name).slice(0, UTYPE_CARD_NAME_MAX) || "Card " + (i + 1),
-      front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
-      back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
+      name: uSP(raw && raw.name).slice(0, UTYPE_CARD_NAME_MAX) || "Card " + (i + 1),
+      front: uSH(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
+      back: uSH(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
     };
   }
   // a note id (no suffix) and the 0-based template a derived card id names
@@ -5280,7 +5577,11 @@
     const t = cardTypeOf(note);
     if (!t) return [base];
     if (t.cloze) {
-      const ords = clozeOrds(note);
+      /* An unwarmed note answers from the ordinals its index entry carries, which is exactly why they are
+         precomputed: clozeOrds reads the note's own fields, so without them a cloze deck could not be
+         counted, ordered or scheduled until its content had been loaded — and the counts are wanted on the
+         home page, long before any card is rendered. */
+      const ords = uIsLazy(note) ? (note._ords || []) : clozeOrds(note);
       // a cloze note with no marker yet is still ONE card: it is a note somebody is part-way through writing,
       // and returning nothing would take it out of its own deck without saying so
       return ords.length ? ords.map((o) => uCardIdFor(base, o - 1)) : [base];
@@ -5306,6 +5607,32 @@
     lists.forEach((l) => { if (l.length > most) most = l.length; });
     for (let i = 0; i < most; i++) lists.forEach((l) => { if (i < l.length) out.push(l[i]); });
     return out;
+  }
+  /* ---------- …CACHED, because a render asks for it a dozen times (Aug 2026) ----------
+     The expansion is derived from the deck on every read, which is what keeps it honest — a card's `sub`
+     and a type's template list can change under it and nothing has to be kept in step. It is also O(notes),
+     and one home render asked for it SIXTEEN times: `entryPiles` per row, `reviewQueue`, `entryInfo`,
+     `availableCardIdSet` (itself called nine times), the progress bar on each row. On HSK 3.0 that was
+     174,336 `uNoteCardIds` calls and ~270ms per repaint with a single row on the page, before the deck's
+     nine subdecks were drawn at all.
+
+     Keyed by (deck, subdeck) and thrown away WHOLE by `uCacheBust`, which every write goes through: the
+     Studio's mutations all end in `uDeckSave`, and mounting or deleting a deck is the only other way the
+     stores move. Coarse on purpose — a stale entry here would silently deal the wrong cards, so the cheap
+     correct thing is to keep nothing rather than to reason about what changed.
+
+     `availableCardIdSet` is memoised beside it and depends on ONE thing more: the collection tree, which an
+     admin edit rewrites — hence the bust in `applyAdminEdits`. Both hand back the live array/Set rather than
+     a copy; nothing mutates what they return, and every caller was checked before this was written. */
+  function uDeckStudyIdsFor(deckId, sub) {
+    const key = deckId + "/" + (sub || "");
+    let v = _uStudyCache.get(key);
+    if (!v) {
+      const d = UDECKS[deckId];
+      v = d ? uDeckStudyIds(sub ? uDeckCardsIn(deckId, sub) : (d.cardIds || [])) : [];
+      _uStudyCache.set(key, v);
+    }
+    return v;
   }
 
   /* A type's stylesheet, cleaned. It is not executable, so this is about three narrower things:
@@ -5386,11 +5713,11 @@
     if (!UTYPE_ID_RX.test(id) || id === CARD_TYPE_BASIC) return null;   // "basic" is the built-in format's name and cannot be taken
     const fields = [];
     (Array.isArray(raw && raw.fields) ? raw.fields : []).forEach((f) => {
-      const n = sanitizePlain(f).trim();
+      const n = uSP(f).trim();
       if (UTYPE_FIELD_RX.test(n) && fields.indexOf(n) < 0 && fields.length < UTYPE_MAX_FIELDS) fields.push(n);
     });
     if (!fields.length) fields.push("Front", "Back");
-    const lang = sanitizePlain(raw && raw.speechLang).trim();
+    const lang = uSP(raw && raw.speechLang).trim();
     /* The card templates, in the canonical `cards` list. A type written before card templates existed
        carries `front`/`back` at the top level and is folded into a single-card list here — which is what
        makes every existing deck file, installed copy and published row normalise on ingest with nothing to
@@ -5400,10 +5727,10 @@
     if (!cards.length) cards.push(uTypeCardSanitize({ name: raw && raw.cardName, front: raw && raw.front, back: raw && raw.back }, 0));
     return {
       id: id,
-      name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
+      name: uSP(raw && raw.name).slice(0, 60) || id,
       fields: fields,
       cards: cards,
-      css: sanitizeCSSText(raw && raw.css),
+      css: uSCSS(raw && raw.css),
       speechLang: SPEECH_LANG_RX.test(lang) ? lang : "",
       /* ONE CARD PER DELETION. It is a property of the TYPE rather than something detected from the fields,
          and it has to be: the markers live in a card's values, so a type could only be recognised as a cloze
@@ -5431,25 +5758,25 @@
     CARD_FIELDS.forEach((f) => {
       const v = raw ? raw[f] : "";
       c[f] = (f === "answerText" || f === "num" || f === "category" || f === "pinyin")
-        ? sanitizePlain(v).slice(0, 400)
-        : sanitizeHTML(v == null ? "" : String(v)).slice(0, 20000);
+        ? uSP(v).slice(0, 400)
+        : uSH(v == null ? "" : String(v)).slice(0, 20000);
     });
     // extra question phrasings: rich HTML like `question`, capped so a hostile file can't smuggle hundreds
     if (raw && Array.isArray(raw.questions)) {
       const extras = raw.questions.slice(0, CARD_MAX_QUESTIONS - 1)
-        .map((q) => sanitizeHTML(q == null ? "" : String(q)).slice(0, 20000))
+        .map((q) => uSH(q == null ? "" : String(q)).slice(0, 20000))
         .filter((q) => q.trim());
       if (extras.length) c.questions = extras;
     }
     // source footnotes: short rich HTML (a citation italicises a title), sanitized like every other rich field
     if (raw && (Array.isArray(raw.sources) || typeof raw.sources === "string")) {
       const src = (Array.isArray(raw.sources) ? raw.sources : [raw.sources]).slice(0, SRC_MAX)
-        .map((s) => sanitizeHTML(s == null ? "" : String(s)).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
+        .map((s) => uSH(s == null ? "" : String(s)).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
       if (src.length) c.sources = src;
     }
     if (raw && raw.image && raw.image.src) {
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
-      if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300), alt: sanitizePlain(raw.image.alt).slice(0, 400) };
+      if (src) c.image = { src: src, title: uSP(raw.image.title).slice(0, 200), desc: uSP(raw.image.desc).slice(0, 1000), credit: uSP(raw.image.credit).slice(0, 300), alt: uSP(raw.image.alt).slice(0, 400) };
     }
     // one frame per card: a record carrying both resolves the same way the renderers do — the picture wins
     if (!c.image) { const v = uMediaSanitize(raw && raw.video); if (v) c.video = v; }
@@ -5460,8 +5787,9 @@
        held any carries no key at all. The field VALUES are rich HTML like everything else here; the NAMES are
        held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
        collides with something the renderer reads. */
-    // which subdeck this card is in, if any — a plain title, carried like `category`
-    const sub = sanitizePlain(raw && raw.sub).slice(0, 80).trim();
+    // which subdeck this card is in, if any — carried like `category`, and a PATH since Aug 2026, so it
+    // is normalised here rather than trusted: blank segments dropped, depth capped, length capped
+    const sub = uSubNormalize(uSP(raw && raw.sub).slice(0, 200));
     if (sub) c.sub = sub;
     const ty = String((raw && raw.type) || "").trim();
     if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
@@ -5469,7 +5797,7 @@
       const f = {};
       Object.keys(raw.fields).slice(0, UTYPE_MAX_FIELDS).forEach((k) => {
         const name = String(k).trim();
-        if (UTYPE_FIELD_RX.test(name)) f[name] = sanitizeHTML(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
+        if (UTYPE_FIELD_RX.test(name)) f[name] = uSH(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
       });
       if (c.type || Object.keys(f).length) c.fields = f;
     }
@@ -5483,7 +5811,7 @@
     if (!raw || !raw.src) return null;
     const src = sanitizeUrl(String(raw.src), ["http", "https"]);
     if (!src) return null;
-    return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
+    return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
   /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
      view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
@@ -5506,17 +5834,17 @@
       if (!/^[\w.-]{1,80}$/.test(slug)) return;
       const t = raw[slugRaw] || {};
       const e = {
-        desc: sanitizeHTML(t.desc == null ? "" : String(t.desc)).slice(0, 4000),
-        title: sanitizePlain(t.title).slice(0, 120),
-        date: sanitizePlain(t.date).slice(0, 60),
-        tags: Array.isArray(t.tags) ? t.tags.map((x) => sanitizePlain(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
-        aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
+        desc: uSH(t.desc == null ? "" : String(t.desc)).slice(0, 4000),
+        title: uSP(t.title).slice(0, 120),
+        date: uSP(t.date).slice(0, 60),
+        tags: Array.isArray(t.tags) ? t.tags.map((x) => uSP(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
+        aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => uSP(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
         // the works behind the description — rich HTML like the description itself, so sanitized the same way
-        sources: Array.isArray(t.sources) ? t.sources.slice(0, SRC_MAX).map((x) => sanitizeHTML(x == null ? "" : String(x)).slice(0, SRC_MAX_LEN)).filter((x) => x.trim()) : [],
+        sources: Array.isArray(t.sources) ? t.sources.slice(0, SRC_MAX).map((x) => uSH(x == null ? "" : String(x)).slice(0, SRC_MAX_LEN)).filter((x) => x.trim()) : [],
       };
       if (t.image && t.image.src) {   // the term's illustration, on the same footing as a card image
         const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
-        if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300), alt: sanitizePlain(t.image.alt).slice(0, 400) };
+        if (src) e.image = { src: src, title: uSP(t.image.title).slice(0, 200), desc: uSP(t.image.desc).slice(0, 1000), credit: uSP(t.image.credit).slice(0, 300), alt: uSP(t.image.alt).slice(0, 400) };
       }
       if (!e.image) { const tv = uMediaSanitize(t.video); if (tv) e.video = tv; }   // the term's video — one frame, so only when there is no picture
       if (!e.desc && !e.title) return;
@@ -5524,9 +5852,69 @@
     });
     return out;
   }
-  // Turn an arbitrary record (IDB row or imported file) into a clean deck, or null if it isn't one.
-  function uDeckNormalize(rec) {
+  /* Turn an arbitrary record (IDB row or imported file) into a clean deck, or null if it isn't one.
+     `fromOwnStore` is passed by communityBoot and by nothing else: with it, and with the record carrying
+     THIS sanitizer's revision, the per-field string cleaning is skipped as the provable no-op it is — see
+     the note above the ingest block. Every structural guard below still runs either way. */
+  function uDeckNormalize(rec, fromOwnStore) {
     if (!rec || typeof rec !== "object") return null;
+    const wasTrusted = _uTrusted;
+    _uTrusted = !!fromOwnStore && rec.srev === SANITIZE_REV;
+    try {
+      return uDeckNormalizeInner(rec);
+    } finally { _uTrusted = wasTrusted; }   // the body is synchronous, so this cannot leak into anything else
+  }
+  /* ---------- the note index ----------
+     An index entry is what boot mounts in place of a card: everything the app needs to COUNT, GROUP, ORDER
+     and SCHEDULE it, and nothing it needs to RENDER it. `ords` is a cloze note's deletion list, and it is
+     precomputed HERE rather than read back off the card because clozeOrds() scans the note's own fields —
+     without it uNoteCardIds would need content, and the split would collapse on the one kind of deck whose
+     notes make several cards. It is computed only for a type that actually declares `cloze`, or importing a
+     10,896-note deck would mean a regex sweep of 14 MB of fields for nothing. */
+  function uNoteIndexEntry(c, types) {
+    const e = { id: c.id, sub: c.sub || "" };
+    if (c.type) {
+      e.type = c.type;
+      const t = types && types[c.type];
+      if (t && t.cloze) { const o = clozeOrds(c); if (o.length) e.ords = o; }
+    }
+    return e;
+  }
+  /* The index comes back out of OUR store, which is writable by anything running on this origin — "it was
+     already in our database" is not a safety argument, so it gets the same structural guards a card does. */
+  function uIndexSanitize(raw, meta) {
+    const out = [];
+    if (!Array.isArray(raw)) return out;
+    const seen = new Set();
+    raw.slice(0, UDECK_MAX_CARDS).forEach((r, i) => {
+      if (!r || typeof r !== "object") return;
+      const id = String(r.id || "");
+      if (!/^u_[a-z0-9]{4,16}_\d+$/.test(id) || seen.has(id)) return;
+      seen.add(id);
+      const e = { id: id, sub: uSP(r.sub).slice(0, 200) };
+      const t = String(r.type || "");
+      if (t && meta.types && meta.types[t]) e.type = t;
+      if (Array.isArray(r.ords)) {
+        const o = r.ords.map(Number).filter((n) => n > 0 && n <= UTYPE_MAX_CLOZE).slice(0, UTYPE_MAX_CLOZE);
+        if (o.length) e.ords = o;
+      }
+      out.push(e);
+    });
+    return out;
+  }
+  /* A note with no content loaded yet. It is deliberately a CARD-SHAPED object living in UCARDS rather than
+     a second map beside it: everything that reads `.deckId`, `.sub` or `.type` off a note — the subdeck
+     list, the scheduler's entry lookup, the glossary scope, the browser's deck column — then keeps working
+     untouched, and only the handful of places that read a card's PROSE need to warm it first. */
+  function uNoteStub(deckId, e) {
+    const c = { id: e.id, deckId: deckId, sub: e.sub || "", _lazy: true };
+    if (e.type) c.type = e.type;
+    if (e.ords) c._ords = e.ords;
+    return c;
+  }
+  function uIsLazy(c) { return !!(c && c._lazy); }
+
+  function uDeckNormalizeInner(rec) {
     const meta = uDeckSanitizeMeta(rec.meta || rec);
     const all = Array.isArray(rec.cards) ? rec.cards : [];
     const rawCards = all.slice(0, UDECK_MAX_CARDS);
@@ -5538,33 +5926,179 @@
       seen.add(c.id);
       cards.push(c);
     });
+    /* A fmt-2 record carries an index and no cards; anything else (an import file, an installed payload, a
+       fmt-1 record still on disk) carries cards, and its index is derived from them. `legacy` is what tells
+       communityBoot it has a record to migrate — it cannot be read off `cards.length`, since an empty deck
+       has none either way. */
+    const legacy = !Array.isArray(rec.index);
+    const index = legacy ? cards.map((c) => uNoteIndexEntry(c, meta.types)) : uIndexSanitize(rec.index, meta);
     // what the cap cost, so a caller can SAY so — a deck quietly missing its last cards looks like a deck
-    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss), over: all.length - rawCards.length };
+    return { id: meta.id, meta: meta, cards: cards, index: index, gloss: uGlossSanitize(rec.gloss), legacy: legacy, over: all.length - rawCards.length };
   }
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
     if (!norm) return null;
-    const d = Object.assign({}, norm.meta, { cardIds: norm.cards.map((c) => c.id) });
+    uCacheBust();
+    const idx = norm.index || [];
+    const d = Object.assign({}, norm.meta, { cardIds: idx.map((e) => e.id) });
     UDECKS[d.id] = d;
     UGLOSS[d.id] = norm.gloss || {};
-    norm.cards.forEach((c) => { UCARDS[c.id] = c; });
+    // stubs first, so every note is countable and schedulable from the moment the deck mounts…
+    idx.forEach((e) => { UCARDS[e.id] = uNoteStub(d.id, e); });
+    // …then whatever content came with the record — an import, an install, or the localStorage fallback,
+    // where there is no notes store to warm from and everything is resident by design
+    (norm.cards || []).forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
   const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
   const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
-  function uDeckRecord(deckId) {   // the on-disk shape (also the export shape, minus the publishing keys)
-    const d = UDECKS[deckId];
-    if (!d) return null;
+  function uDeckMetaRecord(d) {
     const meta = {};
     UDECK_META_KEYS.concat(UDECK_PUBLISH_KEYS).forEach((f) => { meta[f] = d[f]; });
-    return { id: d.id, meta: meta, cards: uDeckCards(d).map((c) => { const o = {}; Object.keys(c).forEach((k) => { if (k !== "deckId") o[k] = c[k]; }); return o; }), gloss: UGLOSS[d.id] || {} };
+    return meta;
   }
-  function uDeckSave(deckId) {
+  // a card as it is stored: everything but the two fields the store itself owns
+  function uCardStored(c) {
+    const o = {};
+    Object.keys(c).forEach((k) => { if (k !== "deckId" && k !== "_lazy" && k !== "_ords" && k !== "_gone") o[k] = c[k]; });
+    return o;
+  }
+  /* The small record boot reads: the deck, its glossary and its note index, and NOT its cards.
+     `srev` says which sanitizer cleaned this, so the next boot can skip re-cleaning it — see the ingest
+     note. It is deliberately at the TOP level of the record and not inside `meta`, which is what an
+     export copies: a deck FILE must never carry it, since a file is not our store and is never trusted.
+     `fmt` sits beside it for the same reason and says the cards live in the `notes` store. */
+  function uDeckIndexRecord(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return null;
+    const types = d.types || {};
+    return {
+      id: d.id, srev: SANITIZE_REV, fmt: UDECK_FMT, meta: uDeckMetaRecord(d), gloss: UGLOSS[d.id] || {},
+      index: (d.cardIds || []).map((id) => {
+        const c = UCARDS[id];
+        if (!c) return null;
+        // an unwarmed note already IS its index entry — re-deriving it would need content we have not got
+        return uIsLazy(c) ? Object.assign({ id: c.id, sub: c.sub || "" }, c.type ? { type: c.type } : {}, c._ords ? { ords: c._ords } : {})
+          : uNoteIndexEntry(c, types);
+      }).filter(Boolean),
+    };
+  }
+  function uNoteRecord(deckId, noteId) {
+    const c = UCARDS[noteId];
+    // a note whose content was never warmed has nothing to write, and writing the stub would DESTROY the
+    // card — the single most damaging thing this split could do, so it is refused here rather than guarded
+    // at each of the callers
+    if (!c || c.deckId !== deckId || uIsLazy(c)) return null;
+    return { k: noteKey(deckId, noteId), deckId: deckId, c: uCardStored(c) };
+  }
+  /* The whole-deck shape: what the localStorage fallback stores, what an export is built from, and what a
+     fmt-1 record looked like. Every card must be warm — uWarmDeck is what the callers use to be sure. */
+  function uDeckRecordFull(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return null;
+    return { id: d.id, srev: SANITIZE_REV, meta: uDeckMetaRecord(d), cards: uDeckCards(d).map(uCardStored), gloss: UGLOSS[d.id] || {} };
+  }
+  /* Persist a deck. `putIds` names the notes whose CONTENT changed and `delIds` those that went; passing
+     neither writes only the index, which is what a renamed deck, a reordered card or an edited type needs
+     and is why a Studio keystroke no longer rewrites the whole deck. Card mutations go through
+     uCardTouched rather than calling this directly, so "which note changed" is never a caller's guess. */
+  function uDeckSave(deckId, putIds, delIds) {
     const d = UDECKS[deckId];
     if (!d) return Promise.resolve(false);
+    uCacheBust();   // every Studio mutation ends here, so this is the one place the expansion can go stale
     d.updatedAt = Date.now();
-    return cdbPut(uDeckRecord(deckId));
+    const put = putIds == null ? [] : (Array.isArray(putIds) ? putIds : [putIds]);
+    const del = delIds == null ? [] : (Array.isArray(delIds) ? delIds : [delIds]);
+    return cdbPutDeck(uDeckIndexRecord(deckId), put, del);
   }
+  // the one way a card mutation persists: its own note, plus the index, which carries its subdeck and type
+  function uCardTouched(cardId) {
+    const c = UCARDS[cardId];
+    if (c && c.deckId) uDeckSave(c.deckId, cardId);
+  }
+  // …and the one way a whole deck is written: an import, an install, a duplicate, or a fmt-1 migration
+  function uDeckSaveAll(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return Promise.resolve(false);
+    return uDeckSave(deckId, (d.cardIds || []).slice());
+  }
+
+  /* ---------- warming ----------
+     `cardById` is synchronous and is called from rendering, scheduling, grading and undo, so content cannot
+     be fetched at the moment it is asked for — making it async would be a rewrite of the study path. It is
+     loaded BEFORE it is needed instead, which is the pattern the lazy data bundles already use: ask, hold a
+     `.data-loading` placard, re-render when it lands. A session knows its own queue, so the set to load is
+     small and known in advance; the home page warms the day's review at idle, so the placard is rarely seen.
+
+     uWarm takes CARD ids and loads NOTES — a reverse or cloze card's id is derived from its note's, and it
+     is the note that holds the content. */
+  const _deckTrusted = {};   // deckId -> was this deck's record written by THIS sanitizer (see the ingest note)
+  const _warming = {};       // deckId -> in-flight whole-deck read, so two callers make one request
+
+  function uWarmed(ids) {
+    for (let i = 0; i < (ids || []).length; i++) {
+      const c = UCARDS[uCardBaseId(ids[i])];
+      if (c && uIsLazy(c) && !c._gone) return false;
+    }
+    return true;
+  }
+  /* Take note content into UCARDS. It is sanitized on the way in like everything else — the store is
+     writable by anything on this origin — under the same trust stamp the deck's own record carried. */
+  function uAdoptNotes(deckId, cards) {
+    if (!UDECKS[deckId] || !cards || !cards.length) return 0;
+    let n = 0;
+    const wasTrusted = _uTrusted;
+    _uTrusted = !!_deckTrusted[deckId];
+    try {
+      cards.forEach((rc, i) => {
+        const c = uCardSanitize(rc, deckId, i);
+        const cur = UCARDS[c.id];
+        /* Only over a stub this deck's index actually names. A warm must never resurrect a note the Studio
+           has just deleted, nor overwrite one being edited while its read was in flight — both would be
+           silent, and both would be the reader losing work. */
+        if (!cur || cur.deckId !== deckId || !uIsLazy(cur)) return;
+        UCARDS[c.id] = c;
+        n++;
+      });
+    } finally { _uTrusted = wasTrusted; }
+    /* Deliberately NO uCacheBust. Warming cannot change what uDeckStudyIds returns: a lazy cloze note is
+       expanded from the `ords` its index carries and a warm one from clozeOrds(), and the two agree by
+       construction — the index and the note were written in one transaction from the same card. Busting
+       here would throw the expansion away on every session start for nothing. */
+    return n;
+  }
+  async function uWarm(ids) {
+    if (_communityLS) return true;   // nothing to warm — the fallback mounts every card eagerly
+    const need = {};
+    (ids || []).forEach((id) => {
+      const base = uCardBaseId(id), c = UCARDS[base];
+      if (c && uIsLazy(c) && c.deckId) (need[c.deckId] = need[c.deckId] || []).push(base);
+    });
+    const decks = Object.keys(need);
+    if (!decks.length) return true;
+    await Promise.all(decks.map((deckId) => cdbGetNotes(deckId, need[deckId]).then((cs) => uAdoptNotes(deckId, cs))));
+    /* A note the index names but the store could not hand back would otherwise leave uWarmed false for
+       ever, and a caller painting a placard until it is true would never paint anything. It should not be
+       reachable — the index and the notes are written in one transaction — but a store this code does not
+       own is one that can be damaged from outside, and a page that never paints is a worse failure than a
+       card that renders empty. `_gone` says "asked, not answered": the stub stays LAZY, so uNoteRecord goes
+       on refusing to write it, and a transient read error can never overwrite good content with a blank. */
+    decks.forEach((deckId) => need[deckId].forEach((id) => { const c = UCARDS[id]; if (c && uIsLazy(c)) c._gone = true; }));
+    return true;
+  }
+  // every note of one deck, for the surfaces that genuinely need all of it — the Studio, the card browser,
+  // an export and a publish. One read through the deckId index rather than a request per note.
+  function uWarmDeck(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return Promise.resolve(false);
+    if (_communityLS || uWarmed(d.cardIds || [])) return Promise.resolve(true);
+    if (_warming[deckId]) return _warming[deckId];
+    const done = () => { delete _warming[deckId]; return true; };
+    const p = cdbAllNotes(deckId).then((cs) => { uAdoptNotes(deckId, cs); return done(); }, done);
+    _warming[deckId] = p;
+    return p;
+  }
+  function uWarmDecks(ids) { return Promise.all((ids || []).map(uWarmDeck)); }
 
   /* ---------- mutations (the Studio's API) ---------- */
   function uDeckCreate(title) {
@@ -5830,8 +6364,13 @@
     const d = UDECKS[deckId];
     if (!d || !d.types || !d.types[typeId]) return;
     delete d.types[typeId];
-    uDeckCards(d).forEach((c) => { if (c.type === typeId) { delete c.type; delete c.fields; } });
-    uDeckSave(deckId);
+    /* This rewrites the CARDS as well as the deck, so their notes are named in the save — an index-only
+       write would leave every one of them still carrying the dead type on disk, and the next boot would
+       hand it straight back. Reachable only from the Studio, which warms the whole deck before it paints,
+       so every card here is real content rather than a stub. */
+    const touched = [];
+    uDeckCards(d).forEach((c) => { if (c.type === typeId) { delete c.type; delete c.fields; touched.push(c.id); } });
+    uDeckSave(deckId, touched);
   }
   function uCardSetType(cardId, typeId) {
     const c = UCARDS[cardId];
@@ -5855,7 +6394,7 @@
       if (S.suspended) delete S.suspended[gone];
     }
     if (now < was) save();
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   function uCardSetFieldValue(cardId, name, value) {
     const c = UCARDS[cardId];
@@ -5864,7 +6403,7 @@
     if (!UTYPE_FIELD_RX.test(n)) return;
     if (!c.fields || typeof c.fields !== "object") c.fields = {};
     c.fields[n] = sanitizeHTML(value == null ? "" : String(value)).slice(0, UTYPE_VALUE_MAX);
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
 
   function uCardCreate(deckId) {
@@ -5875,7 +6414,7 @@
     CARD_FIELDS.forEach((f) => { c[f] = ""; });
     UCARDS[c.id] = c;
     d.cardIds.push(c.id);
-    uDeckSave(deckId);
+    uCardTouched(c.id);
     return c;
   }
   /* A card's subdeck. It is NOT one of CARD_FIELDS — those are the Basic format's thirteen, and uCardSet
@@ -5884,9 +6423,9 @@
   function uCardSetSub(cardId, sub) {
     const c = UCARDS[cardId];
     if (!c) return;
-    const v = sanitizePlain(sub).slice(0, 80).trim();
+    const v = uSubNormalize(sanitizePlain(sub).slice(0, 200));
     if (v) c.sub = v; else delete c.sub;
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   function uCardSet(cardId, field, value) {
     const c = UCARDS[cardId];
@@ -5897,7 +6436,7 @@
     c[field] = (field === "answerText" || field === "num" || field === "category" || field === "pinyin")
       ? sanitizePlain(value).slice(0, 400)
       : sanitizeHTML(value == null ? "" : String(value)).slice(0, 20000);
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   // the card's whole question-phrasing pool at once (index 0 = `question`, the rest the `questions` extras,
   // CARD_MAX_QUESTIONS in all) — sanitized like every other rich field, trailing empties never stored
@@ -5909,7 +6448,7 @@
     const extras = list.slice(1);
     while (extras.length && !extras[extras.length - 1].trim()) extras.pop();
     if (extras.length) c.questions = extras; else delete c.questions;
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   // the card's source footnotes — one citation per line, sanitized like the description fields
   function uCardSetSources(cardId, value) {
@@ -5918,7 +6457,7 @@
     const list = normSources(Array.isArray(value) ? value : String(value == null ? "" : value).split("\n"))
       .map((s) => sanitizeHTML(s).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
     if (list.length) c.sources = list; else delete c.sources;
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   function uCardSetImage(cardId, field, value) {
     const c = UCARDS[cardId];
@@ -5926,7 +6465,7 @@
     const im = Object.assign({ src: "", title: "", desc: "", credit: "" }, c.image || {});
     im[field] = field === "src" ? sanitizeUrl(String(value || "").trim(), ["http", "https"]) : sanitizePlain(value).slice(0, 1000);
     if (!im.src) delete c.image; else { c.image = im; delete c.video; }   // one frame per card
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   // the card's video — clearing the URL drops it, exactly like the image, and setting one retires the image
   function uCardSetVideo(cardId, field, value) {
@@ -5935,7 +6474,7 @@
     const v = Object.assign({ src: "", title: "", desc: "", credit: "" }, c.video || {});
     v[field] = field === "src" ? (sanitizeUrl(String(value || "").trim(), ["http", "https"]) || "") : sanitizePlain(value).slice(0, 1000);
     if (!v.src) delete c.video; else { c.video = v; delete c.image; }
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   /* ---------- a deck's own glossary terms ----------
      Every mutation invalidates that deck's scoped index, or the linkify regex would keep matching the old
@@ -6011,7 +6550,7 @@
     const d = UDECKS[c.deckId];
     if (d) d.cardIds = d.cardIds.filter((x) => x !== cardId);
     delete UCARDS[cardId];
-    if (d) uDeckSave(d.id);
+    if (d) uDeckSave(d.id, null, cardId);   // …and the note's own record goes with it
   }
   function uCardMove(cardId, delta) {
     const c = UCARDS[cardId];
@@ -6023,12 +6562,19 @@
     d.cardIds.splice(j, 0, cardId);
     uDeckSave(d.id);
   }
+  /* LOCAL ONLY, and every caller has to know it. This removes the deck from this device and touches no
+     server: a deck the reader PUBLISHED keeps its row on the shared page, and a deck they INSTALLED must
+     keep the author's. The two callers answer for that difference themselves — `uDeckUninstall` deletes
+     only the reader's own install record, and the Studio's Delete calls `uDeckRemoteDelete` first. Calling
+     this on a published deck of your own and nothing else is precisely the bug of Aug 2026: it left an
+     orphan on the shared page that the author had no way to take down. */
   function uDeckDelete(deckId) {
     const d = UDECKS[deckId];
     if (!d) return;
     (d.cardIds || []).forEach((id) => { delete UCARDS[id]; });
     delete UDECKS[deckId];
     delete UGLOSS[deckId];
+    uCacheBust();
     invalidateGlossIndex("deck:" + deckId);   // else a re-created deck with the same id would inherit a stale index
     // …and every subdeck entry of it, which share the deck id before the slash
     S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => uDeckIdOf(x) !== deckId);
@@ -6039,8 +6585,10 @@
   /* ---------- deck files ----------
      A deck travels as a plain .json file: no account, no server, works from file://. This is also the
      backup path and the on-ramp for importers later. */
-  function uDeckExport(deckId) {
-    const rec = uDeckRecord(deckId);
+  async function uDeckExport(deckId) {
+    // a file carries every card, so this is one of the few surfaces that genuinely wants the whole deck
+    await uWarmDeck(deckId);
+    const rec = uDeckRecordFull(deckId);
     if (!rec) return;
     // A file is a copy, never the published deck: strip the publishing keys so importing it somewhere else
     // can't claim someone's slug, masquerade as installed, or suppress an update prompt.
@@ -6098,7 +6646,12 @@
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and
       // so two copies of the same deck keep separate study progress
       const newId = uid(8);
-      norm.cards.forEach((c, i) => { c.id = "u_" + newId + "_" + (i + 1); });
+      /* The INDEX is renumbered with the cards, and in the same pass. It is what the deck's card list is
+         built from, so leaving it on the file's own ids gives a deck whose index names cards the store has
+         never heard of: it mounts, it looks like a deck, and it holds nothing. Both are written from `i`
+         rather than from each other, so they cannot disagree. */
+      norm.cards.forEach((c, i) => { c.id = "u_" + newId + "_" + (i + 1); c.deckId = newId; });
+      (norm.index || []).forEach((e, i) => { e.id = "u_" + newId + "_" + (i + 1); });
       norm.meta.id = newId;
       norm.id = newId;
       if (UDECKS[norm.id]) return { error: "Couldn't find a free slot for that deck — try again." };
@@ -6106,8 +6659,26 @@
     }
     const d = uDeckMount(norm);
     d.updatedAt = Date.now();
-    cdbPut(uDeckRecord(d.id));
-    return { ok: true, deck: d };
+    /* The write is handed BACK rather than fired and forgotten, and callers wait on it before they say the
+       deck is in — see uImportDone. Storing a deck is one put per note now, which for the largest deck
+       anyone has brought is ~7.4 s against the 246 ms one blob took, and a page closed or navigated inside
+       that window aborts the transaction and loses the whole import in silence. The deck is usable from
+       memory the instant this returns; what the wait buys is not saying "Imported" before it is true. */
+    return { ok: true, deck: d, saved: uDeckSaveAll(d.id) };
+  }
+  /* The tail of every import: paint the deck, then tell the reader once it is really stored — and say so
+     out loud if the storing is slow enough to notice, since a deck that has appeared but is still being
+     written looks exactly like one that is finished. */
+  async function uImportDone(r) {
+    if (!r || r.error) { toast((r && r.error) || "That deck couldn't be read."); return false; }
+    render();
+    if (r.saved) {
+      const slow = setTimeout(() => toast("Saving “" + r.deck.title + "” to this device…"), 400);
+      await r.saved;
+      clearTimeout(slow);
+    }
+    toast("Imported “" + r.deck.title + "”");
+    return true;
   }
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
@@ -6188,6 +6759,7 @@
     if (!d) return { error: "That deck is gone." };
     if (!uDeckIsMine(d)) return { error: "This deck belongs to someone else. Duplicate it first if you want to publish your own version." };
     if (!supaLoggedIn()) return { error: "Sign in on the Account page to publish a deck." };
+    await uWarmDeck(deckId);   // publishing uploads every card, so all of them have to be in hand first
     const cards = uDeckCards(d);
     if (!cards.length) return { error: "Write at least one card before publishing." };
     if (!sanitizePlain(d.title).trim() || d.title === "Untitled deck") return { error: "Give the deck a title before publishing." };
@@ -6226,8 +6798,14 @@
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
     });
-    const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows });
-    if (!ins.ok) return { error: communityErr(ins, "Couldn't upload the deck's cards.") };
+    /* In BATCHES, not one request. A deck may hold thousands of cards — the largest here is 10,896 — and a
+       single POST of that many rows is tens of megabytes in one body, which is the kind of request that
+       times out at a proxy rather than failing cleanly at the database. The size is the same one the
+       archive's own paged reader uses, for the same reason. */
+    for (let i = 0; i < rows.length; i += SUPA_PAGE) {
+      const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows.slice(i, i + SUPA_PAGE) });
+      if (!ins.ok) return { error: communityErr(ins, "Couldn't upload the deck's cards.") };
+    }
 
     // the deck's own glossary travels with it, so an installed copy links the same terms the author saw
     const terms = UGLOSS[d.id] || {};
@@ -6255,6 +6833,51 @@
     uDeckSave(deckId);
     return { ok: true };
   }
+  /* DELETING A DECK YOU PUBLISHED DELETES THE SHARED COPY TOO (Aug 2026, on a bug report: decks deleted in
+     the Studio "still appear on the shared decks page"). `uDeckDelete` only ever removed the LOCAL record,
+     so the published row stayed live for ever — and unreachably, since the Studio's Unpublish button reads
+     `remoteId` off the local deck, which is exactly the thing that has just been thrown away. Every
+     publish-then-delete left an orphan its own author could not take down.
+
+     A row DELETE rather than status='draft', on request: the cards, the glossary, the ratings and the
+     install records all cascade (see the foreign keys in .claude/supabase-schema.sql) and the slug is
+     freed, which is what "I deleted it" means. People who already installed it keep their copy — it simply
+     stops offering them updates.
+
+     `Prefer: return=representation` is not decoration. RLS decides which ROWS a DELETE may touch, and a
+     DELETE that matches none still answers 204: signed in as somebody else, or with the session expired
+     under a stale token, the request "succeeds" and removes nothing. Reading the rows back is the only way
+     to tell the difference — and reporting a silent failure as success is the exact shape of the bug this
+     function exists to fix. */
+  async function uDeckRemoteDelete(remoteId) {
+    if (!remoteId) return { ok: true };
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to remove the shared copy." };
+    const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(remoteId),
+      { method: "DELETE", headers: { Prefer: "return=representation" } });
+    if (!r.ok) return { error: communityErr(r, "Couldn't remove the shared copy.") };
+    if (Array.isArray(r.data) && !r.data.length) return { error: "That shared deck belongs to another account — sign in as its author to remove it." };
+    return { ok: true };
+  }
+  /* ---------- decks you published that this device has no copy of ----------
+     The other half of the same fix. A deck can lose its local record and keep its published row — deleted
+     on another device, deleted before the rule above shipped, or deleted here while signed out — and with
+     no local record there is nothing in the Studio holding its `remoteId`, so Unpublish can never be
+     reached. So the Studio asks the server what YOU own and lists whatever is missing here.
+
+     Fetched once per session, and only for a signed-in reader: signed out there is nothing to ask about,
+     and `_myRemote` stays an empty list rather than null so the caller need not tell "none" from "not yet". */
+  let _myRemote = null;        // rows owned by the signed-in user, or null = not asked yet
+  let _myRemoteAsked = false;
+  async function myRemoteDecksLoad() {
+    if (!supaLoggedIn()) { _myRemote = []; return; }
+    const r = await supaFetch("/rest/v1/user_decks?owner=eq." + encodeURIComponent(SUPA.user.id) +
+      "&select=id,slug,title,status,card_count,install_count,updated_at&order=updated_at.desc&limit=200");
+    _myRemote = (r.ok && Array.isArray(r.data)) ? r.data : [];
+  }
+  function myRemoteReset() { _myRemote = null; _myRemoteAsked = false; }
+  // A published row with nothing local pointing at it. localDeckForRemote is the same lookup an update
+  // check uses, so a deck that IS installed here can never be listed as an orphan.
+  function orphanRemoteDecks() { return (_myRemote || []).filter((row) => !localDeckForRemote(row.id)); }
 
   // Until the phase-2 SQL in .claude/supabase-schema.sql has been run, every one of these calls 404s with
   // PostgREST's "relation ... does not exist". Say what actually needs doing rather than leaking that.
@@ -6287,12 +6910,24 @@
     if (!r.ok) return { error: communityErr(r, "Couldn't load that deck.") };
     const row = Array.isArray(r.data) ? r.data[0] : null;
     if (!row) return { error: "notfound" };
-    const c = await supaFetch("/rest/v1/user_cards?deck_id=eq." + encodeURIComponent(row.id) + "&select=id,ord,is_demo,data&order=ord.asc");
-    if (!c.ok) return { error: communityErr(c, "Couldn't load that deck's cards.") };
+    /* PAGED, because PostgREST caps a response at SUPA_PAGE rows and a deck may hold many times that — the
+       largest here is 10,896. Unpaged, installing one returned its first thousand cards and nothing said
+       so: a truncated deck is indistinguishable from a small one, which is the quiet shape this file keeps
+       recording. The loop is the review archive's (revFetchAll), for the same reason and with the same
+       ordering guarantee, and a page short of full is what says the deck has ended. */
+    const cards = [];
+    for (let from = 0; ; from += SUPA_PAGE) {
+      const c = await supaFetch(
+        "/rest/v1/user_cards?deck_id=eq." + encodeURIComponent(row.id) + "&select=id,ord,is_demo,data&order=ord.asc",
+        { headers: { Range: from + "-" + (from + SUPA_PAGE - 1) } });
+      if (!c.ok || !Array.isArray(c.data)) return { error: communityErr(c, "Couldn't load that deck's cards.") };
+      c.data.forEach((cardRow) => cards.push(cardRow));
+      if (c.data.length < SUPA_PAGE) break;
+    }
     const g = await supaFetch("/rest/v1/user_gloss?deck_id=eq." + encodeURIComponent(row.id) + "&select=slug,data");
     const gloss = {};
     if (g.ok && Array.isArray(g.data)) g.data.forEach((t) => { gloss[t.slug] = t.data; });   // sanitized on ingest, below
-    return { ok: true, row: row, cards: Array.isArray(c.data) ? c.data : [], gloss: gloss };
+    return { ok: true, row: row, cards: cards, gloss: gloss };
   }
   function localDeckForRemote(remoteId) {
     const k = Object.keys(UDECKS).find((x) => UDECKS[x].remoteId === remoteId);
@@ -6324,7 +6959,7 @@
     if (!norm) return { error: "That deck couldn't be read." };
     if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
     const d = uDeckMount(norm);
-    await cdbPut(uDeckRecord(d.id));
+    await uDeckSaveAll(d.id);
     if (supaLoggedIn()) {
       await supaFetch("/rest/v1/deck_installs", {
         method: "POST", body: { deck_id: row.id, user_id: SUPA.user.id, version: row.version },
@@ -6363,7 +6998,7 @@
   // properly would mean shipping per-deck progress to the server, which is not worth the privacy cost.
   function deckStudiedCount(localDeck) {
     if (!localDeck) return 0;
-    return uDeckStudyIds(localDeck.cardIds || []).filter((id) => isSeen(id)).length;
+    return uDeckStudyIdsFor(localDeck.id, "").filter((id) => isSeen(id)).length;
   }
   async function deckRatings(remoteId) {
     const r = await supaFetch("/rest/v1/deck_ratings?deck_id=eq." + encodeURIComponent(remoteId) +
@@ -6518,11 +7153,26 @@
     let rows = [];
     try { rows = await cdbAll(); } catch (e) { rows = []; }
     let n = 0;
-    rows.forEach((r) => { const norm = uDeckNormalize(r); if (norm) { uDeckMount(norm); n++; } });
+    const legacy = [];
+    // …`true`: this is OUR store, so a record still carrying this sanitizer's revision is taken as cleaned
+    rows.forEach((r) => {
+      const norm = uDeckNormalize(r, true);
+      if (!norm) return;
+      _deckTrusted[norm.id] = r.srev === SANITIZE_REV;   // …and so are its notes, when they are warmed
+      uDeckMount(norm);
+      n++;
+      if (norm.legacy) legacy.push(norm.id);
+    });
     _communityReady = true;
     // Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
     // skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
     if (current && (current.name === "decks" || current.name === "studio" || current.name === "home")) render();
+    /* A record written before the store was split still carries its cards inline. It mounted correctly
+       above — they are simply all resident, exactly as they used to be — and is rewritten into the new
+       shape once, at idle, so the reader never waits for it. cdbPutDeck writes the index and the notes in
+       ONE transaction, so a migration that fails leaves the old record untouched rather than a half-split
+       deck: the atomicity is what makes this safe to do to somebody's own data without asking. */
+    if (legacy.length && !_communityLS) whenIdle(() => { legacy.forEach(uDeckSaveAll); });
     // then, quietly, ask whether any installed deck has a newer version. Never blocks anything: a failed
     // or offline check just leaves _deckUpdates empty and no badges appear.
     if (n) whenIdle(() => {
@@ -7093,6 +7743,181 @@
        35.6, which is precisely what the band exists to exclude. Paying six points of separation to keep
        the shelf reading as one system is the trade every row here has made. */
     "Virgil": "#4A0418",
+    /* Measured the same way, and this is the row where the band is FULL rather than nearly full: with
+       thirty colours placed, the best-separated colour anywhere inside the shelf's own lightness and
+       chroma band, under the Book of Rites' ink floor and the 4.5:1 bar, clears its nearest neighbour
+       by 19.7 — where Virgil could still find 19.0-and-clear and Beowulf 23.3. The shelf's own
+       tightest pair is now 18.2 (the Classic of Poetry against Beowulf), so 19.7 still clears it, and
+       that is the honest report: no widening was needed and none would have helped much, because what
+       is left is not one gap but the gaps between thirty colours.
+
+       THE EURIPIDES TEST WAS RUN AND DOES NOT BITE HERE, which is worth saying because the obvious
+       reading of it would have chosen differently. Four of the five other Chinese works on the shelf
+       are far away (Sun Tzu 49, Confucius 56, the Classic of Poetry 39, the Book of Documents 93) and
+       the fifth, the Lî Kî's dark plum, is 21.0 — closer than any of them and still above the shelf's
+       own tightest pair. The test forbids a colour that says two books are a SET, and it is Sophocles
+       against Euripides, or Herodotus against Thucydides, that the rule was written for: a Ming comic
+       fantasy and a Confucian ritual compendium are not read as a pair by anybody. The alternative
+       was measured rather than waved away — every candidate holding 25 or more from all five Chinese
+       works is a BLUE at 18.5, below the shelf's tightest pair, joining the most crowded quarter here
+       as its fifth or sixth member. Paying 1.2 points and taking a fifth blue to avoid a kinship
+       nobody would read is the wrong trade.
+
+       The green that scored the same 19.6 was rejected outright, and on the test proper: its nearest
+       neighbour IS the Book of Documents, at 19.6, and two Chinese classics in neighbouring greens is
+       exactly the claim the shelf must not make. This deep magenta clears Ovid, Plato and Thucydides
+       at 19.7, 19.7 and 19.9 — evenly, so it reads as its own colour against all three rather than as
+       a near-miss of one — and reads 6.46:1 on the tightest of the sixteen light papers. Chroma 53 in
+       an 18–64 band and lightness 26 in a 12–48 one, so it cannot glow. It suits the book, which is a
+       comedy about a monkey wrecking heaven and not a sober one; that cost nothing, the numbers led
+       there. The thirty-second colour will have to widen the band or take a pair tighter than 18.2. */
+    "Wu Cheng'en": "#7B0050",
+    /* CHAUCER — a deep green-teal, and with thirty-one colours placed the band is as full as this file
+       has been recording. Searched over the shelf's own lightness and chroma band under the Book of
+       Rites' two floors (4.5:1 on the tightest of the sixteen light papers, and 22 clear of every light
+       theme's ink), the best colour anywhere in it clears its nearest neighbour by 19.7 — where the
+       shelf's OWN closest pair is now 18.2, the Classic of Poetry against Beowulf. So no pair tighter
+       than the shelf's tightest was taken and the band was not widened; the earlier rows' comfortable
+       margins are simply not on offer any more, and that is worth saying rather than quietly widening
+       the search.
+       THE EURIPIDES TEST PICKED THE FAMILY AND THE NUMBER AGREED, which does not always happen. The
+       colour is 19.7 from Marcus Aurelius's teal, 19.7 from Aesop's, 19.9 from the Book of Documents'
+       and 20.3 from Lucretius's — evenly enough spaced from all four that it reads as its own colour
+       rather than as a near miss of one — and none of those four is a book anyone reads as a set with
+       Chaucer. The alternatives were worse on exactly that count: the best blue is 18.5 from Snorri
+       Sturluson, which is BELOW the shelf's tightest pair and pairs him with the other medieval
+       vernacular poet on the shelf, and the best purple 17.5 from Plato. Its chroma of 38 sits in the
+       middle of the shelf's 18–64, so it is not the glowing green the Vyasa row turned down, and it
+       reads 4.63:1 on the tightest of the sixteen light papers. */
+    "Geoffrey Chaucer": "#00603A",
+    /* DANTE — a deep blue-violet, and this is the row where the best NUMBER was rejected outright for
+       the second time on this shelf. Searched at full resolution over the shelf's own lightness and
+       chroma band under the Book of Rites' two floors (4.5:1 on the tightest of the sixteen light
+       papers, and 22 clear of every light theme's ink), with thirty-two colours placed, the whole
+       band yields exactly 794 candidates clearing 17.5 — and only TWO hue families can produce one
+       that clears the shelf's own tightest pair AND reads well.
+       THE BEST NUMBER IS A GREEN AT 19.6 AND IT IS THE VYASA ROW'S CANDIDATE EXACTLY. Its chroma is
+       60 against a band of 18–64, which is to say at the very top of it — bright enough to glow
+       beside thirty-two muted colours, which is the reason that row turned its green down — it would
+       be a fourth green hugging two boundaries at once (19.6 from the Book of Documents, 21 from
+       Lucretius), and it reads 4.54:1 where this reads 8.12. A colour that scrapes the accessibility
+       bar and glows is not worth 1.1 points of separation.
+       WHAT THIS TAKES INSTEAD clears 18.5 from its nearest neighbour, the Song of Roland, which is
+       above the shelf's own closest pair at 18.2 (the Classic of Poetry against Beowulf) — so no pair
+       tighter than the shelf's tightest was taken. The band was TESTED rather than assumed full:
+       dropping the chroma floor from 18.3 to 14 returns the same greens and nothing new, so what is
+       exhausted is the palette and not the band, and widening it would buy nothing.
+       IT IS A FIFTH BLUE, which Thucydides' row warns about, and the warning does not bite. What that
+       rule forbids is a crowding that asserts a KINSHIP the shelf does not mean, and the kinship that
+       would matter here is not another blue at all — it is VIRGIL, who is Dante's guide and a
+       character in this very poem, and whose oxblood sits 53 away, further than almost anything else
+       on offer. Homer, the other supreme epic, is 24 away, itself above that tightest pair. The
+       nearest neighbour is a French chanson de geste, which nobody reads as a set with the Commedia.
+       And the quarter is crowded in HUE while empty at this LIGHTNESS, which is the Homer row's own
+       argument: Machiavelli sits at L47, Aristotle L45, Herodotus L35, the Song of Roland L30 and
+       Homer L14, and this at L19 lands in the one gap between them. At 8.12:1 on the tightest of the
+       sixteen light papers it is also among the best-reading swatches here. */
+    "Dante Alighieri": "#002B6B",
+    /* THE BAND IS FULL, AND THE OBJECTION THAT HAS TURNED DOWN THIS COLOUR TWICE WAS RE-MEASURED AND
+       DOES NOT HOLD (Aug 2026, adding the Summa Theologica — the thirty-fourth colour). Searched over
+       the shelf's own lightness and chroma band under the Book of Rites' ink floor and the 4.5:1 bar,
+       nothing anywhere clears 25 of its nearest neighbour, and OUTSIDE the green family nothing clears
+       20: the best alternative is a muted violet at 19.0 from Plato, against a tightest existing pair
+       of 18.2. So the field is one colour wide.
+
+       Vyasa's row and Dante's row each rejected a green at the top of the chroma band on the ground
+       that it would "glow beside thirty muted colours". Measured against the shelf as it now is, that
+       is no longer true: SIX placed colours sit at chroma 59–64 — Seneca 64.1, Homer 64.0, Euripides
+       63.5, Aristophanes 63.4, Caesar 63.1, Thucydides 59.9 — so chroma 63.6 is where the shelf's own
+       ceiling already is rather than somewhere beyond it. Dante's row raised a second objection, that
+       the candidate scraped the contrast bar at 4.54:1; this one reads 5.34:1 on the tightest of the
+       sixteen light papers, better than every alternative in the field, which all sit at 4.5–4.8.
+       RE-MEASURE AN INHERITED OBJECTION BEFORE APPLYING IT — the shelf it was written about has
+       changed, and a reason that was right twice can stop being right.
+
+       The Euripides test has TWO kinship risks here and clears both by a wide margin: ARISTOTLE, whom
+       Aquinas calls simply "the Philosopher" and on whom the Summa is built, is 76 away, and
+       AUGUSTINE — the other great Latin theologian, and the author of the two books beside this one —
+       is 72. Within green it clears Lucretius by 24.3, the Book of Documents by 24.5, Chaucer by 31.5
+       and Aesop by 42.9, every one of them wider than the shelf's own tightest pair. */
+    /* ---------- THE RIGVEDA ----------
+       Keyed by ID rather than by author, like the Song of Roland, Beowulf and the Book of Rites: the
+       hymns are anonymous, and "Anonymous" is not an author two books can share.
+
+       THE BAND IS AS FULL AS THE BEOWULF ROW PREDICTED and this is the second colour taken under
+       those conditions. Searched over the shelf's own lightness and chroma band with 34 colours
+       placed, NOTHING anywhere in it clears 21 of its nearest neighbour; the best is this
+       yellow-green at 20.1, which is still wider than the shelf's own tightest existing pair
+       (the Classic of Poetry against Beowulf, at 18.2). So the band was not widened again and no
+       pair tighter than that was taken.
+
+       THE EURIPIDES TEST WAS THE REASON THE BEST MAGENTA WAS REJECTED. A violet-magenta at 19.0
+       looked competitive on the raw number and lands 19.4 from the SONG OF ROLAND — which is both
+       the shelf's other anonymous work and the colour this book would have inherited had it not been
+       given a row, so a near-miss of it is the one confusion a new colour here must not create. The
+       other kinship risk is VYASA, the Bhagavad Gita being the only other Sanskrit book on the
+       shelf; this sits 92 from his saffron and 82 from Roland, which is as far from both as the band
+       allows.
+
+       GREEN HOLDS SEVEN COLOURS AND THAT DOES NOT BITE, for the reason the Beowulf row's fourth red
+       did not: what the crowding rule forbids is a hue that asserts a KINSHIP the shelf does not
+       mean, and nobody reads Vedic liturgy against Suetonius, Aesop, Chaucer or the Summa. Counted
+       by neighbours rather than by hue family it is one of the least crowded candidates on the
+       shelf — 7 placed colours within 40, against 12 and 13 for the alternatives. Its nearest are
+       Gilgamesh at 20.1 and Lucretius at 20.2, evenly enough that it reads as its own colour rather
+       than as a near-miss of one, and Aquinas's green — the most recent, and the brightest — is 25.2
+       away. Chroma 53.6 sits inside a band whose top is 64.1, so the inherited "bright enough to
+       glow" objection does not hold; it reads 4.53:1 on the tightest of the four light papers. */
+    "rigveda": "#5A6F00",
+    /* MIGUEL DE CERVANTES — a deep crimson, measured with 35 colours already placed and the band
+       therefore as full as the Beowulf row predicted: nothing anywhere in it clears 19.3 of its
+       nearest neighbour, against the shelf's own tightest pair at 18.2 (the Classic of Poetry
+       against Beowulf). That is in line rather than alarming — Chaucer took 19.7 as the
+       thirty-first — so the band was NOT widened again and no tighter pair was accepted.
+
+       THE FIELD WAS ONE HUE FAMILY AND THE CHOICE INSIDE IT WAS CONTRAST. Every candidate clearing
+       18.5 without asserting a false kinship is a rose-crimson at chroma 63–64; the best NUMBER
+       (#C0246C, 19.3) reads 4.53:1 on the tightest of the light papers, which is right at the bar
+       and would break if a paper were ever re-toned, where this one clears 19.0 and reads 5.46:1
+       there and 6.82:1 on white. Its nearest are Ovid at 19.0, Thucydides at 19.8 and Wu Cheng'en
+       at 20.0, and it stands 61.9 from the nearest light-theme ink. The chroma is at the shelf's
+       own ceiling and that is where the ceiling already is — Seneca 64.1, Homer 64.0, Aquinas 63.6
+       — which is the objection the Aquinas row re-measured and dropped.
+
+       THE EURIPIDES TEST picked what to avoid rather than what to take. The kinship a hue could
+       falsely assert here is the SONG OF ROLAND: Don Quixote is written against the chivalric
+       romance, and Roland is this shelf's chanson de geste, so the two are the books a reader is
+       likeliest to read as a set. The violet family's best (#785A99, 19.0) lands 19 from him and
+       was rejected for it; this sits 57.8 away, and 100.1 from Chaucer, the other long vernacular
+       narrative. Its 20.0 from Journey to the West is not a kinship anybody reads — a Spanish
+       novel and a Chinese one of the same century, from traditions with no contact. */
+    "Miguel de Cervantes": "#B10960",
+    "Thomas Aquinas": "#006C00",
+    /* Measured the same way, with 36 colours placed, and this is the row where the EURIPIDES TEST
+       does the most work it has ever done — it is worth 0.4 of a point on the raw number and it is
+       still obviously right.
+       Searched over the shelf's own lightness and chroma band, held 22 clear of every light theme's
+       ink and 4.5:1 on the tightest light paper, the best colour anywhere clears 19.2 and the whole
+       clear field is essentially ONE violet family — which is in line with Don Quixote's 19.3 at 35
+       colours and Chaucer's 19.7 at 31, the band tightening a little with each book, against a
+       shelf whose own tightest pair is 18.2. So the band was not widened and no pair tighter than
+       that was taken.
+       EVERY VIOLET WAS REJECTED, and for one reason: SENECA. He is 19 to 26 from all of them, and
+       he is the one author on this shelf a reader would genuinely set beside Petronius — the two
+       were contemporaries at Nero's court, both were forced to kill themselves within a year of
+       each other, and Seneca's Apocolocyntosis is bound in the very Loeb volume this text comes
+       from. A violet next to his violet would say they are a set. This muted olive is 89 from him.
+       THE INHERITED OBJECTION TO GREEN WAS RE-MEASURED AND DOES NOT APPLY, which is the Summa's
+       rule about not carrying an objection forward unexamined. The Vyasa and Dante rows each turned
+       a green down because every green clearing Lucretius and Aesop sat at the TOP of the chroma
+       band, bright enough to glow beside thirty muted colours — an objection about CHROMA. This one
+       is chroma 26 in a band running 18 to 64, seventh-lowest of the 36 placed, so it is an olive
+       rather than anything that glows.
+       What it costs is a close green quarter: Gilgamesh 18.8, Aesop 18.9, Confucius 19.2 and
+       Lucretius 19.9, all at or above the shelf's own tightest pair, and none of the four a book
+       anybody reads beside a comic Roman novel. It reads 4.60:1 on the tightest of the light papers
+       and 5.75:1 on white. */
+    "Petronius": "#66693C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -8772,6 +9597,313 @@
       ],
     },
     {
+      id: "don-quixote",
+      title: "Don Quixote",
+      subtitle: "El ingenioso hidalgo Don Quijote de la Mancha",
+      author: "Miguel de Cervantes",
+      /* Two parts ten years apart. `year` is the single number the shelf's date sort needs and is
+         the first part's; the prose carries both, which is where the pair belongs. */
+      written: "1605 & 1615",
+      year: 1605,
+      translator: "John Ormsby",
+      edition: "Don Quixote de la Mancha, translated by John Ormsby, London, 1885",
+      /* THE TENTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL, after the Republic, the Analects,
+         the Peloponnesian War, the City of God, the Aeneid, Journey to the West, the Divine Comedy,
+         the Confessions and the Rigveda. Cervantes died in 1616. Ormsby published in 1885 and lived
+         1829–1895 — two places agreeing on that pair, Wikisource's author page and Wikidata, which
+         is what makes it usable where A. J. Wyatt's uncorroborated round hundred years was not, and
+         it is also NOT the 1889 that comes to mind. So the English clears the pre-1929 rule, life
+         plus seventy and life plus a hundred alike, with no limit to state. */
+      rights:
+        "Public domain worldwide, on every ground. Cervantes published the first part of Don " +
+        "Quixote in 1605 and the second in 1615, and died in 1616, so the novel itself has long " +
+        "been out of copyright. John Ormsby's English translation was published in London in 1885 " +
+        "and he lived from 1829 to 1895, so it too is out of copyright under the rule for works " +
+        "published before 1929, under the translator's life plus seventy years, and under life plus " +
+        "a hundred — there is no limit to state. Ormsby's own preface, his life of Cervantes and " +
+        "his several hundred footnotes are not reproduced — no freely available transcription of " +
+        "this translation carries the notes at all — and what is here is the hundred and " +
+        "twenty-six chapters of the novel. (The modern translations by Samuel Putnam, 1949, " +
+        "J. M. Cohen, 1950, Burton Raffel, 1995, John Rutherford, 2000, Edith Grossman, 2003, and " +
+        "Tom Lathrop, 2005, are still in copyright and are not used here.)",
+      /* Gutenberg rather than Wikisource, which carries this translation complete and cleanly typed
+         and has lost sixty words — see .claude/fetch-book.js and the book's own front matter. */
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/996",
+      /* NO `origLang`: there is no Spanish column, and the reason is the state of the free
+         transcriptions rather than the copyright — measured, Spanish Wikisource's three editions
+         carry 16, 38 and 38 of the 126 chapters and its own index marks every one still to be
+         transcribed, while the complete Spanish that does circulate freely names no editor and no
+         edition at all. That is the Divine Comedy's question and it is answered the same way; the
+         book's own front matter says so. */
+
+      /* THE CHAPTER IS THE CHAPTER, which is the only unit the novel has: neither this edition nor
+         any other divides one into numbered sections, so there is nothing finer to state and the
+         tabs count what the book counts.
+
+         THE TAB NUMBER AND THE CITATION DISAGREE ON PURPOSE, which is the Summa's arrangement.
+         Don Quixote is cited by part and chapter — the windmills are I.8 — and the numbering
+         restarts at one when the second part begins, so `n` runs 1..126 straight through and each
+         chapter's TITLE opens on the citation, giving tabs that read I.1 … I.52, II.1 … II.74. */
+      chapterWord: "Chapter",
+      count: 126,
+      total: 126,
+      /* The two parts as the author published them, ten years and one impostor apart. */
+      parts: [
+        { n: 1, label: "Part I", note: "52 chapters · 1605 — the windmills, the galley slaves, the burning of the library" },
+        { n: 2, label: "Part II", note: "74 · 1615 — in which everyone he meets has read Part I" },
+      ],
+    },
+    {
+      id: "satyricon",
+      title: "The Satyricon",
+      subtitle: "Satyricon",
+      author: "Petronius",
+      /* Written under Nero and usually dated to the early 60s. `year` is the single number the
+         shelf's date sort needs; the prose carries the hedge, which is where a contested date
+         belongs — the attribution to Nero's arbiter of taste is probable rather than certain, and
+         with it goes the date. */
+      written: "c. 60s CE",
+      year: 65,
+      translator: "Michael Heseltine",
+      edition: "Loeb Classical Library, William Heinemann, London, 1913",
+      /* A LIMIT TO STATE, which puts it with the Song of Roland, the Gita and the two Homers rather
+         than with the ten needing no qualification. Petronius died in 66 CE. Heseltine published in
+         1913 and lived 1886–1952, so the English clears the pre-1929 rule and life plus seventy
+         (2023) and NOT life plus a hundred, which runs to 2053.
+
+         HIS DATES WERE CORROBORATED TWICE, for the A. J. Wyatt reason: Wikidata gives both at day
+         precision with the death referenced to Britannica, and Wikisource's author page gives
+         (1886–1952) and lists exactly one work for him — this Satyricon. He is also not the living
+         British politician of the same name, whose entity a search returns first.
+
+         BOTH COLUMNS ARE THE SAME HAND, which on a facing-page Loeb is worth checking rather than
+         assuming: the Iliad's Greek is a separate Oxford text and has to answer for a second life,
+         where here both Perseus files name Heseltine as editor and no one else. */
+      rights:
+        "Three layers, and the two modern ones are the same hand. Petronius died in 66 CE, so the " +
+        "work itself has long been out of copyright. Michael Heseltine's translation was published " +
+        "in London in 1913 and he lived from 1886 to 1952, so it is out of copyright under the rule " +
+        "for works published before 1929 and under the translator's life plus seventy years; where " +
+        "the term is life plus a hundred it remains in copyright until 2053. The facing Latin is " +
+        "the text printed opposite that translation in the same 1913 volume, credited by the " +
+        "edition used here to Heseltine and to no one else, so it rests on the same date and the " +
+        "same life. Both digital editions are prepared by the Perseus Digital Library at Tufts " +
+        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. The editor's apparatus of variant readings is not reproduced. " +
+        "(The modern translations by William Arrowsmith, 1959, J. P. Sullivan, 1965, P. G. Walsh, " +
+        "1996, and Sarah Ruden, 2000, are still in copyright and are not used here, nor is " +
+        "E. H. Warmington's 1969 revision of this one.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
+      origLang: "la",
+      origName: "Latina",
+      /* THE CHAPTER IS THE SECTION, because the section is the whole of the citation. A passage of
+         the Satyricon is "Satyricon 48" and nothing else: both files state 141 section milestones
+         and carry no book, part or chapter above them at all, and each declares as much in its own
+         header — `<refState unit="section"/>`, one level. So the tab is the citation, which is the
+         Rigveda's shape (the chapter is the smallest unit of the work) and the Song of Roland's (a
+         chapter is short, and that is the work rather than the import).
+
+         NO `parts`. The manuscripts' book numbers — fourteen, fifteen, sixteen — are the tempting
+         ones and cannot be used: they are what the excerptors labelled their extracts, they divide
+         the surviving text at no stated point, and where one book ends is exactly what is lost. */
+      chapterWord: "Section",
+      count: 141,
+      total: 141,
+    },
+    {
+      id: "rigveda",
+      title: "The Rigveda",
+      subtitle: "ऋग्वेदः",
+      author: "Anonymous",
+      /* A composite of many hands over centuries, and the dating is argued at both ends. `year` is
+         the single number the shelf's date sort needs and is the middle of the usual range; the
+         prose carries the hedge, which is where a contested date belongs. */
+      written: "c. 1500–1000 BCE",
+      year: -1300,
+      translator: "Ralph T. H. Griffith",
+      edition:
+        "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
+        "complete in two volumes, E. J. Lazarus and Co., Benares, 1896",
+      /* THE NINTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL, after the Republic, the Analects, the
+         Peloponnesian War, the City of God, the Aeneid, Journey to the West, the Divine Comedy and
+         the Confessions. The hymns are around three thousand years old. Griffith published in
+         1889–92, revised for 1896, and lived 1826–1906 — dates read off the Wikisource author page
+         and confirmed against the volume's own title page rather than recalled — so the English
+         clears the pre-1929 rule, life plus seventy and life plus a hundred alike.
+
+         THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement in a second
+         book; see .claude/fetch-book.js for why the gap is a weaker one here than it was there. */
+      rights:
+        "Public domain worldwide, on every ground. The hymns are around three thousand years old and " +
+        "were composed long before writing reached the subcontinent, so the work itself has never " +
+        "been in copyright. Ralph T. H. Griffith published this translation at Benares in 1889–92 " +
+        "and revised it for the second edition of 1896, and he lived from 1826 to 1906, so the " +
+        "English is out of copyright under the rule for works published before 1929, under the " +
+        "translator's life plus seventy years, and under life plus a hundred — there is no limit to " +
+        "state. The facing Sanskrit is the received Shakala samhita and the transcription names no " +
+        "editor for it, so no edition and no editor is claimed here; the ground for that column is " +
+        "the age of the text alone. (The modern translations by Jamison and Brereton, 2014, Wendy " +
+        "Doniger, 1981, and Walter Maurer, 1986, are still in copyright and are not used.) " +
+        "Griffith's preface and appendices, and the Sanskrit pages' commentary of Sayana, are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
+      origLang: "sa",
+      origName: "संस्कृतम्",
+      /* THE CHAPTER IS THE HYMN AND THE SECTION IS THE VERSE, read straight off the citation: a
+         passage of the Rigveda is "RV 10.129.1" — mandala, hymn, verse — in every language and every
+         reference work, so the hymn is what a reader looks up and the verse is the finest thing both
+         editions state about the same place. The alternative was measured rather than weighed:
+         cutting at the mandala gives ten tabs and puts 191 hymns in one of them, and throws away the
+         verse numbers as pairing keys, which is what Beowulf's rule forbids.
+
+         THE TAB NUMBER AND THE CITATION DISAGREE ON PURPOSE. Each mandala restarts its hymn
+         numbering, so a chapter number that was also a hymn number could not be unique; `n` runs
+         1..1028 straight through — the continuous hymn number, which concordances use — and each
+         chapter's TITLE is the citation itself, so the tabs read 1.1 … 10.191. */
+      chapterWord: "Hymn",
+      count: 1028,
+      total: 1028,
+      /* The work's own ten books. Mandalas 2–7 are the "family books", each ascribed to one line of
+         seers and generally taken to be the oldest core; 1, 8, 9 and 10 were gathered round it
+         later, and the ninth is addressed to Soma from beginning to end. */
+      parts: [
+        { n: 1, label: "Mandala I", note: "191 hymns · a later collection, mostly to Agni and Indra" },
+        { n: 2, label: "Mandala II", note: "43 · the family book of the Gritsamadas" },
+        { n: 3, label: "Mandala III", note: "62 · the Vishvamitras — it carries the Gayatri" },
+        { n: 4, label: "Mandala IV", note: "58 · the Vamadevas" },
+        { n: 5, label: "Mandala V", note: "87 · the Atris" },
+        { n: 6, label: "Mandala VI", note: "75 · the Bharadvajas" },
+        { n: 7, label: "Mandala VII", note: "104 · the Vasishthas, and much of the Varuna poetry" },
+        { n: 8, label: "Mandala VIII", note: "103 · the Kanvas, including the eleven Valakhilya" },
+        { n: 9, label: "Mandala IX", note: "114 · all of them to Soma Pavamana" },
+        { n: 10, label: "Mandala X", note: "191 · the latest, and the philosophical hymns" },
+      ],
+    },
+    {
+      id: "summa-theologica",
+      title: "Summa Theologica",
+      subtitle: "Summa Theologiae",
+      author: "Thomas Aquinas",
+      /* Begun about 1265 and stopped, unfinished, in December 1273. `year` is the single number the
+         shelf's date sort needs and is the year he began; the prose carries the hedge and the reason
+         it ends where it does, which is the book's own story rather than a delay. */
+      written: "1265–1274, unfinished",
+      year: 1265,
+      translator: "Fathers of the English Dominican Province",
+      edition:
+        "Second and revised edition, literally translated by the Fathers of the English Dominican " +
+        "Province, Burns Oates & Washbourne, London, 1920",
+      /* THE LICENCE RESTS ON THE PUBLICATION DATE ALONE — the Gallic War's position, and for the same
+         reason: half the byline cannot be found. Aquinas died in 1274, so the work is free everywhere.
+         The translation was published in London in 1920, before 1929, so its United States copyright
+         has expired and that much anyone can check. What cannot honestly be asserted is a
+         life-plus-seventy term, because "the Fathers of the English Dominican Province" is a CORPORATE
+         byline: no individual translator is named anywhere in the twenty-one volumes, the work was
+         done by a changing group of friars over fifteen years, and a term that runs from the last
+         surviving author cannot be computed from a name belonging to nobody. Claim less, and say on
+         the page what cannot be said. */
+      rights:
+        "Public domain in the United States, on the date of publication. Thomas Aquinas died in 1274, " +
+        "so the work itself has been free for seven centuries. This translation was published in " +
+        "London in 1920 — before 1929, so its United States copyright has expired. It is credited to " +
+        "the Fathers of the English Dominican Province and names no individual translator anywhere, " +
+        "so the rule that runs from an author's death cannot be applied to it and no such date is " +
+        "claimed here. Leo XIII's encyclical, the editor's note to the Supplement and the volumes' " +
+        "indexes are printed in the same edition and are not reproduced; what is taken is the 614 " +
+        "questions of the Summa itself. (The Blackfriars edition of 1964–1981, Timothy McDermott's " +
+        "abridgement of 1989 and Alfred Freddoso's translation are still in copyright and are not " +
+        "used here.) There is no Latin facing it, and the book's own first page says why.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
+      /* THE CHAPTER IS ONE OF THE 614 QUESTIONS AND THE SECTION IS AN ARTICLE, which is the citation
+         read straight off — "ST II-II, q. 6, a. 1" is Part, question, article. The alternatives were
+         measured rather than weighed: cutting at the Part gives six chapters of three to six megabytes
+         each, which no browser paints and no reader scrolls, and cutting at the article puts about
+         three thousand tabs on the bar.
+
+         THE TAB NUMBERS AND THE CITATION DISAGREE ON PURPOSE, and the book's own front matter says so.
+         Each Part restarts its question numbering at 1, so a chapter number that was also a question
+         number could not be unique; `n` therefore runs 1..614 straight through — which is a true
+         statement, this being the 614-question Summa — and each chapter's title carries the citation
+         it is actually known by. See .claude/fetch-book.js for the measurement behind the six Parts
+         and for why there is no Latin column. */
+      chapterWord: "Question",
+      count: 614,
+      total: 614,
+      /* The work's own divisions, and the Supplement and Appendix are named as what they are rather
+         than folded into the Third Part: Aquinas stopped at III q. 90 and both were assembled after
+         his death out of his much earlier commentary on the Sentences. */
+      parts: [
+        { n: 1, label: "First Part", note: "God and creation · 119 questions" },
+        { n: 2, label: "First Part of the Second Part", note: "Human action in general · 114" },
+        { n: 3, label: "Second Part of the Second Part", note: "The virtues one by one · 189" },
+        { n: 4, label: "Third Part", note: "Christ and the sacraments · 90" },
+        { n: 5, label: "Supplement to the Third Part", note: "Compiled after his death · 99" },
+        { n: 6, label: "Appendix", note: "Also posthumous · 3" },
+      ],
+    },
+    {
+      id: "confessions",
+      title: "Confessions",
+      subtitle: "Confessionum Libri Tredecim",
+      author: "Augustine of Hippo",
+      /* Written in his mid-forties, a few years into the bishopric at Hippo, and not datable more
+         closely than the three or four years the scholarship gives it; `year` is the single number
+         the shelf's date sort needs and the prose carries the hedge. It puts this book sixteen years
+         ahead of the City of God on a date sort, which is right — they are the same man before and
+         after the sack of Rome. */
+      written: "c. 397–400 CE",
+      year: 397,
+      translator: "J. G. Pilkington",
+      edition:
+        "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+        "First Series, Vol. I, ed. Philip Schaff, Buffalo, 1886",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL — the eighth on this shelf, and the SAME licence
+         as the City of God's twice over: the same series, the same editor and the same decade.
+         Augustine died in 430. Pilkington published in 1886, before 1929, and lived 1841–1919, so
+         the translation clears the publication rule, life-plus-seventy and life-plus-a-hundred
+         alike. Migne's Latin of 1841 is free on the same three grounds. */
+      rights:
+        "Public domain worldwide. Augustine died in 430. J. G. Pilkington published this translation " +
+        "in 1886 in Philip Schaff's Nicene and Post-Nicene Fathers — before 1929, so its United " +
+        "States copyright has expired — and he died in 1919, so it is out of copyright wherever the " +
+        "term runs for the author's life plus seventy or even a hundred years. Migne's Latin, printed " +
+        "in 1841, is free on the same grounds. Schaff's Prolegomena, his life of Augustine and the " +
+        "Letters printed in the same volume are not reproduced. (The translations by Albert Outler, " +
+        "1955, Henry Chadwick, 1991, Maria Boulding, 1997, Garry Wills, 2006, and Sarah Ruden, 2017, " +
+        "are still in copyright and are not used here.) Two chapters of Book I have never been " +
+        "transcribed at the source and are absent from the English column; the Latin carries them.",
+      sourceName: "Wikisource",
+      sourceUrl:
+        "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_I/Confessions",
+      origLang: "la",
+      origName: "Latin",
+      /* THE CHAPTER IS ONE OF AUGUSTINE'S THIRTEEN BOOKS and his own chapter is the SECTION — the
+         City of God's shape, forced here by the same arithmetic: 278 chapters over thirteen books,
+         most of them a paragraph or two, so cutting at the chapter would put 278 tabs on the bar.
+         "Confessions VIII.12" is book eight, chapter twelve, which is what the citation already
+         says. See .claude/fetch-book.js for the measurement behind the pairing — 278 chapters in the
+         Latin against 276 in the English, a clean 1..N in every book on both sides, and the only
+         difference anywhere being Book I's chapters 19 and 20, which the English transcription has
+         never carried. */
+      chapterWord: "Book",
+      count: 13,
+      total: 13,
+      /* The work's own division, which is Augustine's rather than an editor's and which surprises
+         every reader who has been told this is an autobiography: nine books of life, one of memory,
+         and three on the opening of Genesis. The last four are not an appendix — the life is the
+         evidence and they are the case it was gathered for — so they are named as parts rather than
+         left to look like a change of subject. */
+      parts: [
+        { n: 1, label: "The life", note: "Books I–IX" },
+        { n: 2, label: "Memory", note: "Book X" },
+        { n: 3, label: "Genesis and time", note: "Books XI–XIII" },
+      ],
+    },
+    {
       id: "city-of-god",
       title: "The City of God",
       subtitle: "De Civitate Dei contra Paganos",
@@ -9011,6 +10143,186 @@
          bar would be composing an apparatus out of a commonplace — which is what the importer's titleOf
          note declines to do for the book titles, and what the Iliad's and Odyssey's rows decline for
          their own halves. */
+    },
+    {
+      id: "journey-to-the-west",
+      title: "Journey to the West",
+      subtitle: "西遊記",
+      author: "Wu Cheng'en",
+      /* THE ATTRIBUTION IS TRADITIONAL AND CONTESTED. The novel was printed anonymously in 1592 and
+         Wu Cheng'en's name was attached to it by Qing scholars on the strength of a county gazetteer
+         listing a work of that title among his writings; a good deal of modern scholarship is
+         unconvinced. It is the name the book is catalogued under in every language, so it is the name
+         on the spine, and the book's own front matter says what the name rests on. Richard's title
+         page says something else again — he thought the Taoist master Qiu Chuji wrote it, three
+         centuries before it appeared. */
+      written: "first printed 1592",
+      year: 1592,
+      translator: "Timothy Richard",
+      edition: "The Christian Literature Society's Depot, Shanghai, 1913",
+      /* AN EASY LICENCE, AND THE SIXTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
+         Republic, the Analects, the Peloponnesian War, the City of God and the Aeneid. The novel is a
+         Ming work of the sixteenth century; Richard published in Shanghai in 1913 and lived
+         1845–1919, dates read off Wikidata at day precision and corroborated by its own description
+         rather than recalled, so his English clears pre-1929 publication, life-plus-seventy and
+         life-plus-a-hundred alike. There is no limit to state and no modern editorial layer to
+         declare. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, on every ground, with nothing to qualify. The novel is a Chinese work of the " +
+        "sixteenth century, first printed in 1592, so the words behind it have been free for as long " +
+        "as copyright has existed. The only modern layer is the translation: Timothy Richard " +
+        "published it in Shanghai in 1913 and lived from 1845 to 1919, so it is public domain in the " +
+        "United States, where the term for a work published before 1929 has expired, and out of " +
+        "copyright wherever the term is the translator's life plus seventy years or plus a hundred. " +
+        "Richard's dedication, his introduction and the plates are not reproduced here; what is taken " +
+        "is the hundred chapters. (The complete modern translations — Anthony C. Yu's of 1977–1983, " +
+        "revised in 2012, W. J. F. Jenner's of 1982–1986 and Julia Lovell's of 2021, and Arthur " +
+        "Waley's abridgement Monkey of 1942 — are all still in copyright and are not used.)",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/cu31924074502034",
+      origLang: "zh",
+      origName: "Chinese",
+      /* THE CHAPTER IS THE PAIRING UNIT — it is what the work is divided into, what both editions
+         state and how any passage of it is cited in any language. Neither side numbers anything
+         inside a chapter, so there is nothing finer to pair on and none is invented: one row per
+         chapter, each column at its own length.
+         THE ORIGINAL IS THE FULLER OF THE TWO COLUMNS, which is true of no other book here. The
+         Chinese is all hundred chapters entire; Richard renders about ten of them at length and
+         condenses the rest, marking eighty-nine of the hundred himself with the word "[outline.]",
+         which ships exactly where he put it — the unmarked eleven average 3,700 words and the marked
+         eighty-nine about 570. The book's own front matter says so on its first page, because it is
+         the first thing a reader needs to know about this text.
+         The numbering was checked rather than assumed: this novel has a known place where two
+         recensions disagree about whether the story of Tripitaka's parentage is chapter 9, and the
+         two orderings run a chapter apart from there on. Measured on the source — the Chinese
+         chapters 9 to 12 are Richard's IX to XII in subject, so the columns agree over all hundred.
+         See .claude/fetch-book.js. */
+      chapterWord: "Chapter",
+      count: 100,
+      total: 100,
+      /* No `parts`. The edition divides the book into a hundred chapters and nothing above them. The
+         three movements a reader may have met elsewhere — Monkey's origin, Tripitaka's, and the
+         pilgrimage — are not this edition's divisions, and putting them on the bar would be composing
+         an apparatus, which is what the Aeneid's row declines to do for its own two halves. */
+    },
+    {
+      id: "canterbury-tales",
+      title: "The Canterbury Tales",
+      author: "Geoffrey Chaucer",
+      written: "c. 1387–1400",
+      year: 1387,
+      translator: "John S. P. Tatlock and Percy MacKaye",
+      edition: "The Macmillan Company, New York, 1912",
+      /* A LIMIT ON THE TRANSLATION, and nothing to qualify about the other two layers. Chaucer died in
+         1400 and Skeat's Middle English text of 1900 is clear on every ground (he died in 1912). The
+         translation was published in 1912, so it is public domain in the United States under the
+         pre-1929 rule — but a work of two hands runs its term from the last of them to die, and
+         MacKaye lived until 1956, so life-plus-seventy has it in copyright until the beginning of 2027
+         and life-plus-a-hundred until 2057. Their dates were looked up rather than recalled and
+         corroborated twice: the library catalogue record carried in the scan's own metadata gives
+         both, and so does each man's biography. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. Chaucer died in 1400, so " +
+        "the poem itself has been free for as long as copyright has existed, and the Middle English " +
+        "column is Walter W. Skeat's text of 1900 — he died in 1912, so it is out of copyright on " +
+        "every ground with nothing to qualify. The translation is the half that needs a date. John S. " +
+        "P. Tatlock and Percy MacKaye published it in 1912, which puts it in the public domain in the " +
+        "United States under the rule for works published before 1929; but a work of two hands runs " +
+        "its term from the last of them to die, and MacKaye lived until 1956, so in countries where " +
+        "the term is the authors' lives plus seventy years it remains in copyright until the " +
+        "beginning of 2027, and where it is life plus a hundred until 2057. The translators' preface, " +
+        "glossary and notes, Skeat's introduction and apparatus, and the plates in both volumes are " +
+        "not reproduced; what is taken is the Prologue and the twenty-four tales. (The modern " +
+        "translations — Nevill Coghill's of 1951, David Wright's of 1985, Burton Raffel's of 2008 and " +
+        "Peter Ackroyd's retelling of 2009 — are all still in copyright and are not used.)",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
+      origLang: "enm",
+      origName: "Middle English",
+      /* THE TALE IS THE PAIRING UNIT, and here it is not a compromise between two editions but the
+         same editor read twice: the translators say in their preface that they follow Skeat's text
+         throughout, and Skeat's text is the facing column. So the two divide the work identically —
+         twenty-five units, same order, no exception to record.
+         WHAT THERE IS NO KEY FOR IS ANYTHING BELOW THE TALE. Skeat prints a line number every fifth
+         line, which is how Chaucer is cited in any language; the prose translation prints nothing at
+         all, so a number on one side and silence on the other could only pair by luck. One row per
+         tale, each column at its own length inside it.
+         THE TRANSLATION IS A PROSE RENDERING and it abridges the two tales that are prose in the
+         original — Melibeus and the Parson's Tale — to what its preface calls specimens, about a
+         tenth of each, and drops five further passages as too coarse for 1912, marking each with a
+         row of asterisks that ships where they printed it. Measured over the shipped files: 136,000
+         words against the original's 185,000, and take those two tales out and it is 130,000 against
+         135,000. Everything left out is in the Middle English beside it, which is complete.
+         See .claude/fetch-book.js. */
+      chapterWord: "Tale",
+      count: 25,
+      total: 25,
+      /* THE FRAGMENTS — the nine groups the tales survive in, which this very edition prints as
+         headings over them. Read off the pages rather than composed, and the only division either
+         edition makes above the tale. */
+      parts: [
+        { n: 1, label: "Group A", note: "Tales 1–5" },
+        { n: 2, label: "Group B", note: "Tales 6–12" },
+        { n: 3, label: "Group C", note: "Tales 13–14" },
+        { n: 4, label: "Group D", note: "Tales 15–17" },
+        { n: 5, label: "Group E", note: "Tales 18–19" },
+        { n: 6, label: "Group F", note: "Tales 20–21" },
+        { n: 7, label: "Group G", note: "Tales 22–23" },
+        { n: 8, label: "Group H", note: "Tale 24" },
+        { n: 9, label: "Group I", note: "Tale 25" },
+      ],
+    },
+    {
+      id: "divine-comedy",
+      title: "The Divine Comedy",
+      author: "Dante Alighieri",
+      written: "c. 1308–1321",
+      year: 1308,
+      translator: "Henry Wadsworth Longfellow",
+      edition: "Ticknor and Fields, Boston, 1867",
+      rights:
+        "Public domain worldwide, on every ground. Dante died in 1321, so the poem itself has been " +
+        "free for six centuries; Longfellow published this translation in 1867 and died in 1882, so " +
+        "it is out of copyright under the rule for works published before 1929, under the author's " +
+        "life plus seventy years, and under life plus a hundred — there is no limit to state. " +
+        "Longfellow's own notes, his index and the volumes' illustrations are not reproduced; what " +
+        "is taken is the hundred cantos. The modern translations by Dorothy L. Sayers (1949–62), " +
+        "John Ciardi (1954–70), Mark Musa (1971–84), Allen Mandelbaum (1980–84), Robert and Jean " +
+        "Hollander (2000–07), Robin Kirkpatrick (2006–07) and Clive James (2013) are still in " +
+        "copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Divine_Comedy_(Longfellow_1867)",
+      /* NO `origLang`, and for once the reason is not that the original is missing but that it may
+         not be printed. Dante's words are seven centuries old and free; what is not free is any
+         modern editor's CONSTITUTED text of them, and a medieval poem surviving in dozens of
+         disagreeing manuscripts has to be constituted before it can be read. Every complete Italian
+         Commedia reachable today is Giorgio Petrocchi's (1966–67), who died in 1989 — in copyright
+         until 2060 where the term is life plus seventy. That was established rather than assumed:
+         Italian Wikisource's own work-level page names Petrocchi as the curator of the plain text
+         its canto pages carry, and Project Gutenberg's Italian Commedia was diffed against those
+         pages line by line and is word for word the same text.
+         THE PAIRING IS ALREADY PROVED, so the day a printable text exists this is a small job. Both
+         columns were measured end to end before the English was imported: 14,233 lines a side —
+         exactly the traditional count, per canticle as well as in total — the same count in every
+         one of the hundred cantos once Longfellow's Provençal footnote is folded out of the verse,
+         and identical section lists throughout, 4,811 tercet numbers each in the same order with no
+         exception either way. Domenico Guerri's text (Laterza, 1933) is the one to reach for: it is
+         complete, proofread against a scan, and genuinely a different constituted text rather than
+         Petrocchi's renamed — Inferno I reads "E quanto a dir" where Petrocchi has "Ahi quanto a
+         dir". Guerri died in 1953, so it cleared life plus seventy in 2024 and is under United
+         States copyright until 2029, running ninety-five years from publication. The book's own
+         front matter tells the reader all of this. */
+      chapterWord: "Canto",
+      count: 100,
+      total: 100,
+      /* The three canticles, which is how the poem divides above the canto and how the 1867 edition's
+         own three volumes are bound. The cantos are numbered straight through 1–100 here so a reader's
+         place cannot move, and each tab names its canticle and its own numeral — "Purgatorio XII". */
+      parts: [
+        { n: 1, label: "Inferno", note: "Cantos I–XXXIV" },
+        { n: 2, label: "Purgatorio", note: "Cantos I–XXXIII" },
+        { n: 3, label: "Paradiso", note: "Cantos I–XXXIII" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
@@ -12450,8 +13762,12 @@
   // re-state every + / ✓ on the page from S.active. `data-id` is a tree node, `data-uadd` one of the
   // reader's own decks (whose entry id carries the "u:" prefix).
   function refreshAddButtons() {
-    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd]").forEach((b) => {
-      const eid = b.dataset.id != null ? b.dataset.id : uDeckEntry(b.dataset.uadd);
+    // …[data-uaddsub] with them: adding a deck now adds its subdecks, so their own buttons have to follow
+    // in the same sweep, or the rows below the one just pressed go on reading "add" over something added
+    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd], .collection-add[data-uaddsub]").forEach((b) => {
+      const eid = b.dataset.id != null ? b.dataset.id
+        : b.dataset.uaddsub != null ? b.dataset.uaddsub
+        : uDeckEntry(b.dataset.uadd);
       const on = isActive(eid);
       b.classList.toggle("added", on);
       b.innerHTML = addIcon(on);
@@ -13760,16 +15076,22 @@
       o: { lang: "ar", t: "ولما كان الكذب متطرقاً للخبر بطبيعته وله أسباب تقتضيه.", a: "ابن خلدون", s: "المقدمة" } },
     { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
       o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
-    // NO ORIGINAL, AND HERE THE REASON IS THE ATTRIBUTION (Aug 2026, looked for on request). The Hebrew
-    // is easy to find and that is the trap: "למד לשונך לומר איני יודע" is the BABYLONIAN TALMUD, Berakhot
-    // 4a, where it is introduced with "דאמר מר" — "as the Master said" — so even the Talmud is quoting it
-    // as a saying already received. Maimonides repeats it; he did not write it. Setting it as this entry's
-    // `o` would put those words in his mouth in the one place a reader goes to see what he actually
-    // wrote, which is worse than the blank — the `s` here already hedges with "Attributed". The honest
-    // fixes are to re-attribute the quote to the Talmud and give it the Hebrew, or to drop it for a line
-    // Maimonides did write; both change who speaks, which changes the running order (the no-repeat rule
-    // is keyed on the author), so neither is done in passing. Flagged rather than papered over.
-    { t: "Teach your tongue to say \"I do not know\", and you will make progress.", a: "Maimonides", s: "Attributed; cf. Commentary on the Mishnah" },
+    // RE-ATTRIBUTED RATHER THAN GIVEN AN ORIGINAL (Aug 2026, on a report that this quote would not flip).
+    // It stood as Maimonides, hedged "Attributed", with no `o` — and the note that used to sit here said
+    // why: the Hebrew is easy to find and that is the trap, because "למד לשונך לומר איני יודע" is the
+    // BABYLONIAN TALMUD, Berakhot 4a, introduced there with "דאמר מר" — "as the Master said" — so even the
+    // Talmud quotes it as a saying already received. Maimonides repeats it; he did not write it, and
+    // hanging the Hebrew off his name would have put those words in his mouth in the one place a reader
+    // goes to see what he actually wrote. A search of the whole corpus returns Berakhot 4a and no work of
+    // his, so the attribution was the quote-site one this pool exists to keep out. What could not be done
+    // in passing then and is done here is the first of the two fixes that note named: the speaker becomes
+    // the work, the source becomes the folio, and the words become A. Cohen's (Cambridge, 1921 — a
+    // standard published translation, and public domain), which opens on the same five words the entry
+    // always carried. **THE TAIL IS WHERE THE MISATTRIBUTION LIVED**: "and you will make progress" is in
+    // no source, where the Talmud gives a reason of its own — say less rather than keep a rounder sentence.
+    // Changing `a` re-solves the running order, the no-repeat rule being keyed on the author.
+    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a",
+      o: { lang: "he", t: "לַמֵּד לְשׁוֹנְךָ לוֹמַר ״אֵינִי יוֹדֵעַ״, שֶׁמָּא תִּתְבַּדֶּה וְתֵאָחֵז.", a: "התלמוד הבבלי", s: "בבלי, ברכות ד ע״א" } },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
     { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
@@ -14401,6 +15723,11 @@
     const q = reviewQueue();
     const dueN = q.due.length;
     const newN = q.fresh.length;
+    /* Load the day's community-deck cards while the reader is looking at this page. Their content lives per
+       note and is fetched when needed, and the moment it is needed is the moment Start is pressed — so
+       fetching it at idle here is what keeps the study page's loading placard a fallback rather than
+       something seen every day. Costs nothing when nothing is installed, and nothing on a second visit. */
+    if (q.all.length && !uWarmed(q.all)) whenIdle(() => uWarm(q.all));
     /* The day's pile split Anki's way (Aug 2026, on request): NEW cards never studied, LEARNING cards
        answered wrong and still working their way out of it, REVIEW cards graduated and due back. The old
        Due / New pair folded the last two together, which hides the pile a reader most wants to see the size
@@ -14524,12 +15851,41 @@
         if (n) { walk(n, depth, parentKey, hue); return; }
         const ud = UDECKS[uDeckIdOf(id)];
         const h = groupColor(id) || hue;
-        const kids = kidsOf(id);
         // a SUBDECK of one of the reader's own decks is named by the subdeck, with its deck for context —
         // the row is what the reader chose, and "HSK 1" over three of them says nothing about which is which
         const sub = ud ? uSubOf(id) : "";
+        /* …and a WHOLE deck draws its added subdecks UNDER it, which is what a collection does with its
+           decks one store over. Without this they were siblings at the top level: nine "Level" rows in a
+           flat run with the deck they belong to somewhere among them, saying nothing about what contains
+           what. A subdeck the reader has not added is not drawn — the list is what they chose, not a
+           catalogue of the deck — and one dragged into a group is drawn there instead, like any other row. */
+        /* …and since a subdeck may itself hold subdecks, a row's children are the IMMEDIATE children of
+           its own path rather than every subdeck the deck has: a deck row draws the top-level ones, and
+           each of those draws its own. Drawn flat, `A1` and `A1::Spanish → English` would be siblings
+           saying nothing about what contains what — which is exactly what the one-level version was
+           reported as one store up. A node whose own row is not added is skipped and its children rise to
+           the level above, so the list stays what the reader chose. */
+        const subKids = (ud && !sub)
+          ? uSubChildren(ud.id, "").map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
+          : (ud && sub)
+          ? uSubChildren(ud.id, sub).map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
+          : [];
+        const kids = subKids.concat(kidsOf(id));
+        /* …and the context line goes when the row is drawn UNDER its own deck, because then the deck IS
+           the row above it. It is worth the extra condition: at 390px the name is the only part of the row
+           with no shorter form, so a repeated "HSK 3.0 — Mandarin Chinese" beside it crushes "Level 1" to
+           "Lev…" — every subdeck reading the same three letters under the deck that names them. It stays
+           where a subdeck is added on its own and stands at the top level, which is what it was for. */
+        const ownParent = sub && ud
+          ? uSubEntry(ud.id, uSubParent(sub))     // the deck's entry when the path has one segment
+          : null;
+        const underOwnDeck = !!(sub && ud && parentKey === ownParent);
         rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
-                    title: ud ? (sub || ud.title) : COTD_TITLE, sup: sub ? ud.title : "", hue: h, kids });
+                    title: ud ? (uSubName(sub) || ud.title) : COTD_TITLE,
+                    // the context line names what CONTAINS the row, which for a nested path is the
+                    // subdeck above it rather than the deck at the top of it
+                    sup: (sub && !underOwnDeck) ? (uSubName(uSubParent(sub)) || ud.title) : "",
+                    hue: h, kids });
         orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
       };
       function walk(node, depth, parentKey, hue) {
@@ -14562,7 +15918,21 @@
          has made join that same run; anything dragged INTO one leaves it, being drawn under its container. */
       const tops = [];
       TREE.collections.forEach((d) => { if (!isComingSoon(d) && show.has(d.id)) tops.push(d.id); });   // a coming-soon collection's decks sit the review out
-      activeIds.forEach((id) => { if (UDECKS[uDeckIdOf(id)]) tops.push(id); });
+      activeIds.forEach((id) => {
+        const dId = uDeckIdOf(id);
+        if (!dId || !UDECKS[dId]) return;
+        /* …unless its own CONTAINER is on the list too, in which case emit() has just drawn it as a child.
+           The container is the subdeck above it where the path has one, and the deck otherwise — testing
+           only the deck was right while a sub was one segment and lets a nested row be drawn twice, once
+           under its parent and once at the top of the list, which reads as the deck having two of them. */
+        const sub = uSubOf(id);
+        if (sub) {
+          const parent = uSubParent(sub);
+          const container = parent ? uSubEntry(dId, parent) : uDeckEntry(dId);
+          if (activeIds.indexOf(container) !== -1) return;
+        }
+        tops.push(id);
+      });
       if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
       Object.keys(deckGroupMap()).forEach((id) => { if (isGroupId(id)) tops.push(id); });
       orderedIds("", tops.filter((id) => !nestParentOf(id))).forEach((id) => emit(id, 0, "", ""));
@@ -14592,7 +15962,11 @@
       rows.forEach((r) => {
         if (!hasKids.has(r.drag) || adSeeded.has(r.drag)) return;
         adSeeded.add(r.drag);
-        if (isGroupId(r.drag) || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
+        /* An added deck of the reader's OWN opens: its subdecks are the reason it has rows at all, and a
+           deck that swallows them the moment it is added is exactly what this was reported as. A curated
+           collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
+        const ownDeck = r.flat && UDECKS[uDeckIdOf(r.flat)] && !uSubOf(r.flat);
+        if (isGroupId(r.drag) || ownDeck || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
       });
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
@@ -15124,6 +16498,18 @@
      about Folio, so they survive navigating away and back within a session and reset on reload. */
   let browseQ = "", browseSort = "due", browseRev = false, browseSel = Object.create(null);
   PAGES.browse = function (root) {
+    /* The browser searches card TEXT, so unlike every other listing surface it cannot work from the index —
+       a search that quietly stopped matching the cards it had not loaded would report fewer results with
+       nothing to say why, which is the silent shape this file keeps recording. So every installed deck is
+       read in full first, once, behind the placard. It is an explicit "show me everything" action and the
+       only page here that asks for the whole collection at once. */
+    const coldDecks = Object.keys(UDECKS).filter((id) => !uWarmed(UDECKS[id].cardIds || []));
+    if (coldDecks.length) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Your record</span><h1>Card browser</h1></div>' +
+        '<div class="data-loading">Loading your cards…</div>';
+      uWarmDecks(coldDecks).then(() => { if (current && current.name === "browse") render(); });
+      return;
+    }
     const stateName = { new: "New", learning: "Learning", relearn: "Relearning", review: "Review" };
     const fmtDue = (r) => {
       if (r.state === "new") return "—";
@@ -15464,19 +16850,22 @@
      out of this list rather than given an "Other" row: on a fully-grouped deck there are none, and on a
      partly-grouped one the parent row already studies the whole deck. */
   function udeckSubRowsHTML(d) {
-    const subs = uDeckSubs(d.id);
-    if (!subs.length) return "";
-    return '<div class="udeck-subs">' + subs.map((sub) => {
+    if (!uDeckSubs(d.id).length) return "";
+    /* Nested, since a subdeck may hold subdecks: each row draws its own children under it, indented by
+       its depth in the path. The indent is a style rather than a nested container so a child's row is the
+       same 46px box as its parent's — the curated tree's own arrangement one store over. */
+    const row = (sub, depth) => {
       // the CARDS of the subdeck's notes, not the notes — a two-way note is two cards to study, and this
       // row sits directly under a deck row that has always counted them expanded
-      const ids = uDeckStudyIds(uDeckCardsIn(d.id, sub)), n = ids.length;
+      const ids = uDeckStudyIdsFor(d.id, sub), n = ids.length;
       const entry = uSubEntry(d.id, sub), on = isActive(entry);
       const studied = ids.filter(isSeen).length;
       return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
-        '" data-usubname="' + esc(sub) + '">' +
+        '" data-usubname="' + esc(sub) + '" data-depth="' + depth + '"' +
+        (depth ? ' style="--sd:' + depth + '"' : "") + '>' +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
-            '<span class="deck-title">' + esc(sub) + '</span>' +
+            '<span class="deck-title">' + esc(uSubName(sub)) + '</span>' +
             '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
           '</div>' +
           deckProgMarkup(studied, n) +
@@ -15485,8 +16874,9 @@
           '<button class="collection-add' + (on ? " added" : "") + '" data-uaddsub="' + esc(entry) +
             '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + '</button>' +
         '</div>' +
-      '</div>';
-    }).join("") + '</div>';
+      '</div>' + uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
+    };
+    return '<div class="udeck-subs">' + uSubChildren(d.id, "").map((s) => row(s, 0)).join("") + '</div>';
   }
   function communityLibraryHTML() {
     const decks = uDeckList();
@@ -15508,11 +16898,7 @@
     const nw = root.querySelector("#udNew");
     if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.deck = d.id; studioState.card = null; route("studio"); });
     const im = root.querySelector("#udImport");
-    if (im) im.addEventListener("click", () => uDeckPickFile((r) => {
-      if (r.error) { toast(r.error); return; }
-      toast("Imported “" + r.deck.title + "”");
-      render();
-    }));
+    if (im) im.addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
     const st = root.querySelector("#udStudio");
     if (st) st.addEventListener("click", () => route("studio"));
     const br = root.querySelector("#udBrowse");
@@ -15926,7 +17312,7 @@
       const availG = availableCardIdSet();
       // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
       // cards, so leaving it out here would let a buried card come back through one
-      const gIds = entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id));
+      const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = [...gDue, ...gNew];
@@ -15937,7 +17323,8 @@
       if (!d) return null;
       const sub = scope.sub || "";
       // the deck's notes expanded into their cards (a reverse card is its own card here), template-major
-      const ids = uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id));
+      const ids = studyOrder(uSubEntry(d.id, sub),
+        uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id)));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
       const ue = uSubEntry(d.id, sub);
@@ -15959,7 +17346,7 @@
       const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
       // entryCardIds rather than subtreeCardIds, so tapping a row studies exactly what that row promised:
       // a branch dragged into a group is studied there, and a guest dragged in here is studied here
-      const ids = entryCardIds(sd.id).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id));
+      const ids = studyOrder(sd.id, entryCardIds(sd.id).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id)));
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
@@ -17600,12 +18987,29 @@
   PAGES.studio = function (root) {
     if (!communityReady()) { root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>Your decks</h1></div><div class="data-loading">Loading your decks…</div>'; return; }
     if (studioState.deck && !UDECKS[studioState.deck]) { studioState.deck = null; studioState.card = null; }
+    /* The Studio lists every card's title and edits their prose, so it is one of the few surfaces that
+       genuinely wants the whole deck rather than a session's worth — it reads it in one pass through the
+       notes store (~0.6 s for 10,896 notes) behind the placard the page already has for its own boot. The
+       SHELF above does not: a deck row shows a title and a card count, both of which the index carries. */
+    if (studioState.deck && !uWarmed(UDECKS[studioState.deck].cardIds || [])) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>' + esc(UDECKS[studioState.deck].title || "") + '</h1></div><div class="data-loading">Loading this deck…</div>';
+      uWarmDeck(studioState.deck).then(() => { if (current && current.name === "studio") render(); });
+      return;
+    }
     if (studioState.deck) studioRenderDeck(root, UDECKS[studioState.deck]);
     else studioRenderList(root);
   };
 
   function studioRenderList(root) {
     const decks = uDeckList();
+    /* Ask the server, once a session, which decks this account owns — the list below shows whichever of
+       them this device has no copy of. Never blocks the page: it paints without them and repaints when
+       they land, which is the pattern the update check already uses, and a failed or offline request just
+       leaves the section absent rather than showing an empty heading. */
+    if (!_myRemoteAsked && supaLoggedIn()) {
+      _myRemoteAsked = true;
+      myRemoteDecksLoad().then(() => { if (current && current.name === "studio" && !studioState.deck) render(); });
+    }
     /* The way back stands at the TOP LEFT of the page, above the heading, rather than in the row of actions
        under it (Aug 2026, on request) — a back link belongs where a reader looks for one, and standing in a
        line beside "New deck" and "Import" it read as a third thing to do rather than as the way out. It also
@@ -17633,24 +19037,87 @@
                 '<button class="btn tiny danger" type="button" data-del="' + esc(d.id) + '">Delete</button>' +
               '</div></div>';
           }).join("") + '</div>'
-        : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>');
+        : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>') +
+      orphanSectionHTML();
 
     root.querySelector("#stNew").addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.deck = d.id; studioState.card = null; render(); });
     root.querySelector("#stBack").addEventListener("click", () => route("decks"));
-    root.querySelector("#stImport").addEventListener("click", () => uDeckPickFile((r) => {
-      if (r.error) { toast(r.error); return; }
-      toast("Imported “" + r.deck.title + "”");
-      render();
-    }));
+    root.querySelector("#stImport").addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
     root.querySelectorAll("[data-open]").forEach((b) => b.addEventListener("click", () => { studioState.deck = b.dataset.open; studioState.card = null; render(); }));
     root.querySelectorAll("[data-study]").forEach((b) => b.addEventListener("click", () => route("study", { scope: { type: "udeck", id: b.dataset.study } })));
     root.querySelectorAll("[data-export]").forEach((b) => b.addEventListener("click", () => uDeckExport(b.dataset.export)));
     root.querySelectorAll("[data-del]").forEach((b) => b.addEventListener("click", () => {
       const d = UDECKS[b.dataset.del]; if (!d) return;
-      inlineConfirm("Delete “" + d.title + "” and its " + (d.cardIds || []).length + " cards? This can't be undone — export it first if you want to keep a copy.", () => {
-        uDeckDelete(d.id); toast("Deck deleted"); render();
-      }, "Delete");
+      confirmDeleteDeck(d);
     }));
+    root.querySelectorAll("[data-orphopen]").forEach((b) => b.addEventListener("click", () => { location.hash = "#deck/" + encodeURIComponent(b.dataset.orphopen); }));
+    root.querySelectorAll("[data-orphdel]").forEach((b) => b.addEventListener("click", () => {
+      const row = (_myRemote || []).find((x) => x.id === b.dataset.orphdel); if (!row) return;
+      inlineConfirm("Remove “" + (row.title || "Untitled deck") + "” from the shared decks page? This deletes it and its cards, ratings and reviews for good. Anyone who already installed it keeps their copy.", async () => {
+        b.disabled = true;
+        const r = await uDeckRemoteDelete(row.id);
+        if (r.error) { b.disabled = false; toast(r.error); return; }
+        myRemoteReset();
+        toast("Removed from the shared decks page");
+        render();
+      }, "Remove");
+    }));
+  }
+
+  /* Deleting a deck of your own that is on the shared page takes the shared copy with it — see
+     `uDeckRemoteDelete`. Three cases, and each is said out loud rather than left to be discovered:
+
+     · not shared → the message it always had;
+     · shared, signed in → the shared copy goes FIRST, and a failure stops the whole thing. That is
+       deliberate: the local record is the only handle on the remote row, so throwing it away while the
+       delete is failing manufactures the very orphan this exists to prevent. Nothing is lost by retrying.
+     · shared, signed out → the local copy can go and the shared one cannot, so the confirmation says so
+       BEFORE the reader agrees and names where to finish the job, rather than reporting it afterwards. */
+  function confirmDeleteDeck(d) {
+    const n = (d.cardIds || []).length;
+    const shared = !!(uDeckIsMine(d) && d.remoteId);
+    const keep = " This can't be undone — export it first if you want to keep a copy.";
+    const tail = !shared ? keep
+      : supaLoggedIn() ? " It comes off the shared decks page too, for good." + keep
+      : " You're signed out, so its copy on the shared decks page will stay — sign in and remove it from the Studio." + keep;
+    inlineConfirm("Delete “" + d.title + "” and its " + n + " " + (n === 1 ? "card" : "cards") + "?" + tail, async () => {
+      if (shared && supaLoggedIn()) {
+        toast("Removing the shared copy…");
+        const r = await uDeckRemoteDelete(d.remoteId);
+        if (r.error) { toast(r.error + " The deck is still here — try again."); return; }
+      }
+      uDeckDelete(d.id);
+      myRemoteReset();   // this device's picture of what it owns on the server is now a version behind
+      toast(shared && supaLoggedIn() ? "Deck deleted, and taken off the shared page" : "Deck deleted");
+      render();
+    }, "Delete");
+  }
+
+  /* The listing of those orphans. ABSENT rather than empty when there is nothing to show — a heading over
+     no rows reads as a section that failed to load, and for almost every reader there will never be
+     anything here at all. A row carries what the server knows and nothing this device has, since by
+     definition it has nothing: the title, the size, where the deck currently stands and how many people
+     hold a copy, which is the fact a reader wants before removing something for good. */
+  function orphanSectionHTML() {
+    const rows = orphanRemoteDecks();
+    if (!rows.length) return "";
+    const where = { published: "on the shared decks page", draft: "unlisted — it has a page, but nobody can find it", hidden: "hidden by a moderator" };
+    return '<div class="studio-orphans">' +
+      '<h2 class="studio-sec">Published, but not on this device</h2>' +
+      '<p class="studio-sec-note">Your account owns these and there is no copy here — deleted on another device, or before deleting a deck took its shared copy with it. Removing one deletes it, its cards and its reviews for good; anyone who already installed it keeps their copy.</p>' +
+      '<div class="studio-list">' + rows.map((row) => {
+        const n = Number(row.card_count || 0), inst = Number(row.install_count || 0);
+        const meta = '<span class="sd-title">' + esc(row.title || "Untitled deck") + '</span>' +
+          '<span class="sd-meta">' + n + " " + (n === 1 ? "card" : "cards") + " &middot; " + esc(where[row.status] || String(row.status || "")) +
+            (inst ? " &middot; " + inst + " " + (inst === 1 ? "install" : "installs") : "") + '</span>';
+        return '<div class="studio-deck orphan-deck">' +
+          (row.slug
+            ? '<button class="studio-deck-open" type="button" data-orphopen="' + esc(row.slug) + '">' + meta + '</button>'
+            : '<div class="studio-deck-open">' + meta + '</div>') +
+          '<div class="studio-deck-actions">' +
+            '<button class="btn tiny danger" type="button" data-orphdel="' + esc(row.id) + '">Remove</button>' +
+          '</div></div>';
+      }).join("") + '</div></div>';
   }
 
   function fmtWhen(ts) {
@@ -18287,15 +19754,17 @@
     const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
     const up = root.querySelector("#stUpdate");
     if (up) up.addEventListener("click", () => route("deck", { slug: d.slug }));
-    root.querySelector("#stFork").addEventListener("click", () => {
-      const rec = uDeckRecord(d.id);
+    root.querySelector("#stFork").addEventListener("click", async () => {
+      await uWarmDeck(d.id);   // a duplicate copies every card, so all of them have to be in hand
+      const rec = uDeckRecordFull(d.id);
       const r = uDeckImportText(JSON.stringify({ folioDeck: UDECK_FORMAT, meta: rec.meta, cards: rec.cards, gloss: rec.gloss }), true);
       if (r.error) { toast(r.error); return; }
       r.deck.forkedFrom = { slug: d.slug || "", title: d.title || "", author: d.ownerName || d.author || "" };   // credit the original
       uDeckSave(r.deck.id);
       studioState.deck = r.deck.id; studioState.card = null;
-      toast("Duplicated — this copy is yours to edit");
       render();
+      await r.saved;   // the copy's own notes — say it is duplicated once it really is (see uImportDone)
+      toast("Duplicated — this copy is yours to edit");
     });
     root.querySelector("#stRemove").addEventListener("click", () => inlineConfirm(
       "Remove “" + d.title + "” from this device? Your progress on its cards goes too.",
@@ -18384,9 +19853,12 @@
          itself. */
       '<label class="ces-typepick"><span>Subdeck</span>' +
         '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="none" ' +
+          'title="Type ' + SUB_SEP + ' between names to put a subdeck inside another, as in ' +
+            'A1' + SUB_SEP + 'Spanish to English" ' +
           'value="' + esc((c && c.sub) || "") + '" />' +
         '<datalist id="cesSubList">' +
-          uDeckSubs(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
+          // every NODE, not only the paths cards name, so a parent can be picked as readily as a leaf
+          uSubNodes(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
         "</datalist></label>" +
     "</div>";
   }
@@ -18844,6 +20316,20 @@
         : emptyPlacard("Deck not found", "—", "We couldn't find that deck.", () => route("decks"), "Back to collections");
       return;
     }
+    /* A community deck's cards are stored per note and loaded when they are needed, so this session's own
+       cards may not be in memory yet. `cardById` is synchronous — see the warming block — so the queue is
+       loaded BEFORE the first card paints, behind the same `.data-loading` placard the lazy data bundles
+       use. The home page warms the day's review at idle, so in ordinary use this is already true and the
+       placard is never seen; it is what a deep link, a cold start or a deck tapped straight from its row
+       falls back on. */
+    const sessIds = (resume ? resume.queue : []).concat(sess.queue);
+    if (!uWarmed(sessIds)) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' + esc(sess.where || "") + "</h1></div>" +
+        '<div class="data-loading">' + t("Loading these cards…") + "</div>";
+      uWarm(sessIds).then(() => { if (current && current.name === "study") render(); });
+      return;
+    }
+
     const sd = params.scope.type === "deck" ? NODE_BY_ID[params.scope.id] : null;
     const ud = params.scope.type === "udeck" ? UDECKS[params.scope.id] : null;   // one of the user's own decks
     // whether this scope's cards ask one of their phrasings at random — see deckVariety. Read ONCE for the

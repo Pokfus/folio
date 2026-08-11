@@ -421,11 +421,27 @@ function readDecks(page) {
     try { req = indexedDB.open("folio-community"); } catch (e) { return res(ls); }
     req.onsuccess = () => {
       const db = req.result;
-      let all;
-      try { all = db.transaction("decks", "readonly").objectStore("decks").getAll(); }
-      catch (e) { db.close(); return res(ls); }
-      all.onsuccess = () => { const r = all.result || []; db.close(); res(merge(r)); };
-      all.onerror = () => { db.close(); res(ls); };
+      let tx, all, notes;
+      /* Since Aug 2026 a deck's cards live one record per note in a second store, and the deck record holds
+         only an index of them — so the two are read together and put back in index order. Every assertion
+         below then reads the same `cards` array it always did, which is what keeps this file testing card
+         TYPES rather than the store's shape. A localStorage record (the file:// fallback) still carries its
+         cards inline, and is passed through untouched. */
+      try {
+        tx = db.transaction(["decks", "notes"], "readonly");
+        all = tx.objectStore("decks").getAll();
+        notes = tx.objectStore("notes").getAll();
+      } catch (e) { db.close(); return res(ls); }
+      tx.oncomplete = () => {
+        const byKey = {};
+        (notes.result || []).forEach((n) => { if (n && n.c) byKey[n.k] = n.c; });
+        const r = (all.result || []).map((d) => Object.assign({}, d, {
+          cards: d.cards || (d.index || []).map((e) => byKey[d.id + "/" + e.id]).filter(Boolean),
+        }));
+        db.close();
+        res(merge(r));
+      };
+      tx.onerror = () => { db.close(); res(ls); };
     };
     req.onerror = () => res(ls);
   }));

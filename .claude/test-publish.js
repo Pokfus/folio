@@ -53,7 +53,24 @@ const GUARDED = ["owner", "card_count", "install_count", "rating_avg", "rating_c
   "rating_1", "rating_2", "rating_3", "rating_4", "rating_5", "staff_pick", "created_at"];
 function uuid(n) { return "00000000-0000-4000-8000-" + String(100000000000 + n).slice(0, 12); }
 
-function handleSupa(db, url, method, body, asUser) {
+/* PostgREST hands back at most `db-max-rows` rows and says nothing about the ones it dropped, so a client
+   that does not ask for a range gets a silently truncated array — a short deck and a truncated one look
+   exactly alike. That is what this simulates, and the shape of the simulation matters:
+
+   a request WITH a Range is served in full, up to the window it asked for; a request WITHOUT one is
+   truncated to MOCK_PAGE. It is deliberately NOT a cap below the client's own page size, which would be a
+   server no client could page correctly at all — asking for 1,000 and being given 3 is indistinguishable
+   from a table that holds 3, so the loop would stop and be right to. What is under test is therefore the
+   thing that was actually wrong: whether the client asks for a range at all. Range is `first-last`
+   inclusive, as PostgREST reads it. */
+const MOCK_PAGE = 3;
+function pageRows(rows, headers) {
+  const r = /^(\d+)-(\d+)$/.exec(String((headers && (headers.range || headers.Range)) || ""));
+  if (!r) return rows.slice(0, MOCK_PAGE);
+  return rows.slice(+r[1], +r[1] + (+r[2] - +r[1] + 1));
+}
+
+function handleSupa(db, url, method, body, asUser, headers) {
   const u = new URL(url);
   const p = u.pathname;
   const eqOf = (param) => { const v = u.searchParams.get(param); return v && v.startsWith("eq.") ? v.slice(3) : null; };
@@ -87,8 +104,27 @@ function handleSupa(db, url, method, body, asUser) {
       Object.assign(row, patch, { updated_at: new Date().toISOString() });
       return [200, [row]];
     }
+    /* The "delete your own decks" policy, and the cascades hanging off it. Two things here are the whole
+       point of the test that uses it. RLS picks ROWS, so a DELETE that matches none is not an error: it
+       answers 204 having removed nothing, exactly as a delete by a non-owner does — which is why the app
+       asks for the rows back instead of trusting the status. And the cards, installs, ratings and reports
+       go with the deck because their foreign keys say `on delete cascade`; a mock that kept them would let
+       an orphaned-row bug pass unnoticed here. */
+    if (method === "DELETE") {
+      const id = eqOf("id");
+      const gone = db.decks.filter((d) => d.id === id && (d.owner === asUser.id || asUser.role === "admin"));
+      db.decks = db.decks.filter((d) => gone.indexOf(d) < 0);
+      gone.forEach((d) => {
+        db.cards = db.cards.filter((c) => c.deck_id !== d.id);
+        db.installs = db.installs.filter((i) => i.deck_id !== d.id);
+        db.ratings = db.ratings.filter((r) => r.deck_id !== d.id);
+        db.reports = db.reports.filter((r) => r.deck_id !== d.id);
+      });
+      const wants = /return=representation/.test(String((headers && (headers.prefer || headers.Prefer)) || ""));
+      return wants ? [200, gone] : [204, null];
+    }
     // GET
-    const id = eqOf("id"), slug = eqOf("slug"), status = eqOf("status");
+    const id = eqOf("id"), slug = eqOf("slug"), status = eqOf("status"), owner = eqOf("owner");
     const inIds = (u.searchParams.get("id") || "").startsWith("in.")
       ? (u.searchParams.get("id") || "").slice(4, -1).split(",") : null;
     let rows = db.decks.slice();
@@ -96,6 +132,7 @@ function handleSupa(db, url, method, body, asUser) {
     rows = rows.filter((d) => d.status === "published" || d.owner === asUser.id || asUser.role === "admin");
     if (id) rows = rows.filter((d) => d.id === id);
     if (inIds) rows = rows.filter((d) => inIds.indexOf(d.id) >= 0);
+    if (owner) rows = rows.filter((d) => d.owner === owner);
     if (slug) rows = rows.filter((d) => d.slug === slug);
     if (status) rows = rows.filter((d) => d.status === status);
     const or = u.searchParams.get("or");
@@ -129,7 +166,7 @@ function handleSupa(db, url, method, body, asUser) {
       return [204, null];
     }
     const id = eqOf("deck_id");
-    return [200, db.cards.filter((c) => c.deck_id === id).sort((a, b) => a.ord - b.ord)];
+    return [200, pageRows(db.cards.filter((c) => c.deck_id === id).sort((a, b) => a.ord - b.ord), headers)];
   }
 
   if (p === "/rest/v1/deck_installs") {
@@ -189,7 +226,7 @@ async function attachMock(ctx, db, userRef) {
     let body = null;
     try { const pd = req.postData(); if (pd) body = JSON.parse(pd); } catch (e) {}
     let out;
-    try { out = handleSupa(db, req.url(), req.method(), body, userRef.user); }
+    try { out = handleSupa(db, req.url(), req.method(), body, userRef.user, req.headers()); }
     catch (e) { out = [500, { message: "mock error: " + e.message }]; }
     await routeObj.fulfill({
       status: out[0],
@@ -483,10 +520,13 @@ async function typeField(page, field, text) {
   const seeded = await B.page.evaluate(async () => {
     // read the installed deck's card ids out of IndexedDB, then mark them all studied
     const ids = await new Promise((resolve) => {
-      const rq = indexedDB.open("folio-community", 1);
+      /* No version: the store has been at 2 since a deck's cards moved into a `notes` store of their own,
+         and asking for 1 is a DOWNGRADE, which fails outright and hands back no ids at all. The ids now
+         come from the deck's INDEX, which is what the record carries in place of its cards. */
+      const rq = indexedDB.open("folio-community");
       rq.onsuccess = () => {
         const tx = rq.result.transaction("decks", "readonly").objectStore("decks").getAll();
-        tx.onsuccess = () => resolve((tx.result || []).flatMap((r) => (r.cards || []).map((c) => c.id)));
+        tx.onsuccess = () => resolve((tx.result || []).flatMap((r) => (r.index || r.cards || []).map((c) => c.id)));
         tx.onerror = () => resolve([]);
       };
       rq.onerror = () => resolve([]);
@@ -519,10 +559,13 @@ async function typeField(page, field, text) {
   await B.page.waitForTimeout(1300);
   await B.page.evaluate(async () => {
     const ids = await new Promise((resolve) => {
-      const rq = indexedDB.open("folio-community", 1);
+      /* No version: the store has been at 2 since a deck's cards moved into a `notes` store of their own,
+         and asking for 1 is a DOWNGRADE, which fails outright and hands back no ids at all. The ids now
+         come from the deck's INDEX, which is what the record carries in place of its cards. */
+      const rq = indexedDB.open("folio-community");
       rq.onsuccess = () => {
         const tx = rq.result.transaction("decks", "readonly").objectStore("decks").getAll();
-        tx.onsuccess = () => resolve((tx.result || []).flatMap((r) => (r.cards || []).map((c) => c.id)));
+        tx.onsuccess = () => resolve((tx.result || []).flatMap((r) => (r.index || r.cards || []).map((c) => c.id)));
         tx.onerror = () => resolve([]);
       };
       rq.onerror = () => resolve([]);
@@ -647,7 +690,7 @@ async function typeField(page, field, text) {
   await B.page.waitForTimeout(900);
   const forked = await B.page.evaluate(async () => {
     const rows = await new Promise((resolve) => {
-      const rq = indexedDB.open("folio-community", 1);
+      const rq = indexedDB.open("folio-community");   // no version — asking for 1 is now a downgrade
       rq.onsuccess = () => {
         const tx = rq.result.transaction("decks", "readonly").objectStore("decks").getAll();
         tx.onsuccess = () => resolve(tx.result || []);
@@ -660,6 +703,72 @@ async function typeField(page, field, text) {
   });
   check("the duplicate records what it came from", !!forked && forked.from && /Byzantine/.test(forked.from.title || ""), JSON.stringify(forked));
   check("the duplicate is mine, not installed", !!forked && forked.origin === "mine", forked ? forked.origin : "");
+
+  /* ================= a deck bigger than one page =================
+     PostgREST caps a response at db-max-rows and says nothing about what it dropped, so an unpaged install
+     returns a truncated deck that is indistinguishable from a small one — nothing throws, the deck opens,
+     and the missing cards are found weeks later by a reader who cannot find a word. The mock's cap is 3
+     (see MOCK_PAGE), so this deck of 7 crosses it twice in each direction: the upload has to batch and the
+     download has to page, and either one failing loses cards silently. */
+  const PAGED_N = 7;
+  const pagedFile = path.join(require("os").tmpdir(), "paged.folio-deck.json");
+  fs.writeFileSync(pagedFile, JSON.stringify({
+    folioDeck: 1,
+    meta: { id: "pagedeck", title: "Paged Deck", subtitle: "", desc: "", author: "", language: "en", tags: [], version: 1 },
+    cards: Array.from({ length: PAGED_N }, (_, i) => ({
+      id: "u_pagedeck_" + (i + 1),
+      question: "Card number ___ of the paged deck.",
+      answer: String(i + 1), answerText: String(i + 1),
+      answerDate: "", abstract: "Card " + (i + 1) + " exists.", num: "", category: "",
+      traditional: "", hanzi: "", pinyin: "", translations: "", citation: "",
+    })),
+  }));
+  await A.page.bringToFront();
+  await gotoFresh(A.page, base + "#studio");
+  await A.page.waitForTimeout(1100);
+  if (await A.page.evaluate(() => !!document.querySelector("#stAll"))) { await A.page.click("#stAll"); await A.page.waitForTimeout(400); }
+  const pagedChooser = A.page.waitForEvent("filechooser");
+  await A.page.click("#stImport");
+  (await pagedChooser).setFiles(pagedFile);
+  await A.page.waitForTimeout(1200);
+  // open it and publish
+  const opened = await A.page.evaluate((title) => {
+    const rows = [...document.querySelectorAll(".sd-title")];
+    const hit = rows.find((e) => (e.textContent || "").indexOf(title) >= 0);
+    if (hit) (hit.closest("button") || hit).click();
+    return !!hit;
+  }, "Paged Deck");
+  check("the paged deck imported", opened);
+  await A.page.waitForTimeout(700);
+  await A.page.click("#stPublish");
+  await A.page.waitForTimeout(1500);
+  const pagedRow = db.decks.find((d) => d.title === "Paged Deck");
+  check("a deck larger than one page uploads every card", !!pagedRow && db.cards.filter((c) => c.deck_id === pagedRow.id).length === PAGED_N,
+    "uploaded=" + (pagedRow ? db.cards.filter((c) => c.deck_id === pagedRow.id).length : "no deck") + " want=" + PAGED_N);
+
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#deck/" + (pagedRow ? pagedRow.slug : "missing"));
+  await B.page.waitForTimeout(1300);
+  await B.page.click("#ddInstall");
+  await B.page.waitForTimeout(1500);
+  /* Counted off the STORE rather than the Studio's rows: what is under test is how many cards came down
+     the wire, and a UI count would fail the same way whether the install truncated or the list simply had
+     not painted yet. The deck's index is exactly the list of notes it holds. */
+  const installedN = await B.page.evaluate((title) => new Promise((res) => {
+    const rq = indexedDB.open("folio-community");
+    rq.onsuccess = () => {
+      const db = rq.result;
+      const g = db.transaction("decks", "readonly").objectStore("decks").getAll();
+      g.onsuccess = () => {
+        const d = (g.result || []).find((r) => r.meta && r.meta.title === title);
+        db.close();
+        res(d ? (d.index || d.cards || []).length : -1);
+      };
+      g.onerror = () => { db.close(); res(-2); };
+    };
+    rq.onerror = () => res(-3);
+  }), "Paged Deck");
+  check("...and installing it brings every card back", installedN === PAGED_N, "installed=" + installedN + " want=" + PAGED_N);
 
   // ================= exports never carry publish state =================
   await A.page.bringToFront();
@@ -675,6 +784,83 @@ async function typeField(page, field, text) {
   const exported = JSON.parse(fs.readFileSync(f, "utf8"));
   check("export omits the publish state", !exported.meta.remoteId && !exported.meta.slug && !exported.meta.origin,
     JSON.stringify(Object.keys(exported.meta)));
+
+  /* ================= deleting a published deck takes the shared copy with it =================
+     The bug this is for (Aug 2026): `uDeckDelete` only ever removed the LOCAL record, so a deck the author
+     published and then deleted stayed on the shared page for ever — and unreachably, the Studio's Unpublish
+     button reading `remoteId` off the local deck that had just been thrown away. Every assertion below
+     fails silently on a real site: the deck vanishes from the author's Studio either way, and only somebody
+     ELSE browsing the shared page ever sees what was left behind. */
+  async function studioDeleteByTitle(page, title) {
+    await page.evaluate((t) => {
+      const row = [...document.querySelectorAll(".studio-deck")].find((r) => ((r.querySelector(".sd-title") || {}).textContent || "") === t);
+      const b = row && row.querySelector("[data-del]");
+      if (b) b.click();
+    }, title);
+    await page.waitForTimeout(300);
+    await page.click(".ip-ok");
+    await page.waitForTimeout(1800);
+  }
+  /* Landing on the deck LIST is not automatic and the reason is a house gotcha worth repeating: `goto` to a
+     URL that differs only in its #fragment is a SAME-DOCUMENT navigation, so the app keeps running and
+     `studioState.deck` survives — the Studio then opens on whichever deck was last edited. */
+  async function studioListView(page) {
+    await page.waitForTimeout(1200);
+    if (await page.evaluate(() => !!document.querySelector("#stAll"))) {
+      await page.click("#stAll");
+      await page.waitForTimeout(500);
+    }
+    await page.waitForSelector(".studio-list, .studio-empty", { timeout: 15000 }).catch(() => {});
+  }
+  await A.page.bringToFront();
+  await gotoFresh(A.page, base + "#studio");
+  await studioListView(A.page);
+  const pagedId = pagedRow && pagedRow.id;
+  await studioDeleteByTitle(A.page, "Paged Deck");
+  check("deleting a published deck removes the shared row", !db.decks.some((d) => d.id === pagedId));
+  check("...and its cards go with it", !db.cards.some((c) => c.deck_id === pagedId), "left=" + db.cards.filter((c) => c.deck_id === pagedId).length);
+  check("...and the reader's install record with it", !db.installs.some((i) => i.deck_id === pagedId));
+
+  /* A REAL reload, not a hash change. Bob was last on a deck page, so `goto` here is same-document: the app
+     keeps running and PAGES.community paints the browse results it already had — a list fetched before this
+     deck was ever published. The assertion then passes whatever the server says, which is worse than not
+     making it. Verified by reintroducing the bug: stale, it passes; reloaded, it fails. */
+  await B.page.bringToFront();
+  await B.page.goto(base + "#community", { waitUntil: "load" });
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(1800);
+  check("...so it is off the shared decks page", !(await B.page.evaluate(() => document.body.textContent.includes("Paged Deck"))));
+  // …while the person who installed it keeps their own copy: a delete takes the deck off the shelf, it does
+  // not reach into anybody's device.
+  await gotoFresh(B.page, base + "#studio");
+  await studioListView(B.page);
+  check("...but an installed copy survives on its reader's device", await B.page.evaluate(() => document.body.textContent.includes("Paged Deck")));
+
+  /* ================= the Studio lists shared decks this device has no copy of =================
+     The other half. An orphan is planted straight into the mock's store — which is exactly what one IS: a
+     row this account owns with nothing local pointing at it, whether it was left by the old bug, by a
+     delete on another device, or by one made while signed out. */
+  db.decks.push({
+    id: uuid(700), owner: ALICE.id, slug: "ghost-deck-x9", title: "Ghost Deck", subtitle: "", description: "",
+    author: "Alice", language: "en", tags: [], status: "published", version: 1, card_count: 12, install_count: 0,
+    rating_avg: 0, rating_count: 0, rating_1: 0, rating_2: 0, rating_3: 0, rating_4: 0, rating_5: 0,
+    rank_score: 3.5, staff_pick: false, forked_from: null, price_cents: 0,
+    created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
+  });
+  await A.page.bringToFront();
+  await gotoFresh(A.page, base + "#studio");
+  await studioListView(A.page);
+  await A.page.waitForTimeout(900);   // the owned-decks request lands after the first paint
+  const orph = await A.page.evaluate(() => [...document.querySelectorAll(".orphan-deck .sd-title")].map((e) => e.textContent));
+  check("a published deck with no local copy is listed", orph.indexOf("Ghost Deck") >= 0, JSON.stringify(orph));
+  // the negative, and the one that matters: a deck that IS on this device must never be offered for removal
+  check("...and a deck this device does hold is not", orph.indexOf("Byzantine Emperors") < 0, JSON.stringify(orph));
+  await A.page.click("[data-orphdel]");
+  await A.page.waitForTimeout(300);
+  await A.page.click(".ip-ok");
+  await A.page.waitForTimeout(1800);
+  check("removing it deletes the shared row", !db.decks.some((d) => d.slug === "ghost-deck-x9"));
+  check("...and the section goes with the last orphan", await A.page.evaluate(() => !document.querySelector(".studio-orphans")));
 
   const errs = [...A.errs, ...B.errs, ...M.errs];
   check("no console/page errors", errs.length === 0, [...new Set(errs)].join(" | "));
