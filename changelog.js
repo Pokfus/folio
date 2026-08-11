@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.161", released: "2026-08-10T20:48Z" };
+window.FOLIO_VERSION = { v: "1.162", released: "2026-08-11T00:01Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-10",
-    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and four books on the shelf",
+    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and five books on the shelf",
     items: [
       "<b>A big deck no longer makes the site slow to open</b> — Folio now loads only the cards a session needs, and editing one card no longer rewrites the whole deck.",
       "<b>Installing a shared deck of more than a thousand cards no longer stops at the first thousand</b>, and publishing one now uploads it in batches.",
@@ -81,7 +81,7 @@ window.CHANGELOG = [
       "A deck of your own can now turn the glossary off altogether, beside the three settings it already had.",
       "In your own decks, the Studio's way back is a link at the top left of the page, and it says “Back to Collections” — the page it returns to was renamed when the Library became the books.",
       "The Timeline puzzle capitalises the terms it lists, as the Multiple Choice options already did.",
-      "<b>Four books are on the shelf</b> — Homer's Iliad and Odyssey, Virgil's Aeneid and Wu Cheng'en's Journey to the West, each with the Greek, Latin or Chinese facing the translation.",
+      "<b>Five books are on the shelf</b> — Chaucer's Canterbury Tales, Homer's Iliad and Odyssey, Virgil's Aeneid and Journey to the West, each with its own language facing the translation.",
       "Journey to the West is here in the first English version ever made, which summarises most chapters rather than translating them — the complete Chinese faces it.",
       "<b>The daily games now only ask about terms you have a chance of knowing.</b>",
       "<b>What year? is now built on real historical events instead of card terms.</b>",
