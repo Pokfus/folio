@@ -7677,6 +7677,29 @@
        Homer L14, and this at L19 lands in the one gap between them. At 8.12:1 on the tightest of the
        sixteen light papers it is also among the best-reading swatches here. */
     "Dante Alighieri": "#002B6B",
+    /* THE BAND IS FULL, AND THE OBJECTION THAT HAS TURNED DOWN THIS COLOUR TWICE WAS RE-MEASURED AND
+       DOES NOT HOLD (Aug 2026, adding the Summa Theologica — the thirty-fourth colour). Searched over
+       the shelf's own lightness and chroma band under the Book of Rites' ink floor and the 4.5:1 bar,
+       nothing anywhere clears 25 of its nearest neighbour, and OUTSIDE the green family nothing clears
+       20: the best alternative is a muted violet at 19.0 from Plato, against a tightest existing pair
+       of 18.2. So the field is one colour wide.
+
+       Vyasa's row and Dante's row each rejected a green at the top of the chroma band on the ground
+       that it would "glow beside thirty muted colours". Measured against the shelf as it now is, that
+       is no longer true: SIX placed colours sit at chroma 59–64 — Seneca 64.1, Homer 64.0, Euripides
+       63.5, Aristophanes 63.4, Caesar 63.1, Thucydides 59.9 — so chroma 63.6 is where the shelf's own
+       ceiling already is rather than somewhere beyond it. Dante's row raised a second objection, that
+       the candidate scraped the contrast bar at 4.54:1; this one reads 5.34:1 on the tightest of the
+       sixteen light papers, better than every alternative in the field, which all sit at 4.5–4.8.
+       RE-MEASURE AN INHERITED OBJECTION BEFORE APPLYING IT — the shelf it was written about has
+       changed, and a reason that was right twice can stop being right.
+
+       The Euripides test has TWO kinship risks here and clears both by a wide margin: ARISTOTLE, whom
+       Aquinas calls simply "the Philosopher" and on whom the Summa is built, is 76 away, and
+       AUGUSTINE — the other great Latin theologian, and the author of the two books beside this one —
+       is 72. Within green it clears Lucretius by 24.3, the Book of Documents by 24.5, Chaucer by 31.5
+       and Aesop by 42.9, every one of them wider than the shelf's own tightest pair. */
+    "Thomas Aquinas": "#006C00",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9353,6 +9376,69 @@
       parts: [
         { n: 1, label: "Lays of the Gods", note: "14 poems" },
         { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
+    },
+    {
+      id: "summa-theologica",
+      title: "Summa Theologica",
+      subtitle: "Summa Theologiae",
+      author: "Thomas Aquinas",
+      /* Begun about 1265 and stopped, unfinished, in December 1273. `year` is the single number the
+         shelf's date sort needs and is the year he began; the prose carries the hedge and the reason
+         it ends where it does, which is the book's own story rather than a delay. */
+      written: "1265–1274, unfinished",
+      year: 1265,
+      translator: "Fathers of the English Dominican Province",
+      edition:
+        "Second and revised edition, literally translated by the Fathers of the English Dominican " +
+        "Province, Burns Oates & Washbourne, London, 1920",
+      /* THE LICENCE RESTS ON THE PUBLICATION DATE ALONE — the Gallic War's position, and for the same
+         reason: half the byline cannot be found. Aquinas died in 1274, so the work is free everywhere.
+         The translation was published in London in 1920, before 1929, so its United States copyright
+         has expired and that much anyone can check. What cannot honestly be asserted is a
+         life-plus-seventy term, because "the Fathers of the English Dominican Province" is a CORPORATE
+         byline: no individual translator is named anywhere in the twenty-one volumes, the work was
+         done by a changing group of friars over fifteen years, and a term that runs from the last
+         surviving author cannot be computed from a name belonging to nobody. Claim less, and say on
+         the page what cannot be said. */
+      rights:
+        "Public domain in the United States, on the date of publication. Thomas Aquinas died in 1274, " +
+        "so the work itself has been free for seven centuries. This translation was published in " +
+        "London in 1920 — before 1929, so its United States copyright has expired. It is credited to " +
+        "the Fathers of the English Dominican Province and names no individual translator anywhere, " +
+        "so the rule that runs from an author's death cannot be applied to it and no such date is " +
+        "claimed here. Leo XIII's encyclical, the editor's note to the Supplement and the volumes' " +
+        "indexes are printed in the same edition and are not reproduced; what is taken is the 614 " +
+        "questions of the Summa itself. (The Blackfriars edition of 1964–1981, Timothy McDermott's " +
+        "abridgement of 1989 and Alfred Freddoso's translation are still in copyright and are not " +
+        "used here.) There is no Latin facing it, and the book's own first page says why.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
+      /* THE CHAPTER IS ONE OF THE 614 QUESTIONS AND THE SECTION IS AN ARTICLE, which is the citation
+         read straight off — "ST II-II, q. 6, a. 1" is Part, question, article. The alternatives were
+         measured rather than weighed: cutting at the Part gives six chapters of three to six megabytes
+         each, which no browser paints and no reader scrolls, and cutting at the article puts about
+         three thousand tabs on the bar.
+
+         THE TAB NUMBERS AND THE CITATION DISAGREE ON PURPOSE, and the book's own front matter says so.
+         Each Part restarts its question numbering at 1, so a chapter number that was also a question
+         number could not be unique; `n` therefore runs 1..614 straight through — which is a true
+         statement, this being the 614-question Summa — and each chapter's title carries the citation
+         it is actually known by. See .claude/fetch-book.js for the measurement behind the six Parts
+         and for why there is no Latin column. */
+      chapterWord: "Question",
+      count: 614,
+      total: 614,
+      /* The work's own divisions, and the Supplement and Appendix are named as what they are rather
+         than folded into the Third Part: Aquinas stopped at III q. 90 and both were assembled after
+         his death out of his much earlier commentary on the Sentences. */
+      parts: [
+        { n: 1, label: "First Part", note: "God and creation · 119 questions" },
+        { n: 2, label: "First Part of the Second Part", note: "Human action in general · 114" },
+        { n: 3, label: "Second Part of the Second Part", note: "The virtues one by one · 189" },
+        { n: 4, label: "Third Part", note: "Christ and the sacraments · 90" },
+        { n: 5, label: "Supplement to the Third Part", note: "Compiled after his death · 99" },
+        { n: 6, label: "Appendix", note: "Also posthumous · 3" },
       ],
     },
     {

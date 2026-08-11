@@ -128,7 +128,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-seven:
+  matter (chapter 0 — see the Library bullet). Currently thirty-eight:
   `divine-comedy` (~811 KB, all 100 cantos, **4,811 tercet numbers**, **1 note** — Longfellow's
   blank verse of 1867, and **the first book here whose SECTION NUMBERS ARE COUNTED RATHER THAN
   READ.** Every earlier book takes its numbers off the page, because every earlier edition prints
@@ -320,6 +320,55 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   printed on every run, and the book's front matter tells the reader why it has no note fold. **AND
   THE EASIER COPYRIGHT WAS ATTACHED TO THE UNUSABLE TEXT** — see the Library bullet for the choice
   between Perseus's two English Iliads),
+  `summa-theologica` (**~15.1 MB, by a factor of six the largest thing on the shelf** — all 614
+  questions as **614 chapters**, **3,094 article numbers**, 7 notes — the Fathers of the English
+  Dominican Province's translation of 1920, and **the first book here whose SIZE was the first
+  question rather than the last.** Every earlier import decides the pairing and then finds out how
+  big the file is; this one had to be sized before a word was fetched, because 614 questions at ~25
+  KB apiece is 15 MB in ONE lazy bundle and **Cloudflare Pages refuses a file over 25 MiB** — a limit
+  that breaks the deploy for every reader rather than just for this book's. Estimated at 16.2 MB from
+  48 questions sampled across all six Parts, measured at 15.1 MB built, and then MEASURED IN A
+  BROWSER rather than argued about: **1.6 s from tapping the banner to the chapter bar, 0.8 s to
+  paint a chapter, 73 MB of heap**. One file, and the decision rests on those three numbers.
+  **THE CHAPTER IS THE QUESTION AND THE SECTION IS THE ARTICLE**, which is the citation read straight
+  off — "ST II-II, q. 6, a. 1" — and the alternatives were measured rather than weighed: cutting at
+  the Part gives six chapters of 3–6 MB, which no browser paints and no reader scrolls, and cutting
+  at the article puts ~3,000 tabs on the bar. The tabs therefore number 1..614 straight through while
+  the citation restarts in each Part, and the title carries the citation; the front matter says so,
+  since a reader meeting "Question 437" over "II-II q. 15" is owed the explanation.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **A TYPED WIKI PAGE MAY STILL TRANSCLUDE ONE SCAN
+  PAGE, AND `body: "plain"` HAD THE TWO TESTS THE WRONG WAY ROUND** — it looked for
+  `prp-pages-output` FIRST and fell back to the parser container, which reads as the same thing on a
+  book that is typed, because there is no wrapper to find. The Summa's first question is typed like
+  the other 613 except for its first article, which somebody transcluded from the scanned volume, so
+  the slice took that as the start of the chapter and threw away the treatise heading, Aquinas's
+  prologue, his list of the ten points of inquiry and Article 1's own heading. **Nothing threw, the
+  chapter came back 37,656 characters, and the only symptom was nine section numbers where the
+  edition's own heading says ten articles.** The flag now means what it says; proved inert
+  byte-for-byte on all four shipped books that declare it. **A HEADING'S ROLE IS READ FROM ITS TEXT
+  AND NEVER FROM ITS LEVEL**: the transcription sets an article's heading at `h3` on two pages and
+  the question's own at `h4` on three, so the first rule — drop every `h3`, keep every `h4` — deleted
+  real articles. **AND THE QUESTION'S HEADING IS RECOGNISED BY THE ARTICLE COUNT IT CARRIES**, not by
+  the word: it is typed a dozen ways across the book ("Quesiton." seven times, "question." lower
+  case, "Question. - 112 -", "Question.OF THE MODE" with no space, "Question 6. –" with an en dash, a
+  dozen with the bare title, and on three pages "Art. 1" exactly like an article) and the ONE thing
+  every one of them carries is the "(SIX ARTICLES)" the edition prints after the title. **That count
+  is also what makes the numbering a measurement rather than a repair**: where it and the number of
+  headings agree — **592 of the 614** — the headings are numbered 1..N in order and whatever is
+  printed on them is ignored, which absorbs every misprinted number at a stroke (question 12 heads
+  its thirteenth article "Art. 12" a second time and its own heading says THIRTEEN) and lets the one
+  question whose eight headings carry no numbers at all be numbered without composing anything. Where
+  they disagree the printed numbers are kept and the gap is reported, so a question that runs 1, 4 is
+  telling the truth about a page that prints two headings for four articles.
+  **ITS LIMITATION IS FOURTEEN QUESTIONS AND IT IS THE TRANSCRIPTION'S**: twelve are short one
+  article heading and two carry none at all, so those articles run on into the one before them and
+  cannot be cited — **no prose is missing anywhere**, and the front matter says it in those words.
+  **AND A SAMPLE OF 48 QUESTIONS FOUND NO FOOTNOTES WHERE THE BOOK HAS SEVEN**, which is this file's
+  sample rule met on an apparatus: the entry was drafted saying the edition prints none, and the run
+  over all 614 found seven in four questions of the Third Part. **A COUNT OF ZERO OVER A SAMPLE IS
+  NOT A COUNT OF ZERO.** One of the seven hangs off an ARTICLE's own heading and another off a
+  QUESTION's, so markers are lifted out of a kept heading and carried down off a dropped one —
+  Beowulf's `dropFittHead` rule in a fourth edition, in both directions at once),
   `confessions` (~1000 KB, all 13 books as **13 chapters**, **276 chapter numbers**, 1,313 notes —
   Pilkington's Nicene and Post-Nicene Fathers translation of 1886, Augustine's SECOND book here and
   the City of God's shape exactly: one wiki page per chapter, gathered into books, the book being the
@@ -849,12 +898,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-seven books, twenty-six originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala and the
-  Divine Comedy
+  **Thirty-eight books, twenty-six originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
+  Divine Comedy and the Summa Theologica
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
   to face.
+  **THE SUMMA IS THE PLATO-JOWETT CASE AND THE CTEXT CASE AT ONCE, WHICH IS WHY IT ANSWERS NO ON A
+  WORK WHOSE LATIN IS EVERYWHERE** (Aug 2026). Both candidates fail, and they fail differently.
+  **The freely transcribed Latin is a third of the book**: la.wikisource's Summa was measured through
+  the wiki's OWN page index rather than by reading its contents pages — 423 pages under the title, of
+  which 207 are questions — and it is the Prima pars complete at 119, the Prima secundae stopping at
+  88 of its 114, and the Secunda secundae, the Tertia pars and the Supplementum **not begun at all**,
+  their index pages being lists of red links. **Ask the wiki what it HAS rather than reading the
+  index it publishes**: the Secunda secundae's contents page looks like a table of 189 questions and
+  links to none of them. **And the complete Latin reserves rights in itself**: the Corpus Thomisticum
+  carries the whole Leonine text of 1888, which is public domain, and every page of it closes
+  "© 2019 Fundación Tomás de Aquino quoad hanc editionem. Iura omnia asservantur" over a text its own
+  header describes as Roberto Busa's machine transcription re-checked by Enrique Alarcón. That is the
+  Book of Rites' ctext.org finding in a stricter form — there the database had adapted a translation
+  without saying which parts, here it says outright that its edition is its own and reserved — so:
+  **ASK WHAT AN OBVIOUS SOURCE CLAIMS OVER THE TEXT, not only whether it has it.** A public-domain
+  work carried by a database that reserves rights in its own edition of it is not available on that
+  ground. Shipped English-alone with the reason in the book's own front matter, which is the
+  Republic's outcome and the Divine Comedy's.
   **THE DIVINE COMEDY IS THE PROSE EDDA'S FAILURE MODE ON A FAMOUS POEM, AND THE TRAP IS THAT THE
   CANTO PAGE DOES NOT NAME ITS EDITOR** (Aug 2026). Everything about it looks ready: Italian
   Wikisource carries all 100 cantos, typed clean, with a line number at the end of every tercet, and
@@ -1610,6 +1677,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     City of God is inert BY CONSTRUCTION rather than by a re-run — no page of it can reach the new
     branch — which is the cheaper half of the standing discipline for editing a shared extractor, and
     the half to reach for whenever the two readings could ever collide.
+  · **`sections: "articuli"`** — **THE TENTH WAY an edition marks its numbers, and the first read off
+    a HEADING** (Aug 2026, adding the Summa Theologica). Every rule above reads a number out of the
+    PROSE, because that is where the editions this shelf had met printed them; the Dominican Fathers'
+    Summa is transcribed with its own structure as HTML headings, so the number is a heading's own
+    text. It runs at the **pre-strip hook** beside `markLikiHeads` rather than with the other section
+    passes at the foot of `cleanBody`: `h4` is not in `ALLOWED`, so by the time those run stripTags
+    has unwrapped every heading and "Art. 3 - Whether God exists?" is a bare run of words in the
+    middle of the prose. Four things it settled, and every one was found by a count moving rather
+    than by reading a page. **A HEADING'S ROLE IS READ FROM ITS TEXT AND NEVER FROM ITS LEVEL** —
+    the transcription sets an article's heading at `h3` on two pages and the question's own at `h4`
+    on three, so the first rule (drop every `h3`, keep every `h4`) deleted real articles, taking
+    their titles with them. **AND THE QUESTION'S HEADING IS RECOGNISED BY THE ARTICLE COUNT IT
+    CARRIES**, not by the word "Question", which is typed a dozen ways across the 614 pages; the one
+    thing every one of them carries is the "(SIX ARTICLES)" the edition prints after the title — the
+    City of God's rule about looking for a marker where it actually is rather than where the regular
+    cases put it. **THAT COUNT IS WHAT MAKES THE NUMBERING A MEASUREMENT RATHER THAN A REPAIR**:
+    where it and the number of headings agree (592 of 614) the headings are numbered 1..N in order
+    and whatever is printed on them is ignored, which absorbs every misprinted number at a stroke and
+    lets the one question whose eight headings carry no numbers at all be numbered without composing
+    anything; where they disagree the printed numbers are kept and the gap reported, since
+    renumbering there would file prose under the wrong number. **AND A DROPPED HEADING CAN DROP A
+    FOOTNOTE MARKER while a KEPT one can lose its own** — Beowulf's `dropFittHead` rule in a fourth
+    edition and in both directions at once: of the book's seven notes one hangs off a question's
+    heading and one off an article's, so markers are carried down off a dropped head and lifted back
+    into a rebuilt one.
   **A book's ORIGINAL language is a second half of the same entry** (`original: { lang, langName, … }`),
   written to `books/<id>.<lang>.js` with its own cache under `book-cache/<id>/<lang>/`. **It comes in THREE
   shapes, and the wiki walk — the first one written — is the worst of them**, because it is the only one that
@@ -3648,6 +3740,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     copyright until 2060. It needed no `BOOK_AUTHOR_COLOR` row at all, Augustine's `#3F1800` having
     been placed with the City of God — which is the argument for keying them by author, made for the
     third time after the two Platos and the two Homers.
+    **The Summa Theologica is the SECOND book here whose ground is the PUBLICATION DATE and nothing
+    else** (Aug 2026), after the Gallic War, and it is the same fault in the byline for a different
+    reason: not a translator who cannot be traced but a translator who is not a person. Aquinas died
+    in 1274, so the work is free everywhere; the translation was published in London in **1920**, so
+    its United States copyright has expired and anyone can check that. What cannot honestly be
+    asserted is a life-plus-seventy term, because **"the Fathers of the English Dominican Province" is
+    a CORPORATE byline** — the twenty-one volumes name no individual anywhere, the work was done by a
+    changing group of friars over fifteen years, and a term running from the last surviving author
+    cannot be computed from a name belonging to nobody. So the ground stated is the publication date,
+    the gap is named in `rights` and on the book's own front matter, and no year is rounded up to fill
+    it. Lucretius's judgement in a third book: **claim less, and put on the page what cannot be said.**
+    Leo XIII's encyclical, the editor's note to the Supplement and the volumes' indexes are printed in
+    the same edition and are left behind, as the Republic's introduction and plates were. The
+    Blackfriars edition (1964–1981), Timothy McDermott's abridgement (1989) and Alfred Freddoso's
+    translation are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where an
+    INHERITED OBJECTION WAS RE-MEASURED AND DROPPED — see the note beside `"Thomas Aquinas"` in
+    app.js: the Vyasa and Dante rows each turned down a chroma-64 green because it would "glow beside
+    thirty muted colours", and six of the placed colours now sit at chroma 59–64, so that is where the
+    shelf's own ceiling already is. **Re-measure an inherited objection before applying it.**
     **The Canterbury Tales states a LIMIT THAT IS ALMOST UP, which is the nearest any on this shelf has
     come to expiring** (Aug 2026), and it falls on the middle of three layers rather than on the
     original. Chaucer died in 1400 and Skeat's Middle English text of 1900 is clear on every ground (he
@@ -10693,7 +10804,8 @@ dead code (never rendered).
     `slideChapter` / `BOOK_SORTS` / `sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` /
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
-    `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `extractCaput` /
+    `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `markArticuli` /
+    `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the
     mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
@@ -10733,6 +10845,20 @@ dead code (never rendered).
     deliberately left as printed. That last assertion is the one that would catch a SIXTH costume, and
     it is the fault no other check here can see — the fifth was found by a pairing warning and not by
     any count of the Latin itself.
+    **A change to the ARTICULI reader has no sibling to diff against either** — the Summa is the only
+    book on that path, and it is the only book here whose section numbers are decided by an ARITHMETIC
+    CHECK against a figure the edition prints, so a regression cannot show up as a missing chapter or
+    a short one. What stands in for the byte-for-byte check is the run's own report, which prints the
+    figures the reader is built on: 614 chapters, 3,094 articles, and **592 of the 614 questions
+    numbered by their own stated count**. That last number is the assertion — a fall in it means a
+    heading shape has stopped being recognised, which nothing else can see, since the prose would
+    still be complete and the chapter still the right length. `test-library.js`'s own sweep adds what
+    the report cannot: that no chapter carries a leftover "Art." heading beyond the one the edition
+    misnumbers, that the two questions with no article headings are the known two, and that all seven
+    notes still have a marker pointing at them.
+    **A change to `cleanBody`'s `body: "plain"` slice needs all four books that declare it** —
+    Thucydides, the City of God, the Confessions and Journey to the West's original — which is how
+    the Summa's transcluded-fragment fix was shown inert, byte-for-byte on every one.
     **A change to the SHLOKA reader has no sibling to diff against** — the Gita is the only book on
     that path — so what stands in for the byte-for-byte check is the shipped-data sweep the entry
     above describes: verse counts per discourse against the standard chapter lengths, the two columns

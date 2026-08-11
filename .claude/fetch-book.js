@@ -684,6 +684,29 @@ const CANTERBURY_TALES = [
   { t: "The Parson's Tale",         en: /^Here followeth the Prologue of the Parson/i,               me: "THE PARSON’S PROLOGUE." },
 ];
 
+/* ---------- THE SUMMA'S SIX DIVISIONS ----------
+   The work is cited PART FIRST — "ST I-II, q. 94, a. 2" — and each Part restarts its question
+   numbering at 1, so a Folio chapter number cannot be a question number: `n` runs 1..614 straight
+   through and the citation is carried in the title. The counts are read off each Part's own
+   contents page rather than recalled, and they are what the front matter states. */
+const SUMMA_PARTS = [
+  { key: "First Part",                     cite: "I",      label: "First Part",                     q: 119 },
+  { key: "First Part of the Second Part",  cite: "I-II",   label: "First Part of the Second Part",  q: 114 },
+  { key: "Second Part of the Second Part", cite: "II-II",  label: "Second Part of the Second Part", q: 189 },
+  { key: "Third Part",                     cite: "III",    label: "Third Part",                     q: 90  },
+  { key: "Supplement to the Third Part",   cite: "Suppl.", label: "Supplement to the Third Part",   q: 99  },
+  { key: "Appendix",                       cite: "App.",   label: "Appendix",                       q: 3   },
+];
+// chapter number → which Part it falls in and which question of that Part it is
+function summaAt(n) {
+  let at = 0;
+  for (let i = 0; i < SUMMA_PARTS.length; i++) {
+    if (n <= at + SUMMA_PARTS[i].q) return { p: i + 1, part: SUMMA_PARTS[i], q: n - at };
+    at += SUMMA_PARTS[i].q;
+  }
+  return null;
+}
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -6967,6 +6990,229 @@ const BOOKS = {
     },
   },
 
+  "summa-theologica": {
+    title: "Summa Theologica",
+    subtitle: "Summa Theologiae",
+    author: "Thomas Aquinas",
+    translator: "Fathers of the English Dominican Province",
+    edition:
+      "Second and revised edition, literally translated by the Fathers of the English Dominican " +
+      "Province, Burns Oates & Washbourne, London, 1920",
+    written: "1265–1274",
+    year: 1265,
+
+    /* ---------- THE LICENCE — THE PUBLICATION DATE AND NOTHING ELSE ----------
+       This is the Gallic War's position, and for the same reason: half the byline cannot be found.
+       Aquinas died in 1274, so the work is free everywhere and has been for seven centuries. The
+       translation was published in London in 1920 — before 1929, so its United States copyright has
+       expired, and that much is certain and checkable by anyone. What cannot honestly be asserted is
+       a life-plus-seventy term, because "the Fathers of the English Dominican Province" is a
+       CORPORATE BYLINE: the volumes name no individual translator anywhere, the work was done by a
+       changing group of friars over fifteen years, and a term that runs from the last surviving
+       author cannot be computed from a name that belongs to nobody. So the ground stated is the date
+       of publication, the gap is named in `rights` and on the book's own front matter, and no year is
+       rounded up to fill it. Claim less, and say on the page what cannot be said.
+
+       WHAT IS AND IS NOT TAKEN. The Summa itself — all 614 questions of the five divisions and the
+       Appendix. The 1920 volumes also carry Leo XIII's encyclical Aeterni Patris of 1879, the
+       editor's note to the Supplement, a long index of Scripture references and a general index, none
+       of which is imported: the Republic's precedent for the introduction and plates it left behind.
+       A SAMPLE OF 48 QUESTIONS FOUND NO FOOTNOTES AND THE WHOLE BOOK HAS SEVEN, which is the sample
+       rule this file keeps re-learning, met on the apparatus rather than on a heading. The 48 pages
+       measured before a line was written carried not one reference mark, and the entry was drafted
+       saying the edition prints none; the run over all 614 found seven, in four questions of the
+       Third Part — the translators noting where the Latin has three sed contra, where a phrase is not
+       in the Leonine edition, and where St Thomas took his article titles from his own commentary on
+       the Sentences. They are real translator's notes and they ship, so four chapters of the 614 have
+       a note fold and the other 610 have none. A COUNT OF ZERO OVER A SAMPLE IS NOT A COUNT OF ZERO.
+
+       THE MODERN TRANSLATIONS a reader is likeliest to meet are named so that nobody reaches for one:
+       the Blackfriars Latin-English edition (60 volumes, 1964–1981), Timothy McDermott's abridgement
+       (1989) and Alfred Freddoso's continuing translation are all in copyright. */
+    rights:
+      "Public domain in the United States, on the date of publication. Thomas Aquinas died in 1274, " +
+      "so the work itself has been free for seven centuries. This translation was published in " +
+      "London in 1920, before 1929, so its United States copyright has expired. It is credited to " +
+      "the Fathers of the English Dominican Province and names no individual translator, so the rule " +
+      "that runs from an author's death cannot be applied to it and no such date is claimed here. " +
+      "Leo XIII's encyclical, the editor's note to the Supplement and the volumes' indexes are not " +
+      "reproduced; what is taken is the 614 questions of the Summa itself. (The Blackfriars edition " +
+      "of 1964–1981, Timothy McDermott's abridgement of 1989 and Alfred Freddoso's translation are " +
+      "still in copyright and are not used here.) There is no Latin beside it, and the book's own " +
+      "first page says why.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start, and this book needs more of it than any other here.
+       What it is and how big; its shape; THE FORM OF AN ARTICLE, which is the one thing that makes
+       the Summa readable and which nothing on the page explains; why it stops; whose translation
+       this is; how it is laid out here, including why the tab numbers and the citation disagree; and
+       why there is no Latin. */
+    about: [
+      "The <b>Summa Theologica</b> is the longest book on these shelves by a wide margin, and it was " +
+        "written as an introduction. Thomas Aquinas began it around <b>1265</b> and says in its first " +
+        "sentence that he means it for <i>beginners</i> — that existing books were repetitive, badly " +
+        "ordered and full of things raised only because a particular argument had happened to raise " +
+        "them, and that he intends to set out the whole of Christian theology once, in order. What " +
+        "resulted runs to some two and a half million words across <b>614 questions</b> and about " +
+        "<b>3,000 articles</b>, and is the most sustained piece of systematic argument in medieval " +
+        "philosophy.",
+      "Its shape follows the plan it announces. The <b>First Part</b> treats God, the Trinity and the " +
+        "creation, ending with a long treatment of the human being as body and soul. The <b>Second " +
+        "Part</b>, which is half the work and is divided into two halves of its own, treats human " +
+        "action: the last end, the passions, habits, virtue and vice and law in the first half, and " +
+        "then the individual virtues one by one in the second. The <b>Third Part</b> treats Christ " +
+        "and the sacraments. The movement is out from God and back again, and the placing of ethics " +
+        "in the middle rather than at the end is the argument rather than the filing.",
+      "Every one of its articles has the <b>same five-part form</b>, and knowing it is the difference " +
+        "between the book being readable and being impossible. An article opens with a question that " +
+        "can be answered yes or no — \"Whether God exists?\" Then come the <b>objections</b>, which " +
+        "argue for the answer Aquinas is going to reject, and which he states as strongly as he can. " +
+        "Then <i>Sed contra</i> — \"On the contrary\" — a short authority on the other side. Then " +
+        "<i>Respondeo</i>, \"I answer that\", which is his own argument and the heart of the article. " +
+        "Then a <b>reply to each objection</b> in turn. So the objections at the top are not his view, " +
+        "and a reader who stops after them has read the opposite of what the article says.",
+      "It is <b>unfinished</b>, and the reason is famous. On 6 December 1273, while saying Mass, " +
+        "Aquinas experienced something he would not describe, and stopped writing; pressed by his " +
+        "secretary to continue, he said that everything he had written seemed to him <i>like straw</i>. " +
+        "He died three months later, in March 1274, having taken the Third Part as far as question 90. " +
+        "The <b>Supplement</b> that completes it is not his: it was assembled after his death from his " +
+        "much earlier commentary on the Sentences, and every edition prints it, including this one. " +
+        "The three questions of the <b>Appendix</b> are the same kind of posthumous filling-in.",
+      "This translation is by the <b>Fathers of the English Dominican Province</b>, in the second and " +
+        "revised edition of <b>1920</b>. It is a literal translation and says so on its title page: it " +
+        "follows the Latin closely, keeps the technical vocabulary rather than smoothing it away, and " +
+        "is willing to be stiff in order to be exact. That is the right quality for this book, whose " +
+        "argument turns on distinctions that a graceful paraphrase would lose. The edition credits no " +
+        "individual translator, and the book's licence note says what follows from that.",
+      "A word on how it is laid out here. Each of the <b>614 questions</b> is a chapter, because the " +
+        "question is what any citation of the Summa names, and each of its <b>3,094 articles</b> is a " +
+        "numbered section. The tabs number the questions <b>straight through from 1 to 614</b>, while " +
+        "the citation restarts at 1 in each Part — so the number on a tab and the <i>q.</i> in its " +
+        "title are two different things, and the title carries the citation. The line in bold at the " +
+        "head of each chapter names the <b>treatise</b> it belongs to, which is the edition's own " +
+        "grouping and the finest division of the work it prints. The translators added almost no " +
+        "notes: seven in the whole work, all in the Third Part, so four chapters carry a note fold and " +
+        "the other 610 have none.",
+      "Fourteen questions of the 614 are missing an article heading, and it is worth knowing the " +
+        "shape of it. Every question states how many articles it has, so the gaps are countable: " +
+        "twelve questions carry one heading fewer than they should and two carry none at all, which " +
+        "means those articles run on into the one before them and cannot be cited from the page. " +
+        "<b>No prose is missing</b> — the words are all there, and the numbering shows where a gap " +
+        "falls rather than closing over it, so a question that jumps from article 1 to article 4 is " +
+        "telling you the truth about the transcription. It is the transcription's gap and not the " +
+        "edition's, and it is 14 questions in 614.",
+      "There is <b>no Latin facing it</b>, and that is worth explaining because the Latin is not hard " +
+        "to find. The complete text of Leo XIII's Leonine edition is online, but the digital editions " +
+        "that carry it reserve rights in their own work, which is not a footing this library serves " +
+        "books on. What is freely transcribed — the Latin Wikisource — has the First Part complete and " +
+        "then stops: <b>207 of the 611 questions</b>, with the whole of the Second Part of the Second " +
+        "Part and the whole Third Part not begun. A facing page that ran out after a third of the book " +
+        "would be worse than none, so the book ships in English alone until a complete free " +
+        "transcription exists.",
+    ],
+
+    /* ---------- ONE WIKI PAGE PER QUESTION, 614 OF THEM ----------
+       The City of God's shape at three times the scale, and the same reasoning about where to cut.
+       "ST II-II, q. 6, a. 1" is Part, question, article, so the QUESTION is the tab and the ARTICLE
+       is the section. Cutting at the Part instead would give six chapters of three to six megabytes
+       each, which no browser will paint and no reader can scroll; cutting at the article would put
+       roughly three thousand tabs on the bar. */
+    source: "wiki",
+    chapterWord: "Question",
+    chapters: Array.from({ length: 614 }, (_, i) => i + 1),
+    page: (n) => {
+      const a = summaAt(n);
+      return "Summa Theologiae/" + a.part.key + "/Question " + a.q;
+    },
+    parts: (() => {
+      let at = 0;
+      return SUMMA_PARTS.map((p, i) => {
+        const from = at + 1; at += p.q;
+        return { n: i + 1, from: from, to: at, label: p.label };
+      });
+    })(),
+    /* THE TITLES ARE READ OFF THE EDITION'S OWN CONTENTS, one page per Part, and are the printed
+       heading with two things taken off it: the "Question N -" that opens it, which the tab and the
+       chapter header both already carry, and the "(TEN ARTICLES)" that closes it, which the chapter
+       itself shows. What is left is the question's own title, in the capitals the edition prints it
+       in — Aesop's rule, since the case is not recoverable from a heading set wholly in capitals.
+       The citation is put in front of it, because the tab's own number cannot carry it.
+
+       THE APPENDIX IS THE EXCEPTION AND IS HANDLED RATHER THAN ASSUMED: its three entries carry a
+       leading space, one writes "Question." with a stop where the other 611 write it without, and the
+       third is not in that shape at all ("Two Articles on Purgatory"). Measured over all six contents
+       pages before this was written: 611 of the 614 are exactly regular and those three are not. The
+       third is filed by Wikisource as the Appendix's question 3 and is headed "Appendix 2 · Question
+       1" on its own page, so it is a second appendix rather than a third question of the first; its
+       contents-page wording is kept as printed and its own heading says the rest, which is the
+       treatise line doing real work. */
+    titlesOf: async (api) => {
+      const out = {};
+      let at = 0;
+      for (const part of SUMMA_PARTS) {
+        const h = await api("Summa Theologiae/" + part.key);
+        const body = h.split(/<div class="printfooter"/)[0];
+        const rx = new RegExp(
+          '/wiki/Summa_Theologiae/' + part.key.replace(/ /g, "_").replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+          '/Question_(\\d+)"[^>]*>([^<]+)</a>', "g");
+        let m, seen = 0;
+        while ((m = rx.exec(body))) {
+          const q = +m[1];
+          if (out[at + q]) continue;
+          let t = m[2]
+            .replace(/&#(\d+);/g, (x, d) => String.fromCharCode(+d))
+            .replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&")
+            .trim();
+          t = t.replace(/^Question\.?\s*\d+\s*[-–—]\s*/, "").replace(/\s*\([^()]*ARTICLES?\)\s*$/i, "").trim();
+          out[at + q] = part.cite + " q. " + q + (t ? " — " + t : "");
+          seen++;
+        }
+        if (seen !== part.q)
+          console.log("  ! " + part.label + ": read " + seen + " titles, expected " + part.q);
+        at += part.q;
+      }
+      return out;
+    },
+    /* These pages are typed onto the wiki rather than transcluded from a scan — the scan index for
+       the 21 volumes says so itself (`Transclusion=no`) — so there is no prp-pages-output for
+       cleanBody's opening slice to find and it throws "no body" on a page holding a whole question.
+       Thucydides' gate, in its fourth book. */
+    body: "plain",
+    sections: "articuli",
+    /* The shortest question in the sample is 6.0 KB of prose and the shortest article-less page would
+       be a fraction of that; 2,500 sits well below the one and far above what a failed extraction
+       returns. */
+    minChars: 2500,
+
+    /* ---------- NO ORIGINAL LANGUAGE ----------
+       The Republic's outcome, reached by measurement rather than by preference, and the reasoning is
+       worth keeping because the Latin looks available from every direction.
+
+       THE FREELY TRANSCRIBED LATIN IS A THIRD OF THE BOOK. Latin Wikisource's Summa was measured
+       through the wiki's own page index rather than by reading its contents pages — 423 pages under
+       the title, of which 207 are questions: the Prima pars complete at 119, the Prima secundae
+       stopping at 88 of its 114, and the Secunda secundae, the Tertia pars and the Supplementum not
+       begun at all. Its own index pages for those last two are lists of red links. That is the
+       Plato-Jowett case at the scale of a whole work: correct about everything it contains, and a
+       third of the book.
+
+       AND THE COMPLETE LATIN RESERVES RIGHTS IN ITSELF. The Corpus Thomisticum carries the whole
+       Leonine text of 1888, which is public domain — and its every page closes "© 2019 Fundación
+       Tomás de Aquino quoad hanc editionem. Iura omnia asservantur", all rights reserved as regards
+       this edition, over a text its own header describes as Roberto Busa's machine transcription
+       re-checked by Enrique Alarcón. So it is the Book of Rites' ctext.org finding in a stricter
+       form: there the database had adapted the translation without saying which parts, here the
+       database says outright that its edition is its own and reserved. ASK WHAT AN OBVIOUS SOURCE
+       CLAIMS OVER THE TEXT, not only whether it has it — a public-domain work carried by a database
+       that reserves rights in its own edition of it is not available on that ground.
+
+       An edition whose copyright HAS run out would serve, and the Leonine itself is one; what is
+       missing is a free TRANSCRIPTION of it. The day a complete one exists, an `original` block and
+       an `origLang` are the whole of the work. */
+  },
+
   "confessions": {
     title: "Confessions",
     subtitle: "Confessionum Libri Tredecim",
@@ -7713,6 +7959,206 @@ function markShuSections(b, warn) {
    THE TEST FOR A LINE THAT MAY GO IS THAT IT IS SET IN CAPITALS — this edition sets every half-title
    that way and nothing else in the book — so a line neither matching a heading nor wholly capital is
    REPORTED and kept rather than silently discarded. */
+/* ---------- THE TENTH WAY AN EDITION MARKS ITS NUMBERS, AND THE FIRST READ OFF A HEADING ----------
+   `sections: "articuli"` (Aug 2026, adding the Summa Theologica). Every earlier section pass reads a
+   number out of the PROSE — a figure at the head of a paragraph, a numeral run into a sentence, a
+   marginal span — because that is where the editions this shelf had met printed them. This one is the
+   opposite case and the easy one: the Dominican Fathers' Summa is transcribed with its own structure
+   as HTML headings, `<h2>` for the treatise, `<h3>` for the question and `<h4>` for each article, so
+   the number is a heading's own text and nothing has to be inferred at all.
+
+   THREE THINGS ABOUT IT ARE DECISIONS RATHER THAN PLUMBING.
+
+   · IT HAS TO RUN BEFORE THE TAGS COME OFF, which is why it sits at the pre-strip hook beside
+     markLikiHeads rather than with the other section passes at the foot of cleanBody. `h4` is not in
+     ALLOWED, so by the time those run stripTags has unwrapped every heading and "Art. 3 - Whether God
+     exists?" is a bare run of words in the middle of the prose, indistinguishable from a sentence. A
+     rule written down there would have to guess; up here it reads the markup the transcription
+     actually carries.
+
+   · THE QUESTION HEADING GOES AND THE TREATISE HEADING STAYS. The `<h3>` restates the question's
+     number and title, which the tab above the chapter already carries and which the chapter's own
+     header prints in full — dropHeads' rule, met as a heading rather than as a centred block. The
+     `<h2>` names the TREATISE the question belongs to (Treatise on Man, Treatise on the Sacraments),
+     which is a real division of the work, is stated nowhere else a reader can see, and is genuinely
+     wanted in a book of 614 chapters: it is kept as the chapter's opening unnumbered line, which is
+     where app.js files a headnote. It repeats on every question of its treatise, and that is what a
+     running head IS — the argument for dropping one is that it duplicates the tab, and this does not.
+
+   · AND THE ARTICLE'S OWN QUESTION IS KEPT IN BOLD BESIDE ITS NUMBER. "Whether God exists?" is not a
+     title an editor supplied, it is the article, and every citation of the Summa past the question
+     number lands on one of them.
+
+   THE SEPARATOR IS OPTIONAL, AND THAT IS THIS FILE'S OWN WARNING ARRIVING ON THE FIRST RUN. Measured
+   over 48 questions spread across all six Parts before a line was written: 244 `<h4>` headings, and
+   all 244 read "Art. N -" with a dash. The dry run over the first three questions then found
+   "Art. 1 Whether God is a body?" in the third, with no dash at all — a form the sample had missed
+   because the sample took every fourteenth question. So the dash is optional and the count of
+   headings that go without one is PRINTED on every run, which is the standing rule for a shape found
+   by a number moving rather than by reading a page. */
+const ART_WORDS = {
+  ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, SIX: 6, SEVEN: 7, EIGHT: 8, NINE: 9, TEN: 10,
+  ELEVEN: 11, TWELVE: 12, THIRTEEN: 13, FOURTEEN: 14, FIFTEEN: 15, SIXTEEN: 16, SEVENTEEN: 17,
+  EIGHTEEN: 18, NINETEEN: 19, TWENTY: 20,
+  /* The edition's own typo, in one heading of the 614. Written into the table rather than repaired
+     in the prose, which is what this file does with every printing slip it meets: it is what the
+     page says, and the number it stands for is not in doubt. */
+  ELVEN: 11,
+};
+function markArticuli(b, warn) {
+  const HEAD = /<div class="[^"]*\bmw-heading\b[^"]*"[^>]*>\s*<h[2-6][^>]*>(?:<span[^>]*><\/span>)?\s*([\s\S]*?)<\/h[2-6]>[\s\S]*?<\/div>/g;
+  const plain = (x) =>
+    x.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ")
+      /* Three headings in the book open on a stray "=" — a wiki heading mark that escaped its own
+         markup. Trimmed rather than read as text, since it is plainly not part of the title. */
+      .replace(/^[=\s]+|[=\s]+$/g, "").replace(/\s+/g, " ").trim();
+  const ARTICLES_RX = /\(\s*([A-Z]+(?:-[A-Z]+)?)\s+ARTICLES?\s*\)/;
+  const ART_RX = /^Art\.?\s*(\d+)\s*(?:([-–—])\s*)?([\s\S]*)$/;
+
+  /* PASS ONE — read every heading and give it a role, deciding no numbers yet.
+
+     THE ROLE IS READ FROM THE TEXT AND NOT FROM THE HEADING LEVEL, which is the first thing this
+     pass had to learn: the transcription sets an article's heading at h3 rather than h4 on two pages
+     and the question's own heading at h4 on a third, so a rule keyed to the level deletes real
+     articles and keeps furniture. extractCaput's "the mark is in no one kind of element", met on a
+     heading rather than on a word in the prose.
+
+     AND THE QUESTION'S HEADING IS RECOGNISED BY THE ARTICLE COUNT IT CARRIES RATHER THAN BY THE WORD
+     "Question" — the second thing, and the one that took a full run over all 614 pages to find. That
+     heading is typed a dozen ways across the book: "Quesiton." seven times, "question." in lower
+     case, "Question. - 112 -", "Question.OF THE MODE OF UNION" with no space, "Question 6. –" with
+     an en dash, "Question. 72 OF THE SACRAMENT" with no dash at all, a dozen with the bare title and
+     no "Question" whatever — and, on three pages of the Third Part, headed "Art. 1" exactly like an
+     article. What every one of them carries, and what nothing else on a page carries, is the
+     parenthetical "(SIX ARTICLES)" the edition prints after a question's title. So that is the test,
+     and it is the City of God's rule about looking for a marker where it actually is rather than
+     where the regular cases happen to put it. */
+  const heads = [];
+  b.replace(HEAD, (whole, inner) => {
+    const t = plain(inner);
+    const am = ARTICLES_RX.exec(t);
+    /* A KEPT HEADING MAY CARRY A MARKER TOO, and stripping the heading to its words throws it away.
+       One of the seven notes hangs off an ARTICLE's own heading — the Third Part's question 72,
+       article 10 — so the marker is lifted out here and put back after the title when the heading is
+       re-emitted. The same rule as carrying a marker down off a DROPPED head, met on a kept one. */
+    const h = { t: t, art: ART_RX.exec(t), n: null, role: "article",
+                fn: (inner.match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || []).join("") };
+    if (am) { h.role = "question"; h.count = ART_WORDS[am[1]] != null ? ART_WORDS[am[1]] : null; }
+    /* Four of the 614 questions head themselves without stating an article count, so the test above
+       cannot see them; they do all open on the word, in one of its spellings. It is the WEAKER test
+       and runs second, because "Question" is also how an article's own text can begin. */
+    else if (/^Ques[a-z]{0,3}on\b/i.test(t)) h.role = "question";
+    else if (/^(?:Footnotes?|References?|Notes)$/i.test(t)) h.role = "foot";
+    else if (!heads.length && !h.art) h.role = "treatise";
+    heads.push(h);
+    return whole;
+  });
+  let expect = null;
+  for (const h of heads) if (h.role === "question" && h.count != null) { expect = h.count; break; }
+
+  /* A heading repeating the one before it WORD FOR WORD is a duplicate rather than a second article
+     — one question in the book carries its fifth article's title twice — and dropping it is what
+     brings the count back to what the edition states. */
+  const titleOf = (h) => (h.art ? h.art[3] : h.t).trim();
+  let arts = heads.filter((h) => h.role === "article");
+  /* A HEADING REPEATING THE ONE BEFORE IT WORD FOR WORD IS DROPPED ONLY WHERE THE PAGE HAS MORE
+     HEADINGS THAN THE QUESTION HAS ARTICLES, and that condition is the whole of the rule rather than
+     a refinement of it. Question 20 of the First Part of the Second Part heads its fifth and sixth
+     articles with the same sentence twice and its own heading says six where seven stand on the page,
+     so one of them is a transcription slip. Three other questions ALSO repeat a title and are NOT
+     over-count — Aquinas asks the same question twice under one head often enough — and dropping
+     theirs took a real article off the page for one run. The comparison is on the TITLE and not on
+     the whole heading, since a duplicate carries the next number. */
+  let dup = 0;
+  if (expect != null && arts.length > expect) {
+    const keep = [];
+    for (const h of arts) {
+      if (keep.length && arts.length - dup > expect && titleOf(keep[keep.length - 1]) === titleOf(h)) {
+        h.role = "dup"; dup++; continue;
+      }
+      keep.push(h);
+    }
+    arts = keep;
+  }
+
+  /* PASS TWO — the numbering, decided from the whole page rather than heading by heading.
+
+     WHERE THE EDITION'S STATED COUNT AND THE NUMBER OF HEADINGS AGREE, THE HEADINGS ARE NUMBERED
+     1..N IN ORDER AND WHATEVER IS PRINTED ON THEM IS IGNORED. That is a measurement rather than a
+     repair: the question says how many articles it has, that many headings stand on the page in
+     order, and they are the articles. It absorbs every misprinted number in the book at a stroke —
+     question 12 heads its thirteenth article "Art. 12" for the second time, and its own heading says
+     THIRTEEN ARTICLES — and it is what lets the one question whose eight headings carry no numbers at
+     all be numbered without composing anything.
+
+     WHERE THEY DISAGREE, THE PRINTED NUMBERS ARE KEPT AND THE DISAGREEMENT IS REPORTED. A page with
+     fewer headings than the question has articles has lost one in transcription, and renumbering
+     there would move every article after the gap and file its prose under the wrong number: the
+     Third Part's question 30 prints its first and fourth headings and nothing between, and 1 and 4 is
+     the truth about that page where 1 and 2 would be a fiction. */
+  const counted = expect != null && arts.length === expect;
+  let seq = 0, unnumbered = 0, nodash = 0;
+  arts.forEach((h, i) => {
+    if (!h.art) unnumbered++; else if (!h.art[2]) nodash++;
+    if (counted) { h.n = i + 1; return; }
+    if (!h.art) return;
+    const v = +h.art[1];
+    if (v > seq) { seq = v; h.n = v; }
+  });
+
+  /* DROPPING A HEADING CAN DROP A FOOTNOTE MARKER — Beowulf's dropFittHead rule in a fourth edition,
+     and it turned up here on exactly one page of the 614. The translators hang one of their seven
+     notes off the QUESTION's own heading in the Third Part's question 72, so dropping that heading
+     left a note in the fold that no sentence opens, which is the mirror of the dead marker app.js's
+     apparatus refuses to draw. Every marker on a dropped heading is carried down onto the next block
+     this pass emits instead. */
+  let carried = [];
+  const takeMarkers = (x) => {
+    carried.push(...(x.match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || []));
+    return "";
+  };
+  const plant = (html) => {
+    if (!carried.length) return html;
+    const out = html.replace(/(<p[^>]*>)/, "$1" + carried.join(""));
+    carried = [];
+    return out;
+  };
+  let found = 0;
+  b = b.replace(HEAD, (whole) => {
+    const h = heads.shift();
+    if (h.role === "question" || h.role === "foot" || h.role === "dup") return takeMarkers(whole);
+    if (h.role === "treatise") return h.t ? plant("<p><b>" + h.t + "</b>" + h.fn + "</p>") : takeMarkers(whole);
+    if (h.n == null) {
+      warn && warn(h.art
+        ? "article " + h.art[1] + " repeats or goes backwards — left as printed"
+        : "a heading with no article number: “" + h.t.slice(0, 55) + "”");
+      return plant("<p><b>" + h.t + "</b>" + h.fn + "</p>");
+    }
+    found++;
+    const title = (h.art ? h.art[3] : h.t).trim();
+    return plant('<p><span class="bk-n">' + h.n + "</span>" +
+      (title ? " <b>" + title + "</b>" : "") + h.fn + "</p>");
+  });
+  /* A marker with nothing after it to plant on: put it back at the head of the chapter rather than
+     dropping it, which is the one outcome that loses the reader a note. */
+  if (carried.length) b = carried.join("") + b;
+
+  if (!found && warn) warn("no article headings found — it will pair as one whole block");
+  else if (expect != null && found !== expect && warn)
+    warn("the heading says " + expect + " articles and " + found + " were found");
+  if (dup && warn) warn(dup + " heading(s) repeating the one before them word for word, dropped");
+  ARTICULI_FOUND += found;
+  ARTICULI_NODASH += nodash;
+  ARTICULI_UNNUM += unnumbered;
+  ARTICULI_DUP += dup;
+  if (counted) ARTICULI_COUNTED++;
+  return b;
+}
+/* Counted across the run rather than per chapter and reported at the end: each is a shape of the
+   edition rather than a detail of one page, and how often one occurs is what says whether a rule is
+   describing the book or guessing at it. */
+let ARTICULI_FOUND = 0, ARTICULI_NODASH = 0, ARTICULI_UNNUM = 0, ARTICULI_DUP = 0, ARTICULI_COUNTED = 0;
+
 const LIKI_MARK = "@@LKH@@";
 const LIKI_HEAD_RX = /^(?:Section\b|Part\b|Supplementary Section\b|Appendix to Book\b)/i;
 function likiPlain(s) {
@@ -7984,12 +8430,31 @@ function cleanBody(h, noteIds, book, warn) {
      with the text, which is the quiet failure the ws-noexport rule below exists to undo. Ungated it
      cannot fire at all; gated it can only fire on a book that asks for it. Its opening tag is dropped
      for the same reason the wrapper's is below: left standing, the container that holds the whole book
-     becomes a blockquote OF the whole book. */
-  let i = b.indexOf('<div class="prp-pages-output"');
-  if (i < 0 && book && book.body === "plain") {
+     becomes a blockquote OF the whole book.
+
+     A TYPED PAGE MAY STILL TRANSCLUDE ONE SCAN PAGE, AND THEN THE ORDER OF THESE TWO TESTS DECIDES
+     HOW MUCH OF THE CHAPTER SURVIVES (Aug 2026, adding the Summa Theologica). The flag used to be a
+     FALLBACK — the wrapper was looked for first and the plain container only where none was found —
+     and on a book that is typed onto the wiki that reads as the same thing, because there is no
+     wrapper to find. It is not the same thing. The Summa's first question is typed like the other
+     613 except for its first article, which somebody transcluded from the scanned volume, so the
+     page carries a `prp-pages-output` 4,146 bytes in; the slice took THAT as the start of the
+     chapter and threw away everything before it — the treatise heading, Aquinas's own prologue to
+     the question, his list of the ten points of inquiry, and the heading of Article 1.
+
+     IT IS THE QUIET SHAPE AGAIN, and worth spelling out because nothing here could have caught it
+     but the numbers: nothing threw, the chapter came back 37,656 characters long, its prose was
+     continuous and correct, and the ONLY symptom was that it carried nine section numbers where the
+     edition's own heading says ten articles. So `body: "plain"` now means what it says — the parser's
+     container IS the body for a book that declares it, and a transclusion wrapper inside it is a
+     fragment rather than the start of the text. A book that does not declare it is untouched, which
+     is what keeps this provably inert on the thirty-two shipped books that take the wrapper path. */
+  let i = -1;
+  if (book && book.body === "plain") {
     const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
     if (m) { i = m.index; b = b.slice(0, m.index) + b.slice(m.index + m[0].length); }
   }
+  if (i < 0) i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
   /* THE WIKI'S OWN FURNITURE, WHEN IT FALLS INSIDE THE SLICE (Aug 2026, adding The Prince).
@@ -8363,6 +8828,10 @@ function cleanBody(h, noteIds, book, warn) {
      markLikiHeads, which sorts a half-title from the section heading printed under it in the very
      same block. Gated per book, so it is provably inert on the twenty-six already shipped. */
   if (book && book.sections === "liki") b = markLikiHeads(b, warn || (() => {}));
+  /* Before the generic div pass turns the heading blocks into blockquotes and stripTags unwraps the
+     h2/h3/h4 inside them — see markArticuli, which is the whole reason this hook has two occupants.
+     Gated per book, so it is provably inert on the thirty-six already shipped. */
+  if (book && book.sections === "articuli") b = markArticuli(b, warn || (() => {}));
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -11268,6 +11737,14 @@ async function chapterTitles() {
      headed "BOOK I" … "BOOK XII" on its own contents page and nowhere given names. `titleOf` is how
      such a book says so, and it is deliberately the book's own numbering rather than an invented
      name — a title here is transcribed, never composed. */
+  /* A BOOK WHOSE TITLES ARE ON SEVERAL CONTENTS PAGES reads them itself (Aug 2026, adding the Summa
+     Theologica, whose 614 questions are listed on the six pages its Parts are divided into). The
+     walk below is Seneca's and is keyed to his letter numbering; rather than widen it into something
+     that has to know about every edition, a book may hand back the map. It is the same call `page(n)`
+     made when a chapter turned out to be spread over several pages: the general shape stays, and the
+     book that needs a different reading supplies one. Gated by its own absence, so no shipped book's
+     titles move. */
+  if (BOOK.titlesOf) return await BOOK.titlesOf(api);
   if (!BOOK.indexPage) return {};
   const h = await api(BOOK.indexPage);
   const txt = h.replace(/<style[\s\S]*?<\/style>/g, "");
@@ -13380,6 +13857,11 @@ function writeEnglish(chapters, warnings) {
   const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
   console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
     (secs.some((s) => !s) ? "  — " + secs.filter((s) => !s).length + " chapter(s) with NONE" : ""));
+  if (ARTICULI_FOUND)
+    console.log("  " + ARTICULI_FOUND + " articles, " + ARTICULI_COUNTED +
+      " of the questions numbered by their own stated count — " + ARTICULI_NODASH +
+      " headings print no dash after the number, " + ARTICULI_UNNUM + " print no number at all, " +
+      ARTICULI_DUP + " repeat the heading before them");
 }
 
 /* The original-language half, written to its OWN file — books/<id>.<lang>.js, its own lazy bundle.

@@ -100,6 +100,38 @@ function shippedPair(id) {
   return out;
 }
 
+/* THE SUMMA, read off the one file that shipped. A single column, so shippedPair cannot serve; and
+   its reader (markArticuli) is written for this book alone, so there is no sibling to diff it
+   against and this sweep is what stands in for one. */
+function shippedBook(id) {
+  const f = path.join(ROOT, "books", id + ".js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const b = (global.window.FOLIO_BOOKS_IN || []).find((x) => x.id === id);
+  if (!b) return null;
+  const o = { chapters: b.chapters.length, secs: 0, none: [], disorder: [], strayArt: 0,
+              notes: 0, noteFaults: [], parts: [], intro: b.intro || "" };
+  b.chapters.forEach((c) => {
+    const n = (c.html.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    o.secs += n.length;
+    o.parts[c.p - 1] = (o.parts[c.p - 1] || 0) + 1;
+    if (!n.length) o.none.push(c.n);
+    /* Ascending with no duplicate rather than a clean 1..N: fourteen questions are short a heading in
+       the transcription and the numbering shows WHERE, which is the honest rendering — 1 and 4 on a
+       page that prints its first and fourth headings and nothing between. */
+    if (n.some((v, i) => i && v <= n[i - 1])) o.disorder.push(c.n + " [" + n.join(",") + "]");
+    o.strayArt += (c.html.match(/<b>\s*Art\.\s*\d/g) || []).length;
+    o.notes += (c.notes || []).length;
+    const m = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    if (m.some((v) => v > (c.notes || []).length)) o.noteFaults.push(c.n + " marker past end of list");
+    for (let i = 1; i <= (c.notes || []).length; i++)
+      if (!m.includes(i)) { o.noteFaults.push(c.n + " note " + i + " unreferenced"); break; }
+  });
+  return o;
+}
+
 /* THE AENEID, read off the two files that shipped. Its reader is `cards: "both"` plus the mid-line
    lift, and like The City of God's it serves ONE book, so it cannot be proved inert by re-running a
    sibling — the shipped-data sweep is what stands in for that check.
@@ -701,6 +733,49 @@ function aeneidChecks() {
         conf.caput === 0, `${conf.caput} left`);
     } else {
       check("[confessions] both halves of the book are on disk", false, "missing books/confessions*.js");
+    }
+
+    /* THE SUMMA — one column, no sibling on its reader, and by a wide margin the largest thing on the
+       shelf, so the shipped data is the only check there is. Three of these earn their place.
+
+       THE ARTICLE COUNT IS THE ONE NUMBER THAT CAN SEE A HEADING SHAPE THE PASS DOES NOT KNOW. The
+       question heading is typed a dozen ways across the 614 pages — "Quesiton.", "question.",
+       "Question. - 112 -", the bare title, and on three pages "Art. 1" — and a shape markArticuli
+       fails to place is silent: the prose is all there, the chapter is the right length, nothing
+       throws, and one section simply is not numbered. It was found by this count moving.
+
+       NO CHAPTER MAY CARRY A LEFTOVER "Art." HEADING BEYOND THE ONE THE EDITION MISNUMBERS, which is
+       the City of God's unconverted-CAPUT rule: an article heading left as bold is one the pass could
+       not read, and it looks exactly like a heading that was meant to be bold.
+
+       AND THE GAPS ARE ASSERTED BY NAME. Fourteen questions are short an article in the transcription
+       and two carry no article headings at all; naming them is what tells a documented gap from a
+       chapter the extractor has just started losing — the difference between the shelf's honest
+       rendering and a silent truncation. */
+    const summa = shippedBook("summa-theologica");
+    if (summa) {
+      check("[summa] all 614 questions", summa.chapters === 614, String(summa.chapters));
+      check("...divided into the edition's six Parts, each the right length",
+        JSON.stringify(summa.parts) === JSON.stringify([119, 114, 189, 90, 99, 3]),
+        JSON.stringify(summa.parts));
+      check("...3,094 articles across them", summa.secs === 3094, String(summa.secs));
+      check("...every chapter's articles ascending, with no duplicate",
+        !summa.disorder.length, JSON.stringify(summa.disorder.slice(0, 6)));
+      check("[summa] the two questions with no article headings are the known two",
+        summa.none.join(",") === "147,551", summa.none.join(","));
+      check("[summa] no article heading left unread anywhere, bar the one the edition misnumbers",
+        summa.strayArt === 1, String(summa.strayArt));
+      check("[summa] the seven notes the translators added, and their markers resolve",
+        summa.notes === 7 && !summa.noteFaults.length,
+        summa.notes + " — " + JSON.stringify(summa.noteFaults.slice(0, 4)));
+      /* It has no facing original and its front matter is where that is explained, so the page has to
+         say so — a reader who knows the Summa will go looking for the Latin. */
+      check("[summa] the front matter says why there is no Latin",
+        /207 of the 611/.test(summa.intro), summa.intro.slice(0, 60));
+      check("[summa] ...and what the transcription is missing",
+        /Fourteen questions/.test(summa.intro), "");
+    } else {
+      check("[summa] the book is on disk", false, "missing books/summa-theologica.js");
     }
 
     /* THE AENEID — the same kind of check and for the same reason: one book on its own reader, so the
