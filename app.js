@@ -7699,6 +7699,35 @@
        AUGUSTINE — the other great Latin theologian, and the author of the two books beside this one —
        is 72. Within green it clears Lucretius by 24.3, the Book of Documents by 24.5, Chaucer by 31.5
        and Aesop by 42.9, every one of them wider than the shelf's own tightest pair. */
+    /* ---------- THE RIGVEDA ----------
+       Keyed by ID rather than by author, like the Song of Roland, Beowulf and the Book of Rites: the
+       hymns are anonymous, and "Anonymous" is not an author two books can share.
+
+       THE BAND IS AS FULL AS THE BEOWULF ROW PREDICTED and this is the second colour taken under
+       those conditions. Searched over the shelf's own lightness and chroma band with 34 colours
+       placed, NOTHING anywhere in it clears 21 of its nearest neighbour; the best is this
+       yellow-green at 20.1, which is still wider than the shelf's own tightest existing pair
+       (the Classic of Poetry against Beowulf, at 18.2). So the band was not widened again and no
+       pair tighter than that was taken.
+
+       THE EURIPIDES TEST WAS THE REASON THE BEST MAGENTA WAS REJECTED. A violet-magenta at 19.0
+       looked competitive on the raw number and lands 19.4 from the SONG OF ROLAND — which is both
+       the shelf's other anonymous work and the colour this book would have inherited had it not been
+       given a row, so a near-miss of it is the one confusion a new colour here must not create. The
+       other kinship risk is VYASA, the Bhagavad Gita being the only other Sanskrit book on the
+       shelf; this sits 92 from his saffron and 82 from Roland, which is as far from both as the band
+       allows.
+
+       GREEN HOLDS SEVEN COLOURS AND THAT DOES NOT BITE, for the reason the Beowulf row's fourth red
+       did not: what the crowding rule forbids is a hue that asserts a KINSHIP the shelf does not
+       mean, and nobody reads Vedic liturgy against Suetonius, Aesop, Chaucer or the Summa. Counted
+       by neighbours rather than by hue family it is one of the least crowded candidates on the
+       shelf — 7 placed colours within 40, against 12 and 13 for the alternatives. Its nearest are
+       Gilgamesh at 20.1 and Lucretius at 20.2, evenly enough that it reads as its own colour rather
+       than as a near-miss of one, and Aquinas's green — the most recent, and the brightest — is 25.2
+       away. Chroma 53.6 sits inside a band whose top is 64.1, so the inherited "bright enough to
+       glow" objection does not hold; it reads 4.53:1 on the tightest of the four light papers. */
+    "rigveda": "#5A6F00",
     "Thomas Aquinas": "#006C00",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
@@ -9376,6 +9405,76 @@
       parts: [
         { n: 1, label: "Lays of the Gods", note: "14 poems" },
         { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
+    },
+    {
+      id: "rigveda",
+      title: "The Rigveda",
+      subtitle: "ऋग्वेदः",
+      author: "Anonymous",
+      /* A composite of many hands over centuries, and the dating is argued at both ends. `year` is
+         the single number the shelf's date sort needs and is the middle of the usual range; the
+         prose carries the hedge, which is where a contested date belongs. */
+      written: "c. 1500–1000 BCE",
+      year: -1300,
+      translator: "Ralph T. H. Griffith",
+      edition:
+        "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
+        "complete in two volumes, E. J. Lazarus and Co., Benares, 1896",
+      /* THE NINTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL, after the Republic, the Analects, the
+         Peloponnesian War, the City of God, the Aeneid, Journey to the West, the Divine Comedy and
+         the Confessions. The hymns are around three thousand years old. Griffith published in
+         1889–92, revised for 1896, and lived 1826–1906 — dates read off the Wikisource author page
+         and confirmed against the volume's own title page rather than recalled — so the English
+         clears the pre-1929 rule, life plus seventy and life plus a hundred alike.
+
+         THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement in a second
+         book; see .claude/fetch-book.js for why the gap is a weaker one here than it was there. */
+      rights:
+        "Public domain worldwide, on every ground. The hymns are around three thousand years old and " +
+        "were composed long before writing reached the subcontinent, so the work itself has never " +
+        "been in copyright. Ralph T. H. Griffith published this translation at Benares in 1889–92 " +
+        "and revised it for the second edition of 1896, and he lived from 1826 to 1906, so the " +
+        "English is out of copyright under the rule for works published before 1929, under the " +
+        "translator's life plus seventy years, and under life plus a hundred — there is no limit to " +
+        "state. The facing Sanskrit is the received Shakala samhita and the transcription names no " +
+        "editor for it, so no edition and no editor is claimed here; the ground for that column is " +
+        "the age of the text alone. (The modern translations by Jamison and Brereton, 2014, Wendy " +
+        "Doniger, 1981, and Walter Maurer, 1986, are still in copyright and are not used.) " +
+        "Griffith's preface and appendices, and the Sanskrit pages' commentary of Sayana, are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
+      origLang: "sa",
+      origName: "संस्कृतम्",
+      /* THE CHAPTER IS THE HYMN AND THE SECTION IS THE VERSE, read straight off the citation: a
+         passage of the Rigveda is "RV 10.129.1" — mandala, hymn, verse — in every language and every
+         reference work, so the hymn is what a reader looks up and the verse is the finest thing both
+         editions state about the same place. The alternative was measured rather than weighed:
+         cutting at the mandala gives ten tabs and puts 191 hymns in one of them, and throws away the
+         verse numbers as pairing keys, which is what Beowulf's rule forbids.
+
+         THE TAB NUMBER AND THE CITATION DISAGREE ON PURPOSE. Each mandala restarts its hymn
+         numbering, so a chapter number that was also a hymn number could not be unique; `n` runs
+         1..1028 straight through — the continuous hymn number, which concordances use — and each
+         chapter's TITLE is the citation itself, so the tabs read 1.1 … 10.191. */
+      chapterWord: "Hymn",
+      count: 1028,
+      total: 1028,
+      /* The work's own ten books. Mandalas 2–7 are the "family books", each ascribed to one line of
+         seers and generally taken to be the oldest core; 1, 8, 9 and 10 were gathered round it
+         later, and the ninth is addressed to Soma from beginning to end. */
+      parts: [
+        { n: 1, label: "Mandala I", note: "191 hymns · a later collection, mostly to Agni and Indra" },
+        { n: 2, label: "Mandala II", note: "43 · the family book of the Gritsamadas" },
+        { n: 3, label: "Mandala III", note: "62 · the Vishvamitras — it carries the Gayatri" },
+        { n: 4, label: "Mandala IV", note: "58 · the Vamadevas" },
+        { n: 5, label: "Mandala V", note: "87 · the Atris" },
+        { n: 6, label: "Mandala VI", note: "75 · the Bharadvajas" },
+        { n: 7, label: "Mandala VII", note: "104 · the Vasishthas, and much of the Varuna poetry" },
+        { n: 8, label: "Mandala VIII", note: "103 · the Kanvas, including the eleven Valakhilya" },
+        { n: 9, label: "Mandala IX", note: "114 · all of them to Soma Pavamana" },
+        { n: 10, label: "Mandala X", note: "191 · the latest, and the philosophical hymns" },
       ],
     },
     {

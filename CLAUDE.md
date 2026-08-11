@@ -128,7 +128,52 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-eight:
+  matter (chapter 0 — see the Library bullet). Currently thirty-nine:
+  `rigveda` (~2.05 MB, all 1,028 hymns as **1,028 chapters**, **10,503 verse numbers**, 27 notes —
+  Griffith's second edition of 1896, and **the first book here whose CHAPTER IS THE SMALLEST UNIT
+  OF THE WORK and there are a thousand of them.** The tab is the citation itself: a passage of the
+  Rigveda is "RV 10.129.1" — mandala, hymn, verse — so the hymn is what a reader looks up and the
+  verse is the finest thing both editions state about the same place. The mandala is the PART, not
+  the chapter, and that was measured rather than assumed: cutting there gives ten tabs and puts 191
+  hymns in one of them, ~290,000 characters, larger than anything on the shelf, and throws away the
+  verse numbers as pairing keys — which is what Beowulf's rule forbids.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.**
+  **MANDALA 8 CARRIES THE VALAKHILYA AND THE TWO EDITIONS NUMBER THEM DIFFERENTLY**, which is
+  Journey to the West's recension check earning its keep and the one fault here no count could ever
+  have shown. Griffith prints the eleven Valakhilya hymns as an APPENDIX to his eighth book, so his
+  8.49 is the standard 8.60 and his 8.93–8.103 are the standard 8.49–8.59. Measured over 8.40–8.103
+  on both sides before a word was imported: the verse counts agree exactly through 8.48 and then run
+  eleven apart — **31 of 39 agreeing at an offset of eleven against 10 of 39 at none**, and all
+  eleven appendix hymns matching their Sanskrit verse for verse. Paired on the page number, 55 hymns
+  would have sat beside hymns that are not their counterparts with both columns complete, every
+  mandala the right length and nothing thrown. The book is numbered the STANDARD way — the way the
+  Sanskrit is numbered and every reference work cites — and Griffith's own page for each is looked
+  up; his arrangement is stated in the front matter, since a reader holding a print copy will find
+  the appendix numbered differently.
+  **THE TRANSCRIPTION USES FOUR SHAPES AND 1,023 OF THE 1,028 ARE PLAIN TEXT** — measured with the
+  wiki's own search over the whole book: 1,022 hymns are a `<div class="verse"><pre>`, one more is a
+  bare `<pre>` (5.65), four are proofread transclusions rendering as `ws-poem` (1.1, 1.32, 4.27,
+  5.1) and one is typed into the page with `<br>` (10.90, the Purusha Sukta). The Divine Comedy's
+  finding at a different ratio, with the majority shape the Canterbury Tales' and Journey to the
+  West's — a machine reading with no marks at all, so the structure is BUILT and the content ESCAPED.
+  **ALL FOUR ARE READ BY FLATTENING TO LINES FIRST**, which is what keeps one verse rule rather than
+  four that drift.
+  **THE STOP AFTER A VERSE NUMBER WEARS FOUR COSTUMES AND THE RULE WAS WRITTEN FROM AN INVENTORY OF
+  THE WHOLE BOOK** rather than from the example that prompted it — 4,543 read `1. `, 52 read `1 `
+  with no stop at all, 2 read `1.` with the word run against it, and 2 read `1, ` where the scan
+  took the stop for a comma. **The bare form is the dangerous one** and is admitted only where it is
+  the very next verse, since a figure opening a line with nothing after it is also what a line of
+  verse mentioning a number looks like.
+  **AND ITS REAL LIMITATION IS WHAT THE TRANSLATION LEAVES OUT, in two different ways.** Griffith's
+  own notes survive on THREE hymns of the 1,028 — only four pages were proofread against the scan
+  and the rest were typed in without the apparatus, measured as zero `<ref>` in the whole book's
+  wikitext — and **thirteen verses are simply absent**, being the frankly sexual passages he turned
+  into Latin rather than English (1.179 entire, 10.61.5–9, 10.86.16–17); the Sanskrit beside them is
+  complete, so those rows show the original with nothing facing it. **1,002 of the 1,028 hymns pair
+  on every verse number**; of the twenty-six that do not, six are 1.65–1.70, whose metre the two
+  traditions divide differently (five verses against ten, the same words twice divided), three are
+  those passages, and seventeen are a single lost numeral apiece, ten on the English side and seven
+  on the Sanskrit),
   `divine-comedy` (~811 KB, all 100 cantos, **4,811 tercet numbers**, **1 note** — Longfellow's
   blank verse of 1867, and **the first book here whose SECTION NUMBERS ARE COUNTED RATHER THAN
   READ.** Every earlier book takes its numbers off the page, because every earlier edition prints
@@ -875,6 +920,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Jones's Oxford text of 1910, and the cleanest Greek on the shelf: 1..N in every book, no gaps, no
   duplicates and not one lettered number, so none of the Ethics' or Herodotus's `data-n` trouble
   arises. The English carries 916 of the 917; see the Library bullet for the one that is missing).
+  `rigveda.sa.js` (**~3.06 MB on disk against 1.34 million characters**, every one of them three
+  bytes of UTF-8 — all 1,028 hymns, **10,542 verses** — the received Shakala samhita as
+  transcribed at Sanskrit Wikisource, and **the first original here whose SOURCE PAGE CARRIES A
+  COMMENTARY TEN TIMES THE LENGTH OF THE TEXT.** Sayana's fourteenth-century bhashya sits in a
+  collapsed block under every hymn, and it carries a second copy of the samhita with its accents and
+  a third in the word-separated padapatha — so a reader that took the page's text would ship each
+  hymn three times inside a commentary nobody asked for, with the numerals running 1..N three times
+  over. It is the Art of War's commentary problem in a language the note fold cannot hold: not an
+  explanation OF the text in the reader's language but another text entirely, so it is DROPPED
+  rather than lifted, and `test-library.js` sweeps the shipped file for its stock vocabulary because
+  a leak makes a hymn LONGER and no count of hymns or verses can see it. Its verse is cut as a
+  STREAM rather than block by block — the Gita's rule on the same wiki — since a long hymn opens a
+  fresh `div.poem` part way through (1,037 blocks over 1,028 hymns, 9.86 holding three for its 48
+  verses), and reading a block as a hymn would take the first fifteen and drop the rest with the
+  count still looking like a hymn. It is also the first original here whose pages carry
+  ILLUSTRATIONS, whose captions the tag stripper would otherwise unwrap into the middle of the verse.
+  **ITS LICENCE NAMES NO EDITOR AND NONE IS INVENTED**, which is Lucretius's judgement in a second
+  book — and a weaker gap than that one, for a reason worth stating rather than assuming: Lucretius
+  survives in two ninth-century copies and editors differ over hundreds of readings, where the
+  Rigveda was transmitted by a recitation discipline built to make variation impossible and the
+  received Shakala samhita is what every printed edition prints. The ground stated is the age of the
+  text, which needs no edition to establish and anyone can check).
   `song-of-roland.fro.js` (~198 KB, all 291 laisses, 4,012 lines — Bédier's text of 1920–1922, and the
   first original here in **Old French** (`fro`), a historical stage of a living language rather than a
   dead one; see the `song-of-roland` entry below for the `<hr>` cut and the six unnumbered laisses).
@@ -898,7 +965,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-eight books, twenty-six originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Thirty-nine books, twenty-seven originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
   Divine Comedy and the Summa Theologica
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
@@ -1428,6 +1495,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     opening on `***` in the apparatus band, where they belong to the apparatus rule rather than to
     this one. Every removal is counted and reported, per the standing rule that a rule which starts
     eating text cannot do it quietly.
+
+  **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
+  `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
+  `SUKTA_VERSE` / `RV_PARTS` / `rvGriffith`; Aug 2026, adding the Rigveda — the thirty-ninth book,
+  and the fifteenth layout). The ordinary wiki walk, one page per chapter; what is new is that the
+  chapter is a single hymn and there are 1,028 of them, with the mandala demoted to a PART. Five
+  things it settled:
+  · **ASK WHETHER A KNOWN RECENSION SPLIT AFFECTS THE NUMBERING, and measure it by CORRELATING VERSE
+    COUNTS AT EVERY OFFSET** — Journey to the West's rule with a method attached. Mandala 8's eleven
+    Valakhilya hymns are numbered in place by the Sanskrit and printed as an appendix by Griffith, so
+    the two run eleven apart from 8.49 to 8.92 and forty-four apart for the appendix itself. Nothing
+    else could have found it: both columns are complete, every mandala is the right length, and the
+    only signal is 31-of-39 agreement at k=11 against 10-of-39 at k=0. **The correlation sweep is the
+    tool to reach for whenever two editions of one work might disagree about where something sits.**
+  · **WHERE FOUR TRANSCRIPTION SHAPES EXIST, FLATTEN THEM ALL TO LINES AND WRITE ONE RULE.** A
+    thousand pages of plain text, four proofread transclusions and one hand-typed page do not need
+    four parsers; they need one normaliser and one verse rule, or the four drift apart silently.
+  · **RESOLVE THE FOOTNOTE MARKERS BEFORE FLATTENING, AND CARRY DOWN THE ONES ON A DROPPED HEAD.**
+    The flatten removes every tag, so a marker not rewritten into the shelf's own form first is gone
+    while its note still reaches the fold — 27 entries no sentence opens. And Griffith hangs his note
+    on a hymn as a whole off its printed TITLE, which is page furniture and is discarded: Beowulf's
+    `dropFittHead` rule in a fourth edition. Both faults were found by `test-library.js`'s
+    every-note-is-referenced assertion and by nothing else.
+  · **A COMMENTARY IN THE ORIGINAL'S OWN LANGUAGE IS DROPPED, NOT LIFTED.** The Art of War's
+    commentary is Giles explaining Sun Tzu in the reader's language and belongs in the note fold;
+    Sayana's bhashya is another Sanskrit text about the hymn, ten times its length, and carries two
+    further copies of the verse inside it. A leak makes a hymn LONGER, so it must be swept for in the
+    shipped file rather than counted.
+  · **AND THE PRINTED STOP AFTER A NUMBER IS ITSELF AN INVENTORY QUESTION** — see the `rigveda` entry
+    in the File map for the four costumes and for why the bare form is admitted on a tighter test.
 
   **AN EDITION MAY NOT PRINT ENOUGH OF ITS OWN NUMBERS TO PAIR ON, AND THEN THEY ARE COUNTED**
   (`layout: "terzine"` → `extractTerzina` / `terzinaBody` / `terzinaLines` / `terzinaHtml` /
@@ -3721,6 +3818,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     clearing 18.5 at 8.12:1 was taken instead, above the shelf's own tightest pair at 18.2. **The
     kinship risk here is not another blue but VIRGIL**, Dante's guide and a character in the poem, and
     the colour taken sits 53 from his oxblood.
+    **The Rigveda is the NINTH licence needing no qualification at all** (Aug 2026), after the
+    Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey to the West,
+    the Divine Comedy and the Confessions, and every layer is clear on every ground: the hymns are
+    around three thousand years old and were composed before writing reached the subcontinent, and
+    Ralph T. H. Griffith published his translation at Benares in 1889–92, revised it for the second
+    edition of 1896 and lived 1826–1906 — dates read off the Wikisource author page AND confirmed
+    against the volume's own title page rather than recalled, for the Hugo Magnus reason — so the
+    English clears the pre-1929 rule, life-plus-seventy (1976) and life-plus-a-hundred (2006) alike.
+    Jamison and Brereton (2014), Doniger (1981) and Maurer (1986) are named as the ones not to reach
+    for; Griffith's preface and appendices are left behind, as the Republic's introduction and plates
+    were. **ITS SANSKRIT IS THE LUCRETIUS CASE AND THE GAP IS WEAKER THAN LUCRETIUS'S, WHICH IS
+    WORTH SAYING RATHER THAN LEAVING TO BE INFERRED**: the transcription names no editor for the
+    samhita, so none is claimed and the ground stated is the age of the text — but where Lucretius
+    survives in two ninth-century manuscripts whose readings editors dispute by the hundred, and that
+    entry therefore treats its unnamed editor as a real limitation, the Rigveda was transmitted by a
+    recitation discipline built to make variation impossible and the received Shakala samhita is what
+    every printed edition prints. **Ask what an unnamed edition COSTS, rather than treating every
+    unnamed edition alike.** Its `BOOK_AUTHOR_COLOR` row is keyed by ID, the hymns being anonymous,
+    and is the second colour taken with the band as full as the Beowulf row predicted — see the
+    `"rigveda"` note in app.js for the search, and for the Euripides test rejecting the best magenta
+    because it lands 19.4 from the SONG OF ROLAND, which is both the shelf's other anonymous work and
+    the colour this book would otherwise have inherited.
     **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
     the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
     the point of it: Augustine died in 430, J. G. Pilkington published this translation in Schaff's
@@ -10805,6 +10924,7 @@ dead code (never rendered).
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `markArticuli` /
+    `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the

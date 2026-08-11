@@ -132,6 +132,59 @@ function shippedBook(id) {
   return o;
 }
 
+/* THE RIGVEDA, read off the two files that shipped. Its reader (extractSukta / suktaSanskrit) serves
+   ONE book, so there is no sibling to diff it against and this sweep is what stands in for one.
+
+   EVERY FAULT IT HUNTS IS SILENT. The transcription uses four different shapes and 1,023 of the 1,028
+   hymns are plain text with no markup at all; a shape that stops being recognised does not throw and
+   does not shorten the book — its hymns come through as one unnumbered block, which looks like a
+   hymn. The Sanskrit pages each carry Sayana's commentary at ten times the length of the text, so a
+   leak there makes a hymn longer rather than shorter. And mandala 8 numbers the Valakhilya
+   differently in the two editions, which is the fault that would pair 55 hymns with hymns that are
+   not their counterparts while both columns stayed complete and every count read healthy. */
+function rigvedaChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "rigveda.js"), saF = path.join(dir, "rigveda.sa.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(saF)) return null;
+  global.window = {};
+  [enF, saF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "rigveda");
+  const sa = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "rigveda");
+  if (!en || !sa) return null;
+  const nums = (h) => (h.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+  const byN = {}; sa.chapters.forEach((c) => { byN[c.n] = c; });
+  const o = { chapters: en.chapters.length, saChapters: sa.chapters.length, enV: 0, saV: 0,
+              pairs: 0, unpaired: [], mandalas: [], empty: [], disorder: [], notes: 0,
+              noteOn: [], noteFaults: [], commentary: [], titles: 0, m8pairs: 0, m8: 0,
+              intro: en.intro || "" };
+  en.chapters.forEach((c) => {
+    const a = nums(c.html), b = byN[c.n] ? nums(byN[c.n].html) : [];
+    o.enV += a.length; o.saV += b.length;
+    o.mandalas[c.p - 1] = (o.mandalas[c.p - 1] || 0) + 1;
+    if (!a.length) o.empty.push(c.t);
+    if (a.some((v, i) => i && v <= a[i - 1])) o.disorder.push("en " + c.t);
+    if (b.some((v, i) => i && v <= b[i - 1])) o.disorder.push("sa " + c.t);
+    /* the tab IS the citation — "10.129", not a running number */
+    if (/^\d+\.\d+$/.test(c.t)) o.titles++;
+    const A = new Set(a), B = new Set(b);
+    const exact = a.length && !a.filter((v) => !B.has(v)).length && !b.filter((v) => !A.has(v)).length;
+    if (exact) o.pairs++; else o.unpaired.push(c.t);
+    if (c.p === 8) { o.m8++; if (exact) o.m8pairs++; }
+    o.notes += (c.notes || []).length;
+    if ((c.notes || []).length) o.noteOn.push(c.t);
+    const m = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    if (m.some((v) => v > (c.notes || []).length)) o.noteFaults.push(c.t + " marker past end of list");
+    for (let i = 1; i <= (c.notes || []).length; i++)
+      if (!m.includes(i)) { o.noteFaults.push(c.t + " note " + i + " unreferenced"); break; }
+  });
+  /* Sayana's bhashya is Sanskrit prose about the hymn rather than the hymn, and it names its own
+     sources constantly; a leak shows up as the commentary's stock vocabulary inside the verse. */
+  sa.chapters.forEach((c) => {
+    if (/सायण|भाष्यम्|इत्यनुक्रमणिकाया|निरु\./.test(c.html)) o.commentary.push(c.t);
+  });
+  return o;
+}
+
 /* THE AENEID, read off the two files that shipped. Its reader is `cards: "both"` plus the mid-line
    lift, and like The City of God's it serves ONE book, so it cannot be proved inert by re-running a
    sibling — the shipped-data sweep is what stands in for that check.
@@ -776,6 +829,64 @@ function aeneidChecks() {
         /Fourteen questions/.test(summa.intro), "");
     } else {
       check("[summa] the book is on disk", false, "missing books/summa-theologica.js");
+    }
+
+    /* THE RIGVEDA — the same kind of check as the Summa's and the Aeneid's, and for the same reason:
+       one book on its own reader, so the shipped data is what stands in for a sibling diff. */
+    const rv = rigvedaChecks();
+    if (rv) {
+      check("[rigveda] all 1,028 hymns on both sides",
+        rv.chapters === 1028 && rv.saChapters === 1028, `en ${rv.chapters} sa ${rv.saChapters}`);
+      check("...divided into the ten mandalas, each the right length",
+        JSON.stringify(rv.mandalas) === JSON.stringify([191, 43, 62, 58, 87, 75, 104, 103, 114, 191]),
+        JSON.stringify(rv.mandalas));
+      /* THE VERSE TOTALS ARE THE ASSERTION THAT SEES A TRANSCRIPTION SHAPE GOING. Four shapes are in
+         use and 1,023 of the hymns are plain text; a reader that stops recognising one returns those
+         hymns as a single unnumbered block, which throws nothing, shortens nothing and looks like a
+         hymn. Only the count moves. */
+      check("[rigveda] 10,503 verses of Griffith and 10,542 of the Sanskrit",
+        rv.enV === 10503 && rv.saV === 10542, `en ${rv.enV} sa ${rv.saV}`);
+      check("...not one hymn without verse numbers", !rv.empty.length,
+        JSON.stringify(rv.empty.slice(0, 6)));
+      check("...every hymn's verses ascending, with no duplicate, on both sides",
+        !rv.disorder.length, JSON.stringify(rv.disorder.slice(0, 6)));
+      /* THE TAB IS THE CITATION and that is the whole reason the hymn is the chapter: a reader
+         looking for RV 10.129 has to find a tab reading 10.129. */
+      check("[rigveda] every tab is its citation, mandala.hymn", rv.titles === 1028, String(rv.titles));
+
+      /* THE VALAKHILYA MAPPING, and it is the one fault here that no count could ever show. Griffith
+         prints those eleven hymns as an appendix, so his 8.49 is the standard 8.60 and his 8.93–8.103
+         are the standard 8.49–8.59. Paired on the page number instead, 55 hymns of mandala 8 would sit
+         beside hymns that are not theirs — with both columns complete, every mandala the right length
+         and nothing thrown. Mandala 8's own pairing rate is what sees it: 102 of its 103 hymns pair
+         exactly under the right map, and a handful would under the wrong one. */
+      check("[rigveda] mandala 8 pairs on 102 of its 103 hymns — the Valakhilya map holds",
+        rv.m8 === 103 && rv.m8pairs === 102, `${rv.m8pairs} of ${rv.m8}`);
+      check("[rigveda] 1,002 of the 1,028 hymns pair on every verse number",
+        rv.pairs === 1002, String(rv.pairs));
+      /* AND THE 26 THAT DO NOT ARE ASSERTED BY NAME, which is what tells a documented divergence from
+         a hymn the extractor has just started losing: six are the metre whose half-verses the two
+         traditions count differently, three are the passages Griffith put into Latin and this
+         transcription dropped, and seventeen are a single lost numeral apiece. */
+      check("...and the twenty-six that do not are the known twenty-six",
+        rv.unpaired.join(" ") === "1.65 1.66 1.67 1.68 1.69 1.70 1.91 1.95 1.105 1.116 1.117 " +
+          "1.128 1.174 1.179 5.44 5.55 8.93 9.7 9.73 9.89 10.42 10.48 10.61 10.86 10.97 10.132",
+        rv.unpaired.join(" "));
+
+      /* SAYANA'S COMMENTARY IS ON EVERY SANSKRIT PAGE at ten times the length of the text. A leak
+         makes a hymn LONGER, so no count of verses or hymns can see it. */
+      check("[rigveda] no commentary leaked into the Sanskrit", !rv.commentary.length,
+        JSON.stringify(rv.commentary.slice(0, 6)));
+      check("[rigveda] Griffith's 27 notes, on the three proofread hymns, and their markers resolve",
+        rv.notes === 27 && rv.noteOn.join(",") === "1.1,1.32,5.1" && !rv.noteFaults.length,
+        `${rv.notes} on ${rv.noteOn.join(",")} — ${JSON.stringify(rv.noteFaults.slice(0, 3))}`);
+      /* The two things a reader will otherwise meet as faults, both stated on the book's own page. */
+      check("[rigveda] the front matter says why three passages are missing from the English",
+        /1\.179/.test(rv.intro) && /Latin/.test(rv.intro), "");
+      check("[rigveda] ...and how Griffith numbers the Valakhilya",
+        /Valakhilya/.test(rv.intro), "");
+    } else {
+      check("[rigveda] the book is on disk", false, "missing books/rigveda.js");
     }
 
     /* THE AENEID — the same kind of check and for the same reason: one book on its own reader, so the

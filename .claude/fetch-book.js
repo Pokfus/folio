@@ -707,6 +707,34 @@ function summaAt(n) {
   return null;
 }
 
+/* ---------- THE RIGVEDA'S TEN MANDALAS ----------
+   The hymn counts are the received ones and were MEASURED against both wikis before a word was
+   imported: en.wikisource carries 1,028 hymn pages and sa.wikisource 1,028 sukta pages, and both
+   agree with this table mandala by mandala, with no gap and no page outside it. Hoisted above the
+   BOOKS table rather than declared inside it, for the reason SUMMA_PARTS is: a const inside an
+   object literal is a syntax error. */
+const RV_HYMNS = [191, 43, 62, 58, 87, 75, 104, 103, 114, 191];
+const RV_PARTS = [];
+for (let m = 1, at = 0; m <= 10; m++) {
+  RV_PARTS.push({ n: m, from: at + 1, to: at + RV_HYMNS[m - 1], m: m });
+  at += RV_HYMNS[m - 1];
+}
+/* A hymn's continuous number, which is what a chapter is keyed by, against the mandala and hymn
+   the world cites it as. */
+function rvAt(n) {
+  const p = RV_PARTS.find((x) => n >= x.from && n <= x.to);
+  return p ? { m: p.m, h: n - p.from + 1 } : null;
+}
+/* THE STANDARD HYMN NUMBER → GRIFFITH'S OWN PRINTED ONE. Identity everywhere but mandala 8, where
+   he prints the eleven Valakhilya hymns as an appendix: his 8.49 is the standard 8.60, and his
+   8.93–8.103 are the standard 8.49–8.59. Measured on both columns before it was believed — see the
+   block above extractSukta. */
+function rvGriffith(m, h) {
+  if (m !== 8 || h <= 48) return h;
+  return h <= 59 ? h + 44 : h - 11;
+}
+const rvDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -7213,6 +7241,199 @@ const BOOKS = {
        an `origLang` are the whole of the work. */
   },
 
+  "rigveda": {
+    title: "The Rigveda",
+    subtitle: "ऋग्वेदः",
+    author: "Anonymous",
+    translator: "Ralph T. H. Griffith",
+    edition:
+      "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
+      "complete in two volumes, E. J. Lazarus and Co., Benares, 1896",
+    written: "c. 1500–1000 BCE",
+    year: -1300,
+
+    /* ---------- THE LICENCE — the NINTH here needing no qualification at all ----------
+       After the Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey
+       to the West, the Divine Comedy and the Confessions. Every layer is clear on every ground.
+
+       The hymns are around three thousand years old and were composed and transmitted before writing
+       reached the subcontinent, so the work itself has been free for as long as the idea of
+       copyright has existed. Ralph Thomas Hotchkin Griffith published his translation at Benares in
+       1889–92 and revised it for the second edition of 1896, and he lived 1826–1906 — dates read off
+       the Wikisource author page and confirmed against the volume's own title page rather than
+       recalled, for the Hugo Magnus reason — so the English clears the pre-1929 publication rule,
+       life plus seventy (1976) and life plus a hundred (2006) alike. There is no limit to state as
+       Giles (2029), Ross (2042) or Gilbert Murray (2028) need, and no modern editorial layer as the
+       Histories and the Meditations' Greek carry.
+
+       THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement in a second
+       book: sa.wikisource's hymn pages credit no edition of the samhita, so no editor and no
+       publication date is asserted for that column anywhere, and the ground stated is the age of the
+       text — which needs no edition to establish and anyone can check. It is a weaker gap than
+       Lucretius's, and the reason is worth stating rather than assuming: the Rigveda is not a text
+       that has to be CONSTITUTED from disagreeing manuscripts before it can be read. Lucretius
+       survives in two ninth-century copies and editors differ over hundreds of readings, which is
+       why that entry treats its unnamed editor as a real limitation; the Rigveda was transmitted by
+       a recitation discipline built to make variation impossible, and the received Shakala samhita
+       is what every printed edition prints. That is a fact about the transmission rather than a
+       convenience, and it is said on the book's own page along with what cannot be said.
+
+       WHAT IS NOT TAKEN. Griffith's title page calls the work a translation "with a popular
+       commentary", and the commentary is his footnotes; the transcription carries them on four hymns
+       out of 1,028 and they are imported where they exist. His preface, his appendices on metre and
+       on particular hymns, and the Sanskrit pages' Sayana bhashya are all left behind — the
+       Republic's precedent for the introduction and plates it did not take.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none
+       may be used: Stephanie Jamison and Joel Brereton's complete Rigveda (Oxford, 2014), which is
+       the scholarly standard and supersedes Griffith on almost every page, Wendy Doniger's selection
+       (Penguin, 1981), and Walter Maurer's (1986). Griffith is a century and a quarter old and reads
+       like it; the book's own first page says so rather than leaving a reader to discover it. */
+    rights:
+      "Public domain worldwide, on every ground. The hymns are around three thousand years old and " +
+      "were composed long before writing reached the subcontinent, so the work itself has never been " +
+      "in copyright. Ralph T. H. Griffith published this translation at Benares in 1889–92 and " +
+      "revised it for the second edition of 1896, and he lived from 1826 to 1906, so the English is " +
+      "out of copyright under the rule for works published before 1929, under the translator's life " +
+      "plus seventy years, and under life plus a hundred — there is no limit to state. The facing " +
+      "Sanskrit is the received Shakala samhita and the transcription names no editor for it, so no " +
+      "edition and no editor is claimed here; the ground for that column is the age of the text " +
+      "alone. (The modern translations by Jamison and Brereton, 2014, Wendy Doniger, 1981, and " +
+      "Walter Maurer, 1986, are still in copyright and are not used.) Griffith's preface and " +
+      "appendices, and the Sanskrit pages' commentary of Sayana, are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they open a thousand hymns: what the book is and how old, how it
+       survived, what the hymns are FOR — which is the thing most likely to disappoint someone
+       expecting scripture or narrative — how it is arranged and cited, which hymns to start with,
+       whose translation this is and how far it can be trusted, and the two facts about this
+       transcription that a reader will otherwise meet as faults. */
+    about: [
+      "<b>The Rigveda</b> is the oldest surviving text in any Indo-European language, and one of the " +
+        "oldest continuously transmitted texts of any kind. Its <b>1,028 hymns</b> were composed in " +
+        "an archaic form of Sanskrit, most of them somewhere between about <b>1500 and 1000 BCE</b>, " +
+        "in the rivers country of the north-west of the Indian subcontinent and what is now Pakistan " +
+        "and Afghanistan. Nothing about the dating is exact and scholars argue over both ends of it. " +
+        "What is not in doubt is that the poems are older than the Iliad, older than the Hebrew Bible " +
+        "in the form we have it, and roughly as old as anything on this shelf apart from Gilgamesh.",
+      "It was not written down for something like a thousand years after it was composed. It was " +
+        "<b>memorised</b> — by families of priests who recited it in several interlocking patterns, " +
+        "forwards, in pairs, in pairs reversed, and in more elaborate schemes still, so that a slip " +
+        "in one recitation would fail to match the others. The result is a text preserved with a " +
+        "fidelity that has no parallel in the ancient world: the manuscripts, which are late, agree " +
+        "with each other to a degree that written traditions never manage. That is why the Sanskrit " +
+        "column here can be given without naming an editor, and why almost nothing in it is disputed.",
+      "The hymns are <b>liturgy</b>, not scripture in the later sense and not narrative at all. They " +
+        "were sung at the sacrifice, and most of them praise a god, recall what he has done, and ask " +
+        "for cattle, sons, long life, victory or rain. <b>Agni</b>, the fire that carries the offering " +
+        "and so stands between men and gods, opens the collection and has the most hymns after Indra. " +
+        "<b>Indra</b>, who kills the serpent Vritra and releases the waters, has the most of all. " +
+        "<b>Soma</b>, the pressed plant and the god of it, has the whole of the ninth book. Behind " +
+        "them stand Varuna, who watches over truth; the Ashvins, twin horsemen and healers; Ushas, " +
+        "the dawn, who has some of the most admired poetry in the book; and the Maruts, the storm.",
+      "The arrangement is by <b>mandala</b> — a word meaning circle, and used here for the ten books " +
+        "the collection is divided into. Books <b>2 to 7</b> are the <i>family books</i>, each " +
+        "attributed to one family of seers, and are generally taken to be the oldest core; within " +
+        "each of them the hymns are ordered by deity and then by length. Books <b>1, 8, 9 and 10</b> " +
+        "were gathered around that core later, and the tenth is later again in its language and its " +
+        "concerns. Any passage is cited as mandala, hymn and verse — <b>10.129.1</b> is the first " +
+        "verse of the hundred and twenty-ninth hymn of the tenth book — and that is exactly how this " +
+        "edition is laid out: the tabs are the hymns, in that notation, and each verse is set beside " +
+        "its Sanskrit.",
+      "A thousand hymns is a great deal to begin with, so it is worth knowing which ones people mean " +
+        "when they talk about the Rigveda. <b>10.129</b>, the <i>Nasadiya</i> or creation hymn, which " +
+        "asks what there was before there was anything and ends by wondering whether even the gods " +
+        "can know. <b>10.90</b>, the <i>Purusha</i> hymn, in which the universe and the four social " +
+        "orders are made from a sacrificed cosmic man — the single most argued-over passage in the " +
+        "book. <b>1.32</b>, Indra and the serpent. <b>10.125</b>, spoken in the voice of Speech " +
+        "herself. <b>10.34</b>, the gambler who cannot leave the dice alone, which is not about a god " +
+        "at all. And <b>3.62.10</b>, three lines that became the Gayatri, still recited daily.",
+      "The translation is <b>Ralph T. H. Griffith's</b>, made at Benares and published in 1889–92, " +
+        "revised for the second edition of 1896. It is the only complete English Rigveda that is free " +
+        "of copyright, and it is Victorian: the diction is archaic on purpose, the gods are given " +
+        "capital letters and thee and thou, and Griffith often smooths a passage whose Sanskrit is " +
+        "genuinely obscure into something more confident than the original will bear. A reader who " +
+        "wants to know what the scholarship now thinks a hymn says should go to Stephanie Jamison and " +
+        "Joel Brereton's translation of 2014, which is in copyright and cannot be reproduced here. " +
+        "What Griffith gives, and gives completely, is all 1,028 hymns in order, verse by numbered " +
+        "verse, which is what makes them readable beside the Sanskrit at all.",
+      "Three things about this particular transcription are worth knowing before they are met as " +
+        "faults. Griffith annotated heavily — his title page calls the book a translation <i>with a " +
+        "popular commentary</i> — and his notes survive here on <b>three hymns</b>, carrying " +
+        "twenty-seven between them: only four of the thousand pages were proofread against the scan, " +
+        "and the rest were typed in without the apparatus. Those typed pages are a machine reading of " +
+        "the printed book, so they carry its slips — <i>Silrya</i> where the page reads Surya, " +
+        "<i>herdi</i> for herds, <i>at our case</i> for at our ease. They are the transcription's and " +
+        "not Griffith's, and they are left as found: repairing them would be editing somebody else's " +
+        "text on a guess.",
+      "And <b>three passages are missing from the English</b>, for a reason that says more about 1896 " +
+        "than about the Rigveda. Griffith turned the frankly sexual passages into Latin rather than " +
+        "English and printed them apart from the text, and this transcription left them out: hymn " +
+        "<b>1.179</b> has none of its six verses here, only a line noting where it went; " +
+        "<b>10.61</b> is missing verses 5 to 9; and <b>10.86</b>, the Vrishakapi dialogue, is missing " +
+        "16 and 17. Thirteen verses in all, out of ten and a half thousand. The Sanskrit beside them " +
+        "is complete, so those rows show the original with nothing facing it — which is this " +
+        "library's ordinary way of showing that two editions disagree, and here it shows exactly " +
+        "where a Victorian translator stopped.",
+      "The two columns are set against each other verse by verse, and it is worth saying how well " +
+        "they meet. <b>1,002 of the 1,028 hymns pair on every single verse number.</b> Of the " +
+        "twenty-six that do not, six are the hymns <b>1.65 to 1.70</b>, which are in a metre whose " +
+        "half-verses the two traditions count differently — Griffith prints five verses where the " +
+        "Sanskrit prints ten, so the same words are there on both sides, divided twice. Three are the " +
+        "passages named above. The remaining seventeen are a single lost numeral apiece, ten on the " +
+        "English side and seven on the Sanskrit, where a transcriber's stop went missing and two " +
+        "verses ran together. None of them is repaired here: a row that draws with one cell empty is " +
+        "telling the truth about the two texts, and mending it would mean inventing a division that " +
+        "neither of them prints.",
+      "One numbering difference will catch a reader holding a printed Griffith. Eleven hymns of the " +
+        "eighth book, the <b>Valakhilya</b>, were regarded as a later insertion, and Griffith printed " +
+        "them as an appendix rather than in place — so his 8.49 is the hymn everyone else calls 8.60, " +
+        "and his last eleven are 8.49 to 8.59. This edition numbers them the standard way, which is " +
+        "the way the Sanskrit beside them is numbered and the way every reference work cites them. " +
+        "The Sanskrit pages also carry the commentary of <b>Sayana</b>, the fourteenth-century " +
+        "scholar whose reading of the Rigveda dominated the subject for centuries; it is many times " +
+        "the length of the text, it is itself in Sanskrit, and it is not reproduced here.",
+    ],
+
+    layout: "sukta",
+    chapterWord: "Hymn",
+    chapters: Array.from({ length: 1028 }, (_, i) => i + 1),
+    /* The tab, and it is the citation itself: a reader looking for RV 10.129 finds a tab reading
+       10.129. The chapter NUMBER beside it is the hymn's continuous position in the collection,
+       which is a real figure — hymns are numbered 1–1028 straight through in concordances — and not
+       something composed for the tabs. Griffith's own contents page gives his hymns no titles at
+       all ("Chapters (not listed in original)"), and the deity a hymn is addressed to is printed
+       only in his running head, which four of the thousand transcribed pages carry. Composing a
+       title from the Sanskrit's deity line would be composing an apparatus. */
+    titleOf: (n) => { const a = rvAt(n); return a ? a.m + "." + a.h : String(n); },
+    parts: RV_PARTS,
+    page: (n) => {
+      const a = rvAt(n);
+      return "The Hymns of the Rigveda/Book " + a.m + "/Hymn " + rvGriffith(a.m, a.h);
+    },
+    /* A hymn may honestly be three verses long — 8.58 is, and it is complete — so this is far below
+       the 200 the prose books use; it is still enough to catch a page that has returned the wiki's
+       furniture instead of the text. Reported per hymn rather than thrown, since one short hymn is
+       a fact about the Rigveda and a hundred would be a fact about the reader. */
+    minChars: 90,
+
+    original: {
+      lang: "sa",
+      langName: "Sanskrit",
+      layout: "sukta",
+      wiki: "sa.wikisource.org",
+      edition: "The received Shakala samhita, as transcribed at Sanskrit Wikisource; no editor is named",
+      rights:
+        "Public domain worldwide. The hymns are around three thousand years old. The transcription " +
+        "names no editor and no printed edition for the samhita, so none is claimed here.",
+      sourceName: "संस्कृतविकिस्रोतः",
+      sourceUrl: "https://sa.wikisource.org/wiki/ऋग्वेदः",
+      page: (n) => { const a = rvAt(n); return "ऋग्वेदः सूक्तं " + rvDev(a.m) + "." + rvDev(a.h); },
+      minChars: 40,
+    },
+  },
   "confessions": {
     title: "Confessions",
     subtitle: "Confessionum Libri Tredecim",
@@ -10439,6 +10660,346 @@ function extractTerzina(h, where, warn) {
   };
 }
 
+/* ---------- THE RIGVEDA: ONE HYMN A PAGE, TRANSCRIBED FOUR WAYS ----------
+   Aug 2026, adding the Rigveda — the thirty-ninth book, and the fifteenth layout. The ordinary wiki
+   walk, one page per chapter; what is new is that the CHAPTER IS THE SMALLEST UNIT OF THE WORK and
+   there are a thousand of them.
+
+   THE PAIRING UNIT IS THE VERSE AND THE TAB IS THE HYMN, and both follow from the citation rather
+   than from a choice made here: a passage of the Rigveda is cited as mandala.hymn.verse — "RV
+   10.129.1" — in every language and every reference work, so the hymn is what a reader looks up and
+   the verse is the finest thing both editions state about the same place. Griffith numbers every
+   verse of his translation and this Sanskrit closes every verse with ॥N॥, so the pairing is read on
+   both sides rather than counted, which is the Divine Comedy's case in reverse.
+
+   MANDALA IS THE PART, NOT THE CHAPTER, and that was measured rather than assumed. Making the
+   mandala the chapter gives ten tabs and puts 191 hymns in one of them — 290,000 characters, larger
+   than anything on the shelf — and throws away the verse numbers as pairing keys, which is what
+   Beowulf's rule forbids: ask what the two editions state IN COMMON, and pair on that.
+
+   FIVE THINGS IT SETTLED ARE WORTH CARRYING.
+
+   · MANDALA 8 CARRIES THE VALAKHILYA AND THE TWO EDITIONS NUMBER THEM DIFFERENTLY, which is the
+     recension check Journey to the West made a standing rule and the one fault here that no count
+     could ever have shown. Griffith prints the eleven Valakhilya hymns as an APPENDIX to his eighth
+     book, so his 8.49 is the standard 8.60 and his 8.93–8.103 are the standard 8.49–8.59. Measured
+     over 8.40–8.103 on both sides before a word was imported: the verse counts agree exactly through
+     8.48 and then run eleven apart, 31 of 39 agreeing at an offset of eleven against 10 of 39 at
+     none, and all eleven appendix hymns matching their Sanskrit verse for verse. Paired on the page
+     number, 55 hymns would have been set beside hymns that are not their counterparts with both
+     columns complete, every mandala the right length and nothing thrown. The book is numbered by the
+     STANDARD citation — the one the Sanskrit uses and every reference work uses — and Griffith's own
+     page for each is looked up; his arrangement is stated in the front matter, since a reader
+     holding a print copy will find the appendix numbered differently.
+
+   · THE TRANSCRIPTION USES FOUR DIFFERENT SHAPES AND 1,022 OF THE 1,028 ARE PLAIN TEXT. Measured
+     with the wiki's own search over the whole book: 1,022 hymns are a `<div class="verse"><pre>`,
+     one more is a bare `<pre>` (5.65), four are proofread transclusions of the scan that render as
+     `ws-poem` (1.1, 1.32, 4.27, 5.1), and one is typed into the page with `<br>` and `{{gap}}`
+     (10.90, the Purusha Sukta). The Divine Comedy's finding at a different ratio — and the majority
+     shape here is the Canterbury Tales' and Journey to the West's, a machine reading with no marks
+     at all, so the structure is BUILT and the content ESCAPED rather than tags being stripped out
+     of it.
+
+   · …AND ALL FOUR ARE READ BY FLATTENING TO LINES FIRST. Writing four parsers would be four places
+     for the verse rule to drift; every shape is reduced to a list of printed lines and one rule
+     applies — a line opening on a figure and a full stop opens a verse, and the first line of the
+     body always does whether or not it carries one. That last clause is what makes the `ws-poem`
+     shape work at all: its verse 1 carries no number, being set as a drop capital, exactly as the
+     Prose Edda's first chapter is.
+
+   · GRIFFITH'S OWN NOTES SURVIVE ON FOUR HYMNS OUT OF 1,028, and that is the edition's shape rather
+     than a fault in the reader: only the four transcluded pages carry his footnote apparatus, and
+     the plain-text majority was typed without it — measured, zero `<ref>` in the wikitext of the
+     whole book. A reader who wants Griffith's commentary is told on the book's own first page where
+     it is not.
+
+   · THE PLAIN-TEXT MAJORITY IS A MACHINE READING AND ITS SLIPS ARE THE SOURCE'S. "Silrya" for Surya,
+     "herdi" for herds, "at our case" for at our ease: they are in the transcription, they are not
+     Griffith's, and they are shipped as found rather than repaired, which is the Aeneid's judgement
+     on its own l→I slips. Repairing them would be editing somebody else's text on a guess. */
+
+/* A verse opens a PRINTED LINE with its number and a full stop. Anchored to the line rather than
+   searched for, so a figure inside a line — Griffith writes "a hundred" but the scan carries page
+   numbers and stray digits — cannot start a verse in the middle of one. */
+/* THE STOP AFTER THE NUMBER WEARS FOUR COSTUMES AND THE RULE IS WRITTEN FROM AN INVENTORY OF THE
+   WHOLE BOOK RATHER THAN FROM THE EXAMPLE THAT PROMPTED IT — the Canterbury Tales' discipline,
+   needed here because a numeral this reader does not recognise does not throw and does not shorten
+   a hymn: its verse simply folds into the one above and the row is left facing nothing. Counted
+   over every plain-text page: 4,543 read "1. ", 52 read "1 " with no stop at all, 2 read "1." with
+   the word run against it, and 2 read "1, " where the scan took the stop for a comma.
+
+   THE BARE FORM IS THE DANGEROUS ONE and is admitted on a tighter test than the rest. A figure
+   opening a line with nothing after it but a space is also what a line of verse mentioning a number
+   looks like, so a printed stop lets the number through on the ordinary forward-only guard while a
+   bare one is taken only where it is the very next verse — which is what it always is on the fifty-two
+   pages that use it, those numbering their verses that way from the first. */
+const SUKTA_VERSE = /^\s*(\d+)(\s*[.,]\s*|\s+)(?=\S)/;
+
+/* One hymn's body, in whichever of the four shapes the page happens to use, reduced to a list of
+   printed lines. `kind` is reported on every run: it is how the four were counted in the first
+   place, and a fifth appearing later announces itself as an unknown rather than as a hymn that
+   quietly came through empty. */
+function suktaBody(h, where, warn) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+
+  /* GRIFFITH'S OWN MARKERS ARE RESOLVED BEFORE THE PAGE IS FLATTENED, and this is the step it is
+     easiest to leave out: the flattening below removes every tag, so a marker not turned into the
+     shelf's own form first is simply gone — and the notes still reach the fold, which leaves 27
+     entries that no sentence opens. That is the mirror of the dead marker the apparatus refuses to
+     draw, and no count of hymns, verses or notes can see it; test-library.js asserts every note is
+     referenced for exactly this reason. Each marker is resolved against the note it POINTS AT
+     rather than by its position in reading order — the Seneca rule, since a page may cite one note
+     twice — and only the notes actually cited are kept. */
+  const all = notesOf(h);
+  const notes = [], seen = {};
+  b = b.replace(
+    /<sup[^>]*class="reference"[^>]*>\s*<a href="#(cite[^"]*)"[^>]*>[\s\S]*?<\/a>\s*<\/sup>/g,
+    (whole, ref) => {
+      const key = ref.replace(/&#95;/g, "_");
+      const k = all.ids.indexOf(key);
+      if (k < 0) { warn(where + ": a marker points at no note and has been dropped"); return ""; }
+      if (!seen[key]) { notes.push(all.notes[k]); seen[key] = notes.length; }
+      return '<sup class="fn" data-fn="' + seen[key] + '"></sup>';
+    }
+  );
+  if (all.notes.length > notes.length)
+    warn(where + ": " + (all.notes.length - notes.length) + " note(s) nothing points at, dropped");
+
+  /* THE PROOFREAD SHAPE — four hymns, transcluded from the scan. Its verse numbers are a floated
+     span rather than text, so they are rewritten into the shape the other three print before the
+     page is flattened; without that the number arrives at the head of the line with no stop after
+     it and the one verse rule below matches nothing. Verse 1 carries no span at all. */
+  const poem = b.indexOf('<div class="ws-poem');
+  if (poem >= 0) {
+    const end = blockEnd(b, poem, "div");
+    let body = end < 0 ? b.slice(poem) : b.slice(poem, end);
+    /* A NOTE HUNG ON THE RUNNING HEAD IS CARRIED DOWN ONTO THE FIRST LINE — Beowulf's dropFittHead
+       rule in a fourth edition. Griffith's note on a hymn as a whole is anchored to its printed
+       title, which stands OUTSIDE the verse block and is discarded with the rest of the page
+       furniture; left alone the note reaches the fold with nothing opening it, and on two of the
+       four proofread hymns that is exactly his first and most substantial note. */
+    const above = (b.slice(0, poem).match(/<sup class="fn" data-fn="\d+"><\/sup>/g) || []).join("");
+    if (above) body = above + body;
+    /* …AND THE REWRITE MUST SWALLOW THE LINE OPENER THAT FOLLOWS IT, which is the quiet half. The
+       number and the words it belongs to are two spans in a row, so rewriting the numeral and then
+       breaking at every line opener puts a break BETWEEN them: the number stands alone on its own
+       line, the verse rule below reads it as a verse with no text, and the hymn arrives as verse 1
+       and nothing else — complete, well formed and eight verses short. */
+    body = body.replace(
+      /<span[^>]*class="[^"]*\bws-poem-versenum\b[^"]*"[^>]*>\s*(\d+)\s*<\/span>\s*(?:<span[^>]*class="[^"]*\bws-poem-line\b[^"]*"[^>]*>)?/g,
+      "\n$1. ");
+    /* each ws-poem-line is a printed line and each stanza ends one */
+    body = body.replace(/<\/div>/g, "\n").replace(/<span[^>]*class="[^"]*\bws-poem-line\b[^"]*"[^>]*>/g, "\n");
+    return { kind: "poem", lines: suktaLines(body), notes: notes };
+  }
+
+  /* THE PLAIN-TEXT MAJORITY — 1,023 hymns, with and without the div wrapper. MediaWiki escapes the
+     content of a <pre>, so what comes back is already HTML-safe and is passed through unchanged: it
+     is the reverse of every tag-stripping reader here, and an ampersand in the scan is content. */
+  const pre = b.indexOf("<pre>");
+  if (pre >= 0) {
+    const end = b.indexOf("</pre>", pre);
+    if (end < 0) throw new Error(where + ": an unclosed <pre> — the page's markup has changed");
+    const body = b.slice(pre + 5, end);
+    const tags = body.match(/<[a-zA-Z\/]/g);
+    /* Measured over the whole book: not one tag inside a <pre>. Reported rather than assumed, since
+       a tag arriving here would be printed as its own characters by the very passthrough above. */
+    if (tags) warn(where + ": markup inside the plain text (" + tags.length + ") — printed as written");
+    return { kind: "pre", lines: suktaLines(body), notes: notes };
+  }
+
+  /* THE ONE HYMN TYPED INTO THE PAGE — 10.90, the Purusha Sukta, set with <br> and an indent
+     template. Sliced at the parser's own container, since it has no wrapper of any other kind. */
+  const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
+  if (m) {
+    let body = b.slice(m.index + m[0].length);
+    for (let k = 0; k < 12; k++) {
+      const w = /<(div|table)[^>]*class="[^"]*\b(?:ws-noexport|wst-header|ws-header|mw-heading)\b[^"]*"[^>]*>/.exec(body);
+      if (!w) break;
+      const e = blockEnd(body, w.index, w[1]);
+      if (e < 0) break;
+      body = body.slice(0, w.index) + body.slice(e);
+    }
+    body = body.split(/<div class="reflist|<ol class="references"/)[0];
+    body = body.replace(/<\/p>|<br\s*\/?>/g, "\n");
+    return { kind: "inline", lines: suktaLines(body), notes: notes };
+  }
+  throw new Error(where + ": no body — the page's markup has changed");
+}
+
+/* The lines a page prints, with the tags off and the blanks dropped. The tag strip is deliberately
+   the blunt one rather than stripTags: three of the four shapes carry no markup at all, and the
+   fourth's is presentational. */
+function suktaLines(b) {
+  return b
+    /* Everything goes EXCEPT the footnote markers resolved above — they are the join between the
+       verse and the note fold, and this is the pass that would otherwise remove them. */
+    .replace(/<(?!\/?sup\b)[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;|&#8203;/g, " ")
+    .split("\n")
+    .map((s) => s.replace(/[ \t]+/g, " ").replace(/\s+$/, ""))
+    .filter((s) => s.trim());
+}
+
+/* The lines gathered into verses, numbered as the edition numbers them.
+
+   THE NUMBER IS READ AND NOT COUNTED, which is the opposite of the Divine Comedy's rule and for the
+   opposite reason: that edition prints its numerals on a third of the poem, and this one prints one
+   on very nearly every verse of both columns. Where the printed sequence goes backwards or repeats
+   the mark is declined by the forward-only guard and its lines fold into the verse above, which is
+   the honest reading — a page that has lost a numeral has lost a numeral, and renumbering there
+   would move every verse after the gap and file it under a number the edition does not give it.
+   Measured: the whole book's printed sequences and where they disagree with the count are reported
+   on every run. */
+function suktaVerses(lines, where, warn) {
+  const verses = [];
+  let seq = 0, unnumbered = 0;
+  lines.forEach((raw, i) => {
+    const m = SUKTA_VERSE.exec(raw);
+    const bare = m && !/[.,]/.test(m[2]);
+    const ok = m && (bare ? +m[1] === seq + 1 : +m[1] > seq);
+    /* A DECLINED NUMERAL LOSES ITS DIGITS ONLY WHERE THEY WERE PRINTED AS A NUMERAL. A repeated
+       "16." is a printing slip and shipping the figure inside the verse above would put a stray
+       number mid-sentence; a bare figure this rule did not take is a line of verse that happens to
+       open on one, and cutting it would delete a word Griffith wrote. */
+    const txt = m && !bare ? raw.slice(m[0].length).trim() : ok ? raw.slice(m[0].length).trim() : raw.trim();
+    if (ok) { seq = +m[1]; verses.push({ n: seq, lines: [txt] }); return; }
+    if (m && !bare) {
+      warn(where + ": verse " + m[1] + " repeats or goes backwards after " + seq + " — left where it stands");
+      unnumbered++;
+    }
+    /* THE FIRST LINE OF A BODY ALWAYS OPENS A VERSE. In the proofread shape verse 1 is a drop
+       capital with no numeral at all, so without this its lines would have nowhere to go and the
+       hymn would open at verse 2. */
+    if (!verses.length) { seq = 1; verses.push({ n: 1, lines: [txt] }); return; }
+    verses[verses.length - 1].lines.push(txt);
+  });
+  return { verses: verses, unnumbered: unnumbered };
+}
+
+/* One hymn as the single paragraph the shelf's other verse books emit, a section marker opening each
+   verse and the printed lines joined by breaks — the shape Ovid, Lucretius, the Song of Roland,
+   Beowulf and the Divine Comedy already render, so a poem in numbered verses needs no styling of its
+   own. */
+function suktaHtml(verses) {
+  const parts = [];
+  verses.forEach((v, i) => {
+    if (i) parts.push("<br>");
+    parts.push('<span class="bk-n">' + v.n + "</span> ");
+    parts.push(v.lines.join("<br>"));
+  });
+  return "<p>" + parts.join("") + "</p>";
+}
+
+function extractSukta(h, where, warn) {
+  const got = suktaBody(h, where, warn);
+  const made = suktaVerses(got.lines, where, warn);
+  if (!made.verses.length) warn(where + " came through with no verses");
+  SUKTA_KIND[got.kind] = (SUKTA_KIND[got.kind] || 0) + 1;
+  return {
+    html: suktaHtml(made.verses), notes: got.notes, kind: got.kind,
+    verses: made.verses.length, last: made.verses.length ? made.verses[made.verses.length - 1].n : 0,
+    unnumbered: made.unnumbered,
+  };
+}
+/* Counted across the run and reported at the end: which of the four shapes a page uses is a fact
+   about the transcription rather than about one hymn, and how often each occurs is what says whether
+   the reader is describing the book or guessing at it. */
+const SUKTA_KIND = {};
+
+/* ---------- THE RIGVEDA'S SANSKRIT ----------
+   The samhita as sa.wikisource carries it: one page per hymn, the verse in a `div.poem` with the
+   lines separated by breaks and each verse closing on its own Devanagari numeral, ॥N॥ — the Bhagavad
+   Gita's shape, on the same wiki, a thousand hymns instead of eighteen discourses.
+
+   THREE THINGS ABOUT IT ARE NOT THE GITA'S.
+
+   · SAYANA'S COMMENTARY IS ON EVERY PAGE AND IS TEN TIMES THE LENGTH OF THE TEXT. It sits in a
+     collapsed block below the verse, in Sanskrit, and it carries a second copy of the samhita with
+     its accents and a third in the word-separated padapatha — so a reader that took the page's text
+     would ship the hymn three times over inside a commentary nobody asked for, and the numerals
+     would run 1..N three times. The Art of War's commentary problem in a language the note fold
+     cannot hold: this one is not an explanation OF the text in the reader's language but another
+     text entirely, so it is dropped rather than lifted. Measured over the whole book: dropping the
+     collapsible blocks leaves the verse alone every time.
+
+   · A HYMN'S VERSE IS NOT ALWAYS IN ONE BLOCK, so it is cut as a STREAM — the Gita's rule met again
+     on the same wiki. Where a hymn is long the transcription opens a fresh `div.poem` part way
+     through: 9.86 holds three for its 48 verses. Reading a block as a hymn would take the first
+     fifteen and drop the rest, and the count would still look like a hymn.
+
+   · AND THE PAGES CARRY ILLUSTRATIONS, which no other original here does. A figure's caption is
+     unwrapped by the tag strip into the middle of the verse; they are dropped whole. */
+function suktaSanskrit(h, where, warn) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  /* Sayana's bhashya, and the page's own notes, which this wiki sets in the same collapsible. */
+  let dropped = 0;
+  for (let k = 0; k < 40; k++) {
+    const m = /<div[^>]*class="[^"]*\bmw-collapsible\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn(where + ": an unbalanced commentary block was left in place"); break; }
+    b = b.slice(0, m.index) + b.slice(end);
+    dropped++;
+  }
+  b = b.replace(/<figure[\s\S]*?<\/figure>/g, "");
+
+  const blocks = [];
+  let i = 0;
+  for (;;) {
+    const j = b.indexOf('<div class="poem"', i);
+    if (j < 0) break;
+    const end = blockEnd(b, j, "div");
+    if (end < 0) break;
+    blocks.push(b.slice(j, end));
+    i = end;
+  }
+  if (!blocks.length) throw new Error(where + ": no verse on the page");
+  SUKTA_SA_BLOCKS += blocks.length;
+  SUKTA_SA_DROPPED += dropped;
+
+  /* The whole hymn as one stream of printed lines, then cut at the numerals. The numeral CLOSES its
+     verse, so a line carrying one ends the verse it is in — the Gita's reading, and the reason the
+     element boundaries above stop mattering. */
+  const lines = blocks.join("\n")
+    .replace(/<\/p>|<br\s*\/?>/g, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&#8203;/g, "")
+    .replace(/&amp;/g, "&")
+    .split("\n")
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  const verses = [];
+  let open = [], seq = 0, bad = 0;
+  for (const line of lines) {
+    const m = /^([\s\S]*?)॥\s*([०-९]+)\s*॥\s*$/.exec(line);
+    if (!m) { open.push(line); continue; }
+    if (m[1].trim()) open.push(m[1].trim());
+    const v = devNum(m[2]);
+    if (v == null || v <= seq) {
+      /* A numeral that does not move the sequence on. On the Gita this is the colophon, which carries
+         the CHAPTER's number after the last verse; here it is the same thing, and the same forward-only
+         guard declines it. */
+      bad++;
+      open = [];
+      continue;
+    }
+    seq = v;
+    verses.push({ n: v, lines: open });
+    open = [];
+  }
+  if (open.length) {
+    warn(where + ": " + open.length + " line(s) after the last numeral, kept in the verse above");
+    if (verses.length) verses[verses.length - 1].lines.push(...open);
+  }
+  SUKTA_SA_TRAIL += bad;
+  return { html: suktaHtml(verses), verses: verses.length, blocks: blocks.length };
+}
+let SUKTA_SA_BLOCKS = 0, SUKTA_SA_DROPPED = 0, SUKTA_SA_TRAIL = 0;
+
 /* ---------- THE POETIC EDDA: NUMBERED STANZAS WITH PROSE LINKS BETWEEN THEM ----------
    Aug 2026, adding the Poetic Edda — the twenty-eighth book, and the eleventh layout. The ordinary
    wiki walk, one page per chapter; what is new is the SHAPE OF A CHAPTER'S BODY. Every verse book
@@ -13468,6 +14029,45 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* A HYMN PER PAGE, A THOUSAND OF THEM — the ordinary wiki walk with the chapter at the smallest
+     unit of the work. See the block above extractSukta for the four transcription shapes, and for
+     the Valakhilya offset that would have mispaired 55 hymns of mandala 8. */
+  if (BOOK.layout === "sukta") {
+    let verses = 0, notes = 0, unnum = 0;
+    const short = [];
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = chapterTitle(n);
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(4, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else {
+        h = await api(BOOK.page(n));
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, h);
+        await sleep(900);
+      }
+      const got = extractSukta(h, where, warn);
+      /* A hymn may honestly be three verses long, so the short-chapter guard is a floor on the
+         WHOLE book rather than a throw on one page: what it is for is catching an extraction that
+         has returned the wiki's furniture instead of the text, and one three-verse hymn is not
+         that. Reported and counted; a run in which the count moves is a run to look at. */
+      if (got.html.length < (BOOK.minChars || 200)) short.push(where + " (" + got.html.length + ")");
+      verses += got.verses; notes += got.notes.length; unnum += got.unnumbered;
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+    }
+    const marks = chapters.reduce((a, c) => a + (c.html.match(/class="bk-n"/g) || []).length, 0);
+    console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + verses +
+      " verses, " + marks + " verse numbers, " + notes + " note(s)");
+    console.log("  transcription shapes: " +
+      Object.keys(SUKTA_KIND).sort().map((k) => k + " " + SUKTA_KIND[k]).join(", "));
+    if (unnum) console.log("  " + unnum + " printed number(s) declined by the forward-only guard");
+    if (short.length) console.log("  " + short.length + " short hymn(s): " + short.slice(0, 8).join(", ") +
+      (short.length > 8 ? " …" : ""));
+    return writeEnglish(chapters, warnings);
+  }
+
   /* A POEM IN TERCETS, NUMBERED BY COUNTING — the ordinary wiki walk, one page per canto. See the
      block above extractTerzina for why the numbers here are counted rather than read, and for the
      measurements that make counting safe. */
@@ -14183,6 +14783,59 @@ async function fetchOriginal() {
       : list.join(", ");
     if (onlyEn.length) warn(onlyEn.length + " chapter(s) in the translation with no original: " + say(onlyEn));
     if (onlyOr.length) warn(onlyOr.length + " chapter(s) in the original with no translation: " + say(onlyOr));
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* THE SANSKRIT SAMHITA — one page per hymn on another wiki, with Sayana's commentary dropped and
+     the verse cut as a stream; see suktaSanskrit above. The pairing is checked against the English
+     that actually SHIPPED, read back out of its own cache, exactly as the caput branch does. */
+  if (O.layout === "sukta") {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    let verses = 0;
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = O.langName + " " + chapterTitle(n);
+      const cf = path.join(cacheDir, "sa-" + String(n).padStart(4, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(O.page(n), O.wiki); fs.writeFileSync(cf, h); await sleep(1000); }
+      const got = suktaSanskrit(h, where, warn);
+      byNum[n] = got.html;
+      verses += got.verses;
+    }
+    console.log("  " + verses + " verses, " + SUKTA_SA_BLOCKS + " verse blocks over " +
+      Object.keys(byNum).length + " hymns, " + SUKTA_SA_DROPPED + " commentary blocks dropped");
+    if (SUKTA_SA_TRAIL) console.log("  " + SUKTA_SA_TRAIL +
+      " numeral(s) declined by the forward-only guard (the closing formula)");
+
+    /* THE ENGLISH IS READ BACK OUT OF ITS OWN CACHE and re-extracted, so what is compared is exactly
+       what shipped — never books/<id>.js, whose markers are inside a quoted string and which a
+       pattern written for HTML matches nowhere. This walk caches the raw page rather than the
+       extracted record, so the extractor is what turns one into the other; it is deterministic, so
+       running it twice cannot disagree with itself. */
+    const nums = (html) => (html.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    let pairs = 0, seen = 0;
+    const onlyEn = [], onlyOr = [];
+    for (const n of BOOK.chapters) {
+      const cf = path.join(CACHE, "en-" + String(n).padStart(4, "0") + ".html");
+      if (!byNum[n] || !fs.existsSync(cf)) continue;
+      seen++;
+      const en = nums(extractSukta(fs.readFileSync(cf, "utf8"), chapterTitle(n), () => {}).html),
+            or = nums(byNum[n]);
+      const se = new Set(en), so = new Set(or);
+      const missing = en.filter((v) => !so.has(v)), extra = or.filter((v) => !se.has(v));
+      onlyEn.push(...missing.map((v) => chapterTitle(n) + "." + v));
+      onlyOr.push(...extra.map((v) => chapterTitle(n) + "." + v));
+      if (!missing.length && !extra.length) pairs++;
+    }
+    if (seen) console.log("  " + pairs + " of " + seen + " hymns pair exactly on every verse number");
+    else console.log("  (no cached translation to pair against — run without --only-original to check)");
+    const say = (list) => list.length > 12
+      ? list.slice(0, 12).join(", ") + " … and " + (list.length - 12) + " more"
+      : list.join(", ");
+    if (onlyEn.length) warn(onlyEn.length + " verse(s) in the translation with no original: " + say(onlyEn));
+    if (onlyOr.length) warn(onlyOr.length + " verse(s) in the original with no translation: " + say(onlyOr));
     return writeOriginal(byNum, warnings);
   }
 
