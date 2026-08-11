@@ -9356,6 +9356,64 @@
       ],
     },
     {
+      id: "confessions",
+      title: "Confessions",
+      subtitle: "Confessionum Libri Tredecim",
+      author: "Augustine of Hippo",
+      /* Written in his mid-forties, a few years into the bishopric at Hippo, and not datable more
+         closely than the three or four years the scholarship gives it; `year` is the single number
+         the shelf's date sort needs and the prose carries the hedge. It puts this book sixteen years
+         ahead of the City of God on a date sort, which is right — they are the same man before and
+         after the sack of Rome. */
+      written: "c. 397–400 CE",
+      year: 397,
+      translator: "J. G. Pilkington",
+      edition:
+        "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+        "First Series, Vol. I, ed. Philip Schaff, Buffalo, 1886",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL — the eighth on this shelf, and the SAME licence
+         as the City of God's twice over: the same series, the same editor and the same decade.
+         Augustine died in 430. Pilkington published in 1886, before 1929, and lived 1841–1919, so
+         the translation clears the publication rule, life-plus-seventy and life-plus-a-hundred
+         alike. Migne's Latin of 1841 is free on the same three grounds. */
+      rights:
+        "Public domain worldwide. Augustine died in 430. J. G. Pilkington published this translation " +
+        "in 1886 in Philip Schaff's Nicene and Post-Nicene Fathers — before 1929, so its United " +
+        "States copyright has expired — and he died in 1919, so it is out of copyright wherever the " +
+        "term runs for the author's life plus seventy or even a hundred years. Migne's Latin, printed " +
+        "in 1841, is free on the same grounds. Schaff's Prolegomena, his life of Augustine and the " +
+        "Letters printed in the same volume are not reproduced. (The translations by Albert Outler, " +
+        "1955, Henry Chadwick, 1991, Maria Boulding, 1997, Garry Wills, 2006, and Sarah Ruden, 2017, " +
+        "are still in copyright and are not used here.) Two chapters of Book I have never been " +
+        "transcribed at the source and are absent from the English column; the Latin carries them.",
+      sourceName: "Wikisource",
+      sourceUrl:
+        "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_I/Confessions",
+      origLang: "la",
+      origName: "Latin",
+      /* THE CHAPTER IS ONE OF AUGUSTINE'S THIRTEEN BOOKS and his own chapter is the SECTION — the
+         City of God's shape, forced here by the same arithmetic: 278 chapters over thirteen books,
+         most of them a paragraph or two, so cutting at the chapter would put 278 tabs on the bar.
+         "Confessions VIII.12" is book eight, chapter twelve, which is what the citation already
+         says. See .claude/fetch-book.js for the measurement behind the pairing — 278 chapters in the
+         Latin against 276 in the English, a clean 1..N in every book on both sides, and the only
+         difference anywhere being Book I's chapters 19 and 20, which the English transcription has
+         never carried. */
+      chapterWord: "Book",
+      count: 13,
+      total: 13,
+      /* The work's own division, which is Augustine's rather than an editor's and which surprises
+         every reader who has been told this is an autobiography: nine books of life, one of memory,
+         and three on the opening of Genesis. The last four are not an appendix — the life is the
+         evidence and they are the case it was gathered for — so they are named as parts rather than
+         left to look like a change of subject. */
+      parts: [
+        { n: 1, label: "The life", note: "Books I–IX" },
+        { n: 2, label: "Memory", note: "Book X" },
+        { n: 3, label: "Genesis and time", note: "Books XI–XIII" },
+      ],
+    },
+    {
       id: "city-of-god",
       title: "The City of God",
       subtitle: "De Civitate Dei contra Paganos",

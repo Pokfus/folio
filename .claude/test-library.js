@@ -670,6 +670,39 @@ function aeneidChecks() {
       check("[city of god] both halves of the book are on disk", false, "missing books/city-of-god*.js");
     }
 
+    /* THE CONFESSIONS — the CAPUT reader's second book, so the sibling diff above is now the cheap
+       first check and this is what stands beside it. Two of these earn their place.
+
+       The chapter TOTALS are the one thing that could see a sixth costume: 278 in the Latin against
+       276 in the English, and a mark the pass fails to recognise folds its chapter into the one above
+       it with the prose all present, the book the right length and nothing thrown — which is exactly
+       how the FIFTH was found, and it was found by the pairing warning rather than by any count of
+       the Latin on its own. And the two English-only gaps are asserted BY NAME. Book I's chapters 19
+       and 20 have never been transcribed at the source, so those two rows draw the Latin beside an
+       empty cell; naming them is what tells a documented gap from a chapter the extractor has just
+       started losing, which is the difference between the shelf's honest rendering and a silent
+       truncation. */
+    const conf = shippedPair("confessions");
+    if (conf) {
+      check("[confessions] thirteen books on each side",
+        conf.en.length === 13 && conf.la.length === 13, `en ${conf.en.length} la ${conf.la.length}`);
+      check("...276 chapter numbers in the English and 278 in the Latin",
+        conf.secEn === 276 && conf.secLa === 278, `en ${conf.secEn} la ${conf.secLa}`);
+      check("...numbered a clean 1..N in every book, both sides",
+        !conf.notSeq.length, JSON.stringify(conf.notSeq.slice(0, 6)));
+      check("...twelve of the thirteen pairing on every chapter number",
+        conf.pairs === 12, `${conf.pairs}/13 — ${JSON.stringify(conf.gaps.slice(0, 4))}`);
+      check("...the exception being Book I's two untranslated chapters, and only those",
+        conf.gaps.length === 1 && /^1: en-only  la-only 19,20$/.test(conf.gaps[0]),
+        JSON.stringify(conf.gaps));
+      check("[confessions] every footnote marker resolves and every note is pointed at",
+        !conf.noteFaults.length, JSON.stringify(conf.noteFaults.slice(0, 6)));
+      check("[confessions] no unconverted CAPUT anywhere in the Latin",
+        conf.caput === 0, `${conf.caput} left`);
+    } else {
+      check("[confessions] both halves of the book are on disk", false, "missing books/confessions*.js");
+    }
+
     /* THE AENEID — the same kind of check and for the same reason: one book on its own reader, so the
        shipped data is what stands in for a sibling diff. See aeneidChecks above for why each of these
        is here; all three faults it hunts are invisible on the page. */

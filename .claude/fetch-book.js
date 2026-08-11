@@ -602,6 +602,19 @@ const EDDA_POEMS = [
   "Atlakvitha en Gr\u00f6nlenzka", "Atlamol en Gr\u00f6nlenzku", "Guthrunarhvot", "Hamthesmol",
 ];
 
+/* ---------- The Confessions: how many chapters each of the thirteen books has, and the two the
+   English transcription does not carry.
+
+   The counts are the edition's own and are the standard ones, confirmed against Migne's Latin, which
+   prints all 278. `CONF_UNTRANSLATED` is stated here rather than left implicit in a shorter chapter
+   list, because a config that simply said "Book I has 18 chapters" would bake a transcription's gap
+   in as though it were a fact about the work. Book I's chapters 19 and 20 have never been transcribed
+   on Wikisource — its own contents page lists eighteen and does not link them even as red links — so
+   those two rows draw the Latin beside an empty English cell, which is the honest rendering and reads
+   as one. The run names them every time. */
+const CONF_CHAPTERS = [0, 20, 10, 12, 16, 14, 16, 21, 12, 13, 43, 31, 32, 38];
+const CONF_UNTRANSLATED = { 1: [19, 20] };
+
 /* ---------- The City of God: how many chapters each of the twenty-two books has, and which of them
    Dods heads with a preface ----------
    Read off Wikisource's own contents lists rather than off a printed table: every one of the 22 book
@@ -6954,6 +6967,218 @@ const BOOKS = {
     },
   },
 
+  "confessions": {
+    title: "Confessions",
+    subtitle: "Confessionum Libri Tredecim",
+    author: "Augustine of Hippo",
+    translator: "J. G. Pilkington",
+    edition:
+      "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, Series I, " +
+      "Volume I, ed. Philip Schaff, Christian Literature Company, Buffalo, 1886",
+    written: "c. 397–400",
+    year: 397,
+
+    /* ---------- THE LICENCE — the EIGHTH here needing no qualification at all ----------
+       Augustine died in 430, so the work is free everywhere and has been for fifteen centuries.
+       J. G. Pilkington's translation was published in Schaff's Nicene and Post-Nicene Fathers in
+       1886 and he lived 1841–1919 — dates read off the Wikisource author page rather than recalled,
+       for the Hugo Magnus reason — so it clears the pre-1929 publication rule, life plus seventy
+       (1990) and life plus a hundred alike. Migne's Latin of 1841 is free on the same three grounds.
+       It is the same series, the same editor and the same publication as the City of God's
+       translation already here, so its licence is that book's twice over.
+
+       WHAT IS AND IS NOT TAKEN. The Confessions alone. Schaff's volume also carries his Prolegomena,
+       a life of Augustine, an estimate of his work and the whole of the Letters, none of which is
+       imported — the Republic's precedent for the introduction and plates it left behind. Schaff's
+       and Pilkington's own footnotes ARE taken, being notes on the text rather than matter around it.
+
+       THE ONE MODERN TRANSLATION THAT LOOKS AVAILABLE AND IS NOT is Albert Outler's, which Wikisource
+       carries beside this one: it was made for the Library of Christian Classics in 1955 and Outler
+       died in 1989, so it is in copyright and is named here so that nobody reaches for it later. Nor
+       may Henry Chadwick's (1991), Maria Boulding's (1997), Garry Wills's (2006) or Sarah Ruden's
+       (2017) be used. E. B. Pusey's of 1838 is free and was WEIGHED rather than passed over — see the
+       note below on why it could not be the column here. */
+    rights:
+      "Public domain worldwide, on every ground. Augustine died in 430, so the work itself has been " +
+      "free for fifteen centuries. J. G. Pilkington's translation was published in 1886 in Philip " +
+      "Schaff's Nicene and Post-Nicene Fathers and he lived from 1841 to 1919, so it is out of " +
+      "copyright under the rule for works published before 1929, under the translator's life plus " +
+      "seventy years, and under life plus a hundred — there is no limit to state. The facing Latin " +
+      "is Migne's Patrologia of 1841 and is free on the same three grounds. Schaff's Prolegomena, " +
+      "his life of Augustine and the Letters printed in the same volume are not reproduced; what is " +
+      "taken is the thirteen books of the Confessions and the translator's and editor's notes on " +
+      "them. (The modern translations by Albert Outler, 1955, Henry Chadwick, 1991, Maria Boulding, " +
+      "1997, Garry Wills, 2006, and Sarah Ruden, 2017, are still in copyright and are not used.) " +
+      "Two chapters of Book I have never been transcribed at the source and are absent from the " +
+      "English column; the Latin carries them, and the book's own first page says so.",
+    sourceName: "Wikisource",
+    sourceUrl:
+      "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_I/Confessions",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: what the book is and why it is unlike anything before
+       it; what "confession" means here, which is the one word most likely to mislead; the shape,
+       including why the last four books are not a digression; the famous scenes, so a reader knows
+       what they are approaching; whose translation this is; and how the edition is set out,
+       including the two chapters the English is missing. */
+    about: [
+      "<b>The Confessions</b> is the first autobiography in the Western tradition, and it is not " +
+        "quite an autobiography. Augustine wrote it around <b>397–400</b>, in his mid-forties and a " +
+        "few years into his time as bishop of Hippo in Roman North Africa, and its thirteen books " +
+        "are addressed throughout not to the reader but to <b>God</b> — a book-length prayer that " +
+        "the reader overhears. Nothing quite like it had been written before. Ancient lives are " +
+        "narrated from outside, as deeds and character; this one is narrated from inside, as memory, " +
+        "motive and self-deception, by a man interrogating his own past and finding it stranger the " +
+        "closer he looks.",
+      "The title is the word most likely to mislead. Latin <i>confessio</i> carries three senses at " +
+        "once and Augustine uses all of them: confession of <b>sin</b>, confession of <b>faith</b>, " +
+        "and confession in the sense of <b>praise</b> — acknowledging what God is. So the book is not " +
+        "primarily a catalogue of misdeeds, and a reader who comes expecting scandal will find " +
+        "surprisingly little of it. What it is instead is an argument, conducted on the evidence of " +
+        "one life, that a human being is restless until it rests in God — which is the claim the " +
+        "opening paragraph makes and the remaining three hundred pages test.",
+      "Its shape surprises people, and the surprise is worth anticipating. Books <b>I–IX</b> are the " +
+        "life: infancy, a boyhood of beatings and Virgil, the theft of the pears, the years in " +
+        "Carthage, nine years as a hearer among the Manichees, the move to Rome and then to Milan, " +
+        "the influence of Ambrose, the long-unnamed woman he lived with for over a decade and the " +
+        "son they had, the conversion in the garden, and his mother Monica's death at Ostia. Book " +
+        "<b>X</b> then turns from what he was to what he is, and becomes a sustained examination of " +
+        "<b>memory</b>. Books <b>XI–XIII</b> leave the life behind altogether for a commentary on the " +
+        "opening of Genesis, containing the discussion of <b>time</b> that philosophers still argue " +
+        "about — what is time, if the past is gone and the future has not come? Those last four books " +
+        "are often skipped and were not written to be: the life is the evidence, and the last books " +
+        "are the case it was gathered for.",
+      "Several of its scenes have outlasted the book. The <b>pears</b> in Book II — a theft of fruit " +
+        "he did not want, from a tree he had no use for, done because it was forbidden and because " +
+        "his friends were watching — which he takes as far more disturbing than any of his later " +
+        "appetites, precisely because it had no motive. <b>Monica</b>, his mother, who follows him " +
+        "across the Mediterranean and whose presence in the book has made her one of the most " +
+        "sharply drawn women in ancient literature. And the garden in Milan in Book VIII, where he " +
+        "hears a child's voice over the wall chanting <i>tolle lege</i> — take up and read — opens " +
+        "Paul at random, and stops being one thing and starts being another.",
+      "This translation is <b>J. G. Pilkington's</b>, made for the Nicene and Post-Nicene Fathers, " +
+        "the great Victorian series of the Church Fathers in English edited by Philip Schaff and " +
+        "published in 1886. It is a scholar's translation rather than a stylist's: close to the " +
+        "Latin, and willing to be a little stiff in order to stay close. The numbered notes folded " +
+        "under each book are the translator's and Schaff's own, and there are a great many of them " +
+        "— they identify the scriptural quotations Augustine weaves into almost every sentence, and " +
+        "they argue with earlier English versions where those went wrong.",
+      "The Latin printed beside it is <b>Migne's</b>, from the <i>Patrologia Latina</i> of 1841, " +
+        "which is where the text of this translation came from — so the two columns are a " +
+        "translation and its own original rather than two independently edited texts set side by " +
+        "side. The two are paired on the <b>chapter number</b>, which both editions state and which " +
+        "is how any passage of the Confessions is cited. There are <b>278</b> chapters across the " +
+        "thirteen books and the two columns agree on every one of them but two.",
+      "Those two are a gap in the English and are worth knowing about before you meet them. " +
+        "<b>Book I, chapters 19 and 20</b> have never been transcribed at the source this " +
+        "translation comes from — its own contents page lists eighteen and stops — so the Latin " +
+        "carries them and the English column beside them is empty. Nothing else is missing anywhere " +
+        "in the book. Augustine's own summary of each book, which Migne prints at its head, stands " +
+        "above chapter 1 in the Latin column and has no counterpart in the English.",
+    ],
+
+    /* ---------- ONE PAGE PER CHAPTER, GATHERED INTO THIRTEEN BOOKS ----------
+       The City of God's shape exactly, and for the same reason: this wiki gives every chapter a page
+       of its own, and a Folio chapter is one of Augustine's BOOKS — "Confessions VIII.12" is book
+       eight, chapter twelve, so the BOOK is the tab and the chapter is the section. Cutting at the
+       chapter instead would put 278 tabs on the bar, most of them a paragraph long. */
+    source: "wiki",
+    chapterWord: "Book",
+    chapters: Array.from({ length: 13 }, (_, i) => i + 1),
+    /* `page(n)` returns an ARRAY — the book's chapters in order, minus the two the transcription
+       does not carry. The book's OWN page is deliberately not fetched: unlike the City of God's, it
+       holds nothing but a bulleted list of links to the chapters. */
+    page: (n) => {
+      const gone = CONF_UNTRANSLATED[n] || [];
+      const R = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"];
+      const out = [];
+      for (let c = 1; c <= CONF_CHAPTERS[n]; c++) {
+        if (gone.indexOf(c) >= 0) continue;
+        out.push("Nicene and Post-Nicene Fathers: Series I/Volume I/Confessions/Book " + R[n] +
+                 "/Chapter " + c);
+      }
+      return out;
+    },
+    titleOf: (n) => "Book " + toRoman(n),
+    /* Which chapter each PAGE is supposed to carry, so the heading can be read AND checked rather
+       than either composed from the page name or trusted from the wiki — the City of God's rule. */
+    pageMark: (name) => {
+      const m = /\/Chapter (\d+)$/.exec(name);
+      return m ? +m[1] : null;
+    },
+    /* These pages are typed straight onto the wiki rather than transcluded from a scan, so there is
+       no `prp-pages-output` for cleanBody's opening slice to find and it throws "no body" on a page
+       holding a whole chapter — the loud failure, and the good one. Gated per book, as it has been
+       since Thucydides, precisely so that a proofread page's own outer container can never be
+       reached by accident on any of the books that do have a wrapper. */
+    body: "plain",
+    sections: "chapterhead",
+    /* Pilkington heads his chapters with a ROMAN numeral where Dods heads his with an arabic one, in
+       the same series and the same volume set. See markChapterHead: the alternative is gated on this
+       flag so the City of God cannot reach it. */
+    chapterHeadRoman: true,
+    /* Every chapter page opens on an empty paragraph, which would otherwise stand between the start
+       of the block and the heading and stop the section pass — it is anchored to position 0. */
+    dropBlankParas: true,
+    /* The Book pages are not fetched, but a chapter page still carries the series navigation as a
+       link list; this is the City of God's rule and costs nothing where there is none to find. */
+    dropLinkLists: true,
+    dropHeadMarkers: true,
+    /* The shortest book here is Book II, ten chapters and about 11,000 characters of prose — measured
+       over all thirteen rather than assumed. 4,000 sits well below that and far above what a failed
+       extraction returns. */
+    minChars: 4000,
+
+    /* ---------- THE ORIGINAL LANGUAGE ----------
+       Migne's Patrologia Latina 32, on Latin Wikisource, and it is the right column on the same
+       three grounds the City of God's Latin is: it names its editor and its date, it is the text
+       this translation was made from, and it is complete.
+
+       THE TWO-NAME TRAP DOES NOT REPEAT HERE, AND THAT IS WHY IT HAS TO BE CHECKED RATHER THAN
+       ASSUMED IN EITHER DIRECTION. Latin Wikisource carries this text twice under names one edit
+       apart, exactly as it carries the City of God: `Confessiones (Migne)` and `Confessiones (ed.
+       Migne)`. For the City of God the one WITHOUT "ed." is the complete one and the other stops
+       mid-sentence in Book XX. Measured here before a word was imported, BOTH carry all 278 chapters
+       and all thirteen books — they are the same text, one on a single page and one split into
+       thirteen. So the rule the City of God's entry states is a rule about CHECKING, not a rule about
+       which name wins: the `(ed. Migne)` copy is used here purely because its per-book subpages give
+       one page per Folio chapter.
+
+       THE OTHER LATIN was rejected on the City of God's first ground. `Confessiones` on that wiki is
+       taken from thelatinlibrary.com and its own index page records no edition at all; a constituted
+       Latin text is an editor's work whatever the age of the author, so an original that cannot say
+       whose text it is cannot say whether it may be quoted. It is also, incidentally, the more
+       convenient of the two — its headings are the full citation, book.chapter.paragraph — which is
+       the whole reason to say out loud why it was not taken.
+
+       THE PAIRING, measured over both editions before any of it was believed: 13 books a side, 278
+       chapters in the Latin and 276 in the English, a clean 1..N in every book on both sides, no gap
+       and no duplicate anywhere — and the only difference in the whole work is Book I's chapters 19
+       and 20, which the English transcription has never carried. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      layout: "caput",
+      wiki: "la.wikisource.org",
+      edition:
+        "Patrologiae Cursus Completus, Series Latina, Tomus XXXII, ed. J.-P. Migne, Paris, 1841",
+      rights:
+        "Public domain worldwide. Augustine died in 430 and Migne's edition was published in Paris " +
+        "in 1841, so both the work and the text of it printed here are long out of copyright on " +
+        "every rule.",
+      sourceName: "Vicifons",
+      sourceUrl: "https://la.wikisource.org/wiki/Confessiones_(ed._Migne)",
+      page: (n) => "Confessiones (ed. Migne)/" + n,
+      /* The book's own heading, which duplicates the tab above it. Migne's ARGUMENTUM — his
+         one-paragraph summary of the book — is deliberately NOT dropped with it: it is part of the
+         printed page, it carries no chapter number, so app.js files it in the unnumbered row above
+         chapter 1, which is where a headnote belongs. Said in the front matter, since the English
+         has no counterpart and that row draws with one cell empty. */
+      dropLeadParas: [/^LIBER(?:\s+[A-Z]+){1,2}\s*\.?$/],
+      minChars: 8000,
+    },
+  },
+
   "divine-comedy": {
     title: "The Divine Comedy",
     author: "Dante Alighieri",
@@ -7370,8 +7595,20 @@ function markLeadingSections(b, warn) {
 function markChapterHead(b, book, warn) {
   const expect = book.expect;
   let found = 0;
-  b = b.replace(/^<p>\s*(?:<[bi]>\s*)?Chapter\s+(\d+)\s*\.\s*(?:—|–|--|&#8212;)?\s*((?:(?!<\/p>)[\s\S])*)<\/p>/, (m, d, rest) => {
-    const v = +d;
+  /* THE NUMBER IN THE HEADING IS ARABIC IN ONE EDITION AND ROMAN IN THE OTHER (Aug 2026, adding the
+     Confessions — the second book on this path and the second by this author). Dods heads his
+     chapters "Chapter 1.—…" and Pilkington heads his "Chapter I.—…", in the same series and the same
+     volume set. The Roman alternative is GATED behind `chapterHeadRoman` rather than simply added,
+     which is the discipline every shared extractor here is edited under: the City of God's headings
+     go on matching the arabic branch exactly as they always did, and no page of it can reach the new
+     one, so that book is inert by construction rather than by a re-run. */
+  const num = book.chapterHeadRoman ? "(\\d+|[IVXLC]+)" : "(\\d+)";
+  const rx = new RegExp(
+    "^<p>\\s*(?:<[bi]>\\s*)?Chapter\\s+" + num +
+    "\\s*\\.\\s*(?:—|–|--|&#8212;)?\\s*((?:(?!</p>)[\\s\\S])*)</p>"
+  );
+  b = b.replace(rx, (m, d, rest) => {
+    const v = /^\d+$/.test(d) ? +d : romanValue(d);
     rest = rest.replace(/<\/[bi]>\s*$/, "");
     if (expect != null && v !== expect)
       warn && warn("the page for chapter " + expect + " is headed “Chapter " + v + "” — left as printed");
@@ -11307,13 +11544,22 @@ function originalChapter(h, O, warn) {
    FOUR THINGS ABOUT THIS EDITION HAD TO BE LEARNED RATHER THAN ASSUMED, and every one of them was
    found by counting its marks against the English rather than by reading a page.
 
-   · THE MARK WEARS FOUR COSTUMES. The first chapter of every book is "CAPUT PRIMUM" — the word, not
+   · THE MARK WEARS FIVE COSTUMES. The first chapter of every book is "CAPUT PRIMUM" — the word, not
      the numeral — and the rest are Roman. The double dash that separates the number from the title is
      missing in a handful (Book XIV's twenty-fifth, among others), and one chapter has a stray full
      stop after the word itself ("CAPUT. VII.--", Book XII). Written against the strictest of the four,
      the pass finds 650 of the 661 and the eleven it misses fold their prose silently into the chapter
      above them — which is invisible to every count, since no word is lost and the book is the right
      length.
+     THE FIFTH ARRIVED WITH THE CONFESSIONS (Aug 2026) and is the same lesson one notch finer: the
+     Confessions' ninth book prints "CAPUT V Ambrosium consulit quid legendum." with NO STOP AFTER THE
+     NUMERAL, alone among 278. That one chapter folded into the fourth, and the only symptom was the
+     pairing warning saying the translation had a 9.5 the original did not — the Latin was complete,
+     the text was all there, and the book was the right length. So the stop is optional now, and the
+     numeral carries a `\b` to pay for it: without one, "CAPUT" followed by any capitalised word
+     beginning C, I, V, X or L would read that letter as a chapter number and bold the sentence after
+     it. Proved inert on the City of God byte-for-byte, which is the standing discipline for an edit
+     to a reader two books share.
 
    · A NUMBER MAY BE PRINTED TWICE, IN BRACKETS. Book I sets "[CAPUT X.]" a second time, where Migne
      resumes a chapter after an inserted passage. It is not a chapter and must not open one, and the
@@ -11389,7 +11635,7 @@ function extractCaput(h, O, warn, where) {
      reported, so a bracketed resumption reads as the repetition it is rather than as a chapter. */
   let seq = 0, found = 0, refused = 0;
   b = b.replace(
-    /(\[?)\s*CAPUT\s*\.?\s*(PRIMUM|[IVXLC]+)\s*\.\s*(?:--|—|–)?\s*([^\n<]*)/g,
+    /(\[?)\s*CAPUT\s*\.?\s*(PRIMUM|[IVXLC]+)\b\s*\.?\s*(?:--|—|–)?\s*([^\n<]*)/g,
     (whole, brack, num, title) => {
       const v = num === "PRIMUM" ? 1 : romanValue(num);
       if (!v || v <= seq) {
