@@ -35,16 +35,27 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.159", released: "2026-08-10T22:54Z" };
+window.FOLIO_VERSION = { v: "1.165", released: "2026-08-11T06:37Z" };
 
 window.CHANGELOG = [
   {
-    d: "2026-08-10",
-    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and three epics on the shelf",
+    d: "2026-08-11",
+    t: "A misattributed daily quote put back with the words its own source carries, and a subdeck that can hold subdecks of its own",
     items: [
-      "<b>A big deck no longer makes the site slow to open</b> — Folio was re-checking every card of it on every single load, and now checks each one once.",
-      "<b>Adding one of your own decks now brings its subdecks with it</b>, listed under it in your daily study rather than hidden inside one row.",
+      "<b>The daily quote about saying \"I do not know\" now turns over to its original</b>, having been corrected from Maimonides to the Talmud passage it actually comes from.",
       "<b>A subdeck can hold subdecks of its own</b> — a deck file can nest them, so a level can be one row in your daily study with its directions inside it.",
+    ],
+  },
+  {
+    d: "2026-08-10",
+    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and five books on the shelf",
+    items: [
+      "<b>On a dark theme, opening a menu or a chest no longer washes the whole page white behind it</b> — the page now darkens, as it should.",
+      "<b>A big deck no longer makes the site slow to open</b> — Folio now loads only the cards a session needs, and editing one card no longer rewrites the whole deck.",
+      "<b>Installing a shared deck of more than a thousand cards no longer stops at the first thousand</b>, and publishing one now uploads it in batches.",
+      "<b>Deleting a deck you had published now takes it off the shared decks page too</b> — it used to stay there for good, with no way left to remove it.",
+      "<b>The Studio lists decks you have published that this device has no copy of</b>, so any left behind that way can be taken down.",
+      "<b>Adding one of your own decks now brings its subdecks with it</b>, listed under it in your daily study rather than hidden inside one row.",
       "<b>Folio can even out the daily pile</b>, putting each card on the quietest of the few days the scheduler was already free to choose between.",
       "<b>You can mark the days you don't study</b> and Folio schedules around them where it can; both settings start off, so nothing already learned is rescheduled.",
       "<b>A deck of your own can make one card per blank</b> — wrap several things in a passage as {{c1::…}}, {{c2::…}} and each becomes a card with its own schedule.",
@@ -79,7 +90,8 @@ window.CHANGELOG = [
       "A deck of your own can now turn the glossary off altogether, beside the three settings it already had.",
       "In your own decks, the Studio's way back is a link at the top left of the page, and it says “Back to Collections” — the page it returns to was renamed when the Library became the books.",
       "The Timeline puzzle capitalises the terms it lists, as the Multiple Choice options already did.",
-      "<b>Three epics are on the shelf</b> — Homer's Iliad and Odyssey and Virgil's Aeneid, twelve to twenty-four books each, with the Greek or Latin facing the translation.",
+      "<b>Five books are on the shelf</b> — Chaucer's Canterbury Tales, Homer's Iliad and Odyssey, Virgil's Aeneid and Journey to the West, each with its own language facing the translation.",
+      "Journey to the West is here in the first English version ever made, which summarises most chapters rather than translating them — the complete Chinese faces it.",
       "<b>The daily games now only ask about terms you have a chance of knowing.</b>",
       "<b>What year? is now built on real historical events instead of card terms.</b>",
       "The Crossword now has more variety from day to day: it was quietly drawing from the same handful of words each morning and building much the same grid every fortnight.",

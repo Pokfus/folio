@@ -128,7 +128,83 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-three:
+  matter (chapter 0 — see the Library bullet). Currently thirty-five:
+  `canterbury-tales` (~700 KB, the Prologue and all 24 tales as **25 chapters**, **25 whole-tale
+  sections**, **0 notes** — Tatlock and MacKaye's modern English of 1912, and **the first book here
+  whose BOTH COLUMNS ARE PLAIN TEXT with no markup at all.** Journey to the West established that a
+  book may arrive as an OCR and that the reader must then BUILD a structure rather than strip tags
+  out of one; this does it twice from two different kinds of plain text, and the pair is worth
+  reading together because **the two halves fail in opposite directions**. The translation is a
+  machine reading of a printed page, where a running head, a page number, a rubric and a paragraph
+  are all merely lines and the furniture has to be recognised on its SHAPE — after which the holes
+  it leaves must be closed, a blank line being what separates two paragraphs. The original is a
+  proofread transcription of a CRITICAL EDITION, which is the reverse: accurate to the letter, and
+  most of what it accurately carries is apparatus.
+  **FIVE THINGS IT SETTLED ARE WORTH CARRYING.** **THE OBVIOUS SOURCE IS UNFINISHED TWICE OVER AND
+  THE THIRD CANDIDATE IS A LICENCE QUESTION**, which is the Plato-Jowett rule met three times on one
+  book: Wikisource's Skeat Volume IV is a title page, a contents list and **twenty-eight red links**,
+  not one tale transcribed; its MacKaye 1914 selection is FRONT MATTER ONLY, the tale subpages having
+  never been made; and its one complete Middle English text is tagged `{{no source}}` — no edition,
+  no editor, no scan — which for a medieval poem is not pedantry but the whole question, since a text
+  has to be constituted from the manuscripts before anyone can read it and an editor's constituted
+  text is a modern work. All three were measured before a word was imported. **AN APPARATUS BLOCK AND
+  A PARAGRAPH OF VERSE OPEN AT THE SAME INDENTATION**, so the rule cannot be about indentation: Skeat
+  sets his variant readings four spaces in where the verse is two, and a verse paragraph also opens
+  at four. A block is apparatus only when its FIRST line carries an opener as well, and every
+  four-indent block NOT taken is counted and reported — which is how `QUOTATION;`, `TITLE.` and
+  `HEADING (` were found, each having leaked a paragraph of sigla into the poem. **A PAGE MARKER MAY
+  SHARE A LINE WITH A RUBRIC**, so it is BLANKED rather than dropped with its line: the last one in
+  the volume sits in front of the rubric opening Chaucer's retraction, and dropping the line takes the
+  retraction's title with it. **AND A MARGINAL-SUMMARY STRIP MUST BE ANCHORED TO A NON-SPACE.** Skeat
+  prints a gloss in the margin (`=Knight.=`) and the transcription also sets a RUBRIC between the same
+  marks on a line of its own, so a pattern of "two spaces then =…= at end of line" reads the rubric's
+  own indent as a margin and deletes it whole — 68 rubrics gone across 21 chapters, and the only
+  symptom is an empty paragraph where a heading was. **VERSE DETECTION WAS TRIED AND REJECTED IN THE
+  TRANSLATION**, which is the fifth: the editors versify a few short lyrics and the scan sets each
+  line as its own block, so a run of short blocks looks like a stanza — but the same scan fragments
+  PROSE at the page edges, and the rule marked 5 prose passages as verse against 7 real ones.
+  Under-marking beats mis-marking, so every block is a paragraph and the lyrics read as short ones.
+  **ITS REAL LIMITATION IS WHAT THE TRANSLATORS CUT, and it is uneven**: the two tales that are prose
+  in the original — Melibeus and the Parson's Tale — are given as what their preface calls specimens,
+  measured at 2,100 words against 18,200 and 4,100 against 32,200, and five further passages are
+  dropped as too coarse for 1912 and marked with a row of asterisks that ships where they printed it
+  (the mark is read five different ways by the scan and is normalised, the Journey rule). Take those
+  two tales out and the columns run 130,000 words against 135,000, which is prose against verse rather
+  than anything missing. The front matter says all of it, and the Middle English beside it is complete),
+  `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
+  Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
+  first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the
+  shelf is handed decisions somebody has already made — a wiki page whose paragraphs are `<p>`, a TEI
+  file whose lines are `<l>` — and this transcription is a text file with hard line wraps, running
+  heads, hyphenation across the wrap and page numbers mid-sentence, so `extractJourney` has to BUILD
+  the structure and then ESCAPE what it finds rather than strip tags out of it (the reverse of every
+  other extractor here, and the reason an ampersand in the scan is content).
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **A RUNNING HEAD IS MATCHED ON SHAPE, NEVER ON
+  WORDING** — the OCR spells this book's own title differently on almost every page ("iaSSION TO
+  HEAVEN", "SEAECH FOR BOIORTAIJTY 13", "VISITS DKAGONS AND 'JUDGES OF HELL 37"), so a rule that knew
+  the words would drop some and leave the rest standing mid-sentence; 250 go on the shape (a short
+  mostly-capital line with a page number at one end) and every one was read to confirm it.
+  **AND LIFTING ONE OUT LEAVES A HOLE WHERE IT STOOD**, which is the quiet half: a blank line is what
+  separates paragraphs, so a sentence running across a page arrives as two of them broken at the word
+  the page turned on — 359 of those, rejoined on the Analects' test and only on it. **A COUNT THAT
+  MOVES IS HOW EVERY OCR SHAPE WAS FOUND**: Richard marks the chapters he condensed with the word
+  `[outline.]` and the scan mangles it twenty-two ways, brackets included at BOTH ends
+  (`[ouTLrsrE.J`, `f OUTLINE.]`, `[ODTLLNE.J`), so the mark's own count is printed on every run and
+  each widening of the matcher was prompted by that number being wrong — 85, then 87, then 88, then
+  89. **AND THE CONTENTS PAGE IS NOT ALWAYS THE BETTER READING**: this edition prints its titles in
+  capitals in the body and in title case on the contents page, so the case looked recoverable — and
+  measured chapter by chapter the contents agrees with the body on only 53 of the 100, the
+  disagreements being its own OCR ("Eeeonciliation", "Tt-rragli Dead, shall live"). The body headings
+  ship, capitals and all, which is Aesop's outcome reached by measurement rather than by assumption.
+  **ITS REAL LIMITATION IS THE TEXT AND NOT THE IMPORT, and it is the shelf's first of this kind**:
+  every earlier short book is short by CHAPTERS — 102 of 305 poems, 10 of 46 treatises, 3 parts of 4
+  — where this one has all hundred and is short WITHIN them. Richard renders about ten at length and
+  condenses the rest, marking eighty-nine of the hundred himself; the unmarked eleven average ~3,700
+  words and the marked eighty-nine ~570. The mark is a reliable guide and not a strict one — chapter
+  100 carries it and is the longest in the book, and chapter 88 carries none and is plainly a summary
+  all the same. **The book's own front matter says all of this on its first page**, because it is the
+  first thing a reader needs to know. See the `journey-to-the-west.zh.js` entry for why it is worth
+  shelving anyway),
   `virgil-aeneid` (~621 KB, all 12 books, **396 card sections**, **0 notes** — Theodore C. Williams's
   blank verse of 1910, and **the first book here whose TRANSLATION MARKS ITS CARDS TWO WAYS AT ONCE.**
   Every earlier file on the TEI card path picks one mechanism and keeps to it — Ovid's English divides
@@ -496,7 +572,64 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-two:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-five:
+  `canterbury-tales.enm.js` (~1.05 MB, the Prologue and all 24 tales, **17,581 lines of verse** plus the
+  two prose tales entire — Walter W. Skeat's Oxford text of 1900, the first original here in **Middle
+  English** (`enm`), and **the only one on the shelf that its own translation was made FROM.** Everywhere
+  else the two columns are two editors set side by side and the pairing has to be measured; the
+  translators state in their preface that they follow Skeat's text throughout, and Skeat's text is this
+  column — so the two divide the work identically, twenty-five units in the same order, with no
+  reconciliation to do and no exception to record. **Ask whether the translation names its own source
+  before measuring a pairing**: it is rare, and where it happens the measurement is a confirmation
+  rather than a search.
+  **AND IT IS THE ONLY ORIGINAL HERE FROM PROJECT GUTENBERG**, which is new to this shelf and was chosen
+  by elimination rather than by preference — see the `canterbury-tales` entry for the three Wikisource
+  candidates and why each fails. **ITS LINE NUMBERS ARE DROPPED AND THAT IS THE ONE REAL LOSS**: Skeat
+  prints one every fifth line and it is how any passage of Chaucer is cited in any language, but the
+  prose translation states nothing to set against it, so a number here would point at a place the facing
+  page cannot find — and putting them in as `bk-n` markers would additionally cut each tale's verse into
+  a paragraph every five lines, since `bookSections` splits a block at every marker. Said in the front
+  matter rather than smoothed over. **THE COUNT WAS CHECKED AGAINST THE EDITION'S OWN NUMBERING** rather
+  than glanced at: group by group the extracted lines come to 4,432 against Skeat's last-numbered 4,422
+  in Group A, 971 against 965 in C, 2,297 against 2,294 in D and so on, the handful over being the
+  rubrics he prints between them — and B and I read far under, which is correct, those being the groups
+  holding the two prose tales. **AND THE APPARATUS WAS SWEPT FOR RESIDUE AFTERWARDS, WHICH IS WHERE THE
+  REAL WORK WAS**: the four-indent rule takes 1,246 blocks of variant readings in one pass and looks
+  finished, and five more shapes of Skeat's editorial furniture were still standing in the shipped file
+  — 18 lines whose margin reads `[T. _om._` rather than a Tyrwhitt line number, one reading `[See p.
+  256.`, two four-indent notes opening on three asterisks, and six flush-left or verse-indent notes
+  saying where Tyrwhitt puts the passage. **None of it throws, shortens a tale or breaks the pairing**;
+  it just ships as Chaucer. Each rule was then written from a measurement rather than from the example
+  that prompted it — 39 lines in the whole poem end in a bracketed margin and every one is one of three
+  costumes; ten blocks carry a page reference and nine are notes, the tenth being a real stanza of the
+  Monk's Tale whose margin carries one, which is why the margin is stripped per line before the blocks
+  are judged. Skeat's apparatus, his marginal summaries and the Tale of Gamelyn — which he prints as an
+  appendix and says is not Chaucer's — are not reproduced),
+  `journey-to-the-west.zh.js` (~762 KB, all 100 chapters — the received Ming novel as transcribed at
+  Chinese Wikisource, and **the only original on the shelf that is FULLER THAN ITS TRANSLATION.**
+  Everywhere else the translation is the complete text and the original is the harder half to find;
+  here the Chinese is all hundred chapters entire while the English condenses eighty-nine of them, so
+  on most of the book this column is not merely fuller but the only place the story is actually told.
+  That is also the answer to why the book is shelved at all: every complete English translation is
+  still in copyright, so the choice was this pairing or none.
+  **THREE THINGS IT SETTLED ARE WORTH CARRYING.** **A KNOWN RECENSION SPLIT MUST BE MEASURED BEFORE
+  THE COLUMNS ARE TRUSTED**: the story of Tripitaka's parentage is chapter 9 in the Qing recension and
+  stands outside the numbered sequence in the earlier one, so the two orderings run a chapter apart
+  from there to the end and a pairing built on the assumption would be wrong for ninety-two chapters
+  while looking perfect. Checked on the source itself — this transcription's index and its own
+  chapter 9 both carry 陳光蕊赴任逢災, which is Richard's chapter IX, and 10, 11 and 12 follow his X,
+  XI and XII — so the columns agree chapter for chapter over all hundred. **ITS 附錄 IS NOT A 101st
+  CHAPTER** and is deliberately not fetched: it is a second copy of that same ninth chapter carrying
+  the other recension's placement in a note of its own, and a walk that read the index rather than
+  naming the pages wanted would pick it up as an extra. **AND IT IS THE FIRST ORIGINAL TYPED ONTO A
+  WIKI RATHER THAN TRANSCLUDED FROM A SCAN**, so `originalChapter` gained the `body: "plain"` gate
+  cleanBody already carried for the translation side, plus a balanced drop of that wiki's own
+  `headerContainer` — without which every chapter opens on a quotation of its own bibliographic
+  header. Its constant quoted verse (the poems that open a scene or describe a mountain, several a
+  chapter) is set as `<dl><dd>`, which the tag stripper would unwrap into run-on prose on a book that
+  is half poetry, so it takes `verse: "dl"` — the Prose Edda's `verseFromLists`, reused unchanged.
+  All three options are gated per book and the change was proved inert on the shipped Prince,
+  byte-for-byte, which is the standing discipline for any edit to a shared extractor),
   `virgil-aeneid.la.js` (~475 KB, all 12 books, **391 cards, 9,843 lines of hexameter** — J. B.
   Greenough's Oxford-shaped text published by Ginn and Company in Boston in 1881, and after the Gallic
   War the cleanest pairing of two independently edited texts on the shelf: 390 of its numbers appear on
@@ -635,7 +768,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-three books, twenty-three originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Thirty-five books, twenty-five originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
@@ -1024,6 +1157,99 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     manuscript does and brackets a section [XXIX] that Gummere runs on inside his XXVIII; folding the
     two into one chapter is what keeps the columns dividing alike, the alternative being a chapter tab
     with an original and no translation.
+  **A BOOK MAY BE NO MARKUP AT ALL, and then the structure is BUILT rather than read**
+  (`layout: "journey"` → `extractJourney`, plus a per-book `runningHead`; Aug 2026, adding Journey to
+  the West — the thirty-fourth book, and the eleventh layout). Every earlier reader is handed
+  decisions somebody has already made: a wiki page whose paragraphs are `<p>`, a TEI file whose lines
+  are `<l>`. Richard's translation exists in exactly one transcription anywhere — the Internet
+  Archive's OCR of the Cornell copy — and that is a plain text file. **So this is the first extractor
+  here that ESCAPES its input rather than stripping tags out of it**: it is given prose and puts tags
+  in, so an ampersand or an angle bracket in the scan is content and becomes markup by accident if
+  it is not escaped. Five things it settled:
+  · **A RUNNING HEAD IS MATCHED ON SHAPE, NEVER ON WORDING.** The OCR spells this book's own title
+    differently on almost every page, so a rule that knew the words would drop some and leave the
+    rest standing mid-sentence; what does not vary is a short mostly-capital line with a page number
+    at one end. 250 go that way and all 250 were read to confirm it.
+  · **…AND LIFTING ONE OUT LEAVES A HOLE WHERE IT STOOD.** A blank line is what separates blocks, so
+    a sentence running across a page arrives as two paragraphs broken at the word the page turned on
+    — 359 of them, rejoined on the Analects' test and only on it (the first must end on no sentence
+    punctuation AND the second open lower-case), which is narrow enough that no real paragraph can be
+    swallowed.
+  · **A HEAD THE OCR SPLIT IN TWO NEEDS A DIFFERENT RULE FROM ONE IT MERELY MISSPELLED**, and this is
+    where the shape rule runs out: two heads arrive as two lines each, so neither half carries the
+    shape at all. Caught as a BLOCK instead, on a `runningHead` pattern the book declares for itself
+    exactly as `dropHeads` is declared per book — matching only a block that is WHOLLY the running
+    title, which no chapter of a novel is — and counted, so a rule that starts eating text cannot do
+    it quietly.
+  · **A COUNT THAT MOVES IS HOW AN OCR SHAPE GETS FOUND.** The mark Richard prints on the chapters he
+    condensed is mangled twenty-two ways, and it is bracketed at BOTH ends, so the closing "]" is
+    read as "J" a third of the time and the opening "[" as "f" once. The count is printed on every
+    run, and every widening of the matcher was prompted by that number being wrong — 85, then 87,
+    then 88, then 89. Nothing else would have shown it: a mark not recognised is simply a chapter
+    filed under the wrong description.
+  · **A CONTENTS PAGE IS NOT ALWAYS THE BETTER READING**, which is worth knowing because the opposite
+    is usually true. This edition heads its chapters in capitals and lists them in title case, so the
+    case looked recoverable — and the contents agrees with the body on only 53 of the 100, the
+    disagreements being its own OCR. The body headings ship, capitals and all, which is Aesop's
+    outcome reached by measurement rather than by assumption.
+  **AND `originalChapter` GAINED THE TWO GATES `cleanBody` ALREADY HAD** (`O.body === "plain"`,
+  `O.verse === "dl"`), plus a balanced drop of that wiki's `headerContainer`, for the first original
+  typed onto a wiki rather than transcluded from a scan. All three are gated per book for the reason
+  the English-side gates are, and the change was proved inert on the shipped Prince byte-for-byte.
+
+  **BOTH COLUMNS MAY BE PLAIN TEXT, AND THEN THEY FAIL IN OPPOSITE DIRECTIONS** (`layout: "chaucer"` →
+  `extractChaucer`, and on the original side `source: "text"` + `layout: "skeat"` → `extractSkeat`;
+  Aug 2026, adding The Canterbury Tales — the thirty-fifth book, the twelfth and thirteenth layouts,
+  and the first pair of extractors written for one book). The rule that shipped with `journey` was
+  that a text with no markup has to have its structure BUILT and its content ESCAPED; this is that
+  rule on two texts at once, and the useful half is that the two difficulties are opposites. A
+  MACHINE READING of a printed page has no marks at all, so the page furniture must be recognised on
+  its SHAPE and the holes it leaves closed afterwards. A PROOFREAD TRANSCRIPTION OF A CRITICAL
+  EDITION has the opposite problem: it is exact, and most of what it exactly carries is apparatus —
+  variant readings, marginal summaries, marginal line numbers — none of which is the poem.
+  Six things they settled, and every one is a rule about not guessing:
+  · **AN APPARATUS BLOCK AND A PARAGRAPH OF VERSE OPEN AT THE SAME INDENTATION**, so the test cannot
+    be indentation. Skeat's variant readings sit four spaces in where the verse sits two — and a
+    verse paragraph also opens at four, so a rule written on the indent alone deletes a fifth of the
+    poem. A block is apparatus only when its FIRST line also carries an opener (a line number, a
+    capitalised label, an italic editorial word), and **every four-indent block the test does NOT
+    take is counted and reported** — which is how `QUOTATION;`, `TITLE.` and `HEADING (` were found,
+    each having leaked a paragraph of manuscript sigla into the middle of the verse.
+  · **A PAGE MARKER MAY SHARE A LINE WITH A RUBRIC**, so it is BLANKED rather than dropped with its
+    line. Exactly one in the volume does — the last, standing in front of the rubric that opens
+    Chaucer's retraction — and dropping the line takes the retraction's own title with it.
+  · **A MARGINAL-SUMMARY STRIP MUST BE ANCHORED TO A NON-SPACE.** The gloss Skeat prints in the
+    margin is set between `=` marks at the end of a verse line, and the same transcription sets a
+    RUBRIC between the same marks on a line of ITS own — so "two or more spaces, then `=…=`, then
+    end of line" reads a rubric's own indentation as a margin and deletes it whole. 68 rubrics went
+    across 21 chapters, and the only symptom is an empty paragraph where a heading was.
+  · **A RUNNING-HEAD SWEEP ON SHAPE WILL EVENTUALLY EAT A REAL HEADING**, so the book declares its
+    exceptions (`keepHead`) exactly as it declares `dropHeads`, and **every distinct line the sweep
+    removes is printed on the run**. Here it is one: Chaucer's envoy at the end of the Clerk's Tale
+    is set in the same capitals as the running heads and the plate captions around it.
+  · **VERSE DETECTION WAS TRIED AND REJECTED**, which is the one to remember before writing the
+    obvious rule. The editors versify a few short lyrics and the scan sets each line as its own
+    block, so a run of short blocks looks exactly like a stanza — but the same scan fragments PROSE
+    at the page edges, and the rule marked five prose passages as verse against seven real ones.
+    A blockquote over prose tells the reader something untrue about the text where a short paragraph
+    over verse merely looks plain, so every block is a paragraph and the lyrics read as short ones.
+  · **AN APPARATUS SWEEP IS NOT FINISHED WHEN THE APPARATUS RULE IS, and the way to find out is to
+    sweep the SHIPPED file for what the rule was written to remove.** The four-indent rule takes
+    1,246 blocks of variant readings in one pass and reads as complete; five more shapes of the same
+    editor's furniture were still standing, and every one of them ships as Chaucer without throwing,
+    shortening a tale or disturbing the pairing. The lesson is in how each was then fixed: **write
+    the rule from an inventory of the whole book, never from the example that prompted it.** The
+    margin looked like `[T. 14772.` and wears three costumes (a Tyrwhitt line number, `[T. _om._` for
+    a line he omits, and one `[See p. 256.`) — 39 lines in the poem end in a bracketed margin and a
+    rule anchored on the first shape leaves 19 standing. The block-level notes looked like a Tyrwhitt
+    reference beside a page number, and the test that actually separates them is **the page reference
+    alone**: ten blocks in the poem carry one, nine are notes and the tenth is a real stanza of the
+    Monk's Tale whose MARGIN carries one — which is why the margin rules run per line, before the
+    blocks are built, and would be worth nothing after. And two notes carry no page reference at all,
+    opening on `***` in the apparatus band, where they belong to the apparatus rule rather than to
+    this one. Every removal is counted and reported, per the standing rule that a rule which starts
+    eating text cannot do it quietly.
+
   **A WHOLE BOOK MAY ARRIVE ON ONE PAGE, and then the chapters are CUT rather than walked**
   (`layout: "laisses"` → `extractLaisses` / `extractLaissesFr` / `laisseHtml` / `laisseNumber` /
   `dropLineNumbers`; Aug 2026, adding the Song of Roland — the seventeenth book, and the eighth
@@ -2153,7 +2379,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     first card. Measured again on the whole of 3.0 at 10,896 notes: **JSON.parse 81 ms, import 10.0s once,
     the Studio 3.2s, adding a subdeck 0.8s, home → first card 1.1s** — faster to a card than one level was,
     because the study path touches a subdeck rather than the deck. **A conclusion drawn from a measurement
-    expires when the thing it measured changes.**
+    expires when the thing it measured changes**, and this one has since: the store was split in Aug 2026 so
+    a deck's cards live one record per note, which moved the cost squarely onto the import — **the deck is
+    visible in ~6.8s and fully written in ~19s, against 6.6s and 10.7s before** — and took it off every
+    load after it (boot 501 ms → 213, 18.19 MB resident → 1.01). See the Persistence bullet under COMMUNITY
+    DECKS for the whole table; the case for one file rather than five is only stronger.
   · **THE TWO NEW DECKS ARE DERIVED, NOT WRITTEN.** Candidates are CC-CEDICT entries not already carded in
     any HSK deck; whether one is an IDIOM is CC-CEDICT's own `(idiom)` marker; how common each is comes from
     the OpenSubtitles 2018 frequency list (hermitdave/FrequencyWords, CC BY-SA 4.0) and from counting the
@@ -3246,6 +3476,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     candidate clearing all three kinship risks by more than the shelf's tightest pair (Ovid 29, Homer
     62, Lucretius 72), and at 9.57:1 it is second on the shelf for contrast where three rivals scrape
     4.60. The band was not widened, and was tested rather than assumed.
+    **Journey to the West is the SIXTH licence needing no qualification at all** (Aug 2026), after
+    the Republic, the Analects, the Peloponnesian War, the City of God and the Aeneid, and its
+    interest is not in the licence but in what the licence RULED OUT. The novel was first printed in
+    1592 and Timothy Richard published his English in Shanghai in 1913, living 1845–1919 — dates read
+    off Wikidata at day precision and corroborated by its own description — so both layers clear the
+    pre-1929 rule, life-plus-seventy and life-plus-a-hundred, with no limit to state and no modern
+    editorial layer. **THE HARD PART WAS THAT NO PUBLIC-DOMAIN ENGLISH TRANSLATION OF THIS NOVEL IS
+    ACTUALLY A TRANSLATION OF IT**, which was established rather than assumed: Anthony C. Yu's
+    complete four volumes (1977–1983, revised 2012), W. J. F. Jenner's (1982–1986) and Julia
+    Lovell's (2021) are all in copyright; Arthur Waley's *Monkey* (1942) is both in copyright until
+    2037 and an abridgement of thirty chapters; Helen M. Hayes's *The Buddhist Pilgrim's Progress*
+    (1930) is six chapters; and the Project Gutenberg text that search results offer as a
+    public-domain English *Journey to the West* is the CHINESE — checked, not inferred. So the shelf's
+    own bar left exactly one candidate, and it is a condensation. **The choice made was to ship it and
+    say so on the book's first page**, which is the Classic of Poetry's judgement (102 of 305 poems)
+    applied to a book that is short WITHIN its chapters rather than short OF them — and what makes it
+    bearable here is the Chinese column, which is complete. Richard's dedication, his introduction
+    arguing the novel is a disguised Nestorian Christian allegory, and the plates are left behind, as
+    the Republic's introduction and plates were. Two facts about his edition are stated on the page
+    rather than smoothed over, because a reader will meet them in the prose: he believed the Taoist
+    master Qiu Chuji wrote the novel, three centuries before it appeared, and his English renders the
+    Buddhist heaven in the vocabulary of another religion — cherubim, angels, Providence. Its
+    `BOOK_AUTHOR_COLOR` row is where the band is genuinely FULL rather than nearly so; see the note
+    beside `"Wu Cheng'en"` in app.js for the search, and for the Euripides test being run and NOT
+    biting — the alternative it offered was a fifth blue at 18.5, below the shelf's own tightest pair.
+    **The Canterbury Tales states a LIMIT THAT IS ALMOST UP, which is the nearest any on this shelf has
+    come to expiring** (Aug 2026), and it falls on the middle of three layers rather than on the
+    original. Chaucer died in 1400 and Skeat's Middle English text of 1900 is clear on every ground (he
+    died in 1912) — but Tatlock and MacKaye's translation, published in 1912, is public domain in the
+    United States on the pre-1929 rule and **a work of two hands runs its term from the LAST of them to
+    die**: MacKaye lived until 1956, so it stays in copyright in life-plus-seventy countries until the
+    first day of **2027** and in life-plus-a-hundred ones until 2057. **Do the arithmetic from the later
+    death, not the earlier**, and say the year out loud rather than rounding into the easier sentence.
+    Both men's dates were looked up rather than recalled and corroborated twice over — the library
+    catalogue record carried inside the scan's own metadata gives them, and so does each biography — the
+    check the Aeneid's row calls for after Hugo Magnus and A. J. Wyatt. Coghill (1951), Wright (1985),
+    Raffel (2008) and Ackroyd's retelling (2009) are named as the ones not to reach for. Its
+    `BOOK_AUTHOR_COLOR` row is the band one book fuller again: with thirty-one colours placed the best
+    anywhere in it clears 19.7 where the shelf's own tightest pair is now 18.2, and the Euripides test
+    picked the family — the best blue is 18.5 from Snorri Sturluson, which is both below that pair and a
+    kinship claim between the two medieval vernacular poets on the shelf.
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
@@ -4373,6 +4644,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and removes the element after `DECK_SHEET_OUT_MS` (keep that in step with the CSS), and clears
     `_deckMenuClose` at the same moment so a second close cannot restart the timer; the overlay stops
     hit-testing the instant the class lands, so the gesture is finished whatever the paint is still doing.
+  · **A MODAL SCRIM IS THEME-INDEPENDENT BLACK, NEVER `var(--ink)`** (Aug 2026, on a bug report: "the whole
+    background is whited out"). Five full-screen overlays — `.inline-prompt`, `.deck-menu`, `.levelup-pop`,
+    `.artefact-pop` and `.chest-pop` — were each `color-mix(in srgb, var(--ink) 38–58%, transparent)`, which
+    reads as "the darkest thing this theme has" and IS exactly that in light mode (`--ink` is #1B1A17, so
+    those figures are unchanged there). **At night the token flips to #ECEAE3**, so every one of them became
+    a 38–58% WHITE veil: holding a deck's row, opening a chest or an artefact on any dark theme whited the
+    whole page out behind the sheet. A scrim's job is to push the page BACK, which is a DIRECTION rather
+    than a colour the theme gets a say in — the rule `.folio-tour`, `.page-help` and the media viewer were
+    already written to, each spelling its black out. **The failure is invisible from the light side**, which
+    is why it survived: nothing throws, the sheet is perfectly readable, and every screenshot taken in light
+    mode is correct. `.gloss-scrim` and `.atlas-help` are deliberately NOT in the list: both are mixes of
+    `var(--paper)`, which is DARK at night, so they already darken — a paper mix follows the theme correctly
+    where an ink mix inverts.
   · **The row's options are a LONG PRESS** (`openDeckMenu` / `deckSheet` / `openCustomStudy` / `openDeckLimits`), and
     the small bin that used to sit at the right of every row is gone with it — one command holding a permanent column
     on a 390px row, with three more that had nowhere to live. Custom study bumps the deck's allowance for today AND
@@ -7462,10 +7746,74 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `image`), `UGLOSS` (reserved for the per-deck glossary). Card ids are `u_<deck8>_<n>`; a deck's active
     entry in `S.active` is `"u:<deckId>"` (`uDeckIdOf` / `uDeckEntry`). The whole module sits under the
     `COMMUNITY DECKS` banner in app.js.
-  · **Persistence** — IndexedDB `folio-community`, store `decks`, one record per deck
-    (`{ id, meta, cards, gloss }` — also the export-file shape). **An unusable IndexedDB silently falls back
-    to `localStorage["folio_community_v1"]`** (`_communityLS`): the golden rule is that opening index.html
-    directly keeps working, and private mode / blocked storage are real too. Verified both ways.
+  · **Persistence** — IndexedDB `folio-community`, at version **2**, in TWO object stores (Aug 2026, on the
+    report that loading thousands of cards to study a few made no sense). `decks` holds one SMALL record per
+    deck — `{ id, srev, fmt, meta, gloss, index }` — and `notes` holds one record per note, keyed
+    `"<deckId>/<noteId>"` with a `deckId` index for bulk reads. **Boot reads only the first.** `fmt` is the
+    STORE's shape version and is not the export file's: a deck FILE has looked the same throughout
+    (`{ id, meta, cards, gloss }`, still what `uDeckRecordFull` builds), while a record with no `fmt` is a
+    fmt-1 record with its cards inline and is migrated on the next boot.
+    **WHAT MAKES THE SPLIT POSSIBLE is that boot needs a card's IDENTITY and never its CONTENT.** An index
+    entry is `{ id, sub, type, ords? }` — the subdeck it sits in, the card type it uses, and for a cloze note
+    its deletion ordinals — which is everything needed to COUNT, GROUP, ORDER and SCHEDULE a card; content is
+    needed only to RENDER one. `fields` alone is 81% of a deck, so the index is a thirtieth of it.
+    **Measured on one machine, same harness, the 10,896-note HSK 3.0 deck installed** (`.claude/` has no
+    committed benchmark; this was `compare.js` in a scratchpad, and the way to re-take it is to instrument
+    `communityBoot` and read `JSON.stringify` sizes off `rows` and `UCARDS`):
+    | | before | after |
+    |---|---|---|
+    | `communityBoot` | 501 ms (IDB read 326, mount 57) | **213 ms** (IDB read 191, mount 16) |
+    | read at boot | 17.87 MB | **0.55 MB** |
+    | resident after boot | 18.19 MB | **1.01 MB** |
+    | import — deck visible | 6.6 s | 6.8 s |
+    | import — fully written | 10.7 s | **18.9 s** |
+    Note what the first row does NOT say: most of what is left is the fixed cost of opening IndexedDB at all
+    (a boot with NO deck installed measures ~195 ms here), so the deck's own marginal cost is now the 16 ms
+    of mounting. A session then reads its own cards in **8 ms / 109 KB**.
+    **`ords` MUST be precomputed** (`uNoteIndexEntry`), because `clozeOrds` reads the note's own fields:
+    without it a cloze deck could not be counted or scheduled until its content had loaded, and the counts
+    are wanted on the home page long before a card is rendered. It is computed only for a type that declares
+    `cloze`, or importing that deck would mean a regex sweep of 14 MB of fields for nothing.
+    **THE COST IS AT IMPORT and it is real**: 10,896 individual puts take ~7.4 s where one blob took 246 ms.
+    It is ONE transaction, so it is atomic — an interrupted import or migration leaves the old state rather
+    than half a deck, which is what makes the migration safe to run on somebody's own data without asking.
+    **AND IT MADE A LATENT RACE WORTH HANDLING**: the deck is usable from memory the moment it mounts, but a
+    page closed or navigated before the transaction commits aborts it and loses the import in silence — a
+    window that was 246 ms and is now several seconds. So `uDeckImportText` hands its write BACK
+    (`r.saved`) and **`uImportDone` waits on it before saying "Imported"**, announcing "Saving…" if the wait
+    passes 400 ms. `uDeckInstall` already awaited its own. Found by the measurement rather than by a
+    reader: the harness reloaded 6 s after importing and the deck was simply not there.
+    **Chunking notes in groups of 25 was measured and rejected** (import 1.6 s): a due-card session is
+    SCATTERED, so it hits about the same number of records whatever their size, and chunks of 25 pulled
+    1.7 MB to read the same 60 notes that cost 109 KB one at a time.
+    **An unusable IndexedDB silently falls back to `localStorage["folio_community_v1"]`** (`_communityLS`),
+    which keeps the **fmt-1 whole-record shape** and mounts every card eagerly: the golden rule is that
+    opening index.html directly keeps working, and private mode / blocked storage are real too. That is a
+    decision rather than an omission — the ~5 MB quota means a deck big enough to want splitting cannot be
+    stored there at all, so a lazy path there would be written for a case that cannot arise. Verified both ways.
+  · **WARMING — how `cardById` stays synchronous** (`uWarm` / `uWarmed` / `uWarmDeck` / `uWarmDecks` /
+    `uAdoptNotes` / `uNoteStub` / `uIsLazy`). `cardById` is called from rendering, scheduling, grading and
+    undo, so content cannot be fetched at the moment it is asked for — making it async would be a rewrite of
+    the study path. It is loaded BEFORE it is needed instead, which is the pattern the lazy data bundles
+    already use: ask, hold a `.data-loading` placard, re-render when it lands.
+    **A stub is a CARD-SHAPED object living in `UCARDS`**, deliberately not a second map beside it —
+    everything that reads `.deckId`, `.sub` or `.type` off a note (the subdeck list, `cardEntryId`,
+    `glossScopeForCard`, the browser's deck column) keeps working untouched, and only the places that read a
+    card's PROSE need a warm first. **`PAGES.study` warms its own queue** behind the placard; **`PAGES.home`
+    warms the day's review at idle**, so in ordinary use the placard is never seen. The bulk surfaces —
+    the Studio with a deck open, `PAGES.browse` (it searches card TEXT, so it genuinely needs all of it),
+    `uDeckExport`, `uDeckPublish` and the Studio's duplicate — call `uWarmDeck`, one read through the
+    `deckId` index (~557 ms for 10,896 notes). **`_gone` is the guard against a hang**: a note the index
+    names but the store cannot hand back would leave `uWarmed` false for ever and a placard that never
+    lifts, so the stub stops claiming to be loadable — while staying LAZY, so `uNoteRecord` goes on refusing
+    to write it and a transient read error can never overwrite good content with a blank.
+  · **`uDeckSave(deckId, putIds, delIds)` writes what changed.** Passing neither list writes only the index,
+    which is what a renamed deck, a reordered card or an edited type needs; a card mutation goes through
+    **`uCardTouched(cardId)`** so "which note changed" is never a caller's guess, and a whole-deck write
+    (import, install, duplicate, migration) goes through **`uDeckSaveAll`**. Before this, all 26 `uDeckSave`
+    call sites rewrote the entire record — **a keystroke in the Studio rewrote 19 MB.** `uTypeDelete` is the
+    one non-card mutation that must name notes: it strips `type` and `fields` from every card of that type,
+    and an index-only write would leave every one of them still carrying the dead type on disk.
   · **`uDeckNormalize` is the single ingest choke point** — everything entering the store passes through it,
     imports *and* what comes back out of IndexedDB, because that store is writable by anything on the origin.
     Rich fields go through `sanitizeHTML`, plain ones through `sanitizePlain`, image `src` through
@@ -7488,10 +7836,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       possibly buggier sanitizer, which is what a record with no matching `srev` is. Those are re-cleaned
       once, on the next load. An import, an install and a published payload are **never** trusted whatever
       they claim to carry, since only `communityBoot` passes the flag.
+    · **…and the same stamp answers for the deck's NOTES, which now arrive later than it does**
+      (`_deckTrusted`, Aug 2026, with the store split). A note's content is read out of the `notes` store
+      long after boot decided whether its deck's record was trustworthy, so that verdict is kept per deck
+      and `uAdoptNotes` cleans under it. The two were written in the same transaction by the same
+      sanitizer, so one answer is honestly good for both — but it must be the answer boot reached, never a
+      fresh assumption at warm time, or a deck cleaned by an older sanitizer would have its cards trusted
+      on the strength of nothing.
     · **BUMP `SANITIZE_REV` WHENEVER THE SANITIZER CHANGES** — `sanitizePass`, `sanitizeHTML`,
       `sanitizePlain`, `sanitizeCSSText`, `sanitizeUrl` or any `SANITIZE_*` / `UTYPE_*` allowlist.
       Forgetting to is the one way this can be wrong, and it is silent: already-stored decks keep being
       read under the old rules.
+    · **It was NOT bumped for the deck-id guard of Aug 2026, and the reasoning is worth keeping** because
+      "did you bump it?" is the first question the next reader will ask. `uDeckSanitizeMeta` used to test
+      `String(m && m.id)`, and `String(undefined)` is the WORD "undefined" — nine lowercase letters, which
+      matches the id pattern — so a deck file with no id of its own was given the literal id `undefined`.
+      That is a sanitizer fix, but **no STORED record can carry it**: every path that reaches the store
+      either supplies a real id (`remoteToLocal`, `communityBoot`) or replaces a falsy one before mounting
+      (`uDeckImportText`). Nothing needs re-cleaning, and bumping would have cost every reader a one-time
+      full re-sanitize — 5.7 s on HSK 3.0 — to fix nothing. **Bump it when a stored record could be
+      wrong, not merely when a sanitizer line moved.**
     · **`srev` sits at the record's TOP level, never inside `meta`** — `meta` is what an export copies, and
       a deck FILE must never carry a stamp, being not our store. Verified: `uDeckExport`, the Studio's fork
       and `uDeckRemotePayload` each pick their fields explicitly, so only `cdbPut` ever stores it.
@@ -7565,9 +7929,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     scheduling survives an update**). Installed decks are **read-only in the Studio** — editing would
     silently fork them and then the author's next update would either clobber the edits or be refused;
     "Duplicate to edit" makes the copy explicit (it round-trips through `uDeckImportText(..., true)`).
+  · **THE CARD FETCH IS PAGED, AND WENT UNPAGED FOR A YEAR** (`SUPA_PAGE`, Aug 2026). PostgREST hands back
+    at most `db-max-rows` — 1,000 — and says nothing about what it dropped, so `communityFetchDeck`, which
+    asked for a deck's `user_cards` in one request, **returned the first thousand cards of anything larger
+    and installed it as though that were the deck.** A truncated deck is indistinguishable from a small one:
+    nothing throws, it opens, it studies, and the missing cards are found weeks later by a reader who cannot
+    find a word. The loop is `revFetchAll`'s, which had the rule right from the day it shipped and states it
+    in a comment two thousand lines further up — so the constant now lives beside that reader as a fact
+    about the API rather than inside it, and `uDeckPublish` POSTs its rows in batches of the same size
+    rather than putting 10,896 of them in one body. **`.claude/test-publish.js`'s mock truncates a request
+    that carries no `Range`**, so an unpaged fetch fails there instead of on somebody's live project; its
+    cap is deliberately NOT below the client's own page size, which would be a server no client could page
+    correctly at all — asking for 1,000 and being given 3 is indistinguishable from a table holding 3.
   · **`UDECK_PUBLISH_KEYS` never leave the device.** `uDeckExport` strips them and `uDeckImportText` zeroes
     them, so a deck *file* can't claim someone else's slug, masquerade as installed, or suppress an update
-    prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`.
+    prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`. **`srev` and `fmt` never leave it
+    either**, and for a stronger reason: they are the store's own bookkeeping, and a file carrying them
+    would be claiming to have been cleaned by a sanitizer it has never met.
   · **Pages** — `PAGES.community` (`#community`: search, sort and a LIST) and `PAGES.deck` (`#deck/<slug>`, a
     shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
     deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
@@ -7604,6 +7982,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Update checks** — `communityCheckUpdates()` runs once at idle after boot, in ONE request for all
     installed decks, and fills `_deckUpdates` (Library and Studio show an "update" pill). A failed or
     offline check just leaves it empty.
+  · **DELETING A DECK YOU PUBLISHED DELETES THE SHARED COPY** (`uDeckRemoteDelete` / `confirmDeleteDeck`,
+    Aug 2026, on a bug report: decks deleted in the Studio "still appear on the shared decks page"). It is
+    the shape of failure this file keeps recording, at its worst. `uDeckDelete` only ever removed the LOCAL
+    record — nothing threw, the deck vanished from the author's own Studio, and only somebody ELSE browsing
+    ever saw what was left behind. And it was UNRECOVERABLE from inside the app: the Unpublish button reads
+    `remoteId` off the local deck, which is precisely the thing just thrown away, so every publish-then-delete
+    left an orphan its own author could not take down. Five things.
+    **A ROW DELETE, NOT `status='draft'`** (on request): the cards, glossary, ratings, reports and install
+    records all cascade and the slug is freed, which is what "I deleted it" means. Someone who already
+    installed it keeps their copy — it simply stops offering updates.
+    **THE STATUS CANNOT BE TRUSTED, SO THE ROWS ARE READ BACK.** RLS picks ROWS, never permission to try, so
+    a DELETE matching nothing still answers 204 — signed in as another account, or under a stale token, the
+    request "succeeds" and removes nothing. `Prefer: return=representation` is the only way to tell, and
+    reporting a silent failure as success is the exact bug being fixed.
+    **THE REMOTE GOES FIRST AND A FAILURE STOPS THE WHOLE THING**: the local record is the only handle on the
+    remote row, so deleting it while the server call is failing manufactures the very orphan this prevents.
+    **SIGNED OUT, THE CONFIRMATION SAYS SO BEFORE THE READER AGREES** rather than reporting it afterwards.
+    **AND `uDeckUninstall` MUST NOT GO THROUGH ANY OF IT** — an installed deck's row is the AUTHOR's, so the
+    gate is `uDeckIsMine`, not merely having a `remoteId`. `uDeckDelete` is documented local-only for that
+    reason; a third caller has to answer the same question.
+  · **…AND THE STUDIO LISTS PUBLISHED DECKS THIS DEVICE HAS NO COPY OF** (`myRemoteDecksLoad` /
+    `orphanRemoteDecks` / `orphanSectionHTML` / `_myRemote`, same batch). The other half: a row can lose its
+    local counterpart for reasons the rule above cannot cover — deleted on another device, deleted while
+    signed out, or left by the bug itself — and with nothing local holding its `remoteId` there is no way
+    back. So the Studio asks the server what this ACCOUNT owns and lists whatever is missing here, each with
+    a Remove. Fetched once a session and only when signed in; **absent, not empty, when there is nothing to
+    show**, since for almost every reader there never will be. `localDeckForRemote` is the same lookup the
+    update check uses, so a deck that IS installed here can never be offered for removal.
   · **The column guard — `guard_user_deck_columns()`.** RLS decides which ROWS you may write, **never which
     COLUMNS**. "edit your own decks" therefore let an owner PATCH their own `install_count`, `rating_avg`,
     `staff_pick` or even `owner` — inventing an editorial endorsement and a five-star average for
@@ -9465,7 +9871,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-seven committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-eight committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -9490,7 +9896,25 @@ dead code (never rendered).
     promise, and a performance promise that has quietly stopped holding looks exactly like one that holds.
     Its fixture writes to IndexedDB **and** localStorage, since `cdbAll` falls back and a fixture in the
     store the app is not reading proves nothing. **Re-run after touching `SANITIZE_REV` / `uDeckNormalize`
-    / `uDeckRecord` / `communityBoot`, or any `sanitize*` function.**
+    / `uDeckIndexRecord` / `communityBoot`, or any `sanitize*` function.**
+  · `node .claude/test-deck-lazy.js` — **the split store** (27 assertions, Aug 2026): a deck's cards live
+    one record per note and are loaded when needed, and EVERY failure that change can produce is invisible
+    from the outside, which is why this is a file of its own. A boot that quietly went back to loading
+    everything still works, only slower — there is nothing on screen to see, which is exactly how the cost
+    it replaced went unnoticed for months. A session whose cards were never warmed renders BLANK cards
+    rather than throwing. A save that writes the whole deck instead of the one note it touched shows up
+    only on a deck nobody in a test has. So the assertions are made against the STORE: the deck record
+    carries an index and **no prose**, the notes store holds one record each keyed `<deckId>/<noteId>`,
+    the Studio's shelf warms nothing while opening a deck warms all of it, a real edit rewrites **exactly
+    one note of twelve**, and a session started from the home page shows a card **with its words in it**.
+    Its sharpest section is the **fmt-1 migration**, the one path that can lose somebody's deck: a
+    record in the old shape is planted directly in the store with prose no other deck has, and after a
+    boot it must be rewritten, keep every word, and still open. It also pins that an export carries real
+    cards rather than empty stubs and smuggles no `srev` / `fmt` / `_lazy` into the file. **Re-run after
+    touching `cdbPutDeck` / `cdbGetNotes` / `cdbAllNotes` / `uDeckIndexRecord` / `uNoteRecord` /
+    `uDeckRecordFull` / `uNoteIndexEntry` / `uIndexSanitize` / `uNoteStub` / `uDeckMount` / `uDeckSave` /
+    `uCardTouched` / `uWarm` / `uWarmDeck` / `uAdoptNotes` / `communityBoot`'s migration, or the loading
+    placards in `PAGES.study` / `PAGES.studio` / `PAGES.browse`.**
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
@@ -9502,13 +9926,30 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 72 assertions across three browser sessions (an author, a reader, an
-    admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export. It runs against an
+  · `node .claude/test-publish.js` — 84 assertions across three browser sessions (an author, a reader, an
+    admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export → delete. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
-    ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
-    touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
-    the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
+    ownership rule, which is how "a stranger cannot patch someone's deck" is asserted — and, since Aug 2026,
+    **it truncates a card request that carries no `Range`**, which is what stands in for PostgREST's
+    `db-max-rows`: a deck of 7 is published and installed and every card must arrive at both ends, so an
+    unpaged fetch loses cards HERE rather than on somebody's live project. Verified by removing the paging
+    and watching it fail.
+    **Its DELETE section (Aug 2026) is the one that has to be read before it is trusted**, because every
+    assertion in it fails silently on a real site: the deck vanishes from the author's own Studio either
+    way, and only somebody ELSE browsing ever sees the difference. So it checks the author's Studio not at
+    all and the SERVER instead — the row, its cards and the reader's install record all gone — then Bob's
+    browse, then that Bob's installed copy survives on his own device. **One of those passed with the bug
+    deliberately reintroduced and had to be fixed**: Bob's `#community` was reached by a hash-only `goto`,
+    which is a same-document navigation, so the page repainted the browse results it already held — a list
+    fetched before that deck was ever published, and an assertion that would have passed whatever the server
+    said. It takes a real `reload()` now. Verified in both directions: 84 pass with the fix, 5 fail without.
+    The orphan half plants a row straight into the mock's store, which is exactly what an orphan IS, and
+    asserts the negative as well — a deck this device DOES hold is never offered for removal.
+    **Re-run after
+    touching the publishing functions, `uDeckDelete` / `uDeckRemoteDelete` / `confirmDeleteDeck` /
+    `myRemoteDecksLoad` / `orphanSectionHTML`, or `.claude/supabase-schema.sql` — and keep the mock in step
+    with the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
   · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the `glossMode`s,
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching

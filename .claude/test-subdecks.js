@@ -81,13 +81,28 @@ function deckFile(id, title) {
   };
 }
 
+/* A stored deck, reassembled. Since Aug 2026 a deck's cards live one record per note in a second store and
+   the deck record carries only an INDEX of them, so this puts the two back together in index order — which
+   means every assertion below now checks `sub` in BOTH places it is written, the index a subdeck list is
+   built from and the note record a card is rendered from. A card whose `sub` survived one and not the other
+   would be exactly the quiet half-failure this file exists to catch. */
 const readDecks = (page) => page.evaluate(() => new Promise((res) => {
   const req = indexedDB.open("folio-community");
   req.onsuccess = () => {
     const db = req.result;
-    const g = db.transaction("decks", "readonly").objectStore("decks").getAll();
-    g.onsuccess = () => { const r = g.result; db.close(); res(r); };
-    g.onerror = () => { db.close(); res([]); };
+    const tx = db.transaction(["decks", "notes"], "readonly");
+    const g = tx.objectStore("decks").getAll();
+    const gn = tx.objectStore("notes").getAll();
+    tx.oncomplete = () => {
+      const notes = {};
+      (gn.result || []).forEach((n) => { if (n && n.c) notes[n.k] = n.c; });
+      db.close();
+      res((g.result || []).map((r) => Object.assign({}, r, {
+        index: r.index || null,
+        cards: r.cards || (r.index || []).map((e) => notes[r.id + "/" + e.id]).filter(Boolean),
+      })));
+    };
+    tx.onerror = () => { db.close(); res([]); };
   };
   req.onerror = () => res([]);
 }));

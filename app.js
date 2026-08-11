@@ -1922,10 +1922,15 @@
      saying so. Rows come back in the row shape `revRead` unpacks, so nothing downstream knows where they
      came from; a failure returns null rather than an empty list, which the caller must tell apart from a
      reader who genuinely has nothing. */
+  /* PostgREST hands back at most this many rows in one response, so anything that can exceed it must be
+     PAGED — and the failure is silent, since a truncated array is a perfectly good array. It lives here
+     rather than inside the one reader that first needed it because it is a fact about the API, not about
+     the review archive: the community deck fetch pages on it too, and its cards go up in batches of it. */
+  const SUPA_PAGE = 1000;
   async function revFetchAll(onPage) {
     if (!supaLoggedIn() || _revTableMissing) return null;
     const out = [];
-    const page = 1000;
+    const page = SUPA_PAGE;
     for (let from = 0; ; from += page) {
       const r = await supaFetch(
         "/rest/v1/review_log?user_id=eq." + encodeURIComponent(SUPA.user.id) +
@@ -5078,9 +5083,14 @@
      bridges into the rest of the app are narrow and all in one place: entryCardIds / availableCardIdSet /
      buildSession / cardById.
      ============================================================ */
-  const UDECK_DB = "folio-community", UDECK_STORE = "decks";
+  const UDECK_DB = "folio-community", UDECK_STORE = "decks", UNOTE_STORE = "notes";
   const UDECK_LS_KEY = "folio_community_v1";   // fallback store — see communityUseLS below
   const UDECK_FORMAT = 1;                       // export-file version
+  /* The STORE's own shape version, which is not the export file's and must not be confused with it: a deck
+     FILE has looked the same throughout and still does, while `fmt` says whether a record on this device
+     keeps its cards inline (1, everything before Aug 2026) or in the `notes` store beside it (2). A record
+     with no `fmt` is a 1 and is migrated on the next boot — see uDeckSplitLegacy. */
+  const UDECK_FMT = 2;
   let _communityLS = false;                     // true once we know IndexedDB is unusable here
   let _communityReady = false;
 
@@ -5207,21 +5217,52 @@
   }
 
   /* ---------- persistence ----------
-     IndexedDB is the store. On a file:// origin Chrome refuses IndexedDB outright (opaque origin), and
-     the golden rule is that Folio keeps working when index.html is opened directly — so an unusable IDB
-     silently falls back to localStorage. Decks are text, so the ~5 MB quota is roomy for Phase 1; the
-     fallback would need revisiting if decks ever carry inline image data. */
+     IndexedDB is the store, in TWO object stores, and that split is the whole of what makes a large deck
+     cheap to live with (Aug 2026, on the report that loading thousands of cards to study a few made no
+     sense). `decks` holds one SMALL record per deck — its meta, its glossary and an INDEX of its notes —
+     and `notes` holds one record per note, keyed "<deckId>/<noteId>". Boot reads only the first.
+
+     WHAT MAKES THE SPLIT POSSIBLE is that boot needs a card's IDENTITY and never its CONTENT: an index
+     entry carries the subdeck it sits in, the card type it uses and, for a cloze note, its deletion
+     ordinals — which is everything the app needs to COUNT, GROUP, ORDER and SCHEDULE a card. Content is
+     needed only to RENDER one, and rendering happens a few dozen cards at a time. Measured over the
+     10,896-note HSK 3.0 deck: the index is 546 KB against 17.9 MB of cards (3.1%, 53 bytes a note against
+     1,719), because `fields` alone is 81% of a deck. Boot went 305–900 ms to under 40, a session's own
+     cards read in 8 ms, and a Studio keystroke writes one note where it used to rewrite 19 MB.
+
+     THE COST IS AT IMPORT, and it is real: 10,896 individual puts take ~7.4 s where one blob took 246 ms.
+     It is one transaction, so it is atomic — an interrupted import leaves no deck rather than half of one
+     — and it is paid once, against a saving paid on every load. Chunking notes in groups of 25 was
+     measured as the alternative (import 1.6 s) and rejected: a due-card session is SCATTERED, so it hits
+     about the same number of records whatever their size, and chunks of 25 pulled 1.7 MB to read the same
+     60 notes that cost 109 KB one at a time.
+
+     On a file:// origin Chrome refuses IndexedDB outright (opaque origin), and the golden rule is that
+     Folio keeps working when index.html is opened directly — so an unusable IDB falls back to
+     localStorage, which keeps the OLD whole-record shape and mounts every card eagerly. That is a
+     decision rather than an omission: the ~5 MB quota means a deck big enough to want splitting cannot be
+     stored there at all, so a lazy path there would be one written for a case that cannot arise. */
   function cdbOpen() {
     return new Promise((resolve) => {
       let req;
-      try { req = indexedDB.open(UDECK_DB, 1); } catch (e) { resolve(null); return; }
+      try { req = indexedDB.open(UDECK_DB, 2); } catch (e) { resolve(null); return; }
       if (!req) { resolve(null); return; }
-      req.onupgradeneeded = () => { try { const db = req.result; if (!db.objectStoreNames.contains(UDECK_STORE)) db.createObjectStore(UDECK_STORE, { keyPath: "id" }); } catch (e) {} };
+      req.onupgradeneeded = () => {
+        try {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(UDECK_STORE)) db.createObjectStore(UDECK_STORE, { keyPath: "id" });
+          // v2. `deckId` is indexed so a deck's notes can be read or dropped whole without knowing their ids.
+          if (!db.objectStoreNames.contains(UNOTE_STORE)) {
+            db.createObjectStore(UNOTE_STORE, { keyPath: "k" }).createIndex("deckId", "deckId", { unique: false });
+          }
+        } catch (e) {}
+      };
       req.onerror = () => resolve(null);
       req.onblocked = () => resolve(null);
       req.onsuccess = () => resolve(req.result);
     });
   }
+  function noteKey(deckId, noteId) { return deckId + "/" + noteId; }
   function lsDecks() { try { const r = JSON.parse(localStorage.getItem(UDECK_LS_KEY)); return Array.isArray(r) ? r : []; } catch (e) { return []; } }
   function lsWrite(rows) { try { localStorage.setItem(UDECK_LS_KEY, JSON.stringify(rows)); return true; } catch (e) { toast("This device is out of storage — the deck may not be saved."); return false; } }
 
@@ -5242,14 +5283,21 @@
     }
     return lsDecks();
   }
-  async function cdbPut(rec) {
+  /* Write a deck's index record, and the content of whichever of its notes changed, in ONE transaction.
+     `putIds` is the notes to write and `delIds` the notes to remove; both empty means only the index moved
+     (a renamed deck, a reordered card, an edited type), which is the common case and now costs a few KB.
+     The whole deck is written by passing every id, which import, install and duplicate do. */
+  async function cdbPutDeck(rec, putIds, delIds) {
     if (!_communityLS) {
       const db = await cdbOpen();
       if (db) {
         const ok = await new Promise((resolve) => {
           try {
-            const tx = db.transaction(UDECK_STORE, "readwrite");
+            const tx = db.transaction([UDECK_STORE, UNOTE_STORE], "readwrite");
             tx.objectStore(UDECK_STORE).put(rec);
+            const st = tx.objectStore(UNOTE_STORE);
+            (putIds || []).forEach((id) => { const n = uNoteRecord(rec.id, id); if (n) st.put(n); });
+            (delIds || []).forEach((id) => st.delete(noteKey(rec.id, id)));
             tx.oncomplete = () => resolve(true);
             tx.onerror = () => resolve(false);
             tx.onabort = () => resolve(false);
@@ -5259,9 +5307,46 @@
       }
       _communityLS = true;
     }
+    // the fallback keeps the old whole-record shape, where every card is resident anyway
+    const full = uDeckRecordFull(rec.id);
+    if (!full) return false;
     const rows = lsDecks().filter((r) => r.id !== rec.id);
-    rows.push(rec);
+    rows.push(full);
     return lsWrite(rows);
+  }
+  // A deck's notes, by id. Missing ids simply come back absent — the caller is the one that knows whether
+  // that matters, and a note the index names but the store has lost must not take the read down with it.
+  async function cdbGetNotes(deckId, ids) {
+    if (_communityLS || !ids || !ids.length) return [];
+    const db = await cdbOpen();
+    if (!db) { _communityLS = true; return []; }
+    return new Promise((resolve) => {
+      try {
+        const tx = db.transaction(UNOTE_STORE, "readonly");
+        const st = tx.objectStore(UNOTE_STORE);
+        const out = [];
+        let left = ids.length;
+        const done = () => { if (!--left) resolve(out); };
+        ids.forEach((id) => {
+          const g = st.get(noteKey(deckId, id));
+          g.onsuccess = () => { if (g.result && g.result.c) out.push(g.result.c); done(); };
+          g.onerror = done;
+        });
+      } catch (e) { resolve([]); }
+    });
+  }
+  // every note of one deck, through the deckId index — the Studio's and the browser's read
+  async function cdbAllNotes(deckId) {
+    if (_communityLS) return [];
+    const db = await cdbOpen();
+    if (!db) { _communityLS = true; return []; }
+    return new Promise((resolve) => {
+      try {
+        const g = db.transaction(UNOTE_STORE, "readonly").objectStore(UNOTE_STORE).index("deckId").getAll(deckId);
+        g.onsuccess = () => resolve((g.result || []).map((r) => r && r.c).filter(Boolean));
+        g.onerror = () => resolve([]);
+      } catch (e) { resolve([]); }
+    });
   }
   async function cdbDel(id) {
     if (!_communityLS) {
@@ -5269,10 +5354,14 @@
       if (db) {
         const ok = await new Promise((resolve) => {
           try {
-            const tx = db.transaction(UDECK_STORE, "readwrite");
+            const tx = db.transaction([UDECK_STORE, UNOTE_STORE], "readwrite");
             tx.objectStore(UDECK_STORE).delete(id);
+            // the deck's notes go with it, or a deck re-created under the same id would inherit them
+            const cur = tx.objectStore(UNOTE_STORE).index("deckId").openKeyCursor(IDBKeyRange.only(id));
+            cur.onsuccess = () => { const k = cur.result; if (k) { tx.objectStore(UNOTE_STORE).delete(k.primaryKey); k.continue(); } };
             tx.oncomplete = () => resolve(true);
             tx.onerror = () => resolve(false);
+            tx.onabort = () => resolve(false);
           } catch (e) { resolve(false); }
         });
         if (ok) return true;
@@ -5315,7 +5404,11 @@
   function uDeckSanitizeMeta(m) {
     const o = {};
     UDECK_TEXT_FIELDS.forEach((f) => { o[f] = uSP(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
-    o.id = /^[a-z0-9]{4,16}$/.test(String(m && m.id)) ? m.id : uid(8);
+    /* `typeof` first, because String(undefined) is the WORD "undefined" — nine lowercase letters, which
+       matches the pattern below and handed a deck file with no id of its own the literal id `undefined`.
+       It was survivable while uDeckImportText caught the falsy id downstream and renamed everything; it
+       stopped being survivable once a card's deckId had to name a store key, so it is fixed at the source. */
+    o.id = (typeof (m && m.id) === "string" && /^[a-z0-9]{4,16}$/.test(m.id)) ? m.id : uid(8);
     o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => uSP(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
     o.glossMode = GLOSS_MODES.indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
     o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
@@ -5423,7 +5516,11 @@
     const t = cardTypeOf(note);
     if (!t) return [base];
     if (t.cloze) {
-      const ords = clozeOrds(note);
+      /* An unwarmed note answers from the ordinals its index entry carries, which is exactly why they are
+         precomputed: clozeOrds reads the note's own fields, so without them a cloze deck could not be
+         counted, ordered or scheduled until its content had been loaded — and the counts are wanted on the
+         home page, long before any card is rendered. */
+      const ords = uIsLazy(note) ? (note._ords || []) : clozeOrds(note);
       // a cloze note with no marker yet is still ONE card: it is a note somebody is part-way through writing,
       // and returning nothing would take it out of its own deck without saying so
       return ords.length ? ords.map((o) => uCardIdFor(base, o - 1)) : [base];
@@ -5706,6 +5803,56 @@
       return uDeckNormalizeInner(rec);
     } finally { _uTrusted = wasTrusted; }   // the body is synchronous, so this cannot leak into anything else
   }
+  /* ---------- the note index ----------
+     An index entry is what boot mounts in place of a card: everything the app needs to COUNT, GROUP, ORDER
+     and SCHEDULE it, and nothing it needs to RENDER it. `ords` is a cloze note's deletion list, and it is
+     precomputed HERE rather than read back off the card because clozeOrds() scans the note's own fields —
+     without it uNoteCardIds would need content, and the split would collapse on the one kind of deck whose
+     notes make several cards. It is computed only for a type that actually declares `cloze`, or importing a
+     10,896-note deck would mean a regex sweep of 14 MB of fields for nothing. */
+  function uNoteIndexEntry(c, types) {
+    const e = { id: c.id, sub: c.sub || "" };
+    if (c.type) {
+      e.type = c.type;
+      const t = types && types[c.type];
+      if (t && t.cloze) { const o = clozeOrds(c); if (o.length) e.ords = o; }
+    }
+    return e;
+  }
+  /* The index comes back out of OUR store, which is writable by anything running on this origin — "it was
+     already in our database" is not a safety argument, so it gets the same structural guards a card does. */
+  function uIndexSanitize(raw, meta) {
+    const out = [];
+    if (!Array.isArray(raw)) return out;
+    const seen = new Set();
+    raw.slice(0, UDECK_MAX_CARDS).forEach((r, i) => {
+      if (!r || typeof r !== "object") return;
+      const id = String(r.id || "");
+      if (!/^u_[a-z0-9]{4,16}_\d+$/.test(id) || seen.has(id)) return;
+      seen.add(id);
+      const e = { id: id, sub: uSP(r.sub).slice(0, 200) };
+      const t = String(r.type || "");
+      if (t && meta.types && meta.types[t]) e.type = t;
+      if (Array.isArray(r.ords)) {
+        const o = r.ords.map(Number).filter((n) => n > 0 && n <= UTYPE_MAX_CLOZE).slice(0, UTYPE_MAX_CLOZE);
+        if (o.length) e.ords = o;
+      }
+      out.push(e);
+    });
+    return out;
+  }
+  /* A note with no content loaded yet. It is deliberately a CARD-SHAPED object living in UCARDS rather than
+     a second map beside it: everything that reads `.deckId`, `.sub` or `.type` off a note — the subdeck
+     list, the scheduler's entry lookup, the glossary scope, the browser's deck column — then keeps working
+     untouched, and only the handful of places that read a card's PROSE need to warm it first. */
+  function uNoteStub(deckId, e) {
+    const c = { id: e.id, deckId: deckId, sub: e.sub || "", _lazy: true };
+    if (e.type) c.type = e.type;
+    if (e.ords) c._ords = e.ords;
+    return c;
+  }
+  function uIsLazy(c) { return !!(c && c._lazy); }
+
   function uDeckNormalizeInner(rec) {
     const meta = uDeckSanitizeMeta(rec.meta || rec);
     const all = Array.isArray(rec.cards) ? rec.cards : [];
@@ -5718,38 +5865,179 @@
       seen.add(c.id);
       cards.push(c);
     });
+    /* A fmt-2 record carries an index and no cards; anything else (an import file, an installed payload, a
+       fmt-1 record still on disk) carries cards, and its index is derived from them. `legacy` is what tells
+       communityBoot it has a record to migrate — it cannot be read off `cards.length`, since an empty deck
+       has none either way. */
+    const legacy = !Array.isArray(rec.index);
+    const index = legacy ? cards.map((c) => uNoteIndexEntry(c, meta.types)) : uIndexSanitize(rec.index, meta);
     // what the cap cost, so a caller can SAY so — a deck quietly missing its last cards looks like a deck
-    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss), over: all.length - rawCards.length };
+    return { id: meta.id, meta: meta, cards: cards, index: index, gloss: uGlossSanitize(rec.gloss), legacy: legacy, over: all.length - rawCards.length };
   }
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
     if (!norm) return null;
     uCacheBust();
-    const d = Object.assign({}, norm.meta, { cardIds: norm.cards.map((c) => c.id) });
+    const idx = norm.index || [];
+    const d = Object.assign({}, norm.meta, { cardIds: idx.map((e) => e.id) });
     UDECKS[d.id] = d;
     UGLOSS[d.id] = norm.gloss || {};
-    norm.cards.forEach((c) => { UCARDS[c.id] = c; });
+    // stubs first, so every note is countable and schedulable from the moment the deck mounts…
+    idx.forEach((e) => { UCARDS[e.id] = uNoteStub(d.id, e); });
+    // …then whatever content came with the record — an import, an install, or the localStorage fallback,
+    // where there is no notes store to warm from and everything is resident by design
+    (norm.cards || []).forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
   const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
   const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
-  function uDeckRecord(deckId) {   // the on-disk shape (also the export shape, minus the publishing keys)
-    const d = UDECKS[deckId];
-    if (!d) return null;
+  function uDeckMetaRecord(d) {
     const meta = {};
     UDECK_META_KEYS.concat(UDECK_PUBLISH_KEYS).forEach((f) => { meta[f] = d[f]; });
-    /* `srev` says which sanitizer cleaned this, so the next boot can skip re-cleaning it — see the ingest
-       note. It is deliberately at the TOP level of the record and not inside `meta`, which is what an
-       export copies: a deck FILE must never carry it, since a file is not our store and is never trusted. */
-    return { id: d.id, srev: SANITIZE_REV, meta: meta, cards: uDeckCards(d).map((c) => { const o = {}; Object.keys(c).forEach((k) => { if (k !== "deckId") o[k] = c[k]; }); return o; }), gloss: UGLOSS[d.id] || {} };
+    return meta;
   }
-  function uDeckSave(deckId) {
+  // a card as it is stored: everything but the two fields the store itself owns
+  function uCardStored(c) {
+    const o = {};
+    Object.keys(c).forEach((k) => { if (k !== "deckId" && k !== "_lazy" && k !== "_ords" && k !== "_gone") o[k] = c[k]; });
+    return o;
+  }
+  /* The small record boot reads: the deck, its glossary and its note index, and NOT its cards.
+     `srev` says which sanitizer cleaned this, so the next boot can skip re-cleaning it — see the ingest
+     note. It is deliberately at the TOP level of the record and not inside `meta`, which is what an
+     export copies: a deck FILE must never carry it, since a file is not our store and is never trusted.
+     `fmt` sits beside it for the same reason and says the cards live in the `notes` store. */
+  function uDeckIndexRecord(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return null;
+    const types = d.types || {};
+    return {
+      id: d.id, srev: SANITIZE_REV, fmt: UDECK_FMT, meta: uDeckMetaRecord(d), gloss: UGLOSS[d.id] || {},
+      index: (d.cardIds || []).map((id) => {
+        const c = UCARDS[id];
+        if (!c) return null;
+        // an unwarmed note already IS its index entry — re-deriving it would need content we have not got
+        return uIsLazy(c) ? Object.assign({ id: c.id, sub: c.sub || "" }, c.type ? { type: c.type } : {}, c._ords ? { ords: c._ords } : {})
+          : uNoteIndexEntry(c, types);
+      }).filter(Boolean),
+    };
+  }
+  function uNoteRecord(deckId, noteId) {
+    const c = UCARDS[noteId];
+    // a note whose content was never warmed has nothing to write, and writing the stub would DESTROY the
+    // card — the single most damaging thing this split could do, so it is refused here rather than guarded
+    // at each of the callers
+    if (!c || c.deckId !== deckId || uIsLazy(c)) return null;
+    return { k: noteKey(deckId, noteId), deckId: deckId, c: uCardStored(c) };
+  }
+  /* The whole-deck shape: what the localStorage fallback stores, what an export is built from, and what a
+     fmt-1 record looked like. Every card must be warm — uWarmDeck is what the callers use to be sure. */
+  function uDeckRecordFull(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return null;
+    return { id: d.id, srev: SANITIZE_REV, meta: uDeckMetaRecord(d), cards: uDeckCards(d).map(uCardStored), gloss: UGLOSS[d.id] || {} };
+  }
+  /* Persist a deck. `putIds` names the notes whose CONTENT changed and `delIds` those that went; passing
+     neither writes only the index, which is what a renamed deck, a reordered card or an edited type needs
+     and is why a Studio keystroke no longer rewrites the whole deck. Card mutations go through
+     uCardTouched rather than calling this directly, so "which note changed" is never a caller's guess. */
+  function uDeckSave(deckId, putIds, delIds) {
     const d = UDECKS[deckId];
     if (!d) return Promise.resolve(false);
     uCacheBust();   // every Studio mutation ends here, so this is the one place the expansion can go stale
     d.updatedAt = Date.now();
-    return cdbPut(uDeckRecord(deckId));
+    const put = putIds == null ? [] : (Array.isArray(putIds) ? putIds : [putIds]);
+    const del = delIds == null ? [] : (Array.isArray(delIds) ? delIds : [delIds]);
+    return cdbPutDeck(uDeckIndexRecord(deckId), put, del);
   }
+  // the one way a card mutation persists: its own note, plus the index, which carries its subdeck and type
+  function uCardTouched(cardId) {
+    const c = UCARDS[cardId];
+    if (c && c.deckId) uDeckSave(c.deckId, cardId);
+  }
+  // …and the one way a whole deck is written: an import, an install, a duplicate, or a fmt-1 migration
+  function uDeckSaveAll(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return Promise.resolve(false);
+    return uDeckSave(deckId, (d.cardIds || []).slice());
+  }
+
+  /* ---------- warming ----------
+     `cardById` is synchronous and is called from rendering, scheduling, grading and undo, so content cannot
+     be fetched at the moment it is asked for — making it async would be a rewrite of the study path. It is
+     loaded BEFORE it is needed instead, which is the pattern the lazy data bundles already use: ask, hold a
+     `.data-loading` placard, re-render when it lands. A session knows its own queue, so the set to load is
+     small and known in advance; the home page warms the day's review at idle, so the placard is rarely seen.
+
+     uWarm takes CARD ids and loads NOTES — a reverse or cloze card's id is derived from its note's, and it
+     is the note that holds the content. */
+  const _deckTrusted = {};   // deckId -> was this deck's record written by THIS sanitizer (see the ingest note)
+  const _warming = {};       // deckId -> in-flight whole-deck read, so two callers make one request
+
+  function uWarmed(ids) {
+    for (let i = 0; i < (ids || []).length; i++) {
+      const c = UCARDS[uCardBaseId(ids[i])];
+      if (c && uIsLazy(c) && !c._gone) return false;
+    }
+    return true;
+  }
+  /* Take note content into UCARDS. It is sanitized on the way in like everything else — the store is
+     writable by anything on this origin — under the same trust stamp the deck's own record carried. */
+  function uAdoptNotes(deckId, cards) {
+    if (!UDECKS[deckId] || !cards || !cards.length) return 0;
+    let n = 0;
+    const wasTrusted = _uTrusted;
+    _uTrusted = !!_deckTrusted[deckId];
+    try {
+      cards.forEach((rc, i) => {
+        const c = uCardSanitize(rc, deckId, i);
+        const cur = UCARDS[c.id];
+        /* Only over a stub this deck's index actually names. A warm must never resurrect a note the Studio
+           has just deleted, nor overwrite one being edited while its read was in flight — both would be
+           silent, and both would be the reader losing work. */
+        if (!cur || cur.deckId !== deckId || !uIsLazy(cur)) return;
+        UCARDS[c.id] = c;
+        n++;
+      });
+    } finally { _uTrusted = wasTrusted; }
+    /* Deliberately NO uCacheBust. Warming cannot change what uDeckStudyIds returns: a lazy cloze note is
+       expanded from the `ords` its index carries and a warm one from clozeOrds(), and the two agree by
+       construction — the index and the note were written in one transaction from the same card. Busting
+       here would throw the expansion away on every session start for nothing. */
+    return n;
+  }
+  async function uWarm(ids) {
+    if (_communityLS) return true;   // nothing to warm — the fallback mounts every card eagerly
+    const need = {};
+    (ids || []).forEach((id) => {
+      const base = uCardBaseId(id), c = UCARDS[base];
+      if (c && uIsLazy(c) && c.deckId) (need[c.deckId] = need[c.deckId] || []).push(base);
+    });
+    const decks = Object.keys(need);
+    if (!decks.length) return true;
+    await Promise.all(decks.map((deckId) => cdbGetNotes(deckId, need[deckId]).then((cs) => uAdoptNotes(deckId, cs))));
+    /* A note the index names but the store could not hand back would otherwise leave uWarmed false for
+       ever, and a caller painting a placard until it is true would never paint anything. It should not be
+       reachable — the index and the notes are written in one transaction — but a store this code does not
+       own is one that can be damaged from outside, and a page that never paints is a worse failure than a
+       card that renders empty. `_gone` says "asked, not answered": the stub stays LAZY, so uNoteRecord goes
+       on refusing to write it, and a transient read error can never overwrite good content with a blank. */
+    decks.forEach((deckId) => need[deckId].forEach((id) => { const c = UCARDS[id]; if (c && uIsLazy(c)) c._gone = true; }));
+    return true;
+  }
+  // every note of one deck, for the surfaces that genuinely need all of it — the Studio, the card browser,
+  // an export and a publish. One read through the deckId index rather than a request per note.
+  function uWarmDeck(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return Promise.resolve(false);
+    if (_communityLS || uWarmed(d.cardIds || [])) return Promise.resolve(true);
+    if (_warming[deckId]) return _warming[deckId];
+    const done = () => { delete _warming[deckId]; return true; };
+    const p = cdbAllNotes(deckId).then((cs) => { uAdoptNotes(deckId, cs); return done(); }, done);
+    _warming[deckId] = p;
+    return p;
+  }
+  function uWarmDecks(ids) { return Promise.all((ids || []).map(uWarmDeck)); }
 
   /* ---------- mutations (the Studio's API) ---------- */
   function uDeckCreate(title) {
@@ -6015,8 +6303,13 @@
     const d = UDECKS[deckId];
     if (!d || !d.types || !d.types[typeId]) return;
     delete d.types[typeId];
-    uDeckCards(d).forEach((c) => { if (c.type === typeId) { delete c.type; delete c.fields; } });
-    uDeckSave(deckId);
+    /* This rewrites the CARDS as well as the deck, so their notes are named in the save — an index-only
+       write would leave every one of them still carrying the dead type on disk, and the next boot would
+       hand it straight back. Reachable only from the Studio, which warms the whole deck before it paints,
+       so every card here is real content rather than a stub. */
+    const touched = [];
+    uDeckCards(d).forEach((c) => { if (c.type === typeId) { delete c.type; delete c.fields; touched.push(c.id); } });
+    uDeckSave(deckId, touched);
   }
   function uCardSetType(cardId, typeId) {
     const c = UCARDS[cardId];
@@ -6040,7 +6333,7 @@
       if (S.suspended) delete S.suspended[gone];
     }
     if (now < was) save();
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   function uCardSetFieldValue(cardId, name, value) {
     const c = UCARDS[cardId];
@@ -6049,7 +6342,7 @@
     if (!UTYPE_FIELD_RX.test(n)) return;
     if (!c.fields || typeof c.fields !== "object") c.fields = {};
     c.fields[n] = sanitizeHTML(value == null ? "" : String(value)).slice(0, UTYPE_VALUE_MAX);
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
 
   function uCardCreate(deckId) {
@@ -6060,7 +6353,7 @@
     CARD_FIELDS.forEach((f) => { c[f] = ""; });
     UCARDS[c.id] = c;
     d.cardIds.push(c.id);
-    uDeckSave(deckId);
+    uCardTouched(c.id);
     return c;
   }
   /* A card's subdeck. It is NOT one of CARD_FIELDS — those are the Basic format's thirteen, and uCardSet
@@ -6071,7 +6364,7 @@
     if (!c) return;
     const v = uSubNormalize(sanitizePlain(sub).slice(0, 200));
     if (v) c.sub = v; else delete c.sub;
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   function uCardSet(cardId, field, value) {
     const c = UCARDS[cardId];
@@ -6082,7 +6375,7 @@
     c[field] = (field === "answerText" || field === "num" || field === "category" || field === "pinyin")
       ? sanitizePlain(value).slice(0, 400)
       : sanitizeHTML(value == null ? "" : String(value)).slice(0, 20000);
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   // the card's whole question-phrasing pool at once (index 0 = `question`, the rest the `questions` extras,
   // CARD_MAX_QUESTIONS in all) — sanitized like every other rich field, trailing empties never stored
@@ -6094,7 +6387,7 @@
     const extras = list.slice(1);
     while (extras.length && !extras[extras.length - 1].trim()) extras.pop();
     if (extras.length) c.questions = extras; else delete c.questions;
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   // the card's source footnotes — one citation per line, sanitized like the description fields
   function uCardSetSources(cardId, value) {
@@ -6103,7 +6396,7 @@
     const list = normSources(Array.isArray(value) ? value : String(value == null ? "" : value).split("\n"))
       .map((s) => sanitizeHTML(s).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
     if (list.length) c.sources = list; else delete c.sources;
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   function uCardSetImage(cardId, field, value) {
     const c = UCARDS[cardId];
@@ -6111,7 +6404,7 @@
     const im = Object.assign({ src: "", title: "", desc: "", credit: "" }, c.image || {});
     im[field] = field === "src" ? sanitizeUrl(String(value || "").trim(), ["http", "https"]) : sanitizePlain(value).slice(0, 1000);
     if (!im.src) delete c.image; else { c.image = im; delete c.video; }   // one frame per card
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   // the card's video — clearing the URL drops it, exactly like the image, and setting one retires the image
   function uCardSetVideo(cardId, field, value) {
@@ -6120,7 +6413,7 @@
     const v = Object.assign({ src: "", title: "", desc: "", credit: "" }, c.video || {});
     v[field] = field === "src" ? (sanitizeUrl(String(value || "").trim(), ["http", "https"]) || "") : sanitizePlain(value).slice(0, 1000);
     if (!v.src) delete c.video; else { c.video = v; delete c.image; }
-    if (c.deckId) uDeckSave(c.deckId);
+    uCardTouched(cardId);
   }
   /* ---------- a deck's own glossary terms ----------
      Every mutation invalidates that deck's scoped index, or the linkify regex would keep matching the old
@@ -6196,7 +6489,7 @@
     const d = UDECKS[c.deckId];
     if (d) d.cardIds = d.cardIds.filter((x) => x !== cardId);
     delete UCARDS[cardId];
-    if (d) uDeckSave(d.id);
+    if (d) uDeckSave(d.id, null, cardId);   // …and the note's own record goes with it
   }
   function uCardMove(cardId, delta) {
     const c = UCARDS[cardId];
@@ -6208,6 +6501,12 @@
     d.cardIds.splice(j, 0, cardId);
     uDeckSave(d.id);
   }
+  /* LOCAL ONLY, and every caller has to know it. This removes the deck from this device and touches no
+     server: a deck the reader PUBLISHED keeps its row on the shared page, and a deck they INSTALLED must
+     keep the author's. The two callers answer for that difference themselves — `uDeckUninstall` deletes
+     only the reader's own install record, and the Studio's Delete calls `uDeckRemoteDelete` first. Calling
+     this on a published deck of your own and nothing else is precisely the bug of Aug 2026: it left an
+     orphan on the shared page that the author had no way to take down. */
   function uDeckDelete(deckId) {
     const d = UDECKS[deckId];
     if (!d) return;
@@ -6225,8 +6524,10 @@
   /* ---------- deck files ----------
      A deck travels as a plain .json file: no account, no server, works from file://. This is also the
      backup path and the on-ramp for importers later. */
-  function uDeckExport(deckId) {
-    const rec = uDeckRecord(deckId);
+  async function uDeckExport(deckId) {
+    // a file carries every card, so this is one of the few surfaces that genuinely wants the whole deck
+    await uWarmDeck(deckId);
+    const rec = uDeckRecordFull(deckId);
     if (!rec) return;
     // A file is a copy, never the published deck: strip the publishing keys so importing it somewhere else
     // can't claim someone's slug, masquerade as installed, or suppress an update prompt.
@@ -6284,7 +6585,12 @@
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and
       // so two copies of the same deck keep separate study progress
       const newId = uid(8);
-      norm.cards.forEach((c, i) => { c.id = "u_" + newId + "_" + (i + 1); });
+      /* The INDEX is renumbered with the cards, and in the same pass. It is what the deck's card list is
+         built from, so leaving it on the file's own ids gives a deck whose index names cards the store has
+         never heard of: it mounts, it looks like a deck, and it holds nothing. Both are written from `i`
+         rather than from each other, so they cannot disagree. */
+      norm.cards.forEach((c, i) => { c.id = "u_" + newId + "_" + (i + 1); c.deckId = newId; });
+      (norm.index || []).forEach((e, i) => { e.id = "u_" + newId + "_" + (i + 1); });
       norm.meta.id = newId;
       norm.id = newId;
       if (UDECKS[norm.id]) return { error: "Couldn't find a free slot for that deck — try again." };
@@ -6292,8 +6598,26 @@
     }
     const d = uDeckMount(norm);
     d.updatedAt = Date.now();
-    cdbPut(uDeckRecord(d.id));
-    return { ok: true, deck: d };
+    /* The write is handed BACK rather than fired and forgotten, and callers wait on it before they say the
+       deck is in — see uImportDone. Storing a deck is one put per note now, which for the largest deck
+       anyone has brought is ~7.4 s against the 246 ms one blob took, and a page closed or navigated inside
+       that window aborts the transaction and loses the whole import in silence. The deck is usable from
+       memory the instant this returns; what the wait buys is not saying "Imported" before it is true. */
+    return { ok: true, deck: d, saved: uDeckSaveAll(d.id) };
+  }
+  /* The tail of every import: paint the deck, then tell the reader once it is really stored — and say so
+     out loud if the storing is slow enough to notice, since a deck that has appeared but is still being
+     written looks exactly like one that is finished. */
+  async function uImportDone(r) {
+    if (!r || r.error) { toast((r && r.error) || "That deck couldn't be read."); return false; }
+    render();
+    if (r.saved) {
+      const slow = setTimeout(() => toast("Saving “" + r.deck.title + "” to this device…"), 400);
+      await r.saved;
+      clearTimeout(slow);
+    }
+    toast("Imported “" + r.deck.title + "”");
+    return true;
   }
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
@@ -6374,6 +6698,7 @@
     if (!d) return { error: "That deck is gone." };
     if (!uDeckIsMine(d)) return { error: "This deck belongs to someone else. Duplicate it first if you want to publish your own version." };
     if (!supaLoggedIn()) return { error: "Sign in on the Account page to publish a deck." };
+    await uWarmDeck(deckId);   // publishing uploads every card, so all of them have to be in hand first
     const cards = uDeckCards(d);
     if (!cards.length) return { error: "Write at least one card before publishing." };
     if (!sanitizePlain(d.title).trim() || d.title === "Untitled deck") return { error: "Give the deck a title before publishing." };
@@ -6412,8 +6737,14 @@
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
     });
-    const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows });
-    if (!ins.ok) return { error: communityErr(ins, "Couldn't upload the deck's cards.") };
+    /* In BATCHES, not one request. A deck may hold thousands of cards — the largest here is 10,896 — and a
+       single POST of that many rows is tens of megabytes in one body, which is the kind of request that
+       times out at a proxy rather than failing cleanly at the database. The size is the same one the
+       archive's own paged reader uses, for the same reason. */
+    for (let i = 0; i < rows.length; i += SUPA_PAGE) {
+      const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows.slice(i, i + SUPA_PAGE) });
+      if (!ins.ok) return { error: communityErr(ins, "Couldn't upload the deck's cards.") };
+    }
 
     // the deck's own glossary travels with it, so an installed copy links the same terms the author saw
     const terms = UGLOSS[d.id] || {};
@@ -6441,6 +6772,51 @@
     uDeckSave(deckId);
     return { ok: true };
   }
+  /* DELETING A DECK YOU PUBLISHED DELETES THE SHARED COPY TOO (Aug 2026, on a bug report: decks deleted in
+     the Studio "still appear on the shared decks page"). `uDeckDelete` only ever removed the LOCAL record,
+     so the published row stayed live for ever — and unreachably, since the Studio's Unpublish button reads
+     `remoteId` off the local deck, which is exactly the thing that has just been thrown away. Every
+     publish-then-delete left an orphan its own author could not take down.
+
+     A row DELETE rather than status='draft', on request: the cards, the glossary, the ratings and the
+     install records all cascade (see the foreign keys in .claude/supabase-schema.sql) and the slug is
+     freed, which is what "I deleted it" means. People who already installed it keep their copy — it simply
+     stops offering them updates.
+
+     `Prefer: return=representation` is not decoration. RLS decides which ROWS a DELETE may touch, and a
+     DELETE that matches none still answers 204: signed in as somebody else, or with the session expired
+     under a stale token, the request "succeeds" and removes nothing. Reading the rows back is the only way
+     to tell the difference — and reporting a silent failure as success is the exact shape of the bug this
+     function exists to fix. */
+  async function uDeckRemoteDelete(remoteId) {
+    if (!remoteId) return { ok: true };
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to remove the shared copy." };
+    const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(remoteId),
+      { method: "DELETE", headers: { Prefer: "return=representation" } });
+    if (!r.ok) return { error: communityErr(r, "Couldn't remove the shared copy.") };
+    if (Array.isArray(r.data) && !r.data.length) return { error: "That shared deck belongs to another account — sign in as its author to remove it." };
+    return { ok: true };
+  }
+  /* ---------- decks you published that this device has no copy of ----------
+     The other half of the same fix. A deck can lose its local record and keep its published row — deleted
+     on another device, deleted before the rule above shipped, or deleted here while signed out — and with
+     no local record there is nothing in the Studio holding its `remoteId`, so Unpublish can never be
+     reached. So the Studio asks the server what YOU own and lists whatever is missing here.
+
+     Fetched once per session, and only for a signed-in reader: signed out there is nothing to ask about,
+     and `_myRemote` stays an empty list rather than null so the caller need not tell "none" from "not yet". */
+  let _myRemote = null;        // rows owned by the signed-in user, or null = not asked yet
+  let _myRemoteAsked = false;
+  async function myRemoteDecksLoad() {
+    if (!supaLoggedIn()) { _myRemote = []; return; }
+    const r = await supaFetch("/rest/v1/user_decks?owner=eq." + encodeURIComponent(SUPA.user.id) +
+      "&select=id,slug,title,status,card_count,install_count,updated_at&order=updated_at.desc&limit=200");
+    _myRemote = (r.ok && Array.isArray(r.data)) ? r.data : [];
+  }
+  function myRemoteReset() { _myRemote = null; _myRemoteAsked = false; }
+  // A published row with nothing local pointing at it. localDeckForRemote is the same lookup an update
+  // check uses, so a deck that IS installed here can never be listed as an orphan.
+  function orphanRemoteDecks() { return (_myRemote || []).filter((row) => !localDeckForRemote(row.id)); }
 
   // Until the phase-2 SQL in .claude/supabase-schema.sql has been run, every one of these calls 404s with
   // PostgREST's "relation ... does not exist". Say what actually needs doing rather than leaking that.
@@ -6473,12 +6849,24 @@
     if (!r.ok) return { error: communityErr(r, "Couldn't load that deck.") };
     const row = Array.isArray(r.data) ? r.data[0] : null;
     if (!row) return { error: "notfound" };
-    const c = await supaFetch("/rest/v1/user_cards?deck_id=eq." + encodeURIComponent(row.id) + "&select=id,ord,is_demo,data&order=ord.asc");
-    if (!c.ok) return { error: communityErr(c, "Couldn't load that deck's cards.") };
+    /* PAGED, because PostgREST caps a response at SUPA_PAGE rows and a deck may hold many times that — the
+       largest here is 10,896. Unpaged, installing one returned its first thousand cards and nothing said
+       so: a truncated deck is indistinguishable from a small one, which is the quiet shape this file keeps
+       recording. The loop is the review archive's (revFetchAll), for the same reason and with the same
+       ordering guarantee, and a page short of full is what says the deck has ended. */
+    const cards = [];
+    for (let from = 0; ; from += SUPA_PAGE) {
+      const c = await supaFetch(
+        "/rest/v1/user_cards?deck_id=eq." + encodeURIComponent(row.id) + "&select=id,ord,is_demo,data&order=ord.asc",
+        { headers: { Range: from + "-" + (from + SUPA_PAGE - 1) } });
+      if (!c.ok || !Array.isArray(c.data)) return { error: communityErr(c, "Couldn't load that deck's cards.") };
+      c.data.forEach((cardRow) => cards.push(cardRow));
+      if (c.data.length < SUPA_PAGE) break;
+    }
     const g = await supaFetch("/rest/v1/user_gloss?deck_id=eq." + encodeURIComponent(row.id) + "&select=slug,data");
     const gloss = {};
     if (g.ok && Array.isArray(g.data)) g.data.forEach((t) => { gloss[t.slug] = t.data; });   // sanitized on ingest, below
-    return { ok: true, row: row, cards: Array.isArray(c.data) ? c.data : [], gloss: gloss };
+    return { ok: true, row: row, cards: cards, gloss: gloss };
   }
   function localDeckForRemote(remoteId) {
     const k = Object.keys(UDECKS).find((x) => UDECKS[x].remoteId === remoteId);
@@ -6510,7 +6898,7 @@
     if (!norm) return { error: "That deck couldn't be read." };
     if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
     const d = uDeckMount(norm);
-    await cdbPut(uDeckRecord(d.id));
+    await uDeckSaveAll(d.id);
     if (supaLoggedIn()) {
       await supaFetch("/rest/v1/deck_installs", {
         method: "POST", body: { deck_id: row.id, user_id: SUPA.user.id, version: row.version },
@@ -6704,12 +7092,26 @@
     let rows = [];
     try { rows = await cdbAll(); } catch (e) { rows = []; }
     let n = 0;
+    const legacy = [];
     // …`true`: this is OUR store, so a record still carrying this sanitizer's revision is taken as cleaned
-    rows.forEach((r) => { const norm = uDeckNormalize(r, true); if (norm) { uDeckMount(norm); n++; } });
+    rows.forEach((r) => {
+      const norm = uDeckNormalize(r, true);
+      if (!norm) return;
+      _deckTrusted[norm.id] = r.srev === SANITIZE_REV;   // …and so are its notes, when they are warmed
+      uDeckMount(norm);
+      n++;
+      if (norm.legacy) legacy.push(norm.id);
+    });
     _communityReady = true;
     // Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
     // skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
     if (current && (current.name === "decks" || current.name === "studio" || current.name === "home")) render();
+    /* A record written before the store was split still carries its cards inline. It mounted correctly
+       above — they are simply all resident, exactly as they used to be — and is rewritten into the new
+       shape once, at idle, so the reader never waits for it. cdbPutDeck writes the index and the notes in
+       ONE transaction, so a migration that fails leaves the old record untouched rather than a half-split
+       deck: the atomicity is what makes this safe to do to somebody's own data without asking. */
+    if (legacy.length && !_communityLS) whenIdle(() => { legacy.forEach(uDeckSaveAll); });
     // then, quietly, ask whether any installed deck has a newer version. Never blocks anything: a failed
     // or offline check just leaves _deckUpdates empty and no badges appear.
     if (n) whenIdle(() => {
@@ -7280,6 +7682,53 @@
        35.6, which is precisely what the band exists to exclude. Paying six points of separation to keep
        the shelf reading as one system is the trade every row here has made. */
     "Virgil": "#4A0418",
+    /* Measured the same way, and this is the row where the band is FULL rather than nearly full: with
+       thirty colours placed, the best-separated colour anywhere inside the shelf's own lightness and
+       chroma band, under the Book of Rites' ink floor and the 4.5:1 bar, clears its nearest neighbour
+       by 19.7 — where Virgil could still find 19.0-and-clear and Beowulf 23.3. The shelf's own
+       tightest pair is now 18.2 (the Classic of Poetry against Beowulf), so 19.7 still clears it, and
+       that is the honest report: no widening was needed and none would have helped much, because what
+       is left is not one gap but the gaps between thirty colours.
+
+       THE EURIPIDES TEST WAS RUN AND DOES NOT BITE HERE, which is worth saying because the obvious
+       reading of it would have chosen differently. Four of the five other Chinese works on the shelf
+       are far away (Sun Tzu 49, Confucius 56, the Classic of Poetry 39, the Book of Documents 93) and
+       the fifth, the Lî Kî's dark plum, is 21.0 — closer than any of them and still above the shelf's
+       own tightest pair. The test forbids a colour that says two books are a SET, and it is Sophocles
+       against Euripides, or Herodotus against Thucydides, that the rule was written for: a Ming comic
+       fantasy and a Confucian ritual compendium are not read as a pair by anybody. The alternative
+       was measured rather than waved away — every candidate holding 25 or more from all five Chinese
+       works is a BLUE at 18.5, below the shelf's tightest pair, joining the most crowded quarter here
+       as its fifth or sixth member. Paying 1.2 points and taking a fifth blue to avoid a kinship
+       nobody would read is the wrong trade.
+
+       The green that scored the same 19.6 was rejected outright, and on the test proper: its nearest
+       neighbour IS the Book of Documents, at 19.6, and two Chinese classics in neighbouring greens is
+       exactly the claim the shelf must not make. This deep magenta clears Ovid, Plato and Thucydides
+       at 19.7, 19.7 and 19.9 — evenly, so it reads as its own colour against all three rather than as
+       a near-miss of one — and reads 6.46:1 on the tightest of the sixteen light papers. Chroma 53 in
+       an 18–64 band and lightness 26 in a 12–48 one, so it cannot glow. It suits the book, which is a
+       comedy about a monkey wrecking heaven and not a sober one; that cost nothing, the numbers led
+       there. The thirty-second colour will have to widen the band or take a pair tighter than 18.2. */
+    "Wu Cheng'en": "#7B0050",
+    /* CHAUCER — a deep green-teal, and with thirty-one colours placed the band is as full as this file
+       has been recording. Searched over the shelf's own lightness and chroma band under the Book of
+       Rites' two floors (4.5:1 on the tightest of the sixteen light papers, and 22 clear of every light
+       theme's ink), the best colour anywhere in it clears its nearest neighbour by 19.7 — where the
+       shelf's OWN closest pair is now 18.2, the Classic of Poetry against Beowulf. So no pair tighter
+       than the shelf's tightest was taken and the band was not widened; the earlier rows' comfortable
+       margins are simply not on offer any more, and that is worth saying rather than quietly widening
+       the search.
+       THE EURIPIDES TEST PICKED THE FAMILY AND THE NUMBER AGREED, which does not always happen. The
+       colour is 19.7 from Marcus Aurelius's teal, 19.7 from Aesop's, 19.9 from the Book of Documents'
+       and 20.3 from Lucretius's — evenly enough spaced from all four that it reads as its own colour
+       rather than as a near miss of one — and none of those four is a book anyone reads as a set with
+       Chaucer. The alternatives were worse on exactly that count: the best blue is 18.5 from Snorri
+       Sturluson, which is BELOW the shelf's tightest pair and pairs him with the other medieval
+       vernacular poet on the shelf, and the best purple 17.5 from Plato. Its chroma of 38 sits in the
+       middle of the shelf's 18–64, so it is not the glowing green the Vyasa row turned down, and it
+       reads 4.63:1 on the tightest of the sixteen light papers. */
+    "Geoffrey Chaucer": "#00603A",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9198,6 +9647,134 @@
          bar would be composing an apparatus out of a commonplace — which is what the importer's titleOf
          note declines to do for the book titles, and what the Iliad's and Odyssey's rows decline for
          their own halves. */
+    },
+    {
+      id: "journey-to-the-west",
+      title: "Journey to the West",
+      subtitle: "西遊記",
+      author: "Wu Cheng'en",
+      /* THE ATTRIBUTION IS TRADITIONAL AND CONTESTED. The novel was printed anonymously in 1592 and
+         Wu Cheng'en's name was attached to it by Qing scholars on the strength of a county gazetteer
+         listing a work of that title among his writings; a good deal of modern scholarship is
+         unconvinced. It is the name the book is catalogued under in every language, so it is the name
+         on the spine, and the book's own front matter says what the name rests on. Richard's title
+         page says something else again — he thought the Taoist master Qiu Chuji wrote it, three
+         centuries before it appeared. */
+      written: "first printed 1592",
+      year: 1592,
+      translator: "Timothy Richard",
+      edition: "The Christian Literature Society's Depot, Shanghai, 1913",
+      /* AN EASY LICENCE, AND THE SIXTH ON THE SHELF NEEDING NO QUALIFICATION AT ALL — after the
+         Republic, the Analects, the Peloponnesian War, the City of God and the Aeneid. The novel is a
+         Ming work of the sixteenth century; Richard published in Shanghai in 1913 and lived
+         1845–1919, dates read off Wikidata at day precision and corroborated by its own description
+         rather than recalled, so his English clears pre-1929 publication, life-plus-seventy and
+         life-plus-a-hundred alike. There is no limit to state and no modern editorial layer to
+         declare. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, on every ground, with nothing to qualify. The novel is a Chinese work of the " +
+        "sixteenth century, first printed in 1592, so the words behind it have been free for as long " +
+        "as copyright has existed. The only modern layer is the translation: Timothy Richard " +
+        "published it in Shanghai in 1913 and lived from 1845 to 1919, so it is public domain in the " +
+        "United States, where the term for a work published before 1929 has expired, and out of " +
+        "copyright wherever the term is the translator's life plus seventy years or plus a hundred. " +
+        "Richard's dedication, his introduction and the plates are not reproduced here; what is taken " +
+        "is the hundred chapters. (The complete modern translations — Anthony C. Yu's of 1977–1983, " +
+        "revised in 2012, W. J. F. Jenner's of 1982–1986 and Julia Lovell's of 2021, and Arthur " +
+        "Waley's abridgement Monkey of 1942 — are all still in copyright and are not used.)",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/cu31924074502034",
+      origLang: "zh",
+      origName: "Chinese",
+      /* THE CHAPTER IS THE PAIRING UNIT — it is what the work is divided into, what both editions
+         state and how any passage of it is cited in any language. Neither side numbers anything
+         inside a chapter, so there is nothing finer to pair on and none is invented: one row per
+         chapter, each column at its own length.
+         THE ORIGINAL IS THE FULLER OF THE TWO COLUMNS, which is true of no other book here. The
+         Chinese is all hundred chapters entire; Richard renders about ten of them at length and
+         condenses the rest, marking eighty-nine of the hundred himself with the word "[outline.]",
+         which ships exactly where he put it — the unmarked eleven average 3,700 words and the marked
+         eighty-nine about 570. The book's own front matter says so on its first page, because it is
+         the first thing a reader needs to know about this text.
+         The numbering was checked rather than assumed: this novel has a known place where two
+         recensions disagree about whether the story of Tripitaka's parentage is chapter 9, and the
+         two orderings run a chapter apart from there on. Measured on the source — the Chinese
+         chapters 9 to 12 are Richard's IX to XII in subject, so the columns agree over all hundred.
+         See .claude/fetch-book.js. */
+      chapterWord: "Chapter",
+      count: 100,
+      total: 100,
+      /* No `parts`. The edition divides the book into a hundred chapters and nothing above them. The
+         three movements a reader may have met elsewhere — Monkey's origin, Tripitaka's, and the
+         pilgrimage — are not this edition's divisions, and putting them on the bar would be composing
+         an apparatus, which is what the Aeneid's row declines to do for its own two halves. */
+    },
+    {
+      id: "canterbury-tales",
+      title: "The Canterbury Tales",
+      author: "Geoffrey Chaucer",
+      written: "c. 1387–1400",
+      year: 1387,
+      translator: "John S. P. Tatlock and Percy MacKaye",
+      edition: "The Macmillan Company, New York, 1912",
+      /* A LIMIT ON THE TRANSLATION, and nothing to qualify about the other two layers. Chaucer died in
+         1400 and Skeat's Middle English text of 1900 is clear on every ground (he died in 1912). The
+         translation was published in 1912, so it is public domain in the United States under the
+         pre-1929 rule — but a work of two hands runs its term from the last of them to die, and
+         MacKaye lived until 1956, so life-plus-seventy has it in copyright until the beginning of 2027
+         and life-plus-a-hundred until 2057. Their dates were looked up rather than recalled and
+         corroborated twice: the library catalogue record carried in the scan's own metadata gives
+         both, and so does each man's biography. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. Chaucer died in 1400, so " +
+        "the poem itself has been free for as long as copyright has existed, and the Middle English " +
+        "column is Walter W. Skeat's text of 1900 — he died in 1912, so it is out of copyright on " +
+        "every ground with nothing to qualify. The translation is the half that needs a date. John S. " +
+        "P. Tatlock and Percy MacKaye published it in 1912, which puts it in the public domain in the " +
+        "United States under the rule for works published before 1929; but a work of two hands runs " +
+        "its term from the last of them to die, and MacKaye lived until 1956, so in countries where " +
+        "the term is the authors' lives plus seventy years it remains in copyright until the " +
+        "beginning of 2027, and where it is life plus a hundred until 2057. The translators' preface, " +
+        "glossary and notes, Skeat's introduction and apparatus, and the plates in both volumes are " +
+        "not reproduced; what is taken is the Prologue and the twenty-four tales. (The modern " +
+        "translations — Nevill Coghill's of 1951, David Wright's of 1985, Burton Raffel's of 2008 and " +
+        "Peter Ackroyd's retelling of 2009 — are all still in copyright and are not used.)",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
+      origLang: "enm",
+      origName: "Middle English",
+      /* THE TALE IS THE PAIRING UNIT, and here it is not a compromise between two editions but the
+         same editor read twice: the translators say in their preface that they follow Skeat's text
+         throughout, and Skeat's text is the facing column. So the two divide the work identically —
+         twenty-five units, same order, no exception to record.
+         WHAT THERE IS NO KEY FOR IS ANYTHING BELOW THE TALE. Skeat prints a line number every fifth
+         line, which is how Chaucer is cited in any language; the prose translation prints nothing at
+         all, so a number on one side and silence on the other could only pair by luck. One row per
+         tale, each column at its own length inside it.
+         THE TRANSLATION IS A PROSE RENDERING and it abridges the two tales that are prose in the
+         original — Melibeus and the Parson's Tale — to what its preface calls specimens, about a
+         tenth of each, and drops five further passages as too coarse for 1912, marking each with a
+         row of asterisks that ships where they printed it. Measured over the shipped files: 136,000
+         words against the original's 185,000, and take those two tales out and it is 130,000 against
+         135,000. Everything left out is in the Middle English beside it, which is complete.
+         See .claude/fetch-book.js. */
+      chapterWord: "Tale",
+      count: 25,
+      total: 25,
+      /* THE FRAGMENTS — the nine groups the tales survive in, which this very edition prints as
+         headings over them. Read off the pages rather than composed, and the only division either
+         edition makes above the tale. */
+      parts: [
+        { n: 1, label: "Group A", note: "Tales 1–5" },
+        { n: 2, label: "Group B", note: "Tales 6–12" },
+        { n: 3, label: "Group C", note: "Tales 13–14" },
+        { n: 4, label: "Group D", note: "Tales 15–17" },
+        { n: 5, label: "Group E", note: "Tales 18–19" },
+        { n: 6, label: "Group F", note: "Tales 20–21" },
+        { n: 7, label: "Group G", note: "Tales 22–23" },
+        { n: 8, label: "Group H", note: "Tale 24" },
+        { n: 9, label: "Group I", note: "Tale 25" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
@@ -13951,16 +14528,22 @@
       o: { lang: "ar", t: "ولما كان الكذب متطرقاً للخبر بطبيعته وله أسباب تقتضيه.", a: "ابن خلدون", s: "المقدمة" } },
     { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
       o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
-    // NO ORIGINAL, AND HERE THE REASON IS THE ATTRIBUTION (Aug 2026, looked for on request). The Hebrew
-    // is easy to find and that is the trap: "למד לשונך לומר איני יודע" is the BABYLONIAN TALMUD, Berakhot
-    // 4a, where it is introduced with "דאמר מר" — "as the Master said" — so even the Talmud is quoting it
-    // as a saying already received. Maimonides repeats it; he did not write it. Setting it as this entry's
-    // `o` would put those words in his mouth in the one place a reader goes to see what he actually
-    // wrote, which is worse than the blank — the `s` here already hedges with "Attributed". The honest
-    // fixes are to re-attribute the quote to the Talmud and give it the Hebrew, or to drop it for a line
-    // Maimonides did write; both change who speaks, which changes the running order (the no-repeat rule
-    // is keyed on the author), so neither is done in passing. Flagged rather than papered over.
-    { t: "Teach your tongue to say \"I do not know\", and you will make progress.", a: "Maimonides", s: "Attributed; cf. Commentary on the Mishnah" },
+    // RE-ATTRIBUTED RATHER THAN GIVEN AN ORIGINAL (Aug 2026, on a report that this quote would not flip).
+    // It stood as Maimonides, hedged "Attributed", with no `o` — and the note that used to sit here said
+    // why: the Hebrew is easy to find and that is the trap, because "למד לשונך לומר איני יודע" is the
+    // BABYLONIAN TALMUD, Berakhot 4a, introduced there with "דאמר מר" — "as the Master said" — so even the
+    // Talmud quotes it as a saying already received. Maimonides repeats it; he did not write it, and
+    // hanging the Hebrew off his name would have put those words in his mouth in the one place a reader
+    // goes to see what he actually wrote. A search of the whole corpus returns Berakhot 4a and no work of
+    // his, so the attribution was the quote-site one this pool exists to keep out. What could not be done
+    // in passing then and is done here is the first of the two fixes that note named: the speaker becomes
+    // the work, the source becomes the folio, and the words become A. Cohen's (Cambridge, 1921 — a
+    // standard published translation, and public domain), which opens on the same five words the entry
+    // always carried. **THE TAIL IS WHERE THE MISATTRIBUTION LIVED**: "and you will make progress" is in
+    // no source, where the Talmud gives a reason of its own — say less rather than keep a rounder sentence.
+    // Changing `a` re-solves the running order, the no-repeat rule being keyed on the author.
+    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a",
+      o: { lang: "he", t: "לַמֵּד לְשׁוֹנְךָ לוֹמַר ״אֵינִי יוֹדֵעַ״, שֶׁמָּא תִּתְבַּדֶּה וְתֵאָחֵז.", a: "התלמוד הבבלי", s: "בבלי, ברכות ד ע״א" } },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
     { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
@@ -14592,6 +15175,11 @@
     const q = reviewQueue();
     const dueN = q.due.length;
     const newN = q.fresh.length;
+    /* Load the day's community-deck cards while the reader is looking at this page. Their content lives per
+       note and is fetched when needed, and the moment it is needed is the moment Start is pressed — so
+       fetching it at idle here is what keeps the study page's loading placard a fallback rather than
+       something seen every day. Costs nothing when nothing is installed, and nothing on a second visit. */
+    if (q.all.length && !uWarmed(q.all)) whenIdle(() => uWarm(q.all));
     /* The day's pile split Anki's way (Aug 2026, on request): NEW cards never studied, LEARNING cards
        answered wrong and still working their way out of it, REVIEW cards graduated and due back. The old
        Due / New pair folded the last two together, which hides the pile a reader most wants to see the size
@@ -15362,6 +15950,18 @@
      about Folio, so they survive navigating away and back within a session and reset on reload. */
   let browseQ = "", browseSort = "due", browseRev = false, browseSel = Object.create(null);
   PAGES.browse = function (root) {
+    /* The browser searches card TEXT, so unlike every other listing surface it cannot work from the index —
+       a search that quietly stopped matching the cards it had not loaded would report fewer results with
+       nothing to say why, which is the silent shape this file keeps recording. So every installed deck is
+       read in full first, once, behind the placard. It is an explicit "show me everything" action and the
+       only page here that asks for the whole collection at once. */
+    const coldDecks = Object.keys(UDECKS).filter((id) => !uWarmed(UDECKS[id].cardIds || []));
+    if (coldDecks.length) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Your record</span><h1>Card browser</h1></div>' +
+        '<div class="data-loading">Loading your cards…</div>';
+      uWarmDecks(coldDecks).then(() => { if (current && current.name === "browse") render(); });
+      return;
+    }
     const stateName = { new: "New", learning: "Learning", relearn: "Relearning", review: "Review" };
     const fmtDue = (r) => {
       if (r.state === "new") return "—";
@@ -15750,11 +16350,7 @@
     const nw = root.querySelector("#udNew");
     if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.deck = d.id; studioState.card = null; route("studio"); });
     const im = root.querySelector("#udImport");
-    if (im) im.addEventListener("click", () => uDeckPickFile((r) => {
-      if (r.error) { toast(r.error); return; }
-      toast("Imported “" + r.deck.title + "”");
-      render();
-    }));
+    if (im) im.addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
     const st = root.querySelector("#udStudio");
     if (st) st.addEventListener("click", () => route("studio"));
     const br = root.querySelector("#udBrowse");
@@ -17842,12 +18438,29 @@
   PAGES.studio = function (root) {
     if (!communityReady()) { root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>Your decks</h1></div><div class="data-loading">Loading your decks…</div>'; return; }
     if (studioState.deck && !UDECKS[studioState.deck]) { studioState.deck = null; studioState.card = null; }
+    /* The Studio lists every card's title and edits their prose, so it is one of the few surfaces that
+       genuinely wants the whole deck rather than a session's worth — it reads it in one pass through the
+       notes store (~0.6 s for 10,896 notes) behind the placard the page already has for its own boot. The
+       SHELF above does not: a deck row shows a title and a card count, both of which the index carries. */
+    if (studioState.deck && !uWarmed(UDECKS[studioState.deck].cardIds || [])) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>' + esc(UDECKS[studioState.deck].title || "") + '</h1></div><div class="data-loading">Loading this deck…</div>';
+      uWarmDeck(studioState.deck).then(() => { if (current && current.name === "studio") render(); });
+      return;
+    }
     if (studioState.deck) studioRenderDeck(root, UDECKS[studioState.deck]);
     else studioRenderList(root);
   };
 
   function studioRenderList(root) {
     const decks = uDeckList();
+    /* Ask the server, once a session, which decks this account owns — the list below shows whichever of
+       them this device has no copy of. Never blocks the page: it paints without them and repaints when
+       they land, which is the pattern the update check already uses, and a failed or offline request just
+       leaves the section absent rather than showing an empty heading. */
+    if (!_myRemoteAsked && supaLoggedIn()) {
+      _myRemoteAsked = true;
+      myRemoteDecksLoad().then(() => { if (current && current.name === "studio" && !studioState.deck) render(); });
+    }
     /* The way back stands at the TOP LEFT of the page, above the heading, rather than in the row of actions
        under it (Aug 2026, on request) — a back link belongs where a reader looks for one, and standing in a
        line beside "New deck" and "Import" it read as a third thing to do rather than as the way out. It also
@@ -17875,24 +18488,87 @@
                 '<button class="btn tiny danger" type="button" data-del="' + esc(d.id) + '">Delete</button>' +
               '</div></div>';
           }).join("") + '</div>'
-        : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>');
+        : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>') +
+      orphanSectionHTML();
 
     root.querySelector("#stNew").addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.deck = d.id; studioState.card = null; render(); });
     root.querySelector("#stBack").addEventListener("click", () => route("decks"));
-    root.querySelector("#stImport").addEventListener("click", () => uDeckPickFile((r) => {
-      if (r.error) { toast(r.error); return; }
-      toast("Imported “" + r.deck.title + "”");
-      render();
-    }));
+    root.querySelector("#stImport").addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
     root.querySelectorAll("[data-open]").forEach((b) => b.addEventListener("click", () => { studioState.deck = b.dataset.open; studioState.card = null; render(); }));
     root.querySelectorAll("[data-study]").forEach((b) => b.addEventListener("click", () => route("study", { scope: { type: "udeck", id: b.dataset.study } })));
     root.querySelectorAll("[data-export]").forEach((b) => b.addEventListener("click", () => uDeckExport(b.dataset.export)));
     root.querySelectorAll("[data-del]").forEach((b) => b.addEventListener("click", () => {
       const d = UDECKS[b.dataset.del]; if (!d) return;
-      inlineConfirm("Delete “" + d.title + "” and its " + (d.cardIds || []).length + " cards? This can't be undone — export it first if you want to keep a copy.", () => {
-        uDeckDelete(d.id); toast("Deck deleted"); render();
-      }, "Delete");
+      confirmDeleteDeck(d);
     }));
+    root.querySelectorAll("[data-orphopen]").forEach((b) => b.addEventListener("click", () => { location.hash = "#deck/" + encodeURIComponent(b.dataset.orphopen); }));
+    root.querySelectorAll("[data-orphdel]").forEach((b) => b.addEventListener("click", () => {
+      const row = (_myRemote || []).find((x) => x.id === b.dataset.orphdel); if (!row) return;
+      inlineConfirm("Remove “" + (row.title || "Untitled deck") + "” from the shared decks page? This deletes it and its cards, ratings and reviews for good. Anyone who already installed it keeps their copy.", async () => {
+        b.disabled = true;
+        const r = await uDeckRemoteDelete(row.id);
+        if (r.error) { b.disabled = false; toast(r.error); return; }
+        myRemoteReset();
+        toast("Removed from the shared decks page");
+        render();
+      }, "Remove");
+    }));
+  }
+
+  /* Deleting a deck of your own that is on the shared page takes the shared copy with it — see
+     `uDeckRemoteDelete`. Three cases, and each is said out loud rather than left to be discovered:
+
+     · not shared → the message it always had;
+     · shared, signed in → the shared copy goes FIRST, and a failure stops the whole thing. That is
+       deliberate: the local record is the only handle on the remote row, so throwing it away while the
+       delete is failing manufactures the very orphan this exists to prevent. Nothing is lost by retrying.
+     · shared, signed out → the local copy can go and the shared one cannot, so the confirmation says so
+       BEFORE the reader agrees and names where to finish the job, rather than reporting it afterwards. */
+  function confirmDeleteDeck(d) {
+    const n = (d.cardIds || []).length;
+    const shared = !!(uDeckIsMine(d) && d.remoteId);
+    const keep = " This can't be undone — export it first if you want to keep a copy.";
+    const tail = !shared ? keep
+      : supaLoggedIn() ? " It comes off the shared decks page too, for good." + keep
+      : " You're signed out, so its copy on the shared decks page will stay — sign in and remove it from the Studio." + keep;
+    inlineConfirm("Delete “" + d.title + "” and its " + n + " " + (n === 1 ? "card" : "cards") + "?" + tail, async () => {
+      if (shared && supaLoggedIn()) {
+        toast("Removing the shared copy…");
+        const r = await uDeckRemoteDelete(d.remoteId);
+        if (r.error) { toast(r.error + " The deck is still here — try again."); return; }
+      }
+      uDeckDelete(d.id);
+      myRemoteReset();   // this device's picture of what it owns on the server is now a version behind
+      toast(shared && supaLoggedIn() ? "Deck deleted, and taken off the shared page" : "Deck deleted");
+      render();
+    }, "Delete");
+  }
+
+  /* The listing of those orphans. ABSENT rather than empty when there is nothing to show — a heading over
+     no rows reads as a section that failed to load, and for almost every reader there will never be
+     anything here at all. A row carries what the server knows and nothing this device has, since by
+     definition it has nothing: the title, the size, where the deck currently stands and how many people
+     hold a copy, which is the fact a reader wants before removing something for good. */
+  function orphanSectionHTML() {
+    const rows = orphanRemoteDecks();
+    if (!rows.length) return "";
+    const where = { published: "on the shared decks page", draft: "unlisted — it has a page, but nobody can find it", hidden: "hidden by a moderator" };
+    return '<div class="studio-orphans">' +
+      '<h2 class="studio-sec">Published, but not on this device</h2>' +
+      '<p class="studio-sec-note">Your account owns these and there is no copy here — deleted on another device, or before deleting a deck took its shared copy with it. Removing one deletes it, its cards and its reviews for good; anyone who already installed it keeps their copy.</p>' +
+      '<div class="studio-list">' + rows.map((row) => {
+        const n = Number(row.card_count || 0), inst = Number(row.install_count || 0);
+        const meta = '<span class="sd-title">' + esc(row.title || "Untitled deck") + '</span>' +
+          '<span class="sd-meta">' + n + " " + (n === 1 ? "card" : "cards") + " &middot; " + esc(where[row.status] || String(row.status || "")) +
+            (inst ? " &middot; " + inst + " " + (inst === 1 ? "install" : "installs") : "") + '</span>';
+        return '<div class="studio-deck orphan-deck">' +
+          (row.slug
+            ? '<button class="studio-deck-open" type="button" data-orphopen="' + esc(row.slug) + '">' + meta + '</button>'
+            : '<div class="studio-deck-open">' + meta + '</div>') +
+          '<div class="studio-deck-actions">' +
+            '<button class="btn tiny danger" type="button" data-orphdel="' + esc(row.id) + '">Remove</button>' +
+          '</div></div>';
+      }).join("") + '</div></div>';
   }
 
   function fmtWhen(ts) {
@@ -18529,15 +19205,17 @@
     const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
     const up = root.querySelector("#stUpdate");
     if (up) up.addEventListener("click", () => route("deck", { slug: d.slug }));
-    root.querySelector("#stFork").addEventListener("click", () => {
-      const rec = uDeckRecord(d.id);
+    root.querySelector("#stFork").addEventListener("click", async () => {
+      await uWarmDeck(d.id);   // a duplicate copies every card, so all of them have to be in hand
+      const rec = uDeckRecordFull(d.id);
       const r = uDeckImportText(JSON.stringify({ folioDeck: UDECK_FORMAT, meta: rec.meta, cards: rec.cards, gloss: rec.gloss }), true);
       if (r.error) { toast(r.error); return; }
       r.deck.forkedFrom = { slug: d.slug || "", title: d.title || "", author: d.ownerName || d.author || "" };   // credit the original
       uDeckSave(r.deck.id);
       studioState.deck = r.deck.id; studioState.card = null;
-      toast("Duplicated — this copy is yours to edit");
       render();
+      await r.saved;   // the copy's own notes — say it is duplicated once it really is (see uImportDone)
+      toast("Duplicated — this copy is yours to edit");
     });
     root.querySelector("#stRemove").addEventListener("click", () => inlineConfirm(
       "Remove “" + d.title + "” from this device? Your progress on its cards goes too.",
@@ -19089,6 +19767,20 @@
         : emptyPlacard("Deck not found", "—", "We couldn't find that deck.", () => route("decks"), "Back to collections");
       return;
     }
+    /* A community deck's cards are stored per note and loaded when they are needed, so this session's own
+       cards may not be in memory yet. `cardById` is synchronous — see the warming block — so the queue is
+       loaded BEFORE the first card paints, behind the same `.data-loading` placard the lazy data bundles
+       use. The home page warms the day's review at idle, so in ordinary use this is already true and the
+       placard is never seen; it is what a deep link, a cold start or a deck tapped straight from its row
+       falls back on. */
+    const sessIds = (resume ? resume.queue : []).concat(sess.queue);
+    if (!uWarmed(sessIds)) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' + esc(sess.where || "") + "</h1></div>" +
+        '<div class="data-loading">' + t("Loading these cards…") + "</div>";
+      uWarm(sessIds).then(() => { if (current && current.name === "study") render(); });
+      return;
+    }
+
     const sd = params.scope.type === "deck" ? NODE_BY_ID[params.scope.id] : null;
     const ud = params.scope.type === "udeck" ? UDECKS[params.scope.id] : null;   // one of the user's own decks
     // whether this scope's cards ask one of their phrasings at random — see deckVariety. Read ONCE for the
