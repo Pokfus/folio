@@ -58,7 +58,10 @@ const PARTICLES = new Set(["van", "von", "de", "der", "den", "du", "la", "le", "
 /* Tokens that reach an author position but name a PLACE, SITE or SERIES rather than a person. Each was
    found by reading a flagged question and finding no scholar in it. */
 const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "University", "Jr", "Sr",
-  "The", "And", "France", "Fels", "Hohle", "Agora", "Athenian", "Anzick", "Sands", "Grotte", "Sahul", "Dartmouth", "Hanover", "Tufts"]);
+  "The", "And", "France", "Fels", "Hohle", "Agora", "Athenian", "Anzick", "Sands", "Grotte", "Sahul", "Dartmouth", "Hanover", "Tufts",
+  // A CORPORATE AUTHOR ends on a place, and the place is what the last-token rule takes for a surname:
+  // "Archaeological Survey of India" left every question naming India reading as one naming a scholar.
+  "Archaeological", "Survey", "India"]);
 
 /* ANCIENT AUTHORS ARE NOT SCHOLARS, and the distinction is the whole point of the rule. Herodotus and
    Pausanias are cited here as SOURCES FOR THE PAST — a question that names one is teaching history, and

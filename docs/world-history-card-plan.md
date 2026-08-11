@@ -356,7 +356,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-118  Neolithic founder crops
     wh-119  Cereal domestication
     wh-120  Animal domestication
-    wh-121  Domestication of the dog
+    wh-121  Dog domestication
     wh-122  Pre-Pottery Neolithic
     wh-123  Göbekli Tepe
     wh-124  Jericho
@@ -365,7 +365,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-127  Sedentism
     wh-128  Pottery
     wh-129  Rice domestication
-    wh-130  Early farming in China
+    wh-130  Millet domestication
     wh-131  Maize domestication
     wh-132  Independent origins of agriculture
     wh-133  Neolithic demographic transition

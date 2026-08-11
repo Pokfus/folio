@@ -35,13 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.169", released: "2026-08-11T20:52Z" };
+window.FOLIO_VERSION = { v: "1.189", released: "2026-08-11T22:31Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-11",
-    t: "Six books join the Library, a subdeck can hold subdecks of its own, and a misattributed daily quote is put back with the words its own source carries",
+    t: "Six books join the Library, sixteen more cards join World History, a subdeck can hold subdecks of its own, and a misattributed daily quote is put back with the words its own source carries",
     items: [
+      "Sixteen new cards in the World History collection, each with a glossary term to go with it.",
+      "A measurement given in millilitres now follows the units you have chosen, like every other figure.",
       "<b>Dante's <i>Divine Comedy</i> is on the shelf</b> — all one hundred cantos in Henry Wadsworth Longfellow's 1867 verse translation, three lines to a row.",
       "<b>Augustine's <i>Confessions</i> is on the shelf</b> — all thirteen books in J. G. Pilkington's 1886 translation, with Migne's Latin on the facing page.",
       "<b>Aquinas's <i>Summa Theologica</i> is on the shelf</b> — all 614 questions and 3,094 articles of it, in the Dominican Fathers' translation of 1920.",
@@ -102,6 +104,8 @@ window.CHANGELOG = [
       "<b>The daily games now only ask about terms you have a chance of knowing.</b>",
       "<b>What year? is now built on real historical events instead of card terms.</b>",
       "The Crossword now has more variety from day to day: it was quietly drawing from the same handful of words each morning and building much the same grid every fortnight.",
+      "Fifteen new cards in the World History collection, each with a glossary term to go with it.",
+      "The word “geometric” in ordinary prose no longer links to the Greek Geometric period; only the capitalised form does.",
     ],
   },
   {
