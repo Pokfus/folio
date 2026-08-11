@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.163", released: "2026-08-11T03:38Z" };
+window.FOLIO_VERSION = { v: "1.164", released: "2026-08-11T05:36Z" };
 
 window.CHANGELOG = [
   {
@@ -49,6 +49,7 @@ window.CHANGELOG = [
     d: "2026-08-10",
     t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and five books on the shelf",
     items: [
+      "<b>On a dark theme, opening a menu or a chest no longer washes the whole page white behind it</b> — the page now darkens, as it should.",
       "<b>A big deck no longer makes the site slow to open</b> — Folio now loads only the cards a session needs, and editing one card no longer rewrites the whole deck.",
       "<b>Installing a shared deck of more than a thousand cards no longer stops at the first thousand</b>, and publishing one now uploads it in batches.",
       "<b>Deleting a deck you had published now takes it off the shared decks page too</b> — it used to stay there for good, with no way left to remove it.",
