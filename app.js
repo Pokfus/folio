@@ -4359,6 +4359,67 @@
      build — or two devices reconciling — could carry one, and an unguarded walk would hang the page rather
      than draw a wrong list. The nest map is empty for almost every reader, so the common path is one
      `Object.keys` on `{}`. */
+  /* THE ORDER A SUBDECKED ENTRY DEALS ITS CARDS IN (Aug 2026, on request, after a reader studying a
+     level of a two-direction deck was given one direction and never the other).
+
+     A deck stores its cards one subdeck after another, and both the pooled review and a deck-scoped
+     session take the day's new cards as a SLICE off the front of that list — so on the DELE decks the
+     slice never reached the second subdeck at all, and Ordered meant "Spanish → English, for a hundred
+     days". Random was no answer: it shuffles the whole session and throws the word order away with the
+     problem.
+
+     So an entry whose cards come from more than one leaf subdeck deals them ROUND-ROBIN by position:
+     each subdeck keeps its own 1, 2, 3…, and the day gives position 1 from every subdeck, then position
+     2, and so on. Because the reorder happens BEFORE the allowance is sliced, this decides both WHICH
+     cards the day gives and WHAT ORDER they arrive in, from one place — so the pooled review, a session
+     started from a row, and that row's own counts cannot come to disagree.
+
+     THE LAG IS THE POINT OF THE DESIGN AND NOT A DETAIL. On a two-direction deck, position N is the SAME
+     WORD in both subdecks — measured on the DELE A1 deck, 496 of 496 — so a plain round robin deals
+     `de → of` and then `of → de` a second later. The reverse is then answered out of short-term memory
+     and scheduled far further out than it has been earned, and Folio's bury-siblings cannot save it:
+     these are two independent cards rather than two cards of one note, so nothing separates them. Each
+     later subdeck therefore runs `lag` positions BEHIND the first, where the lag is the entry's own
+     new-card allowance — one day's worth — so the reverse of a word arrives on the NEXT day rather than
+     in the next breath. Sorting on `position + groupIndex * lag` needs no state and self-corrects as
+     cards are consumed: the position is the card's place in its own subdeck, not its place in whatever
+     is left unseen today.
+
+     It applies to Folio's own collections too (on request), where the groups are the leaf decks: a
+     collection is met a few cards from each of its decks at a time, each deck a day behind the one
+     before it, rather than one deck worked through end to end.
+
+     A card's group is its LEAF SUBDECK, not its card template. A note's own reverse card is a separate
+     axis with a separate answer already — bury-siblings — and interleaving it here would be two
+     mechanisms arguing over the same pair. */
+  function studyGroupOf(id) {
+    if (isCommunityCard(id)) {
+      const n = UCARDS[uCardBaseId(id)];
+      return "u\u0000" + ((n && n.sub) || "");
+    }
+    const leaf = cardLeaves(id)[0];
+    return "n\u0000" + (leaf ? leaf.id : "");
+  }
+  function studyOrder(entryId, ids) {
+    const groups = new Map();                       // group -> its cards, in the deck's own order
+    ids.forEach((id) => {
+      const g = studyGroupOf(id);
+      let a = groups.get(g);
+      if (!a) { a = []; groups.set(g, a); }
+      a.push(id);
+    });
+    if (groups.size < 2) return ids;                // one group: the round robin is the identity
+    const lag = Math.max(1, deckLimits(entryId).newPerDay | 0);
+    const keyed = [];
+    let gi = 0;
+    groups.forEach((arr) => {                       // Map iterates in first-appearance order
+      const off = gi * lag;
+      arr.forEach((id, i) => keyed.push([i + off, gi, keyed.length, id]));
+      gi++;
+    });
+    keyed.sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]) || (a[2] - b[2]));
+    return keyed.map((k) => k[3]);
+  }
   function entryCardIds(id, _guard) {
     // the daily review answers for every added deck at once — see REVIEW_ENTRY
     if (id === REVIEW_ENTRY) {
@@ -5047,7 +5108,7 @@
     if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
     activeEntryIds().forEach((e) => {
       if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
-      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id));
+      const ids = studyOrder(e, entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id)));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
         .sort((a, b) => S.cards[a].due - S.cards[b].due)
@@ -16764,7 +16825,7 @@
       const availG = availableCardIdSet();
       // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
       // cards, so leaving it out here would let a buried card come back through one
-      const gIds = entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id));
+      const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = [...gDue, ...gNew];
@@ -16775,7 +16836,8 @@
       if (!d) return null;
       const sub = scope.sub || "";
       // the deck's notes expanded into their cards (a reverse card is its own card here), template-major
-      const ids = uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id));
+      const ids = studyOrder(uSubEntry(d.id, sub),
+        uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id)));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
       const ue = uSubEntry(d.id, sub);
@@ -16797,7 +16859,7 @@
       const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
       // entryCardIds rather than subtreeCardIds, so tapping a row studies exactly what that row promised:
       // a branch dragged into a group is studied there, and a guest dragged in here is studied here
-      const ids = entryCardIds(sd.id).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id));
+      const ids = studyOrder(sd.id, entryCardIds(sd.id).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id)));
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
