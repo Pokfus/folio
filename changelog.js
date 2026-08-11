@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.168", released: "2026-08-11T20:02Z" };
+window.FOLIO_VERSION = { v: "1.169", released: "2026-08-11T20:52Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-11",
-    t: "Six books join the Library, including the whole of the Rigveda with its Sanskrit",
+    t: "Six books join the Library, a subdeck can hold subdecks of its own, and a misattributed daily quote is put back with the words its own source carries",
     items: [
       "<b>Dante's <i>Divine Comedy</i> is on the shelf</b> — all one hundred cantos in Henry Wadsworth Longfellow's 1867 verse translation, three lines to a row.",
       "<b>Augustine's <i>Confessions</i> is on the shelf</b> — all thirteen books in J. G. Pilkington's 1886 translation, with Migne's Latin on the facing page.",
@@ -48,12 +48,16 @@ window.CHANGELOG = [
       "<b>The <i>Rigveda</i> is on the shelf</b> — all 1,028 hymns in Ralph Griffith's 1896 translation, with the Sanskrit facing it verse by verse.",
       "<b>Cervantes's <i>Don Quixote</i> is on the shelf</b> — both parts entire, all 126 chapters, in John Ormsby's translation of 1885.",
       "<b>Petronius's <i>Satyricon</i> is on the shelf</b> — all 141 sections in Michael Heseltine's 1913 translation, with the Latin facing it.",
+      "<b>The daily quote about saying \"I do not know\" now turns over to its original</b>, having been corrected from Maimonides to the Talmud passage it actually comes from.",
+      "<b>A subdeck can hold subdecks of its own</b> — a deck file can nest them, so a level can be one row in your daily study with its directions inside it.",
+      "<b>A deck with subdecks now deals them side by side</b> — each keeps its own order, and one runs a day behind the next, so studying a level no longer gives you one direction and never the other.",
     ],
   },
   {
     d: "2026-08-10",
     t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and five books on the shelf",
     items: [
+      "<b>On a dark theme, opening a menu or a chest no longer washes the whole page white behind it</b> — the page now darkens, as it should.",
       "<b>A big deck no longer makes the site slow to open</b> — Folio now loads only the cards a session needs, and editing one card no longer rewrites the whole deck.",
       "<b>Installing a shared deck of more than a thousand cards no longer stops at the first thousand</b>, and publishing one now uploads it in batches.",
       "<b>Deleting a deck you had published now takes it off the shared decks page too</b> — it used to stay there for good, with no way left to remove it.",

@@ -3881,9 +3881,14 @@
     if (isCommunityCard(id)) {
       const note = UCARDS[uCardBaseId(id)];
       if (note && note.deckId) {
-        const sub = note.sub ? uSubEntry(note.deckId, note.sub) : null;
-        // a subdeck's own row can carry options; fall back to the deck's
-        if (sub && (S.deckOpts || {})[sub]) return sub;
+        /* a subdeck's own row can carry options, and since a subdeck may sit inside another the path is
+           walked upward: the nearest ancestor that has been given options governs, and the deck's own row
+           is the last of them. Without the walk, options set on `A1` would be ignored by every card
+           actually filed in `A1::Spanish → English`. */
+        for (let p = note.sub || ""; p; p = uSubParent(p)) {
+          const e = uSubEntry(note.deckId, p);
+          if ((S.deckOpts || {})[e]) return e;
+        }
         return uDeckEntry(note.deckId);
       }
       return null;
@@ -4354,6 +4359,67 @@
      build — or two devices reconciling — could carry one, and an unguarded walk would hang the page rather
      than draw a wrong list. The nest map is empty for almost every reader, so the common path is one
      `Object.keys` on `{}`. */
+  /* THE ORDER A SUBDECKED ENTRY DEALS ITS CARDS IN (Aug 2026, on request, after a reader studying a
+     level of a two-direction deck was given one direction and never the other).
+
+     A deck stores its cards one subdeck after another, and both the pooled review and a deck-scoped
+     session take the day's new cards as a SLICE off the front of that list — so on the DELE decks the
+     slice never reached the second subdeck at all, and Ordered meant "Spanish → English, for a hundred
+     days". Random was no answer: it shuffles the whole session and throws the word order away with the
+     problem.
+
+     So an entry whose cards come from more than one leaf subdeck deals them ROUND-ROBIN by position:
+     each subdeck keeps its own 1, 2, 3…, and the day gives position 1 from every subdeck, then position
+     2, and so on. Because the reorder happens BEFORE the allowance is sliced, this decides both WHICH
+     cards the day gives and WHAT ORDER they arrive in, from one place — so the pooled review, a session
+     started from a row, and that row's own counts cannot come to disagree.
+
+     THE LAG IS THE POINT OF THE DESIGN AND NOT A DETAIL. On a two-direction deck, position N is the SAME
+     WORD in both subdecks — measured on the DELE A1 deck, 496 of 496 — so a plain round robin deals
+     `de → of` and then `of → de` a second later. The reverse is then answered out of short-term memory
+     and scheduled far further out than it has been earned, and Folio's bury-siblings cannot save it:
+     these are two independent cards rather than two cards of one note, so nothing separates them. Each
+     later subdeck therefore runs `lag` positions BEHIND the first, where the lag is the entry's own
+     new-card allowance — one day's worth — so the reverse of a word arrives on the NEXT day rather than
+     in the next breath. Sorting on `position + groupIndex * lag` needs no state and self-corrects as
+     cards are consumed: the position is the card's place in its own subdeck, not its place in whatever
+     is left unseen today.
+
+     It applies to Folio's own collections too (on request), where the groups are the leaf decks: a
+     collection is met a few cards from each of its decks at a time, each deck a day behind the one
+     before it, rather than one deck worked through end to end.
+
+     A card's group is its LEAF SUBDECK, not its card template. A note's own reverse card is a separate
+     axis with a separate answer already — bury-siblings — and interleaving it here would be two
+     mechanisms arguing over the same pair. */
+  function studyGroupOf(id) {
+    if (isCommunityCard(id)) {
+      const n = UCARDS[uCardBaseId(id)];
+      return "u\u0000" + ((n && n.sub) || "");
+    }
+    const leaf = cardLeaves(id)[0];
+    return "n\u0000" + (leaf ? leaf.id : "");
+  }
+  function studyOrder(entryId, ids) {
+    const groups = new Map();                       // group -> its cards, in the deck's own order
+    ids.forEach((id) => {
+      const g = studyGroupOf(id);
+      let a = groups.get(g);
+      if (!a) { a = []; groups.set(g, a); }
+      a.push(id);
+    });
+    if (groups.size < 2) return ids;                // one group: the round robin is the identity
+    const lag = Math.max(1, deckLimits(entryId).newPerDay | 0);
+    const keyed = [];
+    let gi = 0;
+    groups.forEach((arr) => {                       // Map iterates in first-appearance order
+      const off = gi * lag;
+      arr.forEach((id, i) => keyed.push([i + off, gi, keyed.length, id]));
+      gi++;
+    });
+    keyed.sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]) || (a[2] - b[2]));
+    return keyed.map((k) => k[3]);
+  }
   function entryCardIds(id, _guard) {
     // the daily review answers for every added deck at once — see REVIEW_ENTRY
     if (id === REVIEW_ENTRY) {
@@ -4484,8 +4550,15 @@
        and adding it and then finding a single undivided row is the thing this was reported as. Adding one
        SUBDECK on its own still adds only that subdeck — a narrower choice is never widened. */
     const ud = !n && !uSubOf(id) ? UDECKS[uDeckIdOf(id)] : null;
+    /* …and a SUBDECK brings the subdecks under IT, now that a subdeck may have them: adding `A1` and
+       finding one undivided row is the same report this bullet already records one level up. It is still
+       true that a narrower choice is never widened — what comes in is what is UNDER the row pressed. */
+    const usubId = !n && !ud ? uDeckIdOf(id) : null, usub = usubId ? uSubOf(id) : "";
     const wanted = n ? nodeSubtreeIds(n)
-      : ud ? [id].concat(uDeckSubs(ud.id).map((sub) => uSubEntry(ud.id, sub)))
+      : ud ? [id].concat(uSubNodes(ud.id).map((sub) => uSubEntry(ud.id, sub)))
+      : (usubId && UDECKS[usubId])
+        ? [id].concat(uSubNodes(usubId).filter((p) => p !== usub && uSubUnder(p, usub))
+                                       .map((p) => uSubEntry(usubId, p)))
       : [id];
     S.active = a.concat(wanted.filter((x) => a.indexOf(x) === -1));
     save();
@@ -4522,8 +4595,14 @@
       const deckId = uDeckIdOf(id), sub = uSubOf(id);
       const drop = new Set([id]);
       if (deckId && UDECKS[deckId]) {
-        if (sub) drop.add(uDeckEntry(deckId));
-        else uDeckSubs(deckId).forEach((sb) => drop.add(uSubEntry(deckId, sb)));
+        if (sub) {
+          // the ancestors, for the reason above — every one of them offers the cards just removed — and
+          // everything UNDER it, which is the mirror of the add
+          drop.add(uDeckEntry(deckId));
+          uSubNodes(deckId).forEach((p) => {
+            if (uSubUnder(sub, p) || uSubUnder(p, sub)) drop.add(uSubEntry(deckId, p));
+          });
+        } else uSubNodes(deckId).forEach((sb) => drop.add(uSubEntry(deckId, sb)));
       }
       nestForget([...drop]);
       S.active = activeEntryIds().filter((x) => !drop.has(x));
@@ -4732,7 +4811,10 @@
       /* BOTH branches expand the notes to their cards. The subdeck one did not, and the two disagreed by a
          factor of two on a deck that both groups its notes and asks them in more than one direction — the
          quiet miss the reverse-cards note warns about, and invisible until a deck was both at once. */
-      return sub ? { title: sub, parent: ud.title, count: uDeckStudyIdsFor(ud.id, sub).length }
+      // a NESTED subdeck names itself by its own last segment and takes the one above it for context, so
+      // the sheet reads "Spanish → English / A1" rather than repeating the whole path twice over
+      return sub ? { title: uSubName(sub), parent: uSubName(uSubParent(sub)) || ud.title,
+                     count: uDeckStudyIdsFor(ud.id, sub).length }
                  : { title: ud.title, parent: "Your decks", count: uDeckStudyIdsFor(ud.id, "").length };
     }
     const n = NODE_BY_ID[id];
@@ -5026,7 +5108,7 @@
     if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
     activeEntryIds().forEach((e) => {
       if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
-      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id));
+      const ids = studyOrder(e, entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id)));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
         .sort((a, b) => S.cards[a].due - S.cards[b].due)
@@ -5110,7 +5192,37 @@
   }
   function uDeckEntry(deckId) { return "u:" + deckId; }
   function uSubEntry(deckId, sub) { return sub ? "u:" + deckId + "/" + encodeURIComponent(sub) : "u:" + deckId; }
-  // the deck's subdecks: the distinct titles its cards name, in the order the cards are in
+  /* A SUBDECK MAY HOLD SUBDECKS, and it costs no schema change either (Aug 2026, on request). `card.sub`
+     is a PATH whose segments are separated by `::` — `A1` is a subdeck and `A1::Spanish → English` is a
+     subdeck of it — which is Anki's own deck separator, and this file copies Anki wherever Anki has
+     already answered the question. It is a convention over the SAME string field, so like subdecks
+     themselves it survives export, import, publish and install through paths that already carry the card
+     whole, and every deck written before this reads as a one-segment path.
+
+     `SUB_SEP` may be any string that cannot appear in a title, and the entry id does not constrain it:
+     `uSubEntry` percent-encodes the whole path, so the `/` that `uDeckIdOf` splits on is always the one
+     after the deck id whatever the path contains. What DOES constrain it is that a segment is a title a
+     reader typed, so the separator has to be something nobody types by accident.
+
+     THE TREE IS DERIVED, LIKE THE SUBDECKS THEMSELVES: there is no list of nodes anywhere, only the paths
+     the cards name, so an intermediate node exists exactly when something under it does. That is what
+     keeps a rename a matter of rewriting `sub` on the cards, and it is why an EMPTY intermediate subdeck
+     is not expressible — the same thing one level up gives up, for the same reason. */
+  const SUB_SEP = "::", SUB_MAX_DEPTH = 4;
+  function uSubParts(sub) {
+    return String(sub || "").split(SUB_SEP).map((s) => s.trim()).filter(Boolean);
+  }
+  function uSubNormalize(sub) {
+    return uSubParts(sub).slice(0, SUB_MAX_DEPTH).join(SUB_SEP);
+  }
+  function uSubName(sub) { const p = uSubParts(sub); return p.length ? p[p.length - 1] : ""; }
+  function uSubParent(sub) { return uSubParts(sub).slice(0, -1).join(SUB_SEP); }
+  // is `sub` this path or anything under it?  The test a parent row's card list is built on.
+  function uSubUnder(sub, prefix) {
+    if (!prefix) return true;
+    return sub === prefix || sub.slice(0, prefix.length + SUB_SEP.length) === prefix + SUB_SEP;
+  }
+  // the deck's subdecks: the distinct paths its cards name, in the order the cards are in
   function uDeckSubs(deckId) {
     const d = UDECKS[deckId];
     if (!d) return [];
@@ -5121,10 +5233,38 @@
     });
     return out;
   }
+  /* EVERY NODE OF THE TREE, parents before children — the paths the cards name AND every prefix of one,
+     since a card filed in `A1::Spanish → English` puts an `A1` on the bar whether or not any card names
+     `A1` on its own. This is what "adding a deck adds what is inside it" has to walk. */
+  function uSubNodes(deckId) {
+    const out = [];
+    uDeckSubs(deckId).forEach((sub) => {
+      const parts = uSubParts(sub);
+      for (let i = 1; i <= parts.length; i++) {
+        const p = parts.slice(0, i).join(SUB_SEP);
+        if (out.indexOf(p) < 0) out.push(p);
+      }
+    });
+    return out;
+  }
+  // the immediate children of a path ("" for the top level), in card order
+  function uSubChildren(deckId, prefix) {
+    const depth = prefix ? uSubParts(prefix).length : 0;
+    const out = [];
+    uSubNodes(deckId).forEach((p) => {
+      if (uSubParts(p).length !== depth + 1 || !uSubUnder(p, prefix)) return;
+      if (out.indexOf(p) < 0) out.push(p);
+    });
+    return out;
+  }
+  /* A PATH MATCHES ITSELF AND EVERYTHING UNDER IT, which is the whole of what makes a parent subdeck
+     studiable: `A1` deals the cards of `A1::Spanish → English` as well as any filed directly in `A1`.
+     It was an equality test while a sub was one segment, and an equality test here would give every
+     intermediate row a count of zero and a session with nothing in it. */
   function uDeckCardsIn(deckId, sub) {
     const d = UDECKS[deckId];
     if (!d) return [];
-    return (d.cardIds || []).filter((cid) => (((UCARDS[cid] && UCARDS[cid].sub) || "") === sub));
+    return (d.cardIds || []).filter((cid) => uSubUnder(((UCARDS[cid] && UCARDS[cid].sub) || ""), sub));
   }
   function uDeckOfCard(id) { const c = UCARDS[id]; return c && c.deckId ? UDECKS[c.deckId] || null : null; }
   function uDeckList() {
@@ -5647,8 +5787,9 @@
        held any carries no key at all. The field VALUES are rich HTML like everything else here; the NAMES are
        held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
        collides with something the renderer reads. */
-    // which subdeck this card is in, if any — a plain title, carried like `category`
-    const sub = uSP(raw && raw.sub).slice(0, 80).trim();
+    // which subdeck this card is in, if any — carried like `category`, and a PATH since Aug 2026, so it
+    // is normalised here rather than trusted: blank segments dropped, depth capped, length capped
+    const sub = uSubNormalize(uSP(raw && raw.sub).slice(0, 200));
     if (sub) c.sub = sub;
     const ty = String((raw && raw.type) || "").trim();
     if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
@@ -6282,7 +6423,7 @@
   function uCardSetSub(cardId, sub) {
     const c = UCARDS[cardId];
     if (!c) return;
-    const v = sanitizePlain(sub).slice(0, 80).trim();
+    const v = uSubNormalize(sanitizePlain(sub).slice(0, 200));
     if (v) c.sub = v; else delete c.sub;
     uCardTouched(cardId);
   }
@@ -14935,16 +15076,22 @@
       o: { lang: "ar", t: "ولما كان الكذب متطرقاً للخبر بطبيعته وله أسباب تقتضيه.", a: "ابن خلدون", s: "المقدمة" } },
     { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
       o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
-    // NO ORIGINAL, AND HERE THE REASON IS THE ATTRIBUTION (Aug 2026, looked for on request). The Hebrew
-    // is easy to find and that is the trap: "למד לשונך לומר איני יודע" is the BABYLONIAN TALMUD, Berakhot
-    // 4a, where it is introduced with "דאמר מר" — "as the Master said" — so even the Talmud is quoting it
-    // as a saying already received. Maimonides repeats it; he did not write it. Setting it as this entry's
-    // `o` would put those words in his mouth in the one place a reader goes to see what he actually
-    // wrote, which is worse than the blank — the `s` here already hedges with "Attributed". The honest
-    // fixes are to re-attribute the quote to the Talmud and give it the Hebrew, or to drop it for a line
-    // Maimonides did write; both change who speaks, which changes the running order (the no-repeat rule
-    // is keyed on the author), so neither is done in passing. Flagged rather than papered over.
-    { t: "Teach your tongue to say \"I do not know\", and you will make progress.", a: "Maimonides", s: "Attributed; cf. Commentary on the Mishnah" },
+    // RE-ATTRIBUTED RATHER THAN GIVEN AN ORIGINAL (Aug 2026, on a report that this quote would not flip).
+    // It stood as Maimonides, hedged "Attributed", with no `o` — and the note that used to sit here said
+    // why: the Hebrew is easy to find and that is the trap, because "למד לשונך לומר איני יודע" is the
+    // BABYLONIAN TALMUD, Berakhot 4a, introduced there with "דאמר מר" — "as the Master said" — so even the
+    // Talmud quotes it as a saying already received. Maimonides repeats it; he did not write it, and
+    // hanging the Hebrew off his name would have put those words in his mouth in the one place a reader
+    // goes to see what he actually wrote. A search of the whole corpus returns Berakhot 4a and no work of
+    // his, so the attribution was the quote-site one this pool exists to keep out. What could not be done
+    // in passing then and is done here is the first of the two fixes that note named: the speaker becomes
+    // the work, the source becomes the folio, and the words become A. Cohen's (Cambridge, 1921 — a
+    // standard published translation, and public domain), which opens on the same five words the entry
+    // always carried. **THE TAIL IS WHERE THE MISATTRIBUTION LIVED**: "and you will make progress" is in
+    // no source, where the Talmud gives a reason of its own — say less rather than keep a rounder sentence.
+    // Changing `a` re-solves the running order, the no-repeat rule being keyed on the author.
+    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a",
+      o: { lang: "he", t: "לַמֵּד לְשׁוֹנְךָ לוֹמַר ״אֵינִי יוֹדֵעַ״, שֶׁמָּא תִּתְבַּדֶּה וְתֵאָחֵז.", a: "התלמוד הבבלי", s: "בבלי, ברכות ד ע״א" } },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
     { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
@@ -15712,8 +15859,16 @@
            flat run with the deck they belong to somewhere among them, saying nothing about what contains
            what. A subdeck the reader has not added is not drawn — the list is what they chose, not a
            catalogue of the deck — and one dragged into a group is drawn there instead, like any other row. */
+        /* …and since a subdeck may itself hold subdecks, a row's children are the IMMEDIATE children of
+           its own path rather than every subdeck the deck has: a deck row draws the top-level ones, and
+           each of those draws its own. Drawn flat, `A1` and `A1::Spanish → English` would be siblings
+           saying nothing about what contains what — which is exactly what the one-level version was
+           reported as one store up. A node whose own row is not added is skipped and its children rise to
+           the level above, so the list stays what the reader chose. */
         const subKids = (ud && !sub)
-          ? uDeckSubs(ud.id).map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
+          ? uSubChildren(ud.id, "").map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
+          : (ud && sub)
+          ? uSubChildren(ud.id, sub).map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
           : [];
         const kids = subKids.concat(kidsOf(id));
         /* …and the context line goes when the row is drawn UNDER its own deck, because then the deck IS
@@ -15721,10 +15876,16 @@
            with no shorter form, so a repeated "HSK 3.0 — Mandarin Chinese" beside it crushes "Level 1" to
            "Lev…" — every subdeck reading the same three letters under the deck that names them. It stays
            where a subdeck is added on its own and stands at the top level, which is what it was for. */
-        const underOwnDeck = !!(sub && ud && parentKey === uDeckEntry(ud.id));
+        const ownParent = sub && ud
+          ? uSubEntry(ud.id, uSubParent(sub))     // the deck's entry when the path has one segment
+          : null;
+        const underOwnDeck = !!(sub && ud && parentKey === ownParent);
         rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
-                    title: ud ? (sub || ud.title) : COTD_TITLE,
-                    sup: (sub && !underOwnDeck) ? ud.title : "", hue: h, kids });
+                    title: ud ? (uSubName(sub) || ud.title) : COTD_TITLE,
+                    // the context line names what CONTAINS the row, which for a nested path is the
+                    // subdeck above it rather than the deck at the top of it
+                    sup: (sub && !underOwnDeck) ? (uSubName(uSubParent(sub)) || ud.title) : "",
+                    hue: h, kids });
         orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
       };
       function walk(node, depth, parentKey, hue) {
@@ -15760,8 +15921,16 @@
       activeIds.forEach((id) => {
         const dId = uDeckIdOf(id);
         if (!dId || !UDECKS[dId]) return;
-        // …unless its own deck is on the list too, in which case emit() has just drawn it as a child
-        if (uSubOf(id) && activeIds.indexOf(uDeckEntry(dId)) !== -1) return;
+        /* …unless its own CONTAINER is on the list too, in which case emit() has just drawn it as a child.
+           The container is the subdeck above it where the path has one, and the deck otherwise — testing
+           only the deck was right while a sub was one segment and lets a nested row be drawn twice, once
+           under its parent and once at the top of the list, which reads as the deck having two of them. */
+        const sub = uSubOf(id);
+        if (sub) {
+          const parent = uSubParent(sub);
+          const container = parent ? uSubEntry(dId, parent) : uDeckEntry(dId);
+          if (activeIds.indexOf(container) !== -1) return;
+        }
         tops.push(id);
       });
       if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
@@ -16681,19 +16850,22 @@
      out of this list rather than given an "Other" row: on a fully-grouped deck there are none, and on a
      partly-grouped one the parent row already studies the whole deck. */
   function udeckSubRowsHTML(d) {
-    const subs = uDeckSubs(d.id);
-    if (!subs.length) return "";
-    return '<div class="udeck-subs">' + subs.map((sub) => {
+    if (!uDeckSubs(d.id).length) return "";
+    /* Nested, since a subdeck may hold subdecks: each row draws its own children under it, indented by
+       its depth in the path. The indent is a style rather than a nested container so a child's row is the
+       same 46px box as its parent's — the curated tree's own arrangement one store over. */
+    const row = (sub, depth) => {
       // the CARDS of the subdeck's notes, not the notes — a two-way note is two cards to study, and this
       // row sits directly under a deck row that has always counted them expanded
       const ids = uDeckStudyIdsFor(d.id, sub), n = ids.length;
       const entry = uSubEntry(d.id, sub), on = isActive(entry);
       const studied = ids.filter(isSeen).length;
       return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
-        '" data-usubname="' + esc(sub) + '">' +
+        '" data-usubname="' + esc(sub) + '" data-depth="' + depth + '"' +
+        (depth ? ' style="--sd:' + depth + '"' : "") + '>' +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
-            '<span class="deck-title">' + esc(sub) + '</span>' +
+            '<span class="deck-title">' + esc(uSubName(sub)) + '</span>' +
             '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
           '</div>' +
           deckProgMarkup(studied, n) +
@@ -16702,8 +16874,9 @@
           '<button class="collection-add' + (on ? " added" : "") + '" data-uaddsub="' + esc(entry) +
             '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + '</button>' +
         '</div>' +
-      '</div>';
-    }).join("") + '</div>';
+      '</div>' + uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
+    };
+    return '<div class="udeck-subs">' + uSubChildren(d.id, "").map((s) => row(s, 0)).join("") + '</div>';
   }
   function communityLibraryHTML() {
     const decks = uDeckList();
@@ -17139,7 +17312,7 @@
       const availG = availableCardIdSet();
       // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
       // cards, so leaving it out here would let a buried card come back through one
-      const gIds = entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id));
+      const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = [...gDue, ...gNew];
@@ -17150,7 +17323,8 @@
       if (!d) return null;
       const sub = scope.sub || "";
       // the deck's notes expanded into their cards (a reverse card is its own card here), template-major
-      const ids = uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id));
+      const ids = studyOrder(uSubEntry(d.id, sub),
+        uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id)));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
       const ue = uSubEntry(d.id, sub);
@@ -17172,7 +17346,7 @@
       const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
       // entryCardIds rather than subtreeCardIds, so tapping a row studies exactly what that row promised:
       // a branch dragged into a group is studied there, and a guest dragged in here is studied here
-      const ids = entryCardIds(sd.id).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id));
+      const ids = studyOrder(sd.id, entryCardIds(sd.id).filter((id) => !isSuspended(id) && !isBuried(id) && availDeck.has(id)));
       // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
       // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
       // pooled review only took a couple of new cards from still has the rest of its share here
@@ -19679,9 +19853,12 @@
          itself. */
       '<label class="ces-typepick"><span>Subdeck</span>' +
         '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="none" ' +
+          'title="Type ' + SUB_SEP + ' between names to put a subdeck inside another, as in ' +
+            'A1' + SUB_SEP + 'Spanish to English" ' +
           'value="' + esc((c && c.sub) || "") + '" />' +
         '<datalist id="cesSubList">' +
-          uDeckSubs(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
+          // every NODE, not only the paths cards name, so a parent can be picked as readily as a leaf
+          uSubNodes(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
         "</datalist></label>" +
     "</div>";
   }
