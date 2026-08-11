@@ -128,7 +128,49 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-four:
+  matter (chapter 0 — see the Library bullet). Currently thirty-five:
+  `canterbury-tales` (~700 KB, the Prologue and all 24 tales as **25 chapters**, **25 whole-tale
+  sections**, **0 notes** — Tatlock and MacKaye's modern English of 1912, and **the first book here
+  whose BOTH COLUMNS ARE PLAIN TEXT with no markup at all.** Journey to the West established that a
+  book may arrive as an OCR and that the reader must then BUILD a structure rather than strip tags
+  out of one; this does it twice from two different kinds of plain text, and the pair is worth
+  reading together because **the two halves fail in opposite directions**. The translation is a
+  machine reading of a printed page, where a running head, a page number, a rubric and a paragraph
+  are all merely lines and the furniture has to be recognised on its SHAPE — after which the holes
+  it leaves must be closed, a blank line being what separates two paragraphs. The original is a
+  proofread transcription of a CRITICAL EDITION, which is the reverse: accurate to the letter, and
+  most of what it accurately carries is apparatus.
+  **FIVE THINGS IT SETTLED ARE WORTH CARRYING.** **THE OBVIOUS SOURCE IS UNFINISHED TWICE OVER AND
+  THE THIRD CANDIDATE IS A LICENCE QUESTION**, which is the Plato-Jowett rule met three times on one
+  book: Wikisource's Skeat Volume IV is a title page, a contents list and **twenty-eight red links**,
+  not one tale transcribed; its MacKaye 1914 selection is FRONT MATTER ONLY, the tale subpages having
+  never been made; and its one complete Middle English text is tagged `{{no source}}` — no edition,
+  no editor, no scan — which for a medieval poem is not pedantry but the whole question, since a text
+  has to be constituted from the manuscripts before anyone can read it and an editor's constituted
+  text is a modern work. All three were measured before a word was imported. **AN APPARATUS BLOCK AND
+  A PARAGRAPH OF VERSE OPEN AT THE SAME INDENTATION**, so the rule cannot be about indentation: Skeat
+  sets his variant readings four spaces in where the verse is two, and a verse paragraph also opens
+  at four. A block is apparatus only when its FIRST line carries an opener as well, and every
+  four-indent block NOT taken is counted and reported — which is how `QUOTATION;`, `TITLE.` and
+  `HEADING (` were found, each having leaked a paragraph of sigla into the poem. **A PAGE MARKER MAY
+  SHARE A LINE WITH A RUBRIC**, so it is BLANKED rather than dropped with its line: the last one in
+  the volume sits in front of the rubric opening Chaucer's retraction, and dropping the line takes the
+  retraction's title with it. **AND A MARGINAL-SUMMARY STRIP MUST BE ANCHORED TO A NON-SPACE.** Skeat
+  prints a gloss in the margin (`=Knight.=`) and the transcription also sets a RUBRIC between the same
+  marks on a line of its own, so a pattern of "two spaces then =…= at end of line" reads the rubric's
+  own indent as a margin and deletes it whole — 68 rubrics gone across 21 chapters, and the only
+  symptom is an empty paragraph where a heading was. **VERSE DETECTION WAS TRIED AND REJECTED IN THE
+  TRANSLATION**, which is the fifth: the editors versify a few short lyrics and the scan sets each
+  line as its own block, so a run of short blocks looks like a stanza — but the same scan fragments
+  PROSE at the page edges, and the rule marked 5 prose passages as verse against 7 real ones.
+  Under-marking beats mis-marking, so every block is a paragraph and the lyrics read as short ones.
+  **ITS REAL LIMITATION IS WHAT THE TRANSLATORS CUT, and it is uneven**: the two tales that are prose
+  in the original — Melibeus and the Parson's Tale — are given as what their preface calls specimens,
+  measured at 2,100 words against 18,200 and 4,100 against 32,200, and five further passages are
+  dropped as too coarse for 1912 and marked with a row of asterisks that ships where they printed it
+  (the mark is read five different ways by the scan and is normalised, the Journey rule). Take those
+  two tales out and the columns run 130,000 words against 135,000, which is prose against verse rather
+  than anything missing. The front matter says all of it, and the Middle English beside it is complete),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the
@@ -530,7 +572,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-three:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-five:
+  `canterbury-tales.enm.js` (~1.05 MB, the Prologue and all 24 tales, **17,581 lines of verse** plus the
+  two prose tales entire — Walter W. Skeat's Oxford text of 1900, the first original here in **Middle
+  English** (`enm`), and **the only one on the shelf that its own translation was made FROM.** Everywhere
+  else the two columns are two editors set side by side and the pairing has to be measured; the
+  translators state in their preface that they follow Skeat's text throughout, and Skeat's text is this
+  column — so the two divide the work identically, twenty-five units in the same order, with no
+  reconciliation to do and no exception to record. **Ask whether the translation names its own source
+  before measuring a pairing**: it is rare, and where it happens the measurement is a confirmation
+  rather than a search.
+  **AND IT IS THE ONLY ORIGINAL HERE FROM PROJECT GUTENBERG**, which is new to this shelf and was chosen
+  by elimination rather than by preference — see the `canterbury-tales` entry for the three Wikisource
+  candidates and why each fails. **ITS LINE NUMBERS ARE DROPPED AND THAT IS THE ONE REAL LOSS**: Skeat
+  prints one every fifth line and it is how any passage of Chaucer is cited in any language, but the
+  prose translation states nothing to set against it, so a number here would point at a place the facing
+  page cannot find — and putting them in as `bk-n` markers would additionally cut each tale's verse into
+  a paragraph every five lines, since `bookSections` splits a block at every marker. Said in the front
+  matter rather than smoothed over. **THE COUNT WAS CHECKED AGAINST THE EDITION'S OWN NUMBERING** rather
+  than glanced at: group by group the extracted lines come to 4,432 against Skeat's last-numbered 4,422
+  in Group A, 971 against 965 in C, 2,297 against 2,294 in D and so on, the handful over being the
+  rubrics he prints between them — and B and I read far under, which is correct, those being the groups
+  holding the two prose tales. **AND THE APPARATUS WAS SWEPT FOR RESIDUE AFTERWARDS, WHICH IS WHERE THE
+  REAL WORK WAS**: the four-indent rule takes 1,246 blocks of variant readings in one pass and looks
+  finished, and five more shapes of Skeat's editorial furniture were still standing in the shipped file
+  — 18 lines whose margin reads `[T. _om._` rather than a Tyrwhitt line number, one reading `[See p.
+  256.`, two four-indent notes opening on three asterisks, and six flush-left or verse-indent notes
+  saying where Tyrwhitt puts the passage. **None of it throws, shortens a tale or breaks the pairing**;
+  it just ships as Chaucer. Each rule was then written from a measurement rather than from the example
+  that prompted it — 39 lines in the whole poem end in a bracketed margin and every one is one of three
+  costumes; ten blocks carry a page reference and nine are notes, the tenth being a real stanza of the
+  Monk's Tale whose margin carries one, which is why the margin is stripped per line before the blocks
+  are judged. Skeat's apparatus, his marginal summaries and the Tale of Gamelyn — which he prints as an
+  appendix and says is not Chaucer's — are not reproduced),
   `journey-to-the-west.zh.js` (~762 KB, all 100 chapters — the received Ming novel as transcribed at
   Chinese Wikisource, and **the only original on the shelf that is FULLER THAN ITS TRANSLATION.**
   Everywhere else the translation is the complete text and the original is the harder half to find;
@@ -694,7 +768,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-four books, twenty-four originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Thirty-five books, twenty-five originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
@@ -1122,6 +1196,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `O.verse === "dl"`), plus a balanced drop of that wiki's `headerContainer`, for the first original
   typed onto a wiki rather than transcluded from a scan. All three are gated per book for the reason
   the English-side gates are, and the change was proved inert on the shipped Prince byte-for-byte.
+
+  **BOTH COLUMNS MAY BE PLAIN TEXT, AND THEN THEY FAIL IN OPPOSITE DIRECTIONS** (`layout: "chaucer"` →
+  `extractChaucer`, and on the original side `source: "text"` + `layout: "skeat"` → `extractSkeat`;
+  Aug 2026, adding The Canterbury Tales — the thirty-fifth book, the twelfth and thirteenth layouts,
+  and the first pair of extractors written for one book). The rule that shipped with `journey` was
+  that a text with no markup has to have its structure BUILT and its content ESCAPED; this is that
+  rule on two texts at once, and the useful half is that the two difficulties are opposites. A
+  MACHINE READING of a printed page has no marks at all, so the page furniture must be recognised on
+  its SHAPE and the holes it leaves closed afterwards. A PROOFREAD TRANSCRIPTION OF A CRITICAL
+  EDITION has the opposite problem: it is exact, and most of what it exactly carries is apparatus —
+  variant readings, marginal summaries, marginal line numbers — none of which is the poem.
+  Six things they settled, and every one is a rule about not guessing:
+  · **AN APPARATUS BLOCK AND A PARAGRAPH OF VERSE OPEN AT THE SAME INDENTATION**, so the test cannot
+    be indentation. Skeat's variant readings sit four spaces in where the verse sits two — and a
+    verse paragraph also opens at four, so a rule written on the indent alone deletes a fifth of the
+    poem. A block is apparatus only when its FIRST line also carries an opener (a line number, a
+    capitalised label, an italic editorial word), and **every four-indent block the test does NOT
+    take is counted and reported** — which is how `QUOTATION;`, `TITLE.` and `HEADING (` were found,
+    each having leaked a paragraph of manuscript sigla into the middle of the verse.
+  · **A PAGE MARKER MAY SHARE A LINE WITH A RUBRIC**, so it is BLANKED rather than dropped with its
+    line. Exactly one in the volume does — the last, standing in front of the rubric that opens
+    Chaucer's retraction — and dropping the line takes the retraction's own title with it.
+  · **A MARGINAL-SUMMARY STRIP MUST BE ANCHORED TO A NON-SPACE.** The gloss Skeat prints in the
+    margin is set between `=` marks at the end of a verse line, and the same transcription sets a
+    RUBRIC between the same marks on a line of ITS own — so "two or more spaces, then `=…=`, then
+    end of line" reads a rubric's own indentation as a margin and deletes it whole. 68 rubrics went
+    across 21 chapters, and the only symptom is an empty paragraph where a heading was.
+  · **A RUNNING-HEAD SWEEP ON SHAPE WILL EVENTUALLY EAT A REAL HEADING**, so the book declares its
+    exceptions (`keepHead`) exactly as it declares `dropHeads`, and **every distinct line the sweep
+    removes is printed on the run**. Here it is one: Chaucer's envoy at the end of the Clerk's Tale
+    is set in the same capitals as the running heads and the plate captions around it.
+  · **VERSE DETECTION WAS TRIED AND REJECTED**, which is the one to remember before writing the
+    obvious rule. The editors versify a few short lyrics and the scan sets each line as its own
+    block, so a run of short blocks looks exactly like a stanza — but the same scan fragments PROSE
+    at the page edges, and the rule marked five prose passages as verse against seven real ones.
+    A blockquote over prose tells the reader something untrue about the text where a short paragraph
+    over verse merely looks plain, so every block is a paragraph and the lyrics read as short ones.
+  · **AN APPARATUS SWEEP IS NOT FINISHED WHEN THE APPARATUS RULE IS, and the way to find out is to
+    sweep the SHIPPED file for what the rule was written to remove.** The four-indent rule takes
+    1,246 blocks of variant readings in one pass and reads as complete; five more shapes of the same
+    editor's furniture were still standing, and every one of them ships as Chaucer without throwing,
+    shortening a tale or disturbing the pairing. The lesson is in how each was then fixed: **write
+    the rule from an inventory of the whole book, never from the example that prompted it.** The
+    margin looked like `[T. 14772.` and wears three costumes (a Tyrwhitt line number, `[T. _om._` for
+    a line he omits, and one `[See p. 256.`) — 39 lines in the poem end in a bracketed margin and a
+    rule anchored on the first shape leaves 19 standing. The block-level notes looked like a Tyrwhitt
+    reference beside a page number, and the test that actually separates them is **the page reference
+    alone**: ten blocks in the poem carry one, nine are notes and the tenth is a real stanza of the
+    Monk's Tale whose MARGIN carries one — which is why the margin rules run per line, before the
+    blocks are built, and would be worth nothing after. And two notes carry no page reference at all,
+    opening on `***` in the apparatus band, where they belong to the apparatus rule rather than to
+    this one. Every removal is counted and reported, per the standing rule that a rule which starts
+    eating text cannot do it quietly.
 
   **A WHOLE BOOK MAY ARRIVE ON ONE PAGE, and then the chapters are CUT rather than walked**
   (`layout: "laisses"` → `extractLaisses` / `extractLaissesFr` / `laisseHtml` / `laisseNumber` /
@@ -3323,6 +3450,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `BOOK_AUTHOR_COLOR` row is where the band is genuinely FULL rather than nearly so; see the note
     beside `"Wu Cheng'en"` in app.js for the search, and for the Euripides test being run and NOT
     biting — the alternative it offered was a fifth blue at 18.5, below the shelf's own tightest pair.
+    **The Canterbury Tales states a LIMIT THAT IS ALMOST UP, which is the nearest any on this shelf has
+    come to expiring** (Aug 2026), and it falls on the middle of three layers rather than on the
+    original. Chaucer died in 1400 and Skeat's Middle English text of 1900 is clear on every ground (he
+    died in 1912) — but Tatlock and MacKaye's translation, published in 1912, is public domain in the
+    United States on the pre-1929 rule and **a work of two hands runs its term from the LAST of them to
+    die**: MacKaye lived until 1956, so it stays in copyright in life-plus-seventy countries until the
+    first day of **2027** and in life-plus-a-hundred ones until 2057. **Do the arithmetic from the later
+    death, not the earlier**, and say the year out loud rather than rounding into the easier sentence.
+    Both men's dates were looked up rather than recalled and corroborated twice over — the library
+    catalogue record carried inside the scan's own metadata gives them, and so does each biography — the
+    check the Aeneid's row calls for after Hugo Magnus and A. J. Wyatt. Coghill (1951), Wright (1985),
+    Raffel (2008) and Ackroyd's retelling (2009) are named as the ones not to reach for. Its
+    `BOOK_AUTHOR_COLOR` row is the band one book fuller again: with thirty-one colours placed the best
+    anywhere in it clears 19.7 where the shelf's own tightest pair is now 18.2, and the Euripides test
+    picked the family — the best blue is 18.5 from Snorri Sturluson, which is both below that pair and a
+    kinship claim between the two medieval vernacular poets on the shelf.
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.

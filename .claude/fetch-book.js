@@ -616,6 +616,61 @@ const COG_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", 
   "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII"];
 const COG_BASE = "Nicene and Post-Nicene Fathers: Series I/Volume II/City of God/Book ";
 
+/* ---------- The Canterbury Tales: the twenty-five chapters, and where each one opens in each of the
+   two plain-text sources ----------
+   THE TITLES ARE TRANSCRIBED FROM THE TRANSLATION'S OWN CONTENTS PAGE, which lists the Prologue and
+   twenty-four tales in this order and no other. The editors say in their preface that they follow
+   Skeat's text throughout, and the Middle English column is that very edition, so the two divide the
+   work identically and the chapter numbers below are the pairing as well as the fetch list. The
+   edition's own spellings are kept, "Sumner" for the Summoner among them — a title is transcribed and
+   never composed, and never quietly modernised either.
+
+   `en` IS AN ANCHOR AND NOT A HEADING, because this translation prints no headings inside the tales.
+   What it prints is Chaucer's own manuscript rubrics — "Here beginneth the Miller his Tale", "The
+   Prologue of the Reeve's Tale" — set in italic between the paragraphs, and a chapter opens at the
+   rubric that introduces its link or its prologue. The patterns are loose where the scan is unsure of
+   a letter (it reads "Yeoman" as "Teoman" once) and they are searched FORWARD ONLY, each from where
+   the last one matched, so a phrase that occurs twice in the book cannot pull a chapter backwards.
+
+   `me` IS A HEADING, because the Middle English edition prints one over every tale, in capitals, on a
+   line of its own. It is matched whole rather than by pattern: these are the strings the transcription
+   carries, trailing stop and all, and a heading that has been re-typed announces itself as a fetch
+   failure rather than silently folding two tales into one.
+
+   THE KNIGHT'S TALE IS THE ONE PLACE THE TWO COLUMNS DIVIDE A BLOCK APART, and it is anchored on the
+   LATIN EPIGRAPH for that reason. Both editions print the Prologue's closing rubric — "here beginneth
+   the first tale, which is the knightes tale" — but the Middle English prints it BEFORE its heading
+   and the translation after its last paragraph, so anchoring the English on the rubric would put it at
+   the head of chapter 2 while the original kept it at the foot of chapter 1. Statius's tag, which both
+   editions set immediately under the heading, falls in the same place in both. */
+const CANTERBURY_TALES = [
+  { t: "The Prologue",              en: /^Here beginneth the Book of the Tales of Canterbury/i,      me: "GROUP A. THE PROLOGUE." },
+  { t: "The Knight's Tale",         en: /^Iamque domos patrias/i,                                    me: "THE KNIGHTES TALE." },
+  { t: "The Miller's Tale",         en: /^Here follow the words between the Host and the Miller/i,   me: "THE MILLER’S PROLOGUE." },
+  { t: "The Reeve's Tale",          en: /^The Prologue of the Reeve/i,                               me: "THE REEVE’S PROLOGUE" },
+  { t: "The Cook's Tale",           en: /^The Prologue of the Cook/i,                                me: "THE COOK’S PROLOGUE." },
+  { t: "The Man of Law's Tale",     en: /^The Words of the Host to the Company/i,                    me: "INTRODUCTION TO THE MAN OF LAW’S PROLOGUE." },
+  { t: "The Shipman's Tale",        en: /^Here endeth the Tale of the Man of Law/i,                  me: "THE SHIPMAN’S PROLOGUE." },
+  { t: "The Prioress's Tale",       en: /^Behold the merry words of the Host to the Shipman/i,       me: "THE PRIORESS’S PROLOGUE" },
+  { t: "The Tale of Sir Thopas",    en: /^Behold the merry words of the Host to Chaucer/i,           me: "PROLOGUE TO SIR THOPAS." },
+  { t: "The Tale of Melibeus",      en: /^Here the Host stinteth Chaucer of his Tale/i,              me: "PROLOGUE TO MELIBEUS." },
+  { t: "The Monk's Tale",           en: /^The Monk.s Prologue/i,                                     me: "THE MONK’S PROLOGUE." },
+  { t: "The Nun's Priest's Tale",   en: /^Here the Knight stinteth the Monk of his Tale/i,           me: "THE PROLOGUE OF THE NONNE PRESTES TALE." },
+  { t: "The Physician's Tale",      en: /^Here followeth the Physician/i,                            me: "THE PHISICIENS TALE." },
+  { t: "The Pardoner's Tale",       en: /^The words of the Host to the Physician and the Pardoner/i, me: "WORDS OF THE HOST." },
+  { t: "The Wife of Bath's Tale",   en: /^The Prologue of the Wife of Bath/i,                        me: "THE WIFE OF BATH’S PROLOGUE." },
+  { t: "The Friar's Tale",          en: /^The Prologue of the Friar/i,                               me: "THE FRIAR’S PROLOGUE." },
+  { t: "The Sumner's Tale",         en: /^The Prologue of the Sumner/i,                              me: "THE SOMNOUR’S PROLOGUE" },
+  { t: "The Clerk's Tale",          en: /^Here followeth the Prologue of the Clerk of Oxford/i,      me: "THE CLERK’S PROLOGUE." },
+  { t: "The Merchant's Tale",       en: /^The Prologue of the Merchant/i,                            me: "THE MERCHANT’S PROLOGUE." },
+  { t: "The Squire's Tale",         en: /^Here beginneth the Squire/i,                               me: "THE SQUIERES TALE." },
+  { t: "The Franklin's Tale",       en: /^Here follow the Words of the Franklin/i,                   me: "THE FRANKLIN’S PROLOGUE." },
+  { t: "The Second Nun's Tale",     en: /^The Prologue of the Second Nun/i,                          me: "THE SECONDE NONNES TALE." },
+  { t: "The Canon's Yeoman's Tale", en: /^The Prologue of the Canon.s [TY]eoman/i,                   me: "THE CANON’S YEOMAN’S PROLOGUE" },
+  { t: "The Manciple's Tale",       en: /^Here followeth the Prologue of the Manciple/i,             me: "THE MANCIPLE’S PROLOGUE." },
+  { t: "The Parson's Tale",         en: /^Here followeth the Prologue of the Parson/i,               me: "THE PARSON’S PROLOGUE." },
+];
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -6706,6 +6761,199 @@ const BOOKS = {
     },
   },
 
+  "canterbury-tales": {
+    title: "The Canterbury Tales",
+    author: "Geoffrey Chaucer",
+    translator: "John S. P. Tatlock and Percy MacKaye",
+    edition:
+      "The Complete Poetical Works of Geoffrey Chaucer, Now First Put into Modern English, " +
+      "The Macmillan Company, New York, 1912",
+    written: "c. 1387–1400",
+    /* The years Chaucer is thought to have worked on it; he died in 1400 and left it unfinished. The
+       sort key is the earlier end, which is all a shelf ordered by date can use. */
+    year: 1387,
+
+    /* ---------- THE LICENCE — a limit on the translation, and nothing to say about the rest ----------
+       Three layers, and two of them are clear on every ground. Chaucer died in 1400. Walter W. Skeat's
+       Middle English text, which is the facing column, was published at the Clarendon Press in 1900 and
+       he died in 1912, so it clears pre-1929 publication, life-plus-seventy and life-plus-a-hundred
+       alike.
+
+       THE TRANSLATION IS THE HALF THAT NEEDS A LIMIT STATED. Tatlock and MacKaye published in 1912, so
+       it is public domain in the United States, where the term for a work published before 1929 has
+       expired. A joint work's life-plus-seventy runs from the LAST surviving author: Tatlock lived
+       1876–1948 and MacKaye 1875–1956, so in the countries whose term is life plus seventy it stays in
+       copyright until the first day of 2027, and where the term is life plus a hundred until 2057.
+       Their dates were looked up rather than recalled and corroborated twice over — the library
+       catalogue record carried in the scan's own metadata gives both, and so does each man's
+       biography. It is the closest a stated limit on this shelf has come to expiring, and it is said
+       out loud rather than rounded into the easier sentence.
+
+       WHAT IS AND IS NOT TAKEN. The Prologue and the twenty-four tales, from both editions. Left
+       behind: the translators' preface, their glossary and notes and their sketch of Chaucer's life;
+       Skeat's introduction, his footnotes of variant readings, his marginal summaries and his
+       marginal line numbering; the plates in both volumes; and the Tale of Gamelyn, which Skeat prints
+       as an appendix to Group A and says is not Chaucer's, and which the translators do not render at
+       all.
+
+       THE MODERN TRANSLATIONS ARE ALL IN COPYRIGHT and are named here so that nobody reaches for one
+       later: Nevill Coghill's verse of 1951, which is the one most readers have met, David Wright's of
+       1985, Burton Raffel's of 2008 and Peter Ackroyd's retelling of 2009. */
+    rights:
+      "Public domain in the United States, with a limit to state elsewhere. Chaucer died in 1400, so " +
+      "the poem itself has been free for as long as copyright has existed, and the Middle English " +
+      "column is Walter W. Skeat's text of 1900 — he died in 1912, so it is out of copyright on every " +
+      "ground with nothing to qualify. The translation is the half that needs a date. John S. P. " +
+      "Tatlock and Percy MacKaye published it in 1912, which puts it in the public domain in the " +
+      "United States under the rule for works published before 1929; but a work of two hands runs its " +
+      "term from the last of them to die, and MacKaye lived until 1956, so in countries where the " +
+      "term is the authors' lives plus seventy years it remains in copyright until the beginning of " +
+      "2027, and where it is life plus a hundred until 2057. The translators' preface, glossary and " +
+      "notes, Skeat's introduction and apparatus, and the plates in both volumes are not reproduced; " +
+      "what is taken is the Prologue and the twenty-four tales. (The modern translations — Nevill " +
+      "Coghill's of 1951, David Wright's of 1985, Burton Raffel's of 2008 and Peter Ackroyd's " +
+      "retelling of 2009 — are all still in copyright and are not used.)",
+
+    about: [
+      "In the spring of some year near the end of the fourteenth century, twenty-nine pilgrims fall " +
+        "in together at an inn in Southwark and set out for the shrine of Thomas Becket at " +
+        "Canterbury. The innkeeper rides with them and proposes a competition: two tales each on the " +
+        "way out and two on the way home, and the best of them wins a supper at everyone else's " +
+        "expense. Chaucer never got near that arithmetic — twenty-four tales survive and the company " +
+        "never reaches Canterbury — but the frame gave him something no English poet had had before, " +
+        "which is a reason to write in every register at once. A knight tells a romance of chivalry " +
+        "and the miller, drunk, answers it with a filthy joke about a carpenter's wife. A pardoner " +
+        "explains at length how he cheats his congregation and then tries the same trick on the " +
+        "pilgrims. The Wife of Bath argues for five husbands and her own authority over the whole " +
+        "tradition of writing about women. It is the first great book in English, and it is a book " +
+        "about people rather than about virtue.",
+      "The English here is a translation, and a reader should know what kind before opening it. " +
+        "Chaucer wrote in verse, and John S. P. Tatlock and Percy MacKaye put the whole of him into " +
+        "modern PROSE in 1912 — so the rhyme and the metre are gone, and with them a good deal of the " +
+        "comedy, which in Chaucer often lives in the rhyme. What is gained is that a reader who has " +
+        "never met Middle English can follow the story at reading speed. They worked from Skeat's " +
+        "text, which is the column facing them here, so the two agree line for line about what the " +
+        "poem says even where they sound nothing alike.",
+      "They also cut, and the cuts are worth naming because they are not evenly spread. Two of the " +
+        "tales are prose in the original and very long — the Tale of Melibeus and the Parson's Tale, " +
+        "which together run to some fifty thousand words of moral argument — and the translators give " +
+        "what their preface calls specimens of each: about a tenth of the whole. Five further " +
+        "passages are dropped as too coarse for 1912 and marked with a row of asterisks, which is " +
+        "printed here exactly where they printed it. Smaller omissions for the same reason are not " +
+        "marked at all, and the preface says so. Everything they left out is in the Middle English " +
+        "beside it.",
+      "That column is Walter W. Skeat's, published at the Clarendon Press in 1900 and still the text " +
+        "most editions descend from. It is complete: the Prologue and all twenty-four tales, some " +
+        "seventeen thousand lines of verse and the two prose tales entire. Chaucer's own rubrics are " +
+        "kept in both columns — the little Latin and English formulas announcing that a tale is " +
+        "beginning or ended — because they are part of how the book was read. What is not reproduced " +
+        "is Skeat's apparatus: the footnotes recording what each manuscript reads, the summaries he " +
+        "prints in the margin, and the line numbers he sets every fifth line. The line number is the " +
+        "way any passage of Chaucer is cited, and it is left out for a plain reason — the prose " +
+        "column states nothing to set it against, so a number there would be pointing at a place the " +
+        "facing page cannot find.",
+      "The two texts are therefore set against each other one tale at a time. Neither states anything " +
+        "smaller that the other also states, so nothing is claimed here about which sentence of the " +
+        "prose answers to which line of the verse; the row is the tale, and each column runs at its " +
+        "own length inside it. One more thing is missing on purpose: Skeat's volume closes with the " +
+        "Tale of Gamelyn, a poem found in some manuscripts of the Cook's unfinished tale, which he " +
+        "prints as an appendix and says is not Chaucer's. The translators do not render it, and it is " +
+        "not here.",
+    ],
+
+    /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
+       Every other transcription of it is either a lending-restricted scan or a fragment: English
+       Wikisource carries the 1914 Duffield selection of the Prologue and ten tales, and that
+       transcription is FRONT MATTER ONLY — the tale pages do not exist. Measured before a word was
+       imported, which is the check this file keeps prescribing and the reason a shelf of complete
+       books is a shelf of books somebody counted.
+
+       The scan itself is unusually clean for a machine reading — the whole run of the Canterbury Tales
+       yields about forty blocks of scanner dirt and they are reported by name on every run — but it is
+       a machine reading all the same, and the odd letter is wrong. Left as it is rather than repaired
+       by guess. */
+    sourceName: "Internet Archive",
+    sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
+    source: "html",
+    layout: "chaucer",
+    url: "https://archive.org/download/completepoetical0000chau_q3l3/completepoetical0000chau_q3l3_djvu.txt",
+    chapterWord: "Tale",
+    chapters: Array.from({ length: CANTERBURY_TALES.length }, (_, i) => i + 1),
+    titleOf: (n) => CANTERBURY_TALES[n - 1].t,
+    /* THE FRAGMENTS, which is what Chaucer scholarship calls the nine groups the tales survive in and
+       which this very edition prints as headings over them — Group A through Group I. They are read
+       off the Middle English column's own pages rather than composed here, and they are the only
+       division either edition makes above the tale. */
+    parts: [
+      { n: 1, from: 1,  to: 5,  t: "Group A" },
+      { n: 2, from: 6,  to: 12, t: "Group B" },
+      { n: 3, from: 13, to: 14, t: "Group C" },
+      { n: 4, from: 15, to: 17, t: "Group D" },
+      { n: 5, from: 18, to: 19, t: "Group E" },
+      { n: 6, from: 20, to: 21, t: "Group F" },
+      { n: 7, from: 22, to: 23, t: "Group G" },
+      { n: 8, from: 24, to: 24, t: "Group H" },
+      { n: 9, from: 25, to: 25, t: "Group I" },
+    ],
+    /* THE HEADING THE TRANSLATION PRINTS INSIDE A TALE, and there is exactly one. Every other line of
+       capitals in the run of the Canterbury Tales is a running head or the caption of a plate, and
+       both go; Chaucer's envoy at the end of the Clerk's Tale is a heading over the text and stays.
+       Declared per book for the reason dropHeads is: a line worth deleting in one edition is the text
+       in another, and every distinct line the sweep does delete is printed on the run so that a
+       heading cannot go quietly. */
+    keepHead: /^L.ENVOY DE CHAUCER$/i,
+    /* One row per tale. Neither edition numbers anything inside a tale that the other numbers too —
+       see the note on `original` below — so there is nothing finer to pair on and none is invented. */
+    sections: "whole",
+
+    /* ---------- THE ORIGINAL, WHICH IS THE COMPLETE ONE ----------
+       THE PAIRING IS THE TALE, and unusually it is not a compromise between two editions but the same
+       editor read twice: the translators state in their preface that they follow Skeat's text
+       throughout, and Skeat's text is this column. So the two divide the work identically, in the same
+       order, with the same twenty-five units — there is no reconciliation to do and no exception to
+       record.
+
+       WHAT THERE IS NO KEY FOR IS ANYTHING BELOW THE TALE. Skeat prints a line number in the margin
+       every fifth line, which is how Chaucer is cited in every language; the prose translation prints
+       nothing at all. A number on one side and silence on the other pairs by luck at best, so the row
+       is the tale and each column runs at its own length within it. It is a coarse join and a true
+       one.
+
+       THE TWO PROSE TALES ARE WHERE THE COLUMNS DIVERGE IN LENGTH, and the figures are worth having:
+       measured over the shipped files, the translation runs to about 136,000 words against the
+       original's 185,000, and nearly all of that difference is the Tale of Melibeus (2,100 words
+       against 18,200) and the Parson's Tale (4,100 against 32,200), which the translators abridge to
+       specimens and say so. Take those two out and the verse tales run 130,000 against 135,000, which
+       is prose against verse rather than anything missing.
+
+       THE SOURCE IS PROJECT GUTENBERG, which is new to this shelf and was chosen by measurement. The
+       obvious source is Wikisource, which carries Skeat's Volume IV as a title page, a contents list
+       and twenty-eight red links: not one tale is transcribed. Its only complete Middle English
+       Canterbury Tales is a text tagged "no source" — no edition named, no editor, no scan behind it —
+       and a medieval poem has to be constituted from its manuscripts before anyone can read it, so an
+       unattributed Middle English text is a text whose copyright cannot be reasoned about at all. */
+    original: {
+      lang: "enm",
+      langName: "Middle English",
+      source: "text",
+      layout: "skeat",
+      url: "https://www.gutenberg.org/cache/epub/22120/pg22120.txt",
+      edition:
+        "The Complete Works of Geoffrey Chaucer, Vol. IV: The Canterbury Tales: Text, edited by " +
+        "Walter W. Skeat, second edition, Oxford at the Clarendon Press, 1900",
+      rights:
+        "Public domain worldwide, on every ground. Chaucer died in 1400; Walter W. Skeat published " +
+        "this text at the Clarendon Press in 1894 and revised it for the second edition of 1900, and " +
+        "he died in 1912 — so it is out of copyright under the rule for works published before 1929, " +
+        "under the term of the editor's life plus seventy years, and under life plus a hundred. " +
+        "Skeat's introduction, his footnotes of variant readings, his marginal summaries and his " +
+        "appendix of the Tale of Gamelyn are not reproduced; what is taken is the Prologue and the " +
+        "twenty-four tales.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/22120",
+    },
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -9970,6 +10218,341 @@ function extractJourney(text, book, warn) {
     verseBlocks: verseBlocks, joins: joins, lateHeads: lateHeads };
 }
 
+/* ============================================================================================
+   THE CANTERBURY TALES — the first book here whose BOTH columns are plain text with no markup at all.
+
+   Journey to the West established that a book may arrive as an OCR rather than as a wiki page, and
+   that the reader then has to BUILD a structure and ESCAPE what it finds rather than strip tags out
+   of it. This book does that twice over, from two different kinds of plain text, and the pair is
+   worth reading together because the two halves fail in opposite directions.
+
+   THE TRANSLATION IS A MACHINE READING OF A PRINTED PAGE. Nothing in it is marked: a running head, a
+   page number, a chapter rubric and a paragraph of prose are all just lines. What structure exists is
+   in the blank lines and the shape of the words, and the page furniture has to be recognised on that
+   shape and taken out — after which the holes it leaves have to be closed, because a blank line is
+   what separates one paragraph from the next and a sentence that ran across a page turn arrives as
+   two paragraphs broken at the word the page turned on.
+
+   THE ORIGINAL IS A PROOFREAD TRANSCRIPTION OF A CRITICAL EDITION, which is the opposite problem: it
+   is accurate to the letter and most of what it accurately carries is APPARATUS. Skeat sets his
+   variant readings under every dozen lines of verse, his summaries in one margin and his line numbers
+   in the other, and all of it has to come off — while an indentation that means "apparatus" in one
+   block means "a paragraph of verse opens here" in the next.
+
+   WHAT THEY SHARE is that neither can be checked by counting tags, so both of them count what they
+   remove and print it, and both refuse to guess: a block the sweep cannot classify is reported by
+   name rather than dropped on the assumption that it was furniture.
+   ============================================================================================ */
+
+/* The rubrics Chaucer's manuscripts carry and both editions print, set in italic between the
+   paragraphs. Recognised on their opening words and on being short and closed with a stop, which is
+   what separates "Here beginneth the Miller his Tale." from a sentence of prose that opens on "Here". */
+const CT_RUBRIC = /^(?:Here|Thus|Behold|Explicit|Incipit|Sequitur|The Prologue|The [Ww]ords|Chaucer)\b/;
+
+function extractChaucer(text, book, warn) {
+  const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const capsRatio = (s) => {
+    const ls = s.replace(/[^A-Za-z]/g, "");
+    return ls ? ls.replace(/[^A-Z]/g, "").length / ls.length : 0;
+  };
+  /* A sentinel for the edition's own omission mark, so that the joins below cannot weld the paragraph
+     before a cut to the paragraph after it. Written with spaces so it can never equal a line of text. */
+  const GAP = "  gap  ";
+
+  let src = String(text).replace(/\r\n?/g, "\n");
+  /* THE VOLUME IS THE WHOLE OF CHAUCER and the Canterbury Tales are the first sixth of it, so the poem
+     is cut out of it at its own opening and closing formulas rather than at a page number. Both are
+     the printed rubrics, and if either has moved the run stops here instead of importing the minor
+     poems as a twenty-sixth tale. */
+  const a = src.search(/\nHere\s+beginneth\s+the\s+Book\s+of\s+the\s+Tales\s+of\s+Canterbury\./i);
+  const b = src.search(/\nHere\s+is\s+ended\s+the\s+book\s+of\s+the\s+Tales\s+of\s+Canterbury/i);
+  if (a < 0 || b < 0) throw new Error("the Canterbury Tales are not where they were in this transcription");
+  const tail = src.slice(b + 1);
+  src = src.slice(a + 1, b + 1) + tail.slice(0, tail.indexOf("\n\n"));
+
+  /* THE PAGE FURNITURE, on shape rather than on wording. This edition's running heads are the volume's
+     title on one page and the tale's on the facing one, its page numbers stand alone, and the plates
+     bound between the leaves leave their engraved captions behind with nothing to caption. All of them
+     are a short line of capitals or a bare figure, and none of the prose is either — with one
+     exception, which the book declares for itself in `keepHead`. Every distinct line taken is counted
+     and printed on the run, because a rule that starts eating headings must not do it quietly. */
+  const heads = {};
+  let pages = 0;
+  src = src.split("\n").filter((l) => {
+    const s = l.trim().replace(/\s+/g, " ");
+    if (/^\d{1,3}$/.test(s)) { pages++; return false; }
+    if (s.replace(/[^A-Za-z]/g, "").length >= 6 && capsRatio(s) > 0.85 && s.length <= 46 &&
+        !(book.keepHead && book.keepHead.test(s))) {
+      heads[s] = (heads[s] || 0) + 1;
+      return false;
+    }
+    return true;
+  }).join("\n");
+
+  /* The printer's own line-wrap hyphen, which this scan reads as ¬ about as often as as -. Closed only
+     where a lower-case letter follows, so a real hyphenated compound broken across the wrap keeps its
+     hyphen. */
+  let hyphens = (src.match(/[A-Za-z][¬-][ \t]*\n[ \t]*[a-z]/g) || []).length;
+  src = src.replace(/([A-Za-z])[¬-][ \t]*\n[ \t]*([a-z])/g, "$1$2");
+
+  let blocks = [];
+  let cur = [];
+  src.split("\n").forEach((l) => {
+    const s = l.trim().replace(/\s+/g, " ");
+    if (s) cur.push(s);
+    else if (cur.length) { blocks.push(cur.join(" ")); cur = []; }
+  });
+  if (cur.length) blocks.push(cur.join(" "));
+
+  /* THE EDITION'S OWN OMISSION MARK. Where the translators drop a whole episode as too coarse they
+     print a row of asterisks and say so in their preface; the scan reads the row five different ways,
+     losing some of the stars and gaining stray punctuation. Normalised, which asserts nothing about
+     how many asterisks were printed — only that whatever was printed, one thing was printed — and
+     every raw form seen is reported, exactly as an OCR'd mark is anywhere else here. */
+  let gaps = 0;
+  const rawGaps = [];
+  blocks = blocks.map((p) => {
+    if ((p.match(/\*/g) || []).length >= 3 && p.replace(/[^A-Za-z]/g, "").length <= 4) {
+      gaps++;
+      if (rawGaps.indexOf(p) < 0) rawGaps.push(p);
+      return GAP;
+    }
+    return p;
+  });
+
+  /* CLOSING THE HOLES THE FURNITURE LEFT. A blank line is what separates two paragraphs, so lifting a
+     running head out of the middle of one leaves its halves standing as two — and the same is true of
+     a hyphen the page turn split, once the head between them is gone. Both are closed on the narrowest
+     test that can work: the first half must end on no sentence punctuation AND the second must open
+     lower-case, which no real paragraph of this edition does. */
+  const rejoin = () => {
+    let n = 0;
+    for (let i = blocks.length - 1; i > 0; i--) {
+      const prev = blocks[i - 1], next = blocks[i];
+      if (prev === GAP || next === GAP) continue;
+      if (/[¬-]$/.test(prev) && /^[a-z]/.test(next)) {
+        blocks.splice(i - 1, 2, prev.replace(/[¬-]$/, "") + next); n++; continue;
+      }
+      if (!/[.!?:;"'’”]\s*$/.test(prev) && /^[a-z]/.test(next)) {
+        blocks.splice(i - 1, 2, prev + " " + next); n++;
+      }
+    }
+    return n;
+  };
+  /* Run BEFORE the dirt is dropped and again after it, and both passes are needed. A word the scan
+     stranded on a line of its own — "j°y." at the foot of one page — is rejoined by the first pass and
+     would be thrown away as dirt by the sweep below if it ran the other way about; and the dirt a
+     plate leaves between "sweet-" and "heart" has to GO before those two can be closed up. */
+  let joins = rejoin();
+  const junk = [];
+  blocks = blocks.filter((p) => {
+    if (p !== GAP && !/[A-Za-z]{3,}/.test(p)) { junk.push(p); return false; }
+    return true;
+  });
+  joins += rejoin();
+
+  /* THE CHAPTERS, found FORWARD ONLY: each anchor is searched from where the last one matched, so a
+     rubric whose wording recurs later in the book cannot pull a tale backwards. A missing anchor
+     throws rather than silently folding two tales into one. */
+  const starts = [];
+  let from = 0;
+  CANTERBURY_TALES.forEach((T, i) => {
+    let at = -1;
+    for (let k = from; k < blocks.length; k++) if (T.en.test(blocks[k])) { at = k; break; }
+    if (at < 0) throw new Error("tale " + (i + 1) + " (" + T.t + "): its opening rubric is not in the transcription");
+    starts.push({ n: i + 1, t: T.t, at: at });
+    from = at + 1;
+  });
+
+  let rubrics = 0;
+  const out = starts.map((s, k) => {
+    const end = k + 1 < starts.length ? starts[k + 1].at : blocks.length;
+    const parts = blocks.slice(s.at, end).map((p) => {
+      if (p === GAP) return "<p>* * * * *</p>";
+      if (p.length <= 110 && CT_RUBRIC.test(p) && /[.!]\s*$/.test(p)) {
+        rubrics++;
+        return "<p><i>" + escHtml(p) + "</i></p>";
+      }
+      return "<p>" + escHtml(p) + "</p>";
+    });
+    /* ONE MARKER FOR THE WHOLE TALE, because the tale is what the two columns are set against and
+       neither edition numbers anything inside it that the other numbers too. Written here rather than
+       by cleanBody's `sections: "whole"` branch, which this book never reaches: that one is for the
+       wiki walk and this text is not markup at all. */
+    return {
+      n: s.n,
+      t: s.t,
+      gaps: blocks.slice(s.at, end).filter((p) => p === GAP).length,
+      html: '<p><span class="bk-n" data-n="' + s.n + '">' + s.n + "</span></p>" + parts.join("\n"),
+    };
+  });
+
+  return { chapters: out, heads: heads, pages: pages, hyphens: hyphens, joins: joins,
+    junk: junk, rubrics: rubrics, gaps: gaps, rawGaps: rawGaps };
+}
+
+/* An apparatus block opens on a line number, or on a capitalised label — HEADING, COLOPHON, QUOTATION,
+   TITLE — or on an italic editorial word, or on the three asterisks Skeat sets before a note about
+   where Tyrwhitt puts the passage. A block of VERSE opens at the same indentation and on none of
+   those, which is the whole of what separates them. The asterisks are worth the measurement rather
+   than the reasoning: the transcription carries exactly three such notes, two here in the apparatus
+   band and one flush left, and no line of the poem opens on them — while the printer's rule between
+   sections, which is also asterisks, sets them spaced apart and so cannot match. */
+const SKEAT_APP = /^ {4}(?:[A-Z]{3,12}(?:[.;:]|\s*\()|\d+[a-z]?\b|_|Between|Cf\.|N\.B\.|\*\*\*)/;
+
+function extractSkeat(text, warn) {
+  const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const capsRatio = (s) => {
+    const ls = s.replace(/[^A-Za-z]/g, "");
+    return ls ? ls.replace(/[^A-Z]/g, "").length / ls.length : 0;
+  };
+
+  let src = String(text).replace(/\r\n?/g, "\n");
+  const s0 = src.indexOf("*** START OF THE PROJECT GUTENBERG");
+  if (s0 >= 0) src = src.slice(src.indexOf("\n", s0) + 1);
+
+  const first = "\n" + CANTERBURY_TALES[0].me;
+  const from = src.indexOf(first);
+  /* The volume ends on the Tale of Gamelyn, which Skeat prints as an appendix and says is not
+     Chaucer's, and which the translation does not render — so the cut stops there. */
+  const to = src.indexOf("\nAPPENDIX TO GROUP A.");
+  if (from < 0 || to < 0) throw new Error("the tales are not where they were in this transcription");
+  src = src.slice(from + 1, to);
+  const lines = src.split("\n");
+
+  /* THE APPARATUS. Skeat prints his variant readings under each run of verse, indented four spaces
+     where the verse is indented two — but a verse PARAGRAPH also opens at four, so the indentation
+     alone cannot tell them apart and a rule written on it would delete a fifth of the poem. A block is
+     taken as apparatus only when its FIRST line also carries an apparatus opener, and every
+     four-indent block the test does NOT take is counted and reported, so a shape the opener has never
+     met announces itself instead of arriving in the middle of the verse. */
+  const runs = [];
+  let cur = null;
+  lines.forEach((l, i) => {
+    if (/^ {4}\S/.test(l)) { if (!cur) cur = { a: i, lines: [] }; cur.lines.push(l); }
+    else if (cur) { cur.b = i - 1; runs.push(cur); cur = null; }
+  });
+  if (cur) { cur.b = lines.length - 1; runs.push(cur); }
+  const dropped = new Array(lines.length).fill(false);
+  let apparatus = 0, verseOpeners = 0;
+  runs.forEach((r) => {
+    if (SKEAT_APP.test(r.lines[0])) {
+      apparatus++;
+      for (let i = r.a; i <= r.b; i++) dropped[i] = true;
+    } else verseOpeners++;
+  });
+
+  let pageMarks = 0, rules = 0, groups = 0, lineNums = 0, sideNotes = 0, tyrwhitt = 0, crossRefs = 0;
+  const rows = [];
+  lines.forEach((l, i) => {
+    if (dropped[i]) return;
+    let s = l.replace(/\s+$/, "");
+    const t = s.trim();
+    if (!t) { rows.push(null); return; }
+    /* The edition's own pagination, and Tyrwhitt's line correspondence beside it. Blanked rather than
+       dropped with the line, because the very last one shares a line with the rubric that opens
+       Chaucer's retraction. */
+    s = s.replace(/^\s*\[\d+(?::[^\]]*)?\]\s*/, (m) => { pageMarks++; return m.replace(/\S/g, " "); });
+    if (!s.trim()) return;
+    if (/^\*(\s+\*)+$/.test(t)) { rules++; return; }              // the transcription's own rule between sections
+    if (/^GROUP [A-I]\.?$/.test(t)) { groups++; return; }         // the fragment label, which the tab bar carries
+    /* Skeat's marginal summary of who is being described, set in the right margin beside the verse.
+       Anchored to a NON-SPACE before it, or a rubric — which the transcription also sets between = =,
+       on a line of its own — is read as the margin of an empty line and deleted whole. */
+    const bs = s;
+    s = s.replace(/(\S)\s{2,}=[^=]{1,60}=\s*$/, "$1");
+    if (s !== bs) sideNotes++;
+    /* Skeat's OTHER marginal reference — where this line stands in TYRWHITT's ordering, set in the
+       margin wherever the two editions have parted company. It is not caught by the line-number rule
+       below, which wants the figure at the very end of the line, so left alone it ships as a bracket
+       in the middle of the verse. It wears three costumes and a naive rule reading only the first
+       leaves two-thirds of them standing: "[T. 14772." is a line NUMBER, "[T. _om._" marks a line
+       Tyrwhitt does not print at all (18 of those, and the transcription's own preface says so), and
+       one line carries "[See p. 256." instead, pointing at the page where Tyrwhitt puts the passage.
+       Measured over the whole poem: 39 lines end in a bracketed margin and every one is one of the
+       three, so a rule anchored on "[T." or "[See p." covers them exactly and reaches nothing else. */
+    const bt = s;
+    s = s.replace(/(\S)\s{2,}\[(?:T\.\s*(?:\d{1,6}|_om\._)|See\s+p\.\s*\d{1,4})\.?\]?\s*$/, "$1");
+    if (s !== bt) tyrwhitt++;
+    // the marginal line number, printed every fifth line, with Tyrwhitt's in brackets beside it
+    const bn = s;
+    s = s.replace(/\s{2,}\(?\d{1,5}\)?\.?$/, "");
+    if (s !== bn) lineNums++;
+    if (!s.trim()) return;      // a marginal number the transcription set on a line of its own
+    const ind = /^ */.exec(s)[0].length;
+    rows.push({ k: ind >= 2 ? "verse" : "prose", s: s.trim() });
+  });
+
+  /* VERSE AND PROSE ARE TOLD APART BY INDENTATION, which is what this transcription uses: the poem is
+     set two spaces in and the two prose tales flush left. A block is a run of one kind between blank
+     lines, and a verse block keeps its line breaks where a prose one is joined into a paragraph. */
+  let blocks = [];
+  let b = null;
+  rows.forEach((x) => {
+    if (!x) { if (b) { blocks.push(b); b = null; } return; }
+    if (!b || b.k !== x.k) { if (b) blocks.push(b); b = { k: x.k, lines: [] }; }
+    b.lines.push(x.s);
+  });
+  if (b) blocks.push(b);
+
+  /* THE CROSS-REFERENCE AT THE FOOT OF A PAGE, which is apparatus wearing no apparatus indent. Where
+     Skeat's order of the tales parts company with Tyrwhitt's he prints a note saying where to look,
+     flush left or two spaces in, so neither the four-indent rule above nor the margin rules can see
+     it — and several sit directly under a tale heading and ship as that tale's opening paragraph.
+     THE TEST IS THE PAGE REFERENCE ALONE, which is narrower than it sounds and was measured before it
+     was written: ten blocks in the whole poem carry one, nine are these notes and the tenth is a real
+     stanza of the Monk's Tale whose MARGIN carries "[See p. 256." — which is why the margin rules
+     above must run first, per line, as they do. A rule reading instead the thing these notes appear
+     to have in common (a Tyrwhitt line number beside the page) catches four of the nine and leaves
+     five standing, since Skeat cites Tyrwhitt three ways and sometimes not at all: "(NERO _follows
+     in_ T.; _see_ p. 259.)" carries no figure, "***In Tyrwhitt's text, ll. 15469 sqq.; see p. 508."
+     numbers lines rather than tales, and two are bracketed editorial notes saying only that one
+     prologue follows another. The length cap is a bound rather than a test — the longest of the nine
+     is 118 characters — so that a rule which somehow began matching could not eat a stanza quietly. */
+  blocks = blocks.filter((bl) => {
+    const t = bl.lines.join(" ").replace(/_/g, "").trim();
+    if (t.length <= 130 && /\bpp?\.\s*\d/.test(t)) { crossRefs++; return false; }
+    return true;
+  });
+
+  const starts = [];
+  blocks.forEach((bl, i) => {
+    const at = CANTERBURY_TALES.findIndex((T) => T.me === bl.lines.join(" ").trim());
+    if (at >= 0 && !starts.some((x) => x.n === at + 1)) starts.push({ n: at + 1, at: i });
+  });
+  if (starts.length !== CANTERBURY_TALES.length)
+    throw new Error("found " + starts.length + " of " + CANTERBURY_TALES.length + " tale headings");
+
+  let heads = 0, rubrics = 0, verseLines = 0;
+  const chapters = starts.map((st, k) => {
+    const end = k + 1 < starts.length ? starts[k + 1].at : blocks.length;
+    const parts = [];
+    for (let i = st.at; i < end; i++) {
+      /* The printed heading duplicates the chapter tab above it, so it goes — the same judgement made
+         wherever a chapter here opens on its own number. */
+      if (i === st.at) { heads++; continue; }
+      const bl = blocks[i];
+      const whole = bl.lines.join(" ").trim();
+      const isRubric = /^=.*=$/.test(whole) ||
+        (capsRatio(whole) > 0.9 && whole.replace(/[^A-Za-z]/g, "").length >= 6);
+      let body = bl.k === "verse" ? bl.lines.map(escHtml).join("<br>\n") : bl.lines.map(escHtml).join(" ");
+      if (bl.k === "verse") verseLines += bl.lines.length;
+      body = body.replace(/\/\d{1,5}/g, "/");            // the prose tales' line numbers, set in the run of text
+      body = body.replace(/\s*\[\d{1,4}\]\s*/g, " ");    // and their page markers, likewise
+      body = body.replace(/_([^_]+)_/g, "<i>$1</i>");    // the transcription's italic
+      body = body.replace(/=/g, "").trim();              // and its bold, which marks the rubrics
+      if (!body) continue;
+      if (isRubric) rubrics++;
+      parts.push(isRubric ? "<p><i>" + body + "</i></p>" : "<p>" + body + "</p>");
+    }
+    return { n: st.n, html: parts.join("\n") };
+  });
+
+  return { chapters: chapters, apparatus: apparatus, verseOpeners: verseOpeners, pageMarks: pageMarks,
+    rules: rules, groups: groups, lineNums: lineNums, sideNotes: sideNotes, heads: heads,
+    rubrics: rubrics, verseLines: verseLines, tyrwhitt: tyrwhitt, crossRefs: crossRefs };
+}
+
 function extractTablets(h, book, warn) {
   /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
      the page with Windows line endings; every other source on the shelf does not, so `esc` — which
@@ -11860,6 +12443,45 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* THE CANTERBURY TALES — a plain-text OCR of one volume, of which this book is the first sixth. One
+     request for the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no
+     network at all. See the block above extractChaucer for what a text with no markup has to be given
+     instead of tags. */
+  if (BOOK.layout === "chaucer") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractChaucer(raw, BOOK, warn);
+    if (got.chapters.length !== BOOK.chapters.length)
+      warn("the transcription yields " + got.chapters.length + " tales; the entry expects " + BOOK.chapters.length);
+    got.chapters.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      chapters.push({ n: c.n, t: titles[c.n] || c.t, p: partOf(c.n), html: c.html, notes: [] });
+    });
+    const headCount = Object.values(got.heads).reduce((a, b) => a + b, 0);
+    console.log("  " + chapters.length + " tales, " + headCount + " running heads and plate captions removed (" +
+      Object.keys(got.heads).length + " distinct), " + got.pages + " page numbers, " +
+      got.hyphens + " words rejoined across the printer's line wrap, " +
+      got.joins + " paragraphs rejoined across a page turn, " + got.rubrics + " rubrics");
+    /* Named rather than counted, because this is the one sweep here that could eat a heading: every
+       distinct line of capitals the page-furniture rule removed, and every block of scanner dirt. */
+    console.log("  heads removed: " + Object.keys(got.heads).sort().map((k) => JSON.stringify(k)).join(" "));
+    if (got.junk.length) console.log("  " + got.junk.length + " block(s) of scanner dirt dropped: " +
+      got.junk.map((s) => JSON.stringify(s.slice(0, 24))).join(" "));
+    /* THE FIGURE THIS TRANSLATION IS ABOUT. The editors drop whole episodes they thought too coarse
+       and mark each with a row of asterisks; a change in this count means the mark has stopped being
+       recognised, which is how the five forms below were found. Printed for both reasons. */
+    console.log("  " + got.gaps + " passage(s) the translators omit and mark with asterisks, in " +
+      got.chapters.filter((c) => c.gaps).map((c) => c.t).join(", "));
+    console.log("  the mark is printed " + got.rawGaps.length + " different ways by the scan: " +
+      got.rawGaps.map((s) => JSON.stringify(s)).join(" "));
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "tablets") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");
@@ -12124,6 +12746,37 @@ async function fetchOriginal() {
      ORIGINAL is never renumbered: the repair applied to Suetonius's Augustus corrects Perseus's
      English divisions back to the numbers the printed translation itself carries, and those are the
      Latin edition's own numbers already. */
+  /* AN ORIGINAL THAT IS ALSO PLAIN TEXT, and the only one on this shelf. Skeat's Middle English is a
+     proofread transcription of a critical edition rather than a machine reading, so the difficulty is
+     not damage but APPARATUS — see the block above extractSkeat. One file, cached whole, so a
+     re-extract needs no network; --force refetches it. */
+  if (O.source === "text" && O.layout === "skeat") {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    const cf = path.join(cacheDir, "text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(O.url); fs.writeFileSync(cf, raw); }
+    const got = extractSkeat(raw, warn);
+    console.log("  " + got.apparatus + " blocks of variant readings dropped, " + got.verseOpeners +
+      " four-indent blocks kept as verse, " + got.pageMarks + " page markers, " + got.rules +
+      " printer's rules, " + got.groups + " fragment labels, " + got.sideNotes +
+      " marginal summaries, " + got.lineNums + " marginal line numbers, " + got.tyrwhitt +
+      " marginal references to Tyrwhitt, " + got.crossRefs + " cross-references to another page, " +
+      got.heads + " tale headings (each duplicates its own tab)");
+    console.log("  " + got.verseLines + " lines of verse, " + got.rubrics + " rubrics");
+    got.chapters.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      /* The same single marker the translation carries, and it must be written on BOTH sides or the
+         two columns have nothing to pair on. */
+      byNum[c.n] = BOOK.sections === "whole"
+        ? '<p><span class="bk-n" data-n="' + c.n + '">' + c.n + "</span></p>" + c.html
+        : c.html;
+    });
+    return writeOriginal(byNum, warnings);
+  }
+
   if (O.source === "tei" && O.perChapter) {
     console.log("\nFetching the " + O.langName + " original — " + O.edition);
     for (const n of BOOK.chapters) {

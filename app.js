@@ -7631,6 +7631,24 @@
        comedy about a monkey wrecking heaven and not a sober one; that cost nothing, the numbers led
        there. The thirty-second colour will have to widen the band or take a pair tighter than 18.2. */
     "Wu Cheng'en": "#7B0050",
+    /* CHAUCER — a deep green-teal, and with thirty-one colours placed the band is as full as this file
+       has been recording. Searched over the shelf's own lightness and chroma band under the Book of
+       Rites' two floors (4.5:1 on the tightest of the sixteen light papers, and 22 clear of every light
+       theme's ink), the best colour anywhere in it clears its nearest neighbour by 19.7 — where the
+       shelf's OWN closest pair is now 18.2, the Classic of Poetry against Beowulf. So no pair tighter
+       than the shelf's tightest was taken and the band was not widened; the earlier rows' comfortable
+       margins are simply not on offer any more, and that is worth saying rather than quietly widening
+       the search.
+       THE EURIPIDES TEST PICKED THE FAMILY AND THE NUMBER AGREED, which does not always happen. The
+       colour is 19.7 from Marcus Aurelius's teal, 19.7 from Aesop's, 19.9 from the Book of Documents'
+       and 20.3 from Lucretius's — evenly enough spaced from all four that it reads as its own colour
+       rather than as a near miss of one — and none of those four is a book anyone reads as a set with
+       Chaucer. The alternatives were worse on exactly that count: the best blue is 18.5 from Snorri
+       Sturluson, which is BELOW the shelf's tightest pair and pairs him with the other medieval
+       vernacular poet on the shelf, and the best purple 17.5 from Plato. Its chroma of 38 sits in the
+       middle of the shelf's 18–64, so it is not the glowing green the Vyasa row turned down, and it
+       reads 4.63:1 on the tightest of the sixteen light papers. */
+    "Geoffrey Chaucer": "#00603A",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9610,6 +9628,73 @@
          three movements a reader may have met elsewhere — Monkey's origin, Tripitaka's, and the
          pilgrimage — are not this edition's divisions, and putting them on the bar would be composing
          an apparatus, which is what the Aeneid's row declines to do for its own two halves. */
+    },
+    {
+      id: "canterbury-tales",
+      title: "The Canterbury Tales",
+      author: "Geoffrey Chaucer",
+      written: "c. 1387–1400",
+      year: 1387,
+      translator: "John S. P. Tatlock and Percy MacKaye",
+      edition: "The Macmillan Company, New York, 1912",
+      /* A LIMIT ON THE TRANSLATION, and nothing to qualify about the other two layers. Chaucer died in
+         1400 and Skeat's Middle English text of 1900 is clear on every ground (he died in 1912). The
+         translation was published in 1912, so it is public domain in the United States under the
+         pre-1929 rule — but a work of two hands runs its term from the last of them to die, and
+         MacKaye lived until 1956, so life-plus-seventy has it in copyright until the beginning of 2027
+         and life-plus-a-hundred until 2057. Their dates were looked up rather than recalled and
+         corroborated twice: the library catalogue record carried in the scan's own metadata gives
+         both, and so does each man's biography. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. Chaucer died in 1400, so " +
+        "the poem itself has been free for as long as copyright has existed, and the Middle English " +
+        "column is Walter W. Skeat's text of 1900 — he died in 1912, so it is out of copyright on " +
+        "every ground with nothing to qualify. The translation is the half that needs a date. John S. " +
+        "P. Tatlock and Percy MacKaye published it in 1912, which puts it in the public domain in the " +
+        "United States under the rule for works published before 1929; but a work of two hands runs " +
+        "its term from the last of them to die, and MacKaye lived until 1956, so in countries where " +
+        "the term is the authors' lives plus seventy years it remains in copyright until the " +
+        "beginning of 2027, and where it is life plus a hundred until 2057. The translators' preface, " +
+        "glossary and notes, Skeat's introduction and apparatus, and the plates in both volumes are " +
+        "not reproduced; what is taken is the Prologue and the twenty-four tales. (The modern " +
+        "translations — Nevill Coghill's of 1951, David Wright's of 1985, Burton Raffel's of 2008 and " +
+        "Peter Ackroyd's retelling of 2009 — are all still in copyright and are not used.)",
+      sourceName: "Internet Archive",
+      sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
+      origLang: "enm",
+      origName: "Middle English",
+      /* THE TALE IS THE PAIRING UNIT, and here it is not a compromise between two editions but the
+         same editor read twice: the translators say in their preface that they follow Skeat's text
+         throughout, and Skeat's text is the facing column. So the two divide the work identically —
+         twenty-five units, same order, no exception to record.
+         WHAT THERE IS NO KEY FOR IS ANYTHING BELOW THE TALE. Skeat prints a line number every fifth
+         line, which is how Chaucer is cited in any language; the prose translation prints nothing at
+         all, so a number on one side and silence on the other could only pair by luck. One row per
+         tale, each column at its own length inside it.
+         THE TRANSLATION IS A PROSE RENDERING and it abridges the two tales that are prose in the
+         original — Melibeus and the Parson's Tale — to what its preface calls specimens, about a
+         tenth of each, and drops five further passages as too coarse for 1912, marking each with a
+         row of asterisks that ships where they printed it. Measured over the shipped files: 136,000
+         words against the original's 185,000, and take those two tales out and it is 130,000 against
+         135,000. Everything left out is in the Middle English beside it, which is complete.
+         See .claude/fetch-book.js. */
+      chapterWord: "Tale",
+      count: 25,
+      total: 25,
+      /* THE FRAGMENTS — the nine groups the tales survive in, which this very edition prints as
+         headings over them. Read off the pages rather than composed, and the only division either
+         edition makes above the tale. */
+      parts: [
+        { n: 1, label: "Group A", note: "Tales 1–5" },
+        { n: 2, label: "Group B", note: "Tales 6–12" },
+        { n: 3, label: "Group C", note: "Tales 13–14" },
+        { n: 4, label: "Group D", note: "Tales 15–17" },
+        { n: 5, label: "Group E", note: "Tales 18–19" },
+        { n: 6, label: "Group F", note: "Tales 20–21" },
+        { n: 7, label: "Group G", note: "Tales 22–23" },
+        { n: 8, label: "Group H", note: "Tale 24" },
+        { n: 9, label: "Group I", note: "Tale 25" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
