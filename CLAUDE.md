@@ -4593,6 +4593,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and removes the element after `DECK_SHEET_OUT_MS` (keep that in step with the CSS), and clears
     `_deckMenuClose` at the same moment so a second close cannot restart the timer; the overlay stops
     hit-testing the instant the class lands, so the gesture is finished whatever the paint is still doing.
+  · **A MODAL SCRIM IS THEME-INDEPENDENT BLACK, NEVER `var(--ink)`** (Aug 2026, on a bug report: "the whole
+    background is whited out"). Five full-screen overlays — `.inline-prompt`, `.deck-menu`, `.levelup-pop`,
+    `.artefact-pop` and `.chest-pop` — were each `color-mix(in srgb, var(--ink) 38–58%, transparent)`, which
+    reads as "the darkest thing this theme has" and IS exactly that in light mode (`--ink` is #1B1A17, so
+    those figures are unchanged there). **At night the token flips to #ECEAE3**, so every one of them became
+    a 38–58% WHITE veil: holding a deck's row, opening a chest or an artefact on any dark theme whited the
+    whole page out behind the sheet. A scrim's job is to push the page BACK, which is a DIRECTION rather
+    than a colour the theme gets a say in — the rule `.folio-tour`, `.page-help` and the media viewer were
+    already written to, each spelling its black out. **The failure is invisible from the light side**, which
+    is why it survived: nothing throws, the sheet is perfectly readable, and every screenshot taken in light
+    mode is correct. `.gloss-scrim` and `.atlas-help` are deliberately NOT in the list: both are mixes of
+    `var(--paper)`, which is DARK at night, so they already darken — a paper mix follows the theme correctly
+    where an ink mix inverts.
   · **The row's options are a LONG PRESS** (`openDeckMenu` / `deckSheet` / `openCustomStudy` / `openDeckLimits`), and
     the small bin that used to sit at the right of every row is gone with it — one command holding a permanent column
     on a 390px row, with three more that had nowhere to live. Custom study bumps the deck's allowance for today AND
