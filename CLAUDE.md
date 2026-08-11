@@ -8101,6 +8101,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   subdecks, so one file holds what would otherwise be several decks — an HSK deck with a direction each way,
   a course with a chapter each. Each is addable and studiable on its own, exactly as a curated collection's
   decks are, and it needs **no schema change anywhere**, which is the whole of the design.
+  · **A SUBDECKED ENTRY DEALS ITS SUBDECKS ROUND-ROBIN, EACH ONE A DAY BEHIND** (`studyGroupOf` /
+    `studyOrder`, Aug 2026, on a bug report: studying a level of a two-direction deck gave one direction
+    and never the other). A deck stores its cards one subdeck after another, and both `reviewQueue` and
+    `buildSession` take the day's new cards as a SLICE off the front of that list — so the slice never
+    reached the second subdeck and **Ordered meant "Spanish → English, for a hundred days"**. Random was
+    no answer: it shuffles the whole session and throws the word order away with the problem. An entry
+    whose cards come from more than one leaf subdeck now deals them round-robin BY POSITION, each subdeck
+    keeping its own 1, 2, 3. **The reorder happens BEFORE the allowance is sliced**, which is the whole
+    economy of it: one function decides both WHICH cards the day gives and WHAT ORDER they arrive in, so
+    the pooled review, a session started from a row and that row's own counts cannot come to disagree.
+    **THE LAG IS THE DESIGN AND NOT A DETAIL.** On a two-direction deck position N is the SAME WORD in
+    both subdecks — measured on DELE A1, 496 of 496 — so a plain round robin deals `de → of` and then
+    `of → de` a second later, and the reverse is answered out of short-term memory and scheduled far
+    further out than it has earned. **`burySiblings` cannot save it**: these are two independent cards
+    rather than two cards of one note, so nothing separates them. Each later subdeck therefore runs `lag`
+    positions BEHIND the first, the lag being the entry's own new-card allowance — one day's worth — so
+    the reverse arrives on the NEXT day. Sorting on `position + groupIndex * lag` needs no state and
+    self-corrects as cards are consumed, because the position is the card's place in its OWN subdeck and
+    not its place in whatever is left unseen today. The visible consequence, worth knowing before it is
+    read as the bug returning: **day one is still the first subdeck alone**, and the alternation starts on
+    day two. It applies to **Folio's own collections too** (on request), where the groups are the leaf
+    decks, so a collection is met a few cards from each of its decks at a time rather than one deck worked
+    through end to end. **A card's group is its leaf subdeck, not its card TEMPLATE** — a note's own
+    reverse card is a separate axis with a separate answer already (bury-siblings), and interleaving it
+    here would be two mechanisms arguing over one pair. Random is untouched: random still means random.
   · **A SUBDECK MAY HOLD SUBDECKS** (Aug 2026, on request — `SUB_SEP` / `SUB_MAX_DEPTH` / `uSubParts` /
     `uSubNormalize` / `uSubName` / `uSubParent` / `uSubUnder` / `uSubNodes` / `uSubChildren`). `card.sub` is
     a **PATH** whose segments are separated by **`::`** — `A1` is a subdeck and `A1::Spanish → English` is a

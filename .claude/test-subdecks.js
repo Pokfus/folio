@@ -41,6 +41,28 @@ function check(name, ok, extra) {
 // A deck of six Basic cards: two in "Alpha", two in "Beta", two in no subdeck at all. The third group is
 // the case worth having — a partly-grouped deck must still work, and its loose cards must not invent a row.
 const SUBS = ["Alpha", "Beta", ""];
+/* A deck of two subdecks with THREE cards each. The nested fixture below has one card per leaf, which
+   is enough to show that a branch draws from both and not enough to show the LAG — for that a subdeck
+   needs more cards than a day's allowance. */
+const PAIRED = ["Front", "Back"];
+function pairedDeckFile(id, title) {
+  const d = deckFile(id, title);
+  d.meta.id = id;
+  d.cards = [];
+  PAIRED.forEach((sub) => {
+    for (let i = 1; i <= 3; i++) {
+      const n = d.cards.length + 1;
+      d.cards.push({
+        id: "u_" + id + "_" + n, num: String(n), category: "", sub,
+        // the word is the POSITION, so a dealt card says which subdeck and which position at a glance
+        question: sub[0] + i + " <span class=\"blank\">_____</span> end", answer: sub[0] + i,
+        answerDate: "", traditional: "", hanzi: "", pinyin: "", translations: "", abstract: "",
+        citation: "", answerText: sub[0] + i,
+      });
+    }
+  });
+  return d;
+}
 /* A deck whose subdecks hold subdecks: two levels, four leaves, and NO card naming `A1` or `A2` on its
    own — an intermediate node exists exactly when something under it does, so if the tree is not derived
    from the path those two rows never appear. Plain ASCII names on purpose: the entry id percent-encodes
@@ -330,6 +352,75 @@ const active = (page) => page.evaluate(() => {
   check("removing a nested subdeck takes its ancestors with it",
     act.every((e) => !/subdeck2/.test(e)) || act.indexOf("u:subdeck2/" + encodeURIComponent("A1")) === -1,
     JSON.stringify(act));
+
+  /* ---------- a subdecked entry deals its subdecks ROUND-ROBIN, each one a day behind ----------
+     Reported (Aug 2026): studying a level of a two-direction deck gave one direction and never the
+     other, because a deck stores its subdecks one after another and the day's new cards are a SLICE off
+     the front of that list. Two things are asserted and each fails differently. Without the round robin
+     the second subdeck never appears at all. Without the LAG a word's two directions arrive a second
+     apart, which is worse than the bug it fixes — the reverse is then answered out of short-term memory
+     — so day one must be the first subdeck alone and day two must mix. */
+  const tmp3 = path.join(os.tmpdir(), "folio-subdeck-paired.folio-deck.json");
+  fs.writeFileSync(tmp3, JSON.stringify(pairedDeckFile("subdeck3", "Paired deck")));
+  await page.goto(base + "/#studio");
+  await page.waitForTimeout(1200);
+  const chooser3 = page.waitForEvent("filechooser");
+  await page.click("#stImport");
+  await (await chooser3).setFiles(tmp3);
+  await page.waitForTimeout(2500);
+
+  // study the whole deck, two new cards a day, ordered
+  const setUp = async () => page.evaluate(() => {
+    const st = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    st.active = ["u:subdeck3"];
+    st.deckOpts = Object.assign({}, st.deckOpts || {});
+    st.deckOpts["u:subdeck3"] = { newPerDay: 2, maxReviews: 50, random: false };
+    localStorage.setItem("folio_v1", JSON.stringify(st));
+  });
+  const dealTwo = async () => {
+    await page.goto(base + "/#home");
+    await page.reload();
+    await page.waitForTimeout(1500);
+    await page.evaluate(() => { const r = document.querySelector(".active-deck"); if (r) r.click(); });
+    await page.waitForTimeout(1400);
+    const out = [];
+    for (let i = 0; i < 2; i++) {
+      const q = await page.evaluate(() => {
+        document.querySelectorAll(".chest-pop,.levelup-pop").forEach((e) => e.remove());
+        const el = document.querySelector(".question");
+        return el ? el.textContent.trim().split(/\s+/)[0] : null;
+      });
+      if (q) out.push(q);
+      const on = await page.evaluate(() => { const b = document.querySelector("#reveal-btn"); if (!b) return false; b.click(); return true; });
+      if (!on) break;
+      await page.waitForTimeout(90);
+      const g = await page.evaluate(() => { const b = document.querySelector("button.grade[data-g='easy']"); if (!b) return false; b.click(); return true; });
+      if (!g) break;
+      await page.waitForTimeout(90);
+    }
+    return out;
+  };
+  await setUp();
+  const day1 = await dealTwo();
+  check("day one is the first subdeck alone — the second is held a day back",
+    day1.length === 2 && day1.every((x) => /^F/.test(x)), JSON.stringify(day1));
+
+  /* Day two, simulated by ageing what day one introduced: the day's new-card count is DERIVED from each
+     card's own `first` day, so moving that back frees the allowance exactly as midnight would. */
+  await page.evaluate(() => {
+    const st = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    Object.keys(st.cards || {}).forEach((k) => {
+      if (k.indexOf("u_subdeck3_") === 0 && st.cards[k].first) st.cards[k].first = "2020-01-01";
+      if (k.indexOf("u_subdeck3_") === 0) st.cards[k].due = Date.now() + 864e5 * 30;   // not due again today
+    });
+    localStorage.setItem("folio_v1", JSON.stringify(st));
+  });
+  const day2 = await dealTwo();
+  check("day two mixes the two subdecks, each still in its own order",
+    day2.length === 2 && /^F/.test(day2[0]) && /^B/.test(day2[1]), JSON.stringify({ day1, day2 }));
+  check("...and each subdeck is dealt from its own position 1 upward",
+    day1[0] === "F1" && day1[1] === "F2" && day2[0] === "F3" && day2[1] === "B1",
+    JSON.stringify({ day1, day2 }));
 
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
