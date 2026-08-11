@@ -14448,16 +14448,22 @@
       o: { lang: "ar", t: "ولما كان الكذب متطرقاً للخبر بطبيعته وله أسباب تقتضيه.", a: "ابن خلدون", s: "المقدمة" } },
     { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
       o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
-    // NO ORIGINAL, AND HERE THE REASON IS THE ATTRIBUTION (Aug 2026, looked for on request). The Hebrew
-    // is easy to find and that is the trap: "למד לשונך לומר איני יודע" is the BABYLONIAN TALMUD, Berakhot
-    // 4a, where it is introduced with "דאמר מר" — "as the Master said" — so even the Talmud is quoting it
-    // as a saying already received. Maimonides repeats it; he did not write it. Setting it as this entry's
-    // `o` would put those words in his mouth in the one place a reader goes to see what he actually
-    // wrote, which is worse than the blank — the `s` here already hedges with "Attributed". The honest
-    // fixes are to re-attribute the quote to the Talmud and give it the Hebrew, or to drop it for a line
-    // Maimonides did write; both change who speaks, which changes the running order (the no-repeat rule
-    // is keyed on the author), so neither is done in passing. Flagged rather than papered over.
-    { t: "Teach your tongue to say \"I do not know\", and you will make progress.", a: "Maimonides", s: "Attributed; cf. Commentary on the Mishnah" },
+    // RE-ATTRIBUTED RATHER THAN GIVEN AN ORIGINAL (Aug 2026, on a report that this quote would not flip).
+    // It stood as Maimonides, hedged "Attributed", with no `o` — and the note that used to sit here said
+    // why: the Hebrew is easy to find and that is the trap, because "למד לשונך לומר איני יודע" is the
+    // BABYLONIAN TALMUD, Berakhot 4a, introduced there with "דאמר מר" — "as the Master said" — so even the
+    // Talmud quotes it as a saying already received. Maimonides repeats it; he did not write it, and
+    // hanging the Hebrew off his name would have put those words in his mouth in the one place a reader
+    // goes to see what he actually wrote. A search of the whole corpus returns Berakhot 4a and no work of
+    // his, so the attribution was the quote-site one this pool exists to keep out. What could not be done
+    // in passing then and is done here is the first of the two fixes that note named: the speaker becomes
+    // the work, the source becomes the folio, and the words become A. Cohen's (Cambridge, 1921 — a
+    // standard published translation, and public domain), which opens on the same five words the entry
+    // always carried. **THE TAIL IS WHERE THE MISATTRIBUTION LIVED**: "and you will make progress" is in
+    // no source, where the Talmud gives a reason of its own — say less rather than keep a rounder sentence.
+    // Changing `a` re-solves the running order, the no-repeat rule being keyed on the author.
+    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a",
+      o: { lang: "he", t: "לַמֵּד לְשׁוֹנְךָ לוֹמַר ״אֵינִי יוֹדֵעַ״, שֶׁמָּא תִּתְבַּדֶּה וְתֵאָחֵז.", a: "התלמוד הבבלי", s: "בבלי, ברכות ד ע״א" } },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
     { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
