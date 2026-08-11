@@ -7790,6 +7790,134 @@
        middle of the shelf's 18–64, so it is not the glowing green the Vyasa row turned down, and it
        reads 4.63:1 on the tightest of the sixteen light papers. */
     "Geoffrey Chaucer": "#00603A",
+    /* DANTE — a deep blue-violet, and this is the row where the best NUMBER was rejected outright for
+       the second time on this shelf. Searched at full resolution over the shelf's own lightness and
+       chroma band under the Book of Rites' two floors (4.5:1 on the tightest of the sixteen light
+       papers, and 22 clear of every light theme's ink), with thirty-two colours placed, the whole
+       band yields exactly 794 candidates clearing 17.5 — and only TWO hue families can produce one
+       that clears the shelf's own tightest pair AND reads well.
+       THE BEST NUMBER IS A GREEN AT 19.6 AND IT IS THE VYASA ROW'S CANDIDATE EXACTLY. Its chroma is
+       60 against a band of 18–64, which is to say at the very top of it — bright enough to glow
+       beside thirty-two muted colours, which is the reason that row turned its green down — it would
+       be a fourth green hugging two boundaries at once (19.6 from the Book of Documents, 21 from
+       Lucretius), and it reads 4.54:1 where this reads 8.12. A colour that scrapes the accessibility
+       bar and glows is not worth 1.1 points of separation.
+       WHAT THIS TAKES INSTEAD clears 18.5 from its nearest neighbour, the Song of Roland, which is
+       above the shelf's own closest pair at 18.2 (the Classic of Poetry against Beowulf) — so no pair
+       tighter than the shelf's tightest was taken. The band was TESTED rather than assumed full:
+       dropping the chroma floor from 18.3 to 14 returns the same greens and nothing new, so what is
+       exhausted is the palette and not the band, and widening it would buy nothing.
+       IT IS A FIFTH BLUE, which Thucydides' row warns about, and the warning does not bite. What that
+       rule forbids is a crowding that asserts a KINSHIP the shelf does not mean, and the kinship that
+       would matter here is not another blue at all — it is VIRGIL, who is Dante's guide and a
+       character in this very poem, and whose oxblood sits 53 away, further than almost anything else
+       on offer. Homer, the other supreme epic, is 24 away, itself above that tightest pair. The
+       nearest neighbour is a French chanson de geste, which nobody reads as a set with the Commedia.
+       And the quarter is crowded in HUE while empty at this LIGHTNESS, which is the Homer row's own
+       argument: Machiavelli sits at L47, Aristotle L45, Herodotus L35, the Song of Roland L30 and
+       Homer L14, and this at L19 lands in the one gap between them. At 8.12:1 on the tightest of the
+       sixteen light papers it is also among the best-reading swatches here. */
+    "Dante Alighieri": "#002B6B",
+    /* THE BAND IS FULL, AND THE OBJECTION THAT HAS TURNED DOWN THIS COLOUR TWICE WAS RE-MEASURED AND
+       DOES NOT HOLD (Aug 2026, adding the Summa Theologica — the thirty-fourth colour). Searched over
+       the shelf's own lightness and chroma band under the Book of Rites' ink floor and the 4.5:1 bar,
+       nothing anywhere clears 25 of its nearest neighbour, and OUTSIDE the green family nothing clears
+       20: the best alternative is a muted violet at 19.0 from Plato, against a tightest existing pair
+       of 18.2. So the field is one colour wide.
+
+       Vyasa's row and Dante's row each rejected a green at the top of the chroma band on the ground
+       that it would "glow beside thirty muted colours". Measured against the shelf as it now is, that
+       is no longer true: SIX placed colours sit at chroma 59–64 — Seneca 64.1, Homer 64.0, Euripides
+       63.5, Aristophanes 63.4, Caesar 63.1, Thucydides 59.9 — so chroma 63.6 is where the shelf's own
+       ceiling already is rather than somewhere beyond it. Dante's row raised a second objection, that
+       the candidate scraped the contrast bar at 4.54:1; this one reads 5.34:1 on the tightest of the
+       sixteen light papers, better than every alternative in the field, which all sit at 4.5–4.8.
+       RE-MEASURE AN INHERITED OBJECTION BEFORE APPLYING IT — the shelf it was written about has
+       changed, and a reason that was right twice can stop being right.
+
+       The Euripides test has TWO kinship risks here and clears both by a wide margin: ARISTOTLE, whom
+       Aquinas calls simply "the Philosopher" and on whom the Summa is built, is 76 away, and
+       AUGUSTINE — the other great Latin theologian, and the author of the two books beside this one —
+       is 72. Within green it clears Lucretius by 24.3, the Book of Documents by 24.5, Chaucer by 31.5
+       and Aesop by 42.9, every one of them wider than the shelf's own tightest pair. */
+    /* ---------- THE RIGVEDA ----------
+       Keyed by ID rather than by author, like the Song of Roland, Beowulf and the Book of Rites: the
+       hymns are anonymous, and "Anonymous" is not an author two books can share.
+
+       THE BAND IS AS FULL AS THE BEOWULF ROW PREDICTED and this is the second colour taken under
+       those conditions. Searched over the shelf's own lightness and chroma band with 34 colours
+       placed, NOTHING anywhere in it clears 21 of its nearest neighbour; the best is this
+       yellow-green at 20.1, which is still wider than the shelf's own tightest existing pair
+       (the Classic of Poetry against Beowulf, at 18.2). So the band was not widened again and no
+       pair tighter than that was taken.
+
+       THE EURIPIDES TEST WAS THE REASON THE BEST MAGENTA WAS REJECTED. A violet-magenta at 19.0
+       looked competitive on the raw number and lands 19.4 from the SONG OF ROLAND — which is both
+       the shelf's other anonymous work and the colour this book would have inherited had it not been
+       given a row, so a near-miss of it is the one confusion a new colour here must not create. The
+       other kinship risk is VYASA, the Bhagavad Gita being the only other Sanskrit book on the
+       shelf; this sits 92 from his saffron and 82 from Roland, which is as far from both as the band
+       allows.
+
+       GREEN HOLDS SEVEN COLOURS AND THAT DOES NOT BITE, for the reason the Beowulf row's fourth red
+       did not: what the crowding rule forbids is a hue that asserts a KINSHIP the shelf does not
+       mean, and nobody reads Vedic liturgy against Suetonius, Aesop, Chaucer or the Summa. Counted
+       by neighbours rather than by hue family it is one of the least crowded candidates on the
+       shelf — 7 placed colours within 40, against 12 and 13 for the alternatives. Its nearest are
+       Gilgamesh at 20.1 and Lucretius at 20.2, evenly enough that it reads as its own colour rather
+       than as a near-miss of one, and Aquinas's green — the most recent, and the brightest — is 25.2
+       away. Chroma 53.6 sits inside a band whose top is 64.1, so the inherited "bright enough to
+       glow" objection does not hold; it reads 4.53:1 on the tightest of the four light papers. */
+    "rigveda": "#5A6F00",
+    /* MIGUEL DE CERVANTES — a deep crimson, measured with 35 colours already placed and the band
+       therefore as full as the Beowulf row predicted: nothing anywhere in it clears 19.3 of its
+       nearest neighbour, against the shelf's own tightest pair at 18.2 (the Classic of Poetry
+       against Beowulf). That is in line rather than alarming — Chaucer took 19.7 as the
+       thirty-first — so the band was NOT widened again and no tighter pair was accepted.
+
+       THE FIELD WAS ONE HUE FAMILY AND THE CHOICE INSIDE IT WAS CONTRAST. Every candidate clearing
+       18.5 without asserting a false kinship is a rose-crimson at chroma 63–64; the best NUMBER
+       (#C0246C, 19.3) reads 4.53:1 on the tightest of the light papers, which is right at the bar
+       and would break if a paper were ever re-toned, where this one clears 19.0 and reads 5.46:1
+       there and 6.82:1 on white. Its nearest are Ovid at 19.0, Thucydides at 19.8 and Wu Cheng'en
+       at 20.0, and it stands 61.9 from the nearest light-theme ink. The chroma is at the shelf's
+       own ceiling and that is where the ceiling already is — Seneca 64.1, Homer 64.0, Aquinas 63.6
+       — which is the objection the Aquinas row re-measured and dropped.
+
+       THE EURIPIDES TEST picked what to avoid rather than what to take. The kinship a hue could
+       falsely assert here is the SONG OF ROLAND: Don Quixote is written against the chivalric
+       romance, and Roland is this shelf's chanson de geste, so the two are the books a reader is
+       likeliest to read as a set. The violet family's best (#785A99, 19.0) lands 19 from him and
+       was rejected for it; this sits 57.8 away, and 100.1 from Chaucer, the other long vernacular
+       narrative. Its 20.0 from Journey to the West is not a kinship anybody reads — a Spanish
+       novel and a Chinese one of the same century, from traditions with no contact. */
+    "Miguel de Cervantes": "#B10960",
+    "Thomas Aquinas": "#006C00",
+    /* Measured the same way, with 36 colours placed, and this is the row where the EURIPIDES TEST
+       does the most work it has ever done — it is worth 0.4 of a point on the raw number and it is
+       still obviously right.
+       Searched over the shelf's own lightness and chroma band, held 22 clear of every light theme's
+       ink and 4.5:1 on the tightest light paper, the best colour anywhere clears 19.2 and the whole
+       clear field is essentially ONE violet family — which is in line with Don Quixote's 19.3 at 35
+       colours and Chaucer's 19.7 at 31, the band tightening a little with each book, against a
+       shelf whose own tightest pair is 18.2. So the band was not widened and no pair tighter than
+       that was taken.
+       EVERY VIOLET WAS REJECTED, and for one reason: SENECA. He is 19 to 26 from all of them, and
+       he is the one author on this shelf a reader would genuinely set beside Petronius — the two
+       were contemporaries at Nero's court, both were forced to kill themselves within a year of
+       each other, and Seneca's Apocolocyntosis is bound in the very Loeb volume this text comes
+       from. A violet next to his violet would say they are a set. This muted olive is 89 from him.
+       THE INHERITED OBJECTION TO GREEN WAS RE-MEASURED AND DOES NOT APPLY, which is the Summa's
+       rule about not carrying an objection forward unexamined. The Vyasa and Dante rows each turned
+       a green down because every green clearing Lucretius and Aesop sat at the TOP of the chroma
+       band, bright enough to glow beside thirty muted colours — an objection about CHROMA. This one
+       is chroma 26 in a band running 18 to 64, seventh-lowest of the 36 placed, so it is an olive
+       rather than anything that glows.
+       What it costs is a close green quarter: Gilgamesh 18.8, Aesop 18.9, Confucius 19.2 and
+       Lucretius 19.9, all at or above the shelf's own tightest pair, and none of the four a book
+       anybody reads beside a comic Roman novel. It reads 4.60:1 on the tightest of the light papers
+       and 5.75:1 on white. */
+    "Petronius": "#66693C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9469,6 +9597,313 @@
       ],
     },
     {
+      id: "don-quixote",
+      title: "Don Quixote",
+      subtitle: "El ingenioso hidalgo Don Quijote de la Mancha",
+      author: "Miguel de Cervantes",
+      /* Two parts ten years apart. `year` is the single number the shelf's date sort needs and is
+         the first part's; the prose carries both, which is where the pair belongs. */
+      written: "1605 & 1615",
+      year: 1605,
+      translator: "John Ormsby",
+      edition: "Don Quixote de la Mancha, translated by John Ormsby, London, 1885",
+      /* THE TENTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL, after the Republic, the Analects,
+         the Peloponnesian War, the City of God, the Aeneid, Journey to the West, the Divine Comedy,
+         the Confessions and the Rigveda. Cervantes died in 1616. Ormsby published in 1885 and lived
+         1829–1895 — two places agreeing on that pair, Wikisource's author page and Wikidata, which
+         is what makes it usable where A. J. Wyatt's uncorroborated round hundred years was not, and
+         it is also NOT the 1889 that comes to mind. So the English clears the pre-1929 rule, life
+         plus seventy and life plus a hundred alike, with no limit to state. */
+      rights:
+        "Public domain worldwide, on every ground. Cervantes published the first part of Don " +
+        "Quixote in 1605 and the second in 1615, and died in 1616, so the novel itself has long " +
+        "been out of copyright. John Ormsby's English translation was published in London in 1885 " +
+        "and he lived from 1829 to 1895, so it too is out of copyright under the rule for works " +
+        "published before 1929, under the translator's life plus seventy years, and under life plus " +
+        "a hundred — there is no limit to state. Ormsby's own preface, his life of Cervantes and " +
+        "his several hundred footnotes are not reproduced — no freely available transcription of " +
+        "this translation carries the notes at all — and what is here is the hundred and " +
+        "twenty-six chapters of the novel. (The modern translations by Samuel Putnam, 1949, " +
+        "J. M. Cohen, 1950, Burton Raffel, 1995, John Rutherford, 2000, Edith Grossman, 2003, and " +
+        "Tom Lathrop, 2005, are still in copyright and are not used here.)",
+      /* Gutenberg rather than Wikisource, which carries this translation complete and cleanly typed
+         and has lost sixty words — see .claude/fetch-book.js and the book's own front matter. */
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/996",
+      /* NO `origLang`: there is no Spanish column, and the reason is the state of the free
+         transcriptions rather than the copyright — measured, Spanish Wikisource's three editions
+         carry 16, 38 and 38 of the 126 chapters and its own index marks every one still to be
+         transcribed, while the complete Spanish that does circulate freely names no editor and no
+         edition at all. That is the Divine Comedy's question and it is answered the same way; the
+         book's own front matter says so. */
+
+      /* THE CHAPTER IS THE CHAPTER, which is the only unit the novel has: neither this edition nor
+         any other divides one into numbered sections, so there is nothing finer to state and the
+         tabs count what the book counts.
+
+         THE TAB NUMBER AND THE CITATION DISAGREE ON PURPOSE, which is the Summa's arrangement.
+         Don Quixote is cited by part and chapter — the windmills are I.8 — and the numbering
+         restarts at one when the second part begins, so `n` runs 1..126 straight through and each
+         chapter's TITLE opens on the citation, giving tabs that read I.1 … I.52, II.1 … II.74. */
+      chapterWord: "Chapter",
+      count: 126,
+      total: 126,
+      /* The two parts as the author published them, ten years and one impostor apart. */
+      parts: [
+        { n: 1, label: "Part I", note: "52 chapters · 1605 — the windmills, the galley slaves, the burning of the library" },
+        { n: 2, label: "Part II", note: "74 · 1615 — in which everyone he meets has read Part I" },
+      ],
+    },
+    {
+      id: "satyricon",
+      title: "The Satyricon",
+      subtitle: "Satyricon",
+      author: "Petronius",
+      /* Written under Nero and usually dated to the early 60s. `year` is the single number the
+         shelf's date sort needs; the prose carries the hedge, which is where a contested date
+         belongs — the attribution to Nero's arbiter of taste is probable rather than certain, and
+         with it goes the date. */
+      written: "c. 60s CE",
+      year: 65,
+      translator: "Michael Heseltine",
+      edition: "Loeb Classical Library, William Heinemann, London, 1913",
+      /* A LIMIT TO STATE, which puts it with the Song of Roland, the Gita and the two Homers rather
+         than with the ten needing no qualification. Petronius died in 66 CE. Heseltine published in
+         1913 and lived 1886–1952, so the English clears the pre-1929 rule and life plus seventy
+         (2023) and NOT life plus a hundred, which runs to 2053.
+
+         HIS DATES WERE CORROBORATED TWICE, for the A. J. Wyatt reason: Wikidata gives both at day
+         precision with the death referenced to Britannica, and Wikisource's author page gives
+         (1886–1952) and lists exactly one work for him — this Satyricon. He is also not the living
+         British politician of the same name, whose entity a search returns first.
+
+         BOTH COLUMNS ARE THE SAME HAND, which on a facing-page Loeb is worth checking rather than
+         assuming: the Iliad's Greek is a separate Oxford text and has to answer for a second life,
+         where here both Perseus files name Heseltine as editor and no one else. */
+      rights:
+        "Three layers, and the two modern ones are the same hand. Petronius died in 66 CE, so the " +
+        "work itself has long been out of copyright. Michael Heseltine's translation was published " +
+        "in London in 1913 and he lived from 1886 to 1952, so it is out of copyright under the rule " +
+        "for works published before 1929 and under the translator's life plus seventy years; where " +
+        "the term is life plus a hundred it remains in copyright until 2053. The facing Latin is " +
+        "the text printed opposite that translation in the same 1913 volume, credited by the " +
+        "edition used here to Heseltine and to no one else, so it rests on the same date and the " +
+        "same life. Both digital editions are prepared by the Perseus Digital Library at Tufts " +
+        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. The editor's apparatus of variant readings is not reproduced. " +
+        "(The modern translations by William Arrowsmith, 1959, J. P. Sullivan, 1965, P. G. Walsh, " +
+        "1996, and Sarah Ruden, 2000, are still in copyright and are not used here, nor is " +
+        "E. H. Warmington's 1969 revision of this one.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
+      origLang: "la",
+      origName: "Latina",
+      /* THE CHAPTER IS THE SECTION, because the section is the whole of the citation. A passage of
+         the Satyricon is "Satyricon 48" and nothing else: both files state 141 section milestones
+         and carry no book, part or chapter above them at all, and each declares as much in its own
+         header — `<refState unit="section"/>`, one level. So the tab is the citation, which is the
+         Rigveda's shape (the chapter is the smallest unit of the work) and the Song of Roland's (a
+         chapter is short, and that is the work rather than the import).
+
+         NO `parts`. The manuscripts' book numbers — fourteen, fifteen, sixteen — are the tempting
+         ones and cannot be used: they are what the excerptors labelled their extracts, they divide
+         the surviving text at no stated point, and where one book ends is exactly what is lost. */
+      chapterWord: "Section",
+      count: 141,
+      total: 141,
+    },
+    {
+      id: "rigveda",
+      title: "The Rigveda",
+      subtitle: "ऋग्वेदः",
+      author: "Anonymous",
+      /* A composite of many hands over centuries, and the dating is argued at both ends. `year` is
+         the single number the shelf's date sort needs and is the middle of the usual range; the
+         prose carries the hedge, which is where a contested date belongs. */
+      written: "c. 1500–1000 BCE",
+      year: -1300,
+      translator: "Ralph T. H. Griffith",
+      edition:
+        "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
+        "complete in two volumes, E. J. Lazarus and Co., Benares, 1896",
+      /* THE NINTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL, after the Republic, the Analects, the
+         Peloponnesian War, the City of God, the Aeneid, Journey to the West, the Divine Comedy and
+         the Confessions. The hymns are around three thousand years old. Griffith published in
+         1889–92, revised for 1896, and lived 1826–1906 — dates read off the Wikisource author page
+         and confirmed against the volume's own title page rather than recalled — so the English
+         clears the pre-1929 rule, life plus seventy and life plus a hundred alike.
+
+         THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement in a second
+         book; see .claude/fetch-book.js for why the gap is a weaker one here than it was there. */
+      rights:
+        "Public domain worldwide, on every ground. The hymns are around three thousand years old and " +
+        "were composed long before writing reached the subcontinent, so the work itself has never " +
+        "been in copyright. Ralph T. H. Griffith published this translation at Benares in 1889–92 " +
+        "and revised it for the second edition of 1896, and he lived from 1826 to 1906, so the " +
+        "English is out of copyright under the rule for works published before 1929, under the " +
+        "translator's life plus seventy years, and under life plus a hundred — there is no limit to " +
+        "state. The facing Sanskrit is the received Shakala samhita and the transcription names no " +
+        "editor for it, so no edition and no editor is claimed here; the ground for that column is " +
+        "the age of the text alone. (The modern translations by Jamison and Brereton, 2014, Wendy " +
+        "Doniger, 1981, and Walter Maurer, 1986, are still in copyright and are not used.) " +
+        "Griffith's preface and appendices, and the Sanskrit pages' commentary of Sayana, are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
+      origLang: "sa",
+      origName: "संस्कृतम्",
+      /* THE CHAPTER IS THE HYMN AND THE SECTION IS THE VERSE, read straight off the citation: a
+         passage of the Rigveda is "RV 10.129.1" — mandala, hymn, verse — in every language and every
+         reference work, so the hymn is what a reader looks up and the verse is the finest thing both
+         editions state about the same place. The alternative was measured rather than weighed:
+         cutting at the mandala gives ten tabs and puts 191 hymns in one of them, and throws away the
+         verse numbers as pairing keys, which is what Beowulf's rule forbids.
+
+         THE TAB NUMBER AND THE CITATION DISAGREE ON PURPOSE. Each mandala restarts its hymn
+         numbering, so a chapter number that was also a hymn number could not be unique; `n` runs
+         1..1028 straight through — the continuous hymn number, which concordances use — and each
+         chapter's TITLE is the citation itself, so the tabs read 1.1 … 10.191. */
+      chapterWord: "Hymn",
+      count: 1028,
+      total: 1028,
+      /* The work's own ten books. Mandalas 2–7 are the "family books", each ascribed to one line of
+         seers and generally taken to be the oldest core; 1, 8, 9 and 10 were gathered round it
+         later, and the ninth is addressed to Soma from beginning to end. */
+      parts: [
+        { n: 1, label: "Mandala I", note: "191 hymns · a later collection, mostly to Agni and Indra" },
+        { n: 2, label: "Mandala II", note: "43 · the family book of the Gritsamadas" },
+        { n: 3, label: "Mandala III", note: "62 · the Vishvamitras — it carries the Gayatri" },
+        { n: 4, label: "Mandala IV", note: "58 · the Vamadevas" },
+        { n: 5, label: "Mandala V", note: "87 · the Atris" },
+        { n: 6, label: "Mandala VI", note: "75 · the Bharadvajas" },
+        { n: 7, label: "Mandala VII", note: "104 · the Vasishthas, and much of the Varuna poetry" },
+        { n: 8, label: "Mandala VIII", note: "103 · the Kanvas, including the eleven Valakhilya" },
+        { n: 9, label: "Mandala IX", note: "114 · all of them to Soma Pavamana" },
+        { n: 10, label: "Mandala X", note: "191 · the latest, and the philosophical hymns" },
+      ],
+    },
+    {
+      id: "summa-theologica",
+      title: "Summa Theologica",
+      subtitle: "Summa Theologiae",
+      author: "Thomas Aquinas",
+      /* Begun about 1265 and stopped, unfinished, in December 1273. `year` is the single number the
+         shelf's date sort needs and is the year he began; the prose carries the hedge and the reason
+         it ends where it does, which is the book's own story rather than a delay. */
+      written: "1265–1274, unfinished",
+      year: 1265,
+      translator: "Fathers of the English Dominican Province",
+      edition:
+        "Second and revised edition, literally translated by the Fathers of the English Dominican " +
+        "Province, Burns Oates & Washbourne, London, 1920",
+      /* THE LICENCE RESTS ON THE PUBLICATION DATE ALONE — the Gallic War's position, and for the same
+         reason: half the byline cannot be found. Aquinas died in 1274, so the work is free everywhere.
+         The translation was published in London in 1920, before 1929, so its United States copyright
+         has expired and that much anyone can check. What cannot honestly be asserted is a
+         life-plus-seventy term, because "the Fathers of the English Dominican Province" is a CORPORATE
+         byline: no individual translator is named anywhere in the twenty-one volumes, the work was
+         done by a changing group of friars over fifteen years, and a term that runs from the last
+         surviving author cannot be computed from a name belonging to nobody. Claim less, and say on
+         the page what cannot be said. */
+      rights:
+        "Public domain in the United States, on the date of publication. Thomas Aquinas died in 1274, " +
+        "so the work itself has been free for seven centuries. This translation was published in " +
+        "London in 1920 — before 1929, so its United States copyright has expired. It is credited to " +
+        "the Fathers of the English Dominican Province and names no individual translator anywhere, " +
+        "so the rule that runs from an author's death cannot be applied to it and no such date is " +
+        "claimed here. Leo XIII's encyclical, the editor's note to the Supplement and the volumes' " +
+        "indexes are printed in the same edition and are not reproduced; what is taken is the 614 " +
+        "questions of the Summa itself. (The Blackfriars edition of 1964–1981, Timothy McDermott's " +
+        "abridgement of 1989 and Alfred Freddoso's translation are still in copyright and are not " +
+        "used here.) There is no Latin facing it, and the book's own first page says why.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
+      /* THE CHAPTER IS ONE OF THE 614 QUESTIONS AND THE SECTION IS AN ARTICLE, which is the citation
+         read straight off — "ST II-II, q. 6, a. 1" is Part, question, article. The alternatives were
+         measured rather than weighed: cutting at the Part gives six chapters of three to six megabytes
+         each, which no browser paints and no reader scrolls, and cutting at the article puts about
+         three thousand tabs on the bar.
+
+         THE TAB NUMBERS AND THE CITATION DISAGREE ON PURPOSE, and the book's own front matter says so.
+         Each Part restarts its question numbering at 1, so a chapter number that was also a question
+         number could not be unique; `n` therefore runs 1..614 straight through — which is a true
+         statement, this being the 614-question Summa — and each chapter's title carries the citation
+         it is actually known by. See .claude/fetch-book.js for the measurement behind the six Parts
+         and for why there is no Latin column. */
+      chapterWord: "Question",
+      count: 614,
+      total: 614,
+      /* The work's own divisions, and the Supplement and Appendix are named as what they are rather
+         than folded into the Third Part: Aquinas stopped at III q. 90 and both were assembled after
+         his death out of his much earlier commentary on the Sentences. */
+      parts: [
+        { n: 1, label: "First Part", note: "God and creation · 119 questions" },
+        { n: 2, label: "First Part of the Second Part", note: "Human action in general · 114" },
+        { n: 3, label: "Second Part of the Second Part", note: "The virtues one by one · 189" },
+        { n: 4, label: "Third Part", note: "Christ and the sacraments · 90" },
+        { n: 5, label: "Supplement to the Third Part", note: "Compiled after his death · 99" },
+        { n: 6, label: "Appendix", note: "Also posthumous · 3" },
+      ],
+    },
+    {
+      id: "confessions",
+      title: "Confessions",
+      subtitle: "Confessionum Libri Tredecim",
+      author: "Augustine of Hippo",
+      /* Written in his mid-forties, a few years into the bishopric at Hippo, and not datable more
+         closely than the three or four years the scholarship gives it; `year` is the single number
+         the shelf's date sort needs and the prose carries the hedge. It puts this book sixteen years
+         ahead of the City of God on a date sort, which is right — they are the same man before and
+         after the sack of Rome. */
+      written: "c. 397–400 CE",
+      year: 397,
+      translator: "J. G. Pilkington",
+      edition:
+        "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+        "First Series, Vol. I, ed. Philip Schaff, Buffalo, 1886",
+      /* A LICENCE NEEDING NO QUALIFICATION AT ALL — the eighth on this shelf, and the SAME licence
+         as the City of God's twice over: the same series, the same editor and the same decade.
+         Augustine died in 430. Pilkington published in 1886, before 1929, and lived 1841–1919, so
+         the translation clears the publication rule, life-plus-seventy and life-plus-a-hundred
+         alike. Migne's Latin of 1841 is free on the same three grounds. */
+      rights:
+        "Public domain worldwide. Augustine died in 430. J. G. Pilkington published this translation " +
+        "in 1886 in Philip Schaff's Nicene and Post-Nicene Fathers — before 1929, so its United " +
+        "States copyright has expired — and he died in 1919, so it is out of copyright wherever the " +
+        "term runs for the author's life plus seventy or even a hundred years. Migne's Latin, printed " +
+        "in 1841, is free on the same grounds. Schaff's Prolegomena, his life of Augustine and the " +
+        "Letters printed in the same volume are not reproduced. (The translations by Albert Outler, " +
+        "1955, Henry Chadwick, 1991, Maria Boulding, 1997, Garry Wills, 2006, and Sarah Ruden, 2017, " +
+        "are still in copyright and are not used here.) Two chapters of Book I have never been " +
+        "transcribed at the source and are absent from the English column; the Latin carries them.",
+      sourceName: "Wikisource",
+      sourceUrl:
+        "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_I/Confessions",
+      origLang: "la",
+      origName: "Latin",
+      /* THE CHAPTER IS ONE OF AUGUSTINE'S THIRTEEN BOOKS and his own chapter is the SECTION — the
+         City of God's shape, forced here by the same arithmetic: 278 chapters over thirteen books,
+         most of them a paragraph or two, so cutting at the chapter would put 278 tabs on the bar.
+         "Confessions VIII.12" is book eight, chapter twelve, which is what the citation already
+         says. See .claude/fetch-book.js for the measurement behind the pairing — 278 chapters in the
+         Latin against 276 in the English, a clean 1..N in every book on both sides, and the only
+         difference anywhere being Book I's chapters 19 and 20, which the English transcription has
+         never carried. */
+      chapterWord: "Book",
+      count: 13,
+      total: 13,
+      /* The work's own division, which is Augustine's rather than an editor's and which surprises
+         every reader who has been told this is an autobiography: nine books of life, one of memory,
+         and three on the opening of Genesis. The last four are not an appendix — the life is the
+         evidence and they are the case it was gathered for — so they are named as parts rather than
+         left to look like a change of subject. */
+      parts: [
+        { n: 1, label: "The life", note: "Books I–IX" },
+        { n: 2, label: "Memory", note: "Book X" },
+        { n: 3, label: "Genesis and time", note: "Books XI–XIII" },
+      ],
+    },
+    {
       id: "city-of-god",
       title: "The City of God",
       subtitle: "De Civitate Dei contra Paganos",
@@ -9835,6 +10270,58 @@
         { n: 7, label: "Group G", note: "Tales 22–23" },
         { n: 8, label: "Group H", note: "Tale 24" },
         { n: 9, label: "Group I", note: "Tale 25" },
+      ],
+    },
+    {
+      id: "divine-comedy",
+      title: "The Divine Comedy",
+      author: "Dante Alighieri",
+      written: "c. 1308–1321",
+      year: 1308,
+      translator: "Henry Wadsworth Longfellow",
+      edition: "Ticknor and Fields, Boston, 1867",
+      rights:
+        "Public domain worldwide, on every ground. Dante died in 1321, so the poem itself has been " +
+        "free for six centuries; Longfellow published this translation in 1867 and died in 1882, so " +
+        "it is out of copyright under the rule for works published before 1929, under the author's " +
+        "life plus seventy years, and under life plus a hundred — there is no limit to state. " +
+        "Longfellow's own notes, his index and the volumes' illustrations are not reproduced; what " +
+        "is taken is the hundred cantos. The modern translations by Dorothy L. Sayers (1949–62), " +
+        "John Ciardi (1954–70), Mark Musa (1971–84), Allen Mandelbaum (1980–84), Robert and Jean " +
+        "Hollander (2000–07), Robin Kirkpatrick (2006–07) and Clive James (2013) are still in " +
+        "copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Divine_Comedy_(Longfellow_1867)",
+      /* NO `origLang`, and for once the reason is not that the original is missing but that it may
+         not be printed. Dante's words are seven centuries old and free; what is not free is any
+         modern editor's CONSTITUTED text of them, and a medieval poem surviving in dozens of
+         disagreeing manuscripts has to be constituted before it can be read. Every complete Italian
+         Commedia reachable today is Giorgio Petrocchi's (1966–67), who died in 1989 — in copyright
+         until 2060 where the term is life plus seventy. That was established rather than assumed:
+         Italian Wikisource's own work-level page names Petrocchi as the curator of the plain text
+         its canto pages carry, and Project Gutenberg's Italian Commedia was diffed against those
+         pages line by line and is word for word the same text.
+         THE PAIRING IS ALREADY PROVED, so the day a printable text exists this is a small job. Both
+         columns were measured end to end before the English was imported: 14,233 lines a side —
+         exactly the traditional count, per canticle as well as in total — the same count in every
+         one of the hundred cantos once Longfellow's Provençal footnote is folded out of the verse,
+         and identical section lists throughout, 4,811 tercet numbers each in the same order with no
+         exception either way. Domenico Guerri's text (Laterza, 1933) is the one to reach for: it is
+         complete, proofread against a scan, and genuinely a different constituted text rather than
+         Petrocchi's renamed — Inferno I reads "E quanto a dir" where Petrocchi has "Ahi quanto a
+         dir". Guerri died in 1953, so it cleared life plus seventy in 2024 and is under United
+         States copyright until 2029, running ninety-five years from publication. The book's own
+         front matter tells the reader all of this. */
+      chapterWord: "Canto",
+      count: 100,
+      total: 100,
+      /* The three canticles, which is how the poem divides above the canto and how the 1867 edition's
+         own three volumes are bound. The cantos are numbered straight through 1–100 here so a reader's
+         place cannot move, and each tab names its canticle and its own numeral — "Purgatorio XII". */
+      parts: [
+        { n: 1, label: "Inferno", note: "Cantos I–XXXIV" },
+        { n: 2, label: "Purgatorio", note: "Cantos I–XXXIII" },
+        { n: 3, label: "Paradiso", note: "Cantos I–XXXIII" },
       ],
     },
   ];

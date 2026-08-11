@@ -602,6 +602,19 @@ const EDDA_POEMS = [
   "Atlakvitha en Gr\u00f6nlenzka", "Atlamol en Gr\u00f6nlenzku", "Guthrunarhvot", "Hamthesmol",
 ];
 
+/* ---------- The Confessions: how many chapters each of the thirteen books has, and the two the
+   English transcription does not carry.
+
+   The counts are the edition's own and are the standard ones, confirmed against Migne's Latin, which
+   prints all 278. `CONF_UNTRANSLATED` is stated here rather than left implicit in a shorter chapter
+   list, because a config that simply said "Book I has 18 chapters" would bake a transcription's gap
+   in as though it were a fact about the work. Book I's chapters 19 and 20 have never been transcribed
+   on Wikisource — its own contents page lists eighteen and does not link them even as red links — so
+   those two rows draw the Latin beside an empty English cell, which is the honest rendering and reads
+   as one. The run names them every time. */
+const CONF_CHAPTERS = [0, 20, 10, 12, 16, 14, 16, 21, 12, 13, 43, 31, 32, 38];
+const CONF_UNTRANSLATED = { 1: [19, 20] };
+
 /* ---------- The City of God: how many chapters each of the twenty-two books has, and which of them
    Dods heads with a preface ----------
    Read off Wikisource's own contents lists rather than off a printed table: every one of the 22 book
@@ -669,6 +682,193 @@ const CANTERBURY_TALES = [
   { t: "The Canon's Yeoman's Tale", en: /^The Prologue of the Canon.s [TY]eoman/i,                   me: "THE CANON’S YEOMAN’S PROLOGUE" },
   { t: "The Manciple's Tale",       en: /^Here followeth the Prologue of the Manciple/i,             me: "THE MANCIPLE’S PROLOGUE." },
   { t: "The Parson's Tale",         en: /^Here followeth the Prologue of the Parson/i,               me: "THE PARSON’S PROLOGUE." },
+];
+
+/* ---------- THE SUMMA'S SIX DIVISIONS ----------
+   The work is cited PART FIRST — "ST I-II, q. 94, a. 2" — and each Part restarts its question
+   numbering at 1, so a Folio chapter number cannot be a question number: `n` runs 1..614 straight
+   through and the citation is carried in the title. The counts are read off each Part's own
+   contents page rather than recalled, and they are what the front matter states. */
+const SUMMA_PARTS = [
+  { key: "First Part",                     cite: "I",      label: "First Part",                     q: 119 },
+  { key: "First Part of the Second Part",  cite: "I-II",   label: "First Part of the Second Part",  q: 114 },
+  { key: "Second Part of the Second Part", cite: "II-II",  label: "Second Part of the Second Part", q: 189 },
+  { key: "Third Part",                     cite: "III",    label: "Third Part",                     q: 90  },
+  { key: "Supplement to the Third Part",   cite: "Suppl.", label: "Supplement to the Third Part",   q: 99  },
+  { key: "Appendix",                       cite: "App.",   label: "Appendix",                       q: 3   },
+];
+// chapter number → which Part it falls in and which question of that Part it is
+function summaAt(n) {
+  let at = 0;
+  for (let i = 0; i < SUMMA_PARTS.length; i++) {
+    if (n <= at + SUMMA_PARTS[i].q) return { p: i + 1, part: SUMMA_PARTS[i], q: n - at };
+    at += SUMMA_PARTS[i].q;
+  }
+  return null;
+}
+
+/* ---------- THE RIGVEDA'S TEN MANDALAS ----------
+   The hymn counts are the received ones and were MEASURED against both wikis before a word was
+   imported: en.wikisource carries 1,028 hymn pages and sa.wikisource 1,028 sukta pages, and both
+   agree with this table mandala by mandala, with no gap and no page outside it. Hoisted above the
+   BOOKS table rather than declared inside it, for the reason SUMMA_PARTS is: a const inside an
+   object literal is a syntax error. */
+const RV_HYMNS = [191, 43, 62, 58, 87, 75, 104, 103, 114, 191];
+const RV_PARTS = [];
+for (let m = 1, at = 0; m <= 10; m++) {
+  RV_PARTS.push({ n: m, from: at + 1, to: at + RV_HYMNS[m - 1], m: m });
+  at += RV_HYMNS[m - 1];
+}
+/* A hymn's continuous number, which is what a chapter is keyed by, against the mandala and hymn
+   the world cites it as. */
+function rvAt(n) {
+  const p = RV_PARTS.find((x) => n >= x.from && n <= x.to);
+  return p ? { m: p.m, h: n - p.from + 1 } : null;
+}
+/* THE STANDARD HYMN NUMBER → GRIFFITH'S OWN PRINTED ONE. Identity everywhere but mandala 8, where
+   he prints the eleven Valakhilya hymns as an appendix: his 8.49 is the standard 8.60, and his
+   8.93–8.103 are the standard 8.49–8.59. Measured on both columns before it was believed — see the
+   block above extractSukta. */
+function rvGriffith(m, h) {
+  if (m !== 8 || h <= 48) return h;
+  return h <= 59 ? h + 44 : h - 11;
+}
+const rvDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
+
+/* ---------- DON QUIXOTE'S 126 CHAPTERS ----------
+   Ormsby heads every chapter, and the two volume index pages carry each title in its own link
+   text — so all 126 were read in TWO fetches rather than 126, and the table is transcribed rather
+   than composed. The comment on each row is the CITATION, which is not the tab number: the novel
+   is cited by part and chapter ("DQ I.8" is the windmills) and Part II restarts at one, where
+   Folio's tabs run 1..126 straight through. Hoisted above the BOOKS table for the reason
+   SUMMA_PARTS and RV_HYMNS are: a const inside an object literal is a syntax error. */
+const DQ_TITLES = [
+  /* I.1 */ "Which treats of the character and pursuits of the famous gentleman Don Quixote of La Mancha",
+  /* I.2 */ "Which treats of the first sally the ingenious Don Quixote made from home",
+  /* I.3 */ "Wherein is related the droll way in which Don Quixote had himself dubbed a knight",
+  /* I.4 */ "Of what happened to our knight when he left the inn",
+  /* I.5 */ "In which the narrative of our knight's mishap is continued",
+  /* I.6 */ "Of the diverting and important scrutiny which the curate and the barber made in the library of our ingenious gentleman",
+  /* I.7 */ "Of the second sally of our worthy knight Don Quixote of la Mancha",
+  /* I.8 */ "Of the good fortune which the valiant Don Quixote had in the terrible and undreamt-of adventure of the windmills, with other occurrences worthy to be fitly recorded",
+  /* I.9 */ "In which is concluded and finished the terrific battle between the gallant Biscayan and the valiant Manchegan",
+  /* I.10 */ "Of the pleasant discourse that passed between Don Quixote and his squire Sancho Panza",
+  /* I.11 */ "Of what befell Don Quixote with certain goatherds",
+  /* I.12 */ "Of what a goatherd related to those with Don Quixote",
+  /* I.13 */ "In which is ended the story of the shepherdess Marcela, with other incidents",
+  /* I.14 */ "Wherein are inserted the despairing verses of the dead shepherd, together with other incidents not looked for",
+  /* I.15 */ "In which is related the unfortunate adventure that Don Quixote fell in with when he fell out with certain heartless Yanguesans",
+  /* I.16 */ "Of what happened to the ingenious gentleman in the inn which he took to be a castle",
+  /* I.17 */ "In which are contained the innumerable troubles which the brave Don Quixote and his good squire Sancho Panza endured in the inn, which to his misfortune he took to be a castle",
+  /* I.18 */ "In which is related the discourse Sancho Panza held with his master, Don Quixote, and other adventures worth relating",
+  /* I.19 */ "Of the shrewd discourse which Sancho held with his master, and of the adventure that befell him with a dead body, together with other notable occurrences",
+  /* I.20 */ "Of the unexampled and unheard-of adventure which was achieved by the valiant Don Quixote of la Mancha with less peril than any ever achieved by any famous knight in the world",
+  /* I.21 */ "Which treats of the exalted adventure and rich prize of Mambrino's helmet, together with other things that happened to our invincible knight",
+  /* I.22 */ "Of the freedom Don Quixote conferred on several unfortunates who against their will were being carried where they had no wish to go",
+  /* I.23 */ "Of what befell Don Quixote in the Sierra Morena, which was one of the rarest adventures related in this veracious history",
+  /* I.24 */ "In which is continued the adventure of the Sierra Morena",
+  /* I.25 */ "Which treats of the strange things that happened to the stout knight of la Mancha in the Sierra Morena, and of his imitation of the penance of Beltenebros",
+  /* I.26 */ "In which are continued the refinements wherewith Don Quixote played the part of a lover in the Sierra Morena",
+  /* I.27 */ "Of how the curate and the barber proceeded with their scheme; together with other matters worthy of record in this great history",
+  /* I.28 */ "Which treats of the strange and delightful adventure that befell the curate and the barber in the same sierra",
+  /* I.29 */ "Which treats of the droll device and method adopted to extricate our love-stricken knight from the severe penance he had imposed upon himself",
+  /* I.30 */ "Which treats of address displayed by the fair Dorothea, with other matters pleasant and amusing",
+  /* I.31 */ "Of the delectable discussion between Don Quixote and Sancho Panza, his squire, together with other incidents",
+  /* I.32 */ "Which treats of what befell Don Quixote's party at the inn",
+  /* I.33 */ "In which is related the novel of \"The Ill-Advised Curiosity\"",
+  /* I.34 */ "In which is continued the novel of \"The Ill-Advised Curiosity\"",
+  /* I.35 */ "Which treats of the heroic and prodigious battle Don Quixote had with certain skins of red wine, and brings the novel of \"The Ill-Advised Curiosity\" to a close",
+  /* I.36 */ "Which treats of more curious incidents that occurred at the inn",
+  /* I.37 */ "In which is continued the story of the famous Princess Micomicona, with other droll adventures",
+  /* I.38 */ "Which treats of the curious discourse Don Quixote delivered on arms and letters",
+  /* I.39 */ "Wherein the captive relates his life and adventures",
+  /* I.40 */ "In which the story of the captive is continued.",
+  /* I.41 */ "In which the captive still continues his adventures",
+  /* I.42 */ "Which treats of what further took place in the inn, and of several other things worth knowing",
+  /* I.43 */ "Wherein is related the pleasant story of the muleteer, together with other strange things that came to pass in the inn",
+  /* I.44 */ "In which are continued the unheard-of adventures of the inn",
+  /* I.45 */ "In which the doubtful question of Mambrino's helmet and the pack-saddle is finally settled, with other adventures that occurred in truth and earnest",
+  /* I.46 */ "Of the end of the notable adventure of the officers of the Holy Brotherhood; and of the great ferocity of our worthy knight, Don Quixote",
+  /* I.47 */ "Of the strange manner in which Don Quixote of la Mancha was carried away enchanted, together with other remarkable incidents",
+  /* I.48 */ "In which the canon pursues the subject of the books of chivalry, with other matters worthy of his wit",
+  /* I.49 */ "Which treats of the shrewd conversation which Sancho Panza held with his master Don Quixote",
+  /* I.50 */ "Of the shrewd controversy which Don Quixote and the canon held, together with other incidents",
+  /* I.51 */ "Which deals with what the goatherd told those who were carrying off Don Quixote",
+  /* I.52 */ "Of the quarrel that Don Quixote had with the goatherd, together with the rare adventure of the penitents, which with an expenditure of sweat he brought to a happy conclusion",
+  /* II.1 */ "Of the interview the curate and the barber had with Don Quixote about his malady",
+  /* II.2 */ "Which treats of the notable altercation which Sancho Panza had with Don Quixote's niece, and housekeeper, together with other droll matters",
+  /* II.3 */ "Of the laughable conversation that passed between Don Quixote, Sancho Panza, and the bachelor Samson Carrasco",
+  /* II.4 */ "In which Sancho Panza gives a satisfactory reply to the doubts and questions of the bachelor Samson Carrasco, together with other matters worth knowing and telling",
+  /* II.5 */ "Of the shrewd and droll conversation that passed between Sancho Panza and his wife Teresa Panza, and other matters worthy of being duly recorded",
+  /* II.6 */ "Of what took place between Don Quixote and his niece and housekeeper; one of the most important chapters in the whole history",
+  /* II.7 */ "Of what passed between Don Quixote and his squire, together with other very notable incidents",
+  /* II.8 */ "Wherein is related what befell Don Quixote on his way to see his lady Dulcinea del Toboso",
+  /* II.9 */ "Wherein is related what will be seen there",
+  /* II.10 */ "Wherein is related the crafty device Sancho adopted to enchant the lady Dulcinea, and other incidents as ludicrous as they are true",
+  /* II.11 */ "Of the strange adventure which the valiant Don Quixote had with the car or cart of \"The Cortes of Death\"",
+  /* II.12 */ "Of the strange adventure which befell the valiant Don Quixote with the bold knight of the mirrors",
+  /* II.13 */ "In which is continued the adventure of the knight of the grove, together with the sensible, original, and tranquil colloquy that passed between the two squires",
+  /* II.14 */ "Wherein is continued the adventure of the knight of the grove",
+  /* II.15 */ "Wherein it is told and known who the knight of the mirrors and his squire were",
+  /* II.16 */ "Of what befell Don Quixote with a discreet gentleman of La Mancha",
+  /* II.17 */ "Wherein is shown the furthest and highest point which the unexampled courage of Don Quixote reached or could reach; together with the happily achieved adventure of the lions",
+  /* II.18 */ "Of what happened Don Quixote in the castle or house of the knight of the green gaban, together with other matters out of the common",
+  /* II.19 */ "In which is related the adventure of the enamoured shepherd, together with other truly droll incidents",
+  /* II.20 */ "Wherein an account is given of the wedding of Camacho the rich, together with the incident of Basilio the poor",
+  /* II.21 */ "In which Camacho's wedding is continued, with other delightful incidents",
+  /* II.22 */ "Wherin is related the grand adventure of the cave of Montesinos in the heart of La Mancha, which the valiant Don Quixote brought to a happy termination",
+  /* II.23 */ "Of the wonderful things the incomparable Don Quixote said he saw in the profound cave of Montesinos, the impossibility and magnitude of which cause this adventure to be deemed apocryphal",
+  /* II.24 */ "Wherein are related a thousand trifling matters, as trivial as they are necessary to the right understanding of this great history",
+  /* II.25 */ "Wherein is set down the braying adventure, and the droll one of the puppet-showman, together with the memorable divinations of the divining ape",
+  /* II.26 */ "Wherein is continued the droll adventure of the puppet-showman, together with other things in truth right good",
+  /* II.27 */ "Wherein it is shown who Master Pedro and his ape were, together with the mishap Don Quixote had in the braying adventure, which he did not conclude as he would have liked or as he had expected",
+  /* II.28 */ "Of matters that Benengeli says he who reads them will know, if he reads them with attention",
+  /* II.29 */ "Of the famous adventure of the enchanted bark",
+  /* II.30 */ "Of Don Quixote's adventure with a fair huntress",
+  /* II.31 */ "Which treats of many and great matters",
+  /* II.32 */ "Of the reply Don Quixote gave his censurer, with other incidents, grave and droll",
+  /* II.33 */ "Of the delectable discourse which the duchess and her damsels held with Sancho Panza, well worth reading and noting",
+  /* II.34 */ "Which relates how they learned the way in which they were to disenchant the peerless Dulcinea del Toboso, which is one of the*rarest adventures in this book",
+  /* II.35 */ "Wherein is continued the instruction given to Don Quixote touching the disenchantment of Dulcinea, together with other marvellous incidents",
+  /* II.36 */ "Wherein is related the strange and undreamt-of adventure of the distressed duenna, alias the countess Trifaldi, together with a letter which Sancho Panza wrote to his wife, Teresa Panza",
+  /* II.37 */ "Wherein is continued the notable adventure of the distressed duenna",
+  /* II.38 */ "Wherein is told the distressed duenna's tale of her misfortunes",
+  /* II.39 */ "In which the Trifaldi continues her marvellous and memorable story",
+  /* II.40 */ "Of matters relating and belonging to this adventure and to this memorable history",
+  /* II.41 */ "Of the arrival of Clavileno and the end of this protracted adventure",
+  /* II.42 */ "Of the counsels which Don Quixote gave Sancho Panza before he set out to govern the island, together with other well-considered matters",
+  /* II.43 */ "Of the second set of counsels Don Quixote gave Sancho Panza",
+  /* II.44 */ "How Sancho Panza was conducted to his government, and of the strange adventure that befell Don Quixote in the castle",
+  /* II.45 */ "Of how the great Sancho Panza took possession of his island, and of how he made a beginning in governing",
+  /* II.46 */ "Of the terrible bell and cat fright that Don Quixote got in the course of the enamoured Altisidora's wooing",
+  /* II.47 */ "Wherein is continued the account of how Sancho Panza conducted himself in his government",
+  /* II.48 */ "Of what befell Don Quixote with Dona Rodriguez, the duchess's duenna, together with other occurrences worthy of record and eternal remembrance",
+  /* II.49 */ "Of what happened Sancho in making the round of his island",
+  /* II.50 */ "Wherein is set forth who the enchanters and executioners were who flogged the duenna and pinched Don Quixote, and also what befell the page who carried the letter to Teresa Panza, Sancho Panza's wife",
+  /* II.51 */ "Of the progress of Sancho's government, and other such entertaining matters",
+  /* II.52 */ "Wherein is related the adventure of the second distressed or afflicted duenna, otherwise called Dona Rodriguez",
+  /* II.53 */ "Of the troublous end and termination Sancho Panza's government came to",
+  /* II.54 */ "Which deals with matters relating to this history and no other",
+  /* II.55 */ "Of what befell Sancho on the road, and other things that cannot be surpassed",
+  /* II.56 */ "Of the prodigious and unparalleled battle that took place between Don Quixote of La Mancha and the lacquey Tosilos in defence of the daughter of Dona Rodriguez",
+  /* II.57 */ "Which treats of how Don Quixote took leave of the duke, and of what followed with the witty and impudent Altisidora, one of the duchess's damsels",
+  /* II.58 */ "Which tells how adventures came crowding on Don Quixote in such numbers that they gave one another no breathing-time",
+  /* II.59 */ "Wherein is related the strange thing, which may be regarded as an adventure, that happened Don Quixote",
+  /* II.60 */ "Of what happened Don Quixote on his way to Barcelona",
+  /* II.61 */ "Of what happened Don Quixote on entering Barcelona, together with other matters that partake of the true rather than of the ingenious",
+  /* II.62 */ "Which deals with the adventure of the enchanted head, together with other trivial matters which cannot be left untold",
+  /* II.63 */ "Of the mishap that befell Sancho Panza through the visit to the galleys, and the strange adventure of the fair Morisco",
+  /* II.64 */ "Treating of the adventure which gave Don Quixote more unhappiness than all that had hitherto befallen him",
+  /* II.65 */ "Wherein is made known who the knight of the white moon was; likewise Don Gregorio's release, and other events",
+  /* II.66 */ "Which treats of what he who reads will see, or what he who has it read to him will hear",
+  /* II.67 */ "Of the resolution Don Quixote formed to turn shepherd and take to a life in the fields while the year for which he had given his word was running its course; with other events truly delectable and happy",
+  /* II.68 */ "Of the bristly adventure that befell Don Quixote",
+  /* II.69 */ "Of the strangest and most extraordinary adventure that befell Don Quixote in the whole course of this great history",
+  /* II.70 */ "Which follows sixty-nine and deals with matters indispensable for the clear comprehension of this history",
+  /* II.71 */ "Of what passed between Don Quixote and his squire Sancho on the way to their village",
+  /* II.72 */ "Of how Don Quixote and Sancho reached their village",
+  /* II.73 */ "Of the omens Don Quixote had as he entered his own village, and other incidents that embellish and give a colour to this great history",
+  /* II.74 */ "Of how Don Quixote fell sick, and of the will he made, and how he died",
 ];
 
 const BOOKS = {
@@ -6297,6 +6497,204 @@ const BOOKS = {
     },
   },
 
+  satyricon: {
+    title: "The Satyricon",
+    author: "Petronius",
+    translator: "Michael Heseltine",
+    edition: "Loeb Classical Library, William Heinemann, London, 1913",
+    written: "c. 60s CE",
+    year: 65,
+
+    /* ---------- THE LICENCE, and it is the Odyssey's easy case with one limit to state ----------
+       Three layers, and the two modern ones are the same hand — which on a facing-page Loeb is worth
+       CHECKING rather than assuming, in either direction. The Iliad's Greek is Monro and Allen's
+       Oxford text set beside Murray's English, so that book has to reason about a joint work's term
+       and its original comes out the harder half at 2051; the Odyssey's is the Greek printed on the
+       facing half of Murray's own volumes, so one life answers for both columns. This is the second
+       kind. BOTH Perseus files were read: each names Michael Heseltine as editor, each gives William
+       Heinemann, London, 1913 as its source, and neither credits anyone else with the Latin.
+
+       · PETRONIUS died in 66 CE and the work is free everywhere on every ground.
+       · MICHAEL HESELTINE lived 4 September 1886 – 13 March 1952 and published this translation in
+         1913. United States copyright expired on the publication date, 1913 being well before 1929;
+         life-plus-seventy expired at the start of 2023; LIFE PLUS A HUNDRED RUNS TO 2053. Said
+         outright rather than smoothed into the easier sentence the Republic and the Analects can
+         honestly use, which is the Song of Roland's discipline and Lucretius's judgement: claim
+         less, and put on the page what cannot be said.
+
+       HIS DATES WERE LOOKED UP AND CORROBORATED TWICE, for the Hugo Magnus reason and the A. J.
+       Wyatt one. Wikidata gives both at DAY precision with the death year referenced to Britannica,
+       and Wikisource's own author page gives (1886–1952) and lists exactly ONE work for him — this
+       Satyricon, in the Loeb Classical Library, 1913 and 1930. That is what makes the pair usable
+       where Wyatt's 1835–1935 at year precision, a suspiciously round hundred with nothing else
+       agreeing, was not. THERE IS ALSO A MICHAEL HESELTINE TO KEEP HIM APART FROM: the British
+       Conservative politician, who is alive, and whose Wikidata entity is what a search returns
+       first. This one is Q90025266, Registrar of the General Medical Council.
+
+       BOTH DIGITAL EDITIONS carry the Perseus CC BY-SA 4.0 layer, as Ovid's, Lucretius's,
+       Suetonius's, the Aeneid's and both Homers' do on both of their columns. NEITHER CARRIES A
+       MODERN EDITORIAL LAYER, which was CHECKED and not assumed — the Antigone found the shipped
+       Oedipus Rex claiming to be clean while silently carrying Perseus's own modernization of Jebb.
+       Both revision histories were read and record exactly three things: Greek tagging in 2006, and
+       in July 2014 a split of the composite Latin-and-English file into two and a conversion of the
+       text to Unicode. Nothing edits the prose. (That Unicode conversion is also why the Greek
+       QUOTATIONS are still in beta code: the conversion reached the Latin and the English and left
+       the `<foreign>` elements as they were. See `greek` below.)
+
+       THE OTHER FREE ENGLISH WAS MEASURED AND REJECTED, and the reason is not its age.
+       W. C. Firebaugh's translation of 1922 is out of copyright, is complete where Heseltine is not,
+       and is on Project Gutenberg — and its own title page says it is "complete and unexpurgated"
+       and incorporates "the forgeries of Nodot and Marchena". Those are two eighteenth-century
+       fabrications passed off as newly discovered Petronius, and an edition that weaves them into
+       the text without marking them is not the Satyricon however unexpurgated it is. Shipping it
+       would be the Divine Comedy's question answered the wrong way: ask what text an edition
+       actually IS, not only whether it is free and complete. Burnaby's of 1694 is free and is
+       seventeenth-century English, which is the objection that ruled out Golding's Ovid and Hobbes's
+       Thucydides. So the choice was Heseltine's genuine and partly untranslated text or a complete
+       one with forgeries in it, and the front matter says which was taken and what it costs.
+
+       The modern translations a reader is likeliest to own — Paul Dinnage (1953), William Arrowsmith
+       (1959), J. P. Sullivan (1965), P. G. Walsh (1996), Sarah Ruden (2000) and Frederic Raphael
+       (2003) — are all firmly in copyright and none is used here. Named so that nobody reaches for
+       one later, and with them E. H. Warmington's 1969 revision of THIS translation, which is the
+       Loeb a reader will find in a shop today and which fills in the Latin passages Heseltine left:
+       that revision is a separate copyrighted work and what is here is the 1913 text as printed. */
+    rights:
+      "Three layers, and the two modern ones are the same hand. Petronius died in 66 CE and the " +
+      "work is in the public domain everywhere. Michael Heseltine's translation was published in " +
+      "1913 — before 1929 — so its copyright has expired in the United States, and Heseltine died " +
+      "in 1952, so it is also public domain wherever the term is the author's life plus seventy " +
+      "years; where the term is life plus a hundred it remains in copyright until 2053. The Latin " +
+      "is the text printed facing that translation in the same 1913 volume, which the edition used " +
+      "here credits to Heseltine as its editor and for which it names no one else, so it stands on " +
+      "the same publication date and the same life. Both digital editions are prepared by the " +
+      "Perseus Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by William " +
+      "Arrowsmith, 1959, J. P. Sullivan, 1965, P. G. Walsh, 1996, and Sarah Ruden, 2000, are still " +
+      "in copyright and are not used here, nor is E. H. Warmington's 1969 revision of this one.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Two
+       things in it are not optional. It says on the first page that the book is a RUIN, because a
+       reader who opens at section 1 and finds a conversation already in progress is owed the reason;
+       and it says that this translator leaves ten sections in Latin, with the figure, because that
+       is a fact about what is on the page and finding it out by meeting it is worse. */
+    about: [
+      "<b>The Satyricon</b> is the oldest comic novel in Latin that survives at all, and it survives " +
+        "in pieces. What we have is a set of long excerpts from somewhere in the middle of a much " +
+        "longer work — the manuscripts label parts of it books fourteen, fifteen and sixteen, so the " +
+        "whole may have run to twenty books or more, of which perhaps a tenth is left. It is narrated " +
+        "by Encolpius, a young man of no fixed occupation who is travelling around the Greek towns of " +
+        "southern Italy with a friend he is quarrelling with and a boy they are both in love with, " +
+        "and it is about eating, borrowing, lying, seducing and running away. Nothing else from the " +
+        "ancient world reads remotely like it.",
+      "Because it is a ruin, it begins in the middle of a sentence and ends in the middle of an " +
+        "episode, and it breaks off 147 times in between: the gaps are marked in this text with an " +
+        "ellipsis, and some of them swallow whole scenes. Reading it is therefore not like reading a " +
+        "novel with chapters. What holds it together is a run of set pieces — a rant about the " +
+        "decline of rhetoric, a night at an inn, a shipwreck, a poet who cannot stop reciting, a town " +
+        "where the rich are courted by legacy-hunters — and one enormous continuous stretch in the " +
+        "middle, sections 26 to 78, which is the dinner party of Trimalchio.",
+      "That dinner is the reason the book is famous. Trimalchio is a freed slave who has become " +
+        "immensely rich, and the whole long scene is his party seen through the eyes of guests who " +
+        "cannot afford to leave: courses that arrive disguised as other things, a clock and a " +
+        "trumpeter to tell him how much of his life has gone, the will read aloud at table, the " +
+        "tomb described in detail while everyone eats. His guests talk in a Latin nobody else in " +
+        "ancient literature is allowed to speak — full of slang, wrong genders and proverbs — and it " +
+        "is the closest thing there is to a recording of how ordinary Romans actually spoke.",
+      "The author is given by the manuscripts as Petronius and is usually identified with the " +
+        "Petronius whom Tacitus describes at Nero's court as the arbiter of taste, a man who slept " +
+        "by day and worked by night and was admired for a kind of studied carelessness. Tacitus also " +
+        "describes his death in 66 CE: accused of conspiracy, he opened his veins and closed them " +
+        "again by turns so that he could go on talking with his friends over dinner, and sent Nero a " +
+        "sealed document listing the emperor's own debaucheries by name. The identification is not " +
+        "certain and rests on the manner of the book as much as on anything external.",
+      "This translation is Michael Heseltine's, made for the Loeb Classical Library in 1913, and it " +
+        "has one defect a reader should know about before starting. <b>Ten of the 141 sections are " +
+        "left in Latin</b> — about 2,400 words, one in twenty of the English column — because the " +
+        "Loeb of 1913 would not print those passages in English. They are sections 23 to 26, 85 to " +
+        "87, 132, 138 and 140, and they are the frankly sexual ones. The passages are not missing: " +
+        "they stand in the Latin, which is the same on both sides of the page here, and a reader " +
+        "who wants them in English will find them in any translation made after about 1960. The " +
+        "alternative was the one other free English version, which is complete and weaves in two " +
+        "eighteenth-century forgeries without marking them, and a text with fabrications in it " +
+        "seemed the worse bargain than a text with gaps that are labelled.",
+      "One more thing about the translation is worth knowing, because it shows on every page where " +
+        "it happens. Petronius writes a good deal of verse — his characters recite it, and two long " +
+        "poems on the fall of Troy and the civil war are quoted entire — and Heseltine renders all " +
+        "of it as prose. The Latin here marks 607 lines of verse in 54 passages; the English marks " +
+        "23. So where the left-hand column breaks into lines, the right-hand one is a paragraph " +
+        "saying the same thing, and the two are not out of step: that is what the translator did.",
+      "The work is cited by section and by nothing else — “Satyricon 48” — and this edition states " +
+        "no books, parts or chapters above that, so the section is the tab here as well as the unit " +
+        "the two columns are set beside each other in. The Latin is the text printed facing the " +
+        "translation in the same 1913 volume. Its editor's apparatus — several hundred notes " +
+        "recording which manuscript a reading comes from and which scholar proposed it — is not " +
+        "reproduced, since it is a specialist's tool in Latin abbreviations rather than anything " +
+        "that would help a reader here; Heseltine's own notes are, and in the ten sections he left " +
+        "untranslated a few of those are textual as well, because there the English column is " +
+        "Latin and the notes on those pages are notes about it. Petronius quotes " +
+        "a few phrases of Greek, and two of them appear as the letters this transcription writes " +
+        "them in rather than in Greek script, because the way it has written the accents on those " +
+        "two does not correspond to any Greek that could be printed.",
+    ],
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0972/phi001/phi0972.phi001.perseus-eng1.xml",
+    layout: "satyricon",
+    /* THE GREEK IS BETA CODE — see betaGreek, which decodes it and refuses where the source's own
+       mark placement will not compose. Declared per column because it is a fact about the file. */
+    greek: "beta",
+    chapterWord: "Section",
+    /* NO `titleOf`. The edition prints no headings at all — zero <head> elements in either file —
+       and the names a reader may have met (the Cena Trimalchionis, the Bellum Civile, the Widow of
+       Ephesus) are editors' labels for episodes whose boundaries the editors themselves disagree
+       about. Composing them here would be building an apparatus the book has not got, which is the
+       Odyssey's judgement about its own book titles. So the tab wears the word and the numeral. */
+    chapters: Array.from({ length: 141 }, (_, i) => i + 1),
+    /* NO `parts`. The manuscripts' book numbers — fourteen, fifteen, sixteen — are the tempting
+       ones and they cannot be used: they are what the excerptors labelled their extracts, they do
+       not divide the surviving text at any stated point, and where one book ends and the next
+       begins is exactly what is lost. */
+    /* The shortest section is 618 characters of English and 556 of Latin, measured across all 141,
+       so the short-chapter guard is set from the real minimum rather than from the default 200 —
+       which would still catch an extraction that had returned the file's navigation furniture. */
+    minChars: 400,
+
+    /* ---------- THE ORIGINAL, AND WHY IT PAIRS ----------
+       The question that decides every original here is not "does a text of it exist?" but "does that
+       text say which section each passage is?" — and this is the easiest yes on the shelf after the
+       facing-page constructions, because the two columns are not two editions at all. They are the
+       two halves of one printed page, split into two files by Perseus in 2014, carrying the same 141
+       section milestones in the same order because one editor set them once. Measured anyway, which
+       is the standing discipline: 141 on each side, 1..141 with no gap and no duplicate either way,
+       and the reconciliation the fetch prints reports 141 of 141 paired.
+
+       WHAT THE COLUMNS DO NOT SHARE is the verse and the notes, and both are the translator's doing
+       rather than a pairing fault: 607 lines of verse in the Latin against 23 in the English, and an
+       apparatus criticus of 385 notes against 134 notes on Roman custom. See extractSatyricon. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "satyricon",
+      greek: "beta",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0972/phi001/phi0972.phi001.perseus-lat1.xml",
+      edition:
+        "The Latin printed facing Michael Heseltine's translation in the Loeb Classical Library, " +
+        "William Heinemann, London, 1913",
+      rights:
+        "Petronius died in 66 CE, so the work itself is in the public domain everywhere. This is " +
+        "the Latin printed facing the translation in the same 1913 Loeb volume; the edition used " +
+        "here credits Michael Heseltine as its editor and names no one else, so it rests on the " +
+        "1913 publication date and on his death in 1952, exactly as the English does. The digital " +
+        "edition is prepared by the Perseus Digital Library at Tufts University and is released " +
+        "under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
+    },
+  },
+
   "virgil-aeneid": {
     title: "The Aeneid",
     author: "Virgil",
@@ -6954,6 +7352,1004 @@ const BOOKS = {
     },
   },
 
+  "don-quixote": {
+    title: "Don Quixote",
+    subtitle: "El ingenioso hidalgo Don Quijote de la Mancha",
+    author: "Miguel de Cervantes",
+    translator: "John Ormsby",
+    edition: "Don Quixote de la Mancha, translated by John Ormsby, London, 1885",
+    written: "1605 & 1615",
+    year: 1605,
+
+    /* ---------- THE LICENCE, and it is the tenth here that needs no qualification at all ----------
+       (after the Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey
+       to the West, the Divine Comedy, the Confessions and the Rigveda.) Two layers and both are long
+       expired. Cervantes published the two parts in 1605 and 1615 and died in 1616. John Ormsby's
+       translation was published in London in 1885 and he lived from 1829 to 1895, so it is public
+       domain on the pre-1929 publication rule, wherever the term is the translator's life plus
+       seventy years — since 1966 — and wherever it is life plus a hundred, since 1996. There is no
+       limit to state as Giles's (2029), Ross's (2042), Murray's (2028) or Tatlock and MacKaye's
+       (2027) need, and no modern editorial layer to declare as the Histories' and the Meditations'
+       Greek carry.
+
+       BOTH DATES WERE LOOKED UP RATHER THAN RECALLED, and Ormsby's is why the rule exists: I had
+       1889 in mind and it is wrong. Wikisource's author page gives 1829–1895 and Wikidata's
+       Q6251314 gives the same pair, at year precision — two places agreeing on a span of
+       sixty-six years, which is a very different thing from A. J. Wyatt's suspiciously round
+       1835–1935 with nothing to corroborate it. Cervantes's own dates are corroborated to the day
+       (born 29 September 1547; died 22 April 1616 and buried on the 23rd, which is why both
+       figures appear). The often-repeated line that he and Shakespeare died on the same day is a
+       calendar artefact: Spain was on the Gregorian calendar and England still on the Julian, so
+       the two deaths are ten days apart.
+
+       ONLY THE NOVEL IS IMPORTED. Ormsby's 1885 volumes also carry a long translator's preface, a
+       life of Cervantes and several hundred footnotes; the preface and the life are left behind as
+       the Republic's 1901 introduction and plates were, and the notes are not in this transcription
+       at all — see the front matter, which says so, because their absence is the one thing a reader
+       of this edition should be told.
+
+       The modern translations a reader is likeliest to own — Samuel Putnam's (1949), J. M. Cohen's
+       Penguin (1950), Burton Raffel's (1995), John Rutherford's (2000), Edith Grossman's (2003) and
+       Tom Lathrop's (2005) — are all firmly in copyright and are named here for the reason Campbell,
+       Hays, Griffith, Lee, Humphries, de Sélincourt and Handford are: so that nobody reaches for one
+       later. What is imported is Ormsby's own 1885 text. */
+    rights:
+      "Public domain on every ground, with nothing left to qualify. Cervantes published the first " +
+      "part of Don Quixote in 1605 and the second in 1615, and died in 1616. John Ormsby's English " +
+      "translation was published in London in 1885, and he lived from 1829 to 1895, so it is out of " +
+      "copyright under the pre-1929 publication rule, wherever the term is the translator's life " +
+      "plus seventy years, and wherever it is life plus a hundred. Ormsby's own preface, his life of " +
+      "Cervantes and his footnotes are not reproduced here; what is taken is the hundred and " +
+      "twenty-six chapters of the novel — no freely available transcription of this translation " +
+      "carries the notes at all. (The modern translations by Samuel Putnam, 1949, J. M. " +
+      "Cohen, 1950, Burton Raffel, 1995, John Rutherford, 2000, Edith Grossman, 2003, and Tom " +
+      "Lathrop, 2005, are still in copyright and are not used here.)",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/996",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should be told before they start: what the book is
+       and how its two halves differ, who wrote it and what he had lived through, the device that
+       makes the second part unlike anything before it, what this edition does and does not carry,
+       and why there is no Spanish column beside it. */
+    about: [
+      "<b>Don Quixote</b> is the story of a middle-aged gentleman of La Mancha who reads so many " +
+        "romances of chivalry that his wits dry up, and who rides out into seventeenth-century " +
+        "Spain believing himself a knight-errant. It was published in two parts, ten years apart — " +
+        "the first in 1605 and the second in 1615 — and it is usually called the first modern " +
+        "novel, which is a large claim and is worth stating precisely: what is new in it is not " +
+        "the adventures but the interiority, the fact that two people travel together and talk, " +
+        "and change each other, over the length of a very long book. It was enormously popular at " +
+        "once, and it has never stopped being read.",
+      "Miguel de Cervantes was born near Madrid in 1547 and had one of the hardest lives of any " +
+        "writer on these shelves. He fought at the sea battle of Lepanto in 1571 and took three " +
+        "gunshot wounds, one of which crippled his left hand for good. Sailing home in 1575 he was " +
+        "captured by corsairs and spent five years enslaved in Algiers, attempting escape four " +
+        "times, before his family and a religious order ransomed him. Back in Spain he requisitioned " +
+        "supplies for the Armada, was excommunicated for seizing grain from a cathedral chapter, and " +
+        "was jailed at least twice over his accounts. He was fifty-seven when the first part " +
+        "appeared, and it made him famous without making him comfortable; he died in April 1616, " +
+        "poor, a year after finishing the second.",
+      "The shape of the first part is a series of misadventures with a great deal of other material " +
+        "packed into it. Don Quixote takes an inn for a castle and its keeper for a lord, mistakes " +
+        "a barber's brass basin for the enchanted helmet of Mambrino, is beaten by muleteers and " +
+        "trampled, and attacks a line of windmills he takes for giants — which is chapter eight, " +
+        "and is the single most famous scene in European fiction. Against him is set Sancho Panza, " +
+        "a labourer promised the governorship of an island, who sees the windmills perfectly well " +
+        "and comes anyway. From chapter nine the book claims not to be Cervantes's at all but a " +
+        "translation of an Arabic history by one Cide Hamete Benengeli, bought as a bundle of paper " +
+        "in the market at Toledo — a joke at the expense of the romances, which liked to pretend " +
+        "the same thing, and a device the second part will use hard.",
+      "What happens in the second part has no real precedent. The characters in it have READ the " +
+        "first part. Don Quixote and Sancho are recognised wherever they go, by people who know the " +
+        "book, and much of what befalls them is arranged by readers of it for their own amusement — " +
+        "most cruelly by a duke and duchess who keep the pair for weeks as entertainment and give " +
+        "Sancho a mock island to govern, where he turns out to judge wisely. A second real book got " +
+        "into it too. In 1614, while Cervantes was writing, someone calling himself Alonso Fernández " +
+        "de Avellaneda published a spurious sequel at Tarragona; his identity has never been " +
+        "established. Cervantes read it, and wrote it into his own: in chapter fifty-nine of the " +
+        "second part Don Quixote hears men discussing the false book, and changes his route to " +
+        "Barcelona rather than Zaragoza purely so that the impostor's account of him will be a lie.",
+      "This edition is John Ormsby's translation of 1885, the first English version made by a " +
+        "translator who had read the whole Spanish scholarly literature and cared about getting it " +
+        "right, and it is still very readable. Two things about the text should be said plainly. " +
+        "Ormsby's volumes are famous for their footnotes — several hundred of them, explaining the " +
+        "proverbs, the romances being parodied and the topical jokes — and no freely available " +
+        "transcription of this translation carries a single one: both of the two that exist were " +
+        "checked, and there is not one reference mark in either, so the chapters here render with " +
+        "no note fold. His long preface and his life of Cervantes are likewise not included; a " +
+        "reader who wants them will have to find the printed volumes. And there are two such " +
+        "transcriptions because the obvious one turned out not to be usable. Wikisource carries " +
+        "this translation complete, a page per chapter, cleanly typed — and it has quietly lost " +
+        "words. Walked against an independent copy of the same translation, all four hundred " +
+        "thousand of them, it drops sixty: \u201cno occasion [to] ask\u201d, \u201cthe barber " +
+        "[whose] basin\u201d, and, in the most famous sentence in European fiction, \u201cthirty " +
+        "[or] forty windmills that there are on [that] plain\u201d. What is here is Project " +
+        "Gutenberg's text instead, which has all sixty. Neither copy has been corrected from the " +
+        "other: both are transcriptions of a printed page, each has slips of its own, and merging " +
+        "them would make a text that has never existed.",
+      "The tabs above run from 1 to 126 straight through, which is not how the book is cited. A " +
+        "passage of Don Quixote is given by part and chapter — the windmills are I.8, Sancho's " +
+        "governorship is II.44 and after — and the chapter numbers restart at one when the second " +
+        "part begins, at tab 53. Each tab's title carries the citation for that reason. There is no " +
+        "Spanish column beside the English, and the reason is the state of the transcriptions " +
+        "rather than the copyright: Spanish Wikisource carries three editions of the novel and all " +
+        "three are fragments — 16 chapters of one and 38 of each of the others, against 126 — and " +
+        "its own index page marks every one of them as still to be transcribed. A complete Spanish " +
+        "text does circulate freely, but it names no editor and no edition, and a text of a work " +
+        "that survives in many printings is somebody's constituted text whether or not it says so. " +
+        "That is the same question that keeps the Italian out of the Divine Comedy here, and it is " +
+        "answered the same way: better to ship the English alone and say why.",
+    ],
+
+    /* ---------- ONE PLAIN-TEXT FILE, CHOSEN OVER A CLEAN WIKI TRANSCRIPTION ----------
+       See the block above extractQuixote for the whole of this: the Wikisource Ormsby is complete,
+       typed clean, one page per chapter, needed nothing but `body: "plain"` and `dropHeadings`, was
+       built and fetched and checked — and has lost sixty words, two of them out of the sentence
+       about the windmills. Gutenberg's copy of the same translation has them.
+
+       WHAT WAS MEASURED ON THE WIKI BEFORE ANY OF THAT, and is worth keeping because most of it is
+       about which page to trust rather than about this book:
+       · `Don Quixote/` is Ormsby and is COMPLETE — 52 chapter pages under Volume 1 and 74 under
+         Volume 2, no gaps. The page carries a "This work is incomplete" banner, which refers to the
+         scan-backed project and not to the chapters; asking the wiki what it HAS rather than
+         reading the banner is the Summa's rule, and here it answers the other way round for once.
+       · `Don Quixote (Cervantes/Ormsby)/` is that scan-backed project and IS incomplete — its
+         Volume 2 stops at chapter 40, and several of its pages carry a few dozen words. It is the
+         obvious-looking source and is the wrong one, which is the Plato-Jowett case again.
+       · ZERO reference marks in all 126 chapters — and Gutenberg carries none either, so Ormsby's
+         several hundred footnotes are in neither free copy and this book has no note fold. That was
+         the one thing that might have decided the choice and it does not.
+
+       THE TITLES STILL COME FROM THE WIKI, and cost two fetches rather than 126: each volume's
+       index page carries every chapter's full title inside its own link text, in the form
+       "Chapter I - Which treats of…", so all 126 were read off two pages and transcribed into
+       DQ_TITLES above with the "Chapter N - " stripped, the tab already carrying the number.
+       Gutenberg prints the same titles in capitals over each chapter, which is Aesop's
+       unrecoverable case; taking them from the wiki keeps their capitalisation without composing
+       anything. No `indexPage`, therefore, and no per-page title read. */
+    layout: "quixote",
+    url: "https://www.gutenberg.org/cache/epub/996/pg996.txt",
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 126 }, (_, i) => i + 1),
+    /* The citation first, then Ormsby's own chapter title. The citation is not the tab number: the
+       novel is cited by part and chapter and the numbering restarts at the second part, so tab 53
+       is II.1 — the Summa's arrangement, and the front matter says so. */
+    titleOf: (n) =>
+      (n <= 52 ? "I." + n : "II." + (n - 52)) + " " + (DQ_TITLES[n - 1] || ""),
+    parts: [
+      { n: 1, label: "Part I", from: 1, to: 52 },
+      { n: 2, label: "Part II", from: 53, to: 126 },
+    ],
+    /* No `sections`. Neither this edition nor any other divides a chapter of Don Quixote into
+       numbered sections — the chapter IS the unit the whole tradition cites — so every chapter comes
+       through as one block and fetchEnglish will say so ("126 chapter(s) with NONE"). That is the
+       expected result for this book, as it is for the Prince, and it is what decides the shape of
+       the pairing; see the front matter's last paragraph for why there is none.
+
+       The short-chapter guard, which is what catches an extraction that has returned the wiki
+       furniture instead of the novel. The shortest chapter sampled runs to several thousand
+       characters and the mean is 16,430; 2,000 sits well below anything Ormsby wrote and far above
+       what a failed extraction produces. */
+    minChars: 2000,
+
+    /* No `original`, and no `origLang`: see the front matter's last paragraph. Two things would have
+       to change before a Spanish column were possible here, and they are separate. The first is a
+       COMPLETE freely-licensed transcription, which Spanish Wikisource does not have — measured, its
+       three editions carry 16, 38 and 38 of the 126 chapters, and its own index marks all of them as
+       still to be transcribed. The second is that the transcription must say WHOSE text it is: a
+       novel printed in 1605 survives in many settings that differ, so a modern text of it is
+       somebody's constituted text, and the complete Spanish that does circulate freely names no
+       editor and no edition at all. That is the Divine Comedy's question exactly, and it is answered
+       the same way — ship the English and say why on the book's own first page.
+
+       ONE TRAP FOR ANYONE WHO COMES BACK TO THIS. Spanish Wikisource carries a page titled "Segundo
+       tomo del ingenioso hidalgo don Quijote de la Mancha", which looks like the second part and is
+       not: it is Avellaneda's spurious 1614 sequel, a different book by a different and unidentified
+       author, the one Cervantes attacks inside his own second part. */
+  },
+
+  "summa-theologica": {
+    title: "Summa Theologica",
+    subtitle: "Summa Theologiae",
+    author: "Thomas Aquinas",
+    translator: "Fathers of the English Dominican Province",
+    edition:
+      "Second and revised edition, literally translated by the Fathers of the English Dominican " +
+      "Province, Burns Oates & Washbourne, London, 1920",
+    written: "1265–1274",
+    year: 1265,
+
+    /* ---------- THE LICENCE — THE PUBLICATION DATE AND NOTHING ELSE ----------
+       This is the Gallic War's position, and for the same reason: half the byline cannot be found.
+       Aquinas died in 1274, so the work is free everywhere and has been for seven centuries. The
+       translation was published in London in 1920 — before 1929, so its United States copyright has
+       expired, and that much is certain and checkable by anyone. What cannot honestly be asserted is
+       a life-plus-seventy term, because "the Fathers of the English Dominican Province" is a
+       CORPORATE BYLINE: the volumes name no individual translator anywhere, the work was done by a
+       changing group of friars over fifteen years, and a term that runs from the last surviving
+       author cannot be computed from a name that belongs to nobody. So the ground stated is the date
+       of publication, the gap is named in `rights` and on the book's own front matter, and no year is
+       rounded up to fill it. Claim less, and say on the page what cannot be said.
+
+       WHAT IS AND IS NOT TAKEN. The Summa itself — all 614 questions of the five divisions and the
+       Appendix. The 1920 volumes also carry Leo XIII's encyclical Aeterni Patris of 1879, the
+       editor's note to the Supplement, a long index of Scripture references and a general index, none
+       of which is imported: the Republic's precedent for the introduction and plates it left behind.
+       A SAMPLE OF 48 QUESTIONS FOUND NO FOOTNOTES AND THE WHOLE BOOK HAS SEVEN, which is the sample
+       rule this file keeps re-learning, met on the apparatus rather than on a heading. The 48 pages
+       measured before a line was written carried not one reference mark, and the entry was drafted
+       saying the edition prints none; the run over all 614 found seven, in four questions of the
+       Third Part — the translators noting where the Latin has three sed contra, where a phrase is not
+       in the Leonine edition, and where St Thomas took his article titles from his own commentary on
+       the Sentences. They are real translator's notes and they ship, so four chapters of the 614 have
+       a note fold and the other 610 have none. A COUNT OF ZERO OVER A SAMPLE IS NOT A COUNT OF ZERO.
+
+       THE MODERN TRANSLATIONS a reader is likeliest to meet are named so that nobody reaches for one:
+       the Blackfriars Latin-English edition (60 volumes, 1964–1981), Timothy McDermott's abridgement
+       (1989) and Alfred Freddoso's continuing translation are all in copyright. */
+    rights:
+      "Public domain in the United States, on the date of publication. Thomas Aquinas died in 1274, " +
+      "so the work itself has been free for seven centuries. This translation was published in " +
+      "London in 1920, before 1929, so its United States copyright has expired. It is credited to " +
+      "the Fathers of the English Dominican Province and names no individual translator, so the rule " +
+      "that runs from an author's death cannot be applied to it and no such date is claimed here. " +
+      "Leo XIII's encyclical, the editor's note to the Supplement and the volumes' indexes are not " +
+      "reproduced; what is taken is the 614 questions of the Summa itself. (The Blackfriars edition " +
+      "of 1964–1981, Timothy McDermott's abridgement of 1989 and Alfred Freddoso's translation are " +
+      "still in copyright and are not used here.) There is no Latin beside it, and the book's own " +
+      "first page says why.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start, and this book needs more of it than any other here.
+       What it is and how big; its shape; THE FORM OF AN ARTICLE, which is the one thing that makes
+       the Summa readable and which nothing on the page explains; why it stops; whose translation
+       this is; how it is laid out here, including why the tab numbers and the citation disagree; and
+       why there is no Latin. */
+    about: [
+      "The <b>Summa Theologica</b> is the longest book on these shelves by a wide margin, and it was " +
+        "written as an introduction. Thomas Aquinas began it around <b>1265</b> and says in its first " +
+        "sentence that he means it for <i>beginners</i> — that existing books were repetitive, badly " +
+        "ordered and full of things raised only because a particular argument had happened to raise " +
+        "them, and that he intends to set out the whole of Christian theology once, in order. What " +
+        "resulted runs to some two and a half million words across <b>614 questions</b> and about " +
+        "<b>3,000 articles</b>, and is the most sustained piece of systematic argument in medieval " +
+        "philosophy.",
+      "Its shape follows the plan it announces. The <b>First Part</b> treats God, the Trinity and the " +
+        "creation, ending with a long treatment of the human being as body and soul. The <b>Second " +
+        "Part</b>, which is half the work and is divided into two halves of its own, treats human " +
+        "action: the last end, the passions, habits, virtue and vice and law in the first half, and " +
+        "then the individual virtues one by one in the second. The <b>Third Part</b> treats Christ " +
+        "and the sacraments. The movement is out from God and back again, and the placing of ethics " +
+        "in the middle rather than at the end is the argument rather than the filing.",
+      "Every one of its articles has the <b>same five-part form</b>, and knowing it is the difference " +
+        "between the book being readable and being impossible. An article opens with a question that " +
+        "can be answered yes or no — \"Whether God exists?\" Then come the <b>objections</b>, which " +
+        "argue for the answer Aquinas is going to reject, and which he states as strongly as he can. " +
+        "Then <i>Sed contra</i> — \"On the contrary\" — a short authority on the other side. Then " +
+        "<i>Respondeo</i>, \"I answer that\", which is his own argument and the heart of the article. " +
+        "Then a <b>reply to each objection</b> in turn. So the objections at the top are not his view, " +
+        "and a reader who stops after them has read the opposite of what the article says.",
+      "It is <b>unfinished</b>, and the reason is famous. On 6 December 1273, while saying Mass, " +
+        "Aquinas experienced something he would not describe, and stopped writing; pressed by his " +
+        "secretary to continue, he said that everything he had written seemed to him <i>like straw</i>. " +
+        "He died three months later, in March 1274, having taken the Third Part as far as question 90. " +
+        "The <b>Supplement</b> that completes it is not his: it was assembled after his death from his " +
+        "much earlier commentary on the Sentences, and every edition prints it, including this one. " +
+        "The three questions of the <b>Appendix</b> are the same kind of posthumous filling-in.",
+      "This translation is by the <b>Fathers of the English Dominican Province</b>, in the second and " +
+        "revised edition of <b>1920</b>. It is a literal translation and says so on its title page: it " +
+        "follows the Latin closely, keeps the technical vocabulary rather than smoothing it away, and " +
+        "is willing to be stiff in order to be exact. That is the right quality for this book, whose " +
+        "argument turns on distinctions that a graceful paraphrase would lose. The edition credits no " +
+        "individual translator, and the book's licence note says what follows from that.",
+      "A word on how it is laid out here. Each of the <b>614 questions</b> is a chapter, because the " +
+        "question is what any citation of the Summa names, and each of its <b>3,094 articles</b> is a " +
+        "numbered section. The tabs number the questions <b>straight through from 1 to 614</b>, while " +
+        "the citation restarts at 1 in each Part — so the number on a tab and the <i>q.</i> in its " +
+        "title are two different things, and the title carries the citation. The line in bold at the " +
+        "head of each chapter names the <b>treatise</b> it belongs to, which is the edition's own " +
+        "grouping and the finest division of the work it prints. The translators added almost no " +
+        "notes: seven in the whole work, all in the Third Part, so four chapters carry a note fold and " +
+        "the other 610 have none.",
+      "Fourteen questions of the 614 are missing an article heading, and it is worth knowing the " +
+        "shape of it. Every question states how many articles it has, so the gaps are countable: " +
+        "twelve questions carry one heading fewer than they should and two carry none at all, which " +
+        "means those articles run on into the one before them and cannot be cited from the page. " +
+        "<b>No prose is missing</b> — the words are all there, and the numbering shows where a gap " +
+        "falls rather than closing over it, so a question that jumps from article 1 to article 4 is " +
+        "telling you the truth about the transcription. It is the transcription's gap and not the " +
+        "edition's, and it is 14 questions in 614.",
+      "There is <b>no Latin facing it</b>, and that is worth explaining because the Latin is not hard " +
+        "to find. The complete text of Leo XIII's Leonine edition is online, but the digital editions " +
+        "that carry it reserve rights in their own work, which is not a footing this library serves " +
+        "books on. What is freely transcribed — the Latin Wikisource — has the First Part complete and " +
+        "then stops: <b>207 of the 611 questions</b>, with the whole of the Second Part of the Second " +
+        "Part and the whole Third Part not begun. A facing page that ran out after a third of the book " +
+        "would be worse than none, so the book ships in English alone until a complete free " +
+        "transcription exists.",
+    ],
+
+    /* ---------- ONE WIKI PAGE PER QUESTION, 614 OF THEM ----------
+       The City of God's shape at three times the scale, and the same reasoning about where to cut.
+       "ST II-II, q. 6, a. 1" is Part, question, article, so the QUESTION is the tab and the ARTICLE
+       is the section. Cutting at the Part instead would give six chapters of three to six megabytes
+       each, which no browser will paint and no reader can scroll; cutting at the article would put
+       roughly three thousand tabs on the bar. */
+    source: "wiki",
+    chapterWord: "Question",
+    chapters: Array.from({ length: 614 }, (_, i) => i + 1),
+    page: (n) => {
+      const a = summaAt(n);
+      return "Summa Theologiae/" + a.part.key + "/Question " + a.q;
+    },
+    parts: (() => {
+      let at = 0;
+      return SUMMA_PARTS.map((p, i) => {
+        const from = at + 1; at += p.q;
+        return { n: i + 1, from: from, to: at, label: p.label };
+      });
+    })(),
+    /* THE TITLES ARE READ OFF THE EDITION'S OWN CONTENTS, one page per Part, and are the printed
+       heading with two things taken off it: the "Question N -" that opens it, which the tab and the
+       chapter header both already carry, and the "(TEN ARTICLES)" that closes it, which the chapter
+       itself shows. What is left is the question's own title, in the capitals the edition prints it
+       in — Aesop's rule, since the case is not recoverable from a heading set wholly in capitals.
+       The citation is put in front of it, because the tab's own number cannot carry it.
+
+       THE APPENDIX IS THE EXCEPTION AND IS HANDLED RATHER THAN ASSUMED: its three entries carry a
+       leading space, one writes "Question." with a stop where the other 611 write it without, and the
+       third is not in that shape at all ("Two Articles on Purgatory"). Measured over all six contents
+       pages before this was written: 611 of the 614 are exactly regular and those three are not. The
+       third is filed by Wikisource as the Appendix's question 3 and is headed "Appendix 2 · Question
+       1" on its own page, so it is a second appendix rather than a third question of the first; its
+       contents-page wording is kept as printed and its own heading says the rest, which is the
+       treatise line doing real work. */
+    titlesOf: async (api) => {
+      const out = {};
+      let at = 0;
+      for (const part of SUMMA_PARTS) {
+        const h = await api("Summa Theologiae/" + part.key);
+        const body = h.split(/<div class="printfooter"/)[0];
+        const rx = new RegExp(
+          '/wiki/Summa_Theologiae/' + part.key.replace(/ /g, "_").replace(/[.*+?^${}()|[\]\\]/g, "\\$&") +
+          '/Question_(\\d+)"[^>]*>([^<]+)</a>', "g");
+        let m, seen = 0;
+        while ((m = rx.exec(body))) {
+          const q = +m[1];
+          if (out[at + q]) continue;
+          let t = m[2]
+            .replace(/&#(\d+);/g, (x, d) => String.fromCharCode(+d))
+            .replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&")
+            .trim();
+          t = t.replace(/^Question\.?\s*\d+\s*[-–—]\s*/, "").replace(/\s*\([^()]*ARTICLES?\)\s*$/i, "").trim();
+          out[at + q] = part.cite + " q. " + q + (t ? " — " + t : "");
+          seen++;
+        }
+        if (seen !== part.q)
+          console.log("  ! " + part.label + ": read " + seen + " titles, expected " + part.q);
+        at += part.q;
+      }
+      return out;
+    },
+    /* These pages are typed onto the wiki rather than transcluded from a scan — the scan index for
+       the 21 volumes says so itself (`Transclusion=no`) — so there is no prp-pages-output for
+       cleanBody's opening slice to find and it throws "no body" on a page holding a whole question.
+       Thucydides' gate, in its fourth book. */
+    body: "plain",
+    sections: "articuli",
+    /* The shortest question in the sample is 6.0 KB of prose and the shortest article-less page would
+       be a fraction of that; 2,500 sits well below the one and far above what a failed extraction
+       returns. */
+    minChars: 2500,
+
+    /* ---------- NO ORIGINAL LANGUAGE ----------
+       The Republic's outcome, reached by measurement rather than by preference, and the reasoning is
+       worth keeping because the Latin looks available from every direction.
+
+       THE FREELY TRANSCRIBED LATIN IS A THIRD OF THE BOOK. Latin Wikisource's Summa was measured
+       through the wiki's own page index rather than by reading its contents pages — 423 pages under
+       the title, of which 207 are questions: the Prima pars complete at 119, the Prima secundae
+       stopping at 88 of its 114, and the Secunda secundae, the Tertia pars and the Supplementum not
+       begun at all. Its own index pages for those last two are lists of red links. That is the
+       Plato-Jowett case at the scale of a whole work: correct about everything it contains, and a
+       third of the book.
+
+       AND THE COMPLETE LATIN RESERVES RIGHTS IN ITSELF. The Corpus Thomisticum carries the whole
+       Leonine text of 1888, which is public domain — and its every page closes "© 2019 Fundación
+       Tomás de Aquino quoad hanc editionem. Iura omnia asservantur", all rights reserved as regards
+       this edition, over a text its own header describes as Roberto Busa's machine transcription
+       re-checked by Enrique Alarcón. So it is the Book of Rites' ctext.org finding in a stricter
+       form: there the database had adapted the translation without saying which parts, here the
+       database says outright that its edition is its own and reserved. ASK WHAT AN OBVIOUS SOURCE
+       CLAIMS OVER THE TEXT, not only whether it has it — a public-domain work carried by a database
+       that reserves rights in its own edition of it is not available on that ground.
+
+       An edition whose copyright HAS run out would serve, and the Leonine itself is one; what is
+       missing is a free TRANSCRIPTION of it. The day a complete one exists, an `original` block and
+       an `origLang` are the whole of the work. */
+  },
+
+  "rigveda": {
+    title: "The Rigveda",
+    subtitle: "ऋग्वेदः",
+    author: "Anonymous",
+    translator: "Ralph T. H. Griffith",
+    edition:
+      "The Hymns of the Rigveda, translated with a popular commentary, second edition, " +
+      "complete in two volumes, E. J. Lazarus and Co., Benares, 1896",
+    written: "c. 1500–1000 BCE",
+    year: -1300,
+
+    /* ---------- THE LICENCE — the NINTH here needing no qualification at all ----------
+       After the Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey
+       to the West, the Divine Comedy and the Confessions. Every layer is clear on every ground.
+
+       The hymns are around three thousand years old and were composed and transmitted before writing
+       reached the subcontinent, so the work itself has been free for as long as the idea of
+       copyright has existed. Ralph Thomas Hotchkin Griffith published his translation at Benares in
+       1889–92 and revised it for the second edition of 1896, and he lived 1826–1906 — dates read off
+       the Wikisource author page and confirmed against the volume's own title page rather than
+       recalled, for the Hugo Magnus reason — so the English clears the pre-1929 publication rule,
+       life plus seventy (1976) and life plus a hundred (2006) alike. There is no limit to state as
+       Giles (2029), Ross (2042) or Gilbert Murray (2028) need, and no modern editorial layer as the
+       Histories and the Meditations' Greek carry.
+
+       THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement in a second
+       book: sa.wikisource's hymn pages credit no edition of the samhita, so no editor and no
+       publication date is asserted for that column anywhere, and the ground stated is the age of the
+       text — which needs no edition to establish and anyone can check. It is a weaker gap than
+       Lucretius's, and the reason is worth stating rather than assuming: the Rigveda is not a text
+       that has to be CONSTITUTED from disagreeing manuscripts before it can be read. Lucretius
+       survives in two ninth-century copies and editors differ over hundreds of readings, which is
+       why that entry treats its unnamed editor as a real limitation; the Rigveda was transmitted by
+       a recitation discipline built to make variation impossible, and the received Shakala samhita
+       is what every printed edition prints. That is a fact about the transmission rather than a
+       convenience, and it is said on the book's own page along with what cannot be said.
+
+       WHAT IS NOT TAKEN. Griffith's title page calls the work a translation "with a popular
+       commentary", and the commentary is his footnotes; the transcription carries them on four hymns
+       out of 1,028 and they are imported where they exist. His preface, his appendices on metre and
+       on particular hymns, and the Sanskrit pages' Sayana bhashya are all left behind — the
+       Republic's precedent for the introduction and plates it did not take.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none
+       may be used: Stephanie Jamison and Joel Brereton's complete Rigveda (Oxford, 2014), which is
+       the scholarly standard and supersedes Griffith on almost every page, Wendy Doniger's selection
+       (Penguin, 1981), and Walter Maurer's (1986). Griffith is a century and a quarter old and reads
+       like it; the book's own first page says so rather than leaving a reader to discover it. */
+    rights:
+      "Public domain worldwide, on every ground. The hymns are around three thousand years old and " +
+      "were composed long before writing reached the subcontinent, so the work itself has never been " +
+      "in copyright. Ralph T. H. Griffith published this translation at Benares in 1889–92 and " +
+      "revised it for the second edition of 1896, and he lived from 1826 to 1906, so the English is " +
+      "out of copyright under the rule for works published before 1929, under the translator's life " +
+      "plus seventy years, and under life plus a hundred — there is no limit to state. The facing " +
+      "Sanskrit is the received Shakala samhita and the transcription names no editor for it, so no " +
+      "edition and no editor is claimed here; the ground for that column is the age of the text " +
+      "alone. (The modern translations by Jamison and Brereton, 2014, Wendy Doniger, 1981, and " +
+      "Walter Maurer, 1986, are still in copyright and are not used.) Griffith's preface and " +
+      "appendices, and the Sanskrit pages' commentary of Sayana, are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they open a thousand hymns: what the book is and how old, how it
+       survived, what the hymns are FOR — which is the thing most likely to disappoint someone
+       expecting scripture or narrative — how it is arranged and cited, which hymns to start with,
+       whose translation this is and how far it can be trusted, and the two facts about this
+       transcription that a reader will otherwise meet as faults. */
+    about: [
+      "<b>The Rigveda</b> is the oldest surviving text in any Indo-European language, and one of the " +
+        "oldest continuously transmitted texts of any kind. Its <b>1,028 hymns</b> were composed in " +
+        "an archaic form of Sanskrit, most of them somewhere between about <b>1500 and 1000 BCE</b>, " +
+        "in the rivers country of the north-west of the Indian subcontinent and what is now Pakistan " +
+        "and Afghanistan. Nothing about the dating is exact and scholars argue over both ends of it. " +
+        "What is not in doubt is that the poems are older than the Iliad, older than the Hebrew Bible " +
+        "in the form we have it, and roughly as old as anything on this shelf apart from Gilgamesh.",
+      "It was not written down for something like a thousand years after it was composed. It was " +
+        "<b>memorised</b> — by families of priests who recited it in several interlocking patterns, " +
+        "forwards, in pairs, in pairs reversed, and in more elaborate schemes still, so that a slip " +
+        "in one recitation would fail to match the others. The result is a text preserved with a " +
+        "fidelity that has no parallel in the ancient world: the manuscripts, which are late, agree " +
+        "with each other to a degree that written traditions never manage. That is why the Sanskrit " +
+        "column here can be given without naming an editor, and why almost nothing in it is disputed.",
+      "The hymns are <b>liturgy</b>, not scripture in the later sense and not narrative at all. They " +
+        "were sung at the sacrifice, and most of them praise a god, recall what he has done, and ask " +
+        "for cattle, sons, long life, victory or rain. <b>Agni</b>, the fire that carries the offering " +
+        "and so stands between men and gods, opens the collection and has the most hymns after Indra. " +
+        "<b>Indra</b>, who kills the serpent Vritra and releases the waters, has the most of all. " +
+        "<b>Soma</b>, the pressed plant and the god of it, has the whole of the ninth book. Behind " +
+        "them stand Varuna, who watches over truth; the Ashvins, twin horsemen and healers; Ushas, " +
+        "the dawn, who has some of the most admired poetry in the book; and the Maruts, the storm.",
+      "The arrangement is by <b>mandala</b> — a word meaning circle, and used here for the ten books " +
+        "the collection is divided into. Books <b>2 to 7</b> are the <i>family books</i>, each " +
+        "attributed to one family of seers, and are generally taken to be the oldest core; within " +
+        "each of them the hymns are ordered by deity and then by length. Books <b>1, 8, 9 and 10</b> " +
+        "were gathered around that core later, and the tenth is later again in its language and its " +
+        "concerns. Any passage is cited as mandala, hymn and verse — <b>10.129.1</b> is the first " +
+        "verse of the hundred and twenty-ninth hymn of the tenth book — and that is exactly how this " +
+        "edition is laid out: the tabs are the hymns, in that notation, and each verse is set beside " +
+        "its Sanskrit.",
+      "A thousand hymns is a great deal to begin with, so it is worth knowing which ones people mean " +
+        "when they talk about the Rigveda. <b>10.129</b>, the <i>Nasadiya</i> or creation hymn, which " +
+        "asks what there was before there was anything and ends by wondering whether even the gods " +
+        "can know. <b>10.90</b>, the <i>Purusha</i> hymn, in which the universe and the four social " +
+        "orders are made from a sacrificed cosmic man — the single most argued-over passage in the " +
+        "book. <b>1.32</b>, Indra and the serpent. <b>10.125</b>, spoken in the voice of Speech " +
+        "herself. <b>10.34</b>, the gambler who cannot leave the dice alone, which is not about a god " +
+        "at all. And <b>3.62.10</b>, three lines that became the Gayatri, still recited daily.",
+      "The translation is <b>Ralph T. H. Griffith's</b>, made at Benares and published in 1889–92, " +
+        "revised for the second edition of 1896. It is the only complete English Rigveda that is free " +
+        "of copyright, and it is Victorian: the diction is archaic on purpose, the gods are given " +
+        "capital letters and thee and thou, and Griffith often smooths a passage whose Sanskrit is " +
+        "genuinely obscure into something more confident than the original will bear. A reader who " +
+        "wants to know what the scholarship now thinks a hymn says should go to Stephanie Jamison and " +
+        "Joel Brereton's translation of 2014, which is in copyright and cannot be reproduced here. " +
+        "What Griffith gives, and gives completely, is all 1,028 hymns in order, verse by numbered " +
+        "verse, which is what makes them readable beside the Sanskrit at all.",
+      "Three things about this particular transcription are worth knowing before they are met as " +
+        "faults. Griffith annotated heavily — his title page calls the book a translation <i>with a " +
+        "popular commentary</i> — and his notes survive here on <b>three hymns</b>, carrying " +
+        "twenty-seven between them: only four of the thousand pages were proofread against the scan, " +
+        "and the rest were typed in without the apparatus. Those typed pages are a machine reading of " +
+        "the printed book, so they carry its slips — <i>Silrya</i> where the page reads Surya, " +
+        "<i>herdi</i> for herds, <i>at our case</i> for at our ease. They are the transcription's and " +
+        "not Griffith's, and they are left as found: repairing them would be editing somebody else's " +
+        "text on a guess.",
+      "And <b>three passages are missing from the English</b>, for a reason that says more about 1896 " +
+        "than about the Rigveda. Griffith turned the frankly sexual passages into Latin rather than " +
+        "English and printed them apart from the text, and this transcription left them out: hymn " +
+        "<b>1.179</b> has none of its six verses here, only a line noting where it went; " +
+        "<b>10.61</b> is missing verses 5 to 9; and <b>10.86</b>, the Vrishakapi dialogue, is missing " +
+        "16 and 17. Thirteen verses in all, out of ten and a half thousand. The Sanskrit beside them " +
+        "is complete, so those rows show the original with nothing facing it — which is this " +
+        "library's ordinary way of showing that two editions disagree, and here it shows exactly " +
+        "where a Victorian translator stopped.",
+      "The two columns are set against each other verse by verse, and it is worth saying how well " +
+        "they meet. <b>1,002 of the 1,028 hymns pair on every single verse number.</b> Of the " +
+        "twenty-six that do not, six are the hymns <b>1.65 to 1.70</b>, which are in a metre whose " +
+        "half-verses the two traditions count differently — Griffith prints five verses where the " +
+        "Sanskrit prints ten, so the same words are there on both sides, divided twice. Three are the " +
+        "passages named above. The remaining seventeen are a single lost numeral apiece, ten on the " +
+        "English side and seven on the Sanskrit, where a transcriber's stop went missing and two " +
+        "verses ran together. None of them is repaired here: a row that draws with one cell empty is " +
+        "telling the truth about the two texts, and mending it would mean inventing a division that " +
+        "neither of them prints.",
+      "One numbering difference will catch a reader holding a printed Griffith. Eleven hymns of the " +
+        "eighth book, the <b>Valakhilya</b>, were regarded as a later insertion, and Griffith printed " +
+        "them as an appendix rather than in place — so his 8.49 is the hymn everyone else calls 8.60, " +
+        "and his last eleven are 8.49 to 8.59. This edition numbers them the standard way, which is " +
+        "the way the Sanskrit beside them is numbered and the way every reference work cites them. " +
+        "The Sanskrit pages also carry the commentary of <b>Sayana</b>, the fourteenth-century " +
+        "scholar whose reading of the Rigveda dominated the subject for centuries; it is many times " +
+        "the length of the text, it is itself in Sanskrit, and it is not reproduced here.",
+    ],
+
+    layout: "sukta",
+    chapterWord: "Hymn",
+    chapters: Array.from({ length: 1028 }, (_, i) => i + 1),
+    /* The tab, and it is the citation itself: a reader looking for RV 10.129 finds a tab reading
+       10.129. The chapter NUMBER beside it is the hymn's continuous position in the collection,
+       which is a real figure — hymns are numbered 1–1028 straight through in concordances — and not
+       something composed for the tabs. Griffith's own contents page gives his hymns no titles at
+       all ("Chapters (not listed in original)"), and the deity a hymn is addressed to is printed
+       only in his running head, which four of the thousand transcribed pages carry. Composing a
+       title from the Sanskrit's deity line would be composing an apparatus. */
+    titleOf: (n) => { const a = rvAt(n); return a ? a.m + "." + a.h : String(n); },
+    parts: RV_PARTS,
+    page: (n) => {
+      const a = rvAt(n);
+      return "The Hymns of the Rigveda/Book " + a.m + "/Hymn " + rvGriffith(a.m, a.h);
+    },
+    /* A hymn may honestly be three verses long — 8.58 is, and it is complete — so this is far below
+       the 200 the prose books use; it is still enough to catch a page that has returned the wiki's
+       furniture instead of the text. Reported per hymn rather than thrown, since one short hymn is
+       a fact about the Rigveda and a hundred would be a fact about the reader. */
+    minChars: 90,
+
+    original: {
+      lang: "sa",
+      langName: "Sanskrit",
+      layout: "sukta",
+      wiki: "sa.wikisource.org",
+      edition: "The received Shakala samhita, as transcribed at Sanskrit Wikisource; no editor is named",
+      rights:
+        "Public domain worldwide. The hymns are around three thousand years old. The transcription " +
+        "names no editor and no printed edition for the samhita, so none is claimed here.",
+      sourceName: "संस्कृतविकिस्रोतः",
+      sourceUrl: "https://sa.wikisource.org/wiki/ऋग्वेदः",
+      page: (n) => { const a = rvAt(n); return "ऋग्वेदः सूक्तं " + rvDev(a.m) + "." + rvDev(a.h); },
+      minChars: 40,
+    },
+  },
+  "confessions": {
+    title: "Confessions",
+    subtitle: "Confessionum Libri Tredecim",
+    author: "Augustine of Hippo",
+    translator: "J. G. Pilkington",
+    edition:
+      "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, Series I, " +
+      "Volume I, ed. Philip Schaff, Christian Literature Company, Buffalo, 1886",
+    written: "c. 397–400",
+    year: 397,
+
+    /* ---------- THE LICENCE — the EIGHTH here needing no qualification at all ----------
+       Augustine died in 430, so the work is free everywhere and has been for fifteen centuries.
+       J. G. Pilkington's translation was published in Schaff's Nicene and Post-Nicene Fathers in
+       1886 and he lived 1841–1919 — dates read off the Wikisource author page rather than recalled,
+       for the Hugo Magnus reason — so it clears the pre-1929 publication rule, life plus seventy
+       (1990) and life plus a hundred alike. Migne's Latin of 1841 is free on the same three grounds.
+       It is the same series, the same editor and the same publication as the City of God's
+       translation already here, so its licence is that book's twice over.
+
+       WHAT IS AND IS NOT TAKEN. The Confessions alone. Schaff's volume also carries his Prolegomena,
+       a life of Augustine, an estimate of his work and the whole of the Letters, none of which is
+       imported — the Republic's precedent for the introduction and plates it left behind. Schaff's
+       and Pilkington's own footnotes ARE taken, being notes on the text rather than matter around it.
+
+       THE ONE MODERN TRANSLATION THAT LOOKS AVAILABLE AND IS NOT is Albert Outler's, which Wikisource
+       carries beside this one: it was made for the Library of Christian Classics in 1955 and Outler
+       died in 1989, so it is in copyright and is named here so that nobody reaches for it later. Nor
+       may Henry Chadwick's (1991), Maria Boulding's (1997), Garry Wills's (2006) or Sarah Ruden's
+       (2017) be used. E. B. Pusey's of 1838 is free and was WEIGHED rather than passed over — see the
+       note below on why it could not be the column here. */
+    rights:
+      "Public domain worldwide, on every ground. Augustine died in 430, so the work itself has been " +
+      "free for fifteen centuries. J. G. Pilkington's translation was published in 1886 in Philip " +
+      "Schaff's Nicene and Post-Nicene Fathers and he lived from 1841 to 1919, so it is out of " +
+      "copyright under the rule for works published before 1929, under the translator's life plus " +
+      "seventy years, and under life plus a hundred — there is no limit to state. The facing Latin " +
+      "is Migne's Patrologia of 1841 and is free on the same three grounds. Schaff's Prolegomena, " +
+      "his life of Augustine and the Letters printed in the same volume are not reproduced; what is " +
+      "taken is the thirteen books of the Confessions and the translator's and editor's notes on " +
+      "them. (The modern translations by Albert Outler, 1955, Henry Chadwick, 1991, Maria Boulding, " +
+      "1997, Garry Wills, 2006, and Sarah Ruden, 2017, are still in copyright and are not used.) " +
+      "Two chapters of Book I have never been transcribed at the source and are absent from the " +
+      "English column; the Latin carries them, and the book's own first page says so.",
+    sourceName: "Wikisource",
+    sourceUrl:
+      "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_I/Confessions",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: what the book is and why it is unlike anything before
+       it; what "confession" means here, which is the one word most likely to mislead; the shape,
+       including why the last four books are not a digression; the famous scenes, so a reader knows
+       what they are approaching; whose translation this is; and how the edition is set out,
+       including the two chapters the English is missing. */
+    about: [
+      "<b>The Confessions</b> is the first autobiography in the Western tradition, and it is not " +
+        "quite an autobiography. Augustine wrote it around <b>397–400</b>, in his mid-forties and a " +
+        "few years into his time as bishop of Hippo in Roman North Africa, and its thirteen books " +
+        "are addressed throughout not to the reader but to <b>God</b> — a book-length prayer that " +
+        "the reader overhears. Nothing quite like it had been written before. Ancient lives are " +
+        "narrated from outside, as deeds and character; this one is narrated from inside, as memory, " +
+        "motive and self-deception, by a man interrogating his own past and finding it stranger the " +
+        "closer he looks.",
+      "The title is the word most likely to mislead. Latin <i>confessio</i> carries three senses at " +
+        "once and Augustine uses all of them: confession of <b>sin</b>, confession of <b>faith</b>, " +
+        "and confession in the sense of <b>praise</b> — acknowledging what God is. So the book is not " +
+        "primarily a catalogue of misdeeds, and a reader who comes expecting scandal will find " +
+        "surprisingly little of it. What it is instead is an argument, conducted on the evidence of " +
+        "one life, that a human being is restless until it rests in God — which is the claim the " +
+        "opening paragraph makes and the remaining three hundred pages test.",
+      "Its shape surprises people, and the surprise is worth anticipating. Books <b>I–IX</b> are the " +
+        "life: infancy, a boyhood of beatings and Virgil, the theft of the pears, the years in " +
+        "Carthage, nine years as a hearer among the Manichees, the move to Rome and then to Milan, " +
+        "the influence of Ambrose, the long-unnamed woman he lived with for over a decade and the " +
+        "son they had, the conversion in the garden, and his mother Monica's death at Ostia. Book " +
+        "<b>X</b> then turns from what he was to what he is, and becomes a sustained examination of " +
+        "<b>memory</b>. Books <b>XI–XIII</b> leave the life behind altogether for a commentary on the " +
+        "opening of Genesis, containing the discussion of <b>time</b> that philosophers still argue " +
+        "about — what is time, if the past is gone and the future has not come? Those last four books " +
+        "are often skipped and were not written to be: the life is the evidence, and the last books " +
+        "are the case it was gathered for.",
+      "Several of its scenes have outlasted the book. The <b>pears</b> in Book II — a theft of fruit " +
+        "he did not want, from a tree he had no use for, done because it was forbidden and because " +
+        "his friends were watching — which he takes as far more disturbing than any of his later " +
+        "appetites, precisely because it had no motive. <b>Monica</b>, his mother, who follows him " +
+        "across the Mediterranean and whose presence in the book has made her one of the most " +
+        "sharply drawn women in ancient literature. And the garden in Milan in Book VIII, where he " +
+        "hears a child's voice over the wall chanting <i>tolle lege</i> — take up and read — opens " +
+        "Paul at random, and stops being one thing and starts being another.",
+      "This translation is <b>J. G. Pilkington's</b>, made for the Nicene and Post-Nicene Fathers, " +
+        "the great Victorian series of the Church Fathers in English edited by Philip Schaff and " +
+        "published in 1886. It is a scholar's translation rather than a stylist's: close to the " +
+        "Latin, and willing to be a little stiff in order to stay close. The numbered notes folded " +
+        "under each book are the translator's and Schaff's own, and there are a great many of them " +
+        "— they identify the scriptural quotations Augustine weaves into almost every sentence, and " +
+        "they argue with earlier English versions where those went wrong.",
+      "The Latin printed beside it is <b>Migne's</b>, from the <i>Patrologia Latina</i> of 1841, " +
+        "which is where the text of this translation came from — so the two columns are a " +
+        "translation and its own original rather than two independently edited texts set side by " +
+        "side. The two are paired on the <b>chapter number</b>, which both editions state and which " +
+        "is how any passage of the Confessions is cited. There are <b>278</b> chapters across the " +
+        "thirteen books and the two columns agree on every one of them but two.",
+      "Those two are a gap in the English and are worth knowing about before you meet them. " +
+        "<b>Book I, chapters 19 and 20</b> have never been transcribed at the source this " +
+        "translation comes from — its own contents page lists eighteen and stops — so the Latin " +
+        "carries them and the English column beside them is empty. Nothing else is missing anywhere " +
+        "in the book. Augustine's own summary of each book, which Migne prints at its head, stands " +
+        "above chapter 1 in the Latin column and has no counterpart in the English.",
+    ],
+
+    /* ---------- ONE PAGE PER CHAPTER, GATHERED INTO THIRTEEN BOOKS ----------
+       The City of God's shape exactly, and for the same reason: this wiki gives every chapter a page
+       of its own, and a Folio chapter is one of Augustine's BOOKS — "Confessions VIII.12" is book
+       eight, chapter twelve, so the BOOK is the tab and the chapter is the section. Cutting at the
+       chapter instead would put 278 tabs on the bar, most of them a paragraph long. */
+    source: "wiki",
+    chapterWord: "Book",
+    chapters: Array.from({ length: 13 }, (_, i) => i + 1),
+    /* `page(n)` returns an ARRAY — the book's chapters in order, minus the two the transcription
+       does not carry. The book's OWN page is deliberately not fetched: unlike the City of God's, it
+       holds nothing but a bulleted list of links to the chapters. */
+    page: (n) => {
+      const gone = CONF_UNTRANSLATED[n] || [];
+      const R = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"];
+      const out = [];
+      for (let c = 1; c <= CONF_CHAPTERS[n]; c++) {
+        if (gone.indexOf(c) >= 0) continue;
+        out.push("Nicene and Post-Nicene Fathers: Series I/Volume I/Confessions/Book " + R[n] +
+                 "/Chapter " + c);
+      }
+      return out;
+    },
+    titleOf: (n) => "Book " + toRoman(n),
+    /* Which chapter each PAGE is supposed to carry, so the heading can be read AND checked rather
+       than either composed from the page name or trusted from the wiki — the City of God's rule. */
+    pageMark: (name) => {
+      const m = /\/Chapter (\d+)$/.exec(name);
+      return m ? +m[1] : null;
+    },
+    /* These pages are typed straight onto the wiki rather than transcluded from a scan, so there is
+       no `prp-pages-output` for cleanBody's opening slice to find and it throws "no body" on a page
+       holding a whole chapter — the loud failure, and the good one. Gated per book, as it has been
+       since Thucydides, precisely so that a proofread page's own outer container can never be
+       reached by accident on any of the books that do have a wrapper. */
+    body: "plain",
+    sections: "chapterhead",
+    /* Pilkington heads his chapters with a ROMAN numeral where Dods heads his with an arabic one, in
+       the same series and the same volume set. See markChapterHead: the alternative is gated on this
+       flag so the City of God cannot reach it. */
+    chapterHeadRoman: true,
+    /* Every chapter page opens on an empty paragraph, which would otherwise stand between the start
+       of the block and the heading and stop the section pass — it is anchored to position 0. */
+    dropBlankParas: true,
+    /* The Book pages are not fetched, but a chapter page still carries the series navigation as a
+       link list; this is the City of God's rule and costs nothing where there is none to find. */
+    dropLinkLists: true,
+    dropHeadMarkers: true,
+    /* The shortest book here is Book II, ten chapters and about 11,000 characters of prose — measured
+       over all thirteen rather than assumed. 4,000 sits well below that and far above what a failed
+       extraction returns. */
+    minChars: 4000,
+
+    /* ---------- THE ORIGINAL LANGUAGE ----------
+       Migne's Patrologia Latina 32, on Latin Wikisource, and it is the right column on the same
+       three grounds the City of God's Latin is: it names its editor and its date, it is the text
+       this translation was made from, and it is complete.
+
+       THE TWO-NAME TRAP DOES NOT REPEAT HERE, AND THAT IS WHY IT HAS TO BE CHECKED RATHER THAN
+       ASSUMED IN EITHER DIRECTION. Latin Wikisource carries this text twice under names one edit
+       apart, exactly as it carries the City of God: `Confessiones (Migne)` and `Confessiones (ed.
+       Migne)`. For the City of God the one WITHOUT "ed." is the complete one and the other stops
+       mid-sentence in Book XX. Measured here before a word was imported, BOTH carry all 278 chapters
+       and all thirteen books — they are the same text, one on a single page and one split into
+       thirteen. So the rule the City of God's entry states is a rule about CHECKING, not a rule about
+       which name wins: the `(ed. Migne)` copy is used here purely because its per-book subpages give
+       one page per Folio chapter.
+
+       THE OTHER LATIN was rejected on the City of God's first ground. `Confessiones` on that wiki is
+       taken from thelatinlibrary.com and its own index page records no edition at all; a constituted
+       Latin text is an editor's work whatever the age of the author, so an original that cannot say
+       whose text it is cannot say whether it may be quoted. It is also, incidentally, the more
+       convenient of the two — its headings are the full citation, book.chapter.paragraph — which is
+       the whole reason to say out loud why it was not taken.
+
+       THE PAIRING, measured over both editions before any of it was believed: 13 books a side, 278
+       chapters in the Latin and 276 in the English, a clean 1..N in every book on both sides, no gap
+       and no duplicate anywhere — and the only difference in the whole work is Book I's chapters 19
+       and 20, which the English transcription has never carried. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      layout: "caput",
+      wiki: "la.wikisource.org",
+      edition:
+        "Patrologiae Cursus Completus, Series Latina, Tomus XXXII, ed. J.-P. Migne, Paris, 1841",
+      rights:
+        "Public domain worldwide. Augustine died in 430 and Migne's edition was published in Paris " +
+        "in 1841, so both the work and the text of it printed here are long out of copyright on " +
+        "every rule.",
+      sourceName: "Vicifons",
+      sourceUrl: "https://la.wikisource.org/wiki/Confessiones_(ed._Migne)",
+      page: (n) => "Confessiones (ed. Migne)/" + n,
+      /* The book's own heading, which duplicates the tab above it. Migne's ARGUMENTUM — his
+         one-paragraph summary of the book — is deliberately NOT dropped with it: it is part of the
+         printed page, it carries no chapter number, so app.js files it in the unnumbered row above
+         chapter 1, which is where a headnote belongs. Said in the front matter, since the English
+         has no counterpart and that row draws with one cell empty. */
+      dropLeadParas: [/^LIBER(?:\s+[A-Z]+){1,2}\s*\.?$/],
+      minChars: 8000,
+    },
+  },
+
+  "divine-comedy": {
+    title: "The Divine Comedy",
+    author: "Dante Alighieri",
+    translator: "Henry Wadsworth Longfellow",
+    edition:
+      "The Divine Comedy of Dante Alighieri, translated by Henry Wadsworth Longfellow, " +
+      "Ticknor and Fields, Boston, 1867",
+    written: "c. 1308–1321",
+    /* The poem was begun in exile and finished in the year Dante died; the shelf sorts on one
+       number and this is the early end of the range the front matter states. */
+    year: 1308,
+
+    /* ---------- THE LICENCE — clear on every ground, and the SEVENTH here needing no qualification
+       Dante died in 1321, so the poem is free everywhere and has been for six centuries. Henry
+       Wadsworth Longfellow published this translation in 1867 and lived from 1807 to 1882 — dates
+       read off Wikidata and matching the Wikisource author page's own PD-old tag, checked rather
+       than recalled for the Hugo Magnus reason — so it is public domain in the United States under
+       the pre-1929 publication rule, cleared life plus seventy in 1953, and has cleared life plus a
+       hundred as well. There is no limit to state and no modern editorial layer to declare.
+
+       WHAT IS AND IS NOT TAKEN. Only the poem. Longfellow's 1867 volumes also carry several hundred
+       pages of his own notes, a Conspectus, an index and a set of illustrations, and none of that is
+       imported. Two of the transcribed canto pages carry the caption of a Blake engraving bound into
+       the volume; those sit outside the verse and are dropped and reported, which the run prints.
+
+       THE MODERN TRANSLATIONS a reader is likeliest to own — Dorothy L. Sayers's (1949–62), John
+       Ciardi's (1954–70), Mark Musa's (1971–84), Allen Mandelbaum's (1980–84), Robert and Jean
+       Hollander's (2000–07), Robin Kirkpatrick's (2006–07), Clive James's (2013) and Mary Jo Bang's
+       — are all firmly in copyright and are named here so that nobody reaches for one later. */
+    rights:
+      "Public domain worldwide, on every ground. Dante Alighieri died in 1321, so the poem itself " +
+      "has been free for six centuries. Henry Wadsworth Longfellow published this translation in " +
+      "1867 and lived from 1807 to 1882, so it is public domain in the United States under the " +
+      "pre-1929 publication rule and out of copyright wherever the term is the author's life plus " +
+      "seventy or even a hundred years — there is no limit to state. Longfellow's own notes, his " +
+      "Conspectus, his index and the volumes' illustrations are not reproduced; what is taken is " +
+      "the hundred cantos of the poem. (The modern translations by Dorothy L. Sayers, 1949–62, " +
+      "John Ciardi, 1954–70, Mark Musa, 1971–84, Allen Mandelbaum, 1980–84, Robert and Jean " +
+      "Hollander, 2000–07, Robin Kirkpatrick, 2006–07, and Clive James, 2013, are still in " +
+      "copyright and are not used.) There is no Italian column here, and the reason is a copyright " +
+      "in the modern editing rather than in the poem — the book's own first page explains it.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Divine_Comedy_(Longfellow_1867)",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: what the poem is and what shape it has; that its
+       hundred cantos are built on a rhyme that pulls forward, which is why the translation reads as
+       it does; that it is full of real people and a real quarrel; what Longfellow's version is and
+       how it came to be made; why the Italian is not printed beside it, which a reader who knows
+       the poem will ask first; and how this edition is set out. */
+    about: [
+      "<b>The Divine Comedy</b> is the account of a journey through the three realms of the " +
+        "Christian afterlife, made in the week of Easter 1300 by a living man who is also the poet " +
+        "writing it. Dante loses the road in a dark wood, is met by the shade of the Roman poet " +
+        "<b>Virgil</b>, and is taken down through the circles of Hell, up the terraces of the " +
+        "mountain of Purgatory and out through the spheres of Paradise. It runs to <b>14,233 " +
+        "lines</b> in a hundred cantos, and it is the poem in which the Italian language arrived " +
+        "fully formed. Dante called it simply the <i>Comedy</i> — a comedy in the medieval sense, a " +
+        "story that begins in trouble and ends in joy, written in the speech of ordinary people " +
+        "rather than in Latin. The <i>Divine</i> was added by later admirers and has never come off.",
+      "Its architecture is as deliberate as a cathedral's, and the numbers are part of the meaning. " +
+        "Three canticles — <b>Inferno</b>, <b>Purgatorio</b>, <b>Paradiso</b> — of thirty-three " +
+        "cantos each, with one canto of introduction at the head of the Inferno, which makes a " +
+        "hundred. Each canticle ends on the word <i>stelle</i>, the stars. The verse is " +
+        "<b>terza rima</b>, a form Dante appears to have invented for it: interlocking tercets " +
+        "rhyming <i>aba bcb cdc</i>, so that the middle line of every tercet plants the rhyme the " +
+        "next one will take up, and the poem is pulled forward three lines at a time from the first " +
+        "to the last. A canto therefore always runs to a multiple of three lines plus a single " +
+        "closing line, which rhymes with the tercet before it and shuts the chain.",
+      "It is also a poem about real people, and much of its force comes from that. Dante was born " +
+        "in Florence in 1265, served the city as a diplomat and a prior, and in 1302 was condemned " +
+        "in his absence by the faction that had seized it — sentenced to a fine, then to be burned " +
+        "alive if he ever returned. He never did. The <i>Comedy</i> was written across the twenty " +
+        "years of that exile, and it is populated by his contemporaries, his enemies, his teachers " +
+        "and his friends, judged and placed by name: popes head-down in a rock, a neighbour frozen " +
+        "in ice, the Florentine politics of one generation carried into eternity. Alongside them " +
+        "stand the poets and philosophers of antiquity, the Bible, and the classical dead, all " +
+        "treated as equally real. Nothing in it is allegory at the expense of the particular.",
+      "The figure who governs the whole ascent is <b>Beatrice</b>. Dante had written about her " +
+        "before, in the <i>Vita Nuova</i>: a Florentine girl he saw twice and barely spoke to, who " +
+        "died in 1290 at twenty-four. In the <i>Comedy</i> she is the one who sets the journey in " +
+        "motion from Heaven, and it is she, not Virgil, who takes over as guide at the summit of " +
+        "Purgatory — because Virgil, a pagan, can go no further. That handover is the hinge of the " +
+        "poem, and it is worth watching for: the greatest poet of the ancient world is left behind " +
+        "without a word of farewell, and the reader feels it as a loss before understanding why it " +
+        "had to happen.",
+      "This translation is <b>Henry Wadsworth Longfellow's</b>, published in Boston in 1867 and the " +
+        "first complete American version. He worked at it for years, and the work took its final " +
+        "shape after his wife Frances died in a fire in 1861 — he translated cantos in the mornings " +
+        "as a discipline against grief, and read the drafts aloud on Wednesday evenings to a small " +
+        "circle of friends who came to be called the Dante Club. He renders the poem in " +
+        "<b>unrhymed lines, one for one with the Italian</b>, keeping the tercets on the page but " +
+        "not the rhyme. That is the trade he chose and it explains how the English reads: the " +
+        "word order is often odd and the diction deliberately old, because he is following the " +
+        "Italian closely rather than writing an English poem over the top of it. What a reader " +
+        "gets in exchange is a translation that stays level with the original line by line.",
+      "<b>There is no Italian column here, and the reason is worth stating plainly.</b> Dante's own " +
+        "words are of course free — the poem is seven hundred years old. But a medieval poem " +
+        "survives in dozens of hand-written copies that disagree with one another, and before " +
+        "anyone can read it a modern editor has to work out, line by line, what the poet most " +
+        "likely wrote. That constituted text is a new work with a copyright of its own. The " +
+        "standard modern text of the <i>Comedy</i> is Giorgio Petrocchi's, published in 1966–67; " +
+        "he died in 1989, so it stays in copyright until 2060 where the term is the editor's life " +
+        "plus seventy years — and it is Petrocchi's text that every complete Italian <i>Comedy</i> " +
+        "freely available today turns out to be. Printing it here would be publishing somebody " +
+        "else's edition without their leave, so the English stands alone until a text this site " +
+        "may lawfully set beside it can be had.",
+      "The tabs are the hundred cantos, grouped into the three canticles, and the small raised " +
+        "figures running down the text are <b>line numbers</b> — one at the head of every tercet, " +
+        "carrying the number of that tercet's last line, which is how any passage of Dante is cited " +
+        "in any language. They are arrived at by counting the lines, because this transcription of " +
+        "Longfellow prints marginal numbers for only the first thirty-seven cantos and none at all " +
+        "for the remaining sixty-three; where it does print them, all but two agree exactly with " +
+        "the count. Those two are misprints in the 1867 volumes — one in Inferno IX, where 85 is " +
+        "set twice and the sequence resumes correctly at 100, and one in Inferno XXXII, where 135 " +
+        "stands against a line the count makes 134 — and each is read as the place the lines put " +
+        "it. One footnote is folded under Purgatorio XXVI: the troubadour Arnaut Daniel answers " +
+        "Dante in Provençal, which Longfellow leaves in Provençal in the verse and Englishes at the " +
+        "foot of the canto.",
+    ],
+
+    /* ---------- ONE PAGE PER CANTO, PAIRED ON THE TERCET ----------
+       The ordinary wiki walk on the translation's side; what is new is that the numbers are counted
+       rather than read. See the block above extractTerzina for the measurements. */
+    source: "wiki",
+    layout: "terzine",
+    chapterWord: "Canto",
+    /* The three canticles, as the edition's own three volumes divide them. */
+    parts: [
+      { n: 1, label: "Inferno", from: 1, to: 34 },
+      { n: 2, label: "Purgatorio", from: 35, to: 67 },
+      { n: 3, label: "Paradiso", from: 68, to: 100 },
+    ],
+    chapters: Array.from({ length: 100 }, (_, i) => i + 1),
+    /* Wikisource numbers the cantos WITHIN each volume, so a Folio chapter number is turned back
+       into a volume and a canto to find its page. */
+    page: (n) => {
+      const v = n <= 34 ? 1 : n <= 67 ? 2 : 3;
+      const c = n <= 34 ? n : n <= 67 ? n - 34 : n - 67;
+      return "Divine Comedy (Longfellow 1867)/Volume " + v + "/Canto " + c;
+    },
+    /* "Inferno V", "Paradiso XXXIII" — the canticle and the canto's Roman numeral, which is how the
+       poem is cited and how both editions head their pages. A bare "Canto V" would name three
+       different cantos, the numbering restarting with each canticle. Neither edition gives a canto
+       a title of its own, and composing a hundred descriptive headings for a poet who gave none is
+       a line this file does not cross. */
+    titleOf: (n) => {
+      const name = n <= 34 ? "Inferno" : n <= 67 ? "Purgatorio" : "Paradiso";
+      const c = n <= 34 ? n : n <= 67 ? n - 34 : n - 67;
+      return name + " " + toRoman(c);
+    },
+    /* The short-chapter guard, which is what catches an extraction that has returned the wiki
+       furniture instead of the verse. The shortest canto in the poem is Inferno VI at 115 lines,
+       measured over all 100 pages rather than assumed, and its rendered verse is about 4,400
+       characters. 2,000 sits well below that and far above what a failed extraction produces. */
+    minChars: 2000,
+
+    /* No `original`, and no `origLang`: see the front matter's sixth paragraph and the licence note
+       above. The day a text this site may lawfully print becomes available, an `original` block and
+       an `origLang` are the whole of the work — the pairing itself is already proved. Both columns
+       were measured end to end before the English was imported, against Petrocchi's text, and they
+       agree completely: 14,233 lines a side, the same count in every one of the hundred cantos once
+       Longfellow's Provençal footnote is folded out of the verse, and identical section lists
+       throughout — 4,811 tercet numbers on each side, in the same order, with no exception either
+       way. Domenico Guerri's text (Laterza, Bari, 1933) is the candidate to reach for: it is
+       complete, it is proofread against a scan, and it is a genuinely different constituted text
+       rather than Petrocchi's under another name — Inferno I reads "E quanto a dir" where Petrocchi
+       has "Ahi quanto a dir", and "rinnova" where he has "rinova". Guerri died in 1953, so it
+       cleared life plus seventy at the start of 2024; it remains under copyright in the United
+       States until 2029, being a 1933 foreign publication restored by the URAA and running
+       ninety-five years from publication. That is the one thing standing in the way, and it expires
+       on its own. */
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -7196,8 +8592,20 @@ function markLeadingSections(b, warn) {
 function markChapterHead(b, book, warn) {
   const expect = book.expect;
   let found = 0;
-  b = b.replace(/^<p>\s*(?:<[bi]>\s*)?Chapter\s+(\d+)\s*\.\s*(?:—|–|--|&#8212;)?\s*((?:(?!<\/p>)[\s\S])*)<\/p>/, (m, d, rest) => {
-    const v = +d;
+  /* THE NUMBER IN THE HEADING IS ARABIC IN ONE EDITION AND ROMAN IN THE OTHER (Aug 2026, adding the
+     Confessions — the second book on this path and the second by this author). Dods heads his
+     chapters "Chapter 1.—…" and Pilkington heads his "Chapter I.—…", in the same series and the same
+     volume set. The Roman alternative is GATED behind `chapterHeadRoman` rather than simply added,
+     which is the discipline every shared extractor here is edited under: the City of God's headings
+     go on matching the arabic branch exactly as they always did, and no page of it can reach the new
+     one, so that book is inert by construction rather than by a re-run. */
+  const num = book.chapterHeadRoman ? "(\\d+|[IVXLC]+)" : "(\\d+)";
+  const rx = new RegExp(
+    "^<p>\\s*(?:<[bi]>\\s*)?Chapter\\s+" + num +
+    "\\s*\\.\\s*(?:—|–|--|&#8212;)?\\s*((?:(?!</p>)[\\s\\S])*)</p>"
+  );
+  b = b.replace(rx, (m, d, rest) => {
+    const v = /^\d+$/.test(d) ? +d : romanValue(d);
     rest = rest.replace(/<\/[bi]>\s*$/, "");
     if (expect != null && v !== expect)
       warn && warn("the page for chapter " + expect + " is headed “Chapter " + v + "” — left as printed");
@@ -7302,6 +8710,206 @@ function markShuSections(b, warn) {
    THE TEST FOR A LINE THAT MAY GO IS THAT IT IS SET IN CAPITALS — this edition sets every half-title
    that way and nothing else in the book — so a line neither matching a heading nor wholly capital is
    REPORTED and kept rather than silently discarded. */
+/* ---------- THE TENTH WAY AN EDITION MARKS ITS NUMBERS, AND THE FIRST READ OFF A HEADING ----------
+   `sections: "articuli"` (Aug 2026, adding the Summa Theologica). Every earlier section pass reads a
+   number out of the PROSE — a figure at the head of a paragraph, a numeral run into a sentence, a
+   marginal span — because that is where the editions this shelf had met printed them. This one is the
+   opposite case and the easy one: the Dominican Fathers' Summa is transcribed with its own structure
+   as HTML headings, `<h2>` for the treatise, `<h3>` for the question and `<h4>` for each article, so
+   the number is a heading's own text and nothing has to be inferred at all.
+
+   THREE THINGS ABOUT IT ARE DECISIONS RATHER THAN PLUMBING.
+
+   · IT HAS TO RUN BEFORE THE TAGS COME OFF, which is why it sits at the pre-strip hook beside
+     markLikiHeads rather than with the other section passes at the foot of cleanBody. `h4` is not in
+     ALLOWED, so by the time those run stripTags has unwrapped every heading and "Art. 3 - Whether God
+     exists?" is a bare run of words in the middle of the prose, indistinguishable from a sentence. A
+     rule written down there would have to guess; up here it reads the markup the transcription
+     actually carries.
+
+   · THE QUESTION HEADING GOES AND THE TREATISE HEADING STAYS. The `<h3>` restates the question's
+     number and title, which the tab above the chapter already carries and which the chapter's own
+     header prints in full — dropHeads' rule, met as a heading rather than as a centred block. The
+     `<h2>` names the TREATISE the question belongs to (Treatise on Man, Treatise on the Sacraments),
+     which is a real division of the work, is stated nowhere else a reader can see, and is genuinely
+     wanted in a book of 614 chapters: it is kept as the chapter's opening unnumbered line, which is
+     where app.js files a headnote. It repeats on every question of its treatise, and that is what a
+     running head IS — the argument for dropping one is that it duplicates the tab, and this does not.
+
+   · AND THE ARTICLE'S OWN QUESTION IS KEPT IN BOLD BESIDE ITS NUMBER. "Whether God exists?" is not a
+     title an editor supplied, it is the article, and every citation of the Summa past the question
+     number lands on one of them.
+
+   THE SEPARATOR IS OPTIONAL, AND THAT IS THIS FILE'S OWN WARNING ARRIVING ON THE FIRST RUN. Measured
+   over 48 questions spread across all six Parts before a line was written: 244 `<h4>` headings, and
+   all 244 read "Art. N -" with a dash. The dry run over the first three questions then found
+   "Art. 1 Whether God is a body?" in the third, with no dash at all — a form the sample had missed
+   because the sample took every fourteenth question. So the dash is optional and the count of
+   headings that go without one is PRINTED on every run, which is the standing rule for a shape found
+   by a number moving rather than by reading a page. */
+const ART_WORDS = {
+  ONE: 1, TWO: 2, THREE: 3, FOUR: 4, FIVE: 5, SIX: 6, SEVEN: 7, EIGHT: 8, NINE: 9, TEN: 10,
+  ELEVEN: 11, TWELVE: 12, THIRTEEN: 13, FOURTEEN: 14, FIFTEEN: 15, SIXTEEN: 16, SEVENTEEN: 17,
+  EIGHTEEN: 18, NINETEEN: 19, TWENTY: 20,
+  /* The edition's own typo, in one heading of the 614. Written into the table rather than repaired
+     in the prose, which is what this file does with every printing slip it meets: it is what the
+     page says, and the number it stands for is not in doubt. */
+  ELVEN: 11,
+};
+function markArticuli(b, warn) {
+  const HEAD = /<div class="[^"]*\bmw-heading\b[^"]*"[^>]*>\s*<h[2-6][^>]*>(?:<span[^>]*><\/span>)?\s*([\s\S]*?)<\/h[2-6]>[\s\S]*?<\/div>/g;
+  const plain = (x) =>
+    x.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ")
+      /* Three headings in the book open on a stray "=" — a wiki heading mark that escaped its own
+         markup. Trimmed rather than read as text, since it is plainly not part of the title. */
+      .replace(/^[=\s]+|[=\s]+$/g, "").replace(/\s+/g, " ").trim();
+  const ARTICLES_RX = /\(\s*([A-Z]+(?:-[A-Z]+)?)\s+ARTICLES?\s*\)/;
+  const ART_RX = /^Art\.?\s*(\d+)\s*(?:([-–—])\s*)?([\s\S]*)$/;
+
+  /* PASS ONE — read every heading and give it a role, deciding no numbers yet.
+
+     THE ROLE IS READ FROM THE TEXT AND NOT FROM THE HEADING LEVEL, which is the first thing this
+     pass had to learn: the transcription sets an article's heading at h3 rather than h4 on two pages
+     and the question's own heading at h4 on a third, so a rule keyed to the level deletes real
+     articles and keeps furniture. extractCaput's "the mark is in no one kind of element", met on a
+     heading rather than on a word in the prose.
+
+     AND THE QUESTION'S HEADING IS RECOGNISED BY THE ARTICLE COUNT IT CARRIES RATHER THAN BY THE WORD
+     "Question" — the second thing, and the one that took a full run over all 614 pages to find. That
+     heading is typed a dozen ways across the book: "Quesiton." seven times, "question." in lower
+     case, "Question. - 112 -", "Question.OF THE MODE OF UNION" with no space, "Question 6. –" with
+     an en dash, "Question. 72 OF THE SACRAMENT" with no dash at all, a dozen with the bare title and
+     no "Question" whatever — and, on three pages of the Third Part, headed "Art. 1" exactly like an
+     article. What every one of them carries, and what nothing else on a page carries, is the
+     parenthetical "(SIX ARTICLES)" the edition prints after a question's title. So that is the test,
+     and it is the City of God's rule about looking for a marker where it actually is rather than
+     where the regular cases happen to put it. */
+  const heads = [];
+  b.replace(HEAD, (whole, inner) => {
+    const t = plain(inner);
+    const am = ARTICLES_RX.exec(t);
+    /* A KEPT HEADING MAY CARRY A MARKER TOO, and stripping the heading to its words throws it away.
+       One of the seven notes hangs off an ARTICLE's own heading — the Third Part's question 72,
+       article 10 — so the marker is lifted out here and put back after the title when the heading is
+       re-emitted. The same rule as carrying a marker down off a DROPPED head, met on a kept one. */
+    const h = { t: t, art: ART_RX.exec(t), n: null, role: "article",
+                fn: (inner.match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || []).join("") };
+    if (am) { h.role = "question"; h.count = ART_WORDS[am[1]] != null ? ART_WORDS[am[1]] : null; }
+    /* Four of the 614 questions head themselves without stating an article count, so the test above
+       cannot see them; they do all open on the word, in one of its spellings. It is the WEAKER test
+       and runs second, because "Question" is also how an article's own text can begin. */
+    else if (/^Ques[a-z]{0,3}on\b/i.test(t)) h.role = "question";
+    else if (/^(?:Footnotes?|References?|Notes)$/i.test(t)) h.role = "foot";
+    else if (!heads.length && !h.art) h.role = "treatise";
+    heads.push(h);
+    return whole;
+  });
+  let expect = null;
+  for (const h of heads) if (h.role === "question" && h.count != null) { expect = h.count; break; }
+
+  /* A heading repeating the one before it WORD FOR WORD is a duplicate rather than a second article
+     — one question in the book carries its fifth article's title twice — and dropping it is what
+     brings the count back to what the edition states. */
+  const titleOf = (h) => (h.art ? h.art[3] : h.t).trim();
+  let arts = heads.filter((h) => h.role === "article");
+  /* A HEADING REPEATING THE ONE BEFORE IT WORD FOR WORD IS DROPPED ONLY WHERE THE PAGE HAS MORE
+     HEADINGS THAN THE QUESTION HAS ARTICLES, and that condition is the whole of the rule rather than
+     a refinement of it. Question 20 of the First Part of the Second Part heads its fifth and sixth
+     articles with the same sentence twice and its own heading says six where seven stand on the page,
+     so one of them is a transcription slip. Three other questions ALSO repeat a title and are NOT
+     over-count — Aquinas asks the same question twice under one head often enough — and dropping
+     theirs took a real article off the page for one run. The comparison is on the TITLE and not on
+     the whole heading, since a duplicate carries the next number. */
+  let dup = 0;
+  if (expect != null && arts.length > expect) {
+    const keep = [];
+    for (const h of arts) {
+      if (keep.length && arts.length - dup > expect && titleOf(keep[keep.length - 1]) === titleOf(h)) {
+        h.role = "dup"; dup++; continue;
+      }
+      keep.push(h);
+    }
+    arts = keep;
+  }
+
+  /* PASS TWO — the numbering, decided from the whole page rather than heading by heading.
+
+     WHERE THE EDITION'S STATED COUNT AND THE NUMBER OF HEADINGS AGREE, THE HEADINGS ARE NUMBERED
+     1..N IN ORDER AND WHATEVER IS PRINTED ON THEM IS IGNORED. That is a measurement rather than a
+     repair: the question says how many articles it has, that many headings stand on the page in
+     order, and they are the articles. It absorbs every misprinted number in the book at a stroke —
+     question 12 heads its thirteenth article "Art. 12" for the second time, and its own heading says
+     THIRTEEN ARTICLES — and it is what lets the one question whose eight headings carry no numbers at
+     all be numbered without composing anything.
+
+     WHERE THEY DISAGREE, THE PRINTED NUMBERS ARE KEPT AND THE DISAGREEMENT IS REPORTED. A page with
+     fewer headings than the question has articles has lost one in transcription, and renumbering
+     there would move every article after the gap and file its prose under the wrong number: the
+     Third Part's question 30 prints its first and fourth headings and nothing between, and 1 and 4 is
+     the truth about that page where 1 and 2 would be a fiction. */
+  const counted = expect != null && arts.length === expect;
+  let seq = 0, unnumbered = 0, nodash = 0;
+  arts.forEach((h, i) => {
+    if (!h.art) unnumbered++; else if (!h.art[2]) nodash++;
+    if (counted) { h.n = i + 1; return; }
+    if (!h.art) return;
+    const v = +h.art[1];
+    if (v > seq) { seq = v; h.n = v; }
+  });
+
+  /* DROPPING A HEADING CAN DROP A FOOTNOTE MARKER — Beowulf's dropFittHead rule in a fourth edition,
+     and it turned up here on exactly one page of the 614. The translators hang one of their seven
+     notes off the QUESTION's own heading in the Third Part's question 72, so dropping that heading
+     left a note in the fold that no sentence opens, which is the mirror of the dead marker app.js's
+     apparatus refuses to draw. Every marker on a dropped heading is carried down onto the next block
+     this pass emits instead. */
+  let carried = [];
+  const takeMarkers = (x) => {
+    carried.push(...(x.match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || []));
+    return "";
+  };
+  const plant = (html) => {
+    if (!carried.length) return html;
+    const out = html.replace(/(<p[^>]*>)/, "$1" + carried.join(""));
+    carried = [];
+    return out;
+  };
+  let found = 0;
+  b = b.replace(HEAD, (whole) => {
+    const h = heads.shift();
+    if (h.role === "question" || h.role === "foot" || h.role === "dup") return takeMarkers(whole);
+    if (h.role === "treatise") return h.t ? plant("<p><b>" + h.t + "</b>" + h.fn + "</p>") : takeMarkers(whole);
+    if (h.n == null) {
+      warn && warn(h.art
+        ? "article " + h.art[1] + " repeats or goes backwards — left as printed"
+        : "a heading with no article number: “" + h.t.slice(0, 55) + "”");
+      return plant("<p><b>" + h.t + "</b>" + h.fn + "</p>");
+    }
+    found++;
+    const title = (h.art ? h.art[3] : h.t).trim();
+    return plant('<p><span class="bk-n">' + h.n + "</span>" +
+      (title ? " <b>" + title + "</b>" : "") + h.fn + "</p>");
+  });
+  /* A marker with nothing after it to plant on: put it back at the head of the chapter rather than
+     dropping it, which is the one outcome that loses the reader a note. */
+  if (carried.length) b = carried.join("") + b;
+
+  if (!found && warn) warn("no article headings found — it will pair as one whole block");
+  else if (expect != null && found !== expect && warn)
+    warn("the heading says " + expect + " articles and " + found + " were found");
+  if (dup && warn) warn(dup + " heading(s) repeating the one before them word for word, dropped");
+  ARTICULI_FOUND += found;
+  ARTICULI_NODASH += nodash;
+  ARTICULI_UNNUM += unnumbered;
+  ARTICULI_DUP += dup;
+  if (counted) ARTICULI_COUNTED++;
+  return b;
+}
+/* Counted across the run rather than per chapter and reported at the end: each is a shape of the
+   edition rather than a detail of one page, and how often one occurs is what says whether a rule is
+   describing the book or guessing at it. */
+let ARTICULI_FOUND = 0, ARTICULI_NODASH = 0, ARTICULI_UNNUM = 0, ARTICULI_DUP = 0, ARTICULI_COUNTED = 0;
+
 const LIKI_MARK = "@@LKH@@";
 const LIKI_HEAD_RX = /^(?:Section\b|Part\b|Supplementary Section\b|Appendix to Book\b)/i;
 function likiPlain(s) {
@@ -7573,12 +9181,31 @@ function cleanBody(h, noteIds, book, warn) {
      with the text, which is the quiet failure the ws-noexport rule below exists to undo. Ungated it
      cannot fire at all; gated it can only fire on a book that asks for it. Its opening tag is dropped
      for the same reason the wrapper's is below: left standing, the container that holds the whole book
-     becomes a blockquote OF the whole book. */
-  let i = b.indexOf('<div class="prp-pages-output"');
-  if (i < 0 && book && book.body === "plain") {
+     becomes a blockquote OF the whole book.
+
+     A TYPED PAGE MAY STILL TRANSCLUDE ONE SCAN PAGE, AND THEN THE ORDER OF THESE TWO TESTS DECIDES
+     HOW MUCH OF THE CHAPTER SURVIVES (Aug 2026, adding the Summa Theologica). The flag used to be a
+     FALLBACK — the wrapper was looked for first and the plain container only where none was found —
+     and on a book that is typed onto the wiki that reads as the same thing, because there is no
+     wrapper to find. It is not the same thing. The Summa's first question is typed like the other
+     613 except for its first article, which somebody transcluded from the scanned volume, so the
+     page carries a `prp-pages-output` 4,146 bytes in; the slice took THAT as the start of the
+     chapter and threw away everything before it — the treatise heading, Aquinas's own prologue to
+     the question, his list of the ten points of inquiry, and the heading of Article 1.
+
+     IT IS THE QUIET SHAPE AGAIN, and worth spelling out because nothing here could have caught it
+     but the numbers: nothing threw, the chapter came back 37,656 characters long, its prose was
+     continuous and correct, and the ONLY symptom was that it carried nine section numbers where the
+     edition's own heading says ten articles. So `body: "plain"` now means what it says — the parser's
+     container IS the body for a book that declares it, and a transclusion wrapper inside it is a
+     fragment rather than the start of the text. A book that does not declare it is untouched, which
+     is what keeps this provably inert on the thirty-two shipped books that take the wrapper path. */
+  let i = -1;
+  if (book && book.body === "plain") {
     const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
     if (m) { i = m.index; b = b.slice(0, m.index) + b.slice(m.index + m[0].length); }
   }
+  if (i < 0) i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
   /* THE WIKI'S OWN FURNITURE, WHEN IT FALLS INSIDE THE SLICE (Aug 2026, adding The Prince).
@@ -7952,6 +9579,10 @@ function cleanBody(h, noteIds, book, warn) {
      markLikiHeads, which sorts a half-title from the section heading printed under it in the very
      same block. Gated per book, so it is provably inert on the twenty-six already shipped. */
   if (book && book.sections === "liki") b = markLikiHeads(b, warn || (() => {}));
+  /* Before the generic div pass turns the heading blocks into blockquotes and stripTags unwraps the
+     h2/h3/h4 inside them — see markArticuli, which is the whole reason this hook has two occupants.
+     Gated per book, so it is provably inert on the thirty-six already shipped. */
+  if (book && book.sections === "articuli") b = markArticuli(b, warn || (() => {}));
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -9343,6 +10974,562 @@ function extractFitt(h, warn, where) {
   return { html: fittHtml(b, warn, where), notes: local, marks: marked.count };
 }
 
+/* ============================================================
+   THE DIVINE COMEDY: A POEM IN TERCETS, NUMBERED BY COUNTING
+   ============================================================
+   Aug 2026, adding the Divine Comedy — the thirty-sixth book, and the fourteenth layout. The
+   ordinary wiki walk, one page per canto; what is new is that the SECTION NUMBERS ARE COUNTED
+   RATHER THAN READ, and that they have to be, because the translation does not print enough of
+   them to pair on.
+
+   THE ONE BOOK HERE WHOSE ENGLISH IS TRANSCRIBED TWO DIFFERENT WAYS. Longfellow's hundred cantos
+   are one work in one 1867 edition, and Wikisource holds them in two shapes: the Inferno and the
+   first three cantos of the Purgatorio are a PROOFREAD TRANSCLUSION of the scan, wrapped in
+   `prp-pages-output` and carrying the printed marginal line number every fifth line, and the
+   remaining sixty-three cantos are TYPED STRAIGHT ONTO THE WIKI as a bare `<div class="poem">`
+   with no line numbers at all. Measured over all 100 pages: 37 of the first kind carrying 1,014
+   numerals between them, 63 of the second carrying none. So a reader written for either half
+   finds nothing on the other, and a pairing built on the printed numerals would cover a third of
+   the poem.
+
+   THE COUNT IS THEREFORE THE APPARATUS AND THE PRINTED NUMERALS ARE THE CHECK — the Bhagavad
+   Gita's rule, where the side that is complete decides the cut and the other side is demoted to
+   evidence. A line of verse is explicit in both transcriptions (it is what the <br> separates), so
+   its number is a fact anybody can recover by counting, and the two editions then confirm the
+   count 5,725 times between them. What makes that safe rather than hopeful is the arithmetic
+   underneath it, measured before a word was imported:
+
+   · THE TWO COLUMNS ARE THE SAME LENGTH, canto by canto. Dante's poem is 14,233 lines and this
+     Italian carries exactly that, per canticle as well as in total — 4,720, 4,755 and 4,758.
+     Longfellow translates line for line and comes to the same 14,233. So line n of the English is
+     line n of the Italian in all one hundred cantos, and the pairing is exact by construction
+     rather than by reconciliation.
+
+   · EVERY CANTO IS 3n+1 LINES. Terza rima runs in tercets and each canto closes on a single line
+     rhyming with the middle of the last one: 4,711 tercets and 100 closing lines. That is why the
+     TERCET is the pairing unit here rather than the line — three lines of Italian beside three of
+     English is the unit the poem is built in, and the alternative is 14,233 rows of one line each.
+
+   · AND THE ITALIAN PRINTS ONE NUMERAL PER TERCET, EXACTLY. Measured: 4,711 of them, one at the
+     end of every tercet in the poem, not one anywhere else, and not one disagreeing with the
+     count. So the number this reader writes on a row is the number that edition prints at that
+     row's own last line — read, not composed — for 4,711 of the 4,811 rows. The remaining hundred
+     are the canto-closing lines, which are 3n+1 and so fall where neither edition prints anything;
+     their number is the count's, and the book's front matter says so.
+
+   TWO PRINTED NUMERALS IN LONGFELLOW ARE SLIPS, and the way to tell a slip from a bad cut is the
+   RE-SYNC, which is the Gita's rule met on a third book. Inferno IX prints 85 twice — the run goes
+   85, 90, 85, 100, 105, so the second is a misprint for 95 and the very next marker is right
+   again — and Inferno XXXII prints 135 against a count of 134, with that canto's two columns
+   agreeing at 139 lines, so nothing is missing and the numeral sits a line early. Had the cut been
+   wrong, every marker after the first would have disagreed instead of one. Both are read as the
+   place the sequence puts them and both are named on every run.
+
+   LONGFELLOW'S ONE FOOTNOTE IS THE ONLY REASON THIS READER NEEDS NOTES. Arnaut Daniel answers
+   Dante in Provençal at Purgatorio XXVI.140–147, and Longfellow leaves those eight lines in
+   Provençal in the verse and Englishes them under the canto, cueing both ends with an asterisk.
+   Counted as verse they make that canto 156 lines against the Italian's 148 — the ONLY canto of
+   the hundred whose columns disagreed before this rule — and they would put a translator's gloss
+   in eight rows beside an empty Italian cell. The rule is written from an inventory of the whole
+   poem rather than from the example that prompted it: two asterisks in 14,241 lines, one closing
+   line 147 and one opening the note, and nothing else anywhere. It is counted and reported, so a
+   second cannot appear unnoticed.
+
+   WHAT IS DROPPED AND COUNTED. The canticle and canto headings inside the body, which duplicate
+   the chapter tab (39 of them — the typed pages carry none); the scan's own page markers; and the
+   indentation, which the two halves of the English spell differently (a `wst-gap` span on the
+   transcluded pages, a run of non-breaking spaces on the typed ones) and which the row structure
+   carries here anyway. */
+const TERZINA = 3;
+/* A printed line number, in the two shapes these transcriptions use: `wst-pline` in Longfellow's
+   margin every fifth line, `numeroriga` in the Italian's at the close of every tercet. Both are
+   read for the check and then removed, so what a reader sees is the marker this file writes. */
+const TERZINA_MARK =
+  /<span[^>]*class="[^"]*\b(?:wst-pline|numeroriga)\b[^"]*"[^>]*>\s*(\d+)\s*<\/span>/g;
+/* The headings that sit INSIDE the body and duplicate the tab above it. Anchored whole, and tested
+   against the line with its inline tags removed — Longfellow's canto heading is italicised, so a
+   test against the raw text reads `<i>CANTO I.</i>` and matches nothing. That is not hypothetical:
+   it left one extra line at the top of each of the 37 transcluded cantos, which shifted every
+   label in them by one and made all 37 disagree with their Italian while the counts looked healthy. */
+const TERZINA_HEAD = /^(?:INFERNO|PURGATORIO|PARADISO|CANTO\s+[IVXLC]+\.?)$/i;
+/* The sentinel a printed numeral is parked in while the tags come off. It cannot simply be left as
+   text: stripTags would unwrap the span and the digits would be indistinguishable from the verse. */
+const TERZINA_SENT = "";
+
+/* The verse body, sliced and stripped of the wiki's own furniture. cleanBody's opening moves, done
+   here rather than borrowed, for the reason fittBody and eddaBody give: that pass is written for
+   prose and its generic div-to-blockquote rule would turn this poem into a wall of quotations.
+   `before` is whatever stood between the page furniture and the verse, so the caller can say what
+   it dropped rather than dropping it quietly. */
+function terzinaBody(h, where) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 12; k++) {
+    const m = /<(div|table)[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, m[1]);
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  let i = b.indexOf('<div class="prp-pages-output');
+  let body;
+  if (i >= 0) body = b.slice(i).replace(/<ol class="references">[\s\S]*$/, "");
+  else {
+    i = b.indexOf('<div class="poem"');
+    if (i < 0) throw new Error(where + ": no body — the page's markup has changed");
+    const end = blockEnd(b, i, "div");
+    body = end < 0 ? b.slice(i) : b.slice(i, end);
+  }
+  const before = stripTags(b.slice(0, i))
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&#\d+;|&nbsp;/g, " ")
+    /* MediaWiki's own dynamic-layout marker, which is furniture rather than anything the edition
+       printed and would otherwise be reported as dropped text on every page. */
+    .replace(/Layout\s*\d+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return { body: body, before: before };
+}
+
+/* Remove every span of one class, matched on the stack so a nested span cannot leave its closer
+   behind — the shape extractFitt already uses for the scan's page markers. */
+function terzinaDropSpans(b, cls) {
+  for (let k = 0; k < 500; k++) {
+    const m = new RegExp('<span[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  return b;
+}
+
+/* One canto's verse as a list of lines, each carrying whatever numeral its edition prints on it. */
+function terzinaLines(b, where, warn) {
+  b = b.replace(TERZINA_MARK, (all, raw) => TERZINA_SENT + raw + TERZINA_SENT);
+  b = terzinaDropSpans(b, "pagenum");
+  /* The verse indent. Both transcriptions set the second and third line of a tercet in from the
+     margin and they do it differently; the row is what groups a tercet here, so it is normalised
+     away rather than shipped in two incompatible shapes. */
+  b = terzinaDropSpans(b, "wst-gap");
+  b = b.replace(/<link\b[^>]*>/g, "");
+
+  const rows = stripTags(b).replace(/<\/?p\b[^>]*>/g, "<br>").split(/<br\s*\/?>/);
+  const rx = new RegExp(TERZINA_SENT + "(\\d+)" + TERZINA_SENT, "g");
+  const bare = (s) => s.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  const lines = [];
+  let heads = 0, printed = 0;
+  for (let raw of rows) {
+    const nums = [];
+    raw = raw.replace(rx, (a, d) => { nums.push(+d); return " "; });
+    const txt = raw
+      .replace(/&#160;|&nbsp;|&#32;|&#8195;|​| /g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!bare(txt)) continue;
+    if (TERZINA_HEAD.test(bare(txt))) { heads++; continue; }
+    printed += nums.length;
+    lines.push({ txt: txt, nums: nums });
+  }
+
+  /* LONGFELLOW'S ONE FOOTNOTE — see the block above for the inventory this rule is written from.
+     The note opens on an asterisk and runs to the end of the canto; the cue is the asterisk closing
+     the last line of the passage it translates, and it becomes the marker. */
+  const notes = [];
+  const at = lines.findIndex((r) => /^\*/.test(r.txt));
+  if (at >= 0) {
+    const body = lines.slice(at).map((r) => r.txt.replace(/^\*\s*/, "").trim()).filter(Boolean);
+    lines.length = at;
+    notes.push(body.join("<br>"));
+    const cue = lines.map((r) => r.txt).findIndex((t) => /\*$/.test(t));
+    /* A note with no cue would be an entry no line opens — the mirror of the dead marker the
+       apparatus already refuses to draw, and the fault Beowulf's dropFittHead exists to avoid. */
+    if (cue < 0) warn(where + ": a note has no cue in the verse and its marker has been dropped");
+    else lines[cue].txt = lines[cue].txt.replace(/\s*\*$/, "") + '<sup class="fn" data-fn="1"></sup>';
+  }
+  return { lines: lines, notes: notes, heads: heads, printed: printed };
+}
+
+/* One canto's verse as the single paragraph the shelf's other verse books emit, with a section
+   marker opening each tercet. Ovid, Lucretius, the Song of Roland and Beowulf already render
+   exactly this shape, so a poem in tercets needs no styling of its own.
+
+   A MARKER OPENS ITS ROW AND CARRIES THE NUMBER THE EDITION PRINTS AT THE ROW'S CLOSE. app.js's
+   bookSections cuts at a marker and gives everything after it to that number, so the marker has to
+   stand at the head of the three lines it labels; the number it carries is the tercet's LAST line,
+   which is the figure the Italian sets in its own margin there. The row labelled 3 is therefore
+   lines 1–3. The canto's closing line is 3n+1 and gets a row and a number of its own. */
+function terzinaHtml(lines, where, warn) {
+  const parts = [];
+  let bad = 0;
+  lines.forEach((r, i) => {
+    const n = i + 1;
+    for (const p of r.nums) {
+      if (p !== n) {
+        warn(where + ": the edition prints line " + p + " where the count gives " + n +
+             " — read as " + n + ", which is where the lines put it");
+        bad++;
+      }
+    }
+    if (n % TERZINA === 1)
+      parts.push('<span class="bk-n">' + Math.min(n + TERZINA - 1, lines.length) + "</span> ");
+    parts.push(r.txt);
+    if (i < lines.length - 1) parts.push("<br>");
+  });
+  if (!lines.length) warn(where + " came through with no lines");
+  return { html: "<p>" + parts.join("") + "</p>", bad: bad };
+}
+
+function extractTerzina(h, where, warn) {
+  const b = terzinaBody(h, where);
+  const got = terzinaLines(b.body, where, warn);
+  const made = terzinaHtml(got.lines, where, warn);
+  return {
+    html: made.html, notes: got.notes, lines: got.lines.length, before: b.before,
+    marks: (made.html.match(/class="bk-n"/g) || []).length,
+    printed: got.printed, bad: made.bad, heads: got.heads,
+  };
+}
+
+/* ---------- THE RIGVEDA: ONE HYMN A PAGE, TRANSCRIBED FOUR WAYS ----------
+   Aug 2026, adding the Rigveda — the thirty-ninth book, and the fifteenth layout. The ordinary wiki
+   walk, one page per chapter; what is new is that the CHAPTER IS THE SMALLEST UNIT OF THE WORK and
+   there are a thousand of them.
+
+   THE PAIRING UNIT IS THE VERSE AND THE TAB IS THE HYMN, and both follow from the citation rather
+   than from a choice made here: a passage of the Rigveda is cited as mandala.hymn.verse — "RV
+   10.129.1" — in every language and every reference work, so the hymn is what a reader looks up and
+   the verse is the finest thing both editions state about the same place. Griffith numbers every
+   verse of his translation and this Sanskrit closes every verse with ॥N॥, so the pairing is read on
+   both sides rather than counted, which is the Divine Comedy's case in reverse.
+
+   MANDALA IS THE PART, NOT THE CHAPTER, and that was measured rather than assumed. Making the
+   mandala the chapter gives ten tabs and puts 191 hymns in one of them — 290,000 characters, larger
+   than anything on the shelf — and throws away the verse numbers as pairing keys, which is what
+   Beowulf's rule forbids: ask what the two editions state IN COMMON, and pair on that.
+
+   FIVE THINGS IT SETTLED ARE WORTH CARRYING.
+
+   · MANDALA 8 CARRIES THE VALAKHILYA AND THE TWO EDITIONS NUMBER THEM DIFFERENTLY, which is the
+     recension check Journey to the West made a standing rule and the one fault here that no count
+     could ever have shown. Griffith prints the eleven Valakhilya hymns as an APPENDIX to his eighth
+     book, so his 8.49 is the standard 8.60 and his 8.93–8.103 are the standard 8.49–8.59. Measured
+     over 8.40–8.103 on both sides before a word was imported: the verse counts agree exactly through
+     8.48 and then run eleven apart, 31 of 39 agreeing at an offset of eleven against 10 of 39 at
+     none, and all eleven appendix hymns matching their Sanskrit verse for verse. Paired on the page
+     number, 55 hymns would have been set beside hymns that are not their counterparts with both
+     columns complete, every mandala the right length and nothing thrown. The book is numbered by the
+     STANDARD citation — the one the Sanskrit uses and every reference work uses — and Griffith's own
+     page for each is looked up; his arrangement is stated in the front matter, since a reader
+     holding a print copy will find the appendix numbered differently.
+
+   · THE TRANSCRIPTION USES FOUR DIFFERENT SHAPES AND 1,022 OF THE 1,028 ARE PLAIN TEXT. Measured
+     with the wiki's own search over the whole book: 1,022 hymns are a `<div class="verse"><pre>`,
+     one more is a bare `<pre>` (5.65), four are proofread transclusions of the scan that render as
+     `ws-poem` (1.1, 1.32, 4.27, 5.1), and one is typed into the page with `<br>` and `{{gap}}`
+     (10.90, the Purusha Sukta). The Divine Comedy's finding at a different ratio — and the majority
+     shape here is the Canterbury Tales' and Journey to the West's, a machine reading with no marks
+     at all, so the structure is BUILT and the content ESCAPED rather than tags being stripped out
+     of it.
+
+   · …AND ALL FOUR ARE READ BY FLATTENING TO LINES FIRST. Writing four parsers would be four places
+     for the verse rule to drift; every shape is reduced to a list of printed lines and one rule
+     applies — a line opening on a figure and a full stop opens a verse, and the first line of the
+     body always does whether or not it carries one. That last clause is what makes the `ws-poem`
+     shape work at all: its verse 1 carries no number, being set as a drop capital, exactly as the
+     Prose Edda's first chapter is.
+
+   · GRIFFITH'S OWN NOTES SURVIVE ON FOUR HYMNS OUT OF 1,028, and that is the edition's shape rather
+     than a fault in the reader: only the four transcluded pages carry his footnote apparatus, and
+     the plain-text majority was typed without it — measured, zero `<ref>` in the wikitext of the
+     whole book. A reader who wants Griffith's commentary is told on the book's own first page where
+     it is not.
+
+   · THE PLAIN-TEXT MAJORITY IS A MACHINE READING AND ITS SLIPS ARE THE SOURCE'S. "Silrya" for Surya,
+     "herdi" for herds, "at our case" for at our ease: they are in the transcription, they are not
+     Griffith's, and they are shipped as found rather than repaired, which is the Aeneid's judgement
+     on its own l→I slips. Repairing them would be editing somebody else's text on a guess. */
+
+/* A verse opens a PRINTED LINE with its number and a full stop. Anchored to the line rather than
+   searched for, so a figure inside a line — Griffith writes "a hundred" but the scan carries page
+   numbers and stray digits — cannot start a verse in the middle of one. */
+/* THE STOP AFTER THE NUMBER WEARS FOUR COSTUMES AND THE RULE IS WRITTEN FROM AN INVENTORY OF THE
+   WHOLE BOOK RATHER THAN FROM THE EXAMPLE THAT PROMPTED IT — the Canterbury Tales' discipline,
+   needed here because a numeral this reader does not recognise does not throw and does not shorten
+   a hymn: its verse simply folds into the one above and the row is left facing nothing. Counted
+   over every plain-text page: 4,543 read "1. ", 52 read "1 " with no stop at all, 2 read "1." with
+   the word run against it, and 2 read "1, " where the scan took the stop for a comma.
+
+   THE BARE FORM IS THE DANGEROUS ONE and is admitted on a tighter test than the rest. A figure
+   opening a line with nothing after it but a space is also what a line of verse mentioning a number
+   looks like, so a printed stop lets the number through on the ordinary forward-only guard while a
+   bare one is taken only where it is the very next verse — which is what it always is on the fifty-two
+   pages that use it, those numbering their verses that way from the first. */
+const SUKTA_VERSE = /^\s*(\d+)(\s*[.,]\s*|\s+)(?=\S)/;
+
+/* One hymn's body, in whichever of the four shapes the page happens to use, reduced to a list of
+   printed lines. `kind` is reported on every run: it is how the four were counted in the first
+   place, and a fifth appearing later announces itself as an unknown rather than as a hymn that
+   quietly came through empty. */
+function suktaBody(h, where, warn) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+
+  /* GRIFFITH'S OWN MARKERS ARE RESOLVED BEFORE THE PAGE IS FLATTENED, and this is the step it is
+     easiest to leave out: the flattening below removes every tag, so a marker not turned into the
+     shelf's own form first is simply gone — and the notes still reach the fold, which leaves 27
+     entries that no sentence opens. That is the mirror of the dead marker the apparatus refuses to
+     draw, and no count of hymns, verses or notes can see it; test-library.js asserts every note is
+     referenced for exactly this reason. Each marker is resolved against the note it POINTS AT
+     rather than by its position in reading order — the Seneca rule, since a page may cite one note
+     twice — and only the notes actually cited are kept. */
+  const all = notesOf(h);
+  const notes = [], seen = {};
+  b = b.replace(
+    /<sup[^>]*class="reference"[^>]*>\s*<a href="#(cite[^"]*)"[^>]*>[\s\S]*?<\/a>\s*<\/sup>/g,
+    (whole, ref) => {
+      const key = ref.replace(/&#95;/g, "_");
+      const k = all.ids.indexOf(key);
+      if (k < 0) { warn(where + ": a marker points at no note and has been dropped"); return ""; }
+      if (!seen[key]) { notes.push(all.notes[k]); seen[key] = notes.length; }
+      return '<sup class="fn" data-fn="' + seen[key] + '"></sup>';
+    }
+  );
+  if (all.notes.length > notes.length)
+    warn(where + ": " + (all.notes.length - notes.length) + " note(s) nothing points at, dropped");
+
+  /* THE PROOFREAD SHAPE — four hymns, transcluded from the scan. Its verse numbers are a floated
+     span rather than text, so they are rewritten into the shape the other three print before the
+     page is flattened; without that the number arrives at the head of the line with no stop after
+     it and the one verse rule below matches nothing. Verse 1 carries no span at all. */
+  const poem = b.indexOf('<div class="ws-poem');
+  if (poem >= 0) {
+    const end = blockEnd(b, poem, "div");
+    let body = end < 0 ? b.slice(poem) : b.slice(poem, end);
+    /* A NOTE HUNG ON THE RUNNING HEAD IS CARRIED DOWN ONTO THE FIRST LINE — Beowulf's dropFittHead
+       rule in a fourth edition. Griffith's note on a hymn as a whole is anchored to its printed
+       title, which stands OUTSIDE the verse block and is discarded with the rest of the page
+       furniture; left alone the note reaches the fold with nothing opening it, and on two of the
+       four proofread hymns that is exactly his first and most substantial note. */
+    const above = (b.slice(0, poem).match(/<sup class="fn" data-fn="\d+"><\/sup>/g) || []).join("");
+    if (above) body = above + body;
+    /* …AND THE REWRITE MUST SWALLOW THE LINE OPENER THAT FOLLOWS IT, which is the quiet half. The
+       number and the words it belongs to are two spans in a row, so rewriting the numeral and then
+       breaking at every line opener puts a break BETWEEN them: the number stands alone on its own
+       line, the verse rule below reads it as a verse with no text, and the hymn arrives as verse 1
+       and nothing else — complete, well formed and eight verses short. */
+    body = body.replace(
+      /<span[^>]*class="[^"]*\bws-poem-versenum\b[^"]*"[^>]*>\s*(\d+)\s*<\/span>\s*(?:<span[^>]*class="[^"]*\bws-poem-line\b[^"]*"[^>]*>)?/g,
+      "\n$1. ");
+    /* each ws-poem-line is a printed line and each stanza ends one */
+    body = body.replace(/<\/div>/g, "\n").replace(/<span[^>]*class="[^"]*\bws-poem-line\b[^"]*"[^>]*>/g, "\n");
+    return { kind: "poem", lines: suktaLines(body), notes: notes };
+  }
+
+  /* THE PLAIN-TEXT MAJORITY — 1,023 hymns, with and without the div wrapper. MediaWiki escapes the
+     content of a <pre>, so what comes back is already HTML-safe and is passed through unchanged: it
+     is the reverse of every tag-stripping reader here, and an ampersand in the scan is content. */
+  const pre = b.indexOf("<pre>");
+  if (pre >= 0) {
+    const end = b.indexOf("</pre>", pre);
+    if (end < 0) throw new Error(where + ": an unclosed <pre> — the page's markup has changed");
+    const body = b.slice(pre + 5, end);
+    const tags = body.match(/<[a-zA-Z\/]/g);
+    /* Measured over the whole book: not one tag inside a <pre>. Reported rather than assumed, since
+       a tag arriving here would be printed as its own characters by the very passthrough above. */
+    if (tags) warn(where + ": markup inside the plain text (" + tags.length + ") — printed as written");
+    return { kind: "pre", lines: suktaLines(body), notes: notes };
+  }
+
+  /* THE ONE HYMN TYPED INTO THE PAGE — 10.90, the Purusha Sukta, set with <br> and an indent
+     template. Sliced at the parser's own container, since it has no wrapper of any other kind. */
+  const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
+  if (m) {
+    let body = b.slice(m.index + m[0].length);
+    for (let k = 0; k < 12; k++) {
+      const w = /<(div|table)[^>]*class="[^"]*\b(?:ws-noexport|wst-header|ws-header|mw-heading)\b[^"]*"[^>]*>/.exec(body);
+      if (!w) break;
+      const e = blockEnd(body, w.index, w[1]);
+      if (e < 0) break;
+      body = body.slice(0, w.index) + body.slice(e);
+    }
+    body = body.split(/<div class="reflist|<ol class="references"/)[0];
+    body = body.replace(/<\/p>|<br\s*\/?>/g, "\n");
+    return { kind: "inline", lines: suktaLines(body), notes: notes };
+  }
+  throw new Error(where + ": no body — the page's markup has changed");
+}
+
+/* The lines a page prints, with the tags off and the blanks dropped. The tag strip is deliberately
+   the blunt one rather than stripTags: three of the four shapes carry no markup at all, and the
+   fourth's is presentational. */
+function suktaLines(b) {
+  return b
+    /* Everything goes EXCEPT the footnote markers resolved above — they are the join between the
+       verse and the note fold, and this is the pass that would otherwise remove them. */
+    .replace(/<(?!\/?sup\b)[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;|&#8203;/g, " ")
+    .split("\n")
+    .map((s) => s.replace(/[ \t]+/g, " ").replace(/\s+$/, ""))
+    .filter((s) => s.trim());
+}
+
+/* The lines gathered into verses, numbered as the edition numbers them.
+
+   THE NUMBER IS READ AND NOT COUNTED, which is the opposite of the Divine Comedy's rule and for the
+   opposite reason: that edition prints its numerals on a third of the poem, and this one prints one
+   on very nearly every verse of both columns. Where the printed sequence goes backwards or repeats
+   the mark is declined by the forward-only guard and its lines fold into the verse above, which is
+   the honest reading — a page that has lost a numeral has lost a numeral, and renumbering there
+   would move every verse after the gap and file it under a number the edition does not give it.
+   Measured: the whole book's printed sequences and where they disagree with the count are reported
+   on every run. */
+function suktaVerses(lines, where, warn) {
+  const verses = [];
+  let seq = 0, unnumbered = 0;
+  lines.forEach((raw, i) => {
+    const m = SUKTA_VERSE.exec(raw);
+    const bare = m && !/[.,]/.test(m[2]);
+    const ok = m && (bare ? +m[1] === seq + 1 : +m[1] > seq);
+    /* A DECLINED NUMERAL LOSES ITS DIGITS ONLY WHERE THEY WERE PRINTED AS A NUMERAL. A repeated
+       "16." is a printing slip and shipping the figure inside the verse above would put a stray
+       number mid-sentence; a bare figure this rule did not take is a line of verse that happens to
+       open on one, and cutting it would delete a word Griffith wrote. */
+    const txt = m && !bare ? raw.slice(m[0].length).trim() : ok ? raw.slice(m[0].length).trim() : raw.trim();
+    if (ok) { seq = +m[1]; verses.push({ n: seq, lines: [txt] }); return; }
+    if (m && !bare) {
+      warn(where + ": verse " + m[1] + " repeats or goes backwards after " + seq + " — left where it stands");
+      unnumbered++;
+    }
+    /* THE FIRST LINE OF A BODY ALWAYS OPENS A VERSE. In the proofread shape verse 1 is a drop
+       capital with no numeral at all, so without this its lines would have nowhere to go and the
+       hymn would open at verse 2. */
+    if (!verses.length) { seq = 1; verses.push({ n: 1, lines: [txt] }); return; }
+    verses[verses.length - 1].lines.push(txt);
+  });
+  return { verses: verses, unnumbered: unnumbered };
+}
+
+/* One hymn as the single paragraph the shelf's other verse books emit, a section marker opening each
+   verse and the printed lines joined by breaks — the shape Ovid, Lucretius, the Song of Roland,
+   Beowulf and the Divine Comedy already render, so a poem in numbered verses needs no styling of its
+   own. */
+function suktaHtml(verses) {
+  const parts = [];
+  verses.forEach((v, i) => {
+    if (i) parts.push("<br>");
+    parts.push('<span class="bk-n">' + v.n + "</span> ");
+    parts.push(v.lines.join("<br>"));
+  });
+  return "<p>" + parts.join("") + "</p>";
+}
+
+function extractSukta(h, where, warn) {
+  const got = suktaBody(h, where, warn);
+  const made = suktaVerses(got.lines, where, warn);
+  if (!made.verses.length) warn(where + " came through with no verses");
+  SUKTA_KIND[got.kind] = (SUKTA_KIND[got.kind] || 0) + 1;
+  return {
+    html: suktaHtml(made.verses), notes: got.notes, kind: got.kind,
+    verses: made.verses.length, last: made.verses.length ? made.verses[made.verses.length - 1].n : 0,
+    unnumbered: made.unnumbered,
+  };
+}
+/* Counted across the run and reported at the end: which of the four shapes a page uses is a fact
+   about the transcription rather than about one hymn, and how often each occurs is what says whether
+   the reader is describing the book or guessing at it. */
+const SUKTA_KIND = {};
+
+/* ---------- THE RIGVEDA'S SANSKRIT ----------
+   The samhita as sa.wikisource carries it: one page per hymn, the verse in a `div.poem` with the
+   lines separated by breaks and each verse closing on its own Devanagari numeral, ॥N॥ — the Bhagavad
+   Gita's shape, on the same wiki, a thousand hymns instead of eighteen discourses.
+
+   THREE THINGS ABOUT IT ARE NOT THE GITA'S.
+
+   · SAYANA'S COMMENTARY IS ON EVERY PAGE AND IS TEN TIMES THE LENGTH OF THE TEXT. It sits in a
+     collapsed block below the verse, in Sanskrit, and it carries a second copy of the samhita with
+     its accents and a third in the word-separated padapatha — so a reader that took the page's text
+     would ship the hymn three times over inside a commentary nobody asked for, and the numerals
+     would run 1..N three times. The Art of War's commentary problem in a language the note fold
+     cannot hold: this one is not an explanation OF the text in the reader's language but another
+     text entirely, so it is dropped rather than lifted. Measured over the whole book: dropping the
+     collapsible blocks leaves the verse alone every time.
+
+   · A HYMN'S VERSE IS NOT ALWAYS IN ONE BLOCK, so it is cut as a STREAM — the Gita's rule met again
+     on the same wiki. Where a hymn is long the transcription opens a fresh `div.poem` part way
+     through: 9.86 holds three for its 48 verses. Reading a block as a hymn would take the first
+     fifteen and drop the rest, and the count would still look like a hymn.
+
+   · AND THE PAGES CARRY ILLUSTRATIONS, which no other original here does. A figure's caption is
+     unwrapped by the tag strip into the middle of the verse; they are dropped whole. */
+function suktaSanskrit(h, where, warn) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  /* Sayana's bhashya, and the page's own notes, which this wiki sets in the same collapsible. */
+  let dropped = 0;
+  for (let k = 0; k < 40; k++) {
+    const m = /<div[^>]*class="[^"]*\bmw-collapsible\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn(where + ": an unbalanced commentary block was left in place"); break; }
+    b = b.slice(0, m.index) + b.slice(end);
+    dropped++;
+  }
+  b = b.replace(/<figure[\s\S]*?<\/figure>/g, "");
+
+  const blocks = [];
+  let i = 0;
+  for (;;) {
+    const j = b.indexOf('<div class="poem"', i);
+    if (j < 0) break;
+    const end = blockEnd(b, j, "div");
+    if (end < 0) break;
+    blocks.push(b.slice(j, end));
+    i = end;
+  }
+  if (!blocks.length) throw new Error(where + ": no verse on the page");
+  SUKTA_SA_BLOCKS += blocks.length;
+  SUKTA_SA_DROPPED += dropped;
+
+  /* The whole hymn as one stream of printed lines, then cut at the numerals. The numeral CLOSES its
+     verse, so a line carrying one ends the verse it is in — the Gita's reading, and the reason the
+     element boundaries above stop mattering. */
+  const lines = blocks.join("\n")
+    .replace(/<\/p>|<br\s*\/?>/g, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&#8203;/g, "")
+    .replace(/&amp;/g, "&")
+    .split("\n")
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  const verses = [];
+  let open = [], seq = 0, bad = 0;
+  for (const line of lines) {
+    const m = /^([\s\S]*?)॥\s*([०-९]+)\s*॥\s*$/.exec(line);
+    if (!m) { open.push(line); continue; }
+    if (m[1].trim()) open.push(m[1].trim());
+    const v = devNum(m[2]);
+    if (v == null || v <= seq) {
+      /* A numeral that does not move the sequence on. On the Gita this is the colophon, which carries
+         the CHAPTER's number after the last verse; here it is the same thing, and the same forward-only
+         guard declines it. */
+      bad++;
+      open = [];
+      continue;
+    }
+    seq = v;
+    verses.push({ n: v, lines: open });
+    open = [];
+  }
+  if (open.length) {
+    warn(where + ": " + open.length + " line(s) after the last numeral, kept in the verse above");
+    if (verses.length) verses[verses.length - 1].lines.push(...open);
+  }
+  SUKTA_SA_TRAIL += bad;
+  return { html: suktaHtml(verses), verses: verses.length, blocks: blocks.length };
+}
+let SUKTA_SA_BLOCKS = 0, SUKTA_SA_DROPPED = 0, SUKTA_SA_TRAIL = 0;
+
 /* ---------- THE POETIC EDDA: NUMBERED STANZAS WITH PROSE LINKS BETWEEN THEM ----------
    Aug 2026, adding the Poetic Edda — the twenty-eighth book, and the eleventh layout. The ordinary
    wiki walk, one page per chapter; what is new is the SHAPE OF A CHAPTER'S BODY. Every verse book
@@ -10018,6 +12205,134 @@ function markTabletLines(html, warn, where) {
    AND THE TEXT IS ESCAPED RATHER THAN STRIPPED, which is the reverse of every other reader here. They
    are given markup and take tags out; this is given prose and puts tags in, so an ampersand or an
    angle bracket in the OCR is content and has to be escaped or it becomes markup by accident. */
+/* ---------- A CLEAN PLAIN-TEXT TRANSCRIPTION, WHERE THE WIKI'S HAD LOST WORDS ----------
+   (Aug 2026, adding Don Quixote — the sixteenth layout.) The third book on the plain-text path
+   after Journey to the West and the Canterbury Tales, and it is on it for a reason worth writing
+   down, because everything about this novel said "use the wiki": en.wikisource carries Ormsby's
+   1885 translation COMPLETE, one page per chapter, typed clean, needing nothing but `body: "plain"`
+   and `dropHeadings` — and that version was built, fetched and checked before this one was written.
+
+   IT WAS THROWN AWAY OVER TWO MISSING WORDS, AND THE WAY THEY WERE FOUND IS THE LESSON. The
+   browser check asserted that the giants are on the page at I.8 and failed, and the reason was not
+   the extractor: the wiki's own transcription reads "thirty forty windmills that there are on
+   plain" where Ormsby wrote "thirty or forty windmills that there are on that plain". The most
+   famous sentence in European fiction, ungrammatical, in a text that had passed every structural
+   check there is — 126 chapters, tag balance clean, no chapter short, every title unique.
+
+   SO THE QUESTION BECAME HOW FAR IT WENT, AND THAT NEEDED AN INDEPENDENT COPY OF THE SAME
+   TRANSLATION: Project Gutenberg's ebook 996, which is Ormsby unrevised (its own editor's note
+   says only the Doré PLATES were borrowed from a Jarvis/Motteaux edition). Walked word by word
+   against it, all 400,809 of them, the wiki's copy has **60 words the Gutenberg text has and it
+   has not** — "no occasion [to] ask", "the barber [whose] basin", "instructed [by] the
+   majordomo", "sancho could not [understand]" — and **six doubled words of its own** ("out of all
+   as as", "a portion portion of the kingdom"). One defect per six thousand words, every one
+   invisible to every count.
+
+   AND THE MEASUREMENT REVERSED THE ONE ARGUMENT LEFT FOR THE WIKI. Its transcription marks 55
+   verse blocks with real markup where Gutenberg marks its verse only by typography, which looked
+   decisive the other way — the Canterbury Tales tried verse detection on a plain text and rejected
+   it. That rejection is not inherited: it was made against an OCR that fragmented PROSE at the
+   page edges, and this is a clean modern transcription with no page edges at all. Measured against
+   the wiki's own 55 blocks as ground truth, the rule below finds 49 of them and **99 more passages
+   of real verse that the wiki sets as prose** — Don Quixote's ballads, Cardenio's sonnets, the
+   epitaphs of the Academicians of Argamasilla. The fuller text also carries the better verse.
+
+   WHAT IS NOT DONE, AND DELIBERATELY: the wiki's words are not repaired from Gutenberg's. Both are
+   transcriptions of a printed page neither of us has, and Gutenberg has slips of its own — eleven
+   places where one reads "he" and the other "be", in both directions. Correcting one fallible copy
+   against another and shipping the result would be composing a text that has never existed, which
+   is the line this file does not cross. One copy is chosen, on measurement, and the book's own
+   front matter says which and why.                                                              */
+function extractQuixote(text, book, warn) {
+  const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const t = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+  /* THE CHAPTER HEADINGS, and they are the one thing this edition states unambiguously: 126 of
+     them, "CHAPTER I." alone on its line, the numbering restarting at the second part. Both facts
+     are CHECKED rather than assumed — a heading pattern that started matching a line of prose, or
+     an edition that turned out to number straight through, would file every chapter after the
+     boundary under the wrong part with nothing else to show it. */
+  const heads = [...t.matchAll(/\n[^\S\n]*CHAPTER ([IVXLC]+)\.[^\S\n]*\n/g)];
+  if (heads.length !== 126)
+    warn("the transcription carries " + heads.length + " chapter headings, not 126");
+  const num = (s) => {
+    const R = { I: 1, V: 5, X: 10, L: 50, C: 100 };
+    let n = 0;
+    for (let i = 0; i < s.length; i++) { const v = R[s[i]], w = R[s[i + 1]]; n += w > v ? -v : v; }
+    return n;
+  };
+  const seq = heads.map((m) => num(m[1]));
+  let restart = -1;
+  for (let i = 1; i < seq.length; i++) if (seq[i] < seq[i - 1]) { restart = i; break; }
+  if (restart !== 52)
+    warn("the chapter numbering restarts at heading " + restart + ", not 52 — the two parts of " +
+      "this novel are 52 chapters and 74, so the part boundary is not where the entry expects it");
+
+  /* WHERE THE SECOND PART'S FRONT MATTER BEGINS. Gutenberg sets no heading between the last chapter
+     of Part I and Part II's dedication, so that dedication, its address to the Count of Lemos and
+     the author's preface all fall inside chapter 52's span — 1,992 words of them. The sentinel is
+     the bare line "Volume II"; the epitaphs of the Academicians of Argamasilla come BEFORE it and
+     are the real end of the first part, so cutting any earlier would lose them. */
+  const VOLUME_II = /\n[^\S\n]*Volume II[^\S\n]*\n/;
+
+  const end = t.indexOf("*** END OF THE PROJECT GUTENBERG");
+  const out = { chapters: [], titles: 0, verse: 0, paras: 0, plates: 0, heads: 0, caps: [] };
+
+  heads.forEach((h, i) => {
+    const from = h.index + h[0].length;
+    const to = i + 1 < heads.length ? heads[i + 1].index : (end > 0 ? end : t.length);
+    let body = t.slice(from, to);
+
+    if (i === 51) {                       /* the last chapter of Part I — see VOLUME_II above */
+      const cut = body.search(VOLUME_II);
+      if (cut < 0) warn("chapter 52: the second part's front matter was not found, so it is in the text");
+      else body = body.slice(0, cut);
+    }
+
+    /* THE PLATES. Gutenberg attaches the Doré engravings as caption lines — "c08a.jpg (142K)",
+       often with "Full Size" under it — and there are 358 and 253 of them. The first pattern
+       written for this wanted [a-z]\d+\.jpg and the files are c08a, c08e, so it matched not one of
+       them and left five words per plate standing in every count taken of this book. */
+    const plates = (body.match(/^[^\S\n]*\S+\.jpg[^\n]*$/gm) || []).length;
+    out.plates += plates;
+    body = body.replace(/^[^\S\n]*\S+\.jpg[^\n]*$/gm, "").replace(/^[^\S\n]*Full Size[^\S\n]*$/gm, "");
+
+    /* THE CHAPTER'S OWN TITLE, set in capitals over one to three lines under the heading. It
+       duplicates the tab Folio has just drawn, so it goes — peeled LINE BY LINE rather than by
+       slicing to the first blank line, because the title's own line breaks vary and a slice that
+       allowed enough characters for the longest of them ate the opening of the shortest chapters. */
+    const lines = body.split("\n");
+    while (lines.length && (!lines[0].trim() || !/[a-z]/.test(lines[0]))) {
+      if (lines[0].trim()) out.heads++;
+      lines.shift();
+    }
+    body = lines.join("\n");
+
+    /* THE BLOCKS. A blank line separates them; inside one, the hard wrap is not a line break. */
+    const blocks = body.split(/\n[^\S\n]*\n/).map((b) => b.replace(/^\n+|\n+$/g, "")).filter((b) => b.trim());
+    const html = [];
+    for (const blk of blocks) {
+      const ls = blk.split("\n").filter((l) => l.trim());
+      if (!ls.length) continue;
+      /* VERSE, on the rule measured above: two or more lines, none of them reaching the width the
+         prose is wrapped at. A block that is WHOLLY CAPITAL is not verse but a heading — the
+         epitaphs of the Academicians carry one apiece — and it is kept as a paragraph and counted,
+         so a rule that started eating headings could not do it quietly. */
+      const short = ls.length >= 2 && ls.every((l) => l.trim().length < 55);
+      const allCaps = !/[a-z]/.test(blk);
+      if (short && !allCaps) {
+        out.verse++;
+        html.push("<blockquote><p>" + ls.map((l) => escHtml(l.trim())).join("<br>") + "</p></blockquote>");
+      } else {
+        if (allCaps) out.caps.push(ls[0].trim().slice(0, 40));
+        out.paras++;
+        html.push("<p>" + escHtml(ls.map((l) => l.trim()).join(" ")) + "</p>");
+      }
+    }
+    out.chapters.push({ n: i + 1, html: html.join("\n") });
+  });
+  return out;
+}
 function extractJourney(text, book, warn) {
   const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   const capsRatio = (s) => {
@@ -10641,6 +12956,14 @@ async function chapterTitles() {
      headed "BOOK I" … "BOOK XII" on its own contents page and nowhere given names. `titleOf` is how
      such a book says so, and it is deliberately the book's own numbering rather than an invented
      name — a title here is transcribed, never composed. */
+  /* A BOOK WHOSE TITLES ARE ON SEVERAL CONTENTS PAGES reads them itself (Aug 2026, adding the Summa
+     Theologica, whose 614 questions are listed on the six pages its Parts are divided into). The
+     walk below is Seneca's and is keyed to his letter numbering; rather than widen it into something
+     that has to know about every edition, a book may hand back the map. It is the same call `page(n)`
+     made when a chapter turned out to be spread over several pages: the general shape stays, and the
+     book that needs a different reading supplies one. Gated by its own absence, so no shipped book's
+     titles move. */
+  if (BOOK.titlesOf) return await BOOK.titlesOf(api);
   if (!BOOK.indexPage) return {};
   const h = await api(BOOK.indexPage);
   const txt = h.replace(/<style[\s\S]*?<\/style>/g, "");
@@ -10917,13 +13240,22 @@ function originalChapter(h, O, warn) {
    FOUR THINGS ABOUT THIS EDITION HAD TO BE LEARNED RATHER THAN ASSUMED, and every one of them was
    found by counting its marks against the English rather than by reading a page.
 
-   · THE MARK WEARS FOUR COSTUMES. The first chapter of every book is "CAPUT PRIMUM" — the word, not
+   · THE MARK WEARS FIVE COSTUMES. The first chapter of every book is "CAPUT PRIMUM" — the word, not
      the numeral — and the rest are Roman. The double dash that separates the number from the title is
      missing in a handful (Book XIV's twenty-fifth, among others), and one chapter has a stray full
      stop after the word itself ("CAPUT. VII.--", Book XII). Written against the strictest of the four,
      the pass finds 650 of the 661 and the eleven it misses fold their prose silently into the chapter
      above them — which is invisible to every count, since no word is lost and the book is the right
      length.
+     THE FIFTH ARRIVED WITH THE CONFESSIONS (Aug 2026) and is the same lesson one notch finer: the
+     Confessions' ninth book prints "CAPUT V Ambrosium consulit quid legendum." with NO STOP AFTER THE
+     NUMERAL, alone among 278. That one chapter folded into the fourth, and the only symptom was the
+     pairing warning saying the translation had a 9.5 the original did not — the Latin was complete,
+     the text was all there, and the book was the right length. So the stop is optional now, and the
+     numeral carries a `\b` to pay for it: without one, "CAPUT" followed by any capitalised word
+     beginning C, I, V, X or L would read that letter as a chapter number and bold the sentence after
+     it. Proved inert on the City of God byte-for-byte, which is the standing discipline for an edit
+     to a reader two books share.
 
    · A NUMBER MAY BE PRINTED TWICE, IN BRACKETS. Book I sets "[CAPUT X.]" a second time, where Migne
      resumes a chapter after an inserted passage. It is not a chapter and must not open one, and the
@@ -10999,7 +13331,7 @@ function extractCaput(h, O, warn, where) {
      reported, so a bracketed resumption reads as the repetition it is rather than as a chapter. */
   let seq = 0, found = 0, refused = 0;
   b = b.replace(
-    /(\[?)\s*CAPUT\s*\.?\s*(PRIMUM|[IVXLC]+)\s*\.\s*(?:--|—|–)?\s*([^\n<]*)/g,
+    /(\[?)\s*CAPUT\s*\.?\s*(PRIMUM|[IVXLC]+)\b\s*\.?\s*(?:--|—|–)?\s*([^\n<]*)/g,
     (whole, brack, num, title) => {
       const v = num === "PRIMUM" ? 1 : romanValue(num);
       if (!v || v <= seq) {
@@ -12088,6 +14420,320 @@ function dramaHtml(sections) {
     .join("\n");
 }
 
+/* ============================================================
+   BETA CODE                       (Perseus's older files, where the Greek is not Greek)
+   ============================================================
+   Beta code is the ASCII transport encoding for polytonic Greek from before Unicode, and Perseus's
+   older TEI still carries it: `Si/bulla, ti/ qe/leis;` is Σίβυλλα, τί θέλεις;. Decoding it RECOVERS
+   what the edition prints rather than composing anything — the beta code is a lossless encoding of
+   the Greek, so this is a decode in the same sense that an HTML entity is one, not a repair.
+
+   TWO THINGS MAKE IT SAFE, AND WITHOUT EITHER IT WOULD BE THE WRONG TOOL.
+
+   · THE MARKS MUST BE SORTED, because Unicode will not do it. A breathing (U+0313) and an acute
+     (U+0301) are both canonical combining class 230, and normalization NEVER reorders marks of the
+     same class — order is significant to it. The Satyricon's file writes οἴνῳ as `oi/)nw|`, accent
+     before breathing, and composed in that order it yields ο + ί + a loose combining smooth
+     breathing rather than the single character ἴ. Sorting them into the order the precomposed
+     characters decompose to — breathing/dialytika, then accent, then iota subscript — is not a
+     repair; it is the ordering composition requires.
+
+   · IT REFUSES RATHER THAN GUESSING, and that is what this function is really for. Where the source
+     puts a mark on the FIRST vowel of a diphthong, decoding produces a letter Greek has not got:
+     `de=uro` is δεῦρο, but the `=` follows the ε, so a decoder yields ε with a circumflex, which no
+     precomposed character exists for and which no printed page has ever carried. Any residual
+     combining mark after NFC means exactly that, so the whole string is REFUSED and the caller
+     leaves the beta code standing. Shipping a plausible-looking repair of somebody else's Greek is
+     the one thing worse than shipping the ASCII.
+
+   Measured over the Satyricon's sixteen before this was written: fourteen decode to real polytonic
+   Greek and two do not, and BOTH failures are the same `de=uro`. All five instances in the running
+   text of either column decode cleanly, §48's Sibyl among them; the failures are inside notes. Two
+   more (`ka\i`, `kradih/`) compose to real characters with the accent in the wrong place — the
+   source's, recorded rather than repaired, exactly as the Aeneid's l→I slips are. */
+const BETA_LET = { a: "α", b: "β", g: "γ", d: "δ", e: "ε", z: "ζ", h: "η", q: "θ", i: "ι", k: "κ",
+  l: "λ", m: "μ", n: "ν", c: "ξ", o: "ο", p: "π", r: "ρ", s: "σ", t: "τ", u: "υ",
+  f: "φ", x: "χ", y: "ψ", w: "ω" };
+const BETA_BREATH = { ")": "̓", "(": "̔", "+": "̈" };
+const BETA_ACCENT = { "/": "́", "\\": "̀", "=": "͂" };
+const BETA_SUB = { "|": "ͅ" };
+const BETA_MARKS = /[̀-ͯ]/;
+
+function betaGreek(s) {
+  let out = "";
+  for (let i = 0; i < s.length; ) {
+    let ch = s[i], star = false;
+    if (ch === "*") { star = true; i++; ch = s[i] || ""; }        // the strict capital form
+    const base = BETA_LET[ch.toLowerCase()];
+    if (!base) {
+      // a mark with no letter in front of it is not beta code we understand
+      if (BETA_BREATH[ch] || BETA_ACCENT[ch] || BETA_SUB[ch]) return null;
+      out += ch; i++; continue;
+    }
+    i++;
+    let br = "", ac = "", sub = "";
+    for (; i < s.length; i++) {
+      const m = s[i];
+      if (BETA_BREATH[m]) br += BETA_BREATH[m];
+      else if (BETA_ACCENT[m]) ac += BETA_ACCENT[m];
+      else if (BETA_SUB[m]) sub += BETA_SUB[m];
+      else break;
+    }
+    let g = star || ch !== ch.toLowerCase() ? base.toUpperCase() : base;
+    // a sigma ending a word is written ς — the one letter whose shape depends on what follows it
+    if (g === "σ" && (i >= s.length || !BETA_LET[(s[i] || "").toLowerCase()])) g = "ς";
+    const seq = (g + br + ac + sub).normalize("NFC");
+    if (BETA_MARKS.test(seq)) return null;   // a mark that will not compose: see above
+    out += seq;
+  }
+  return out;
+}
+
+/* ============================================================
+   A WORK CITED BY SECTION AND DIVIDED INTO NOTHING ELSE
+                                   (layout: "satyricon" — the seventeenth)
+   ============================================================
+   Aug 2026, adding the Satyricon. The fifth TEI reader, and it exists because this edition states
+   ONE level of citation and no structure whatever above it: 141 `<milestone unit="section"/>` in
+   each column, zero `<div>`, zero `<head>`, and a `refsDecl` that says so outright —
+   `<state delim="." unit="text"/><refState unit="section"/>`. So the section is the chapter AND the
+   row, which is the Rigveda's shape (the chapter is the smallest unit of the work) and the Song of
+   Roland's (a chapter is short, and that is the work rather than the import).
+
+   NO `bk-n` MARKER IS WRITTEN, and that is a decision rather than an omission. With the chapter and
+   the section the same thing there is nothing below the tab to pair on, so each column comes back as
+   a single unnumbered block and `bookRows` pairs the two on `key -1 === -1` — deterministically,
+   since NEITHER side carries a marker anywhere, which is what separates this from the Gallic War's
+   chapter 0 pairing "by luck". Writing one anyway would print the section number at the head of a
+   chapter whose tab already says it, which is what Beowulf's `dropFittHead` exists to avoid.
+
+   FOUR THINGS IT WAS WORTH MEASURING BEFORE WRITING THIS RATHER THAN AFTER, and two of them
+   corrected an earlier measurement of my own.
+
+   · THE DISPLAY QUOTATIONS MUST BE MATCHED BALANCED, and so must the notes. `<quote>` NESTS inside
+     `<l>` — `<l><quote>Quis furor</quote> exclamat...` — so a non-greedy `<quote>…</quote>` pair
+     closes on the INNER tag and leaves the rest of the poem outside the block it belongs to. It is
+     the Prose Edda's nested-`<dl>` lesson on a new element, and it reported ten of the Latin's 607
+     lines as standing outside any display quotation when in fact none does. The Latin's `<note>`
+     nests once and its `<p>` sixteen times, so the same rule covers all three.
+
+   · THE PARAGRAPHS ARE CUT WITH SENTINELS, NOT WITH A `<p>` WALK. 92% of the Latin's text sits
+     inside a `<p>` and 8% does not, so a `<p>`-anchored reader loses a twelfth of the column in
+     silence — the Art of War's `wrapBareRuns` fault in a TEI file. Replacing every `<p>` tag, open
+     and close, with one sentinel and splitting there keeps a bare run as its own paragraph and, as a
+     free consequence, survives the sixteen nested `<p>` (which yield an empty piece and are dropped)
+     where any paired match would not.
+
+   · HESELTINE RENDERS PETRONIUS'S VERSE AS PROSE. The Latin marks 607 lines in 53 display
+     quotations and the English 23 in 8, and in each of the eight longest poems the English's own
+     `<l>` count is ZERO — §89's 65 lines of the Troiae Halosis face a single English paragraph. So a
+     display quotation is a DISPLAY QUOTATION and not a verse block: it is set as a blockquote and
+     what is inside it decides whether the lines break. One of the Latin's 54 holds no line at all,
+     being Trimalchio's riddle set as a quotation in prose.
+
+   · THE LATIN'S NOTES ARE AN APPARATUS AND ARE DROPPED. 385 of them against the English's 134, with
+     a median length of 25 characters against 82; 113 are `place="marg"` sigla reading "L" or "LO",
+     and 162 of the rest name an editor or a manuscript. Folded under the chapter they would build a
+     list of variant readings in Latin abbreviations under every one of 141 tabs, which is the Art of
+     War's rule about what a note fold is for. They are counted and said out loud, and the book's own
+     front matter says it too. The cost, measured: about five explanatory glosses on Trimalchio's
+     Latin go with them, and a rule that told those from the apparatus would have to know every
+     editor's name — a list I have already watched come up short (it missed Haasius, Friedlaender,
+     Sambucus and Tornaesius), and a rule that misclassifies is worse than one that drops and says
+     so. The English's own three `place="marg"` sigla go the same way on both sides. */
+/* A QUOTATION MAY CROSS A SECTION BOUNDARY, and since the section is the chapter it has to be cut
+   at one — so every quotation still open at a section milestone is CLOSED before it and REOPENED
+   after it, innermost last, and each section comes out well-formed on its own.
+
+   IT IS THE AENEID'S MID-LINE CARD LIFT IN A NEW SHAPE. There a card mark standing inside a line of
+   verse had to be moved to the line's edge before the book was sliced at it, because slicing cut the
+   `<l>` in two and the reader matched neither half. Here the block is the thing sliced, and the fix
+   is to close and reopen rather than to move, because the boundary is the edition's own and must not
+   shift: the Bellum Civile at sections 119–124 is ONE `<quote rend="blockquote">` with five section
+   milestones inside it, so the poem is a display quotation the edition's own numbering divides.
+
+   WITHOUT IT THE FAULT IS THE QUIET KIND, in both directions. A display quotation whose opener is in
+   one section and whose closer is in the next comes back unclosed, and the whole poem then renders
+   as a run-on paragraph instead of a block — every word present, every line still broken, and only
+   the setting wrong; measured before this was written, that was 5 of the Latin's 54 blocks and 101
+   of its 607 lines. And an INLINE quotation crossing a boundary is worse rather than better: the
+   opener with no closer leaves the rest of that section inside quotation marks, which reads as the
+   narrator having started quoting somebody. Eighteen milestones in the Latin stand inside a
+   quotation of one kind or the other, most of them in Trimalchio's dinner, where the guests quote
+   proverbs at each other across the section marks.
+
+   IT IS NEEDED AT TWO KINDS OF BOUNDARY, which is why it takes one, and the second was found by
+   counting tags over the shipped file rather than by reading a page. A display quotation is pulled
+   out of the flow into a block of its own, and an inline quotation may WRAP one — §83 is a speech
+   that quotes a poem, "as the Greeks call it… [verse] …", and there are eight such places. Pulling
+   the block out leaves that speech's opener in the paragraph before and its closer in the paragraph
+   after, so the browser auto-closes the first at the end of its paragraph and drops the second, and
+   what a reader sees is a quotation mark opening where nothing is being quoted. Every word is
+   present and every count reads healthy; only counting an opening tag against its closer over the
+   shipped data shows it, which is this file's standing sweep after any extractor change.
+
+   AND THIS EDITION MARKS A QUOTATION TWO WAYS, which is the third time one bad assumption about
+   these tags has cost something today. Almost everything is `<quote>`; the Latin also carries three
+   bare `<q>` elements, and one of THOSE is the one wrapping a display quotation — Quartilla's speech
+   at §18, which quotes four lines of verse and then goes on talking. So the walk tracks both and
+   closes whichever is actually open, in reverse order, rather than assuming one element. Measured
+   over both columns: `<quote>` 585 in the Latin and 423 in the English, `<q>` 3 and 0. */
+function closeQuotesAt(text, boundary, isBoundary) {
+  const open = [];
+  let out = "", last = 0, cuts = 0;
+  const rx = new RegExp("<(\\/?)(quote|q)\\b[^>]*>|" + boundary, "g");
+  let m;
+  while ((m = rx.exec(text))) {
+    if (m[2]) {
+      if (!m[1]) { open.push({ tag: m[2], raw: m[0] }); continue; }
+      for (let k = open.length - 1; k >= 0; k--) if (open[k].tag === m[2]) { open.splice(k, 1); break; }
+      continue;
+    }
+    if (!open.length || (isBoundary && !isBoundary(m[0]))) continue;
+    const shut = open.slice().reverse().map((o) => "</" + o.tag + ">").join("");
+    out += text.slice(last, m.index) + shut + m[0] + open.map((o) => o.raw).join("");
+    last = rx.lastIndex;
+    cuts++;
+  }
+  return { text: out + text.slice(last), cuts: cuts };
+}
+
+function cutAcrossSections(body) {
+  return closeQuotesAt(body, "<milestone\\b[^>]*?\\/?>", (s) => {
+    // read the attributes independently of their order, for the Odyssey's reason
+    const u = /\bunit="([^"]*)"/.exec(s);
+    return !!u && u[1].toLowerCase() === "section";
+  });
+}
+
+function extractSatyricon(xml, opts, warn) {
+  const raw0 = xml.slice(xml.indexOf("<body"));
+  if (raw0.length < 1000) throw new Error("no <body> in the TEI file");
+  if (raw0.includes("@@")) throw new Error("the sentinel '@@' occurs in the source text");
+  const cut = cutAcrossSections(raw0);
+  const body = cut.text;
+
+  /* Read the milestone's attributes independently of their order — the Odyssey's rule, whose Greek
+     writes `<div n="1" type="textpart" subtype="book">` where every sibling writes the other order
+     and whose old order-fixed pattern therefore matched not one of the twenty-four. */
+  const marks = [];
+  const mre = /<milestone\b([^>]*?)\/?>/g;
+  let m;
+  while ((m = mre.exec(body))) {
+    const u = /\bunit="([^"]*)"/.exec(m[1]);
+    const n = /\bn="([^"]*)"/.exec(m[1]);
+    if (u && u[1].toLowerCase() === "section" && n && /^\d+$/.test(n[1]))
+      marks.push({ n: +n[1], at: m.index, end: mre.lastIndex });
+  }
+  if (!marks.length) throw new Error("no section milestones in the TEI file");
+
+  const out = {};
+  const counts = { notes: 0, dropped: 0, sigla: 0, verse: 0, lines: 0, quotes: 0,
+                   greek: 0, greekLeft: [], gaps: 0, cuts: cut.cuts };
+  let seq = 0;
+  marks.forEach((c, i) => {
+    if (c.n <= seq) warn("section " + c.n + " follows " + seq + " — out of order");
+    seq = c.n;
+    const raw = body.slice(c.end, i + 1 < marks.length ? marks[i + 1].at : body.length);
+    const notes = [];
+    const html = satyriconSection(raw, notes, opts, counts, warn);
+    if (!html) { warn("section " + c.n + " came back empty"); return; }
+    out[c.n] = { html: html, notes: notes };
+  });
+  return { sections: out, counts: counts };
+}
+
+/* Everything after an opening tag up to its own matching close, counting depth — the one thing a
+   non-greedy pair cannot do, and the reason this file has met the same bug three times now. */
+function balancedSpan(s, from, name) {
+  const tag = new RegExp("<(/?)" + name + "\\b[^>]*>", "g");
+  tag.lastIndex = from;
+  let depth = 0, t;
+  while ((t = tag.exec(s))) {
+    depth += t[1] ? -1 : 1;
+    if (!depth) return tag.lastIndex;
+  }
+  return -1;
+}
+
+function satyriconSection(raw, notes, opts, counts, warn) {
+  /* 1. THE GREEK, first, so that a <foreign> inside a note is decoded before the note is lifted. */
+  let b = raw.replace(/<foreign\b([^>]*)>([\s\S]*?)<\/foreign>/g, (whole, attrs, inner) => {
+    if (!/lang="grc"/.test(attrs)) return whole;
+    const src = inner.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    const got = opts.greek === "beta" ? betaGreek(src) : null;
+    if (got == null) { if (opts.greek === "beta") counts.greekLeft.push(src); return whole; }
+    counts.greek++;
+    return "<foreign" + attrs + ">" + got + "</foreign>";
+  });
+
+  /* 2. The scan's page breaks are furniture. */
+  b = b.replace(/<pb\b[^>]*?\/?>/g, " ");
+  counts.gaps += (b.match(/<gap\b/g) || []).length;
+
+  /* 3. THE NOTES, balanced. A marginal siglum is not a note on either side: the English's three and
+        the Latin's 113 all read "L" or "LO", which is the manuscript the reading comes from, and
+        lifted into the fold they are three entries saying nothing. */
+  for (let i = 0; (i = b.indexOf("<note", i)) !== -1; ) {
+    const end = balancedSpan(b, i, "note");
+    if (end === -1) { warn("an unclosed <note> — left in place"); break; }
+    const whole = b.slice(i, end);
+    const attrs = (/<note\b([^>]*)>/.exec(whole) || ["", ""])[1];
+    const inner = whole.replace(/^<note\b[^>]*>/, "").replace(/<\/note>$/, "");
+    let rep = "";
+    if (/place="marg"/.test(attrs)) counts.sigla++;
+    else if (opts.dropNotes) counts.dropped++;
+    else {
+      const t = teiInline(inner);
+      if (t) { notes.push(t); counts.notes++; rep = '<sup class="fn" data-fn="' + notes.length + '"></sup>'; }
+    }
+    b = b.slice(0, i) + rep + b.slice(end);
+    i += rep.length;
+  }
+
+  /* 4. THE DISPLAY QUOTATIONS, balanced, out to sentinels — what is inside decides whether the
+        lines break, since this translator sets Petronius's verse as prose. */
+  const blocks = [];
+  for (let i = 0; (i = b.indexOf("<quote", i)) !== -1; ) {
+    const open = /^<quote\b([^>]*)>/.exec(b.slice(i));
+    if (!open) { i += 6; continue; }
+    if (!/rend="blockquote"/.test(open[1])) { i += 6; continue; }
+    /* cutAcrossSections has already closed anything that ran over a section boundary, so this can
+       only fire on markup neither it nor the source anticipated. Step PAST the opener rather than
+       breaking, or one unbalanced block would silently cost every quotation after it in the same
+       section as well — which is how the five crossing blocks first cost more than five. */
+    const end = balancedSpan(b, i, "quote");
+    if (end === -1) { warn("an unclosed display quotation — left in place"); i += open[0].length; continue; }
+    const inner = b.slice(i + open[0].length, end - "</quote>".length);
+    const lines = (inner.match(/<l\b/g) || []).length;
+    const t = teiInline(inner);
+    const tok = "@@V" + blocks.length + "@@";
+    blocks.push(t ? "<blockquote><p>" + t + "</p></blockquote>" : "");
+    if (t) { counts.quotes++; if (lines) { counts.verse++; counts.lines += lines; } }
+    b = b.slice(0, i) + tok + b.slice(end);
+    i += tok.length;
+  }
+
+  /* 5. THE PARAGRAPHS. Every <p> tag, open or close, becomes one sentinel — see the header for why
+        this is not a <p> walk. Then the same close-and-reopen rule runs over EVERY boundary this
+        section is about to be cut at, block sentinels included: a speech spanning two paragraphs,
+        or wrapping a poem, must not leave half its tagging on either side of the cut. */
+  b = b.replace(/<\/?p\b[^>]*>/g, "@@P@@");
+  const rebal = closeQuotesAt(b, "@@P@@|@@V\\d+@@");
+  b = rebal.text;
+  counts.cuts += rebal.cuts;
+
+  const pieces = b.split(/(@@V\d+@@)|@@P@@/).filter((x) => x != null);
+  const html = [];
+  for (const piece of pieces) {
+    const v = /^@@V(\d+)@@$/.exec(piece);
+    if (v) { if (blocks[+v[1]]) html.push(blocks[+v[1]]); continue; }
+    const t = teiInline(piece);
+    if (t) html.push("<p>" + t + "</p>");
+  }
+  return html.join("\n");
+}
+
 /* ---------- reconciling the two columns' card numbers ----------
    142 of the 156 cards carry the identical number on both sides and need nothing. Thirteen are one to
    three Latin lines apart, because Magnus and the editor who aligned More's translation put the same
@@ -12250,6 +14896,40 @@ async function fetchEnglish() {
 
   /* A PROSE WORK IN BOOKS OF NUMBERED CHAPTERS — see teiBookChapters. One fetch for the whole
      history, cached whole, so --from/--to cost nothing and a re-extract needs no network at all. */
+  /* A WORK WHOSE SECTION IS ITS CHAPTER — one TEI file, 141 sections, nothing above them. See
+     extractSatyricon for why the section is the tab as well as the row, and why no marker is
+     written. The counts are printed rather than summarised, because every one of them is a decision
+     the reader would otherwise have to take on trust: what was dropped, what was left in beta code,
+     and how much of Petronius's verse the translator set as prose. */
+  if (BOOK.source === "tei" && BOOK.layout === "satyricon") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    const got = extractSatyricon(xml, { greek: BOOK.greek }, warn);
+    const c = got.counts;
+    console.log("  " + Object.keys(got.sections).length + " sections, " + c.notes + " notes, " +
+      c.quotes + " display quotations (" + c.verse + " of them verse, " + c.lines + " lines), " +
+      c.gaps + " lacunae");
+    if (c.cuts) console.log("    closed and reopened " + c.cuts + " quotation(s) at a boundary the text " +
+      "is cut at — a section mark, a paragraph, or a display quotation lifted out of the flow");
+    if (c.sigla) console.log("    dropped " + c.sigla + " marginal siglum note(s) — a manuscript letter is not a note");
+    if (c.greek || c.greekLeft.length)
+      console.log("    decoded " + c.greek + " Greek passage(s) out of beta code" +
+        (c.greekLeft.length ? "; LEFT " + c.greekLeft.length + " that will not compose: " +
+          c.greekLeft.map((s) => JSON.stringify(s)).join(", ") : ""));
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const s = got.sections[n];
+      if (!s) { warn(BOOK.chapterWord + " " + n + " is missing from the edition"); continue; }
+      if (s.html.length < (BOOK.minChars || 200))
+        throw new Error("section " + n + " came back short (" + s.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: s.html, notes: s.notes });
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.source === "tei" && BOOK.layout === "chaptered") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-tei.xml");
@@ -12354,6 +15034,91 @@ async function fetchEnglish() {
     console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + lines + " lines");
     return writeEnglish(chapters, warnings);
   }
+
+  /* A HYMN PER PAGE, A THOUSAND OF THEM — the ordinary wiki walk with the chapter at the smallest
+     unit of the work. See the block above extractSukta for the four transcription shapes, and for
+     the Valakhilya offset that would have mispaired 55 hymns of mandala 8. */
+  if (BOOK.layout === "sukta") {
+    let verses = 0, notes = 0, unnum = 0;
+    const short = [];
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = chapterTitle(n);
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(4, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else {
+        h = await api(BOOK.page(n));
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, h);
+        await sleep(900);
+      }
+      const got = extractSukta(h, where, warn);
+      /* A hymn may honestly be three verses long, so the short-chapter guard is a floor on the
+         WHOLE book rather than a throw on one page: what it is for is catching an extraction that
+         has returned the wiki's furniture instead of the text, and one three-verse hymn is not
+         that. Reported and counted; a run in which the count moves is a run to look at. */
+      if (got.html.length < (BOOK.minChars || 200)) short.push(where + " (" + got.html.length + ")");
+      verses += got.verses; notes += got.notes.length; unnum += got.unnumbered;
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+    }
+    const marks = chapters.reduce((a, c) => a + (c.html.match(/class="bk-n"/g) || []).length, 0);
+    console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + verses +
+      " verses, " + marks + " verse numbers, " + notes + " note(s)");
+    console.log("  transcription shapes: " +
+      Object.keys(SUKTA_KIND).sort().map((k) => k + " " + SUKTA_KIND[k]).join(", "));
+    if (unnum) console.log("  " + unnum + " printed number(s) declined by the forward-only guard");
+    if (short.length) console.log("  " + short.length + " short hymn(s): " + short.slice(0, 8).join(", ") +
+      (short.length > 8 ? " …" : ""));
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A POEM IN TERCETS, NUMBERED BY COUNTING — the ordinary wiki walk, one page per canto. See the
+     block above extractTerzina for why the numbers here are counted rather than read, and for the
+     measurements that make counting safe. */
+  if (BOOK.layout === "terzine") {
+    let lines = 0, printed = 0, bad = 0, heads = 0, notes = 0;
+    const dropped = [];
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = chapterTitle(n);
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(3, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else {
+        h = await api(BOOK.page(n));
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, h);
+        await sleep(900);
+      }
+      const got = extractTerzina(h, where, warn);
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      lines += got.lines; printed += got.printed; bad += got.bad;
+      heads += got.heads; notes += got.notes.length;
+      if (got.before) dropped.push(where + ": " + JSON.stringify(got.before.slice(0, 70)));
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+    }
+    const marks = chapters.reduce((a, c) => a + (c.html.match(/class="bk-n"/g) || []).length, 0);
+    console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + lines +
+      " lines, " + marks + " tercet numbers, " + notes + " note(s)");
+    /* THE FIGURE THIS BOOK IS ABOUT, printed on every run. The numbers are counted, so what says
+       the count is right is how often the printed numerals agree with it — and a change in either
+       figure means the marker has stopped being recognised in one of the two transcription shapes,
+       which no other check here can see (the poem would still be complete and the columns would
+       still be the same length). */
+    console.log("  " + printed + " printed numerals checked against the count, " +
+      (printed - bad) + " agreeing, " + bad + " misprinted");
+    console.log("  " + heads + " canticle and canto headings dropped from inside the body");
+    /* A rule that removes text says what it removed. These are the plate captions of the Blake
+       engravings bound into the volume — the Republic's precedent for the plates it left behind. */
+    if (dropped.length) console.log("  " + dropped.length +
+      " page(s) carried text before the verse, dropped: " + dropped.join("; "));
+    return writeEnglish(chapters, warnings);
+  }
+
   /* A COLLECTION OF POEMS IN NUMBERED STANZAS — the ordinary wiki walk, one page per poem, with the
      pairing done a level BELOW the chapter as it is for a poem in fitts. What is different is that a
      chapter's body is verse and prose MIXED; see the block comment above extractEdda for why no
@@ -12443,6 +15208,39 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* DON QUIXOTE — Gutenberg's plain text of Ormsby, chosen over a complete and clean Wikisource
+     transcription of the same translation because that one has lost sixty words. One request for
+     the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no network.
+     See the block above extractQuixote for the measurement and for what was NOT done about it. */
+  if (BOOK.layout === "quixote") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractQuixote(raw, BOOK, warn);
+    if (got.chapters.length !== BOOK.chapters.length)
+      warn("the transcription yields " + got.chapters.length + " chapters; the entry expects " +
+        BOOK.chapters.length);
+    got.chapters.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      chapters.push({ n: c.n, t: titles[c.n] || chapterTitle(c.n), p: partOf(c.n), html: c.html, notes: [] });
+    });
+    console.log("  " + chapters.length + " chapters, " + got.heads +
+      " lines of chapter title removed (each duplicates its own tab), " + got.plates +
+      " plate captions, " + got.paras + " paragraphs");
+    /* THE VERSE COUNT IS THE FIGURE THIS BOOK IS ABOUT, because it is the one thing recovered from
+       typography rather than read off a tag: a change in it means the rule has stopped recognising
+       a shape, which shortens nothing, throws nothing and simply prints Cervantes's ballads and
+       sonnets as prose. The all-caps blocks are its other half — a heading is short-lined too, and
+       every one the rule declines to take as verse is counted here so it cannot go quietly. */
+    console.log("  " + got.verse + " verse blocks, and " + got.caps.length +
+      " short all-capital blocks kept as headings: " +
+      [...new Set(got.caps)].slice(0, 6).join(" · "));
+    return writeEnglish(chapters, warnings);
+  }
   /* THE CANTERBURY TALES — a plain-text OCR of one volume, of which this book is the first sixth. One
      request for the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no
      network at all. See the block above extractChaucer for what a text with no markup has to be given
@@ -12698,6 +15496,11 @@ function writeEnglish(chapters, warnings) {
   const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
   console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
     (secs.some((s) => !s) ? "  — " + secs.filter((s) => !s).length + " chapter(s) with NONE" : ""));
+  if (ARTICULI_FOUND)
+    console.log("  " + ARTICULI_FOUND + " articles, " + ARTICULI_COUNTED +
+      " of the questions numbered by their own stated count — " + ARTICULI_NODASH +
+      " headings print no dash after the number, " + ARTICULI_UNNUM + " print no number at all, " +
+      ARTICULI_DUP + " repeat the heading before them");
 }
 
 /* The original-language half, written to its OWN file — books/<id>.<lang>.js, its own lazy bundle.
@@ -12802,6 +15605,44 @@ async function fetchOriginal() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+
+    /* THE SECTION IS THE CHAPTER, so there is nothing below it to reconcile — the pairing question
+       this branch usually answers ("do the two columns state the same numbers inside each chapter?")
+       becomes "does each column have the same 141 sections?", which is checked here against the
+       ENGLISH THAT SHIPPED rather than asserted from the entry, the discipline every branch above
+       follows. The original's notes have nowhere to go — Folio folds notes under the translation
+       alone — and here they are an apparatus criticus besides, so the count is printed. */
+    if (O.layout === "satyricon") {
+      const enCache = path.join(CACHE, "en-tei.xml");
+      let enXml;
+      if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
+      else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+      const en = extractSatyricon(enXml, { greek: BOOK.greek }, warn).sections;
+      const got = extractSatyricon(xml, { greek: O.greek, dropNotes: true }, warn);
+      const or = got.sections;
+      const c = got.counts;
+      console.log("  " + Object.keys(or).length + " sections, " + c.quotes + " display quotations (" +
+        c.verse + " of them verse, " + c.lines + " lines), " + c.gaps + " lacunae");
+      if (c.cuts) console.log("  closed and reopened " + c.cuts + " quotation(s) at a boundary the text " +
+        "is cut at — a section mark, a paragraph, or a display quotation lifted out of the flow");
+      console.log("  dropped " + c.dropped + " apparatus note(s) and " + c.sigla +
+        " marginal siglum note(s) from the " + O.langName + " — the reader folds notes under the " +
+        "translation alone, and this edition's are an apparatus criticus besides");
+      if (c.greek || c.greekLeft.length)
+        console.log("  decoded " + c.greek + " Greek passage(s) out of beta code" +
+          (c.greekLeft.length ? "; LEFT " + c.greekLeft.length + " that will not compose: " +
+            c.greekLeft.map((s) => JSON.stringify(s)).join(", ") : ""));
+      const eKeys = Object.keys(en).map(Number).sort((a, b) => a - b);
+      const oKeys = Object.keys(or).map(Number).sort((a, b) => a - b);
+      const oSet = new Set(oKeys), eSet = new Set(eKeys);
+      const miss = eKeys.filter((n) => !oSet.has(n)), extra = oKeys.filter((n) => !eSet.has(n));
+      console.log("  paired " + eKeys.filter((n) => oSet.has(n)).length + " of " + eKeys.length +
+        " sections" + (miss.length ? "; " + miss.length + " draw an empty " + O.langName +
+        " cell (" + miss.slice(0, 8).join(", ") + ")" : "") +
+        (extra.length ? "; " + extra.length + " an empty English one (" + extra.slice(0, 8).join(", ") + ")" : ""));
+      oKeys.forEach((n) => { byNum[n] = or[n].html; });
+      return writeOriginal(byNum, warnings);
+    }
 
     /* A VERSE edition pairs on CARDS rather than on prose chapters, and the two sides' card numbers
        have to be reconciled before either is written — see reconcileCards, which is where the thirteen
@@ -13019,6 +15860,59 @@ async function fetchOriginal() {
       : list.join(", ");
     if (onlyEn.length) warn(onlyEn.length + " chapter(s) in the translation with no original: " + say(onlyEn));
     if (onlyOr.length) warn(onlyOr.length + " chapter(s) in the original with no translation: " + say(onlyOr));
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* THE SANSKRIT SAMHITA — one page per hymn on another wiki, with Sayana's commentary dropped and
+     the verse cut as a stream; see suktaSanskrit above. The pairing is checked against the English
+     that actually SHIPPED, read back out of its own cache, exactly as the caput branch does. */
+  if (O.layout === "sukta") {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    let verses = 0;
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = O.langName + " " + chapterTitle(n);
+      const cf = path.join(cacheDir, "sa-" + String(n).padStart(4, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(O.page(n), O.wiki); fs.writeFileSync(cf, h); await sleep(1000); }
+      const got = suktaSanskrit(h, where, warn);
+      byNum[n] = got.html;
+      verses += got.verses;
+    }
+    console.log("  " + verses + " verses, " + SUKTA_SA_BLOCKS + " verse blocks over " +
+      Object.keys(byNum).length + " hymns, " + SUKTA_SA_DROPPED + " commentary blocks dropped");
+    if (SUKTA_SA_TRAIL) console.log("  " + SUKTA_SA_TRAIL +
+      " numeral(s) declined by the forward-only guard (the closing formula)");
+
+    /* THE ENGLISH IS READ BACK OUT OF ITS OWN CACHE and re-extracted, so what is compared is exactly
+       what shipped — never books/<id>.js, whose markers are inside a quoted string and which a
+       pattern written for HTML matches nowhere. This walk caches the raw page rather than the
+       extracted record, so the extractor is what turns one into the other; it is deterministic, so
+       running it twice cannot disagree with itself. */
+    const nums = (html) => (html.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    let pairs = 0, seen = 0;
+    const onlyEn = [], onlyOr = [];
+    for (const n of BOOK.chapters) {
+      const cf = path.join(CACHE, "en-" + String(n).padStart(4, "0") + ".html");
+      if (!byNum[n] || !fs.existsSync(cf)) continue;
+      seen++;
+      const en = nums(extractSukta(fs.readFileSync(cf, "utf8"), chapterTitle(n), () => {}).html),
+            or = nums(byNum[n]);
+      const se = new Set(en), so = new Set(or);
+      const missing = en.filter((v) => !so.has(v)), extra = or.filter((v) => !se.has(v));
+      onlyEn.push(...missing.map((v) => chapterTitle(n) + "." + v));
+      onlyOr.push(...extra.map((v) => chapterTitle(n) + "." + v));
+      if (!missing.length && !extra.length) pairs++;
+    }
+    if (seen) console.log("  " + pairs + " of " + seen + " hymns pair exactly on every verse number");
+    else console.log("  (no cached translation to pair against — run without --only-original to check)");
+    const say = (list) => list.length > 12
+      ? list.slice(0, 12).join(", ") + " … and " + (list.length - 12) + " more"
+      : list.join(", ");
+    if (onlyEn.length) warn(onlyEn.length + " verse(s) in the translation with no original: " + say(onlyEn));
+    if (onlyOr.length) warn(onlyOr.length + " verse(s) in the original with no translation: " + say(onlyOr));
     return writeOriginal(byNum, warnings);
   }
 

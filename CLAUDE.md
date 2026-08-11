@@ -128,7 +128,199 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-five:
+  matter (chapter 0 — see the Library bullet). Currently forty-one:
+  `satyricon` (~288 KB, all 141 sections, **55 display quotations**, **131 notes** — Michael
+  Heseltine's Loeb of 1913, and **the first book here whose CHAPTER, SECTION AND CITATION ARE ALL
+  ONE THING.** The Rigveda's chapter is the smallest unit of the work and its verses still divide it;
+  here there is nothing below the section and nothing above it either. Both files state 141
+  `<milestone unit="section"/>`, **zero `<div>` and zero `<head>`**, and each declares the scheme in
+  its own header — `<refState unit="section"/>`, one level — so a passage is "Satyricon 48" and the
+  tab is the citation. **NO `bk-n` MARKER IS WRITTEN**, which is a decision: with the chapter and the
+  section the same thing there is nothing left to pair on, so each column comes back as a single
+  unnumbered block and `bookRows` pairs them on `key -1 === -1` — deterministically, since NEITHER
+  side carries a marker anywhere, which is what separates this from the Gallic War's chapter 0
+  pairing "by luck". Writing one would print the section number at the head of a chapter whose tab
+  already says it, which is Beowulf's `dropFittHead` rule.
+  **FIVE THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE TRANSLATION IS PARTLY UNTRANSLATED, and no ratio test can see it.** The Loeb of 1913 would
+  not print Petronius's frankly sexual passages in English, so it printed the LATIN: ten sections
+  entire or nearly so — 23–26, 85–87, 132, 138, 140 — **2,389 words, 4.9% of the English column**.
+  The obvious measure is a per-section length ratio, and it reported §138 healthy at 1.36 while its
+  "English" opens *Profert Oenothea scorteum fascinum* — **untranslated text is still text**. What
+  DOES see it is word overlap between the two columns of the same section: a real translation shares
+  only proper names, a few per cent, where these share nearly everything. It is the Rigveda's
+  Griffith problem (thirteen verses turned into Latin rather than English) met on a Latin original,
+  and the book's own front matter names the ten sections and the figure.
+  **A NON-GREEDY TAG PAIR IS WRONG THREE TIMES IN ONE FILE**, which is the Prose Edda's nested-`<dl>`
+  lesson at scale. `<quote>` nests inside `<l>` (`<l><quote>Quis furor</quote> exclamat…`), the
+  Latin's `<note>` nests once and its `<p>` sixteen times, so everything is matched BALANCED — and
+  the fault was quiet in the usual way: a non-greedy pair reported ten of the Latin's 607 lines as
+  standing outside any display quotation when in fact none does.
+  **A BLOCK MUST BE CLOSED AND REOPENED AT EVERY BOUNDARY THE TEXT IS CUT AT** — the Aeneid's
+  mid-line card lift in a new shape, and the cut this book most needed. The Bellum Civile at
+  sections 119–124 is **ONE `<quote rend="blockquote">` with five section milestones inside it**, so
+  the poem is a display quotation the edition's own numbering divides; cut at the milestones without
+  closing it, five blocks come back unclosed and 101 of the 607 lines render as run-on paragraphs
+  with every word present. The same rule is needed at a PARAGRAPH and at a display quotation lifted
+  out of the flow, since an inline quotation may wrap one (§83 is a speech quoting a poem) — and
+  **the edition marks a quotation TWO ways**, 585 `<quote>` and three bare `<q>` in the Latin, one
+  of the three being exactly the one that wraps a block. 58 cuts on the Latin side, 7 on the English.
+  **ONLY COUNTING A TAG AGAINST ITS CLOSER OVER THE SHIPPED FILE SHOWS ANY OF IT.**
+  **HESELTINE SETS PETRONIUS'S VERSE AS PROSE**, which is a fact about the translator rather than a
+  pairing fault and shows on every page it happens: the Latin marks **607 lines in 54 blocks** and
+  the English **23 in 8**, and in each of the eight longest poems the English's own `<l>` count is
+  ZERO — §89's 65 lines of the Troiae Halosis face a single English paragraph. So a display
+  quotation is a DISPLAY QUOTATION and not a verse block; what is inside decides whether the lines
+  break, and one of the Latin's 55 holds no line at all, being Trimalchio's riddle set as a
+  quotation in prose.
+  **AND THE GREEK IS BETA CODE IN ALL THREE CANDIDATE FILES** — zero Unicode Greek anywhere — so
+  there was no sibling to take it from; see `betaGreek`. **ITS REAL LIMITATION IS THE APPARATUS AND
+  IT IS DELIBERATE**: the Latin's 385 notes are a critical apparatus (median 25 characters against
+  the English's 82; 113 `place="marg"` sigla reading "L" or "LO", and 162 of the rest naming an
+  editor or a manuscript), dropped and counted, because folded under the chapter they would put a
+  list of variant readings in Latin abbreviations under every one of 141 tabs — the Art of War's
+  rule about what a note fold is for. The cost is about five explanatory glosses on Trimalchio's
+  Latin, and a rule that told those from the apparatus would have to know every editor's name, a
+  list already watched come up short. Six apparatus notes DO ship, in the English fold, and are
+  right there: they sit in the ten untranslated sections, where the English column is Latin and a
+  textual note is a note about the text that column carries),
+  `don-quixote` (~2.22 MB, both parts entire as **126 chapters**, **143 verse blocks**, **0 notes** —
+  Ormsby's translation of 1885, and **the first book here that was BUILT ON ONE SOURCE, CHECKED, AND
+  THEN THROWN AWAY FOR ANOTHER.** Everything said use Wikisource: it carries this translation
+  complete, one page per chapter, typed clean, and needed nothing but `body: "plain"` and
+  `dropHeadings` — the sixteenth book to arrive and the first in a while to need no new reader. That
+  version was written, fetched, swept and browser-checked, and **it was discarded over two words**.
+  **THE BROWSER CHECK ASSERTED THAT THE GIANTS ARE ON THE PAGE AT I.8 AND FAILED, AND THE FAULT WAS
+  NOT THE EXTRACTOR'S**: that transcription reads "thirty forty windmills that there are on plain"
+  where Ormsby wrote "thirty **or** forty windmills that there are on **that** plain" — the most
+  famous sentence in European fiction, ungrammatical, in a text that had passed every structural
+  check there is (126 chapters, tag balance clean, no chapter short, 126 unique titles). It is the
+  golden rule's "it isn't finished until it's been looked at" earning its keep for the third time
+  after the Gita and the Iliad, and the first time it has been earned by a TEST rather than by eye.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **HOW FAR A TRANSCRIPTION'S ROT GOES NEEDS AN
+  INDEPENDENT COPY OF THE SAME TRANSLATION, WALKED WORD BY WORD** — Project Gutenberg's ebook 996,
+  which is Ormsby unrevised (its own editor's note says only the Doré PLATES came from a
+  Jarvis/Motteaux edition). Over all 400,809 words the wiki copy drops **sixty** — "no occasion [to]
+  ask", "the barber [whose] basin", "sancho could not [understand]" — and doubles six of its own
+  ("out of all as as", "a portion portion of the kingdom"). One defect per six thousand words, and
+  **not one of them visible to any count**: both copies are 126 chapters split 52/74 and agree
+  chapter by chapter to within fifteen words. **AND THE ALIGNMENT ITSELF LIED FOUR TIMES BEFORE IT
+  TOLD THE TRUTH**, which is the methodological half: keying a chapter on its opening words landed
+  in Gutenberg's CONTENTS LIST rather than its body; normalising with `[^a-z0-9' ]` split every
+  possessive on one side and not the other, Gutenberg setting a curly apostrophe; and the resync was
+  written `W.indexOf(C.slice(a, a + 5).join(" "), p)`, which is `Array.prototype.indexOf` looking for
+  a whole phrase as one ELEMENT and therefore matching nothing, ever. Each of the three reported a
+  confident **52%** coverage and a short clean list. **A diff that stops early reports the text as
+  sound; check what fraction it actually walked before believing what it found.**
+  **THE VERSE MEASUREMENT THEN REVERSED THE LAST ARGUMENT FOR THE WIKI**, and it is the Canterbury
+  Tales' rejected heuristic re-measured rather than inherited. That book tried detecting verse in a
+  plain text and refused, because its OCR fragmented PROSE at the page edges; this transcription is
+  modern and clean and has no page edges, so the rule was scored against the wiki's own 55
+  marked-up blocks as ground truth — it finds 49 of them **and takes 99 blocks more**, which on
+  reading are almost all real verse the wiki sets as prose, Cardenio's sonnets and the epitaphs of
+  the Academicians among them. **The fuller text carried the better verse as well**, which is not
+  what the markup suggested. The few that are NOT verse are what the all-caps guard is for — a
+  heading is short-lined too, and so is a letter's signature — and 143 blocks ship as verse with 26
+  short all-capital ones counted and kept as headings.
+  **AND WHAT WAS NOT DONE IS THE POINT**: the wiki's words were NOT repaired from Gutenberg's. Both
+  are transcriptions of a printed page neither party has, and Gutenberg has slips of its own —
+  eleven places where one reads "he" and the other "be", in both directions. Correcting one fallible
+  copy against another and shipping the result composes a text that has never existed. One copy is
+  chosen, on measurement, and the book's front matter names the words the other drops so a reader who
+  has met that copy elsewhere knows what they are looking at.
+  **ITS REAL LIMITATION IS THE APPARATUS AND IT IS NEITHER COPY'S FAULT**: Ormsby's volumes are famous
+  for their several hundred footnotes and **not one free transcription carries a single one** —
+  measured on both, zero reference marks — so the book renders with no note fold at all, like Ovid,
+  Lucretius and the Analects. His preface and his life of Cervantes are left behind as the Republic's
+  introduction and plates were. The tabs run 1..126 straight through while the novel is cited by part
+  and chapter, so each title opens on its citation, I.1 … II.74 — the Summa's arrangement),
+  `rigveda` (~2.05 MB, all 1,028 hymns as **1,028 chapters**, **10,503 verse numbers**, 27 notes —
+  Griffith's second edition of 1896, and **the first book here whose CHAPTER IS THE SMALLEST UNIT
+  OF THE WORK and there are a thousand of them.** The tab is the citation itself: a passage of the
+  Rigveda is "RV 10.129.1" — mandala, hymn, verse — so the hymn is what a reader looks up and the
+  verse is the finest thing both editions state about the same place. The mandala is the PART, not
+  the chapter, and that was measured rather than assumed: cutting there gives ten tabs and puts 191
+  hymns in one of them, ~290,000 characters, larger than anything on the shelf, and throws away the
+  verse numbers as pairing keys — which is what Beowulf's rule forbids.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.**
+  **MANDALA 8 CARRIES THE VALAKHILYA AND THE TWO EDITIONS NUMBER THEM DIFFERENTLY**, which is
+  Journey to the West's recension check earning its keep and the one fault here no count could ever
+  have shown. Griffith prints the eleven Valakhilya hymns as an APPENDIX to his eighth book, so his
+  8.49 is the standard 8.60 and his 8.93–8.103 are the standard 8.49–8.59. Measured over 8.40–8.103
+  on both sides before a word was imported: the verse counts agree exactly through 8.48 and then run
+  eleven apart — **31 of 39 agreeing at an offset of eleven against 10 of 39 at none**, and all
+  eleven appendix hymns matching their Sanskrit verse for verse. Paired on the page number, 55 hymns
+  would have sat beside hymns that are not their counterparts with both columns complete, every
+  mandala the right length and nothing thrown. The book is numbered the STANDARD way — the way the
+  Sanskrit is numbered and every reference work cites — and Griffith's own page for each is looked
+  up; his arrangement is stated in the front matter, since a reader holding a print copy will find
+  the appendix numbered differently.
+  **THE TRANSCRIPTION USES FOUR SHAPES AND 1,023 OF THE 1,028 ARE PLAIN TEXT** — measured with the
+  wiki's own search over the whole book: 1,022 hymns are a `<div class="verse"><pre>`, one more is a
+  bare `<pre>` (5.65), four are proofread transclusions rendering as `ws-poem` (1.1, 1.32, 4.27,
+  5.1) and one is typed into the page with `<br>` (10.90, the Purusha Sukta). The Divine Comedy's
+  finding at a different ratio, with the majority shape the Canterbury Tales' and Journey to the
+  West's — a machine reading with no marks at all, so the structure is BUILT and the content ESCAPED.
+  **ALL FOUR ARE READ BY FLATTENING TO LINES FIRST**, which is what keeps one verse rule rather than
+  four that drift.
+  **THE STOP AFTER A VERSE NUMBER WEARS FOUR COSTUMES AND THE RULE WAS WRITTEN FROM AN INVENTORY OF
+  THE WHOLE BOOK** rather than from the example that prompted it — 4,543 read `1. `, 52 read `1 `
+  with no stop at all, 2 read `1.` with the word run against it, and 2 read `1, ` where the scan
+  took the stop for a comma. **The bare form is the dangerous one** and is admitted only where it is
+  the very next verse, since a figure opening a line with nothing after it is also what a line of
+  verse mentioning a number looks like.
+  **AND ITS REAL LIMITATION IS WHAT THE TRANSLATION LEAVES OUT, in two different ways.** Griffith's
+  own notes survive on THREE hymns of the 1,028 — only four pages were proofread against the scan
+  and the rest were typed in without the apparatus, measured as zero `<ref>` in the whole book's
+  wikitext — and **thirteen verses are simply absent**, being the frankly sexual passages he turned
+  into Latin rather than English (1.179 entire, 10.61.5–9, 10.86.16–17); the Sanskrit beside them is
+  complete, so those rows show the original with nothing facing it. **1,002 of the 1,028 hymns pair
+  on every verse number**; of the twenty-six that do not, six are 1.65–1.70, whose metre the two
+  traditions divide differently (five verses against ten, the same words twice divided), three are
+  those passages, and seventeen are a single lost numeral apiece, ten on the English side and seven
+  on the Sanskrit),
+  `divine-comedy` (~811 KB, all 100 cantos, **4,811 tercet numbers**, **1 note** — Longfellow's
+  blank verse of 1867, and **the first book here whose SECTION NUMBERS ARE COUNTED RATHER THAN
+  READ.** Every earlier book takes its numbers off the page, because every earlier edition prints
+  enough of them to pair on; this one does not, and the reason is the finding to carry.
+  **ONE WORK IN ONE EDITION IS TRANSCRIBED TWO DIFFERENT WAYS ON THE SAME WIKI.** The Inferno and
+  the first three cantos of the Purgatorio are a proofread transclusion of the scan, wrapped in
+  `prp-pages-output` and carrying the printed marginal numeral every fifth line; the other
+  sixty-three cantos are typed straight onto the wiki as a bare `<div class="poem">` with **no line
+  numbers at all**. Measured: 37 pages of the first kind carrying 1,014 numerals between them, 63 of
+  the second carrying none. So a reader written for either half finds nothing on the other, and a
+  pairing built on the printed numerals would cover a third of the poem. **Ask how much of an
+  edition's apparatus is actually PRINTED before deciding to pair on it** — not whether the shape
+  exists, but on how many pages.
+  **THREE THINGS MAKE COUNTING SAFE RATHER THAN HOPEFUL, and all three are arithmetic.** The two
+  columns are the same length canto by canto — Dante is 14,233 lines and this Italian carries
+  exactly that, per canticle as well as in total (4,720 / 4,755 / 4,758), and Longfellow translates
+  line for line and comes to the same 14,233 — so line n of the English is line n of the Italian in
+  all one hundred cantos. **Every canto is 3n+1 lines**, terza rima running in tercets and each
+  canto closing on a single line: 4,711 tercets and 100 closing lines, which is why the TERCET is
+  the pairing unit and not the line (the alternative is 14,233 rows of one line each). And **the
+  Italian prints one numeral per tercet exactly** — 4,711 of them, one at the end of every tercet in
+  the poem, none anywhere else, and not one disagreeing with the count — so the number written on a
+  row is the number that edition prints at that row's own last line for 4,711 of the 4,811 rows. The
+  remaining hundred are the canto-closing lines, which fall where neither edition prints anything.
+  **TWO PRINTED NUMERALS ARE SLIPS and the RE-SYNC tells a slip from a bad cut**, the Gita's rule on
+  a third book: Inferno IX prints 85 twice — the run goes 85, 90, 85, 100, 105 — and Inferno XXXII
+  prints 135 against a count of 134 with that canto's two columns agreeing at 139 lines, so nothing
+  is missing and the numeral sits a line early. Had the cut been wrong, every marker after the first
+  would have disagreed instead of one.
+  **ITS ONE FOOTNOTE IS THE ONLY REASON IT NEEDS NOTES, and it was the only canto whose columns
+  disagreed.** Arnaut Daniel answers Dante in Provençal at Purgatorio XXVI.140–147; Longfellow
+  leaves those eight lines in Provençal in the verse and Englishes them under the canto, cueing both
+  ends with an asterisk. Counted as verse they make that canto 156 lines against 148 and put a
+  translator's gloss in eight rows beside nothing. The rule is written from an inventory of the
+  whole poem rather than from the example that prompted it: **two asterisks in 14,241 lines**, one
+  closing line 147 and one opening the note, and nothing else anywhere.
+  **AND THE HEADING TEST HAD TO RUN ON THE TEXT WITH ITS INLINE TAGS OFF** — Longfellow's canto
+  heading is italicised, so a test against the raw line reads `<i>CANTO I.</i>` and matches nothing.
+  That left one extra line at the top of each of the 37 transcluded cantos, which shifted every
+  label in them by one and made all 37 disagree with their Italian **while every count still read
+  healthy**: the poem was complete, the totals were right, and only comparing the two columns'
+  section lists showed it),
   `canterbury-tales` (~700 KB, the Prologue and all 24 tales as **25 chapters**, **25 whole-tale
   sections**, **0 notes** — Tatlock and MacKaye's modern English of 1912, and **the first book here
   whose BOTH COLUMNS ARE PLAIN TEXT with no markup at all.** Journey to the West established that a
@@ -278,6 +470,79 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   printed on every run, and the book's front matter tells the reader why it has no note fold. **AND
   THE EASIER COPYRIGHT WAS ATTACHED TO THE UNUSABLE TEXT** — see the Library bullet for the choice
   between Perseus's two English Iliads),
+  `summa-theologica` (**~15.1 MB, by a factor of six the largest thing on the shelf** — all 614
+  questions as **614 chapters**, **3,094 article numbers**, 7 notes — the Fathers of the English
+  Dominican Province's translation of 1920, and **the first book here whose SIZE was the first
+  question rather than the last.** Every earlier import decides the pairing and then finds out how
+  big the file is; this one had to be sized before a word was fetched, because 614 questions at ~25
+  KB apiece is 15 MB in ONE lazy bundle and **Cloudflare Pages refuses a file over 25 MiB** — a limit
+  that breaks the deploy for every reader rather than just for this book's. Estimated at 16.2 MB from
+  48 questions sampled across all six Parts, measured at 15.1 MB built, and then MEASURED IN A
+  BROWSER rather than argued about: **1.6 s from tapping the banner to the chapter bar, 0.8 s to
+  paint a chapter, 73 MB of heap**. One file, and the decision rests on those three numbers.
+  **THE CHAPTER IS THE QUESTION AND THE SECTION IS THE ARTICLE**, which is the citation read straight
+  off — "ST II-II, q. 6, a. 1" — and the alternatives were measured rather than weighed: cutting at
+  the Part gives six chapters of 3–6 MB, which no browser paints and no reader scrolls, and cutting
+  at the article puts ~3,000 tabs on the bar. The tabs therefore number 1..614 straight through while
+  the citation restarts in each Part, and the title carries the citation; the front matter says so,
+  since a reader meeting "Question 437" over "II-II q. 15" is owed the explanation.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **A TYPED WIKI PAGE MAY STILL TRANSCLUDE ONE SCAN
+  PAGE, AND `body: "plain"` HAD THE TWO TESTS THE WRONG WAY ROUND** — it looked for
+  `prp-pages-output` FIRST and fell back to the parser container, which reads as the same thing on a
+  book that is typed, because there is no wrapper to find. The Summa's first question is typed like
+  the other 613 except for its first article, which somebody transcluded from the scanned volume, so
+  the slice took that as the start of the chapter and threw away the treatise heading, Aquinas's
+  prologue, his list of the ten points of inquiry and Article 1's own heading. **Nothing threw, the
+  chapter came back 37,656 characters, and the only symptom was nine section numbers where the
+  edition's own heading says ten articles.** The flag now means what it says; proved inert
+  byte-for-byte on all four shipped books that declare it. **A HEADING'S ROLE IS READ FROM ITS TEXT
+  AND NEVER FROM ITS LEVEL**: the transcription sets an article's heading at `h3` on two pages and
+  the question's own at `h4` on three, so the first rule — drop every `h3`, keep every `h4` — deleted
+  real articles. **AND THE QUESTION'S HEADING IS RECOGNISED BY THE ARTICLE COUNT IT CARRIES**, not by
+  the word: it is typed a dozen ways across the book ("Quesiton." seven times, "question." lower
+  case, "Question. - 112 -", "Question.OF THE MODE" with no space, "Question 6. –" with an en dash, a
+  dozen with the bare title, and on three pages "Art. 1" exactly like an article) and the ONE thing
+  every one of them carries is the "(SIX ARTICLES)" the edition prints after the title. **That count
+  is also what makes the numbering a measurement rather than a repair**: where it and the number of
+  headings agree — **592 of the 614** — the headings are numbered 1..N in order and whatever is
+  printed on them is ignored, which absorbs every misprinted number at a stroke (question 12 heads
+  its thirteenth article "Art. 12" a second time and its own heading says THIRTEEN) and lets the one
+  question whose eight headings carry no numbers at all be numbered without composing anything. Where
+  they disagree the printed numbers are kept and the gap is reported, so a question that runs 1, 4 is
+  telling the truth about a page that prints two headings for four articles.
+  **ITS LIMITATION IS FOURTEEN QUESTIONS AND IT IS THE TRANSCRIPTION'S**: twelve are short one
+  article heading and two carry none at all, so those articles run on into the one before them and
+  cannot be cited — **no prose is missing anywhere**, and the front matter says it in those words.
+  **AND A SAMPLE OF 48 QUESTIONS FOUND NO FOOTNOTES WHERE THE BOOK HAS SEVEN**, which is this file's
+  sample rule met on an apparatus: the entry was drafted saying the edition prints none, and the run
+  over all 614 found seven in four questions of the Third Part. **A COUNT OF ZERO OVER A SAMPLE IS
+  NOT A COUNT OF ZERO.** One of the seven hangs off an ARTICLE's own heading and another off a
+  QUESTION's, so markers are lifted out of a kept heading and carried down off a dropped one —
+  Beowulf's `dropFittHead` rule in a fourth edition, in both directions at once),
+  `confessions` (~1000 KB, all 13 books as **13 chapters**, **276 chapter numbers**, 1,313 notes —
+  Pilkington's Nicene and Post-Nicene Fathers translation of 1886, Augustine's SECOND book here and
+  the City of God's shape exactly: one wiki page per chapter, gathered into books, the book being the
+  tab and the chapter the section, because "Confessions VIII.12" is book eight chapter twelve and
+  cutting at the chapter would put 278 tabs on the bar. **THREE THINGS IT SETTLED ARE WORTH
+  CARRYING.** **THE TWO-NAME TRAP DOES NOT REPEAT, WHICH IS WHY IT IS A RULE ABOUT CHECKING RATHER
+  THAN A RULE ABOUT WHICH NAME WINS.** Latin Wikisource carries this text twice under names one edit
+  apart — `Confessiones (Migne)` and `Confessiones (ed. Migne)` — exactly as it carries the City of
+  God, where the copy WITHOUT "ed." is the complete one and the other stops mid-sentence in Book XX.
+  Measured here before a word was imported, **both carry all 278 chapters and all thirteen books**;
+  they are one text, one on a single page and one split per book, and the `(ed. Migne)` copy is used
+  purely because its subpages give one page per Folio chapter. Had the City of God's finding been
+  read as a preference rather than as a measurement, the wrong reading would have been applied
+  confidently to a book where it does not hold. **ITS LIMITATION IS TWO CHAPTERS AND IT IS THE
+  TRANSCRIPTION'S**, not the edition's: Book I's chapters 19 and 20 have never been transcribed at
+  the source, so the English carries 276 against the Latin's 278 and those two rows draw the Latin
+  beside an empty English cell — the shelf's established honest rendering, and said on the book's own
+  first page. Everything else pairs, a clean 1..N in every book on both sides. **AND PILKINGTON HEADS
+  HIS CHAPTERS IN ROMAN WHERE DODS HEADS HIS IN ARABIC**, in the same series, the same volume set and
+  the same decade — so `sections: "chapterhead"` grew a `chapterHeadRoman` gate rather than a widened
+  pattern, and the City of God is inert by construction rather than by a re-run. **The three MODERN
+  translations a reader is likeliest to own** — Chadwick 1991, Boulding 1997, Ruden 2017 — are named
+  as the ones not to reach for, and with them **Outler's of 1955, which Wikisource carries beside
+  this one** and which is in copyright until 2060),
   `city-of-god` (**~2.4 MB, the largest English text on the shelf** — Augustine's twenty-two books as
   **22 chapters**, **661 chapter numbers**, 1,675 notes — and the first book here whose CHAPTER IS
   ASSEMBLED FROM HUNDREDS OF WIKI PAGES. The Book of Documents established that `page(n)` may return an
@@ -572,7 +837,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-five:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-seven:
+  `satyricon.la.js` (~230 KB, all 141 sections, **607 lines of verse in 54 blocks**, **147
+  lacunae** — the Latin printed facing Heseltine's English in the same 1913 Loeb volume, and **the
+  EASIEST original on the shelf to justify and the hardest to read**. Easy because the two columns
+  are not two editions at all: they are the two halves of one printed page, split into two files by
+  Perseus in 2014, carrying the same 141 section milestones in the same order because one editor set
+  them once — so the pairing is exact by construction and one life answers for both columns, the
+  Odyssey's position rather than the Iliad's. Measured anyway: 141 a side, 1..141 with no gap or
+  duplicate either way, 141 of 141 paired. Hard because the text is a RUIN — 147 `<gap/>`s across
+  half its sections, each rendering as an ellipsis, and it breaks off mid-sentence at both ends.
+  **IT IS THE FULLER COLUMN IN ONE RESPECT AND THE ONLY ONE IN ANOTHER**: where the translator left
+  ten sections in Latin the two columns say the same thing twice, and where he set Petronius's verse
+  as prose this is the only column that shows it as verse. `<del>` is live and costs 53 words across
+  44 elements with **none wrapping a whole line**, measured rather than assumed — Lucretius's 116
+  marks cost that poem thirty whole lines. Its 385 notes are an apparatus and are dropped; see the
+  `satyricon` entry above),
   `canterbury-tales.enm.js` (~1.05 MB, the Prologue and all 24 tales, **17,581 lines of verse** plus the
   two prose tales entire — Walter W. Skeat's Oxford text of 1900, the first original here in **Middle
   English** (`enm`), and **the only one on the shelf that its own translation was made FROM.** Everywhere
@@ -678,6 +958,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   lived until 1950 against Murray's 1940, and a joint work's term runs from the last surviving
   author, so the Greek stays encumbered ten years longer than the English where the term is life plus
   a hundred),
+  `confessions.la.js` (~552 KB, all 13 books, **278 chapters against the translation's 276** — Migne's
+  Patrologia Latina 32 of 1841, the text Pilkington was translating, so the two columns are a
+  translation and its own original rather than two independent editions. It is **the first original
+  here that is FULLER than its translation by a documented transcription gap rather than by an
+  editorial choice**: Book I's chapters 19 and 20 are complete in the Latin and have never been
+  transcribed in the English, so those two rows draw the Latin beside an empty cell. Everything else
+  is exact — 12 of 13 books pair on every chapter number, both columns a clean 1..N. **ITS ONE
+  FINDING IS A FIFTH COSTUME FOR THE CAPUT MARK, and it is the quietest one yet**: Book IX prints
+  `CAPUT V Ambrosium consulit quid legendum.` with **no full stop after the numeral**, alone among
+  278, so that chapter folded into the fourth and the Latin came out 12 chapters where the English
+  had 13. Nothing threw, no word was lost, the book was the right length, and the ONLY symptom was
+  the pairing warning naming a 9.5 the original did not have. The stop is optional now and the
+  numeral carries a `\b` to pay for it, or `CAPUT` followed by any capitalised word beginning C, I,
+  V, X or L would read that letter as a chapter number; proved inert on the City of God
+  byte-for-byte),
   `city-of-god.la.js` (**~2.0 MB**, all 22 books, **all 661 of the translation's chapter numbers** —
   Migne's Patrologia Latina 41 of 1841, which prints the Maurist text of 1685 that Dods was
   translating, so the two columns are a translation and its own original rather than two independent
@@ -745,6 +1040,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Jones's Oxford text of 1910, and the cleanest Greek on the shelf: 1..N in every book, no gaps, no
   duplicates and not one lettered number, so none of the Ethics' or Herodotus's `data-n` trouble
   arises. The English carries 916 of the 917; see the Library bullet for the one that is missing).
+  `rigveda.sa.js` (**~3.06 MB on disk against 1.34 million characters**, every one of them three
+  bytes of UTF-8 — all 1,028 hymns, **10,542 verses** — the received Shakala samhita as
+  transcribed at Sanskrit Wikisource, and **the first original here whose SOURCE PAGE CARRIES A
+  COMMENTARY TEN TIMES THE LENGTH OF THE TEXT.** Sayana's fourteenth-century bhashya sits in a
+  collapsed block under every hymn, and it carries a second copy of the samhita with its accents and
+  a third in the word-separated padapatha — so a reader that took the page's text would ship each
+  hymn three times inside a commentary nobody asked for, with the numerals running 1..N three times
+  over. It is the Art of War's commentary problem in a language the note fold cannot hold: not an
+  explanation OF the text in the reader's language but another text entirely, so it is DROPPED
+  rather than lifted, and `test-library.js` sweeps the shipped file for its stock vocabulary because
+  a leak makes a hymn LONGER and no count of hymns or verses can see it. Its verse is cut as a
+  STREAM rather than block by block — the Gita's rule on the same wiki — since a long hymn opens a
+  fresh `div.poem` part way through (1,037 blocks over 1,028 hymns, 9.86 holding three for its 48
+  verses), and reading a block as a hymn would take the first fifteen and drop the rest with the
+  count still looking like a hymn. It is also the first original here whose pages carry
+  ILLUSTRATIONS, whose captions the tag stripper would otherwise unwrap into the middle of the verse.
+  **ITS LICENCE NAMES NO EDITOR AND NONE IS INVENTED**, which is Lucretius's judgement in a second
+  book — and a weaker gap than that one, for a reason worth stating rather than assuming: Lucretius
+  survives in two ninth-century copies and editors differ over hundreds of readings, where the
+  Rigveda was transmitted by a recitation discipline built to make variation impossible and the
+  received Shakala samhita is what every printed edition prints. The ground stated is the age of the
+  text, which needs no edition to establish and anyone can check).
   `song-of-roland.fro.js` (~198 KB, all 291 laisses, 4,012 lines — Bédier's text of 1920–1922, and the
   first original here in **Old French** (`fro`), a historical stage of a living language rather than a
   dead one; see the `song-of-roland` entry below for the `<hr>` cut and the six unnumbered laisses).
@@ -768,11 +1085,73 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-five books, twenty-five originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
+  **Forty-one books, twenty-eight originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
+  Divine Comedy, the Summa Theologica and Don Quixote
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
   to face.
+  **THE SUMMA IS THE PLATO-JOWETT CASE AND THE CTEXT CASE AT ONCE, WHICH IS WHY IT ANSWERS NO ON A
+  WORK WHOSE LATIN IS EVERYWHERE** (Aug 2026). Both candidates fail, and they fail differently.
+  **The freely transcribed Latin is a third of the book**: la.wikisource's Summa was measured through
+  the wiki's OWN page index rather than by reading its contents pages — 423 pages under the title, of
+  which 207 are questions — and it is the Prima pars complete at 119, the Prima secundae stopping at
+  88 of its 114, and the Secunda secundae, the Tertia pars and the Supplementum **not begun at all**,
+  their index pages being lists of red links. **Ask the wiki what it HAS rather than reading the
+  index it publishes**: the Secunda secundae's contents page looks like a table of 189 questions and
+  links to none of them. **And the complete Latin reserves rights in itself**: the Corpus Thomisticum
+  carries the whole Leonine text of 1888, which is public domain, and every page of it closes
+  "© 2019 Fundación Tomás de Aquino quoad hanc editionem. Iura omnia asservantur" over a text its own
+  header describes as Roberto Busa's machine transcription re-checked by Enrique Alarcón. That is the
+  Book of Rites' ctext.org finding in a stricter form — there the database had adapted a translation
+  without saying which parts, here it says outright that its edition is its own and reserved — so:
+  **ASK WHAT AN OBVIOUS SOURCE CLAIMS OVER THE TEXT, not only whether it has it.** A public-domain
+  work carried by a database that reserves rights in its own edition of it is not available on that
+  ground. Shipped English-alone with the reason in the book's own front matter, which is the
+  Republic's outcome and the Divine Comedy's.
+  **THE DIVINE COMEDY IS THE PROSE EDDA'S FAILURE MODE ON A FAMOUS POEM, AND THE TRAP IS THAT THE
+  CANTO PAGE DOES NOT NAME ITS EDITOR** (Aug 2026). Everything about it looks ready: Italian
+  Wikisource carries all 100 cantos, typed clean, with a line number at the end of every tercet, and
+  the pairing against Longfellow was measured end to end and is exact — 14,233 lines a side, the same
+  count in every canto, identical section lists, 4,811 tercet numbers each in the same order with no
+  exception either way. **What blocks it is that the text is Giorgio Petrocchi's** — *La Commedia
+  secondo l'antica vulgata*, 1966–67, and he died in 1989, so it is in copyright until 2060 where the
+  term is life plus seventy. A medieval poem survives in dozens of disagreeing manuscripts and has to
+  be CONSTITUTED before it can be read, and the constituted text is a modern work; that is the Prose
+  Edda's rule, and here it bites on the best-known poem in Italian.
+  **NOTHING ON THE CANTO PAGES SAYS SO.** Their header names Dante, leaves the curator field empty and
+  tags the pages "no facing paper version"; the attribution is on the WORK-level `Opera:Divina
+  Commedia` page, which lists the plain `Divina Commedia` text as "a cura di Giorgio Petrocchi".
+  **Read the work page, not just the text page** — and note that **Project Gutenberg carries the same
+  text**: PG 1000 was diffed line by line against these pages and is word for word identical, so a
+  second source that looks independent is not one. Ask what text an unattributed transcription IS.
+  **THE OTHER THREE CANDIDATES EACH FAIL DIFFERENTLY and the list is worth keeping.** Tommaseo's 1869
+  edition has the perfect licence (d. 1874) and is transcribed as far as one page and an index of red
+  links — the Plato-Jowett case. The 1472 *editio princeps* is free beyond argument and is an
+  incunable at 25% proofread. And **Domenico Guerri's (Laterza, Bari, 1933) is the one to come back
+  for**: complete, proofread against a scan, and genuinely a different constituted text rather than
+  Petrocchi renamed — measured, Inferno I reads "E quanto a dir" where Petrocchi has "Ahi quanto a
+  dir", "rinnova" for "rinova", "ch'io" for "ch'i'". Guerri died in 1953, so it cleared life plus
+  seventy at the start of 2024; it stays under UNITED STATES copyright until 2029, being a 1933
+  foreign publication restored by the URAA and running ninety-five years from publication. **That is
+  the first candidate on this shelf whose limit falls in the United States rather than abroad** —
+  every stated limit here runs the other way (Giles 2029, Ross 2042, Murray 2028 are all clear in the
+  US and encumbered elsewhere) — so it was left for the site's owner and for 2029 rather than taken
+  quietly in an importer entry. Shipped English-alone with the reason in the book's own front matter,
+  which is the Republic's outcome.
+  **DON QUIXOTE IS THE DIVINE COMEDY'S QUESTION ON A NOVEL, AND IT FAILS TWICE OVER** (Aug 2026).
+  Spanish Wikisource carries the novel three times and every one is a fragment — the 1608 text at 16
+  chapters, the 1842 and 1905 editions at 38 each, against 126 — and its own index page marks all
+  three "A transcribir", still to be transcribed. That is the Plato-Jowett case. What blocks the one
+  complete free Spanish is the second question: it names no editor and no edition, only its
+  transcribers, and a novel first printed in 1605 survives in settings that differ, so a modern text
+  of it is somebody's constituted text whether it says so or not. **Ask what text an unattributed
+  transcription IS** — the Divine Comedy's finding, and it bites the same way on a work whose
+  copyright expired four centuries ago. **ONE TRAP FOR ANYONE WHO COMES BACK TO THIS**: that wiki
+  also carries `Segundo tomo del ingenioso hidalgo don Quijote de la Mancha`, which looks like the
+  second part and is Avellaneda's spurious sequel of 1614 — a different book by an author nobody has
+  identified, the one Cervantes attacks inside his own Part II. Shipped English-alone with the reason
+  in the book's own front matter, which is the Republic's outcome.
   **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
   exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
   to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
@@ -1250,6 +1629,115 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     this one. Every removal is counted and reported, per the standing rule that a rule which starts
     eating text cannot do it quietly.
 
+  **A SOURCE MAY PASS EVERY STRUCTURAL CHECK AND STILL BE THE WRONG ONE** (`layout: "quixote"` →
+  `extractQuixote`; Aug 2026, adding Don Quixote — the fortieth book, and the sixteenth layout). The
+  third book on the plain-text path after Journey to the West and the Canterbury Tales, and the only
+  one that did not have to be: Wikisource carries Ormsby's translation complete, one page per
+  chapter, cleanly typed, needing nothing but `body: "plain"` and `dropHeadings`. That version was
+  built, fetched, swept and browser-checked, and was discarded because the check found "thirty forty
+  windmills that there are on plain". See the `don-quixote` entry in the File map for the whole of
+  it — the sixty dropped words, the four ways the alignment lied before it told the truth, the verse
+  measurement that reversed the last argument for the wiki, and the repair deliberately NOT made.
+  What the extractor itself is worth remembering for is small by comparison: **a plain text's
+  furniture must be peeled LINE BY LINE, not sliced to the first blank line** (the chapter titles
+  here run one to three lines and a slice generous enough for the longest ate the opening of the
+  shortest chapters); **an edition may set no heading where a PART ends**, so Gutenberg's chapter 52
+  span carries Part II's dedication and preface, 1,992 words of front matter cut at a bare
+  `Volume II` line, and the epitaphs of the Academicians come BEFORE it and are the real end of
+  Part I; and **a short-lined block is not always verse** — a heading is short-lined too, so a block
+  that is WHOLLY CAPITAL is kept as a paragraph and every one is counted and printed, since a rule
+  that started eating headings must not do it quietly.
+
+  **AN EDITION MAY STATE ONE LEVEL OF CITATION AND NOTHING ELSE AT ALL** (`layout: "satyricon"` →
+  `extractSatyricon` / `satyriconSection` / `cutAcrossSections` / `closeQuotesAt` / `balancedSpan` /
+  `betaGreek`; Aug 2026, adding the Satyricon — the forty-first book, and the seventeenth layout).
+  The fifth TEI reader. Every earlier one takes its numbers from a `<div>` or from a milestone
+  standing inside a division; this edition has **zero `<div>`, zero `<head>` and 141 section
+  milestones**, and says so in its own header (`<refState unit="section"/>`, one level). So the
+  section is the chapter and the row at once, and no `bk-n` marker is written — see the `satyricon`
+  entry in the File map for why that pairs deterministically rather than by luck. Five things it
+  settled, and three are about not trusting a tag pair:
+  · **MATCH BALANCED, ALWAYS.** `<quote>` nests inside `<l>`, `<note>` nests once and `<p>` sixteen
+    times, and a non-greedy pair reported ten of 607 verse lines as standing outside any block when
+    none does. Third instance of this fault in the file after the Prose Edda's `<dl>`.
+  · **CLOSE AND REOPEN AT EVERY BOUNDARY THE TEXT IS CUT AT** — a section mark, a paragraph, and a
+    display quotation lifted out of the flow. The Bellum Civile is one quotation with five section
+    milestones inside it; an inline quotation may WRAP a block (a speech quoting a poem); and **the
+    edition marks a quotation two ways**, so the walk tracks `<quote>` and `<q>` and closes whichever
+    is open. Every one of those is invisible except by counting a tag against its closer over the
+    SHIPPED file.
+  · **CUT PARAGRAPHS WITH SENTINELS, NOT WITH A `<p>` WALK.** 92% of the Latin's text is inside a
+    `<p>` and 8% is not, so a `<p>`-anchored reader loses a twelfth of the column in silence — the
+    Art of War's `wrapBareRuns` fault in a TEI file — and replacing every `<p>` tag with one sentinel
+    survives the sixteen nested ones for free, where a paired match would not.
+  · **A LENGTH RATIO CANNOT SEE AN UNTRANSLATED PASSAGE**, because untranslated text is still text.
+    Word overlap between the two columns of the same section can: a real translation shares only
+    proper names. That is what found the ten sections this Loeb left in Latin.
+  · **AND BETA CODE IS DECODED, NOT REPAIRED** — see `betaGreek`, which sorts the combining marks
+    (Unicode never reorders two of the same canonical class, so `oi/)nw|` composes to nothing) and
+    REFUSES any string whose marks will not compose, leaving the ASCII rather than inventing a Greek
+    letter the language has not got.
+
+  **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
+  `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
+  `SUKTA_VERSE` / `RV_PARTS` / `rvGriffith`; Aug 2026, adding the Rigveda — the thirty-ninth book,
+  and the fifteenth layout). The ordinary wiki walk, one page per chapter; what is new is that the
+  chapter is a single hymn and there are 1,028 of them, with the mandala demoted to a PART. Five
+  things it settled:
+  · **ASK WHETHER A KNOWN RECENSION SPLIT AFFECTS THE NUMBERING, and measure it by CORRELATING VERSE
+    COUNTS AT EVERY OFFSET** — Journey to the West's rule with a method attached. Mandala 8's eleven
+    Valakhilya hymns are numbered in place by the Sanskrit and printed as an appendix by Griffith, so
+    the two run eleven apart from 8.49 to 8.92 and forty-four apart for the appendix itself. Nothing
+    else could have found it: both columns are complete, every mandala is the right length, and the
+    only signal is 31-of-39 agreement at k=11 against 10-of-39 at k=0. **The correlation sweep is the
+    tool to reach for whenever two editions of one work might disagree about where something sits.**
+  · **WHERE FOUR TRANSCRIPTION SHAPES EXIST, FLATTEN THEM ALL TO LINES AND WRITE ONE RULE.** A
+    thousand pages of plain text, four proofread transclusions and one hand-typed page do not need
+    four parsers; they need one normaliser and one verse rule, or the four drift apart silently.
+  · **RESOLVE THE FOOTNOTE MARKERS BEFORE FLATTENING, AND CARRY DOWN THE ONES ON A DROPPED HEAD.**
+    The flatten removes every tag, so a marker not rewritten into the shelf's own form first is gone
+    while its note still reaches the fold — 27 entries no sentence opens. And Griffith hangs his note
+    on a hymn as a whole off its printed TITLE, which is page furniture and is discarded: Beowulf's
+    `dropFittHead` rule in a fourth edition. Both faults were found by `test-library.js`'s
+    every-note-is-referenced assertion and by nothing else.
+  · **A COMMENTARY IN THE ORIGINAL'S OWN LANGUAGE IS DROPPED, NOT LIFTED.** The Art of War's
+    commentary is Giles explaining Sun Tzu in the reader's language and belongs in the note fold;
+    Sayana's bhashya is another Sanskrit text about the hymn, ten times its length, and carries two
+    further copies of the verse inside it. A leak makes a hymn LONGER, so it must be swept for in the
+    shipped file rather than counted.
+  · **AND THE PRINTED STOP AFTER A NUMBER IS ITSELF AN INVENTORY QUESTION** — see the `rigveda` entry
+    in the File map for the four costumes and for why the bare form is admitted on a tighter test.
+
+  **AN EDITION MAY NOT PRINT ENOUGH OF ITS OWN NUMBERS TO PAIR ON, AND THEN THEY ARE COUNTED**
+  (`layout: "terzine"` → `extractTerzina` / `terzinaBody` / `terzinaLines` / `terzinaHtml` /
+  `terzinaDropSpans` / `TERZINA_MARK` / `TERZINA_HEAD`; Aug 2026, adding the Divine Comedy — the
+  thirty-sixth book, and the fourteenth layout). The ordinary wiki walk, one page per canto; what is
+  new is where the section numbers come from. Every earlier book reads them off the page. Here the
+  translation prints marginal line numbers for 37 of its 100 cantos and none at all for the other 63
+  — **one work in one edition, transcribed two different ways on the same wiki**, the first 37 as a
+  proofread transclusion of the scan and the rest typed straight in — so there is nothing to pair on
+  for two thirds of the poem. The lines themselves are explicit in both shapes, being what the `<br>`
+  separates, so the number is recovered by COUNTING and the printed numerals become the CHECK, which
+  is the Gita's rule with the complete side chosen by measurement. Four things it settled:
+  · **THE ARITHMETIC IS WHAT MAKES COUNTING SAFE, and it has to be done before a word is imported** —
+    both columns 14,233 lines and the same count in every canto, every canto 3n+1 lines, and the
+    original printing exactly one numeral per tercet with none disagreeing. Without those three the
+    count is a guess.
+  · **A MARKER OPENS ITS ROW AND CARRIES THE NUMBER PRINTED AT THE ROW'S CLOSE.** `bookSections` cuts
+    at a marker and gives everything after it to that number, so the marker stands at the head of the
+    three lines it labels while reading the tercet's LAST line — which is the figure the edition sets
+    in its own margin there, so 4,711 of the 4,811 labels are read rather than composed.
+  · **THE HEADING TEST MUST RUN ON THE TEXT WITH ITS INLINE TAGS OFF.** The canto heading is
+    italicised, so a test against the raw line reads `<i>CANTO I.</i>` and matches nothing — which
+    left one extra line at the top of each transcluded canto, shifted every label in it by one, and
+    made all 37 disagree with their original **while every count read healthy**. Only comparing the
+    two columns' section lists showed it.
+  · **AND A TRANSLATOR'S FOOTNOTE SET AS VERSE IS NOT VERSE.** Longfellow leaves eight Provençal lines
+    untranslated and Englishes them under the canto, cued by an asterisk at both ends; counted as
+    verse they made that one canto eight lines longer than its original. Written from an inventory of
+    the whole poem — two asterisks in 14,241 lines — counted and reported, so a second cannot appear
+    unnoticed.
+
   **A WHOLE BOOK MAY ARRIVE ON ONE PAGE, and then the chapters are CUT rather than walked**
   (`layout: "laisses"` → `extractLaisses` / `extractLaissesFr` / `laisseHtml` / `laisseNumber` /
   `dropLineNumbers`; Aug 2026, adding the Song of Roland — the seventeenth book, and the eighth
@@ -1459,6 +1947,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     mistyped is reported instead of being filed under the chapter before it. A page returning null
     (the book's own page, a preface) is left unmarked, which is what puts it at the head of the
     chapter as its opening unnumbered block.
+    **ITS NUMBER IS ARABIC IN ONE EDITION AND ROMAN IN THE OTHER** (`chapterHeadRoman`, Aug 2026,
+    adding the Confessions — the second book on this path and the second by this author). Dods heads
+    his chapters "Chapter 1.—…" and Pilkington heads his "Chapter I.—…", **in the same series, the
+    same volume set and the same decade**, which is the thing to expect rather than to be surprised
+    by: a Victorian series is edited volume by volume and its conventions are not uniform across one.
+    The Roman alternative is **GATED behind a flag rather than simply added to the pattern**, so the
+    City of God is inert BY CONSTRUCTION rather than by a re-run — no page of it can reach the new
+    branch — which is the cheaper half of the standing discipline for editing a shared extractor, and
+    the half to reach for whenever the two readings could ever collide.
+  · **`sections: "articuli"`** — **THE TENTH WAY an edition marks its numbers, and the first read off
+    a HEADING** (Aug 2026, adding the Summa Theologica). Every rule above reads a number out of the
+    PROSE, because that is where the editions this shelf had met printed them; the Dominican Fathers'
+    Summa is transcribed with its own structure as HTML headings, so the number is a heading's own
+    text. It runs at the **pre-strip hook** beside `markLikiHeads` rather than with the other section
+    passes at the foot of `cleanBody`: `h4` is not in `ALLOWED`, so by the time those run stripTags
+    has unwrapped every heading and "Art. 3 - Whether God exists?" is a bare run of words in the
+    middle of the prose. Four things it settled, and every one was found by a count moving rather
+    than by reading a page. **A HEADING'S ROLE IS READ FROM ITS TEXT AND NEVER FROM ITS LEVEL** —
+    the transcription sets an article's heading at `h3` on two pages and the question's own at `h4`
+    on three, so the first rule (drop every `h3`, keep every `h4`) deleted real articles, taking
+    their titles with them. **AND THE QUESTION'S HEADING IS RECOGNISED BY THE ARTICLE COUNT IT
+    CARRIES**, not by the word "Question", which is typed a dozen ways across the 614 pages; the one
+    thing every one of them carries is the "(SIX ARTICLES)" the edition prints after the title — the
+    City of God's rule about looking for a marker where it actually is rather than where the regular
+    cases put it. **THAT COUNT IS WHAT MAKES THE NUMBERING A MEASUREMENT RATHER THAN A REPAIR**:
+    where it and the number of headings agree (592 of 614) the headings are numbered 1..N in order
+    and whatever is printed on them is ignored, which absorbs every misprinted number at a stroke and
+    lets the one question whose eight headings carry no numbers at all be numbered without composing
+    anything; where they disagree the printed numbers are kept and the gap reported, since
+    renumbering there would file prose under the wrong number. **AND A DROPPED HEADING CAN DROP A
+    FOOTNOTE MARKER while a KEPT one can lose its own** — Beowulf's `dropFittHead` rule in a fourth
+    edition and in both directions at once: of the book's seven notes one hangs off a question's
+    heading and one off an article's, so markers are carried down off a dropped head and lifted back
+    into a rebuilt one.
   **A book's ORIGINAL language is a second half of the same entry** (`original: { lang, langName, … }`),
   written to `books/<id>.<lang>.js` with its own cache under `book-cache/<id>/<lang>/`. **It comes in THREE
   shapes, and the wiki walk — the first one written — is the worst of them**, because it is the only one that
@@ -1533,7 +2055,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a page. **THE MARK WEARS FOUR COSTUMES** — `CAPUT PRIMUM` for the first of every book against
     Roman numerals after it, the double dash missing in a handful, one stray full stop after the word
     itself — and written against the strictest of the four the pass finds 650 of 661 and the eleven it
-    misses fold their prose into the chapter above them, invisibly. **A NUMBER MAY BE PRINTED TWICE,
+    misses fold their prose into the chapter above them, invisibly. **A FIFTH ARRIVED WITH THE
+    CONFESSIONS** (Aug 2026) and is the same lesson one notch finer: that book's ninth prints
+    `CAPUT V Ambrosium consulit quid legendum.` with **no stop after the numeral**, alone among 278,
+    so the chapter folded into the fourth and the Latin came out one short **while every count read
+    healthy** — the only symptom was the pairing warning naming a section the translation had and the
+    original did not. The stop is optional now and the numeral carries a `\b` to pay for it, without
+    which `CAPUT` followed by any capitalised word beginning C, I, V, X or L would read that letter as
+    a chapter number and bold the sentence after it; proved inert on the City of God byte-for-byte,
+    which is the check to run whenever this reader is touched, since it is now shared by two books.
+    **A NUMBER MAY BE PRINTED TWICE,
     IN BRACKETS**, where the editor resumes a chapter after an inserted passage; the forward-only
     guard declines it for its number alone and the material folds where it belongs. **THE MARK IS IN
     NO ONE KIND OF ELEMENT** — 478 of the 661 in a definition-list item, 153 in a paragraph and 31 in
@@ -3501,6 +4032,135 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `BOOK_AUTHOR_COLOR` row is where the band is genuinely FULL rather than nearly so; see the note
     beside `"Wu Cheng'en"` in app.js for the search, and for the Euripides test being run and NOT
     biting — the alternative it offered was a fifth blue at 18.5, below the shelf's own tightest pair.
+    **The Divine Comedy is the SEVENTH licence needing no qualification at all** (Aug 2026), after the
+    Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid and Journey to the
+    West — and like Journey to the West its interest is in what the licence RULED OUT rather than in
+    what it allowed. Dante died in 1321 and Longfellow published this translation in 1867, living
+    1807–1882, so both layers clear the pre-1929 rule, life-plus-seventy and life-plus-a-hundred, with
+    no limit to state and no modern editorial layer; Longfellow's own notes, his index and the
+    volumes' illustrations are left behind, as the Republic's introduction and plates were. **WHAT IT
+    RULED OUT IS THE ITALIAN**, and that is recorded in full under `books/<id>.<lang>.js` above,
+    because the reasoning is about a constituted text rather than about this translation: every
+    complete Italian Commedia reachable is Petrocchi's, in copyright until 2060, and the one usable
+    alternative is encumbered in the United States until 2029. Sayers (1949–62), Ciardi (1954–70),
+    Musa (1971–84), Mandelbaum (1980–84), the Hollanders (2000–07), Kirkpatrick (2006–07) and Clive
+    James (2013) are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the best
+    NUMBER was rejected outright for the second time on the shelf (after Euripides): the whole band
+    yields one colour clearing 19.6 and it is a chroma-60 green at 4.54:1 — the Vyasa row's candidate
+    exactly, glowing beside thirty-two muted colours and hugging two boundaries — so a deep blue-violet
+    clearing 18.5 at 8.12:1 was taken instead, above the shelf's own tightest pair at 18.2. **The
+    kinship risk here is not another blue but VIRGIL**, Dante's guide and a character in the poem, and
+    the colour taken sits 53 from his oxblood.
+    **The Rigveda is the NINTH licence needing no qualification at all** (Aug 2026), after the
+    Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey to the West,
+    the Divine Comedy and the Confessions, and every layer is clear on every ground: the hymns are
+    around three thousand years old and were composed before writing reached the subcontinent, and
+    Ralph T. H. Griffith published his translation at Benares in 1889–92, revised it for the second
+    edition of 1896 and lived 1826–1906 — dates read off the Wikisource author page AND confirmed
+    against the volume's own title page rather than recalled, for the Hugo Magnus reason — so the
+    English clears the pre-1929 rule, life-plus-seventy (1976) and life-plus-a-hundred (2006) alike.
+    Jamison and Brereton (2014), Doniger (1981) and Maurer (1986) are named as the ones not to reach
+    for; Griffith's preface and appendices are left behind, as the Republic's introduction and plates
+    were. **ITS SANSKRIT IS THE LUCRETIUS CASE AND THE GAP IS WEAKER THAN LUCRETIUS'S, WHICH IS
+    WORTH SAYING RATHER THAN LEAVING TO BE INFERRED**: the transcription names no editor for the
+    samhita, so none is claimed and the ground stated is the age of the text — but where Lucretius
+    survives in two ninth-century manuscripts whose readings editors dispute by the hundred, and that
+    entry therefore treats its unnamed editor as a real limitation, the Rigveda was transmitted by a
+    recitation discipline built to make variation impossible and the received Shakala samhita is what
+    every printed edition prints. **Ask what an unnamed edition COSTS, rather than treating every
+    unnamed edition alike.** Its `BOOK_AUTHOR_COLOR` row is keyed by ID, the hymns being anonymous,
+    and is the second colour taken with the band as full as the Beowulf row predicted — see the
+    `"rigveda"` note in app.js for the search, and for the Euripides test rejecting the best magenta
+    because it lands 19.4 from the SONG OF ROLAND, which is both the shelf's other anonymous work and
+    the colour this book would otherwise have inherited.
+    **Don Quixote is the TENTH licence needing no qualification at all** (Aug 2026), after the
+    Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey to the West,
+    the Divine Comedy, the Confessions and the Rigveda. Cervantes published the two parts in 1605 and
+    1615 and died in 1616; John Ormsby published this translation in London in 1885 and lived
+    1829–1895, so the English clears the pre-1929 rule, life-plus-seventy (1966) and
+    life-plus-a-hundred (1996) alike, with no limit to state and no modern editorial layer to
+    declare. **ORMSBY'S DATES ARE WHY THE LOOK-UP RULE EXISTS**: 1889 is what comes to mind and it is
+    wrong, and what makes 1829–1895 usable where A. J. Wyatt's was not is that two places give the
+    same pair — Wikisource's author page and Wikidata — over a span of sixty-six years rather than a
+    suspiciously round hundred. Cervantes's own are corroborated to the day, and the line that he and
+    Shakespeare died on the same date is a calendar artefact, Spain being on the Gregorian calendar
+    and England still on the Julian. Putnam (1949), Cohen (1950), Raffel (1995), Rutherford (2000),
+    Grossman (2003) and Lathrop (2005) are named as the ones not to reach for. **WHAT ITS LICENCE DID
+    NOT DECIDE IS WHICH COPY TO SHIP**, and that is the interesting half — two free transcriptions of
+    the same free translation, one of which has quietly lost sixty words; see the `don-quixote` entry
+    in the File map. Its `BOOK_AUTHOR_COLOR` row is the band at 35 colours, where nothing anywhere in
+    it clears 19.3 — in line with Chaucer's 19.7 at 31, so the band was not widened again — and the
+    whole clear field is one rose-crimson family. **The choice inside it was CONTRAST**: the best
+    number reads 4.53:1 on the tightest light paper, right at the bar, where `#B10960` clears 19.0
+    and reads 5.46:1 there and 6.82:1 on white. The Euripides test picked what to avoid rather than
+    what to take — the violet family's best lands 19 from the SONG OF ROLAND, and Don Quixote is
+    written against the chivalric romance while Roland is this shelf's chanson de geste, which is the
+    one pair a reader would read as a set.
+    **The Satyricon states a LIMIT and it is the Odyssey's easy case underneath** (Aug 2026), which
+    puts it with the Song of Roland, the Gita and the two Homers rather than with the ten needing no
+    qualification. Petronius died in 66 CE. Michael Heseltine published this translation in 1913 and
+    lived 4 September 1886 – 13 March 1952, so it clears the pre-1929 rule and life-plus-seventy
+    (2023) and **not life plus a hundred, which runs to 2053** — said outright rather than smoothed
+    into the easier sentence. **BOTH COLUMNS ARE ONE HAND, AND ON A FACING-PAGE LOEB THAT IS WORTH
+    CHECKING IN EITHER DIRECTION**: the Iliad's Greek is a separate Oxford text and drags that book's
+    original out to 2051, where both Perseus files here name Heseltine as editor and nobody else, so
+    one life answers for both columns. His dates were corroborated twice for the A. J. Wyatt reason —
+    Wikidata at day precision with the death referenced to Britannica, and Wikisource's author page
+    giving (1886–1952) and listing exactly ONE work for him, this Satyricon — and **there is another
+    Michael Heseltine to keep him apart from**, the living British politician, whose entity a search
+    returns first. Both revision histories were READ on the Antigone's rule and record only tagging,
+    a composite split and a Unicode conversion.
+    **THE OTHER FREE ENGLISH WAS MEASURED AND REJECTED, and not for its age.** W. C. Firebaugh's of
+    1922 is out of copyright, is complete where Heseltine is not, and says on its own title page that
+    it incorporates "the forgeries of Nodot and Marchena" — two eighteenth-century fabrications
+    passed off as newly found Petronius. An edition that weaves those into the text without marking
+    them is not the Satyricon however unexpurgated it is: **ask what text an edition actually IS, not
+    only whether it is free and complete**, which is the Divine Comedy's question answered the same
+    way. Burnaby's of 1694 is free and is seventeenth-century English, the objection that ruled out
+    Golding's Ovid and Hobbes's Thucydides. So the choice was a genuine text with ten sections left
+    in Latin or a complete one with forgeries in it, and the front matter says which was taken and
+    what it costs. Arrowsmith (1959), Sullivan (1965), Walsh (1996) and Ruden (2000) are named as the
+    ones not to reach for, and with them **E. H. Warmington's 1969 revision of THIS translation**,
+    which is the Loeb in shops today and which fills in exactly the passages Heseltine left.
+
+    **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
+    the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
+    the point of it: Augustine died in 430, J. G. Pilkington published this translation in Schaff's
+    Nicene and Post-Nicene Fathers in 1886 and lived 1841–1919, so it clears the pre-1929 rule,
+    life-plus-seventy and life-plus-a-hundred alike, and Migne's Latin of 1841 is free on the same
+    three grounds. Dates were looked up rather than recalled, for the Hugo Magnus reason. **THE
+    QUESTION WORTH ASKING WAS WHICH FREE ENGLISH, NOT WHETHER ONE EXISTED**, and it is the
+    Nicomachean Ethics' trade in a new form: **Pusey's translation of 1838 is equally free, is the
+    one a reader is likeliest to have met, and is CHAPTERLESS at the source** — Wikisource carries it
+    as thirteen long pages with the paragraph numbers alone, so it could only ever have shipped as an
+    English column with nothing to pair on, and the Latin column would have gone with it. Pilkington
+    is two chapters short and pairs on 276 of 278. **The licence question and the pairing question
+    are decided together, and the cleaner reading is not always the shippable one.** CCEL's copy was
+    checked and rejected a step earlier, being JavaScript-driven. Outler (1955), Chadwick (1991),
+    Boulding (1997), Wills (2006) and Ruden (2017) are named as the ones not to reach for —
+    **Outler's particularly, since Wikisource carries it directly beside this one** and it is in
+    copyright until 2060. It needed no `BOOK_AUTHOR_COLOR` row at all, Augustine's `#3F1800` having
+    been placed with the City of God — which is the argument for keying them by author, made for the
+    third time after the two Platos and the two Homers.
+    **The Summa Theologica is the SECOND book here whose ground is the PUBLICATION DATE and nothing
+    else** (Aug 2026), after the Gallic War, and it is the same fault in the byline for a different
+    reason: not a translator who cannot be traced but a translator who is not a person. Aquinas died
+    in 1274, so the work is free everywhere; the translation was published in London in **1920**, so
+    its United States copyright has expired and anyone can check that. What cannot honestly be
+    asserted is a life-plus-seventy term, because **"the Fathers of the English Dominican Province" is
+    a CORPORATE byline** — the twenty-one volumes name no individual anywhere, the work was done by a
+    changing group of friars over fifteen years, and a term running from the last surviving author
+    cannot be computed from a name belonging to nobody. So the ground stated is the publication date,
+    the gap is named in `rights` and on the book's own front matter, and no year is rounded up to fill
+    it. Lucretius's judgement in a third book: **claim less, and put on the page what cannot be said.**
+    Leo XIII's encyclical, the editor's note to the Supplement and the volumes' indexes are printed in
+    the same edition and are left behind, as the Republic's introduction and plates were. The
+    Blackfriars edition (1964–1981), Timothy McDermott's abridgement (1989) and Alfred Freddoso's
+    translation are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where an
+    INHERITED OBJECTION WAS RE-MEASURED AND DROPPED — see the note beside `"Thomas Aquinas"` in
+    app.js: the Vyasa and Dante rows each turned down a chroma-64 green because it would "glow beside
+    thirty muted colours", and six of the placed colours now sit at chroma 59–64, so that is where the
+    shelf's own ceiling already is. **Re-measure an inherited objection before applying it.**
     **The Canterbury Tales states a LIMIT THAT IS ALMOST UP, which is the nearest any on this shelf has
     come to expiring** (Aug 2026), and it falls on the middle of three layers rather than on the
     original. Chaucer died in 1400 and Skeat's Middle English text of 1900 is clear on every ground (he
@@ -10607,11 +11267,26 @@ dead code (never rendered).
     `slideChapter` / `BOOK_SORTS` / `sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` /
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
-    `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `extractCaput` /
+    `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `markArticuli` /
+    `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` /
+    `extractQuixote` / `extractSatyricon` / `satyriconSection` / `cutAcrossSections` /
+    `closeQuotesAt` / `balancedSpan` / `betaGreek` /
+    `cleanBody`'s `body: "plain"` slice / `extractCaput` /
+    `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the
     mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
+    **A SATYRICON section (`satyriconChecks`) is there for the same reason**, and every assertion in
+    it guards something that renders perfectly while being wrong. The balanced-matching and
+    close-and-reopen rules fail by leaving a poem's words on the page in the wrong setting, so the
+    check is a TAG BALANCE over both shipped columns plus the block and line counts (55 display
+    quotations, 607 Latin lines against 23 English, and §120 opening mid-poem inside the Bellum
+    Civile). The apparatus check runs the other way round from every count in this file — a leak makes
+    a chapter LONGER — and the Greek one asserts §48's Sibyl is Greek rather than `Si/bulla, ti/
+    qe/leis;`, that being the sentence a reader would report. Both of the first two were verified by
+    having caught real faults on the way in: 49 blocks of 55 and 8 unbalanced sections.
+
     **It carries an AENEID section (`aeneidChecks`) for the reason it carries a City of God one**: that
     book's reader — `cards: "both"` plus the mid-line lift — serves one book, so it cannot be proved
     inert by re-running a sibling and the shipped data stands in. Every fault it hunts is silent, and the
@@ -10635,19 +11310,46 @@ dead code (never rendered).
     added ("aeraër" for *aër*). **A sibling diff is worth reading rather than glancing at**: a file that
     changes is not automatically a regression, and here the one that changed was the one that had been
     wrong all along. Record the intended diff and re-baseline deliberately.
-    **A change to the CAPUT reader likewise has no sibling to diff against** — The City of God is the
-    only book on that path — so what stands in for it is the shipped-data sweep: 661 marks a side,
-    both columns a clean 1..N in every one of the 22 books, tag balance on both, every footnote
-    marker resolving and every note referenced, and **no unconverted `CAPUT` left in the Latin except
-    the one bracketed resumption in Book I**, which is Migne's own and is deliberately left as
-    printed. That last assertion is the one that would catch a costume the four the pass knows about
-    do not cover, and it is the fault no other check here can see.
+    **A change to the CAPUT reader NOW HAS A SIBLING to diff against, and it is cheap** — the City of
+    God and the Confessions are both on that path, and `--only-original --force` re-runs the extractor
+    over 22 cached pages in seconds, so `node .claude/fetch-book.js city-of-god --only-original
+    --force` plus an md5 of `books/city-of-god.la.js` is the check to run every time (it is what
+    proved the fifth costume's `\b` inert). What stands in BESIDE it is the shipped-data sweep: 661
+    and 278 marks a side, both columns a clean 1..N in every book, tag balance on both, every footnote
+    marker resolving and every note referenced, and **no unconverted `CAPUT` left in either Latin
+    except the one bracketed resumption in the City of God's Book I**, which is Migne's own and is
+    deliberately left as printed. That last assertion is the one that would catch a SIXTH costume, and
+    it is the fault no other check here can see — the fifth was found by a pairing warning and not by
+    any count of the Latin itself.
+    **A change to the ARTICULI reader has no sibling to diff against either** — the Summa is the only
+    book on that path, and it is the only book here whose section numbers are decided by an ARITHMETIC
+    CHECK against a figure the edition prints, so a regression cannot show up as a missing chapter or
+    a short one. What stands in for the byte-for-byte check is the run's own report, which prints the
+    figures the reader is built on: 614 chapters, 3,094 articles, and **592 of the 614 questions
+    numbered by their own stated count**. That last number is the assertion — a fall in it means a
+    heading shape has stopped being recognised, which nothing else can see, since the prose would
+    still be complete and the chapter still the right length. `test-library.js`'s own sweep adds what
+    the report cannot: that no chapter carries a leftover "Art." heading beyond the one the edition
+    misnumbers, that the two questions with no article headings are the known two, and that all seven
+    notes still have a marker pointing at them.
+    **A change to `cleanBody`'s `body: "plain"` slice needs all four books that declare it** —
+    Thucydides, the City of God, the Confessions and Journey to the West's original — which is how
+    the Summa's transcluded-fragment fix was shown inert, byte-for-byte on every one.
     **A change to the SHLOKA reader has no sibling to diff against** — the Gita is the only book on
     that path — so what stands in for the byte-for-byte check is the shipped-data sweep the entry
     above describes: verse counts per discourse against the standard chapter lengths, the two columns
     identical marker for marker, tag balance, and **no verse cell carrying a numeral inside it except
     the last of each discourse, which is the colophon**. That last assertion is the one that catches a
     stream-cut regression, and it is the fault no other check in this repo can see.
+    **A change to the TERZINE reader has no sibling to diff against either** — the Divine Comedy is
+    the only book on that path, and it is the only book here whose numbers are COUNTED, so a
+    regression cannot show up as a missing line or a short chapter. What stands in for the
+    byte-for-byte check is the run's own report, which prints the figures the reader is built on:
+    14,233 lines over 100 cantos, 4,811 tercet numbers, and **1,014 printed numerals checked against
+    the count with 1,012 agreeing**. That last pair is the assertion — a change in it means a numeral
+    has stopped being recognised in one of the two transcription shapes, which nothing else can see,
+    since the poem would still be complete and the totals still right. The two misprints it names
+    (Inferno IX and XXXII) should stay two.
     **Sections 3–6 NAME `seneca-letters` rather than opening whatever the shelf puts first** (fixed
     Aug 2026, when Aesop's Fables was added and took the lead under the "recent" sort). Two of those
     checks can only ever pass on Seneca — the four common nouns that mean something else in him, and

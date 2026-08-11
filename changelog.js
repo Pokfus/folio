@@ -35,13 +35,19 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.166", released: "2026-08-11T19:09Z" };
+window.FOLIO_VERSION = { v: "1.169", released: "2026-08-11T20:52Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-11",
-    t: "A misattributed daily quote put back with the words its own source carries, and a subdeck that can hold subdecks of its own",
+    t: "Six books join the Library, a subdeck can hold subdecks of its own, and a misattributed daily quote is put back with the words its own source carries",
     items: [
+      "<b>Dante's <i>Divine Comedy</i> is on the shelf</b> — all one hundred cantos in Henry Wadsworth Longfellow's 1867 verse translation, three lines to a row.",
+      "<b>Augustine's <i>Confessions</i> is on the shelf</b> — all thirteen books in J. G. Pilkington's 1886 translation, with Migne's Latin on the facing page.",
+      "<b>Aquinas's <i>Summa Theologica</i> is on the shelf</b> — all 614 questions and 3,094 articles of it, in the Dominican Fathers' translation of 1920.",
+      "<b>The <i>Rigveda</i> is on the shelf</b> — all 1,028 hymns in Ralph Griffith's 1896 translation, with the Sanskrit facing it verse by verse.",
+      "<b>Cervantes's <i>Don Quixote</i> is on the shelf</b> — both parts entire, all 126 chapters, in John Ormsby's translation of 1885.",
+      "<b>Petronius's <i>Satyricon</i> is on the shelf</b> — all 141 sections in Michael Heseltine's 1913 translation, with the Latin facing it.",
       "<b>The daily quote about saying \"I do not know\" now turns over to its original</b>, having been corrected from Maimonides to the Talmud passage it actually comes from.",
       "<b>A subdeck can hold subdecks of its own</b> — a deck file can nest them, so a level can be one row in your daily study with its directions inside it.",
       "<b>A deck with subdecks now deals them side by side</b> — each keeps its own order, and one runs a day behind the next, so studying a level no longer gives you one direction and never the other.",

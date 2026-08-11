@@ -100,6 +100,217 @@ function shippedPair(id) {
   return out;
 }
 
+/* THE SUMMA, read off the one file that shipped. A single column, so shippedPair cannot serve; and
+   its reader (markArticuli) is written for this book alone, so there is no sibling to diff it
+   against and this sweep is what stands in for one. */
+function shippedBook(id) {
+  const f = path.join(ROOT, "books", id + ".js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const b = (global.window.FOLIO_BOOKS_IN || []).find((x) => x.id === id);
+  if (!b) return null;
+  const o = { chapters: b.chapters.length, secs: 0, none: [], disorder: [], strayArt: 0,
+              notes: 0, noteFaults: [], parts: [], intro: b.intro || "" };
+  b.chapters.forEach((c) => {
+    const n = (c.html.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    o.secs += n.length;
+    o.parts[c.p - 1] = (o.parts[c.p - 1] || 0) + 1;
+    if (!n.length) o.none.push(c.n);
+    /* Ascending with no duplicate rather than a clean 1..N: fourteen questions are short a heading in
+       the transcription and the numbering shows WHERE, which is the honest rendering — 1 and 4 on a
+       page that prints its first and fourth headings and nothing between. */
+    if (n.some((v, i) => i && v <= n[i - 1])) o.disorder.push(c.n + " [" + n.join(",") + "]");
+    o.strayArt += (c.html.match(/<b>\s*Art\.\s*\d/g) || []).length;
+    o.notes += (c.notes || []).length;
+    const m = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    if (m.some((v) => v > (c.notes || []).length)) o.noteFaults.push(c.n + " marker past end of list");
+    for (let i = 1; i <= (c.notes || []).length; i++)
+      if (!m.includes(i)) { o.noteFaults.push(c.n + " note " + i + " unreferenced"); break; }
+  });
+  return o;
+}
+
+/* THE RIGVEDA, read off the two files that shipped. Its reader (extractSukta / suktaSanskrit) serves
+   ONE book, so there is no sibling to diff it against and this sweep is what stands in for one.
+
+   EVERY FAULT IT HUNTS IS SILENT. The transcription uses four different shapes and 1,023 of the 1,028
+   hymns are plain text with no markup at all; a shape that stops being recognised does not throw and
+   does not shorten the book — its hymns come through as one unnumbered block, which looks like a
+   hymn. The Sanskrit pages each carry Sayana's commentary at ten times the length of the text, so a
+   leak there makes a hymn longer rather than shorter. And mandala 8 numbers the Valakhilya
+   differently in the two editions, which is the fault that would pair 55 hymns with hymns that are
+   not their counterparts while both columns stayed complete and every count read healthy. */
+function rigvedaChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "rigveda.js"), saF = path.join(dir, "rigveda.sa.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(saF)) return null;
+  global.window = {};
+  [enF, saF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "rigveda");
+  const sa = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "rigveda");
+  if (!en || !sa) return null;
+  const nums = (h) => (h.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+  const byN = {}; sa.chapters.forEach((c) => { byN[c.n] = c; });
+  const o = { chapters: en.chapters.length, saChapters: sa.chapters.length, enV: 0, saV: 0,
+              pairs: 0, unpaired: [], mandalas: [], empty: [], disorder: [], notes: 0,
+              noteOn: [], noteFaults: [], commentary: [], titles: 0, m8pairs: 0, m8: 0,
+              intro: en.intro || "" };
+  en.chapters.forEach((c) => {
+    const a = nums(c.html), b = byN[c.n] ? nums(byN[c.n].html) : [];
+    o.enV += a.length; o.saV += b.length;
+    o.mandalas[c.p - 1] = (o.mandalas[c.p - 1] || 0) + 1;
+    if (!a.length) o.empty.push(c.t);
+    if (a.some((v, i) => i && v <= a[i - 1])) o.disorder.push("en " + c.t);
+    if (b.some((v, i) => i && v <= b[i - 1])) o.disorder.push("sa " + c.t);
+    /* the tab IS the citation — "10.129", not a running number */
+    if (/^\d+\.\d+$/.test(c.t)) o.titles++;
+    const A = new Set(a), B = new Set(b);
+    const exact = a.length && !a.filter((v) => !B.has(v)).length && !b.filter((v) => !A.has(v)).length;
+    if (exact) o.pairs++; else o.unpaired.push(c.t);
+    if (c.p === 8) { o.m8++; if (exact) o.m8pairs++; }
+    o.notes += (c.notes || []).length;
+    if ((c.notes || []).length) o.noteOn.push(c.t);
+    const m = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    if (m.some((v) => v > (c.notes || []).length)) o.noteFaults.push(c.t + " marker past end of list");
+    for (let i = 1; i <= (c.notes || []).length; i++)
+      if (!m.includes(i)) { o.noteFaults.push(c.t + " note " + i + " unreferenced"); break; }
+  });
+  /* Sayana's bhashya is Sanskrit prose about the hymn rather than the hymn, and it names its own
+     sources constantly; a leak shows up as the commentary's stock vocabulary inside the verse. */
+  sa.chapters.forEach((c) => {
+    if (/सायण|भाष्यम्|इत्यनुक्रमणिकाया|निरु\./.test(c.html)) o.commentary.push(c.t);
+  });
+  return o;
+}
+
+/* DON QUIXOTE, read off the file that shipped. It needed no new reader at all — `body: "plain"` and
+   `dropHeadings` between them are the whole configuration — so unlike the Summa's and the Aeneid's
+   this is not standing in for a sibling diff. What it stands in for is that those two GATES are
+   still firing, and both fail silently and in opposite directions: without `dropHeadings` every one
+   of the 126 chapters opens by repeating the title Folio has just printed above it, and without the
+   ws-noexport rule each opens on the wiki's own bibliographic header rendered as a quotation. In
+   neither case does anything throw, nothing is lost, and the chapter is LONGER rather than shorter,
+   which is the shape every count reads as healthy.
+
+   The other half is the PART SPLIT. The chapters run 1..126 straight through while the novel is
+   cited by part and chapter, so page() sends 1–52 to Volume 1 and 53–126 to Volume 2 and the titles
+   carry the citation; get that boundary wrong by one and the book comes back complete, in order,
+   with 126 chapters of real Cervantes filed under the wrong numbers. */
+function quixoteChecks() {
+  const f = path.join(ROOT, "books", "don-quixote.js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const b = (global.window.FOLIO_BOOKS_IN || []).find((x) => x.id === "don-quixote");
+  if (!b) return null;
+  const o = { chapters: b.chapters.length, p1: 0, p2: 0, tab53: "", cited: 0, titles: new Set(),
+              heads: [], junk: [], verse: 0, quotes: 0, marks: 0, notes: 0, shortest: 1e9,
+              chars: 0, open: 0, close: 0, windmills: false, front: false,
+              intro: b.intro || "" };
+  b.chapters.forEach((c) => {
+    if (c.p === 1) o.p1++; else if (c.p === 2) o.p2++;
+    if (/^(I|II)\.\d+ \S/.test(c.t)) o.cited++;
+    o.titles.add(c.t);
+    /* the chapter's own title left standing in the prose — what the title peel exists to prevent,
+       and the one thing that fails silently on this path: the chapter is simply longer */
+    if (/^\s*<(p|blockquote)>\s*(CHAPTER|[A-Z][A-Z ,'-]{20,})/.test(c.html)) o.heads.push(c.n);
+    /* Gutenberg's own furniture: the Doré plate captions, its licence boilerplate, its markers */
+    if (/\.jpg|Full Size|PROJECT GUTENBERG|www\.gutenberg|\*\*\*/i.test(c.html)) o.junk.push(c.n);
+    if (/<blockquote/.test(c.html)) o.verse++;
+    o.quotes += (c.html.match(/<blockquote/g) || []).length;
+    o.open += (c.html.match(/<p(?=[ >])/g) || []).length;
+    o.close += (c.html.match(/<\/p>/g) || []).length;
+    o.marks += (c.html.match(/class="bk-n"/g) || []).length;
+    o.notes += (c.notes || []).length;
+    const len = c.html.replace(/<[^>]*>/g, "").length;
+    o.chars += len;
+    if (len < o.shortest) o.shortest = len;
+  });
+  o.tab53 = b.chapters[52] ? b.chapters[52].t : "";
+  /* THE SENTENCE THIS BOOK'S WHOLE SOURCE DECISION TURNS ON. The Wikisource copy of the same
+     translation reads "thirty forty windmills that there are on plain"; a fault of that kind is
+     invisible to every count there is, and this is the only assertion on the shelf that can see
+     one, so it is written out in full rather than matched loosely. */
+  o.windmills = /thirty or forty windmills that there are on that plain/
+    .test((b.chapters[7] || {}).html || "");
+  /* and Part II's dedication and preface, which Gutenberg sets inside chapter 52's span */
+  o.front = /DEDICATION OF VOLUME|COUNT OF LEMOS/i.test((b.chapters[51] || {}).html || "");
+  return o;
+}
+/* THE SATYRICON, read off the two files that shipped. Its reader is the seventeenth layout and it
+   serves ONE book, so like the City of God's and the Aeneid's it cannot be proved inert by re-running
+   a sibling — the shipped-data sweep is what stands in for that check.
+
+   EVERY FAULT IT HUNTS IS SILENT. The display quotations are matched BALANCED because <quote> nests
+   inside <l>, and a non-greedy pair reports lines as standing outside any block; the block is closed
+   and reopened at every boundary the text is cut at, and without that the Bellum Civile — one
+   quotation with five section milestones inside it — comes back as five unclosed blocks that still
+   render every word. The Latin's 385 notes are an apparatus and are dropped, so a leak makes a
+   chapter LONGER. And the Greek is beta code, so a decoder that stopped firing would leave
+   "Si/bulla, ti/ qe/leis;" in the most-quoted sentence in the book. Not one of those throws, shortens
+   a chapter or disturbs the pairing. */
+function satyriconChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "satyricon.js"), laF = path.join(dir, "satyricon.la.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(laF)) return null;
+  global.window = {};
+  [enF, laF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "satyricon");
+  const la = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "satyricon");
+  if (!en || !la) return null;
+  const o = { en: en.chapters.length, la: la.chapters.length, intro: en.intro || "",
+              enQ: 0, laQ: 0, laLines: 0, enLines: 0, notes: 0, markers: 0, dead: 0, unref: 0,
+              marks: 0, apparatus: [], beta: [], greek: 0, gaps: 0, bal: [], shortest: 1e9,
+              paired: 0, sentinel: false };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup"];
+  const laBy = {};
+  la.chapters.forEach((c) => {
+    laBy[c.n] = c.html;
+    o.laQ += (c.html.match(/<blockquote>/g) || []).length;
+    o.laLines += (c.html.match(/<br>/g) || []).length;
+    o.gaps += (c.html.match(/…/g) || []).length;
+    o.greek += (c.html.match(/[Ͱ-Ͽἀ-῿]/g) || []).length;
+    /* the apparatus, which would make a chapter longer rather than shorter if it leaked */
+    if (/Buecheler|Heinsius|Salmasius|Tornaesius|<hi\b/.test(c.html)) o.apparatus.push(c.n);
+    if (c.html.includes("@@")) o.sentinel = true;
+    if (c.html.length < o.shortest) o.shortest = c.html.length;
+  });
+  en.chapters.forEach((c) => {
+    o.enQ += (c.html.match(/<blockquote>/g) || []).length;
+    o.enLines += (c.html.match(/<br>/g) || []).length;
+    o.marks += (c.html.match(/class="bk-n"/g) || []).length;
+    if (laBy[c.n] != null) o.paired++;
+    if (c.html.includes("@@")) o.sentinel = true;
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    o.markers += ms.length;
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    if (c.html.length < o.shortest) o.shortest = c.html.length;
+  });
+  /* beta code left standing anywhere: a letter run broken by one of its mark characters */
+  [en, la].forEach((bk) => bk.chapters.forEach((c) => {
+    if (/[a-z]{2,}[)(\\/\\\\=|][a-z]/.test(c.html.replace(/<[^>]*>/g, ""))) o.beta.push(c.n);
+  }));
+  /* tag balance over BOTH shipped columns — the sweep this repo prescribes after any stripTags- or
+     extractor-adjacent change, and the only thing that can see the crossing-quotation fault */
+  [["en", en], ["la", la]].forEach(([tag, bk]) => bk.chapters.forEach((c) => {
+    TAGS.forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(tag + " §" + c.n + " " + t + " " + open + "/" + shut);
+    });
+  }));
+  o.sibyl = /Σίβυλλα, τί θέλεις;/.test(laBy[48] || "") && /ἀποθανεῖν θέλω/.test(laBy[48] || "");
+  /* §120 sits INSIDE the Bellum Civile, so it must open on a block rather than on prose */
+  o.midPoem = /^<blockquote>/.test(laBy[120] || "");
+  return o;
+}
+
 /* THE AENEID, read off the two files that shipped. Its reader is `cards: "both"` plus the mid-line
    lift, and like The City of God's it serves ONE book, so it cannot be proved inert by re-running a
    sibling — the shipped-data sweep is what stands in for that check.
@@ -670,6 +881,252 @@ function aeneidChecks() {
       check("[city of god] both halves of the book are on disk", false, "missing books/city-of-god*.js");
     }
 
+    /* THE CONFESSIONS — the CAPUT reader's second book, so the sibling diff above is now the cheap
+       first check and this is what stands beside it. Two of these earn their place.
+
+       The chapter TOTALS are the one thing that could see a sixth costume: 278 in the Latin against
+       276 in the English, and a mark the pass fails to recognise folds its chapter into the one above
+       it with the prose all present, the book the right length and nothing thrown — which is exactly
+       how the FIFTH was found, and it was found by the pairing warning rather than by any count of
+       the Latin on its own. And the two English-only gaps are asserted BY NAME. Book I's chapters 19
+       and 20 have never been transcribed at the source, so those two rows draw the Latin beside an
+       empty cell; naming them is what tells a documented gap from a chapter the extractor has just
+       started losing, which is the difference between the shelf's honest rendering and a silent
+       truncation. */
+    const conf = shippedPair("confessions");
+    if (conf) {
+      check("[confessions] thirteen books on each side",
+        conf.en.length === 13 && conf.la.length === 13, `en ${conf.en.length} la ${conf.la.length}`);
+      check("...276 chapter numbers in the English and 278 in the Latin",
+        conf.secEn === 276 && conf.secLa === 278, `en ${conf.secEn} la ${conf.secLa}`);
+      check("...numbered a clean 1..N in every book, both sides",
+        !conf.notSeq.length, JSON.stringify(conf.notSeq.slice(0, 6)));
+      check("...twelve of the thirteen pairing on every chapter number",
+        conf.pairs === 12, `${conf.pairs}/13 — ${JSON.stringify(conf.gaps.slice(0, 4))}`);
+      check("...the exception being Book I's two untranslated chapters, and only those",
+        conf.gaps.length === 1 && /^1: en-only  la-only 19,20$/.test(conf.gaps[0]),
+        JSON.stringify(conf.gaps));
+      check("[confessions] every footnote marker resolves and every note is pointed at",
+        !conf.noteFaults.length, JSON.stringify(conf.noteFaults.slice(0, 6)));
+      check("[confessions] no unconverted CAPUT anywhere in the Latin",
+        conf.caput === 0, `${conf.caput} left`);
+    } else {
+      check("[confessions] both halves of the book are on disk", false, "missing books/confessions*.js");
+    }
+
+    /* THE SUMMA — one column, no sibling on its reader, and by a wide margin the largest thing on the
+       shelf, so the shipped data is the only check there is. Three of these earn their place.
+
+       THE ARTICLE COUNT IS THE ONE NUMBER THAT CAN SEE A HEADING SHAPE THE PASS DOES NOT KNOW. The
+       question heading is typed a dozen ways across the 614 pages — "Quesiton.", "question.",
+       "Question. - 112 -", the bare title, and on three pages "Art. 1" — and a shape markArticuli
+       fails to place is silent: the prose is all there, the chapter is the right length, nothing
+       throws, and one section simply is not numbered. It was found by this count moving.
+
+       NO CHAPTER MAY CARRY A LEFTOVER "Art." HEADING BEYOND THE ONE THE EDITION MISNUMBERS, which is
+       the City of God's unconverted-CAPUT rule: an article heading left as bold is one the pass could
+       not read, and it looks exactly like a heading that was meant to be bold.
+
+       AND THE GAPS ARE ASSERTED BY NAME. Fourteen questions are short an article in the transcription
+       and two carry no article headings at all; naming them is what tells a documented gap from a
+       chapter the extractor has just started losing — the difference between the shelf's honest
+       rendering and a silent truncation. */
+    const summa = shippedBook("summa-theologica");
+    if (summa) {
+      check("[summa] all 614 questions", summa.chapters === 614, String(summa.chapters));
+      check("...divided into the edition's six Parts, each the right length",
+        JSON.stringify(summa.parts) === JSON.stringify([119, 114, 189, 90, 99, 3]),
+        JSON.stringify(summa.parts));
+      check("...3,094 articles across them", summa.secs === 3094, String(summa.secs));
+      check("...every chapter's articles ascending, with no duplicate",
+        !summa.disorder.length, JSON.stringify(summa.disorder.slice(0, 6)));
+      check("[summa] the two questions with no article headings are the known two",
+        summa.none.join(",") === "147,551", summa.none.join(","));
+      check("[summa] no article heading left unread anywhere, bar the one the edition misnumbers",
+        summa.strayArt === 1, String(summa.strayArt));
+      check("[summa] the seven notes the translators added, and their markers resolve",
+        summa.notes === 7 && !summa.noteFaults.length,
+        summa.notes + " — " + JSON.stringify(summa.noteFaults.slice(0, 4)));
+      /* It has no facing original and its front matter is where that is explained, so the page has to
+         say so — a reader who knows the Summa will go looking for the Latin. */
+      check("[summa] the front matter says why there is no Latin",
+        /207 of the 611/.test(summa.intro), summa.intro.slice(0, 60));
+      check("[summa] ...and what the transcription is missing",
+        /Fourteen questions/.test(summa.intro), "");
+    } else {
+      check("[summa] the book is on disk", false, "missing books/summa-theologica.js");
+    }
+
+    /* THE RIGVEDA — the same kind of check as the Summa's and the Aeneid's, and for the same reason:
+       one book on its own reader, so the shipped data is what stands in for a sibling diff. */
+    const rv = rigvedaChecks();
+    if (rv) {
+      check("[rigveda] all 1,028 hymns on both sides",
+        rv.chapters === 1028 && rv.saChapters === 1028, `en ${rv.chapters} sa ${rv.saChapters}`);
+      check("...divided into the ten mandalas, each the right length",
+        JSON.stringify(rv.mandalas) === JSON.stringify([191, 43, 62, 58, 87, 75, 104, 103, 114, 191]),
+        JSON.stringify(rv.mandalas));
+      /* THE VERSE TOTALS ARE THE ASSERTION THAT SEES A TRANSCRIPTION SHAPE GOING. Four shapes are in
+         use and 1,023 of the hymns are plain text; a reader that stops recognising one returns those
+         hymns as a single unnumbered block, which throws nothing, shortens nothing and looks like a
+         hymn. Only the count moves. */
+      check("[rigveda] 10,503 verses of Griffith and 10,542 of the Sanskrit",
+        rv.enV === 10503 && rv.saV === 10542, `en ${rv.enV} sa ${rv.saV}`);
+      check("...not one hymn without verse numbers", !rv.empty.length,
+        JSON.stringify(rv.empty.slice(0, 6)));
+      check("...every hymn's verses ascending, with no duplicate, on both sides",
+        !rv.disorder.length, JSON.stringify(rv.disorder.slice(0, 6)));
+      /* THE TAB IS THE CITATION and that is the whole reason the hymn is the chapter: a reader
+         looking for RV 10.129 has to find a tab reading 10.129. */
+      check("[rigveda] every tab is its citation, mandala.hymn", rv.titles === 1028, String(rv.titles));
+
+      /* THE VALAKHILYA MAPPING, and it is the one fault here that no count could ever show. Griffith
+         prints those eleven hymns as an appendix, so his 8.49 is the standard 8.60 and his 8.93–8.103
+         are the standard 8.49–8.59. Paired on the page number instead, 55 hymns of mandala 8 would sit
+         beside hymns that are not theirs — with both columns complete, every mandala the right length
+         and nothing thrown. Mandala 8's own pairing rate is what sees it: 102 of its 103 hymns pair
+         exactly under the right map, and a handful would under the wrong one. */
+      check("[rigveda] mandala 8 pairs on 102 of its 103 hymns — the Valakhilya map holds",
+        rv.m8 === 103 && rv.m8pairs === 102, `${rv.m8pairs} of ${rv.m8}`);
+      check("[rigveda] 1,002 of the 1,028 hymns pair on every verse number",
+        rv.pairs === 1002, String(rv.pairs));
+      /* AND THE 26 THAT DO NOT ARE ASSERTED BY NAME, which is what tells a documented divergence from
+         a hymn the extractor has just started losing: six are the metre whose half-verses the two
+         traditions count differently, three are the passages Griffith put into Latin and this
+         transcription dropped, and seventeen are a single lost numeral apiece. */
+      check("...and the twenty-six that do not are the known twenty-six",
+        rv.unpaired.join(" ") === "1.65 1.66 1.67 1.68 1.69 1.70 1.91 1.95 1.105 1.116 1.117 " +
+          "1.128 1.174 1.179 5.44 5.55 8.93 9.7 9.73 9.89 10.42 10.48 10.61 10.86 10.97 10.132",
+        rv.unpaired.join(" "));
+
+      /* SAYANA'S COMMENTARY IS ON EVERY SANSKRIT PAGE at ten times the length of the text. A leak
+         makes a hymn LONGER, so no count of verses or hymns can see it. */
+      check("[rigveda] no commentary leaked into the Sanskrit", !rv.commentary.length,
+        JSON.stringify(rv.commentary.slice(0, 6)));
+      check("[rigveda] Griffith's 27 notes, on the three proofread hymns, and their markers resolve",
+        rv.notes === 27 && rv.noteOn.join(",") === "1.1,1.32,5.1" && !rv.noteFaults.length,
+        `${rv.notes} on ${rv.noteOn.join(",")} — ${JSON.stringify(rv.noteFaults.slice(0, 3))}`);
+      /* The two things a reader will otherwise meet as faults, both stated on the book's own page. */
+      check("[rigveda] the front matter says why three passages are missing from the English",
+        /1\.179/.test(rv.intro) && /Latin/.test(rv.intro), "");
+      check("[rigveda] ...and how Griffith numbers the Valakhilya",
+        /Valakhilya/.test(rv.intro), "");
+    } else {
+      check("[rigveda] the book is on disk", false, "missing books/rigveda.js");
+    }
+
+    /* DON QUIXOTE — see quixoteChecks above. Nothing here is standing in for a sibling diff; what it
+       watches is the two cleanBody gates and the part boundary, all three of which fail silently. */
+    const dq = quixoteChecks();
+    if (dq) {
+      check("[quixote] all 126 chapters", dq.chapters === 126, String(dq.chapters));
+      /* THE PART BOUNDARY. page() cuts at 52 and the citation restarts there; a boundary out by one
+         returns a complete novel with every chapter filed under the wrong number. */
+      check("...52 in Part I and 74 in Part II", dq.p1 === 52 && dq.p2 === 74, `${dq.p1} / ${dq.p2}`);
+      check("...and tab 53 is II.1, where the second part begins",
+        dq.tab53.startsWith("II.1 "), dq.tab53.slice(0, 40));
+      check("[quixote] every tab opens on its citation, part.chapter", dq.cited === 126, String(dq.cited));
+      /* Ormsby heads all 126 differently, so a table that had drifted would show up as a collision. */
+      check("...and no two chapters share a title", dq.titles.size === 126, String(dq.titles.size));
+
+      /* THE SENTENCE THE SOURCE DECISION TURNS ON — see quixoteChecks. A transcription that has
+         quietly lost a word passes every structural check there is, so this is the assertion, and
+         it is the reason this book is not on the Wikisource text that every other check preferred. */
+      check("[quixote] the windmills sentence is whole — thirty OR forty, on THAT plain",
+        dq.windmills, "the text has lost a word, which is why Wikisource's copy was not used");
+
+      /* THE TWO SWEEPS, both silent: a chapter is LONGER rather than shorter when either stops
+         firing, which is what every count reads as healthy. */
+      check("[quixote] no chapter opens on its own title in capitals — the title peel is firing",
+        !dq.heads.length, JSON.stringify(dq.heads.slice(0, 6)));
+      check("...and none carries Gutenberg's plate captions or boilerplate",
+        !dq.junk.length, JSON.stringify(dq.junk.slice(0, 6)));
+      /* Gutenberg sets no heading between the end of Part I and Part II's dedication, so that
+         dedication and the author's preface fall inside chapter 52's span — 1,992 words of front
+         matter that would read as the last chapter of the first part. */
+      check("...and 52 stops before Part II's dedication rather than swallowing it", !dq.front, "");
+
+      /* THE VERSE, which is the only thing here recovered from TYPOGRAPHY rather than read off a
+         tag: Cervantes scatters ballads, sonnets and epitaphs through the novel and Gutenberg marks
+         them only by their line length. Lose the rule and they print as prose — nothing throws,
+         nothing shortens, and this count is the one thing that can see it. */
+      check("[quixote] 143 verse blocks across 41 chapters",
+        dq.verse === 41 && dq.quotes === 143, `${dq.verse} chapters, ${dq.quotes} blocks`);
+      check("[quixote] <p> balances", dq.open === dq.close, `${dq.open} / ${dq.close}`);
+
+      /* MEASURED RATHER THAN ASSUMED, and this is the one edition on the shelf whose notes are
+         famous: neither free transcription of it carries one. The front matter says so, and if a
+         note ever appears here it means the source has changed and the front matter has stopped
+         being true. There are no section numbers either — the chapter is the only unit the novel
+         has. */
+      check("[quixote] no notes and no section numbers anywhere",
+        dq.notes === 0 && dq.marks === 0, `${dq.notes} notes, ${dq.marks} marks`);
+      check("[quixote] every chapter clears the short-chapter guard, 2.13 M characters in all",
+        dq.shortest > 2000 && dq.chars > 2050000 && dq.chars < 2200000,
+        `shortest ${dq.shortest}, total ${dq.chars}`);
+      /* The two things a reader will otherwise meet as absences, both stated on the book's own page. */
+      check("[quixote] the front matter says why there is no Spanish column",
+        /Spanish Wikisource/.test(dq.intro) && /names no editor/.test(dq.intro), "");
+      check("[quixote] ...and that Ormsby's notes are in neither free transcription",
+        /note fold/.test(dq.intro) && /footnotes/.test(dq.intro), "");
+    }
+
+    /* THE SATYRICON — see satyriconChecks above. */
+    const sat = satyriconChecks();
+    if (sat) {
+      check("[satyricon] 141 sections in each column, all of them paired",
+        sat.en === 141 && sat.la === 141 && sat.paired === 141,
+        `${sat.en} / ${sat.la}, ${sat.paired} paired`);
+      /* THE SECTION IS THE CHAPTER, so there is nothing below it to mark — and both columns being
+         unnumbered is what makes the pairing deterministic rather than the Gallic War's luck. */
+      check("...and no section markers, because the section IS the tab",
+        sat.marks === 0, String(sat.marks));
+
+      /* THE VERSE, and it is the finding this book turns on: the Latin marks 607 lines in 54
+         blocks and the translator sets every one of them as prose. Break the balanced matching or
+         the boundary rule and the blocks fall apart while every word stays on the page. */
+      check("[satyricon] 55 display quotations in the Latin, 54 of them verse, 607 lines",
+        sat.laQ === 55 && sat.laLines === 607 - 54, `${sat.laQ} blocks, ${sat.laLines} <br>`);
+      check("...and 8 in the English, which renders Petronius's verse as prose",
+        sat.enQ === 8 && sat.enLines === 23 - 8, `${sat.enQ} blocks, ${sat.enLines} <br>`);
+      /* §120 is INSIDE one quotation spanning six sections — it must open mid-poem. */
+      check("...so the Bellum Civile is cut at its boundaries, and §120 opens on a block",
+        sat.midPoem, (sat.la ? "§120 opens on prose" : ""));
+      /* The crossing-quotation fault is invisible except here. */
+      check("[satyricon] every tag balances in both columns",
+        !sat.bal.length, JSON.stringify(sat.bal.slice(0, 6)));
+
+      /* THE GREEK. Beta code decoded where it composes and LEFT where it does not; the Sibyl is the
+         most quoted sentence in the book and is the one a reader would report. */
+      check("[satyricon] §48's Sibyl is in Greek, not in beta code", sat.sibyl, "");
+      check("...with no beta code left standing anywhere else",
+        !sat.beta.length && sat.greek > 40, JSON.stringify(sat.beta.slice(0, 6)) + ` (${sat.greek} Greek chars)`);
+
+      /* THE APPARATUS is dropped, so a leak makes a chapter LONGER — which no count of chapters,
+         sections or words reads as a fault. */
+      check("[satyricon] the Latin's apparatus criticus is not in the text",
+        !sat.apparatus.length, JSON.stringify(sat.apparatus.slice(0, 6)));
+      check("...and no sentinel leaked into either column", !sat.sentinel, "");
+      check("[satyricon] 131 notes, every marker resolving and every note referenced",
+        sat.notes === 131 && sat.markers === 131 && !sat.dead && !sat.unref,
+        `${sat.notes} notes, ${sat.markers} markers, ${sat.dead} dead, ${sat.unref} unreferenced`);
+      /* 147 lacunae — the book is a ruin, and the mark the edition prints for that is content. */
+      check("[satyricon] the 147 lacunae are marked in the Latin", sat.gaps === 147, String(sat.gaps));
+      check("[satyricon] every section clears the short-chapter guard",
+        sat.shortest >= 400, String(sat.shortest));
+
+      /* The two things a reader meets as absences, both stated on the book's own first page. */
+      check("[satyricon] the front matter says which sections are left in Latin",
+        /left in Latin/.test(sat.intro) && /23 to 26/.test(sat.intro), "");
+      check("...and that the translator sets the verse as prose",
+        /renders all of it as prose|as prose/.test(sat.intro) && /607 lines/.test(sat.intro), "");
+      /* the words the OTHER copy has lost, named on the page, so a reader who has met that copy
+         elsewhere knows what they are looking at */
+      check("[quixote] ...and which words the Wikisource copy drops, and that nothing is merged",
+        /\[or\] forty windmills/.test(dq.intro) && /never existed/.test(dq.intro), "");
+    } else {
+      check("[quixote] the book is on disk", false, "missing books/don-quixote.js");
+    }
     /* THE AENEID — the same kind of check and for the same reason: one book on its own reader, so the
        shipped data is what stands in for a sibling diff. See aeneidChecks above for why each of these
        is here; all three faults it hunts are invisible on the page. */
