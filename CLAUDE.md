@@ -128,7 +128,57 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-nine:
+  matter (chapter 0 — see the Library bullet). Currently forty:
+  `don-quixote` (~2.22 MB, both parts entire as **126 chapters**, **143 verse blocks**, **0 notes** —
+  Ormsby's translation of 1885, and **the first book here that was BUILT ON ONE SOURCE, CHECKED, AND
+  THEN THROWN AWAY FOR ANOTHER.** Everything said use Wikisource: it carries this translation
+  complete, one page per chapter, typed clean, and needed nothing but `body: "plain"` and
+  `dropHeadings` — the sixteenth book to arrive and the first in a while to need no new reader. That
+  version was written, fetched, swept and browser-checked, and **it was discarded over two words**.
+  **THE BROWSER CHECK ASSERTED THAT THE GIANTS ARE ON THE PAGE AT I.8 AND FAILED, AND THE FAULT WAS
+  NOT THE EXTRACTOR'S**: that transcription reads "thirty forty windmills that there are on plain"
+  where Ormsby wrote "thirty **or** forty windmills that there are on **that** plain" — the most
+  famous sentence in European fiction, ungrammatical, in a text that had passed every structural
+  check there is (126 chapters, tag balance clean, no chapter short, 126 unique titles). It is the
+  golden rule's "it isn't finished until it's been looked at" earning its keep for the third time
+  after the Gita and the Iliad, and the first time it has been earned by a TEST rather than by eye.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.** **HOW FAR A TRANSCRIPTION'S ROT GOES NEEDS AN
+  INDEPENDENT COPY OF THE SAME TRANSLATION, WALKED WORD BY WORD** — Project Gutenberg's ebook 996,
+  which is Ormsby unrevised (its own editor's note says only the Doré PLATES came from a
+  Jarvis/Motteaux edition). Over all 400,809 words the wiki copy drops **sixty** — "no occasion [to]
+  ask", "the barber [whose] basin", "sancho could not [understand]" — and doubles six of its own
+  ("out of all as as", "a portion portion of the kingdom"). One defect per six thousand words, and
+  **not one of them visible to any count**: both copies are 126 chapters split 52/74 and agree
+  chapter by chapter to within fifteen words. **AND THE ALIGNMENT ITSELF LIED FOUR TIMES BEFORE IT
+  TOLD THE TRUTH**, which is the methodological half: keying a chapter on its opening words landed
+  in Gutenberg's CONTENTS LIST rather than its body; normalising with `[^a-z0-9' ]` split every
+  possessive on one side and not the other, Gutenberg setting a curly apostrophe; and the resync was
+  written `W.indexOf(C.slice(a, a + 5).join(" "), p)`, which is `Array.prototype.indexOf` looking for
+  a whole phrase as one ELEMENT and therefore matching nothing, ever. Each of the three reported a
+  confident **52%** coverage and a short clean list. **A diff that stops early reports the text as
+  sound; check what fraction it actually walked before believing what it found.**
+  **THE VERSE MEASUREMENT THEN REVERSED THE LAST ARGUMENT FOR THE WIKI**, and it is the Canterbury
+  Tales' rejected heuristic re-measured rather than inherited. That book tried detecting verse in a
+  plain text and refused, because its OCR fragmented PROSE at the page edges; this transcription is
+  modern and clean and has no page edges, so the rule was scored against the wiki's own 55
+  marked-up blocks as ground truth — it finds 49 of them **and takes 99 blocks more**, which on
+  reading are almost all real verse the wiki sets as prose, Cardenio's sonnets and the epitaphs of
+  the Academicians among them. **The fuller text carried the better verse as well**, which is not
+  what the markup suggested. The few that are NOT verse are what the all-caps guard is for — a
+  heading is short-lined too, and so is a letter's signature — and 143 blocks ship as verse with 26
+  short all-capital ones counted and kept as headings.
+  **AND WHAT WAS NOT DONE IS THE POINT**: the wiki's words were NOT repaired from Gutenberg's. Both
+  are transcriptions of a printed page neither party has, and Gutenberg has slips of its own —
+  eleven places where one reads "he" and the other "be", in both directions. Correcting one fallible
+  copy against another and shipping the result composes a text that has never existed. One copy is
+  chosen, on measurement, and the book's front matter names the words the other drops so a reader who
+  has met that copy elsewhere knows what they are looking at.
+  **ITS REAL LIMITATION IS THE APPARATUS AND IT IS NEITHER COPY'S FAULT**: Ormsby's volumes are famous
+  for their several hundred footnotes and **not one free transcription carries a single one** —
+  measured on both, zero reference marks — so the book renders with no note fold at all, like Ovid,
+  Lucretius and the Analects. His preface and his life of Cervantes are left behind as the Republic's
+  introduction and plates were. The tabs run 1..126 straight through while the novel is cited by part
+  and chapter, so each title opens on its citation, I.1 … II.74 — the Summa's arrangement),
   `rigveda` (~2.05 MB, all 1,028 hymns as **1,028 chapters**, **10,503 verse numbers**, 27 notes —
   Griffith's second edition of 1896, and **the first book here whose CHAPTER IS THE SMALLEST UNIT
   OF THE WORK and there are a thousand of them.** The tab is the citation itself: a passage of the
@@ -965,9 +1015,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-nine books, twenty-seven originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty books, twenty-seven originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
-  Divine Comedy and the Summa Theologica
+  Divine Comedy, the Summa Theologica and Don Quixote
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
   to face.
@@ -1019,6 +1069,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   US and encumbered elsewhere) — so it was left for the site's owner and for 2029 rather than taken
   quietly in an importer entry. Shipped English-alone with the reason in the book's own front matter,
   which is the Republic's outcome.
+  **DON QUIXOTE IS THE DIVINE COMEDY'S QUESTION ON A NOVEL, AND IT FAILS TWICE OVER** (Aug 2026).
+  Spanish Wikisource carries the novel three times and every one is a fragment — the 1608 text at 16
+  chapters, the 1842 and 1905 editions at 38 each, against 126 — and its own index page marks all
+  three "A transcribir", still to be transcribed. That is the Plato-Jowett case. What blocks the one
+  complete free Spanish is the second question: it names no editor and no edition, only its
+  transcribers, and a novel first printed in 1605 survives in settings that differ, so a modern text
+  of it is somebody's constituted text whether it says so or not. **Ask what text an unattributed
+  transcription IS** — the Divine Comedy's finding, and it bites the same way on a work whose
+  copyright expired four centuries ago. **ONE TRAP FOR ANYONE WHO COMES BACK TO THIS**: that wiki
+  also carries `Segundo tomo del ingenioso hidalgo don Quijote de la Mancha`, which looks like the
+  second part and is Avellaneda's spurious sequel of 1614 — a different book by an author nobody has
+  identified, the one Cervantes attacks inside his own Part II. Shipped English-alone with the reason
+  in the book's own front matter, which is the Republic's outcome.
   **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
   exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
   to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
@@ -1495,6 +1558,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     opening on `***` in the apparatus band, where they belong to the apparatus rule rather than to
     this one. Every removal is counted and reported, per the standing rule that a rule which starts
     eating text cannot do it quietly.
+
+  **A SOURCE MAY PASS EVERY STRUCTURAL CHECK AND STILL BE THE WRONG ONE** (`layout: "quixote"` →
+  `extractQuixote`; Aug 2026, adding Don Quixote — the fortieth book, and the sixteenth layout). The
+  third book on the plain-text path after Journey to the West and the Canterbury Tales, and the only
+  one that did not have to be: Wikisource carries Ormsby's translation complete, one page per
+  chapter, cleanly typed, needing nothing but `body: "plain"` and `dropHeadings`. That version was
+  built, fetched, swept and browser-checked, and was discarded because the check found "thirty forty
+  windmills that there are on plain". See the `don-quixote` entry in the File map for the whole of
+  it — the sixty dropped words, the four ways the alignment lied before it told the truth, the verse
+  measurement that reversed the last argument for the wiki, and the repair deliberately NOT made.
+  What the extractor itself is worth remembering for is small by comparison: **a plain text's
+  furniture must be peeled LINE BY LINE, not sliced to the first blank line** (the chapter titles
+  here run one to three lines and a slice generous enough for the longest ate the opening of the
+  shortest chapters); **an edition may set no heading where a PART ends**, so Gutenberg's chapter 52
+  span carries Part II's dedication and preface, 1,992 words of front matter cut at a bare
+  `Volume II` line, and the epitaphs of the Academicians come BEFORE it and are the real end of
+  Part I; and **a short-lined block is not always verse** — a heading is short-lined too, so a block
+  that is WHOLLY CAPITAL is kept as a paragraph and every one is counted and printed, since a rule
+  that started eating headings must not do it quietly.
 
   **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
   `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
@@ -3840,6 +3922,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `"rigveda"` note in app.js for the search, and for the Euripides test rejecting the best magenta
     because it lands 19.4 from the SONG OF ROLAND, which is both the shelf's other anonymous work and
     the colour this book would otherwise have inherited.
+    **Don Quixote is the TENTH licence needing no qualification at all** (Aug 2026), after the
+    Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey to the West,
+    the Divine Comedy, the Confessions and the Rigveda. Cervantes published the two parts in 1605 and
+    1615 and died in 1616; John Ormsby published this translation in London in 1885 and lived
+    1829–1895, so the English clears the pre-1929 rule, life-plus-seventy (1966) and
+    life-plus-a-hundred (1996) alike, with no limit to state and no modern editorial layer to
+    declare. **ORMSBY'S DATES ARE WHY THE LOOK-UP RULE EXISTS**: 1889 is what comes to mind and it is
+    wrong, and what makes 1829–1895 usable where A. J. Wyatt's was not is that two places give the
+    same pair — Wikisource's author page and Wikidata — over a span of sixty-six years rather than a
+    suspiciously round hundred. Cervantes's own are corroborated to the day, and the line that he and
+    Shakespeare died on the same date is a calendar artefact, Spain being on the Gregorian calendar
+    and England still on the Julian. Putnam (1949), Cohen (1950), Raffel (1995), Rutherford (2000),
+    Grossman (2003) and Lathrop (2005) are named as the ones not to reach for. **WHAT ITS LICENCE DID
+    NOT DECIDE IS WHICH COPY TO SHIP**, and that is the interesting half — two free transcriptions of
+    the same free translation, one of which has quietly lost sixty words; see the `don-quixote` entry
+    in the File map. Its `BOOK_AUTHOR_COLOR` row is the band at 35 colours, where nothing anywhere in
+    it clears 19.3 — in line with Chaucer's 19.7 at 31, so the band was not widened again — and the
+    whole clear field is one rose-crimson family. **The choice inside it was CONTRAST**: the best
+    number reads 4.53:1 on the tightest light paper, right at the bar, where `#B10960` clears 19.0
+    and reads 5.46:1 there and 6.82:1 on white. The Euripides test picked what to avoid rather than
+    what to take — the violet family's best lands 19 from the SONG OF ROLAND, and Don Quixote is
+    written against the chivalric romance while Roland is this shelf's chanson de geste, which is the
+    one pair a reader would read as a set.
     **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
     the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
     the point of it: Augustine died in 430, J. G. Pilkington published this translation in Schaff's
@@ -10925,6 +11030,7 @@ dead code (never rendered).
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `markArticuli` /
     `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` /
+    `extractQuixote` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the

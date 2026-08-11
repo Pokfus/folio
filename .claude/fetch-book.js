@@ -735,6 +735,142 @@ function rvGriffith(m, h) {
 }
 const rvDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
 
+/* ---------- DON QUIXOTE'S 126 CHAPTERS ----------
+   Ormsby heads every chapter, and the two volume index pages carry each title in its own link
+   text — so all 126 were read in TWO fetches rather than 126, and the table is transcribed rather
+   than composed. The comment on each row is the CITATION, which is not the tab number: the novel
+   is cited by part and chapter ("DQ I.8" is the windmills) and Part II restarts at one, where
+   Folio's tabs run 1..126 straight through. Hoisted above the BOOKS table for the reason
+   SUMMA_PARTS and RV_HYMNS are: a const inside an object literal is a syntax error. */
+const DQ_TITLES = [
+  /* I.1 */ "Which treats of the character and pursuits of the famous gentleman Don Quixote of La Mancha",
+  /* I.2 */ "Which treats of the first sally the ingenious Don Quixote made from home",
+  /* I.3 */ "Wherein is related the droll way in which Don Quixote had himself dubbed a knight",
+  /* I.4 */ "Of what happened to our knight when he left the inn",
+  /* I.5 */ "In which the narrative of our knight's mishap is continued",
+  /* I.6 */ "Of the diverting and important scrutiny which the curate and the barber made in the library of our ingenious gentleman",
+  /* I.7 */ "Of the second sally of our worthy knight Don Quixote of la Mancha",
+  /* I.8 */ "Of the good fortune which the valiant Don Quixote had in the terrible and undreamt-of adventure of the windmills, with other occurrences worthy to be fitly recorded",
+  /* I.9 */ "In which is concluded and finished the terrific battle between the gallant Biscayan and the valiant Manchegan",
+  /* I.10 */ "Of the pleasant discourse that passed between Don Quixote and his squire Sancho Panza",
+  /* I.11 */ "Of what befell Don Quixote with certain goatherds",
+  /* I.12 */ "Of what a goatherd related to those with Don Quixote",
+  /* I.13 */ "In which is ended the story of the shepherdess Marcela, with other incidents",
+  /* I.14 */ "Wherein are inserted the despairing verses of the dead shepherd, together with other incidents not looked for",
+  /* I.15 */ "In which is related the unfortunate adventure that Don Quixote fell in with when he fell out with certain heartless Yanguesans",
+  /* I.16 */ "Of what happened to the ingenious gentleman in the inn which he took to be a castle",
+  /* I.17 */ "In which are contained the innumerable troubles which the brave Don Quixote and his good squire Sancho Panza endured in the inn, which to his misfortune he took to be a castle",
+  /* I.18 */ "In which is related the discourse Sancho Panza held with his master, Don Quixote, and other adventures worth relating",
+  /* I.19 */ "Of the shrewd discourse which Sancho held with his master, and of the adventure that befell him with a dead body, together with other notable occurrences",
+  /* I.20 */ "Of the unexampled and unheard-of adventure which was achieved by the valiant Don Quixote of la Mancha with less peril than any ever achieved by any famous knight in the world",
+  /* I.21 */ "Which treats of the exalted adventure and rich prize of Mambrino's helmet, together with other things that happened to our invincible knight",
+  /* I.22 */ "Of the freedom Don Quixote conferred on several unfortunates who against their will were being carried where they had no wish to go",
+  /* I.23 */ "Of what befell Don Quixote in the Sierra Morena, which was one of the rarest adventures related in this veracious history",
+  /* I.24 */ "In which is continued the adventure of the Sierra Morena",
+  /* I.25 */ "Which treats of the strange things that happened to the stout knight of la Mancha in the Sierra Morena, and of his imitation of the penance of Beltenebros",
+  /* I.26 */ "In which are continued the refinements wherewith Don Quixote played the part of a lover in the Sierra Morena",
+  /* I.27 */ "Of how the curate and the barber proceeded with their scheme; together with other matters worthy of record in this great history",
+  /* I.28 */ "Which treats of the strange and delightful adventure that befell the curate and the barber in the same sierra",
+  /* I.29 */ "Which treats of the droll device and method adopted to extricate our love-stricken knight from the severe penance he had imposed upon himself",
+  /* I.30 */ "Which treats of address displayed by the fair Dorothea, with other matters pleasant and amusing",
+  /* I.31 */ "Of the delectable discussion between Don Quixote and Sancho Panza, his squire, together with other incidents",
+  /* I.32 */ "Which treats of what befell Don Quixote's party at the inn",
+  /* I.33 */ "In which is related the novel of \"The Ill-Advised Curiosity\"",
+  /* I.34 */ "In which is continued the novel of \"The Ill-Advised Curiosity\"",
+  /* I.35 */ "Which treats of the heroic and prodigious battle Don Quixote had with certain skins of red wine, and brings the novel of \"The Ill-Advised Curiosity\" to a close",
+  /* I.36 */ "Which treats of more curious incidents that occurred at the inn",
+  /* I.37 */ "In which is continued the story of the famous Princess Micomicona, with other droll adventures",
+  /* I.38 */ "Which treats of the curious discourse Don Quixote delivered on arms and letters",
+  /* I.39 */ "Wherein the captive relates his life and adventures",
+  /* I.40 */ "In which the story of the captive is continued.",
+  /* I.41 */ "In which the captive still continues his adventures",
+  /* I.42 */ "Which treats of what further took place in the inn, and of several other things worth knowing",
+  /* I.43 */ "Wherein is related the pleasant story of the muleteer, together with other strange things that came to pass in the inn",
+  /* I.44 */ "In which are continued the unheard-of adventures of the inn",
+  /* I.45 */ "In which the doubtful question of Mambrino's helmet and the pack-saddle is finally settled, with other adventures that occurred in truth and earnest",
+  /* I.46 */ "Of the end of the notable adventure of the officers of the Holy Brotherhood; and of the great ferocity of our worthy knight, Don Quixote",
+  /* I.47 */ "Of the strange manner in which Don Quixote of la Mancha was carried away enchanted, together with other remarkable incidents",
+  /* I.48 */ "In which the canon pursues the subject of the books of chivalry, with other matters worthy of his wit",
+  /* I.49 */ "Which treats of the shrewd conversation which Sancho Panza held with his master Don Quixote",
+  /* I.50 */ "Of the shrewd controversy which Don Quixote and the canon held, together with other incidents",
+  /* I.51 */ "Which deals with what the goatherd told those who were carrying off Don Quixote",
+  /* I.52 */ "Of the quarrel that Don Quixote had with the goatherd, together with the rare adventure of the penitents, which with an expenditure of sweat he brought to a happy conclusion",
+  /* II.1 */ "Of the interview the curate and the barber had with Don Quixote about his malady",
+  /* II.2 */ "Which treats of the notable altercation which Sancho Panza had with Don Quixote's niece, and housekeeper, together with other droll matters",
+  /* II.3 */ "Of the laughable conversation that passed between Don Quixote, Sancho Panza, and the bachelor Samson Carrasco",
+  /* II.4 */ "In which Sancho Panza gives a satisfactory reply to the doubts and questions of the bachelor Samson Carrasco, together with other matters worth knowing and telling",
+  /* II.5 */ "Of the shrewd and droll conversation that passed between Sancho Panza and his wife Teresa Panza, and other matters worthy of being duly recorded",
+  /* II.6 */ "Of what took place between Don Quixote and his niece and housekeeper; one of the most important chapters in the whole history",
+  /* II.7 */ "Of what passed between Don Quixote and his squire, together with other very notable incidents",
+  /* II.8 */ "Wherein is related what befell Don Quixote on his way to see his lady Dulcinea del Toboso",
+  /* II.9 */ "Wherein is related what will be seen there",
+  /* II.10 */ "Wherein is related the crafty device Sancho adopted to enchant the lady Dulcinea, and other incidents as ludicrous as they are true",
+  /* II.11 */ "Of the strange adventure which the valiant Don Quixote had with the car or cart of \"The Cortes of Death\"",
+  /* II.12 */ "Of the strange adventure which befell the valiant Don Quixote with the bold knight of the mirrors",
+  /* II.13 */ "In which is continued the adventure of the knight of the grove, together with the sensible, original, and tranquil colloquy that passed between the two squires",
+  /* II.14 */ "Wherein is continued the adventure of the knight of the grove",
+  /* II.15 */ "Wherein it is told and known who the knight of the mirrors and his squire were",
+  /* II.16 */ "Of what befell Don Quixote with a discreet gentleman of La Mancha",
+  /* II.17 */ "Wherein is shown the furthest and highest point which the unexampled courage of Don Quixote reached or could reach; together with the happily achieved adventure of the lions",
+  /* II.18 */ "Of what happened Don Quixote in the castle or house of the knight of the green gaban, together with other matters out of the common",
+  /* II.19 */ "In which is related the adventure of the enamoured shepherd, together with other truly droll incidents",
+  /* II.20 */ "Wherein an account is given of the wedding of Camacho the rich, together with the incident of Basilio the poor",
+  /* II.21 */ "In which Camacho's wedding is continued, with other delightful incidents",
+  /* II.22 */ "Wherin is related the grand adventure of the cave of Montesinos in the heart of La Mancha, which the valiant Don Quixote brought to a happy termination",
+  /* II.23 */ "Of the wonderful things the incomparable Don Quixote said he saw in the profound cave of Montesinos, the impossibility and magnitude of which cause this adventure to be deemed apocryphal",
+  /* II.24 */ "Wherein are related a thousand trifling matters, as trivial as they are necessary to the right understanding of this great history",
+  /* II.25 */ "Wherein is set down the braying adventure, and the droll one of the puppet-showman, together with the memorable divinations of the divining ape",
+  /* II.26 */ "Wherein is continued the droll adventure of the puppet-showman, together with other things in truth right good",
+  /* II.27 */ "Wherein it is shown who Master Pedro and his ape were, together with the mishap Don Quixote had in the braying adventure, which he did not conclude as he would have liked or as he had expected",
+  /* II.28 */ "Of matters that Benengeli says he who reads them will know, if he reads them with attention",
+  /* II.29 */ "Of the famous adventure of the enchanted bark",
+  /* II.30 */ "Of Don Quixote's adventure with a fair huntress",
+  /* II.31 */ "Which treats of many and great matters",
+  /* II.32 */ "Of the reply Don Quixote gave his censurer, with other incidents, grave and droll",
+  /* II.33 */ "Of the delectable discourse which the duchess and her damsels held with Sancho Panza, well worth reading and noting",
+  /* II.34 */ "Which relates how they learned the way in which they were to disenchant the peerless Dulcinea del Toboso, which is one of the*rarest adventures in this book",
+  /* II.35 */ "Wherein is continued the instruction given to Don Quixote touching the disenchantment of Dulcinea, together with other marvellous incidents",
+  /* II.36 */ "Wherein is related the strange and undreamt-of adventure of the distressed duenna, alias the countess Trifaldi, together with a letter which Sancho Panza wrote to his wife, Teresa Panza",
+  /* II.37 */ "Wherein is continued the notable adventure of the distressed duenna",
+  /* II.38 */ "Wherein is told the distressed duenna's tale of her misfortunes",
+  /* II.39 */ "In which the Trifaldi continues her marvellous and memorable story",
+  /* II.40 */ "Of matters relating and belonging to this adventure and to this memorable history",
+  /* II.41 */ "Of the arrival of Clavileno and the end of this protracted adventure",
+  /* II.42 */ "Of the counsels which Don Quixote gave Sancho Panza before he set out to govern the island, together with other well-considered matters",
+  /* II.43 */ "Of the second set of counsels Don Quixote gave Sancho Panza",
+  /* II.44 */ "How Sancho Panza was conducted to his government, and of the strange adventure that befell Don Quixote in the castle",
+  /* II.45 */ "Of how the great Sancho Panza took possession of his island, and of how he made a beginning in governing",
+  /* II.46 */ "Of the terrible bell and cat fright that Don Quixote got in the course of the enamoured Altisidora's wooing",
+  /* II.47 */ "Wherein is continued the account of how Sancho Panza conducted himself in his government",
+  /* II.48 */ "Of what befell Don Quixote with Dona Rodriguez, the duchess's duenna, together with other occurrences worthy of record and eternal remembrance",
+  /* II.49 */ "Of what happened Sancho in making the round of his island",
+  /* II.50 */ "Wherein is set forth who the enchanters and executioners were who flogged the duenna and pinched Don Quixote, and also what befell the page who carried the letter to Teresa Panza, Sancho Panza's wife",
+  /* II.51 */ "Of the progress of Sancho's government, and other such entertaining matters",
+  /* II.52 */ "Wherein is related the adventure of the second distressed or afflicted duenna, otherwise called Dona Rodriguez",
+  /* II.53 */ "Of the troublous end and termination Sancho Panza's government came to",
+  /* II.54 */ "Which deals with matters relating to this history and no other",
+  /* II.55 */ "Of what befell Sancho on the road, and other things that cannot be surpassed",
+  /* II.56 */ "Of the prodigious and unparalleled battle that took place between Don Quixote of La Mancha and the lacquey Tosilos in defence of the daughter of Dona Rodriguez",
+  /* II.57 */ "Which treats of how Don Quixote took leave of the duke, and of what followed with the witty and impudent Altisidora, one of the duchess's damsels",
+  /* II.58 */ "Which tells how adventures came crowding on Don Quixote in such numbers that they gave one another no breathing-time",
+  /* II.59 */ "Wherein is related the strange thing, which may be regarded as an adventure, that happened Don Quixote",
+  /* II.60 */ "Of what happened Don Quixote on his way to Barcelona",
+  /* II.61 */ "Of what happened Don Quixote on entering Barcelona, together with other matters that partake of the true rather than of the ingenious",
+  /* II.62 */ "Which deals with the adventure of the enchanted head, together with other trivial matters which cannot be left untold",
+  /* II.63 */ "Of the mishap that befell Sancho Panza through the visit to the galleys, and the strange adventure of the fair Morisco",
+  /* II.64 */ "Treating of the adventure which gave Don Quixote more unhappiness than all that had hitherto befallen him",
+  /* II.65 */ "Wherein is made known who the knight of the white moon was; likewise Don Gregorio's release, and other events",
+  /* II.66 */ "Which treats of what he who reads will see, or what he who has it read to him will hear",
+  /* II.67 */ "Of the resolution Don Quixote formed to turn shepherd and take to a life in the fields while the year for which he had given his word was running its course; with other events truly delectable and happy",
+  /* II.68 */ "Of the bristly adventure that befell Don Quixote",
+  /* II.69 */ "Of the strangest and most extraordinary adventure that befell Don Quixote in the whole course of this great history",
+  /* II.70 */ "Which follows sixty-nine and deals with matters indispensable for the clear comprehension of this history",
+  /* II.71 */ "Of what passed between Don Quixote and his squire Sancho on the way to their village",
+  /* II.72 */ "Of how Don Quixote and Sancho reached their village",
+  /* II.73 */ "Of the omens Don Quixote had as he entered his own village, and other incidents that embellish and give a colour to this great history",
+  /* II.74 */ "Of how Don Quixote fell sick, and of the will he made, and how he died",
+];
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -7018,6 +7154,202 @@ const BOOKS = {
     },
   },
 
+  "don-quixote": {
+    title: "Don Quixote",
+    subtitle: "El ingenioso hidalgo Don Quijote de la Mancha",
+    author: "Miguel de Cervantes",
+    translator: "John Ormsby",
+    edition: "Don Quixote de la Mancha, translated by John Ormsby, London, 1885",
+    written: "1605 & 1615",
+    year: 1605,
+
+    /* ---------- THE LICENCE, and it is the tenth here that needs no qualification at all ----------
+       (after the Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid, Journey
+       to the West, the Divine Comedy, the Confessions and the Rigveda.) Two layers and both are long
+       expired. Cervantes published the two parts in 1605 and 1615 and died in 1616. John Ormsby's
+       translation was published in London in 1885 and he lived from 1829 to 1895, so it is public
+       domain on the pre-1929 publication rule, wherever the term is the translator's life plus
+       seventy years — since 1966 — and wherever it is life plus a hundred, since 1996. There is no
+       limit to state as Giles's (2029), Ross's (2042), Murray's (2028) or Tatlock and MacKaye's
+       (2027) need, and no modern editorial layer to declare as the Histories' and the Meditations'
+       Greek carry.
+
+       BOTH DATES WERE LOOKED UP RATHER THAN RECALLED, and Ormsby's is why the rule exists: I had
+       1889 in mind and it is wrong. Wikisource's author page gives 1829–1895 and Wikidata's
+       Q6251314 gives the same pair, at year precision — two places agreeing on a span of
+       sixty-six years, which is a very different thing from A. J. Wyatt's suspiciously round
+       1835–1935 with nothing to corroborate it. Cervantes's own dates are corroborated to the day
+       (born 29 September 1547; died 22 April 1616 and buried on the 23rd, which is why both
+       figures appear). The often-repeated line that he and Shakespeare died on the same day is a
+       calendar artefact: Spain was on the Gregorian calendar and England still on the Julian, so
+       the two deaths are ten days apart.
+
+       ONLY THE NOVEL IS IMPORTED. Ormsby's 1885 volumes also carry a long translator's preface, a
+       life of Cervantes and several hundred footnotes; the preface and the life are left behind as
+       the Republic's 1901 introduction and plates were, and the notes are not in this transcription
+       at all — see the front matter, which says so, because their absence is the one thing a reader
+       of this edition should be told.
+
+       The modern translations a reader is likeliest to own — Samuel Putnam's (1949), J. M. Cohen's
+       Penguin (1950), Burton Raffel's (1995), John Rutherford's (2000), Edith Grossman's (2003) and
+       Tom Lathrop's (2005) — are all firmly in copyright and are named here for the reason Campbell,
+       Hays, Griffith, Lee, Humphries, de Sélincourt and Handford are: so that nobody reaches for one
+       later. What is imported is Ormsby's own 1885 text. */
+    rights:
+      "Public domain on every ground, with nothing left to qualify. Cervantes published the first " +
+      "part of Don Quixote in 1605 and the second in 1615, and died in 1616. John Ormsby's English " +
+      "translation was published in London in 1885, and he lived from 1829 to 1895, so it is out of " +
+      "copyright under the pre-1929 publication rule, wherever the term is the translator's life " +
+      "plus seventy years, and wherever it is life plus a hundred. Ormsby's own preface, his life of " +
+      "Cervantes and his footnotes are not reproduced here; what is taken is the hundred and " +
+      "twenty-six chapters of the novel — no freely available transcription of this translation " +
+      "carries the notes at all. (The modern translations by Samuel Putnam, 1949, J. M. " +
+      "Cohen, 1950, Burton Raffel, 1995, John Rutherford, 2000, Edith Grossman, 2003, and Tom " +
+      "Lathrop, 2005, are still in copyright and are not used here.)",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/996",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should be told before they start: what the book is
+       and how its two halves differ, who wrote it and what he had lived through, the device that
+       makes the second part unlike anything before it, what this edition does and does not carry,
+       and why there is no Spanish column beside it. */
+    about: [
+      "<b>Don Quixote</b> is the story of a middle-aged gentleman of La Mancha who reads so many " +
+        "romances of chivalry that his wits dry up, and who rides out into seventeenth-century " +
+        "Spain believing himself a knight-errant. It was published in two parts, ten years apart — " +
+        "the first in 1605 and the second in 1615 — and it is usually called the first modern " +
+        "novel, which is a large claim and is worth stating precisely: what is new in it is not " +
+        "the adventures but the interiority, the fact that two people travel together and talk, " +
+        "and change each other, over the length of a very long book. It was enormously popular at " +
+        "once, and it has never stopped being read.",
+      "Miguel de Cervantes was born near Madrid in 1547 and had one of the hardest lives of any " +
+        "writer on these shelves. He fought at the sea battle of Lepanto in 1571 and took three " +
+        "gunshot wounds, one of which crippled his left hand for good. Sailing home in 1575 he was " +
+        "captured by corsairs and spent five years enslaved in Algiers, attempting escape four " +
+        "times, before his family and a religious order ransomed him. Back in Spain he requisitioned " +
+        "supplies for the Armada, was excommunicated for seizing grain from a cathedral chapter, and " +
+        "was jailed at least twice over his accounts. He was fifty-seven when the first part " +
+        "appeared, and it made him famous without making him comfortable; he died in April 1616, " +
+        "poor, a year after finishing the second.",
+      "The shape of the first part is a series of misadventures with a great deal of other material " +
+        "packed into it. Don Quixote takes an inn for a castle and its keeper for a lord, mistakes " +
+        "a barber's brass basin for the enchanted helmet of Mambrino, is beaten by muleteers and " +
+        "trampled, and attacks a line of windmills he takes for giants — which is chapter eight, " +
+        "and is the single most famous scene in European fiction. Against him is set Sancho Panza, " +
+        "a labourer promised the governorship of an island, who sees the windmills perfectly well " +
+        "and comes anyway. From chapter nine the book claims not to be Cervantes's at all but a " +
+        "translation of an Arabic history by one Cide Hamete Benengeli, bought as a bundle of paper " +
+        "in the market at Toledo — a joke at the expense of the romances, which liked to pretend " +
+        "the same thing, and a device the second part will use hard.",
+      "What happens in the second part has no real precedent. The characters in it have READ the " +
+        "first part. Don Quixote and Sancho are recognised wherever they go, by people who know the " +
+        "book, and much of what befalls them is arranged by readers of it for their own amusement — " +
+        "most cruelly by a duke and duchess who keep the pair for weeks as entertainment and give " +
+        "Sancho a mock island to govern, where he turns out to judge wisely. A second real book got " +
+        "into it too. In 1614, while Cervantes was writing, someone calling himself Alonso Fernández " +
+        "de Avellaneda published a spurious sequel at Tarragona; his identity has never been " +
+        "established. Cervantes read it, and wrote it into his own: in chapter fifty-nine of the " +
+        "second part Don Quixote hears men discussing the false book, and changes his route to " +
+        "Barcelona rather than Zaragoza purely so that the impostor's account of him will be a lie.",
+      "This edition is John Ormsby's translation of 1885, the first English version made by a " +
+        "translator who had read the whole Spanish scholarly literature and cared about getting it " +
+        "right, and it is still very readable. Two things about the text should be said plainly. " +
+        "Ormsby's volumes are famous for their footnotes — several hundred of them, explaining the " +
+        "proverbs, the romances being parodied and the topical jokes — and no freely available " +
+        "transcription of this translation carries a single one: both of the two that exist were " +
+        "checked, and there is not one reference mark in either, so the chapters here render with " +
+        "no note fold. His long preface and his life of Cervantes are likewise not included; a " +
+        "reader who wants them will have to find the printed volumes. And there are two such " +
+        "transcriptions because the obvious one turned out not to be usable. Wikisource carries " +
+        "this translation complete, a page per chapter, cleanly typed — and it has quietly lost " +
+        "words. Walked against an independent copy of the same translation, all four hundred " +
+        "thousand of them, it drops sixty: \u201cno occasion [to] ask\u201d, \u201cthe barber " +
+        "[whose] basin\u201d, and, in the most famous sentence in European fiction, \u201cthirty " +
+        "[or] forty windmills that there are on [that] plain\u201d. What is here is Project " +
+        "Gutenberg's text instead, which has all sixty. Neither copy has been corrected from the " +
+        "other: both are transcriptions of a printed page, each has slips of its own, and merging " +
+        "them would make a text that has never existed.",
+      "The tabs above run from 1 to 126 straight through, which is not how the book is cited. A " +
+        "passage of Don Quixote is given by part and chapter — the windmills are I.8, Sancho's " +
+        "governorship is II.44 and after — and the chapter numbers restart at one when the second " +
+        "part begins, at tab 53. Each tab's title carries the citation for that reason. There is no " +
+        "Spanish column beside the English, and the reason is the state of the transcriptions " +
+        "rather than the copyright: Spanish Wikisource carries three editions of the novel and all " +
+        "three are fragments — 16 chapters of one and 38 of each of the others, against 126 — and " +
+        "its own index page marks every one of them as still to be transcribed. A complete Spanish " +
+        "text does circulate freely, but it names no editor and no edition, and a text of a work " +
+        "that survives in many printings is somebody's constituted text whether or not it says so. " +
+        "That is the same question that keeps the Italian out of the Divine Comedy here, and it is " +
+        "answered the same way: better to ship the English alone and say why.",
+    ],
+
+    /* ---------- ONE PLAIN-TEXT FILE, CHOSEN OVER A CLEAN WIKI TRANSCRIPTION ----------
+       See the block above extractQuixote for the whole of this: the Wikisource Ormsby is complete,
+       typed clean, one page per chapter, needed nothing but `body: "plain"` and `dropHeadings`, was
+       built and fetched and checked — and has lost sixty words, two of them out of the sentence
+       about the windmills. Gutenberg's copy of the same translation has them.
+
+       WHAT WAS MEASURED ON THE WIKI BEFORE ANY OF THAT, and is worth keeping because most of it is
+       about which page to trust rather than about this book:
+       · `Don Quixote/` is Ormsby and is COMPLETE — 52 chapter pages under Volume 1 and 74 under
+         Volume 2, no gaps. The page carries a "This work is incomplete" banner, which refers to the
+         scan-backed project and not to the chapters; asking the wiki what it HAS rather than
+         reading the banner is the Summa's rule, and here it answers the other way round for once.
+       · `Don Quixote (Cervantes/Ormsby)/` is that scan-backed project and IS incomplete — its
+         Volume 2 stops at chapter 40, and several of its pages carry a few dozen words. It is the
+         obvious-looking source and is the wrong one, which is the Plato-Jowett case again.
+       · ZERO reference marks in all 126 chapters — and Gutenberg carries none either, so Ormsby's
+         several hundred footnotes are in neither free copy and this book has no note fold. That was
+         the one thing that might have decided the choice and it does not.
+
+       THE TITLES STILL COME FROM THE WIKI, and cost two fetches rather than 126: each volume's
+       index page carries every chapter's full title inside its own link text, in the form
+       "Chapter I - Which treats of…", so all 126 were read off two pages and transcribed into
+       DQ_TITLES above with the "Chapter N - " stripped, the tab already carrying the number.
+       Gutenberg prints the same titles in capitals over each chapter, which is Aesop's
+       unrecoverable case; taking them from the wiki keeps their capitalisation without composing
+       anything. No `indexPage`, therefore, and no per-page title read. */
+    layout: "quixote",
+    url: "https://www.gutenberg.org/cache/epub/996/pg996.txt",
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 126 }, (_, i) => i + 1),
+    /* The citation first, then Ormsby's own chapter title. The citation is not the tab number: the
+       novel is cited by part and chapter and the numbering restarts at the second part, so tab 53
+       is II.1 — the Summa's arrangement, and the front matter says so. */
+    titleOf: (n) =>
+      (n <= 52 ? "I." + n : "II." + (n - 52)) + " " + (DQ_TITLES[n - 1] || ""),
+    parts: [
+      { n: 1, label: "Part I", from: 1, to: 52 },
+      { n: 2, label: "Part II", from: 53, to: 126 },
+    ],
+    /* No `sections`. Neither this edition nor any other divides a chapter of Don Quixote into
+       numbered sections — the chapter IS the unit the whole tradition cites — so every chapter comes
+       through as one block and fetchEnglish will say so ("126 chapter(s) with NONE"). That is the
+       expected result for this book, as it is for the Prince, and it is what decides the shape of
+       the pairing; see the front matter's last paragraph for why there is none.
+
+       The short-chapter guard, which is what catches an extraction that has returned the wiki
+       furniture instead of the novel. The shortest chapter sampled runs to several thousand
+       characters and the mean is 16,430; 2,000 sits well below anything Ormsby wrote and far above
+       what a failed extraction produces. */
+    minChars: 2000,
+
+    /* No `original`, and no `origLang`: see the front matter's last paragraph. Two things would have
+       to change before a Spanish column were possible here, and they are separate. The first is a
+       COMPLETE freely-licensed transcription, which Spanish Wikisource does not have — measured, its
+       three editions carry 16, 38 and 38 of the 126 chapters, and its own index marks all of them as
+       still to be transcribed. The second is that the transcription must say WHOSE text it is: a
+       novel printed in 1605 survives in many settings that differ, so a modern text of it is
+       somebody's constituted text, and the complete Spanish that does circulate freely names no
+       editor and no edition at all. That is the Divine Comedy's question exactly, and it is answered
+       the same way — ship the English and say why on the book's own first page.
+
+       ONE TRAP FOR ANYONE WHO COMES BACK TO THIS. Spanish Wikisource carries a page titled "Segundo
+       tomo del ingenioso hidalgo don Quijote de la Mancha", which looks like the second part and is
+       not: it is Avellaneda's spurious 1614 sequel, a different book by a different and unidentified
+       author, the one Cervantes attacks inside his own second part. */
+  },
+
   "summa-theologica": {
     title: "Summa Theologica",
     subtitle: "Summa Theologiae",
@@ -11675,6 +12007,134 @@ function markTabletLines(html, warn, where) {
    AND THE TEXT IS ESCAPED RATHER THAN STRIPPED, which is the reverse of every other reader here. They
    are given markup and take tags out; this is given prose and puts tags in, so an ampersand or an
    angle bracket in the OCR is content and has to be escaped or it becomes markup by accident. */
+/* ---------- A CLEAN PLAIN-TEXT TRANSCRIPTION, WHERE THE WIKI'S HAD LOST WORDS ----------
+   (Aug 2026, adding Don Quixote — the sixteenth layout.) The third book on the plain-text path
+   after Journey to the West and the Canterbury Tales, and it is on it for a reason worth writing
+   down, because everything about this novel said "use the wiki": en.wikisource carries Ormsby's
+   1885 translation COMPLETE, one page per chapter, typed clean, needing nothing but `body: "plain"`
+   and `dropHeadings` — and that version was built, fetched and checked before this one was written.
+
+   IT WAS THROWN AWAY OVER TWO MISSING WORDS, AND THE WAY THEY WERE FOUND IS THE LESSON. The
+   browser check asserted that the giants are on the page at I.8 and failed, and the reason was not
+   the extractor: the wiki's own transcription reads "thirty forty windmills that there are on
+   plain" where Ormsby wrote "thirty or forty windmills that there are on that plain". The most
+   famous sentence in European fiction, ungrammatical, in a text that had passed every structural
+   check there is — 126 chapters, tag balance clean, no chapter short, every title unique.
+
+   SO THE QUESTION BECAME HOW FAR IT WENT, AND THAT NEEDED AN INDEPENDENT COPY OF THE SAME
+   TRANSLATION: Project Gutenberg's ebook 996, which is Ormsby unrevised (its own editor's note
+   says only the Doré PLATES were borrowed from a Jarvis/Motteaux edition). Walked word by word
+   against it, all 400,809 of them, the wiki's copy has **60 words the Gutenberg text has and it
+   has not** — "no occasion [to] ask", "the barber [whose] basin", "instructed [by] the
+   majordomo", "sancho could not [understand]" — and **six doubled words of its own** ("out of all
+   as as", "a portion portion of the kingdom"). One defect per six thousand words, every one
+   invisible to every count.
+
+   AND THE MEASUREMENT REVERSED THE ONE ARGUMENT LEFT FOR THE WIKI. Its transcription marks 55
+   verse blocks with real markup where Gutenberg marks its verse only by typography, which looked
+   decisive the other way — the Canterbury Tales tried verse detection on a plain text and rejected
+   it. That rejection is not inherited: it was made against an OCR that fragmented PROSE at the
+   page edges, and this is a clean modern transcription with no page edges at all. Measured against
+   the wiki's own 55 blocks as ground truth, the rule below finds 49 of them and **99 more passages
+   of real verse that the wiki sets as prose** — Don Quixote's ballads, Cardenio's sonnets, the
+   epitaphs of the Academicians of Argamasilla. The fuller text also carries the better verse.
+
+   WHAT IS NOT DONE, AND DELIBERATELY: the wiki's words are not repaired from Gutenberg's. Both are
+   transcriptions of a printed page neither of us has, and Gutenberg has slips of its own — eleven
+   places where one reads "he" and the other "be", in both directions. Correcting one fallible copy
+   against another and shipping the result would be composing a text that has never existed, which
+   is the line this file does not cross. One copy is chosen, on measurement, and the book's own
+   front matter says which and why.                                                              */
+function extractQuixote(text, book, warn) {
+  const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const t = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+  /* THE CHAPTER HEADINGS, and they are the one thing this edition states unambiguously: 126 of
+     them, "CHAPTER I." alone on its line, the numbering restarting at the second part. Both facts
+     are CHECKED rather than assumed — a heading pattern that started matching a line of prose, or
+     an edition that turned out to number straight through, would file every chapter after the
+     boundary under the wrong part with nothing else to show it. */
+  const heads = [...t.matchAll(/\n[^\S\n]*CHAPTER ([IVXLC]+)\.[^\S\n]*\n/g)];
+  if (heads.length !== 126)
+    warn("the transcription carries " + heads.length + " chapter headings, not 126");
+  const num = (s) => {
+    const R = { I: 1, V: 5, X: 10, L: 50, C: 100 };
+    let n = 0;
+    for (let i = 0; i < s.length; i++) { const v = R[s[i]], w = R[s[i + 1]]; n += w > v ? -v : v; }
+    return n;
+  };
+  const seq = heads.map((m) => num(m[1]));
+  let restart = -1;
+  for (let i = 1; i < seq.length; i++) if (seq[i] < seq[i - 1]) { restart = i; break; }
+  if (restart !== 52)
+    warn("the chapter numbering restarts at heading " + restart + ", not 52 — the two parts of " +
+      "this novel are 52 chapters and 74, so the part boundary is not where the entry expects it");
+
+  /* WHERE THE SECOND PART'S FRONT MATTER BEGINS. Gutenberg sets no heading between the last chapter
+     of Part I and Part II's dedication, so that dedication, its address to the Count of Lemos and
+     the author's preface all fall inside chapter 52's span — 1,992 words of them. The sentinel is
+     the bare line "Volume II"; the epitaphs of the Academicians of Argamasilla come BEFORE it and
+     are the real end of the first part, so cutting any earlier would lose them. */
+  const VOLUME_II = /\n[^\S\n]*Volume II[^\S\n]*\n/;
+
+  const end = t.indexOf("*** END OF THE PROJECT GUTENBERG");
+  const out = { chapters: [], titles: 0, verse: 0, paras: 0, plates: 0, heads: 0, caps: [] };
+
+  heads.forEach((h, i) => {
+    const from = h.index + h[0].length;
+    const to = i + 1 < heads.length ? heads[i + 1].index : (end > 0 ? end : t.length);
+    let body = t.slice(from, to);
+
+    if (i === 51) {                       /* the last chapter of Part I — see VOLUME_II above */
+      const cut = body.search(VOLUME_II);
+      if (cut < 0) warn("chapter 52: the second part's front matter was not found, so it is in the text");
+      else body = body.slice(0, cut);
+    }
+
+    /* THE PLATES. Gutenberg attaches the Doré engravings as caption lines — "c08a.jpg (142K)",
+       often with "Full Size" under it — and there are 358 and 253 of them. The first pattern
+       written for this wanted [a-z]\d+\.jpg and the files are c08a, c08e, so it matched not one of
+       them and left five words per plate standing in every count taken of this book. */
+    const plates = (body.match(/^[^\S\n]*\S+\.jpg[^\n]*$/gm) || []).length;
+    out.plates += plates;
+    body = body.replace(/^[^\S\n]*\S+\.jpg[^\n]*$/gm, "").replace(/^[^\S\n]*Full Size[^\S\n]*$/gm, "");
+
+    /* THE CHAPTER'S OWN TITLE, set in capitals over one to three lines under the heading. It
+       duplicates the tab Folio has just drawn, so it goes — peeled LINE BY LINE rather than by
+       slicing to the first blank line, because the title's own line breaks vary and a slice that
+       allowed enough characters for the longest of them ate the opening of the shortest chapters. */
+    const lines = body.split("\n");
+    while (lines.length && (!lines[0].trim() || !/[a-z]/.test(lines[0]))) {
+      if (lines[0].trim()) out.heads++;
+      lines.shift();
+    }
+    body = lines.join("\n");
+
+    /* THE BLOCKS. A blank line separates them; inside one, the hard wrap is not a line break. */
+    const blocks = body.split(/\n[^\S\n]*\n/).map((b) => b.replace(/^\n+|\n+$/g, "")).filter((b) => b.trim());
+    const html = [];
+    for (const blk of blocks) {
+      const ls = blk.split("\n").filter((l) => l.trim());
+      if (!ls.length) continue;
+      /* VERSE, on the rule measured above: two or more lines, none of them reaching the width the
+         prose is wrapped at. A block that is WHOLLY CAPITAL is not verse but a heading — the
+         epitaphs of the Academicians carry one apiece — and it is kept as a paragraph and counted,
+         so a rule that started eating headings could not do it quietly. */
+      const short = ls.length >= 2 && ls.every((l) => l.trim().length < 55);
+      const allCaps = !/[a-z]/.test(blk);
+      if (short && !allCaps) {
+        out.verse++;
+        html.push("<blockquote><p>" + ls.map((l) => escHtml(l.trim())).join("<br>") + "</p></blockquote>");
+      } else {
+        if (allCaps) out.caps.push(ls[0].trim().slice(0, 40));
+        out.paras++;
+        html.push("<p>" + escHtml(ls.map((l) => l.trim()).join(" ")) + "</p>");
+      }
+    }
+    out.chapters.push({ n: i + 1, html: html.join("\n") });
+  });
+  return out;
+}
 function extractJourney(text, book, warn) {
   const escHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   const capsRatio = (s) => {
@@ -14202,6 +14662,39 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* DON QUIXOTE — Gutenberg's plain text of Ormsby, chosen over a complete and clean Wikisource
+     transcription of the same translation because that one has lost sixty words. One request for
+     the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no network.
+     See the block above extractQuixote for the measurement and for what was NOT done about it. */
+  if (BOOK.layout === "quixote") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-text.txt");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractQuixote(raw, BOOK, warn);
+    if (got.chapters.length !== BOOK.chapters.length)
+      warn("the transcription yields " + got.chapters.length + " chapters; the entry expects " +
+        BOOK.chapters.length);
+    got.chapters.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      chapters.push({ n: c.n, t: titles[c.n] || chapterTitle(c.n), p: partOf(c.n), html: c.html, notes: [] });
+    });
+    console.log("  " + chapters.length + " chapters, " + got.heads +
+      " lines of chapter title removed (each duplicates its own tab), " + got.plates +
+      " plate captions, " + got.paras + " paragraphs");
+    /* THE VERSE COUNT IS THE FIGURE THIS BOOK IS ABOUT, because it is the one thing recovered from
+       typography rather than read off a tag: a change in it means the rule has stopped recognising
+       a shape, which shortens nothing, throws nothing and simply prints Cervantes's ballads and
+       sonnets as prose. The all-caps blocks are its other half — a heading is short-lined too, and
+       every one the rule declines to take as verse is counted here so it cannot go quietly. */
+    console.log("  " + got.verse + " verse blocks, and " + got.caps.length +
+      " short all-capital blocks kept as headings: " +
+      [...new Set(got.caps)].slice(0, 6).join(" · "));
+    return writeEnglish(chapters, warnings);
+  }
   /* THE CANTERBURY TALES — a plain-text OCR of one volume, of which this book is the first sixth. One
      request for the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no
      network at all. See the block above extractChaucer for what a text with no markup has to be given

@@ -185,6 +185,61 @@ function rigvedaChecks() {
   return o;
 }
 
+/* DON QUIXOTE, read off the file that shipped. It needed no new reader at all — `body: "plain"` and
+   `dropHeadings` between them are the whole configuration — so unlike the Summa's and the Aeneid's
+   this is not standing in for a sibling diff. What it stands in for is that those two GATES are
+   still firing, and both fail silently and in opposite directions: without `dropHeadings` every one
+   of the 126 chapters opens by repeating the title Folio has just printed above it, and without the
+   ws-noexport rule each opens on the wiki's own bibliographic header rendered as a quotation. In
+   neither case does anything throw, nothing is lost, and the chapter is LONGER rather than shorter,
+   which is the shape every count reads as healthy.
+
+   The other half is the PART SPLIT. The chapters run 1..126 straight through while the novel is
+   cited by part and chapter, so page() sends 1–52 to Volume 1 and 53–126 to Volume 2 and the titles
+   carry the citation; get that boundary wrong by one and the book comes back complete, in order,
+   with 126 chapters of real Cervantes filed under the wrong numbers. */
+function quixoteChecks() {
+  const f = path.join(ROOT, "books", "don-quixote.js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const b = (global.window.FOLIO_BOOKS_IN || []).find((x) => x.id === "don-quixote");
+  if (!b) return null;
+  const o = { chapters: b.chapters.length, p1: 0, p2: 0, tab53: "", cited: 0, titles: new Set(),
+              heads: [], junk: [], verse: 0, quotes: 0, marks: 0, notes: 0, shortest: 1e9,
+              chars: 0, open: 0, close: 0, windmills: false, front: false,
+              intro: b.intro || "" };
+  b.chapters.forEach((c) => {
+    if (c.p === 1) o.p1++; else if (c.p === 2) o.p2++;
+    if (/^(I|II)\.\d+ \S/.test(c.t)) o.cited++;
+    o.titles.add(c.t);
+    /* the chapter's own title left standing in the prose — what the title peel exists to prevent,
+       and the one thing that fails silently on this path: the chapter is simply longer */
+    if (/^\s*<(p|blockquote)>\s*(CHAPTER|[A-Z][A-Z ,'-]{20,})/.test(c.html)) o.heads.push(c.n);
+    /* Gutenberg's own furniture: the Doré plate captions, its licence boilerplate, its markers */
+    if (/\.jpg|Full Size|PROJECT GUTENBERG|www\.gutenberg|\*\*\*/i.test(c.html)) o.junk.push(c.n);
+    if (/<blockquote/.test(c.html)) o.verse++;
+    o.quotes += (c.html.match(/<blockquote/g) || []).length;
+    o.open += (c.html.match(/<p(?=[ >])/g) || []).length;
+    o.close += (c.html.match(/<\/p>/g) || []).length;
+    o.marks += (c.html.match(/class="bk-n"/g) || []).length;
+    o.notes += (c.notes || []).length;
+    const len = c.html.replace(/<[^>]*>/g, "").length;
+    o.chars += len;
+    if (len < o.shortest) o.shortest = len;
+  });
+  o.tab53 = b.chapters[52] ? b.chapters[52].t : "";
+  /* THE SENTENCE THIS BOOK'S WHOLE SOURCE DECISION TURNS ON. The Wikisource copy of the same
+     translation reads "thirty forty windmills that there are on plain"; a fault of that kind is
+     invisible to every count there is, and this is the only assertion on the shelf that can see
+     one, so it is written out in full rather than matched loosely. */
+  o.windmills = /thirty or forty windmills that there are on that plain/
+    .test((b.chapters[7] || {}).html || "");
+  /* and Part II's dedication and preface, which Gutenberg sets inside chapter 52's span */
+  o.front = /DEDICATION OF VOLUME|COUNT OF LEMOS/i.test((b.chapters[51] || {}).html || "");
+  return o;
+}
 /* THE AENEID, read off the two files that shipped. Its reader is `cards: "both"` plus the mid-line
    lift, and like The City of God's it serves ONE book, so it cannot be proved inert by re-running a
    sibling — the shipped-data sweep is what stands in for that check.
@@ -889,6 +944,67 @@ function aeneidChecks() {
       check("[rigveda] the book is on disk", false, "missing books/rigveda.js");
     }
 
+    /* DON QUIXOTE — see quixoteChecks above. Nothing here is standing in for a sibling diff; what it
+       watches is the two cleanBody gates and the part boundary, all three of which fail silently. */
+    const dq = quixoteChecks();
+    if (dq) {
+      check("[quixote] all 126 chapters", dq.chapters === 126, String(dq.chapters));
+      /* THE PART BOUNDARY. page() cuts at 52 and the citation restarts there; a boundary out by one
+         returns a complete novel with every chapter filed under the wrong number. */
+      check("...52 in Part I and 74 in Part II", dq.p1 === 52 && dq.p2 === 74, `${dq.p1} / ${dq.p2}`);
+      check("...and tab 53 is II.1, where the second part begins",
+        dq.tab53.startsWith("II.1 "), dq.tab53.slice(0, 40));
+      check("[quixote] every tab opens on its citation, part.chapter", dq.cited === 126, String(dq.cited));
+      /* Ormsby heads all 126 differently, so a table that had drifted would show up as a collision. */
+      check("...and no two chapters share a title", dq.titles.size === 126, String(dq.titles.size));
+
+      /* THE SENTENCE THE SOURCE DECISION TURNS ON — see quixoteChecks. A transcription that has
+         quietly lost a word passes every structural check there is, so this is the assertion, and
+         it is the reason this book is not on the Wikisource text that every other check preferred. */
+      check("[quixote] the windmills sentence is whole — thirty OR forty, on THAT plain",
+        dq.windmills, "the text has lost a word, which is why Wikisource's copy was not used");
+
+      /* THE TWO SWEEPS, both silent: a chapter is LONGER rather than shorter when either stops
+         firing, which is what every count reads as healthy. */
+      check("[quixote] no chapter opens on its own title in capitals — the title peel is firing",
+        !dq.heads.length, JSON.stringify(dq.heads.slice(0, 6)));
+      check("...and none carries Gutenberg's plate captions or boilerplate",
+        !dq.junk.length, JSON.stringify(dq.junk.slice(0, 6)));
+      /* Gutenberg sets no heading between the end of Part I and Part II's dedication, so that
+         dedication and the author's preface fall inside chapter 52's span — 1,992 words of front
+         matter that would read as the last chapter of the first part. */
+      check("...and 52 stops before Part II's dedication rather than swallowing it", !dq.front, "");
+
+      /* THE VERSE, which is the only thing here recovered from TYPOGRAPHY rather than read off a
+         tag: Cervantes scatters ballads, sonnets and epitaphs through the novel and Gutenberg marks
+         them only by their line length. Lose the rule and they print as prose — nothing throws,
+         nothing shortens, and this count is the one thing that can see it. */
+      check("[quixote] 143 verse blocks across 41 chapters",
+        dq.verse === 41 && dq.quotes === 143, `${dq.verse} chapters, ${dq.quotes} blocks`);
+      check("[quixote] <p> balances", dq.open === dq.close, `${dq.open} / ${dq.close}`);
+
+      /* MEASURED RATHER THAN ASSUMED, and this is the one edition on the shelf whose notes are
+         famous: neither free transcription of it carries one. The front matter says so, and if a
+         note ever appears here it means the source has changed and the front matter has stopped
+         being true. There are no section numbers either — the chapter is the only unit the novel
+         has. */
+      check("[quixote] no notes and no section numbers anywhere",
+        dq.notes === 0 && dq.marks === 0, `${dq.notes} notes, ${dq.marks} marks`);
+      check("[quixote] every chapter clears the short-chapter guard, 2.13 M characters in all",
+        dq.shortest > 2000 && dq.chars > 2050000 && dq.chars < 2200000,
+        `shortest ${dq.shortest}, total ${dq.chars}`);
+      /* The two things a reader will otherwise meet as absences, both stated on the book's own page. */
+      check("[quixote] the front matter says why there is no Spanish column",
+        /Spanish Wikisource/.test(dq.intro) && /names no editor/.test(dq.intro), "");
+      check("[quixote] ...and that Ormsby's notes are in neither free transcription",
+        /note fold/.test(dq.intro) && /footnotes/.test(dq.intro), "");
+      /* the words the OTHER copy has lost, named on the page, so a reader who has met that copy
+         elsewhere knows what they are looking at */
+      check("[quixote] ...and which words the Wikisource copy drops, and that nothing is merged",
+        /\[or\] forty windmills/.test(dq.intro) && /never existed/.test(dq.intro), "");
+    } else {
+      check("[quixote] the book is on disk", false, "missing books/don-quixote.js");
+    }
     /* THE AENEID — the same kind of check and for the same reason: one book on its own reader, so the
        shipped data is what stands in for a sibling diff. See aeneidChecks above for why each of these
        is here; all three faults it hunts are invisible on the page. */

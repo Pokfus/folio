@@ -7728,6 +7728,29 @@
        away. Chroma 53.6 sits inside a band whose top is 64.1, so the inherited "bright enough to
        glow" objection does not hold; it reads 4.53:1 on the tightest of the four light papers. */
     "rigveda": "#5A6F00",
+    /* MIGUEL DE CERVANTES — a deep crimson, measured with 35 colours already placed and the band
+       therefore as full as the Beowulf row predicted: nothing anywhere in it clears 19.3 of its
+       nearest neighbour, against the shelf's own tightest pair at 18.2 (the Classic of Poetry
+       against Beowulf). That is in line rather than alarming — Chaucer took 19.7 as the
+       thirty-first — so the band was NOT widened again and no tighter pair was accepted.
+
+       THE FIELD WAS ONE HUE FAMILY AND THE CHOICE INSIDE IT WAS CONTRAST. Every candidate clearing
+       18.5 without asserting a false kinship is a rose-crimson at chroma 63–64; the best NUMBER
+       (#C0246C, 19.3) reads 4.53:1 on the tightest of the light papers, which is right at the bar
+       and would break if a paper were ever re-toned, where this one clears 19.0 and reads 5.46:1
+       there and 6.82:1 on white. Its nearest are Ovid at 19.0, Thucydides at 19.8 and Wu Cheng'en
+       at 20.0, and it stands 61.9 from the nearest light-theme ink. The chroma is at the shelf's
+       own ceiling and that is where the ceiling already is — Seneca 64.1, Homer 64.0, Aquinas 63.6
+       — which is the objection the Aquinas row re-measured and dropped.
+
+       THE EURIPIDES TEST picked what to avoid rather than what to take. The kinship a hue could
+       falsely assert here is the SONG OF ROLAND: Don Quixote is written against the chivalric
+       romance, and Roland is this shelf's chanson de geste, so the two are the books a reader is
+       likeliest to read as a set. The violet family's best (#785A99, 19.0) lands 19 from him and
+       was rejected for it; this sits 57.8 away, and 100.1 from Chaucer, the other long vernacular
+       narrative. Its 20.0 from Journey to the West is not a kinship anybody reads — a Spanish
+       novel and a Chinese one of the same century, from traditions with no contact. */
+    "Miguel de Cervantes": "#B10960",
     "Thomas Aquinas": "#006C00",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
@@ -9405,6 +9428,64 @@
       parts: [
         { n: 1, label: "Lays of the Gods", note: "14 poems" },
         { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
+    },
+    {
+      id: "don-quixote",
+      title: "Don Quixote",
+      subtitle: "El ingenioso hidalgo Don Quijote de la Mancha",
+      author: "Miguel de Cervantes",
+      /* Two parts ten years apart. `year` is the single number the shelf's date sort needs and is
+         the first part's; the prose carries both, which is where the pair belongs. */
+      written: "1605 & 1615",
+      year: 1605,
+      translator: "John Ormsby",
+      edition: "Don Quixote de la Mancha, translated by John Ormsby, London, 1885",
+      /* THE TENTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL, after the Republic, the Analects,
+         the Peloponnesian War, the City of God, the Aeneid, Journey to the West, the Divine Comedy,
+         the Confessions and the Rigveda. Cervantes died in 1616. Ormsby published in 1885 and lived
+         1829–1895 — two places agreeing on that pair, Wikisource's author page and Wikidata, which
+         is what makes it usable where A. J. Wyatt's uncorroborated round hundred years was not, and
+         it is also NOT the 1889 that comes to mind. So the English clears the pre-1929 rule, life
+         plus seventy and life plus a hundred alike, with no limit to state. */
+      rights:
+        "Public domain worldwide, on every ground. Cervantes published the first part of Don " +
+        "Quixote in 1605 and the second in 1615, and died in 1616, so the novel itself has long " +
+        "been out of copyright. John Ormsby's English translation was published in London in 1885 " +
+        "and he lived from 1829 to 1895, so it too is out of copyright under the rule for works " +
+        "published before 1929, under the translator's life plus seventy years, and under life plus " +
+        "a hundred — there is no limit to state. Ormsby's own preface, his life of Cervantes and " +
+        "his several hundred footnotes are not reproduced — no freely available transcription of " +
+        "this translation carries the notes at all — and what is here is the hundred and " +
+        "twenty-six chapters of the novel. (The modern translations by Samuel Putnam, 1949, " +
+        "J. M. Cohen, 1950, Burton Raffel, 1995, John Rutherford, 2000, Edith Grossman, 2003, and " +
+        "Tom Lathrop, 2005, are still in copyright and are not used here.)",
+      /* Gutenberg rather than Wikisource, which carries this translation complete and cleanly typed
+         and has lost sixty words — see .claude/fetch-book.js and the book's own front matter. */
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/996",
+      /* NO `origLang`: there is no Spanish column, and the reason is the state of the free
+         transcriptions rather than the copyright — measured, Spanish Wikisource's three editions
+         carry 16, 38 and 38 of the 126 chapters and its own index marks every one still to be
+         transcribed, while the complete Spanish that does circulate freely names no editor and no
+         edition at all. That is the Divine Comedy's question and it is answered the same way; the
+         book's own front matter says so. */
+
+      /* THE CHAPTER IS THE CHAPTER, which is the only unit the novel has: neither this edition nor
+         any other divides one into numbered sections, so there is nothing finer to state and the
+         tabs count what the book counts.
+
+         THE TAB NUMBER AND THE CITATION DISAGREE ON PURPOSE, which is the Summa's arrangement.
+         Don Quixote is cited by part and chapter — the windmills are I.8 — and the numbering
+         restarts at one when the second part begins, so `n` runs 1..126 straight through and each
+         chapter's TITLE opens on the citation, giving tabs that read I.1 … I.52, II.1 … II.74. */
+      chapterWord: "Chapter",
+      count: 126,
+      total: 126,
+      /* The two parts as the author published them, ten years and one impostor apart. */
+      parts: [
+        { n: 1, label: "Part I", note: "52 chapters · 1605 — the windmills, the galley slaves, the burning of the library" },
+        { n: 2, label: "Part II", note: "74 · 1615 — in which everyone he meets has read Part I" },
       ],
     },
     {
