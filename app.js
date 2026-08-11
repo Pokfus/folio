@@ -7649,6 +7649,34 @@
        middle of the shelf's 18–64, so it is not the glowing green the Vyasa row turned down, and it
        reads 4.63:1 on the tightest of the sixteen light papers. */
     "Geoffrey Chaucer": "#00603A",
+    /* DANTE — a deep blue-violet, and this is the row where the best NUMBER was rejected outright for
+       the second time on this shelf. Searched at full resolution over the shelf's own lightness and
+       chroma band under the Book of Rites' two floors (4.5:1 on the tightest of the sixteen light
+       papers, and 22 clear of every light theme's ink), with thirty-two colours placed, the whole
+       band yields exactly 794 candidates clearing 17.5 — and only TWO hue families can produce one
+       that clears the shelf's own tightest pair AND reads well.
+       THE BEST NUMBER IS A GREEN AT 19.6 AND IT IS THE VYASA ROW'S CANDIDATE EXACTLY. Its chroma is
+       60 against a band of 18–64, which is to say at the very top of it — bright enough to glow
+       beside thirty-two muted colours, which is the reason that row turned its green down — it would
+       be a fourth green hugging two boundaries at once (19.6 from the Book of Documents, 21 from
+       Lucretius), and it reads 4.54:1 where this reads 8.12. A colour that scrapes the accessibility
+       bar and glows is not worth 1.1 points of separation.
+       WHAT THIS TAKES INSTEAD clears 18.5 from its nearest neighbour, the Song of Roland, which is
+       above the shelf's own closest pair at 18.2 (the Classic of Poetry against Beowulf) — so no pair
+       tighter than the shelf's tightest was taken. The band was TESTED rather than assumed full:
+       dropping the chroma floor from 18.3 to 14 returns the same greens and nothing new, so what is
+       exhausted is the palette and not the band, and widening it would buy nothing.
+       IT IS A FIFTH BLUE, which Thucydides' row warns about, and the warning does not bite. What that
+       rule forbids is a crowding that asserts a KINSHIP the shelf does not mean, and the kinship that
+       would matter here is not another blue at all — it is VIRGIL, who is Dante's guide and a
+       character in this very poem, and whose oxblood sits 53 away, further than almost anything else
+       on offer. Homer, the other supreme epic, is 24 away, itself above that tightest pair. The
+       nearest neighbour is a French chanson de geste, which nobody reads as a set with the Commedia.
+       And the quarter is crowded in HUE while empty at this LIGHTNESS, which is the Homer row's own
+       argument: Machiavelli sits at L47, Aristotle L45, Herodotus L35, the Song of Roland L30 and
+       Homer L14, and this at L19 lands in the one gap between them. At 8.12:1 on the tightest of the
+       sixteen light papers it is also among the best-reading swatches here. */
+    "Dante Alighieri": "#002B6B",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9694,6 +9722,58 @@
         { n: 7, label: "Group G", note: "Tales 22–23" },
         { n: 8, label: "Group H", note: "Tale 24" },
         { n: 9, label: "Group I", note: "Tale 25" },
+      ],
+    },
+    {
+      id: "divine-comedy",
+      title: "The Divine Comedy",
+      author: "Dante Alighieri",
+      written: "c. 1308–1321",
+      year: 1308,
+      translator: "Henry Wadsworth Longfellow",
+      edition: "Ticknor and Fields, Boston, 1867",
+      rights:
+        "Public domain worldwide, on every ground. Dante died in 1321, so the poem itself has been " +
+        "free for six centuries; Longfellow published this translation in 1867 and died in 1882, so " +
+        "it is out of copyright under the rule for works published before 1929, under the author's " +
+        "life plus seventy years, and under life plus a hundred — there is no limit to state. " +
+        "Longfellow's own notes, his index and the volumes' illustrations are not reproduced; what " +
+        "is taken is the hundred cantos. The modern translations by Dorothy L. Sayers (1949–62), " +
+        "John Ciardi (1954–70), Mark Musa (1971–84), Allen Mandelbaum (1980–84), Robert and Jean " +
+        "Hollander (2000–07), Robin Kirkpatrick (2006–07) and Clive James (2013) are still in " +
+        "copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Divine_Comedy_(Longfellow_1867)",
+      /* NO `origLang`, and for once the reason is not that the original is missing but that it may
+         not be printed. Dante's words are seven centuries old and free; what is not free is any
+         modern editor's CONSTITUTED text of them, and a medieval poem surviving in dozens of
+         disagreeing manuscripts has to be constituted before it can be read. Every complete Italian
+         Commedia reachable today is Giorgio Petrocchi's (1966–67), who died in 1989 — in copyright
+         until 2060 where the term is life plus seventy. That was established rather than assumed:
+         Italian Wikisource's own work-level page names Petrocchi as the curator of the plain text
+         its canto pages carry, and Project Gutenberg's Italian Commedia was diffed against those
+         pages line by line and is word for word the same text.
+         THE PAIRING IS ALREADY PROVED, so the day a printable text exists this is a small job. Both
+         columns were measured end to end before the English was imported: 14,233 lines a side —
+         exactly the traditional count, per canticle as well as in total — the same count in every
+         one of the hundred cantos once Longfellow's Provençal footnote is folded out of the verse,
+         and identical section lists throughout, 4,811 tercet numbers each in the same order with no
+         exception either way. Domenico Guerri's text (Laterza, 1933) is the one to reach for: it is
+         complete, proofread against a scan, and genuinely a different constituted text rather than
+         Petrocchi's renamed — Inferno I reads "E quanto a dir" where Petrocchi has "Ahi quanto a
+         dir". Guerri died in 1953, so it cleared life plus seventy in 2024 and is under United
+         States copyright until 2029, running ninety-five years from publication. The book's own
+         front matter tells the reader all of this. */
+      chapterWord: "Canto",
+      count: 100,
+      total: 100,
+      /* The three canticles, which is how the poem divides above the canto and how the 1867 edition's
+         own three volumes are bound. The cantos are numbered straight through 1–100 here so a reader's
+         place cannot move, and each tab names its canticle and its own numeral — "Purgatorio XII". */
+      parts: [
+        { n: 1, label: "Inferno", note: "Cantos I–XXXIV" },
+        { n: 2, label: "Purgatorio", note: "Cantos I–XXXIII" },
+        { n: 3, label: "Paradiso", note: "Cantos I–XXXIII" },
       ],
     },
   ];

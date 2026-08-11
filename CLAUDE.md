@@ -128,7 +128,49 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently thirty-five:
+  matter (chapter 0 — see the Library bullet). Currently thirty-six:
+  `divine-comedy` (~811 KB, all 100 cantos, **4,811 tercet numbers**, **1 note** — Longfellow's
+  blank verse of 1867, and **the first book here whose SECTION NUMBERS ARE COUNTED RATHER THAN
+  READ.** Every earlier book takes its numbers off the page, because every earlier edition prints
+  enough of them to pair on; this one does not, and the reason is the finding to carry.
+  **ONE WORK IN ONE EDITION IS TRANSCRIBED TWO DIFFERENT WAYS ON THE SAME WIKI.** The Inferno and
+  the first three cantos of the Purgatorio are a proofread transclusion of the scan, wrapped in
+  `prp-pages-output` and carrying the printed marginal numeral every fifth line; the other
+  sixty-three cantos are typed straight onto the wiki as a bare `<div class="poem">` with **no line
+  numbers at all**. Measured: 37 pages of the first kind carrying 1,014 numerals between them, 63 of
+  the second carrying none. So a reader written for either half finds nothing on the other, and a
+  pairing built on the printed numerals would cover a third of the poem. **Ask how much of an
+  edition's apparatus is actually PRINTED before deciding to pair on it** — not whether the shape
+  exists, but on how many pages.
+  **THREE THINGS MAKE COUNTING SAFE RATHER THAN HOPEFUL, and all three are arithmetic.** The two
+  columns are the same length canto by canto — Dante is 14,233 lines and this Italian carries
+  exactly that, per canticle as well as in total (4,720 / 4,755 / 4,758), and Longfellow translates
+  line for line and comes to the same 14,233 — so line n of the English is line n of the Italian in
+  all one hundred cantos. **Every canto is 3n+1 lines**, terza rima running in tercets and each
+  canto closing on a single line: 4,711 tercets and 100 closing lines, which is why the TERCET is
+  the pairing unit and not the line (the alternative is 14,233 rows of one line each). And **the
+  Italian prints one numeral per tercet exactly** — 4,711 of them, one at the end of every tercet in
+  the poem, none anywhere else, and not one disagreeing with the count — so the number written on a
+  row is the number that edition prints at that row's own last line for 4,711 of the 4,811 rows. The
+  remaining hundred are the canto-closing lines, which fall where neither edition prints anything.
+  **TWO PRINTED NUMERALS ARE SLIPS and the RE-SYNC tells a slip from a bad cut**, the Gita's rule on
+  a third book: Inferno IX prints 85 twice — the run goes 85, 90, 85, 100, 105 — and Inferno XXXII
+  prints 135 against a count of 134 with that canto's two columns agreeing at 139 lines, so nothing
+  is missing and the numeral sits a line early. Had the cut been wrong, every marker after the first
+  would have disagreed instead of one.
+  **ITS ONE FOOTNOTE IS THE ONLY REASON IT NEEDS NOTES, and it was the only canto whose columns
+  disagreed.** Arnaut Daniel answers Dante in Provençal at Purgatorio XXVI.140–147; Longfellow
+  leaves those eight lines in Provençal in the verse and Englishes them under the canto, cueing both
+  ends with an asterisk. Counted as verse they make that canto 156 lines against 148 and put a
+  translator's gloss in eight rows beside nothing. The rule is written from an inventory of the
+  whole poem rather than from the example that prompted it: **two asterisks in 14,241 lines**, one
+  closing line 147 and one opening the note, and nothing else anywhere.
+  **AND THE HEADING TEST HAD TO RUN ON THE TEXT WITH ITS INLINE TAGS OFF** — Longfellow's canto
+  heading is italicised, so a test against the raw line reads `<i>CANTO I.</i>` and matches nothing.
+  That left one extra line at the top of each of the 37 transcluded cantos, which shifted every
+  label in them by one and made all 37 disagree with their Italian **while every count still read
+  healthy**: the poem was complete, the totals were right, and only comparing the two columns'
+  section lists showed it),
   `canterbury-tales` (~700 KB, the Prologue and all 24 tales as **25 chapters**, **25 whole-tale
   sections**, **0 notes** — Tatlock and MacKaye's modern English of 1912, and **the first book here
   whose BOTH COLUMNS ARE PLAIN TEXT with no markup at all.** Journey to the West established that a
@@ -768,11 +810,42 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Thirty-five books, twenty-five originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
-  the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata and Shakuntala
+  **Thirty-six books, twenty-five originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala and the
+  Divine Comedy
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
   to face.
+  **THE DIVINE COMEDY IS THE PROSE EDDA'S FAILURE MODE ON A FAMOUS POEM, AND THE TRAP IS THAT THE
+  CANTO PAGE DOES NOT NAME ITS EDITOR** (Aug 2026). Everything about it looks ready: Italian
+  Wikisource carries all 100 cantos, typed clean, with a line number at the end of every tercet, and
+  the pairing against Longfellow was measured end to end and is exact — 14,233 lines a side, the same
+  count in every canto, identical section lists, 4,811 tercet numbers each in the same order with no
+  exception either way. **What blocks it is that the text is Giorgio Petrocchi's** — *La Commedia
+  secondo l'antica vulgata*, 1966–67, and he died in 1989, so it is in copyright until 2060 where the
+  term is life plus seventy. A medieval poem survives in dozens of disagreeing manuscripts and has to
+  be CONSTITUTED before it can be read, and the constituted text is a modern work; that is the Prose
+  Edda's rule, and here it bites on the best-known poem in Italian.
+  **NOTHING ON THE CANTO PAGES SAYS SO.** Their header names Dante, leaves the curator field empty and
+  tags the pages "no facing paper version"; the attribution is on the WORK-level `Opera:Divina
+  Commedia` page, which lists the plain `Divina Commedia` text as "a cura di Giorgio Petrocchi".
+  **Read the work page, not just the text page** — and note that **Project Gutenberg carries the same
+  text**: PG 1000 was diffed line by line against these pages and is word for word identical, so a
+  second source that looks independent is not one. Ask what text an unattributed transcription IS.
+  **THE OTHER THREE CANDIDATES EACH FAIL DIFFERENTLY and the list is worth keeping.** Tommaseo's 1869
+  edition has the perfect licence (d. 1874) and is transcribed as far as one page and an index of red
+  links — the Plato-Jowett case. The 1472 *editio princeps* is free beyond argument and is an
+  incunable at 25% proofread. And **Domenico Guerri's (Laterza, Bari, 1933) is the one to come back
+  for**: complete, proofread against a scan, and genuinely a different constituted text rather than
+  Petrocchi renamed — measured, Inferno I reads "E quanto a dir" where Petrocchi has "Ahi quanto a
+  dir", "rinnova" for "rinova", "ch'io" for "ch'i'". Guerri died in 1953, so it cleared life plus
+  seventy at the start of 2024; it stays under UNITED STATES copyright until 2029, being a 1933
+  foreign publication restored by the URAA and running ninety-five years from publication. **That is
+  the first candidate on this shelf whose limit falls in the United States rather than abroad** —
+  every stated limit here runs the other way (Giles 2029, Ross 2042, Murray 2028 are all clear in the
+  US and encumbered elsewhere) — so it was left for the site's owner and for 2029 rather than taken
+  quietly in an importer entry. Shipped English-alone with the reason in the book's own front matter,
+  which is the Republic's outcome.
   **THE PROSE EDDA IS A THIRD FAILURE MODE AND IT IS NOT A TEXTUAL ONE AT ALL** (Aug 2026): the original
   exists, states its chapter numbers outright, and PAIRS — measured against Brodeur, the Prologue 5 chapters
   to 5 and Gylfaginning 54 to 54, in order, the Icelandic chapter titles describing his chapter content at
@@ -1249,6 +1322,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     opening on `***` in the apparatus band, where they belong to the apparatus rule rather than to
     this one. Every removal is counted and reported, per the standing rule that a rule which starts
     eating text cannot do it quietly.
+
+  **AN EDITION MAY NOT PRINT ENOUGH OF ITS OWN NUMBERS TO PAIR ON, AND THEN THEY ARE COUNTED**
+  (`layout: "terzine"` → `extractTerzina` / `terzinaBody` / `terzinaLines` / `terzinaHtml` /
+  `terzinaDropSpans` / `TERZINA_MARK` / `TERZINA_HEAD`; Aug 2026, adding the Divine Comedy — the
+  thirty-sixth book, and the fourteenth layout). The ordinary wiki walk, one page per canto; what is
+  new is where the section numbers come from. Every earlier book reads them off the page. Here the
+  translation prints marginal line numbers for 37 of its 100 cantos and none at all for the other 63
+  — **one work in one edition, transcribed two different ways on the same wiki**, the first 37 as a
+  proofread transclusion of the scan and the rest typed straight in — so there is nothing to pair on
+  for two thirds of the poem. The lines themselves are explicit in both shapes, being what the `<br>`
+  separates, so the number is recovered by COUNTING and the printed numerals become the CHECK, which
+  is the Gita's rule with the complete side chosen by measurement. Four things it settled:
+  · **THE ARITHMETIC IS WHAT MAKES COUNTING SAFE, and it has to be done before a word is imported** —
+    both columns 14,233 lines and the same count in every canto, every canto 3n+1 lines, and the
+    original printing exactly one numeral per tercet with none disagreeing. Without those three the
+    count is a guess.
+  · **A MARKER OPENS ITS ROW AND CARRIES THE NUMBER PRINTED AT THE ROW'S CLOSE.** `bookSections` cuts
+    at a marker and gives everything after it to that number, so the marker stands at the head of the
+    three lines it labels while reading the tercet's LAST line — which is the figure the edition sets
+    in its own margin there, so 4,711 of the 4,811 labels are read rather than composed.
+  · **THE HEADING TEST MUST RUN ON THE TEXT WITH ITS INLINE TAGS OFF.** The canto heading is
+    italicised, so a test against the raw line reads `<i>CANTO I.</i>` and matches nothing — which
+    left one extra line at the top of each transcluded canto, shifted every label in it by one, and
+    made all 37 disagree with their original **while every count read healthy**. Only comparing the
+    two columns' section lists showed it.
+  · **AND A TRANSLATOR'S FOOTNOTE SET AS VERSE IS NOT VERSE.** Longfellow leaves eight Provençal lines
+    untranslated and Englishes them under the canto, cued by an asterisk at both ends; counted as
+    verse they made that one canto eight lines longer than its original. Written from an inventory of
+    the whole poem — two asterisks in 14,241 lines — counted and reported, so a second cannot appear
+    unnoticed.
 
   **A WHOLE BOOK MAY ARRIVE ON ONE PAGE, and then the chapters are CUT rather than walked**
   (`layout: "laisses"` → `extractLaisses` / `extractLaissesFr` / `laisseHtml` / `laisseNumber` /
@@ -3450,6 +3553,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `BOOK_AUTHOR_COLOR` row is where the band is genuinely FULL rather than nearly so; see the note
     beside `"Wu Cheng'en"` in app.js for the search, and for the Euripides test being run and NOT
     biting — the alternative it offered was a fifth blue at 18.5, below the shelf's own tightest pair.
+    **The Divine Comedy is the SEVENTH licence needing no qualification at all** (Aug 2026), after the
+    Republic, the Analects, the Peloponnesian War, the City of God, the Aeneid and Journey to the
+    West — and like Journey to the West its interest is in what the licence RULED OUT rather than in
+    what it allowed. Dante died in 1321 and Longfellow published this translation in 1867, living
+    1807–1882, so both layers clear the pre-1929 rule, life-plus-seventy and life-plus-a-hundred, with
+    no limit to state and no modern editorial layer; Longfellow's own notes, his index and the
+    volumes' illustrations are left behind, as the Republic's introduction and plates were. **WHAT IT
+    RULED OUT IS THE ITALIAN**, and that is recorded in full under `books/<id>.<lang>.js` above,
+    because the reasoning is about a constituted text rather than about this translation: every
+    complete Italian Commedia reachable is Petrocchi's, in copyright until 2060, and the one usable
+    alternative is encumbered in the United States until 2029. Sayers (1949–62), Ciardi (1954–70),
+    Musa (1971–84), Mandelbaum (1980–84), the Hollanders (2000–07), Kirkpatrick (2006–07) and Clive
+    James (2013) are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the best
+    NUMBER was rejected outright for the second time on the shelf (after Euripides): the whole band
+    yields one colour clearing 19.6 and it is a chroma-60 green at 4.54:1 — the Vyasa row's candidate
+    exactly, glowing beside thirty-two muted colours and hugging two boundaries — so a deep blue-violet
+    clearing 18.5 at 8.12:1 was taken instead, above the shelf's own tightest pair at 18.2. **The
+    kinship risk here is not another blue but VIRGIL**, Dante's guide and a character in the poem, and
+    the colour taken sits 53 from his oxblood.
     **The Canterbury Tales states a LIMIT THAT IS ALMOST UP, which is the nearest any on this shelf has
     come to expiring** (Aug 2026), and it falls on the middle of three layers rather than on the
     original. Chaucer died in 1400 and Skeat's Middle English text of 1900 is clear on every ground (he
@@ -10496,6 +10618,7 @@ dead code (never rendered).
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
     `teiDramaDivisions` / `dramaNotes` / `dramaText` / `extractShloka` / `splitAlternating` /
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `extractCaput` /
+    `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the
     mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
@@ -10536,6 +10659,15 @@ dead code (never rendered).
     identical marker for marker, tag balance, and **no verse cell carrying a numeral inside it except
     the last of each discourse, which is the colophon**. That last assertion is the one that catches a
     stream-cut regression, and it is the fault no other check in this repo can see.
+    **A change to the TERZINE reader has no sibling to diff against either** — the Divine Comedy is
+    the only book on that path, and it is the only book here whose numbers are COUNTED, so a
+    regression cannot show up as a missing line or a short chapter. What stands in for the
+    byte-for-byte check is the run's own report, which prints the figures the reader is built on:
+    14,233 lines over 100 cantos, 4,811 tercet numbers, and **1,014 printed numerals checked against
+    the count with 1,012 agreeing**. That last pair is the assertion — a change in it means a numeral
+    has stopped being recognised in one of the two transcription shapes, which nothing else can see,
+    since the poem would still be complete and the totals still right. The two misprints it names
+    (Inferno IX and XXXII) should stay two.
     **Sections 3–6 NAME `seneca-letters` rather than opening whatever the shelf puts first** (fixed
     Aug 2026, when Aesop's Fables was added and took the lead under the "recent" sort). Two of those
     checks can only ever pass on Seneca — the four common nouns that mean something else in him, and

@@ -6954,6 +6954,180 @@ const BOOKS = {
     },
   },
 
+  "divine-comedy": {
+    title: "The Divine Comedy",
+    author: "Dante Alighieri",
+    translator: "Henry Wadsworth Longfellow",
+    edition:
+      "The Divine Comedy of Dante Alighieri, translated by Henry Wadsworth Longfellow, " +
+      "Ticknor and Fields, Boston, 1867",
+    written: "c. 1308–1321",
+    /* The poem was begun in exile and finished in the year Dante died; the shelf sorts on one
+       number and this is the early end of the range the front matter states. */
+    year: 1308,
+
+    /* ---------- THE LICENCE — clear on every ground, and the SEVENTH here needing no qualification
+       Dante died in 1321, so the poem is free everywhere and has been for six centuries. Henry
+       Wadsworth Longfellow published this translation in 1867 and lived from 1807 to 1882 — dates
+       read off Wikidata and matching the Wikisource author page's own PD-old tag, checked rather
+       than recalled for the Hugo Magnus reason — so it is public domain in the United States under
+       the pre-1929 publication rule, cleared life plus seventy in 1953, and has cleared life plus a
+       hundred as well. There is no limit to state and no modern editorial layer to declare.
+
+       WHAT IS AND IS NOT TAKEN. Only the poem. Longfellow's 1867 volumes also carry several hundred
+       pages of his own notes, a Conspectus, an index and a set of illustrations, and none of that is
+       imported. Two of the transcribed canto pages carry the caption of a Blake engraving bound into
+       the volume; those sit outside the verse and are dropped and reported, which the run prints.
+
+       THE MODERN TRANSLATIONS a reader is likeliest to own — Dorothy L. Sayers's (1949–62), John
+       Ciardi's (1954–70), Mark Musa's (1971–84), Allen Mandelbaum's (1980–84), Robert and Jean
+       Hollander's (2000–07), Robin Kirkpatrick's (2006–07), Clive James's (2013) and Mary Jo Bang's
+       — are all firmly in copyright and are named here so that nobody reaches for one later. */
+    rights:
+      "Public domain worldwide, on every ground. Dante Alighieri died in 1321, so the poem itself " +
+      "has been free for six centuries. Henry Wadsworth Longfellow published this translation in " +
+      "1867 and lived from 1807 to 1882, so it is public domain in the United States under the " +
+      "pre-1929 publication rule and out of copyright wherever the term is the author's life plus " +
+      "seventy or even a hundred years — there is no limit to state. Longfellow's own notes, his " +
+      "Conspectus, his index and the volumes' illustrations are not reproduced; what is taken is " +
+      "the hundred cantos of the poem. (The modern translations by Dorothy L. Sayers, 1949–62, " +
+      "John Ciardi, 1954–70, Mark Musa, 1971–84, Allen Mandelbaum, 1980–84, Robert and Jean " +
+      "Hollander, 2000–07, Robin Kirkpatrick, 2006–07, and Clive James, 2013, are still in " +
+      "copyright and are not used.) There is no Italian column here, and the reason is a copyright " +
+      "in the modern editing rather than in the poem — the book's own first page explains it.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Divine_Comedy_(Longfellow_1867)",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: what the poem is and what shape it has; that its
+       hundred cantos are built on a rhyme that pulls forward, which is why the translation reads as
+       it does; that it is full of real people and a real quarrel; what Longfellow's version is and
+       how it came to be made; why the Italian is not printed beside it, which a reader who knows
+       the poem will ask first; and how this edition is set out. */
+    about: [
+      "<b>The Divine Comedy</b> is the account of a journey through the three realms of the " +
+        "Christian afterlife, made in the week of Easter 1300 by a living man who is also the poet " +
+        "writing it. Dante loses the road in a dark wood, is met by the shade of the Roman poet " +
+        "<b>Virgil</b>, and is taken down through the circles of Hell, up the terraces of the " +
+        "mountain of Purgatory and out through the spheres of Paradise. It runs to <b>14,233 " +
+        "lines</b> in a hundred cantos, and it is the poem in which the Italian language arrived " +
+        "fully formed. Dante called it simply the <i>Comedy</i> — a comedy in the medieval sense, a " +
+        "story that begins in trouble and ends in joy, written in the speech of ordinary people " +
+        "rather than in Latin. The <i>Divine</i> was added by later admirers and has never come off.",
+      "Its architecture is as deliberate as a cathedral's, and the numbers are part of the meaning. " +
+        "Three canticles — <b>Inferno</b>, <b>Purgatorio</b>, <b>Paradiso</b> — of thirty-three " +
+        "cantos each, with one canto of introduction at the head of the Inferno, which makes a " +
+        "hundred. Each canticle ends on the word <i>stelle</i>, the stars. The verse is " +
+        "<b>terza rima</b>, a form Dante appears to have invented for it: interlocking tercets " +
+        "rhyming <i>aba bcb cdc</i>, so that the middle line of every tercet plants the rhyme the " +
+        "next one will take up, and the poem is pulled forward three lines at a time from the first " +
+        "to the last. A canto therefore always runs to a multiple of three lines plus a single " +
+        "closing line, which rhymes with the tercet before it and shuts the chain.",
+      "It is also a poem about real people, and much of its force comes from that. Dante was born " +
+        "in Florence in 1265, served the city as a diplomat and a prior, and in 1302 was condemned " +
+        "in his absence by the faction that had seized it — sentenced to a fine, then to be burned " +
+        "alive if he ever returned. He never did. The <i>Comedy</i> was written across the twenty " +
+        "years of that exile, and it is populated by his contemporaries, his enemies, his teachers " +
+        "and his friends, judged and placed by name: popes head-down in a rock, a neighbour frozen " +
+        "in ice, the Florentine politics of one generation carried into eternity. Alongside them " +
+        "stand the poets and philosophers of antiquity, the Bible, and the classical dead, all " +
+        "treated as equally real. Nothing in it is allegory at the expense of the particular.",
+      "The figure who governs the whole ascent is <b>Beatrice</b>. Dante had written about her " +
+        "before, in the <i>Vita Nuova</i>: a Florentine girl he saw twice and barely spoke to, who " +
+        "died in 1290 at twenty-four. In the <i>Comedy</i> she is the one who sets the journey in " +
+        "motion from Heaven, and it is she, not Virgil, who takes over as guide at the summit of " +
+        "Purgatory — because Virgil, a pagan, can go no further. That handover is the hinge of the " +
+        "poem, and it is worth watching for: the greatest poet of the ancient world is left behind " +
+        "without a word of farewell, and the reader feels it as a loss before understanding why it " +
+        "had to happen.",
+      "This translation is <b>Henry Wadsworth Longfellow's</b>, published in Boston in 1867 and the " +
+        "first complete American version. He worked at it for years, and the work took its final " +
+        "shape after his wife Frances died in a fire in 1861 — he translated cantos in the mornings " +
+        "as a discipline against grief, and read the drafts aloud on Wednesday evenings to a small " +
+        "circle of friends who came to be called the Dante Club. He renders the poem in " +
+        "<b>unrhymed lines, one for one with the Italian</b>, keeping the tercets on the page but " +
+        "not the rhyme. That is the trade he chose and it explains how the English reads: the " +
+        "word order is often odd and the diction deliberately old, because he is following the " +
+        "Italian closely rather than writing an English poem over the top of it. What a reader " +
+        "gets in exchange is a translation that stays level with the original line by line.",
+      "<b>There is no Italian column here, and the reason is worth stating plainly.</b> Dante's own " +
+        "words are of course free — the poem is seven hundred years old. But a medieval poem " +
+        "survives in dozens of hand-written copies that disagree with one another, and before " +
+        "anyone can read it a modern editor has to work out, line by line, what the poet most " +
+        "likely wrote. That constituted text is a new work with a copyright of its own. The " +
+        "standard modern text of the <i>Comedy</i> is Giorgio Petrocchi's, published in 1966–67; " +
+        "he died in 1989, so it stays in copyright until 2060 where the term is the editor's life " +
+        "plus seventy years — and it is Petrocchi's text that every complete Italian <i>Comedy</i> " +
+        "freely available today turns out to be. Printing it here would be publishing somebody " +
+        "else's edition without their leave, so the English stands alone until a text this site " +
+        "may lawfully set beside it can be had.",
+      "The tabs are the hundred cantos, grouped into the three canticles, and the small raised " +
+        "figures running down the text are <b>line numbers</b> — one at the head of every tercet, " +
+        "carrying the number of that tercet's last line, which is how any passage of Dante is cited " +
+        "in any language. They are arrived at by counting the lines, because this transcription of " +
+        "Longfellow prints marginal numbers for only the first thirty-seven cantos and none at all " +
+        "for the remaining sixty-three; where it does print them, all but two agree exactly with " +
+        "the count. Those two are misprints in the 1867 volumes — one in Inferno IX, where 85 is " +
+        "set twice and the sequence resumes correctly at 100, and one in Inferno XXXII, where 135 " +
+        "stands against a line the count makes 134 — and each is read as the place the lines put " +
+        "it. One footnote is folded under Purgatorio XXVI: the troubadour Arnaut Daniel answers " +
+        "Dante in Provençal, which Longfellow leaves in Provençal in the verse and Englishes at the " +
+        "foot of the canto.",
+    ],
+
+    /* ---------- ONE PAGE PER CANTO, PAIRED ON THE TERCET ----------
+       The ordinary wiki walk on the translation's side; what is new is that the numbers are counted
+       rather than read. See the block above extractTerzina for the measurements. */
+    source: "wiki",
+    layout: "terzine",
+    chapterWord: "Canto",
+    /* The three canticles, as the edition's own three volumes divide them. */
+    parts: [
+      { n: 1, label: "Inferno", from: 1, to: 34 },
+      { n: 2, label: "Purgatorio", from: 35, to: 67 },
+      { n: 3, label: "Paradiso", from: 68, to: 100 },
+    ],
+    chapters: Array.from({ length: 100 }, (_, i) => i + 1),
+    /* Wikisource numbers the cantos WITHIN each volume, so a Folio chapter number is turned back
+       into a volume and a canto to find its page. */
+    page: (n) => {
+      const v = n <= 34 ? 1 : n <= 67 ? 2 : 3;
+      const c = n <= 34 ? n : n <= 67 ? n - 34 : n - 67;
+      return "Divine Comedy (Longfellow 1867)/Volume " + v + "/Canto " + c;
+    },
+    /* "Inferno V", "Paradiso XXXIII" — the canticle and the canto's Roman numeral, which is how the
+       poem is cited and how both editions head their pages. A bare "Canto V" would name three
+       different cantos, the numbering restarting with each canticle. Neither edition gives a canto
+       a title of its own, and composing a hundred descriptive headings for a poet who gave none is
+       a line this file does not cross. */
+    titleOf: (n) => {
+      const name = n <= 34 ? "Inferno" : n <= 67 ? "Purgatorio" : "Paradiso";
+      const c = n <= 34 ? n : n <= 67 ? n - 34 : n - 67;
+      return name + " " + toRoman(c);
+    },
+    /* The short-chapter guard, which is what catches an extraction that has returned the wiki
+       furniture instead of the verse. The shortest canto in the poem is Inferno VI at 115 lines,
+       measured over all 100 pages rather than assumed, and its rendered verse is about 4,400
+       characters. 2,000 sits well below that and far above what a failed extraction produces. */
+    minChars: 2000,
+
+    /* No `original`, and no `origLang`: see the front matter's sixth paragraph and the licence note
+       above. The day a text this site may lawfully print becomes available, an `original` block and
+       an `origLang` are the whole of the work — the pairing itself is already proved. Both columns
+       were measured end to end before the English was imported, against Petrocchi's text, and they
+       agree completely: 14,233 lines a side, the same count in every one of the hundred cantos once
+       Longfellow's Provençal footnote is folded out of the verse, and identical section lists
+       throughout — 4,811 tercet numbers on each side, in the same order, with no exception either
+       way. Domenico Guerri's text (Laterza, Bari, 1933) is the candidate to reach for: it is
+       complete, it is proofread against a scan, and it is a genuinely different constituted text
+       rather than Petrocchi's under another name — Inferno I reads "E quanto a dir" where Petrocchi
+       has "Ahi quanto a dir", and "rinnova" where he has "rinova". Guerri died in 1953, so it
+       cleared life plus seventy at the start of 2024; it remains under copyright in the United
+       States until 2029, being a 1933 foreign publication restored by the URAA and running
+       ninety-five years from publication. That is the one thing standing in the way, and it expires
+       on its own. */
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -9341,6 +9515,222 @@ function extractFitt(h, warn, where) {
   b = b.replace(/<link\b[^>]*>/g, "");
 
   return { html: fittHtml(b, warn, where), notes: local, marks: marked.count };
+}
+
+/* ============================================================
+   THE DIVINE COMEDY: A POEM IN TERCETS, NUMBERED BY COUNTING
+   ============================================================
+   Aug 2026, adding the Divine Comedy — the thirty-sixth book, and the fourteenth layout. The
+   ordinary wiki walk, one page per canto; what is new is that the SECTION NUMBERS ARE COUNTED
+   RATHER THAN READ, and that they have to be, because the translation does not print enough of
+   them to pair on.
+
+   THE ONE BOOK HERE WHOSE ENGLISH IS TRANSCRIBED TWO DIFFERENT WAYS. Longfellow's hundred cantos
+   are one work in one 1867 edition, and Wikisource holds them in two shapes: the Inferno and the
+   first three cantos of the Purgatorio are a PROOFREAD TRANSCLUSION of the scan, wrapped in
+   `prp-pages-output` and carrying the printed marginal line number every fifth line, and the
+   remaining sixty-three cantos are TYPED STRAIGHT ONTO THE WIKI as a bare `<div class="poem">`
+   with no line numbers at all. Measured over all 100 pages: 37 of the first kind carrying 1,014
+   numerals between them, 63 of the second carrying none. So a reader written for either half
+   finds nothing on the other, and a pairing built on the printed numerals would cover a third of
+   the poem.
+
+   THE COUNT IS THEREFORE THE APPARATUS AND THE PRINTED NUMERALS ARE THE CHECK — the Bhagavad
+   Gita's rule, where the side that is complete decides the cut and the other side is demoted to
+   evidence. A line of verse is explicit in both transcriptions (it is what the <br> separates), so
+   its number is a fact anybody can recover by counting, and the two editions then confirm the
+   count 5,725 times between them. What makes that safe rather than hopeful is the arithmetic
+   underneath it, measured before a word was imported:
+
+   · THE TWO COLUMNS ARE THE SAME LENGTH, canto by canto. Dante's poem is 14,233 lines and this
+     Italian carries exactly that, per canticle as well as in total — 4,720, 4,755 and 4,758.
+     Longfellow translates line for line and comes to the same 14,233. So line n of the English is
+     line n of the Italian in all one hundred cantos, and the pairing is exact by construction
+     rather than by reconciliation.
+
+   · EVERY CANTO IS 3n+1 LINES. Terza rima runs in tercets and each canto closes on a single line
+     rhyming with the middle of the last one: 4,711 tercets and 100 closing lines. That is why the
+     TERCET is the pairing unit here rather than the line — three lines of Italian beside three of
+     English is the unit the poem is built in, and the alternative is 14,233 rows of one line each.
+
+   · AND THE ITALIAN PRINTS ONE NUMERAL PER TERCET, EXACTLY. Measured: 4,711 of them, one at the
+     end of every tercet in the poem, not one anywhere else, and not one disagreeing with the
+     count. So the number this reader writes on a row is the number that edition prints at that
+     row's own last line — read, not composed — for 4,711 of the 4,811 rows. The remaining hundred
+     are the canto-closing lines, which are 3n+1 and so fall where neither edition prints anything;
+     their number is the count's, and the book's front matter says so.
+
+   TWO PRINTED NUMERALS IN LONGFELLOW ARE SLIPS, and the way to tell a slip from a bad cut is the
+   RE-SYNC, which is the Gita's rule met on a third book. Inferno IX prints 85 twice — the run goes
+   85, 90, 85, 100, 105, so the second is a misprint for 95 and the very next marker is right
+   again — and Inferno XXXII prints 135 against a count of 134, with that canto's two columns
+   agreeing at 139 lines, so nothing is missing and the numeral sits a line early. Had the cut been
+   wrong, every marker after the first would have disagreed instead of one. Both are read as the
+   place the sequence puts them and both are named on every run.
+
+   LONGFELLOW'S ONE FOOTNOTE IS THE ONLY REASON THIS READER NEEDS NOTES. Arnaut Daniel answers
+   Dante in Provençal at Purgatorio XXVI.140–147, and Longfellow leaves those eight lines in
+   Provençal in the verse and Englishes them under the canto, cueing both ends with an asterisk.
+   Counted as verse they make that canto 156 lines against the Italian's 148 — the ONLY canto of
+   the hundred whose columns disagreed before this rule — and they would put a translator's gloss
+   in eight rows beside an empty Italian cell. The rule is written from an inventory of the whole
+   poem rather than from the example that prompted it: two asterisks in 14,241 lines, one closing
+   line 147 and one opening the note, and nothing else anywhere. It is counted and reported, so a
+   second cannot appear unnoticed.
+
+   WHAT IS DROPPED AND COUNTED. The canticle and canto headings inside the body, which duplicate
+   the chapter tab (39 of them — the typed pages carry none); the scan's own page markers; and the
+   indentation, which the two halves of the English spell differently (a `wst-gap` span on the
+   transcluded pages, a run of non-breaking spaces on the typed ones) and which the row structure
+   carries here anyway. */
+const TERZINA = 3;
+/* A printed line number, in the two shapes these transcriptions use: `wst-pline` in Longfellow's
+   margin every fifth line, `numeroriga` in the Italian's at the close of every tercet. Both are
+   read for the check and then removed, so what a reader sees is the marker this file writes. */
+const TERZINA_MARK =
+  /<span[^>]*class="[^"]*\b(?:wst-pline|numeroriga)\b[^"]*"[^>]*>\s*(\d+)\s*<\/span>/g;
+/* The headings that sit INSIDE the body and duplicate the tab above it. Anchored whole, and tested
+   against the line with its inline tags removed — Longfellow's canto heading is italicised, so a
+   test against the raw text reads `<i>CANTO I.</i>` and matches nothing. That is not hypothetical:
+   it left one extra line at the top of each of the 37 transcluded cantos, which shifted every
+   label in them by one and made all 37 disagree with their Italian while the counts looked healthy. */
+const TERZINA_HEAD = /^(?:INFERNO|PURGATORIO|PARADISO|CANTO\s+[IVXLC]+\.?)$/i;
+/* The sentinel a printed numeral is parked in while the tags come off. It cannot simply be left as
+   text: stripTags would unwrap the span and the digits would be indistinguishable from the verse. */
+const TERZINA_SENT = "";
+
+/* The verse body, sliced and stripped of the wiki's own furniture. cleanBody's opening moves, done
+   here rather than borrowed, for the reason fittBody and eddaBody give: that pass is written for
+   prose and its generic div-to-blockquote rule would turn this poem into a wall of quotations.
+   `before` is whatever stood between the page furniture and the verse, so the caller can say what
+   it dropped rather than dropping it quietly. */
+function terzinaBody(h, where) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 12; k++) {
+    const m = /<(div|table)[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, m[1]);
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  let i = b.indexOf('<div class="prp-pages-output');
+  let body;
+  if (i >= 0) body = b.slice(i).replace(/<ol class="references">[\s\S]*$/, "");
+  else {
+    i = b.indexOf('<div class="poem"');
+    if (i < 0) throw new Error(where + ": no body — the page's markup has changed");
+    const end = blockEnd(b, i, "div");
+    body = end < 0 ? b.slice(i) : b.slice(i, end);
+  }
+  const before = stripTags(b.slice(0, i))
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&#\d+;|&nbsp;/g, " ")
+    /* MediaWiki's own dynamic-layout marker, which is furniture rather than anything the edition
+       printed and would otherwise be reported as dropped text on every page. */
+    .replace(/Layout\s*\d+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return { body: body, before: before };
+}
+
+/* Remove every span of one class, matched on the stack so a nested span cannot leave its closer
+   behind — the shape extractFitt already uses for the scan's page markers. */
+function terzinaDropSpans(b, cls) {
+  for (let k = 0; k < 500; k++) {
+    const m = new RegExp('<span[^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  return b;
+}
+
+/* One canto's verse as a list of lines, each carrying whatever numeral its edition prints on it. */
+function terzinaLines(b, where, warn) {
+  b = b.replace(TERZINA_MARK, (all, raw) => TERZINA_SENT + raw + TERZINA_SENT);
+  b = terzinaDropSpans(b, "pagenum");
+  /* The verse indent. Both transcriptions set the second and third line of a tercet in from the
+     margin and they do it differently; the row is what groups a tercet here, so it is normalised
+     away rather than shipped in two incompatible shapes. */
+  b = terzinaDropSpans(b, "wst-gap");
+  b = b.replace(/<link\b[^>]*>/g, "");
+
+  const rows = stripTags(b).replace(/<\/?p\b[^>]*>/g, "<br>").split(/<br\s*\/?>/);
+  const rx = new RegExp(TERZINA_SENT + "(\\d+)" + TERZINA_SENT, "g");
+  const bare = (s) => s.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  const lines = [];
+  let heads = 0, printed = 0;
+  for (let raw of rows) {
+    const nums = [];
+    raw = raw.replace(rx, (a, d) => { nums.push(+d); return " "; });
+    const txt = raw
+      .replace(/&#160;|&nbsp;|&#32;|&#8195;|​| /g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!bare(txt)) continue;
+    if (TERZINA_HEAD.test(bare(txt))) { heads++; continue; }
+    printed += nums.length;
+    lines.push({ txt: txt, nums: nums });
+  }
+
+  /* LONGFELLOW'S ONE FOOTNOTE — see the block above for the inventory this rule is written from.
+     The note opens on an asterisk and runs to the end of the canto; the cue is the asterisk closing
+     the last line of the passage it translates, and it becomes the marker. */
+  const notes = [];
+  const at = lines.findIndex((r) => /^\*/.test(r.txt));
+  if (at >= 0) {
+    const body = lines.slice(at).map((r) => r.txt.replace(/^\*\s*/, "").trim()).filter(Boolean);
+    lines.length = at;
+    notes.push(body.join("<br>"));
+    const cue = lines.map((r) => r.txt).findIndex((t) => /\*$/.test(t));
+    /* A note with no cue would be an entry no line opens — the mirror of the dead marker the
+       apparatus already refuses to draw, and the fault Beowulf's dropFittHead exists to avoid. */
+    if (cue < 0) warn(where + ": a note has no cue in the verse and its marker has been dropped");
+    else lines[cue].txt = lines[cue].txt.replace(/\s*\*$/, "") + '<sup class="fn" data-fn="1"></sup>';
+  }
+  return { lines: lines, notes: notes, heads: heads, printed: printed };
+}
+
+/* One canto's verse as the single paragraph the shelf's other verse books emit, with a section
+   marker opening each tercet. Ovid, Lucretius, the Song of Roland and Beowulf already render
+   exactly this shape, so a poem in tercets needs no styling of its own.
+
+   A MARKER OPENS ITS ROW AND CARRIES THE NUMBER THE EDITION PRINTS AT THE ROW'S CLOSE. app.js's
+   bookSections cuts at a marker and gives everything after it to that number, so the marker has to
+   stand at the head of the three lines it labels; the number it carries is the tercet's LAST line,
+   which is the figure the Italian sets in its own margin there. The row labelled 3 is therefore
+   lines 1–3. The canto's closing line is 3n+1 and gets a row and a number of its own. */
+function terzinaHtml(lines, where, warn) {
+  const parts = [];
+  let bad = 0;
+  lines.forEach((r, i) => {
+    const n = i + 1;
+    for (const p of r.nums) {
+      if (p !== n) {
+        warn(where + ": the edition prints line " + p + " where the count gives " + n +
+             " — read as " + n + ", which is where the lines put it");
+        bad++;
+      }
+    }
+    if (n % TERZINA === 1)
+      parts.push('<span class="bk-n">' + Math.min(n + TERZINA - 1, lines.length) + "</span> ");
+    parts.push(r.txt);
+    if (i < lines.length - 1) parts.push("<br>");
+  });
+  if (!lines.length) warn(where + " came through with no lines");
+  return { html: "<p>" + parts.join("") + "</p>", bad: bad };
+}
+
+function extractTerzina(h, where, warn) {
+  const b = terzinaBody(h, where);
+  const got = terzinaLines(b.body, where, warn);
+  const made = terzinaHtml(got.lines, where, warn);
+  return {
+    html: made.html, notes: got.notes, lines: got.lines.length, before: b.before,
+    marks: (made.html.match(/class="bk-n"/g) || []).length,
+    printed: got.printed, bad: made.bad, heads: got.heads,
+  };
 }
 
 /* ---------- THE POETIC EDDA: NUMBERED STANZAS WITH PROSE LINKS BETWEEN THEM ----------
@@ -12354,6 +12744,52 @@ async function fetchEnglish() {
     console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + lines + " lines");
     return writeEnglish(chapters, warnings);
   }
+
+  /* A POEM IN TERCETS, NUMBERED BY COUNTING — the ordinary wiki walk, one page per canto. See the
+     block above extractTerzina for why the numbers here are counted rather than read, and for the
+     measurements that make counting safe. */
+  if (BOOK.layout === "terzine") {
+    let lines = 0, printed = 0, bad = 0, heads = 0, notes = 0;
+    const dropped = [];
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const where = chapterTitle(n);
+      const warn = (m) => warnings.push(m);
+      const cf = path.join(CACHE, "en-" + String(n).padStart(3, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else {
+        h = await api(BOOK.page(n));
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, h);
+        await sleep(900);
+      }
+      const got = extractTerzina(h, where, warn);
+      if (got.html.length < (BOOK.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      lines += got.lines; printed += got.printed; bad += got.bad;
+      heads += got.heads; notes += got.notes.length;
+      if (got.before) dropped.push(where + ": " + JSON.stringify(got.before.slice(0, 70)));
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+    }
+    const marks = chapters.reduce((a, c) => a + (c.html.match(/class="bk-n"/g) || []).length, 0);
+    console.log("  " + chapters.length + " " + BOOK.chapterWord.toLowerCase() + "s, " + lines +
+      " lines, " + marks + " tercet numbers, " + notes + " note(s)");
+    /* THE FIGURE THIS BOOK IS ABOUT, printed on every run. The numbers are counted, so what says
+       the count is right is how often the printed numerals agree with it — and a change in either
+       figure means the marker has stopped being recognised in one of the two transcription shapes,
+       which no other check here can see (the poem would still be complete and the columns would
+       still be the same length). */
+    console.log("  " + printed + " printed numerals checked against the count, " +
+      (printed - bad) + " agreeing, " + bad + " misprinted");
+    console.log("  " + heads + " canticle and canto headings dropped from inside the body");
+    /* A rule that removes text says what it removed. These are the plate captions of the Blake
+       engravings bound into the volume — the Republic's precedent for the plates it left behind. */
+    if (dropped.length) console.log("  " + dropped.length +
+      " page(s) carried text before the verse, dropped: " + dropped.join("; "));
+    return writeEnglish(chapters, warnings);
+  }
+
   /* A COLLECTION OF POEMS IN NUMBERED STANZAS — the ordinary wiki walk, one page per poem, with the
      pairing done a level BELOW the chapter as it is for a poem in fitts. What is different is that a
      chapter's body is verse and prose MIXED; see the block comment above extractEdda for why no
