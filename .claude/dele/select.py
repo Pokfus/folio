@@ -209,6 +209,90 @@ take(sorted([k for k in pool if k in suppset], key=rank))
 take(sorted(pool, key=rank))
 
 final = chosen[:TARGET[LEVEL]]
+
+# ------------------------------------------------------- the order they ship in
+# WHICH words a level teaches and WHAT ORDER they come in are two questions, and
+# only the first is answered by the cascade above.  That cascade exists to stop
+# the closed classes and the verbs competing with nouns on raw frequency -- a
+# 500-word A1 list without `yo` and `tu` is not an A1 list -- so it deliberately
+# does NOT rank the list as a whole, and it left `uno` as the first card of A1
+# and `de`, `que` and `no` several hundred cards in.
+#
+# So the chosen words are re-sorted for OUTPUT, most frequent first, and nothing
+# about the selection moves: the same 500/500/1,000/2,000 words ship, so the
+# exclusion sets the higher levels are built against are untouched and a rebuilt
+# level cannot come out teaching something else.  Change `rank` above and the
+# deck's CONTENTS change; change this and only the running order does.
+#
+# `es_50k.txt` counts SURFACE FORMS, not lemmas, which costs two classes of word
+# and each is repaired rather than lived with.  A REFLEXIVE is filed under its
+# own infinitive, which is rare in the corpus even when the verb is not
+# (`llamarse` is 14,131st while `llamar` is 580th), so it takes its base verb's
+# rank -- the paradigm the card teaches is the base's anyway.
+#
+# A PHRASE CANNOT APPEAR IN A SEGMENTED LIST AT ALL, and the obvious fallback is
+# wrong in a way that is worth recording: giving `por consiguiente` the rank of
+# its RAREST component is a true CEILING on how often the phrase can be said and
+# a hopeless estimate of it, because a phrase built out of very common words
+# gets a very low ceiling -- `si bien`, `con todo`, `es mas` and `ahora bien`
+# all led the B2 deck ahead of `razon` and `problema`.  So a phrase is COUNTED
+# instead, in the Tatoeba corpus this pipeline already downloads for its example
+# sentences, and that count is calibrated onto the subtitle list's own scale
+# through the level's single words, which have both a count and a rank.  It puts
+# `es mas` 307th and `en la medida en que` last, which is the right shape.
+# (The count is a running-text match, so a phrase that is also the opening of an
+# ordinary string is over-counted -- `con todo` catches `con todo el mundo`.)
+#
+# What is NOT done is summing a lemma's inflected forms, which looks like the
+# rigorous answer and is worse: a paradigm routinely contains a form that is
+# common for another reason entirely, and `comer` would inherit the 1.6 million
+# hits of `como` -- overwhelmingly "as, like" and not "I eat" -- and lead the
+# deck.  Hence "roughly", which is what the ordering claims and all it claims.
+UNRANKED = 10 ** 6
+PHRASES = [k for k in final if ' ' in k]
+phrase_rank = {}
+if PHRASES:                      # A1 and A2 have none, and skip the corpus pass
+    import bisect, statistics
+    from collections import Counter
+    pset, starts = set(PHRASES), {p.split()[0] for p in PHRASES}
+    maxn = max(len(p.split()) for p in PHRASES)
+    tok = re.compile(r'[a-záéíóúüñ]+', re.I)
+    tcount, pcount = Counter(), Counter()
+    for line in open('spa_sent.tsv', encoding='utf-8'):
+        p = line.rstrip('\n').split('\t')
+        if len(p) < 3:
+            continue
+        ws = tok.findall(p[2].lower())
+        tcount.update(ws)
+        for i, x in enumerate(ws):
+            if x in starts:      # most tokens start no phrase, so most cost nothing
+                for n in range(2, maxn + 1):
+                    if i + n <= len(ws) and ' '.join(ws[i:i + n]) in pset:
+                        pcount[' '.join(ws[i:i + n])] += 1
+    # the level's own single words are the calibration: each has a Tatoeba count
+    # and a subtitle rank, so a phrase's count can be read off as a rank
+    anchors = sorted((tcount[k], freq[k]) for k in final
+                     if ' ' not in k and k in freq and tcount[k])
+    counts = [c for c, _ in anchors]
+    for p in PHRASES:
+        c = pcount.get(p, 0)
+        if not c or not anchors:
+            phrase_rank[p] = UNRANKED
+            continue
+        i = bisect.bisect_left(counts, c)
+        near = anchors[max(0, i - 4):i + 5]      # median of the nearest anchors
+        phrase_rank[p] = int(statistics.median(r for _, r in near))
+    print('phrases     :', len(PHRASES), 'of which counted:',
+          sum(1 for p in PHRASES if phrase_rank[p] != UNRANKED))
+
+def usage_rank(k):
+    if k in phrase_rank:
+        return phrase_rank[k]
+    if k.endswith(('arse', 'erse', 'irse')) and k[:-2] in freq:
+        return freq[k[:-2]]
+    return freq.get(k, UNRANKED)
+
+final.sort(key=usage_rank)   # stable, so equal ranks keep the cascade's order
 # A short list is the one failure this stage can have that LOOKS like success:
 # the deck builds, every card is well formed, and the level quietly teaches
 # fewer words than it says it does.  Say so instead.
