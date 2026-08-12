@@ -5,6 +5,9 @@
         Round numbers may stay as words ("thirty", "eight hundred").
      2. Centuries and millennia are always numbered ("11th century", never "eleventh century") — any ordinal.
      3. Literature titles are italicised (<i>…</i>).
+     4. Eras are BCE and CE, never BC or AD — everywhere a reader can see one (rule 4 alone also runs over
+        artefacts.js and countries.js, which are prose a reader reads and were the last two files still
+        saying "1500 BC"; the other three rules stay scoped to cards + glossary, as CLAUDE.md scopes them).
    Usage:
      node .claude/check-style.js          report violations
      node .claude/check-style.js --fix    apply the safe fixes in place (string-level, format-preserving)
@@ -13,7 +16,9 @@
 const fs = require("fs");
 const path = require("path");
 const FIX = process.argv.includes("--fix");
-const FILES = ["data.js", "glossary.js"].map((f) => path.join(__dirname, "..", f));
+/* Rules 1–3 run over the first two; rule 4 runs over all four (see `ERA_ONLY` below). */
+const FILES = ["data.js", "glossary.js", "artefacts.js", "countries.js"].map((f) => path.join(__dirname, "..", f));
+const ERA_ONLY = new Set(["artefacts.js", "countries.js"]);
 
 /* --- rule 2: ordinal words before century/millennium --- */
 const ORD = {
@@ -58,6 +63,44 @@ function fieldAt(text, idx) {   // the JSON field a data.js match sits in (neare
 // Person-or-book names: report only, never auto-fix
 const TITLES_AMBIGUOUS = ["Zhuangzi", "Mencius", "Laozi", "Xunzi", "Han Feizi", "Liezi", "Guanzi", "Mozi", "Shiji"];
 
+/* --- rule 4: BCE / CE, never BC / AD ---
+   NEVER a bare \bBC\b or \bAD\b. Both have to be ANCHORED — to a digit, or to the unit words an era
+   abbreviation actually follows — because a two-letter uppercase token on its own is not always an era:
+     · "96.AD.258" is the Getty's accession number for a votive head, sitting inside a picture's own
+       description. A blanket \bAD\b renames it, and nothing on the page would say so.
+     · "A. D. Godley" translated the Histories and is named in a dozen citations. The dotted form is
+       report-only for that reason among others (see below).
+   The shapes, all measured off this corpus rather than imagined:
+     "1200 BC" / "1200BC"       → "1200 BCE"    (BCE/CE are already safe — the \b after BC fails on "BCE")
+     "6th century BC"           → "6th century BCE"   — the commonest miss: no digit touches the BC at all
+     "14th – 13th cents. BC" / "III cen. BC" / "4 th c BC" / "cal BC"   → same, via ERA_UNIT
+     "300 AD" / "1st century AD" → "300 CE" / "1st century CE"
+     "AD 301"                   → "301 CE"      — the numeral leads in BCE/CE notation, so the pair swaps
+   The number in that last one is `\d(?:[\d,]*\d)?` and not `\d[\d,]*`, which is a bug this rule shipped
+   with for an hour: a trailing comma is the SENTENCE's, so "founded in AD 301, and it presents itself"
+   came out as "founded in 301, CE and it presents itself" — grammatical damage, in prose, from a group
+   that was one character too greedy.
+   The DOTTED forms (B.C. / A.D.) are REPORT-ONLY. Most are inside citations, where a published title is
+   the author's and not ours and the mask below already lifts them out; the handful that are not sit in
+   picture descriptions, and fixing one means deciding whether the closing period was the abbreviation's
+   or the sentence's — which is a judgement to make by eye, one at a time. */
+const ERA_UNIT = "(?:centuries|century|millennia|millennium|cents?\\.|cens?\\.|c\\.|c|cal)";
+const ERA_BC_RE = /(\d)(\s*)BC\b/g;
+const ERA_BC_UNIT_RE = new RegExp("\\b(" + ERA_UNIT + ")(\\s+)BC\\b", "g");
+const ERA_AD_AFTER_RE = /(\d)(\s*)AD\b/g;
+const ERA_AD_UNIT_RE = new RegExp("\\b(" + ERA_UNIT + ")(\\s+)AD\\b", "g");
+const ERA_AD_BEFORE_RE = /\bAD(\s+)(\d(?:[\d,]*\d)?)/g;
+const ERA_DOTTED_RE = /(?:\d[\d,]*\s*)?\b(?:B\.\s?C\.|A\.\s?D\.)(?:\s*\d)?/g;
+function eraFix(text) {
+  let n = 0;
+  text = text.replace(ERA_BC_RE, (m0, d, sp) => { n++; return d + (sp || " ") + "BCE"; });
+  text = text.replace(ERA_BC_UNIT_RE, (m0, u, sp) => { n++; return u + sp + "BCE"; });
+  text = text.replace(ERA_AD_AFTER_RE, (m0, d, sp) => { n++; return d + (sp || " ") + "CE"; });
+  text = text.replace(ERA_AD_UNIT_RE, (m0, u, sp) => { n++; return u + sp + "CE"; });
+  text = text.replace(ERA_AD_BEFORE_RE, (m0, sp, num) => { n++; return num + " CE"; });
+  return { text, n };
+}
+
 function findAll(text, re, kind, out, file) {
   let m;
   re.lastIndex = 0;
@@ -97,6 +140,47 @@ for (const file of FILES) {
   text = text.replace(/window\.COLLECTION_TREE\s*=[\s\S]*$/g, (m0) => {
     blockMask.push(m0); return "/*BLOCKMASK" + (blockMask.length - 1) + "*/\n";
   });
+  // artefacts.js writes the same citations under an UNQUOTED key (`sources: [`), so the card-shaped mask
+  // above misses every one of them — five of its citations name a century or an era in a real title
+  // ("…Chinese Coins from the VIIth Century B.C. to A.D. 621"). Same rule, second spelling.
+  text = text.replace(/\bsources:\s*\[[\s\S]*?\n\s*\],\n/g, (m0) => {
+    blockMask.push(m0); return "/*BLOCKMASK" + (blockMask.length - 1) + "*/\n";
+  });
+  // A URL is an IDENTIFIER, not prose: a Commons file is really called "…c_2700_BC_(10465349433).jpg"
+  // and renaming it in an href breaks the picture. The era rule is anchored to a digit, so an underscore
+  // already separates it from most of these — but a URL is not something to be one regex away from.
+  const urlMask = [];
+  text = text.replace(/https?:\/\/[^\s"'<>]+/g, (m0) => {
+    urlMask.push(m0); return "URLMASK" + (urlMask.length - 1) + "URLMASK";
+  });
+
+  // rule 4 — BCE / CE. The only rule that runs over all four files (see ERA_ONLY).
+  if (FIX) {
+    const era = eraFix(text);
+    text = era.text; totalFixed += era.n;
+  } else {
+    findAll(text, ERA_BC_RE, "era BC (should be BCE)", report, name);
+    findAll(text, ERA_BC_UNIT_RE, "era BC (should be BCE)", report, name);
+    findAll(text, ERA_AD_AFTER_RE, "era AD (should be CE)", report, name);
+    findAll(text, ERA_AD_UNIT_RE, "era AD (should be CE)", report, name);
+    findAll(text, ERA_AD_BEFORE_RE, "era AD (should be CE, numeral first)", report, name);
+    findAll(text, ERA_DOTTED_RE, "era B.C./A.D. — READ IT, then fix by hand", report, name);
+  }
+
+  text = text.replace(/URLMASK(\d+)URLMASK/g, (m0, i) => urlMask[Number(i)]);
+  if (ERA_ONLY.has(name)) {
+    // Rules 1–3 are scoped to cards + glossary, as CLAUDE.md scopes them. Reporting a century word in
+    // an Atlas description is a finding nobody intends to act on, which is what the COLLECTION_TREE
+    // comment above already learned once.
+    text = text.replace(/\/\*BLOCKMASK(\d+)\*\/\n/g, (m0, i) => blockMask[Number(i)]);
+    text = text.replace(/"sources":\["SRCMASK(\d+)"\]/g, (m0, i) => srcMask[Number(i)]);
+    if (FIX) fs.writeFileSync(file, text);
+    else if (report.length) {
+      console.log("\n=== " + name + " — " + report.length + " finding(s) ===");
+      report.forEach((r) => console.log("[" + r.kind + "] …" + r.ctx + "…"));
+    } else console.log(name + ": clean");
+    continue;
+  }
 
   // rule 2 — centuries/millennia (pairs first, then singles)
   for (const re of [ORD_PAIR_RE, ORD_RE]) {

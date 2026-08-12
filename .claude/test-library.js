@@ -625,8 +625,10 @@ function aeneidChecks() {
         await new Promise((z) => setTimeout(z, 120));
       };
       const titles = () => [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent);
-      const out = { box: !!box, all: titles().length };
+      const count = () => (document.querySelector("#bkCount") || {}).textContent || "";
+      const out = { box: !!box, all: titles().length, count0: count() };
       await type("seneca");
+      out.count1 = count();
       out.byAuthor = [...document.querySelectorAll(".bk-tile-author")].map((t) => t.textContent);
       await type("sun tzu");                    // the shelf spells him Tzŭ — the fold is the point
       out.folded = titles();
@@ -634,8 +636,10 @@ function aeneidChecks() {
       out.anyOrder = titles();
       await type("zzzz");
       out.none = { line: !!document.querySelector(".lib-none"), tiles: document.querySelectorAll(".book-tile").length };
+      out.countNone = count();
       await type("");
       out.cleared = titles().length;
+      out.count2 = count();
       return out;
     });
     check("the shelf has a search box", search.box);
@@ -648,6 +652,18 @@ function aeneidChecks() {
     check("...nothing matching says so rather than drawing an empty shelf",
       search.none.line && search.none.tiles === 0, JSON.stringify(search.none));
     check("...and clearing it puts every book back", search.cleared === search.all, search.cleared + " of " + search.all);
+    /* HOW MANY BOOKS ARE ON THE SHELF (Aug 2026, on request). It is a claim about the list, so it is read
+       against the list rather than against a number written into this test — a count that has gone stale
+       reads exactly like a count that is right. Filtered, it says BOTH numbers, because "1 book" over a
+       narrowed shelf reads as a library of one; unfiltered it says the one, "41 of 41" being a sum nobody
+       asked for; and it comes back when the box is cleared. */
+    check("the shelf says how many books it holds",
+      new RegExp("^" + search.all + " books?$").test(search.count0.trim()), search.count0 + " vs " + search.all + " tiles");
+    check("...and how many the filter is showing, of how many",
+      new RegExp("^1 of " + search.all + " books$").test(search.count1.trim()), search.count1);
+    check("...saying nothing matched rather than a bare zero",
+      /^0 of \d+ books$/.test(search.countNone.trim()), search.countNone);
+    check("...and it goes back when the search is cleared", search.count2 === search.count0, search.count2);
     // a banner the SEARCH painted must still be a book you can open — the hold sheet is wired per element
     const afterFilter = await page.evaluate(async () => {
       const box = document.querySelector("#bkFilter");

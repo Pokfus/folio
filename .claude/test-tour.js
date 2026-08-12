@@ -175,7 +175,13 @@ const CARD = () => {
 
     check("A STEP THAT NEEDS ANOTHER PAGE GOES THERE — the tour survives its own navigation", routed >= 1, routed + " step(s) on #decks");
     check("...and comes back", seen[seen.length - 1].hash !== "#decks", seen[seen.length - 1].hash || "(home)");
-    check("several steps point at something, with an arrow and a ring", pointed >= 4, pointed + " pointed");
+    /* THREE, not four, since Aug 2026 — and the step that stopped counting never drew a visible arrow.
+       Step 10 rings the whole games grid and the card sits INSIDE that ring, so the line was drawn
+       underneath the card and nothing of it reached the screen; `tourPlace` now declines to draw one at
+       all in that case (an arrow from a box to the box it is already in), so this counts arrows a reader
+       can actually see rather than `d` attributes that have been set. Verified against HEAD before the
+       number was moved: the two builds render step 10 identically. */
+    check("several steps point at something, with an arrow and a ring", pointed >= 3, pointed + " pointed");
     check("...and the ones with nothing to point at are illustrated instead", illustrated >= 2, illustrated + " illustrated");
     check("THE CARD NEVER LEAVES THE VIEWPORT", offScreen === 0, offScreen + " step(s) off screen");
     check("...nor does the button that advances it", nextOff === 0, nextOff + " step(s) with Next off screen");
@@ -395,27 +401,56 @@ const CARD = () => {
     check("the offer does not widen the page", w0 <= 390, w0 + "px");
     await page.click("#b-tour");
     await page.waitForTimeout(700);
-    let off = 0, wide = 0;
+    let off = 0, wide = 0, floating = 0, ringOff = 0, ringHidden = 0, rings = 0;
     for (let i = 0; i < 10; i++) {
       const st = await page.evaluate(() => {
         const c = document.querySelector(".tour-card");
         if (!c) return null;
         const r = c.getBoundingClientRect();
+        /* The ring is a path in a full-screen SVG with no viewBox, so its own user units ARE CSS pixels
+           and getBBox needs no conversion — the same fact tourPlace is written on. An empty `d` gives a
+           zero box, which is how "no ring on this step" is told from one that is drawn. */
+        const rg = document.querySelector(".tour-ring");
+        let box = null;
+        try { const b = rg.getBBox(); if (b.width > 1 && b.height > 1) box = b; } catch (e) {}
         return {
           fits: r.top >= 0 && r.bottom <= innerHeight + 1 && r.left >= 0 && r.right <= innerWidth + 1,
           docW: document.documentElement.scrollWidth,
           last: document.querySelector(".tour-next").textContent === "Done",
+          // DOCKED: the card's foot is at the foot of the screen, within the overlay's own padding
+          docked: innerHeight - r.bottom <= 20,
+          cardTop: r.top,
+          ring: box ? { x: box.x, y: box.y, w: box.width, h: box.height } : null,
+          vw: innerWidth, vh: innerHeight,
         };
       });
       if (!st) break;
       if (!st.fits) off++;
       if (st.docW > 390) wide++;
+      if (!st.docked) floating++;
+      if (st.ring) {
+        rings++;
+        if (st.ring.x < -1 || st.ring.y < -1 || st.ring.x + st.ring.w > st.vw + 1 || st.ring.y + st.ring.h > st.vh + 1) ringOff++;
+        if (st.ring.y >= st.cardTop) ringHidden++;
+      }
       if (st.last) break;
       await page.click(".tour-next");
       await page.waitForTimeout(600);
     }
     check("every step fits a 390px phone", off === 0, off + " step(s) overflowing");
     check("...and none of them widens the document", wide === 0, wide + " step(s) wider than the screen");
+    /* THE THREE THINGS THE PHONE FIX IS (Aug 2026, on a bug report that the walkthrough "doesn't display
+       properly" there). Each fails silently and each fails differently, so each is asserted on its own:
+         · the card is DOCKED to the foot of the screen. Centred, it takes half a small screen and the
+           nudge has nowhere to move it, so the target spent most of the tour underneath it;
+         · no ring runs OFF the screen. A target taller than the viewport used to draw a rectangle whose
+           four corners were all outside it, leaving two dashed rules down the edges — which reads as a
+           rendering fault rather than as a highlight;
+         · and no ring is drawn entirely BEHIND the card, which is the same failure seen from the reader's
+           side: something is being pointed at and none of it is in view. */
+    check("the walkthrough is docked to the foot of a phone screen", floating === 0, floating + " step(s) floating");
+    check("...and no ring runs off the screen", ringOff === 0, ringOff + " of " + rings + " ring(s) clipped");
+    check("...nor sits entirely behind the card", ringHidden === 0, ringHidden + " of " + rings + " ring(s) hidden");
     await page.close();
   }
 

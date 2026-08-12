@@ -1068,9 +1068,9 @@ function scrimCheck() {
         // corner rather than sitting on it, which is the whole of "a lip" as against "a button somebody
         // left there"
         lip: lip ? lip.textContent.trim() : "",
-        /* The lip shares a footer row with "+ New group" since Aug 2026 (on request), so it is the last
-           thing in `.rv-foot` and `.rv-foot` is the last thing in the group — which is the same claim as
-           before ("nothing is drawn below it"), one element deeper. */
+        /* The lip sits in a footer row of its own (`.rv-foot`, which it shared with "+ New group" until
+           that control was removed), so it is the last thing in that row and the row is the last thing in
+           the group — the same claim as before ("nothing is drawn below it"), one element deeper. */
         lipLast: !!(lip && grp && lip.parentElement && lip.parentElement.classList.contains("rv-foot") &&
                     lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
         lipInsetR: lip && grp ? Math.round(grp.getBoundingClientRect().right - lip.getBoundingClientRect().right) : 999,
@@ -1089,7 +1089,9 @@ function scrimCheck() {
           const s = document.querySelector("#chestSlot"), b = document.querySelector("#b-review");
           return !!(s && b && s.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
         })(),
-        newGroupInBanner: !!document.querySelector("#b-review .rv-newgroup, #b-review [data-newgroup]"),
+        // the group function left the daily study block altogether in Aug 2026 (on request) — it is not
+        // in the banner, and it is not under the deck list either
+        newGroupAnywhere: !!document.querySelector("#b-newgroup, .rv-newgroup, [data-newgroup]"),
         // a TAB, not another full-width banner — which is what it replaced
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
         /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
@@ -1145,7 +1147,7 @@ function scrimCheck() {
     check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
     check("the banner never counts chests: the notice is a slot above it instead",
       !h.chestChip && h.chestSlotAbove, JSON.stringify({ chip: h.chestChip, above: h.chestSlotAbove }));
-    check("...and \"+ New group\" is out of the banner, with the deck list it acts on", !h.newGroupInBanner);
+    check("...and the group function is gone from the daily study block entirely", !h.newGroupAnywhere);
     /* …at the RIGHT-HAND end of that edge, not the middle (Aug 2026, on request) — asserted in BOTH
        directions, since "somewhere near the right" is also true of a lip that has simply overflowed its
        group: it must be inset from the corner rather than flush with it, and plainly off centre. */
@@ -1576,7 +1578,7 @@ function scrimCheck() {
         subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
         mgHead: head ? head.textContent.trim() : "",
         lip: lip ? lip.textContent.trim() : "",
-        // …one element deeper since the lip shares `.rv-foot` with "+ New group" — see the phone block above
+        // …one element deeper since the lip sits inside `.rv-foot` — see the phone block above
         lipLast: !!(lip && grp && lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
         about: !!document.querySelector(".home-about"),
         // Collections left the top bar with the tile row; the lip is the only way to it now

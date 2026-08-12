@@ -829,18 +829,36 @@ const SETTINGS = {
     await page.keyboard.press("Escape");
     await page.waitForTimeout(300);
 
-    // make a group. The control left the banner in Aug 2026 (on request) for the bottom left of the deck
-    // list, and is a real button there rather than a role="button" span nested inside the banner.
-    await page.click("#b-newgroup");
-    await page.waitForTimeout(300);
-    await page.fill(".inline-prompt input", "Exam revision");
-    await page.click(".inline-prompt .ip-ok");
-    await page.waitForTimeout(700);
+    /* THE WAY TO MAKE A GROUP IS GONE (Aug 2026, on request: "remove the group function from the daily
+       study/active decks banner"). It was `#b-newgroup`, at the bottom left of this list; both halves are
+       asserted, because they fail in opposite directions and either alone would pass on a half-removal —
+       the control must not be anywhere on the page, and a group a reader ALREADY MADE must still work.
+       That second half is why this section did not go with the button: everything below it — the header
+       row, the colour, dragging a deck in, ungrouping — is what lets such a reader read their own list and
+       take it apart with their decks kept, and none of it is reachable from anywhere else to be tested.
+       So the group is seeded into the save rather than created through the UI. */
+    check("the way to make a group is gone from the deck list",
+      await page.evaluate(() => !document.querySelector("#b-newgroup, .rv-newgroup")));
+    /* A SECOND addInitScript, not a live localStorage write, and the reason is this file's own standing
+       warning one section up: `newPage` re-seeds `folio_v1` from `state` through an initScript on EVERY
+       load, so anything written to the store by hand is put back the moment the page reloads. A second
+       initScript runs after the first and merges on top of it, which survives the re-seed.
+       It is added HERE rather than passed to `newPage` because an empty group is still a header row, and
+       the assertion above about which rows are headers would have had one more to account for. */
+    await page.addInitScript(() => {
+      try {
+        const st = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        st.deckGroups = Object.assign({}, st.deckGroups, { "g:seeded01": { title: "Exam revision" } });
+        localStorage.setItem("folio_v1", JSON.stringify(st));
+      } catch (e) {}
+    });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1200);
     const made = await page.evaluate(() => {
       const g = [...document.querySelectorAll(".active-deck")].find((r) => r.dataset.drag.slice(0, 2) === "g:");
       return g ? { title: g.querySelector(".dk-title").textContent.trim(), header: g.classList.contains("deck-group"), depth: g.dataset.depth } : null;
     });
-    check("a group can be made from under the deck list, and arrives as a header at the top level",
+    check("a group a reader already had is still drawn, as a header at the top level",
       !!made && made.title === "Exam revision" && made.header && made.depth === "0", JSON.stringify(made));
 
     /* Drag a deck onto the MIDDLE of the group. The middle band means "inside"; the edges still mean

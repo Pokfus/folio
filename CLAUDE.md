@@ -4506,6 +4506,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       the favourites/rest split SURVIVES filtering, so the shelf narrows rather than rearranging itself.
       Nothing matching draws `.lib-none` and says so; an empty shelf reads as a page that failed to draw.
       Guarded by `test-library.js`, which opens a book from a banner the search painted.
+    · **…AND HOW MANY BOOKS ARE ON IT** (`countLine` / `#bkCount` / `.lib-count`, Aug 2026, on request:
+      "somewhere at the top of the library page it should mention how many books are listed, with current
+      filters on"). Beside the search box that changes it, and repainted by that box's own handler for the
+      reason the shelf is — a `render()` per keystroke takes the caret out of the field being typed in.
+      Two things it does deliberately. It reads the **same `hits` the shelf is built from** rather than
+      counting the banners afterwards, so the line and the list cannot come to disagree about what is on
+      screen. And while a search is narrowing it says **both** numbers ("3 of 41 books"), because "3 books"
+      over a filtered shelf reads as a library of three; unfiltered it is the one number, "41 of 41" being
+      a sum nobody asked for. It is `--ink-faint`, so it joins the quiet tokens `body.hc` re-tones and
+      `test-a11y.js` covers it with no change of its own.
     · **FAVOURITES SIT IN A SECTION OF THEIR OWN AT THE TOP** (`S.bookFavs`, `isBookFav` /
       `toggleBookFav`, `.lib-sec` / `.lib-sec-head` / `.bk-star`, Aug 2026, on request). The register is
       **id → when it was starred**, in `defaultState` AND `PROGRESS_FIELDS`, for the reason `reading` is:
@@ -5223,18 +5233,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **GROUPS — the reader's own containers in the review list** (`S.deckGroups` / `S.deckNest`, `GROUP_PREFIX`
     / `isGroupId` / `groupCreate` / `groupDelete` / `groupTitle` / `groupColor` / `setNestParent` /
     `nestChildren` / `nestForget` / `nestWouldLoop` / `repaintReviewHues`; `.deck-group` / `.dk-into` /
-    `.rv-newgroup` / `.rv-foot` / `.dm-swatch` in styles.css. Aug 2026, on request). A group is made from
-    **"+ New group" at the bottom left of the DECK LIST**, holds decks dragged into it, folds with a chevron,
-    can be renamed, can be given a colour every deck inside takes, and studies everything under it.
-    **THAT CONTROL STOOD INSIDE THE DAILY-STUDY BANNER FOR A FORTNIGHT AND MOVED OUT ON REQUEST** (Aug 2026):
-    a group is made out of the rows BELOW the banner, so the control belongs at the end of those rows rather
-    than in the block above them. It shares a footer line (`.rv-foot`) with `.rv-lip`, which hangs off the
-    group's bottom edge at the other end — a block stacked between the two would take that edge away from the
-    lip, which is why they are one row and not two — and the lip is held right by `margin-inline-start:auto`
-    rather than by `justify-content:space-between`, which on a one-item row (no decks yet, so no "+ New
-    group") would put the lip at the START. Out of the banner it is also a real `<button>` again, where a
-    control inside a button had to be a `role="button"` span with its own keydown handler that the banner's
-    click handler deferred to. **AN ADDED
+    `.rv-foot` / `.dm-swatch` in styles.css. Aug 2026, on request). A group holds decks dragged into it,
+    folds with a chevron, can be renamed, can be given a colour every deck inside takes, and studies
+    everything under it.
+    **⚠ NO NEW GROUP CAN BE MADE — THE FUNCTION WAS REMOVED FROM THE DAILY STUDY BLOCK** (Aug 2026, on
+    request: "remove the group function from the daily study/active decks banner"). "+ New group" stood
+    inside the banner, then at the bottom left of the DECK LIST for a fortnight, and is now gone along with
+    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives holding the lip alone, since that
+    row is what keeps `.rv-lip` against the review group's own bottom edge.
+    **WHAT DELIBERATELY STAYS is everything a reader who ALREADY made one needs**: the group row in the
+    list, its hue, dragging a deck in, and Rename / Colour / Ungroup in its own options sheet. Deleting
+    that code would leave such a reader a container on their home page that nothing could open — and there
+    is no dead UI in keeping it, because a group row exists only where a group does and nobody can make a
+    new one. If the stored groups should be dissolved too, that is a second decision and has not been
+    taken. **The rest of this bullet describes a feature that can no longer be created**, and is kept
+    because it still runs for anyone holding a group. **AN ADDED
     COLLECTION IS ONE TOO** — that is the request's own reasoning and it decided the shape of the rest: a
     collection holds no cards itself, only the decks inside it do, so a root collection with rows under it is
     drawn as a group header rather than as a deck row.
@@ -6707,6 +6720,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   was a fixed height with `object-fit:cover`, which gave every popup one silhouette at the cost of cutting the
   sides off anything wider than half the popup — and a map, a diagram or a wide landscape is exactly the kind
   of picture a glossary term carries. A tall picture is now narrow and a wide one short, and both are whole.
+  **THE WORDS WAIT FOR THE PICTURE** (`GLOSS_IMG_WAIT` / the `imgwait` block in `openGlossWin` /
+  `.gloss-win[data-imgwait]`, Aug 2026, on a bug report: "the text loads before the image, so a split second
+  after opening we see the text jump to make space for the picture"). That is exactly what a FLOAT of no
+  intrinsic size does — the description lays out across the whole popup and re-wraps the instant the file
+  arrives — and **nothing can reserve the right box in advance, because the box IS the picture's aspect
+  ratio and no part of the entry records it**. So the body is held until the picture's size is known and
+  released complete. Three things keep that from being a stall: a picture already in the browser's cache
+  resolves SYNCHRONOUSLY (`img.complete`), which is the common case and where the attribute never reaches
+  the DOM at all; the title bar is outside the held region, so the popup still answers the tap at once; and
+  `GLOSS_IMG_WAIT` is a ceiling past which the words are worth more than the alignment. **The desktop
+  placement waits with it** — `positionGlossBeside` measures the window, and measuring it before the
+  picture has a size puts a too-short box on screen and then grows it, which is the same jump in another
+  coat. A VIDEO needs none of this: its 16:9 box is stated in the stylesheet, so the slot has a size from
+  the first frame.
   The **home page's Gloss-of-the-day tile**
   shows the same image to the right of the copy, but as a **profile-picture plate** — a 3:4 frame running the
   tile's full height and **bleeding to its top, bottom and right edges** (negative margins cancelling the
@@ -7056,6 +7083,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     between two positions, subtracting the shift we asked for does not recover the centred box, and every
     later step shifts an already-shifted card until it walks off the side of the screen taking its own Next
     button with it. That shipped for an hour and is invisible except as "the tour stopped working".
+  · **…AND ON A PHONE IT IS DOCKED TO THE FOOT OF THE SCREEN INSTEAD** (`dock` in `tourPlace`, `tourReveal`,
+    `.folio-tour{align-items:flex-end}` in the ≤640px block; Aug 2026, on a bug report: "on mobile the
+    first-time tutorial doesn't display properly"). Centred, the card takes **half to two thirds of a 640px
+    screen** — measured, 47–66% across the ten steps — and the nudge above has nowhere to move it to, so on
+    most steps the thing being described ended up UNDERNEATH it and the step pointed at something the
+    reader could not see. Docked, the whole upper half is free and the target is scrolled into it.
+    Three things about it. **The layout is a STYLESHEET decision read back in JS**, not a breakpoint written
+    twice: `tourPlace` asks the overlay for its computed `align-items` and takes its base rect from that,
+    which is also why the nudge search is simply skipped there. **`tourReveal` replaces the bare
+    `scrollIntoView({block:"center"})`**, because the centre of the viewport is exactly where the docked
+    card is — a target is scrolled into the band ABOVE it instead, and a target too tall for that band is
+    left with its top in view. And **nothing above the breakpoint changes**: there the card is centred, the
+    clamp below never bites and the nudge has room to work.
+  · **A RING IS CLAMPED TO THE SCREEN, AND DROPPED WHERE IT WOULD RING THE SCREEN ITSELF** (same batch, same
+    report). On a desktop every target fits inside the viewport and the dashed rectangle reads as a
+    highlight. On a 360px phone the daily-study block IS the page: all four of the ring's corners fell
+    outside the screen and what was left was **two dashed vertical rules down the edges**, which reads as a
+    rendering fault rather than as "look at this". So the box is clamped into the viewport (a target that
+    merely overflows is still marked, honestly, by the part the reader can see), and if the CLAMPED box
+    still covers more than 60% of the screen nothing is drawn at all — the step's own words are what it has
+    to say. **The ARROW goes with it**, and additionally whenever the card ends up inside the ring: an arrow
+    from a box to the box it is already in is the orange stub this used to draw across the middle of a step.
   · **THE STUDY STEPS ARE ILLUSTRATED, NOT PERFORMED.** Dealing a real card would hijack the reader's
     schedule, and the grade bar is pinned to the bottom of the viewport under the scrim — so the card, its
     blank and the four grades are drawn inside the popup, **with the four intervals read from the real
@@ -7885,6 +7934,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     links and its picture is a `role="button"` figure, and drawing over a word means drawing over it.
     (The grade bar itself never needed this — it is `z-index:60` against the canvas's 40, in the root
     stacking context — but it is asserted anyway, since nothing on screen says which of them is which.)
+  · **…AND A GLOSSARY TERM IS A THIRD KIND OF TARGET, DECIDED AT POINTERUP** (`TIP_SEL` / `tipUnder` /
+    `pendTip` / `beginStroke`, Aug 2026, on request: "while using a stylus, card buttons are still
+    clickable, as they should be; gloss terms should also be clickable"). It could not simply join
+    `CTL_SEL`, and the bullet above says why: a real control claims the whole gesture at POINTERDOWN, and a
+    card's background is dense with glossary links — so half the background would have stopped taking ink
+    at all. So a press over a `.ttip` begins NOTHING; the first movement past `WB_TAP_SLOP` turns it into
+    an ordinary stroke **that starts where the press did** (hence `beginStroke(at)`, lifted out of
+    pointerdown — without the original point every line drawn through a linked word loses its first few
+    pixels); and a press that never moves opens the term. Underlining a word still underlines it, and a tap
+    on it still asks what it means. **Nothing is drawn and then taken back**, which is the whole reason the
+    stroke is deferred rather than undone — a dot cancelled out of a bitmap backend is a repair, and this
+    needs none. In STYLUS mode a finger never draws, so there the term is simply one more thing
+    `passCtl` can hold — and the pointerup test had to become `(controlUnder(e) || tipUnder(e)) === ctl`,
+    since `controlUnder` alone can never match a `.ttip` and would have dropped every one of those taps.
   · **A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING** (`WB.stylusSeen` / `WB.penOnly` /
     `wbPenOnly()` / `wbNoteStylus` / `wbApplyStylusMode` / `.draw-canvas.wb-pen-only`, Aug 2026, on request —
     Anki's behaviour). With the marker down the canvas covers the whole visible page, so on a tablet a
@@ -9289,6 +9352,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   *Twenty-four Filial Exemplars*).
 - **Centuries and millennia are always numbered** ("11th century", "2nd millennium BCE" — never "eleventh century"),
   whatever the ordinal.
+- **Eras are BCE and CE, and NEVER BC or AD** (Aug 2026, on request: "ensure the use of BCE and CE always … across
+  the whole website"). It reaches everywhere a reader can see one — a card's question, its background and its date
+  line, a glossary description and its date line, an artefact, an Atlas country description, **and the text a
+  picture carries** (`image.title` / `alt` / `desc`), which is where most of them were: those strings come from
+  Wikimedia Commons and arrive saying "c. 2700 BC", and a caption is as much the site as a sentence is. The
+  numeral LEADS, so "AD 301" is "301 CE" and not "CE 301". Enforced by **rule 4 of
+  `node .claude/check-style.js`** — which, unlike the other three, also runs over `artefacts.js` and
+  `countries.js` — so run it after any content batch. **Two things are deliberately out of scope and must stay
+  out**: a **citation** (a published title is the author's, and `--fix` renamed six real works the one time that
+  guard was missing — the mask is the whole reason rule 4 can be automatic at all), and a **book in the Library**,
+  whose text is somebody's published translation and is transcribed rather than edited. The DOTTED forms
+  (`B.C.` / `A.D.`) are report-only for a third reason as well as those two: fixing one means deciding whether
+  the closing period was the abbreviation's or the sentence's, which is a judgement by eye. And the rule is
+  anchored to a digit or to a unit word (`century`, `millennium`, `cal`, `cen.`) rather than matching a bare
+  `\bAD\b` — "96.AD.258" is the Getty's accession number for a votive head and "A. D. Godley" translated the
+  Histories, and a blanket sweep renames both.
 - **Literature titles are italicised** (`<i>Bamboo Annals</i>`) — except in plain-text fields (`answerText`) and in
   glossary alias/title keys, which must stay unstyled or matching breaks. Person-vs-book names (Zhuangzi, Mencius,
   Laozi…) are italicised only when clearly the text — "the <i>Zhuangzi</i>" — never the person.
@@ -9329,6 +9408,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
   exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
   edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
+  It reads FOUR files now: rules 1–3 over `data.js` + `glossary.js` as before, and **rule 4 (BCE/CE) over those
+  plus `artefacts.js` and `countries.js`**, which are prose a reader reads and were the last two files still
+  saying "1500 BC". Two masks are what make `--fix` safe to run at all and neither may be dropped: the
+  CITATIONS (three spellings now — a card's `"sources":[…]`, glossary.js's whole `GLOSSARY_SOURCES` block, and
+  artefacts.js's unquoted `sources: [`), and any **URL**, since a Commons file really is called
+  `…c_2700_BC_(10465349433).jpg` and renaming it in an href breaks the picture.
 
 **FOLIO IS A HISTORY SITE, NOT AN ARCHAEOLOGY SITE (Aug 2026, on request).** A card is about the PAST it
 names, not about the people who dug it up: the excavation is how we know, not what the reader came for.

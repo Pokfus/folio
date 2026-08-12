@@ -2773,6 +2773,11 @@
   /* ---------- glossary windows (desktop: draggable, up to 4; mobile: a single centred window) ---------- */
   const glossWins = [];
   const GLOSS_Z_BASE = 8000, GLOSS_Z_CAP = 9400;   // stays below .img-viewer (9800) — see focusGlossWin
+  /* How long the body of a popup waits for its picture's size before giving up and laying the words out
+     without it — see the `imgwait` block in openGlossWin. A ceiling, not a delay: a cached picture takes
+     none of it, and this is the point past which a reader waiting for words is worse served than a reader
+     watching them reflow once. */
+  const GLOSS_IMG_WAIT = 420;
   let glossZ = GLOSS_Z_BASE;
   let glossGlobalsWired = false;
   const glossMobileMQ = window.matchMedia("(max-width: 640px)");
@@ -3123,6 +3128,40 @@
     // the works behind the description, as a compact fold under it. It sits AFTER the floated image slot
     // in the flow, so it clears the picture rather than wrapping beside it.
     win.querySelector(".gloss-srcslot").innerHTML = sourcesHTML(glossSources(key), { compact: true });
+    /* THE PICTURE AND THE WORDS ARRIVE TOGETHER (Aug 2026, on a bug report: "the text loads before the
+       image, so a split second after opening we see the text jump to make space for the picture").
+       The slot is FLOATED and the picture is sized by its own intrinsic dimensions, so until it loads the
+       float is zero wide and the description is laid out across the FULL width — then laid out again
+       around it. Nothing can reserve the right box in advance, because the box IS the picture's aspect
+       ratio and no part of the entry records it; and a video needs none of this, its own 16:9 box being
+       stated in the stylesheet.
+       So the body is held for as long as it takes the picture's size to be known, and released complete.
+       Three things make that cheap rather than a stall. A picture already in the browser's cache resolves
+       SYNCHRONOUSLY (`img.complete`), which is the common case — a term re-opened, or one whose
+       illustration is already on the card behind the popup — and there the attribute never reaches the DOM
+       at all. The title bar is outside the held region, so the popup still answers the tap at once. And
+       GLOSS_IMG_WAIT is a ceiling: past it the words are worth more than the alignment, and what the
+       reader gets is the ordinary reflow they were getting before.
+       The desktop placement waits with it: `positionGlossBeside` measures the window, and measuring it
+       before the picture has a size puts a too-short box on the screen and then grows it — which is the
+       same jump wearing a different coat. */
+    {
+      const pic = win.querySelector(".gloss-imgslot img");
+      const ready = !pic || (pic.complete && pic.naturalWidth);
+      if (!ready) {
+        win.dataset.imgwait = "1";
+        let done = false;
+        const release = () => {
+          if (done || !win.isConnected) return;
+          done = true;
+          delete win.dataset.imgwait;
+          if (!mobile) { if (pos && isFinite(pos.left) && isFinite(pos.top)) clampGlossWin(win); else positionGlossBeside(win, triggerEl); }
+        };
+        pic.addEventListener("load", release);
+        pic.addEventListener("error", release);
+        setTimeout(release, GLOSS_IMG_WAIT);
+      }
+    }
     document.body.appendChild(win);
     setupTooltips(win.querySelector(".gloss-body")); // wire nested glossary terms
     wireFootnotes(win.querySelector(".gloss-body")); // and the description's footnote markers
@@ -9697,7 +9736,7 @@
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0972.phi001/",
       origLang: "la",
-      origName: "Latina",
+      origName: "Latin",
       /* THE CHAPTER IS THE SECTION, because the section is the whole of the citation. A passage of
          the Satyricon is "Satyricon 48" and nothing else: both files state 141 section milestones
          and carry no book, part or chapter above them at all, and each declares as much in its own
@@ -9751,7 +9790,7 @@
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
       origLang: "sa",
-      origName: "संस्कृतम्",
+      origName: "Sanskrit",
       /* THE CHAPTER IS THE HYMN AND THE SECTION IS THE VERSE, read straight off the citation: a
          passage of the Rigveda is "RV 10.129.1" — mandala, hymn, verse — in every language and every
          reference work, so the hymn is what a reader looks up and the verse is the finest thing both
@@ -11194,15 +11233,15 @@
     if (n && !n.parentId) return true;
     return nestChildren(id).length > 0;
   }
-  function promptNewGroup() {
-    inlinePrompt("Name this group — decks you drag into it are studied together.", "New group", (val) => {
-      const t2 = String(val || "").trim();
-      if (!t2) { toast("Group not created — it needs a name"); return; }
-      groupCreate(t2);
-      render();
-      toast("Group created — drag decks into it");
-    });
-  }
+  /* `promptNewGroup` stood here and is GONE (Aug 2026, on request: "remove the group function from the
+     daily study/active decks banner"). With it goes the "+ New group" control from the home page's deck
+     list — which was the only way to make one — so no new group can be created.
+     What is deliberately NOT gone is the machinery underneath (groupTitle / groupColor / groupDelete, the
+     group row in the list, and Rename / Colour / Ungroup in a group's own options sheet). A reader who
+     made a group before today still has it, and every one of those is what lets them read it, recolour it
+     or take it apart with their decks kept — where deleting the code would have left a container on their
+     home page that nothing could open. There is no dead UI in it: a group row exists only where a group
+     does, and no reader can make a new one. */
   function openDeckMenu(id) {
     const isReview = id === REVIEW_ENTRY;
     const isGroup = isGroupId(id);
@@ -12283,10 +12322,14 @@
     {
       route: "decks",
       title: "Adding a deck",
+      /* This step told the reader that "your Folio level decides how many decks may sit in the review at
+         once — one more with every level" until Aug 2026, and that cap was REMOVED (see the note beside
+         maxActiveDecks): a level buys an artefact chest now, and there is no limit on added decks at all.
+         A walkthrough teaching a rule the site does not have is worse than one that teaches nothing. */
       body: "Here are the collections. The <b>+</b> beside one adds the whole thing to your daily study; open " +
-        "it with the chevron to add a single deck inside it instead. Pressing + again takes it back out.<p>Your " +
-        "Folio level decides how many decks may sit in the review at once — one more with every level, so the " +
-        "pile grows as you do.</p>",
+        "it with the chevron to add a single deck inside it instead. Pressing + again takes it back out.<p>Add " +
+        "as many as you like — the daily limits decide how much of them you actually meet in a day, not the " +
+        "number of decks.</p>",
       target: [".collection-add", ".collection-actions", ".collection-list"],
     },
     {
@@ -12422,15 +12465,34 @@
     ov.querySelector(".tour-next").textContent = last ? "Done" : "Next";
     ov.querySelector(".tour-skip").textContent = last ? "Close" : "Skip";
     // a target the reader cannot see is a target the arrow cannot usefully point at
-    const t = tourTarget();
-    if (t && t.scrollIntoView) {
-      const r = t.getBoundingClientRect();
-      if (r.top < 0 || r.bottom > innerHeight) t.scrollIntoView({ block: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
-    }
+    tourReveal(tourTarget());
     tourPlace();
     requestAnimationFrame(() => { tourPlace(); if (first) ov.querySelector(".tour-card").focus(); });
     // …and again once a smooth scroll has settled, since the arrow is drawn at the target's painted position
     setTimeout(tourPlace, 260);
+  }
+  /* Bring the step's target somewhere the reader can actually see it — which is not the same place on the
+     two layouts, and that is the whole of this function. Centred (a desktop), the middle of the viewport is
+     right and `scrollIntoView({block:"center"})` says so in one line. DOCKED (a phone), the middle of the
+     viewport is behind the card: the free band is everything ABOVE it, so the target is scrolled into that
+     band instead — which is what makes the docked layout worth anything, since a card at the foot of the
+     screen with its target still underneath it is the fault it was meant to fix.
+     A target too tall for the band is left with its top in view: the ring is dropped for it anyway (see
+     tourPlace), and the alternative is scrolling to the middle of something the reader cannot take in. */
+  function tourReveal(t) {
+    if (!t || !tourEl) return;
+    const smooth = prefersReducedMotion() ? "auto" : "smooth";
+    const ov = tourEl, cardEl = ov.querySelector(".tour-card"), ovCS = getComputedStyle(ov);
+    const r = t.getBoundingClientRect();
+    if (ovCS.alignItems !== "flex-end") {
+      if (t.scrollIntoView && (r.top < 0 || r.bottom > innerHeight)) t.scrollIntoView({ block: "center", behavior: smooth });
+      return;
+    }
+    const free = innerHeight - (parseFloat(ovCS.paddingBottom) || 0) - cardEl.offsetHeight - 12;
+    if (r.top >= 12 && r.bottom <= free) return;                       // already in the clear
+    const want = r.height <= free - 12 ? Math.max(12, (free - r.height) / 2) : 12;
+    try { window.scrollBy({ top: Math.round(r.top - want), behavior: smooth }); }
+    catch (e) { window.scrollBy(0, Math.round(r.top - want)); }
   }
   function tourTarget() {
     const st = TOUR_STEPS[tourAt];
@@ -12454,13 +12516,41 @@
        transform can touch, and .folio-tour centres its child in the viewport, so the centred box is
        arithmetic and cannot drift. */
     const cw = cardEl.offsetWidth, ch = cardEl.offsetHeight;
-    let card = { left: Math.round((innerWidth - cw) / 2), top: Math.round((innerHeight - ch) / 2), width: cw, height: ch };
+    /* …and on a phone the card is DOCKED to the foot of the screen rather than centred, which is a
+       stylesheet decision read back here rather than a breakpoint repeated in JS: `.folio-tour` sets
+       `align-items:flex-end` below 640px and nothing else changes. Centred, the card takes half a small
+       screen and there is nowhere for the nudge to move it, so the target spent most of the walkthrough
+       underneath it. */
+    const ovCS = getComputedStyle(ov);
+    const dock = ovCS.alignItems === "flex-end";
+    const baseTop = dock
+      ? Math.round(innerHeight - (parseFloat(ovCS.paddingBottom) || 0) - ch)
+      : Math.round((innerHeight - ch) / 2);
+    let card = { left: Math.round((innerWidth - cw) / 2), top: baseTop, width: cw, height: ch };
     const t = tourTarget();
     const centre = () => { if (_tourShift[0] || _tourShift[1]) { _tourShift = [0, 0]; cardEl.style.transform = ""; } };
     const clear = () => { line.setAttribute("d", ""); head.setAttribute("d", ""); ring.setAttribute("d", ""); centre(); };
     if (!t) return clear();
     const r = t.getBoundingClientRect();
     if (!r.width || !r.height || r.bottom < 0 || r.top > innerHeight) return clear();
+    /* THE RING IS CLAMPED TO WHAT IS ACTUALLY ON SCREEN, AND DROPPED WHERE IT WOULD RING THE SCREEN ITSELF
+       (Aug 2026, on a bug report: on a phone the walkthrough "doesn't display properly"). On a desktop
+       every target fits inside the viewport and the dashed rectangle reads as a highlight. On a 360px
+       phone the daily-study block IS the page: the ring's four corners all fall outside the screen and
+       what is left of it is two dashed vertical rules down the edges, which reads as a rendering fault
+       rather than as "look at this". Two rules, and neither of them changes a desktop, where the clamp
+       never bites and the fraction is never reached:
+         · the box is clamped into the viewport, so a ring always has its corners and always looks like a
+           ring — a target that merely overflows a little is still marked, and honestly, since what is
+           drawn is the part the reader can see;
+         · and if the CLAMPED box still covers most of the screen there is nothing to point at, so no ring
+           and no arrow are drawn at all. A dashed rectangle around everything is not a highlight, and the
+           step's own words are what it has to say. */
+    const pad = 7, rad = 11, edge = 10;
+    const x = Math.max(edge, r.left - pad), y = Math.max(edge, r.top - pad);
+    const w = Math.min(innerWidth - edge, r.right + pad) - x, h = Math.min(innerHeight - edge, r.bottom + pad) - y;
+    if (w < 26 || h < 26) return clear();                                   // clipped to nothing worth drawing
+    if (w * h > innerWidth * innerHeight * 0.6) return clear();             // a ring round the whole screen
     /* THE CARD MOVES OUT OF ITS TARGET'S WAY, and only that far. A centred popup lands on top of whatever
        it is describing about half the time — the daily-study banner is most of the home page — and an
        arrow that starts and ends inside the same box is a stub pointing at nothing. So four placements are
@@ -12472,9 +12562,12 @@
       /* The gap has to leave room for an ARROW, not merely for daylight: the line starts 10px outside the
          card and stops 8px outside the ring, so a 26px gap draws an 8px stub the eye reads as a smudge.
          The roomy gap is tried first and a tight one second — on a phone, or against a target that fills
-         most of the page, the roomy one simply will not fit and half an arrow beats none. */
+         most of the page, the roomy one simply will not fit and half an arrow beats none.
+         …and there is nothing to search when the card is DOCKED: it is against the foot of the screen on
+         purpose, the band above it is the room the target is scrolled into (tourReveal), and every shift
+         available to it would take that room away again. */
       let dx = 0, dy = 0;
-      if (r.bottom + 20 > card.top && r.top - 20 < cB && r.right + 20 > card.left && r.left - 20 < cR) {
+      if (!dock && r.bottom + 20 > card.top && r.top - 20 < cB && r.right + 20 > card.left && r.left - 20 < cR) {
         for (const gap of [76, 40]) {
           const fit = [
             [0, r.bottom + gap - card.top], [0, r.top - gap - cB],
@@ -12493,9 +12586,8 @@
         card = { left: card.left + dx, top: card.top + dy, width: card.width, height: card.height };
       } else centre();
     }
-    // the ring: a rounded rectangle a little outside the target, drawn as a path so one element does both jobs
-    const pad = 7, rad = 11;
-    const x = r.left - pad, y = r.top - pad, w = r.width + pad * 2, h = r.height + pad * 2;
+    // the ring: a rounded rectangle a little outside the target, drawn as a path so one element does both
+    // jobs. Its box was clamped into the viewport above.
     const rr = Math.min(rad, w / 2, h / 2);
     ring.setAttribute("d",
       "M" + (x + rr) + " " + y + "h" + (w - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + rr + " " + rr +
@@ -12503,7 +12595,14 @@
       "h" + -(w - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + -rr + " " + -rr +
       "v" + -(h - rr * 2) + "a" + rr + " " + rr + " 0 0 1 " + rr + " " + -rr + "z");
     const cx = card.left + card.width / 2, cy = card.top + card.height / 2;
-    const tx = r.left + r.width / 2, ty = r.top + r.height / 2;
+    const tx = x + w / 2, ty = y + h / 2;
+    /* NO ARROW OUT OF A CARD THAT IS INSIDE THE RING. The nudge above moves the card clear where there is
+       anywhere to move it to; on a narrow screen there often is not, and an arrow from a box to the box it
+       is already sitting in is the orange stub this used to draw across the middle of the step. The ring is
+       the whole signal then, which is what it is for. */
+    if (card.left < x + w && card.left + card.width > x && card.top < y + h && card.top + card.height > y) {
+      line.setAttribute("d", ""); head.setAttribute("d", ""); return;
+    }
     let ux = tx - cx, uy = ty - cy;
     const len = Math.hypot(ux, uy);
     if (len < 1) { line.setAttribute("d", ""); head.setAttribute("d", ""); return; }
@@ -13579,14 +13678,28 @@
        background is full of glossary links and its picture is a role="button" figure, and the reader
        drawing over a word means to draw over it, not to open it. */
     const CTL_SEL = "button, a[href], input, select, textarea, summary";
-    const controlUnder = (e) => {
+    /* A GLOSSARY TERM IS A TAP-ONLY TARGET (Aug 2026, on request: "while using a stylus, card buttons are
+       still clickable, as they should be; gloss terms should also be clickable"). It cannot join CTL_SEL,
+       and the note above says why: a card's background is DENSE with glossary links, and a real control
+       claims the whole gesture on pointerdown, so a stroke could not be started on any of those words at
+       all — half the background would stop taking ink. So it is a third kind of target, decided at
+       pointerUP rather than at pointerdown: a press over a term begins nothing, the first movement past
+       WB_TAP_SLOP turns it into an ordinary stroke that starts where the press did (so nothing is lost by
+       the wait), and a press that never moves opens the term. Underlining a word still underlines it; a
+       tap on it still asks what it means. */
+    const TIP_SEL = ".ttip";
+    const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
       const el = document.elementFromPoint(e.clientX, e.clientY);
       canvas.style.pointerEvents = prev;
-      const ctl = el && el.closest ? el.closest(CTL_SEL) : null;
+      const ctl = el && el.closest ? el.closest(sel) : null;
       return ctl && ctl !== canvas ? ctl : null;
     };
+    const controlUnder = (e) => hitUnder(e, CTL_SEL);
+    /* …and a term INSIDE a control is that control's (a gloss link cannot be, but the test costs nothing
+       and keeps the two kinds from both claiming one press). */
+    const tipUnder = (e) => (hitUnder(e, CTL_SEL) ? null : hitUnder(e, TIP_SEL));
     /* ---- the finger's scroll, performed rather than permitted (stylus mode) ----
        See wbApplyStylusMode for why CSS cannot do this. `scrollerUnder` finds what the finger is actually
        over — the document under a card, but a gloss popup's body or the Atlas panel's columns are their own
@@ -13625,7 +13738,20 @@
       };
       panRAF = requestAnimationFrame(step);
     };
-    let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null;
+    let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null, pendTip = null;
+    /* The stroke's own opening, lifted out of pointerdown because a press over a glossary term defers it
+       until the pointer has moved — and it must then begin where the PRESS was, not where the pointer had
+       got to by the time we decided. `at` is that original point. */
+    const beginStroke = (at) => {
+      WB.drawing = true; WB.last = at;
+      strokePts = [WB.last];   // the stroke as a list of points — only read by a vector backend (WB.onInk)
+      if (WB.mode === "hl") {
+        WB.hlPts = [WB.last];
+        WB.backup = document.createElement("canvas");
+        WB.backup.width = canvas.width; WB.backup.height = canvas.height;
+        if (canvas.width && canvas.height) WB.backup.getContext("2d").drawImage(canvas, 0, 0);
+      }
+    };
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
@@ -13636,7 +13762,8 @@
          pointerup if the finger is still on it. */
       if (wbPenOnly() && e.pointerType === "touch") {
         panStop();                                    // a second finger down mid-fling catches the page, as a scroller does
-        passCtl = controlUnder(e); passScroll = true;
+        // a finger here never draws, so a glossary term is simply one more thing it can tap
+        passCtl = controlUnder(e) || tipUnder(e); passScroll = true;
         panEl = scrollerUnder(e); panLast = e.clientY; panAt = e.timeStamp || performance.now(); panV = 0;
         try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
         e.preventDefault();                           // no compatibility click — pointerup activates the control itself
@@ -13645,14 +13772,9 @@
       passScroll = false;
       passCtl = controlUnder(e);
       if (passCtl) { e.preventDefault(); return; }   // a button under the ink: this press is its, not a stroke
-      WB.drawing = true; WB.last = posOf(e);
-      strokePts = [WB.last];   // the stroke as a list of points — only read by a vector backend (WB.onInk)
-      if (WB.mode === "hl") {
-        WB.hlPts = [WB.last];
-        WB.backup = document.createElement("canvas");
-        WB.backup.width = canvas.width; WB.backup.height = canvas.height;
-        if (canvas.width && canvas.height) WB.backup.getContext("2d").drawImage(canvas, 0, 0);
-      }
+      // a glossary term: hold the stroke back until we know whether this is a tap or a line (see TIP_SEL)
+      pendTip = tipUnder(e);
+      if (!pendTip) beginStroke(posOf(e));
       try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
       e.preventDefault();
     });
@@ -13664,6 +13786,14 @@
         if (dt > 0) panV = dy / dt;   // px/ms, the last sample only — a mean lags the flick the reader just made
         panLast = e.clientY; panAt = now;
         return;
+      }
+      /* the press began on a glossary term and has now moved: it is a stroke after all, and it starts
+         where the finger or pen first went down rather than here — otherwise every line drawn through a
+         linked word would be missing its first few pixels. */
+      if (pendTip && (Math.abs(e.clientX - sx) > WB_TAP_SLOP || Math.abs(e.clientY - sy) > WB_TAP_SLOP)) {
+        const r = canvas.getBoundingClientRect();
+        pendTip = null;
+        beginStroke({ x: sx - r.left, y: sy - r.top });
       }
       if (!WB.enabled || !WB.drawing) return;
       WB.dirtied = true;   // an actual stroke happened → snapshot it on pointerup (for undo)
@@ -13708,8 +13838,12 @@
       else wbSnapCard();
     };
     canvas.addEventListener("pointerup", (e) => {
-      const ctl = passCtl, scrolled = passScroll; passCtl = null; passScroll = false;
+      const ctl = passCtl, scrolled = passScroll, tip = pendTip;
+      passCtl = null; passScroll = false; pendTip = null;
       if (scrolled) panFling();
+      /* a press on a glossary term that never became a stroke: open the term. Nothing was drawn, so there
+         is no dot to take back — which is the whole reason the stroke is deferred rather than undone. */
+      if (tip) { if (tipUnder(e) === tip) tip.click(); return; }
       if (ctl) {
         /* Released on the same control it was pressed on → activate it, the way the click we suppressed
            would have. In stylus mode a finger that MOVED has scrolled the page rather than tapped, and
@@ -13717,7 +13851,10 @@
            which is why the slop test is on `scrolled` and not on the pen's path, where any movement at all
            is a stroke and the control was never a candidate. */
         const moved = scrolled && (Math.abs(e.clientX - sx) > WB_TAP_SLOP || Math.abs(e.clientY - sy) > WB_TAP_SLOP);
-        if (!moved && controlUnder(e) === ctl) {
+        // …and the finger's candidate may be a glossary term rather than a control, so ask the same
+        // question the press asked: a `controlUnder`-only test can never match one and would silently
+        // drop every tap on a linked word.
+        if (!moved && (controlUnder(e) || tipUnder(e)) === ctl) {
           if (/^(INPUT|TEXTAREA|SELECT)$/.test(ctl.tagName)) { try { ctl.focus(); } catch (x) {} }
           else ctl.click();
         }
@@ -13725,7 +13862,7 @@
       }
       end();
     });
-    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; panEl = null; panStop(); end(); });
+    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; pendTip = null; panEl = null; panStop(); end(); });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
@@ -16277,26 +16414,23 @@
        Collections before it), so this is the ONLY route to it anywhere on the site and ships at every
        width. The #mission route itself is untouched — every link ever shared still resolves. */
     const aboutLink = `<button class="home-about" id="b-about" type="button">About Folio</button>`;
-    /* THE WAY TO MAKE A GROUP (Aug 2026, on request): at the bottom LEFT, under the last deck in the list
-       rather than inside the banner above it. A group is made out of the rows underneath, so the control
-       belongs at the end of those rows — in the banner it sat above the thing it acts on and read as one
-       more of the banner's own affordances. It is drawn only once there is something to group: an empty
-       review has nothing to put in one, and a control whose whole result is an empty container teaches
-       nothing about what it does.
-       Out of the banner it is a real <button> again: inside one it had to be a `role="button"` span, since
-       markup does not allow a button inside a button, and the banner's click handler had to defer to it. */
-    const newGroupTools = activeIds.length && !fresh
-      ? `<div class="rv-tools"><button class="rv-newgroup" type="button" id="b-newgroup" title="Gather decks under a heading of your own">+ New group</button></div>`
-      : "";
+    /* "+ NEW GROUP" STOOD HERE AND IS GONE (Aug 2026, on request). It sat at the bottom left of this list,
+       having moved out of the banner a fortnight earlier; the request is to take the group function off
+       the daily study block altogether, so the control goes and `promptNewGroup` with it — see the note
+       where that function was defined for what deliberately STAYS, and why.
+       The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
+       holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
+       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung. */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* One footer row under the deck list: "+ New group" at its left, the lip to the collections
-                  at its right. They share a line because the lip has always hung off the group's bottom
-                  EDGE, and a block stacked between the two would have taken that edge away from it. */""}
-            <div class="rv-foot">${newGroupTools}${addDecksLip}</div>
+            ${/* The footer row under the deck list. It held "+ New group" at its left until Aug 2026 and
+                  now carries only the lip to the collections, which has always hung off the group's own
+                  bottom EDGE — hence a row rather than the lip on its own, and hence nothing stacked
+                  between the two. */""}
+            <div class="rv-foot">${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -16347,8 +16481,8 @@
     root.querySelector("#b-review").addEventListener("click", (e) => {
       /* The chest chip and the "+ New group" span both used to be targets INSIDE this button and were
          deferred to here. Both have left it (Aug 2026, on request) — the chest to `#chestSlot` above the
-         banner and the group control to `#b-newgroup` under the last deck row — so the banner is one
-         button again with nothing nested in it to step around. */
+         banner, and the group control first to the row under the last deck and then off the page
+         altogether — so the banner is one button again with nothing nested in it to step around. */
       if (fresh) {
         /* THE FIRST PRESS GOES TO THE COLLECTIONS (Aug 2026, on request). It used to pick the first
            collection that was not coming soon, add it on the reader's behalf and deal them a card —
@@ -16369,11 +16503,10 @@
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
-    /* The waiting-chests notice above the banner, and the way to make a group under the last deck row.
-       Both are real <button>s now that neither is nested inside the banner, so neither needs a keydown
-       handler of its own — which is the whole reason for getting them out of it. */
+    /* The waiting-chests notice above the banner. It is a real <button> now that it is no longer nested
+       inside the banner, so it needs no keydown handler of its own — which is the whole reason for
+       getting it out of there. ("+ New group" was wired here too, and went with the control.) */
     wireChestBanner(root);
-    { const ng = root.querySelector("#b-newgroup"); if (ng) ng.addEventListener("click", () => promptNewGroup()); }
     // the lip under the review group and the About line under the games — both at every width now, each
     // being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
@@ -18047,6 +18180,19 @@
       const rest = hits.filter((b) => !isBookFav(b.id));
       return favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest);
     };
+    /* HOW MANY BOOKS ARE ON THE SHELF, and how many of them the filter is showing (Aug 2026, on request).
+       It reads the SAME `hits` the shelf is built from rather than counting the banners afterwards, so the
+       line and the list cannot come to disagree — and it says BOTH numbers while a search is narrowing,
+       because "3 books" over a filtered shelf reads as a library of three. Unfiltered it is the one number,
+       since "41 of 41" is a sum nobody asked for. It lives beside the search box that changes it and is
+       repainted by the same handler, for the reason the shelf is repainted in place: a render() per
+       keystroke takes the caret out of the box being typed in. */
+    const countLine = (q) => {
+      const words = bookFold(q).split(/\s+/).filter(Boolean);
+      const shown = sorted.filter((b) => bookMatches(b, words)).length, all = sorted.length;
+      const n = (v) => v + " book" + (v === 1 ? "" : "s");
+      return words.length ? `${shown} of ${n(all)}` : n(all);
+    };
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
@@ -18058,6 +18204,7 @@
             the direction, in the chosen field's own words rather than as a bare arrow. */""}
       <div class="lib-tools">
         <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these books…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
+        <span class="lib-count" id="bkCount" aria-live="polite">${countLine(bookQuery)}</span>
         ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
         ${/* the way back to the first-visit card, exactly as the Atlas's "?" is — a page that explains
               itself once and then never again is a page whose explanation cannot be re-read */""}
@@ -18084,9 +18231,11 @@
     );
     wireShelf();
     const f = root.querySelector("#bkFilter");
+    const cnt = root.querySelector("#bkCount");
     if (f) f.addEventListener("input", () => {
       bookQuery = f.value;
       shelf.innerHTML = shelfHTML(bookQuery);
+      if (cnt) cnt.textContent = countLine(bookQuery);
       wireShelf();
     });
     const so = root.querySelector("#bkSort");

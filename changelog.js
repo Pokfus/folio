@@ -35,9 +35,23 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.189", released: "2026-08-11T22:31Z" };
+window.FOLIO_VERSION = { v: "1.190", released: "2026-08-12T06:55Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-12",
+    t: "Every date now reads BCE and CE, the Library says how many books are on the shelf, and the walkthrough is made for a phone",
+    items: [
+      "<b>Every date on Folio now reads BCE and CE</b>, never BC or AD — in the cards, the glossary, the artefacts, the Atlas and the text under every picture.",
+      "The Library's shelf now says how many books it is showing, and how many it has, as you search.",
+      "The Satyricon's and the Rigveda's originals now name their language in English, like every other book.",
+      "<b>A glossary term can be tapped while the marker is out</b> — drawing through a linked word still draws, but a tap on one asks what it means.",
+      "A glossary popup now shows its words and its picture together, instead of the text shifting to make room a moment later.",
+      "<b>The first-time walkthrough is made for a phone</b>, sitting at the foot of the screen so it no longer covers the very thing it is pointing at.",
+      "The walkthrough no longer says your level limits how many decks you may add, which stopped being true when that limit was removed.",
+      "The daily study list no longer offers to gather decks into groups.",
+    ],
+  },
   {
     d: "2026-08-11",
     t: "Six books join the Library, sixteen more cards join World History, a subdeck can hold subdecks of its own, and a misattributed daily quote is put back with the words its own source carries",
