@@ -560,27 +560,15 @@ body.night .banner{
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
-/* ---------- "+ New group", bottom left of the DECK LIST (Aug 2026, on request) ----------
-   It stood inside the Daily-study banner for a fortnight, under the three piles. A group is made out of the
-   rows BELOW the banner, so the control now sits at the end of those rows instead — beside the thing it
-   acts on rather than above it. It shares a footer line with `.rv-lip`, which hangs off the group's bottom
-   edge at the other end: a block stacked between the two would take that edge away from the lip.
-   Quiet by default — it is a way of tidying the list, not the thing the page is for. */
+/* ---------- the footer row under the DECK LIST ----------
+   "+ New group" sat at its left (`.rv-tools` / `.rv-newgroup`) and both are GONE — Aug 2026, on request:
+   the group function has left the daily study block. What the row still does is hold `.rv-lip` against the
+   review group's own bottom edge, which is why the lip is not simply the group's last child.
+   `margin-inline-start:auto` is what keeps it at the right-hand end, and it is deliberately not
+   `justify-content:space-between`: on a one-item row — which this now always is — that puts the item at
+   the START. */
 .rv-foot{display:flex; align-items:flex-start; gap:12px;}
-.rv-tools{margin-top:9px; margin-inline-start:20px; display:flex;}
-/* with no decks yet there is no "+ New group" to sit beside, and `margin-inline-start:auto` is what keeps
-   the lip at the right-hand end of the line in both cases (`justify-content` could not: on a one-item row
-   `space-between` puts that item at the START) */
 .rv-foot .rv-lip{align-self:flex-start; margin-inline-start:auto;}
-.rv-newgroup{
-  appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:5px 11px;
-  border:1px dashed color-mix(in srgb, var(--ink) 26%, transparent); border-radius:99px;
-  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
-  color:var(--ink-faint); background:color-mix(in srgb, var(--card) 70%, transparent);
-  transition:color .16s var(--ease), border-color .16s var(--ease), background .16s var(--ease);
-}
-.rv-newgroup:hover{color:var(--indigo); border-color:var(--indigo); background:var(--indigo-wash);}
-.rv-newgroup:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:calc(150px * var(--fs)); line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -4101,6 +4089,15 @@ button.game-tile .gt-glyph{opacity:.14;}
   .tour-card{padding:17px 18px 15px; border-radius:13px; max-height:calc(100dvh - 32px);}
   .tour-card h3{font-size:calc(18px * var(--fs));}
   .folio-tour,.page-help{padding:14px;}
+  /* ---- the walkthrough DOCKS to the bottom on a phone (Aug 2026, on a bug report) ----
+     Centred, the card takes half to two thirds of a 640px screen and lands squarely on the thing it is
+     describing — and there is nowhere to nudge it to, so on most steps the target ended up UNDER it and
+     the step pointed at something the reader could not see. Docked, the whole upper half of the screen is
+     free, and `tourPlace` scrolls the target into it. Nothing above the breakpoint changes: there the card
+     is centred and the nudge has room to work.
+     `tourPlace` reads this back off the overlay's own computed style rather than repeating the breakpoint
+     in JS — see the `dock` line there. */
+  .folio-tour{align-items:flex-end;}
   .td-g b{font-size:calc(11px * var(--fs));}
   .td-g{padding:7px 2px;}
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
@@ -4319,6 +4316,13 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
    whole. */
 .gloss-imgslot{ float:right; max-width:50%; margin:0 0 10px 12px; }
 .gloss-imgslot[hidden]{ display:none; }
+/* …and the words wait for it. A floated picture with no intrinsic size yet is a float of no width, so the
+   description lays out across the whole popup and then re-wraps the instant the file arrives — the jump
+   this hides. The body is revealed once the picture's size is known (see GLOSS_IMG_WAIT in app.js), and
+   the slot holds its maximum height in the meantime so the popup's own box barely moves when it is. */
+.gloss-body{ transition:opacity .14s var(--ease); }
+.gloss-win[data-imgwait] .gloss-body{ opacity:0; }
+.gloss-win[data-imgwait] .gloss-imgslot{ min-height:150px; }
 .gloss-imgslot .card-img{
   margin:0; border-radius:8px; line-height:0;
   aspect-ratio:auto; width:auto; max-width:100%;
@@ -4380,6 +4384,7 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
 .gloss-sheet .gloss-imgslot{ margin-left:15px; }
 .gloss-sheet .gloss-imgslot .card-img{ border-radius:10px; }
 .gloss-sheet .gloss-imgslot .card-img img{ height:auto; max-height:170px; }
+.gloss-sheet[data-imgwait] .gloss-imgslot{ min-height:170px; }   /* the sheet's taller ceiling — see the base rule */
 .gloss-sheet .gloss-imgslot .card-vid{ height:170px; border-radius:10px; }
 
 /* THE SCRIM — everything behind the phone's popup goes soft while it is up (Aug 2026, on request).
@@ -5845,6 +5850,13 @@ body.night .rv-star.on{color:#E6C765;}
   transition:border-color .16s var(--ease), box-shadow .16s var(--ease);
 }
 .lib-search input:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+/* How many books the shelf is showing. A quiet mono figure beside the search box that changes it — it is a
+   fact about the list, not a control, so it takes the caption ink and no border. `flex:0 0 auto` keeps it
+   whole: it is the one item in this row with no shorter form, and the search box is the elastic one. */
+.lib-count{
+  flex:0 0 auto; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em;
+  color:var(--ink-faint); white-space:nowrap;
+}
 /* Nothing matched. A line rather than an empty shelf, which reads as a page that failed to draw. */
 .lib-none{
   padding:26px 18px; text-align:center; border:1px dashed var(--rule); border-radius:14px;
