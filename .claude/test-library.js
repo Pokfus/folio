@@ -311,6 +311,80 @@ function satyriconChecks() {
   return o;
 }
 
+
+/* THE RAMAYANA, read off the two files that shipped. Its reader serves ONE book — a Project Gutenberg
+   TEI on the English side and a four-shaped wiki on the Sanskrit — so it cannot be proved inert by
+   re-running a sibling, and the shipped-data sweep is what stands in for that check.
+
+   EVERY FAULT IT LOOKS FOR IS SILENT. The pairing rests on Griffith having numbered around his own
+   omissions, and on two measured places where the editions divide differently; get either wrong and
+   the poem is complete, every count is healthy, and cantos sit beside passages that are not theirs.
+   So the count of PAIRED cantos is asserted exactly, and the three that pair with nothing are asserted
+   BY NAME — a fourth would mean a shift had moved. A `bk-n` appearing on either side would silently
+   change how bookRows pairs the columns (neither edition numbers below the canto, so both must stay
+   unmarked). And the Sanskrit's page furniture — the citation header and the स्रोतः credit naming the
+   audio reciters — makes a sarga LONGER if it leaks, which no count of sargas or verses can see. */
+function ramayanaChecks() {
+  const dir = path.join(ROOT, "books");
+  const enF = path.join(dir, "ramayana.js"), saF = path.join(dir, "ramayana.sa.js");
+  if (!fs.existsSync(enF) || !fs.existsSync(saF)) return null;
+  global.window = {};
+  [enF, saF].forEach((f) => { delete require.cache[require.resolve(f)]; require(f); });
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "ramayana");
+  const sa = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "ramayana");
+  if (!en || !sa) return null;
+  const o = { en: en.chapters.length, sa: sa.chapters.length, intro: en.intro || "",
+              lines: 0, notes: 0, markers: 0, dead: 0, unref: 0, marks: 0, bal: [],
+              unpaired: [], parts: {}, header: [], credit: [], danda: 0, omitNotes: 0,
+              unnamed: [], shortestEn: 1e9, shortestSa: 1e9 };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup"];
+  const saBy = {};
+  sa.chapters.forEach((c) => {
+    saBy[c.n] = c.html;
+    o.danda += (c.html.match(/॥/g) || []).length;
+    /* The page's own furniture, either of which would make a sarga LONGER rather than shorter, so no
+       count of chapters or verses can see it. Both tests are narrower than they look, and each was
+       narrowed after a false positive:
+       · the OPENING citation header only. The traditional closing colophon reads the same way
+         ("इत्यार्षे श्रीमद्रामायणे … सर्गः ॥१-२॥") and is TEXT the edition prints — 38 sargas carry
+         one — so a test on the wording alone condemns the poem for containing itself.
+       · the reciters' names and the transcription's host, NOT the word स्रोतः, which heads the credit
+         block and is also the ordinary Sanskrit for a stream: it occurs mid-verse in four sargas. */
+    if (/^<p>[^॥<]{0,90}सर्गः/.test(c.html)) o.header.push(c.n);
+    if (/पाठकौ|sanskrit\.github\.io/.test(c.html)) o.credit.push(c.n);
+    o.marks += (c.html.match(/class="bk-n"/g) || []).length;
+    if (c.html.length < o.shortestSa) o.shortestSa = c.html.length;
+  });
+  en.chapters.forEach((c) => {
+    o.lines += (c.html.match(/<br>/g) || []).length + (c.html.match(/<p>/g) || []).length;
+    o.marks += (c.html.match(/class="bk-n"/g) || []).length;
+    o.parts[c.p] = (o.parts[c.p] || 0) + 1;
+    /* A tab reads "1.1 · Nárad" — the citation, then Griffith's own name for the canto. Both halves
+       are asserted: the citation is what the pairing is measured in, and the name is content the
+       edition prints that was dropped for a whole run and found only by looking at the chapter bar. */
+    const cite = c.t.split(" · ")[0];
+    if (!/ · \S/.test(c.t)) o.unnamed.push(c.t);
+    if (saBy[c.n] == null) o.unpaired.push(cite);
+    /* Griffith's bracketed statements of what he left out, kept where he printed them */
+    if (/\[I (?:omit|am compelled)|Cantos? .{0,30}(?:are |is )?omitted/.test(c.html)) o.omitNotes++;
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    o.markers += ms.length;
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    if (c.html.length < o.shortestEn) o.shortestEn = c.html.length;
+  });
+  [["en", en], ["sa", sa]].forEach(([tag, bk]) => bk.chapters.forEach((c) => {
+    TAGS.forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(tag + " " + c.t + " " + t + " " + open + "/" + shut);
+    });
+  }));
+  return o;
+}
+
 /* THE AENEID, read off the two files that shipped. Its reader is `cards: "both"` plus the mid-line
    lift, and like The City of God's it serves ONE book, so it cannot be proved inert by re-running a
    sibling — the shipped-data sweep is what stands in for that check.
@@ -1177,6 +1251,53 @@ function aeneidChecks() {
       check("[aeneid] no <choice> printing both of its readings", !ae.doubled.length, JSON.stringify(ae.doubled));
     } else {
       check("[aeneid] both halves of the book are on disk", false, "missing books/virgil-aeneid*.js");
+    }
+    /* THE RAMAYANA — see ramayanaChecks above for why each of these is here and what it can see. */
+    const ram = ramayanaChecks();
+    if (ram) {
+      check("[ramayana] 493 cantos shipped", ram.en === 493, String(ram.en));
+      check("[ramayana] 490 of them have a Sanskrit sarga", ram.sa === 490, String(ram.sa));
+      /* The three that pair with nothing are Griffith's own extra divisions, and they are asserted BY
+         NAME: a fourth, or a different three, would mean one of the two measured shifts had moved. */
+      check("[ramayana] exactly III.57, VI.112 and VI.113 pair with nothing",
+        ram.unpaired.length === 3 && ["3.57", "6.112", "6.113"].every((k) => ram.unpaired.includes(k)),
+        JSON.stringify(ram.unpaired));
+      check("[ramayana] every tab carries Griffith's own name for its canto",
+        !ram.unnamed.length, JSON.stringify(ram.unnamed.slice(0, 4)));
+      check("[ramayana] the six káṇḍas carry 75/119/76/67/55/101 cantos",
+        JSON.stringify([1, 2, 3, 4, 5, 6].map((p) => ram.parts[p] || 0)) === "[75,119,76,67,55,101]",
+        JSON.stringify(ram.parts));
+      /* 52,560 lines of verse in 1,825 stanzas, plus 18 runs of prose, counted the way `teiVerse`
+         joins them: one <br> per line after the first, one opening <p> per block. */
+      check("[ramayana] all 52,578 lines and paragraphs of the English are present",
+        ram.lines === 52578, String(ram.lines));
+      /* NEITHER column may carry a section marker. Griffith numbers no verses, so the canto is the row
+         and bookRows pairs the two columns on their both being unnumbered; one marker appearing on one
+         side would change that silently and pair by luck instead. */
+      check("[ramayana] no bk-n marker on either side", ram.marks === 0, String(ram.marks));
+      check("[ramayana] every footnote marker resolves", ram.dead === 0, String(ram.dead));
+      /* The assertion that caught the Rigveda's dropped heading-markers: nine of Griffith's canto
+         titles carry a note, and the head is dropped, so the marker has to be carried down. */
+      check("[ramayana] every note is referenced", ram.unref === 0, String(ram.unref));
+      check("[ramayana] Griffith's statements of what he left out are kept",
+        ram.omitNotes >= 5, String(ram.omitNotes));
+      /* The Sanskrit's own furniture, either of which makes a sarga LONGER if it leaks — which no
+         count of sargas or of verses can see. */
+      check("[ramayana] no citation header left in the Sanskrit",
+        !ram.header.length, JSON.stringify(ram.header.slice(0, 6)));
+      check("[ramayana] the reciter credit did not leak into the verse",
+        !ram.credit.length, JSON.stringify(ram.credit.slice(0, 6)));
+      check("[ramayana] the Sanskrit keeps its printed verse numerals", ram.danda > 20000, String(ram.danda));
+      check("[ramayana] tag balance is clean on both columns",
+        !ram.bal.length, JSON.stringify(ram.bal.slice(0, 6)));
+      check("[ramayana] no canto came back short",
+        ram.shortestEn >= 120 && ram.shortestSa >= 40, `en ${ram.shortestEn} sa ${ram.shortestSa}`);
+      /* The front matter has to say what is missing: a reader who knows the poem will look for the
+         seventh book, and being told why it is absent is the whole of the honesty here. */
+      check("[ramayana] the front matter names the missing seventh book",
+        /Uttara/.test(ram.intro) && /111/.test(ram.intro), String(ram.intro.length));
+    } else {
+      check("[ramayana] both halves of the book are on disk", false, "missing books/ramayana*.js");
     }
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there

@@ -7907,6 +7907,26 @@
        than as a near-miss of one, and Aquinas's green — the most recent, and the brightest — is 25.2
        away. Chroma 53.6 sits inside a band whose top is 64.1, so the inherited "bright enough to
        glow" objection does not hold; it reads 4.53:1 on the tightest of the four light papers. */
+    /* VÁLMÍKI — a violet-magenta, measured with 37 colours already placed and the band therefore as
+       full as the Beowulf row predicted: nothing anywhere in it clears 19.0 of its nearest neighbour,
+       against the shelf's own tightest pair at 18.2 (the Classic of Poetry against Beowulf). That is
+       in line rather than alarming — Don Quixote took 19.3 as the thirty-sixth — so the band was NOT
+       widened and no tighter pair was accepted.
+
+       THE FIELD WAS ONE HUE FAMILY AND THE CHOICE INSIDE IT WAS CONTRAST, which is the Cervantes
+       row's judgement in the same position. Every candidate clearing 18.2 without asserting a false
+       kinship is a violet-magenta at chroma 39–51; the best NUMBER (#785A99, 19.0) reads 4.52:1 on
+       the tightest of the four light papers, which is right at the bar and would break if a paper
+       were ever re-toned — and is additionally the swatch the Don Quixote row measured and rejected.
+       This one clears 18.5 and reads 4.82:1 there and 6.99:1 on white.
+
+       THE EURIPIDES TEST IS SHARPER HERE THAN ANYWHERE, because this shelf holds the other Sanskrit
+       epic: the Ramayana and the Mahabharata are the pair a reader is likeliest to hold together, and
+       the Bhagavad Gita is part of the second. So the one colour this must not be a near-miss of is
+       VYASA's saffron-brown, and it stands 77 away — with the Rigveda 100 and Kalidasa 59, the other
+       two Sanskrit books on the shelf. Its nearest neighbours are Seneca at 18.5 and Plato at 18.7,
+       and nobody reads Válmíki against either. */
+    "Valmiki": "#814E99",
     "rigveda": "#5A6F00",
     /* MIGUEL DE CERVANTES — a deep crimson, measured with 35 colours already placed and the band
        therefore as full as the Beowulf row predicted: nothing anywhere in it clears 19.3 of its
@@ -9750,6 +9770,69 @@
       chapterWord: "Section",
       count: 141,
       total: 141,
+    },
+    {
+      id: "ramayana",
+      title: "The Ramayana",
+      subtitle: "रामायणम्",
+      author: "Valmiki",
+      /* Composed over centuries and by more than one hand whatever the tradition says, so the range
+         is wide and argued at both ends. `year` is the single number the shelf's date sort needs and
+         is the middle of the usual range; the prose carries the hedge, which is where a contested
+         date belongs. */
+      written: "c. 500 BCE – 200 CE",
+      year: -300,
+      translator: "Ralph T. H. Griffith",
+      edition:
+        "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
+        "Trübner & Co., London, and E. J. Lazarus and Co., Benares, 1870–1874",
+      /* THE ELEVENTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL. The poem is some two thousand
+         years old. Griffith published in five volumes between 1870 and 1874 while Principal of the
+         Benares College — the date and the imprint read off the volume's own title page rather than
+         recalled — and lived 1826–1906, so the English clears the pre-1929 rule, life plus seventy
+         and life plus a hundred alike.
+
+         THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement again —
+         and a real limitation here rather than a formality, the Ramayana having three recensions
+         that differ in their sarga divisions. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide, on every ground. The poem is around two thousand years old, so the " +
+        "work itself has never been in copyright. Ralph T. H. Griffith published this translation in " +
+        "five volumes at London and Benares between 1870 and 1874, and he lived from 1826 to 1906, " +
+        "so the English is out of copyright under the rule for works published before 1929, under " +
+        "the translator's life plus seventy years, and under life plus a hundred — there is no limit " +
+        "to state. The facing Sanskrit is the received text as transcribed at Sanskrit Wikisource, " +
+        "which names no editor and no printed edition for it, so none is claimed here; the ground " +
+        "for that column is the age of the text alone. (The modern translations by Robert Goldman " +
+        "and others, 1984–2017, Hari Prasad Shastri, 1952–59, and Arshia Sattar, 1996, are still in " +
+        "copyright and are not used.) Griffith's appendix, his additional notes and his index are " +
+        "not reproduced.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/24869",
+      origLang: "sa",
+      origName: "Sanskrit",
+      /* THE CHAPTER IS THE CANTO AND THE TAB IS THE CITATION, read straight off: a passage of the
+         Ramayana is "2.40", book and canto, in every language and every reference work. The
+         alternative was measured rather than weighed: cutting at the káṇḍa gives six tabs, the
+         largest of them 119 cantos and some four hundred thousand characters.
+
+         `count` IS WHAT FOLIO HOLDS AND `total` WHAT THE POEM CONTAINS, and here they are further
+         apart than anywhere else on the shelf. Griffith did not translate the seventh book at all —
+         111 cantos — and passed over forty-one more inside the six he did, saying so in the text
+         each time. He numbered around the gaps, which is what lets a canto be laid against the sarga
+         that bears its number; see .claude/fetch-book.js for the measurement, and the book's own
+         front matter for what a reader needs to know about it. */
+      chapterWord: "Canto",
+      count: 493,
+      total: 645,
+      parts: [
+        { n: 1, label: "Bála Káṇḍa", note: "The book of childhood · 75 of 77 cantos" },
+        { n: 2, label: "Ayodhyá Káṇḍa", note: "The exile · all 119" },
+        { n: 3, label: "Áraṇya Káṇḍa", note: "The forest, and Sítá carried off · all 76" },
+        { n: 4, label: "Kishkindhá Káṇḍa", note: "The alliance with the vánars · all 67" },
+        { n: 5, label: "Sundara Káṇḍa", note: "Hanumán's leap to Lanká · 55 of 66" },
+        { n: 6, label: "Yuddha Káṇḍa", note: "The war · 101 of 130" },
+      ],
     },
     {
       id: "rigveda",

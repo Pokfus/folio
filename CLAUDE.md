@@ -128,7 +128,79 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-one:
+  matter (chapter 0 — see the Library bullet). Currently forty-two:
+  `ramayana` (~2.2 MB, 493 of the poem's 645 cantos, **52,560 lines of verse in 1,825 stanzas**,
+  1,023 notes — Ralph T. H. Griffith's rhymed verse of 1870–1874, and **the first book here whose
+  TRANSLATION NUMBERS AROUND ITS OWN GAPS, which is the only reason it can be paired at all.**
+  Griffith left out the whole seventh book and forty-one cantos inside the six he did translate, so
+  he ships 493 against the Sanskrit's 645 — and a translator who renumbers what he keeps produces an
+  unbroken 1..N, where Griffith's Book VI runs 1..130 with twenty-nine numbers simply missing and his
+  Book I skips 37 and 38 and carries on at 39. **A man who numbers around what he has left out is
+  numbering to something outside himself**, and the only thing outside himself is the sarga numbering
+  of the text in front of him. That inference is what the whole pairing rests on, and it was measured
+  before it was believed.
+  **SEVEN THINGS IT SETTLED ARE WORTH CARRYING.**
+  **A DIFFERENCE IN THE TOTALS IS NOT EVIDENCE OF A DIFFERENCE IN THE DIVISION, and acting as though
+  it were would have mispaired a whole book.** Three of the six books disagree with the Sanskrit on
+  their totals — 76 cantos against 75, 66 against 68, 130 against 128 — and the obvious move is to fit
+  a shift to each difference. It is right twice and WRONG once. Books III and VI genuinely divide the
+  same words differently and the shift is real; Book V's 66-against-68 is Griffith **stopping two
+  sargas early**, exactly as he stops in the middle elsewhere, and a shift fitted there displaces the
+  entire tail of the book. What showed it was reading the passages: his 57 is the leap home and so is
+  sarga 57 (आप्लुत्य च महावेगः पक्षवानिव पर्वतः against "Still, like a winged mountain, he Sprang
+  forward"), his 65 opens on Mount Prasravana and so does sarga 65.
+  **THE INSTRUMENT THAT WORKS IS LENGTH AND THE ONE THAT LOOKS RIGHT IS NAMES.** A proper-name
+  profile is the obvious way to align two columns and it is nearly useless on this poem — Ráma, Sítá
+  and Rávaṇ are in almost every canto, so cosine over name counts scored offset 0 best in only 10 of
+  23 sampled cantos of Book III and 15 of 35 of Book VI, which reads as drift and is noise. Correlating
+  the Sanskrit's **verse count** against Griffith's **line count** settles it in one pass: offset 0
+  wins in every book at r = 0.63–0.71 against 0.40 at best for any other offset, and by thirds of a
+  book the right offset scores 0.83–0.996. **Correlate a quantity both editions state about the same
+  unit, not the vocabulary they share.**
+  **AND THE CHANGEPOINT IS FOUND BY LENGTH AND CONFIRMED BY EPISODE, because neither alone is
+  enough.** The length fit is decisive in Book III (the standard deviation of the log ratio falls from
+  0.279 to 0.062 with a +1 shift after canto 56) and useless in Book VI, where Griffith's twenty-nine
+  omissions leave the tail too sparse — there the fit put the changepoint at 100 and the passages put
+  it at 111. Four unmistakable episodes land exactly at offset 0 (Kumbhakarṇa dies in canto 67 and
+  sarga 67, Narántaka in 69 and 69, Atikáya in 71 and 71, Rávaṇ in 110 and 110) and four more land at
+  +2 (Sítá restored from the fire in canto 120 and sarga 118, Indra's boon in 122 and 120, the meeting
+  with Bharat in 129 and 127, the consecration in 130 and 128), which puts the boundary between 111
+  and 114 — and Griffith's CXIV opens "In cars whose sheen surpassed the sun's Triumphant rode the
+  radiant ones" where sarga 112 opens ते रावणवधं दृष्ट्वा देवगन्धर्वदानवाः। जग्मुः स्वैः स्वैर्विमानैः,
+  the gods departing in their own cars. So the two extra cantos are CXII and CXIII, the rákshas dames'
+  lament and Mandodarí's, and **490 of the 493 cantos pair**.
+  **A TRANSLATOR WHO SAYS WHAT HE LEFT OUT IS WORTH MORE THAN ONE WHO IS COMPLETE AND SILENT.**
+  Griffith prints a bracketed paragraph at the foot of the canto before every gap, naming what is
+  missing and usually why — *Three Cantos consisting of little but repetitions are omitted*; *I omit
+  the 28th and 29th Cantos as an unmistakeable interpolation*; and for Book I's 37 and 38, *both in
+  subject and language offensive to modern taste*, with the reader sent to Schlegel's Latin. All five
+  are `<p>` blocks inside the preceding canto and ship exactly where he printed them, so the shape of
+  what is absent is visible from inside the poem rather than only in the front matter.
+  **A TAB READS "1.1 · Nárad", AND THE NAME WAS THROWN AWAY FOR A WHOLE RUN BEFORE ANYONE LOOKED.**
+  The canto head duplicates the tab and is dropped, which is right about the NUMBER and wrong about the
+  rest of it: Griffith names every one of his 493 cantos, median fifteen characters and longest
+  twenty-seven, and a book with 493 tabs whose titles are bare citations cannot be navigated by eye at
+  all. Nothing could report it — every canto was complete, every count healthy, the pairing exact — and
+  it was found by looking at the chapter bar, which is the golden rule earning its keep for the fourth
+  time after the Gita, the Iliad and Don Quixote. **Ask what ELSE is on a heading before dropping it**;
+  the case is the edition's own ("The Meeting With The Queens") and is kept, which is Aesop's rule.
+  **A BOOK'S HALF-TITLE SITS INSIDE THE LAST CANTO OF THE BOOK BEFORE IT, AND CARRIES A NOTE** —
+  Beowulf's `dropFittHead` rule biting a second time in one book, in a place nothing was watching.
+  Nine of Griffith's canto titles carry a footnote and the canto head is dropped, so those markers are
+  carried down; what was missed is that the edition also sets "BOOK V." and "BOOK VI." **within the
+  preceding canto's own run of text**, each with Griffith's headnote on it, and no block sweep gathers
+  a `<head>` at all. Two of the 1,023 notes therefore reached the fold with no sentence opening them,
+  and **nothing but an every-note-is-referenced assertion can see it**: the cantos are complete, both
+  notes are correct, and they simply sit in a list nothing points at. A carried marker now goes to the
+  block nearest it in reading order rather than all of them to the top — a canto head precedes the
+  verse and opens it, a book half-title follows the verse and closes it — since prepending would print
+  a note about Book V above the first line of canto IV.67.
+  **ITS REAL LIMITATION IS THE SEVENTH BOOK AND IT IS THE TRANSLATOR'S CHOICE RATHER THAN A GAP IN
+  THE RECORD**: the Uttara Káṇḍa is 111 sargas, it is the poem's most disputed section, and Griffith
+  simply stops where the war ends. The Sanskrit for all 111 is transcribed and complete, and it is
+  deliberately NOT shelved as 111 tabs of untranslated Devanagari — Beowulf's rule, that a chapter tab
+  with an original and no translation is worse than not having it. Said on the book's own first page,
+  at length, because a reader who knows the poem will go looking for it),
   `satyricon` (~288 KB, all 141 sections, **55 display quotations**, **131 notes** — Michael
   Heseltine's Loeb of 1913, and **the first book here whose CHAPTER, SECTION AND CITATION ARE ALL
   ONE THING.** The Rigveda's chapter is the smallest unit of the work and its verses still divide it;
@@ -837,7 +909,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-seven:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-nine:
+  `ramayana.sa.js` (~2.1 MB, the 490 sargas the translation reaches, of 645 — the received text as
+  transcribed at Sanskrit Wikisource, and **the original here whose TRANSCRIPTION USES THE MOST
+  SHAPES: four, and each was met the loud way.** The Rigveda's pages on this same wiki use four too
+  and 1,023 of its 1,028 are one of them; here `div.poem`, `div.verse` wrapping a `<pre>`, a
+  proofread `ws-poem` and **the verse typed straight into the page as `<p>` blocks with no container
+  at all** are all in ordinary use, and the reader threw on the first page of each new kind rather
+  than returning a short sarga. That is the failure shape worth having: the alternative is a chapter
+  that comes back empty and pairs with nothing while every count reads healthy. Which shape each page
+  used is counted and printed on every run.
+  **THE NO-CONTAINER FALLBACK IS THE NARROWEST OF THE FOUR AND HAD TO BE**, because those pages carry
+  something the others do not: a स्रोतः section at the foot crediting the reciters of the recorded
+  audio, which is prose on the page and is not Válmíki. The page is cut at its first section heading,
+  the navigation tables go, and of what is left only a paragraph CARRYING A DAṆḌA is taken — every
+  verse block closes on its ॥N॥ and no furniture on these pages holds one, so the test separates the
+  poem from the page it is printed on rather than guessing at position.
+  **EVERY PAGE STATES ITS OWN CITATION AND IT IS CHECKED**, which is the City of God's rule and is
+  worth more on a book addressed by arithmetic than on one addressed by name: 490 pages fetched under
+  a title built out of a kanda table and a canto number is 490 chances to file a sarga under the wrong
+  one, and a mis-numbered page would pair with the wrong canto while every count stayed healthy. Each
+  opens श्रीमद्वाल्मीकीयरामायणे बालकाण्डे प्रथमः सर्गः ॥१-१॥ — kanda and sarga — which is compared
+  against the page asked for and then dropped as the page's own furniture. **THE VERSE NUMERAL WEARS
+  TWO COSTUMES AND ONLY ONE BOOK USES THE FIRST**: the Bála Káṇḍa prints the whole citation at every
+  verse, ॥१-१-९॥, and the other five print the verse alone, ॥ ९॥. Both are KEPT as printed — Griffith
+  numbers no verses, so they pair with nothing and are not `bk-n` markers, but they are how a passage
+  of the Sanskrit is cited and dropping them would take that away for nothing.
+  **ITS LICENCE NAMES NO EDITOR AND NONE IS INVENTED**, which is Lucretius's judgement — and unlike
+  the Rigveda's, where the recitation discipline makes the received samhita what every printed edition
+  prints, the gap here is a real limitation and is stated as one: the Ramayana survives in three
+  recensions that differ in their sarga divisions and in thousands of readings, so an unnamed text is
+  a text whose recension a reader cannot look up. What CAN be said is that it divides where a northern
+  text divides, and that is said on the book's own page),
   `satyricon.la.js` (~230 KB, all 141 sections, **607 lines of verse in 54 blocks**, **147
   lacunae** — the Latin printed facing Heseltine's English in the same 1913 Loeb volume, and **the
   EASIEST original on the shelf to justify and the hardest to read**. Easy because the two columns
@@ -1085,7 +1188,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-one books, twenty-eight originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-two books, twenty-nine originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
   Divine Comedy, the Summa Theologica and Don Quixote
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
@@ -1677,6 +1780,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (Unicode never reorders two of the same canonical class, so `oi/)nw|` composes to nothing) and
     REFUSES any string whose marks will not compose, leaving the ASCII rather than inventing a Greek
     letter the language has not got.
+
+  **A TRANSLATION MAY BE SHORT OF ITS ORIGINAL AND STILL PAIR WITH IT, IF IT NUMBERED AROUND THE
+  GAPS** (`layout: "kanda"` → `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `RAM_CANTOS` /
+  `RAM_PARTS` / `ramAt` / `ramSarga`; Aug 2026, adding the Ramayana — the forty-second book, and the
+  eighteenth layout). The sixth TEI reader and **the first whose file is not Perseus's**: Project
+  Gutenberg's TEI of Griffith, in which not one of the 571 `<div>`s carries a `type` or an `n` and the
+  structure is nesting and `<head>` alone. What it does carry is an `<anchor id="CantoVI-CXXX"/>` at
+  the head of every canto — the citation, machine-readable — so the divisions are ignored and the poem
+  is cut at the anchors, which are then CHECKED against the numeral each `<head>` prints beside them.
+  Six things it settled, and the first is the one to carry furthest:
+  · **A TRANSLATOR'S OWN GAPS ARE EVIDENCE ABOUT HIS NUMBERING.** Griffith ships 493 cantos of 645, so
+    the question is whether his canto 60 is the sixtieth canto he wrote or the sixtieth sarga — and
+    pairing on the wrong answer sets passage beside unrelated passage with both columns complete and
+    every count healthy. A man numbering his own cantos produces an unbroken 1..N; Griffith's Book VI
+    runs 1..130 with twenty-nine numbers missing. **Ask whether the numbering has holes in it before
+    asking what the numbers mean.**
+  · **A DIFFERENCE IN THE TOTALS IS NOT EVIDENCE OF A DIFFERENCE IN THE DIVISION.** Three books
+    disagree with the Sanskrit on their totals and fitting a shift to each is right twice and wrong
+    once — Book V's 66-against-68 is the translator STOPPING EARLY, and a shift there displaces the
+    whole tail of the book. Only reading the passages showed it.
+  · **CORRELATE A QUANTITY BOTH EDITIONS STATE ABOUT THE SAME UNIT, NOT THE VOCABULARY THEY SHARE.**
+    A proper-name profile is the obvious instrument and is nearly useless on a poem whose cast recurs
+    in every canto — it scored offset 0 best in 10 of 23 sampled cantos of one book, which reads as
+    drift and is noise. The Sanskrit's verse count against the translation's line count settles it in
+    one pass, r = 0.63–0.71 at offset 0 against 0.40 at best anywhere else.
+  · **A CHANGEPOINT IS FOUND BY LENGTH AND CONFIRMED BY EPISODE, and neither alone is enough.** The
+    length fit is decisive where the translation is dense (a log-ratio sd of 0.279 → 0.062) and
+    useless where it is full of omissions — in the war book it put the boundary eleven cantos wrong,
+    and eight unmistakable episodes put it right. See `RAM_BOOKS` for the passages each shift rests on.
+  · **A CANTO WITH NO SARGA IS SKIPPED, NOT GIVEN THE ONE NEXT DOOR.** Three of the 493 are the
+    translator's own extra divisions; they draw with an empty cell, which is the shelf's ordinary way
+    of showing that two editions disagree, and filling them would invent a division neither prints.
+  · **AND THE UNTRANSLATED SEVENTH BOOK IS NOT SHELVED AS 111 TABS OF DEVANAGARI**, though the
+    Sanskrit for all of it is transcribed and complete — Beowulf's rule, that a chapter tab with an
+    original and no translation is worse than not having it. `count` 493 against `total` 645, and the
+    book's own front matter says at length what is absent and why.
+  On the original side `ramSanskrit` met **four transcription shapes on one wiki** — `div.poem`,
+  `div.verse` round a `<pre>`, a proofread `ws-poem`, and the verse typed into the page as bare `<p>`
+  — and threw on the first page of each rather than returning a short sarga, which is the failure
+  shape to want. The bare-`<p>` fallback is the narrowest of the four because those pages close with a
+  स्रोतः section crediting the audio reciters: the page is cut at its first heading, the navigation
+  tables go, and only a paragraph carrying a daṇḍa is taken.
 
   **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
   `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
@@ -4096,8 +4241,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     what to take — the violet family's best lands 19 from the SONG OF ROLAND, and Don Quixote is
     written against the chivalric romance while Roland is this shelf's chanson de geste, which is the
     one pair a reader would read as a set.
+    **The Ramayana is the ELEVENTH licence needing no qualification at all** (Aug 2026), and its
+    interest is neither in the licence nor in what it ruled out but in **what it cost to establish
+    that the two columns could be set side by side at all.** Válmíki's poem is some two thousand
+    years old; Ralph T. H. Griffith published this translation in five volumes at London and Benares
+    between 1870 and 1874 while Principal of the Benares College — the date and the imprint read off
+    the volume's own title page, which the transcription reproduces, rather than recalled — and he
+    lived 1826–1906, so the English clears the pre-1929 rule, life plus seventy and life plus a
+    hundred alike. Goldman's Princeton translation (1984–2017), Shastri's (1952–59) and Sattar's
+    (1996) are named as the ones not to reach for; Griffith's appendix, which prints in Latin and
+    Italian the passages he would not English, his additional notes and his index are left behind as
+    the Republic's introduction and plates were.
+    **IT IS THE SECOND BOOK HERE FROM PROJECT GUTENBERG AND, LIKE THE FIRST, CHOSEN BY ELIMINATION.**
+    Wikisource's own Ramayana is the Plato-Jowett case at its plainest — 270 of the poem's cantos in
+    mainspace, Books IV and V entirely absent, and the scan-backed index behind it forty pages
+    proofread — and it was measured before anything else was tried. **One trap for anyone who comes
+    back to this**: a Project Gutenberg search for the Ramayana returns, above everything else, the
+    four volumes of the *Yoga-Vasishtha Maharamayana of Valmiki*, which is a philosophical dialogue
+    attributed to the same poet and is not the epic. It is the Avellaneda case on a different shelf.
+    **THE HARD QUESTION WAS THE PAIRING, AND IT IS THE PART WORTH READING** — a translation that
+    ships 493 cantos against its original's 645, three books whose totals disagree, and two places
+    where the editions genuinely divide the same words differently. See the `ramayana` entry in the
+    File map for the measurements, and `RAM_BOOKS` in `.claude/fetch-book.js` for the passages each
+    one rests on. Its `BOOK_AUTHOR_COLOR` row is the band at 37 colours, where nothing anywhere in it
+    clears 19.0 and the whole clear field is one violet-magenta family; the choice inside it was
+    CONTRAST, on the Cervantes row's precedent, and **the Euripides test is sharper here than
+    anywhere on the shelf** — this library holds the other Sanskrit epic, and the Bhagavad Gita is
+    part of it, so the one colour this must not be a near-miss of is Vyasa's. It stands 77 away.
     **The Satyricon states a LIMIT and it is the Odyssey's easy case underneath** (Aug 2026), which
-    puts it with the Song of Roland, the Gita and the two Homers rather than with the ten needing no
+    puts it with the Song of Roland, the Gita and the two Homers rather than with the eleven needing no
     qualification. Petronius died in 66 CE. Michael Heseltine published this translation in 1913 and
     lived 4 September 1886 – 13 March 1952, so it clears the pre-1929 rule and life-plus-seventy
     (2023) and **not life plus a hundred, which runs to 2053** — said outright rather than smoothed
@@ -11355,6 +11527,7 @@ dead code (never rendered).
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `markArticuli` /
     `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` /
     `extractQuixote` / `extractSatyricon` / `satyriconSection` / `cutAcrossSections` /
+    `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `ramSarga` /
     `closeQuotesAt` / `balancedSpan` / `betaGreek` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /

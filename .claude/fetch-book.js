@@ -735,6 +735,82 @@ function rvGriffith(m, h) {
 }
 const rvDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
 
+/* ---------- THE RAMAYANA'S SIX KANDAS ----------
+   THE CHAPTER IS THE CANTO AND THE TAB IS THE CITATION, which is the Rigveda's shape one work over:
+   a passage of the Ramayana is "Ramayana 2.40" — kanda and sarga — so the sarga is what a reader
+   looks up, and the kanda is the PART. The alternative was measured rather than weighed: cutting at
+   the kanda gives six tabs, the largest of them 119 cantos and some 400,000 characters, which is
+   larger than anything on the shelf and which throws away the only number both editions state about
+   the same place.
+
+   `cantos` is the highest canto Griffith NUMBERS in that book and `sargas` the count sa.wikisource
+   carries; `omit` are the cantos he numbers around because he did not translate them. That he
+   numbers around them at all is the finding the whole pairing rests on — a translator who renumbers
+   his own cantos produces an unbroken 1..N, and Griffith produces 1..130 with twenty-nine missing,
+   which is what a man numbering to his edition's own sargas does.
+
+   `shift` is where the two EDITIONS divide the same words differently, and both were measured before
+   either was believed — see the block above extractRamayan. `after` is the last canto that is its own
+   sarga; the `by` cantos following it are Griffith's own extra divisions and pair with nothing; from
+   there on his canto number runs `by` ahead of the sarga. Hoisted above the BOOKS table for the
+   reason SUMMA_PARTS and RV_HYMNS are: a const inside an object literal is a syntax error. */
+const RAM_BOOKS = [
+  { n: 1, title: "Bála Káṇḍa", sa: "बालकाण्डम्", cantos: 77, sargas: 77, shift: null,
+    omit: [37, 38] },
+  { n: 2, title: "Ayodhyá Káṇḍa", sa: "अयोध्याकाण्डम्", cantos: 119, sargas: 119, shift: null,
+    omit: [] },
+  /* Griffith's LVII, "Sítá Comforted" — Indra sending her food in her captivity — is a canto the
+     Sanskrit here does not divide off. Measured: the fit over the whole book improves from 0.279 to
+     0.062 with the shift in, and the boundary reads correctly by content on both sides of it. */
+  { n: 3, title: "Áraṇya Káṇḍa", sa: "अरण्यकाण्डम्", cantos: 76, sargas: 75,
+    shift: { after: 56, by: 1 }, omit: [] },
+  { n: 4, title: "Kishkindhá Káṇḍa", sa: "किष्किन्धाकाण्डम्", cantos: 67, sargas: 67, shift: null,
+    omit: [] },
+  /* NO SHIFT, and the arithmetic that suggests one is a trap worth recording: Griffith's last canto
+     is LXVI where the Sanskrit runs to 68, which looks like a division difference and is not. His 57
+     is the leap home ("like a winged mountain") and the Sanskrit's 57 is आप्लुत्य च महावेगः
+     पक्षवानिव पर्वतः, the same line; his 65 opens on Mount Prasravana and so does sarga 65. He simply
+     stops two sargas early, as he stops elsewhere in the middle. A shift fitted to the totals here
+     would have mispaired the whole tail of the book. */
+  { n: 5, title: "Sundara Káṇḍa", sa: "सुन्दरकाण्डम्", cantos: 66, sargas: 68, shift: null,
+    omit: [5, 28, 29, 39, 40, 59, 60, 61, 62, 63, 64] },
+  /* Griffith's CXII and CXIII — the rákshas dames' lament and Mandodarí's — are two cantos this
+     Sanskrit does not divide off. Read at every point rather than fitted: his CXI is Vibhíshaṇ's
+     lament and so is sarga 111; his CXIV opens "In cars whose sheen surpassed the sun's Triumphant
+     rode the radiant ones" and sarga 112 opens ते रावणवधं दृष्ट्वा देवगन्धर्वदानवाः। जग्मुः
+     स्वैः स्वैर्विमानैः, the gods departing in their own cars; his CXX is Sítá restored from the
+     fire and so is sarga 118; his CXXII is Indra's boon and so is sarga 120; his CXXX is the
+     consecration and so is sarga 128. */
+  { n: 6, title: "Yuddha Káṇḍa", sa: "युद्धकाण्डम्", cantos: 130, sargas: 128,
+    shift: { after: 111, by: 2 },
+    omit: [55, 56, 57, 58, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92,
+           94, 95, 97, 98, 99, 104, 105, 107] },
+];
+/* The 493 cantos Griffith translated, in order, as the chapter list. Derived from the table above
+   rather than typed out, and CHECKED against the edition's own anchors when the TEI is read — the
+   City of God's rule, that a number worth reading is worth reading twice. */
+const RAM_CANTOS = [];
+const RAM_PARTS = [];
+for (const K of RAM_BOOKS) {
+  const from = RAM_CANTOS.length + 1;
+  const skip = new Set(K.omit);
+  for (let c = 1; c <= K.cantos; c++) if (!skip.has(c)) RAM_CANTOS.push({ b: K.n, c: c });
+  RAM_PARTS.push({ n: K.n, from: from, to: RAM_CANTOS.length });
+}
+// chapter number → the kanda and canto the world cites it as
+function ramAt(n) { return RAM_CANTOS[n - 1] || null; }
+/* The canto's sarga on sa.wikisource, or null where it has none — which is Griffith's own extra
+   division, and draws as an empty cell rather than being paired with the passage next door. */
+function ramSarga(b, c) {
+  const K = RAM_BOOKS[b - 1];
+  if (!K.shift) return c <= K.sargas ? c : null;
+  const { after, by } = K.shift;
+  if (c <= after) return c;
+  if (c <= after + by) return null;
+  return c - by <= K.sargas ? c - by : null;
+}
+const ramDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
+
 /* ---------- DON QUIXOTE'S 126 CHAPTERS ----------
    Ormsby heads every chapter, and the two volume index pages carry each title in its own link
    text — so all 126 were read in TWO fetches rather than 126, and the table is transcribed rather
@@ -7771,6 +7847,168 @@ const BOOKS = {
        an `origLang` are the whole of the work. */
   },
 
+  "ramayana": {
+    title: "The Ramayana",
+    subtitle: "रामायणम्",
+    author: "Valmiki",
+    translator: "Ralph T. H. Griffith",
+    edition:
+      "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
+      "Trübner & Co., London, and E. J. Lazarus and Co., Benares, 1870–1874",
+    written: "c. 500 BCE – 200 CE",
+    year: -300,
+
+    /* ---------- THE LICENCE — the ELEVENTH here needing no qualification at all ----------
+       The poem is some two thousand years old and free everywhere. Ralph Thomas Hotchkin Griffith
+       published this translation in five volumes between 1870 and 1874 while Principal of the Benares
+       College — the date and the imprint read off the volume's own title page, which the transcription
+       reproduces, rather than recalled — and he lived 1826–1906, so the English clears the pre-1929
+       publication rule, life plus seventy (1976) and life plus a hundred (2006) alike. There is no
+       limit to state and no modern editorial layer to declare.
+
+       THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement again: the
+       sa.wikisource pages credit no edition of the samhita, so no editor and no publication date is
+       asserted for that column and the ground stated is the age of the text. The gap is a real one
+       here and is stated as such rather than waved through — see the front matter. The Ramayana has
+       three recensions that differ in their sarga divisions and in thousands of readings, so an
+       unnamed Sanskrit text is a text whose recension a reader cannot look up; what can be said is
+       that it is a northern text, because it divides where a northern text divides, and that is said.
+
+       WHAT IS NOT TAKEN. Griffith's appendix — which prints in Latin and in Italian, from Schlegel and
+       Gorresio, the passages he would not English — his fifty-seven pages of additional notes, and his
+       index of names. The Republic's precedent for the introduction and plates it left behind. His
+       footnotes on the poem ARE taken, being notes on the text rather than matter around it.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none may
+       be used: the Princeton translation begun by Robert Goldman in 1984 and completed in 2017, which
+       is the scholarly standard and is the one to read for accuracy; Hari Prasad Shastri's of 1952–59;
+       Arshia Sattar's abridgement of 1996. Griffith is a century and a half old and reads like it; the
+       book's own first page says so rather than leaving a reader to find it out. */
+    rights:
+      "Public domain worldwide, on every ground. The poem is around two thousand years old, so the " +
+      "work itself has never been in copyright. Ralph T. H. Griffith published this translation in " +
+      "five volumes at London and Benares between 1870 and 1874, and he lived from 1826 to 1906, so " +
+      "the English is out of copyright under the rule for works published before 1929, under the " +
+      "translator's life plus seventy years, and under life plus a hundred — there is no limit to " +
+      "state. The facing Sanskrit is the received text as transcribed at Sanskrit Wikisource, which " +
+      "names no editor and no printed edition for it, so none is claimed here; the ground for that " +
+      "column is the age of the text alone. (The modern translations by Robert Goldman and others, " +
+      "1984–2017, Hari Prasad Shastri, 1952–59, and Arshia Sattar, 1996, are still in copyright and " +
+      "are not used.) Griffith's appendix, his additional notes and his index are not reproduced.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/24869",
+    url: "https://www.gutenberg.org/files/24869/24869-tei/24869-tei.tei",
+    source: "tei",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they open five hundred cantos of Victorian verse: what the poem is,
+       what happens in it, how it is arranged and cited, whose translation this is and how far it can
+       be trusted, and — at length, because it is the thing most likely to be met as a fault — exactly
+       how much of the poem is here and how much is not. */
+    about: [
+      "<b>The Ramayana</b> is one of the two great epics of ancient India and, with the Mahabharata, " +
+        "one of the foundation texts of a civilisation. It tells the story of <b>Ráma</b>, prince of " +
+        "Ayodhyá, who is exiled to the forest on the eve of his coronation; of the carrying off of his " +
+        "wife <b>Sítá</b> by <b>Rávaṇ</b>, the demon king of Lanká; of the war fought to recover her; " +
+        "and of what happened when she was recovered. Tradition gives it to a single poet, " +
+        "<b>Válmíki</b>, who appears inside his own poem. In the form we have it, it was probably " +
+        "composed between about the fifth century BCE and the second century CE, the older core in " +
+        "Books II to VI and the first and last books added around them.",
+      "It is not scripture in the way the Vedas are, and it is not only a story either. For two " +
+        "thousand years it has been the text through which a great part of South and Southeast Asia " +
+        "has thought about duty, kingship, marriage and exile, and it has been retold in almost every " +
+        "language of the region — in Tamil by Kamban, in Hindi by Tulsidas, in Java and Bali and " +
+        "Thailand and Cambodia — each retelling changing what it needed to. It is performed as dance " +
+        "and shadow-play and, in the Rámlílá, acted out over days in the open air. Sítá's ordeal and " +
+        "her final departure have been argued about for centuries and are argued about now.",
+      "The poem is arranged in seven books, called <b>káṇḍas</b>, each divided into cantos or " +
+        "<b>sargas</b>: <i>Bála</i>, the childhood; <i>Ayodhyá</i>, the exile; <i>Áraṇya</i>, the " +
+        "forest and the abduction; <i>Kishkindhá</i>, the alliance with the monkey king; " +
+        "<i>Sundara</i>, Hanumán's leap to Lanká; <i>Yuddha</i>, the war; and <i>Uttara</i>, the " +
+        "later book. A passage is cited by book and canto — <b>2.40</b> is the fortieth canto of the " +
+        "Ayodhyá Káṇḍa — and that is exactly how this edition is laid out: the tabs are the cantos, " +
+        "in that notation, and each is set beside its Sanskrit.",
+      "The translation is <b>Ralph T. H. Griffith's</b>, made while he was Principal of the Benares " +
+        "College and published in five volumes between 1870 and 1874. It is rhymed English verse, and " +
+        "it is Victorian to its bones: the diction is deliberately archaic, the metre is the eight-" +
+        "syllable couplet of the English narrative poem rather than anything Sanskrit does, and " +
+        "Griffith smooths and heightens freely. It is also readable, fast, and often very fine — it is " +
+        "the reason the Ramayana was read in English at all for a century. A reader who wants to know " +
+        "what the scholarship now thinks a passage says should go to the Princeton translation begun " +
+        "by Robert Goldman in 1984, which is in copyright and cannot be reproduced here.",
+      "<b>What is here is 493 cantos of the 645 this Sanskrit carries, and the missing 152 are worth " +
+        "understanding before they are met as gaps.</b> The largest part of the difference is that " +
+        "Griffith did not translate the <b>seventh book</b> at all. The Uttara Káṇḍa is the poem's " +
+        "sequel and its most disputed section — Ráma's repudiation of Sítá after the war, the birth " +
+        "of her sons in Válmíki's hermitage, her return to the earth — and is generally held to be " +
+        "later than the rest. Griffith stops where the war ends and the story, as he took it, is " +
+        "finished. It is 111 cantos, and this edition has none of them.",
+      "The other forty-one are cantos he passed over inside the six books he did translate, and " +
+        "<b>he says so, in the text, wherever he does it</b> — a bracketed paragraph at the foot of " +
+        "the canto before, naming what he has left out and usually why. Sometimes the reason is that " +
+        "the passage is repetitive: <i>Three Cantos consisting of little but repetitions are omitted.</i> " +
+        "Sometimes it is that he thinks it interpolated. And twice it is Victorian propriety — Book I's " +
+        "cantos 37 and 38 go because they are <i>both in subject and language offensive to modern " +
+        "taste</i>, and he sends the reader to Schlegel's Latin for them. Those notes are kept here " +
+        "exactly where he printed them, so the shape of what is absent is visible from inside the poem.",
+      "<b>Griffith numbered around his gaps</b>, and that is what makes this edition worth setting " +
+        "beside the Sanskrit at all. His Book VI runs from canto 1 to canto 130 with twenty-nine " +
+        "numbers simply missing; his Book I skips 37 and 38 and carries on at 39. A translator " +
+        "numbering his own cantos would have produced an unbroken run, so the numbers he prints are " +
+        "the sargas of the text in front of him, and a canto here can be laid against the sarga that " +
+        "bears its number. Measured before it was believed: <b>490 of the 493 cantos pair</b>, and " +
+        "four unmistakable episodes land exactly — Kumbhakarṇa dies in canto 67 and in sarga 67, " +
+        "Rávaṇ in canto 110 and in sarga 110.",
+      "The three that do not pair are places where <b>Griffith's edition and this Sanskrit divide the " +
+        "same words differently</b>, which is what happens with a poem that survives in three " +
+        "recensions. His Áraṇya 57, in which Indra sends food to Sítá in her captivity, and his Yuddha " +
+        "112 and 113, the lament of the rákshas women and Mandodarí's lament, are single cantos here " +
+        "and are not divided off in the Sanskrit. Those three cantos are therefore shown alone, at " +
+        "full width, with no Sanskrit beside them — the words are in the original, inside the sarga " +
+        "before or after, but there is no canto of it to set against them. From " +
+        "each of those points on, the canto number runs one or two ahead of the sarga number, and the " +
+        "pairing follows the text rather than the arithmetic.",
+      "Two more things about the columns are worth knowing. The <b>Sanskrit names no editor</b>: the " +
+        "pages it is taken from credit no printed edition, so this book cannot tell you whose text it " +
+        "is, which for a poem with three recensions and thousands of disputed readings is a real " +
+        "limitation rather than a formality. What can be said is that it divides where a northern text " +
+        "divides. And <b>Griffith's own footnotes are here</b> — a thousand of them, folded under each " +
+        "canto — explaining a name, a custom, or a line he found obscure; they are as Victorian as the " +
+        "verse, and as informative.",
+    ],
+
+    layout: "kanda",
+    chapterWord: "Canto",
+    chapters: RAM_CANTOS.map((_, i) => i + 1),
+    /* The tab, and it is the citation itself: a reader looking for Ramayana 2.40 finds a tab reading
+       2.40. Griffith gives every canto a title of his own as well ("The Wondrous Deer"), and those are
+       NOT used for the tab — a tab is a place in the poem before it is a description of one, and his
+       titles are his rather than the poem's, which prints none. */
+    titleOf: (n) => { const a = ramAt(n); return a ? a.b + "." + a.c : String(n); },
+    parts: RAM_PARTS,
+    /* A canto may honestly be a dozen lines — Yuddha 106, the hymn to the sun, is one of the shortest
+       things in the poem and is complete — so this sits well below the 200 the prose books use. It is
+       still enough to catch a slice that has returned the file's furniture instead of the verse. */
+    minChars: 120,
+
+    original: {
+      lang: "sa",
+      langName: "Sanskrit",
+      layout: "kanda",
+      wiki: "sa.wikisource.org",
+      edition: "The received text, as transcribed at Sanskrit Wikisource; no editor is named",
+      rights:
+        "Public domain worldwide. The poem is around two thousand years old. The transcription names " +
+        "no editor and no printed edition, so none is claimed here.",
+      sourceName: "संस्कृतविकिस्रोतः",
+      sourceUrl: "https://sa.wikisource.org/wiki/रामायणम्",
+      page: (n) => {
+        const a = ramAt(n), K = RAM_BOOKS[a.b - 1], s = ramSarga(a.b, a.c);
+        return "रामायणम्/" + K.sa + "/सर्गः " + ramDev(s);
+      },
+      minChars: 40,
+    },
+  },
   "rigveda": {
     title: "The Rigveda",
     subtitle: "ऋग्वेदः",
@@ -11438,6 +11676,168 @@ function extractSukta(h, where, warn) {
    the reader is describing the book or guessing at it. */
 const SUKTA_KIND = {};
 
+
+/* ---------- THE RAMAYANA'S SANSKRIT ----------
+   One page per sarga on sa.wikisource, the verse in a `div.poem` with the lines separated by breaks —
+   the Rigveda's shape and the Gita's, on the same wiki. Three things differ, and each was found by
+   measurement rather than met as a fault.
+
+   THE PAGE STATES ITS OWN CITATION AND IT IS CHECKED. Every sarga opens on a line of the form
+   श्रीमद्वाल्मीकीयरामायणे बालकाण्डे प्रथमः सर्गः ॥१-१॥ — the kanda and the sarga, in a numeral pair
+   this reader compares against the page it asked for. That is the City of God's rule, and it is worth
+   more here than there: 645 pages fetched by a name built out of arithmetic is 645 chances to file a
+   sarga under the wrong number, and a mis-numbered page would pair a passage with the wrong canto
+   while every count stayed healthy. The header line is then DROPPED, being the page's own furniture
+   rather than Válmíki's verse. One page in the six books states its header wrongly (Sundara 61 prints
+   ॥५-२॥); it is reported and the page's own name is kept, which is the forward-only guard's judgement
+   in another coat.
+
+   THE VERSE NUMERAL WEARS TWO COSTUMES AND ONLY ONE BOOK USES THE FIRST. Bála Káṇḍa prints the whole
+   citation at each verse — ॥१-१-९॥, kanda-sarga-verse — and the other five print the verse alone,
+   ॥ ९॥. Measured over all 534 sargas of the six books before the rule was written. Both are KEPT as
+   printed: Griffith numbers no verses, so these pair with nothing and are not markers, but they are
+   how a passage of the Sanskrit is cited and dropping them would take that away for nothing.
+
+   AND THE PAGE CARRIES A GREAT DEAL THAT IS NOT THE POEM: a navigation table at each end, a sidebar
+   listing every sarga of the kanda (which on a 128-sarga book is longer than the verse), and on many
+   pages a recitation. All of it sits outside `div.poem`, so taking the poem blocks and nothing else
+   leaves it behind — which is why this reads the blocks rather than cleaning the page. */
+/* Counted across the run and reported at the end; see the note inside. */
+const RAM_SA_KIND = {};
+let RAM_SA_NOHEAD = 0, RAM_SA_INDEX = 0, RAM_SA_ESCAPED = 0;
+function ramSanskrit(h, where, expect, warn) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  b = b.replace(/<figure[\s\S]*?<\/figure>/g, "");
+  /* THE स्रोतः SECTION GOES BEFORE ANYTHING IS GATHERED, and it has to be done here rather than
+     inside one shape's branch. These pages close with a heading and a paragraph crediting the
+     reciters of the recorded audio — prose on the page, and not Válmíki — and on the `div.verse`
+     pages the wiki leaves that container OPEN across it, so `blockEnd` walks past the heading and
+     the credit lands inside the verse. It cost 74 sargas a line of modern Sanskrit prose apiece,
+     with nothing throwing and every count healthy; the shipped-file sweep in test-library.js is what
+     found it. Cutting at the first section heading is safe by construction: if it ever removed the
+     verse as well, no block would be gathered and the page would throw. */
+  const head = b.search(/<div[^>]*class="[^"]*\bmw-heading\b/);
+  if (head > 0) b = b.slice(0, head);
+  /* A collapsible commentary, where a page carries one — the Rigveda's Sayana problem, which this
+     text mostly does not have. Dropped rather than lifted, and counted, for the reason recorded there:
+     a commentary in the original's own language is another text, not a note on this one. */
+  let dropped = 0;
+  for (let k = 0; k < 40; k++) {
+    const m = /<div[^>]*class="[^"]*\bmw-collapsible\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn(where + ": an unbalanced commentary block was left in place"); break; }
+    b = b.slice(0, m.index) + b.slice(end);
+    dropped++;
+  }
+  /* THE TRANSCRIPTION USES MORE THAN ONE CONTAINER, which is the Rigveda's finding on the same wiki
+     and was met here the loud way: the first run threw on Ayodhyá 48, whose verse is a
+     `<div class="verse"><pre>` where the pages around it are a `<div class="poem">`. Both are swept,
+     and so is the `ws-poem` a proofread transclusion renders as, and a bare `<pre>`; which shape each
+     page used is COUNTED and reported at the end of the run, because how often each occurs is what
+     says whether this reader is describing the book or guessing at it. A page matching none of them
+     throws rather than coming back empty — a shape nobody has met must announce itself. */
+  const blocks = [];
+  const kinds = [];
+  for (const [name, open] of [["poem", '<div class="poem"'], ["verse", '<div class="verse"'],
+                              ["ws-poem", '<div class="ws-poem']]) {
+    let i = 0, found = 0;
+    for (;;) {
+      const j = b.indexOf(open, i);
+      if (j < 0) break;
+      /* AN UNCLOSED CONTAINER IS TAKEN TO THE END OF WHAT IS LEFT, which is safe only because the
+         स्रोतः section has already been cut away above. The wiki leaves `div.verse` open on a great
+         many of these pages — 290 of the 490 use that shape and the container simply never closes —
+         so refusing it would throw on most of the book, and taking it to the end of the raw page
+         would swallow the reciter credit. Between the two, the cut comes first and this takes what
+         remains. */
+      const stop = blockEnd(b, j, "div");
+      blocks.push(b.slice(j, stop < 0 ? b.length : stop));
+      if (stop < 0) { i = b.length; found++; break; }
+      i = stop; found++;
+    }
+    if (found) kinds.push(name);
+  }
+  if (!blocks.length) {
+    /* A bare <pre> with no wrapper. Taken only when nothing else matched, so it can never swallow a
+       page's furniture. */
+    for (const m of b.matchAll(/<pre>[\s\S]*?<\/pre>/g)) blocks.push(m[0]);
+    if (blocks.length) kinds.push("bare-pre");
+  }
+  if (!blocks.length) {
+    /* NO CONTAINER AT ALL — the verse typed straight into the page as `<p>` blocks with breaks
+       between the half-lines, which is the shape the Rigveda's Purusha hymn uses on this same wiki.
+       It is the loosest of the four and is therefore the narrowest: the page is first cut at its first
+       section heading, because these pages close with a स्रोतः section crediting the reciters of the
+       audio and that is not Válmíki; the tables are dropped, being navigation; and of what is left
+       only a paragraph CARRYING A DAṆḌA is taken. Every verse block ends on its ॥N॥ and no piece of
+       furniture on these pages contains one, so the test is what separates the poem from the page it
+       is printed on rather than a guess about position. The स्रोतः section has already gone. */
+    let c = b.replace(/<table[\s\S]*?<\/table>/g, "");
+    for (const m of c.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)) if (m[1].includes("॥")) blocks.push(m[0]);
+    if (blocks.length) kinds.push("bare-p");
+  }
+  if (!blocks.length) throw new Error(where + ": no verse on the page");
+  RAM_SA_KIND[kinds.join("+")] = (RAM_SA_KIND[kinds.join("+")] || 0) + 1;
+
+  const lines = blocks.join("\n")
+    .replace(/<\/p>|<br\s*\/?>/g, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&#8203;/g, "")
+    .replace(/&amp;/g, "&")
+    .split("\n")
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  /* The citation header, read and checked before it goes. It is the first line that names the work
+     and closes on a kanda-sarga pair; anything before it is furniture that leaked into the block. */
+  const kept = [];
+  let checked = false;
+  for (const line of lines) {
+    if (!checked) {
+      /* The trailing `[\s'"]*` is not decoration: two pages wrap the header in the wiki's own bold
+         markup and the apostrophes did not render, so the line ends `॥३-१५॥'''` and a pattern
+         anchored to the numeral alone leaves the whole header standing at the head of the verse. */
+      const m = /रामायणे[\s\S]*?॥\s*([०-९]+)\s*-\s*([०-९]+)\s*॥[\s'"]*$/.exec(line);
+      if (m) {
+        checked = true;
+        const k = devNum(m[1]), s = devNum(m[2]);
+        if (k !== expect.k || s !== expect.s)
+          warn(where + ": the page states " + k + "." + s + " where its name says " +
+               expect.k + "." + expect.s + " — the page's own name is kept");
+        continue;
+      }
+      /* A header with no numeral pair still names the work, and still is not verse. */
+      if (/रामायणे/.test(line) && /सर्गः\s*$/.test(line)) { checked = true; continue; }
+    }
+    /* ONE PAGE'S INDEX OF SARGAS LEAKED INTO ITS VERSE, and one line of it looks like nothing else
+       in the poem: a bare `*सर्गः N`, the wiki's own list of the kanda's sargas, which on that page
+       sits inside the verse container. Dropped on the shape rather than by page number, and counted,
+       so a second occurrence cannot arrive unnoticed. */
+    if (/^\*?\s*सर्गः\s*[०-९]+\s*$/.test(line)) { RAM_SA_INDEX++; continue; }
+    /* AN ESCAPED TAG IS THE TRANSCRIPTION'S OWN SLIP, not markup: three pages carry a literal
+       &lt;/poem&gt; where the editor typed the tag instead of using it. Removed from the line rather
+       than the line from the verse — there are words either side of it on one of the three. */
+    const clean = line.replace(/&lt;\/?(?:poem|div|pre)&gt;/g, "").replace(/\s+/g, " ").trim();
+    if (clean !== line) RAM_SA_ESCAPED++;
+    if (!clean) continue;
+    kept.push(clean);
+  }
+  /* A PAGE MAY HONESTLY CARRY NO OPENING HEADER, and most do not: 290 of the 490 open straight on
+     the verse and close on the traditional colophon instead. So this is COUNTED rather than warned
+     per page — a warning that fires on three pages in five is one nobody reads. What the count is
+     for is the same thing the check is: if it moves, the transcription has changed shape. */
+  if (!checked) RAM_SA_NOHEAD++;
+  if (!kept.length) throw new Error(where + ": the page held a header and no verse");
+  return {
+    html: "<p>" + kept.join("<br>") + "</p>",
+    lines: kept.length,
+    verses: (kept.join("\n").match(/॥[^॥\n]{0,20}॥/g) || []).length,
+    dropped: dropped,
+  };
+}
+
 /* ---------- THE RIGVEDA'S SANSKRIT ----------
    The samhita as sa.wikisource carries it: one page per hymn, the verse in a `div.poem` with the
    lines separated by breaks and each verse closing on its own Devanagari numeral, ॥N॥ — the Bhagavad
@@ -14489,6 +14889,169 @@ function betaGreek(s) {
   return out;
 }
 
+
+/* ============================================================
+   THE RAMAYANA — a TEI edition that is not Perseus's, and a translation that numbers around its gaps
+   ============================================================
+   The sixth TEI reader, and the first whose file did not come from Perseus. Every earlier one reads a
+   CTS-encoded edition where the citation is an attribute — `<div subtype="chapter" n="17">`, or a
+   milestone carrying `n` — and this file has none: 571 `<div>`s, not one with a `type` or an `n`, and
+   the structure carried entirely by nesting and `<head>`. What it has instead is an ANCHOR at the head
+   of every canto, `<anchor id="CantoVI-CXXX"/>`, which is the citation in the shape the reader wants
+   it and is machine-readable — so the divisions are ignored and the poem is cut at the anchors.
+
+   THE ANCHORS ARE READ AND THEN CHECKED, which is the City of God's rule on a new kind of marker: the
+   `<head>` beside each one prints the same numeral in words ("Canto CXXX. The Consecration."), so the
+   two are compared and a disagreement is reported rather than filed under whichever was read first.
+
+   ---- WHY THE CANTO NUMBERS CAN BE TRUSTED AS A PAIRING KEY, WHICH IS THE WHOLE QUESTION HERE ----
+   Griffith translated 493 cantos of a work whose Sanskrit here runs to 645, so the obvious worry is
+   that he renumbered what he kept — in which case his canto 60 would be his sixtieth canto and not the
+   sixtieth sarga, and pairing on the number would set passage beside unrelated passage with both
+   columns complete and every count reading healthy. That is the Rigveda's Valakhilya trap, and it is
+   the one failure a book of this shape can have that nothing downstream would catch.
+
+   HIS OWN GAPS ARE THE ANSWER. A translator numbering his own cantos produces an unbroken 1..N;
+   Griffith's Book VI runs 1..130 with twenty-nine numbers missing, his Book I skips 37 and 38, his
+   Book V skips eleven. A man who numbers around what he has left out is numbering to something
+   outside himself, and the only thing outside himself is the sarga numbering of the text he is
+   translating.
+
+   MEASURED, NOT ARGUED. The Sanskrit's verse-count per sarga against Griffith's line-count per canto,
+   correlated at every offset from −2 to +2, over all six books: offset 0 wins everywhere, r = 0.63 to
+   0.71 against 0.40 at best for any other offset, and by thirds of a book the right offset scores 0.83
+   to 0.996. Four unmistakable episodes land exactly — Kumbhakarṇa dies in sarga 67 and in canto 67,
+   Narántaka in 69 and 69, Atikáya in 71 and 71, Rávaṇ in 110 and 110.
+
+   TWO BOOKS SHIFT LATE AND BOTH SHIFTS ARE THE EDITIONS DIVIDING THE SAME WORDS DIFFERENTLY, which is
+   what the `shift` field in RAM_BOOKS records; see the comments there for the passages each was
+   verified on. What is worth carrying is the one it does NOT record: Book V's totals differ too — 66
+   cantos against 68 sargas — and a shift fitted to that difference is WRONG. Griffith's 57 is the leap
+   home and so is sarga 57, his 65 opens on Mount Prasravana and so does sarga 65; he simply stops two
+   sargas short of the end, as he stops in the middle elsewhere. **A difference in the totals is not
+   evidence of a difference in the division.** Fitting one there would have mispaired the whole tail of
+   the book, and only reading the passages showed it.
+
+   ---- NO SECTION MARKER IS WRITTEN, ON EITHER SIDE ----
+   Griffith numbers no verses: 53,203 `<l>` elements in the file and not one with an `n`. So the canto
+   is both the chapter and the row, and the Satyricon's rule applies — neither column carries a `bk-n`,
+   so each comes back as a single unnumbered block and `bookRows` pairs them deterministically. The
+   Sanskrit's own ॥N॥ numerals are KEPT as printed text, since that is how a passage of it is cited and
+   they cost the pairing nothing, but they are text and not markers.
+
+   ---- THE HEAD IS DROPPED AND ITS FOOTNOTES ARE NOT ----
+   Each canto opens on its own title, which is the tab, so the head goes — and NINE of the 493 hang a
+   footnote off that title. Beowulf's `dropFittHead` rule in a sixth edition: the markers are carried
+   down to the first block rather than deleted with the line, or those nine notes would sit in the fold
+   with no sentence opening them, which `test-library.js` asserts against. The notes are lifted before
+   the head is found, so the numbering is in reading order and the head's note is note 1 where it
+   exists. */
+function extractRamayan(xml, warn) {
+  /* The poem STOPS at the appendix, and the last canto is the reason this is not left to the next
+     anchor: Griffith closes with an appendix, fifty-seven pages of additional notes and an index, and
+     canto CXXX would otherwise swallow all of it. The appendix is also where the file's Latin and
+     Italian live — Gorresio's text of the passages Griffith would not English — which is matter around
+     the book rather than the book, and is left behind as the Republic's introduction and plates were. */
+  const stop = xml.indexOf("<head>APPENDIX.</head>");
+  if (stop < 0) warn("no APPENDIX head found — the last canto may have swallowed the back matter");
+  const body = stop > 0 ? xml.slice(0, stop) : xml;
+
+  const rx = /<anchor id="Canto([IVXLCDM]+)-([IVXLCDM]+)"\s*\/>/g;
+  const hits = [];
+  let m;
+  while ((m = rx.exec(body))) {
+    const b = romanValue(m[1]), c = romanValue(m[2]);
+    if (!b || !c) { warn("unreadable canto anchor " + m[0]); continue; }
+    hits.push({ b: b, c: c, i: m.index });
+  }
+  const out = {};
+  const counts = { notes: 0, lines: 0, stanzas: 0, paras: 0, headNotes: 0, mismatch: 0, named: 0 };
+  for (let k = 0; k < hits.length; k++) {
+    const h = hits[k];
+    const raw = body.slice(h.i, k + 1 < hits.length ? hits[k + 1].i : body.length);
+    const notes = [];
+    /* Lifted over the WHOLE slice, head included, so the numbering follows the printed page. */
+    let t = raw.replace(/<note\b[^>]*>([\s\S]*?)<\/note>/g, (whole, inner) => {
+      const x = teiInline(inner);
+      if (!x) return "";
+      notes.push(x);
+      return '<sup class="fn" data-fn="' + notes.length + '"></sup>';
+    });
+    /* EVERY head is dropped and every marker one carries is kept — Beowulf's `dropFittHead` rule,
+       which bites TWICE here rather than once. The canto's own head duplicates the tab and goes,
+       checked against the anchor first. And where a BOOK ends, the edition sets its successor's
+       half-title inside the last canto's own run — "BOOK V." with Griffith's headnote hanging off it
+       — which no block sweep would ever gather, so that note reached the fold with no sentence
+       opening it. Two of the poem's 1,023 notes are that shape (4.67 and 5.66, the last cantos of
+       Books IV and V), and NOTHING but an every-note-is-referenced check can see them: the canto is
+       complete, the note is correct, and it simply sits in a list nothing points at.
+       A carried marker goes to the block nearest it in reading order — a canto head precedes the
+       verse and opens it, a book half-title follows the verse and closes it — rather than all of
+       them to the top, which would print a note about Book V above the first line of canto 4.67. */
+    let carriedTop = "", carriedEnd = "", name = "";
+    const firstBlock = t.search(/<lg\b|<p\b|<ab\b/);
+    let seenHead = false;
+    t = t.replace(/<head>([\s\S]*?)<\/head>/g, (whole, inner, at) => {
+      if (!seenHead) {
+        seenHead = true;
+        const words = inner.replace(/<sup class="fn"[^>]*><\/sup>/g, "").replace(/<[^>]*>/g, "")
+          .replace(/\s+/g, " ").trim();
+        const said = /^Canto\s+([IVXLCDM]+)\b/.exec(words);
+        if (!said) warn(h.b + "." + h.c + ": the head does not open on a canto number — " + JSON.stringify(words.slice(0, 50)));
+        else if (romanValue(said[1]) !== h.c) {
+          counts.mismatch++;
+          warn(h.b + "." + h.c + ": the anchor and the printed head disagree — head says " + said[1]);
+        }
+        /* THE NAME IS THE HALF OF THE HEAD THAT IS NOT THE NUMBER, and it is worth keeping: this book
+           has 493 tabs and the citation alone says nothing about what is in one. Griffith names every
+           canto — all 493, median fifteen characters, longest twenty-seven — so the tab reads
+           "1.1 · Nárad" and the poem can be navigated by eye. Dropping the whole head threw those
+           away, which was found by LOOKING at the chapter bar rather than by any count. The case is
+           the edition's own (it sets "The Meeting With The Queens") and is kept, which is Aesop's
+           rule: a printed title is transcribed, never recased. */
+        if (said) name = words.slice(said[0].length).replace(/^[.\s]+/, "").replace(/[.\s]+$/, "");
+      }
+      const marks = inner.match(/<sup class="fn"[^>]*><\/sup>/g);
+      if (marks) {
+        counts.headNotes += marks.length;
+        if (firstBlock < 0 || at < firstBlock) carriedTop += marks.join("");
+        else carriedEnd += marks.join("");
+      }
+      return "";
+    });
+    /* Griffith's own emphasis, which the generic sweep would keep the words of and lose the mark of.
+       Two rends and nothing else in the poem, counted: 281 italic and 108 small-caps. Both become
+       italic, which is the Analects' judgement — the reader has no style for small capitals, and this
+       edition sets them where an italic would do the same work (the titles of the cantos he passes
+       over, and an occasional emphasised word). */
+    t = t.replace(/<hi\b[^>]*rend=['"][^'"]*(?:italic|small-caps)[^'"]*['"][^>]*>/g, "<i>")
+         .replace(/<\/hi>/g, "</i>");
+
+    /* The blocks, in reading order: a stanza is a paragraph of lines, and the few prose runs — the
+       OM. that opens the poem, an occasional editorial line — are paragraphs of their own. */
+    const blocks = [];
+    const brx = /<lg\b[^>]*>([\s\S]*?)<\/lg>|<(p|ab)\b[^>]*>([\s\S]*?)<\/\2>/g;
+    let bm;
+    while ((bm = brx.exec(t))) {
+      if (bm[1] !== undefined) {
+        const lines = [...bm[1].matchAll(/<l\b[^>]*>([\s\S]*?)<\/l>/g)]
+          .map((x) => teiInline(x[1])).filter(Boolean);
+        if (lines.length) { blocks.push("<p>" + lines.join("<br>") + "</p>"); counts.lines += lines.length; counts.stanzas++; }
+      } else {
+        const p = teiInline(bm[3]);
+        if (p) { blocks.push("<p>" + p + "</p>"); counts.paras++; }
+      }
+    }
+    if (!blocks.length) { warn(h.b + "." + h.c + " came through with no verse"); continue; }
+    if (carriedTop) blocks[0] = blocks[0].replace(/^<p>/, "<p>" + carriedTop);
+    if (carriedEnd) blocks[blocks.length - 1] = blocks[blocks.length - 1].replace(/<\/p>$/, carriedEnd + "</p>");
+    counts.notes += notes.length;
+    if (name) counts.named++;
+    out[h.b + "." + h.c] = { html: blocks.join("\n"), notes: notes, name: name };
+  }
+  return { cantos: out, counts: counts };
+}
+
 /* ============================================================
    A WORK CITED BY SECTION AND DIVIDED INTO NOTHING ELSE
                                    (layout: "satyricon" — the seventeenth)
@@ -14901,6 +15464,49 @@ async function fetchEnglish() {
      written. The counts are printed rather than summarised, because every one of them is a decision
      the reader would otherwise have to take on trust: what was dropped, what was left in beta code,
      and how much of Petronius's verse the translator set as prose. */
+  /* THE RAMAYANA — one TEI file, cut at the canto anchors. See extractRamayan for why the anchors are
+     the citation and why the canto numbers can be trusted as a pairing key. */
+  if (BOOK.source === "tei" && BOOK.layout === "kanda") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, xml); }
+    const got = extractRamayan(xml, warn);
+    const c = got.counts;
+    console.log("  " + Object.keys(got.cantos).length + " cantos, " + c.lines + " lines of verse in " +
+      c.stanzas + " stanzas, " + c.paras + " prose paragraph(s), " + c.notes + " notes");
+    if (c.headNotes) console.log("    carried " + c.headNotes +
+      " footnote marker(s) off a dropped heading — 9 canto titles and 2 book half-titles");
+    if (c.mismatch) console.log("    " + c.mismatch + " canto(s) whose anchor and printed head disagree");
+    if (c.named !== Object.keys(got.cantos).length)
+      console.log("    " + (Object.keys(got.cantos).length - c.named) + " canto(s) carry no printed name");
+
+    /* THE TABLE IS CHECKED AGAINST THE EDITION, in both directions — the whole pairing rests on which
+       cantos Griffith actually prints, and RAM_BOOKS states that from a measurement rather than from
+       the file. A canto the table expects and the file lacks would ship as a missing chapter; one the
+       file has and the table omits would never be asked for at all, and nothing else would say so. */
+    const has = new Set(Object.keys(got.cantos));
+    const wanted = new Set(BOOK.chapters.map((n) => { const a = ramAt(n); return a.b + "." + a.c; }));
+    const extra = [...has].filter((k) => !wanted.has(k));
+    if (extra.length) warn("the edition carries " + extra.length +
+      " canto(s) the chapter table omits: " + extra.slice(0, 12).join(", "));
+
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const a = ramAt(n);
+      const s = got.cantos[a.b + "." + a.c];
+      if (!s) { warn(BOOK.chapterWord + " " + a.b + "." + a.c + " is missing from the edition"); continue; }
+      if (s.html.length < (BOOK.minChars || 200))
+        throw new Error("canto " + a.b + "." + a.c + " came back short (" + s.html.length + " chars)");
+      /* The tab reads "1.1 \u00b7 N\u00e1rad" \u2014 the citation the poem is cited by, then Griffith's own name
+         for the canto. See `extractRamayan` for why the name is worth carrying across 493 tabs. */
+      const t = (titles[n] || chapterTitle(n)) + (s.name ? " \u00b7 " + s.name : "");
+      chapters.push({ n: n, t: t, p: partOf(n), html: s.html, notes: s.notes });
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.source === "tei" && BOOK.layout === "satyricon") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-tei.xml");
@@ -15866,6 +16472,45 @@ async function fetchOriginal() {
   /* THE SANSKRIT SAMHITA — one page per hymn on another wiki, with Sayana's commentary dropped and
      the verse cut as a stream; see suktaSanskrit above. The pairing is checked against the English
      that actually SHIPPED, read back out of its own cache, exactly as the caput branch does. */
+  /* THE RAMAYANA'S SANSKRIT — one page per sarga, addressed through ramSarga rather than by the
+     chapter number, because three of the 493 cantos are Griffith's own divisions and have no sarga at
+     all. Those are SKIPPED rather than given the sarga next door: a row that draws with one cell empty
+     is telling the truth about two editions, and filling it would be inventing a division neither of
+     them prints. */
+  if (O.layout === "kanda") {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    let lines = 0, verses = 0, dropped = 0, unpaired = 0;
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const a = ramAt(n), s = ramSarga(a.b, a.c);
+      if (!s) { unpaired++; continue; }
+      const where = O.langName + " " + a.b + "." + a.c;
+      const cf = path.join(cacheDir, "sa-" + String(n).padStart(4, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(O.page(n), O.wiki); fs.writeFileSync(cf, h); await sleep(1100); }
+      const got = ramSanskrit(h, where, { k: a.b, s: s }, warn);
+      if (got.html.length < (O.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      byNum[n] = got.html;
+      lines += got.lines; verses += got.verses; dropped += got.dropped;
+    }
+    console.log("  " + Object.keys(byNum).length + " sargas, " + lines + " lines, " + verses +
+      " verse numerals" + (dropped ? ", " + dropped + " commentary block(s) dropped" : ""));
+    console.log("  transcription shapes: " +
+      Object.keys(RAM_SA_KIND).sort().map((k) => k + " " + RAM_SA_KIND[k]).join(", "));
+    console.log("  " + RAM_SA_NOHEAD + " page(s) carry no opening citation header — they open on the " +
+      "verse and close on the traditional colophon, which is text and is kept");
+    if (RAM_SA_INDEX) console.log("  dropped " + RAM_SA_INDEX + " line(s) of a sarga index that leaked " +
+      "into a verse container");
+    if (RAM_SA_ESCAPED) console.log("  cleaned " + RAM_SA_ESCAPED + " line(s) carrying an escaped tag " +
+      "the transcription typed rather than used");
+    console.log("  " + unpaired + " canto(s) are Griffith's own divisions and have no sarga — " +
+      "they draw with an empty cell");
+    return writeOriginal(byNum, warnings);
+  }
+
   if (O.layout === "sukta") {
     console.log("\nFetching the " + O.langName + " original — one page per " +
       BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
