@@ -128,7 +128,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-two:
+  matter (chapter 0 — see the Library bullet). Currently forty-three:
+  `ptahhotep` (~33 KB, **by a wide margin the smallest thing on the shelf** — all 47 of the
+  translation's sections, **22 notes**, no original — Battiscombe G. Gunn's English of 1906, and
+  **the first book here taken from Project Gutenberg's HTML rather than its plain text or its TEI**,
+  which turns out to be the EASIEST of the three and is worth saying so nobody reaches past it: the
+  plain-text readers on this shelf exist because a machine reading of a printed page has to have its
+  structure BUILT, where this file has already had its paragraphs marked up, its footnotes anchored
+  and its page numbers tagged by a transcriber, and `stripTags` does the rest as it does on every
+  wiki book.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE SECTION IS THE CHAPTER, THE ROW AND THE CITATION**, which is the shape a book of maxims
+  naturally has: this translation prints forty-seven marked sections and NOTHING above them — no
+  parts, no books, no headings between the title and the first line — and the division is the poem's
+  own, the Egyptian scribe having written the first sentence of each in red ink. So the tab is the
+  citation, no `bk-n` marker is written, and with neither column carrying one `bookRows` has nothing
+  to pair on at all, which costs nothing because there is no second column.
+  **THE MARKS ARE LETTERS AND NUMBERS IN ONE INTERLEAVED RUN, and a reader written for either alone
+  loses one end of the poem while every count still reads healthy.** They go A, B, 1..37, C, 38..43,
+  D — the petition to the king and the title of the maxims proper, then the thirty-seven maxims,
+  which is the traditional count, then the epilogue, numbered straight on from 38 with a lettered
+  block at each end. A number-only rule silently drops the opening and the closing of the whole work.
+  Hence `PTAH_KEYS`, which states the run and is checked against the file in both directions — and
+  which has to stand in for a short-chapter guard, because **section 32 is twenty-eight characters**
+  and that is the content rather than a truncation (see below), so `minChars` is 20 and could not
+  catch an extraction that returned the page furniture instead of the text.
+  **A TAB READING "SECTION 32" RENDERS AS "SECTION 34 / Section 32", WHICH IS THE RAMAYANA'S FINDING
+  ARRIVING FROM THE OTHER SIDE.** There the canto head was dropped and its NAME went with it; here
+  the title repeated the word `chapterWord` already prints, and because the printed mark is not the
+  running index (A and B come first, so section 32 is the thirty-fourth chapter) the head showed two
+  different numbers under one word, each contradicting the other. The tab carries the translator's
+  own citation form instead — **"§ 32"**, the form he uses for these marks in his own introduction —
+  so it is transcribed rather than composed and reads as a citation rather than as a second count.
+  Found by LOOKING at the page, which is the golden rule earning its keep for the fifth time.
+  **ITS REAL LIMITATION IS ONE SECTION AND IT IS THE TRANSLATOR'S**: section 32 is four words in
+  square brackets, *[Concerning continence]*, where the other forty-six carry the poem — the maxim it
+  stands for not being something a London series of 1906 would print in English. It is the only one
+  in the book, it ships exactly as he printed it rather than being quietly closed up, and the front
+  matter says so. **And there is no Egyptian column**, for a reason that is about this translation
+  rather than about the Egyptian; see the `books/<id>.<lang>.js` bullet below, which is where the
+  measurement is recorded),
   `ramayana` (~2.2 MB, 493 of the poem's 645 cantos, **52,560 lines of verse in 1,825 stanzas**,
   1,023 notes — Ralph T. H. Griffith's rhymed verse of 1870–1874, and **the first book here whose
   TRANSLATION NUMBERS AROUND ITS OWN GAPS, which is the only reason it can be paired at all.**
@@ -1188,12 +1227,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-two books, twenty-nine originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-three books, twenty-nine originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
-  Divine Comedy, the Summa Theologica and Don Quixote
+  Divine Comedy, the Summa Theologica, Don Quixote and the Maxims of Ptahhotep
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
   to face.
+  **PTAHHOTEP IS THE REPUBLIC'S CASE AT ITS PLAINEST, AND IT IS WORTH KEEPING BECAUSE THE EGYPTIAN IS
+  NOT THE PROBLEM** (Aug 2026). Everything about the original looks available: the poem survives in
+  four copies, the fullest of them the Papyrus Prisse, it has been edited twice over, and both a
+  transcription and a lexical database are online. What decides it is the ENGLISH, measured before
+  anything else was tried — **swept over the whole of Gunn's translation there is not one papyrus
+  reference of any kind**: no column and line, no verse number, no mention of the manuscript
+  anywhere. His sections are marked A, B, 1..43, C, D and by nothing else, and those marks are his
+  own. So there is no number the two texts share and the answer is no whatever the Egyptian side
+  says. **The Egyptian side has a difficulty of its own worth recording so nobody starts there**: the
+  openly downloadable transcription of the Prisse text (Nederhof and Myers, St Andrews) follows
+  **Žába's edition of 1956**, and Žába lived 1917–1971, so his constituted text is in copyright until
+  2042 where the term is life plus seventy — the Prose Edda's rule, that an editor's constituted text
+  is a modern work. The Berlin Thesaurus Linguae Aegyptiae numbers its verses by **Dévaud's** system
+  and its lines by papyrus column, neither of which Gunn states. Shipped English-alone with the
+  reason in the book's own front matter.
   **THE SUMMA IS THE PLATO-JOWETT CASE AND THE CTEXT CASE AT ONCE, WHICH IS WHY IT ANSWERS NO ON A
   WORK WHOSE LATIN IS EVERYWHERE** (Aug 2026). Both candidates fail, and they fail differently.
   **The freely transcribed Latin is a third of the book**: la.wikisource's Summa was measured through
@@ -1822,6 +1876,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   shape to want. The bare-`<p>` fallback is the narrowest of the four because those pages close with a
   स्रोतः section crediting the audio reciters: the page is cut at its first heading, the navigation
   tables go, and only a paragraph carrying a daṇḍa is taken.
+
+  **A PRINTED BOOK'S OWN SECTION MARKS, AND NOTHING ABOVE THEM** (`layout: "ptahhotep"` →
+  `extractPtahhotep` / `PTAH_KEYS`; Aug 2026, adding the Maxims of Ptahhotep — the forty-third book,
+  and the nineteenth layout). The FOURTH book from Project Gutenberg and the first from its HTML
+  rather than its plain text or its TEI, **which is the easiest of the three and is worth saying so
+  nobody reaches past it**: a transcriber has already marked up the paragraphs, anchored the
+  footnotes and tagged the page numbers, so this is the wiki path's problem and not the plain-text
+  path's — `stripTags` does the work. Five things it settled, and every one is about the FURNITURE
+  rather than the text:
+  · **THE CHAPTER IS FOUND BY ITS ANCHOR AND NEVER BY ITS HEADING.** This volume holds three works
+    and an introduction, and the introduction's own heading is the WORDS of this work's title — so
+    slicing on the heading text takes the essay ABOUT the poem instead of the poem, silently and at
+    the right sort of length. Gutenberg anchors each chapter (`id="chap02"`), which cannot be
+    ambiguous; assert on the TEXT at both ends as well, which is what `test-library.js` does.
+  · **A PAGE NUMBER SURVIVES THE TAG STRIP AS PROSE.** The transcription marks each printed page as
+    `<span class="pagenum">{42}</span>`, and `stripTags` unwraps a span it does not recognise and
+    KEEPS the words — so left alone a section reads "the words of them that hearken {42} to the
+    counsel of the men of old time". Removed with their braces, and counted. This is the Rigveda's
+    commentary rule at small scale: **a leak makes a chapter LONGER, so no count of chapters or of
+    sections can see it** and the shipped file has to be swept for it.
+  · **A MARKER MUST CARRY THE NOTE IT POINTS AT.** The apparatus is numbered 1..N across the WHOLE
+    work and each chapter keeps only the notes its own markers cite, renumbered from 1 — so the
+    printed number is written into `data-fn` and the reading-order fallback is never relied on. It is
+    the Seneca rule on a printed page rather than a wiki one.
+  · **AND THE WORK'S OWN TITLE LINE STANDS BEFORE THE FIRST MARK**, unnumbered — the incipit naming
+    the vizier and his king. It is kept and given to the section after it, which is where the printed
+    page puts it; exactly one such block exists, counted, and more than one is reported.
+  · **A TAB MUST NOT REPEAT THE WORD `chapterWord` ALREADY PRINTS.** See the `ptahhotep` entry in the
+    File map for the two-numbers-under-one-word fault that reading the page turned up, and for why
+    the tab carries the translator's own "§ 32" instead.
 
   **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
   `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
@@ -4294,6 +4378,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     what it costs. Arrowsmith (1959), Sullivan (1965), Walsh (1996) and Ruden (2000) are named as the
     ones not to reach for, and with them **E. H. Warmington's 1969 revision of THIS translation**,
     which is the Loeb in shops today and which fills in exactly the passages Heseltine left.
+
+    **The Maxims of Ptahhotep states a LIMIT, and the interesting half is why it has no facing
+    Egyptian** (Aug 2026). The licence is the ordinary shape: the poem is around four thousand years
+    old and free everywhere on any reading; Battiscombe George Gunn published this translation in
+    John Murray's Wisdom of the East series in 1906 and lived 30 June 1883 – 27 February 1950 —
+    corroborated twice for the A. J. Wyatt reason, once from the transcription's own bibliographic
+    record and once from his biography, which independently gives the 1906 volume — so the English
+    clears the pre-1929 rule and cleared life plus seventy on 1 January 2021, and **has not cleared
+    life plus a hundred, which runs to 2051**, said outright rather than smoothed into the easier
+    sentence the ancient half can honestly use.
+    **WHAT IS WORTH CARRYING IS THAT THE ORIGINAL FAILS ON THE TRANSLATION'S SIDE, not on its own** —
+    the Republic's case at its plainest, and see the `books/<id>.<lang>.js` bullet for the
+    measurement. Everything about the Egyptian looks available and none of it matters, because Gunn
+    prints no reference to the papyrus anywhere.
+    **AND THE VOLUME HOLDS THREE WORKS, of which this is one.** Gunn translated the Instruction of
+    Ke'gemni and, in an appendix, the Instruction of Amenemhe'et; both are different works by other
+    hands and neither is here. His thirty-page introduction, his explanation of names and his
+    bibliography are left behind for the reason an editor's front matter always is; his footnotes on
+    the poem ARE taken, being notes on the text rather than matter around it. Lichtheim (1973),
+    Parkinson (1997) and Simpson are named as the ones not to reach for.
 
     **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
     the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
@@ -11528,6 +11632,7 @@ dead code (never rendered).
     `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` /
     `extractQuixote` / `extractSatyricon` / `satyriconSection` / `cutAcrossSections` /
     `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `ramSarga` /
+    `extractPtahhotep` / `PTAH_KEYS` /
     `closeQuotesAt` / `balancedSpan` / `betaGreek` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /

@@ -811,6 +811,19 @@ function ramSarga(b, c) {
 }
 const ramDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
 
+/* THE MAXIMS OF PTAHHOTEP's forty-seven section marks, in the order the edition prints them: the
+   petition and the title, thirty-seven maxims, then the epilogue, which is numbered straight on
+   from 38 with a lettered block at each end. LETTERS AND NUMBERS IN ONE INTERLEAVED RUN — a reader
+   written for either alone loses the other end of the poem with every count still reading healthy,
+   which is what this table is checked against the file to prevent. See `extractPtahhotep`. It is
+   declared here rather than beside that reader because the BOOKS literal below reads it. */
+const PTAH_KEYS = ["A", "B"];
+for (let i = 1; i <= 37; i++) PTAH_KEYS.push(String(i));
+PTAH_KEYS.push("C");
+for (let i = 38; i <= 43; i++) PTAH_KEYS.push(String(i));
+PTAH_KEYS.push("D");
+
+
 /* ---------- DON QUIXOTE'S 126 CHAPTERS ----------
    Ormsby heads every chapter, and the two volume index pages carry each title in its own link
    text — so all 126 were read in TWO fetches rather than 126, and the table is transcribed rather
@@ -8009,6 +8022,132 @@ const BOOKS = {
       minChars: 40,
     },
   },
+  "ptahhotep": {
+    title: "The Maxims of Ptahhotep",
+    subtitle: "The Instruction of Ptah-hotep",
+    author: "Ptahhotep",
+    translator: "Battiscombe G. Gunn",
+    edition:
+      "The Instruction of Ptah-hotep and the Instruction of Ke'gemni: The Oldest Books in the " +
+      "World, Wisdom of the East series, John Murray, London, 1906",
+    written: "c. 2400 BCE, or the Middle Kingdom",
+    year: -2400,
+
+    /* ---------- THE LICENCE — a LIMIT to state, and it falls on the translation ----------
+       The poem is one of the oldest works of literature there is and is free everywhere on any
+       reading. Battiscombe George Gunn published this translation in London in 1906 in John Murray's
+       Wisdom of the East series, and he lived 30 June 1883 – 27 February 1950 — dates corroborated
+       twice for the reason this file keeps insisting on, once from the transcription's own
+       bibliographic record and once from his biography, which independently gives the 1906 volume —
+       so the English is public domain in the United States on the pre-1929 publication rule and
+       cleared life plus seventy on 1 January 2021. It has NOT cleared life plus a hundred, which
+       runs to 1 January 2051, and that is said outright rather than smoothed into the easier
+       sentence the ancient half can honestly use.
+
+       WHAT IS NOT TAKEN. Gunn's volume holds three works and he translated all three: this poem, the
+       Instruction of Ke'gemni, and — in an appendix — the Instruction of Amenemhe'et. Only Ptahhotep
+       is here; the other two are different works by different hands and are not this book. His
+       thirty-page introduction, his explanation of names and his bibliography are left behind for the
+       reason an editor's front matter always is. His footnotes on the poem ARE taken, being notes on
+       the text rather than matter around it.
+
+       WHY THERE IS NO FACING ORIGINAL, and it was measured before it was concluded. The question this
+       shelf asks of an original is not whether a text of the work exists — the Egyptian survives, and
+       is edited, transcribed and online — but whether that text and this translation state the same
+       thing about the same passage. They do not, and the failure is on the ENGLISH side: swept over
+       the whole of Gunn's Ptahhotep, there is not one papyrus reference of any kind. No column and
+       line, no "line 60", no mention of Prisse anywhere in the translation. His sections are marked
+       A, B, 1..43, C, D and by nothing else, and those marks are his own.
+
+       The Egyptian side has a difficulty of its own that is worth recording so nobody starts there.
+       The openly downloadable transcription of the Prisse text (Mark-Jan Nederhof and Robert Myers,
+       St Andrews) follows Zbyněk Žába's edition of 1956, and Žába lived 1917–1971, so his
+       constituted text is in copyright until 2042 where the term is life plus seventy — a medieval
+       or ancient work has to be edited from its manuscripts before anyone can read it, and an
+       editor's constituted text is a modern work. The Berlin Thesaurus Linguae Aegyptiae numbers its
+       verses by Dévaud's system and its lines by papyrus column, neither of which Gunn states. So
+       the answer would be no on the pairing even if the licence were clear.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none
+       may be used: Miriam Lichtheim's in Ancient Egyptian Literature (1973), which is the scholarly
+       standard and is the one to read for accuracy; R. B. Parkinson's in The Tale of Sinuhe and Other
+       Ancient Egyptian Poems (1997); William Kelly Simpson's in The Literature of Ancient Egypt. */
+    rights:
+      "Public domain. The poem is around four thousand years old. Battiscombe G. Gunn's translation " +
+      "was published in 1906, so it is public domain in the United States as a pre-1929 " +
+      "publication, and he died in 1950, so it also cleared life-plus-seventy in 2021. Where the " +
+      "term is life plus a hundred it remains in copyright until 2051.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/30508",
+    url: "https://www.gutenberg.org/cache/epub/30508/pg30508-images.html",
+
+    layout: "ptahhotep",
+    chapterWord: "Section",
+    chapters: PTAH_KEYS.map((_, i) => i + 1),
+    /* THE TAB CARRIES GUNN'S OWN CITATION FORM, "§ 32", AND NOT THE WORD AGAIN — which was found by
+       LOOKING at the page rather than by any count. A chapter head prints `chapterWord` and the
+       running index above the title, and the printed mark is NOT the running index here (A and B
+       come first, so section 32 is the thirty-fourth chapter) — so a title reading "Section 32"
+       renders as "SECTION 34 / Section 32", two different numbers under the same word, each
+       contradicting the other. The section sign is the form the translator uses for these marks in
+       his own introduction ("§ 1", "Ph. 40"), so it is transcribed rather than composed, and it
+       reads as a citation rather than as a second count. */
+    titleOf: (n) => "§ " + (PTAH_KEYS[n - 1] || n),
+    /* Section 32 is twenty-eight characters and complete as this translation prints it — see the
+       reader above, and the front matter, for what it is. So the short-chapter guard is nearly
+       inert here and the key check stands in for it. */
+    minChars: 20,
+
+    about: [
+      "The Maxims of Ptahhotep is a book of advice from an old man to his son, and it is very " +
+        "probably the oldest book of its kind that anyone can still read. It opens with a vizier " +
+        "asking his king for leave to retire and to teach his successor, and it closes with the " +
+        "same man counting up a hundred and ten years of royal favour. Between those two moments " +
+        "come thirty-seven maxims on how to conduct yourself: how to argue with a man wiser than " +
+        "you and with a man who is not, how to behave at another man's table, how to treat a wife, " +
+        "a friend, a servant, a superior and a petitioner, and when to keep silent.",
+      "It is not a religious text and it is barely a philosophical one. Its subject is <b>conduct</b> " +
+        "— what a man at court should do, and why doing it will go well for him — and its argument " +
+        "is that good behaviour is repaid in this life, in office, in property and in a quiet old " +
+        "age. That is what makes it strange and familiar at once: a reader four thousand years " +
+        "later recognises the advice about not interrupting people and finds the reasoning behind " +
+        "it completely foreign.",
+      "The dating is genuinely disputed and the banner above says so in five words. The poem " +
+        "presents itself as the work of <b>Ptahhotep</b>, vizier to King Isesi of the Fifth Dynasty, " +
+        "which would put it around 2400 BCE; the four surviving copies are all several centuries " +
+        "younger, the fullest of them the Papyrus Prisse in Paris, and the language they preserve is " +
+        "Middle Egyptian. Scholars have argued the case both ways for a century and it is not " +
+        "settled. Gunn, writing in 1906, took the Old Kingdom date at face value, which is why his " +
+        "volume was called <i>The Oldest Books in the World</i>.",
+      "The text is divided into short sections, and that division is the poem's own: the Egyptian " +
+        "scribe marked each new section by writing its first sentence in red ink. Those marks are " +
+        "the tabs here — <b>forty-seven of them</b>, running A and B for the petition to the king " +
+        "and the title of the maxims proper, then 1 to 37 for the maxims themselves, then C and 38 " +
+        "to 43 and D for the epilogue on obedience and the son who listens. A passage is cited by " +
+        "that number, so the tab is the citation, and there is nothing above the section in this " +
+        "text and nothing below it.",
+      "The translation is <b>Battiscombe Gunn's</b>, made when he was twenty-two and published in " +
+        "1906. It is deliberately biblical in its English — thou and thine, <i>hearken</i> and " +
+        "<i>gainsayer</i> — which was the convention for rendering an ancient wisdom text into " +
+        "English at the time, and which makes it read as far more remote than the Egyptian is. It " +
+        "is also very readable, and it was a real advance on what came before it. Gunn himself " +
+        "later called it premature, and he became one of the great Egyptian philologists of his " +
+        "generation, so that verdict is worth knowing before you take a difficult line on trust.",
+      "<b>Section 32 is missing, and Gunn is the one who removed it.</b> Where the other " +
+        "forty-six sections carry the poem, that one carries four words in square brackets — " +
+        "<i>[Concerning continence]</i> — because the maxim it stands for was not something a " +
+        "London series of 1906 would print in English. It is the only place in the book where this " +
+        "happens, and it is left exactly as he left it rather than quietly closed up, so the shape " +
+        "of what is absent is visible from inside the poem.",
+      "Two more things are worth knowing. There is <b>no Egyptian column</b> beside this one, and " +
+        "the reason is not that the Egyptian is lost: it survives, it is edited, and it is online. " +
+        "It is that this translation prints no reference to the papyrus anywhere — no column, no " +
+        "line, no verse number — so there is no number the two texts share, and pairing them would " +
+        "mean several hundred judgements made by eye with nothing to check them against. And the " +
+        "volume this comes from also holds the Instruction of Ke'gemni and the Instruction of " +
+        "Amenemhe'et, which are separate works by other hands; only Ptahhotep is here.",
+    ],
+  },
   "rigveda": {
     title: "The Rigveda",
     subtitle: "ऋग्वेदः",
@@ -15053,6 +15192,137 @@ function extractRamayan(xml, warn) {
 }
 
 /* ============================================================
+   A PRINTED BOOK'S OWN SECTION MARKS, AND NOTHING ABOVE THEM
+                                   (layout: "ptahhotep" — the nineteenth)
+   ============================================================
+   Aug 2026, adding the Maxims of Ptahhotep. The FOURTH book taken from Project Gutenberg and the
+   first taken from Gutenberg's HTML rather than from its plain text or its TEI — which turns out to
+   be the easiest of the three and is worth saying so nobody reaches past it: the plain-text readers
+   here exist because a machine reading of a printed page has to have its structure BUILT, and this
+   file has already had its paragraphs marked up, its footnotes anchored and its page numbers tagged
+   by a transcriber. `stripTags` then does the rest, as it does on every wiki book.
+
+   THE SECTION IS THE CHAPTER, THE ROW AND THE CITATION, which is the shape a work of maxims
+   naturally has: Gunn prints forty-seven marked sections and nothing above them — no parts, no
+   books, no headings of any kind between the title and the first line. So each is a chapter, no
+   `bk-n` marker is written (there is nothing below a section to pair on, and printing the number at
+   the head of a chapter whose tab already says it is what `dropFittHead` exists to avoid), and the
+   tab carries the word the translator himself uses for them throughout his introduction — "section".
+
+   FIVE THINGS IT WAS WORTH MEASURING BEFORE WRITING THIS RATHER THAN AFTER.
+
+   · THE MARKS ARE LETTERS AND NUMBERS IN ONE INTERLEAVED RUN, and a reader written for either alone
+     silently loses the other end of the work. They go A, B, 1..37, C, 38..43, D — the petition to
+     the king and the title of the maxims proper, then Gunn's thirty-seven numbered maxims, which is
+     the traditional count, then the epilogue, which he numbers straight on from 38 with two more
+     lettered blocks around it. A number-only rule drops the four lettered sections, which are the
+     opening and the closing of the whole poem; a letter-only rule is absurd. Hence `PTAH_KEYS`,
+     which states the run and is CHECKED against the file in both directions.
+
+   · A SHORT-CHAPTER GUARD IS NEARLY INERT HERE AND THE REASON IS THE CONTENT. Section 32 is
+     twenty-eight characters — "[Concerning continence]." — Gunn's own square-bracketed stand-in for
+     a maxim he would not translate in 1906, and it is the ONLY one in the book (measured: every
+     other section runs from 186 to 1,272 characters, median 442). So `minChars` is 20 and cannot
+     catch an extraction that has returned the page furniture instead of the text. What stands in for
+     it is the key check above: forty-seven sections, in that order, or the run says so.
+
+   · THE WORK'S OWN TITLE LINE STANDS BEFORE THE FIRST MARK. "The Instruction of the Governor of his
+     City, the Vizier, Ptah-hotep, in the Reign of the King of Upper and Lower Egypt, Isosi" is the
+     poem's incipit, not a heading Gunn added, and it is unnumbered — so it is kept and given to
+     section A, which is where the printed page puts it. Exactly one such block exists, counted.
+
+   · THE CHAPTER IS FOUND BY ITS ANCHOR AND NEVER BY ITS HEADING. This volume holds three works and
+     an introduction, and the introduction's own heading is the WORDS "THE INSTRUCTION OF PTAH-HOTEP"
+     — so slicing on the heading text takes the essay about the poem and not the poem. Gutenberg
+     anchors each chapter (`id="chap02"`), which is unambiguous.
+
+   · AND THE PAGE NUMBERS SURVIVE THE TAG STRIP AS PROSE. The transcription marks each printed page
+     as `<span class="pagenum">{42}</span>`, and `stripTags` unwraps a span it does not recognise and
+     KEEPS the text — so left alone the book reads "...let me speak unto him the words of them that
+     hearken {42} to the counsel of the men of old time". They are removed with their braces, and
+     counted, before anything else runs. */
+/* `PTAH_KEYS` is declared with the other tables, ABOVE the BOOKS literal, because that literal
+   reads it: see the block by `ramDev`. */
+
+function extractPtahhotep(h, BOOK, warn) {
+  const a = h.indexOf('id="chap02"'), b = h.indexOf('id="chap03"', a);
+  if (a < 0 || b < 0) throw new Error("the chapter anchors that bound this work are not in the file");
+  let seg = h.slice(a, b);
+
+  /* The notes are printed as one block at the foot of the work, numbered 1..N across the whole of
+     it. They are cut off here and read into a map keyed by their PRINTED number; each section then
+     keeps only the notes its own markers cite, renumbered from 1, which is what every book on this
+     shelf does with an apparatus numbered per printing rather than per chapter. */
+  const fi = seg.indexOf('<p class="footnote">');
+  const foot = fi < 0 ? "" : seg.slice(fi);
+  if (fi >= 0) seg = seg.slice(0, fi);
+  const notes = {};
+  let footCount = 0;
+  for (const m of foot.matchAll(/<p class="footnote">([\s\S]*?)<\/p>/g)) {
+    footCount++;
+    const at = /^\s*\[<a[^>]*>(\d+)<\/a>\]([\s\S]*)$/.exec(m[1]);
+    if (!at) { warn("a footnote is printed without its number: " + m[1].replace(/<[^>]*>/g, "").slice(0, 60)); continue; }
+    notes[at[1]] = stripTags(at[2]).replace(/\s+/g, " ").trim();
+  }
+  if (footCount !== Object.keys(notes).length)
+    warn(footCount + " footnote(s) printed but " + Object.keys(notes).length + " read");
+
+  /* The page furniture, in the order it has to go: the printed page numbers (which survive the tag
+     strip as prose), the series' own list of themes for the whole work, and the running head, which
+     duplicates the tab. */
+  const pages = (seg.match(/<span class="pagenum">/g) || []).length;
+  seg = seg.replace(/<span class="pagenum">[\s\S]*?<\/span>/g, " ");
+  const themes = /<p class="intro">/.test(seg) ? 1 : 0;
+  seg = seg.replace(/<p class="intro">[\s\S]*?<\/p>/, "");
+  seg = seg.replace(/<h[1-6]\b[\s\S]*?<\/h[1-6]>/g, "");
+
+  /* A marker is printed as a bracketed link into the fold at the foot. It carries the note's own
+     number, which is what `data-fn` is for — the reading-order fallback is right only while every
+     note is cited exactly once, and this apparatus is renumbered per section below. */
+  let marks = 0;
+  seg = seg.replace(/\[<a id="chap02fn\d+text"><\/a>\s*<a href="#chap02fn(\d+)"[^>]*>\d+<\/a>\]/g,
+    (w, n) => { marks++; return '<sup class="fn" data-fn="' + n + '"></sup>'; });
+  const left = (seg.match(/pginternal/g) || []).length;
+  if (left) warn(left + " link(s) into the notes were not recognised as markers");
+
+  /* The blocks, in reading order. A section opens on its own mark at the head of a paragraph, and
+     everything after it belongs to it until the next one. */
+  const out = [];
+  let cur = null, lead = 0;
+  for (const m of seg.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)) {
+    const t = stripTags(m[1]).replace(/\s+/g, " ").trim();
+    if (!t) continue;
+    const k = /^([A-Z]|\d{1,3})\.\s+/.exec(t);
+    if (k) { cur = { k: k[1], ps: [t.slice(k[0].length)] }; out.push(cur); continue; }
+    if (!cur) { cur = { k: null, ps: [t] }; out.push(cur); lead++; continue; }
+    cur.ps.push(t);
+  }
+  /* The poem's own incipit, which stands before the first mark and is part of the text. It is given
+     to the section that follows it, which is where the printed page puts it. */
+  if (out.length && out[0].k === null) {
+    if (out.length < 2) throw new Error("the work came back as one unnumbered block");
+    out[1].ps = out[0].ps.concat(out[1].ps);
+    out.shift();
+  }
+  if (lead > 1) warn(lead + " unnumbered blocks stand before the first section; only one was expected");
+
+  /* Each section's notes, renumbered from 1 in the order its own markers cite them — a note cited
+     twice in one section keeps one entry, which is what `data-fn` is carried through for. */
+  const secs = out.map((s) => {
+    const seen = [], map = {};
+    const ps = s.ps.map((p) => p.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (w, n) => {
+      if (!map[n]) {
+        if (notes[n] === undefined) { warn("section " + s.k + " cites a note " + n + " that is not printed"); return ""; }
+        seen.push(notes[n]); map[n] = seen.length;
+      }
+      return '<sup class="fn" data-fn="' + map[n] + '"></sup>';
+    }));
+    return { k: s.k, html: ps.map((p) => "<p>" + p + "</p>").join("\n"), notes: seen };
+  });
+  return { secs: secs, counts: { pages: pages, themes: themes, marks: marks, notes: footCount, lead: lead } };
+}
+
+/* ============================================================
    A WORK CITED BY SECTION AND DIVIDED INTO NOTHING ELSE
                                    (layout: "satyricon" — the seventeenth)
    ============================================================
@@ -15818,6 +16088,47 @@ async function fetchEnglish() {
      transcription of the same translation because that one has lost sixty words. One request for
      the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no network.
      See the block above extractQuixote for the measurement and for what was NOT done about it. */
+  /* THE MAXIMS OF PTAHHOTEP — one Gutenberg HTML page holding three works, of which this is the
+     second. Cached whole, like every other single-file book, so --from/--to cost nothing and a
+     re-extract needs no network at all. See extractPtahhotep for what a transcribed printed page
+     has that a machine reading of one has not. */
+  if (BOOK.layout === "ptahhotep") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractPtahhotep(raw, BOOK, warn);
+    const c = got.counts;
+    console.log("  " + got.secs.length + " sections, " + c.notes + " notes, " + c.marks +
+      " marker(s), " + c.pages + " printed page number(s) removed" +
+      (c.themes ? ", and the series' own list of themes" : ""));
+
+    /* THE KEY RUN IS CHECKED AGAINST THE EDITION IN BOTH DIRECTIONS, and it is what stands in for a
+       short-chapter guard this book cannot have (see the reader). A section the table expects and
+       the file lacks would ship as a missing chapter; one the file has and the table omits would
+       never be asked for at all, and nothing else here would say so — the marks are letters AND
+       numbers in one run, so a reader written for either alone loses the other end of the poem
+       while every count still reads healthy. */
+    const has = got.secs.map((s) => s.k);
+    const missing = PTAH_KEYS.filter((k) => !has.includes(k));
+    const extra = has.filter((k) => !PTAH_KEYS.includes(k));
+    if (missing.length) warn("the edition is missing section(s) the table expects: " + missing.join(", "));
+    if (extra.length) warn("the edition carries section(s) the table omits: " + extra.join(", "));
+    if (has.join(",") !== PTAH_KEYS.join(",") && !missing.length && !extra.length)
+      warn("the sections are all present but not in the order the table states");
+
+    got.secs.forEach((s, i) => {
+      const n = PTAH_KEYS.indexOf(s.k) + 1 || i + 1;
+      if (n < FROM || n > TO) return;
+      if (s.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + s.k + " came back short (" + s.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: s.html, notes: s.notes });
+    });
+    chapters.sort((x, y) => x.n - y.n);
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "quixote") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-text.txt");

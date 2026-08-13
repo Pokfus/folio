@@ -312,6 +312,74 @@ function satyriconChecks() {
 }
 
 
+/* THE MAXIMS OF PTAHHOTEP, read off the one file that shipped. Its reader serves ONE book — a Project
+   Gutenberg HTML page holding three works — so it cannot be proved inert by re-running a sibling, and
+   the shipped-data sweep is what stands in for that check.
+
+   EVERY FAULT IT LOOKS FOR IS SILENT, and the first two matter most because this book has no
+   short-chapter guard worth the name: one of its forty-seven sections is twenty-eight characters,
+   which is the content rather than a truncation, so `minChars` is 20 and cannot catch an extraction
+   that returned the page furniture instead of the text. What stands in for it is the KEY RUN — the
+   marks are letters AND numbers interleaved (A, B, 1..37, C, 38..43, D), so a reader written for
+   either alone loses one end of the poem entirely while the chapter count and every other figure
+   still read healthy. And the volume holds three works plus an introduction whose own heading is the
+   WORDS of this one's title, so a slice made on the heading takes the essay about the poem: hence an
+   assertion on the text itself at both ends.
+
+   The rest are the ordinary shipped-data sweeps. The printed page numbers survive `stripTags` as
+   prose (`{42}` mid-sentence) and make a section LONGER, which no count can see; the transcriber's
+   links into the note fold do the same; and a `bk-n` on the one column would change how `bookRows`
+   treats a book that has none. */
+function ptahhotepChecks() {
+  const f = path.join(ROOT, "books", "ptahhotep.js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const bk = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "ptahhotep");
+  if (!bk) return null;
+  const keys = ["A", "B"];
+  for (let i = 1; i <= 37; i++) keys.push(String(i));
+  keys.push("C");
+  for (let i = 38; i <= 43; i++) keys.push(String(i));
+  keys.push("D");
+  const o = { n: bk.chapters.length, intro: bk.intro || "", titles: bk.chapters.map((c) => c.t),
+              want: keys.map((k) => "§ " + k), notes: 0, markers: 0, dead: 0, unref: 0,
+              marks: 0, braces: 0, links: 0, bal: [], shortest: 1e9, longest: 0, ke: 0 };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup"];
+  bk.chapters.forEach((c) => {
+    o.marks += (c.html.match(/class="bk-n"/g) || []).length;
+    o.braces += (c.html.match(/\{\d+\}/g) || []).length;
+    o.links += (c.html.match(/pginternal|chap02fn/g) || []).length;
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    o.markers += ms.length;
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+    if (c.html.length < o.shortest) o.shortest = c.html.length;
+    if (c.html.length > o.longest) o.longest = c.html.length;
+    /* the two OTHER works in the same volume, neither of which is this book */
+    if (/Ke'gemni|Amenemhe'et/.test(c.html)) o.ke++;
+    TAGS.forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(c.t + " " + t + " " + open + "/" + shut);
+    });
+  });
+  const first = bk.chapters[0] ? bk.chapters[0].html : "";
+  const last = bk.chapters[bk.chapters.length - 1] ? bk.chapters[bk.chapters.length - 1].html : "";
+  /* the poem's own incipit, which stands before the first mark and is given to the section after it */
+  o.incipit = /^<p>The Instruction of the Governor of his City/.test(first);
+  /* the essay ABOUT the poem opens "Of the personality of Ptah-hotep" — the poem itself does not */
+  o.isPoem = /'O Prince, my Lord, the end of life is at hand/.test(first);
+  o.closes = /fivescore and ten years of life/.test(last);
+  /* Gunn's own square-bracketed stand-in for the maxim he would not English in 1906 */
+  const s32 = bk.chapters.find((c) => c.t === "§ 32");
+  o.omission = !!s32 && /\[Concerning continence\]/.test(s32.html);
+  return o;
+}
+
 /* THE RAMAYANA, read off the two files that shipped. Its reader serves ONE book — a Project Gutenberg
    TEI on the English side and a four-shaped wiki on the Sanskrit — so it cannot be proved inert by
    re-running a sibling, and the shipped-data sweep is what stands in for that check.
@@ -1298,6 +1366,42 @@ function aeneidChecks() {
         /Uttara/.test(ram.intro) && /111/.test(ram.intro), String(ram.intro.length));
     } else {
       check("[ramayana] both halves of the book are on disk", false, "missing books/ramayana*.js");
+    }
+
+    /* THE MAXIMS OF PTAHHOTEP — see ptahhotepChecks above for what each of these can see. */
+    const pt = ptahhotepChecks();
+    if (pt) {
+      check("[ptahhotep] 47 sections shipped", pt.n === 47, String(pt.n));
+      /* The key run, asserted WHOLE and in order. It is what stands in for a short-chapter guard
+         this book cannot have, and the marks are letters and numbers interleaved — a reader written
+         for either alone loses one end of the poem with every other figure still reading healthy. */
+      /* The tab carries the translator's own citation form, not the word again — see `titleOf` in
+         the importer for the two-numbers-under-one-word fault that reading the page turned up. */
+      check("[ptahhotep] the tabs run § A, § B, § 1–37, § C, § 38–43, § D",
+        pt.titles.join("|") === pt.want.join("|"),
+        pt.titles.slice(0, 4).join(", ") + " … " + pt.titles.slice(-3).join(", "));
+      /* The volume holds three works and an introduction whose own heading is the WORDS of this
+         one's title, so a slice made on the heading takes the essay about the poem instead. */
+      check("[ptahhotep] it opens on the poem and not on the essay about it", pt.isPoem, "");
+      check("[ptahhotep] ...with the work's own title line before the first mark", pt.incipit, "");
+      check("[ptahhotep] ...and closes on the vizier counting his years", pt.closes, "");
+      check("[ptahhotep] neither of the volume's other two works leaked in", pt.ke === 0, String(pt.ke));
+      /* Gunn's own bracketed stand-in, left exactly as he left it rather than quietly closed up.
+         It is also why the shortest chapter is 28 characters and the guard is nearly inert. */
+      check("[ptahhotep] the one section Gunn would not translate is kept as he printed it",
+        pt.omission, "");
+      check("[ptahhotep] no bk-n marker anywhere", pt.marks === 0, String(pt.marks));
+      check("[ptahhotep] all 22 notes shipped", pt.notes === 22, String(pt.notes));
+      check("[ptahhotep] every footnote marker resolves", pt.dead === 0, String(pt.dead));
+      check("[ptahhotep] every note is referenced", pt.unref === 0, String(pt.unref));
+      /* Both survive stripTags as prose and make a section LONGER, which no count can see. */
+      check("[ptahhotep] no printed page number left in the text", pt.braces === 0, String(pt.braces));
+      check("[ptahhotep] no transcriber's link left in the text", pt.links === 0, String(pt.links));
+      check("[ptahhotep] tag balance is clean", !pt.bal.length, JSON.stringify(pt.bal.slice(0, 3)));
+      check("[ptahhotep] the front matter says why there is no Egyptian column",
+        /papyrus/i.test(pt.intro) && /Ke'gemni/.test(pt.intro), String(pt.intro.length));
+    } else {
+      check("[ptahhotep] the book is on disk", false, "missing books/ptahhotep.js");
     }
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there

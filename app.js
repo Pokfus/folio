@@ -7977,6 +7977,32 @@
        anybody reads beside a comic Roman novel. It reads 4.60:1 on the tightest of the light papers
        and 5.75:1 on white. */
     "Petronius": "#66693C",
+    /* THE BAND IS EXHAUSTED, AND THIS IS THE FIRST ROW THAT HAD TO TAKE A PAIR TIGHTER THAN THE
+       SHELF'S OWN TIGHTEST — which the Beowulf row predicted and which four rows since have put
+       off. With 38 colours placed, NOTHING anywhere in the shelf's own lightness and chroma band
+       clears 18.2 (classic-of-poetry against beowulf); the best is 18.1.
+       WIDENING WAS TRIED IN BOTH DIRECTIONS AND ONE OF THEM IS A FINDING WORTH KEEPING. Widening
+       the LIGHTNESS band upward returns literally the same 6,119 candidates and the same best,
+       because the 4.5:1 contrast bar against the light papers already caps lightness far below the
+       band's own top — so CONTRAST, not the band, is what bounds this palette upward, and the
+       lightness ceiling in these notes has been describing a limit that was never binding. Widening
+       CHROMA to 85 does open the field, to 27–28, and every candidate there is a saturated electric
+       blue, which is precisely what the band exists to prevent.
+       SO THE EURIPIDES TEST DECIDED IT, and it killed the top of the list three times over. The
+       best number in the band is a very dark green at 18.1 reading 9.70:1, the joint-highest
+       contrast on the shelf — and green already holds Aesop's Fables and the Book of Documents,
+       which are an ancient collection of short moral pieces and an ancient collection of counsels
+       to rulers. The next two fail harder: an olive at 17.5 lands 18 from CONFUCIUS and a violet at
+       16.4 lands 16 from SENECA, who are the two authors here a reader would most plainly set
+       beside a book of maxims by an old official.
+       WHAT IS LEFT IS THE SHELF'S EMPTIEST REGION. The cyan-blue quarter holds nothing between 210
+       and 240 degrees and one colour either side of it, and this is a hard local maximum in it:
+       relaxing the chroma ceiling to 80 and the lightness floor to 10 returns the same colour. It
+       clears Aristotle by 16.6, the Song of Roland by 17.3 and Kalidasa by 20.9 — evenly enough to
+       read as its own colour rather than as a near-miss of one — and reads 5.90:1 on the tightest
+       of the light papers, twelfth of the 39, and 9.80:1 on white. Nobody reads an Egyptian courtier's advice against
+       the Nicomachean Ethics or a chanson de geste, so the quarter asserts no kinship. */
+    "Ptahhotep": "#00486C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9833,6 +9859,61 @@
         { n: 5, label: "Sundara Káṇḍa", note: "Hanumán's leap to Lanká · 55 of 66" },
         { n: 6, label: "Yuddha Káṇḍa", note: "The war · 101 of 130" },
       ],
+    },
+    {
+      id: "ptahhotep",
+      title: "The Maxims of Ptahhotep",
+      subtitle: "The Instruction of Ptah-hotep",
+      author: "Ptahhotep",
+      /* THE DATE IS GENUINELY DISPUTED AND THE BANNER SAYS SO, which is the honest form for a work
+         that names its own author and king and whose surviving copies are centuries younger than
+         both. The poem presents itself as the work of a vizier to Isesi of the Fifth Dynasty; the
+         four copies are Middle Kingdom and the language they preserve is Middle Egyptian, and
+         scholars have argued the case both ways for a century. `year` is the single number the
+         shelf's date sort needs and is the date the poem claims for itself; the prose carries the
+         hedge, which is where a contested date belongs. */
+      written: "c. 2400 BCE, or the Middle Kingdom",
+      year: -2400,
+      translator: "Battiscombe G. Gunn",
+      edition:
+        "The Instruction of Ptah-hotep and the Instruction of Ke'gemni: The Oldest Books in the " +
+        "World, Wisdom of the East series, John Murray, London, 1906",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION. The poem is free everywhere on any
+         reading. Gunn published in 1906 and lived 1883–1950 — dates corroborated twice — so the
+         English clears the pre-1929 rule and cleared life plus seventy in 2021, and has NOT cleared
+         life plus a hundred, which runs to 2051.
+
+         THERE IS NO FACING EGYPTIAN, AND THE ANSWER IS NO ON THE ENGLISH SIDE. Swept over the whole
+         translation: not one papyrus reference of any kind — no column and line, no verse number,
+         no mention of the manuscript. So there is no number the two texts share, whatever the
+         Egyptian side's own licence says. See .claude/fetch-book.js and the book's front matter. */
+      rights:
+        "Public domain, with one limit. The poem is around four thousand years old, so the work " +
+        "itself has never been in copyright. Battiscombe G. Gunn published this translation in " +
+        "London in 1906, so it is out of copyright in the United States under the rule for works " +
+        "published before 1929, and he lived from 1883 to 1950, so it also cleared the translator's " +
+        "life plus seventy years in 2021. Where the term is life plus a hundred it remains in " +
+        "copyright until 2051. (The modern translations by Miriam Lichtheim, 1973, R. B. Parkinson, " +
+        "1997, and William Kelly Simpson are still in copyright and are not used.) Gunn's " +
+        "introduction, his explanation of names and his bibliography are not reproduced, nor are " +
+        "the two other works his volume contains.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/30508",
+      /* THE SECTION IS THE CHAPTER, THE ROW AND THE CITATION. This translation prints forty-seven
+         marked sections and nothing above them — no parts, no books, no headings between the title
+         and the first line — and the division is the poem's own, the Egyptian scribe having written
+         the first sentence of each in red ink. A passage is cited by that mark, so the tab is the
+         citation. The marks are letters AND numbers in one interleaved run: A and B for the
+         petition to the king and the title of the maxims proper, 1 to 37 for the maxims, then C,
+         38 to 43 and D for the epilogue.
+
+         `count` AND `total` ARE BOTH 47 because this translation is complete — but one of the
+         forty-seven is four words in square brackets rather than the maxim it stands for, Gunn
+         having declined to English it in 1906. That is a fact about the translation rather than a
+         gap in the count, and the book's own front matter says so. */
+      chapterWord: "Section",
+      count: 47,
+      total: 47,
     },
     {
       id: "rigveda",
