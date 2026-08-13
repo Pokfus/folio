@@ -12306,10 +12306,14 @@
     {
       route: "home",
       title: "Your daily study",
-      body: "This banner is the day's work. The three numbers under it are the three kinds of card waiting: " +
-        "<b>New</b> ones you have never seen, <b>Learning</b> ones you are still getting wrong, and " +
-        "<b>Review</b> ones that have come round again.<p>Press it and Folio deals them in order. When the " +
-        "three reach zero the day is done — there is no benefit in pushing on.</p>",
+      /* This step is read by someone who has never graded a card, so the banner in front of them is the
+         first-run hero and carries NO pile counts — it says "Start here" and nothing else. Describing the
+         three numbers in the present tense pointed at a banner that has not got them; they arrive with the
+         first deck, which is the very next step, so the sentence waits for them. */
+      body: "This banner is the day's work. Once you have added a deck it carries three numbers, one for each " +
+        "kind of card waiting: <b>New</b> ones you have never seen, <b>Learning</b> ones you are still " +
+        "getting wrong, and <b>Review</b> ones that have come round again.<p>Press it and Folio deals them " +
+        "in order. When the three reach zero the day is done — there is no benefit in pushing on.</p>",
       target: ["#b-review"],
     },
     {
@@ -12338,19 +12342,24 @@
       body: "Each added deck gets a row under the banner, with its own bar and its own share of the day. Tapping " +
         "a row studies that deck alone.<p><b>Hold a row</b> — or right-click it — for its own options: extra " +
         "cards today, daily limits of its own, sitting the day out, or removing it again. Holding the banner " +
-        "itself does the same for the whole review.</p>",
+        "itself offers much the same for the whole review, bar the removing — there is nothing to take it out " +
+        "of.</p>",
       target: [".active-decks", "#b-review"],
     },
     {
       route: "home",
       title: "Studying a card",
+      /* The button says "Reveal answer" and the undiscovered-term mark is TEAL — both were written from a
+         version of the page that no longer exists (the button was "Show answer"; the mark wore --ochre until
+         the swap of Aug 2026). A walkthrough naming a control by a label the page has not got is worse than
+         one that names no control at all, so the demo below carries the real words too. */
       body: "A card asks for one missing name, date or term. Answer it in your head, or type into the blank, " +
-        "then press <b>Show answer</b> — the space bar does the same.<p>Behind the answer sits a page of " +
-        "background and the sources it rests on. Terms in <b class=\"tour-gold\">gold</b> are glossary entries " +
-        "you have not opened yet; a tap defines them.</p>",
+        "then press <b>Reveal answer</b> — the space bar does the same.<p>Behind the answer sits a page of " +
+        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">teal</b> are glossary " +
+        "entries you have not opened yet; a tap defines them.</p>",
       demo: '<div class="td-card" aria-hidden="true">' +
         '<div class="td-q">Carthage was destroyed at the end of the <span class="td-blank"></span> Punic War, in 146 BCE.</div>' +
-        '<div class="td-btn">Show answer</div></div>',
+        '<div class="td-btn">Reveal answer</div></div>',
     },
     {
       route: "home",
@@ -12694,7 +12703,7 @@
   let _bookHelpShown = false;
   const BOOK_HELP_TIPS = [
     "<b>Moving about</b> — the chapters run along the bar at the top, with <b>Contents</b> for the whole list; ‹ › and the arrow keys step through them, and on a phone a sideways swipe does the same. Your place is kept as you read.",
-    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. The translator's own notes fold out under each chapter.",
+    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. Where the edition carries notes, the translator's own stand open under the chapter.",
     "<b>Mark up the page</b> — the same floating marker as a study card's draws over a book, and here the strokes are kept. Select a passage and right-click it to highlight the words themselves, copy them, or have them read aloud.",
   ];
   function openBookHelp() {
@@ -23790,7 +23799,7 @@
               <h3>Reading the Atlas</h3>
               <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
-              <div class="ah-tip"><b>Time-travel</b> — the dots on the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
+              <div class="ah-tip"><b>Time-travel</b> — the ticks along the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
               <div class="ah-tip"><b>Draw on it</b> — the marker floating over the globe is the same one that writes on a study card: tap it for pens, a highlighter and an eraser, and drag it out of the way. Strokes here are pinned to the map, so they turn with it.</div>
               <div class="ah-tip"><b>A caution</b> — historical borders are rough estimates and should never be taken as factually accurate. Many past frontiers were vague, disputed or simply never recorded, so read every old map as an approximation rather than a precise picture of the world.</div>
               <button class="btn" id="ahGo" type="button">Explore</button>
@@ -27983,15 +27992,20 @@
         <div class="msn-card msn-howto">
           <div class="msn-head">${CHIP.howto}<h2>How to use Folio</h2></div>
           <ol class="msn-steps">
-            ${step(1, "Pick a subject", "Open the <b>Library</b> and choose a collection. Its cards join your daily review.")}
+            ${/* Step 1 said "Open the Library and choose a collection" — the Library is the room of BOOKS,
+                  and has been since the deck page was renamed Collections; two pages called Library is how a
+                  reader ends up on the wrong one. The collections are reached from the "+ Add decks" tab
+                  under the home banner, which is their only route anywhere on the site. */""}
+            ${step(1, "Pick a subject", "Press <b>+ Add decks</b> under the banner on the Home page and choose a collection. Its cards join your daily review.")}
             ${step(2, "Study today's cards", "The Home page deals you a small stack every day: new cards, plus any that are due to come back.")}
-            ${step(3, "Try to remember", "Every card is a sentence with a blank. Say the answer to yourself first — really try — then flip the card. The trying is what builds the memory.")}
+            ${step(3, "Try to remember", "Every card is a sentence with a blank. Say the answer to yourself first — really try — then press <b>Reveal answer</b>. The trying is what builds the memory.")}
             ${step(4, "Grade yourself", "Press <b>Again</b> if you missed it, <b>Hard</b> if it was a struggle, <b>Good</b> if you got it, <b>Easy</b> if it took no effort. Be honest: the buttons are not points, they set the schedule.")}
             ${step(5, "Come back tomorrow", "Cards you know well wait for weeks. Cards you miss return within minutes. A few minutes a day is all it takes.")}
           </ol>
           <div class="msn-feats">
             <div class="mf-row"><b>The games</b> repeat the same facts from new angles — one more proven way to make them stick.</div>
             <div class="mf-row"><b>The Atlas</b> is a globe of world history: spin it, drag the timeline, click any country.</div>
+            <div class="mf-row"><b>The Library</b> holds whole books, out of copyright and complete — it keeps your place as you read.</div>
             <div class="mf-row"><b>The glossary</b> sits behind every underlined term on a card — click one for a short explanation.</div>
           </div>
         </div>
@@ -28000,7 +28014,10 @@
           <div class="faq">
             ${faq("What do Again, Hard, Good and Easy actually do?", "They tell Folio when to show the card next. <b>Again</b> brings it back in about a minute, <b>Hard</b> in a few minutes. <b>Good</b> moves it a real step ahead — first ten minutes, then a day, then longer each time. <b>Easy</b> jumps it several days ahead. No grade is a punishment; they only tune the timing.")}
             ${faq("What happens if I miss a day?", "Nothing bad. Your due cards simply wait for you, and the schedule picks up where it left off — only your day streak resets. Miss a week and the pile is bigger, but it clears quickly.")}
-            ${faq("Why only a few new cards a day?", "Every new card you learn today will come back tomorrow, and again after that. Add fifty at once and next week's reviews pile up. A steady handful a day keeps studying light — you can change the number in Settings.")}
+            ${/* "…you can change the number in Settings" was true until the Settings stepper was retired and
+                  the figure moved into the Daily limits dialog, which is where per-deck and default limits
+                  are now set together. Settings carries no new-cards-a-day row at all. */""}
+            ${faq("Why only a few new cards a day?", "Every new card you learn today will come back tomorrow, and again after that. Add fifty at once and next week's reviews pile up. A steady handful a day keeps studying light — to change the number, hold the daily-study banner and open <b>Daily limits</b>.")}
             ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
           </div>
         </div>

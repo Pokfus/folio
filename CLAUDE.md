@@ -7923,7 +7923,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Guarded by `test-layout.js`, which asserts there is no `input[type=color]` left anywhere in the panel.
   · **Controls under the ink stay usable** (the `CTL_SEL` / `controlUnder` / `passCtl` block in
     `setupWhiteboard`, Aug 2026, on request). The canvas covers the whole visible page, so with the pen down
-    it also covered Show answer and everything else on the card. **A z-index cannot fix this**: `.page` and
+    it also covered Reveal answer and everything else on the card. **A z-index cannot fix this**: `.page` and
     `.cardwrap` both animate with a fill mode, and a filling animation is a stacking context, so nothing
     inside them can paint above a sibling of the stage. Instead the canvas hit-tests underneath itself on
     pointerdown (`pointerEvents:none` → `elementFromPoint` → restore) and hands the press to any real control
@@ -10846,7 +10846,7 @@ dead code (never rendered).
     and "nothing is selected" alone would also pass on a marker that had stopped working; the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
-    revert to the platform dialog would look like — and **Show answer and the grade row still tappable with
+    revert to the platform dialog would look like — and **Reveal answer and the grade row still tappable with
     the pen down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet's
     drag-to-resize (taller, capped at the top of the screen, remembered into the next place, and its title
     bar still showing at the floor); the daily quote keeping its height — and everything under it its
@@ -11212,7 +11212,7 @@ dead code (never rendered).
     `revertCard`, any game's pool function, `add-card.js`'s difficulty guard, `add-card-difficulty.js`, or
     `whatyear.js` — and after any batch of ratings.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
-    (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+    (Aug 2026), 70 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
     **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
     obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
@@ -11235,7 +11235,20 @@ dead code (never rendered).
     collection can be added there, and — the half that closes a loop — **with one added the banner deals a
     card after all**. Both ends are needed because they fail in opposite directions and either alone looks
     deliberate: a hero that still deals a card bypasses the page, and one that never does strands a reader
-    on it. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
+    on it.
+    **A CONTROL'S LABEL IS READ OFF `app.js`, NEVER WRITTEN DOWN IN THE TEST** (Aug 2026, and this file was
+    itself the fault). The reveal assertion was the literal `/show answer/i` — the words the button carried
+    when the tour was written — so when the control became **Reveal answer** the test went on passing and the
+    walkthrough went on naming a button the page has not got, for months. **A test that hard-codes a label is
+    not guarding the label, it is pinning the stale one**; the expectation now comes from the same source the
+    button does (`id="reveal-btn">([^<]+)<` over `APP_SRC`), with a second assertion that the id was found at
+    all, so a renamed id fails loudly instead of quietly matching nothing. The same trap is waiting wherever a
+    tutorial names a control: **the walkthrough also called an undiscovered glossary term "gold" for the
+    fortnight after that mark became teal** — the word naming a colour is painted in that colour now
+    (`.tour-newterm` reads `--newterm`), so the step and the page cannot disagree without it being visible.
+    Four About-page and Atlas claims were stale the same way and are checked in `.claude/test-layout.js`'s
+    company rather than here.
+    **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
     `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home
     page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
     `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the

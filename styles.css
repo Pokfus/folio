@@ -772,7 +772,11 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .tour-body p{margin:0 0 9px;}
 .tour-body p:last-child{margin-bottom:0;}
 .tour-body b{color:var(--ink); font-weight:600;}
-.tour-body b.tour-gold{color:var(--ochre);}
+/* The word naming a colour is PAINTED in that colour, so the step and the page agree. --newterm is what
+   an undiscovered glossary term wears (see .ttip[data-new]); it was --ochre until Aug 2026, when the
+   Library's note markers gave the teal up and the two roles were swapped, and this said "gold" for a
+   fortnight after the mark had stopped being gold. Read the token, never a remembered hue. */
+.tour-body b.tour-newterm{color:var(--newterm);}
 .tour-x{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:26px; height:26px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
 .tour-x:hover{background:var(--rule); color:var(--ink);}
 .tour-nav{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:3px;}
