@@ -35,9 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.190", released: "2026-08-12T06:55Z" };
+window.FOLIO_VERSION = { v: "1.191", released: "2026-08-13T12:02Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-13",
+    t: "The walkthrough and the help cards are brought back into line with the site they describe, and four glossary terms are rewritten",
+    items: [
+      "<b>The walkthrough now names the buttons the page actually carries</b> — it said “Show answer” where the card says “Reveal answer”, and called an unread glossary term gold when it is teal.",
+      "The walkthrough no longer describes three numbers on a banner that has none until your first deck is added.",
+      "<b>The About page's first step no longer sends you to the Library for a collection</b> — the Library holds books, so it points at “+ Add decks” on the Home page instead.",
+      "The About page now says where to change how many new cards a day you meet, and its list of what else is here mentions the Library.",
+      "The Atlas card calls the marks on the timeline ticks rather than dots, and a book's card no longer promises notes on chapters whose edition carries none.",
+      "<b>Four glossary terms rewritten</b> — two that leaned on examples instead of explaining the term, one renamed to say plainly that it is a culture, and one brought into line with its neighbours.",
+    ],
+  },
   {
     d: "2026-08-12",
     t: "Every date now reads BCE and CE, the Library says how many books are on the shelf, and the walkthrough is made for a phone",
