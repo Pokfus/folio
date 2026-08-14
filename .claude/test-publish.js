@@ -770,6 +770,179 @@ async function typeField(page, field, text) {
   }), "Paged Deck");
   check("...and installing it brings every card back", installedN === PAGED_N, "installed=" + installedN + " want=" + PAGED_N);
 
+  /* ================= A TYPED DECK SURVIVES THE ROUND TRIP =================
+     Everything the Aug 2026 deck features rest on lives on the CARD (`type`, `fields`) or on the DECK
+     (`types`, and `sub` for the subdeck tree) — and a publish that drops any of it is invisible from the
+     author's side: their own copy is perfect, the upload succeeds, and only somebody who INSTALLS the deck
+     ever sees the damage. That is the worst shape a bug here can take, so the assertions are made on the
+     INSTALLED copy, read out of the store rather than off the page.
+     The deck is deliberately the shape the Mandarin decks are: one type with TWO templates (which is what
+     gives a deck its direction rows), a <details> in the back, CSS of its own, and cards filed in nested
+     subdecks. */
+  const TY_CSS = ".uc-simp { font-size: 30px; }\n.uc-exst { font-size: 9px; font-weight: 400; }";
+  const TY_BACK = "{{FrontSide}}<hr><div class=\"uc-field\">{{English}}</div>" +
+    "<details class=\"uc-ex\"><summary>In a sentence</summary><div class=\"uc-exs\">{{Example}}</div></details>";
+  const TY_SUBS = ["Level 1", "Level 1::Extra", "Level 2", "Level 2"];
+  const typedFile = path.join(require("os").tmpdir(), "typed.folio-deck.json");
+  fs.writeFileSync(typedFile, JSON.stringify({
+    folioDeck: 1,
+    meta: {
+      id: "typedeck", title: "Typed Deck", subtitle: "", desc: "", author: "", language: "en",
+      tags: [], glossMode: "site", version: 1,
+      types: { vt: {
+        id: "vt", name: "Vocab", fields: ["Word", "English", "Example"], css: TY_CSS,
+        cards: [
+          { name: "Forward", front: "<div class=\"uc-simp\">{{Word}}</div>", back: TY_BACK },
+          { name: "Reverse", front: "<div class=\"uc-field\">{{English}}</div>", back: TY_BACK },
+        ],
+      } },
+    },
+    cards: TY_SUBS.map((sub, i) => ({
+      id: "u_typedeck_" + (i + 1), sub: sub, type: "vt",
+      fields: { Word: "word" + (i + 1), English: "meaning " + (i + 1), Example: "sentence " + (i + 1) },
+    })),
+  }));
+
+  await A.page.bringToFront();
+  await gotoFresh(A.page, base + "#studio");
+  await A.page.waitForTimeout(1100);
+  if (await A.page.evaluate(() => !!document.querySelector("#stAll"))) { await A.page.click("#stAll"); await A.page.waitForTimeout(400); }
+  const typedChooser = A.page.waitForEvent("filechooser");
+  await A.page.click("#stImport");
+  (await typedChooser).setFiles(typedFile);
+  await A.page.waitForTimeout(1400);
+  const typedOpened = await A.page.evaluate((title) => {
+    const hit = [...document.querySelectorAll(".sd-title")].find((e) => (e.textContent || "").indexOf(title) >= 0);
+    if (hit) (hit.closest("button") || hit).click();
+    return !!hit;
+  }, "Typed Deck");
+  check("the typed deck imported", typedOpened);
+  await A.page.waitForTimeout(800);
+  await A.page.click("#stPublish");
+  await A.page.waitForTimeout(1800);
+
+  const typedRow = db.decks.find((d) => d.title === "Typed Deck");
+  check("a typed deck publishes", !!typedRow, typedRow ? typedRow.slug : "no row");
+  // the TEMPLATES ride on the deck row — without them an installed copy renders its fields as raw prose
+  const upTypes = typedRow && typedRow.types && typedRow.types.vt;
+  check("...carrying its card type", !!upTypes, JSON.stringify(upTypes && Object.keys(upTypes)));
+  check("...with BOTH of its templates, which is what a direction row is made of",
+    !!upTypes && Array.isArray(upTypes.cards) && upTypes.cards.length === 2,
+    upTypes ? JSON.stringify((upTypes.cards || []).map((c) => c.name)) : "");
+  check("...and the type's own CSS", !!upTypes && String(upTypes.css || "").indexOf("uc-exst") >= 0);
+  // …and the per-card half: a typed card carries `type` + `fields` INSTEAD of the Basic 13, so a payload
+  // built from CARD_FIELDS alone uploads twelve empty strings and nothing else
+  const upCards = typedRow ? db.cards.filter((c) => c.deck_id === typedRow.id) : [];
+  check("every card is uploaded", upCards.length === TY_SUBS.length, "n=" + upCards.length);
+  check("...each naming the type it uses", upCards.length > 0 && upCards.every((c) => c.data && c.data.type === "vt"),
+    JSON.stringify(upCards.map((c) => c.data && c.data.type)));
+  check("...and carrying its field VALUES, without which the card is blank",
+    upCards.length > 0 && upCards.every((c) => c.data && c.data.fields && c.data.fields.Word),
+    JSON.stringify(upCards.map((c) => c.data && c.data.fields && c.data.fields.Word)));
+  check("...and the subdeck it sits in, nested path and all",
+    upCards.length > 0 && upCards.some((c) => c.data && c.data.sub === "Level 1::Extra"),
+    JSON.stringify(upCards.map((c) => c.data && c.data.sub)));
+
+  // ---- and now the half that matters: what a STRANGER gets when they install it
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#deck/" + (typedRow ? typedRow.slug : "missing"));
+  await B.page.waitForTimeout(1400);
+  await B.page.click("#ddInstall");
+  await B.page.waitForTimeout(1800);
+
+  const got = await B.page.evaluate((title) => new Promise((res) => {
+    const rq = indexedDB.open("folio-community");
+    rq.onsuccess = () => {
+      const idb = rq.result;
+      const tx = idb.transaction(["decks", "notes"], "readonly");
+      const gd = tx.objectStore("decks").getAll();
+      gd.onsuccess = () => {
+        const d = (gd.result || []).find((r) => r.meta && r.meta.title === title);
+        if (!d) { idb.close(); res({ missing: true }); return; }
+        const gn = tx.objectStore("notes").getAll();
+        gn.onsuccess = () => {
+          /* THE STORE IS SPLIT, and the two halves hold different things — reading the wrong one reports a
+             perfectly good deck as broken. A note record is `{ k, deckId, c }` with the card nested under
+             `c`, and the SUBDECK and TYPE live in the deck record's own `index` (that is the whole point of
+             the index: what a card IS, without its content). So `fields` comes off the note and `sub`/`type`
+             off the index. */
+          const notes = (gn.result || []).filter((n) => n && n.deckId === d.id).map((n) => n.c || {});
+          const index = d.index || d.cards || [];
+          idb.close();
+          const ty = (d.meta.types || {}).vt;
+          res({
+            templates: ty ? (ty.cards || []).map((c) => c.name) : null,
+            css: ty ? String(ty.css || "").indexOf("uc-exst") >= 0 : false,
+            hasDetails: ty ? (ty.cards || []).some((c) => /<details/.test(c.back || "")) : false,
+            notes: notes.length,
+            typed: index.filter((e) => e.type === "vt").length,
+            withFields: notes.filter((n) => n.fields && n.fields.Word).length,
+            subs: [...new Set(index.map((e) => e.sub))].sort(),
+          });
+        };
+        gn.onerror = () => { idb.close(); res({ noteReadFailed: true }); };
+      };
+      gd.onerror = () => { idb.close(); res({ deckReadFailed: true }); };
+    };
+    rq.onerror = () => res({ openFailed: true });
+  }), "Typed Deck");
+  console.log("      installed: " + JSON.stringify(got));
+  check("the installed copy keeps both templates", JSON.stringify(got.templates) === JSON.stringify(["Forward", "Reverse"]),
+    JSON.stringify(got.templates));
+  check("...its type's CSS, so the card is styled as its author set it", got.css === true);
+  check("...the disclosure fold in the back template", got.hasDetails === true);
+  check("...every card typed", got.typed === TY_SUBS.length, "typed=" + got.typed + " want=" + TY_SUBS.length);
+  check("...every card's field values, so a reader sees words rather than a blank card",
+    got.withFields === TY_SUBS.length, "withFields=" + got.withFields + " want=" + TY_SUBS.length);
+  check("...and the nested subdeck tree", JSON.stringify(got.subs) === JSON.stringify(["Level 1", "Level 1::Extra", "Level 2"]),
+    JSON.stringify(got.subs));
+
+  /* …and it RENDERS: a two-template type is what gives a level its direction rows, so an installed deck
+     that lost its templates would draw the subdecks and no directions — which looks like a deck that
+     simply has none. Read off the Collections page, where the reader picks them. */
+  await gotoFresh(B.page, base + "#decks");
+  await B.page.waitForTimeout(900);
+  const dirRows = await B.page.evaluate((title) => {
+    const d = [...document.querySelectorAll(".udeck")].find((e) => (e.textContent || "").indexOf(title) >= 0);
+    if (!d) return null;
+    /* the row's LABEL, not its data-usubname — that attribute is the subdeck PATH, which a direction row
+       shares with the level it hangs off; the template's own name is what the reader is shown. */
+    return [...d.querySelectorAll(".udeck-subrow")].map((e) => ({
+      name: (e.querySelector(".deck-title") || {}).textContent || "",
+      sub: (e.getAttribute("data-usubname") || "").split("::").pop(),
+      tpl: e.getAttribute("data-usubtpl"),
+    }));
+  }, "Typed Deck");
+  const dirNames = (dirRows || []).filter((r) => r.tpl !== "-1").map((r) => r.name);
+  check("the installed deck draws its direction rows", dirNames.length > 0, JSON.stringify(dirRows));
+  check("...named by the author's own templates", dirNames.indexOf("Forward") >= 0 && dirNames.indexOf("Reverse") >= 0,
+    JSON.stringify([...new Set(dirNames)]));
+
+  /* …and an INSTALLED deck is offered a colour like any other of the reader's own. It is the same code
+     path as an imported one (both are in UDECKS), but "imported and user-shared" was the ask, and a rule
+     keyed on `origin` rather than on the store is exactly the kind of thing that would split the two. */
+  const instColour = await B.page.evaluate(async (title) => {
+    const d = [...document.querySelectorAll(".udeck")].find((e) => (e.textContent || "").indexOf(title) >= 0);
+    const add = d && d.querySelector("[data-uadd]");
+    if (!add) return { noDeck: true };
+    if (!/added/.test(add.className)) { add.click(); await new Promise((r) => setTimeout(r, 500)); }
+    location.hash = "#home";
+    await new Promise((r) => setTimeout(r, 900));
+    const row = [...document.querySelectorAll(".active-deck[data-drag]")]
+      .find((x) => decodeURIComponent(x.dataset.drag) === "u:" + add.getAttribute("data-uadd"));
+    if (!row) return { noRow: true };
+    row.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+    await new Promise((r) => setTimeout(r, 320));
+    const ov = document.querySelector(".deck-menu");
+    const out = { hasColour: !!(ov && ov.querySelector(".dm-colors")),
+                  hasX: !!(ov && ov.querySelector(".dm-x")) };
+    if (ov && ov.querySelector(".dm-x")) ov.querySelector(".dm-x").click();
+    return out;
+  }, "Typed Deck");
+  check("an installed deck is offered a colour, like any of the reader's own", instColour.hasColour === true,
+    JSON.stringify(instColour));
+  check("...and its options sheet carries the close button", instColour.hasX === true, JSON.stringify(instColour));
+
   // ================= exports never carry publish state =================
   await A.page.bringToFront();
   await gotoFresh(A.page, base + "#studio");

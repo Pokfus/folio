@@ -6995,6 +6995,14 @@
       if (Array.isArray(c.questions) && c.questions.length) data.questions = c.questions;   // the extra phrasings travel with the card
       if (Array.isArray(c.sources) && c.sources.length) data.sources = c.sources;           // and so do its citations
       if (c.sub) data.sub = c.sub;   // and the subdeck it sits in — no column needed, it is part of the card
+      /* AND WHAT MAKES A TYPED CARD A CARD AT ALL (Aug 2026, on a bug found by testing the round trip).
+         A typed card carries `type` + `fields` INSTEAD of the Basic thirteen, so a payload built from
+         CARD_FIELDS alone uploads twelve empty strings and nothing else: the TEMPLATES travelled (they are
+         on the deck row) and the CONTENT did not, so an installed copy was the right number of blank cards
+         under the right subdecks, with no direction rows, and the author's own copy was perfect throughout.
+         That is the worst shape a bug here can take — only somebody ELSE ever sees it — and it went unseen
+         because `test-publish.js` had only ever published a Basic deck. It publishes a typed one now. */
+      if (c.type) { data.type = c.type; data.fields = c.fields || {}; }
       if (c.image && c.image.src) data.image = c.image;
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
