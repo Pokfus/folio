@@ -128,7 +128,61 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-five:
+  matter (chapter 0 — see the Library bullet). Currently forty-six:
+  `morte-darthur` (~1.80 MB, all twenty-one of Caxton's books as **21 chapters**, **503 chapters as
+  sections**, **0 notes** — the Everyman's Library text of 1906, and **the first book on this shelf
+  with no facing original because there is no TRANSLATION.** Every earlier single-column book is
+  silent for a reason about a text that exists somewhere: the Republic's Greek states Stephanus
+  numbers its English does not, Aesop's two editions state nothing at all, and the Prose Edda, the
+  Divine Comedy and Don Quixote each have an original whose editor is in copyright or unnamed. Malory
+  wrote in English. The 1906 edition lightly modernises the spelling and leaves the vocabulary alone
+  — it keeps a good deal of Caxton's own spelling as well, men *pyght* their pavilions and a knight
+  is not yet *hool* of his wound — so the second column would be the same words in another
+  orthography, which is a facing SPELLING rather than a facing original. The Canterbury Tales is the
+  case to read it against: there Skeat's Middle English faces a prose TRANSLATION by two other hands,
+  and the pairing is between two texts. **AND A CAXTON-SPELLING TEXT IS NOT TRANSCRIBED ANYWHERE
+  REACHABLE**, measured rather than assumed — English Wikisource has no `Le Morte Darthur` in
+  mainspace at all and Sommer's 1889 reprint appears only in a bibliography — so a reader who wanted
+  one could not have been served either way. **FIVE THINGS IT SETTLED ARE WORTH CARRYING.**
+  **A COUNT REMEMBERED IS NOT A COUNT, AND HERE THE DIFFERENCE IS FOUR CHAPTERS.** Books I, IV, VII
+  and IX end at 27, 28, 35 and 43 where the figure usually quoted for Caxton is one higher in each,
+  and 503 against 507 looks exactly like four pages nobody has transcribed. It is not: Project
+  Gutenberg's wholly independent transcription of the same edition was counted book by book against
+  the wiki's page list and the two agree on all twenty-one. **Count it before writing down a gap.**
+  **THE OTHER FREE COPY IS A DIFFERENT TEXT, AND ONLY A WORD-BY-WORD WALK SHOWS IT.** PG's ebooks
+  1251 and 1252 carry the same 503 chapters in the same 21 books with the same rubrics in the same
+  order, and every structural check there is passes on both. Walked against the shipped chapters they
+  diverge about a thousand times, and every divergence sampled runs one way — this edition carries
+  the older form and that one the modern: *pyght* against *pight*, *hool* against *whole*, *paas*
+  against *pace*, *essay* against *assay*, *bitaken* against *betaken*, *stynte* against *stint*, and
+  past spelling into vocabulary *alit* against *alighted*, *trappours* against *trappings*,
+  *advision* against *vision*. Don Quixote's method, and this time it decided which copy to ship
+  rather than how bad the chosen one was. **What PG's copy IS was deliberately not settled**: it
+  names no edition and the bibliographical note bound in front of it is A. W. Pollard's and describes
+  a Macmillan printing, so identifying it would be composing — the Lucretius judgement, claim less.
+  **THE NOTES ARE AN APPARATUS THE EDITION HAS NOT GOT, and they say so themselves.** All twenty-seven
+  are Wikisource contributors' collations against the Winchester manuscript, several set in the
+  scribal abbreviations of it (`[…othir þͤ] menoͣ oþͬ [þͤ takynge…]`), and each carries the words
+  "Wikisource contributor note". Folded under a book presented as the 1906 Everyman they would be an
+  unsigned apparatus that printing does not carry — the Satyricon's judgement about what a note fold
+  is for, sharpened by the Divine Comedy's question about unattributed texts, since a reader has no
+  way to know whose collation they are being shown. Dropped and counted; the book renders with no
+  note fold at all, as Ovid, Lucretius and the Analects do.
+  **CAXTON'S RUBRIC IS A SEPARATE ELEMENT FROM HIS CHAPTER NUMBER, AND ONE PAGE IN 503 SETS IT
+  DIFFERENTLY.** Each chapter page carries three heading blocks — the book, the chapter number, and
+  Caxton's own descriptive heading — and Book XX chapter 16 alone sets that heading as a centred
+  block rather than as a `wst-subsubheading`. Beowulf's one-leaf-in-eighty-five finding, and here the
+  cost of missing it is not a missing title but a visible one: the block survives as a blockquote and
+  the chapter opens on an indented shout. **AND THE RUBRIC SHIPS IN CAPITALS**, which is Aesop's
+  outcome reached by measurement twice over — the edition sets it in SMALL capitals, which carry no
+  case to recover, and the only title-case copy of them belongs to the other transcription, which is
+  not this text.
+  **ITS REAL LIMITATION IS THE BOOK RATHER THAN THE IMPORT, and a reader should know it before Book
+  X.** Malory's is a compilation, not a novel: for long stretches it is knights riding out, meeting
+  other knights and riding on, and Book X alone is eighty-eight chapters of that. The quest of the
+  Sangreal in Book XIII changes the register entirely and the last two books are as fast and as bleak
+  as anything in English. Said on the book's own first page, because a reader who gives up in Book X
+  has given up two books short of the reason the book is read),
   `boethius-consolation` (~253 KB, all five books as **5 chapters**, **78 sections of alternating
   prose and verse**, 39 poems, 19 notes — H. R. James's English of 1897, and **the first book here
   whose ROWS PAIR ON A POSITION BECAUSE THE PRINTED NUMBERS REPEAT.** Every earlier book sorts its
@@ -1391,12 +1445,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-five books, thirty-one originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-six books, thirty-one originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
-  Divine Comedy, the Summa Theologica, Don Quixote and the Maxims of Ptahhotep
+  Divine Comedy, the Summa Theologica, Don Quixote, the Maxims of Ptahhotep and Le Morte d'Arthur
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
-  to face.
+  to face. **LE MORTE D'ARTHUR IS THE ONE THAT NEVER REACHES THAT RULE AT ALL**, and it is a fourth
+  answer rather than a variant of the other three: it is written in ENGLISH, so there is no second
+  text to pair with — see its entry above, and note that this is the case where the question "does
+  that text say which section each passage is?" is not the question.
   **PTAHHOTEP IS THE REPUBLIC'S CASE AT ITS PLAINEST, AND IT IS WORTH KEEPING BECAUSE THE EGYPTIAN IS
   NOT THE PROBLEM** (Aug 2026). Everything about the original looks available: the poem survives in
   four copies, the fullest of them the Papyrus Prisse, it has been edited twice over, and both a
@@ -2446,6 +2503,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     edition and in both directions at once: of the book's seven notes one hangs off a question's
     heading and one off an article's, so markers are carried down off a dropped head and lifted back
     into a rebuilt one.
+  · **`sections: "malory"`** — **THE ELEVENTH WAY an edition marks its numbers, and the first whose
+    number and TITLE are two separate elements printed one under the other** (Aug 2026, adding Le
+    Morte d'Arthur). It runs at the same **pre-strip hook** as `articuli` and `liki`, and for the
+    same reason: all three of the blocks it reads are `<div>`s, and the generic div pass turns every
+    one of them into a blockquote. Four things it settled.
+    **THE BOOK HEADING GOES AND THE RUBRIC STAYS**, which is `dropFittHead`'s rule in both directions
+    at once. "Book I" duplicates the tab the reader is standing on and appears only on the first
+    chapter of each book (ten of the twenty-one, counted); Caxton's descriptive rubric is printed
+    nowhere else and on a bar of eighty-eight chapters it is the only thing telling one adventure
+    from the next. **Ask what ELSE is on a heading before dropping it** — the Ramayana's finding,
+    arriving here as a separate element rather than as words beside the number.
+    **THE NUMBER IS READ AND THEN CHECKED against the page name**, the City of God's rule, and it
+    earns more here than there: 503 pages are fetched under a title built out of a volume rule and
+    two Roman numerals, and a mis-numbered one would sit in the right book at the wrong place with
+    every count in the run reading healthy. The BOOK numeral is checked too, through a `bookNum` set
+    per chapter beside `expect`.
+    **A SECOND TEMPLATE ON ONE PAGE IN 503** — see the `morte-darthur` entry in the File map. Both
+    shapes are tried in order and the odd one is COUNTED, so a rule that starts firing more often, or
+    stops, cannot do it quietly.
+    **AND CAXTON'S PREFACE IS LEFT UNMARKED ON PURPOSE**: it is fetched as the first page of Book I,
+    `pageMark` returns null for it, and it therefore arrives as the chapter's leading unnumbered
+    block — where the printed book puts it, and where app.js files a headnote. Writing a "0" over it
+    would be composing a citation the edition has not got; nobody cites Caxton's preface as Malory
+    I.0, where an unnumbered block claims nothing at all.
+  · **`dropNotes`** on a WIKI book (same batch; the Satyricon's TEI path had its own already). Every
+    note on that transcription is a Wikisource contributor's rather than the edition's, and says so
+    in its own text. See the `morte-darthur` entry for the argument; what matters here is that the
+    flag is per book, that the MARKERS go with the notes (a marker running past the end of the list
+    is deleted by `wireFootnotes` at render, which is the right behaviour and the wrong place to find
+    out), and that the count is printed on every run — a transcription that starts carrying the
+    edition's own notes must not be able to do it unnoticed.
   **A book's ORIGINAL language is a second half of the same entry** (`original: { lang, langName, … }`),
   written to `books/<id>.<lang>.js` with its own cache under `book-cache/<id>/<lang>/`. **It comes in THREE
   shapes, and the wiki walk — the first one written — is the worst of them**, because it is the only one that
@@ -4969,6 +5057,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     into `books/<id>.js` by hand (the next `fetch-book.js` run would destroy it); the licence half needs a
     live link and has always been built from those fields. A reader still in the front matter is told so on
     the shelf — "About this book", never "Letter 0".
+    **A BOOK WITH NO TRANSLATOR IS NOT A BOOK WITH A FIELD MISSING** (Aug 2026, adding Le Morte d'Arthur —
+    the first). Both places that named one had to grow a branch: the rights box, which said "This English
+    translation is by <b.translator>" and would have printed the word *undefined* in the one box on the site
+    that exists to state true things, and which now heads itself **"About this text"** and names the EDITION
+    instead — a heading calling something a translation being the same claim one line further up; and
+    `PAGES.book`'s **byline**, which ran off the end of the page reading "· translated by" with nothing after
+    it. **The byline was found by LOOKING at the page and by nothing else** — no test on the shelf could have
+    seen it, and it was on screen within a second of opening the book. The importer needed the same branch in
+    two more places (its run header and the generated file's own comment), which is four in all: reach for
+    `b.translator ? … : …` wherever a book's provenance is worded.
     **AN ADMIN EDITS THE ESSAY IN PLACE** (`bookIntroMerged` / `setBookIntroEdit` / `ADMIN_EDITS.bookIntros`
     / `wireIntroEdit` / `.bk-intro-essay`, Aug 2026, on request). Same gesture and the same finish paths as
     the About page's prose (see PAGES.mission) — click, Esc cancels, Ctrl+Enter or clicking away saves — and
@@ -11942,6 +12040,7 @@ dead code (never rendered).
     `extractPtahhotep` / `PTAH_KEYS` /
     `sanKuoHead` / `sanKuoRoman` / `originalChapter`'s `dropTables` /
     `extractBoethius` / `boethiusLatin` / `boeGreek` / `boePoem` / `BOE_BOOKS` /
+    `markMaloryHeads` / `MALORY_RUBRIC` / `MALORY_CHAPTERS` / `dropNotes` /
     `closeQuotesAt` / `balancedSpan` / `betaGreek` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /
@@ -11949,6 +12048,17 @@ dead code (never rendered).
     mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
+    **A MALORY section (`malloryChecks`) is there because that book has no second column to check it
+    against** — a single-column book cannot fail a pairing, which is what catches most faults on this
+    shelf, so everything about it has to be asserted directly. Its sharpest assertion is not a count
+    but a FINGERPRINT: the other free English copy of the book carries the same 503 chapters in the
+    same 21 books with the same rubrics in the same order, and differs from this one about a thousand
+    times in its words, so a shelf that quietly acquired that transcription instead would pass every
+    structural check there is. Half a dozen readings this edition keeps (`pyght`, `hool`, `alit`,
+    `trappours`, `advision`) and three the other one carries (`trappings`, `jesseraunt`, `rightwise`)
+    are asserted in both directions. It also pins Caxton's preface as an UNNUMBERED block before the
+    first chapter of Book I, the rubric on all 503 heads including the one set as a centred block, and
+    — in both directions, since they fail opposite ways — that no note and no marker reaches the page.
     **A SATYRICON section (`satyriconChecks`) is there for the same reason**, and every assertion in
     it guards something that renders perfectly while being wrong. The balanced-matching and
     close-and-reopen rules fail by leaving a poem's words on the page in the wrong setting, so the

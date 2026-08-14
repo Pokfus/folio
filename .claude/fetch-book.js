@@ -615,6 +615,18 @@ const EDDA_POEMS = [
 const CONF_CHAPTERS = [0, 20, 10, 12, 16, 14, 16, 21, 12, 13, 43, 31, 32, 38];
 const CONF_UNTRANSLATED = { 1: [19, 20] };
 
+/* ---------- Le Morte d'Arthur: how many chapters Caxton put in each of his twenty-one books ----------
+   A MEASUREMENT, NOT A RECOLLECTION, and the difference is four chapters. Books I, IV, VII and IX end
+   at 27, 28, 35 and 43 where the figures usually quoted for Caxton are 28, 29, 36 and 44 — which looks
+   exactly like four pages nobody has transcribed, and is not. Wikisource's own page list was counted
+   first, and then Project Gutenberg's wholly independent transcription of the same 1906 Everyman
+   edition (ebooks 1251 and 1252) was counted book by book against it: the two agree on all twenty-one,
+   so the edition's own total is 503 and the remembered 507 was simply wrong. Count it. */
+const MALORY_CHAPTERS = {
+  1: 27, 2: 19, 3: 15, 4: 28, 5: 12, 6: 18, 7: 35, 8: 41, 9: 43, 10: 88, 11: 14,
+  12: 14, 13: 20, 14: 10, 15: 6, 16: 17, 17: 23, 18: 25, 19: 13, 20: 22, 21: 13,
+};
+
 /* ---------- The City of God: how many chapters each of the twenty-two books has, and which of them
    Dods heads with a preface ----------
    Read off Wikisource's own contents lists rather than off a printed table: every one of the 22 book
@@ -9043,6 +9055,207 @@ const BOOKS = {
        on its own. */
   },
 
+  "morte-darthur": {
+    title: "Le Morte d'Arthur",
+    subtitle: "King Arthur and of his Noble Knights of the Round Table",
+    author: "Thomas Malory",
+    /* NO `translator`, AND THAT IS THE WHOLE OF WHAT MAKES THIS BOOK DIFFERENT — see the licence
+       note below and `bookIntroChapter` in app.js, which grew a second wording for it. Every other
+       book on this shelf is a translation and says whose; this one is in English already. */
+    edition: "Everyman's Library, ed. Ernest Rhys, J. M. Dent, London, 1906",
+    written: "c. 1469–70, printed 1485",
+    year: 1485,
+
+    /* ---------- THE LICENCE ----------
+       Malory finished writing in the ninth year of Edward IV — he says so in his own epilogue, which
+       is 1469 or 1470 — and Caxton printed the book at Westminster on the last day of July 1485.
+       Both are free everywhere and have been for five centuries. The only modern layer is the
+       EDITION: Everyman's Library, published by J. M. Dent in 1906 and edited by Ernest Rhys, with
+       an introduction by Sir John Rhys that is not reproduced. Ernest Rhys lived 1859–1946 and John
+       Rhys 1840–1915 — looked up rather than recalled, for the Hugo Magnus reason. So it is public
+       domain in the United States on the pre-1929 rule and cleared life plus seventy at the start of
+       2017; life plus a hundred runs to 2047, and is stated rather than smoothed into the easier
+       sentence.
+
+       THE EDITION IS NAMED BY THE SCAN ITSELF rather than inferred: Wikisource's Index page for the
+       two djvu files gives the title, the year, the editor and the introduction, and every chapter
+       page is a proofread transcription of a numbered leaf of it. Ask what text an unattributed
+       transcription IS — the Divine Comedy's rule and Don Quixote's — and here the answer is on the
+       file's own record.
+
+       THE OTHER FREE ENGLISH TEXTS WERE MEASURED, AND THAT IS THE FINDING TO CARRY. Project
+       Gutenberg's ebooks 1251 and 1252 look like the same book and are not the same TEXT. Walked
+       word by word against the shipped chapters — the Don Quixote method, and the reason to fetch a
+       second copy at all — they diverge about a thousand times, and every divergence sampled runs
+       the same way: this edition carries the older form and that transcription the modern one.
+       *pyght* against *pight*, *hool* against *whole*, *paas* against *pace*, *essay* against
+       *assay*, *bitaken* against *betaken*, *jesseraunte* against *jesseraunt*, *stynte* against
+       *stint*; and past spelling into vocabulary, *alit* against *alighted*, *trappours* against
+       *trappings*, *advision* against *vision*. For a reading room the copy that keeps Malory's own
+       words is the one worth having, and it is also the one proofread against a scan. What it names
+       itself is a separate question and is deliberately not answered here: PG's copy states no
+       edition, and the bibliographical note bound in front of it is A. W. Pollard's and describes a
+       Macmillan printing, so identifying it would be composing. It was nevertheless worth fetching:
+       its chapter counts, taken book by book, are what settle the total at 503 — see
+       MALORY_CHAPTERS.
+
+       AND PG'S EBOOK 46853 IS SIR EDWARD STRACHEY'S GLOBE TEXT of 1868, which its own successor in
+       that series describes in print as substituting "current words for those now obsolete" and
+       softening "a handful of passages likely, he thought, to prevent the book being placed in the
+       hands of boys". An editor who quietly softened what he thought unsuitable is the objection
+       that decided the Consolation's English; here it is not a suspicion but a published statement.
+
+       THE MODERN EDITIONS a reader is likeliest to own are named so nobody reaches for one: Eugène
+       Vinaver's edition of the Winchester manuscript (1947, revised 1967 and 1990), which is a
+       different constituted text as well as a copyrighted one, Helen Cooper's Oxford modernisation
+       (1998) and Dorsey Armstrong's translation (2009).
+
+       WHAT IS AND IS NOT TAKEN. Caxton's own preface and the twenty-one books he divided the work
+       into. Left behind: John Rhys's introduction and the glossary and index of names printed at the
+       back — an editor's apparatus, as Skeat's was and Brodeur's index was. */
+    rights:
+      "Public domain. Thomas Malory finished the book in 1469 or 1470 and William Caxton printed it " +
+      "at Westminster on the last day of July 1485, so the work itself has been free for five " +
+      "centuries. The text here is the Everyman's Library edition published by J. M. Dent in 1906 " +
+      "and edited by Ernest Rhys, who lived from 1859 to 1946: it is out of copyright under the rule " +
+      "for works published before 1929 and under the editor's life plus seventy years, which ran out " +
+      "at the start of 2017. It has not yet cleared life plus a hundred, which runs to 2047. The " +
+      "spelling is lightly modernised and the vocabulary is untouched, so what is printed here is " +
+      "Malory's own English rather than a translation of it, and the book has no facing original " +
+      "for that reason. Sir John Rhys's introduction and the glossary and index of names " +
+      "are not reproduced; what is taken is Caxton's preface and the twenty-one books. (Sir Edward " +
+      "Strachey's Globe text of 1868 is free and is not used: its own editor replaced obsolete words " +
+      "and softened passages he thought unsuitable for boys. The modern editions by Eugène Vinaver, " +
+      "1947, Helen Cooper, 1998, and Dorsey Armstrong, 2009, are still in copyright and are not " +
+      "used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Le_Morte_d%27Arthur",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ---------- */
+    about: [
+      "<b>Le Morte d'Arthur</b> is the book almost every later Arthur comes out of. Thomas Malory " +
+        "wrote it in English prose in the late 1460s, drawing on the enormous French romance cycles " +
+        "of the previous two centuries and on two English poems, and gathering what had been a " +
+        "sprawl of separate stories into one continuous history: the begetting of Arthur, the sword " +
+        "in the stone, the founding of the Round Table, the coming of Launcelot and of Tristram, the " +
+        "quest of the Sangreal, the love of Launcelot and Guenever, and the war that destroys " +
+        "everything the first twenty books have built. William Caxton printed it in 1485, divided " +
+        "it into <b>twenty-one books</b> and <b>503 chapters</b>, and supplied the descriptive " +
+        "heading that stands at the head of each chapter here.",
+      "It is not a translation and has no facing original, which makes it the first book on these " +
+        "shelves to stand in one column for that reason: Malory wrote in English, so there is " +
+        "nobody standing between you and him. The Everyman's Library text of 1906 printed here " +
+        "modernises the <b>spelling</b> lightly and leaves the vocabulary alone, and it keeps a good " +
+        "deal of Caxton's own spelling into the bargain — men <i>pyght</i> their pavilions, a knight " +
+        "is not yet <i>hool</i> of his wound, and a hundred others. So the sentences are Malory's, " +
+        "which is why a fifteenth-century book reads as easily as it does and why the odd word still " +
+        "stops you. A knight <i>alit</i> rather than alighted, wears <i>trappours</i> rather than " +
+        "trappings and has an <i>advision</i> rather than a vision; to be <i>wroth</i> is to be " +
+        "angry, <i>anon</i> means at once, <i>hight</i> means was called, and <i>wood</i> means mad, " +
+        "which is worth knowing before somebody is wood wroth at you.",
+      "What surprises most readers is the shape. Malory's book is not a novel and does not build " +
+        "steadily to its end: it is a compilation, and for long stretches it is a stream of knights " +
+        "riding out, meeting other knights, jousting, unhorsing one another and riding on. Book " +
+        "<b>X</b> alone runs to eighty-eight chapters of it. Then the quest of the Sangreal arrives " +
+        "in Book XIII and the whole register changes — the adventures become visions, the best " +
+        "knight in the world is told he is not good enough, and the chivalry the book has spent " +
+        "twelve books admiring is judged and found wanting. The last two books are as bleak and as " +
+        "fast as anything in English: the love that has been the book's ornament becomes the crack " +
+        "that splits the fellowship, and the ending arrives with terrible speed.",
+      "Caxton's <b>chapter headings</b> — his \"rubrish\", as he calls it — stand at the head of " +
+        "each chapter here, and they are worth reading as you go. They are a running summary of the " +
+        "book by the man who first printed it, they are frequently the only signpost in a long run " +
+        "of adventures, and they are occasionally very funny about it: <i>Yet of the same battle</i>, " +
+        "then <i>Yet more of the same battle</i>. They are printed in capitals because the edition " +
+        "sets them in small capitals, which carry no case to recover. Caxton also wrote the preface " +
+        "that opens this text, which is where he explains how the book came to him, why he doubted " +
+        "whether Arthur had existed, and what he thought a reader should take from it.",
+      "Two things about how it is set out here. There are <b>no footnotes</b>, because this edition " +
+        "prints none: the twenty-seven notes on the transcription these chapters come from were " +
+        "added by its own contributors, collating the printed reading against the Winchester " +
+        "manuscript found in 1934, and folding somebody's unsigned collation under a book offered " +
+        "as the 1906 Everyman would be showing you an apparatus that edition has not got. And the " +
+        "tabs across the top are Caxton's <b>twenty-one books</b>, with his chapters numbered " +
+        "inside them — so a passage is cited as book and chapter, and Book <b>X</b> is the one " +
+        "holding eighty-eight of them.",
+      "One thing to know about the man who wrote it. Malory ends the book asking the reader to pray " +
+        "for him \"while I am on live\" and again when he is dead, and he says he finished it in the " +
+        "ninth year of Edward IV — 1469 or 1470. He appears to have written most of it in prison: " +
+        "the likeliest identification is a Warwickshire knight who spent years in gaol on a long " +
+        "list of charges and was twice excluded by name from a general pardon. The book contains one " +
+        "line about sickness being \"the greatest pain a prisoner may have\" that reads very much " +
+        "like something known at first hand, and its idea of what a knight ought to be is the more " +
+        "striking for it.",
+    ],
+
+    /* ---------- ONE PAGE PER CHAPTER, GATHERED INTO CAXTON'S TWENTY-ONE BOOKS ----------
+       Herodotus's shape again, and the Confessions' at a larger scale: this wiki gives each of
+       Caxton's 503 chapters a page of its own, and a passage of Malory is cited as book and chapter
+       — "Malory VII.9" — so the BOOK is the tab and the chapter is the section. Cutting at the
+       chapter instead would put 503 tabs on the bar; cutting anywhere above the book would give the
+       whole work one tab, there being nothing above it that Caxton divides.
+
+       THE VOLUMES ARE THE PRINTING'S AND NOT THE WORK'S, and they cut a book in half, which is why
+       the page path cannot be built from the book number alone. Everyman printed the text in two
+       volumes and the break falls in the MIDDLE of Book X: Volume I ends at X.19 and Volume II opens
+       at X.20 — measured against the wiki rather than read off a contents page, since a wrong guess
+       there would return 404s for sixty-nine chapters rather than a wrong text.
+
+       AND THE CHAPTER COUNTS ARE THE EDITION'S, MEASURED TWICE. Four of the twenty-one books end one
+       chapter short of the figure usually quoted for Caxton — I at 27, IV at 28, VII at 35, IX at 43
+       — which looks exactly like four missing pages and is not. Project Gutenberg's independent
+       transcription of the same edition (ebooks 1251 and 1252) was counted book by book and agrees
+       with the wiki on every one of the twenty-one, so the total is 503 and the recollection of 507
+       was simply wrong. Count it rather than remembering it. */
+    source: "wiki",
+    chapterWord: "Book",
+    chapters: Array.from({ length: 21 }, (_, i) => i + 1),
+    page: (n) => {
+      const out = [];
+      /* Caxton's preface stands before Book I in the printed book and is fetched with it, where it
+         becomes the leading block of the first chapter — see markMaloryHeads for the marker it
+         carries and why it claims no number of its own. */
+      if (n === 1) out.push("Le Morte d'Arthur/Preface");
+      for (let c = 1; c <= MALORY_CHAPTERS[n]; c++)
+        out.push("Le Morte d'Arthur/Volume " + (n < 10 || (n === 10 && c <= 19) ? "I" : "II") +
+                 "/Book " + toRoman(n) + "/Chapter " + toRoman(c));
+      return out;
+    },
+    titleOf: (n) => "Book " + toRoman(n),
+    /* Which chapter each PAGE is supposed to carry, so the heading printed on it can be read AND
+       checked — the City of God's rule, and it earns its keep on a book addressed by arithmetic:
+       503 pages fetched under a title built out of a volume rule and two Roman numerals is 503
+       chances to file a chapter under the wrong number, and a mis-numbered page would sit in the
+       right book at the wrong place with every count still healthy. Caxton's preface returns null,
+       which is what leaves it unmarked and so at the head of Book I. */
+    pageMark: (name) => {
+      const m = /\/Chapter ([IVXLC]+)$/.exec(name);
+      return m ? romanValue(m[1]) : null;
+    },
+    sections: "malory",
+    /* Every chapter page opens on a page-number marker and closes on the blank line the printing
+       sets under a chapter; on a joined run of 88 pages the latter lands between every pair of
+       chapters, where an unnumbered block rides silently onto the end of the chapter above it. */
+    dropBlankParas: true,
+    dropHeadMarkers: true,
+    /* THE 27 NOTES ON THIS TRANSCRIPTION ARE NOT THE EDITION'S — every one of them says so in its
+       own text, being a Wikisource contributor's collation against the Winchester manuscript. See
+       the block that reads this flag for the whole argument; the short of it is that a fold of
+       unsigned manuscript variants in scribal abbreviations is not what a note fold is for, and
+       printing one under a book presented as the 1906 Everyman would be showing a reader an
+       apparatus that edition has not got. So this book renders with no note fold at all, as Ovid,
+       Lucretius, the Analects, Don Quixote and the Oedipus Rex do, and its front matter says why. */
+    dropNotes: true,
+    /* The shortest book is Book XV at six chapters and about 13,000 characters — measured over all
+       twenty-one rather than assumed. 5,000 sits well below it and far above what a failed
+       extraction returns. */
+    minChars: 5000,
+    /* WHAT THE GLOSSARY MUST NOT LINK is declared in app.js's BOOKS registry rather than here, that
+       being where `b.glossOff` is actually read at render time. See the note on that entry: the list
+       is long, it was swept against the shipped text, and the reason it is long is that in this book
+       the collision IS the subject. */
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -9607,6 +9820,119 @@ let ARTICULI_FOUND = 0, ARTICULI_NODASH = 0, ARTICULI_UNNUM = 0, ARTICULI_DUP = 
    lifted out. Counted rather than trusted, for the reason every count in this file is — a rule that
    quietly stops firing looks exactly like a rule that had nothing to do. */
 let SANKUO = { titled: 0, odd: 0, half: 0 };
+
+/* ---------- THE ELEVENTH WAY AN EDITION MARKS ITS NUMBERS, and the first whose number and TITLE are
+   two separate elements printed one under the other (Aug 2026, adding Le Morte d'Arthur).
+
+   Every chapter page of this transcription is set the same way, three heading blocks and then the
+   prose: a `wst-heading` reading "Book I", a `wst-subheading` reading "Chapter I", and a
+   `wst-subsubheading` carrying Caxton's own descriptive rubric for that chapter — HOW UTHER PENDRAGON
+   SENT FOR THE DUKE OF CORNWALL AND IGRAINE HIS WIFE, AND OF THEIR DEPARTING SUDDENLY AGAIN. All three
+   have to be dealt with before the generic div pass turns them into blockquotes, which is why this
+   sits at the pre-strip hook beside markLikiHeads and markArticuli rather than with the section passes
+   at the foot of cleanBody. Four things it settled are worth carrying.
+
+   · THE BOOK HEADING IS DROPPED AND THE RUBRIC IS KEPT, which is dropFittHead's rule applied in both
+     directions at once. "Book I" duplicates the tab the reader is already standing on and appears only
+     on the first chapter of each book, so it goes; the rubric is Caxton's, is printed nowhere else, and
+     on a run of eighty-eight chapters of knights riding out it is the only thing telling one from the
+     next. Ask what ELSE is on a heading before dropping it — the Ramayana's finding, and here the
+     answer arrives as a separate element rather than as words beside the number.
+
+   · A DROPPED HEADING MAY CARRY A FOOTNOTE MARKER, so any marker on the book heading is carried down
+     rather than deleted with the line. Beowulf's rule in a sixth edition; it costs four lines and the
+     alternative is a note in the fold that no sentence opens.
+
+   · THE NUMBER IS READ AND THEN CHECKED, never composed from the page name. The page NAME states the
+     chapter and so does the heading printed on it, and comparing the two costs nothing and reports a
+     page renamed at the source or a heading mistyped instead of filing a chapter under the number next
+     to it. The City of God's rule, and it earns more here than there: 503 pages are fetched under a
+     title built out of a volume rule and two Roman numerals, and a mis-numbered one would sit in the
+     right book at the wrong place with every count in the run still reading healthy.
+
+   · AND CAXTON'S PREFACE IS LEFT UNMARKED ON PURPOSE. It is fetched as the first page of Book I and
+     carries no chapter of its own, so `pageMark` returns null and nothing here fires: it arrives as the
+     chapter's leading unnumbered block, which is where the printed book puts it and where app.js files
+     a headnote. Writing a "0" over it would be composing a citation the edition has not got — nobody
+     cites Caxton's preface as Malory I.0 — where an unnumbered block claims nothing at all.
+
+   THE RUBRIC SHIPS IN THE CAPITALS THE PAGE SETS IT IN, and that is a decision rather than a default;
+   see the entry for `morte-darthur` in BOOKS for the measurement behind it. */
+const MALORY_HEAD =
+  /<div class="wst-heading"[^>]*>\s*<p>\s*Book\s+([IVXLC]+)\s*<\/p>\s*<\/div>/;
+const MALORY_SUB =
+  /<div class="wst-subheading"[^>]*>\s*<p>\s*Chapter\s+([IVXLC]+)\s*<\/p>\s*<\/div>/;
+/* THE RUBRIC WEARS A SECOND TEMPLATE ON ONE PAGE IN 503, which is Beowulf's finding on a different
+   wiki: there one leaf of eighty-five set its line numbers with `ppoem` instead of `wst-pline`, and
+   here Book XX chapter 16 sets its rubric as a centred block at 69% rather than as a
+   `wst-subsubheading`. It is a transcriber's choice on one page and nothing on the page says so. The
+   cost of missing it is not a missing title but a VISIBLE one: the block survives the generic div
+   pass as a blockquote and the chapter opens on an indented shout. Both shapes are tried, in order,
+   and the odd one is counted — see MALORY.odd — so a rule that starts firing more often, or stops,
+   cannot do it quietly. The proximity test below is what keeps the looser shape safe: it is taken
+   only where it stands immediately after the chapter number. */
+const MALORY_RUBRIC = [
+  /<div class="wst-subsubheading"[^>]*>\s*<p>([\s\S]*?)<\/p>\s*<\/div>/,
+  /<div class="wst-center[^"]*"[^>]*>\s*<p>\s*(?:<span[^>]*>)?([\s\S]*?)(?:<\/span>)?\s*<\/p>\s*<\/div>/,
+];
+let MALORY = { chapters: 0, books: 0, rubrics: 0, odd: 0, notesOnHeads: 0 };
+/* How many notes `dropNotes` took, counted rather than assumed inert — see the block that sets it. */
+let DROPPED_NOTES = 0;
+function markMaloryHeads(b, book, warn) {
+  const expect = book.expect;
+  const plain = (s) =>
+    s.replace(/<br\s*\/?>/g, " ").replace(/<[^>]*>/g, "")
+      .replace(/&#160;|&nbsp;|&#32;|​/g, " ").replace(/\s+/g, " ").trim();
+
+  /* The book half-title, on the first chapter of each book only. Its markers are carried rather than
+     deleted with it — Beowulf's rule — and are planted at the head of whatever survives. */
+  const carried = [];
+  b = b.replace(MALORY_HEAD, (whole, r) => {
+    const v = romanValue(r);
+    if (v !== book.bookNum)
+      warn && warn("the page for Book " + book.bookNum + " chapter " + expect +
+        " is headed “Book " + r + "” — left as printed");
+    const fn = whole.match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || [];
+    if (fn.length) { carried.push(...fn); MALORY.notesOnHeads += fn.length; }
+    MALORY.books++;
+    return "";
+  });
+
+  /* The chapter number and the rubric under it, replaced by ONE line carrying both. The rubric is
+     matched only where it follows the number, so a `wst-subsubheading` used for anything else on a
+     page with no chapter of its own cannot be swallowed as a title. */
+  const m = MALORY_SUB.exec(b);
+  if (!m) {
+    if (expect != null)
+      warn && warn("no chapter heading found on the page for chapter " + expect +
+        " — its text will fold into the chapter above it");
+    if (carried.length) b = b.replace(/(<p[^>]*>)/, "$1" + carried.join(""));
+    return b;
+  }
+  const v = romanValue(m[1]);
+  if (expect != null && v !== expect)
+    warn && warn("the page for chapter " + expect + " is headed “Chapter " + m[1] + "” — left as printed");
+  const after = b.slice(m.index + m[0].length);
+  /* The rubric must be the very next block, or it belongs to something else; 400 characters is the
+     whole of the link element and the deduplicated style tag MediaWiki writes between them. */
+  let r = null, shape = 0;
+  for (let k = 0; k < MALORY_RUBRIC.length && !r; k++) {
+    const hit = MALORY_RUBRIC[k].exec(after);
+    if (hit && hit.index < 400) { r = hit; shape = k; }
+  }
+  let rubric = "", cut = 0;
+  if (r) {
+    rubric = plain(r[1]);
+    cut = r.index + r[0].length;
+    if (rubric) { MALORY.rubrics++; if (shape) MALORY.odd++; }
+  } else warn && warn("chapter " + v + " has no rubric printed over it");
+  MALORY.chapters++;
+  const fnHere = ((m[0] + (r ? r[0] : "")).match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || []);
+  if (fnHere.length) MALORY.notesOnHeads += fnHere.length;
+  const head = "<p><span class=\"bk-n\">" + v + "</span>" +
+    (rubric ? "<b>" + rubric + "</b>" : "") + carried.join("") + fnHere.join("") + "</p>";
+  return b.slice(0, m.index) + head + after.slice(cut);
+}
 
 const LIKI_MARK = "@@LKH@@";
 const LIKI_HEAD_RX = /^(?:Section\b|Part\b|Supplementary Section\b|Appendix to Book\b)/i;
@@ -10281,6 +10607,10 @@ function cleanBody(h, noteIds, book, warn) {
      h2/h3/h4 inside them — see markArticuli, which is the whole reason this hook has two occupants.
      Gated per book, so it is provably inert on the thirty-six already shipped. */
   if (book && book.sections === "articuli") b = markArticuli(b, warn || (() => {}));
+  /* Before the three heading divs become blockquotes and the class this keys on is gone — see
+     markMaloryHeads, which reads the chapter number off one of them and Caxton's rubric off another.
+     Gated per book, so it is provably inert on the forty-five already shipped. */
+  if (book && book.sections === "malory") b = markMaloryHeads(b, book, warn || (() => {}));
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -16549,7 +16879,11 @@ function chapterTitle(n) {
 }
 
 async function fetchEnglish() {
-  console.log("Fetching " + BOOK.title + " (" + BOOK.translator + ") — chapters " + FROM + "–" + TO);
+  /* A book with no `translator` is not a gap in its entry — it is a book that was written in English
+     and has nobody standing between the reader and the author. Le Morte d'Arthur is the first, so the
+     line names its EDITION instead rather than printing "(undefined)". */
+  console.log("Fetching " + BOOK.title + " (" + (BOOK.translator || BOOK.edition) + ") — chapters " +
+    FROM + "–" + TO);
   const titles = await chapterTitles();
   const warnings = [];
   const chapters = [];
@@ -17230,6 +17564,10 @@ async function fetchEnglish() {
          `sections: "bookchapter"` in cleanBody — Thucydides' chapter marks carry the book number as
          well as the chapter). Set only for that shape, so no other book's config is touched. */
       if (BOOK.sections === "bookchapter") BOOK.expect = n;
+      /* Which of Caxton's books this chapter IS, so the half-title printed on its first page can be
+         checked as well as the chapter number under it — the same channel `expect` uses, set per
+         chapter rather than per page because that is the grain the number belongs to. */
+      if (BOOK.sections === "malory") BOOK.bookNum = n;
       /* The number the single whole-chapter marker carries — the same channel `expect` uses, and
          set per chapter for the same reason: cleanBody is handed the book, not the chapter. */
       if (BOOK.sections === "whole") BOOK.mark = n;
@@ -17279,6 +17617,26 @@ async function fetchEnglish() {
       }
       if (multi && BOOK.sections && !/class="bk-n"/.test(html))
         warn("no section numbers found — the chapter will pair as one whole block");
+      /* AN APPARATUS THE EDITION DOES NOT HAVE (Aug 2026, adding Le Morte d'Arthur — the first wiki
+         book to need this; the Satyricon's TEI path already had its own `dropNotes`).
+
+         Every note on this transcription is a WIKISOURCE CONTRIBUTOR'S, and it says so in its own
+         text: twenty-seven collations of the printed reading against the Winchester manuscript and
+         the French Queste, added on the wiki and set in the scribal abbreviations of the manuscript
+         (“[…othir þͤ] menoͣ oþͬ [þͤ takynge…]”). Folded under the chapters of a book presented as the
+         Everyman edition of 1906, they would be an apparatus that edition has not got, unsigned, and
+         mostly unusable by the reader it is shown to. That is the Satyricon's judgement about what a
+         note fold is FOR, sharpened by the Divine Comedy's question about what an unattributed text
+         is — an unattributed apparatus is the worse case, since a reader has no way to know whose
+         collation they are being shown. Dropped, and COUNTED on every run, so a transcription that
+         starts carrying the edition's own notes cannot do it unnoticed. The markers go with them:
+         `wireFootnotes` would delete a marker pointing past the end of the list at render, which is
+         the right behaviour and the wrong place to find out. */
+      if (BOOK.dropNotes && notes.length) {
+        DROPPED_NOTES += notes.length;
+        notes = [];
+        html = html.replace(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g, "");
+      }
     }
     /* THE FLOOR IS PER BOOK, because 200 characters is a broken chapter in every book here except
        one (Aug 2026, adding Aesop's Fables). This guard is what catches an extraction that has
@@ -17311,7 +17669,11 @@ function writeEnglish(chapters, warnings) {
   fs.mkdirSync(outDir, { recursive: true });
   const out = path.join(outDir, id + ".js");
   const lines = [];
-  lines.push("/* " + BOOK.title + " — " + BOOK.author + ", translated by " + BOOK.translator + ".");
+  /* A book with no `translator` was written in English and has none — see the note above the run
+     header. It is named by its EDITOR's edition instead of being announced as "translated by
+     undefined", which is a claim about the text rather than a cosmetic slip. */
+  lines.push("/* " + BOOK.title + " — " + BOOK.author +
+    (BOOK.translator ? ", translated by " + BOOK.translator : "") + ".");
   lines.push("   " + BOOK.edition + ". " + BOOK.rights);
   lines.push("   Source: " + BOOK.sourceName + " — " + BOOK.sourceUrl);
   lines.push("");
@@ -17364,6 +17726,17 @@ function writeEnglish(chapters, warnings) {
     console.log("  " + SANKUO.titled + " chapters titled from their own printed head, " +
       SANKUO.odd + " headed in this printing's hundred-less-n numerals, " +
       SANKUO.half + " printer's boundary mark(s) removed");
+  /* A rule that quietly stops firing looks exactly like a rule that had nothing to do, so every
+     number markMaloryHeads acts on is printed: the chapters it marked, the book half-titles it
+     lifted out, the rubrics it found, and any footnote marker it had to carry off a dropped head. */
+  if (MALORY.chapters)
+    console.log("  " + MALORY.chapters + " chapters marked, " + MALORY.rubrics +
+      " carrying Caxton's own rubric (" + MALORY.odd + " of them set as a centred block instead), " +
+      MALORY.books + " book half-title(s) lifted out, " +
+      MALORY.notesOnHeads + " footnote marker(s) carried off a heading");
+  if (DROPPED_NOTES)
+    console.log("  " + DROPPED_NOTES + " transcriber's note(s) dropped — an apparatus this edition " +
+      "does not print; see `dropNotes`");
   if (ARTICULI_FOUND)
     console.log("  " + ARTICULI_FOUND + " articles, " + ARTICULI_COUNTED +
       " of the questions numbered by their own stated count — " + ARTICULI_NODASH +

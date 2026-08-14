@@ -526,6 +526,82 @@ function boethiusChecks() {
   return o;
 }
 
+/* LE MORTE D'ARTHUR — one column, 21 books, 503 of Caxton's chapters.
+   Everything here fails silently. A chapter dropped from the 503 leaves twenty perfectly good books
+   and a run of numbers nobody counts; a rubric lost leaves a section head that is a bare figure on a
+   bar of eighty-eight; a transcriber's note leaking back in puts an unsigned collation of the
+   Winchester manuscript under a book offered as the 1906 Everyman; and a chapter that is really
+   Project Gutenberg's text rather than this one reads perfectly and is a different book. */
+function malloryChecks() {
+  const f = path.join(ROOT, "books", "morte-darthur.js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "morte-darthur");
+  if (!en) return null;
+  /* Caxton's own chapter counts, book by book — the figure the import is built on, restated here so
+     a change to MALORY_CHAPTERS has to be made deliberately in two places. */
+  const WANT = [27, 19, 15, 28, 12, 18, 35, 41, 43, 88, 14, 14, 20, 10, 6, 17, 23, 25, 13, 22, 13];
+  const o = { books: en.chapters.length, secs: 0, rubrics: 0, bal: [], seqBad: [], shape: [],
+              shapeBad: [], notes: 0, markers: 0, leak: [], chars: 0, kept: {} };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup", "span"];
+  /* The transcriber's furniture: the wiki's own containers and classes, the scan's page anchors, the
+     inline stylesheets MediaWiki deduplicates into the page, and the "Wikisource contributor note"
+     template — the last being what `dropNotes` exists to keep out. */
+  const LEAK = /mw-parser-output|TemplateStyles|prp-pages|ws-noexport|wst-|pagenum|pageindex|data-page-|Wikisource contributor|<h[1-6]|<div|<ul|<li[ >]|\{[a-z-]+:/i;
+  en.chapters.forEach((c, i) => {
+    o.chars += c.html.length;
+    o.notes += (c.notes || []).length;
+    o.markers += (c.html.match(/<sup class="fn"/g) || []).length;
+    if (LEAK.test(c.html)) o.leak.push(c.n);
+    TAGS.forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "(?=[ >])", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(c.n + " " + t + " " + open + "/" + shut);
+    });
+    const nums = [...c.html.matchAll(/<span class="bk-n">(\d+)<\/span>/g)].map((m) => +m[1]);
+    o.secs += nums.length;
+    o.shape.push(nums.length + "/" + WANT[i]);
+    if (nums.length !== WANT[i]) o.shapeBad.push(c.n + ": " + nums.length + " of " + WANT[i]);
+    if (nums.some((v, k) => v !== k + 1)) o.seqBad.push(c.n);
+    /* EVERY section head carries Caxton's rubric beside its number. A rubric lost is not a missing
+       chapter and no count of chapters can see it — on the bar of eighty-eight that Book X is, it is
+       the only thing telling one adventure from the next. */
+    o.rubrics += (c.html.match(/<span class="bk-n">\d+<\/span><b>[^<]/g) || []).length;
+  });
+  o.shape = o.shape.join(" ");
+  const one = en.chapters.find((c) => c.n === 1) || { html: "" };
+  const last = en.chapters.find((c) => c.n === 21) || { html: "" };
+  /* Caxton's preface stands at the head of Book I, before the first numbered chapter and claiming no
+     number of its own — the printed book's own arrangement, and the reason `pageMark` returns null
+     for it. Measured as the text BEFORE the first marker, so a preface filed as chapter 1 fails. */
+  o.lead = one.html.slice(0, one.html.indexOf('<span class="bk-n">'));
+  o.prefaceHere = /nine worthy and the best that ever were/.test(o.lead);
+  o.opensOnUther = /befell in the days of Uther Pendragon/.test(one.html);
+  o.colophon = /Caxton me fieri fecit/.test(last.html);
+  o.epilogue = /the ninth year of the reign of\s*\n?King Edward the Fourth/.test(last.html);
+  /* The chapter whose rubric this edition sets as a centred block rather than as a subsubheading —
+     one page in 503, and the shape a rule written for the other 502 silently turns into a stray
+     indented shout at the top of the chapter. */
+  o.oddRubric = /COMMUNICATION BETWEEN SIR GAWAINE AND SIR LAUNCELOT/.test(
+    (en.chapters.find((c) => c.n === 20) || { html: "" }).html);
+  /* WHICH TEXT THIS IS. The other free English copy differs from this one about a thousand times and
+     always the same way, so a handful of readings is a fingerprint: if the shelf ever quietly
+     acquires that transcription instead, these say so, and nothing else here would.
+
+     EVERY WORD BELOW WAS COUNTED IN BOTH COPIES BEFORE IT WAS USED, and that is not a formality —
+     the first list included `advision`, which reads like a perfect discriminator and occurs 25 times
+     in the other copy as well (it differs only in the rubrics of one book), and `trappings` and
+     `rightwise`, which THIS edition also uses once each beside its own older forms. A negative test
+     on a word both copies carry passes or fails on nothing. These eight are zero in the other copy
+     and non-zero here. */
+  const all = en.chapters.map((c) => c.html).join(" ");
+  for (const w of ["alit", "pyght", "hool", "trappours", "jesseraunte", "stynte", "doole", "bisene"])
+    o.kept[w] = (all.match(new RegExp("\\b" + w + "\\b", "gi")) || []).length;
+  return o;
+}
+
 function ptahhotepChecks() {
   const f = path.join(ROOT, "books", "ptahhotep.js");
   if (!fs.existsSync(f)) return null;
@@ -1717,6 +1793,46 @@ function aeneidChecks() {
         bo.greekLa === 12 && bo.greekEn === 0, bo.greekLa + " left in the Latin, " + bo.greekEn + " in the English");
     } else {
       check("[boethius] both columns are on disk", false, "missing books/boethius-consolation*.js");
+    }
+
+    /* LE MORTE D'ARTHUR — see malloryChecks above for what each of these can see. */
+    const ml = malloryChecks();
+    if (ml) {
+      check("[malory] twenty-one books", ml.books === 21, String(ml.books));
+      /* The count is Caxton's own and was MEASURED against two independent transcriptions before it
+         was believed — four of the books end one chapter short of the figure usually quoted, which
+         looks exactly like four untranscribed pages and is not. A book short of a chapter here is
+         invisible to everything else: the run still reads 1..N and the prose is still continuous. */
+      check("[malory] 503 of Caxton's chapters, and each book holds the number it should",
+        ml.secs === 503 && !ml.shapeBad.length, ml.secs + "  " + (ml.shapeBad.join("; ") || ml.shape));
+      check("[malory] ...numbered a clean 1..N in every book", !ml.seqBad.length, JSON.stringify(ml.seqBad));
+      /* Caxton's rubric on every one of them. Nothing else in this suite would notice its absence —
+         the chapter would be complete, the numbering right, and the head a bare figure. */
+      check("[malory] every chapter carries Caxton's own rubric beside its number",
+        ml.rubrics === 503, String(ml.rubrics));
+      check("[malory] ...including the one the edition sets as a centred block instead", ml.oddRubric, "");
+      /* Caxton's preface stands BEFORE the first numbered chapter of Book I and claims no number: it
+         introduces the whole work, and nobody cites it as Malory I.0. */
+      check("[malory] Caxton's preface opens Book I, unnumbered",
+        ml.prefaceHere && ml.lead.length > 3000, ml.lead.length + " chars before the first marker");
+      check("[malory] Book I then opens on Uther Pendragon", ml.opensOnUther, "");
+      check("[malory] Book XXI closes on Malory's epilogue and Caxton's colophon",
+        ml.epilogue && ml.colophon, "");
+      /* The 27 notes on this transcription are a Wikisource contributor's collation against the
+         Winchester manuscript, not the edition's — so the book renders with no note fold at all, and
+         no marker is left pointing at one. Both halves, since they fail in opposite directions. */
+      check("[malory] no transcriber's apparatus reaches the page",
+        ml.notes === 0 && ml.markers === 0, ml.notes + " notes, " + ml.markers + " markers");
+      check("[malory] no wiki furniture in the prose", !ml.leak.length, JSON.stringify(ml.leak));
+      check("[malory] tags balance in every book", !ml.bal.length, JSON.stringify(ml.bal));
+      /* WHICH TEXT IT IS. The other free English copy differs about a thousand times and always the
+         same way, so these eight readings are a fingerprint: every one is zero in that copy and
+         non-zero here, counted in both before it was used. A shelf that quietly acquired that
+         transcription instead would pass every other check above. */
+      check("[malory] the text is the one that keeps Malory's own forms",
+        Object.values(ml.kept).every((n) => n > 0) && ml.kept.alit > 50, JSON.stringify(ml.kept));
+    } else {
+      check("[malory] the book is on disk", false, "missing books/morte-darthur.js");
     }
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there

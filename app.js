@@ -8050,6 +8050,32 @@
      of any swatch on this shelf, which the City of God and the Book of Rites both treated as the
      tiebreaker it is. */
   "Boethius": "#002700",
+  /* A dark scarlet, and it needed NO WIDENING OF THE BAND — which is worth saying, because the
+     last four rows each had to argue about one. With forty-one colours placed, the shelf's own
+     tightest pair is now 16.6 (Aristotle against Ptahhotep) and this clears its nearest neighbour
+     by 19.0, so it is comfortably inside the shelf's own tolerance and nothing was relaxed to get
+     it.
+
+     WHICH AXIS WOULD HAVE BEEN BINDING WAS MEASURED ANYWAY, on the Three Kingdoms row's rule, and
+     the answer is the same as there: widening the LIGHTNESS band changes nothing at all and
+     lowering the chroma FLOOR changes almost nothing, while lifting the chroma CEILING from 71 to
+     90 opens a field whose best clears 29.3. It was not lifted. Every widening makes the next book
+     harder, and a chroma-90 swatch beside forty muted ones is exactly what the ceiling exists to
+     prevent — the Vyasa row's "glow", re-measured by the Aquinas row but not abolished.
+
+     THE ONE CLEAR FAMILY LEFT IN THE SHIPPED BAND IS RED, and inside it the choice was CONTRAST,
+     which is the Cervantes row's trade: the best raw number is 21.0 at 4.59:1, right on the bar,
+     and this clears 19.0 at 4.95:1 on the tightest of the sixteen light papers. The red quarter
+     holds twelve colours and that is the objection the Boethius row raised against a scarlet — but
+     counted the Homer row's way, by swatches within 40 rather than by hue family, this has SIX
+     neighbours, fewer than any other candidate in the band (the best olive has fifteen). Crowded
+     in hue, empty at this lightness and chroma.
+
+     AND THE EURIPIDES TEST IS EASY HERE FOR ONCE. The books a reader might take as a set with
+     Malory are the other medieval narratives — Beowulf, the Song of Roland, Chaucer, Dante, Snorri
+     — and the nearest of the five is Beowulf at 59, with the rest at 83 to 96. Nothing this could
+     be mistaken for is anything it belongs with. */
+  "Thomas Malory": "#9E1402",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -10015,6 +10041,87 @@
       chapterWord: "Book",
       count: 5,
       total: 5,
+    },
+    {
+      id: "morte-darthur",
+      title: "Le Morte d'Arthur",
+      subtitle: "King Arthur and of his Noble Knights of the Round Table",
+      author: "Thomas Malory",
+      written: "c. 1469–70, printed 1485",
+      year: 1485,
+      /* NO `translator`, AND IT IS THE FIRST BOOK HERE WITH NONE. Every other book on this shelf was
+         written in another language and names the person who put it into English; Malory wrote in
+         English, and this edition modernises the spelling lightly and leaves the vocabulary
+         alone. So there is
+         nobody to name, and `bookIntroChapter`'s rights box says what the text IS instead — see the
+         note there, which is where the second wording lives. */
+      edition: "Everyman's Library, ed. Ernest Rhys, J. M. Dent, London, 1906",
+      /* A LIMIT ON THE EDITION AND NOTHING ELSE. Malory finished in 1469 or 1470 and Caxton printed
+         the book in 1485, so the work is free everywhere and has been for five centuries. The only
+         modern layer is Ernest Rhys's Everyman edition of 1906; he lived 1859–1946, so it clears
+         the pre-1929 rule and cleared life plus seventy at the start of 2017, and has not cleared
+         life plus a hundred, which runs to 2047.
+
+         AND THE OTHER FREE TEXTS WERE MEASURED RATHER THAN WEIGHED. Project Gutenberg's ebooks 1251
+         and 1252 look like the same book and are a different text: walked word by word they diverge
+         about a thousand times, and every divergence sampled runs one way — this edition carries the
+         older form and that transcription the modern one, *pyght* against *pight*, *hool* against
+         *whole*, *alit* against *alighted*, *trappours* against *trappings*. Strachey's Globe text
+         of 1868, PG's ebook 46853, is the one whose editor softened passages he thought unsuitable
+         for boys, which his own successor in the series says in print. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, with a limit on the edition. Thomas Malory finished the book in 1469 or " +
+        "1470 and William Caxton printed it at Westminster on the last day of July 1485, so the " +
+        "work itself has never been in copyright. The text here is the Everyman's Library edition " +
+        "published by J. M. Dent in 1906 and edited by Ernest Rhys, who lived from 1859 to 1946: it " +
+        "is out of copyright in the United States under the rule for works published before 1929 " +
+        "and cleared the editor's life plus seventy years at the start of 2017, and remains in " +
+        "copyright until 2047 where the term is life plus a hundred. The spelling is lightly " +
+        "modernised and the vocabulary is untouched, so what is printed here is Malory's own " +
+        "English rather than a translation of it — which is why this is the first book on these " +
+        "shelves with no facing original. (Sir Edward Strachey's Globe text of 1868 is free and is " +
+        "not used: its own editor replaced obsolete words and softened passages he thought " +
+        "unsuitable for boys. The " +
+        "modern editions by Eugène Vinaver, 1947, Helen Cooper, 1998, and Dorsey Armstrong, 2009, " +
+        "are still in copyright and are not used.) Sir John Rhys's introduction and the glossary " +
+        "and index of names are not reproduced; what is taken is Caxton's preface and the " +
+        "twenty-one books.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Le_Morte_d%27Arthur",
+      /* THE BOOK IS THE CHAPTER AND CAXTON'S CHAPTER IS THE SECTION — Herodotus's shape a sixth
+         time, and a passage of Malory is cited as book and chapter. Caxton divided the work into
+         twenty-one books and 503 chapters, so cutting at the chapter would put 503 tabs on the bar
+         and cutting above the book would give the whole thing one, there being nothing above it
+         that the edition divides. Book X alone holds 88 of the chapters. */
+      chapterWord: "Book",
+      count: 21,
+      total: 21,
+      /* WHAT THE GLOSSARY MUST NOT LINK, and this is by a distance the longest such list on the
+         shelf because here the collision IS the subject. Folio's glossary is a glossary of
+         prehistory, palaeoanthropology and modern states, and Malory's world is full of the names
+         those keys are spelled with. `linkProperNounsOnly` is no help at all, since these ARE proper
+         nouns: left alone, a reader is offered the population and area of the modern French Republic
+         in the middle of a joust.
+
+         THE LIST WAS SWEPT AGAINST THE SHIPPED TEXT rather than written from imagination — every
+         glossary surface that survives `linkProperNounsOnly` was matched against all 1.8 MB of it,
+         and what that turned up beyond the obvious was `Great_Britain` (19 times, and the entry's
+         whole point is that it is not the United Kingdom, a distinction Arthur's Britain has not
+         got), plus `Europe`, `Asia`, `Africa`, `Armenia` and `Ethiopia`, all articles about the
+         modern world carrying modern populations. Re-run that sweep after a batch of glossary terms.
+
+         ONE SURVIVOR IS DELIBERATE: `Troy`. Caxton names Hector of Troy among the nine worthies in
+         his preface, the entry is about the Bronze Age city at Hisarlık, and it is exactly what a
+         reader might want to follow. The rule is not "link nothing"; it is "link nothing that would
+         tell the reader something untrue about the sentence in front of them". */
+      glossOff: [
+        "France", "Ireland", "Italy", "Rome", "Wales", "Scotland", "England", "Denmark", "Hungary",
+        "Turkey", "Greece", "Egypt", "Jerusalem", "Spain", "Portugal", "Iceland", "Norway", "Sweden",
+        "Germany", "Netherlands", "Belgium", "Switzerland", "Poland", "Russia", "India", "China",
+        "Japan", "Brittany", "Cornwall", "Britain", "Great_Britain", "United_Kingdom", "Latin",
+        "Sicily", "Malta", "Cyprus", "Syria", "Lebanon", "Israel", "Jordan", "Iraq", "Iran",
+        "Tunisia", "Libya", "Europe", "Asia", "Africa", "Armenia", "Ethiopia",
+      ],
     },
     {
       id: "rigveda",
@@ -18673,11 +18780,20 @@
        anyone types — an editable region that swallowed them would let a wrong copyright statement be typed
        into the one place on the site that exists to state the right one. */
     const essay = '<div class="bk-intro-essay">' + bookIntroMerged(b.id) + "</div>";
+    /* A BOOK WITH NO TRANSLATOR IS NOT A BOOK WITH A FIELD MISSING (Aug 2026, adding Le Morte
+       d'Arthur). Every book here until now was written in another language and this box named the
+       person who put it into English; Malory wrote in English, so there is nobody to name and the
+       sentence "This English translation is by undefined" would be a false statement in the one
+       place on the site that exists to state true ones. The box says what the text IS instead —
+       whose EDITION it is — and heads itself "About this text", since a heading calling something a
+       translation is the same claim one line further up. */
     const rights =
       '<section class="bk-rights">' +
-        "<h3>About this translation</h3>" +
+        "<h3>About this " + (b.translator ? "translation" : "text") + "</h3>" +
         "<p><i>" + esc(b.subtitle || b.title) + "</i> by " + esc(b.author) + ", written " + esc(b.written) +
-          ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + ".</p>" +
+          (b.translator
+            ? ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + "."
+            : ". The text here is " + esc(b.edition) + ".") + "</p>" +
         '<p class="bk-rights-note">' + esc(b.rights) + "</p>" +
         '<p class="bk-rights-src">Text from <a href="' + esc(b.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(b.sourceName) + "</a>.</p>" +
       "</section>";
@@ -18743,7 +18859,14 @@
       <div class="page-head bk-head">
         <span class="eyebrow"><button class="bk-back" type="button" id="bkBack">← Library</button></span>
         <h1>${esc(b.title)}</h1>
-        <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · translated by ${esc(b.translator)}</p>
+        ${/* A book with no `translator` was written in English and has none — Le Morte d'Arthur is
+             the first. Left as it was, the byline ran off the end of the page reading "· translated
+             by" with nothing after it, which no test on the shelf could have seen and which looking
+             at the page found in a second. The edition takes that place instead, since what a reader
+             wants there is who stands between them and the author, and here the answer is an editor
+             rather than a translator. */""}
+        <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · ${
+          b.translator ? "translated by " + esc(b.translator) : esc(b.edition)}</p>
       </div>
 
       ${/* The bar and its contents panel are ONE sticky block (Aug 2026, on a bug report). The bar has
