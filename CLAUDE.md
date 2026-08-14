@@ -10862,6 +10862,27 @@ dead code (never rendered).
     `db-max-rows`: a deck of 7 is published and installed and every card must arrive at both ends, so an
     unpaged fetch loses cards HERE rather than on somebody's live project. Verified by removing the paging
     and watching it fail.
+    **IT PUBLISHES A TYPED DECK SINCE AUG 2026, AND THAT FOUND A LIVE BUG OF THE WORST SHAPE THIS FILE
+    RECORDS.** Every deck it had ever published was BASIC — no card types, no subdecks — so the branch that
+    carries a typed card's content had never once been exercised. `uDeckPublish` builds each row's `data`
+    from `CARD_FIELDS`, which is the Basic thirteen, plus `questions` / `sources` / `sub` / `image` / `video`
+    — **and a typed card carries `type` + `fields` INSTEAD of those thirteen**, so what went up was twelve
+    empty strings and nothing else. The TEMPLATES travelled (they ride on the deck row, `user_decks.types`)
+    and the CONTENT did not, so an installed copy was the right number of BLANK cards, under the right
+    subdecks, with no direction rows — and **the author's own copy was perfect throughout, so only somebody
+    ELSE would ever have seen it.** Whole Mandarin deck, published, unreadable to everyone but its author.
+    The fix is one line; the lesson is that the round-trip test has to publish a deck shaped like the decks
+    people actually publish. Its typed section now asserts on the INSTALLED copy read out of the store —
+    both templates, the type's CSS, the `<details>` in the back, every card typed, every card's field
+    values, the nested `::` tree — and then that the deck DRAWS its direction rows, since a deck that lost
+    its templates looks exactly like a deck that never had any.
+    **A DECK PUBLISHED BEFORE THE FIX IS REPAIRED BY PUBLISHING IT AGAIN**: the upload deletes every card
+    row and re-inserts, so there is nothing to migrate, and the version bump is what offers the update to
+    anyone who installed the broken copy.
+    **Two traps in reading the store back**, both of which made a healthy deck report as broken while the
+    test was being written: a note record is `{ k, deckId, c }` with the card nested under `c`, and the
+    SUBDECK and TYPE are not on it at all — they live in the deck record's own `index`, that being the whole
+    point of the index (what a card IS, without its content).
     **Its DELETE section (Aug 2026) is the one that has to be read before it is trusted**, because every
     assertion in it fails silently on a real site: the deck vanishes from the author's own Studio either
     way, and only somebody ELSE browsing ever sees the difference. So it checks the author's Studio not at
