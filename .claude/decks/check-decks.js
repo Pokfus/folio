@@ -21,8 +21,19 @@ const ok = (c, m, extra) => { checks++; if (!c) { fails++; console.log("   ✗ "
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
 
   const DECKS = fs.readdirSync(ROOT + "/decks").filter((f) => f.endsWith(".json")).sort();
+  /* `decks/` holds decks this generator did NOT write — the DELE Spanish set among them — and the checks
+     below about pinyin, the character breakdown and the deck's own type CSS are facts about a MANDARIN
+     card, not about a deck file. Run over a Spanish deck they report five failures that describe nothing
+     wrong, which is a suite people learn to ignore. The test is the deck's own type: a Mandarin card type
+     declares a Pinyin field, and nothing else here does. */
+  const isMandarin = (file) => {
+    const d = JSON.parse(fs.readFileSync(ROOT + "/decks/" + file, "utf8"));
+    return Object.values((d.meta && d.meta.types) || {})
+      .some((t) => (t.fields || []).indexOf("Pinyin") >= 0);
+  };
   for (const file of DECKS) {
-    console.log("\n=== " + file);
+    const zh = isMandarin(file);
+    console.log("\n=== " + file + (zh ? "" : "   (not a Mandarin deck — its card checks are skipped)"));
     const pg = await browser.newPage();
     const errs = [];
     pg.on("console", (m) => { if (m.type() === "error" && !/ERR_CONNECTION/.test(m.text())) errs.push(m.text()); });
@@ -95,11 +106,11 @@ const ok = (c, m, extra) => { checks++; if (!c) { fails++; console.log("   ✗ "
           };
         });
         console.log("   back of card 1: " + JSON.stringify(back.text));
-        ok(back.hasPinyin, "the reading is on the back");
-        ok(back.hasSpeak && /[一-鿿]/.test(back.speakSay || ""), "the speaker reads the characters, not the romanisation", back.speakSay);
-        ok(back.chars >= 1 && back.parts >= 1, "the character breakdown is there", "rows " + back.chars + " parts " + back.parts);
-        ok(/Noto Sans SC|PingFang|YaHei|sans-serif/.test(back.simpFont), "the deck's own CSS reached the card", back.simpFont);
-        ok(back.senseSize === "16px", "template 1 sets the definition at 16px", back.senseSize);
+        if (zh) ok(back.hasPinyin, "the reading is on the back");
+        if (zh) ok(back.hasSpeak && /[一-鿿]/.test(back.speakSay || ""), "the speaker reads the characters, not the romanisation", back.speakSay);
+        if (zh) ok(back.chars >= 1 && back.parts >= 1, "the character breakdown is there", "rows " + back.chars + " parts " + back.parts);
+        if (zh) ok(/Noto Sans SC|PingFang|YaHei|sans-serif/.test(back.simpFont), "the deck's own CSS reached the card", back.simpFont);
+        if (zh) ok(back.senseSize === "16px", "template 1 sets the definition at 16px", back.senseSize);
         ok(back.sides === 2, "the back renders the front above it and the shell hides its own copy", "sides " + back.sides);
         ok(back.exs >= 0, "examples: " + back.exs);
       }

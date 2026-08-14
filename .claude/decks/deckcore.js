@@ -1,6 +1,49 @@
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const HAN = 'var(--han, "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif)';
 
+/* THE THIRD TONE HAS TO BE ASKED FOR BY NAME (Aug 2026, on a bug report: "the letter ǒ appears larger
+   than other pinyin letters"). The card inherits the site's body serif, and Newsreader — the default —
+   DOES NOT HAVE THE CARON VOWELS. Measured, by loading each imported face in a browser and comparing the
+   advance of each character against a monospace fallback: of the ten pinyin characters at issue,
+   Newsreader has NONE.
+
+     ǎ ǐ ǒ ǔ   third tone on a, i, o, u   (but NOT ě, which it does have — hence "the letter ǒ")
+     ǖ ǘ ǚ ǜ   every tone on ü
+     ǹ ḿ       the syllabic nasals
+
+   The quiet part is WHY it renders at all rather than as a blank. Google Fonts declares Newsreader's
+   latin-ext face with `unicode-range: U+0100-02BA, …`, which COVERS U+01D2 — the range is a promise about
+   the subset, not about the glyphs in it. So the browser picks that face, finds nothing, and falls back
+   per character to the next font in the chain: Georgia, Times, and finally whatever last-resort face the
+   operating system keeps, whose design size has nothing to do with the page. That is the "larger".
+
+   EB GARAMOND IS CHOSEN ON MEASUREMENT RATHER THAN TASTE. Of the thirteen families the stylesheet
+   imports, exactly four carry all ten: Cormorant Garamond, EB Garamond, Inter and Noto Sans SC. The two
+   sans candidates are the wrong answer for this bug in particular — Inter's x-height is 123% of
+   Newsreader's and Noto Sans SC's 125%, so either would have swapped one oversized glyph for another.
+   EB Garamond is 95% (Cormorant 89%), it is a serif, and it is already in that single @import because the
+   academy theme sets it — so it costs no new request, and the browser fetches its latin-ext subset only
+   for a reader who actually meets one of these characters.
+
+   IT GOES FIRST, WHICH IS FORCED AND IS NOT WHAT WAS TRIED FIRST. The obvious fix is to APPEND a covering
+   face, since fallback is per character and every letter the theme's own serif has would keep coming from
+   it. That does nothing at all: `--serif` is `"Newsreader", Georgia, "Times New Roman", serif`, so
+   appending puts a GENERIC FAMILY IN THE MIDDLE of the list, and the generic matches everything — the
+   browser resolves the caron against the system default and never reaches the twelfth name. Measured on
+   the rendered card before and after: identical ink height, 9px both ways. The three runs are therefore
+   set in EB Garamond outright, with the theme's serif behind it for anything EB Garamond lacks.
+   A `@font-face` with a `unicode-range` of exactly these ten codepoints is the textbook way to have both,
+   and a deck may not have one: `cssScoped` drops `@font-face` from deck CSS, deliberately, because a src
+   URL in a stranger's deck is a per-character call home.
+
+   WHY THESE THREE SELECTORS AND NOT `.card`. Counted over the 11,532-note deck: 13,365 of the carons are
+   in the character breakdown, 3,709 in the reading, 145 in the measure word — and SIX in an English gloss,
+   all six being the "chǔ — " reading printed at the head of a two-reading word. Setting the whole card
+   would catch those six at the price of restyling every definition on every card, so they are left, and
+   they are the one place this bug survives. Every hanzi run names --han for itself, so nothing Chinese is
+   touched either way. */
+const PINYIN_FONT = "'EB Garamond', var(--serif, Georgia, serif)";
+
 const BASE_CSS =
   ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
   ".uc-ask {\n  margin-bottom: 14px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n" +
@@ -15,7 +58,7 @@ const BASE_CSS =
   /* the reading in the site's own vermilion, the same accent the word gets inside an example sentence.
      `.uc-tts` takes `color:inherit`, so the speaker glyph — which is drawn from currentColor — follows it,
      while the pill it sits in stays neutral. The old 0.85 opacity goes: it would only dull the colour. */
-  ".uc-pinyin {\n  margin-top: 12px;\n  font-size: 21px;\n  letter-spacing: 0.01em;\n  color: var(--zh, #C8453C);\n}\n" +
+  ".uc-pinyin {\n  font-family: " + PINYIN_FONT + ";\n  margin-top: 12px;\n  font-size: 21px;\n  letter-spacing: 0.01em;\n  color: var(--zh, #C8453C);\n}\n" +
   /* Bopomofo sits under the pinyin, quieter and in the CJK face — the marks are CJK codepoints and the body
      serif has no glyphs for them. It is the citation reading, so where the pinyin above shows tone sandhi
      (bu4 -> bu2 in bu ke qi) the two differ by one tone mark; that is how zhuyin is written. */
@@ -25,7 +68,7 @@ const BASE_CSS =
   ".uc-mwi + .uc-mwi {\n  margin-left: 12px;\n}\n" +
   ".uc-mwc {\n  font-family: " + HAN + ";\n  font-weight: 400;\n}\n" +
   ".uc-mwt {\n  margin-left: 4px;\n  opacity: 0.5;\n}\n" +
-  ".uc-mwp {\n  margin-left: 6px;\n  opacity: 0.75;\n}\n" +
+  ".uc-mwp {\n  font-family: " + PINYIN_FONT + ";\n  margin-left: 6px;\n  opacity: 0.75;\n}\n" +
   /* The definitions sit in a field of their own so they read as a block apart from everything round them.
      --paper-2 is the site's own inset-panel paper and is darker than --card in BOTH light and night, which
      is why it is used rather than a fixed grey: a deck's CSS is scoped to the card, so it cannot branch on
@@ -69,7 +112,7 @@ const BASE_CSS =
   ".uc-chps {\n  flex: 1 1 auto;\n  display: flex;\n  flex-direction: column;\n  gap: 2px;\n}\n" +
   ".uc-pt {\n  display: flex;\n  align-items: baseline;\n  gap: 7px;\n}\n" +
   ".uc-pt b {\n  font-family: " + HAN + ";\n  font-weight: 400;\n  font-size: 16px;\n  min-width: 19px;\n}\n" +
-  ".uc-ptp {\n  min-width: 44px;\n}\n" +
+  ".uc-ptp {\n  font-family: " + PINYIN_FONT + ";\n  min-width: 44px;\n}\n" +
   ".uc-pt i {\n  font-style: normal;\n  opacity: 0.6;\n}\n" +
   ".uc-solo {\n  font-style: italic;\n  opacity: 0.6;\n}\n" +
   /* The examples, folded away. <details> is the platform's own disclosure widget and needs no script, which
@@ -96,10 +139,15 @@ const BASE_CSS =
   ".uc-exi + .uc-exi {\n  margin-top: 10px;\n  padding-top: 10px;\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n}\n" +
   /* WHAT SHAPE THIS SENTENCE IS, as a formula of word types — "PRONOUN + NOUN + ADVERB + ADJECTIVE".
      Set as a label rather than as prose, and the term for the word being learnt takes the same vermilion
-     the word itself does in the sentence below, so the two line up at a glance. */
-  ".uc-exst {\n  margin-bottom: 4px;\n  font-size: 9.5px;\n  font-weight: 600;\n  letter-spacing: 0.09em;\n"
+     the word itself does in the sentence below, so the two line up at a glance.
+     SMALLER AND THINNER than it was (Aug 2026, on request): 9.5px/600 read as a heading over the sentence
+     it annotates, which is the wrong way round — the sentence is the thing, and this says what shape it is.
+     At 9px/400 it recedes to the caption it should have been. The marked term keeps a weight of its own
+     (500, against the line's 400) as well as the vermilion, so it is still findable on a device that has
+     rendered the colour flat. */
+  ".uc-exst {\n  margin-bottom: 4px;\n  font-size: 9px;\n  font-weight: 400;\n  letter-spacing: 0.08em;\n"
   + "  line-height: 1.45;\n  text-transform: uppercase;\n  color: var(--ink-faint, #6C6A63);\n}\n" +
-  ".uc-exst b {\n  font-weight: 600;\n  color: var(--zh, #C8453C);\n}\n" +
+  ".uc-exst b {\n  font-weight: 500;\n  color: var(--zh, #C8453C);\n}\n" +
   /* the speaker in front of each sentence. It carries NO text of its own — the sentence is beside it and
      naming it twice would only be read twice — so what it says comes from data-say, and wireSpeakControls
      names the control from that too. On a device with no speech engine the site's own rule strips the

@@ -128,7 +128,435 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-one:
+  matter (chapter 0 — see the Library bullet). Currently forty-eight:
+  `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
+  translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
+  printed in TWO source files**, which costs a second fetch and one loop and matters only because
+  every count has to be taken across both: the chapters run continuously from one volume into the
+  next and Book Second is split across the join, so a count taken per file is a count of half a book.
+  It is also the SEVENTH book from Project Gutenberg and the fourth from its HTML, which the
+  Ptahhotep entry calls the easiest of the three paths.
+  **EIGHT THINGS IT SETTLED ARE WORTH CARRYING.**
+  **AN OFFSET MEASURED IN ONE LANGUAGE IS NOT AN OFFSET IN ANOTHER, and this is the fault the whole
+  reader was built around.** The volume boundaries were first found with a Python probe and carried
+  into JavaScript as numbers; JS counts a string in UTF-16 code units and an astral character costs
+  two, so every span landed short and three separate sweeps reported **225, 233 and 234 chapters**
+  with nothing throwing and no two agreeing. `poloSpan` searches for its own boundaries and no
+  offset into either file is written down anywhere. The true figure is **235** — Prologue 18, Book
+  First 61, Book Second 82, Book Third 40, Book Fourth 34.
+  **WHY THERE IS NO FACING ORIGINAL IS THE TRANSLATOR'S OWN ANSWER, AND IT IS A NEW ONE.** The
+  Republic's case is that the English states no section numbers; the Prose Edda's is that the
+  original's editor is in copyright; Aesop's is that neither column states anything. Here the
+  original exists, is complete, is machine-readable and is **CC BY 4.0** — Mario Eusebi's edition of
+  the Franco-Italian text of MS BnF fr. 1116, published by Edizioni Ca' Foscari in 2018 — and every
+  superficial sign says pair them: 232 chapters against Yule's 235, each with a rubric, and the
+  rubrics correspond ("Ci devise de .viii. roiaumes de Perse" against "OF THE EIGHT KINGDOMS OF
+  PERSIA"). What stops it is that **this English is not a translation of any one text**, which Yule
+  states in his own introduction: he translated from Pauthier's French, then transferred into it
+  from the Franco-Italian everything of substance Pauthier had left out, then added between square
+  brackets everything peculiar to Ramusio's Italian. Three traditions in one column, and 144
+  bracketed passages where the left-hand page would have had nothing to show. **ASK WHAT A
+  TRANSLATION IS A TRANSLATION OF, not merely whether an original can be found.**
+  **AND THE CHAPTER NUMBERS SAY THE SAME THING A SECOND TIME, ALSO IN YULE'S WORDS**: "232 chapters
+  in the oldest French which we quote as the *Geographic Text*, 200 in Pauthier's Text, 183 in the
+  Crusca Italian." He knows the figure the Ca' Foscari edition prints, does not adopt that division,
+  and cites the older text **by the page of its 1824 printing and never by chapter** — so neither
+  edition states the other's sections, which is the decisive test. The alternative was a rubric-by-
+  rubric alignment, which is several hundred judgements with only a similarity score behind them:
+  the work abandoned for the Meditations' Greek.
+  **THE APPARATUS HAS TWO TIERS AND ONLY ONE OF THEM IS A NOTE ON THE TEXT.** 776 of Yule's
+  substantive Notes are printed under the chapter and labelled "Note 1."; 295 small footnotes are
+  numbered straight through each volume — and measured before anything was written, only a dozen of
+  the 295 are cited on Polo's prose while **266 are cited INSIDE a Note**. A flat per-chapter fold
+  cannot say "this is a note on that note", so those are spliced into the Note that cites them in
+  square brackets: the Art of War's rule at twenty times the scale, using the bracket this edition
+  already uses. It is also **the first book here whose notes carry block structure at all** — Yule's
+  run to several paragraphs and the longest is 37,652 characters, against a previous shelf-wide
+  maximum of 1,835 — so a note is joined with `<br><br>` rather than left as paragraphs inside a
+  list item.
+  **THE NOTES ARE FOUND BY THEIR OWN LABEL, NEVER BY THE RULE ABOVE THEM AND NEVER BY THE BOX ROUND
+  THEM — and the second half of that cost a whole chapter's apparatus before it was written.** The
+  obvious boundary is the `<hr>` the printing sets between a chapter and its notes, and it fails
+  twice: **five chapters have no such rule at all** and one sets it `class="r40 clear"`. The rule
+  was then written on the blockquote holding the notes, a box being structural where a rule is
+  decoration — and **that fails on one chapter in 235**: III 30, on Kesmacoran, sets its two Notes
+  as bare paragraphs with no box at all, so the region was never found and **a page and a half of
+  Yule's commentary, table and all, ran on into Polo's own prose as though he had written it**. The
+  chapter is complete, reads perfectly and is wrong. **Nothing but the importer's own dropped-marker
+  warning could see it** — every count stayed healthy, and `test-library.js` now additionally sweeps
+  the shipped file for a "Note 1.—" label left standing in a chapter's body, which is what the
+  failure looks like from the outside. The anchor is the LABEL, which every Note carries by
+  definition, and the region opens at whichever block encloses it.
+  **AND THE FOOTNOTE CONTAINER MAY CARRY ATTRIBUTES AND MAY NEST**, which is the same lesson one
+  element down and was found by chasing the single marker still being dropped after the fix above.
+  `<div class="footnote" lang="fr">` is how this transcription marks a note quoting the
+  Franco-Italian, with `de` and `it` besides, so a pattern anchored on the bare tag misses **13 of
+  the 790** — each a claim in the text whose note silently goes — and **22 of them in the first
+  volume hold a plate or a block of verse**, so a non-greedy `</div>` truncates the note at its
+  first inner block. Matched loose and closed BALANCED. **Read the whole attribute list before
+  writing the pattern**; this file's third instance of that, after the City of God's `ws-noexport`
+  and the Odyssey's book divisions.
+  **A NOTE MAY BE HUNG ON THE CHAPTER'S TITLE, IN BOTH TIERS, AND ONLY ONE ASSERTION CAN SEE IT.**
+  The title becomes the tab, so neither of the shelf's usual answers will do: splicing gives Book
+  Fourth's last chapter a 200-character tab reading "Conclusion. [This conclusion is not found in any
+  copy except…]", and dropping loses a note about the whole chapter. Four notes are carried down to
+  the chapter's first block instead — Bede's `dropFittHead` rule and its refinement, a title
+  preceding the prose and opening it. Three of the four are **Notes** rather than footnotes and were
+  found by the every-note-is-referenced assertion and by nothing else; each explains that its chapter
+  is one Yule took whole from Ramusio, which is why two of those three titles are in brackets.
+  **ITS REAL LIMITATION IS BOOK FOURTH AND YULE MARKS IT HIMSELF.** He judged a good many of its
+  chapters "the merest verbiage and repetition of narrative formulæ without the slightest value",
+  gave the gist of those instead, marked each **⚜**, and named the editions where they can be read in
+  full — so 17 of the 235 chapters are a sentence or two rather than the text, the shortest 62
+  characters and complete at that length. The mark is the EDITION'S and is kept rather than tidied
+  away, which is the Ramayana's rule about a translator who says what he left out. Cordier's signed
+  insertions (**—H. C.**, on 348 of the 788 notes) are kept for the same reason. Left behind: Yule's
+  memoir, his three
+  prefaces, his 130-page introduction, the bibliography, the appendices, the index, 133 plates, nine
+  tables the tag stripper would flatten into a column of nouns — and **Cordier's separately published
+  *Ser Marco Polo: Notes and Addenda* of 1920**, which the same file carries after the index and which
+  repeats the prologue-and-four-books skeleton to hang its own notes on. Read without a boundary that
+  is a second Prologue and a second Book First inside one file, which is Bede's finding again: an
+  inventory taken over the FILE is not an inventory of the book),
+  `bede-history` (~856 KB, all five books as **5 chapters**, **140 chapters as sections**, **1,050
+  notes** — A. M. Sellar's revised translation of 1907, and **the first book here whose TWO COLUMNS
+  COME FROM DIFFERENT KINDS OF SOURCE with the sides the other way round**: a Project Gutenberg TEI
+  HTML English against a wiki Latin, where Thucydides had a Wikisource English against a Perseus TEI
+  original. It is also the SIXTH book from Project Gutenberg and the third from its HTML, which the
+  Ptahhotep entry calls the easiest of the three paths.
+  **THE PAIRING IS THE CLEANEST MEASURED ONE ON THE SHELF**, bettered only by the constructed cases
+  and the Gallic War: **140 chapters a side, 34/20/30/32/24 in both, a clean 1..N in every book with
+  no gap or duplicate either way, and the two columns' lists identical book for book.** Length
+  correlates at **r = 0.9987** over all 140, the English running 1.45–1.50 times the Latin's word
+  count in every book — which is the check that mattered, because the Latin's own host rates it 25%
+  proofread. The flag is about polish; the text is complete and correctly divided.
+  **SIX THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE OBVIOUS ENGLISH IS COMPLETE, SCAN-BACKED, CLEANER IN ITS LICENCE — AND CARRIES NO NOTES,
+  WHICH IS WHAT DECIDED IT.** Wikisource has the whole book in L. C. Jane's Temple Classics edition of
+  1910 (John Stevens's translation of 1723 revised), one page per book, proofread against a scan,
+  pairing with the Latin exactly as this one does, and with a byline that can be traced — Stevens died
+  1726, Jane lived 1879–1932, both with author pages and Jane on Wikidata. Swept over all five books
+  it holds **zero reference marks**. Sellar's carries 1,081, a new introduction and a life of Bede,
+  and was made against Plummer's critical text, which her own preface states. Bede is a book in which
+  almost every name needs a note, so that is the difference between a usable book and an opaque one,
+  and it was worth an untraceable translator. **Ask what an edition's APPARATUS is before comparing
+  its text**: read side by side the two Englishes are close relatives and neither is the Jacobean
+  prose that ruled out Golding, Hobbes, Burnaby and I.T. (Sellar keeps the Old English titles —
+  "with your ealdormen and thegns" where Jane has "with your commanders and ministers" — and Jane is
+  the more literal in places), so on the text alone there was nothing in it.
+  **A MACHINE-READABLE ANCHOR IS NOT ALWAYS COMPLETE, AND THIS ONE COVERS 117 OF THE 140 CHAPTERS.**
+  The Ptahhotep reader's rule is to find a chapter by its anchor and never by its heading, a heading
+  being the ambiguous thing; here the anchors are generated from the index's cross-references, so a
+  chapter the index never points at simply has none — 23/19/26/29/20 against 34/20/30/32/24, and only
+  ONE of the five books has an anchor of its own. Reading them would have shipped a book missing a
+  sixth of itself with nothing throwing. **Count what an identifier actually covers before preferring
+  it to the thing it was meant to improve on.**
+  **THE INDEX USES THE SAME MARKUP AS THE VERSE**, so an inventory taken over the FILE rather than
+  over the divisions being imported reports 1,851 line groups and 3,086 lines of verse in a prose
+  history. Inside the five books there is exactly ONE line group holding one line: Sellar sets Bede's
+  quoted verse — the epitaphs of Gregory, Caedwalla and Wilfrid — as PROSE inside display quotations,
+  which is Heseltine's judgement on Petronius met on another book. So the reader needs almost no verse
+  handling and does need the quotations, and both are matched BALANCED, a quotation holding paragraphs
+  and a line group holding lines.
+  **A KEPT HEADING MAY CARRY A FOOTNOTE MARKER, and four of the 141 do.** That is the Consolation's
+  finding on a title that STAYS rather than one that is dropped: flattening the heading to text before
+  the anchors come out of it leaves the bare figure 143 sitting in a chapter title while its note sits
+  in the fold with nothing pointing at it. Three shipped that way for one run. **Nothing but an
+  every-note-is-referenced assertion can see it** — the chapters are complete, the numbering is right,
+  the pairing is exact, and the only symptom is a number in a title that looks like part of the title.
+  **ITS REAL LIMITATION IS WHOSE LATIN IT IS, and it is stated rather than guessed.** The
+  transcription's own header names Migne's Patrologia Latina 95; the text it carries prints
+  consonantal *v* as *u* throughout — measured over all five books, **93 `uero` against 2 `vero`, 48
+  `uita` against 1 `vita`, 25 `ciuitate` against none, 31 v-spelled words in the whole work** — which
+  is the convention of the late-19th-century critical editions and not of a Patrologia reprint, and
+  sampled against the scans on archive.org it matches **Alfred Holder's edition of 1895** word for
+  word. So the edition it names is not the edition it prints. Holder (d. 1916), Plummer (d. 1927) and
+  Migne (1861) are all long out of copyright, so the licence is safe whichever it is; what cannot be
+  said is which, and the book's own front matter says so. Lucretius's judgement with a measurement
+  behind it. **AND THE CONTINUATION IS NOT SHELVED**: the printed volumes carry a short set of annals
+  for 731–766 after Book V, both columns have it, and it is not Bede's — it was added by a later hand
+  at his own monastery — so a tab reading Book VI over it would say the wrong thing. Boethius's
+  Symmachus epigram, and said on the book's own first page),
+  `morte-darthur` (~1.80 MB, all twenty-one of Caxton's books as **21 chapters**, **503 chapters as
+  sections**, **0 notes** — the Everyman's Library text of 1906, and **the first book on this shelf
+  with no facing original because there is no TRANSLATION.** Every earlier single-column book is
+  silent for a reason about a text that exists somewhere: the Republic's Greek states Stephanus
+  numbers its English does not, Aesop's two editions state nothing at all, and the Prose Edda, the
+  Divine Comedy and Don Quixote each have an original whose editor is in copyright or unnamed. Malory
+  wrote in English. The 1906 edition lightly modernises the spelling and leaves the vocabulary alone
+  — it keeps a good deal of Caxton's own spelling as well, men *pyght* their pavilions and a knight
+  is not yet *hool* of his wound — so the second column would be the same words in another
+  orthography, which is a facing SPELLING rather than a facing original. The Canterbury Tales is the
+  case to read it against: there Skeat's Middle English faces a prose TRANSLATION by two other hands,
+  and the pairing is between two texts. **AND A CAXTON-SPELLING TEXT IS NOT TRANSCRIBED ANYWHERE
+  REACHABLE**, measured rather than assumed — English Wikisource has no `Le Morte Darthur` in
+  mainspace at all and Sommer's 1889 reprint appears only in a bibliography — so a reader who wanted
+  one could not have been served either way. **FIVE THINGS IT SETTLED ARE WORTH CARRYING.**
+  **A COUNT REMEMBERED IS NOT A COUNT, AND HERE THE DIFFERENCE IS FOUR CHAPTERS.** Books I, IV, VII
+  and IX end at 27, 28, 35 and 43 where the figure usually quoted for Caxton is one higher in each,
+  and 503 against 507 looks exactly like four pages nobody has transcribed. It is not: Project
+  Gutenberg's wholly independent transcription of the same edition was counted book by book against
+  the wiki's page list and the two agree on all twenty-one. **Count it before writing down a gap.**
+  **THE OTHER FREE COPY IS A DIFFERENT TEXT, AND ONLY A WORD-BY-WORD WALK SHOWS IT.** PG's ebooks
+  1251 and 1252 carry the same 503 chapters in the same 21 books with the same rubrics in the same
+  order, and every structural check there is passes on both. Walked against the shipped chapters they
+  diverge about a thousand times, and every divergence sampled runs one way — this edition carries
+  the older form and that one the modern: *pyght* against *pight*, *hool* against *whole*, *paas*
+  against *pace*, *essay* against *assay*, *bitaken* against *betaken*, *stynte* against *stint*, and
+  past spelling into vocabulary *alit* against *alighted*, *trappours* against *trappings*,
+  *advision* against *vision*. Don Quixote's method, and this time it decided which copy to ship
+  rather than how bad the chosen one was. **What PG's copy IS was deliberately not settled**: it
+  names no edition and the bibliographical note bound in front of it is A. W. Pollard's and describes
+  a Macmillan printing, so identifying it would be composing — the Lucretius judgement, claim less.
+  **THE NOTES ARE AN APPARATUS THE EDITION HAS NOT GOT, and they say so themselves.** All twenty-seven
+  are Wikisource contributors' collations against the Winchester manuscript, several set in the
+  scribal abbreviations of it (`[…othir þͤ] menoͣ oþͬ [þͤ takynge…]`), and each carries the words
+  "Wikisource contributor note". Folded under a book presented as the 1906 Everyman they would be an
+  unsigned apparatus that printing does not carry — the Satyricon's judgement about what a note fold
+  is for, sharpened by the Divine Comedy's question about unattributed texts, since a reader has no
+  way to know whose collation they are being shown. Dropped and counted; the book renders with no
+  note fold at all, as Ovid, Lucretius and the Analects do.
+  **CAXTON'S RUBRIC IS A SEPARATE ELEMENT FROM HIS CHAPTER NUMBER, AND ONE PAGE IN 503 SETS IT
+  DIFFERENTLY.** Each chapter page carries three heading blocks — the book, the chapter number, and
+  Caxton's own descriptive heading — and Book XX chapter 16 alone sets that heading as a centred
+  block rather than as a `wst-subsubheading`. Beowulf's one-leaf-in-eighty-five finding, and here the
+  cost of missing it is not a missing title but a visible one: the block survives as a blockquote and
+  the chapter opens on an indented shout. **AND THE RUBRIC SHIPS IN CAPITALS**, which is Aesop's
+  outcome reached by measurement twice over — the edition sets it in SMALL capitals, which carry no
+  case to recover, and the only title-case copy of them belongs to the other transcription, which is
+  not this text.
+  **ITS REAL LIMITATION IS THE BOOK RATHER THAN THE IMPORT, and a reader should know it before Book
+  X.** Malory's is a compilation, not a novel: for long stretches it is knights riding out, meeting
+  other knights and riding on, and Book X alone is eighty-eight chapters of that. The quest of the
+  Sangreal in Book XIII changes the register entirely and the last two books are as fast and as bleak
+  as anything in English. Said on the book's own first page, because a reader who gives up in Book X
+  has given up two books short of the reason the book is read),
+  `boethius-consolation` (~253 KB, all five books as **5 chapters**, **78 sections of alternating
+  prose and verse**, 39 poems, 19 notes — H. R. James's English of 1897, and **the first book here
+  whose ROWS PAIR ON A POSITION BECAUSE THE PRINTED NUMBERS REPEAT.** Every earlier book sorts its
+  rows on a figure that is unique within the chapter — a letter, a chapter, a Stephanus page, a
+  Bekker page, a laisse, a verse, a line — and here the same numeral occurs TWICE in every book on
+  each side. The work is cited by book and section, "III.m9" being the ninth metre of the third
+  book, and it numbers its metres and its prose chapters in separate runs: James heads a poem
+  "SONG IX." and a prose chapter with the bare numeral "IX.", while the Latin heads both "IX.", so
+  neither edition prints the compound anywhere. The markers therefore carry what each edition prints
+  and the SORT KEY is the section's position in its book, which is safe because it is arithmetic
+  before it is a hope: measured over both files before a word was imported, each book's sections are
+  the same in number, in the same order and in the same alternation — 13, 16, 24, 14 and 11 a side —
+  and Book I is the one that opens on a poem where the other four open on a prose.
+  **SIX THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE ENGLISH PRINTED WITH THE LATIN IS NOT THE ENGLISH THIS BOOK SHIPS, AND THAT WAS A CHOICE
+  RATHER THAN A NECESSITY.** The Latin comes from a Loeb of 1918 whose two columns are printed on
+  facing pages and linearised by its transcription into one file; taking BOTH from it would have
+  paired them by construction, out of a single request, needing no second source and no
+  reconciliation at all — the cleanest import on the shelf. It is refused because that English is
+  "I.T."'s of 1609 revised by H. F. Stewart, and Jacobean English is what ruled out Golding's Ovid,
+  Hobbes's Thucydides and Burnaby's Satyricon. **The cleanest text to import is not always the one
+  worth reading**, and the cost of refusing it was measured rather than waved at: all 78 sections
+  are present in both Englishes and in the Latin, in the same order, and James tracks the Latin's
+  length section by section as closely as the Loeb's own version does, so nothing was given up but
+  the convenience.
+  **THE TRANSLATOR'S OWN WORD FOR A SECTION IS IN HIS SUMMARIES AND NOWHERE ELSE.** A marker reading
+  a bare "IV." says nothing, and composing "prose 4" would be composing an apparatus — the trap the
+  Maxims of Ptahhotep records, where a tab printed two different numbers under one word. What James
+  writes, at the head of each book and inside his own footnotes, is a summary in citations:
+  *Boethius' complaint (Song I.).—CH. I. Philosophy appears to Boethius*, and a note reading *See
+  also below, ch. iii., p. 14*. So the English marker carries **"Song I."** and **"Ch. I."**, both
+  transcribed from his own prose, and the Latin carries the numeral its own edition prints and
+  nothing more. **ASK WHAT ELSE IN AN EDITION NAMES ITS OWN SECTIONS** before concluding a citation
+  cannot be transcribed: a summary, an index and a cross-reference are all places an editor writes
+  one down.
+  **A BOOK SUMMARY IS NUMBERED 0 SO THAT IT GETS A ROW OF ITS OWN, and this is the one place the
+  shelf's own fold does the wrong thing.** `bookRows` folds a leading UNNUMBERED block into the
+  first numbered row when the facing column has no counterpart — right for Seneca's one-line
+  salutation, and wrong for a quarter of a page. Folded, James's summary of Book I sat in the same
+  cell as his first poem while the Latin cell held only the poem, so the English's verse began a
+  screen below the Latin's and a reader meeting a paragraph of English beside the opening of
+  *Carmina qui quondam* would reasonably take one for a translation of the other. Numbered, it draws
+  beside an empty Latin cell — the shelf's ordinary way of showing that two editions differ — and
+  the poems start level. Zero is a section number here for the Gallic War's reason, and the mark it
+  carries is the caption James prints over the block. **Five of the 83 rows are English only and
+  that is the right figure rather than a gap.**
+  **A HEADING MAY CARRY A FOOTNOTE MARKER, AND THREE OF THE NINETEEN DO** — `dropFittHead`'s rule in
+  a fifth edition, biting here on a title that is KEPT rather than dropped. Flattening a section
+  heading to text before the anchors are taken out of it leaves the literal string "[I]" inside a
+  section title while its note sits in a list nothing points at; the markers are carried onto the
+  head line, which is where James prints them. **AND TWO MORE HANG OFF A BOOK SUMMARY**, outside
+  every section, so the note lists are harvested from the whole book rather than section by section
+  — read the narrow way the file gives up fourteen of nineteen and reports the other five as
+  cited-but-not-printed, which is the right complaint about the wrong half of the file.
+  **A POEM PRINTED ACROSS A PAGE BREAK OPENS A FRESH BLOCK IN BOTH COLUMNS**, three times in the
+  English and six in the Latin, and joining them is not cosmetic: on a page whose whole subject is
+  the alternation of prose and verse, a stanza standing apart from its own poem reads as a fortieth
+  song. The Gita's rule that a unit is cut as a STREAM rather than block by block, met from the
+  other side.
+  **ITS REAL LIMITATION IS THE GREEK AND IT IS THE TRANSCRIPTION'S.** Boethius writes a little Greek
+  into his Latin — the Π and Θ embroidered on Philosophy's gown, and a dozen quotations from Homer,
+  Euripides and Plato — and the Latin's transcription renders every one as `[Greek: ...]`. Four of
+  the twenty-two are a letter NAME (`[Greek: PI]`), which is a closed and unambiguous encoding and
+  is decoded; the other eighteen are a loose romanisation in which "ae" may be η or αι and "o" may
+  be ο or ω, and reversing one would be inventing a Greek word rather than reading it. Those are
+  left exactly as printed and counted — the Satyricon's `betaGreek` judgement in a second book. The
+  ENGLISH carries the real letters and glosses each with a romanisation of its own, which is
+  transcriber's furniture beside a letter already set and is removed. **And the Latin's marginal
+  line numbers are dropped**, one every fifth line of every metre: James translates the verse into
+  English verse rather than line for line, so a number there would point at a place the facing page
+  cannot find — the Canterbury Tales' finding on a second book. Said on the book's own first page),
+  `three-kingdoms` (~3.15 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes — C. H.
+  Brewitt-Taylor's English of 1925, and **the book whose chapter titles are on the chapter pages and
+  nowhere else worth taking them from.** Both volumes print a full table of contents and both are
+  transcribed complete, so `indexPage` is the obvious move; compared against the body chapter by
+  chapter it is the worse reading twice over — the contents sets every title in CAPITALS where the
+  body sets it in title case, and it drops the diacritics the body keeps (LU PU and CHIA HSU against
+  Lü Pu and Chia Hsü) on a text whose romanisation is nothing but diacritics. That is Journey to the
+  West's finding arriving from the other side, where the contents was the title-case copy and lost on
+  ACCURACY instead; here it loses on both, which is Aesop's rule reached by measurement.
+  **FIVE THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE NUMBER AND THE TITLE ARE NOT ALWAYS IN THE SAME BLOCK, and assuming either arrangement loses
+  the title on the chapters set the other way.** A hundred and eighteen chapters put "CHAPTER IX." in
+  one centred block and the title in a second; chapters 14 and 15 put both paragraphs inside ONE. It
+  is the fault `originalChapter` already records for an Italian edition of 1814, and it fails the
+  quiet way — nothing throws, nothing shortens, the tab simply falls back to the words "Chapter 14",
+  which on a bar of a hundred and twenty tabs nobody would notice.
+  **THIS PRINTING NUMBERS ITS NINETIES BACKWARDS FROM A HUNDRED, and the rule was written from an
+  inventory of the whole book rather than from the chapter that prompted it.** Read off both contents
+  pages the run is XC IXC VIIIC VIIC VIC VC IVC IIIC IIC IC C — 90 to 100, with 91 to 99 set as
+  <n>C meaning a hundred LESS n, a generalisation of XC that no modern style uses and that this
+  printer applies for exactly nine chapters and nowhere else. `romanValue` returns 0 for every one of
+  them, since it insists a numeral round-trip through `romanNumeral`, so the head check parses that
+  form too and the nine are COUNTED — which is what would report the run changing shape.
+  **A TEMPLATE'S INLINE STYLESHEET IS INSIDE THE VERY ELEMENT BEING READ**, so `stripWikiCSS` has to
+  run before the tags do: chapter 3's title came back as "Tung Cho Silences Ting
+  `.mw-parser-output .wst-tooltip{cursor:help;…}` Yuan: Li Su Bribes Lü Pu", which is a title of the
+  right shape and the right length and is not a title. Third time this file has recorded that order
+  mattering.
+  **THE PRINTER'S TWO BOUNDARY MARKS ARE ONE KIND OF THING AND GO TOGETHER.** Chapter 60 closes on a
+  centred "end of volume i" and chapter 120 on a centred "The End" — the marks a book printed in two
+  volumes sets where its parts divide, not lines of the novel, and by the time `cleanBody` has run
+  each is a blockquote under the last sentence of a chapter. Keeping either while dropping the other
+  would be an inconsistency a reader meets sixty chapters apart and cannot explain. (The colophon at
+  the foot of the last page needs no rule at all: it is set on the one leaf the edition never
+  numbered, so the Republic's `dropUnnumberedPages` lifts it out for free — measured first, and it is
+  the only unnumbered leaf in the book.)
+  **ITS REAL LIMITATION IS THAT THE TEXT IS NOT QUITE LUO GUANZHONG'S, and that is a fact about every
+  copy a reader will ever meet rather than about this one.** The oldest surviving printing, of 1522,
+  divides the story into 240 sections; in 1679 Mao Lun and his son Mao Zonggang cut it into the 120
+  chapters used ever since, rewrote much of the prose, replaced most of the poems and sharpened the
+  novel's sympathy for Liu Pei's side. Almost everyone who has read this book in any language for
+  three centuries has read the Maos, and both columns here are theirs — the plainest evidence being
+  that the sentence about division and union opening chapter 1 and the poem above it are both their
+  additions and appear in none of the earlier printings. Said on the book's own first page),
+  `ptahhotep` (~33 KB, **by a wide margin the smallest thing on the shelf** — all 47 of the
+  translation's sections, **22 notes**, no original — Battiscombe G. Gunn's English of 1906, and
+  **the first book here taken from Project Gutenberg's HTML rather than its plain text or its TEI**,
+  which turns out to be the EASIEST of the three and is worth saying so nobody reaches past it: the
+  plain-text readers on this shelf exist because a machine reading of a printed page has to have its
+  structure BUILT, where this file has already had its paragraphs marked up, its footnotes anchored
+  and its page numbers tagged by a transcriber, and `stripTags` does the rest as it does on every
+  wiki book.
+  **FOUR THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE SECTION IS THE CHAPTER, THE ROW AND THE CITATION**, which is the shape a book of maxims
+  naturally has: this translation prints forty-seven marked sections and NOTHING above them — no
+  parts, no books, no headings between the title and the first line — and the division is the poem's
+  own, the Egyptian scribe having written the first sentence of each in red ink. So the tab is the
+  citation, no `bk-n` marker is written, and with neither column carrying one `bookRows` has nothing
+  to pair on at all, which costs nothing because there is no second column.
+  **THE MARKS ARE LETTERS AND NUMBERS IN ONE INTERLEAVED RUN, and a reader written for either alone
+  loses one end of the poem while every count still reads healthy.** They go A, B, 1..37, C, 38..43,
+  D — the petition to the king and the title of the maxims proper, then the thirty-seven maxims,
+  which is the traditional count, then the epilogue, numbered straight on from 38 with a lettered
+  block at each end. A number-only rule silently drops the opening and the closing of the whole work.
+  Hence `PTAH_KEYS`, which states the run and is checked against the file in both directions — and
+  which has to stand in for a short-chapter guard, because **section 32 is twenty-eight characters**
+  and that is the content rather than a truncation (see below), so `minChars` is 20 and could not
+  catch an extraction that returned the page furniture instead of the text.
+  **A TAB READING "SECTION 32" RENDERS AS "SECTION 34 / Section 32", WHICH IS THE RAMAYANA'S FINDING
+  ARRIVING FROM THE OTHER SIDE.** There the canto head was dropped and its NAME went with it; here
+  the title repeated the word `chapterWord` already prints, and because the printed mark is not the
+  running index (A and B come first, so section 32 is the thirty-fourth chapter) the head showed two
+  different numbers under one word, each contradicting the other. The tab carries the translator's
+  own citation form instead — **"§ 32"**, the form he uses for these marks in his own introduction —
+  so it is transcribed rather than composed and reads as a citation rather than as a second count.
+  Found by LOOKING at the page, which is the golden rule earning its keep for the fifth time.
+  **ITS REAL LIMITATION IS ONE SECTION AND IT IS THE TRANSLATOR'S**: section 32 is four words in
+  square brackets, *[Concerning continence]*, where the other forty-six carry the poem — the maxim it
+  stands for not being something a London series of 1906 would print in English. It is the only one
+  in the book, it ships exactly as he printed it rather than being quietly closed up, and the front
+  matter says so. **And there is no Egyptian column**, for a reason that is about this translation
+  rather than about the Egyptian; see the `books/<id>.<lang>.js` bullet below, which is where the
+  measurement is recorded),
+  `ramayana` (~2.2 MB, 493 of the poem's 645 cantos, **52,560 lines of verse in 1,825 stanzas**,
+  1,023 notes — Ralph T. H. Griffith's rhymed verse of 1870–1874, and **the first book here whose
+  TRANSLATION NUMBERS AROUND ITS OWN GAPS, which is the only reason it can be paired at all.**
+  Griffith left out the whole seventh book and forty-one cantos inside the six he did translate, so
+  he ships 493 against the Sanskrit's 645 — and a translator who renumbers what he keeps produces an
+  unbroken 1..N, where Griffith's Book VI runs 1..130 with twenty-nine numbers simply missing and his
+  Book I skips 37 and 38 and carries on at 39. **A man who numbers around what he has left out is
+  numbering to something outside himself**, and the only thing outside himself is the sarga numbering
+  of the text in front of him. That inference is what the whole pairing rests on, and it was measured
+  before it was believed.
+  **SEVEN THINGS IT SETTLED ARE WORTH CARRYING.**
+  **A DIFFERENCE IN THE TOTALS IS NOT EVIDENCE OF A DIFFERENCE IN THE DIVISION, and acting as though
+  it were would have mispaired a whole book.** Three of the six books disagree with the Sanskrit on
+  their totals — 76 cantos against 75, 66 against 68, 130 against 128 — and the obvious move is to fit
+  a shift to each difference. It is right twice and WRONG once. Books III and VI genuinely divide the
+  same words differently and the shift is real; Book V's 66-against-68 is Griffith **stopping two
+  sargas early**, exactly as he stops in the middle elsewhere, and a shift fitted there displaces the
+  entire tail of the book. What showed it was reading the passages: his 57 is the leap home and so is
+  sarga 57 (आप्लुत्य च महावेगः पक्षवानिव पर्वतः against "Still, like a winged mountain, he Sprang
+  forward"), his 65 opens on Mount Prasravana and so does sarga 65.
+  **THE INSTRUMENT THAT WORKS IS LENGTH AND THE ONE THAT LOOKS RIGHT IS NAMES.** A proper-name
+  profile is the obvious way to align two columns and it is nearly useless on this poem — Ráma, Sítá
+  and Rávaṇ are in almost every canto, so cosine over name counts scored offset 0 best in only 10 of
+  23 sampled cantos of Book III and 15 of 35 of Book VI, which reads as drift and is noise. Correlating
+  the Sanskrit's **verse count** against Griffith's **line count** settles it in one pass: offset 0
+  wins in every book at r = 0.63–0.71 against 0.40 at best for any other offset, and by thirds of a
+  book the right offset scores 0.83–0.996. **Correlate a quantity both editions state about the same
+  unit, not the vocabulary they share.**
+  **AND THE CHANGEPOINT IS FOUND BY LENGTH AND CONFIRMED BY EPISODE, because neither alone is
+  enough.** The length fit is decisive in Book III (the standard deviation of the log ratio falls from
+  0.279 to 0.062 with a +1 shift after canto 56) and useless in Book VI, where Griffith's twenty-nine
+  omissions leave the tail too sparse — there the fit put the changepoint at 100 and the passages put
+  it at 111. Four unmistakable episodes land exactly at offset 0 (Kumbhakarṇa dies in canto 67 and
+  sarga 67, Narántaka in 69 and 69, Atikáya in 71 and 71, Rávaṇ in 110 and 110) and four more land at
+  +2 (Sítá restored from the fire in canto 120 and sarga 118, Indra's boon in 122 and 120, the meeting
+  with Bharat in 129 and 127, the consecration in 130 and 128), which puts the boundary between 111
+  and 114 — and Griffith's CXIV opens "In cars whose sheen surpassed the sun's Triumphant rode the
+  radiant ones" where sarga 112 opens ते रावणवधं दृष्ट्वा देवगन्धर्वदानवाः। जग्मुः स्वैः स्वैर्विमानैः,
+  the gods departing in their own cars. So the two extra cantos are CXII and CXIII, the rákshas dames'
+  lament and Mandodarí's, and **490 of the 493 cantos pair**.
+  **A TRANSLATOR WHO SAYS WHAT HE LEFT OUT IS WORTH MORE THAN ONE WHO IS COMPLETE AND SILENT.**
+  Griffith prints a bracketed paragraph at the foot of the canto before every gap, naming what is
+  missing and usually why — *Three Cantos consisting of little but repetitions are omitted*; *I omit
+  the 28th and 29th Cantos as an unmistakeable interpolation*; and for Book I's 37 and 38, *both in
+  subject and language offensive to modern taste*, with the reader sent to Schlegel's Latin. All five
+  are `<p>` blocks inside the preceding canto and ship exactly where he printed them, so the shape of
+  what is absent is visible from inside the poem rather than only in the front matter.
+  **A TAB READS "1.1 · Nárad", AND THE NAME WAS THROWN AWAY FOR A WHOLE RUN BEFORE ANYONE LOOKED.**
+  The canto head duplicates the tab and is dropped, which is right about the NUMBER and wrong about the
+  rest of it: Griffith names every one of his 493 cantos, median fifteen characters and longest
+  twenty-seven, and a book with 493 tabs whose titles are bare citations cannot be navigated by eye at
+  all. Nothing could report it — every canto was complete, every count healthy, the pairing exact — and
+  it was found by looking at the chapter bar, which is the golden rule earning its keep for the fourth
+  time after the Gita, the Iliad and Don Quixote. **Ask what ELSE is on a heading before dropping it**;
+  the case is the edition's own ("The Meeting With The Queens") and is kept, which is Aesop's rule.
+  **A BOOK'S HALF-TITLE SITS INSIDE THE LAST CANTO OF THE BOOK BEFORE IT, AND CARRIES A NOTE** —
+  Beowulf's `dropFittHead` rule biting a second time in one book, in a place nothing was watching.
+  Nine of Griffith's canto titles carry a footnote and the canto head is dropped, so those markers are
+  carried down; what was missed is that the edition also sets "BOOK V." and "BOOK VI." **within the
+  preceding canto's own run of text**, each with Griffith's headnote on it, and no block sweep gathers
+  a `<head>` at all. Two of the 1,023 notes therefore reached the fold with no sentence opening them,
+  and **nothing but an every-note-is-referenced assertion can see it**: the cantos are complete, both
+  notes are correct, and they simply sit in a list nothing points at. A carried marker now goes to the
+  block nearest it in reading order rather than all of them to the top — a canto head precedes the
+  verse and opens it, a book half-title follows the verse and closes it — since prepending would print
+  a note about Book V above the first line of canto IV.67.
+  **ITS REAL LIMITATION IS THE SEVENTH BOOK AND IT IS THE TRANSLATOR'S CHOICE RATHER THAN A GAP IN
+  THE RECORD**: the Uttara Káṇḍa is 111 sargas, it is the poem's most disputed section, and Griffith
+  simply stops where the war ends. The Sanskrit for all 111 is transcribed and complete, and it is
+  deliberately NOT shelved as 111 tabs of untranslated Devanagari — Beowulf's rule, that a chapter tab
+  with an original and no translation is worse than not having it. Said on the book's own first page,
+  at length, because a reader who knows the poem will go looking for it),
   `satyricon` (~288 KB, all 141 sections, **55 display quotations**, **131 notes** — Michael
   Heseltine's Loeb of 1913, and **the first book here whose CHAPTER, SECTION AND CITATION ARE ALL
   ONE THING.** The Rigveda's chapter is the smallest unit of the work and its verses still divide it;
@@ -837,7 +1265,88 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-seven:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently thirty-two:
+  `bede-history.la.js` (~560 KB, all five books, **140 chapters**, the Praefatio joined in front of
+  Book I — the received Latin as transcribed at Latin Wikisource, and **the original here whose
+  TRANSCRIPTION NAMES AN EDITION IT DOES NOT PRINT.** Its header states "editio: Patrologia Latina,
+  XCV"; the text sets consonantal *v* as *u* throughout (93 `uero` against 2 `vero` over the five
+  books) and matches Alfred Holder's edition of 1895 word for word where sampled, which Migne's
+  reprint does not. Every candidate is long out of copyright, so nothing is at stake but the claim,
+  and none is made — the Divine Comedy's question answered the way Lucretius's entry answers it.
+  **ITS CHAPTER MARK WEARS TWO COSTUMES AND IT IS THE WHOLE BOOK THAT CHANGES**, not a page here and
+  there: Liber Primus sets its numbers as `<h3>` headings and the other four set them as a bare
+  `[N]` opening the paragraph the chapter begins. Both are converted BEFORE the tags come off,
+  because after `stripTags` a heading is a bare figure indistinguishable from a number in the prose —
+  and this text is full of Roman numerals while writing its chapter marks in Arabic, so there is
+  nothing else to tell them apart by. **A THIRD costume was found by inventorying all 106 bracketed
+  marks rather than by fixing the three that failed**: 69 open `<p><br/>`, 23 open `<p>`, and 3 carry
+  an empty anchor span between the two. Written against the first two the run loses II.16, V.21 and
+  V.24 — three chapters folded into their neighbours with every count still reading healthy.
+  **AND ONE PAGE CARRIES A STALE CHAPTER INDEX OUTSIDE THE WIKI'S OWN `ws-noexport` WRAPPER**: Liber
+  Secundus opens on a strip reading "1 - 2 - 3 … 34", which is BOOK I's chapter count sitting on Book
+  II's page, and because it stands before the running head a rule anchored to the start fires on
+  nothing. The furniture is peeled in a LOOP instead, and the strip is recognised by its SHAPE — a
+  paragraph of nothing but figures and dashes, which no sentence of Latin can wear — rather than by
+  its wording; every removal is counted. **Its host rates it 25% proofread**, which is why the
+  length correlation against the English was run before a word was imported rather than a page
+  glanced at; see the `bede-history` entry above for the figure),
+  `boethius-consolation.la.js` (~190 KB, all five books, **78 sections**, 39 metres in 896 lines —
+  E. K. Rand's Latin of 1918, printed facing an English translation in the same Loeb volume, and
+  **the original here that had to be lifted OUT of a facing-page file rather than fetched as one.**
+  The transcription linearises the printed opening: within each book the numeral headings run Latin,
+  English, Latin, English all the way down, so the Latin is every second one. Measured before it was
+  believed — 156 numeral headings in the Consolation, exactly twice the seventy-eight sections, and
+  each book's count exactly twice its own — and each pair's two numerals are checked against each
+  other on every run, since a heading dropped anywhere in the file would shift the whole of the rest
+  of that book onto the English column with nothing throwing.
+  **ITS EDITOR IS NAMED AND SIGNS HIS OWN NOTE ON THE TEXT**, which is what settles the question a
+  Latin original always raises here: Rand says outright that he built it from the apparatus in
+  Peiper's Teubner of 1871, his own collations of the important manuscripts and Engelbrecht's
+  article of 1902, and that every reading in it has the authority of some ninth- or tenth-century
+  manuscript unless he says otherwise. **THE OBVIOUS FREE ALTERNATIVE NAMES NOBODY**: Latin
+  Wikisource carries the Consolation complete, and it credits no editor, romanises the Greek into
+  something the eye reads as broken Latin (`Ecauda me` for Ἔξαυδα, μὴ κεῦθε νόῳ), scatters scansion
+  macrons through one metre and nowhere else, and — the fault that rules it out whatever its
+  provenance — numbers each book's prose and verse in ONE continuous run of thirteen, sixteen,
+  twenty-four, which is not how any edition of Boethius is cited and could not be printed as a
+  citation. The Latin Library has no Boethius page at all. **Ask what an unattributed transcription
+  IS, and then ask whether its numbers are the numbers anybody uses.**
+  **ITS TWO LIMITATIONS ARE THE GREEK AND THE LINE NUMBERS**, and both are recorded rather than
+  repaired; see the `boethius-consolation` entry above for what can be decoded and what cannot, and
+  why the marginal numerals of the metres point at nothing on the facing page. Its own footnotes are
+  the English column's and are printed under the translation, so none should reach a Latin slice at
+  all — the count of any that do is printed on every run, a stray one shipping as prose),
+  `ramayana.sa.js` (~2.1 MB, the 490 sargas the translation reaches, of 645 — the received text as
+  transcribed at Sanskrit Wikisource, and **the original here whose TRANSCRIPTION USES THE MOST
+  SHAPES: four, and each was met the loud way.** The Rigveda's pages on this same wiki use four too
+  and 1,023 of its 1,028 are one of them; here `div.poem`, `div.verse` wrapping a `<pre>`, a
+  proofread `ws-poem` and **the verse typed straight into the page as `<p>` blocks with no container
+  at all** are all in ordinary use, and the reader threw on the first page of each new kind rather
+  than returning a short sarga. That is the failure shape worth having: the alternative is a chapter
+  that comes back empty and pairs with nothing while every count reads healthy. Which shape each page
+  used is counted and printed on every run.
+  **THE NO-CONTAINER FALLBACK IS THE NARROWEST OF THE FOUR AND HAD TO BE**, because those pages carry
+  something the others do not: a स्रोतः section at the foot crediting the reciters of the recorded
+  audio, which is prose on the page and is not Válmíki. The page is cut at its first section heading,
+  the navigation tables go, and of what is left only a paragraph CARRYING A DAṆḌA is taken — every
+  verse block closes on its ॥N॥ and no furniture on these pages holds one, so the test separates the
+  poem from the page it is printed on rather than guessing at position.
+  **EVERY PAGE STATES ITS OWN CITATION AND IT IS CHECKED**, which is the City of God's rule and is
+  worth more on a book addressed by arithmetic than on one addressed by name: 490 pages fetched under
+  a title built out of a kanda table and a canto number is 490 chances to file a sarga under the wrong
+  one, and a mis-numbered page would pair with the wrong canto while every count stayed healthy. Each
+  opens श्रीमद्वाल्मीकीयरामायणे बालकाण्डे प्रथमः सर्गः ॥१-१॥ — kanda and sarga — which is compared
+  against the page asked for and then dropped as the page's own furniture. **THE VERSE NUMERAL WEARS
+  TWO COSTUMES AND ONLY ONE BOOK USES THE FIRST**: the Bála Káṇḍa prints the whole citation at every
+  verse, ॥१-१-९॥, and the other five print the verse alone, ॥ ९॥. Both are KEPT as printed — Griffith
+  numbers no verses, so they pair with nothing and are not `bk-n` markers, but they are how a passage
+  of the Sanskrit is cited and dropping them would take that away for nothing.
+  **ITS LICENCE NAMES NO EDITOR AND NONE IS INVENTED**, which is Lucretius's judgement — and unlike
+  the Rigveda's, where the recitation discipline makes the received samhita what every printed edition
+  prints, the gap here is a real limitation and is stated as one: the Ramayana survives in three
+  recensions that differ in their sarga divisions and in thousands of readings, so an unnamed text is
+  a text whose recension a reader cannot look up. What CAN be said is that it divides where a northern
+  text divides, and that is said on the book's own page),
   `satyricon.la.js` (~230 KB, all 141 sections, **607 lines of verse in 54 blocks**, **147
   lacunae** — the Latin printed facing Heseltine's English in the same 1913 Loeb volume, and **the
   EASIEST original on the shelf to justify and the hardest to read**. Easy because the two columns
@@ -885,6 +1394,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Monk's Tale whose margin carries one, which is why the margin is stripped per line before the blocks
   are judged. Skeat's apparatus, his marginal summaries and the Tale of Gamelyn — which he prints as an
   appendix and says is not Chaucer's — are not reproduced),
+  `three-kingdoms.zh.js` (~1.78 MB, all 120 chapters, **483,000 hanzi** — the novel in the recension of
+  Mao Lun and Mao Zonggang as transcribed at Chinese Wikisource, and **the original here whose
+  RECENSION IS STATED BY THE TRANSCRIPTION ITSELF, which is what made the pairing a check rather than
+  a search.** This novel exists in two forms that divide the story differently — the 1522 printing in
+  240 sections and the Maos' of 1679 in 120 chapters — so a column taken from the wrong one could not
+  be paired at all; the wiki's own front page says outright 此為毛綸、毛宗崗父子修改、批注後的版本 and
+  links the Jiajing text carried separately under another title, and Brewitt-Taylor translated the
+  Maos. Measured as well as read: 120 chapters a side, and the couplet heading each Chinese chapter is
+  the couplet he prints over the same number, checked by name profile over all 114 titles the contents
+  pages give up and then read side by side across the span.
+  **ITS FURNITURE IS ALL TABLES AND THERE IS NOTHING ON THE PAGE TO KEY ON**, which is why it needed a
+  rule stating a fact about the SOURCE rather than about the markup. The navigation at the head of the
+  page is classed `ws-header`; the pair at the foot carries no class at all, only an inline style. What
+  can be said instead is that these chapters contain no tabular matter whatever — it is a Ming novel —
+  so every table on the page is furniture, and the rule reports any table it removes that was carrying
+  prose rather than links. The wiki's own back-to-top link and its public-domain banner, which some
+  chapters carry and some do not, are taken by the class each declares. Every one of them would
+  otherwise arrive as prose, which makes a chapter LONGER and is invisible to every count.
+  **AND A WRAPPER ROUND THE BODY APPEARS ON SOME CHAPTERS AND NOT OTHERS** (`div class="prose"`), so
+  the rule that unwraps it is global rather than anchored to the head — anchored, it would leave a
+  stray quotation of the whole chapter on however many of the 120 carry one. Its verse is set as a
+  NESTED definition list, two deep, which `verseFromLists` flattens; on a novel that opens on a poem
+  and quotes several a chapter that is the one thing that must not read as prose),
   `journey-to-the-west.zh.js` (~762 KB, all 100 chapters — the received Ming novel as transcribed at
   Chinese Wikisource, and **the only original on the shelf that is FULLER THAN ITS TRANSLATION.**
   Everywhere else the translation is the complete text and the original is the harder half to find;
@@ -1085,12 +1617,42 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-one books, twenty-eight originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-eight books, thirty-two originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
-  Divine Comedy, the Summa Theologica and Don Quixote
+  Divine Comedy, the Summa Theologica, Don Quixote, the Maxims of Ptahhotep, Le Morte d'Arthur and the
+  Travels of Marco Polo
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
-  to face.
+  to face. **LE MORTE D'ARTHUR IS THE ONE THAT NEVER REACHES THAT RULE AT ALL**, and it is a fourth
+  answer rather than a variant of the other three: it is written in ENGLISH, so there is no second
+  text to pair with — see its entry above, and note that this is the case where the question "does
+  that text say which section each passage is?" is not the question.
+  **THE TRAVELS IS A FIFTH ANSWER, AND THE ONE TO READ WHEN AN ORIGINAL LOOKS EASY** (Aug 2026). Every
+  earlier refusal is about the original: it does not exist, or its editor is in copyright, or it states
+  no numbers. Here the original is complete, machine-readable and openly licensed — Eusebi's edition of
+  the Franco-Italian text, CC BY 4.0 from Edizioni Ca' Foscari — its 232 chapters nearly match Yule's
+  235, and its rubrics are what Yule's chapter titles translate. The refusal is about the TRANSLATION:
+  Yule says in his own introduction that he translated from Pauthier's French, filled it out from the
+  Franco-Italian, and bracketed in whatever Ramusio's Italian had that the others did not, so the
+  English column is a composite of three traditions and 144 bracketed passages would face nothing at
+  all. He also states that the Franco-Italian has 232 chapters against his 235 and cites it by PAGE
+  rather than by chapter, so neither edition states the other's sections either. **Ask what a
+  translation is a translation OF before asking whether an original can be found.**
+  **PTAHHOTEP IS THE REPUBLIC'S CASE AT ITS PLAINEST, AND IT IS WORTH KEEPING BECAUSE THE EGYPTIAN IS
+  NOT THE PROBLEM** (Aug 2026). Everything about the original looks available: the poem survives in
+  four copies, the fullest of them the Papyrus Prisse, it has been edited twice over, and both a
+  transcription and a lexical database are online. What decides it is the ENGLISH, measured before
+  anything else was tried — **swept over the whole of Gunn's translation there is not one papyrus
+  reference of any kind**: no column and line, no verse number, no mention of the manuscript
+  anywhere. His sections are marked A, B, 1..43, C, D and by nothing else, and those marks are his
+  own. So there is no number the two texts share and the answer is no whatever the Egyptian side
+  says. **The Egyptian side has a difficulty of its own worth recording so nobody starts there**: the
+  openly downloadable transcription of the Prisse text (Nederhof and Myers, St Andrews) follows
+  **Žába's edition of 1956**, and Žába lived 1917–1971, so his constituted text is in copyright until
+  2042 where the term is life plus seventy — the Prose Edda's rule, that an editor's constituted text
+  is a modern work. The Berlin Thesaurus Linguae Aegyptiae numbers its verses by **Dévaud's** system
+  and its lines by papyrus column, neither of which Gunn states. Shipped English-alone with the
+  reason in the book's own front matter.
   **THE SUMMA IS THE PLATO-JOWETT CASE AND THE CTEXT CASE AT ONCE, WHICH IS WHY IT ANSWERS NO ON A
   WORK WHOSE LATIN IS EVERYWHERE** (Aug 2026). Both candidates fail, and they fail differently.
   **The freely transcribed Latin is a third of the book**: la.wikisource's Summa was measured through
@@ -1678,6 +2240,217 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     REFUSES any string whose marks will not compose, leaving the ASCII rather than inventing a Greek
     letter the language has not got.
 
+  **A TRANSLATION MAY BE SHORT OF ITS ORIGINAL AND STILL PAIR WITH IT, IF IT NUMBERED AROUND THE
+  GAPS** (`layout: "kanda"` → `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `RAM_CANTOS` /
+  `RAM_PARTS` / `ramAt` / `ramSarga`; Aug 2026, adding the Ramayana — the forty-second book, and the
+  eighteenth layout). The sixth TEI reader and **the first whose file is not Perseus's**: Project
+  Gutenberg's TEI of Griffith, in which not one of the 571 `<div>`s carries a `type` or an `n` and the
+  structure is nesting and `<head>` alone. What it does carry is an `<anchor id="CantoVI-CXXX"/>` at
+  the head of every canto — the citation, machine-readable — so the divisions are ignored and the poem
+  is cut at the anchors, which are then CHECKED against the numeral each `<head>` prints beside them.
+  Six things it settled, and the first is the one to carry furthest:
+  · **A TRANSLATOR'S OWN GAPS ARE EVIDENCE ABOUT HIS NUMBERING.** Griffith ships 493 cantos of 645, so
+    the question is whether his canto 60 is the sixtieth canto he wrote or the sixtieth sarga — and
+    pairing on the wrong answer sets passage beside unrelated passage with both columns complete and
+    every count healthy. A man numbering his own cantos produces an unbroken 1..N; Griffith's Book VI
+    runs 1..130 with twenty-nine numbers missing. **Ask whether the numbering has holes in it before
+    asking what the numbers mean.**
+  · **A DIFFERENCE IN THE TOTALS IS NOT EVIDENCE OF A DIFFERENCE IN THE DIVISION.** Three books
+    disagree with the Sanskrit on their totals and fitting a shift to each is right twice and wrong
+    once — Book V's 66-against-68 is the translator STOPPING EARLY, and a shift there displaces the
+    whole tail of the book. Only reading the passages showed it.
+  · **CORRELATE A QUANTITY BOTH EDITIONS STATE ABOUT THE SAME UNIT, NOT THE VOCABULARY THEY SHARE.**
+    A proper-name profile is the obvious instrument and is nearly useless on a poem whose cast recurs
+    in every canto — it scored offset 0 best in 10 of 23 sampled cantos of one book, which reads as
+    drift and is noise. The Sanskrit's verse count against the translation's line count settles it in
+    one pass, r = 0.63–0.71 at offset 0 against 0.40 at best anywhere else.
+  · **A CHANGEPOINT IS FOUND BY LENGTH AND CONFIRMED BY EPISODE, and neither alone is enough.** The
+    length fit is decisive where the translation is dense (a log-ratio sd of 0.279 → 0.062) and
+    useless where it is full of omissions — in the war book it put the boundary eleven cantos wrong,
+    and eight unmistakable episodes put it right. See `RAM_BOOKS` for the passages each shift rests on.
+  · **A CANTO WITH NO SARGA IS SKIPPED, NOT GIVEN THE ONE NEXT DOOR.** Three of the 493 are the
+    translator's own extra divisions; they draw with an empty cell, which is the shelf's ordinary way
+    of showing that two editions disagree, and filling them would invent a division neither prints.
+  · **AND THE UNTRANSLATED SEVENTH BOOK IS NOT SHELVED AS 111 TABS OF DEVANAGARI**, though the
+    Sanskrit for all of it is transcribed and complete — Beowulf's rule, that a chapter tab with an
+    original and no translation is worse than not having it. `count` 493 against `total` 645, and the
+    book's own front matter says at length what is absent and why.
+  On the original side `ramSanskrit` met **four transcription shapes on one wiki** — `div.poem`,
+  `div.verse` round a `<pre>`, a proofread `ws-poem`, and the verse typed into the page as bare `<p>`
+  — and threw on the first page of each rather than returning a short sarga, which is the failure
+  shape to want. The bare-`<p>` fallback is the narrowest of the four because those pages close with a
+  स्रोतः section crediting the audio reciters: the page is cut at its first heading, the navigation
+  tables go, and only a paragraph carrying a daṇḍa is taken.
+
+  **A PRINTED BOOK'S OWN SECTION MARKS, AND NOTHING ABOVE THEM** (`layout: "ptahhotep"` →
+  `extractPtahhotep` / `PTAH_KEYS`; Aug 2026, adding the Maxims of Ptahhotep — the forty-third book,
+  and the nineteenth layout). The FOURTH book from Project Gutenberg and the first from its HTML
+  rather than its plain text or its TEI, **which is the easiest of the three and is worth saying so
+  nobody reaches past it**: a transcriber has already marked up the paragraphs, anchored the
+  footnotes and tagged the page numbers, so this is the wiki path's problem and not the plain-text
+  path's — `stripTags` does the work. Five things it settled, and every one is about the FURNITURE
+  rather than the text:
+  · **THE CHAPTER IS FOUND BY ITS ANCHOR AND NEVER BY ITS HEADING.** This volume holds three works
+    and an introduction, and the introduction's own heading is the WORDS of this work's title — so
+    slicing on the heading text takes the essay ABOUT the poem instead of the poem, silently and at
+    the right sort of length. Gutenberg anchors each chapter (`id="chap02"`), which cannot be
+    ambiguous; assert on the TEXT at both ends as well, which is what `test-library.js` does.
+  · **A PAGE NUMBER SURVIVES THE TAG STRIP AS PROSE.** The transcription marks each printed page as
+    `<span class="pagenum">{42}</span>`, and `stripTags` unwraps a span it does not recognise and
+    KEEPS the words — so left alone a section reads "the words of them that hearken {42} to the
+    counsel of the men of old time". Removed with their braces, and counted. This is the Rigveda's
+    commentary rule at small scale: **a leak makes a chapter LONGER, so no count of chapters or of
+    sections can see it** and the shipped file has to be swept for it.
+  · **A MARKER MUST CARRY THE NOTE IT POINTS AT.** The apparatus is numbered 1..N across the WHOLE
+    work and each chapter keeps only the notes its own markers cite, renumbered from 1 — so the
+    printed number is written into `data-fn` and the reading-order fallback is never relied on. It is
+    the Seneca rule on a printed page rather than a wiki one.
+  · **AND THE WORK'S OWN TITLE LINE STANDS BEFORE THE FIRST MARK**, unnumbered — the incipit naming
+    the vizier and his king. It is kept and given to the section after it, which is where the printed
+    page puts it; exactly one such block exists, counted, and more than one is reported.
+  · **A TAB MUST NOT REPEAT THE WORD `chapterWord` ALREADY PRINTS.** See the `ptahhotep` entry in the
+    File map for the two-numbers-under-one-word fault that reading the page turned up, and for why
+    the tab carries the translator's own "§ 32" instead.
+
+
+  **A PAIRING WITH NO PRINTED CITATION TO PAIR ON** (`layout: "boethius"` → `extractBoethius` /
+  `boethiusLatin` / `boeGreek` / `boePoem` / `BOE_BOOKS` / `BOE_LETTERS`; Aug 2026, adding The
+  Consolation of Philosophy — the forty-fifth book, and the twentieth layout). The FIFTH book from
+  Project Gutenberg and the second from its HTML, which the Ptahhotep entry above says is the
+  easiest of the three paths. Two extractors for one book, as the Canterbury Tales needed, and for
+  the opposite reason: not two kinds of damage but one file per column with nothing wrong with
+  either. Six things it settled:
+  · **ASK WHETHER THE NUMBER AN EDITION PRINTS IS UNIQUE INSIDE THE CHAPTER.** Every earlier book's
+    sort key is a figure that occurs once — a letter, a chapter, a Bekker page, a laisse, a verse.
+    Here the numeral IX. occurs twice in every book on each side, once over a poem and once over a
+    prose chapter, and neither edition prints the compound citation anywhere; so the marker carries
+    what each edition prints and the SORT KEY is the section's position in its book. That is safe
+    only because it is arithmetic: both files were measured end to end first, and each book's
+    sections agree in number, in order and in alternation, 13/16/24/14/11 a side, with only the first
+    book opening on a poem.
+  · **AND THEN ASK WHAT ELSE IN THE EDITION NAMES ITS OWN SECTIONS.** James heads a poem "SONG IV."
+    and a prose chapter "IV.", so a marker taken from the headings alone would print a bare figure
+    over half the book — but he writes summaries at the head of each book, and footnotes inside it,
+    in citations: *CH. I. Philosophy appears to Boethius*, *see also below, ch. iii.* A summary, an
+    index and a cross-reference are all places an editor writes down the form he cites his own book
+    by, and taking it from there is transcription rather than composition.
+  · **A LEADING UNNUMBERED BLOCK IS NOT ALWAYS A SALUTATION**, and `bookRows`' fold is written for
+    one. See the `boethius-consolation` entry in the File map for why the book summaries are
+    numbered 0 instead, and for what a folded quarter-page of English facing a Latin poem tells a
+    reader that is not true.
+  · **A KEPT HEADING MAY CARRY A FOOTNOTE MARKER TOO.** `dropFittHead`'s rule has always been about
+    a heading that is DROPPED; three of this edition's nineteen notes hang off a section title that
+    is kept, and flattening the heading to text before the anchors come out of it leaves the string
+    "[I]" inside the title with its note in a list nothing points at. **And two more hang off a book
+    summary, outside every section** — so the note lists are harvested from the whole book rather
+    than section by section, which is the difference between finding nineteen and finding fourteen.
+  · **A POEM PRINTED ACROSS A PAGE BREAK OPENS A FRESH BLOCK IN BOTH COLUMNS**, three times in the
+    English and six in the Latin, and each must be rejoined — the Gita's stream rule, and here a
+    stanza left standing apart from its own poem reads as an extra one, on a page whose subject is
+    the alternation of prose and verse.
+  · **AND A TRANSLITERATION IS DECODED ONLY WHERE IT IS AN ENCODING.** `[Greek: PI]` names a letter
+    and is decoded; `[Greek: theoraetikae]` is a lossy romanisation and is left exactly as printed
+    and counted. The Satyricon's `betaGreek` judgement, and the same refusal: never compose a letter
+    the evidence does not carry.
+
+  **TWO COLUMNS FROM TWO DIFFERENT KINDS OF SOURCE** (`layout: "bede"` → `extractBede` /
+  `bedeChapter` / `bedeInline` / `bedeText`, and on the original side `layout: "bedeLatin"` →
+  `bedeLatin`, with `BEDE_CHAPTERS` / `BEDE_ROMAN` / `BEDE_LATIN_BOOK`; Aug 2026, adding the
+  Ecclesiastical History of the English People — the forty-seventh book, and the twenty-first
+  layout). The SIXTH book from Project Gutenberg and the third from its HTML. Two readers for one
+  book, as the Canterbury Tales and the Consolation needed — here because the columns come from
+  different kinds of source, which is Thucydides' position with the sides swapped. Five things it
+  settled, and the first two are about not trusting what a file offers you:
+  · **COUNT WHAT A MACHINE-READABLE IDENTIFIER ACTUALLY COVERS BEFORE PREFERRING IT TO A HEADING.**
+    The Ptahhotep reader's rule is to find a chapter by its anchor and never by its heading; this
+    file's anchors are generated from the INDEX's cross-references, so they cover 117 of the 140
+    chapters and only one of the five books. The headings are complete on both sides, checked, so the
+    number is read off the heading and CHECKED against the count the edition states.
+  · **AN INVENTORY TAKEN OVER THE FILE IS NOT AN INVENTORY OF THE BOOK.** The index uses the same
+    `tei-lg`/`tei-l` markup as the verse, so a sweep of the whole file reports 1,851 line groups and
+    3,086 lines of verse in a prose history; inside the five books there is exactly one, of one line.
+    Take the inventory over the divisions actually being imported.
+  · **A KEPT HEADING MAY CARRY A FOOTNOTE MARKER** — the Consolation's finding on a title that stays
+    rather than one that is dropped, and it bites on four of 141 here. Flattened to text the marker
+    becomes a bare figure inside the chapter title while its note sits in the fold with nothing
+    pointing at it, and only an every-note-is-referenced assertion can see it.
+  · **A MARK MAY WEAR A DIFFERENT COSTUME IN EACH BOOK OF ONE WORK.** The Latin sets its chapter
+    numbers as `<h3>` headings in Liber Primus and as a bare `[N]` opening a paragraph in the other
+    four, so both are converted BEFORE the tags come off — after `stripTags` a heading is a bare
+    figure indistinguishable from a number in the prose. **And the rule is written from an inventory
+    of all 106 bracketed marks rather than from the three that failed**: 69 open `<p><br/>`, 23 open
+    `<p>`, 3 carry an empty anchor span, and against the first two shapes three chapters fold
+    silently into their neighbours.
+  · **AND PAGE FURNITURE IS PEELED IN A LOOP, NOT MATCHED ONCE.** One page of the Latin carries a
+    stale chapter index — Book I's numbers on Book II's page — outside the wiki's own `ws-noexport`
+    wrapper and BEFORE the running head, so a rule anchored to the start fires on whichever comes
+    first and leaves the rest standing. The index is recognised by its shape (a paragraph of nothing
+    but figures and dashes) rather than by its wording, and every removal is counted.
+
+  **ONE BOOK PRINTED IN TWO FILES, AND AN APPARATUS TWICE THE SIZE OF THE TEXT** (`layout: "polo"` →
+  `extractPolo` / `poloChapter` / `poloNotes` / `poloNoteRegion` / `poloSplice` / `poloVerse` /
+  `poloSpan` / `poloInline` / `POLO_BOOKS` / `POLO_PARTS` / `poloAt`; Aug 2026, adding the Travels of
+  Marco Polo — the forty-eighth book, and the twenty-second layout). The SEVENTH book from Project
+  Gutenberg and the fourth from its HTML. The entry takes `urls: [...]` rather than `url`, and the
+  branch caches each volume as `en-vol<N>.html` and reads them as one. Six things it settled:
+  · **AN OFFSET MEASURED IN ONE LANGUAGE IS NOT AN OFFSET IN ANOTHER.** Boundaries probed in Python
+    and carried into JavaScript as numbers all land short, JS counting UTF-16 code units where Python
+    counts code points — three sweeps, three different chapter totals, nothing thrown. Search for the
+    boundary in the language that will do the extracting and write no offset down.
+  · **A COUNT TAKEN PER FILE IS A COUNT OF HALF A BOOK.** The chapters run continuously across the
+    join and Book Second is split over it, so the book count, the chapter runs and the note numbering
+    are all checked over both volumes together.
+  · **THE NOTES ARE FOUND BY THEIR OWN LABEL — NEVER BY THE RULE ABOVE THEM, AND NEVER BY THE BOX
+    ROUND THEM.** Five chapters print no rule at all and one spells it `class="r40 clear"`; the rule
+    was then written on the blockquote, which is structural where a rule is decoration, and ONE
+    chapter in 235 sets its notes as bare paragraphs with no box — so a page and a half of
+    commentary ran on into the author's own prose, complete, well-formed and wrong. **Anchor on the
+    thing the unit carries BY DEFINITION** (a Note has a label) and let the region open at whichever
+    block encloses it.
+  · **A CONTAINER MAY CARRY ATTRIBUTES AND MAY NEST**, which is the same lesson one element down:
+    `<div class="footnote" lang="fr">` costs a bare-tag pattern 13 of 790 footnotes, and 22 that
+    hold a plate or a stanza are truncated at their first inner block by a non-greedy closer. Loose
+    on the opener, BALANCED on the closer, always.
+  · **A NOTE INSIDE A NOTE IS SPLICED, NOT LISTED** — the Art of War's rule, at 266 of 295 rather
+    than 20, and here the measurement is what tells the two tiers apart: only a dozen of the
+    footnotes are cited on the author's own prose.
+  · **AND A NOTE HUNG ON A CHAPTER'S TITLE IS CARRIED DOWN TO THE CHAPTER'S FIRST BLOCK**, in both
+    tiers. The title is the TAB here, so splicing gives a 200-character tab and dropping loses a note
+    about the whole chapter; three of the four were found by the every-note-is-referenced assertion
+    and by nothing else. `dropFittHead`'s rule in a sixth edition.
+
+  **A TITLE THAT IS ONLY ON THE CHAPTER'S OWN PAGE — AND THAT IS A HOOK, NOT A LAYOUT**
+  (`head: "sankuo"` → `sanKuoHead` / `sanKuoRoman` / `SANKUO`; Aug 2026, adding Romance of the Three
+  Kingdoms — the forty-fourth book). Worth reading for what it is NOT: the book goes through the
+  ordinary wiki walk and `cleanBody` like every other proofread transcription here, so it took no
+  layout, no new extractor and not one line of change to any shared reader. What it took is a single
+  gated line in the fetch loop, running on the RAW page before the notes are gathered — because by
+  the time `cleanBody` has finished, every centred div is a blockquote and the class the hook keys on
+  is gone. **Reach for a hook before a layout**: three of the last four books grew a whole reader for
+  a difficulty this size. Four things it settled:
+  · **THE TITLE MUST BE READ BEFORE ITS BLOCK CAN BE DROPPED**, which is why `dropHeads` cannot do
+    this alone. That option matches a leading block against a pattern the book declares — exactly
+    right for "CHAPTER IX." and impossible for a title, whose whole text differs on every page, since
+    a pattern loose enough to match all 120 would eat prose. Here the second block is removed because
+    it has just been READ rather than guessed at.
+  · **AND IT MUST HANDLE BOTH ARRANGEMENTS OF THE HEAD** — see the `three-kingdoms` entry in the File
+    map for the two chapters of a hundred and twenty that put the number and the title inside one
+    centred block instead of two, and for the printer's own hundred-less-n numerals, which were
+    inventoried over the whole book from its contents pages before the check was written.
+  · **`stripWikiCSS` RUNS BEFORE THE TAGS DO**, for the third time in this file: a template's inline
+    stylesheet sits inside the very element being read, so dropping tags first leaves the CSS text
+    standing in the middle of the title.
+  · **AND THE COUNTS ARE PRINTED ON EVERY RUN** — how many chapters gave up a title, how many wore the
+    odd numerals, how many boundary marks went. A rule that quietly stops firing looks exactly like a
+    rule that had nothing to do.
+  On the ORIGINAL side it needed no new reader either: `originalChapter`'s `body: "plain"` gate grew
+  drops for the wiki's licence banner and its `noprint` divs and an unwrap for a `div class="prose"`
+  that appears on some chapters and not others — all three provably inert on the one original already
+  on that path, measured rather than argued (`ws-header`, `licenseContainer` and `div.prose` occur
+  zero times on Journey to the West's pages) — plus a per-book **`dropTables`**, which is a statement
+  about the SOURCE rather than about the markup and which reports any table it removes that was
+  carrying prose rather than links.
+
   **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
   `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
   `SUKTA_VERSE` / `RV_PARTS` / `rvGriffith`; Aug 2026, adding the Rigveda — the thirty-ninth book,
@@ -1981,6 +2754,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     edition and in both directions at once: of the book's seven notes one hangs off a question's
     heading and one off an article's, so markers are carried down off a dropped head and lifted back
     into a rebuilt one.
+  · **`sections: "malory"`** — **THE ELEVENTH WAY an edition marks its numbers, and the first whose
+    number and TITLE are two separate elements printed one under the other** (Aug 2026, adding Le
+    Morte d'Arthur). It runs at the same **pre-strip hook** as `articuli` and `liki`, and for the
+    same reason: all three of the blocks it reads are `<div>`s, and the generic div pass turns every
+    one of them into a blockquote. Four things it settled.
+    **THE BOOK HEADING GOES AND THE RUBRIC STAYS**, which is `dropFittHead`'s rule in both directions
+    at once. "Book I" duplicates the tab the reader is standing on and appears only on the first
+    chapter of each book (ten of the twenty-one, counted); Caxton's descriptive rubric is printed
+    nowhere else and on a bar of eighty-eight chapters it is the only thing telling one adventure
+    from the next. **Ask what ELSE is on a heading before dropping it** — the Ramayana's finding,
+    arriving here as a separate element rather than as words beside the number.
+    **THE NUMBER IS READ AND THEN CHECKED against the page name**, the City of God's rule, and it
+    earns more here than there: 503 pages are fetched under a title built out of a volume rule and
+    two Roman numerals, and a mis-numbered one would sit in the right book at the wrong place with
+    every count in the run reading healthy. The BOOK numeral is checked too, through a `bookNum` set
+    per chapter beside `expect`.
+    **A SECOND TEMPLATE ON ONE PAGE IN 503** — see the `morte-darthur` entry in the File map. Both
+    shapes are tried in order and the odd one is COUNTED, so a rule that starts firing more often, or
+    stops, cannot do it quietly.
+    **AND CAXTON'S PREFACE IS LEFT UNMARKED ON PURPOSE**: it is fetched as the first page of Book I,
+    `pageMark` returns null for it, and it therefore arrives as the chapter's leading unnumbered
+    block — where the printed book puts it, and where app.js files a headnote. Writing a "0" over it
+    would be composing a citation the edition has not got; nobody cites Caxton's preface as Malory
+    I.0, where an unnumbered block claims nothing at all.
+  · **`dropNotes`** on a WIKI book (same batch; the Satyricon's TEI path had its own already). Every
+    note on that transcription is a Wikisource contributor's rather than the edition's, and says so
+    in its own text. See the `morte-darthur` entry for the argument; what matters here is that the
+    flag is per book, that the MARKERS go with the notes (a marker running past the end of the list
+    is deleted by `wireFootnotes` at render, which is the right behaviour and the wrong place to find
+    out), and that the count is printed on every run — a transcription that starts carrying the
+    edition's own notes must not be able to do it unnoticed.
   **A book's ORIGINAL language is a second half of the same entry** (`original: { lang, langName, … }`),
   written to `books/<id>.<lang>.js` with its own cache under `book-cache/<id>/<lang>/`. **It comes in THREE
   shapes, and the wiki walk — the first one written — is the worst of them**, because it is the only one that
@@ -2887,12 +3691,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
-- `decks/*.folio-deck.json` — **the Mandarin community decks**, five files a reader imports through the
-  Studio. Not part of the site and never loaded by it: a deck file is somebody else's content that happens
-  to have been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
-  **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), **HSK 3.0** — all seven levels of the 2026
-  standard in ONE file, 10,896 notes as seven subdecks — and two decks of what the syllabus leaves out:
-  **Mandarin phrases** (159) and **Chinese idioms** (477 chengyu). 22 MB in all.
+- `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
+  of the site and never loaded by it: a deck file is somebody else's content that happens to have been
+  written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
+  The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
+  **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
+  levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`.
+  · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
+    phrases and the idioms are the same card type from the same corpus, so three files was three imports
+    and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
+    as a MODULE and files its two lists as the eighth and ninth subdecks; run on its own, `build-extra.js`
+    still writes them as two separate decks, which is one flag rather than two builders.
+  · **A SUBDECK NAME IS A STRING AND A MANGLED ONE IS A NEW SUBDECK.** An intermediate build of the
+    combined file wrote one note's `sub` as `Levels 7<U+FFFD><U+FFFD><U+FFFD>9` — three replacement characters where the
+    en-dash should be — and the deck drew a phantom eighth level holding a single word. **Nothing throws,
+    the note count is right, and the only symptom is a row nobody put there**; it was caught before it
+    shipped, and no released deck has ever carried it (swept, all nine on main, zero replacement
+    characters). So: **count the DISTINCT subs after a build and read the list**, rather than checking the
+    note total — a count of notes cannot see it, and a count of subdecks only helps if you know what the
+    number should be.
   · **EVERY WORD IS ONE NOTE WITH TWO CARDS** (Aug 2026, once the reverse-cards feature landed on main).
     Each deck used to write a word out twice, once per direction, and the two rows were identical field for
     field — the same characters, reading, character breakdown and three example sentences, which between
@@ -2903,8 +3721,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE SUBDECK AXIS WENT TO THE LEVEL, and that is what let HSK 3.0 become one deck.** The old combined
     files spent their one `sub` axis on the study DIRECTION — two subdecks, Chinese → English and English →
     Chinese — and that is exactly what the two templates now express, so the axis came free for the thing a
-    learner actually works along. **A note's `sub` is per note, so direction can never be a subdeck again**
-    while the two directions are one note; that is the trade, and it was worth making.
+    learner actually works along. **A note's `sub` is per note, so direction can never be a `sub` again**
+    while the two directions are one note; that was the trade, and it was worth making.
+    **AND THEN THE DIRECTIONS CAME BACK AS ROWS WITHOUT COSTING THE FILE ANYTHING** (Aug 2026, on request —
+    see "A DIRECTION IS A LEVEL BELOW THE SUBDECK" under community decks). The thing `sub` could not name,
+    the TEMPLATE already does, so each of the nine subdecks now lists **Chinese → English** and **English →
+    Chinese** as rows of its own. **The deck file did not change by a byte** — the two templates were always
+    in its one type — which is the answer to the paragraph above: the halving stands and the directions are
+    separable, because they were separated at the level where they actually differ. Adding the deck brings
+    the nine levels and NOT their eighteen directions; a level already deals both ways, forward first.
   · **THE OLD "TOO BIG FOR ONE DECK" MEASUREMENT WAS RE-TAKEN RATHER THAN CARRIED FORWARD.** The 7–9 band
     shipped as five files because level 6 alone (3,554 rows, 7.4 MB) measured 3.6s to import and 2.7s to the
     first card. Measured again on the whole of 3.0 at 10,896 notes: **JSON.parse 81 ms, import 10.0s once,
@@ -2931,6 +3756,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     three-character nouns. Recall is stated rather than guessed: on a probe of thirty-six expressions a
     beginner meets, 24 are already carded in the HSK decks, 5 are not in CC-CEDICT, 2 are idioms, and the
     rule takes 4 of the remaining 5.
+  · **THE STRUCTURE LINE IS A CAPTION, NOT A HEADING** (`.uc-exst`, Aug 2026, on request). The formula above
+    each example sentence — "PRONOUN + MEASURE WORD + VERB + NOUN" — was set at 9.5px/600, which over an 18px
+    sentence reads as a heading for it; that is the wrong way round, since the sentence is the thing and this
+    only says what shape it is. It is 9px/400 now, with the marked term at 500 so a weight as well as the
+    vermilion still finds it. **The CSS lives in `deckcore.js` and is COPIED into every built deck file**, so
+    a change there does not reach a reader until the decks are rebuilt — or, as here, until each shipped
+    deck's `meta.types.<id>.css` is patched to match. That patch was made as a string replacement on the raw
+    JSON rather than by re-serialising it, which is what keeps the 20 MB file's diff to the one line it
+    should be; all three Mandarin decks carried byte-identical CSS to `deckcore.js` beforehand, so the two
+    are provably the same edit.
+  · **THE THIRD TONE HAS TO BE ASKED FOR BY NAME** (`PINYIN_FONT` in `deckcore.js`; Aug 2026, on a bug
+    report: "the letter ǒ appears larger than other pinyin letters"). The card inherits the site's body
+    serif and **Newsreader — the default — has none of the ten pinyin characters at issue**: ǎ ǐ ǒ ǔ (third
+    tone on a, i, o, u, but NOT ě, which it does have, and which is why one letter was named), ǖ ǘ ǚ ǜ, and
+    ǹ ḿ. Measured in a browser against every family the stylesheet imports, not assumed.
+    **THE QUIET PART IS WHY IT RENDERS AT ALL rather than as a blank**: Google Fonts declares Newsreader's
+    latin-ext face with `unicode-range: U+0100-02BA, …`, which COVERS U+01D2 — **a unicode-range is a
+    promise about the subset, not about the glyphs in it** — so the browser picks that face, finds nothing,
+    and falls back per character to whatever last-resort font the operating system keeps, whose design size
+    has nothing to do with the page.
+    **THE OBVIOUS FIX DOES NOTHING, WHICH IS THE THING TO CARRY.** Fallback is per character, so appending a
+    covering face after `var(--serif)` ought to leave every working letter alone and catch only these ten.
+    It cannot: `--serif` is `"Newsreader", Georgia, "Times New Roman", serif`, so appending puts **a generic
+    family in the MIDDLE of the list**, and a generic matches everything — the browser resolves the caron
+    against the system default and never reaches the name after it. Measured on the rendered card before and
+    after: identical ink height, 9px both ways. A `@font-face` with a `unicode-range` of exactly those ten
+    codepoints is the textbook way to have both, and **a deck may not have one** — `cssScoped` drops
+    `@font-face` from deck CSS deliberately, a src URL in a stranger's deck being a per-character call home.
+    So the covering face goes FIRST, with the theme's serif behind it.
+    **EB GARAMOND IS CHOSEN ON MEASUREMENT.** Of the thirteen imported families exactly four carry all ten —
+    Cormorant Garamond, EB Garamond, Inter, Noto Sans SC — and **the two sans candidates are the wrong
+    answer for this bug in particular**, Inter's x-height being 123% of Newsreader's and Noto Sans SC's
+    125%: either would have swapped one oversized glyph for another. EB Garamond is 95%, is a serif, and is
+    already in the single `@import` because the academy theme sets it, so it costs no new request and its
+    latin-ext subset is fetched only by a reader who meets one of these characters.
+    **IT IS ON THE THREE PINYIN RUNS AND NOT ON `.card`**, counted over the 11,532-note deck: 13,365 of the
+    carons are in the character breakdown (`.uc-ptp`), 3,709 in the reading (`.uc-pinyin`), 145 in the
+    measure word (`.uc-mwp`) — and **six in an English gloss**, all six the "chǔ — " reading printed at the
+    head of a two-reading word. Setting the whole card would catch those six at the price of restyling every
+    definition; they are left, and they are the one place this bug survives. **The site's own corpus has
+    zero** of these characters, so `--serif` and `.tr-pin` are deliberately untouched.
   · **AN IDIOM MOSTLY HAS NO EXAMPLE SENTENCE, and that is the subject rather than a gap**: of 5,227
     non-syllabus idioms only 361 appear in the Tatoeba corpus even once, an idiom being literary and the
     corpus conversational. What stands in for it is CC-CEDICT's own lit./fig. gloss and the character
@@ -3042,9 +3908,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   zoomed in** (crispest the data allows at deep zoom); settled renders are cached. (Crisper-than-z=6 deepest-zoom detail would
   need runtime tile streaming, which would break the offline-first design and is imperceptible at this opacity, so it's not done.)
   An older `elevation.js`/three-globe attempt was replaced.
-- `truefalse.js` (~34 KB) — `window.TRUEFALSE = [ { q, a, why, cat } ]`, the statement pool for the **True or False** home-page
-  minigame (79 historical myths/misconceptions + surprising truths; `a` is a boolean, `why` the explanation). Generated and
-  **adversarially fact-checked** for accuracy by a workflow (`q` statement, `a` true|false, `why` reality, `cat` category).
+- `truefalse.js` (~56 KB) — `window.TRUEFALSE = [ { q, a, why, cat } ]`, the statement pool for the **True or False** home-page
+  minigame (`a` is a boolean, `why` the explanation, `cat` the category). Generated and
+  **adversarially fact-checked** for accuracy (`q` statement, `a` true|false, `why` reality).
+  **CURRENTLY 130, AND IT IS NO LONGER A HISTORY POOL** (Aug 2026, on request: "add more possible questions.
+  They needn't only be about history, but any science"). It was 79 historical myths and misconceptions; the
+  51 added are physics, chemistry, astronomy, biology, earth science, mathematics and medicine, each written
+  to the same shape — a statement a general reader would confidently answer, and a `why` that says what is
+  actually the case. **The widening is a fact about the POOL and not about the game**, which never knew what
+  its statements were about: nothing in `PAGES.truefalse` changed. Two rules for adding more: a statement
+  must be settled rather than merely current (a guessing game cannot rest on a live scientific argument), and
+  a misconception is worth more than a fact nobody would doubt — the point of the game is the surprise.
+  **Not translated**; when translations resume they belong in `i18n/games-<lang>.js`, keyed by the English
+  `q`, never inline (the `quotes.js` mistake: 27 KB → 312 KB for every visitor).
 - `i18n/places-<lang>.js` — place names translated into one language (English name → local name): the
   countries in `world.js` plus the era territories and era capitals in `timeline.js`, **1,744 distinct names**.
   **Lazy** (bundle `placeI18n:<lang>`); the `after` hook `placeI18nIngest` drains `window.PLACE_I18N_IN` into
@@ -3073,10 +3949,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   inline took `quotes.js` from 27 KB to 312 KB downloaded by every visitor to flip a card. `PAGES.truefalse`
   and `PAGES.whosaid` hold on a loading line (`gamesI18nPending`) until it lands so they never paint English
   and flip. Both pools are complete in all 9.
-- `quotes.js` — `window.QUOTEGAME = [ { q, who, context } ]`, the pool for the **Who said it?** home-page minigame (64 famous,
+- `quotes.js` — `window.QUOTEGAME = [ { q, who, context, cat } ]`, the pool for the **Who said it?** home-page minigame (64 famous,
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
+  **`cat` IS REQUIRED ON A NEW ENTRY** (Aug 2026, on request): one of **philosophy / statecraft / science /
+  reform / letters**, and it is what makes the three wrong options the same KIND of speaker as the right one
+  (see the Picture round bullet under "How the app is wired" — the same request widened both games).
+  Add to the five rather than coining a sixth unless a real family is missing: a category holding two people
+  cannot supply three distractors and the game falls back to the whole pool, which is where it started.
 - `whatyear.js` (~14 KB) — `window.WHATYEAR = [ { y, e } ]`, the pool for the **What year?** minigame: a year
   (negative for BCE) and a ONE-SENTENCE description of something that happened in it. **Currently 98 events
   across 15 years**, 1066 to 1989, each verified against a reference source when it was written.
@@ -4096,8 +4977,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     what to take — the violet family's best lands 19 from the SONG OF ROLAND, and Don Quixote is
     written against the chivalric romance while Roland is this shelf's chanson de geste, which is the
     one pair a reader would read as a set.
+    **The Ramayana is the ELEVENTH licence needing no qualification at all** (Aug 2026), and its
+    interest is neither in the licence nor in what it ruled out but in **what it cost to establish
+    that the two columns could be set side by side at all.** Válmíki's poem is some two thousand
+    years old; Ralph T. H. Griffith published this translation in five volumes at London and Benares
+    between 1870 and 1874 while Principal of the Benares College — the date and the imprint read off
+    the volume's own title page, which the transcription reproduces, rather than recalled — and he
+    lived 1826–1906, so the English clears the pre-1929 rule, life plus seventy and life plus a
+    hundred alike. Goldman's Princeton translation (1984–2017), Shastri's (1952–59) and Sattar's
+    (1996) are named as the ones not to reach for; Griffith's appendix, which prints in Latin and
+    Italian the passages he would not English, his additional notes and his index are left behind as
+    the Republic's introduction and plates were.
+    **IT IS THE SECOND BOOK HERE FROM PROJECT GUTENBERG AND, LIKE THE FIRST, CHOSEN BY ELIMINATION.**
+    Wikisource's own Ramayana is the Plato-Jowett case at its plainest — 270 of the poem's cantos in
+    mainspace, Books IV and V entirely absent, and the scan-backed index behind it forty pages
+    proofread — and it was measured before anything else was tried. **One trap for anyone who comes
+    back to this**: a Project Gutenberg search for the Ramayana returns, above everything else, the
+    four volumes of the *Yoga-Vasishtha Maharamayana of Valmiki*, which is a philosophical dialogue
+    attributed to the same poet and is not the epic. It is the Avellaneda case on a different shelf.
+    **THE HARD QUESTION WAS THE PAIRING, AND IT IS THE PART WORTH READING** — a translation that
+    ships 493 cantos against its original's 645, three books whose totals disagree, and two places
+    where the editions genuinely divide the same words differently. See the `ramayana` entry in the
+    File map for the measurements, and `RAM_BOOKS` in `.claude/fetch-book.js` for the passages each
+    one rests on. Its `BOOK_AUTHOR_COLOR` row is the band at 37 colours, where nothing anywhere in it
+    clears 19.0 and the whole clear field is one violet-magenta family; the choice inside it was
+    CONTRAST, on the Cervantes row's precedent, and **the Euripides test is sharper here than
+    anywhere on the shelf** — this library holds the other Sanskrit epic, and the Bhagavad Gita is
+    part of it, so the one colour this must not be a near-miss of is Vyasa's. It stands 77 away.
     **The Satyricon states a LIMIT and it is the Odyssey's easy case underneath** (Aug 2026), which
-    puts it with the Song of Roland, the Gita and the two Homers rather than with the ten needing no
+    puts it with the Song of Roland, the Gita and the two Homers rather than with the eleven needing no
     qualification. Petronius died in 66 CE. Michael Heseltine published this translation in 1913 and
     lived 4 September 1886 – 13 March 1952, so it clears the pre-1929 rule and life-plus-seventy
     (2023) and **not life plus a hundred, which runs to 2053** — said outright rather than smoothed
@@ -4122,6 +5030,97 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     what it costs. Arrowsmith (1959), Sullivan (1965), Walsh (1996) and Ruden (2000) are named as the
     ones not to reach for, and with them **E. H. Warmington's 1969 revision of THIS translation**,
     which is the Loeb in shops today and which fills in exactly the passages Heseltine left.
+
+    **The Maxims of Ptahhotep states a LIMIT, and the interesting half is why it has no facing
+    Egyptian** (Aug 2026). The licence is the ordinary shape: the poem is around four thousand years
+    old and free everywhere on any reading; Battiscombe George Gunn published this translation in
+    John Murray's Wisdom of the East series in 1906 and lived 30 June 1883 – 27 February 1950 —
+    corroborated twice for the A. J. Wyatt reason, once from the transcription's own bibliographic
+    record and once from his biography, which independently gives the 1906 volume — so the English
+    clears the pre-1929 rule and cleared life plus seventy on 1 January 2021, and **has not cleared
+    life plus a hundred, which runs to 2051**, said outright rather than smoothed into the easier
+    sentence the ancient half can honestly use.
+    **WHAT IS WORTH CARRYING IS THAT THE ORIGINAL FAILS ON THE TRANSLATION'S SIDE, not on its own** —
+    the Republic's case at its plainest, and see the `books/<id>.<lang>.js` bullet for the
+    measurement. Everything about the Egyptian looks available and none of it matters, because Gunn
+    prints no reference to the papyrus anywhere.
+    **AND THE VOLUME HOLDS THREE WORKS, of which this is one.** Gunn translated the Instruction of
+    Ke'gemni and, in an appendix, the Instruction of Amenemhe'et; both are different works by other
+    hands and neither is here. His thirty-page introduction, his explanation of names and his
+    bibliography are left behind for the reason an editor's front matter always is; his footnotes on
+    the poem ARE taken, being notes on the text rather than matter around it. Lichtheim (1973),
+    Parkinson (1997) and Simpson are named as the ones not to reach for.
+
+    **Romance of the Three Kingdoms states a LIMIT, and its interest is that the LICENCE was the easy
+    half and the RECENSION was the hard one** (Aug 2026). The licence is the ordinary shape: the
+    novel is fourteenth-century, the text used on both sides is the recension Mao Lun and his son Mao
+    Zonggang published in 1679, and the only modern layer is C. H. Brewitt-Taylor's English, printed
+    at Shanghai in 1925 — read off the volumes' own title pages, which set "COPYRIGHT, 1925, BY C. H.
+    BREWITT-TAYLOR. First Printing, December, 1925" — so it is public domain in the United States on
+    the pre-1929 rule. He lived 11 December 1857 – 4 March 1938, corroborated at day precision on
+    Wikidata and independently on Wikisource's author page, so it cleared life plus seventy in 2009
+    and **has not cleared life plus a hundred, which runs to 2039**, said outright rather than
+    smoothed into the easier sentence.
+    **WHAT HAD TO BE ESTABLISHED FIRST IS WHICH TEXT EACH COLUMN IS**, because this novel has two
+    recensions that divide the story differently — the oldest surviving printing, of 1522, runs to
+    240 sections and the Maos' to 120 chapters — so a column taken from the wrong one could not be
+    paired at all, and the failure would be a book of 120 tabs facing 120 tabs of something else.
+    **The transcription answers it on its own front page** (此為毛綸、毛宗崗父子修改、批注後的版本,
+    with a link to the Jiajing text carried separately under another title), which is a better
+    answer than any measurement, and it was measured as well. **Ask what recension a text IS before
+    asking whether it pairs**; Journey to the West's entry says the same thing about a different
+    novel, and here the source volunteers it.
+    **THE OTHER FREE ENGLISH IS HALF A BOOK AND WAS REJECTED AT THE DOOR**: Project Gutenberg carries
+    Brewitt-Taylor as ebook 77416, which is volume 1 — chapters 1 to 60 — and volume 2 has never been
+    added, its author page listing the one book. Wikisource carries both volumes complete, proofread
+    against the scans, which is why the shelf's ordinary wiki path served here with no new reader at
+    all. Moss Roberts's complete translation of 1991, the abridgement he made of it in 1976 and Yu
+    Sumei's of 2014 are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the
+    band was widened for the third time and where, for the first time, the shelf could say WHICH of
+    its three axes was binding — see the note beside `"Luo Guanzhong"` in app.js: relaxing lightness
+    changes nothing in either direction, and only the chroma ceiling opens the field.
+
+    **The Consolation of Philosophy states a LIMIT ON EACH COLUMN, and the interesting half is that
+    it REFUSED a pairing that was free** (Aug 2026). The licence is the ordinary shape: Boethius was
+    executed around 524; H. R. James published this translation in London in 1897 and lived
+    1862–1931 — years given at year precision on Wikidata with four references behind them and
+    stated independently by Wikisource's own public-domain tag on this very translation, which is
+    the corroboration this file has insisted on since A. J. Wyatt's suspiciously round hundred — so
+    the English clears the pre-1929 rule and cleared life plus seventy in 2002 and has NOT cleared
+    life plus a hundred, which runs to 2032. The Latin is E. K. Rand's text of 1918, printed in a
+    Loeb volume JOINTLY with H. F. Stewart, and a joint work runs its term from the last of its
+    authors to die: Rand 1871–1945 and Stewart 1863–1948, both at day precision, so that column
+    cleared life plus seventy in 2019 and stays in copyright until 2049. Both columns therefore carry
+    a limit and the ORIGINAL's runs thirty years the longer, which is the Medea's position.
+    **WHAT MAKES IT WORTH READING IS THE ENGLISH THAT WAS TURNED DOWN.** That same 1918 volume
+    carries a complete English translation on its facing pages, and the transcription linearises the
+    two into one file — so taking BOTH columns from it would have paired them by construction, out
+    of one request, with no second source, no reconciliation and no second extractor: by a distance
+    the cleanest import this shelf has been offered. It is refused because that English is "I.T."'s
+    of 1609 revised by Stewart, and Jacobean English is what already ruled out Golding's Ovid,
+    Hobbes's Thucydides and Burnaby's Satyricon. *"While I ruminated these things with myself, and
+    determined to set forth my woful complaint in writing, methought I saw a woman stand above my
+    head"* against James's *"While I was thus mutely pondering within myself, and recording my
+    sorrowful complainings with my pen, it seemed to me that there appeared above my head a woman of
+    a countenance exceeding venerable."* **The cleanest text to import is not always the one worth
+    reading**, and the cost of refusing it was measured rather than assumed: all seventy-eight
+    sections are present in both Englishes and in the Latin, in the same order, and James tracks the
+    Latin's length section by section as closely as the Loeb's own version does, so nothing was given
+    up but the convenience. Only the poems and the prose are taken: James's preface, his life of
+    Boethius and his index of the verse interludes are left behind as the Republic's introduction and
+    plates were — but his SUMMARIES of the five books are not front matter and do ship, at the head
+    of the book each describes. From the Latin side the four theological tractates printed in the
+    same volume are different works by the same hand, and Symmachus's epigram, which the manuscripts
+    append after the last line, is not Boethius. Richard Green (1962), V. E. Watts (1969), P. G.
+    Walsh (1999), Joel Relihan (2001) and David Slavitt (2008) are named as the ones not to reach
+    for, and with them **S. J. Tester's 1973 revision of this very Loeb**, which is the volume in
+    shops today and is a separate copyrighted work. Its `BOOK_AUTHOR_COLOR` row is the band at forty
+    colours, where only TWO hue families still hold anything at all and **the better NUMBER was
+    refused for the third time on the shelf** — see the note beside `"Boethius"` in app.js, where a
+    scarlet separating by 21.1 loses to a very dark green separating by 18.2 because the scarlet is a
+    ninth colour in the red quarter at a lightness the quarter already occupies, while the green's
+    family is crowded in hue and empty here; the green also reads 9.80:1 on the tightest of the
+    eighteen light papers, the highest contrast of any swatch on this shelf.
 
     **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
     the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
@@ -4177,6 +5176,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     anywhere in it clears 19.7 where the shelf's own tightest pair is now 18.2, and the Euripides test
     picked the family — the best blue is 18.5 from Snorri Sturluson, which is both below that pair and a
     kinship claim between the two medieval vernacular poets on the shelf.
+
+    **The Ecclesiastical History is the SECOND book here whose ground is the PUBLICATION DATE and
+    nothing else** (Aug 2026), after the Gallic War, and the reason is the same shape: half the
+    byline cannot be found. Bede finished in 731 and died in 735, so the work is free everywhere on
+    any reading. A. M. Sellar's translation was published in London by George Bell and Sons in 1907 —
+    read off the volume's own title page — so its United States copyright has expired and anyone can
+    check that. What cannot be established is when she died: the title page gives "A. M. Sellar, Late
+    Vice-Principal of Lady Margaret Hall, Oxford" and nothing more, her own preface is unsigned, and
+    there is **no Wikidata entity, no Wikipedia article and no Wikisource author page** for her. So
+    no life-plus-seventy term is asserted, the ground stated is the publication date, and the gap is
+    named in `rights` and on the book's own first page rather than rounded up.
+    **THE CLEANER LICENCE WAS ATTACHED TO THE TEXT WITH NO NOTES, which is the Nicomachean Ethics'
+    trade in a third form.** Wikisource carries L. C. Jane's Temple Classics edition of 1910 — John
+    Stevens's translation of 1723 revised — complete, scan-backed, pairing with the Latin exactly as
+    this one does, and with **both** its names traceable (Stevens d. 1726; Jane 1879–1932, on
+    Wikidata with an author page). Measured over all five books it carries **zero reference marks**,
+    where Sellar's carries 1,081 with a new introduction and a life of Bede, made against Plummer's
+    critical text. On a book in which almost every name needs a note that is not a refinement, so the
+    apparatus won and a stated gap in the byline was the price. Neither English is the Jacobean prose
+    that ruled out Golding, Hobbes, Burnaby and I.T.: Sellar keeps the Old English titles ("with your
+    ealdormen and thegns" where Jane has "with your commanders and ministers") and Jane is the more
+    literal in places, so on the text alone there was little in it. **THE LATIN NAMES AN EDITION IT
+    DOES NOT PRINT** — see the `bede-history.la.js` entry for the measurement — so no editor is
+    asserted for that column either; every candidate is a century or more out of copyright.
+    Sherley-Price's Penguin (1955) and Colgrave and Mynors's Oxford Medieval Texts edition (1969),
+    which is the scholarly standard and prints the Latin facing it, are named as the ones not to
+    reach for. Its `BOOK_AUTHOR_COLOR` row is where **the band ran out of COLOURS rather than of
+    room** — see the note beside `"Bede"` in app.js: the seven best-separated swatches left anywhere
+    in it are greys at chroma 2–10 against a shelf whose own floor is 18, and re-running the search
+    with that floor applied tops out at 17.5, which is still above the shelf's own tightest pair (now
+    16.6, Aristotle against Ptahhotep — it was 18.2 when Malory was placed and has closed as books
+    were added). The Euripides test then decided between the top three rather than merely passing:
+    the runner-up lands 17 from the Poetic Edda, which is a Germanic-world kinship claim this must
+    not make, and the third sits at the very top of the chroma band.
+    **The Travels of Marco Polo is the TWELFTH licence needing no qualification at all** (Aug 2026),
+    and it is the plainest of the recent ones — which is worth saying because everything hard about
+    that book is elsewhere. Polo dictated it in 1298 and was dead by 1324; Yule published the
+    translation in 1871 and Cordier revised it for the third edition of 1903, so it is public domain
+    in the United States on the pre-1929 rule; and **a joint work's term runs from the LAST of its
+    authors to die**, which here is Cordier (Yule 1820–1889, Cordier 1849–1925), so it cleared life
+    plus seventy in 1995 and life plus a hundred at the start of 2026. Both pairs of dates were
+    looked up rather than recalled and each corroborated twice, the volume's own memoir giving
+    Yule's and Wikisource's author page giving Cordier's under a public-domain tag reading "died at
+    least 100 years ago". Latham (1958), Cliff (2015) and Kinoshita (2016) are named as the ones not
+    to reach for. **WHAT THE LICENCE DID NOT DECIDE IS WHETHER IT COULD HAVE A SECOND COLUMN**, and
+    for once the answer turns on the translation rather than on the original — see its File map entry
+    and the fifth answer recorded under `books/<id>.<lang>.js`. Its `BOOK_AUTHOR_COLOR` row is the
+    THIRD widening of the chroma ceiling and the first time the shelf's own band held nothing at all:
+    with 43 colours placed the best inside it clears 16.5 against a tightest pair of 16.6, so the
+    band's best would itself have become the tightest pair. Which axis binds was measured rather than
+    assumed, and it is Three Kingdoms' answer again — lightness relaxed either way returns a
+    byte-identical top eight, the chroma FLOOR reaches 17.4 and only near-greys scraping 4.53:1, and
+    only the chroma CEILING opens the field (71 → 85, 16.5 → 25.1).
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
@@ -4386,6 +5438,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     into `books/<id>.js` by hand (the next `fetch-book.js` run would destroy it); the licence half needs a
     live link and has always been built from those fields. A reader still in the front matter is told so on
     the shelf — "About this book", never "Letter 0".
+    **A BOOK WITH NO TRANSLATOR IS NOT A BOOK WITH A FIELD MISSING** (Aug 2026, adding Le Morte d'Arthur —
+    the first). Both places that named one had to grow a branch: the rights box, which said "This English
+    translation is by <b.translator>" and would have printed the word *undefined* in the one box on the site
+    that exists to state true things, and which now heads itself **"About this text"** and names the EDITION
+    instead — a heading calling something a translation being the same claim one line further up; and
+    `PAGES.book`'s **byline**, which ran off the end of the page reading "· translated by" with nothing after
+    it. **The byline was found by LOOKING at the page and by nothing else** — no test on the shelf could have
+    seen it, and it was on screen within a second of opening the book. The importer needed the same branch in
+    two more places (its run header and the generated file's own comment), which is four in all: reach for
+    `b.translator ? … : …` wherever a book's provenance is worded.
     **AN ADMIN EDITS THE ESSAY IN PLACE** (`bookIntroMerged` / `setBookIntroEdit` / `ADMIN_EDITS.bookIntros`
     / `wireIntroEdit` / `.bk-intro-essay`, Aug 2026, on request). Same gesture and the same finish paths as
     the About page's prose (see PAGES.mission) — click, Esc cancels, Ctrl+Enter or clicking away saves — and
@@ -5015,6 +6077,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE SECOND CHANNEL is the daily sweep** (`maybeSweepChest`, called from `markGamePlayed`): all six
     games won in one day, once a day. `S.sweepChest` records the DAY rather than a boolean — a flag would
     need clearing at midnight by something, and nothing runs at midnight.
+  · **THE THIRD IS THE STREAK, EVERY SEVENTH DAY** (`maybeStreakChest` / `STREAK_CHEST_EVERY` (7) /
+    `S.streakChest` / `streakChestProgress` / `streakChestHTML`, Aug 2026, on request). A seven-day run buys
+    a chest, and so does every week after it. **`S.streakChest` is the streak length last PAID, not a day or
+    a count of chests**, and that is the whole of the design: `bumpStreak` is what advances the streak, so
+    the test is simply "has this length crossed a multiple of seven that has not been paid yet", which
+    grants at 7, 14, 21 … and can never grant twice for one day however often `save()` runs. A broken streak
+    resets it to 0 with the streak, so the next week starts over — and a reader whose streak was already
+    long when this shipped is paid at their next multiple of seven rather than seven times at once, since
+    the field back-fills at 0 and the grant loop is capped at one chest per call.
+    **THE PROGRESS IS ON THE ACCOUNT PAGE, UNDER THE STAT TILES** (`streakChestHTML` / `.streak-chest`) —
+    beside the streak figure it counts from, since that tile says how long the run is and this says what the
+    run is worth, which are two halves of one fact and read badly a section apart. **Seven pips rather than
+    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. It takes a `prog`
+    like every other figure in that section, so a friend's would render correctly — **nothing calls it that
+    way today**, and that is a gap rather than a decision.
+    **THE TWO CALLERS GATE IT DIFFERENTLY, ON PURPOSE.** On your OWN record it is always drawn, and at a
+    streak of 0 it says what a streak is worth rather than showing a bare "0 of 7" — an explanation on the
+    one page where the reader is studying their own record. On the SIGNED-OUT page it is drawn only once a
+    streak exists, which is the Reliquary's gate directly beside it: everything on that page is a courtesy
+    over a sign-in wall, and a section with nothing in it is one more thing between a first visitor and the
+    form. **A guest sees it at all** for the Reliquary's reason too — a streak is built and its chests
+    earned entirely on this device, so walling the progress off would hide the thing being worked towards.
   · **THE SHOWCASE is four** (`SHOWCASE_MAX`, `S.showcase`), pinned from an artefact's own window and shown
     at the top of the profile — your own and a friend's, since being seen is the whole point of it.
     `showcaseIds` filters on the way OUT rather than on the way in: an artefact retired from the pool since
@@ -5167,6 +6251,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     card's first grade, so a Card of the day or a deck tapped into directly silently ate the review's allowance and an
     undo did not give it back. The decks' counts were derived all along; the banner above them was not, and the two
     drifted apart. `S.intro` is still written and still rides in the synced blob; nothing reads it for a limit.
+  · **STUDYING AHEAD IS THE ENTRY'S PILE, ORDERED, AND WARMED** (the `queue.length === 0` branch in
+    `PAGES.study`; Aug 2026, on a bug report: "when I keep studying beyond the daily limit it stops showing
+    both directions and becomes one directional again", and "it shows in the top right how many cards are
+    remaining in that entire collection instead of that specific subdeck"). **Both symptoms were one fault**,
+    and a third and worse one was underneath.
+    The ahead pile was built from `subtreeCardIds(sd)` / `uDeckStudyIds(ud.cardIds)` — the whole tree and the
+    whole deck — where every other queue in the session is `studyOrder(entry, entryCardIds(entry))`. So it
+    reached past the subdeck or direction actually being studied (the count, which is `remainingCounts()`
+    over the queue and so was never a second bug), and it skipped `studyOrder`, which is what interleaves the
+    subdecks and what pulls a note's two cards together under "both directions together" — the raw expansion
+    is TEMPLATE-MAJOR, so the pile was every forward card before any reverse. Reproduced exactly: a subdeck of
+    6 offered "Study 14 ahead" and dealt `2f 3f 4f 5f 6f 7f`. It takes the same `availStudy` and `isBuried`
+    filters as `buildSession`'s two branches, and the placard quotes **this entry's** allowance rather than
+    the global default.
+    **AND THE PILE IS WARMED BEFORE IT IS DEALT**, which is the one a reader would report first and which
+    predates the rest: a community deck's cards are loaded per note when needed, the session warms its own
+    queue behind a `.data-loading` line, and this pile is assembled AFTER that — so every card in it was a
+    stub and **rendered BLANK, with a working grade bar under it**. Nothing threw and every count was right.
+    Found by the test written for the scope fix, not by looking.
   · **A deck's row wears its COLLECTION's hue**, not the review's bronze (Aug 2026, on request): `rowHue` in
     `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
     Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
@@ -5309,6 +6412,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `render()` closes that sheet, so repainting the ordinary way would dismiss the very control the reader is
     using to compare two colours. Both registers are in `defaultState`, `PROGRESS_FIELDS` **and
     `RESET_KEEPS`** — a group is how the reader has arranged the decks `active` already keeps.
+    **AND SINCE AUG 2026, ON REQUEST, EVERY ROW IN THE LIST IS OFFERED A COLOUR — INCLUDING THE BANNER**
+    (`containerHasChildren` / `reviewHue`). It was offered on a container alone (a group, an added
+    collection, the whole-deck row of an imported deck) and the gate is **gone**: a subdeck, a curated deck
+    inside a collection and the daily study banner itself all take one now. **Almost nothing had to change,
+    and that is the thing to know before reaching further in** — `emit` and `repaintReviewHues` already read
+    `groupColor(id)` for any row whatever, and `S.deckGroups` has always been keyed by ENTRY ID rather than
+    by group, so every row was colourable in every respect except being asked. `isContainerEntry` is
+    **deleted**, not left unreachable; `containerHasChildren` survives only to word the row's own note,
+    since "every deck inside" is a promise a deck with no subdecks cannot keep.
+    **THE BANNER IS `REVIEW_ENTRY`, WHICH IS WHAT MAKES IT FREE**: the pooled review has been an entry with
+    a sheet of its own since the per-deck limits landed, so it stores its colour in the same register as
+    everything else. `reviewHue()` is `groupColor(REVIEW_ENTRY) || dayHue()` — a chosen colour wins and, with
+    none chosen, the **day hue still turns over every morning**, which is the behaviour a reader who never
+    opens that sheet keeps. It is set inline on the banner element by the two markup sites AND by
+    `repaintReviewHues`, which must reach `#b-review` explicitly: the banner is not a `.active-deck` row, so
+    the sweep over those rows cannot see it and the swatch would answer for every deck but the one whose
+    sheet it was opened from.
+    **A COMMUNITY DECK MAY ALSO SHIP WITH A COLOUR ITS AUTHOR CHOSE** (`deck.color` / `uDeckSetColor` /
+    `uDeckColorOf`, same request; the Studio's Deck details). It is the deck's DEFAULT, not the reader's
+    choice: `emit` reads `groupColor(id) || hue || uDeckColorOf(id)`, so a colour set on the row always wins
+    and a fresh install simply arrives wearing the author's. It rides in `UDECK_META_KEYS`, so the export
+    file, the import and the fork carry it with no plumbing of its own, and `uDeckSanitizeMeta` holds it to
+    a six-digit hex — a colour from a stranger's file is set as a custom property and read by the stylesheet,
+    so anything else is a value the page would have to make sense of.
+    **PUBLISHING IT NEEDS SECTION 11 OF THE SCHEMA AND DOES NOT WAIT FOR IT** (`colorColumnMissing` /
+    `colorColumnMsg`). `user_decks.color` is one `alter table … add column if not exists`, and until it is
+    run PostgREST answers PGRST204 — so `uDeckPublish` **retries once without the colour** and returns a
+    `warn` the Studio toasts, which is the card-types column's own pattern (an ADMIN gets a different
+    sentence naming the block to run, being the one person who can clear it). A deck therefore publishes
+    from an un-migrated database and simply arrives in the generic indigo.
+  · **A × IN THE TOP RIGHT OF EVERY SHEET** (`.dm-x`, Aug 2026, on request). Escape and a backdrop tap both
+    closed it already and neither says so: Escape is a key a phone has not got, and "tap outside" is a
+    convention a reader has to know in advance. Three decisions.
+    **IT IS BUILT BY `deckSheet` RATHER THAN BY EACH CALLER**, so the options menu, Custom study, Daily
+    limits, Scheduling, Card info and the flag picker all have one — and a sheet added later cannot ship
+    without it, which is the same argument the shared shell already wins on Escape and the exit animation.
+    **STICKY, AND FIRST IN THE DOM.** Sticky because `.ds-sheet` scrolls its whole box, where an absolute ×
+    would scroll off the top; first in the DOM so a screen reader meets "Close" on the way in rather than
+    after forty rows of card history. Its own height is cancelled with a negative bottom margin so it costs
+    the head no room, and `.dm-head` carries the right padding that keeps a long title and the studied count
+    clear of it — asserted as a box OVERLAP rather than as "right of the head", which is false by
+    construction since the head spans the whole box.
+    **AND IT IS SKIPPED WHEN THE INITIAL FOCUS IS CHOSEN**, or every sheet would open with the ring on the
+    way out. That is the one line a later tidy-up is likeliest to undo, and it is asserted.
   · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
     bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
     dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
@@ -7501,6 +8648,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     derived, so new content silently changes what the game can build.
   · **A term needs ≥2 tags to enter the pool.** One with a single tag can be a red herring for nothing, and a
     grid of those is four obvious rows.
+  · **…AND, SINCE AUG 2026 ON REQUEST, IT MUST BE A CARD'S ANSWER TERM RATED 1 OR 2** (`threadEasyKeys` —
+    "it's currently too challenging"). The glossary is 836 terms and most of them are specialist, so a grid
+    could ask a reader to group four words they had never met — which is a vocabulary test rather than a
+    categorisation puzzle. `card.difficulty` is the rating that already exists for exactly this question and
+    the pairing rule already gives every card's answer a term, so the pool is those answers resolved through
+    `glossIndexFor("site")`'s **`byAnySurface`** (an answer is often the plural of its key) at or below
+    `GAME_MAX_DIFFICULTY` — the same bar the other card-fed games draw under, read from the same constant.
+    **THE RESTRICTION NEARLY BROKE THE GENERATOR AND THE FIX IS THE FINDING.** The pool falls from ~680 terms
+    to ~90, so the four groups have far fewer tags to choose from: measured over 730 days, **271 of them
+    produced no puzzle at all** — a blank page, silently, on more than a third of days. Two changes together
+    took it to **0 blank days and 726 of 730 distinct grids**: `THREAD_GROUP_MIN`, the number of terms a tag
+    needs before it can be a group, came down from 6 to **5** (measured at 6, 5 and 4 — 4 admits tags with no
+    slack at all, and 5 is where the category count stops falling), and `dailyThreadPuzzle` **retries the
+    seeded shuffle up to `THREAD_TRIES` (40) times** rather than giving up on the first arrangement that will
+    not seat four disjoint groups. **A generator that works on a large pool can fail on a third of days when
+    the pool is narrowed, and nothing on the page says so.** `test-minigames.js` guards the starved case on
+    TODAY's grid (see its entry under Testing — and note that a 730-day sweep of this game is deliberately
+    not committed, the resolution being the thing under test); the sweep quoted above was run against a
+    browser page while the restriction was tuned, and is the check to repeat by hand after a change to the
+    pool or a batch of glossary terms.
   · **Both the groups AND the grid order are date-seeded** (`hashStr`/`mulberry32`/`seededShuffle`, as the
     other games seed their rounds), so a reload cannot reshuffle a puzzle the reader is half way through.
     Shuffle is the reader's own control and is deliberately unseeded.
@@ -7557,6 +8724,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     over — but it says outright that red is erasable, which the old check (whose red squares were the
     final verdict, filled in and locked) had taught a reader it was not. It appears only while there is
     something red to clear, and touches nothing else.
+  · **A SOLVED SQUARE IS OUT OF THE TYPING PATH ENTIRELY, AND THE CARET JUMPS ON** (`xwLocked` / `nextOpen`,
+    Aug 2026, on request). Locking a square stopped it being TYPED into and left it a tab stop the caret
+    still walked through, so filling a crossing word meant stepping over letters already earned; and
+    finishing an entry left the caret sitting on its last square, so the reader picked the next clue by
+    hand every time. **One predicate answers both** — `xwLocked(r,c)` is consulted by `step`, by `go`, by
+    `focusEntry` and by a `focusin` redirect (a CLICK is the one path no movement rule can intercept), so a
+    fifth way of reaching a square added later is covered by the same rule rather than by a fifth copy of
+    it; a locked cell also gets `tabIndex = -1`, which is what takes it out of the keyboard order as well as
+    out of the arrows. Completing an entry then calls `nextOpen`, which finds the next entry still holding
+    an unsolved square **and wraps**, so the last clue on the board leads back to the first rather than
+    stopping dead.
+  · **AND A GIVE-UP BUTTON REVEALS THE ANSWERS, WHICH HAD TO BE RECORDED** (`xwGaveUpToday` / `xwMarkGaveUp`,
+    same request). The letters go into the very store the grid is restored from, so a revealed board reads
+    back on the next visit as a board somebody filled in — a perfect score, a gold tile and a lifetime win.
+    The flag therefore lives in the day-stamped record beside the letters, `markGamePlayed` is called with
+    the score as it stood, and `PAGES.crossword` turns the day away at the top with a placard rather than
+    letting a solved-looking grid be reopened. **A reveal is not a score, and nothing but a flag can tell
+    the two apart afterwards.**
   · The layout is the ordinary greedy crossing search under a seeded RNG, best of `XW_TRIES` word orders,
     scored on **most words placed and then tightest bounding box** — a grid that crosses once per word
     strings out into a chain, which is a word list rather than a crossword. Its adjacency rule (an empty
@@ -7591,6 +8776,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     three before a choice is made.
   · The decoys are other real subjects from the same pool, which is Who said it?'s rule: three plausible
     wrong answers teach something, three obvious ones teach nothing.
+  · **…AND SINCE AUG 2026, ON REQUEST, THEY ARE RANKED BY KINSHIP RATHER THAN DRAWN AT RANDOM** ("ensure the
+    answers are as much as possible of the same categories, like in multiple choice, so increase the
+    difficulty"). Multiple Choice has scored its distractors on shared tags since the card-tags pass, and
+    that scorer is now `tagKinship(ta, tb)`, lifted out of `cardKinship` so both games read one
+    implementation — the kind is worth four subject areas, and the score is capped when the kinds differ.
+    A picture therefore carries its subject's TAGS into the pool (`picturePool`'s `add(…, tags)`, from
+    `GLOSSARY_TAGS` for a term and `card.tags` for a card) and the three decoys are the closest three, so a
+    stone industry is answered against three stone industries rather than against a cave, an ice age and a
+    fossil. An artefact has no tags and simply scores 0 against everything, which is the honest fallback:
+    it is answered as it always was.
+    **WHO SAID IT? TAKES THE SAME RULE ON ITS OWN AXIS** (`buildWhoSaidRounds`, same request), which is a
+    `cat` field added to all 64 entries in `quotes.js` — five families (philosophy, statecraft, science,
+    reform, letters). A speaker is not a card and has no tags, so kinship there is simply the category, and
+    the round prefers three speakers of the same one before falling back to the rest of the pool. **The
+    categories are read off the RAW `window.QUOTEGAME`**, not off the localised copy: `quoteLocalized` may
+    return a translated entry with no `cat` on it, so keying on the localised object would silently drop
+    every round back to a random draw the day translations resume.
   · **`mediaCreditHTML` is shared with the fullscreen viewer** rather than copied, or the two would come to
     disagree about whether a credit is a link. A dead `src` marks its frame (`.pic-dead`) instead of asking
     the reader to name an empty box — a certainty rather than an edge case, there being no upload path.
@@ -7660,7 +8862,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_ICON` — a collection with no row there falls through
   to a stack-of-cards mark, which is honest but says nothing about the subject).
-- **Library layout (`PAGES.decks`)**: "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
+- **Collections layout (`PAGES.decks`)** — three sections down the page: **Collections**, then **Your decks**
+  (the reader's own, and the way into the Studio), then **Shared decks** (Aug 2026, on request — the browse
+  list that used to be `PAGES.community`, a page of its own; see the Phase 2 Pages bullet for the route, the
+  redirect and the sortable table). The order is the point: your own shelf first, strangers' below it, one page.
+  "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
@@ -7923,7 +9129,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Guarded by `test-layout.js`, which asserts there is no `input[type=color]` left anywhere in the panel.
   · **Controls under the ink stay usable** (the `CTL_SEL` / `controlUnder` / `passCtl` block in
     `setupWhiteboard`, Aug 2026, on request). The canvas covers the whole visible page, so with the pen down
-    it also covered Show answer and everything else on the card. **A z-index cannot fix this**: `.page` and
+    it also covered Reveal answer and everything else on the card. **A z-index cannot fix this**: `.page` and
     `.cardwrap` both animate with a fill mode, and a filling animation is a stacking context, so nothing
     inside them can paint above a sibling of the stage. Instead the canvas hit-tests underneath itself on
     pointerdown (`pointerEvents:none` → `elementFromPoint` → restore) and hands the press to any real control
@@ -7948,6 +9154,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     needs none. In STYLUS mode a finger never draws, so there the term is simply one more thing
     `passCtl` can hold — and the pointerup test had to become `(controlUnder(e) || tipUnder(e)) === ctl`,
     since `controlUnder` alone can never match a `.ttip` and would have dropped every one of those taps.
+    **`.uc-tts` JOINED IT IN AUG 2026, ON REQUEST** ("while the whiteboard marker is selected, all buttons
+    are still clickable, including the tts button on user imported/shared cards"). A community deck's
+    read-aloud control is a `<span class="uc-tts" role="button">` **inside the card's prose**, so it is not
+    a real control and `CTL_SEL` cannot see it — and it must NOT be fixed by widening `CTL_SEL` to
+    `[role="button"]`, which is the bullet above's own warning: a card's picture is a `role="button"` figure
+    and half a background would stop taking ink. As a `TIP_SEL` target it takes the glossary term's rule
+    instead — a tap presses it, a drag through it draws — which is the right answer for a control sitting in
+    the middle of the words being annotated.
   · **A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING** (`WB.stylusSeen` / `WB.penOnly` /
     `wbPenOnly()` / `wbNoteStylus` / `wbApplyStylusMode` / `.draw-canvas.wb-pen-only`, Aug 2026, on request —
     Anki's behaviour). With the marker down the canvas covers the whole visible page, so on a tablet a
@@ -8346,6 +9560,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a floor derived from that collapses as the drag approaches it: the first version bottomed out at the hard 56px
   and the title scrolled out of the sheet it was meant to be the floor of. Offsets are layout values and do not
   move.
+  **AND ON A PHONE IT NOW OPENS SHUT — THE NAME AND A CHEVRON, NOTHING ELSE** (`cpShut` / `cpSetShut` /
+  `cpSyncMore` / `#cpMore` / `.cp-shut`, Aug 2026, on request: "the popup panel at the bottom should only
+  open far enough to reveal the name of the state, but have a chevron that can reveal the information
+  sections, which should always be collapsed by default"). Tapping a country on a 390px screen used to
+  raise a sheet over half the map — the map being the thing just tapped — before the reader had asked for
+  anything but the name. **The shut height IS `cpMinH()`**, the floor the drag already measured, so there
+  is one definition of "the title bar alone" and the chevron and the grip cannot come to disagree about it.
+  Three things follow. **It is reset to shut on EVERY populate**, before `cpApplyH`, since the element is
+  reused and a reader who opened one country's sections has said nothing about the next. **The reader's own
+  dragged height is kept rather than overwritten** — the chevron opens to it, exactly as the swipe-to-a-
+  shorter-page fit does. And **starting a drag clears the shut state**, or dragging the grip upward would
+  fight a rule that keeps pulling the sheet back to its floor. The chevron is `display:none` above 720px,
+  where the panel is a column beside the globe and covers nothing; that base rule must sit BEFORE the
+  ≤720px block, media queries adding no specificity.
   The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
@@ -8669,18 +9897,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`. **`srev` and `fmt` never leave it
     either**, and for a stronger reason: they are the store's own bookkeeping, and a file carrying them
     would be claiming to have been cleaned by a sanitizer it has never met.
-  · **Pages** — `PAGES.community` (`#community`: search, sort and a LIST) and `PAGES.deck` (`#deck/<slug>`, a
+  · **Pages** — the shared decks are a SECTION AT THE FOOT OF THE COLLECTIONS PAGE (`sharedDecksHTML` /
+    `wireSharedDecks` inside `PAGES.decks`, below "Your decks"), and `PAGES.deck` (`#deck/<slug>`, a
     shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
     deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
     copy is never trusted just because it came from our own API.
-    **THE SHELF IS A LIST, NOT A GRID OF TILES** (`deckRowHTML` / `.cdeck-list`, Aug 2026, on request; the
-    old `deckCardHTML` / `.cdeck-grid` are gone). A tile gives every deck the same area whatever it has to
-    say, so a title, a subtitle, a rating and three figures were stacked into a card the width of a phrase
-    and two decks differing in the fourth word of their titles looked identical. A row lets the title run at
-    full width and puts the rating in a column that lines up down the list, which is what a reader scanning
-    twenty decks is doing; below 560px the rating drops under the title rather than squeezing it, the title
-    being the one part with no shorter form. The whole row is the button, so the row IS the way to the
-    deck's page — which is what the tile already was.
+    **`PAGES.community` IS GONE, AND `#community` REDIRECTS** (Aug 2026, on request). It was a page of its
+    own reached from the collections page, which put a reader one navigation away from the shelf they were
+    already looking at — so the browse list moved to the bottom of that page, under the reader's own decks,
+    where the two kinds of deck read as one shelf. The route is **deleted from `valid`** and both hash
+    readers (boot's `initName` and the `hashchange` handler) map `community` → `decks`, so **every link ever
+    shared still lands somewhere sensible**; the redirect is deliberately NOT a `PAGES.community` that calls
+    `route("decks")`, which would re-enter `render()` from inside a render.
+    **THE TWO READERS HAD TO BE MADE TO AGREE ABOUT THE ADDRESS BAR, and only a test noticed.** The
+    hashchange path goes through `route`, which rewrites the hash; boot renders DIRECTLY, so a reader
+    following an old link cold got the right page under a URL still naming the dead route — which they
+    would then re-share, and return to on every Back. Boot now corrects it with **`history.replaceState`**:
+    assigning `location.hash` would fire a hashchange and re-render the page being rendered, and would
+    leave the dead route in the history for Back to land on. **A redirect is not finished when the right
+    page appears** — `test-publish.js` asserts both readers for exactly this reason, and the cold-load half
+    is the one that failed.
+    **TO TEST THE BOOT READER, DIFFER THE QUERY, NOT THE FRAGMENT** — `goto` to a URL differing only in the
+    hash is a same-document navigation, so boot never runs, and the obvious hop through `about:blank` is
+    worse than useless: that origin is opaque, the harness's own init script runs there and dies reading
+    localStorage, and the SecurityError then fails the end-of-run "no page errors" watcher for the whole
+    file. `?coldboot=1#community` is a real load and the app ignores unknown query parameters. Note that
+    `replaceState` keeps `location.search`, which is right — dropping a reader's query string would be a
+    second bug.
+    **IT IS A SORTABLE TABLE, NOT BANNERS** (`COMMUNITY_COLS` / `communityCol` / `sharedTh` /
+    `sharedRowsHTML` / `.sd-table`, same request; the old `deckRowHTML` / `.cdeck-list` are gone, as the
+    `.cdeck-grid` tiles were before them). Deck, author, rating, cards, installs, updated — each a column
+    with a header that sorts, which is what a reader comparing twenty strangers' decks is actually doing.
+    Three things are load-bearing. **The sort key is whitelisted through `communityCol`**, because it goes
+    into PostgREST's `order=` and a key taken from the page would be an injection point. **The state is
+    module-level (`communityState`) rather than in `S`** — it is a way of looking at a list, the glossary
+    record's call — so it survives navigating away and back within a session and resets on reload. And
+    **below 640px the author, installs and updated columns go** rather than being squeezed: at 390px the
+    deck's title is the only part of a row with no shorter form.
     **AND THE DECK'S PAGE IS WHERE EVERYTHING ABOUT IT IS** (same request). Four things were named and three
     of them were already there — its information, the author's own description (the Studio's `desc`,
     published as `description`), and other people's comments (see the ratings bullet: a comment is a rating
@@ -8925,12 +10178,90 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reverse-cards bullet): what it buys is one record per word — a definition corrected once rather than
     twice, with no chance of the two drifting — and each direction still keeps a schedule of its own. A
     subdeck's count already includes both, which is why the HSK 3.0 deck reads 23,064 cards over 11,532
-    words.
+    words. **That stands, and the level BELOW the subdeck is what answers the request** — next bullet.
+- **Community decks — A DIRECTION IS A LEVEL BELOW THE SUBDECK** (`SUB_TPL` / `uTplEntry` / `uTplOf` /
+  `uEntryTemplates` / `uTplEntriesOf` / `uTplName` / `uPruneTplEntries`; Aug 2026, on request: "add
+  direction as a subdeck"). An entry id may end `#<0-based template>` and deals only that template's cards,
+  so a two-way deck lists each direction as a row of its own to add, hold and study. The thing `sub` could
+  not name, the TEMPLATE already does — it is what makes the two cards two cards — so the answer was a new
+  LEVEL rather than a new field.
+  · **IT COSTS THE DECK FILE NOTHING, which is the whole argument for doing it here.** The templates are in
+    the type already, named by their author, so every two-way deck ever written or installed gains its
+    direction rows on the next load with nothing rewritten, nothing republished and no card duplicated.
+    The alternative is what the **DELE Spanish decks** do — direction written into the file as a real
+    `sub`, `Spanish → English` / `English → Spanish` — which is two notes per word (992 for ~500), and a
+    definition corrected on one of them silently drifts from the other. Both shapes now work; this is the
+    one that does not double the file.
+  · **`#` IS SAFE AS A RAW SEPARATOR AND `~` WOULD NOT HAVE BEEN.** `uSubEntry` percent-encodes the whole
+    path and `encodeURIComponent` escapes `#` to `%23` while leaving `~` alone — so a subdeck titled "C#"
+    cannot forge a template suffix and one titled "A~B" would have. `uDeckIdOf` cuts at whichever of `/`
+    and `#` comes first; neither can occur in a deck id (`[a-z0-9]{4,16}`).
+  · **A DIRECTION ROW IS DRAWN ONLY WHERE THE CARDS ACTUALLY ARE** (`uEntryTemplates`). A container that
+    merely groups — the deck above nine levels — gets its directions from its children, and a second pair
+    over the whole deck would offer the same cards again under a name saying nothing new. The test is
+    structural rather than a flag: a level earns the rows when every note it studies is filed **directly**
+    in it, which is also why a FLAT two-way deck gets them straight under the deck row. A level whose notes
+    use more than one type gets none, and a CLOZE type gets none either — its `typeCards` is one template
+    however many deletions a note carries.
+  · **THE NARROWING IS A FILTER OVER THE CACHED EXPANSION, never a second one.** `uDeckStudyIdsFor` is
+    memoised by (deck, subdeck); a direction takes `uCardTplIndex(id) === tpl` off that list, so nothing is
+    keyed on something a template edit can change under it. `buildSession`'s udeck branch asks
+    `entryCardIds` rather than expanding again, so a row, its sheet and the session it starts cannot come
+    to disagree.
+  · **ADD NARROW, REMOVE WIDE.** A subdeck holds cards nothing else in the subtree holds, so the cascade
+    must bring it; a direction holds a **subset of its own parent's**, so adding it too would surface
+    reverses in the pooled draw from the first day — where a level's own template-major list deals every
+    forward card first. Choosing a direction is what makes choosing one mean anything. Removing goes the
+    other way: a direction the reader chose still goes when its level goes, or it would be a row in the
+    review with nothing above it. **And a direction is removed ALONE** — the one place the ancestor rule is
+    turned off, since the level legitimately keeps offering both ways.
+  · **`cardEntryId` resolves the DIRECTION first**, then the subdeck path upward, then the deck: a reader
+    who set FSRS or a daily limit on "English → Chinese" meant it for that direction's cards.
+- **Community decks — BOTH DIRECTIONS TOGETHER, the GATHER order** (`deckPairNew` / `setDeckPairNew` /
+  `pairOrder`; Aug 2026, on request: "I want them interleaved"). Default OFF, which is what `uDeckStudyIds`
+  has always done: the expansion is TEMPLATE-MAJOR, so the day's new cards come off the front of a list
+  that is every note's first card before any note's second — all forward, with the reverses waiting for the
+  whole forward pass. **At five a day on a 150-word deck that is thirty days before the first reverse**,
+  right for a reader learning to RECOGNISE words and wrong for one who wants to PRODUCE them. ON, the day's
+  new cards are the day's new WORDS, each way.
+  · **IT IS A REORDER, NOT A SECOND EXPANSION**, which is what keeps the cache honest: `pairOrder` regroups
+    the template-major list by NOTE inside **`studyOrder`**, beside the subdeck round robin, and the two
+    compose — the robin decides which subdeck a card comes from and this pulls each word's cards together
+    within that (a `Map` iterates in first-appearance order, so the robin's order survives).
+  · **IT SHUFFLES ITS OWN NEW RUN, and that is not a second setting hiding in this one.** Note-major
+    unshuffled deals 杯子 → cup then cup → 杯子 adjacently, which is exactly the "teaches the answer rather
+    than testing it" that template-major exists to prevent. **The slice comes first and the shuffle after**,
+    so pairing decides WHICH words arrive and the shuffle only their order; shuffling first would make the
+    day's cards a random handful of the whole deck. The pooled review `seededShuffle`s its pool across decks
+    already, so `buildSession` is the one place that has to do it, and the Random-order switch beside it
+    still governs the WHOLE queue, reviews included.
+  · **BURYING IS DERIVED OFF, never a second switch to remember.** The two are opposite intents: pairing
+    gathers the reverse and burying takes it straight back out, leaving a session half the size it promised
+    — measurably, since `doGrade` filters the live queue. So `deckBurySiblings` returns false while pairing
+    is on, and the bury row is **dimmed in place with a reason** (the Night-mode row's pattern under "Match
+    my device"), still pressable, and saying why. `syncBury` re-states it when pairing is thrown, because
+    the sheet must not repaint — `render()` closes it.
+  · **IT INHERITS DOWN THE PATH, unlike the daily limits beside it.** A limit is a fact about one row and
+    must not leak; this is a policy about how a deck's material is organised, so setting it on the deck
+    governs its levels — which is what a reader setting it on the deck plainly means, and the levels are
+    what the cascade actually adds.
+  · **THE ALLOWANCE IS IN CARDS, as it always was and as Anki's is**: six new a day is three words both
+    ways, not six words. A reader wanting five words both ways raises the limit to ten.
   · Guarded by `.claude/test-subdecks.js` (18 assertions), which builds its own partly-grouped deck rather
     than reading the shipped ones. **The failure mode is silent** — the list is derived on every read, so a
     `sub` dropped anywhere along the way just drops that card back into the parent deck and everything still
     works — which is why the assertions follow one card's `sub` through ingest, the row list, the review and
-    the session rather than testing any one of them.
+    the session rather than testing any one of them. **The nesting, the DIRECTION rows and the pairing
+    switch are guarded by `.claude/decks/check-nesting.js`** (28 assertions, a tree built in memory): its
+    fifth section asserts the six rows a two-level two-way deck draws, that the deck itself gets none, that
+    adding the deck brings the levels and **not** the directions while removing it takes a chosen one with
+    it, and that studying a direction deals only cards carrying `~2`; its sixth covers the pairing switch —
+    the default all-forward gather, the note-major one, the shuffle, and that grading one direction does
+    NOT bury the other. Its seeding is the house gotcha written down: a `goto` differing only in the
+    `#fragment` is a same-document navigation, so localStorage written behind the app's back needs a real
+    `reload()` or the next `save()` puts the in-memory state straight back over it. **`check-decks.js` is
+    the other half**, since it studies the shipped decks through the pooled review, which is where a
+    cascade that is too wide shows up as reverses on the first day.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
@@ -9016,6 +10347,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     thing a reader pressing it is after. Guarded in `.claude/test-speak.js`, whose third fixture deck exists
     only for this: the failure is silent, because a dropped attribute leaves a control that still works and
     simply pronounces the wrong string.
+    **THAT FILE ALSO PINS THE CONTROL UNDER THE MARKER** (Aug 2026, on request — see the `TIP_SEL` bullet):
+    with the pen down a tap must still press it and a drag through it must still draw, and the two are
+    asserted together because either alone passes on the rule having been dropped in the other direction.
+    It is driven with **real mouse input**, not `el.click()`, which would bypass the very hit-test under
+    test — the whole question is what a POINTER landing on that spot does while a canvas is over it.
   · **CLOZE DELETIONS — `{{c1::answer}}` / `{{c1::answer::hint}}`** (`clozeMark` / `CLOZE_RX` /
     `CLOZE_NAME_RX` / `.uc-cloze`). Anki's syntax, because a learner who has written cloze cards before will
     type it without being told. **The braces go in the CARD'S TEXT, not in the template** — a substituted
@@ -9130,6 +10466,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attribute either accepts. **A CSS ESCAPE CANNOT BE USED TO DRAW ITS MARKER**: `sanitizeCSSText` strips
     backslashes, so `content:" \\25BE"` reaches the card as the characters `25BE` — write the ▾ itself, as
     the `content:"\\201C"` note above already says for a quotation mark.
+  · **…AND SUCH A FOLD REMEMBERS HOW THE READER LEFT IT** (`UC_OPEN_KEY` / `ucOpenMap` / `ucDetailsKey` /
+    `ucSetOpen` / `ucRestoreDetails`; Aug 2026, on request). It went back to the template's own state on
+    every card, so a reader who wanted the Mandarin decks' example sentences had to open them again for each
+    of the day's twenty. Five things.
+    **NEITHER HALF IS PER-RENDER WIRING.** Saving is one delegated CAPTURE listener on the document —
+    `toggle` DOES NOT BUBBLE, so capture is the only way to hear it from a descendant, the same trick the
+    dead-media `error` listener uses — and restoring happens inside `cardTypeSideHTML`, the one choke point
+    every typed card is composed by, so a render path added later is covered without anybody remembering it.
+    **THE KEY IS THE SUMMARY'S OWN TEXT, scoped to the card type.** An ordinal within the card is cheaper and
+    is wrong the moment a template wraps one panel in a `{{#Field}}` conditional: a card missing that field
+    renders one fewer, every later index shifts, and the wrong panel opens. The summary is what the reader
+    pressed and what they meant by it.
+    **SIDE IS DELIBERATELY NOT IN THE KEY** — a back that renders `{{FrontSide}}` shows the front's panels a
+    second time, and those are the same panel, not two. **The DECK is**, which is the one judgement here
+    worth revisiting: the three Mandarin decks share a type id (`hsk`) and do NOT share the state, so a
+    reader who opens the examples in HSK 3.0 opens them once more in HSK 1. Keying on the type alone would
+    join them and would also join two unrelated decks that both call a type `basic`; a deck's behaviour
+    being a fact about that deck is the safer of the two, and the cost is one press per deck.
+    **THERE ARE THREE STATES, NOT TWO**: opened, closed, and never touched. A panel with no stored value
+    keeps the template's own default, so an author who ships one `open` still gets it open on a first
+    meeting — which is why the map is read as "is there a value at all" rather than as a plain boolean.
+    **AND THE RESTORE IS GUARDED ON THE CARD EVEN HOLDING ONE** (`indexOf("<details")`), since almost no card
+    does and the alternative is a second DOMParser pass on top of the sanitizer's for every card on the site.
+    Device-local, like where the marker sits and how tall the Atlas place sheet is: this is how a card is
+    laid out on this screen, not something the schedule should carry between devices.
   · **The CSS gets its own treatment, because it is not HTML and cannot go through the HTML sanitizer** (which
     drops `<style>` outright). `sanitizeCSSText` strips comments, strips `<` (so `</style>` cannot be spelled —
     **`>` is deliberately KEPT**, it is the child combinator and only the opening bracket can end the element)
@@ -9990,6 +11351,14 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   sentence. **Deep spans are written in the compact notation** — `115,000 – 11,700 BP`, `c. 4.2 – 2 Mya`,
   `c. 2.6 Mya – 9700 BCE` — all of which `cardYears` parses, which is what keeps the deck in
   chronological order (see the "Deep time" bullet).
+  **A CENTURY IS NOT A DATE `cardYears` CAN READ**, and a date line whose ONLY dates are centuries
+  therefore yields no sort year at all — the card falls to 0, "timeless", which on a deck running in
+  BCE puts it after every other card (Aug 2026, caught by `test-date-line.js` on `rm-047`, whose two
+  rows both read "7th century BCE"). Write the span the century MEANS — `c. 700 – 600 BCE` — which
+  asserts no precision the source has not got, since that interval IS the 7th century; a second row
+  may then say "7th century" in words. **The fix is in the DATE LINE, not in `cardYears`**: 52 of the
+  447 shipped date lines carry a century form beside a plain year, so teaching that function to read
+  centuries would silently move their sort years too.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
@@ -10641,9 +12010,9 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-eight committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Forty committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
-  `test-discovery.js` and `test-scheduler.js` are plain Node with
+  `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
   no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
   for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
@@ -10696,7 +12065,7 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 84 assertions across three browser sessions (an author, a reader, an
+  · `node .claude/test-publish.js` — 107 assertions across three browser sessions (an author, a reader, an
     admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export → delete. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
@@ -10705,6 +12074,27 @@ dead code (never rendered).
     `db-max-rows`: a deck of 7 is published and installed and every card must arrive at both ends, so an
     unpaged fetch loses cards HERE rather than on somebody's live project. Verified by removing the paging
     and watching it fail.
+    **IT PUBLISHES A TYPED DECK SINCE AUG 2026, AND THAT FOUND A LIVE BUG OF THE WORST SHAPE THIS FILE
+    RECORDS.** Every deck it had ever published was BASIC — no card types, no subdecks — so the branch that
+    carries a typed card's content had never once been exercised. `uDeckPublish` builds each row's `data`
+    from `CARD_FIELDS`, which is the Basic thirteen, plus `questions` / `sources` / `sub` / `image` / `video`
+    — **and a typed card carries `type` + `fields` INSTEAD of those thirteen**, so what went up was twelve
+    empty strings and nothing else. The TEMPLATES travelled (they ride on the deck row, `user_decks.types`)
+    and the CONTENT did not, so an installed copy was the right number of BLANK cards, under the right
+    subdecks, with no direction rows — and **the author's own copy was perfect throughout, so only somebody
+    ELSE would ever have seen it.** Whole Mandarin deck, published, unreadable to everyone but its author.
+    The fix is one line; the lesson is that the round-trip test has to publish a deck shaped like the decks
+    people actually publish. Its typed section now asserts on the INSTALLED copy read out of the store —
+    both templates, the type's CSS, the `<details>` in the back, every card typed, every card's field
+    values, the nested `::` tree — and then that the deck DRAWS its direction rows, since a deck that lost
+    its templates looks exactly like a deck that never had any.
+    **A DECK PUBLISHED BEFORE THE FIX IS REPAIRED BY PUBLISHING IT AGAIN**: the upload deletes every card
+    row and re-inserts, so there is nothing to migrate, and the version bump is what offers the update to
+    anyone who installed the broken copy.
+    **Two traps in reading the store back**, both of which made a healthy deck report as broken while the
+    test was being written: a note record is `{ k, deckId, c }` with the card nested under `c`, and the
+    SUBDECK and TYPE are not on it at all — they live in the deck record's own `index`, that being the whole
+    point of the index (what a card IS, without its content).
     **Its DELETE section (Aug 2026) is the one that has to be read before it is trusted**, because every
     assertion in it fails silently on a real site: the deck vanishes from the author's own Studio either
     way, and only somebody ELSE browsing ever sees the difference. So it checks the author's Studio not at
@@ -10713,13 +12103,21 @@ dead code (never rendered).
     deliberately reintroduced and had to be fixed**: Bob's `#community` was reached by a hash-only `goto`,
     which is a same-document navigation, so the page repainted the browse results it already held — a list
     fetched before that deck was ever published, and an assertion that would have passed whatever the server
-    said. It takes a real `reload()` now. Verified in both directions: 84 pass with the fix, 5 fail without.
+    said. It takes a real `reload()` now. Verified in both directions: with the bug deliberately reintroduced,
+    **five of the delete assertions fail**, and they all pass with the fix.
     The orphan half plants a row straight into the mock's store, which is exactly what an orphan IS, and
     asserts the negative as well — a deck this device DOES hold is never offered for removal.
     **Re-run after
     touching the publishing functions, `uDeckDelete` / `uDeckRemoteDelete` / `confirmDeleteDeck` /
-    `myRemoteDecksLoad` / `orphanSectionHTML`, or `.claude/supabase-schema.sql` — and keep the mock in step
+    `myRemoteDecksLoad` / `orphanSectionHTML` / `uDeckSetColor` / `colorColumnMissing`, the shared-decks
+    table on the Collections page (`COMMUNITY_COLS` / `sharedDecksHTML` / `wireSharedDecks`), or
+    `.claude/supabase-schema.sql` — and keep the mock in step
     with the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
+    **A "THIS DECK IS GONE" CHECK MUST BE SCOPED TO THE SHARED SECTION, NOT TO `document.body`** — the two
+    lists now share one page, so a reader who INSTALLED the deleted deck legitimately still has its title
+    on screen under "Your decks", and a body-wide search contradicts the very next assertion, which
+    requires that copy to survive. It looks in `#sharedDecks`. Before the merge the page held nothing else
+    and the loose version was harmless; it is exactly the kind of assertion a page merge quietly inverts.
   · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the `glossMode`s,
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
@@ -10751,7 +12149,10 @@ dead code (never rendered).
     users in the live project). It asserts both halves of the rule: a guest's study history still migrates
     into their FIRST account, and a newly created second account starts at level 1 with no badges, no streak
     and no heatmap — in the store, on the server row, and on the page (first-run hero, "0 unlocked"). **Re-run
-    after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`.**
+    after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`,
+    **or any of `supaSignIn` / `supaEmailForUsername` / `supaSwitchTo` / `supaRemember` / `supaForget` /
+    `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that carries the outgoing account's progress across is
+    exactly what its `_supaOwner` assertions exist to catch, and nothing on screen would say so.**
   · `node .claude/test-video.js` — 89 assertions on card + glossary videos: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
@@ -10814,10 +12215,19 @@ dead code (never rendered).
     labelled citation and none invented for an unlabelled one, open and paywalled told apart by class **and by
     colour** so the difference survives without reading the words, the chip outside the anchor so it can never
     read as part of the URL, and the brackets gone from the render while the stored string keeps them.
+    **ITS STORE READ WAS LEFT BEHIND BY THE SPLIT AND HUNG RATHER THAN FAILING** (found Aug 2026 and fixed
+    then; the fault predated the branch that found it). It read a card out of `d.cards[0]` on the `decks`
+    record, which the split retired — cards live one per note in `notes`, under `c` — so the TypeError was
+    thrown INSIDE an IndexedDB success callback, the promise never settled, and Playwright reported
+    **"Resulting promise was garbage collected"** a minute later, naming a line number and no fault at all.
+    The read is wrapped now so that anything going wrong comes back as a failed check. **A promise inside
+    `page.evaluate` that can throw in a callback must resolve on every path** — otherwise a stale test does
+    not report a stale test, it reports a timeout nobody can read.
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
-    `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
+    `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
+    community store's record shape, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 301 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 308 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -10846,10 +12256,15 @@ dead code (never rendered).
     and "nothing is selected" alone would also pass on a marker that had stopped working; the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
-    revert to the platform dialog would look like — and **Show answer and the grade row still tappable with
-    the pen down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet's
-    drag-to-resize (taller, capped at the top of the screen, remembered into the next place, and its title
-    bar still showing at the floor); the daily quote keeping its height — and everything under it its
+    revert to the platform dialog would look like — and **Reveal answer and the grade row still tappable with
+    the pen down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet
+    (**opening SHUT since Aug 2026** — its name, a chevron, under a third of the screen — the chevron
+    revealing the sections, and then drag-to-resize: taller, capped at the top of the screen, its title bar
+    still showing at the floor, the NEXT place opening shut too, and the dragged height being what the
+    chevron opens TO. **The shut assertions have to come FIRST and the fit checks have to open it**: with
+    the sheet shut `.cp-cols` is `display:none`, so every measurement of it reads zero and the content-fit
+    checks pass on nothing at all — which is how they went on passing for a run after the behaviour
+    changed under them); the daily quote keeping its height — and everything under it its
     position — when flipped to its original language; the Atlas panel's discovery chip sharing
     the title's row and its sections likewise unskippable; the CHAIN of
     things anchored to the bottom of the viewport, where the globe stage, the Atlas timebar and the tab bar
@@ -10953,6 +12368,21 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
+  · `node .claude/test-streak-chest.js` — 18 assertions on the weekly streak chest (Aug 2026). **No browser
+    and no dependencies**: `bumpStreak`, `maybeStreakChest` and `streakChestProgress` are sliced out of
+    app.js and walked over patterns of days, because a chest is earned on the SEVENTH day of a run and no
+    single-session browser test can walk a fortnight. Every way this can be wrong is silent — a chest not
+    granted looks exactly like a chest not yet earned. **Its central assertion is the fault it was written
+    for**: a streak that reaches seven, BREAKS, and climbs back to seven must earn a second chest, which it
+    did not until `bumpStreak` learned to clear `S.streakChest` with the count (a count rather than a date is
+    what makes the grant idempotent against an undo, and is exactly why it has to be cleared). Verified in
+    both directions by reverting that one line. It also pins the meter's off-by-one — day seven reads 7 of 7
+    rather than 0 of 7 — and that a length already paid at is never paid twice.
+    **The harness lesson is worth carrying: stub `Date` as well as the clock helpers.** `bumpStreak` asks
+    `Date.now()` what yesterday was, so without it every simulated day reads as a break and the streak never
+    passes 1 — which is what the first run reported, and is a fault in the test rather than in the code.
+    **Re-run after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY`
+    / `S.streak`.**
   · `node .claude/test-scheduler.js` — 127 assertions on **the schedule itself**, which is the thing a study site is
     most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
     and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
@@ -11058,7 +12488,16 @@ dead code (never rendered).
     default is the WIDEST deck's rather than a global figure (two decks at 5 draw 5, from the ten between
     them), and an explicit limit set there caps the pooled draw **without changing what a deck offers when
     tapped on its own** — which is the distinction the whole design turns on and which nothing on screen
-    states. **Section 6 (Aug 2026) pins THE LEARNING STEPS end to end**, in a real session, where
+    states. **The banner's own COLOUR joined that block in Aug 2026**: its sheet's row list is pinned
+    EXACTLY, which is what catches a row appearing or vanishing (Colour did, on request, and the pinned list
+    is how it was noticed), and the colour itself cannot be asserted as a value — the banner rotates through
+    a hue a day — so what is pinned is that **choosing one overrides the rotation, survives the home page
+    being rebuilt, and that clearing it hands the rotation back**. It is read off the element's own `--tile`
+    rather than out of the store, so it measures what a reader sees; the two palettes are disjoint, which is
+    what makes the "cleared ≠ chosen" comparison safe. **Persistence is checked by NAVIGATING AWAY AND BACK,
+    never by `reload()`** — this file seeds `folio_v1` through `addInitScript` on every load, so a reload
+    puts the seed back and reports a working feature as broken, which it did once while this was being
+    written. The re-render is the real risk anyway: the banner's markup is rebuilt on every repaint. **Section 6 (Aug 2026) pins THE LEARNING STEPS end to end**, in a real session, where
     `test-scheduler.js` pins their arithmetic: a new card's Good button offers minutes rather than a day and
     the four buttons are four different answers (on the old scheduler three of them read `<10m`), one Good
     leaves the card learning on its second step, **the same card comes BACK later in the session**, and a
@@ -11151,7 +12590,8 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
-  · `node .claude/test-minigames.js` — the three games added on 2026-08-09 (65 assertions), and every one of
+  · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's restricted
+    pool** (75 assertions), and every one of
     its checks is for something that fails SILENTLY. **The wiring**: each of the three is a route, has a
     `PAGE_META` row and a played-today name — a missing route is a deep link that goes home and a missing
     meta row puts the HOME page's title in the tab and in every link preview — and **the sweep is asserted
@@ -11185,10 +12625,25 @@ dead code (never rendered).
     that its answer is REACHABLE (the crossword's letters fit its own squares; the year sits on a tick of its
     own rail — get that wrong and the puzzle is unwinnable every day with nothing on screen to say so), and
     that a correct solve is scored as correct rather than only a wrong one being scored as wrong.
+    **ITS COMMON THREAD SECTION IS ABOUT A STARVED POOL** (Aug 2026): the grid is now built only from
+    well-known cards' answers, which cut the pool from ~680 terms to about ninety and made the generator
+    fail on 271 days of 730 — a blank page, silently, on more than a third of days. It asserts a full grid
+    of sixteen with nothing repeated, four mistakes to spare, and — the half a starved pool cannot fake —
+    **that every term on the board really is the answer of a card rated 1 or 2**, read against the shipped
+    corpus rather than a list copied into the test. Both directions matter: a grid that will not build says
+    "not enough terms", and one built from the WHOLE glossary looks perfectly healthy while being the
+    puzzle nobody could do. **There is deliberately NO 730-day sweep of this one** — `dailyThreadPuzzle`
+    resolves each answer through the real glossary index, plurals and aliases and all, so slicing it into a
+    bare Node harness the way the crossword's sweep is sliced would mean reimplementing the very resolution
+    under test. That sweep was run against a browser page while the restriction was being tuned (0 blank
+    days, 726 of 730 distinct grids, 7 group categories) and its numbers are recorded in the game's own
+    bullet; what is committed is the guard that fires on the day the pool is starved.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
-    `xwLayout` / `dailyCrossword`, `picturePool` / `dailyPictureRounds`, `wyStep` / `dailyWhatYear`,
+    `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
+    `dailyPictureRounds` / `tagKinship`, `buildWhoSaidRounds`, `threadEasyKeys` / `dailyThreadPuzzle` /
+    `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`,
     `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, `gameCardIdSet` /
-    `GAME_MAX_DIFFICULTY`, `whatyear.js`, or the home page's tile grid.**
+    `GAME_MAX_DIFFICULTY`, `whatyear.js` / `truefalse.js` / `quotes.js`, or the home page's tile grid.**
   · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filter** (53 assertions,
     Aug 2026). No browser and no dependencies: the rule is arithmetic over the shipped data plus a few
     structural reads of app.js, the shape `test-date-line.js` uses. Every one of its checks is for something
@@ -11212,7 +12667,7 @@ dead code (never rendered).
     `revertCard`, any game's pool function, `add-card.js`'s difficulty guard, `add-card-difficulty.js`, or
     `whatyear.js` — and after any batch of ratings.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
-    (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+    (Aug 2026), 70 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
     **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
     obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
@@ -11235,7 +12690,20 @@ dead code (never rendered).
     collection can be added there, and — the half that closes a loop — **with one added the banner deals a
     card after all**. Both ends are needed because they fail in opposite directions and either alone looks
     deliberate: a hero that still deals a card bypasses the page, and one that never does strands a reader
-    on it. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
+    on it.
+    **A CONTROL'S LABEL IS READ OFF `app.js`, NEVER WRITTEN DOWN IN THE TEST** (Aug 2026, and this file was
+    itself the fault). The reveal assertion was the literal `/show answer/i` — the words the button carried
+    when the tour was written — so when the control became **Reveal answer** the test went on passing and the
+    walkthrough went on naming a button the page has not got, for months. **A test that hard-codes a label is
+    not guarding the label, it is pinning the stale one**; the expectation now comes from the same source the
+    button does (`id="reveal-btn">([^<]+)<` over `APP_SRC`), with a second assertion that the id was found at
+    all, so a renamed id fails loudly instead of quietly matching nothing. The same trap is waiting wherever a
+    tutorial names a control: **the walkthrough also called an undiscovered glossary term "gold" for the
+    fortnight after that mark became teal** — the word naming a colour is painted in that colour now
+    (`.tour-newterm` reads `--newterm`), so the step and the page cannot disagree without it being visible.
+    Four About-page and Atlas claims were stale the same way and are checked in `.claude/test-layout.js`'s
+    company rather than here.
+    **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
     `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home
     page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
     `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
@@ -11284,6 +12752,49 @@ dead code (never rendered).
     after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
     `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
+  · `node .claude/test-deck-ux.js` — **49 assertions on six things asked for in Aug 2026, every one of
+    which fails silently**: a card type's `<details>` remembering how it was left, the structure line's
+    typography, a community deck's colour, the sheet's ×, **the pinyin being set in a face that has the
+    third tone**, and **studying past the daily limit staying inside the subdeck**. Nothing in it reaches into app.js — the probe
+    deck is imported through the Studio's own file picker, the card is read off a REAL study session, and
+    the sheet is opened the way a mouse opens one — because **a debug surface added for a test is a debug
+    surface every reader downloads**. Three things it is worth reading before adding to it. The disclosure
+    is asserted in all THREE of its states (opened, closed, and never touched keeping the template's own
+    default), across a card change AND across a reload, since the in-memory map and localStorage fail
+    differently and each state looks right from the other two's side. The typography is measured **against
+    the sentence it annotates** rather than against a hard-coded 9px: what was asked for is a relationship,
+    and a figure written into a test pins today's number instead of the rule. And the colour is asserted at
+    both ends — the swatches appearing AND the hue reaching the subdecks — because the inheritance already
+    worked before the change, so asserting only the control would pass on one that does nothing.
+    **Its own three bugs are the ones to expect again.** A deck id shorter than `[a-z0-9]{4,16}` is silently
+    replaced on import, so the id is read back off the page rather than assumed from the file. `.dm-head`
+    spans the whole box, so "the × is right of the head" is false by construction and says nothing — the
+    real test is a box OVERLAP against the title and the studied count. And **a live collection is full of
+    `.pill.soon` for its own empty subdecks** (378 of them on that page), so excluding coming-soon rows on
+    that class matches nothing: a coming-soon collection has no add button at all, which is the whole test.
+    That one is the worth-remembering kind, because it made the parity check SKIP — and a skip written as a
+    pass is exactly the false confidence a suite is for, so a missing collection now fails.
+    **Its sections 6–8 were added a day later with three more reported bugs, and each is guarded by the
+    assertion the fix's own first attempt would have failed.** The PINYIN one is about the ORDER of the font
+    chain and not merely its contents — "names a covering face" passes on the broken append, because the
+    broken append does name one; what has to hold is that no GENERIC family stands in front of it, since a
+    generic matches every character and the browser never reaches the name after it. It is deliberately
+    network-free (this sandbox cannot reach Google Fonts, and a glyph measurement would pass or fail on
+    that), and section 7 re-asserts the same rule over the SHIPPED deck files, `deckcore.js` being the
+    source and every built file a copy. The STUDY-AHEAD one asserts the pile's size AND its order, because
+    either alone passes on the other's bug — and it asserts the walk really stepped, after a first cut
+    recorded the same card three times and had "each word's two cards side by side" agreeing with itself.
+    **Four more traps came out of writing those**, all of them ways to be told a card is not there when it
+    is: `study()` already reveals its first card, so a second reveal times out; a **new card graded Good
+    requeues** as a learning step, so the queue never empties and the placard never appears (grade Easy);
+    the study session **survives a reload** in sessionStorage, so seeding state and reloading lands back on
+    the previous section's card, revealed; and the grade bar **animates in**, so Playwright's actionability
+    check waits for an element that is still moving — click it through `evaluate`. Since the sections above
+    grade cards out of the same deck, section 8 clears `cards`/`deckDay`/`intro`/`buried` before it starts.
+    **Re-run after touching
+    `ucRestoreDetails` / `ucDetailsKey` / `ucSetOpen` / the capture `toggle` listener / `cardTypeSideHTML` /
+    `deckSheet` / `.dm-x` / `containerHasChildren` / `reviewHue` / `uDeckColorOf`, the cram branch in
+    `PAGES.study`, or `deckcore.js`'s `.uc-exst` / `PINYIN_FONT`.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
     own term (never part of what the meter counts); both filters are invisible until they are wrong. The
@@ -11312,7 +12823,7 @@ dead code (never rendered).
     house gotcha it is built around: a hash-only `goto` is a same-document navigation, so anything written
     into localStorage behind the app's back has to be read back through a real `reload()` or the next
     `save()` simply overwrites it — hence `seedHome` reloads and `home` does not.
-  · `node .claude/test-library.js` — the Library (135 assertions): the rename, the shelf, one book, and the
+  · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
     one nav tab may read "Library". **The laziness**: it watches the request log and asserts no
@@ -11355,6 +12866,12 @@ dead code (never rendered).
     `markLikiHeads` / `markLikiSections` / `applyGlyphs` / `markChapterHead` / `markArticuli` /
     `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaSanskrit` / `SUKTA_VERSE` /
     `extractQuixote` / `extractSatyricon` / `satyriconSection` / `cutAcrossSections` /
+    `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `ramSarga` /
+    `extractPtahhotep` / `PTAH_KEYS` /
+    `extractBede` / `bedeChapter` / `bedeLatin` / `BEDE_CHAPTERS` /
+    `sanKuoHead` / `sanKuoRoman` / `originalChapter`'s `dropTables` /
+    `extractBoethius` / `boethiusLatin` / `boeGreek` / `boePoem` / `BOE_BOOKS` /
+    `markMaloryHeads` / `MALORY_RUBRIC` / `MALORY_CHAPTERS` / `dropNotes` /
     `closeQuotesAt` / `balancedSpan` / `betaGreek` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /
@@ -11362,6 +12879,41 @@ dead code (never rendered).
     mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
+    **A BEDE section (`bedeChecks`) is there because its pairing is exact by MEASUREMENT rather than
+    by construction, so the thing to assert is that it stays exact**: 140 chapters a side in
+    34/20/30/32/24, a clean 1..N on both sides, and the two columns' lists identical book for book.
+    Every fault this book can have is silent — a mark that stops being recognised folds its chapter
+    into the one before it and shortens nothing visible. Two of its assertions are worth copying
+    elsewhere. **Every marker resolves and every note is referenced** is what found the four headings
+    carrying a footnote marker, and it is the ONLY check that can see one: flattened, the marker
+    becomes a bare figure inside a chapter title and the chapter is otherwise perfect. And **the
+    Latin is fingerprinted on its own orthography** (93 `uero` against 2 `vero`, and the same for
+    `uita` and `ciuitate`), because the transcription names Migne and does not print what Migne
+    prints — so a shelf that quietly acquired a v-orthography text would be serving a different
+    edition under the same claim, with every count still healthy.
+    **A MALORY section (`malloryChecks`) is there because that book has no second column to check it
+    against** — a single-column book cannot fail a pairing, which is what catches most faults on this
+    shelf, so everything about it has to be asserted directly. Its sharpest assertion is not a count
+    but a FINGERPRINT: the other free English copy of the book carries the same 503 chapters in the
+    same 21 books with the same rubrics in the same order, and differs from this one about a thousand
+    times in its words, so a shelf that quietly acquired that transcription instead would pass every
+    structural check there is. Half a dozen readings this edition keeps (`pyght`, `hool`, `alit`,
+    `trappours`, `advision`) and three the other one carries (`trappings`, `jesseraunt`, `rightwise`)
+    are asserted in both directions. It also pins Caxton's preface as an UNNUMBERED block before the
+    first chapter of Book I, the rubric on all 503 heads including the one set as a centred block, and
+    — in both directions, since they fail opposite ways — that no note and no marker reaches the page.
+    **A MARCO POLO section (`poloChecks`) is Malory's position with an apparatus five times the
+    size**, and it exists because the two faults that book actually had were both invisible to every
+    count: a chapter whose note region was never found rendered Yule's whole commentary as Polo's
+    own prose, and a footnote container carrying a `lang` attribute dropped its note in silence. So
+    it sweeps the shipped file for a **"Note 1.—" label left standing in a chapter's body**, which
+    is what the first looks like from the outside, and asserts every marker resolves, every note is
+    referenced and exactly ONE note is cited twice — Yule does that once, and it is the Seneca rule
+    working rather than a fault. It also counts the edition's own three marks, each of which is the
+    book telling the reader whose words these are and each of which would be tidied away without a
+    sound: the ⚜ on the seventeen chapters Yule gives in gist, his brackets round what he takes from
+    Ramusio, and Cordier's —H. C. And it asserts **no `bk-n` marker anywhere**, this being a
+    deliberately single-column book rather than one whose original failed to arrive.
     **A SATYRICON section (`satyriconChecks`) is there for the same reason**, and every assertion in
     it guards something that renders perfectly while being wrong. The balanced-matching and
     close-and-reopen rules fail by leaving a poem's words on the page in the wrong setting, so the
@@ -11548,8 +13100,13 @@ dead code (never rendered).
 - **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy accounts block).
   Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
   Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the later blocks'
-  `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`; signup trigger creates the
-  profile + empty progress row). Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
+  `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, and — **still to be run once each** —
+  **section 11 `user_decks.color`** and **section 12 `login_email()`**, the deck's default colour and username
+  sign-in; signup trigger creates the
+  profile + empty progress row). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature that needs one
+  degrades to a sentence rather than an error (`colorColumnMissing`, the `login_email` 404 → "use your email
+  address"), so the site works on a database that has only the first block. **Keep it that way** — a block
+  the owner has not run yet is the normal case, not the broken one. Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
   (security = RLS). **Offline-first**: localStorage stays the working copy; `save()` → `supaQueuePush()` (6s debounce, skips
   no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`) refreshes the session, pulls, and
   reconciles — server wins when its `updated_at` ≠ the device's `S._supaTs` baseline (another device wrote), else local pushes.
@@ -11577,6 +13134,38 @@ dead code (never rendered).
   `adminEligible()`). `isAdmin()` additionally honours the Editor/Visitor toggle (`S.settings.adminMode === false` → visitor view).
   The old local accounts (`folio_acct_v1`) remain only as legacy code (guest stash helpers); their admin-page
   user-manager went with the Accounts tab when the reader-feedback queue replaced it.
+- **SIGNING IN WITH A USERNAME, SWITCHING ACCOUNTS, AND CHANGING YOUR EMAIL (Aug 2026, on request).**
+  Three things about the same account, and the first two each needed a decision that is not obvious.
+  · **A USERNAME IS RESOLVED BY A PASSWORD-VERIFYING RPC, NEVER BY A LOOKUP** (`supaEmailForUsername` /
+    `looksLikeEmail` / `supaSignIn(idOrEmail, pw)`; `public.login_email(uname, pw)` in section 12 of
+    `.claude/supabase-schema.sql` — **the user must run it once**). GoTrue signs in with an email, so a
+    username has to become one — and the obvious implementation, selecting the email out of `profiles`,
+    is an **email-enumeration oracle**: anybody with the publishable key could walk the usernames and
+    read off addresses. The RPC is `security definer`, takes the PASSWORD as well as the name, checks it
+    with pgcrypto's `crypt()` against `auth.users.encrypted_password`, and returns the address only on a
+    match — so it tells a caller nothing they could not have learned by signing in anyway. Wrong password,
+    wrong username and no such user are one answer.
+    **It degrades rather than breaking**: a 404 (the function not yet created) is turned into "use your
+    email address", so a database without section 12 still signs everybody in. The field is
+    `type="text" autocomplete="username"` and labelled **Email or username** — `type="email"` would have
+    the browser refuse a username before the form was ever submitted.
+  · **SWITCHING ACCOUNTS KEEPS THE OTHER TOKEN, WHICH IS WHY IT IS NOT A SIGN-OUT** (`SUPA_ACCTS_KEY` /
+    `supaAccounts` / `supaRemember` / `supaForget` / `supaSwitchTo` / `supaSignOut({keepToken})`). GoTrue's
+    `/logout` **revokes the refresh token globally**, so signing out and back in is the only way to reach
+    another account — which is exactly the friction the request is about. `supaSwitchTo` therefore tears the
+    session down LOCALLY, keeping the outgoing account's tokens in `folio_supa_accts_v1` (device-local, like
+    the guest stash — never synced, since which accounts this browser remembers is a fact about the browser),
+    and installs the incoming one's. **A plain Sign out FORGETS that account**, because its token has just
+    been revoked and a remembered row pointing at a dead token would offer a switch that cannot work.
+    The progress side needs no new machinery at all: `_supaOwner` already gates the guest-progress migration
+    (see the bullet above), so a switch adopts the incoming account's progress and can never carry the
+    outgoing one's levels, badges or streak across — which is the failure this feature would otherwise have
+    industrialised. `.claude/test-account-switch.js` is what guards it.
+  · **THE EMAIL ADDRESS IS SHOWN AND CHANGEABLE** (`supaSetEmail`, `#emPanel` / `#emToggle`). A PATCH to
+    `/auth/v1/user`; with confirmations on, Supabase emails the NEW address and the change lands when that
+    link is followed, so the panel says so rather than reporting a change that has not happened yet.
+    `openPanel(want)` keeps the email, password and switch panels mutually exclusive — three folds open at
+    once on a phone is the whole account page.
 - **Live content editing (cloud overrides)** — the `/* cloud content overrides */` module in app.js + the `content_overrides`
   table (single row `id=1`, in `.claude/supabase-schema.sql`; **the user must run the SQL once** — until then every fetch 404s and
   the module degrades silently). The row's `data` holds an admin-edit overlay in the exact `folio_admin_v1` delta format. Every
