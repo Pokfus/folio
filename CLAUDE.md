@@ -2887,12 +2887,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
-- `decks/*.folio-deck.json` — **the Mandarin community decks**, five files a reader imports through the
-  Studio. Not part of the site and never loaded by it: a deck file is somebody else's content that happens
-  to have been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
-  **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), **HSK 3.0** — all seven levels of the 2026
-  standard in ONE file, 10,896 notes as seven subdecks — and two decks of what the syllabus leaves out:
-  **Mandarin phrases** (159) and **Chinese idioms** (477 chengyu). 22 MB in all.
+- `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
+  of the site and never loaded by it: a deck file is somebody else's content that happens to have been
+  written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
+  The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
+  **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
+  levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`.
+  · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
+    phrases and the idioms are the same card type from the same corpus, so three files was three imports
+    and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
+    as a MODULE and files its two lists as the eighth and ninth subdecks; run on its own, `build-extra.js`
+    still writes them as two separate decks, which is one flag rather than two builders.
+  · **A SUBDECK NAME IS A STRING AND A MANGLED ONE IS A NEW SUBDECK.** An intermediate build of the
+    combined file wrote one note's `sub` as `Levels 7<U+FFFD><U+FFFD><U+FFFD>9` — three replacement characters where the
+    en-dash should be — and the deck drew a phantom eighth level holding a single word. **Nothing throws,
+    the note count is right, and the only symptom is a row nobody put there**; it was caught before it
+    shipped, and no released deck has ever carried it (swept, all nine on main, zero replacement
+    characters). So: **count the DISTINCT subs after a build and read the list**, rather than checking the
+    note total — a count of notes cannot see it, and a count of subdecks only helps if you know what the
+    number should be.
   · **EVERY WORD IS ONE NOTE WITH TWO CARDS** (Aug 2026, once the reverse-cards feature landed on main).
     Each deck used to write a word out twice, once per direction, and the two rows were identical field for
     field — the same characters, reading, character breakdown and three example sentences, which between
@@ -2903,8 +2917,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE SUBDECK AXIS WENT TO THE LEVEL, and that is what let HSK 3.0 become one deck.** The old combined
     files spent their one `sub` axis on the study DIRECTION — two subdecks, Chinese → English and English →
     Chinese — and that is exactly what the two templates now express, so the axis came free for the thing a
-    learner actually works along. **A note's `sub` is per note, so direction can never be a subdeck again**
-    while the two directions are one note; that is the trade, and it was worth making.
+    learner actually works along. **A note's `sub` is per note, so direction can never be a `sub` again**
+    while the two directions are one note; that was the trade, and it was worth making.
+    **AND THEN THE DIRECTIONS CAME BACK AS ROWS WITHOUT COSTING THE FILE ANYTHING** (Aug 2026, on request —
+    see "A DIRECTION IS A LEVEL BELOW THE SUBDECK" under community decks). The thing `sub` could not name,
+    the TEMPLATE already does, so each of the nine subdecks now lists **Chinese → English** and **English →
+    Chinese** as rows of its own. **The deck file did not change by a byte** — the two templates were always
+    in its one type — which is the answer to the paragraph above: the halving stands and the directions are
+    separable, because they were separated at the level where they actually differ. Adding the deck brings
+    the nine levels and NOT their eighteen directions; a level already deals both ways, forward first.
   · **THE OLD "TOO BIG FOR ONE DECK" MEASUREMENT WAS RE-TAKEN RATHER THAN CARRIED FORWARD.** The 7–9 band
     shipped as five files because level 6 alone (3,554 rows, 7.4 MB) measured 3.6s to import and 2.7s to the
     first card. Measured again on the whole of 3.0 at 10,896 notes: **JSON.parse 81 ms, import 10.0s once,
@@ -8925,12 +8946,90 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reverse-cards bullet): what it buys is one record per word — a definition corrected once rather than
     twice, with no chance of the two drifting — and each direction still keeps a schedule of its own. A
     subdeck's count already includes both, which is why the HSK 3.0 deck reads 23,064 cards over 11,532
-    words.
+    words. **That stands, and the level BELOW the subdeck is what answers the request** — next bullet.
+- **Community decks — A DIRECTION IS A LEVEL BELOW THE SUBDECK** (`SUB_TPL` / `uTplEntry` / `uTplOf` /
+  `uEntryTemplates` / `uTplEntriesOf` / `uTplName` / `uPruneTplEntries`; Aug 2026, on request: "add
+  direction as a subdeck"). An entry id may end `#<0-based template>` and deals only that template's cards,
+  so a two-way deck lists each direction as a row of its own to add, hold and study. The thing `sub` could
+  not name, the TEMPLATE already does — it is what makes the two cards two cards — so the answer was a new
+  LEVEL rather than a new field.
+  · **IT COSTS THE DECK FILE NOTHING, which is the whole argument for doing it here.** The templates are in
+    the type already, named by their author, so every two-way deck ever written or installed gains its
+    direction rows on the next load with nothing rewritten, nothing republished and no card duplicated.
+    The alternative is what the **DELE Spanish decks** do — direction written into the file as a real
+    `sub`, `Spanish → English` / `English → Spanish` — which is two notes per word (992 for ~500), and a
+    definition corrected on one of them silently drifts from the other. Both shapes now work; this is the
+    one that does not double the file.
+  · **`#` IS SAFE AS A RAW SEPARATOR AND `~` WOULD NOT HAVE BEEN.** `uSubEntry` percent-encodes the whole
+    path and `encodeURIComponent` escapes `#` to `%23` while leaving `~` alone — so a subdeck titled "C#"
+    cannot forge a template suffix and one titled "A~B" would have. `uDeckIdOf` cuts at whichever of `/`
+    and `#` comes first; neither can occur in a deck id (`[a-z0-9]{4,16}`).
+  · **A DIRECTION ROW IS DRAWN ONLY WHERE THE CARDS ACTUALLY ARE** (`uEntryTemplates`). A container that
+    merely groups — the deck above nine levels — gets its directions from its children, and a second pair
+    over the whole deck would offer the same cards again under a name saying nothing new. The test is
+    structural rather than a flag: a level earns the rows when every note it studies is filed **directly**
+    in it, which is also why a FLAT two-way deck gets them straight under the deck row. A level whose notes
+    use more than one type gets none, and a CLOZE type gets none either — its `typeCards` is one template
+    however many deletions a note carries.
+  · **THE NARROWING IS A FILTER OVER THE CACHED EXPANSION, never a second one.** `uDeckStudyIdsFor` is
+    memoised by (deck, subdeck); a direction takes `uCardTplIndex(id) === tpl` off that list, so nothing is
+    keyed on something a template edit can change under it. `buildSession`'s udeck branch asks
+    `entryCardIds` rather than expanding again, so a row, its sheet and the session it starts cannot come
+    to disagree.
+  · **ADD NARROW, REMOVE WIDE.** A subdeck holds cards nothing else in the subtree holds, so the cascade
+    must bring it; a direction holds a **subset of its own parent's**, so adding it too would surface
+    reverses in the pooled draw from the first day — where a level's own template-major list deals every
+    forward card first. Choosing a direction is what makes choosing one mean anything. Removing goes the
+    other way: a direction the reader chose still goes when its level goes, or it would be a row in the
+    review with nothing above it. **And a direction is removed ALONE** — the one place the ancestor rule is
+    turned off, since the level legitimately keeps offering both ways.
+  · **`cardEntryId` resolves the DIRECTION first**, then the subdeck path upward, then the deck: a reader
+    who set FSRS or a daily limit on "English → Chinese" meant it for that direction's cards.
+- **Community decks — BOTH DIRECTIONS TOGETHER, the GATHER order** (`deckPairNew` / `setDeckPairNew` /
+  `pairOrder`; Aug 2026, on request: "I want them interleaved"). Default OFF, which is what `uDeckStudyIds`
+  has always done: the expansion is TEMPLATE-MAJOR, so the day's new cards come off the front of a list
+  that is every note's first card before any note's second — all forward, with the reverses waiting for the
+  whole forward pass. **At five a day on a 150-word deck that is thirty days before the first reverse**,
+  right for a reader learning to RECOGNISE words and wrong for one who wants to PRODUCE them. ON, the day's
+  new cards are the day's new WORDS, each way.
+  · **IT IS A REORDER, NOT A SECOND EXPANSION**, which is what keeps the cache honest: `pairOrder` regroups
+    the template-major list by NOTE inside **`studyOrder`**, beside the subdeck round robin, and the two
+    compose — the robin decides which subdeck a card comes from and this pulls each word's cards together
+    within that (a `Map` iterates in first-appearance order, so the robin's order survives).
+  · **IT SHUFFLES ITS OWN NEW RUN, and that is not a second setting hiding in this one.** Note-major
+    unshuffled deals 杯子 → cup then cup → 杯子 adjacently, which is exactly the "teaches the answer rather
+    than testing it" that template-major exists to prevent. **The slice comes first and the shuffle after**,
+    so pairing decides WHICH words arrive and the shuffle only their order; shuffling first would make the
+    day's cards a random handful of the whole deck. The pooled review `seededShuffle`s its pool across decks
+    already, so `buildSession` is the one place that has to do it, and the Random-order switch beside it
+    still governs the WHOLE queue, reviews included.
+  · **BURYING IS DERIVED OFF, never a second switch to remember.** The two are opposite intents: pairing
+    gathers the reverse and burying takes it straight back out, leaving a session half the size it promised
+    — measurably, since `doGrade` filters the live queue. So `deckBurySiblings` returns false while pairing
+    is on, and the bury row is **dimmed in place with a reason** (the Night-mode row's pattern under "Match
+    my device"), still pressable, and saying why. `syncBury` re-states it when pairing is thrown, because
+    the sheet must not repaint — `render()` closes it.
+  · **IT INHERITS DOWN THE PATH, unlike the daily limits beside it.** A limit is a fact about one row and
+    must not leak; this is a policy about how a deck's material is organised, so setting it on the deck
+    governs its levels — which is what a reader setting it on the deck plainly means, and the levels are
+    what the cascade actually adds.
+  · **THE ALLOWANCE IS IN CARDS, as it always was and as Anki's is**: six new a day is three words both
+    ways, not six words. A reader wanting five words both ways raises the limit to ten.
   · Guarded by `.claude/test-subdecks.js` (18 assertions), which builds its own partly-grouped deck rather
     than reading the shipped ones. **The failure mode is silent** — the list is derived on every read, so a
     `sub` dropped anywhere along the way just drops that card back into the parent deck and everything still
     works — which is why the assertions follow one card's `sub` through ingest, the row list, the review and
-    the session rather than testing any one of them.
+    the session rather than testing any one of them. **The nesting, the DIRECTION rows and the pairing
+    switch are guarded by `.claude/decks/check-nesting.js`** (28 assertions, a tree built in memory): its
+    fifth section asserts the six rows a two-level two-way deck draws, that the deck itself gets none, that
+    adding the deck brings the levels and **not** the directions while removing it takes a chosen one with
+    it, and that studying a direction deals only cards carrying `~2`; its sixth covers the pairing switch —
+    the default all-forward gather, the note-major one, the shuffle, and that grading one direction does
+    NOT bury the other. Its seeding is the house gotcha written down: a `goto` differing only in the
+    `#fragment` is a same-document navigation, so localStorage written behind the app's back needs a real
+    `reload()` or the next `save()` puts the in-memory state straight back over it. **`check-decks.js` is
+    the other half**, since it studies the shipped decks through the pooled review, which is where a
+    cascade that is too wide shows up as reverses on the first day.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the

@@ -1,6 +1,6 @@
 # The Mandarin deck generators
 
-These build the five `.folio-deck.json` files in `decks/`. **Not part of the site** — nothing here is
+These build the three `.folio-deck.json` files in `decks/`. **Not part of the site** — nothing here is
 loaded by it, and a deck file is imported through the Studio exactly as a stranger's would be, through
 `uDeckNormalize`, with no privileged path of any kind.
 
@@ -29,9 +29,14 @@ working directory and run the scripts from there.
     node mw2026.js                      # adds measure words
     node extras.js                      # adds the character breakdown and the example sentences
     node extras2.js                     # the same for HSK 2.0 (words1.json / words2.json)
-    node build-hsk30.js                 # → decks/HSK3.0-Mandarin.folio-deck.json
+    node build-mandarin.js              # → decks/Mandarin-Chinese.folio-deck.json
     node build-hsk20.js                 # → decks/HSK1-Mandarin, HSK2-Mandarin
-    node build-extra.js                 # → decks/Mandarin-Phrases, Mandarin-Idioms
+    node build-extra.js                 # the phrases and the idioms, as two decks of their own
+
+`build-mandarin.js` is the one that writes what ships: it requires `build-extra.js` as a MODULE and files
+its two lists as the eighth and ninth subdecks of the one deck. Run on its own, `build-extra.js` writes
+them as two separate decks instead — the same rows either way, so it is one flag rather than two builders,
+and the standalone files are not in `decks/` today.
 
 `extras.js` is **both a script and a module**: required, it runs down to the pool and the segmenter and
 stops, which is how `build-extra.js` gets the same corpus, the same traditional-script exclusions and the
@@ -49,6 +54,7 @@ and thrown away. The findings that cost the most to get are written into those t
 
     node check-decks.js      # imports every deck in decks/, studies it, reads what is on the card
     node check-reverse.js    # the reverse card: a two-note cut, studied all the way through
+    node check-nesting.js    # nested subdecks and the cascade, on a deck built in memory
 
 Both need Playwright, which is a dev dependency and must not be installed into the repo — install it in a
 scratch directory and run with `NODE_PATH=<that>/node_modules`, as `.claude`'s other browser tests do.
@@ -59,3 +65,28 @@ back is the LAST `.uc-card` and never the first; reading the first one reports a
 definition and no character breakdown, which is exactly what a broken template would look like. And **the
 reverse card is not reachable by grading Good**: that sends a new card to its ten-minute learning step and
 straight back into the queue, so a four-card run of Goods deals the same two words twice.
+
+`check-nesting.js` is the third, and it does not touch `decks/` at all — it builds its decks in memory. Its
+first four sections use an eight-note deck whose cards name PATHS (`Level 1/Chinese to English`) and assert
+the two things a curated collection has always done and the reader's own decks now do too: the Collections
+page draws the tree, indented and counting its children's cards, and adding the deck puts every subdeck on
+the home page — with removing it taking them all away again, and adding one branch bringing only that
+branch.
+
+Its **fifth section is direction as a subdeck**, on a six-note deck with a two-template type. That is the
+level BELOW the subdeck — a word is one note with two cards, so `sub` can never name the direction and the
+template does — and it needs no change to a deck file, which is what the section is really pinning. Three
+of its assertions cover failures nothing else would see: a direction row drawn over a container that only
+groups (the same cards offered a third time), the deck file having to change after all, and — the one that
+matters — studying a direction dealing **three cards all ending `~2`** rather than the level's six.
+
+It also pins that **adding a deck brings its levels and NOT their directions**, which is the narrower half
+of the cascade: a direction holds a subset of its own parent's cards, so adding it too would surface
+reverses in the pooled draw from the first day. `check-decks.js` is what caught that, studying the shipped
+decks through the review, and it is the check to re-run after any change to the cascade.
+
+The **sixth section is the pairing switch** — *Both directions together*, on a deck's own options. Off (the
+default) the day's new cards are all forward; on, they are the day's new WORDS each way, shuffled, and
+burying is derived off so the reverse is not taken straight back out. Its seeding is worth copying: writing
+localStorage behind the app's back needs a real `reload()`, because a `goto` differing only in the
+`#fragment` is a same-document navigation and the next `save()` puts the in-memory state back over it.
