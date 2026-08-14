@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-007` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-008` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 7 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 8 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -9953,6 +9953,26 @@ would print it. The 841 BCE fact belongs in the ABSTRACT, where it is a statemen
 rather than about the man, and the field is left `""` exactly as the date-line rule already blesses.
 **Ask what a date line row will make `cardYears` ASSERT before writing it**; a legendary figure the
 sources decline to date is a card that should decline too.
+**`cnh-008` ADDS A SECOND LEGGE SHELF, AND THE REASON TO REACH FOR IT IS ITS APPARATUS** (Aug 2026).
+Legge translated these classics TWICE — the *Chinese Classics* (Hongkong, 1861–72, seven volumes, with
+the Chinese text and full critical notes) and then the leaner Sacred Books of the East versions this
+collection has been citing — and the earlier one keeps what the later one drops. Its Shoo King volume
+preserves, in a note, a fragment of the LOST Announcement of Tang that Sima Qian quotes, in which the
+founder of Shang cites Chiyou's rebellion as the precedent for punishing lords who will not serve: a
+second early attestation that exists nowhere else openable. **Confirm such a volume's date from the
+PREFACE SIGNATURE** ("Hongkong, 1865" here), since archive.org's metadata gives the SERIES date (1861)
+and the title-page verso OCRs badly. **AND LEGGE CHANGED HIS ROMANISATION BETWEEN THE TWO**, which is the
+cnh-005 grep rule in a new coat and worse: the SBE Shû King writes "Khih Yû" and the *Chinese Classics*
+writes "Ch'e-yow", so a search that finds a name in one Legge volume finds nothing in the other while the
+passage is sitting there. Search the CHARACTERS (蚩尤) or a distinctive word of the passage.
+**AND A PERSÉE FIRST PAGE IS WORTH READING FOR ITS FRAME EVEN WHEN THE ARTICLE IS ABOUT SOMETHING ELSE**
+— Vandermeersch's "Écriture et littérature en Chine" opens by saying Chinese mythology survives only
+sporadically and in an entirely fragmentary state, with the epic and narrative genres long absent, which
+is precisely the sentence a myth card needs to explain why its subject is four lines in the *Shiji* and a
+monster in a Tang commentator's quotation of a lost book. The converse holds too and cost a fetch here:
+"Un ancêtre légendaire au service du nationalisme chinois" (Perspectives chinoises 47) reads as the
+on-topic hit and **its served first page never mentions Chiyou at all** — grep the page for the subject
+before assuming an article about the right period carries the right claim.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
