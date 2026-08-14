@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-010` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-011` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 10 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 11 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10005,6 +10005,19 @@ LOOKING at the rendered card finds this — no count or test reports a link that
 **AND A HUGE SCAN NEEDS THE THUMB URL** — Ma Lin's scroll is 7,890 × 17,168, so `src` is the
 `/thumb/<a>/<ab>/<file>/1280px-<file>` rendering the API hands back in `imageinfo`'s `thumburl` when
 asked with `iiurlwidth`; shipping the original would put a 40 MB download behind one card.
+**`cnh-011` IS WHERE A PAGE NUMBER WAS ESTIMATED RATHER THAN READ, AND THAT IS A FABRICATED CITATION**
+(Aug 2026). Legge's "Annals of the Bamboo Books" sits in the Prolegomena of *Chinese Classics* vol. 3
+pt 1, and the citation was first written "p. 116" — a figure derived from where the passage falls in a
+27,000-line OCR dump, not from any printed page number read off the scan. It resolves, it looks exactly
+like every other citation on the card, and **no check in this repo can see it**: `add-sources.js` tests
+that a citation ends in a URL and that a marker points at it, `check-style` tests the prose, and curl
+tests the host. It was replaced with "Prolegomena, ch. 4", which is what the volume's own structure
+states and which a reader can actually find. **A locator must be READ, never computed from an offset** —
+where the scan gives no page number, cite the division the edition itself names. **AND THE SAME CARD
+SHOWS WHY THE STYLE CHECKER IS RUN ON EVERY DRAFT**: the ambiguous person-or-book names bite hardest in
+this collection, and "Mencius" in a date-line label was flagged where "The <i>Mencius</i> denies…" in
+the prose is both accurate and legitimately italicised — the fix is to say which of the two you mean,
+not to drop the italics.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
