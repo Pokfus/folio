@@ -8076,6 +8076,29 @@
      — and the nearest of the five is Beowulf at 59, with the rest at 83 to 96. Nothing this could
      be mistaken for is anything it belongs with. */
   "Thomas Malory": "#9E1402",
+  /* THE BAND IS EXHAUSTED FOR REAL COLOURS AND THE SEARCH SAYS SO IN A NEW WAY (Aug 2026, adding
+     the Ecclesiastical History — the forty-third). Swept over the shipped lightness (12.3–47.8) and
+     chroma (18–71) band under the Book of Rites' ink floor and the 4.5:1 bar, the seven
+     best-separated colours left anywhere in it clear 18.2–19.7 and every one of them is a GREY:
+     chroma 2 to 10, against a shelf whose own floor is 18. A swatch at chroma 3 is not a lighter
+     ink, it is the body ink with a tint on it, and a book wearing one reads as a book that failed
+     to get a colour. So the search was re-run with the shelf's own chroma floor applied, which is
+     the honest way to ask the question, and the field it returns tops out at 17.5.
+
+     17.5 IS ABOVE THE SHELF'S OWN TIGHTEST PAIR, which is now 16.6 (Aristotle against Ptahhotep) —
+     it was 18.2 when Malory was placed and has closed as books were added, which is what a filling
+     band does. So no pair tighter than the existing minimum was taken and the band was not widened.
+
+     AND THE EURIPIDES TEST DECIDES BETWEEN THE TOP THREE RATHER THAN MERELY PASSING. The one book a
+     reader genuinely pairs with Bede is BEOWULF — the shelf's other book of the Anglo-Saxon world —
+     and behind it the two Norse ones. The second-best candidate, a dark rust at 16.4, lands 17 from
+     the Poetic Edda, which is a Germanic-world kinship claim this must not make; the deep violet at
+     16.2 sits 25 from Snorri and at chroma 71, the very top of the band, which is the glow the
+     ceiling exists to prevent. This dark olive-bronze clears Beowulf by 35, the Poetic Edda by 45
+     and Snorri by 69. Its own hue quarter holds Gilgamesh, Confucius, the Rigveda and Petronius —
+     crowded in hue, and all four sit at L 30–47 where this is at 20.3, which is the Homer row's
+     argument again. It reads 7.83:1 on the tightest of the sixteen light papers. */
+  "Bede": "#3C3000",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -10121,6 +10144,77 @@
         "Japan", "Brittany", "Cornwall", "Britain", "Great_Britain", "United_Kingdom", "Latin",
         "Sicily", "Malta", "Cyprus", "Syria", "Lebanon", "Israel", "Jordan", "Iraq", "Iran",
         "Tunisia", "Libya", "Europe", "Asia", "Africa", "Armenia", "Ethiopia",
+      ],
+    },
+    {
+      id: "bede-history",
+      title: "The Ecclesiastical History of the English People",
+      author: "Bede",
+      written: "731",
+      year: 731,
+      translator: "A. M. Sellar",
+      edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
+      /* THE GROUND IS THE PUBLICATION DATE AND NOTHING ELSE, which is the Gallic War's position and
+         the second on this shelf. Bede finished in 731 and died in 735, so the work is free
+         everywhere on any reading. The translation was published in London in 1907, so it is public
+         domain in the United States on the pre-1929 rule — and no life-plus-seventy term is claimed,
+         because the translator cannot be traced: the title page gives "A. M. Sellar, Late
+         Vice-Principal of Lady Margaret Hall, Oxford", her own preface is unsigned, and there is no
+         Wikidata entity, no Wikipedia article and no Wikisource author page for her. Lucretius's
+         judgement — claim less, and say on the page what cannot be said. */
+      rights:
+        "Public domain. Bede finished the History in 731 and died in 735, so the work is free " +
+        "everywhere. A. M. Sellar's translation was published in London in 1907, so it is public " +
+        "domain in the United States as a pre-1929 publication. No life-plus-seventy term is " +
+        "claimed for it, because the translator's dates cannot be established: the title page gives " +
+        "only her initials and her former post at Lady Margaret Hall, Oxford, and no reference work " +
+        "reachable here records when she died. The Latin beside it is free on the age of the work; " +
+        "the transcription names Migne's Patrologia Latina 95 as its edition, but the text it " +
+        "carries is not set as Migne sets it, so no editor is asserted for that column either.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/38326",
+      chapterWord: "Book",
+      count: 5,
+      total: 5,
+      origLang: "la",
+      origName: "Latin",
+      origEdition: "as transcribed at Latin Wikisource; see this book's first page for whose text it is",
+      origSourceName: "Latin Wikisource",
+      origSourceUrl: "https://la.wikisource.org/wiki/Historia_Ecclesiastica_gentis_Anglorum",
+      origRights:
+        "Public domain. Bede wrote the History in Latin and finished it in 731. The transcription " +
+        "names Migne's Patrologia Latina 95 as its edition; the text it carries prints consonantal " +
+        "v as u throughout, which Migne does not, and matches Alfred Holder's edition of 1895 where " +
+        "sampled. Every edition it could be is long out of copyright, so no editor is named here.",
+      /* WHAT THE GLOSSARY MUST NOT LINK, and the sweep behind it was RE-RUN rather than reasoned
+         out — the figures written here first were a guess at the answer, and they were wrong in
+         the middle. Measured by serving an app.js with this very list emptied and walking all five
+         books: 22 glossary surfaces survive `linkProperNounsOnly` here, and 19 of them are turned
+         off. Most are articles about the MODERN world. Bede's Britain is not the island of the
+         Great_Britain entry, whose whole point is a distinction seventh-century Britain has not got
+         and which occurs 187 times here; his Gaul is called France once; and two are simply absurd
+         — the Frankish king Clovis resolving to a Palaeolithic North American stone industry, and
+         the emperor Mauritius to an island in the Indian Ocean.
+
+         THE THREE THE GUESS MISSED ARE THE INSTRUCTIVE ONES, because each is an ordinary English
+         word that a rule about proper nouns lets through on a capital alone. `Subsistences` is the
+         Council of Hatfield's creed — "one God in three Subsistences or consubstantial persons" —
+         against an entry about hunting, farming and dental caries; `Latins` is "by the Latins
+         called a peninsula, by the Greeks, a cherronesos", meaning Latin-SPEAKERS, against an entry
+         about the people of Latium vetus in 950–509 BCE; and `Chronological` is Bede's own year-by-
+         year recapitulation against an entry about radiocarbon calibration and Bayesian modelling.
+         The `genus` / `epoch` case that `linkProperNounsOnly` exists for, wearing a capital.
+
+         THREE SURVIVORS ARE DELIBERATE. `Latin` is the language Bede wrote in and the entry is
+         about that language. `Troy` and `Corinth` are the ancient cities his sources mean — and
+         `Troy` is safe only because of the word boundary, this book's other three occurrences of
+         those letters being Lupus, Bishop of TROYES. The rule is not "link nothing"; it is "link
+         nothing that would tell the reader something untrue about the sentence in front of them".
+         Re-run the sweep after a batch of glossary terms, and read the sentence before judging. */
+      glossOff: [
+        "Great_Britain", "Ireland", "Egypt", "Israel", "Italy", "Greece", "Mauritius", "Germany",
+        "Spain", "Europe", "Asia", "France", "Armenia", "Syria", "Africa", "Clovis_culture",
+        "Latins", "Subsistence", "Chronology",
       ],
     },
     {

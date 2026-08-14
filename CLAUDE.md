@@ -128,7 +128,66 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-six:
+  matter (chapter 0 — see the Library bullet). Currently forty-seven:
+  `bede-history` (~856 KB, all five books as **5 chapters**, **140 chapters as sections**, **1,050
+  notes** — A. M. Sellar's revised translation of 1907, and **the first book here whose TWO COLUMNS
+  COME FROM DIFFERENT KINDS OF SOURCE with the sides the other way round**: a Project Gutenberg TEI
+  HTML English against a wiki Latin, where Thucydides had a Wikisource English against a Perseus TEI
+  original. It is also the SIXTH book from Project Gutenberg and the third from its HTML, which the
+  Ptahhotep entry calls the easiest of the three paths.
+  **THE PAIRING IS THE CLEANEST MEASURED ONE ON THE SHELF**, bettered only by the constructed cases
+  and the Gallic War: **140 chapters a side, 34/20/30/32/24 in both, a clean 1..N in every book with
+  no gap or duplicate either way, and the two columns' lists identical book for book.** Length
+  correlates at **r = 0.9987** over all 140, the English running 1.45–1.50 times the Latin's word
+  count in every book — which is the check that mattered, because the Latin's own host rates it 25%
+  proofread. The flag is about polish; the text is complete and correctly divided.
+  **SIX THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE OBVIOUS ENGLISH IS COMPLETE, SCAN-BACKED, CLEANER IN ITS LICENCE — AND CARRIES NO NOTES,
+  WHICH IS WHAT DECIDED IT.** Wikisource has the whole book in L. C. Jane's Temple Classics edition of
+  1910 (John Stevens's translation of 1723 revised), one page per book, proofread against a scan,
+  pairing with the Latin exactly as this one does, and with a byline that can be traced — Stevens died
+  1726, Jane lived 1879–1932, both with author pages and Jane on Wikidata. Swept over all five books
+  it holds **zero reference marks**. Sellar's carries 1,081, a new introduction and a life of Bede,
+  and was made against Plummer's critical text, which her own preface states. Bede is a book in which
+  almost every name needs a note, so that is the difference between a usable book and an opaque one,
+  and it was worth an untraceable translator. **Ask what an edition's APPARATUS is before comparing
+  its text**: read side by side the two Englishes are close relatives and neither is the Jacobean
+  prose that ruled out Golding, Hobbes, Burnaby and I.T. (Sellar keeps the Old English titles —
+  "with your ealdormen and thegns" where Jane has "with your commanders and ministers" — and Jane is
+  the more literal in places), so on the text alone there was nothing in it.
+  **A MACHINE-READABLE ANCHOR IS NOT ALWAYS COMPLETE, AND THIS ONE COVERS 117 OF THE 140 CHAPTERS.**
+  The Ptahhotep reader's rule is to find a chapter by its anchor and never by its heading, a heading
+  being the ambiguous thing; here the anchors are generated from the index's cross-references, so a
+  chapter the index never points at simply has none — 23/19/26/29/20 against 34/20/30/32/24, and only
+  ONE of the five books has an anchor of its own. Reading them would have shipped a book missing a
+  sixth of itself with nothing throwing. **Count what an identifier actually covers before preferring
+  it to the thing it was meant to improve on.**
+  **THE INDEX USES THE SAME MARKUP AS THE VERSE**, so an inventory taken over the FILE rather than
+  over the divisions being imported reports 1,851 line groups and 3,086 lines of verse in a prose
+  history. Inside the five books there is exactly ONE line group holding one line: Sellar sets Bede's
+  quoted verse — the epitaphs of Gregory, Caedwalla and Wilfrid — as PROSE inside display quotations,
+  which is Heseltine's judgement on Petronius met on another book. So the reader needs almost no verse
+  handling and does need the quotations, and both are matched BALANCED, a quotation holding paragraphs
+  and a line group holding lines.
+  **A KEPT HEADING MAY CARRY A FOOTNOTE MARKER, and four of the 141 do.** That is the Consolation's
+  finding on a title that STAYS rather than one that is dropped: flattening the heading to text before
+  the anchors come out of it leaves the bare figure 143 sitting in a chapter title while its note sits
+  in the fold with nothing pointing at it. Three shipped that way for one run. **Nothing but an
+  every-note-is-referenced assertion can see it** — the chapters are complete, the numbering is right,
+  the pairing is exact, and the only symptom is a number in a title that looks like part of the title.
+  **ITS REAL LIMITATION IS WHOSE LATIN IT IS, and it is stated rather than guessed.** The
+  transcription's own header names Migne's Patrologia Latina 95; the text it carries prints
+  consonantal *v* as *u* throughout — measured over all five books, **93 `uero` against 2 `vero`, 48
+  `uita` against 1 `vita`, 25 `ciuitate` against none, 31 v-spelled words in the whole work** — which
+  is the convention of the late-19th-century critical editions and not of a Patrologia reprint, and
+  sampled against the scans on archive.org it matches **Alfred Holder's edition of 1895** word for
+  word. So the edition it names is not the edition it prints. Holder (d. 1916), Plummer (d. 1927) and
+  Migne (1861) are all long out of copyright, so the licence is safe whichever it is; what cannot be
+  said is which, and the book's own front matter says so. Lucretius's judgement with a measurement
+  behind it. **AND THE CONTINUATION IS NOT SHELVED**: the printed volumes carry a short set of annals
+  for 731–766 after Book V, both columns have it, and it is not Bede's — it was added by a later hand
+  at his own monastery — so a tab reading Book VI over it would say the wrong thing. Boethius's
+  Symmachus epigram, and said on the book's own first page),
   `morte-darthur` (~1.80 MB, all twenty-one of Caxton's books as **21 chapters**, **503 chapters as
   sections**, **0 notes** — the Everyman's Library text of 1906, and **the first book on this shelf
   with no facing original because there is no TRANSLATION.** Every earlier single-column book is
@@ -1117,7 +1176,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently thirty-one:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently thirty-two:
+  `bede-history.la.js` (~560 KB, all five books, **140 chapters**, the Praefatio joined in front of
+  Book I — the received Latin as transcribed at Latin Wikisource, and **the original here whose
+  TRANSCRIPTION NAMES AN EDITION IT DOES NOT PRINT.** Its header states "editio: Patrologia Latina,
+  XCV"; the text sets consonantal *v* as *u* throughout (93 `uero` against 2 `vero` over the five
+  books) and matches Alfred Holder's edition of 1895 word for word where sampled, which Migne's
+  reprint does not. Every candidate is long out of copyright, so nothing is at stake but the claim,
+  and none is made — the Divine Comedy's question answered the way Lucretius's entry answers it.
+  **ITS CHAPTER MARK WEARS TWO COSTUMES AND IT IS THE WHOLE BOOK THAT CHANGES**, not a page here and
+  there: Liber Primus sets its numbers as `<h3>` headings and the other four set them as a bare
+  `[N]` opening the paragraph the chapter begins. Both are converted BEFORE the tags come off,
+  because after `stripTags` a heading is a bare figure indistinguishable from a number in the prose —
+  and this text is full of Roman numerals while writing its chapter marks in Arabic, so there is
+  nothing else to tell them apart by. **A THIRD costume was found by inventorying all 106 bracketed
+  marks rather than by fixing the three that failed**: 69 open `<p><br/>`, 23 open `<p>`, and 3 carry
+  an empty anchor span between the two. Written against the first two the run loses II.16, V.21 and
+  V.24 — three chapters folded into their neighbours with every count still reading healthy.
+  **AND ONE PAGE CARRIES A STALE CHAPTER INDEX OUTSIDE THE WIKI'S OWN `ws-noexport` WRAPPER**: Liber
+  Secundus opens on a strip reading "1 - 2 - 3 … 34", which is BOOK I's chapter count sitting on Book
+  II's page, and because it stands before the running head a rule anchored to the start fires on
+  nothing. The furniture is peeled in a LOOP instead, and the strip is recognised by its SHAPE — a
+  paragraph of nothing but figures and dashes, which no sentence of Latin can wear — rather than by
+  its wording; every removal is counted. **Its host rates it 25% proofread**, which is why the
+  length correlation against the English was run before a word was imported rather than a page
+  glanced at; see the `bede-history` entry above for the figure),
   `boethius-consolation.la.js` (~190 KB, all five books, **78 sections**, 39 metres in 896 lines —
   E. K. Rand's Latin of 1918, printed facing an English translation in the same Loeb volume, and
   **the original here that had to be lifted OUT of a facing-page file rather than fetched as one.**
@@ -1445,7 +1528,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-six books, thirty-one originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-seven books, thirty-two originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
   Divine Comedy, the Summa Theologica, Don Quixote, the Maxims of Ptahhotep and Le Morte d'Arthur
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
@@ -2168,6 +2251,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and is decoded; `[Greek: theoraetikae]` is a lossy romanisation and is left exactly as printed
     and counted. The Satyricon's `betaGreek` judgement, and the same refusal: never compose a letter
     the evidence does not carry.
+
+  **TWO COLUMNS FROM TWO DIFFERENT KINDS OF SOURCE** (`layout: "bede"` → `extractBede` /
+  `bedeChapter` / `bedeInline` / `bedeText`, and on the original side `layout: "bedeLatin"` →
+  `bedeLatin`, with `BEDE_CHAPTERS` / `BEDE_ROMAN` / `BEDE_LATIN_BOOK`; Aug 2026, adding the
+  Ecclesiastical History of the English People — the forty-seventh book, and the twenty-first
+  layout). The SIXTH book from Project Gutenberg and the third from its HTML. Two readers for one
+  book, as the Canterbury Tales and the Consolation needed — here because the columns come from
+  different kinds of source, which is Thucydides' position with the sides swapped. Five things it
+  settled, and the first two are about not trusting what a file offers you:
+  · **COUNT WHAT A MACHINE-READABLE IDENTIFIER ACTUALLY COVERS BEFORE PREFERRING IT TO A HEADING.**
+    The Ptahhotep reader's rule is to find a chapter by its anchor and never by its heading; this
+    file's anchors are generated from the INDEX's cross-references, so they cover 117 of the 140
+    chapters and only one of the five books. The headings are complete on both sides, checked, so the
+    number is read off the heading and CHECKED against the count the edition states.
+  · **AN INVENTORY TAKEN OVER THE FILE IS NOT AN INVENTORY OF THE BOOK.** The index uses the same
+    `tei-lg`/`tei-l` markup as the verse, so a sweep of the whole file reports 1,851 line groups and
+    3,086 lines of verse in a prose history; inside the five books there is exactly one, of one line.
+    Take the inventory over the divisions actually being imported.
+  · **A KEPT HEADING MAY CARRY A FOOTNOTE MARKER** — the Consolation's finding on a title that stays
+    rather than one that is dropped, and it bites on four of 141 here. Flattened to text the marker
+    becomes a bare figure inside the chapter title while its note sits in the fold with nothing
+    pointing at it, and only an every-note-is-referenced assertion can see it.
+  · **A MARK MAY WEAR A DIFFERENT COSTUME IN EACH BOOK OF ONE WORK.** The Latin sets its chapter
+    numbers as `<h3>` headings in Liber Primus and as a bare `[N]` opening a paragraph in the other
+    four, so both are converted BEFORE the tags come off — after `stripTags` a heading is a bare
+    figure indistinguishable from a number in the prose. **And the rule is written from an inventory
+    of all 106 bracketed marks rather than from the three that failed**: 69 open `<p><br/>`, 23 open
+    `<p>`, 3 carry an empty anchor span, and against the first two shapes three chapters fold
+    silently into their neighbours.
+  · **AND PAGE FURNITURE IS PEELED IN A LOOP, NOT MATCHED ONCE.** One page of the Latin carries a
+    stale chapter index — Book I's numbers on Book II's page — outside the wiki's own `ws-noexport`
+    wrapper and BEFORE the running head, so a rule anchored to the start fires on whichever comes
+    first and leaves the rest standing. The index is recognised by its shape (a paragraph of nothing
+    but figures and dashes) rather than by its wording, and every removal is counted.
+
   **A TITLE THAT IS ONLY ON THE CHAPTER'S OWN PAGE — AND THAT IS A HOOK, NOT A LAYOUT**
   (`head: "sankuo"` → `sanKuoHead` / `sanKuoRoman` / `SANKUO`; Aug 2026, adding Romance of the Three
   Kingdoms — the forty-fourth book). Worth reading for what it is NOT: the book goes through the
@@ -4848,6 +4966,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     anywhere in it clears 19.7 where the shelf's own tightest pair is now 18.2, and the Euripides test
     picked the family — the best blue is 18.5 from Snorri Sturluson, which is both below that pair and a
     kinship claim between the two medieval vernacular poets on the shelf.
+
+    **The Ecclesiastical History is the SECOND book here whose ground is the PUBLICATION DATE and
+    nothing else** (Aug 2026), after the Gallic War, and the reason is the same shape: half the
+    byline cannot be found. Bede finished in 731 and died in 735, so the work is free everywhere on
+    any reading. A. M. Sellar's translation was published in London by George Bell and Sons in 1907 —
+    read off the volume's own title page — so its United States copyright has expired and anyone can
+    check that. What cannot be established is when she died: the title page gives "A. M. Sellar, Late
+    Vice-Principal of Lady Margaret Hall, Oxford" and nothing more, her own preface is unsigned, and
+    there is **no Wikidata entity, no Wikipedia article and no Wikisource author page** for her. So
+    no life-plus-seventy term is asserted, the ground stated is the publication date, and the gap is
+    named in `rights` and on the book's own first page rather than rounded up.
+    **THE CLEANER LICENCE WAS ATTACHED TO THE TEXT WITH NO NOTES, which is the Nicomachean Ethics'
+    trade in a third form.** Wikisource carries L. C. Jane's Temple Classics edition of 1910 — John
+    Stevens's translation of 1723 revised — complete, scan-backed, pairing with the Latin exactly as
+    this one does, and with **both** its names traceable (Stevens d. 1726; Jane 1879–1932, on
+    Wikidata with an author page). Measured over all five books it carries **zero reference marks**,
+    where Sellar's carries 1,081 with a new introduction and a life of Bede, made against Plummer's
+    critical text. On a book in which almost every name needs a note that is not a refinement, so the
+    apparatus won and a stated gap in the byline was the price. Neither English is the Jacobean prose
+    that ruled out Golding, Hobbes, Burnaby and I.T.: Sellar keeps the Old English titles ("with your
+    ealdormen and thegns" where Jane has "with your commanders and ministers") and Jane is the more
+    literal in places, so on the text alone there was little in it. **THE LATIN NAMES AN EDITION IT
+    DOES NOT PRINT** — see the `bede-history.la.js` entry for the measurement — so no editor is
+    asserted for that column either; every candidate is a century or more out of copyright.
+    Sherley-Price's Penguin (1955) and Colgrave and Mynors's Oxford Medieval Texts edition (1969),
+    which is the scholarly standard and prints the Latin facing it, are named as the ones not to
+    reach for. Its `BOOK_AUTHOR_COLOR` row is where **the band ran out of COLOURS rather than of
+    room** — see the note beside `"Bede"` in app.js: the seven best-separated swatches left anywhere
+    in it are greys at chroma 2–10 against a shelf whose own floor is 18, and re-running the search
+    with that floor applied tops out at 17.5, which is still above the shelf's own tightest pair (now
+    16.6, Aristotle against Ptahhotep — it was 18.2 when Malory was placed and has closed as books
+    were added). The Euripides test then decided between the top three rather than merely passing:
+    the runner-up lands 17 from the Poetic Edda, which is a Germanic-world kinship claim this must
+    not make, and the third sits at the very top of the chroma band.
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
@@ -12038,6 +12190,7 @@ dead code (never rendered).
     `extractQuixote` / `extractSatyricon` / `satyriconSection` / `cutAcrossSections` /
     `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `ramSarga` /
     `extractPtahhotep` / `PTAH_KEYS` /
+    `extractBede` / `bedeChapter` / `bedeLatin` / `BEDE_CHAPTERS` /
     `sanKuoHead` / `sanKuoRoman` / `originalChapter`'s `dropTables` /
     `extractBoethius` / `boethiusLatin` / `boeGreek` / `boePoem` / `BOE_BOOKS` /
     `markMaloryHeads` / `MALORY_RUBRIC` / `MALORY_CHAPTERS` / `dropNotes` /
@@ -12048,6 +12201,18 @@ dead code (never rendered).
     mid-line card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` /
     `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
     renaming anything on the Collections page.**
+    **A BEDE section (`bedeChecks`) is there because its pairing is exact by MEASUREMENT rather than
+    by construction, so the thing to assert is that it stays exact**: 140 chapters a side in
+    34/20/30/32/24, a clean 1..N on both sides, and the two columns' lists identical book for book.
+    Every fault this book can have is silent — a mark that stops being recognised folds its chapter
+    into the one before it and shortens nothing visible. Two of its assertions are worth copying
+    elsewhere. **Every marker resolves and every note is referenced** is what found the four headings
+    carrying a footnote marker, and it is the ONLY check that can see one: flattened, the marker
+    becomes a bare figure inside a chapter title and the chapter is otherwise perfect. And **the
+    Latin is fingerprinted on its own orthography** (93 `uero` against 2 `vero`, and the same for
+    `uita` and `ciuitate`), because the transcription names Migne and does not print what Migne
+    prints — so a shelf that quietly acquired a v-orthography text would be serving a different
+    edition under the same claim, with every count still healthy.
     **A MALORY section (`malloryChecks`) is there because that book has no second column to check it
     against** — a single-column book cannot fail a pairing, which is what catches most faults on this
     shelf, so everything about it has to be asserted directly. Its sharpest assertion is not a count

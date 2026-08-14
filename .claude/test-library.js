@@ -532,6 +532,109 @@ function boethiusChecks() {
    bar of eighty-eight; a transcriber's note leaking back in puts an unsigned collation of the
    Winchester manuscript under a book offered as the 1906 Everyman; and a chapter that is really
    Project Gutenberg's text rather than this one reads perfectly and is a different book. */
+/* THE ECCLESIASTICAL HISTORY — both columns, read off the shipped files.
+   The pairing here is exact by measurement rather than by construction, so what has to be asserted
+   is that it STAYS exact: 140 chapters a side in 34/20/30/32/24, a clean 1..N in every book on both
+   sides, and the two columns' lists identical. Every fault this book can have is silent — a mark
+   that stops being recognised folds its chapter into the one before it, which shortens nothing
+   visibly, and a heading whose footnote marker is flattened leaves a bare figure in a title while
+   its note sits in a fold nothing points at. */
+function bedeChecks() {
+  const fe = path.join(ROOT, "books", "bede-history.js");
+  const fl = path.join(ROOT, "books", "bede-history.la.js");
+  if (!fs.existsSync(fe) || !fs.existsSync(fl)) return null;
+  global.window = {};
+  for (const f of [fe, fl]) { delete require.cache[require.resolve(f)]; require(f); }
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "bede-history");
+  const la = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "bede-history");
+  if (!en || !la) return null;
+  const WANT = [34, 20, 30, 32, 24];
+  const nums = (h) => (h.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+  const o = { books: en.chapters.length, laBooks: la.chapters.length, shape: [], laShape: [],
+              seqBad: [], differ: [], secs: 0, laSecs: 0, notes: 0, markers: 0, drops: 0,
+              orphans: 0, titles: 0, bareNum: [], headMarks: 0, bal: [], leak: [], laLeak: [],
+              lead: 0, laLead: 0, vBad: 0 };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup", "span"];
+  /* The transcriber's furniture on each side: Gutenberg's TEI classes and page marks, and the wiki's
+     own containers, edit links and running heads. A leak makes a chapter LONGER, so no count of
+     chapters or sections can see it and the shipped file has to be swept. */
+  const LEAK_EN = /tei-|pginternal|\[pg |pagenum|<h[1-6]|<div|<dl[ >]|<dt[ >]|noteref/i;
+  const LEAK_LA = /mw-parser-output|mw-heading|mw-editsection|ws-noexport|titulusHeaderBox|recensere|HISTORIAE ECCLESIASTICAE|<h[1-6]|<div|<table/i;
+  en.chapters.forEach((c, i) => {
+    const ns = nums(c.html);
+    o.secs += ns.length; o.shape.push(ns.length);
+    if (!ns.every((v, k) => v === k + 1)) o.seqBad.push("EN " + c.n);
+    o.notes += (c.notes || []).length;
+    o.markers += (c.html.match(/<sup class="fn"/g) || []).length;
+    if (LEAK_EN.test(c.html)) o.leak.push(c.n);
+    /* Every marker resolves and every note is referenced — the assertion that found the heading
+       markers, and the only one that can see either failure. */
+    const n = (c.notes || []).length, used = new Set();
+    for (const m of c.html.matchAll(/<sup class="fn" data-fn="(\d+)">/g)) {
+      const v = +m[1];
+      if (v < 1 || v > n) o.drops++;
+      used.add(v);
+    }
+    for (let k = 1; k <= n; k++) if (!used.has(k)) o.orphans++;
+    /* Bede's own descriptive heading beside each number, and no bare figure left in one. */
+    for (const m of c.html.matchAll(/<b>([\s\S]*?)<\/b>/g)) {
+      o.titles++;
+      o.headMarks += (m[1].match(/<sup class="fn"/g) || []).length;
+      if (/\b\d{2,4}\b\s*(\[|$)/.test(m[1].replace(/<sup[^>]*><\/sup>/g, ""))) o.bareNum.push(c.n);
+    }
+    TAGS.forEach((t) => {
+      const open = (c.html.match(new RegExp("<" + t + "(?=[ >])", "g")) || []).length;
+      const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push("EN " + c.n + " " + t + " " + open + "/" + shut);
+    });
+    const lc = la.chapters.find((x) => x.n === c.n);
+    if (!lc) { o.differ.push("no Latin for book " + c.n); return; }
+    const ls = nums(lc.html);
+    o.laSecs += ls.length; o.laShape.push(ls.length);
+    if (!ls.every((v, k) => v === k + 1)) o.seqBad.push("LA " + c.n);
+    if (LEAK_LA.test(lc.html)) o.laLeak.push(c.n);
+    if (ns.join() !== ls.join()) o.differ.push("book " + c.n);
+    TAGS.forEach((t) => {
+      const open = (lc.html.match(new RegExp("<" + t + "(?=[ >])", "g")) || []).length;
+      const shut = (lc.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push("LA " + c.n + " " + t + " " + open + "/" + shut);
+    });
+  });
+  o.shapeOK = o.shape.join() === WANT.join() && o.laShape.join() === WANT.join();
+  /* Bede's letter to Ceolwulf opens Book I on both sides, unnumbered — the row `bookRows` pairs on
+     key -1 === -1 because neither column carries a marker there. */
+  const b1 = en.chapters.find((c) => c.n === 1), l1 = la.chapters.find((c) => c.n === 1);
+  o.lead = b1 ? b1.html.indexOf('class="bk-n"') : -1;
+  o.laLead = l1 ? l1.html.indexOf('class="bk-n"') : -1;
+  o.prefaceEn = !!(b1 && /most glorious king Ceolwulf/i.test(b1.html.slice(0, o.lead)));
+  o.prefaceLa = !!(l1 && /GLORIOSISSIMO REGI CEOLUULFO/.test(l1.html.slice(0, o.laLead)));
+  /* Sellar's own words, at the two places a reader would notice them going: the sparrow simile she
+     is quoted for, and the Old English of Bede's Death Song — which is the ONE verse block in the
+     five books and would vanish silently if the line-group rule stopped firing. */
+  const all = en.chapters.map((c) => c.html).join("\n");
+  o.sparrow = /swift flight of a sparrow through the house wherein you sit at supper in winter, with your ealdormen and thegns/.test(all);
+  o.caedmon = /Now must we praise the Maker of the heavenly kingdom/i.test(all);
+  o.letters = (all.match(/<blockquote>/g) || []).length;
+  /* And the Latin's own, at the opening of the work and at the last chapter of Book V. Probed on the
+     text with the tags OFF, because this transcription sets a drop capital on the first word of every
+     chapter — "<b>B</b>rittania" — so a pattern written against the markup matches nothing. */
+  const laAll = la.chapters.map((c) => c.html).join("\n");
+  const laFlat = laAll.replace(/<[^>]+>/g, "");
+  o.laOpens = /Brittania Oceani insula, cui quondam Albion nomen fuit/.test(laFlat);
+  o.laCloses = /dominicae autem incarnationis anno DCCXXXI/.test(laFlat);
+  /* WHOSE LATIN IT IS. The transcription names Migne and prints consonantal v as u, which Migne does
+     not — so the u-forms are the fingerprint, and a shelf that quietly acquired a v-orthography text
+     would be a different edition under the same claim. Counted in both directions. */
+  o.u = { uero: (laFlat.match(/\buero\b/g) || []).length, uita: (laFlat.match(/\buita\b/g) || []).length,
+          ciuitate: (laFlat.match(/\bciuitate\b/g) || []).length };
+  o.v = { vero: (laFlat.match(/\bvero\b/g) || []).length, vita: (laFlat.match(/\bvita\b/g) || []).length,
+          civitate: (laFlat.match(/\bcivitate\b/g) || []).length };
+  /* The Continuation is a later hand's and is deliberately not shelved; it would announce itself as
+     a sixth book or as annals appended to the fifth. */
+  o.noContinuation = !/BAEDAE CONTINUATIO/.test(laAll) && !/Anno DCCXXXIII/.test(laAll);
+  return o;
+}
+
 function malloryChecks() {
   const f = path.join(ROOT, "books", "morte-darthur.js");
   if (!fs.existsSync(f)) return null;
@@ -1795,6 +1898,62 @@ function aeneidChecks() {
       check("[boethius] both columns are on disk", false, "missing books/boethius-consolation*.js");
     }
 
+    /* THE ECCLESIASTICAL HISTORY — see bedeChecks above for what each of these can see. */
+    const bd = bedeChecks();
+    if (bd) {
+      check("[bede] five books on each side", bd.books === 5 && bd.laBooks === 5,
+        bd.books + " / " + bd.laBooks);
+      /* 34/20/30/32/24 is the standard division and both columns had to agree on it before a word
+         was imported. A mark that stops being recognised folds its chapter into the one before it,
+         which shortens nothing visibly and would pair 139 of 140 with no other symptom. */
+      check("[bede] 140 chapters a side, in the 34/20/30/32/24 the edition states",
+        bd.secs === 140 && bd.laSecs === 140 && bd.shapeOK,
+        bd.secs + " / " + bd.laSecs + "  EN " + JSON.stringify(bd.shape) + " LA " + JSON.stringify(bd.laShape));
+      check("[bede] ...numbered a clean 1..N in every book on both sides",
+        !bd.seqBad.length, JSON.stringify(bd.seqBad));
+      /* The pairing is the whole point of the second column, and it is exact by MEASUREMENT rather
+         than by construction, so it is the thing most worth watching. */
+      check("[bede] ...and the two columns' chapter lists are identical, book for book",
+        !bd.differ.length, JSON.stringify(bd.differ));
+      /* Bede's letter to King Ceolwulf, unnumbered on both sides, which is what makes it a row of
+         its own rather than something folded into chapter 1. */
+      check("[bede] Bede's preface to Ceolwulf opens Book I on both sides, unnumbered",
+        bd.prefaceEn && bd.prefaceLa && bd.lead > 3000 && bd.laLead > 3000,
+        bd.lead + " / " + bd.laLead + " chars before the first marker");
+      /* The apparatus is why this translation was chosen over the other free one, which carries
+         none — so its integrity is the assertion that justifies the choice. */
+      check("[bede] Sellar's 1,050 notes, every marker resolving and every note referenced",
+        bd.notes === 1050 && bd.markers === 1050 && !bd.drops && !bd.orphans,
+        bd.notes + " notes, " + bd.markers + " markers, " + bd.drops + " past the end, " + bd.orphans + " unreferenced");
+      /* Four headings carry a footnote marker. Flattened to text they leave a bare figure in a title
+         with its note in a fold nothing points at — the Consolation's finding, and invisible to
+         every count: the chapter is complete and the numbering right either way. */
+      check("[bede] every chapter carries Bede's own heading, and the four notes hung on one are carried",
+        bd.titles === 140 && bd.headMarks === 4 && !bd.bareNum.length,
+        bd.titles + " titles, " + bd.headMarks + " markers in one, bare figures in " + JSON.stringify(bd.bareNum));
+      check("[bede] no transcriber's furniture in either column",
+        !bd.leak.length && !bd.laLeak.length, JSON.stringify(bd.leak) + " / " + JSON.stringify(bd.laLeak));
+      check("[bede] tags balance in every book, both columns", !bd.bal.length, JSON.stringify(bd.bal));
+      /* The sentence Bede is quoted for, and the display quotations the papal letters are set in —
+         Sellar sets his verse as prose, so a quotation is what carries them. */
+      check("[bede] the sparrow flies through the hall, with the ealdormen and thegns in it",
+        bd.sparrow, "");
+      check("[bede] ...and the letters are set as display quotations", bd.letters >= 5, String(bd.letters));
+      check("[bede] the Latin opens on Brittania and closes in the year 731",
+        bd.laOpens && bd.laCloses, "");
+      /* WHOSE LATIN IT IS. The transcription names Migne and does not print what Migne prints: it
+         sets consonantal v as u throughout, which is what identifies the text and what a shelf
+         quietly acquiring a different edition would lose. Counted in both directions. */
+      check("[bede] the Latin is the u-orthography text its header does not describe",
+        bd.u.uero > 80 && bd.u.uita > 40 && bd.u.ciuitate > 20 &&
+        bd.v.vero < 5 && bd.v.vita < 5 && bd.v.civitate < 5,
+        JSON.stringify(bd.u) + " against " + JSON.stringify(bd.v));
+      /* Not Bede's, and a tab reading Book VI over it would say the wrong thing. */
+      check("[bede] the later hand's continuation is not shelved as a sixth book", bd.noContinuation, "");
+    } else {
+      check("[bede] both columns are on disk", false, "missing books/bede-history*.js");
+    }
+
     /* LE MORTE D'ARTHUR — see malloryChecks above for what each of these can see. */
     const ml = malloryChecks();
     if (ml) {
@@ -2420,10 +2579,17 @@ function aeneidChecks() {
   await browser.close();
   server.close();
 
-  /* styles.css @imports the Google Fonts stylesheet, which no sandbox reaches — every run reports a
-     handful of connection resets that say nothing about this code. Filtered by the same reasoning the
-     other suites filter favicon/manifest noise: a real fault in the Library would name a file in it. */
-  const real = errs.filter((e) => !/favicon|manifest|sw\.js|ServiceWorker|fonts\.(googleapis|gstatic)|ERR_CONNECTION_RESET|ERR_NAME_NOT_RESOLVED/i.test(e));
+  /* styles.css @imports the Google Fonts stylesheet and boot asks Supabase for the content overrides;
+     no sandbox reaches either, so every run reports a handful of failures that say nothing about this
+     code. Filtered by the same reasoning the other suites filter favicon/manifest noise: a real fault
+     in the Library would name a file in it.
+
+     HOW AN UNREACHABLE HOST IS SPELLED DEPENDS ON THE SANDBOX, NOT ON THE FAULT. This list was
+     written against ERR_CONNECTION_RESET and the run after a container restart reported exactly the
+     same two URLs — measured, not assumed — as ERR_CERT_AUTHORITY_INVALID, the egress proxy having
+     come back presenting a certificate Chromium will not accept. One environment change, one red
+     assertion, and nothing wrong with the Library. Match the whole family. */
+  const real = errs.filter((e) => !/favicon|manifest|sw\.js|ServiceWorker|fonts\.(googleapis|gstatic)|ERR_CONNECTION_RESET|ERR_NAME_NOT_RESOLVED|ERR_CERT_|ERR_PROXY_|ERR_TUNNEL_CONNECTION_FAILED|ERR_INTERNET_DISCONNECTED/i.test(e));
   check("no console errors anywhere", real.length === 0, real.slice(0, 3).join(" | "));
 
   console.log("\n" + pass + " passed, " + fail + " failed");

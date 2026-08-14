@@ -627,6 +627,17 @@ const MALORY_CHAPTERS = {
   12: 14, 13: 20, 14: 10, 15: 6, 16: 17, 17: 23, 18: 25, 19: 13, 20: 22, 21: 13,
 };
 
+/* ---------- Bede: how many chapters each of the five books has ----------
+   The standard division, and the one thing both columns had to agree on before a word was imported.
+   Counted on each side independently rather than taken from either: Sellar's headings run
+   34/20/30/32/24 and so do the Latin's marks, a clean 1..N in every book with no gap and no
+   duplicate on either side, so the 140 chapters pair by construction and this table is a check on
+   both rather than a fetch list for one. It is what would report a Wikisource page renamed or a
+   Gutenberg heading retyped, neither of which shortens a book visibly. */
+const BEDE_CHAPTERS = { 1: 34, 2: 20, 3: 30, 4: 32, 5: 24 };
+const BEDE_ROMAN = ["", "I", "II", "III", "IV", "V"];
+const BEDE_LATIN_BOOK = ["", "Primus", "Secundus", "Tertius", "Quartus", "Quintus"];
+
 /* ---------- The City of God: how many chapters each of the twenty-two books has, and which of them
    Dods heads with a preface ----------
    Read off Wikisource's own contents lists rather than off a printed table: every one of the 22 book
@@ -9256,6 +9267,156 @@ const BOOKS = {
        the collision IS the subject. */
   },
 
+  "bede-history": {
+    title: "The Ecclesiastical History of the English People",
+    author: "Bede",
+    translator: "A. M. Sellar",
+    edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
+    written: "731",
+    year: 731,
+
+    /* ---------- THE LICENCE ----------
+       Bede finished the History in 731 and died in 735, so the work itself is free everywhere on any
+       reading. The one modern layer is the translation, published in London by George Bell and Sons
+       in 1907 — read off the volume's own title page, which the transcription reproduces — so it is
+       public domain in the United States on the pre-1929 rule and anyone can check that.
+
+       WHAT CANNOT BE ESTABLISHED IS THE TRANSLATOR, and this is the Gallic War's position rather
+       than a new one. The title page gives "A. M. Sellar, Late Vice-Principal of Lady Margaret Hall,
+       Oxford" and nothing more; her own preface is unsigned; there is no Wikidata entity, no
+       Wikipedia article and no Wikisource author page for her. A life-plus-seventy term runs from a
+       death year, and no death year for her can be found, so none is asserted: the ground stated is
+       the date of publication, and the gap is named here and on the book's own first page rather
+       than rounded up. Lucretius's judgement in a third book — claim less, and put on the page what
+       cannot be said.
+
+       THE OTHER FREE ENGLISH WAS MEASURED AND THE MEASUREMENT IS WHAT DECIDED IT. Wikisource carries
+       L. C. Jane's Temple Classics edition of 1910 — John Stevens's translation of 1723 revised —
+       complete, one page per book, proofread against a scan, and pairing with the Latin exactly as
+       this one does. Its licence is the cleaner of the two: Stevens died in 1726 and Jane lived
+       1879–1932, both traceable, both with author pages. What decided against it is that its
+       transcription carries NO NOTES AT ALL — swept over all five books, zero reference marks —
+       where Sellar's carries 1,081, and Bede is a book in which almost every name needs one. Read
+       side by side the two Englishes are close relatives and neither is the Jacobean prose that
+       ruled out Golding's Ovid, Hobbes's Thucydides, Burnaby's Satyricon and I.T.'s Boethius; Sellar
+       keeps the Old English titles where Jane modernises them out ("with your ealdormen and thegns"
+       against "with your commanders and ministers") and Jane is the more literal in places. The
+       apparatus is the difference that matters, and it is worth an untraceable byline.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are both in copyright and
+       neither may be used: Leo Sherley-Price's Penguin of 1955, revised by R. E. Latham, and Bertram
+       Colgrave and R. A. B. Mynors's Oxford Medieval Texts edition of 1969, which is the scholarly
+       standard and prints the Latin facing it. */
+    rights:
+      "Public domain. Bede finished the History in 731 and died in 735, so the work is free " +
+      "everywhere. A. M. Sellar's translation was published in London in 1907, so it is public " +
+      "domain in the United States as a pre-1929 publication. No life-plus-seventy term is claimed " +
+      "for it, because the translator's dates cannot be established: the title page gives only her " +
+      "initials and her former post at Lady Margaret Hall, Oxford, and no reference work reachable " +
+      "here records when she died. The Latin beside it is free on the age of the work; the " +
+      "transcription names Migne's Patrologia Latina 95 as its edition, but the text it carries is " +
+      "not set as Migne sets it, so no editor is asserted for that column either.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/38326",
+    url: "https://www.gutenberg.org/cache/epub/38326/pg38326-images.html",
+
+    layout: "bede",
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4, 5],
+    /* Bede's books carry no names — Sellar heads them "Book I" … "Book V" and nothing else — so the
+       title is her own heading, transcribed, which is the Meditations' rule (a title is transcribed,
+       never composed) and the form Malory and the Meditations both ship. It is NOT the Ptahhotep
+       trap: there the printed mark and the running index were different numbers, so a head read
+       "SECTION 34 / Section 32" and contradicted itself, where here Book I really is the first
+       chapter and the head reads "BOOK 1 / Book I" — one number in two notations, as on every other
+       book whose chapters are unnamed. Without it the fallback is `chapterWord + " " + n` and the
+       head prints "Book 1" twice over. */
+    titleOf: (n) => "Book " + BEDE_ROMAN[n],
+    minChars: 20000,
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      /* WHOSE LATIN THIS IS, AND WHY NO EDITOR IS NAMED. The transcription's own header states
+         "editio: Patrologia Latina, XCV" with Corpus Corporum as its source. The text it carries
+         does not read as Migne's: measured over all five books it prints consonantal v as u
+         throughout — 93 `uero` against 2 `vero`, 48 `uita` against 1 `vita`, 25 `ciuitate` against
+         none, and 31 v-spelled words in the whole work — which is the convention of the late-19th-
+         century critical editions and not of a Patrologia reprint, and sampled against the scans on
+         archive.org it matches Alfred Holder's edition of 1895 word for word. Holder (1840–1916) and
+         Plummer (1851–1927), the two editions that convention points to, are both long out of
+         copyright, as is the Migne the header names, so the licence is safe whichever it is; what
+         cannot be said is which. Stated rather than guessed — the Divine Comedy's question, answered
+         the way Lucretius's entry answers it.
+
+         AND ITS HOST RATES IT 25% PROOFREAD, which is why the pairing measurement above was the
+         thing to run rather than a glance at a page: complete, correctly divided, and correlating
+         with the English at r = 0.9987 chapter by chapter. The flag is about polish, not about
+         missing text. */
+      edition: "as transcribed at Latin Wikisource; see the book's own first page for whose text it is",
+      rights:
+        "Public domain. Bede wrote the History in Latin and finished it in 731. The transcription " +
+        "names Migne's Patrologia Latina 95 as its edition; the text it carries prints consonantal " +
+        "v as u throughout, which Migne does not, and matches Alfred Holder's edition of 1895 where " +
+        "sampled. Every edition it could be is long out of copyright, so no editor is named here.",
+      sourceName: "Latin Wikisource",
+      sourceUrl: "https://la.wikisource.org/wiki/Historia_Ecclesiastica_gentis_Anglorum",
+      wiki: "la.wikisource.org",
+      layout: "bedeLatin",
+      /* One page per book, and for Book I the Praefatio joined in front of it — both columns carry
+         Bede's letter to Ceolwulf, both leave it unnumbered, and it is where the printed page puts
+         it. `page` returns an ARRAY here, which the Book of Documents established on the translation
+         side; the branch below joins them in order. */
+      page: (n) => (n === 1
+        ? ["Historia Ecclesiastica gentis Anglorum/Praefatio",
+           "Historia Ecclesiastica gentis Anglorum/Liber Primus"]
+        : ["Historia Ecclesiastica gentis Anglorum/Liber " + BEDE_LATIN_BOOK[n]]),
+      minChars: 5000,
+    },
+
+    about: [
+      "Bede finished this book in 731, in a monastery at Jarrow on the Northumbrian coast, and it " +
+        "is the reason we know almost anything at all about the four centuries between the Romans " +
+        "leaving Britain and the Vikings arriving. He tells how the island was settled, how the " +
+        "English were converted, how they argued with each other and with the Irish about when to " +
+        "keep Easter, and how a series of kings, bishops and abbesses lived and died. Nearly every " +
+        "date in early English history is a date because Bede wrote it down.",
+      "What makes him more than a source is that he is a <b>historian</b> in a sense almost nobody " +
+        "else was for centuries either side of him. He names his informants, distinguishes what he " +
+        "has read from what he has been told, says when he does not know, and sends to Rome and to " +
+        "Canterbury for documents rather than repeating what was said locally — his preface is a " +
+        "list of who told him what, and it is the most modern-sounding page in the book. He is also " +
+        "the man who made <i>anno Domini</i> the ordinary way of counting years; before him it was " +
+        "a specialist's device, and after him it was how the West dated everything.",
+      "It is not a neutral book and does not pretend to be. Bede is writing the history of a " +
+        "church, he thinks the Irish computation of Easter is wrong, he thinks the Britons were " +
+        "culpable for not converting the invaders who took their land, and his account of the " +
+        "Synod of Whitby is a set piece rather than a report. Read it knowing that, and it is still " +
+        "the best-written history anyone produced in Latin between antiquity and the twelfth " +
+        "century, and by a long way the funniest and most humane. The story of Caedmon the cowherd " +
+        "who could not sing, the sparrow flying through the lighted hall, Cuthbert alone on his " +
+        "island — these have been quoted for thirteen hundred years because Bede told them well.",
+      "The <b>five books</b> here are the whole of the History, and Bede's own preface to King " +
+        "Ceolwulf opens the first of them, unnumbered, where the printed page puts it. The Latin " +
+        "faces the English, chapter by chapter: both editions divide the work into the same 140 " +
+        "chapters, 34, 20, 30, 32 and 24, and the two columns pair on every one of them.",
+      "Two things about this printing are worth knowing before you start. The <b>translation</b> " +
+        "is A. M. Sellar's of 1907, and its footnotes — a thousand and eighty-one of them — are why " +
+        "it was chosen over the other free English version, which carries none; Bede assumes you " +
+        "know who Ethelfrith and Paulinus and Ecgfrith were, and Sellar tells you. She translated " +
+        "from Charles Plummer's critical text and says so in her own preface. The <b>Latin</b> " +
+        "beside it is a transcription that names Migne's Patrologia as its source but does not " +
+        "print what Migne printed, so this edition cannot honestly tell you whose text it is; every " +
+        "edition it could be has been out of copyright for a century, and the words are complete " +
+        "and correctly divided, which was measured against the English before a line was imported.",
+      "What is <b>not</b> here is the short continuation of annals for the years 731 to 766 that " +
+        "the printed volumes carry after Book V. It is not Bede's — it was added by a later hand at " +
+        "his own monastery — and a tab reading Book VI over something he did not write would say " +
+        "the wrong thing. Sellar's introduction, her life of Bede and her index are likewise left " +
+        "behind, as an editor's front matter is throughout this library.",
+    ],
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -16444,6 +16605,296 @@ function boethiusLatin(h, O, warn) {
 }
 
 /* ============================================================
+   A TRANSLATION AND AN ORIGINAL FROM TWO DIFFERENT KINDS OF SOURCE
+                                     (layout: "bede" — the twenty-first)
+   ============================================================
+   Aug 2026, adding the Ecclesiastical History of the English People. The SIXTH book from Project
+   Gutenberg and the third from its HTML, which the Maxims of Ptahhotep's entry calls the easiest of
+   the three paths: a transcriber has already marked the paragraphs, anchored the footnotes and
+   tagged the page numbers. Two readers for one book, as the Canterbury Tales and the Consolation
+   needed — here because the two columns come from different kinds of source, which is Thucydides'
+   position (a Wikisource English against a Perseus TEI original) met with the sides swapped.
+
+   THE BOOK IS THE CHAPTER AND BEDE'S CHAPTER IS THE SECTION — Herodotus's shape a seventh time, and
+   the citation says so: a passage is "HE II.13", book and then chapter. Cutting at Bede's chapter
+   instead would put 140 tabs on the bar, most of them a page long.
+
+   THE PAIRING WAS MEASURED BEFORE A WORD WAS IMPORTED and it is as exact as two independently
+   transcribed texts get on this shelf: 140 chapters a side, 34/20/30/32/24 in both, a clean 1..N in
+   every book with no gap and no duplicate either way, and the two columns' section lists identical
+   book for book. Length correlates at r = 0.9987 over all 140 with the English running 1.45–1.50
+   times the Latin's word count in every book — which is what says the Latin has lost nothing, and
+   is the check that mattered here, because its host rates it 25% proofread.
+
+   SIX THINGS IT SETTLED ARE WORTH CARRYING.
+
+   THE OBVIOUS ENGLISH IS COMPLETE, SCAN-BACKED AND CARRIES NO NOTES, AND THAT IS WHAT DECIDED IT.
+   Wikisource has the whole book in L. C. Jane's Temple Classics edition of 1910, one page per book,
+   proofread against a scan, pairing with the Latin exactly as this one does — and swept over all
+   five books it holds ZERO reference marks. Sellar's carries 1,081, a new introduction and a life of
+   Bede, and was made against Plummer's critical text, which her own preface states. Bede is a book
+   about seventh-century Northumbrian politics in which almost every name needs a note, so that is
+   not a refinement but the difference between a usable book and an opaque one. The cost is a
+   translator who cannot be traced; see `rights`, and the Gallic War's entry for the precedent.
+
+   A MACHINE-READABLE ANCHOR IS NOT ALWAYS COMPLETE, and this one covers 117 of the 140 chapters.
+   The Ptahhotep reader's rule is to find a chapter by its anchor and never by its heading, because a
+   heading can be ambiguous; here the anchors are generated from the index's cross-references, so a
+   chapter the index never points at simply has none — 23/19/26/29/20 against 34/20/30/32/24. Reading
+   them would have shipped a book missing a sixth of itself with nothing to say so. The HEADINGS are
+   complete, checked on both sides, so the number is read off the heading and CHECKED against the
+   count this edition states. **Count what an identifier actually covers before preferring it to the
+   thing it was meant to improve on.**
+
+   THE INDEX USES THE SAME MARKUP AS THE VERSE, so an inventory taken over the file rather than over
+   the divisions being imported reports 1,851 line groups and 3,086 lines of verse in a prose
+   history. Inside the five books there is exactly ONE line group holding one line. Sellar sets
+   Bede's quoted verse — the epitaphs, Caedwalla's, Wilfrid's, Gregory's — as PROSE inside display
+   quotations, which is Heseltine's judgement on Petronius in another book, and it means the reader
+   needs no verse handling to speak of and does need the quotations. Both are matched BALANCED, since
+   a quotation holds paragraphs and a line group holds lines.
+
+   THE LATIN'S CHAPTER MARK WEARS TWO COSTUMES AND IT IS THE WHOLE BOOK THAT CHANGES. Liber Primus
+   sets its numbers as `<h3>` headings and the other four set them as a bare "[N]" opening the
+   paragraph the chapter begins. Both are converted BEFORE the tags come off, because after
+   `stripTags` a heading is a bare figure indistinguishable from a number in the prose — and this
+   text is full of Roman numerals but writes its chapter marks in Arabic, so there is nothing else to
+   tell them apart by. A THIRD costume was found by inventorying all 106 bracketed marks rather than
+   by fixing the three that failed: 69 open `<p><br/>`, 23 open `<p>`, and 3 carry an empty anchor
+   span between the two. Written against the first two the run loses II.16, V.21 and V.24 — three
+   chapters folded into their neighbours, with every count still reading healthy.
+
+   AND ONE PAGE CARRIES A STALE CHAPTER INDEX OUTSIDE THE WIKI'S OWN `ws-noexport` WRAPPER. Liber
+   Secundus opens on a strip reading "1 - 2 - 3 … 34", which is BOOK I's chapter count sitting on
+   Book II's page, and because it stands before the running head a head rule anchored to the start
+   fires on nothing. The furniture is peeled in a LOOP instead, and the strip is recognised by its
+   shape — a paragraph of nothing but figures and dashes, which no sentence of Latin can wear —
+   rather than by its wording. Every removal is counted.
+
+   ITS REAL LIMITATION IS WHOSE LATIN IT IS, and it is stated rather than guessed. The transcription
+   names Migne's Patrologia Latina 95 as its edition; the text it actually carries prints consonantal
+   v as u throughout — measured over all five books, 93 `uero` against 2 `vero`, 48 `uita` against
+   1 `vita`, 25 `ciuitate` against none and 25 `uerbis` against none — which is the convention of the late-19th-century critical
+   editions and not Migne's, and it matches Alfred Holder's edition of 1895 word for word where
+   sampled against that edition's own scan. So the edition it names is not the edition it prints, no
+   editor is asserted, and the ground stated is the age of the work. That is Lucretius's judgement
+   with a measurement behind it: claim less, and say on the page what cannot be said. */
+
+function extractBede(h, warn) {
+  const counts = { pages: 0, marks: 0, headMarks: 0, notes: 0, uncited: 0, quotes: 0, verse: 0, verseLines: 0, breaks: 0 };
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+
+  /* The apparatus, printed as one list at the foot and numbered 1..N across the whole volume. It is
+     cut off first and read into a map keyed by its PRINTED number; each book then keeps only the
+     notes its own markers cite, renumbered from 1 — what every book here does with an apparatus
+     numbered per printing rather than per chapter. */
+  const notes = {};
+  const fi = b.search(/<h1[^>]*class="tei tei-head"[^>]*>\s*<span[^>]*>Footnotes<\/span>/);
+  if (fi < 0) throw new Error("the apparatus is not in the file");
+  for (const m of b.slice(fi).matchAll(
+    /<dt class="tei tei-notelabel">[\s\S]*?id="note_(\d+)"[\s\S]*?<\/dt>\s*<dd class="tei tei-notetext">([\s\S]*?)<\/dd>/g))
+    notes[m[1]] = bedeInline(m[2]);
+  counts.notes = Object.keys(notes).length;
+  b = b.slice(0, fi);
+
+  /* The volume's top-level divisions. Bede's own preface and his five books are the work; the
+     editor's introduction, her life of Bede, the errata, the index and the Continuation are matter
+     around it and are left behind, as the Republic's introduction and plates were. */
+  const h1 = [...b.matchAll(/<h1[^>]*class="tei tei-head"[^>]*>([\s\S]*?)<\/h1>/g)];
+  const segOf = (name) => {
+    const s = h1.find((m) => bedeText(m[1]) === name);
+    if (!s) throw new Error("the division " + JSON.stringify(name) + " is not in the file");
+    const n = h1.filter((m) => m.index > s.index)[0];
+    return b.slice(s.index + s[0].length, n ? n.index : b.length);
+  };
+
+  const cited = new Set();
+  const books = [];
+  for (let n = 1; n <= 5; n++) {
+    const seg = segOf("Book " + BEDE_ROMAN[n]);
+    const parts = [];
+    /* Bede's letter to King Ceolwulf stands before Book I in every edition and is part of the work.
+       Both columns carry it and both leave it unnumbered, so it opens Book I as its own unnumbered
+       row — `bookRows` pairs two leading unnumbered blocks with each other, deterministically,
+       because neither side carries a marker there. Writing a "0" over it would compose a citation
+       the work has not got; nobody cites Bede's preface as HE 0. */
+    if (n === 1) parts.push({ k: null, head: "", body: segOf("Preface") });
+    const chs = [...seg.matchAll(/<h2[^>]*class="tei tei-head"[^>]*>([\s\S]*?)<\/h2>/g)];
+    for (let i = 0; i < chs.length; i++) {
+      /* A KEPT HEADING MAY CARRY A FOOTNOTE MARKER, which is `dropFittHead`'s rule met on a title
+         that stays rather than one that goes — the Consolation's finding, and it bites here on four
+         of the 141. Sellar hangs a note on the chapter's own heading ("Of the death of the blessed
+         Pope Gregory.[143]"), and flattening the heading to TEXT before the anchors come out of it
+         leaves the bare figure 143 sitting in the title while its note sits in the fold with nothing
+         pointing at it. So the markers are converted first and the title is carried as inline HTML,
+         which puts each one back where the printed page has it; the per-book renumbering at the foot
+         of bedeChapter then picks them up in reading order like any other. */
+      let head = bedeInline(chs[i][1].replace(/<a href="#note_(\d+)"[^>]*>[\s\S]*?<\/a>/g,
+        (w, k) => { counts.marks++; counts.headMarks++; return '<sup class="fn" data-fn="' + k + '"></sup>'; }));
+      const m = /^Chap\.\s*([IVXLC]+)\.\s*([\s\S]*)$/.exec(head);
+      if (!m) {
+        warn("Book " + BEDE_ROMAN[n] + ": a heading is not a chapter — " +
+          JSON.stringify(bedeText(head).slice(0, 60)));
+        continue;
+      }
+      parts.push({
+        k: romanValue(m[1]),
+        head: m[2].replace(/\s*\.\s*$/, ""),
+        body: seg.slice(chs[i].index + chs[i][0].length, i + 1 < chs.length ? chs[i + 1].index : seg.length),
+      });
+    }
+    const nums = parts.filter((p) => p.k != null).map((p) => p.k);
+    if (nums.length !== BEDE_CHAPTERS[n])
+      warn("Book " + BEDE_ROMAN[n] + " came back with " + nums.length +
+        " chapters where the edition states " + BEDE_CHAPTERS[n]);
+    if (!nums.every((v, i) => v === i + 1))
+      warn("Book " + BEDE_ROMAN[n] + "'s chapters are not a clean 1..N: " + nums.join(","));
+
+    const keep = [];
+    const html = parts.map((p) => bedeChapter(p, keep, counts, warn)).filter(Boolean).join("\n");
+    keep.forEach((k) => cited.add(k));
+    books.push({ n: n, html: html, secs: nums.length, notes: keep.map((k) => notes[k]) });
+  }
+  /* The notes belonging to the divisions this book does not import. Counted rather than passed over,
+     because the same figure would appear if a whole book's markers had stopped being recognised. */
+  counts.uncited = Object.keys(notes).filter((k) => !cited.has(k)).length;
+  return { books: books, counts: counts };
+}
+
+function bedeText(h) {
+  return bedeEnt(h.replace(/<[^>]+>/g, " ")).replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ").replace(/\[\s+/g, "[").replace(/\s+\]/g, "]").trim();
+}
+function bedeEnt(h) {
+  return h.replace(/&#160;|&nbsp;/g, " ").replace(/&#8217;|&rsquo;/g, "’")
+    .replace(/&#8216;|&lsquo;/g, "‘").replace(/&#8220;|&ldquo;/g, "“")
+    .replace(/&#8221;|&rdquo;/g, "”").replace(/&#8212;|&mdash;/g, "—")
+    .replace(/&#8211;|&ndash;/g, "–").replace(/&#230;/g, "æ").replace(/&#198;/g, "Æ");
+}
+function bedeInline(s) {
+  return bedeEnt(s
+    .replace(/<span class="tei tei-hi"[^>]*>\s*<span[^>]*font-style:\s*italic[^>]*>([\s\S]*?)<\/span>\s*<\/span>/g, "<i>$1</i>")
+    .replace(/<span class="tei tei-foreign"[^>]*>([\s\S]*?)<\/span>/g, "<i>$1</i>")
+    .replace(/<(?!\/?(?:i|b|sup|br)\b)[^>]*>/g, ""))
+    .replace(/\s+/g, " ").replace(/\s+([,.;:!?])/g, "$1")
+    .replace(/\[\s+/g, "[").replace(/\s+\]/g, "]").trim();
+}
+
+function bedeChapter(p, keep, counts, warn) {
+  let s = p.body;
+  /* The printed page numbers, which the transcription tags and which survive the tag strip as prose
+     — "[pg vi]" in the middle of a sentence. Both costumes, since the span carries the text. */
+  s = s.replace(/<span class="tei tei-pb"[^>]*>[\s\S]*?<\/span>/g, () => { counts.pages++; return " "; });
+  s = s.replace(/\[pg\s+[ivxlcdm\d]+\]/gi, () => { counts.pages++; return " "; });
+  /* A marker carries the note's OWN printed number, which is what data-fn is for: this apparatus is
+     numbered across the volume and renumbered per book below, and the reading-order fallback is
+     right only while every note is cited exactly once. */
+  s = s.replace(/<a href="#note_(\d+)"[^>]*>[\s\S]*?<\/a>/g,
+    (w, n) => { counts.marks++; return '<sup class="fn" data-fn="' + n + '"></sup>'; });
+
+  for (let g = 0; g < 60; g++) {
+    const m = /<div class="tei tei-lg"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a line group is unbalanced and was left in place"); break; }
+    const ls = [...s.slice(m.index, e).matchAll(/<div class="tei tei-l"[^>]*>([\s\S]*?)<\/div>/g)]
+      .map((x) => bedeInline(x[1])).filter(Boolean);
+    counts.verse++; counts.verseLines += ls.length;
+    s = s.slice(0, m.index) + "LG" + ls.join("<br>") + "/LG" + s.slice(e);
+  }
+  for (let g = 0; g < 60; g++) {
+    const m = /<div class="[^"]*\btei-quote\b[^"]*"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a display quotation is unbalanced and was left in place"); break; }
+    counts.quotes++;
+    s = s.slice(0, m.index) + "Q" + s.slice(m.index + m[0].length, e - 6) + "/Q" + s.slice(e);
+  }
+  s = s.replace(/<div class="tei tei-tb"[^>]*>[\s\S]*?<\/div>/g, () => { counts.breaks++; return " "; });
+
+  const out = [];
+  if (p.k != null)
+    out.push('<p><span class="bk-n" data-n="' + p.k + '">' + p.k + "</span>" +
+      (p.head ? "<b>" + p.head + "</b>" : "") + "</p>");
+  const rx = /<p class="tei tei-p"[^>]*>([\s\S]*?)<\/p>|LG([\s\S]*?)\/LG|Q|\/Q/g;
+  let m;
+  while ((m = rx.exec(s))) {
+    if (m[0] === "Q") { out.push("<blockquote>"); continue; }
+    if (m[0] === "/Q") { out.push("</blockquote>"); continue; }
+    if (m[2] != null) { out.push("<blockquote>" + m[2] + "</blockquote>"); continue; }
+    const t = bedeInline(m[1]);
+    if (t) out.push("<p>" + t + "</p>");
+  }
+  /* Each book's notes, renumbered from 1 in the order its own markers cite them. */
+  return out.join("\n").replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (w, n) => {
+    let i = keep.indexOf(n);
+    if (i < 0) { keep.push(n); i = keep.length - 1; }
+    return '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+  });
+}
+
+/* ---------- THE LATIN: one page of another wiki per book ----------
+   Not a scan-backed transcription, so there is no `prp-pages-output` to slice at and the body is
+   taken from the wiki's own `text` container. Everything above the two mark shapes is furniture
+   this wiki labels for itself. */
+function bedeLatin(h, warn, counts) {
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  const i = b.indexOf('<div class="text">');
+  if (i < 0) throw new Error("no body");
+  b = b.slice(i + 18);
+
+  /* The wiki says what its own furniture is: the header box and the navigation table both carry
+     `ws-noexport`, the class Wikisource puts on what must not leave the page. Keyed on that rather
+     than on wording, and balanced, because each nests. */
+  const drop = (rx, tag, key) => {
+    for (let g = 0; g < 60; g++) {
+      const m = rx.exec(b);
+      if (!m) break;
+      const e = blockEnd(b, m.index, tag);
+      if (e < 0) { warn("a block of page furniture is unbalanced and was left in place"); break; }
+      b = b.slice(0, m.index) + b.slice(e);
+      counts[key]++;
+    }
+  };
+  drop(/<table[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/, "table", "furniture");
+  drop(/<div[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/, "div", "furniture");
+  /* MediaWiki's per-section edit links, which survive the tag strip as the word "recensere" in
+     square brackets at the head of every chapter of Liber Primus. */
+  drop(/<span class="mw-editsection">/, "span", "edits");
+
+  let marks = 0;
+  b = b.replace(/<div class="mw-heading[^"]*">\s*<h3[^>]*>\s*(\d+)\s*<\/h3>\s*<\/div>/g,
+    (w, k) => { marks++; counts.heads++; return '<p><span class="bk-n" data-n="' + k + '">' + k + "</span></p>"; });
+  b = b.replace(/(<p>\s*(?:(?:<br\s*\/?>|<span id="\d+"><\/span>|<a id="[^"]*"><\/a>)\s*)*)\[(\d+)\]/g,
+    (w, lead, k) => { marks++; counts.inline++; return lead + '<span class="bk-n" data-n="' + k + '">' + k + "</span> "; });
+
+  b = b.replace(/<div[^>]*>/g, "<blockquote>").replace(/<\/div>/g, "</blockquote>");
+  b = stripTags(b);
+  b = bedeEnt(b).replace(/&#32;/g, " ").replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+  for (let k = 0; k < 6; k++) {
+    b = b.replace(/<p>(?:\s*<br>\s*)+<\/p>/g, "")
+      .replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "")
+      .replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
+  }
+  b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+
+  /* The furniture above a book's first chapter, peeled in a LOOP: the work's title and the book's
+     own number, both of which duplicate the tab, and on Liber Secundus a stale chapter index as
+     well. See the block above for why a rule anchored to the start loses two of the three. */
+  for (let k = 0; k < 8; k++) {
+    const before = b;
+    b = b.replace(/^<p>\s*(?:<br>\s*)*<\/p>\s*/, "");
+    b = b.replace(/^<p>\s*<b>\s*HISTORIAE ECCLESIASTICAE GENTIS ANGLORUM\s*<\/b>\s*<\/p>\s*/i,
+      () => { counts.heads2++; return ""; });
+    b = b.replace(/^<p>\s*<b>\s*LIBER [A-Z]+\s*\.?\s*<\/b>\s*\.?\s*<\/p>\s*/i,
+      () => { counts.heads2++; return ""; });
+    b = b.replace(/^<p>[\s\d–-]+<\/p>\s*/, () => { counts.index++; return ""; });
+    if (b === before) break;
+  }
+  return { html: b, marks: marks };
+}
+
+/* ============================================================
    A CHAPTER TITLE READ OFF THE PAGE ITSELF        (head: "sankuo")
    ============================================================
    Aug 2026, adding Romance of the Three Kingdoms. Not a layout: the book is the ordinary wiki walk
@@ -17361,6 +17812,33 @@ async function fetchEnglish() {
     });
     return writeEnglish(chapters, warnings);
   }
+  /* THE ECCLESIASTICAL HISTORY — one Gutenberg HTML page, five books, 140 chapters and an
+     apparatus of 1,081 notes numbered across the whole volume. Cached whole, like every other
+     single-file book, so --from/--to cost nothing and a re-extract needs no network. See the block
+     above extractBede for why the anchors in that file are not the thing to cut at. */
+  if (BOOK.layout === "bede") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const g = extractBede(raw, warn);
+    const c = g.counts;
+    console.log("  " + g.books.length + " books, " + g.books.reduce((a, b) => a + b.secs, 0) +
+      " chapters, " + c.marks + " footnote marker(s) into an apparatus of " + c.notes +
+      " (" + c.headMarks + " of them on a chapter heading, " + c.uncited +
+      " notes belong to the front matter this book does not carry), " +
+      c.quotes + " display quotation(s), " + c.verse + " verse block(s) holding " + c.verseLines +
+      " line(s), " + c.pages + " printed page mark(s) removed");
+    g.books.forEach((b) => {
+      if (b.n < FROM || b.n > TO) return;
+      if (b.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
+      chapters.push({ n: b.n, t: titles[b.n] || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "ptahhotep") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");
@@ -18170,6 +18648,69 @@ async function fetchOriginal() {
       "the transcription typed rather than used");
     console.log("  " + unpaired + " canto(s) are Griffith's own divisions and have no sarga — " +
       "they draw with an empty cell");
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* BEDE'S LATIN — one page of another wiki per book, with the Praefatio joined in front of Book I.
+     `O.page(n)` returns an ARRAY here; the pages are cleaned in order and joined, which is the Book
+     of Documents' shape on the original's side. The pairing is checked against the English that
+     actually SHIPPED, read back out of its own cache and re-extracted, exactly as the caput and
+     sukta branches do. */
+  if (O.layout === "bedeLatin") {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    const counts = { furniture: 0, edits: 0, heads: 0, inline: 0, heads2: 0, index: 0 };
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const parts = [];
+      let marks = 0;
+      const pages = O.page(n);
+      for (let i = 0; i < pages.length; i++) {
+        const cf = path.join(cacheDir, "la-" + String(n).padStart(2, "0") + "-" + i + ".html");
+        let h;
+        if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+        else { h = await api(pages[i], O.wiki); fs.writeFileSync(cf, h); await sleep(1100); }
+        const got = bedeLatin(h, (m) => warn(BOOK.chapterWord + " " + n + ": " + m), counts);
+        parts.push(got.html);
+        marks += got.marks;
+      }
+      const html = parts.join("\n");
+      if (html.length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + n + " came back short (" + html.length + " chars)");
+      /* The count the edition states, checked on the original's side as well as the translation's:
+         a mark that stops being recognised folds its chapter into the one before it, which shortens
+         nothing visibly and would pair 139 of 140 with no other symptom. */
+      const ms = (html.match(/class="bk-n"/g) || []).length;
+      if (ms !== BEDE_CHAPTERS[n])
+        warn("Liber " + BEDE_LATIN_BOOK[n] + " came back with " + ms + " chapter mark(s) where the " +
+          "edition states " + BEDE_CHAPTERS[n]);
+      byNum[n] = html;
+    }
+    console.log("  " + Object.keys(byNum).length + " books, " + (counts.heads + counts.inline) +
+      " chapter marks (" + counts.heads + " set as headings, " + counts.inline + " set in the prose), " +
+      counts.furniture + " block(s) of page furniture, " + counts.edits + " edit link(s), " +
+      counts.heads2 + " running head(s) and " + counts.index + " stale chapter index/indexes removed");
+
+    const nums = (html) => (html.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    const cf = path.join(CACHE, "en-page.html");
+    if (fs.existsSync(cf)) {
+      const g = extractBede(fs.readFileSync(cf, "utf8"), () => {});
+      let pairs = 0, seen = 0;
+      const onlyEn = [], onlyOr = [];
+      for (const b of g.books) {
+        if (!byNum[b.n]) continue;
+        seen++;
+        const en = nums(b.html), or = nums(byNum[b.n]);
+        const se = new Set(en), so = new Set(or);
+        const missing = en.filter((v) => !so.has(v)), extra = or.filter((v) => !se.has(v));
+        onlyEn.push(...missing.map((v) => BEDE_ROMAN[b.n] + "." + v));
+        onlyOr.push(...extra.map((v) => BEDE_ROMAN[b.n] + "." + v));
+        if (!missing.length && !extra.length) pairs++;
+      }
+      console.log("  " + pairs + " of " + seen + " books pair exactly on every chapter number");
+      if (onlyEn.length) warn(onlyEn.length + " chapter(s) in the translation with no original: " + onlyEn.join(", "));
+      if (onlyOr.length) warn(onlyOr.length + " chapter(s) in the original with no translation: " + onlyOr.join(", "));
+    } else console.log("  (no cached translation to pair against — run without --only-original to check)");
     return writeOriginal(byNum, warnings);
   }
 
