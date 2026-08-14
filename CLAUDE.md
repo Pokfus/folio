@@ -128,7 +128,78 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-three:
+  matter (chapter 0 — see the Library bullet). Currently forty-five:
+  `boethius-consolation` (~253 KB, all five books as **5 chapters**, **78 sections of alternating
+  prose and verse**, 39 poems, 19 notes — H. R. James's English of 1897, and **the first book here
+  whose ROWS PAIR ON A POSITION BECAUSE THE PRINTED NUMBERS REPEAT.** Every earlier book sorts its
+  rows on a figure that is unique within the chapter — a letter, a chapter, a Stephanus page, a
+  Bekker page, a laisse, a verse, a line — and here the same numeral occurs TWICE in every book on
+  each side. The work is cited by book and section, "III.m9" being the ninth metre of the third
+  book, and it numbers its metres and its prose chapters in separate runs: James heads a poem
+  "SONG IX." and a prose chapter with the bare numeral "IX.", while the Latin heads both "IX.", so
+  neither edition prints the compound anywhere. The markers therefore carry what each edition prints
+  and the SORT KEY is the section's position in its book, which is safe because it is arithmetic
+  before it is a hope: measured over both files before a word was imported, each book's sections are
+  the same in number, in the same order and in the same alternation — 13, 16, 24, 14 and 11 a side —
+  and Book I is the one that opens on a poem where the other four open on a prose.
+  **SIX THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE ENGLISH PRINTED WITH THE LATIN IS NOT THE ENGLISH THIS BOOK SHIPS, AND THAT WAS A CHOICE
+  RATHER THAN A NECESSITY.** The Latin comes from a Loeb of 1918 whose two columns are printed on
+  facing pages and linearised by its transcription into one file; taking BOTH from it would have
+  paired them by construction, out of a single request, needing no second source and no
+  reconciliation at all — the cleanest import on the shelf. It is refused because that English is
+  "I.T."'s of 1609 revised by H. F. Stewart, and Jacobean English is what ruled out Golding's Ovid,
+  Hobbes's Thucydides and Burnaby's Satyricon. **The cleanest text to import is not always the one
+  worth reading**, and the cost of refusing it was measured rather than waved at: all 78 sections
+  are present in both Englishes and in the Latin, in the same order, and James tracks the Latin's
+  length section by section as closely as the Loeb's own version does, so nothing was given up but
+  the convenience.
+  **THE TRANSLATOR'S OWN WORD FOR A SECTION IS IN HIS SUMMARIES AND NOWHERE ELSE.** A marker reading
+  a bare "IV." says nothing, and composing "prose 4" would be composing an apparatus — the trap the
+  Maxims of Ptahhotep records, where a tab printed two different numbers under one word. What James
+  writes, at the head of each book and inside his own footnotes, is a summary in citations:
+  *Boethius' complaint (Song I.).—CH. I. Philosophy appears to Boethius*, and a note reading *See
+  also below, ch. iii., p. 14*. So the English marker carries **"Song I."** and **"Ch. I."**, both
+  transcribed from his own prose, and the Latin carries the numeral its own edition prints and
+  nothing more. **ASK WHAT ELSE IN AN EDITION NAMES ITS OWN SECTIONS** before concluding a citation
+  cannot be transcribed: a summary, an index and a cross-reference are all places an editor writes
+  one down.
+  **A BOOK SUMMARY IS NUMBERED 0 SO THAT IT GETS A ROW OF ITS OWN, and this is the one place the
+  shelf's own fold does the wrong thing.** `bookRows` folds a leading UNNUMBERED block into the
+  first numbered row when the facing column has no counterpart — right for Seneca's one-line
+  salutation, and wrong for a quarter of a page. Folded, James's summary of Book I sat in the same
+  cell as his first poem while the Latin cell held only the poem, so the English's verse began a
+  screen below the Latin's and a reader meeting a paragraph of English beside the opening of
+  *Carmina qui quondam* would reasonably take one for a translation of the other. Numbered, it draws
+  beside an empty Latin cell — the shelf's ordinary way of showing that two editions differ — and
+  the poems start level. Zero is a section number here for the Gallic War's reason, and the mark it
+  carries is the caption James prints over the block. **Five of the 83 rows are English only and
+  that is the right figure rather than a gap.**
+  **A HEADING MAY CARRY A FOOTNOTE MARKER, AND THREE OF THE NINETEEN DO** — `dropFittHead`'s rule in
+  a fifth edition, biting here on a title that is KEPT rather than dropped. Flattening a section
+  heading to text before the anchors are taken out of it leaves the literal string "[I]" inside a
+  section title while its note sits in a list nothing points at; the markers are carried onto the
+  head line, which is where James prints them. **AND TWO MORE HANG OFF A BOOK SUMMARY**, outside
+  every section, so the note lists are harvested from the whole book rather than section by section
+  — read the narrow way the file gives up fourteen of nineteen and reports the other five as
+  cited-but-not-printed, which is the right complaint about the wrong half of the file.
+  **A POEM PRINTED ACROSS A PAGE BREAK OPENS A FRESH BLOCK IN BOTH COLUMNS**, three times in the
+  English and six in the Latin, and joining them is not cosmetic: on a page whose whole subject is
+  the alternation of prose and verse, a stanza standing apart from its own poem reads as a fortieth
+  song. The Gita's rule that a unit is cut as a STREAM rather than block by block, met from the
+  other side.
+  **ITS REAL LIMITATION IS THE GREEK AND IT IS THE TRANSCRIPTION'S.** Boethius writes a little Greek
+  into his Latin — the Π and Θ embroidered on Philosophy's gown, and a dozen quotations from Homer,
+  Euripides and Plato — and the Latin's transcription renders every one as `[Greek: ...]`. Four of
+  the twenty-two are a letter NAME (`[Greek: PI]`), which is a closed and unambiguous encoding and
+  is decoded; the other eighteen are a loose romanisation in which "ae" may be η or αι and "o" may
+  be ο or ω, and reversing one would be inventing a Greek word rather than reading it. Those are
+  left exactly as printed and counted — the Satyricon's `betaGreek` judgement in a second book. The
+  ENGLISH carries the real letters and glosses each with a romanisation of its own, which is
+  transcriber's furniture beside a letter already set and is removed. **And the Latin's marginal
+  line numbers are dropped**, one every fifth line of every metre: James translates the verse into
+  English verse rather than line for line, so a number there would point at a place the facing page
+  cannot find — the Canterbury Tales' finding on a second book. Said on the book's own first page),
   `three-kingdoms` (~3.15 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes — C. H.
   Brewitt-Taylor's English of 1925, and **the book whose chapter titles are on the chapter pages and
   nowhere else worth taking them from.** Both volumes print a full table of contents and both are
@@ -992,7 +1063,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently twenty-nine:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently thirty-one:
+  `boethius-consolation.la.js` (~190 KB, all five books, **78 sections**, 39 metres in 896 lines —
+  E. K. Rand's Latin of 1918, printed facing an English translation in the same Loeb volume, and
+  **the original here that had to be lifted OUT of a facing-page file rather than fetched as one.**
+  The transcription linearises the printed opening: within each book the numeral headings run Latin,
+  English, Latin, English all the way down, so the Latin is every second one. Measured before it was
+  believed — 156 numeral headings in the Consolation, exactly twice the seventy-eight sections, and
+  each book's count exactly twice its own — and each pair's two numerals are checked against each
+  other on every run, since a heading dropped anywhere in the file would shift the whole of the rest
+  of that book onto the English column with nothing throwing.
+  **ITS EDITOR IS NAMED AND SIGNS HIS OWN NOTE ON THE TEXT**, which is what settles the question a
+  Latin original always raises here: Rand says outright that he built it from the apparatus in
+  Peiper's Teubner of 1871, his own collations of the important manuscripts and Engelbrecht's
+  article of 1902, and that every reading in it has the authority of some ninth- or tenth-century
+  manuscript unless he says otherwise. **THE OBVIOUS FREE ALTERNATIVE NAMES NOBODY**: Latin
+  Wikisource carries the Consolation complete, and it credits no editor, romanises the Greek into
+  something the eye reads as broken Latin (`Ecauda me` for Ἔξαυδα, μὴ κεῦθε νόῳ), scatters scansion
+  macrons through one metre and nowhere else, and — the fault that rules it out whatever its
+  provenance — numbers each book's prose and verse in ONE continuous run of thirteen, sixteen,
+  twenty-four, which is not how any edition of Boethius is cited and could not be printed as a
+  citation. The Latin Library has no Boethius page at all. **Ask what an unattributed transcription
+  IS, and then ask whether its numbers are the numbers anybody uses.**
+  **ITS TWO LIMITATIONS ARE THE GREEK AND THE LINE NUMBERS**, and both are recorded rather than
+  repaired; see the `boethius-consolation` entry above for what can be decoded and what cannot, and
+  why the marginal numerals of the metres point at nothing on the facing page. Its own footnotes are
+  the English column's and are printed under the translation, so none should reach a Latin slice at
+  all — the count of any that do is printed on every run, a stray one shipping as prose),
   `ramayana.sa.js` (~2.1 MB, the 490 sargas the translation reaches, of 645 — the received text as
   transcribed at Sanskrit Wikisource, and **the original here whose TRANSCRIPTION USES THE MOST
   SHAPES: four, and each was met the loud way.** The Rigveda's pages on this same wiki use four too
@@ -1294,7 +1391,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-four books, thirty originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-five books, thirty-one originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
   Divine Comedy, the Summa Theologica, Don Quixote and the Maxims of Ptahhotep
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
@@ -1974,6 +2071,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     File map for the two-numbers-under-one-word fault that reading the page turned up, and for why
     the tab carries the translator's own "§ 32" instead.
 
+
+  **A PAIRING WITH NO PRINTED CITATION TO PAIR ON** (`layout: "boethius"` → `extractBoethius` /
+  `boethiusLatin` / `boeGreek` / `boePoem` / `BOE_BOOKS` / `BOE_LETTERS`; Aug 2026, adding The
+  Consolation of Philosophy — the forty-fifth book, and the twentieth layout). The FIFTH book from
+  Project Gutenberg and the second from its HTML, which the Ptahhotep entry above says is the
+  easiest of the three paths. Two extractors for one book, as the Canterbury Tales needed, and for
+  the opposite reason: not two kinds of damage but one file per column with nothing wrong with
+  either. Six things it settled:
+  · **ASK WHETHER THE NUMBER AN EDITION PRINTS IS UNIQUE INSIDE THE CHAPTER.** Every earlier book's
+    sort key is a figure that occurs once — a letter, a chapter, a Bekker page, a laisse, a verse.
+    Here the numeral IX. occurs twice in every book on each side, once over a poem and once over a
+    prose chapter, and neither edition prints the compound citation anywhere; so the marker carries
+    what each edition prints and the SORT KEY is the section's position in its book. That is safe
+    only because it is arithmetic: both files were measured end to end first, and each book's
+    sections agree in number, in order and in alternation, 13/16/24/14/11 a side, with only the first
+    book opening on a poem.
+  · **AND THEN ASK WHAT ELSE IN THE EDITION NAMES ITS OWN SECTIONS.** James heads a poem "SONG IV."
+    and a prose chapter "IV.", so a marker taken from the headings alone would print a bare figure
+    over half the book — but he writes summaries at the head of each book, and footnotes inside it,
+    in citations: *CH. I. Philosophy appears to Boethius*, *see also below, ch. iii.* A summary, an
+    index and a cross-reference are all places an editor writes down the form he cites his own book
+    by, and taking it from there is transcription rather than composition.
+  · **A LEADING UNNUMBERED BLOCK IS NOT ALWAYS A SALUTATION**, and `bookRows`' fold is written for
+    one. See the `boethius-consolation` entry in the File map for why the book summaries are
+    numbered 0 instead, and for what a folded quarter-page of English facing a Latin poem tells a
+    reader that is not true.
+  · **A KEPT HEADING MAY CARRY A FOOTNOTE MARKER TOO.** `dropFittHead`'s rule has always been about
+    a heading that is DROPPED; three of this edition's nineteen notes hang off a section title that
+    is kept, and flattening the heading to text before the anchors come out of it leaves the string
+    "[I]" inside the title with its note in a list nothing points at. **And two more hang off a book
+    summary, outside every section** — so the note lists are harvested from the whole book rather
+    than section by section, which is the difference between finding nineteen and finding fourteen.
+  · **A POEM PRINTED ACROSS A PAGE BREAK OPENS A FRESH BLOCK IN BOTH COLUMNS**, three times in the
+    English and six in the Latin, and each must be rejoined — the Gita's stream rule, and here a
+    stanza left standing apart from its own poem reads as an extra one, on a page whose subject is
+    the alternation of prose and verse.
+  · **AND A TRANSLITERATION IS DECODED ONLY WHERE IT IS AN ENCODING.** `[Greek: PI]` names a letter
+    and is decoded; `[Greek: theoraetikae]` is a lossy romanisation and is left exactly as printed
+    and counted. The Satyricon's `betaGreek` judgement, and the same refusal: never compose a letter
+    the evidence does not carry.
   **A TITLE THAT IS ONLY ON THE CHAPTER'S OWN PAGE — AND THAT IS A HOOK, NOT A LAYOUT**
   (`head: "sankuo"` → `sanKuoHead` / `sanKuoRoman` / `SANKUO`; Aug 2026, adding Romance of the Three
   Kingdoms — the forty-fourth book). Worth reading for what it is NOT: the book goes through the
@@ -4526,6 +4663,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     band was widened for the third time and where, for the first time, the shelf could say WHICH of
     its three axes was binding — see the note beside `"Luo Guanzhong"` in app.js: relaxing lightness
     changes nothing in either direction, and only the chroma ceiling opens the field.
+
+    **The Consolation of Philosophy states a LIMIT ON EACH COLUMN, and the interesting half is that
+    it REFUSED a pairing that was free** (Aug 2026). The licence is the ordinary shape: Boethius was
+    executed around 524; H. R. James published this translation in London in 1897 and lived
+    1862–1931 — years given at year precision on Wikidata with four references behind them and
+    stated independently by Wikisource's own public-domain tag on this very translation, which is
+    the corroboration this file has insisted on since A. J. Wyatt's suspiciously round hundred — so
+    the English clears the pre-1929 rule and cleared life plus seventy in 2002 and has NOT cleared
+    life plus a hundred, which runs to 2032. The Latin is E. K. Rand's text of 1918, printed in a
+    Loeb volume JOINTLY with H. F. Stewart, and a joint work runs its term from the last of its
+    authors to die: Rand 1871–1945 and Stewart 1863–1948, both at day precision, so that column
+    cleared life plus seventy in 2019 and stays in copyright until 2049. Both columns therefore carry
+    a limit and the ORIGINAL's runs thirty years the longer, which is the Medea's position.
+    **WHAT MAKES IT WORTH READING IS THE ENGLISH THAT WAS TURNED DOWN.** That same 1918 volume
+    carries a complete English translation on its facing pages, and the transcription linearises the
+    two into one file — so taking BOTH columns from it would have paired them by construction, out
+    of one request, with no second source, no reconciliation and no second extractor: by a distance
+    the cleanest import this shelf has been offered. It is refused because that English is "I.T."'s
+    of 1609 revised by Stewart, and Jacobean English is what already ruled out Golding's Ovid,
+    Hobbes's Thucydides and Burnaby's Satyricon. *"While I ruminated these things with myself, and
+    determined to set forth my woful complaint in writing, methought I saw a woman stand above my
+    head"* against James's *"While I was thus mutely pondering within myself, and recording my
+    sorrowful complainings with my pen, it seemed to me that there appeared above my head a woman of
+    a countenance exceeding venerable."* **The cleanest text to import is not always the one worth
+    reading**, and the cost of refusing it was measured rather than assumed: all seventy-eight
+    sections are present in both Englishes and in the Latin, in the same order, and James tracks the
+    Latin's length section by section as closely as the Loeb's own version does, so nothing was given
+    up but the convenience. Only the poems and the prose are taken: James's preface, his life of
+    Boethius and his index of the verse interludes are left behind as the Republic's introduction and
+    plates were — but his SUMMARIES of the five books are not front matter and do ship, at the head
+    of the book each describes. From the Latin side the four theological tractates printed in the
+    same volume are different works by the same hand, and Symmachus's epigram, which the manuscripts
+    append after the last line, is not Boethius. Richard Green (1962), V. E. Watts (1969), P. G.
+    Walsh (1999), Joel Relihan (2001) and David Slavitt (2008) are named as the ones not to reach
+    for, and with them **S. J. Tester's 1973 revision of this very Loeb**, which is the volume in
+    shops today and is a separate copyrighted work. Its `BOOK_AUTHOR_COLOR` row is the band at forty
+    colours, where only TWO hue families still hold anything at all and **the better NUMBER was
+    refused for the third time on the shelf** — see the note beside `"Boethius"` in app.js, where a
+    scarlet separating by 21.1 loses to a very dark green separating by 18.2 because the scarlet is a
+    ninth colour in the red quarter at a lightness the quarter already occupies, while the green's
+    family is crowded in hue and empty here; the green also reads 9.80:1 on the tightest of the
+    eighteen light papers, the highest contrast of any swatch on this shelf.
 
     **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
     the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
@@ -11762,6 +11941,7 @@ dead code (never rendered).
     `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `ramSarga` /
     `extractPtahhotep` / `PTAH_KEYS` /
     `sanKuoHead` / `sanKuoRoman` / `originalChapter`'s `dropTables` /
+    `extractBoethius` / `boethiusLatin` / `boeGreek` / `boePoem` / `BOE_BOOKS` /
     `closeQuotesAt` / `balancedSpan` / `betaGreek` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /

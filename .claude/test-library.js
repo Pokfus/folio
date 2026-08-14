@@ -414,6 +414,118 @@ function threeKingdomsChecks() {
   return o;
 }
 
+/* THE CONSOLATION OF PHILOSOPHY — five books of alternating prose and verse, from two Gutenberg
+   pages. Everything below is invisible from the outside and each of the assertions was written for
+   a fault that had actually happened on the way in. The pairing runs on the SECTION'S POSITION IN
+   ITS BOOK rather than on a printed compound citation, which neither edition carries, so the shape
+   of each book is what has to be checked: a clean 0..N on the English side and 1..N on the Latin,
+   the same N in both, and every numbered row facing a counterpart. The summary is numbered 0
+   deliberately and draws with an empty Latin cell, so five of the eighty-three rows are English
+   only and that is the correct figure rather than a gap. */
+function boethiusChecks() {
+  const fe = path.join(ROOT, "books", "boethius-consolation.js");
+  const fl = path.join(ROOT, "books", "boethius-consolation.la.js");
+  if (!fs.existsSync(fe) || !fs.existsSync(fl)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(fe)];
+  delete require.cache[require.resolve(fl)];
+  require(fe); require(fl);
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "boethius-consolation");
+  const la = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "boethius-consolation");
+  if (!en || !la) return null;
+  const WANT = [13, 16, 24, 14, 11];
+  const o = { en: en.chapters.length, la: la.chapters.length, bal: [], notes: 0, markers: 0,
+              dead: 0, unref: 0, enLeak: [], laLeak: [], paired: 0, enOnly: 0, laOnly: 0,
+              shape: [], seqBad: [], titles: en.chapters.map((c) => c.t), laNotes: 0,
+              songs: 0, chaps: 0, verseEn: 0, verseLa: 0, greekLa: 0, greekEn: 0,
+              realGreekEn: 0, realGreekLa: 0, shortEn: 1e9, shortLa: 1e9, lines: 0 };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup", "span"];
+  const bal = (c, who) => TAGS.forEach((t) => {
+    const open = (c.html.match(new RegExp("<" + t + "(?=[ >])", "g")) || []).length;
+    const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+    if (open !== shut) o.bal.push(who + " " + c.n + " " + t + " " + open + "/" + shut);
+  });
+  /* The transcriber's furniture on the English side — the running page anchors, the note list's own
+     caption, the poem containers and the licence boilerplate — plus the bracketed romanisation this
+     edition sets beside a Greek letter it has already printed. */
+  const EN_LEAK = /PROJECT GUTENBERG|FOOTNOTES:|Page_\d|pginternal|fnanchor|class="poem"|class="stanza"|class="blockquot"|\[Greek:|<h[1-6]|<div|<ul|<li[ >]/i;
+  /* On the Latin side, the volume's own structure: it holds four other works before the Consolation
+     and Symmachus's epigram after it, and the printer's book heads duplicate the tab. */
+  const LA_LEAK = /PROJECT GUTENBERG|\bLIBER [IVX]|EXPLICIT|INCIPIT|SYMMACHI|THE (FIRST|SECOND|THIRD|FOURTH|FIFTH) BOOK|<h[1-6]|<div|id="id\d|margin-left/;
+  const marks = (h) => [...h.matchAll(/<span class="bk-n" data-n="(\d+)">([\s\S]*?)<\/span>/g)]
+    .map((m) => ({ n: +m[1], t: m[2] }));
+  const laBy = {};
+  la.chapters.forEach((c) => {
+    bal(c, "la");
+    laBy[c.n] = c;
+    if (LA_LEAK.test(c.html)) o.laLeak.push(c.n);
+    if (c.html.length < o.shortLa) o.shortLa = c.html.length;
+    o.verseLa += (c.html.match(/<blockquote>/g) || []).length;
+    o.laNotes += (c.notes || []).length;
+    o.greekLa += (c.html.match(/\[Greek:/g) || []).length;
+    o.realGreekLa += (c.html.match(/[Ͱ-Ͽἀ-῿]/g) || []).length;
+    /* Lines of VERSE, so counted inside the quotation blocks alone: the prose carries two line
+       breaks of its own, inside the two-line Euripides quotation of III.6, which the edition sets
+       as verse in the middle of a sentence and which is not a metre. */
+    (c.html.match(/<blockquote>[\s\S]*?<\/blockquote>/g) || []).forEach((bq) => {
+      o.lines += (bq.match(/<br>/g) || []).length + 1;
+    });
+  });
+  en.chapters.forEach((c, i) => {
+    bal(c, "en");
+    if (EN_LEAK.test(c.html)) o.enLeak.push(c.n);
+    if (c.html.length < o.shortEn) o.shortEn = c.html.length;
+    o.verseEn += (c.html.match(/<blockquote>/g) || []).length;
+    o.greekEn += (c.html.match(/\[Greek:/g) || []).length;
+    o.realGreekEn += (c.html.match(/[Ͱ-Ͽἀ-῿]/g) || []).length;
+    const me = marks(c.html), ml = marks((laBy[c.n] || { html: "" }).html);
+    o.songs += me.filter((m) => /^Song /.test(m.t)).length;
+    o.chaps += me.filter((m) => /^Ch\. /.test(m.t)).length;
+    /* The English runs 0 (the summary) then 1..N; the Latin runs 1..N and has no summary of its
+       own. A book short of a section, or one whose numbers repeat, would ship as a pairing gap and
+       nothing else here would say so. */
+    const wantEn = [0].concat(WANT[i] ? Array.from({ length: WANT[i] }, (_, k) => k + 1) : []).join(",");
+    const wantLa = WANT[i] ? Array.from({ length: WANT[i] }, (_, k) => k + 1).join(",") : "";
+    if (me.map((m) => m.n).join(",") !== wantEn) o.seqBad.push("en " + c.n);
+    if (ml.map((m) => m.n).join(",") !== wantLa) o.seqBad.push("la " + c.n);
+    o.shape.push(me.length - 1 + "/" + ml.length);
+    const set = new Set(ml.map((m) => m.n));
+    me.forEach((m) => { if (set.has(m.n)) o.paired++; else o.enOnly++; });
+    const eset = new Set(me.map((m) => m.n));
+    ml.forEach((m) => { if (!eset.has(m.n)) o.laOnly++; });
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    o.markers += ms.length;
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, k) => { if (!ms.includes(k + 1)) o.unref++; });
+  });
+  o.shape = o.shape.join(" ");
+  /* Every book opens on its own summary, and only the first opens on a poem — which is what makes
+     the metre-and-prose alternation derivable on the Latin side, where nothing but the setting
+     tells the two apart. */
+  o.summaries = en.chapters.filter((c) => /<span class="bk-n" data-n="0">Summary<\/span>/.test(c.html)).length;
+  const firstMark = (h) => (marks(h)[1] || { t: "" }).t;
+  o.firstKind = en.chapters.map((c) => (/^Song /.test(firstMark(c.html)) ? "m" : "p")).join("");
+  o.blankTitles = o.titles.filter((t) => !t || !t.trim() || /^Book \d+$/.test(t)).length;
+  o.distinct = new Set(o.titles).size;
+  /* Content at both ends and at the middle: the poem the book opens on, the prose beneath it, the
+     great hymn at the centre of Book III, and the last sentence of the work. */
+  const e1 = en.chapters[0] ? en.chapters[0].html : "", l1 = laBy[1] ? laBy[1].html : "";
+  const e3 = en.chapters[2] ? en.chapters[2].html : "", l3 = laBy[3] ? laBy[3].html : "";
+  const e5 = en.chapters[4] ? en.chapters[4].html : "", l5 = laBy[5] ? laBy[5].html : "";
+  o.opens = /Who wrought my studious numbers/.test(e1) && /Carmina qui quondam studio florente peregi/.test(l1);
+  o.prose1 = /a woman of a countenance exceeding venerable/.test(e1) && /Haec dum mecum tacitus ipse reputarem/.test(l1);
+  o.hymn = /Maker of earth and sky, from age to age/.test(e3) && /O qui perpetua mundum ratione gubernas/.test(l3);
+  o.ends = /before the eyes of a Judge who seeth all things/.test(e5) && /ante oculos agitis iudicis cuncta cernentis/.test(l5);
+  /* The two Greek letters on Philosophy's gown, which are a letter NAME in the transcription and are
+     decoded because a name says exactly which letter it is. The romanised quotations are not, and
+     the front matter says so — so the count of what is LEFT is asserted too, in both directions. */
+  o.gown = /Π Graecum/.test(l1) && /the letter θ/.test(e1);
+  o.summaryCites = /Boethius' complaint \(Song I\.\)/.test(e1);
+  return o;
+}
+
 function ptahhotepChecks() {
   const f = path.join(ROOT, "books", "ptahhotep.js");
   if (!fs.existsSync(f)) return null;
@@ -1536,6 +1648,75 @@ function aeneidChecks() {
       check("[three-kingdoms] ...and the Chinese carries their added poem above it", tk.yangshen, "");
     } else {
       check("[three-kingdoms] both columns are on disk", false, "missing books/three-kingdoms*.js");
+    }
+
+    /* THE CONSOLATION OF PHILOSOPHY — see boethiusChecks above for what each of these can see. */
+    const bo = boethiusChecks();
+    if (bo) {
+      check("[boethius] five books in the English", bo.en === 5, String(bo.en));
+      check("[boethius] ...and five in the Latin", bo.la === 5, String(bo.la));
+      /* The shape of each book is the whole of the pairing: the sections are matched on their
+         POSITION, neither edition printing a compound citation, so a book short of a section pairs
+         everything after it against the wrong passage with both columns complete and every count
+         reading healthy. */
+      check("[boethius] the five books hold 13, 16, 24, 14 and 11 sections, and the Latin agrees",
+        bo.shape === "13/13 16/16 24/24 14/14 11/11", bo.shape);
+      check("[boethius] ...numbered 0 then 1..N in the English and 1..N in the Latin",
+        !bo.seqBad.length, JSON.stringify(bo.seqBad));
+      check("[boethius] all 78 sections pair", bo.paired === 78, String(bo.paired));
+      /* Five rows are English only and that is the right figure, not a gap: each book opens on
+         James's own summary of its argument, which the Latin has no counterpart for. It is numbered
+         0 so that it draws a row of its own — folded into the first numbered row, as the shelf's
+         rule would otherwise do, a quarter-page of English faces the opening of the Latin poem and
+         reads as a translation of it. */
+      check("[boethius] ...and only the five book summaries stand alone",
+        bo.enOnly === 5 && bo.laOnly === 0, bo.enOnly + " / " + bo.laOnly);
+      check("[boethius] every book prints its summary", bo.summaries === 5, String(bo.summaries));
+      check("[boethius] ...and the summary carries the translator's own citations", bo.summaryCites, "");
+      /* 39 poems and 39 prose chapters, and only the first book opens on a poem — which is what
+         makes the alternation derivable on the Latin side, where the two are told apart by nothing
+         but the setting. */
+      check("[boethius] 39 songs and 39 chapters, marked in the translator's own words",
+        bo.songs === 39 && bo.chaps === 39, bo.songs + " / " + bo.chaps);
+      check("[boethius] only the first book opens on a poem", bo.firstKind === "mpppp", bo.firstKind);
+      /* Each of these survives the tag strip as prose and makes a chapter LONGER, so no count of
+         books, sections or markers can see any of them. */
+      check("[boethius] no page anchor, note caption or poem container left in the English",
+        !bo.enLeak.length, JSON.stringify(bo.enLeak));
+      check("[boethius] no book head, boundary mark or other work left in the Latin",
+        !bo.laLeak.length, JSON.stringify(bo.laLeak));
+      check("[boethius] tag balance is clean on both columns",
+        !bo.bal.length, JSON.stringify(bo.bal.slice(0, 3)));
+      check("[boethius] all 19 notes shipped", bo.notes === 19, String(bo.notes));
+      check("[boethius] every footnote marker resolves", bo.dead === 0, String(bo.dead));
+      check("[boethius] every note is referenced", bo.unref === 0, String(bo.unref));
+      check("[boethius] the Latin carries no note fold", bo.laNotes === 0, String(bo.laNotes));
+      /* The book alternates prose and verse and the verse is the half that must not read as prose:
+         set as nested divs of spans in the English and as one <br>-separated paragraph in the Latin,
+         either of which the tag stripper would flatten. Three English poems and six Latin metres are
+         printed across a page break and would otherwise show a stanza division the edition has not
+         got, so the counts are exact rather than merely positive. */
+      check("[boethius] the verse is set as verse in both columns, one block per poem",
+        bo.verseLa === 39 && bo.verseEn === 49, bo.verseEn + " / " + bo.verseLa);
+      check("[boethius] the Latin's 39 metres come to 896 lines", bo.lines === 896, String(bo.lines));
+      check("[boethius] every book carries its own printed title",
+        bo.blankTitles === 0 && bo.distinct === 5, bo.blankTitles + " blank, " + bo.distinct + " distinct");
+      check("[boethius] no book came back short",
+        bo.shortEn > 20000 && bo.shortLa > 20000, bo.shortEn + " / " + bo.shortLa);
+      check("[boethius] the work opens on its poem in both columns", bo.opens, "");
+      check("[boethius] ...and the prose beneath it", bo.prose1, "");
+      check("[boethius] the great hymn is at the centre of Book III", bo.hymn, "");
+      check("[boethius] ...and the last sentence of the work is present in both", bo.ends, "");
+      /* Boethius writes a little Greek into his Latin. A letter NAME is a closed encoding and is
+         decoded; a romanised WORD is not and is left exactly as printed, so both counts are
+         asserted — decoding all of it would be inventing Greek, and decoding none of it would leave
+         the two letters on Philosophy's gown as the words PI and THETA. */
+      check("[boethius] the two Greek letters on Philosophy's gown are decoded in both columns",
+        bo.gown && bo.realGreekLa === 2, bo.realGreekLa + " Greek characters in the Latin");
+      check("[boethius] ...and the romanised quotations are left as the edition prints them",
+        bo.greekLa === 12 && bo.greekEn === 0, bo.greekLa + " left in the Latin, " + bo.greekEn + " in the English");
+    } else {
+      check("[boethius] both columns are on disk", false, "missing books/boethius-consolation*.js");
     }
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there

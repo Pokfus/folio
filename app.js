@@ -8026,6 +8026,30 @@
      assert between a Greek epic, a Greek history and a Chinese novel. */
   "Luo Guanzhong": "#2438A8",
   "Ptahhotep": "#00486C",
+  /* THE BAND AT FORTY COLOURS, AND THE FIELD IS DOWN TO TWO HUE FAMILIES (Aug 2026, adding the
+     Consolation of Philosophy). Searched over the shelf's own lightness and chroma band, under the
+     Book of Rites' ink floor and the 4.5:1 bar, and additionally held clear of the books a reader
+     might genuinely read AS A PAIR with Boethius — Seneca, Augustine, Marcus Aurelius, Plato,
+     Virgil and Aristotle, which is the Euripides test with a longer list than usual, this being a
+     late-Roman philosopher whose neighbours on the shelf are the other consolers. What clears
+     everything is a scarlet and one green, and nothing else anywhere.
+
+     THE SCARLET IS THE BETTER NUMBER AND IS REFUSED. #A21E00 separates by 21.1 against this one's
+     18.2, and it sits at chroma 71 — the very top of the band, where only Luo Guanzhong is — while
+     being a NINTH colour in the red-and-orange quarter, 21 from the Poetic Edda and 21 from Sun Tzu
+     at the same lightness. The Homer row's test is whether a family is crowded in hue and empty at
+     this LIGHTNESS, and there it is crowded at both.
+
+     THE GREEN PASSES THAT TEST AND WINS ON CONTRAST BESIDES. Nine books sit in the green quarter and
+     the darkest of them is the Book of Documents at L 25; this is L 12, less than half that, so the
+     family is crowded in hue and empty here. It clears Aesop by 18.2 and the Book of Documents by
+     19.9, both wider than the shelf's own tightest pair at 16.6, so the band was not widened and no
+     tighter pair was taken. It stands 39 from Marcus Aurelius, 41 from Augustine, 53 from Aristotle,
+     56 from Virgil, 70 from Plato and 99 from Seneca, so it asserts no kinship at all. And it reads
+     9.80:1 on the tightest of the eighteen light papers and 16.28:1 on white — the highest contrast
+     of any swatch on this shelf, which the City of God and the Book of Rites both treated as the
+     tiebreaker it is. */
+  "Boethius": "#002700",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9937,6 +9961,60 @@
       chapterWord: "Section",
       count: 47,
       total: 47,
+    },
+    {
+      id: "boethius-consolation",
+      title: "The Consolation of Philosophy",
+      subtitle: "Philosophiae Consolationis",
+      author: "Boethius",
+      written: "c. 523–524, in prison at Pavia",
+      year: 524,
+      translator: "H. R. James",
+      edition: "Elliot Stock, London, 1897",
+      /* A LIMIT ON EACH COLUMN, AND THE ORIGINAL IS THE HARDER HALF. Boethius was executed around
+         524, so the work is free everywhere. H. R. James published this translation in 1897 and
+         lived 1862–1931 — the years corroborated twice, once on Wikidata with four references
+         behind them and once by Wikisource's own public-domain tag on this very translation — so
+         the English clears the pre-1929 rule and cleared life plus seventy in 2002, and has NOT
+         cleared life plus a hundred, which runs to 2032. The Latin is E. K. Rand's text of 1918,
+         printed in a volume jointly with H. F. Stewart; a joint work runs its term from the last of
+         its authors to die, and Stewart died in 1948, so that column cleared life plus seventy in
+         2019 and stays in copyright until 2049 where the term is life plus a hundred.
+
+         THE ENGLISH PRINTED WITH THAT LATIN IS NOT USED, AND THAT WAS A CHOICE. The 1918 volume
+         carries a complete English translation of its own, so taking both columns from one file
+         would have paired them by construction and needed no second source at all. It is I.T.'s of
+         1609 revised by Stewart — Jacobean English — and this is a reading room. The cost was
+         measured rather than guessed: all seventy-eight sections are present in both Englishes and
+         in the Latin, in the same order, and James tracks the Latin's length section by section as
+         closely as the Loeb's own version does. See .claude/fetch-book.js and the book's front
+         matter for the whole of it. */
+      rights:
+        "Public domain, with a limit on each column. Boethius was executed around 524, so the work " +
+        "itself has never been in copyright. H. R. James published this translation in London in " +
+        "1897 and died in 1931, so it is out of copyright in the United States under the rule for " +
+        "works published before 1929 and cleared the translator's life plus seventy years in 2002; " +
+        "where the term is life plus a hundred it remains in copyright until 2032. The Latin is E. " +
+        "K. Rand's text, published in 1918 in a volume jointly with H. F. Stewart, who died in " +
+        "1948: pre-1929, and clear of life plus seventy since 2019, but in copyright until 2049 " +
+        "where the term is life plus a hundred. (The modern translations by Richard Green, 1962, V. " +
+        "E. Watts, 1969, P. G. Walsh, 1999, Joel Relihan, 2001, and David Slavitt, 2008, are still " +
+        "in copyright and are not used, nor is S. J. Tester's 1973 revision of the Loeb.) James's " +
+        "preface, his life of Boethius and his index of the poems are not reproduced; nor are the " +
+        "four theological treatises printed with the Latin, which are different works.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/14328",
+      origLang: "la",
+      origName: "Latin",
+      /* THE BOOK IS THE CHAPTER AND THE SECTION IS EACH PROSE CHAPTER AND EACH POEM. The Consolation
+         alternates prose and verse — Philosophy argues, then sings — and that alternation is what
+         the book is, so it may not be cut into seventy-eight tabs. A passage is cited by book and
+         section ("Consolation III.m9"), which is the shape this shelf has met five times before in
+         ancient prose. The five books hold 13, 16, 24, 14 and 11 sections; only the first opens on
+         a poem. */
+      chapterWord: "Book",
+      count: 5,
+      total: 5,
     },
     {
       id: "rigveda",

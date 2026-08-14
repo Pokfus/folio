@@ -8327,6 +8327,143 @@ const BOOKS = {
         "Amenemhe'et, which are separate works by other hands; only Ptahhotep is here.",
     ],
   },
+  "boethius-consolation": {
+    title: "The Consolation of Philosophy",
+    subtitle: "Philosophiae Consolationis",
+    author: "Boethius",
+    translator: "H. R. James",
+    edition: "Elliot Stock, London, 1897",
+    written: "c. 523–524, in prison at Pavia",
+    year: 524,
+
+    /* ---------- THE LICENCE — a LIMIT on each column, and the original is the harder half ----------
+       Three layers and every one of them has to be stated. Boethius was executed around 524, so the
+       work itself is free everywhere on any reading. Henry Rosher James published this translation
+       in London in 1897 and lived 1862–1931 — the years given at year precision on Wikidata with
+       four references behind them, and stated independently by Wikisource's own public-domain tag on
+       this very translation, which is the corroboration this file insists on after the case of a
+       date that existed and was not established — so the English is public domain in the United
+       States on the pre-1929 publication rule and cleared life plus seventy on 1 January 2002. It
+       has NOT cleared life plus a hundred, which runs to 1 January 2032.
+
+       The LATIN is Edward Kennard Rand's text, printed facing an English translation in the Loeb
+       Classical Library volume of 1918 — he signs the note on the text himself and says there what
+       he built it from. That volume is a JOINT work with Hugh Fraser Stewart, and a joint work runs
+       its term from the LAST of its authors to die: Rand lived 20 December 1871 – 28 October 1945
+       and Stewart 27 October 1863 – 23 January 1948, both at day precision, so the Latin is public
+       domain in the United States on the pre-1929 rule and cleared life plus seventy on 1 January
+       2019, and where the term is life plus a hundred it stays in copyright until 1 January 2049.
+       So both columns carry a limit and the original's runs thirty years the longer, which is the
+       reverse of the usual arrangement and is said outright rather than smoothed away.
+
+       WHY THIS ENGLISH AND NOT THE ONE PRINTED WITH THE LATIN. The 1918 volume carries a complete
+       English translation of its own and using it would have paired the two columns by construction
+       out of a single file, needing no second source and no reconciliation at all. It is not used.
+       That translation is "I.T."'s of 1609 revised by Stewart, and it is Jacobean English — "While I
+       ruminated these things with myself, and determined to set forth my woful complaint in writing,
+       methought I saw a woman stand above my head" against James's "While I was thus mutely
+       pondering within myself, and recording my sorrowful complainings with my pen, it seemed to me
+       that there appeared above my head a woman of a countenance exceeding venerable". This is a
+       reading room, and the cleanest text to import is not always the one worth reading. The cost of
+       refusing it was measured rather than guessed: all seventy-eight sections are present in both
+       Englishes and in the Latin, in the same order, and James tracks the Latin's length section by
+       section as closely as the Loeb's own version does, so nothing was given up but the convenience.
+
+       WHAT IS NOT TAKEN. James's preface, his proem — a short life of Boethius — and his index of
+       verse interludes are left behind for the reason an editor's front matter always is; his
+       summaries of the five books are not front matter and DO ship, at the head of the book each
+       describes. From the Latin side, the four Theological Tractates printed in the same volume are
+       different works by the same hand and are not this book, and Symmachus's epigram, which the
+       manuscripts append after the last line, is not Boethius.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none
+       may be used: V. E. Watts's for Penguin (1969, revised 1999), Richard Green's (1962), P. G.
+       Walsh's for Oxford World's Classics (1999), Joel Relihan's (2001) and David Slavitt's (2008).
+       S. J. Tester's revision of the Loeb (1973) is the volume in shops today and is a separate
+       copyrighted work; what is here is the 1918 printing. */
+    rights:
+      "Public domain. Boethius was executed around 524. H. R. James's translation was published in " +
+      "1897 and he died in 1931, so it is public domain in the United States as a pre-1929 " +
+      "publication and cleared life-plus-seventy in 2002; where the term is life plus a hundred it " +
+      "remains in copyright until 2032. The Latin is E. K. Rand's text of 1918, printed in a volume " +
+      "jointly with H. F. Stewart, who died in 1948 — pre-1929, and clear of life-plus-seventy since " +
+      "2019, but in copyright until 2049 where the term is life plus a hundred.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/14328",
+    url: "https://www.gutenberg.org/cache/epub/14328/pg14328-images.html",
+
+    layout: "boethius",
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4, 5],
+
+    about: [
+      "<b>The Consolation of Philosophy</b> was written by a man waiting to be killed. Anicius " +
+        "Manlius Severinus Boethius was a Roman senator, consul and philosopher who rose to be head " +
+        "of the civil administration under Theodoric the Ostrogoth, king of Italy; around 523 he was " +
+        "accused of treason, stripped of everything, imprisoned at Pavia and, a year or so later, " +
+        "clubbed to death. In the cell he wrote a dialogue between himself and Philosophy, who " +
+        "appears at his bedside as a woman of changing height with a torn gown, drives away the " +
+        "Muses of poetry who had been dictating his self-pity, and sets about curing him. She begins " +
+        "with gentle remedies and works up to the hardest questions there are.",
+      "The five books climb. The <b>first</b> is his complaint and her diagnosis: he has forgotten " +
+        "what he is and how the world is governed. The <b>second</b> is about Fortune, who speaks in " +
+        "her own voice to point out that inconstancy is the only thing she ever promised, and whose " +
+        "turning wheel enters European literature here. The <b>third</b> argues that the things men " +
+        "chase — wealth, office, power, fame, pleasure — are broken fragments of a single good, and " +
+        "that the whole of it is God. The <b>fourth</b> asks why the wicked prosper, and answers " +
+        "that they do not. The <b>fifth</b> takes on the hardest problem of all: if God knows what " +
+        "you will do, in what sense are you free to do otherwise? Its answer, that eternity is not " +
+        "endless time but the whole possession of life at once, so that God does not foresee but " +
+        "simply sees, is the passage on which the rest of the book's fame rests.",
+      "It is a <b>prosimetrum</b> — the argument runs in prose and stops thirty-nine times for a " +
+        "poem, in a wide variety of metres, and the poems are not decoration. They restate what has " +
+        "just been argued in a register the argument cannot reach, and the alternation is the shape " +
+        "of the book. The most famous of them, the great hymn <i>O qui perpetua</i> at the centre of " +
+        "the third book, is a compressed version of Plato's <i>Timaeus</i>. Its other great puzzle " +
+        "is what is <i>not</i> in it. Boethius was a Christian who wrote four treatises on the " +
+        "Trinity and the person of Christ, and in the Consolation neither Christ nor scripture nor " +
+        "any Christian doctrine is so much as mentioned: he is consoled by reason alone. Readers " +
+        "have argued about that ever since.",
+      "For a thousand years it was one of the most read books in Europe. It was translated into Old " +
+        "English by King Alfred's circle, into French by Jean de Meun, into Middle English by " +
+        "Chaucer, and into English again by Queen Elizabeth I, who is said to have done it in under " +
+        "a month. Dante puts Boethius in the Heaven of the Sun. This English is <b>H. R. James's of " +
+        "1897</b>, which renders the prose as prose and the poems as English verse, and which prints " +
+        "at the head of each book a summary of its argument chapter by chapter; those summaries are " +
+        "his and they open each of the five tabs here. His preface, his life of Boethius and his " +
+        "index of the poems are not reproduced.",
+      "The <b>Latin</b> facing it is <b>E. K. Rand's text of 1918</b>, and it has two limitations " +
+        "worth knowing before they are met. Boethius writes a little Greek into his Latin — the " +
+        "letters Π and Θ embroidered on Philosophy's gown, and a dozen quotations from Homer, " +
+        "Euripides and Plato — and the transcription this column is taken from renders every one of " +
+        "them in Roman letters between brackets. The two letters can be turned back into Greek " +
+        "because a letter's name says exactly which letter it is; the quotations cannot, because the " +
+        "romanisation loses distinctions Greek makes, and inventing them back would be composing a " +
+        "text rather than reading one. They are left as the transcription prints them. The edition " +
+        "also numbers every fifth line of every poem, and those numbers are dropped: James translates " +
+        "the verse into English verse rather than line for line, so a line number here would point " +
+        "at a place the facing page cannot find.",
+    ],
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      edition:
+        "Edited by E. K. Rand, in H. F. Stewart and E. K. Rand, Boethius: The Theological Tractates " +
+        "and The Consolation of Philosophy, Loeb Classical Library, William Heinemann, London, 1918",
+      rights:
+        "Public domain. Boethius wrote around 523–524. This text was constituted by E. K. Rand and " +
+        "published in 1918, so it is public domain in the United States as a pre-1929 publication; " +
+        "the volume is a joint work with H. F. Stewart, who died in 1948, so it also cleared " +
+        "life-plus-seventy in 2019 and remains in copyright until 2049 where the term is life plus " +
+        "a hundred.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/13316",
+      url: "https://www.gutenberg.org/cache/epub/13316/pg13316-images.html",
+      source: "text",
+      layout: "boethius",
+    },
+  },
   "rigveda": {
     title: "The Rigveda",
     subtitle: "ऋग्वेदः",
@@ -15563,6 +15700,420 @@ function extractPtahhotep(h, BOOK, warn) {
 }
 
 /* ============================================================
+   A PROSIMETRUM, FROM TWO PLAIN PRINTED PAGES     (layout: "boethius")
+   ============================================================
+   Aug 2026, adding The Consolation of Philosophy — the fifth book from Project Gutenberg and the
+   SECOND from its HTML, after the Maxims of Ptahhotep, whose entry says why that path is the easiest
+   of the three: a transcriber has already marked the paragraphs, anchored the footnotes and tagged
+   the page numbers, so `stripTags` does the work a machine reading of a printed page would need
+   built from nothing.
+
+   THE SHAPE OF THE WORK IS THE WHOLE OF THE DESIGN. The Consolation alternates prose and verse —
+   Philosophy argues in prose, then sings — and that alternation is what the book IS, so it may not
+   be cut up. The chapter is therefore the BOOK, five of them, and the section is each prose chapter
+   and each metre, seventy-eight in all: I. thirteen, II. sixteen, III. twenty-four, IV. fourteen,
+   V. eleven. It is Herodotus's shape a sixth time, and the citation says so — a passage is
+   "Consolation III.m9", book and then section.
+
+   BOTH EDITIONS STATE THE NUMBER AND NEITHER STATES THE COMPOUND CITATION, so none is composed and
+   the pairing runs on the section's POSITION IN ITS BOOK. That is safe here for the reason counting
+   is safe in the Divine Comedy — it is arithmetic before it is a hope. Measured over both files
+   before a word was imported: each book's sections are the same in number, in the same order and in
+   the same alternation, 13/16/24/14/11 a side, and Book I is the one that opens on a metre where the
+   other four open on a prose. Both editions number their metres and their proses in separate runs,
+   so within a book the numeral I. appears twice and the two are told apart by which of them is set
+   as verse — which is how a reader of either printed page tells them apart, and how this page does.
+
+   FIVE THINGS IT SETTLED ARE WORTH CARRYING.
+
+   THE TRANSLATOR'S OWN WORD FOR A SECTION IS IN HIS SUMMARIES AND NOWHERE ELSE. James heads a metre
+   "SONG IV." and a prose with the bare numeral "IV.", so the marker for a prose would be a figure
+   that means nothing on its own — the Ptahhotep case, where a tab reading "SECTION 32" printed two
+   different numbers under one word. What he does print, at the head of each book and in his own
+   footnotes, is a summary written in citations: "Boethius' complaint (Song I.).—CH. I. Philosophy
+   appears to Boethius", and a note reading "See also below, ch. iii., p. 14". So the English marker
+   carries "Song I." and "Ch. I." — both the edition's own words, transcribed from his own prose
+   rather than composed here — and the Latin carries the numeral its own edition prints and nothing
+   more. ASK WHAT ELSE IN THE EDITION NAMES ITS OWN SECTIONS before deciding a citation cannot be
+   transcribed; a summary, an index and a cross-reference are all places an editor writes one down.
+
+   A SUMMARY AT THE HEAD OF A BOOK IS THE TRANSLATOR'S AND SHIPS WHERE HE PRINTED IT — NUMBERED 0,
+   WHICH IS THE ONE PLACE THE SHELF'S OWN FOLD DOES THE WRONG THING. James opens each of the five
+   with a paragraph describing that book's argument chapter by chapter, which is Legge's headnote in
+   the Book of Documents and Griffith's bracketed notes on what he left out: a thing the translator
+   wrote ABOUT the passage the reader is about to meet, printed with it. Left UNNUMBERED it is a
+   leading block the Latin has no counterpart for, and `bookRows` folds one of those into the first
+   numbered row — right for Seneca's one-line salutation and wrong for a quarter of a page, since the
+   English's first poem then begins a screen below the Latin's and a reader meeting a paragraph of
+   English beside the opening of the Latin poem would reasonably take one for a translation of the
+   other. Numbered, it draws a row of its own beside an empty Latin cell, which is the shelf's
+   ordinary way of showing that two editions differ, and the poems start level: five rows of the
+   eighty-three. Zero is a section number for the Gallic War's reason and `bookSections` already
+   admits it; the mark it carries is the caption James prints over the block. His PROEM, his preface
+   and his index of verse interludes are left behind, as the Republic's introduction and plates were.
+
+   THE GREEK IS TRANSLITERATED IN BOTH FILES AND ONLY PART OF IT CAN BE DECODED. Boethius writes a
+   little Greek into his Latin — the Π and Θ on Philosophy's gown, and a dozen quotations from Homer,
+   Euripides and Plato — and this transcription renders every one as "[Greek: ...]". Four of the
+   twenty-two are a letter NAME (`[Greek: PI]`, `[Greek: THETA]`), which is a closed and unambiguous
+   encoding and is decoded; the other eighteen are a loose romanisation in which "ae" may be η or αι
+   and "o" may be ο or ω, and reversing one would be inventing a Greek word rather than reading it.
+   Those are LEFT exactly as printed and counted, which is the Satyricon's `betaGreek` judgement in
+   a second book: decode what is decodable, refuse what is not, and never compose a letter the
+   evidence does not carry. James's English carries the real Π and θ and glosses each with a
+   transliteration of its own, which is transcriber's furniture beside a letter already printed and
+   is removed.
+
+   AND THE LATIN'S MARGINAL LINE NUMBERS ARE DROPPED, WHICH IS THE ONE REAL LOSS. Rand prints one
+   every fifth line of every metre and it is how a passage of the verse is cited — but James
+   translates the verse into English verse rather than line for line (his first song is
+   forty-four short lines against the Latin's twenty-two), so a number here would point at a place
+   the facing page cannot find. It is the Canterbury Tales' finding on a second book; they are
+   counted and the front matter says they are gone. */
+
+/* The five books, and what is asserted about each of them. The TITLES are not stated here: they are
+   read off each book's own title page, so a retitling costs no edit and a book whose title page has
+   moved is reported rather than silently renamed. This table is the check, in both directions, that
+   the file gives up the work this entry says it does — a book short of a section would pair
+   everything after it against the wrong passage with both columns complete and every count reading
+   healthy. `first` is the kind each book opens on, which is what makes the metre/prose alternation
+   derivable on the Latin side, where nothing but the setting distinguishes the two. */
+const BOE_BOOKS = [
+  { n: 1, first: "m", secs: 13 },
+  { n: 2, first: "p", secs: 16 },
+  { n: 3, first: "p", secs: 24 },
+  { n: 4, first: "p", secs: 14 },
+  { n: 5, first: "p", secs: 11 },
+];
+
+/* The twenty-four letter names this transcription uses, and nothing else. A NAME is a closed
+   encoding of a letter and can be decoded; a romanised WORD cannot, and is left alone. */
+const BOE_LETTERS = {
+  ALPHA: "Α", BETA: "Β", GAMMA: "Γ", DELTA: "Δ", EPSILON: "Ε", ZETA: "Ζ", ETA: "Η", THETA: "Θ",
+  IOTA: "Ι", KAPPA: "Κ", LAMBDA: "Λ", MU: "Μ", NU: "Ν", XI: "Ξ", OMICRON: "Ο", PI: "Π", RHO: "Ρ",
+  SIGMA: "Σ", TAU: "Τ", UPSILON: "Υ", PHI: "Φ", CHI: "Χ", PSI: "Ψ", OMEGA: "Ω",
+};
+
+/* Every "[Greek: ...]" in a slice: a letter name becomes the letter, everything else is returned
+   unchanged and counted, so a run can report how much of the Greek this edition still cannot show. */
+function boeGreek(s, counts) {
+  return s.replace(/\[Greek:\s*([^\]]*)\]/g, (whole, inner) => {
+    const k = inner.replace(/\s+/g, " ").trim().toUpperCase();
+    if (BOE_LETTERS[k]) { counts.greekOk++; return BOE_LETTERS[k]; }
+    counts.greekLeft++;
+    return whole;
+  });
+}
+
+/* James sets a song as <div class="poem"><div class="stanza"><span>line<br></span>…</div>…</div>,
+   with an alternate-line indent class the reader has no style for. One blockquote per poem and one
+   paragraph per stanza, which keeps the stanza breaks the edition prints. */
+function boePoem(b, counts) {
+  return b.replace(/<div class="poem">([\s\S]*?)<\/div>\s*<\/div>/g, (whole, inner) => {
+    const stanzas = (inner.match(/<div class="stanza">[\s\S]*?(?=<div class="stanza">|$)/g) || [inner])
+      .map((st) => (st.match(/<span[^>]*>([\s\S]*?)<\/span>/g) || [])
+        .map((sp) => sp.replace(/<\/?span[^>]*>/g, "").replace(/<br\s*\/?>/g, "").trim())
+        .filter(Boolean))
+      .filter((lines) => lines.length);
+    if (!stanzas.length) return whole;
+    counts.stanzas += stanzas.length;
+    counts.verseLines += stanzas.reduce((a, l) => a + l.length, 0);
+    counts.poems++;
+    return "<blockquote>" + stanzas.map((l) => "<p>" + l.join(" <br>\n") + "</p>").join("\n") +
+      "</blockquote>";
+  });
+}
+
+/* THE TRANSLATION. One Gutenberg page, five books, seventy-eight sections. */
+function extractBoethius(h, BOOK, warn) {
+  /* THE FILE'S LINE ENDINGS ARE CRLF, AND A CARRIAGE RETURN IS NOT CONTENT. `esc` escapes the
+     backslash, the quote and the newline; a stray \r survives into the generated string literal and
+     the file will not parse at all — which is the loud failure and the good one, but only because
+     something reparses. Normalised here rather than in `esc`, where escaping it would ship the
+     character instead of removing it. */
+  h = h.replace(/\r\n?/g, "\n");
+  const counts = {
+    poems: 0, stanzas: 0, verseLines: 0, notes: 0, joined: 0, pages: 0,
+    greekOk: 0, greekLeft: 0, glosses: 0, summaries: 0,
+  };
+  const flat = (x) => x.replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+
+  /* Every heading in the file, with the span it opens. The front matter — the preface, the proem and
+     the index of verse interludes — is simply never reached: the walk starts at the first book's own
+     title page and the licence boilerplate lies past the last section. */
+  const heads = [];
+  const HRE = /<h([1-6])[^>]*>([\s\S]*?)<\/h\1>/g;
+  /* A HEADING MAY CARRY A FOOTNOTE MARKER, so the raw heading is kept beside the flattened one and
+     the flattening is done with the anchors taken OUT — otherwise three of the nineteen notes end up
+     as the literal text "[I]" inside a section title while their bodies sit in a list nothing points
+     at. It is `dropFittHead`'s rule in another edition, and it bites here on a title that is KEPT
+     rather than dropped: the markers are carried onto the head line where the title is printed,
+     which is where James prints them. */
+  const FNANCHOR = /<a[^>]*class="fnanchor[^"]*"[^>]*>\[[A-Z]\]<\/a>/g;
+  let m;
+  while ((m = HRE.exec(h)))
+    heads.push({ i: m.index, end: HRE.lastIndex, lvl: +m[1], raw: m[2], t: flat(m[2].replace(FNANCHOR, "")) });
+
+  const BOOKTITLE = /^BOOK ([IVX]+)\.\s+(.+?)\.?$/;
+  const BOOKPLAIN = /^BOOK ([IVX]+)\.$/;
+  const SONG = /^SONG ([IVX]+)\.\s*(.*?)\.?$/;
+  const CHAP = /^([IVX]+)\.$/;
+
+  const books = [];
+  let cur = null, want = null;
+  for (let k = 0; k < heads.length; k++) {
+    const o = heads[k];
+    const nx = heads[k + 1] ? heads[k + 1].i : h.length;
+    let mm;
+    if (o.lvl === 2 && (mm = BOOKTITLE.exec(o.t))) {
+      const n = romanValue(mm[1]);
+      if (!n) { warn("a book title is headed " + JSON.stringify(o.t) + ", whose numeral will not parse"); continue; }
+      cur = { n: n, t: mm[2], summary: "", lead: "", secs: [] };
+      books.push(cur);
+      /* The summary sits between the title page and the book's own head, in a quoted block of its
+         own. It is taken whole and its own "SUMMARY." caption dropped, that caption being furniture
+         over a paragraph the page already sets apart. */
+      const between = h.slice(o.end, nx);
+      cur.lead = between;
+      const sm = /<div class="blockquot">([\s\S]*?)<\/div>/.exec(between);
+      if (sm) {
+        cur.summary = sm[1].replace(/<p class="center">\s*SUMMARY\.?\s*<\/p>/i, "");
+        counts.summaries++;
+      } else warn("Book " + o.t + " prints no summary");
+      if (!/SUMMARY/i.test(sm ? sm[0] : "")) warn("Book " + o.t + "'s leading block is not headed SUMMARY");
+      continue;
+    }
+    if (o.lvl === 2 && (mm = BOOKPLAIN.exec(o.t))) {
+      want = romanValue(mm[1]);
+      if (!cur || cur.n !== want) warn("the head 'BOOK " + mm[1] + "' does not follow that book's title page");
+      continue;
+    }
+    if (!cur || o.lvl !== 3) continue;
+    if ((mm = SONG.exec(o.t))) cur.secs.push({ kind: "m", num: mm[1], t: mm[2], head: o.raw, raw: h.slice(o.end, nx) });
+    else if ((mm = CHAP.exec(o.t))) cur.secs.push({ kind: "p", num: mm[1], t: "", head: o.raw, raw: h.slice(o.end, nx) });
+    else warn("Book " + cur.n + " carries a heading that is neither a song nor a chapter: " + JSON.stringify(o.t));
+  }
+
+  /* THE TABLE IS CHECKED IN BOTH DIRECTIONS, which is what stands in for a short-chapter guard on a
+     book whose shortest section is thirty words of verse. A book short of a section would ship as a
+     gap in the pairing; one with a section the table omits would never be noticed at all. */
+  if (books.length !== BOE_BOOKS.length)
+    warn("the file yields " + books.length + " books; the entry expects " + BOE_BOOKS.length);
+  BOE_BOOKS.forEach((want, i) => {
+    const got = books[i];
+    if (!got) { warn("Book " + want.n + " is missing from the file"); return; }
+    if (got.secs.length !== want.secs)
+      warn("Book " + want.n + " yields " + got.secs.length + " sections; the entry expects " + want.secs);
+    if (got.secs.length && got.secs[0].kind !== want.first)
+      warn("Book " + want.n + " opens on a " + (got.secs[0].kind === "m" ? "metre" : "prose") +
+        "; the entry expects a " + (want.first === "m" ? "metre" : "prose"));
+    const bad = got.secs.filter((s, k) => s.kind !== (k % 2 === 0 ? want.first : (want.first === "m" ? "p" : "m")));
+    if (bad.length) warn("Book " + want.n + " does not alternate prose and verse throughout (" + bad.length + " out of place)");
+  });
+
+  /* THE NOTES ARE GATHERED PER BOOK AND RENUMBERED FROM ONE, and the marker carries the number it
+     resolves to rather than its place in the queue — the Seneca rule, which this edition would break
+     without it, its labels running A..S across the whole work rather than restarting per book. */
+  const out = books.map((b) => {
+    const bodies = {};
+    /* THE NOTE LISTS ARE HARVESTED FROM THE WHOLE BOOK, INCLUDING THE SPAN THE SUMMARY SITS IN.
+       James prints his notes at the foot of the page they are cited on, so two of Book III's are
+       printed under the summary and outside every section — a list read section by section finds
+       fourteen of the nineteen and reports the other five as cited-but-not-printed, which is the
+       right complaint about the wrong half of the file. */
+    const harvest = (holder) => {
+      /* THE NOTE LIST NESTS — a <div class="footnotes"> holds one <div class="footnote"> per note —
+         so it is matched BALANCED and not with a non-greedy pair, which closes on the first inner
+         tag and reads two of the nineteen. Third time this file has recorded that fault. */
+      for (let guard = 0; guard < 200; guard++) {
+        const at = holder.raw.indexOf('<div class="footnotes">');
+        if (at < 0) break;
+        const end = blockEnd(holder.raw, at, "div");
+        if (end < 0) { warn("Book " + b.n + " has a note list that is never closed"); break; }
+        const inner = holder.raw.slice(at, end);
+        let n = 0;
+        for (let j = 0; ; ) {
+          const fa = inner.indexOf('<div class="footnote">', j);
+          if (fa < 0) break;
+          const fe = blockEnd(inner, fa, "div");
+          if (fe < 0) break;
+          const body = inner.slice(fa, fe);
+          j = fe;
+          n++;
+          const lab = /<span class="label">\[([A-Z])\]<\/span>/.exec(body);
+          if (!lab) { warn("Book " + b.n + " prints a footnote with no label"); continue; }
+          bodies[lab[1]] = body
+            .replace(/<a[^>]*>\s*<span class="label">\[[A-Z]\]<\/span>\s*<\/a>/, "")
+            .replace(/^<div class="footnote">|<\/div>$/g, "");
+        }
+        if (!n) warn("Book " + b.n + " has a note list holding no notes");
+        holder.raw = holder.raw.slice(0, at) + holder.raw.slice(end);
+      }
+    };
+    const leadHolder = { raw: b.lead };
+    harvest(leadHolder);
+    b.secs.forEach(harvest);
+
+    const notes = [];
+    const seen = {};
+    const cite = (x) => x.replace(/<a[^>]*class="fnanchor[^"]*"[^>]*>\[([A-Z])\]<\/a>/g, (whole, lab) => {
+      if (!bodies[lab]) { warn("Book " + b.n + " cites a note [" + lab + "] it does not print"); return ""; }
+      if (!seen[lab]) { notes.push(stripTags(boeGreek(bodies[lab], counts)).replace(/\s+/g, " ").trim()); seen[lab] = notes.length; }
+      return '<sup class="fn" data-fn="' + seen[lab] + '"></sup>';
+    });
+    /* THE SUMMARY IS CITED FIRST because it is printed first — two of the nineteen notes hang off
+       Book III's summary and would otherwise be dropped with the block they open, and a note's
+       number is its place in the book's own reading order. */
+    if (b.summary) b.summary = cite(b.summary);
+    const sections = b.secs.map((s) => {
+      /* The heading before its own body, in reading order, so a note cited on a title is numbered
+         before one cited in the prose beneath it. */
+      const headMarks = (cite(s.head).match(/<sup class="fn" data-fn="\d+"><\/sup>/g) || []).join("");
+      let x = cite(s.raw);
+      /* The transcriber's own furniture: the printed page anchors, and the romanisation he sets
+         beside a Greek letter he has already printed. */
+      counts.pages += (x.match(/<a id="Page_[^"]*"><\/a>/g) || []).length;
+      x = x.replace(/<a id="Page_[^"]*"><\/a>/g, "");
+      x = x.replace(/([Ͱ-Ͽἀ-῿])(\s*)\[Greek:[^\]]*\]/g, (whole, letter) => { counts.glosses++; return letter; });
+      x = boeGreek(x, counts);
+      x = boePoem(x, counts);
+      /* A POEM PRINTED ACROSS A PAGE BREAK OPENS A FRESH BLOCK, and three of the thirty-nine songs
+         do — so the last stanza of each would stand apart from its own poem, which on a page whose
+         whole subject is the alternation of prose and verse reads as a fortieth song. Two quotations
+         set as verse inside a prose section are never adjacent, being separated by the prose that
+         introduces them, so the join is safe as well as necessary. */
+      x = x.replace(/<\/blockquote>\s*<blockquote>/g, () => { counts.joined++; return "\n"; });
+      x = stripTags(x).replace(/\n{3,}/g, "\n\n").trim();
+      const label = s.kind === "m" ? "Song " + s.num + "." : "Ch. " + s.num + ".";
+      return { kind: s.kind, label: label, t: s.t, marks: headMarks, html: x };
+    });
+    counts.notes += notes.length;
+
+    /* The book's own page: its summary, then a section per metre and prose, each opening on the mark
+       its own edition prints. */
+    const parts = [];
+    /* THE SUMMARY IS NUMBERED 0 SO THAT IT GETS A ROW OF ITS OWN, and this is the one place where
+       the shelf's own fold does the wrong thing. `bookRows` folds a LEADING UNNUMBERED block into
+       the first numbered row when the facing column has no counterpart for it — right for a one-line
+       salutation, and wrong for a quarter of a page: the Latin has no summary, so the English's
+       first poem would begin a screen below the Latin's, and a reader meeting a paragraph of
+       English beside the opening of the Latin poem would reasonably take the one for a translation
+       of the other. Numbered, it draws beside an empty Latin cell, which is the shelf's ordinary way
+       of showing that two editions differ, and the poems then start level.
+
+       Zero is a section number here for the reason it is one in the Gallic War, and `bookSections`
+       already admits it. The mark it carries is the caption James prints over the block. */
+    if (b.summary)
+      parts.push('<p class="bk-head"><span class="bk-n" data-n="0">Summary</span></p>\n<blockquote>' +
+        stripTags(b.summary).trim() + "</blockquote>");
+    sections.forEach((s, k) => {
+      parts.push('<p class="bk-head"><span class="bk-n" data-n="' + (k + 1) + '">' + s.label +
+        "</span>" + (s.t ? s.t : "") + s.marks + "</p>");
+      parts.push(s.html);
+    });
+    return { n: b.n, t: b.t, html: parts.join("\n"), notes: notes, secs: sections.length };
+  });
+  return { books: out, counts: counts };
+}
+
+/* THE ORIGINAL. The same work in the Loeb of 1918, whose Latin and English are printed on facing
+   pages and linearised by the transcription into one file: within each book the numeral headings run
+   Latin, English, Latin, English all the way down, so the Latin is every second one. Measured before
+   it was believed — 156 numeral headings in the Consolation, exactly twice the seventy-eight sections,
+   and each book's count exactly twice its own. */
+function boethiusLatin(h, O, warn) {
+  h = h.replace(/\r\n?/g, "\n");
+  const counts = { lines: 0, poems: 0, split: 0, lineNums: 0, greekOk: 0, greekLeft: 0, notes: 0 };
+  const flat = (x) => x.replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+  const heads = [];
+  const HRE = /<h([1-6])[^>]*>([\s\S]*?)<\/h\1>/g;
+  let m;
+  while ((m = HRE.exec(h))) heads.push({ i: m.index, end: HRE.lastIndex, lvl: +m[1], t: flat(m[2]) });
+
+  /* The Consolation is the second work in the volume — the Theological Tractates come first and are
+     a different book — so the walk is bounded by the printer's own marks: it opens at "LIBER I."
+     under the title of the Consolation and closes at Symmachus's epigram, which the manuscripts
+     append and Boethius did not write. */
+  const first = heads.findIndex((o) => /^LIBER I\.$/.test(o.t));
+  const last = heads.findIndex((o) => /^SYMMACHI VERSVS$/.test(o.t));
+  if (first < 0 || last < 0 || last < first)
+    throw new Error("the marks that bound the Consolation are not in the file");
+
+  const NUM = /^([IVXLC]+)\.?(\[\d+\])?$/;
+  const books = [];
+  let cur = null;
+  for (let k = first; k < last; k++) {
+    const o = heads[k];
+    if (/^LIBER I\.$/.test(o.t) || /^INCIPIT LIBER/.test(o.t)) { cur = []; books.push(cur); continue; }
+    const mm = NUM.exec(o.t);
+    if (!mm || !cur) continue;
+    cur.push({ num: mm[1], raw: h.slice(o.end, heads[k + 1] ? heads[k + 1].i : h.length) });
+  }
+
+  if (books.length !== BOE_BOOKS.length)
+    warn("the Latin yields " + books.length + " books; the entry expects " + BOE_BOOKS.length);
+
+  const byNum = {};
+  books.forEach((raws, i) => {
+    const want = BOE_BOOKS[i];
+    if (!want) return;
+    if (raws.length !== want.secs * 2)
+      warn("Book " + want.n + " carries " + raws.length + " numeral headings; the entry expects " +
+        (want.secs * 2) + " (a Latin and an English one for each of its " + want.secs + " sections)");
+    /* Every second heading, and the first of each pair is the Latin — the verso of the printed
+       opening. Checked rather than assumed: the two of a pair state the same numeral. */
+    const parts = [];
+    for (let k = 0; k < raws.length; k += 2) {
+      const la = raws[k], en = raws[k + 1];
+      if (en && la.num !== en.num)
+        warn("Book " + want.n + ": the Latin is headed " + la.num + " where the English facing it is headed " + en.num);
+      const seq = k / 2 + 1;
+      const kind = seq % 2 === 1 ? want.first : (want.first === "m" ? "p" : "m");
+      let x = la.raw;
+      /* The apparatus of the English column cannot reach a Latin slice — the notes are printed under
+         the translation — but a stray one would ship as prose, so it is counted and removed. */
+      const foot = x.match(/<p[^>]*margin-left: 2%[^>]*>\s*\[\d+\][\s\S]*?<\/p>/g) || [];
+      counts.notes += foot.length;
+      x = x.replace(/<p[^>]*margin-left: 2%[^>]*>\s*\[\d+\][\s\S]*?<\/p>/g, "");
+      x = x.replace(/\[\d+\]/g, "");
+      /* Rand prints a line number every fifth line of every metre, flush right — see the block above
+         extractBoethius for why they cannot be kept. */
+      const nums = x.match(/[ \t]{3,}\d+[ \t]*(?=<br\s*\/?>|<\/p>)/g) || [];
+      counts.lineNums += nums.length;
+      x = x.replace(/[ \t]{3,}\d+[ \t]*(?=<br\s*\/?>|<\/p>)/g, "");
+      x = boeGreek(x, counts);
+      if (kind === "m") {
+        /* A METRE IS CUT AS A STREAM, NOT BLOCK BY BLOCK. Where the printed page breaks in the
+           middle of a poem the transcription opens a fresh paragraph — six of the thirty-nine do —
+           so converting each paragraph to its own quotation would print a stanza break the edition
+           has not got, at the place a page happened to turn. All the lines of a metre are gathered
+           and set as ONE block; the poems' real stanza divisions are not marked in this edition at
+           all, so there is nothing else to lose. */
+        counts.poems++;
+        const blocks = x.match(/<p[^>]*>[\s\S]*?<\/p>/g) || [];
+        if (blocks.length > 1) counts.split++;
+        const lines = blocks
+          .map((bl) => bl.replace(/^<p[^>]*>|<\/p>$/g, ""))
+          .join("<br>")
+          .split(/\s*<br\s*\/?>\s*/)
+          .map((l) => l.trim())
+          .filter(Boolean);
+        counts.lines += lines.length;
+        if (!lines.length) warn("Book " + want.n + " section " + seq + " is set as verse and holds no lines");
+        x = "<blockquote><p>" + lines.join(" <br>\n") + "</p></blockquote>";
+      }
+      x = stripTags(x).replace(/\n{3,}/g, "\n\n").trim();
+      parts.push('<p class="bk-head"><span class="bk-n" data-n="' + seq + '">' + la.num + ".</span></p>");
+      parts.push(x);
+    }
+    byNum[want.n] = parts.join("\n");
+  });
+  return { byNum: byNum, counts: counts };
+}
+
+/* ============================================================
    A CHAPTER TITLE READ OFF THE PAGE ITSELF        (head: "sankuo")
    ============================================================
    Aug 2026, adding Romance of the Three Kingdoms. Not a layout: the book is the ordinary wiki walk
@@ -16448,6 +16999,34 @@ async function fetchEnglish() {
      second. Cached whole, like every other single-file book, so --from/--to cost nothing and a
      re-extract needs no network at all. See extractPtahhotep for what a transcribed printed page
      has that a machine reading of one has not. */
+  /* THE CONSOLATION OF PHILOSOPHY — one Gutenberg HTML page, five books, seventy-eight sections of
+     alternating prose and verse. Cached whole, like every other single-file book, so --from/--to
+     cost nothing and a re-extract needs no network. See the block above extractBoethius for why the
+     book is the chapter and the section the row. */
+  if (BOOK.layout === "boethius") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const g = extractBoethius(raw, BOOK, warn);
+    const got = g.books, c = g.counts;
+    console.log("  " + got.length + " books, " + got.reduce((a, b) => a + b.secs, 0) +
+      " sections, " + c.poems + " poems (" + c.stanzas + " stanzas, " + c.verseLines + " lines, " +
+      c.joined + " printed across a page break and rejoined), " + c.notes + " notes, " +
+      c.summaries + " book summaries, " + c.pages + " printed page marks removed");
+    if (c.greekOk || c.greekLeft || c.glosses)
+      console.log("  Greek: " + c.greekOk + " letter name(s) decoded, " + c.greekLeft +
+        " romanisation(s) left as printed, " + c.glosses +
+        " transliteration(s) removed from beside a Greek letter already set");
+    got.forEach((b) => {
+      if (b.n < FROM || b.n > TO) return;
+      if (b.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
+      chapters.push({ n: b.n, t: titles[b.n] || b.t || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
   if (BOOK.layout === "ptahhotep") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");
@@ -16842,6 +17421,33 @@ async function fetchOriginal() {
      proofread transcription of a critical edition rather than a machine reading, so the difficulty is
      not damage but APPARATUS — see the block above extractSkeat. One file, cached whole, so a
      re-extract needs no network; --force refetches it. */
+  /* THE LATIN OF A FACING-PAGE VOLUME, LINEARISED BY ITS TRANSCRIPTION. One file, cached whole, so a
+     re-extract needs no network; --force refetches it. See the block above extractBoethius for the
+     measurement that makes every second numeral heading the Latin one, and for why the English
+     printed beside it is not the English this book ships. */
+  if (O.source === "text" && O.layout === "boethius") {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    const cf = path.join(cacheDir, "page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(O.url); fs.writeFileSync(cf, raw); }
+    const got = boethiusLatin(raw, O, warn);
+    const c = got.counts;
+    console.log("  " + Object.keys(got.byNum).length + " books, " + c.poems + " metres (" +
+      c.lines + " lines of verse, " + c.split + " of them printed across a page break and rejoined), " +
+      c.lineNums + " marginal line number(s) dropped" +
+      (c.notes ? ", " + c.notes + " note(s) of the English apparatus removed" : ""));
+    if (c.greekOk || c.greekLeft)
+      console.log("  Greek: " + c.greekOk + " letter name(s) decoded, " + c.greekLeft +
+        " romanisation(s) left as printed — see the book's own first page");
+    for (const n of Object.keys(got.byNum)) {
+      if (+n < FROM || +n > TO) continue;
+      if (got.byNum[n].length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + n + " came back short (" + got.byNum[n].length + " chars)");
+      byNum[n] = got.byNum[n];
+    }
+    return writeOriginal(byNum, warnings);
+  }
   if (O.source === "text" && O.layout === "skeat") {
     console.log("\nFetching the " + O.langName + " original — " + O.edition);
     const cf = path.join(cacheDir, "text.txt");
