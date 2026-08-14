@@ -64,9 +64,14 @@ uses `JSON.stringify(deck)` and the other two `JSON.stringify(deck, null, 1)` â€
 rewrites all 20 MB. And the refusal matters: replacing a string that occurs more than once would rewrite
 something that is not the type's CSS.
 
-Check afterwards that **only** `meta.types.<id>.css` moved, by diffing the parsed objects field by field. When
-this was last done (the Aug 2026 `.uc-exst` change) all three decks carried CSS byte-identical to
-`deckcore.js` beforehand, which is what made the patch provably the same edit as a rebuild.
+Check afterwards that **only** `meta.types.<id>.css` moved, by diffing the parsed objects field by field â€”
+and check the CARDS are byte-identical while you are there, since that is the half a bad replacement would
+break. It has been done twice (the Aug 2026 `.uc-exst` change and the `PINYIN_FONT` one the day after), and
+both times all three decks carried CSS byte-identical to `deckcore.js` beforehand, which is what makes the
+patch provably the same edit as a rebuild.
+
+`test-deck-ux.js`'s section 7 asserts the shipped files carry the pinyin rule, so a rebuild that loses it
+fails there rather than on somebody's card.
 
 ## The two files to read before changing anything
 
