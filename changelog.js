@@ -54,7 +54,7 @@ window.CHANGELOG = [
       "<b>Studying ahead of the daily limit now stays in the subdeck you were studying</b>, keeps both directions, and no longer counts the whole deck in the corner.",
       "Readings with a third-tone mark — <b>ǒ, ǎ, ǐ, ǔ</b> and the tones on ü — no longer show up larger than the letters around them.",
       "<b>Ten more glossary terms</b>, covering the ancient writers the history cards quote most often, each with its dates and the works behind it.",
-      "<b>Three terms already in the glossary now open from the words the cards actually use</b> — a period, a pottery style and a kind of masonry.",
+      "<b>Six terms already in the glossary now open from the words the cards actually use</b> — a period, a pottery style, a kind of masonry, and three civilisations named by their adjective.",
     ],
   },
   {
