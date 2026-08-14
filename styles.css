@@ -772,7 +772,11 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .tour-body p{margin:0 0 9px;}
 .tour-body p:last-child{margin-bottom:0;}
 .tour-body b{color:var(--ink); font-weight:600;}
-.tour-body b.tour-gold{color:var(--ochre);}
+/* The word naming a colour is PAINTED in that colour, so the step and the page agree. --newterm is what
+   an undiscovered glossary term wears (see .ttip[data-new]); it was --ochre until Aug 2026, when the
+   Library's note markers gave the teal up and the two roles were swapped, and this said "gold" for a
+   fortnight after the mark had stopped being gold. Read the token, never a remembered hue. */
+.tour-body b.tour-newterm{color:var(--newterm);}
 .tour-x{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:26px; height:26px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
 .tour-x:hover{background:var(--rule); color:var(--ink);}
 .tour-nav{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:3px;}
@@ -1517,7 +1521,7 @@ body.grading .stage{padding-bottom:150px;}
   padding:10px 14px; margin-bottom:12px; font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.45;
 }
 .xw-cur-n{display:block; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.11em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:3px;}
-.xw-actions{display:flex; gap:10px; margin-bottom:18px;}
+.xw-actions{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;}   /* three buttons since Give up joined them (Aug 2026) — at 390px they wrap rather than squeezing "Clear the wrong letters" to one word a line */
 .xw-actions .btn{flex:1;}
 .xw-clues{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:20px;}
 .xw-h{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 10px; font-weight:600;}
@@ -1905,6 +1909,25 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
    the same thing, and the sync line under them says what happens to it. */
 .acct-idacts{display:flex; align-items:center; gap:8px; flex:none; flex-wrap:wrap; justify-content:flex-end;}
 .acct-syncnote{margin:-14px 0 16px; padding-left:2px;}
+/* THE ACCOUNT SWITCHER (Aug 2026, on request). A grid rather than a flex row, so the Forget × sits in a
+   column of its own and every row's arrow lines up down the list however long the names are. */
+.acct-switch{display:grid; grid-template-columns:1fr auto; gap:6px 4px; max-width:460px; margin:0 0 14px;}
+.acct-swrow{display:flex; align-items:center; gap:11px; width:100%; text-align:left; padding:10px 12px;
+  background:var(--card); border:1px solid var(--rule); border-radius:11px; cursor:pointer; color:inherit;
+  transition:border-color .16s var(--ease), background .16s var(--ease);}
+.acct-swrow:hover{border-color:var(--indigo); background:var(--paper-2);}
+.acct-swrow:disabled{opacity:.6; cursor:default;}
+.acct-swrow .monogram{flex:none;}
+.asw-who{display:flex; flex-direction:column; gap:1px; min-width:0; flex:1;}
+.asw-who b{font-family:var(--display); font-size:calc(14.5px * var(--fs)); color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.asw-at{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--indigo);}
+.asw-mail{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.asw-go{flex:none; font-size:calc(15px * var(--fs)); color:var(--ink-faint);}
+.acct-swforget{align-self:center; background:none; border:0; cursor:pointer; padding:6px 8px; border-radius:8px;
+  font-size:calc(15px * var(--fs)); line-height:1; color:var(--ink-faint);}
+.acct-swforget:hover{color:var(--zh); background:var(--paper-2);}
+.acct-current{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink-faint);}
+.acct-current b{color:var(--ink); font-family:var(--mono); font-size:calc(12.5px * var(--fs)); word-break:break-all;}
 
 .friends-box{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:16px 18px; margin-bottom:8px;}
 .friend-add{display:flex; gap:8px;}
@@ -2217,6 +2240,19 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .perk-ic{flex:none; width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--pk, var(--indigo)) 12%, transparent); color:var(--pk, var(--indigo));}
 .perk-ic svg{width:15px; height:15px; display:block;}
 @media (max-width:640px){ .ph-stats{grid-template-columns:repeat(2,1fr);} }
+/* THE NEXT STREAK CHEST (Aug 2026, on request) — seven pips and a sentence, under the stat tiles whose
+   streak figure it counts from. Pips rather than a bar: the unit is a DAY, and a continuous fill would
+   suggest a part-finished one. The filled pips take the gold every other reward on this page wears. */
+.streak-chest{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
+  padding:14px 16px; margin:0 0 18px;}
+.sc-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
+.sc-title{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.sc-count{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink);}
+.sc-pips{display:flex; gap:6px; margin:9px 0 8px;}
+.sc-pip{flex:1; height:8px; border-radius:99px; background:var(--paper-2); border:1px solid var(--rule);}
+.sc-pip.on{background:#C39A2E; border-color:#C39A2E;}
+body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
+.sc-note{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); line-height:1.5;}
 
 /* ============================================================
    SETTINGS
@@ -2328,6 +2364,10 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    is still allowed and takes the decision back (setNight turns the device switch off), so it must NOT be
    pointer-events:none — this is a state, not a disabled control. */
 .set-row.row-locked .info h3,.set-row.row-locked .info p{opacity:.62;}
+/* …and the same for a deck sheet's switch row whose value is DERIVED from the switch above it — burying,
+   while both directions arrive together. Same rule and same reason: dimmed, still pressable, and the
+   press says why (see deckPairNew). */
+.dm-item.dm-switch.row-locked .dm-switchmain{opacity:.62;}
 .switch.switch-locked{opacity:.62;}
 .switch.switch-locked:hover{opacity:.85;}
 
@@ -2404,10 +2444,22 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    reader edits a number. The guard is about the menu's PROSE; a box a reader types into is not prose. */
 .deck-menu input, .deck-menu textarea{-webkit-user-select:text; user-select:text;}
 .dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;}
+/* THE SHEET'S OWN × (Aug 2026, on request). STICKY and first in the DOM rather than absolute: `.ds-sheet`
+   scrolls its whole box, where an absolute × would scroll off the top, and first-in-DOM is what puts
+   "Close" early for a screen reader (deckSheet skips it when choosing the initial focus, so the ring still
+   lands on the sheet's first real control). `align-self:flex-end` puts it right; the negative bottom margin
+   cancels its own height so the head below is laid out as though it were not there, and `.dm-head`'s own
+   right padding is what keeps a long title and the studied count from running under it. */
+.dm-x{position:sticky; top:0; z-index:2; align-self:flex-end; margin:0 0 -30px 0; flex:none; width:30px; height:30px;
+  display:flex; align-items:center; justify-content:center; padding:0; appearance:none; cursor:pointer;
+  background:none; border:0; border-radius:50%; color:var(--ink-faint); transition:background .14s var(--ease), color .14s;}
+.dm-x svg{width:15px; height:15px;}
+.dm-x:hover{background:var(--paper-2); color:var(--ink);}
 /* Title on the left, how far through the deck the reader is on the right — on the SAME line, which is what
    `align-items:baseline` buys: the left-hand block is a column, and a column flex item aligns on its own
-   first line's baseline, so the figure sits on the title's baseline and not on the block's centre. */
-.dm-head{padding:12px 14px 10px; display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
+   first line's baseline, so the figure sits on the title's baseline and not on the block's centre.
+   The 38px on the right is the × above, which floats over this row. */
+.dm-head{padding:12px 38px 10px 14px; display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
 .dm-headmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
 .dm-title{font-family:var(--display); font-weight:600; font-size:calc(17px * var(--fs)); color:var(--ink); letter-spacing:-.01em;}
 .dm-studied{flex:none; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
@@ -2915,6 +2967,12 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    own cost the short phone sheet a whole line before the description started. The 20px right margin that
    used to sit on .cp-name moves up here: it is what clears the × button. */
 .cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 20px 2px 0;}
+/* The phone sheet's reveal chevron is drawn ONLY on the phone (see the ≤720px block): the desktop panel
+   already runs the height of the stage, so there is nothing to reveal and a control that does nothing is
+   worse than none. It must be declared HERE, above that block — a media query adds no specificity, so a
+   base rule sitting after it would silently win and the button would never appear at any width.
+   `hidden` is set in JS as well (cpSyncMore), which takes it out of the tab order too. */
+.cp-more{display:none;}
 .cp-name{font-family:var(--display); font-weight:600; font-size:calc(17px * var(--fs)); letter-spacing:-.01em; line-height:1.22; color:var(--ink); margin:0; min-width:0;}
 .cp-span{font-family:var(--mono); font-weight:400; font-size:calc(10.5px * var(--fs)); letter-spacing:.03em; color:var(--ink-faint); margin:0 0 7px;}
 .cp-span:empty{display:none;}
@@ -2976,6 +3034,18 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
   .cp-cols > .cp-sec.collapsed .cp-sec-head{padding-bottom:6px;}
   .cp-cols .cp-sec-head{cursor:default;}
   .cp-cols .cp-sec-chev{display:none;}
+  /* ---- SHUT BY DEFAULT (Aug 2026, on request) ----
+     A tap on a country asks what it is, and the name is the answer; everything else waits for the chevron.
+     The height is set in JS (see cpApplyH — the floor is measured, since a long name wraps and a drilled
+     place carries a breadcrumb), so all this does is take the parts below the title out of the box and
+     turn the chevron over. `overflow:hidden` on the sheet is already set by .cp-sized. */
+  .cp-more{display:inline-flex; align-items:center; justify-content:center; margin-left:auto; flex:none;
+    width:30px; height:30px; padding:0; border:1px solid var(--rule); border-radius:9px;
+    background:var(--paper-2); color:var(--ink-soft); cursor:pointer; transition:transform .22s var(--ease);}
+  .cp-more svg{width:17px; height:17px;}
+  .cp-more[aria-expanded="true"]{transform:rotate(180deg);}
+  .cp-shut .cp-cols,.cp-shut .cp-dots,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
+  .cp-shut .cp-head{overflow:visible;}
 }
 /* map editor toolbar (Edit → Timeline → "Edit on globe") */
 .map-edit-bar{position:absolute; top:14px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:13px; flex-wrap:wrap; max-width:calc(100% - 28px); background:var(--card); border:1px solid var(--rule); border-radius:11px; padding:8px 12px; box-shadow:0 10px 28px -14px rgba(0,0,0,.5); z-index:8;}
@@ -5584,6 +5654,43 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 /* --- Community: browse + one deck's page (phase 2) --- */
 .cbrowse-bar{display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin-bottom:18px;}
 .cbrowse-q{flex:1; min-width:180px;}
+/* ---------- the shared-deck TABLE, on the Collections page (Aug 2026, on request) ----------
+   Columns that sort, which is what a reader comparing twenty strangers' decks is after — and a real
+   <table>, so the header cells carry aria-sort and a screen reader is told what each figure is a figure of.
+   `.sd-wrap` is what keeps a wide table honest: it scrolls INSIDE ITSELF rather than widening the page,
+   which is the site's own rule for wide content. Below 640px three of the six go — author, installs and
+   updated — leaving the deck and the two figures a reader chooses on (its size and its rating). The name is
+   the only part of a row with no shorter form, so anything taking width from it is what gives, and
+   everything dropped is on the deck's own page one press away. Each cell carries its COLUMN'S OWN KEY
+   (`sd-c-<key>`, on the header and the cells alike), so dropping one is naming it once rather than counting
+   to the same nth-child in two places and getting one of them wrong. */
+.sd-wrap{border:1px solid var(--rule); border-radius:13px; background:var(--card); overflow-x:auto;}
+.sd-table{width:100%; border-collapse:collapse; font-family:var(--sans);}
+.sd-th{text-align:left; padding:0; border-bottom:1px solid var(--rule); background:var(--paper-2); white-space:nowrap;}
+.sd-th.sd-num{text-align:right;}
+.sd-sort{width:100%; display:inline-flex; align-items:center; gap:5px; background:none; border:0; cursor:pointer;
+  padding:10px 14px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-faint);}
+.sd-th.sd-num .sd-sort{justify-content:flex-end;}
+.sd-sort:hover{color:var(--ink);}
+.sd-th.on .sd-sort{color:var(--indigo);}
+.sd-arrow{font-size:calc(8px * var(--fs));}
+.sd-row{border-top:1px solid var(--rule); cursor:pointer; transition:background .16s var(--ease);}
+.sd-row:first-child{border-top:0;}
+.sd-row:hover{background:var(--paper-2);}
+.sd-row:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.sd-table td{padding:11px 14px; vertical-align:middle; font-size:calc(13.5px * var(--fs)); color:var(--ink);}
+.sd-table td.sd-num{text-align:right; font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-faint); white-space:nowrap;}
+.sd-deck{display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-width:190px;}
+.sd-title{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink);}
+.sd-sub{flex-basis:100%; font-size:calc(12px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+.sd-author{color:var(--ink-faint); font-size:calc(12.5px * var(--fs)); white-space:nowrap;}
+.sd-rate .stars{justify-content:flex-end;}
+@media (max-width:640px){
+  .sd-c-author,.sd-c-installs,.sd-c-updated{display:none;}
+  .sd-table td{padding:10px;}
+  .sd-sort{padding:9px 10px;}
+}
 /* ---------- shared decks: a LIST, not a grid of tiles (Aug 2026, on request) ----------
    A tile gives every deck the same area whatever it has to say, so a title, a subtitle, a rating and three
    figures were stacked into a card the width of a phrase, and two decks whose titles differ in the fourth

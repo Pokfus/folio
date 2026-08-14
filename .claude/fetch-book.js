@@ -615,6 +615,29 @@ const EDDA_POEMS = [
 const CONF_CHAPTERS = [0, 20, 10, 12, 16, 14, 16, 21, 12, 13, 43, 31, 32, 38];
 const CONF_UNTRANSLATED = { 1: [19, 20] };
 
+/* ---------- Le Morte d'Arthur: how many chapters Caxton put in each of his twenty-one books ----------
+   A MEASUREMENT, NOT A RECOLLECTION, and the difference is four chapters. Books I, IV, VII and IX end
+   at 27, 28, 35 and 43 where the figures usually quoted for Caxton are 28, 29, 36 and 44 — which looks
+   exactly like four pages nobody has transcribed, and is not. Wikisource's own page list was counted
+   first, and then Project Gutenberg's wholly independent transcription of the same 1906 Everyman
+   edition (ebooks 1251 and 1252) was counted book by book against it: the two agree on all twenty-one,
+   so the edition's own total is 503 and the remembered 507 was simply wrong. Count it. */
+const MALORY_CHAPTERS = {
+  1: 27, 2: 19, 3: 15, 4: 28, 5: 12, 6: 18, 7: 35, 8: 41, 9: 43, 10: 88, 11: 14,
+  12: 14, 13: 20, 14: 10, 15: 6, 16: 17, 17: 23, 18: 25, 19: 13, 20: 22, 21: 13,
+};
+
+/* ---------- Bede: how many chapters each of the five books has ----------
+   The standard division, and the one thing both columns had to agree on before a word was imported.
+   Counted on each side independently rather than taken from either: Sellar's headings run
+   34/20/30/32/24 and so do the Latin's marks, a clean 1..N in every book with no gap and no
+   duplicate on either side, so the 140 chapters pair by construction and this table is a check on
+   both rather than a fetch list for one. It is what would report a Wikisource page renamed or a
+   Gutenberg heading retyped, neither of which shortens a book visibly. */
+const BEDE_CHAPTERS = { 1: 34, 2: 20, 3: 30, 4: 32, 5: 24 };
+const BEDE_ROMAN = ["", "I", "II", "III", "IV", "V"];
+const BEDE_LATIN_BOOK = ["", "Primus", "Secundus", "Tertius", "Quartus", "Quintus"];
+
 /* ---------- The City of God: how many chapters each of the twenty-two books has, and which of them
    Dods heads with a preface ----------
    Read off Wikisource's own contents lists rather than off a printed table: every one of the 22 book
@@ -707,6 +730,24 @@ function summaAt(n) {
   return null;
 }
 
+const POLO_BOOKS = [
+  { key: /^PROLOGUE\b/i,    cite: "Prol.", label: "Prologue",    n: 18 },
+  { key: /^BOOK FIRST\b/i,  cite: "I",     label: "Book First",  n: 61 },
+  { key: /^BOOK SECOND\b/i, cite: "II",    label: "Book Second", n: 82 },
+  { key: /^BOOK THIRD\b/i,  cite: "III",   label: "Book Third",  n: 40 },
+  { key: /^BOOK FOURTH\b/i, cite: "IV",    label: "Book Fourth", n: 34 },
+];
+const POLO_PARTS = (() => {
+  let at = 0;
+  return POLO_BOOKS.map((b, i) => { const from = at + 1; at += b.n; return { n: i + 1, from: from, to: at, label: b.label }; });
+})();
+/* a chapter's continuous number, which is what a Folio chapter is keyed by, against the book and
+   chapter the world cites it as — "Marco Polo II. 68" is Book Second, chapter sixty-eight */
+function poloAt(n) {
+  const p = POLO_PARTS.find((x) => n >= x.from && n <= x.to);
+  return p ? { p: p.n, book: POLO_BOOKS[p.n - 1], c: n - p.from + 1 } : null;
+}
+
 /* ---------- THE RIGVEDA'S TEN MANDALAS ----------
    The hymn counts are the received ones and were MEASURED against both wikis before a word was
    imported: en.wikisource carries 1,028 hymn pages and sa.wikisource 1,028 sukta pages, and both
@@ -734,6 +775,95 @@ function rvGriffith(m, h) {
   return h <= 59 ? h + 44 : h - 11;
 }
 const rvDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
+
+/* ---------- THE RAMAYANA'S SIX KANDAS ----------
+   THE CHAPTER IS THE CANTO AND THE TAB IS THE CITATION, which is the Rigveda's shape one work over:
+   a passage of the Ramayana is "Ramayana 2.40" — kanda and sarga — so the sarga is what a reader
+   looks up, and the kanda is the PART. The alternative was measured rather than weighed: cutting at
+   the kanda gives six tabs, the largest of them 119 cantos and some 400,000 characters, which is
+   larger than anything on the shelf and which throws away the only number both editions state about
+   the same place.
+
+   `cantos` is the highest canto Griffith NUMBERS in that book and `sargas` the count sa.wikisource
+   carries; `omit` are the cantos he numbers around because he did not translate them. That he
+   numbers around them at all is the finding the whole pairing rests on — a translator who renumbers
+   his own cantos produces an unbroken 1..N, and Griffith produces 1..130 with twenty-nine missing,
+   which is what a man numbering to his edition's own sargas does.
+
+   `shift` is where the two EDITIONS divide the same words differently, and both were measured before
+   either was believed — see the block above extractRamayan. `after` is the last canto that is its own
+   sarga; the `by` cantos following it are Griffith's own extra divisions and pair with nothing; from
+   there on his canto number runs `by` ahead of the sarga. Hoisted above the BOOKS table for the
+   reason SUMMA_PARTS and RV_HYMNS are: a const inside an object literal is a syntax error. */
+const RAM_BOOKS = [
+  { n: 1, title: "Bála Káṇḍa", sa: "बालकाण्डम्", cantos: 77, sargas: 77, shift: null,
+    omit: [37, 38] },
+  { n: 2, title: "Ayodhyá Káṇḍa", sa: "अयोध्याकाण्डम्", cantos: 119, sargas: 119, shift: null,
+    omit: [] },
+  /* Griffith's LVII, "Sítá Comforted" — Indra sending her food in her captivity — is a canto the
+     Sanskrit here does not divide off. Measured: the fit over the whole book improves from 0.279 to
+     0.062 with the shift in, and the boundary reads correctly by content on both sides of it. */
+  { n: 3, title: "Áraṇya Káṇḍa", sa: "अरण्यकाण्डम्", cantos: 76, sargas: 75,
+    shift: { after: 56, by: 1 }, omit: [] },
+  { n: 4, title: "Kishkindhá Káṇḍa", sa: "किष्किन्धाकाण्डम्", cantos: 67, sargas: 67, shift: null,
+    omit: [] },
+  /* NO SHIFT, and the arithmetic that suggests one is a trap worth recording: Griffith's last canto
+     is LXVI where the Sanskrit runs to 68, which looks like a division difference and is not. His 57
+     is the leap home ("like a winged mountain") and the Sanskrit's 57 is आप्लुत्य च महावेगः
+     पक्षवानिव पर्वतः, the same line; his 65 opens on Mount Prasravana and so does sarga 65. He simply
+     stops two sargas early, as he stops elsewhere in the middle. A shift fitted to the totals here
+     would have mispaired the whole tail of the book. */
+  { n: 5, title: "Sundara Káṇḍa", sa: "सुन्दरकाण्डम्", cantos: 66, sargas: 68, shift: null,
+    omit: [5, 28, 29, 39, 40, 59, 60, 61, 62, 63, 64] },
+  /* Griffith's CXII and CXIII — the rákshas dames' lament and Mandodarí's — are two cantos this
+     Sanskrit does not divide off. Read at every point rather than fitted: his CXI is Vibhíshaṇ's
+     lament and so is sarga 111; his CXIV opens "In cars whose sheen surpassed the sun's Triumphant
+     rode the radiant ones" and sarga 112 opens ते रावणवधं दृष्ट्वा देवगन्धर्वदानवाः। जग्मुः
+     स्वैः स्वैर्विमानैः, the gods departing in their own cars; his CXX is Sítá restored from the
+     fire and so is sarga 118; his CXXII is Indra's boon and so is sarga 120; his CXXX is the
+     consecration and so is sarga 128. */
+  { n: 6, title: "Yuddha Káṇḍa", sa: "युद्धकाण्डम्", cantos: 130, sargas: 128,
+    shift: { after: 111, by: 2 },
+    omit: [55, 56, 57, 58, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92,
+           94, 95, 97, 98, 99, 104, 105, 107] },
+];
+/* The 493 cantos Griffith translated, in order, as the chapter list. Derived from the table above
+   rather than typed out, and CHECKED against the edition's own anchors when the TEI is read — the
+   City of God's rule, that a number worth reading is worth reading twice. */
+const RAM_CANTOS = [];
+const RAM_PARTS = [];
+for (const K of RAM_BOOKS) {
+  const from = RAM_CANTOS.length + 1;
+  const skip = new Set(K.omit);
+  for (let c = 1; c <= K.cantos; c++) if (!skip.has(c)) RAM_CANTOS.push({ b: K.n, c: c });
+  RAM_PARTS.push({ n: K.n, from: from, to: RAM_CANTOS.length });
+}
+// chapter number → the kanda and canto the world cites it as
+function ramAt(n) { return RAM_CANTOS[n - 1] || null; }
+/* The canto's sarga on sa.wikisource, or null where it has none — which is Griffith's own extra
+   division, and draws as an empty cell rather than being paired with the passage next door. */
+function ramSarga(b, c) {
+  const K = RAM_BOOKS[b - 1];
+  if (!K.shift) return c <= K.sargas ? c : null;
+  const { after, by } = K.shift;
+  if (c <= after) return c;
+  if (c <= after + by) return null;
+  return c - by <= K.sargas ? c - by : null;
+}
+const ramDev = (n) => String(n).split("").map((c) => "०१२३४५६७८९"[+c]).join("");
+
+/* THE MAXIMS OF PTAHHOTEP's forty-seven section marks, in the order the edition prints them: the
+   petition and the title, thirty-seven maxims, then the epilogue, which is numbered straight on
+   from 38 with a lettered block at each end. LETTERS AND NUMBERS IN ONE INTERLEAVED RUN — a reader
+   written for either alone loses the other end of the poem with every count still reading healthy,
+   which is what this table is checked against the file to prevent. See `extractPtahhotep`. It is
+   declared here rather than beside that reader because the BOOKS literal below reads it. */
+const PTAH_KEYS = ["A", "B"];
+for (let i = 1; i <= 37; i++) PTAH_KEYS.push(String(i));
+PTAH_KEYS.push("C");
+for (let i = 38; i <= 43; i++) PTAH_KEYS.push(String(i));
+PTAH_KEYS.push("D");
+
 
 /* ---------- DON QUIXOTE'S 126 CHAPTERS ----------
    Ormsby heads every chapter, and the two volume index pages carry each title in its own link
@@ -7185,6 +7315,185 @@ const BOOKS = {
     },
   },
 
+  "three-kingdoms": {
+    title: "Romance of the Three Kingdoms",
+    author: "Luo Guanzhong",
+    /* THE ATTRIBUTION IS TRADITIONAL AND BETTER ATTESTED THAN IT LOOKS, and the front matter says
+       what it rests on. The earliest surviving printing, of 1522, names Luo Guanzhong on its own
+       title page, which is more than the other great Ming novels manage; what is genuinely unknown is
+       who he was, his dates being given as about 1330 to 1400 on no very firm evidence. What the
+       reader actually has in front of them is that novel as Mao Lun and Mao Zonggang re-edited it in
+       1679 — see `about`, since two of the most famous sentences on this book's first page are the
+       Maos' and not Luo's. */
+    translator: "C. H. Brewitt-Taylor",
+    edition:
+      "San Kuo, or Romance of the Three Kingdoms, Kelly & Walsh, Limited, Shanghai, 1925",
+    written: "14th century, first printed 1522",
+    /* The sort key is the earliest date the book itself supports. The novel is universally dated to
+       the fourteenth century and the attribution on the 1522 printing is why; when it was actually
+       written nobody knows, and the text here is later still, so a composed figure would be three
+       kinds of guess at once. 1522 is a date somebody can check. */
+    year: 1522,
+
+    /* ---------- THE LICENCE — one modern layer, and a limit on it ----------
+       Two layers and only one of them is modern. The novel is a Chinese work of the fourteenth
+       century and the text on both sides is the recension the Maos published in 1679, so the Chinese
+       has been free for as long as copyright has existed.
+
+       THE TRANSLATION IS THE HALF THAT NEEDS A DATE. Brewitt-Taylor published in Shanghai in 1925 —
+       read off the volumes' own title pages, which print "COPYRIGHT, 1925, BY C. H. BREWITT-TAYLOR.
+       First Printing, December, 1925" — so it is public domain in the United States under the rule
+       for works published before 1929. He lived from 11 December 1857 to 4 March 1938, corroborated
+       twice at day precision (Wikidata, and Wikisource's own author page, which gives 1857–1938
+       independently), so it cleared life-plus-seventy at the beginning of 2009 and does NOT clear
+       life plus a hundred until 2039. That is said outright rather than rounded into the easier
+       sentence, which is the judgement Lucretius's entry asks for: claim less, and put on the page
+       what cannot be said.
+
+       WHAT IS AND IS NOT TAKEN. The hundred and twenty chapters, from both editions. Left behind:
+       both volumes' title pages, the copyright leaf, the dedication to the translator's son, the
+       folding map of China during the period, and the tables of contents; and on the Chinese side the
+       Maos' own critical apparatus — their preface, their essay on how to read the book and their
+       statement of editorial principles — which the transcription puts on pages of its own.
+
+       THE COMPLETE MODERN TRANSLATIONS ARE IN COPYRIGHT and are named here so that nobody reaches
+       for one later: Moss Roberts's Three Kingdoms of 1991, which is the complete scholarly one and
+       the one to buy, the abridgement he made of it in 1976, and Yu Sumei's of 2014. */
+    rights:
+      "Public domain in the United States, with a limit to state elsewhere. The novel is a Chinese " +
+      "work of the fourteenth century and the text used here is the recension Mao Lun and Mao " +
+      "Zonggang published in 1679, so the Chinese has been free for as long as copyright has " +
+      "existed. The translation is the half that needs a date: C. H. Brewitt-Taylor published it in " +
+      "Shanghai in 1925, which puts it in the public domain in the United States under the rule for " +
+      "works published before 1929, and he lived from 1857 to 1938, so it cleared the term of the " +
+      "translator's life plus seventy years at the beginning of 2009 — but where the term is life " +
+      "plus a hundred it stays in copyright until 2039. Both volumes' title pages, the dedication, " +
+      "the folding map and the tables of contents are not reproduced, nor is the Maos' own critical " +
+      "apparatus; what is taken is the hundred and twenty chapters. (The complete modern " +
+      "translations — Moss Roberts's of 1991, the abridgement he made of it in 1976, and Yu Sumei's " +
+      "of 2014 — are all still in copyright and are not used.)",
+
+    about: [
+      "<i>Romance of the Three Kingdoms</i> begins with a sentence about the shape of history — that " +
+        "an empire long divided must unite and long united must divide — and then spends eight " +
+        "hundred thousand words showing it happen. It opens in 184, with a peasant rising against a " +
+        "Han court run by eunuchs, and closes in 280, when the last of the three successor states " +
+        "gives in and China is one again. In between are the hundred years that every Chinese " +
+        "reader knows by heart: three strangers swearing brotherhood in a peach garden; Ts‘ao " +
+        "Ts‘ao, the most capable man of his age and the villain of the book; the fire-ships at the " +
+        "Red Cliffs; and Chuko Liang, the strategist who is sent for three times before he will come " +
+        "down from his hut, and who then spends the rest of his life trying to win a war he has " +
+        "already told his lord cannot be won. It is the earliest of the great Chinese novels and the " +
+        "most influential historical novel written anywhere, and its hold is not really literary — " +
+        "its scenes are the common property of opera, storytelling, proverb and, latterly, video " +
+        "games across half of Asia.",
+      "It is a novel built on a history, and the proportions were settled long ago by the Qing " +
+        "scholar Chang Hsüeh-ch‘êng, who called it seven parts fact and three parts fiction. The " +
+        "facts come from Ch‘ên Shou's <i>Records of the Three Kingdoms</i>, compiled within living " +
+        "memory of the events; the fiction comes from the eleven centuries of plays and street " +
+        "storytelling that stood between him and the novelist. What the fiction consistently does is " +
+        "take sides. The historical Ts‘ao Ts‘ao held the north, the throne and most of the " +
+        "population; the novel gives its sympathy to Liu Pei's small, doomed, legitimist state in " +
+        "the west, and a reader who takes the book for history will come away with the moral " +
+        "judgements of a much later age.",
+      "The text is not quite the one Luo Guanzhong wrote, and this is worth knowing before the first " +
+        "page rather than after it. The oldest surviving printing, of 1522, divides the story into " +
+        "two hundred and forty sections; in 1679 Mao Lun and his son Mao Zonggang cut it into the " +
+        "hundred and twenty chapters used ever since, rewrote a great deal of the prose, replaced " +
+        "most of the poems and sharpened the sympathies described above. Almost everyone who has " +
+        "read this novel in any language for the last three centuries has read the Maos, and both " +
+        "columns here are theirs. Two of the most quoted things in the book are the clearest " +
+        "evidence of it: the sentence about division and union that opens chapter one, and the poem " +
+        "about the Yangtze rolling east that stands above it, are both editorial additions of 1679 " +
+        "and appear in none of the earlier printings.",
+      "The English is the first complete translation of any Chinese novel into English, and it very " +
+        "nearly did not exist. C. H. Brewitt-Taylor went out to China at twenty-two to teach " +
+        "navigation, spent his career in the Imperial Maritime Customs Service, and had finished a " +
+        "draft by 1900, when his house in Tientsin was burnt during the Boxer Uprising and the " +
+        "manuscript with it. He began again and published, twenty-five years later, in Shanghai. His " +
+        "romanisation is the Wade-Giles of his own day, so the names look unfamiliar to a reader who " +
+        "has met them in pinyin: Ts‘ao Ts‘ao is Cao Cao, Liu Pei is Liu Bei, Sun Ch‘üan is Sun " +
+        "Quan, Kuan Yü is Guan Yu, and Chuko Liang — usually called by his style, K‘ung-ming — is " +
+        "Zhuge Liang.",
+      "Each chapter is headed by the couplet its Chinese original is headed by, in the translator's " +
+        "own English and in the case his printer set it in. Those chapter titles are taken from the " +
+        "chapters themselves rather than from the volumes' contents pages, which print them in " +
+        "capitals and without the accents. One oddity of the printing is left exactly as it stands: " +
+        "in the nineties this edition numbers its chapters backwards from a hundred, so that " +
+        "chapter 91 is headed IXC and chapter 99 is headed IC, which is how the chapter you are " +
+        "reading may be headed a form no modern printer would use. The verse is his too — the novel " +
+        "quotes poems constantly, to open a scene or to sum one up, and he renders them as rhymed " +
+        "English quatrains.",
+    ],
+
+    wiki: "en.wikisource.org",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/San_Kuo",
+    /* Two volumes of sixty chapters each, which is the edition's own division and the only one it
+       has — so the Contents panel groups the hundred and twenty tabs the way the printed book groups
+       them, and a reader looking for a chapter has two shelves to look on rather than one. */
+    parts: [
+      { n: 1, label: "Volume I", from: 1, to: 60 },
+      { n: 2, label: "Volume II", from: 61, to: 120 },
+    ],
+    chapterWord: "Chapter",
+    page: (n) => "San Kuo/Volume " + (n <= 60 ? 1 : 2) + "/Chapter " + n,
+    chapters: Array.from({ length: 120 }, (_, i) => i + 1),
+    /* NO `indexPage`: both volumes print a full table of contents and both are transcribed, and the
+       body is still the better reading — see sanKuoHead, which is where the titles come from and why. */
+    head: "sankuo",
+    /* The printer's colophon at the foot of the last chapter, which is set on the one leaf in the
+       book the edition never numbered — the Republic's structural rule, and it needs to know nothing
+       about what is printed on it. Measured over the sample before it was declared: chapter 120 is
+       the only chapter with an unnumbered page in it, and every other page in the book is numbered. */
+    dropUnnumberedPages: true,
+    /* ONE SECTION FOR THE WHOLE CHAPTER. The chapter is what this work is divided into, what both
+       editions state and how any passage of it is cited in any language; neither side numbers
+       anything inside a chapter, so there is nothing finer to pair on and none is invented. */
+    sections: "whole",
+
+    /* ---------- THE ORIGINAL ----------
+       THE RECENSION WAS CHECKED FIRST, because this novel has two of them and they divide the story
+       differently: the 1522 printing runs to 240 sections and the Maos' of 1679 to 120 chapters, so a
+       column taken from the wrong one could not be paired at all. The transcription says which it is
+       on its own front page — "此為毛綸、毛宗崗父子修改、批注後的版本", this being the version revised
+       and annotated by Mao Lun and Mao Zonggang, with a link to the Jiajing text carried separately
+       under another title — and Brewitt-Taylor translated the Maos, which is what everyone translates.
+       Measured as well as read: 120 chapters a side, and the couplet heading each Chinese chapter is
+       the couplet Brewitt-Taylor prints over the same number, checked by name profile over all 114
+       titles the contents pages give up (37 uniquely best at offset 0, 32 tied including 0, and three
+       best elsewhere on a score of one apiece, which is noise) and then read side by side across the
+       whole span.
+
+       ITS FOUR 附錄 ARE NOT CHAPTERS and none is fetched: three are redirects to the front matter and
+       the fourth is a list of the novel's characters written by the wiki itself, which is flagged for
+       deletion there. */
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      perChapter: true,
+      wiki: "zh.wikisource.org",
+      page: (n) => "三國演義/第" + String(n).padStart(3, "0") + "回",
+      edition:
+        "三國演義, in the recension of Mao Lun and Mao Zonggang, as transcribed at Chinese Wikisource; " +
+        "the transcription names no printed edition",
+      rights:
+        "Public domain worldwide: the novel is a Chinese work of the fourteenth century and this " +
+        "recension was published in 1679, so no copyright has subsisted in the words for as long as " +
+        "copyright has existed.",
+      sourceName: "Wikisource (Chinese)",
+      sourceUrl: "https://zh.wikisource.org/wiki/%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9",
+      /* Typed onto the wiki rather than transcluded from a scan, so there is no transclusion wrapper
+         to slice at — and with it, the wiki's own navigation tables and its public-domain banner fall
+         inside the slice; see originalChapter. The novel's constant quoted verse is set as a nested
+         definition list, which the tag stripper would unwrap into run-on prose on a book that opens
+         on a poem. */
+      body: "plain",
+      verse: "dl",
+      dropTables: true,
+    },
+  },
+
   "canterbury-tales": {
     title: "The Canterbury Tales",
     author: "Geoffrey Chaucer",
@@ -7797,6 +8106,431 @@ const BOOKS = {
        an `origLang` are the whole of the work. */
   },
 
+  "ramayana": {
+    title: "The Ramayana",
+    subtitle: "रामायणम्",
+    author: "Valmiki",
+    translator: "Ralph T. H. Griffith",
+    edition:
+      "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
+      "Trübner & Co., London, and E. J. Lazarus and Co., Benares, 1870–1874",
+    written: "c. 500 BCE – 200 CE",
+    year: -300,
+
+    /* ---------- THE LICENCE — the ELEVENTH here needing no qualification at all ----------
+       The poem is some two thousand years old and free everywhere. Ralph Thomas Hotchkin Griffith
+       published this translation in five volumes between 1870 and 1874 while Principal of the Benares
+       College — the date and the imprint read off the volume's own title page, which the transcription
+       reproduces, rather than recalled — and he lived 1826–1906, so the English clears the pre-1929
+       publication rule, life plus seventy (1976) and life plus a hundred (2006) alike. There is no
+       limit to state and no modern editorial layer to declare.
+
+       THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement again: the
+       sa.wikisource pages credit no edition of the samhita, so no editor and no publication date is
+       asserted for that column and the ground stated is the age of the text. The gap is a real one
+       here and is stated as such rather than waved through — see the front matter. The Ramayana has
+       three recensions that differ in their sarga divisions and in thousands of readings, so an
+       unnamed Sanskrit text is a text whose recension a reader cannot look up; what can be said is
+       that it is a northern text, because it divides where a northern text divides, and that is said.
+
+       WHAT IS NOT TAKEN. Griffith's appendix — which prints in Latin and in Italian, from Schlegel and
+       Gorresio, the passages he would not English — his fifty-seven pages of additional notes, and his
+       index of names. The Republic's precedent for the introduction and plates it left behind. His
+       footnotes on the poem ARE taken, being notes on the text rather than matter around it.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none may
+       be used: the Princeton translation begun by Robert Goldman in 1984 and completed in 2017, which
+       is the scholarly standard and is the one to read for accuracy; Hari Prasad Shastri's of 1952–59;
+       Arshia Sattar's abridgement of 1996. Griffith is a century and a half old and reads like it; the
+       book's own first page says so rather than leaving a reader to find it out. */
+    rights:
+      "Public domain worldwide, on every ground. The poem is around two thousand years old, so the " +
+      "work itself has never been in copyright. Ralph T. H. Griffith published this translation in " +
+      "five volumes at London and Benares between 1870 and 1874, and he lived from 1826 to 1906, so " +
+      "the English is out of copyright under the rule for works published before 1929, under the " +
+      "translator's life plus seventy years, and under life plus a hundred — there is no limit to " +
+      "state. The facing Sanskrit is the received text as transcribed at Sanskrit Wikisource, which " +
+      "names no editor and no printed edition for it, so none is claimed here; the ground for that " +
+      "column is the age of the text alone. (The modern translations by Robert Goldman and others, " +
+      "1984–2017, Hari Prasad Shastri, 1952–59, and Arshia Sattar, 1996, are still in copyright and " +
+      "are not used.) Griffith's appendix, his additional notes and his index are not reproduced.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/24869",
+    url: "https://www.gutenberg.org/files/24869/24869-tei/24869-tei.tei",
+    source: "tei",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they open five hundred cantos of Victorian verse: what the poem is,
+       what happens in it, how it is arranged and cited, whose translation this is and how far it can
+       be trusted, and — at length, because it is the thing most likely to be met as a fault — exactly
+       how much of the poem is here and how much is not. */
+    about: [
+      "<b>The Ramayana</b> is one of the two great epics of ancient India and, with the Mahabharata, " +
+        "one of the foundation texts of a civilisation. It tells the story of <b>Ráma</b>, prince of " +
+        "Ayodhyá, who is exiled to the forest on the eve of his coronation; of the carrying off of his " +
+        "wife <b>Sítá</b> by <b>Rávaṇ</b>, the demon king of Lanká; of the war fought to recover her; " +
+        "and of what happened when she was recovered. Tradition gives it to a single poet, " +
+        "<b>Válmíki</b>, who appears inside his own poem. In the form we have it, it was probably " +
+        "composed between about the fifth century BCE and the second century CE, the older core in " +
+        "Books II to VI and the first and last books added around them.",
+      "It is not scripture in the way the Vedas are, and it is not only a story either. For two " +
+        "thousand years it has been the text through which a great part of South and Southeast Asia " +
+        "has thought about duty, kingship, marriage and exile, and it has been retold in almost every " +
+        "language of the region — in Tamil by Kamban, in Hindi by Tulsidas, in Java and Bali and " +
+        "Thailand and Cambodia — each retelling changing what it needed to. It is performed as dance " +
+        "and shadow-play and, in the Rámlílá, acted out over days in the open air. Sítá's ordeal and " +
+        "her final departure have been argued about for centuries and are argued about now.",
+      "The poem is arranged in seven books, called <b>káṇḍas</b>, each divided into cantos or " +
+        "<b>sargas</b>: <i>Bála</i>, the childhood; <i>Ayodhyá</i>, the exile; <i>Áraṇya</i>, the " +
+        "forest and the abduction; <i>Kishkindhá</i>, the alliance with the monkey king; " +
+        "<i>Sundara</i>, Hanumán's leap to Lanká; <i>Yuddha</i>, the war; and <i>Uttara</i>, the " +
+        "later book. A passage is cited by book and canto — <b>2.40</b> is the fortieth canto of the " +
+        "Ayodhyá Káṇḍa — and that is exactly how this edition is laid out: the tabs are the cantos, " +
+        "in that notation, and each is set beside its Sanskrit.",
+      "The translation is <b>Ralph T. H. Griffith's</b>, made while he was Principal of the Benares " +
+        "College and published in five volumes between 1870 and 1874. It is rhymed English verse, and " +
+        "it is Victorian to its bones: the diction is deliberately archaic, the metre is the eight-" +
+        "syllable couplet of the English narrative poem rather than anything Sanskrit does, and " +
+        "Griffith smooths and heightens freely. It is also readable, fast, and often very fine — it is " +
+        "the reason the Ramayana was read in English at all for a century. A reader who wants to know " +
+        "what the scholarship now thinks a passage says should go to the Princeton translation begun " +
+        "by Robert Goldman in 1984, which is in copyright and cannot be reproduced here.",
+      "<b>What is here is 493 cantos of the 645 this Sanskrit carries, and the missing 152 are worth " +
+        "understanding before they are met as gaps.</b> The largest part of the difference is that " +
+        "Griffith did not translate the <b>seventh book</b> at all. The Uttara Káṇḍa is the poem's " +
+        "sequel and its most disputed section — Ráma's repudiation of Sítá after the war, the birth " +
+        "of her sons in Válmíki's hermitage, her return to the earth — and is generally held to be " +
+        "later than the rest. Griffith stops where the war ends and the story, as he took it, is " +
+        "finished. It is 111 cantos, and this edition has none of them.",
+      "The other forty-one are cantos he passed over inside the six books he did translate, and " +
+        "<b>he says so, in the text, wherever he does it</b> — a bracketed paragraph at the foot of " +
+        "the canto before, naming what he has left out and usually why. Sometimes the reason is that " +
+        "the passage is repetitive: <i>Three Cantos consisting of little but repetitions are omitted.</i> " +
+        "Sometimes it is that he thinks it interpolated. And twice it is Victorian propriety — Book I's " +
+        "cantos 37 and 38 go because they are <i>both in subject and language offensive to modern " +
+        "taste</i>, and he sends the reader to Schlegel's Latin for them. Those notes are kept here " +
+        "exactly where he printed them, so the shape of what is absent is visible from inside the poem.",
+      "<b>Griffith numbered around his gaps</b>, and that is what makes this edition worth setting " +
+        "beside the Sanskrit at all. His Book VI runs from canto 1 to canto 130 with twenty-nine " +
+        "numbers simply missing; his Book I skips 37 and 38 and carries on at 39. A translator " +
+        "numbering his own cantos would have produced an unbroken run, so the numbers he prints are " +
+        "the sargas of the text in front of him, and a canto here can be laid against the sarga that " +
+        "bears its number. Measured before it was believed: <b>490 of the 493 cantos pair</b>, and " +
+        "four unmistakable episodes land exactly — Kumbhakarṇa dies in canto 67 and in sarga 67, " +
+        "Rávaṇ in canto 110 and in sarga 110.",
+      "The three that do not pair are places where <b>Griffith's edition and this Sanskrit divide the " +
+        "same words differently</b>, which is what happens with a poem that survives in three " +
+        "recensions. His Áraṇya 57, in which Indra sends food to Sítá in her captivity, and his Yuddha " +
+        "112 and 113, the lament of the rákshas women and Mandodarí's lament, are single cantos here " +
+        "and are not divided off in the Sanskrit. Those three cantos are therefore shown alone, at " +
+        "full width, with no Sanskrit beside them — the words are in the original, inside the sarga " +
+        "before or after, but there is no canto of it to set against them. From " +
+        "each of those points on, the canto number runs one or two ahead of the sarga number, and the " +
+        "pairing follows the text rather than the arithmetic.",
+      "Two more things about the columns are worth knowing. The <b>Sanskrit names no editor</b>: the " +
+        "pages it is taken from credit no printed edition, so this book cannot tell you whose text it " +
+        "is, which for a poem with three recensions and thousands of disputed readings is a real " +
+        "limitation rather than a formality. What can be said is that it divides where a northern text " +
+        "divides. And <b>Griffith's own footnotes are here</b> — a thousand of them, folded under each " +
+        "canto — explaining a name, a custom, or a line he found obscure; they are as Victorian as the " +
+        "verse, and as informative.",
+    ],
+
+    layout: "kanda",
+    chapterWord: "Canto",
+    chapters: RAM_CANTOS.map((_, i) => i + 1),
+    /* The tab, and it is the citation itself: a reader looking for Ramayana 2.40 finds a tab reading
+       2.40. Griffith gives every canto a title of his own as well ("The Wondrous Deer"), and those are
+       NOT used for the tab — a tab is a place in the poem before it is a description of one, and his
+       titles are his rather than the poem's, which prints none. */
+    titleOf: (n) => { const a = ramAt(n); return a ? a.b + "." + a.c : String(n); },
+    parts: RAM_PARTS,
+    /* A canto may honestly be a dozen lines — Yuddha 106, the hymn to the sun, is one of the shortest
+       things in the poem and is complete — so this sits well below the 200 the prose books use. It is
+       still enough to catch a slice that has returned the file's furniture instead of the verse. */
+    minChars: 120,
+
+    original: {
+      lang: "sa",
+      langName: "Sanskrit",
+      layout: "kanda",
+      wiki: "sa.wikisource.org",
+      edition: "The received text, as transcribed at Sanskrit Wikisource; no editor is named",
+      rights:
+        "Public domain worldwide. The poem is around two thousand years old. The transcription names " +
+        "no editor and no printed edition, so none is claimed here.",
+      sourceName: "संस्कृतविकिस्रोतः",
+      sourceUrl: "https://sa.wikisource.org/wiki/रामायणम्",
+      page: (n) => {
+        const a = ramAt(n), K = RAM_BOOKS[a.b - 1], s = ramSarga(a.b, a.c);
+        return "रामायणम्/" + K.sa + "/सर्गः " + ramDev(s);
+      },
+      minChars: 40,
+    },
+  },
+  "ptahhotep": {
+    title: "The Maxims of Ptahhotep",
+    subtitle: "The Instruction of Ptah-hotep",
+    author: "Ptahhotep",
+    translator: "Battiscombe G. Gunn",
+    edition:
+      "The Instruction of Ptah-hotep and the Instruction of Ke'gemni: The Oldest Books in the " +
+      "World, Wisdom of the East series, John Murray, London, 1906",
+    written: "c. 2400 BCE, or the Middle Kingdom",
+    year: -2400,
+
+    /* ---------- THE LICENCE — a LIMIT to state, and it falls on the translation ----------
+       The poem is one of the oldest works of literature there is and is free everywhere on any
+       reading. Battiscombe George Gunn published this translation in London in 1906 in John Murray's
+       Wisdom of the East series, and he lived 30 June 1883 – 27 February 1950 — dates corroborated
+       twice for the reason this file keeps insisting on, once from the transcription's own
+       bibliographic record and once from his biography, which independently gives the 1906 volume —
+       so the English is public domain in the United States on the pre-1929 publication rule and
+       cleared life plus seventy on 1 January 2021. It has NOT cleared life plus a hundred, which
+       runs to 1 January 2051, and that is said outright rather than smoothed into the easier
+       sentence the ancient half can honestly use.
+
+       WHAT IS NOT TAKEN. Gunn's volume holds three works and he translated all three: this poem, the
+       Instruction of Ke'gemni, and — in an appendix — the Instruction of Amenemhe'et. Only Ptahhotep
+       is here; the other two are different works by different hands and are not this book. His
+       thirty-page introduction, his explanation of names and his bibliography are left behind for the
+       reason an editor's front matter always is. His footnotes on the poem ARE taken, being notes on
+       the text rather than matter around it.
+
+       WHY THERE IS NO FACING ORIGINAL, and it was measured before it was concluded. The question this
+       shelf asks of an original is not whether a text of the work exists — the Egyptian survives, and
+       is edited, transcribed and online — but whether that text and this translation state the same
+       thing about the same passage. They do not, and the failure is on the ENGLISH side: swept over
+       the whole of Gunn's Ptahhotep, there is not one papyrus reference of any kind. No column and
+       line, no "line 60", no mention of Prisse anywhere in the translation. His sections are marked
+       A, B, 1..43, C, D and by nothing else, and those marks are his own.
+
+       The Egyptian side has a difficulty of its own that is worth recording so nobody starts there.
+       The openly downloadable transcription of the Prisse text (Mark-Jan Nederhof and Robert Myers,
+       St Andrews) follows Zbyněk Žába's edition of 1956, and Žába lived 1917–1971, so his
+       constituted text is in copyright until 2042 where the term is life plus seventy — a medieval
+       or ancient work has to be edited from its manuscripts before anyone can read it, and an
+       editor's constituted text is a modern work. The Berlin Thesaurus Linguae Aegyptiae numbers its
+       verses by Dévaud's system and its lines by papyrus column, neither of which Gunn states. So
+       the answer would be no on the pairing even if the licence were clear.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none
+       may be used: Miriam Lichtheim's in Ancient Egyptian Literature (1973), which is the scholarly
+       standard and is the one to read for accuracy; R. B. Parkinson's in The Tale of Sinuhe and Other
+       Ancient Egyptian Poems (1997); William Kelly Simpson's in The Literature of Ancient Egypt. */
+    rights:
+      "Public domain. The poem is around four thousand years old. Battiscombe G. Gunn's translation " +
+      "was published in 1906, so it is public domain in the United States as a pre-1929 " +
+      "publication, and he died in 1950, so it also cleared life-plus-seventy in 2021. Where the " +
+      "term is life plus a hundred it remains in copyright until 2051.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/30508",
+    url: "https://www.gutenberg.org/cache/epub/30508/pg30508-images.html",
+
+    layout: "ptahhotep",
+    chapterWord: "Section",
+    chapters: PTAH_KEYS.map((_, i) => i + 1),
+    /* THE TAB CARRIES GUNN'S OWN CITATION FORM, "§ 32", AND NOT THE WORD AGAIN — which was found by
+       LOOKING at the page rather than by any count. A chapter head prints `chapterWord` and the
+       running index above the title, and the printed mark is NOT the running index here (A and B
+       come first, so section 32 is the thirty-fourth chapter) — so a title reading "Section 32"
+       renders as "SECTION 34 / Section 32", two different numbers under the same word, each
+       contradicting the other. The section sign is the form the translator uses for these marks in
+       his own introduction ("§ 1", "Ph. 40"), so it is transcribed rather than composed, and it
+       reads as a citation rather than as a second count. */
+    titleOf: (n) => "§ " + (PTAH_KEYS[n - 1] || n),
+    /* Section 32 is twenty-eight characters and complete as this translation prints it — see the
+       reader above, and the front matter, for what it is. So the short-chapter guard is nearly
+       inert here and the key check stands in for it. */
+    minChars: 20,
+
+    about: [
+      "The Maxims of Ptahhotep is a book of advice from an old man to his son, and it is very " +
+        "probably the oldest book of its kind that anyone can still read. It opens with a vizier " +
+        "asking his king for leave to retire and to teach his successor, and it closes with the " +
+        "same man counting up a hundred and ten years of royal favour. Between those two moments " +
+        "come thirty-seven maxims on how to conduct yourself: how to argue with a man wiser than " +
+        "you and with a man who is not, how to behave at another man's table, how to treat a wife, " +
+        "a friend, a servant, a superior and a petitioner, and when to keep silent.",
+      "It is not a religious text and it is barely a philosophical one. Its subject is <b>conduct</b> " +
+        "— what a man at court should do, and why doing it will go well for him — and its argument " +
+        "is that good behaviour is repaid in this life, in office, in property and in a quiet old " +
+        "age. That is what makes it strange and familiar at once: a reader four thousand years " +
+        "later recognises the advice about not interrupting people and finds the reasoning behind " +
+        "it completely foreign.",
+      "The dating is genuinely disputed and the banner above says so in five words. The poem " +
+        "presents itself as the work of <b>Ptahhotep</b>, vizier to King Isesi of the Fifth Dynasty, " +
+        "which would put it around 2400 BCE; the four surviving copies are all several centuries " +
+        "younger, the fullest of them the Papyrus Prisse in Paris, and the language they preserve is " +
+        "Middle Egyptian. Scholars have argued the case both ways for a century and it is not " +
+        "settled. Gunn, writing in 1906, took the Old Kingdom date at face value, which is why his " +
+        "volume was called <i>The Oldest Books in the World</i>.",
+      "The text is divided into short sections, and that division is the poem's own: the Egyptian " +
+        "scribe marked each new section by writing its first sentence in red ink. Those marks are " +
+        "the tabs here — <b>forty-seven of them</b>, running A and B for the petition to the king " +
+        "and the title of the maxims proper, then 1 to 37 for the maxims themselves, then C and 38 " +
+        "to 43 and D for the epilogue on obedience and the son who listens. A passage is cited by " +
+        "that number, so the tab is the citation, and there is nothing above the section in this " +
+        "text and nothing below it.",
+      "The translation is <b>Battiscombe Gunn's</b>, made when he was twenty-two and published in " +
+        "1906. It is deliberately biblical in its English — thou and thine, <i>hearken</i> and " +
+        "<i>gainsayer</i> — which was the convention for rendering an ancient wisdom text into " +
+        "English at the time, and which makes it read as far more remote than the Egyptian is. It " +
+        "is also very readable, and it was a real advance on what came before it. Gunn himself " +
+        "later called it premature, and he became one of the great Egyptian philologists of his " +
+        "generation, so that verdict is worth knowing before you take a difficult line on trust.",
+      "<b>Section 32 is missing, and Gunn is the one who removed it.</b> Where the other " +
+        "forty-six sections carry the poem, that one carries four words in square brackets — " +
+        "<i>[Concerning continence]</i> — because the maxim it stands for was not something a " +
+        "London series of 1906 would print in English. It is the only place in the book where this " +
+        "happens, and it is left exactly as he left it rather than quietly closed up, so the shape " +
+        "of what is absent is visible from inside the poem.",
+      "Two more things are worth knowing. There is <b>no Egyptian column</b> beside this one, and " +
+        "the reason is not that the Egyptian is lost: it survives, it is edited, and it is online. " +
+        "It is that this translation prints no reference to the papyrus anywhere — no column, no " +
+        "line, no verse number — so there is no number the two texts share, and pairing them would " +
+        "mean several hundred judgements made by eye with nothing to check them against. And the " +
+        "volume this comes from also holds the Instruction of Ke'gemni and the Instruction of " +
+        "Amenemhe'et, which are separate works by other hands; only Ptahhotep is here.",
+    ],
+  },
+  "boethius-consolation": {
+    title: "The Consolation of Philosophy",
+    subtitle: "Philosophiae Consolationis",
+    author: "Boethius",
+    translator: "H. R. James",
+    edition: "Elliot Stock, London, 1897",
+    written: "c. 523–524, in prison at Pavia",
+    year: 524,
+
+    /* ---------- THE LICENCE — a LIMIT on each column, and the original is the harder half ----------
+       Three layers and every one of them has to be stated. Boethius was executed around 524, so the
+       work itself is free everywhere on any reading. Henry Rosher James published this translation
+       in London in 1897 and lived 1862–1931 — the years given at year precision on Wikidata with
+       four references behind them, and stated independently by Wikisource's own public-domain tag on
+       this very translation, which is the corroboration this file insists on after the case of a
+       date that existed and was not established — so the English is public domain in the United
+       States on the pre-1929 publication rule and cleared life plus seventy on 1 January 2002. It
+       has NOT cleared life plus a hundred, which runs to 1 January 2032.
+
+       The LATIN is Edward Kennard Rand's text, printed facing an English translation in the Loeb
+       Classical Library volume of 1918 — he signs the note on the text himself and says there what
+       he built it from. That volume is a JOINT work with Hugh Fraser Stewart, and a joint work runs
+       its term from the LAST of its authors to die: Rand lived 20 December 1871 – 28 October 1945
+       and Stewart 27 October 1863 – 23 January 1948, both at day precision, so the Latin is public
+       domain in the United States on the pre-1929 rule and cleared life plus seventy on 1 January
+       2019, and where the term is life plus a hundred it stays in copyright until 1 January 2049.
+       So both columns carry a limit and the original's runs thirty years the longer, which is the
+       reverse of the usual arrangement and is said outright rather than smoothed away.
+
+       WHY THIS ENGLISH AND NOT THE ONE PRINTED WITH THE LATIN. The 1918 volume carries a complete
+       English translation of its own and using it would have paired the two columns by construction
+       out of a single file, needing no second source and no reconciliation at all. It is not used.
+       That translation is "I.T."'s of 1609 revised by Stewart, and it is Jacobean English — "While I
+       ruminated these things with myself, and determined to set forth my woful complaint in writing,
+       methought I saw a woman stand above my head" against James's "While I was thus mutely
+       pondering within myself, and recording my sorrowful complainings with my pen, it seemed to me
+       that there appeared above my head a woman of a countenance exceeding venerable". This is a
+       reading room, and the cleanest text to import is not always the one worth reading. The cost of
+       refusing it was measured rather than guessed: all seventy-eight sections are present in both
+       Englishes and in the Latin, in the same order, and James tracks the Latin's length section by
+       section as closely as the Loeb's own version does, so nothing was given up but the convenience.
+
+       WHAT IS NOT TAKEN. James's preface, his proem — a short life of Boethius — and his index of
+       verse interludes are left behind for the reason an editor's front matter always is; his
+       summaries of the five books are not front matter and DO ship, at the head of the book each
+       describes. From the Latin side, the four Theological Tractates printed in the same volume are
+       different works by the same hand and are not this book, and Symmachus's epigram, which the
+       manuscripts append after the last line, is not Boethius.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are all in copyright and none
+       may be used: V. E. Watts's for Penguin (1969, revised 1999), Richard Green's (1962), P. G.
+       Walsh's for Oxford World's Classics (1999), Joel Relihan's (2001) and David Slavitt's (2008).
+       S. J. Tester's revision of the Loeb (1973) is the volume in shops today and is a separate
+       copyrighted work; what is here is the 1918 printing. */
+    rights:
+      "Public domain. Boethius was executed around 524. H. R. James's translation was published in " +
+      "1897 and he died in 1931, so it is public domain in the United States as a pre-1929 " +
+      "publication and cleared life-plus-seventy in 2002; where the term is life plus a hundred it " +
+      "remains in copyright until 2032. The Latin is E. K. Rand's text of 1918, printed in a volume " +
+      "jointly with H. F. Stewart, who died in 1948 — pre-1929, and clear of life-plus-seventy since " +
+      "2019, but in copyright until 2049 where the term is life plus a hundred.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/14328",
+    url: "https://www.gutenberg.org/cache/epub/14328/pg14328-images.html",
+
+    layout: "boethius",
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4, 5],
+
+    about: [
+      "<b>The Consolation of Philosophy</b> was written by a man waiting to be killed. Anicius " +
+        "Manlius Severinus Boethius was a Roman senator, consul and philosopher who rose to be head " +
+        "of the civil administration under Theodoric the Ostrogoth, king of Italy; around 523 he was " +
+        "accused of treason, stripped of everything, imprisoned at Pavia and, a year or so later, " +
+        "clubbed to death. In the cell he wrote a dialogue between himself and Philosophy, who " +
+        "appears at his bedside as a woman of changing height with a torn gown, drives away the " +
+        "Muses of poetry who had been dictating his self-pity, and sets about curing him. She begins " +
+        "with gentle remedies and works up to the hardest questions there are.",
+      "The five books climb. The <b>first</b> is his complaint and her diagnosis: he has forgotten " +
+        "what he is and how the world is governed. The <b>second</b> is about Fortune, who speaks in " +
+        "her own voice to point out that inconstancy is the only thing she ever promised, and whose " +
+        "turning wheel enters European literature here. The <b>third</b> argues that the things men " +
+        "chase — wealth, office, power, fame, pleasure — are broken fragments of a single good, and " +
+        "that the whole of it is God. The <b>fourth</b> asks why the wicked prosper, and answers " +
+        "that they do not. The <b>fifth</b> takes on the hardest problem of all: if God knows what " +
+        "you will do, in what sense are you free to do otherwise? Its answer, that eternity is not " +
+        "endless time but the whole possession of life at once, so that God does not foresee but " +
+        "simply sees, is the passage on which the rest of the book's fame rests.",
+      "It is a <b>prosimetrum</b> — the argument runs in prose and stops thirty-nine times for a " +
+        "poem, in a wide variety of metres, and the poems are not decoration. They restate what has " +
+        "just been argued in a register the argument cannot reach, and the alternation is the shape " +
+        "of the book. The most famous of them, the great hymn <i>O qui perpetua</i> at the centre of " +
+        "the third book, is a compressed version of Plato's <i>Timaeus</i>. Its other great puzzle " +
+        "is what is <i>not</i> in it. Boethius was a Christian who wrote four treatises on the " +
+        "Trinity and the person of Christ, and in the Consolation neither Christ nor scripture nor " +
+        "any Christian doctrine is so much as mentioned: he is consoled by reason alone. Readers " +
+        "have argued about that ever since.",
+      "For a thousand years it was one of the most read books in Europe. It was translated into Old " +
+        "English by King Alfred's circle, into French by Jean de Meun, into Middle English by " +
+        "Chaucer, and into English again by Queen Elizabeth I, who is said to have done it in under " +
+        "a month. Dante puts Boethius in the Heaven of the Sun. This English is <b>H. R. James's of " +
+        "1897</b>, which renders the prose as prose and the poems as English verse, and which prints " +
+        "at the head of each book a summary of its argument chapter by chapter; those summaries are " +
+        "his and they open each of the five tabs here. His preface, his life of Boethius and his " +
+        "index of the poems are not reproduced.",
+      "The <b>Latin</b> facing it is <b>E. K. Rand's text of 1918</b>, and it has two limitations " +
+        "worth knowing before they are met. Boethius writes a little Greek into his Latin — the " +
+        "letters Π and Θ embroidered on Philosophy's gown, and a dozen quotations from Homer, " +
+        "Euripides and Plato — and the transcription this column is taken from renders every one of " +
+        "them in Roman letters between brackets. The two letters can be turned back into Greek " +
+        "because a letter's name says exactly which letter it is; the quotations cannot, because the " +
+        "romanisation loses distinctions Greek makes, and inventing them back would be composing a " +
+        "text rather than reading one. They are left as the transcription prints them. The edition " +
+        "also numbers every fifth line of every poem, and those numbers are dropped: James translates " +
+        "the verse into English verse rather than line for line, so a line number here would point " +
+        "at a place the facing page cannot find.",
+    ],
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      edition:
+        "Edited by E. K. Rand, in H. F. Stewart and E. K. Rand, Boethius: The Theological Tractates " +
+        "and The Consolation of Philosophy, Loeb Classical Library, William Heinemann, London, 1918",
+      rights:
+        "Public domain. Boethius wrote around 523–524. This text was constituted by E. K. Rand and " +
+        "published in 1918, so it is public domain in the United States as a pre-1929 publication; " +
+        "the volume is a joint work with H. F. Stewart, who died in 1948, so it also cleared " +
+        "life-plus-seventy in 2019 and remains in copyright until 2049 where the term is life plus " +
+        "a hundred.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/13316",
+      url: "https://www.gutenberg.org/cache/epub/13316/pg13316-images.html",
+      source: "text",
+      layout: "boethius",
+    },
+  },
   "rigveda": {
     title: "The Rigveda",
     subtitle: "ऋग्वेदः",
@@ -8376,6 +9110,459 @@ const BOOKS = {
        on its own. */
   },
 
+  "morte-darthur": {
+    title: "Le Morte d'Arthur",
+    subtitle: "King Arthur and of his Noble Knights of the Round Table",
+    author: "Thomas Malory",
+    /* NO `translator`, AND THAT IS THE WHOLE OF WHAT MAKES THIS BOOK DIFFERENT — see the licence
+       note below and `bookIntroChapter` in app.js, which grew a second wording for it. Every other
+       book on this shelf is a translation and says whose; this one is in English already. */
+    edition: "Everyman's Library, ed. Ernest Rhys, J. M. Dent, London, 1906",
+    written: "c. 1469–70, printed 1485",
+    year: 1485,
+
+    /* ---------- THE LICENCE ----------
+       Malory finished writing in the ninth year of Edward IV — he says so in his own epilogue, which
+       is 1469 or 1470 — and Caxton printed the book at Westminster on the last day of July 1485.
+       Both are free everywhere and have been for five centuries. The only modern layer is the
+       EDITION: Everyman's Library, published by J. M. Dent in 1906 and edited by Ernest Rhys, with
+       an introduction by Sir John Rhys that is not reproduced. Ernest Rhys lived 1859–1946 and John
+       Rhys 1840–1915 — looked up rather than recalled, for the Hugo Magnus reason. So it is public
+       domain in the United States on the pre-1929 rule and cleared life plus seventy at the start of
+       2017; life plus a hundred runs to 2047, and is stated rather than smoothed into the easier
+       sentence.
+
+       THE EDITION IS NAMED BY THE SCAN ITSELF rather than inferred: Wikisource's Index page for the
+       two djvu files gives the title, the year, the editor and the introduction, and every chapter
+       page is a proofread transcription of a numbered leaf of it. Ask what text an unattributed
+       transcription IS — the Divine Comedy's rule and Don Quixote's — and here the answer is on the
+       file's own record.
+
+       THE OTHER FREE ENGLISH TEXTS WERE MEASURED, AND THAT IS THE FINDING TO CARRY. Project
+       Gutenberg's ebooks 1251 and 1252 look like the same book and are not the same TEXT. Walked
+       word by word against the shipped chapters — the Don Quixote method, and the reason to fetch a
+       second copy at all — they diverge about a thousand times, and every divergence sampled runs
+       the same way: this edition carries the older form and that transcription the modern one.
+       *pyght* against *pight*, *hool* against *whole*, *paas* against *pace*, *essay* against
+       *assay*, *bitaken* against *betaken*, *jesseraunte* against *jesseraunt*, *stynte* against
+       *stint*; and past spelling into vocabulary, *alit* against *alighted*, *trappours* against
+       *trappings*, *advision* against *vision*. For a reading room the copy that keeps Malory's own
+       words is the one worth having, and it is also the one proofread against a scan. What it names
+       itself is a separate question and is deliberately not answered here: PG's copy states no
+       edition, and the bibliographical note bound in front of it is A. W. Pollard's and describes a
+       Macmillan printing, so identifying it would be composing. It was nevertheless worth fetching:
+       its chapter counts, taken book by book, are what settle the total at 503 — see
+       MALORY_CHAPTERS.
+
+       AND PG'S EBOOK 46853 IS SIR EDWARD STRACHEY'S GLOBE TEXT of 1868, which its own successor in
+       that series describes in print as substituting "current words for those now obsolete" and
+       softening "a handful of passages likely, he thought, to prevent the book being placed in the
+       hands of boys". An editor who quietly softened what he thought unsuitable is the objection
+       that decided the Consolation's English; here it is not a suspicion but a published statement.
+
+       THE MODERN EDITIONS a reader is likeliest to own are named so nobody reaches for one: Eugène
+       Vinaver's edition of the Winchester manuscript (1947, revised 1967 and 1990), which is a
+       different constituted text as well as a copyrighted one, Helen Cooper's Oxford modernisation
+       (1998) and Dorsey Armstrong's translation (2009).
+
+       WHAT IS AND IS NOT TAKEN. Caxton's own preface and the twenty-one books he divided the work
+       into. Left behind: John Rhys's introduction and the glossary and index of names printed at the
+       back — an editor's apparatus, as Skeat's was and Brodeur's index was. */
+    rights:
+      "Public domain. Thomas Malory finished the book in 1469 or 1470 and William Caxton printed it " +
+      "at Westminster on the last day of July 1485, so the work itself has been free for five " +
+      "centuries. The text here is the Everyman's Library edition published by J. M. Dent in 1906 " +
+      "and edited by Ernest Rhys, who lived from 1859 to 1946: it is out of copyright under the rule " +
+      "for works published before 1929 and under the editor's life plus seventy years, which ran out " +
+      "at the start of 2017. It has not yet cleared life plus a hundred, which runs to 2047. The " +
+      "spelling is lightly modernised and the vocabulary is untouched, so what is printed here is " +
+      "Malory's own English rather than a translation of it, and the book has no facing original " +
+      "for that reason. Sir John Rhys's introduction and the glossary and index of names " +
+      "are not reproduced; what is taken is Caxton's preface and the twenty-one books. (Sir Edward " +
+      "Strachey's Globe text of 1868 is free and is not used: its own editor replaced obsolete words " +
+      "and softened passages he thought unsuitable for boys. The modern editions by Eugène Vinaver, " +
+      "1947, Helen Cooper, 1998, and Dorsey Armstrong, 2009, are still in copyright and are not " +
+      "used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Le_Morte_d%27Arthur",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ---------- */
+    about: [
+      "<b>Le Morte d'Arthur</b> is the book almost every later Arthur comes out of. Thomas Malory " +
+        "wrote it in English prose in the late 1460s, drawing on the enormous French romance cycles " +
+        "of the previous two centuries and on two English poems, and gathering what had been a " +
+        "sprawl of separate stories into one continuous history: the begetting of Arthur, the sword " +
+        "in the stone, the founding of the Round Table, the coming of Launcelot and of Tristram, the " +
+        "quest of the Sangreal, the love of Launcelot and Guenever, and the war that destroys " +
+        "everything the first twenty books have built. William Caxton printed it in 1485, divided " +
+        "it into <b>twenty-one books</b> and <b>503 chapters</b>, and supplied the descriptive " +
+        "heading that stands at the head of each chapter here.",
+      "It is not a translation and has no facing original, which makes it the first book on these " +
+        "shelves to stand in one column for that reason: Malory wrote in English, so there is " +
+        "nobody standing between you and him. The Everyman's Library text of 1906 printed here " +
+        "modernises the <b>spelling</b> lightly and leaves the vocabulary alone, and it keeps a good " +
+        "deal of Caxton's own spelling into the bargain — men <i>pyght</i> their pavilions, a knight " +
+        "is not yet <i>hool</i> of his wound, and a hundred others. So the sentences are Malory's, " +
+        "which is why a fifteenth-century book reads as easily as it does and why the odd word still " +
+        "stops you. A knight <i>alit</i> rather than alighted, wears <i>trappours</i> rather than " +
+        "trappings and has an <i>advision</i> rather than a vision; to be <i>wroth</i> is to be " +
+        "angry, <i>anon</i> means at once, <i>hight</i> means was called, and <i>wood</i> means mad, " +
+        "which is worth knowing before somebody is wood wroth at you.",
+      "What surprises most readers is the shape. Malory's book is not a novel and does not build " +
+        "steadily to its end: it is a compilation, and for long stretches it is a stream of knights " +
+        "riding out, meeting other knights, jousting, unhorsing one another and riding on. Book " +
+        "<b>X</b> alone runs to eighty-eight chapters of it. Then the quest of the Sangreal arrives " +
+        "in Book XIII and the whole register changes — the adventures become visions, the best " +
+        "knight in the world is told he is not good enough, and the chivalry the book has spent " +
+        "twelve books admiring is judged and found wanting. The last two books are as bleak and as " +
+        "fast as anything in English: the love that has been the book's ornament becomes the crack " +
+        "that splits the fellowship, and the ending arrives with terrible speed.",
+      "Caxton's <b>chapter headings</b> — his \"rubrish\", as he calls it — stand at the head of " +
+        "each chapter here, and they are worth reading as you go. They are a running summary of the " +
+        "book by the man who first printed it, they are frequently the only signpost in a long run " +
+        "of adventures, and they are occasionally very funny about it: <i>Yet of the same battle</i>, " +
+        "then <i>Yet more of the same battle</i>. They are printed in capitals because the edition " +
+        "sets them in small capitals, which carry no case to recover. Caxton also wrote the preface " +
+        "that opens this text, which is where he explains how the book came to him, why he doubted " +
+        "whether Arthur had existed, and what he thought a reader should take from it.",
+      "Two things about how it is set out here. There are <b>no footnotes</b>, because this edition " +
+        "prints none: the twenty-seven notes on the transcription these chapters come from were " +
+        "added by its own contributors, collating the printed reading against the Winchester " +
+        "manuscript found in 1934, and folding somebody's unsigned collation under a book offered " +
+        "as the 1906 Everyman would be showing you an apparatus that edition has not got. And the " +
+        "tabs across the top are Caxton's <b>twenty-one books</b>, with his chapters numbered " +
+        "inside them — so a passage is cited as book and chapter, and Book <b>X</b> is the one " +
+        "holding eighty-eight of them.",
+      "One thing to know about the man who wrote it. Malory ends the book asking the reader to pray " +
+        "for him \"while I am on live\" and again when he is dead, and he says he finished it in the " +
+        "ninth year of Edward IV — 1469 or 1470. He appears to have written most of it in prison: " +
+        "the likeliest identification is a Warwickshire knight who spent years in gaol on a long " +
+        "list of charges and was twice excluded by name from a general pardon. The book contains one " +
+        "line about sickness being \"the greatest pain a prisoner may have\" that reads very much " +
+        "like something known at first hand, and its idea of what a knight ought to be is the more " +
+        "striking for it.",
+    ],
+
+    /* ---------- ONE PAGE PER CHAPTER, GATHERED INTO CAXTON'S TWENTY-ONE BOOKS ----------
+       Herodotus's shape again, and the Confessions' at a larger scale: this wiki gives each of
+       Caxton's 503 chapters a page of its own, and a passage of Malory is cited as book and chapter
+       — "Malory VII.9" — so the BOOK is the tab and the chapter is the section. Cutting at the
+       chapter instead would put 503 tabs on the bar; cutting anywhere above the book would give the
+       whole work one tab, there being nothing above it that Caxton divides.
+
+       THE VOLUMES ARE THE PRINTING'S AND NOT THE WORK'S, and they cut a book in half, which is why
+       the page path cannot be built from the book number alone. Everyman printed the text in two
+       volumes and the break falls in the MIDDLE of Book X: Volume I ends at X.19 and Volume II opens
+       at X.20 — measured against the wiki rather than read off a contents page, since a wrong guess
+       there would return 404s for sixty-nine chapters rather than a wrong text.
+
+       AND THE CHAPTER COUNTS ARE THE EDITION'S, MEASURED TWICE. Four of the twenty-one books end one
+       chapter short of the figure usually quoted for Caxton — I at 27, IV at 28, VII at 35, IX at 43
+       — which looks exactly like four missing pages and is not. Project Gutenberg's independent
+       transcription of the same edition (ebooks 1251 and 1252) was counted book by book and agrees
+       with the wiki on every one of the twenty-one, so the total is 503 and the recollection of 507
+       was simply wrong. Count it rather than remembering it. */
+    source: "wiki",
+    chapterWord: "Book",
+    chapters: Array.from({ length: 21 }, (_, i) => i + 1),
+    page: (n) => {
+      const out = [];
+      /* Caxton's preface stands before Book I in the printed book and is fetched with it, where it
+         becomes the leading block of the first chapter — see markMaloryHeads for the marker it
+         carries and why it claims no number of its own. */
+      if (n === 1) out.push("Le Morte d'Arthur/Preface");
+      for (let c = 1; c <= MALORY_CHAPTERS[n]; c++)
+        out.push("Le Morte d'Arthur/Volume " + (n < 10 || (n === 10 && c <= 19) ? "I" : "II") +
+                 "/Book " + toRoman(n) + "/Chapter " + toRoman(c));
+      return out;
+    },
+    titleOf: (n) => "Book " + toRoman(n),
+    /* Which chapter each PAGE is supposed to carry, so the heading printed on it can be read AND
+       checked — the City of God's rule, and it earns its keep on a book addressed by arithmetic:
+       503 pages fetched under a title built out of a volume rule and two Roman numerals is 503
+       chances to file a chapter under the wrong number, and a mis-numbered page would sit in the
+       right book at the wrong place with every count still healthy. Caxton's preface returns null,
+       which is what leaves it unmarked and so at the head of Book I. */
+    pageMark: (name) => {
+      const m = /\/Chapter ([IVXLC]+)$/.exec(name);
+      return m ? romanValue(m[1]) : null;
+    },
+    sections: "malory",
+    /* Every chapter page opens on a page-number marker and closes on the blank line the printing
+       sets under a chapter; on a joined run of 88 pages the latter lands between every pair of
+       chapters, where an unnumbered block rides silently onto the end of the chapter above it. */
+    dropBlankParas: true,
+    dropHeadMarkers: true,
+    /* THE 27 NOTES ON THIS TRANSCRIPTION ARE NOT THE EDITION'S — every one of them says so in its
+       own text, being a Wikisource contributor's collation against the Winchester manuscript. See
+       the block that reads this flag for the whole argument; the short of it is that a fold of
+       unsigned manuscript variants in scribal abbreviations is not what a note fold is for, and
+       printing one under a book presented as the 1906 Everyman would be showing a reader an
+       apparatus that edition has not got. So this book renders with no note fold at all, as Ovid,
+       Lucretius, the Analects, Don Quixote and the Oedipus Rex do, and its front matter says why. */
+    dropNotes: true,
+    /* The shortest book is Book XV at six chapters and about 13,000 characters — measured over all
+       twenty-one rather than assumed. 5,000 sits well below it and far above what a failed
+       extraction returns. */
+    minChars: 5000,
+    /* WHAT THE GLOSSARY MUST NOT LINK is declared in app.js's BOOKS registry rather than here, that
+       being where `b.glossOff` is actually read at render time. See the note on that entry: the list
+       is long, it was swept against the shipped text, and the reason it is long is that in this book
+       the collision IS the subject. */
+  },
+
+  "bede-history": {
+    title: "The Ecclesiastical History of the English People",
+    author: "Bede",
+    translator: "A. M. Sellar",
+    edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
+    written: "731",
+    year: 731,
+
+    /* ---------- THE LICENCE ----------
+       Bede finished the History in 731 and died in 735, so the work itself is free everywhere on any
+       reading. The one modern layer is the translation, published in London by George Bell and Sons
+       in 1907 — read off the volume's own title page, which the transcription reproduces — so it is
+       public domain in the United States on the pre-1929 rule and anyone can check that.
+
+       WHAT CANNOT BE ESTABLISHED IS THE TRANSLATOR, and this is the Gallic War's position rather
+       than a new one. The title page gives "A. M. Sellar, Late Vice-Principal of Lady Margaret Hall,
+       Oxford" and nothing more; her own preface is unsigned; there is no Wikidata entity, no
+       Wikipedia article and no Wikisource author page for her. A life-plus-seventy term runs from a
+       death year, and no death year for her can be found, so none is asserted: the ground stated is
+       the date of publication, and the gap is named here and on the book's own first page rather
+       than rounded up. Lucretius's judgement in a third book — claim less, and put on the page what
+       cannot be said.
+
+       THE OTHER FREE ENGLISH WAS MEASURED AND THE MEASUREMENT IS WHAT DECIDED IT. Wikisource carries
+       L. C. Jane's Temple Classics edition of 1910 — John Stevens's translation of 1723 revised —
+       complete, one page per book, proofread against a scan, and pairing with the Latin exactly as
+       this one does. Its licence is the cleaner of the two: Stevens died in 1726 and Jane lived
+       1879–1932, both traceable, both with author pages. What decided against it is that its
+       transcription carries NO NOTES AT ALL — swept over all five books, zero reference marks —
+       where Sellar's carries 1,081, and Bede is a book in which almost every name needs one. Read
+       side by side the two Englishes are close relatives and neither is the Jacobean prose that
+       ruled out Golding's Ovid, Hobbes's Thucydides, Burnaby's Satyricon and I.T.'s Boethius; Sellar
+       keeps the Old English titles where Jane modernises them out ("with your ealdormen and thegns"
+       against "with your commanders and ministers") and Jane is the more literal in places. The
+       apparatus is the difference that matters, and it is worth an untraceable byline.
+
+       THE MODERN TRANSLATIONS A READER IS LIKELIEST TO BE POINTED AT are both in copyright and
+       neither may be used: Leo Sherley-Price's Penguin of 1955, revised by R. E. Latham, and Bertram
+       Colgrave and R. A. B. Mynors's Oxford Medieval Texts edition of 1969, which is the scholarly
+       standard and prints the Latin facing it. */
+    rights:
+      "Public domain. Bede finished the History in 731 and died in 735, so the work is free " +
+      "everywhere. A. M. Sellar's translation was published in London in 1907, so it is public " +
+      "domain in the United States as a pre-1929 publication. No life-plus-seventy term is claimed " +
+      "for it, because the translator's dates cannot be established: the title page gives only her " +
+      "initials and her former post at Lady Margaret Hall, Oxford, and no reference work reachable " +
+      "here records when she died. The Latin beside it is free on the age of the work; the " +
+      "transcription names Migne's Patrologia Latina 95 as its edition, but the text it carries is " +
+      "not set as Migne sets it, so no editor is asserted for that column either.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/38326",
+    url: "https://www.gutenberg.org/cache/epub/38326/pg38326-images.html",
+
+    layout: "bede",
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4, 5],
+    /* Bede's books carry no names — Sellar heads them "Book I" … "Book V" and nothing else — so the
+       title is her own heading, transcribed, which is the Meditations' rule (a title is transcribed,
+       never composed) and the form Malory and the Meditations both ship. It is NOT the Ptahhotep
+       trap: there the printed mark and the running index were different numbers, so a head read
+       "SECTION 34 / Section 32" and contradicted itself, where here Book I really is the first
+       chapter and the head reads "BOOK 1 / Book I" — one number in two notations, as on every other
+       book whose chapters are unnamed. Without it the fallback is `chapterWord + " " + n` and the
+       head prints "Book 1" twice over. */
+    titleOf: (n) => "Book " + BEDE_ROMAN[n],
+    minChars: 20000,
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      /* WHOSE LATIN THIS IS, AND WHY NO EDITOR IS NAMED. The transcription's own header states
+         "editio: Patrologia Latina, XCV" with Corpus Corporum as its source. The text it carries
+         does not read as Migne's: measured over all five books it prints consonantal v as u
+         throughout — 93 `uero` against 2 `vero`, 48 `uita` against 1 `vita`, 25 `ciuitate` against
+         none, and 31 v-spelled words in the whole work — which is the convention of the late-19th-
+         century critical editions and not of a Patrologia reprint, and sampled against the scans on
+         archive.org it matches Alfred Holder's edition of 1895 word for word. Holder (1840–1916) and
+         Plummer (1851–1927), the two editions that convention points to, are both long out of
+         copyright, as is the Migne the header names, so the licence is safe whichever it is; what
+         cannot be said is which. Stated rather than guessed — the Divine Comedy's question, answered
+         the way Lucretius's entry answers it.
+
+         AND ITS HOST RATES IT 25% PROOFREAD, which is why the pairing measurement above was the
+         thing to run rather than a glance at a page: complete, correctly divided, and correlating
+         with the English at r = 0.9987 chapter by chapter. The flag is about polish, not about
+         missing text. */
+      edition: "as transcribed at Latin Wikisource; see the book's own first page for whose text it is",
+      rights:
+        "Public domain. Bede wrote the History in Latin and finished it in 731. The transcription " +
+        "names Migne's Patrologia Latina 95 as its edition; the text it carries prints consonantal " +
+        "v as u throughout, which Migne does not, and matches Alfred Holder's edition of 1895 where " +
+        "sampled. Every edition it could be is long out of copyright, so no editor is named here.",
+      sourceName: "Latin Wikisource",
+      sourceUrl: "https://la.wikisource.org/wiki/Historia_Ecclesiastica_gentis_Anglorum",
+      wiki: "la.wikisource.org",
+      layout: "bedeLatin",
+      /* One page per book, and for Book I the Praefatio joined in front of it — both columns carry
+         Bede's letter to Ceolwulf, both leave it unnumbered, and it is where the printed page puts
+         it. `page` returns an ARRAY here, which the Book of Documents established on the translation
+         side; the branch below joins them in order. */
+      page: (n) => (n === 1
+        ? ["Historia Ecclesiastica gentis Anglorum/Praefatio",
+           "Historia Ecclesiastica gentis Anglorum/Liber Primus"]
+        : ["Historia Ecclesiastica gentis Anglorum/Liber " + BEDE_LATIN_BOOK[n]]),
+      minChars: 5000,
+    },
+
+    about: [
+      "Bede finished this book in 731, in a monastery at Jarrow on the Northumbrian coast, and it " +
+        "is the reason we know almost anything at all about the four centuries between the Romans " +
+        "leaving Britain and the Vikings arriving. He tells how the island was settled, how the " +
+        "English were converted, how they argued with each other and with the Irish about when to " +
+        "keep Easter, and how a series of kings, bishops and abbesses lived and died. Nearly every " +
+        "date in early English history is a date because Bede wrote it down.",
+      "What makes him more than a source is that he is a <b>historian</b> in a sense almost nobody " +
+        "else was for centuries either side of him. He names his informants, distinguishes what he " +
+        "has read from what he has been told, says when he does not know, and sends to Rome and to " +
+        "Canterbury for documents rather than repeating what was said locally — his preface is a " +
+        "list of who told him what, and it is the most modern-sounding page in the book. He is also " +
+        "the man who made <i>anno Domini</i> the ordinary way of counting years; before him it was " +
+        "a specialist's device, and after him it was how the West dated everything.",
+      "It is not a neutral book and does not pretend to be. Bede is writing the history of a " +
+        "church, he thinks the Irish computation of Easter is wrong, he thinks the Britons were " +
+        "culpable for not converting the invaders who took their land, and his account of the " +
+        "Synod of Whitby is a set piece rather than a report. Read it knowing that, and it is still " +
+        "the best-written history anyone produced in Latin between antiquity and the twelfth " +
+        "century, and by a long way the funniest and most humane. The story of Caedmon the cowherd " +
+        "who could not sing, the sparrow flying through the lighted hall, Cuthbert alone on his " +
+        "island — these have been quoted for thirteen hundred years because Bede told them well.",
+      "The <b>five books</b> here are the whole of the History, and Bede's own preface to King " +
+        "Ceolwulf opens the first of them, unnumbered, where the printed page puts it. The Latin " +
+        "faces the English, chapter by chapter: both editions divide the work into the same 140 " +
+        "chapters, 34, 20, 30, 32 and 24, and the two columns pair on every one of them.",
+      "Two things about this printing are worth knowing before you start. The <b>translation</b> " +
+        "is A. M. Sellar's of 1907, and its footnotes — a thousand and eighty-one of them — are why " +
+        "it was chosen over the other free English version, which carries none; Bede assumes you " +
+        "know who Ethelfrith and Paulinus and Ecgfrith were, and Sellar tells you. She translated " +
+        "from Charles Plummer's critical text and says so in her own preface. The <b>Latin</b> " +
+        "beside it is a transcription that names Migne's Patrologia as its source but does not " +
+        "print what Migne printed, so this edition cannot honestly tell you whose text it is; every " +
+        "edition it could be has been out of copyright for a century, and the words are complete " +
+        "and correctly divided, which was measured against the English before a line was imported.",
+      "What is <b>not</b> here is the short continuation of annals for the years 731 to 766 that " +
+        "the printed volumes carry after Book V. It is not Bede's — it was added by a later hand at " +
+        "his own monastery — and a tab reading Book VI over something he did not write would say " +
+        "the wrong thing. Sellar's introduction, her life of Bede and her index are likewise left " +
+        "behind, as an editor's front matter is throughout this library.",
+    ],
+  },
+
+  "marco-polo": {
+    title: "The Travels of Marco Polo",
+    author: "Marco Polo",
+    translator: "Sir Henry Yule",
+    edition: "The Book of Ser Marco Polo, third edition (1903), revised by Henri Cordier, John Murray, London",
+    written: "c. 1298",
+    year: 1298,
+
+    /* ---------- THE LICENCE ----------
+       The easiest kind, and the twelfth on this shelf to need no qualification at all. Polo dictated
+       the book to Rustichello in 1298 and both were dead by the 1320s. The one modern layer is the
+       translation: Yule published it in 1871, revised it for a second edition in 1875, and Henri
+       Cordier revised it again for the third of 1903 — so it is public domain in the United States
+       on the pre-1929 rule. Yule lived 1820–1889 and Cordier 1849–1925, both looked up rather than
+       recalled and both corroborated twice (the volume's own memoir gives Yule's dates; Wikisource's
+       author page gives Cordier's and carries a public-domain tag reading "died at least 100 years
+       ago"), so a joint work's term, which runs from the LAST of them to die, expired in 1995 under
+       life plus seventy and in 2025 under life plus a hundred. Nothing to state and no year to name.
+
+       THE MODERN TRANSLATIONS a reader is likeliest to be pointed at are all in copyright and none
+       may be used: Ronald Latham's Penguin of 1958, Nigel Cliff's of 2015 and Sharon Kinoshita's of
+       2016. */
+    rights:
+      "Public domain. Marco Polo dictated the book to Rustichello da Pisa in a Genoese prison in " +
+      "1298 and both men were dead within thirty years. Henry Yule's translation was published in " +
+      "London in 1871 and revised by Henri Cordier for the third edition of 1903, so it is public " +
+      "domain in the United States as a pre-1929 publication; Yule died in 1889 and Cordier in " +
+      "1925, so the term of a joint work — which runs from the last surviving author — expired in " +
+      "1995 where copyright lasts for life plus seventy and in 2025 where it lasts for life plus a " +
+      "hundred. There is nothing left to qualify.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/10636",
+    /* the 1903 edition is two volumes and they are two files; see the block above extractPolo */
+    urls: [
+      "https://www.gutenberg.org/cache/epub/10636/pg10636-images.html",
+      "https://www.gutenberg.org/cache/epub/12410/pg12410-images.html",
+    ],
+    layout: "polo",
+    chapterWord: "Chapter",
+    chapters: (() => { const a = []; for (let i = 1; i <= 235; i++) a.push(i); return a; })(),
+    count: 235,
+    total: 235,
+    /* Book Fourth's abridged chapters are as short as 62 characters, and they are complete at that
+       length — Yule's gist of a battle chapter he declined to print in full. Aesop's per-book floor,
+       set from the shortest thing the edition actually carries. */
+    minChars: 50,
+    parts: POLO_PARTS,
+
+    about: [
+      "This is the book that told medieval Europe there was a world at the other end of Asia. " +
+        "Marco Polo left Venice as a boy of seventeen, spent seventeen years in the service of " +
+        "Kublai Khan, and came home in 1295 with stories nobody believed. Three years later he was " +
+        "a prisoner of war in Genoa, sharing a cell with a writer of Arthurian romances called " +
+        "Rustichello of Pisa, and between them they made this — part travel narrative, part " +
+        "merchant's handbook, part description of the greatest empire on earth by the only " +
+        "European who had served in it.",
+
+      "The translation is Sir Henry Yule's, in the third edition of 1903 as revised by Henri " +
+        "Cordier, and it is famous less for the English than for what surrounds it. Two thirds of " +
+        "what follows is Yule's commentary: 776 substantial notes identifying the places Polo " +
+        "names, weighing what he says against Chinese, Persian and Arabic sources, and arguing " +
+        "with him where he is wrong. It is the edition scholars still cite, and reading Polo " +
+        "without it is reading half the book.",
+
+      "<b>There is no facing original here, and the reason is that this English is not a " +
+        "translation of any one text.</b> Yule explains his method in his own introduction: he " +
+        "translated first from Pauthier's French manuscripts, then compared that against the older " +
+        "Franco-Italian text and transferred into it everything of substance that Pauthier had " +
+        "left out, and finally added between square brackets everything peculiar to Ramusio's " +
+        "Italian version that he judged authentic. Three traditions, in one column. Set a single " +
+        "manuscript beside it and a reader would meet passages on the left that are simply absent " +
+        "from the right, with nothing on the page to say why. The brackets are the clue: where you " +
+        "see one in the text, you are reading Ramusio.",
+
+      "The division into chapters is Yule's own for the same reason. He states in his introduction " +
+        "that the oldest Franco-Italian text runs to 232 chapters, Pauthier's to 200 and the " +
+        "Italian Crusca manuscript to 183; his own runs to 235, in a prologue and four books, and " +
+        "he cites the older text by the page of its 1824 printing rather than by any chapter " +
+        "number. So the two do not merely differ — neither states the other's numbering, which is " +
+        "what a facing page here would have to rest on. A reader who wants the Franco-Italian can " +
+        "have it: Mario Eusebi's edition of the oldest manuscript is published by Edizioni Ca' " +
+        "Foscari in Venice, freely and under a Creative Commons licence.",
+
+      "Two more of the edition's own marks are worth knowing before you start. Cordier signs his " +
+        "additions to Yule's notes <i>—H. C.</i>, and 348 of the 788 notes here carry one, so " +
+        "where a note " +
+        "changes its mind about something you are usually watching thirty years pass between two " +
+        "scholars. And Book Fourth, which is Polo's account of the wars among the Tartar princes, " +
+        "is only half translated: Yule thought a good many of its chapters \"the merest verbiage " +
+        "and repetition of narrative formulæ\", and gave the gist of those instead, marking each " +
+        "one ⚜. Seventeen chapters carry that mark. He says so himself at the head of the book, " +
+        "and names the editions where they can be read in full.",
+
+      "What is not here is everything that stands around the translation. Yule's memoir, his three " +
+        "prefaces, his 130-page introduction on Polo's life and the manuscripts, his bibliography, " +
+        "the appendices, the index and the engraved plates are all left behind, as an editor's " +
+        "front matter is throughout this library — and with them Cordier's <i>Ser Marco Polo: " +
+        "Notes and Addenda</i> of 1920, which is a separate volume published seventeen years later " +
+        "and is his book rather than this one.",
+    ],
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -8935,6 +10122,124 @@ function markArticuli(b, warn) {
    edition rather than a detail of one page, and how often one occurs is what says whether a rule is
    describing the book or guessing at it. */
 let ARTICULI_FOUND = 0, ARTICULI_NODASH = 0, ARTICULI_UNNUM = 0, ARTICULI_DUP = 0, ARTICULI_COUNTED = 0;
+/* What sanKuoHead found, reported at the end of a run: how many chapters gave up a title, how many
+   were headed in this printing's own hundred-less-n numerals, and how many volume half-titles were
+   lifted out. Counted rather than trusted, for the reason every count in this file is — a rule that
+   quietly stops firing looks exactly like a rule that had nothing to do. */
+let SANKUO = { titled: 0, odd: 0, half: 0 };
+
+/* ---------- THE ELEVENTH WAY AN EDITION MARKS ITS NUMBERS, and the first whose number and TITLE are
+   two separate elements printed one under the other (Aug 2026, adding Le Morte d'Arthur).
+
+   Every chapter page of this transcription is set the same way, three heading blocks and then the
+   prose: a `wst-heading` reading "Book I", a `wst-subheading` reading "Chapter I", and a
+   `wst-subsubheading` carrying Caxton's own descriptive rubric for that chapter — HOW UTHER PENDRAGON
+   SENT FOR THE DUKE OF CORNWALL AND IGRAINE HIS WIFE, AND OF THEIR DEPARTING SUDDENLY AGAIN. All three
+   have to be dealt with before the generic div pass turns them into blockquotes, which is why this
+   sits at the pre-strip hook beside markLikiHeads and markArticuli rather than with the section passes
+   at the foot of cleanBody. Four things it settled are worth carrying.
+
+   · THE BOOK HEADING IS DROPPED AND THE RUBRIC IS KEPT, which is dropFittHead's rule applied in both
+     directions at once. "Book I" duplicates the tab the reader is already standing on and appears only
+     on the first chapter of each book, so it goes; the rubric is Caxton's, is printed nowhere else, and
+     on a run of eighty-eight chapters of knights riding out it is the only thing telling one from the
+     next. Ask what ELSE is on a heading before dropping it — the Ramayana's finding, and here the
+     answer arrives as a separate element rather than as words beside the number.
+
+   · A DROPPED HEADING MAY CARRY A FOOTNOTE MARKER, so any marker on the book heading is carried down
+     rather than deleted with the line. Beowulf's rule in a sixth edition; it costs four lines and the
+     alternative is a note in the fold that no sentence opens.
+
+   · THE NUMBER IS READ AND THEN CHECKED, never composed from the page name. The page NAME states the
+     chapter and so does the heading printed on it, and comparing the two costs nothing and reports a
+     page renamed at the source or a heading mistyped instead of filing a chapter under the number next
+     to it. The City of God's rule, and it earns more here than there: 503 pages are fetched under a
+     title built out of a volume rule and two Roman numerals, and a mis-numbered one would sit in the
+     right book at the wrong place with every count in the run still reading healthy.
+
+   · AND CAXTON'S PREFACE IS LEFT UNMARKED ON PURPOSE. It is fetched as the first page of Book I and
+     carries no chapter of its own, so `pageMark` returns null and nothing here fires: it arrives as the
+     chapter's leading unnumbered block, which is where the printed book puts it and where app.js files
+     a headnote. Writing a "0" over it would be composing a citation the edition has not got — nobody
+     cites Caxton's preface as Malory I.0 — where an unnumbered block claims nothing at all.
+
+   THE RUBRIC SHIPS IN THE CAPITALS THE PAGE SETS IT IN, and that is a decision rather than a default;
+   see the entry for `morte-darthur` in BOOKS for the measurement behind it. */
+const MALORY_HEAD =
+  /<div class="wst-heading"[^>]*>\s*<p>\s*Book\s+([IVXLC]+)\s*<\/p>\s*<\/div>/;
+const MALORY_SUB =
+  /<div class="wst-subheading"[^>]*>\s*<p>\s*Chapter\s+([IVXLC]+)\s*<\/p>\s*<\/div>/;
+/* THE RUBRIC WEARS A SECOND TEMPLATE ON ONE PAGE IN 503, which is Beowulf's finding on a different
+   wiki: there one leaf of eighty-five set its line numbers with `ppoem` instead of `wst-pline`, and
+   here Book XX chapter 16 sets its rubric as a centred block at 69% rather than as a
+   `wst-subsubheading`. It is a transcriber's choice on one page and nothing on the page says so. The
+   cost of missing it is not a missing title but a VISIBLE one: the block survives the generic div
+   pass as a blockquote and the chapter opens on an indented shout. Both shapes are tried, in order,
+   and the odd one is counted — see MALORY.odd — so a rule that starts firing more often, or stops,
+   cannot do it quietly. The proximity test below is what keeps the looser shape safe: it is taken
+   only where it stands immediately after the chapter number. */
+const MALORY_RUBRIC = [
+  /<div class="wst-subsubheading"[^>]*>\s*<p>([\s\S]*?)<\/p>\s*<\/div>/,
+  /<div class="wst-center[^"]*"[^>]*>\s*<p>\s*(?:<span[^>]*>)?([\s\S]*?)(?:<\/span>)?\s*<\/p>\s*<\/div>/,
+];
+let MALORY = { chapters: 0, books: 0, rubrics: 0, odd: 0, notesOnHeads: 0 };
+/* How many notes `dropNotes` took, counted rather than assumed inert — see the block that sets it. */
+let DROPPED_NOTES = 0;
+function markMaloryHeads(b, book, warn) {
+  const expect = book.expect;
+  const plain = (s) =>
+    s.replace(/<br\s*\/?>/g, " ").replace(/<[^>]*>/g, "")
+      .replace(/&#160;|&nbsp;|&#32;|​/g, " ").replace(/\s+/g, " ").trim();
+
+  /* The book half-title, on the first chapter of each book only. Its markers are carried rather than
+     deleted with it — Beowulf's rule — and are planted at the head of whatever survives. */
+  const carried = [];
+  b = b.replace(MALORY_HEAD, (whole, r) => {
+    const v = romanValue(r);
+    if (v !== book.bookNum)
+      warn && warn("the page for Book " + book.bookNum + " chapter " + expect +
+        " is headed “Book " + r + "” — left as printed");
+    const fn = whole.match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || [];
+    if (fn.length) { carried.push(...fn); MALORY.notesOnHeads += fn.length; }
+    MALORY.books++;
+    return "";
+  });
+
+  /* The chapter number and the rubric under it, replaced by ONE line carrying both. The rubric is
+     matched only where it follows the number, so a `wst-subsubheading` used for anything else on a
+     page with no chapter of its own cannot be swallowed as a title. */
+  const m = MALORY_SUB.exec(b);
+  if (!m) {
+    if (expect != null)
+      warn && warn("no chapter heading found on the page for chapter " + expect +
+        " — its text will fold into the chapter above it");
+    if (carried.length) b = b.replace(/(<p[^>]*>)/, "$1" + carried.join(""));
+    return b;
+  }
+  const v = romanValue(m[1]);
+  if (expect != null && v !== expect)
+    warn && warn("the page for chapter " + expect + " is headed “Chapter " + m[1] + "” — left as printed");
+  const after = b.slice(m.index + m[0].length);
+  /* The rubric must be the very next block, or it belongs to something else; 400 characters is the
+     whole of the link element and the deduplicated style tag MediaWiki writes between them. */
+  let r = null, shape = 0;
+  for (let k = 0; k < MALORY_RUBRIC.length && !r; k++) {
+    const hit = MALORY_RUBRIC[k].exec(after);
+    if (hit && hit.index < 400) { r = hit; shape = k; }
+  }
+  let rubric = "", cut = 0;
+  if (r) {
+    rubric = plain(r[1]);
+    cut = r.index + r[0].length;
+    if (rubric) { MALORY.rubrics++; if (shape) MALORY.odd++; }
+  } else warn && warn("chapter " + v + " has no rubric printed over it");
+  MALORY.chapters++;
+  const fnHere = ((m[0] + (r ? r[0] : "")).match(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g) || []);
+  if (fnHere.length) MALORY.notesOnHeads += fnHere.length;
+  const head = "<p><span class=\"bk-n\">" + v + "</span>" +
+    (rubric ? "<b>" + rubric + "</b>" : "") + carried.join("") + fnHere.join("") + "</p>";
+  return b.slice(0, m.index) + head + after.slice(cut);
+}
 
 const LIKI_MARK = "@@LKH@@";
 const LIKI_HEAD_RX = /^(?:Section\b|Part\b|Supplementary Section\b|Appendix to Book\b)/i;
@@ -9609,6 +10914,10 @@ function cleanBody(h, noteIds, book, warn) {
      h2/h3/h4 inside them — see markArticuli, which is the whole reason this hook has two occupants.
      Gated per book, so it is provably inert on the thirty-six already shipped. */
   if (book && book.sections === "articuli") b = markArticuli(b, warn || (() => {}));
+  /* Before the three heading divs become blockquotes and the class this keys on is gone — see
+     markMaloryHeads, which reads the chapter number off one of them and Caxton's rubric off another.
+     Gated per book, so it is provably inert on the forty-five already shipped. */
+  if (book && book.sections === "malory") b = markMaloryHeads(b, book, warn || (() => {}));
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
   b = stripTags(b);
@@ -11493,6 +12802,168 @@ function extractSukta(h, where, warn) {
    the reader is describing the book or guessing at it. */
 const SUKTA_KIND = {};
 
+
+/* ---------- THE RAMAYANA'S SANSKRIT ----------
+   One page per sarga on sa.wikisource, the verse in a `div.poem` with the lines separated by breaks —
+   the Rigveda's shape and the Gita's, on the same wiki. Three things differ, and each was found by
+   measurement rather than met as a fault.
+
+   THE PAGE STATES ITS OWN CITATION AND IT IS CHECKED. Every sarga opens on a line of the form
+   श्रीमद्वाल्मीकीयरामायणे बालकाण्डे प्रथमः सर्गः ॥१-१॥ — the kanda and the sarga, in a numeral pair
+   this reader compares against the page it asked for. That is the City of God's rule, and it is worth
+   more here than there: 645 pages fetched by a name built out of arithmetic is 645 chances to file a
+   sarga under the wrong number, and a mis-numbered page would pair a passage with the wrong canto
+   while every count stayed healthy. The header line is then DROPPED, being the page's own furniture
+   rather than Válmíki's verse. One page in the six books states its header wrongly (Sundara 61 prints
+   ॥५-२॥); it is reported and the page's own name is kept, which is the forward-only guard's judgement
+   in another coat.
+
+   THE VERSE NUMERAL WEARS TWO COSTUMES AND ONLY ONE BOOK USES THE FIRST. Bála Káṇḍa prints the whole
+   citation at each verse — ॥१-१-९॥, kanda-sarga-verse — and the other five print the verse alone,
+   ॥ ९॥. Measured over all 534 sargas of the six books before the rule was written. Both are KEPT as
+   printed: Griffith numbers no verses, so these pair with nothing and are not markers, but they are
+   how a passage of the Sanskrit is cited and dropping them would take that away for nothing.
+
+   AND THE PAGE CARRIES A GREAT DEAL THAT IS NOT THE POEM: a navigation table at each end, a sidebar
+   listing every sarga of the kanda (which on a 128-sarga book is longer than the verse), and on many
+   pages a recitation. All of it sits outside `div.poem`, so taking the poem blocks and nothing else
+   leaves it behind — which is why this reads the blocks rather than cleaning the page. */
+/* Counted across the run and reported at the end; see the note inside. */
+const RAM_SA_KIND = {};
+let RAM_SA_NOHEAD = 0, RAM_SA_INDEX = 0, RAM_SA_ESCAPED = 0;
+function ramSanskrit(h, where, expect, warn) {
+  let b = stripWikiCSS(h).replace(/<!--[\s\S]*?-->/g, "");
+  b = b.replace(/<figure[\s\S]*?<\/figure>/g, "");
+  /* THE स्रोतः SECTION GOES BEFORE ANYTHING IS GATHERED, and it has to be done here rather than
+     inside one shape's branch. These pages close with a heading and a paragraph crediting the
+     reciters of the recorded audio — prose on the page, and not Válmíki — and on the `div.verse`
+     pages the wiki leaves that container OPEN across it, so `blockEnd` walks past the heading and
+     the credit lands inside the verse. It cost 74 sargas a line of modern Sanskrit prose apiece,
+     with nothing throwing and every count healthy; the shipped-file sweep in test-library.js is what
+     found it. Cutting at the first section heading is safe by construction: if it ever removed the
+     verse as well, no block would be gathered and the page would throw. */
+  const head = b.search(/<div[^>]*class="[^"]*\bmw-heading\b/);
+  if (head > 0) b = b.slice(0, head);
+  /* A collapsible commentary, where a page carries one — the Rigveda's Sayana problem, which this
+     text mostly does not have. Dropped rather than lifted, and counted, for the reason recorded there:
+     a commentary in the original's own language is another text, not a note on this one. */
+  let dropped = 0;
+  for (let k = 0; k < 40; k++) {
+    const m = /<div[^>]*class="[^"]*\bmw-collapsible\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn(where + ": an unbalanced commentary block was left in place"); break; }
+    b = b.slice(0, m.index) + b.slice(end);
+    dropped++;
+  }
+  /* THE TRANSCRIPTION USES MORE THAN ONE CONTAINER, which is the Rigveda's finding on the same wiki
+     and was met here the loud way: the first run threw on Ayodhyá 48, whose verse is a
+     `<div class="verse"><pre>` where the pages around it are a `<div class="poem">`. Both are swept,
+     and so is the `ws-poem` a proofread transclusion renders as, and a bare `<pre>`; which shape each
+     page used is COUNTED and reported at the end of the run, because how often each occurs is what
+     says whether this reader is describing the book or guessing at it. A page matching none of them
+     throws rather than coming back empty — a shape nobody has met must announce itself. */
+  const blocks = [];
+  const kinds = [];
+  for (const [name, open] of [["poem", '<div class="poem"'], ["verse", '<div class="verse"'],
+                              ["ws-poem", '<div class="ws-poem']]) {
+    let i = 0, found = 0;
+    for (;;) {
+      const j = b.indexOf(open, i);
+      if (j < 0) break;
+      /* AN UNCLOSED CONTAINER IS TAKEN TO THE END OF WHAT IS LEFT, which is safe only because the
+         स्रोतः section has already been cut away above. The wiki leaves `div.verse` open on a great
+         many of these pages — 290 of the 490 use that shape and the container simply never closes —
+         so refusing it would throw on most of the book, and taking it to the end of the raw page
+         would swallow the reciter credit. Between the two, the cut comes first and this takes what
+         remains. */
+      const stop = blockEnd(b, j, "div");
+      blocks.push(b.slice(j, stop < 0 ? b.length : stop));
+      if (stop < 0) { i = b.length; found++; break; }
+      i = stop; found++;
+    }
+    if (found) kinds.push(name);
+  }
+  if (!blocks.length) {
+    /* A bare <pre> with no wrapper. Taken only when nothing else matched, so it can never swallow a
+       page's furniture. */
+    for (const m of b.matchAll(/<pre>[\s\S]*?<\/pre>/g)) blocks.push(m[0]);
+    if (blocks.length) kinds.push("bare-pre");
+  }
+  if (!blocks.length) {
+    /* NO CONTAINER AT ALL — the verse typed straight into the page as `<p>` blocks with breaks
+       between the half-lines, which is the shape the Rigveda's Purusha hymn uses on this same wiki.
+       It is the loosest of the four and is therefore the narrowest: the page is first cut at its first
+       section heading, because these pages close with a स्रोतः section crediting the reciters of the
+       audio and that is not Válmíki; the tables are dropped, being navigation; and of what is left
+       only a paragraph CARRYING A DAṆḌA is taken. Every verse block ends on its ॥N॥ and no piece of
+       furniture on these pages contains one, so the test is what separates the poem from the page it
+       is printed on rather than a guess about position. The स्रोतः section has already gone. */
+    let c = b.replace(/<table[\s\S]*?<\/table>/g, "");
+    for (const m of c.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)) if (m[1].includes("॥")) blocks.push(m[0]);
+    if (blocks.length) kinds.push("bare-p");
+  }
+  if (!blocks.length) throw new Error(where + ": no verse on the page");
+  RAM_SA_KIND[kinds.join("+")] = (RAM_SA_KIND[kinds.join("+")] || 0) + 1;
+
+  const lines = blocks.join("\n")
+    .replace(/<\/p>|<br\s*\/?>/g, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&#8203;/g, "")
+    .replace(/&amp;/g, "&")
+    .split("\n")
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  /* The citation header, read and checked before it goes. It is the first line that names the work
+     and closes on a kanda-sarga pair; anything before it is furniture that leaked into the block. */
+  const kept = [];
+  let checked = false;
+  for (const line of lines) {
+    if (!checked) {
+      /* The trailing `[\s'"]*` is not decoration: two pages wrap the header in the wiki's own bold
+         markup and the apostrophes did not render, so the line ends `॥३-१५॥'''` and a pattern
+         anchored to the numeral alone leaves the whole header standing at the head of the verse. */
+      const m = /रामायणे[\s\S]*?॥\s*([०-९]+)\s*-\s*([०-९]+)\s*॥[\s'"]*$/.exec(line);
+      if (m) {
+        checked = true;
+        const k = devNum(m[1]), s = devNum(m[2]);
+        if (k !== expect.k || s !== expect.s)
+          warn(where + ": the page states " + k + "." + s + " where its name says " +
+               expect.k + "." + expect.s + " — the page's own name is kept");
+        continue;
+      }
+      /* A header with no numeral pair still names the work, and still is not verse. */
+      if (/रामायणे/.test(line) && /सर्गः\s*$/.test(line)) { checked = true; continue; }
+    }
+    /* ONE PAGE'S INDEX OF SARGAS LEAKED INTO ITS VERSE, and one line of it looks like nothing else
+       in the poem: a bare `*सर्गः N`, the wiki's own list of the kanda's sargas, which on that page
+       sits inside the verse container. Dropped on the shape rather than by page number, and counted,
+       so a second occurrence cannot arrive unnoticed. */
+    if (/^\*?\s*सर्गः\s*[०-९]+\s*$/.test(line)) { RAM_SA_INDEX++; continue; }
+    /* AN ESCAPED TAG IS THE TRANSCRIPTION'S OWN SLIP, not markup: three pages carry a literal
+       &lt;/poem&gt; where the editor typed the tag instead of using it. Removed from the line rather
+       than the line from the verse — there are words either side of it on one of the three. */
+    const clean = line.replace(/&lt;\/?(?:poem|div|pre)&gt;/g, "").replace(/\s+/g, " ").trim();
+    if (clean !== line) RAM_SA_ESCAPED++;
+    if (!clean) continue;
+    kept.push(clean);
+  }
+  /* A PAGE MAY HONESTLY CARRY NO OPENING HEADER, and most do not: 290 of the 490 open straight on
+     the verse and close on the traditional colophon instead. So this is COUNTED rather than warned
+     per page — a warning that fires on three pages in five is one nobody reads. What the count is
+     for is the same thing the check is: if it moves, the transcription has changed shape. */
+  if (!checked) RAM_SA_NOHEAD++;
+  if (!kept.length) throw new Error(where + ": the page held a header and no verse");
+  return {
+    html: "<p>" + kept.join("<br>") + "</p>",
+    lines: kept.length,
+    verses: (kept.join("\n").match(/॥[^॥\n]{0,20}॥/g) || []).length,
+    dropped: dropped,
+  };
+}
+
 /* ---------- THE RIGVEDA'S SANSKRIT ----------
    The samhita as sa.wikisource carries it: one page per hymn, the verse in a `div.poem` with the
    lines separated by breaks and each verse closing on its own Devanagari numeral, ॥N॥ — the Bhagavad
@@ -13212,6 +14683,62 @@ function originalChapter(h, O, warn) {
       if (end > 0) b = b.slice(0, m.index) + b.slice(end);
       else warn("the page's header block is unbalanced and was left in place");
     }
+    /* THE SAME FURNITURE IN OTHER COSTUMES (Aug 2026, adding Romance of the Three Kingdoms). Journey
+       to the West's chapters carry their navigation as a div with an id, which the rule above takes;
+       this book, on the very same wiki, carries it as TABLES — one pair at the head and one pair at
+       the foot — and, on the chapters that happen to transclude the licence template, a
+       public-domain banner under those. None of it is the novel, and left alone none of it throws:
+       every chapter simply opens on a quotation of its own bibliographic header, closes on
+       "◀上一回 下一回▶ 三國演義", and on some chapters ends with a sentence in Chinese about the
+       author having been dead a hundred years followed by the words "Public domain" twice. The
+       chapter is LONGER rather than shorter, so every count reads as healthy — this file's usual
+       quiet shape.
+
+       The banner and the wiki's own "back to top" link are taken by the CLASS each carries, which is
+       the spirit of cleanBody's `ws-noexport` rule: the page says what they are and the rule does not
+       have to guess at their wording. Scoped to DIVs, because `noprint` also sits on a span inside
+       the running text that holds nothing but a space. Balanced, because each nests. */
+    /* AND A WRAPPER ROUND THE BODY, on the chapters that happen to carry one. The generic pass below
+       turns every div into a blockquote, so a container holding the whole chapter becomes a quotation
+       OF the whole chapter — the fault cleanBody records for the transclusion wrapper, met here on a
+       page that has no transclusion wrapper at all. Only its opening tag goes; stripTags' stack
+       discards the closer whose opener it never saw, which is what that stack is for. It is dropped
+       GLOBALLY rather than at the head, because the transcription is not consistent about it: of the
+       chapters sampled, one carries the wrapper and the rest do not, so a rule anchored to the start
+       would leave a stray quotation on however many of the hundred and twenty do. Measured on the one
+       original already on this path: `div class="prose"` occurs there zero times. */
+    b = b.replace(/<div class="prose"[^>]*>/g, "");
+    for (const cls of ["licenseContainer", "noprint"]) {
+      for (let k = 0; k < 8; k++) {
+        const m2 = new RegExp('<div [^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+        if (!m2) break;
+        const end = blockEnd(b, m2.index, "div");
+        if (end < 0) break;
+        b = b.slice(0, m2.index) + b.slice(end);
+      }
+    }
+  }
+  /* THE TABLES, WHICH ON THIS TRANSCRIPTION ARE ENTIRELY NAVIGATION (Aug 2026, same book). The pair
+     at the head is classed `ws-header` and could be taken by that; the pair at the foot carries no
+     class at all, only an inline style, so there is nothing on the page to key on. What can be
+     stated instead is a fact about the SOURCE, measured over the whole of it rather than assumed:
+     these chapters contain no tabular matter whatever — it is a Ming novel — so every table on the
+     page is furniture. Gated per book, so it is provably inert on the two originals already on this
+     path, and it REPORTS any table it removes that was carrying prose rather than links, because a
+     rule that begins eating text must not be able to do it quietly. */
+  if (O && O.dropTables) {
+    for (let k = 0; k < 40; k++) {
+      const m3 = /<table\b[^>]*>/.exec(b);
+      if (!m3) break;
+      const end = blockEnd(b, m3.index, "table");
+      if (end < 0) break;
+      const inner = b.slice(m3.index, end);
+      const prose = inner.replace(/<a\b[^>]*>[\s\S]*?<\/a>/g, "").replace(/<[^>]*>/g, "")
+        .replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, "").trim();
+      if (prose.length > 40) warn("a table carrying " + prose.length + " characters of text was removed: " +
+        JSON.stringify(prose.slice(0, 60)));
+      b = b.slice(0, m3.index) + b.slice(end);
+    }
   }
   b = b.split(/<div class="reflist|<ol class="references"|<div class="mw-heading[^"]*"><h2/)[0];
   b = b.replace(/<div class="prp-pages-output"[^>]*>/g, "");
@@ -14544,6 +16071,1478 @@ function betaGreek(s) {
   return out;
 }
 
+
+/* ============================================================
+   THE RAMAYANA — a TEI edition that is not Perseus's, and a translation that numbers around its gaps
+   ============================================================
+   The sixth TEI reader, and the first whose file did not come from Perseus. Every earlier one reads a
+   CTS-encoded edition where the citation is an attribute — `<div subtype="chapter" n="17">`, or a
+   milestone carrying `n` — and this file has none: 571 `<div>`s, not one with a `type` or an `n`, and
+   the structure carried entirely by nesting and `<head>`. What it has instead is an ANCHOR at the head
+   of every canto, `<anchor id="CantoVI-CXXX"/>`, which is the citation in the shape the reader wants
+   it and is machine-readable — so the divisions are ignored and the poem is cut at the anchors.
+
+   THE ANCHORS ARE READ AND THEN CHECKED, which is the City of God's rule on a new kind of marker: the
+   `<head>` beside each one prints the same numeral in words ("Canto CXXX. The Consecration."), so the
+   two are compared and a disagreement is reported rather than filed under whichever was read first.
+
+   ---- WHY THE CANTO NUMBERS CAN BE TRUSTED AS A PAIRING KEY, WHICH IS THE WHOLE QUESTION HERE ----
+   Griffith translated 493 cantos of a work whose Sanskrit here runs to 645, so the obvious worry is
+   that he renumbered what he kept — in which case his canto 60 would be his sixtieth canto and not the
+   sixtieth sarga, and pairing on the number would set passage beside unrelated passage with both
+   columns complete and every count reading healthy. That is the Rigveda's Valakhilya trap, and it is
+   the one failure a book of this shape can have that nothing downstream would catch.
+
+   HIS OWN GAPS ARE THE ANSWER. A translator numbering his own cantos produces an unbroken 1..N;
+   Griffith's Book VI runs 1..130 with twenty-nine numbers missing, his Book I skips 37 and 38, his
+   Book V skips eleven. A man who numbers around what he has left out is numbering to something
+   outside himself, and the only thing outside himself is the sarga numbering of the text he is
+   translating.
+
+   MEASURED, NOT ARGUED. The Sanskrit's verse-count per sarga against Griffith's line-count per canto,
+   correlated at every offset from −2 to +2, over all six books: offset 0 wins everywhere, r = 0.63 to
+   0.71 against 0.40 at best for any other offset, and by thirds of a book the right offset scores 0.83
+   to 0.996. Four unmistakable episodes land exactly — Kumbhakarṇa dies in sarga 67 and in canto 67,
+   Narántaka in 69 and 69, Atikáya in 71 and 71, Rávaṇ in 110 and 110.
+
+   TWO BOOKS SHIFT LATE AND BOTH SHIFTS ARE THE EDITIONS DIVIDING THE SAME WORDS DIFFERENTLY, which is
+   what the `shift` field in RAM_BOOKS records; see the comments there for the passages each was
+   verified on. What is worth carrying is the one it does NOT record: Book V's totals differ too — 66
+   cantos against 68 sargas — and a shift fitted to that difference is WRONG. Griffith's 57 is the leap
+   home and so is sarga 57, his 65 opens on Mount Prasravana and so does sarga 65; he simply stops two
+   sargas short of the end, as he stops in the middle elsewhere. **A difference in the totals is not
+   evidence of a difference in the division.** Fitting one there would have mispaired the whole tail of
+   the book, and only reading the passages showed it.
+
+   ---- NO SECTION MARKER IS WRITTEN, ON EITHER SIDE ----
+   Griffith numbers no verses: 53,203 `<l>` elements in the file and not one with an `n`. So the canto
+   is both the chapter and the row, and the Satyricon's rule applies — neither column carries a `bk-n`,
+   so each comes back as a single unnumbered block and `bookRows` pairs them deterministically. The
+   Sanskrit's own ॥N॥ numerals are KEPT as printed text, since that is how a passage of it is cited and
+   they cost the pairing nothing, but they are text and not markers.
+
+   ---- THE HEAD IS DROPPED AND ITS FOOTNOTES ARE NOT ----
+   Each canto opens on its own title, which is the tab, so the head goes — and NINE of the 493 hang a
+   footnote off that title. Beowulf's `dropFittHead` rule in a sixth edition: the markers are carried
+   down to the first block rather than deleted with the line, or those nine notes would sit in the fold
+   with no sentence opening them, which `test-library.js` asserts against. The notes are lifted before
+   the head is found, so the numbering is in reading order and the head's note is note 1 where it
+   exists. */
+function extractRamayan(xml, warn) {
+  /* The poem STOPS at the appendix, and the last canto is the reason this is not left to the next
+     anchor: Griffith closes with an appendix, fifty-seven pages of additional notes and an index, and
+     canto CXXX would otherwise swallow all of it. The appendix is also where the file's Latin and
+     Italian live — Gorresio's text of the passages Griffith would not English — which is matter around
+     the book rather than the book, and is left behind as the Republic's introduction and plates were. */
+  const stop = xml.indexOf("<head>APPENDIX.</head>");
+  if (stop < 0) warn("no APPENDIX head found — the last canto may have swallowed the back matter");
+  const body = stop > 0 ? xml.slice(0, stop) : xml;
+
+  const rx = /<anchor id="Canto([IVXLCDM]+)-([IVXLCDM]+)"\s*\/>/g;
+  const hits = [];
+  let m;
+  while ((m = rx.exec(body))) {
+    const b = romanValue(m[1]), c = romanValue(m[2]);
+    if (!b || !c) { warn("unreadable canto anchor " + m[0]); continue; }
+    hits.push({ b: b, c: c, i: m.index });
+  }
+  const out = {};
+  const counts = { notes: 0, lines: 0, stanzas: 0, paras: 0, headNotes: 0, mismatch: 0, named: 0 };
+  for (let k = 0; k < hits.length; k++) {
+    const h = hits[k];
+    const raw = body.slice(h.i, k + 1 < hits.length ? hits[k + 1].i : body.length);
+    const notes = [];
+    /* Lifted over the WHOLE slice, head included, so the numbering follows the printed page. */
+    let t = raw.replace(/<note\b[^>]*>([\s\S]*?)<\/note>/g, (whole, inner) => {
+      const x = teiInline(inner);
+      if (!x) return "";
+      notes.push(x);
+      return '<sup class="fn" data-fn="' + notes.length + '"></sup>';
+    });
+    /* EVERY head is dropped and every marker one carries is kept — Beowulf's `dropFittHead` rule,
+       which bites TWICE here rather than once. The canto's own head duplicates the tab and goes,
+       checked against the anchor first. And where a BOOK ends, the edition sets its successor's
+       half-title inside the last canto's own run — "BOOK V." with Griffith's headnote hanging off it
+       — which no block sweep would ever gather, so that note reached the fold with no sentence
+       opening it. Two of the poem's 1,023 notes are that shape (4.67 and 5.66, the last cantos of
+       Books IV and V), and NOTHING but an every-note-is-referenced check can see them: the canto is
+       complete, the note is correct, and it simply sits in a list nothing points at.
+       A carried marker goes to the block nearest it in reading order — a canto head precedes the
+       verse and opens it, a book half-title follows the verse and closes it — rather than all of
+       them to the top, which would print a note about Book V above the first line of canto 4.67. */
+    let carriedTop = "", carriedEnd = "", name = "";
+    const firstBlock = t.search(/<lg\b|<p\b|<ab\b/);
+    let seenHead = false;
+    t = t.replace(/<head>([\s\S]*?)<\/head>/g, (whole, inner, at) => {
+      if (!seenHead) {
+        seenHead = true;
+        const words = inner.replace(/<sup class="fn"[^>]*><\/sup>/g, "").replace(/<[^>]*>/g, "")
+          .replace(/\s+/g, " ").trim();
+        const said = /^Canto\s+([IVXLCDM]+)\b/.exec(words);
+        if (!said) warn(h.b + "." + h.c + ": the head does not open on a canto number — " + JSON.stringify(words.slice(0, 50)));
+        else if (romanValue(said[1]) !== h.c) {
+          counts.mismatch++;
+          warn(h.b + "." + h.c + ": the anchor and the printed head disagree — head says " + said[1]);
+        }
+        /* THE NAME IS THE HALF OF THE HEAD THAT IS NOT THE NUMBER, and it is worth keeping: this book
+           has 493 tabs and the citation alone says nothing about what is in one. Griffith names every
+           canto — all 493, median fifteen characters, longest twenty-seven — so the tab reads
+           "1.1 · Nárad" and the poem can be navigated by eye. Dropping the whole head threw those
+           away, which was found by LOOKING at the chapter bar rather than by any count. The case is
+           the edition's own (it sets "The Meeting With The Queens") and is kept, which is Aesop's
+           rule: a printed title is transcribed, never recased. */
+        if (said) name = words.slice(said[0].length).replace(/^[.\s]+/, "").replace(/[.\s]+$/, "");
+      }
+      const marks = inner.match(/<sup class="fn"[^>]*><\/sup>/g);
+      if (marks) {
+        counts.headNotes += marks.length;
+        if (firstBlock < 0 || at < firstBlock) carriedTop += marks.join("");
+        else carriedEnd += marks.join("");
+      }
+      return "";
+    });
+    /* Griffith's own emphasis, which the generic sweep would keep the words of and lose the mark of.
+       Two rends and nothing else in the poem, counted: 281 italic and 108 small-caps. Both become
+       italic, which is the Analects' judgement — the reader has no style for small capitals, and this
+       edition sets them where an italic would do the same work (the titles of the cantos he passes
+       over, and an occasional emphasised word). */
+    t = t.replace(/<hi\b[^>]*rend=['"][^'"]*(?:italic|small-caps)[^'"]*['"][^>]*>/g, "<i>")
+         .replace(/<\/hi>/g, "</i>");
+
+    /* The blocks, in reading order: a stanza is a paragraph of lines, and the few prose runs — the
+       OM. that opens the poem, an occasional editorial line — are paragraphs of their own. */
+    const blocks = [];
+    const brx = /<lg\b[^>]*>([\s\S]*?)<\/lg>|<(p|ab)\b[^>]*>([\s\S]*?)<\/\2>/g;
+    let bm;
+    while ((bm = brx.exec(t))) {
+      if (bm[1] !== undefined) {
+        const lines = [...bm[1].matchAll(/<l\b[^>]*>([\s\S]*?)<\/l>/g)]
+          .map((x) => teiInline(x[1])).filter(Boolean);
+        if (lines.length) { blocks.push("<p>" + lines.join("<br>") + "</p>"); counts.lines += lines.length; counts.stanzas++; }
+      } else {
+        const p = teiInline(bm[3]);
+        if (p) { blocks.push("<p>" + p + "</p>"); counts.paras++; }
+      }
+    }
+    if (!blocks.length) { warn(h.b + "." + h.c + " came through with no verse"); continue; }
+    if (carriedTop) blocks[0] = blocks[0].replace(/^<p>/, "<p>" + carriedTop);
+    if (carriedEnd) blocks[blocks.length - 1] = blocks[blocks.length - 1].replace(/<\/p>$/, carriedEnd + "</p>");
+    counts.notes += notes.length;
+    if (name) counts.named++;
+    out[h.b + "." + h.c] = { html: blocks.join("\n"), notes: notes, name: name };
+  }
+  return { cantos: out, counts: counts };
+}
+
+/* ============================================================
+   A PRINTED BOOK'S OWN SECTION MARKS, AND NOTHING ABOVE THEM
+                                   (layout: "ptahhotep" — the nineteenth)
+   ============================================================
+   Aug 2026, adding the Maxims of Ptahhotep. The FOURTH book taken from Project Gutenberg and the
+   first taken from Gutenberg's HTML rather than from its plain text or its TEI — which turns out to
+   be the easiest of the three and is worth saying so nobody reaches past it: the plain-text readers
+   here exist because a machine reading of a printed page has to have its structure BUILT, and this
+   file has already had its paragraphs marked up, its footnotes anchored and its page numbers tagged
+   by a transcriber. `stripTags` then does the rest, as it does on every wiki book.
+
+   THE SECTION IS THE CHAPTER, THE ROW AND THE CITATION, which is the shape a work of maxims
+   naturally has: Gunn prints forty-seven marked sections and nothing above them — no parts, no
+   books, no headings of any kind between the title and the first line. So each is a chapter, no
+   `bk-n` marker is written (there is nothing below a section to pair on, and printing the number at
+   the head of a chapter whose tab already says it is what `dropFittHead` exists to avoid), and the
+   tab carries the word the translator himself uses for them throughout his introduction — "section".
+
+   FIVE THINGS IT WAS WORTH MEASURING BEFORE WRITING THIS RATHER THAN AFTER.
+
+   · THE MARKS ARE LETTERS AND NUMBERS IN ONE INTERLEAVED RUN, and a reader written for either alone
+     silently loses the other end of the work. They go A, B, 1..37, C, 38..43, D — the petition to
+     the king and the title of the maxims proper, then Gunn's thirty-seven numbered maxims, which is
+     the traditional count, then the epilogue, which he numbers straight on from 38 with two more
+     lettered blocks around it. A number-only rule drops the four lettered sections, which are the
+     opening and the closing of the whole poem; a letter-only rule is absurd. Hence `PTAH_KEYS`,
+     which states the run and is CHECKED against the file in both directions.
+
+   · A SHORT-CHAPTER GUARD IS NEARLY INERT HERE AND THE REASON IS THE CONTENT. Section 32 is
+     twenty-eight characters — "[Concerning continence]." — Gunn's own square-bracketed stand-in for
+     a maxim he would not translate in 1906, and it is the ONLY one in the book (measured: every
+     other section runs from 186 to 1,272 characters, median 442). So `minChars` is 20 and cannot
+     catch an extraction that has returned the page furniture instead of the text. What stands in for
+     it is the key check above: forty-seven sections, in that order, or the run says so.
+
+   · THE WORK'S OWN TITLE LINE STANDS BEFORE THE FIRST MARK. "The Instruction of the Governor of his
+     City, the Vizier, Ptah-hotep, in the Reign of the King of Upper and Lower Egypt, Isosi" is the
+     poem's incipit, not a heading Gunn added, and it is unnumbered — so it is kept and given to
+     section A, which is where the printed page puts it. Exactly one such block exists, counted.
+
+   · THE CHAPTER IS FOUND BY ITS ANCHOR AND NEVER BY ITS HEADING. This volume holds three works and
+     an introduction, and the introduction's own heading is the WORDS "THE INSTRUCTION OF PTAH-HOTEP"
+     — so slicing on the heading text takes the essay about the poem and not the poem. Gutenberg
+     anchors each chapter (`id="chap02"`), which is unambiguous.
+
+   · AND THE PAGE NUMBERS SURVIVE THE TAG STRIP AS PROSE. The transcription marks each printed page
+     as `<span class="pagenum">{42}</span>`, and `stripTags` unwraps a span it does not recognise and
+     KEEPS the text — so left alone the book reads "...let me speak unto him the words of them that
+     hearken {42} to the counsel of the men of old time". They are removed with their braces, and
+     counted, before anything else runs. */
+/* `PTAH_KEYS` is declared with the other tables, ABOVE the BOOKS literal, because that literal
+   reads it: see the block by `ramDev`. */
+
+function extractPtahhotep(h, BOOK, warn) {
+  const a = h.indexOf('id="chap02"'), b = h.indexOf('id="chap03"', a);
+  if (a < 0 || b < 0) throw new Error("the chapter anchors that bound this work are not in the file");
+  let seg = h.slice(a, b);
+
+  /* The notes are printed as one block at the foot of the work, numbered 1..N across the whole of
+     it. They are cut off here and read into a map keyed by their PRINTED number; each section then
+     keeps only the notes its own markers cite, renumbered from 1, which is what every book on this
+     shelf does with an apparatus numbered per printing rather than per chapter. */
+  const fi = seg.indexOf('<p class="footnote">');
+  const foot = fi < 0 ? "" : seg.slice(fi);
+  if (fi >= 0) seg = seg.slice(0, fi);
+  const notes = {};
+  let footCount = 0;
+  for (const m of foot.matchAll(/<p class="footnote">([\s\S]*?)<\/p>/g)) {
+    footCount++;
+    const at = /^\s*\[<a[^>]*>(\d+)<\/a>\]([\s\S]*)$/.exec(m[1]);
+    if (!at) { warn("a footnote is printed without its number: " + m[1].replace(/<[^>]*>/g, "").slice(0, 60)); continue; }
+    notes[at[1]] = stripTags(at[2]).replace(/\s+/g, " ").trim();
+  }
+  if (footCount !== Object.keys(notes).length)
+    warn(footCount + " footnote(s) printed but " + Object.keys(notes).length + " read");
+
+  /* The page furniture, in the order it has to go: the printed page numbers (which survive the tag
+     strip as prose), the series' own list of themes for the whole work, and the running head, which
+     duplicates the tab. */
+  const pages = (seg.match(/<span class="pagenum">/g) || []).length;
+  seg = seg.replace(/<span class="pagenum">[\s\S]*?<\/span>/g, " ");
+  const themes = /<p class="intro">/.test(seg) ? 1 : 0;
+  seg = seg.replace(/<p class="intro">[\s\S]*?<\/p>/, "");
+  seg = seg.replace(/<h[1-6]\b[\s\S]*?<\/h[1-6]>/g, "");
+
+  /* A marker is printed as a bracketed link into the fold at the foot. It carries the note's own
+     number, which is what `data-fn` is for — the reading-order fallback is right only while every
+     note is cited exactly once, and this apparatus is renumbered per section below. */
+  let marks = 0;
+  seg = seg.replace(/\[<a id="chap02fn\d+text"><\/a>\s*<a href="#chap02fn(\d+)"[^>]*>\d+<\/a>\]/g,
+    (w, n) => { marks++; return '<sup class="fn" data-fn="' + n + '"></sup>'; });
+  const left = (seg.match(/pginternal/g) || []).length;
+  if (left) warn(left + " link(s) into the notes were not recognised as markers");
+
+  /* The blocks, in reading order. A section opens on its own mark at the head of a paragraph, and
+     everything after it belongs to it until the next one. */
+  const out = [];
+  let cur = null, lead = 0;
+  for (const m of seg.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)) {
+    const t = stripTags(m[1]).replace(/\s+/g, " ").trim();
+    if (!t) continue;
+    const k = /^([A-Z]|\d{1,3})\.\s+/.exec(t);
+    if (k) { cur = { k: k[1], ps: [t.slice(k[0].length)] }; out.push(cur); continue; }
+    if (!cur) { cur = { k: null, ps: [t] }; out.push(cur); lead++; continue; }
+    cur.ps.push(t);
+  }
+  /* The poem's own incipit, which stands before the first mark and is part of the text. It is given
+     to the section that follows it, which is where the printed page puts it. */
+  if (out.length && out[0].k === null) {
+    if (out.length < 2) throw new Error("the work came back as one unnumbered block");
+    out[1].ps = out[0].ps.concat(out[1].ps);
+    out.shift();
+  }
+  if (lead > 1) warn(lead + " unnumbered blocks stand before the first section; only one was expected");
+
+  /* Each section's notes, renumbered from 1 in the order its own markers cite them — a note cited
+     twice in one section keeps one entry, which is what `data-fn` is carried through for. */
+  const secs = out.map((s) => {
+    const seen = [], map = {};
+    const ps = s.ps.map((p) => p.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (w, n) => {
+      if (!map[n]) {
+        if (notes[n] === undefined) { warn("section " + s.k + " cites a note " + n + " that is not printed"); return ""; }
+        seen.push(notes[n]); map[n] = seen.length;
+      }
+      return '<sup class="fn" data-fn="' + map[n] + '"></sup>';
+    }));
+    return { k: s.k, html: ps.map((p) => "<p>" + p + "</p>").join("\n"), notes: seen };
+  });
+  return { secs: secs, counts: { pages: pages, themes: themes, marks: marks, notes: footCount, lead: lead } };
+}
+
+/* ============================================================
+   A PROSIMETRUM, FROM TWO PLAIN PRINTED PAGES     (layout: "boethius")
+   ============================================================
+   Aug 2026, adding The Consolation of Philosophy — the fifth book from Project Gutenberg and the
+   SECOND from its HTML, after the Maxims of Ptahhotep, whose entry says why that path is the easiest
+   of the three: a transcriber has already marked the paragraphs, anchored the footnotes and tagged
+   the page numbers, so `stripTags` does the work a machine reading of a printed page would need
+   built from nothing.
+
+   THE SHAPE OF THE WORK IS THE WHOLE OF THE DESIGN. The Consolation alternates prose and verse —
+   Philosophy argues in prose, then sings — and that alternation is what the book IS, so it may not
+   be cut up. The chapter is therefore the BOOK, five of them, and the section is each prose chapter
+   and each metre, seventy-eight in all: I. thirteen, II. sixteen, III. twenty-four, IV. fourteen,
+   V. eleven. It is Herodotus's shape a sixth time, and the citation says so — a passage is
+   "Consolation III.m9", book and then section.
+
+   BOTH EDITIONS STATE THE NUMBER AND NEITHER STATES THE COMPOUND CITATION, so none is composed and
+   the pairing runs on the section's POSITION IN ITS BOOK. That is safe here for the reason counting
+   is safe in the Divine Comedy — it is arithmetic before it is a hope. Measured over both files
+   before a word was imported: each book's sections are the same in number, in the same order and in
+   the same alternation, 13/16/24/14/11 a side, and Book I is the one that opens on a metre where the
+   other four open on a prose. Both editions number their metres and their proses in separate runs,
+   so within a book the numeral I. appears twice and the two are told apart by which of them is set
+   as verse — which is how a reader of either printed page tells them apart, and how this page does.
+
+   FIVE THINGS IT SETTLED ARE WORTH CARRYING.
+
+   THE TRANSLATOR'S OWN WORD FOR A SECTION IS IN HIS SUMMARIES AND NOWHERE ELSE. James heads a metre
+   "SONG IV." and a prose with the bare numeral "IV.", so the marker for a prose would be a figure
+   that means nothing on its own — the Ptahhotep case, where a tab reading "SECTION 32" printed two
+   different numbers under one word. What he does print, at the head of each book and in his own
+   footnotes, is a summary written in citations: "Boethius' complaint (Song I.).—CH. I. Philosophy
+   appears to Boethius", and a note reading "See also below, ch. iii., p. 14". So the English marker
+   carries "Song I." and "Ch. I." — both the edition's own words, transcribed from his own prose
+   rather than composed here — and the Latin carries the numeral its own edition prints and nothing
+   more. ASK WHAT ELSE IN THE EDITION NAMES ITS OWN SECTIONS before deciding a citation cannot be
+   transcribed; a summary, an index and a cross-reference are all places an editor writes one down.
+
+   A SUMMARY AT THE HEAD OF A BOOK IS THE TRANSLATOR'S AND SHIPS WHERE HE PRINTED IT — NUMBERED 0,
+   WHICH IS THE ONE PLACE THE SHELF'S OWN FOLD DOES THE WRONG THING. James opens each of the five
+   with a paragraph describing that book's argument chapter by chapter, which is Legge's headnote in
+   the Book of Documents and Griffith's bracketed notes on what he left out: a thing the translator
+   wrote ABOUT the passage the reader is about to meet, printed with it. Left UNNUMBERED it is a
+   leading block the Latin has no counterpart for, and `bookRows` folds one of those into the first
+   numbered row — right for Seneca's one-line salutation and wrong for a quarter of a page, since the
+   English's first poem then begins a screen below the Latin's and a reader meeting a paragraph of
+   English beside the opening of the Latin poem would reasonably take one for a translation of the
+   other. Numbered, it draws a row of its own beside an empty Latin cell, which is the shelf's
+   ordinary way of showing that two editions differ, and the poems start level: five rows of the
+   eighty-three. Zero is a section number for the Gallic War's reason and `bookSections` already
+   admits it; the mark it carries is the caption James prints over the block. His PROEM, his preface
+   and his index of verse interludes are left behind, as the Republic's introduction and plates were.
+
+   THE GREEK IS TRANSLITERATED IN BOTH FILES AND ONLY PART OF IT CAN BE DECODED. Boethius writes a
+   little Greek into his Latin — the Π and Θ on Philosophy's gown, and a dozen quotations from Homer,
+   Euripides and Plato — and this transcription renders every one as "[Greek: ...]". Four of the
+   twenty-two are a letter NAME (`[Greek: PI]`, `[Greek: THETA]`), which is a closed and unambiguous
+   encoding and is decoded; the other eighteen are a loose romanisation in which "ae" may be η or αι
+   and "o" may be ο or ω, and reversing one would be inventing a Greek word rather than reading it.
+   Those are LEFT exactly as printed and counted, which is the Satyricon's `betaGreek` judgement in
+   a second book: decode what is decodable, refuse what is not, and never compose a letter the
+   evidence does not carry. James's English carries the real Π and θ and glosses each with a
+   transliteration of its own, which is transcriber's furniture beside a letter already printed and
+   is removed.
+
+   AND THE LATIN'S MARGINAL LINE NUMBERS ARE DROPPED, WHICH IS THE ONE REAL LOSS. Rand prints one
+   every fifth line of every metre and it is how a passage of the verse is cited — but James
+   translates the verse into English verse rather than line for line (his first song is
+   forty-four short lines against the Latin's twenty-two), so a number here would point at a place
+   the facing page cannot find. It is the Canterbury Tales' finding on a second book; they are
+   counted and the front matter says they are gone. */
+
+/* The five books, and what is asserted about each of them. The TITLES are not stated here: they are
+   read off each book's own title page, so a retitling costs no edit and a book whose title page has
+   moved is reported rather than silently renamed. This table is the check, in both directions, that
+   the file gives up the work this entry says it does — a book short of a section would pair
+   everything after it against the wrong passage with both columns complete and every count reading
+   healthy. `first` is the kind each book opens on, which is what makes the metre/prose alternation
+   derivable on the Latin side, where nothing but the setting distinguishes the two. */
+const BOE_BOOKS = [
+  { n: 1, first: "m", secs: 13 },
+  { n: 2, first: "p", secs: 16 },
+  { n: 3, first: "p", secs: 24 },
+  { n: 4, first: "p", secs: 14 },
+  { n: 5, first: "p", secs: 11 },
+];
+
+/* The twenty-four letter names this transcription uses, and nothing else. A NAME is a closed
+   encoding of a letter and can be decoded; a romanised WORD cannot, and is left alone. */
+const BOE_LETTERS = {
+  ALPHA: "Α", BETA: "Β", GAMMA: "Γ", DELTA: "Δ", EPSILON: "Ε", ZETA: "Ζ", ETA: "Η", THETA: "Θ",
+  IOTA: "Ι", KAPPA: "Κ", LAMBDA: "Λ", MU: "Μ", NU: "Ν", XI: "Ξ", OMICRON: "Ο", PI: "Π", RHO: "Ρ",
+  SIGMA: "Σ", TAU: "Τ", UPSILON: "Υ", PHI: "Φ", CHI: "Χ", PSI: "Ψ", OMEGA: "Ω",
+};
+
+/* Every "[Greek: ...]" in a slice: a letter name becomes the letter, everything else is returned
+   unchanged and counted, so a run can report how much of the Greek this edition still cannot show. */
+function boeGreek(s, counts) {
+  return s.replace(/\[Greek:\s*([^\]]*)\]/g, (whole, inner) => {
+    const k = inner.replace(/\s+/g, " ").trim().toUpperCase();
+    if (BOE_LETTERS[k]) { counts.greekOk++; return BOE_LETTERS[k]; }
+    counts.greekLeft++;
+    return whole;
+  });
+}
+
+/* James sets a song as <div class="poem"><div class="stanza"><span>line<br></span>…</div>…</div>,
+   with an alternate-line indent class the reader has no style for. One blockquote per poem and one
+   paragraph per stanza, which keeps the stanza breaks the edition prints. */
+function boePoem(b, counts) {
+  return b.replace(/<div class="poem">([\s\S]*?)<\/div>\s*<\/div>/g, (whole, inner) => {
+    const stanzas = (inner.match(/<div class="stanza">[\s\S]*?(?=<div class="stanza">|$)/g) || [inner])
+      .map((st) => (st.match(/<span[^>]*>([\s\S]*?)<\/span>/g) || [])
+        .map((sp) => sp.replace(/<\/?span[^>]*>/g, "").replace(/<br\s*\/?>/g, "").trim())
+        .filter(Boolean))
+      .filter((lines) => lines.length);
+    if (!stanzas.length) return whole;
+    counts.stanzas += stanzas.length;
+    counts.verseLines += stanzas.reduce((a, l) => a + l.length, 0);
+    counts.poems++;
+    return "<blockquote>" + stanzas.map((l) => "<p>" + l.join(" <br>\n") + "</p>").join("\n") +
+      "</blockquote>";
+  });
+}
+
+/* THE TRANSLATION. One Gutenberg page, five books, seventy-eight sections. */
+function extractBoethius(h, BOOK, warn) {
+  /* THE FILE'S LINE ENDINGS ARE CRLF, AND A CARRIAGE RETURN IS NOT CONTENT. `esc` escapes the
+     backslash, the quote and the newline; a stray \r survives into the generated string literal and
+     the file will not parse at all — which is the loud failure and the good one, but only because
+     something reparses. Normalised here rather than in `esc`, where escaping it would ship the
+     character instead of removing it. */
+  h = h.replace(/\r\n?/g, "\n");
+  const counts = {
+    poems: 0, stanzas: 0, verseLines: 0, notes: 0, joined: 0, pages: 0,
+    greekOk: 0, greekLeft: 0, glosses: 0, summaries: 0,
+  };
+  const flat = (x) => x.replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+
+  /* Every heading in the file, with the span it opens. The front matter — the preface, the proem and
+     the index of verse interludes — is simply never reached: the walk starts at the first book's own
+     title page and the licence boilerplate lies past the last section. */
+  const heads = [];
+  const HRE = /<h([1-6])[^>]*>([\s\S]*?)<\/h\1>/g;
+  /* A HEADING MAY CARRY A FOOTNOTE MARKER, so the raw heading is kept beside the flattened one and
+     the flattening is done with the anchors taken OUT — otherwise three of the nineteen notes end up
+     as the literal text "[I]" inside a section title while their bodies sit in a list nothing points
+     at. It is `dropFittHead`'s rule in another edition, and it bites here on a title that is KEPT
+     rather than dropped: the markers are carried onto the head line where the title is printed,
+     which is where James prints them. */
+  const FNANCHOR = /<a[^>]*class="fnanchor[^"]*"[^>]*>\[[A-Z]\]<\/a>/g;
+  let m;
+  while ((m = HRE.exec(h)))
+    heads.push({ i: m.index, end: HRE.lastIndex, lvl: +m[1], raw: m[2], t: flat(m[2].replace(FNANCHOR, "")) });
+
+  const BOOKTITLE = /^BOOK ([IVX]+)\.\s+(.+?)\.?$/;
+  const BOOKPLAIN = /^BOOK ([IVX]+)\.$/;
+  const SONG = /^SONG ([IVX]+)\.\s*(.*?)\.?$/;
+  const CHAP = /^([IVX]+)\.$/;
+
+  const books = [];
+  let cur = null, want = null;
+  for (let k = 0; k < heads.length; k++) {
+    const o = heads[k];
+    const nx = heads[k + 1] ? heads[k + 1].i : h.length;
+    let mm;
+    if (o.lvl === 2 && (mm = BOOKTITLE.exec(o.t))) {
+      const n = romanValue(mm[1]);
+      if (!n) { warn("a book title is headed " + JSON.stringify(o.t) + ", whose numeral will not parse"); continue; }
+      cur = { n: n, t: mm[2], summary: "", lead: "", secs: [] };
+      books.push(cur);
+      /* The summary sits between the title page and the book's own head, in a quoted block of its
+         own. It is taken whole and its own "SUMMARY." caption dropped, that caption being furniture
+         over a paragraph the page already sets apart. */
+      const between = h.slice(o.end, nx);
+      cur.lead = between;
+      const sm = /<div class="blockquot">([\s\S]*?)<\/div>/.exec(between);
+      if (sm) {
+        cur.summary = sm[1].replace(/<p class="center">\s*SUMMARY\.?\s*<\/p>/i, "");
+        counts.summaries++;
+      } else warn("Book " + o.t + " prints no summary");
+      if (!/SUMMARY/i.test(sm ? sm[0] : "")) warn("Book " + o.t + "'s leading block is not headed SUMMARY");
+      continue;
+    }
+    if (o.lvl === 2 && (mm = BOOKPLAIN.exec(o.t))) {
+      want = romanValue(mm[1]);
+      if (!cur || cur.n !== want) warn("the head 'BOOK " + mm[1] + "' does not follow that book's title page");
+      continue;
+    }
+    if (!cur || o.lvl !== 3) continue;
+    if ((mm = SONG.exec(o.t))) cur.secs.push({ kind: "m", num: mm[1], t: mm[2], head: o.raw, raw: h.slice(o.end, nx) });
+    else if ((mm = CHAP.exec(o.t))) cur.secs.push({ kind: "p", num: mm[1], t: "", head: o.raw, raw: h.slice(o.end, nx) });
+    else warn("Book " + cur.n + " carries a heading that is neither a song nor a chapter: " + JSON.stringify(o.t));
+  }
+
+  /* THE TABLE IS CHECKED IN BOTH DIRECTIONS, which is what stands in for a short-chapter guard on a
+     book whose shortest section is thirty words of verse. A book short of a section would ship as a
+     gap in the pairing; one with a section the table omits would never be noticed at all. */
+  if (books.length !== BOE_BOOKS.length)
+    warn("the file yields " + books.length + " books; the entry expects " + BOE_BOOKS.length);
+  BOE_BOOKS.forEach((want, i) => {
+    const got = books[i];
+    if (!got) { warn("Book " + want.n + " is missing from the file"); return; }
+    if (got.secs.length !== want.secs)
+      warn("Book " + want.n + " yields " + got.secs.length + " sections; the entry expects " + want.secs);
+    if (got.secs.length && got.secs[0].kind !== want.first)
+      warn("Book " + want.n + " opens on a " + (got.secs[0].kind === "m" ? "metre" : "prose") +
+        "; the entry expects a " + (want.first === "m" ? "metre" : "prose"));
+    const bad = got.secs.filter((s, k) => s.kind !== (k % 2 === 0 ? want.first : (want.first === "m" ? "p" : "m")));
+    if (bad.length) warn("Book " + want.n + " does not alternate prose and verse throughout (" + bad.length + " out of place)");
+  });
+
+  /* THE NOTES ARE GATHERED PER BOOK AND RENUMBERED FROM ONE, and the marker carries the number it
+     resolves to rather than its place in the queue — the Seneca rule, which this edition would break
+     without it, its labels running A..S across the whole work rather than restarting per book. */
+  const out = books.map((b) => {
+    const bodies = {};
+    /* THE NOTE LISTS ARE HARVESTED FROM THE WHOLE BOOK, INCLUDING THE SPAN THE SUMMARY SITS IN.
+       James prints his notes at the foot of the page they are cited on, so two of Book III's are
+       printed under the summary and outside every section — a list read section by section finds
+       fourteen of the nineteen and reports the other five as cited-but-not-printed, which is the
+       right complaint about the wrong half of the file. */
+    const harvest = (holder) => {
+      /* THE NOTE LIST NESTS — a <div class="footnotes"> holds one <div class="footnote"> per note —
+         so it is matched BALANCED and not with a non-greedy pair, which closes on the first inner
+         tag and reads two of the nineteen. Third time this file has recorded that fault. */
+      for (let guard = 0; guard < 200; guard++) {
+        const at = holder.raw.indexOf('<div class="footnotes">');
+        if (at < 0) break;
+        const end = blockEnd(holder.raw, at, "div");
+        if (end < 0) { warn("Book " + b.n + " has a note list that is never closed"); break; }
+        const inner = holder.raw.slice(at, end);
+        let n = 0;
+        for (let j = 0; ; ) {
+          const fa = inner.indexOf('<div class="footnote">', j);
+          if (fa < 0) break;
+          const fe = blockEnd(inner, fa, "div");
+          if (fe < 0) break;
+          const body = inner.slice(fa, fe);
+          j = fe;
+          n++;
+          const lab = /<span class="label">\[([A-Z])\]<\/span>/.exec(body);
+          if (!lab) { warn("Book " + b.n + " prints a footnote with no label"); continue; }
+          bodies[lab[1]] = body
+            .replace(/<a[^>]*>\s*<span class="label">\[[A-Z]\]<\/span>\s*<\/a>/, "")
+            .replace(/^<div class="footnote">|<\/div>$/g, "");
+        }
+        if (!n) warn("Book " + b.n + " has a note list holding no notes");
+        holder.raw = holder.raw.slice(0, at) + holder.raw.slice(end);
+      }
+    };
+    const leadHolder = { raw: b.lead };
+    harvest(leadHolder);
+    b.secs.forEach(harvest);
+
+    const notes = [];
+    const seen = {};
+    const cite = (x) => x.replace(/<a[^>]*class="fnanchor[^"]*"[^>]*>\[([A-Z])\]<\/a>/g, (whole, lab) => {
+      if (!bodies[lab]) { warn("Book " + b.n + " cites a note [" + lab + "] it does not print"); return ""; }
+      if (!seen[lab]) { notes.push(stripTags(boeGreek(bodies[lab], counts)).replace(/\s+/g, " ").trim()); seen[lab] = notes.length; }
+      return '<sup class="fn" data-fn="' + seen[lab] + '"></sup>';
+    });
+    /* THE SUMMARY IS CITED FIRST because it is printed first — two of the nineteen notes hang off
+       Book III's summary and would otherwise be dropped with the block they open, and a note's
+       number is its place in the book's own reading order. */
+    if (b.summary) b.summary = cite(b.summary);
+    const sections = b.secs.map((s) => {
+      /* The heading before its own body, in reading order, so a note cited on a title is numbered
+         before one cited in the prose beneath it. */
+      const headMarks = (cite(s.head).match(/<sup class="fn" data-fn="\d+"><\/sup>/g) || []).join("");
+      let x = cite(s.raw);
+      /* The transcriber's own furniture: the printed page anchors, and the romanisation he sets
+         beside a Greek letter he has already printed. */
+      counts.pages += (x.match(/<a id="Page_[^"]*"><\/a>/g) || []).length;
+      x = x.replace(/<a id="Page_[^"]*"><\/a>/g, "");
+      x = x.replace(/([Ͱ-Ͽἀ-῿])(\s*)\[Greek:[^\]]*\]/g, (whole, letter) => { counts.glosses++; return letter; });
+      x = boeGreek(x, counts);
+      x = boePoem(x, counts);
+      /* A POEM PRINTED ACROSS A PAGE BREAK OPENS A FRESH BLOCK, and three of the thirty-nine songs
+         do — so the last stanza of each would stand apart from its own poem, which on a page whose
+         whole subject is the alternation of prose and verse reads as a fortieth song. Two quotations
+         set as verse inside a prose section are never adjacent, being separated by the prose that
+         introduces them, so the join is safe as well as necessary. */
+      x = x.replace(/<\/blockquote>\s*<blockquote>/g, () => { counts.joined++; return "\n"; });
+      x = stripTags(x).replace(/\n{3,}/g, "\n\n").trim();
+      const label = s.kind === "m" ? "Song " + s.num + "." : "Ch. " + s.num + ".";
+      return { kind: s.kind, label: label, t: s.t, marks: headMarks, html: x };
+    });
+    counts.notes += notes.length;
+
+    /* The book's own page: its summary, then a section per metre and prose, each opening on the mark
+       its own edition prints. */
+    const parts = [];
+    /* THE SUMMARY IS NUMBERED 0 SO THAT IT GETS A ROW OF ITS OWN, and this is the one place where
+       the shelf's own fold does the wrong thing. `bookRows` folds a LEADING UNNUMBERED block into
+       the first numbered row when the facing column has no counterpart for it — right for a one-line
+       salutation, and wrong for a quarter of a page: the Latin has no summary, so the English's
+       first poem would begin a screen below the Latin's, and a reader meeting a paragraph of
+       English beside the opening of the Latin poem would reasonably take the one for a translation
+       of the other. Numbered, it draws beside an empty Latin cell, which is the shelf's ordinary way
+       of showing that two editions differ, and the poems then start level.
+
+       Zero is a section number here for the reason it is one in the Gallic War, and `bookSections`
+       already admits it. The mark it carries is the caption James prints over the block. */
+    if (b.summary)
+      parts.push('<p class="bk-head"><span class="bk-n" data-n="0">Summary</span></p>\n<blockquote>' +
+        stripTags(b.summary).trim() + "</blockquote>");
+    sections.forEach((s, k) => {
+      parts.push('<p class="bk-head"><span class="bk-n" data-n="' + (k + 1) + '">' + s.label +
+        "</span>" + (s.t ? s.t : "") + s.marks + "</p>");
+      parts.push(s.html);
+    });
+    return { n: b.n, t: b.t, html: parts.join("\n"), notes: notes, secs: sections.length };
+  });
+  return { books: out, counts: counts };
+}
+
+/* THE ORIGINAL. The same work in the Loeb of 1918, whose Latin and English are printed on facing
+   pages and linearised by the transcription into one file: within each book the numeral headings run
+   Latin, English, Latin, English all the way down, so the Latin is every second one. Measured before
+   it was believed — 156 numeral headings in the Consolation, exactly twice the seventy-eight sections,
+   and each book's count exactly twice its own. */
+function boethiusLatin(h, O, warn) {
+  h = h.replace(/\r\n?/g, "\n");
+  const counts = { lines: 0, poems: 0, split: 0, lineNums: 0, greekOk: 0, greekLeft: 0, notes: 0 };
+  const flat = (x) => x.replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#160;/g, " ")
+    .replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+  const heads = [];
+  const HRE = /<h([1-6])[^>]*>([\s\S]*?)<\/h\1>/g;
+  let m;
+  while ((m = HRE.exec(h))) heads.push({ i: m.index, end: HRE.lastIndex, lvl: +m[1], t: flat(m[2]) });
+
+  /* The Consolation is the second work in the volume — the Theological Tractates come first and are
+     a different book — so the walk is bounded by the printer's own marks: it opens at "LIBER I."
+     under the title of the Consolation and closes at Symmachus's epigram, which the manuscripts
+     append and Boethius did not write. */
+  const first = heads.findIndex((o) => /^LIBER I\.$/.test(o.t));
+  const last = heads.findIndex((o) => /^SYMMACHI VERSVS$/.test(o.t));
+  if (first < 0 || last < 0 || last < first)
+    throw new Error("the marks that bound the Consolation are not in the file");
+
+  const NUM = /^([IVXLC]+)\.?(\[\d+\])?$/;
+  const books = [];
+  let cur = null;
+  for (let k = first; k < last; k++) {
+    const o = heads[k];
+    if (/^LIBER I\.$/.test(o.t) || /^INCIPIT LIBER/.test(o.t)) { cur = []; books.push(cur); continue; }
+    const mm = NUM.exec(o.t);
+    if (!mm || !cur) continue;
+    cur.push({ num: mm[1], raw: h.slice(o.end, heads[k + 1] ? heads[k + 1].i : h.length) });
+  }
+
+  if (books.length !== BOE_BOOKS.length)
+    warn("the Latin yields " + books.length + " books; the entry expects " + BOE_BOOKS.length);
+
+  const byNum = {};
+  books.forEach((raws, i) => {
+    const want = BOE_BOOKS[i];
+    if (!want) return;
+    if (raws.length !== want.secs * 2)
+      warn("Book " + want.n + " carries " + raws.length + " numeral headings; the entry expects " +
+        (want.secs * 2) + " (a Latin and an English one for each of its " + want.secs + " sections)");
+    /* Every second heading, and the first of each pair is the Latin — the verso of the printed
+       opening. Checked rather than assumed: the two of a pair state the same numeral. */
+    const parts = [];
+    for (let k = 0; k < raws.length; k += 2) {
+      const la = raws[k], en = raws[k + 1];
+      if (en && la.num !== en.num)
+        warn("Book " + want.n + ": the Latin is headed " + la.num + " where the English facing it is headed " + en.num);
+      const seq = k / 2 + 1;
+      const kind = seq % 2 === 1 ? want.first : (want.first === "m" ? "p" : "m");
+      let x = la.raw;
+      /* The apparatus of the English column cannot reach a Latin slice — the notes are printed under
+         the translation — but a stray one would ship as prose, so it is counted and removed. */
+      const foot = x.match(/<p[^>]*margin-left: 2%[^>]*>\s*\[\d+\][\s\S]*?<\/p>/g) || [];
+      counts.notes += foot.length;
+      x = x.replace(/<p[^>]*margin-left: 2%[^>]*>\s*\[\d+\][\s\S]*?<\/p>/g, "");
+      x = x.replace(/\[\d+\]/g, "");
+      /* Rand prints a line number every fifth line of every metre, flush right — see the block above
+         extractBoethius for why they cannot be kept. */
+      const nums = x.match(/[ \t]{3,}\d+[ \t]*(?=<br\s*\/?>|<\/p>)/g) || [];
+      counts.lineNums += nums.length;
+      x = x.replace(/[ \t]{3,}\d+[ \t]*(?=<br\s*\/?>|<\/p>)/g, "");
+      x = boeGreek(x, counts);
+      if (kind === "m") {
+        /* A METRE IS CUT AS A STREAM, NOT BLOCK BY BLOCK. Where the printed page breaks in the
+           middle of a poem the transcription opens a fresh paragraph — six of the thirty-nine do —
+           so converting each paragraph to its own quotation would print a stanza break the edition
+           has not got, at the place a page happened to turn. All the lines of a metre are gathered
+           and set as ONE block; the poems' real stanza divisions are not marked in this edition at
+           all, so there is nothing else to lose. */
+        counts.poems++;
+        const blocks = x.match(/<p[^>]*>[\s\S]*?<\/p>/g) || [];
+        if (blocks.length > 1) counts.split++;
+        const lines = blocks
+          .map((bl) => bl.replace(/^<p[^>]*>|<\/p>$/g, ""))
+          .join("<br>")
+          .split(/\s*<br\s*\/?>\s*/)
+          .map((l) => l.trim())
+          .filter(Boolean);
+        counts.lines += lines.length;
+        if (!lines.length) warn("Book " + want.n + " section " + seq + " is set as verse and holds no lines");
+        x = "<blockquote><p>" + lines.join(" <br>\n") + "</p></blockquote>";
+      }
+      x = stripTags(x).replace(/\n{3,}/g, "\n\n").trim();
+      parts.push('<p class="bk-head"><span class="bk-n" data-n="' + seq + '">' + la.num + ".</span></p>");
+      parts.push(x);
+    }
+    byNum[want.n] = parts.join("\n");
+  });
+  return { byNum: byNum, counts: counts };
+}
+
+/* ============================================================
+   A TRANSLATION AND AN ORIGINAL FROM TWO DIFFERENT KINDS OF SOURCE
+                                     (layout: "bede" — the twenty-first)
+   ============================================================
+   Aug 2026, adding the Ecclesiastical History of the English People. The SIXTH book from Project
+   Gutenberg and the third from its HTML, which the Maxims of Ptahhotep's entry calls the easiest of
+   the three paths: a transcriber has already marked the paragraphs, anchored the footnotes and
+   tagged the page numbers. Two readers for one book, as the Canterbury Tales and the Consolation
+   needed — here because the two columns come from different kinds of source, which is Thucydides'
+   position (a Wikisource English against a Perseus TEI original) met with the sides swapped.
+
+   THE BOOK IS THE CHAPTER AND BEDE'S CHAPTER IS THE SECTION — Herodotus's shape a seventh time, and
+   the citation says so: a passage is "HE II.13", book and then chapter. Cutting at Bede's chapter
+   instead would put 140 tabs on the bar, most of them a page long.
+
+   THE PAIRING WAS MEASURED BEFORE A WORD WAS IMPORTED and it is as exact as two independently
+   transcribed texts get on this shelf: 140 chapters a side, 34/20/30/32/24 in both, a clean 1..N in
+   every book with no gap and no duplicate either way, and the two columns' section lists identical
+   book for book. Length correlates at r = 0.9987 over all 140 with the English running 1.45–1.50
+   times the Latin's word count in every book — which is what says the Latin has lost nothing, and
+   is the check that mattered here, because its host rates it 25% proofread.
+
+   SIX THINGS IT SETTLED ARE WORTH CARRYING.
+
+   THE OBVIOUS ENGLISH IS COMPLETE, SCAN-BACKED AND CARRIES NO NOTES, AND THAT IS WHAT DECIDED IT.
+   Wikisource has the whole book in L. C. Jane's Temple Classics edition of 1910, one page per book,
+   proofread against a scan, pairing with the Latin exactly as this one does — and swept over all
+   five books it holds ZERO reference marks. Sellar's carries 1,081, a new introduction and a life of
+   Bede, and was made against Plummer's critical text, which her own preface states. Bede is a book
+   about seventh-century Northumbrian politics in which almost every name needs a note, so that is
+   not a refinement but the difference between a usable book and an opaque one. The cost is a
+   translator who cannot be traced; see `rights`, and the Gallic War's entry for the precedent.
+
+   A MACHINE-READABLE ANCHOR IS NOT ALWAYS COMPLETE, and this one covers 117 of the 140 chapters.
+   The Ptahhotep reader's rule is to find a chapter by its anchor and never by its heading, because a
+   heading can be ambiguous; here the anchors are generated from the index's cross-references, so a
+   chapter the index never points at simply has none — 23/19/26/29/20 against 34/20/30/32/24. Reading
+   them would have shipped a book missing a sixth of itself with nothing to say so. The HEADINGS are
+   complete, checked on both sides, so the number is read off the heading and CHECKED against the
+   count this edition states. **Count what an identifier actually covers before preferring it to the
+   thing it was meant to improve on.**
+
+   THE INDEX USES THE SAME MARKUP AS THE VERSE, so an inventory taken over the file rather than over
+   the divisions being imported reports 1,851 line groups and 3,086 lines of verse in a prose
+   history. Inside the five books there is exactly ONE line group holding one line. Sellar sets
+   Bede's quoted verse — the epitaphs, Caedwalla's, Wilfrid's, Gregory's — as PROSE inside display
+   quotations, which is Heseltine's judgement on Petronius in another book, and it means the reader
+   needs no verse handling to speak of and does need the quotations. Both are matched BALANCED, since
+   a quotation holds paragraphs and a line group holds lines.
+
+   THE LATIN'S CHAPTER MARK WEARS TWO COSTUMES AND IT IS THE WHOLE BOOK THAT CHANGES. Liber Primus
+   sets its numbers as `<h3>` headings and the other four set them as a bare "[N]" opening the
+   paragraph the chapter begins. Both are converted BEFORE the tags come off, because after
+   `stripTags` a heading is a bare figure indistinguishable from a number in the prose — and this
+   text is full of Roman numerals but writes its chapter marks in Arabic, so there is nothing else to
+   tell them apart by. A THIRD costume was found by inventorying all 106 bracketed marks rather than
+   by fixing the three that failed: 69 open `<p><br/>`, 23 open `<p>`, and 3 carry an empty anchor
+   span between the two. Written against the first two the run loses II.16, V.21 and V.24 — three
+   chapters folded into their neighbours, with every count still reading healthy.
+
+   AND ONE PAGE CARRIES A STALE CHAPTER INDEX OUTSIDE THE WIKI'S OWN `ws-noexport` WRAPPER. Liber
+   Secundus opens on a strip reading "1 - 2 - 3 … 34", which is BOOK I's chapter count sitting on
+   Book II's page, and because it stands before the running head a head rule anchored to the start
+   fires on nothing. The furniture is peeled in a LOOP instead, and the strip is recognised by its
+   shape — a paragraph of nothing but figures and dashes, which no sentence of Latin can wear —
+   rather than by its wording. Every removal is counted.
+
+   ITS REAL LIMITATION IS WHOSE LATIN IT IS, and it is stated rather than guessed. The transcription
+   names Migne's Patrologia Latina 95 as its edition; the text it actually carries prints consonantal
+   v as u throughout — measured over all five books, 93 `uero` against 2 `vero`, 48 `uita` against
+   1 `vita`, 25 `ciuitate` against none and 25 `uerbis` against none — which is the convention of the late-19th-century critical
+   editions and not Migne's, and it matches Alfred Holder's edition of 1895 word for word where
+   sampled against that edition's own scan. So the edition it names is not the edition it prints, no
+   editor is asserted, and the ground stated is the age of the work. That is Lucretius's judgement
+   with a measurement behind it: claim less, and say on the page what cannot be said. */
+
+function extractBede(h, warn) {
+  const counts = { pages: 0, marks: 0, headMarks: 0, notes: 0, uncited: 0, quotes: 0, verse: 0, verseLines: 0, breaks: 0 };
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+
+  /* The apparatus, printed as one list at the foot and numbered 1..N across the whole volume. It is
+     cut off first and read into a map keyed by its PRINTED number; each book then keeps only the
+     notes its own markers cite, renumbered from 1 — what every book here does with an apparatus
+     numbered per printing rather than per chapter. */
+  const notes = {};
+  const fi = b.search(/<h1[^>]*class="tei tei-head"[^>]*>\s*<span[^>]*>Footnotes<\/span>/);
+  if (fi < 0) throw new Error("the apparatus is not in the file");
+  for (const m of b.slice(fi).matchAll(
+    /<dt class="tei tei-notelabel">[\s\S]*?id="note_(\d+)"[\s\S]*?<\/dt>\s*<dd class="tei tei-notetext">([\s\S]*?)<\/dd>/g))
+    notes[m[1]] = bedeInline(m[2]);
+  counts.notes = Object.keys(notes).length;
+  b = b.slice(0, fi);
+
+  /* The volume's top-level divisions. Bede's own preface and his five books are the work; the
+     editor's introduction, her life of Bede, the errata, the index and the Continuation are matter
+     around it and are left behind, as the Republic's introduction and plates were. */
+  const h1 = [...b.matchAll(/<h1[^>]*class="tei tei-head"[^>]*>([\s\S]*?)<\/h1>/g)];
+  const segOf = (name) => {
+    const s = h1.find((m) => bedeText(m[1]) === name);
+    if (!s) throw new Error("the division " + JSON.stringify(name) + " is not in the file");
+    const n = h1.filter((m) => m.index > s.index)[0];
+    return b.slice(s.index + s[0].length, n ? n.index : b.length);
+  };
+
+  const cited = new Set();
+  const books = [];
+  for (let n = 1; n <= 5; n++) {
+    const seg = segOf("Book " + BEDE_ROMAN[n]);
+    const parts = [];
+    /* Bede's letter to King Ceolwulf stands before Book I in every edition and is part of the work.
+       Both columns carry it and both leave it unnumbered, so it opens Book I as its own unnumbered
+       row — `bookRows` pairs two leading unnumbered blocks with each other, deterministically,
+       because neither side carries a marker there. Writing a "0" over it would compose a citation
+       the work has not got; nobody cites Bede's preface as HE 0. */
+    if (n === 1) parts.push({ k: null, head: "", body: segOf("Preface") });
+    const chs = [...seg.matchAll(/<h2[^>]*class="tei tei-head"[^>]*>([\s\S]*?)<\/h2>/g)];
+    for (let i = 0; i < chs.length; i++) {
+      /* A KEPT HEADING MAY CARRY A FOOTNOTE MARKER, which is `dropFittHead`'s rule met on a title
+         that stays rather than one that goes — the Consolation's finding, and it bites here on four
+         of the 141. Sellar hangs a note on the chapter's own heading ("Of the death of the blessed
+         Pope Gregory.[143]"), and flattening the heading to TEXT before the anchors come out of it
+         leaves the bare figure 143 sitting in the title while its note sits in the fold with nothing
+         pointing at it. So the markers are converted first and the title is carried as inline HTML,
+         which puts each one back where the printed page has it; the per-book renumbering at the foot
+         of bedeChapter then picks them up in reading order like any other. */
+      let head = bedeInline(chs[i][1].replace(/<a href="#note_(\d+)"[^>]*>[\s\S]*?<\/a>/g,
+        (w, k) => { counts.marks++; counts.headMarks++; return '<sup class="fn" data-fn="' + k + '"></sup>'; }));
+      const m = /^Chap\.\s*([IVXLC]+)\.\s*([\s\S]*)$/.exec(head);
+      if (!m) {
+        warn("Book " + BEDE_ROMAN[n] + ": a heading is not a chapter — " +
+          JSON.stringify(bedeText(head).slice(0, 60)));
+        continue;
+      }
+      parts.push({
+        k: romanValue(m[1]),
+        head: m[2].replace(/\s*\.\s*$/, ""),
+        body: seg.slice(chs[i].index + chs[i][0].length, i + 1 < chs.length ? chs[i + 1].index : seg.length),
+      });
+    }
+    const nums = parts.filter((p) => p.k != null).map((p) => p.k);
+    if (nums.length !== BEDE_CHAPTERS[n])
+      warn("Book " + BEDE_ROMAN[n] + " came back with " + nums.length +
+        " chapters where the edition states " + BEDE_CHAPTERS[n]);
+    if (!nums.every((v, i) => v === i + 1))
+      warn("Book " + BEDE_ROMAN[n] + "'s chapters are not a clean 1..N: " + nums.join(","));
+
+    const keep = [];
+    const html = parts.map((p) => bedeChapter(p, keep, counts, warn)).filter(Boolean).join("\n");
+    keep.forEach((k) => cited.add(k));
+    books.push({ n: n, html: html, secs: nums.length, notes: keep.map((k) => notes[k]) });
+  }
+  /* The notes belonging to the divisions this book does not import. Counted rather than passed over,
+     because the same figure would appear if a whole book's markers had stopped being recognised. */
+  counts.uncited = Object.keys(notes).filter((k) => !cited.has(k)).length;
+  return { books: books, counts: counts };
+}
+
+function bedeText(h) {
+  return bedeEnt(h.replace(/<[^>]+>/g, " ")).replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ").replace(/\[\s+/g, "[").replace(/\s+\]/g, "]").trim();
+}
+function bedeEnt(h) {
+  return h.replace(/&#160;|&nbsp;/g, " ").replace(/&#8217;|&rsquo;/g, "’")
+    .replace(/&#8216;|&lsquo;/g, "‘").replace(/&#8220;|&ldquo;/g, "“")
+    .replace(/&#8221;|&rdquo;/g, "”").replace(/&#8212;|&mdash;/g, "—")
+    .replace(/&#8211;|&ndash;/g, "–").replace(/&#230;/g, "æ").replace(/&#198;/g, "Æ");
+}
+function bedeInline(s) {
+  return bedeEnt(s
+    .replace(/<span class="tei tei-hi"[^>]*>\s*<span[^>]*font-style:\s*italic[^>]*>([\s\S]*?)<\/span>\s*<\/span>/g, "<i>$1</i>")
+    .replace(/<span class="tei tei-foreign"[^>]*>([\s\S]*?)<\/span>/g, "<i>$1</i>")
+    .replace(/<(?!\/?(?:i|b|sup|br)\b)[^>]*>/g, ""))
+    .replace(/\s+/g, " ").replace(/\s+([,.;:!?])/g, "$1")
+    .replace(/\[\s+/g, "[").replace(/\s+\]/g, "]").trim();
+}
+
+function bedeChapter(p, keep, counts, warn) {
+  let s = p.body;
+  /* The printed page numbers, which the transcription tags and which survive the tag strip as prose
+     — "[pg vi]" in the middle of a sentence. Both costumes, since the span carries the text. */
+  s = s.replace(/<span class="tei tei-pb"[^>]*>[\s\S]*?<\/span>/g, () => { counts.pages++; return " "; });
+  s = s.replace(/\[pg\s+[ivxlcdm\d]+\]/gi, () => { counts.pages++; return " "; });
+  /* A marker carries the note's OWN printed number, which is what data-fn is for: this apparatus is
+     numbered across the volume and renumbered per book below, and the reading-order fallback is
+     right only while every note is cited exactly once. */
+  s = s.replace(/<a href="#note_(\d+)"[^>]*>[\s\S]*?<\/a>/g,
+    (w, n) => { counts.marks++; return '<sup class="fn" data-fn="' + n + '"></sup>'; });
+
+  for (let g = 0; g < 60; g++) {
+    const m = /<div class="tei tei-lg"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a line group is unbalanced and was left in place"); break; }
+    const ls = [...s.slice(m.index, e).matchAll(/<div class="tei tei-l"[^>]*>([\s\S]*?)<\/div>/g)]
+      .map((x) => bedeInline(x[1])).filter(Boolean);
+    counts.verse++; counts.verseLines += ls.length;
+    s = s.slice(0, m.index) + "LG" + ls.join("<br>") + "/LG" + s.slice(e);
+  }
+  for (let g = 0; g < 60; g++) {
+    const m = /<div class="[^"]*\btei-quote\b[^"]*"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a display quotation is unbalanced and was left in place"); break; }
+    counts.quotes++;
+    s = s.slice(0, m.index) + "Q" + s.slice(m.index + m[0].length, e - 6) + "/Q" + s.slice(e);
+  }
+  s = s.replace(/<div class="tei tei-tb"[^>]*>[\s\S]*?<\/div>/g, () => { counts.breaks++; return " "; });
+
+  const out = [];
+  if (p.k != null)
+    out.push('<p><span class="bk-n" data-n="' + p.k + '">' + p.k + "</span>" +
+      (p.head ? "<b>" + p.head + "</b>" : "") + "</p>");
+  const rx = /<p class="tei tei-p"[^>]*>([\s\S]*?)<\/p>|LG([\s\S]*?)\/LG|Q|\/Q/g;
+  let m;
+  while ((m = rx.exec(s))) {
+    if (m[0] === "Q") { out.push("<blockquote>"); continue; }
+    if (m[0] === "/Q") { out.push("</blockquote>"); continue; }
+    if (m[2] != null) { out.push("<blockquote>" + m[2] + "</blockquote>"); continue; }
+    const t = bedeInline(m[1]);
+    if (t) out.push("<p>" + t + "</p>");
+  }
+  /* Each book's notes, renumbered from 1 in the order its own markers cite them. */
+  return out.join("\n").replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (w, n) => {
+    let i = keep.indexOf(n);
+    if (i < 0) { keep.push(n); i = keep.length - 1; }
+    return '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+  });
+}
+
+/* ---------- THE LATIN: one page of another wiki per book ----------
+   Not a scan-backed transcription, so there is no `prp-pages-output` to slice at and the body is
+   taken from the wiki's own `text` container. Everything above the two mark shapes is furniture
+   this wiki labels for itself. */
+function bedeLatin(h, warn, counts) {
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  const i = b.indexOf('<div class="text">');
+  if (i < 0) throw new Error("no body");
+  b = b.slice(i + 18);
+
+  /* The wiki says what its own furniture is: the header box and the navigation table both carry
+     `ws-noexport`, the class Wikisource puts on what must not leave the page. Keyed on that rather
+     than on wording, and balanced, because each nests. */
+  const drop = (rx, tag, key) => {
+    for (let g = 0; g < 60; g++) {
+      const m = rx.exec(b);
+      if (!m) break;
+      const e = blockEnd(b, m.index, tag);
+      if (e < 0) { warn("a block of page furniture is unbalanced and was left in place"); break; }
+      b = b.slice(0, m.index) + b.slice(e);
+      counts[key]++;
+    }
+  };
+  drop(/<table[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/, "table", "furniture");
+  drop(/<div[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/, "div", "furniture");
+  /* MediaWiki's per-section edit links, which survive the tag strip as the word "recensere" in
+     square brackets at the head of every chapter of Liber Primus. */
+  drop(/<span class="mw-editsection">/, "span", "edits");
+
+  let marks = 0;
+  b = b.replace(/<div class="mw-heading[^"]*">\s*<h3[^>]*>\s*(\d+)\s*<\/h3>\s*<\/div>/g,
+    (w, k) => { marks++; counts.heads++; return '<p><span class="bk-n" data-n="' + k + '">' + k + "</span></p>"; });
+  b = b.replace(/(<p>\s*(?:(?:<br\s*\/?>|<span id="\d+"><\/span>|<a id="[^"]*"><\/a>)\s*)*)\[(\d+)\]/g,
+    (w, lead, k) => { marks++; counts.inline++; return lead + '<span class="bk-n" data-n="' + k + '">' + k + "</span> "; });
+
+  b = b.replace(/<div[^>]*>/g, "<blockquote>").replace(/<\/div>/g, "</blockquote>");
+  b = stripTags(b);
+  b = bedeEnt(b).replace(/&#32;/g, " ").replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+  for (let k = 0; k < 6; k++) {
+    b = b.replace(/<p>(?:\s*<br>\s*)+<\/p>/g, "")
+      .replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "")
+      .replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
+  }
+  b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+
+  /* The furniture above a book's first chapter, peeled in a LOOP: the work's title and the book's
+     own number, both of which duplicate the tab, and on Liber Secundus a stale chapter index as
+     well. See the block above for why a rule anchored to the start loses two of the three. */
+  for (let k = 0; k < 8; k++) {
+    const before = b;
+    b = b.replace(/^<p>\s*(?:<br>\s*)*<\/p>\s*/, "");
+    b = b.replace(/^<p>\s*<b>\s*HISTORIAE ECCLESIASTICAE GENTIS ANGLORUM\s*<\/b>\s*<\/p>\s*/i,
+      () => { counts.heads2++; return ""; });
+    b = b.replace(/^<p>\s*<b>\s*LIBER [A-Z]+\s*\.?\s*<\/b>\s*\.?\s*<\/p>\s*/i,
+      () => { counts.heads2++; return ""; });
+    b = b.replace(/^<p>[\s\d–-]+<\/p>\s*/, () => { counts.index++; return ""; });
+    if (b === before) break;
+  }
+  return { html: b, marks: marks };
+}
+
+/* ---------- THE TRAVELS OF MARCO POLO: two Gutenberg volumes, one book ----------
+   The seventh book from Project Gutenberg and the fourth from its HTML, which the Ptahhotep entry
+   calls the easiest of the three paths — and the FIRST book on this shelf whose translation is
+   printed in TWO FILES. That costs almost nothing (a second fetch and one loop) and is worth
+   stating only because everything else has to be counted across both: the chapters run continuously
+   from one volume into the next and Book Second is split across the join, so any count taken per
+   file is a count of half a book.
+
+   AN OFFSET MEASURED IN ONE LANGUAGE IS NOT AN OFFSET IN ANOTHER, which is the trap this reader was
+   built out of. The boundaries were first found with a Python probe and carried into JavaScript as
+   numbers, and every one landed short: JS counts a string in UTF-16 code units and an astral
+   character costs two, so the spans quietly truncated and three sweeps each reported a different
+   chapter total — 225, 233, 234 — with nothing throwing. `poloSpan` therefore SEARCHES for its own
+   boundaries and no offset is written down anywhere. The true figure is 235.
+
+   THE VOLUMES CARRY MORE THAN THE BOOK. Each opens with the edition's own front matter — Yule's
+   memoir, his prefaces, a bibliography, a synopsis and a 130-page introduction — and closes with
+   appendices and an index; the second additionally carries the whole of Cordier's separately
+   published SER MARCO POLO: NOTES AND ADDENDA of 1920, which repeats the prologue-and-four-books
+   skeleton to hang its own notes on. Read without a boundary that is a second Prologue and a second
+   Book First inside the same file, which is Bede's finding again: an inventory taken over the FILE
+   is not an inventory of the book. */
+function poloText(h) {
+  return poloEnt(h.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+}
+function poloEnt(s) {
+  return s.replace(/&#160;|&nbsp;/g, " ").replace(/&#8217;|&rsquo;/g, "’").replace(/&#8216;|&lsquo;/g, "‘")
+    .replace(/&#8220;|&ldquo;/g, "“").replace(/&#8221;|&rdquo;/g, "”").replace(/&#8212;|&mdash;/g, "—")
+    .replace(/&#8211;|&ndash;/g, "–").replace(/&#230;/g, "æ").replace(/&#198;/g, "Æ")
+    .replace(/&#339;/g, "œ").replace(/&#338;/g, "Œ").replace(/&#38;|&amp;/g, "&");
+}
+/* Yule's small capitals are how he sets a place or a person the first time it is named, and there
+   are 2,090 of them. The Analects turned an edition's small capitals into italic, which was safe
+   there "precisely because this transcription uses italics nowhere at all"; this one italicises
+   6,128 times over, so the same move would put two conventions in one face and make the emphasis
+   mean nothing. The span is unwrapped and the words stand as words. */
+function poloInline(s) {
+  return poloEnt(s
+    .replace(/<span class="(?:sm|allsm)cap">([\s\S]*?)<\/span>/g, "$1")
+    .replace(/<(?:em|cite)\b[^>]*>/g, "<i>").replace(/<\/(?:em|cite)>/g, "</i>")
+    .replace(/<(?!\/?(?:i|b|sup|br)\b)[^>]*>/g, ""))
+    .replace(/\s+/g, " ").replace(/\s+([,.;:!?])/g, "$1").trim();
+}
+
+/* ---------- the apparatus ----------
+   IT HAS TWO TIERS AND ONLY ONE OF THEM IS A NOTE ON THE TEXT, measured over both volumes before
+   either was written: 777 of Yule's substantive Notes, printed under the chapter and labelled
+   "Note 1.", and 295 small footnotes numbered straight through the volume. Of those 295 only 14 are
+   cited on Polo's own prose; the other 281 are cited INSIDE a Note. A flat per-chapter fold cannot
+   say "this is a note on that note", so the 281 are SPLICED into the Note that cites them, in
+   square brackets at the point of citation — the Art of War's rule ("a note cannot contain a note")
+   at fourteen times the scale, using the bracket this edition already uses for an interpolation.
+   The 14 cited on the text become ordinary fold entries after the Notes, because that is what they
+   are. */
+function poloSplice(s, foot, counts) {
+  return s.replace(/<a class="fnanchor pginternal" href="#Footnote_(\d+)"[^>]*>[\s\S]*?<\/a>/g, (w, k) => {
+    if (!foot[k]) { counts.lostFoot++; return ""; }
+    counts.spliced++;
+    return " [" + foot[k] + "]";
+  });
+}
+
+/* THE NOTES ARE FOUND BY THEIR OWN LABEL, NEVER BY THE RULE ABOVE THEM AND NEVER BY THE BOX ROUND
+   THEM. The obvious boundary is the <hr> the printing sets between the chapter and its notes, and
+   it fails twice: five chapters have no such rule at all (their notes simply follow the last
+   paragraph) and one sets it `class="r40 clear"`. The rule was then written on the blockquote that
+   holds the notes, on the ground that a box is structural where a rule is decoration — and THAT
+   fails too, on one chapter in 235: III 30, on Kesmacoran, sets its two Notes as bare paragraphs
+   with no box at all, so the region was never found and Yule's entire apparatus for that chapter —
+   a page and a half of it, ending in a table — ran on into Polo's own prose as though he had
+   written it. The chapter renders perfectly, is complete, and is wrong, which is this file's
+   commonest shape of failure; it was found by the importer's own dropped-marker warning and by
+   nothing else. So the anchor is the LABEL, which every Note carries by definition, and the region
+   opens at whichever block encloses it — the blockquote where there is one and the paragraph where
+   there is not. `test-library.js` additionally sweeps the shipped file for a Note label left in a
+   chapter's body, because that is what this failure looks like from the outside. */
+function poloNoteRegion(s) {
+  const L = /<a class="label pginternal"[^>]*id="Note_[^"]*"/.exec(s);
+  if (!L) return { at: s.length, region: "" };
+  /* the OUTERMOST blockquote enclosing the label, if the printing wrapped the notes in one */
+  const bq = /<blockquote[^>]*>/g;
+  let m, at = -1;
+  while ((m = bq.exec(s)) && m.index < L.index) {
+    const e = blockEnd(s, m.index, "blockquote");
+    if (e > L.index) { at = m.index; break; }
+  }
+  /* …and otherwise the paragraph it opens, the label sitting inside the note's own first block */
+  if (at < 0) {
+    const p = /<p[ >]/g;
+    let k;
+    while ((k = p.exec(s)) && k.index < L.index) at = k.index;
+    if (at < 0) at = L.index;
+  }
+  return { at: at, region: s.slice(at) };
+}
+
+/* Each of Yule's Notes runs from its own label to the next and may be several paragraphs long —
+   the first book on this shelf whose notes carry block structure at all, so they are joined with a
+   break rather than left as paragraphs inside a list item. The note is keyed by its printed ID,
+   because a Note may be cited more than once (Seneca's letter 114 exactly) and numbering markers by
+   reading order is the documented way to make every marker after the first repeat point one entry
+   too far. */
+function poloNotes(region, foot, counts, warn) {
+  const out = [];
+  const labels = [...region.matchAll(/<a class="label pginternal"[^>]*id="(Note_[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+  for (let i = 0; i < labels.length; i++) {
+    let body = region.slice(labels[i].index + labels[i][0].length,
+      i + 1 < labels.length ? labels[i + 1].index : region.length);
+    body = poloVerse(body, counts, warn);
+    /* the label sits INSIDE the note's first paragraph, so that paragraph runs from where the label
+       ended to its own closing tag rather than starting at a <p> of its own */
+    const close = body.indexOf("</p>");
+    const paras = [close < 0 ? body : body.slice(0, close)];
+    for (const m of (close < 0 ? "" : body.slice(close)).matchAll(/<p[^>]*>([\s\S]*?)<\/p>|(VB[\s\S]*?\/VB)/g))
+      paras.push(m[1] != null ? m[1] : m[2]);
+    const t = paras.map((x) => (/^VB/.test(x) ? x.slice(2, -3) : poloInline(poloSplice(x, foot, counts))))
+      .map((x, j) => (j ? x : x.replace(/^\s*[—–-]\s*/, "")))   // the dash the label runs into
+      .filter(Boolean).join("<br><br>");
+    if (t) { out.push({ id: labels[i][1], t: t }); counts.notes++; }
+  }
+  return out;
+}
+
+/* THE VERSE IS ALMOST ALL INSIDE THE NOTES, which is where a rule written for the text alone loses
+   it. Yule quotes a great deal of poetry — Dante, Chaucer, Marco's own century's doggerel, the
+   Persian and Chinese he is glossing — and sets each in a centred block of indented lines; 136 of
+   the 137 blocks are inside a Note rather than in Polo's prose. Left to `poloInline` those lines
+   run together into a paragraph, which on a page arguing about a poem's wording is the one thing
+   that must not happen: the Prose Edda's finding, in an apparatus rather than in the text. The
+   block is turned into lines HERE, before any of it is flattened, and marked so that the note
+   builder keeps it whole. */
+function poloVerse(s, counts, warn) {
+  for (let g = 0; g < 400; g++) {
+    const m = /<div class="[^"]*\bpoetry\b[^"]*"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a verse block is unbalanced and was left in place"); break; }
+    const ls = [...s.slice(m.index, e).matchAll(/<div class="i\d"[^>]*>([\s\S]*?)<\/div>/g)]
+      .map((x) => poloInline(x[1])).filter(Boolean);
+    counts.verse++; counts.verseLines += ls.length;
+    s = s.slice(0, m.index) + "VB<blockquote>" + ls.join("<br>") + "</blockquote>/VB" + s.slice(e);
+  }
+  return s;
+}
+
+function poloSpan(h, warn) {
+  const start = [...h.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)]
+    .find((m) => /^THE BOOK OF MARCO POLO/i.test(poloText(m[1])));
+  if (!start) throw new Error("the volume's half-title is not in the file");
+  const rest = h.slice(start.index + start[0].length);
+  const end = [...rest.matchAll(/<h[23][^>]*>([\s\S]*?)<\/h[23]>/g)]
+    .find((m) => /^(APPENDICES?|INDEX)\b/i.test(poloText(m[1])));
+  if (!end) warn("a volume runs to its end with no appendix or index to stop at");
+  return rest.slice(0, end ? end.index : rest.length);
+}
+
+function extractPolo(vols, warn) {
+  const counts = { pages: 0, figures: 0, notes: 0, marks: 0, textFoot: 0, spliced: 0, reused: 0,
+    lostFoot: 0, lostNote: 0, titleMarks: 0, tables: 0, verse: 0, verseLines: 0, gist: 0, ram: 0, cordier: 0 };
+  const raw = [];
+  let book = 0;
+
+  for (const vol of vols) {
+    const seg = poloSpan(vol, warn);
+    /* THE VOLUME'S OWN FOOTNOTES, gathered before anything is cut: they are numbered straight
+       through the volume and may be cited from anywhere in it. Two things about the container, and
+       both were found by chasing a single dropped marker rather than by reading the file. It may
+       carry ATTRIBUTES — `<div class="footnote" lang="fr">` where Yule quotes the Franco-Italian,
+       and de and it besides — so a pattern anchored on the bare tag misses 13 of the 790 and each
+       is a claim in the text whose note silently goes; and it may NEST, 22 times in the first
+       volume, where a plate or a block of verse sits inside the note, so a non-greedy `</div>`
+       truncates the note at its first inner block with every count still reading healthy. Matched
+       loose and closed BALANCED. */
+    const foot = {};
+    for (let g = 0, at = 0; g < 4000; g++) {
+      const m = /<div class="footnote"[^>]*>/.exec(seg.slice(at));
+      if (!m) break;
+      const i = at + m.index;
+      const e = blockEnd(seg, i, "div");
+      at = e < 0 ? i + m[0].length : e;
+      if (e < 0) { warn("a footnote is unbalanced and was skipped"); continue; }
+      const inner = seg.slice(i + m[0].length, e - 6);
+      const k = /id="Footnote_(\d+)"/.exec(inner);
+      if (!k) continue;
+      foot[k[1]] = poloInline(inner.replace(/<a[^>]*class="label[^>]*>[\s\S]*?<\/a>/g, "")
+        .replace(/^\s*\[\d+\]\s*/, ""));
+    }
+
+    /* walk the volume in reading order: an h3 may change the book, an h4 opens a chapter */
+    const marks = [...seg.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>|<h4[^>]*>([\s\S]*?)<\/h4>/g)];
+    for (let i = 0; i < marks.length; i++) {
+      const m = marks[i];
+      if (m[1] != null) {
+        const t = poloText(m[1]);
+        const b = POLO_BOOKS.findIndex((x) => x.key.test(t));
+        /* Book Second is printed in three Parts and the second volume opens in the middle of it, so
+           a Part heading is NOT a book change — it says where in Book Second the reader is and
+           nothing more. Left unrecognised it would be read as a sixth book. */
+        if (b >= 0) book = b + 1;
+        else if (!/^part\b/i.test(t))
+          warn("a heading inside the text is neither a book nor a part: " + JSON.stringify(t.slice(0, 60)));
+        continue;
+      }
+      const head = poloText(m[2]);
+      const r = /^CHAPTER\s+([IVXLC]+)\b/.exec(head);
+      if (!r) { warn("a chapter heading carries no numeral: " + JSON.stringify(head.slice(0, 60))); continue; }
+      if (!book) { warn("a chapter stands before any book heading and was skipped"); continue; }
+      raw.push({ book: book, c: romanValue(r[1]), head: head, foot: foot,
+        body: seg.slice(m.index + m[0].length, i + 1 < marks.length ? marks[i + 1].index : seg.length) });
+    }
+  }
+
+  /* the counts the edition itself states, checked book by book */
+  for (let b = 1; b <= POLO_BOOKS.length; b++) {
+    const got = raw.filter((c) => c.book === b).map((c) => c.c);
+    if (got.length !== POLO_BOOKS[b - 1].n)
+      warn(POLO_BOOKS[b - 1].label + " came back with " + got.length + " chapters where the edition has " + POLO_BOOKS[b - 1].n);
+    if (!got.every((v, i) => v === i + 1))
+      warn(POLO_BOOKS[b - 1].label + "'s chapters are not a clean 1..N: " + got.join(","));
+  }
+
+  return {
+    chapters: raw.map((ch, i) => {
+      const at = poloAt(i + 1);
+      const got = poloChapter(ch, counts, warn);
+      return { n: i + 1, p: at ? at.p : 1,
+        t: (at ? at.book.cite + " " + at.c + " — " : "") + got.title, html: got.html, notes: got.notes };
+    }),
+    counts: counts,
+  };
+}
+
+function poloChapter(ch, counts, warn) {
+  let s = ch.body;
+  /* the printed page numbers, which the transcription tags and which would otherwise survive the
+     tag strip as a bare figure in the middle of a sentence */
+  s = s.replace(/<span class="pagenum"[^>]*>[\s\S]*?<\/span>/g, () => { counts.pages++; return ""; });
+
+  /* THE PLATES AND THEIR CAPTIONS, AND THE ONE THING THAT MUST NOT GO WITH THEM. Folio's reader
+     drops images outright (no <img> in ALLOWED), so a caption left behind is a line describing a
+     picture that is not there — the Republic's judgement about the engravings bound into its own
+     volume. The rule was first written to take `center-container` as well, on the reasonable-looking
+     ground that a centred block is a plate; it is not, and that block is the wrapper Yule's VERSE
+     sits in, so the first run silently removed all 137 poems and reported `verse: 0`. The count is
+     what showed it. Figures are matched on `figcenter` alone and the wrapper is unwrapped. */
+  for (let g = 0; g < 400; g++) {
+    const m = /<div class="[^"]*\bfigcenter\b[^"]*"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a plate is unbalanced and was left in place"); break; }
+    counts.figures++;
+    s = s.slice(0, m.index) + s.slice(e);
+  }
+
+  /* YULE'S OWN TITLE FOR THE CHAPTER, WHICH MAY CARRY A FOOTNOTE OF ITS OWN. The title becomes the
+     tab, so this is the Consolation's rule about a heading that is KEPT rather than dropped, met in
+     the one place where neither of the shelf's two usual answers will do: splicing the note into
+     the title in brackets — right inside a Note — gives Book Fourth's last chapter a 200-character
+     tab reading "Conclusion. [This conclusion is not found in any copy except…]", and dropping it
+     loses a note about the whole chapter. So the marker is CARRIED DOWN to the chapter's first
+     block, which is Bede's `dropFittHead` rule and its refinement: a carried marker goes to the
+     block nearest it in reading order, and a title precedes the prose and opens it. One chapter in
+     235 does this; the count is printed so a second cannot appear unnoticed. */
+  const th = /<div class="subh4">([\s\S]*?)<\/div>/.exec(s);
+  let title = "", carried = [];
+  if (!th) warn(ch.head + ": no title under the numeral");
+  else {
+    title = poloInline(th[1].replace(/<a class="fnanchor pginternal" href="#((?:Note|Footnote)_[^"]+)"[^>]*>[\s\S]*?<\/a>/g,
+      (w, id) => { counts.titleMarks++; carried.push(id); return ""; }));
+    s = s.slice(0, th.index) + s.slice(th.index + th[0].length);
+  }
+
+  /* the tables. Nine in the whole book, and the tag stripper flattens one into a column of words
+     with every relation between them gone — the Book of Rites' mourning charts. Removed and
+     counted rather than shipped as prose. */
+  for (let g = 0; g < 40; g++) {
+    const m = /<table[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "table");
+    if (e < 0) { warn("a table is unbalanced and was left in place"); break; }
+    counts.tables++;
+    s = s.slice(0, m.index) + s.slice(e);
+  }
+
+  const cut = poloNoteRegion(s);
+  let body = s.slice(0, cut.at);
+  const notes = poloNotes(cut.region, ch.foot, counts, warn);
+
+  /* the markers. A Note is cited by its own id, never by its position: a Note may be cited more
+     than once and reading order would then send every marker after the first repeat one entry too
+     far — which is the fault this file records for Seneca's letter 114, and which no count can see.
+     A footnote cited on the TEXT is a note on the text and joins the fold after the Notes. */
+  const byId = {};
+  notes.forEach((n, i) => { byId[n.id] = i + 1; });
+  const extra = [];
+  body = body.replace(/<a class="fnanchor pginternal" href="#(Note_[^"]+)"[^>]*>[\s\S]*?<\/a>/g, (w, id) => {
+    const i = byId[id];
+    /* an anchor pointing at a Note in ANOTHER chapter. Yule's apparatus cross-refers constantly and
+       almost all of it is plain internal links, whose words survive the tag strip and read as the
+       cross-references they are; a handful are set as footnote anchors instead, and a per-chapter
+       fold has nowhere to send those. Reported rather than dropped in silence. */
+    if (!i) { counts.lostNote++; warn(ch.head + ": a marker points at " + id + ", which is another chapter's note"); return ""; }
+    counts.marks++;
+    return '<sup class="fn" data-fn="' + i + '"></sup>';
+  });
+  body = body.replace(/<a class="fnanchor pginternal" href="#Footnote_(\d+)"[^>]*>[\s\S]*?<\/a>/g, (w, k) => {
+    if (!ch.foot[k]) { counts.lostFoot++; warn(ch.head + ": a marker points at Footnote_" + k + ", which is not in this volume"); return ""; }
+    counts.marks++; counts.textFoot++;
+    extra.push(ch.foot[k]);
+    return '<sup class="fn" data-fn="' + (notes.length + extra.length) + '"></sup>';
+  });
+
+  body = poloVerse(body, counts, warn);
+
+  /* the blocks, in reading order */
+  const outp = [];
+  const rx = /<p[^>]*>([\s\S]*?)<\/p>|VB([\s\S]*?)\/VB/g;
+  let m;
+  while ((m = rx.exec(body))) {
+    if (m[2] != null) { outp.push(m[2]); continue; }
+    const t = poloInline(m[1]);
+    if (t) outp.push("<p>" + t + "</p>");
+  }
+  /* A NOTE CARRIED DOWN OFF THE TITLE OPENS THE CHAPTER IT BELONGS TO, in BOTH tiers. The rule was
+     written for the footnote hung on Book Fourth's "Conclusion." and it was found to be needed for
+     the substantive Notes too by the every-note-is-referenced assertion and by nothing else: three
+     chapters hang a Note on their own title — each explaining that the chapter is one of the ones
+     Yule took whole from Ramusio, which is why two of the three titles are in brackets — and read
+     without this that Note sits in the fold with nothing pointing at it while the chapter is
+     complete, the numbering right and every count healthy. Prepended INSIDE the first block rather
+     than given a paragraph of its own, which would print a bare superscript on a line by itself. */
+  for (const id of carried) {
+    let i = byId[id];
+    if (!i) {
+      const k = /^Footnote_(\d+)$/.exec(id);
+      if (!k || !ch.foot[k[1]]) { counts.lostFoot++; warn(ch.head + ": the note hung on its title (" + id + ") could not be found"); continue; }
+      extra.push(ch.foot[k[1]]);
+      i = notes.length + extra.length;
+    }
+    const mark = '<sup class="fn" data-fn="' + i + '"></sup>';
+    if (outp.length && /^<p>/.test(outp[0])) outp[0] = outp[0].replace(/^<p>/, "<p>" + mark);
+    else outp.unshift("<p>" + mark + "</p>");
+  }
+  const html = outp.join("\n");
+
+  /* THE EDITION'S OWN MARKS ARE KEPT AND COUNTED. Yule brackets everything he takes from Ramusio's
+     Italian, Cordier signs his own insertions "—H. C.", and Yule marks with ⚜ each chapter of Book
+     Fourth he has given in gist rather than in full. All three are the edition telling the reader
+     what it is doing, which is the Ramayana's rule — a translator who says what he left out is
+     worth more than one who is complete and silent — so none is tidied away and each is counted, a
+     mark that stops being recognised looking exactly like a mark that was never there. */
+  counts.gist += (html.match(/⚜/g) || []).length;
+  counts.ram += (html.match(/\[[^\[\]]{25,}\]/g) || []).length;
+  counts.cordier += (notes.map((n) => n.t).join(" ").match(/—H\.\s*C\.\]/g) || []).length;
+
+  return { title: title, html: html, notes: notes.map((n) => n.t).concat(extra) };
+}
+
+/* ============================================================
+   A CHAPTER TITLE READ OFF THE PAGE ITSELF        (head: "sankuo")
+   ============================================================
+   Aug 2026, adding Romance of the Three Kingdoms. Not a layout: the book is the ordinary wiki walk
+   and goes through cleanBody like every other proofread transcription here. What it needs is one
+   thing that walk cannot do, and one it does badly, and both are about the two centred blocks each
+   chapter opens on:
+
+     <div class="wst-center"><p><span style="font-size:120%;">CHAPTER IX.</span></p></div>
+     <div class="wst-center"><p><span class="smallcaps">Lü Pu Helps to Suppress Disorder:<br />
+                                Chia Hsü Counsels an Attack on the Capital.</span></p></div>
+
+   THE TITLE IS ONLY ON THE CHAPTER'S OWN PAGE, which is a measurement rather than a preference. The
+   volumes DO print a table of contents and both are transcribed complete, so the obvious move is
+   `indexPage`; it was compared against the body chapter by chapter and it is the worse reading twice
+   over. The contents sets every title in CAPITALS where the body sets it in title case, so the case
+   is unrecoverable there and given here — the reverse of Journey to the West, where the contents was
+   the title-case copy and lost on accuracy instead. And it drops the diacritics the body keeps: LU PU
+   and CHIA HSU against Lü Pu and Chia Hsü, on a text whose romanisation is nothing but diacritics.
+   That is Aesop's rule reached by measurement — transcribe from the body — and it is why this hook
+   exists at all rather than a line of config.
+
+   THE HEAD BLOCKS MUST THEN GO, and `dropHeads` can only take the first of them. It matches a leading
+   block against a pattern the book declares, which is exactly right for "CHAPTER IX." and impossible
+   for a title, whose whole text is different on every page: a pattern loose enough to match all 120
+   of them is a pattern that would eat prose. So both are taken here, where the second one has just
+   been READ and can be removed because it is known rather than guessed at.
+
+   AND THE NUMBER IS CHECKED, which is the City of God's rule (read the heading, compare it against
+   the page you asked for) and which needed an inventory before it could be written. This printing
+   does not number its chapters the way anything else does in the nineties: read off both contents
+   pages, the run is XC IXC VIIIC VIIC VIC VC IVC IIIC IIC IC C — that is 90 to 100, with 91 to 99 set
+   as <n>C meaning a hundred LESS n, a generalisation of XC that no modern style uses and that this
+   printer applies for nine chapters and nowhere else. `romanValue` returns 0 for every one of them,
+   since it insists a numeral round-trip through romanNumeral. So the check parses that form too and
+   the nine are counted, which is what would report the run changing shape; a numeral that parses to
+   something other than the chapter asked for is a page filed under the wrong number and is warned
+   about rather than silently accepted.
+
+   THE PRINTER'S BOUNDARY MARKS GO WITH THEM — see the rule at the foot of this function. */
+function sanKuoHead(h, n, warn, counts) {
+  counts = counts || SANKUO;
+  const CENTRE = /<div class="wst-center[^>]*>([\s\S]*?)<\/div>/g;
+  /* stripWikiCSS BEFORE the tags, which is the order this file has had to learn twice: MediaWiki
+     ships a template's rules as an inline <style> inside the very element being read, so dropping
+     tags first leaves the tags gone and the CSS TEXT behind — chapter 3's title came out as "Tung
+     Cho Silences Ting .mw-parser-output .wst-tooltip{cursor:help;…}Yuan: Li Su Bribes Lü Pu", which
+     is a title of the right shape and the right length and is not a title. */
+  const flat = (x) => stripWikiCSS(x).replace(/<br\s*\/?>/g, " ").replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+  const HEAD = /^CHAPTER\s+([IVXLCDM]+)\.?$/i;
+  const check = (num) => {
+    const v = sanKuoRoman(num);
+    if (!v) warn("could not read the chapter numeral " + JSON.stringify(num));
+    else if (v !== n) warn("the page is headed " + num + " (" + v + "), not " + n);
+    else if (!romanValue(num)) counts.odd++;
+  };
+  /* THE NUMBER AND THE TITLE ARE NOT ALWAYS IN THE SAME BLOCK, and assuming either arrangement loses
+     the title on the chapters set the other way. A hundred and eighteen of the hundred and twenty
+     put the number in one centred block and the title in a second; chapters 14 and 15 put both
+     paragraphs inside ONE — the same text printed two ways, which is what a volume transcribed page
+     by page by several hands looks like, and the fault `originalChapter` already records for an
+     Italian edition of 1814. Both are read here: the leading block's own paragraphs are looked at
+     first, and only if it holds nothing but the number is a second block taken. */
+  let taken = 0, title = "";
+  h = h.replace(CENTRE, (whole, inner) => {
+    if (taken >= 2) return whole;
+    if (taken === 0) {
+      const ps = inner.match(/<p\b[^>]*>[\s\S]*?<\/p>/g) || [];
+      const first = flat(ps.length ? ps[0] : inner);
+      const m = HEAD.exec(first);
+      if (!m) { warn("the first centred block is not a chapter heading: " + JSON.stringify(first.slice(0, 60))); return whole; }
+      check(m[1]);
+      if (ps.length > 1) {
+        title = flat(ps.slice(1).join(" "));
+        taken = 2;
+        if (!title) warn("the chapter's title paragraph is empty");
+      } else taken = 1;
+      return "";
+    }
+    const t = flat(inner);
+    taken = 2;
+    if (!t) { warn("the chapter's title block is empty"); return ""; }
+    title = t;
+    return "";
+  });
+  if (taken < 2) warn("the chapter's printed title was not found");
+  /* THE PRINTER'S BOUNDARY MARKS, which are not lines of the novel. Chapter 60 closes on a centred
+     "end of volume i" and chapter 120 on a centred "The End" — the marks a printed book in two
+     volumes sets where its parts divide, and by the time cleanBody has run each is a blockquote
+     standing under the last sentence of the chapter. It is the Meditations' running-head case at the
+     other end of the page, so both are matched on the block's own TEXT exactly as `dropHeads` matches
+     one, anchored whole so nothing else can go, and counted. The two are taken by ONE rule because
+     they are one kind of thing: keeping either while dropping the other would be an inconsistency a
+     reader would meet sixty chapters apart and have no way to explain. (The colophon at the foot of
+     the last page needs nothing here — it is set on the one leaf the edition never numbered, so
+     `dropUnnumberedPages` lifts it out for free.) */
+  h = h.replace(/<div class="wst-center[^>]*>([\s\S]*?)<\/div>/g, (whole, inner) => {
+    if (!/^(?:end of volume\b|the end$)/i.test(flat(inner))) return whole;
+    counts.half++;
+    return "";
+  });
+  return { h: h, t: title };
+}
+/* This printing's own numerals, which are standard everywhere but the nineties — see the inventory
+   above. A group before C is subtracted from it, which is what XC already means and what IXC, VIIC
+   and IVC mean here; anything else is read the ordinary way. */
+function sanKuoRoman(s) {
+  const v = romanValue(s);
+  if (v) return v;
+  const m = /^([IVX]+)C$/.exec(s);
+  if (!m) return 0;
+  const lead = romanValue(m[1]);
+  return lead && lead < 10 ? 100 - lead : 0;
+}
+
 /* ============================================================
    A WORK CITED BY SECTION AND DIVIDED INTO NOTHING ELSE
                                    (layout: "satyricon" — the seventeenth)
@@ -14864,7 +17863,11 @@ function chapterTitle(n) {
 }
 
 async function fetchEnglish() {
-  console.log("Fetching " + BOOK.title + " (" + BOOK.translator + ") — chapters " + FROM + "–" + TO);
+  /* A book with no `translator` is not a gap in its entry — it is a book that was written in English
+     and has nobody standing between the reader and the author. Le Morte d'Arthur is the first, so the
+     line names its EDITION instead rather than printing "(undefined)". */
+  console.log("Fetching " + BOOK.title + " (" + (BOOK.translator || BOOK.edition) + ") — chapters " +
+    FROM + "–" + TO);
   const titles = await chapterTitles();
   const warnings = [];
   const chapters = [];
@@ -14956,6 +17959,49 @@ async function fetchEnglish() {
      written. The counts are printed rather than summarised, because every one of them is a decision
      the reader would otherwise have to take on trust: what was dropped, what was left in beta code,
      and how much of Petronius's verse the translator set as prose. */
+  /* THE RAMAYANA — one TEI file, cut at the canto anchors. See extractRamayan for why the anchors are
+     the citation and why the canto numbers can be trusted as a pairing key. */
+  if (BOOK.source === "tei" && BOOK.layout === "kanda") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, xml); }
+    const got = extractRamayan(xml, warn);
+    const c = got.counts;
+    console.log("  " + Object.keys(got.cantos).length + " cantos, " + c.lines + " lines of verse in " +
+      c.stanzas + " stanzas, " + c.paras + " prose paragraph(s), " + c.notes + " notes");
+    if (c.headNotes) console.log("    carried " + c.headNotes +
+      " footnote marker(s) off a dropped heading — 9 canto titles and 2 book half-titles");
+    if (c.mismatch) console.log("    " + c.mismatch + " canto(s) whose anchor and printed head disagree");
+    if (c.named !== Object.keys(got.cantos).length)
+      console.log("    " + (Object.keys(got.cantos).length - c.named) + " canto(s) carry no printed name");
+
+    /* THE TABLE IS CHECKED AGAINST THE EDITION, in both directions — the whole pairing rests on which
+       cantos Griffith actually prints, and RAM_BOOKS states that from a measurement rather than from
+       the file. A canto the table expects and the file lacks would ship as a missing chapter; one the
+       file has and the table omits would never be asked for at all, and nothing else would say so. */
+    const has = new Set(Object.keys(got.cantos));
+    const wanted = new Set(BOOK.chapters.map((n) => { const a = ramAt(n); return a.b + "." + a.c; }));
+    const extra = [...has].filter((k) => !wanted.has(k));
+    if (extra.length) warn("the edition carries " + extra.length +
+      " canto(s) the chapter table omits: " + extra.slice(0, 12).join(", "));
+
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const a = ramAt(n);
+      const s = got.cantos[a.b + "." + a.c];
+      if (!s) { warn(BOOK.chapterWord + " " + a.b + "." + a.c + " is missing from the edition"); continue; }
+      if (s.html.length < (BOOK.minChars || 200))
+        throw new Error("canto " + a.b + "." + a.c + " came back short (" + s.html.length + " chars)");
+      /* The tab reads "1.1 \u00b7 N\u00e1rad" \u2014 the citation the poem is cited by, then Griffith's own name
+         for the canto. See `extractRamayan` for why the name is worth carrying across 493 tabs. */
+      const t = (titles[n] || chapterTitle(n)) + (s.name ? " \u00b7 " + s.name : "");
+      chapters.push({ n: n, t: t, p: partOf(n), html: s.html, notes: s.notes });
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.source === "tei" && BOOK.layout === "satyricon") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-tei.xml");
@@ -15267,6 +18313,141 @@ async function fetchEnglish() {
      transcription of the same translation because that one has lost sixty words. One request for
      the lot, cached like a TEI file, so --from/--to cost nothing and a re-extract needs no network.
      See the block above extractQuixote for the measurement and for what was NOT done about it. */
+  /* THE MAXIMS OF PTAHHOTEP — one Gutenberg HTML page holding three works, of which this is the
+     second. Cached whole, like every other single-file book, so --from/--to cost nothing and a
+     re-extract needs no network at all. See extractPtahhotep for what a transcribed printed page
+     has that a machine reading of one has not. */
+  /* THE CONSOLATION OF PHILOSOPHY — one Gutenberg HTML page, five books, seventy-eight sections of
+     alternating prose and verse. Cached whole, like every other single-file book, so --from/--to
+     cost nothing and a re-extract needs no network. See the block above extractBoethius for why the
+     book is the chapter and the section the row. */
+  if (BOOK.layout === "boethius") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const g = extractBoethius(raw, BOOK, warn);
+    const got = g.books, c = g.counts;
+    console.log("  " + got.length + " books, " + got.reduce((a, b) => a + b.secs, 0) +
+      " sections, " + c.poems + " poems (" + c.stanzas + " stanzas, " + c.verseLines + " lines, " +
+      c.joined + " printed across a page break and rejoined), " + c.notes + " notes, " +
+      c.summaries + " book summaries, " + c.pages + " printed page marks removed");
+    if (c.greekOk || c.greekLeft || c.glosses)
+      console.log("  Greek: " + c.greekOk + " letter name(s) decoded, " + c.greekLeft +
+        " romanisation(s) left as printed, " + c.glosses +
+        " transliteration(s) removed from beside a Greek letter already set");
+    got.forEach((b) => {
+      if (b.n < FROM || b.n > TO) return;
+      if (b.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
+      chapters.push({ n: b.n, t: titles[b.n] || b.t || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+  /* THE TRAVELS OF MARCO POLO — the first book here printed in TWO Gutenberg files. Both are
+     cached whole and read as one, because the chapters run continuously from one into the other and
+     Book Second is split across the join: a count taken per file is a count of half a book. See the
+     block above extractPolo for the rest, and for why no offset into either file is written down. */
+  if (BOOK.layout === "polo") {
+    const warn = (m) => warnings.push(m);
+    const vols = [];
+    for (let v = 0; v < BOOK.urls.length; v++) {
+      const cf = path.join(CACHE, "en-vol" + (v + 1) + ".html");
+      if (!FORCE && fs.existsSync(cf)) vols.push(fs.readFileSync(cf, "utf8"));
+      else {
+        const raw = await fetchText(BOOK.urls[v]);
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, raw);
+        vols.push(raw);
+        await sleep(500);
+      }
+    }
+    const g = extractPolo(vols, warn);
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " chapters in " + POLO_BOOKS.length + " books, " +
+      c.notes + " of Yule's Notes and " + c.textFoot + " footnote(s) on the text, " + c.marks +
+      " marker(s), " + c.spliced + " footnote(s) spliced into the Note that cites them, " +
+      c.titleMarks + " note(s) carried down off a chapter title, " + c.verse + " verse block(s) " +
+      "holding " + c.verseLines + " line(s), " + c.figures + " plate(s), " + c.tables +
+      " table(s) and " + c.pages + " printed page mark(s) removed; the edition's own marks: " +
+      c.gist + " gist mark(s), " + c.ram + " bracketed passage(s) from Ramusio, " + c.cordier +
+      " insertion(s) signed by Cordier");
+    if (c.lostNote || c.lostFoot)
+      console.log("  ! " + (c.lostNote + c.lostFoot) + " marker(s) pointed outside their own chapter and were dropped");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: ch.t, p: ch.p, html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* THE ECCLESIASTICAL HISTORY — one Gutenberg HTML page, five books, 140 chapters and an
+     apparatus of 1,081 notes numbered across the whole volume. Cached whole, like every other
+     single-file book, so --from/--to cost nothing and a re-extract needs no network. See the block
+     above extractBede for why the anchors in that file are not the thing to cut at. */
+  if (BOOK.layout === "bede") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const g = extractBede(raw, warn);
+    const c = g.counts;
+    console.log("  " + g.books.length + " books, " + g.books.reduce((a, b) => a + b.secs, 0) +
+      " chapters, " + c.marks + " footnote marker(s) into an apparatus of " + c.notes +
+      " (" + c.headMarks + " of them on a chapter heading, " + c.uncited +
+      " notes belong to the front matter this book does not carry), " +
+      c.quotes + " display quotation(s), " + c.verse + " verse block(s) holding " + c.verseLines +
+      " line(s), " + c.pages + " printed page mark(s) removed");
+    g.books.forEach((b) => {
+      if (b.n < FROM || b.n > TO) return;
+      if (b.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + b.n + " came back short (" + b.html.length + " chars)");
+      chapters.push({ n: b.n, t: titles[b.n] || chapterTitle(b.n), p: partOf(b.n), html: b.html, notes: b.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
+  if (BOOK.layout === "ptahhotep") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    const got = extractPtahhotep(raw, BOOK, warn);
+    const c = got.counts;
+    console.log("  " + got.secs.length + " sections, " + c.notes + " notes, " + c.marks +
+      " marker(s), " + c.pages + " printed page number(s) removed" +
+      (c.themes ? ", and the series' own list of themes" : ""));
+
+    /* THE KEY RUN IS CHECKED AGAINST THE EDITION IN BOTH DIRECTIONS, and it is what stands in for a
+       short-chapter guard this book cannot have (see the reader). A section the table expects and
+       the file lacks would ship as a missing chapter; one the file has and the table omits would
+       never be asked for at all, and nothing else here would say so — the marks are letters AND
+       numbers in one run, so a reader written for either alone loses the other end of the poem
+       while every count still reads healthy. */
+    const has = got.secs.map((s) => s.k);
+    const missing = PTAH_KEYS.filter((k) => !has.includes(k));
+    const extra = has.filter((k) => !PTAH_KEYS.includes(k));
+    if (missing.length) warn("the edition is missing section(s) the table expects: " + missing.join(", "));
+    if (extra.length) warn("the edition carries section(s) the table omits: " + extra.join(", "));
+    if (has.join(",") !== PTAH_KEYS.join(",") && !missing.length && !extra.length)
+      warn("the sections are all present but not in the order the table states");
+
+    got.secs.forEach((s, i) => {
+      const n = PTAH_KEYS.indexOf(s.k) + 1 || i + 1;
+      if (n < FROM || n > TO) return;
+      if (s.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + s.k + " came back short (" + s.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: s.html, notes: s.notes });
+    });
+    chapters.sort((x, y) => x.n - y.n);
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "quixote") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-text.txt");
@@ -15399,8 +18580,20 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    const h = applyFixes(applyGlyphs(await api(pageNames[0])));
+    let h = applyFixes(applyGlyphs(await api(pageNames[0])));
     let html, notes, orig = "", tFromText = "";
+    /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
+       the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
+       the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
+       has finished every centred div is a blockquote and the class this keys on is gone. `tFromText`
+       is the channel a facing-page book already uses for a title the extractor read off the text, and
+       it yields to `titles[n]`, so a title stated in this file would still win. */
+    if (BOOK.head === "sankuo") {
+      const got = sanKuoHead(h, n, warn);
+      h = got.h;
+      tFromText = got.t;
+      if (got.t) SANKUO.titled++;
+    }
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
          the translation — fetchOriginal then costs no requests at all. The two shapes a facing-page
@@ -15421,6 +18614,10 @@ async function fetchEnglish() {
          `sections: "bookchapter"` in cleanBody — Thucydides' chapter marks carry the book number as
          well as the chapter). Set only for that shape, so no other book's config is touched. */
       if (BOOK.sections === "bookchapter") BOOK.expect = n;
+      /* Which of Caxton's books this chapter IS, so the half-title printed on its first page can be
+         checked as well as the chapter number under it — the same channel `expect` uses, set per
+         chapter rather than per page because that is the grain the number belongs to. */
+      if (BOOK.sections === "malory") BOOK.bookNum = n;
       /* The number the single whole-chapter marker carries — the same channel `expect` uses, and
          set per chapter for the same reason: cleanBody is handed the book, not the chapter. */
       if (BOOK.sections === "whole") BOOK.mark = n;
@@ -15470,6 +18667,26 @@ async function fetchEnglish() {
       }
       if (multi && BOOK.sections && !/class="bk-n"/.test(html))
         warn("no section numbers found — the chapter will pair as one whole block");
+      /* AN APPARATUS THE EDITION DOES NOT HAVE (Aug 2026, adding Le Morte d'Arthur — the first wiki
+         book to need this; the Satyricon's TEI path already had its own `dropNotes`).
+
+         Every note on this transcription is a WIKISOURCE CONTRIBUTOR'S, and it says so in its own
+         text: twenty-seven collations of the printed reading against the Winchester manuscript and
+         the French Queste, added on the wiki and set in the scribal abbreviations of the manuscript
+         (“[…othir þͤ] menoͣ oþͬ [þͤ takynge…]”). Folded under the chapters of a book presented as the
+         Everyman edition of 1906, they would be an apparatus that edition has not got, unsigned, and
+         mostly unusable by the reader it is shown to. That is the Satyricon's judgement about what a
+         note fold is FOR, sharpened by the Divine Comedy's question about what an unattributed text
+         is — an unattributed apparatus is the worse case, since a reader has no way to know whose
+         collation they are being shown. Dropped, and COUNTED on every run, so a transcription that
+         starts carrying the edition's own notes cannot do it unnoticed. The markers go with them:
+         `wireFootnotes` would delete a marker pointing past the end of the list at render, which is
+         the right behaviour and the wrong place to find out. */
+      if (BOOK.dropNotes && notes.length) {
+        DROPPED_NOTES += notes.length;
+        notes = [];
+        html = html.replace(/<sup class="fn"(?: data-fn="\d+")?><\/sup>/g, "");
+      }
     }
     /* THE FLOOR IS PER BOOK, because 200 characters is a broken chapter in every book here except
        one (Aug 2026, adding Aesop's Fables). This guard is what catches an extraction that has
@@ -15502,7 +18719,11 @@ function writeEnglish(chapters, warnings) {
   fs.mkdirSync(outDir, { recursive: true });
   const out = path.join(outDir, id + ".js");
   const lines = [];
-  lines.push("/* " + BOOK.title + " — " + BOOK.author + ", translated by " + BOOK.translator + ".");
+  /* A book with no `translator` was written in English and has none — see the note above the run
+     header. It is named by its EDITOR's edition instead of being announced as "translated by
+     undefined", which is a claim about the text rather than a cosmetic slip. */
+  lines.push("/* " + BOOK.title + " — " + BOOK.author +
+    (BOOK.translator ? ", translated by " + BOOK.translator : "") + ".");
   lines.push("   " + BOOK.edition + ". " + BOOK.rights);
   lines.push("   Source: " + BOOK.sourceName + " — " + BOOK.sourceUrl);
   lines.push("");
@@ -15558,6 +18779,21 @@ function writeEnglish(chapters, warnings) {
   const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
   console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
     (secs.some((s) => !s) ? "  — " + secs.filter((s) => !s).length + " chapter(s) with NONE" : ""));
+  if (SANKUO.titled || SANKUO.odd || SANKUO.half)
+    console.log("  " + SANKUO.titled + " chapters titled from their own printed head, " +
+      SANKUO.odd + " headed in this printing's hundred-less-n numerals, " +
+      SANKUO.half + " printer's boundary mark(s) removed");
+  /* A rule that quietly stops firing looks exactly like a rule that had nothing to do, so every
+     number markMaloryHeads acts on is printed: the chapters it marked, the book half-titles it
+     lifted out, the rubrics it found, and any footnote marker it had to carry off a dropped head. */
+  if (MALORY.chapters)
+    console.log("  " + MALORY.chapters + " chapters marked, " + MALORY.rubrics +
+      " carrying Caxton's own rubric (" + MALORY.odd + " of them set as a centred block instead), " +
+      MALORY.books + " book half-title(s) lifted out, " +
+      MALORY.notesOnHeads + " footnote marker(s) carried off a heading");
+  if (DROPPED_NOTES)
+    console.log("  " + DROPPED_NOTES + " transcriber's note(s) dropped — an apparatus this edition " +
+      "does not print; see `dropNotes`");
   if (ARTICULI_FOUND)
     console.log("  " + ARTICULI_FOUND + " articles, " + ARTICULI_COUNTED +
       " of the questions numbered by their own stated count — " + ARTICULI_NODASH +
@@ -15615,6 +18851,33 @@ async function fetchOriginal() {
      proofread transcription of a critical edition rather than a machine reading, so the difficulty is
      not damage but APPARATUS — see the block above extractSkeat. One file, cached whole, so a
      re-extract needs no network; --force refetches it. */
+  /* THE LATIN OF A FACING-PAGE VOLUME, LINEARISED BY ITS TRANSCRIPTION. One file, cached whole, so a
+     re-extract needs no network; --force refetches it. See the block above extractBoethius for the
+     measurement that makes every second numeral heading the Latin one, and for why the English
+     printed beside it is not the English this book ships. */
+  if (O.source === "text" && O.layout === "boethius") {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    const cf = path.join(cacheDir, "page.html");
+    let raw;
+    if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
+    else { raw = await fetchText(O.url); fs.writeFileSync(cf, raw); }
+    const got = boethiusLatin(raw, O, warn);
+    const c = got.counts;
+    console.log("  " + Object.keys(got.byNum).length + " books, " + c.poems + " metres (" +
+      c.lines + " lines of verse, " + c.split + " of them printed across a page break and rejoined), " +
+      c.lineNums + " marginal line number(s) dropped" +
+      (c.notes ? ", " + c.notes + " note(s) of the English apparatus removed" : ""));
+    if (c.greekOk || c.greekLeft)
+      console.log("  Greek: " + c.greekOk + " letter name(s) decoded, " + c.greekLeft +
+        " romanisation(s) left as printed — see the book's own first page");
+    for (const n of Object.keys(got.byNum)) {
+      if (+n < FROM || +n > TO) continue;
+      if (got.byNum[n].length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + n + " came back short (" + got.byNum[n].length + " chars)");
+      byNum[n] = got.byNum[n];
+    }
+    return writeOriginal(byNum, warnings);
+  }
   if (O.source === "text" && O.layout === "skeat") {
     console.log("\nFetching the " + O.langName + " original — " + O.edition);
     const cf = path.join(cacheDir, "text.txt");
@@ -15928,6 +19191,108 @@ async function fetchOriginal() {
   /* THE SANSKRIT SAMHITA — one page per hymn on another wiki, with Sayana's commentary dropped and
      the verse cut as a stream; see suktaSanskrit above. The pairing is checked against the English
      that actually SHIPPED, read back out of its own cache, exactly as the caput branch does. */
+  /* THE RAMAYANA'S SANSKRIT — one page per sarga, addressed through ramSarga rather than by the
+     chapter number, because three of the 493 cantos are Griffith's own divisions and have no sarga at
+     all. Those are SKIPPED rather than given the sarga next door: a row that draws with one cell empty
+     is telling the truth about two editions, and filling it would be inventing a division neither of
+     them prints. */
+  if (O.layout === "kanda") {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    let lines = 0, verses = 0, dropped = 0, unpaired = 0;
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const a = ramAt(n), s = ramSarga(a.b, a.c);
+      if (!s) { unpaired++; continue; }
+      const where = O.langName + " " + a.b + "." + a.c;
+      const cf = path.join(cacheDir, "sa-" + String(n).padStart(4, "0") + ".html");
+      let h;
+      if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+      else { h = await api(O.page(n), O.wiki); fs.writeFileSync(cf, h); await sleep(1100); }
+      const got = ramSanskrit(h, where, { k: a.b, s: s }, warn);
+      if (got.html.length < (O.minChars || 200))
+        throw new Error(where + " came back short (" + got.html.length + " chars)");
+      byNum[n] = got.html;
+      lines += got.lines; verses += got.verses; dropped += got.dropped;
+    }
+    console.log("  " + Object.keys(byNum).length + " sargas, " + lines + " lines, " + verses +
+      " verse numerals" + (dropped ? ", " + dropped + " commentary block(s) dropped" : ""));
+    console.log("  transcription shapes: " +
+      Object.keys(RAM_SA_KIND).sort().map((k) => k + " " + RAM_SA_KIND[k]).join(", "));
+    console.log("  " + RAM_SA_NOHEAD + " page(s) carry no opening citation header — they open on the " +
+      "verse and close on the traditional colophon, which is text and is kept");
+    if (RAM_SA_INDEX) console.log("  dropped " + RAM_SA_INDEX + " line(s) of a sarga index that leaked " +
+      "into a verse container");
+    if (RAM_SA_ESCAPED) console.log("  cleaned " + RAM_SA_ESCAPED + " line(s) carrying an escaped tag " +
+      "the transcription typed rather than used");
+    console.log("  " + unpaired + " canto(s) are Griffith's own divisions and have no sarga — " +
+      "they draw with an empty cell");
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* BEDE'S LATIN — one page of another wiki per book, with the Praefatio joined in front of Book I.
+     `O.page(n)` returns an ARRAY here; the pages are cleaned in order and joined, which is the Book
+     of Documents' shape on the original's side. The pairing is checked against the English that
+     actually SHIPPED, read back out of its own cache and re-extracted, exactly as the caput and
+     sukta branches do. */
+  if (O.layout === "bedeLatin") {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    const counts = { furniture: 0, edits: 0, heads: 0, inline: 0, heads2: 0, index: 0 };
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const parts = [];
+      let marks = 0;
+      const pages = O.page(n);
+      for (let i = 0; i < pages.length; i++) {
+        const cf = path.join(cacheDir, "la-" + String(n).padStart(2, "0") + "-" + i + ".html");
+        let h;
+        if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+        else { h = await api(pages[i], O.wiki); fs.writeFileSync(cf, h); await sleep(1100); }
+        const got = bedeLatin(h, (m) => warn(BOOK.chapterWord + " " + n + ": " + m), counts);
+        parts.push(got.html);
+        marks += got.marks;
+      }
+      const html = parts.join("\n");
+      if (html.length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + n + " came back short (" + html.length + " chars)");
+      /* The count the edition states, checked on the original's side as well as the translation's:
+         a mark that stops being recognised folds its chapter into the one before it, which shortens
+         nothing visibly and would pair 139 of 140 with no other symptom. */
+      const ms = (html.match(/class="bk-n"/g) || []).length;
+      if (ms !== BEDE_CHAPTERS[n])
+        warn("Liber " + BEDE_LATIN_BOOK[n] + " came back with " + ms + " chapter mark(s) where the " +
+          "edition states " + BEDE_CHAPTERS[n]);
+      byNum[n] = html;
+    }
+    console.log("  " + Object.keys(byNum).length + " books, " + (counts.heads + counts.inline) +
+      " chapter marks (" + counts.heads + " set as headings, " + counts.inline + " set in the prose), " +
+      counts.furniture + " block(s) of page furniture, " + counts.edits + " edit link(s), " +
+      counts.heads2 + " running head(s) and " + counts.index + " stale chapter index/indexes removed");
+
+    const nums = (html) => (html.match(/class="bk-n"[^>]*>(\d+)</g) || []).map((s) => +s.match(/>(\d+)</)[1]);
+    const cf = path.join(CACHE, "en-page.html");
+    if (fs.existsSync(cf)) {
+      const g = extractBede(fs.readFileSync(cf, "utf8"), () => {});
+      let pairs = 0, seen = 0;
+      const onlyEn = [], onlyOr = [];
+      for (const b of g.books) {
+        if (!byNum[b.n]) continue;
+        seen++;
+        const en = nums(b.html), or = nums(byNum[b.n]);
+        const se = new Set(en), so = new Set(or);
+        const missing = en.filter((v) => !so.has(v)), extra = or.filter((v) => !se.has(v));
+        onlyEn.push(...missing.map((v) => BEDE_ROMAN[b.n] + "." + v));
+        onlyOr.push(...extra.map((v) => BEDE_ROMAN[b.n] + "." + v));
+        if (!missing.length && !extra.length) pairs++;
+      }
+      console.log("  " + pairs + " of " + seen + " books pair exactly on every chapter number");
+      if (onlyEn.length) warn(onlyEn.length + " chapter(s) in the translation with no original: " + onlyEn.join(", "));
+      if (onlyOr.length) warn(onlyOr.length + " chapter(s) in the original with no translation: " + onlyOr.join(", "));
+    } else console.log("  (no cached translation to pair against — run without --only-original to check)");
+    return writeOriginal(byNum, warnings);
+  }
+
   if (O.layout === "sukta") {
     console.log("\nFetching the " + O.langName + " original — one page per " +
       BOOK.chapterWord.toLowerCase() + " from " + O.wiki);

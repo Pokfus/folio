@@ -791,3 +791,86 @@ create policy "own review log insertable" on public.review_log
 drop policy if exists "own review log deletable" on public.review_log;
 create policy "own review log deletable" on public.review_log
   for delete using (auth.uid() = user_id);
+
+
+-- ============================================================
+-- 11) DECK COLOUR  (run once, on top of the phase-2 block)
+--
+-- One column: the colour an author says their deck should arrive in, so a shared deck looks like itself on
+-- somebody else's home page instead of falling back to the generic indigo every rule already declares.
+--
+-- IT IS A HINT, NOT A SETTING. A reader's own colour on that row (S.deckGroups, device-side) still wins,
+-- so an author publishing an update can never repaint a row somebody has already coloured themselves.
+--
+-- SAFE TO SKIP, unlike the card-types block. A deck whose author chose no colour publishes with or without
+-- this, and a deck that HAS one publishes anyway: app.js retries the request once with the colour left out
+-- and tells the author it did not travel. Refusing to share a whole deck over a swatch would be the tail
+-- wagging the dog — which is exactly why this reads as one `add column` and no policy of its own.
+--
+-- THE COLUMN GUARD NEEDS NO CHANGE, AND THAT IS WORTH SAYING RATHER THAN LEAVING TO BE INFERRED.
+-- `guard_user_deck_columns()` names the columns a non-admin may NOT write and restores those; it is a
+-- deny-list, not an allow-list, so a new column is client-writable the moment it exists. That is right
+-- here — `color` is the owner's to set, and RLS already limits the ROWS they may write to their own decks.
+-- It is exactly wrong for anything server-maintained: **a column the server keeps must be ADDED to the
+-- guard in the same block that creates it**, or it is client-writable and nothing will say so.
+-- ============================================================
+alter table public.user_decks add column if not exists color text;
+
+-- a six-digit hex or nothing at all. The client validates the same shape before it stores or sends one —
+-- this is the half that holds when the client is somebody else's.
+alter table public.user_decks drop constraint if exists user_decks_color_chk;
+alter table public.user_decks add constraint user_decks_color_chk
+  check (color is null or color ~ '^#[0-9A-Fa-f]{6}$');
+
+
+-- ============================================================
+-- 12) SIGNING IN WITH A USERNAME  (run once)
+--
+-- Supabase authenticates on an EMAIL. Signing in with a username therefore means resolving one to the
+-- other, and the whole difficulty is doing that without building an enumeration oracle.
+--
+-- THE OBVIOUS VERSION IS THE UNSAFE ONE. A `username -> email` lookup has to be readable by an ANONYMOUS
+-- caller, because the reader doing the asking is not signed in yet — and usernames here are deliberately
+-- public (the friends feature looks people up by one). So a plain lookup publishes every reader's email
+-- address to anybody who can guess a username, which is a strictly worse position than the one this
+-- database is in today, where `profiles` is readable by signed-in users only.
+--
+-- SO IT VERIFIES THE PASSWORD FIRST. The function answers only when the password is the account's own, so
+-- it tells a caller nothing they were not a single request away from learning anyway: an attacker who
+-- already has the password does not need the email address to be secret.
+--
+-- THE COST, STATED RATHER THAN HIDDEN. This is a password check that does not go through GoTrue, so
+-- GoTrue's own sign-in rate limiting does not apply to it. Two things bound it in practice — bcrypt is
+-- deliberately slow, so each call costs the database real CPU, and the API gateway rate-limits requests
+-- per key regardless of endpoint — but if this project is ever a target worth attacking, the thing to do
+-- is put a counter in front of it, not to widen it. It also means the password reaches Postgres as a
+-- parameter: keep `log_min_duration_statement` off, or a slow call could write one into the logs.
+--
+-- IT IS OPTIONAL. Without it every reader still signs in by email; app.js says so in those words when a
+-- username is typed into a database that has not run this.
+-- ============================================================
+create extension if not exists pgcrypto;
+
+create or replace function public.login_email(uname text, pw text)
+returns text
+language plpgsql
+security definer
+set search_path = public, extensions
+as $$
+declare addr text;
+begin
+  -- the username is stored lower-case and constrained to ^[a-z0-9_]{3,24}$; fold the caller's copy so a
+  -- capital in a typed username is not a failed sign-in the reader cannot see the cause of
+  select u.email into addr
+    from public.profiles p
+    join auth.users u on u.id = p.id
+   where p.username = lower(btrim(uname))
+     and u.encrypted_password is not null
+     and u.encrypted_password = crypt(pw, u.encrypted_password)
+   limit 1;
+  return addr;   -- null when there is no such username OR the password is wrong: one answer, two causes
+end $$;
+
+-- the caller has not signed in yet, which is the entire point of the function
+revoke all on function public.login_email(text, text) from public;
+grant execute on function public.login_email(text, text) to anon, authenticated;

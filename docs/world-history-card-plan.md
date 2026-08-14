@@ -418,11 +418,11 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-172  Sumer
     wh-173  Uruk
     wh-174  Cuneiform
-    wh-175  History of writing
+    wh-175  Writing system
     wh-176  Cylinder seal
     wh-177  Ziggurat
     wh-178  Eridu
-    wh-179  Sumerian city-states
+    wh-179  Sumerian city-state
     wh-180  Ur
     wh-181  Royal Cemetery at Ur
     wh-182  Gilgamesh

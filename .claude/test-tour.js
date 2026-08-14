@@ -30,6 +30,8 @@ const fs = require("fs");
 const { chromium } = require("playwright");
 
 const ROOT = path.join(__dirname, "..");
+// the shipped source, so an expectation about a CONTROL'S LABEL can be read from the thing that renders it
+const APP_SRC = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
 const DESKTOP = { width: 1440, height: 950 };
 const PHONE = { width: 390, height: 800 };
@@ -162,7 +164,16 @@ const CARD = () => {
     check("...it teaches spaced repetition by name", /spaced repetition/i.test(prose));
     check("...and what it means — that a card returns before you forget it", /forget|fade/i.test(prose) && /return|comes? back/i.test(prose));
     check("...it teaches adding a deck to the daily study", /add/i.test(prose) && /deck/i.test(prose) && /daily study|daily review/i.test(prose));
-    check("...it teaches revealing a card", /show answer/i.test(prose));
+    /* THE LABEL IS READ OFF app.js, NEVER WRITTEN DOWN HERE. This assertion was `/show answer/i` — the
+       words the button carried when the tour was written — and it went on passing for months after the
+       control was renamed "Reveal answer", which is to say the test was what held the wrong label in
+       place. A tutorial naming a control by a label the page has not got is the exact failure this file
+       exists to catch, so the expectation now comes from the same source the button does and drifts with
+       it. If the id ever changes, the check below fails loudly rather than quietly matching nothing. */
+    const revealLabel = (/id="reveal-btn"[^>]*>([^<]+)</.exec(APP_SRC) || [])[1];
+    check("the reveal control's label was found in app.js", !!revealLabel, revealLabel || "(none)");
+    check("...it teaches revealing a card, by the button's real name",
+      !!revealLabel && prose.toLowerCase().includes(revealLabel.toLowerCase()), JSON.stringify(revealLabel || ""));
     const grades = (seen.find((s) => s.grades.length) || {}).grades || [];
     check("...and grading it, all four buttons named",
       grades.map((g) => g.split(":")[0]).join(",") === "Again,Hard,Good,Easy", grades.join(" "));
