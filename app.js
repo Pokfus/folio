@@ -8306,6 +8306,26 @@
        than as a near-miss of one, and Aquinas's green — the most recent, and the brightest — is 25.2
        away. Chroma 53.6 sits inside a band whose top is 64.1, so the inherited "bright enough to
        glow" objection does not hold; it reads 4.53:1 on the tightest of the four light papers. */
+    /* VÁLMÍKI — a violet-magenta, measured with 37 colours already placed and the band therefore as
+       full as the Beowulf row predicted: nothing anywhere in it clears 19.0 of its nearest neighbour,
+       against the shelf's own tightest pair at 18.2 (the Classic of Poetry against Beowulf). That is
+       in line rather than alarming — Don Quixote took 19.3 as the thirty-sixth — so the band was NOT
+       widened and no tighter pair was accepted.
+
+       THE FIELD WAS ONE HUE FAMILY AND THE CHOICE INSIDE IT WAS CONTRAST, which is the Cervantes
+       row's judgement in the same position. Every candidate clearing 18.2 without asserting a false
+       kinship is a violet-magenta at chroma 39–51; the best NUMBER (#785A99, 19.0) reads 4.52:1 on
+       the tightest of the four light papers, which is right at the bar and would break if a paper
+       were ever re-toned — and is additionally the swatch the Don Quixote row measured and rejected.
+       This one clears 18.5 and reads 4.82:1 there and 6.99:1 on white.
+
+       THE EURIPIDES TEST IS SHARPER HERE THAN ANYWHERE, because this shelf holds the other Sanskrit
+       epic: the Ramayana and the Mahabharata are the pair a reader is likeliest to hold together, and
+       the Bhagavad Gita is part of the second. So the one colour this must not be a near-miss of is
+       VYASA's saffron-brown, and it stands 77 away — with the Rigveda 100 and Kalidasa 59, the other
+       two Sanskrit books on the shelf. Its nearest neighbours are Seneca at 18.5 and Plato at 18.7,
+       and nobody reads Válmíki against either. */
+    "Valmiki": "#814E99",
     "rigveda": "#5A6F00",
     /* MIGUEL DE CERVANTES — a deep crimson, measured with 35 colours already placed and the band
        therefore as full as the Beowulf row predicted: nothing anywhere in it clears 19.3 of its
@@ -8356,6 +8376,153 @@
        anybody reads beside a comic Roman novel. It reads 4.60:1 on the tightest of the light papers
        and 5.75:1 on white. */
     "Petronius": "#66693C",
+    /* THE BAND IS EXHAUSTED, AND THIS IS THE FIRST ROW THAT HAD TO TAKE A PAIR TIGHTER THAN THE
+       SHELF'S OWN TIGHTEST — which the Beowulf row predicted and which four rows since have put
+       off. With 38 colours placed, NOTHING anywhere in the shelf's own lightness and chroma band
+       clears 18.2 (classic-of-poetry against beowulf); the best is 18.1.
+       WIDENING WAS TRIED IN BOTH DIRECTIONS AND ONE OF THEM IS A FINDING WORTH KEEPING. Widening
+       the LIGHTNESS band upward returns literally the same 6,119 candidates and the same best,
+       because the 4.5:1 contrast bar against the light papers already caps lightness far below the
+       band's own top — so CONTRAST, not the band, is what bounds this palette upward, and the
+       lightness ceiling in these notes has been describing a limit that was never binding. Widening
+       CHROMA to 85 does open the field, to 27–28, and every candidate there is a saturated electric
+       blue, which is precisely what the band exists to prevent.
+       SO THE EURIPIDES TEST DECIDED IT, and it killed the top of the list three times over. The
+       best number in the band is a very dark green at 18.1 reading 9.70:1, the joint-highest
+       contrast on the shelf — and green already holds Aesop's Fables and the Book of Documents,
+       which are an ancient collection of short moral pieces and an ancient collection of counsels
+       to rulers. The next two fail harder: an olive at 17.5 lands 18 from CONFUCIUS and a violet at
+       16.4 lands 16 from SENECA, who are the two authors here a reader would most plainly set
+       beside a book of maxims by an old official.
+       WHAT IS LEFT IS THE SHELF'S EMPTIEST REGION. The cyan-blue quarter holds nothing between 210
+       and 240 degrees and one colour either side of it, and this is a hard local maximum in it:
+       relaxing the chroma ceiling to 80 and the lightness floor to 10 returns the same colour. It
+       clears Aristotle by 16.6, the Song of Roland by 17.3 and Kalidasa by 20.9 — evenly enough to
+       read as its own colour rather than as a near-miss of one — and reads 5.90:1 on the tightest
+       of the light papers, twelfth of the 39, and 9.80:1 on white. Nobody reads an Egyptian courtier's advice against
+       the Nicomachean Ethics or a chanson de geste, so the quarter asserts no kinship. */
+    /* THE BAND IS EXHAUSTED, AND ONLY ONE OF ITS THREE AXES HAD ANYTHING LEFT IN IT — which is a
+     measurement rather than a feeling, and the first time this shelf has been able to say WHICH
+     constraint is binding. With thirty-nine colours placed, nothing anywhere inside the shelf's own
+     lightness and chroma band clears 18.1 of its nearest neighbour, and the best of those is a
+     near-black green landing 19 from the Book of Documents — which is the Euripides test refusing it
+     outright, those being the shelf's two Chinese classics and exactly the pair a reader would take
+     for a set. Relaxing the LIGHTNESS band changes nothing at all in either direction (the 4.5:1
+     contrast bar and the ink floor already cap it, so the search returns the identical candidates),
+     and relaxing the chroma FLOOR changes nothing either. Only the chroma CEILING opens the field,
+     and it opens it sharply: +6 takes the best available from 15.6 to 18.2. So the band is widened
+     upward in chroma alone, which the Aquinas row half-anticipated when it re-measured the inherited
+     "it would glow" objection and dropped it — six placed colours already sit at chroma 59–64, and
+     this is 71 at lightness 29, which is the dark end of the band and cannot glow.
+     WHAT THE EURIPIDES TEST DECIDED HERE is which colour must be FAR rather than which must be near:
+     the shelf's other Ming novel is the one book a reader pairs this with, so the whole search was
+     run against every Chinese work on the shelf at once — and the field clearing all six of them by
+     45 turns out to be entirely blue and blue-violet, there being no other family left. This deep
+     ultramarine is the best contrast (5.73:1 on the tightest of the sixteen light papers) among those
+     at the top separation of 18.2, stands 54 from Wu Cheng'en and further still from Sun Tzu, and
+     sits evenly between its two nearest — Homer and Herodotus at 18 apiece — which is what makes it
+     read as its own colour rather than as a near-miss of one. Neither is a kinship anyone would
+     assert between a Greek epic, a Greek history and a Chinese novel. */
+  "Luo Guanzhong": "#2438A8",
+  "Ptahhotep": "#00486C",
+  /* THE BAND AT FORTY COLOURS, AND THE FIELD IS DOWN TO TWO HUE FAMILIES (Aug 2026, adding the
+     Consolation of Philosophy). Searched over the shelf's own lightness and chroma band, under the
+     Book of Rites' ink floor and the 4.5:1 bar, and additionally held clear of the books a reader
+     might genuinely read AS A PAIR with Boethius — Seneca, Augustine, Marcus Aurelius, Plato,
+     Virgil and Aristotle, which is the Euripides test with a longer list than usual, this being a
+     late-Roman philosopher whose neighbours on the shelf are the other consolers. What clears
+     everything is a scarlet and one green, and nothing else anywhere.
+
+     THE SCARLET IS THE BETTER NUMBER AND IS REFUSED. #A21E00 separates by 21.1 against this one's
+     18.2, and it sits at chroma 71 — the very top of the band, where only Luo Guanzhong is — while
+     being a NINTH colour in the red-and-orange quarter, 21 from the Poetic Edda and 21 from Sun Tzu
+     at the same lightness. The Homer row's test is whether a family is crowded in hue and empty at
+     this LIGHTNESS, and there it is crowded at both.
+
+     THE GREEN PASSES THAT TEST AND WINS ON CONTRAST BESIDES. Nine books sit in the green quarter and
+     the darkest of them is the Book of Documents at L 25; this is L 12, less than half that, so the
+     family is crowded in hue and empty here. It clears Aesop by 18.2 and the Book of Documents by
+     19.9, both wider than the shelf's own tightest pair at 16.6, so the band was not widened and no
+     tighter pair was taken. It stands 39 from Marcus Aurelius, 41 from Augustine, 53 from Aristotle,
+     56 from Virgil, 70 from Plato and 99 from Seneca, so it asserts no kinship at all. And it reads
+     9.80:1 on the tightest of the eighteen light papers and 16.28:1 on white — the highest contrast
+     of any swatch on this shelf, which the City of God and the Book of Rites both treated as the
+     tiebreaker it is. */
+  "Boethius": "#002700",
+  /* A dark scarlet, and it needed NO WIDENING OF THE BAND — which is worth saying, because the
+     last four rows each had to argue about one. With forty-one colours placed, the shelf's own
+     tightest pair is now 16.6 (Aristotle against Ptahhotep) and this clears its nearest neighbour
+     by 19.0, so it is comfortably inside the shelf's own tolerance and nothing was relaxed to get
+     it.
+
+     WHICH AXIS WOULD HAVE BEEN BINDING WAS MEASURED ANYWAY, on the Three Kingdoms row's rule, and
+     the answer is the same as there: widening the LIGHTNESS band changes nothing at all and
+     lowering the chroma FLOOR changes almost nothing, while lifting the chroma CEILING from 71 to
+     90 opens a field whose best clears 29.3. It was not lifted. Every widening makes the next book
+     harder, and a chroma-90 swatch beside forty muted ones is exactly what the ceiling exists to
+     prevent — the Vyasa row's "glow", re-measured by the Aquinas row but not abolished.
+
+     THE ONE CLEAR FAMILY LEFT IN THE SHIPPED BAND IS RED, and inside it the choice was CONTRAST,
+     which is the Cervantes row's trade: the best raw number is 21.0 at 4.59:1, right on the bar,
+     and this clears 19.0 at 4.95:1 on the tightest of the sixteen light papers. The red quarter
+     holds twelve colours and that is the objection the Boethius row raised against a scarlet — but
+     counted the Homer row's way, by swatches within 40 rather than by hue family, this has SIX
+     neighbours, fewer than any other candidate in the band (the best olive has fifteen). Crowded
+     in hue, empty at this lightness and chroma.
+
+     AND THE EURIPIDES TEST IS EASY HERE FOR ONCE. The books a reader might take as a set with
+     Malory are the other medieval narratives — Beowulf, the Song of Roland, Chaucer, Dante, Snorri
+     — and the nearest of the five is Beowulf at 59, with the rest at 83 to 96. Nothing this could
+     be mistaken for is anything it belongs with. */
+  "Thomas Malory": "#9E1402",
+  /* THE BAND IS EXHAUSTED FOR REAL COLOURS AND THE SEARCH SAYS SO IN A NEW WAY (Aug 2026, adding
+     the Ecclesiastical History — the forty-third). Swept over the shipped lightness (12.3–47.8) and
+     chroma (18–71) band under the Book of Rites' ink floor and the 4.5:1 bar, the seven
+     best-separated colours left anywhere in it clear 18.2–19.7 and every one of them is a GREY:
+     chroma 2 to 10, against a shelf whose own floor is 18. A swatch at chroma 3 is not a lighter
+     ink, it is the body ink with a tint on it, and a book wearing one reads as a book that failed
+     to get a colour. So the search was re-run with the shelf's own chroma floor applied, which is
+     the honest way to ask the question, and the field it returns tops out at 17.5.
+
+     17.5 IS ABOVE THE SHELF'S OWN TIGHTEST PAIR, which is now 16.6 (Aristotle against Ptahhotep) —
+     it was 18.2 when Malory was placed and has closed as books were added, which is what a filling
+     band does. So no pair tighter than the existing minimum was taken and the band was not widened.
+
+     AND THE EURIPIDES TEST DECIDES BETWEEN THE TOP THREE RATHER THAN MERELY PASSING. The one book a
+     reader genuinely pairs with Bede is BEOWULF — the shelf's other book of the Anglo-Saxon world —
+     and behind it the two Norse ones. The second-best candidate, a dark rust at 16.4, lands 17 from
+     the Poetic Edda, which is a Germanic-world kinship claim this must not make; the deep violet at
+     16.2 sits 25 from Snorri and at chroma 71, the very top of the band, which is the glow the
+     ceiling exists to prevent. This dark olive-bronze clears Beowulf by 35, the Poetic Edda by 45
+     and Snorri by 69. Its own hue quarter holds Gilgamesh, Confucius, the Rigveda and Petronius —
+     crowded in hue, and all four sit at L 30–47 where this is at 20.3, which is the Homer row's
+     argument again. It reads 7.83:1 on the tightest of the sixteen light papers. */
+  "Bede": "#3C3000",
+  /* THE THIRD WIDENING OF THE CHROMA CEILING, AND THE FIRST TIME THE SHELF'S OWN BAND HELD NOTHING
+     AT ALL (Aug 2026, adding the Travels — the forty-eighth book and the forty-fourth colour, the
+     two having come apart because a colour is keyed by AUTHOR and four writers here have two books
+     each). With 43 colours placed, the best
+     separated swatch anywhere inside the shipped lightness (12.3–47.8) and chroma (18–71) band
+     under the Book of Rites' ink floor and the 4.5:1 bar clears 16.5 — and the shelf's own tightest
+     pair is now 16.6, so for the first time the band's best would itself have become the tightest
+     pair. Bede's row predicted this ("the band genuinely is full now") one book early.
+
+     WHICH AXIS IS BINDING WAS MEASURED RATHER THAN GUESSED, which is Three Kingdoms' rule and gives
+     Three Kingdoms' answer: relaxing LIGHTNESS in either direction (down to 8, up to 55) returns a
+     byte-identical top eight and changes nothing whatever; relaxing the chroma FLOOR to 12 reaches
+     17.4 and every candidate there is a near-grey at 4.53:1, which is the class Bede's row already
+     refused; and only the chroma CEILING opens the field, 16.5 → 25.1 at good contrast. So the
+     ceiling goes 71 → 85 and the other three limits stand.
+
+     THE EURIPIDES TEST THEN COST A TENTH OF A POINT AND WAS WORTH IT. The books a reader genuinely
+     reads Marco Polo against are HERODOTUS — the other traveller whose ethnography is argued about
+     the same way, down to "did he go?" — and the shelf's Chinese books, his subject being the
+     empire they were written in. The band's best is a violet at 25.1 whose nearest neighbour is Luo
+     Guanzhong; this one gives that up for a violet whose nearest is EURIPIDES at 25.0, with Luo
+     Guanzhong at 26 and Herodotus at 39. It is a violet against Luo Guanzhong's blue, so the two do
+     not read as a set even at 26, and it reads 6.60:1 on the tightest of the sixteen light papers
+     where the alternatives that clear the kinship by more scrape 4.75. */
+  "Marco Polo": "#5A009C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -10151,6 +10318,381 @@
       total: 141,
     },
     {
+      id: "ramayana",
+      title: "The Ramayana",
+      subtitle: "रामायणम्",
+      author: "Valmiki",
+      /* Composed over centuries and by more than one hand whatever the tradition says, so the range
+         is wide and argued at both ends. `year` is the single number the shelf's date sort needs and
+         is the middle of the usual range; the prose carries the hedge, which is where a contested
+         date belongs. */
+      written: "c. 500 BCE – 200 CE",
+      year: -300,
+      translator: "Ralph T. H. Griffith",
+      edition:
+        "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
+        "Trübner & Co., London, and E. J. Lazarus and Co., Benares, 1870–1874",
+      /* THE ELEVENTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL. The poem is some two thousand
+         years old. Griffith published in five volumes between 1870 and 1874 while Principal of the
+         Benares College — the date and the imprint read off the volume's own title page rather than
+         recalled — and lived 1826–1906, so the English clears the pre-1929 rule, life plus seventy
+         and life plus a hundred alike.
+
+         THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement again —
+         and a real limitation here rather than a formality, the Ramayana having three recensions
+         that differ in their sarga divisions. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide, on every ground. The poem is around two thousand years old, so the " +
+        "work itself has never been in copyright. Ralph T. H. Griffith published this translation in " +
+        "five volumes at London and Benares between 1870 and 1874, and he lived from 1826 to 1906, " +
+        "so the English is out of copyright under the rule for works published before 1929, under " +
+        "the translator's life plus seventy years, and under life plus a hundred — there is no limit " +
+        "to state. The facing Sanskrit is the received text as transcribed at Sanskrit Wikisource, " +
+        "which names no editor and no printed edition for it, so none is claimed here; the ground " +
+        "for that column is the age of the text alone. (The modern translations by Robert Goldman " +
+        "and others, 1984–2017, Hari Prasad Shastri, 1952–59, and Arshia Sattar, 1996, are still in " +
+        "copyright and are not used.) Griffith's appendix, his additional notes and his index are " +
+        "not reproduced.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/24869",
+      origLang: "sa",
+      origName: "Sanskrit",
+      /* THE CHAPTER IS THE CANTO AND THE TAB IS THE CITATION, read straight off: a passage of the
+         Ramayana is "2.40", book and canto, in every language and every reference work. The
+         alternative was measured rather than weighed: cutting at the káṇḍa gives six tabs, the
+         largest of them 119 cantos and some four hundred thousand characters.
+
+         `count` IS WHAT FOLIO HOLDS AND `total` WHAT THE POEM CONTAINS, and here they are further
+         apart than anywhere else on the shelf. Griffith did not translate the seventh book at all —
+         111 cantos — and passed over forty-one more inside the six he did, saying so in the text
+         each time. He numbered around the gaps, which is what lets a canto be laid against the sarga
+         that bears its number; see .claude/fetch-book.js for the measurement, and the book's own
+         front matter for what a reader needs to know about it. */
+      chapterWord: "Canto",
+      count: 493,
+      total: 645,
+      parts: [
+        { n: 1, label: "Bála Káṇḍa", note: "The book of childhood · 75 of 77 cantos" },
+        { n: 2, label: "Ayodhyá Káṇḍa", note: "The exile · all 119" },
+        { n: 3, label: "Áraṇya Káṇḍa", note: "The forest, and Sítá carried off · all 76" },
+        { n: 4, label: "Kishkindhá Káṇḍa", note: "The alliance with the vánars · all 67" },
+        { n: 5, label: "Sundara Káṇḍa", note: "Hanumán's leap to Lanká · 55 of 66" },
+        { n: 6, label: "Yuddha Káṇḍa", note: "The war · 101 of 130" },
+      ],
+    },
+    {
+      id: "ptahhotep",
+      title: "The Maxims of Ptahhotep",
+      subtitle: "The Instruction of Ptah-hotep",
+      author: "Ptahhotep",
+      /* THE DATE IS GENUINELY DISPUTED AND THE BANNER SAYS SO, which is the honest form for a work
+         that names its own author and king and whose surviving copies are centuries younger than
+         both. The poem presents itself as the work of a vizier to Isesi of the Fifth Dynasty; the
+         four copies are Middle Kingdom and the language they preserve is Middle Egyptian, and
+         scholars have argued the case both ways for a century. `year` is the single number the
+         shelf's date sort needs and is the date the poem claims for itself; the prose carries the
+         hedge, which is where a contested date belongs. */
+      written: "c. 2400 BCE, or the Middle Kingdom",
+      year: -2400,
+      translator: "Battiscombe G. Gunn",
+      edition:
+        "The Instruction of Ptah-hotep and the Instruction of Ke'gemni: The Oldest Books in the " +
+        "World, Wisdom of the East series, John Murray, London, 1906",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION. The poem is free everywhere on any
+         reading. Gunn published in 1906 and lived 1883–1950 — dates corroborated twice — so the
+         English clears the pre-1929 rule and cleared life plus seventy in 2021, and has NOT cleared
+         life plus a hundred, which runs to 2051.
+
+         THERE IS NO FACING EGYPTIAN, AND THE ANSWER IS NO ON THE ENGLISH SIDE. Swept over the whole
+         translation: not one papyrus reference of any kind — no column and line, no verse number,
+         no mention of the manuscript. So there is no number the two texts share, whatever the
+         Egyptian side's own licence says. See .claude/fetch-book.js and the book's front matter. */
+      rights:
+        "Public domain, with one limit. The poem is around four thousand years old, so the work " +
+        "itself has never been in copyright. Battiscombe G. Gunn published this translation in " +
+        "London in 1906, so it is out of copyright in the United States under the rule for works " +
+        "published before 1929, and he lived from 1883 to 1950, so it also cleared the translator's " +
+        "life plus seventy years in 2021. Where the term is life plus a hundred it remains in " +
+        "copyright until 2051. (The modern translations by Miriam Lichtheim, 1973, R. B. Parkinson, " +
+        "1997, and William Kelly Simpson are still in copyright and are not used.) Gunn's " +
+        "introduction, his explanation of names and his bibliography are not reproduced, nor are " +
+        "the two other works his volume contains.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/30508",
+      /* THE SECTION IS THE CHAPTER, THE ROW AND THE CITATION. This translation prints forty-seven
+         marked sections and nothing above them — no parts, no books, no headings between the title
+         and the first line — and the division is the poem's own, the Egyptian scribe having written
+         the first sentence of each in red ink. A passage is cited by that mark, so the tab is the
+         citation. The marks are letters AND numbers in one interleaved run: A and B for the
+         petition to the king and the title of the maxims proper, 1 to 37 for the maxims, then C,
+         38 to 43 and D for the epilogue.
+
+         `count` AND `total` ARE BOTH 47 because this translation is complete — but one of the
+         forty-seven is four words in square brackets rather than the maxim it stands for, Gunn
+         having declined to English it in 1906. That is a fact about the translation rather than a
+         gap in the count, and the book's own front matter says so. */
+      chapterWord: "Section",
+      count: 47,
+      total: 47,
+    },
+    {
+      id: "boethius-consolation",
+      title: "The Consolation of Philosophy",
+      subtitle: "Philosophiae Consolationis",
+      author: "Boethius",
+      written: "c. 523–524, in prison at Pavia",
+      year: 524,
+      translator: "H. R. James",
+      edition: "Elliot Stock, London, 1897",
+      /* A LIMIT ON EACH COLUMN, AND THE ORIGINAL IS THE HARDER HALF. Boethius was executed around
+         524, so the work is free everywhere. H. R. James published this translation in 1897 and
+         lived 1862–1931 — the years corroborated twice, once on Wikidata with four references
+         behind them and once by Wikisource's own public-domain tag on this very translation — so
+         the English clears the pre-1929 rule and cleared life plus seventy in 2002, and has NOT
+         cleared life plus a hundred, which runs to 2032. The Latin is E. K. Rand's text of 1918,
+         printed in a volume jointly with H. F. Stewart; a joint work runs its term from the last of
+         its authors to die, and Stewart died in 1948, so that column cleared life plus seventy in
+         2019 and stays in copyright until 2049 where the term is life plus a hundred.
+
+         THE ENGLISH PRINTED WITH THAT LATIN IS NOT USED, AND THAT WAS A CHOICE. The 1918 volume
+         carries a complete English translation of its own, so taking both columns from one file
+         would have paired them by construction and needed no second source at all. It is I.T.'s of
+         1609 revised by Stewart — Jacobean English — and this is a reading room. The cost was
+         measured rather than guessed: all seventy-eight sections are present in both Englishes and
+         in the Latin, in the same order, and James tracks the Latin's length section by section as
+         closely as the Loeb's own version does. See .claude/fetch-book.js and the book's front
+         matter for the whole of it. */
+      rights:
+        "Public domain, with a limit on each column. Boethius was executed around 524, so the work " +
+        "itself has never been in copyright. H. R. James published this translation in London in " +
+        "1897 and died in 1931, so it is out of copyright in the United States under the rule for " +
+        "works published before 1929 and cleared the translator's life plus seventy years in 2002; " +
+        "where the term is life plus a hundred it remains in copyright until 2032. The Latin is E. " +
+        "K. Rand's text, published in 1918 in a volume jointly with H. F. Stewart, who died in " +
+        "1948: pre-1929, and clear of life plus seventy since 2019, but in copyright until 2049 " +
+        "where the term is life plus a hundred. (The modern translations by Richard Green, 1962, V. " +
+        "E. Watts, 1969, P. G. Walsh, 1999, Joel Relihan, 2001, and David Slavitt, 2008, are still " +
+        "in copyright and are not used, nor is S. J. Tester's 1973 revision of the Loeb.) James's " +
+        "preface, his life of Boethius and his index of the poems are not reproduced; nor are the " +
+        "four theological treatises printed with the Latin, which are different works.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/14328",
+      origLang: "la",
+      origName: "Latin",
+      /* THE BOOK IS THE CHAPTER AND THE SECTION IS EACH PROSE CHAPTER AND EACH POEM. The Consolation
+         alternates prose and verse — Philosophy argues, then sings — and that alternation is what
+         the book is, so it may not be cut into seventy-eight tabs. A passage is cited by book and
+         section ("Consolation III.m9"), which is the shape this shelf has met five times before in
+         ancient prose. The five books hold 13, 16, 24, 14 and 11 sections; only the first opens on
+         a poem. */
+      chapterWord: "Book",
+      count: 5,
+      total: 5,
+    },
+    {
+      id: "morte-darthur",
+      title: "Le Morte d'Arthur",
+      subtitle: "King Arthur and of his Noble Knights of the Round Table",
+      author: "Thomas Malory",
+      written: "c. 1469–70, printed 1485",
+      year: 1485,
+      /* NO `translator`, AND IT IS THE FIRST BOOK HERE WITH NONE. Every other book on this shelf was
+         written in another language and names the person who put it into English; Malory wrote in
+         English, and this edition modernises the spelling lightly and leaves the vocabulary
+         alone. So there is
+         nobody to name, and `bookIntroChapter`'s rights box says what the text IS instead — see the
+         note there, which is where the second wording lives. */
+      edition: "Everyman's Library, ed. Ernest Rhys, J. M. Dent, London, 1906",
+      /* A LIMIT ON THE EDITION AND NOTHING ELSE. Malory finished in 1469 or 1470 and Caxton printed
+         the book in 1485, so the work is free everywhere and has been for five centuries. The only
+         modern layer is Ernest Rhys's Everyman edition of 1906; he lived 1859–1946, so it clears
+         the pre-1929 rule and cleared life plus seventy at the start of 2017, and has not cleared
+         life plus a hundred, which runs to 2047.
+
+         AND THE OTHER FREE TEXTS WERE MEASURED RATHER THAN WEIGHED. Project Gutenberg's ebooks 1251
+         and 1252 look like the same book and are a different text: walked word by word they diverge
+         about a thousand times, and every divergence sampled runs one way — this edition carries the
+         older form and that transcription the modern one, *pyght* against *pight*, *hool* against
+         *whole*, *alit* against *alighted*, *trappours* against *trappings*. Strachey's Globe text
+         of 1868, PG's ebook 46853, is the one whose editor softened passages he thought unsuitable
+         for boys, which his own successor in the series says in print. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, with a limit on the edition. Thomas Malory finished the book in 1469 or " +
+        "1470 and William Caxton printed it at Westminster on the last day of July 1485, so the " +
+        "work itself has never been in copyright. The text here is the Everyman's Library edition " +
+        "published by J. M. Dent in 1906 and edited by Ernest Rhys, who lived from 1859 to 1946: it " +
+        "is out of copyright in the United States under the rule for works published before 1929 " +
+        "and cleared the editor's life plus seventy years at the start of 2017, and remains in " +
+        "copyright until 2047 where the term is life plus a hundred. The spelling is lightly " +
+        "modernised and the vocabulary is untouched, so what is printed here is Malory's own " +
+        "English rather than a translation of it — which is why this is the first book on these " +
+        "shelves with no facing original. (Sir Edward Strachey's Globe text of 1868 is free and is " +
+        "not used: its own editor replaced obsolete words and softened passages he thought " +
+        "unsuitable for boys. The " +
+        "modern editions by Eugène Vinaver, 1947, Helen Cooper, 1998, and Dorsey Armstrong, 2009, " +
+        "are still in copyright and are not used.) Sir John Rhys's introduction and the glossary " +
+        "and index of names are not reproduced; what is taken is Caxton's preface and the " +
+        "twenty-one books.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Le_Morte_d%27Arthur",
+      /* THE BOOK IS THE CHAPTER AND CAXTON'S CHAPTER IS THE SECTION — Herodotus's shape a sixth
+         time, and a passage of Malory is cited as book and chapter. Caxton divided the work into
+         twenty-one books and 503 chapters, so cutting at the chapter would put 503 tabs on the bar
+         and cutting above the book would give the whole thing one, there being nothing above it
+         that the edition divides. Book X alone holds 88 of the chapters. */
+      chapterWord: "Book",
+      count: 21,
+      total: 21,
+      /* WHAT THE GLOSSARY MUST NOT LINK, and this is by a distance the longest such list on the
+         shelf because here the collision IS the subject. Folio's glossary is a glossary of
+         prehistory, palaeoanthropology and modern states, and Malory's world is full of the names
+         those keys are spelled with. `linkProperNounsOnly` is no help at all, since these ARE proper
+         nouns: left alone, a reader is offered the population and area of the modern French Republic
+         in the middle of a joust.
+
+         THE LIST WAS SWEPT AGAINST THE SHIPPED TEXT rather than written from imagination — every
+         glossary surface that survives `linkProperNounsOnly` was matched against all 1.8 MB of it,
+         and what that turned up beyond the obvious was `Great_Britain` (19 times, and the entry's
+         whole point is that it is not the United Kingdom, a distinction Arthur's Britain has not
+         got), plus `Europe`, `Asia`, `Africa`, `Armenia` and `Ethiopia`, all articles about the
+         modern world carrying modern populations. Re-run that sweep after a batch of glossary terms.
+
+         ONE SURVIVOR IS DELIBERATE: `Troy`. Caxton names Hector of Troy among the nine worthies in
+         his preface, the entry is about the Bronze Age city at Hisarlık, and it is exactly what a
+         reader might want to follow. The rule is not "link nothing"; it is "link nothing that would
+         tell the reader something untrue about the sentence in front of them". */
+      glossOff: [
+        "France", "Ireland", "Italy", "Rome", "Wales", "Scotland", "England", "Denmark", "Hungary",
+        "Turkey", "Greece", "Egypt", "Jerusalem", "Spain", "Portugal", "Iceland", "Norway", "Sweden",
+        "Germany", "Netherlands", "Belgium", "Switzerland", "Poland", "Russia", "India", "China",
+        "Japan", "Brittany", "Cornwall", "Britain", "Great_Britain", "United_Kingdom", "Latin",
+        "Sicily", "Malta", "Cyprus", "Syria", "Lebanon", "Israel", "Jordan", "Iraq", "Iran",
+        "Tunisia", "Libya", "Europe", "Asia", "Africa", "Armenia", "Ethiopia",
+      ],
+    },
+    {
+      id: "marco-polo",
+      title: "The Travels of Marco Polo",
+      author: "Marco Polo",
+      written: "c. 1298",
+      year: 1298,
+      translator: "Sir Henry Yule",
+      edition: "The Book of Ser Marco Polo, third edition (1903), revised by Henri Cordier, John Murray, London",
+      /* THE TWELFTH LICENCE ON THIS SHELF NEEDING NO QUALIFICATION AT ALL, and the plainest of the
+         recent ones. Polo dictated the book in 1298 and was dead by 1324. Yule published the
+         translation in 1871 and Cordier revised it for the third edition of 1903, so it is public
+         domain in the United States on the pre-1929 rule; Yule lived 1820–1889 and Cordier
+         1849–1925, and a joint work's term runs from the LAST of them to die, so it also cleared
+         life plus seventy in 1995 and life plus a hundred at the start of 2026. Both sets of dates
+         were looked up rather than recalled and corroborated twice over, which is the rule this
+         shelf has kept since Hugo Magnus: the volume's own memoir gives Yule's, and Wikisource's
+         author page gives Cordier's under a public-domain tag reading "died at least 100 years
+         ago". Latham (1958), Cliff (2015) and Kinoshita (2016) are the ones not to reach for. */
+      rights:
+        "Public domain. Marco Polo dictated the book to Rustichello da Pisa in a Genoese prison in " +
+        "1298 and both men were dead within thirty years. Henry Yule's translation was published " +
+        "in London in 1871 and revised by Henri Cordier for the third edition of 1903, so it is " +
+        "public domain in the United States as a pre-1929 publication; Yule died in 1889 and " +
+        "Cordier in 1925, so the term of a joint work — which runs from the last surviving author " +
+        "— expired in 1995 where copyright lasts for life plus seventy and in 2025 where it lasts " +
+        "for life plus a hundred. There is nothing left to qualify.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/10636",
+      chapterWord: "Chapter",
+      count: 235,
+      total: 235,
+      /* WHAT THE GLOSSARY MUST NOT LINK, swept over all 235 chapters with this list emptied rather
+         than guessed at — the Bede row's rule, and here the guess was wrong by more than half.
+         A book that names half the world looks like the one that would need the longest list on the
+         shelf, and it needs one of the SHORTEST: 15 keys survive, because Yule keeps Polo's own
+         names and this glossary is keyed on modern ones. Cathay, Manzi, Chipangu, Seilan, Aden,
+         Badashan and Kinsay match nothing at all, and what does match is almost always a people, a
+         rite or a kingdom rather than a state — "the Land of the Georgians", "Christians of the
+         Greek Rite", "the King of Spain" in 1269, when there was none. Fourteen go off on that
+         reading, and two of the fourteen are the instructive ones because neither is a country at
+         all: BRAZIL is the dyewood, listed at Java among "Red Sanders and Indian-nut and Cloves";
+         and IRON is twice the Iron Gate of the Alexander legend, which is a place, against once the
+         metal at Cobinan — a key that is right a third of the time is a key that is wrong. LATIN
+         goes with them for the same reason, both its hits being Latin CHRISTENDOM ("the Latin
+         countries", "Latin merchants") rather than the language. Exactly ONE survives on purpose:
+         ELEPHANT, which is the animal. */
+      glossOff: [
+        "India", "Turkey", "Armenia", "Latins", "Latin", "Greece", "Iron", "Egypt",
+        "Georgia_(country)", "Germany", "France", "Spain", "Brazil", "Russia",
+      ],
+    },
+    {
+      id: "bede-history",
+      title: "The Ecclesiastical History of the English People",
+      author: "Bede",
+      written: "731",
+      year: 731,
+      translator: "A. M. Sellar",
+      edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
+      /* THE GROUND IS THE PUBLICATION DATE AND NOTHING ELSE, which is the Gallic War's position and
+         the second on this shelf. Bede finished in 731 and died in 735, so the work is free
+         everywhere on any reading. The translation was published in London in 1907, so it is public
+         domain in the United States on the pre-1929 rule — and no life-plus-seventy term is claimed,
+         because the translator cannot be traced: the title page gives "A. M. Sellar, Late
+         Vice-Principal of Lady Margaret Hall, Oxford", her own preface is unsigned, and there is no
+         Wikidata entity, no Wikipedia article and no Wikisource author page for her. Lucretius's
+         judgement — claim less, and say on the page what cannot be said. */
+      rights:
+        "Public domain. Bede finished the History in 731 and died in 735, so the work is free " +
+        "everywhere. A. M. Sellar's translation was published in London in 1907, so it is public " +
+        "domain in the United States as a pre-1929 publication. No life-plus-seventy term is " +
+        "claimed for it, because the translator's dates cannot be established: the title page gives " +
+        "only her initials and her former post at Lady Margaret Hall, Oxford, and no reference work " +
+        "reachable here records when she died. The Latin beside it is free on the age of the work; " +
+        "the transcription names Migne's Patrologia Latina 95 as its edition, but the text it " +
+        "carries is not set as Migne sets it, so no editor is asserted for that column either.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/38326",
+      chapterWord: "Book",
+      count: 5,
+      total: 5,
+      origLang: "la",
+      origName: "Latin",
+      origEdition: "as transcribed at Latin Wikisource; see this book's first page for whose text it is",
+      origSourceName: "Latin Wikisource",
+      origSourceUrl: "https://la.wikisource.org/wiki/Historia_Ecclesiastica_gentis_Anglorum",
+      origRights:
+        "Public domain. Bede wrote the History in Latin and finished it in 731. The transcription " +
+        "names Migne's Patrologia Latina 95 as its edition; the text it carries prints consonantal " +
+        "v as u throughout, which Migne does not, and matches Alfred Holder's edition of 1895 where " +
+        "sampled. Every edition it could be is long out of copyright, so no editor is named here.",
+      /* WHAT THE GLOSSARY MUST NOT LINK, and the sweep behind it was RE-RUN rather than reasoned
+         out — the figures written here first were a guess at the answer, and they were wrong in
+         the middle. Measured by serving an app.js with this very list emptied and walking all five
+         books: 22 glossary surfaces survive `linkProperNounsOnly` here, and 19 of them are turned
+         off. Most are articles about the MODERN world. Bede's Britain is not the island of the
+         Great_Britain entry, whose whole point is a distinction seventh-century Britain has not got
+         and which occurs 187 times here; his Gaul is called France once; and two are simply absurd
+         — the Frankish king Clovis resolving to a Palaeolithic North American stone industry, and
+         the emperor Mauritius to an island in the Indian Ocean.
+
+         THE THREE THE GUESS MISSED ARE THE INSTRUCTIVE ONES, because each is an ordinary English
+         word that a rule about proper nouns lets through on a capital alone. `Subsistences` is the
+         Council of Hatfield's creed — "one God in three Subsistences or consubstantial persons" —
+         against an entry about hunting, farming and dental caries; `Latins` is "by the Latins
+         called a peninsula, by the Greeks, a cherronesos", meaning Latin-SPEAKERS, against an entry
+         about the people of Latium vetus in 950–509 BCE; and `Chronological` is Bede's own year-by-
+         year recapitulation against an entry about radiocarbon calibration and Bayesian modelling.
+         The `genus` / `epoch` case that `linkProperNounsOnly` exists for, wearing a capital.
+
+         THREE SURVIVORS ARE DELIBERATE. `Latin` is the language Bede wrote in and the entry is
+         about that language. `Troy` and `Corinth` are the ancient cities his sources mean — and
+         `Troy` is safe only because of the word boundary, this book's other three occurrences of
+         those letters being Lupus, Bishop of TROYES. The rule is not "link nothing"; it is "link
+         nothing that would tell the reader something untrue about the sentence in front of them".
+         Re-run the sweep after a batch of glossary terms, and read the sentence before judging. */
+      glossOff: [
+        "Great_Britain", "Ireland", "Egypt", "Israel", "Italy", "Greece", "Mauritius", "Germany",
+        "Spain", "Europe", "Asia", "France", "Armenia", "Syria", "Africa", "Clovis_culture",
+        "Latins", "Subsistence", "Chronology",
+      ],
+    },
+    {
       id: "rigveda",
       title: "The Rigveda",
       subtitle: "ऋग्वेदः",
@@ -10642,6 +11184,66 @@
          three movements a reader may have met elsewhere — Monkey's origin, Tripitaka's, and the
          pilgrimage — are not this edition's divisions, and putting them on the bar would be composing
          an apparatus, which is what the Aeneid's row declines to do for its own two halves. */
+    },
+    {
+      id: "three-kingdoms",
+      title: "Romance of the Three Kingdoms",
+      subtitle: "三國演義",
+      author: "Luo Guanzhong",
+      /* THE ATTRIBUTION IS TRADITIONAL AND BETTER ATTESTED THAN MOST. The earliest surviving printing,
+         of 1522, names Luo Guanzhong on its own title page, which is more than the other great Ming
+         novels manage; what is unknown is who he was, his dates being given as about 1330 to 1400 on
+         no very firm evidence. And the text a reader actually has is that novel as Mao Lun and his son
+         Mao Zonggang re-edited it in 1679 — two of the most quoted sentences on its first page are
+         theirs and not Luo's, which the book's own front matter says. */
+      written: "14th century, first printed 1522",
+      year: 1522,
+      translator: "C. H. Brewitt-Taylor",
+      edition: "Kelly & Walsh, Limited, Shanghai, 1925",
+      /* A LIMIT TO STATE, and only one modern layer to state it about. The novel is fourteenth-century
+         and the recension used on both sides was published in 1679, so the Chinese is free on any
+         reading. Brewitt-Taylor published in Shanghai in 1925 — read off the volumes' own title pages
+         — so the English is public domain in the United States under the pre-1929 rule, and he lived
+         from 11 December 1857 to 4 March 1938, corroborated at day precision on Wikidata and
+         independently on Wikisource's author page, so it cleared life-plus-seventy in 2009 and does
+         NOT clear life plus a hundred until 2039. Said outright rather than rounded into the easier
+         sentence. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. The novel is a Chinese " +
+        "work of the fourteenth century and the text used here is the recension Mao Lun and Mao " +
+        "Zonggang published in 1679, so the Chinese has been free for as long as copyright has " +
+        "existed. The translation is the half that needs a date: C. H. Brewitt-Taylor published it " +
+        "in Shanghai in 1925, which puts it in the public domain in the United States under the rule " +
+        "for works published before 1929, and he lived from 1857 to 1938, so it cleared the term of " +
+        "the translator's life plus seventy years at the beginning of 2009 — but where the term is " +
+        "life plus a hundred it stays in copyright until 2039. Both volumes' title pages, the " +
+        "dedication, the folding map and the tables of contents are not reproduced, nor is the Maos' " +
+        "own critical apparatus; what is taken is the hundred and twenty chapters. (The complete " +
+        "modern translations — Moss Roberts's of 1991, the abridgement he made of it in 1976, and Yu " +
+        "Sumei's of 2014 — are all still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/San_Kuo",
+      origLang: "zh",
+      origName: "Chinese",
+      /* THE CHAPTER IS THE PAIRING UNIT — what the work is divided into, what both editions state and
+         how any passage of it is cited in any language. Neither side numbers anything inside a
+         chapter, so there is nothing finer to pair on and none is invented: 120 rows, one per chapter,
+         each column at its own length, and every one of them filled on both sides.
+         THE RECENSION WAS CHECKED BEFORE THE PAIRING WAS TRUSTED, because this novel has two and they
+         divide the story differently — the 1522 printing runs to 240 sections and the Maos' of 1679 to
+         120 chapters. The Chinese transcription states on its own front page that it is the Maos', and
+         Brewitt-Taylor translated the Maos; measured as well as read, the couplet heading each Chinese
+         chapter is the couplet he prints over the same number, across all 120.
+         See .claude/fetch-book.js. */
+      chapterWord: "Chapter",
+      count: 120,
+      total: 120,
+      /* Two volumes of sixty chapters, which is the edition's own division and the only one it has —
+         so the Contents panel groups a hundred and twenty tabs the way the printed book groups them. */
+      parts: [
+        { n: 1, label: "Volume I", note: "Chapters 1–60" },
+        { n: 2, label: "Volume II", note: "Chapters 61–120" },
+      ],
     },
     {
       id: "canterbury-tales",
@@ -18894,11 +19496,20 @@
        anyone types — an editable region that swallowed them would let a wrong copyright statement be typed
        into the one place on the site that exists to state the right one. */
     const essay = '<div class="bk-intro-essay">' + bookIntroMerged(b.id) + "</div>";
+    /* A BOOK WITH NO TRANSLATOR IS NOT A BOOK WITH A FIELD MISSING (Aug 2026, adding Le Morte
+       d'Arthur). Every book here until now was written in another language and this box named the
+       person who put it into English; Malory wrote in English, so there is nobody to name and the
+       sentence "This English translation is by undefined" would be a false statement in the one
+       place on the site that exists to state true ones. The box says what the text IS instead —
+       whose EDITION it is — and heads itself "About this text", since a heading calling something a
+       translation is the same claim one line further up. */
     const rights =
       '<section class="bk-rights">' +
-        "<h3>About this translation</h3>" +
+        "<h3>About this " + (b.translator ? "translation" : "text") + "</h3>" +
         "<p><i>" + esc(b.subtitle || b.title) + "</i> by " + esc(b.author) + ", written " + esc(b.written) +
-          ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + ".</p>" +
+          (b.translator
+            ? ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + "."
+            : ". The text here is " + esc(b.edition) + ".") + "</p>" +
         '<p class="bk-rights-note">' + esc(b.rights) + "</p>" +
         '<p class="bk-rights-src">Text from <a href="' + esc(b.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(b.sourceName) + "</a>.</p>" +
       "</section>";
@@ -18964,7 +19575,14 @@
       <div class="page-head bk-head">
         <span class="eyebrow"><button class="bk-back" type="button" id="bkBack">← Library</button></span>
         <h1>${esc(b.title)}</h1>
-        <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · translated by ${esc(b.translator)}</p>
+        ${/* A book with no `translator` was written in English and has none — Le Morte d'Arthur is
+             the first. Left as it was, the byline ran off the end of the page reading "· translated
+             by" with nothing after it, which no test on the shelf could have seen and which looking
+             at the page found in a second. The edition takes that place instead, since what a reader
+             wants there is who stands between them and the author, and here the answer is an editor
+             rather than a translator. */""}
+        <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · ${
+          b.translator ? "translated by " + esc(b.translator) : esc(b.edition)}</p>
       </div>
 
       ${/* The bar and its contents panel are ONE sticky block (Aug 2026, on a bug report). The bar has

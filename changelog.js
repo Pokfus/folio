@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.196", released: "2026-08-14T14:59Z" };
+window.FOLIO_VERSION = { v: "1.205", released: "2026-08-14T15:11Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-14",
-    t: "A deck asked in two directions can list each direction on its own, and introduce a word both ways at once",
+    t: "You can sign in with your username, a deck asked in two directions lists each direction on its own, Ancient Rome gains cards, and five books join the Library",
     items: [
+      "Ten new cards in the <b>Ancient Rome</b> collection, eight of them with a new glossary term to go with them.",
       "<b>A deck asked in two directions now lists each direction as a subdeck of its own</b>, to add and study on its own, with no change to the deck file.",
       "<b>A deck can now introduce a word in both directions at once</b>, shuffled, instead of teaching every word one way before starting the other.",
       "That switch is on a deck's own options, under <b>Both directions together</b>, and a deck set that way stops holding a word's other card back until tomorrow.",
@@ -54,6 +55,16 @@ window.CHANGELOG = [
       "<b>A shared deck whose cards use the author's own card type now arrives complete</b> — it was installing as blank cards, and republishing such a deck fixes it.",
       "<b>Studying ahead of the daily limit now stays in the subdeck you were studying</b>, keeps both directions, and no longer counts the whole deck in the corner.",
       "Readings with a third-tone mark — <b>ǒ, ǎ, ǐ, ǔ</b> and the tones on ü — no longer show up larger than the letters around them.",
+      "<b>Romance of the Three Kingdoms is on the shelf</b> — Brewitt-Taylor's translation of 1925, all 120 chapters, with the Chinese facing it.",
+      "Its first page says which of the novel's two versions this is, and which famous lines a later editor added to it.",
+      "<b>Boethius's Consolation of Philosophy is on the shelf</b> — H. R. James's translation of 1897, all five books, with the Latin facing it.",
+      "Written in a prison cell around 524, it alternates argument with poetry, and its first page says what the Latin column still cannot show.",
+      "<b>Malory's Le Morte d'Arthur is on the shelf</b> — the Everyman text of 1906, all twenty-one of Caxton's books and every one of his 503 chapters.",
+      "It is the first book here with no second column, because Malory wrote in English and there is nothing to translate.",
+      "<b>Bede's Ecclesiastical History of the English People is on the shelf</b> — Sellar's translation of 1907, all five books, with the Latin facing it.",
+      "It is the reason we know almost anything about early English history, and this edition brings a thousand explanatory notes with it.",
+      "<b>The Travels of Marco Polo is on the shelf</b> — Yule's translation in the edition of 1903, all 235 chapters, with its 788 explanatory notes.",
+      "There is no facing original, and its first page explains that this English was made from three different manuscripts at once.",
       "<b>You can sign in with your username</b> as well as with your email address.",
       "<b>You can switch between accounts</b> from your account page instead of signing out, and the other account stays remembered on the device.",
       "<b>Your account page now shows the email address you sign in with</b>, and lets you change it.",
@@ -70,7 +81,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-13",
-    t: "The walkthrough and the help cards are brought back into line with the site they describe, and four glossary terms are rewritten",
+    t: "The walkthrough is brought back into line with the site it describes, four glossary terms are rewritten, and two more books join the Library",
     items: [
       "<b>The walkthrough now names the buttons the page actually carries</b> — it said “Show answer” where the card says “Reveal answer”, and called an unread glossary term gold when it is teal.",
       "The walkthrough no longer describes three numbers on a banner that has none until your first deck is added.",
@@ -78,6 +89,10 @@ window.CHANGELOG = [
       "The About page now says where to change how many new cards a day you meet, and its list of what else is here mentions the Library.",
       "The Atlas card calls the marks on the timeline ticks rather than dots, and a book's card no longer promises notes on chapters whose edition carries none.",
       "<b>Four glossary terms rewritten</b> — two that leaned on examples instead of explaining the term, one renamed to say plainly that it is a culture, and one brought into line with its neighbours.",
+      "<b>The Ramayana is on the shelf</b> — Griffith's verse translation of 1870–74, in 493 cantos, with the Sanskrit facing it.",
+      "Its own first page says which parts of the poem this translation leaves out, and why the last book is absent.",
+      "<b>The Maxims of Ptahhotep is on the shelf</b> — an Egyptian vizier's advice to his son, quite possibly the oldest book of its kind anyone can still read.",
+      "It has no facing Egyptian, and its first page says plainly why not.",
     ],
   },
   {
