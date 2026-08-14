@@ -2019,6 +2019,46 @@ function scrimCheck() {
       return { hidden: p.hidden, grip: getComputedStyle(document.querySelector("#cpGrab")).display, h: Math.round(p.getBoundingClientRect().height) };
     });
     check("the place sheet carries a resize grip", !start.hidden && start.grip !== "none", JSON.stringify(start));
+
+    /* SHUT BY DEFAULT since Aug 2026, on request: "the popup panel at the bottom should only open far
+       enough to reveal the name of the state, but have a chevron that can reveal the information sections,
+       which should always be collapsed by default." Asserted BEFORE the content-fit checks below, and they
+       are made to open it first — with the sheet shut `.cp-cols` is display:none, so every measurement of
+       it reads zero and the fit assertions pass on nothing at all, which is the shape this file keeps
+       warning about. */
+    const shut = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop"), t = document.querySelector(".cp-titlerow");
+      const more = document.querySelector("#cpMore");
+      const pr = p.getBoundingClientRect(), tr = t.getBoundingClientRect();
+      return {
+        h: Math.round(pr.height),
+        shut: p.classList.contains("cp-shut"),
+        titleShown: tr.top >= pr.top - 1 && tr.bottom <= pr.bottom + 1,
+        name: (document.querySelector("#cpName") || {}).textContent || "",
+        chevron: !!more && !more.hidden && getComputedStyle(more).display !== "none",
+        expanded: more && more.getAttribute("aria-expanded"),
+        colsShown: getComputedStyle(document.querySelector(".cp-cols")).display !== "none",
+      };
+    });
+    check("a place opens SHUT — its name and nothing else", shut.shut && !shut.colsShown, JSON.stringify(shut));
+    check("...still showing the name it was opened for", shut.titleShown && shut.name.length > 0, shut.name);
+    check("...with a chevron offering the rest", shut.chevron && shut.expanded === "false", JSON.stringify(shut));
+    check("...and covering a fraction of the map", shut.h < PHONE.height * 0.3, shut.h + " of " + PHONE.height);
+
+    await page.click("#cpMore");
+    await page.waitForTimeout(500);
+    const opened = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop");
+      return {
+        h: Math.round(p.getBoundingClientRect().height),
+        shut: p.classList.contains("cp-shut"),
+        expanded: document.querySelector("#cpMore").getAttribute("aria-expanded"),
+        colsShown: getComputedStyle(document.querySelector(".cp-cols")).display !== "none",
+      };
+    });
+    check("...pressing it reveals the sections", !opened.shut && opened.colsShown && opened.expanded === "true"
+      && opened.h > shut.h, JSON.stringify({ shut: shut.h, opened: opened.h }));
+
     const s0 = await slack();
     check("...and opens no taller than the page in it needs", s0.slack <= 24, JSON.stringify(s0));
     const drag = async (toY) => {
@@ -2053,10 +2093,24 @@ function scrimCheck() {
       return { h: Math.round(p.height), titleShown: t.top >= p.top - 1 && t.bottom <= p.bottom + 1 };
     });
     check("...shrunk to the floor it still shows its title bar", small.titleShown && small.h < 220, JSON.stringify(small));
+
+    /* THE DRAGGED HEIGHT IS KEPT AS THE CEILING THE CHEVRON OPENS TO, not as the height the next place
+       shows — which is the whole of what "always collapsed by default" changed here. Both halves are
+       asserted, because they fail in opposite directions: a sheet that opened at the remembered height
+       would be ignoring the request, and one that FORGOT the height would make the drag pointless. */
     await page.evaluate(() => { location.hash = "#map/2026/spain"; });
     await page.waitForTimeout(1800);
-    const next = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
-    check("...and the next place opens at the height the last was left at", Math.abs(next - small.h) <= 6, next + " vs " + small.h);
+    const next = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop");
+      return { h: Math.round(p.getBoundingClientRect().height), shut: p.classList.contains("cp-shut") };
+    });
+    check("...and the NEXT place opens shut too, whatever the last was left at", next.shut && next.h <= small.h + 6,
+      JSON.stringify({ next: next, last: small.h }));
+    await page.click("#cpMore");
+    await page.waitForTimeout(500);
+    const reopened = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
+    check("...and opening it lands on the height the reader dragged to", Math.abs(reopened - small.h) <= 8,
+      reopened + " vs " + small.h);
     await page.close();
   }
 

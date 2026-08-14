@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.195", released: "2026-08-14T12:38Z" };
+window.FOLIO_VERSION = { v: "1.196", released: "2026-08-14T14:59Z" };
 
 window.CHANGELOG = [
   {
@@ -47,12 +47,25 @@ window.CHANGELOG = [
       "That switch is on a deck's own options, under <b>Both directions together</b>, and a deck set that way stops holding a word's other card back until tomorrow.",
       "<b>The Mandarin decks are now one deck of nine subdecks</b> — the seven HSK 3.0 levels, the phrases and the idioms — where they were three separate decks.",
       "<b>A fold on a card now stays as you left it</b>, so example sentences opened on one card are still open on the next.",
-      "<b>Your own decks can be given a colour</b> in the daily study list, as a collection can, and every subdeck inside takes it.",
+      "<b>Any deck, subdeck or the daily study banner itself can be given a colour</b> in the daily study list, curated and imported alike.",
+      "<b>A deck you write can be given the colour it arrives in</b>, under Deck details in the Studio, which travels with it when you share it.",
       "<b>A deck's options now close with an × in the corner</b>, rather than only by pressing Escape or tapping outside.",
       "The line naming an example sentence's grammar is smaller and lighter, so it reads as a caption rather than as a heading over the sentence.",
       "<b>A shared deck whose cards use the author's own card type now arrives complete</b> — it was installing as blank cards, and republishing such a deck fixes it.",
       "<b>Studying ahead of the daily limit now stays in the subdeck you were studying</b>, keeps both directions, and no longer counts the whole deck in the corner.",
       "Readings with a third-tone mark — <b>ǒ, ǎ, ǐ, ǔ</b> and the tones on ü — no longer show up larger than the letters around them.",
+      "<b>You can sign in with your username</b> as well as with your email address.",
+      "<b>You can switch between accounts</b> from your account page instead of signing out, and the other account stays remembered on the device.",
+      "<b>Your account page now shows the email address you sign in with</b>, and lets you change it.",
+      "<b>Shared decks are now at the foot of the Collections page</b> rather than on a page of their own, in a table you can sort by any column.",
+      "The read-aloud button on an imported deck's card can now be pressed while the marker is out.",
+      "<b>A place on the Atlas now opens on its name alone</b>, with a chevron for the rest, so on a phone it no longer covers half the map.",
+      "<b>The Picture round and Who said it? now offer wrong answers of the same kind</b> as the right one, which makes both harder.",
+      "<b>True or False has 51 more statements</b>, drawn from physics, chemistry, astronomy, biology, earth science, mathematics and medicine as well as history.",
+      "<b>Common Thread now uses only well-known terms</b>, which should make it a good deal less punishing.",
+      "<b>The crossword moves on by itself</b> once an answer is right, skips letters already solved, and has a Give up button that shows the answers.",
+      "<b>A seven-day study streak now earns a chest</b>, and your account page shows how far off the next one is.",
+      "A new picture on one World History card.",
     ],
   },
   {

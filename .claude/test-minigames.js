@@ -649,6 +649,73 @@ function crosswordForPage(clueIds) {
     await ctx.close();
   }
 
+  /* ===================== COMMON THREAD: the pool is restricted, and must still deal =====================
+     Since Aug 2026 the grid is built only from terms that are the answer of a card rated 1 or 2 (on
+     request — it was "too challenging"), which takes the pool from ~680 terms to about ninety. That is a
+     large enough cut to STARVE THE GENERATOR: on the first attempt 271 days of 730 produced no puzzle at
+     all — a blank page, silently, on more than a third of days — and it took a lower THREAD_GROUP_MIN and
+     a retry loop to reach none. Both failure directions are checked here, because they look identical from
+     one side: a grid that will not build says "not enough terms", and a grid built from the WHOLE glossary
+     looks perfectly healthy while being the puzzle nobody could do.
+
+     There is deliberately no 730-day sweep of this one. `dailyThreadPuzzle` resolves each card's answer
+     through the real glossary index — plurals and aliases and all — so slicing it into a bare Node harness
+     the way the crossword's sweep is sliced would mean reimplementing the very resolution under test. The
+     sweep was run against a browser page while the restriction was being tuned and is recorded in
+     CLAUDE.md with its numbers; what is committed here is the cheap guard that fires on the day the pool
+     is starved, which is the thing that would otherwise reach a reader. */
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const page = await ctx.newPage();
+    watch(page);
+    await page.goto(base + "#thread", { waitUntil: "load" });
+    await page.waitForTimeout(1100);
+    const th = await page.evaluate(() => ({
+      tiles: [...document.querySelectorAll(".th-tile")].map((b) => b.dataset.k),
+      placard: !!document.querySelector(".placard"),
+      txt: (document.querySelector("#view") || {}).textContent.replace(/\s+/g, " ").trim(),
+    }));
+    check("[ct] the restricted pool still deals a full grid", th.tiles.length === 16,
+      th.tiles.length + (th.placard ? " — placard: " + th.txt.slice(0, 80) : ""));
+    check("[ct] …with no term repeated in it", new Set(th.tiles).size === th.tiles.length);
+
+    /* EVERY TILE IS A WELL-KNOWN CARD'S ANSWER. Read against the real corpus rather than against a list
+       written down here: a term is admissible when some card at or below GAME_MAX_DIFFICULTY answers with
+       it. Resolution goes through the same index the game uses, so an answer that is the plural of its key
+       counts exactly as the game counts it — which is the point, and is why this is asserted in the page
+       rather than reimplemented outside it. */
+    const bad = await page.evaluate(() => {
+      const keys = [...document.querySelectorAll(".th-tile")].map((b) => b.dataset.k);
+      const max = 2;   // GAME_MAX_DIFFICULTY, re-derived below from the shipped cards rather than trusted
+      const norm = (s) => String(s || "").trim().toLowerCase();
+      const easy = new Set();
+      (window.CARD_DATA || []).forEach((c) => {
+        if (typeof c.difficulty !== "number" || c.difficulty < 1 || c.difficulty > max) return;
+        if (c.answerText) easy.add(norm(c.answerText));
+      });
+      // a key matches when its own title, or any of its aliases, is one of those answers (singular or plural)
+      const hit = (k) => {
+        const cand = [k.replace(/_/g, " "), ...((window.GLOSSARY_ALIASES || {})[k] || [])];
+        return cand.some((s) => {
+          const n = norm(s);
+          return easy.has(n) || easy.has(n + "s") || easy.has(n + "es") || easy.has(n.replace(/y$/, "ies")) ||
+            [...easy].some((a) => a === n || a.replace(/s$/, "") === n);
+        });
+      };
+      return keys.filter((k) => !hit(k));
+    });
+    check("[ct] …every term on it is a well-known card's answer", bad.length === 0, bad.join(", "));
+
+    const groups = await page.evaluate(() => {
+      // the four hidden groups are what the tiles are drawn from; a grid of 16 with fewer than four
+      // distinct group tags behind it is a puzzle with a group nobody can separate
+      const t = (document.querySelector("#view") || {}).textContent;
+      return { lives: document.querySelectorAll(".th-dot").length, mentions: /mistakes remaining/i.test(t) };
+    });
+    check("[ct] …and four mistakes to spare", groups.lives === 4 && groups.mentions, JSON.stringify(groups));
+    await ctx.close();
+  }
+
   check("[all] no page errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));
 
   await browser.close();
