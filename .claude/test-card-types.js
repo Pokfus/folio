@@ -986,6 +986,47 @@ async function buryChecks(page, base) {
   });
   // Anki's default, and the behaviour that makes a note with several cards work without being found first
   check("…and it starts ON", on === true, String(on));
+
+  /* BOTH DIRECTIONS TOGETHER sits above it and DERIVES it off (Aug 2026, on request: "I want them
+     interleaved"). Two things fail silently: a switch that writes nothing, and a bury row left saying
+     "waits until tomorrow" beside a value the pair switch has just turned off — two controls disagreeing
+     on one screen. The sheet must not repaint (render() closes it), so the row is re-stated in place. */
+  check("…and Both directions together is offered above it", rows.includes("Both directions together"),
+        rows.join(" / "));
+  await page.evaluate(() => {
+    const r = [...document.querySelectorAll(".dm-switch")].find((x) => /Both directions together/.test(x.textContent));
+    if (r) r.click();
+  });
+  await page.waitForTimeout(300);
+  const paired = await page.evaluate(() => {
+    const row = (re) => [...document.querySelectorAll(".dm-switch")].find((x) => re.test(x.textContent));
+    const p = row(/Both directions together/), b = row(/Bury siblings/);
+    const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    return {
+      open: !!document.querySelector(".deck-menu"),
+      pairOn: p && p.querySelector(".switch").classList.contains("on"),
+      stored: ((S.deckOpts || {})["u:burydeck"] || {}).pairNew,
+      buryOn: b && b.querySelector(".switch").classList.contains("on"),
+      buryLocked: b && b.classList.contains("row-locked"),
+      buryNote: b ? b.querySelector("small").textContent : "",
+    };
+  });
+  check("throwing it writes the setting and leaves the sheet open",
+        paired.open && paired.pairOn === true && paired.stored === true, JSON.stringify(paired));
+  check("…and the bury row is re-stated in place: off, dimmed, and saying why",
+        paired.buryOn === false && paired.buryLocked === true && /both directions/i.test(paired.buryNote),
+        JSON.stringify(paired));
+  await page.evaluate(() => {          // …and back off, so the rest of this section measures burying
+    const r = [...document.querySelectorAll(".dm-switch")].find((x) => /Both directions together/.test(x.textContent));
+    if (r) r.click();
+  });
+  await page.waitForTimeout(300);
+  const restored = await page.evaluate(() => {
+    const b = [...document.querySelectorAll(".dm-switch")].find((x) => /Bury siblings/.test(x.textContent));
+    return b ? { on: b.querySelector(".switch").classList.contains("on"), locked: b.classList.contains("row-locked") } : null;
+  });
+  check("turning it back off restores burying", restored && restored.on === true && restored.locked === false,
+        JSON.stringify(restored));
   await page.keyboard.press("Escape");
   await page.waitForTimeout(300);
 

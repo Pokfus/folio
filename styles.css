@@ -2332,6 +2332,10 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    is still allowed and takes the decision back (setNight turns the device switch off), so it must NOT be
    pointer-events:none — this is a state, not a disabled control. */
 .set-row.row-locked .info h3,.set-row.row-locked .info p{opacity:.62;}
+/* …and the same for a deck sheet's switch row whose value is DERIVED from the switch above it — burying,
+   while both directions arrive together. Same rule and same reason: dimmed, still pressable, and the
+   press says why (see deckPairNew). */
+.dm-item.dm-switch.row-locked .dm-switchmain{opacity:.62;}
 .switch.switch-locked{opacity:.62;}
 .switch.switch-locked:hover{opacity:.85;}
 

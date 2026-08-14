@@ -76,6 +76,10 @@ function toZhuyin(pinyin) {
 
 /* ---------------------------------------------------------------- one entry → one note */
 let noZh = 0;
+/* These two run BOTH ways: as their own deck files, and — when required as a module by build-mandarin.js
+   — as two subdecks of the one combined Mandarin deck. The only difference is whether the note names a
+   subdeck, so it is one flag rather than two builders. */
+const SUB_AS_DECK = require.main !== module;
 function noteOf(e, deckId, i, sub) {
   const simp = e.simp, trad = e.trad === simp ? "" : e.trad;
   const pinyin = numToMarks(e.py);
@@ -94,7 +98,7 @@ function noteOf(e, deckId, i, sub) {
   const senses = e.senses;
   return {
     id: "u_" + deckId + "_" + (i + 1),
-    num: String(i + 1), category: sub, sub: "",
+    num: String(i + 1), category: sub, sub: SUB_AS_DECK ? sub : "",
     question: esc(simp) + (trad ? " / " + esc(trad) : ""),
     answer: esc(pinyin) + " — " + esc(senses.join("; ")),
     answerDate: "", answerText: senses.join("; "),
@@ -155,7 +159,7 @@ const phrases = CED.filter((e) => !isIdiom(e) && multi(e) && !carded.has(e.simp)
      sees a free phrase at all — examplesFor returning anything IS that test */ examplesFor(x.e.simp, known, { phrase: true }).length)
   .sort((a, b) => b.n - a.n || a.e.simp.localeCompare(b.e.simp));
 
-write("Mandarin-Phrases.folio-deck.json", "zhphr",
+if (require.main === module) write("Mandarin-Phrases.folio-deck.json", "zhphr",
   "Mandarin phrases and expressions",
   phrases.length + " expressions the HSK lists leave out",
   (withEx) =>
@@ -189,7 +193,7 @@ const idioms = CED.filter((e) => isIdiom(e) && multi(e) && !carded.has(e.simp))
   .map((e) => ({ e, n: freq(e.simp) })).filter((x) => x.n >= IDIOM_BAR)
   .sort((a, b) => b.n - a.n || a.e.simp.localeCompare(b.e.simp));
 
-write("Mandarin-Idioms.folio-deck.json", "zhidm",
+if (require.main === module) write("Mandarin-Idioms.folio-deck.json", "zhidm",
   "Chinese idioms — chengyu",
   idioms.length + " of the most used, none of them in the HSK lists",
   (withEx) =>
@@ -208,5 +212,7 @@ write("Mandarin-Idioms.folio-deck.json", "zhidm",
     SHARED_TAIL,
   ["chinese", "mandarin", "idioms", "chengyu", "成语"],
   idioms.map((x) => x.e), "Chinese idioms");
+
+module.exports = { noteOf, phrases: phrases.map((x) => x.e), idioms: idioms.map((x) => x.e), PHRASE_BAR, IDIOM_BAR, SHARED_TAIL };
 
 if (noZh) console.log("  !! entries with no bopomofo: " + noZh);
