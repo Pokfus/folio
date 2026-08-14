@@ -36,7 +36,7 @@ function check(name, ok, extra) {
 
 // ---------------------------------------------------------------- the mock backend
 function makeDb() {
-  return { decks: [], cards: [], installs: [], reports: [], ratings: [], seq: 0 };
+  return { decks: [], cards: [], installs: [], reports: [], ratings: [], progress: {}, seq: 0 };
 }
 // stand-in for sync_deck_rating() + the rank_score generated column
 function syncRatings(db, deckId) {
@@ -77,7 +77,16 @@ function handleSupa(db, url, method, body, asUser, headers) {
 
   if (p === "/auth/v1/user") return [200, { id: asUser.id, email: asUser.email }];
   if (p.startsWith("/rest/v1/profiles")) return [200, [{ id: asUser.id, username: asUser.username, name: asUser.name, role: asUser.role, joined: "2026-01-01" }]];
-  if (p.startsWith("/rest/v1/progress")) return method === "GET" ? [200, [{ data: {}, updated_at: "2026-01-01T00:00:00Z" }]] : [200, [{ updated_at: "2026-01-01T00:00:00Z" }]];
+  /* The progress row is STATEFUL, which matters for one thing only and matters a lot for it: the reader's
+     added-decks list rides in this blob, so a mock that always answered with an empty one would wipe it on
+     every boot and no cross-device claim about `S.active` could be tested at all. */
+  if (p.startsWith("/rest/v1/progress")) {
+    const cur = db.progress[asUser.id] || (db.progress[asUser.id] = { data: {}, updated_at: "2026-01-01T00:00:00Z" });
+    if (method === "GET") return [200, [cur]];
+    if (body && body.data) cur.data = body.data;
+    cur.updated_at = new Date().toISOString();
+    return [200, [{ updated_at: cur.updated_at }]];
+  }
   if (p.startsWith("/rest/v1/content_overrides")) return [200, [{ data: {}, updated_at: "2026-01-01T00:00:00Z" }]];
   if (p.startsWith("/rest/v1/friends")) return [200, []];
 
@@ -1064,7 +1073,233 @@ async function typeField(page, field, text) {
   check("removing it deletes the shared row", !db.decks.some((d) => d.slug === "ghost-deck-x9"));
   check("...and the section goes with the last orphan", await A.page.evaluate(() => !document.querySelector(".studio-orphans")));
 
-  const errs = [...A.errs, ...B.errs, ...M.errs];
+  /* ================= a shared deck reaches EVERY device the account is signed in on =================
+     `deck_installs` recorded the row from the day publishing shipped and nothing ever read it back, so
+     adding a deck reached the device it was added on and no other. Every assertion here fails SILENTLY on
+     a real site: a deck that never arrives on the second device is indistinguishable from a deck nobody
+     installed, which is precisely how this went unnoticed.
+
+     A fresh browser context IS a second device — its own IndexedDB and its own localStorage, against the
+     same account and the same server. */
+  const bobInstalls = () => db.installs.filter((i) => i.user_id === BOB.id).map((i) => i.deck_id).sort();
+  const bobHas = bobInstalls();
+  check("the account lists the decks Bob installed", bobHas.length === 2, JSON.stringify(bobHas));
+
+  const B2 = await newSession(browser, db, BOB, base);
+  await B2.page.goto(base + "#decks", { waitUntil: "load" });
+  // boot → session → the idle sync → one deck fetch and one store write apiece
+  await B2.page.waitForFunction(() => document.querySelectorAll(".collection.udeck").length >= 2, null, { timeout: 25000 }).catch(() => {});
+  // every community deck row on the Collections page, with the local id the row is filed under
+  const shelfOf = (page) => page.evaluate(() => [...document.querySelectorAll(".collection.udeck")].map((r) => {
+    const hit = r.querySelector("[data-udeck]");
+    return { title: ((r.querySelector(".collection-title") || {}).textContent || "").trim(), id: hit ? hit.getAttribute("data-udeck") : "" };
+  }));
+  const arrived = await shelfOf(B2.page);
+  const idOf = (list, t) => (list.find((d) => d.title === t) || {}).id || "";
+  const titles = arrived.map((d) => d.title).sort();
+  check("the account's shared decks arrive on a device that never installed one",
+    titles.indexOf("Byzantine Emperors") >= 0 && titles.indexOf("Typed Deck") >= 0, JSON.stringify(titles));
+  /* …and ONLY those, which is the half that says the list is the account's rather than the shelf's. "Paged
+     Deck" is on the first device and is deliberately absent here: its shared row was deleted a section ago,
+     taking Bob's install record with it. */
+  check("...and only those — a deck the account no longer lists is not pulled down", titles.length === 2, JSON.stringify(titles));
+
+  /* The cards came with the title. A deck row over an empty store reads as a working feature until
+     somebody taps it, so this reads the STORE rather than studying the deck: a session can honestly deal
+     nothing (the account's schedule travels too, and these cards may not be due), which would make a
+     study-path check report a healthy deck as an empty one. */
+  const b2Cards = await B2.page.evaluate((want) => new Promise((res) => {
+    const rq = indexedDB.open("folio-community");
+    rq.onsuccess = () => {
+      const idb = rq.result;
+      const tx = idb.transaction(["decks", "notes"], "readonly");
+      const notes = tx.objectStore("notes").getAll();
+      tx.oncomplete = () => {
+        idb.close();
+        res((notes.result || []).filter((n) => n && n.deckId === want).map((n) => JSON.stringify(n.c || {})).join(" "));
+      };
+      tx.onerror = () => { idb.close(); res(""); };
+    };
+    rq.onerror = () => res("");
+  }), idOf(arrived, "Byzantine Emperors"));
+  check("...with their cards, not just their titles", /died in 337/.test(b2Cards), b2Cards.slice(0, 80));
+
+  /* THE SAME DECK CARRIES THE SAME LOCAL ID ON BOTH DEVICES, which is what makes the account's own synced
+     settings land: `S.active`'s `u:<id>` entries, the per-deck limits, the scheduler, the colour, the
+     review's order and groups are all keyed by it and by nothing else. Minted at random — as every install
+     was until Aug 2026 — the deck arrived and every decision the reader had made about it did not. */
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#decks");
+  await B.page.waitForTimeout(1500);
+  const first = await shelfOf(B.page);
+  check("both devices file the deck under the same local id",
+    idOf(first, "Byzantine Emperors") && idOf(first, "Byzantine Emperors") === idOf(arrived, "Byzantine Emperors"),
+    idOf(first, "Byzantine Emperors") + " / " + idOf(arrived, "Byzantine Emperors"));
+
+  // a second boot must not install what is already here — `localDeckForRemote` is the whole guard, and
+  // without it the account's decks would arrive again on every load, each copy with its own schedule
+  // …a REAL boot rather than a hash change, which is same-document and would repaint the shelf this page
+  // already holds instead of running the sync again
+  await B2.page.bringToFront();
+  await B2.page.goto(base + "#decks", { waitUntil: "load" });
+  await B2.page.reload({ waitUntil: "load" });
+  await B2.page.waitForTimeout(3500);
+  const again = await shelfOf(B2.page);
+  check("...and a second boot adds nothing a second time", again.length === 2, JSON.stringify(again.map((d) => d.title)));
+  check("...nor writes a duplicate install row", bobInstalls().length === 2, JSON.stringify(bobInstalls()));
+
+  /* A REMOVAL TRAVELS TOO, and it is the destructive half, so it is asserted from both sides. Dropping the
+     row straight out of the mock's store is exactly what removing the deck on another device leaves
+     behind: the deck must go here as well, and it must NOT be pushed back up (which would resurrect it on
+     the device the reader removed it from). */
+  const typedId = typedRow && typedRow.id;
+  db.installs = db.installs.filter((i) => !(i.user_id === BOB.id && i.deck_id === typedId));
+  await B.page.bringToFront();
+  await B.page.goto(base + "#decks", { waitUntil: "load" });
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(4000);
+  const afterRemoval = await shelfOf(B.page);
+  const hasTitle = (list, t) => list.some((d) => d.title === t);
+  check("a deck removed on another device goes from this one too", !hasTitle(afterRemoval, "Typed Deck"), JSON.stringify(afterRemoval.map((d) => d.title)));
+  check("...and is not pushed back up by the device that still had it",
+    !db.installs.some((i) => i.user_id === BOB.id && i.deck_id === typedId), JSON.stringify(bobInstalls()));
+  /* …WHILE AN AUTHOR'S DELETE STILL REACHES NOBODY'S DEVICE. It cascades the install rows away, so from
+     here it looks exactly like a removal — and mirroring it would take a reader's deck and their progress
+     with it for something they never did. "Paged Deck" was deleted by Alice several sections ago and Bob's
+     copy has survived every sync since. */
+  check("...but a deck its author deleted is left alone on the reader's device", hasTitle(afterRemoval, "Paged Deck"),
+    JSON.stringify(afterRemoval.map((d) => d.title)));
+  check("...and is not announced back to the account either",
+    !db.installs.some((i) => i.user_id === BOB.id && i.deck_id === pagedId), JSON.stringify(bobInstalls()));
+
+  /* THE PUSH: a deck added while SIGNED OUT joins the account when the reader signs in, which is the half
+     that makes the two lists converge from either end (`uDeckInstall` writes the row itself whenever there
+     is a session). A third context with no session IS a signed-out device; adding the session and
+     reloading is signing in on it. */
+  const G = await browser.newContext({ acceptDownloads: true });
+  await attachMock(G, db, { user: BOB });   // never consulted until there is a session to consult it for
+  const gp = await G.newPage();
+  const gerrs = [];
+  gp.on("pageerror", (e) => gerrs.push("pageerror: " + String(e).slice(0, 200)));
+  await gp.goto(base + "#deck/" + (typedRow ? typedRow.slug : "missing"), { waitUntil: "load" });
+  await gp.waitForTimeout(1400);
+  await gp.click("#ddInstall");
+  await gp.waitForTimeout(1600);
+  check("a signed-out install tells the account nothing", !db.installs.some((i) => i.deck_id === typedId), JSON.stringify(db.installs.map((i) => i.deck_id)));
+  /* Signing in, on the device that already holds the deck. The session is written into the page's own
+     localStorage rather than through `addInitScript`, which only reaches pages opened AFTER it is added —
+     this page already exists, so the script would never run and the "sign-in" would silently not happen. */
+  await gp.evaluate((u) => {
+    localStorage.setItem("folio_supa_v1", JSON.stringify({
+      access_token: "mock-token", refresh_token: "mock-refresh",
+      expires_at: Date.now() + 3600e3, user: { id: u.id, email: u.email },
+    }));
+  }, BOB);
+  await gp.bringToFront();
+  await gp.goto(base + "#decks", { waitUntil: "load" });
+  await gp.reload({ waitUntil: "load" });
+  await gp.waitForTimeout(5000);
+  check("...and signing in announces it", db.installs.some((i) => i.user_id === BOB.id && i.deck_id === typedId), JSON.stringify(bobInstalls()));
+  check("...without the account's own decks being taken off this device",
+    hasTitle(await shelfOf(gp), "Typed Deck"));
+
+  /* ================= an older install comes onto the id every device agrees on =================
+     Until Aug 2026 an installed deck's local id was random, so the same deck sat under a different id on
+     each device — and since `S.active`, the per-deck limits, the scheduler, the colour, the review's order
+     and its groups are all keyed by that id, the reader's arrangement stopped at the device it was made
+     on. A deck in the old shape is planted here, under a random id and with settings pointing at it, and
+     what is asserted is that the rename takes those settings WITH it: renaming the deck and leaving the
+     entries behind would look, on the page, exactly like a reader who had never added the deck.
+     Planted while SIGNED OUT so that nothing syncs before the plant — signed in, the boot would install
+     its own copy first and the id the rename wants would be taken. */
+  const byzRow = db.decks.find((d) => d.slug === aliceSlug);
+  const Dctx = await browser.newContext();
+  await attachMock(Dctx, db, { user: BOB });
+  const dp = await Dctx.newPage();
+  const derrs = [];
+  dp.on("pageerror", (e) => derrs.push("pageerror: " + String(e).slice(0, 200)));
+  await dp.bringToFront();
+  await dp.goto(base + "#decks", { waitUntil: "load" });
+  await dp.waitForTimeout(1200);
+  /* The entries live in the ACCOUNT's progress blob, which the boot after this will pull down and apply
+     over whatever is on the device — so they are seeded there rather than in localStorage, which is also
+     the honest shape: this is the arrangement the reader made on the device that installed the deck. */
+  db.progress[BOB.id] = {
+    data: Object.assign({}, (db.progress[BOB.id] || {}).data, {
+      active: ["u:zz9random"], deckOpts: { "u:zz9random": { newPerDay: 7 } }, deckGroups: { "u:zz9random": { color: "#123456" } },
+    }),
+    updated_at: new Date().toISOString(),
+  };
+  const planted = await dp.evaluate((args) => new Promise((res) => {
+    localStorage.setItem("folio_supa_v1", JSON.stringify({   // signed in, for the boot after this
+      access_token: "mock-token", refresh_token: "mock-refresh",
+      expires_at: Date.now() + 3600e3, user: { id: args.user.id, email: args.user.email },
+    }));
+    const rq = indexedDB.open("folio-community");
+    rq.onsuccess = () => {
+      const idb = rq.result;
+      const tx = idb.transaction("decks", "readwrite");
+      tx.objectStore("decks").put({
+        id: "zz9random",
+        meta: {
+          id: "zz9random", title: "Byzantine Emperors", subtitle: "", desc: "", author: "Alice",
+          language: "en", tags: [], glossMode: "site", types: {}, version: 1, createdAt: 1, updatedAt: 1,
+          remoteId: args.remote, slug: args.slug, origin: "installed", remoteStatus: "published",
+          installedVersion: args.version, ownerName: "Alice",
+        },
+        cards: [{ id: "u_zz9random_1", question: "The planted ___ card", answer: "old", answerText: "old", abstract: "Planted by the test under a random id." }],
+        gloss: {},
+      });
+      tx.oncomplete = () => { idb.close(); res(1); };
+      tx.onerror = () => { idb.close(); res(0); };
+    };
+    rq.onerror = () => res(0);
+  }), { remote: byzRow.id, slug: aliceSlug, version: byzRow.version, user: BOB });
+  check("an old-shape install can be planted", planted === 1);
+  // straight to the reload: the seeded `folio_v1` is only safe until the next `save()`, which writes the
+  // app's own in-memory state over it — a navigation in between was enough to lose the planted entries
+  await dp.reload({ waitUntil: "load" });
+  await dp.waitForTimeout(6000);
+  const dShelf = await shelfOf(dp);
+  const want = idOf(arrived, "Byzantine Emperors");   // the id the other two devices file it under
+  check("an older install is renamed onto the shared id", idOf(dShelf, "Byzantine Emperors") === want,
+    JSON.stringify(dShelf));
+  // …and it is the same deck, not a second copy installed alongside it
+  check("...rather than a second copy arriving beside it",
+    dShelf.filter((d) => d.title === "Byzantine Emperors").length === 1, JSON.stringify(dShelf.map((d) => d.title)));
+  const moved = await dp.evaluate(() => {
+    const st = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+    return { active: st.active || [], opts: Object.keys(st.deckOpts || {}), groups: Object.keys(st.deckGroups || {}) };
+  });
+  check("...and the review entry pointing at it moved with the rename",
+    moved.active.indexOf("u:" + want) >= 0 && moved.active.indexOf("u:zz9random") < 0, JSON.stringify(moved.active));
+  check("...as did its daily limits and its colour",
+    moved.opts.indexOf("u:" + want) >= 0 && moved.groups.indexOf("u:" + want) >= 0 &&
+    moved.opts.indexOf("u:zz9random") < 0 && moved.groups.indexOf("u:zz9random") < 0, JSON.stringify(moved));
+  /* …and the rewrite goes back UP, which is the point of the whole exercise: the account's own list now
+     names the id every device files this deck under, so the next device to boot resolves it. The wait is
+     the progress push's own debounce — it is deliberately not instant, and checking before it fires would
+     read a device that had not spoken yet as one that never does. */
+  await dp.waitForTimeout(9000);
+  const upstream = ((db.progress[BOB.id] || {}).data || {}).active || [];
+  check("...and the account's own list is rewritten with it",
+    upstream.indexOf("u:" + want) >= 0 && upstream.indexOf("u:zz9random") < 0, JSON.stringify(upstream));
+  // the CARDS came through the rename: they are written under the deck's key, and a rekey that wrote the
+  // index without warming them first would leave a deck of blank cards behind
+  const kept = await dp.evaluate(async () => {
+    const row = [...document.querySelectorAll(".collection.udeck [data-udeck]")][0];
+    if (!row) return "no row";
+    row.click();
+    await new Promise((r) => setTimeout(r, 900));
+    const rb = document.querySelector("#reveal-btn");
+    if (!rb) return "no card";
+    rb.click();
+    await new Promise((r) => setTimeout(r, 500));
+    return ((document.querySelector(".abstract") || {}).textContent || "").trim();
+  });
+  check("...and its cards survived it", /Planted by the test/.test(kept), kept.slice(0, 60));
+
+  const errs = [...A.errs, ...B.errs, ...M.errs, ...B2.errs, ...gerrs, ...derrs];
   check("no console/page errors", errs.length === 0, [...new Set(errs)].join(" | "));
 
   await browser.close();

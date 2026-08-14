@@ -2039,6 +2039,7 @@
     if (SUPA_PROFILE && SUPA_PROFILE.joined) S.user.joined = new Date(SUPA_PROFILE.joined).getTime() || S.user.joined;
     save();
     applyMode();   // the server role may change admin visibility
+    communitySyncSoon();   // …and bring over any shared decks this account added on another device
   }
   async function supaSignUp(email, username, name, pw) {
     const r = await supaFetch("/auth/v1/signup", { method: "POST", auth: false, body: { email, password: pw, data: { username, name } } });
@@ -2246,6 +2247,9 @@
       _supaLastSent = row ? stableJson(row.data || {}) : null;   // in sync — remember it so the next save() can no-op
     }
     if (current && current.name === "account") render();   // session/profile just arrived — swap the sign-in form for the signed-in view
+    // The session is settled only here, so this is the call that covers an ordinary reload (communityBoot's
+    // own fires first and finds nobody signed in whenever the token had to be refreshed).
+    communitySyncSoon();
   }
 
   /* ---------- helpers ---------- */
@@ -6962,6 +6966,55 @@
     save();
     cdbDel(deckId);
   }
+  /* ---------- RENAMING A DECK THIS DEVICE ALREADY HOLDS (Aug 2026) ----------
+     An installed deck's local id was minted at random until the install sync landed, so the same deck sat
+     under a different id on each device — and since everything the ACCOUNT syncs about a deck is keyed by
+     that id (`S.active`'s entries, the per-deck limits, the scheduler, the colour, the review's order and
+     its groups), the reader's arrangement stopped at the device it was made on. New installs derive the id
+     from the remote one; this is what brings an OLDER install into line, once, so the two devices converge.
+
+     It renames the DECK and never a card: card ids are the published ones, `S.cards` is keyed by them, and
+     renaming one would orphan the progress this whole exercise exists to keep. The entry ids are rewritten
+     wherever they are stored — an entry is `u:<deckId>` plus an optional `/subdeck` and `#template`, so
+     the prefix is what moves and the tail rides along. */
+  function uDeckRekey(oldId, newId) {
+    const d = UDECKS[oldId];
+    if (!d || !newId || newId === oldId || UDECKS[newId]) return false;
+    d.id = newId;
+    UDECKS[newId] = d; delete UDECKS[oldId];
+    UGLOSS[newId] = UGLOSS[oldId] || {}; delete UGLOSS[oldId];
+    (d.cardIds || []).forEach((id) => { if (UCARDS[id]) UCARDS[id].deckId = newId; });
+    _deckTrusted[newId] = _deckTrusted[oldId]; delete _deckTrusted[oldId];
+    uCacheBust();
+    invalidateGlossIndex("deck:" + oldId);
+    invalidateGlossIndex("deck:" + newId);
+    const swap = (x) => (uDeckIdOf(x) === oldId ? "u:" + newId + String(x).slice(oldId.length + 2) : x);
+    const rekeyMap = (m) => {
+      if (!m) return;
+      Object.keys(m).forEach((k) => { const n2 = swap(k); if (n2 !== k) { m[n2] = m[k]; delete m[k]; } });
+    };
+    if (Array.isArray(S.active)) S.active = S.active.map(swap);
+    rekeyMap(S.deckOpts); rekeyMap(S.deckDay); rekeyMap(S.deckGroups);
+    // deckNest holds an entry id at BOTH ends — the row and the container it was dragged into
+    if (S.deckNest) { rekeyMap(S.deckNest); Object.keys(S.deckNest).forEach((k) => { S.deckNest[k] = swap(S.deckNest[k]); }); }
+    // deckOrder is keyed by the CONTAINER (which may itself be one of this deck's rows) and holds lists of rows
+    if (S.deckOrder) { rekeyMap(S.deckOrder); Object.keys(S.deckOrder).forEach((k) => { if (Array.isArray(S.deckOrder[k])) S.deckOrder[k] = S.deckOrder[k].map(swap); }); }
+    if (studioState && studioState.deck === oldId) studioState.deck = newId;
+    if (_deckUpdates[oldId]) { _deckUpdates[newId] = _deckUpdates[oldId]; delete _deckUpdates[oldId]; }
+    save();
+    return true;
+  }
+  /* The store half, which has one trap in it: the notes are LAZY, and `uNoteRecord` refuses to write a note
+     whose content was never warmed — rightly, since writing the stub would destroy it. So the deck is
+     warmed BEFORE it is renamed, written whole under the new key, and only then is the old record dropped:
+     a failure anywhere leaves the old record exactly where it was. */
+  async function uDeckRekeyStored(oldId, newId) {
+    await uWarmDeck(oldId);
+    if (!uDeckRekey(oldId, newId)) return false;
+    await uDeckSaveAll(newId);
+    await cdbDel(oldId);
+    return true;
+  }
 
   /* ---------- deck files ----------
      A deck travels as a plain .json file: no account, no server, works from file://. This is also the
@@ -7343,8 +7396,14 @@
     if (!r.ok) return { error: communityErr(r, "Couldn't reach the deck library.") };
     return { ok: true, decks: Array.isArray(r.data) ? r.data : [] };
   }
-  async function communityFetchDeck(slug) {
-    const r = await supaFetch("/rest/v1/user_decks?slug=eq." + encodeURIComponent(slug) + "&select=*&limit=1");
+  async function communityFetchDeck(slug) { return communityFetchDeckWhere("slug=eq." + encodeURIComponent(slug)); }
+  /* The same fetch keyed by the deck's ID, which is what `deck_installs` records and therefore what the
+     cross-device sync below has to ask for. Two thin wrappers over one body rather than a second copy of
+     the paging loop: a truncated deck is indistinguishable from a small one, so the loop must not be
+     written twice and drift. */
+  async function communityFetchDeckById(id) { return communityFetchDeckWhere("id=eq." + encodeURIComponent(id)); }
+  async function communityFetchDeckWhere(filter) {
+    const r = await supaFetch("/rest/v1/user_decks?" + filter + "&select=*&limit=1");
     if (!r.ok) return { error: communityErr(r, "Couldn't load that deck.") };
     const row = Array.isArray(r.data) ? r.data[0] : null;
     if (!row) return { error: "notfound" };
@@ -7371,11 +7430,29 @@
     const k = Object.keys(UDECKS).find((x) => UDECKS[x].remoteId === remoteId);
     return k ? UDECKS[k] : null;
   }
+  /* THE SAME DECK GETS THE SAME LOCAL ID ON EVERY DEVICE (Aug 2026, with the install sync below), because
+     a great deal of what the account already syncs is keyed by that id and by nothing else: `S.active`'s
+     `u:<id>` entries, the per-deck daily limits, the scheduler choice, the row's colour, the review's own
+     order and its groups. Minted at random, each device filed the same deck under a different name, so a
+     deck added to the daily review on one was an unresolvable entry on the other — the deck arrived and
+     every decision the reader had made about it stopped at the device it was made on.
+     It is a HASH OF THE WHOLE remote id rather than a slice of it, which is not tidiness: the obvious
+     first eight hex characters are already inside `[a-z0-9]{4,16}` and would do for a random UUIDv4, and
+     they are a TIMESTAMP under the time-ordered UUIDv7 — so two decks published in the same second would
+     be given the same local id, on a rule whose whole purpose is that it never has to fall back. It falls
+     back to a random id on a collision anyway, which is exactly what every install did before. An OLDER
+     install keeps whatever id it was given: renaming it would break that device's own settings to fix
+     another's. */
+  function deckIdFromRemote(remoteId) { return hashStr(String(remoteId || "")).toString(36).padStart(8, "0").slice(-8); }
+  function localIdForRemote(remoteId) {
+    const h = deckIdFromRemote(remoteId);
+    return (remoteId && !UDECKS[h]) ? h : uid(8);
+  }
   // Build the local record for a remote deck. Card ids come down as published so an update keeps the
   // learner's scheduling — unless one already belongs to a DIFFERENT local deck, in which case this deck's
   // ids are remapped so two installs can never collide in UCARDS / S.cards.
   function remoteToLocal(row, cards, existingLocalId, gloss) {
-    const localId = existingLocalId || uid(8);
+    const localId = existingLocalId || localIdForRemote(row.id);
     const clash = cards.some((c) => UCARDS[c.id] && UCARDS[c.id].deckId !== localId);
     const rec = {
       id: localId,
@@ -7404,14 +7481,27 @@
         headers: { Prefer: "resolution=merge-duplicates" },
       });
     }
+    // …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
+    // a re-install being read as the removal that came before it
+    deckSyncInstalled(row.id);
     return { ok: true, deck: d };
   }
+  /* Removing an installed deck takes it off the ACCOUNT's list too, so the removal reaches every other
+     device. A delete the server would not take is therefore worth both recording and reporting: the row
+     would outlive the deck, and the next sync would read it as an install made elsewhere and put the deck
+     straight back. `stale` is what the reader is told; the pending list is what makes the app finish the
+     job on its own next time. */
   async function uDeckUninstall(deckId) {
     const d = UDECKS[deckId];
-    if (!d) return;
+    if (!d) return { ok: true };
     const remote = d.remoteId;
     uDeckDelete(deckId);
-    if (remote && supaLoggedIn()) await supaFetch("/rest/v1/deck_installs?deck_id=eq." + encodeURIComponent(remote) + "&user_id=eq." + SUPA.user.id, { method: "DELETE" });
+    if (!remote || !supaLoggedIn()) return { ok: true };
+    const r = await deckInstallRowDelete(remote);
+    // …and if the server did not take it, remember to finish the job: an install row that outlives the
+    // deck is read by the next sync as an install made elsewhere, and puts the deck straight back
+    if (!r.ok) deckSyncPending(remote);
+    return { ok: true, stale: !r.ok };
   }
   // Ask the server which installed decks have a newer version. Cheap: one request for all of them.
   async function communityCheckUpdates() {
@@ -7426,6 +7516,206 @@
       if (d && row.status === "published" && Number(row.version) > Number(d.installedVersion || 0)) out[d.id] = row.version;
     });
     return out;
+  }
+  /* ---------- THE ACCOUNT'S INSTALLED DECKS, ON EVERY DEVICE (Aug 2026, on request) ----------
+     `deck_installs` has held one row per (deck, account) since publishing shipped and NOTHING EVER READ IT
+     BACK: adding a shared deck wrote the row and then wrote the deck into this device's IndexedDB, so a
+     reader signed in on a phone and a laptop had to find and add the same deck twice. The row was already
+     the account's own answer to "which shared decks are mine" — this asks it.
+
+     IT GOES BOTH WAYS (Aug 2026, on request: the account's decks and progress should be identical on every
+     device it is signed in on). An addition travels, a removal travels, and a deck this device holds that
+     the account has never heard of is announced. What makes that possible rather than merely desirable is
+     the RECORD OF THE LAST AGREED STATE below: a deck here that the account does not list means two
+     opposite things — removed on another device, or added here while signed out — and without that record
+     the two are indistinguishable, so mirroring the removal would eventually delete a deck nobody removed
+     and pushing would resurrect one somebody did.
+
+     THE DESTRUCTIVE HALF IS THE ONE TO READ TWICE. A mirrored removal deletes a deck and its review rows
+     off this device, so it stands down wherever the evidence is not certain — a page that may be truncated
+     cannot tell a missing row from an unread one, and a deck cannot be pulled out from under a session
+     studying it. Neither case is lost, only deferred to the next sync. And it is never fatal: card
+     progress lives in `S.cards` under ids that do not change, so a deck added back brings its schedule
+     with it.
+
+     A deck can be tens of megabytes, so they are fetched one at a time, at idle, and there is deliberately
+     no saveData opt-out: this is an account-level guarantee the reader asked for, and a device that
+     silently never receives its decks is the bug being fixed rather than a polite version of it. */
+  const DECK_SYNC_MAX = 200;   // the account's install list, bounded like myRemoteDecksLoad's
+  let _deckSyncFor = null;     // the account whose install list this session has already reconciled
+  let _deckSyncBusy = false;
+  /* WHAT THIS DEVICE LAST SAW, which is what turns two lists into a reconciliation. A deck here that the
+     account does not list means two opposite things — removed on another device, or added here and never
+     announced — and only a record of the last agreed state can tell them apart. It is DEVICE-local (like
+     `_supaTs` and `_supaOwner`) because it is a statement about this device's own last sync; synced, it
+     would be every device's baseline at once and could say nothing about any of them.
+       `seen` — account → the remote ids the server listed at that account's last sync here.
+       `pend` — account → removals this device made and could not deliver (offline), retried next time.
+       `by`   — remote id → the account this device installed the deck under. NOT per account, and it is
+                what keeps the push honest on a shared device: community decks are device-local and every
+                account signing in here sees them, so without it account B would announce account A's decks
+                as its own — the very adoption `_supaOwner` exists to prevent one layer up. */
+  const DECK_SYNC_KEY = "folio_deck_sync_v1";
+  function deckSyncRead() {
+    try {
+      const r = JSON.parse(localStorage.getItem(DECK_SYNC_KEY) || "null");
+      if (r && typeof r === "object") return { seen: r.seen || {}, pend: r.pend || {}, by: r.by || {} };
+    } catch (e) {}
+    return { seen: {}, pend: {}, by: {} };
+  }
+  function deckSyncWrite(rec) { try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {} }
+  function deckSyncList(rec, part, owner) { const a = rec[part][owner]; return Array.isArray(a) ? a : []; }
+  /* Who installed a deck, recorded AT THE INSTALL rather than at the next sync — which is what makes the
+     removal half safe. A sync interrupted by a navigation writes nothing, so a deck installed and then
+     removed on another device before this device ever completed a sync would look, here, like a deck
+     nobody had announced, and the push would resurrect it. Installed while SIGNED OUT the entry is
+     cleared, not kept: it says "unannounced", and a stale `me` there would have the next sign-in read a
+     fresh install as somebody else's removal. */
+  function deckSyncInstalled(remoteId) {
+    if (!remoteId) return;
+    const rec = deckSyncRead();
+    if (!supaLoggedIn()) { delete rec.by[remoteId]; deckSyncWrite(rec); return; }
+    const me = SUPA.user.id;
+    rec.by[remoteId] = me;
+    rec.seen[me] = deckSyncList(rec, "seen", me).filter((x) => x !== remoteId).concat([remoteId]);
+    rec.pend[me] = deckSyncList(rec, "pend", me).filter((x) => x !== remoteId);
+    deckSyncWrite(rec);
+  }
+  // a removal the server did not take: it has to be retried, or the next sync reads the surviving row as
+  // an install made elsewhere and helpfully puts the deck back
+  function deckSyncPending(remoteId) {
+    if (!remoteId || !supaLoggedIn()) return;
+    const rec = deckSyncRead(), me = SUPA.user.id;
+    rec.pend[me] = deckSyncList(rec, "pend", me).filter((x) => x !== remoteId).concat([remoteId]);
+    deckSyncWrite(rec);
+  }
+  /* IS THE DECK ITSELF STILL THERE? — the question that separates "the reader removed this on another
+     device" from "the author deleted the deck", which look identical from here: deleting a published deck
+     cascades its `deck_installs` rows away. Only the first is a removal to mirror. Deleting a deck from
+     the shared page must not reach into the devices of everyone who installed it — their copy and their
+     progress are theirs — and hiding one must not either, which the same test gives for free: a hidden
+     deck is not selectable by anybody but its owner, so it reads as gone and nothing is touched.
+     One row, asked only for a deck that has actually disappeared off the account's list. */
+  async function deckExistsRemote(remoteId) {
+    const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(remoteId) + "&select=id&limit=1");
+    return !!(r.ok && Array.isArray(r.data) && r.data.length);
+  }
+  async function deckInstallRowDelete(remoteId) {
+    return supaFetch("/rest/v1/deck_installs?deck_id=eq." + encodeURIComponent(remoteId) +
+      "&user_id=eq." + encodeURIComponent(SUPA.user.id), { method: "DELETE" });
+  }
+  async function communitySyncInstalls() {
+    if (!supaLoggedIn() || _deckSyncBusy) return { added: 0, removed: 0 };
+    _deckSyncBusy = true;
+    const me = SUPA.user.id;
+    try {
+      const rec = deckSyncRead();
+      // 0) deliver any removal this device could not: until the row is really gone, the pull below would
+      //    read it as an install made elsewhere and undo the removal the reader asked for.
+      const stillPending = [];
+      for (const id of deckSyncList(rec, "pend", me)) {
+        if (localDeckForRemote(id)) continue;   // re-installed here since: no longer a removal at all
+        const del = await deckInstallRowDelete(id);
+        if (!del.ok) stillPending.push(id);
+      }
+      rec.pend[me] = stillPending;
+
+      const r = await supaFetch("/rest/v1/deck_installs?user_id=eq." + encodeURIComponent(me) +
+        "&select=deck_id&limit=" + DECK_SYNC_MAX);
+      // 404 = the phase-2 SQL has never been run; status 0 = offline. Either way this device is left
+      // exactly as it was, and clearing the guard is what lets a later sign-in try again.
+      if (!r.ok || !Array.isArray(r.data)) { deckSyncWrite(rec); _deckSyncFor = null; return { added: 0, removed: 0 }; }
+      const server = [];
+      r.data.forEach((row) => { if (row && row.deck_id && server.indexOf(row.deck_id) < 0) server.push(row.deck_id); });
+      const keep = new Set(server);   // what `seen` becomes: the server's list, plus anything still ours
+      const seen = new Set(deckSyncList(rec, "seen", me));
+      /* A FULL PAGE MEANS THE LIST MAY BE TRUNCATED, and a truncated list read as the whole of it would
+         delete the tail of somebody's shelf. Adding is safe either way; mirroring a removal is not, so it
+         is the half that stands down. */
+      const complete = r.data.length < DECK_SYNC_MAX;
+      let added = 0, removed = 0;
+
+      // 1) the account lists a deck this device has not got → install it
+      for (const id of server) {
+        if (localDeckForRemote(id)) continue;
+        const got = await communityFetchDeckById(id);
+        // hidden by a moderator, deleted, or the connection went: the row stays, so the next boot retries
+        if (got.error || !got.row) continue;
+        const ins = await uDeckInstall(got.row, got.cards, got.gloss);
+        if (ins && ins.ok) added++;
+      }
+      // 2) …and the other direction, deck by deck
+      for (const d of uDeckList()) {
+        if (d.origin !== "installed" || !d.remoteId || keep.has(d.remoteId)) continue;
+        // did the account ever have it? `by` answers at the moment of the install, `seen` for a deck
+        // installed before any of this existed — either is enough, and neither is a guess
+        if (seen.has(d.remoteId) || rec.by[d.remoteId] === me) {
+          /* THE ACCOUNT HAD IT AND DOES NOT NOW — removed on another device. The deck goes, and with it
+             the review entries pointing at it; the CARD PROGRESS stays in `S.cards`, keyed by ids that do
+             not change, so adding the deck again brings the schedule back with it.
+             Three things defer it, and a deferred removal must go on being CLAIMED (`keep`) or the next
+             pass would read it as a deck this device installed and announce it back up: a list that may be
+             truncated cannot tell a missing row from an unread one; a deck cannot be deleted out from
+             under a session studying it, where `cardById` would answer nothing mid-card; and the deck must
+             still EXIST, or this is an author's delete rather than a reader's removal. Nothing is lost —
+             the next sync does whichever of them was deferred. */
+          if (!complete || (current && current.name === "study")) { keep.add(d.remoteId); continue; }
+          if (!(await deckExistsRemote(d.remoteId))) continue;
+          uDeckDelete(d.id);
+          removed++;
+        } else if (!rec.by[d.remoteId]) {
+          /* NEVER ANNOUNCED — installed here while signed out. It joins the account, which is what makes
+             the two lists converge from either end. A deck installed here by ANOTHER account (`by` names
+             somebody else) falls through both branches untouched: community decks are device-local and
+             every account signing in here sees them, and claiming one would file a stranger's shelf under
+             this account — the adoption `_supaOwner` exists to prevent one layer up. */
+          const p = await supaFetch("/rest/v1/deck_installs", {
+            method: "POST", body: { deck_id: d.remoteId, user_id: me, version: d.installedVersion || 1 },
+            headers: { Prefer: "resolution=merge-duplicates" },
+          });
+          if (p.ok) { keep.add(d.remoteId); rec.by[d.remoteId] = me; }
+        }
+      }
+      rec.seen[me] = Array.from(keep);
+      deckSyncWrite(rec);
+      // 3) and bring any deck installed before this existed onto the id every device agrees on, so the
+      //    reader's own arrangement of it syncs with everything else
+      await communityAlignDeckIds();
+      return { added: added, removed: removed };
+    } finally { _deckSyncBusy = false; }
+  }
+  /* An older install carries a random local id — see uDeckRekey for why that matters and what it costs.
+     One deck at a time and only where the target id is free; a deck whose id is already the derived one
+     costs nothing to check. */
+  async function communityAlignDeckIds() {
+    for (const d of uDeckList()) {
+      if (d.origin !== "installed" || !d.remoteId) continue;
+      const want = deckIdFromRemote(d.remoteId);
+      if (d.id === want || UDECKS[want]) continue;
+      await uDeckRekeyStored(d.id, want);
+    }
+  }
+  // One wording for both Remove buttons, so the caveat cannot reach one of them and not the other.
+  function uninstallSaid(r) {
+    return (r && r.stale) ? "Removed here — your account still lists it, so it may return until you remove it online" : "Removed";
+  }
+  /* Fires when BOTH halves are ready, because either can land first: a cold boot mounts IndexedDB while
+     supaBoot is still refreshing an expired token, and a sign-in happens long after both. Every caller
+     calls it and whichever is last does the work — and it must run AFTER the local store has mounted, or
+     `localDeckForRemote` sees nothing and the account's decks are installed a second time. */
+  function communitySyncSoon() {
+    if (!_communityReady || !supaLoggedIn() || _deckSyncFor === SUPA.user.id) return;
+    _deckSyncFor = SUPA.user.id;
+    whenIdle(() => {
+      communitySyncInstalls().then((res) => {
+        if (!res || (!res.added && !res.removed)) return;
+        const said = [];
+        if (res.added) said.push(res.added + (res.added === 1 ? " shared deck added" : " shared decks added"));
+        if (res.removed) said.push(res.removed + " removed");
+        toast(said.join(", ") + " — matching your account");
+        if (current && ["decks", "studio", "home"].includes(current.name)) render();
+      });
+    });
   }
   /* ---------- ratings ----------
      One rating per person per deck, editable and withdrawable. Writing one needs an account (RLS keys off
@@ -7620,6 +7910,9 @@
         if (current && (current.name === "decks" || current.name === "studio")) render();
       });
     });
+    // …and, unconditionally, whether the ACCOUNT has installed decks this device has not: `n` is the wrong
+    // gate for that one, since the case it exists for is a device holding no community decks at all.
+    communitySyncSoon();
   }
   function communityReady() { return _communityReady; }
 
@@ -21098,7 +21391,7 @@
     });
     root.querySelector("#stRemove").addEventListener("click", () => inlineConfirm(
       "Remove “" + d.title + "” from this device? Your progress on its cards goes too.",
-      async () => { await uDeckUninstall(d.id); studioState.deck = null; toast("Removed"); render(); }, "Remove"));
+      async () => { const r = await uDeckUninstall(d.id); studioState.deck = null; toast(uninstallSaid(r)); render(); }, "Remove"));
   }
 
   function studioRenderCardEditor(host) {
@@ -21551,7 +21844,7 @@
     if (study) study.addEventListener("click", () => route("study", { scope: { type: "udeck", id: local.id } }));
     const rem = root.querySelector("#ddRemove");
     if (rem) rem.addEventListener("click", () => inlineConfirm("Remove “" + row.title + "” from this device? Your progress on its cards goes too.", async () => {
-      await uDeckUninstall(local.id); toast("Removed"); render();
+      const r = await uDeckUninstall(local.id); toast(uninstallSaid(r)); render();
     }, "Remove"));
     const dl = root.querySelector("#ddDownload");
     if (dl) dl.addEventListener("click", () => deckFileDownload(row, cards, gloss));
