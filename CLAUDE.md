@@ -10089,6 +10089,14 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   sentence. **Deep spans are written in the compact notation** — `115,000 – 11,700 BP`, `c. 4.2 – 2 Mya`,
   `c. 2.6 Mya – 9700 BCE` — all of which `cardYears` parses, which is what keeps the deck in
   chronological order (see the "Deep time" bullet).
+  **A CENTURY IS NOT A DATE `cardYears` CAN READ**, and a date line whose ONLY dates are centuries
+  therefore yields no sort year at all — the card falls to 0, "timeless", which on a deck running in
+  BCE puts it after every other card (Aug 2026, caught by `test-date-line.js` on `rm-047`, whose two
+  rows both read "7th century BCE"). Write the span the century MEANS — `c. 700 – 600 BCE` — which
+  asserts no precision the source has not got, since that interval IS the 7th century; a second row
+  may then say "7th century" in words. **The fix is in the DATE LINE, not in `cardYears`**: 52 of the
+  447 shipped date lines carry a century form beside a plain year, so teaching that function to read
+  centuries would silently move their sort years too.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
