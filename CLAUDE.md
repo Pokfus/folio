@@ -9986,47 +9986,71 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     a Remove. Fetched once a session and only when signed in; **absent, not empty, when there is nothing to
     show**, since for almost every reader there never will be. `localDeckForRemote` is the same lookup the
     update check uses, so a deck that IS installed here can never be offered for removal.
-  · **AN INSTALLED DECK REACHES EVERY DEVICE THE ACCOUNT IS SIGNED IN ON** (`communitySyncInstalls` /
-    `communitySyncSoon` / `communityFetchDeckById` / `localIdForRemote` / `DECK_SYNC_MAX` / `_deckSyncFor`;
-    Aug 2026, on request). `deck_installs` has recorded one row per (deck, account) since publishing
-    shipped and **nothing ever read it back**: adding a shared deck wrote the row and then wrote the deck
-    into that device's IndexedDB, so a reader signed in on a phone and a laptop had to find and add the
-    same deck twice — and the second copy kept a schedule of its own. The row was already the account's own
-    answer to "which shared decks are mine"; this asks it, at idle, from `communityBoot`, `supaBoot` and
+  · **A READER'S SHARED DECKS ARE THE SAME ON EVERY DEVICE THE ACCOUNT IS SIGNED IN ON**
+    (`communitySyncInstalls` / `communitySyncSoon` / `communityFetchDeckById` / `deckExistsRemote` /
+    `deckSyncRead` / `deckSyncInstalled` / `deckSyncPending` / `localIdForRemote` / `uDeckRekey` /
+    `communityAlignDeckIds` / `DECK_SYNC_KEY` / `DECK_SYNC_MAX` / `_deckSyncFor`; Aug 2026, on request).
+    `deck_installs` has recorded one row per (deck, account) since publishing shipped and **nothing ever
+    read it back**: adding a shared deck wrote the row and then wrote the deck into that device's
+    IndexedDB, so a reader signed in on a phone and a laptop had to find and add the same deck twice — and
+    the second copy kept a schedule of its own. The row was already the account's own answer to "which
+    shared decks are mine"; this reconciles against it, at idle, from `communityBoot`, `supaBoot` and
     `supaAfterSignIn` alike. **It needs no schema change** and no migration: every deck installed while
     signed in already has its row.
-    Five things are decisions rather than plumbing.
-    **IT PULLS AND NEVER PUSHES.** The server's list is the account's list and a device adds what is missing
-    from its own store; the tempting other half — a deck installed HERE that the account has no row for,
-    sent up — cannot be written honestly, because **community decks are device-local and shared by every
-    account that signs in on that device**, so on a family laptop it would file one person's decks under the
-    next person's account and nothing on the record says who installed it. The gap that leaves is narrow and
-    stated: a deck added while SIGNED OUT stays on that device until it is added again while signed in.
-    **NOR DOES IT MIRROR A REMOVAL** — deleting somebody's local deck, and the progress on its cards,
-    because another device stopped listing it is destructive and unasked-for. So a row the account no longer
-    has is neither pushed back (which would resurrect the deck on every other device) nor acted on here, and
-    the only thing that ever happens is that decks ARRIVE.
+    Seven things are decisions rather than plumbing.
+    **IT GOES BOTH WAYS — an addition travels, a removal travels, and a deck the account has never heard
+    of is announced.** What makes that possible rather than merely desirable is the RECORD OF THE LAST
+    AGREED STATE (`folio_deck_sync_v1`, device-local like `_supaTs` and `_supaOwner`, because it is a
+    statement about THIS device's last reconciliation): a deck here that the account does not list means
+    two opposite things — removed on another device, or added here while signed out — and without that
+    record they are indistinguishable, so mirroring would eventually delete a deck nobody removed and
+    pushing would resurrect one somebody did. It holds `seen` (per account, what the server last listed),
+    `pend` (removals this device could not deliver) and `by` (remote id → the account that installed it).
+    **THE DESTRUCTIVE HALF STANDS DOWN WHEREVER THE EVIDENCE IS NOT CERTAIN.** A mirrored removal deletes
+    a deck and its review rows, so it is deferred — while going on being CLAIMED in `seen`, or the next
+    pass reads it as this device's own and announces it back — when the page may be truncated (a full page
+    cannot tell a missing row from an unread one), when a session is studying that deck (`cardById` would
+    answer nothing mid-card), and, the one that is not a timing question, **when the DECK ITSELF IS GONE**
+    (`deckExistsRemote`): deleting a published deck cascades its install rows away, so from here an
+    author's delete looks exactly like a reader's removal, and mirroring it would take a stranger's deck
+    and their progress for something they never did. Hiding one reads the same way, for free, since a
+    hidden deck is not selectable by anyone but its owner. **And it is never fatal**: card progress lives
+    in `S.cards` under ids that do not change, so a deck added back brings its schedule with it.
+    **A DECK ANOTHER ACCOUNT INSTALLED ON THIS DEVICE IS UNTOUCHED, IN BOTH DIRECTIONS.** Community decks
+    are device-local and shared by every account signing in here, so `by` is what stops account B
+    announcing account A's shelf as its own — the adoption `_supaOwner` exists to prevent one layer up. It
+    is recorded AT THE INSTALL rather than at the next sync, because a sync interrupted by a navigation
+    writes nothing; and an install made while SIGNED OUT clears the entry rather than keeping a stale one,
+    or a re-install would be read as the removal that preceded it.
     **IT MUST RUN AFTER THE LOCAL STORE HAS MOUNTED, which is what `communitySyncSoon` is for**: every
     caller calls it and whichever is last does the work, since either half can land first (a cold boot
     mounts IndexedDB while supaBoot is still refreshing an expired token, and a sign-in happens long after
     both). Run before the mount, `localDeckForRemote` sees nothing and the account's decks are installed a
     second time, each copy with its own schedule.
-    **THE SAME DECK NOW TAKES THE SAME LOCAL ID ON EVERY DEVICE** (`localIdForRemote`), and that is what
-    makes the rest of what the account syncs actually land: `S.active`'s `u:<id>` entries, the per-deck
-    daily limits, the scheduler choice, the row's colour, the review's order and its groups are all keyed by
-    that id and by nothing else, and it was `uid(8)` — so the deck arrived and every decision the reader had
+    **THE SAME DECK TAKES THE SAME LOCAL ID ON EVERY DEVICE** (`localIdForRemote`), and that is what makes
+    the rest of what the account syncs actually land: `S.active`'s `u:<id>` entries, the per-deck daily
+    limits, the scheduler choice, the row's colour, the review's order and its groups are all keyed by that
+    id and by nothing else, and it was `uid(8)` — so the deck arrived and every decision the reader had
     made about it stopped at the device it was made on. It is a **hash of the WHOLE remote id** rather than
     the obvious first eight hex characters of the UUID: those are a TIMESTAMP under the time-ordered
     UUIDv7, so two decks published in the same second would collide on a rule whose whole point is that it
-    never falls back. A collision still falls back to a random id, which is exactly the old behaviour, and
-    an OLDER install keeps whatever id it was given — renaming it would break that device's own settings to
-    fix another's.
-    **AND A FAILED UNINSTALL IS NOW REPORTED** (`uDeckUninstall` → `{ stale }` → `uninstallSaid`): removing
-    a deck deletes the account's row, and with the row put back on every device by this sync, a delete that
-    failed while offline would have the next boot helpfully re-install the very deck just removed. Both
-    Remove buttons say so through one wording, so the caveat cannot reach one of them and not the other.
-    Guarded by the last section of `.claude/test-publish.js`, where a fresh browser context is a second
-    device.
+    never falls back. A collision still falls back to a random id, which is exactly the old behaviour.
+    **AN OLDER INSTALL IS RENAMED ONTO THAT ID, ONCE** (`communityAlignDeckIds` → `uDeckRekeyStored` →
+    `uDeckRekey`), or a deck installed before this shipped would go on being two different decks to one
+    account. It renames the DECK and never a card — card ids are the published ones and `S.cards` is keyed
+    by them, so renaming one would orphan the very progress this exists to keep — and it rewrites every
+    entry id wherever it is stored (`S.active`, `deckOpts`, `deckDay`, `deckGroups`, `deckNest` at both
+    ends, `deckOrder`'s keys AND its lists), since a rename that left those behind would read, on the page,
+    exactly like a reader who had never added the deck. **The store half has one trap**: the notes are
+    lazy and `uNoteRecord` refuses to write an unwarmed one, so the deck is WARMED before it is renamed,
+    written whole under the new key, and only then is the old record dropped.
+    **AND A FAILED UNINSTALL IS BOTH REPORTED AND RETRIED** (`uDeckUninstall` → `{ stale }` /
+    `uninstallSaid`, and `deckSyncPending` → step 0 of the next sync): removing a deck deletes the
+    account's row, so a delete the server would not take leaves a row that the next sync reads as an
+    install made elsewhere — putting the deck straight back. Both Remove buttons carry the caveat through
+    one wording, so it cannot reach one of them and not the other.
+    Guarded by the last two sections of `.claude/test-publish.js`, where a fresh browser context is a
+    second device.
   · **The column guard — `guard_user_deck_columns()`.** RLS decides which ROWS you may write, **never which
     COLUMNS**. "edit your own decks" therefore let an owner PATCH their own `install_count`, `rating_avg`,
     `staff_pick` or even `owner` — inventing an editorial endorsement and a five-star average for
@@ -12106,8 +12130,8 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 116 assertions across four browser sessions (an author, a reader, an
-    admin, and that reader's SECOND DEVICE) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export → delete → sync. It runs against an
+  · `node .claude/test-publish.js` — 128 assertions across six browser sessions (an author, a reader, an
+    admin, and three more DEVICES of that reader's) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export → delete → sync. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
     ownership rule, which is how "a stranger cannot patch someone's deck" is asserted — and, since Aug 2026,
@@ -12148,17 +12172,30 @@ dead code (never rendered).
     **five of the delete assertions fail**, and they all pass with the fix.
     The orphan half plants a row straight into the mock's store, which is exactly what an orphan IS, and
     asserts the negative as well — a deck this device DOES hold is never offered for removal.
-    **ITS LAST SECTION IS THE CROSS-DEVICE SYNC (Aug 2026), and a fresh browser context IS a second
+    **ITS LAST TWO SECTIONS ARE THE CROSS-DEVICE SYNC (Aug 2026), and a fresh browser context IS another
     device** — its own IndexedDB and its own localStorage, against the same account and the same server.
-    Every assertion in it fails silently on a real site: a deck that never arrives on the second device is
-    indistinguishable from a deck nobody installed, which is how the gap went unnoticed for a year. So it
-    asserts that the account's decks arrive **and that only those do** (the deck whose shared row was
-    deleted three sections earlier is on the first device and must not be pulled down), that **their cards
-    came with their titles** — a deck row over an empty store reads as a working feature until somebody taps
-    it — that **both devices file a deck under the same local id**, that a second boot adds nothing twice,
-    and both halves of the pull-only rule: a row dropped from the mock's store, which is exactly what a
-    removal on another device leaves behind, is **neither pushed back up nor allowed to delete the deck
-    here**. Verified by disabling `communitySyncSoon` and watching five of them fail.
+    Every assertion in them fails silently on a real site: a deck that never arrives on the second device
+    is indistinguishable from a deck nobody installed, which is how the gap went unnoticed for a year. They
+    assert that the account's decks arrive **and that only those do**, that **their cards came with their
+    titles** — a deck row over an empty store reads as a working feature until somebody taps it — that
+    **both devices file a deck under the same local id**, that a second boot adds nothing twice, that a
+    removal travels (**while an author's DELETE still reaches nobody's device**, the two being
+    indistinguishable from the client and only one of them a removal to mirror), that a deck added while
+    signed out is announced at the next sign-in, and that an older install is **renamed onto the shared id
+    with its review entry, its limits, its colour and its cards**, the rewrite reaching the account's own
+    list. Verified by disabling `communitySyncSoon` and watching five of them fail.
+    **THE MOCK'S PROGRESS ROW HAD TO BECOME STATEFUL FOR THE LAST OF THOSE** — it answered every GET with
+    an empty blob, which on a real device is a boot that wipes the added-decks list, so no claim about
+    `S.active` crossing devices could be made at all. Two things came out of making it real. A card check
+    that STUDIED the arrived deck had to become a check on the STORE: the account's schedule travels too,
+    so a session can honestly deal nothing and a study-path assertion would report a healthy deck as an
+    empty one. And the upstream assertion has to **wait out the progress push's own debounce**, or it
+    reads a device that has not spoken yet as one that never does.
+    **TWO SEEDING TRAPS, both of which made a working feature report as broken**: `addInitScript` reaches
+    only pages opened AFTER it is added, so "signing in" on a page that already exists means writing the
+    session into that page's own localStorage and reloading; and a seeded `folio_v1` survives only until
+    the app's next `save()`, so anything planted there must be followed by the reload immediately —
+    a single navigation in between was enough to lose it.
     **Re-run after
     touching the publishing functions, `communitySyncInstalls` / `communitySyncSoon` /
     `communityFetchDeckById` / `localIdForRemote` / `uDeckInstall` / `uDeckUninstall`, `uDeckDelete` /
