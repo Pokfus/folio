@@ -3908,9 +3908,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   zoomed in** (crispest the data allows at deep zoom); settled renders are cached. (Crisper-than-z=6 deepest-zoom detail would
   need runtime tile streaming, which would break the offline-first design and is imperceptible at this opacity, so it's not done.)
   An older `elevation.js`/three-globe attempt was replaced.
-- `truefalse.js` (~34 KB) — `window.TRUEFALSE = [ { q, a, why, cat } ]`, the statement pool for the **True or False** home-page
-  minigame (79 historical myths/misconceptions + surprising truths; `a` is a boolean, `why` the explanation). Generated and
-  **adversarially fact-checked** for accuracy by a workflow (`q` statement, `a` true|false, `why` reality, `cat` category).
+- `truefalse.js` (~56 KB) — `window.TRUEFALSE = [ { q, a, why, cat } ]`, the statement pool for the **True or False** home-page
+  minigame (`a` is a boolean, `why` the explanation, `cat` the category). Generated and
+  **adversarially fact-checked** for accuracy (`q` statement, `a` true|false, `why` reality).
+  **CURRENTLY 130, AND IT IS NO LONGER A HISTORY POOL** (Aug 2026, on request: "add more possible questions.
+  They needn't only be about history, but any science"). It was 79 historical myths and misconceptions; the
+  51 added are physics, chemistry, astronomy, biology, earth science, mathematics and medicine, each written
+  to the same shape — a statement a general reader would confidently answer, and a `why` that says what is
+  actually the case. **The widening is a fact about the POOL and not about the game**, which never knew what
+  its statements were about: nothing in `PAGES.truefalse` changed. Two rules for adding more: a statement
+  must be settled rather than merely current (a guessing game cannot rest on a live scientific argument), and
+  a misconception is worth more than a fact nobody would doubt — the point of the game is the surprise.
+  **Not translated**; when translations resume they belong in `i18n/games-<lang>.js`, keyed by the English
+  `q`, never inline (the `quotes.js` mistake: 27 KB → 312 KB for every visitor).
 - `i18n/places-<lang>.js` — place names translated into one language (English name → local name): the
   countries in `world.js` plus the era territories and era capitals in `timeline.js`, **1,744 distinct names**.
   **Lazy** (bundle `placeI18n:<lang>`); the `after` hook `placeI18nIngest` drains `window.PLACE_I18N_IN` into
@@ -3939,10 +3949,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   inline took `quotes.js` from 27 KB to 312 KB downloaded by every visitor to flip a card. `PAGES.truefalse`
   and `PAGES.whosaid` hold on a loading line (`gamesI18nPending`) until it lands so they never paint English
   and flip. Both pools are complete in all 9.
-- `quotes.js` — `window.QUOTEGAME = [ { q, who, context } ]`, the pool for the **Who said it?** home-page minigame (64 famous,
+- `quotes.js` — `window.QUOTEGAME = [ { q, who, context, cat } ]`, the pool for the **Who said it?** home-page minigame (64 famous,
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
+  **`cat` IS REQUIRED ON A NEW ENTRY** (Aug 2026, on request): one of **philosophy / statecraft / science /
+  reform / letters**, and it is what makes the three wrong options the same KIND of speaker as the right one
+  (see the Picture round bullet under "How the app is wired" — the same request widened both games).
+  Add to the five rather than coining a sixth unless a real family is missing: a category holding two people
+  cannot supply three distractors and the game falls back to the whole pool, which is where it started.
 - `whatyear.js` (~14 KB) — `window.WHATYEAR = [ { y, e } ]`, the pool for the **What year?** minigame: a year
   (negative for BCE) and a ONE-SENTENCE description of something that happened in it. **Currently 98 events
   across 15 years**, 1066 to 1989, each verified against a reference source when it was written.
@@ -6062,6 +6077,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE SECOND CHANNEL is the daily sweep** (`maybeSweepChest`, called from `markGamePlayed`): all six
     games won in one day, once a day. `S.sweepChest` records the DAY rather than a boolean — a flag would
     need clearing at midnight by something, and nothing runs at midnight.
+  · **THE THIRD IS THE STREAK, EVERY SEVENTH DAY** (`maybeStreakChest` / `STREAK_CHEST_EVERY` (7) /
+    `S.streakChest` / `streakChestProgress` / `streakChestHTML`, Aug 2026, on request). A seven-day run buys
+    a chest, and so does every week after it. **`S.streakChest` is the streak length last PAID, not a day or
+    a count of chests**, and that is the whole of the design: `bumpStreak` is what advances the streak, so
+    the test is simply "has this length crossed a multiple of seven that has not been paid yet", which
+    grants at 7, 14, 21 … and can never grant twice for one day however often `save()` runs. A broken streak
+    resets it to 0 with the streak, so the next week starts over — and a reader whose streak was already
+    long when this shipped is paid at their next multiple of seven rather than seven times at once, since
+    the field back-fills at 0 and the grant loop is capped at one chest per call.
+    **THE PROGRESS IS ON THE ACCOUNT PAGE, UNDER THE STAT TILES** (`streakChestHTML` / `.streak-chest`) —
+    beside the streak figure it counts from, since that tile says how long the run is and this says what the
+    run is worth, which are two halves of one fact and read badly a section apart. **Seven pips rather than
+    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. It takes a `prog`
+    like every other figure in that section, so a friend's would render correctly — **nothing calls it that
+    way today**, and that is a gap rather than a decision.
+    **THE TWO CALLERS GATE IT DIFFERENTLY, ON PURPOSE.** On your OWN record it is always drawn, and at a
+    streak of 0 it says what a streak is worth rather than showing a bare "0 of 7" — an explanation on the
+    one page where the reader is studying their own record. On the SIGNED-OUT page it is drawn only once a
+    streak exists, which is the Reliquary's gate directly beside it: everything on that page is a courtesy
+    over a sign-in wall, and a section with nothing in it is one more thing between a first visitor and the
+    form. **A guest sees it at all** for the Reliquary's reason too — a streak is built and its chests
+    earned entirely on this device, so walling the progress off would hide the thing being worked towards.
   · **THE SHOWCASE is four** (`SHOWCASE_MAX`, `S.showcase`), pinned from an artefact's own window and shown
     at the top of the profile — your own and a friend's, since being seen is the whole point of it.
     `showcaseIds` filters on the way OUT rather than on the way in: an artefact retired from the pool since
@@ -6375,15 +6412,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `render()` closes that sheet, so repainting the ordinary way would dismiss the very control the reader is
     using to compare two colours. Both registers are in `defaultState`, `PROGRESS_FIELDS` **and
     `RESET_KEEPS`** — a group is how the reader has arranged the decks `active` already keeps.
-    **AND SINCE AUG 2026, ON REQUEST, ONE OF THE READER'S OWN DECKS IS OFFERED A COLOUR TOO**
-    (`isContainerEntry` / `containerHasChildren`). The whole-deck row of an imported or installed deck, which
-    is the exact counterpart of an added COLLECTION — a curated deck sitting inside a collection is not
-    offered one either, and a community deck's SUBDECKS are that same level down. **Nothing but the gate had
-    to change, and that is the thing to know before reaching further in**: `emit` and `repaintReviewHues`
-    both already read `groupColor(id)` for any row whatever, and `S.deckGroups` has always been keyed by
-    ENTRY ID rather than by group, so a community deck was colourable in every respect except being asked.
-    `containerHasChildren` exists only to word the row's own note: "every deck inside" is a promise a deck
-    with no subdecks cannot keep.
+    **AND SINCE AUG 2026, ON REQUEST, EVERY ROW IN THE LIST IS OFFERED A COLOUR — INCLUDING THE BANNER**
+    (`containerHasChildren` / `reviewHue`). It was offered on a container alone (a group, an added
+    collection, the whole-deck row of an imported deck) and the gate is **gone**: a subdeck, a curated deck
+    inside a collection and the daily study banner itself all take one now. **Almost nothing had to change,
+    and that is the thing to know before reaching further in** — `emit` and `repaintReviewHues` already read
+    `groupColor(id)` for any row whatever, and `S.deckGroups` has always been keyed by ENTRY ID rather than
+    by group, so every row was colourable in every respect except being asked. `isContainerEntry` is
+    **deleted**, not left unreachable; `containerHasChildren` survives only to word the row's own note,
+    since "every deck inside" is a promise a deck with no subdecks cannot keep.
+    **THE BANNER IS `REVIEW_ENTRY`, WHICH IS WHAT MAKES IT FREE**: the pooled review has been an entry with
+    a sheet of its own since the per-deck limits landed, so it stores its colour in the same register as
+    everything else. `reviewHue()` is `groupColor(REVIEW_ENTRY) || dayHue()` — a chosen colour wins and, with
+    none chosen, the **day hue still turns over every morning**, which is the behaviour a reader who never
+    opens that sheet keeps. It is set inline on the banner element by the two markup sites AND by
+    `repaintReviewHues`, which must reach `#b-review` explicitly: the banner is not a `.active-deck` row, so
+    the sweep over those rows cannot see it and the swatch would answer for every deck but the one whose
+    sheet it was opened from.
+    **A COMMUNITY DECK MAY ALSO SHIP WITH A COLOUR ITS AUTHOR CHOSE** (`deck.color` / `uDeckSetColor` /
+    `uDeckColorOf`, same request; the Studio's Deck details). It is the deck's DEFAULT, not the reader's
+    choice: `emit` reads `groupColor(id) || hue || uDeckColorOf(id)`, so a colour set on the row always wins
+    and a fresh install simply arrives wearing the author's. It rides in `UDECK_META_KEYS`, so the export
+    file, the import and the fork carry it with no plumbing of its own, and `uDeckSanitizeMeta` holds it to
+    a six-digit hex — a colour from a stranger's file is set as a custom property and read by the stylesheet,
+    so anything else is a value the page would have to make sense of.
+    **PUBLISHING IT NEEDS SECTION 11 OF THE SCHEMA AND DOES NOT WAIT FOR IT** (`colorColumnMissing` /
+    `colorColumnMsg`). `user_decks.color` is one `alter table … add column if not exists`, and until it is
+    run PostgREST answers PGRST204 — so `uDeckPublish` **retries once without the colour** and returns a
+    `warn` the Studio toasts, which is the card-types column's own pattern (an ADMIN gets a different
+    sentence naming the block to run, being the one person who can clear it). A deck therefore publishes
+    from an un-migrated database and simply arrives in the generic indigo.
   · **A × IN THE TOP RIGHT OF EVERY SHEET** (`.dm-x`, Aug 2026, on request). Escape and a backdrop tap both
     closed it already and neither says so: Escape is a key a phone has not got, and "tap outside" is a
     convention a reader has to know in advance. Three decisions.
@@ -8590,6 +8648,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     derived, so new content silently changes what the game can build.
   · **A term needs ≥2 tags to enter the pool.** One with a single tag can be a red herring for nothing, and a
     grid of those is four obvious rows.
+  · **…AND, SINCE AUG 2026 ON REQUEST, IT MUST BE A CARD'S ANSWER TERM RATED 1 OR 2** (`threadEasyKeys` —
+    "it's currently too challenging"). The glossary is 836 terms and most of them are specialist, so a grid
+    could ask a reader to group four words they had never met — which is a vocabulary test rather than a
+    categorisation puzzle. `card.difficulty` is the rating that already exists for exactly this question and
+    the pairing rule already gives every card's answer a term, so the pool is those answers resolved through
+    `glossIndexFor("site")`'s **`byAnySurface`** (an answer is often the plural of its key) at or below
+    `GAME_MAX_DIFFICULTY` — the same bar the other card-fed games draw under, read from the same constant.
+    **THE RESTRICTION NEARLY BROKE THE GENERATOR AND THE FIX IS THE FINDING.** The pool falls from ~680 terms
+    to ~90, so the four groups have far fewer tags to choose from: measured over 730 days, **271 of them
+    produced no puzzle at all** — a blank page, silently, on more than a third of days. Two changes together
+    took it to **0 blank days and 726 of 730 distinct grids**: `THREAD_GROUP_MIN`, the number of terms a tag
+    needs before it can be a group, came down from 6 to **5** (measured at 6, 5 and 4 — 4 admits tags with no
+    slack at all, and 5 is where the category count stops falling), and `dailyThreadPuzzle` **retries the
+    seeded shuffle up to `THREAD_TRIES` (40) times** rather than giving up on the first arrangement that will
+    not seat four disjoint groups. **A generator that works on a large pool can fail on a third of days when
+    the pool is narrowed, and nothing on the page says so.** `test-minigames.js` guards the starved case on
+    TODAY's grid (see its entry under Testing — and note that a 730-day sweep of this game is deliberately
+    not committed, the resolution being the thing under test); the sweep quoted above was run against a
+    browser page while the restriction was tuned, and is the check to repeat by hand after a change to the
+    pool or a batch of glossary terms.
   · **Both the groups AND the grid order are date-seeded** (`hashStr`/`mulberry32`/`seededShuffle`, as the
     other games seed their rounds), so a reload cannot reshuffle a puzzle the reader is half way through.
     Shuffle is the reader's own control and is deliberately unseeded.
@@ -8646,6 +8724,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     over — but it says outright that red is erasable, which the old check (whose red squares were the
     final verdict, filled in and locked) had taught a reader it was not. It appears only while there is
     something red to clear, and touches nothing else.
+  · **A SOLVED SQUARE IS OUT OF THE TYPING PATH ENTIRELY, AND THE CARET JUMPS ON** (`xwLocked` / `nextOpen`,
+    Aug 2026, on request). Locking a square stopped it being TYPED into and left it a tab stop the caret
+    still walked through, so filling a crossing word meant stepping over letters already earned; and
+    finishing an entry left the caret sitting on its last square, so the reader picked the next clue by
+    hand every time. **One predicate answers both** — `xwLocked(r,c)` is consulted by `step`, by `go`, by
+    `focusEntry` and by a `focusin` redirect (a CLICK is the one path no movement rule can intercept), so a
+    fifth way of reaching a square added later is covered by the same rule rather than by a fifth copy of
+    it; a locked cell also gets `tabIndex = -1`, which is what takes it out of the keyboard order as well as
+    out of the arrows. Completing an entry then calls `nextOpen`, which finds the next entry still holding
+    an unsolved square **and wraps**, so the last clue on the board leads back to the first rather than
+    stopping dead.
+  · **AND A GIVE-UP BUTTON REVEALS THE ANSWERS, WHICH HAD TO BE RECORDED** (`xwGaveUpToday` / `xwMarkGaveUp`,
+    same request). The letters go into the very store the grid is restored from, so a revealed board reads
+    back on the next visit as a board somebody filled in — a perfect score, a gold tile and a lifetime win.
+    The flag therefore lives in the day-stamped record beside the letters, `markGamePlayed` is called with
+    the score as it stood, and `PAGES.crossword` turns the day away at the top with a placard rather than
+    letting a solved-looking grid be reopened. **A reveal is not a score, and nothing but a flag can tell
+    the two apart afterwards.**
   · The layout is the ordinary greedy crossing search under a seeded RNG, best of `XW_TRIES` word orders,
     scored on **most words placed and then tightest bounding box** — a grid that crosses once per word
     strings out into a chain, which is a word list rather than a crossword. Its adjacency rule (an empty
@@ -8680,6 +8776,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     three before a choice is made.
   · The decoys are other real subjects from the same pool, which is Who said it?'s rule: three plausible
     wrong answers teach something, three obvious ones teach nothing.
+  · **…AND SINCE AUG 2026, ON REQUEST, THEY ARE RANKED BY KINSHIP RATHER THAN DRAWN AT RANDOM** ("ensure the
+    answers are as much as possible of the same categories, like in multiple choice, so increase the
+    difficulty"). Multiple Choice has scored its distractors on shared tags since the card-tags pass, and
+    that scorer is now `tagKinship(ta, tb)`, lifted out of `cardKinship` so both games read one
+    implementation — the kind is worth four subject areas, and the score is capped when the kinds differ.
+    A picture therefore carries its subject's TAGS into the pool (`picturePool`'s `add(…, tags)`, from
+    `GLOSSARY_TAGS` for a term and `card.tags` for a card) and the three decoys are the closest three, so a
+    stone industry is answered against three stone industries rather than against a cave, an ice age and a
+    fossil. An artefact has no tags and simply scores 0 against everything, which is the honest fallback:
+    it is answered as it always was.
+    **WHO SAID IT? TAKES THE SAME RULE ON ITS OWN AXIS** (`buildWhoSaidRounds`, same request), which is a
+    `cat` field added to all 64 entries in `quotes.js` — five families (philosophy, statecraft, science,
+    reform, letters). A speaker is not a card and has no tags, so kinship there is simply the category, and
+    the round prefers three speakers of the same one before falling back to the rest of the pool. **The
+    categories are read off the RAW `window.QUOTEGAME`**, not off the localised copy: `quoteLocalized` may
+    return a translated entry with no `cat` on it, so keying on the localised object would silently drop
+    every round back to a random draw the day translations resume.
   · **`mediaCreditHTML` is shared with the fullscreen viewer** rather than copied, or the two would come to
     disagree about whether a credit is a link. A dead `src` marks its frame (`.pic-dead`) instead of asking
     the reader to name an empty box — a certainty rather than an edge case, there being no upload path.
@@ -8749,7 +8862,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_ICON` — a collection with no row there falls through
   to a stack-of-cards mark, which is honest but says nothing about the subject).
-- **Library layout (`PAGES.decks`)**: "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
+- **Collections layout (`PAGES.decks`)** — three sections down the page: **Collections**, then **Your decks**
+  (the reader's own, and the way into the Studio), then **Shared decks** (Aug 2026, on request — the browse
+  list that used to be `PAGES.community`, a page of its own; see the Phase 2 Pages bullet for the route, the
+  redirect and the sortable table). The order is the point: your own shelf first, strangers' below it, one page.
+  "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
@@ -9037,6 +9154,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     needs none. In STYLUS mode a finger never draws, so there the term is simply one more thing
     `passCtl` can hold — and the pointerup test had to become `(controlUnder(e) || tipUnder(e)) === ctl`,
     since `controlUnder` alone can never match a `.ttip` and would have dropped every one of those taps.
+    **`.uc-tts` JOINED IT IN AUG 2026, ON REQUEST** ("while the whiteboard marker is selected, all buttons
+    are still clickable, including the tts button on user imported/shared cards"). A community deck's
+    read-aloud control is a `<span class="uc-tts" role="button">` **inside the card's prose**, so it is not
+    a real control and `CTL_SEL` cannot see it — and it must NOT be fixed by widening `CTL_SEL` to
+    `[role="button"]`, which is the bullet above's own warning: a card's picture is a `role="button"` figure
+    and half a background would stop taking ink. As a `TIP_SEL` target it takes the glossary term's rule
+    instead — a tap presses it, a drag through it draws — which is the right answer for a control sitting in
+    the middle of the words being annotated.
   · **A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING** (`WB.stylusSeen` / `WB.penOnly` /
     `wbPenOnly()` / `wbNoteStylus` / `wbApplyStylusMode` / `.draw-canvas.wb-pen-only`, Aug 2026, on request —
     Anki's behaviour). With the marker down the canvas covers the whole visible page, so on a tablet a
@@ -9435,6 +9560,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a floor derived from that collapses as the drag approaches it: the first version bottomed out at the hard 56px
   and the title scrolled out of the sheet it was meant to be the floor of. Offsets are layout values and do not
   move.
+  **AND ON A PHONE IT NOW OPENS SHUT — THE NAME AND A CHEVRON, NOTHING ELSE** (`cpShut` / `cpSetShut` /
+  `cpSyncMore` / `#cpMore` / `.cp-shut`, Aug 2026, on request: "the popup panel at the bottom should only
+  open far enough to reveal the name of the state, but have a chevron that can reveal the information
+  sections, which should always be collapsed by default"). Tapping a country on a 390px screen used to
+  raise a sheet over half the map — the map being the thing just tapped — before the reader had asked for
+  anything but the name. **The shut height IS `cpMinH()`**, the floor the drag already measured, so there
+  is one definition of "the title bar alone" and the chevron and the grip cannot come to disagree about it.
+  Three things follow. **It is reset to shut on EVERY populate**, before `cpApplyH`, since the element is
+  reused and a reader who opened one country's sections has said nothing about the next. **The reader's own
+  dragged height is kept rather than overwritten** — the chevron opens to it, exactly as the swipe-to-a-
+  shorter-page fit does. And **starting a drag clears the shut state**, or dragging the grip upward would
+  fight a rule that keeps pulling the sheet back to its floor. The chevron is `display:none` above 720px,
+  where the panel is a column beside the globe and covers nothing; that base rule must sit BEFORE the
+  ≤720px block, media queries adding no specificity.
   The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
@@ -9758,18 +9897,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`. **`srev` and `fmt` never leave it
     either**, and for a stronger reason: they are the store's own bookkeeping, and a file carrying them
     would be claiming to have been cleaned by a sanitizer it has never met.
-  · **Pages** — `PAGES.community` (`#community`: search, sort and a LIST) and `PAGES.deck` (`#deck/<slug>`, a
+  · **Pages** — the shared decks are a SECTION AT THE FOOT OF THE COLLECTIONS PAGE (`sharedDecksHTML` /
+    `wireSharedDecks` inside `PAGES.decks`, below "Your decks"), and `PAGES.deck` (`#deck/<slug>`, a
     shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
     deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
     copy is never trusted just because it came from our own API.
-    **THE SHELF IS A LIST, NOT A GRID OF TILES** (`deckRowHTML` / `.cdeck-list`, Aug 2026, on request; the
-    old `deckCardHTML` / `.cdeck-grid` are gone). A tile gives every deck the same area whatever it has to
-    say, so a title, a subtitle, a rating and three figures were stacked into a card the width of a phrase
-    and two decks differing in the fourth word of their titles looked identical. A row lets the title run at
-    full width and puts the rating in a column that lines up down the list, which is what a reader scanning
-    twenty decks is doing; below 560px the rating drops under the title rather than squeezing it, the title
-    being the one part with no shorter form. The whole row is the button, so the row IS the way to the
-    deck's page — which is what the tile already was.
+    **`PAGES.community` IS GONE, AND `#community` REDIRECTS** (Aug 2026, on request). It was a page of its
+    own reached from the collections page, which put a reader one navigation away from the shelf they were
+    already looking at — so the browse list moved to the bottom of that page, under the reader's own decks,
+    where the two kinds of deck read as one shelf. The route is **deleted from `valid`** and both hash
+    readers (boot's `initName` and the `hashchange` handler) map `community` → `decks`, so **every link ever
+    shared still lands somewhere sensible**; the redirect is deliberately NOT a `PAGES.community` that calls
+    `route("decks")`, which would re-enter `render()` from inside a render.
+    **THE TWO READERS HAD TO BE MADE TO AGREE ABOUT THE ADDRESS BAR, and only a test noticed.** The
+    hashchange path goes through `route`, which rewrites the hash; boot renders DIRECTLY, so a reader
+    following an old link cold got the right page under a URL still naming the dead route — which they
+    would then re-share, and return to on every Back. Boot now corrects it with **`history.replaceState`**:
+    assigning `location.hash` would fire a hashchange and re-render the page being rendered, and would
+    leave the dead route in the history for Back to land on. **A redirect is not finished when the right
+    page appears** — `test-publish.js` asserts both readers for exactly this reason, and the cold-load half
+    is the one that failed.
+    **TO TEST THE BOOT READER, DIFFER THE QUERY, NOT THE FRAGMENT** — `goto` to a URL differing only in the
+    hash is a same-document navigation, so boot never runs, and the obvious hop through `about:blank` is
+    worse than useless: that origin is opaque, the harness's own init script runs there and dies reading
+    localStorage, and the SecurityError then fails the end-of-run "no page errors" watcher for the whole
+    file. `?coldboot=1#community` is a real load and the app ignores unknown query parameters. Note that
+    `replaceState` keeps `location.search`, which is right — dropping a reader's query string would be a
+    second bug.
+    **IT IS A SORTABLE TABLE, NOT BANNERS** (`COMMUNITY_COLS` / `communityCol` / `sharedTh` /
+    `sharedRowsHTML` / `.sd-table`, same request; the old `deckRowHTML` / `.cdeck-list` are gone, as the
+    `.cdeck-grid` tiles were before them). Deck, author, rating, cards, installs, updated — each a column
+    with a header that sorts, which is what a reader comparing twenty strangers' decks is actually doing.
+    Three things are load-bearing. **The sort key is whitelisted through `communityCol`**, because it goes
+    into PostgREST's `order=` and a key taken from the page would be an injection point. **The state is
+    module-level (`communityState`) rather than in `S`** — it is a way of looking at a list, the glossary
+    record's call — so it survives navigating away and back within a session and resets on reload. And
+    **below 640px the author, installs and updated columns go** rather than being squeezed: at 390px the
+    deck's title is the only part of a row with no shorter form.
     **AND THE DECK'S PAGE IS WHERE EVERYTHING ABOUT IT IS** (same request). Four things were named and three
     of them were already there — its information, the author's own description (the Studio's `desc`,
     published as `description`), and other people's comments (see the ratings bullet: a comment is a rating
@@ -10183,6 +10347,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     thing a reader pressing it is after. Guarded in `.claude/test-speak.js`, whose third fixture deck exists
     only for this: the failure is silent, because a dropped attribute leaves a control that still works and
     simply pronounces the wrong string.
+    **THAT FILE ALSO PINS THE CONTROL UNDER THE MARKER** (Aug 2026, on request — see the `TIP_SEL` bullet):
+    with the pen down a tap must still press it and a drag through it must still draw, and the two are
+    asserted together because either alone passes on the rule having been dropped in the other direction.
+    It is driven with **real mouse input**, not `el.click()`, which would bypass the very hit-test under
+    test — the whole question is what a POINTER landing on that spot does while a canvas is over it.
   · **CLOZE DELETIONS — `{{c1::answer}}` / `{{c1::answer::hint}}`** (`clozeMark` / `CLOZE_RX` /
     `CLOZE_NAME_RX` / `.uc-cloze`). Anki's syntax, because a learner who has written cloze cards before will
     type it without being told. **The braces go in the CARD'S TEXT, not in the template** — a substituted
@@ -11841,9 +12010,9 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-nine committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Forty committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
-  `test-discovery.js` and `test-scheduler.js` are plain Node with
+  `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
   no browser). **Neither number is one to keep in your head — count them**: `ls .claude/test-*.js | wc -l`
   for the total and `grep -L playwright .claude/test-*.js` for the split. The headline had drifted TWO
@@ -11896,7 +12065,7 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 84 assertions across three browser sessions (an author, a reader, an
+  · `node .claude/test-publish.js` — 107 assertions across three browser sessions (an author, a reader, an
     admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export → delete. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
@@ -11934,13 +12103,21 @@ dead code (never rendered).
     deliberately reintroduced and had to be fixed**: Bob's `#community` was reached by a hash-only `goto`,
     which is a same-document navigation, so the page repainted the browse results it already held — a list
     fetched before that deck was ever published, and an assertion that would have passed whatever the server
-    said. It takes a real `reload()` now. Verified in both directions: 84 pass with the fix, 5 fail without.
+    said. It takes a real `reload()` now. Verified in both directions: with the bug deliberately reintroduced,
+    **five of the delete assertions fail**, and they all pass with the fix.
     The orphan half plants a row straight into the mock's store, which is exactly what an orphan IS, and
     asserts the negative as well — a deck this device DOES hold is never offered for removal.
     **Re-run after
     touching the publishing functions, `uDeckDelete` / `uDeckRemoteDelete` / `confirmDeleteDeck` /
-    `myRemoteDecksLoad` / `orphanSectionHTML`, or `.claude/supabase-schema.sql` — and keep the mock in step
+    `myRemoteDecksLoad` / `orphanSectionHTML` / `uDeckSetColor` / `colorColumnMissing`, the shared-decks
+    table on the Collections page (`COMMUNITY_COLS` / `sharedDecksHTML` / `wireSharedDecks`), or
+    `.claude/supabase-schema.sql` — and keep the mock in step
     with the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
+    **A "THIS DECK IS GONE" CHECK MUST BE SCOPED TO THE SHARED SECTION, NOT TO `document.body`** — the two
+    lists now share one page, so a reader who INSTALLED the deleted deck legitimately still has its title
+    on screen under "Your decks", and a body-wide search contradicts the very next assertion, which
+    requires that copy to survive. It looks in `#sharedDecks`. Before the merge the page held nothing else
+    and the loose version was harmless; it is exactly the kind of assertion a page merge quietly inverts.
   · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the `glossMode`s,
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
@@ -11972,7 +12149,10 @@ dead code (never rendered).
     users in the live project). It asserts both halves of the rule: a guest's study history still migrates
     into their FIRST account, and a newly created second account starts at level 1 with no badges, no streak
     and no heatmap — in the store, on the server row, and on the page (first-run hero, "0 unlocked"). **Re-run
-    after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`.**
+    after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`,
+    **or any of `supaSignIn` / `supaEmailForUsername` / `supaSwitchTo` / `supaRemember` / `supaForget` /
+    `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that carries the outgoing account's progress across is
+    exactly what its `_supaOwner` assertions exist to catch, and nothing on screen would say so.**
   · `node .claude/test-video.js` — 89 assertions on card + glossary videos: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
@@ -12035,10 +12215,19 @@ dead code (never rendered).
     labelled citation and none invented for an unlabelled one, open and paywalled told apart by class **and by
     colour** so the difference survives without reading the words, the chip outside the anchor so it can never
     read as part of the URL, and the brackets gone from the render while the stored string keeps them.
+    **ITS STORE READ WAS LEFT BEHIND BY THE SPLIT AND HUNG RATHER THAN FAILING** (found Aug 2026 and fixed
+    then; the fault predated the branch that found it). It read a card out of `d.cards[0]` on the `decks`
+    record, which the split retired — cards live one per note in `notes`, under `c` — so the TypeError was
+    thrown INSIDE an IndexedDB success callback, the promise never settled, and Playwright reported
+    **"Resulting promise was garbage collected"** a minute later, naming a line number and no fault at all.
+    The read is wrapped now so that anything going wrong comes back as a failed check. **A promise inside
+    `page.evaluate` that can throw in a callback must resolve on every path** — otherwise a stale test does
+    not report a stale test, it reports a timeout nobody can read.
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
-    `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
+    `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, the
+    community store's record shape, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 301 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 308 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -12068,9 +12257,14 @@ dead code (never rendered).
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
     revert to the platform dialog would look like — and **Reveal answer and the grade row still tappable with
-    the pen down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet's
-    drag-to-resize (taller, capped at the top of the screen, remembered into the next place, and its title
-    bar still showing at the floor); the daily quote keeping its height — and everything under it its
+    the pen down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet
+    (**opening SHUT since Aug 2026** — its name, a chevron, under a third of the screen — the chevron
+    revealing the sections, and then drag-to-resize: taller, capped at the top of the screen, its title bar
+    still showing at the floor, the NEXT place opening shut too, and the dragged height being what the
+    chevron opens TO. **The shut assertions have to come FIRST and the fit checks have to open it**: with
+    the sheet shut `.cp-cols` is `display:none`, so every measurement of it reads zero and the content-fit
+    checks pass on nothing at all — which is how they went on passing for a run after the behaviour
+    changed under them); the daily quote keeping its height — and everything under it its
     position — when flipped to its original language; the Atlas panel's discovery chip sharing
     the title's row and its sections likewise unskippable; the CHAIN of
     things anchored to the bottom of the viewport, where the globe stage, the Atlas timebar and the tab bar
@@ -12174,6 +12368,21 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
+  · `node .claude/test-streak-chest.js` — 18 assertions on the weekly streak chest (Aug 2026). **No browser
+    and no dependencies**: `bumpStreak`, `maybeStreakChest` and `streakChestProgress` are sliced out of
+    app.js and walked over patterns of days, because a chest is earned on the SEVENTH day of a run and no
+    single-session browser test can walk a fortnight. Every way this can be wrong is silent — a chest not
+    granted looks exactly like a chest not yet earned. **Its central assertion is the fault it was written
+    for**: a streak that reaches seven, BREAKS, and climbs back to seven must earn a second chest, which it
+    did not until `bumpStreak` learned to clear `S.streakChest` with the count (a count rather than a date is
+    what makes the grant idempotent against an undo, and is exactly why it has to be cleared). Verified in
+    both directions by reverting that one line. It also pins the meter's off-by-one — day seven reads 7 of 7
+    rather than 0 of 7 — and that a length already paid at is never paid twice.
+    **The harness lesson is worth carrying: stub `Date` as well as the clock helpers.** `bumpStreak` asks
+    `Date.now()` what yesterday was, so without it every simulated day reads as a break and the streak never
+    passes 1 — which is what the first run reported, and is a fault in the test rather than in the code.
+    **Re-run after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY`
+    / `S.streak`.**
   · `node .claude/test-scheduler.js` — 127 assertions on **the schedule itself**, which is the thing a study site is
     most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
     and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
@@ -12279,7 +12488,16 @@ dead code (never rendered).
     default is the WIDEST deck's rather than a global figure (two decks at 5 draw 5, from the ten between
     them), and an explicit limit set there caps the pooled draw **without changing what a deck offers when
     tapped on its own** — which is the distinction the whole design turns on and which nothing on screen
-    states. **Section 6 (Aug 2026) pins THE LEARNING STEPS end to end**, in a real session, where
+    states. **The banner's own COLOUR joined that block in Aug 2026**: its sheet's row list is pinned
+    EXACTLY, which is what catches a row appearing or vanishing (Colour did, on request, and the pinned list
+    is how it was noticed), and the colour itself cannot be asserted as a value — the banner rotates through
+    a hue a day — so what is pinned is that **choosing one overrides the rotation, survives the home page
+    being rebuilt, and that clearing it hands the rotation back**. It is read off the element's own `--tile`
+    rather than out of the store, so it measures what a reader sees; the two palettes are disjoint, which is
+    what makes the "cleared ≠ chosen" comparison safe. **Persistence is checked by NAVIGATING AWAY AND BACK,
+    never by `reload()`** — this file seeds `folio_v1` through `addInitScript` on every load, so a reload
+    puts the seed back and reports a working feature as broken, which it did once while this was being
+    written. The re-render is the real risk anyway: the banner's markup is rebuilt on every repaint. **Section 6 (Aug 2026) pins THE LEARNING STEPS end to end**, in a real session, where
     `test-scheduler.js` pins their arithmetic: a new card's Good button offers minutes rather than a day and
     the four buttons are four different answers (on the old scheduler three of them read `<10m`), one Good
     leaves the card learning on its second step, **the same card comes BACK later in the session**, and a
@@ -12372,7 +12590,8 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
-  · `node .claude/test-minigames.js` — the three games added on 2026-08-09 (65 assertions), and every one of
+  · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's restricted
+    pool** (75 assertions), and every one of
     its checks is for something that fails SILENTLY. **The wiring**: each of the three is a route, has a
     `PAGE_META` row and a played-today name — a missing route is a deep link that goes home and a missing
     meta row puts the HOME page's title in the tab and in every link preview — and **the sweep is asserted
@@ -12406,10 +12625,25 @@ dead code (never rendered).
     that its answer is REACHABLE (the crossword's letters fit its own squares; the year sits on a tick of its
     own rail — get that wrong and the puzzle is unwinnable every day with nothing on screen to say so), and
     that a correct solve is scored as correct rather than only a wrong one being scored as wrong.
+    **ITS COMMON THREAD SECTION IS ABOUT A STARVED POOL** (Aug 2026): the grid is now built only from
+    well-known cards' answers, which cut the pool from ~680 terms to about ninety and made the generator
+    fail on 271 days of 730 — a blank page, silently, on more than a third of days. It asserts a full grid
+    of sixteen with nothing repeated, four mistakes to spare, and — the half a starved pool cannot fake —
+    **that every term on the board really is the answer of a card rated 1 or 2**, read against the shipped
+    corpus rather than a list copied into the test. Both directions matter: a grid that will not build says
+    "not enough terms", and one built from the WHOLE glossary looks perfectly healthy while being the
+    puzzle nobody could do. **There is deliberately NO 730-day sweep of this one** — `dailyThreadPuzzle`
+    resolves each answer through the real glossary index, plurals and aliases and all, so slicing it into a
+    bare Node harness the way the crossword's sweep is sliced would mean reimplementing the very resolution
+    under test. That sweep was run against a browser page while the restriction was being tuned (0 blank
+    days, 726 of 730 distinct grids, 7 group categories) and its numbers are recorded in the game's own
+    bullet; what is committed is the guard that fires on the day the pool is starved.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
-    `xwLayout` / `dailyCrossword`, `picturePool` / `dailyPictureRounds`, `wyStep` / `dailyWhatYear`,
+    `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
+    `dailyPictureRounds` / `tagKinship`, `buildWhoSaidRounds`, `threadEasyKeys` / `dailyThreadPuzzle` /
+    `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`,
     `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, `gameCardIdSet` /
-    `GAME_MAX_DIFFICULTY`, `whatyear.js`, or the home page's tile grid.**
+    `GAME_MAX_DIFFICULTY`, `whatyear.js` / `truefalse.js` / `quotes.js`, or the home page's tile grid.**
   · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filter** (53 assertions,
     Aug 2026). No browser and no dependencies: the rule is arithmetic over the shipped data plus a few
     structural reads of app.js, the shape `test-date-line.js` uses. Every one of its checks is for something
@@ -12559,8 +12793,8 @@ dead code (never rendered).
     grade cards out of the same deck, section 8 clears `cards`/`deckDay`/`intro`/`buried` before it starts.
     **Re-run after touching
     `ucRestoreDetails` / `ucDetailsKey` / `ucSetOpen` / the capture `toggle` listener / `cardTypeSideHTML` /
-    `deckSheet` / `.dm-x` / `isContainerEntry` / `containerHasChildren`, the cram branch in `PAGES.study`,
-    or `deckcore.js`'s `.uc-exst` / `PINYIN_FONT`.**
+    `deckSheet` / `.dm-x` / `containerHasChildren` / `reviewHue` / `uDeckColorOf`, the cram branch in
+    `PAGES.study`, or `deckcore.js`'s `.uc-exst` / `PINYIN_FONT`.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
     own term (never part of what the meter counts); both filters are invisible until they are wrong. The
@@ -12866,8 +13100,13 @@ dead code (never rendered).
 - **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy accounts block).
   Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
   Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the later blocks'
-  `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`; signup trigger creates the
-  profile + empty progress row). Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
+  `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, and — **still to be run once each** —
+  **section 11 `user_decks.color`** and **section 12 `login_email()`**, the deck's default colour and username
+  sign-in; signup trigger creates the
+  profile + empty progress row). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature that needs one
+  degrades to a sentence rather than an error (`colorColumnMissing`, the `login_email` 404 → "use your email
+  address"), so the site works on a database that has only the first block. **Keep it that way** — a block
+  the owner has not run yet is the normal case, not the broken one. Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
   (security = RLS). **Offline-first**: localStorage stays the working copy; `save()` → `supaQueuePush()` (6s debounce, skips
   no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`) refreshes the session, pulls, and
   reconciles — server wins when its `updated_at` ≠ the device's `S._supaTs` baseline (another device wrote), else local pushes.
@@ -12895,6 +13134,38 @@ dead code (never rendered).
   `adminEligible()`). `isAdmin()` additionally honours the Editor/Visitor toggle (`S.settings.adminMode === false` → visitor view).
   The old local accounts (`folio_acct_v1`) remain only as legacy code (guest stash helpers); their admin-page
   user-manager went with the Accounts tab when the reader-feedback queue replaced it.
+- **SIGNING IN WITH A USERNAME, SWITCHING ACCOUNTS, AND CHANGING YOUR EMAIL (Aug 2026, on request).**
+  Three things about the same account, and the first two each needed a decision that is not obvious.
+  · **A USERNAME IS RESOLVED BY A PASSWORD-VERIFYING RPC, NEVER BY A LOOKUP** (`supaEmailForUsername` /
+    `looksLikeEmail` / `supaSignIn(idOrEmail, pw)`; `public.login_email(uname, pw)` in section 12 of
+    `.claude/supabase-schema.sql` — **the user must run it once**). GoTrue signs in with an email, so a
+    username has to become one — and the obvious implementation, selecting the email out of `profiles`,
+    is an **email-enumeration oracle**: anybody with the publishable key could walk the usernames and
+    read off addresses. The RPC is `security definer`, takes the PASSWORD as well as the name, checks it
+    with pgcrypto's `crypt()` against `auth.users.encrypted_password`, and returns the address only on a
+    match — so it tells a caller nothing they could not have learned by signing in anyway. Wrong password,
+    wrong username and no such user are one answer.
+    **It degrades rather than breaking**: a 404 (the function not yet created) is turned into "use your
+    email address", so a database without section 12 still signs everybody in. The field is
+    `type="text" autocomplete="username"` and labelled **Email or username** — `type="email"` would have
+    the browser refuse a username before the form was ever submitted.
+  · **SWITCHING ACCOUNTS KEEPS THE OTHER TOKEN, WHICH IS WHY IT IS NOT A SIGN-OUT** (`SUPA_ACCTS_KEY` /
+    `supaAccounts` / `supaRemember` / `supaForget` / `supaSwitchTo` / `supaSignOut({keepToken})`). GoTrue's
+    `/logout` **revokes the refresh token globally**, so signing out and back in is the only way to reach
+    another account — which is exactly the friction the request is about. `supaSwitchTo` therefore tears the
+    session down LOCALLY, keeping the outgoing account's tokens in `folio_supa_accts_v1` (device-local, like
+    the guest stash — never synced, since which accounts this browser remembers is a fact about the browser),
+    and installs the incoming one's. **A plain Sign out FORGETS that account**, because its token has just
+    been revoked and a remembered row pointing at a dead token would offer a switch that cannot work.
+    The progress side needs no new machinery at all: `_supaOwner` already gates the guest-progress migration
+    (see the bullet above), so a switch adopts the incoming account's progress and can never carry the
+    outgoing one's levels, badges or streak across — which is the failure this feature would otherwise have
+    industrialised. `.claude/test-account-switch.js` is what guards it.
+  · **THE EMAIL ADDRESS IS SHOWN AND CHANGEABLE** (`supaSetEmail`, `#emPanel` / `#emToggle`). A PATCH to
+    `/auth/v1/user`; with confirmations on, Supabase emails the NEW address and the change lands when that
+    link is followed, so the panel says so rather than reporting a change that has not happened yet.
+    `openPanel(want)` keeps the email, password and switch panels mutually exclusive — three folds open at
+    once on a phone is the whole account page.
 - **Live content editing (cloud overrides)** — the `/* cloud content overrides */` module in app.js + the `content_overrides`
   table (single row `id=1`, in `.claude/supabase-schema.sql`; **the user must run the SQL once** — until then every fetch 404s and
   the module degrades silently). The row's `data` holds an admin-edit overlay in the exact `folio_admin_v1` delta format. Every

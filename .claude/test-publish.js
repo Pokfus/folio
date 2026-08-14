@@ -336,20 +336,43 @@ async function typeField(page, field, text) {
 
   // ================= Bob discovers and installs it =================
   const B = await newSession(browser, db, BOB, base);
-  await B.page.goto(base + "#community", { waitUntil: "load" });
+  await B.page.goto(base + "#decks", { waitUntil: "load" });
   await B.page.waitForTimeout(1200);
-  check("browse lists the published deck", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 1));
-  // `.cdeck-list` since Aug 2026 — the shelf is a list of rows rather than a grid of tiles (on request)
-  check("browse shows the title", /Byzantine Emperors/.test(await B.page.textContent(".cdeck-list")));
+  check("browse lists the published deck", await B.page.evaluate(() => document.querySelectorAll(".sd-row").length === 1));
+  // `.sd-table` since Aug 2026 — the browse list is a SORTABLE TABLE at the foot of the Collections page,
+  // where `#community` was a page of its own (on request). The old route still redirects here, which the
+  // last section of this file asserts; everything else addresses the section where it now lives.
+  check("browse shows the title", /Byzantine Emperors/.test(await B.page.textContent(".sd-table")));
 
-  await B.page.fill("#cq", "nothing-matches-this");
-  await B.page.waitForTimeout(900);
-  check("search filters", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 0));
-  await B.page.fill("#cq", "byzantine");
-  await B.page.waitForTimeout(900);
-  check("search finds by title", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 1));
+  /* THE RETIRED ROUTE STILL LANDS SOMEWHERE SENSIBLE. `#community` was a page of its own for a year, so
+     every link anybody ever shared points at it; it is out of `valid` now and TWO SEPARATE READERS map it
+     to the collections — boot's `initName` and the `hashchange` handler. Both are asserted, because they
+     fail in opposite circumstances: a reader following an old link from outside the site takes the first
+     and one already on the site takes the second, and either alone looks like the redirect working. */
+  await B.page.goto(base + "#community", { waitUntil: "load" });   // fragment-only ⇒ hashchange
+  await B.page.waitForTimeout(1200);
+  check("the retired #community route redirects to the collections (hashchange)", /#decks$/.test(B.page.url()), B.page.url());
+  check("...landing on the shelf that now carries the shared decks",
+    await B.page.evaluate(() => !!document.querySelector("#sharedDecks")));
+  /* A QUERY STRING is what makes the next line a cross-document load: `goto` to a URL differing only in
+     the fragment is same-document, so boot would never run. Deliberately NOT a hop through `about:blank`,
+     which has an opaque origin — the harness's own init script runs there too and dies on localStorage,
+     and a SecurityError on about:blank then fails the end-of-run "no page errors" watcher for the whole
+     file. The app ignores unknown query parameters. */
+  await B.page.goto(base + "?coldboot=1#community", { waitUntil: "load" });
+  await B.page.waitForTimeout(1400);
+  check("...and on a cold load of the old link too (boot)", /#decks$/.test(B.page.url()), B.page.url());
+  check("...with the shared decks section on it",
+    await B.page.evaluate(() => !!document.querySelector("#sharedDecks")));
 
-  await B.page.click(".cdeck");
+  await B.page.fill("#sdq", "nothing-matches-this");
+  await B.page.waitForTimeout(900);
+  check("search filters", await B.page.evaluate(() => document.querySelectorAll(".sd-row").length === 0));
+  await B.page.fill("#sdq", "byzantine");
+  await B.page.waitForTimeout(900);
+  check("search finds by title", await B.page.evaluate(() => document.querySelectorAll(".sd-row").length === 1));
+
+  await B.page.click(".sd-row");
   await B.page.waitForTimeout(900);
   check("deck page opens", await B.page.evaluate(() => !!document.querySelector(".ddetail-actions")));
   check("deck page URL is shareable", /#deck\//.test(B.page.url()), B.page.url());
@@ -455,7 +478,7 @@ async function typeField(page, field, text) {
   check("report reaches the server", db.reports.length === 1 && db.reports[0].reason === "inaccurate", JSON.stringify(db.reports.map((r) => r.reason)));
 
   const M = await newSession(browser, db, ADMIN, base);
-  await M.page.goto(base + "#community", { waitUntil: "load" });
+  await M.page.goto(base + "#decks", { waitUntil: "load" });
   await M.page.waitForTimeout(1400);
   check("admin sees the reports queue", await M.page.evaluate(() => !!document.querySelector(".creports")));
   check("report names the deck", /Byzantine Emperors/.test((await M.page.textContent(".creports")) || ""));
@@ -463,9 +486,9 @@ async function typeField(page, field, text) {
   await M.page.waitForTimeout(900);
   check("admin can hide a deck", db.decks[0].status === "hidden", db.decks[0].status);
 
-  await B.page.goto(base + "#community", { waitUntil: "load" });
+  await B.page.goto(base + "#decks", { waitUntil: "load" });
   await B.page.waitForTimeout(1200);
-  check("hidden deck leaves the public list", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 0));
+  check("hidden deck leaves the public list", await B.page.evaluate(() => document.querySelectorAll(".sd-row").length === 0));
 
   // ================= ratings (phase 3) =================
   // Bob has installed and studied nothing yet, so the form must stay locked
@@ -636,12 +659,12 @@ async function typeField(page, field, text) {
   await M.page.waitForTimeout(1000);
   check("admin can mark a staff pick", db.decks[0].staff_pick === true);
   await B.page.bringToFront();
-  await gotoFresh(B.page, base + "#community");
+  await gotoFresh(B.page, base + "#decks");
   await B.page.waitForTimeout(1400);
-  check("staff pick badge shows in browse", await B.page.evaluate(() => !!document.querySelector(".cdeck-pick")));
-  await B.page.click("#cpicks");
+  check("staff pick badge shows in browse", await B.page.evaluate(() => !!document.querySelector(".sd-row .cdeck-pick")));
+  await B.page.click("#sdpicks");
   await B.page.waitForTimeout(1300);
-  check("staff-pick filter keeps it", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 1));
+  check("staff-pick filter keeps it", await B.page.evaluate(() => document.querySelectorAll(".sd-row").length === 1));
   const notAdmin = await B.page.evaluate(async (args) => {
     const r = await fetch(args.url + "/rest/v1/user_decks?id=eq." + args.id, {
       method: "PATCH", headers: { apikey: "k", "Content-Type": "application/json", Authorization: "Bearer mock-token" },
@@ -995,14 +1018,20 @@ async function typeField(page, field, text) {
   check("...and the reader's install record with it", !db.installs.some((i) => i.deck_id === pagedId));
 
   /* A REAL reload, not a hash change. Bob was last on a deck page, so `goto` here is same-document: the app
-     keeps running and PAGES.community paints the browse results it already had — a list fetched before this
-     deck was ever published. The assertion then passes whatever the server says, which is worse than not
-     making it. Verified by reintroducing the bug: stale, it passes; reloaded, it fails. */
+     keeps running and the collections page paints the browse results it already had — a list fetched before
+     this deck was ever published. The assertion then passes whatever the server says, which is worse than
+     not making it. Verified by reintroducing the bug: stale, it passes; reloaded, it fails. */
   await B.page.bringToFront();
-  await B.page.goto(base + "#community", { waitUntil: "load" });
+  await B.page.goto(base + "#decks", { waitUntil: "load" });
   await B.page.reload({ waitUntil: "load" });
   await B.page.waitForTimeout(1800);
-  check("...so it is off the shared decks page", !(await B.page.evaluate(() => document.body.textContent.includes("Paged Deck"))));
+  /* SCOPED TO THE SHARED SECTION, not to the whole page — and that is not pedantry since Aug 2026, when the
+     browse list moved onto the collections page (on request). Bob has this deck INSTALLED, so its title is
+     legitimately on this page under "Your decks"; a body-wide search therefore contradicts the very next
+     assertion, which requires the installed copy to survive. What is being checked is that the deck is off
+     the SHARED shelf, and that is the element to look in. */
+  check("...so it is off the shared decks page",
+    !(await B.page.evaluate(() => ((document.querySelector("#sharedDecks") || {}).textContent || "").includes("Paged Deck"))));
   // …while the person who installed it keeps their own copy: a delete takes the deck off the shelf, it does
   // not reach into anybody's device.
   await gotoFresh(B.page, base + "#studio");

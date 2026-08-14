@@ -239,6 +239,53 @@ const holdRow = (page, match) => page.evaluate((m) => {
   check("pressing it speaks data-say, not the visible text",
     said.length === 1 && said[0].text === "\u7231", JSON.stringify(said));
 
+  /* \u2026AND IT IS STILL PRESSABLE WITH THE MARKER OUT (Aug 2026, on request: "while the whiteboard marker is
+     selected, all buttons are still clickable, including the tts button on user imported/shared cards").
+     The ink layer covers the whole visible page, and this control is a `role="button"` SPAN inside the
+     card's prose \u2014 so `CTL_SEL`, which only knows real controls, cannot see it and the press landed on the
+     canvas. It is a `TIP_SEL` target instead, taking the glossary term's rule: a tap presses it, a drag
+     through it draws. **`CTL_SEL` must NOT be widened to `[role="button"]` to fix this** \u2014 a card's picture
+     is one too, and half a background would stop taking ink.
+     Driven with real mouse input rather than `el.click()`, which would bypass the very hit-test under
+     test: the whole question is what a POINTER landing on that spot does while a canvas is over it. */
+  const penDown = await page.evaluate(() => {
+    const t = document.querySelector(".wb-toggle");
+    if (!t) return "no marker button";
+    t.click();                                                   // open the tools
+    const pen = document.querySelector(".wb-panel .wb-size, .wb-panel .wb-btn");
+    if (!pen) return "no tool to choose";
+    pen.click();                                                 // choosing a tool is what puts the pen down
+    return document.querySelector(".draw-canvas") ? "" : "no canvas";
+  });
+  check("the marker can be put down over a card", penDown === "", penDown);
+  if (penDown === "") {
+    await page.waitForTimeout(400);
+    await page.evaluate(() => { window.__spoke = []; });
+    const box = await page.evaluate(() => {
+      const el = document.querySelector(".uc-card.uc-back .uc-tts");
+      const r = el.getBoundingClientRect();
+      return { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2) };
+    });
+    await page.mouse.move(box.x, box.y);
+    await page.mouse.down();
+    await page.mouse.up();
+    await page.waitForTimeout(800);
+    const underPen = await page.evaluate(() => window.__spoke);
+    check("\u2026and the read-aloud button still answers a tap with the pen down",
+      underPen.length === 1 && underPen[0].text === "\u7231", JSON.stringify(underPen));
+    /* \u2026while a DRAG through it still draws, which is the other half of the same rule and the reason this
+       could not simply join `CTL_SEL`: a real control claims the gesture at pointerdown, and a card's
+       prose is dense with these. */
+    await page.evaluate(() => { window.__spoke = []; });
+    await page.mouse.move(box.x - 40, box.y);
+    await page.mouse.down();
+    await page.mouse.move(box.x + 40, box.y, { steps: 8 });
+    await page.mouse.up();
+    await page.waitForTimeout(600);
+    check("\u2026while a drag through it draws instead of pressing it",
+      (await page.evaluate(() => window.__spoke)).length === 0);
+  }
+
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
 

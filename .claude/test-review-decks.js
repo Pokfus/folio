@@ -171,8 +171,11 @@ const SETTINGS = {
        moment somebody wants to find a card is usually the moment they are looking at their decks. It is on
        EVERY entry, the pooled review included: the browser searches the whole collection rather than the
        thing the sheet was opened on. */
+    /* COLOUR joined it in Aug 2026, on request ("also of the daily study banner"): the banner rotates
+       through a hue a day, and a colour chosen here holds it at one. It is last because it is the only row
+       that changes nothing about what the session DEALS. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Random order,Question variety,Browse your cards,Custom study,Daily limits,Skip today", JSON.stringify(rm));
+      rm && rm.items.join(",") === "Random order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour", JSON.stringify(rm));
     check("...the order and the phrasing pool are SWITCHES, not a pair of rows",
       rm && rm.switches.join(",") === "Random order,Question variety" && rm.choices === 0, JSON.stringify(rm));
     check("...each showing its own current state — Ordered, and variety on by default",
@@ -200,6 +203,46 @@ const SETTINGS = {
         const st = JSON.parse(localStorage.getItem("folio_v1"));
         return ((st.deckOpts || {})["review:all"] || {}).variety === false;
       }));
+
+    /* THE BANNER'S OWN COLOUR (Aug 2026, on request). It rotates through one hue a day, so the assertion
+       cannot be "it is this colour" — it has to be that CHOOSING one overrides the rotation and that
+       clearing it hands the banner back. The chosen hue is read off the element's own `--tile`, which is
+       the property its markup sets and the one every rule painting it reads, so this measures what a
+       reader would see rather than what the store holds. */
+    const bannerHue = () => page.evaluate(() => {
+      const b = document.querySelector("#b-review");
+      return { inline: (b.style.getPropertyValue("--tile") || "").trim(), stored: ((JSON.parse(localStorage.getItem("folio_v1")).deckGroups || {})["review:all"] || {}).color || "" };
+    });
+    const before = await bannerHue();
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-colors .dm-swatch[data-color]:not(.dm-swatch-off)').click());
+    await page.waitForTimeout(500);
+    const painted = await bannerHue();
+    check("a colour chosen for the banner overrides the daily rotation",
+      !!painted.stored && painted.inline.toLowerCase() === painted.stored.toLowerCase() && painted.inline !== before.inline,
+      JSON.stringify({ before: before, after: painted }));
+    /* …and it must SURVIVE A RE-RENDER, which is where a colour written only onto the live element is
+       lost: the banner's markup is rebuilt from scratch on every repaint of the home page, and the sheet
+       repaints IN PLACE precisely so choosing a colour does not trigger one. Navigating away and back is
+       the honest test here — NOT `reload()`, which in this file re-seeds `folio_v1` from the harness's own
+       `addInitScript` and would report a working feature as broken (it did, once). */
+    await page.evaluate(() => { location.hash = "#settings"; });
+    await page.waitForTimeout(500);
+    await page.evaluate(() => { location.hash = "#home"; });
+    await page.waitForTimeout(700);
+    const kept = await bannerHue();
+    check("...and is still there after the home page is rebuilt",
+      kept.inline.toLowerCase() === painted.stored.toLowerCase(), JSON.stringify(kept));
+    // clearing hands it back to the rotation — the swatch marked "default"
+    await page.evaluate(() => document.querySelector("#b-review").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
+    await page.waitForTimeout(350);
+    await page.evaluate(() => document.querySelector(".deck-menu .dm-colors .dm-swatch-off").click());
+    await page.waitForTimeout(500);
+    const cleared = await bannerHue();
+    check("...and clearing it gives the daily rotation back",
+      !cleared.stored && !!cleared.inline && cleared.inline.toLowerCase() !== painted.stored.toLowerCase(), JSON.stringify(cleared));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(250);
+
     await page.evaluate(() => { const st = JSON.parse(localStorage.getItem("folio_v1")); delete (st.deckOpts || {})["review:all"]; localStorage.setItem("folio_v1", JSON.stringify(st)); });
     // put it back — the rest of this file studies the review and reads the order the cards come in
     await page.evaluate(() => { const st = JSON.parse(localStorage.getItem("folio_v1")); st.settings.reviewRandom = false; localStorage.setItem("folio_v1", JSON.stringify(st)); });
@@ -382,8 +425,11 @@ const SETTINGS = {
        on its own row had no way to ask for a shuffled session. SCHEDULING joined it in Aug 2026 and is the
        one row here that a DECK has and the pooled review does not — the review schedules nothing of its own,
        so the choice would govern nothing there (asserted the other way round in section 11). */
+    /* COLOUR is on EVERY row's sheet since Aug 2026, on request ("both decks and subdecks individually,
+       both curated and imported") — it used to be containers only. It sits before Remove, which stays
+       last, being the one row that takes the deck off the list. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER SWITCH IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they
