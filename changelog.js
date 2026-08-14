@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.216", released: "2026-08-14T22:05Z" };
+window.FOLIO_VERSION = { v: "1.217", released: "2026-08-14T22:48Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-14",
     t: "A deck asked in two directions can list each direction on its own and introduce a word both ways at once, and Ancient Rome gains cards",
     items: [
-      "Twenty-three new cards across the <b>Ancient Rome</b> and <b>China</b> collections, twenty-one with a new glossary term, though China is still coming soon.",
+      "Twenty-four new cards across the <b>Ancient Rome</b> and <b>China</b> collections, twenty-two with a new glossary term, though China is still coming soon.",
       "A correction in the <b>China</b> collection: the <i>Classic of Mountains and Seas</i> was dated a thousand years too late on a card and a glossary term alike.",
       "The ordinary word <b>afar</b> no longer links to the Afar Region of Ethiopia — that term now matches only where the name is capitalised.",
       "<b>A deck asked in two directions now lists each direction as a subdeck of its own</b>, to add and study on its own, with no change to the deck file.",

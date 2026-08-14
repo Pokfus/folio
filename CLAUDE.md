@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-013` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-014` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 13 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 14 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10064,6 +10064,43 @@ in the frame rather than from what the card is about.
 quotes the books of Xia for thirteen, and both ship unreconciled; and a guessed
 `upload.wikimedia.org` hash directory 404'd loudly, which is the rule above working rather than a new
 one.
+**`cnh-014` IS THE GREP RULE AT ITS LIMIT: LEGGE ROMANISES THE NAME AS A SINGLE LETTER** (Aug 2026).
+Houyi is "E" in the Analects and "Î" in the Sacred Books volume, and Ao is "Ngaou" — so every search
+on the name, in either volume, found nothing at all while the passages sat there. What found them was
+grepping the SURROUNDING PROSE ("move a boat along upon the land", "natural death", "archery"), which
+is cnh-005/008/009/010's rule with nothing left of the name to search on. **Search the vocabulary,
+never the subject** — and note that a one-letter romanisation is also unfindable by eye in a
+27,000-line OCR dump, so the prose is the only handle there is.
+**AND THE SUBJECT IS A NAME RATHER THAN A MAN, which is what the card is about.** Giles's dictionary
+files TWO entries under it — a bowman serving the legendary emperor Ku, with a descendant under Yao
+who shot the false suns, and separately the archer who seized the Xia throne — and the classics
+disagree about the second: the Songs of the Five Sons has him block Tai Kang's return, the Zuo
+Commentary has him supersede the line and be killed in the reign of Xiang, a divergence Chavannes
+notes in the same breath as citing Legge for it. **A card whose answer is a name borne by several
+figures says so rather than picking one.**
+**A SECOND GILES, AND HE IS NOT THE ONE ON THE LIBRARY SHELF**: Herbert A. Giles (1845–1935) wrote
+the *Chinese Biographical Dictionary* cited here, where **Lionel** Giles (1875–1958) translated the
+Art of War, whose 2029 limit the Library states. Father and son, forty years between their deaths, so
+taking one's dates for the other would put a wrong year under a licence — the Hugo Magnus trap
+wearing a surname this project already uses, exactly as the Iliad's two Murrays do.
+**AND CHAVANNES' LOCATOR WAS RIGHT**, which is worth recording in a file that keeps warning about
+invented ones: he gives "Tso tchoan (4e année du duc Siang, trad. Legge, p. 424)", and reading the
+scan independently gives Duke Seang, Year IV, p. 424. **A cited page checked against the book is the
+cheapest corroboration there is** — and the volume it needed, *Chinese Classics* vol. 5 part 2
+(`chineseclassics52legg`), is the sibling of the part 1 cnh-012 uses and is fetched the same way.
+**ITS PICTURE COST A QUARTER OF AN HOUR OF BACKING OFF, AND THE TITLE IS DESCRIPTIVE ON PURPOSE.**
+The two best-provenanced candidates are both far too small — Xiao Yuncong's Houyi of 1645 at
+306 × 500, the Wu Liang shrine rubbing at 498 × 406 — so what ships is an 18th-century album leaf
+from the Bibliothèque nationale de France (CC0, 871 px), and **Commons refused it for fifteen
+minutes**: 429 on `upload.wikimedia.org`, on `Special:FilePath` and on the API alike, through every
+listed thumbnail width its own error message recommends. **The answer is an `until` loop in the
+background, not a faster retry** — the fetch lands on its own and the writing carries on meanwhile,
+which is what kept "look at the picture before using it" from being the thing that got dropped.
+**AND THE FILE NAME IS AN UPLOADER'S IDENTIFICATION RATHER THAN THE ALBUM'S**: the crop is named
+`(后羿crop)` while the leaf it comes from is the album's 游畋失位, which is TAI KANG's cautionary
+episode, so the rider drawing his bow may be either man. The title is therefore "An archer in the
+hunt" and the `alt` says what is in the frame — **where a picture's subject rests on a filename, title
+it for what it SHOWS**, which here is the hunting the card is about either way.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
