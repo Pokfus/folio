@@ -1064,7 +1064,96 @@ async function typeField(page, field, text) {
   check("removing it deletes the shared row", !db.decks.some((d) => d.slug === "ghost-deck-x9"));
   check("...and the section goes with the last orphan", await A.page.evaluate(() => !document.querySelector(".studio-orphans")));
 
-  const errs = [...A.errs, ...B.errs, ...M.errs];
+  /* ================= a shared deck reaches EVERY device the account is signed in on =================
+     `deck_installs` recorded the row from the day publishing shipped and nothing ever read it back, so
+     adding a deck reached the device it was added on and no other. Every assertion here fails SILENTLY on
+     a real site: a deck that never arrives on the second device is indistinguishable from a deck nobody
+     installed, which is precisely how this went unnoticed.
+
+     A fresh browser context IS a second device — its own IndexedDB and its own localStorage, against the
+     same account and the same server. */
+  const bobInstalls = () => db.installs.filter((i) => i.user_id === BOB.id).map((i) => i.deck_id).sort();
+  const bobHas = bobInstalls();
+  check("the account lists the decks Bob installed", bobHas.length === 2, JSON.stringify(bobHas));
+
+  const B2 = await newSession(browser, db, BOB, base);
+  await B2.page.goto(base + "#decks", { waitUntil: "load" });
+  // boot → session → the idle sync → one deck fetch and one store write apiece
+  await B2.page.waitForFunction(() => document.querySelectorAll(".collection.udeck").length >= 2, null, { timeout: 25000 }).catch(() => {});
+  // every community deck row on the Collections page, with the local id the row is filed under
+  const shelfOf = (page) => page.evaluate(() => [...document.querySelectorAll(".collection.udeck")].map((r) => {
+    const hit = r.querySelector("[data-udeck]");
+    return { title: ((r.querySelector(".collection-title") || {}).textContent || "").trim(), id: hit ? hit.getAttribute("data-udeck") : "" };
+  }));
+  const arrived = await shelfOf(B2.page);
+  const titles = arrived.map((d) => d.title).sort();
+  check("the account's shared decks arrive on a device that never installed one",
+    titles.indexOf("Byzantine Emperors") >= 0 && titles.indexOf("Typed Deck") >= 0, JSON.stringify(titles));
+  /* …and ONLY those, which is the half that says the list is the account's rather than the shelf's. "Paged
+     Deck" is on the first device and is deliberately absent here: its shared row was deleted a section ago,
+     taking Bob's install record with it. */
+  check("...and only those — a deck the account no longer lists is not pulled down", titles.length === 2, JSON.stringify(titles));
+
+  // the cards came with the title. A deck row over an empty store is exactly what a half-finished install
+  // looks like, and it reads as a working feature until somebody taps it.
+  const studied = await B2.page.evaluate(async () => {
+    const row = [...document.querySelectorAll(".collection.udeck")]
+      .find((r) => /Byzantine Emperors/.test((r.querySelector(".collection-title") || {}).textContent || ""));
+    const hit = row && row.querySelector("[data-udeck]");
+    if (!hit) return "no row";
+    hit.click();
+    await new Promise((r) => setTimeout(r, 900));
+    const rb = document.querySelector("#reveal-btn");
+    if (!rb) return "no card";
+    rb.click();
+    await new Promise((r) => setTimeout(r, 500));
+    return ((document.querySelector(".abstract") || {}).textContent || "").trim();
+  });
+  check("...with their cards, not just their titles", /died in 337/.test(studied), studied.slice(0, 60));
+
+  /* THE SAME DECK CARRIES THE SAME LOCAL ID ON BOTH DEVICES, which is what makes the account's own synced
+     settings land: `S.active`'s `u:<id>` entries, the per-deck limits, the scheduler, the colour, the
+     review's order and groups are all keyed by it and by nothing else. Minted at random — as every install
+     was until Aug 2026 — the deck arrived and every decision the reader had made about it did not. */
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#decks");
+  await B.page.waitForTimeout(1500);
+  const first = await shelfOf(B.page);
+  const idOf = (list, t) => (list.find((d) => d.title === t) || {}).id || "";
+  check("both devices file the deck under the same local id",
+    idOf(first, "Byzantine Emperors") && idOf(first, "Byzantine Emperors") === idOf(arrived, "Byzantine Emperors"),
+    idOf(first, "Byzantine Emperors") + " / " + idOf(arrived, "Byzantine Emperors"));
+
+  // a second boot must not install what is already here — `localDeckForRemote` is the whole guard, and
+  // without it the account's decks would arrive again on every load, each copy with its own schedule
+  // …and back to the shelf for a REAL boot: the check above left this page in a study session, and a
+  // `goto` differing only in the fragment would keep that very session running.
+  await B2.page.bringToFront();
+  await B2.page.goto(base + "#decks", { waitUntil: "load" });
+  await B2.page.reload({ waitUntil: "load" });
+  await B2.page.waitForTimeout(3500);
+  const again = await shelfOf(B2.page);
+  check("...and a second boot adds nothing a second time", again.length === 2, JSON.stringify(again.map((d) => d.title)));
+  check("...nor writes a duplicate install row", bobInstalls().length === 2, JSON.stringify(bobInstalls()));
+
+  /* THE SYNC PULLS AND NEVER PUSHES, AND NEVER DELETES — the two rules that decide what happens when the
+     account's list and a device disagree, and both fail invisibly in opposite directions. A row dropped
+     elsewhere must not be put back by a device that still holds the deck (which would resurrect it on
+     every other device), and the deck must not be thrown off this device either (that is a reader's
+     progress, deleted without being asked). Dropping the row straight out of the mock's store is exactly
+     what a removal on another device leaves behind. */
+  const typedId = typedRow && typedRow.id;
+  db.installs = db.installs.filter((i) => !(i.user_id === BOB.id && i.deck_id === typedId));
+  await B.page.bringToFront();
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(3500);
+  check("a row removed on another device is not pushed back up",
+    !db.installs.some((i) => i.user_id === BOB.id && i.deck_id === typedId), JSON.stringify(bobInstalls()));
+  check("...and the deck is not deleted from this device either",
+    await B.page.evaluate(() => [...document.querySelectorAll(".collection.udeck .collection-title")]
+      .some((e) => /Typed Deck/.test(e.textContent || ""))));
+
+  const errs = [...A.errs, ...B.errs, ...M.errs, ...B2.errs];
   check("no console/page errors", errs.length === 0, [...new Set(errs)].join(" | "));
 
   await browser.close();
