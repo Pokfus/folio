@@ -2672,10 +2672,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **No card has been written yet**,
-  and the collection carries **`placeholder: true`** (set aside July 2026), which `availableCardIdSet()`
-  reads — so read that file's warning before writing `cnh-001` or the cards will be written and never
-  studied. Not part of the site.
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` has shipped** (Aug 2026)
+  and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
+  (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
+  review, no game, no card of the day and no study deep link. **Clearing that flag is the site owner's
+  decision and it has deliberately been left alone**; until it is cleared, every card written here is
+  written and never studied. Not part of the site.
 - `docs/egypt-card-plan.md` — the **1000-card running order for the Ancient Egypt collection** (`egypt`):
   every card's number, topic and deck, fixed in advance across 9 decks and 26 leaf subdecks. The seventh of
   the planned collections and **the only one that created its own collection** — Rome, Russia and India were
@@ -9737,7 +9739,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | empty, and **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 1 card, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -9876,10 +9878,20 @@ research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. 
 (the padding is right for every id but `cnh-1000`). The prefix is **`cnh-`, not `cn-`**, because `cn-myth`
 and the new thematic leaves are DECK ids and `cn-001` beside them invites exactly the confusion ids exist
 to prevent; `cnh-` is also the collection's own historical convention, its template card surviving in
-`.claude/backup/data.js`. **⚠ READ THE PLAN'S WARNING BEFORE `cnh-001`**: the collection carries
-`placeholder: true`, which `availableCardIdSet()` reads, so cards written into it today reach no review,
-no game and no card of the day — they would be written and never studied. **Clearing that flag is the
-site owner's call**, so the plan deliberately left it alone.
+`.claude/backup/data.js`. **⚠ THE COLLECTION IS STILL SET ASIDE**: it carries `placeholder: true`, which
+`availableCardIdSet()` reads, so cards written into it reach no review, no game and no card of the day —
+they are written and never studied. **Clearing that flag is the site owner's call**, so the plan
+deliberately left it alone and `cnh-001` shipped without touching it (Aug 2026); the first card is
+therefore on disk and dark, and the rest of the deck should probably wait on that decision rather than
+grow a thousand cards nobody can reach. **`cnh-001` is worth reading before `cnh-002`** for one reason
+beyond its content: the openly readable scholarship on early Chinese myth reachable from this sandbox is
+almost entirely **French sinology on Persée** — `Extrême-Orient Extrême-Occident`, `Études chinoises`,
+BEFEO, `Cahiers d'Extrême-Asie`, `L'Homme` — which serves an article's FIRST PAGE as HTML and its PDF as
+403, so a claim has to be one the opening page actually carries. Brill, Cambridge, MDPI, Springer, JSTOR
+and the Smithsonian are all shut or bot-walled here, Sino-Platonic Papers ships **encrypted** PDFs, and
+`asianethnology.org` is JavaScript-driven; `ctext.org` and `archive.org` answer and carry the primary
+texts and the out-of-copyright shelf. **A source in any language qualifies** (CLAUDE.md says so), and for
+this subject the French is not a fallback but the literature.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
