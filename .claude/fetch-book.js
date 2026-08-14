@@ -7248,6 +7248,185 @@ const BOOKS = {
     },
   },
 
+  "three-kingdoms": {
+    title: "Romance of the Three Kingdoms",
+    author: "Luo Guanzhong",
+    /* THE ATTRIBUTION IS TRADITIONAL AND BETTER ATTESTED THAN IT LOOKS, and the front matter says
+       what it rests on. The earliest surviving printing, of 1522, names Luo Guanzhong on its own
+       title page, which is more than the other great Ming novels manage; what is genuinely unknown is
+       who he was, his dates being given as about 1330 to 1400 on no very firm evidence. What the
+       reader actually has in front of them is that novel as Mao Lun and Mao Zonggang re-edited it in
+       1679 — see `about`, since two of the most famous sentences on this book's first page are the
+       Maos' and not Luo's. */
+    translator: "C. H. Brewitt-Taylor",
+    edition:
+      "San Kuo, or Romance of the Three Kingdoms, Kelly & Walsh, Limited, Shanghai, 1925",
+    written: "14th century, first printed 1522",
+    /* The sort key is the earliest date the book itself supports. The novel is universally dated to
+       the fourteenth century and the attribution on the 1522 printing is why; when it was actually
+       written nobody knows, and the text here is later still, so a composed figure would be three
+       kinds of guess at once. 1522 is a date somebody can check. */
+    year: 1522,
+
+    /* ---------- THE LICENCE — one modern layer, and a limit on it ----------
+       Two layers and only one of them is modern. The novel is a Chinese work of the fourteenth
+       century and the text on both sides is the recension the Maos published in 1679, so the Chinese
+       has been free for as long as copyright has existed.
+
+       THE TRANSLATION IS THE HALF THAT NEEDS A DATE. Brewitt-Taylor published in Shanghai in 1925 —
+       read off the volumes' own title pages, which print "COPYRIGHT, 1925, BY C. H. BREWITT-TAYLOR.
+       First Printing, December, 1925" — so it is public domain in the United States under the rule
+       for works published before 1929. He lived from 11 December 1857 to 4 March 1938, corroborated
+       twice at day precision (Wikidata, and Wikisource's own author page, which gives 1857–1938
+       independently), so it cleared life-plus-seventy at the beginning of 2009 and does NOT clear
+       life plus a hundred until 2039. That is said outright rather than rounded into the easier
+       sentence, which is the judgement Lucretius's entry asks for: claim less, and put on the page
+       what cannot be said.
+
+       WHAT IS AND IS NOT TAKEN. The hundred and twenty chapters, from both editions. Left behind:
+       both volumes' title pages, the copyright leaf, the dedication to the translator's son, the
+       folding map of China during the period, and the tables of contents; and on the Chinese side the
+       Maos' own critical apparatus — their preface, their essay on how to read the book and their
+       statement of editorial principles — which the transcription puts on pages of its own.
+
+       THE COMPLETE MODERN TRANSLATIONS ARE IN COPYRIGHT and are named here so that nobody reaches
+       for one later: Moss Roberts's Three Kingdoms of 1991, which is the complete scholarly one and
+       the one to buy, the abridgement he made of it in 1976, and Yu Sumei's of 2014. */
+    rights:
+      "Public domain in the United States, with a limit to state elsewhere. The novel is a Chinese " +
+      "work of the fourteenth century and the text used here is the recension Mao Lun and Mao " +
+      "Zonggang published in 1679, so the Chinese has been free for as long as copyright has " +
+      "existed. The translation is the half that needs a date: C. H. Brewitt-Taylor published it in " +
+      "Shanghai in 1925, which puts it in the public domain in the United States under the rule for " +
+      "works published before 1929, and he lived from 1857 to 1938, so it cleared the term of the " +
+      "translator's life plus seventy years at the beginning of 2009 — but where the term is life " +
+      "plus a hundred it stays in copyright until 2039. Both volumes' title pages, the dedication, " +
+      "the folding map and the tables of contents are not reproduced, nor is the Maos' own critical " +
+      "apparatus; what is taken is the hundred and twenty chapters. (The complete modern " +
+      "translations — Moss Roberts's of 1991, the abridgement he made of it in 1976, and Yu Sumei's " +
+      "of 2014 — are all still in copyright and are not used.)",
+
+    about: [
+      "<i>Romance of the Three Kingdoms</i> begins with a sentence about the shape of history — that " +
+        "an empire long divided must unite and long united must divide — and then spends eight " +
+        "hundred thousand words showing it happen. It opens in 184, with a peasant rising against a " +
+        "Han court run by eunuchs, and closes in 280, when the last of the three successor states " +
+        "gives in and China is one again. In between are the hundred years that every Chinese " +
+        "reader knows by heart: three strangers swearing brotherhood in a peach garden; Ts‘ao " +
+        "Ts‘ao, the most capable man of his age and the villain of the book; the fire-ships at the " +
+        "Red Cliffs; and Chuko Liang, the strategist who is sent for three times before he will come " +
+        "down from his hut, and who then spends the rest of his life trying to win a war he has " +
+        "already told his lord cannot be won. It is the earliest of the great Chinese novels and the " +
+        "most influential historical novel written anywhere, and its hold is not really literary — " +
+        "its scenes are the common property of opera, storytelling, proverb and, latterly, video " +
+        "games across half of Asia.",
+      "It is a novel built on a history, and the proportions were settled long ago by the Qing " +
+        "scholar Chang Hsüeh-ch‘êng, who called it seven parts fact and three parts fiction. The " +
+        "facts come from Ch‘ên Shou's <i>Records of the Three Kingdoms</i>, compiled within living " +
+        "memory of the events; the fiction comes from the eleven centuries of plays and street " +
+        "storytelling that stood between him and the novelist. What the fiction consistently does is " +
+        "take sides. The historical Ts‘ao Ts‘ao held the north, the throne and most of the " +
+        "population; the novel gives its sympathy to Liu Pei's small, doomed, legitimist state in " +
+        "the west, and a reader who takes the book for history will come away with the moral " +
+        "judgements of a much later age.",
+      "The text is not quite the one Luo Guanzhong wrote, and this is worth knowing before the first " +
+        "page rather than after it. The oldest surviving printing, of 1522, divides the story into " +
+        "two hundred and forty sections; in 1679 Mao Lun and his son Mao Zonggang cut it into the " +
+        "hundred and twenty chapters used ever since, rewrote a great deal of the prose, replaced " +
+        "most of the poems and sharpened the sympathies described above. Almost everyone who has " +
+        "read this novel in any language for the last three centuries has read the Maos, and both " +
+        "columns here are theirs. Two of the most quoted things in the book are the clearest " +
+        "evidence of it: the sentence about division and union that opens chapter one, and the poem " +
+        "about the Yangtze rolling east that stands above it, are both editorial additions of 1679 " +
+        "and appear in none of the earlier printings.",
+      "The English is the first complete translation of any Chinese novel into English, and it very " +
+        "nearly did not exist. C. H. Brewitt-Taylor went out to China at twenty-two to teach " +
+        "navigation, spent his career in the Imperial Maritime Customs Service, and had finished a " +
+        "draft by 1900, when his house in Tientsin was burnt during the Boxer Uprising and the " +
+        "manuscript with it. He began again and published, twenty-five years later, in Shanghai. His " +
+        "romanisation is the Wade-Giles of his own day, so the names look unfamiliar to a reader who " +
+        "has met them in pinyin: Ts‘ao Ts‘ao is Cao Cao, Liu Pei is Liu Bei, Sun Ch‘üan is Sun " +
+        "Quan, Kuan Yü is Guan Yu, and Chuko Liang — usually called by his style, K‘ung-ming — is " +
+        "Zhuge Liang.",
+      "Each chapter is headed by the couplet its Chinese original is headed by, in the translator's " +
+        "own English and in the case his printer set it in. Those chapter titles are taken from the " +
+        "chapters themselves rather than from the volumes' contents pages, which print them in " +
+        "capitals and without the accents. One oddity of the printing is left exactly as it stands: " +
+        "in the nineties this edition numbers its chapters backwards from a hundred, so that " +
+        "chapter 91 is headed IXC and chapter 99 is headed IC, which is how the chapter you are " +
+        "reading may be headed a form no modern printer would use. The verse is his too — the novel " +
+        "quotes poems constantly, to open a scene or to sum one up, and he renders them as rhymed " +
+        "English quatrains.",
+    ],
+
+    wiki: "en.wikisource.org",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/San_Kuo",
+    /* Two volumes of sixty chapters each, which is the edition's own division and the only one it
+       has — so the Contents panel groups the hundred and twenty tabs the way the printed book groups
+       them, and a reader looking for a chapter has two shelves to look on rather than one. */
+    parts: [
+      { n: 1, label: "Volume I", from: 1, to: 60 },
+      { n: 2, label: "Volume II", from: 61, to: 120 },
+    ],
+    chapterWord: "Chapter",
+    page: (n) => "San Kuo/Volume " + (n <= 60 ? 1 : 2) + "/Chapter " + n,
+    chapters: Array.from({ length: 120 }, (_, i) => i + 1),
+    /* NO `indexPage`: both volumes print a full table of contents and both are transcribed, and the
+       body is still the better reading — see sanKuoHead, which is where the titles come from and why. */
+    head: "sankuo",
+    /* The printer's colophon at the foot of the last chapter, which is set on the one leaf in the
+       book the edition never numbered — the Republic's structural rule, and it needs to know nothing
+       about what is printed on it. Measured over the sample before it was declared: chapter 120 is
+       the only chapter with an unnumbered page in it, and every other page in the book is numbered. */
+    dropUnnumberedPages: true,
+    /* ONE SECTION FOR THE WHOLE CHAPTER. The chapter is what this work is divided into, what both
+       editions state and how any passage of it is cited in any language; neither side numbers
+       anything inside a chapter, so there is nothing finer to pair on and none is invented. */
+    sections: "whole",
+
+    /* ---------- THE ORIGINAL ----------
+       THE RECENSION WAS CHECKED FIRST, because this novel has two of them and they divide the story
+       differently: the 1522 printing runs to 240 sections and the Maos' of 1679 to 120 chapters, so a
+       column taken from the wrong one could not be paired at all. The transcription says which it is
+       on its own front page — "此為毛綸、毛宗崗父子修改、批注後的版本", this being the version revised
+       and annotated by Mao Lun and Mao Zonggang, with a link to the Jiajing text carried separately
+       under another title — and Brewitt-Taylor translated the Maos, which is what everyone translates.
+       Measured as well as read: 120 chapters a side, and the couplet heading each Chinese chapter is
+       the couplet Brewitt-Taylor prints over the same number, checked by name profile over all 114
+       titles the contents pages give up (37 uniquely best at offset 0, 32 tied including 0, and three
+       best elsewhere on a score of one apiece, which is noise) and then read side by side across the
+       whole span.
+
+       ITS FOUR 附錄 ARE NOT CHAPTERS and none is fetched: three are redirects to the front matter and
+       the fourth is a list of the novel's characters written by the wiki itself, which is flagged for
+       deletion there. */
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      perChapter: true,
+      wiki: "zh.wikisource.org",
+      page: (n) => "三國演義/第" + String(n).padStart(3, "0") + "回",
+      edition:
+        "三國演義, in the recension of Mao Lun and Mao Zonggang, as transcribed at Chinese Wikisource; " +
+        "the transcription names no printed edition",
+      rights:
+        "Public domain worldwide: the novel is a Chinese work of the fourteenth century and this " +
+        "recension was published in 1679, so no copyright has subsisted in the words for as long as " +
+        "copyright has existed.",
+      sourceName: "Wikisource (Chinese)",
+      sourceUrl: "https://zh.wikisource.org/wiki/%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9",
+      /* Typed onto the wiki rather than transcluded from a scan, so there is no transclusion wrapper
+         to slice at — and with it, the wiki's own navigation tables and its public-domain banner fall
+         inside the slice; see originalChapter. The novel's constant quoted verse is set as a nested
+         definition list, which the tag stripper would unwrap into run-on prose on a book that opens
+         on a poem. */
+      body: "plain",
+      verse: "dl",
+      dropTables: true,
+    },
+  },
+
   "canterbury-tales": {
     title: "The Canterbury Tales",
     author: "Geoffrey Chaucer",
@@ -9286,6 +9465,11 @@ function markArticuli(b, warn) {
    edition rather than a detail of one page, and how often one occurs is what says whether a rule is
    describing the book or guessing at it. */
 let ARTICULI_FOUND = 0, ARTICULI_NODASH = 0, ARTICULI_UNNUM = 0, ARTICULI_DUP = 0, ARTICULI_COUNTED = 0;
+/* What sanKuoHead found, reported at the end of a run: how many chapters gave up a title, how many
+   were headed in this printing's own hundred-less-n numerals, and how many volume half-titles were
+   lifted out. Counted rather than trusted, for the reason every count in this file is — a rule that
+   quietly stops firing looks exactly like a rule that had nothing to do. */
+let SANKUO = { titled: 0, odd: 0, half: 0 };
 
 const LIKI_MARK = "@@LKH@@";
 const LIKI_HEAD_RX = /^(?:Section\b|Part\b|Supplementary Section\b|Appendix to Book\b)/i;
@@ -13696,6 +13880,62 @@ function originalChapter(h, O, warn) {
       if (end > 0) b = b.slice(0, m.index) + b.slice(end);
       else warn("the page's header block is unbalanced and was left in place");
     }
+    /* THE SAME FURNITURE IN OTHER COSTUMES (Aug 2026, adding Romance of the Three Kingdoms). Journey
+       to the West's chapters carry their navigation as a div with an id, which the rule above takes;
+       this book, on the very same wiki, carries it as TABLES — one pair at the head and one pair at
+       the foot — and, on the chapters that happen to transclude the licence template, a
+       public-domain banner under those. None of it is the novel, and left alone none of it throws:
+       every chapter simply opens on a quotation of its own bibliographic header, closes on
+       "◀上一回 下一回▶ 三國演義", and on some chapters ends with a sentence in Chinese about the
+       author having been dead a hundred years followed by the words "Public domain" twice. The
+       chapter is LONGER rather than shorter, so every count reads as healthy — this file's usual
+       quiet shape.
+
+       The banner and the wiki's own "back to top" link are taken by the CLASS each carries, which is
+       the spirit of cleanBody's `ws-noexport` rule: the page says what they are and the rule does not
+       have to guess at their wording. Scoped to DIVs, because `noprint` also sits on a span inside
+       the running text that holds nothing but a space. Balanced, because each nests. */
+    /* AND A WRAPPER ROUND THE BODY, on the chapters that happen to carry one. The generic pass below
+       turns every div into a blockquote, so a container holding the whole chapter becomes a quotation
+       OF the whole chapter — the fault cleanBody records for the transclusion wrapper, met here on a
+       page that has no transclusion wrapper at all. Only its opening tag goes; stripTags' stack
+       discards the closer whose opener it never saw, which is what that stack is for. It is dropped
+       GLOBALLY rather than at the head, because the transcription is not consistent about it: of the
+       chapters sampled, one carries the wrapper and the rest do not, so a rule anchored to the start
+       would leave a stray quotation on however many of the hundred and twenty do. Measured on the one
+       original already on this path: `div class="prose"` occurs there zero times. */
+    b = b.replace(/<div class="prose"[^>]*>/g, "");
+    for (const cls of ["licenseContainer", "noprint"]) {
+      for (let k = 0; k < 8; k++) {
+        const m2 = new RegExp('<div [^>]*class="[^"]*\\b' + cls + '\\b[^"]*"[^>]*>').exec(b);
+        if (!m2) break;
+        const end = blockEnd(b, m2.index, "div");
+        if (end < 0) break;
+        b = b.slice(0, m2.index) + b.slice(end);
+      }
+    }
+  }
+  /* THE TABLES, WHICH ON THIS TRANSCRIPTION ARE ENTIRELY NAVIGATION (Aug 2026, same book). The pair
+     at the head is classed `ws-header` and could be taken by that; the pair at the foot carries no
+     class at all, only an inline style, so there is nothing on the page to key on. What can be
+     stated instead is a fact about the SOURCE, measured over the whole of it rather than assumed:
+     these chapters contain no tabular matter whatever — it is a Ming novel — so every table on the
+     page is furniture. Gated per book, so it is provably inert on the two originals already on this
+     path, and it REPORTS any table it removes that was carrying prose rather than links, because a
+     rule that begins eating text must not be able to do it quietly. */
+  if (O && O.dropTables) {
+    for (let k = 0; k < 40; k++) {
+      const m3 = /<table\b[^>]*>/.exec(b);
+      if (!m3) break;
+      const end = blockEnd(b, m3.index, "table");
+      if (end < 0) break;
+      const inner = b.slice(m3.index, end);
+      const prose = inner.replace(/<a\b[^>]*>[\s\S]*?<\/a>/g, "").replace(/<[^>]*>/g, "")
+        .replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, "").trim();
+      if (prose.length > 40) warn("a table carrying " + prose.length + " characters of text was removed: " +
+        JSON.stringify(prose.slice(0, 60)));
+      b = b.slice(0, m3.index) + b.slice(end);
+    }
   }
   b = b.split(/<div class="reflist|<ol class="references"|<div class="mw-heading[^"]*"><h2/)[0];
   b = b.replace(/<div class="prp-pages-output"[^>]*>/g, "");
@@ -15323,6 +15563,122 @@ function extractPtahhotep(h, BOOK, warn) {
 }
 
 /* ============================================================
+   A CHAPTER TITLE READ OFF THE PAGE ITSELF        (head: "sankuo")
+   ============================================================
+   Aug 2026, adding Romance of the Three Kingdoms. Not a layout: the book is the ordinary wiki walk
+   and goes through cleanBody like every other proofread transcription here. What it needs is one
+   thing that walk cannot do, and one it does badly, and both are about the two centred blocks each
+   chapter opens on:
+
+     <div class="wst-center"><p><span style="font-size:120%;">CHAPTER IX.</span></p></div>
+     <div class="wst-center"><p><span class="smallcaps">Lü Pu Helps to Suppress Disorder:<br />
+                                Chia Hsü Counsels an Attack on the Capital.</span></p></div>
+
+   THE TITLE IS ONLY ON THE CHAPTER'S OWN PAGE, which is a measurement rather than a preference. The
+   volumes DO print a table of contents and both are transcribed complete, so the obvious move is
+   `indexPage`; it was compared against the body chapter by chapter and it is the worse reading twice
+   over. The contents sets every title in CAPITALS where the body sets it in title case, so the case
+   is unrecoverable there and given here — the reverse of Journey to the West, where the contents was
+   the title-case copy and lost on accuracy instead. And it drops the diacritics the body keeps: LU PU
+   and CHIA HSU against Lü Pu and Chia Hsü, on a text whose romanisation is nothing but diacritics.
+   That is Aesop's rule reached by measurement — transcribe from the body — and it is why this hook
+   exists at all rather than a line of config.
+
+   THE HEAD BLOCKS MUST THEN GO, and `dropHeads` can only take the first of them. It matches a leading
+   block against a pattern the book declares, which is exactly right for "CHAPTER IX." and impossible
+   for a title, whose whole text is different on every page: a pattern loose enough to match all 120
+   of them is a pattern that would eat prose. So both are taken here, where the second one has just
+   been READ and can be removed because it is known rather than guessed at.
+
+   AND THE NUMBER IS CHECKED, which is the City of God's rule (read the heading, compare it against
+   the page you asked for) and which needed an inventory before it could be written. This printing
+   does not number its chapters the way anything else does in the nineties: read off both contents
+   pages, the run is XC IXC VIIIC VIIC VIC VC IVC IIIC IIC IC C — that is 90 to 100, with 91 to 99 set
+   as <n>C meaning a hundred LESS n, a generalisation of XC that no modern style uses and that this
+   printer applies for nine chapters and nowhere else. `romanValue` returns 0 for every one of them,
+   since it insists a numeral round-trip through romanNumeral. So the check parses that form too and
+   the nine are counted, which is what would report the run changing shape; a numeral that parses to
+   something other than the chapter asked for is a page filed under the wrong number and is warned
+   about rather than silently accepted.
+
+   THE PRINTER'S BOUNDARY MARKS GO WITH THEM — see the rule at the foot of this function. */
+function sanKuoHead(h, n, warn, counts) {
+  counts = counts || SANKUO;
+  const CENTRE = /<div class="wst-center[^>]*>([\s\S]*?)<\/div>/g;
+  /* stripWikiCSS BEFORE the tags, which is the order this file has had to learn twice: MediaWiki
+     ships a template's rules as an inline <style> inside the very element being read, so dropping
+     tags first leaves the tags gone and the CSS TEXT behind — chapter 3's title came out as "Tung
+     Cho Silences Ting .mw-parser-output .wst-tooltip{cursor:help;…}Yuan: Li Su Bribes Lü Pu", which
+     is a title of the right shape and the right length and is not a title. */
+  const flat = (x) => stripWikiCSS(x).replace(/<br\s*\/?>/g, " ").replace(/<[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+  const HEAD = /^CHAPTER\s+([IVXLCDM]+)\.?$/i;
+  const check = (num) => {
+    const v = sanKuoRoman(num);
+    if (!v) warn("could not read the chapter numeral " + JSON.stringify(num));
+    else if (v !== n) warn("the page is headed " + num + " (" + v + "), not " + n);
+    else if (!romanValue(num)) counts.odd++;
+  };
+  /* THE NUMBER AND THE TITLE ARE NOT ALWAYS IN THE SAME BLOCK, and assuming either arrangement loses
+     the title on the chapters set the other way. A hundred and eighteen of the hundred and twenty
+     put the number in one centred block and the title in a second; chapters 14 and 15 put both
+     paragraphs inside ONE — the same text printed two ways, which is what a volume transcribed page
+     by page by several hands looks like, and the fault `originalChapter` already records for an
+     Italian edition of 1814. Both are read here: the leading block's own paragraphs are looked at
+     first, and only if it holds nothing but the number is a second block taken. */
+  let taken = 0, title = "";
+  h = h.replace(CENTRE, (whole, inner) => {
+    if (taken >= 2) return whole;
+    if (taken === 0) {
+      const ps = inner.match(/<p\b[^>]*>[\s\S]*?<\/p>/g) || [];
+      const first = flat(ps.length ? ps[0] : inner);
+      const m = HEAD.exec(first);
+      if (!m) { warn("the first centred block is not a chapter heading: " + JSON.stringify(first.slice(0, 60))); return whole; }
+      check(m[1]);
+      if (ps.length > 1) {
+        title = flat(ps.slice(1).join(" "));
+        taken = 2;
+        if (!title) warn("the chapter's title paragraph is empty");
+      } else taken = 1;
+      return "";
+    }
+    const t = flat(inner);
+    taken = 2;
+    if (!t) { warn("the chapter's title block is empty"); return ""; }
+    title = t;
+    return "";
+  });
+  if (taken < 2) warn("the chapter's printed title was not found");
+  /* THE PRINTER'S BOUNDARY MARKS, which are not lines of the novel. Chapter 60 closes on a centred
+     "end of volume i" and chapter 120 on a centred "The End" — the marks a printed book in two
+     volumes sets where its parts divide, and by the time cleanBody has run each is a blockquote
+     standing under the last sentence of the chapter. It is the Meditations' running-head case at the
+     other end of the page, so both are matched on the block's own TEXT exactly as `dropHeads` matches
+     one, anchored whole so nothing else can go, and counted. The two are taken by ONE rule because
+     they are one kind of thing: keeping either while dropping the other would be an inconsistency a
+     reader would meet sixty chapters apart and have no way to explain. (The colophon at the foot of
+     the last page needs nothing here — it is set on the one leaf the edition never numbered, so
+     `dropUnnumberedPages` lifts it out for free.) */
+  h = h.replace(/<div class="wst-center[^>]*>([\s\S]*?)<\/div>/g, (whole, inner) => {
+    if (!/^(?:end of volume\b|the end$)/i.test(flat(inner))) return whole;
+    counts.half++;
+    return "";
+  });
+  return { h: h, t: title };
+}
+/* This printing's own numerals, which are standard everywhere but the nineties — see the inventory
+   above. A group before C is subtracted from it, which is what XC already means and what IXC, VIIC
+   and IVC mean here; anything else is read the ordinary way. */
+function sanKuoRoman(s) {
+  const v = romanValue(s);
+  if (v) return v;
+  const m = /^([IVX]+)C$/.exec(s);
+  if (!m) return 0;
+  const lead = romanValue(m[1]);
+  return lead && lead < 10 ? 100 - lead : 0;
+}
+
+/* ============================================================
    A WORK CITED BY SECTION AND DIVIDED INTO NOTHING ELSE
                                    (layout: "satyricon" — the seventeenth)
    ============================================================
@@ -16261,8 +16617,20 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    const h = applyGlyphs(await api(pageNames[0]));
+    let h = applyGlyphs(await api(pageNames[0]));
     let html, notes, orig = "", tFromText = "";
+    /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
+       the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
+       the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
+       has finished every centred div is a blockquote and the class this keys on is gone. `tFromText`
+       is the channel a facing-page book already uses for a title the extractor read off the text, and
+       it yields to `titles[n]`, so a title stated in this file would still win. */
+    if (BOOK.head === "sankuo") {
+      const got = sanKuoHead(h, n, warn);
+      h = got.h;
+      tFromText = got.t;
+      if (got.t) SANKUO.titled++;
+    }
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
          the translation — fetchOriginal then costs no requests at all. The two shapes a facing-page
@@ -16413,6 +16781,10 @@ function writeEnglish(chapters, warnings) {
   const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
   console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
     (secs.some((s) => !s) ? "  — " + secs.filter((s) => !s).length + " chapter(s) with NONE" : ""));
+  if (SANKUO.titled || SANKUO.odd || SANKUO.half)
+    console.log("  " + SANKUO.titled + " chapters titled from their own printed head, " +
+      SANKUO.odd + " headed in this printing's hundred-less-n numerals, " +
+      SANKUO.half + " printer's boundary mark(s) removed");
   if (ARTICULI_FOUND)
     console.log("  " + ARTICULI_FOUND + " articles, " + ARTICULI_COUNTED +
       " of the questions numbered by their own stated count — " + ARTICULI_NODASH +

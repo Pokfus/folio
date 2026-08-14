@@ -129,6 +129,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
   matter (chapter 0 — see the Library bullet). Currently forty-three:
+  `three-kingdoms` (~3.15 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes — C. H.
+  Brewitt-Taylor's English of 1925, and **the book whose chapter titles are on the chapter pages and
+  nowhere else worth taking them from.** Both volumes print a full table of contents and both are
+  transcribed complete, so `indexPage` is the obvious move; compared against the body chapter by
+  chapter it is the worse reading twice over — the contents sets every title in CAPITALS where the
+  body sets it in title case, and it drops the diacritics the body keeps (LU PU and CHIA HSU against
+  Lü Pu and Chia Hsü) on a text whose romanisation is nothing but diacritics. That is Journey to the
+  West's finding arriving from the other side, where the contents was the title-case copy and lost on
+  ACCURACY instead; here it loses on both, which is Aesop's rule reached by measurement.
+  **FIVE THINGS IT SETTLED ARE WORTH CARRYING.**
+  **THE NUMBER AND THE TITLE ARE NOT ALWAYS IN THE SAME BLOCK, and assuming either arrangement loses
+  the title on the chapters set the other way.** A hundred and eighteen chapters put "CHAPTER IX." in
+  one centred block and the title in a second; chapters 14 and 15 put both paragraphs inside ONE. It
+  is the fault `originalChapter` already records for an Italian edition of 1814, and it fails the
+  quiet way — nothing throws, nothing shortens, the tab simply falls back to the words "Chapter 14",
+  which on a bar of a hundred and twenty tabs nobody would notice.
+  **THIS PRINTING NUMBERS ITS NINETIES BACKWARDS FROM A HUNDRED, and the rule was written from an
+  inventory of the whole book rather than from the chapter that prompted it.** Read off both contents
+  pages the run is XC IXC VIIIC VIIC VIC VC IVC IIIC IIC IC C — 90 to 100, with 91 to 99 set as
+  <n>C meaning a hundred LESS n, a generalisation of XC that no modern style uses and that this
+  printer applies for exactly nine chapters and nowhere else. `romanValue` returns 0 for every one of
+  them, since it insists a numeral round-trip through `romanNumeral`, so the head check parses that
+  form too and the nine are COUNTED — which is what would report the run changing shape.
+  **A TEMPLATE'S INLINE STYLESHEET IS INSIDE THE VERY ELEMENT BEING READ**, so `stripWikiCSS` has to
+  run before the tags do: chapter 3's title came back as "Tung Cho Silences Ting
+  `.mw-parser-output .wst-tooltip{cursor:help;…}` Yuan: Li Su Bribes Lü Pu", which is a title of the
+  right shape and the right length and is not a title. Third time this file has recorded that order
+  mattering.
+  **THE PRINTER'S TWO BOUNDARY MARKS ARE ONE KIND OF THING AND GO TOGETHER.** Chapter 60 closes on a
+  centred "end of volume i" and chapter 120 on a centred "The End" — the marks a book printed in two
+  volumes sets where its parts divide, not lines of the novel, and by the time `cleanBody` has run
+  each is a blockquote under the last sentence of a chapter. Keeping either while dropping the other
+  would be an inconsistency a reader meets sixty chapters apart and cannot explain. (The colophon at
+  the foot of the last page needs no rule at all: it is set on the one leaf the edition never
+  numbered, so the Republic's `dropUnnumberedPages` lifts it out for free — measured first, and it is
+  the only unnumbered leaf in the book.)
+  **ITS REAL LIMITATION IS THAT THE TEXT IS NOT QUITE LUO GUANZHONG'S, and that is a fact about every
+  copy a reader will ever meet rather than about this one.** The oldest surviving printing, of 1522,
+  divides the story into 240 sections; in 1679 Mao Lun and his son Mao Zonggang cut it into the 120
+  chapters used ever since, rewrote much of the prose, replaced most of the poems and sharpened the
+  novel's sympathy for Liu Pei's side. Almost everyone who has read this book in any language for
+  three centuries has read the Maos, and both columns here are theirs — the plainest evidence being
+  that the sentence about division and union opening chapter 1 and the poem above it are both their
+  additions and appear in none of the earlier printings. Said on the book's own first page),
   `ptahhotep` (~33 KB, **by a wide margin the smallest thing on the shelf** — all 47 of the
   translation's sections, **22 notes**, no original — Battiscombe G. Gunn's English of 1906, and
   **the first book here taken from Project Gutenberg's HTML rather than its plain text or its TEI**,
@@ -1027,6 +1071,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Monk's Tale whose margin carries one, which is why the margin is stripped per line before the blocks
   are judged. Skeat's apparatus, his marginal summaries and the Tale of Gamelyn — which he prints as an
   appendix and says is not Chaucer's — are not reproduced),
+  `three-kingdoms.zh.js` (~1.78 MB, all 120 chapters, **483,000 hanzi** — the novel in the recension of
+  Mao Lun and Mao Zonggang as transcribed at Chinese Wikisource, and **the original here whose
+  RECENSION IS STATED BY THE TRANSCRIPTION ITSELF, which is what made the pairing a check rather than
+  a search.** This novel exists in two forms that divide the story differently — the 1522 printing in
+  240 sections and the Maos' of 1679 in 120 chapters — so a column taken from the wrong one could not
+  be paired at all; the wiki's own front page says outright 此為毛綸、毛宗崗父子修改、批注後的版本 and
+  links the Jiajing text carried separately under another title, and Brewitt-Taylor translated the
+  Maos. Measured as well as read: 120 chapters a side, and the couplet heading each Chinese chapter is
+  the couplet he prints over the same number, checked by name profile over all 114 titles the contents
+  pages give up and then read side by side across the span.
+  **ITS FURNITURE IS ALL TABLES AND THERE IS NOTHING ON THE PAGE TO KEY ON**, which is why it needed a
+  rule stating a fact about the SOURCE rather than about the markup. The navigation at the head of the
+  page is classed `ws-header`; the pair at the foot carries no class at all, only an inline style. What
+  can be said instead is that these chapters contain no tabular matter whatever — it is a Ming novel —
+  so every table on the page is furniture, and the rule reports any table it removes that was carrying
+  prose rather than links. The wiki's own back-to-top link and its public-domain banner, which some
+  chapters carry and some do not, are taken by the class each declares. Every one of them would
+  otherwise arrive as prose, which makes a chapter LONGER and is invisible to every count.
+  **AND A WRAPPER ROUND THE BODY APPEARS ON SOME CHAPTERS AND NOT OTHERS** (`div class="prose"`), so
+  the rule that unwraps it is global rather than anchored to the head — anchored, it would leave a
+  stray quotation of the whole chapter on however many of the 120 carry one. Its verse is set as a
+  NESTED definition list, two deep, which `verseFromLists` flattens; on a novel that opens on a poem
+  and quotes several a chapter that is the one thing that must not read as prose),
   `journey-to-the-west.zh.js` (~762 KB, all 100 chapters — the received Ming novel as transcribed at
   Chinese Wikisource, and **the only original on the shelf that is FULLER THAN ITS TRANSLATION.**
   Everywhere else the translation is the complete text and the original is the harder half to find;
@@ -1227,7 +1294,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-three books, twenty-nine originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-four books, thirty originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
   Divine Comedy, the Summa Theologica, Don Quixote and the Maxims of Ptahhotep
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
@@ -1906,6 +1973,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A TAB MUST NOT REPEAT THE WORD `chapterWord` ALREADY PRINTS.** See the `ptahhotep` entry in the
     File map for the two-numbers-under-one-word fault that reading the page turned up, and for why
     the tab carries the translator's own "§ 32" instead.
+
+  **A TITLE THAT IS ONLY ON THE CHAPTER'S OWN PAGE — AND THAT IS A HOOK, NOT A LAYOUT**
+  (`head: "sankuo"` → `sanKuoHead` / `sanKuoRoman` / `SANKUO`; Aug 2026, adding Romance of the Three
+  Kingdoms — the forty-fourth book). Worth reading for what it is NOT: the book goes through the
+  ordinary wiki walk and `cleanBody` like every other proofread transcription here, so it took no
+  layout, no new extractor and not one line of change to any shared reader. What it took is a single
+  gated line in the fetch loop, running on the RAW page before the notes are gathered — because by
+  the time `cleanBody` has finished, every centred div is a blockquote and the class the hook keys on
+  is gone. **Reach for a hook before a layout**: three of the last four books grew a whole reader for
+  a difficulty this size. Four things it settled:
+  · **THE TITLE MUST BE READ BEFORE ITS BLOCK CAN BE DROPPED**, which is why `dropHeads` cannot do
+    this alone. That option matches a leading block against a pattern the book declares — exactly
+    right for "CHAPTER IX." and impossible for a title, whose whole text differs on every page, since
+    a pattern loose enough to match all 120 would eat prose. Here the second block is removed because
+    it has just been READ rather than guessed at.
+  · **AND IT MUST HANDLE BOTH ARRANGEMENTS OF THE HEAD** — see the `three-kingdoms` entry in the File
+    map for the two chapters of a hundred and twenty that put the number and the title inside one
+    centred block instead of two, and for the printer's own hundred-less-n numerals, which were
+    inventoried over the whole book from its contents pages before the check was written.
+  · **`stripWikiCSS` RUNS BEFORE THE TAGS DO**, for the third time in this file: a template's inline
+    stylesheet sits inside the very element being read, so dropping tags first leaves the CSS text
+    standing in the middle of the title.
+  · **AND THE COUNTS ARE PRINTED ON EVERY RUN** — how many chapters gave up a title, how many wore the
+    odd numerals, how many boundary marks went. A rule that quietly stops firing looks exactly like a
+    rule that had nothing to do.
+  On the ORIGINAL side it needed no new reader either: `originalChapter`'s `body: "plain"` gate grew
+  drops for the wiki's licence banner and its `noprint` divs and an unwrap for a `div class="prose"`
+  that appears on some chapters and not others — all three provably inert on the one original already
+  on that path, measured rather than argued (`ws-header`, `licenseContainer` and `div.prose` occur
+  zero times on Journey to the West's pages) — plus a per-book **`dropTables`**, which is a statement
+  about the SOURCE rather than about the markup and which reports any table it removes that was
+  carrying prose rather than links.
 
   **THE CHAPTER MAY BE THE SMALLEST UNIT OF THE WORK, A THOUSAND TIMES OVER** (`layout: "sukta"` →
   `extractSukta` / `suktaBody` / `suktaLines` / `suktaVerses` / `suktaHtml` / `suktaSanskrit` /
@@ -4398,6 +4497,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     bibliography are left behind for the reason an editor's front matter always is; his footnotes on
     the poem ARE taken, being notes on the text rather than matter around it. Lichtheim (1973),
     Parkinson (1997) and Simpson are named as the ones not to reach for.
+
+    **Romance of the Three Kingdoms states a LIMIT, and its interest is that the LICENCE was the easy
+    half and the RECENSION was the hard one** (Aug 2026). The licence is the ordinary shape: the
+    novel is fourteenth-century, the text used on both sides is the recension Mao Lun and his son Mao
+    Zonggang published in 1679, and the only modern layer is C. H. Brewitt-Taylor's English, printed
+    at Shanghai in 1925 — read off the volumes' own title pages, which set "COPYRIGHT, 1925, BY C. H.
+    BREWITT-TAYLOR. First Printing, December, 1925" — so it is public domain in the United States on
+    the pre-1929 rule. He lived 11 December 1857 – 4 March 1938, corroborated at day precision on
+    Wikidata and independently on Wikisource's author page, so it cleared life plus seventy in 2009
+    and **has not cleared life plus a hundred, which runs to 2039**, said outright rather than
+    smoothed into the easier sentence.
+    **WHAT HAD TO BE ESTABLISHED FIRST IS WHICH TEXT EACH COLUMN IS**, because this novel has two
+    recensions that divide the story differently — the oldest surviving printing, of 1522, runs to
+    240 sections and the Maos' to 120 chapters — so a column taken from the wrong one could not be
+    paired at all, and the failure would be a book of 120 tabs facing 120 tabs of something else.
+    **The transcription answers it on its own front page** (此為毛綸、毛宗崗父子修改、批注後的版本,
+    with a link to the Jiajing text carried separately under another title), which is a better
+    answer than any measurement, and it was measured as well. **Ask what recension a text IS before
+    asking whether it pairs**; Journey to the West's entry says the same thing about a different
+    novel, and here the source volunteers it.
+    **THE OTHER FREE ENGLISH IS HALF A BOOK AND WAS REJECTED AT THE DOOR**: Project Gutenberg carries
+    Brewitt-Taylor as ebook 77416, which is volume 1 — chapters 1 to 60 — and volume 2 has never been
+    added, its author page listing the one book. Wikisource carries both volumes complete, proofread
+    against the scans, which is why the shelf's ordinary wiki path served here with no new reader at
+    all. Moss Roberts's complete translation of 1991, the abridgement he made of it in 1976 and Yu
+    Sumei's of 2014 are named as the ones not to reach for. Its `BOOK_AUTHOR_COLOR` row is where the
+    band was widened for the third time and where, for the first time, the shelf could say WHICH of
+    its three axes was binding — see the note beside `"Luo Guanzhong"` in app.js: relaxing lightness
+    changes nothing in either direction, and only the chroma ceiling opens the field.
 
     **Confessions is the EIGHTH licence needing no qualification at all, and it is the SAME LICENCE as
     the City of God's** (Aug 2026) — the same series, the same editor and the same decade, which is
@@ -11633,6 +11761,7 @@ dead code (never rendered).
     `extractQuixote` / `extractSatyricon` / `satyriconSection` / `cutAcrossSections` /
     `extractRamayan` / `ramSanskrit` / `RAM_BOOKS` / `ramSarga` /
     `extractPtahhotep` / `PTAH_KEYS` /
+    `sanKuoHead` / `sanKuoRoman` / `originalChapter`'s `dropTables` /
     `closeQuotesAt` / `balancedSpan` / `betaGreek` /
     `cleanBody`'s `body: "plain"` slice / `extractCaput` /
     `extractTerzina` / `terzinaLines` / `terzinaHtml` /

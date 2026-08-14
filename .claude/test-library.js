@@ -330,6 +330,90 @@ function satyriconChecks() {
    prose (`{42}` mid-sentence) and make a section LONGER, which no count can see; the transcriber's
    links into the note fold do the same; and a `bk-n` on the one column would change how `bookRows`
    treats a book that has none. */
+
+/* ROMANCE OF THE THREE KINGDOMS, read off the two files that shipped. Its head reader serves one
+   book and cannot be proved inert by re-running a sibling, so the shipped-data sweep stands in for
+   that check — and everything it looks for is silent.
+
+   THE TITLES ARE THE HALF THAT WOULD ROT QUIETLY. They are read off each chapter's own second
+   centred block, because this edition's contents pages print them in capitals and without the
+   diacritics; the reader that takes them handles TWO shapes, since two chapters of the hundred and
+   twenty put the number and the title inside one block instead of two. A regression there does not
+   throw, does not shorten a chapter and does not disturb the pairing — the tab simply falls back to
+   the words "Chapter 14", which on a bar of a hundred and twenty tabs nobody would notice. Hence an
+   assertion that every title is present, distinct, and not the generic form.
+
+   THE FURNITURE IS THE OTHER HALF, and it fails the way this file keeps recording: a leak makes a
+   chapter LONGER, so every count reads as healthy. On the English side the printed head, the
+   volume's half-title, the printer's colophon and MediaWiki's own inline stylesheet all survive the
+   tag strip as prose; on the Chinese side so do the navigation tables at both ends of the page and
+   the wiki's public-domain banner, which some chapters carry and some do not.
+
+   And the pairing: one marker a side per chapter, which is what makes a hundred and twenty rows out
+   of a book neither edition numbers below the chapter. */
+function threeKingdomsChecks() {
+  const fe = path.join(ROOT, "books", "three-kingdoms.js");
+  const fz = path.join(ROOT, "books", "three-kingdoms.zh.js");
+  if (!fs.existsSync(fe) || !fs.existsSync(fz)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(fe)];
+  delete require.cache[require.resolve(fz)];
+  require(fe); require(fz);
+  const en = (global.window.FOLIO_BOOKS_IN || []).find((b) => b.id === "three-kingdoms");
+  const zh = (global.window.FOLIO_BOOK_ORIG_IN || []).find((b) => b.id === "three-kingdoms");
+  if (!en || !zh) return null;
+  const o = { en: en.chapters.length, zh: zh.chapters.length, bal: [], marksEn: [], marksZh: [],
+              notes: 0, markers: 0, dead: 0, unref: 0, titles: en.chapters.map((c) => c.t),
+              enLeak: [], zhLeak: [], shortEn: 1e9, shortZh: 1e9, verseEn: 0, verseZh: 0,
+              parts: [...new Set(en.chapters.map((c) => c.p))].sort().join(","),
+              paired: 0, seq: en.chapters.map((c) => c.n).join(",") };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup"];
+  const bal = (c, who) => TAGS.forEach((t) => {
+    const open = (c.html.match(new RegExp("<" + t + "\\b", "g")) || []).length;
+    const shut = (c.html.match(new RegExp("</" + t + ">", "g")) || []).length;
+    if (open !== shut) o.bal.push(who + " " + c.n + " " + t + " " + open + "/" + shut);
+  });
+  /* The printed head and the printer's boundary marks; the transcriber's inline stylesheet, which is
+     what put a paragraph of CSS in the middle of chapter 3's title on the first run; and the page
+     numbers the Republic's structural rule lifts out with the colophon. */
+  const EN_LEAK = /CHAPTER [IVXLCDM]+\.|end of volume|PRINTED BY KELLY|mw-parser-output|\{\d+\}/i;
+  /* the wiki's navigation at both ends of the page, its back-to-top link and its licence banner */
+  const ZH_LEAK = /目錄|上一回|下一回|返回頁首|公有领域|Public domain|mw-parser-output/;
+  en.chapters.forEach((c) => {
+    bal(c, "en");
+    o.marksEn.push((c.html.match(/class="bk-n"/g) || []).length);
+    if (EN_LEAK.test(c.html)) o.enLeak.push(c.n);
+    if (c.html.length < o.shortEn) o.shortEn = c.html.length;
+    o.verseEn += (c.html.match(/<blockquote>/g) || []).length;
+    const ns = c.notes || [];
+    o.notes += ns.length;
+    const ms = [...c.html.matchAll(/data-fn="(\d+)"/g)].map((m) => +m[1]);
+    o.markers += ms.length;
+    ms.forEach((n) => { if (n < 1 || n > ns.length) o.dead++; });
+    ns.forEach((_, i) => { if (!ms.includes(i + 1)) o.unref++; });
+  });
+  const zhBy = {};
+  zh.chapters.forEach((c) => {
+    bal(c, "zh");
+    zhBy[c.n] = c;
+    o.marksZh.push((c.html.match(/class="bk-n"/g) || []).length);
+    if (ZH_LEAK.test(c.html)) o.zhLeak.push(c.n);
+    if (c.html.length < o.shortZh) o.shortZh = c.html.length;
+    o.verseZh += (c.html.match(/<blockquote>/g) || []).length;
+  });
+  en.chapters.forEach((c) => { if (zhBy[c.n]) o.paired++; });
+  o.generic = o.titles.filter((t) => /^Chapter \d+$/.test(t)).length;
+  o.blank = o.titles.filter((t) => !t || !t.trim()).length;
+  o.distinct = new Set(o.titles).size;
+  /* The Maos' own additions, which the front matter names and which are the plainest evidence a
+     reader has that both columns are their recension rather than the 1522 text. */
+  const one = en.chapters[0] ? en.chapters[0].html : "";
+  const oneZh = zhBy[1] ? zhBy[1].html : "";
+  o.divide = /Empires wax and wane; states cleave asunder and coalesce/.test(one);
+  o.yangshen = /滾滾長江東逝水/.test(oneZh) && /分久必合，合久必分/.test(oneZh);
+  return o;
+}
+
 function ptahhotepChecks() {
   const f = path.join(ROOT, "books", "ptahhotep.js");
   if (!fs.existsSync(f)) return null;
@@ -1402,6 +1486,56 @@ function aeneidChecks() {
         /papyrus/i.test(pt.intro) && /Ke'gemni/.test(pt.intro), String(pt.intro.length));
     } else {
       check("[ptahhotep] the book is on disk", false, "missing books/ptahhotep.js");
+    }
+
+    /* ROMANCE OF THE THREE KINGDOMS — see threeKingdomsChecks above for what each of these can see. */
+    const tk = threeKingdomsChecks();
+    if (tk) {
+      check("[three-kingdoms] 120 chapters in the English", tk.en === 120, String(tk.en));
+      check("[three-kingdoms] 120 chapters in the Chinese", tk.zh === 120, String(tk.zh));
+      check("[three-kingdoms] ...numbered 1 to 120 in order",
+        tk.seq === Array.from({ length: 120 }, (_, i) => i + 1).join(","), tk.seq.slice(0, 40));
+      /* One marker a side per chapter is the whole pairing: neither edition numbers anything inside
+         a chapter, so this is what makes a hundred and twenty rows rather than one block. */
+      check("[three-kingdoms] exactly one section marker per English chapter",
+        tk.marksEn.every((m) => m === 1), JSON.stringify(tk.marksEn.filter((m) => m !== 1)));
+      check("[three-kingdoms] ...and one per Chinese chapter",
+        tk.marksZh.every((m) => m === 1), JSON.stringify(tk.marksZh.filter((m) => m !== 1)));
+      check("[three-kingdoms] every chapter pairs", tk.paired === 120, String(tk.paired));
+      /* The titles are read off each chapter's own printed head — the contents pages set them in
+         capitals and drop the accents — and the reader has to handle both the shape that puts the
+         number and the title in two centred blocks and the two chapters that put both in one. A
+         regression falls back to "Chapter 14" without throwing. */
+      check("[three-kingdoms] every chapter carries its own printed title",
+        tk.blank === 0 && tk.generic === 0, tk.blank + " blank, " + tk.generic + " generic");
+      check("[three-kingdoms] ...and all 120 are distinct", tk.distinct === 120, String(tk.distinct));
+      /* Each leak below survives the tag strip as prose and makes a chapter LONGER, so no count of
+         chapters, words or markers can see any of them. */
+      check("[three-kingdoms] no printed head, boundary mark or stylesheet left in the English",
+        !tk.enLeak.length, JSON.stringify(tk.enLeak.slice(0, 5)));
+      check("[three-kingdoms] no wiki navigation or licence banner left in the Chinese",
+        !tk.zhLeak.length, JSON.stringify(tk.zhLeak.slice(0, 5)));
+      check("[three-kingdoms] tag balance is clean on both columns",
+        !tk.bal.length, JSON.stringify(tk.bal.slice(0, 3)));
+      check("[three-kingdoms] all 16 notes shipped", tk.notes === 16, String(tk.notes));
+      check("[three-kingdoms] every footnote marker resolves", tk.dead === 0, String(tk.dead));
+      check("[three-kingdoms] every note is referenced", tk.unref === 0, String(tk.unref));
+      check("[three-kingdoms] the two volumes are the book's parts", tk.parts === "1,2", tk.parts);
+      /* The novel quotes poems constantly, and they are the one thing that must not read as prose:
+         set as a nested definition list in the Chinese and inside three nested divs in the English,
+         either of which the tag stripper would unwrap into a run-on paragraph. */
+      check("[three-kingdoms] the quoted verse is set as verse in both columns",
+        tk.verseEn > 300 && tk.verseZh > 300, tk.verseEn + " / " + tk.verseZh);
+      check("[three-kingdoms] no chapter came back short",
+        tk.shortEn > 5000 && tk.shortZh > 1500, tk.shortEn + " / " + tk.shortZh);
+      /* Both columns are the Maos' recension of 1679 rather than the 1522 text, which is what makes
+         the pairing possible at all — and the plainest evidence of it is on the first page, since
+         the sentence about division and union and the poem above it are both their additions. */
+      check("[three-kingdoms] chapter 1 opens on the Maos' own sentence about division and union",
+        tk.divide, "");
+      check("[three-kingdoms] ...and the Chinese carries their added poem above it", tk.yangshen, "");
+    } else {
+      check("[three-kingdoms] both columns are on disk", false, "missing books/three-kingdoms*.js");
     }
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there

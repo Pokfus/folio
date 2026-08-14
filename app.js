@@ -8002,7 +8002,30 @@
        read as its own colour rather than as a near-miss of one — and reads 5.90:1 on the tightest
        of the light papers, twelfth of the 39, and 9.80:1 on white. Nobody reads an Egyptian courtier's advice against
        the Nicomachean Ethics or a chanson de geste, so the quarter asserts no kinship. */
-    "Ptahhotep": "#00486C",
+    /* THE BAND IS EXHAUSTED, AND ONLY ONE OF ITS THREE AXES HAD ANYTHING LEFT IN IT — which is a
+     measurement rather than a feeling, and the first time this shelf has been able to say WHICH
+     constraint is binding. With thirty-nine colours placed, nothing anywhere inside the shelf's own
+     lightness and chroma band clears 18.1 of its nearest neighbour, and the best of those is a
+     near-black green landing 19 from the Book of Documents — which is the Euripides test refusing it
+     outright, those being the shelf's two Chinese classics and exactly the pair a reader would take
+     for a set. Relaxing the LIGHTNESS band changes nothing at all in either direction (the 4.5:1
+     contrast bar and the ink floor already cap it, so the search returns the identical candidates),
+     and relaxing the chroma FLOOR changes nothing either. Only the chroma CEILING opens the field,
+     and it opens it sharply: +6 takes the best available from 15.6 to 18.2. So the band is widened
+     upward in chroma alone, which the Aquinas row half-anticipated when it re-measured the inherited
+     "it would glow" objection and dropped it — six placed colours already sit at chroma 59–64, and
+     this is 71 at lightness 29, which is the dark end of the band and cannot glow.
+     WHAT THE EURIPIDES TEST DECIDED HERE is which colour must be FAR rather than which must be near:
+     the shelf's other Ming novel is the one book a reader pairs this with, so the whole search was
+     run against every Chinese work on the shelf at once — and the field clearing all six of them by
+     45 turns out to be entirely blue and blue-violet, there being no other family left. This deep
+     ultramarine is the best contrast (5.73:1 on the tightest of the sixteen light papers) among those
+     at the top separation of 18.2, stands 54 from Wu Cheng'en and further still from Sun Tzu, and
+     sits evenly between its two nearest — Homer and Herodotus at 18 apiece — which is what makes it
+     read as its own colour rather than as a near-miss of one. Neither is a kinship anyone would
+     assert between a Greek epic, a Greek history and a Chinese novel. */
+  "Luo Guanzhong": "#2438A8",
+  "Ptahhotep": "#00486C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -10407,6 +10430,66 @@
          three movements a reader may have met elsewhere — Monkey's origin, Tripitaka's, and the
          pilgrimage — are not this edition's divisions, and putting them on the bar would be composing
          an apparatus, which is what the Aeneid's row declines to do for its own two halves. */
+    },
+    {
+      id: "three-kingdoms",
+      title: "Romance of the Three Kingdoms",
+      subtitle: "三國演義",
+      author: "Luo Guanzhong",
+      /* THE ATTRIBUTION IS TRADITIONAL AND BETTER ATTESTED THAN MOST. The earliest surviving printing,
+         of 1522, names Luo Guanzhong on its own title page, which is more than the other great Ming
+         novels manage; what is unknown is who he was, his dates being given as about 1330 to 1400 on
+         no very firm evidence. And the text a reader actually has is that novel as Mao Lun and his son
+         Mao Zonggang re-edited it in 1679 — two of the most quoted sentences on its first page are
+         theirs and not Luo's, which the book's own front matter says. */
+      written: "14th century, first printed 1522",
+      year: 1522,
+      translator: "C. H. Brewitt-Taylor",
+      edition: "Kelly & Walsh, Limited, Shanghai, 1925",
+      /* A LIMIT TO STATE, and only one modern layer to state it about. The novel is fourteenth-century
+         and the recension used on both sides was published in 1679, so the Chinese is free on any
+         reading. Brewitt-Taylor published in Shanghai in 1925 — read off the volumes' own title pages
+         — so the English is public domain in the United States under the pre-1929 rule, and he lived
+         from 11 December 1857 to 4 March 1938, corroborated at day precision on Wikidata and
+         independently on Wikisource's author page, so it cleared life-plus-seventy in 2009 and does
+         NOT clear life plus a hundred until 2039. Said outright rather than rounded into the easier
+         sentence. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. The novel is a Chinese " +
+        "work of the fourteenth century and the text used here is the recension Mao Lun and Mao " +
+        "Zonggang published in 1679, so the Chinese has been free for as long as copyright has " +
+        "existed. The translation is the half that needs a date: C. H. Brewitt-Taylor published it " +
+        "in Shanghai in 1925, which puts it in the public domain in the United States under the rule " +
+        "for works published before 1929, and he lived from 1857 to 1938, so it cleared the term of " +
+        "the translator's life plus seventy years at the beginning of 2009 — but where the term is " +
+        "life plus a hundred it stays in copyright until 2039. Both volumes' title pages, the " +
+        "dedication, the folding map and the tables of contents are not reproduced, nor is the Maos' " +
+        "own critical apparatus; what is taken is the hundred and twenty chapters. (The complete " +
+        "modern translations — Moss Roberts's of 1991, the abridgement he made of it in 1976, and Yu " +
+        "Sumei's of 2014 — are all still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/San_Kuo",
+      origLang: "zh",
+      origName: "Chinese",
+      /* THE CHAPTER IS THE PAIRING UNIT — what the work is divided into, what both editions state and
+         how any passage of it is cited in any language. Neither side numbers anything inside a
+         chapter, so there is nothing finer to pair on and none is invented: 120 rows, one per chapter,
+         each column at its own length, and every one of them filled on both sides.
+         THE RECENSION WAS CHECKED BEFORE THE PAIRING WAS TRUSTED, because this novel has two and they
+         divide the story differently — the 1522 printing runs to 240 sections and the Maos' of 1679 to
+         120 chapters. The Chinese transcription states on its own front page that it is the Maos', and
+         Brewitt-Taylor translated the Maos; measured as well as read, the couplet heading each Chinese
+         chapter is the couplet he prints over the same number, across all 120.
+         See .claude/fetch-book.js. */
+      chapterWord: "Chapter",
+      count: 120,
+      total: 120,
+      /* Two volumes of sixty chapters, which is the edition's own division and the only one it has —
+         so the Contents panel groups a hundred and twenty tabs the way the printed book groups them. */
+      parts: [
+        { n: 1, label: "Volume I", note: "Chapters 1–60" },
+        { n: 2, label: "Volume II", note: "Chapters 61–120" },
+      ],
     },
     {
       id: "canterbury-tales",
