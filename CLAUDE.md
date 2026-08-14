@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-005` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-006` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 5 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 6 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -9928,6 +9928,21 @@ elsewhere. **AND A DOI THAT RESOLVES IS NOT AN ARTICLE THAT EXISTS**: Vampelj Su
 paper in *Asian Studies* 7.2 resolves 200 to its landing page and has **no galley deposited at all** —
 brute-forcing galley ids is wasted, and the issue's own table of contents is what says so, five of that
 issue's thirteen articles having none. Read the TOC before concluding a fetch failed.
+**`cnh-006` EXTENDS THAT PRIMARY-TEXT RULE TO THE 19th-CENTURY SINOLOGICAL REFERENCE WORKS** (Aug 2026),
+which are out of copyright for the same reason and are the best thing reachable on several of this
+collection's subjects: Bretschneider's *Botanicon Sinicum* (Kelly and Walsh, 1895) carries the whole
+history of the *Shennong bencao jing* — ascribed to him, 365 drugs for the days of the year, internal
+evidence of Han compilation, surviving only in quotation — where no modern open article does. And **a
+SECOND volume of a translation already cited is a second source, and its FOOTNOTES may be the reason to
+reach for it**: Legge's Lî Kî (SBE 27) is on this shelf as a Library book, and its note on the Yueling's
+summer months (p. 268 n. 3) identifies Yandi with Shennong outright and dates him — a claim nothing else
+openable states. **Expect two out-of-copyright authorities to give a legendary figure DIFFERENT
+traditional dates** (Legge not later than the 31st century BCE, Bretschneider the 28th), so a date line
+here says "by one reckoning" and picks the one whose author the deck already follows.
+**AND NEVER CONSTRUCT AN `upload.wikimedia.org` PATH** — the MD5 hash directory cannot be guessed, so
+take the URL from the API's `imageinfo`; when that host rate-limits (429 on every retry, while
+`commons.wikimedia.org` answers normally), `commons.wikimedia.org/wiki/Special:FilePath/<File>?width=N`
+serves the bytes.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
@@ -10286,7 +10301,11 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   must carry a link** and all four helper scripts refuse one that does not, which by design restricts the
   citable literature to what is **publicly reachable**: a DOI, an open-access paper, a museum or agency
   permalink. That restriction is the point — a page number nobody can open is a page number nobody
-  checked. **Every source must be referenced by at least one marker** — a citation
+  checked. **AND THE TOOLS CHECK THAT A CITATION ENDS IN A URL, NEVER THAT THE URL OPENS** — so an
+  archive.org identifier or a DOI written from MEMORY ships as a 404 and nothing anywhere reports it
+  (`cnh-006` shipped one for an hour: `sacredbooksofchi27conf` for `sacredbooksofchi0027unse`). Curl
+  every citation URL of a new card before committing it; a 302 is a DOI resolving and is fine, a 404
+  is a source the reader cannot check. **Every source must be referenced by at least one marker** — a citation
   nothing points at is a reading list, not a footnote — and `add-card.js` refuses a card that breaks
   either rule. Cite the scholarship the claim actually rests on: a monograph, a survey, a journal
   article, a museum or excavation report. **A Wikipedia article is not a source here** — it is where the
