@@ -42,6 +42,32 @@ and the standalone files are not in `decks/` today.
 stops, which is how `build-extra.js` gets the same corpus, the same traditional-script exclusions and the
 same sentence selection as the vocabulary decks rather than a second copy of them.
 
+## Changing the card type's CSS
+
+`deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a
+reader until the decks are rebuilt. Rebuilding needs the 130 MB of source corpora above; where only the CSS
+has changed, the shipped files can be patched instead, and the way to do it safely is a **string replacement
+on the raw JSON** rather than parsing and re-serialising:
+
+    node -e '
+    const fs=require("fs"), fresh=require("./deckcore.js").TYPE.css, enc=s=>JSON.stringify(s).slice(1,-1);
+    for (const f of fs.readdirSync("../../decks").filter(x=>x.includes("Mandarin"))) {
+      const p="../../decks/"+f, raw=fs.readFileSync(p,"utf8");
+      const cur=Object.values(JSON.parse(raw).meta.types)[0].css;
+      if (cur===fresh) continue;
+      if (raw.split(enc(cur)).length-1 !== 1) { console.log("REFUSED",f); continue; }
+      fs.writeFileSync(p, raw.replace(enc(cur), enc(fresh)));
+    }'
+
+Two reasons it is done that way. The three files are written with **different formatters** — `build-mandarin.js`
+uses `JSON.stringify(deck)` and the other two `JSON.stringify(deck, null, 1)` — so re-serialising the wrong one
+rewrites all 20 MB. And the refusal matters: replacing a string that occurs more than once would rewrite
+something that is not the type's CSS.
+
+Check afterwards that **only** `meta.types.<id>.css` moved, by diffing the parsed objects field by field. When
+this was last done (the Aug 2026 `.uc-exst` change) all three decks carried CSS byte-identical to
+`deckcore.js` beforehand, which is what made the patch provably the same edit as a rebuild.
+
 ## The two files to read before changing anything
 
 `deckcore.js` holds the card type — one type, two templates, so a word is one note asked in both

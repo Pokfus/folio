@@ -96,10 +96,15 @@ const BASE_CSS =
   ".uc-exi + .uc-exi {\n  margin-top: 10px;\n  padding-top: 10px;\n  border-top: 1px solid var(--rule, rgba(0,0,0,0.10));\n}\n" +
   /* WHAT SHAPE THIS SENTENCE IS, as a formula of word types — "PRONOUN + NOUN + ADVERB + ADJECTIVE".
      Set as a label rather than as prose, and the term for the word being learnt takes the same vermilion
-     the word itself does in the sentence below, so the two line up at a glance. */
-  ".uc-exst {\n  margin-bottom: 4px;\n  font-size: 9.5px;\n  font-weight: 600;\n  letter-spacing: 0.09em;\n"
+     the word itself does in the sentence below, so the two line up at a glance.
+     SMALLER AND THINNER than it was (Aug 2026, on request): 9.5px/600 read as a heading over the sentence
+     it annotates, which is the wrong way round — the sentence is the thing, and this says what shape it is.
+     At 9px/400 it recedes to the caption it should have been. The marked term keeps a weight of its own
+     (500, against the line's 400) as well as the vermilion, so it is still findable on a device that has
+     rendered the colour flat. */
+  ".uc-exst {\n  margin-bottom: 4px;\n  font-size: 9px;\n  font-weight: 400;\n  letter-spacing: 0.08em;\n"
   + "  line-height: 1.45;\n  text-transform: uppercase;\n  color: var(--ink-faint, #6C6A63);\n}\n" +
-  ".uc-exst b {\n  font-weight: 600;\n  color: var(--zh, #C8453C);\n}\n" +
+  ".uc-exst b {\n  font-weight: 500;\n  color: var(--zh, #C8453C);\n}\n" +
   /* the speaker in front of each sentence. It carries NO text of its own — the sentence is beside it and
      naming it twice would only be read twice — so what it says comes from data-say, and wireSpeakControls
      names the control from that too. On a device with no speech engine the site's own rule strips the
