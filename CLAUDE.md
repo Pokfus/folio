@@ -3798,6 +3798,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     head of a two-reading word. Setting the whole card would catch those six at the price of restyling every
     definition; they are left, and they are the one place this bug survives. **The site's own corpus has
     zero** of these characters, so `--serif` and `.tr-pin` are deliberately untouched.
+  · **THE TWO READINGS ON A CARD ARE INDEPENDENT WITNESSES, AND ONE OF THEM WAS WRONG** (`fixPinyin` in
+    `deckcore.js`, `.claude/decks/check-pinyin.js`; Aug 2026, on a bug report: "in some cards the pinyin
+    isn't quite right, e.g. 'bàng ōng shì' instead of 'bàn gōng shì'"). 办公室 is bàn gōng shì; what shipped
+    had **the g one syllable to the left**, leaving `ōng`, which is not a Mandarin syllable at all. It is
+    the signature of a GREEDY splitter run over unsegmented pinyin — at `bàngōngshì` the longest legal
+    syllable is `bàng`, not `bàn`, so everything after the first cut is wrong.
+    **EVERY COUNT READ HEALTHY**: three syllables, every tone present, the bopomofo right, nothing thrown.
+    **WHAT MAKES IT CHECKABLE is that the card carries the reading TWICE from DIFFERENT SOURCES** — the
+    pinyin from the official HSK PDFs, the bopomofo from CC-CEDICT through complete.json — so where the
+    pinyin says a syllable ends in -ng and the bopomofo says the NEXT one begins ㄍ, the bopomofo settles
+    it. No dictionary needed, which matters because `cedict.u8` is corpus and is not committed.
+    **THE RULE IS STATED OVER EVERY INITIAL, NOT THE ONE THE REPORT NAMED**: 都会 shipped as `dūh uì`, which
+    a g-only rule left standing — and it is guarded, so `shēn gāo` and `cháng gē`, which really do have -n
+    and -ng before a g, are untouched. **28 readings were corrupt** (25 g, 1 h, 2 syllables cut in two).
+    **MOST DISAGREEMENTS ARE NOT ERRORS, which is why the check reports in CLASSES**: 92 words differ on 不
+    (the syllabus writes the sandhi bú, the bopomofo the citation bù — both right), 236 differ in syllable
+    COUNT (erhua, two-reading words, and the levels 7–9 band, which is word-spaced `zōngjiào` — standard
+    orthography, and NOT to be "fixed" into syllable spacing), and a handful differ over a neutral tone,
+    which is mainland against Taiwan. Only the impossible-syllable class is a fault.
+  · **A GLOSS CAN ONLY BE CHECKED WHERE THERE IS A SECOND SYLLABUS** (`fixGloss`; same batch, on "别 should
+    probably translate to 'do not'"). 别 shipped as `adverb: separate` — a real sense of the word, but the
+    VERB one, while the card is tagged adverb and its own three examples all read "Don't …". The 2012 HSK
+    decks come from a different syllabus with a different gloss column, so for the **291 words the decks
+    share** they are independent witnesses: 19 pairs have no word in common, **18 are synonymy** (father
+    against dad, plane against airplane, tv against television) and 别 is the only real disagreement.
+    **THE OTHER 11,241 WORDS HAVE NO SECOND WITNESS AND NO CHECK HERE CAN SUPPLY ONE** — verifying a meaning
+    needs a dictionary. Comparing a gloss against its own example translations was tried and THROWN AWAY: it
+    flags 1,711 cards and the first thirty are all false (车 glossed "vehicle" beside a sentence about a
+    car). Say that plainly rather than shipping the list.
+    The override is **keyed on the wrong TEXT as well as the word**, so it cannot outlive the fault: the day
+    the source gives 别 an adverb sense the pattern stops matching and it quietly stops firing.
+  · **`parsepdf.js` IS MISSING FROM THE REPO** and `build2026b.js` requires it, so the HSK 3.0 chain cannot
+    be run at all as committed — which is why both repairs above were also applied to the shipped JSON by
+    string replacement, and why the README's build order does not currently work from a clean checkout.
   · **AN IDIOM MOSTLY HAS NO EXAMPLE SENTENCE, and that is the subject rather than a gap**: of 5,227
     non-syllabus idioms only 361 appear in the Tatoeba corpus even once, an idiom being literary and the
     corpus conversational. What stands in for it is CC-CEDICT's own lit./fig. gloss and the character

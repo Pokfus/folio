@@ -312,4 +312,104 @@ function plainSensesHTML(senses) {
   return senses.map((s) => '<div class="uc-sense">' + esc(s) + "</div>").join("");
 }
 
-module.exports = { HAN, TYPE, TYPE_ID, esc, measureHTML, charsHTML, examplesHTML, englishHTML, plainSensesHTML };
+
+/* THE PINYIN IS REPAIRED AGAINST THE BOPOMOFO, WHICH COMES FROM SOMEWHERE ELSE (Aug 2026, on a bug
+   report: "in some cards the pinyin isn't quite right, e.g. 'bàng ōng shì' instead of 'bàn gōng shì'").
+
+   办公室 is bàn gōng shì. What shipped was `bàng ōng shì` — the g had migrated one syllable to the LEFT,
+   leaving `ōng`, which is not a Mandarin syllable at all. It is the signature of a GREEDY syllable
+   splitter run over unsegmented pinyin: at `bàngōngshì` the longest legal syllable is `bàng`, not `bàn`,
+   so the splitter takes it and the remainder can only be cut badly. Everything after the first cut is
+   wrong and every count still reads healthy — the word has three syllables, the tones are all present,
+   and nothing anywhere throws.
+
+   WHAT MAKES THE REPAIR CHECKABLE RATHER THAN A GUESS is that the two readings on the card come from
+   DIFFERENT SOURCES: the pinyin from the official HSK vocabulary PDFs, the bopomofo from CC-CEDICT
+   through complete.json. They are independent witnesses to the same reading, so where the pinyin says a
+   syllable ends in -ng and the bopomofo says the NEXT syllable begins with ㄍ, the bopomofo settles it.
+   Nothing is repaired that the bopomofo does not positively contradict.
+
+   AND MOST DISAGREEMENTS ARE NOT ERRORS, which is why this is narrow rather than a general reconciliation.
+   Measured over all three decks: 92 words differ on 不 (the syllabus writes the sandhi bú, zhuyin the
+   citation form bù — both right, and the deck's own zhuyin note says so), 238 differ in syllable COUNT
+   (erhua, two-reading words, and the levels 7–9 band, which is word-spaced `zōngjiào` rather than
+   syllable-spaced — standard orthography, not a fault), and a further handful differ on whether a
+   syllable is neutral-toned, which is mainland against Taiwan and not something a build should adjudicate.
+   Only 28 readings are mechanically corrupt, and all 28 are one of the two shapes below. */
+const PY_TONE = { "ā":"a","á":"a","ǎ":"a","à":"a","ē":"e","é":"e","ě":"e","è":"e","ī":"i","í":"i","ǐ":"i","ì":"i",
+  "ō":"o","ó":"o","ǒ":"o","ò":"o","ū":"u","ú":"u","ǔ":"u","ù":"u","ǖ":"v","ǘ":"v","ǚ":"v","ǜ":"v","ü":"v" };
+const pyBare = (s) => [...String(s).toLowerCase()].map((c) => PY_TONE[c] || c).join("");
+const pyToneless = (s) => [...String(s)].every((c) => !PY_TONE[c] || c === "ü");
+/* pinyin initial -> its bopomofo letter, and (for the three that are also legal FINALS) the bopomofo
+   endings that mean the letter belongs where it already is. Written from the standard tables rather than
+   learned from the corpus: a corrupted corpus must not be allowed to teach the repair what is normal. */
+const PY_INITIAL = { b:"\u3105", p:"\u3106", m:"\u3107", f:"\u3108", d:"\u3109", t:"\u310A", n:"\u310B", l:"\u310C",
+  g:"\u310D", k:"\u310E", h:"\u310F", j:"\u3110", q:"\u3111", x:"\u3112", r:"\u3116", z:"\u3117", c:"\u3118", s:"\u3119" };
+const PY_KEEP = { g: /\u3125$/, n: /[\u3122\u3123]$/, r: /\u3126$/ };
+function fixPinyin(pinyin, zhuyin) {
+  const p = String(pinyin == null ? "" : pinyin).trim().split(/\s+/).filter(Boolean);
+  const z = String(zhuyin == null ? "" : zhuyin).trim().split(/\s+/).filter(Boolean);
+  if (!p.length || !z.length || String(pinyin).indexOf("/") >= 0) return String(pinyin);
+  /* 1. A CONSONANT THAT MIGRATED LEFT. Not g alone: 都会 shipped as `dūh uì`, so the rule is stated over
+        every initial rather than over the one the report happened to name. It fires only where the
+        bopomofo puts that very initial on the syllable that lost it and the syllable that gained it is
+        left with no initial at all — and, where the stolen letter is one Mandarin can legitimately END a
+        syllable with (n, ng, r), only where the bopomofo says this syllable does NOT end that way. So
+        `shēn gāo` and `cháng gē`, which really are -n and -ng before a g, are left exactly as they are. */
+  if (p.length === z.length) {
+    let out = p.slice(), moved = false;
+    for (let i = 0; i < out.length - 1; i++) {
+      const c = pyBare(out[i]).slice(-1);
+      if (!PY_INITIAL[c] || !/^[aeiouv]/.test(pyBare(out[i + 1]))) continue;
+      if (z[i + 1].charAt(0) !== PY_INITIAL[c]) continue;      // the bopomofo names the missing initial
+      if (PY_KEEP[c] && PY_KEEP[c].test(z[i])) continue;       // …and this syllable really does end so
+      out[i] = out[i].slice(0, -1);
+      out[i + 1] = c + out[i + 1];
+      moved = true;
+    }
+    return moved ? out.join(" ") : String(pinyin);
+  }
+  /* 2. A SYLLABLE CUT IN TWO. `cè lü è` for cèlüè: the tone mark sits on the second piece, and a pinyin
+        syllable carries its own tone — so a TONELESS token followed by a vowel-initial one, where joining
+        them is exactly what makes the two readings count the same, is one syllable that was split. */
+  if (p.length === z.length + 1) {
+    for (let i = 0; i < p.length - 1; i++) {
+      if (!pyToneless(p[i]) || !/^[aeiouv]/.test(pyBare(p[i + 1]))) continue;
+      const out = p.slice(0, i).concat(p[i] + p[i + 1], p.slice(i + 2));
+      if (out.length === z.length) return out.join(" ");
+    }
+  }
+  return String(pinyin);
+}
+
+/* A GLOSS THE SOURCE GOT WRONG, CORRECTED ONLY WHERE IT IS STILL WRONG (Aug 2026, on a bug report: "别
+   should probably translate to 'do not'").
+
+   别 shipped as `adverb: separate`. Separate is a real sense of 别 — but it is the VERB one (bié, to part,
+   to leave), and the card is tagged adverb, whose sense is the prohibitive: don't. Its own three example
+   sentences all read "Don't …", so the card contradicted itself.
+
+   IT WAS FOUND BY CROSS-CHECKING THE TWO SYLLABUS DECKS, which is the only independent witness this repo
+   has for a meaning: the 2012 HSK decks come from a different syllabus with a different gloss column, and
+   they have 别 right ("don't do something; don't; depart; other; difference; distinguish"). Of the 291
+   words the two share, 19 glosses have no word in common and 18 of those are synonymy — father against
+   dad, plane against airplane, tv against television. 别 is the only real disagreement.
+   **The other 11,241 words have no second witness at all**, and no check in this repo can supply one:
+   verifying a meaning needs a dictionary, and cedict.u8 is corpus rather than code. Comparing a gloss
+   against its own example translations was tried and thrown away — it flags 1,711 cards, and the first
+   thirty are all false (车 glossed "vehicle" beside a sentence about a car).
+
+   KEYED ON THE WRONG TEXT AS WELL AS THE WORD, so it cannot outlive the fault: the day the source gives
+   别 an adverb sense of its own, the pattern stops matching and the override quietly stops firing. A table
+   that fired on the word alone would go on overwriting a corrected source for ever. */
+const GLOSS_FIX = [
+  { word: "\u522b", when: /^<div class="uc-sense"><i class="uc-pos">adverb<\/i>separate<\/div>$/,
+    to: '<div class="uc-sense"><i class="uc-pos">adverb</i>don\'t; do not</div>' },
+];
+function fixGloss(simplified, html) {
+  const h = String(html == null ? "" : html);
+  for (const r of GLOSS_FIX) if (r.word === simplified && r.when.test(h)) return r.to;
+  return h;
+}
+
+module.exports = { HAN, TYPE, TYPE_ID, esc, measureHTML, charsHTML, examplesHTML, englishHTML, plainSensesHTML, fixPinyin, fixGloss };

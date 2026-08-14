@@ -73,6 +73,24 @@ patch provably the same edit as a rebuild.
 `test-deck-ux.js`'s section 7 asserts the shipped files carry the pinyin rule, so a rebuild that loses it
 fails there rather than on somebody's card.
 
+
+## The two repairs that live in `deckcore.js`
+
+`fixPinyin(pinyin, bopomofo)` and `fixGloss(simplified, englishHTML)`. Both are applied to the shipped deck
+files and both belong in a rebuild — the three builders each write `Pinyin:` and `English:` and each requires
+`deckcore.js`, so that is the one place all three can reach.
+
+They are narrow on purpose. `fixPinyin` moves a consonant back across a syllable boundary ONLY where the
+bopomofo names the initial the next syllable is missing, and never where the bopomofo says the first
+syllable really does end that way — so `shēn gāo` and `cháng gē` are left exactly as they are. `fixGloss` is
+keyed on the WRONG TEXT as well as the word, so the day the source gives 别 an adverb sense of its own the
+override stops matching and quietly stops firing; a table keyed on the word alone would overwrite a
+corrected source for ever.
+
+**`parsepdf.js` is missing from this repo** and `build2026b.js` requires it, so the HSK 3.0 chain cannot
+currently be run at all — which is why both repairs were applied to the shipped JSON by string replacement
+as well as being wired in for a future rebuild.
+
 ## The two files to read before changing anything
 
 `deckcore.js` holds the card type — one type, two templates, so a word is one note asked in both
@@ -83,11 +101,20 @@ and thrown away. The findings that cost the most to get are written into those t
 
 ## Checking them
 
+    node check-pinyin.js     # the two readings on every card, held against each other — no browser
     node check-decks.js      # imports every deck in decks/, studies it, reads what is on the card
     node check-reverse.js    # the reverse card: a two-note cut, studied all the way through
     node check-nesting.js    # nested subdecks and the cascade, on a deck built in memory
 
-Both need Playwright, which is a dev dependency and must not be installed into the repo — install it in a
+`check-pinyin.js` is the cheap one and the one to run after ANY rebuild. A card carries the reading twice —
+pinyin from the HSK PDFs, bopomofo from CC-CEDICT — so the two are independent witnesses and neither needs a
+dictionary. It exists because 办公室 shipped as `bàng ōng shì`: the g had migrated a syllable left, leaving
+`ōng`, which is not a Mandarin syllable. 28 readings were corrupt that way and **every count read healthy** —
+three syllables, every tone present, nothing thrown. It reports in classes because most disagreements are
+NOT faults: 92 words differ on 不 (sandhi against citation form), 236 differ in syllable count (erhua,
+two-reading words, and the word-spaced levels 7–9 band). Only the first three lines are assertions.
+
+The last three need Playwright, which is a dev dependency and must not be installed into the repo — install it in a
 scratch directory and run with `NODE_PATH=<that>/node_modules`, as `.claude`'s other browser tests do.
 
 Two things they exist to catch, and neither shows up in any count. **After a reveal BOTH sides of the card
