@@ -422,7 +422,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-176  Cylinder seal
     wh-177  Ziggurat
     wh-178  Eridu
-    wh-179  Sumerian city-states
+    wh-179  Sumerian city-state
     wh-180  Ur
     wh-181  Royal Cemetery at Ur
     wh-182  Gilgamesh
