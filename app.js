@@ -20886,15 +20886,37 @@
     }
 
     if (queue.length === 0) {
-      // nothing due / no new left — offer to cram remaining unseen, or report all caught up
-      const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => availStudy.has(id) && !isSeen(id) && !isSuspended(id))
-        : ud ? uDeckStudyIds(ud.cardIds || []).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
+      /* Nothing due and no new allowance left — offer to study ahead, or report all caught up.
+
+         THE AHEAD PILE IS THE ENTRY'S, NOT THE WHOLE DECK'S, AND IT IS ORDERED (Aug 2026, on a bug
+         report: "when I keep studying beyond the daily limit it becomes one directional again, and the
+         top right shows how many cards are remaining in that entire collection"). Both symptoms are one
+         fault. This asked `subtreeCardIds(sd)` / `uDeckStudyIds(ud.cardIds)` — the whole tree and the
+         whole deck — where every other queue in the session is built from `entryCardIds(entry)`, which
+         narrows to the subdeck or the direction actually being studied and honours a branch dragged into
+         a group. And it skipped `studyOrder`, which is what interleaves the subdecks and what pulls a
+         note's two cards together under "both directions together"; the raw expansion is TEMPLATE-MAJOR,
+         so an ahead pile built from it is every forward card before any reverse — the deck's whole
+         forward run before the first reverse arrives.
+
+         It is a queue like any other, so it takes the same filters as `buildSession`'s two branches:
+         `availStudy` (a coming-soon collection's cards are set aside even here) and `isBuried` (a card
+         whose sibling was answered today is held back until tomorrow, and cramming is not a way round
+         that). The count in the top-right is `remainingCounts()` over the queue, so narrowing the pile
+         is what fixes the figure too — there was never a second bug there. */
+      const cramEntry = scopeEntryId(params.scope);
+      const remainingUnseen = (sd || ud)
+        ? studyOrder(cramEntry, entryCardIds(cramEntry).filter((id) =>
+            availStudy.has(id) && !isSeen(id) && !isSuspended(id) && !isBuried(id)))
+        : [];
       if ((sd || ud) && remainingUnseen.length) {
         root.innerHTML = emptyPlacard(
           "Daily limit reached",
           "✓",
+          // this entry's own allowance, not the global default — a deck given limits of its own would
+          // otherwise be told a figure it does not use
           "You've hit today's new-card limit for this deck (" +
-            S.settings.newPerDay +
+            deckLimits(cramEntry).newPerDay +
             "/day). You can study ahead anyway, or come back tomorrow.",
           null,
           null
@@ -20907,8 +20929,19 @@
           '<button class="btn ghost" id="back">Back to collections</button>';
         card.appendChild(row);
         row.querySelector("#cram").addEventListener("click", () => {
-          queue = remainingUnseen.slice();
-          startLoop();
+          /* WARM THE PILE FIRST, exactly as the session warms its own queue above. A community deck's cards
+             are stored per note and loaded when they are needed, and this pile is assembled AFTER that warm
+             — so every card in it is a stub, `cardById` hands back a note with no fields, and the reader
+             gets a run of BLANK cards with a working grade bar under them. Nothing throws and the counts
+             are all correct, which is why it survived: the only symptom is a card with nothing on it.
+             (It predates the scope fix above — the old whole-deck pile was unwarmed too — and was found by
+             the test written for that one.) */
+          const start = () => { queue = remainingUnseen.slice(); startLoop(); };
+          if (uWarmed(remainingUnseen)) return start();
+          root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' +
+            esc(sess.where || "") + "</h1></div>" +
+            '<div class="data-loading">' + t("Loading these cards…") + "</div>";
+          uWarm(remainingUnseen).then(() => { if (current && current.name === "study") start(); });
         });
         row.querySelector("#back").addEventListener("click", () => route("decks"));
         return;

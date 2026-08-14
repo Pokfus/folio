@@ -2962,6 +2962,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     JSON rather than by re-serialising it, which is what keeps the 20 MB file's diff to the one line it
     should be; all three Mandarin decks carried byte-identical CSS to `deckcore.js` beforehand, so the two
     are provably the same edit.
+  · **THE THIRD TONE HAS TO BE ASKED FOR BY NAME** (`PINYIN_FONT` in `deckcore.js`; Aug 2026, on a bug
+    report: "the letter ǒ appears larger than other pinyin letters"). The card inherits the site's body
+    serif and **Newsreader — the default — has none of the ten pinyin characters at issue**: ǎ ǐ ǒ ǔ (third
+    tone on a, i, o, u, but NOT ě, which it does have, and which is why one letter was named), ǖ ǘ ǚ ǜ, and
+    ǹ ḿ. Measured in a browser against every family the stylesheet imports, not assumed.
+    **THE QUIET PART IS WHY IT RENDERS AT ALL rather than as a blank**: Google Fonts declares Newsreader's
+    latin-ext face with `unicode-range: U+0100-02BA, …`, which COVERS U+01D2 — **a unicode-range is a
+    promise about the subset, not about the glyphs in it** — so the browser picks that face, finds nothing,
+    and falls back per character to whatever last-resort font the operating system keeps, whose design size
+    has nothing to do with the page.
+    **THE OBVIOUS FIX DOES NOTHING, WHICH IS THE THING TO CARRY.** Fallback is per character, so appending a
+    covering face after `var(--serif)` ought to leave every working letter alone and catch only these ten.
+    It cannot: `--serif` is `"Newsreader", Georgia, "Times New Roman", serif`, so appending puts **a generic
+    family in the MIDDLE of the list**, and a generic matches everything — the browser resolves the caron
+    against the system default and never reaches the name after it. Measured on the rendered card before and
+    after: identical ink height, 9px both ways. A `@font-face` with a `unicode-range` of exactly those ten
+    codepoints is the textbook way to have both, and **a deck may not have one** — `cssScoped` drops
+    `@font-face` from deck CSS deliberately, a src URL in a stranger's deck being a per-character call home.
+    So the covering face goes FIRST, with the theme's serif behind it.
+    **EB GARAMOND IS CHOSEN ON MEASUREMENT.** Of the thirteen imported families exactly four carry all ten —
+    Cormorant Garamond, EB Garamond, Inter, Noto Sans SC — and **the two sans candidates are the wrong
+    answer for this bug in particular**, Inter's x-height being 123% of Newsreader's and Noto Sans SC's
+    125%: either would have swapped one oversized glyph for another. EB Garamond is 95%, is a serif, and is
+    already in the single `@import` because the academy theme sets it, so it costs no new request and its
+    latin-ext subset is fetched only by a reader who meets one of these characters.
+    **IT IS ON THE THREE PINYIN RUNS AND NOT ON `.card`**, counted over the 11,532-note deck: 13,365 of the
+    carons are in the character breakdown (`.uc-ptp`), 3,709 in the reading (`.uc-pinyin`), 145 in the
+    measure word (`.uc-mwp`) — and **six in an English gloss**, all six the "chǔ — " reading printed at the
+    head of a two-reading word. Setting the whole card would catch those six at the price of restyling every
+    definition; they are left, and they are the one place this bug survives. **The site's own corpus has
+    zero** of these characters, so `--serif` and `.tr-pin` are deliberately untouched.
   · **AN IDIOM MOSTLY HAS NO EXAMPLE SENTENCE, and that is the subject rather than a gap**: of 5,227
     non-syllabus idioms only 361 appear in the Tatoeba corpus even once, an idiom being literary and the
     corpus conversational. What stands in for it is CC-CEDICT's own lit./fig. gloss and the character
@@ -5198,6 +5229,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     card's first grade, so a Card of the day or a deck tapped into directly silently ate the review's allowance and an
     undo did not give it back. The decks' counts were derived all along; the banner above them was not, and the two
     drifted apart. `S.intro` is still written and still rides in the synced blob; nothing reads it for a limit.
+  · **STUDYING AHEAD IS THE ENTRY'S PILE, ORDERED, AND WARMED** (the `queue.length === 0` branch in
+    `PAGES.study`; Aug 2026, on a bug report: "when I keep studying beyond the daily limit it stops showing
+    both directions and becomes one directional again", and "it shows in the top right how many cards are
+    remaining in that entire collection instead of that specific subdeck"). **Both symptoms were one fault**,
+    and a third and worse one was underneath.
+    The ahead pile was built from `subtreeCardIds(sd)` / `uDeckStudyIds(ud.cardIds)` — the whole tree and the
+    whole deck — where every other queue in the session is `studyOrder(entry, entryCardIds(entry))`. So it
+    reached past the subdeck or direction actually being studied (the count, which is `remainingCounts()`
+    over the queue and so was never a second bug), and it skipped `studyOrder`, which is what interleaves the
+    subdecks and what pulls a note's two cards together under "both directions together" — the raw expansion
+    is TEMPLATE-MAJOR, so the pile was every forward card before any reverse. Reproduced exactly: a subdeck of
+    6 offered "Study 14 ahead" and dealt `2f 3f 4f 5f 6f 7f`. It takes the same `availStudy` and `isBuried`
+    filters as `buildSession`'s two branches, and the placard quotes **this entry's** allowance rather than
+    the global default.
+    **AND THE PILE IS WARMED BEFORE IT IS DEALT**, which is the one a reader would report first and which
+    predates the rest: a community deck's cards are loaded per note when needed, the session warms its own
+    queue behind a `.data-loading` line, and this pile is assembled AFTER that — so every card in it was a
+    stub and **rendered BLANK, with a working grade bar under it**. Nothing threw and every count was right.
+    Found by the test written for the scope fix, not by looking.
   · **A deck's row wears its COLLECTION's hue**, not the review's bronze (Aug 2026, on request): `rowHue` in
     `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
     Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
@@ -11475,9 +11525,10 @@ dead code (never rendered).
     after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
     `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
-  · `node .claude/test-deck-ux.js` — **34 assertions on four things asked for in Aug 2026, every one of
+  · `node .claude/test-deck-ux.js` — **49 assertions on six things asked for in Aug 2026, every one of
     which fails silently**: a card type's `<details>` remembering how it was left, the structure line's
-    typography, a community deck's colour, and the sheet's ×. Nothing in it reaches into app.js — the probe
+    typography, a community deck's colour, the sheet's ×, **the pinyin being set in a face that has the
+    third tone**, and **studying past the daily limit staying inside the subdeck**. Nothing in it reaches into app.js — the probe
     deck is imported through the Studio's own file picker, the card is read off a REAL study session, and
     the sheet is opened the way a mouse opens one — because **a debug surface added for a test is a debug
     surface every reader downloads**. Three things it is worth reading before adding to it. The disclosure
@@ -11495,9 +11546,28 @@ dead code (never rendered).
     `.pill.soon` for its own empty subdecks** (378 of them on that page), so excluding coming-soon rows on
     that class matches nothing: a coming-soon collection has no add button at all, which is the whole test.
     That one is the worth-remembering kind, because it made the parity check SKIP — and a skip written as a
-    pass is exactly the false confidence a suite is for, so a missing collection now fails. **Re-run after touching
+    pass is exactly the false confidence a suite is for, so a missing collection now fails.
+    **Its sections 6–8 were added a day later with three more reported bugs, and each is guarded by the
+    assertion the fix's own first attempt would have failed.** The PINYIN one is about the ORDER of the font
+    chain and not merely its contents — "names a covering face" passes on the broken append, because the
+    broken append does name one; what has to hold is that no GENERIC family stands in front of it, since a
+    generic matches every character and the browser never reaches the name after it. It is deliberately
+    network-free (this sandbox cannot reach Google Fonts, and a glyph measurement would pass or fail on
+    that), and section 7 re-asserts the same rule over the SHIPPED deck files, `deckcore.js` being the
+    source and every built file a copy. The STUDY-AHEAD one asserts the pile's size AND its order, because
+    either alone passes on the other's bug — and it asserts the walk really stepped, after a first cut
+    recorded the same card three times and had "each word's two cards side by side" agreeing with itself.
+    **Four more traps came out of writing those**, all of them ways to be told a card is not there when it
+    is: `study()` already reveals its first card, so a second reveal times out; a **new card graded Good
+    requeues** as a learning step, so the queue never empties and the placard never appears (grade Easy);
+    the study session **survives a reload** in sessionStorage, so seeding state and reloading lands back on
+    the previous section's card, revealed; and the grade bar **animates in**, so Playwright's actionability
+    check waits for an element that is still moving — click it through `evaluate`. Since the sections above
+    grade cards out of the same deck, section 8 clears `cards`/`deckDay`/`intro`/`buried` before it starts.
+    **Re-run after touching
     `ucRestoreDetails` / `ucDetailsKey` / `ucSetOpen` / the capture `toggle` listener / `cardTypeSideHTML` /
-    `deckSheet` / `.dm-x` / `isContainerEntry` / `containerHasChildren`, or `deckcore.js`'s `.uc-exst`.**
+    `deckSheet` / `.dm-x` / `isContainerEntry` / `containerHasChildren`, the cram branch in `PAGES.study`,
+    or `deckcore.js`'s `.uc-exst` / `PINYIN_FONT`.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
     own term (never part of what the meter counts); both filters are invisible until they are wrong. The

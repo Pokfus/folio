@@ -46,6 +46,9 @@ const TYPE_CSS = [
   ".uc-exst { margin-bottom: 4px; font-size: 9px; font-weight: 400; letter-spacing: 0.08em;",
   "  line-height: 1.45; text-transform: uppercase; color: var(--ink-faint, #6C6A63); }",
   ".uc-exst b { font-weight: 500; color: var(--zh, #C8453C); }",
+  /* the real rule from deckcore.js: a covering face FIRST, because appending after var(--serif) puts a
+     GENERIC in the middle of the list and the generic matches everything. */
+  ".uc-pinyin { font-family: 'EB Garamond', var(--serif, Georgia, serif); font-size: 21px; }",
 ].join("\n");
 
 const BACK =
@@ -63,16 +66,18 @@ const deck = {
     tags: [], glossMode: "site", version: 1,
     createdAt: Date.parse("2026-08-14"), updatedAt: Date.parse("2026-08-14"), forkedFrom: null,
     types: { vt: {
-      id: "vt", name: "Vocab", fields: ["Word", "English", "Example", "Notes"], css: TYPE_CSS,
+      id: "vt", name: "Vocab", fields: ["Word", "Pinyin", "English", "Example", "Notes"], css: TYPE_CSS,
       cards: [
-        { name: "Forward", front: '<div class="uc-simp">{{Word}}</div>', back: BACK },
+        { name: "Forward", front: '<div class="uc-simp">{{Word}}</div><div class="uc-pinyin">{{Pinyin}}</div>', back: BACK },
         { name: "Reverse", front: '<div class="uc-field">{{English}}</div>', back: BACK },
       ],
     } },
   },
   cards: Array.from({ length: 8 }, (_, i) => ({
     id: "u_uxprobe1_" + (i + 1), sub: i < 4 ? "Level 1" : "Level 2", type: "vt",
-    fields: { Word: "词" + (i + 1), English: "meaning " + (i + 1),
+    /* nǐ hǎo carries TWO of the ten characters Newsreader lacks — see deckcore.js. Both are third-tone
+       carons, which is the class the bug was reported on. */
+    fields: { Word: "词" + (i + 1), Pinyin: "nǐ hǎo " + (i + 1), English: "meaning " + (i + 1),
               Example: "sentence " + (i + 1), Notes: "note " + (i + 1) },
   })),
   gloss: {},
@@ -375,6 +380,199 @@ const deck = {
   }, DECK);
   ok(others.limits === true && others.custom === true && others.sched === true,
     "…and so does every sheet it opens onto, because deckSheet builds it", others);
+
+  /* ---- 6. THE PINYIN IS SET IN A FACE THAT HAS THE THIRD TONE ----------------------------------
+     Reported as "the letter ǒ appears larger than other pinyin letters". The card inherits the site's body
+     serif and Newsreader — the default — has NONE of the ten pinyin characters at issue (ǎǐǒǔ, ǖǘǚǜ, ǹḿ;
+     it does have ě, which is why one letter was named). Google Fonts declares its latin-ext face with a
+     unicode-range that COVERS them, so the browser picks that face, finds nothing, and falls back per
+     character to whatever last-resort font the operating system keeps.
+
+     THE ASSERTION IS ABOUT THE ORDER OF THE CHAIN, and that is not fussiness — it is the fix that was tried
+     first and did nothing. Appending a covering face after `var(--serif)` leaves a GENERIC family in the
+     middle of the list (`--serif` ends in `serif`), and a generic matches every character, so the browser
+     resolves the caron against the system default and never reaches the name after it. Measured on the
+     rendered card at the time: identical ink height before and after. So what has to hold is that a
+     covering face comes BEFORE any generic — which is a rule a screenshot cannot check and which no count
+     of anything would notice, since the text is all present either way.
+
+     It is deliberately network-free: this sandbox cannot reach Google Fonts, and a test that measured
+     glyphs would pass or fail on that rather than on the CSS. The four covering families were measured
+     once, in a browser, against every family the stylesheet imports — see deckcore.js. */
+  console.log("\n=== 6. the pinyin is set in a face that has the third tone");
+  {
+    const COVERING = ["EB Garamond", "Cormorant Garamond", "Inter", "Noto Sans SC"];
+    await study();
+    await pg.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await pg.waitForTimeout(500);
+    const pin = await pg.evaluate(() => {
+      const el = [...document.querySelectorAll(".uc-pinyin")].pop();
+      if (!el) return null;
+      return { text: el.textContent.trim(), ff: getComputedStyle(el).fontFamily };
+    });
+    ok(!!pin && /[\u01ce\u01d0\u01d2\u01d4\u01d6\u01d8\u01da\u01dc\u01f9\u1e3f]/u.test(pin.text),
+      "the card shows a reading with a third-tone caron in it", pin && pin.text);
+    const fams = (pin ? pin.ff : "").split(",").map((x) => x.trim().replace(/^["']|["']$/g, ""));
+    const iCover = fams.findIndex((f) => COVERING.indexOf(f) >= 0);
+    const iGeneric = fams.findIndex((f) => ["serif", "sans-serif", "monospace", "cursive", "fantasy", "system-ui"].indexOf(f) >= 0);
+    ok(iCover >= 0, "…in a chain naming a face that actually has those glyphs", fams.join(" | "));
+    /* the whole of the bug: a generic ahead of the covering face swallows the fallback */
+    ok(iCover >= 0 && (iGeneric < 0 || iCover < iGeneric),
+      "…and no generic family stands in front of it, which would swallow it", "cover@" + iCover + " generic@" + iGeneric);
+  }
+
+  /* ---- 7. …AND THE SHIPPED DECK FILES CARRY THE SAME RULE ---------------------------------------
+     deckcore.js is the source and every built deck file carries a COPY, so an edit there does not reach a
+     reader until the decks are rebuilt or patched. A fixture proves the rule; only the files prove that the
+     decks people actually study got it. */
+  console.log("\n=== 7. the shipped Mandarin decks carry it too");
+  {
+    const dir = path.join(ROOT, "decks");
+    const files = fs.readdirSync(dir).filter((f) => /Mandarin/.test(f));
+    ok(files.length > 0, "there are Mandarin decks to check", files.length);
+    for (const f of files) {
+      const types = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")).meta.types;
+      const css = types[Object.keys(types)[0]].css;
+      const runs = ["uc-pinyin", "uc-mwp", "uc-ptp"];
+      const bad = runs.filter((sel) => {
+        const i = css.indexOf("." + sel + " {");
+        if (i < 0) return true;
+        const rule = css.slice(i, css.indexOf("}", i));
+        const m = /font-family:\s*([^;]+)/.exec(rule);
+        if (!m) return true;
+        const list = m[1].split(",").map((x) => x.trim().replace(/^["']|["']$/g, ""));
+        const c = list.findIndex((x) => ["EB Garamond", "Cormorant Garamond", "Inter", "Noto Sans SC"].indexOf(x) >= 0);
+        const g = list.findIndex((x) => /^(serif|sans-serif|monospace)$/.test(x));
+        return c < 0 || (g >= 0 && g < c);
+      });
+      ok(bad.length === 0, f.replace(".folio-deck.json", "") + " sets every pinyin run in a covering face", bad.join(","));
+    }
+  }
+
+  /* ---- 8. STUDYING PAST THE DAILY LIMIT STAYS IN THE SUBDECK, AND KEEPS BOTH DIRECTIONS ---------
+     Reported as two things and it is one fault: "when I keep studying beyond the daily limit it stops
+     showing both directions and becomes one directional again", and "it shows in the top right how many
+     cards are remaining in that entire collection instead of that specific subdeck".
+
+     The ahead pile was built from `uDeckStudyIds(ud.cardIds)` — the WHOLE deck, and the raw expansion,
+     which is TEMPLATE-MAJOR. So it reached past the subdeck being studied (hence the count), and it
+     skipped `studyOrder`, which is what interleaves the subdecks and what pulls a note's two cards
+     together under "both directions together" (hence the one direction). Every other queue in the session
+     is `studyOrder(entry, entryCardIds(entry))`; this one was not.
+
+     BOTH HALVES ARE ASSERTED BECAUSE EITHER ALONE PASSES ON THE OTHER'S BUG: a pile of the right SIZE can
+     still be in the wrong order, and a correctly ordered pile can still be the whole deck's. Neither
+     throws, and the cards are all real cards, so nothing but the numbers says anything is wrong. */
+  console.log("\n=== 8. studying past the daily limit stays in the subdeck, both directions");
+  {
+    /* Level 1 is 4 notes × 2 templates = 8 cards, of 16 in the deck. A limit of 2 leaves 6 behind in the
+       subdeck and 14 in the deck — two numbers far enough apart that the count cannot pass by luck.
+       Seeded through localStorage and a REAL reload: a hash-only goto is a same-document navigation, so
+       the next save() would put the in-memory state straight back over it. */
+    const L1 = "u:" + DECK + "/" + encodeURIComponent("Level 1");
+    await pg.evaluate((entry) => {
+      const st = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      st.deckOpts = st.deckOpts || {};
+      st.deckOpts[entry] = Object.assign({}, st.deckOpts[entry], { newPerDay: 2, pairNew: true });
+      /* …and START FROM NOTHING STUDIED. The sections above graded cards out of this very deck, so the
+         day's allowance is already spent by the time this one runs and the session would open straight on
+         the placard with no card to grade. Clearing the schedule is what makes the two figures below mean
+         what they say. */
+      st.cards = {}; st.deckDay = {}; st.intro = {}; st.buried = {};
+      localStorage.setItem("folio_v1", JSON.stringify(st));
+      /* …and the SESSION with it. A study session survives a reload (folio_study_v1, sessionStorage), so
+         without this the reload lands back on section 6's card, already revealed, and there is no Reveal
+         button to press. */
+      try { sessionStorage.removeItem("folio_study_v1"); } catch (e) {}
+    }, L1);
+    await pg.reload({ waitUntil: "load" });
+    await pg.waitForTimeout(600);
+
+    await study();                                    // opens a session on Level 1
+    /* study() reveals its first card for section 1's sake, so the reveal is conditional here rather than
+       unconditional — the alternative is a helper that means two different things to two callers. */
+    for (let i = 0; i < 2; i++) {                     // spend the allowance
+      const rev = await pg.$("#reveal-btn");
+      if (rev) { await rev.click(); await pg.waitForTimeout(220); }
+      /* EASY, not Good: a new card graded Good goes to its ten-minute learning step and is requeued inside
+         the session, so the queue never empties and the placard never appears. Easy graduates it. */
+      await pg.click(".grade.easy");
+      await pg.waitForTimeout(450);
+    }
+    /* THE PLACARD IS REACHED THE WAY THE READER REACHES IT — "Keep studying" on the completion screen,
+       which is the phrase in the bug report. The cram branch runs when a session is BUILT with an empty
+       queue, not when one drains, so grading to the end gives "Session complete" and the button re-routes
+       into a fresh session that has nothing left to offer. */
+    await pg.click("#more");
+    await pg.waitForTimeout(700);
+    const placard = await pg.evaluate(() => {
+      const b = document.querySelector("#cram");
+      return { text: b ? b.textContent.trim() : null,
+               limit: (document.querySelector(".placard p") || {}).textContent || "" };
+    });
+    const offered = placard.text && +(/\d+/.exec(placard.text) || [0])[0];
+    ok(offered === 6, "the ahead pile is the SUBDECK's remaining, not the whole deck's", 
+      JSON.stringify({ offered: placard.text, want: "6 (deck-wide would be 14)" }));
+    /* the sentence quotes the allowance too, and it used to quote the GLOBAL default rather than the one
+       this entry is actually being held to */
+    ok(/\(2\/day\)/.test(placard.limit), "…and the placard quotes this entry's own limit, not the global default",
+      placard.limit.slice(0, 90));
+
+    await pg.click("#cram");
+    await pg.waitForTimeout(900);   // the pile is warmed first, behind the same loading line a session uses
+    const counts = await pg.evaluate(() => {
+      const n = document.querySelector(".cnt.new");
+      return n ? +n.textContent.trim() : null;
+    });
+    ok(counts === 6, "…and the top-right count follows it, because it counts the queue", String(counts));
+
+    /* Walk the pile. The forward template shows the word (词N), the reverse shows the gloss (meaning N),
+       so each card says both WHICH NOTE it is and WHICH DIRECTION — which is the whole of what is being
+       asserted. Level 1 is 词1..词4; anything above 4 came from Level 2. */
+    /* Each read WAITS FOR THE CARD TO CHANGE before the next. Grading and then reading on a timer looked
+       fine and was not: a grade click that did not land leaves the same card on screen, the walk records it
+       again, and "each word's two cards side by side" then passes on two reads of ONE card. Hence the
+       distinctness assertion below — a walk that has stopped stepping must fail, not agree with itself. */
+    const readCard = () => pg.evaluate(() => {
+      const c = [...document.querySelectorAll(".uc-card")].pop();
+      if (!c) return null;
+      const m = /(?:词|meaning )(\d+)/.exec(c.innerText || "");
+      return m ? { note: +m[1], dir: c.querySelector(".uc-simp") ? "f" : "r" } : null;
+    });
+    const seen = [];
+    for (let i = 0; i < 6; i++) {
+      const one = await readCard();
+      if (!one) break;
+      seen.push(one);
+      const key = one.note + one.dir;
+      /* clicked through evaluate, not pg.click: the grade bar animates in, and Playwright's actionability
+         check waits for an element that is still moving and times out */
+      await pg.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+      await pg.waitForTimeout(180);
+      const graded = await pg.evaluate(() => { const g = document.querySelector(".grade.easy"); if (!g) return false; g.click(); return true; });
+      if (!graded) break;
+      // …and wait for a DIFFERENT card, rather than for a fixed number of milliseconds
+      for (let w = 0; w < 25; w++) {
+        await pg.waitForTimeout(80);
+        const nxt = await readCard();
+        if (!nxt || nxt.note + nxt.dir !== key) break;
+      }
+    }
+    ok(seen.length === 6, "the ahead pile deals every card it offered", seen.length);
+    ok(seen.length > 0 && seen.every((x) => x.note >= 1 && x.note <= 4),
+      "…all of them from the subdeck being studied, none from its neighbour",
+      JSON.stringify(seen.map((x) => x.note + x.dir)));
+    /* "both directions together" is ON, so studyOrder pairs a note's two cards. Without studyOrder the
+       raw template-major expansion deals every forward card first — which is the reported symptom. */
+    const dirs = seen.map((x) => x.dir).join("");
+    ok(/r/.test(dirs.slice(0, 2)), "…and both directions arrive together rather than every forward first", dirs);
+    const keys = seen.map((x) => x.note + x.dir);
+    ok(new Set(keys).size === seen.length, "…each a different card, so the walk really stepped", keys.join(" "));
+    const paired = seen.length === 6 && seen[0].note === seen[1].note &&
+      seen[2].note === seen[3].note && seen[4].note === seen[5].note;
+    ok(paired, "…each word's two cards side by side, which is what the switch asks for",
+      JSON.stringify(seen.map((x) => x.note + x.dir)));
+  }
 
   console.log("\nconsole errors: " + errs.length + (errs.length ? " " + JSON.stringify(errs.slice(0, 3)) : ""));
   ok(errs.length === 0, "no console errors anywhere in the run", errs.slice(0, 3));
