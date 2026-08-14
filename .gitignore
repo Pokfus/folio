@@ -21,6 +21,14 @@ node_modules/
 # (into data.js / glossary.js) — this is only the working list of what was looked at.
 .claude/image-cache/
 
+# the working files behind .claude/gen-artefact-art.js: the cached Commons reference photos it
+# restyles from, the raw provider output, and the review contact sheet. The generated art in
+# art/artefacts/ IS committed, and so is artefact-art/manifest.json — that manifest is the record
+# of how each piece was made, without which no piece can be regenerated to match its neighbours.
+.claude/artefact-art/ref/
+.claude/artefact-art/raw/
+.claude/artefact-art/sheet.html
+
 # the four corpora .claude/dele/run.py builds the Spanish decks from (~1.2 GB, the
 # Wiktionary dump being most of it), plus the intermediate files between its stages.
 # The deck it writes IS committed — this is only the working cache behind it.
