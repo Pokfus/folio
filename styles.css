@@ -772,7 +772,11 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .tour-body p{margin:0 0 9px;}
 .tour-body p:last-child{margin-bottom:0;}
 .tour-body b{color:var(--ink); font-weight:600;}
-.tour-body b.tour-gold{color:var(--ochre);}
+/* The word naming a colour is PAINTED in that colour, so the step and the page agree. --newterm is what
+   an undiscovered glossary term wears (see .ttip[data-new]); it was --ochre until Aug 2026, when the
+   Library's note markers gave the teal up and the two roles were swapped, and this said "gold" for a
+   fortnight after the mark had stopped being gold. Read the token, never a remembered hue. */
+.tour-body b.tour-newterm{color:var(--newterm);}
 .tour-x{position:absolute; top:10px; right:11px; appearance:none; border:0; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); width:26px; height:26px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
 .tour-x:hover{background:var(--rule); color:var(--ink);}
 .tour-nav{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:3px;}
@@ -2328,6 +2332,10 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    is still allowed and takes the decision back (setNight turns the device switch off), so it must NOT be
    pointer-events:none — this is a state, not a disabled control. */
 .set-row.row-locked .info h3,.set-row.row-locked .info p{opacity:.62;}
+/* …and the same for a deck sheet's switch row whose value is DERIVED from the switch above it — burying,
+   while both directions arrive together. Same rule and same reason: dimmed, still pressable, and the
+   press says why (see deckPairNew). */
+.dm-item.dm-switch.row-locked .dm-switchmain{opacity:.62;}
 .switch.switch-locked{opacity:.62;}
 .switch.switch-locked:hover{opacity:.85;}
 
@@ -2404,10 +2412,22 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    reader edits a number. The guard is about the menu's PROSE; a box a reader types into is not prose. */
 .deck-menu input, .deck-menu textarea{-webkit-user-select:text; user-select:text;}
 .dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;}
+/* THE SHEET'S OWN × (Aug 2026, on request). STICKY and first in the DOM rather than absolute: `.ds-sheet`
+   scrolls its whole box, where an absolute × would scroll off the top, and first-in-DOM is what puts
+   "Close" early for a screen reader (deckSheet skips it when choosing the initial focus, so the ring still
+   lands on the sheet's first real control). `align-self:flex-end` puts it right; the negative bottom margin
+   cancels its own height so the head below is laid out as though it were not there, and `.dm-head`'s own
+   right padding is what keeps a long title and the studied count from running under it. */
+.dm-x{position:sticky; top:0; z-index:2; align-self:flex-end; margin:0 0 -30px 0; flex:none; width:30px; height:30px;
+  display:flex; align-items:center; justify-content:center; padding:0; appearance:none; cursor:pointer;
+  background:none; border:0; border-radius:50%; color:var(--ink-faint); transition:background .14s var(--ease), color .14s;}
+.dm-x svg{width:15px; height:15px;}
+.dm-x:hover{background:var(--paper-2); color:var(--ink);}
 /* Title on the left, how far through the deck the reader is on the right — on the SAME line, which is what
    `align-items:baseline` buys: the left-hand block is a column, and a column flex item aligns on its own
-   first line's baseline, so the figure sits on the title's baseline and not on the block's centre. */
-.dm-head{padding:12px 14px 10px; display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
+   first line's baseline, so the figure sits on the title's baseline and not on the block's centre.
+   The 38px on the right is the × above, which floats over this row. */
+.dm-head{padding:12px 38px 10px 14px; display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
 .dm-headmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
 .dm-title{font-family:var(--display); font-weight:600; font-size:calc(17px * var(--fs)); color:var(--ink); letter-spacing:-.01em;}
 .dm-studied{flex:none; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}

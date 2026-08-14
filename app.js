@@ -3924,6 +3924,10 @@
            walked upward: the nearest ancestor that has been given options governs, and the deck's own row
            is the last of them. Without the walk, options set on `A1` would be ignored by every card
            actually filed in `A1::Spanish → English`. */
+        // …and the card's own DIRECTION is narrower still, so it is asked first: a reader who set FSRS or
+        // a daily limit on "English → Chinese" meant it for that direction's cards
+        const tplHere = uSubEntry(note.deckId, note.sub || "") + SUB_TPL + uCardTplIndex(id);
+        if ((S.deckOpts || {})[tplHere]) return tplHere;
         for (let p = note.sub || ""; p; p = uSubParent(p)) {
           const e = uSubEntry(note.deckId, p);
           if ((S.deckOpts || {})[e]) return e;
@@ -4439,7 +4443,25 @@
     const leaf = cardLeaves(id)[0];
     return "n\u0000" + (leaf ? leaf.id : "");
   }
+  /* …and PAIRING regroups by NOTE afterwards, which is "both directions together" (see deckPairNew): the
+     template-major list interleaves a note's cards as far apart as it can, and this pulls them back
+     together so the day's allowance buys the day's WORDS each way rather than twice as many one way. It
+     runs after the round robin and composes with it — a Map iterates in first-appearance order, so the
+     order the robin chose survives and only each note's own cards move. */
+  function pairOrder(ids) {
+    const byNote = new Map();
+    ids.forEach((id) => {
+      const b = uCardBaseId(id);
+      let a = byNote.get(b);
+      if (!a) { a = []; byNote.set(b, a); }
+      a.push(id);
+    });
+    const out = [];
+    byNote.forEach((a) => a.forEach((id) => out.push(id)));
+    return out;
+  }
   function studyOrder(entryId, ids) {
+    const pair = deckPairNew(entryId);
     const groups = new Map();                       // group -> its cards, in the deck's own order
     ids.forEach((id) => {
       const g = studyGroupOf(id);
@@ -4447,7 +4469,7 @@
       if (!a) { a = []; groups.set(g, a); }
       a.push(id);
     });
-    if (groups.size < 2) return ids;                // one group: the round robin is the identity
+    if (groups.size < 2) return pair ? pairOrder(ids) : ids;   // one group: the round robin is the identity
     const lag = Math.max(1, deckLimits(entryId).newPerDay | 0);
     const keyed = [];
     let gi = 0;
@@ -4457,7 +4479,8 @@
       gi++;
     });
     keyed.sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]) || (a[2] - b[2]));
-    return keyed.map((k) => k[3]);
+    const ordered = keyed.map((k) => k[3]);
+    return pair ? pairOrder(ordered) : ordered;
   }
   function entryCardIds(id, _guard) {
     // the daily review answers for every added deck at once — see REVIEW_ENTRY
@@ -4472,8 +4495,11 @@
       if (!d) return null;
       const sub = uSubOf(e);
       /* …expanded from NOTES into CARDS, which is what puts a reverse card in the review: a note whose
-         type declares two templates is two cards with two schedules, and `cardIds` names the note. */
-      return uDeckStudyIdsFor(d.id, sub);
+         type declares two templates is two cards with two schedules, and `cardIds` names the note.
+         A DIRECTION entry takes one card per note instead of all of them, filtered off the SAME cached
+         expansion so the cache stays keyed by (deck, subdeck) and cannot go stale on a template. */
+      const tpl = uTplOf(e), all = uDeckStudyIdsFor(d.id, sub);
+      return tpl < 0 ? all : all.filter((id) => uCardTplIndex(id) === tpl);
     };
     // the common case, and the one nearly every reader is in: nothing has been dragged anywhere
     if (!Object.keys(deckNestMap()).length) {
@@ -4632,16 +4658,29 @@
          since that row would otherwise go on offering the very cards just removed while its + still read
          as added. The deck's OTHER subdecks are separate entries and stay — nothing else is lost. */
       const deckId = uDeckIdOf(id), sub = uSubOf(id);
+      /* A DIRECTION IS REMOVED ALONE, and it is the one place the ancestor rule below is turned off: it is
+         a VIEW of its level's cards rather than a share of them, so the level legitimately keeps offering
+         both ways and taking it away with the row is the opposite of what "hide this direction" means. */
+      if (uTplOf(id) >= 0) {
+        nestForget([id]);
+        S.active = activeEntryIds().filter((x) => x !== id);
+        save();
+        return;
+      }
       const drop = new Set([id]);
       if (deckId && UDECKS[deckId]) {
+        // …and every direction hanging off a row that is going, or it would be a row in the review with
+        // nothing above it, offering half the cards of a deck the reader has just removed
+        const withTpls = (e) => { drop.add(e); uTplEntriesOf(e).forEach((x) => drop.add(x)); };
+        withTpls(id);
         if (sub) {
           // the ancestors, for the reason above — every one of them offers the cards just removed — and
           // everything UNDER it, which is the mirror of the add
-          drop.add(uDeckEntry(deckId));
+          withTpls(uDeckEntry(deckId));
           uSubNodes(deckId).forEach((p) => {
-            if (uSubUnder(sub, p) || uSubUnder(p, sub)) drop.add(uSubEntry(deckId, p));
+            if (uSubUnder(sub, p) || uSubUnder(p, sub)) withTpls(uSubEntry(deckId, p));
           });
-        } else uSubNodes(deckId).forEach((sb) => drop.add(uSubEntry(deckId, sb)));
+        } else uSubNodes(deckId).forEach((sb) => withTpls(uSubEntry(deckId, sb)));
       }
       nestForget([...drop]);
       S.active = activeEntryIds().filter((x) => !drop.has(x));
@@ -4852,6 +4891,10 @@
          quiet miss the reverse-cards note warns about, and invisible until a deck was both at once. */
       // a NESTED subdeck names itself by its own last segment and takes the one above it for context, so
       // the sheet reads "Spanish → English / A1" rather than repeating the whole path twice over
+      // a DIRECTION is named by its template, over the level it splits; entryCardIds does the narrowing
+      if (uTplOf(id) >= 0) {
+        return { title: uTplName(id), parent: uSubName(sub) || ud.title, count: entryCardIds(id).length };
+      }
       return sub ? { title: uSubName(sub), parent: uSubName(uSubParent(sub)) || ud.title,
                      count: uDeckStudyIdsFor(ud.id, sub).length }
                  : { title: ud.title, parent: "Your decks", count: uDeckStudyIdsFor(ud.id, "").length };
@@ -5002,10 +5045,45 @@
      setting before they behave sensibly. It costs nothing on a deck whose notes make one card each, since
      `burySiblings` returns immediately when there are no siblings to bury. */
   function deckBurySiblings(id) {
+    // …and it is DERIVED off where the reader has asked for both directions together, since the two are
+    // opposite intents: pairing gathers the reverse and burying takes it straight out again, leaving a
+    // session half the size it promised. One switch decides, so the two cannot come to contradict.
+    if (deckPairNew(id)) return false;
     const o = (S.deckOpts && S.deckOpts[id]) || {};
     return o.burySiblings !== false;
   }
   function setDeckBurySiblings(id, on) { setDeckLimits(id, { burySiblings: !!on }); }
+  /* BOTH DIRECTIONS TOGETHER, per entry (Aug 2026, on request: "I want them interleaved"). Default OFF,
+     which is what `uDeckStudyIds` has always done: the expansion is TEMPLATE-MAJOR, every note's first
+     card before any note's second, so the day's new cards come off the front of that list and are all
+     forward — at five a day on a 150-word deck, thirty days before the first reverse. That is right for a
+     reader learning to RECOGNISE words and wrong for one who wants to PRODUCE them, and there was no
+     control for it. ON, the day's new cards are the day's new WORDS, each way.
+
+     IT IS A REORDER, NOT A SECOND EXPANSION, which is what keeps `uDeckStudyIdsFor`'s cache honest: the
+     template-major list is regrouped by NOTE in `studyOrder`, beside the subdeck round robin, so nothing
+     is keyed on a setting that can change under it. The two compose — the round robin decides which
+     subdeck a card comes from and this pulls each word's cards together within that.
+
+     IT INHERITS DOWN THE PATH, unlike the daily limits beside it. A limit is a fact about one row and must
+     not leak; this is a policy about how a deck's material is organised, so setting it on the deck governs
+     its levels — which is what a reader setting it on the deck plainly means, and the levels are what the
+     cascade actually adds. */
+  function deckPairNew(id) {
+    const deckId = uDeckIdOf(id);
+    if (!deckId) return false;                       // curated decks and groups have no templates to pair
+    const at = (e) => (S.deckOpts && S.deckOpts[e]) || {};
+    if (typeof at(id).pairNew === "boolean") return at(id).pairNew;
+    if (uTplOf(id) >= 0 && typeof at(uSubEntry(deckId, uSubOf(id))).pairNew === "boolean") {
+      return at(uSubEntry(deckId, uSubOf(id))).pairNew;
+    }
+    for (let p = uSubOf(id); p; p = uSubParent(p)) {
+      const v = at(uSubEntry(deckId, p)).pairNew;
+      if (typeof v === "boolean") return v;
+    }
+    return at(uDeckEntry(deckId)).pairNew === true;
+  }
+  function setDeckPairNew(id, on) { setDeckLimits(id, { pairNew: !!on }); }
   /* WHICH SCHEDULER, per entry — SM-2 or FSRS (Aug 2026, on request). Read by deckSchedCfg beside the
      scheduler itself; these two are the writers. `retention` is what a reader is asking FSRS for: the
      fraction of cards they want to still remember when each one comes back. */
@@ -5053,7 +5131,10 @@
   function scopeEntryId(scope) {
     if (!scope) return REVIEW_ENTRY;
     if (scope.type === "deck" || scope.type === "group") return scope.id;
-    if (scope.type === "udeck") return uSubEntry(scope.id, scope.sub || "");
+    if (scope.type === "udeck") {
+      const base = uSubEntry(scope.id, scope.sub || "");
+      return scope.tpl >= 0 ? base + SUB_TPL + scope.tpl : base;
+    }
     return REVIEW_ENTRY;
   }
   // today's per-deck scratch record: the Custom-study bump and the skip flag, both of which expire at
@@ -5218,16 +5299,26 @@
      [a-z0-9]{4,16} and so can never contain the slash, which is what makes the split unambiguous; the title
      is percent-encoded after it. Everything that only wants the DECK keeps calling uDeckIdOf and is
      unchanged — it strips the suffix — and only the handful of places that must narrow call uSubOf. */
+  /* `#` after the path names a CARD TEMPLATE — see uTplOf. It is declared here because uDeckIdOf reads it,
+     and it is safe as a RAW separator for the reason the `/` above is: `uSubEntry` percent-encodes the
+     whole path and encodeURIComponent escapes `#` to %23, so a subdeck titled "C#" cannot forge one. `~`
+     would NOT have done: it is in the unreserved set and travels through the encoder untouched. */
+  const SUB_TPL = "#";
   function uDeckIdOf(entryId) {
     if (typeof entryId !== "string" || entryId.slice(0, 2) !== "u:") return null;
-    const rest = entryId.slice(2), cut = rest.indexOf("/");
-    return cut < 0 ? rest : rest.slice(0, cut);
+    const rest = entryId.slice(2);
+    let cut = rest.length;
+    ["/", SUB_TPL].forEach((ch) => { const i = rest.indexOf(ch); if (i >= 0 && i < cut) cut = i; });
+    return rest.slice(0, cut);
   }
   function uSubOf(entryId) {
     if (typeof entryId !== "string" || entryId.slice(0, 2) !== "u:") return "";
     const cut = entryId.indexOf("/");
     if (cut < 0) return "";
-    try { return decodeURIComponent(entryId.slice(cut + 1)); } catch (e) { return entryId.slice(cut + 1); }
+    let raw = entryId.slice(cut + 1);
+    const hash = raw.indexOf(SUB_TPL);
+    if (hash >= 0) raw = raw.slice(0, hash);
+    try { return decodeURIComponent(raw); } catch (e) { return raw; }
   }
   function uDeckEntry(deckId) { return "u:" + deckId; }
   function uSubEntry(deckId, sub) { return sub ? "u:" + deckId + "/" + encodeURIComponent(sub) : "u:" + deckId; }
@@ -5304,6 +5395,75 @@
     const d = UDECKS[deckId];
     if (!d) return [];
     return (d.cardIds || []).filter((cid) => uSubUnder(((UCARDS[cid] && UCARDS[cid].sub) || ""), sub));
+  }
+  /* A DIRECTION IS A LEVEL BELOW THE SUBDECK (Aug 2026, on request: "add direction as a subdeck").
+     A word is ONE note with two cards, so a note cannot be in two subdecks at once and `sub` can never
+     name the direction — that is a fact about where `sub` lives, not a limitation to be argued with. What
+     CAN name it is the TEMPLATE, which is already what makes the two cards two cards, so a type's
+     templates become the last level of the tree: an entry may end `#<0-based template>` and deals only
+     that template's cards.
+
+     IT COSTS THE DECK FILE NOTHING, which is the whole argument for doing it here. The templates are in
+     the type already, named by their author, so every two-way deck ever written or installed gains its
+     direction rows on the next load with nothing rewritten, nothing republished and no card duplicated.
+     Writing the directions into the file as nested subdecks instead — which is what the DELE decks do —
+     means two notes per word, and a definition corrected on one of them silently drifts from the other.
+
+     A DIRECTION ROW IS DRAWN ONLY WHERE THE CARDS ACTUALLY ARE. A container that merely groups (the deck
+     above nine levels) gets its directions from its children, and a second pair over the whole deck would
+     offer the same cards again under a name that says nothing new. The test is structural rather than a
+     flag: a level earns the rows when every note it studies is filed DIRECTLY in it, which is also why a
+     flat two-way deck gets them straight under the deck row. A level whose notes use more than one type
+     gets none — there is no one set of directions to name. */
+  const uTplEntry = (deckId, sub, i) => uSubEntry(deckId, sub) + SUB_TPL + i;
+  function uTplOf(entryId) {
+    if (typeof entryId !== "string") return -1;
+    const i = entryId.indexOf(SUB_TPL);
+    if (i < 0) return -1;
+    const n = parseInt(entryId.slice(i + 1), 10);
+    return n >= 0 && n < UTYPE_MAX_CARDS ? n : -1;
+  }
+  function uEntryTemplates(deckId, sub) {
+    const d = UDECKS[deckId];
+    if (!d) return [];
+    const all = sub ? uDeckCardsIn(deckId, sub) : (d.cardIds || []);
+    if (!all.length) return [];
+    let type = null;
+    for (let i = 0; i < all.length; i++) {
+      const c = UCARDS[all[i]];
+      // filed under a CHILD rather than here → this level only groups, so it splits into nothing
+      if (!c || (c.sub || "") !== sub) return [];
+      if (type === null) type = c.type || "";
+      else if ((c.type || "") !== type) return [];   // a mixed level has no one set of directions
+    }
+    const t = type && d.types ? d.types[type] : null;
+    const list = t ? typeCards(t).slice(0, UTYPE_MAX_CARDS) : [];
+    return list.length > 1 ? list : [];
+  }
+  function uTplEntriesOf(entryId) {
+    const deckId = uDeckIdOf(entryId);
+    if (!deckId || !UDECKS[deckId] || uTplOf(entryId) >= 0) return [];
+    const sub = uSubOf(entryId);
+    return uEntryTemplates(deckId, sub).map((c, i) => uTplEntry(deckId, sub, i));
+  }
+  /* The one thing that can retire a direction ROW without the reader touching it: editing the type out
+     from under it in the Studio. An entry pointing at a template that no longer exists is a row in the
+     review named "Card 3" offering nothing, so removing a template or deleting a type sweeps them. Exact
+     rather than by deck id, since a deck may carry more than one type. */
+  function uPruneTplEntries(deckId) {
+    const a = Array.isArray(S.active) ? S.active : [];
+    const keep = a.filter((x) => {
+      if (uDeckIdOf(x) !== deckId) return true;
+      const tpl = uTplOf(x);
+      return tpl < 0 || tpl < uEntryTemplates(deckId, uSubOf(x)).length;
+    });
+    if (keep.length !== a.length) { S.active = keep; save(); }
+  }
+  function uTplName(entryId) {
+    const tpl = uTplOf(entryId);
+    if (tpl < 0) return "";
+    const list = uEntryTemplates(uDeckIdOf(entryId), uSubOf(entryId));
+    return (list[tpl] && list[tpl].name) || "Card " + (tpl + 1);
   }
   function uDeckOfCard(id) { const c = UCARDS[id]; return c && c.deckId ? UDECKS[c.deckId] || null : null; }
   function uDeckList() {
@@ -6387,6 +6547,7 @@
       }
     });
     uDeckSave(deckId);
+    uPruneTplEntries(deckId);   // a direction row for a template that no longer exists offers nothing
     save();
   }
   // the field list, written as one comma-separated line. A field dropped here leaves the values behind on
@@ -6410,6 +6571,7 @@
     const touched = [];
     uDeckCards(d).forEach((c) => { if (c.type === typeId) { delete c.type; delete c.fields; touched.push(c.id); } });
     uDeckSave(deckId, touched);
+    uPruneTplEntries(deckId);   // its notes are Basic again, so they split into no directions
   }
   function uCardSetType(cardId, typeId) {
     const c = UCARDS[cardId];
@@ -6833,6 +6995,14 @@
       if (Array.isArray(c.questions) && c.questions.length) data.questions = c.questions;   // the extra phrasings travel with the card
       if (Array.isArray(c.sources) && c.sources.length) data.sources = c.sources;           // and so do its citations
       if (c.sub) data.sub = c.sub;   // and the subdeck it sits in — no column needed, it is part of the card
+      /* AND WHAT MAKES A TYPED CARD A CARD AT ALL (Aug 2026, on a bug found by testing the round trip).
+         A typed card carries `type` + `fields` INSTEAD of the Basic thirteen, so a payload built from
+         CARD_FIELDS alone uploads twelve empty strings and nothing else: the TEMPLATES travelled (they are
+         on the deck row) and the CONTENT did not, so an installed copy was the right number of blank cards
+         under the right subdecks, with no direction rows, and the author's own copy was perfect throughout.
+         That is the worst shape a bug here can take — only somebody ELSE ever sees it — and it went unseen
+         because `test-publish.js` had only ever published a Basic deck. It publishes a typed one now. */
+      if (c.type) { data.type = c.type; data.fields = c.fields || {}; }
       if (c.image && c.image.src) data.image = c.image;
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
@@ -11723,7 +11893,24 @@
     closeDeckMenu();
     const ov = document.createElement("div");
     ov.className = "deck-menu";
-    ov.innerHTML = '<div class="dm-box" role="dialog" aria-modal="true" aria-label="' + esc(labelText) + '">' + innerHTML + "</div>";
+    /* A × IN THE TOP RIGHT (Aug 2026, on request). Escape and a backdrop tap already closed the sheet and
+       neither says so: Escape is a key a phone has not got, and "tap outside" is a convention a reader has
+       to already know. It is built HERE rather than by each caller so every sheet has one — the options
+       menu, Custom study, Daily limits, Scheduling, Card info, the flag picker — which is also what stops
+       a later sheet shipping without it.
+       FIRST in the DOM and `position:sticky` rather than absolute: sticky keeps it in the corner of the one
+       sheet whose whole box scrolls (`.ds-sheet`), where an absolute × would scroll off the top, and being
+       first means a screen reader meets "Close" on the way in rather than after forty rows of card history.
+       Its own height is cancelled with a negative margin so it costs the head no room, and `.dm-head` gains
+       the padding that keeps a long title from running under it — which is why A SHEET'S FIRST BLOCK SHOULD
+       BE A `.dm-head`. All eleven callers open with one today; one that did not would have the × sitting
+       over its first row, and the fix is to give that sheet a head rather than to widen the rule (a
+       `.dm-x + *` selector loses to `.dm-item`'s own padding shorthand further down the stylesheet). */
+    ov.innerHTML = '<div class="dm-box" role="dialog" aria-modal="true" aria-label="' + esc(labelText) + '">' +
+      '<button type="button" class="dm-x" aria-label="Close" title="Close">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">' +
+        '<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
+      innerHTML + "</div>";
     document.body.appendChild(ov);
     /* It leaves the way it arrived (Aug 2026, on request). The sheet had an entrance and no exit, so
        dismissing it cut it away on the frame of the click — the one abrupt half of a control that is
@@ -11740,14 +11927,20 @@
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
     ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
+    ov.querySelector(".dm-x").addEventListener("click", close);
     _deckMenuClose = close;
     wire(ov, close);
     /* The first control, unless the sheet has nominated one with `data-dmfocus`. A sheet whose rows are a
        CHOICE wants the focus on the current value: without this the Scheduling sheet, which rebuilds itself
        when the choice changes, showed a focus ring on the row just clicked — the one NOT chosen — beside a
        tick on the one that was, and left the reader to work out which of the two meant anything. Nominating
-       it here rather than in the sheet's own wire() is what avoids racing this very timer. */
-    setTimeout(() => { const f = ov.querySelector("[data-dmfocus]") || ov.querySelector("button, input"); if (f) f.focus(); }, 0);
+       it here rather than in the sheet's own wire() is what avoids racing this very timer.
+       The × is skipped: it is first in the DOM for the reason above, and opening every sheet with the focus
+       on Close would put the ring on the way OUT of a sheet the reader has just asked for. */
+    setTimeout(() => {
+      const f = ov.querySelector("[data-dmfocus]") || ov.querySelector("button:not(.dm-x), input");
+      if (f) f.focus();
+    }, 0);
     return ov;
   }
   /* HOLD to open an options sheet — used by the daily review's deck rows and by the review banner above
@@ -11827,13 +12020,35 @@
     if (!Number.isFinite(d)) return DAY_HUES[0];
     return DAY_HUES[(Math.floor(d / DAY) % DAY_HUES.length + DAY_HUES.length) % DAY_HUES.length];
   }
-  // a row that can hold other rows: a group the reader made, an added collection, or anything they have
-  // already dragged something into. Only these are offered a colour, since the colour is inherited downward.
+  /* A row that may be given a colour of its own. It is the row a colour is INHERITED FROM — the walk in
+     `emit` passes one down and a row only computes its own when nothing above it has — so the question is
+     "is this the top of something", not "does it hold cards".
+     · a group the reader made, and an added COLLECTION, which is the curated top;
+     · anything they have already dragged something into;
+     · and, since Aug 2026 on request, ONE OF THE READER'S OWN DECKS — an imported or installed deck's
+       whole-deck row. That is the exact counterpart of a collection: a curated deck sitting inside a
+       collection is not offered a colour either, and a community deck's SUBDECKS are that same level down.
+       Nothing else had to change for it — `emit` and `repaintReviewHues` both already read `groupColor(id)`
+       for any row whatever, and `S.deckGroups` is keyed by entry id rather than by group — so a community
+       deck was colourable in every respect except being asked. */
   function isContainerEntry(id) {
     if (isGroupId(id)) return true;
     const n = NODE_BY_ID[id];
     if (n && !n.parentId) return true;
-    return nestChildren(id).length > 0;
+    if (nestChildren(id).length > 0) return true;
+    const deckId = uDeckIdOf(id);
+    return !!(deckId && UDECKS[deckId] && !uSubOf(id) && uTplOf(id) < 0);
+  }
+  // …and whether anything is drawn UNDER it, which is the only thing the colour row's own note turns on:
+  // "every deck inside" is a promise a leaf deck cannot keep.
+  function containerHasChildren(id) {
+    if (nestChildren(id).length) return true;
+    if (isGroupId(id)) return false;
+    const n = NODE_BY_ID[id];
+    if (n) return nodeChildren(n).length > 0;
+    const deckId = uDeckIdOf(id);
+    if (!deckId || !UDECKS[deckId]) return false;
+    return uSubChildren(deckId, "").length > 0 || uTplEntriesOf(id).length > 0;
   }
   /* `promptNewGroup` stood here and is GONE (Aug 2026, on request: "remove the group function from the
      daily study/active decks banner"). With it goes the "+ New group" control from the home page's deck
@@ -11859,10 +12074,16 @@
        tick: two rows for one bit of state, and on a phone that is a third of the sheet spent saying a
        thing a switch says in one line. The LABEL under the title is what the switch is currently doing,
        so the row reads as a sentence whichever way the switch is thrown. */
-    const swRow = (act, label, noteOn, noteOff, on) =>
-      '<div class="dm-item dm-switch" data-act="' + act + '">' +
+    /* `locked` dims a row whose value is DERIVED from another switch rather than stored — burying, while
+       both directions arrive together. Dimmed and left in place rather than removed, the pattern the
+       Night-mode row uses under "Match my device": a reader needs to see that the site knows the setting
+       is off, and a row that vanishes and comes back reads as a page that failed to draw. Never
+       pointer-events:none — a press has to be able to say why. */
+    const swRow = (act, label, noteOn, noteOff, on, locked) =>
+      '<div class="dm-item dm-switch' + (locked ? " row-locked" : "") + '" data-act="' + act + '">' +
         '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(on ? noteOn : noteOff) + "</small></div>" +
-        '<div class="switch' + (on ? " on" : "") + '" role="switch" tabindex="0" aria-label="' + esc(label) +
+        '<div class="switch' + (on ? " on" : "") + (locked ? " switch-locked" : "") +
+          '" role="switch" tabindex="0" aria-label="' + esc(label) +
           '" aria-checked="' + (on ? "true" : "false") + '"></div>' +
       "</div>";
     const random = deckRandom(id);
@@ -11890,7 +12111,8 @@
               '<button type="button" class="dm-swatch' + (groupColor(id).toLowerCase() === c.toLowerCase() ? " on" : "") +
               '" data-color="' + esc(c) + '" style="--sw:' + esc(c) + '" aria-label="Colour ' + esc(c) + '" title="' + esc(c) + '"></button>').join("") +
           "</div>" +
-          "<small>Every deck inside takes this colour</small></div>"
+          "<small>" + (containerHasChildren(id) ? "Every deck inside takes this colour"
+                                                : "This row takes this colour") + "</small></div>"
       : "";
     const html =
       '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(info.title) + "</span>" +
@@ -11907,9 +12129,14 @@
         "Press the speaker on a card to hear it", autoSpeak) : "") +
       // only where something in this entry can HAVE siblings — a curated card is one card, and a switch that
       // cannot change anything is the thing the read-aloud row's own note warns against
+      (entryHasSiblings(id) ? swRow("pair", "Both directions together",
+        "The day's new words arrive both ways, shuffled",
+        "Each direction is introduced in its own pass, forward first", deckPairNew(id)) : "") +
       (entryHasSiblings(id) ? swRow("bury", "Bury siblings",
-        "A note's other cards wait until tomorrow",
-        "Every card of a note can come up the same day", deckBurySiblings(id)) : "") +
+        deckPairNew(id) ? "Off while both directions arrive together"
+                        : "A note's other cards wait until tomorrow",
+        "Every card of a note can come up the same day", deckBurySiblings(id),
+        deckPairNew(id)) : "") +
       /* THE EVERYDAY WAY INTO THE BROWSER. The account page has the other one, at the head of the reader's
          record where the rest of their statistics live — but the moment somebody wants to find a card is
          usually the moment they are looking at their decks, and this sheet is one press from any of them.
@@ -11949,13 +12176,40 @@
          change what a SESSION deals out, not what the home page shows — so there is nothing to repaint.
          The row's own note is rewritten instead, and it says what the switch is now doing rather than
          what it could be changed to, so the sheet reads as a sentence in both positions. */
+      /* The bury row's value is DERIVED while pairing is on, so throwing pairing has to re-state it here —
+         the sheet must not repaint (render() closes it), and a row still reading "waits until tomorrow"
+         beside a value the switch above has just turned off is two controls disagreeing on one screen. */
+      const buryRow = ov.querySelector('.dm-switch[data-act="bury"]');
+      const syncBury = () => {
+        if (!buryRow) return;
+        const locked = deckPairNew(id), on = deckBurySiblings(id);
+        const bsw = buryRow.querySelector(".switch"), bnote = buryRow.querySelector("small");
+        buryRow.classList.toggle("row-locked", locked);
+        bsw.classList.toggle("switch-locked", locked);
+        bsw.classList.toggle("on", on);
+        bsw.setAttribute("aria-checked", on ? "true" : "false");
+        bnote.textContent = locked ? "Off while both directions arrive together"
+          : on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
+      };
       ov.querySelectorAll(".dm-switch").forEach((rowEl) => {
         const sw = rowEl.querySelector(".switch"), note = rowEl.querySelector("small");
         const flip = () => {
+          // a derived row says why rather than doing nothing, which from the outside is what a dimmed
+          // control that swallows a press looks like
+          if (rowEl.dataset.act === "bury" && deckPairNew(id)) {
+            toast("Siblings are not buried while both directions arrive together.");
+            return;
+          }
           const on = !sw.classList.contains("on");
           sw.classList.toggle("on", on);
           sw.setAttribute("aria-checked", on ? "true" : "false");
-          if (rowEl.dataset.act === "order") {
+          if (rowEl.dataset.act === "pair") {
+            setDeckPairNew(id, on);
+            note.textContent = on ? "The day's new words arrive both ways, shuffled"
+                                  : "Each direction is introduced in its own pass, forward first";
+            syncBury();
+            toast(on ? "Both directions together" : "One direction at a time");
+          } else if (rowEl.dataset.act === "order") {
             setDeckRandom(id, on);
             note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
             toast(on ? "Review order: random" : "Review order: ordered");
@@ -12908,10 +13162,14 @@
     {
       route: "home",
       title: "Your daily study",
-      body: "This banner is the day's work. The three numbers under it are the three kinds of card waiting: " +
-        "<b>New</b> ones you have never seen, <b>Learning</b> ones you are still getting wrong, and " +
-        "<b>Review</b> ones that have come round again.<p>Press it and Folio deals them in order. When the " +
-        "three reach zero the day is done — there is no benefit in pushing on.</p>",
+      /* This step is read by someone who has never graded a card, so the banner in front of them is the
+         first-run hero and carries NO pile counts — it says "Start here" and nothing else. Describing the
+         three numbers in the present tense pointed at a banner that has not got them; they arrive with the
+         first deck, which is the very next step, so the sentence waits for them. */
+      body: "This banner is the day's work. Once you have added a deck it carries three numbers, one for each " +
+        "kind of card waiting: <b>New</b> ones you have never seen, <b>Learning</b> ones you are still " +
+        "getting wrong, and <b>Review</b> ones that have come round again.<p>Press it and Folio deals them " +
+        "in order. When the three reach zero the day is done — there is no benefit in pushing on.</p>",
       target: ["#b-review"],
     },
     {
@@ -12940,19 +13198,24 @@
       body: "Each added deck gets a row under the banner, with its own bar and its own share of the day. Tapping " +
         "a row studies that deck alone.<p><b>Hold a row</b> — or right-click it — for its own options: extra " +
         "cards today, daily limits of its own, sitting the day out, or removing it again. Holding the banner " +
-        "itself does the same for the whole review.</p>",
+        "itself offers much the same for the whole review, bar the removing — there is nothing to take it out " +
+        "of.</p>",
       target: [".active-decks", "#b-review"],
     },
     {
       route: "home",
       title: "Studying a card",
+      /* The button says "Reveal answer" and the undiscovered-term mark is TEAL — both were written from a
+         version of the page that no longer exists (the button was "Show answer"; the mark wore --ochre until
+         the swap of Aug 2026). A walkthrough naming a control by a label the page has not got is worse than
+         one that names no control at all, so the demo below carries the real words too. */
       body: "A card asks for one missing name, date or term. Answer it in your head, or type into the blank, " +
-        "then press <b>Show answer</b> — the space bar does the same.<p>Behind the answer sits a page of " +
-        "background and the sources it rests on. Terms in <b class=\"tour-gold\">gold</b> are glossary entries " +
-        "you have not opened yet; a tap defines them.</p>",
+        "then press <b>Reveal answer</b> — the space bar does the same.<p>Behind the answer sits a page of " +
+        "background and the sources it rests on. Terms in <b class=\"tour-newterm\">teal</b> are glossary " +
+        "entries you have not opened yet; a tap defines them.</p>",
       demo: '<div class="td-card" aria-hidden="true">' +
         '<div class="td-q">Carthage was destroyed at the end of the <span class="td-blank"></span> Punic War, in 146 BCE.</div>' +
-        '<div class="td-btn">Show answer</div></div>',
+        '<div class="td-btn">Reveal answer</div></div>',
     },
     {
       route: "home",
@@ -13296,7 +13559,7 @@
   let _bookHelpShown = false;
   const BOOK_HELP_TIPS = [
     "<b>Moving about</b> — the chapters run along the bar at the top, with <b>Contents</b> for the whole list; ‹ › and the arrow keys step through them, and on a phone a sideways swipe does the same. Your place is kept as you read.",
-    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. The translator's own notes fold out under each chapter.",
+    "<b>The original beside the translation</b> — where a book has one, a wide screen sets the two languages side by side and a narrow one shows one at a time; a double tap turns the page over. Where the edition carries notes, the translator's own stand open under the chapter.",
     "<b>Mark up the page</b> — the same floating marker as a study card's draws over a book, and here the strokes are kept. Select a passage and right-click it to highlight the words themselves, copy them, or have them read aloud.",
   ];
   function openBookHelp() {
@@ -16604,26 +16867,32 @@
            saying nothing about what contains what — which is exactly what the one-level version was
            reported as one store up. A node whose own row is not added is skipped and its children rise to
            the level above, so the list stays what the reader chose. */
-        const subKids = (ud && !sub)
-          ? uSubChildren(ud.id, "").map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
-          : (ud && sub)
+        const tplHere = ud ? uTplOf(id) : -1;
+        const subKids = (ud && tplHere < 0)
           ? uSubChildren(ud.id, sub).map((sb) => uSubEntry(ud.id, sb)).filter((e) => activeSet.has(e) && !nestParentOf(e))
           : [];
-        const kids = subKids.concat(kidsOf(id));
+        // …and a level's own DIRECTIONS are children of it too, drawn under it exactly as its subdecks are
+        const tplKids = (ud && tplHere < 0)
+          ? uTplEntriesOf(id).filter((e) => activeSet.has(e) && !nestParentOf(e)) : [];
+        const kids = subKids.concat(tplKids, kidsOf(id));
         /* …and the context line goes when the row is drawn UNDER its own deck, because then the deck IS
            the row above it. It is worth the extra condition: at 390px the name is the only part of the row
            with no shorter form, so a repeated "HSK 3.0 — Mandarin Chinese" beside it crushes "Level 1" to
            "Lev…" — every subdeck reading the same three letters under the deck that names them. It stays
            where a subdeck is added on its own and stands at the top level, which is what it was for. */
-        const ownParent = sub && ud
-          ? uSubEntry(ud.id, uSubParent(sub))     // the deck's entry when the path has one segment
+        const ownParent = ud
+          ? (tplHere >= 0 ? uSubEntry(ud.id, sub)   // a direction's container is the level it splits
+             : sub ? uSubEntry(ud.id, uSubParent(sub)) : null)   // the deck's entry when the path has one segment
           : null;
-        const underOwnDeck = !!(sub && ud && parentKey === ownParent);
+        const underOwnDeck = !!(ud && ownParent && parentKey === ownParent);
+        // a DIRECTION is named by its template, over the level it splits
+        const ctx = tplHere >= 0 ? (uSubName(sub) || ud.title)
+          : sub ? (uSubName(uSubParent(sub)) || ud.title) : "";
         rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
-                    title: ud ? (uSubName(sub) || ud.title) : COTD_TITLE,
+                    title: ud ? (uTplName(id) || uSubName(sub) || ud.title) : COTD_TITLE,
                     // the context line names what CONTAINS the row, which for a nested path is the
                     // subdeck above it rather than the deck at the top of it
-                    sup: (sub && !underOwnDeck) ? (uSubName(uSubParent(sub)) || ud.title) : "",
+                    sup: (ctx && !underOwnDeck) ? ctx : "",
                     hue: h, kids });
         orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
       };
@@ -17133,7 +17402,7 @@
             // collection drawn as a group header is still a tree node and still studies as one.
             : isGroupId(id) ? { type: "group", id }
             // …and a subdeck of one of the reader's own decks studies just that subdeck
-            : ud ? { type: "udeck", id: ud, sub: uSubOf(id) } : { type: "deck", id },
+            : ud ? { type: "udeck", id: ud, sub: uSubOf(id), tpl: uTplOf(id) } : { type: "deck", id },
         });
       });
     });
@@ -17585,22 +17854,20 @@
      out of this list rather than given an "Other" row: on a fully-grouped deck there are none, and on a
      partly-grouped one the parent row already studies the whole deck. */
   function udeckSubRowsHTML(d) {
-    if (!uDeckSubs(d.id).length) return "";
-    /* Nested, since a subdeck may hold subdecks: each row draws its own children under it, indented by
-       its depth in the path. The indent is a style rather than a nested container so a child's row is the
-       same 46px box as its parent's — the curated tree's own arrangement one store over. */
-    const row = (sub, depth) => {
-      // the CARDS of the subdeck's notes, not the notes — a two-way note is two cards to study, and this
-      // row sits directly under a deck row that has always counted them expanded
-      const ids = uDeckStudyIdsFor(d.id, sub), n = ids.length;
-      const entry = uSubEntry(d.id, sub), on = isActive(entry);
+    /* A row per CARD TEMPLATE under whichever levels hold their cards directly — see uEntryTemplates. The
+       deck's own come first and only where it has no subdecks to hang them off, since a container's
+       directions belong beside its cards. */
+    const tplRows = (sub, depth) => uEntryTemplates(d.id, sub).map((c, i) =>
+      rowFor(uTplEntry(d.id, sub, i), c.name, depth, sub, i)).join("");
+    const rowFor = (entry, name, depth, sub, tpl) => {
+      const ids = entryCardIds(entry), n = ids.length, on = isActive(entry);
       const studied = ids.filter(isSeen).length;
       return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
-        '" data-usubname="' + esc(sub) + '" data-depth="' + depth + '"' +
+        '" data-usubname="' + esc(sub) + '" data-usubtpl="' + tpl + '" data-depth="' + depth + '"' +
         (depth ? ' style="--sd:' + depth + '"' : "") + '>' +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
-            '<span class="deck-title">' + esc(uSubName(sub)) + '</span>' +
+            '<span class="deck-title">' + esc(name) + '</span>' +
             '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
           '</div>' +
           deckProgMarkup(studied, n) +
@@ -17609,8 +17876,21 @@
           '<button class="collection-add' + (on ? " added" : "") + '" data-uaddsub="' + esc(entry) +
             '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + '</button>' +
         '</div>' +
-      '</div>' + uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
+      '</div>';
     };
+    if (!uDeckSubs(d.id).length) {
+      const own = tplRows("", 0);
+      return own ? '<div class="udeck-subs">' + own + '</div>' : "";
+    }
+    /* Nested, since a subdeck may hold subdecks: each row draws its own children under it, indented by
+       its depth in the path. The indent is a style rather than a nested container so a child's row is the
+       same 46px box as its parent's — the curated tree's own arrangement one store over. */
+    // the CARDS of the subdeck's notes, not the notes — a two-way note is two cards to study, and this
+    // row sits directly under a deck row that has always counted them expanded
+    const row = (sub, depth) =>
+      rowFor(uSubEntry(d.id, sub), uSubName(sub), depth, sub, -1) +
+      tplRows(sub, depth + 1) +
+      uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
     return '<div class="udeck-subs">' + uSubChildren(d.id, "").map((s) => row(s, 0)).join("") + '</div>';
   }
   function communityLibraryHTML() {
@@ -17646,7 +17926,8 @@
         if (e && e.target.closest && e.target.closest(".collection-actions")) return;   // the + is its own control
         const d = UDECKS[rowEl.dataset.usub];
         if (!d) return;
-        route("study", { scope: { type: "udeck", id: d.id, sub: rowEl.dataset.usubname } });
+        route("study", { scope: { type: "udeck", id: d.id, sub: rowEl.dataset.usubname,
+                                  tpl: parseInt(rowEl.dataset.usubtpl, 10) } });
       };
       rowEl.addEventListener("click", go);
       rowEl.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); } });
@@ -18057,22 +18338,30 @@
       const d = UDECKS[scope.id];
       if (!d) return null;
       const sub = scope.sub || "";
-      // the deck's notes expanded into their cards (a reverse card is its own card here), template-major
-      const ids = studyOrder(uSubEntry(d.id, sub),
-        uDeckStudyIds(sub ? uDeckCardsIn(d.id, sub) : (d.cardIds || [])).filter((id) => !isSuspended(id) && !isBuried(id)));
       // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
       // own row still has whatever share of its new cards the pooled daily review did not take.
-      const ue = uSubEntry(d.id, sub);
+      const ue = scopeEntryId(scope);
+      // the deck's notes expanded into their cards (a reverse card is its own card here), template-major —
+      // or one card per note where the row studied is a DIRECTION rather than a level; entryCardIds narrows
+      const ids = studyOrder(ue, entryCardIds(ue).filter((id) => !isSuspended(id) && !isBuried(id)));
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(ue));
       const unseen = ids.filter((id) => !isSeen(id));
-      queue = [...due, ...unseen.slice(0, Math.max(deckNewRemaining(ue), 0))];
+      /* The new run is sliced FIRST and shuffled after, so pairing decides which words arrive and the
+         shuffle only the order they arrive in — shuffling first would make the day's cards a random
+         handful of the whole deck. Note-major unshuffled deals 杯子 → cup and then cup → 杯子 adjacently,
+         which is what template-major exists to prevent, so a reader asking for both directions together
+         can never mean them side by side. The pooled review seeded-shuffles its own pool across decks
+         already, so this is the one place that has to do it. */
+      const freshU = unseen.slice(0, Math.max(deckNewRemaining(ue), 0));
+      if (deckPairNew(ue)) shuffle(freshU);
+      queue = [...due, ...freshU];
       // the deck's own Random-order switch (hold its row in the review). The PILES are chosen first and
       // shuffled after, so a random session still deals the same cards a chrono one would — the setting
       // decides presentation order and never which cards the day's allowances let through.
       if (deckRandom(ue)) shuffle(queue);
       queue._ud = d;
       queue._unseen = unseen;
-      where = sub ? d.title + " · " + sub : d.title;
+      where = [d.title, sub, uTplName(ue)].filter(Boolean).join(" · ");
       total = queue.length;
     } else {
       const sd = NODE_BY_ID[scope.id];
@@ -21215,15 +21504,37 @@
     }
 
     if (queue.length === 0) {
-      // nothing due / no new left — offer to cram remaining unseen, or report all caught up
-      const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => availStudy.has(id) && !isSeen(id) && !isSuspended(id))
-        : ud ? uDeckStudyIds(ud.cardIds || []).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
+      /* Nothing due and no new allowance left — offer to study ahead, or report all caught up.
+
+         THE AHEAD PILE IS THE ENTRY'S, NOT THE WHOLE DECK'S, AND IT IS ORDERED (Aug 2026, on a bug
+         report: "when I keep studying beyond the daily limit it becomes one directional again, and the
+         top right shows how many cards are remaining in that entire collection"). Both symptoms are one
+         fault. This asked `subtreeCardIds(sd)` / `uDeckStudyIds(ud.cardIds)` — the whole tree and the
+         whole deck — where every other queue in the session is built from `entryCardIds(entry)`, which
+         narrows to the subdeck or the direction actually being studied and honours a branch dragged into
+         a group. And it skipped `studyOrder`, which is what interleaves the subdecks and what pulls a
+         note's two cards together under "both directions together"; the raw expansion is TEMPLATE-MAJOR,
+         so an ahead pile built from it is every forward card before any reverse — the deck's whole
+         forward run before the first reverse arrives.
+
+         It is a queue like any other, so it takes the same filters as `buildSession`'s two branches:
+         `availStudy` (a coming-soon collection's cards are set aside even here) and `isBuried` (a card
+         whose sibling was answered today is held back until tomorrow, and cramming is not a way round
+         that). The count in the top-right is `remainingCounts()` over the queue, so narrowing the pile
+         is what fixes the figure too — there was never a second bug there. */
+      const cramEntry = scopeEntryId(params.scope);
+      const remainingUnseen = (sd || ud)
+        ? studyOrder(cramEntry, entryCardIds(cramEntry).filter((id) =>
+            availStudy.has(id) && !isSeen(id) && !isSuspended(id) && !isBuried(id)))
+        : [];
       if ((sd || ud) && remainingUnseen.length) {
         root.innerHTML = emptyPlacard(
           "Daily limit reached",
           "✓",
+          // this entry's own allowance, not the global default — a deck given limits of its own would
+          // otherwise be told a figure it does not use
           "You've hit today's new-card limit for this deck (" +
-            S.settings.newPerDay +
+            deckLimits(cramEntry).newPerDay +
             "/day). You can study ahead anyway, or come back tomorrow.",
           null,
           null
@@ -21236,8 +21547,19 @@
           '<button class="btn ghost" id="back">Back to collections</button>';
         card.appendChild(row);
         row.querySelector("#cram").addEventListener("click", () => {
-          queue = remainingUnseen.slice();
-          startLoop();
+          /* WARM THE PILE FIRST, exactly as the session warms its own queue above. A community deck's cards
+             are stored per note and loaded when they are needed, and this pile is assembled AFTER that warm
+             — so every card in it is a stub, `cardById` hands back a note with no fields, and the reader
+             gets a run of BLANK cards with a working grade bar under them. Nothing throws and the counts
+             are all correct, which is why it survived: the only symptom is a card with nothing on it.
+             (It predates the scope fix above — the old whole-deck pile was unwarmed too — and was found by
+             the test written for that one.) */
+          const start = () => { queue = remainingUnseen.slice(); startLoop(); };
+          if (uWarmed(remainingUnseen)) return start();
+          root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' +
+            esc(sess.where || "") + "</h1></div>" +
+            '<div class="data-loading">' + t("Loading these cards…") + "</div>";
+          uWarm(remainingUnseen).then(() => { if (current && current.name === "study") start(); });
         });
         row.querySelector("#back").addEventListener("click", () => route("decks"));
         return;
@@ -22242,6 +22564,69 @@
       return k ? f[k] : "";
     };
   }
+  /* ---------- A CARD TYPE'S DISCLOSURE REMEMBERS BEING OPEN (Aug 2026, on request) ----------
+     A template may hold a <details> — the Mandarin decks put their example sentences in one — and it went
+     back to the template's own state on every card, so a reader who wanted the examples had to open them
+     again for each of the day's twenty. Two halves, and neither is per-render wiring:
+     · SAVE is one delegated CAPTURE listener on the document. `toggle` DOES NOT BUBBLE, so capture is the
+       only way to hear it from a descendant — the same trick the dead-media `error` listener uses.
+     · RESTORE happens inside `cardTypeSideHTML`, the one choke point every typed card is composed by, so a
+       render path added later is covered without anybody remembering this.
+     THE KEY IS THE SUMMARY'S OWN TEXT, scoped to the card type. An ordinal within the card would be cheaper
+     and is wrong the moment a template wraps one panel in a conditional: a card missing that field renders
+     one fewer, every later index shifts, and the wrong panel opens. The summary is what the reader pressed
+     and what they meant by it. SIDE is deliberately NOT in the key — a back that renders {{FrontSide}} shows
+     the front's panels a second time, and those are the same panel, not two.
+     A panel the reader has NEVER touched keeps the template's own default; only a stored value overrides it,
+     so an author who ships one open still gets it open on a first meeting.
+     Device-local, like where the marker sits and how tall the Atlas place sheet is: this is how a card is
+     laid out on this screen, not something the schedule should carry between devices. */
+  const UC_OPEN_KEY = "folio_uc_open_v1", UC_OPEN_CAP = 300;
+  let _ucOpen = null;
+  function ucOpenMap() {
+    if (_ucOpen) return _ucOpen;
+    try { _ucOpen = JSON.parse(localStorage.getItem(UC_OPEN_KEY)); } catch (e) { _ucOpen = null; }
+    if (!_ucOpen || typeof _ucOpen !== "object" || Array.isArray(_ucOpen)) _ucOpen = {};
+    return _ucOpen;
+  }
+  function ucDetailsKey(uct, det) {
+    const s = det.querySelector("summary");
+    const label = (s ? s.textContent || "" : "").replace(/\s+/g, " ").trim().slice(0, 80);
+    return label ? (uct || "?") + "|" + label : "";   // no summary → nothing stable to key on; left alone
+  }
+  function ucSetOpen(key, open) {
+    const m = ucOpenMap();
+    if (m[key] === open) return;
+    delete m[key];                      // re-inserted, so Object.keys runs oldest-first and the cap can prune
+    m[key] = open;
+    const ks = Object.keys(m);
+    if (ks.length > UC_OPEN_CAP) ks.slice(0, ks.length - UC_OPEN_CAP).forEach((k) => { delete m[k]; });
+    try { localStorage.setItem(UC_OPEN_KEY, JSON.stringify(m)); } catch (e) {}
+  }
+  document.addEventListener("toggle", (e) => {
+    const det = e.target;
+    if (!det || det.tagName !== "DETAILS" || !det.closest) return;
+    const card = det.closest(".uc-card");
+    if (!card) return;                  // the site's own folds have settings of their own — see srcCollapsed
+    const k = ucDetailsKey(card.getAttribute("data-uct"), det);
+    if (k) ucSetOpen(k, det.open);
+  }, true);
+  /* Guarded on the card even holding one, so the ordinary card pays a single indexOf rather than a second
+     DOMParser pass on top of the sanitizer's. */
+  function ucRestoreDetails(html, uct) {
+    if (html.indexOf("<details") < 0) return html;
+    const m = ucOpenMap();
+    let doc;
+    try { doc = new DOMParser().parseFromString("<body>" + html, "text/html"); } catch (e) { return html; }
+    let touched = false;
+    doc.body.querySelectorAll("details").forEach((det) => {
+      const k = ucDetailsKey(uct, det);
+      if (!k || typeof m[k] !== "boolean" || m[k] === det.hasAttribute("open")) return;
+      if (m[k]) det.setAttribute("open", ""); else det.removeAttribute("open");
+      touched = true;
+    });
+    return touched ? doc.body.innerHTML : html;
+  }
   /* A type's stylesheet as ONE <style> element per (deck, type), scoped to that type's own cards. Leaving
      them in place is safe precisely because they are scoped — nothing can collide — and re-injecting per
      render would restyle the page on every card. The cap is a backstop for a session that installs decks all
@@ -22305,7 +22690,8 @@
        scoped to. So a type whose two directions want to look different says `.card[data-uctpl="2"] { … }`,
        which is Anki's `.card2` in the shape this scoper can already rewrite. */
     const tplN = ' data-uctpl="' + (((c && c._tpl) || 0) + 1) + '"';
-    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" + sanitizeHTML(html) + "</div>";
+    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" +
+      ucRestoreDetails(sanitizeHTML(html), scopeId) + "</div>";
   }
   // what goes in the study card's question area: a custom type's front template, or the Basic question
   function cardFrontHTML(c) {
@@ -24408,7 +24794,7 @@
               <h3>Reading the Atlas</h3>
               <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
-              <div class="ah-tip"><b>Time-travel</b> — the dots on the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
+              <div class="ah-tip"><b>Time-travel</b> — the ticks along the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
               <div class="ah-tip"><b>Draw on it</b> — the marker floating over the globe is the same one that writes on a study card: tap it for pens, a highlighter and an eraser, and drag it out of the way. Strokes here are pinned to the map, so they turn with it.</div>
               <div class="ah-tip"><b>A caution</b> — historical borders are rough estimates and should never be taken as factually accurate. Many past frontiers were vague, disputed or simply never recorded, so read every old map as an approximation rather than a precise picture of the world.</div>
               <button class="btn" id="ahGo" type="button">Explore</button>
@@ -28601,15 +28987,20 @@
         <div class="msn-card msn-howto">
           <div class="msn-head">${CHIP.howto}<h2>How to use Folio</h2></div>
           <ol class="msn-steps">
-            ${step(1, "Pick a subject", "Open the <b>Library</b> and choose a collection. Its cards join your daily review.")}
+            ${/* Step 1 said "Open the Library and choose a collection" — the Library is the room of BOOKS,
+                  and has been since the deck page was renamed Collections; two pages called Library is how a
+                  reader ends up on the wrong one. The collections are reached from the "+ Add decks" tab
+                  under the home banner, which is their only route anywhere on the site. */""}
+            ${step(1, "Pick a subject", "Press <b>+ Add decks</b> under the banner on the Home page and choose a collection. Its cards join your daily review.")}
             ${step(2, "Study today's cards", "The Home page deals you a small stack every day: new cards, plus any that are due to come back.")}
-            ${step(3, "Try to remember", "Every card is a sentence with a blank. Say the answer to yourself first — really try — then flip the card. The trying is what builds the memory.")}
+            ${step(3, "Try to remember", "Every card is a sentence with a blank. Say the answer to yourself first — really try — then press <b>Reveal answer</b>. The trying is what builds the memory.")}
             ${step(4, "Grade yourself", "Press <b>Again</b> if you missed it, <b>Hard</b> if it was a struggle, <b>Good</b> if you got it, <b>Easy</b> if it took no effort. Be honest: the buttons are not points, they set the schedule.")}
             ${step(5, "Come back tomorrow", "Cards you know well wait for weeks. Cards you miss return within minutes. A few minutes a day is all it takes.")}
           </ol>
           <div class="msn-feats">
             <div class="mf-row"><b>The games</b> repeat the same facts from new angles — one more proven way to make them stick.</div>
             <div class="mf-row"><b>The Atlas</b> is a globe of world history: spin it, drag the timeline, click any country.</div>
+            <div class="mf-row"><b>The Library</b> holds whole books, out of copyright and complete — it keeps your place as you read.</div>
             <div class="mf-row"><b>The glossary</b> sits behind every underlined term on a card — click one for a short explanation.</div>
           </div>
         </div>
@@ -28618,7 +29009,10 @@
           <div class="faq">
             ${faq("What do Again, Hard, Good and Easy actually do?", "They tell Folio when to show the card next. <b>Again</b> brings it back in about a minute, <b>Hard</b> in a few minutes. <b>Good</b> moves it a real step ahead — first ten minutes, then a day, then longer each time. <b>Easy</b> jumps it several days ahead. No grade is a punishment; they only tune the timing.")}
             ${faq("What happens if I miss a day?", "Nothing bad. Your due cards simply wait for you, and the schedule picks up where it left off — only your day streak resets. Miss a week and the pile is bigger, but it clears quickly.")}
-            ${faq("Why only a few new cards a day?", "Every new card you learn today will come back tomorrow, and again after that. Add fifty at once and next week's reviews pile up. A steady handful a day keeps studying light — you can change the number in Settings.")}
+            ${/* "…you can change the number in Settings" was true until the Settings stepper was retired and
+                  the figure moved into the Daily limits dialog, which is where per-deck and default limits
+                  are now set together. Settings carries no new-cards-a-day row at all. */""}
+            ${faq("Why only a few new cards a day?", "Every new card you learn today will come back tomorrow, and again after that. Add fifty at once and next week's reviews pile up. A steady handful a day keeps studying light — to change the number, hold the daily-study banner and open <b>Daily limits</b>.")}
             ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
           </div>
         </div>

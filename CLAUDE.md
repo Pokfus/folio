@@ -3691,12 +3691,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
-- `decks/*.folio-deck.json` — **the Mandarin community decks**, five files a reader imports through the
-  Studio. Not part of the site and never loaded by it: a deck file is somebody else's content that happens
-  to have been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
-  **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), **HSK 3.0** — all seven levels of the 2026
-  standard in ONE file, 10,896 notes as seven subdecks — and two decks of what the syllabus leaves out:
-  **Mandarin phrases** (159) and **Chinese idioms** (477 chengyu). 22 MB in all.
+- `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
+  of the site and never loaded by it: a deck file is somebody else's content that happens to have been
+  written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
+  The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
+  **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
+  levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`.
+  · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
+    phrases and the idioms are the same card type from the same corpus, so three files was three imports
+    and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
+    as a MODULE and files its two lists as the eighth and ninth subdecks; run on its own, `build-extra.js`
+    still writes them as two separate decks, which is one flag rather than two builders.
+  · **A SUBDECK NAME IS A STRING AND A MANGLED ONE IS A NEW SUBDECK.** An intermediate build of the
+    combined file wrote one note's `sub` as `Levels 7<U+FFFD><U+FFFD><U+FFFD>9` — three replacement characters where the
+    en-dash should be — and the deck drew a phantom eighth level holding a single word. **Nothing throws,
+    the note count is right, and the only symptom is a row nobody put there**; it was caught before it
+    shipped, and no released deck has ever carried it (swept, all nine on main, zero replacement
+    characters). So: **count the DISTINCT subs after a build and read the list**, rather than checking the
+    note total — a count of notes cannot see it, and a count of subdecks only helps if you know what the
+    number should be.
   · **EVERY WORD IS ONE NOTE WITH TWO CARDS** (Aug 2026, once the reverse-cards feature landed on main).
     Each deck used to write a word out twice, once per direction, and the two rows were identical field for
     field — the same characters, reading, character breakdown and three example sentences, which between
@@ -3707,8 +3721,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE SUBDECK AXIS WENT TO THE LEVEL, and that is what let HSK 3.0 become one deck.** The old combined
     files spent their one `sub` axis on the study DIRECTION — two subdecks, Chinese → English and English →
     Chinese — and that is exactly what the two templates now express, so the axis came free for the thing a
-    learner actually works along. **A note's `sub` is per note, so direction can never be a subdeck again**
-    while the two directions are one note; that is the trade, and it was worth making.
+    learner actually works along. **A note's `sub` is per note, so direction can never be a `sub` again**
+    while the two directions are one note; that was the trade, and it was worth making.
+    **AND THEN THE DIRECTIONS CAME BACK AS ROWS WITHOUT COSTING THE FILE ANYTHING** (Aug 2026, on request —
+    see "A DIRECTION IS A LEVEL BELOW THE SUBDECK" under community decks). The thing `sub` could not name,
+    the TEMPLATE already does, so each of the nine subdecks now lists **Chinese → English** and **English →
+    Chinese** as rows of its own. **The deck file did not change by a byte** — the two templates were always
+    in its one type — which is the answer to the paragraph above: the halving stands and the directions are
+    separable, because they were separated at the level where they actually differ. Adding the deck brings
+    the nine levels and NOT their eighteen directions; a level already deals both ways, forward first.
   · **THE OLD "TOO BIG FOR ONE DECK" MEASUREMENT WAS RE-TAKEN RATHER THAN CARRIED FORWARD.** The 7–9 band
     shipped as five files because level 6 alone (3,554 rows, 7.4 MB) measured 3.6s to import and 2.7s to the
     first card. Measured again on the whole of 3.0 at 10,896 notes: **JSON.parse 81 ms, import 10.0s once,
@@ -3735,6 +3756,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     three-character nouns. Recall is stated rather than guessed: on a probe of thirty-six expressions a
     beginner meets, 24 are already carded in the HSK decks, 5 are not in CC-CEDICT, 2 are idioms, and the
     rule takes 4 of the remaining 5.
+  · **THE STRUCTURE LINE IS A CAPTION, NOT A HEADING** (`.uc-exst`, Aug 2026, on request). The formula above
+    each example sentence — "PRONOUN + MEASURE WORD + VERB + NOUN" — was set at 9.5px/600, which over an 18px
+    sentence reads as a heading for it; that is the wrong way round, since the sentence is the thing and this
+    only says what shape it is. It is 9px/400 now, with the marked term at 500 so a weight as well as the
+    vermilion still finds it. **The CSS lives in `deckcore.js` and is COPIED into every built deck file**, so
+    a change there does not reach a reader until the decks are rebuilt — or, as here, until each shipped
+    deck's `meta.types.<id>.css` is patched to match. That patch was made as a string replacement on the raw
+    JSON rather than by re-serialising it, which is what keeps the 20 MB file's diff to the one line it
+    should be; all three Mandarin decks carried byte-identical CSS to `deckcore.js` beforehand, so the two
+    are provably the same edit.
+  · **THE THIRD TONE HAS TO BE ASKED FOR BY NAME** (`PINYIN_FONT` in `deckcore.js`; Aug 2026, on a bug
+    report: "the letter ǒ appears larger than other pinyin letters"). The card inherits the site's body
+    serif and **Newsreader — the default — has none of the ten pinyin characters at issue**: ǎ ǐ ǒ ǔ (third
+    tone on a, i, o, u, but NOT ě, which it does have, and which is why one letter was named), ǖ ǘ ǚ ǜ, and
+    ǹ ḿ. Measured in a browser against every family the stylesheet imports, not assumed.
+    **THE QUIET PART IS WHY IT RENDERS AT ALL rather than as a blank**: Google Fonts declares Newsreader's
+    latin-ext face with `unicode-range: U+0100-02BA, …`, which COVERS U+01D2 — **a unicode-range is a
+    promise about the subset, not about the glyphs in it** — so the browser picks that face, finds nothing,
+    and falls back per character to whatever last-resort font the operating system keeps, whose design size
+    has nothing to do with the page.
+    **THE OBVIOUS FIX DOES NOTHING, WHICH IS THE THING TO CARRY.** Fallback is per character, so appending a
+    covering face after `var(--serif)` ought to leave every working letter alone and catch only these ten.
+    It cannot: `--serif` is `"Newsreader", Georgia, "Times New Roman", serif`, so appending puts **a generic
+    family in the MIDDLE of the list**, and a generic matches everything — the browser resolves the caron
+    against the system default and never reaches the name after it. Measured on the rendered card before and
+    after: identical ink height, 9px both ways. A `@font-face` with a `unicode-range` of exactly those ten
+    codepoints is the textbook way to have both, and **a deck may not have one** — `cssScoped` drops
+    `@font-face` from deck CSS deliberately, a src URL in a stranger's deck being a per-character call home.
+    So the covering face goes FIRST, with the theme's serif behind it.
+    **EB GARAMOND IS CHOSEN ON MEASUREMENT.** Of the thirteen imported families exactly four carry all ten —
+    Cormorant Garamond, EB Garamond, Inter, Noto Sans SC — and **the two sans candidates are the wrong
+    answer for this bug in particular**, Inter's x-height being 123% of Newsreader's and Noto Sans SC's
+    125%: either would have swapped one oversized glyph for another. EB Garamond is 95%, is a serif, and is
+    already in the single `@import` because the academy theme sets it, so it costs no new request and its
+    latin-ext subset is fetched only by a reader who meets one of these characters.
+    **IT IS ON THE THREE PINYIN RUNS AND NOT ON `.card`**, counted over the 11,532-note deck: 13,365 of the
+    carons are in the character breakdown (`.uc-ptp`), 3,709 in the reading (`.uc-pinyin`), 145 in the
+    measure word (`.uc-mwp`) — and **six in an English gloss**, all six the "chǔ — " reading printed at the
+    head of a two-reading word. Setting the whole card would catch those six at the price of restyling every
+    definition; they are left, and they are the one place this bug survives. **The site's own corpus has
+    zero** of these characters, so `--serif` and `.tr-pin` are deliberately untouched.
   · **AN IDIOM MOSTLY HAS NO EXAMPLE SENTENCE, and that is the subject rather than a gap**: of 5,227
     non-syllabus idioms only 361 appear in the Tatoeba corpus even once, an idiom being literary and the
     corpus conversational. What stands in for it is CC-CEDICT's own lit./fig. gloss and the character
@@ -6152,6 +6214,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     card's first grade, so a Card of the day or a deck tapped into directly silently ate the review's allowance and an
     undo did not give it back. The decks' counts were derived all along; the banner above them was not, and the two
     drifted apart. `S.intro` is still written and still rides in the synced blob; nothing reads it for a limit.
+  · **STUDYING AHEAD IS THE ENTRY'S PILE, ORDERED, AND WARMED** (the `queue.length === 0` branch in
+    `PAGES.study`; Aug 2026, on a bug report: "when I keep studying beyond the daily limit it stops showing
+    both directions and becomes one directional again", and "it shows in the top right how many cards are
+    remaining in that entire collection instead of that specific subdeck"). **Both symptoms were one fault**,
+    and a third and worse one was underneath.
+    The ahead pile was built from `subtreeCardIds(sd)` / `uDeckStudyIds(ud.cardIds)` — the whole tree and the
+    whole deck — where every other queue in the session is `studyOrder(entry, entryCardIds(entry))`. So it
+    reached past the subdeck or direction actually being studied (the count, which is `remainingCounts()`
+    over the queue and so was never a second bug), and it skipped `studyOrder`, which is what interleaves the
+    subdecks and what pulls a note's two cards together under "both directions together" — the raw expansion
+    is TEMPLATE-MAJOR, so the pile was every forward card before any reverse. Reproduced exactly: a subdeck of
+    6 offered "Study 14 ahead" and dealt `2f 3f 4f 5f 6f 7f`. It takes the same `availStudy` and `isBuried`
+    filters as `buildSession`'s two branches, and the placard quotes **this entry's** allowance rather than
+    the global default.
+    **AND THE PILE IS WARMED BEFORE IT IS DEALT**, which is the one a reader would report first and which
+    predates the rest: a community deck's cards are loaded per note when needed, the session warms its own
+    queue behind a `.data-loading` line, and this pile is assembled AFTER that — so every card in it was a
+    stub and **rendered BLANK, with a working grade bar under it**. Nothing threw and every count was right.
+    Found by the test written for the scope fix, not by looking.
   · **A deck's row wears its COLLECTION's hue**, not the review's bronze (Aug 2026, on request): `rowHue` in
     `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
     Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
@@ -6294,6 +6375,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `render()` closes that sheet, so repainting the ordinary way would dismiss the very control the reader is
     using to compare two colours. Both registers are in `defaultState`, `PROGRESS_FIELDS` **and
     `RESET_KEEPS`** — a group is how the reader has arranged the decks `active` already keeps.
+    **AND SINCE AUG 2026, ON REQUEST, ONE OF THE READER'S OWN DECKS IS OFFERED A COLOUR TOO**
+    (`isContainerEntry` / `containerHasChildren`). The whole-deck row of an imported or installed deck, which
+    is the exact counterpart of an added COLLECTION — a curated deck sitting inside a collection is not
+    offered one either, and a community deck's SUBDECKS are that same level down. **Nothing but the gate had
+    to change, and that is the thing to know before reaching further in**: `emit` and `repaintReviewHues`
+    both already read `groupColor(id)` for any row whatever, and `S.deckGroups` has always been keyed by
+    ENTRY ID rather than by group, so a community deck was colourable in every respect except being asked.
+    `containerHasChildren` exists only to word the row's own note: "every deck inside" is a promise a deck
+    with no subdecks cannot keep.
+  · **A × IN THE TOP RIGHT OF EVERY SHEET** (`.dm-x`, Aug 2026, on request). Escape and a backdrop tap both
+    closed it already and neither says so: Escape is a key a phone has not got, and "tap outside" is a
+    convention a reader has to know in advance. Three decisions.
+    **IT IS BUILT BY `deckSheet` RATHER THAN BY EACH CALLER**, so the options menu, Custom study, Daily
+    limits, Scheduling, Card info and the flag picker all have one — and a sheet added later cannot ship
+    without it, which is the same argument the shared shell already wins on Escape and the exit animation.
+    **STICKY, AND FIRST IN THE DOM.** Sticky because `.ds-sheet` scrolls its whole box, where an absolute ×
+    would scroll off the top; first in the DOM so a screen reader meets "Close" on the way in rather than
+    after forty rows of card history. Its own height is cancelled with a negative bottom margin so it costs
+    the head no room, and `.dm-head` carries the right padding that keeps a long title and the studied count
+    clear of it — asserted as a box OVERLAP rather than as "right of the head", which is false by
+    construction since the head spans the whole box.
+    **AND IT IS SKIPPED WHEN THE INITIAL FOCUS IS CHOSEN**, or every sheet would open with the ring on the
+    way out. That is the one line a later tidy-up is likeliest to undo, and it is asserted.
   · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
     bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
     dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
@@ -8908,7 +9012,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Guarded by `test-layout.js`, which asserts there is no `input[type=color]` left anywhere in the panel.
   · **Controls under the ink stay usable** (the `CTL_SEL` / `controlUnder` / `passCtl` block in
     `setupWhiteboard`, Aug 2026, on request). The canvas covers the whole visible page, so with the pen down
-    it also covered Show answer and everything else on the card. **A z-index cannot fix this**: `.page` and
+    it also covered Reveal answer and everything else on the card. **A z-index cannot fix this**: `.page` and
     `.cardwrap` both animate with a fill mode, and a filling animation is a stacking context, so nothing
     inside them can paint above a sibling of the stage. Instead the canvas hit-tests underneath itself on
     pointerdown (`pointerEvents:none` → `elementFromPoint` → restore) and hands the press to any real control
@@ -9910,12 +10014,90 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reverse-cards bullet): what it buys is one record per word — a definition corrected once rather than
     twice, with no chance of the two drifting — and each direction still keeps a schedule of its own. A
     subdeck's count already includes both, which is why the HSK 3.0 deck reads 23,064 cards over 11,532
-    words.
+    words. **That stands, and the level BELOW the subdeck is what answers the request** — next bullet.
+- **Community decks — A DIRECTION IS A LEVEL BELOW THE SUBDECK** (`SUB_TPL` / `uTplEntry` / `uTplOf` /
+  `uEntryTemplates` / `uTplEntriesOf` / `uTplName` / `uPruneTplEntries`; Aug 2026, on request: "add
+  direction as a subdeck"). An entry id may end `#<0-based template>` and deals only that template's cards,
+  so a two-way deck lists each direction as a row of its own to add, hold and study. The thing `sub` could
+  not name, the TEMPLATE already does — it is what makes the two cards two cards — so the answer was a new
+  LEVEL rather than a new field.
+  · **IT COSTS THE DECK FILE NOTHING, which is the whole argument for doing it here.** The templates are in
+    the type already, named by their author, so every two-way deck ever written or installed gains its
+    direction rows on the next load with nothing rewritten, nothing republished and no card duplicated.
+    The alternative is what the **DELE Spanish decks** do — direction written into the file as a real
+    `sub`, `Spanish → English` / `English → Spanish` — which is two notes per word (992 for ~500), and a
+    definition corrected on one of them silently drifts from the other. Both shapes now work; this is the
+    one that does not double the file.
+  · **`#` IS SAFE AS A RAW SEPARATOR AND `~` WOULD NOT HAVE BEEN.** `uSubEntry` percent-encodes the whole
+    path and `encodeURIComponent` escapes `#` to `%23` while leaving `~` alone — so a subdeck titled "C#"
+    cannot forge a template suffix and one titled "A~B" would have. `uDeckIdOf` cuts at whichever of `/`
+    and `#` comes first; neither can occur in a deck id (`[a-z0-9]{4,16}`).
+  · **A DIRECTION ROW IS DRAWN ONLY WHERE THE CARDS ACTUALLY ARE** (`uEntryTemplates`). A container that
+    merely groups — the deck above nine levels — gets its directions from its children, and a second pair
+    over the whole deck would offer the same cards again under a name saying nothing new. The test is
+    structural rather than a flag: a level earns the rows when every note it studies is filed **directly**
+    in it, which is also why a FLAT two-way deck gets them straight under the deck row. A level whose notes
+    use more than one type gets none, and a CLOZE type gets none either — its `typeCards` is one template
+    however many deletions a note carries.
+  · **THE NARROWING IS A FILTER OVER THE CACHED EXPANSION, never a second one.** `uDeckStudyIdsFor` is
+    memoised by (deck, subdeck); a direction takes `uCardTplIndex(id) === tpl` off that list, so nothing is
+    keyed on something a template edit can change under it. `buildSession`'s udeck branch asks
+    `entryCardIds` rather than expanding again, so a row, its sheet and the session it starts cannot come
+    to disagree.
+  · **ADD NARROW, REMOVE WIDE.** A subdeck holds cards nothing else in the subtree holds, so the cascade
+    must bring it; a direction holds a **subset of its own parent's**, so adding it too would surface
+    reverses in the pooled draw from the first day — where a level's own template-major list deals every
+    forward card first. Choosing a direction is what makes choosing one mean anything. Removing goes the
+    other way: a direction the reader chose still goes when its level goes, or it would be a row in the
+    review with nothing above it. **And a direction is removed ALONE** — the one place the ancestor rule is
+    turned off, since the level legitimately keeps offering both ways.
+  · **`cardEntryId` resolves the DIRECTION first**, then the subdeck path upward, then the deck: a reader
+    who set FSRS or a daily limit on "English → Chinese" meant it for that direction's cards.
+- **Community decks — BOTH DIRECTIONS TOGETHER, the GATHER order** (`deckPairNew` / `setDeckPairNew` /
+  `pairOrder`; Aug 2026, on request: "I want them interleaved"). Default OFF, which is what `uDeckStudyIds`
+  has always done: the expansion is TEMPLATE-MAJOR, so the day's new cards come off the front of a list
+  that is every note's first card before any note's second — all forward, with the reverses waiting for the
+  whole forward pass. **At five a day on a 150-word deck that is thirty days before the first reverse**,
+  right for a reader learning to RECOGNISE words and wrong for one who wants to PRODUCE them. ON, the day's
+  new cards are the day's new WORDS, each way.
+  · **IT IS A REORDER, NOT A SECOND EXPANSION**, which is what keeps the cache honest: `pairOrder` regroups
+    the template-major list by NOTE inside **`studyOrder`**, beside the subdeck round robin, and the two
+    compose — the robin decides which subdeck a card comes from and this pulls each word's cards together
+    within that (a `Map` iterates in first-appearance order, so the robin's order survives).
+  · **IT SHUFFLES ITS OWN NEW RUN, and that is not a second setting hiding in this one.** Note-major
+    unshuffled deals 杯子 → cup then cup → 杯子 adjacently, which is exactly the "teaches the answer rather
+    than testing it" that template-major exists to prevent. **The slice comes first and the shuffle after**,
+    so pairing decides WHICH words arrive and the shuffle only their order; shuffling first would make the
+    day's cards a random handful of the whole deck. The pooled review `seededShuffle`s its pool across decks
+    already, so `buildSession` is the one place that has to do it, and the Random-order switch beside it
+    still governs the WHOLE queue, reviews included.
+  · **BURYING IS DERIVED OFF, never a second switch to remember.** The two are opposite intents: pairing
+    gathers the reverse and burying takes it straight back out, leaving a session half the size it promised
+    — measurably, since `doGrade` filters the live queue. So `deckBurySiblings` returns false while pairing
+    is on, and the bury row is **dimmed in place with a reason** (the Night-mode row's pattern under "Match
+    my device"), still pressable, and saying why. `syncBury` re-states it when pairing is thrown, because
+    the sheet must not repaint — `render()` closes it.
+  · **IT INHERITS DOWN THE PATH, unlike the daily limits beside it.** A limit is a fact about one row and
+    must not leak; this is a policy about how a deck's material is organised, so setting it on the deck
+    governs its levels — which is what a reader setting it on the deck plainly means, and the levels are
+    what the cascade actually adds.
+  · **THE ALLOWANCE IS IN CARDS, as it always was and as Anki's is**: six new a day is three words both
+    ways, not six words. A reader wanting five words both ways raises the limit to ten.
   · Guarded by `.claude/test-subdecks.js` (18 assertions), which builds its own partly-grouped deck rather
     than reading the shipped ones. **The failure mode is silent** — the list is derived on every read, so a
     `sub` dropped anywhere along the way just drops that card back into the parent deck and everything still
     works — which is why the assertions follow one card's `sub` through ingest, the row list, the review and
-    the session rather than testing any one of them.
+    the session rather than testing any one of them. **The nesting, the DIRECTION rows and the pairing
+    switch are guarded by `.claude/decks/check-nesting.js`** (28 assertions, a tree built in memory): its
+    fifth section asserts the six rows a two-level two-way deck draws, that the deck itself gets none, that
+    adding the deck brings the levels and **not** the directions while removing it takes a chosen one with
+    it, and that studying a direction deals only cards carrying `~2`; its sixth covers the pairing switch —
+    the default all-forward gather, the note-major one, the shuffle, and that grading one direction does
+    NOT bury the other. Its seeding is the house gotcha written down: a `goto` differing only in the
+    `#fragment` is a same-document navigation, so localStorage written behind the app's back needs a real
+    `reload()` or the next `save()` puts the in-memory state straight back over it. **`check-decks.js` is
+    the other half**, since it studies the shipped decks through the pooled review, which is where a
+    cascade that is too wide shows up as reverses on the first day.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
@@ -10115,6 +10297,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attribute either accepts. **A CSS ESCAPE CANNOT BE USED TO DRAW ITS MARKER**: `sanitizeCSSText` strips
     backslashes, so `content:" \\25BE"` reaches the card as the characters `25BE` — write the ▾ itself, as
     the `content:"\\201C"` note above already says for a quotation mark.
+  · **…AND SUCH A FOLD REMEMBERS HOW THE READER LEFT IT** (`UC_OPEN_KEY` / `ucOpenMap` / `ucDetailsKey` /
+    `ucSetOpen` / `ucRestoreDetails`; Aug 2026, on request). It went back to the template's own state on
+    every card, so a reader who wanted the Mandarin decks' example sentences had to open them again for each
+    of the day's twenty. Five things.
+    **NEITHER HALF IS PER-RENDER WIRING.** Saving is one delegated CAPTURE listener on the document —
+    `toggle` DOES NOT BUBBLE, so capture is the only way to hear it from a descendant, the same trick the
+    dead-media `error` listener uses — and restoring happens inside `cardTypeSideHTML`, the one choke point
+    every typed card is composed by, so a render path added later is covered without anybody remembering it.
+    **THE KEY IS THE SUMMARY'S OWN TEXT, scoped to the card type.** An ordinal within the card is cheaper and
+    is wrong the moment a template wraps one panel in a `{{#Field}}` conditional: a card missing that field
+    renders one fewer, every later index shifts, and the wrong panel opens. The summary is what the reader
+    pressed and what they meant by it.
+    **SIDE IS DELIBERATELY NOT IN THE KEY** — a back that renders `{{FrontSide}}` shows the front's panels a
+    second time, and those are the same panel, not two. **The DECK is**, which is the one judgement here
+    worth revisiting: the three Mandarin decks share a type id (`hsk`) and do NOT share the state, so a
+    reader who opens the examples in HSK 3.0 opens them once more in HSK 1. Keying on the type alone would
+    join them and would also join two unrelated decks that both call a type `basic`; a deck's behaviour
+    being a fact about that deck is the safer of the two, and the cost is one press per deck.
+    **THERE ARE THREE STATES, NOT TWO**: opened, closed, and never touched. A panel with no stored value
+    keeps the template's own default, so an author who ships one `open` still gets it open on a first
+    meeting — which is why the map is read as "is there a value at all" rather than as a plain boolean.
+    **AND THE RESTORE IS GUARDED ON THE CARD EVEN HOLDING ONE** (`indexOf("<details")`), since almost no card
+    does and the alternative is a second DOMParser pass on top of the sanitizer's for every card on the site.
+    Device-local, like where the marker sits and how tall the Atlas place sheet is: this is how a card is
+    laid out on this screen, not something the schedule should carry between devices.
   · **The CSS gets its own treatment, because it is not HTML and cannot go through the HTML sanitizer** (which
     drops `<style>` outright). `sanitizeCSSText` strips comments, strips `<` (so `</style>` cannot be spelled —
     **`>` is deliberately KEPT**, it is the child combinator and only the opening bracket can end the element)
@@ -10975,6 +11182,14 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   sentence. **Deep spans are written in the compact notation** — `115,000 – 11,700 BP`, `c. 4.2 – 2 Mya`,
   `c. 2.6 Mya – 9700 BCE` — all of which `cardYears` parses, which is what keeps the deck in
   chronological order (see the "Deep time" bullet).
+  **A CENTURY IS NOT A DATE `cardYears` CAN READ**, and a date line whose ONLY dates are centuries
+  therefore yields no sort year at all — the card falls to 0, "timeless", which on a deck running in
+  BCE puts it after every other card (Aug 2026, caught by `test-date-line.js` on `rm-047`, whose two
+  rows both read "7th century BCE"). Write the span the century MEANS — `c. 700 – 600 BCE` — which
+  asserts no precision the source has not got, since that interval IS the 7th century; a second row
+  may then say "7th century" in words. **The fix is in the DATE LINE, not in `cardYears`**: 52 of the
+  447 shipped date lines carry a century form beside a plain year, so teaching that function to read
+  centuries would silently move their sort years too.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
@@ -11626,7 +11841,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirty-eight committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Thirty-nine committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js` and `test-scheduler.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -11690,6 +11905,27 @@ dead code (never rendered).
     `db-max-rows`: a deck of 7 is published and installed and every card must arrive at both ends, so an
     unpaged fetch loses cards HERE rather than on somebody's live project. Verified by removing the paging
     and watching it fail.
+    **IT PUBLISHES A TYPED DECK SINCE AUG 2026, AND THAT FOUND A LIVE BUG OF THE WORST SHAPE THIS FILE
+    RECORDS.** Every deck it had ever published was BASIC — no card types, no subdecks — so the branch that
+    carries a typed card's content had never once been exercised. `uDeckPublish` builds each row's `data`
+    from `CARD_FIELDS`, which is the Basic thirteen, plus `questions` / `sources` / `sub` / `image` / `video`
+    — **and a typed card carries `type` + `fields` INSTEAD of those thirteen**, so what went up was twelve
+    empty strings and nothing else. The TEMPLATES travelled (they ride on the deck row, `user_decks.types`)
+    and the CONTENT did not, so an installed copy was the right number of BLANK cards, under the right
+    subdecks, with no direction rows — and **the author's own copy was perfect throughout, so only somebody
+    ELSE would ever have seen it.** Whole Mandarin deck, published, unreadable to everyone but its author.
+    The fix is one line; the lesson is that the round-trip test has to publish a deck shaped like the decks
+    people actually publish. Its typed section now asserts on the INSTALLED copy read out of the store —
+    both templates, the type's CSS, the `<details>` in the back, every card typed, every card's field
+    values, the nested `::` tree — and then that the deck DRAWS its direction rows, since a deck that lost
+    its templates looks exactly like a deck that never had any.
+    **A DECK PUBLISHED BEFORE THE FIX IS REPAIRED BY PUBLISHING IT AGAIN**: the upload deletes every card
+    row and re-inserts, so there is nothing to migrate, and the version bump is what offers the update to
+    anyone who installed the broken copy.
+    **Two traps in reading the store back**, both of which made a healthy deck report as broken while the
+    test was being written: a note record is `{ k, deckId, c }` with the card nested under `c`, and the
+    SUBDECK and TYPE are not on it at all — they live in the deck record's own `index`, that being the whole
+    point of the index (what a card IS, without its content).
     **Its DELETE section (Aug 2026) is the one that has to be read before it is trusted**, because every
     assertion in it fails silently on a real site: the deck vanishes from the author's own Studio either
     way, and only somebody ELSE browsing ever sees the difference. So it checks the author's Studio not at
@@ -11831,7 +12067,7 @@ dead code (never rendered).
     and "nothing is selected" alone would also pass on a marker that had stopped working; the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
-    revert to the platform dialog would look like — and **Show answer and the grade row still tappable with
+    revert to the platform dialog would look like — and **Reveal answer and the grade row still tappable with
     the pen down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet's
     drag-to-resize (taller, capped at the top of the screen, remembered into the next place, and its title
     bar still showing at the floor); the daily quote keeping its height — and everything under it its
@@ -12197,7 +12433,7 @@ dead code (never rendered).
     `revertCard`, any game's pool function, `add-card.js`'s difficulty guard, `add-card-difficulty.js`, or
     `whatyear.js` — and after any batch of ratings.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
-    (Aug 2026), 66 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
+    (Aug 2026), 70 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
     **The tour NAVIGATES and is deliberately not in `render()`'s close list** — putting it there is the
     obvious tidy-up every other body overlay wants, and it would dismiss the tour on the one step that
@@ -12220,7 +12456,20 @@ dead code (never rendered).
     collection can be added there, and — the half that closes a loop — **with one added the banner deals a
     card after all**. Both ends are needed because they fail in opposite directions and either alone looks
     deliberate: a hero that still deals a card bypasses the page, and one that never does strands a reader
-    on it. **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
+    on it.
+    **A CONTROL'S LABEL IS READ OFF `app.js`, NEVER WRITTEN DOWN IN THE TEST** (Aug 2026, and this file was
+    itself the fault). The reveal assertion was the literal `/show answer/i` — the words the button carried
+    when the tour was written — so when the control became **Reveal answer** the test went on passing and the
+    walkthrough went on naming a button the page has not got, for months. **A test that hard-codes a label is
+    not guarding the label, it is pinning the stale one**; the expectation now comes from the same source the
+    button does (`id="reveal-btn">([^<]+)<` over `APP_SRC`), with a second assertion that the id was found at
+    all, so a renamed id fails loudly instead of quietly matching nothing. The same trap is waiting wherever a
+    tutorial names a control: **the walkthrough also called an undiscovered glossary term "gold" for the
+    fortnight after that mark became teal** — the word naming a colour is painted in that colour now
+    (`.tour-newterm` reads `--newterm`), so the step and the page cannot disagree without it being visible.
+    Four About-page and Atlas claims were stale the same way and are checked in `.claude/test-layout.js`'s
+    company rather than here.
+    **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
     `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home
     page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
     `Again1mHard6m…`, so a word-boundary regex over the card's text finds neither the labels nor the
@@ -12269,6 +12518,49 @@ dead code (never rendered).
     after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
     `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
+  · `node .claude/test-deck-ux.js` — **49 assertions on six things asked for in Aug 2026, every one of
+    which fails silently**: a card type's `<details>` remembering how it was left, the structure line's
+    typography, a community deck's colour, the sheet's ×, **the pinyin being set in a face that has the
+    third tone**, and **studying past the daily limit staying inside the subdeck**. Nothing in it reaches into app.js — the probe
+    deck is imported through the Studio's own file picker, the card is read off a REAL study session, and
+    the sheet is opened the way a mouse opens one — because **a debug surface added for a test is a debug
+    surface every reader downloads**. Three things it is worth reading before adding to it. The disclosure
+    is asserted in all THREE of its states (opened, closed, and never touched keeping the template's own
+    default), across a card change AND across a reload, since the in-memory map and localStorage fail
+    differently and each state looks right from the other two's side. The typography is measured **against
+    the sentence it annotates** rather than against a hard-coded 9px: what was asked for is a relationship,
+    and a figure written into a test pins today's number instead of the rule. And the colour is asserted at
+    both ends — the swatches appearing AND the hue reaching the subdecks — because the inheritance already
+    worked before the change, so asserting only the control would pass on one that does nothing.
+    **Its own three bugs are the ones to expect again.** A deck id shorter than `[a-z0-9]{4,16}` is silently
+    replaced on import, so the id is read back off the page rather than assumed from the file. `.dm-head`
+    spans the whole box, so "the × is right of the head" is false by construction and says nothing — the
+    real test is a box OVERLAP against the title and the studied count. And **a live collection is full of
+    `.pill.soon` for its own empty subdecks** (378 of them on that page), so excluding coming-soon rows on
+    that class matches nothing: a coming-soon collection has no add button at all, which is the whole test.
+    That one is the worth-remembering kind, because it made the parity check SKIP — and a skip written as a
+    pass is exactly the false confidence a suite is for, so a missing collection now fails.
+    **Its sections 6–8 were added a day later with three more reported bugs, and each is guarded by the
+    assertion the fix's own first attempt would have failed.** The PINYIN one is about the ORDER of the font
+    chain and not merely its contents — "names a covering face" passes on the broken append, because the
+    broken append does name one; what has to hold is that no GENERIC family stands in front of it, since a
+    generic matches every character and the browser never reaches the name after it. It is deliberately
+    network-free (this sandbox cannot reach Google Fonts, and a glyph measurement would pass or fail on
+    that), and section 7 re-asserts the same rule over the SHIPPED deck files, `deckcore.js` being the
+    source and every built file a copy. The STUDY-AHEAD one asserts the pile's size AND its order, because
+    either alone passes on the other's bug — and it asserts the walk really stepped, after a first cut
+    recorded the same card three times and had "each word's two cards side by side" agreeing with itself.
+    **Four more traps came out of writing those**, all of them ways to be told a card is not there when it
+    is: `study()` already reveals its first card, so a second reveal times out; a **new card graded Good
+    requeues** as a learning step, so the queue never empties and the placard never appears (grade Easy);
+    the study session **survives a reload** in sessionStorage, so seeding state and reloading lands back on
+    the previous section's card, revealed; and the grade bar **animates in**, so Playwright's actionability
+    check waits for an element that is still moving — click it through `evaluate`. Since the sections above
+    grade cards out of the same deck, section 8 clears `cards`/`deckDay`/`intro`/`buried` before it starts.
+    **Re-run after touching
+    `ucRestoreDetails` / `ucDetailsKey` / `ucSetOpen` / the capture `toggle` listener / `cardTypeSideHTML` /
+    `deckSheet` / `.dm-x` / `isContainerEntry` / `containerHasChildren`, the cram branch in `PAGES.study`,
+    or `deckcore.js`'s `.uc-exst` / `PINYIN_FONT`.**
   · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
     The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
     own term (never part of what the meter counts); both filters are invisible until they are wrong. The
