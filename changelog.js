@@ -35,31 +35,56 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.212", released: "2026-08-14T19:42Z" };
+window.FOLIO_VERSION = { v: "1.238", released: "2026-08-14T19:53Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-14",
-    t: "A deck asked in two directions can list each direction on its own, and introduce a word both ways at once",
+    t: "You can sign in with your username, a deck asked in two directions lists each direction on its own, five books join the Library, and Ancient Rome and World History both gain cards",
     items: [
+      "Twenty-eight new cards in the World History collection and ten in <b>Ancient Rome</b>, with thirty-six new glossary terms.",
       "<b>A deck asked in two directions now lists each direction as a subdeck of its own</b>, to add and study on its own, with no change to the deck file.",
       "<b>A deck can now introduce a word in both directions at once</b>, shuffled, instead of teaching every word one way before starting the other.",
       "That switch is on a deck's own options, under <b>Both directions together</b>, and a deck set that way stops holding a word's other card back until tomorrow.",
       "<b>The Mandarin decks are now one deck of nine subdecks</b> — the seven HSK 3.0 levels, the phrases and the idioms — where they were three separate decks.",
       "<b>A fold on a card now stays as you left it</b>, so example sentences opened on one card are still open on the next.",
-      "<b>Your own decks can be given a colour</b> in the daily study list, as a collection can, and every subdeck inside takes it.",
+      "<b>Any deck, subdeck or the daily study banner itself can be given a colour</b> in the daily study list, curated and imported alike.",
+      "<b>A deck you write can be given the colour it arrives in</b>, under Deck details in the Studio, which travels with it when you share it.",
       "<b>A deck's options now close with an × in the corner</b>, rather than only by pressing Escape or tapping outside.",
       "The line naming an example sentence's grammar is smaller and lighter, so it reads as a caption rather than as a heading over the sentence.",
       "<b>A shared deck whose cards use the author's own card type now arrives complete</b> — it was installing as blank cards, and republishing such a deck fixes it.",
       "<b>Studying ahead of the daily limit now stays in the subdeck you were studying</b>, keeps both directions, and no longer counts the whole deck in the corner.",
       "Readings with a third-tone mark — <b>ǒ, ǎ, ǐ, ǔ</b> and the tones on ü — no longer show up larger than the letters around them.",
+      "<b>Romance of the Three Kingdoms is on the shelf</b> — Brewitt-Taylor's translation of 1925, all 120 chapters, with the Chinese facing it.",
+      "Its first page says which of the novel's two versions this is, and which famous lines a later editor added to it.",
+      "<b>Boethius's Consolation of Philosophy is on the shelf</b> — H. R. James's translation of 1897, all five books, with the Latin facing it.",
+      "Written in a prison cell around 524, it alternates argument with poetry, and its first page says what the Latin column still cannot show.",
+      "<b>Malory's Le Morte d'Arthur is on the shelf</b> — the Everyman text of 1906, all twenty-one of Caxton's books and every one of his 503 chapters.",
+      "It is the first book here with no second column, because Malory wrote in English and there is nothing to translate.",
+      "<b>Bede's Ecclesiastical History of the English People is on the shelf</b> — Sellar's translation of 1907, all five books, with the Latin facing it.",
+      "It is the reason we know almost anything about early English history, and this edition brings a thousand explanatory notes with it.",
+      "<b>The Travels of Marco Polo is on the shelf</b> — Yule's translation in the edition of 1903, all 235 chapters, with its 788 explanatory notes.",
+      "There is no facing original, and its first page explains that this English was made from three different manuscripts at once.",
+      "<b>You can sign in with your username</b> as well as with your email address.",
+      "<b>You can switch between accounts</b> from your account page instead of signing out, and the other account stays remembered on the device.",
+      "<b>Your account page now shows the email address you sign in with</b>, and lets you change it.",
+      "<b>Shared decks are now at the foot of the Collections page</b> rather than on a page of their own, in a table you can sort by any column.",
+      "The read-aloud button on an imported deck's card can now be pressed while the marker is out.",
+      "<b>A place on the Atlas now opens on its name alone</b>, with a chevron for the rest, so on a phone it no longer covers half the map.",
+      "<b>The Picture round and Who said it? now offer wrong answers of the same kind</b> as the right one, which makes both harder.",
+      "<b>True or False has 51 more statements</b>, drawn from physics, chemistry, astronomy, biology, earth science, mathematics and medicine as well as history.",
+      "<b>Common Thread now uses only well-known terms</b>, which should make it a good deal less punishing.",
+      "<b>The crossword moves on by itself</b> once an answer is right, skips letters already solved, and has a Give up button that shows the answers.",
+      "<b>A seven-day study streak now earns a chest</b>, and your account page shows how far off the next one is.",
+      "A new picture on one World History card.",
+      "Corrections to three of the World History cards and two of those terms, where a date or a detail had run ahead of the source behind it.",
       "<b>78 more glossary terms</b> — the writers, gods and monsters of epic, the lands they name, the ages of the past, the materials worked and animals kept, and archaeology’s own words.",
       "<b>Thirty-seven terms already here now open from more of the cards’ own words</b> — adjectives, surnames, regional names, the continents, and phrases the cards write in ordinary sentence case.",
     ],
   },
   {
     d: "2026-08-13",
-    t: "The walkthrough and the help cards are brought back into line with the site they describe, and four glossary terms are rewritten",
+    t: "The walkthrough is brought back into line with the site it describes, four glossary terms are rewritten, two more books join the Library, and World History gains cards",
     items: [
       "<b>The walkthrough now names the buttons the page actually carries</b> — it said “Show answer” where the card says “Reveal answer”, and called an unread glossary term gold when it is teal.",
       "The walkthrough no longer describes three numbers on a banner that has none until your first deck is added.",
@@ -67,6 +92,11 @@ window.CHANGELOG = [
       "The About page now says where to change how many new cards a day you meet, and its list of what else is here mentions the Library.",
       "The Atlas card calls the marks on the timeline ticks rather than dots, and a book's card no longer promises notes on chapters whose edition carries none.",
       "<b>Four glossary terms rewritten</b> — two that leaned on examples instead of explaining the term, one renamed to say plainly that it is a culture, and one brought into line with its neighbours.",
+      "<b>The Ramayana is on the shelf</b> — Griffith's verse translation of 1870–74, in 493 cantos, with the Sanskrit facing it.",
+      "Its own first page says which parts of the poem this translation leaves out, and why the last book is absent.",
+      "<b>The Maxims of Ptahhotep is on the shelf</b> — an Egyptian vizier's advice to his son, quite possibly the oldest book of its kind anyone can still read.",
+      "It has no facing Egyptian, and its first page says plainly why not.",
+      "Five new cards in the World History collection, with four new glossary terms.",
     ],
   },
   {
@@ -81,6 +111,7 @@ window.CHANGELOG = [
       "<b>The first-time walkthrough is made for a phone</b>, sitting at the foot of the screen so it no longer covers the very thing it is pointing at.",
       "The walkthrough no longer says your level limits how many decks you may add, which stopped being true when that limit was removed.",
       "The daily study list no longer offers to gather decks into groups.",
+      "Seventeen new cards in the World History collection, each with a glossary term to go with it.",
     ],
   },
   {

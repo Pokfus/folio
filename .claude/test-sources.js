@@ -451,24 +451,48 @@ async function requireTerm(page) {
   (await chooser).setFiles(evilFile);
   await page.waitForTimeout(1200);
 
+  /* THE STORE IS SPLIT: a deck record holds its meta, its glossary and an INDEX of what its cards are,
+     while the cards' own content lives one record per note in `notes`, keyed `<deckId>/<noteId>`, with the
+     card under `c`. This read used to look for `d.cards[0]` — which the split retired — and the failure was
+     the worst kind: the TypeError was thrown inside an IndexedDB success callback, so the promise never
+     settled and Playwright reported "Resulting promise was garbage collected" a minute later, naming a
+     line rather than a fault. Hence the try/catch and the two resolve paths: whatever goes wrong in here
+     must come back as a FAILED CHECK, never as a hang. */
   const stored = await page.evaluate(() => {
-    const out = { card: null, term: null };
+    const out = { card: null, term: null, err: null };
     return new Promise((resolve) => {
-      const req = indexedDB.open("folio-community");
+      const done = (e) => { if (e) out.err = String(e); resolve(out); };
+      let req;
+      try { req = indexedDB.open("folio-community"); } catch (e) { return done(e); }
+      req.onerror = () => done("could not open folio-community");
       req.onsuccess = () => {
-        const db = req.result;
-        const tx = db.transaction("decks", "readonly");
-        const all = tx.objectStore("decks").getAll();
-        all.onsuccess = () => {
-          const d = all.result.find((r) => (r.meta || {}).title === "Source test deck");
-          if (d) { out.card = (d.cards[0] || {}).sources || null; out.term = ((d.gloss || {}).Widgetstone || {}).sources || null; }
-          resolve(out);
-        };
-        all.onerror = () => resolve(out);
+        try {
+          const db = req.result;
+          const tx = db.transaction(["decks", "notes"], "readonly");
+          const all = tx.objectStore("decks").getAll();
+          all.onerror = () => done("decks.getAll failed");
+          all.onsuccess = () => {
+            try {
+              const d = all.result.find((r) => (r.meta || {}).title === "Source test deck");
+              if (!d) return done("no deck titled 'Source test deck' in the store");
+              out.term = ((d.gloss || {}).Widgetstone || {}).sources || null;
+              const notes = tx.objectStore("notes").getAll();
+              notes.onerror = () => done("notes.getAll failed");
+              notes.onsuccess = () => {
+                try {
+                  const mine = notes.result.filter((n) => n.deckId === d.id);
+                  const first = (mine[0] || {}).c || null;
+                  out.card = first ? (first.sources || null) : null;
+                  done(mine.length ? null : "the deck's notes are not in the notes store");
+                } catch (e) { done(e); }
+              };
+            } catch (e) { done(e); }
+          };
+        } catch (e) { done(e); }
       };
-      req.onerror = () => resolve(out);
     });
   });
+  check("the imported deck's notes are readable from the store", !stored.err, stored.err || "");
   check("an imported deck's card sources are stored", Array.isArray(stored.card), JSON.stringify(stored.card));
   if (Array.isArray(stored.card)) {
     check("...with the hostile markup stripped", !stored.card.join(" ").includes("onerror"), stored.card.join(" | "));

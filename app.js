@@ -1229,6 +1229,7 @@
       chests: 0,         // unopened chests. A level-up offers to open one at once; this is what is left if they don't.
       showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
       sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
+      streakChest: 0,    // the streak COUNT a chest was last granted at — see maybeStreakChest for why it is a count
     };
   }
   let S = load();
@@ -1524,7 +1525,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1723,6 +1724,50 @@
   const SUPA_KEY = "sb_publishable_ew3iNcUTazB89PqZG32GWw_ayFyAc4q";
   const SUPA_SESS_KEY = "folio_supa_v1";      // { access_token, refresh_token, expires_at, user:{id,email} }
   const SUPA_GUEST_KEY = "folio_supa_guest_v1"; // the device/guest state stashed while someone is signed in
+  /* ---------- REMEMBERED ACCOUNTS: switching rather than signing out (Aug 2026, on request) ----------
+     A household shares a laptop and a teacher keeps a demo account beside their own, and until now the only
+     way between them was Sign out → type an email → type a password. This keeps the OTHER account's refresh
+     token, so switching back is one press.
+     · Keyed by user id → { id, email, username, name, avatar, refresh_token, at }. A refresh token is what
+       makes it a switch rather than a second sign-in; it is the same secret already sitting in
+       SUPA_SESS_KEY for the live session, so this stores nothing localStorage did not already hold — it
+       simply holds one per account instead of one in all.
+     · SUPABASE ROTATES A REFRESH TOKEN on every use, so a remembered one is only good while that account is
+       NOT the live one. That is exactly the case it is kept for, and every sign-in overwrites the record —
+       but it is also why a stale token must be handled rather than trusted: `supaSwitchTo` forgets the
+       account and says so instead of failing silently.
+     · SIGNING OUT REVOKES, which is the whole difference between the two commands. GoTrue's logout is
+       global by default — it invalidates every refresh token that account has, this store's included — so
+       Sign out FORGETS the account it signed out of, and a switch does not call logout at all. Getting
+       that the wrong way round would leave a remembered account that cannot be switched to, which reads as
+       the feature not working rather than as a security decision. */
+  const SUPA_ACCTS_KEY = "folio_supa_accts_v1";
+  function supaAccounts() {
+    try {
+      const o = JSON.parse(localStorage.getItem(SUPA_ACCTS_KEY) || "{}");
+      return (o && typeof o === "object" && !Array.isArray(o)) ? o : {};
+    } catch (e) { return {}; }
+  }
+  function supaAccountsSave(o) { try { localStorage.setItem(SUPA_ACCTS_KEY, JSON.stringify(o)); } catch (e) {} }
+  // every account remembered EXCEPT whoever is signed in now — the switcher is a list of places to go
+  function supaOtherAccounts() {
+    const o = supaAccounts(), me = supaLoggedIn() ? SUPA.user.id : null;
+    return Object.keys(o).filter((k) => k !== me).map((k) => o[k])
+      .filter((a) => a && a.id && a.refresh_token)
+      .sort((a, b) => (b.at || 0) - (a.at || 0));
+  }
+  function supaRemember() {   // record the live session, with whatever of the profile has loaded
+    if (!supaLoggedIn() || !SUPA.refresh_token) return;
+    const o = supaAccounts();
+    o[SUPA.user.id] = {
+      id: SUPA.user.id, email: SUPA.user.email || "", refresh_token: SUPA.refresh_token, at: Date.now(),
+      username: (SUPA_PROFILE && SUPA_PROFILE.username) || (o[SUPA.user.id] && o[SUPA.user.id].username) || "",
+      name: (SUPA_PROFILE && SUPA_PROFILE.name) || S.user.name || "",
+      avatar: (SUPA_PROFILE && SUPA_PROFILE.avatar) || "",
+    };
+    supaAccountsSave(o);
+  }
+  function supaForget(id) { const o = supaAccounts(); if (o[id]) { delete o[id]; supaAccountsSave(o); } }
   let SUPA = null;          // the live session (or null = signed out / guest)
   let SUPA_PROFILE = null;  // cached profiles row { id, username, name, role, joined }
   let _bootWantedAdmin = false;   // the page loaded on #admin before the admin role could be known — supaBoot routes back once it is
@@ -1998,19 +2043,62 @@
   async function supaSignUp(email, username, name, pw) {
     const r = await supaFetch("/auth/v1/signup", { method: "POST", auth: false, body: { email, password: pw, data: { username, name } } });
     if (!r.ok) return { error: supaErrMsg(r, "Could not create the account.") };
-    if (r.data && r.data.access_token) { supaAdoptSession(r.data); await supaAfterSignIn(); return { ok: true } }
+    if (r.data && r.data.access_token) { supaAdoptSession(r.data); await supaAfterSignIn(); supaRemember(); return { ok: true } }
     return { ok: true, confirm: true };   // email confirmation is on: no session until the emailed link is clicked
   }
-  async function supaSignIn(email, pw) {
+  /* SIGNING IN WITH A USERNAME (Aug 2026, on request). Supabase authenticates on an EMAIL, so a username
+     has to be resolved to one — and doing that safely is the whole of the difficulty, because the obvious
+     implementation is an enumeration oracle. A plain `username → email` lookup, readable by the anonymous
+     visitor who needs it, publishes every reader's email address to anyone who can guess a username; and
+     usernames here are deliberately public (the friends feature looks people up by one).
+     So the lookup VERIFIES THE PASSWORD before it answers: `login_email(uname, pw)` is a SECURITY DEFINER
+     function that compares the bcrypt hash and returns the address only on a match, which tells a caller
+     nothing they were not about to learn from the sign-in itself. See section 12 of
+     .claude/supabase-schema.sql, and note the honest cost recorded there — it is a password check outside
+     GoTrue's own rate limiting.
+     An address is passed straight through, so an email sign-in never touches the RPC, and a database
+     without that function still signs everyone in by email — which is the graceful half: the field says
+     "Email or username", and a username there is answered with the one thing the reader can act on. */
+  /* THE TEST IS "IS THERE AN @", NOT "IS THIS A VALID ADDRESS", and the difference is the whole point: the
+     question here is only which of two paths to take, and a username is `^[a-z0-9_]{3,24}$` and so can never
+     hold one. Validating the address properly is over-strict in a way that FAILS CLOSED IN THE WRONG
+     DIRECTION — a first cut demanded a dot in the domain, which sends the perfectly real `me@localhost` (and
+     every intranet address) down the username path to be told no such username exists. GoTrue is the thing
+     that decides whether an address is good, and it says so in words this can pass straight on. */
+  function looksLikeEmail(s) { return String(s || "").indexOf("@") >= 0; }
+  async function supaEmailForUsername(uname, pw) {
+    const r = await supaFetch("/rest/v1/rpc/login_email", { method: "POST", auth: false, body: { uname: uname, pw: pw } });
+    if (r.ok && typeof r.data === "string" && r.data) return { email: r.data };
+    if (r.ok) return { error: "No account with that username, or the password is wrong." };
+    // 404 = the function was never installed; anything else is the network or the database talking
+    if (r.status === 404) return { error: "Signing in by username isn't set up on this site yet — use your email address." };
+    return { error: supaErrMsg(r, "Sign-in failed — check your username and password.") };
+  }
+  async function supaSignIn(idOrEmail, pw) {
+    let email = String(idOrEmail || "").trim();
+    if (!looksLikeEmail(email)) {
+      const r0 = await supaEmailForUsername(uKey(email), pw);
+      if (r0.error) return { error: r0.error };
+      email = r0.email;
+    }
     const r = await supaFetch("/auth/v1/token?grant_type=password", { method: "POST", auth: false, body: { email, password: pw } });
     if (!r.ok) return { error: supaErrMsg(r, "Sign-in failed — check your email and password.") };
     supaAdoptSession(r.data);
     await supaAfterSignIn();
+    supaRemember();
     return { ok: true };
   }
-  async function supaSignOut() {
-    if (supaLoggedIn()) { clearTimeout(_supaPushTimer); _supaPushTimer = null; await supaPush(); }   // final sync of this device's progress
-    supaFetch("/auth/v1/logout", { method: "POST" });   // best-effort token revoke
+  /* `keepToken` is what separates SWITCHING from signing out, and it is not a nicety: GoTrue's logout is
+     global, so revoking here would kill the very refresh token the switcher is about to keep. A plain sign
+     out therefore also FORGETS that account — its token is dead the moment the request lands, and a
+     remembered account that cannot be switched to is worse than none. */
+  async function supaSignOut(opts) {
+    const keep = !!(opts && opts.keepToken);
+    if (supaLoggedIn()) {
+      clearTimeout(_supaPushTimer); _supaPushTimer = null; await supaPush();   // final sync of this device's progress
+      if (keep) supaRemember(); else supaForget(SUPA.user.id);
+    }
+    if (!keep) supaFetch("/auth/v1/logout", { method: "POST" });   // best-effort token revoke
     SUPA = null; SUPA_PROFILE = null; supaSaveSession();
     let g = null; try { g = JSON.parse(localStorage.getItem(SUPA_GUEST_KEY) || "null"); } catch (e) {}
     try { localStorage.removeItem(SUPA_GUEST_KEY); } catch (e) {}
@@ -2029,6 +2117,39 @@
     if (!newPw || newPw.length < 6) return { error: "Password must be at least 6 characters." };
     const r = await supaFetch("/auth/v1/user", { method: "PUT", body: { password: newPw } });
     return r.ok ? { ok: true } : { error: supaErrMsg(r, "Could not update the password.") };
+  }
+  /* CHANGING THE ADDRESS THE ACCOUNT IS SIGNED IN WITH (Aug 2026, on request). GoTrue does not swap it on
+     the spot: it emails a confirmation link to the NEW address (and, where the project is configured for
+     it, to the old one as well), and the change lands when that link is followed. So this reports what has
+     been SENT rather than what has changed, and the live session goes on using the old address until then
+     — saying "changed" over an address that has not changed yet is the one way this can mislead. */
+  async function supaSetEmail(newEmail) {
+    const em = String(newEmail || "").trim();
+    if (!looksLikeEmail(em)) return { error: "That doesn't look like an email address." };
+    if (SUPA && SUPA.user && uKey(em) === uKey(SUPA.user.email)) return { error: "That is already your address." };
+    const r = await supaFetch("/auth/v1/user", { method: "PUT", body: { email: em } });
+    return r.ok ? { ok: true } : { error: supaErrMsg(r, "Could not change the email address.") };
+  }
+  /* SWITCHING. The order is what keeps the two accounts' progress apart, and every step earns its place:
+     the live account's work is pushed and its token kept, the ordinary sign-out path restores the DEVICE's
+     own guest state (so the stash stays the guest's and not account A's), and only then is the other
+     account's refresh token exchanged for a session. `supaAfterSignIn` then does what it does on any
+     sign-in — including the ownership check that stops one account adopting the other's history. */
+  async function supaSwitchTo(id) {
+    const acct = supaAccounts()[id];
+    if (!acct || !acct.refresh_token) return { error: "That account isn't remembered on this device any more." };
+    if (supaLoggedIn() && SUPA.user.id === id) return { ok: true };
+    if (supaLoggedIn()) await supaSignOut({ keepToken: true });
+    const r = await supaFetch("/auth/v1/token?grant_type=refresh_token", { method: "POST", auth: false, body: { refresh_token: acct.refresh_token } });
+    if (!r.ok || !r.data || !r.data.access_token) {
+      // a rotated or revoked token: say so and drop it, rather than leaving a button that never works
+      supaForget(id);
+      return { error: "That account has to be signed in to again." };
+    }
+    supaAdoptSession(r.data);
+    await supaAfterSignIn();
+    supaRemember();
+    return { ok: true };
   }
   async function supaSetName(name) {
     if (!supaLoggedIn()) return;
@@ -2103,6 +2224,10 @@
     // this account's. Without it, an older save's progress reads as unclaimed and the NEXT account would inherit it.
     if (S._supaOwner !== SUPA.user.id) { supaClaimLocal(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
     await supaLoadProfile();
+    // …and record this session in the switcher. It runs on every boot rather than at sign-in alone so an
+    // account signed in before switching existed still appears in its own list, and so the username, name
+    // and photo shown on its button follow the profile rather than freezing at whatever sign-in knew.
+    supaRemember();
     applyMode();
     // the reload happened ON the Edit page — now that the role is known, send an admin back there
     // (only if they're still sitting on the Home page the boot fallback left them on)
@@ -4359,8 +4484,39 @@
     const t = todayStr();
     if (S.streak.last === t) return;
     const yest = dayKey(Date.now() - DAY);
-    S.streak.count = S.streak.last === yest ? S.streak.count + 1 : 1;
+    const kept = S.streak.last === yest;
+    S.streak.count = kept ? S.streak.count + 1 : 1;
     S.streak.last = t;
+    /* A BROKEN STREAK FORGETS WHAT IT WAS PAID AT, and this is the one line the whole thing turns on.
+       `S.streakChest` is a COUNT rather than a date, so a reader who reached seven, broke the run and
+       climbed back to seven would find it already recorded and earn nothing — silently, and then be paid
+       normally at fourteen, which is the shape nobody would ever report as a bug. */
+    if (!kept) S.streakChest = 0;
+    maybeStreakChest();
+  }
+  /* ---------- A WEEK'S STREAK IS A CHEST (Aug 2026, on request) ----------
+     The third way to earn one, after a level and the daily sweep, and the only one that rewards turning up
+     rather than performance: seven days of study in a row, and every seventh day after that.
+     `S.streakChest` records the COUNT the last chest was granted at, not a date and not a boolean, and that
+     is what makes it idempotent in the one place a date would not be. `bumpStreak` already runs once a day
+     — but the undo stack restores `S.streak` wholesale, so a re-graded first card of the day would bump
+     through seven a second time; comparing against the count means the second pass finds the chest already
+     granted at that number. It also survives two devices reconciling, since it rides in the synced blob
+     beside the streak it is counted from. */
+  const STREAK_CHEST_EVERY = 7;
+  function maybeStreakChest() {
+    const n = (S.streak && S.streak.count) | 0;
+    if (n <= 0 || n % STREAK_CHEST_EVERY !== 0 || S.streakChest === n) return;
+    S.streakChest = n;
+    grantChest();
+    toast("🔥 " + n + "-day streak — a chest is waiting in your account.");
+  }
+  /* How far through the current week the reader is. Day seven reads 7 of 7 rather than 0 of 7, which is
+     what a meter should say on the day the thing is earned — hence the offset rather than a bare modulo. */
+  function streakChestProgress(prog) {
+    const n = ((prog && prog.streak && prog.streak.count) | 0);
+    const into = n <= 0 ? 0 : ((n - 1) % STREAK_CHEST_EVERY) + 1;
+    return { count: n, into: into, need: STREAK_CHEST_EVERY, left: STREAK_CHEST_EVERY - into };
   }
 
   /* ---------- progress accounting ---------- */
@@ -5670,6 +5826,16 @@
        stopped being survivable once a card's deckId had to name a store key, so it is fixed at the source. */
     o.id = (typeof (m && m.id) === "string" && /^[a-z0-9]{4,16}$/.test(m.id)) ? m.id : uid(8);
     o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => uSP(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
+    /* THE DECK'S OWN DEFAULT COLOUR (Aug 2026, on request: an author should be able to say what colour
+       their deck arrives in). It is a hint, never an override — `groupColor(id)` still wins, so a reader
+       who has recoloured a row keeps their choice when the deck updates.
+       Validated by SHAPE rather than against GROUP_COLORS, and both halves of that matter. It ends up
+       inside a CSS custom property, so what has to be guaranteed is that it cannot be anything but a
+       colour — a six-digit hex is exactly that, and `url(...)` or a stray `;` cannot survive the test. And
+       the palette constant lives hundreds of lines further down the file, so naming it here would put a
+       boot-time sanitize inside its temporal dead zone. The Studio offers the curated eight; the store
+       accepts any hex, which is what keeps a hand-written deck file readable. */
+    o.color = /^#[0-9a-fA-F]{6}$/.test(String(m && m.color)) ? String(m.color) : "";
     o.glossMode = GLOSS_MODES.indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
     o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
@@ -6149,7 +6315,7 @@
     (norm.cards || []).forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
-  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
+  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "color", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
   const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
   function uDeckMetaRecord(d) {
     const meta = {};
@@ -6303,7 +6469,7 @@
   function uDeckCreate(title) {
     const id = uid(8);
     const now2 = Date.now();
-    const d = { id: id, title: sanitizePlain(title) || "Untitled deck", subtitle: "", desc: "", author: "", language: uiLang() || "en", tags: [], glossMode: "site", types: {}, version: 1, createdAt: now2, updatedAt: now2, cardIds: [] };
+    const d = { id: id, title: sanitizePlain(title) || "Untitled deck", subtitle: "", desc: "", author: "", language: uiLang() || "en", tags: [], color: "", glossMode: "site", types: {}, version: 1, createdAt: now2, updatedAt: now2, cardIds: [] };
     UDECKS[id] = d;
     UGLOSS[id] = {};
     uDeckSave(id);
@@ -6320,6 +6486,20 @@
     if (!d) return;
     d.tags = String(str || "").split(",").map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12);
     uDeckSave(deckId);
+  }
+  /* The colour the deck ARRIVES in — the author's choice, travelling in the file and in a publish. It is
+     the bottom of the fallback chain and never the top: a reader's own `groupColor` on that row still
+     wins, so an update to the deck cannot silently repaint a row they have already coloured themselves. */
+  function uDeckSetColor(deckId, hex) {
+    const d = UDECKS[deckId];
+    if (!d) return;
+    d.color = /^#[0-9a-fA-F]{6}$/.test(String(hex || "")) ? String(hex) : "";
+    uDeckSave(deckId);
+  }
+  // …and the reading of it, from any of that deck's entry ids (the deck's own row, a subdeck, a direction)
+  function uDeckColorOf(entryId) {
+    const d = UDECKS[uDeckIdOf(entryId)];
+    return (d && d.color) || "";
   }
   /* ---------- card types: the Studio's API ----------
      Each writer re-sanitizes through uTypeSanitize rather than trusting the caller, for the reason uCardSet
@@ -6932,6 +7112,10 @@
       slug: d.slug, title: d.title || "Untitled deck", subtitle: d.subtitle || "", description: d.desc || "",
       author: d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "", language: d.language || "en",
       tags: d.tags || [], gloss_mode: d.glossMode || "site", status: "published", version: (d.publishedVersion || 0) + 1,
+      // the author's default colour, sent only when they chose one — `user_decks.color` arrived after the
+      // phase-2 block, so a colourless deck still publishes from a database whose owner has not run
+      // section 11 of .claude/supabase-schema.sql yet (the same courtesy `types` gets, one line down)
+      color: d.color || undefined,
       forked_from: d.forkedFrom || null,
       // The deck's own card types travel with it, or an installed copy renders its fields as raw prose. Sent
       // only when there ARE any: `user_decks.types` arrived with card types, so a deck of Basic cards still
@@ -6949,11 +7133,21 @@
   const TYPES_COLUMN_MSG = "This deck uses custom card types, and card-type sharing isn't set up on this site yet. Export the deck as a file, or turn its cards back to Basic to publish.";
   const TYPES_COLUMN_MSG_ADMIN = "Card-type sharing isn't set up on this database yet. Run section 8 (CARD TYPES) of .claude/supabase-schema.sql once in the Supabase SQL editor, then publish again.";
   function typesColumnMsg() { return isAdmin() ? TYPES_COLUMN_MSG_ADMIN : TYPES_COLUMN_MSG; }
-  function typesColumnMissing(r) {
+  function missingColumn(r, name) {
     const body = r && r.data;
     const msg = (body && (body.message || body.code)) ? String(body.message || "") + " " + String(body.code || "") : "";
-    return r && r.status === 400 && /types/.test(msg);
+    return !!(r && r.status === 400 && new RegExp("\\b" + name + "\\b").test(msg));
   }
+  function typesColumnMissing(r) { return missingColumn(r, "types"); }
+  /* …and the same courtesy for the deck's own COLOUR (Aug 2026), which arrived later still. It differs in
+     one way that decides the wording: a card type is the deck's CONTENT and cannot be dropped, where a
+     colour is a hint — so a publish that fails on it is retried once with the colour left out rather than
+     refused, and the author is told what did not travel. Refusing to share a whole deck over a swatch
+     would be the tail wagging the dog. */
+  const COLOR_COLUMN_MSG = "Shared — but this site can't carry a deck's colour yet, so it will arrive in the default one.";
+  const COLOR_COLUMN_MSG_ADMIN = "Shared — but deck colours aren't set up on this database yet. Run section 11 (DECK COLOUR) of .claude/supabase-schema.sql once in the Supabase SQL editor.";
+  function colorColumnMsg() { return isAdmin() ? COLOR_COLUMN_MSG_ADMIN : COLOR_COLUMN_MSG; }
+  function colorColumnMissing(r) { return missingColumn(r, "color"); }
   // returns { ok } | { error }
   async function uDeckPublish(deckId) {
     const d = UDECKS[deckId];
@@ -6967,20 +7161,36 @@
 
     if (!d.slug) d.slug = slugify(d.title);
     let row = null;
+    /* A colour is a hint and must never cost the deck its publish, so a refusal naming that column is
+       retried once WITHOUT it and the author told what did not travel (see colorColumnMsg). `dropColor`
+       carries that decision into the payload builder and out again as a warning. */
+    let dropColor = false, warn = "";
+    const payload = () => {
+      const p = uDeckRemotePayload(d);
+      if (dropColor) delete p.color;
+      return p;
+    };
     if (d.remoteId) {
-      const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
-        method: "PATCH", body: uDeckRemotePayload(d), headers: { Prefer: "return=representation" },
+      let r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
+        method: "PATCH", body: payload(), headers: { Prefer: "return=representation" },
       });
+      if (!r.ok && colorColumnMissing(r) && d.color) {
+        dropColor = true; warn = colorColumnMsg();
+        r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
+          method: "PATCH", body: payload(), headers: { Prefer: "return=representation" },
+        });
+      }
       if (!r.ok) return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't update the published deck.") };
       row = Array.isArray(r.data) ? r.data[0] : r.data;
     } else {
       let attempt = 0;
-      while (attempt < 3 && !row) {
-        const body = Object.assign({ owner: SUPA.user.id }, uDeckRemotePayload(d));
+      while (attempt < 4 && !row) {
+        const body = Object.assign({ owner: SUPA.user.id }, payload());
         const r = await supaFetch("/rest/v1/user_decks", { method: "POST", body: body, headers: { Prefer: "return=representation" } });
         if (r.ok) { row = Array.isArray(r.data) ? r.data[0] : r.data; break; }
         // 409 = the slug is taken; try another suffix before giving up
         if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
+        if (colorColumnMissing(r) && d.color && !dropColor) { dropColor = true; warn = colorColumnMsg(); continue; }
         return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't publish the deck.") };
       }
       if (!row) return { error: "That deck name is taken — try a different title." };
@@ -7031,7 +7241,7 @@
     d.publishedVersion = row.version;
     d.ownerName = row.author;
     uDeckSave(deckId);
-    return { ok: true, deck: d, row: row };
+    return { ok: true, deck: d, row: row, warn: warn };
   }
   async function uDeckUnpublish(deckId) {
     const d = UDECKS[deckId];
@@ -7099,10 +7309,29 @@
   }
   // "Top rated" sorts by rank_score, the Bayesian-adjusted average kept as a generated column, not the raw
   // mean — otherwise one 5-star review outranks a deck with fifty good ones forever.
-  const COMMUNITY_SORTS = { rated: "rank_score.desc,rating_count.desc", recent: "updated_at.desc", installs: "install_count.desc,updated_at.desc", title: "title.asc" };
+  /* THE SHARED LIST IS A SORTABLE TABLE (Aug 2026, on request), so the order is chosen by pressing a
+     COLUMN rather than by picking from a menu of four fixed orders. `COMMUNITY_COLS` is the whitelist that
+     makes that safe: a column name goes straight into a PostgREST `order=` clause, so it may never be
+     anything a reader typed. Each row says which direction the column opens in — a name reads A–Z first
+     and a count reads biggest-first — and every order ends on `title.asc`, or two decks with the same
+     rating would swap places between one page load and the next for no reason a reader could see.
+     They are SERVER orders and not a client-side sort of what arrived, which matters because the fetch is
+     capped: sorted here, "most cards" would only ever be the largest of whatever sixty rows the server
+     happened to send. */
+  const COMMUNITY_COLS = [
+    { key: "title",   label: "Deck",      col: "title",        dir: "asc" },
+    { key: "author",  label: "Author",    col: "author",       dir: "asc" },
+    { key: "cards",   label: "Cards",     col: "card_count",   dir: "desc", num: true },
+    { key: "rating",  label: "Rating",    col: "rank_score",   dir: "desc", num: true },
+    { key: "installs", label: "Installs", col: "install_count", dir: "desc", num: true },
+    { key: "updated", label: "Updated",   col: "updated_at",   dir: "desc", num: true },
+  ];
+  const communityCol = (key) => COMMUNITY_COLS.find((c) => c.key === key) || COMMUNITY_COLS[3];
   async function communityBrowse(opts) {
     opts = opts || {};
-    const sort = COMMUNITY_SORTS[opts.sort] || COMMUNITY_SORTS.recent;
+    const c = communityCol(opts.col);
+    const sort = c.col + "." + (opts.dir === "asc" ? "asc" : "desc") +
+      (c.key === "rating" ? ",rating_count.desc" : "") + ",title.asc";
     let q = "/rest/v1/user_decks?select=id,slug,title,subtitle,description,author,language,tags,card_count,install_count,version,updated_at,status,rating_avg,rating_count,staff_pick" +
       "&status=eq.published&order=" + sort + "&limit=" + (opts.limit || 60);
     if (opts.picks) q += "&staff_pick=is.true";
@@ -7152,7 +7381,7 @@
       id: localId,
       meta: {
         id: localId, title: row.title, subtitle: row.subtitle, desc: row.description, author: row.author,
-        language: row.language, tags: row.tags || [], glossMode: row.gloss_mode, types: row.types || {}, version: 1,
+        language: row.language, tags: row.tags || [], color: row.color || "", glossMode: row.gloss_mode, types: row.types || {}, version: 1,
         createdAt: Date.parse(row.created_at) || Date.now(), updatedAt: Date.now(),
         remoteId: row.id, slug: row.slug, origin: "installed", remoteStatus: row.status, forkedFrom: row.forked_from || null,
         installedVersion: row.version, ownerName: row.author,
@@ -8077,6 +8306,26 @@
        than as a near-miss of one, and Aquinas's green — the most recent, and the brightest — is 25.2
        away. Chroma 53.6 sits inside a band whose top is 64.1, so the inherited "bright enough to
        glow" objection does not hold; it reads 4.53:1 on the tightest of the four light papers. */
+    /* VÁLMÍKI — a violet-magenta, measured with 37 colours already placed and the band therefore as
+       full as the Beowulf row predicted: nothing anywhere in it clears 19.0 of its nearest neighbour,
+       against the shelf's own tightest pair at 18.2 (the Classic of Poetry against Beowulf). That is
+       in line rather than alarming — Don Quixote took 19.3 as the thirty-sixth — so the band was NOT
+       widened and no tighter pair was accepted.
+
+       THE FIELD WAS ONE HUE FAMILY AND THE CHOICE INSIDE IT WAS CONTRAST, which is the Cervantes
+       row's judgement in the same position. Every candidate clearing 18.2 without asserting a false
+       kinship is a violet-magenta at chroma 39–51; the best NUMBER (#785A99, 19.0) reads 4.52:1 on
+       the tightest of the four light papers, which is right at the bar and would break if a paper
+       were ever re-toned — and is additionally the swatch the Don Quixote row measured and rejected.
+       This one clears 18.5 and reads 4.82:1 there and 6.99:1 on white.
+
+       THE EURIPIDES TEST IS SHARPER HERE THAN ANYWHERE, because this shelf holds the other Sanskrit
+       epic: the Ramayana and the Mahabharata are the pair a reader is likeliest to hold together, and
+       the Bhagavad Gita is part of the second. So the one colour this must not be a near-miss of is
+       VYASA's saffron-brown, and it stands 77 away — with the Rigveda 100 and Kalidasa 59, the other
+       two Sanskrit books on the shelf. Its nearest neighbours are Seneca at 18.5 and Plato at 18.7,
+       and nobody reads Válmíki against either. */
+    "Valmiki": "#814E99",
     "rigveda": "#5A6F00",
     /* MIGUEL DE CERVANTES — a deep crimson, measured with 35 colours already placed and the band
        therefore as full as the Beowulf row predicted: nothing anywhere in it clears 19.3 of its
@@ -8127,6 +8376,153 @@
        anybody reads beside a comic Roman novel. It reads 4.60:1 on the tightest of the light papers
        and 5.75:1 on white. */
     "Petronius": "#66693C",
+    /* THE BAND IS EXHAUSTED, AND THIS IS THE FIRST ROW THAT HAD TO TAKE A PAIR TIGHTER THAN THE
+       SHELF'S OWN TIGHTEST — which the Beowulf row predicted and which four rows since have put
+       off. With 38 colours placed, NOTHING anywhere in the shelf's own lightness and chroma band
+       clears 18.2 (classic-of-poetry against beowulf); the best is 18.1.
+       WIDENING WAS TRIED IN BOTH DIRECTIONS AND ONE OF THEM IS A FINDING WORTH KEEPING. Widening
+       the LIGHTNESS band upward returns literally the same 6,119 candidates and the same best,
+       because the 4.5:1 contrast bar against the light papers already caps lightness far below the
+       band's own top — so CONTRAST, not the band, is what bounds this palette upward, and the
+       lightness ceiling in these notes has been describing a limit that was never binding. Widening
+       CHROMA to 85 does open the field, to 27–28, and every candidate there is a saturated electric
+       blue, which is precisely what the band exists to prevent.
+       SO THE EURIPIDES TEST DECIDED IT, and it killed the top of the list three times over. The
+       best number in the band is a very dark green at 18.1 reading 9.70:1, the joint-highest
+       contrast on the shelf — and green already holds Aesop's Fables and the Book of Documents,
+       which are an ancient collection of short moral pieces and an ancient collection of counsels
+       to rulers. The next two fail harder: an olive at 17.5 lands 18 from CONFUCIUS and a violet at
+       16.4 lands 16 from SENECA, who are the two authors here a reader would most plainly set
+       beside a book of maxims by an old official.
+       WHAT IS LEFT IS THE SHELF'S EMPTIEST REGION. The cyan-blue quarter holds nothing between 210
+       and 240 degrees and one colour either side of it, and this is a hard local maximum in it:
+       relaxing the chroma ceiling to 80 and the lightness floor to 10 returns the same colour. It
+       clears Aristotle by 16.6, the Song of Roland by 17.3 and Kalidasa by 20.9 — evenly enough to
+       read as its own colour rather than as a near-miss of one — and reads 5.90:1 on the tightest
+       of the light papers, twelfth of the 39, and 9.80:1 on white. Nobody reads an Egyptian courtier's advice against
+       the Nicomachean Ethics or a chanson de geste, so the quarter asserts no kinship. */
+    /* THE BAND IS EXHAUSTED, AND ONLY ONE OF ITS THREE AXES HAD ANYTHING LEFT IN IT — which is a
+     measurement rather than a feeling, and the first time this shelf has been able to say WHICH
+     constraint is binding. With thirty-nine colours placed, nothing anywhere inside the shelf's own
+     lightness and chroma band clears 18.1 of its nearest neighbour, and the best of those is a
+     near-black green landing 19 from the Book of Documents — which is the Euripides test refusing it
+     outright, those being the shelf's two Chinese classics and exactly the pair a reader would take
+     for a set. Relaxing the LIGHTNESS band changes nothing at all in either direction (the 4.5:1
+     contrast bar and the ink floor already cap it, so the search returns the identical candidates),
+     and relaxing the chroma FLOOR changes nothing either. Only the chroma CEILING opens the field,
+     and it opens it sharply: +6 takes the best available from 15.6 to 18.2. So the band is widened
+     upward in chroma alone, which the Aquinas row half-anticipated when it re-measured the inherited
+     "it would glow" objection and dropped it — six placed colours already sit at chroma 59–64, and
+     this is 71 at lightness 29, which is the dark end of the band and cannot glow.
+     WHAT THE EURIPIDES TEST DECIDED HERE is which colour must be FAR rather than which must be near:
+     the shelf's other Ming novel is the one book a reader pairs this with, so the whole search was
+     run against every Chinese work on the shelf at once — and the field clearing all six of them by
+     45 turns out to be entirely blue and blue-violet, there being no other family left. This deep
+     ultramarine is the best contrast (5.73:1 on the tightest of the sixteen light papers) among those
+     at the top separation of 18.2, stands 54 from Wu Cheng'en and further still from Sun Tzu, and
+     sits evenly between its two nearest — Homer and Herodotus at 18 apiece — which is what makes it
+     read as its own colour rather than as a near-miss of one. Neither is a kinship anyone would
+     assert between a Greek epic, a Greek history and a Chinese novel. */
+  "Luo Guanzhong": "#2438A8",
+  "Ptahhotep": "#00486C",
+  /* THE BAND AT FORTY COLOURS, AND THE FIELD IS DOWN TO TWO HUE FAMILIES (Aug 2026, adding the
+     Consolation of Philosophy). Searched over the shelf's own lightness and chroma band, under the
+     Book of Rites' ink floor and the 4.5:1 bar, and additionally held clear of the books a reader
+     might genuinely read AS A PAIR with Boethius — Seneca, Augustine, Marcus Aurelius, Plato,
+     Virgil and Aristotle, which is the Euripides test with a longer list than usual, this being a
+     late-Roman philosopher whose neighbours on the shelf are the other consolers. What clears
+     everything is a scarlet and one green, and nothing else anywhere.
+
+     THE SCARLET IS THE BETTER NUMBER AND IS REFUSED. #A21E00 separates by 21.1 against this one's
+     18.2, and it sits at chroma 71 — the very top of the band, where only Luo Guanzhong is — while
+     being a NINTH colour in the red-and-orange quarter, 21 from the Poetic Edda and 21 from Sun Tzu
+     at the same lightness. The Homer row's test is whether a family is crowded in hue and empty at
+     this LIGHTNESS, and there it is crowded at both.
+
+     THE GREEN PASSES THAT TEST AND WINS ON CONTRAST BESIDES. Nine books sit in the green quarter and
+     the darkest of them is the Book of Documents at L 25; this is L 12, less than half that, so the
+     family is crowded in hue and empty here. It clears Aesop by 18.2 and the Book of Documents by
+     19.9, both wider than the shelf's own tightest pair at 16.6, so the band was not widened and no
+     tighter pair was taken. It stands 39 from Marcus Aurelius, 41 from Augustine, 53 from Aristotle,
+     56 from Virgil, 70 from Plato and 99 from Seneca, so it asserts no kinship at all. And it reads
+     9.80:1 on the tightest of the eighteen light papers and 16.28:1 on white — the highest contrast
+     of any swatch on this shelf, which the City of God and the Book of Rites both treated as the
+     tiebreaker it is. */
+  "Boethius": "#002700",
+  /* A dark scarlet, and it needed NO WIDENING OF THE BAND — which is worth saying, because the
+     last four rows each had to argue about one. With forty-one colours placed, the shelf's own
+     tightest pair is now 16.6 (Aristotle against Ptahhotep) and this clears its nearest neighbour
+     by 19.0, so it is comfortably inside the shelf's own tolerance and nothing was relaxed to get
+     it.
+
+     WHICH AXIS WOULD HAVE BEEN BINDING WAS MEASURED ANYWAY, on the Three Kingdoms row's rule, and
+     the answer is the same as there: widening the LIGHTNESS band changes nothing at all and
+     lowering the chroma FLOOR changes almost nothing, while lifting the chroma CEILING from 71 to
+     90 opens a field whose best clears 29.3. It was not lifted. Every widening makes the next book
+     harder, and a chroma-90 swatch beside forty muted ones is exactly what the ceiling exists to
+     prevent — the Vyasa row's "glow", re-measured by the Aquinas row but not abolished.
+
+     THE ONE CLEAR FAMILY LEFT IN THE SHIPPED BAND IS RED, and inside it the choice was CONTRAST,
+     which is the Cervantes row's trade: the best raw number is 21.0 at 4.59:1, right on the bar,
+     and this clears 19.0 at 4.95:1 on the tightest of the sixteen light papers. The red quarter
+     holds twelve colours and that is the objection the Boethius row raised against a scarlet — but
+     counted the Homer row's way, by swatches within 40 rather than by hue family, this has SIX
+     neighbours, fewer than any other candidate in the band (the best olive has fifteen). Crowded
+     in hue, empty at this lightness and chroma.
+
+     AND THE EURIPIDES TEST IS EASY HERE FOR ONCE. The books a reader might take as a set with
+     Malory are the other medieval narratives — Beowulf, the Song of Roland, Chaucer, Dante, Snorri
+     — and the nearest of the five is Beowulf at 59, with the rest at 83 to 96. Nothing this could
+     be mistaken for is anything it belongs with. */
+  "Thomas Malory": "#9E1402",
+  /* THE BAND IS EXHAUSTED FOR REAL COLOURS AND THE SEARCH SAYS SO IN A NEW WAY (Aug 2026, adding
+     the Ecclesiastical History — the forty-third). Swept over the shipped lightness (12.3–47.8) and
+     chroma (18–71) band under the Book of Rites' ink floor and the 4.5:1 bar, the seven
+     best-separated colours left anywhere in it clear 18.2–19.7 and every one of them is a GREY:
+     chroma 2 to 10, against a shelf whose own floor is 18. A swatch at chroma 3 is not a lighter
+     ink, it is the body ink with a tint on it, and a book wearing one reads as a book that failed
+     to get a colour. So the search was re-run with the shelf's own chroma floor applied, which is
+     the honest way to ask the question, and the field it returns tops out at 17.5.
+
+     17.5 IS ABOVE THE SHELF'S OWN TIGHTEST PAIR, which is now 16.6 (Aristotle against Ptahhotep) —
+     it was 18.2 when Malory was placed and has closed as books were added, which is what a filling
+     band does. So no pair tighter than the existing minimum was taken and the band was not widened.
+
+     AND THE EURIPIDES TEST DECIDES BETWEEN THE TOP THREE RATHER THAN MERELY PASSING. The one book a
+     reader genuinely pairs with Bede is BEOWULF — the shelf's other book of the Anglo-Saxon world —
+     and behind it the two Norse ones. The second-best candidate, a dark rust at 16.4, lands 17 from
+     the Poetic Edda, which is a Germanic-world kinship claim this must not make; the deep violet at
+     16.2 sits 25 from Snorri and at chroma 71, the very top of the band, which is the glow the
+     ceiling exists to prevent. This dark olive-bronze clears Beowulf by 35, the Poetic Edda by 45
+     and Snorri by 69. Its own hue quarter holds Gilgamesh, Confucius, the Rigveda and Petronius —
+     crowded in hue, and all four sit at L 30–47 where this is at 20.3, which is the Homer row's
+     argument again. It reads 7.83:1 on the tightest of the sixteen light papers. */
+  "Bede": "#3C3000",
+  /* THE THIRD WIDENING OF THE CHROMA CEILING, AND THE FIRST TIME THE SHELF'S OWN BAND HELD NOTHING
+     AT ALL (Aug 2026, adding the Travels — the forty-eighth book and the forty-fourth colour, the
+     two having come apart because a colour is keyed by AUTHOR and four writers here have two books
+     each). With 43 colours placed, the best
+     separated swatch anywhere inside the shipped lightness (12.3–47.8) and chroma (18–71) band
+     under the Book of Rites' ink floor and the 4.5:1 bar clears 16.5 — and the shelf's own tightest
+     pair is now 16.6, so for the first time the band's best would itself have become the tightest
+     pair. Bede's row predicted this ("the band genuinely is full now") one book early.
+
+     WHICH AXIS IS BINDING WAS MEASURED RATHER THAN GUESSED, which is Three Kingdoms' rule and gives
+     Three Kingdoms' answer: relaxing LIGHTNESS in either direction (down to 8, up to 55) returns a
+     byte-identical top eight and changes nothing whatever; relaxing the chroma FLOOR to 12 reaches
+     17.4 and every candidate there is a near-grey at 4.53:1, which is the class Bede's row already
+     refused; and only the chroma CEILING opens the field, 16.5 → 25.1 at good contrast. So the
+     ceiling goes 71 → 85 and the other three limits stand.
+
+     THE EURIPIDES TEST THEN COST A TENTH OF A POINT AND WAS WORTH IT. The books a reader genuinely
+     reads Marco Polo against are HERODOTUS — the other traveller whose ethnography is argued about
+     the same way, down to "did he go?" — and the shelf's Chinese books, his subject being the
+     empire they were written in. The band's best is a violet at 25.1 whose nearest neighbour is Luo
+     Guanzhong; this one gives that up for a violet whose nearest is EURIPIDES at 25.0, with Luo
+     Guanzhong at 26 and Herodotus at 39. It is a violet against Luo Guanzhong's blue, so the two do
+     not read as a set even at 26, and it reads 6.60:1 on the tightest of the sixteen light papers
+     where the alternatives that clear the kinship by more scrape 4.75. */
+  "Marco Polo": "#5A009C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -9922,6 +10318,381 @@
       total: 141,
     },
     {
+      id: "ramayana",
+      title: "The Ramayana",
+      subtitle: "रामायणम्",
+      author: "Valmiki",
+      /* Composed over centuries and by more than one hand whatever the tradition says, so the range
+         is wide and argued at both ends. `year` is the single number the shelf's date sort needs and
+         is the middle of the usual range; the prose carries the hedge, which is where a contested
+         date belongs. */
+      written: "c. 500 BCE – 200 CE",
+      year: -300,
+      translator: "Ralph T. H. Griffith",
+      edition:
+        "The Rámáyan of Válmíki, translated into English verse, five volumes, " +
+        "Trübner & Co., London, and E. J. Lazarus and Co., Benares, 1870–1874",
+      /* THE ELEVENTH LICENCE HERE NEEDING NO QUALIFICATION AT ALL. The poem is some two thousand
+         years old. Griffith published in five volumes between 1870 and 1874 while Principal of the
+         Benares College — the date and the imprint read off the volume's own title page rather than
+         recalled — and lived 1826–1906, so the English clears the pre-1929 rule, life plus seventy
+         and life plus a hundred alike.
+
+         THE SANSKRIT NAMES NO EDITOR AND NONE IS INVENTED, which is Lucretius's judgement again —
+         and a real limitation here rather than a formality, the Ramayana having three recensions
+         that differ in their sarga divisions. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide, on every ground. The poem is around two thousand years old, so the " +
+        "work itself has never been in copyright. Ralph T. H. Griffith published this translation in " +
+        "five volumes at London and Benares between 1870 and 1874, and he lived from 1826 to 1906, " +
+        "so the English is out of copyright under the rule for works published before 1929, under " +
+        "the translator's life plus seventy years, and under life plus a hundred — there is no limit " +
+        "to state. The facing Sanskrit is the received text as transcribed at Sanskrit Wikisource, " +
+        "which names no editor and no printed edition for it, so none is claimed here; the ground " +
+        "for that column is the age of the text alone. (The modern translations by Robert Goldman " +
+        "and others, 1984–2017, Hari Prasad Shastri, 1952–59, and Arshia Sattar, 1996, are still in " +
+        "copyright and are not used.) Griffith's appendix, his additional notes and his index are " +
+        "not reproduced.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/24869",
+      origLang: "sa",
+      origName: "Sanskrit",
+      /* THE CHAPTER IS THE CANTO AND THE TAB IS THE CITATION, read straight off: a passage of the
+         Ramayana is "2.40", book and canto, in every language and every reference work. The
+         alternative was measured rather than weighed: cutting at the káṇḍa gives six tabs, the
+         largest of them 119 cantos and some four hundred thousand characters.
+
+         `count` IS WHAT FOLIO HOLDS AND `total` WHAT THE POEM CONTAINS, and here they are further
+         apart than anywhere else on the shelf. Griffith did not translate the seventh book at all —
+         111 cantos — and passed over forty-one more inside the six he did, saying so in the text
+         each time. He numbered around the gaps, which is what lets a canto be laid against the sarga
+         that bears its number; see .claude/fetch-book.js for the measurement, and the book's own
+         front matter for what a reader needs to know about it. */
+      chapterWord: "Canto",
+      count: 493,
+      total: 645,
+      parts: [
+        { n: 1, label: "Bála Káṇḍa", note: "The book of childhood · 75 of 77 cantos" },
+        { n: 2, label: "Ayodhyá Káṇḍa", note: "The exile · all 119" },
+        { n: 3, label: "Áraṇya Káṇḍa", note: "The forest, and Sítá carried off · all 76" },
+        { n: 4, label: "Kishkindhá Káṇḍa", note: "The alliance with the vánars · all 67" },
+        { n: 5, label: "Sundara Káṇḍa", note: "Hanumán's leap to Lanká · 55 of 66" },
+        { n: 6, label: "Yuddha Káṇḍa", note: "The war · 101 of 130" },
+      ],
+    },
+    {
+      id: "ptahhotep",
+      title: "The Maxims of Ptahhotep",
+      subtitle: "The Instruction of Ptah-hotep",
+      author: "Ptahhotep",
+      /* THE DATE IS GENUINELY DISPUTED AND THE BANNER SAYS SO, which is the honest form for a work
+         that names its own author and king and whose surviving copies are centuries younger than
+         both. The poem presents itself as the work of a vizier to Isesi of the Fifth Dynasty; the
+         four copies are Middle Kingdom and the language they preserve is Middle Egyptian, and
+         scholars have argued the case both ways for a century. `year` is the single number the
+         shelf's date sort needs and is the date the poem claims for itself; the prose carries the
+         hedge, which is where a contested date belongs. */
+      written: "c. 2400 BCE, or the Middle Kingdom",
+      year: -2400,
+      translator: "Battiscombe G. Gunn",
+      edition:
+        "The Instruction of Ptah-hotep and the Instruction of Ke'gemni: The Oldest Books in the " +
+        "World, Wisdom of the East series, John Murray, London, 1906",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION. The poem is free everywhere on any
+         reading. Gunn published in 1906 and lived 1883–1950 — dates corroborated twice — so the
+         English clears the pre-1929 rule and cleared life plus seventy in 2021, and has NOT cleared
+         life plus a hundred, which runs to 2051.
+
+         THERE IS NO FACING EGYPTIAN, AND THE ANSWER IS NO ON THE ENGLISH SIDE. Swept over the whole
+         translation: not one papyrus reference of any kind — no column and line, no verse number,
+         no mention of the manuscript. So there is no number the two texts share, whatever the
+         Egyptian side's own licence says. See .claude/fetch-book.js and the book's front matter. */
+      rights:
+        "Public domain, with one limit. The poem is around four thousand years old, so the work " +
+        "itself has never been in copyright. Battiscombe G. Gunn published this translation in " +
+        "London in 1906, so it is out of copyright in the United States under the rule for works " +
+        "published before 1929, and he lived from 1883 to 1950, so it also cleared the translator's " +
+        "life plus seventy years in 2021. Where the term is life plus a hundred it remains in " +
+        "copyright until 2051. (The modern translations by Miriam Lichtheim, 1973, R. B. Parkinson, " +
+        "1997, and William Kelly Simpson are still in copyright and are not used.) Gunn's " +
+        "introduction, his explanation of names and his bibliography are not reproduced, nor are " +
+        "the two other works his volume contains.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/30508",
+      /* THE SECTION IS THE CHAPTER, THE ROW AND THE CITATION. This translation prints forty-seven
+         marked sections and nothing above them — no parts, no books, no headings between the title
+         and the first line — and the division is the poem's own, the Egyptian scribe having written
+         the first sentence of each in red ink. A passage is cited by that mark, so the tab is the
+         citation. The marks are letters AND numbers in one interleaved run: A and B for the
+         petition to the king and the title of the maxims proper, 1 to 37 for the maxims, then C,
+         38 to 43 and D for the epilogue.
+
+         `count` AND `total` ARE BOTH 47 because this translation is complete — but one of the
+         forty-seven is four words in square brackets rather than the maxim it stands for, Gunn
+         having declined to English it in 1906. That is a fact about the translation rather than a
+         gap in the count, and the book's own front matter says so. */
+      chapterWord: "Section",
+      count: 47,
+      total: 47,
+    },
+    {
+      id: "boethius-consolation",
+      title: "The Consolation of Philosophy",
+      subtitle: "Philosophiae Consolationis",
+      author: "Boethius",
+      written: "c. 523–524, in prison at Pavia",
+      year: 524,
+      translator: "H. R. James",
+      edition: "Elliot Stock, London, 1897",
+      /* A LIMIT ON EACH COLUMN, AND THE ORIGINAL IS THE HARDER HALF. Boethius was executed around
+         524, so the work is free everywhere. H. R. James published this translation in 1897 and
+         lived 1862–1931 — the years corroborated twice, once on Wikidata with four references
+         behind them and once by Wikisource's own public-domain tag on this very translation — so
+         the English clears the pre-1929 rule and cleared life plus seventy in 2002, and has NOT
+         cleared life plus a hundred, which runs to 2032. The Latin is E. K. Rand's text of 1918,
+         printed in a volume jointly with H. F. Stewart; a joint work runs its term from the last of
+         its authors to die, and Stewart died in 1948, so that column cleared life plus seventy in
+         2019 and stays in copyright until 2049 where the term is life plus a hundred.
+
+         THE ENGLISH PRINTED WITH THAT LATIN IS NOT USED, AND THAT WAS A CHOICE. The 1918 volume
+         carries a complete English translation of its own, so taking both columns from one file
+         would have paired them by construction and needed no second source at all. It is I.T.'s of
+         1609 revised by Stewart — Jacobean English — and this is a reading room. The cost was
+         measured rather than guessed: all seventy-eight sections are present in both Englishes and
+         in the Latin, in the same order, and James tracks the Latin's length section by section as
+         closely as the Loeb's own version does. See .claude/fetch-book.js and the book's front
+         matter for the whole of it. */
+      rights:
+        "Public domain, with a limit on each column. Boethius was executed around 524, so the work " +
+        "itself has never been in copyright. H. R. James published this translation in London in " +
+        "1897 and died in 1931, so it is out of copyright in the United States under the rule for " +
+        "works published before 1929 and cleared the translator's life plus seventy years in 2002; " +
+        "where the term is life plus a hundred it remains in copyright until 2032. The Latin is E. " +
+        "K. Rand's text, published in 1918 in a volume jointly with H. F. Stewart, who died in " +
+        "1948: pre-1929, and clear of life plus seventy since 2019, but in copyright until 2049 " +
+        "where the term is life plus a hundred. (The modern translations by Richard Green, 1962, V. " +
+        "E. Watts, 1969, P. G. Walsh, 1999, Joel Relihan, 2001, and David Slavitt, 2008, are still " +
+        "in copyright and are not used, nor is S. J. Tester's 1973 revision of the Loeb.) James's " +
+        "preface, his life of Boethius and his index of the poems are not reproduced; nor are the " +
+        "four theological treatises printed with the Latin, which are different works.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/14328",
+      origLang: "la",
+      origName: "Latin",
+      /* THE BOOK IS THE CHAPTER AND THE SECTION IS EACH PROSE CHAPTER AND EACH POEM. The Consolation
+         alternates prose and verse — Philosophy argues, then sings — and that alternation is what
+         the book is, so it may not be cut into seventy-eight tabs. A passage is cited by book and
+         section ("Consolation III.m9"), which is the shape this shelf has met five times before in
+         ancient prose. The five books hold 13, 16, 24, 14 and 11 sections; only the first opens on
+         a poem. */
+      chapterWord: "Book",
+      count: 5,
+      total: 5,
+    },
+    {
+      id: "morte-darthur",
+      title: "Le Morte d'Arthur",
+      subtitle: "King Arthur and of his Noble Knights of the Round Table",
+      author: "Thomas Malory",
+      written: "c. 1469–70, printed 1485",
+      year: 1485,
+      /* NO `translator`, AND IT IS THE FIRST BOOK HERE WITH NONE. Every other book on this shelf was
+         written in another language and names the person who put it into English; Malory wrote in
+         English, and this edition modernises the spelling lightly and leaves the vocabulary
+         alone. So there is
+         nobody to name, and `bookIntroChapter`'s rights box says what the text IS instead — see the
+         note there, which is where the second wording lives. */
+      edition: "Everyman's Library, ed. Ernest Rhys, J. M. Dent, London, 1906",
+      /* A LIMIT ON THE EDITION AND NOTHING ELSE. Malory finished in 1469 or 1470 and Caxton printed
+         the book in 1485, so the work is free everywhere and has been for five centuries. The only
+         modern layer is Ernest Rhys's Everyman edition of 1906; he lived 1859–1946, so it clears
+         the pre-1929 rule and cleared life plus seventy at the start of 2017, and has not cleared
+         life plus a hundred, which runs to 2047.
+
+         AND THE OTHER FREE TEXTS WERE MEASURED RATHER THAN WEIGHED. Project Gutenberg's ebooks 1251
+         and 1252 look like the same book and are a different text: walked word by word they diverge
+         about a thousand times, and every divergence sampled runs one way — this edition carries the
+         older form and that transcription the modern one, *pyght* against *pight*, *hool* against
+         *whole*, *alit* against *alighted*, *trappours* against *trappings*. Strachey's Globe text
+         of 1868, PG's ebook 46853, is the one whose editor softened passages he thought unsuitable
+         for boys, which his own successor in the series says in print. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, with a limit on the edition. Thomas Malory finished the book in 1469 or " +
+        "1470 and William Caxton printed it at Westminster on the last day of July 1485, so the " +
+        "work itself has never been in copyright. The text here is the Everyman's Library edition " +
+        "published by J. M. Dent in 1906 and edited by Ernest Rhys, who lived from 1859 to 1946: it " +
+        "is out of copyright in the United States under the rule for works published before 1929 " +
+        "and cleared the editor's life plus seventy years at the start of 2017, and remains in " +
+        "copyright until 2047 where the term is life plus a hundred. The spelling is lightly " +
+        "modernised and the vocabulary is untouched, so what is printed here is Malory's own " +
+        "English rather than a translation of it — which is why this is the first book on these " +
+        "shelves with no facing original. (Sir Edward Strachey's Globe text of 1868 is free and is " +
+        "not used: its own editor replaced obsolete words and softened passages he thought " +
+        "unsuitable for boys. The " +
+        "modern editions by Eugène Vinaver, 1947, Helen Cooper, 1998, and Dorsey Armstrong, 2009, " +
+        "are still in copyright and are not used.) Sir John Rhys's introduction and the glossary " +
+        "and index of names are not reproduced; what is taken is Caxton's preface and the " +
+        "twenty-one books.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Le_Morte_d%27Arthur",
+      /* THE BOOK IS THE CHAPTER AND CAXTON'S CHAPTER IS THE SECTION — Herodotus's shape a sixth
+         time, and a passage of Malory is cited as book and chapter. Caxton divided the work into
+         twenty-one books and 503 chapters, so cutting at the chapter would put 503 tabs on the bar
+         and cutting above the book would give the whole thing one, there being nothing above it
+         that the edition divides. Book X alone holds 88 of the chapters. */
+      chapterWord: "Book",
+      count: 21,
+      total: 21,
+      /* WHAT THE GLOSSARY MUST NOT LINK, and this is by a distance the longest such list on the
+         shelf because here the collision IS the subject. Folio's glossary is a glossary of
+         prehistory, palaeoanthropology and modern states, and Malory's world is full of the names
+         those keys are spelled with. `linkProperNounsOnly` is no help at all, since these ARE proper
+         nouns: left alone, a reader is offered the population and area of the modern French Republic
+         in the middle of a joust.
+
+         THE LIST WAS SWEPT AGAINST THE SHIPPED TEXT rather than written from imagination — every
+         glossary surface that survives `linkProperNounsOnly` was matched against all 1.8 MB of it,
+         and what that turned up beyond the obvious was `Great_Britain` (19 times, and the entry's
+         whole point is that it is not the United Kingdom, a distinction Arthur's Britain has not
+         got), plus `Europe`, `Asia`, `Africa`, `Armenia` and `Ethiopia`, all articles about the
+         modern world carrying modern populations. Re-run that sweep after a batch of glossary terms.
+
+         ONE SURVIVOR IS DELIBERATE: `Troy`. Caxton names Hector of Troy among the nine worthies in
+         his preface, the entry is about the Bronze Age city at Hisarlık, and it is exactly what a
+         reader might want to follow. The rule is not "link nothing"; it is "link nothing that would
+         tell the reader something untrue about the sentence in front of them". */
+      glossOff: [
+        "France", "Ireland", "Italy", "Rome", "Wales", "Scotland", "England", "Denmark", "Hungary",
+        "Turkey", "Greece", "Egypt", "Jerusalem", "Spain", "Portugal", "Iceland", "Norway", "Sweden",
+        "Germany", "Netherlands", "Belgium", "Switzerland", "Poland", "Russia", "India", "China",
+        "Japan", "Brittany", "Cornwall", "Britain", "Great_Britain", "United_Kingdom", "Latin",
+        "Sicily", "Malta", "Cyprus", "Syria", "Lebanon", "Israel", "Jordan", "Iraq", "Iran",
+        "Tunisia", "Libya", "Europe", "Asia", "Africa", "Armenia", "Ethiopia",
+      ],
+    },
+    {
+      id: "marco-polo",
+      title: "The Travels of Marco Polo",
+      author: "Marco Polo",
+      written: "c. 1298",
+      year: 1298,
+      translator: "Sir Henry Yule",
+      edition: "The Book of Ser Marco Polo, third edition (1903), revised by Henri Cordier, John Murray, London",
+      /* THE TWELFTH LICENCE ON THIS SHELF NEEDING NO QUALIFICATION AT ALL, and the plainest of the
+         recent ones. Polo dictated the book in 1298 and was dead by 1324. Yule published the
+         translation in 1871 and Cordier revised it for the third edition of 1903, so it is public
+         domain in the United States on the pre-1929 rule; Yule lived 1820–1889 and Cordier
+         1849–1925, and a joint work's term runs from the LAST of them to die, so it also cleared
+         life plus seventy in 1995 and life plus a hundred at the start of 2026. Both sets of dates
+         were looked up rather than recalled and corroborated twice over, which is the rule this
+         shelf has kept since Hugo Magnus: the volume's own memoir gives Yule's, and Wikisource's
+         author page gives Cordier's under a public-domain tag reading "died at least 100 years
+         ago". Latham (1958), Cliff (2015) and Kinoshita (2016) are the ones not to reach for. */
+      rights:
+        "Public domain. Marco Polo dictated the book to Rustichello da Pisa in a Genoese prison in " +
+        "1298 and both men were dead within thirty years. Henry Yule's translation was published " +
+        "in London in 1871 and revised by Henri Cordier for the third edition of 1903, so it is " +
+        "public domain in the United States as a pre-1929 publication; Yule died in 1889 and " +
+        "Cordier in 1925, so the term of a joint work — which runs from the last surviving author " +
+        "— expired in 1995 where copyright lasts for life plus seventy and in 2025 where it lasts " +
+        "for life plus a hundred. There is nothing left to qualify.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/10636",
+      chapterWord: "Chapter",
+      count: 235,
+      total: 235,
+      /* WHAT THE GLOSSARY MUST NOT LINK, swept over all 235 chapters with this list emptied rather
+         than guessed at — the Bede row's rule, and here the guess was wrong by more than half.
+         A book that names half the world looks like the one that would need the longest list on the
+         shelf, and it needs one of the SHORTEST: 15 keys survive, because Yule keeps Polo's own
+         names and this glossary is keyed on modern ones. Cathay, Manzi, Chipangu, Seilan, Aden,
+         Badashan and Kinsay match nothing at all, and what does match is almost always a people, a
+         rite or a kingdom rather than a state — "the Land of the Georgians", "Christians of the
+         Greek Rite", "the King of Spain" in 1269, when there was none. Fourteen go off on that
+         reading, and two of the fourteen are the instructive ones because neither is a country at
+         all: BRAZIL is the dyewood, listed at Java among "Red Sanders and Indian-nut and Cloves";
+         and IRON is twice the Iron Gate of the Alexander legend, which is a place, against once the
+         metal at Cobinan — a key that is right a third of the time is a key that is wrong. LATIN
+         goes with them for the same reason, both its hits being Latin CHRISTENDOM ("the Latin
+         countries", "Latin merchants") rather than the language. Exactly ONE survives on purpose:
+         ELEPHANT, which is the animal. */
+      glossOff: [
+        "India", "Turkey", "Armenia", "Latins", "Latin", "Greece", "Iron", "Egypt",
+        "Georgia_(country)", "Germany", "France", "Spain", "Brazil", "Russia",
+      ],
+    },
+    {
+      id: "bede-history",
+      title: "The Ecclesiastical History of the English People",
+      author: "Bede",
+      written: "731",
+      year: 731,
+      translator: "A. M. Sellar",
+      edition: "A Revised Translation with Introduction, Life, and Notes, George Bell and Sons, London, 1907",
+      /* THE GROUND IS THE PUBLICATION DATE AND NOTHING ELSE, which is the Gallic War's position and
+         the second on this shelf. Bede finished in 731 and died in 735, so the work is free
+         everywhere on any reading. The translation was published in London in 1907, so it is public
+         domain in the United States on the pre-1929 rule — and no life-plus-seventy term is claimed,
+         because the translator cannot be traced: the title page gives "A. M. Sellar, Late
+         Vice-Principal of Lady Margaret Hall, Oxford", her own preface is unsigned, and there is no
+         Wikidata entity, no Wikipedia article and no Wikisource author page for her. Lucretius's
+         judgement — claim less, and say on the page what cannot be said. */
+      rights:
+        "Public domain. Bede finished the History in 731 and died in 735, so the work is free " +
+        "everywhere. A. M. Sellar's translation was published in London in 1907, so it is public " +
+        "domain in the United States as a pre-1929 publication. No life-plus-seventy term is " +
+        "claimed for it, because the translator's dates cannot be established: the title page gives " +
+        "only her initials and her former post at Lady Margaret Hall, Oxford, and no reference work " +
+        "reachable here records when she died. The Latin beside it is free on the age of the work; " +
+        "the transcription names Migne's Patrologia Latina 95 as its edition, but the text it " +
+        "carries is not set as Migne sets it, so no editor is asserted for that column either.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/38326",
+      chapterWord: "Book",
+      count: 5,
+      total: 5,
+      origLang: "la",
+      origName: "Latin",
+      origEdition: "as transcribed at Latin Wikisource; see this book's first page for whose text it is",
+      origSourceName: "Latin Wikisource",
+      origSourceUrl: "https://la.wikisource.org/wiki/Historia_Ecclesiastica_gentis_Anglorum",
+      origRights:
+        "Public domain. Bede wrote the History in Latin and finished it in 731. The transcription " +
+        "names Migne's Patrologia Latina 95 as its edition; the text it carries prints consonantal " +
+        "v as u throughout, which Migne does not, and matches Alfred Holder's edition of 1895 where " +
+        "sampled. Every edition it could be is long out of copyright, so no editor is named here.",
+      /* WHAT THE GLOSSARY MUST NOT LINK, and the sweep behind it was RE-RUN rather than reasoned
+         out — the figures written here first were a guess at the answer, and they were wrong in
+         the middle. Measured by serving an app.js with this very list emptied and walking all five
+         books: 22 glossary surfaces survive `linkProperNounsOnly` here, and 19 of them are turned
+         off. Most are articles about the MODERN world. Bede's Britain is not the island of the
+         Great_Britain entry, whose whole point is a distinction seventh-century Britain has not got
+         and which occurs 187 times here; his Gaul is called France once; and two are simply absurd
+         — the Frankish king Clovis resolving to a Palaeolithic North American stone industry, and
+         the emperor Mauritius to an island in the Indian Ocean.
+
+         THE THREE THE GUESS MISSED ARE THE INSTRUCTIVE ONES, because each is an ordinary English
+         word that a rule about proper nouns lets through on a capital alone. `Subsistences` is the
+         Council of Hatfield's creed — "one God in three Subsistences or consubstantial persons" —
+         against an entry about hunting, farming and dental caries; `Latins` is "by the Latins
+         called a peninsula, by the Greeks, a cherronesos", meaning Latin-SPEAKERS, against an entry
+         about the people of Latium vetus in 950–509 BCE; and `Chronological` is Bede's own year-by-
+         year recapitulation against an entry about radiocarbon calibration and Bayesian modelling.
+         The `genus` / `epoch` case that `linkProperNounsOnly` exists for, wearing a capital.
+
+         THREE SURVIVORS ARE DELIBERATE. `Latin` is the language Bede wrote in and the entry is
+         about that language. `Troy` and `Corinth` are the ancient cities his sources mean — and
+         `Troy` is safe only because of the word boundary, this book's other three occurrences of
+         those letters being Lupus, Bishop of TROYES. The rule is not "link nothing"; it is "link
+         nothing that would tell the reader something untrue about the sentence in front of them".
+         Re-run the sweep after a batch of glossary terms, and read the sentence before judging. */
+      glossOff: [
+        "Great_Britain", "Ireland", "Egypt", "Israel", "Italy", "Greece", "Mauritius", "Germany",
+        "Spain", "Europe", "Asia", "France", "Armenia", "Syria", "Africa", "Clovis_culture",
+        "Latins", "Subsistence", "Chronology",
+      ],
+    },
+    {
       id: "rigveda",
       title: "The Rigveda",
       subtitle: "ऋग्वेदः",
@@ -10415,6 +11186,66 @@
          an apparatus, which is what the Aeneid's row declines to do for its own two halves. */
     },
     {
+      id: "three-kingdoms",
+      title: "Romance of the Three Kingdoms",
+      subtitle: "三國演義",
+      author: "Luo Guanzhong",
+      /* THE ATTRIBUTION IS TRADITIONAL AND BETTER ATTESTED THAN MOST. The earliest surviving printing,
+         of 1522, names Luo Guanzhong on its own title page, which is more than the other great Ming
+         novels manage; what is unknown is who he was, his dates being given as about 1330 to 1400 on
+         no very firm evidence. And the text a reader actually has is that novel as Mao Lun and his son
+         Mao Zonggang re-edited it in 1679 — two of the most quoted sentences on its first page are
+         theirs and not Luo's, which the book's own front matter says. */
+      written: "14th century, first printed 1522",
+      year: 1522,
+      translator: "C. H. Brewitt-Taylor",
+      edition: "Kelly & Walsh, Limited, Shanghai, 1925",
+      /* A LIMIT TO STATE, and only one modern layer to state it about. The novel is fourteenth-century
+         and the recension used on both sides was published in 1679, so the Chinese is free on any
+         reading. Brewitt-Taylor published in Shanghai in 1925 — read off the volumes' own title pages
+         — so the English is public domain in the United States under the pre-1929 rule, and he lived
+         from 11 December 1857 to 4 March 1938, corroborated at day precision on Wikidata and
+         independently on Wikisource's author page, so it cleared life-plus-seventy in 2009 and does
+         NOT clear life plus a hundred until 2039. Said outright rather than rounded into the easier
+         sentence. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with a limit to state elsewhere. The novel is a Chinese " +
+        "work of the fourteenth century and the text used here is the recension Mao Lun and Mao " +
+        "Zonggang published in 1679, so the Chinese has been free for as long as copyright has " +
+        "existed. The translation is the half that needs a date: C. H. Brewitt-Taylor published it " +
+        "in Shanghai in 1925, which puts it in the public domain in the United States under the rule " +
+        "for works published before 1929, and he lived from 1857 to 1938, so it cleared the term of " +
+        "the translator's life plus seventy years at the beginning of 2009 — but where the term is " +
+        "life plus a hundred it stays in copyright until 2039. Both volumes' title pages, the " +
+        "dedication, the folding map and the tables of contents are not reproduced, nor is the Maos' " +
+        "own critical apparatus; what is taken is the hundred and twenty chapters. (The complete " +
+        "modern translations — Moss Roberts's of 1991, the abridgement he made of it in 1976, and Yu " +
+        "Sumei's of 2014 — are all still in copyright and are not used.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/San_Kuo",
+      origLang: "zh",
+      origName: "Chinese",
+      /* THE CHAPTER IS THE PAIRING UNIT — what the work is divided into, what both editions state and
+         how any passage of it is cited in any language. Neither side numbers anything inside a
+         chapter, so there is nothing finer to pair on and none is invented: 120 rows, one per chapter,
+         each column at its own length, and every one of them filled on both sides.
+         THE RECENSION WAS CHECKED BEFORE THE PAIRING WAS TRUSTED, because this novel has two and they
+         divide the story differently — the 1522 printing runs to 240 sections and the Maos' of 1679 to
+         120 chapters. The Chinese transcription states on its own front page that it is the Maos', and
+         Brewitt-Taylor translated the Maos; measured as well as read, the couplet heading each Chinese
+         chapter is the couplet he prints over the same number, across all 120.
+         See .claude/fetch-book.js. */
+      chapterWord: "Chapter",
+      count: 120,
+      total: 120,
+      /* Two volumes of sixty chapters, which is the edition's own division and the only one it has —
+         so the Contents panel groups a hundred and twenty tabs the way the printed book groups them. */
+      parts: [
+        { n: 1, label: "Volume I", note: "Chapters 1–60" },
+        { n: 2, label: "Volume II", note: "Chapters 61–120" },
+      ],
+    },
+    {
       id: "canterbury-tales",
       title: "The Canterbury Tales",
       author: "Geoffrey Chaucer",
@@ -10688,7 +11519,6 @@
     whatyear:  ["What year? — Folio", "Five things from one year — place it on the timeline."],
     admin:     ["Admin — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
-    community: ["Shared decks — Folio", "Decks written and shared by other people using Folio."],
     deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
   };
   function setMetaTag(attr, key, val) {
@@ -11418,26 +12248,27 @@
     if (!Number.isFinite(d)) return DAY_HUES[0];
     return DAY_HUES[(Math.floor(d / DAY) % DAY_HUES.length + DAY_HUES.length) % DAY_HUES.length];
   }
-  /* A row that may be given a colour of its own. It is the row a colour is INHERITED FROM — the walk in
-     `emit` passes one down and a row only computes its own when nothing above it has — so the question is
-     "is this the top of something", not "does it hold cards".
-     · a group the reader made, and an added COLLECTION, which is the curated top;
-     · anything they have already dragged something into;
-     · and, since Aug 2026 on request, ONE OF THE READER'S OWN DECKS — an imported or installed deck's
-       whole-deck row. That is the exact counterpart of a collection: a curated deck sitting inside a
-       collection is not offered a colour either, and a community deck's SUBDECKS are that same level down.
-       Nothing else had to change for it — `emit` and `repaintReviewHues` both already read `groupColor(id)`
-       for any row whatever, and `S.deckGroups` is keyed by entry id rather than by group — so a community
-       deck was colourable in every respect except being asked. */
-  function isContainerEntry(id) {
-    if (isGroupId(id)) return true;
-    const n = NODE_BY_ID[id];
-    if (n && !n.parentId) return true;
-    if (nestChildren(id).length > 0) return true;
-    const deckId = uDeckIdOf(id);
-    return !!(deckId && UDECKS[deckId] && !uSubOf(id) && uTplOf(id) < 0);
-  }
-  // …and whether anything is drawn UNDER it, which is the only thing the colour row's own note turns on:
+  /* …AND THE BANNER'S OWN COLOUR MAY BE CHOSEN (Aug 2026, on request). The rotation above is the DEFAULT,
+     not the rule: a reader who picks a colour from the banner's own options sheet gets that colour every
+     day, and clearing it hands the banner back to the rotation. It rides in `S.deckGroups` under
+     REVIEW_ENTRY, exactly as a deck row's does — that register is keyed by ENTRY ID rather than by group,
+     so the review needed no store of its own. Everything that paints the banner reads this rather than
+     `dayHue` directly, or the two would disagree the moment one of them was touched. */
+  function reviewHue() { return groupColor(REVIEW_ENTRY) || dayHue(); }
+  /* WHICH ROWS MAY BE GIVEN A COLOUR: every one of them, since Aug 2026 on request ("users should be able
+     to change the color of both decks and subdecks individually, both curated and imported — and also of
+     the daily study banner").
+     It used to be containers only — a group, an added collection, a whole community deck — on the
+     reasoning that a colour is INHERITED (the walk in `emit` passes one down and a row computes its own
+     only when nothing above it has), so the question was "is this the top of something". That reading is
+     backwards for a reader who wants ONE subdeck to stand out from its siblings: inheritance is what a row
+     falls back to, and setting a colour on a row is exactly how it stops falling back. So the gate is gone
+     and `isContainerEntry` with it — a function nothing calls is the next person's bug.
+     NOTHING ELSE HAD TO CHANGE, which is why this is a deletion rather than a feature: `walk` already
+     reads `groupColor(node.id) || hue || collectionHue(node.id)`, `emit` already reads
+     `groupColor(id) || hue`, and `repaintReviewHues` already resolves any row's own colour before its
+     container's. Every row was colourable in every respect except being asked. */
+  // …whether anything is drawn UNDER a row, which is the only thing the colour row's own note turns on:
   // "every deck inside" is a promise a leaf deck cannot keep.
   function containerHasChildren(id) {
     if (nestChildren(id).length) return true;
@@ -11501,17 +12332,21 @@
        what the three switches above govern, plus the things a group is for: a name, a colour and a way to
        take it apart again. */
     const nestedIn = nestParentOf(id);
-    const colorRow = isContainerEntry(id)
-      ? '<div class="dm-item dm-colors"><b>Colour</b>' +
-          '<div class="dm-swatches">' +
-            '<button type="button" class="dm-swatch dm-swatch-off' + (groupColor(id) ? "" : " on") + '" data-color="" aria-label="Default colour" title="Default colour"></button>' +
-            GROUP_COLORS.map((c) =>
-              '<button type="button" class="dm-swatch' + (groupColor(id).toLowerCase() === c.toLowerCase() ? " on" : "") +
-              '" data-color="' + esc(c) + '" style="--sw:' + esc(c) + '" aria-label="Colour ' + esc(c) + '" title="' + esc(c) + '"></button>').join("") +
-          "</div>" +
-          "<small>" + (containerHasChildren(id) ? "Every deck inside takes this colour"
-                                                : "This row takes this colour") + "</small></div>"
-      : "";
+    /* THE COLOUR ROW IS ON EVERY SHEET (Aug 2026, on request) — every deck, every subdeck, curated and
+       imported alike, and the daily-study banner with them. See the note above `containerHasChildren` for
+       why the old containers-only gate was the wrong reading. The NOTE is what still differs: a row with
+       something under it hands its colour down, and a leaf simply takes it. */
+    const colorRow =
+      '<div class="dm-item dm-colors"><b>Colour</b>' +
+        '<div class="dm-swatches">' +
+          '<button type="button" class="dm-swatch dm-swatch-off' + (groupColor(id) ? "" : " on") + '" data-color="" aria-label="Default colour" title="Default colour"></button>' +
+          GROUP_COLORS.map((c) =>
+            '<button type="button" class="dm-swatch' + (groupColor(id).toLowerCase() === c.toLowerCase() ? " on" : "") +
+            '" data-color="' + esc(c) + '" style="--sw:' + esc(c) + '" aria-label="Colour ' + esc(c) + '" title="' + esc(c) + '"></button>').join("") +
+        "</div>" +
+        "<small>" + (isReview ? "The banner keeps this colour instead of changing daily"
+                    : containerHasChildren(id) ? "Every deck inside takes this colour"
+                                               : "This row takes this colour") + "</small></div>";
     const html =
       '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(info.title) + "</span>" +
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
@@ -13949,8 +14784,16 @@
        pointerUP rather than at pointerdown: a press over a term begins nothing, the first movement past
        WB_TAP_SLOP turns it into an ordinary stroke that starts where the press did (so nothing is lost by
        the wait), and a press that never moves opens the term. Underlining a word still underlines it; a
-       tap on it still asks what it means. */
-    const TIP_SEL = ".ttip";
+       tap on it still asks what it means.
+       A COMMUNITY CARD TYPE'S SPEAK CONTROL JOINED IT (`.uc-tts`, Aug 2026, on a report that it could not
+       be pressed with the marker down). It is a control — it plays audio — but it is a SPAN wrapping a run
+       of the card's own text, and an author may wrap a whole sentence in one, so it belongs with the
+       glossary term rather than in CTL_SEL: claimed at pointerdown, a stroke could not be started on the
+       very words a reader most wants to underline. Tap it and it speaks; draw across it and it takes ink.
+       `.uc-tts` sets `role="button"` on itself, which is exactly why CTL_SEL does not simply widen to
+       `[role="button"]` — a card's picture is one of those too, and drawing on a diagram is the point of
+       having a marker at all. */
+    const TIP_SEL = ".ttip, .uc-tts";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -15842,12 +16685,20 @@
       if (own) return own;
       const p = el.dataset.parent && byId.get(el.dataset.parent);
       if (p) return hueOf(p, hops + 1);
-      return el.dataset.node ? collectionHue(el.dataset.node) : "";
+      // …and at the end of the chain, whichever default the row has: a collection's hue, or for one of the
+      // reader's own decks the colour its AUTHOR shipped it in
+      return el.dataset.node ? collectionHue(el.dataset.node) : uDeckColorOf(el.dataset.drag);
     };
     rows.forEach((el) => {
       const h = hueOf(el, 0);
       if (h) el.style.setProperty("--coll-bg", h); else el.style.removeProperty("--coll-bg");
     });
+    /* …and the BANNER above them, whose colour is chosen from its own copy of this sheet (Aug 2026). It
+       lives outside `.active-decks`, so it needs naming rather than falling out of the walk — and it takes
+       `--tile` rather than `--coll-bg`, that being the property its own markup sets. Clearing the choice
+       hands it back to the daily rotation, which is what `reviewHue` resolves. */
+    const banner = document.querySelector("#b-review");
+    if (banner) banner.style.setProperty("--tile", reviewHue());
   }
   function adSyncFold(listEl) {
     if (!listEl) return;
@@ -16250,7 +17101,8 @@
         const n = NODE_BY_ID[id];
         if (n) { walk(n, depth, parentKey, hue); return; }
         const ud = UDECKS[uDeckIdOf(id)];
-        const h = groupColor(id) || hue;
+        // the reader's own choice, then whatever the row above passed down, then the deck AUTHOR's default
+        const h = groupColor(id) || hue || uDeckColorOf(id);
         // a SUBDECK of one of the reader's own decks is named by the subdeck, with its deck for context —
         // the row is what the reader chose, and "HSK 1" over three of them says nothing about which is which
         const sub = ud ? uSubOf(id) : "";
@@ -16602,7 +17454,7 @@
     const reviewWon = reviewDone && rday.miss === 0;
     // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
     const bannerHTML = fresh
-      ? `<button class="banner hero" id="b-review" style="--tile:${esc(dayHue())}">
+      ? `<button class="banner hero" id="b-review" style="--tile:${esc(reviewHue())}">
           <div class="body">
             <span class="hero-eyebrow">Start here</span>
             ${/* The break is written in the markup rather than left to the wrap (Aug 2026, on request):
@@ -16621,7 +17473,7 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
-      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" style="--tile:${esc(dayHue())}">
+      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review" style="--tile:${esc(reviewHue())}">
           ${doneMarkHTML(reviewDone, reviewWon)}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
@@ -17203,7 +18055,8 @@
             list of collections — the label contradicted both that and the page title above it. */""}
       ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
       ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
-      ${communityLibraryHTML()}`;
+      ${communityLibraryHTML()}
+      ${sharedDecksHTML()}`;
 
     const allList = root.querySelector("#collection-list-all");
     const soonList = root.querySelector("#collection-list-soon");
@@ -17211,6 +18064,7 @@
     if (soonList) comingSoon.forEach((d) => soonList.appendChild(buildCollection(d)));
     wireLibraryDnd(root);
     wireCommunityLibrary(root);
+    wireSharedDecks(root);
     animateProgs(root);   // fill the collection XP bars from their data-pct
   };
 
@@ -17314,8 +18168,13 @@
     if (im) im.addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
     const st = root.querySelector("#udStudio");
     if (st) st.addEventListener("click", () => route("studio"));
+    /* "Browse shared decks" no longer leaves the page — the list is a section further down it (Aug 2026).
+       It scrolls there instead, and honours the reader's motion setting like every other movement here. */
     const br = root.querySelector("#udBrowse");
-    if (br) br.addEventListener("click", () => route("community"));
+    if (br) br.addEventListener("click", () => {
+      const sec = document.querySelector("#sharedDecks");
+      if (sec) sec.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
+    });
     root.querySelectorAll("[data-uadd]").forEach((b) => wireAddButton(b, uDeckEntry(b.dataset.uadd)));
     // a subdeck's + carries its whole entry id, the deck and the title already joined
     root.querySelectorAll("[data-uaddsub]").forEach((b) => wireAddButton(b, b.dataset.uaddsub));
@@ -18637,11 +19496,20 @@
        anyone types — an editable region that swallowed them would let a wrong copyright statement be typed
        into the one place on the site that exists to state the right one. */
     const essay = '<div class="bk-intro-essay">' + bookIntroMerged(b.id) + "</div>";
+    /* A BOOK WITH NO TRANSLATOR IS NOT A BOOK WITH A FIELD MISSING (Aug 2026, adding Le Morte
+       d'Arthur). Every book here until now was written in another language and this box named the
+       person who put it into English; Malory wrote in English, so there is nobody to name and the
+       sentence "This English translation is by undefined" would be a false statement in the one
+       place on the site that exists to state true ones. The box says what the text IS instead —
+       whose EDITION it is — and heads itself "About this text", since a heading calling something a
+       translation is the same claim one line further up. */
     const rights =
       '<section class="bk-rights">' +
-        "<h3>About this translation</h3>" +
+        "<h3>About this " + (b.translator ? "translation" : "text") + "</h3>" +
         "<p><i>" + esc(b.subtitle || b.title) + "</i> by " + esc(b.author) + ", written " + esc(b.written) +
-          ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + ".</p>" +
+          (b.translator
+            ? ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + "."
+            : ". The text here is " + esc(b.edition) + ".") + "</p>" +
         '<p class="bk-rights-note">' + esc(b.rights) + "</p>" +
         '<p class="bk-rights-src">Text from <a href="' + esc(b.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(b.sourceName) + "</a>.</p>" +
       "</section>";
@@ -18707,7 +19575,14 @@
       <div class="page-head bk-head">
         <span class="eyebrow"><button class="bk-back" type="button" id="bkBack">← Library</button></span>
         <h1>${esc(b.title)}</h1>
-        <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · translated by ${esc(b.translator)}</p>
+        ${/* A book with no `translator` was written in English and has none — Le Morte d'Arthur is
+             the first. Left as it was, the byline ran off the end of the page reading "· translated
+             by" with nothing after it, which no test on the shelf could have seen and which looking
+             at the page found in a second. The edition takes that place instead, since what a reader
+             wants there is who stands between them and the author, and here the answer is an editor
+             rather than a translator. */""}
+        <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · ${
+          b.translator ? "translated by " + esc(b.translator) : esc(b.edition)}</p>
       </div>
 
       ${/* The bar and its contents panel are ONE sticky block (Aug 2026, on a bug report). The bar has
@@ -19603,6 +20478,17 @@
           '<label class="admin-field"><span class="af-label">' + esc(label) + '</span><input class="af-input" data-meta="' + f + '" type="' + type + '" value="' + esc(d[f] || "") + '" placeholder="' + esc(ph) + '" /></label>').join("") +
         '<div class="admin-field"><span class="af-label">Description</span><textarea class="af-input" data-meta="desc" rows="3" placeholder="What a learner gets from this deck.">' + esc(d.desc || "") + '</textarea></div>' +
         '<label class="admin-field"><span class="af-label">Tags <small>— comma separated</small></span><input class="af-input" id="stTags" type="text" value="' + esc((d.tags || []).join(", ")) + '" placeholder="rome, republic, senate" /></label>' +
+        /* THE COLOUR THE DECK ARRIVES IN (Aug 2026, on request). The same eight the review list offers,
+           so a deck cannot ship in a colour a reader could not have chosen for it — and the same swatch
+           markup, so the two controls read as one idea. It is a DEFAULT: a reader who recolours the row
+           keeps their colour, and the note says so rather than leaving them to find out. */
+        '<div class="admin-field"><span class="af-label">Colour <small>— what this deck looks like when someone adds it</small></span>' +
+          '<div class="dm-swatches" id="stColors">' +
+            '<button type="button" class="dm-swatch dm-swatch-off' + (d.color ? "" : " on") + '" data-color="" aria-label="No colour" title="No colour"></button>' +
+            GROUP_COLORS.map((c) =>
+              '<button type="button" class="dm-swatch' + (String(d.color || "").toLowerCase() === c.toLowerCase() ? " on" : "") +
+              '" data-color="' + esc(c) + '" style="--sw:' + esc(c) + '" aria-label="Colour ' + esc(c) + '" title="' + esc(c) + '"></button>').join("") +
+          '</div><small class="af-note">Anyone who adds the deck can still recolour it themselves.</small></div>' +
         '<div class="admin-field"><span class="af-label">Glossary <small>— which terms link inside this deck&rsquo;s backgrounds</small></span>' +
           '<div class="gm-picker">' + [
             ["site", "Folio&rsquo;s glossary", "Link the site&rsquo;s own terms, like the curated decks do."],
@@ -19654,6 +20540,12 @@
       if (el.dataset.meta === "title") { const h = root.querySelector("#stTitleH"); if (h) h.textContent = d.title; }
     }));
     const tg = root.querySelector("#stTags"); if (tg) tg.addEventListener("input", () => uDeckSetTags(d.id, tg.value));
+    // the swatches mark themselves and stay put, like the review sheet's — nothing on this page repaints
+    // from a colour, and re-rendering would fold the details panel the reader is working in
+    root.querySelectorAll("#stColors .dm-swatch").forEach((sw) => sw.addEventListener("click", () => {
+      uDeckSetColor(d.id, sw.dataset.color || "");
+      root.querySelectorAll("#stColors .dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
+    }));
     const addC = root.querySelector("#stAddCard");   // absent on the Glossary tab
     if (addC) addC.addEventListener("click", () => {
       const c = uCardCreate(d.id);
@@ -19669,7 +20561,7 @@
       pub.disabled = true; pub.textContent = "Publishing…";
       const r = await uDeckPublish(d.id);
       if (r.error) { toast(r.error); pub.disabled = false; pub.textContent = label; return; }
-      toast("Published — anyone can find this deck now");
+      toast(r.warn || "Published — anyone can find this deck now");
       render();
     });
     const unpub = root.querySelector("#stUnpublish");
@@ -20388,7 +21280,7 @@
   /* ============================================================
      COMMUNITY — browse published decks, and one deck's page
      ============================================================ */
-  const communityState = { q: "", sort: "rated", picks: false, decks: null, loading: false, error: "" };
+  const communityState = { q: "", col: "rating", dir: "desc", picks: false, decks: null, loading: false, error: "" };
 
   /* ONE ROW PER DECK, not a tile in a grid (Aug 2026, on request). A shelf of side-by-side tiles gives each
      deck the same area whatever it has to say, so a title, a subtitle, a rating and three figures were
@@ -20420,58 +21312,118 @@
     '</button>';
   }
 
-  PAGES.community = function (root) {
-    root.innerHTML =
-      '<div class="page-head"><span class="eyebrow">Community</span><h1>Shared decks</h1>' +
-        '<p>Decks written by other people using Folio. They are <b>not fact-checked by Folio</b> — treat them as you would any notes a classmate lends you.</p></div>' +
+  /* ---------- SHARED DECKS, on the Collections page (Aug 2026, on request) ----------
+     They had a page of their own, reached by a button, which put a whole category of content one press
+     further away than the collections it sits beside — and gave it a route a reader had no reason to know
+     existed. It is a section at the FOOT of this page now, directly under the reader's own decks, which is
+     the order the request asks for and the honest one: your decks, then everyone else's.
+     `#community` still resolves and redirects here, because links to it have been shared. */
+  function sharedTh(c) {
+    const on = communityState.col === c.key;
+    const dir = on ? communityState.dir : c.dir;
+    // the column's own key on BOTH the header and its cells, so the phone can drop a column by naming it
+    // once rather than counting to the same nth-child in two places and getting one of them wrong
+    return '<th scope="col" class="sd-th sd-c-' + esc(c.key) + (c.num ? " sd-num" : "") + (on ? " on" : "") + '" aria-sort="' +
+      (on ? (dir === "asc" ? "ascending" : "descending") : "none") + '">' +
+      '<button type="button" class="sd-sort" data-col="' + esc(c.key) + '">' + esc(c.label) +
+        '<span class="sd-arrow" aria-hidden="true">' + (on ? (dir === "asc" ? "▲" : "▼") : "") + "</span>" +
+      "</button></th>";
+  }
+  function sharedRowsHTML() {
+    const list = communityState.decks || [];
+    if (!list.length) {
+      return '<div class="lib-empty">' + (communityState.q ? "No shared decks match that search."
+        : communityState.picks ? "No staff picks yet." : "No decks have been shared yet. Yours could be the first.") + "</div>";
+    }
+    return '<div class="sd-wrap"><table class="sd-table"><thead><tr>' +
+      COMMUNITY_COLS.map(sharedTh).join("") +
+      "</tr></thead><tbody>" +
+      list.map((row) => {
+        const local = localDeckForRemote(row.id);
+        const n = row.card_count || 0;
+        const upd = row.updated_at ? new Date(row.updated_at) : null;
+        return '<tr class="sd-row" tabindex="0" role="button" data-slug="' + esc(row.slug) + '">' +
+          '<td class="sd-deck sd-c-title"><span class="sd-title">' + esc(row.title) + "</span>" +
+            (row.staff_pick ? '<span class="cdeck-pick" title="Chosen by Folio&rsquo;s editors">✦</span>' : "") +
+            (local ? '<span class="cdeck-have">Installed</span>' : "") +
+            (row.subtitle ? '<span class="sd-sub">' + esc(row.subtitle) + "</span>" : "") + "</td>" +
+          '<td class="sd-author sd-c-author">' + esc(row.author || "—") + "</td>" +
+          '<td class="sd-num sd-c-cards">' + n + "</td>" +
+          '<td class="sd-num sd-rate sd-c-rating">' + (row.rating_count ? starsHTML(row.rating_avg, row.rating_count) : '<span class="stars-none">—</span>') + "</td>" +
+          '<td class="sd-num sd-c-installs">' + (row.install_count || 0) + "</td>" +
+          // a date the reader's own locale writes, and the ISO instant on the title for anyone who wants it exact
+          '<td class="sd-num sd-when sd-c-updated"' + (upd ? ' title="' + esc(upd.toISOString()) + '"' : "") + ">" +
+            (upd ? esc(upd.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })) : "—") + "</td>" +
+        "</tr>";
+      }).join("") +
+      "</tbody></table></div>";
+  }
+  function sharedDecksHTML() {
+    return '<div class="collection-group community-group" id="sharedDecks">' +
+      '<div class="group-head"><span class="group-label">Shared decks</span><span class="group-line"></span>' +
+        '<span class="group-count" id="sdCount">' + ((communityState.decks || []).length || "") + "</span></div>" +
+      '<p class="udeck-intro">Decks written by other people using Folio. They are <b>not fact-checked by Folio</b> — treat them as you would any notes a classmate lends you.</p>' +
       '<div class="cbrowse-bar">' +
-        '<input class="af-input cbrowse-q" id="cq" type="search" placeholder="Search decks…" value="' + esc(communityState.q) + '" />' +
-        '<select class="set-sel" id="csort">' +
-          '<option value="rated"' + (communityState.sort === "rated" ? " selected" : "") + '>Top rated</option>' +
-          '<option value="recent"' + (communityState.sort === "recent" ? " selected" : "") + '>Newest</option>' +
-          '<option value="installs"' + (communityState.sort === "installs" ? " selected" : "") + '>Most installed</option>' +
-          '<option value="title"' + (communityState.sort === "title" ? " selected" : "") + '>A–Z</option>' +
-        '</select>' +
-        '<button class="btn ghost tiny' + (communityState.picks ? " on" : "") + '" type="button" id="cpicks" aria-pressed="' + (communityState.picks ? "true" : "false") + '">✦ Staff picks</button>' +
-        '<button class="btn ghost tiny" type="button" id="cmine">Your decks</button>' +
-      '</div>' +
-      '<div id="cresults">' + (communityState.loading ? '<div class="data-loading">Loading decks…</div>' : "") + '</div>';
-
-    const results = root.querySelector("#cresults");
+        '<input class="af-input cbrowse-q" id="sdq" type="search" placeholder="Search shared decks…" value="' + esc(communityState.q) + '" />' +
+        '<button class="btn ghost tiny' + (communityState.picks ? " on" : "") + '" type="button" id="sdpicks" aria-pressed="' + (communityState.picks ? "true" : "false") + '">✦ Staff picks</button>' +
+      "</div>" +
+      '<div id="sdResults">' + (communityState.decks ? sharedRowsHTML() : '<div class="data-loading">Loading shared decks…</div>') + "</div>" +
+    "</div>";
+  }
+  function wireSharedDecks(root) {
+    const results = root.querySelector("#sdResults");
+    if (!results) return;
+    /* Repainted IN PLACE rather than through render(), for the search box's own sake: a re-render per
+       keystroke takes the caret out of the field being typed in. Which means the rows have to be re-wired
+       — the same rule the book shelf's search follows one page over. */
     const paint = () => {
-      if (communityState.error) { results.innerHTML = '<div class="lib-empty">' + esc(communityState.error) + '</div>'; return; }
-      const list = communityState.decks || [];
-      results.innerHTML = list.length
-        ? '<div class="cdeck-list">' + list.map(deckRowHTML).join("") + '</div>'
-        : '<div class="lib-empty">' + (communityState.q ? "No decks match that search." : "No decks have been shared yet. Yours could be the first.") + '</div>';
-      results.querySelectorAll("[data-slug]").forEach((b) => b.addEventListener("click", () => route("deck", { slug: b.dataset.slug })));
+      if (communityState.error) { results.innerHTML = '<div class="lib-empty">' + esc(communityState.error) + "</div>"; return; }
+      results.innerHTML = sharedRowsHTML();
+      const cnt = root.querySelector("#sdCount");
+      if (cnt) cnt.textContent = (communityState.decks || []).length || "";
+      const go = (el) => route("deck", { slug: el.dataset.slug });
+      results.querySelectorAll("[data-slug]").forEach((r) => {
+        r.addEventListener("click", () => go(r));
+        r.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(r); } });
+      });
+      results.querySelectorAll("[data-col]").forEach((b) => b.addEventListener("click", () => {
+        const c = communityCol(b.dataset.col);
+        // pressing the column already sorted on reverses it; a new one opens the way that column reads
+        if (communityState.col === c.key) communityState.dir = communityState.dir === "asc" ? "desc" : "asc";
+        else { communityState.col = c.key; communityState.dir = c.dir; }
+        load();
+      }));
     };
     const load = async () => {
-      communityState.loading = true; communityState.error = "";
-      results.innerHTML = '<div class="data-loading">Loading decks…</div>';
-      const r = await communityBrowse({ q: communityState.q, sort: communityState.sort, picks: communityState.picks });
-      communityState.loading = false;
+      communityState.error = "";
+      results.innerHTML = '<div class="data-loading">Loading shared decks…</div>';
+      const r = await communityBrowse({ q: communityState.q, col: communityState.col, dir: communityState.dir, picks: communityState.picks });
       if (r.error) { communityState.error = r.error; communityState.decks = []; }
       else { communityState.decks = r.decks; }
-      if (current && current.name === "community") paint();
+      if (current && current.name === "decks") paint();
     };
-
-    const qEl = root.querySelector("#cq");
+    const qEl = root.querySelector("#sdq");
     let qT = 0;
     qEl.addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(() => { communityState.q = qEl.value.trim(); load(); }, 300); });
-    root.querySelector("#csort").addEventListener("change", (e) => { communityState.sort = e.target.value; load(); });
-    root.querySelector("#cpicks").addEventListener("click", () => { communityState.picks = !communityState.picks; render(); });
-    root.querySelector("#cmine").addEventListener("click", () => route("studio"));
-
-    if (communityState.decks && !communityState.loading) paint();
+    root.querySelector("#sdpicks").addEventListener("click", (e) => {
+      communityState.picks = !communityState.picks;
+      e.currentTarget.classList.toggle("on", communityState.picks);
+      e.currentTarget.setAttribute("aria-pressed", communityState.picks ? "true" : "false");
+      load();
+    });
+    if (communityState.decks) paint();
     load();
     if (isAdmin()) communityRenderReports(root);
-  };
+  }
 
+  /* The page this used to be is now a section on the Collections page (see sharedDecksHTML). The ROUTE
+     stays and redirects there, because links to `#community` have been shared and a dead one is a worse
+     answer than an extra hop. It renders nothing itself: `route` replaces the hash, and the Collections
+     page paints on the navigation that follows. */
   // admin-only moderation strip: what people have flagged, and the one action that matters (hide it)
   async function communityRenderReports(root) {
     const reports = await deckReportsOpen();
-    if (!reports.length || !current || current.name !== "community") return;
+    if (!reports.length || !current || current.name !== "decks") return;   // the queue lives on the Collections page now
     const ids = [...new Set(reports.map((r) => r.deck_id))];
     const dr = await supaFetch("/rest/v1/user_decks?id=in.(" + ids.join(",") + ")&select=id,slug,title,status");
     const byId = {};
@@ -20502,10 +21454,10 @@
     communityFetchDeck(slug).then((r) => {
       if (!current || current.name !== "deck") return;
       if (r.error === "notfound") {
-        root.innerHTML = emptyPlacard("Deck not found", "—", "That deck doesn't exist, or it isn't shared any more.", () => route("community"), "Browse shared decks");
+        root.innerHTML = emptyPlacard("Deck not found", "—", "That deck doesn't exist, or it isn't shared any more.", () => route("decks"), "Browse shared decks");
         return;
       }
-      if (r.error) { root.innerHTML = emptyPlacard("Couldn't load that deck", "—", r.error, () => route("community"), "Browse shared decks"); return; }
+      if (r.error) { root.innerHTML = emptyPlacard("Couldn't load that deck", "—", r.error, () => route("decks"), "Browse shared decks"); return; }
       deckDetailRender(root, r.row, r.cards, r.gloss);
     });
   };
@@ -20564,7 +21516,7 @@
       '<div class="ddetail-reviews" id="ddReviews"></div>' +
       '<div class="ddetail-more" id="ddMore"></div>';
 
-    root.querySelector("#ddBack").addEventListener("click", () => route("community"));
+    root.querySelector("#ddBack").addEventListener("click", () => route("decks"));
 
     // a real, flippable card so a reader can judge the deck before installing
     const sampleBox = root.querySelector("#ddSample");
@@ -20606,7 +21558,7 @@
     const rep = root.querySelector("#ddReport");
     if (rep) rep.addEventListener("click", () => deckReportPrompt(row));
     const hide = root.querySelector("#ddHide");
-    if (hide) hide.addEventListener("click", async () => { await deckSetStatus(row.id, "hidden"); toast("Deck hidden"); route("community"); });
+    if (hide) hide.addEventListener("click", async () => { await deckSetStatus(row.id, "hidden"); toast("Deck hidden"); route("decks"); });
     const unhide = root.querySelector("#ddUnhide");
     if (unhide) unhide.addEventListener("click", async () => { await deckSetStatus(row.id, "published"); toast("Deck restored"); render(); });
     const pick = root.querySelector("#ddPick");
@@ -22446,15 +23398,23 @@
      specifics), and kinship counts the tags two cards share, weighting the FIRST tag heavily because that
      is the card's kind — an industry against other industries, a cave against other caves.
      A card with no tags falls back to `answerType`, so a community deck still gets sensible options. */
+  /* How alike two TAG LISTS are. Lifted out of `cardKinship` (Aug 2026) so the Picture round can rank its
+     distractors the same way — its pool is cards, glossary terms and artefacts, which are three different
+     records with one thing in common, and that is a list of tags. The rule is unchanged: tag 1 is the KIND
+     and is worth four subject areas, and where the kinds differ the score is capped, because two things
+     that merely share a subject do not make a hard round. */
+  function tagKinship(ta, tb) {
+    if (!Array.isArray(ta) || !Array.isArray(tb) || !ta.length || !tb.length) return 0;
+    const set = new Set(tb);
+    let n = 0;
+    for (let i = 0; i < ta.length; i++) if (set.has(ta[i])) n += (i === 0 ? 4 : 1);
+    if (ta[0] !== tb[0]) n = Math.min(n, 2);
+    return n;
+  }
   function cardKinship(a, b) {
     const ta = Array.isArray(a.tags) ? a.tags : null, tb = Array.isArray(b.tags) ? b.tags : null;
     if (!ta || !tb || !ta.length || !tb.length) return answerType(a) === answerType(b) ? 1 : 0;
-    const set = new Set(tb);
-    let n = 0;
-    for (let i = 0; i < ta.length; i++) if (set.has(ta[i])) n += (i === 0 ? 4 : 1);   // the kind is worth four subject areas
-    // the kind matching is what makes a round hard; without it the two cards merely share a subject
-    if (ta[0] !== tb[0]) n = Math.min(n, 2);
-    return n;
+    return tagKinship(ta, tb);
   }
   function buildChallengeQuestions() {
     const avail = gameCardIdSet();   // well-known terms only — a round is answered cold, with no background to read
@@ -22725,12 +23685,29 @@
   /* ============================================================
      PAGE: WHO SAID IT? (guess the speaker of a famous quote)
      ============================================================ */
+  /* THE THREE WRONG ANSWERS ARE PEOPLE OF THE SAME KIND (Aug 2026, on request — the change Multiple Choice
+     and the Picture round made, for the same reason). Every speaker was already a real historical figure,
+     which is what made them plausible; what they were not was COMPARABLE, so a line of Stoic philosophy
+     came up against a physicist, a civil-rights leader and a playwright, and the round was won by asking
+     which of the four sounds like a philosopher rather than by knowing who wrote it.
+     `cat` is the speaker's own family — see the header of quotes.js for the five and how a life spanning
+     two is filed. Same-family names are offered first and the rest of the pool fills in behind them, so a
+     small family still deals a full round rather than refusing to deal one. `quoteLocalized` may translate
+     the name, so the categories are read off the ORIGINAL entries and the localised name taken from the
+     same index — a translated `who` would match nothing in the table. */
   function buildWhoSaidRounds() {
-    const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
+    const RAW = window.QUOTEGAME || [];
+    const POOL = RAW.map((x) => quoteLocalized(x));
+    const catOf = new Map();   // localised speaker name -> the family it is filed under
+    POOL.forEach((x, i) => { if (!catOf.has(x.who)) catOf.set(x.who, (RAW[i] && RAW[i].cat) || ""); });
     const picks = pick(POOL, Math.min(5, POOL.length));
     const allWho = [...new Set(POOL.map((x) => x.who))];
     return picks.map((it) => {
-      const distractors = pick(allWho.filter((w) => w !== it.who)).slice(0, 3);   // other real historical figures → plausible
+      const mine = catOf.get(it.who) || "";
+      const others = pick(allWho.filter((w) => w !== it.who));
+      const kin = others.filter((w) => mine && catOf.get(w) === mine);
+      const rest = others.filter((w) => !mine || catOf.get(w) !== mine);
+      const distractors = kin.concat(rest).slice(0, 3);
       return { it, options: pick([it.who, ...distractors]) };
     });
   }
@@ -23116,7 +24093,14 @@
     .split(",").forEach((x) => { THREAD_FAMILY[x] = "where"; });
   ("bronze age,iron age,stone age,neolithic,paleolithic,mesolithic,holocene,pleistocene,classical antiquity," +
    "middle ages,modern").split(",").forEach((x) => { THREAD_FAMILY[x] = "when"; });
-  const THREAD_GROUP_MIN = 6;    // a tag with fewer clean terms than this makes the same row too often
+  /* A tag with fewer clean terms than this makes the same row too often — it was 6 while the pool was the
+     whole glossary, and came down to 5 when the pool became the well-known terms alone (Aug 2026). The
+     number is a trade between two kinds of sameness and both were MEASURED over 730 days rather than
+     argued about: at 6 only five tags are ever seatable, so every grid is four of the same five categories;
+     at 4 the categories open up to ten but a tag with exactly four clean terms deals the identical four
+     tiles every time it appears. At 5: seven categories, 726 of 730 grids distinct, none blank. */
+  const THREAD_GROUP_MIN = 5;
+  const THREAD_TRIES = 40;       // reshuffles of the candidate order before the day is given up on (see below)
   const THREAD_TITLE_MAX = 24;   // a tile is a quarter of a phone's width — a longer name cannot be read on the grid
   const threadNorm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
   // The significant words of a title, lightly de-inflected — enough to catch Swabia/Swabian and Minoan/Minoans.
@@ -23124,9 +24108,36 @@
   function threadStems(title) {
     return threadNorm(title).split(" ").filter((w) => w.length >= 5).map((w) => w.replace(/(ian|ans|ain|ic|es|s)$/, ""));
   }
+  /* WHICH TERMS MAY BE ON THE GRID: the well-known ones, and nothing else (Aug 2026, on a report that the
+     puzzle was too hard). This game is the one that draws from the GLOSSARY rather than the cards, and the
+     glossary is not rated — so where every other minigame has been held to `GAME_MAX_DIFFICULTY` since that
+     scale shipped, sixteen tiles here could be sixteen terms a reader has never met, dealt cold, with no
+     background to read and the whole puzzle unsolvable rather than merely hard.
+     The rating a glossary term has not got is the rating of the CARD it answers — which is exactly what the
+     card→glossary pairing rule guarantees exists: every card ships with a term for its own answer. So the
+     pool is the terms reachable from `gameCardIdSet()`, and this game inherits the difficulty bar through
+     the one door every other game already goes through rather than through a second rule of its own.
+     Resolved through `byAnySurface`, the map built for the question "which term is this card's answer?" —
+     it folds the case, so a card answering "ice age" finds the term titled "Ice Age".
+     MEASURED before it was trusted, over the shipped corpus: 68 terms survive, carrying eleven tags with
+     six or more clean terms apiece — comfortably more than the four disjoint groups a puzzle needs. If the
+     pool is ever thinned below that the game says so rather than dealing a bad grid; see the placard. */
+  function threadEasyKeys() {
+    const avail = gameCardIdSet();
+    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
+    const out = new Set();
+    CARDS.forEach((c) => {
+      if (!avail.has(c.id) || !c.answerText) return;
+      const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText).trim().toLowerCase()] : null;
+      if (k && !isDeckGlossKey(k)) out.add(k);
+    });
+    return out;
+  }
   function threadPool() {
     const G = window.GLOSSARY || {}, out = [];
+    const easy = threadEasyKeys();
     for (const k of Object.keys(G)) {
+      if (!easy.has(k)) continue;                                    // a term no well-known card answers
       const tags = glossTags(k);
       if (!tags || tags.length < 2) continue;                        // nothing to be a red herring with
       const title = glossTitle(k);
@@ -23140,31 +24151,42 @@
     const pool = threadPool(), byTag = {};
     for (const it of pool) for (const g of it.tags) (byTag[g] = byTag[g] || []).push(it);
     const cand = Object.keys(byTag).filter((g) => !THREAD_BROAD.has(g) && byTag[g].length >= THREAD_GROUP_MIN);
+    /* The seating is GREEDY and therefore order-dependent: a tag taken early can rule out the two that
+       would have completed the grid, and the run simply ends three groups short. That was survivable while
+       the pool was the whole glossary and is not now the pool is the well-known terms alone — measured
+       over 730 days at one attempt each, 271 of them came back with no puzzle at all.
+       So it retries, which is the crossword's own answer to the same shape of problem (see XW_TRIES): the
+       candidate order is reshuffled and the seating run again, up to THREAD_TRIES times, and the first
+       complete grid wins. Every attempt draws from the SAME day-seeded stream, so the day still decides the
+       puzzle entirely — a reload cannot deal a different one. Measured after: 0 blank days in 730. */
     const rng = mulberry32(hashStr("thread-" + todayStr()));
-    const groups = [], fams = new Set(), stems = new Set();
-    for (const tag of seededShuffle(cand, rng)) {
-      if (groups.length === THREAD_ROWS) break;
-      const fam = THREAD_FAMILY[tag];
-      if (fam && fams.has(fam)) continue;
-      // a group already seated must not contain a term carrying THIS tag either — the test runs both ways
-      if (groups.some((g) => g.terms.some((it) => it.tags.includes(tag)))) continue;
-      const taken = groups.map((g) => g.tag);
-      const clean = byTag[tag].filter((it) =>
-        it.n !== tag && !taken.some((o) => it.tags.includes(o)) && !it.stems.some((s) => stems.has(s))
-      );
-      if (clean.length < THREAD_ROWS) continue;
-      const picked = [];
-      for (const it of seededShuffle(clean, rng)) {
-        if (picked.length === THREAD_ROWS) break;
-        if (it.stems.some((s) => picked.some((p) => p.stems.includes(s)))) continue;   // …and within the row
-        picked.push(it);
+    for (let attempt = 0; attempt < THREAD_TRIES; attempt++) {
+      const groups = [], fams = new Set(), stems = new Set();
+      for (const tag of seededShuffle(cand, rng)) {
+        if (groups.length === THREAD_ROWS) break;
+        const fam = THREAD_FAMILY[tag];
+        if (fam && fams.has(fam)) continue;
+        // a group already seated must not contain a term carrying THIS tag either — the test runs both ways
+        if (groups.some((g) => g.terms.some((it) => it.tags.includes(tag)))) continue;
+        const taken = groups.map((g) => g.tag);
+        const clean = byTag[tag].filter((it) =>
+          it.n !== tag && !taken.some((o) => it.tags.includes(o)) && !it.stems.some((s) => stems.has(s))
+        );
+        if (clean.length < THREAD_ROWS) continue;
+        const picked = [];
+        for (const it of seededShuffle(clean, rng)) {
+          if (picked.length === THREAD_ROWS) break;
+          if (it.stems.some((s) => picked.some((p) => p.stems.includes(s)))) continue;   // …and within the row
+          picked.push(it);
+        }
+        if (picked.length < THREAD_ROWS) continue;
+        if (fam) fams.add(fam);
+        picked.forEach((p) => p.stems.forEach((s) => stems.add(s)));
+        groups.push({ tag: tag, label: threadLabel(tag), terms: picked });
       }
-      if (picked.length < THREAD_ROWS) continue;
-      if (fam) fams.add(fam);
-      picked.forEach((p) => p.stems.forEach((s) => stems.add(s)));
-      groups.push({ tag: tag, label: threadLabel(tag), terms: picked });
+      if (groups.length === THREAD_ROWS) return groups;
     }
-    return groups.length === THREAD_ROWS ? groups : null;
+    return null;
   }
   // The group's name as the reader sees it. Tags are written lowercase for the editor's filter bar; a few
   // read as a bare word where the group is a class of thing, so those are given the fuller phrase.
@@ -23359,14 +24381,28 @@
      half-finished sheet of paper, which belongs to the screen it was started on. The day stamp is what
      retires it, so yesterday's letters can never be restored into today's grid. */
   const XW_KEY = "folio_xw_v1";
-  function xwLoadCells() {
+  function xwRecord() {
     try {
       const r = JSON.parse(localStorage.getItem(XW_KEY) || "null");
-      return r && r.d === todayStr() && r.c && typeof r.c === "object" ? r.c : {};
-    } catch (e) { return {}; }
+      return r && r.d === todayStr() ? r : null;
+    } catch (e) { return null; }
+  }
+  function xwLoadCells() {
+    const r = xwRecord();
+    return r && r.c && typeof r.c === "object" ? r.c : {};
   }
   function xwSaveCells(c) {
-    try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: c })); } catch (e) {}
+    const r = xwRecord() || {};
+    try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: c, up: !!r.up })); } catch (e) {}
+  }
+  /* GIVING UP IS RECORDED, and it has to be — the revealed answers go into the same store the reader's own
+     letters do (they are what is on the board), so without a flag the next visit would read a full grid of
+     correct letters, mark every entry green and record a perfect run for a puzzle nobody solved. The flag
+     is what makes the page show the placard instead. It rides in the same day-stamped record, so it
+     expires the way the letters do: at the day boundary, by being read. */
+  function xwGaveUpToday() { const r = xwRecord(); return !!(r && r.up); }
+  function xwMarkGaveUp(cells) {
+    try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: cells || {}, up: true })); } catch (e) {}
   }
 
   // An answer term as a crossword entry: no diacritics, no punctuation, no case. Deliberately NOT the same
@@ -23496,6 +24532,16 @@
 
   PAGES.crossword = function (root) {
     detachKeys();
+    /* The give-up gate goes FIRST and is separate from the ordinary one, which holds off until the grid is
+       solved (`untilSolved`) precisely so a half-finished board can be come back to. Once the answers have
+       been shown there is nothing left to come back to, so the day closes here instead. */
+    if (xwGaveUpToday()) {
+      const g = (S.games && S.games.crossword) || {};
+      const had = typeof g.s === "number" && typeof g.n === "number" ? "You had " + g.s + " of " + g.n + " when the answers were shown." : "";
+      root.innerHTML = emptyPlacard("Answers revealed", ICON.crossword,
+        had + " A fresh grid arrives tomorrow.", () => route("home"), "Back home");
+      return;
+    }
     if (gameLockedToday(root, "crossword", { untilSolved: true })) return;
     const puz = dailyCrossword();
     if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.crossword, "There aren't enough one-word answer terms to build today's grid yet.", () => route("home"), "Back home"); return; }
@@ -23553,6 +24599,10 @@
                 something red to clear. */""}
           <div class="xw-actions">
             <button class="btn ghost" id="xw-clear" hidden>Clear the wrong letters</button>
+            ${/* GIVE UP (Aug 2026, on request). It ends the day — the answers cannot be unseen, and a grid
+                  that could be re-entered after them would record a perfect run for a puzzle nobody
+                  solved — so it asks first, and the score it keeps is the one earned before the reveal. */""}
+            <button class="btn ghost" id="xw-giveup">Give up</button>
             <button class="btn ghost" id="xw-home">Back home</button>
           </div>
           <div class="chrono-result" id="xwResult"></div>
@@ -23593,6 +24643,8 @@
         el.classList.toggle("ok", right);
         el.classList.toggle("bad", !right && bad.has(k));
         el.readOnly = right || finished;
+        // …and out of the tab order with it: a square whose letter is settled is not somewhere to be taken
+        el.tabIndex = (right || finished) ? -1 : 0;
       });
       root.querySelectorAll(".xw-clue").forEach((b) => b.classList.toggle("done", done.has(b.dataset.e)));
       const clr = root.querySelector("#xw-clear");
@@ -23638,9 +24690,13 @@
       if (cur) cellsOf(cur).forEach((k) => { const sq = root.querySelector('.xw-sq[data-k="' + k + '"]'); if (sq) sq.classList.add("on"); });
     }
     function focusEntry(e, silent) {
+      if (!e) return;
       cur = e; paintCur();
       if (silent) return;
-      const first = cellsOf(e).map(input).find((el) => el && !el.value) || input(cellsOf(e)[0]);
+      const cells = cellsOf(e).map(input);
+      // the first square still to fill, then the first that at least can be typed in — never a locked one,
+      // which would put the caret somewhere the next keystroke is refused
+      const first = cells.find((el) => el && !el.value && !xwLocked(el)) || cells.find((el) => el && !xwLocked(el));
       if (first) { first.focus(); first.select(); }
     }
     /* Typing or backspacing moves along the entry the square belongs to — and if the caret has arrived at a
@@ -23648,19 +24704,57 @@
        way), the selection follows the caret rather than the caret being yanked back to the start of an entry
        the reader has left. Without this, `indexOf` returns -1 and `[-1 + 1]` is the first square of the old
        entry, so one keystroke throws the caret across the board. */
+    /* A SOLVED LETTER IS NOT A PLACE THE CARET GOES (Aug 2026, on request: "letters that have been
+       correctly filled in should not be selectable any more; while typing, it should skip these tiles").
+       They were already `readOnly`, which stops them being CHANGED and does nothing to stop them being
+       landed on — so typing across a word with a green crossing in it stopped dead on that square and the
+       reader had to move the caret by hand. Locked squares are skipped by every movement here, and
+       `xwLocked` is the single test all of them ask. */
+    const xwLocked = (el) => !!(el && (el.readOnly || el.classList.contains("ok")));
     function step(k, delta) {
       if (cellsOf(cur).indexOf(k) < 0) { const here = entriesAt(k)[0]; if (here) { cur = here; paintCur(); } }
       const cells = cellsOf(cur), i = cells.indexOf(k);
       if (i < 0) return false;
-      const el = cells[i + delta] && input(cells[i + delta]);
-      if (el) { el.focus(); el.select(); }
-      return !!el;
+      for (let j = i + delta; j >= 0 && j < cells.length; j += delta) {
+        const el = input(cells[j]);
+        if (el && !xwLocked(el)) { el.focus(); el.select(); return true; }
+      }
+      return false;
+    }
+    // the next entry with a square still to fill, starting after the one given — what typing the last
+    // letter of an answer moves on to, so a solved entry hands the caret straight to the next question
+    // rather than leaving it parked on a word that is finished
+    function nextOpen(from) {
+      const n = puz.entries.length, start = Math.max(0, puz.entries.indexOf(from));
+      for (let d = 1; d <= n; d++) {
+        const e = puz.entries[(start + d) % n];
+        if (cellsOf(e).some((k) => { const el = input(k); return el && !xwLocked(el); })) return e;
+      }
+      return null;
     }
     function wire() {
       const grid = root.querySelector("#xwGrid");
       // a square arrived at any way at all opens with its letter selected, so typing REPLACES rather than
       // being refused by maxlength — which is what a click into a filled square would otherwise do
-      grid.addEventListener("focusin", (ev) => { const el = ev.target.closest(".xw-cell"); if (el) el.select(); });
+      grid.addEventListener("focusin", (ev) => {
+        const el = ev.target.closest(".xw-cell");
+        if (!el) return;
+        /* A LOCKED SQUARE HANDS THE FOCUS ON rather than taking it. `readOnly` and a -1 tab stop keep the
+           keyboard off one; a CLICK still lands wherever it is aimed, and this is what answers that. It
+           passes to the next typable square of the entry the reader has just chosen, so clicking a solved
+           crossing to pick up its Down clue does exactly what they meant. Guarded against bouncing: the
+           redirect only ever moves to an unlocked square, and does nothing at all if there is none. */
+        if (!xwLocked(el)) { el.select(); return; }
+        if (finished) return;
+        // whichever of this square's entries still has something to type — the crossing Down clue when the
+        // Across one through it is already solved, which is exactly why a reader clicks a green square
+        const open = (e) => e && cellsOf(e).map(input).find((c) => c && !xwLocked(c));
+        const here = entriesAt(el.dataset.k);
+        const want = (here.indexOf(cur) >= 0 && open(cur)) ? cur : here.find(open);
+        const target = open(want);
+        if (target) { if (want !== cur) { cur = want; paintCur(); } target.focus(); target.select(); }
+        else el.blur();
+      });
       grid.addEventListener("click", (ev) => {
         const el = ev.target.closest(".xw-cell");
         if (!el) return;
@@ -23675,8 +24769,16 @@
         if (!el) return;
         const v = xwNorm(el.value).slice(-1);   // the LAST letter typed, so typing over a filled square replaces it
         el.value = v;
+        const was = cur;
         evaluate();                             // an entry judges itself the moment its last square is filled
-        if (v) step(el.dataset.k, 1);
+        if (!v) return;
+        /* …and a SOLVED entry hands the caret on (Aug 2026, on request). `evaluate` has just locked its
+           squares, so "is this entry done" is the same question `step` asks of one square: if nothing in it
+           can still be typed in, there is nothing here to come back for. Only then does the caret jump —
+           a wrong answer leaves it where it is, which is where the reader wants to retype. */
+        const openHere = cellsOf(was).some((k) => { const c = input(k); return c && !xwLocked(c); });
+        if (!openHere) focusEntry(nextOpen(was));
+        else step(el.dataset.k, 1);
       });
       grid.addEventListener("keydown", (ev) => {
         const el = ev.target.closest(".xw-cell");
@@ -23685,7 +24787,7 @@
         const go = (dx, dy) => {
           for (let x = xy[0] + dx, y = xy[1] + dy; x >= 0 && y >= 0 && x < puz.w && y < puz.h; x += dx, y += dy) {
             const t = input(key(x, y));
-            if (t) {
+            if (t && !xwLocked(t)) {
               t.focus(); t.select();
               // the selection follows the caret: the entry running the way the arrow went if there is one,
               // otherwise whichever entry that square does belong to — never left pointing somewhere else
@@ -23724,6 +24826,39 @@
         const first = puz.entries.map((e) => cellsOf(e).map(input).find((el) => el && !el.value)).find(Boolean);
         if (first) { first.focus(); first.select(); }
       });
+      /* GIVE UP — the answers, and the end of the day's puzzle. It asks first, because it cannot be taken
+         back: the grid is not re-enterable afterwards (see the gate at the top of this page), and it must
+         not be, or a revealed board read back off the store would record a perfect run.
+         The score kept is the one EARNED — `solved` before anything was revealed — written as a final
+         result rather than as `progress`, so the tile stops rising and the day is closed. */
+      root.querySelector("#xw-giveup").addEventListener("click", () => {
+        if (finished) return;
+        inlineConfirm("Show today's answers? The grid closes for the day — you keep the " + solved +
+          " of " + N + " you have found.", () => {
+          const earned = solved;
+          puz.entries.forEach((e) => cellsOf(e).forEach((k, i) => {
+            const el = input(k);
+            if (el) el.value = e.w[i];
+          }));
+          finished = true;   // set BEFORE the sweep, so every square locks and nothing re-judges as a win
+          const shown = {};
+          root.querySelectorAll(".xw-cell").forEach((el) => {
+            shown[el.dataset.k] = el.value;
+            el.readOnly = true; el.tabIndex = -1;
+            el.classList.remove("bad"); el.classList.add("ok");
+          });
+          root.querySelectorAll(".xw-clue").forEach((b) => b.classList.add("done"));
+          const clr = root.querySelector("#xw-clear"); if (clr) clr.hidden = true;
+          const gu = root.querySelector("#xw-giveup"); if (gu) gu.hidden = true;
+          xwMarkGaveUp(shown);
+          markGamePlayed("crossword", false, earned, N);
+          save(); checkAchievements();
+          const res = root.querySelector("#xwResult");
+          res.className = "chrono-result show";
+          res.innerHTML = '<div class="cr-title">' + earned + " of " + N + " found</div>" +
+            '<div class="cr-sub">The rest are filled in above. A fresh grid arrives tomorrow.</div>';
+        }, "Show the answers");
+      });
       root.querySelector("#xw-home").addEventListener("click", () => route("home"));
     }
   };
@@ -23750,21 +24885,27 @@
   const PIC_ROUNDS = 5, PIC_OPTS = 4, PIC_MIN_POOL = 8;
   function picturePool() {
     const out = [], seen = new Set();
-    const add = (img, label, kind, gloss) => {
+    const add = (img, label, kind, gloss, tags) => {
       if (!img || !img.src || !label) return;
       const l = String(label).trim();
       if (!l || seen.has(l.toLowerCase())) return;   // one entry per subject, or a round could offer the answer twice
       seen.add(l.toLowerCase());
-      out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "", kind: kind, gloss: gloss || "" });
+      out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "",
+                 kind: kind, gloss: gloss || "", tags: Array.isArray(tags) && tags.length ? tags : [kind] });
     };
     /* The CARD half draws under the difficulty bar, like every other card-fed game. The glossary and
        artefact halves are not rated at all — `difficulty` is a card field, and this is the one game
        whose pool reaches past the cards — so they enter as they always did. Said here rather than left
        to be discovered: rating the 836 glossary terms is a separate content pass, and until it happens
        this game's answers are easier than the others' on average rather than uniformly so. */
+    /* Each entry carries the TAGS its subject is filed under, which is what lets a round's three wrong
+       answers be things of the same kind (Aug 2026, on request). They come from the two tables that
+       already hold them — a card's own `tags`, a glossary term's `GLOSSARY_TAGS` row — and an artefact,
+       which is filed under neither, is simply an artefact: that is one honest category rather than a
+       guess dressed up as several. */
     const avail = gameCardIdSet();
-    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card"); });
-    Object.keys(window.GLOSSARY || {}).forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k); });
+    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card", "", c.tags); });
+    Object.keys(window.GLOSSARY || {}).forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k)); });
     artefactsMerged().forEach((a) => add(a.image, a.name, "artefact"));
     return out;
   }
@@ -23773,8 +24914,20 @@
     if (pool.length < PIC_MIN_POOL) return null;
     const rng = mulberry32(hashStr("picture-" + todayStr()));
     const shuffled = seededShuffle(pool, rng);
+    /* THE THREE WRONG ANSWERS ARE THE SUBJECTS MOST AKIN TO THE RIGHT ONE (Aug 2026, on request — the same
+       change Multiple Choice made, for the same reason). Drawn at random they were a photograph of a
+       hand-axe against a president, a mountain range and a Greek festival, which is a round answered by
+       elimination and teaches nothing; ranked by shared tags, a hand-axe is answered against three other
+       stone tools.
+       Candidates are SHUFFLED BEFORE the sort, and the sort is stable — so a subject with several equally
+       close siblings does not offer the same three every day, which is what would happen to the small tag
+       families here otherwise. `tagKinship` is Multiple Choice's own measure. */
     return shuffled.slice(0, PIC_ROUNDS).map((it) => {
-      const decoys = seededShuffle(pool.filter((x) => x.label !== it.label), rng).slice(0, PIC_OPTS - 1);
+      const decoys = seededShuffle(pool.filter((x) => x.label !== it.label), rng)
+        .map((x) => ({ x: x, k: tagKinship(it.tags, x.tags) }))
+        .sort((a, b) => b.k - a.k)
+        .slice(0, PIC_OPTS - 1)
+        .map((d) => d.x);
       return { it: it, options: seededShuffle([it].concat(decoys), rng).map((x) => x.label) };
     });
   }
@@ -24248,6 +25401,12 @@
               <div class="cp-titlerow">
                 <div class="cp-name" id="cpName"></div>
                 <div class="cp-new" id="cpNew" hidden></div>
+                ${/* THE PHONE SHEET OPENS ON THE NAME ALONE (Aug 2026, on request), and this is what
+                      opens the rest of it. It sits on the title's own line rather than under it, because
+                      that line IS the whole of the sheet until it is pressed — a control below it would be
+                      in the part that is not there yet. Hidden on the desktop, where the panel already
+                      runs the height of the stage and there is nothing to reveal. */""}
+                <button class="cp-more" id="cpMore" type="button" aria-expanded="false" aria-label="Show this place's details">${cpChev}</button>
               </div>
               <div class="cp-span" id="cpSpan"></div>
               <div class="cp-tools">
@@ -24447,6 +25606,16 @@
     const CP_H_KEY = "folio_cp_h_v1";
     const CP_TOP_GAP = 8, CP_BOTTOM_GAP = 14;   // clearance at the top of the screen; the sheet's own bottom offset
     let cpUserH = null, cpUserHRead = false;
+    /* ---- …AND IT OPENS SHUT (Aug 2026, on request) ----
+       On a phone, clicking a country used to raise a sheet that took half the screen — over the very map
+       the reader had just pointed at, and before they had said they wanted to read anything. It opens at
+       the NAME now, which is the answer to the question a tap on a country asks, and the chevron beside
+       the name is what asks for the rest.
+       `cpShut` is deliberately NOT remembered. The stored height is (that is the reader's setting, and it
+       is what the sheet expands TO); whether the sheet is open is a fact about the place in front of them,
+       reset on every one — which is the request's own "always collapsed by default". A drag on the grip
+       counts as asking for it open, or the gesture would fight the state. */
+    let cpShut = true;
     function cpReadH() {
       if (cpUserHRead) return cpUserH;
       cpUserHRead = true;
@@ -24501,15 +25670,37 @@
     function cpApplyH() {
       if (!cpEl) return;
       const f = cpReadH();
-      if (!cpPagerOn()) { cpEl.classList.remove("cp-sized"); cpEl.style.height = ""; return; }
+      if (!cpPagerOn()) { cpEl.classList.remove("cp-sized", "cp-shut"); cpEl.style.height = ""; cpSyncMore(); return; }
       const vh = document.documentElement.clientHeight || 0;
       cpEl.classList.add("cp-sized");
+      cpEl.classList.toggle("cp-shut", cpShut);
+      cpSyncMore();
+      /* Shut, the height IS the floor — the grip, the crumb, the name and nothing else. It is measured
+         rather than written down for cpMinH's own reason: a long name wraps and a drilled place carries a
+         breadcrumb above it, so the "title bar" is not one number. */
+      if (cpShut) { cpEl.style.height = Math.round(cpMinH()) + "px"; return; }
       // with no stored height the sheet still fits its page rather than sitting at the stylesheet's flat 52%
       const want = f == null ? vh : f * vh;
       cpEl.style.height = Math.round(Math.max(56, Math.min(want, cpMaxH()))) + "px";
       // the floor can only be measured once the box is laid out, so clamp on the second pass
       const min = cpMinH();
       if (cpEl.getBoundingClientRect().height < min) cpEl.style.height = Math.round(min) + "px";
+    }
+    // the chevron says which way pressing it will go, and is absent entirely where there is nothing to reveal
+    function cpSyncMore() {
+      const b = cpEl && cpEl.querySelector("#cpMore");
+      if (!b) return;
+      const on = cpPagerOn();
+      b.hidden = !on;
+      const open = on && !cpShut;
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+      b.setAttribute("aria-label", open ? "Hide this place's details" : "Show this place's details");
+    }
+    function cpSetShut(v) {
+      cpShut = !!v;
+      cpApplyH();
+      // the pager measures its panes against the box's width, which has just changed
+      if (!cpShut) { cpSyncDots(); cpActiveDot(); }
     }
     // …and re-fit after a swipe: the ceiling has moved because the page under it has
     function cpFitH() {
@@ -24524,6 +25715,9 @@
       grip.addEventListener("pointerdown", (e) => {
         if (!cpPagerOn() || (e.button != null && e.button !== 0)) return;
         drag = { id: e.pointerId, y: e.clientY, h: cpEl.getBoundingClientRect().height };
+        // a drag on the grip IS asking for the sheet, so it takes the shut state off rather than fighting
+        // it — the height below is free to move only once nothing is pinning it to the floor
+        if (cpShut) { cpShut = false; cpEl.classList.remove("cp-shut"); cpSyncMore(); cpSyncDots(); }
         cpEl.classList.add("cp-resizing");
         try { grip.setPointerCapture(e.pointerId); } catch (x) {}
         e.preventDefault();
@@ -24696,6 +25890,9 @@
       // the dots FIRST: the height is fitted to the page on screen, and the dot row is part of what the
       // sheet has to make room for (see cpPaneNeedH)
       cpSyncDots(); cpActiveDot();
+      // …and SHUT again, whatever the last place was left at: a tap on a country asks what it is, and the
+      // name is the answer. Reset here rather than remembered, which is the request's "always collapsed".
+      cpShut = true;
       cpApplyH();   // …at the reader's height, capped by what this page actually needs
     }
     function hideCountryPopup() { if (cpEl) cpEl.hidden = true; }
@@ -26804,6 +28001,7 @@
     cpDescSecEl = root.querySelector("#cpDescSec"); cpYearSecEl = root.querySelector("#cpYearSec"); cpStatsSecEl = root.querySelector("#cpStatsSec");
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
+    { const more = root.querySelector("#cpMore"); if (more) more.addEventListener("click", () => cpSetShut(!cpShut)); }
     cpWireResize(root.querySelector("#cpGrab"));
     // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
     // they aren't reading — a long description on a phone sheet buries the year paragraph under it.
@@ -27770,6 +28968,32 @@
     }
     return newly;
   }
+  /* The week's run towards its chest, as seven pips and a sentence. Pips rather than a bar because seven is
+     a number a reader can count at a glance, and the thing being counted is DAYS — a continuous fill would
+     suggest a part-finished day, which is not a state this has.
+     It reads three ways: nothing yet, part way, and full on the day the chest is earned. There is no
+     "chest waiting" state here, deliberately — the chest announces itself above the Daily-study banner on
+     the home page, and saying it twice on two pages is how a reader stops believing either. */
+  function streakChestHTML(prog) {
+    const p = streakChestProgress(prog);
+    const pips = Array.from({ length: p.need }, (_, i) =>
+      '<span class="sc-pip' + (i < p.into ? " on" : "") + '"></span>').join("");
+    /* The zero state is a SENTENCE rather than a bare "0 of 7", and it is only ever reached from the
+       signed-in view: that page is the reader's own record, so explaining what a streak buys belongs
+       there. The signed-out page gates this out entirely at zero — the Reliquary's rule directly beside
+       it, everything there being a courtesy over a sign-in wall. */
+    const note = p.count <= 0
+      ? "Study on any day to start a streak — seven days in a row earns a chest."
+      : p.left === 0
+        ? "Seven days in a row — a chest is yours. The next one is seven days away."
+        : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for your next chest.";
+    return '<div class="streak-chest">' +
+      '<div class="sc-head"><span class="sc-title">Next streak chest</span>' +
+        '<span class="sc-count">' + p.into + " / " + p.need + "</span></div>" +
+      '<div class="sc-pips" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + pips + "</div>" +
+      '<div class="sc-note">' + esc(note) + "</div>" +
+    "</div>";
+  }
   function badgesHTML(achObj, stats) {
     const got = (id) => achObj && achObj[id];
     const earned = ACHIEVEMENTS.filter((a) => got(a.id)).length;
@@ -27796,6 +29020,43 @@
     return acctSelfView(root);
   };
 
+  /* THE ACCOUNT SWITCHER (Aug 2026, on request: "an option to switch accounts instead of logging out").
+     One list, drawn on both halves of this page, because it answers the same question either way — signed
+     out it is a way straight back in, signed in it is a way across. See supaAccounts for what is stored
+     and why a switch must not revoke.
+     Each row is the account as its owner would recognise it: their photo, their display name, their
+     @username, and the email underneath, which is also the answer to "which of my two is this". */
+  function acctSwitchListHTML() {
+    const others = supaOtherAccounts();
+    if (!others.length) return "";
+    return '<div class="acct-switch" id="acctSwitch">' +
+      others.map((a) =>
+        '<button type="button" class="acct-swrow" data-switch="' + esc(a.id) + '">' +
+          monogramHTML(a.avatar, a.name || a.username || "?", "sm") +
+          '<span class="asw-who"><b>' + esc(a.name || a.username || "Account") + "</b>" +
+            (a.username ? '<span class="asw-at">@' + esc(a.username) + "</span>" : "") +
+            (a.email ? '<span class="asw-mail">' + esc(a.email) + "</span>" : "") +
+          "</span>" +
+          '<span class="asw-go" aria-hidden="true">&rarr;</span>' +
+        "</button>" +
+        '<button type="button" class="acct-swforget" data-forget="' + esc(a.id) + '" title="Forget this account on this device" aria-label="Forget ' + esc(a.name || a.username || "this account") + ' on this device">&times;</button>').join("") +
+      "</div>";
+  }
+  function wireAcctSwitch(root) {
+    root.querySelectorAll("[data-switch]").forEach((b) => b.addEventListener("click", async () => {
+      const lbl = b.innerHTML;
+      b.disabled = true; b.innerHTML = '<span class="asw-who"><b>Switching…</b></span>';
+      const r = await supaSwitchTo(b.dataset.switch);
+      if (r.error) { b.disabled = false; b.innerHTML = lbl; toast(r.error); render(); return; }
+      toast("Signed in as " + ((SUPA_PROFILE && SUPA_PROFILE.name) || "you"));
+      afterAuthChange();
+    }));
+    root.querySelectorAll("[data-forget]").forEach((b) => b.addEventListener("click", () => {
+      supaForget(b.dataset.forget);
+      render();
+      toast("Forgotten on this device");
+    }));
+  }
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
@@ -27806,6 +29067,10 @@
             laptop. The three perks were already written — they were just stacked underneath the form, where
             they made a short card longer. Out beside it they fill the space and say what the account is FOR
             at the moment a reader is deciding whether to make one. Below 820px they go back under the form. */""}
+      ${/* …and the accounts this device already knows, ABOVE the form: a reader who has signed out and is
+            coming back is being offered the answer rather than a blank field. Absent for everybody who has
+            never signed in, which is most first visits. */""}
+      ${supaOtherAccounts().length ? '<div class="section-label">Pick up where you left off</div>' + acctSwitchListHTML() : ""}
       <div class="auth-split">
       <div class="auth-card">
         <div class="auth-tabs">
@@ -27814,7 +29079,11 @@
           <button class="auth-tab" data-av="forgot" type="button">Forgot password</button>
         </div>
         <form class="auth-form" data-form="signin">
-          <label>Email<input class="auth-in" name="u" type="email" autocomplete="email" required></label>
+          ${/* "Email or username" (Aug 2026, on request), which is also why the type is `text` rather than
+                `email`: an <input type=email> refuses to submit anything without an @ in it, so a username
+                would be rejected by the browser before this form ever saw it. `autocomplete="username"` is
+                the right token for a field that takes either, and password managers fill it as happily. */""}
+          <label>Email or username<input class="auth-in" name="u" type="text" autocomplete="username" required></label>
           <label>Password<input class="auth-in" name="p" type="password" autocomplete="current-password" required></label>
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Sign in</button>
@@ -27846,6 +29115,11 @@
             off would mean a reward that can be won and never looked at. It appears only once there is
             something to show, so a first visit is the sign-in page it has always been; and there is no
             showcase, which is the half that needs an account to have any point. */""}
+      ${/* …and the streak meter with it, for the same reason: a guest builds a streak and earns its chests
+            entirely on this device, so walling the progress towards one behind a sign-in would hide the
+            thing they are working towards. Shown only once a streak exists — on a first visit there is
+            nothing to show. */""}
+      ${(S.streak && S.streak.count > 0) ? streakChestHTML(S) : ""}
       ${(Object.keys(S.artefacts || {}).length || chestCount())
         ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
         : ""}
@@ -27863,6 +29137,7 @@
       </button>` : ""}`;
     root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
+    wireAcctSwitch(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
       tabs.forEach((x) => x.classList.toggle("active", x === t));
@@ -27930,18 +29205,39 @@
               of thing — what you do to the ACCOUNT — and it had been sitting a section lower among the
               photo controls, where it read as one of them. */""}
         <div class="acct-idacts">
+          <button class="ghost-btn" id="emToggle" type="button">Email address</button>
           <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
+          <button class="ghost-btn" id="swToggle" type="button">Switch account</button>
           <button class="ghost-btn" id="signout" type="button">Sign out</button>
         </div>
       </div>
       ${/* …and the sync line moved with them: it says what happens to the thing those two buttons act on,
             so it belongs directly under them rather than beside a Remove-photo button. */""}
       <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
+      ${/* SEEING AND CHANGING THE ADDRESS (Aug 2026, on request). The address a reader signs in with was
+            nowhere on this page, which on an account that also has a username is the one fact they cannot
+            look up anywhere else. It is shown plainly and changed in the same panel, and the note says the
+            change is not immediate — GoTrue emails a link and the swap happens when it is followed. */""}
+      <div class="acct-panel" id="emPanel" hidden>
+        <div class="acct-current">Signed in as <b>${esc((SUPA.user && SUPA.user.email) || "—")}</b></div>
+        <label>New email address<input class="auth-in" id="emNew" type="email" autocomplete="email" placeholder="${esc((SUPA.user && SUPA.user.email) || "you@example.com")}"></label>
+        <div class="auth-msg" id="emMsg"></div>
+        <button class="auth-btn sm" id="emSave" type="button">Send confirmation link</button>
+        <p class="auth-note">Your address changes once you follow the link we send to the new one. Until then, keep signing in with the old address — or with your username.</p>
+      </div>
       <div class="acct-panel" id="pwPanel" hidden>
         <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
         <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
         <div class="auth-msg" id="pwMsg"></div>
         <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
+      </div>
+      ${/* The switcher, and the way to add one more to it. "Sign in to another account" signs THIS one out
+            while keeping its token, which is what lands the reader on the ordinary sign-in form with both
+            accounts remembered — rather than a second copy of that form living inside this page. */""}
+      <div class="acct-panel" id="swPanel" hidden>
+        ${supaOtherAccounts().length ? acctSwitchListHTML() : '<p class="auth-note">No other account is remembered on this device yet.</p>'}
+        <button class="auth-btn sm ghost" id="swAdd" type="button">Sign in to another account</button>
+        <p class="auth-note">Switching keeps you signed in to both — your work on each stays its own. Signing out forgets the account you sign out of.</p>
       </div>
       <div class="ph-stats">
         ${statTile("st-seen", st.seen, "Cards studied")}
@@ -27949,6 +29245,10 @@
         ${statTile("st-badges", earnedBadges, "Badges")}
         ${statTile("st-wins", st.wins, "Quiz wins")}
       </div>
+      ${/* HOW FAR TO THE NEXT STREAK CHEST (Aug 2026, on request). It sits under the stat tiles, beside the
+            streak figure it counts from — the tile says how long the run is and this says what the run is
+            worth, which are two halves of one fact and read badly a section apart. */""}
+      ${streakChestHTML(S)}
       ${me.avatar ? '<div class="acct-tools"><button class="ghost-btn" id="avatarRemove" type="button">Remove photo</button></div>' : ""}
       ${/* THE RELIQUARY (Aug 2026, on request). The showcase sits directly under the profile hero because
             it IS part of the profile — the four artefacts a reader has chosen to be seen holding — while
@@ -28026,7 +29326,32 @@
     });
 
     root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
-    root.querySelector("#pwToggle").addEventListener("click", () => { const p = root.querySelector("#pwPanel"); p.hidden = !p.hidden; });
+    /* One panel open at a time. They are three answers to "what about this account", and two of them
+       showing at once pushes the third off the screen on a phone for no reason. */
+    const panels = ["emPanel", "pwPanel", "swPanel"];
+    const openPanel = (want) => panels.forEach((p) => {
+      const el = root.querySelector("#" + p);
+      if (el) el.hidden = p === want ? !el.hidden : true;
+    });
+    root.querySelector("#emToggle").addEventListener("click", () => openPanel("emPanel"));
+    root.querySelector("#swToggle").addEventListener("click", () => openPanel("swPanel"));
+    root.querySelector("#pwToggle").addEventListener("click", () => openPanel("pwPanel"));
+    root.querySelector("#emSave").addEventListener("click", async (e) => {
+      const m = root.querySelector("#emMsg"), inp = root.querySelector("#emNew");
+      e.target.disabled = true;
+      const r = await supaSetEmail(inp.value);
+      e.target.disabled = false;
+      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
+      m.textContent = "Check " + inp.value.trim() + " for the confirmation link."; m.className = "auth-msg ok";
+      inp.value = "";
+    });
+    wireAcctSwitch(root);
+    root.querySelector("#swAdd").addEventListener("click", async (e) => {
+      e.target.disabled = true;
+      await supaSignOut({ keepToken: true });   // …keeping the token, which is what makes this a switch
+      toast("Sign in with the other account — this one is remembered");
+      afterAuthChange();
+    });
     root.querySelector("#pwSave").addEventListener("click", async () => {
       const a = root.querySelector("#pwNew").value, b = root.querySelector("#pwNew2").value, m = root.querySelector("#pwMsg");
       if (a !== b) { m.textContent = "Passwords don't match."; m.className = "auth-msg err"; return; }
@@ -32100,10 +33425,22 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "community", "deck", "glossary", "browse", "library", "book"];
+  /* `community` is deliberately NOT here any more (Aug 2026): the shared-deck list is a section of the
+     Collections page, so that address is retired — and a retired address is REDIRECTED rather than dropped,
+     since links to it have been shared. Both readers of the hash map it to `decks` below. */
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "deck", "glossary", "browse", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
-  let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
+  let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
+  /* …and the ADDRESS BAR is corrected with it. The hashchange reader reaches the collections through
+     `route`, which rewrites the hash; boot renders directly, so without this a reader following an old
+     `#community` link would sit on the Collections page under a URL naming a route that no longer exists —
+     and would re-share that URL, and come back to it on every Back. `replaceState` rather than assigning
+     `location.hash`: assigning fires a hashchange and re-renders the page we are about to render, and it
+     would leave the dead route in the history for Back to return to. */
+  if (hParts[0] === "community") {
+    try { history.replaceState(null, "", location.pathname + location.search + "#decks"); } catch (e) {}
+  }
   if (initName === "map" && hParts.length > 1) parseMapHash(hParts);   // #map/<year>/<slug> deep link
   let initParams = {};
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
@@ -32257,6 +33594,10 @@
       if (rec) route("study", { scope: rec.scope, resume: rec }); else route("home");
       return;
     }
+    // `#community` is a retired address kept alive: its list is a section of the Collections page now, and
+    // a shared link has to land somewhere rather than nowhere. Redirected HERE, at the hash, rather than
+    // from inside a page function — a page that routes while it is being rendered re-enters render().
+    if (hh === "community") { route("decks"); return; }
     if (valid.includes(hh) && hh !== current.name) route(hh);
     else if (!hh && current.name !== "home") route("home");
   });
