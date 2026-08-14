@@ -6995,6 +6995,14 @@
       if (Array.isArray(c.questions) && c.questions.length) data.questions = c.questions;   // the extra phrasings travel with the card
       if (Array.isArray(c.sources) && c.sources.length) data.sources = c.sources;           // and so do its citations
       if (c.sub) data.sub = c.sub;   // and the subdeck it sits in — no column needed, it is part of the card
+      /* AND WHAT MAKES A TYPED CARD A CARD AT ALL (Aug 2026, on a bug found by testing the round trip).
+         A typed card carries `type` + `fields` INSTEAD of the Basic thirteen, so a payload built from
+         CARD_FIELDS alone uploads twelve empty strings and nothing else: the TEMPLATES travelled (they are
+         on the deck row) and the CONTENT did not, so an installed copy was the right number of blank cards
+         under the right subdecks, with no direction rows, and the author's own copy was perfect throughout.
+         That is the worst shape a bug here can take — only somebody ELSE ever sees it — and it went unseen
+         because `test-publish.js` had only ever published a Basic deck. It publishes a typed one now. */
+      if (c.type) { data.type = c.type; data.fields = c.fields || {}; }
       if (c.image && c.image.src) data.image = c.image;
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
@@ -11283,7 +11291,24 @@
     closeDeckMenu();
     const ov = document.createElement("div");
     ov.className = "deck-menu";
-    ov.innerHTML = '<div class="dm-box" role="dialog" aria-modal="true" aria-label="' + esc(labelText) + '">' + innerHTML + "</div>";
+    /* A × IN THE TOP RIGHT (Aug 2026, on request). Escape and a backdrop tap already closed the sheet and
+       neither says so: Escape is a key a phone has not got, and "tap outside" is a convention a reader has
+       to already know. It is built HERE rather than by each caller so every sheet has one — the options
+       menu, Custom study, Daily limits, Scheduling, Card info, the flag picker — which is also what stops
+       a later sheet shipping without it.
+       FIRST in the DOM and `position:sticky` rather than absolute: sticky keeps it in the corner of the one
+       sheet whose whole box scrolls (`.ds-sheet`), where an absolute × would scroll off the top, and being
+       first means a screen reader meets "Close" on the way in rather than after forty rows of card history.
+       Its own height is cancelled with a negative margin so it costs the head no room, and `.dm-head` gains
+       the padding that keeps a long title from running under it — which is why A SHEET'S FIRST BLOCK SHOULD
+       BE A `.dm-head`. All eleven callers open with one today; one that did not would have the × sitting
+       over its first row, and the fix is to give that sheet a head rather than to widen the rule (a
+       `.dm-x + *` selector loses to `.dm-item`'s own padding shorthand further down the stylesheet). */
+    ov.innerHTML = '<div class="dm-box" role="dialog" aria-modal="true" aria-label="' + esc(labelText) + '">' +
+      '<button type="button" class="dm-x" aria-label="Close" title="Close">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">' +
+        '<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
+      innerHTML + "</div>";
     document.body.appendChild(ov);
     /* It leaves the way it arrived (Aug 2026, on request). The sheet had an entrance and no exit, so
        dismissing it cut it away on the frame of the click — the one abrupt half of a control that is
@@ -11300,14 +11325,20 @@
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
     ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
+    ov.querySelector(".dm-x").addEventListener("click", close);
     _deckMenuClose = close;
     wire(ov, close);
     /* The first control, unless the sheet has nominated one with `data-dmfocus`. A sheet whose rows are a
        CHOICE wants the focus on the current value: without this the Scheduling sheet, which rebuilds itself
        when the choice changes, showed a focus ring on the row just clicked — the one NOT chosen — beside a
        tick on the one that was, and left the reader to work out which of the two meant anything. Nominating
-       it here rather than in the sheet's own wire() is what avoids racing this very timer. */
-    setTimeout(() => { const f = ov.querySelector("[data-dmfocus]") || ov.querySelector("button, input"); if (f) f.focus(); }, 0);
+       it here rather than in the sheet's own wire() is what avoids racing this very timer.
+       The × is skipped: it is first in the DOM for the reason above, and opening every sheet with the focus
+       on Close would put the ring on the way OUT of a sheet the reader has just asked for. */
+    setTimeout(() => {
+      const f = ov.querySelector("[data-dmfocus]") || ov.querySelector("button:not(.dm-x), input");
+      if (f) f.focus();
+    }, 0);
     return ov;
   }
   /* HOLD to open an options sheet — used by the daily review's deck rows and by the review banner above
@@ -11387,13 +11418,35 @@
     if (!Number.isFinite(d)) return DAY_HUES[0];
     return DAY_HUES[(Math.floor(d / DAY) % DAY_HUES.length + DAY_HUES.length) % DAY_HUES.length];
   }
-  // a row that can hold other rows: a group the reader made, an added collection, or anything they have
-  // already dragged something into. Only these are offered a colour, since the colour is inherited downward.
+  /* A row that may be given a colour of its own. It is the row a colour is INHERITED FROM — the walk in
+     `emit` passes one down and a row only computes its own when nothing above it has — so the question is
+     "is this the top of something", not "does it hold cards".
+     · a group the reader made, and an added COLLECTION, which is the curated top;
+     · anything they have already dragged something into;
+     · and, since Aug 2026 on request, ONE OF THE READER'S OWN DECKS — an imported or installed deck's
+       whole-deck row. That is the exact counterpart of a collection: a curated deck sitting inside a
+       collection is not offered a colour either, and a community deck's SUBDECKS are that same level down.
+       Nothing else had to change for it — `emit` and `repaintReviewHues` both already read `groupColor(id)`
+       for any row whatever, and `S.deckGroups` is keyed by entry id rather than by group — so a community
+       deck was colourable in every respect except being asked. */
   function isContainerEntry(id) {
     if (isGroupId(id)) return true;
     const n = NODE_BY_ID[id];
     if (n && !n.parentId) return true;
-    return nestChildren(id).length > 0;
+    if (nestChildren(id).length > 0) return true;
+    const deckId = uDeckIdOf(id);
+    return !!(deckId && UDECKS[deckId] && !uSubOf(id) && uTplOf(id) < 0);
+  }
+  // …and whether anything is drawn UNDER it, which is the only thing the colour row's own note turns on:
+  // "every deck inside" is a promise a leaf deck cannot keep.
+  function containerHasChildren(id) {
+    if (nestChildren(id).length) return true;
+    if (isGroupId(id)) return false;
+    const n = NODE_BY_ID[id];
+    if (n) return nodeChildren(n).length > 0;
+    const deckId = uDeckIdOf(id);
+    if (!deckId || !UDECKS[deckId]) return false;
+    return uSubChildren(deckId, "").length > 0 || uTplEntriesOf(id).length > 0;
   }
   /* `promptNewGroup` stood here and is GONE (Aug 2026, on request: "remove the group function from the
      daily study/active decks banner"). With it goes the "+ New group" control from the home page's deck
@@ -11456,7 +11509,8 @@
               '<button type="button" class="dm-swatch' + (groupColor(id).toLowerCase() === c.toLowerCase() ? " on" : "") +
               '" data-color="' + esc(c) + '" style="--sw:' + esc(c) + '" aria-label="Colour ' + esc(c) + '" title="' + esc(c) + '"></button>').join("") +
           "</div>" +
-          "<small>Every deck inside takes this colour</small></div>"
+          "<small>" + (containerHasChildren(id) ? "Every deck inside takes this colour"
+                                                : "This row takes this colour") + "</small></div>"
       : "";
     const html =
       '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(info.title) + "</span>" +
@@ -20832,15 +20886,37 @@
     }
 
     if (queue.length === 0) {
-      // nothing due / no new left — offer to cram remaining unseen, or report all caught up
-      const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => availStudy.has(id) && !isSeen(id) && !isSuspended(id))
-        : ud ? uDeckStudyIds(ud.cardIds || []).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
+      /* Nothing due and no new allowance left — offer to study ahead, or report all caught up.
+
+         THE AHEAD PILE IS THE ENTRY'S, NOT THE WHOLE DECK'S, AND IT IS ORDERED (Aug 2026, on a bug
+         report: "when I keep studying beyond the daily limit it becomes one directional again, and the
+         top right shows how many cards are remaining in that entire collection"). Both symptoms are one
+         fault. This asked `subtreeCardIds(sd)` / `uDeckStudyIds(ud.cardIds)` — the whole tree and the
+         whole deck — where every other queue in the session is built from `entryCardIds(entry)`, which
+         narrows to the subdeck or the direction actually being studied and honours a branch dragged into
+         a group. And it skipped `studyOrder`, which is what interleaves the subdecks and what pulls a
+         note's two cards together under "both directions together"; the raw expansion is TEMPLATE-MAJOR,
+         so an ahead pile built from it is every forward card before any reverse — the deck's whole
+         forward run before the first reverse arrives.
+
+         It is a queue like any other, so it takes the same filters as `buildSession`'s two branches:
+         `availStudy` (a coming-soon collection's cards are set aside even here) and `isBuried` (a card
+         whose sibling was answered today is held back until tomorrow, and cramming is not a way round
+         that). The count in the top-right is `remainingCounts()` over the queue, so narrowing the pile
+         is what fixes the figure too — there was never a second bug there. */
+      const cramEntry = scopeEntryId(params.scope);
+      const remainingUnseen = (sd || ud)
+        ? studyOrder(cramEntry, entryCardIds(cramEntry).filter((id) =>
+            availStudy.has(id) && !isSeen(id) && !isSuspended(id) && !isBuried(id)))
+        : [];
       if ((sd || ud) && remainingUnseen.length) {
         root.innerHTML = emptyPlacard(
           "Daily limit reached",
           "✓",
+          // this entry's own allowance, not the global default — a deck given limits of its own would
+          // otherwise be told a figure it does not use
           "You've hit today's new-card limit for this deck (" +
-            S.settings.newPerDay +
+            deckLimits(cramEntry).newPerDay +
             "/day). You can study ahead anyway, or come back tomorrow.",
           null,
           null
@@ -20853,8 +20929,19 @@
           '<button class="btn ghost" id="back">Back to collections</button>';
         card.appendChild(row);
         row.querySelector("#cram").addEventListener("click", () => {
-          queue = remainingUnseen.slice();
-          startLoop();
+          /* WARM THE PILE FIRST, exactly as the session warms its own queue above. A community deck's cards
+             are stored per note and loaded when they are needed, and this pile is assembled AFTER that warm
+             — so every card in it is a stub, `cardById` hands back a note with no fields, and the reader
+             gets a run of BLANK cards with a working grade bar under them. Nothing throws and the counts
+             are all correct, which is why it survived: the only symptom is a card with nothing on it.
+             (It predates the scope fix above — the old whole-deck pile was unwarmed too — and was found by
+             the test written for that one.) */
+          const start = () => { queue = remainingUnseen.slice(); startLoop(); };
+          if (uWarmed(remainingUnseen)) return start();
+          root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' +
+            esc(sess.where || "") + "</h1></div>" +
+            '<div class="data-loading">' + t("Loading these cards…") + "</div>";
+          uWarm(remainingUnseen).then(() => { if (current && current.name === "study") start(); });
         });
         row.querySelector("#back").addEventListener("click", () => route("decks"));
         return;
@@ -21859,6 +21946,69 @@
       return k ? f[k] : "";
     };
   }
+  /* ---------- A CARD TYPE'S DISCLOSURE REMEMBERS BEING OPEN (Aug 2026, on request) ----------
+     A template may hold a <details> — the Mandarin decks put their example sentences in one — and it went
+     back to the template's own state on every card, so a reader who wanted the examples had to open them
+     again for each of the day's twenty. Two halves, and neither is per-render wiring:
+     · SAVE is one delegated CAPTURE listener on the document. `toggle` DOES NOT BUBBLE, so capture is the
+       only way to hear it from a descendant — the same trick the dead-media `error` listener uses.
+     · RESTORE happens inside `cardTypeSideHTML`, the one choke point every typed card is composed by, so a
+       render path added later is covered without anybody remembering this.
+     THE KEY IS THE SUMMARY'S OWN TEXT, scoped to the card type. An ordinal within the card would be cheaper
+     and is wrong the moment a template wraps one panel in a conditional: a card missing that field renders
+     one fewer, every later index shifts, and the wrong panel opens. The summary is what the reader pressed
+     and what they meant by it. SIDE is deliberately NOT in the key — a back that renders {{FrontSide}} shows
+     the front's panels a second time, and those are the same panel, not two.
+     A panel the reader has NEVER touched keeps the template's own default; only a stored value overrides it,
+     so an author who ships one open still gets it open on a first meeting.
+     Device-local, like where the marker sits and how tall the Atlas place sheet is: this is how a card is
+     laid out on this screen, not something the schedule should carry between devices. */
+  const UC_OPEN_KEY = "folio_uc_open_v1", UC_OPEN_CAP = 300;
+  let _ucOpen = null;
+  function ucOpenMap() {
+    if (_ucOpen) return _ucOpen;
+    try { _ucOpen = JSON.parse(localStorage.getItem(UC_OPEN_KEY)); } catch (e) { _ucOpen = null; }
+    if (!_ucOpen || typeof _ucOpen !== "object" || Array.isArray(_ucOpen)) _ucOpen = {};
+    return _ucOpen;
+  }
+  function ucDetailsKey(uct, det) {
+    const s = det.querySelector("summary");
+    const label = (s ? s.textContent || "" : "").replace(/\s+/g, " ").trim().slice(0, 80);
+    return label ? (uct || "?") + "|" + label : "";   // no summary → nothing stable to key on; left alone
+  }
+  function ucSetOpen(key, open) {
+    const m = ucOpenMap();
+    if (m[key] === open) return;
+    delete m[key];                      // re-inserted, so Object.keys runs oldest-first and the cap can prune
+    m[key] = open;
+    const ks = Object.keys(m);
+    if (ks.length > UC_OPEN_CAP) ks.slice(0, ks.length - UC_OPEN_CAP).forEach((k) => { delete m[k]; });
+    try { localStorage.setItem(UC_OPEN_KEY, JSON.stringify(m)); } catch (e) {}
+  }
+  document.addEventListener("toggle", (e) => {
+    const det = e.target;
+    if (!det || det.tagName !== "DETAILS" || !det.closest) return;
+    const card = det.closest(".uc-card");
+    if (!card) return;                  // the site's own folds have settings of their own — see srcCollapsed
+    const k = ucDetailsKey(card.getAttribute("data-uct"), det);
+    if (k) ucSetOpen(k, det.open);
+  }, true);
+  /* Guarded on the card even holding one, so the ordinary card pays a single indexOf rather than a second
+     DOMParser pass on top of the sanitizer's. */
+  function ucRestoreDetails(html, uct) {
+    if (html.indexOf("<details") < 0) return html;
+    const m = ucOpenMap();
+    let doc;
+    try { doc = new DOMParser().parseFromString("<body>" + html, "text/html"); } catch (e) { return html; }
+    let touched = false;
+    doc.body.querySelectorAll("details").forEach((det) => {
+      const k = ucDetailsKey(uct, det);
+      if (!k || typeof m[k] !== "boolean" || m[k] === det.hasAttribute("open")) return;
+      if (m[k]) det.setAttribute("open", ""); else det.removeAttribute("open");
+      touched = true;
+    });
+    return touched ? doc.body.innerHTML : html;
+  }
   /* A type's stylesheet as ONE <style> element per (deck, type), scoped to that type's own cards. Leaving
      them in place is safe precisely because they are scoped — nothing can collide — and re-injecting per
      render would restyle the page on every card. The cap is a backstop for a session that installs decks all
@@ -21922,7 +22072,8 @@
        scoped to. So a type whose two directions want to look different says `.card[data-uctpl="2"] { … }`,
        which is Anki's `.card2` in the shape this scoper can already rewrite. */
     const tplN = ' data-uctpl="' + (((c && c._tpl) || 0) + 1) + '"';
-    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" + sanitizeHTML(html) + "</div>";
+    return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" +
+      ucRestoreDetails(sanitizeHTML(html), scopeId) + "</div>";
   }
   // what goes in the study card's question area: a custom type's front template, or the Basic question
   function cardFrontHTML(c) {
