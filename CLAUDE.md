@@ -128,7 +128,96 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently forty-seven:
+  matter (chapter 0 — see the Library bullet). Currently forty-eight:
+  `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
+  translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
+  printed in TWO source files**, which costs a second fetch and one loop and matters only because
+  every count has to be taken across both: the chapters run continuously from one volume into the
+  next and Book Second is split across the join, so a count taken per file is a count of half a book.
+  It is also the SEVENTH book from Project Gutenberg and the fourth from its HTML, which the
+  Ptahhotep entry calls the easiest of the three paths.
+  **EIGHT THINGS IT SETTLED ARE WORTH CARRYING.**
+  **AN OFFSET MEASURED IN ONE LANGUAGE IS NOT AN OFFSET IN ANOTHER, and this is the fault the whole
+  reader was built around.** The volume boundaries were first found with a Python probe and carried
+  into JavaScript as numbers; JS counts a string in UTF-16 code units and an astral character costs
+  two, so every span landed short and three separate sweeps reported **225, 233 and 234 chapters**
+  with nothing throwing and no two agreeing. `poloSpan` searches for its own boundaries and no
+  offset into either file is written down anywhere. The true figure is **235** — Prologue 18, Book
+  First 61, Book Second 82, Book Third 40, Book Fourth 34.
+  **WHY THERE IS NO FACING ORIGINAL IS THE TRANSLATOR'S OWN ANSWER, AND IT IS A NEW ONE.** The
+  Republic's case is that the English states no section numbers; the Prose Edda's is that the
+  original's editor is in copyright; Aesop's is that neither column states anything. Here the
+  original exists, is complete, is machine-readable and is **CC BY 4.0** — Mario Eusebi's edition of
+  the Franco-Italian text of MS BnF fr. 1116, published by Edizioni Ca' Foscari in 2018 — and every
+  superficial sign says pair them: 232 chapters against Yule's 235, each with a rubric, and the
+  rubrics correspond ("Ci devise de .viii. roiaumes de Perse" against "OF THE EIGHT KINGDOMS OF
+  PERSIA"). What stops it is that **this English is not a translation of any one text**, which Yule
+  states in his own introduction: he translated from Pauthier's French, then transferred into it
+  from the Franco-Italian everything of substance Pauthier had left out, then added between square
+  brackets everything peculiar to Ramusio's Italian. Three traditions in one column, and 144
+  bracketed passages where the left-hand page would have had nothing to show. **ASK WHAT A
+  TRANSLATION IS A TRANSLATION OF, not merely whether an original can be found.**
+  **AND THE CHAPTER NUMBERS SAY THE SAME THING A SECOND TIME, ALSO IN YULE'S WORDS**: "232 chapters
+  in the oldest French which we quote as the *Geographic Text*, 200 in Pauthier's Text, 183 in the
+  Crusca Italian." He knows the figure the Ca' Foscari edition prints, does not adopt that division,
+  and cites the older text **by the page of its 1824 printing and never by chapter** — so neither
+  edition states the other's sections, which is the decisive test. The alternative was a rubric-by-
+  rubric alignment, which is several hundred judgements with only a similarity score behind them:
+  the work abandoned for the Meditations' Greek.
+  **THE APPARATUS HAS TWO TIERS AND ONLY ONE OF THEM IS A NOTE ON THE TEXT.** 776 of Yule's
+  substantive Notes are printed under the chapter and labelled "Note 1."; 295 small footnotes are
+  numbered straight through each volume — and measured before anything was written, only a dozen of
+  the 295 are cited on Polo's prose while **266 are cited INSIDE a Note**. A flat per-chapter fold
+  cannot say "this is a note on that note", so those are spliced into the Note that cites them in
+  square brackets: the Art of War's rule at twenty times the scale, using the bracket this edition
+  already uses. It is also **the first book here whose notes carry block structure at all** — Yule's
+  run to several paragraphs and the longest is 37,652 characters, against a previous shelf-wide
+  maximum of 1,835 — so a note is joined with `<br><br>` rather than left as paragraphs inside a
+  list item.
+  **THE NOTES ARE FOUND BY THEIR OWN LABEL, NEVER BY THE RULE ABOVE THEM AND NEVER BY THE BOX ROUND
+  THEM — and the second half of that cost a whole chapter's apparatus before it was written.** The
+  obvious boundary is the `<hr>` the printing sets between a chapter and its notes, and it fails
+  twice: **five chapters have no such rule at all** and one sets it `class="r40 clear"`. The rule
+  was then written on the blockquote holding the notes, a box being structural where a rule is
+  decoration — and **that fails on one chapter in 235**: III 30, on Kesmacoran, sets its two Notes
+  as bare paragraphs with no box at all, so the region was never found and **a page and a half of
+  Yule's commentary, table and all, ran on into Polo's own prose as though he had written it**. The
+  chapter is complete, reads perfectly and is wrong. **Nothing but the importer's own dropped-marker
+  warning could see it** — every count stayed healthy, and `test-library.js` now additionally sweeps
+  the shipped file for a "Note 1.—" label left standing in a chapter's body, which is what the
+  failure looks like from the outside. The anchor is the LABEL, which every Note carries by
+  definition, and the region opens at whichever block encloses it.
+  **AND THE FOOTNOTE CONTAINER MAY CARRY ATTRIBUTES AND MAY NEST**, which is the same lesson one
+  element down and was found by chasing the single marker still being dropped after the fix above.
+  `<div class="footnote" lang="fr">` is how this transcription marks a note quoting the
+  Franco-Italian, with `de` and `it` besides, so a pattern anchored on the bare tag misses **13 of
+  the 790** — each a claim in the text whose note silently goes — and **22 of them in the first
+  volume hold a plate or a block of verse**, so a non-greedy `</div>` truncates the note at its
+  first inner block. Matched loose and closed BALANCED. **Read the whole attribute list before
+  writing the pattern**; this file's third instance of that, after the City of God's `ws-noexport`
+  and the Odyssey's book divisions.
+  **A NOTE MAY BE HUNG ON THE CHAPTER'S TITLE, IN BOTH TIERS, AND ONLY ONE ASSERTION CAN SEE IT.**
+  The title becomes the tab, so neither of the shelf's usual answers will do: splicing gives Book
+  Fourth's last chapter a 200-character tab reading "Conclusion. [This conclusion is not found in any
+  copy except…]", and dropping loses a note about the whole chapter. Four notes are carried down to
+  the chapter's first block instead — Bede's `dropFittHead` rule and its refinement, a title
+  preceding the prose and opening it. Three of the four are **Notes** rather than footnotes and were
+  found by the every-note-is-referenced assertion and by nothing else; each explains that its chapter
+  is one Yule took whole from Ramusio, which is why two of those three titles are in brackets.
+  **ITS REAL LIMITATION IS BOOK FOURTH AND YULE MARKS IT HIMSELF.** He judged a good many of its
+  chapters "the merest verbiage and repetition of narrative formulæ without the slightest value",
+  gave the gist of those instead, marked each **⚜**, and named the editions where they can be read in
+  full — so 17 of the 235 chapters are a sentence or two rather than the text, the shortest 62
+  characters and complete at that length. The mark is the EDITION'S and is kept rather than tidied
+  away, which is the Ramayana's rule about a translator who says what he left out. Cordier's signed
+  insertions (**—H. C.**, on 348 of the 788 notes) are kept for the same reason. Left behind: Yule's
+  memoir, his three
+  prefaces, his 130-page introduction, the bibliography, the appendices, the index, 133 plates, nine
+  tables the tag stripper would flatten into a column of nouns — and **Cordier's separately published
+  *Ser Marco Polo: Notes and Addenda* of 1920**, which the same file carries after the index and which
+  repeats the prologue-and-four-books skeleton to hang its own notes on. Read without a boundary that
+  is a second Prologue and a second Book First inside one file, which is Bede's finding again: an
+  inventory taken over the FILE is not an inventory of the book),
   `bede-history` (~856 KB, all five books as **5 chapters**, **140 chapters as sections**, **1,050
   notes** — A. M. Sellar's revised translation of 1907, and **the first book here whose TWO COLUMNS
   COME FROM DIFFERENT KINDS OF SOURCE with the sides the other way round**: a Project Gutenberg TEI
@@ -1528,15 +1617,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of War, and like that one it costs no extra requests, both columns coming out of one fetch. Its
   numerals are the COMPLETE side and the English the damaged one, which is what the ninth layout exists
   for; see the `bhagavad-gita` entry above and `extractShloka` in the importer).
-  **Forty-seven books, thirty-two originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
+  **Forty-eight books, thirty-two originals**: the Republic, Aesop's Fables, Gilgamesh, the Classic of Poetry,
   the Book of Documents, the Book of Rites, the Prose Edda, the Poetic Edda, Lysistrata, Shakuntala, the
-  Divine Comedy, the Summa Theologica, Don Quixote, the Maxims of Ptahhotep and Le Morte d'Arthur
+  Divine Comedy, the Summa Theologica, Don Quixote, the Maxims of Ptahhotep, Le Morte d'Arthur and the
+  Travels of Marco Polo
   have none, and the reason differs — the next paragraph's rule bites on the Republic's ENGLISH only and
   on BOTH of Aesop's columns, while Gilgamesh fails a step earlier, there being no settled original text
   to face. **LE MORTE D'ARTHUR IS THE ONE THAT NEVER REACHES THAT RULE AT ALL**, and it is a fourth
   answer rather than a variant of the other three: it is written in ENGLISH, so there is no second
   text to pair with — see its entry above, and note that this is the case where the question "does
   that text say which section each passage is?" is not the question.
+  **THE TRAVELS IS A FIFTH ANSWER, AND THE ONE TO READ WHEN AN ORIGINAL LOOKS EASY** (Aug 2026). Every
+  earlier refusal is about the original: it does not exist, or its editor is in copyright, or it states
+  no numbers. Here the original is complete, machine-readable and openly licensed — Eusebi's edition of
+  the Franco-Italian text, CC BY 4.0 from Edizioni Ca' Foscari — its 232 chapters nearly match Yule's
+  235, and its rubrics are what Yule's chapter titles translate. The refusal is about the TRANSLATION:
+  Yule says in his own introduction that he translated from Pauthier's French, filled it out from the
+  Franco-Italian, and bracketed in whatever Ramusio's Italian had that the others did not, so the
+  English column is a composite of three traditions and 144 bracketed passages would face nothing at
+  all. He also states that the Franco-Italian has 232 chapters against his 235 and cites it by PAGE
+  rather than by chapter, so neither edition states the other's sections either. **Ask what a
+  translation is a translation OF before asking whether an original can be found.**
   **PTAHHOTEP IS THE REPUBLIC'S CASE AT ITS PLAINEST, AND IT IS WORTH KEEPING BECAUSE THE EGYPTIAN IS
   NOT THE PROBLEM** (Aug 2026). Everything about the original looks available: the poem survives in
   four copies, the fullest of them the Papyrus Prisse, it has been edited twice over, and both a
@@ -2285,6 +2386,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     wrapper and BEFORE the running head, so a rule anchored to the start fires on whichever comes
     first and leaves the rest standing. The index is recognised by its shape (a paragraph of nothing
     but figures and dashes) rather than by its wording, and every removal is counted.
+
+  **ONE BOOK PRINTED IN TWO FILES, AND AN APPARATUS TWICE THE SIZE OF THE TEXT** (`layout: "polo"` →
+  `extractPolo` / `poloChapter` / `poloNotes` / `poloNoteRegion` / `poloSplice` / `poloVerse` /
+  `poloSpan` / `poloInline` / `POLO_BOOKS` / `POLO_PARTS` / `poloAt`; Aug 2026, adding the Travels of
+  Marco Polo — the forty-eighth book, and the twenty-second layout). The SEVENTH book from Project
+  Gutenberg and the fourth from its HTML. The entry takes `urls: [...]` rather than `url`, and the
+  branch caches each volume as `en-vol<N>.html` and reads them as one. Six things it settled:
+  · **AN OFFSET MEASURED IN ONE LANGUAGE IS NOT AN OFFSET IN ANOTHER.** Boundaries probed in Python
+    and carried into JavaScript as numbers all land short, JS counting UTF-16 code units where Python
+    counts code points — three sweeps, three different chapter totals, nothing thrown. Search for the
+    boundary in the language that will do the extracting and write no offset down.
+  · **A COUNT TAKEN PER FILE IS A COUNT OF HALF A BOOK.** The chapters run continuously across the
+    join and Book Second is split over it, so the book count, the chapter runs and the note numbering
+    are all checked over both volumes together.
+  · **THE NOTES ARE FOUND BY THEIR OWN LABEL — NEVER BY THE RULE ABOVE THEM, AND NEVER BY THE BOX
+    ROUND THEM.** Five chapters print no rule at all and one spells it `class="r40 clear"`; the rule
+    was then written on the blockquote, which is structural where a rule is decoration, and ONE
+    chapter in 235 sets its notes as bare paragraphs with no box — so a page and a half of
+    commentary ran on into the author's own prose, complete, well-formed and wrong. **Anchor on the
+    thing the unit carries BY DEFINITION** (a Note has a label) and let the region open at whichever
+    block encloses it.
+  · **A CONTAINER MAY CARRY ATTRIBUTES AND MAY NEST**, which is the same lesson one element down:
+    `<div class="footnote" lang="fr">` costs a bare-tag pattern 13 of 790 footnotes, and 22 that
+    hold a plate or a stanza are truncated at their first inner block by a non-greedy closer. Loose
+    on the opener, BALANCED on the closer, always.
+  · **A NOTE INSIDE A NOTE IS SPLICED, NOT LISTED** — the Art of War's rule, at 266 of 295 rather
+    than 20, and here the measurement is what tells the two tiers apart: only a dozen of the
+    footnotes are cited on the author's own prose.
+  · **AND A NOTE HUNG ON A CHAPTER'S TITLE IS CARRIED DOWN TO THE CHAPTER'S FIRST BLOCK**, in both
+    tiers. The title is the TAB here, so splicing gives a 200-character tab and dropping loses a note
+    about the whole chapter; three of the four were found by the every-note-is-referenced assertion
+    and by nothing else. `dropFittHead`'s rule in a sixth edition.
 
   **A TITLE THAT IS ONLY ON THE CHAPTER'S OWN PAGE — AND THAT IS A HOOK, NOT A LAYOUT**
   (`head: "sankuo"` → `sanKuoHead` / `sanKuoRoman` / `SANKUO`; Aug 2026, adding Romance of the Three
@@ -5000,6 +5133,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     were added). The Euripides test then decided between the top three rather than merely passing:
     the runner-up lands 17 from the Poetic Edda, which is a Germanic-world kinship claim this must
     not make, and the third sits at the very top of the chroma band.
+    **The Travels of Marco Polo is the TWELFTH licence needing no qualification at all** (Aug 2026),
+    and it is the plainest of the recent ones — which is worth saying because everything hard about
+    that book is elsewhere. Polo dictated it in 1298 and was dead by 1324; Yule published the
+    translation in 1871 and Cordier revised it for the third edition of 1903, so it is public domain
+    in the United States on the pre-1929 rule; and **a joint work's term runs from the LAST of its
+    authors to die**, which here is Cordier (Yule 1820–1889, Cordier 1849–1925), so it cleared life
+    plus seventy in 1995 and life plus a hundred at the start of 2026. Both pairs of dates were
+    looked up rather than recalled and each corroborated twice, the volume's own memoir giving
+    Yule's and Wikisource's author page giving Cordier's under a public-domain tag reading "died at
+    least 100 years ago". Latham (1958), Cliff (2015) and Kinoshita (2016) are named as the ones not
+    to reach for. **WHAT THE LICENCE DID NOT DECIDE IS WHETHER IT COULD HAVE A SECOND COLUMN**, and
+    for once the answer turns on the translation rather than on the original — see its File map entry
+    and the fifth answer recorded under `books/<id>.<lang>.js`. Its `BOOK_AUTHOR_COLOR` row is the
+    THIRD widening of the chroma ceiling and the first time the shelf's own band held nothing at all:
+    with 43 colours placed the best inside it clears 16.5 against a tightest pair of 16.6, so the
+    band's best would itself have become the tightest pair. Which axis binds was measured rather than
+    assumed, and it is Three Kingdoms' answer again — lightness relaxed either way returns a
+    byte-identical top eight, the chroma FLOOR reaches 17.4 and only near-greys scraping 4.53:1, and
+    only the chroma CEILING opens the field (71 → 85, 16.5 → 25.1).
     Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
@@ -12145,7 +12297,7 @@ dead code (never rendered).
     house gotcha it is built around: a hash-only `goto` is a same-document navigation, so anything written
     into localStorage behind the app's back has to be read back through a real `reload()` or the next
     `save()` simply overwrites it — hence `seedHome` reloads and `home` does not.
-  · `node .claude/test-library.js` — the Library (135 assertions): the rename, the shelf, one book, and the
+  · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
     one nav tab may read "Library". **The laziness**: it watches the request log and asserts no
@@ -12224,6 +12376,18 @@ dead code (never rendered).
     are asserted in both directions. It also pins Caxton's preface as an UNNUMBERED block before the
     first chapter of Book I, the rubric on all 503 heads including the one set as a centred block, and
     — in both directions, since they fail opposite ways — that no note and no marker reaches the page.
+    **A MARCO POLO section (`poloChecks`) is Malory's position with an apparatus five times the
+    size**, and it exists because the two faults that book actually had were both invisible to every
+    count: a chapter whose note region was never found rendered Yule's whole commentary as Polo's
+    own prose, and a footnote container carrying a `lang` attribute dropped its note in silence. So
+    it sweeps the shipped file for a **"Note 1.—" label left standing in a chapter's body**, which
+    is what the first looks like from the outside, and asserts every marker resolves, every note is
+    referenced and exactly ONE note is cited twice — Yule does that once, and it is the Seneca rule
+    working rather than a fault. It also counts the edition's own three marks, each of which is the
+    book telling the reader whose words these are and each of which would be tidied away without a
+    sound: the ⚜ on the seventeen chapters Yule gives in gist, his brackets round what he takes from
+    Ramusio, and Cordier's —H. C. And it asserts **no `bk-n` marker anywhere**, this being a
+    deliberately single-column book rather than one whose original failed to arrive.
     **A SATYRICON section (`satyriconChecks`) is there for the same reason**, and every assertion in
     it guards something that renders perfectly while being wrong. The balanced-matching and
     close-and-reopen rules fail by leaving a poem's words on the page in the wrong setting, so the

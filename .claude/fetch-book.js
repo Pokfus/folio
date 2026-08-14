@@ -730,6 +730,24 @@ function summaAt(n) {
   return null;
 }
 
+const POLO_BOOKS = [
+  { key: /^PROLOGUE\b/i,    cite: "Prol.", label: "Prologue",    n: 18 },
+  { key: /^BOOK FIRST\b/i,  cite: "I",     label: "Book First",  n: 61 },
+  { key: /^BOOK SECOND\b/i, cite: "II",    label: "Book Second", n: 82 },
+  { key: /^BOOK THIRD\b/i,  cite: "III",   label: "Book Third",  n: 40 },
+  { key: /^BOOK FOURTH\b/i, cite: "IV",    label: "Book Fourth", n: 34 },
+];
+const POLO_PARTS = (() => {
+  let at = 0;
+  return POLO_BOOKS.map((b, i) => { const from = at + 1; at += b.n; return { n: i + 1, from: from, to: at, label: b.label }; });
+})();
+/* a chapter's continuous number, which is what a Folio chapter is keyed by, against the book and
+   chapter the world cites it as — "Marco Polo II. 68" is Book Second, chapter sixty-eight */
+function poloAt(n) {
+  const p = POLO_PARTS.find((x) => n >= x.from && n <= x.to);
+  return p ? { p: p.n, book: POLO_BOOKS[p.n - 1], c: n - p.from + 1 } : null;
+}
+
 /* ---------- THE RIGVEDA'S TEN MANDALAS ----------
    The hymn counts are the received ones and were MEASURED against both wikis before a word was
    imported: en.wikisource carries 1,028 hymn pages and sa.wikisource 1,028 sukta pages, and both
@@ -9417,6 +9435,108 @@ const BOOKS = {
     ],
   },
 
+  "marco-polo": {
+    title: "The Travels of Marco Polo",
+    author: "Marco Polo",
+    translator: "Sir Henry Yule",
+    edition: "The Book of Ser Marco Polo, third edition (1903), revised by Henri Cordier, John Murray, London",
+    written: "c. 1298",
+    year: 1298,
+
+    /* ---------- THE LICENCE ----------
+       The easiest kind, and the twelfth on this shelf to need no qualification at all. Polo dictated
+       the book to Rustichello in 1298 and both were dead by the 1320s. The one modern layer is the
+       translation: Yule published it in 1871, revised it for a second edition in 1875, and Henri
+       Cordier revised it again for the third of 1903 — so it is public domain in the United States
+       on the pre-1929 rule. Yule lived 1820–1889 and Cordier 1849–1925, both looked up rather than
+       recalled and both corroborated twice (the volume's own memoir gives Yule's dates; Wikisource's
+       author page gives Cordier's and carries a public-domain tag reading "died at least 100 years
+       ago"), so a joint work's term, which runs from the LAST of them to die, expired in 1995 under
+       life plus seventy and in 2025 under life plus a hundred. Nothing to state and no year to name.
+
+       THE MODERN TRANSLATIONS a reader is likeliest to be pointed at are all in copyright and none
+       may be used: Ronald Latham's Penguin of 1958, Nigel Cliff's of 2015 and Sharon Kinoshita's of
+       2016. */
+    rights:
+      "Public domain. Marco Polo dictated the book to Rustichello da Pisa in a Genoese prison in " +
+      "1298 and both men were dead within thirty years. Henry Yule's translation was published in " +
+      "London in 1871 and revised by Henri Cordier for the third edition of 1903, so it is public " +
+      "domain in the United States as a pre-1929 publication; Yule died in 1889 and Cordier in " +
+      "1925, so the term of a joint work — which runs from the last surviving author — expired in " +
+      "1995 where copyright lasts for life plus seventy and in 2025 where it lasts for life plus a " +
+      "hundred. There is nothing left to qualify.",
+    sourceName: "Project Gutenberg",
+    sourceUrl: "https://www.gutenberg.org/ebooks/10636",
+    /* the 1903 edition is two volumes and they are two files; see the block above extractPolo */
+    urls: [
+      "https://www.gutenberg.org/cache/epub/10636/pg10636-images.html",
+      "https://www.gutenberg.org/cache/epub/12410/pg12410-images.html",
+    ],
+    layout: "polo",
+    chapterWord: "Chapter",
+    chapters: (() => { const a = []; for (let i = 1; i <= 235; i++) a.push(i); return a; })(),
+    count: 235,
+    total: 235,
+    /* Book Fourth's abridged chapters are as short as 62 characters, and they are complete at that
+       length — Yule's gist of a battle chapter he declined to print in full. Aesop's per-book floor,
+       set from the shortest thing the edition actually carries. */
+    minChars: 50,
+    parts: POLO_PARTS,
+
+    about: [
+      "This is the book that told medieval Europe there was a world at the other end of Asia. " +
+        "Marco Polo left Venice as a boy of seventeen, spent seventeen years in the service of " +
+        "Kublai Khan, and came home in 1295 with stories nobody believed. Three years later he was " +
+        "a prisoner of war in Genoa, sharing a cell with a writer of Arthurian romances called " +
+        "Rustichello of Pisa, and between them they made this — part travel narrative, part " +
+        "merchant's handbook, part description of the greatest empire on earth by the only " +
+        "European who had served in it.",
+
+      "The translation is Sir Henry Yule's, in the third edition of 1903 as revised by Henri " +
+        "Cordier, and it is famous less for the English than for what surrounds it. Two thirds of " +
+        "what follows is Yule's commentary: 776 substantial notes identifying the places Polo " +
+        "names, weighing what he says against Chinese, Persian and Arabic sources, and arguing " +
+        "with him where he is wrong. It is the edition scholars still cite, and reading Polo " +
+        "without it is reading half the book.",
+
+      "<b>There is no facing original here, and the reason is that this English is not a " +
+        "translation of any one text.</b> Yule explains his method in his own introduction: he " +
+        "translated first from Pauthier's French manuscripts, then compared that against the older " +
+        "Franco-Italian text and transferred into it everything of substance that Pauthier had " +
+        "left out, and finally added between square brackets everything peculiar to Ramusio's " +
+        "Italian version that he judged authentic. Three traditions, in one column. Set a single " +
+        "manuscript beside it and a reader would meet passages on the left that are simply absent " +
+        "from the right, with nothing on the page to say why. The brackets are the clue: where you " +
+        "see one in the text, you are reading Ramusio.",
+
+      "The division into chapters is Yule's own for the same reason. He states in his introduction " +
+        "that the oldest Franco-Italian text runs to 232 chapters, Pauthier's to 200 and the " +
+        "Italian Crusca manuscript to 183; his own runs to 235, in a prologue and four books, and " +
+        "he cites the older text by the page of its 1824 printing rather than by any chapter " +
+        "number. So the two do not merely differ — neither states the other's numbering, which is " +
+        "what a facing page here would have to rest on. A reader who wants the Franco-Italian can " +
+        "have it: Mario Eusebi's edition of the oldest manuscript is published by Edizioni Ca' " +
+        "Foscari in Venice, freely and under a Creative Commons licence.",
+
+      "Two more of the edition's own marks are worth knowing before you start. Cordier signs his " +
+        "additions to Yule's notes <i>—H. C.</i>, and 348 of the 788 notes here carry one, so " +
+        "where a note " +
+        "changes its mind about something you are usually watching thirty years pass between two " +
+        "scholars. And Book Fourth, which is Polo's account of the wars among the Tartar princes, " +
+        "is only half translated: Yule thought a good many of its chapters \"the merest verbiage " +
+        "and repetition of narrative formulæ\", and gave the gist of those instead, marking each " +
+        "one ⚜. Seventeen chapters carry that mark. He says so himself at the head of the book, " +
+        "and names the editions where they can be read in full.",
+
+      "What is not here is everything that stands around the translation. Yule's memoir, his three " +
+        "prefaces, his 130-page introduction on Polo's life and the manuscripts, his bibliography, " +
+        "the appendices, the index and the engraved plates are all left behind, as an editor's " +
+        "front matter is throughout this library — and with them Cordier's <i>Ser Marco Polo: " +
+        "Notes and Addenda</i> of 1920, which is a separate volume published seventeen years later " +
+        "and is his book rather than this one.",
+    ],
+  },
+
 };
 
 /* ---------- args ---------- */
@@ -16894,6 +17014,364 @@ function bedeLatin(h, warn, counts) {
   return { html: b, marks: marks };
 }
 
+/* ---------- THE TRAVELS OF MARCO POLO: two Gutenberg volumes, one book ----------
+   The seventh book from Project Gutenberg and the fourth from its HTML, which the Ptahhotep entry
+   calls the easiest of the three paths — and the FIRST book on this shelf whose translation is
+   printed in TWO FILES. That costs almost nothing (a second fetch and one loop) and is worth
+   stating only because everything else has to be counted across both: the chapters run continuously
+   from one volume into the next and Book Second is split across the join, so any count taken per
+   file is a count of half a book.
+
+   AN OFFSET MEASURED IN ONE LANGUAGE IS NOT AN OFFSET IN ANOTHER, which is the trap this reader was
+   built out of. The boundaries were first found with a Python probe and carried into JavaScript as
+   numbers, and every one landed short: JS counts a string in UTF-16 code units and an astral
+   character costs two, so the spans quietly truncated and three sweeps each reported a different
+   chapter total — 225, 233, 234 — with nothing throwing. `poloSpan` therefore SEARCHES for its own
+   boundaries and no offset is written down anywhere. The true figure is 235.
+
+   THE VOLUMES CARRY MORE THAN THE BOOK. Each opens with the edition's own front matter — Yule's
+   memoir, his prefaces, a bibliography, a synopsis and a 130-page introduction — and closes with
+   appendices and an index; the second additionally carries the whole of Cordier's separately
+   published SER MARCO POLO: NOTES AND ADDENDA of 1920, which repeats the prologue-and-four-books
+   skeleton to hang its own notes on. Read without a boundary that is a second Prologue and a second
+   Book First inside the same file, which is Bede's finding again: an inventory taken over the FILE
+   is not an inventory of the book. */
+function poloText(h) {
+  return poloEnt(h.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+}
+function poloEnt(s) {
+  return s.replace(/&#160;|&nbsp;/g, " ").replace(/&#8217;|&rsquo;/g, "’").replace(/&#8216;|&lsquo;/g, "‘")
+    .replace(/&#8220;|&ldquo;/g, "“").replace(/&#8221;|&rdquo;/g, "”").replace(/&#8212;|&mdash;/g, "—")
+    .replace(/&#8211;|&ndash;/g, "–").replace(/&#230;/g, "æ").replace(/&#198;/g, "Æ")
+    .replace(/&#339;/g, "œ").replace(/&#338;/g, "Œ").replace(/&#38;|&amp;/g, "&");
+}
+/* Yule's small capitals are how he sets a place or a person the first time it is named, and there
+   are 2,090 of them. The Analects turned an edition's small capitals into italic, which was safe
+   there "precisely because this transcription uses italics nowhere at all"; this one italicises
+   6,128 times over, so the same move would put two conventions in one face and make the emphasis
+   mean nothing. The span is unwrapped and the words stand as words. */
+function poloInline(s) {
+  return poloEnt(s
+    .replace(/<span class="(?:sm|allsm)cap">([\s\S]*?)<\/span>/g, "$1")
+    .replace(/<(?:em|cite)\b[^>]*>/g, "<i>").replace(/<\/(?:em|cite)>/g, "</i>")
+    .replace(/<(?!\/?(?:i|b|sup|br)\b)[^>]*>/g, ""))
+    .replace(/\s+/g, " ").replace(/\s+([,.;:!?])/g, "$1").trim();
+}
+
+/* ---------- the apparatus ----------
+   IT HAS TWO TIERS AND ONLY ONE OF THEM IS A NOTE ON THE TEXT, measured over both volumes before
+   either was written: 777 of Yule's substantive Notes, printed under the chapter and labelled
+   "Note 1.", and 295 small footnotes numbered straight through the volume. Of those 295 only 14 are
+   cited on Polo's own prose; the other 281 are cited INSIDE a Note. A flat per-chapter fold cannot
+   say "this is a note on that note", so the 281 are SPLICED into the Note that cites them, in
+   square brackets at the point of citation — the Art of War's rule ("a note cannot contain a note")
+   at fourteen times the scale, using the bracket this edition already uses for an interpolation.
+   The 14 cited on the text become ordinary fold entries after the Notes, because that is what they
+   are. */
+function poloSplice(s, foot, counts) {
+  return s.replace(/<a class="fnanchor pginternal" href="#Footnote_(\d+)"[^>]*>[\s\S]*?<\/a>/g, (w, k) => {
+    if (!foot[k]) { counts.lostFoot++; return ""; }
+    counts.spliced++;
+    return " [" + foot[k] + "]";
+  });
+}
+
+/* THE NOTES ARE FOUND BY THEIR OWN LABEL, NEVER BY THE RULE ABOVE THEM AND NEVER BY THE BOX ROUND
+   THEM. The obvious boundary is the <hr> the printing sets between the chapter and its notes, and
+   it fails twice: five chapters have no such rule at all (their notes simply follow the last
+   paragraph) and one sets it `class="r40 clear"`. The rule was then written on the blockquote that
+   holds the notes, on the ground that a box is structural where a rule is decoration — and THAT
+   fails too, on one chapter in 235: III 30, on Kesmacoran, sets its two Notes as bare paragraphs
+   with no box at all, so the region was never found and Yule's entire apparatus for that chapter —
+   a page and a half of it, ending in a table — ran on into Polo's own prose as though he had
+   written it. The chapter renders perfectly, is complete, and is wrong, which is this file's
+   commonest shape of failure; it was found by the importer's own dropped-marker warning and by
+   nothing else. So the anchor is the LABEL, which every Note carries by definition, and the region
+   opens at whichever block encloses it — the blockquote where there is one and the paragraph where
+   there is not. `test-library.js` additionally sweeps the shipped file for a Note label left in a
+   chapter's body, because that is what this failure looks like from the outside. */
+function poloNoteRegion(s) {
+  const L = /<a class="label pginternal"[^>]*id="Note_[^"]*"/.exec(s);
+  if (!L) return { at: s.length, region: "" };
+  /* the OUTERMOST blockquote enclosing the label, if the printing wrapped the notes in one */
+  const bq = /<blockquote[^>]*>/g;
+  let m, at = -1;
+  while ((m = bq.exec(s)) && m.index < L.index) {
+    const e = blockEnd(s, m.index, "blockquote");
+    if (e > L.index) { at = m.index; break; }
+  }
+  /* …and otherwise the paragraph it opens, the label sitting inside the note's own first block */
+  if (at < 0) {
+    const p = /<p[ >]/g;
+    let k;
+    while ((k = p.exec(s)) && k.index < L.index) at = k.index;
+    if (at < 0) at = L.index;
+  }
+  return { at: at, region: s.slice(at) };
+}
+
+/* Each of Yule's Notes runs from its own label to the next and may be several paragraphs long —
+   the first book on this shelf whose notes carry block structure at all, so they are joined with a
+   break rather than left as paragraphs inside a list item. The note is keyed by its printed ID,
+   because a Note may be cited more than once (Seneca's letter 114 exactly) and numbering markers by
+   reading order is the documented way to make every marker after the first repeat point one entry
+   too far. */
+function poloNotes(region, foot, counts, warn) {
+  const out = [];
+  const labels = [...region.matchAll(/<a class="label pginternal"[^>]*id="(Note_[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+  for (let i = 0; i < labels.length; i++) {
+    let body = region.slice(labels[i].index + labels[i][0].length,
+      i + 1 < labels.length ? labels[i + 1].index : region.length);
+    body = poloVerse(body, counts, warn);
+    /* the label sits INSIDE the note's first paragraph, so that paragraph runs from where the label
+       ended to its own closing tag rather than starting at a <p> of its own */
+    const close = body.indexOf("</p>");
+    const paras = [close < 0 ? body : body.slice(0, close)];
+    for (const m of (close < 0 ? "" : body.slice(close)).matchAll(/<p[^>]*>([\s\S]*?)<\/p>|(VB[\s\S]*?\/VB)/g))
+      paras.push(m[1] != null ? m[1] : m[2]);
+    const t = paras.map((x) => (/^VB/.test(x) ? x.slice(2, -3) : poloInline(poloSplice(x, foot, counts))))
+      .map((x, j) => (j ? x : x.replace(/^\s*[—–-]\s*/, "")))   // the dash the label runs into
+      .filter(Boolean).join("<br><br>");
+    if (t) { out.push({ id: labels[i][1], t: t }); counts.notes++; }
+  }
+  return out;
+}
+
+/* THE VERSE IS ALMOST ALL INSIDE THE NOTES, which is where a rule written for the text alone loses
+   it. Yule quotes a great deal of poetry — Dante, Chaucer, Marco's own century's doggerel, the
+   Persian and Chinese he is glossing — and sets each in a centred block of indented lines; 136 of
+   the 137 blocks are inside a Note rather than in Polo's prose. Left to `poloInline` those lines
+   run together into a paragraph, which on a page arguing about a poem's wording is the one thing
+   that must not happen: the Prose Edda's finding, in an apparatus rather than in the text. The
+   block is turned into lines HERE, before any of it is flattened, and marked so that the note
+   builder keeps it whole. */
+function poloVerse(s, counts, warn) {
+  for (let g = 0; g < 400; g++) {
+    const m = /<div class="[^"]*\bpoetry\b[^"]*"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a verse block is unbalanced and was left in place"); break; }
+    const ls = [...s.slice(m.index, e).matchAll(/<div class="i\d"[^>]*>([\s\S]*?)<\/div>/g)]
+      .map((x) => poloInline(x[1])).filter(Boolean);
+    counts.verse++; counts.verseLines += ls.length;
+    s = s.slice(0, m.index) + "VB<blockquote>" + ls.join("<br>") + "</blockquote>/VB" + s.slice(e);
+  }
+  return s;
+}
+
+function poloSpan(h, warn) {
+  const start = [...h.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)]
+    .find((m) => /^THE BOOK OF MARCO POLO/i.test(poloText(m[1])));
+  if (!start) throw new Error("the volume's half-title is not in the file");
+  const rest = h.slice(start.index + start[0].length);
+  const end = [...rest.matchAll(/<h[23][^>]*>([\s\S]*?)<\/h[23]>/g)]
+    .find((m) => /^(APPENDICES?|INDEX)\b/i.test(poloText(m[1])));
+  if (!end) warn("a volume runs to its end with no appendix or index to stop at");
+  return rest.slice(0, end ? end.index : rest.length);
+}
+
+function extractPolo(vols, warn) {
+  const counts = { pages: 0, figures: 0, notes: 0, marks: 0, textFoot: 0, spliced: 0, reused: 0,
+    lostFoot: 0, lostNote: 0, titleMarks: 0, tables: 0, verse: 0, verseLines: 0, gist: 0, ram: 0, cordier: 0 };
+  const raw = [];
+  let book = 0;
+
+  for (const vol of vols) {
+    const seg = poloSpan(vol, warn);
+    /* THE VOLUME'S OWN FOOTNOTES, gathered before anything is cut: they are numbered straight
+       through the volume and may be cited from anywhere in it. Two things about the container, and
+       both were found by chasing a single dropped marker rather than by reading the file. It may
+       carry ATTRIBUTES — `<div class="footnote" lang="fr">` where Yule quotes the Franco-Italian,
+       and de and it besides — so a pattern anchored on the bare tag misses 13 of the 790 and each
+       is a claim in the text whose note silently goes; and it may NEST, 22 times in the first
+       volume, where a plate or a block of verse sits inside the note, so a non-greedy `</div>`
+       truncates the note at its first inner block with every count still reading healthy. Matched
+       loose and closed BALANCED. */
+    const foot = {};
+    for (let g = 0, at = 0; g < 4000; g++) {
+      const m = /<div class="footnote"[^>]*>/.exec(seg.slice(at));
+      if (!m) break;
+      const i = at + m.index;
+      const e = blockEnd(seg, i, "div");
+      at = e < 0 ? i + m[0].length : e;
+      if (e < 0) { warn("a footnote is unbalanced and was skipped"); continue; }
+      const inner = seg.slice(i + m[0].length, e - 6);
+      const k = /id="Footnote_(\d+)"/.exec(inner);
+      if (!k) continue;
+      foot[k[1]] = poloInline(inner.replace(/<a[^>]*class="label[^>]*>[\s\S]*?<\/a>/g, "")
+        .replace(/^\s*\[\d+\]\s*/, ""));
+    }
+
+    /* walk the volume in reading order: an h3 may change the book, an h4 opens a chapter */
+    const marks = [...seg.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>|<h4[^>]*>([\s\S]*?)<\/h4>/g)];
+    for (let i = 0; i < marks.length; i++) {
+      const m = marks[i];
+      if (m[1] != null) {
+        const t = poloText(m[1]);
+        const b = POLO_BOOKS.findIndex((x) => x.key.test(t));
+        /* Book Second is printed in three Parts and the second volume opens in the middle of it, so
+           a Part heading is NOT a book change — it says where in Book Second the reader is and
+           nothing more. Left unrecognised it would be read as a sixth book. */
+        if (b >= 0) book = b + 1;
+        else if (!/^part\b/i.test(t))
+          warn("a heading inside the text is neither a book nor a part: " + JSON.stringify(t.slice(0, 60)));
+        continue;
+      }
+      const head = poloText(m[2]);
+      const r = /^CHAPTER\s+([IVXLC]+)\b/.exec(head);
+      if (!r) { warn("a chapter heading carries no numeral: " + JSON.stringify(head.slice(0, 60))); continue; }
+      if (!book) { warn("a chapter stands before any book heading and was skipped"); continue; }
+      raw.push({ book: book, c: romanValue(r[1]), head: head, foot: foot,
+        body: seg.slice(m.index + m[0].length, i + 1 < marks.length ? marks[i + 1].index : seg.length) });
+    }
+  }
+
+  /* the counts the edition itself states, checked book by book */
+  for (let b = 1; b <= POLO_BOOKS.length; b++) {
+    const got = raw.filter((c) => c.book === b).map((c) => c.c);
+    if (got.length !== POLO_BOOKS[b - 1].n)
+      warn(POLO_BOOKS[b - 1].label + " came back with " + got.length + " chapters where the edition has " + POLO_BOOKS[b - 1].n);
+    if (!got.every((v, i) => v === i + 1))
+      warn(POLO_BOOKS[b - 1].label + "'s chapters are not a clean 1..N: " + got.join(","));
+  }
+
+  return {
+    chapters: raw.map((ch, i) => {
+      const at = poloAt(i + 1);
+      const got = poloChapter(ch, counts, warn);
+      return { n: i + 1, p: at ? at.p : 1,
+        t: (at ? at.book.cite + " " + at.c + " — " : "") + got.title, html: got.html, notes: got.notes };
+    }),
+    counts: counts,
+  };
+}
+
+function poloChapter(ch, counts, warn) {
+  let s = ch.body;
+  /* the printed page numbers, which the transcription tags and which would otherwise survive the
+     tag strip as a bare figure in the middle of a sentence */
+  s = s.replace(/<span class="pagenum"[^>]*>[\s\S]*?<\/span>/g, () => { counts.pages++; return ""; });
+
+  /* THE PLATES AND THEIR CAPTIONS, AND THE ONE THING THAT MUST NOT GO WITH THEM. Folio's reader
+     drops images outright (no <img> in ALLOWED), so a caption left behind is a line describing a
+     picture that is not there — the Republic's judgement about the engravings bound into its own
+     volume. The rule was first written to take `center-container` as well, on the reasonable-looking
+     ground that a centred block is a plate; it is not, and that block is the wrapper Yule's VERSE
+     sits in, so the first run silently removed all 137 poems and reported `verse: 0`. The count is
+     what showed it. Figures are matched on `figcenter` alone and the wrapper is unwrapped. */
+  for (let g = 0; g < 400; g++) {
+    const m = /<div class="[^"]*\bfigcenter\b[^"]*"[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "div");
+    if (e < 0) { warn("a plate is unbalanced and was left in place"); break; }
+    counts.figures++;
+    s = s.slice(0, m.index) + s.slice(e);
+  }
+
+  /* YULE'S OWN TITLE FOR THE CHAPTER, WHICH MAY CARRY A FOOTNOTE OF ITS OWN. The title becomes the
+     tab, so this is the Consolation's rule about a heading that is KEPT rather than dropped, met in
+     the one place where neither of the shelf's two usual answers will do: splicing the note into
+     the title in brackets — right inside a Note — gives Book Fourth's last chapter a 200-character
+     tab reading "Conclusion. [This conclusion is not found in any copy except…]", and dropping it
+     loses a note about the whole chapter. So the marker is CARRIED DOWN to the chapter's first
+     block, which is Bede's `dropFittHead` rule and its refinement: a carried marker goes to the
+     block nearest it in reading order, and a title precedes the prose and opens it. One chapter in
+     235 does this; the count is printed so a second cannot appear unnoticed. */
+  const th = /<div class="subh4">([\s\S]*?)<\/div>/.exec(s);
+  let title = "", carried = [];
+  if (!th) warn(ch.head + ": no title under the numeral");
+  else {
+    title = poloInline(th[1].replace(/<a class="fnanchor pginternal" href="#((?:Note|Footnote)_[^"]+)"[^>]*>[\s\S]*?<\/a>/g,
+      (w, id) => { counts.titleMarks++; carried.push(id); return ""; }));
+    s = s.slice(0, th.index) + s.slice(th.index + th[0].length);
+  }
+
+  /* the tables. Nine in the whole book, and the tag stripper flattens one into a column of words
+     with every relation between them gone — the Book of Rites' mourning charts. Removed and
+     counted rather than shipped as prose. */
+  for (let g = 0; g < 40; g++) {
+    const m = /<table[^>]*>/.exec(s);
+    if (!m) break;
+    const e = blockEnd(s, m.index, "table");
+    if (e < 0) { warn("a table is unbalanced and was left in place"); break; }
+    counts.tables++;
+    s = s.slice(0, m.index) + s.slice(e);
+  }
+
+  const cut = poloNoteRegion(s);
+  let body = s.slice(0, cut.at);
+  const notes = poloNotes(cut.region, ch.foot, counts, warn);
+
+  /* the markers. A Note is cited by its own id, never by its position: a Note may be cited more
+     than once and reading order would then send every marker after the first repeat one entry too
+     far — which is the fault this file records for Seneca's letter 114, and which no count can see.
+     A footnote cited on the TEXT is a note on the text and joins the fold after the Notes. */
+  const byId = {};
+  notes.forEach((n, i) => { byId[n.id] = i + 1; });
+  const extra = [];
+  body = body.replace(/<a class="fnanchor pginternal" href="#(Note_[^"]+)"[^>]*>[\s\S]*?<\/a>/g, (w, id) => {
+    const i = byId[id];
+    /* an anchor pointing at a Note in ANOTHER chapter. Yule's apparatus cross-refers constantly and
+       almost all of it is plain internal links, whose words survive the tag strip and read as the
+       cross-references they are; a handful are set as footnote anchors instead, and a per-chapter
+       fold has nowhere to send those. Reported rather than dropped in silence. */
+    if (!i) { counts.lostNote++; warn(ch.head + ": a marker points at " + id + ", which is another chapter's note"); return ""; }
+    counts.marks++;
+    return '<sup class="fn" data-fn="' + i + '"></sup>';
+  });
+  body = body.replace(/<a class="fnanchor pginternal" href="#Footnote_(\d+)"[^>]*>[\s\S]*?<\/a>/g, (w, k) => {
+    if (!ch.foot[k]) { counts.lostFoot++; warn(ch.head + ": a marker points at Footnote_" + k + ", which is not in this volume"); return ""; }
+    counts.marks++; counts.textFoot++;
+    extra.push(ch.foot[k]);
+    return '<sup class="fn" data-fn="' + (notes.length + extra.length) + '"></sup>';
+  });
+
+  body = poloVerse(body, counts, warn);
+
+  /* the blocks, in reading order */
+  const outp = [];
+  const rx = /<p[^>]*>([\s\S]*?)<\/p>|VB([\s\S]*?)\/VB/g;
+  let m;
+  while ((m = rx.exec(body))) {
+    if (m[2] != null) { outp.push(m[2]); continue; }
+    const t = poloInline(m[1]);
+    if (t) outp.push("<p>" + t + "</p>");
+  }
+  /* A NOTE CARRIED DOWN OFF THE TITLE OPENS THE CHAPTER IT BELONGS TO, in BOTH tiers. The rule was
+     written for the footnote hung on Book Fourth's "Conclusion." and it was found to be needed for
+     the substantive Notes too by the every-note-is-referenced assertion and by nothing else: three
+     chapters hang a Note on their own title — each explaining that the chapter is one of the ones
+     Yule took whole from Ramusio, which is why two of the three titles are in brackets — and read
+     without this that Note sits in the fold with nothing pointing at it while the chapter is
+     complete, the numbering right and every count healthy. Prepended INSIDE the first block rather
+     than given a paragraph of its own, which would print a bare superscript on a line by itself. */
+  for (const id of carried) {
+    let i = byId[id];
+    if (!i) {
+      const k = /^Footnote_(\d+)$/.exec(id);
+      if (!k || !ch.foot[k[1]]) { counts.lostFoot++; warn(ch.head + ": the note hung on its title (" + id + ") could not be found"); continue; }
+      extra.push(ch.foot[k[1]]);
+      i = notes.length + extra.length;
+    }
+    const mark = '<sup class="fn" data-fn="' + i + '"></sup>';
+    if (outp.length && /^<p>/.test(outp[0])) outp[0] = outp[0].replace(/^<p>/, "<p>" + mark);
+    else outp.unshift("<p>" + mark + "</p>");
+  }
+  const html = outp.join("\n");
+
+  /* THE EDITION'S OWN MARKS ARE KEPT AND COUNTED. Yule brackets everything he takes from Ramusio's
+     Italian, Cordier signs his own insertions "—H. C.", and Yule marks with ⚜ each chapter of Book
+     Fourth he has given in gist rather than in full. All three are the edition telling the reader
+     what it is doing, which is the Ramayana's rule — a translator who says what he left out is
+     worth more than one who is complete and silent — so none is tidied away and each is counted, a
+     mark that stops being recognised looking exactly like a mark that was never there. */
+  counts.gist += (html.match(/⚜/g) || []).length;
+  counts.ram += (html.match(/\[[^\[\]]{25,}\]/g) || []).length;
+  counts.cordier += (notes.map((n) => n.t).join(" ").match(/—H\.\s*C\.\]/g) || []).length;
+
+  return { title: title, html: html, notes: notes.map((n) => n.t).concat(extra) };
+}
+
 /* ============================================================
    A CHAPTER TITLE READ OFF THE PAGE ITSELF        (head: "sankuo")
    ============================================================
@@ -17812,6 +18290,45 @@ async function fetchEnglish() {
     });
     return writeEnglish(chapters, warnings);
   }
+  /* THE TRAVELS OF MARCO POLO — the first book here printed in TWO Gutenberg files. Both are
+     cached whole and read as one, because the chapters run continuously from one into the other and
+     Book Second is split across the join: a count taken per file is a count of half a book. See the
+     block above extractPolo for the rest, and for why no offset into either file is written down. */
+  if (BOOK.layout === "polo") {
+    const warn = (m) => warnings.push(m);
+    const vols = [];
+    for (let v = 0; v < BOOK.urls.length; v++) {
+      const cf = path.join(CACHE, "en-vol" + (v + 1) + ".html");
+      if (!FORCE && fs.existsSync(cf)) vols.push(fs.readFileSync(cf, "utf8"));
+      else {
+        const raw = await fetchText(BOOK.urls[v]);
+        fs.mkdirSync(CACHE, { recursive: true });
+        fs.writeFileSync(cf, raw);
+        vols.push(raw);
+        await sleep(500);
+      }
+    }
+    const g = extractPolo(vols, warn);
+    const c = g.counts;
+    console.log("  " + g.chapters.length + " chapters in " + POLO_BOOKS.length + " books, " +
+      c.notes + " of Yule's Notes and " + c.textFoot + " footnote(s) on the text, " + c.marks +
+      " marker(s), " + c.spliced + " footnote(s) spliced into the Note that cites them, " +
+      c.titleMarks + " note(s) carried down off a chapter title, " + c.verse + " verse block(s) " +
+      "holding " + c.verseLines + " line(s), " + c.figures + " plate(s), " + c.tables +
+      " table(s) and " + c.pages + " printed page mark(s) removed; the edition's own marks: " +
+      c.gist + " gist mark(s), " + c.ram + " bracketed passage(s) from Ramusio, " + c.cordier +
+      " insertion(s) signed by Cordier");
+    if (c.lostNote || c.lostFoot)
+      console.log("  ! " + (c.lostNote + c.lostFoot) + " marker(s) pointed outside their own chapter and were dropped");
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
+      chapters.push({ n: ch.n, t: ch.t, p: ch.p, html: ch.html, notes: ch.notes });
+    });
+    return writeEnglish(chapters, warnings);
+  }
+
   /* THE ECCLESIASTICAL HISTORY — one Gutenberg HTML page, five books, 140 chapters and an
      apparatus of 1,081 notes numbered across the whole volume. Cached whole, like every other
      single-file book, so --from/--to cost nothing and a re-extract needs no network. See the block

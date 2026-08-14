@@ -635,6 +635,82 @@ function bedeChecks() {
   return o;
 }
 
+/* THE TRAVELS OF MARCO POLO — one column, and that is the first thing to assert rather than the
+   last. A single-column book cannot fail a PAIRING, which is what catches most faults on this
+   shelf, so everything about it has to be checked directly — Malory's position, and here with an
+   apparatus five times the size of his. Two things in particular are invisible any other way. The
+   NOTES are the reason this edition was taken: 788 of them, one cited twice, spliced into their
+   own chapters and renumbered from 1, so a marker that stops resolving leaves a superscript
+   pointing at somebody else's note and the chapter reads perfectly either way. And Yule's THREE
+   EDITORIAL MARKS — the brackets round what he takes from Ramusio, Cordier's —H. C. signature, and
+   the ⚜ on each chapter of Book Fourth given in gist — are the edition telling the reader whose
+   words they are looking at; a mark that stops being recognised is tidied away in silence and looks
+   exactly like a mark that was never there. */
+function poloChecks() {
+  const f = path.join(ROOT, "books", "marco-polo.js");
+  if (!fs.existsSync(f)) return null;
+  global.window = {};
+  delete require.cache[require.resolve(f)];
+  require(f);
+  const b = (global.window.FOLIO_BOOKS_IN || []).find((x) => x.id === "marco-polo");
+  if (!b) return null;
+  const CITE = [null, /^Prol\. \d+ — ./, /^I \d+ — ./, /^II \d+ — ./, /^III \d+ — ./, /^IV \d+ — ./];
+  const o = { chapters: b.chapters.length, shape: [0, 0, 0, 0, 0], seq: [], titles: [], notes: 0,
+              markers: 0, drops: 0, orphans: 0, repeats: 0, bkn: 0, bal: [], leak: [], ent: [],
+              gist: 0, ram: 0, cordier: 0, cordierNotes: 0, verse: 0, greek: 0 };
+  const TAGS = ["p", "blockquote", "i", "b", "q", "sup", "span"];
+  /* Gutenberg's own furniture on this transcription: the TEI class names it wraps everything in,
+     its internal links, its page marks and the headings and containers a chapter must not carry.
+     A leak makes a chapter LONGER, so no count of chapters or notes can see one. `tei-` is anchored
+     INSIDE a tag rather than matched loose: Polo's notes are full of Mongolian place names, and the
+     Kentei-Khan, the mountain by the sources of the Onon, carries the letters in its own name. */
+  const LEAK = /<[^>]*tei-|pginternal|pagenum|<div|<h[1-6]|figcenter|center-container|\[pg /i;
+  b.chapters.forEach((c, i) => {
+    if (c.p >= 1 && c.p <= 5) o.shape[c.p - 1]++;
+    if (c.n !== i + 1) o.seq.push(c.n);
+    if (!CITE[c.p] || !CITE[c.p].test(c.t)) o.titles.push(c.n + ": " + c.t);
+    const notes = c.notes || [];
+    o.notes += notes.length;
+    o.bkn += (c.html.match(/class="bk-n"/g) || []).length;
+    if (LEAK.test(c.html) || LEAK.test(notes.join(""))) o.leak.push(c.n);
+    /* Every marker resolves and every note is referenced. Yule cites one note twice, which is the
+       Seneca rule working: a marker carries the note it POINTS AT, never its place in the queue. */
+    const used = new Set();
+    let m = 0;
+    for (const x of c.html.matchAll(/<sup class="fn" data-fn="(\d+)">/g)) {
+      m++;
+      const v = +x[1];
+      if (v < 1 || v > notes.length) o.drops++;
+      used.add(v);
+    }
+    o.markers += m;
+    o.repeats += m - used.size;
+    for (let k = 1; k <= notes.length; k++) if (!used.has(k)) o.orphans++;
+    const hay = c.html + "\n" + notes.join("\n");
+    TAGS.forEach((t) => {
+      const open = (hay.match(new RegExp("<" + t + "(?=[ >])", "g")) || []).length;
+      const shut = (hay.match(new RegExp("</" + t + ">", "g")) || []).length;
+      if (open !== shut) o.bal.push(c.n + " " + t + " " + open + "/" + shut);
+    });
+    if (/&[a-zA-Z]{2,8};/.test(hay.replace(/&(amp|lt|gt|quot|#\d+);/g, ""))) o.ent.push(c.n);
+    if (/⚜/.test(c.html)) o.gist++;
+    o.ram += (c.html.match(/\[[^[\]]{25,}\]/g) || []).length;
+    const sig = notes.join("").split("—H. C.").length - 1;
+    o.cordier += sig;
+    o.cordierNotes += notes.filter((n) => /—H\. C\./.test(n)).length;
+    o.verse += (notes.join("").match(/<blockquote>/g) || []).length;
+    o.greek += (hay.match(/[Ͱ-Ͽ]/g) || []).length;
+  });
+  const all = b.chapters.map((c) => c.html).join("\n");
+  o.opens = /^<p>It came to pass in the year of Christ 1260, when Baldwin was reigning at Constantinople/.test(b.chapters[0].html);
+  o.closes = /noble and illustrious citizen of the City of Venice, Messer Marco the son of Messer Nicolo Polo\.?<\/p>\s*$/.test(b.chapters[b.chapters.length - 1].html);
+  /* The two sentences a reader opens the book for, at the two ends of it: the paper money of Cathay
+     and the stones that burn. Either would go silently if a chapter were dropped from the middle. */
+  o.paper = /paper.{0,40}(money|currency)/i.test(all) && /Kaan.{0,200}bark of.{0,40}(Mulberry|tree)/i.test(all);
+  o.coal = /kind of black stones? existing in beds in the mountains, which they dig out and burn/i.test(all);
+  return o;
+}
+
 function malloryChecks() {
   const f = path.join(ROOT, "books", "morte-darthur.js");
   if (!fs.existsSync(f)) return null;
@@ -1952,6 +2028,56 @@ function aeneidChecks() {
       check("[bede] the later hand's continuation is not shelved as a sixth book", bd.noContinuation, "");
     } else {
       check("[bede] both columns are on disk", false, "missing books/bede-history*.js");
+    }
+
+    /* THE TRAVELS OF MARCO POLO — see poloChecks above for what each of these can see. */
+    const mp = poloChecks();
+    if (mp) {
+      check("[polo] 235 chapters, numbered 1..N", mp.chapters === 235 && !mp.seq.length,
+        mp.chapters + JSON.stringify(mp.seq));
+      /* The prologue and the four books, in the lengths Yule's own contents pages state. A chapter
+         folded into its neighbour shortens nothing a reader would notice on a bar of 235 tabs. */
+      check("[polo] 18/61/82/40/34 — the Prologue and Books First to Fourth",
+        mp.shape.join() === [18, 61, 82, 40, 34].join(), JSON.stringify(mp.shape));
+      /* The tab IS the citation, this book having no facing column to pair on: "II 76", not
+         "Chapter 158". A title that stops opening on one leaves a bar nobody can navigate. */
+      check("[polo] every tab opens on the citation the book is cited by",
+        !mp.titles.length, JSON.stringify(mp.titles.slice(0, 4)));
+      /* One column by DESIGN — the Aesop/Malory/Satyricon case, and here it is a decision rather
+         than an absence: Yule's English is an eclectic composite of three texts and states no
+         chapter number of the Franco-Italian, so a marker here would pair on nothing. */
+      check("[polo] no section markers, there being no facing original to pair on",
+        mp.bkn === 0, String(mp.bkn));
+      /* The apparatus is why this edition was taken, and it is five times Malory's. One note is
+         cited twice, which is the Seneca rule working rather than a fault. */
+      check("[polo] 788 notes, every marker resolving and every note referenced",
+        mp.notes === 788 && mp.markers === 789 && !mp.drops && !mp.orphans && mp.repeats === 1,
+        mp.notes + " notes, " + mp.markers + " markers, " + mp.drops + " past the end, " +
+        mp.orphans + " unreferenced, " + mp.repeats + " cited twice");
+      check("[polo] tags balance in every chapter, text and notes alike",
+        !mp.bal.length, JSON.stringify(mp.bal.slice(0, 4)));
+      check("[polo] no transcriber's furniture and no undecoded entity",
+        !mp.leak.length && !mp.ent.length, JSON.stringify(mp.leak) + " / " + JSON.stringify(mp.ent));
+      /* Yule's three marks. Each says whose words the reader is looking at, and each would be tidied
+         away in silence — a mark that stops being recognised looks exactly like one that was never
+         there, which is why all three are counted rather than merely spot-checked. */
+      check("[polo] Yule's ⚜ on the seventeen chapters of Book Fourth he gives in gist",
+        mp.gist === 17, String(mp.gist));
+      check("[polo] ...his brackets round what he takes from Ramusio", mp.ram > 120, String(mp.ram));
+      check("[polo] ...and Cordier's —H. C., on 348 of the 788 notes",
+        mp.cordier === 570 && mp.cordierNotes === 348, mp.cordier + " signatures on " + mp.cordierNotes + " notes");
+      /* The verse is all inside the note fold, so it is cut off before the chapter pass ever runs —
+         it went missing twice on the way in, once to a figure rule and once to that ordering. */
+      check("[polo] the notes' verse survives as display quotations", mp.verse > 120, String(mp.verse));
+      check("[polo] the Greek in the notes is Greek", mp.greek > 500, String(mp.greek));
+      check("[polo] opens on Baldwin reigning at Constantinople and closes on Messer Marco",
+        mp.opens && mp.closes, mp.opens + " / " + mp.closes);
+      /* The two things a reader opens this book for, one in each half — either would go in silence
+         if a chapter were dropped out of the middle. */
+      check("[polo] the paper money of Cathay and the black stones that burn are both in it",
+        mp.paper && mp.coal, mp.paper + " / " + mp.coal);
+    } else {
+      check("[polo] the book is on disk", false, "missing books/marco-polo.js");
     }
 
     /* LE MORTE D'ARTHUR — see malloryChecks above for what each of these can see. */

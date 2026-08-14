@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.196", released: "2026-08-14T12:39Z" };
+window.FOLIO_VERSION = { v: "1.197", released: "2026-08-14T13:41Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-14",
-    t: "Four books join the Library",
+    t: "Five books join the Library",
     items: [
       "<b>Romance of the Three Kingdoms is on the shelf</b> — Brewitt-Taylor's translation of 1925, all 120 chapters, with the Chinese facing it.",
       "Its first page says which of the novel's two versions this is, and which famous lines a later editor added to it.",
@@ -50,6 +50,8 @@ window.CHANGELOG = [
       "It is the first book here with no second column, because Malory wrote in English and there is nothing to translate.",
       "<b>Bede's Ecclesiastical History of the English People is on the shelf</b> — Sellar's translation of 1907, all five books, with the Latin facing it.",
       "It is the reason we know almost anything about early English history, and this edition brings a thousand explanatory notes with it.",
+      "<b>The Travels of Marco Polo is on the shelf</b> — Yule's translation in the edition of 1903, all 235 chapters, with its 788 explanatory notes.",
+      "There is no facing original, and its first page explains that this English was made from three different manuscripts at once.",
     ],
   },
   {

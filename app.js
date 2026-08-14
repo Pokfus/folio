@@ -8099,6 +8099,31 @@
      crowded in hue, and all four sit at L 30–47 where this is at 20.3, which is the Homer row's
      argument again. It reads 7.83:1 on the tightest of the sixteen light papers. */
   "Bede": "#3C3000",
+  /* THE THIRD WIDENING OF THE CHROMA CEILING, AND THE FIRST TIME THE SHELF'S OWN BAND HELD NOTHING
+     AT ALL (Aug 2026, adding the Travels — the forty-eighth book and the forty-fourth colour, the
+     two having come apart because a colour is keyed by AUTHOR and four writers here have two books
+     each). With 43 colours placed, the best
+     separated swatch anywhere inside the shipped lightness (12.3–47.8) and chroma (18–71) band
+     under the Book of Rites' ink floor and the 4.5:1 bar clears 16.5 — and the shelf's own tightest
+     pair is now 16.6, so for the first time the band's best would itself have become the tightest
+     pair. Bede's row predicted this ("the band genuinely is full now") one book early.
+
+     WHICH AXIS IS BINDING WAS MEASURED RATHER THAN GUESSED, which is Three Kingdoms' rule and gives
+     Three Kingdoms' answer: relaxing LIGHTNESS in either direction (down to 8, up to 55) returns a
+     byte-identical top eight and changes nothing whatever; relaxing the chroma FLOOR to 12 reaches
+     17.4 and every candidate there is a near-grey at 4.53:1, which is the class Bede's row already
+     refused; and only the chroma CEILING opens the field, 16.5 → 25.1 at good contrast. So the
+     ceiling goes 71 → 85 and the other three limits stand.
+
+     THE EURIPIDES TEST THEN COST A TENTH OF A POINT AND WAS WORTH IT. The books a reader genuinely
+     reads Marco Polo against are HERODOTUS — the other traveller whose ethnography is argued about
+     the same way, down to "did he go?" — and the shelf's Chinese books, his subject being the
+     empire they were written in. The band's best is a violet at 25.1 whose nearest neighbour is Luo
+     Guanzhong; this one gives that up for a violet whose nearest is EURIPIDES at 25.0, with Luo
+     Guanzhong at 26 and Herodotus at 39. It is a violet against Luo Guanzhong's blue, so the two do
+     not read as a set even at 26, and it reads 6.60:1 on the tightest of the sixteen light papers
+     where the alternatives that clear the kinship by more scrape 4.75. */
+  "Marco Polo": "#5A009C",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -10144,6 +10169,57 @@
         "Japan", "Brittany", "Cornwall", "Britain", "Great_Britain", "United_Kingdom", "Latin",
         "Sicily", "Malta", "Cyprus", "Syria", "Lebanon", "Israel", "Jordan", "Iraq", "Iran",
         "Tunisia", "Libya", "Europe", "Asia", "Africa", "Armenia", "Ethiopia",
+      ],
+    },
+    {
+      id: "marco-polo",
+      title: "The Travels of Marco Polo",
+      author: "Marco Polo",
+      written: "c. 1298",
+      year: 1298,
+      translator: "Sir Henry Yule",
+      edition: "The Book of Ser Marco Polo, third edition (1903), revised by Henri Cordier, John Murray, London",
+      /* THE TWELFTH LICENCE ON THIS SHELF NEEDING NO QUALIFICATION AT ALL, and the plainest of the
+         recent ones. Polo dictated the book in 1298 and was dead by 1324. Yule published the
+         translation in 1871 and Cordier revised it for the third edition of 1903, so it is public
+         domain in the United States on the pre-1929 rule; Yule lived 1820–1889 and Cordier
+         1849–1925, and a joint work's term runs from the LAST of them to die, so it also cleared
+         life plus seventy in 1995 and life plus a hundred at the start of 2026. Both sets of dates
+         were looked up rather than recalled and corroborated twice over, which is the rule this
+         shelf has kept since Hugo Magnus: the volume's own memoir gives Yule's, and Wikisource's
+         author page gives Cordier's under a public-domain tag reading "died at least 100 years
+         ago". Latham (1958), Cliff (2015) and Kinoshita (2016) are the ones not to reach for. */
+      rights:
+        "Public domain. Marco Polo dictated the book to Rustichello da Pisa in a Genoese prison in " +
+        "1298 and both men were dead within thirty years. Henry Yule's translation was published " +
+        "in London in 1871 and revised by Henri Cordier for the third edition of 1903, so it is " +
+        "public domain in the United States as a pre-1929 publication; Yule died in 1889 and " +
+        "Cordier in 1925, so the term of a joint work — which runs from the last surviving author " +
+        "— expired in 1995 where copyright lasts for life plus seventy and in 2025 where it lasts " +
+        "for life plus a hundred. There is nothing left to qualify.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/10636",
+      chapterWord: "Chapter",
+      count: 235,
+      total: 235,
+      /* WHAT THE GLOSSARY MUST NOT LINK, swept over all 235 chapters with this list emptied rather
+         than guessed at — the Bede row's rule, and here the guess was wrong by more than half.
+         A book that names half the world looks like the one that would need the longest list on the
+         shelf, and it needs one of the SHORTEST: 15 keys survive, because Yule keeps Polo's own
+         names and this glossary is keyed on modern ones. Cathay, Manzi, Chipangu, Seilan, Aden,
+         Badashan and Kinsay match nothing at all, and what does match is almost always a people, a
+         rite or a kingdom rather than a state — "the Land of the Georgians", "Christians of the
+         Greek Rite", "the King of Spain" in 1269, when there was none. Fourteen go off on that
+         reading, and two of the fourteen are the instructive ones because neither is a country at
+         all: BRAZIL is the dyewood, listed at Java among "Red Sanders and Indian-nut and Cloves";
+         and IRON is twice the Iron Gate of the Alexander legend, which is a place, against once the
+         metal at Cobinan — a key that is right a third of the time is a key that is wrong. LATIN
+         goes with them for the same reason, both its hits being Latin CHRISTENDOM ("the Latin
+         countries", "Latin merchants") rather than the language. Exactly ONE survives on purpose:
+         ELEPHANT, which is the animal. */
+      glossOff: [
+        "India", "Turkey", "Armenia", "Latins", "Latin", "Greece", "Iron", "Egypt",
+        "Georgia_(country)", "Germany", "France", "Spain", "Brazil", "Russia",
       ],
     },
     {
