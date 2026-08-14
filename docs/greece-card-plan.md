@@ -513,7 +513,7 @@ out-of-copyright Loebs are all open.
     gr-293  Heliaia
     gr-294  Solon's poems
     gr-295  Solon's travels
-    gr-296  Athenian stasis after Solon
+    gr-296  Athenian party strife after Solon
     gr-297  Peisistratus
     gr-298  Peisistratus' three bids for power
     gr-299  Peisistratid Athens
