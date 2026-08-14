@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""The thirteen Wortgruppen the A1 list prints before its alphabet.
+"""The Wortgruppen a list prints before its alphabet -- eleven in A1, nineteen
+in A2.
 
 WHY THIS IS A SEPARATE STAGE.  The Wortliste has two halves.  The alphabetical
 list is one word per row with an example beside it, which parse_goethe.py reads
@@ -19,25 +20,36 @@ below is asserted to appear on the Wortgruppen pages of the PDF being built
 from, and the run fails naming any that does not -- so a word invented here, or
 a Goethe list that changes under us, is loud rather than silent.
 
-WHAT IS DELIBERATELY LEFT OUT.  The nationality group prints a PATTERN --
+WHAT IS DELIBERATELY LEFT OUT.  A1's nationality group prints a PATTERN --
 "Land, Bewohner, Nationalität", with Türkei/Türke/türkisch, Finnland and Mexiko
 as its `z. B.` examples -- because the country an A1 candidate has to name is
 their own.  A pattern cannot be enumerated, and picking three of the world's
 countries because the PDF happened to use them as illustrations would be
 inventing a syllabus, so only the two the page states outright (Deutschland,
-Europa) and their adjectives are taken.  The clock group's `Viertel vor zwei`
-and the date group's `neunzehnhundertneunundneunzig` are read-aloud recipes for
-numbers rather than words, and are left with them.
+Europa) and their adjectives are taken.  A2 does the opposite and NAMES five
+countries, so all five are taken there -- the difference is the list's, not a
+change of policy here.  The clock group's `Viertel vor zwei`, the date group's
+`neunzehnhundertneunundneunzig` and A2's `14.55 = vierzehn Uhr fünfundfünfzig`
+are read-aloud recipes for numbers rather than words, and are left with them:
+A2's whole `Uhrzeit` and `Zeitangaben` groups are recipes and are not shelved.
+
+A2 ALSO PRINTS ITS OCCUPATIONS AS GENDER PAIRS AND WITH NO ARTICLE -- `Arzt, ¨-e
+/ Ärztin, -nen` -- where A1's groups print an article and no pairs.  So a row
+here may be a 2-tuple (article, word) or a 4-tuple (article, word,
+pair_article, pair_word), and the pair's articles are written down rather than
+left to `build_deck`, which fills an article in from Wiktionary for a single
+noun and deliberately not for a pair.
 """
 import json, re, sys
 
+from goethe_level import LEVEL, GROUP_PAGES
 from goethe_level import f as lvlf
 
 PDF = sys.argv[1] if len(sys.argv) > 1 else 'goethe_a1.pdf'
-FIRST_PAGE, LAST_PAGE = 5, 7        # the Wortgruppenliste
+FIRST_PAGE, LAST_PAGE = GROUP_PAGES[LEVEL][0], GROUP_PAGES[LEVEL][-1]
 
 # (group, article, word) -- the article is the PDF's own where it prints one
-GROUPS = [
+GROUPS_A1 = [
     ('numbers', [
         ('', 'eins'), ('', 'zwei'), ('', 'drei'), ('', 'vier'), ('', 'fünf'),
         ('', 'sechs'), ('', 'sieben'), ('', 'acht'), ('', 'neun'), ('', 'zehn'),
@@ -100,11 +112,181 @@ GROUPS = [
     ]),
 ]
 
+# A2's nineteen, transcribed from pages 5-7 of its own Wortliste.  It prints no
+# articles in these tables at all, so a single noun's is left to `build_deck` to
+# take from Wiktionary and only a PAIR's is written down here.
+GROUPS_A2 = [
+    ('abbreviations', [
+        ('', 'ca.'), ('', 'd.h.'), ('', 'ICE'), ('', 'Lkw'), ('', 'PC'),
+        ('', 'SMS'), ('', 'usw.'), ('', 'WC'), ('', 'z.B.'),
+    ]),
+    # the words the exam paper itself uses to give an instruction: a candidate
+    # who cannot read `markieren` cannot answer a question they know the answer to
+    ('exam', [
+        ('', 'Antwortbogen'), ('', 'Aufgabe'), ('', 'Beispiel'), ('', 'Durchsage'),
+        ('', 'Lösung'), ('', 'markieren'), ('der', 'Prüfer', 'die', 'Prüferin'),
+        ('', 'Prüfung'), ('', 'Punkt'), ('', 'Teil'), ('', 'Test'), ('', 'Text'),
+        ('', 'Wörterbuch'),
+    ]),
+    ('jobs', [
+        ('der', 'Angestellter', 'die', 'Angestellte'),
+        ('der', 'Arzt', 'die', 'Ärztin'),
+        ('der', 'Auszubildender', 'die', 'Auszubildende'),
+        ('der', 'Autor', 'die', 'Autorin'),
+        ('', 'Babysitter'),
+        ('der', 'Bäcker', 'die', 'Bäckerin'),
+        ('der', 'Doktor', 'die', 'Doktorin'),
+        ('der', 'Fahrer', 'die', 'Fahrerin'),
+        ('der', 'Friseur', 'die', 'Friseurin'),
+        ('der', 'Handwerker', 'die', 'Handwerkerin'),
+        ('der', 'Hausmann', 'die', 'Hausfrau'),
+        ('der', 'Journalist', 'die', 'Journalistin'),
+        ('der', 'Kaufmann', 'die', 'Kauffrau'),
+        ('der', 'Kellner', 'die', 'Kellnerin'),
+        ('der', 'Koch', 'die', 'Köchin'),
+        ('der', 'Krankenpfleger', 'die', 'Krankenschwester'),
+        ('der', 'Künstler', 'die', 'Künstlerin'),
+        ('der', 'Lehrer', 'die', 'Lehrerin'),
+        ('der', 'Mechaniker', 'die', 'Mechanikerin'),
+        ('', 'Model'),
+        ('der', 'Musiker', 'die', 'Musikerin'),
+        ('der', 'Polizist', 'die', 'Polizistin'),
+        ('der', 'Rentner', 'die', 'Rentnerin'),
+        ('der', 'Sänger', 'die', 'Sängerin'),
+        ('der', 'Schauspieler', 'die', 'Schauspielerin'),
+        ('der', 'Techniker', 'die', 'Technikerin'),
+        ('der', 'Verkäufer', 'die', 'Verkäuferin'),
+    ]),
+    ('family', [
+        ('', 'Bruder'), ('', 'Cousin'), ('', 'Cousine'), ('', 'Eltern'),
+        ('', 'Enkel'), ('', 'Enkelin'), ('', 'Geschwister'), ('', 'Großeltern'),
+        ('', 'Großmutter'), ('', 'Oma'), ('', 'Großvater'), ('', 'Opa'),
+        ('', 'Kind'), ('', 'Mutter'), ('', 'Mama'), ('', 'Onkel'),
+        ('', 'Schwester'), ('', 'Sohn'), ('', 'Tante'), ('', 'Tochter'),
+        ('', 'Vater'), ('', 'Papa'), ('', 'Verwandte'),
+    ]),
+    ('marital status', [
+        ('', 'ledig'), ('', 'verheiratet'), ('', 'getrennt'), ('', 'geschieden'),
+    ]),
+    ('colours', [
+        ('', 'blau'), ('', 'braun'), ('', 'gelb'), ('', 'grau'), ('', 'grün'),
+        ('', 'lila'), ('', 'orange'), ('', 'rosa'), ('', 'rot'), ('', 'schwarz'),
+        ('', 'weiß'),
+    ]),
+    ('compass', [
+        ('', 'Norden'), ('', 'Süden'), ('', 'Osten'), ('', 'Westen'),
+    ]),
+    ('countries', [
+        ('', 'Deutschland'), ('', 'Deutsche'), ('', 'deutsch'),
+        ('', 'Österreich'),
+        ('der', 'Österreicher', 'die', 'Österreicherin'), ('', 'österreichisch'),
+        ('die', 'Schweiz'),
+        ('der', 'Schweizer', 'die', 'Schweizerin'), ('', 'schweizerisch'),
+        ('', 'Luxemburg'),
+        ('der', 'Luxemburger', 'die', 'Luxemburgerin'), ('', 'luxemburgisch'),
+        ('', 'Europa'),
+        ('der', 'Europäer', 'die', 'Europäerin'), ('', 'europäisch'),
+    ]),
+    ('school', [
+        ('', 'Abitur'), ('', 'Direktor'), ('', 'Hausaufgabe'), ('', 'Klasse'),
+        ('', 'Klassenfahrt'), ('', 'Sekretariat'), ('', 'Stundenplan'),
+        ('', 'Biologie'), ('', 'Chemie'), ('', 'Deutsch'), ('', 'Englisch'),
+        ('', 'Französisch'), ('', 'Geografie'), ('', 'Geschichte'),
+        ('', 'Kunst'), ('', 'Latein'), ('', 'Mathematik'), ('', 'Musik'),
+        ('', 'Physik'), ('', 'Religion'), ('', 'Sozialkunde'), ('', 'Sport'),
+    ]),
+    # the page sets four of these as SYMBOLS beside a number -- `1 cm`, `2 km`,
+    # `1 %`, `1 l` -- and spells the rest out.  The symbol is what a candidate
+    # meets and the word is what they have to know it says, so the word is taught
+    # and the symbol is what the assertion looks for (see AS_PRINTED_A2).
+    ('measures', [
+        ('der', 'Euro'), ('der', 'Cent'), ('der', 'Franken'), ('der', 'Rappen'),
+        ('der', 'Meter'), ('der', 'Zentimeter'), ('der', 'Kilometer'),
+        ('das', 'Prozent'), ('der', 'Liter'), ('das', 'Gramm'),
+        ('das', 'Kilogramm'), ('der', 'Grad'),
+    ]),
+    ('holidays', [
+        ('', 'Karneval'), ('', 'Ostern'), ('', 'Weihnachten'), ('', 'Neujahr'),
+        ('', 'Silvester'),
+    ]),
+    ('months', [
+        ('der', 'Januar'), ('der', 'Februar'), ('der', 'März'), ('der', 'April'),
+        ('der', 'Mai'), ('der', 'Juni'), ('der', 'Juli'), ('der', 'August'),
+        ('der', 'September'), ('der', 'Oktober'), ('der', 'November'),
+        ('der', 'Dezember'),
+    ]),
+    ('daytimes', [
+        ('', 'Tag'), ('', 'Morgen'), ('', 'Vormittag'), ('', 'Mittag'),
+        ('', 'Nachmittag'), ('', 'Abend'), ('', 'Nacht'), ('', 'Mitternacht'),
+        ('', 'täglich'), ('', 'tagsüber'), ('', 'morgens'), ('', 'vormittags'),
+        ('', 'mittags'), ('', 'nachmittags'), ('', 'abends'), ('', 'nachts'),
+    ]),
+    ('seasons', [
+        ('', 'Frühling'), ('', 'Frühjahr'), ('', 'Sommer'), ('', 'Herbst'),
+        ('', 'Winter'),
+    ]),
+    ('numbers', [
+        ('', 'eins'), ('', 'zwei'), ('', 'drei'), ('', 'vier'), ('', 'fünf'),
+        ('', 'sechs'), ('', 'sieben'), ('', 'acht'), ('', 'neun'), ('', 'zehn'),
+        ('', 'elf'), ('', 'zwölf'), ('', 'dreizehn'), ('', 'vierzehn'),
+        ('', 'fünfzehn'), ('', 'sechzehn'), ('', 'siebzehn'), ('', 'achtzehn'),
+        ('', 'neunzehn'), ('', 'zwanzig'), ('', 'einundzwanzig'), ('', 'dreißig'),
+        ('', 'vierzig'), ('', 'fünfzig'), ('', 'sechzig'), ('', 'siebzig'),
+        ('', 'achtzig'), ('', 'neunzig'), ('', 'hundert'), ('', 'hunderteins'),
+        ('', 'zweihundert'), ('', 'tausend'), ('die', 'Million'),
+        ('', 'erste'), ('', 'zweite'), ('', 'dritte'), ('', 'vierte'),
+        ('', 'erstens'), ('', 'zweitens'), ('', 'drittens'), ('', 'viertens'),
+        ('', 'einmal'), ('', 'zweimal'), ('', 'dreimal'), ('', 'viermal'),
+    ]),
+    # A2 prints the weekday only inside `am Montag` and teaches the adverb beside
+    # it (`montags`), where A1 prints the bare noun.  Both are taken: they are two
+    # words, and the adverb is the one an A2 candidate is likelier to have to read.
+    ('weekdays', [
+        ('das', 'Wochenende'),
+        ('der', 'Montag'), ('', 'montags'), ('der', 'Dienstag'), ('', 'dienstags'),
+        ('der', 'Mittwoch'), ('', 'mittwochs'), ('der', 'Donnerstag'),
+        ('', 'donnerstags'), ('der', 'Freitag'), ('', 'freitags'),
+        ('der', 'Samstag'), ('', 'samstags'), ('der', 'Sonntag'), ('', 'sonntags'),
+        ('der', 'Arbeitstag'), ('der', 'Werktag'), ('der', 'Feiertag'),
+    ]),
+    ('time', [
+        ('die', 'Sekunde'), ('die', 'Minute'), ('die', 'Stunde'),
+        ('die', 'Woche'), ('das', 'Jahr'),
+    ]),
+]
+
+GROUPS = {'a1': GROUPS_A1, 'a2': GROUPS_A2}[LEVEL]
+
 # A word the pages spell differently from the lemma a card teaches: the list
 # prints `ein Kilo(gramm)`, `1.000.000 = eine Million` and `(ein)hundert`, so
 # the string to look for is not always the string to teach.
-AS_PRINTED = {'Kilogramm': 'Kilo(gramm)', 'Million': 'Million', 'Milliarde': 'Milliarde',
-              'hundert': 'hundert', 'tausend': 'tausend', 'Monat': 'Monat'}
+AS_PRINTED_A1 = {'Kilogramm': 'Kilo(gramm)', 'Million': 'Million', 'Milliarde': 'Milliarde',
+                 'hundert': 'hundert', 'tausend': 'tausend', 'Monat': 'Monat'}
+
+# A2's four measures printed only as a symbol, its two occupations whose names
+# break across a line in the PDF's own text stream, and the three family words
+# it prints in brackets after the formal one.  Every value below is a string that
+# really is on the page, which is the whole point of the assertion: what is
+# recorded here is that the word is spelled OTHERWISE there, not that the check
+# may be skipped.
+AS_PRINTED_A2 = {
+    'Zentimeter': '1 cm', 'Kilometer': '2 km', 'Prozent': '1 %', 'Liter': '1 l',
+    'Krankenschwester': 'Krankenschwes', 'Luxemburgerin': 'Luxemburgerin',
+    'Oma': '(Oma)', 'Opa': '(Opa)', 'Mama': '(Mama)', 'Papa': '(Papa)',
+    'Kunst': 'Kunst(erziehung)', 'Franken': 'Franke', 'Grad': 'Grad Celsius',
+    'Montag': 'am Montag', 'Dienstag': 'am Dienstag', 'Mittwoch': 'am Mittwoch',
+    'Donnerstag': 'am Donnerstag', 'Freitag': 'am Freitag',
+    'Samstag': 'am Samstag', 'Sonntag': 'am Sonntag',
+    'Wochenende': 'am Wochenende', 'Arbeitstag': 'Arbeitstag',
+    'Werktag': 'Werktag', 'hundert': 'hundert', 'tausend': 'tausend',
+    'Million': 'Million', 'Angestellter': 'Angestellter',
+    'Auszubildender': 'Auszubildender', 'Deutsche': 'Deutsche, -n',
+    # the PDF's text stream really does put a space inside this one, a kerning
+    # artefact of the typesetting rather than anything about the word
+    'ledig': 'l edig',
+}
+
+AS_PRINTED = {'a1': AS_PRINTED_A1, 'a2': AS_PRINTED_A2}[LEVEL]
 
 
 def page_text():
@@ -121,17 +303,24 @@ def main():
     text = page_text()
     entries, missing = [], []
     for group, words in GROUPS:
-        for art, word in words:
-            look = AS_PRINTED.get(word, word)
-            if look not in text:
-                missing.append(f'{group}: {word}')
-            entries.append({
-                'display': (art + ' ' + word).strip() if art else word,
-                'article': art, 'word': word, 'plural_note': '', 'sub': False,
-                'page': -1, 'group': group, 'reflexive': False,
-                'pluralonly': False, 'pair': '', 'speak': (art + ' ' + word).strip(),
+        for row in words:
+            art, word = row[0], row[1]
+            pair_art, pair = (row[2], row[3]) if len(row) == 4 else ('', '')
+            for w in (word, pair):
+                if w and AS_PRINTED.get(w, w) not in text:
+                    missing.append(f'{group}: {w}')
+            disp = (art + ' ' + word).strip() if art else word
+            if pair:
+                disp += ', ' + (pair_art + ' ' + pair).strip()
+            e = {
+                'display': disp, 'article': art, 'word': word, 'plural_note': '',
+                'sub': False, 'page': -1, 'group': group, 'reflexive': False,
+                'pluralonly': False, 'pair': pair, 'speak': disp,
                 'lemmas': [word],
-            })
+            }
+            if pair:
+                e['pair_lemma'], e['pair_article'] = pair, pair_art
+            entries.append(e)
     if missing:
         raise SystemExit('not printed on the Wortgruppen pages: ' + '; '.join(missing))
     print('  word groups:', len(entries), 'words in', len(GROUPS), 'groups,'

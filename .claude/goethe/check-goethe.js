@@ -8,11 +8,19 @@
    wrong verb's forms; a template whose CSS never lands looks like a design choice.  So this asserts
    what the PAGE says, and writes two screenshots to look at.
 
-     FOLIO_CHROMIUM=/path/to/chrome NODE_PATH=/tmp/pw/node_modules node .claude/goethe/check-goethe.js  */
+     FOLIO_CHROMIUM=/path/to/chrome NODE_PATH=/tmp/pw/node_modules \
+       node .claude/goethe/check-goethe.js [a1|a2]
+
+   The level is an argument rather than a constant because the assertions are about GERMAN and not
+   about a level: every one of them — the article's colour, the plural, the paradigm, the marked
+   sentence, the screenshots — is the same question of any deck this pipeline writes, so a second
+   level is a word on the command line rather than a second checker to keep in step with this one.  */
 const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
-const DECK = "Goethe-A1-German.folio-deck.json";
+const LEVEL = (process.argv[2] || "a1").toLowerCase();
+if (!/^a[12]$/.test(LEVEL)) { console.error("level must be a1 or a2"); process.exit(2); }
+const DECK = "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -61,7 +69,9 @@ const ok = (c, m, extra) => {
   ok(type.speechLang === "de-DE", "the speech language is German");
   ok(deck.cards.every((c) => c.type === "goethe"), "every note carries the type");
   ok(new Set(deck.cards.map((c) => c.id)).size === deck.cards.length, "no id occurs twice");
-  ok(deck.cards.every((c) => /^u_goethea1_\d+$/.test(c.id)), "every id carries the deck");
+  ok(deck.cards.every((c) => c.id.startsWith("u_goethe" + LEVEL + "_")
+                             && /^u_goethe[a-z0-9]+_\d+$/.test(c.id)),
+     "every id carries the deck");
   ok(!/Wortliste|goethe\.de/i.test(JSON.stringify(deck.cards)),
      "no card text quotes the source document");
 
@@ -93,7 +103,7 @@ const ok = (c, m, extra) => {
   await pg.waitForTimeout(700);
   const rows = await pg.evaluate(() => [...document.querySelectorAll(".active-deck .dk-title")]
     .map((e) => e.textContent.trim()));
-  ok(rows.length === 1 && /Goethe A1/.test(rows[0]),
+  ok(rows.length === 1 && rows[0].includes("Goethe " + LEVEL.toUpperCase()),
      "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
 
   // ---------------------------------------------------------------- study
@@ -119,7 +129,7 @@ const ok = (c, m, extra) => {
   ok(parseFloat(front.size) > 24, "it is set large", front.size);
   ok(front.speaker, "a speaker sits beside it");
   ok(!front.backYet, "the meaning is NOT on the front");
-  await pg.screenshot({ path: "/tmp/goethe-front.png" });
+  await pg.screenshot({ path: "/tmp/goethe-" + LEVEL + "-front.png" });
 
   await pg.click("#reveal-btn");
   await pg.waitForTimeout(500);
@@ -139,7 +149,7 @@ const ok = (c, m, extra) => {
   ok(back.meaning.length > 0, "the meaning is on the back");
   ok(back.pos.length > 0, "the part of speech is labelled", back.pos);
   ok(back.fieldBorder !== "0px", "the deck's own CSS reached the card", back.fieldBorder);
-  await pg.screenshot({ path: "/tmp/goethe-back.png" });
+  await pg.screenshot({ path: "/tmp/goethe-" + LEVEL + "-back.png" });
 
   // ------------------------------------------- a noun, a verb and an adjective
   // Grade EASY, never Good: a new card graded Good requeues as a learning step and comes straight back,
@@ -157,6 +167,21 @@ const ok = (c, m, extra) => {
         conjRows: [...document.querySelectorAll(".uc-cj-r")].slice(0, 6)
           .map((e) => e.textContent.trim()),
         nonfinite: [...document.querySelectorAll(".uc-cj-nfi")].map((e) => e.textContent.trim()),
+        // the paradigm panel as a grid: one row of cells per case
+        decl: [...document.querySelectorAll(".uc-dtr")].map((r) =>
+          [...r.children].map((c) => c.textContent.trim())),
+        // …AND WHERE ITS CELLS ACTUALLY SIT.  Both faults this table has had were
+        // invisible to every reading of the DOM and obvious in a picture: a
+        // dropped custom property wrapped each row onto two lines, and a zero
+        // track floor let the cells OVERLAP on a phone.  The markup was perfect
+        // in both.  So the cells of a row are measured: one line, left to right,
+        // no two boxes overlapping.
+        declBoxes: [...document.querySelectorAll(".uc-dtr")].map((r) =>
+          [...r.children].map((c) => {
+            const b = c.getBoundingClientRect();
+            return [Math.round(b.left), Math.round(b.right),
+                    Math.round(b.top), Math.round(b.bottom)];
+          })),
         ex: [...document.querySelectorAll(".uc-exz")].map((e) => e.textContent.trim()),
         bold: [...document.querySelectorAll(".uc-exz b")].map((e) => e.textContent.trim()),
       };
@@ -174,7 +199,7 @@ const ok = (c, m, extra) => {
       await pg.keyboard.press("Escape");
       await pg.evaluate(() => document.querySelectorAll(".uc-fold").forEach((d) => (d.open = true)));
       await pg.waitForTimeout(120);
-      await pg.screenshot({ path: "/tmp/goethe-" + shot + ".png", fullPage: true });
+      await pg.screenshot({ path: "/tmp/goethe-" + LEVEL + "-" + shot + ".png", fullPage: true });
     }
     await pg.evaluate(() => {
       const b = document.querySelector(".grade[data-g='easy']");
@@ -194,6 +219,14 @@ const ok = (c, m, extra) => {
        "and its plural", seen.noun.forms);
     ok(seen.noun.artColor !== "rgb(0, 0, 0)" && seen.noun.artColor.length > 0,
        "the article is coloured by gender", seen.noun.artColor);
+    // THE WHOLE PARADIGM, not just the plural: the four cases against singular and
+    // plural, each cell carrying the DECLINED ARTICLE, which is what makes the table
+    // teach the case rather than list four spellings of one word.
+    const nrows = seen.noun.decl.filter((r) => /^(Nominativ|Akkusativ|Dativ|Genitiv)$/.test(r[0]));
+    ok(nrows.length === 4, "its declension shows all four cases",
+       JSON.stringify(seen.noun.decl.map((r) => r[0])));
+    ok(nrows.some((r) => r.slice(1).some((c) => /^des |^der |^dem |^den /.test(c))),
+       "with the article declined beside each form", JSON.stringify(nrows[3]));
   }
   console.log("   verb:  " + JSON.stringify(seen.verb && [seen.verb.word, seen.verb.conj, seen.verb.conjRows.slice(0, 3)]));
   ok(seen.verb, "a verb came up");
@@ -207,8 +240,24 @@ const ok = (c, m, extra) => {
   }
   console.log("   adj:   " + JSON.stringify(seen.adj && [seen.adj.word, seen.adj.forms]));
   ok(seen.adj, "an adjective came up");
-  if (seen.adj) ok(/superlative/.test(seen.adj.forms), "with its comparative and superlative",
-                   seen.adj.forms);
+  if (seen.adj) {
+    ok(/superlative/.test(seen.adj.forms), "with its comparative and superlative", seen.adj.forms);
+    // A GERMAN ADJECTIVE HAS THREE DECLENSIONS, chosen by the article in front of
+    // it, and a card showing one of the three teaches a third of the ending rule.
+    ok(seen.adj.conj.length === 3, "and all three declension paradigms",
+       JSON.stringify(seen.adj.conj));
+    const arows = seen.adj.decl.filter((r) => r[0] === "Dativ");
+    ok(arows.length === 3 && arows.every((r) => r.length === 5),
+       "each four cases wide, m/f/n/plural", JSON.stringify(arows[0]));
+    // the cells share a BASELINE and not a top -- the row label is set two points
+    // smaller than the forms -- so "one line" is that their vertical extents
+    // overlap, which a wrapped row's would not
+    const bad = (seen.adj.declBoxes || []).find((cells) =>
+      cells.some((c, i) => i && (c[2] >= cells[i - 1][3] || c[3] <= cells[i - 1][2]
+                                 || c[0] < cells[i - 1][1])));
+    ok(!bad, "and every row is one line of cells that do not overlap",
+       JSON.stringify(bad));
+  }
 
   // --------------------------------------------------------- the three colours
   const cols = await pg.evaluate(() => {
@@ -229,7 +278,7 @@ const ok = (c, m, extra) => {
   ok(errs.length === 0, "no console errors", errs.slice(0, 3).join(" | "));
   console.log("\n" + (fails ? "✗ " + fails + " of " + checks + " checks failed"
                             : "✓ all " + checks + " checks passed"));
-  console.log("screenshots: /tmp/goethe-front.png  /tmp/goethe-back.png");
+  console.log("screenshots: /tmp/goethe-" + LEVEL + "-*.png");
   await browser.close();
   server.close();
   process.exit(fails ? 1 : 0);

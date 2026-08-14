@@ -4408,14 +4408,53 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   compares a rebuild against a shipped file that was already unreproducible.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent. Not part of the site.
-- `.claude/goethe/` — the generator behind `decks/Goethe-A1-German.folio-deck.json`:
-  `python3 .claude/goethe/run.py [--level a1] [--no-fetch]`. Seven stages, caching its corpora and the
-  Goethe-Institut's own PDF in `.claude/goethe-cache/` (~1.3 GB, gitignored). PYTHON, like `.claude/dele/`
+- `.claude/goethe/` — the generator behind the Goethe decks: `decks/Goethe-A1-German.folio-deck.json`
+  (**785 notes / 1,570 cards**) and an **A2** built the same way (**1,073 notes / 2,146 cards**), which is
+  DELIBERATELY NOT COMMITTED — see the last sub-bullet.
+  `python3 .claude/goethe/run.py [--level a1|a2] [--no-fetch]`. Seven stages, caching its corpora and the
+  Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.3 GB, gitignored). PYTHON, like `.claude/dele/`
   and unlike every other helper here, and for the same reason: a further level is a re-run against the next
   Wortliste rather than a rebuild. **ONE LEVEL PER RUN** (`goethe_level` reads the level once, at import),
   and a level is taught on top of the ones below it, read out of the SHIPPED deck files so they cannot
-  drift — the DELE arrangement exactly. A2 and B1 have published Wortlisten of their own and would each
-  take a row in that module's tables plus a `BELOW` entry.
+  drift — the DELE arrangement exactly (A2's list REPEATS 330 A1 words, which is what `BELOW` removes).
+  B1 has a published Wortliste of its own and would take a row in that module's tables plus a `BELOW` entry.
+  **THE SECOND LEVEL IS WHERE THE PIPELINE'S ASSUMPTIONS WERE TESTED, and almost every one of them was a
+  fact about A1's TYPESETTING rather than about German.** Six things it settled are worth carrying.
+  · **THE PAGE GEOMETRY IS A TABLE, NOT A CONSTANT.** A1 is ONE pair of columns and A2 is TWO pairs side by
+    side, so a page reads down the left pair and then down the right; a reader written for one finds half
+    of the other. `HEAD_COLUMNS` / `LIST_PAGES` / `SUB_INDENT` / `GROUP_PAGES` / `FURNITURE` are per level,
+    each measured off that PDF's own x-histogram. A1 also indents "ableitbare Nebeneinträge" and A2 has no
+    such level at all, which is why `SUB_INDENT` may be None.
+  · **A RULE THAT CANNOT BE MADE GENERAL IS GATED PER LEVEL RATHER THAN MADE CLEVERER** (`BRACKET_CONT`).
+    In A2, eighteen lines OPENING on a bracket are continuations of the line above (`(Sg.)`, `(sich),`) and
+    four are headwords; in A1 every one is a headword — the eight `(sich) anziehen` reflexives and
+    `(Kredit)-Karte`. Two attempts at a single predicate each swallowed one of A1's shapes, so the rule is
+    declared per list and is **inert on A1 by construction rather than by a re-run**.
+  · **THE REFLEXIVE MARKER SITS ON EITHER SIDE OF THE VERB, and which side is a fact about the LIST.** A1
+    writes `(sich) anziehen` and A2 writes `anziehen (sich)`, for the same word — nine prefixed against
+    twenty-five suffixed. A prefix-only rule leaves twenty-five A2 verbs looked up under a lemma with
+    `(sich)` on the end, which Wiktionary has not got; nothing throws and the cards come out bare.
+  · **A2 PRINTS A VERB'S PRINCIPAL PARTS AND AN ADJECTIVE'S COMPARISON UNDER THE HEADWORD** and A1 does
+    not (`besichtigen, besichtigt, hat besichtigt`; `gut, besser, am besten`), which is what most of
+    `split_entry`'s new work is for — the deck builds both from Wiktionary, so what is wanted off the page
+    is the first part. Two tests, because a paradigm is not always three parts: a part opening on an
+    auxiliary, or more than one comma on an entry that is not a noun.
+  · **THE ONE FAULT THAT COST REAL WORK WAS `der/das`** (`ART` in parse_goethe.py). A slash between two
+    articles is ONE noun with two genders; the pair rule matches a slash before an article, so `der/das
+    Blog` was split into halves and shipped as a card headed **`der`** with `Blog` filed as its partner.
+    Three A2 entries. Inventoried over both lists rather than guessed.
+  · **AND THE A2 WORK FOUND SIXTEEN FAULTY GENDER LABELS IN THE SHIPPED A1 DECK** — the argument for
+    running a change across the SIBLING that the Library's importer already records. `der Erwachsene` was
+    labelled "noun, feminine" (Wiktionary files the nominalised adjectives under the feminine) and twelve
+    cards carried a raw two-letter code, "noun, mn". On a deck whose whole point is that the article's
+    colour teaches the gender, a label contradicting the article teaches the opposite of what it shows.
+    **THE LABEL NOW FOLLOWS THE ARTICLE THE CARD PRINTS** and Wiktionary is the fallback, and `by_article`
+    narrows a merged homograph by the list's own article — which also stopped `der See` and `die See`
+    rendering as the same card twice, both glossed "lake, sea, ocean", and took "momentum" off `der Moment`
+    and "twig" off `der Reis` (those are `das Moment` and `das Reis`). 26 A1 notes changed, every one a
+    correction. Two guards keep it honest: a record tagged with TWO genders answers to both (testing only
+    its first tag cost `das Viertel` the meaning "quarter"), and the narrowed set must still carry a gloss
+    (narrowing on gender alone left eight cards with no meaning at all).
   · **UNLIKE THE DELE, THERE IS NOTHING TO SELECT: the exam board publishes the word list, and the deck
     teaches it.** So `select.py` does no choosing — it settles which Wiktionary LEMMA each headword is and
     orders the result by frequency, where the Spanish pipeline's whole difficulty is deciding which 500

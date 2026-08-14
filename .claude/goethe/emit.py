@@ -36,7 +36,13 @@ FORMS = '{{#Forms}}{{Forms}}{{/Forms}}'
 # past the whole of it to reach the three sentences that show the word in use.
 TAIL = ('{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
         '<div class="uc-exs">{{Examples}}</div></details>{{/Examples}}'
-        '{{#Conjugation}}<details class="uc-fold"><summary>Conjugation</summary>'
+        # THE SUMMARY IS NOT THE WORD `Conjugation`, because the panel is no
+        # longer a verb's alone: a noun's declension and an adjective's three
+        # paradigms open in the same place, and a heading naming one word class
+        # would be wrong on most of the cards that carry it.  The FIELD keeps its
+        # name, which is what every already-installed copy of this deck is keyed
+        # on and what `check-goethe.js` reads.
+        '{{#Conjugation}}<details class="uc-fold"><summary>All forms</summary>'
         '<div class="uc-conj">{{Conjugation}}</div></details>{{/Conjugation}}')
 
 FRONT_DE = WORD
@@ -196,6 +202,67 @@ CSS = """.card {
   text-align: right;
   font-weight: 500;
 }
+/* A DECLENSION IS A GRID AND A CONJUGATION IS A LIST, which is why the panel
+   holds two shapes rather than one.  A verb's tense is a column of person and
+   form; a noun's or an adjective's paradigm is CASE against NUMBER or GENDER,
+   and flattening that into label/value pairs loses the thing the table is for.
+   The columns are sized off `--uc-dtc` so one rule serves the noun's two and the
+   adjective's four; `minmax(0,1fr)` because a cell holding `des Krankenhauses`
+   would otherwise claim its own intrinsic width and push the grid wider than
+   the card.  A wide paradigm scrolls inside its own block rather than widening
+   the card, which is the site's own rule for a wide table. */
+.uc-dtg {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.uc-dt {
+  margin-top: 2px;
+  overflow-x: auto;
+}
+.uc-dtr {
+  display: grid;
+  gap: 6px;
+  align-items: baseline;
+  padding: 1px 0;
+}
+/* `minmax(min-content, 1fr)` AND NOT `minmax(0, 1fr)`, which is the whole of why
+   this table works on a phone.  A zero floor lets a track shrink below the word
+   in it, and because a cell is `nowrap` the cells then OVERLAP rather than
+   overflowing -- so the row stays inside the card, `overflow-x` finds nothing to
+   scroll, and a 390px screen showed `ein wirklicheeine wirklicheein
+   wirklicheswirklichen`.  A min-content floor makes the grid as wide as its
+   widest cell, which pushes it past the card and hands it to the scroller above.
+   Found by looking at the card at 390px; every assertion passed throughout,
+   because the fault was in the layout and not in the markup. */
+.uc-dt2 .uc-dtr {
+  grid-template-columns: 62px repeat(2, minmax(min-content, 1fr));
+}
+.uc-dt4 .uc-dtr {
+  grid-template-columns: 58px repeat(4, minmax(min-content, 1fr));
+}
+/* a four-column paradigm needs the panel's whole width, so it opts out of the
+   two-up grid rather than being squeezed into half of it */
+.uc-dtw {
+  grid-column: 1 / -1;
+}
+.uc-dth {
+  padding-bottom: 2px;
+}
+.uc-dtl {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  opacity: 0.5;
+}
+.uc-dth .uc-dtc {
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+.uc-dtc {
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
 .uc-exs {
   margin-top: 10px;
 }
@@ -234,7 +301,10 @@ for i, c in enumerate(cards, 1):
 # ---------------------------------------------------------------- the numbers
 n = len(cards)
 nouns = sum(1 for c in cards if 'noun' in c['fields']['English'])
-verbs = sum(1 for c in cards if c['fields']['Conjugation'])
+# the panel is no longer a verb's alone, so count what it actually holds:
+# a verb's tenses, a noun's declension, an adjective's three paradigms
+paradigms = sum(1 for c in cards if c['fields']['Conjugation'])
+verbs = sum(1 for c in cards if 'Präteritum' in c['fields']['Conjugation'])
 plurals = sum(1 for c in cards if '>plural<' in c['fields']['Forms'])
 fems = sum(1 for c in cards if '>feminine<' in c['fields']['Forms'])
 comps = sum(1 for c in cards if '>comparative<' in c['fields']['Forms'])
@@ -332,6 +402,7 @@ with open(out, 'w', encoding='utf-8') as f:
     json.dump(deck, f, ensure_ascii=False)
 print('  wrote', out)
 print('  notes', n, '= cards', n * 2, '| nouns with an article', arts, '| plurals', plurals,
-      '| feminines', fems, '| verbs', verbs, '| comparatives', comps,
+      '| feminines', fems, '| verbs', verbs, '| paradigm panels', paradigms,
+      '| comparatives', comps,
       '| three examples', ex3, '| none', ex0)
 print('  bytes', os.path.getsize(out))
