@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-004` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-005` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 4 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 5 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -9915,6 +9915,19 @@ find whether an open article on a subject exists at all. `journals.openedition.o
 reason to cite it**: two DOAJ hits on Pangu were a Girardian reading in a French-studies journal and a
 phenomenological one in a literature review, neither of which states a fact a Folio card makes, and both
 were passed over.
+**`cnh-005` ADDS TWO MORE, and the first is a route this collection should reach for early** (Aug 2026).
+**FOR A CLASSIC, THE PRIMARY TEXT IN AN OUT-OF-COPYRIGHT TRANSLATION IS THE BEST SOURCE THERE IS** — batch
+25's rule and G4's, on a Chinese subject: Legge's *Yî King* (Sacred Books of the East 16, 1882) is on
+archive.org in full OCR and carries the Great Appendix's own account of Fuxi drawing the trigrams, his
+nets, and the tradition that gives him the figures but not the book, which no modern open article states
+in one place. **Its OCR mangles the romanisation and a grep for the NAME finds nothing** — Legge writes
+"Fû-hsî" and the scan renders it "F(-hst", "Ffi-hsi", "F'(-hsf" — so search on a distinctive WORD of the
+passage instead (`Anciently`, seven hits, five of them the ones wanted). The same volume set already
+serves the Analects and the Book of Documents in the Library, so the translator is one the site trusts
+elsewhere. **AND A DOI THAT RESOLVES IS NOT AN ARTICLE THAT EXISTS**: Vampelj Suhadolnik's Fuxi-Nüwa
+paper in *Asian Studies* 7.2 resolves 200 to its landing page and has **no galley deposited at all** —
+brute-forcing galley ids is wasted, and the issue's own table of contents is what says so, five of that
+issue's thirteen articles having none. Read the TOC before concluding a fetch failed.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
