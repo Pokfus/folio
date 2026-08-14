@@ -19,7 +19,7 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^a[12]$/.test(LEVEL)) { console.error("level must be a1 or a2"); process.exit(2); }
+if (!/^(a[12]|b1)$/.test(LEVEL)) { console.error("level must be a1, a2 or b1"); process.exit(2); }
 const DECK = "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
 // the composed paradigms live in the lowest level that teaches the word
 const COMPOSED = LEVEL === "a1";

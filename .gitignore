@@ -34,8 +34,9 @@ node_modules/
 # run.py imports one stage from another, so Python leaves bytecode beside them
 __pycache__/
 
-# The A2 German deck is deliberately NOT in the repo (on request, Aug 2026): it is a file
+# The A2 and B1 German decks are deliberately NOT in the repo (on request, Aug 2026): it is a file
 # to hand a reader for import, not something the site should carry. It is built by
 # `python3 .claude/goethe/run.py --level a2`, which writes it here beside the A1 deck, so
 # this line is what stops a `git add -A` sweeping it in. Delete the line to ship it.
 decks/Goethe-A2-German.folio-deck.json
+decks/Goethe-B1-German.folio-deck.json

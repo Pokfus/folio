@@ -48,4 +48,39 @@ print('  records kept  :', sum(len(v) for v in kept.values()))
 missing = sorted(want - set(kept))
 if missing:
     print('  not in the dump:', ', '.join(missing))
+
+# A THIRD PASS FOLLOWS THE POINTERS, because a lemma whose every sense is a
+# pointer has no meaning of its own to card.  German Wiktionary files a great
+# many of the words a Goethe list prints as inflections or variants of another:
+# `Früchte` is "plural of Frucht", `ausgebildet` "past participle of ausbilden",
+# `die Mail` "alternative form of E-Mail", `Bub` "alternative form of Bube",
+# `Coiffeuse` "female equivalent of Coiffeur".  `sense_gloss` already takes the
+# tail where one is written after a colon; where none is, the meaning is at the
+# other end of the pointer, and this is what puts it in the dump for the builder
+# to reach.  Only the targets nothing already wanted are fetched -- on B1 that is
+# a few dozen lemmas -- and the pass is skipped altogether when there are none.
+targets = set()
+for recs in kept.values():
+    for r in recs:
+        for s_ in r.get('senses', []):
+            for k in ('form_of', 'alt_of'):
+                for f_ in (s_.get(k) or []):
+                    w_ = f_.get('word') if isinstance(f_, dict) else f_
+                    if w_:
+                        targets.add(w_.strip())
+targets -= set(kept)
+if targets:
+    n2 = 0
+    for line in open(dump, encoding='utf-8'):
+        try:
+            r = json.loads(line)
+        except Exception:
+            continue
+        w = r.get('word')
+        if w in targets and r.get('lang_code') == 'de':
+            kept.setdefault(w, []).append(r)
+            n2 += 1
+    print('  pointer targets:', len(targets), 'wanted,',
+          len(targets & set(kept)), 'found,', n2, 'records')
+
 json.dump(kept, open(out_fn, 'w'), ensure_ascii=False)

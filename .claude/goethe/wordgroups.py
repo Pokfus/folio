@@ -255,7 +255,101 @@ GROUPS_A2 = [
     ]),
 ]
 
-GROUPS = {'a1': GROUPS_A1, 'a2': GROUPS_A2}[LEVEL]
+# B1 prints twenty-one groups and eleven of them are taken.  What is left out is
+# left out for the reason A2's clock is: it is a RECIPE rather than a word.
+# `1 € = 1 Euro`, `1 = eins`, `07:15 = sieben Uhr fünfzehn`, `heute ist der 1.
+# März = der erste März` and the school-grade scales are instructions for reading
+# a number aloud, and the three institution tables (Bildungseinrichtungen, the
+# political offices of each country, the nationality sets) are set as a grid of
+# country against institution that cannot be cut into headwords without deciding
+# for the Institut which cell is a word.  The abbreviations group is a list of
+# PAIRS -- `das Abo, -s = das Abonnement, -s/-e` -- and every expansion in it is
+# already an entry in the alphabet, so carding the pair would teach the long form
+# twice and the short one with no meaning of its own.
+GROUPS_B1 = [
+    ('anglicisms', [
+        ('das', 'Baby'), ('der', 'Babysitter', 'die', 'Babysitterin'),
+        ('die', 'Band'), ('die', 'Bar'), ('der', 'Bikini'), ('der', 'Blog'),
+        ('', 'bloggen'), ('das', 'Camp'), ('', 'campen'), ('die', 'Castingshow'),
+        ('der', 'CD-Player'), ('der', 'Chat'), ('', 'chatten'), ('', 'checken'),
+        ('der', 'Chip'), ('die', 'City'), ('der', 'Club'), ('die', 'Cola'),
+        ('der', 'Comic'), ('der', 'Computer'), ('', 'cool'), ('das', 'E-Bike'),
+        ('das', 'E-Book'), ('der', 'Fan'), ('das', 'Fax'), ('', 'faxen'),
+        ('das', 'Festival'), ('', 'fit'), ('die', 'Fitness'), ('', 'global'),
+        ('', 'googeln'), ('der', 'Hamburger'), ('der', 'Hit'), ('die', 'Homepage'),
+        ('das', 'Internet'), ('der', 'Jazz'), ('der', 'Job'), ('', 'jobben'),
+        ('', 'joggen'), ('der', 'Ketchup'), ('der', 'Killer', 'die', 'Killerin'),
+        ('der', 'Laptop'), ('der', 'Link'), ('', 'live'), ('die', 'Mail'),
+        ('die', 'Mailbox'), ('', 'mailen'), ('der', 'Manager', 'die', 'Managerin'),
+        ('die', 'Mobilbox'), ('das', 'Mountainbike'), ('', 'online'),
+        ('die', 'Plattform'), ('das', 'Poster'), ('das', 'Puzzle'),
+        ('das', 'Sandwich'), ('die', 'Show'), ('das', 'Smartphone'),
+        ('der', 'Snack'), ('die', 'Software'), ('der', 'Song'), ('der', 'Spot'),
+        ('das', 'Steak'), ('', 'surfen'), ('der', 'Swimmingpool'), ('das', 'Taxi'),
+        ('das', 'Team'), ('der', 'Terminal'), ('die', 'Tour'), ('der', 'Trend'),
+        ('das', 'T-Shirt'), ('', 'twittern'), ('der', 'User', 'die', 'Userin'),
+    ]),
+    ('subjects', [
+        ('', 'Biologie'), ('', 'Chemie'), ('', 'Geografie'), ('', 'Geschichte'),
+        ('', 'Mathematik'), ('', 'Musik'), ('', 'Philosophie'), ('', 'Physik'),
+        ('', 'Sport'),
+    ]),
+    ('colours', [
+        ('', 'hell-'), ('', 'dunkel-'), ('', 'blau'), ('', 'braun'), ('', 'gelb'),
+        ('', 'grau'), ('', 'grün'), ('', 'lila'), ('', 'orange'), ('', 'rosa'),
+        ('', 'rot'), ('', 'schwarz'), ('', 'violett'), ('', 'weiß'),
+    ]),
+    ('compass', [
+        ('der', 'Norden'), ('der', 'Osten'), ('der', 'Süden'), ('der', 'Westen'),
+        ('', 'nördlich'), ('', 'östlich'), ('', 'südlich'), ('', 'westlich'),
+    ]),
+    ('animals', [
+        ('der', 'Affe'), ('der', 'Bär'), ('die', 'Biene'), ('der', 'Elefant'),
+        ('die', 'Ente'), ('der', 'Fisch'), ('die', 'Fliege'), ('die', 'Giraffe'),
+        ('der', 'Hase'), ('der', 'Hund'), ('das', 'Insekt'), ('die', 'Katze'),
+        ('das', 'Krokodil'), ('die', 'Kuh'), ('der', 'Löwe'), ('die', 'Maus'),
+        ('die', 'Mücke'), ('das', 'Pferd'), ('der', 'Pinguin'), ('das', 'Schaf'),
+        ('die', 'Schildkröte'), ('die', 'Schlange'), ('das', 'Schwein'),
+        ('der', 'Vogel'),
+    ]),
+    ('holidays', [
+        ('', 'Neujahr'), ('', 'Ostern'), ('', 'Pfingsten'), ('', 'Weihnachten'),
+        ('', 'Silvester'), ('', 'Nationalfeiertag'),
+    ]),
+    ('seasons', [
+        ('der', 'Frühling'), ('das', 'Frühjahr'), ('der', 'Sommer'),
+        ('der', 'Herbst'), ('der', 'Winter'),
+    ]),
+    ('months', [
+        ('der', 'Januar'), ('der', 'Februar'), ('der', 'März'), ('der', 'April'),
+        ('der', 'Mai'), ('der', 'Juni'), ('der', 'Juli'), ('der', 'August'),
+        ('der', 'September'), ('der', 'Oktober'), ('der', 'November'),
+        ('der', 'Dezember'),
+    ]),
+    ('dayparts', [
+        ('der', 'Tag'), ('', 'täglich'), ('', 'tagsüber'), ('der', 'Morgen'),
+        ('', 'morgens'), ('der', 'Vormittag'), ('', 'vormittags'),
+        ('der', 'Mittag'), ('', 'mittags'), ('der', 'Nachmittag'),
+        ('', 'nachmittags'), ('der', 'Abend'), ('', 'abends'), ('die', 'Nacht'),
+        ('', 'nachts'), ('die', 'Mitternacht'),
+    ]),
+    ('weekdays', [
+        ('der', 'Wochentag'), ('', 'wochentags'), ('', 'werktags'),
+        ('das', 'Wochenende'), ('der', 'Montag'), ('', 'montags'),
+        ('der', 'Dienstag'), ('', 'dienstags'), ('der', 'Mittwoch'),
+        ('', 'mittwochs'), ('der', 'Donnerstag'), ('', 'donnerstags'),
+        ('der', 'Freitag'), ('', 'freitags'), ('der', 'Samstag'), ('', 'samstags'),
+        ('der', 'Sonntag'), ('', 'sonntags'),
+    ]),
+    ('timewords', [
+        ('die', 'Sekunde'), ('die', 'Minute'), ('die', 'Stunde'), ('', 'stündlich'),
+        ('der', 'Tag'), ('die', 'Woche'), ('', 'wöchentlich'), ('der', 'Monat'),
+        ('', 'monatlich'), ('das', 'Jahr'), ('', 'jährlich'), ('das', 'Jahrzehnt'),
+        ('das', 'Jahrhundert'), ('das', 'Jahrtausend'),
+    ]),
+]
+
+GROUPS = {'a1': GROUPS_A1, 'a2': GROUPS_A2, 'b1': GROUPS_B1}[LEVEL]
 
 # A word the pages spell differently from the lemma a card teaches: the list
 # prints `ein Kilo(gramm)`, `1.000.000 = eine Million` and `(ein)hundert`, so
@@ -286,7 +380,21 @@ AS_PRINTED_A2 = {
     'ledig': 'l edig',
 }
 
-AS_PRINTED = {'a1': AS_PRINTED_A1, 'a2': AS_PRINTED_A2}[LEVEL]
+
+# B1's own eight.  Five are a word the page prints inside a bracket that offers
+# both the long form and the short (`Mathe(matik)`, `Chat(room)`, `(E-)Mail`),
+# and three are a compass point the page sets as a stem beside its adjective
+# (`Nord-/nördlich`).  Every value is a string that really is on those pages.
+AS_PRINTED_B1 = {
+    'Mathematik': 'Mathe(matik)', 'Chat': 'Chat(room)', 'Mail': '(E-)Mail',
+    'Ketchup': 'Ketchup/Ketschup', 'Sandwich': 'Sandwich',
+    'nördlich': 'Nord-/nördlich', 'östlich': 'Ost-/östlich',
+    'südlich': 'Süd-/südlich', 'westlich': 'West-/westlich',
+    'samstags': 'samstags', 'Cola': 'Cola',
+}
+
+AS_PRINTED = {'a1': AS_PRINTED_A1, 'a2': AS_PRINTED_A2,
+              'b1': AS_PRINTED_B1}[LEVEL]
 
 
 def page_text():

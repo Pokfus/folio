@@ -293,6 +293,62 @@ AUTHORED = {
     # Herren`, which is what an A2 candidate has to write, and "past participle
     # of ehren" does not say so.
     'geehrt-': ['dear (in a formal letter: Sehr geehrte Damen und Herren)'],
+
+    # --- B1 ---
+    # THE COMPOUND-FORMING PREFIXES, written the way A1's `Feier-` and
+    # `Lieblings-` are: the sense plus a compound the list itself prints, since
+    # a prefix has no entry of its own and its base word is often a different
+    # word (`Not-` is need, `Sonder-` is nothing at all).
+    'Bio-': ['organic-, bio- (das Biogemüse, der Bioladen)'],
+    'Doppel-': ['double- (das Doppelzimmer, das Doppelbett)'],
+    'Einzel-': ['single- (das Einzelzimmer, das Einzelkind)'],
+    'Elektro-': ['electric-, electrical- (das Elektroauto, das Elektrogerät)'],
+    'Kriminal-': ['crime-, criminal- (der Kriminalfilm, die Kriminalpolizei)'],
+    'Schwieger-': ['-in-law (die Schwiegermutter, der Schwiegersohn)'],
+    'Sonder-': ['special-, extra- (das Sonderangebot, der Sonderpreis)'],
+    'Spezial-': ['specialist-, special- (das Spezialgeschäft, die Spezialität)'],
+    'Öko-': ['eco-, environmental- (der Ökostrom, die Ökosteuer)'],
+    'dunkel-': ['dark- (dunkelblau, dunkelgrün)'],
+    'hell-': ['light-, pale- (hellblau, hellgrün)'],
+    # PHRASES AND CORRELATIVE CONJUNCTIONS, which are most of what a B1 list adds
+    # over an A2 one and which no dictionary carries as headwords.
+    'Prost': ['cheers! (a toast)'],
+    'Tee ziehen lassen': ['to let tea brew, steep'],
+    'getrennt leben': ['to live apart, be separated'],
+    'in Rente gehen/sein': ['to retire / to be retired'],
+    'in Pension gehen/sein': ['to retire / to be retired (Austria, Switzerland)'],
+    'pensioniert werden/sein': ['to retire / to be retired (Switzerland)'],
+    'sich etwas gefallen lassen': ['to put up with something'],
+    'sich scheiden lassen': ['to get divorced'],
+    'entweder ... oder': ['either … or'],
+    'je … desto …': ['the … the (je mehr, desto besser: the more, the better)'],
+    'sowohl … als auch': ['both … and, as well as'],
+    'um … zu': ['in order to, so as to'],
+    'weder … noch': ['neither … nor'],
+    'was für ein-': ['what kind of', 'what a'],
+    # THE AUSTRIAN AND SWISS WORDS THE LIST GIVES ENTRIES OF THEIR OWN, plus a
+    # few compounds the dump does not carry.  Where the word is standard in one
+    # country only, the country is part of the gloss -- that is what the list is
+    # telling its candidates.
+    'der Führerausweis': ['driving licence (Switzerland)'],
+    'der Zivilstand': ['civil status, marital status (Switzerland)'],
+    'der Serviceangestellte, die Serviceangestellte':
+        ['waiter, waitress (Switzerland)'],
+    'die e-card': ['e-card, the Austrian health insurance card'],
+    'die ec-Karte/EC-Karte': ['EC card, a German bank debit card'],
+    'die Versichertenkarte': ['health insurance card'],
+    'die Mobilbox': ['voicemail, mobile mailbox'],
+    'die Müllabfuhr': ['refuse collection, rubbish collection'],
+    'der Personenstand': ['civil status (single, married and so on, on a form)'],
+    'der Intensivkurs': ['intensive course'],
+    'der Kursleiter': ['course tutor, class teacher'],
+    # a misprint in the list, which sets `die Kursleiter, -nen` where it means
+    # the feminine; the card teaches the word the ending says
+    'die Kursleiter': ['course tutor, class teacher (female)'],
+    'der Profisportler, die Profisportlerin': ['professional sportsperson'],
+    'der User, die Userin': ['user (of a computer, a website)'],
+    'der Steward': ['steward, flight attendant'],
+    'der Umtausch': ['exchange, return (of something bought)'],
 }
 
 
@@ -351,6 +407,37 @@ def by_article(same, article):
     if not any(glosses_for(r, article, limit=1) for r in hit):
         return same
     return hit
+
+
+def pointed_glosses(same, article=''):
+    """The meaning at the far end of a pointer, where the word has none itself.
+
+    A LEMMA WHOSE EVERY SENSE IS A POINTER CARDS AS A BLANK, and B1 prints
+    nineteen of them: `Früchte` ("plural of Frucht"), `ausgebildet` ("past
+    participle of ausbilden"), `die Mail` ("alternative form of E-Mail"), `Bub`
+    ("alternative form of Bube"), `Coiffeuse` ("female equivalent of Coiffeur"),
+    `nützen` ("alternative form of nutzen").  `sense_gloss` takes the tail where
+    the sense writes one after a colon, and where it does not the meaning is
+    simply at the other end -- which `extract_kaikki` now fetches.
+
+    THE POINTER IS FOLLOWED ONLY WHEN THERE IS NOTHING ELSE, so a word with a
+    meaning of its own is untouched and every earlier level is inert.  What the
+    card then shows is the BASE's meaning, which is right for a plural and for a
+    variant spelling and is a small stretch for a participle -- `ausgebildet` is
+    glossed "to train, educate" -- so the label still says what the form is.
+    """
+    for r in same:
+        if r is None:
+            continue
+        for s_ in sorted(r.get('senses', []), key=sense_rank):
+            for k in ('form_of', 'alt_of'):
+                for f_ in (s_.get(k) or []):
+                    w_ = f_.get('word') if isinstance(f_, dict) else f_
+                    for base in W.get((w_ or '').strip(), []):
+                        g = merged_glosses([base], article)
+                        if g:
+                            return g
+    return []
 
 
 def merged_glosses(same, article=''):
@@ -1031,6 +1118,8 @@ for i, e in enumerate(entries, 1):
         glosses = AUTHORED[e['word']]
     else:
         glosses = merged_glosses(same_pos, e['article'])
+        if not glosses:
+            glosses = pointed_glosses(same_pos or [rec], e['article'])
     if not glosses:
         stats['no gloss'] += 1
 
@@ -1112,8 +1201,13 @@ for i, e in enumerate(entries, 1):
 # carries the part-of-speech label and so is never empty: `besser` shipped as a
 # card reading "verb" and nothing else -- Wiktionary files it first as an
 # inflection of `bessern`, to improve -- and this test passed it.
+# The list is joined on ` | ` and not on a comma: a German headword prints its
+# plural after one (`die Angst, ¨-e`), so a comma-joined list of them cannot be
+# read back into words -- which cost a whole pass over B1's residue, `die Angst`
+# being investigated as a missing entry when the entry was `die Angst, “-e` and
+# the fault was the plural marker.
 blank = [c['question'] for c in cards if not c['answerText'].strip()]
 if blank:
-    raise SystemExit('cards with no meaning at all: ' + ', '.join(blank))
+    raise SystemExit('cards with no meaning at all: ' + ' | '.join(blank))
 print('  cards:', len(cards), dict(stats))
 json.dump(cards, open(lvlf('cards.json'), 'w'), ensure_ascii=False)

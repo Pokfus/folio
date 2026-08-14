@@ -4409,15 +4409,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent. Not part of the site.
 - `.claude/goethe/` — the generator behind the Goethe decks: `decks/Goethe-A1-German.folio-deck.json`
-  (**785 notes / 1,570 cards**) and an **A2** built the same way (**1,073 notes / 2,146 cards**), which is
-  DELIBERATELY NOT COMMITTED — see the last sub-bullet.
-  `python3 .claude/goethe/run.py [--level a1|a2] [--no-fetch]`. Seven stages, caching its corpora and the
+  (**785 notes / 1,570 cards**), an **A2** built the same way (**1,072 notes / 2,144 cards**) and a **B1**
+  (**2,525 notes / 5,050 cards**), the last two DELIBERATELY NOT COMMITTED — see the last sub-bullet.
+  `python3 .claude/goethe/run.py [--level a1|a2|b1] [--no-fetch]`. Seven stages, caching its corpora and the
   Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.3 GB, gitignored). PYTHON, like `.claude/dele/`
   and unlike every other helper here, and for the same reason: a further level is a re-run against the next
   Wortliste rather than a rebuild. **ONE LEVEL PER RUN** (`goethe_level` reads the level once, at import),
   and a level is taught on top of the ones below it, read out of the SHIPPED deck files so they cannot
-  drift — the DELE arrangement exactly (A2's list REPEATS 330 A1 words, which is what `BELOW` removes).
-  B1 has a published Wortliste of its own and would take a row in that module's tables plus a `BELOW` entry.
+  drift — the DELE arrangement exactly (A2's list REPEATS 330 A1 words and B1 repeats 571 of both, which is
+  what `BELOW` removes). B2 has a published Wortliste of its own and would take a row in each of that
+  module's tables plus a `BELOW` entry.
   **THE SECOND LEVEL IS WHERE THE PIPELINE'S ASSUMPTIONS WERE TESTED, and almost every one of them was a
   fact about A1's TYPESETTING rather than about German.** Six things it settled are worth carrying.
   · **THE PAGE GEOMETRY IS A TABLE, NOT A CONSTANT.** A1 is ONE pair of columns and A2 is TWO pairs side by
@@ -4529,9 +4530,63 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     — which is where the bolding fault and the `bitte` sentences were actually found. Two things it has to
     keep doing: **grade EASY** (a new card graded Good requeues as a learning step and the walk stands
     still) and **raise the day's allowance**, since five new cards is five function words and no noun, verb
-    or adjective is ever reached.
+    or adjective is ever reached. It takes the level as its argument (`node check-goethe.js b1`).
+  **THE THIRD LEVEL IS WHERE THE LIST'S OWN TYPESETTING BECAME THE WHOLE JOB.** B1 is 2,529 headwords
+  against A2's 1,300, set in a narrower column with two or three numbered example sentences under each, so
+  it wraps constantly and in every direction — and a wrapped line read as a headword is a card for a word
+  that does not exist. Seven things it settled are worth carrying.
+  · **A LINE IS A CLUSTER OF TOPS, NOT A ROUNDED ONE, AND THAT CHANGE BROKE A1 IN A PLACE NOTHING WAS
+    WATCHING.** B1 sets the regional-variant arrow 1.42 points above the headword it belongs to, which
+    `round` files in the next bucket down, so `→` became a row of its own and — a row ending in an arrow
+    being a continuation — swallowed the real headword under it. Clustering fixed that and merged two A1
+    lines the rounding had kept apart: the running head at x 17 and the section letter at 143 sit on ONE
+    line, so `Alphabetische A` and `wortliste ab` became entries and `ab` was lost. **The column, not the
+    line grouping, is what should have separated them** — A1's `HEAD_COLUMNS` opened at 0 and now opens at
+    140, with `SUB_INDENT` moved from 146 to 6 to stay relative to it.
+    **AND IT WENT UNNOTICED FOR A SESSION BECAUSE THE BASELINE WAS THE CACHE.** `wortliste-a1.json` in
+    `.claude/goethe-cache/` was already carrying the fault when it was copied as the "before"; the only
+    honest baseline is **the committed deck rebuilt from the committed code**, which is what `git stash` and
+    an md5 give in two commands.
+  · **A VERB PARADIGM RUNS TO FOUR PARTS AND THE LINE OFTEN ENDS BEFORE IT DOES**, 58 times, and the break
+    falls anywhere in it — after the auxiliary (`baden, badet, badete, hat` over `gebadet`, 25 of those),
+    after a finite form whose separable prefix or reflexive pronoun wrapped (`sich amüsieren, amüsiert` over
+    `sich, amüsierte sich, …`), inside a word (`hat geant-` over `wortet`). So the test is **the paradigm's
+    own arithmetic** rather than the shape of the break: four comma-parts, the last not a bare auxiliary.
+    Gated per level (`VERB_WRAP`) because A2 prints a bare `abholen` as a headword and the rule joins it.
+  · **THE UMLAUT MARK COMES BACK AS A CURLY QUOTE ON ONE ROW IN THREE HUNDRED** (`die Angst, “-e`) and the
+    marker's hyphen is set clear of its ending on two more (`der Klick, - s`). Both are repaired in
+    `fix_glyphs`, before anything reads the row — a mark that is not a mark is a noun shipped under a lemma
+    no dictionary has, and the count of nouns stays perfect throughout.
+  · **A FEMININE IS RECOGNISED BY COMPARISON, NOT BY CONSTRUCTION.** Adding `-in` to the masculine catches
+    `Absender`/`Absenderin` and misses every noun that umlauts (`Anwalt`/`Anwältin`, `Arzt`/`Ärztin`) and
+    every weak masculine in `-e` (`Kollege`/`Kollegin`) — eight adjacent pairs, each of which then ships as
+    a card of its own with **no meaning at all**, Wiktionary glossing a feminine "female equivalent of X".
+    Fixing it also gave A2's `der Partner` the feminine it had been missing.
+  · **A LEMMA WHOSE EVERY SENSE IS A POINTER HAS NO MEANING TO CARD, AND THE MEANING IS AT THE OTHER END.**
+    Nineteen B1 words are filed as inflections or variants — `Früchte` "plural of Frucht", `ausgebildet`
+    "past participle of ausbilden", `die Mail` "alternative form of E-Mail", `Bub` "alternative form of
+    Bube", `Coiffeuse` "female equivalent of Coiffeur". `extract_kaikki` now takes a **third pass** to fetch
+    the pointer targets and `pointed_glosses` follows them **only when there is nothing else**, so every
+    earlier level is inert. It is the general form of what the `STEM` table does by hand.
+  · **THE REGIONAL NOTE IS THE LIST'S OWN COLUMN AND IT WRAPS FIVE DIFFERENT WAYS** — before the arrow,
+    after it, on a country code and a comma (`→ A,` over `CH: Pension`), with the whole bracket on the next
+    line (`(D) → A: e-card`), and once at the very tail of a phrase the note has already named. Each was
+    inventoried before it was written; the last is a single row, and left alone it ships a card for the bare
+    verb `gehen/sein`.
+  · **WHAT WIKTIONARY CANNOT GLOSS IS AUTHORED, NEVER DROPPED.** B1's residue is 40 words — the
+    compound-forming prefixes (`Bio-`, `Schwieger-`, `Sonder-`), the correlative conjunctions (`weder …
+    noch`, `je … desto …`), the phrases (`sich scheiden lassen`, `in Rente gehen/sein`) and the Austrian and
+    Swiss words the list gives entries of their own (`der Führerausweis`, `die e-card`, `der Zivilstand`) —
+    and each is written into `AUTHORED` with its country where the country is the point. `build_deck` still
+    REFUSES a card with no meaning, which is what keeps that list honest.
+  · **A1 IS IN THE REPO AND A2 AND B1 ARE NOT** (on request, Aug 2026): they are files to hand a reader for
+    import, not something the site should carry, so `.gitignore` names both and a `git add -A` cannot sweep
+    them in. Deleting a line ships that deck. Nothing on the site links to any of them — a community deck is
+    user content, which is also why none of them goes in the changelog.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
-  since every fault above is silent. Not part of the site.
+  since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
+  A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
+  the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
