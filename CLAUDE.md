@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-011` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-012` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 11 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 12 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10018,6 +10018,25 @@ SHOWS WHY THE STYLE CHECKER IS RUN ON EVERY DRAFT**: the ambiguous person-or-boo
 this collection, and "Mencius" in a date-line label was flagged where "The <i>Mencius</i> denies…" in
 the prose is both accurate and legitimately italicised — the fix is to say which of the two you mean,
 not to drop the italics.
+**`cnh-012` IS THE `afar` FINDING'S SECOND KIND, AND CASE CANNOT FIX THIS ONE** (Aug 2026). There the
+linked word was an ordinary adverb, so `GLOSSARY_CASESENSITIVE` on the term repaired every future card
+at once. Here the collision is between two REAL object classes: `Bronze_tripod_cauldron` is a Greek
+term (its own description is about Olympia and the Athenian Acropolis) and it carries the bare alias
+`tripod`, so the nine 鼎 the Zuo Commentary has the Xia casting linked to a Greek sanctuary dedication —
+lower case on both sides, nothing for case to separate. **The obvious fix is measured and refused**:
+over the whole corpus the bare alias catches 13 surfaces, of which **11 are Greek and correct** and 2
+are wrong even inside Greece (`gr-070` and the `Midea` term say "a miniature tripod offering table",
+which is a three-legged table and not a cauldron), so dropping it would break eleven links to mend
+three. **THE FIX THAT SCALES IS TO GIVE THE OTHER OBJECT ITS OWN TERM** and let `buildGlossIndex`'s
+longest-first sort do the work — a `Ding` term makes "nine ding" beat "tripod" with nothing else
+touched — and until a bronze card writes one at the bar (`cnh-064` and the `cn-culture` vessels are
+where it belongs) the sentence says "cauldrons" instead. **Ask of a one-word alias not only whether it
+is an ordinary word but whether the THING is one more than one culture makes.** The two offering-table
+mis-links are recorded rather than repaired, being on another collection's cards.
+**AND A SCAN IS NOT A PAGINATION**: p. 293 for the tripods was read in `in.ernet.dli.2015.60723` and
+the citation names `chineseclassics51legg`, the family the other volumes here come from, so the passage
+AND its running head were checked in the second scan before it was cited — cnh-011's rule about
+reading a locator, met one step earlier, at the point where two scans of one book could disagree.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
