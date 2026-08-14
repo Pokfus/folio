@@ -233,8 +233,14 @@ CSS = """.card {
    widest cell, which pushes it past the card and hands it to the scroller above.
    Found by looking at the card at 390px; every assertion passed throughout,
    because the fault was in the layout and not in the markup. */
+.uc-dt1 .uc-dtr {
+  grid-template-columns: 62px minmax(min-content, 1fr);
+}
 .uc-dt2 .uc-dtr {
   grid-template-columns: 62px repeat(2, minmax(min-content, 1fr));
+}
+.uc-dt3 .uc-dtr {
+  grid-template-columns: 58px repeat(3, minmax(min-content, 1fr));
 }
 .uc-dt4 .uc-dtr {
   grid-template-columns: 58px repeat(4, minmax(min-content, 1fr));

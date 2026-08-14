@@ -552,6 +552,11 @@ def conjugation_html(rec, reflexive):
 CASES = [('Nominativ', 'nominative'), ('Akkusativ', 'accusative'),
          ('Dativ', 'dative'), ('Genitiv', 'genitive')]
 
+# A cell holds ONE form, so where a table offers two the rare one must not be the
+# one that lands: `wer` sets `wessen` and the archaic `wes` under the same tags,
+# and `wes` is first in the file.
+RARE = {'archaic', 'obsolete', 'dated', 'rare', 'poetic', 'dialectal'}
+
 # The definite article, declined.  COMPOSED, and it is the second composed thing
 # on a card after the Sie-imperative, on the same ground: this is a closed rule
 # of the language rather than a pattern read off a word, and a bare `Hauses` in
@@ -592,9 +597,13 @@ def table_html(head, rows):
     read the DOM and the fault was in the layout.  Found by looking at the card.
     """
     n = len(head)
-    out = [f'<div class="uc-dt uc-dt{n}">',
-           '<div class="uc-dtr uc-dth"><span class="uc-dtl"></span>' +
-           ''.join(f'<span class="uc-dtc">{esc(h)}</span>' for h in head) + '</div>']
+    out = [f'<div class="uc-dt uc-dt{n}">']
+    # a one-column paradigm has nothing to head its column with -- `wer` against
+    # what? -- and an empty strip of uppercase reads as a heading that failed
+    if any(h for h in head):
+        out.append('<div class="uc-dtr uc-dth"><span class="uc-dtl"></span>' +
+                   ''.join(f'<span class="uc-dtc">{esc(h)}</span>' for h in head) +
+                   '</div>')
     for label, cells in rows:
         out.append('<div class="uc-dtr"><span class="uc-dtl">' + esc(label) + '</span>' +
                    ''.join(f'<span class="uc-dtc">{esc(c) if c else "—"}</span>'
@@ -693,6 +702,176 @@ def adj_decl_html(rec):
     head = ('<div class="uc-cj-nf"><span class="uc-cj-nfi"><i>predicative</i>'
             f'<b>{esc(pred[0])}</b></span></div>') if pred else ''
     return head + decl_panel(out)
+
+
+def det_decl_html(rec):
+    """mein / meine / mein / meine, and the three other cases under it.
+
+    A DETERMINER DECLINES IN THE SAME 4x4 AN ADJECTIVE DOES AND CARRIES NO
+    STRENGTH TAG, so `adj_decl_html` -- which asks for one -- finds nothing in
+    every one of them and returns ''.  Measured: `mein` has 18 declension forms,
+    `all` 20, `unser` 37, tagged `masculine+nominative+singular` and the rest with
+    no `weak`/`mixed`/`strong` anywhere, and each shipped with no panel at all.
+    """
+    if rec is None:
+        return ''
+    rows = []
+    for name, case in CASES:
+        cells = []
+        for _, gcol in ADJ_COLS:
+            want = {case, gcol} | ({'singular'} if gcol != 'plural' else set())
+            f = decl_forms(rec, want, without=RARE)
+            cells.append(f[0] if f else '')
+        rows.append((name, cells))
+    if not any(any(c for c in cs) for _, cs in rows):
+        return ''
+    return decl_panel([('Declension', table_html([n for n, _ in ADJ_COLS], rows))])
+
+
+def case_decl_html(rec):
+    """A pronoun with no gender at all: wer / wessen / wem / wen."""
+    if rec is None:
+        return ''
+    rows = []
+    for name, case in CASES:
+        f = decl_forms(rec, {case, 'singular'}, without=RARE)
+        rows.append((name, [f[0] if f else '']))
+    if not any(cs[0] for _, cs in rows):
+        return ''
+    return decl_panel([('Declension', table_html([''], rows))])
+
+
+# ------------------------------------------------------------- the pronouns
+# THE PERSONAL PRONOUN IS NOT IN THE SOURCE AT ALL, and it is the paradigm an A1
+# candidate needs before any other.  Measured over both levels' records: `ich`,
+# `er`, `sie`, `es` and `wir` each carry a Wiktionary entry with ZERO declension
+# forms, German Wiktionary setting that table in the article's prose rather than
+# in the template kaikki reads -- so nine of the commonest words in the language
+# shipped with no panel while `das Haus` had one.
+#
+# It is COMPOSED, and it is the third composed thing on a card after the definite
+# article and the Sie-imperative, on the same ground as both: a closed rule of the
+# language rather than a pattern read off a word.
+#
+# THE GENITIVE IS LEFT OUT DELIBERATELY, where the noun's table carries it.
+# `meiner`, `deiner` and `seiner` survive in a few fixed phrases and nowhere else
+# in the German these candidates are examined on, and setting one beside `mich`
+# and `mir` would offer it as the third of a set.  The table names the three cases
+# it carries, so it claims nothing it has not got.
+PERSONAL_PRON = [('1. Sg.', 'ich', 'mich', 'mir'),
+                 ('2. Sg.', 'du', 'dich', 'dir'),
+                 ('3. Sg. m', 'er', 'ihn', 'ihm'),
+                 ('3. Sg. f', 'sie', 'sie', 'ihr'),
+                 ('3. Sg. n', 'es', 'es', 'ihm'),
+                 ('1. Pl.', 'wir', 'uns', 'uns'),
+                 ('2. Pl.', 'ihr', 'euch', 'euch'),
+                 ('3. Pl.', 'sie', 'sie', 'ihnen'),
+                 ('höflich', 'Sie', 'Sie', 'Ihnen')]
+
+REFLEXIVE_PRON = [('1. Sg.', 'mich', 'mir'), ('2. Sg.', 'dich', 'dir'),
+                  ('3. Sg.', 'sich', 'sich'), ('1. Pl.', 'uns', 'uns'),
+                  ('2. Pl.', 'euch', 'euch'), ('3. Pl.', 'sich', 'sich'),
+                  ('höflich', 'sich', 'sich')]
+
+# KEYED ON THE WORD AS THE WORTLISTE PRINTS IT, NEVER ON THE LEMMA.  A1 sets
+# `ihr/ihm/ihn` as one entry whose lemma is `ihr` -- which is also the possessive
+# determiner, a different word wanting a different table -- so a lemma key would
+# hand one of the two the other's paradigm and nothing would say so.
+PRON_TABLE = dict.fromkeys(
+    ('ich', 'du', 'er', 'sie', 'Sie', 'es', 'wir', 'ihr/ihm/ihn', 'mich',
+     'dich', 'dir', 'mir', 'uns', 'euch'), 'personal')
+PRON_TABLE['sich'] = 'reflexive'
+
+# a one-row paradigm is still a paradigm, and these are the words whose oblique
+# forms nobody guesses from the nominative
+PRON_ONE = {'man': ('man', 'einen', 'einem'),
+            'jemand': ('jemand', 'jemanden', 'jemandem'),
+            'niemand': ('niemand', 'niemanden', 'niemandem')}
+
+PRON_CASES = ['Nominativ', 'Akkusativ', 'Dativ']
+
+# THE DEFINITE ARTICLE IS COMPOSED FROM THE TABLE THE NOUNS ALREADY USE, and this
+# is the one place a source reading would have been worse than a composed one:
+# Wiktionary's only declension table under `der` belongs to its PRONOUN record and
+# is the relative pronoun's -- dessen, deren, denen, derer -- which is not the
+# article at all.  `DEF_ART` is the paradigm every noun card on this deck already
+# prints in front of its own forms, so the article's own card and the four hundred
+# cards that use it cannot come to disagree.
+ARTICLE_WORDS = {'der, die, das'}
+
+
+def pron_html(word):
+    """The paradigm for a word the source cannot supply one for, or ''."""
+    if word in ARTICLE_WORDS:
+        return decl_panel([('Bestimmter Artikel', table_html(
+            [n for n, _ in ADJ_COLS],
+            [(name, [DEF_ART[(g, case)] for g in 'mfnp']) for name, case in CASES]))])
+    kind = PRON_TABLE.get(word)
+    if kind == 'personal':
+        return decl_panel([('Personalpronomen', table_html(
+            PRON_CASES, [(r[0], list(r[1:])) for r in PERSONAL_PRON]))])
+    if kind == 'reflexive':
+        return decl_panel([('Reflexivpronomen', table_html(
+            PRON_CASES[1:], [(r[0], list(r[1:])) for r in REFLEXIVE_PRON]))])
+    if word in PRON_ONE:
+        return decl_panel([('Declension', table_html(
+            PRON_CASES, [('', list(PRON_ONE[word]))]))])
+    return ''
+
+
+# `möchten` HAS A VERB RECORD CARRYING NOT ONE CONJUGATED FORM, because
+# Wiktionary files it as the Konjunktiv II of `mögen` and puts the paradigm
+# there.  So it is READ from that record rather than composed -- the six forms
+# are tagged `subjunctive-ii` and are exactly the ones a learner is taught -- and
+# the block is headed with what they are, since calling them a present tense
+# would be a small untruth about the one modal a beginner uses most.
+CONJ_FROM = {'möchten': ('mögen', {'subjunctive-ii'}, 'Konjunktiv II von „mögen“')}
+
+
+# THE RECORD CARRYING THE MEANING IS OFTEN NOT THE RECORD CARRYING THE TABLE, and
+# that alone kept a paradigm off `weiblich`, `welch-`, `meist-` and `ein-`.
+# `weiblich` has two adjective records -- the first with no forms at all and the
+# second with 174 -- and `pick_pos` returns the first, correctly, because that is
+# where the gloss is.  So the PARADIGM is chosen separately from the GLOSS, and
+# nothing about the meaning moves.
+#
+# IT LOOKS ONLY AT RECORDS OF THE CHOSEN PART OF SPEECH, and that limit is the
+# whole of what makes it safe.  Reading across parts of speech is confidently
+# wrong on the commonest word in the language: `der` has an article record with no
+# table and a PRONOUN record with fifty forms, and those fifty are the relative
+# pronoun -- `dessen`, `deren`, `denen`, `derer` -- so a card for the definite
+# article would have taught four words that are not it, with every count healthy.
+# Two records under one part of speech are one word; two under different parts of
+# speech may not be, so a cross-part borrow is listed by hand below instead.
+PARADIGM_POS = {'welch-': 'pron', 'ein-': 'article', 'meist-': 'adj'}
+
+
+def paradigm_rec(e, rec, same_pos):
+    """The record whose declension table this word's panel should be built from."""
+    want = PARADIGM_POS.get(e['word'])
+    pool = ([r for r in W.get(e['lemma'], []) if r.get('pos') == want] if want
+            else same_pos)
+    with_table = [r for r in pool
+                  if any(f.get('source') == 'declension' for f in r.get('forms', []))]
+    return with_table[0] if with_table else rec
+
+
+def borrowed_conj_html(word, W):
+    lemma, tags, title = CONJ_FROM[word]
+    rec = next((r for r in W.get(lemma, []) if r.get('pos') == 'verb'), None)
+    if rec is None:
+        return ''
+    rows = [(label, pick_form(rec, tags | ptags)) for label, ptags, _ in PERSONS]
+    rows = [(a, b) for a, b in rows if b]
+    if not rows:
+        return ''
+    return ('<div class="uc-cj-nf"><span class="uc-cj-nfi"><i>infinitive</i>'
+            f'<b>{esc(lemma)}</b></span></div>'
+            '<div class="uc-cj-grid"><div class="uc-cj-b"><div class="uc-cj-h">' +
+            esc(title) + '</div>' +
+            ''.join(f'<div class="uc-cj-r"><span class="uc-cj-p">{esc(p)}</span>'
+                    f'<span class="uc-cj-f">{esc(f)}</span></div>' for p, f in rows) +
+            '</div></div>')
 
 
 # ---------------------------------------------------------------- meanings
@@ -873,7 +1052,16 @@ for i, e in enumerate(entries, 1):
     # learnt to open it on a verb finds the same thing on a noun.  A word class
     # that does not inflect simply contributes nothing and the panel is not
     # drawn -- the template only renders it when the field is non-empty.
-    if pos == 'verb':
+    # THE HAND-HELD CASES ARE TESTED FIRST AND NOT INSIDE THE `pos` BRANCH,
+    # because the words that need them are exactly the words the source is
+    # thinnest on: `jemand` and `niemand` have no Wiktionary record at all, so
+    # `pick_pos` returns nothing for them and a branch on the part of speech
+    # could never be reached.
+    hand = (borrowed_conj_html(e['word'], W) if e['word'] in CONJ_FROM
+            else pron_html(e['word']))
+    if hand:
+        conj = hand
+    elif pos == 'verb':
         conj = conjugation_html(rec, e['reflexive'])
     elif pos == 'noun':
         blocks = [(e['word'] if e.get('pair') else 'Declension',
@@ -886,8 +1074,12 @@ for i, e in enumerate(entries, 1):
                            noun_decl_html(prec, ARTICLE_G.get(e.get('pair_article', ''), 'f'),
                                           False)))
         conj = decl_panel([(t, b) for t, b in blocks if b])
-    elif pos in ('adj', 'pron', 'det', 'num'):
-        conj = adj_decl_html(rec)
+    elif pos in ('adj', 'pron', 'det', 'num', 'article', 'adv'):
+        # the three shapes in falling order of what they say: an adjective's
+        # three paradigms, a determiner's single 4x4, a genderless pronoun's
+        # column of cases
+        prec = paradigm_rec(e, rec, same_pos)
+        conj = (adj_decl_html(prec) or det_decl_html(prec) or case_decl_html(prec))
     else:
         conj = ''
     forms = forms_html(e, rec, pos)

@@ -21,6 +21,8 @@ const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
 if (!/^a[12]$/.test(LEVEL)) { console.error("level must be a1 or a2"); process.exit(2); }
 const DECK = "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
+// the composed paradigms live in the lowest level that teaches the word
+const COMPOSED = LEVEL === "a1";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -155,8 +157,14 @@ const ok = (c, m, extra) => {
   // Grade EASY, never Good: a new card graded Good requeues as a learning step and comes straight back,
   // so the walk stands still.  The button's `data-g` is the grade's NAME -- a numeric one matches nothing
   // and the click silently does nothing, which reads as forty identical cards.
-  const seen = { noun: null, verb: null, adj: null };
-  for (let i = 0; i < 150 && !(seen.noun && seen.verb && seen.adj); i++) {
+  // THE COMPOSED TABLES ARE WATCHED HERE AND NOWHERE ELSE.  A noun's paradigm is read off
+  // Wiktionary, so a mistake in it shows up as a missing table; the personal pronoun and the
+  // definite article are written out in `build_deck.py` because the source has neither, and a
+  // typo in one is a wrong German word on a card with every count still healthy.  Both words
+  // are near the front of a deck ordered by frequency, so the walk reaches them for free.
+  const seen = { noun: null, verb: null, adj: null, pron: null, art: null };
+  const done = () => seen.noun && seen.verb && seen.adj && (!COMPOSED || (seen.pron && seen.art));
+  for (let i = 0; i < 150 && !done(); i++) {
     const card = await pg.evaluate(() => {
       const t = (s) => { const e = document.querySelector(s); return e ? e.textContent.trim() : ""; };
       const art = document.querySelector(".uc-art");
@@ -193,6 +201,8 @@ const ok = (c, m, extra) => {
     if (card.pos.startsWith("noun") && card.art && !seen.noun) { seen.noun = card; shot = "noun"; }
     if (/verb/.test(card.pos) && card.conj.length && !seen.verb) { seen.verb = card; shot = "verb"; }
     if (card.pos === "adjective" && /comparative/.test(card.forms) && !seen.adj) { seen.adj = card; shot = "adj"; }
+    if (card.word === "ich" && !seen.pron) { seen.pron = card; shot = "pron"; }
+    if (card.word === "der, die, das" && !seen.art) { seen.art = card; shot = "art"; }
     if (shot) {
       // grading a hundred cards earns levels, and a chest overlay sits over the card.  The walk itself
       // is unaffected (it clicks through `evaluate`, which does not hit-test) -- only the picture is.
@@ -257,6 +267,38 @@ const ok = (c, m, extra) => {
                                  || c[0] < cells[i - 1][1])));
     ok(!bad, "and every row is one line of cells that do not overlap",
        JSON.stringify(bad));
+  }
+
+  // ------------------------------------------------- the two composed paradigms
+  // ASSERTED CELL BY CELL, which is the point of them: these are not read off a
+  // source, so nothing but this can tell a right table from a plausible one.
+  // A1 ONLY, and not because they matter less higher up: every level is taught on
+  // top of the ones below it, so `ich` and `der, die, das` are in the A1 deck and
+  // in no other, and asserting them on A2 would fail on the exclusion working.
+  if (COMPOSED) {
+  console.log("   pron:  " + JSON.stringify(seen.pron && seen.pron.decl.slice(0, 3)));
+  ok(seen.pron, "the personal pronoun came up");
+  if (seen.pron) {
+    const row = (l) => (seen.pron.decl.find((r) => r[0] === l) || []).join(" ");
+    ok(row("1. Sg.") === "1. Sg. ich mich mir", "ich / mich / mir", row("1. Sg."));
+    ok(row("3. Sg. m") === "3. Sg. m er ihn ihm", "er / ihn / ihm", row("3. Sg. m"));
+    ok(row("3. Pl.") === "3. Pl. sie sie ihnen", "sie / sie / ihnen", row("3. Pl."));
+    ok(row("höflich") === "höflich Sie Sie Ihnen", "and the polite Sie / Sie / Ihnen",
+       row("höflich"));
+    ok(seen.pron.decl.filter((r) => r.length === 4).length >= 9,
+       "nine persons, three cases each");
+  }
+  console.log("   art:   " + JSON.stringify(seen.art && seen.art.decl.slice(0, 3)));
+  ok(seen.art, "the definite article came up");
+  if (seen.art) {
+    const row = (l) => (seen.art.decl.find((r) => r[0] === l) || []).join(" ");
+    // the genitive is where a wrong table would show: Wiktionary's only `der`
+    // paradigm is the RELATIVE PRONOUN's, which reads dessen / deren / dessen / deren
+    ok(row("Nominativ") === "Nominativ der die das die", "der / die / das / die",
+       row("Nominativ"));
+    ok(row("Genitiv") === "Genitiv des der des der", "and des / der / des / der",
+       row("Genitiv"));
+  }
   }
 
   // --------------------------------------------------------- the three colours
