@@ -3818,8 +3818,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **119 in World
   History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **250 in Ancient Greece**
   (`gr-001`…`gr-250`) and **40 in Ancient Rome** (`rm-001`…`rm-040`) — **each carrying its full pool of 3
-  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all 409 rated on
-  2026-08-10; see the card-difficulty bullet under "How the app is wired"), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
+  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all rated on
+  2026-08-10; see the card-difficulty bullet under "How the app is wired") **and, on 14 of them, an
+  `undatable: true`** (the terms Timeline must not ask a reader to place — see the bullet beside that one),
+  **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
   request** — 2.06 MB, 58% of the file, that `MULTILANG = false` put beyond every reader's reach, and the
   file went 4.32 MB → 1.64 MB with them. `add-card.js` now DROPS a supplied `i18n` block with a warning and
   `test-i18n-lang.js` fails if one reappears, so the eager path cannot silently regain it; both collections are grown one card at a time (see "Generating cards & glossary
@@ -7275,8 +7277,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `CARD_DIFFICULTY_MIN/MAX`, `GAME_MAX_DIFFICULTY`, `cardDifficulty()`, `difficultyOK()`, `gameCardIdSet()`;
   Aug 2026, on request). An integer **1–5 rating HOW WELL KNOWN THE ANSWER TERM IS to the general
   population** — not how hard the card is, which is a different question and conflating the two is the one
-  way this scale stops meaning anything. **All 409 shipped cards are rated** (19 / 39 / 91 / 122 / 138
-  across the five rungs, so 58 sit at or below the games' bar).
+  way this scale stops meaning anything. **Every shipped card is rated** (29 / 63 / 129 / 141 / 138 across
+  the five rungs at 500 cards, so 92 sit at or below the games' bar — **count them rather than quoting
+  that**, which said 409 and 58 for months: `node .claude/test-difficulty.js` prints the distribution).
   · **THE SCALE** (stated identically in app.js, `.claude/add-card-difficulty.js`, `add-card.js` and here —
     keep the four in step): **1** household name, almost any adult would recognise it (Stone Age, Homer,
     Sparta, Neanderthal); **2** generally familiar, an ordinary secondary education reaches it (Neolithic,
@@ -7319,8 +7322,52 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
     undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
     of the games by accident is not worth having). Carried by `serializeCardData` and restored by
-    `revertCard` — **a serializer that forgot it would strip all 409 ratings from data.js on the next admin
+    `revertCard` — **a serializer that forgot it would strip every rating from data.js on the next admin
     keystroke**, which is why that is asserted rather than assumed.
+- **SOME TERMS DO NOT HAPPEN AT A TIME, AND TIMELINE MUST NOT ASK** (`card.undatable`, `cardUndatable()`,
+  the filter in `chronoPool()`; Aug 2026, on a bug report — "there are some answers which really shouldn't
+  have a specific starting date, e.g. human evolution"). The sibling of the difficulty rule above: a second
+  editorial fact about the ANSWER TERM that decides whether a game may deal it. **14 of the 500 cards carry
+  it**, all of them inside the games' pool, leaving Timeline 78 of its 92.
+  · **THE TEST IS WHETHER THE SORT YEAR IS A DATE THE TERM IS CONVENTIONALLY GIVEN**, and it fails two
+    ways. A term may not be **located in time at all** — a physical feature (`Tiber`, `Apennines`,
+    `Dardanelles`), a material (`Ochre`), a condition (`Ice age`), a way of life (`Hunter-gatherer`), a
+    category (`zoonotic disease`), a question (`origins of social inequality`) or a modern method
+    (`ancient DNA`, which sorts a prehistory card at 2010 CE). Or it may be a **process so diffuse that
+    the earliest figure on its date line is one arbitrary moment inside it**: `human evolution` sorts at
+    8 Mya because that is where the ape line split, which is not when human evolution happened — it is one
+    end of the span the term names as a whole, and the same card prints the other end.
+  · **A LONG PROCESS IS NOT AUTOMATICALLY UNDATABLE, which is the half that keeps the game worth playing.**
+    `domestication`, `animal domestication` and the `Neolithic Revolution` each ran for millennia and each
+    sorts at the onset a reader would give it, which is about the precision a Timeline round is answered
+    to. Flagging those would empty the game of exactly the terms it is for. **Two of the flagged cards
+    argue the case in their own opening sentence** — `Ice age` is "not a slice of time but a climate
+    condition" and `Hunter-gatherer` "names a subsistence strategy rather than a period of the past" —
+    which is the shape to look for.
+  · **IT IS TIMELINE'S RULE AND NOTHING ELSE'S.** Multiple Choice, the Crossword, the Picture round and
+    Common Thread ask what a term IS, which a process answers perfectly well; only this game asks WHEN. So
+    the filter is in `chronoPool` rather than in `gameCardIdSet`, and `test-difficulty.js` asserts it is
+    absent from every other pool as well as present in this one.
+  · **THE DECK'S OWN ORDER IS UNTOUCHED**, and that is why this could not be done with the existing
+    "timeless" machinery (`ADMIN_EDITS.chrono[id] = "none"`, which `cardStartYear` reads): human evolution
+    belongs at 8 Mya among its neighbours in the study deck, and setting it timeless would file a
+    prehistory card in the middle of the Roman ones. `cardStartYear` therefore knows nothing about the
+    flag — asserted, since a later tidy-up would naturally put the two together.
+  · **THREE OF THE FOURTEEN ARE FLAGGED BELT-AND-BRACES.** `Apennines`, `Tiber` and `origins of social
+    inequality` carry no date line, so they were already out of the game for want of a year; the flag is
+    what stops a date line added later walking them silently back into it. (`Dardanelles` is not one of
+    them — it has a year, off graves beside the strait, so flagging it really does remove it.)
+  · **IT ONLY BITES ON A CARD THE GAMES CAN REACH**, i.e. rated at or below `GAME_MAX_DIFFICULTY`, so the
+    pass that applied it went over those 92 and not the whole corpus. **A card RE-RATED down into the pool
+    needs the judgement made about it** — that is the one way the corpus can quietly regrow an unflagged
+    process, and nothing can detect it, since no rule can read an onset off a date line and tell it from
+    one end of a span.
+  · Written by `.claude/mark-undatable.js` in batches (which demands a reason naming the kind of thing the
+    term is, refuses the batch outright rather than half-applying it, and prints the pool it leaves),
+    accepted on a new card by `add-card.js` (optional, and type-checked — `true` or nothing), and editable
+    per card in Admin → Cards as a **"no single date" tick** beside the difficulty select. Carried by
+    `serializeCardData` and restored by `revertCard`, for the reason the rating is: a serializer that
+    forgot it would strip all fourteen flags on the next admin keystroke and put a river back in the game.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -8529,6 +8576,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   date a reader could check once, read the years off the rows and reorder to a perfect score every day. Later
   checks still mark the rows and show the dates — the puzzle stays usable for learning the order — they just
   no longer rewrite the score, and the result says so.
+  **It is the one game with a SECOND pool filter** (`card.undatable`, Aug 2026, on a bug report): it is
+  also the only one that asks WHEN rather than what, so a term that does not happen at a time — `human
+  evolution`, `Tiber`, `Ice age` — is kept out of it and out of nothing else. See "SOME TERMS DO NOT
+  HAPPEN AT A TIME" above.
   **Its DRAG was rewritten in Aug 2026, on a report that it felt unpleasant** (`setupChronoDrag`). The old
   one called `insertBefore` on every `pointermove` and did nothing else, so the row being dragged never
   went anywhere under the finger — it was re-inserted at the new index and appeared there — and every other
@@ -11486,6 +11537,16 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   studiable at every rating**, and most cards worth writing are 3s, 4s and 5s. `add-card.js` REFUSES a card
   without one rather than defaulting — the safe default is invisible, since the card simply never appears in
   a game and nothing says so. Batch-rate older cards with `.claude/add-card-difficulty.js`.
+- `undatable` — **OPTIONAL, and only where the answer term does not happen at a time**: `true` says the
+  term names a process, a condition, a material, a category, a modern method or a physical feature, so the
+  **Timeline** game must not ask a reader to place it. Ask whether the year the deck would sort the card at
+  is a date the term is CONVENTIONALLY GIVEN — `human evolution` sorts at the ape split 8 Mya, which is one
+  end of the span the term names rather than when it happened, and `Tiber` has no date at all. **A long
+  process is not automatically undatable**: `domestication` and the `Neolithic Revolution` each sort at the
+  onset a reader would give them and stay in the game. It is not required, is never guessed at, and applies
+  only to a card the games can reach (rated at or below the bar); the deck's own chronological order, the
+  other games and studying are all unaffected. See the "SOME TERMS DO NOT HAPPEN AT A TIME" bullet under
+  "How the app is wired", and flag an older card with `.claude/mark-undatable.js`.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -12735,7 +12796,7 @@ dead code (never rendered).
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`,
     `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY`, `whatyear.js` / `truefalse.js` / `quotes.js`, or the home page's tile grid.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filter** (53 assertions,
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69 assertions,
     Aug 2026). No browser and no dependencies: the rule is arithmetic over the shipped data plus a few
     structural reads of app.js, the shape `test-date-line.js` uses. Every one of its checks is for something
     that fails silently on the page — a wrongly-filtered game still deals a puzzle, still scores it and still
@@ -12747,16 +12808,26 @@ dead code (never rendered).
     that the filtered pool **can still deal** (the opposite failure, and just as quiet — the game shows a
     "Coming soon" placard that reads as content nobody has written); that **study is untouched**, with
     `availableCardIdSet` knowing nothing about difficulty; that `serializeCardData` **emits** the rating,
-    since a serializer that forgot it would strip all 409 from data.js on the next admin keystroke; and that
+    since a serializer that forgot it would strip every one from data.js on the next admin keystroke; and that
     `add-card-difficulty.js` refuses a bad batch **and writes nothing at all** when it does, which it proves
     by running the tool for real and comparing the file's bytes. It also owns the **What year? event pool**:
     every year carrying at least `WY_EVENTS`, no entry with markup (the clue list escapes, so a stray `<i>`
     would print its own tags), no entry naming the year it asks about, no duplicate event, and at least ten
-    usable years. Verified against three injected faults — an unrated card, a game reverted to the
-    unfiltered set, and a serializer that drops the field; each was caught. **Re-run after touching
-    `cardDifficulty` / `difficultyOK` / `gameCardIdSet` / `GAME_MAX_DIFFICULTY` / `serializeCardData` /
-    `revertCard`, any game's pool function, `add-card.js`'s difficulty guard, `add-card-difficulty.js`, or
-    `whatyear.js` — and after any batch of ratings.**
+    usable years. **Its section 8 is the second filter, `card.undatable`** (Aug 2026): that Timeline's pool
+    skips the flagged terms and **that no other game's pool applies it**, since those ask what a term IS
+    and narrowing them would be a rule borrowed for a reason that does not apply; that `cardStartYear`
+    knows nothing about it, so the deck's own order is unmoved; that `human evolution` — the card this was
+    reported about — is flagged AND still carries its sort year; that the flag is only ever written as
+    `true`; that what is left is comfortably larger than a round, which is the opposite failure and just as
+    quiet; and that `mark-undatable.js` refuses a flag with no reasoning behind it and writes nothing when
+    it does. Verified against five injected faults — an unrated card, a game reverted to the unfiltered
+    set, a serializer that drops either field, and `chronoPool` reverted to the unfiltered pool; each was
+    caught. **Re-run after touching
+    `cardDifficulty` / `difficultyOK` / `gameCardIdSet` / `GAME_MAX_DIFFICULTY` / `cardUndatable` /
+    `chronoPool` / `cardStartYear` / `serializeCardData` /
+    `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,
+    `add-card-difficulty.js`, `mark-undatable.js`, or
+    `whatyear.js` — and after any batch of ratings or flags.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
     (Aug 2026), 70 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.
