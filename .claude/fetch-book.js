@@ -3262,6 +3262,32 @@ const BOOKS = {
     dropHeadings: true,
     sections: "bookchapter",
     chapterWord: "Book",
+
+    /* ONE DITTOGRAPHY, REPAIRED AGAINST THE PRINTED PAGE (Aug 2026, on request, after a reader met it
+       on the shipped book). At 5.67, in the line of battle at Mantinea, this transcription reads "and
+       lastly the Athenians on the extreme left, and lastly the Athenians on the extreme left, and
+       their own cavalry with them" — the clause set twice.
+
+       IT IS NOT CRAWLEY'S, and that was established with printed witnesses rather than inferred from
+       the shape of the error. Two copies read it ONCE: the Clarendon printing scanned as archive.org
+       `historyofpelopon0000thuc`, and Perseus's digital edition of the Dent 1910 printing. Two read
+       it TWICE: this Wikisource page and Project Gutenberg ebook 7142 — and those two are very likely
+       not independent witnesses of each other, Wikisource's Crawley having been seeded from PG.
+
+       So the repair restores a page that exists rather than composing one, which is the distinction
+       the don-quixote entry turns on: there both copies were transcriptions of a printing NEITHER
+       party had, and sixty dropped words were therefore left alone. Here the printing is in hand.
+       A dittography also needs no editorial judgement about which reading is right — the question is
+       only whether the clause is set once or twice, and the page answers it.
+
+       (A scan search turns up a 1910 `historyofpelopon12thucuoft` that looks like a third witness and
+       is HOBBES, not Crawley. Read what a scan actually is before counting it.) */
+    fixes: [[
+      "and lastly the Athenians on the extreme left, and lastly the Athenians on the extreme left,",
+      "and lastly the Athenians on the extreme left,",
+      "5.67 dittography — the printed Crawley sets the clause once (archive.org historyofpelopon0000thuc; Perseus's Dent 1910)",
+    ]],
+
     page: (n) => "History of the Peloponnesian War/Book " + n,
     chapters: Array.from({ length: 8 }, (_, i) => i + 1),
     /* No `indexPage` and so no titleOf: the contents page lists the eight books as "Book 1" to
@@ -9829,6 +9855,35 @@ function applyGlyphs(h) {
   return h;
 }
 
+/* A WORD THE TRANSCRIPTION GETS WRONG AND THE PRINTED PAGE DOES NOT (Aug 2026, on request, after a
+   reader met a duplicated clause in Thucydides).
+
+   This is NOT applyGlyphs with longer strings, and the difference is the whole of why it is a second
+   field. `glyphs` asserts nothing about what the author set — only that whatever he set, he set one,
+   so it can normalise four spellings onto the commonest without anyone having seen the book. A fix
+   asserts that THE PRINTED PAGE READS X AND THIS TRANSCRIPTION READS Y, which is a claim about a
+   book, and it may only be made with a printed witness in hand. Repairing one free transcription
+   against another composes a text that has never existed — see the don-quixote entry, where sixty
+   dropped words were deliberately NOT restored for exactly that reason, both copies there being
+   transcriptions of a page neither party had. Here the page is in hand, which is the opposite case.
+
+   So each entry carries its own `why`, naming the witness, and each MUST FIRE. A rule that has
+   stopped matching is one that is silently doing nothing — the transcription may have been corrected
+   upstream, or reworded around, or the extractor may now reach the text after some earlier pass has
+   changed it — and a repair that quietly lapses is worse than none, because the book goes on claiming
+   to carry it. Every firing is counted and the count is printed on every run. */
+const FIX_HITS = Object.create(null);
+function applyFixes(h) {
+  if (!BOOK || !BOOK.fixes) return h;
+  for (const [from, to] of BOOK.fixes) {
+    const parts = h.split(from);
+    if (parts.length > 1) FIX_HITS[from] = (FIX_HITS[from] || 0) + parts.length - 1;
+    else if (!(from in FIX_HITS)) FIX_HITS[from] = 0;
+    h = parts.join(to);
+  }
+  return h;
+}
+
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
   if (!m) return { notes: [], ids: [] };
@@ -15344,7 +15399,7 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    const h = applyGlyphs(await api(pageNames[0]));
+    const h = applyFixes(applyGlyphs(await api(pageNames[0])));
     let html, notes, orig = "", tFromText = "";
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
@@ -15398,7 +15453,7 @@ async function fetchEnglish() {
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
-        const eh = applyGlyphs(await api(extra));
+        const eh = applyFixes(applyGlyphs(await api(extra)));
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -15492,6 +15547,13 @@ function writeEnglish(chapters, warnings) {
   if (warnings.length) {
     console.log("\n  " + warnings.length + " warning(s):");
     warnings.forEach((w) => console.log("    " + w));
+  }
+  if (BOOK.fixes) {
+    for (const [from, , why] of BOOK.fixes) {
+      const n = FIX_HITS[from] || 0;
+      console.log("  fix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
+      if (!n) warnings.push("a declared fix matched nothing: " + JSON.stringify(from.slice(0, 60)));
+    }
   }
   const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
   console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
