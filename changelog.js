@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.210", released: "2026-08-14T19:05Z" };
+window.FOLIO_VERSION = { v: "1.211", released: "2026-08-14T19:25Z" };
 
 window.CHANGELOG = [
   {
@@ -53,7 +53,7 @@ window.CHANGELOG = [
       "<b>A shared deck whose cards use the author's own card type now arrives complete</b> — it was installing as blank cards, and republishing such a deck fixes it.",
       "<b>Studying ahead of the daily limit now stays in the subdeck you were studying</b>, keeps both directions, and no longer counts the whole deck in the corner.",
       "Readings with a third-tone mark — <b>ǒ, ǎ, ǐ, ǔ</b> and the tones on ü — no longer show up larger than the letters around them.",
-      "<b>68 more glossary terms</b> — the writers the cards quote, the Olympian gods, the heroes and monsters of epic, the lands and seas they name, the ages of the past, and archaeology’s own vocabulary.",
+      "<b>73 more glossary terms</b> — the writers, gods and monsters of epic, the lands they name, the ages of the past, the materials things were made of, and archaeology’s own words.",
       "<b>Thirty-seven terms already here now open from more of the cards’ own words</b> — adjectives, surnames, regional names, the continents, and phrases the cards write in ordinary sentence case.",
     ],
   },
