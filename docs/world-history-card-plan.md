@@ -418,7 +418,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-172  Sumer
     wh-173  Uruk
     wh-174  Cuneiform
-    wh-175  History of writing
+    wh-175  Writing system
     wh-176  Cylinder seal
     wh-177  Ziggurat
     wh-178  Eridu
