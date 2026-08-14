@@ -1690,7 +1690,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Behavioural_modernity": ["behavioral modernity","modern human behaviour","modern human behavior"],
 "Madjedbebe": ["Malakunanja II"],
 "Lake_Mungo_remains": ["Mungo Man","Mungo Lady"],
-"Settlement_of_the_Americas": ["peopling of the Americas"],
+"Settlement_of_the_Americas": ["peopling of the Americas", "settlement of the Americas"],
 "Paleo-Indians": ["Paleoindian","Palaeo-Indian","Paleo-Indian"],
 "Lion-man": ["Löwenmensch","Lion Man","Lion-man figurine"],
 "Divje_Babe_flute": ["Neanderthal flute"],
