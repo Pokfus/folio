@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.207", released: "2026-08-14T19:48Z" };
+window.FOLIO_VERSION = { v: "1.239", released: "2026-08-14T20:14Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-14",
-    t: "You can sign in with your username, a deck asked in two directions lists each direction on its own, Ancient Rome gains cards, and five books join the Library",
+    t: "You can sign in with your username, a deck asked in two directions lists each direction on its own, five books join the Library, and Ancient Rome and World History both gain cards",
     items: [
-      "Ten new cards in the <b>Ancient Rome</b> collection, eight of them with a new glossary term to go with them.",
+      "Twenty-eight new cards in the World History collection and ten in <b>Ancient Rome</b>, with thirty-six new glossary terms.",
       "<b>A deck asked in two directions now lists each direction as a subdeck of its own</b>, to add and study on its own, with no change to the deck file.",
       "<b>A deck can now introduce a word in both directions at once</b>, shuffled, instead of teaching every word one way before starting the other.",
       "That switch is on a deck's own options, under <b>Both directions together</b>, and a deck set that way stops holding a word's other card back until tomorrow.",
@@ -77,13 +77,16 @@ window.CHANGELOG = [
       "<b>The crossword moves on by itself</b> once an answer is right, skips letters already solved, and has a Give up button that shows the answers.",
       "<b>A seven-day study streak now earns a chest</b>, and your account page shows how far off the next one is.",
       "A new picture on one World History card.",
+      "Corrections to three of the World History cards and two of those terms, where a date or a detail had run ahead of the source behind it.",
+      "<b>78 more glossary terms</b> — the writers, gods and monsters of epic, the lands they name, the ages of the past, the materials worked and animals kept, and archaeology’s own words.",
+      "<b>Thirty-seven terms already here now open from more of the cards’ own words</b> — adjectives, surnames, regional names, the continents, and phrases the cards write in ordinary sentence case.",
       "<b>Your shared decks are now the same on every device you are signed in on</b> — one you add arrives, one you remove goes, and both keep the settings you gave them.",
       "A shared deck deleted by its author still stays on your device, as it always has.",
     ],
   },
   {
     d: "2026-08-13",
-    t: "The walkthrough is brought back into line with the site it describes, four glossary terms are rewritten, and two more books join the Library",
+    t: "The walkthrough is brought back into line with the site it describes, four glossary terms are rewritten, two more books join the Library, and World History gains cards",
     items: [
       "<b>The walkthrough now names the buttons the page actually carries</b> — it said “Show answer” where the card says “Reveal answer”, and called an unread glossary term gold when it is teal.",
       "The walkthrough no longer describes three numbers on a banner that has none until your first deck is added.",
@@ -95,6 +98,7 @@ window.CHANGELOG = [
       "Its own first page says which parts of the poem this translation leaves out, and why the last book is absent.",
       "<b>The Maxims of Ptahhotep is on the shelf</b> — an Egyptian vizier's advice to his son, quite possibly the oldest book of its kind anyone can still read.",
       "It has no facing Egyptian, and its first page says plainly why not.",
+      "Five new cards in the World History collection, with four new glossary terms.",
     ],
   },
   {
@@ -109,6 +113,7 @@ window.CHANGELOG = [
       "<b>The first-time walkthrough is made for a phone</b>, sitting at the foot of the screen so it no longer covers the very thing it is pointing at.",
       "The walkthrough no longer says your level limits how many decks you may add, which stopped being true when that limit was removed.",
       "The daily study list no longer offers to gather decks into groups.",
+      "Seventeen new cards in the World History collection, each with a glossary term to go with it.",
     ],
   },
   {
