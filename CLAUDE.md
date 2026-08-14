@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-012` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-013` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 12 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 13 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10037,6 +10037,33 @@ mis-links are recorded rather than repaired, being on another collection's cards
 the citation names `chineseclassics51legg`, the family the other volumes here come from, so the passage
 AND its running head were checked in the second scan before it was cited — cnh-011's rule about
 reading a locator, met one step earlier, at the point where two scans of one book could disagree.
+**`cnh-013` IS WHERE A CARD'S CENTRAL POINT CAME OUT OF A TRANSLATOR'S FOOTNOTE** (Aug 2026). The
+thing worth knowing about the Chinese flood is that it is not a deluge — no ark, no punishment, no
+survival — and the sentence that says so plainly is Legge's own note on Mencius III.i.4: the calamity
+"is not presented as the consequence of a deluge, or sudden accumulation of water, but from the
+natural river-channels being all broken up and disordered." Nothing in the TEXT of any classic states
+it, because a tradition does not think to say what it is not. **Read an out-of-copyright
+translation's NOTES, not only its text** — batch 8b's museum-record rule in another form, and this
+deck's fourth source of that kind after the Prolegomena, the apparatus and the contents page.
+**AND THE ANSWER TERM WAS CHOSEN AGAINST COLLECTIONS THAT DO NOT EXIST YET**, which is cnh-012's
+tripod finding applied before the card was written rather than after. "Great flood" is the obvious
+key and measures ONE occurrence in the corpus today — so it looks free — but Deucalion, Gilgamesh and
+Noah are all subjects the plans already carry, and every one of them will say "the great flood". The
+key is `Chinese_flood_myth` with **no generic alias at all**, and the card's answer term is that
+phrase. **Ask what a new key will match once the OTHER collections are written, not only what it
+matches today.**
+**ITS PICTURE IS THE CASE WHERE THE BETTER SUBJECT LOST TO THE BETTER PROVENANCE.** Commons carries a
+rubbing of Yu in a conical rain hat holding a digging tool — exactly this card's argument in one
+image — and its file page states no source, no date and no author, so calling it a Han relief would
+be composing a fact about somebody else's image, which is the one thing the picture rules forbid. The
+17th-century woodblock taken instead names its source work (the Ming novel *Youxia zhizhuan*, in the
+Guben xiaoshuo jicheng) and its century, and shows an audience scene rather than a flood. **A `desc`
+is a claim; pick the file whose record can support one**, and write the `alt` from what is actually
+in the frame rather than from what the card is about.
+**Two smaller things it settled**: the *Mencius* has Yu eight years away from home where the *Shiji*
+quotes the books of Xia for thirteen, and both ship unreconciled; and a guessed
+`upload.wikimedia.org` hash directory 404'd loudly, which is the rule above working rather than a new
+one.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
