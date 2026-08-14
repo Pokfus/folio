@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-014` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-015` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 14 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 15 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10101,6 +10101,39 @@ which is what kept "look at the picture before using it" from being the thing th
 episode, so the rider drawing his bow may be either man. The title is therefore "An archer in the
 hunt" and the `alt` says what is in the frame — **where a picture's subject rests on a filename, title
 it for what it SHOWS**, which here is the hunting the card is about either way.
+**`cnh-015` IS THE FIRST CARD HERE WHOSE SOURCE IS WRONG ABOUT SOMETHING CHECKABLE, AND THE FIX WAS
+ANOTHER SOURCE ALREADY IN HAND** (Aug 2026). Mayers's Part II article on the Moon quotes Zhang Heng's
+*Ling Xian* — the oldest surviving telling of Chang'e's flight — and then dates him to "the 1st century
+B.C."; he lived 78–139 CE, which Giles's dictionary gives outright at no. 55, and Giles was already
+being cited on the same card for the naming taboo. **A 19th-century reference work is evidence for what
+a Chinese text SAYS and is not automatically right about when it was written**: read its dates against
+another of the volumes on the shelf before repeating one. The harness now asserts both halves — the
+right dates present, and the wrong century absent — because a card that quietly adopts a source's error
+looks exactly like a card that got it right.
+**AND THE OTHER MISTAKE IT DECLINED TO REPEAT WAS THE SOURCE LIST'S OWN SHAPE.** Three of the six
+citations are Mayers, which reads like leaning on one book and is not: they are three different
+articles in two different Parts of a reference work, and the deck's established shape is five or six
+citations across four or five WORKS (cnh-010 is four Legge volumes out of five slots). **Count the
+works, not the authors** — and where one work legitimately carries three separate claims, cite the
+three places rather than the book once.
+**ITS PICTURE CARRIES THE CARD'S OWN STORY IN ITS INSCRIPTION, AND THAT IS EXACTLY WHAT MUST NOT BE
+CITED.** Wu Youru's drawing (d. c. 1893, from the *Gujin baimei tu*) is headed 嫦娥 and its inscription
+attributes the theft to Wang Chong's *Lunheng* rather than to Zhang Heng — a genuinely interesting
+variant, and reading a claim off an image is composing a fact from a picture, which the picture rules
+forbid. It is left out. What the image DID settle is the cnh-013 provenance rule paying off: it beat a
+Japanese print of the same subject on cultural fit and beat every rival on record — named artist, named
+source work, dated century — where three of the five candidates the tool offered were **the Chang'e
+lunar spacecraft**, which is the name-match trap at its most literal.
+**AND AN APOSTROPHE IN A GLOSSARY KEY IS SAFE, VERIFIED RATHER THAN ASSUMED.** `Chang'e` is the first
+China term needing one; five keys already carry one (`Nestor's_Cup`, `'Ain_Ghazal`), `data-k` is written
+into a DOUBLE-quoted attribute, and every reader of it compares (`el.dataset.k === key`) rather than
+building a selector. Proved in a browser by patching the served app.js to expose `openGlossWin` — the
+`test-i18n-lang.js` technique — since no card links the term yet and `setupTooltips` wires per element,
+so a synthetic `.ttip` appended to the page is never wired and answers nothing.
+**A HARNESS THAT FAILS ON THE NETWORK IS A HARNESS NOBODY READS**: the browser check's "no console
+errors" assertion began failing on `fonts.googleapis.com` and `supabase.co`, which this sandbox cannot
+reach and which the page legitimately requests. It now filters by HOST and by nothing else, so a
+same-origin failure still fails; a blanket "ignore failed resources" would have retired the assertion.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks

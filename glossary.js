@@ -889,7 +889,8 @@ window.GLOSSARY = {
 "Shun": "Shun is the second Chinese sage-king, a commoner Yao raised to the throne over his own son, and the <i>Book of Documents</i> gives him a canon of its own, opening on a man styled Chonghua, profound, wise and intelligent.<sup class=\"fn\" data-fn=\"1\"></sup> That chapter has him regulate the pitch-pipes and the measures of length, capacity and weight, divide the land into twelve provinces, banish four criminals to the frontiers, and appoint ministers examined every third year.<sup class=\"fn\" data-fn=\"1\"></sup> Later ages made him the pattern of two things at once: filial conduct towards a father who tried to kill him, and rule so effortless that Confucius said he did nothing but gravely occupy his seat.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Yu_the_Great": "Yu the Great is the legendary figure with whom Chinese tradition closes its sequence of sage rulers and opens its dynastic record, credited with draining a great flood, dividing the land into nine provinces and founding the Xia.<sup class=\"fn\" data-fn=\"1\"></sup> The classics dwell on his labour rather than his majesty: he is said to have travelled by carriage, boat, sledge and spiked shoe, and to have spent his strength on ditches and water channels while passing his own door without entering.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> When the throne went to his son rather than to the minister he had named, the sequence of abdications ended, a change the tradition itself found it necessary to explain.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Chinese_flood_myth": "The Chinese flood myth is the tradition of a great inundation in the reigns of Yao and Shun, whose waters embraced the hills and drove people to nest in trees and shelter in caves.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It is not a deluge sent in punishment and survived in a boat but a disorder of the river channels: Gun failed to check it in nine years and was banished, and his son Yu dug the channels open and led the waters to the sea.<sup class=\"fn\" data-fn=\"2\"></sup> The tradition makes that draining the start of ordered government, following it with a survey of the land, its division into nine provinces and the fixing of tribute.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Houyi": "Houyi is the archer of Chinese legend, and the name is borne by more than one figure: a bowman serving the legendary emperor Ku, a descendant under Yao who shot into the sky to scatter false suns, and the prince of Qiong who seized the Xia throne.<sup class=\"fn\" data-fn=\"1\"></sup> The classics are concerned with the last of these, who relied on his archery, neglected the people's business and gave himself to hunting until the minister he had raised turned the court against him.<sup class=\"fn\" data-fn=\"2\"></sup> He was killed by his own servants, and Confucius's questioner named him as proof that eminent prowess does not secure a natural death.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Houyi": "Houyi is the archer of Chinese legend, and the name is borne by more than one figure: a bowman serving the legendary emperor Ku, a descendant under Yao who shot into the sky to scatter false suns, and the prince of Qiong who seized the Xia throne.<sup class=\"fn\" data-fn=\"1\"></sup> The classics are concerned with the last of these, who relied on his archery, neglected the people's business and gave himself to hunting until the minister he had raised turned the court against him.<sup class=\"fn\" data-fn=\"2\"></sup> He was killed by his own servants, and Confucius's questioner named him as proof that eminent prowess does not secure a natural death.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Chang'e": "Chang'e is the woman of the moon in Chinese tradition, known from the Han dynasty as the wife of the archer Houyi, who stole the drug of immortality he had begged from the Queen Mother of the West and fled with it to the moon.<sup class=\"fn\" data-fn=\"1\"></sup> In the oldest surviving telling, by the astronomer Zhang Heng, her arrival is a punishment rather than an escape, for she is turned there into the toad whose outline observers traced on the lunar face.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Her name was first Heng, after a line in the ancient odes, and was altered because two Tang emperors bore that character.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1336,7 +1337,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shun": "Accession placed at 2255 BCE",
 "Yu_the_Great": "Accession placed at 2205 BCE",
 "Chinese_flood_myth": "Set in the reigns of Yao and Shun",
-"Houyi": "Placed in the reigns of Ku and Tai Kang"
+"Houyi": "Placed in the reigns of Ku and Tai Kang",
+"Chang'e": "Placed in the reign of Ku, as the wife of Houyi"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1934,7 +1936,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Yao": ["Emperor Yao","Ti Yao","Yaou","Fangxun","Fang-hsun"],
 "Shun": ["Emperor Shun","Ti Shun","Chonghua","Chung-hua","Shun of Yu"],
 "Yu_the_Great": ["Da Yu","Yu of Xia"],
-"Houyi": ["Hou Yi","Yi of Qiong"]
+"Houyi": ["Hou Yi","Yi of Qiong"],
+"Chang'e": ["Chang E","Heng'e"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2842,7 +2845,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shun": ["ruler","mythology","history","literature","china"],
 "Yu_the_Great": ["ruler","mythology","history","geography","china"],
 "Chinese_flood_myth": ["event","mythology","history","geography","china"],
-"Houyi": ["person","mythology","warfare","history","china"]
+"Houyi": ["person","mythology","warfare","history","china"],
+"Chang'e": ["deity","mythology","astronomy","festival","china"]
 });
 
 /* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */
@@ -4562,7 +4566,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Shun": ["James Legge, trans., <i>The Shû King</i>, Sacred Books of the East 3 (Oxford: Clarendon Press, 1879), 38–44, https://archive.org/details/sacredbooksofchi0003unse. [Open access]","Édouard Chavannes, <i>Les Mémoires historiques de Se-ma Ts’ien</i>, vol. 1 (Paris: Ernest Leroux, 1895), 72–83, https://archive.org/details/lesmemoireshisto0001edou. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 1, <i>Confucian Analects</i> (Hongkong: at the author’s; London: Trübner, 1861), 159, https://archive.org/details/chineseclassics01legg_0. [Open access]"],
 "Yu_the_Great": ["James Legge, trans., <i>The Shû King</i>, Sacred Books of the East 3 (Oxford: Clarendon Press, 1879), 16–18 and 64–75, https://archive.org/details/sacredbooksofchi0003unse. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 1, <i>Confucian Analects</i> (Hongkong: at the author’s; London: Trübner, 1861), 79, https://archive.org/details/chineseclassics01legg_0. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 2, <i>The Works of Mencius</i>, 2nd ed. (Oxford: Clarendon Press, 1895), 358–59, https://archive.org/details/chineseclassics02legg. [Open access]"],
 "Chinese_flood_myth": ["James Legge, trans., <i>The Shû King</i>, Sacred Books of the East 3 (Oxford: Clarendon Press, 1879), 32–35 and 64–75, https://archive.org/details/sacredbooksofchi0003unse. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 2, <i>The Works of Mencius</i>, 2nd ed. (Oxford: Clarendon Press, 1895), 250–51 and 279–80, https://archive.org/details/chineseclassics02legg. [Open access]"],
-"Houyi": ["Herbert A. Giles, <i>A Chinese Biographical Dictionary</i> (London: Bernard Quaritch; Shanghai: Kelly &amp; Walsh, 1898), 268–69, https://archive.org/details/chinesebiograph00gile. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 5, part 2, <i>The Ch’un Ts’ëw, with the Tso Chuen</i> (Hongkong: at the author’s; London: Trübner, 1872), Duke Seang, fourth year, 424, https://archive.org/details/chineseclassics52legg. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 1, <i>Confucian Analects</i> (Hongkong: at the author’s; London: Trübner, 1861), 141, https://archive.org/details/chineseclassics01legg_0. [Open access]"]
+"Houyi": ["Herbert A. Giles, <i>A Chinese Biographical Dictionary</i> (London: Bernard Quaritch; Shanghai: Kelly &amp; Walsh, 1898), 268–69, https://archive.org/details/chinesebiograph00gile. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 5, part 2, <i>The Ch’un Ts’ëw, with the Tso Chuen</i> (Hongkong: at the author’s; London: Trübner, 1872), Duke Seang, fourth year, 424, https://archive.org/details/chineseclassics52legg. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 1, <i>Confucian Analects</i> (Hongkong: at the author’s; London: Trübner, 1861), 141, https://archive.org/details/chineseclassics01legg_0. [Open access]"],
+"Chang'e": ["William Frederick Mayers, <i>The Chinese Reader's Manual</i> (Shanghai: American Presbyterian Mission Press, 1874), pt. I no. 94, 30–31, and pt. II, 288–89, https://archive.org/details/chinesereadersm00maye. [Open access]","Herbert A. Giles, <i>A Chinese Biographical Dictionary</i> (London: Bernard Quaritch; Shanghai: Kelly &amp; Walsh, 1898), nos. 55 and 140, 22 and 53–54, https://archive.org/details/chinesebiograph00gile. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
