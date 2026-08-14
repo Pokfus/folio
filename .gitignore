@@ -25,5 +25,18 @@ node_modules/
 # Wiktionary dump being most of it), plus the intermediate files between its stages.
 # The deck it writes IS committed — this is only the working cache behind it.
 .claude/dele-cache/
+
+# the five corpora .claude/goethe/run.py builds the German deck from, plus the
+# Goethe-Institut Wortliste PDF it reads the word list off (~1.3 GB, the Wiktionary
+# dump being most of it), and the intermediate files between its stages. The deck
+# it writes IS committed — this is only the working cache behind it.
+.claude/goethe-cache/
 # run.py imports one stage from another, so Python leaves bytecode beside them
 __pycache__/
+
+# The A2 and B1 German decks are deliberately NOT in the repo (on request, Aug 2026): it is a file
+# to hand a reader for import, not something the site should carry. It is built by
+# `python3 .claude/goethe/run.py --level a2`, which writes it here beside the A1 deck, so
+# this line is what stops a `git add -A` sweeping it in. Delete the line to ship it.
+decks/Goethe-A2-German.folio-deck.json
+decks/Goethe-B1-German.folio-deck.json
