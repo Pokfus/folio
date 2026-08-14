@@ -2672,7 +2672,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` has shipped** (Aug 2026)
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-003` have
+  shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
   review, no game, no card of the day and no study deep link. **Clearing that flag is the site owner's
@@ -9739,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 1 card, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 3 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -9892,6 +9893,28 @@ and the Smithsonian are all shut or bot-walled here, Sino-Platonic Papers ships 
 `asianethnology.org` is JavaScript-driven; `ctext.org` and `archive.org` answer and carry the primary
 texts and the out-of-copyright shelf. **A source in any language qualifies** (CLAUDE.md says so), and for
 this subject the French is not a fallback but the literature.
+**`cnh-003` WIDENED THAT SURVEY IN THREE DIRECTIONS, on request, and each is worth carrying** (Aug 2026,
+"feel free to also use Chinese academic sources"). **CHINESE-LANGUAGE SCHOLARSHIP IS REACHABLE AND IS THE
+BEST SOURCE THERE IS FOR THIS SUBJECT**: the Macao SAR Cultural Affairs Bureau publishes 《文化雜誌》 /
+*Revista de Cultura* openly at `icm.gov.mo`, one PDF per article, and Lü Zongli's 24-page study of Pangu
+carried nine of that card's ten sentences with a full apparatus — where the French first pages carry a
+sentence each. **Ask whether the subject has a Chinese-language journal before settling for what English
+and French happen to hold.** **A CJK PDF NEEDS A ToUnicode-AWARE EXTRACTOR**, and three faults have to be
+fixed before one reads at all: `/Font` may be an INDIRECT reference (`/Font 37 0 R`) and not an inline
+dictionary, so a reader that only matches `/Font <<` finds zero fonts; a `bfrange` destination may hold
+several UTF-16 units, and only the LAST is incremented across the range (incrementing the codepoint throws);
+and text drawn with LITERAL `(…)` strings rather than hex `<…>` must still be decoded through the CMap,
+two bytes at a time. `.claude/` deliberately holds no such tool — it is scratch work — but the three
+faults are the whole of it. **AND ASSERT THAT EVERY PATCH TO IT LANDED**: the literal-string fix was
+applied through a shell string replacement that silently matched nothing, and the tell was BYTE-IDENTICAL
+output across two "patched" runs, which reads as the fix having made no difference rather than as no fix.
+**`journal.oraltradition.org` IS OPEN AND PEER-REVIEWED** and its 16/2 (2001) issue is a special number on
+Chinese oral traditions; DOAJ's own API (`doaj.org/api/search/articles/<query>`) is the quickest way to
+find whether an open article on a subject exists at all. `journals.openedition.org`, `muse.jhu.edu` and
+`jstage.jst.go.jp` answer; `mdpi.com`, `brill.com` and `jstor.org` do not. **A journal being open is not a
+reason to cite it**: two DOAJ hits on Pangu were a Girardian reading in a French-studies journal and a
+phenomenological one in a literature review, neither of which states a fact a Folio card makes, and both
+were passed over.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
