@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-008` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-009` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 8 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 9 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -9973,6 +9973,21 @@ monster in a Tang commentator's quotation of a lost book. The converse holds too
 "Un ancêtre légendaire au service du nationalisme chinois" (Perspectives chinoises 47) reads as the
 on-topic hit and **its served first page never mentions Chiyou at all** — grep the page for the subject
 before assuming an article about the right period carries the right claim.
+**`cnh-009` REACHES PAST A SCHOLAR'S REPORT TO THE TEXT HE IS REPORTING, WHICH THIS SHELF CAN ALMOST
+ALWAYS DO** (Aug 2026). Chavannes remarks in a note that the battle at Banquan was famous before Sima
+Qian's time because it is alluded to in the Zuozhuan — and Legge's *Chinese Classics* vol. 5 carries that
+passage in English (Duke Xi, 25th year, pp. 195–96), where a diviner reads the tortoise-shell for the
+marquis of Jin and calls the omen that of the Yellow Emperor's battle at Banquan. **Where a cited
+scholar's evidence is itself a classic, and an out-of-copyright translation of that classic exists, cite
+the passage rather than the remark**: it is a stronger citation, it is checkable, and it costs one fetch.
+**AND IN A BADLY OCR'd VOLUME, GREP AN ORDINARY WORD FROM THE PASSAGE RATHER THAN THE NAME.** OCR mangles
+a proper name worst of all, being the thing its language model has never seen: "Pan-ts'euen" came out
+"Fnn-ts'cucn" and "Hwang-te" as "Ilwang-tc", so every search on the name found nothing while the passage
+sat there — what found it was "milfoil". This is the cnh-005 and cnh-008 grep rule a third time, and the
+general form of all three: **search on the vocabulary, not on the subject.**
+**A PERSÉE FIRST PAGE ALSO CARRIES DATES THE CLASSICS DECLINE TO GIVE** — Billeter's opens by placing
+Huangdi in the Yellow River basin between 2697 and 2599 BCE "selon certaines chronologies", which is what
+a date line needs on a card whose own sources put the reign nowhere at all.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
