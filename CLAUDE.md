@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-009` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-010` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 9 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 10 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -9988,6 +9988,23 @@ general form of all three: **search on the vocabulary, not on the subject.**
 **A PERSÉE FIRST PAGE ALSO CARRIES DATES THE CLASSICS DECLINE TO GIVE** — Billeter's opens by placing
 Huangdi in the Yellow River basin between 2697 and 2599 BCE "selon certaines chronologies", which is what
 a date line needs on a card whose own sources put the reign nowhere at all.
+**`cnh-010` IS THE CARD WHERE FOUR OF THE FIVE SOURCES ARE ONE TRANSLATOR, AND THAT IS THE HONEST SHAPE**
+(Aug 2026). Yao exists only in the classics, so the sources are the classics: Legge's Shû King for the
+Canon of Yao, his Yî King for the Great Appendix, his *Chinese Classics* vol. 1 for Confucius's praise
+and vol. 2 for Mencius denying the throne was Yao's to give, with Chavannes for the *Shiji*'s portrait.
+Four different WORKS by one out-of-copyright translator is variety; four citations of one work would not
+be. **Watch the romanisation across his own volumes** — vol. 1 (Hongkong, 1861) writes "Yaou" where vol. 2
+(Oxford, 2nd ed., 1895) writes "Yao" — which is the cnh-005/008/009 grep rule a fourth time.
+**ITS REAL FINDING IS A MIS-LINK, AND IT IS A CORPUS-WIDE ONE**: a card's prose auto-links common nouns
+by design, so a glossary ALIAS that is also an ordinary English word links wherever that word occurs —
+"near at hand like the sun and from afar like a cloud" linked *afar* to the Afar Region of Ethiopia,
+which had `Afar` as an alias. The fix is `GLOSSARY_CASESENSITIVE` on the TERM (`Afar_Region`), not a
+reworded sentence: it is the `Boreal` precedent extended from a key to an alias, and it repairs every
+future card at once. **Ask of every short alias whether it is also an ordinary word**, and note that only
+LOOKING at the rendered card finds this — no count or test reports a link that is merely wrong.
+**AND A HUGE SCAN NEEDS THE THUMB URL** — Ma Lin's scroll is 7,890 × 17,168, so `src` is the
+`/thumb/<a>/<ab>/<file>/1280px-<file>` rendering the API hands back in `imageinfo`'s `thumburl` when
+asked with `iiurlwidth`; shipping the original would put a 40 MB download behind one card.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks

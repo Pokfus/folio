@@ -884,7 +884,8 @@ window.GLOSSARY = {
 "Shennong": "Shennong, the Divine Husbandman, is the culture hero of Chinese myth who taught farming: the Great Appendix to the <i>Book of Changes</i> has him cut wood into a ploughshare, bend wood into a plough-handle, and set the market at midday.<sup class=\"fn\" data-fn=\"1\"></sup> Later accounts give him the body of a man and the head of an ox, make him reign by the power of fire under the name Yandi, and have him test the hundred plants to find the first drugs that cure.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The herbal that bears his name, listing 365 drugs, was compiled long afterwards under the Han.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Yellow_Emperor": "The Yellow Emperor, Huangdi, is the sovereign of Chinese legend with whom Sima Qian chose to begin the <i>Shiji</i>, opening it on the Annals of the Five Emperors.<sup class=\"fn\" data-fn=\"1\"></sup> The account makes him a son of Shaodian who mastered the beasts, defeated Yandi at Banquan and Chiyou at Zhuolu, took his title from the power of earth whose colour is yellow, and named his officials after the clouds.<sup class=\"fn\" data-fn=\"1\"></sup> Every later ruler of that chapter descends from him, though no part of it can be dated: exact Chinese chronology reaches back only to 841 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Chiyou": "Chiyou is the rebel of Chinese legend whom the Yellow Emperor defeated and killed at Zhuolu, and the oldest name the <i>Book of Documents</i> records, which says that, according to the teachings of antiquity, he was the first to produce disorder.<sup class=\"fn\" data-fn=\"2\"></sup> Sima Qian allows him only four lines, saying that he was the most terrible and remained invincible until he disobeyed the imperial orders and was seized, and never saying what he was.<sup class=\"fn\" data-fn=\"1\"></sup> Later texts make him a monster: a book quoted by a Tang scholar gives him 81 brothers with heads of bronze and foreheads of iron, who forged the five kinds of weapon.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Battle_of_Zhuolu": "The Battle of Zhuolu is the fight of Chinese legend in which the Yellow Emperor destroyed Chiyou, and in the <i>Shiji</i> the act that made him emperor: the lords raised him to Son of Heaven afterwards, in place of the house of Shennong.<sup class=\"fn\" data-fn=\"1\"></sup> It is the second of a pair, Banquan having been fought first against Yandi, and the commentators place both fields in what is now Zhuolu in Hebei, only a few li apart.<sup class=\"fn\" data-fn=\"1\"></sup> The fighting was known long before the histories, since a diviner in the <i>Zuo Commentary</i> calls a favourable omen that of the Yellow Emperor's battle at Banquan.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Battle_of_Zhuolu": "The Battle of Zhuolu is the fight of Chinese legend in which the Yellow Emperor destroyed Chiyou, and in the <i>Shiji</i> the act that made him emperor: the lords raised him to Son of Heaven afterwards, in place of the house of Shennong.<sup class=\"fn\" data-fn=\"1\"></sup> It is the second of a pair, Banquan having been fought first against Yandi, and the commentators place both fields in what is now Zhuolu in Hebei, only a few li apart.<sup class=\"fn\" data-fn=\"1\"></sup> The fighting was known long before the histories, since a diviner in the <i>Zuo Commentary</i> calls a favourable omen that of the Yellow Emperor's battle at Banquan.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Yao": "Yao is the sage-king with whom the <i>Book of Documents</i> begins, its first chapter calling him reverential, intelligent, accomplished and thoughtful, naturally and without effort.<sup class=\"fn\" data-fn=\"1\"></sup> The same chapter has him set the Xi and He brothers at the four quarters to watch the heavens and deliver the seasons, telling them that a round year is 366 days, to be squared with the seasons by an intercalary month.<sup class=\"fn\" data-fn=\"1\"></sup> After seventy years he passed over his own son and gave the throne to a commoner, Shun, and it is that refusal the tradition kept, Confucius calling his virtue so vast the people could find no name for it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1326,7 +1327,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shennong": "Placed second among the Three Sovereigns",
 "Yellow_Emperor": "First of the Five Emperors",
 "Chiyou": "Placed in the reign of the Yellow Emperor",
-"Battle_of_Zhuolu": "Placed in the reign of the Yellow Emperor"
+"Battle_of_Zhuolu": "Placed in the reign of the Yellow Emperor",
+"Yao": "Accession placed at 2357 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1920,7 +1922,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shennong": ["Shen Nung","Shen-nung","Shen Nong","Shennong shi","Divine Husbandman","Divine Farmer"],
 "Yellow_Emperor": ["Huangdi","Huang Di","Huang-ti","Xuanyuan","Yellow Emperors"],
 "Chiyou": ["Chi You","Ch'ih-yu","Chih-yu","Ch'e-yow","Tch'e-yeou"],
-"Battle_of_Zhuolu": ["battle at Zhuolu","Zhuolu battle"]
+"Battle_of_Zhuolu": ["battle at Zhuolu","Zhuolu battle"],
+"Yao": ["Emperor Yao","Ti Yao","Yaou","Fangxun","Fang-hsun"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -1934,7 +1937,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Theogony": true,
 "Works_and_Days": true,
 "Emporion": true,
-"Geometric_period": true
+"Geometric_period": true,
+"Afar_Region": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -2822,7 +2826,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shennong": ["deity","mythology","religion","practice","china"],
 "Yellow_Emperor": ["ruler","mythology","history","literature","china"],
 "Chiyou": ["person","mythology","warfare","history","china"],
-"Battle_of_Zhuolu": ["event","mythology","warfare","history","china"]
+"Battle_of_Zhuolu": ["event","mythology","warfare","history","china"],
+"Yao": ["ruler","mythology","history","literature","china"]
 });
 
 /* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */
@@ -3644,7 +3649,8 @@ window.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, {
 "Shennong": {"src":"https://upload.wikimedia.org/wikipedia/commons/7/7c/Xu_Jetian_-_Shennong.jpg","title":"Shennong","desc":"Shennong chewing a sprig of herbs, an eighteenth-century ink painting on silk held by the Bibliothèque nationale de France; the inscription names him Yandi, king by the virtue of fire. Public domain, via Wikimedia Commons.","credit":"https://commons.wikimedia.org/wiki/File:Xu_Jetian_-_Shennong.jpg","alt":"Ink painting of a horned Shennong, dressed in leaves, chewing a sprig of herbs"},
 "Yellow_Emperor": {"src":"https://upload.wikimedia.org/wikipedia/commons/3/36/Portraits_of_Famous_Men_-_Yellow_Emperor_%28Huangdi%29.jpg","title":"The Yellow Emperor","desc":"Portraits of Famous Men: Yellow Emperor (Huangdi), ink and colour on silk mounted as an album leaf, by an unknown Chinese artist, held by the Philadelphia Museum of Art. Public domain, via Wikimedia Commons.","credit":"https://commons.wikimedia.org/wiki/File:Portraits_of_Famous_Men_-_Yellow_Emperor_(Huangdi).jpg","alt":"Album-leaf portrait of the Yellow Emperor in the flat imperial crown with beaded tassels"},
 "Chiyou": {"src":"https://upload.wikimedia.org/wikipedia/commons/1/1c/%E5%B1%B1%E4%B8%9C%E7%9C%81%E6%B2%82%E5%8D%97%E5%8E%BF_%E6%B1%89%E7%94%BB%E5%83%8F%E7%9F%B3_%E8%9A%A9%E5%B0%A4%E4%BA%94%E5%85%B5.jpg","title":"Chiyou and the five weapons","desc":"Rubbing of a Han pictorial stone from Yinan, Shandong, showing Chiyou with the five weapons: a bow and arrows above his head, blades in both hands and swords sprouting from his limbs. Public domain, via Wikimedia Commons.","credit":"https://commons.wikimedia.org/wiki/File:%E5%B1%B1%E4%B8%9C%E7%9C%81%E6%B2%82%E5%8D%97%E5%8E%BF_%E6%B1%89%E7%94%BB%E5%83%8F%E7%9F%B3_%E8%9A%A9%E5%B0%A4%E4%BA%94%E5%85%B5.jpg","alt":"Rubbing of a Han stone relief: a squat beast-faced figure with a bow and arrows above his head and blades sprouting from his arms and legs"},
-"Battle_of_Zhuolu": {"src":"https://upload.wikimedia.org/wikipedia/commons/7/78/%E6%B2%B3%E5%8C%97%E6%B6%BF%E9%B9%BF%E2%80%94%E9%BB%84%E5%B8%9D%E5%9F%8E_-_panoramio.jpg","title":"The plain at Zhuolu","desc":"The plain and hills at Zhuolu in Hebei, where the battle is traditionally placed, seen from the terrace of the modern memorial hall built there to the Yellow Emperor. 中国郑开亮, CC BY-SA 3.0, via Wikimedia Commons.","credit":"https://commons.wikimedia.org/wiki/File:%E6%B2%B3%E5%8C%97%E6%B6%BF%E9%B9%BF%E2%80%94%E9%BB%84%E5%B8%9D%E5%9F%8E_-_panoramio.jpg","alt":"A paved terrace with a bronze incense burner and rows of banners, looking out over a wooded plain to a long line of hills"}
+"Battle_of_Zhuolu": {"src":"https://upload.wikimedia.org/wikipedia/commons/7/78/%E6%B2%B3%E5%8C%97%E6%B6%BF%E9%B9%BF%E2%80%94%E9%BB%84%E5%B8%9D%E5%9F%8E_-_panoramio.jpg","title":"The plain at Zhuolu","desc":"The plain and hills at Zhuolu in Hebei, where the battle is traditionally placed, seen from the terrace of the modern memorial hall built there to the Yellow Emperor. 中国郑开亮, CC BY-SA 3.0, via Wikimedia Commons.","credit":"https://commons.wikimedia.org/wiki/File:%E6%B2%B3%E5%8C%97%E6%B6%BF%E9%B9%BF%E2%80%94%E9%BB%84%E5%B8%9D%E5%9F%8E_-_panoramio.jpg","alt":"A paved terrace with a bronze incense burner and rows of banners, looking out over a wooded plain to a long line of hills"},
+"Yao": {"src":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Ma_Lin_-_Emperor_Yao.jpg/1280px-Ma_Lin_-_Emperor_Yao.jpg","title":"Emperor Yao","desc":"Yao as imagined by the Song painter Ma Lin, a hanging scroll in colour on silk in the National Palace Museum, Taipei; the inscription calls his virtue lofty and says he governed by letting his robes hang down. Public domain, via Wikimedia Commons.","credit":"https://commons.wikimedia.org/wiki/File:Ma_Lin_-_Emperor_Yao.jpg","alt":"Painted hanging scroll of a bearded man in a red and dark robe and a small black cap, one hand raised, with an inscription in the silk above him"}
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -4533,7 +4539,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Shennong": ["James Legge, trans., <i>The Yî King</i>, Sacred Books of the East 16 (Oxford: Clarendon Press, 1882), 383, https://archive.org/details/mlbd.sacredbooksofeas0000fmax.vol.16. [Open access]","Édouard Chavannes, <i>Les Mémoires historiques de Se-ma Ts’ien</i>, vol. 1 (Paris: Ernest Leroux, 1895), Introduction, 13–15, https://archive.org/details/lesmemoireshisto0001edou. [Open access]","Emil Bretschneider, <i>Botanicon Sinicum</i>, part 3, <i>Botanical Investigations into the Materia Medica of the Ancient Chinese</i> (Shanghai: Kelly and Walsh, 1895), 1–3, https://archive.org/details/botaniconsinicu01bretgoog. [Open access]"],
 "Yellow_Emperor": ["Édouard Chavannes, <i>Les Mémoires historiques de Se-ma Ts’ien</i>, vol. 1 (Paris: Ernest Leroux, 1895), Introduction, clxxxvii–cxc, and 25–39, https://archive.org/details/lesmemoireshisto0001edou. [Open access]","Léon Vandermeersch, “Vérité historique et langage de l’histoire en Chine,” <i>Extrême-Orient, Extrême-Occident</i> 9 (1987): 13–28, https://doi.org/10.3406/oroc.1987.931. [Open access]"],
 "Chiyou": ["Édouard Chavannes, <i>Les Mémoires historiques de Se-ma Ts’ien</i>, vol. 1 (Paris: Ernest Leroux, 1895), 27–29, https://archive.org/details/lesmemoireshisto0001edou. [Open access]","James Legge, trans., <i>The Shû King</i>, Sacred Books of the East 3 (Oxford: Clarendon Press, 1879), 27 and 255, https://archive.org/details/sacredbooksofchi0003unse. [Open access]"],
-"Battle_of_Zhuolu": ["Édouard Chavannes, <i>Les Mémoires historiques de Se-ma Ts’ien</i>, vol. 1 (Paris: Ernest Leroux, 1895), 27–31, https://archive.org/details/lesmemoireshisto0001edou. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 5, part 1, <i>The Ch’un Ts’ew, with the Tso Chuen</i> (Hongkong: at the author’s; London: Trübner, 1872), 195–96, https://archive.org/details/in.ernet.dli.2015.60723. [Open access]"]
+"Battle_of_Zhuolu": ["Édouard Chavannes, <i>Les Mémoires historiques de Se-ma Ts’ien</i>, vol. 1 (Paris: Ernest Leroux, 1895), 27–31, https://archive.org/details/lesmemoireshisto0001edou. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 5, part 1, <i>The Ch’un Ts’ew, with the Tso Chuen</i> (Hongkong: at the author’s; London: Trübner, 1872), 195–96, https://archive.org/details/in.ernet.dli.2015.60723. [Open access]"],
+"Yao": ["James Legge, trans., <i>The Shû King</i>, Sacred Books of the East 3 (Oxford: Clarendon Press, 1879), 32–39, https://archive.org/details/sacredbooksofchi0003unse. [Open access]","James Legge, trans., <i>The Chinese Classics</i>, vol. 1, <i>Confucian Analects</i> (Hongkong: at the author’s; London: Trübner, 1861), 78, https://archive.org/details/chineseclassics01legg_0. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
