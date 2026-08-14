@@ -121,12 +121,25 @@ async function reference(a) {
   const file = path.join(REF_DIR, a.id + "." + ext);
   if (fs.existsSync(file)) return { file, src, mime: mimeOf(file) };
 
-  const r = await fetch(src, {
-    headers: { "User-Agent": "Folio artefact-art/1.0 (https://github.com/pokfus/folio; static study site)" },
-  });
-  if (!r.ok) throw new Error("reference photo " + r.status + " for " + a.id + " — " + src);
-  fs.writeFileSync(file, Buffer.from(await r.arrayBuffer()));
-  return { file, src, mime: mimeOf(file) };
+  /* Backs off and retries rather than recording a 429 as "no photograph" — the lesson
+     .claude/fetch-place-coords.js already carries. Fetching ninety-nine files in a row IS rate
+     limited by Wikimedia (measured: the first --refs run lost five to 429s), and the failure is
+     the dangerous shape, since a piece whose reference "could not be fetched" reads exactly like
+     a piece that never had one and is silently skipped by the generator. */
+  const UA = { "User-Agent": "Folio artefact-art/1.0 (https://github.com/pokfus/folio; static study site)" };
+  let last = 0;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    if (attempt) await new Promise((res) => setTimeout(res, 1000 * Math.pow(2, attempt - 1)));
+    const r = await fetch(src, { headers: UA });
+    if (r.ok) {
+      fs.writeFileSync(file, Buffer.from(await r.arrayBuffer()));
+      await new Promise((res) => setTimeout(res, 120));   // be a polite neighbour between files
+      return { file, src, mime: mimeOf(file) };
+    }
+    last = r.status;
+    if (r.status !== 429 && r.status < 500) break;        // a 404 will not improve with waiting
+  }
+  throw new Error("reference photo " + last + " for " + a.id + " — " + src);
 }
 
 function mimeOf(f) {
