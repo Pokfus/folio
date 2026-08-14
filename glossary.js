@@ -928,7 +928,11 @@ window.GLOSSARY = {
 "Sanctuary": "A <b>sanctuary</b> is ground set apart for a god, and remarkably little is needed to make one: an altar and boundary markers are the only necessary features, though many also hold a temenos wall, a gateway, a temple, treasuries, stoas, dining rooms, athletic buildings, theatres and fountain houses.<sup class=\"fn\" data-fn=\"1\"></sup> What went on in them was festival, sacrifice, dining, dance, initiation, purification and healing, and they are classed by where they stand: interurban, urban, suburban, extra-urban and rural.<sup class=\"fn\" data-fn=\"1\"></sup> The boundary itself could be drawn in several ways, by walls, fences, basins, boundary stones, monuments or planting.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Burial": "A <b>burial</b> is the deliberate deposit of a dead body, whole or burned, in the ground, usually with objects laid alongside it. Mortuary archaeology, which studies such deposits, acquired an identity of its own only in the 1960s and 1970s, and now runs from the Palaeolithic to the 20th century across Europe, Africa, Asia and both Americas, drawing on skeletal analysis, ancient DNA and stable isotopes.<sup class=\"fn\" data-fn=\"1\"></sup> It reads death as a social process binding the dying and everyone around them,<sup class=\"fn\" data-fn=\"1\"></sup> so the relationship between the living and the dead is what such work pursues, over ground running from Old Kingdom Egypt to 17th-century Italy.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Inscription": "An <b>inscription</b> is a text cut into a durable surface, stone above all, and the Greek ones run from the 8th century BCE through to the Byzantine period.<sup class=\"fn\" data-fn=\"1\"></sup> What was cut, and how, followed from limited literacy, the architecture of public display, political conditions, aesthetic concerns and other competing demands, so an inscription is a monument as much as a document.<sup class=\"fn\" data-fn=\"1\"></sup> The kinds recur across the Greek world — decrees, honorific and proxeny decrees, dedications and ex-votos, funerary inscriptions and records of manumission — and reading them is a discipline of its own, epigraphy.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Cemetery": "A <b>cemetery</b> is ground given over to burial, its graves grouped together rather than scattered, and archaeologists mapping a landscape count it apart from the settlements whose dead it holds.<sup class=\"fn\" data-fn=\"1\"></sup> One can be dug on a very large scale: the Early Iron Age graves found under the Athenian Agora belong to several such grounds, and the volume publishing them catalogues 83 tombs with their contents.<sup class=\"fn\" data-fn=\"2\"></sup> A cemetery records change as much as death, those Athenian grounds showing a gradual shift from inhumation to cremation, though their excavators warn against assuming any significant standardisation in funerary ritual.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Cemetery": "A <b>cemetery</b> is ground given over to burial, its graves grouped together rather than scattered, and archaeologists mapping a landscape count it apart from the settlements whose dead it holds.<sup class=\"fn\" data-fn=\"1\"></sup> One can be dug on a very large scale: the Early Iron Age graves found under the Athenian Agora belong to several such grounds, and the volume publishing them catalogues 83 tombs with their contents.<sup class=\"fn\" data-fn=\"2\"></sup> A cemetery records change as much as death, those Athenian grounds showing a gradual shift from inhumation to cremation, though their excavators warn against assuming any significant standardisation in funerary ritual.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"City": "A <b>city</b> is a large permanent settlement, and archaeology has no agreed test for when a place becomes one. Definitions built as lists of traits still shape the subject and struggle to hold the variety of past urbanism, so comparative work has moved away from checklists of features altogether.<sup class=\"fn\" data-fn=\"1\"></sup> What is not in doubt is the scale: Neolithic settlements reached into the thousands, and populations in the tens of thousands appear only with the processes that made cities, some four thousand years after cereals were domesticated in western Asia and about fifteen hundred after they were in China.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Village": "A <b>village</b> is a small permanent settlement of households living off the land around it, and the first appear in Southwest Asia about 11,500 years ago, when some groups began cultivating the plants they had long gathered.<sup class=\"fn\" data-fn=\"1\"></sup> The largest early farming villages anywhere in the Old World held populations in the hundreds, and many covered no more than a hectare.<sup class=\"fn\" data-fn=\"2\"></sup> A few grew far past that, some holding more than 5,000 people over many centuries, and living permanently among so many demanded shared norms and institutions of a kind small mobile groups had never needed.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Tomb": "A <b>tomb</b> is a burial place built or cut as a chamber rather than dug as a pit for one body; the Mycenaean kind is quarried out of soft rock, an open passage called the dromos running down to a blocked doorway, the stomion, and the chamber beyond.<sup class=\"fn\" data-fn=\"1\"></sup> What separates it from a grave is that it was meant to be opened again: at one cemetery in the Nemea valley the undisturbed passages had been dug out and refilled five or six times.<sup class=\"fn\" data-fn=\"2\"></sup> Earlier occupants were moved rather than cleared away, and such tombs are read as a family's over generations.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Temple": "A <b>temple</b> is a building raised for a god, and in Greece it is best understood as a gift: temple buildings are collective dedications, votive offerings to the god and embellishments of the sanctuary they stand in.<sup class=\"fn\" data-fn=\"1\"></sup> They did not evolve by degrees, the record showing a surprisingly rapid jump from unassuming shrines to grandiose stone peripteral temples, and the colonnaded form was invented around 600 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Inside stood the cult statue, and the building served as a treasury and a place to display writing as well as a setting for ritual.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1375,9 +1379,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
 window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
-"Ice_Age": ["glaciation","glacial period", "ice age"],
+"Ice_Age": ["glaciation","glacial period","ice age"],
 "Middle_Paleolithic": ["Middle Palaeolithic"],
-"Upper_Paleolithic": ["Late Paleolithic","Upper Palaeolithic", "late Paleolithic"],
+"Upper_Paleolithic": ["Late Paleolithic","Upper Palaeolithic","late Paleolithic"],
 "Three-age_system": ["three age system"],
 "Knapping": ["flintknapping","flint knapping"],
 "Hunter-gatherer": ["hunter-gatherers","hunter gatherer"],
@@ -1690,7 +1694,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Behavioural_modernity": ["behavioral modernity","modern human behaviour","modern human behavior"],
 "Madjedbebe": ["Malakunanja II"],
 "Lake_Mungo_remains": ["Mungo Man","Mungo Lady"],
-"Settlement_of_the_Americas": ["peopling of the Americas", "settlement of the Americas"],
+"Settlement_of_the_Americas": ["peopling of the Americas","settlement of the Americas"],
 "Paleo-Indians": ["Paleoindian","Palaeo-Indian","Paleo-Indian"],
 "Lion-man": ["Löwenmensch","Lion Man","Lion-man figurine"],
 "Divje_Babe_flute": ["Neanderthal flute"],
@@ -1794,7 +1798,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aoidos": ["aoidoi","the aoidos"],
 "Homer": ["Homeros","Homeric"],
 "Homeric_Question": ["the Homeric Question","Homeric question"],
-"Iliad": ["the Iliad", "The Iliad"],
+"Iliad": ["the Iliad","The Iliad"],
 "Odyssey": ["the Odyssey"],
 "Dactylic_hexameter": ["hexameter","hexameters","epic hexameter"],
 "Oral-formulaic_composition": ["formulaic composition","oral formulaic composition","oral-formulaic theory"],
@@ -1870,7 +1874,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Recent_African_origin_of_modern_humans": ["Out of Africa","Out of Africa II","recent African origin","recent single-origin hypothesis","replacement model"],
 "Southern_dispersal_route": ["southern route","coastal route","southern dispersal"],
 "Archaic_human_admixture": ["archaic admixture","archaic introgression"],
-"Ancient_DNA": ["aDNA", "ancient DNA"],
+"Ancient_DNA": ["aDNA","ancient DNA"],
 "Sahul": ["Greater Australia"],
 "New_Guinea": ["island of New Guinea"],
 "Peopling_of_Europe": ["settlement of Europe"],
@@ -1913,12 +1917,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Croesus": ["Kroisos"],
 "Weight_standard": ["weight standards","monetary standard"],
 "Panhellenic_sanctuary": ["Panhellenic sanctuaries","crown games"],
-"Olympic_Games": ["Olympics","ancient Olympic Games", "Olympic games"],
+"Olympic_Games": ["Olympics","ancient Olympic Games","Olympic games"],
 "Olympic_truce": ["ekecheiria","sacred truce"],
 "Sparta": ["Spartan"],
 "Laconia": ["Lakonike","Laconian"],
 "Lacedaemon": ["Lakedaimon","Lacedaemonians","Lakedaimonioi"],
-"Messenian_Wars": ["Messenian War", "Messenian war"],
+"Messenian_Wars": ["Messenian War","Messenian war"],
 "Tyrtaeus": ["Tyrtaios"],
 "Helots": ["helotage"],
 "Perioikoi": ["perioikic","perioikos"],
@@ -1991,17 +1995,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Achaeans": ["Achaean","Achaian","Achaians"],
 "Middle_Minoan": ["MM period"],
 "Late_Minoan": ["LM period"],
-"Archaic_period": ["Archaic Greece","Archaic age", "archaic Greece"],
+"Archaic_period": ["Archaic Greece","Archaic age","archaic Greece"],
 "Po_valley": ["Po plain","Po Valley","Po Plain"],
 "Iberia": ["Iberian Peninsula"],
 "Cyclopes": ["Cyclops"],
 "Atlantic_Ocean": ["Atlantic"],
-  "Western_Europe": ["western Europe"],
-  "Ancient_Italy": ["ancient Italy"],
-  "Northern_Hemisphere": ["northern hemisphere"],
-  "Taung_Child": ["Taung child"],
-  "Last_Glacial_Period": ["last glacial period"],
-  "Idaean_Cave": ["Idaean cave"],
+"Western_Europe": ["western Europe"],
+"Ancient_Italy": ["ancient Italy"],
+"Northern_Hemisphere": ["northern hemisphere"],
+"Taung_Child": ["Taung child"],
+"Last_Glacial_Period": ["last glacial period"],
+"Idaean_Cave": ["Idaean cave"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2947,7 +2951,11 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sanctuary": ["place","religion","concept","archaeology","greece"],
 "Burial": ["practice","archaeology","history","concept","science"],
 "Inscription": ["text","concept","archaeology","history","technology"],
-"Cemetery": ["place","archaeology","concept","history"]
+"Cemetery": ["place","archaeology","concept","history"],
+"City": ["place","concept","archaeology","history"],
+"Village": ["place","concept","archaeology","prehistory"],
+"Tomb": ["building","archaeology","death","concept"],
+"Temple": ["building","religion","archaeology","greece","concept"]
 });
 
 /* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */
@@ -4686,7 +4694,11 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Sanctuary": ["Barbara A. Barletta, review of <i>Sanctuaries and the Sacred in the Ancient Greek World</i>, by John Griffiths Pedley, Bryn Mawr Classical Review 2006.10.20, https://bmcr.brynmawr.edu/2006/2006.10.20/. [Open access]","Signe Barfoed, review of <i>The Stuff of the Gods: The Material Aspects of Religion in Ancient Greece</i>, ed. Matthew Haysom, Maria Mili and Jenny Wallensten, Bryn Mawr Classical Review 2025.08.09, https://bmcr.brynmawr.edu/2025/2025.08.09/. [Open access]"],
 "Burial": ["Konstantina Chavela, review of <i>The Oxford Handbook of the Archaeology of Death and Burial</i>, ed. Sarah Tarlow and Liv Nilsson Stutz, <i>American Journal of Archaeology</i> 119, no. 2 (2015), https://ajaonline.org/book-review/2062/. [Open access]","Kristina Killgrove, review of <i>Living through the Dead: Burial and Commemoration in the Classical World</i>, ed. Maureen Carroll and Jane Rempel, Bryn Mawr Classical Review 2011.11.66, https://bmcr.brynmawr.edu/2011/2011.11.66/. [Open access]"],
 "Inscription": ["Allen Kerkeslager, review of <i>Greek Scripts: An Illustrated Introduction</i>, ed. P. E. Easterling and Carol Handley, Bryn Mawr Classical Review 2002.08.24, https://bmcr.brynmawr.edu/2002/2002.08.24/. [Open access]","D. Graham J. Shipley, review of <i>An Introduction to Greek Epigraphy of the Hellenistic and Roman Periods</i>, by B. H. McLean, Bryn Mawr Classical Review 2009.12.38, https://bmcr.brynmawr.edu/2009/2009.12.38/. [Open access]"],
-"Cemetery": ["Simon Stoddart et al., \"Patterns of Etruscan Urbanism,\" <i>Frontiers in Digital Humanities</i> 7 (2020): 1, https://doi.org/10.3389/fdigh.2020.00001. [Open access]","Maximilian F. Rönnberg, review of <i>The Early Iron Age: The Cemeteries</i>, by John K. Papadopoulos and Evelyn Lord Smithson, The Athenian Agora 36, Bryn Mawr Classical Review 2018.09.09, https://bmcr.brynmawr.edu/2018/2018.09.09/. [Open access]"]
+"Cemetery": ["Simon Stoddart et al., \"Patterns of Etruscan Urbanism,\" <i>Frontiers in Digital Humanities</i> 7 (2020): 1, https://doi.org/10.3389/fdigh.2020.00001. [Open access]","Maximilian F. Rönnberg, review of <i>The Early Iron Age: The Cemeteries</i>, by John K. Papadopoulos and Evelyn Lord Smithson, The Athenian Agora 36, Bryn Mawr Classical Review 2018.09.09, https://bmcr.brynmawr.edu/2018/2018.09.09/. [Open access]"],
+"City": ["W. Christopher Carleton et al., \"Making Comparative Archaeological and Historical Urbanism Rigorous and Open Access through the URBank Data Platform,\" <i>Antiquity</i> 100, no. 411 (2026): e28, https://doi.org/10.15184/aqy.2026.10287. [Open access]","Dorian Q. Fuller and Chris J. Stevens, \"Between Domestication and Civilization: The Role of Agriculture and Arboriculture in the Emergence of the First Urban Societies,\" <i>Vegetation History and Archaeobotany</i> 28, no. 3 (2019): 263–82, https://pmc.ncbi.nlm.nih.gov/articles/PMC6499764/. [Open access]"],
+"Village": ["Trevor Watkins, \"From Pleistocene to Holocene: The Prehistory of Southwest Asia in Evolutionary Context,\" <i>History and Philosophy of the Life Sciences</i> 39, no. 3 (2017): 22, https://pmc.ncbi.nlm.nih.gov/articles/PMC5556129/. [Open access]","Dorian Q. Fuller and Chris J. Stevens, \"Between Domestication and Civilization: The Role of Agriculture and Arboriculture in the Emergence of the First Urban Societies,\" <i>Vegetation History and Archaeobotany</i> 28, no. 3 (2019): 263–82, https://pmc.ncbi.nlm.nih.gov/articles/PMC6499764/. [Open access]"],
+"Tomb": ["Jeremy B. Rutter, \"Lesson 21: Mycenaean Public and Funerary Architecture: Fortifications, Drainage Projects, Roads, and Chamber Tombs,\" <i>Aegean Prehistoric Archaeology</i> (Hanover, NH: Dartmouth College), https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-21-narrative/. [Open access]","Yannis Galanakis, review of <i>Ayia Sotira: A Mycenaean Chamber Tomb Cemetery in the Nemea Valley, Greece</i>, by R. Angus K. Smith et al., Prehistory Monographs 56, Bryn Mawr Classical Review 2018.10.34, https://bmcr.brynmawr.edu/2018/2018.10.34/. [Open access]"],
+"Temple": ["András Patay-Horváth, review of <i>Origins of Classical Architecture: Temples, Orders, and Gifts to the Gods in Ancient Greece</i>, by Mark Wilson Jones, Bryn Mawr Classical Review 2015.09.56, https://bmcr.brynmawr.edu/2015/2015.09.56/. [Open access]","Robin Osborne, review of <i>The Complete Greek Temples</i>, by Antony Spawforth, Bryn Mawr Classical Review 2006.07.05, https://bmcr.brynmawr.edu/2006/2006.07.05/. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
