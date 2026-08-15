@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-027` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-028` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 27 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 28 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10462,6 +10462,33 @@ italicising a vessel name goes in through one path and is turned away by the oth
 OVERWRITE a picture already installed, which is right for a batch installer and means a corrected URL has
 to be patched in place. Mind that it writes the glossary before the cards, so a batch that throws on the
 card half has **already written the glossary half** — check both before assuming nothing landed.
+  **`cnh-028` IS WHERE A CROSS-REFERENCE POINTED OUT OF THE GENRE ALTOGETHER** (Aug 2026). The rule has paid
+four times by following a note into another volume of a book already on the shelf; here Doré's footnote on
+the Shan-hai-king cites **Wylie's *Notes on Chinese Literature***, which is not a reference work or a
+translation but a BIBLIOGRAPHY OF CHINESE BOOKS — and that is what a card about a book needs and what none
+of Mayers, Werner, Doré or Legge can give: how the Chinese themselves classify the work, that it has long
+been read with distrust, that its defenders concluded only that it is at least as old as the Zhou, and that
+it professes to describe the charts on Yu's nine vessels. **Ask what KIND of work a claim wants before
+searching for the claim**; for a text, that is the bibliographer.
+**AND THE PAGE NUMBER MOVES BETWEEN EDITIONS**, which is cnh-011's rule on two printings of one book: Doré
+cites p. 43, and in the 1867 edition the passage is on **p. 35**, read off a clean run of running heads
+(GEOGRAPHY. 35, then 36). Follow a cross-reference to the PASSAGE and then find its page in the copy you
+actually have.
+**ITS SHARPEST FINDING IS THAT THE SAME MEASUREMENT cnh-012 RAN GAVE THE OPPOSITE ANSWER.** There a shared
+alias scored 11 right against 3 wrong and was KEPT, on the reasoning that the fix which scales is to give
+the other thing its own term. Here the alias `Chinese` on `China` scores **1 apt use against 40**: measured
+over every card abstract and glossary description, all but one occurrence is the ADJECTIVE (Chinese myth,
+Chinese tradition, Chinese literature, Chinese bibliographers) or the LANGUAGE (known in Chinese as, what
+Chinese itself calls the bird), and neither of those is the country. **It is not a FALSE link the way
+`afar` was** — a reader who follows it gets a real description of a relevant country — **it is NOISE, on
+nearly every card of a collection, which is what teaches a reader that the mark means little.** Case cannot
+separate the two, both being capitalised, so the alias is simply gone and the key `China` still matches
+"China" everywhere. **Ask not only whether an alias is ever right but how often, and measure over the
+CORPUS rather than over the card in front of you.**
+**AND IT IS THE FIRST CARD ON THE SITE WHOSE ANSWER IS A BOOK TITLE**, so the first `<b><i>`: bold marks the
+answer term and italics mark a title, and the two NEST rather than one giving way. Nothing in `answer` or
+`answerText` carries markup — no card's does — so the title is set plain in the answer box and italic
+everywhere it is a title in a sentence.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
