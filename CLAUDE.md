@@ -6592,8 +6592,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **⚠ NO NEW GROUP CAN BE MADE — THE FUNCTION WAS REMOVED FROM THE DAILY STUDY BLOCK** (Aug 2026, on
     request: "remove the group function from the daily study/active decks banner"). "+ New group" stood
     inside the banner, then at the bottom left of the DECK LIST for a fortnight, and is now gone along with
-    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives holding the lip alone, since that
-    row is what keeps `.rv-lip` against the review group's own bottom edge.
+    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, since that row is what keeps
+    `.rv-lip` against the review group's own bottom edge — it held the lip alone for a fortnight and now
+    carries the day's timer (`.rv-time`) at the left end it vacated.
     **WHAT DELIBERATELY STAYS is everything a reader who ALREADY made one needs**: the group row in the
     list, its hue, dragging a deck in, and Rename / Colour / Ungroup in its own options sheet. Deleting
     that code would leave such a reader a container on their home page that nothing could open — and there
@@ -10243,7 +10244,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
     the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
     DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
-  · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 20,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -10252,19 +10253,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
     view about how big a deck should be, and it is set from the largest legitimate deck anyone has brought:
-    the whole of HSK 3.0 in one file is 10,896 notes. **IT COUNTS NOTES, NOT CARDS**, which since reverse
-    cards is a real distinction — those 10,896 notes carry 21,792 cards to study — and it is deliberately
-    left on the thing the FILE holds, since what it guards is the cost of parsing somebody else's file.
+    that was the whole of HSK 3.0 in one file (10,896 rows) and is now all six DELE levels and a deck of
+    phrases in one, at 16,782 — raised on request rather than splitting the content, and 20,000 leaves that
+    the same headroom 12,000 left HSK. **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, which since
+    reverse cards is a real distinction — and **it cuts BOTH ways, which is worth knowing before reading
+    anything into the figure**: HSK 3.0 asks a word in both directions from ONE row, by giving its card
+    type two templates, so its 10,896 rows are 21,792 cards; a deck whose two directions are separately
+    addable SUBDECKS cannot, a subdeck being a property of a row, so there a word is two rows and 16,782
+    rows is only 8,400 words. It is deliberately left on the thing the FILE holds, since what it guards is
+    the cost of parsing somebody else's file.
   · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
-    48 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
-    whole file is a string and then an object, so something has to stop a 500 MB file before that. Two
+    80 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    whole file is a string and then an object, so something has to stop a 500 MB file before that. Three
     things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
     for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
-    number is how a legitimate deck comes to be refused for a reason nobody can find. At ~2 KB a note
-    (measured over these decks, whose notes are the largest here) the card cap comes to ~24 MB, and this is
-    twice that so a file at one cap can never be turned away by the other. And **the message names the
-    figures**: "too large to be a deck" tells a reader nothing they can act on, where the size and the limit
-    tell them how far to split it.
+    number is how a legitimate deck comes to be refused for a reason nobody can find. It is now derived
+    from the card cap at the heaviest row anyone has shipped, and **that per-row figure was itself stale**:
+    the comment said "~2 KB a note, measured over the HSK decks, whose notes are the largest here", and the
+    HSK rows are in fact the LIGHTEST at 1.8–2.2 KB — measured across all fourteen shipped decks a DELE row
+    runs 2.9–3.8 KB, carrying a full conjugation table, so the design figure is 4 KB and 20,000 × 4 KB is
+    the 80 MB. And **the message names the figures**: "too large to be a deck" tells a reader nothing they
+    can act on, where the size and the limit tell them how far to split it.
+    **THE HONEST COST OF THE RAISE, stated in app.js and not only here**: a file near this cap is read into
+    a string and then `JSON.parse`d, so a phone briefly holds several times the file in JS heap and a deck
+    at the limit may fail to import on a low-end device where two half-size ones would not. The cap is a
+    guard against a hostile file, not a promise that anything under it imports anywhere.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT
