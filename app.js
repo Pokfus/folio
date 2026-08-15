@@ -245,6 +245,21 @@
     return typeof n === "number" && n >= CARD_DIFFICULTY_MIN && n <= CARD_DIFFICULTY_MAX ? n : 0;
   }
   function difficultyOK(c) { const n = cardDifficulty(c); return n > 0 && n <= GAME_MAX_DIFFICULTY; }
+  /* The rating as five stars in the corner of a study card (Aug 2026, on request). It is DECORATIVE to a
+     screen reader — one `aria-label` on the row says the rating in words, and five identical glyphs read
+     out one at a time say nothing — and it renders as NOTHING at 0, which is every community-deck card and
+     any curated card not yet rated: five empty stars would claim a rating of zero, which is not on the
+     scale. The colour is the QUESTION/ANSWER label's own `--indigo`, on request, so the corner reads as
+     part of the card's own furniture rather than as a second kind of mark. */
+  function cardStarsHTML(c) {
+    const n = cardDifficulty(c);
+    if (!n) return "";
+    const star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.6 6.1.6-4.6 4.1 1.3 6-5.3-3.1-5.3 3.1 1.3-6L3.4 9.8l6.1-.6z"/></svg>';
+    let out = '<span class="card-stars" title="How well known this card\'s answer is: ' + esc(CARD_DIFFICULTY_LABELS[n] || "") +
+      '" aria-label="Difficulty ' + n + " of " + CARD_DIFFICULTY_MAX + ': ' + esc(CARD_DIFFICULTY_LABELS[n] || "") + '">';
+    for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= n ? " on" : "") + '">' + star + "</span>";
+    return out + "</span>";
+  }
   /* ---------- TERMS THAT DO NOT HAPPEN AT A TIME (Aug 2026, on a bug report) ----------
      `card.undatable` is a boolean saying that the answer term names something with no single moment a
      reader could be asked to place it at, and it exists because the Timeline game was asking readers to
@@ -1163,7 +1178,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1] },
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -1213,6 +1228,14 @@
       // day's pile is cleared and turns gold when miss === 0. reviewLog can't answer this: it counts every
       // grade (a learning card is graded again 10 minutes later) and only tracks mature ones.
       reviewDay: { d: "", n: 0, miss: 0 },
+      /* TIME ON CARDS TODAY: { d, ms } — the Daily study banner's timer (Aug 2026, on request). Day-stamped
+         so it resets in place, like reviewDay and deckDay, and never a running total (a lifetime figure is
+         a different question and nothing asks it). It counts what the request asks for and nothing else:
+         the seconds a card's question or answer is on screen. The MINIGAMES are excluded, which needs no
+         rule at all — the clock lives in the study page and no game goes near it. It cannot be derived
+         from revlog: that records a duration only for a card that was GRADED, capped at 60s, so a card
+         read for three minutes and one abandoned mid-session both count wrongly there. */
+      studyTime: { d: "", ms: 0 },
       streak: { count: 0, last: "" },
       // cards picked up one at a time from the home page's Card of the day (studied from the tile and then
       // graded). They join the daily review under the COTD_ENTRY pseudo-entry, so a card can be added
@@ -1555,7 +1578,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2212,13 +2235,25 @@
     }, 4000);
   }
   async function cloudBootOverrides() {
-    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
-    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;   // table not migrated yet / offline → shipped files only
-    const row = r.data[0];
+    /* TWO REQUESTS, AND THE FIRST IS A TIMESTAMP (Aug 2026). This selected `data` up front, which
+       downloads the WHOLE published overlay on every page load before anything has decided whether it
+       is needed — the `updated_at` comparison below was already there and was being made against a body
+       that had by then been paid for. Measured on a row that had accumulated a copy of the timeline:
+       1.17 MB gzipped per visitor per load, more than `data.js`, and for an eagerly-fetched row against
+       a `timeline.js` that is deliberately lazy. The stamp alone is ~100 bytes, and the body is fetched
+       only when it can actually be used: this device has not got this version (a first visit, or a real
+       publish), or this device is an admin whose own overlay may need publishing. */
+    const head = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=updated_at");
+    if (!head.ok || !Array.isArray(head.data) || !head.data.length) return;   // table not migrated yet / offline → shipped files only
     if (isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it, signed-in or not
     let baseline = null; try { baseline = localStorage.getItem(CLOUD_TS_KEY); } catch (e) {}
+    const fresh = head.data[0].updated_at !== baseline;
+    if (!fresh && !cloudCanPublish()) return;   // nothing to adopt and nothing to publish — the body is never needed
+    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
+    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;
+    const row = r.data[0];
     const remote = stableJson(row.data || {});
-    if (row.updated_at !== baseline) {
+    if (fresh) {
       // the published content changed since this device last saw it → adopt it (reset to pristine + re-apply)
       reapplyAdminOverlay(row.data || {});
       try { localStorage.setItem(ADMIN_KEY, JSON.stringify(row.data || {})); localStorage.setItem(CLOUD_TS_KEY, row.updated_at); } catch (e) {}
@@ -4465,6 +4500,31 @@
     if (!correct) S.reviewDay.miss += 1;
   }
   function reviewDayRec() { const r = S.reviewDay; return r && r.d === todayStr() && r.n > 0 ? r : null; }
+  /* ---------- TIME ON CARDS TODAY (Aug 2026, on request) ----------
+     The Daily study banner's timer. `studyTimeAdd` is called by the study page's own ticker and by nothing
+     else, which is what keeps the minigames out of it — no rule names them, they simply never touch this.
+     Two guards make the figure honest rather than merely large, and both matter on a phone: a tick is
+     DISCARDED if the reader has been idle longer than STUDY_IDLE_MS (a card left open on a table is not
+     studying, and the per-review log makes the same judgement with its 60-second cap), and a tick is
+     CLAMPED to a little over its own interval, so a laptop waking from sleep cannot hand the day eight
+     hours in one go. */
+  const STUDY_TICK_MS = 5000, STUDY_IDLE_MS = 180000;
+  function studyTimeToday() { const r = S.studyTime; return r && r.d === todayStr() ? (r.ms | 0) : 0; }
+  function studyTimeAdd(ms) {
+    if (!(ms > 0)) return;
+    const d = todayStr();
+    if (!S.studyTime || S.studyTime.d !== d) S.studyTime = { d: d, ms: 0 };
+    S.studyTime.ms += Math.min(ms, STUDY_TICK_MS * 2);
+  }
+  // "45s" / "12m" / "1h 05m" — seconds below a minute, because rounding the first card of the day up to
+  // "1m" is a small lie and "<1m" is not a figure
+  function fmtStudyTime(ms) {
+    const s = Math.round(ms / 1000);
+    if (s < 60) return s + "s";
+    const m = Math.round(ms / 60000);
+    if (m < 60) return m + "m";
+    return Math.floor(m / 60) + "h " + String(m % 60).padStart(2, "0") + "m";
+  }
   // reviews per day over the last `days` days, oldest first: [{ d:"YYYY-MM-DD", n, date }]
   function reviewHistory(prog, days) {
     const log = (prog && prog.reviewLog) || {};
@@ -5107,7 +5167,13 @@
      (deckDoneToday below), which is what makes them right for a deck that is not in the review, right after
      an undo, and right for a card that sits in two decks at once — a per-deck tally would have to be kept
      in step with all three by hand. */
-  const DECK_MAX_REVIEWS = 200;   // Anki's own default, and high enough that it never surprises a reader who has not gone looking for it
+  /* The maximum reviews a day, where a deck has not been given one of its own. It was Anki's 200 and is 50
+     (Aug 2026, on request), which is a decision about what a day's studying should feel like rather than a
+     technical bound: a pile of two hundred due cards is where a reader stops opening the app, and fifty is a
+     sitting. It is a DEFAULT and nothing more — a deck, or the review itself, can still be set as high as
+     anybody likes in its own Daily limits sheet, and a reader who has already set one keeps it, since
+     `deckLimits` reads this only where nothing has been chosen. */
+  const DECK_MAX_REVIEWS = 50;
   /* ---------- and the DAILY REVIEW's own limits (Aug 2026, on request) ----------
      The review is Anki's parent deck: it pools what its decks offer and caps the pool. It had no settings of
      its own, so the cap came from Settings → New cards per day while each deck's came from its own sheet —
@@ -6212,16 +6278,25 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
-     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
-     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
-     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
-     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
-     rather than on the thing the reader studies, since what it guards against is the cost of parsing
-     somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
-     uDeckImportText), so raising this cannot hide anything. */
-  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
+     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
+     runaway file — so it is set from the largest legitimate deck anyone has brought. That was the whole of
+     HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782); it is now EVERY vocabulary
+     deck on the shelf in one, across five languages: 39,830 rows, and 44,000 leaves it the sort of headroom 12,000 left HSK.
+     **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, and since reverse cards that is a real
+     distinction — but it cuts BOTH ways, and the two largest single-language decks sit on opposite sides
+     of it, which is worth knowing before reading anything into the figure. HSK 3.0 asks a word in both
+     directions from ONE row, by giving its card type two templates, so its 10,896 rows are 21,792 cards.
+     A deck whose two directions are separately addable SUBDECKS cannot do that, a subdeck being a
+     property of a row, so there a word is two rows and 16,782 rows is 16,782 cards and only 8,400 words.
+     The cap stays on the thing the FILE holds rather than on the thing the reader studies, since what it
+     guards against is the cost of parsing somebody else's file. An over-size one is REFUSED with both
+     figures rather than silently trimmed (see uDeckImportText), so raising this cannot hide anything.
+     RAISING IT IS NOT FREE AND THE COST WAS MEASURED RATHER THAN ARGUED ABOUT, because a file this size
+     is read into a string, parsed into an object and then written one record per note inside a single
+     IndexedDB transaction — see the import timings in CLAUDE.md's community-decks Persistence bullet
+     before raising it again. */
+  const UDECK_MAX_CARDS = 44000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -7146,13 +7221,26 @@
   }
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
-     the whole file is a string and then an object, so something has to stop a 500 MB file before that. At
-     ~2 KB a note — measured over the HSK decks, whose notes are the largest here — UDECK_MAX_CARDS notes
-     come to ~24 MB, and this is set at twice that so a legitimate file at the card cap is never turned away
-     by the byte one. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
-     600 KB of; a deck refused here says nothing about how to split it, so the message now gives both
-     figures rather than "too large to be a deck". */
-  const UDECK_MAX_BYTES = 48 * 1024 * 1024;
+     the whole file is a string and then an object, so something has to stop a 500 MB file before that.
+     **THE PER-ROW FIGURE IS MEASURED, AND HAS BEEN STALE TWICE**: it once said "~2 KB a note, measured
+     over the HSK decks, whose notes are the largest here" when the HSK rows are in fact the LIGHTEST, and
+     the 4 KB that replaced it was overtaken within the day by the bolding of the conjugation tables.
+     Measured over all 23 shipped decks: 1.08 KB a row at the lightest (Italian phrases, no paradigm) and
+     4.31 KB at the heaviest (DELE B1, a full one), with the all-languages file averaging 2.42.
+     **THE STRICT DERIVATION IS THEREFORE ABANDONED, AND SAYING SO IS THE POINT.** It used to be "at the
+     heaviest row anyone has shipped, UDECK_MAX_CARDS rows must still be under it, or the byte cap turns
+     away a file the card cap allows", which at 44,000 rows now means 185 MB — a byte cap that guards
+     nothing, on the ground that a file of 44,000 uniformly heaviest rows might one day exist. What is set
+     instead is the largest real file plus headroom, and the tension is REAL rather than papered over: a
+     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. That is tolerable
+     only because it is not silent — uDeckImportFile names the size AND the limit and says to split it —
+     which is what the 8 MB cap it replaced did not do, having quietly come within 600 KB of refusing the
+     HSK 3.0 level 6 deck for no reason a reader could find.
+     **THE HONEST COST OF RAISING IT**: a file this size is read into a string and then JSON.parse'd, so a
+     phone briefly holds several times the file in JS heap, and on a low-end device a deck near this cap
+     may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
+     not a promise that anything under it will import on any device. */
+  const UDECK_MAX_BYTES = 128 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
@@ -7498,23 +7586,47 @@
     };
     return uDeckNormalize(rec);   // sanitizes the glossary too — the server copy is not trusted
   }
+  // Tell the account this deck is one of its own. Separated from the install itself because ADOPTING a
+  // deck already on the device is exactly this and nothing else — see uDeckInstall's `adopt` branch.
+  async function deckInstallRowWrite(remoteId, version) {
+    if (!supaLoggedIn()) return { ok: false, signedOut: true };
+    return supaFetch("/rest/v1/deck_installs", {
+      method: "POST", body: { deck_id: remoteId, user_id: SUPA.user.id, version: version || 1 },
+      headers: { Prefer: "resolution=merge-duplicates" },
+    });
+  }
   async function uDeckInstall(row, cards, gloss) {
     const existing = localDeckForRemote(row.id);
-    const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
-    if (!norm) return { error: "That deck couldn't be read." };
-    if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
-    const d = uDeckMount(norm);
-    await uDeckSaveAll(d.id);
-    if (supaLoggedIn()) {
-      await supaFetch("/rest/v1/deck_installs", {
-        method: "POST", body: { deck_id: row.id, user_id: SUPA.user.id, version: row.version },
-        headers: { Prefer: "resolution=merge-duplicates" },
-      });
+    /* ADOPTING A DECK THIS DEVICE ALREADY AUTHORED (Aug 2026, on a bug report: a deck imported and shared
+       under one account, then added from the Shared decks list under a SECOND account on the same device,
+       reached no other device of that second account).
+       Community decks are device-local and every account signing in here sees them — the whole reason
+       `deckSyncRead().by` exists — so the deck is already physically present, under the record its author
+       made. Re-mounting the server's copy over it would take the AUTHOR's `origin: "mine"` away and with it
+       their only handle on the published row: `uDeckPublish` PATCHes by `remoteId`, and a record without
+       one publishes a second, separate deck. So the local record is left exactly as it is and only the
+       ACCOUNT's list is written — which is all that was ever missing. */
+    const adopt = !!(existing && existing.origin !== "installed");
+    let d = existing;
+    if (!adopt) {
+      const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
+      if (!norm) return { error: "That deck couldn't be read." };
+      if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
+      d = uDeckMount(norm);
+      await uDeckSaveAll(d.id);
     }
-    // …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
-    // a re-install being read as the removal that came before it
-    deckSyncInstalled(row.id);
-    return { ok: true, deck: d };
+    const ins = await deckInstallRowWrite(row.id, row.version);
+    /* …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
+       a re-install being read as the removal that came before it. Recorded ONLY when the row was actually
+       written: `by[id] === me` with no row on the server is read by the very next sync as a removal made on
+       another device, so a POST that failed would have this deck deleted off the device it was just added
+       to. Unrecorded, the deck simply stays unannounced and the reader can try again. */
+    if (ins.ok || ins.signedOut) deckSyncInstalled(row.id);
+    if (!ins.ok && !ins.signedOut) return { ok: true, deck: d, adopted: adopt, unannounced: true };
+    // every device files a shared deck under the same local id, which is what carries the reader's own
+    // arrangement of it across — an adopted deck still wears the random id its import minted
+    if (adopt && d) await communityAlignDeckIds();
+    return { ok: true, deck: UDECKS[d && d.id] || d, adopted: adopt };
   }
   /* Removing an installed deck takes it off the ACCOUNT's list too, so the removal reaches every other
      device. A delete the server would not take is therefore worth both recording and reporting: the row
@@ -7595,6 +7707,21 @@
   }
   function deckSyncWrite(rec) { try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {} }
   function deckSyncList(rec, part, owner) { const a = rec[part][owner]; return Array.isArray(a) ? a : []; }
+  /* DOES THE SIGNED-IN ACCOUNT LIST THIS DECK? — which is NOT the same question as "is this deck on this
+     device", and mistaking one for the other is what stranded a reader's decks on the phone they were added
+     on. Community decks are device-local and shared by every account that signs in here, so a second
+     account meets the first's decks already present; only the account's own install list makes a deck
+     travel, and until this was asked the deck page read presence on the device as ownership by the account
+     and offered no way to add it.
+     Answered from this device's own sync record — the same two signals `communitySyncInstalls` reconciles
+     on, so the page and the sync cannot come to disagree — and therefore with no request. Signed out there
+     is no account to ask, and presence on the device is the only honest answer. */
+  function accountHasDeck(remoteId) {
+    if (!remoteId) return false;
+    if (!supaLoggedIn()) return !!localDeckForRemote(remoteId);
+    const rec = deckSyncRead(), me = SUPA.user.id;
+    return rec.by[remoteId] === me || deckSyncList(rec, "seen", me).indexOf(remoteId) >= 0;
+  }
   /* Who installed a deck, recorded AT THE INSTALL rather than at the next sync — which is what makes the
      removal half safe. A sync interrupted by a navigation writes nothing, so a deck installed and then
      removed on another device before this device ever completed a sync would look, here, like a deck
@@ -7719,7 +7846,10 @@
      costs nothing to check. */
   async function communityAlignDeckIds() {
     for (const d of uDeckList()) {
-      if (d.origin !== "installed" || !d.remoteId) continue;
+      // …or ADOPTED: a deck the account lists but whose local record its author made, which still wears the
+      // random id that import minted. Aligning it is what carries the reader's own arrangement of the deck
+      // — its review entry, its limits, its colour — onto every other device the account reaches.
+      if (!d.remoteId || (d.origin !== "installed" && !accountHasDeck(d.remoteId))) continue;
       const want = deckIdFromRemote(d.remoteId);
       if (d.id === want || UDECKS[want]) continue;
       await uDeckRekeyStored(d.id, want);
@@ -12438,6 +12568,12 @@
      like the other overlays there, so render() has to close it; see closeDeckMenu in the render() list. */
   let _deckMenuClose = null;
   const DECK_SHEET_OUT_MS = 190;   // keep in step with .deck-menu.closing in styles.css
+  /* How long a freshly opened sheet ignores a press — see the guard in `deckSheet`. Half a second rather than
+     the whole one the report asks for, because the exact half of that guard is what actually fixes the
+     reported misfire (the lift of the press that opened the sheet is swallowed however long it takes), and
+     this window only has to cover a DELIBERATE tap made too early. A full second is long enough that a reader
+     reaching straight for a row would meet a sheet that ignores them, which is the same complaint again. */
+  const DECK_SHEET_ARM_MS = 500;
   function closeDeckMenu() { if (_deckMenuClose) _deckMenuClose(); }
   // one shell for the sheet and its two dialogs, so Escape, the backdrop and the focus trap are written once
   function deckSheet(labelText, innerHTML, wire) {
@@ -12478,6 +12614,25 @@
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
     ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
+    /* A SHEET IS NOT LIVE THE INSTANT IT APPEARS (Aug 2026, on a bug report: "when the long-press menu loads,
+       I sometimes accidentally immediately press a menu item"). A hold opens the sheet UNDER the finger that
+       is still down, so the lift that ends the gesture lands on whichever row happens to be beneath it and
+       fires it — a Remove or a Skip today the reader never chose. The document-level capture guard that
+       swallows the click after a hold deliberately steps aside inside `.deck-menu`, so it cannot help here.
+       Two tests, and the first is exact rather than a guess at how fast a finger is: a pointer click whose
+       own pointerdown never landed in this sheet is, by definition, the tail of the press that opened it, so
+       it is swallowed however long that press ran. `e.detail` is 0 for a keyboard or programmatic click,
+       which has no pointerdown to have seen and must go through. The second is the short arming window the
+       report asks for, which covers a fresh tap made before the sheet has settled into place. */
+    let sawDown = false;
+    const armedAt = Date.now() + DECK_SHEET_ARM_MS;
+    ov.addEventListener("pointerdown", () => { sawDown = true; }, true);
+    ov.addEventListener("click", (e) => {
+      if (e.target === ov) return;                    // the backdrop closes on pointerdown; let its click alone
+      if (sawDown && Date.now() >= armedAt) return;
+      if (!e.detail) return;                          // keyboard / programmatic — no press to be the tail of
+      e.stopPropagation(); e.preventDefault();
+    }, true);
     ov.querySelector(".dm-x").addEventListener("click", close);
     _deckMenuClose = close;
     wire(ov, close);
@@ -13209,7 +13364,13 @@
      THE PARSER AND THE PREDICATE ARE PURE — a row is a plain object and nothing here reads S — which is
      what lets test-cards.js slice them out and put thirty queries through them as arithmetic. Building the
      rows is the impure half and is done once per repaint. */
-  const BROWSE_CAP = 300;          // rows drawn at once; the count line always states the true total
+  /* HOW MANY ROWS ARE DRAWN AT ONCE — a page, not a ceiling (Aug 2026, on request: "the browser should load
+     further cards when scrolled all the way to the bottom, instead of being limited to only 300"). It was a
+     hard cut with a line telling the reader to narrow the search, which on a collection of a few thousand
+     cards makes the last two thirds of it unreachable by scrolling at all. The table now grows by a page
+     whenever the foot of it comes into view; the count line still states the true total, and it now says how
+     many of them are on screen rather than telling anyone to go away. */
+  const BROWSE_PAGE = 300;
   const BROWSE_OPS = { is: 1, flag: 1, deck: 1, tag: 1, prop: 1, introduced: 1, rated: 1 };
 
   /* Split a query into terms, honouring quotes so `"stone age"` is one term and not two. A leading `-`
@@ -14678,6 +14839,16 @@
     handle.addEventListener("contextmenu", (e) => e.preventDefault());
   }
 
+  /* THE MARKER CAN BE TURNED OFF ALTOGETHER (Aug 2026, on request: Settings → Study → Whiteboard marker).
+     It is a floating control over every study card, every book page and the Atlas globe, and a reader who
+     never draws on any of them has been carrying it round the corner of the screen regardless — so this is
+     an explicit OFF, default ON, and nothing about the marker changes for anybody who leaves it alone.
+     ONE predicate, asked in the two places that bring the marker into existence: `showWBTools`, which is
+     what puts the panel on screen, and `setupWhiteboard`, which lays the ink canvas over the page. Gating
+     both means a disabled marker costs a page neither the panel, the canvas, nor the pointer listeners that
+     go with it — and because the panel is the only way to put the pen DOWN, `WB.enabled` can never become
+     true, so every page-specific hook (the globe's cursor, the book's ink store) simply never fires. */
+  const markerOn = () => !(S.settings && S.settings.marker === false);
   function ensureWBTools() {
     if (wbToolsRef) return wbToolsRef;
     const el = document.createElement("div");
@@ -14926,7 +15097,10 @@
     applyWBState();
     if (WB.onToggle) WB.onToggle();
   }
-  function showWBTools() { const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns(); }
+  function showWBTools() {
+    if (!markerOn()) return;   // turned off in Settings — the floating panel never appears
+    const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns();
+  }
   function hideWBTools() {
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
@@ -15071,6 +15245,10 @@
     if (WB._panStop) { WB._panStop(); WB._panStop = null; }   // a fling from the previous card would keep scrolling this one
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
+    /* …and with the marker turned off in Settings there is no second half to build: no canvas over the page
+       and none of the pointer listeners that go with it. It sits AFTER the teardown above rather than at the
+       top, or a fling or a resize listener left by the page before this one would outlive it. */
+    if (!markerOn()) { WB.canvas = null; WB.ctx = null; WB.enabled = false; WB.panelOpen = false; return; }
     WB.fixed = !!o.fixed;
     const canvas = document.createElement("canvas");
     canvas.className = "draw-canvas" + (WB.fixed ? " wb-fixed" : "");
@@ -15982,7 +16160,18 @@
     const im = a.image;
     if (im && typeof im === "object" && im.src) {
       const src = sanitizeUrl(String(im.src), ["http", "https"]);
-      if (src) out.image = { src, credit: sanitizePlain(String(im.credit || "")).trim().slice(0, 300), alt: sanitizePlain(String(im.alt || "")).trim().slice(0, 300) };
+      /* `title` and `desc` caption the picture in the fullscreen viewer (Aug 2026 — until then an artefact's
+         picture opened it with a blank description). They are carried through here, or the first admin edit
+         of any artefact would strip them from that artefact and the next bake would strip them from the
+         file. Plain, like the credit and the alt: a caption is a sentence about a photograph, and there is
+         nothing in one that wants markup. */
+      if (src) out.image = {
+        src,
+        title: sanitizePlain(String(im.title || "")).trim().slice(0, 200),
+        desc: sanitizePlain(String(im.desc || "")).trim().slice(0, 600),
+        credit: sanitizePlain(String(im.credit || "")).trim().slice(0, 300),
+        alt: sanitizePlain(String(im.alt || "")).trim().slice(0, 300),
+      };
     }
     return out;
   }
@@ -16224,6 +16413,12 @@
       (o.close ? '<button class="ar-close" type="button" aria-label="Close">×</button>' : "") +
       '<div class="ar-winart">' + artefactPlateArtHTML(a) + '</div>' +
       '<div class="ar-wintext">' +
+        /* SHOWCASE SITS AT THE TOP (Aug 2026, on request). It used to close the plate, below five sentences
+           and a fold of citations — so on anything but the shortest artefact it was off the bottom of a
+           scrolling box, and a reader who opened a plate to pin it had to read past everything first. It is
+           the one ACTION on a page that is otherwise all reading, and an action belongs where the reader
+           arrives rather than where the reading runs out. */
+        (o.pin ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + esc(o.pin) + "</button>" : "") +
         /* The rarity sits AFTER the name on its own line (Aug 2026, on request) rather than above it: a
            chip standing alone over a title reads as a section heading for the whole plate, where beside
            the name it reads as what it is — an adjective on this object. `.ar-wtop` is a baseline-aligned
@@ -16246,7 +16441,6 @@
            page about one object rather than a glance at a word, and this is where a reader who wants to
            know whether the thing is really 65 centimetres long goes to find out. */
         sourcesHTML(src) +
-        (o.pin ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + esc(o.pin) + "</button>" : "") +
       "</div></div>";
   }
   /* AN ARTEFACT'S FIVE SENTENCES LINK THE GLOSSARY, like a card's background (Aug 2026, on request). The
@@ -17763,6 +17957,27 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
+    /* THE DAY'S TIME ON CARDS SITS UNDER THE DECK LIST, NOT IN THE BANNER (Aug 2026, on request — it was a
+       fourth `.stat` in the meta row beside New / Learning / Review). It is not a pile: those three say
+       what is left to do today and this says what has been done, so standing it among them made a reader
+       read four numbers of two different kinds off one line. It goes to the bottom LEFT of the review
+       group, on the `.rv-foot` line the "+ Add decks" lip already hangs from — the two ends of the block's
+       own bottom edge, which is where a footnote about the day belongs.
+       Being out of the banner it also stops being a figure-over-a-word: the row it joins is one small tab
+       high, so it is one line, and it names the day now that nothing beside it supplies one. Drawn only
+       once there is time to report — a "0s" before the first card is a clock reporting that nothing has
+       happened, which the empty row already says — and it counts the study page alone, so the minigames
+       are outside it by construction rather than by a rule (see studyTimeAdd). */
+    const timeFoot = (() => {
+      const ms = studyTimeToday();
+      /* THE WORD LEADS AND THE FIGURE FOLLOWS — "studied 13m today", not "13m studied today" (Aug 2026, on
+         request). It reads as a sentence about the day rather than as a labelled statistic, which is what
+         the three piles in the banner are and what this deliberately stopped being when it left them.
+         Three flex children rather than two, so the gap spaces them and no text node carries a space of
+         its own; "today" is last and is its own span so the narrowest phones can drop it (see .rv-today),
+         where the longest this prints — "studied 3h 07m today" — runs past the lip and ellipsises. */
+      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
+    })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
        something that is not a pile of cards at all — and it is gone from both branches. What replaces it is
@@ -17828,6 +18043,7 @@
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
+              ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
@@ -17864,17 +18080,19 @@
        where that function was defined for what deliberately STAYS, and why.
        The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
        holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
-       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung. */
+       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung — which is also
+       what lets the day's timer take the LEFT end of the same line without moving it (Aug 2026). */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list. It held "+ New group" at its left until Aug 2026 and
-                  now carries only the lip to the collections, which has always hung off the group's own
-                  bottom EDGE — hence a row rather than the lip on its own, and hence nothing stacked
-                  between the two. */""}
-            <div class="rv-foot">${addDecksLip}</div>
+            ${/* The footer row under the deck list: the day's time studied at its left, the lip to the
+                  collections at its right, each against one end of the group's own bottom EDGE. "+ New
+                  group" held the left until Aug 2026; the timer took it when it left the banner's meta
+                  row, which is why the row survived that control's removal rather than collapsing into
+                  the lip. */""}
+            <div class="rv-foot">${timeFoot}${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -18127,7 +18345,13 @@
     const all = browseRowData();
 
     let shown = [];
-    const repaint = () => {
+    /* How far down the filtered list the table has been drawn. It is reset by every repaint that CHANGES the
+       list — a new search or a new sort is a new list, and carrying a scrolled-to depth across one would
+       paint a thousand rows of something the reader has only just asked for. Growing it (the sentinel below)
+       repaints without resetting, which is what `keepLimit` says. */
+    let limit = BROWSE_PAGE;
+    const repaint = (keepLimit) => {
+      if (!keepLimit) limit = BROWSE_PAGE;
       const pred = browsePredicate(browseTokens(browseQ));
       const col = BROWSE_COLS.find((c) => c.k === browseSort) || BROWSE_COLS[0];
       shown = all.filter(pred).sort((a, b) => {
@@ -18138,7 +18362,7 @@
         if (!d) d = a.title.toLowerCase() < b.title.toLowerCase() ? -1 : a.title.toLowerCase() > b.title.toLowerCase() ? 1 : 0;
         return browseRev ? -d : d;
       });
-      const cut = shown.slice(0, BROWSE_CAP);
+      const cut = shown.slice(0, limit);
       body.innerHTML = shown.length
         ? cut.map((r) =>
             /* The full deck path and anything the row could not fit go on the TOOLTIP rather than being
@@ -18161,17 +18385,48 @@
             '<span class="bw-cell bw-lapses">' + (r.lapses || "—") + "</span>" +
             "</div>").join("")
         : '<p class="bw-none">Nothing matches that search. ' + (browseQ.trim() ? "Try fewer terms, or clear the box." : "") + "</p>";
-      countEl.innerHTML = shown.length === all.length
-        ? "<b>" + all.length + "</b> " + (all.length === 1 ? "card" : "cards")
-        : "<b>" + shown.length + "</b> of " + all.length + " cards" +
-          (shown.length > BROWSE_CAP ? ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>" : "");
-      if (shown.length > BROWSE_CAP && shown.length === all.length) {
-        countEl.innerHTML = "<b>" + all.length + "</b> cards" + ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>";
+      /* The sentinel is the LAST thing in the body, so it comes into view exactly when the reader reaches the
+         foot of the table — including on a first paint whose rows do not fill the window, which a scroll
+         listener could never see because no scroll ever happens. It is drawn only while there is more to
+         come, so an exhausted list carries no "loading" line that will never resolve. */
+      if (shown.length > cut.length) {
+        const more = document.createElement("div");
+        more.className = "bw-more";
+        more.id = "bwMore";
+        more.textContent = "Loading more…";
+        body.appendChild(more);
+        watchMore(more);
       }
+      countEl.innerHTML = shown.length === all.length
+        ? "<b>" + all.length + "</b> " + (all.length === 1 ? "card" : "cards") + drawnNote(cut.length, shown.length)
+        : "<b>" + shown.length + "</b> of " + all.length + " cards" + drawnNote(cut.length, shown.length);
       const allBox = root.querySelector("#bwAll");
       if (allBox) allBox.checked = cut.length > 0 && cut.every((r) => browseSel[r.id]);
       paintBulk();
     };
+    // …and the count line says how much of the list is actually on screen rather than telling the reader to
+    // narrow the search: the rest is a scroll away now, not out of reach
+    const drawnNote = (drawn, total) =>
+      total > drawn ? ' <span class="bw-cap">' + drawn + " on screen — scroll for more</span>" : "";
+    /* ONE observer, re-pointed at each freshly drawn sentinel rather than one per repaint: the sentinel is
+       rebuilt with the rows every time, and an observer left watching the old one would fire on a node that
+       is no longer in the document. It disconnects itself when the page goes, the self-stopping shape the
+       book's scroll listener uses — there is no teardown hook to hang it on. */
+    let moreObs = null;
+    function watchMore(el) {
+      if (!("IntersectionObserver" in window)) { limit = shown.length; return; }
+      if (!moreObs) {
+        moreObs = new IntersectionObserver((entries) => {
+          if (!body.isConnected) { moreObs.disconnect(); moreObs = null; return; }
+          if (!entries.some((e) => e.isIntersecting)) return;
+          if (limit >= shown.length) return;
+          limit += BROWSE_PAGE;
+          repaint(true);
+        }, { rootMargin: "400px 0px" });   // a page ahead of the fold, so the rows are there before the reader is
+      }
+      moreObs.disconnect();
+      moreObs.observe(el);
+    }
 
     /* The bulk bar. It appears only when something is selected — a permanent row of disabled buttons is a
        row of things that look broken — and it is rebuilt rather than hidden, so the count in it can never
@@ -18214,14 +18469,14 @@
         if (browseSel[id]) delete browseSel[id]; else browseSel[id] = true;
         row.classList.toggle("sel", !!browseSel[id]);
         const allBox = root.querySelector("#bwAll");
-        if (allBox) allBox.checked = shown.slice(0, BROWSE_CAP).every((r) => browseSel[r.id]);
+        if (allBox) allBox.checked = shown.slice(0, limit).every((r) => browseSel[r.id]);
         paintBulk();
         return;
       }
       if (e.target.closest(".bw-name")) openCardInfo(id, () => PAGES.browse(root));
     });
     root.querySelector("#bwAll").addEventListener("change", (e) => {
-      const cut = shown.slice(0, BROWSE_CAP);
+      const cut = shown.slice(0, limit);
       if (e.target.checked) cut.forEach((r) => { browseSel[r.id] = true; });
       else cut.forEach((r) => { delete browseSel[r.id]; });
       repaint();
@@ -21788,6 +22043,11 @@
   function deckDetailRender(root, row, cards, gloss) {
     const local = localDeckForRemote(row.id);
     const mine = supaLoggedIn() && SUPA.user && row.owner === SUPA.user.id;
+    /* PRESENT ON THIS DEVICE AND PRESENT ON THIS ACCOUNT ARE TWO QUESTIONS, and this page asked only the
+       first — which is what stranded a reader's decks on the phone they were added on. See accountHasDeck.
+       The AUTHOR is counted as having their own deck however they came by it: they published it, and asking
+       them to add it to their own account would be a control that says the wrong thing. */
+    const onAccount = mine || accountHasDeck(row.id);
     const hasUpdate = local && Number(row.version) > Number(local.installedVersion || 0) && local.origin === "installed";
     const n = row.card_count || cards.length;
     root.innerHTML =
@@ -21822,9 +22082,14 @@
       '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       '<div class="ddetail-actions">' +
         (local
-          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>') +
-            '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>'
-          : '<button class="btn" type="button" id="ddInstall">Add to my decks</button>') +
+          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>')
+          : "") +
+        // shown whenever the ACCOUNT does not list the deck — whether or not this device happens to hold a
+        // copy somebody else put here. Over a deck already present it adds nothing to the device and says so.
+        (onAccount && local ? "" :
+          '<button class="btn' + (local ? " ghost" : "") + '" type="button" id="ddInstall">' +
+            (local ? "Add to my account" : "Add to my decks") + '</button>') +
+        (local ? '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>' : "") +
         /* …and the file itself (Aug 2026, on request). "Add to my decks" installs it into Folio; this
            downloads the same `.folio-deck.json` a Studio export writes, which is what lets a reader keep a
            copy, pass it on, or open it in a Folio that is not signed in to anything. It needs no install
@@ -21835,6 +22100,11 @@
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
         (isAdmin() ? '<button class="btn ghost" type="button" id="ddPick">' + (row.staff_pick ? "Remove staff pick" : "Mark staff pick") + "</button>" : "") +
       '</div>' +
+      // …and why that button is there over a deck the reader can already see: shared decks live on the
+      // device and are shared by every account signing in on it, so this one is here without being yours
+      (onAccount || !local ? "" :
+        '<p class="ddetail-adopt">This deck is already on this device, but it isn&rsquo;t on your account &mdash; ' +
+        'so it won&rsquo;t appear on your other devices. Adding it to your account fixes that and downloads nothing.</p>') +
       '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>' +
       '<div class="ddetail-reviews" id="ddReviews"></div>' +
       '<div class="ddetail-more" id="ddMore"></div>';
@@ -21856,10 +22126,15 @@
 
     const inst = root.querySelector("#ddInstall");
     if (inst) inst.addEventListener("click", async () => {
+      const was = inst.textContent;
       inst.disabled = true; inst.textContent = "Adding…";
       const r = await uDeckInstall(row, cards, gloss);
-      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = "Add to my decks"; return; }
-      toast("Added to your decks");
+      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = was; return; }
+      // a write the account did not take is worth saying: the deck is usable here and will not travel, which
+      // is precisely the silence this whole path exists to end
+      toast(r.unannounced ? "Added here, but your account couldn't be reached — it won't reach your other devices yet"
+            : r.adopted ? "Added to your account — it will appear on your other devices"
+            : "Added to your decks");
       render();
     });
     const upd = root.querySelector("#ddUpdate");
@@ -22019,10 +22294,16 @@
     const sess = buildSession(params.scope);
     // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
     const resume = params.resume && Array.isArray(params.resume.queue) ? params.resume : null;
-    // a session that starts from the home page goes back there: the daily review, the Card of the day and the
-    // cards it has added are all launched from that page, and "Collections" would strand the reader
-    // …and a GROUP is the reader's own arrangement of the home page's list, so it goes back there too
-    const fromHome = params.scope.type === "review" || params.scope.type === "card" || params.scope.type === "cotd" || params.scope.type === "group";
+    /* EVERY SESSION GOES BACK TO THE HOME PAGE (Aug 2026, on request: "once completing daily studies for a
+       deck, the button should lead back to the home page, not the collections page"). It used to depend on
+       the scope — the review, the Card of the day and a group returned home while a DECK returned to the
+       collections — which was written when a deck was something a reader found on that page. It is not any
+       more: a deck is added to the daily study and then tapped on its own row on the home page, so that is
+       where a reader finishing one came from and where their other decks are waiting. The collections are one
+       press further on, from the lip under the review, which is the route the home page advertises.
+       It is ONE answer rather than a rule per surface: the mid-session exit, the caught-up placard and the
+       completion screen all read this, and a completion screen going home while the exit beside it went to
+       the collections would be two answers to one question. */
     if (!sess) {
       root.innerHTML = params.scope.type === "card"
         ? emptyPlacard("Card not found", "—", "We couldn't find that card.", () => route("home"), "Back home")
@@ -22097,6 +22378,38 @@
     function persistStudy() {
       writeStudySession({ scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession });
     }
+
+    /* ---------- the day's time on cards (Aug 2026, on request) ----------
+       A ticker rather than a stamp per card, because what the request asks for is the time a question or an
+       answer was ON SCREEN, and a card can be left mid-session, requeued, or read for three minutes without
+       anything being graded — none of which a per-grade duration can see (the per-review log's own figure is
+       capped at 60 seconds for exactly that reason, so it cannot be summed into this either).
+       It is SELF-STOPPING on `root.isConnected`, the shape `startMiniGlobe` uses: `render()` replaces #view
+       without telling anyone and there is no teardown hook to hang this on. It counts only while a card is
+       actually painted — the completion screen and the caught-up placard are not studying — and only while
+       the tab is visible and the reader has done something in the last STUDY_IDLE_MS.
+       It reaches `save()` once a minute rather than on every tick: `save()` queues a synced push, and a push
+       every five seconds for a figure nothing else reads would be a great deal of traffic for a clock. The
+       grade path saves anyway, so in ordinary use the day's time is written down card by card. */
+    let lastAct = Date.now(), lastTick = Date.now(), unsaved = 0;
+    const noteAct = () => { lastAct = Date.now(); };
+    const ACT_EVENTS = ["pointerdown", "pointermove", "keydown", "wheel", "scroll", "touchstart"];
+    ACT_EVENTS.forEach((n) => document.addEventListener(n, noteAct, { capture: true, passive: true }));
+    const studyTicker = setInterval(() => {
+      const now = Date.now(), gap = now - lastTick;
+      lastTick = now;
+      if (!root.isConnected) {   // the page has gone; take the listeners with it
+        clearInterval(studyTicker);
+        ACT_EVENTS.forEach((n) => document.removeEventListener(n, noteAct, true));
+        if (unsaved) save();
+        return;
+      }
+      if (document.hidden || !root.querySelector(".study-card")) return;
+      if (now - lastAct > STUDY_IDLE_MS) return;
+      studyTimeAdd(gap);
+      unsaved += gap;
+      if (unsaved >= 60000) { unsaved = 0; save(); }
+    }, STUDY_TICK_MS);
 
     /* ---------- undoing the last grade ----------
        A misclick on Again or Easy is otherwise unfixable from inside a session: the card has left the queue
@@ -22227,7 +22540,7 @@
         sess.scope.type === "review"
           ? "No cards are due right now. New cards unlock as you keep a streak going."
           : "You've studied everything available in this deck for now.",
-        () => route(fromHome ? "home" : "decks"),
+        () => route("home"),
         "Done"
       );
       return;
@@ -22281,9 +22594,7 @@
       root.innerHTML = `
         <div class="study-shell">
           <div class="study-bar">
-            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> ${
-              fromHome ? "Home" : "Collections"
-            }</button>
+            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Home</button>
             ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
             ${/* Card info — Anki's `I`, and deliberately in the study BAR rather than in the grade bar. The
                   grade bar's phone layout is a fixed three-cell row under the grades ("help undo suspend"),
@@ -22304,6 +22615,7 @@
           <div class="cardwrap swap">
             <div class="study-card">
               ${ttsEnabled() ? `<button class="tts-mute${S.settings.ttsMuted ? " muted" : ""}" id="ttsMute" type="button" aria-label="${S.settings.ttsMuted ? "Unmute read-aloud" : "Mute read-aloud"}" title="Mute / unmute read-aloud">${ttsMuteIconSVG()}</button>` : ""}
+              ${cardStarsHTML(c)}
               <span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
               <div class="question">${cardFrontHTML(c)}</div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
@@ -22347,7 +22659,7 @@
       wireTTS(cardRoot, c);
       if (ttsActive()) ttsSay(ttsPartsFor("question", c));   // the slow male voice reads the question ("blank" for the ____)
       root.querySelector("#exit").addEventListener("click", () =>
-        route(fromHome ? "home" : "decks")
+        route("home")
       );
       { const ub = root.querySelector("#undoGrade"); if (ub) ub.addEventListener("click", undoGrade); }
       { const ib = root.querySelector("#cardInfo"); if (ib) ib.addEventListener("click", () => openCardInfo(id, () => renderCard())); }
@@ -22592,11 +22904,11 @@
         <div class="row">
           <button class="btn" id="more">Keep studying</button>
           ${canUndo() ? '<button class="btn ghost" id="undoLast">Undo the last card</button>' : ""}
-          <button class="btn ghost" id="home">Back ${fromHome ? "home" : "to collections"}</button>
+          <button class="btn ghost" id="home">Back home</button>
         </div>`;
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>
-        route(fromHome ? "home" : "decks")
+        route("home")
       );
       // the last card of a session is exactly where a misclick is hardest to live with — the queue is empty
       // and there is no card left to press Undo on, so the way back sits here too
@@ -23634,8 +23946,20 @@
     }
     const stage = ov.querySelector(".iv-stage"), im = ov.querySelector(".iv-img");
     let scale = 1, tx = 0, ty = 0, drag = null;
+    // NOTHING inside the stage closes the viewer — not the image and not the space around it (on
+    // request, Aug 2026): a picture opened to be looked at is one a reader zooms and drags about, and
+    // every one of those gestures ends in a pointerup that a close-on-backdrop rule reads as "done".
+    // The × and Escape are the way out.
+    const pts = new Map();   // live pointers on the stage; two of them is a pinch
+    let pinch = null, pinched = false;
     const apply = () => { im.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")"; stage.classList.toggle("zoomed", scale > 1); };
+    const live = (on) => stage.classList.toggle("iv-live", !!on);   // a gesture owns the frame: no transition to lag behind it
     const clampPan = () => { const lim = (scale - 1) * Math.max(stage.clientWidth, stage.clientHeight) * 0.5 + 40; tx = Math.max(-lim, Math.min(lim, tx)); ty = Math.max(-lim, Math.min(lim, ty)); };
+    const mid = () => {   // the two pointers' midpoint, relative to the stage's centre
+      const [a, b] = [...pts.values()];
+      const r = stage.getBoundingClientRect();
+      return { x: (a.x + b.x) / 2 - r.left - r.width / 2, y: (a.y + b.y) / 2 - r.top - r.height / 2, d: Math.hypot(a.x - b.x, a.y - b.y) };
+    };
     stage.addEventListener("wheel", (e) => {
       e.preventDefault();
       const ns = Math.max(1, Math.min(8, scale * Math.exp(-e.deltaY * 0.0016)));
@@ -23643,22 +23967,57 @@
       tx = px - (px - tx) * (ns / scale); ty = py - (py - ty) * (ns / scale);   // zoom toward the cursor
       scale = ns; if (scale === 1) { tx = 0; ty = 0; } clampPan(); apply();
     }, { passive: false });
-    stage.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, tx, ty, moved: false }; try { stage.setPointerCapture(e.pointerId); } catch (x) {} });
+    stage.addEventListener("pointerdown", (e) => {
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      try { stage.setPointerCapture(e.pointerId); } catch (x) {}
+      if (pts.size === 2) {   // a second finger turns a pan into a pinch
+        drag = null; pinched = true; live(true);
+        const m = mid();
+        pinch = { d: m.d || 1, mx: m.x, my: m.y, scale, tx, ty };
+      } else if (pts.size === 1) {
+        /* WHETHER THE PRESS LANDED ON THE PICTURE IS RECORDED HERE AND NOWHERE ELSE. `setPointerCapture` on
+           the line above RETARGETS every later event for that pointer to the stage, so the `e.target === im`
+           this used to test at pointerup was false for a real finger or mouse even when the press was dead
+           centre of the image — which is how "a click on the image closes it" came to be reported: the tap
+           toggle could not fire and the close-on-backdrop branch took every press. A pointerdown's own
+           target is resolved BEFORE the capture it sets, so it is the honest one. */
+        drag = { x: e.clientX, y: e.clientY, tx, ty, moved: false, onImg: e.target === im };
+      }
+    });
     stage.addEventListener("pointermove", (e) => {
+      if (pts.has(e.pointerId)) pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pinch && pts.size >= 2) {
+        const m = mid();
+        const ns = Math.max(1, Math.min(8, pinch.scale * ((m.d || 1) / pinch.d)));
+        // hold whatever was under the fingers' midpoint under it, and let it follow the midpoint as that moves
+        tx = m.x - (pinch.mx - pinch.tx) * (ns / pinch.scale);
+        ty = m.y - (pinch.my - pinch.ty) * (ns / pinch.scale);
+        scale = ns; if (scale === 1) { tx = 0; ty = 0; }
+        clampPan(); apply();
+        return;
+      }
       if (!drag) return;
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true;
-      if (scale > 1 && drag.moved) { tx = drag.tx + dx; ty = drag.ty + dy; clampPan(); apply(); }
+      if (scale > 1 && drag.moved) { live(true); tx = drag.tx + dx; ty = drag.ty + dy; clampPan(); apply(); }
     });
-    stage.addEventListener("pointerup", (e) => {
+    const liftPtr = (e) => {
+      const wasPinch = pinched, many = pts.size > 1, onImg = drag && drag.onImg;
+      pts.delete(e.pointerId);
+      if (pts.size < 2) pinch = null;
+      if (!pts.size) { pinched = false; live(false); }
       const wasDrag = drag && drag.moved; drag = null;
-      if (wasDrag) return;
-      if (e.target === im) {   // plain click on the image toggles zoom; on the backdrop it closes
+      return { spent: wasDrag || wasPinch || many, onImg: onImg };
+    };
+    stage.addEventListener("pointerup", (e) => {
+      const lift = liftPtr(e);
+      if (lift.spent) return;   // the end of a drag or a pinch, not a tap
+      if (lift.onImg) {         // a plain tap on the picture toggles zoom, for a device with no wheel
         if (scale > 1) { scale = 1; tx = 0; ty = 0; } else scale = 2.5;
         apply();
-      } else closeImageViewer();
+      }
     });
-    stage.addEventListener("pointercancel", () => { drag = null; });
+    stage.addEventListener("pointercancel", liftPtr);
     ov.querySelector(".iv-close").addEventListener("click", closeImageViewer);
     requestAnimationFrame(() => ov.classList.add("show"));
   }
@@ -25163,18 +25522,32 @@
         inlineConfirm("Show today's answers? The grid closes for the day — you keep the " + solved +
           " of " + N + " you have found.", () => {
           const earned = solved;
+          /* A REVEALED LETTER IS RED, NOT GREEN (Aug 2026, on request). Green means "you got this" — it is
+             what a solved entry paints and what locks a square against being typed over — so painting the
+             whole board green on a give-up tells the reader they answered a grid they in fact gave up on,
+             and the one thing a reader wants to see afterwards is which letters were theirs. What each
+             square WAS is read BEFORE the answers are written over it: a square whose own letter already
+             matched the answer stays green, and every square that was empty or wrong turns red. */
+          const own = {};
+          root.querySelectorAll(".xw-cell").forEach((el) => { own[el.dataset.k] = el.value; });
+          const mine = {};
           puz.entries.forEach((e) => cellsOf(e).forEach((k, i) => {
             const el = input(k);
-            if (el) el.value = e.w[i];
+            if (!el) return;
+            if ((own[k] || "") === e.w[i]) mine[k] = true;
+            el.value = e.w[i];
           }));
           finished = true;   // set BEFORE the sweep, so every square locks and nothing re-judges as a win
           const shown = {};
           root.querySelectorAll(".xw-cell").forEach((el) => {
-            shown[el.dataset.k] = el.value;
+            const k = el.dataset.k;
+            shown[k] = el.value;
             el.readOnly = true; el.tabIndex = -1;
-            el.classList.remove("bad"); el.classList.add("ok");
+            el.classList.toggle("ok", !!mine[k]);
+            el.classList.toggle("bad", !mine[k]);
           });
-          root.querySelectorAll(".xw-clue").forEach((b) => b.classList.add("done"));
+          // …and a clue is "done" only where the reader finished it, for the same reason: the tick beside a
+          // clue is what they earned, not a note that the answer is now on the board
           const clr = root.querySelector("#xw-clear"); if (clr) clr.hidden = true;
           const gu = root.querySelector("#xw-giveup"); if (gu) gu.hidden = true;
           xwMarkGaveUp(shown);
@@ -25183,7 +25556,7 @@
           const res = root.querySelector("#xwResult");
           res.className = "chrono-result show";
           res.innerHTML = '<div class="cr-title">' + earned + " of " + N + " found</div>" +
-            '<div class="cr-sub">The rest are filled in above. A fresh grid arrives tomorrow.</div>';
+            '<div class="cr-sub">The rest are filled in above, in red. A fresh grid arrives tomorrow.</div>';
         }, "Show the answers");
       });
       root.querySelector("#xw-home").addEventListener("click", () => route("home"));
@@ -29906,9 +30279,13 @@
       "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are.\n" +
       "     date    a short date line, in the compact notation the cards use.\n" +
       "     origin  where it is from, and where it is now if that is worth knowing.\n" +
-      "     image   optional { src, credit, alt } — a LINK, never an upload, exactly as a card's picture is.\n" +
-      "             `credit` is required wherever `src` is set; an artefact with no picture draws a\n" +
-      "             rarity-coloured placeholder rather than an empty frame.\n" +
+      "     image   optional { src, title, desc, credit, alt } — a LINK, never an upload, exactly as a card's\n" +
+      "             picture is. `credit` is required wherever `src` is set; an artefact with no picture draws\n" +
+      "             a rarity-coloured placeholder rather than an empty frame. `title` and `desc` are what the\n" +
+      "             fullscreen viewer captions the picture with — they were added Aug 2026, on request, all 99\n" +
+      "             pictures having opened the viewer with a blank description until then. Neither composes\n" +
+      "             anything: the title is the artefact's own name and the description is the alt with the\n" +
+      "             attribution `credit` already carries. See .claude/fix-image-text.js.\n" +
       "     desc    exactly FIVE sentences, about 200 words (±10%), at the same reading level as a card's\n" +
       "             background. Rich HTML: <b> for the object's own name at its first mention, <i> for titles\n" +
       "             and foreign terms. Metric first with the imperial equivalent in brackets. It carries the\n" +
@@ -29926,7 +30303,10 @@
         let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
         if (a.date) out += "    date: " + s(a.date) + ",\n";
         if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-        if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+        if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
+          (a.image.title ? ", title: " + s(a.image.title) : "") +
+          (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
+          ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
         out += "    desc: " + s(a.desc) + ",\n";
         const src = normSources(a.sources);
         if (src.length) out += "    sources: [\n" + src.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
@@ -30336,6 +30716,15 @@
             }</div></div>
           </div>
           <div class="set-row">
+            ${/* THE WHITEBOARD MARKER (Aug 2026, on request). It floats over every study card, every page of
+                  a book and the Atlas globe, and a reader who never draws has been carrying it round the
+                  corner of the screen on all three. OFF removes the panel and the ink canvas with it — see
+                  markerOn() — so it costs those pages nothing rather than merely being hidden. Anything
+                  already drawn is kept: this decides whether the marker appears, not whether the ink exists. */""}
+            <div class="info"><h3>Whiteboard marker</h3><p>The floating pen that draws over a study card, a book page or the Atlas globe. Turn it off and it stops appearing anywhere; marks you have already made on a book are kept.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.marker !== false ? "on" : ""}" id="sw-marker" role="switch" aria-label="Whiteboard marker" tabindex="0" aria-checked="${S.settings.marker !== false}"></div></div>
+          </div>
+          <div class="set-row">
             ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
                   — so without this it would be unreachable the moment either answer was given. The Atlas
                   and the Library keep their own "?" for the same reason. */""}
@@ -30454,6 +30843,13 @@
        `bumpLoadMap()`, because the map is cached for the day and turning either setting on or off is
        exactly the case a day-keyed cache cannot see. */
     wireSwitch("#sw-load", () => !!S.settings.loadBalance, (v) => { S.settings.loadBalance = v; bumpLoadMap(); });
+    /* The marker. Turning it OFF while the panel is on screen has to take it away there and then — the
+       Settings page is not one of the three that mount it, so nothing would repaint it away by itself, and a
+       panel still floating over the page a switch has just disabled reads as a switch that did nothing. */
+    wireSwitch("#sw-marker", () => S.settings.marker !== false, (v) => {
+      S.settings.marker = v;
+      if (!v) hideWBTools();
+    });
     /* The seven days. Stored Sunday-first to match Date#getDay, so the scheduler does no conversion; drawn
        Monday-first to match the heatmap. Written as a WHOLE array rather than an index, because a save made
        before this existed has no `easyDays` at all and easyDays() is what fills that in. */
