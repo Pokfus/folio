@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-022` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-023` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 22 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 23 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10324,6 +10324,35 @@ proclamation. The date line takes Werner's, being the figure a citation on this 
 the museum's range was **cut from the picture's own caption** rather than left to sit four inches away
 from a different pair of years — a reader cannot be expected to know that is a convention rather than a
 mistake, and a card must not manufacture a disagreement it is not making.
+**`cnh-023` IS WHERE A ROMANISATION TURNED OUT TO BE AN ORDINARY ENGLISH WORD, WHICH IS WORSE THAN THE
+`afar` CASE AND CANNOT BE FIXED THE SAME WAY** (Aug 2026). `Chinese_dragon` was drafted with the aliases
+**`long`** and **`lung`** — the Wade-Giles and pinyin of 龍 — and measured over the shipped card prose
+those two surfaces occur **246 times**, almost none of them about a dragon. `Afar` was rescued by
+`GLOSSARY_CASESENSITIVE`, because the region is capitalised and the adverb is not; here the romanisation
+is lowercase and so is the English word, so **case cannot separate them and there is no rescue** — the
+alias simply may not exist. It was caught in draft, and the term ships with **no aliases at all**, the
+key's own surface being what the card's answer matches. **Ask of a romanised alias not only whether it is
+an ordinary word in ENGLISH but whether anything could tell the two apart**; where nothing can, the
+glossary does without it. Note the `add-glossary.js` trap that goes with it (cnh-008's): an alias list is
+cleared only when the `aliases` key is PRESENT, so removing one means passing `[]`, not omitting it.
+**AND A RUNNING HEAD MUST BE READ AGAINST THE SEQUENCE IT SITS IN, WHICH IS cnh-011's RULE ONE NOTCH
+STRONGER.** Checking a Mayers page for this card showed that the Chinese Reader's Manual scan **renders a
+leading 3 as an 8 throughout its running heads** — the Part II sequence reads 331, 332, 333, 834, 885,
+886, 837, 838, 339, 340 — so `cnh-022`'s citation shipped as p. 838 where the entry is on p. **338**, and
+the page above the entry looked perfectly ordinary on its own. cnh-011 says a locator must be READ rather
+than computed; this adds that **reading ONE header is not enough on a bad scan — read the run**, since a
+single mangled digit is invisible and a sequence is not. Fixed on the card and its glossary term the same
+day; Part I's headers were checked the same way and are sound.
+**ITS FOURTH WORK IS THE PRIMARY TEXT, and the deck should reach there earlier than it does.** The Yi
+King's first hexagram is a ladder of dragons — hid in the deep, in the field, on the wing in the sky,
+exceeding its proper limits — which is the locus classicus for every later claim about the creature, and
+Legge's translation was already on this deck's shelf from `cnh-005`. **A card about a Chinese idea should
+ask what CLASSIC states it before assembling three reference works**; the reference works then explain it
+rather than carrying it.
+**AND TWO PAGE-LEVEL HONESTIES ARE WORTH NAMING.** Doré's volume V has its year OCR'd into nonsense, so
+the citation gives the SERIES span rather than the 1918 that catalogues and an uploader's filename both
+assert — a year, like a page, is read or it is not claimed. And the Shuowen is dated AD 100 by Doré and
+AD 200 by Mayers, so the card and the date line say "a Han dictionary", which is true under both.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
