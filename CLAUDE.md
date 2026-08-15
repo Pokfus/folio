@@ -4415,11 +4415,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   marks as it builds, so a clean run from a restored cache agrees with the shipped files; until such a run
   is made, the two have never been compared. Not part of the site.
 - `.claude/goethe/` — the generator behind the German decks: `decks/Goethe-A1-German.folio-deck.json`
-  (**785 notes / 1,570 cards**), an **A2** built the same way (**715 / 1,430**), a **B1** (**1,865 /
-  3,730**), a **B2**, **C1** and **C2** (**3,000 / 6,000** apiece) and a **PHRASES & EXPRESSIONS** deck
-  (**980 / 1,960**), all but A1 DELIBERATELY NOT COMMITTED — see the last sub-bullet — plus
-  **`combine.py`**, which puts all seven into one importable file of **13,345 notes / 26,690 cards,
-  41.3 MB** as seven subdecks.
+  (**785 notes / 1,570 cards**), an **A2** built the same way (**697 / 1,394**), a **B1** (**1,786 /
+  3,572**), a **B2**, **C1** and **C2** (**3,000 / 6,000** apiece) and a **PHRASES & EXPRESSIONS** deck
+  (**976 / 1,952**), all but A1 DELIBERATELY NOT COMMITTED — see the last sub-bullet — plus
+  **`combine.py`**, which puts all seven into one importable file of **13,244 notes / 26,488 cards,
+  41.5 MB** as seven subdecks.
   `python3 .claude/goethe/run.py [--level a1|a2|b1|b2|c1|c2|phrases] [--no-fetch]`. Seven stages, caching
   its corpora and the Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.5 GB, gitignored). PYTHON, like
   `.claude/dele/` and unlike every other helper here, and for the same reason: a further level is a re-run
@@ -4572,9 +4572,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `ich` is its very first note and the definite article its seventh, and the walk still never reaches them
     — a single deck is dealt in its own frequency order, where the combined file is added alongside its seven
     subdecks, so the pooled review draws across eight entries and seeded-shuffles what it draws. A hundred
-    and fifty cards of 26,690 reach note 1 by luck or not at all. **An assertion that rests on "it comes up
+    and fifty cards of 26,488 reach note 1 by luck or not at all. **An assertion that rests on "it comes up
     early" is an assertion about the QUEUE, and the queue changes when the deck is added differently**; the
-    note-for-note comparison above covers the same ground for all 13,345.
+    note-for-note comparison above covers the same ground for all 13,244.
   **THE THIRD LEVEL IS WHERE THE LIST'S OWN TYPESETTING BECAME THE WHOLE JOB.** B1 is 2,529 headwords
   against A2's 1,300, set in a narrower column with two or three numbered example sentences under each, so
   it wraps constantly and in every direction — and a wrapped line read as a headword is a card for a word
@@ -4892,7 +4892,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carried in the subdeck string and the levels nest one deep — where a German word is ONE note with two
     card TEMPLATES, so app.js offers the two directions as rows under each subdeck on its own account and
     `sub` holds nothing but the level. **It is what raised `UDECK_MAX_CARDS` from 12,000 to 16,000**: at
-    13,345 notes it is the largest legitimate deck anyone has brought, which is what that cap is set from.
+    13,244 notes it is the largest legitimate deck anyone has brought, which is what that cap is set from.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and the other six must reproduce themselves. That is

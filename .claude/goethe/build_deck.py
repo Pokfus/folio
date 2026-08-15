@@ -509,7 +509,13 @@ def follow_prose_pointer(glosses, article='', depth=3):
                             onward.append(g_.strip())
             if onward:
                 got = follow_prose_pointer(onward[:1], article, depth - 1)
-                if got and not PROSE_POINTER.match(got[0].strip()):
+                # THE TEST IS WHETHER IT CHANGED, not whether it still looks like
+                # a pointer: a resolved gloss KEEPS its pointer in front of the
+                # meaning ("synonym of naja: well"), by design, so matching
+                # PROSE_POINTER on the result rejects every successful hop.  This
+                # function returns its input unchanged when it cannot resolve, so
+                # inequality is the honest signal.
+                if got and got[0] != onward[0]:
                     return [glosses[0] + ': ' + got[0].split(': ', 1)[-1]]
     return glosses
 
