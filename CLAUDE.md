@@ -3697,8 +3697,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
-  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, and the
-  **Goethe German set** by `.claude/goethe/` — see its own bullet below.
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
+  **Goethe German set** by `.claude/goethe/`, and the **UKBI Indonesian set** by `.claude/ukbi/` — each
+  has its own bullet below. The Indonesian one is the odd one out and its bullet says why: **its exam
+  board publishes no word list at all**, so unlike every other deck here its vocabulary is assembled
+  rather than read, and the deck's own description states that in those words.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4618,6 +4621,106 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
+- `.claude/ukbi/` — the generator behind `decks/UKBI-1-Terbatas-Indonesian.folio-deck.json` (**500 notes /
+  1,000 cards**, 536 KB): `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
+  corpora in `.claude/ukbi-cache/` (~175 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
+  and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
+  **ONE LEVEL PER RUN** (`ukbi_level` reads the level once, at import), and a level is taught on top of the
+  ones below it, read out of the SHIPPED deck files so they cannot drift — the DELE arrangement exactly.
+  **THE LEVELS ARE NUMBERED FROM THE BOTTOM, which is the opposite of how UKBI prints them.** UKBI reports a
+  *peringkat* I–VII from the TOP down, so Istimewa is I and **Terbatas is VII, score 251–325, the lowest**. A
+  learner meets them the other way up, so the decks are numbered in the order they are studied and the
+  predicate's own name is carried in the title. Level 1 is Terbatas; the other six are laid out in
+  `ukbi_level.py` and none is built.
+  **THE ONE FACT THE WHOLE GENERATOR RESTS ON: UKBI PUBLISHES NO VOCABULARY LIST.** It is a proficiency test
+  rather than a syllabus — it reports a score and a predicate, and the Badan Bahasa publishes descriptors of
+  what a candidate at each predicate can DO, never the words they should know. Neither does BIPA:
+  Permendikbud 27/2017 sets the Standar Kompetensi Lulusan in competences. **This was checked before anything
+  was built**, because the alternative was to imply an official list that does not exist. That is the
+  substantial difference from the siblings — the Goethe decks read the exam board's own printed Wortliste and
+  the DELE decks the Instituto Cervantes' Plan curricular, so in both the board chooses the vocabulary and the
+  generator only reads it. **Here the generator chooses it, and the deck's own description says outright that
+  it does.** What keeps that from being arbitrary is that both inputs are stated: the level's SCOPE is UKBI's
+  own descriptor — Terbatas is "berkomunikasi untuk keperluan **sintas**", survival communication — which is
+  what `supplement.py` is an inventory of, and the ORDER and the fill are corpus frequency. **Ask whether an
+  exam board publishes a word list before assuming the sibling's shape transfers.**
+  Nine things it settled are worth carrying.
+  **THE AFFIX FAMILY IS INDONESIAN'S ANSWER TO A PARADIGM, AND IT IS THE WHOLE POINT OF THE CARD.** The
+  siblings spend their card on morphology a learner cannot guess — German's gender and plural, Spanish's
+  conjugation, Mandarin's character breakdown — and Indonesian has none of that: no gender, no agreement, no
+  conjugation, no tense. What it has instead is a family of derived words around a root, so the card carries
+  `lihat` / `melihat` / `dilihat` labelled **root, active and passive** (77 of the 500; 42 show a passive,
+  which Indonesian uses far more readily than English). **The forms are READ from the dictionary and never
+  derived by stripping affixes**, because `meN-` assimilates and swallows the root's first consonant:
+  `tulis` → `menulis` but `nanti` → `menanti`, and no rule can undo that without a dictionary.
+  **THE CLITICS ARE THE ONE THING THAT CAN SAFELY BE STRIPPED**, and doing it recovers a fifth of the
+  frequency list: Indonesian writes `-ku`, `-mu`, `-nya` onto the word, so a surface list counts `ayahku`
+  apart from `ayah` and 342 of the top 1,500 are absent from the dictionary largely because of it. Those are
+  pure suffixes with no sound change, which is exactly what the prefixes are not.
+  **THE FAMILY RELATION POINTS BOTH WAYS IN THE SOURCE, so it is a UNION-FIND and not a walk.** `mengirim`'s
+  paradigm names `kirim` as its base and `kirim`'s own entry is glossed "infinitive, imperative and colloquial
+  of mengirim" — a two-element cycle — and chains occur too (`kata` → `katakan` → `mengatakan`). Union-find
+  flattens both without having to decide which arrow is true, and **the headword is then the family's most
+  frequent member**, which is what stops the deck teaching `erti`: it is used nineteen times in the corpus
+  against 47,243 for `mengerti`, and it is Malay rather than Indonesian.
+  **A WORD WITH ANY LIVE ENTRY OF ITS OWN IS A HEADWORD, and that single line saves `mereka`.** It carries
+  two entries — the third-person plural pronoun, and a verb form glossed "active of reka" — and a rule that
+  merged on the existence of any derived entry would have filed **"they" under the root "to devise"** and
+  deleted the commonest plural pronoun in the language from a beginners' deck. Measured: 128 of the top 1,500
+  carry a derived reading and eleven of those also carry an unrelated live one.
+  **`informal` AND `colloquial` ARE NOT THE SAME TAG AND MUST NOT BE TREATED ALIKE.** UKBI tests bahasa baku,
+  so the nonstandard family is dropped (`nggak`, `gue`, `banget`, `dimana`) — but `kamu` and `aku` are tagged
+  `informal`, which is the familiar register OF the standard language, and they are the first and thirty-first
+  commonest words there are. The blanket rule took `kamu`, `aku`, `saya` and `Anda`; the narrow one drops 584
+  words of 50,000 and keeps all four. **And it must read EVERY sense, not the first**: `bumi`, `kereta`,
+  `pasukan`, `ratu` and `tangkap` all open on an alt-of and carry the ordinary meaning further down.
+  **`Anda` IS CAPITALISED AND THAT IS NOT A TYPO** — the dictionary files the lowercase form as an
+  alternative letter-case spelling — so the frequency lookup is case-insensitive or the standard formal
+  pronoun ranks on nothing. It also earns `Minggu` (Sunday) and `minggu` (week) as two separate cards.
+  **THE SAME EXCLUSION IS RIGHT AT ONE STAGE AND WRONG AT THE NEXT.** `select.py` excludes proper nouns —
+  2,153 of the dictionary's entries are names and a frequency-ranked pool fills with them — and carrying that
+  into the GLOSSING stage refused **all twelve months and two days** for having no meaning, Wiktionary filing
+  `April`, `Mei` and half the week as names. A survival deck with no word for Monday is the exact failure
+  `supplement.py` exists to prevent, reintroduced one stage further down. Choosing and glossing are different
+  questions; ask which one a filter is answering.
+  **A PHRASE MUST BE WRITTEN ON A LINE OF ITS OWN, NEVER INFERRED FROM A LINE OF SINGLE WORDS.** The
+  supplement reader scanned each line for the longest run that happened to be a dictionary entry, and
+  Indonesian compounds freely: `kopi teh susu` resolved as `kopi` plus `teh susu`, which is a real entry
+  meaning milk tea, so the deck silently lost its words for tea and for milk. It shipped at rank 500 with a
+  frequency of zero, **which is the only reason it was seen**. The opposite failure is the DELE's own — a bare
+  `.split()` tore `o sea` in two — and here it would break `terima kasih`, `rumah sakit`, `di mana`,
+  `dua belas` and `kamar mandi`, a fifth of the survival core.
+  **A PHRASE CANNOT APPEAR IN A SEGMENTED FREQUENCY LIST AT ALL**, so all nineteen scored zero and sorted
+  last, behind `sialan` — `terima kasih` among the very last cards of a survival deck. They are counted in the
+  Tatoeba corpus the pipeline already downloads and calibrated onto the subtitle scale through the single
+  words, which carry both, on the MEDIAN ratio so that one wildly disagreeing word cannot drag the scale.
+  `terima kasih` lands at rank 276 and `di sini` at 91. The DELE's rejected fallback — giving a phrase the
+  rank of its rarest component — is rejected here for its own reason: it is a true ceiling and a hopeless
+  estimate.
+  **AND ITS REAL LIMITATION IS THE CORPUS THE FILL COMES FROM, which is stated rather than smoothed over.**
+  The 123 words not in the survival inventory are the commonest words of film dialogue, so `membunuh` (to
+  kill) outranks `air` (water) and `sialan`, `bodoh` and `polisi` all arrive before a word for food or a day
+  of the week. That is an accurate description of what people say in films and a poor one of what a beginner
+  needs, which is why 377 of the 500 come from the inventory instead; the deck's description says which half
+  is which. Tatoeba's Indonesian is small — 28,192 sentences, 22,023 with an English pair, against hundreds of
+  thousands for Spanish — and was **measured before the level was built rather than assumed**: 495 of the 500
+  words occur at least once and 486 at least three times, so 488 cards carry three sentences and two carry
+  none.
+  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (42 assertions), and it exists because
+  `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything Indonesian the
+  deck is FOR is unchecked by anything until there. Every fault it hunts is quiet: a dropped forms row leaves
+  a good card that has stopped teaching the hard part, a colloquial form that slips the filter looks exactly
+  like a word, and a torn phrase leaves two ordinary cards. So it asserts the closed SETS whole (all seven
+  days, all twelve months, one to ten, the question words), that no colloquial form is taught while every
+  standard one is, that tea and milk survived as two words, and — on the page, after walking to a card that
+  has one — that the family row renders with its labels and marks which form is being asked for. **It runs
+  under `reducedMotion`**, or every screenshot is a card caught half way through its fade. Two things that
+  bit: `.grade` carries `data-g` ITSELF, so a descendant selector matches nothing and the walk stands still
+  at zero cards; and **studying 240 cards levels the reader up, and a level buys an artefact chest** whose
+  modal overlay intercepts the pointer and stops the walk on a timeout naming an SVG.
+  **Re-running it must reproduce the shipped deck byte for byte** (a fixed `STAMP`, no clock read anywhere);
+  that is the check to make after any edit, since every fault above is silent. **A community deck is not a
+  change to Folio**, so this one gets no changelog line and no version bump. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   **A BATCH TOOL RE-SERIALIZES THE WHOLE CARD, NEVER A LIST OF FIELDS** (Aug 2026, after this one stripped
   every card's rating). It kept a private copy of `serializeCardData`'s field list and emitted only what

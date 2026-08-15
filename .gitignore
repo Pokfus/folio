@@ -34,6 +34,11 @@ node_modules/
 # run.py imports one stage from another, so Python leaves bytecode beside them
 __pycache__/
 
+# the corpora .claude/ukbi/run.py builds the Indonesian deck from (~175 MB, the English half
+# of the Tatoeba corpus being most of it), plus the intermediate files between its stages. The
+# deck it writes IS committed — this is only the working cache behind it.
+.claude/ukbi-cache/
+
 # The A2 and B1 German decks are deliberately NOT in the repo (on request, Aug 2026): it is a file
 # to hand a reader for import, not something the site should carry. It is built by
 # `python3 .claude/goethe/run.py --level a2`, which writes it here beside the A1 deck, so
