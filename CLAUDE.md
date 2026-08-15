@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-020` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-021` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 20 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 21 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10272,6 +10272,30 @@ to fruit — so `cnh-019`'s peach clause, which carries a Werner marker among it
 that gives a different figure. The clause is compound and each marker carries part of it, so it was left
 standing; what this card does is state the divergence outright rather than pick a number. **Two sources
 disagreeing about a figure is a fact to carry, not a tie to break.**
+**`cnh-021` IS THE CROSS-REFERENCE RULE PAYING A THIRD TIME, AND IT IS THE CHEAPEST RESEARCH ON THE
+DECK** (Aug 2026). Mayers's Penglai entry is four lines and closes "See Sü She" — a pointer to his own
+no. 647, which carries the whole reason a fleet ever sailed: Xu Fu's memorial to the First Emperor, the
+several thousand young men and women, and the expedition never returning. A second pointer, to An-ch'i
+Shêng, gives the immortal the emperor was told to look for. **A 19th-century reference work's
+cross-references are locators, and here both of them were into the SAME book** — cnh-018's rule at its
+most economical, two fetches for two thirds of a card.
+**PENGLAI AND XU FU ARE BOTH OWNED BY THEIR NAMESAKES, WHICH IS WHY NO MODERN SOURCE WAS FOUND.**
+DOAJ on `Penglai` returns the Shandong city's geology and medicine, and on `Xu Fu` a common surname —
+the Gonggong dwarf planet and the Kunlun warship a third and fourth time. Searching the characters
+worked for the PICTURE and not for the literature, there being no open scholarly article on the isle
+reachable from here at all; the card is carried entirely by the out-of-copyright shelf, which for this
+subject is where the material is.
+**FOUR PICTURES WERE REJECTED AND THE ONE TAKEN SHOWS THE VOYAGE RATHER THAN THE ISLAND**, which is the
+honest answer for a place nobody has seen: the Met's *Palaces of the Immortals* is a fan, so the fan
+shape and its photographic colour-calibration bar both ship with it; the Han hill censers are the right
+idea and **no source connects any of them to Penglai by name**, so a `desc` would be composing one; and
+the modern Penglai city model is a town. Kuniyoshi's triptych of Xu Fu's fleet, at the Museum of Fine
+Arts, Boston, is named, dated and public domain.
+**AND ITS ONE FALSE ALARM WAS THE HARNESS'S OWN FIXTURE.** `check12.js` seeds `newPerDay: 20`, which
+had exactly equalled the corpus size, so the session dealt twenty cards and reported "no card at slot
+21" — a test fixture's daily cap reading as a missing card, on the one run where a missing card was the
+likeliest explanation. **A seeded limit that happens to equal the data is a limit nobody notices until
+the data passes it**; it is 200 now.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
