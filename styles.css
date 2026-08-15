@@ -5661,10 +5661,16 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .community-group{margin-top:34px;}
 .udeck-intro{margin:0 0 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.6; color:var(--ink-soft); max-width:62ch;}
 .udeck-actions{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px;}
-/* a deck of your own reads as clearly not-curated: a dashed rule instead of a collection's hue wash */
-.collection.udeck > .collection-row{background:var(--card); border:1.5px dashed var(--rule); border-left-width:3px; border-left-style:solid; border-left-color:var(--ink-faint);}
+/* a deck of your own reads as clearly not-curated: a DASHED rule, where a collection's is solid.
+   The dash is the marking and it stays whatever else changes — it is the thing telling a reader this
+   content is not fact-checked by Folio, which is the distinction the whole community/curated split
+   exists to make. What is no longer withheld is the hue wash: a deck may carry a colour its author
+   chose (Aug 2026), the home page's row has always drawn it, and hiding it here alone left one deck
+   wearing two different identities on two pages. `udeckRowHTML` emits the deco element ONLY where
+   there is a hue, so a colourless deck's row is exactly what it always was — which is why this needs
+   no `:has()` test and why the rule that used to hide the deco outright could simply go. */
+.collection.udeck > .collection-row{background:var(--card); border:1.5px dashed var(--rule); border-left-width:3px; border-left-style:solid; border-left-color:var(--coll-bg, var(--ink-faint));}
 .collection.udeck > .collection-row:hover{border-left-color:var(--indigo);}
-.collection.udeck .collection-deco{display:none;}
 .udeck-sub{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); margin:1px 0 5px;}
 .udeck-edit{display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; border:1px solid var(--rule); background:transparent; color:var(--ink-faint); cursor:pointer; transition:color .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);}
 .udeck-edit svg{width:14px; height:14px; display:block;}

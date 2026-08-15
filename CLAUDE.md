@@ -5371,6 +5371,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **SPANISH IS THE ONE TO WATCH.** At 16,782 notes and 56.5 MB it is 38% of the note cap and 44% of the
     byte cap, which is comfortable — but it is also the only one of the five that grew by a whole exam
     ladder in a day, and the next such growth is what would need it split by band rather than by language.
+  · **EACH DECK SHIPS SHELVED, ICONED AND COLOURED** (`SHELF` / `LANGS[].color`; Aug 2026, on request — see
+    the shelf bullet under "Collections layout"): `shelf: "Languages"`, `icon: "language"` and one of the
+    curated eight `GROUP_COLORS`, so the five arrive as a section of their own rather than as five rows in
+    an undivided pile. The colours are five of the app's own eight rather than new ones — a deck should
+    arrive in a colour the reader could have chosen for it, which is the rule the Studio's picker was built
+    on — and all three are DEFAULTS a reader's own choice still overrides. **The title is the language and
+    nothing else**, with the syllabus moved into the subtitle: "Mandarin — HSK 1–2 and HSK 3.0, with phrases
+    and idioms" wraps to two lines on a desktop row and buries the one word being looked for.
+  · **AND IT CHECKS ITS OWN FIELDS AGAINST `UDECK_META_KEYS`** (`checkMetaKeys`), for the reason it reads the
+    caps off app.js: `uDeckNormalize` copies that list and drops everything else, so a field written here and
+    not listed there is written, imported and silently gone — the file is valid, the deck imports, and the
+    only symptom is a shelf that never appears.
   A rebuild reproduces every deck **byte for byte** (`updatedAt` comes from the files that fed each
   language, not the clock), which is the standing check here and the only way to tell a deliberate change
   from a re-run. Nothing is written unchecked: each file is re-parsed, measured against both caps, its ids
@@ -10038,6 +10050,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (the reader's own, and the way into the Studio), then **Shared decks** (Aug 2026, on request — the browse
   list that used to be `PAGES.community`, a page of its own; see the Phase 2 Pages bullet for the route, the
   redirect and the sortable table). The order is the point: your own shelf first, strangers' below it, one page.
+  **…AND A READER'S OWN DECKS MAY BE SHELVED, which adds a section per shelf between Collections and Coming
+  soon** (`deck.shelf` / `deckShelves` / `deckShelvesHTML`; Aug 2026, on request — a reader with five language
+  decks asked why there was no language section on this page). A deck names a shelf and the decks naming the
+  same one are drawn together under it; a deck naming none stays in the undivided "Your decks" list, which is
+  where everything starts and which is still the only place to import or write one. Six things.
+  · **THE ASK WAS "MAKE THEM REAL COLLECTIONS" AND THAT IS NOT POSSIBLE, which is worth writing down so it is
+    not attempted again.** A curated collection's cards live in `data.js`, which is EAGER — the whole point of
+    the 2026-08-08 translation removal was to get that path down, and five language decks are 165 MB against
+    it. They are also a different KIND of card: a collection's is the Basic thirteen fields, cited at
+    `SRC_TARGET` and rated, where these carry `type` + `fields` and render through templates, which is a
+    community-deck feature `CARD_DATA` has no notion of. And the citation bar is not one vocabulary could meet
+    or should. So what was built is the presentation rather than the data model: the shelf is where the
+    reader's own subjects go, and it is billed like a collection without pretending to be one.
+  · **A SHELF CHANGES WHERE A DECK IS DRAWN AND NOTHING ELSE.** Same row, same study path, same marking —
+    each shelf still says its decks are **not fact-checked by Folio**, and the row keeps its DASHED rule,
+    because that distinction is what the community/curated split exists for and moving a deck up the page
+    must not quietly retire it. What the shelf sits above is **Coming soon**, which lists collections that
+    cannot be studied at all: material somebody is working through outranks a placeholder.
+  · **A SHELVED DECK IS DRAWN ONLY ON ITS SHELF.** Two copies of one row leave a reader working out which is
+    the real one — the Library's rule about a starred book not being repeated under "Everything else". So the
+    "Your decks" empty line has to know the difference between *no decks* and *all of them shelved*, or the
+    page contradicts itself in the one place a reader looks when something is missing.
+  · **THE HUE WASH IS NO LONGER WITHHELD FROM A COMMUNITY DECK** (`.collection.udeck .collection-deco
+    {display:none}` is gone). A deck has been able to carry a colour its author chose since Aug 2026 and the
+    HOME page's row has always drawn it; hiding it here alone left one deck wearing two identities on two
+    pages. `udeckRowHTML` emits the deco element only where there IS a hue, so a colourless deck's row is
+    byte-for-byte what it always was and the rule needed no `:has()` test. The left rule takes the hue too
+    (`var(--coll-bg, var(--ink-faint))`), and `--coll-bg` is set on the OUTER element so the row, its bar,
+    its icon and its subdeck rows all inherit it — where line 19163 sets it for a curated collection.
+  · **THE ICON IS A KEY, NEVER MARKUP** (`deck.icon` → `COLLECTION_ICON`). A deck file is a stranger's file,
+    so it may not hand over SVG; it names a row in the table Folio already ships and an unknown key falls
+    through to the stack of cards. It is validated by SHAPE at ingest and resolved at RENDER, because that
+    table is declared thousands of lines below the sanitizer and naming it there would put a boot-time
+    sanitize inside its temporal dead zone — the same reasoning the `color` field's own note records.
+    `language` (two speech bubbles) is the first entry added for a deck to ask for.
+  · **A SHELF IS NOT PUBLISHED**, deliberately. It travels in the FILE — which is how a set of decks is
+    handed over in one piece — and is absent from `uDeckRemotePayload`, since a shelf is how the READER
+    arranges their own page and an installed deck landing on a heading its author chose would be
+    rearranging somebody else's. `shelf` rides in `UDECK_TEXT_FIELDS` (so `uDeckSetMeta` and the Studio's
+    "Shelf" field get it free) and both it and `icon` in `UDECK_META_KEYS` — **a field written into a deck
+    file and not listed there is written, imported and silently gone**, which is why `split-decks.js`
+    checks the two against each other rather than assuming they agree.
   "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who

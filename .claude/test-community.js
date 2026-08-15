@@ -278,6 +278,62 @@ async function typeField(page, field, text) {
   check("javascript: href stripped", rendered.jsHref === 0);
   check("legitimate formatting kept", rendered.keptBold === 1, "b=" + rendered.keptBold);
 
+  /* ---- 9b. shelving a deck ----
+     A deck names a shelf and is drawn in a group of its own on the Collections page, above the undivided
+     "Your decks" list. Everything here fails SILENTLY: a dropped meta key leaves the deck exactly where it
+     was, and a group in the wrong place reads as a design choice rather than a bug. So the assertions are
+     about POSITION — measured against the two groups it has to sit between — and about the row landing in
+     exactly ONE of them, which is what a second copy of a row would break.
+     It shelves ONE of the decks on purpose. With every deck shelved a broken split still looks tidy; with
+     one shelved and the others left alone, a rule that moved everything or nothing fails here. */
+  await page.goto(base + "#studio", { waitUntil: "load" });
+  await page.waitForTimeout(800);
+  /* The Studio remembers the deck it was last in (studioState.deck), and section 9 left it inside the
+     imported deck — so #studio opens that editor rather than the list, and [data-open] is not on the page
+     at all. #stAll is the deck editor's own way back to the list. */
+  if (await page.$("#stAll")) { await page.click("#stAll"); await page.waitForTimeout(500); }
+  await page.click('[data-open]');            // the first deck in the list — "Roman Republic"
+  await page.waitForTimeout(400);
+  await page.click(".studio-settings > summary");
+  await page.fill('[data-meta="shelf"]', "Languages");
+  await page.waitForTimeout(400);
+  await page.goto(base + "#decks", { waitUntil: "load" });
+  await page.waitForTimeout(900);
+  const shelf = await page.evaluate(() => {
+    const groups = [...document.querySelectorAll(".collection-group")].map((g) => ({
+      label: ((g.querySelector(".group-label") || {}).textContent || "").trim(),
+      top: g.getBoundingClientRect().top + window.scrollY,
+      rows: [...g.querySelectorAll("[data-udeck]")].length,
+      warns: /not fact-checked/i.test(g.textContent || ""),
+    }));
+    const by = (n) => groups.find((g) => g.label === n);
+    return { labels: groups.map((g) => g.label), shelf: by("Languages"), yours: by("Your decks"), colls: by("Collections") };
+  });
+  check("a shelf becomes its own group", !!shelf.shelf, JSON.stringify(shelf.labels));
+  check("the shelved deck is on it", shelf.shelf && shelf.shelf.rows === 1, shelf.shelf && shelf.shelf.rows);
+  check("and is not repeated under Your decks", shelf.yours && shelf.yours.rows === 2, shelf.yours && shelf.yours.rows);
+  check("the shelf sits below Folio's own collections",
+    shelf.shelf && shelf.colls && shelf.shelf.top > shelf.colls.top);
+  check("…and above the undivided Your decks list",
+    shelf.shelf && shelf.yours && shelf.shelf.top < shelf.yours.top);
+  check("a shelf still says its decks are not fact-checked", shelf.shelf && shelf.shelf.warns);
+  // the shelf has to survive a round trip through the store, or it is a render-time flourish that is gone
+  // by the next boot — and through the FILE, since that is how a set of decks is handed to somebody
+  const shelfKept = await page.evaluate(async () => {
+    const db = await new Promise((res, rej) => { const r = indexedDB.open("folio-community"); r.onsuccess = () => res(r.result); r.onerror = rej; });
+    const rows = await new Promise((res, rej) => {
+      const t = db.transaction("decks", "readonly").objectStore("decks").getAll();
+      t.onsuccess = () => res(t.result); t.onerror = rej;
+    });
+    db.close();
+    return rows.map((r) => (r.meta || {}).shelf || "").filter(Boolean);
+  });
+  check("the shelf is stored, not just drawn", shelfKept.length === 1 && shelfKept[0] === "Languages", JSON.stringify(shelfKept));
+  // hand section 10 back the page it expects: it reloads to reach the Studio's deck LIST (studioState is
+  // in memory, so a reload clears the open deck), and reloading #decks would leave it nowhere near one
+  await page.goto(base + "#studio", { waitUntil: "load" });
+  await page.waitForTimeout(700);
+
   // ---- 10. delete ----
   // reload rather than goto: we are already on #studio (inside a deck), and a same-URL goto is a
   // fragment navigation that would leave the deck editor open instead of returning to the list

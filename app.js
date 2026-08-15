@@ -5916,10 +5916,13 @@
   const uSH = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeHTML(v));
   const uSP = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizePlain(v));
   const uSCSS = (v) => (_uTrusted ? String(v == null ? "" : v) : sanitizeCSSText(v));
-  const UDECK_TEXT_FIELDS = ["title", "subtitle", "desc", "author", "language"];
+  const UDECK_TEXT_FIELDS = ["title", "subtitle", "desc", "author", "language", "shelf"];
+  // one cap per field, shared by the ingest sanitizer and the Studio's own setter — written twice, the two
+  // disagree, and a shelf typed in the Studio would be trimmed to something else on the next load
+  const metaCap = (f) => (f === "desc" ? 2000 : f === "shelf" ? 40 : 200);
   function uDeckSanitizeMeta(m) {
     const o = {};
-    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = uSP(m && m[f]).slice(0, f === "desc" ? 2000 : 200); });
+    UDECK_TEXT_FIELDS.forEach((f) => { o[f] = uSP(m && m[f]).slice(0, metaCap(f)); });
     /* `typeof` first, because String(undefined) is the WORD "undefined" — nine lowercase letters, which
        matches the pattern below and handed a deck file with no id of its own the literal id `undefined`.
        It was survivable while uDeckImportText caught the falsy id downstream and renamed everything; it
@@ -5936,6 +5939,20 @@
        boot-time sanitize inside its temporal dead zone. The Studio offers the curated eight; the store
        accepts any hex, which is what keeps a hand-written deck file readable. */
     o.color = /^#[0-9a-fA-F]{6}$/.test(String(m && m.color)) ? String(m.color) : "";
+    /* THE SHELF THIS DECK BELONGS ON, and the icon it wears there (Aug 2026, on request: a reader with
+       five language decks wanted them presented as subjects rather than as five rows in one undivided
+       pile). A shelf is a free-text heading the Collections page groups by — decks naming the same one are
+       drawn together under it, above the ungrouped "Your decks" list — so a reader's own material can be
+       organised without the site knowing anything about what it is.
+       It is deliberately NOT sent when a deck is published: a shelf is how the READER arranges their own
+       page, and an installed deck landing on a shelf its author chose would be rearranging somebody else's
+       page for them. It travels in the FILE, which is how a set of decks is handed over in one piece.
+       (`shelf` itself is an ordinary text field and is cleaned with the rest of them above.)
+       The ICON is a KEY into COLLECTION_ICON and is validated by SHAPE alone, then resolved at render —
+       the same reasoning the colour above records: that table is declared thousands of lines further down,
+       so naming it here would put a boot-time sanitize inside its temporal dead zone. An unknown key falls
+       through to the stack of cards, which is what a deck with no icon at all already gets. */
+    o.icon = /^[a-z0-9-]{1,24}$/.test(String(m && m.icon)) ? String(m.icon) : "";
     o.glossMode = GLOSS_MODES.indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
     o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
@@ -6424,7 +6441,7 @@
     (norm.cards || []).forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
-  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "color", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
+  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "color", "shelf", "icon", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
   const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
   function uDeckMetaRecord(d) {
     const meta = {};
@@ -6587,7 +6604,7 @@
   function uDeckSetMeta(deckId, field, value) {
     const d = UDECKS[deckId];
     if (!d || UDECK_TEXT_FIELDS.indexOf(field) < 0) return;
-    d[field] = sanitizePlain(value).slice(0, field === "desc" ? 2000 : 200);
+    d[field] = sanitizePlain(value).slice(0, metaCap(field));
     uDeckSave(deckId);
   }
   function uDeckSetTags(deckId, str) {
@@ -16049,6 +16066,10 @@
     ww2: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>',
     // torii gate
     japan: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>',
+    /* two speech bubbles in conversation — for a LANGUAGE deck, and the first entry here a community deck
+       can ask for by name (`deck.icon`). They are set nearly clear of each other rather than overlapping
+       in the usual way: this renders at 28px on a deck row, where a crossed pair reads as one blob. */
+    language: '<path d="M3 4h10.5v6.5H8L5 13V10.5H3z"/><path d="M21 11.5H10.5V18H16l3 2.5V18h2z"/>',
     // fallback — a stack of cards
     _: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>',
   };
@@ -18632,6 +18653,10 @@
       ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
             list of collections — the label contradicted both that and the page title above it. */""}
       ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
+      ${/* The reader's own shelves sit here — under Folio's collections, which is where the community/
+            curated distinction puts them, and above "Coming soon", which lists collections that cannot be
+            studied at all. A shelf is material somebody is working through; a placeholder is not. */""}
+      ${deckShelvesHTML()}
       ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
       ${communityLibraryHTML()}
       ${sharedDecksHTML()}`;
@@ -18657,9 +18682,23 @@
     const n = uDeckStudyIds(d.cardIds || []).length, studied = uDeckStudied(d);
     const entry = uDeckEntry(d.id), on = isActive(entry);
     const installed = !uDeckIsMine(d);
-    return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
+    /* The deck's own hue, set where a curated collection sets its COLL_THEME one — on the OUTER element,
+       so the row, its progress bar, its icon and its subdeck rows' hairlines all inherit it, exactly as
+       line-for-line they do inside a collection. A reader who recoloured the row on the home page wins
+       over the author's default, which is the same order `emit` uses there: one deck, one colour, whichever
+       page it is being looked at from. A deck with neither falls through to the `--indigo` every rule in
+       styles.css already declares as its fallback, so a colourless deck's row is what it always was. */
+    const hue = groupColor(entry) || d.color || "";
+    return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '"' +
+      (hue ? ' style="--coll-bg:' + esc(hue) + '"' : "") + '>' +
       '<div class="collection-row" role="button" tabindex="0" data-udeck="' + esc(d.id) + '">' +
-        collectionIconMarkup(d.id) +
+        /* the same wash a curated collection's banner carries, and ONLY where the deck has a hue of its
+           own: every rule that draws it falls back to `#888`, so emitting it unconditionally would put a
+           grey wash behind every colourless deck on the page — a change to decks nobody asked to change. */
+        (hue ? '<div class="collection-deco" aria-hidden="true"></div>' : "") +
+        // the deck's own icon key where its file names one, else the id — which for a community deck has
+        // no row in the table and falls through to the stack of cards, exactly as it always did
+        collectionIconMarkup(d.icon || d.id) +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
             '<span class="collection-title">' + esc(d.title) + '</span>' +
@@ -18723,8 +18762,45 @@
       uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
     return '<div class="udeck-subs">' + uSubChildren(d.id, "").map((s) => row(s, 0)).join("") + '</div>';
   }
+  /* ---------- shelves ----------
+     A deck may name a SHELF, and decks naming the same one are drawn together under it, directly below
+     Folio's own collections and above the undivided "Your decks" list (Aug 2026, on request). What it is
+     for: a reader with five language decks has five subjects, and one flat list headed "Your decks" says
+     they are five files. A shelf is the reader's own heading over their own material.
+
+     It changes WHERE a deck is drawn and nothing else. The row is the same row, the marking is the same
+     marking — each shelf still says the decks under it are not fact-checked by Folio, because that is the
+     distinction the whole community/curated split exists to make and moving a deck up the page must not
+     quietly retire it. A shelved deck is drawn ONLY on its shelf: two copies of one row would leave a
+     reader working out which is the real one, which is the same reason a starred book is not repeated
+     under "Everything else" in the Library. */
+  function deckShelves() {
+    const by = new Map();
+    uDeckList().forEach((d) => {
+      const s = (d.shelf || "").trim();
+      if (!s) return;
+      if (!by.has(s)) by.set(s, []);
+      by.get(s).push(d);
+    });
+    return [...by.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  }
+  function deckShelvesHTML() {
+    return deckShelves().map(([name, decks]) =>
+      '<div class="collection-group community-group">' +
+        '<div class="group-head"><span class="group-label">' + esc(name) + '</span><span class="group-line"></span>' +
+          '<span class="group-count">' + decks.length + '</span></div>' +
+        '<p class="udeck-intro">Your own decks, shelved together. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>.</p>' +
+        '<div class="collection-list">' + decks.map(udeckRowHTML).join("") + '</div>' +
+      '</div>').join("");
+  }
   function communityLibraryHTML() {
-    const decks = uDeckList();
+    const all = uDeckList(), shelved = deckShelves().reduce((n, s) => n + s[1].length, 0);
+    const decks = all.filter((d) => !(d.shelf || "").trim());
+    /* The empty line has to know whether the reader has no decks or only shelved ones — "No decks yet"
+       above five of their own decks would be the page contradicting itself. */
+    const empty = shelved
+      ? '<div class="lib-empty">Everything you have is on a shelf above. New decks land here until you give them one.</div>'
+      : '<div class="lib-empty">No decks yet. Write one, or import a deck file someone sent you.</div>';
     return '<div class="collection-group community-group">' +
       '<div class="group-head"><span class="group-label">Your decks</span><span class="group-line"></span><span class="group-count">' + decks.length + '</span></div>' +
       '<p class="udeck-intro">Decks you write yourself, and decks you install from other people. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>.</p>' +
@@ -18732,10 +18808,10 @@
         '<button class="btn" type="button" id="udNew">New deck</button>' +
         '<button class="btn ghost" type="button" id="udBrowse">Browse shared decks</button>' +
         '<button class="btn ghost" type="button" id="udImport">Import a deck…</button>' +
-        (decks.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
+        (all.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
       '</div>' +
       '<div class="collection-list">' +
-        (decks.length ? decks.map(udeckRowHTML).join("") : '<div class="lib-empty">No decks yet. Write one, or import a deck file someone sent you.</div>') +
+        (decks.length ? decks.map(udeckRowHTML).join("") : empty) +
       '</div>' +
     '</div>';
   }
@@ -20873,6 +20949,10 @@
     ["title", "Title", "text", "What is this deck about?"],
     ["subtitle", "Subtitle", "text", "One short line under the title"],
     ["author", "Author", "text", "Your name or handle — travels with the file"],
+    /* The shelf this deck is drawn on, on the Collections page. Free text on purpose: it is the reader's
+       own heading over their own material, and a closed list would be Folio deciding what somebody's
+       decks are about. Blank means the undivided "Your decks" list, which is where everything starts. */
+    ["shelf", "Shelf", "text", "Group it with your other decks — e.g. Languages"],
   ];
 
   PAGES.studio = function (root) {

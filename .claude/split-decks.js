@@ -59,15 +59,37 @@ const APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
 const MAX_CARDS = appConst("UDECK_MAX_CARDS", APP);
 const MAX_BYTES = appConst("UDECK_MAX_BYTES", APP);
 
-/* Per language: the deck id it is written under, its BCP-47 code and how the deck names itself. The id must
-   match [a-z0-9]{4,16} (uDeckSanitizeMeta) and should not collide with a deck the reader may already hold —
-   these are deliberately not `goethea1`, `itall` and the rest, which are the ids of the parts. */
+/* A deck file may carry only the fields UDECK_META_KEYS names: uDeckNormalize copies that list and drops
+   the rest, so a field written here and not listed there is written, imported, and silently gone. That is
+   invisible from both ends — the file is valid, the deck imports, and the only symptom is a shelf that
+   never appears — so the two are checked against each other rather than assumed to agree. */
+(function checkMetaKeys() {
+  const m = /UDECK_META_KEYS\s*=\s*\[([^\]]*)\]/.exec(APP);
+  if (!m) die("UDECK_META_KEYS is not in app.js — a deck file's fields cannot be checked against it.");
+  const known = m[1].split(",").map((s) => s.trim().replace(/^["']|["']$/g, ""));
+  ["shelf", "icon", "color"].forEach((f) => {
+    if (known.indexOf(f) < 0) die("app.js's UDECK_META_KEYS does not carry `" + f + "`, so an imported deck "
+      + "would drop it. Add it there, or stop writing it here.");
+  });
+})();
+
+/* Per language: the deck id it is written under, its BCP-47 code, how the deck names itself, and the colour
+   it arrives in. The id must match [a-z0-9]{4,16} (uDeckSanitizeMeta) and should not collide with a deck the
+   reader may already hold — these are deliberately not `goethea1`, `itall` and the rest, which are the ids
+   of the parts.
+
+   THE COLOURS ARE FIVE OF THE CURATED EIGHT the Studio offers (GROUP_COLORS in app.js), not new ones. The
+   store accepts any six-digit hex, so a new palette was available and is not worth having: a deck ships in
+   a colour the reader could have chosen for it themselves, which is the rule the Studio's own picker was
+   built on, and five distinct hues out of eight is separation enough for a shelf of five. It is a DEFAULT —
+   recolouring the row on the home page still wins — so nothing here overrides a choice already made. */
+const SHELF = "Languages";
 const LANGS = {
-  French:   { id: "frenchvocab",   code: "fr", what: "DELF A1–C2 and expressions" },
-  German:   { id: "germanvocab",   code: "de", what: "Goethe A1–C2, vocabulary and phrases" },
-  Italian:  { id: "italianvocab",  code: "it", what: "CILS A1–C2, core vocabulary and phrases" },
-  Mandarin: { id: "mandarinvocab", code: "zh", what: "HSK 1–2 and HSK 3.0, with phrases and idioms" },
-  Spanish:  { id: "spanishvocab",  code: "es", what: "DELE A1–C2 and phrases, both directions" },
+  French:   { id: "frenchvocab",   code: "fr", color: "#2E6E8E", what: "DELF A1–C2 and expressions" },
+  German:   { id: "germanvocab",   code: "de", color: "#664C9A", what: "Goethe A1–C2, vocabulary and phrases" },
+  Italian:  { id: "italianvocab",  code: "it", color: "#1F6F5C", what: "CILS A1–C2, core vocabulary and phrases" },
+  Mandarin: { id: "mandarinvocab", code: "zh", color: "#9E2B25", what: "HSK 1–2 and HSK 3.0, with phrases and idioms" },
+  Spanish:  { id: "spanishvocab",  code: "es", color: "#C2701E", what: "DELE A1–C2 and phrases, both directions" },
 };
 
 function die(msg) { console.error("split-decks: " + msg); process.exit(1); }
@@ -174,16 +196,26 @@ for (const [lang, items] of [...langs.entries()].sort()) {
   const top = [...new Set(subs.map((s) => s.split(SEP)[0]))];
   const meta = {
     id: info.id,
-    title: lang + (info.what ? " — " + info.what : ""),
-    subtitle: cards.length.toLocaleString() + " words and expressions · " + nCards.toLocaleString() + " cards",
+    /* The title is the LANGUAGE and nothing else, with what the deck actually holds moved into the
+       subtitle underneath (Aug 2026). On a shelf these read as five subjects the way a collection's name
+       does; carrying the syllabus in the title gave "Mandarin — HSK 1–2 and HSK 3.0, with phrases and
+       idioms", which wraps to two lines on a desktop row and buries the one word being looked for. */
+    title: lang,
+    subtitle: (info.what ? info.what + " · " : "") + cards.length.toLocaleString() + " words and expressions",
     desc: "Every " + lang + " deck on this shelf in one file: " + top.join(", ") + ".\n\n"
       + "One subdeck per level, so adding the deck brings the levels and a level can be added on its own. "
       + "Each word is asked in both directions, and each direction keeps a schedule of its own.\n\n"
-      + "Split out of the combined all-languages deck, which is too large for any device to import.",
+      + "Split out of the combined all-languages deck, so the languages you study are the ones you add.",
     author: combined.meta.author || "",
     language: info.code,
     tags: ["vocabulary", "languages", lang.toLowerCase()],
-    color: combined.meta.color || "",
+    /* The shelf these five are drawn on together, above the undivided "Your decks" list, and the icon they
+       wear there. Both travel in the file and neither is sent when a deck is published — see the note on
+       `shelf` in uDeckSanitizeMeta for why a shelf is the reader's own arrangement rather than the
+       author's. `language` is a key into COLLECTION_ICON, resolved at render and ignored if unknown. */
+    shelf: SHELF,
+    icon: "language",
+    color: info.color || combined.meta.color || "",
     glossMode: combined.meta.glossMode || "off",
     types: types,
     version: 1,
@@ -208,6 +240,7 @@ for (const [lang, items] of [...langs.entries()].sort()) {
   if (bytes > MAX_BYTES) problems.push("over the " + Math.round(MAX_BYTES / 1048576) + " MB cap");
   if (!/^[a-z0-9]{4,16}$/.test(back.meta.id)) problems.push("deck id " + back.meta.id + " is not [a-z0-9]{4,16}");
   if (back.cards.some((c) => String(c.sub || "").startsWith(lang + SEP))) problems.push("language prefix left on a subdeck");
+  if (back.meta.shelf !== SHELF) problems.push("shelf missing");
 
   totalNotes += items.length;
   if (problems.length) { refused++; console.log("FAIL     " + file + "  " + problems.join(", ")); }
