@@ -110,7 +110,14 @@ const LOAN_OK = new Set(["élite", "tournée"]);
   const text = deck.cards
     .map((c) => [c.fields.Italian, c.fields.Word, c.fields.Forms, c.fields.Conjugation].join(" "))
     .join(" ");
-  const words = text.replace(/<[^>]*>/g, " ").match(/[A-Za-zÀ-ÿ']+/g) || [];
+  // **THE CONJUGATED PART IS MARKED INSIDE A WORD, SO A TAG IS NOT ALWAYS A WORD
+  // BREAK.**  Replacing every tag with a space -- right for two adjacent cells,
+  // which would otherwise weld into `facciofai` -- cuts `andò` into `and` and
+  // `ò`, and the sweep then reports three correctly-spelt forms as accented
+  // monosyllables (`ò à uò`, the tails of andò, andrà and può).  The intra-word
+  // marks come off with NOTHING in their place and everything else with a space.
+  const words = text.replace(/<span class="uc-cj-e">([^<]*)<\/span>/g, "$1")
+                    .replace(/<[^>]*>/g, " ").match(/[A-Za-zÀ-ÿ']+/g) || [];
   const wrong = new Set();
   for (const w0 of words) {
     // **AN ELIDED PROCLITIC IS NOT PART OF THE MONOSYLLABLE**, which is the same
@@ -283,6 +290,22 @@ const LOAN_OK = new Set(["élite", "tournée"]);
         })),
         ex: [...document.querySelectorAll(".uc-exz")].map((e) => e.textContent.trim()),
         bold: [...document.querySelectorAll(".uc-exz b")].map((e) => e.textContent.trim()),
+        // the conjugated part of each form, read AS RENDERED -- the marking is
+        // worth nothing if the stylesheet never reached it
+        ends: [...document.querySelectorAll(".uc-cj-e")].map((e) => e.textContent),
+        endStyle: (() => {
+          const e = document.querySelector(".uc-cj-e");
+          if (!e) return null;
+          const cs = getComputedStyle(e);
+          return { color: cs.color, weight: cs.fontWeight,
+                   stem: getComputedStyle(e.parentElement).color };
+        })(),
+        // a cell holding text OUTSIDE the marks, i.e. a stem left in the ordinary
+        // ink -- if every cell is marked whole the split has stopped working
+        cells: [...document.querySelectorAll(".uc-cj-f")].map((f) => ({
+          all: f.textContent,
+          marked: [...f.querySelectorAll(".uc-cj-e")].map((e) => e.textContent).join(""),
+        })),
       };
     });
     let shot = "";
@@ -365,6 +388,24 @@ const LOAN_OK = new Set(["élite", "tournée"]);
        "the passato prossimo is built with avere or essere", pp ? pp.rows[0] : "");
     ok(seen.verb.ex.length > 0, "the verb carries example sentences");
     ok(seen.verb.bold.length > 0, "the word is picked out in its sentence", seen.verb.bold.join(" "));
+
+    // ---- the conjugated part, as the reader sees it.  Every one of these fails
+    // silently: an unstyled mark is invisible, and a split that has stopped
+    // splitting leaves a table that still reads perfectly and teaches nothing.
+    const es = seen.verb.endStyle;
+    console.log("   endings: " + seen.verb.ends.slice(0, 8).join(" · ") +
+                "   " + JSON.stringify(es));
+    ok(seen.verb.ends.length > 0, "the conjugated part of each form is marked");
+    ok(es && Number(es.weight) >= 600, "it is bold", es && es.weight);
+    // red, and MEASURED rather than compared against a literal, so re-toning
+    // `--zh` moves this with it
+    const rgb = es && /^rgb\((\d+), (\d+), (\d+)\)/.exec(es.color);
+    ok(rgb && +rgb[1] > 150 && +rgb[1] > +rgb[2] + 40 && +rgb[1] > +rgb[3] + 40,
+       "and red", es && es.color);
+    ok(es && es.color !== es.stem, "the stem is left in the ordinary ink", es && es.stem);
+    const split = seen.verb.cells.filter((c) => c.marked && c.marked !== c.all);
+    ok(split.length > 0, "and a stem really is left unmarked in some cell",
+       JSON.stringify(seen.verb.cells.slice(0, 4)));
   } else ok(false, "a verb was reached");
   if (seen.adj) {
     console.log("   adj:    " + seen.adj.word + "   " + JSON.stringify(seen.adj.formList));

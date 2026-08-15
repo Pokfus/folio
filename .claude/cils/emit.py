@@ -473,6 +473,18 @@ meta = {
 deck = {'folioDeck': 1, 'exportedAt': 1786665600000, 'meta': meta,
         'cards': cards, 'gloss': {}}
 
+# **THE CONJUGATED PART OF EVERY FORM IS MARKED HERE, NOT IN THE CARD BUILDER.**
+# One implementation for all three languages, shared with the standalone pass
+# that patches a shipped deck -- see `.claude/bold-conjugations.py`, which states
+# what counts as the conjugated part and why it is not the stem of the verb.
+import importlib.util as _ilu
+_bcp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',
+                    'bold-conjugations.py')
+_spec = _ilu.spec_from_file_location('bold_conjugations', _bcp)
+_bc = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_bc)
+print(f'  marked the conjugated part in {_bc.mark_deck(deck)} conjugation tables')
+
 out = os.path.abspath(os.path.join('..', '..', 'decks', DECK_FILES[LEVEL]))
 with open(out, 'w', encoding='utf-8') as f:
     json.dump(deck, f, ensure_ascii=False)
