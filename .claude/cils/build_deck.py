@@ -627,9 +627,20 @@ def conjugation_html(e, rec):
             av = AUX_PRESENT[a][i]
             if a == 'essere':
                 plural = i >= 3
-                m = agree(part, 'm', plural)
-                f = agree(part, 'f', plural)
+                # **THE AGREEMENT GOES ON THE PARTICIPLE, NOT ON THE END OF THE
+                # PHRASE.**  A phrasal verb's participle field is the participle
+                # and then the rest of the expression (`andato a letto`), and
+                # inflecting that whole string puts the ending on the wrong word:
+                # `andare a letto` came out `noi siamo andato a letti/e`, which
+                # pluralises the bed and leaves the participle singular.  Split,
+                # agreed and rejoined it is `siamo andati/e a letto`.
+                # Inert on a single word, where the tail is empty.
+                head, _, tail = part.partition(' ')
+                m = agree(head, 'm', plural)
+                f = agree(head, 'f', plural)
                 pp = f'{m}/{f[-1]}' if f != m and len(f) > 1 else m
+                if tail:
+                    pp += ' ' + tail
             else:
                 pp = part
             rows.append((p, f'{av} {pp}'))
@@ -649,7 +660,14 @@ def adj_forms(rec, word):
     f = pick_form(rec, {'feminine'}, {'plural', 'superlative', 'diminutive'})
     mp = pick_form(rec, {'masculine', 'plural'}, {'superlative'})
     fp = pick_form(rec, {'feminine', 'plural'}, {'superlative'})
-    if not (f and mp and fp):
+    # **AN EXPRESSION HAS NO REGULAR AGREEMENT AND THE RULE MUST NOT BE GUESSED
+    # AT.**  `adj_forms_regular` is written for a single adjective and inflects
+    # the last letters it is given, so on a phrase it invents Italian: `in grado`
+    # came out with a feminine `in grada` and a plural `in gradi`, `senza parole`
+    # with `senza paroli`, `a due` with `a dui`.  86 cards carried forms that do
+    # not exist.  Where Wiktionary STATES a phrase's forms they are still shown --
+    # that is `pick_form` above, and it is reading rather than deriving.
+    if not (f and mp and fp) and ' ' not in word:
         reg = adj_forms_regular(word)
         if reg:
             f = f or reg['f']

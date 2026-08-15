@@ -4,7 +4,7 @@
  *
  * `check-cils.js` checks one level's cards: the articles, the paradigms, the
  * stress marks.  All of that is unchanged here, since the cards are the shipped
- * decks' own.  What IS new is everything about putting seven decks in one file,
+ * decks' own.  What IS new is everything about putting eight decks in one file,
  * and each of these fails silently:
  *
  *   · **A HEADWORD TWICE ACROSS BANDS.**  The six MindDory bands are strictly
@@ -48,8 +48,23 @@ const ok = (c, m, extra) => {
   else console.log("   ✓ " + m);
 };
 const strip = (s) => (s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-// the article a noun's headword carries, which is not part of the word
+// The article a NOUN's headword carries, which is not part of the word — and
+// only a noun's.  An expression that opens on an article (`lo stesso`,
+// `l'altro ieri`) keeps it, or the phrases deck reads as teaching `stesso`,
+// which A1 teaches as a determiner: two different entries reported as one word
+// twice.  Measured over all eight shipped decks: every article-prefixed
+// headword outside the phrases deck is a noun.  See `cils_level.strip_article`.
 const ART = /^(?:il|lo|la|i|gli|le)\s+|^l'/i;
+const POS = /uc-pos">([^<]*)</;
+// ANCHORED, because `noun` is a substring of `pronoun`: unanchored, `il quale`
+// is filed as a noun, loses its article, and is reported as A1's determiner
+// `quale` taught twice — which is how this rule failed its first run.
+const NOUN = /^(?:proper )?noun\b/i;
+const head = (c) => {
+  const w = strip(c.fields.Word);
+  const m = POS.exec(c.fields.English || "");
+  return (m && !NOUN.test(m[1].trim()) ? w : w.replace(ART, "")).trim().toLowerCase();
+};
 
 (async () => {
   await new Promise((r) => server.listen(0, r));
@@ -75,14 +90,28 @@ const ART = /^(?:il|lo|la|i|gli|le)\s+|^l'/i;
   // ---------------------------------------------------------------- the file
   ok(deck.cards.length <= 12000, "within app.js's 12,000-note import cap",
      deck.cards.length + "");
+  // …and by how much, because app.js REFUSES an over-size file rather than
+  // trimming it, so the failure would be at the reader's end and not here
+  console.log("   · " + (12000 - deck.cards.length).toLocaleString() +
+              " notes of headroom under the cap");
   ok(bytes <= 48 * 1024 * 1024, "within app.js's 48 MB import cap");
   const idRx = new RegExp("^u_" + deck.meta.id.replace(/[^a-z0-9]/g, "") + "_\\d+$");
   ok(deck.cards.every((c) => idRx.test(c.id)),
      "every card is renumbered onto the combined deck's own id", idRx.source);
   ok(new Set(deck.cards.map((c) => c.id)).size === deck.cards.length, "no id occurs twice");
 
+  // DERIVED from what is on disk rather than written down: an eighth deck was
+  // added after this file was, and a hardcoded 7 would have failed on the rule
+  // being obeyed.  One subdeck per shipped Italian deck, no more and no fewer.
+  const sources = fs.readdirSync(path.join(ROOT, "decks"))
+    .filter((f) => /^(CILS-.*|Italian-(Core-Vocabulary|Phrases-Expressions))\.folio-deck\.json$/.test(f));
   const subs = [...new Set(deck.cards.map((c) => c.sub))];
-  ok(subs.length === 7, "seven subdecks", JSON.stringify(subs));
+  ok(subs.length === sources.length,
+     "one subdeck per shipped Italian deck (" + sources.length + ")", JSON.stringify(subs));
+  const srcNotes = sources.reduce((n, f) =>
+    n + JSON.parse(fs.readFileSync(path.join(ROOT, "decks", f), "utf8")).cards.length, 0);
+  ok(srcNotes === deck.cards.length,
+     "and every note of every one of them is here", srcNotes + " vs " + deck.cards.length);
   ok(subs.every((s) => s && !s.includes("::")),
      "each is one level, not a flattened or nested sub", JSON.stringify(subs));
   ok(Object.keys(deck.meta.types).length === 1 &&
@@ -91,14 +120,14 @@ const ART = /^(?:il|lo|la|i|gli|le)\s+|^l'/i;
 
   // **THE CROSS-BAND DUPLICATE.**  Article-stripped, since `il credo` and
   // `credo` would be the same word taught twice under two spellings.
-  const heads = deck.cards.map((c) => strip(c.fields.Word).replace(ART, "").trim().toLowerCase());
+  const heads = deck.cards.map(head);
   const seen = new Map(), dup = [];
   deck.cards.forEach((c, i) => {
     const w = heads[i];
     if (seen.has(w)) dup.push(`${w} (${seen.get(w)} + ${c.sub})`);
     else seen.set(w, c.sub);
   });
-  ok(dup.length === 0, "no word is taught twice across the seven levels",
+  ok(dup.length === 0, "no word is taught twice across the eight levels",
      dup.slice(0, 8).join(", "));
 
   // ---------------------------------------------------------------- importing
@@ -145,8 +174,7 @@ const ART = /^(?:il|lo|la|i|gli|le)\s+|^l'/i;
      "adding one level adds one row, not the whole deck", JSON.stringify(home));
 
   // ------------------------------------------- and it deals THAT level's cards
-  const a1 = new Set(deck.cards.filter((c) => c.sub === "A1")
-    .map((c) => strip(c.fields.Word).replace(ART, "").trim().toLowerCase()));
+  const a1 = new Set(deck.cards.filter((c) => c.sub === "A1").map(head));
   await pg.evaluate(() => {
     const r = document.querySelector(".active-deck");
     if (r) r.click();

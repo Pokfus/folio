@@ -92,6 +92,13 @@ def main():
     os.makedirs(CACHE, exist_ok=True)
     os.chdir(CACHE)
 
+    # `phrases` has no published list to read, so it derives one first -- from
+    # the same two files every other stage already uses.  See build_phrase_list.py.
+    if level == 'phrases':
+        print('phrase list:')
+        sys.argv = ['build_phrase_list.py']
+        runpy.run_path(os.path.join(HERE, 'build_phrase_list.py'), run_name='__main__')
+
     print('word list:')
     sys.argv = ['parse_cils.py']
     runpy.run_path(os.path.join(HERE, 'parse_cils.py'), run_name='__main__')

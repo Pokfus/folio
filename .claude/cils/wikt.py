@@ -11,10 +11,19 @@ the Latin script letter T/t."  One definition, imported twice.
 import re
 
 
+# **THE DICTIONARY SAYING THIS IS NOT AN EXPRESSION IS NOT A DEFINITION.**
+# Wiktionary writes "Used other than figuratively or idiomatically: see in,
+# mano." where a multiword entry exists only to point at its own parts, and 169
+# Italian entries open on it.  Carded, it reads as the meaning: `in mano` would
+# be glossed with a sentence naming two other words and defining neither.
+_SEE_ALSO_RX = re.compile(r'^Used other than figuratively or idiomatically', re.I)
+
+
 def real_senses(r):
     """Senses that say what the word MEANS, rather than pointing at another word."""
     return [s for s in (r.get('senses') or [])
-            if s.get('glosses') and not (s.get('form_of') or s.get('alt_of'))]
+            if s.get('glosses') and not (s.get('form_of') or s.get('alt_of'))
+            and not _SEE_ALSO_RX.match(s['glosses'][0] or '')]
 
 
 # **A ONE-LETTER WORD IS NOT THE NAME OF A LETTER**, and Wiktionary files that

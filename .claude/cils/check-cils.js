@@ -25,13 +25,15 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^([abc][12]|core)$/.test(LEVEL)) { console.error("level must be a1..c2 or core"); process.exit(2); }
+if (!/^([abc][12]|core|phrases)$/.test(LEVEL)) { console.error("level must be a1..c2, core or phrases"); process.exit(2); }
 /* `core` is not a CILS band and is not named as one -- see cils_level.py.  Its deck
    is built by the same pipeline and carries the same card type, so every assertion
    below holds for it unchanged; only the file name and the title differ. */
-const DECK = LEVEL === "core" ? "Italian-Core-Vocabulary.folio-deck.json"
-                              : "CILS-" + LEVEL.toUpperCase() + "-Italian.folio-deck.json";
-const TITLE_WANT = LEVEL === "core" ? "Italian core vocabulary" : "CILS " + LEVEL.toUpperCase();
+const DECK = { core: "Italian-Core-Vocabulary.folio-deck.json",
+               phrases: "Italian-Phrases-Expressions.folio-deck.json" }[LEVEL]
+           || "CILS-" + LEVEL.toUpperCase() + "-Italian.folio-deck.json";
+const TITLE_WANT = { core: "Italian core vocabulary",
+                     phrases: "Italian phrases" }[LEVEL] || "CILS " + LEVEL.toUpperCase();
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -110,10 +112,17 @@ const LOAN_OK = new Set(["élite", "tournée"]);
     .join(" ");
   const words = text.replace(/<[^>]*>/g, " ").match(/[A-Za-zÀ-ÿ']+/g) || [];
   const wrong = new Set();
-  for (const w of words) {
+  for (const w0 of words) {
+    // **AN ELIDED PROCLITIC IS NOT PART OF THE MONOSYLLABLE**, which is the same
+    // strip the mid-stress sweep below already makes: `c'è` is `ci` + `è`, and
+    // the accent belongs to the verb, which writes it.  Judged whole it is a
+    // one-syllable token carrying a final accent and not in the list, so the
+    // phrases deck -- the first with `c'è`, `dov'è`, `com'è` -- failed on three
+    // correctly-spelt words.
+    const w = w0.replace(/^[a-z]{1,4}'(?=.)/i, "");
     if (!/[àáèéìíòóùú]$/.test(w)) continue;
     const syll = (w.match(/[aeiouàáèéìíòóùúy]+/gi) || []).length;
-    if (syll < 2 && !MONO_OK.has(w.toLowerCase())) wrong.add(w);
+    if (syll < 2 && !MONO_OK.has(w.toLowerCase())) wrong.add(w0);
   }
   ok(wrong.size === 0, "no card carries an accented monosyllable Italian writes bare",
      [...wrong].slice(0, 10).join(" "));
@@ -158,11 +167,13 @@ const LOAN_OK = new Set(["élite", "tournée"]);
                                 .replace(/&amp;/g, "&").replace(/&quot;/g, '"');
   const bad = [];
   const classes = {};
+  let nNouns = 0;
   for (const c of deck.cards) {
     const g = /noun, masculine/.test(c.fields.English) ? "m"
             : /noun, feminine/.test(c.fields.English) ? "f" : "";
     if (!g) continue;
     const arts = [...c.fields.Italian.matchAll(/class="uc-art[^"]*">([^<]*)</g)].map((m) => unesc(m[1]));
+    nNouns++;
     if (arts.length !== 1) continue;   // no article at all, or a noun offering both genders
     const art = arts[0];
     const whole = unesc(c.fields.Italian.replace(/<[^>]*>/g, ""));
@@ -173,10 +184,16 @@ const LOAN_OK = new Set(["élite", "tournée"]);
   }
   ok(bad.length === 0, "every noun's article follows from its spelling and gender",
      bad.slice(0, 6).join(" | "));
-  // and that the band actually exercised the rule rather than passing on one easy class
-  ok(Object.keys(classes).length >= 3,
-     "the band exercises at least three of the four article classes",
-     JSON.stringify(classes));
+  // and that the band actually exercised the rule rather than passing on one easy
+  // class.  GATED ON THE DATA rather than the level name: a deck of expressions
+  // has almost no nouns at all (four, in the phrases deck) and cannot exercise
+  // four article classes, while any deck that HAS the nouns is still held to it.
+  if (nNouns >= 20)
+    ok(Object.keys(classes).length >= 3,
+       "the band exercises at least three of the four article classes",
+       JSON.stringify(classes));
+  else
+    console.log("   – only " + nNouns + " nouns: too few to exercise the article classes");
 
   // ---------------------------------------------------------------- import
   await pg.goto(base + "#studio", { waitUntil: "load" });
@@ -301,7 +318,8 @@ const LOAN_OK = new Set(["élite", "tournée"]);
     ok(/uc-m/.test(seen.mascN.artClass), "it is marked masculine", seen.mascN.artClass);
     ok(!!mp, "its plural is shown", JSON.stringify(seen.mascN.formList));
     ok(mp && /^(i|gli)\s/.test(mp.value), "the plural carries its own article", mp && mp.value);
-  } else ok(false, "a masculine noun was reached");
+  } else ok(nNouns < 20, "a masculine noun was reached",
+            "and the deck has " + nNouns + " nouns");
   if (seen.femN) {
     const fp = seen.femN.formList.find((f) => f.label === "plural");
     console.log("   noun f: " + seen.femN.art + " " + seen.femN.word + "   " +
@@ -309,16 +327,35 @@ const LOAN_OK = new Set(["élite", "tournée"]);
     ok(/^(la|l')$/.test(seen.femN.art), "a feminine noun's article is la or l'", seen.femN.art);
     ok(/uc-f/.test(seen.femN.artClass), "it is marked feminine", seen.femN.artClass);
     ok(fp && /^le\s/.test(fp.value), "its plural article is le", fp && fp.value);
-  } else ok(false, "a feminine noun was reached");
+  } else ok(nNouns < 20, "a feminine noun was reached",
+            "and the deck has " + nNouns + " nouns");
   if (seen.mascN && seen.femN)
     ok(seen.mascN.artColor !== seen.femN.artColor,
        "the two genders are different colours", seen.mascN.artColor + " vs " + seen.femN.artColor);
   if (seen.verb) {
     const heads = seen.verb.blocks.join(" | ");
     console.log("   verb:   " + seen.verb.word + "   [" + heads + "]");
-    ok(/Presente/.test(heads), "the present tense is there", heads);
+    // **A PHRASAL VERB HAS NO CONJUGATION TABLE TO READ.**  Wiktionary carries one
+    // for `andare` and none for `andare a letto`, so a phrases deck builds the
+    // three blocks it CAN build from the participle and the auxiliary -- which is
+    // the passato prossimo, the tense the deck exists to teach.  Asserted where a
+    // full table exists anywhere in the deck, so a word deck that lost its
+    // paradigms still fails here.
+    // GATED ON THE FRACTION, not on existence: nine of the phrases deck's 242
+    // paradigms do carry a table, because the head verb's own is attached to
+    // `tenere conto` and its like -- so "does any card have one" is true there
+    // and the assertion then fires on a card that legitimately has none.  Where
+    // verbs NORMALLY carry a table, the sampled one must.
+    const withConj = deck.cards.filter((c) => c.fields.Conjugation).length;
+    const withFull = deck.cards.filter((c) => /Presente/.test(c.fields.Conjugation || "")).length;
+    if (withConj && withFull / withConj > 0.5) {
+      ok(/Presente/.test(heads), "the present tense is there", heads);
+      ok(/Imperfetto/.test(heads) && /Futuro/.test(heads), "so are the imperfetto and the futuro", heads);
+    } else {
+      console.log("   – " + withFull + " of " + withConj + " verbs carry a conjugation table: " +
+                  "a phrasal verb has none to read, so only the built blocks are checked");
+    }
     ok(/Passato prossimo/.test(heads), "the passato prossimo is there", heads);
-    ok(/Imperfetto/.test(heads) && /Futuro/.test(heads), "so are the imperfetto and the futuro", heads);
     ok(/Imperativo/.test(heads), "and the imperative", heads);
     const base = seen.verb.rows.find((b) => /Forme base/.test(b.head || ""));
     ok(base && base.rows.some((r) => /ausiliare/.test(r)), "the auxiliary is named",
@@ -333,7 +370,14 @@ const LOAN_OK = new Set(["élite", "tournée"]);
     console.log("   adj:    " + seen.adj.word + "   " + JSON.stringify(seen.adj.formList));
     ok(seen.adj.formList.some((f) => /feminine|plural/.test(f.label)),
        "an adjective shows its agreement", JSON.stringify(seen.adj.formList));
-  } else ok(false, "an adjective was reached");
+  } else {
+    // an expression has no regular agreement to show (see build_deck.adj_forms),
+    // so a deck of them carries almost no Forms panels and the walk need not
+    // reach one; a vocabulary deck still must.
+    const withForms = deck.cards.filter((c) => c.fields.Forms).length;
+    ok(withForms < deck.cards.length / 20, "an adjective was reached",
+       withForms + " of " + deck.cards.length + " cards carry forms");
+  }
   if (seen.elided)
     ok(seen.elided.art === "l'", "a vowel-initial noun elides its article", seen.elided.art);
 

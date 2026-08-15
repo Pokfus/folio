@@ -32,7 +32,7 @@ printed.
 """
 import html, json, os, re, sys, urllib.request
 
-from cils_level import LEVEL, EXPECT, LIST_URL, NVDB_FILE, f as lvlf
+from cils_level import LEVEL, EXPECT, LIST_URL, NVDB_FILE, PHRASE_FILE, f as lvlf
 
 CACHE_HTML = f'list-{LEVEL}.html'
 
@@ -89,9 +89,31 @@ def core_words():
     return ws
 
 
+def words_from(path, what):
+    """A list read straight off disk, one per line, deduped and order kept.
+
+    The two derived levels have no page to scrape and none of the assertions that
+    go with one: `core`'s list is a published reference work and `phrases`' is
+    built by `build_phrase_list.py`.  Subtracting what the levels below already
+    teach is left to `select`, which is where the exclusion machinery lives.
+    """
+    if not os.path.exists(path):
+        raise SystemExit(f'{path} is missing -- see the {LEVEL} note in cils_level.py')
+    ws, seen = [], set()
+    for line in open(path, encoding='utf-8'):
+        w = line.strip()
+        if w and w not in seen:
+            seen.add(w)
+            ws.append(w)
+    print(f'  read  {path}: {len(ws)} {what}')
+    return ws
+
+
 def main():
     if LEVEL == 'core':
         return emit(core_words())
+    if LEVEL == 'phrases':
+        return emit(words_from(PHRASE_FILE, 'phrases and expressions'))
 
     page = fetch()
 
@@ -204,7 +226,8 @@ def emit(words, stated=None):
 
     json.dump(entries, open(lvlf('wordlist.json'), 'w'), ensure_ascii=False, indent=1)
     multi = sum(1 for e in entries if e['multiword'])
-    src = f'the page states {stated}' if stated is not None else f'read from {NVDB_FILE}'
+    src = (f'the page states {stated}' if stated is not None else
+           f'read from {PHRASE_FILE if LEVEL == "phrases" else NVDB_FILE}')
     print(f'  words {len(entries)} ({src}), of which {multi} are phrases')
     print('  first ten:', ', '.join(e['display'] for e in entries[:10]))
 

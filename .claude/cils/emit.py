@@ -346,6 +346,39 @@ if LEVEL == 'core':
         "decks do not teach. ")
     # already cited, one sentence up
     DEMAURO_TAIL = ''
+elif LEVEL == 'phrases':
+    PROVENANCE = (
+        f"{n} Italian expressions — the layer none of the other decks here can carry. "
+        "WHERE THEY COME FROM, and why this deck exists: every other Italian deck beside this "
+        "one is built from a list of SINGLE WORDS, so between them the seven of them teach 67 "
+        "multiword entries and the core deck none at all. That leaves out the part of the "
+        "language a learner needs first and cannot work out from a dictionary — per favore, di "
+        "solito, in bocca al lupo, come si chiama, non lo so, ci vediamo — because an expression "
+        "means what it means as a whole. No exam board or reference work publishes a list of "
+        "them, so this one is derived rather than read: English Wiktionary files an Italian "
+        "expression as a proper entry with a proper definition, which is where the other decks "
+        "already take their meanings from, and the multiword entries that are EXPRESSIONS are "
+        "taken. Compound and technical nouns are not (vapore acqueo, smerigliatrice angolare), "
+        "nor are surnames and place names. "
+        "WHAT MAKES ONE COMMON IS MEASURED, and the measurement has a known limit. A phrase "
+        "cannot be looked up in a frequency list at all — those are built by cutting text into "
+        "single words, so di solito is not in one and never can be — so each was counted in a "
+        "corpus of 981,765 Italian sentences, and one had to appear in at least two of them to "
+        "be here. That is a corpus of translations, though, so it over-represents whatever its "
+        "contributors happened to translate: fare carriera turns up almost half as often as per "
+        "favore, where in real speech it is nowhere near. So read the order as a rough guide "
+        "rather than a ranking — the commonest expressions really are at the front, but a few "
+        "further down deserve to be nearer it. "
+        "AND THE MEANING SHOWN IS THE ONE IT WAS CHOSEN ON. An expression is here only when its "
+        "first current sense is a real, idiomatic meaning: not a dictionary cross-reference, not "
+        "Wiktionary's note that a phrase is not idiomatic at all, and not an archaic or regional "
+        "sense. That last one matters more than it sounds — la luna is a Romanesco archaism "
+        "meaning 'not at all', and every one of its 207 corpus hits is the moon. "
+    )
+    WORDLIST_SOURCE = (
+        "Expressions: the multiword Italian entries of English Wiktionary, via the kaikki.org "
+        "extraction (CC BY-SA 4.0), counted for commonness in the Tatoeba corpus. ")
+    DEMAURO_TAIL = ''
 else:
     PROVENANCE = (
         f"{n} Italian words, for anyone working towards the CILS certification awarded by "

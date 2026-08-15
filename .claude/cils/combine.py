@@ -59,7 +59,8 @@ from cils_level import BANDS, DECK_FILES
 # deck is named for the CILS progression -- but it is the one to start with for
 # everyday words, and the description says so rather than leaving the position
 # to imply the opposite.
-LEVELS = [(lv, lv.upper()) for lv in BANDS] + [('core', 'Core vocabulary')]
+LEVELS = ([(lv, lv.upper()) for lv in BANDS]
+          + [('core', 'Core vocabulary'), ('phrases', 'Phrases and expressions')])
 DECK_ID = 'itall'
 TITLE = 'Italian — CILS A1–C2 and the core vocabulary'
 SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
@@ -99,11 +100,14 @@ def stats(cards):
 
 def desc(s, per_level):
     n = f"{s['notes']:,}"
-    band = [(lab, k) for lab, k in per_level if lab != 'Core vocabulary']
-    core = dict(per_level)['Core vocabulary']
+    named = dict(per_level)
+    band = [(lab, k) for lab, k in per_level if len(lab) == 2]
+    core = named['Core vocabulary']
+    phr = named['Phrases and expressions']
     return (
-        'Every Italian deck here in one file, as seven subdecks — the six CILS '
-        'bands A1 to C2, and the core vocabulary that sits beside them. Add the '
+        'Every Italian deck here in one file, as eight subdecks — the six CILS '
+        'bands A1 to C2, the core vocabulary that sits beside them, and a deck '
+        'of common phrases and expressions. Add the '
         'whole thing or just one subdeck, and each offers both study directions '
         'as rows of its own: Italian → English (see the Italian, recall the '
         'meaning) and English → Italian (see an English meaning, recall the '
@@ -130,13 +134,24 @@ def desc(s, per_level):
         'the C1 band begins. What they miss is the concrete everyday half of the '
         'language — astuccio, aratro, cartolina, farfalla, capanna, borsetta — '
         'words every Italian knows and nobody says on television, one in five of '
-        'which does not appear once in 50,000 subtitle words. So for everyday '
-        'Italian, start with Core; for the exam bands, start with A1. '
-        'The seven teach '
+        'which does not appear once in 50,000 subtitle words. '
+        f'AND THE PHRASES SUBDECK IS THE OTHER THING A WORD LIST CANNOT HOLD: '
+        f'{phr:,} expressions, from per favore and di solito to in bocca al lupo '
+        'and come si chiama. Every other subdeck here is built from a list of '
+        'single words, so between them the seven of them carry 67 multiword '
+        'entries and Core none at all — which leaves out the part of the '
+        'language a learner needs first and cannot assemble from a dictionary, '
+        'because an expression means what it means as a whole. There is no '
+        'published list of them, so that subdeck is derived: the multiword '
+        'entries of Wiktionary, each counted in a corpus of 981,765 Italian '
+        'sentences and kept only where it actually turns up. '
+        'So for everyday Italian, start with Phrases and Core; for the exam '
+        'bands, start with A1. '
+        'The eight teach '
         + ', '.join(f'{k:,}' for _, k in band[:-1])
-        + f' and {band[-1][1]:,} words across A1 to C2 and {core:,} in Core, and '
-        'no word is taught twice — each level excludes every word the levels '
-        'below it contain, and Core excludes all six. '
+        + f' and {band[-1][1]:,} words across A1 to C2, {core:,} in Core and '
+        f'{phr:,} expressions, and no word is taught twice — each level excludes '
+        'everything the levels below it contain. '
         'Within each subdeck the cards are dealt by how common the word is in '
         'everyday spoken Italian, from a frequency list built from film and '
         'television subtitles. That ordering does less well in Core than in the '

@@ -41,7 +41,7 @@ import json, re
 from collections import Counter
 
 from cils_level import LEVEL, f as lvlf, words_below
-from italian import fold
+from italian import fold, phrase_in
 from wikt import real_senses, letter_name, pointer_targets
 
 wl = json.load(open(lvlf('wordlist.json')))
@@ -319,7 +319,8 @@ if phrases or cap_cand:
         txt_ = p[2]
         low = txt_.lower()
         for w, k in plook.items():
-            if w in low:
+            # `w in low` counted `a vita` inside `la vita` -- see `phrase_in`
+            if phrase_in(low, w):
                 counts[k] += 1
         for t in set(tok.findall(low)):
             k = singles.get(t)

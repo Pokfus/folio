@@ -252,3 +252,34 @@ def clean_form(s):
     """A form as it should be printed: destressed, trimmed, apostrophe normalised."""
     s = destress((s or '').strip())
     return s.replace('’', "'")
+
+
+def phrase_in(sentence_lower, phrase):
+    """Whether a phrase occurs in an already-lower-cased sentence.
+
+    **THE BOUNDARY IS REQUIRED AT THE FRONT AND MUST NOT BE REQUIRED AT THE BACK,
+    and Italian is the reason for both halves.**
+
+    At the FRONT, because a bare substring test counts a phrase every time its
+    letters happen to end a preceding word: `a vita` ("for life") was found 4,111
+    times in the Tatoeba corpus and 4,097 of those are `la vita`, `una vita`,
+    `della vita`.  `a volta` scored 3,370 on `una volta` alone.  Ordered by that,
+    the two commonest expressions in Italian were a pair the corpus had almost
+    never seen.
+
+    At the BACK, NOT -- which is the half that looks like an oversight and is the
+    point.  An Italian preposition CONTRACTS with the article after it, so `fino
+    a` is genuinely written `fino al`, `fino alla`, `fino ai`; `vicino a` becomes
+    `vicino all'ospedale`.  Demanding a non-letter after the phrase throws those
+    away and costs `fino a` 45% of its occurrences and `fuori da` 77% -- all of
+    them real.
+
+    Measured over the 54 phrases the six bands teach: the front rule changes 13
+    of them and the two rules together would change 24.
+    """
+    i = sentence_lower.find(phrase)
+    while i != -1:
+        if i == 0 or not sentence_lower[i - 1].isalpha():
+            return True
+        i = sentence_lower.find(phrase, i + 1)
+    return False
