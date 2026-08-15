@@ -26,6 +26,13 @@ node_modules/
 # The deck it writes IS committed — this is only the working cache behind it.
 .claude/dele-cache/
 
+# the corpora .claude/caple/run.py builds the Portuguese deck from — the
+# Wiktionary dump, the European-Portuguese frequency list, the Tatoeba exports
+# and the Referencial Camões page it reads the word inventory off (~750 MB, the
+# Wiktionary dump being most of it) — plus the intermediate files between its
+# stages. The deck it writes IS committed — this is only the working cache.
+.claude/caple-cache/
+
 # the five corpora .claude/goethe/run.py builds the German deck from, plus the
 # Goethe-Institut Wortliste PDF it reads the word list off (~1.3 GB, the Wiktionary
 # dump being most of it), and the intermediate files between its stages. The deck

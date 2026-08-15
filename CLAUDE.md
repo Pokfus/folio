@@ -3697,8 +3697,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
-  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, and the
-  **Goethe German set** by `.claude/goethe/` — see its own bullet below.
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
+  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese deck** by `.claude/caple/` —
+  each has its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4254,6 +4255,93 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
+- `.claude/caple/` — the generator behind `decks/CAPLE-A1-Portuguese.folio-deck.json` (498 notes /
+  996 cards, 1.9 MB), a community deck rather than site content:
+  `python3 .claude/caple/run.py [--level a2] [--no-fetch] [--variety-check]`. Seven stages, run by
+  `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
+  `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
+  the next inventory rather than a rebuild. **ONE LEVEL PER RUN** (`caple_level` reads the level once,
+  at import), and a level is taught on top of the ones below it, read out of the SHIPPED deck files —
+  the DELE and Goethe arrangement exactly. It takes the **Goethe SHAPE** rather than the DELE one: one
+  note with two card templates, so a corrected gloss is corrected both ways at once and each direction
+  still keeps a schedule of its own.
+  · **CAPLE PUBLISHES NO VOCABULARY LIST, and that was established rather than assumed** — its site
+    carries exam specifications and nothing else, checked page by page, and the one PDF that looks like
+    a syllabus is an image-only scan of a brochure. So the words come from the reference description
+    **CAPLE's own Recursos page links to**: the Referencial Camões PLE, the Instituto Camões'
+    level-by-level account of Portuguese. That is the DELE pipeline's relationship with the Cervantes
+    *Plan curricular* with one difference worth having — **here the exam board points at the source
+    rather than being it**, so the choice is the board's rather than this repo's. Only the inventory of
+    WORDS is taken; the Referencial's own prose is not reproduced, exactly as the Goethe pipeline takes
+    the Wortliste and leaves the Goethe-Institut's example sentences alone.
+  · **THE DECK IS EUROPEAN PORTUGUESE, AND THAT REACHES INTO FOUR STAGES RATHER THAN SITTING IN THE
+    DESCRIPTION.** CAPLE sets its exams on the European standard, so: the frequency ordering comes from
+    the European half of the subtitle corpus (`pt_50k.txt`, **not** `pt_br_50k.txt`); Wiktionary's
+    Brazil-tagged verb FORMS are dropped (5,464 of the 6,511 verbs carrying a table have one, so
+    without it almost every -ar verb shows `falamos` beside `falámos` with nothing to say which is
+    which); Brazil-tagged SENSES are outranked; and an example sentence carrying a Brazilian marker is
+    rejected. **Nothing in either frequency file says which variety it is**, so `--variety-check`
+    re-proves it on fourteen shibboleths (comboio/trem, autocarro/ónibus, telemóvel/celular…) and exits
+    non-zero if they come out the wrong way round — a measurement that can be re-run rather than a
+    comment that can rot.
+  · **THE SENSE RANKING IS THE BUG THIS DECK IS MOST LIKELY TO GET WRONG AGAIN.** `o comboio` shipped
+    for an hour glossed **"convoy"**: Wiktionary's "train" sense is tagged `Portugal` *and* `Africa`,
+    and any ranking that merely penalises Brazil scores it worse than the untagged "convoy" — so a
+    European tag has to score NEGATIVELY, and only the best-ranked senses survive. Every count was
+    healthy throughout and the card read perfectly. `check-caple.js` pins five of these glosses.
+  · **WHERE THE PRONOUN GOES IS FOUR RULES, NOT ONE, AND A WRONG ONE RENDERS AS A PERFECTLY REGULAR
+    TABLE.** European Portuguese's default is enclisis (`chamo-me`, where Brazil writes `me chamo`),
+    with the first person plural dropping its -s before `-nos` (`chamamo-nos`) — but the **conjuntivo**
+    is subordinate by nature and takes proclisis (`que eu me chame`), a **negative imperative** takes
+    proclisis after `não` (`não te chames`), and the **future and conditional take MESOCLISIS**, the
+    pronoun going INSIDE the verb between its stem and its ending: `chamar-me-ei`, `chamar-nos-emos`,
+    `chamar-me-ia`. That last one shipped as ordinary enclisis for a session — `chamarei-me`, which is
+    not Portuguese at all — on all eleven reflexives, twelve rows apiece, with the table the right
+    shape and the right length throughout. The split is found by **stripping the ending** rather than
+    by assuming the stem is the infinitive (the irregular futures are irregular in the stem: `dizer` →
+    `direi` → `dir-me-á`), the ending list is **sorted by length** (the conditional's `íeis` must beat
+    the future's `eis`, or `chamaríeis` comes out `chamarí-vos-eis`), and a form matching no ending is
+    reported at the end of the run rather than falling back silently.
+  · **A BRACKET CAN CONTAIN A BRACKET, AND EVERY CUT CAN LAND INSIDE ONE** (`strip_parens` /
+    `split_top` / `debracket`). Three faults, one shape, and all three were found by LOOKING at a
+    rendered card rather than by any count. A gloss is split on `;` and `,` to make the meaning lines,
+    and a separator INSIDE a parenthesis is not a separator — `to feel (well, ill, tired)` came out as
+    three lines reading `to feel (well`, `ill`, `tired)`. A parenthetical is stripped to find a
+    definition's head, and `\([^)]*\)` ends at the FIRST `)` — which on `our (… of us, excluding the
+    person(s) being addressed)` is the one inside `person(s)`, leaving the gloss **`our being
+    addressed`**: not a shortened meaning but a different and wrong one that reads as ordinary English.
+    And the 92-character cut simply stops, leaving a bracket that never closes. So the splitting and
+    the stripping both count depth, and whatever is still half-open at the end is dropped whole — a
+    parenthetical is a qualifier, so losing it entirely is honest where losing half of it is not.
+    Every count stayed healthy throughout: the glosses were non-empty strings of the right shape on
+    cards of the right length.
+  · **WIKTIONARY HAS NO RECORD FOR ANY PORTUGUESE REFLEXIVE**, so `reflexives.py` carries the eleven by
+    hand, each attested in the A1 Referencial, and the paradigm is built from the base verb — which is
+    why `run.py` adds every reflexive's base to the lookup set before the extraction runs.
+  · **A PARENTHESIS IN THE INVENTORY MEANS FOUR DIFFERENT THINGS** (`unparen`): `segunda(-feira)` is one
+    word with an optional tail, `irmã(o)` is TWO words, `pequeno(a)` is a feminine ending, and a
+    trailing gloss is neither — so both readings are returned and the junk (`pequenoa`) dies harmlessly
+    at the Wiktionary lookup rather than being guessed at.
+  · **THE CORPUS DOES NOT GET A VOTE ON THE WORD LIST.** One word (`arrendar`) has no Tatoeba sentence
+    at all and is kept: the syllabus is set by the inventory and by frequency, and dropping a word
+    because the corpus cannot illustrate it would be letting the corpus set the syllabus — the DELE
+    pipeline's own finding, where that rule fired on 117 of 2,000 B2 words. The count is stated in the
+    deck's description instead.
+  · **ITS HONEST LIMITATION IS TATOEBA, and the description says so rather than implying otherwise**:
+    the corpus's Portuguese is overwhelmingly Brazilian (measured at about 10:1), so the filter rejects
+    16,732 sentences outright and what remains is mostly variety-NEUTRAL rather than positively
+    European. That is a limit of the corpus and not something a filter can repair.
+  · **`node .claude/caple/check-caple.js [a1]` is the browser half**, and it exists because
+    `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything
+    Portuguese this deck is FOR is unchecked by anything until there. It splits its assertions on
+    purpose: what is EUROPEAN is checked in the FILE, exactly, over every card (a wrong clitic on one
+    verb in eleven would never be reached by a walk through a session), and what is RENDERED is checked
+    in the BROWSER. **Its Brazilian sweep is written by hand and is deliberately not the generator's**
+    — re-using `examples.py`'s pattern would pass by construction on whatever it let through — and it
+    runs over the PORTUGUESE half of each example only, since the English beside it says "next time"
+    and `time` is also the Brazilian word for a football team. It writes screenshots to look at.
+  Re-running it must reproduce the shipped deck byte for byte; that is the check to make after any
+  edit, since every fault above is silent. Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
   `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching
