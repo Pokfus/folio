@@ -221,6 +221,32 @@ GLOSS = {
     'orientar-se':    ['to find one’s bearings'],           # C1 Noções
     'originar-se':    ['to originate, to arise'],           # C1 Noções
     'resignar-se':    ['to resign oneself'],                # C1 Funções
+
+    # C2 names 22 and ten are glossed, which is the C1 curve going further: what
+    # the top of the ladder adds is mostly specialised vocabulary, and its `-se`
+    # strings are mostly quotation.  Nine of the twelve refused are the
+    # impersonal or an inflected form lifted out of an example (`sabe-se`,
+    # `pede-se`, `passa-se`, `pode-se`, `diga-se`, `repare-se`, `sinta-se`,
+    # `recusando-se`), and `vá-se` is bound to `vá-se embora`, which is
+    # `ir-se embora`'s A2 case again.
+    #
+    # `cobrir-se` AND `ver-se` ARE REFUSED FOR THE THIRD TEST rather than the
+    # first two, and it is the one worth restating: they mean what their base
+    # verbs mean with a pronoun on them.  `cobrir-se` is covering oneself and
+    # `cobrir` is covering, so there is nothing on the card the base does not
+    # already teach -- where `confirmar-se` ("to turn out true") and
+    # `perpetuar-se` ("to persist") are the anticausative and really are a
+    # second verb.  That test is what keeps this table a list of words rather
+    # than a list of pronouns.
+    'abster-se':      ['to abstain, to refrain'],           # C2 Funções
+    'confirmar-se':   ['to be confirmed, to turn out true'],  # C2 Noções
+    'congratular-se': ['to congratulate oneself, to rejoice'],  # C2 Funções
+    'eternizar-se':   ['to drag on, to go on for ever'],    # C2 Noções
+    'inclinar-se':    ['to lean, to bow; to be inclined'],  # C2 Noções
+    'perpetuar-se':   ['to persist, to live on'],           # C2 Noções
+    'posicionar-se':  ['to take a stand, to position oneself'],  # C2 Funções
+    'preparar-se':    ['to get ready'],                     # C2 Noções
+    'servir-se':      ['to help oneself; to make use of'],  # C2 Noções
 }
 
 # The English a sentence must carry for it to be an example of the reflexive
@@ -380,6 +406,20 @@ KEYWORDS = {
     'orientar-se':    ('bearings', 'orient', 'find his way', 'find her way'),
     'originar-se':    ('originat', 'arise', 'arose', 'come from', 'came from'),
     'resignar-se':    ('resign', 'accept', 'put up with'),
+    # C2
+    'abster-se':      ('abstain', 'refrain', 'abstention'),
+    'confirmar-se':   ('confirmed', 'turned out', 'proved', 'came true'),
+    'congratular-se': ('congratulat', 'rejoic', 'pleased'),
+    'eternizar-se':   ('for ever', 'forever', 'drag on', 'dragged on',
+                       'never end'),
+    'inclinar-se':    ('lean', 'bow', 'bent', 'inclin', 'tilt'),
+    'perpetuar-se':   ('perpetuat', 'persist', 'live on', 'lived on',
+                       'lasted'),
+    'posicionar-se':  ('position', 'stance', 'stand on'),
+    'preparar-se':    ('get ready', 'got ready', 'gets ready', 'getting ready',
+                       'prepare', 'prepared'),
+    'servir-se':      ('help yourself', 'helped himself', 'helped herself',
+                       'help himself', 'help herself', 'make use', 'made use'),
 }
 
 

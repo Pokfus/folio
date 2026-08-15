@@ -6,13 +6,16 @@
     python3 .claude/caple/run.py --variety-check    # re-prove the corpus choice
 
 ONE LEVEL PER RUN.  `caple_level` reads the level once, at import, so a second
-level in the same process would be built against the first one's settings.  A1
-through C1 have decks; C2 would take a row in that module's tables plus a
-`BELOW` entry, which is how the four DELE levels and the three Goethe ones avoid
-teaching the same word twice.  MEASURE THE POOL BEFORE WRITING A `TARGET` for a
-new level: B2's was guessed at 2,000 when only A1 existed and its inventory
-yields 1,491, and C1's pool is 1,054 against the same guess -- both refused
-rather than shipping short, which is the guard doing its job twice.
+level in the same process would be built against the first one's settings.  ALL
+SIX CEFR LEVELS NOW HAVE DECKS, which is what the tables in that module were
+written for -- a level was a row in them plus a `BELOW` entry, the way the four
+DELE levels and the three Goethe ones avoid teaching the same word twice.
+MEASURE THE POOL BEFORE WRITING A `TARGET`: 2,000 was guessed for B2 when only
+A1 existed and its inventory yields 1,491, C1's is 1,054 and C2's 741 -- three
+refusals rather than three short decks, which is the guard doing its job every
+time it has been asked.
+
+    for L in a1 a2 b1 b2 c1 c2; do PYTHONHASHSEED=1 python3 .claude/caple/run.py --level $L --no-fetch; done
 
 A LEVEL IS BUILT ON THE SHIPPED DECKS BELOW IT, so build them IN ORDER and
 rebuild the lot after any change to a shared stage -- `words_below` reads the
@@ -22,11 +25,11 @@ every level must reproduce byte for byte after a change that was meant for one
 of them: that is the only thing standing between a shared stage and a silent
 regression in a deck nobody was looking at.  Adding C1 changed `enclitic` and
 `headword_html`, and between them they corrected 108 cards across the four
-levels already shipped -- none of which anything would have reported.
+levels already shipped -- none of which anything would have reported.  Adding C2
+changed nothing shared and every earlier deck came back byte-identical, which is
+the same check reporting the other answer.
 
-    for L in a1 a2 b1 b2 c1; do PYTHONHASHSEED=1 python3 .claude/caple/run.py --level $L --no-fetch; done
-
-RUN THAT TWICE WITH DIFFERENT SEEDS AND DIFF, not twice the ordinary way.  The
+RUN IT TWICE WITH DIFFERENT SEEDS AND DIFF, not twice the ordinary way.  The
 pipeline iterated a set of strings for three levels, and Python randomises
 string hashing per process, so a deck could differ between two runs of unchanged
 code -- see the note above `sorted(hits)` in examples.py.  Two default runs find

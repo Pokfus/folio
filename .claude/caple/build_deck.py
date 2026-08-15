@@ -240,6 +240,18 @@ AUTHORED = {
     # -- `build_deck` REFUSES a card with no meaning, so they announce
     # themselves rather than shipping blank, which is what this entry is.
     'vários': ['several, various'],
+    # C2.  A WORD WITH TWO NOUN RECORDS WHOSE FIRST IS THE ODD SENSE, which is
+    # `o comboio`'s "convoy" in the one shape the sense ranking cannot reach:
+    # ranking works on TAGS, and here neither record carries one, so the pick is
+    # pure Wiktionary record order and the rare textile sense is filed first.
+    # `linhagem` is lineage; "burlap" is a sense almost nobody would recognise.
+    # MEASURED BEFORE IT WAS TREATED AS A CLASS: 177 shipped words across the
+    # six levels carry two or more noun records, and reading C2's seventeen by
+    # eye this is the only one the order gets wrong -- `coração`, `bar`, `canto`,
+    # `gota`, `pilha`, `teto` and the rest all lead with their central sense.
+    # So it is a hand entry rather than a rule, and the next one is found the
+    # same way: read the level's own multi-record nouns when adding a level.
+    'linhagem': ['lineage, descent'],
     'faz favor': ['please; excuse me'],
     'se calhar': ['maybe, perhaps'],
     'de nada': ["you're welcome; not at all"],

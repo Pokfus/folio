@@ -56,6 +56,7 @@ const PROBE = {
     forms: { pres: ["eu", "chamo|me|"], plural: ["nós", "chamamo|nos|"],
              conj: ["eu", "|me| chame"],
              fut: ["eu", "chamar|me|ei"], futPl: ["nós", "chamar|nos|emos"],
+             presVos: ["vós", "chamais|vos|"], pretVos: ["vós", "chamastes|vos|"],
              cond: ["eu", "chamar|me|ia"], condVos: ["vós", "chamar|vos|íeis"],
              neg: ["tu", "não |te| chames"], pinf: ["nós", "chamarmo|nos|"] },
     // no imperative: nobody can be told to snow or to ache
@@ -70,6 +71,7 @@ const PROBE = {
     forms: { pres: ["eu", "torno|me|"], plural: ["nós", "tornamo|nos|"],
              conj: ["eu", "|me| torne"],
              fut: ["eu", "tornar|me|ei"], futPl: ["nós", "tornar|nos|emos"],
+             presVos: ["vós", "tornais|vos|"], pretVos: ["vós", "tornastes|vos|"],
              cond: ["eu", "tornar|me|ia"], condVos: ["vós", "tornar|vos|íeis"],
              neg: ["tu", "não |te| tornes"], pinf: ["nós", "tornarmo|nos|"] },
     impersonal: [],
@@ -87,6 +89,7 @@ const PROBE = {
     forms: { pres: ["eu", "mudo|me|"], plural: ["nós", "mudamo|nos|"],
              conj: ["eu", "|me| mude"],
              fut: ["eu", "mudar|me|ei"], futPl: ["nós", "mudar|nos|emos"],
+             presVos: ["vós", "mudais|vos|"], pretVos: ["vós", "mudastes|vos|"],
              cond: ["eu", "mudar|me|ia"], condVos: ["vós", "mudar|vos|íeis"],
              neg: ["tu", "não |te| mudes"], pinf: ["nós", "mudarmo|nos|"] },
     impersonal: [],
@@ -106,6 +109,8 @@ const PROBE = {
     forms: { pres: ["eu", "apresso|me|"], plural: ["nós", "apressamo|nos|"],
              conj: ["eu", "|me| apresse"],
              fut: ["eu", "apressar|me|ei"], futPl: ["nós", "apressar|nos|emos"],
+             presVos: ["vós", "apressais|vos|"],
+             pretVos: ["vós", "apressastes|vos|"],
              cond: ["eu", "apressar|me|ia"],
              condVos: ["vós", "apressar|vos|íeis"],
              neg: ["tu", "não |te| apresses"],
@@ -143,6 +148,8 @@ const PROBE = {
              conj: ["eu", "|me| arrependa"],
              fut: ["eu", "arrepender|me|ei"],
              futPl: ["nós", "arrepender|nos|emos"],
+             presVos: ["vós", "arrependeis|vos|"],
+             pretVos: ["vós", "arrependestes|vos|"],
              cond: ["eu", "arrepender|me|ia"],
              condVos: ["vós", "arrepender|vos|íeis"],
              neg: ["tu", "não |te| arrependas"],
@@ -150,6 +157,44 @@ const PROBE = {
     impersonal: [],
     minReflexives: 15,
     noBrazilian: [],
+  },
+  c2: {
+    glosses: [["a perícia", /expert/i], ["o frescor", /(fresh|cool)/i],
+              // the one word on the shelf whose two noun records are filed with
+              // the odd sense first — see `AUTHORED` in build_deck.py
+              ["a linhagem", /lineage/i]],
+    numbers: [],
+    // the probe verb has to be one THIS level teaches — `preparar` was the
+    // obvious choice and is taught at A1, so C2 does not carry it
+    preterite: ["testemunhar", "testemunhámos", "testemunhamos"],
+    // AN IRREGULAR -ER VERB, and the level that could not have been built
+    // before the -vos rule was corrected: `abster` conjugates like `ter`, so
+    // its 2pl forms end in `-des` and `-stes` and every one of them keeps its
+    // `-s` before the pronoun.  Its mesoclitic future also makes the stem
+    // search do real work, the ending coming off `absterei` rather than off a
+    // regular `-ar`.
+    reflexive: "abster-se",
+    forms: { pres: ["eu", "abstenho|me|"], plural: ["nós", "abstemo|nos|"],
+             conj: ["eu", "|me| abstenha"],
+             fut: ["eu", "abster|me|ei"], futPl: ["nós", "abster|nos|emos"],
+             presVos: ["vós", "abstendes|vos|"],
+             pretVos: ["vós", "abstivestes|vos|"],
+             cond: ["eu", "abster|me|ia"], condVos: ["vós", "abster|vos|íeis"],
+             neg: ["tu", "não |te| abstenhas"],
+             pinf: ["nós", "abstermo|nos|"] },
+    // `chover a potes` is the weather verb inside a phrase — nobody can be
+    // told to rain cats and dogs — and `concernir` is DEFECTIVE, used only in
+    // the third person, which is a second reason a verb has no imperative and
+    // the first of its kind on the shelf.
+    impersonal: ["chover a potes", "concernir"],
+    minReflexives: 8,
+    // `cesta básica` is `varal`'s case — listed alone, with no European word
+    // anywhere in the document — and it is the first PHRASE in that table, so
+    // it carries no frequency count and the ratio report could never see it.
+    // `parabenizar` is out for a different reason and the assertion is the
+    // same: the Referencial uses it inside one example sentence and lists it
+    // nowhere, so it is in `BLOCK` rather than `BRAZILIAN`.
+    noBrazilian: ["cesta básica", "parabenizar"],
   },
 }[LEVEL];
 if (!PROBE) { console.error("no probes written for level " + LEVEL); process.exit(2); }
@@ -277,6 +322,17 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
     };
     has(F.pres, "the indicative takes enclisis");
     has(F.plural, "the first person plural drops its -s before -nos");
+    // …AND THE SECOND PERSON PLURAL KEEPS ITS OWN, which is the other half of
+    // that rule and was wrong on every reflexive on the shelf until C1 was
+    // added.  The `-s` drop before `vos` belongs to the FORMATION of the
+    // affirmative imperative, which the source hands over already formed, so
+    // applying it again took the `-s` off the other tenses — and the preterite
+    // came out `chamaste-vos`, the second person SINGULAR verb carrying a
+    // plural pronoun, which reads as an ordinary word.  Both rows, because the
+    // present is the common case and the preterite is the one that produced
+    // something genuinely wrong rather than merely archaic.
+    if (F.presVos) has(F.presVos, "and the second person plural keeps its -s before -vos");
+    if (F.pretVos) has(F.pretVos, "…in the preterite too, where dropping it gives the singular");
     has(F.conj, "the conjuntivo takes proclisis, (que)");
     // MESOCLISIS: the future and the conditional put the pronoun INSIDE the verb.  Written as
     // ordinary enclisis they come out `chamareime`, which is not Portuguese — and looks entirely

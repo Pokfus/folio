@@ -3698,7 +3698,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (A1 to C1) by
+  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (all six CEFR levels) by
   `.claude/caple/` — each has its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
@@ -4255,10 +4255,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/caple/` — the generator behind the five `decks/CAPLE-<level>-Portuguese.folio-deck.json`
-  files (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB; B1: 998 / 1,996, 3.4 MB;
-  B2: 1,400 / 2,800, 4.1 MB; C1: 999 / 1,998, 3.0 MB), community decks rather than site content:
-  `python3 .claude/caple/run.py [--level c1] [--no-fetch] [--variety-check]`. Seven stages, run by
+- `.claude/caple/` — the generator behind the six `decks/CAPLE-<level>-Portuguese.folio-deck.json`
+  files, **all six CEFR levels** (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB;
+  B1: 998 / 1,996, 3.4 MB; B2: 1,400 / 2,800, 4.1 MB; C1: 999 / 1,998, 3.0 MB; C2: 700 / 1,400,
+  2.0 MB), community decks rather than site content:
+  `python3 .claude/caple/run.py [--level c2] [--no-fetch] [--variety-check]`. Seven stages, run by
   `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
   `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
   the next inventory rather than a rebuild. **ONE LEVEL PER RUN** (`caple_level` reads the level once,
@@ -4291,6 +4292,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is a fifth multi-word phrases and its single words are rarer, and Tatoeba's Portuguese does not
     reach them. That figure is stated in the deck's own description rather than repaired, because
     repairing it means letting the corpus choose the syllabus — the DELE pipeline's own rule.
+  · **C2 COMPLETES THE SIX AND ITS FINDING IS THE SHAPE OF THE LADDER** (Aug 2026). Measured the way
+    the guard forces, the levels ADD **500, 500, 1,000, 1,400, 1,054, 741** — it rises to B2 and then
+    falls away, so the two C levels together are smaller than B2 alone. That is not the Referencial
+    running out of language: it describes what a speaker can DO at each level, and by C1 most of the
+    doing is done with vocabulary the lower levels have already given, so the top of the ladder
+    contributes the specialised words and little else. **Its own two drops are one of each kind the
+    pass has met, and neither could have been found by the ratio report.** `parabenizar` occurs
+    exactly ONCE in the whole document and it is inside a worked example — a word the Referencial
+    USES rather than one it LISTS, which is `segurar-se`'s test — so it is in `BLOCK` rather than
+    `BRAZILIAN`, even though it is also Brazilian and posted the highest ratio the pass has produced
+    (814×); **a word the inventory does not name has no place in the deck whichever side of the
+    Atlantic says it.** And `cesta básica` is `varal`'s case — listed alone, with `cabaz` nowhere in
+    the document — but it is **the first PHRASE in that table, so it carries no frequency count and
+    the ratio report is blind to it**; it was found by reading the level's own no-example list, which
+    is where the rare and the foreign both end up. **293 of its 700 words have no example sentence**,
+    42% against B2's 15%, which is the same curve seen from the corpus's side and is stated in the
+    deck rather than repaired. Two smaller things: `concernir` is the shelf's first **defective**
+    verb — used only in the third person, so it has no imperative for a reason that is not
+    impersonality — and it renders honestly, dashes in the persons it has not got; and `linhagem` is
+    the sense ranking's one remaining shape, below.
+  · **A WORD MAY HAVE TWO NOUN RECORDS WITH THE ODD SENSE FILED FIRST, AND NO TAG SEPARATES THEM**
+    (Aug 2026, C2). `o comboio`'s "convoy" is fixed by scoring a European tag negatively; here
+    neither of `linhagem`'s two records carries a tag at all, so the pick is pure Wiktionary record
+    ORDER and it led with "burlap" for a word that means lineage. **Measured before it was treated as
+    a class**: 177 shipped words across the six levels carry two or more noun records, and reading
+    C2's seventeen by eye this is the only one the order gets wrong — `coração`, `bar`, `canto`,
+    `gota`, `pilha` and `teto` all lead with their central sense. So it is an `AUTHORED` entry rather
+    than a rule, and **the next one is found the same way: read the level's own multi-record nouns
+    when adding a level**, which is a list of seventeen rather than a corpus.
   · **C1 CORRECTED 108 CARDS IN THE FOUR DECKS ALREADY SHIPPED, AND ADDED NONE OF ITS OWN FINDINGS TO
     ITS OWN DECK** (Aug 2026). That is the rebuild-every-level rule paying for itself: nothing in C1
     needed a new stage, and the three faults it surfaced were all in shared code, all silent, and all
@@ -4536,7 +4566,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the corpus's Portuguese is overwhelmingly Brazilian (measured at about 10:1), so the filter rejects
     16,732 sentences outright and what remains is mostly variety-NEUTRAL rather than positively
     European. That is a limit of the corpus and not something a filter can repair.
-  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2|c1]` is the browser half**, and it exists because
+  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2|c1|c2]` is the browser half**, and it exists because
     `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything
     Portuguese this deck is FOR is unchecked by anything until there. It splits its assertions on
     purpose: what is EUROPEAN is checked in the FILE, exactly, over every card (a wrong clitic on one
@@ -4552,10 +4582,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     A level's row also states what only that level can lose: B1 carries a `minReflexives` floor,
     since a gloss missing from `reflexives.py` drops a word in silence, and a `noBrazilian` list,
     since the inventory's `chávena/xícara` pairs arrive split; B2 a `plainArticle` list, since its
-    preposition-led locutions are the ones the headword used to colour; and **C1's reflexive is an
+    preposition-led locutions are the ones the headword used to colour; **C1's reflexive is an
     -ER verb and the shelf's only already-pronominal table**, so its row is what pins the endings
     every other level's -ar probe cannot reach and what would catch the re-marking and our own rules
-    drifting apart.
+    drifting apart; and **C2's is an IRREGULAR -er verb** (`abster`, which conjugates like `ter`), so
+    its 2pl forms end `-des` and `-stes` and are the sharpest case of the rule below.
+    **EVERY LEVEL NOW PINS THE `-vos` ENCLISIS, which nothing did until C1 corrected it** — a
+    `presVos` and a `pretVos` row apiece, because the present is the common case and the preterite is
+    where dropping the `-s` produced the second person SINGULAR verb under a plural pronoun, a real
+    Portuguese word in the wrong cell. **A rule corrected is a rule to add a probe for**; that one had
+    been wrong on every reflexive on the shelf and no assertion was looking at it.
+    A probe verb also has to be one THAT level teaches, which is not automatic once a level is built
+    on the ones below: C2's preterite probe was written as `preparar` and C2 has no such card,
+    `preparar` being an A1 word.
     **Each expected form is asserted TWICE, as text and as HTML** (`clText` / `clHtml`, the clitic
     written between pipes): the text says WHERE the pronoun sits and the HTML says that it is actually
     marked up, and with the hyphen gone the markup is the only thing separating the pronoun from the
@@ -4570,8 +4609,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
     `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
     in Portugal and a *grama* a gram.
-  Re-running it must reproduce the shipped decks byte for byte, **and ALL FIVE levels have to be
-  re-run, IN ORDER**: the stages are shared, so a change made for C1 reaches A1, and a level is built
+  Re-running it must reproduce the shipped decks byte for byte, **and ALL SIX levels have to be
+  re-run, IN ORDER**: the stages are shared, so a change made for C2 reaches A1, and a level is built
   on the shipped decks BELOW it, so a stale file lower down is a higher level quietly teaching the
   same word twice. **Build them under two different `PYTHONHASHSEED` values** rather than twice the
   ordinary way — that is what caught the set-iteration non-determinism above, which two default runs
@@ -4579,7 +4618,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   silent, and it is not a formality: it has now caught a level re-teaching three of the level below,
   three levels' worth of builds that could not be reproduced at all, and — adding C1 — **108 cards
   across the four decks already shipped**, corrected by two shared-stage fixes that C1 found and that
-  nothing in C1's own deck would have shown. Not part of the site.
+  nothing in C1's own deck would have shown. **It reports the other answer just as usefully**: C2
+  touched no shared stage and all five earlier decks came back byte-identical, which is how a level
+  is known to have cost the ones below it nothing. Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
   `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching

@@ -178,6 +178,17 @@ BLOCK = {
     # a card glossed "train" in a deck that teaches `o comboio` at A1.  The
     # phrase is a candidate in its own right, so nothing is lost.
     'trem',
+    # A WORD THE DOCUMENT USES RATHER THAN ONE IT LISTS, which is `segurar-se`'s
+    # test at C2 and the reason it is here rather than in `BRAZILIAN` below.
+    # `parabenizar` occurs exactly once in the whole Referencial and it is
+    # inside a worked example -- `Gostaríamos de vos parabenizar pelo enorme
+    # sucesso deste projeto!` -- so it is prose the pipeline is not supposed to
+    # read at all.  It is also Brazilian (Portugal congratulates with `dar os
+    # parabéns` or `felicitar`, and the variety report flagged it at 814x, by a
+    # distance the highest ratio the pass has produced), but that is the second
+    # reason and not the first: a word the inventory does not name has no place
+    # in the deck whichever side of the Atlantic says it.
+    'parabenizar',
 }
 
 # ------------------------------------------------------------------ variety
@@ -228,6 +239,15 @@ BRAZILIAN = {
     'varal': 'estendal',      # B2 Noções, on its own
     'coquetel': 'cocktail',   # B2 Noções, on its own
     'vitrine': 'montra',      # C1 Noções, both listed -- `xícara`'s case again
+    # C2 Noções, on its own, and the first entry here that is a PHRASE -- so it
+    # carries no frequency count and the ratio report cannot see it at all.  It
+    # was found by reading the level's own no-example list, which is where the
+    # rare and the foreign both end up.  Portugal's word is `cabaz` (or `cabaz
+    # alimentar`) and it appears NOWHERE in the Referencial, so this is `varal`'s
+    # case rather than `xícara`'s: the drop loses the concept instead of swapping
+    # the word, and is deliberately not repaired by adding `cabaz`, which would
+    # be the pipeline writing the syllabus instead of reading it.
+    'cesta básica': 'cabaz',
 }
 
 # THE 1990 ORTHOGRAPHIC REFORM GIVES ONE WORD TWO SPELLINGS, AND THE REFERENCIAL

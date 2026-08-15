@@ -45,18 +45,20 @@ EXAM = {'a1': 'ACESSO', 'a2': 'CIPLE', 'b1': 'DEPLE',
 
 TITLES = {'a1': 'CAPLE A1 — Portuguese', 'a2': 'CAPLE A2 — Portuguese',
           'b1': 'CAPLE B1 — Portuguese', 'b2': 'CAPLE B2 — Portuguese',
-          'c1': 'CAPLE C1 — Portuguese'}
+          'c1': 'CAPLE C1 — Portuguese', 'c2': 'CAPLE C2 — Portuguese'}
 DECK_IDS = {'a1': 'caplea1', 'a2': 'caplea2', 'b1': 'capleb1', 'b2': 'capleb2',
-            'c1': 'caplec1'}
+            'c1': 'caplec1', 'c2': 'caplec2'}
 DECK_FILES = {'a1': 'CAPLE-A1-Portuguese.folio-deck.json',
               'a2': 'CAPLE-A2-Portuguese.folio-deck.json',
               'b1': 'CAPLE-B1-Portuguese.folio-deck.json',
               'b2': 'CAPLE-B2-Portuguese.folio-deck.json',
-              'c1': 'CAPLE-C1-Portuguese.folio-deck.json'}
+              'c1': 'CAPLE-C1-Portuguese.folio-deck.json',
+              'c2': 'CAPLE-C2-Portuguese.folio-deck.json'}
 
 # a level is taught on top of the ones below it, so their words are excluded
 BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
-         'c1': ['a1', 'a2', 'b1', 'b2']}
+         'c1': ['a1', 'a2', 'b1', 'b2'],
+         'c2': ['a1', 'a2', 'b1', 'b2', 'c1']}
 
 # HOW MANY WORDS the level teaches.  A1 matches the DELE and Goethe A1 decks at
 # 500, which is also about what the Council of Europe's own A1 descriptors ask
@@ -78,7 +80,16 @@ BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
 # the doing is done with words the lower levels already have, so the level adds
 # specialised vocabulary rather than a fresh thousand of everything.  MEASURE
 # THE POOL BEFORE WRITING A NUMBER DOWN; the guess has now been wrong twice.
-TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 1400, 'c1': 1000}
+#
+# C2 IS 700, AND THE CURVE IS THE POINT RATHER THAN THE NUMBER.  Measured the
+# same way, its pool is 741 once the 5,016 words below it are removed -- so the
+# levels ADD 500, 500, 1,000, 1,400, 1,054, 741, which rises to B2 and then
+# falls away.  That is not the Referencial running out of language; it is the
+# top of the ladder describing what a speaker can DO with vocabulary the lower
+# levels have already given them, so the last two levels contribute the
+# specialised words and little else.  Each target leaves about 5% of margin
+# against its own pool, which is what a corpus refresh needs.
+TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 1400, 'c1': 1000, 'c2': 700}
 
 # ------------------------------------------------------------------ variety
 # WHY THE FREQUENCY LIST IS `pt` AND NOT `pt_br`, measured rather than assumed.
