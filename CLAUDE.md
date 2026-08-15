@@ -8246,6 +8246,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     answered the card. The canvas says what it IS and what to do with it, and the answer is announced
     normally once revealed, so the card can be READ where it cannot be ANSWERED. That is the Picture round's
     position; it is stated in `docs/geography-card-plan.md` rather than papered over.
+  **THE SHADED PLACE IS THE ATLAS'S OWN SELECTION GOLD, AND `TINT_SEL` IS HOISTED SO THERE IS ONE OF IT**
+  (Aug 2026, on request — it was `--ochre`, which renders as a mid brown, then briefly a gold of the
+  widget's own). That constant lived inside `PAGES.map`'s closure where a card could not see it, so the
+  card had a second gold; it is module scope now, beside `CARD_MAP_LAYERS`, and the Atlas closes over it.
+  **Two golds for one idea is exactly how they drift**, and this pair drifts INVISIBLY — a card and the
+  Atlas are never on screen together, so a second copy is just a slightly different gold nobody can see is
+  wrong. Hence `test-map-cards.js` asserts both halves: `app.js` defines `TINT_SEL` **exactly once** (a
+  re-copied local inside the closure would shadow the module one in silence) and the canvas really paints
+  that triple, with the expected value **read out of `app.js` rather than written into the test** — a
+  literal there pins today's value instead of the rule, which is `test-tour.js`'s own lesson about a
+  button's label.
+  **WHAT IS NOT SHARED IS THE TREATMENT, and that is deliberate.** The Atlas fills at `fillA` 0.24 and
+  outlines LIGHTER, because a country there sits over borders, cities, terrain and an era fill that all
+  have to read through it. A card's land is a flat wash with nothing underneath, so a 24% tint would leave
+  the answer barely distinguishable from its neighbours: it is filled SOLID, and the edge is darkened
+  rather than lightened so the shape still parts from the state beside it.
+  **AND `h2r` HAD TO LEARN `rgb()`**, since `TINT_SEL` states its colour as a triple: without that branch
+  `parseInt` reads it as NaN, `|| 0` makes it black, and the state fills BLACK — which reads as a
+  rendering fault rather than as a colour that failed to parse.
+  **THE FIGURES SIT BESIDE THE ANSWER, NOT UNDER IT** (Aug 2026, on request), as a sibling of
+  `.answer-main` inside the coloured box — the slot `.answer-tr` already occupies on a Chinese card — which
+  is what lets them be a two-column grid rather than a row that wraps. They cannot be inside `.answer-av`
+  and be to the right of it. Below 640px `.answer` stacks, so "on the right" has nowhere to be and
+  `.card-facts` goes back under the answer at full width, still two columns, which at 390px is what the
+  tiles were sized for anyway.
   **`facts` IS NOT THE DATE LINE and the two are easy to confuse**: `isDateList` caps the date line at four
   rows and demands a number in every labelled row, so `Capital · Sacramento` cannot go there — the date line
   carries dates and the facts box everything else, and a card may have both (`CARD_FACTS_MAX` 8, plain text).

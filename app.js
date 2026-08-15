@@ -23619,6 +23619,14 @@
        there is no text alternative that does not give the answer away; the canvas says what it is and what
        to do with it, and the answer is announced normally once revealed. It is the Picture round's
        position, and it is stated in docs/geography-card-plan.md rather than papered over. */
+  /* THE MAP'S SELECTION GOLD, DEFINED ONCE AND READ BY BOTH MAPS (Aug 2026, on request: a map card's
+     shaded place should be "the same gold we use when clicking a country in the atlas"). It lived inside
+     `PAGES.map`'s closure, where a card could not see it, so a card had a gold of its own — and two golds
+     for one idea is exactly how they come to disagree, silently, on a site where the two are never on
+     screen together. Hoisted here rather than copied: the Atlas closes over this, so there is one triple.
+     `line` and `glow` are written out rather than derived from `rgb`, which is the Atlas's own note — its
+     outline is a LIGHTER amber than its fill, and deriving them would quietly have flattened that. */
+  const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
   const CARD_MAP_LAYERS = {
     // a layer names the bundle that carries its polygons and the global that bundle assigns
     "us-states": { bundle: "usstates", global: "US_STATES", what: "state" },
@@ -23684,7 +23692,15 @@
     const HP = { x: 0, y: 0 };
     let ocean = "#b3ebff", land = "#ddd", border = "#999", hi = "#B5722A", hiEdge = "#8a4d10", sub = "#bbb", ink = "#222", halo = "#fff", font = "sans-serif";
     const clampN = (v, a, b) => (v < a ? a : v > b ? b : v);
-    const h2r = (h) => { h = String(h).replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+    /* Hex OR an `rgb(r,g,b)` string, because the shaded place's colour comes from `TINT_SEL`, which states
+       its own as a triple. Without the second branch `parseInt` reads "rgb(255,178,46)" as NaN, `|| 0`
+       makes it black, and the state fills BLACK — which reads as a rendering fault rather than as a
+       colour that failed to parse. */
+    const h2r = (h) => {
+      const m = /rgba?\(([^)]+)\)/.exec(String(h));
+      if (m) { const p = m[1].split(/[,\s/]+/).filter(Boolean).map((x) => parseInt(x, 10) || 0); return [p[0], p[1], p[2]]; }
+      h = String(h).replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    };
     const mixc = (a, b, t) => { const A = h2r(a), B = h2r(b); return "rgb(" + Math.round(A[0] + (B[0] - A[0]) * t) + "," + Math.round(A[1] + (B[1] - A[1]) * t) + "," + Math.round(A[2] + (B[2] - A[2]) * t) + ")"; };
     const rgbaOf = (a, al) => { const A = h2r(a); return "rgba(" + A[0] + "," + A[1] + "," + A[2] + "," + al + ")"; };
     /* The theme's own tokens, read off the body exactly as the Atlas reads them — they are all hex for
@@ -23692,11 +23708,22 @@
        which is when a theme change reaches this widget anyway. */
     function readCols() {
       const cs = getComputedStyle(document.body), cv2 = (n) => (cs.getPropertyValue(n) || "").trim() || "#888888";
-      const inkc = cv2("--ink"), paper = cv2("--paper"), paper2 = cv2("--paper-2"), indigo = cv2("--indigo"), ochre = cv2("--ochre");
+      const inkc = cv2("--ink"), paper = cv2("--paper"), paper2 = cv2("--paper-2"), indigo = cv2("--indigo");
       const L = h2r(paper), dark = (L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114) < 128;
       ocean = dark ? mixc(paper2, indigo, 0.30) : "#b3ebff";
       land = mixc(paper, inkc, 0.10); border = mixc(paper, inkc, 0.42); sub = rgbaOf(inkc, 0.22);
-      hi = ochre; hiEdge = mixc(ochre, inkc, dark ? 0.15 : 0.35);
+      /* THE SHADED PLACE IS THE ATLAS'S OWN SELECTION GOLD (Aug 2026, on request — it was `--ochre`, which
+         renders as a mid brown, and then briefly a gold of this widget's own). `TINT_SEL` is the triple the
+         Atlas paints a clicked country in, hoisted to module scope so there is one definition rather than
+         two that agree today; being a literal it is theme-INDEPENDENT, which is right for a card whose whole
+         question is "which shape is lit up" — the lit shape must not be a different colour on marble than
+         on gazette.
+         WHAT IS NOT TAKEN FROM IT IS THE TREATMENT, and that is deliberate. The Atlas fills at `fillA` 0.24
+         and outlines LIGHTER, because a country there sits over borders, cities, terrain and an era fill
+         that all have to read through it. A card's land is a flat wash with nothing underneath, so a 24%
+         tint would leave the answer barely distinguishable from its neighbours; it is filled solid, and the
+         edge is darkened rather than lightened so the shape still parts from the state beside it. */
+      hi = "rgb(" + TINT_SEL.rgb + ")"; hiEdge = mixc(hi, inkc, dark ? 0.24 : 0.46);
       ink = dark ? "#ffffff" : "#221808"; halo = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.94)";
       font = cv2("--sans") || "system-ui, sans-serif";
     }
@@ -23977,7 +24004,13 @@
       const hasTr = !!c.hanzi;
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
       html += '<div class="answer-av"><span class="val">' + c.answer + "</span>";
-      html += '<div class="av-row">' + (c.answerDate || "") + "</div>" + cardFactsHTML(c) + "</div></div>";
+      html += '<div class="av-row">' + (c.answerDate || "") + "</div></div></div>";
+      /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
+         inside the coloured box, which is the slot `.answer-tr` already occupies on a Chinese card. That is
+         what lets them be a GRID: given the whole right-hand side they pair up two to a row, where under
+         the date line they were a wrapping strip whose rows broke wherever the widths happened to fall.
+         They cannot be inside .answer-av and be on the right of it. */
+      html += cardFactsHTML(c);
       if (hasTr) {
         const trCol = S.settings.trCollapsed !== false; // collapsed by default
         html += '<div class="answer-tr' + (trCol ? " collapsed" : "") + '">';
@@ -27500,10 +27533,8 @@
     /* A highlight's colours, derived from one rgb triple so a second one costs a line rather than a fork of
        the painter. The map has exactly one — its gold — until the Find-it game, which has to say three
        different things on the same map (here is the answer · here is where you went · you found it) and
-       cannot say them all in one colour. `line` and `glow` are written out on the gold so the shipped
-       selection stays exactly as it was: its outline is a LIGHTER amber than its fill, not the same value
-       at full alpha, which is what deriving them would have quietly made it. */
-    const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
+       cannot say them all in one colour. `TINT_SEL` itself is module-level (see its note beside
+       CARD_MAP_LAYERS): a MAP CARD shades its place in that same gold, and the two must not drift. */
     const tintOf = (rgb, fillA) => ({ rgb: rgb, fillA: fillA, line: "rgba(" + rgb + ",1)", glow: "rgba(" + rgb + ",0.75)" });
     // paint a country with its stable matte colour (clipped to the country) when hovered / selected
     function paintFill(idx, selected) {

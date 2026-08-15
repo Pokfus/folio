@@ -1105,15 +1105,28 @@ body[data-theme="folio"] .collection-deco::after{
 /* ---------- the figures box beside an answer (map cards; see cardFactsHTML) ----------
    Tiles rather than the date line's two aligned columns, and deliberately so: `.dt` answers "when", in one
    narrow key/value list, and this answers "how many" — a capital, a population, an area — which reads far
-   better as a row of small facts than as more rows under the same labels. It sits INSIDE .answer-av, under
-   the date line, so the whole of what a reader is asked to remember about the term is one block. */
-.card-facts{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;}
+   better as small facts than as more rows under the same labels.
+
+   IT IS A GRID ON THE RIGHT OF THE ANSWER BOX, a sibling of `.answer-main` in `.answer`'s flex row — the
+   slot `.answer-tr` takes on a Chinese card, and `.answer` is `space-between`, so it goes to the far edge
+   with no rule of its own. TWO COLUMNS RATHER THAN `auto-fit`: the tiles are different widths (a capital
+   against an area with its conversion), so an auto-fitting track count re-flows between one card and the
+   next and the box stops being a shape a reader recognises. `minmax(0,1fr)` because a grid item's
+   automatic minimum is its content's, and without it a long value pushes the column past its share and
+   squeezes the answer beside it.
+
+   `align-content:start` keeps the tiles at the TOP of the box rather than spread down it — the answer
+   term is the tall thing here and the figures annotate it, so they line up with its first line. */
+.card-facts{
+  display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px;
+  align-content:start; flex:0 1 auto; min-width:0; max-width:min(58%, 340px);
+}
 .cf-tile{
   display:flex; flex-direction:column; gap:1px; min-width:0; padding:5px 10px 6px;
   border:1px solid var(--rule); border-radius:7px; background:var(--card);
 }
-.cf-k{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.62; white-space:nowrap;}
-.cf-v{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-soft); line-height:1.35;}
+.cf-k{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.62; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.cf-v{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-soft); line-height:1.35; overflow-wrap:anywhere;}
 
 /* ---------- a map card's window (see the MAP CARDS block in app.js) ----------
    The question is a canvas: one place shaded on the globe, turned and zoomed by the reader. `touch-action:
@@ -4160,6 +4173,9 @@ button.game-tile .gt-glyph{opacity:.14;}
   .answer-main{flex-direction:column; align-items:flex-start; gap:5px; width:100%;}
   .av-row{flex-direction:column; align-items:flex-start; gap:10px;}
   .answer-tr{align-self:stretch; justify-content:flex-end;}
+  /* .answer stacks here, so "on the right" has nowhere to be — the figures go back under the answer and
+     take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
+  .card-facts{max-width:none; width:100%; margin-top:12px;}
   .grades{grid-template-columns:repeat(2,1fr);}
   .grade-wrap{grid-template-columns:auto auto 1fr; grid-template-areas:"grades grades grades" "help undo suspend"; gap:10px;}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}

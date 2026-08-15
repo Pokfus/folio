@@ -220,6 +220,36 @@ async function browserChecks(page) {
   // touch-action:none is what lets a finger drag the globe instead of scrolling the card away
   ok((await page.evaluate(() => getComputedStyle(document.querySelector(".mc-canvas")).touchAction)) === "none", "the canvas claims its own touches");
 
+  /* THE SHADED PLACE IS THE ATLAS'S OWN GOLD, and this is the assertion that keeps it so. `TINT_SEL` was
+     inside the Atlas's closure and the card had a gold of its own; hoisting it to module scope is what
+     makes them one colour, and nothing on screen would report the two drifting apart again — a card and
+     the Atlas are never on screen together, so a second copy would simply be a slightly different gold
+     nobody could see was wrong. The expected value is read out of app.js rather than written down here,
+     for the reason test-tour.js reads a button's label out of app.js: a literal in a test pins today's
+     value instead of the rule. Both halves are needed — one TINT_SEL (a re-copied local inside the
+     Atlas closure would shadow the module one silently) and the canvas actually painting it. */
+  const APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+  const tints = APP.match(/const TINT_SEL = \{[^}]*\}/g) || [];
+  ok(tints.length === 1, "app.js defines the selection gold exactly once", tints.length);
+  const rgbM = /const TINT_SEL = \{\s*rgb:\s*"([\d,]+)"/.exec(APP);
+  ok(!!rgbM, "…and states it as an rgb triple");
+  if (rgbM) {
+    // the commonest plainly-warm pixel on the card's canvas IS the fill of the shaded state
+    const top = await page.evaluate(() => {
+      const cv = document.querySelector(".mc-canvas"), g = cv.getContext("2d");
+      const d = g.getImageData(0, 0, cv.width, cv.height).data, seen = new Map();
+      for (let i = 0; i < d.length; i += 4) {
+        const r = d[i], gg = d[i + 1], b = d[i + 2];
+        if (r > 150 && r - b > 60 && gg > b) { const k = r + "," + gg + "," + b; seen.set(k, (seen.get(k) || 0) + 1); }
+      }
+      let best = null, n = 0;
+      seen.forEach((v, k) => { if (v > n) { n = v; best = k; } });
+      return { rgb: best, n: n };
+    });
+    ok(top.rgb === rgbM[1], "the shaded state is filled with the Atlas's selection gold", top.rgb + " vs " + rgbM[1]);
+    ok(top.n > 500, "…over a real area of the window rather than a hairline", top.n);
+  }
+
   sect("5. the answer: the name, the facts box and the citations");
   const before = await page.evaluate(() => document.querySelector(".map-card canvas").toDataURL().length);
   await page.evaluate(() => { const b = document.querySelector("#reveal-btn"); if (b) b.click(); });
