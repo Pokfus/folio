@@ -87,7 +87,7 @@ const SRC_URL = /https?:\/\/[^\s<>"']+/;
      the quiet failure this whole repo keeps recording: nothing throws, the card ships, and its window
      says "this map could not be loaded" to a reader who has no idea what they were meant to see. */
 const MAP_LAYERS = {
-  "us-states": { file: "us-states.js", global: "US_STATES", what: "state" },
+  "us-states": { file: "us-states.js", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "state capital" },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
@@ -116,6 +116,32 @@ if (isMap) {
       "\n       A key the layer does not carry ships a card whose window says it could not be loaded — which is\n" +
       "       a reader meeting a broken card, not an error anybody would see first.");
     process.exit(1);
+  }
+  /* THE DOT IS CHECKED THE SAME WAY THE KEY IS, and its STATE is checked against the key — which is the
+     part worth having. A capital card shades a state and marks a city in it, so the two are a claim about
+     each other, and the layer's own table records which state each capital stands in. Providence filed
+     under Rhode Island and a card shading Rhode Island agree; a card that shaded Vermont would not, and
+     nothing on the rendered page would say so — the dot would simply be off the edge of the shape. */
+  if ("dot" in card.map) {
+    const d = card.map.dot;
+    if (!layer.points) { console.error("ERROR: the " + m.layer + " layer carries no point table, so a card on it cannot ask for a dot."); process.exit(1); }
+    if (typeof d !== "string" || !d.trim()) { console.error("ERROR: card.map.dot is empty — it names the " + layer.dotWhat + " to mark."); process.exit(1); }
+    const pts = loadWindow(lp)[layer.points] || {};
+    const hit = pts[d];
+    if (!hit) {
+      const near = Object.keys(pts).filter((n) => n.toLowerCase().startsWith(String(d).slice(0, 3).toLowerCase()));
+      console.error("ERROR: " + JSON.stringify(d) + " is not a " + layer.dotWhat + " in " + layer.file + "." + (near.length ? " Did you mean: " + near.join(", ") + "?" : ""));
+      process.exit(1);
+    }
+    if (hit.s !== m.key) {
+      console.error("ERROR: " + JSON.stringify(d) + " is in " + JSON.stringify(hit.s) + ", but the card shades " + JSON.stringify(m.key) + " — the dot would fall outside the shape.");
+      process.exit(1);
+    }
+    /* The card's ANSWER should be the thing the dot marks, since the dot is what the question points at.
+       A warning rather than a refusal: a future card might legitimately mark a city and ask something
+       else about it, and this file refuses only what is provably broken. */
+    const ans = String(card.answerText || "").trim();
+    if (ans && ans !== d) console.warn("  ! the dot marks " + JSON.stringify(d) + " but the answer is " + JSON.stringify(ans) + " — check that is deliberate.");
   }
   if (Array.isArray(card.questions) && card.questions.length) {
     console.error("ERROR: a map card carries no extra question phrasings — the map is the clue, and \"which " + layer.what + " is shaded?\" has no second angle. Give it `\"questions\": []`.");

@@ -23738,8 +23738,9 @@
      outline is a LIGHTER amber than its fill, and deriving them would quietly have flattened that. */
   const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
   const CARD_MAP_LAYERS = {
-    // a layer names the bundle that carries its polygons and the global that bundle assigns
-    "us-states": { bundle: "usstates", global: "US_STATES", what: "state" },
+    // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
+    // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
+    "us-states": { bundle: "usstates", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -23757,15 +23758,25 @@
     if (!m || typeof m !== "object") return null;
     const layer = CARD_MAP_LAYERS[m.layer];
     if (!layer || !m.key) return null;
-    return { layer: m.layer, key: String(m.key), zoom: Number(m.zoom) || 0, def: layer };
+    // `dot` names a point in the layer's own table — a city, on a card whose answer is one
+    const dot = m.dot && layer.points ? String(m.dot) : "";
+    return { layer: m.layer, key: String(m.key), dot: dot, zoom: Number(m.zoom) || 0, def: layer };
   }
   /* The window's markup. It is built here and WIRED separately (mountCardMaps), the way `.card-img` is
      built here and opened by a delegated listener: a canvas cannot be started from a string. */
   function cardMapHTML(spec) {
+    const what = spec.def.what, dotWhat = spec.def.dotWhat || "place";
+    /* What the canvas SAYS it is showing follows what it is showing: on a capital card the shape is the
+       clue and the dot is the question, so the label must not tell a reader to name the state. It still
+       gives the answer away to nobody — see the accessibility note in the block header, which is why the
+       label describes the task rather than the shape. */
+    const said = spec.dot
+      ? "An interactive globe with one " + what + " shaded and a dot marking a " + dotWhat + " in it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + dotWhat + " is it?"
+      : "An interactive globe with one " + what + " shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?";
     return '<div class="map-card" data-map-layer="' + esc(spec.layer) + '" data-map-key="' + esc(spec.key) + '"' +
+      (spec.dot ? ' data-map-dot="' + esc(spec.dot) + '"' : "") +
       (spec.zoom ? ' data-map-zoom="' + spec.zoom + '"' : "") + ">" +
-      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' +
-      esc("An interactive globe with one " + spec.def.what + " shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + spec.def.what + " is it?") + '"></canvas>' +
+      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
       '<div class="mc-zoom">' +
       '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
       '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
@@ -23794,13 +23805,13 @@
     const def = CARD_MAP_LAYERS[layerName];
     if (!def) return;
     const ctx = cv.getContext("2d");
-    let stopped = false, target = null, shapes = null, revealed = false;
+    let stopped = false, target = null, shapes = null, revealed = false, dot = null;
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
     let Cx = 0, Cy = 0, Cz = 0, Ex = 0, Ey = 0, Ez = 0, Nx = 0, Ny = 0, Nz = 0;
     let PX = 0, PY = 0, PV = 0, P3x = 0, P3y = 0, P3z = 0;
     const HP = { x: 0, y: 0 };
-    let ocean = "#b3ebff", land = "#ddd", border = "#999", hi = "#B5722A", hiEdge = "#8a4d10", sub = "#bbb", ink = "#222", halo = "#fff", font = "sans-serif";
+    let ocean = "#b3ebff", land = "#ddd", border = "#999", sub = "#bbb", ink = "#222", halo = "#fff", font = "sans-serif";
     const clampN = (v, a, b) => (v < a ? a : v > b ? b : v);
     /* Hex OR an `rgb(r,g,b)` string, because the shaded place's colour comes from `TINT_SEL`, which states
        its own as a triple. Without the second branch `parseInt` reads "rgb(255,178,46)" as NaN, `|| 0`
@@ -23822,18 +23833,9 @@
       const L = h2r(paper), dark = (L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114) < 128;
       ocean = dark ? mixc(paper2, indigo, 0.30) : "#b3ebff";
       land = mixc(paper, inkc, 0.10); border = mixc(paper, inkc, 0.42); sub = rgbaOf(inkc, 0.22);
-      /* THE SHADED PLACE IS THE ATLAS'S OWN SELECTION GOLD (Aug 2026, on request — it was `--ochre`, which
-         renders as a mid brown, and then briefly a gold of this widget's own). `TINT_SEL` is the triple the
-         Atlas paints a clicked country in, hoisted to module scope so there is one definition rather than
-         two that agree today; being a literal it is theme-INDEPENDENT, which is right for a card whose whole
-         question is "which shape is lit up" — the lit shape must not be a different colour on marble than
-         on gazette.
-         WHAT IS NOT TAKEN FROM IT IS THE TREATMENT, and that is deliberate. The Atlas fills at `fillA` 0.24
-         and outlines LIGHTER, because a country there sits over borders, cities, terrain and an era fill
-         that all have to read through it. A card's land is a flat wash with nothing underneath, so a 24%
-         tint would leave the answer barely distinguishable from its neighbours; it is filled solid, and the
-         edge is darkened rather than lightened so the shape still parts from the state beside it. */
-      hi = "rgb(" + TINT_SEL.rgb + ")"; hiEdge = mixc(hi, inkc, dark ? 0.24 : 0.46);
+      /* The shaded place's own colour is NOT read here: it is `TINT_SEL`, a module-level literal, and it is
+         theme-INDEPENDENT on purpose — the whole question a map card asks is "which shape is lit up", and
+         the lit shape must not be a different colour on marble than on gazette. See the draw pass below. */
       ink = dark ? "#ffffff" : "#221808"; halo = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.94)";
       font = cv2("--sans") || "system-ui, sans-serif";
     }
@@ -23921,21 +23923,59 @@
         ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
         for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
       }
+      /* THE SHADED PLACE IS PAINTED THE WAY THE ATLAS PAINTS A CLICKED COUNTRY, and that is the request
+         rather than an inference from it: a translucent warm tint that lets the map read through, a crisp
+         brighter outline over it, and a soft glow behind that outline. It was a SOLID fill with a darkened
+         edge for a day, on the reasoning that a card's land is flat and a 24% tint would leave the answer
+         barely distinguishable — which was wrong, and wrong in the way this file keeps warning about: it
+         was reasoned about rather than looked at. The tint is what carries most of the Atlas's look, and
+         at these zooms one state fills a third of the window, so it reads perfectly well.
+         The three numbers are `paintFillGroups`' own, deliberately written out here rather than derived
+         from `TINT_SEL.rgb`: its outline is a LIGHTER amber than its fill and its glow lighter still, and
+         deriving them from one triple is exactly what would quietly flatten that. */
       if (target) {
         pathOf(target.p);
-        ctx.fillStyle = hi; ctx.fill("evenodd");
-        ctx.strokeStyle = hiEdge; ctx.lineWidth = 1.6; ctx.stroke();
+        ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("evenodd");
+        ctx.save();
+        ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9;
+        ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.stroke();
+        ctx.restore();
+      }
+      /* A CITY IS A DOT, because a capital card's answer is the city and shading its state alone says only
+         which state (Aug 2026, on request). It is the Atlas's own focus-point mark — the same gold at full
+         strength, the same 5.5px radius, the same dark ring — so a place pointed at on a card and a place
+         pointed at on the Atlas are the same thing. It draws ON TOP of the shaded state, which is the
+         clue: the state answers "where", the dot answers "which place". Its NAME is held back until the
+         answer is shown, for the obvious reason. */
+      if (dot) {
+        proj(dot.c[0], dot.c[1]);
+        if (PV >= 0) {
+          ctx.save();
+          ctx.beginPath(); ctx.arc(PX, PY, 5.5, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill();
+          ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke();
+          ctx.restore();
+        }
       }
       ctx.restore();
       // the rim, drawn last so the clipped fills sit inside a clean edge
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.strokeStyle = rgbaOf("#000000", 0.28); ctx.lineWidth = 1; ctx.stroke();
-      if (revealed && target) {
-        proj(target.c[0], target.c[1]);
-        if (PV >= 0) {
-          ctx.font = "600 13px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-          ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(target.n, PX, PY);
-          ctx.fillStyle = ink; ctx.fillText(target.n, PX, PY);
+      /* The name of whatever the card was asking about — the dot's where there is one, the shape's
+         otherwise, since on a capital card the state is the clue and the city is the answer. A dot's label
+         sits BESIDE it rather than over it, the Atlas's placement, or the mark it names is under the word. */
+      if (revealed) {
+        const at = dot ? dot.c : target ? target.c : null;
+        const nm = dot ? dot.n : target ? target.n : "";
+        if (at && nm) {
+          proj(at[0], at[1]);
+          if (PV >= 0) {
+            ctx.font = "600 13px " + font;
+            ctx.textAlign = dot ? "left" : "center"; ctx.textBaseline = "middle";
+            const lx = dot ? PX + 10 : PX;
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, lx, PY);
+            ctx.fillStyle = ink; ctx.fillText(nm, lx, PY);
+          }
         }
       }
     }
@@ -24062,6 +24102,17 @@
       shapes = window[def.global];
       target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
       if (!target) { host.classList.add("mc-failed"); return; }
+      /* The dot, where the card asked for one. A name the layer's point table does not carry is a FAILURE
+         rather than a card that quietly draws no dot: the dot IS the answer on a capital card, so a silent
+         miss leaves a question nobody can answer and nothing on screen to say why. `add-card.js` checks the
+         name against the same table when the card is written, so reaching here means the table moved. */
+      const dotName = host.getAttribute("data-map-dot");
+      if (dotName) {
+        const tbl = (def.points && window[def.points]) || null;
+        const p = tbl && tbl[dotName];
+        if (!p || !Array.isArray(p.c)) { host.classList.add("mc-failed"); return; }
+        dot = { n: dotName, c: p.c };
+      }
       fitTarget(nearRings(target));
       resize();
     });

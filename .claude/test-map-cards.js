@@ -65,6 +65,30 @@ function staticChecks() {
   const verts = ST.reduce((n, s) => n + s.p.reduce((m, r) => m + r.length, 0), 0);
   ok(verts >= 25000, "the layer as a whole is finely traced", verts);
 
+  /* THE CAPITALS ARE GENERATED, NEVER TYPED, and this is what says so. Fifty hand-entered coordinates are
+     fifty chances to put a city in the wrong state, and a dot a degree out still draws — inside the shaded
+     state, on a card that looks entirely correct. They are keyed by city and carry the state they are IN,
+     so the card's claim is machine-checkable, which is the whole reason the table has an `s` at all. */
+  const CAP = win.US_CAPITALS || {};
+  const capNames = Object.keys(CAP);
+  ok(capNames.length === 50, "us-states.js carries the 50 state capitals", capNames.length);
+  ok(capNames.every((n) => CAP[n] && Array.isArray(CAP[n].c) && CAP[n].c.length === 2 && isFinite(CAP[n].c[0]) && isFinite(CAP[n].c[1])), "every capital has a finite coordinate");
+  ok(new Set(capNames.map((n) => CAP[n].s)).size === 50, "one capital per state, and fifty states", new Set(capNames.map((n) => CAP[n].s)).size);
+  const stByName = new Map(ST.map((s) => [s.n, s]));
+  ok(capNames.every((n) => stByName.has(CAP[n].s)), "every capital names a state the layer actually has");
+  /* AND EACH ONE FALLS INSIDE ITS OWN STATE'S BOX. A capital keyed to the wrong state paints its dot
+     somewhere else entirely on the globe — off the shaded shape, or off the visible hemisphere — so this
+     is the cheap check that catches a source whose fields have moved under the builder. A bounding box
+     rather than a point-in-polygon: it is enough to separate fifty states and needs no geometry. */
+  const outside = capNames.filter((n) => {
+    const st = stByName.get(CAP[n].s); if (!st) return true;
+    let lo0 = Infinity, hi0 = -Infinity, lo1 = Infinity, hi1 = -Infinity;
+    st.p.forEach((r) => r.forEach((p) => { if (p[0] < lo0) lo0 = p[0]; if (p[0] > hi0) hi0 = p[0]; if (p[1] < lo1) lo1 = p[1]; if (p[1] > hi1) hi1 = p[1]; }));
+    const c = CAP[n].c;
+    return c[0] < lo0 - 0.3 || c[0] > hi0 + 0.3 || c[1] < lo1 - 0.3 || c[1] > hi1 + 0.3;
+  });
+  ok(outside.length === 0, "every capital sits inside its own state", outside.join(", "));
+
   const dwin = {};
   new Function("window", fs.readFileSync(path.join(ROOT, "data.js"), "utf8"))(dwin);
   const cards = dwin.CARD_DATA || [];
@@ -77,7 +101,20 @@ function staticChecks() {
     /* A map card carries NO extra phrasings. The other two would have to describe the same shape in two
        more ways, which is either the same sentence or a different question about a different thing. */
     ok(!c.questions || !c.questions.length, c.id + ": carries no extra phrasings");
+    /* A CAPITAL CARD NAMES ITS DOT, and the dot must be in the state the same card shades — otherwise the
+       card shades one state and points at a city in another, which is a wrong answer rather than a broken
+       one. The third assertion is the one nothing else can make: the ANSWER has to be the dot, or the card
+       lights up a city and asks about the state around it. */
+    if (c.map.dot) {
+      ok(!!CAP[c.map.dot], c.id + ": its dot is a capital the layer actually has", c.map.dot);
+      ok(CAP[c.map.dot] && CAP[c.map.dot].s === c.map.key, c.id + ": …in the state the card shades", CAP[c.map.dot] && CAP[c.map.dot].s);
+      ok((c.answerText || "").trim() === c.map.dot, c.id + ": …and the answer is that city", c.answerText);
+    }
   });
+  const dotted = maps.filter((c) => c.map.dot);
+  ok(dotted.length > 0, "the deck carries at least one capital card", dotted.length);
+  // a state card must NOT carry one: the shape is the whole question there, and a dot would answer it
+  ok(maps.filter((c) => !c.map.dot).length > 0, "…and at least one card whose question is the shape alone");
   const withFacts = cards.filter((c) => c.facts && c.facts.length);
   ok(withFacts.length > 0, "map cards carry a facts box", withFacts.length);
   withFacts.forEach((c) => {
@@ -231,23 +268,53 @@ async function browserChecks(page) {
   const APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
   const tints = APP.match(/const TINT_SEL = \{[^}]*\}/g) || [];
   ok(tints.length === 1, "app.js defines the selection gold exactly once", tints.length);
-  const rgbM = /const TINT_SEL = \{\s*rgb:\s*"([\d,]+)"/.exec(APP);
-  ok(!!rgbM, "…and states it as an rgb triple");
-  if (rgbM) {
-    // the commonest plainly-warm pixel on the card's canvas IS the fill of the shaded state
-    const top = await page.evaluate(() => {
+  const tintM = /const TINT_SEL = \{\s*rgb:\s*"([\d,]+)",\s*fillA:\s*([\d.]+),\s*line:\s*"rgba\((\d+),(\d+),(\d+)/.exec(APP);
+  ok(!!tintM, "…as a triple, a fill alpha and an outline colour");
+  if (tintM) {
+    const RGB = tintM[1].split(",").map(Number), FILL_A = Number(tintM[2]), LINE = [+tintM[3], +tintM[4], +tintM[5]];
+    /* Every colour covering a real area, commonest first — plus the pixel at the CENTRE of the window,
+       which on a fitted map card is inside the shaded shape by construction: `fitTarget` centres the view
+       on the target's own label point, and Natural Earth's label point is inside its polygon. That is
+       what makes the fill readable exactly, with no guessing at which histogram entry it is. */
+    const shot = await page.evaluate(() => {
       const cv = document.querySelector(".mc-canvas"), g = cv.getContext("2d");
       const d = g.getImageData(0, 0, cv.width, cv.height).data, seen = new Map();
-      for (let i = 0; i < d.length; i += 4) {
-        const r = d[i], gg = d[i + 1], b = d[i + 2];
-        if (r > 150 && r - b > 60 && gg > b) { const k = r + "," + gg + "," + b; seen.set(k, (seen.get(k) || 0) + 1); }
-      }
-      let best = null, n = 0;
-      seen.forEach((v, k) => { if (v > n) { n = v; best = k; } });
-      return { rgb: best, n: n };
+      for (let i = 0; i < d.length; i += 4) { const k = d[i] + "," + d[i + 1] + "," + d[i + 2]; seen.set(k, (seen.get(k) || 0) + 1); }
+      const mid = g.getImageData((cv.width / 2) | 0, (cv.height / 2) | 0, 1, 1).data;
+      return {
+        bulk: [...seen].filter(([, n]) => n > 300).map(([k, n]) => ({ c: k.split(",").map(Number), n: n })).sort((a, b) => b.n - a.n),
+        mid: [mid[0], mid[1], mid[2]],
+      };
     });
-    ok(top.rgb === rgbM[1], "the shaded state is filled with the Atlas's selection gold", top.rgb + " vs " + rgbM[1]);
-    ok(top.n > 500, "…over a real area of the window rather than a hairline", top.n);
+    const bulk = shot.bulk;
+
+    /* THE OUTLINE IS THE EXACT COLOUR `TINT_SEL.line` NAMES. It is painted at full opacity over the tint,
+       so it is the one part of the treatment comparable against app.js as a literal triple — and it is
+       what goes if somebody replaces the Atlas's brighter stroke with a darkened edge of the card's own,
+       which is precisely what this card did for a day. */
+    const line = bulk.find((e) => e.c[0] === LINE[0] && e.c[1] === LINE[1] && e.c[2] === LINE[2]);
+    ok(!!line, "the shaded place is outlined in the Atlas's own stroke colour", bulk.slice(0, 6).map((e) => e.c.join(",")).join(" / "));
+    ok(line && line.n > 300, "…over a real edge rather than a few stray pixels", line && line.n);
+
+    /* AND THE FILL IS A TINT RATHER THAN A SOLID, which is the half a colour check alone cannot see: a
+       solid fill is the right HUE and the wrong treatment, and that is exactly the difference the reader
+       reported. It cannot be asserted as a literal, since the tint is composited over the land under it
+       and that IS a theme token — so the land is SOLVED for out of the blend and then required to be a
+       real bulk colour on this canvas.
+       TWO EARLIER VERSIONS OF THIS PASSED ON A SOLID FILL and both are worth not repeating. Picking the
+       fill out by how WARM it is skips it entirely — a 24% tint is nothing like as saturated as the solid
+       gold it replaced (`r - b` falls from 209 to 54) — so the check measured an antialiased fringe.
+       SEARCHING the histogram for any pair satisfying the blend is worse: the outline's `shadowBlur` glow
+       lays the same gold over the land at every alpha there is, so some pair always satisfies it. The
+       centre pixel is the shaded shape itself and admits neither. */
+    const fill = shot.mid;
+    ok(!fill.every((v, i) => v === RGB[i]), "the shaded place is a translucent tint, not a solid fill", fill.join(","));
+    const under = fill.map((v, i) => (v - FILL_A * RGB[i]) / (1 - FILL_A));
+    const land = bulk.find((e) => e.c.every((v, i) => Math.abs(v - under[i]) <= 2));
+    ok(!!land, "…of exactly TINT_SEL.rgb at TINT_SEL.fillA over the map's own land colour",
+      fill.join(",") + " ⇒ under " + under.map((v) => Math.round(v)).join(",") + (land ? " = land " + land.c.join(",") : " — no such colour on the canvas"));
+    const area = bulk.find((e) => e.c.every((v, i) => v === fill[i]));
+    ok(area && area.n > 500, "…over a real area of the window rather than a hairline", area && area.n);
   }
 
   sect("5. the answer: the name, the facts box and the citations");
@@ -290,6 +357,57 @@ async function browserChecks(page) {
   ok(coll.found, "the Geography collection is on the collections page");
   ok(coll.icon, "…with an icon of its own");
   ok(/^#/.test(coll.hue || ""), "…and a hue of its own", coll.hue);
+
+  /* 7. A CAPITAL IS A DOT. Shading Rhode Island and asking for Providence says only which state, which is
+     what was reported — and the failure is silent twice over: a dot that never resolves leaves a card that
+     is a perfectly good STATE card under a city's question, and a dot drawn but never named on the reveal
+     leaves the reader looking at a gold speck nobody accounted for. So both ends are asserted, and the
+     resolution is asserted as `mc-failed` NOT being set, since a missing capital table is exactly what
+     would take the dot away without a word. */
+  sect("7. a capital card puts a dot on its city");
+  await study("geo-504");
+  const dotState = await page.evaluate(() => ({
+    failed: document.querySelector(".map-card").classList.contains("mc-failed"),
+    attr: document.querySelector(".map-card").getAttribute("data-map-dot"),
+    said: document.querySelector(".mc-canvas").getAttribute("aria-label") || "",
+  }));
+  ok(!dotState.failed, "the capital resolved against the layer's own table");
+  ok(dotState.attr === "Providence", "the card carries its city", dotState.attr);
+  ok(/providence/i.test(dotState.said) === false && /city|capital/i.test(dotState.said), "the canvas asks about a city without naming it", dotState.said);
+
+  /* The dot is the Atlas's focus mark: the gold at FULL strength, where the shape around it is a tint. So
+     the pure triple appearing in a small, round quantity is the dot and nothing else on the card — the
+     outline is `TINT_SEL.line`, a different colour, and the fill is a blend of this one. */
+  const dotPx = await page.evaluate((rgb) => {
+    const cv = document.querySelector(".mc-canvas"), g = cv.getContext("2d");
+    const d = g.getImageData(0, 0, cv.width, cv.height).data;
+    const want = rgb.split(",").map(Number);
+    let n = 0, minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i] === want[0] && d[i + 1] === want[1] && d[i + 2] === want[2]) {
+        const p = i / 4, x = p % cv.width, y = (p / cv.width) | 0;
+        n++; if (x < minx) minx = x; if (x > maxx) maxx = x; if (y < miny) miny = y; if (y > maxy) maxy = y;
+      }
+    }
+    return { n: n, w: maxx - minx, h: maxy - miny, dpr: cv.width / cv.getBoundingClientRect().width };
+  }, /const TINT_SEL = \{\s*rgb:\s*"([\d,]+)"/.exec(APP)[1]);
+  ok(dotPx.n > 30, "the city is painted on the globe at full strength", dotPx.n);
+  ok(dotPx.w > 0 && dotPx.w <= Math.ceil(14 * dotPx.dpr) && dotPx.h <= Math.ceil(14 * dotPx.dpr), "…as a dot rather than a region", dotPx.w + "×" + dotPx.h);
+
+  const dotBefore = await page.evaluate(() => document.querySelector(".mc-canvas").toDataURL().length);
+  await page.evaluate(() => document.querySelector("#reveal-btn").click());
+  await page.waitForTimeout(500);
+  const dotBack = await page.evaluate(() => ({
+    answer: (document.querySelector(".answer .val") || {}).textContent || "",
+    png: document.querySelector(".mc-canvas").toDataURL().length,
+  }));
+  ok(/Providence/i.test(dotBack.answer), "the answer names the city, not the state", dotBack.answer);
+  /* THE LABEL NAMES THE DOT AND NOT THE SHAPE. Reading a word back off a canvas means re-drawing it and
+     comparing pixels, which is more machinery than the claim is worth; what is asserted instead is that
+     the reveal repainted at all, plus the rule that decides WHICH name it writes — read out of app.js, so
+     it cannot quietly go back to labelling the state on a card whose answer is the city. */
+  ok(dotBack.png !== dotBefore, "the reveal repainted the map");
+  ok(/const nm = dot \? dot\.n : target \? target\.n : ""/.test(APP), "the revealed label names the dot where there is one");
 
   ok(!errs.length, "no console errors", errs.join(" | "));
 }

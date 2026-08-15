@@ -9501,14 +9501,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Atlas are never on screen together, so a second copy is just a slightly different gold nobody can see is
   wrong. Hence `test-map-cards.js` asserts both halves: `app.js` defines `TINT_SEL` **exactly once** (a
   re-copied local inside the closure would shadow the module one in silence) and the canvas really paints
-  that triple, with the expected value **read out of `app.js` rather than written into the test** — a
-  literal there pins today's value instead of the rule, which is `test-tour.js`'s own lesson about a
-  button's label.
-  **WHAT IS NOT SHARED IS THE TREATMENT, and that is deliberate.** The Atlas fills at `fillA` 0.24 and
-  outlines LIGHTER, because a country there sits over borders, cities, terrain and an era fill that all
-  have to read through it. A card's land is a flat wash with nothing underneath, so a 24% tint would leave
-  the answer barely distinguishable from its neighbours: it is filled SOLID, and the edge is darkened
-  rather than lightened so the shape still parts from the state beside it.
+  it, with the expected values **read out of `app.js` rather than written into the test** — a literal
+  there pins today's value instead of the rule, which is `test-tour.js`'s own lesson about a button's
+  label.
+  **AND THE TREATMENT IS SHARED TOO, WHICH IT WAS NOT FOR A DAY** (Aug 2026, on a second request: "the
+  gold overlay doesn't really look the same as when I click a country on the atlas page"). The card
+  filled SOLID with a darkened edge, on the reasoning that the Atlas tints at 24% because a country
+  there sits over borders, cities, terrain and an era fill, where a card's land is a flat wash — so a
+  24% tint would leave the answer barely distinguishable. That reasoning was written down here and in
+  app.js and **it was wrong**, in the way this file keeps warning about: it was reasoned about rather
+  than LOOKED at. The tint is most of what the Atlas's selection looks like, and at a card's zooms one
+  state fills a third of the window, so it reads perfectly well. It is now the Atlas's three marks
+  exactly — `fillA` tint, `shadowBlur 9` glow, `lineWidth 2.6` stroke in `TINT_SEL.line`.
+  **The three numbers are written out rather than derived from `TINT_SEL.rgb`**: the outline is a
+  LIGHTER amber than the fill and the glow lighter still, and deriving them from one triple is exactly
+  what would quietly flatten that.
+  **PROVING IT IS A TINT NEEDED THREE ATTEMPTS AND THE FIRST TWO PASSED ON A SOLID FILL.** Picking the
+  fill out of a histogram by how WARM it is skips it entirely — a 24% tint is nothing like as saturated
+  as the solid gold it replaced, `r - b` falling from 209 to 54 — so the check measured an antialiased
+  fringe. SEARCHING the histogram for any pair of bulk colours satisfying the blend is worse: the glow
+  lays the same gold over the land at every alpha there is, so some pair always satisfies it. What works
+  is the pixel at the CENTRE of the window, which is inside the shaded shape by construction (`fitTarget`
+  centres on the target's label point, and Natural Earth's label point is inside its polygon) — the land
+  is then solved back out of the blend and required to be a real bulk colour on the canvas. Verified by
+  reintroducing the solid fill and the darkened edge; each fails.
   **AND `h2r` HAD TO LEARN `rgb()`**, since `TINT_SEL` states its colour as a triple: without that branch
   `parseInt` reads it as NaN, `|| 0` makes it black, and the state fills BLACK — which reads as a
   rendering fault rather than as a colour that failed to parse.
@@ -9521,6 +9537,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **`facts` IS NOT THE DATE LINE and the two are easy to confuse**: `isDateList` caps the date line at four
   rows and demands a number in every labelled row, so `Capital · Sacramento` cannot go there — the date line
   carries dates and the facts box everything else, and a card may have both (`CARD_FACTS_MAX` 8, plain text).
+  **A CITY IS A DOT, AND A STATE ALONE CANNOT ASK ABOUT ONE** (`map.dot`, `window.US_CAPITALS`; Aug 2026,
+  on request — "when the answer term is a city, it should appear as a dot on the globe, not just show the
+  state"). A capital card shaded Rhode Island and asked for Providence, which says only which state: every
+  capital card in a state's subdeck would have been answerable from the same picture as its state card.
+  `map.dot` names a point in the layer's own `points` table (`CARD_MAP_LAYERS` gained `points` and
+  `dotWhat`) and it is drawn as **the Atlas's own focus mark** — the same gold at full strength, the same
+  5.5px radius, the same dark ring — on top of the shaded state, so the state answers "where" and the dot
+  answers "which place". Its NAME is held back until the reveal, and the reveal labels the DOT where there
+  is one, left-aligned beside it rather than centred over it, or the mark it names is under the word.
+  **THE COORDINATES ARE GENERATED, NEVER TYPED** — `build-us-states.js` emits `US_CAPITALS` from the same
+  Natural Earth download as the shapes (10m populated places), because fifty hand-entered coordinates are
+  fifty chances to put a city in the wrong state and a dot a degree out still draws, inside the shaded
+  state, on a card that looks entirely correct. **`cities.js` is the wrong source and was checked**: it is
+  in the ~9.9 MB `atlas` bundle, and it drops sub-100k capitals, so Juneau is simply absent.
+  **THE MARKER IS `FEATURECLA: "Admin-1 capital"`, NOT `ADM1CAP`** — that field does not exist in this
+  vintage, so the first extraction returned zero and a rule testing only the flag ships a dotless deck in
+  silence; both are read now. Each entry carries the state it is IN (`{s, c}`), which is what makes the
+  card's claim machine-checkable: `add-card.js` refuses a dot the table has not got, refuses one whose `s`
+  is not the card's own `key` (the dot would fall outside the shape), and warns if the answer is not the
+  city. The test asserts the same three off the shipped files, plus that every capital falls inside its
+  own state's bounding box.
   **`add-card.js` validates the key against the real data file** and suggests a near match on a typo, since a
   key naming nothing paints an empty window and throws; it also refuses extra phrasings on a map card and
   holds its question to 5–20 words rather than 20–34, the picture being the clue.
@@ -9531,7 +9568,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Guarded by `.claude/test-map-cards.js`, which sweeps the fit over all 51 shapes, **asserts the VIEW rather
   than sampled pixels** (an earlier drag check compared two pixels and reported "the drag did nothing" on a
   globe that had turned four degrees — both samples sat on the same flat fill), and pins its own copy of the
-  fit formula against app.js so it cannot go stale.
+  fit formula against app.js so it cannot go stale. Its **section 7 is the dot**, and both ends of it are
+  needed because they fail differently and silently: a dot that never resolves leaves a perfectly good STATE
+  card under a city's question, and a dot drawn but never named on the reveal leaves the reader looking at a
+  gold speck nothing accounts for. It asserts the pure `TINT_SEL.rgb` triple appears in a small ROUND
+  quantity — which on a card is the dot and nothing else, the outline being a different colour and the fill a
+  blend of this one — and that `mc-failed` is NOT set, a missing capitals table being exactly what would take
+  the dot away without a word. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
+  `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
+  `serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map
+  card.**
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of the
