@@ -2839,22 +2839,93 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
-  (A1, A2, B1, B2), community decks rather than site content:
-  `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching
-  its corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every other helper here
-  is Node** — a deliberate exception, committed on request so a further level is a re-run against the next
-  column rather than a rebuild, which is exactly what B1 and B2 turned out to be.
+- `.claude/dele/` — the generator behind the six `decks/DELE-<level>-Spanish.folio-deck.json` files
+  (A1, A2, B1, B2, C1, C2) **and `decks/Spanish-Phrases.folio-deck.json`**, community decks rather than
+  site content:
+  `python3 .claude/dele/run.py [--level a2|b1|b2|c1|c2|ph] [--no-fetch]`. Seven stages, run by `run.py`,
+  caching its corpora in `.claude/dele-cache/` (~1.2 GB, gitignored). **It is PYTHON where every other
+  helper here is Node** — a deliberate exception, committed on request so a further level is a re-run
+  against the next column rather than a rebuild, which is exactly what B1, B2, C1 and C2 turned out to be.
   **ONE LEVEL PER RUN** (`dele_level` reads the level once, at import), and **a level is taught on top of
   the ones below it**: a level excludes every word the SHIPPED decks below it contain, read out of the
   deck files rather than a working file, so they cannot drift and a rebuilt level cannot start teaching a
   word a lower one already covers — **both halves of a paired headword**, so A2 cannot re-teach a feminine
   A1 already shows (that exclusion is what took four feminine adjectives out of A2 and let four new words
-  in). The intermediates are level-suffixed so all four can sit in one cache. **A level is four table
+  in). The intermediates are level-suffixed so all seven can sit in one cache. **A level is four table
   rows in `dele_level`** — its title, deck id and file, which levels are below it, how many words it
-  teaches (`TARGET`: 500, 500, 1,000, 2,000) and which pair of inventory pages its column is printed on
-  (`PAGES`: A1 and A2 share a page, B1 and B2 share another) — plus a supplement list and a batch of
-  reflexives. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
+  teaches (`TARGET`: 500, 500, 1,000, 2,000, 2,000, 2,000) and which pair of inventory pages its column is
+  printed on (`PAGES`: A1 beside A2, B1 beside B2, C1 beside C2) — plus a supplement list and a batch of
+  reflexives.
+  **THE DOUBLING STOPS AT C1, AND IT IS READ OFF THE INVENTORY RATHER THAN CONTINUED** (Aug 2026).
+  500 → 500 → 1,000 → 2,000 invites 4,000 and 8,000, and the Cervantes columns do not support it:
+  measured over the two Nociones pages, B2's column is 1,735 cells / 4,847 candidate lemmas against C1's
+  1,988 / 6,011 and C2's 1,968 / 6,497. The C columns are B2's size AGAIN, which is what the CEFR itself
+  describes — the C levels are mostly a deepening of what is held rather than another doubling of the
+  vocabulary — so the series flattens at 2,000 and the six come to **8,000 words**. C1's pool after
+  excluding the 4,532 forms below it is 2,422, so 2,000 is taken with 422 to spare; there is no room to
+  have been more ambitious even had the columns supported it.
+  **THE C LEVELS BROKE THREE THINGS, and each is the kind that would have shipped quietly.**
+  · **AN INVENTORY TURNS MORPHOLOGICAL AT C1**: the Nociones cells start listing derivational affixes
+    (`-ecer`, `-ote`, `-ón`, `-ado`, `mega-`, `post-`, `requete-`), which are a notion the way a suffix is
+    and are not vocabulary a card can ask for. `parse_pcic.is_affix` drops them at the candidate stage
+    rather than relying on `select.py`'s `GOOD_POS` to drop them a stage later, that being an indirect
+    guard over a table kept for another purpose. **It is NOT inert on the earlier levels and the comment
+    says so**: A1 and A2 are byte-identical, B1 loses `-ito`, `-ísimo` and a frame carrying the printed
+    EXAMPLES of both, B2 loses `ex-`, `super-` and a stray `-¿` — none of the seven in the shipped B1 or
+    B2, checked against the deck files, so the candidate lists move and the decks do not.
+  · **A LEVEL CAN INTRODUCE 197 REFLEXIVES AT ONCE, AND `build_deck` REFUSES THE DECK UNTIL EVERY ONE IS
+    AUTHORED.** Wiktionary files a reflexive as a form of its base verb and gives it no meaning of its own,
+    so the gloss has to be written in `reflexives.py` or the card carries nothing; C1 brought 110 (74 of
+    them with no meaning at all) and C2 another 87 (60 blank), which took that table from 63 entries to
+    347. That refusal is the design working — the alternative is 134 cards whose meaning reads
+    "infinitive of ... combined with se" — and it is the single largest piece of hand-authoring in this
+    generator. **Budget for it when adding a level.**
+  · **A SURFACE-FORM FREQUENCY LIST CAN PUT A MARGINAL NOUN FOURTH.** `van` is overwhelmingly the third
+    person plural of `ir`, but its Wiktionary entry OPENS on a noun (the anglicism for a van), so
+    `is_inflection`'s first-record test reads it as a lemma that merely collides with a verb form — the
+    same reading that correctly keeps `libro` and `vino`. It inherited `ir`'s frequency and came out
+    **4th in C1**, ahead of `el cuerpo` and `la fuerza`. It is the only one: of the eight C1 words inside
+    the 600 commonest surface forms, the other seven (`espera`, `dicho`, `muerto`, `cuerpo`,
+    `oportunidad`, `arma`, `vivo`) are real words whose position is merely flattered. So it is one entry
+    in `select.py`'s `BLOCK` rather than a class, and it is in none of A1–B2.
+  **THE PHRASES DECK IS A SEVENTH `level` WITH A DIFFERENT WORD-CHOOSING STAGE** (`--level ph` →
+  `phrases.py`, which stands where `parse_pcic` + `supplement` + `select` stand and writes the same three
+  files, so `examples`/`build_deck`/`emit` run over it unchanged — which is what keeps its card type
+  byte-identical to the levels', as `combine.py` asserts). **There is no published list of the expressions
+  a learner should know**, the way there is for the vocabulary, so inventing one would be asserting a
+  syllabus rather than reporting one: the candidates are **every multi-word Wiktionary entry**, that being
+  somebody else's editorial judgement about what is lexicalised, and **which of them are common is
+  MEASURED** by counting each in the Tatoeba corpus. Note the rule is the exact inverse of the levels' —
+  there the corpus gets no vote on the word list and a word it cannot illustrate still ships, here a
+  phrase the corpus never says is not shipped at all, because "common" is the whole of what this deck
+  claims. **Two filters were found by LOOKING AT THE LIST and neither shows up in any count**: the first
+  cut produced 400 well-formed cards, every one attested hundreds of times, whose top read `lo que`,
+  `por qué`, `de que`, `un poco`, `de una`, `más que`, `el que`. **Wiktionary marks a sum-of-parts entry
+  in its own gloss** — `Used other than figuratively or idiomatically: see ...` — so an entry carrying
+  nothing else is one the dictionary has explicitly declined to call an idiom, and dropping those also
+  removes most of the blank cards `build_deck` would have refused. And **a phrase made entirely of
+  function words is grammar, not vocabulary**: those pairs are frequent for the same reason `the` is, and
+  a corpus count cannot tell them from an expression. The stated cost is that `por qué`, `muy bien` and
+  `todo el mundo` go with them; the alternative is a hand-kept exception list, which is a syllabus again.
+  1,031 phrases survive at 3+ corpus hits and the deck takes the top 400.
+  **AND `POS_NAME` IS A FILTER AS WELL AS A LABEL, WHICH IS WHAT MADE 87 GOOD EXPRESSIONS BLANK.**
+  `build_deck.recs_of` keeps only records whose pos is a KEY in that table, so a record is discarded
+  before its gloss is ever read — and the table had no `phrase`, `prep_phrase` or `proverb`, which is
+  precisely how Wiktionary files an expression. `sin duda`, `hasta luego`, `ni idea` and `al fin y al
+  cabo` all carry a clean idiomatic gloss and all came out with nothing on the back, and `build_deck`
+  refused the deck rather than shipping them. The three are in the table now; **rebuilding B1, B2, C1 and
+  C2 afterwards showed it inert on every level**, which is the check to run on any change to it, since a
+  word with both an in-table record and an expression record could otherwise silently change which
+  record the card is built from.
+  **AND A SUM-OF-PARTS GLOSS IS NOT A MEANING, which was a fault in a SHIPPED deck.** `glosses_for` had
+  no idea about the marker either, so where an entry carried one among its senses the card could print
+  it: the shipped B1 taught `otra vez` as *"Used other than figuratively or idiomatically: see otra, vez.
+  again, once more"* — the apparatus first and the meaning trailing after it. Found only by grepping the
+  finished decks for the marker while chasing the phrases deck's blanks, which is the second time that
+  sweep has paid; it is dropped in `glosses_for` now, which fixes that card and three in the phrases deck
+  (`es que`, `en el aire`, `qué cosa`) and changes nothing else. **Grep the shipped decks for a phrase
+  the apparatus uses, not just for empties** — a card can be full and still be showing you the wrong
+  thing. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
   one failure that stage can have that looks like success: the deck builds, every card is well formed, and
   the level quietly teaches fewer words than it says it does.
   **THE CARDS SHIP IN FREQUENCY ORDER, AND THAT IS A SEPARATE QUESTION FROM WHICH WORDS ARE CHOSEN**
@@ -2880,24 +2951,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The cost of the change is that the thematic runs the cascade produced are now scattered, the numbers and
   the days no longer arriving together; that is what ordering by frequency MEANS, and the deck's own
   description says which order it is in.
-  **`combine.py` is the ONE-FILE version of all four** (`python3 .claude/dele/combine.py [out.json]`), on
-  request: 7,986 cards under a fresh deck id `deleall`, whose subdecks **NEST** — a level, with its two
+  **`combine.py` is the MULTI-LEVEL version** (`python3 .claude/dele/combine.py`), on
+  request. It wrote one file of the four levels; since the C levels and the phrases deck it writes
+  **TWO**, and that is forced rather than chosen — all seven come to ~15,800 cards and ~55 MB against
+  app.js's caps of 12,000 and 48 MB, so one file is impossible at these sizes and shrinking the content to
+  fit would be answering the wrong question. **The cut is made where the CEFR makes one**: `delelow` is
+  A1–B2 with the phrases deck (8,786 cards) and `delehigh` is C1–C2 (7,996), each a whole deck in its own
+  right, sharing no card, and importable together — which is why each carries its OWN deck id, the card-id
+  rule below applying between the two files as much as between a file and an installed level. Its subdecks
+  **NEST** — a level, with its two
   directions inside it (`A1`, then `A1::Spanish → English` and `A1::English → Spanish`) — so the levels
   stay separable inside one file rather than being poured together. Nesting is the `::` path app.js grew
   for this in Aug 2026 (see the SUBDECKS bullet under "How the app is wired"); it was `A1 · Spanish →
   English` as eight flat subdecks for a day. Three things it has to get right and two of them are silent.
-  **A CARD ID MUST CARRY THE DECK** — every card is renumbered `u_deleall_N`, since a deck FILE import only
+  **A CARD ID MUST CARRY THE DECK** — every card is renumbered `u_<fileid>_N`, since a deck FILE import only
   mints fresh ids when the DECK id already exists, so reusing `u_delea1_1` would collide with an installed
   A1 in the shared `UCARDS` store and study the wrong card. **THE TYPE BLOCK IS ASSERTED IDENTICAL** across
-  the four rather than assumed, a level rebuilt against a changed template otherwise having its cards
-  rendered silently by another level's. And **THE WORD COUNT IS NOT DERIVABLE FROM THE FILES**: a pair card
+  every deck it merges rather than assumed, a level rebuilt against a changed template otherwise having its
+  cards rendered silently by another level's — and it holds across the PHRASES deck too, which is the point
+  of that deck being emitted by the same `emit.py`. **THE CAPS ARE CHECKED PER FILE**, and a file over
+  either is refused rather than written and left to fail on a phone. And **THE WORD COUNT IS NOT DERIVABLE
+  FROM THE FILES**: a pair card
   teaches two headwords where both were selected and one where only the masculine was, and the shipped
-  files do not record which, so the 4,000 comes from `TARGET` and only the CARD counts are counted. It reads
+  files do not record which, so the 8,000 comes from `TARGET` and only the CARD counts are counted. It reads
   no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
-  **The combined file is deliberately NOT committed** — it duplicates ~27 MB already in the repo and this
-  regenerates it. **Combining ALL nine decks in `decks/` is not possible as one importable file**: 19,819
-  cards against `UDECK_MAX_CARDS` and 50.4 MB against `UDECK_MAX_BYTES`, measured, which is why the
-  combined deck is the four Spanish levels and not everything.
+  **The combined files are deliberately NOT committed** — they duplicate ~55 MB already in the repo and this
+  regenerates them. **Combining ALL the decks in `decks/` is not possible as one importable file**, measured
+  rather than assumed, which is why the combined files are Spanish and split rather than everything in one.
+  `.claude/test-combined-deck.js` imports BOTH into one browser page and reads the shelf back — the caps,
+  the nesting and the cross-file id collision all fail silently in the JSON.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
   **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said

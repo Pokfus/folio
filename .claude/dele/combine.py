@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Combine the four shipped DELE decks into ONE importable deck file.
+"""Combine the shipped Spanish decks into importable multi-level deck files.
 
-    python3 .claude/dele/combine.py [out.folio-deck.json]
+    python3 .claude/dele/combine.py
 
-It reads `decks/DELE-*.folio-deck.json` and writes a single deck whose
-subdecks NEST, a direction inside a level:
+It reads `decks/DELE-*.folio-deck.json` and `decks/Spanish-Phrases.folio-deck.json`
+and writes deck files whose subdecks NEST, a direction inside a level:
 
     A1                        B1
       Spanish → English         …
@@ -12,17 +12,26 @@ subdecks NEST, a direction inside a level:
     A2                          …
       …
 
-so a reader adds a whole level or one direction of it, and the four levels
-stay separable inside one file rather than being poured together.
+so a reader adds a whole level or one direction of it, and the levels stay
+separable inside one file rather than being poured together.
 
-FIVE THINGS IT HAS TO GET RIGHT, and four of them fail silently.
+IT WRITES TWO FILES, AND THAT IS FORCED RATHER THAN CHOSEN.  All seven decks
+come to about 15,800 cards and 55 MB, against app.js's import caps of 12,000
+cards and 48 MB, so one file is not possible at these sizes and shrinking the
+content to fit would be answering the wrong question.  The cut is made where the
+CEFR itself makes one: A1–B2, the levels a learner works up through, with the
+phrases deck; and C1–C2, the two mastery levels.  Each file is a whole deck in
+its own right, they share no card, and a reader can import one or both.
 
-A CARD ID MUST CARRY THE DECK.  Every card is renumbered `u_deleall_N`.  A deck
+SIX THINGS IT HAS TO GET RIGHT, and five of them fail silently.
+
+A CARD ID MUST CARRY THE DECK.  Every card is renumbered `u_<deckid>_N`.  A deck
 FILE import only mints fresh card ids when the DECK id already exists, so a
 combined deck reusing `u_delea1_1` would collide with an installed A1 in the
 shared `UCARDS` store and study the wrong card — the fault this generator has
 already had once, between A1 and A2, where both decks sat on the shelf with
-their full counts and nothing threw.  `deleall` is likewise its own deck id.
+their full counts and nothing threw.  Each combined file is likewise its own
+deck id, so the two can be installed together.
 
 THE SUBDECK IS A STRING ON THE CARD and the deck's subdecks are the DISTINCT
 values in CARD ORDER, so the cards are concatenated level by level and the
@@ -31,21 +40,25 @@ separator, which app.js adopted for this in Aug 2026 — so it needs no field of
 its own and travels wherever the card does.  A segment may not contain `::`,
 and none of these does.
 
-THE TYPE BLOCK IS SHARED.  All four decks carry byte-identical `types`, which
-is asserted rather than assumed — a level rebuilt against a changed template
-would otherwise have its cards silently rendered by another level's.
+THE TYPE BLOCK IS SHARED.  Every deck carries a byte-identical `types`, which is
+asserted rather than assumed — a level rebuilt against a changed template would
+otherwise have its cards silently rendered by another level's.  It holds across
+the phrases deck too, which is why that deck is emitted by the same `emit.py`.
 
-THE COUNTS IN THE DESCRIPTION ARE COUNTED, never carried over from the four
+THE CAPS ARE CHECKED PER FILE, not for the set, and a file over either of them
+is refused rather than written and left to fail on a phone.
+
+THE COUNTS IN THE DESCRIPTION ARE COUNTED, never carried over from the source
 descriptions and added up.  A figure restated by hand is a figure that goes
 stale the next time a level is rebuilt.
 
 AND IT IS REPRODUCIBLE: no clock is read.  `exportedAt` and the timestamps come
-from the newest of the four sources, so re-running with the same inputs writes
-the same bytes and a diff means something.
+from the newest of the sources, so re-running with the same inputs writes the
+same bytes and a diff means something.
 
-Not part of the site.  The combined file is an ARTEFACT of the four shipped
-decks and is deliberately not committed — it duplicates ~28 MB already in the
-repo, and this script regenerates it.
+Not part of the site.  The combined files are ARTEFACTS of the shipped decks and
+are deliberately not committed — they duplicate ~55 MB already in the repo, and
+this script regenerates them.
 """
 import json, os, sys, hashlib
 
@@ -53,27 +66,39 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 DECKS = os.path.abspath(os.path.join(HERE, '..', '..', 'decks'))
 
-from dele_level import TARGET          # the syllabus sizes, in one place
+from dele_level import TARGET, DECK_FILES   # the syllabus sizes, in one place
 
-LEVELS = ['A1', 'A2', 'B1', 'B2']
-DECK_ID = 'deleall'
 SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
-TITLE = 'DELE A1–B2 — Spanish'
 
 # app.js's own limits, restated here so this refuses to write a file that
 # cannot be imported rather than leaving it to be found on a phone.
 MAX_CARDS = 12000
 MAX_BYTES = 48 * 1024 * 1024
 
+# key -> the name its subdeck takes at the top level of a combined file
+LABEL = {'a1': 'A1', 'a2': 'A2', 'b1': 'B1', 'b2': 'B2', 'c1': 'C1', 'c2': 'C2',
+         'ph': 'Phrases'}
 
-def load(level):
-    p = os.path.join(DECKS, f'DELE-{level}-Spanish.folio-deck.json')
+FILES = [
+    dict(id='delelow', title='DELE A1–B2 and Phrases — Spanish',
+         out='DELE-A1-B2-and-Phrases-Spanish.folio-deck.json',
+         parts=['a1', 'a2', 'b1', 'b2', 'ph'],
+         other='the C1 and C2 levels, which are a second file of the same shape'),
+    dict(id='delehigh', title='DELE C1–C2 — Spanish',
+         out='DELE-C1-C2-Spanish.folio-deck.json',
+         parts=['c1', 'c2'],
+         other='A1 to B2 and the phrases deck, which are a first file of the same shape'),
+]
+
+
+def load(key):
+    p = os.path.join(DECKS, DECK_FILES[key])
     with open(p, encoding='utf-8') as f:
         return json.load(f)
 
 
 def stats(cards):
-    """Counted off the cards, not read out of the four descriptions.
+    """Counted off the cards, not read out of the source descriptions.
 
     THE CARD COUNT IS NOT THE WORD COUNT, and neither can stand in for the
     other here.  A masculine and a feminine headword that are both in the word
@@ -96,37 +121,66 @@ def stats(cards):
                 pairs=pairs, exs=exs)
 
 
-def desc(s, per_level):
+def andlist(xs):
+    xs = list(xs)
+    return xs[0] if len(xs) == 1 else ', '.join(xs[:-1]) + ' and ' + xs[-1]
+
+
+def desc(spec, s):
+    levels = [k for k in spec['parts'] if k != 'ph']
+    has_ph = 'ph' in spec['parts']
+    names = [LABEL[k] for k in levels]
+    sizes = [TARGET[k] for k in levels]
     n = f"{s['cards']:,}"
-    sizes = [TARGET[lv.lower()] for lv, _ in per_level]
+
+    what = (f"{andlist(names)} in one deck"
+            + (", with a deck of common phrases and expressions beside them. "
+               if has_ph else ". "))
     return (
-        'All four DELE levels in one deck. The subdecks nest — a level, and the '
-        'two study directions inside it — so you can add a whole level or just '
-        'the direction you want, and study each on its own: for each of A1, A2, '
-        'B1 and B2, Spanish → English (see the Spanish, recall the meaning) and '
-        'English → Spanish (see an English meaning, recall the Spanish). '
-        + 'The four levels teach '
-        + ', '.join(f'{c:,}' for c in sizes[:-1]) + f' and {sizes[-1]:,} words '
-        f'— {sum(sizes):,} in all, and no word is taught twice, since each '
-        'level excludes every word the levels below it contain. They sit on '
-        f'{n} cards in each direction, because a masculine and a feminine '
+        what +
+        'The subdecks nest — a level, and the two study directions inside it — so you '
+        'can add a whole level or just the direction you want, and study each on its own: '
+        'Spanish → English (see the Spanish, recall the meaning) and English → Spanish '
+        '(see an English meaning, recall the Spanish). '
+        f"The {'levels' if len(levels) > 1 else 'level'} here teach "
+        + andlist([f'{c:,}' for c in sizes]) + f' words — {sum(sizes):,} in all'
+        + (f", and the phrases deck adds {TARGET['ph']:,} set expressions. "
+           if has_ph else '. ')
+        + 'No word is taught twice: each level excludes every word the levels below it '
+        'contain'
+        + (', and the phrases deck excludes every multi-word item all six levels carry. '
+           if has_ph else '. ')
+        + f'They sit on {n} cards in each direction, because a masculine and a feminine '
         'headword that are both in the word list share one card. '
+        'The six DELE levels are split across two files because all seven together run '
+        'past the size a single deck file can be imported at; this one carries '
+        + andlist(names + (['the phrases'] if has_ph else [])) + ', and '
+        + spec['other'] + '. '
         'There is no official published DELE word list, so the vocabulary is '
         "taken from the body that sets the exam: the level's own column of the "
         "Instituto Cervantes' own Plan curricular — its inventories of Nociones "
         'específicas and Nociones generales, which are printed two levels to a '
-        'page, A1 beside A2 and B1 beside B2, so each half can be read off on '
-        'its own. Those inventories list topics rather than words, so what they '
+        'page, A1 beside A2, B1 beside B2 and C1 beside C2, so each half can be read off '
+        'on its own. Those inventories list topics rather than words, so what they '
         'name without writing out is supplied here: at the lower levels the '
         'closed classes (the numbers, the days, the months, the seasons, and '
         'the pronouns, articles, prepositions and conjunctions inventoried '
-        'separately under Gramática), and at the upper ones the layer that '
+        'separately under Gramática), and at the middle ones the layer that '
         'structures an argument (the connectives that concede, contrast, '
         'qualify and conclude, most of them as the phrases they are — por '
-        'consiguiente, aun cuando, en la medida en que, a diferencia de). The '
+        'consiguiente, aun cuando, en la medida en que, a diferencia de). By C1 '
+        'nothing has to be supplied at all, the column being large enough to fill the '
+        'level several times over on its own. The '
         'rest of each level is filled from its own column in order of '
         'frequency. '
-        'Within each subdeck the cards are ordered roughly by how common the '
+        + ('The phrases deck is built differently, because there is no published list of '
+           'the expressions a learner should know: its candidates are every multi-word '
+           'entry in the Spanish Wiktionary — a dictionary gives a string of words an '
+           'entry only when it is an expression in its own right — and which of them are '
+           'common is measured by counting each one in a corpus of everyday sentences '
+           'rather than asserted. '
+           if has_ph else '')
+        + 'Within each subdeck the cards are ordered roughly by how common the '
         'word is in everyday Spanish, so the words you will meet most often '
         'come first: the order is taken from a frequency list built from film '
         'and television subtitles, with a reflexive verb placed by the verb it '
@@ -163,54 +217,46 @@ def desc(s, per_level):
     )
 
 
-def main():
-    out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
-        DECKS, 'DELE-A1-B2-Spanish.folio-deck.json')
-
-    decks = [(lv, load(lv)) for lv in LEVELS]
-
-    # the type block is shared, and that is asserted rather than assumed
-    sigs = {lv: hashlib.sha1(json.dumps(d['meta']['types'], sort_keys=True,
-                                        ensure_ascii=False).encode()).hexdigest()
-            for lv, d in decks}
-    if len(set(sigs.values())) != 1:
-        raise SystemExit('the four decks no longer share a card-type block: '
-                         + json.dumps(sigs, indent=2))
-    types = decks[0][1]['meta']['types']
-
-    cards, per_level = [], []
-    for lv, d in decks:
+def build(spec, decks):
+    types = decks[spec['parts'][0]]['meta']['types']
+    cards = []
+    for key in spec['parts']:
+        d = decks[key]
         by_sub = {}
         for c in d['cards']:
             by_sub.setdefault(c['sub'], []).append(c)
-        per_level.append((lv, sum(1 for c in d['cards'] if c['type'] == 'es-to-en')))
         for sub in by_sub:                       # insertion order = card order
             if SUB_SEP in sub:
                 raise SystemExit(f'sub title contains {SUB_SEP!r}: {sub!r}')
             for c in by_sub[sub]:
                 n = len(cards) + 1
-                cards.append(dict(c, id=f'u_{DECK_ID}_{n}', num=str(n),
-                                  category='DELE', sub=f'{lv}{SUB_SEP}{sub}'))
+                cards.append(dict(c, id=f"u_{spec['id']}_{n}", num=str(n),
+                                  category='Spanish',
+                                  sub=f'{LABEL[key]}{SUB_SEP}{sub}'))
 
     if len(cards) > MAX_CARDS:
-        raise SystemExit(f'{len(cards)} cards, over app.js\'s {MAX_CARDS} cap')
+        raise SystemExit(f"{spec['out']}: {len(cards)} cards, over app.js's "
+                         f'{MAX_CARDS} cap')
 
     s = stats(cards)
-    ts = max(d['meta']['updatedAt'] for _, d in decks)
+    ts = max(decks[k]['meta']['updatedAt'] for k in spec['parts'])
+    levels = [k for k in spec['parts'] if k != 'ph']
+    words = sum(TARGET[k] for k in levels)
     doc = {
         'folioDeck': 1,
         'exportedAt': ts,
         'meta': {
-            'id': DECK_ID,
-            'title': TITLE,
-            'subtitle': f'{sum(TARGET[l.lower()] for l in LEVELS):,} words '
-                        'across all four levels · a subdeck per level, and the '
-                        'two directions inside it',
-            'desc': desc(s, per_level),
+            'id': spec['id'],
+            'title': spec['title'],
+            'subtitle': (f'{words:,} words'
+                         + (f" and {TARGET['ph']:,} phrases"
+                            if 'ph' in spec['parts'] else '')
+                         + ' · a subdeck per level, and the two directions inside it'),
+            'desc': desc(spec, s),
             'author': '',
             'language': 'en',
-            'tags': ['spanish', 'dele', 'a1', 'a2', 'b1', 'b2', 'cefr',
-                     'vocabulary'],
+            'tags': ['spanish', 'dele', 'cefr', 'vocabulary']
+                    + [LABEL[k].lower() for k in spec['parts']],
             'glossMode': 'site',
             'types': types,
             'version': 1,
@@ -223,9 +269,11 @@ def main():
     }
 
     text = json.dumps(doc, ensure_ascii=False)
-    if len(text.encode('utf-8')) > MAX_BYTES:
-        raise SystemExit(f'{len(text.encode("utf-8"))/1048576:.1f} MB, over '
-                         f'app.js\'s {MAX_BYTES/1048576:.0f} MB cap')
+    nbytes = len(text.encode('utf-8'))
+    if nbytes > MAX_BYTES:
+        raise SystemExit(f"{spec['out']}: {nbytes/1048576:.1f} MB, over app.js's "
+                         f'{MAX_BYTES/1048576:.0f} MB cap')
+    out = os.path.join(DECKS, spec['out'])
     with open(out, 'w', encoding='utf-8') as f:
         f.write(text)
 
@@ -239,12 +287,33 @@ def main():
                 if q not in nodes:
                     nodes.append(q)
     print(f'{out}')
-    print(f'  {len(cards):,} cards, {len(text.encode("utf-8"))/1048576:.1f} MB '
+    print(f'  {len(cards):,} cards, {nbytes/1048576:.1f} MB '
           f'(caps: {MAX_CARDS:,} cards, {MAX_BYTES/1048576:.0f} MB)')
     print(f'  {len(nodes)} subdecks ({len(subs)} of them leaves):')
     for q in nodes:
         print('    ' + '  ' * q.count(SUB_SEP) + q.split(SUB_SEP)[-1])
     print('  ' + '  '.join(f'{k} {v:,}' for k, v in s.items()))
+    return len(cards), nbytes
+
+
+def main():
+    keys = [k for f in FILES for k in f['parts']]
+    decks = {k: load(k) for k in keys}
+
+    # the type block is shared, and that is asserted rather than assumed
+    sigs = {k: hashlib.sha1(json.dumps(d['meta']['types'], sort_keys=True,
+                                       ensure_ascii=False).encode()).hexdigest()
+            for k, d in decks.items()}
+    if len(set(sigs.values())) != 1:
+        raise SystemExit('the decks no longer share a card-type block: '
+                         + json.dumps(sigs, indent=2))
+
+    tot_c = tot_b = 0
+    for spec in FILES:
+        c, b = build(spec, decks)
+        tot_c += c
+        tot_b += b
+    print(f'\n{len(FILES)} files, {tot_c:,} cards, {tot_b/1048576:.1f} MB in all')
 
 
 if __name__ == '__main__':
