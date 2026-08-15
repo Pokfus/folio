@@ -6,18 +6,28 @@
     python3 .claude/caple/run.py --variety-check    # re-prove the corpus choice
 
 ONE LEVEL PER RUN.  `caple_level` reads the level once, at import, so a second
-level in the same process would be built against the first one's settings.  A1,
-A2 and B1 have decks; B2 and above would each take a row in that module's tables
+level in the same process would be built against the first one's settings.  A1
+through B2 have decks; C1 and C2 would each take a row in that module's tables
 plus a `BELOW` entry, which is how the four DELE levels and the three Goethe
-ones avoid teaching the same word twice.
+ones avoid teaching the same word twice.  MEASURE THE POOL BEFORE WRITING A
+`TARGET` for a new level: B2's was guessed at 2,000 when only A1 existed and its
+inventory yields 1,491, which the build refused rather than shipping short.
 
 A LEVEL IS BUILT ON THE SHIPPED DECKS BELOW IT, so build them IN ORDER and
-rebuild the lot after any change to a shared stage -- `words_below` reads A1's
-and A2's deck FILES to know what B1 may not re-teach, so a stale file lower down
-is a higher level quietly teaching the same word twice.  It is also why every
-level must reproduce byte for byte after a change that was meant for one of
-them: that is the only thing standing between a shared stage and a silent
+rebuild the lot after any change to a shared stage -- `words_below` reads the
+lower deck FILES to know what this level may not re-teach, so a stale file lower
+down is a higher level quietly teaching the same word twice.  It is also why
+every level must reproduce byte for byte after a change that was meant for one
+of them: that is the only thing standing between a shared stage and a silent
 regression in a deck nobody was looking at.
+
+    for L in a1 a2 b1 b2; do PYTHONHASHSEED=1 python3 .claude/caple/run.py --level $L --no-fetch; done
+
+RUN THAT TWICE WITH DIFFERENT SEEDS AND DIFF, not twice the ordinary way.  The
+pipeline iterated a set of strings for three levels, and Python randomises
+string hashing per process, so a deck could differ between two runs of unchanged
+code -- see the note above `sorted(hits)` in examples.py.  Two default runs find
+that by luck; two seeds find it every time.
 
 Downloads its sources into `.claude/caple-cache/` (gitignored) and leaves them
 there, so a re-run costs nothing.  The largest is the Wiktionary dump at about

@@ -201,8 +201,33 @@ BR_RATIO, BR_MIN = 12, 200
 # word -> the European word the deck teaches instead.  Each is a claim being
 # made here rather than read, so each names its counterpart and each was
 # checked against both frequency lists.
+#
+# THE SOURCE ALSO LISTS A BRAZILIAN WORD ON ITS OWN, which B2 found and which is
+# a different case from the slash: `varal` and `coquetel` appear in the
+# Referencial with no European alternative beside them -- `estendal` and
+# `cocktail` are nowhere in the document -- so the drop LOSES the concept rather
+# than swapping the word for a better one.  That is the honest trade and it is
+# deliberately not repaired by adding the European word, which would be this
+# file writing the syllabus instead of reading it.  `o varal` also showed why
+# the two faults compound: Wiktionary glosses it "shaft (of a cart)", the sense
+# European Portuguese does keep, so the card was a Brazilian word under a
+# meaning the inventory does not mean.
 BRAZILIAN = {
     'xícara': 'chávena',      # B1 Noções, written `uma chávena/xícara de`
+    'varal': 'estendal',      # B2 Noções, on its own
+    'coquetel': 'cocktail',   # B2 Noções, on its own
+}
+
+# THE 1990 ORTHOGRAPHIC REFORM GIVES ONE WORD TWO SPELLINGS, AND THE REFERENCIAL
+# USES BOTH -- across levels, so `words_below` cannot see it: the exclusion is a
+# string match and `atual` at B1 does not match `actual` at B2, which shipped as
+# a second card with the same meaning.  Swept over all four decks there are
+# exactly two pairs differing by a reform consonant, and the OTHER one is why
+# this is a hand table and not a rule: `facto` (A1) and `fato` (A2) look like
+# the same pair and are two different words, a fact and a suit.
+# word -> the spelling a lower level already teaches.
+SPELLING = {
+    'actual': 'atual',        # B2, against B1's `atual`
 }
 
 
@@ -234,7 +259,8 @@ VOCAB = TAUGHT | set(W)
 
 pool = {}
 for k, recs in W.items():
-    if k in BLOCK or k in TAUGHT or k in BRAZILIAN or re.search(r'[\[\]?]', k):
+    if (k in BLOCK or k in TAUGHT or k in BRAZILIAN or k in SPELLING
+            or re.search(r'[\[\]?]', k)):
         continue
     if is_inflection(k, recs, VOCAB):
         continue
@@ -311,6 +337,10 @@ _flag = sorted(((_br.get(k, 0) / (freq_count.get(k, 0) + 1), k) for k in final
                reverse=True)
 print(f'  dropped as Brazilian: {len(BRAZILIAN)} '
       f'({", ".join(f"{a} -> {b}" for a, b in sorted(BRAZILIAN.items()))})')
+_sp = {a: b for a, b in SPELLING.items() if b in TAUGHT}
+if _sp:
+    print(f'  dropped as the other spelling of a word taught below: '
+          f'{", ".join(f"{a} -> {b}" for a, b in sorted(_sp.items()))}')
 if _flag:
     print('  ! commoner in Brazilian Portuguese than in European, READ THESE: '
           + ', '.join(f'{k} x{r:.0f}' for r, k in _flag))

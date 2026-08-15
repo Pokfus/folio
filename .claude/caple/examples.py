@@ -324,7 +324,16 @@ for sid, text in por.items():
         continue
     hw = hard_words(toks)
     ep = bool(EP_RX.search(text))
-    for k, form in hits:
+    # SORTED, BECAUSE A SET OF STRINGS DOES NOT ITERATE THE SAME WAY TWICE.
+    # Python randomises string hashing per process, so the order here varies
+    # between runs -- and it decides which candidate a word banks FIRST, which
+    # decides which of its sentences survive the scoring.  It only shows where
+    # one sentence carries two forms of the same word: `Ele ganha o dobro do que
+    # eu ganho` banked as (`ganhar`, `ganha`) on one run and (`ganhar`, `ganho`)
+    # on the next, so the card bolded a different word and, further down, chose
+    # a different third sentence.  The deck was correct either way, which is why
+    # this survived three levels: only the byte-for-byte rebuild can see it.
+    for k, form in sorted(hits):
         if len(cand[k]) < 400:
             cand[k].append((sid, eid, form, n, hw, ep))
 

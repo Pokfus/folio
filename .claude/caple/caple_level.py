@@ -57,7 +57,17 @@ BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1']}
 # HOW MANY WORDS the level teaches.  A1 matches the DELE and Goethe A1 decks at
 # 500, which is also about what the Council of Europe's own A1 descriptors ask
 # for: enough to introduce yourself, shop, order, and ask the way.
-TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 2000}
+#
+# B2 IS 1,400 AND NOT THE 2,000 THIS TABLE FIRST GUESSED, and the correction is
+# the source's rather than a judgement about how much B2 should be.  The
+# Referencial's levels are not a widening syllabus: B2's Noções section has the
+# same 162 headings as B1's and largely repeats its bullets, so what B2 ADDS,
+# once the 2,216 words already taught below are removed, is a pool of ~1,500.
+# `select.py` REFUSES to ship a level short of its target rather than quietly
+# taking what it can get, so the guess announced itself the first time B2 was
+# built; 1,400 leaves it the margin a corpus refresh needs.  Expect the same at
+# C1 -- measure the pool before writing a number down.
+TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 1400}
 
 # ------------------------------------------------------------------ variety
 # WHY THE FREQUENCY LIST IS `pt` AND NOT `pt_br`, measured rather than assumed.

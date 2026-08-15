@@ -97,6 +97,32 @@ const PROBE = {
     // dropped by hand in `select.py`; the European word it stands for is above
     noBrazilian: ["xícara"],
   },
+  b2: {
+    glosses: [["a batota", /cheat/i], ["a banda sonora", /soundtrack/i],
+              ["o pastel de nata", /(custard|tart)/i]],
+    numbers: [],
+    preterite: ["apressar", "apressámos", "apressamos"],
+    reflexive: "apressar-se",
+    forms: { pres: ["eu", "apresso|me|"], plural: ["nós", "apressamo|nos|"],
+             conj: ["eu", "|me| apresse"],
+             fut: ["eu", "apressar|me|ei"], futPl: ["nós", "apressar|nos|emos"],
+             cond: ["eu", "apressar|me|ia"],
+             condVos: ["vós", "apressar|vos|íeis"],
+             neg: ["tu", "não |te| apresses"],
+             pinf: ["nós", "apressarmo|nos|"] },
+    // `dar de si` is a phrase, not a verb: nothing conjugates it and nobody
+    // can be told to do it
+    impersonal: ["dar de si"],
+    minReflexives: 35,
+    // `varal` and `coquetel` are the case `xícara` is not: the Referencial
+    // lists them ON THEIR OWN, so there is no European word beside them in the
+    // inventory and the drop loses the concept rather than swapping the word
+    noBrazilian: ["varal", "coquetel"],
+    // ONE WORD, TWO ORTHOGRAPHIES, ACROSS TWO LEVELS -- `words_below` is a
+    // string match, so B1's `atual` does not exclude B2's `actual` and it
+    // shipped as a second card with the same meaning
+    notTwice: [["actual", "B1", "atual"]],
+  },
 }[LEVEL];
 if (!PROBE) { console.error("no probes written for level " + LEVEL); process.exit(2); }
 const DECK = "CAPLE-" + LEVEL.toUpperCase() + "-Portuguese.folio-deck.json";
@@ -122,6 +148,11 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   const deck = JSON.parse(fs.readFileSync(ROOT + "/decks/" + DECK, "utf8"));
   const cards = deck.cards;
   const by = {}; cards.forEach((c) => (by[c.question] = c));
+  // …and by the BARE word, because a noun's question carries its article: `by`
+  // alone answers "is `varal` in the deck?" with no for `o varal`, which is a
+  // check that passes on exactly the bug it is written for.
+  const byWord = {};
+  cards.forEach((c) => (byWord[c.question.replace(/^(o\/a|os\/as|os|as|o|a) /, "")] = c));
   console.log("=== " + DECK + "   " + cards.length + " notes");
 
   // ================================================================ the file
@@ -188,7 +219,9 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // A LEVEL WITHOUT A HAND-WRITTEN VARIETY DROP is the other silent one: the Referencial writes
   // `chávena/xícara` and the parser splits it, so the Brazilian half is a candidate like any other.
   for (const w of PROBE.noBrazilian || [])
-    ok(!by[w], "the Brazilian " + w + " is not in the deck");
+    ok(!byWord[w], "the Brazilian " + w + " is not in the deck");
+  for (const [w, lvl, other] of PROBE.notTwice || [])
+    ok(!byWord[w], `${w} is not taught here — ${lvl} already teaches it as ${other}`);
   // `chamo|me|` -> the text the card shows, and the HTML it shows it as.  Odd pipe-separated
   // pieces are the clitic; the pipes are the test's own notation and appear nowhere in the deck.
   const clText = (s) => s.split("|").join("");

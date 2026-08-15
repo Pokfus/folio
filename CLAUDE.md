@@ -3698,7 +3698,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (A1, A2 and B1) by
+  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (A1 to B2) by
   `.claude/caple/` — each has its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
@@ -4255,10 +4255,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/caple/` — the generator behind the three `decks/CAPLE-<level>-Portuguese.folio-deck.json`
-  files (A1: 498 notes / 996 cards, 1.9 MB; A2: 500 / 1,000, 2.1 MB; B1: 998 / 1,996, 3.6 MB),
-  community decks rather than site content:
-  `python3 .claude/caple/run.py [--level b1] [--no-fetch] [--variety-check]`. Seven stages, run by
+- `.claude/caple/` — the generator behind the four `decks/CAPLE-<level>-Portuguese.folio-deck.json`
+  files (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB; B1: 998 / 1,996, 3.4 MB;
+  B2: 1,400 / 2,800, 4.1 MB), community decks rather than site content:
+  `python3 .claude/caple/run.py [--level b2] [--no-fetch] [--variety-check]`. Seven stages, run by
   `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
   `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
   the next inventory rather than a rebuild. **ONE LEVEL PER RUN** (`caple_level` reads the level once,
@@ -4266,6 +4266,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the DELE and Goethe arrangement exactly. It takes the **Goethe SHAPE** rather than the DELE one: one
   note with two card templates, so a corrected gloss is corrected both ways at once and each direction
   still keeps a schedule of its own.
+  · **THE BUILD WAS NOT DETERMINISTIC, FOR THREE LEVELS, AND ONLY THE BYTE-FOR-BYTE RULE COULD SEE IT**
+    (Aug 2026, found while adding B2). `examples.py` banked its per-sentence findings in a SET of
+    `(word, form)` pairs and then iterated it — and Python randomises string hashing per process, so
+    the order varied between runs. It decides which candidate a word banks FIRST, which decides which
+    of its sentences survive the scoring, so **A2 rebuilt twice from an unchanged cache produced two
+    different decks**. It shows only where one sentence carries two forms of the same word — `Ele
+    ganha o dobro do que eu ganho` banked as `ganha` on one run and `ganho` on the next, so the card
+    bolded a different word and chose a different third sentence — which is why A1, B1 and B2 all
+    reproduced and A2 did not. **Every deck was correct either way**, which is exactly why nothing but
+    the rebuild-and-diff discipline was ever going to find it. Sorted at the point of use, and
+    verified the strong way: **all four levels built under two different `PYTHONHASHSEED` values are
+    byte-identical**, which is a better check than two ordinary runs and is the one to repeat.
+  · **B2 IS WHERE THE TABLE'S OWN GUESSES CAME DUE** (Aug 2026). Three of them, and each was corrected
+    by measurement rather than by judgement. **ITS TARGET WAS WRONG**: `TARGET` said 2,000, written
+    when only A1 existed, and the Referencial's levels are not a widening syllabus — B2's Noções
+    section has the same 162 headings as B1's and largely repeats its bullets, so what B2 ADDS once
+    the 2,216 words below are removed is a pool of **1,491**. `select.py` REFUSES a level short of its
+    target rather than taking what it can get, so the guess announced itself on the first build; it is
+    1,400 now, with the margin a corpus refresh needs. **ITS REFLEXIVES ARE 78 NAMED AND 41 GLOSSED**
+    — and the second test grew a third family, the phrase-bound `dever-se`, which occurs only ever as
+    `dever-se a` and so is a headword the inventory has not got, exactly as `ir-se embora` is at A2.
+    **AND 206 OF ITS 1,400 WORDS HAVE NO EXAMPLE SENTENCE**, against B1's 40 in 1,000: B2's inventory
+    is a fifth multi-word phrases and its single words are rarer, and Tatoeba's Portuguese does not
+    reach them. That figure is stated in the deck's own description rather than repaired, because
+    repairing it means letting the corpus choose the syllabus — the DELE pipeline's own rule.
+  · **THE SOURCE ALSO LISTS A BRAZILIAN WORD ON ITS OWN, WHICH IS NOT THE SLASH CASE** (Aug 2026, B2).
+    `xícara` arrives beside `chávena` and the drop swaps one word for another; `varal` and `coquetel`
+    appear with no European alternative anywhere in the document — `estendal` and `cocktail` are not
+    in it — so the drop **loses the concept** rather than swapping it. Deliberately not repaired by
+    adding the European word, which would be the pipeline writing the syllabus instead of reading it.
+    `o varal` also showed the two faults compounding: Wiktionary glosses it "shaft (of a cart)", the
+    sense European Portuguese does keep, so the card was a Brazilian word under a meaning the
+    inventory does not mean.
+  · **THE 1990 ORTHOGRAPHIC REFORM IS WHY THE VARIETY RATIO CAN NEVER BE AUTOMATIC** (Aug 2026, B2),
+    and it is a far stronger case than B1's four false positives. The European subtitle corpus largely
+    predates the reform, so **the correct modern European spellings all look Brazilian**: `extrato`,
+    `incorreto`, `ótica`, `indireta`, `exatidão`, `subjetivo`, `redator`, `direto`, `reto`, `adotivo`
+    — ten of B2's twenty-eight flagged words are one family, and every one of them is right.
+    **AND THE REFORM ALSO DEFEATS THE BETWEEN-LEVELS EXCLUSION**: `words_below` is a string match, so
+    B1's `atual` does not exclude B2's `actual`, which shipped as a second card with the same meaning.
+    Swept over all four decks there are exactly two pairs differing by a reform consonant, and **the
+    other one is why this is a hand table and not a rule** — `facto` (A1) and `fato` (A2) look
+    identical in shape and are two different words, a fact and a suit. Hence `SPELLING` in select.py,
+    one entry, naming the level below that already teaches it.
   · **B1 IS THE LEVEL WHERE THE LOWER DECKS STOP BEING SPECTATORS, and that is what to expect of B2**
     (Aug 2026). A2 was a re-run and a table row; B1 needed no new stage either, and its whole cost was
     in the three places a level is built ON something else. **THE REFLEXIVES STOP BEING A HANDFUL**:
@@ -4437,7 +4481,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the corpus's Portuguese is overwhelmingly Brazilian (measured at about 10:1), so the filter rejects
     16,732 sentences outright and what remains is mostly variety-NEUTRAL rather than positively
     European. That is a limit of the corpus and not something a filter can repair.
-  · **`node .claude/caple/check-caple.js [a1|a2|b1]` is the browser half**, and it exists because
+  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2]` is the browser half**, and it exists because
     `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything
     Portuguese this deck is FOR is unchecked by anything until there. It splits its assertions on
     purpose: what is EUROPEAN is checked in the FILE, exactly, over every card (a wrong clitic on one
@@ -4467,12 +4511,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
     `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
     in Portugal and a *grama* a gram.
-  Re-running it must reproduce the shipped decks byte for byte, **and ALL THREE levels have to be
-  re-run, IN ORDER**: the stages are shared, so a change made for B1 reaches A1, and a level is built
+  Re-running it must reproduce the shipped decks byte for byte, **and ALL FOUR levels have to be
+  re-run, IN ORDER**: the stages are shared, so a change made for B2 reaches A1, and a level is built
   on the shipped decks BELOW it, so a stale file lower down is a higher level quietly teaching the
-  same word twice. That is the check to make after any edit, since every fault above is silent — and
-  it is not a formality: it is what caught the A2 duplication above, in a deck nobody was looking at,
-  after a change made to the way a card is printed. Not part of the site.
+  same word twice. **Build them under two different `PYTHONHASHSEED` values** rather than twice the
+  ordinary way — that is what caught the set-iteration non-determinism above, which two default runs
+  would have found only by luck. This is the check to make after any edit, since every fault above is
+  silent, and it is not a formality: it has now caught a level re-teaching three of the level below,
+  and three levels' worth of builds that could not be reproduced at all. Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
   `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching

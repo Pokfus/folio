@@ -128,6 +128,69 @@ GLOSS = {
     'reformar-se':   ['to retire'],                         # B1 Noções
     'situar-se':     ['to be situated, to be located'],     # B1 Noções, Funções
     'transformar-se': ['to turn into, to become'],          # B1 Noções
+
+    # B2, which names SEVENTY-EIGHT `-se` strings and yields forty-one.  The
+    # two tests below throw away the rest, and at this level the second one has
+    # a third family in it, so all three are worth naming:
+    #   · not a HEADWORD -- twenty-two inflected forms out of the Referencial's
+    #     own examples (`chama-se`, `vende-se`, `levantou-se`, `verificou-se`)
+    #   · the IMPERSONAL `se` -- `usar-se`, `esperar-se`, `deve-se`, which is a
+    #     construction the base verb's card already teaches
+    #   · BOUND TO A PHRASE -- `dever-se` occurs only ever as `dever-se a`, so
+    #     the bare verb is a headword the inventory does not have.  `ir-se
+    #     embora` is the same case at A2.
+    # `rir-se` is refused here as it was at B1, being what `rir` already means,
+    # and `parece-se` is the inflected form of a B1 entry rather than a new one.
+    #
+    # THE CAUSATIVE/INCHOATIVE PAIRS ARE IN, and they are most of the gain:
+    # `esvaziar` empties something and `esvaziar-se` empties, `manchar` stains
+    # and `manchar-se` gets stained.  That is a different word by this file's
+    # own test and it is how B1's `avariar-se`, `partir-se` and `transformar-se`
+    # were already read, so the reading is consistent rather than new.
+    'adaptar-se':     ['to adapt, to fit in'],              # B2 Noções
+    'alojar-se':      ['to stay, to lodge'],                # B2 Noções
+    'aperceber-se':   ['to realise, to notice'],            # B2 Noções
+    'apressar-se':    ['to hurry, to rush'],                # B2 Noções
+    'apropriar-se':   ['to appropriate, to take possession of'],  # B2 Noções
+    'comprometer-se': ['to commit oneself, to undertake'],  # B2 Funções
+    'converter-se':   ['to convert, to turn into'],         # B2 Noções
+    'dar-se':         ['to get on with someone'],           # B2 Noções
+    'desenvolver-se': ['to develop, to grow'],              # B2 Noções
+    'despistar-se':   ['to run off the road, to crash'],    # B2 Noções
+    'destinar-se':    ['to be intended for'],               # B2 Noções, Funções
+    'diferenciar-se': ['to differ, to be different'],       # B2 Funções
+    'dirigir-se':     ['to head for; to address someone'],  # B2 Noções, Funções
+    'distanciar-se':  ['to distance oneself, to move away'],  # B2 Noções
+    'distinguir-se':  ['to stand out, to distinguish oneself'],  # B2 Funções
+    'embebedar-se':   ['to get drunk'],                     # B2 Noções
+    'encher-se':      ['to fill up'],                       # B2 Noções
+    'entreter-se':    ['to amuse oneself, to pass the time'],  # B2 Noções
+    'enxugar-se':     ['to dry oneself'],                   # B2 Noções
+    'esconder-se':    ['to hide'],                          # B2 Noções
+    'esgotar-se':     ['to run out, to sell out'],          # B2 Noções
+    'estabilizar-se': ['to stabilise, to level off'],       # B2 Noções
+    'esvaziar-se':    ['to empty, to drain'],               # B2 Noções
+    'extraviar-se':   ['to get lost, to go astray'],        # B2 Noções
+    'fartar-se':      ['to get fed up; to have one’s fill'],  # B2 Funções
+    # `fazer-se entender` and `fazer-se sócio de um clube` are the two the
+    # Referencial writes out, and they are the two senses
+    'fazer-se':       ['to become; to make oneself understood'],  # B2 Noções, Funções
+    'formar-se':      ['to graduate; to form, to take shape'],  # B2 Noções
+    'iniciar-se':     ['to begin, to start'],               # B2 Noções
+    'inundar-se':     ['to flood'],                         # B2 Noções
+    'manchar-se':     ['to get stained'],                   # B2 Noções
+    'orgulhar-se':    ['to be proud'],                      # B2 Funções
+    # listed beside `contagiar, transmitir, apanhar`, which is what settles it
+    'pegar-se':       ['to be catching, to spread'],        # B2 Noções
+    'pesar-se':       ['to weigh oneself'],                 # B2 Noções
+    'prolongar-se':   ['to go on, to last'],                # B2 Noções
+    'pôr-se':         ['to set (of the sun); to start doing'],  # B2 Noções
+    'questionar-se':  ['to wonder, to question oneself'],   # B2 Noções
+    'referir-se':     ['to refer to'],                      # B2 Noções
+    'sair-se':        ['to do well or badly at something'],  # B2 Noções
+    'sujeitar-se':    ['to submit, to put up with'],        # B2 Funções
+    'tranquilizar-se': ['to calm down, to set one’s mind at rest'],  # B2 Noções
+    'vacinar-se':     ['to get vaccinated'],                # B2 Noções
 }
 
 # The English a sentence must carry for it to be an example of the reflexive
@@ -212,6 +275,58 @@ KEYWORDS = {
     'situar-se':     ('situated', 'locat'),
     'transformar-se': ('turn into', 'turned into', 'become', 'became',
                        'transform'),
+    # B2
+    'adaptar-se':     ('adapt', 'adjust', 'fit in', 'used to'),
+    'alojar-se':      ('stay', 'stayed', 'lodge', 'accommodat'),
+    'aperceber-se':   ('realis', 'realiz', 'notice', 'aware'),
+    'apressar-se':    ('hurry', 'hurried', 'rush', 'haste'),
+    'apropriar-se':   ('appropriat', 'took possession', 'take possession',
+                       'seiz'),
+    'comprometer-se': ('commit', 'promis', 'undert', 'pledge'),
+    'converter-se':   ('convert', 'turn into', 'turned into', 'became'),
+    'dar-se':         ('get along', 'gets along', 'got along', 'get on with',
+                       'gets on with', 'got on with'),
+    'desenvolver-se': ('develop', 'grow', 'grew', 'grown'),
+    'despistar-se':   ('off the road', 'crash', 'skid'),
+    'destinar-se':    ('intended', 'meant for', 'destined'),
+    'diferenciar-se': ('differ', 'different', 'distinguish'),
+    'dirigir-se':     ('head', 'went to', 'go to', 'address', 'made his way',
+                       'made her way'),
+    'distanciar-se':  ('distance', 'away', 'apart'),
+    'distinguir-se':  ('stand out', 'stood out', 'distinguish'),
+    'embebedar-se':   ('drunk', 'drink', 'drank', 'intoxicat'),
+    'encher-se':      ('fill', 'filled', 'full'),
+    'entreter-se':    ('amuse', 'entertain', 'pass the time', 'occupied'),
+    'enxugar-se':     ('dry', 'dried', 'towel'),
+    'esconder-se':    ('hid', 'hide', 'hiding'),
+    'esgotar-se':     ('run out', 'ran out', 'sold out', 'sell out',
+                       'exhaust'),
+    'estabilizar-se': ('stabilis', 'stabiliz', 'level off', 'levelled off',
+                       'steady'),
+    'esvaziar-se':    ('empt', 'drain'),
+    'extraviar-se':   ('lost', 'astray', 'mislaid', 'missing'),
+    'fartar-se':      ('fed up', 'sick of', 'tired of', 'had enough'),
+    'fazer-se':       ('become', 'became', 'understood', 'make myself',
+                       'make himself', 'make herself'),
+    'formar-se':      ('graduat', 'form', 'formed'),
+    'iniciar-se':     ('begin', 'began', 'begun', 'start'),
+    'inundar-se':     ('flood',),
+    'manchar-se':     ('stain', 'stained'),
+    'orgulhar-se':    ('proud', 'pride'),
+    'pegar-se':       ('catching', 'contagious', 'spread', 'infectious'),
+    'pesar-se':       ('weigh', 'weighed'),
+    'prolongar-se':   ('last', 'lasted', 'go on', 'went on', 'drag on',
+                       'prolong'),
+    'pôr-se':         ('set', 'sets', 'setting', 'sunset', 'began to',
+                       'started to'),
+    'questionar-se':  ('wonder', 'question'),
+    'referir-se':     ('refer', 'referring', 'referred'),
+    'sair-se':        ('did well', 'do well', 'does well', 'did badly',
+                       'turned out'),
+    'sujeitar-se':    ('submit', 'put up with', 'subject'),
+    'tranquilizar-se': ('calm', 'relax', 'reassur'),
+    'vacinar-se':     ('vaccinat', 'vaccine', 'immunis', 'immuniz',
+                       'get a shot'),
 }
 
 
