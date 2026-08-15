@@ -175,6 +175,20 @@ fams = sum(1 for c in cards if c['fields']['Forms'])
 phrases = sum(1 for e in entries if ' ' in e['word'])
 ex3 = sum(1 for e in entries if e['examples'] == 3)
 ex0 = sum(1 for e in entries if e['examples'] == 0)
+
+# HOW THIN THE FREQUENCY EVIDENCE IS, which the higher levels have to say out
+# loud.  The subtitle list holds 11,206 dictionary headwords, and only 5,770 of
+# them are used often enough (200+ times) for the count to rank anything --
+# almost exactly what levels 1 to 5 consume between them, at 5,750.  So the
+# ordering is well founded to about there and increasingly is not below it: the
+# median count falls 22,238 / 5,640 / 2,042 / 720 / 250 / 76 across the six
+# levels, and the share of words counted under 100 goes 4, 4, 5, 8, 10 and then
+# 68 per cent.  That is a cliff rather than a slope, and a deck whose ordering
+# has stopped meaning much should say so rather than repeat the sentence a level
+# with good data can honestly print.
+_freq = json.load(open(lvlf('wordlist.json'), encoding='utf-8')).get('freq', {})
+thin = sum(1 for e in entries if _freq.get(e['word'], 0) < 100)
+THIN_PCT = round(100 * thin / n) if n else 0
 passives = sum(1 for e in entries
                if any(l == 'passive' for _f, l in e['forms']))
 # THE EXAMPLES ARE THIS DECK'S OWN, taken in the deck's own order (commonest
@@ -238,7 +252,18 @@ DESC = (
        "films and a rougher guide to what a candidate needs, and at this level it "
        f"chooses {round(100 * (n - from_inv) / n)} per cent of the words, so expect "
        "some of what films talk about among them. "
-       if n - from_inv > from_inv else "") +
+       if n - from_inv > from_inv else "")
+    # …AND WHERE THE LIST HAS RUN OUT, THAT IS A SEPARATE ADMISSION.  See the
+    # measurement above `THIN_PCT`: the caveat directly above is about WHICH
+    # words the subtitles choose, and this one is about whether the count behind
+    # them still ranks anything.  Fires on the measurement, so it is silent at
+    # every level whose data is sound.
+    + (f"A caution about the order at this level: {THIN_PCT} per cent of these words "
+       "are used fewer than a hundred times in that subtitle list, which is too few for "
+       "the count to rank one against another with any confidence. They are here because "
+       "they are worth knowing at this level rather than because the list can place them, "
+       "so treat the sequence as a rough guide and not a ranking. "
+       if THIN_PCT >= 50 else "") +
     "Everything here is standard Indonesian, bahasa baku, because that is what UKBI "
     "tests: where a colloquial form is far commoner in speech the standard one is what "
     "is taught — tidak rather than nggak, tetapi rather than tapi, and di mana as two "
@@ -254,8 +279,14 @@ DESC = (
     "assimilates and swallows the root's first consonant, so tulis becomes menulis while "
     "nanti stays menanti, and there is no rule a learner can apply; the forms are read "
     "from a dictionary rather than derived. "
-    f"{phrases} of the entries are phrases rather than single words — {PHRASE_EG} — "
-    "which a list of single words cannot see at all. "
+    # A COUNT THAT CAN REACH ZERO NEEDS THE SENTENCE GATED ON IT, which is the
+    # `SCOPE` fault in miniature: this read "0 of the entries are phrases rather
+    # than single words —  — which a list of single words cannot see at all" the
+    # first time a level had none.  Every multi-word entry the dictionary carries
+    # is taught by level 5 or below, so level 6 is the first with nothing to say
+    # here and simply says nothing.
+    + (f"{phrases} of the entries are phrases rather than single words — {PHRASE_EG} — "
+       "which a list of single words cannot see at all. " if phrases else "")
     + EX_NOTE +
     ", with the word picked out in colour and a speaker beside the sentence and the "
     "headword. "

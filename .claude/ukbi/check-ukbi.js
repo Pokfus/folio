@@ -43,6 +43,56 @@ const ok = (c, m, extra) => {
 (async () => {
   await new Promise((r) => server.listen(0, r));
   const base = "http://127.0.0.1:" + server.address().port + "/index.html";
+
+  // THE DECK IS READ BEFORE THE BROWSER IS LAUNCHED, because which cards the walk below has to reach
+  // is a property of THIS deck and is measured off it rather than guessed.  See `SPECIMENS`.
+  const deck = JSON.parse(fs.readFileSync(ROOT + "/decks/" + DECK, "utf8"));
+  const words = deck.cards.map((c) => c.fields.Word);
+  const wordSet = new Set(words);
+
+  /* THE THREE SPECIMENS ARE SEEDED AS DUE RATHER THAN WALKED TO, AND THAT IS THE THIRD ANSWER TO A
+     QUESTION THIS FILE KEPT GETTING WRONG.  The walk exists to prove that a card carrying an affix
+     family, a card carrying a phrase and a card carrying three sentences all RENDER — and it used to
+     reach them by grading real cards until they turned up, under a cap written down as a number.  The
+     cap was 240, then 600, and it was wrong both times for the same reason: all three are properties
+     of the WORD, the deck is ordered by frequency, and so the higher the level the later the first one
+     falls.  The first family sits at note 91 at level 1, then 114, 167, 383, 462 and **886**; the
+     first phrase sits at note 14 at level 1 and at **2,445** at level 6, because level 6's phrases are
+     all hand-written inventory items with no corpus frequency at all and the deck sorts them last.
+     Walking to 2,485 costs eight minutes and fifty artefact chests to prove something about markup.
+
+     A DUE CARD IS IN THE QUEUE WHATEVER THE DAY'S NEW-CARD ALLOWANCE IS, and that -- rather than any
+     claim about order -- is what makes the seeding work.  `reviewQueue` builds the day's due cards and
+     its `newPerDay` slice of unseen ones, so a session is at most `ALLOW` cards plus the seeds; the
+     three specimens are in it by being due, and a walk of `WALK_CAP` therefore reaches them at every
+     level however deep in the deck they sit.  Note that seeding does NOT put them FIRST: the review's
+     Ordered presentation re-sorts the whole queue into in-deck order (`buildSession`'s review branch),
+     so a specimen from the far end of the deck is dealt at the far end of the SESSION -- which is why
+     the cap has to clear the allowance rather than being a small number.
+
+     What the old walk incidentally proved is that a reader working the deck normally will meet these,
+     and that is given up here, so the positions are PRINTED on every run instead: a first family at
+     note 886 and a first phrase at note 2,445 are facts about the deck worth reading rather than
+     hiding.  A specimen the deck does not contain AT ALL is still a failure, asserted below, never
+     skipped -- which is what caught level 6 shipping with no phrases in it. */
+  const firstIdx = (test) => deck.cards.findIndex(test);
+  const SPECIMENS = {
+    family: firstIdx((c) => {
+      const f = (c.fields || {}).Forms || "";
+      return (f.match(/uc-fl">/g) || []).length >= 3 && /uc-fl">passive</.test(f);
+    }),
+    phrase: firstIdx((c) => ((c.fields || {}).Word || "").includes(" ")),
+    sentences: firstIdx((c) => (((c.fields || {}).Examples || "").match(/uc-exi/g) || []).length >= 3),
+  };
+  const seedIds = Object.values(SPECIMENS).filter((i) => i >= 0).map((i) => deck.cards[i].id);
+  console.log("   specimens at notes: "
+              + Object.entries(SPECIMENS).map(([k, v]) => k + " " + v).join(", "));
+  // The day's new-card allowance, and the cap DERIVED from it: the session is at most `ALLOW` cards
+  // plus the seeds, so a walk of `ALLOW + 40` cannot fail to reach a specimen that is in the queue.
+  // Keep them in this relation -- two independent numbers is how the old cap came to be wrong twice.
+  const ALLOW = 200;
+  const WALK_CAP = ALLOW + 40;
+
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
   // REDUCED MOTION, or every screenshot is a card caught half way through its fade-in: the page
   // animates each card in, and a shot taken the moment the walk finds what it was looking for shows a
@@ -52,24 +102,32 @@ const ok = (c, m, extra) => {
   // The day's allowance is five new cards, which is right for a reader and useless here: the deck is
   // ordered by frequency, so five cards is five function words and no affix family is ever reached.
   // PATCH the saved settings rather than seeding a whole state -- this runs on every load, and a seed
-  // would put the deck back to un-added on the first reload after importing it.
-  await pg.addInitScript(() => {
+  // would put the deck back to un-added on the first reload after importing it.  The three specimens
+  // are planted as OVERDUE review cards for the reason set out beside `SPECIMENS`; a record for a card
+  // whose deck is not installed yet is inert, so this is safe to run on every load, import included.
+  await pg.addInitScript((cfg) => {
     try {
       const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
-      s.settings = Object.assign({}, s.settings, { newPerDay: 800, maxReviewsPerDay: 900 });
+      s.settings = Object.assign({}, s.settings,
+                                 { newPerDay: cfg.n, maxReviewsPerDay: cfg.n + 100 });
+      s.cards = s.cards || {};
+      const day = 86400000;
+      for (const id of cfg.seed) {
+        if (s.cards[id]) continue;              // already graded by this run's walk — leave it alone
+        s.cards[id] = { reps: 1, lapses: 0, ease: 2.5, interval: 10, step: 0,
+                        status: "review", due: Date.now() - day, last: Date.now() - day };
+      }
       localStorage.setItem("folio_v1", JSON.stringify(s));
     } catch (e) {}
-  });
+  }, { n: ALLOW, seed: seedIds });
   const errs = [];
   // ERR_* is the sandbox failing to reach fonts.googleapis.com (the stylesheet's one @import), not
   // the deck; everything else is the deck's and is a failure.
   pg.on("console", (m) => { if (m.type() === "error" && !/net::ERR_/.test(m.text())) errs.push(m.text()); });
   pg.on("pageerror", (e) => errs.push(String(e)));
 
-  const deck = JSON.parse(fs.readFileSync(ROOT + "/decks/" + DECK, "utf8"));
-  const words = deck.cards.map((c) => c.fields.Word);
-  const wordSet = new Set(words);
-  console.log("=== " + DECK + "   " + deck.cards.length + " notes");
+  console.log("=== " + DECK + "   " + deck.cards.length + " notes"
+              + "   (walking to " + WALK_CAP + ")");
 
   // THE LEVELS BELOW, read off the shipped files exactly as `words_below()` reads them.  A level is
   // taught ON TOP of the ones under it, so what a learner working the stack has met is the union --
@@ -180,6 +238,18 @@ const ok = (c, m, extra) => {
       "professional compounds": ["arus kas", "tata kelola", "pemangku kepentingan",
                                  "pemutusan hubungan kerja", "perseroan terbatas"],
     },
+    // Sangat Unggul constrains only "kepentingan akademik yang KOMPLEKS", which is a statement
+    // that the ordinary academic case is within reach -- so these are the student's register:
+    // the apparatus a paper cannot do without, the degrees, the words for an argument and for
+    // judging one, and the language a test OF Indonesian uses to talk about Indonesian, which
+    // is not a flourish but what a candidate meets in the reading paper itself.
+    6: {
+      "the apparatus of citation": ["pustaka", "sitasi", "indeks", "glosarium", "jilid"],
+      "the university": ["skripsi", "tesis", "disertasi", "magister", "kurikulum", "silabus"],
+      "argument": ["premis", "dalil", "nalar", "penalaran", "deduksi", "induksi"],
+      "language about language": ["kaidah", "ejaan", "imbuhan", "sinonim", "antonim", "semantik"],
+      "judging a claim": ["objektif", "valid", "sahih", "andal", "patokan", "kriteria"],
+    },
   };
   for (let l = 1; l <= Number(LEVEL); l++) {
     for (const [name, members] of Object.entries(CORE[l] || {})) {
@@ -246,6 +316,17 @@ const ok = (c, m, extra) => {
   ok(rows.length === 1 && /UKBI/.test(rows[0]),
      "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
 
+  // The seeds have to have survived the import, and this is the one thing that would fail SILENTLY:
+  // a seed that never reached `S.cards` leaves the walk falling back on the natural queue, which
+  // passes at every level whose specimens happen to sit early and fails only at the deepest one.
+  // `every` over an empty list is true, so the COUNT is asserted as well: with no specimens to seed
+  // this would otherwise pass vacuously and hand the walk back to the natural queue in silence.
+  ok(seedIds.length === 3 && await pg.evaluate((ids) => {
+        const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        return ids.every((i) => s.cards && s.cards[i] && s.cards[i].status === "review");
+      }, seedIds),
+     "all three specimen cards are seeded as due", seedIds.join(" "));
+
   // ---------------------------------------------------------------- study
   await pg.click(".review-group .cta .btn");
   await pg.waitForSelector(".question", { timeout: 20000 });
@@ -309,14 +390,8 @@ const ok = (c, m, extra) => {
   });
 
   let famCard = null, phraseCard = null, exOK = null, i = 0, chests = 0;
-  // HOW FAR THE WALK GOES IS A MEASUREMENT AND NOT A ROUND NUMBER, and the cap was 240 because at
-  // levels 1-3 a family always turned up early.  That held by LUCK: the deck is ordered by frequency
-  // and an affix family is a property of the WORD, so the higher the level the later the first one
-  // falls -- level 3's is note 167, which the old cap cleared by 73, and level 4's is note 383, which
-  // it did not.  The check then reported a deck with 79 families as having none.  The loop exits as
-  // soon as all three specimens are found, so a generous cap costs the lower levels nothing and is
-  // the only thing standing between this assertion and the next level that pushes the figure out.
-  for (; i < 600 && (!famCard || !phraseCard || !exOK); i++) {
+  // The cap is `WALK_CAP`, measured off this deck up at the top of the file -- see the comment there.
+  for (; i < WALK_CAP && (!famCard || !phraseCard || !exOK); i++) {
     const card = await pg.evaluate(() => {
       const cards = [...document.querySelectorAll(".uc-card")];
       const c = cards[cards.length - 1] || document;

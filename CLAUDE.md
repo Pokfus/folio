@@ -4625,8 +4625,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB), **level 2
   `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 / 1,500, 789 KB), **level 3
   `UKBI-3-Semenjana-Indonesian.folio-deck.json`** (1,000 / 2,000, 925 KB), **level 4
-  `UKBI-4-Madya-Indonesian.folio-deck.json`** (1,500 / 3,000, 1.09 MB) and **level 5
-  `UKBI-5-Unggul-Indonesian.folio-deck.json`** (2,000 / 4,000, 1.10 MB).
+  `UKBI-4-Madya-Indonesian.folio-deck.json`** (1,500 / 3,000, 1.09 MB), **level 5
+  `UKBI-5-Unggul-Indonesian.folio-deck.json`** (2,000 / 4,000, 1.10 MB) and **level 6
+  `UKBI-6-Sangat-Unggul-Indonesian.folio-deck.json`** (2,500 / 5,000, 1.14 MB).
   `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
   corpora in `.claude/ukbi-cache/` (~175 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
   and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
@@ -4636,8 +4637,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   *peringkat* I–VII from the TOP down, so Istimewa is I and **Terbatas is VII, score 251–325, the lowest**. A
   learner meets them the other way up, so the decks are numbered in the order they are studied and the
   predicate's own name is carried in the title. Level 1 is Terbatas, level 2 Marginal (peringkat VI, score
-  326–404), level 3 Semenjana (V, 405–481), level 4 Madya (IV, 482–577) and level 5 Unggul (III, 578–640);
-  the other two are laid out in `ukbi_level.py` and neither is built.
+  326–404), level 3 Semenjana (V, 405–481), level 4 Madya (IV, 482–577), level 5 Unggul (III, 578–640) and
+  level 6 Sangat Unggul (II, 641–724); the seventh is laid out in `ukbi_level.py` and is not built.
+  **A PREDICATE'S NAME MAY BE TWO WORDS AND A FILE NAME MAY NOT HAVE A SPACE IN IT** — the first five are
+  single words, so `DECK_FILES` went five levels before Sangat Unggul wrote `UKBI-6-Sangat Unggul-….json`,
+  a name that works on disk, breaks any shell command typed without quoting it, and is what every reader
+  who saves the deck gets. The hyphen is applied to all seven, which leaves levels 1–5 byte-identical
+  because a name with no space cannot change.
   **A LEVEL'S SCOPE IS ITS OWN DESCRIPTOR, AND THE DESCRIPTOR EXCLUDES AS WELL AS INCLUDES.** Terbatas is
   "keperluan **sintas**", survival, so `SECTIONS_1` is greetings, numbers, days, food, money, the body and the
   closed classes. Marginal is everyday and community life **and its official descriptor says outright that a
@@ -4666,8 +4672,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is not a subject area chosen here — it is the one thing the level below states it cannot do, lifted:
   contracts, the papers a complex job turns on, accounts and the money markets, what a company is and who
   governs it, courts, specifications, the standard Indonesian of computing, and the vocabulary of integrity
-  and its failures. **Read the next level's descriptor against the current one's LIMIT clause**; twice now
-  the two have fitted together exactly.
+  and its failures. **Read the next level's descriptor against the current one's LIMIT clause**; three times
+  now the two have fitted together exactly.
+  **AND SANGAT UNGGUL'S DOOR IS OPENED BY AN ADJECTIVE.** Its descriptor grants survival, social and
+  professional purposes outright and then says "Untuk kepentingan akademik yang **kompleks**, yang
+  bersangkutan masih memiliki kendala" — and **constraining the HARD case is a statement that the ordinary
+  one is within reach**, so this is where `keilmiahan` begins and only its hardest end waits for Istimewa,
+  whose descriptor is the first to list academic purposes among the things with no kendala at all. So
+  `SECTIONS_6` is the STUDENT'S register rather than the professor's: doing a piece of research and writing
+  it up, the parts of a paper, the apparatus of citation, the university and its degrees, argument and the
+  evidence under it, the words for judging a claim, and the language a test of Indonesian uses to talk about
+  Indonesian — not the internal terminology of any one field. **Much of the obvious list had already been
+  taught**: `penelitian`, `hipotesis`, `teori`, `metode`, `analisis`, `sampel`, `populasi` and some seventy
+  more arrived on frequency alone at lower levels, because film dialogue talks about science. What is left
+  for an inventory at this level is the part a corpus of SPEECH never says aloud — the apparatus.
   **THE ACADEMIC DOOR IS THE LAST ONE, AND THE MADYA HEADER GUESSED IT WRONG.** That header said `keilmiahan`
   "is Unggul's", written while building level 4 from the reasonable assumption that a ladder opens one door
   per rung. The board's own descriptors say otherwise: Unggul's does not mention `keilmiahan` at all, and
@@ -4675,7 +4693,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   bersangkutan masih memiliki kendala"**. Academic communication opens at Istimewa. The wrong sentence is
   left in `supplement.py` with the correction under it, because its shape is the one to remember: **a claim
   about the NEXT level, made while writing the current one, from a pattern rather than from the source.**
-  Read the descriptor of the level you are naming, not the one you are building.
+  Read the descriptor of the level you are naming, not the one you are building. **IT WAS THEN MADE A SECOND
+  TIME, IN THE VERY NEXT HEADER, BY SOMEBODY WHO HAD JUST CORRECTED IT** — level 5's said writing about the
+  literature "is Istimewa's" — so it is a pattern with a structural cause rather than a slip: an inventory is
+  written by deciding what the level does NOT cover, and the shortest way to say that is to name the level
+  that does, which is the one thing not yet read. Both wrong sentences are left in `supplement.py` with
+  their corrections under them.
   `supplement.LEVELS` maps the level to its inventory and `supplement.sections()` reads it; a level with no
   inventory contributes nothing rather than falling back to another level's, which would fill Marginal with
   words level 1 has already taught.
@@ -4706,6 +4729,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   inventory actually covers) or is derived from the built deck — the inventory/frequency split is carried
   through `wordlist.json` because it moves from 378-of-500 to 200-of-1,000, and the phrase examples are the
   deck's own first four. **Templating the name is not the same as templating the claims.**
+  **AND A DERIVED SENTENCE HAS TO SURVIVE ITS OWN QUANTITY GOING TO ZERO**, which is the same lesson one
+  level down. The phrase sentence is built from a count and a sample, and at level 6 the count was 0, so the
+  deck shipped saying "0 of the entries are phrases rather than single words —  — which a list of single
+  words cannot see at all": a sentence about nothing, with an empty sample between two dashes. It is gated
+  on there being phrases now. **Read a derived clause at both ends of its range**, not only at the value the
+  level in hand happens to have.
   **THE AFFIX FAMILY IS INDONESIAN'S ANSWER TO A PARADIGM, AND IT IS THE WHOLE POINT OF THE CARD.** The
   siblings spend their card on morphology a learner cannot guess — German's gender and plural, Spanish's
   conjugation, Mandarin's character breakdown — and Indonesian has none of that: no gender, no agreement, no
@@ -4835,8 +4864,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   for it teaches nothing; the dictionary states the part of speech (`num`) and multi-word is the whole of the
   test, so `sepuluh` and `seratus` are untouched. What makes it worth a rule rather than a tidy-up is the
   measurement: level 2 had one, level 3 four, level 4 **nine** — including `puluh ribu`, which is not even a
-  number but "tens of thousands" — and level 5 seven more. **Twenty-three cards of counting practice, arriving
-  a few at a time and never enough at once to be noticed.** It is applied to the POOL and not to the
+  number but "tens of thousands" — level 5 seven more and level 6 two. **Twenty-five cards of counting
+  practice, arriving a few at a time and never enough at once to be noticed.** It is applied to the POOL and not to the
   supplement, which is what lets it be this blunt: level 1's inventory asks for `sebelas`, `dua belas` and
   `dua puluh` deliberately, as the PATTERN rather than as a run, and a hand-written entry is forced in without
   consulting a frequency — so what goes is precisely the numbers nobody chose, the ones a film said aloud.
@@ -4854,6 +4883,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   levels 1–4's phrases rest on a single occurrence, and the one is `hari raya`, which is in level 2's
   inventory and forced in regardless — and it takes level 5 from 360 phrases to 124, which is the sane
   progression 19, 31, 56, 100, 124.
+  **…AND AT LEVEL 6 IT TOOK THE PHRASES TO NOTHING AT ALL, WHICH IS THE FLOOR WORKING AND THE INVENTORY
+  FAILING.** Every earlier level got its phrases free — `estimate_phrases` finds them in the corpus — so no
+  inventory had ever needed to write one down, and `SECTIONS_6` was drafted the same way and contained not a
+  single multi-word line. A film corpus does not say `daftar pustaka`, so the estimator found none above the
+  floor and **the level shipped with zero phrases**. Nothing in the build could see it: 2,500 single words is
+  a perfectly ordinary-looking deck. `check-ukbi.js` caught it, on the file assertion that a deck carries at
+  least ten multi-word entries, and it caught it twice over, since the walk then had no phrase to reach.
+  **TWO SIGNS WERE ALREADY IN THE FILE AND NEITHER WAS READ AS ONE**: the inventory carried bare `tolok`,
+  which outside `tolok ukur` is a word almost nobody uses, and bare `pustaka` — **a HALF of a set phrase
+  standing alone in an inventory is what the missing whole looks like** — and the section header above them
+  already PROMISED `daftar pustaka`, prose describing a list it had drifted out of. Sixteen were written in,
+  each confirmed present in the dictionary and absent from levels 1–5 first, which is where the finding
+  repeats itself: eight of the obvious candidates (`hak cipta`, `ilmu pengetahuan`, `sumber daya`, `tata
+  bahasa`, `kata kerja`, `kata benda`, `kata ganti`, `di samping itu`) had already arrived on frequency at a
+  lower level. **The register's set phrases have to be written down from the level a hand-written inventory
+  starts carrying the vocabulary** — expect the same of level 7.
   **THE `kayak` SHAPE A FOURTH TIME, AND TWO RULES FOR IT WERE MEASURED AND REFUSED.** Level 5 goes 2,000
   words into a corpus of film subtitles, and a subtitle file is full of English — so a word spelled like a
   common English one collects that word's count and the reader is shown whatever marginal Indonesian sense
@@ -4889,12 +4934,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   needs, which is why 378 of the 500 come from the inventory instead; the deck's description says which half
   is which. **The higher the level, the more of it the corpus decides** — level 2 is 313 from its inventory
   and 437 by frequency, level 3 **199 against 801**, level 4 **143 against 1,357**, level 5 **196 against
-  1,804** — so the caveat gets
+  1,804**, level 6 **152 against 2,348** — so the caveat gets
   heavier as the levels climb, not lighter, and the description now derives the split rather than restating
   level 1's. **AND ONCE THE CORPUS IS CHOOSING MOST OF THE LIST THE DESCRIPTION SAYS SO IN AS MANY WORDS**,
   which is a clause of its own added at level 4 and fired **on the measurement rather than on the level
   number** — it appears wherever the corpus supplies the majority, so it reaches back into levels 2 (58%),
-  3 (80%) and 5 (90%) and stays silent at level 1 (24%). The reason to state it is that the earlier sentence — "the
+  3 (80%), 5 (90%) and 6 (94%) and stays silent at level 1 (24%). The reason to state it is that the earlier sentence — "the
   commonest words of everyday Indonesian, taken from a frequency list built from film and television
   subtitles" — is equally true at every level and stops being the WHOLE truth at the point where the
   inventory has run out and the subtitles are picking nine words in ten. What that produces at level 4 is
@@ -4906,7 +4951,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **measured before each level was built rather than assumed**: 488 of level 1's cards carry three sentences
   and two carry none; at level 2 it is 642 and 33; at level 3, whose words are rarer again, **541 with three
   and 180 with none**, nearly a fifth; at level 4, **373 with three and 591 with none**, 39% of the deck; at
-  level 5, **137 with three and 1,312 with none**, which is 66%. Those are kept: a word is chosen for being
+  level 5, **137 with three and 1,312 with none**, which is 66%; at level 6, **47 with three and 2,096 with
+  none**, 84%. Those are kept: a word is chosen for being
   worth knowing and not for
   being well covered by a sentence bank, and each deck's own description states its own figure. **That
   figure is the honest output of a small corpus meeting a large deck, and the answer is to print it rather
@@ -4917,8 +4963,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   level exists for (`wanprestasi`, `arus kas`, `pemutusan hubungan kerja`) is exactly what a conversational
   sentence bank will never contain, so filtering on coverage would produce a level 5 that is a level 2 with
   rarer words in it.
-  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (42 assertions at level 1, 46 at level 2,
-  50 at level 3, 54 at level 4, 60 at level 5), and it exists because
+  **AND AT LEVEL 6 THE FREQUENCY SOURCE IS EXHAUSTED, WHICH IS A FACT ABOUT THE CORPUS RATHER THAN ABOUT THE
+  LEVEL AND IS THE MEASUREMENT TO TAKE BEFORE BUILDING LEVEL 7.** Dictionary headwords with a subtitle count
+  of 200 or more number **5,770**; levels 1–5 already teach **5,750**. So level 6 is the first whose fill is
+  drawn almost entirely from the tail, and the shape of that shows in every figure at once: the MEDIAN
+  subtitle count per level runs 22,238 / 5,640 / 2,042 / 720 / 250 / **76**, the share of a level's words
+  counted under 100 runs 4% / 4% / 5% / 8% / 10% / **68%**, and sentence coverage runs 99% / 95% / 82% / 60%
+  / 34% / **16%**. Under a hundred occurrences the count cannot rank one word against another with any
+  confidence, so **the deck is still frequency-ordered and the ordering has stopped meaning much**, and the
+  hand-written inventory items — which have no corpus frequency at all — sort to the very end (median
+  position 2,404 of 2,500). **THE ANSWER IS TO SAY SO RATHER THAN TO FILTER OR RE-SORT** (`THIN_PCT` in
+  `emit.py`): a second derived clause fires at 50% thin and tells the reader to treat the sequence as a rough
+  guide and not a ranking. Filtering to the well-counted words would let a film corpus decide what an
+  academic-register level teaches, and a two-group sort was measured and declined — only ~50 words have a
+  frequency of exactly zero, so the re-sort would move almost nothing while claiming the order meant more
+  than it does.
+  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (43 assertions at level 1, 47 at level 2,
+  51 at level 3, 55 at level 4, 61 at level 5, 67 at level 6), and it exists because
   `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything Indonesian the
   deck is FOR is unchecked by anything until there. Every fault it hunts is quiet: a dropped forms row leaves
   a good card that has stopped teaching the hard part, a colloquial form that slips the filter looks exactly
@@ -4940,24 +5001,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   courts, the standard Indonesian of computing — and **a set of professional COMPOUNDS** (`arus kas`, `tata
   kelola`, `pemangku kepentingan`, `pemutusan hubungan kerja`), which is that level's own finding: at this
   register a great deal of the vocabulary is multi-word, so an assertion on single words alone would miss the
-  half that matters. **Every member of a new set is checked to
+  half that matters; level 6 adds research and its writing-up, the apparatus of citation, the university, the
+  words for judging a claim, and the language a test of Indonesian uses to talk about Indonesian.
+  **Every member of a new set is checked to
   be in that level AND in none below it**, or the assertion passes on a lower level's word and says nothing
   about the one being added — and it names the HEADWORD the deck actually teaches (`mengunggah`, whose root
   `unggah` is shown in its forms row) rather than the root a reader might expect.
   **And a new assertion the stack needed: no word is taught again from a level below**, whose failure is not
   an error but a duplicate — the learner meets one word on two decks with two schedules and nothing says so.
-  **HOW FAR THE WALK GOES IS A MEASUREMENT AND NOT A ROUND NUMBER, and the old cap held by LUCK.** The walk
-  studies real cards until it meets one with a full affix family, and its cap was 240 because at levels 1–3
-  one always turned up early. It turns up where the WORD does: the deck is frequency-ordered and an affix
-  family is a property of the word, so the higher the level the later the first one falls — level 3's is note
-  167, which 240 cleared by 73, and **level 4's is note 383, which it did not**. The check then reported a
-  deck carrying 79 families as having none. The cap is 600 and the day's allowance 800; the loop exits as
-  soon as all three specimens are found, so the lower levels walk exactly as far as they did (91, 114, 167)
-  and pay nothing (level 5 walks 462). **A bound that has never been approached is a bound nobody has measured.**
+  **THE THREE SPECIMENS ARE SEEDED AS DUE RATHER THAN WALKED TO, AND THAT IS THE THIRD ANSWER TO A QUESTION
+  THIS CHECK KEPT GETTING WRONG** (`SPECIMENS` / `seedIds`). The walk exists to prove that a card carrying an
+  affix family, one carrying a phrase and one carrying three sentences all RENDER, and it used to reach them
+  by grading real cards under a cap written down as a number. **The cap was wrong twice for the same reason**:
+  all three are properties of the WORD, the deck is frequency-ordered, so the higher the level the later the
+  first falls. 240 cleared level 3's family at note 167 by 73 and **did not clear level 4's at 383**,
+  reporting a deck carrying 79 families as having none; 600 then did not clear **level 6's at 886**. And the
+  first PHRASE went from note 14 at level 1 to **2,445 at level 6**, because that level's phrases are all
+  hand-written inventory items with no corpus frequency and the deck sorts them last — so the honest cap
+  became 2,485, or eight minutes and fifty artefact chests to prove something about markup.
+  **A DUE CARD IS IN THE QUEUE WHATEVER THE DAY'S NEW-CARD ALLOWANCE IS**, and that — rather than any claim
+  about order — is what the seeding rests on: a session is at most `ALLOW` cards plus the seeds, so a walk of
+  `ALLOW + 40` reaches them at every level however deep they sit. **It does NOT put them first**, which was
+  the first guess and was wrong: the review's Ordered presentation re-sorts the whole queue into in-deck
+  order, so a specimen from the end of the deck is dealt at the end of the SESSION — which is why the cap is
+  derived from the allowance rather than being a small number. What it gives up is the incidental proof that
+  a reader working the deck normally will meet them, so the positions are PRINTED on every run instead.
+  **A specimen the deck does not contain AT ALL is still a failure**, and never a skip — that is what caught
+  level 6 shipping with no phrases in it. Verified by removing the seed and watching level 6 fail exactly the
+  two assertions it is for; and the seeding itself is asserted, count included, since `every` over an empty
+  list passes vacuously and a seed that never landed would hand the walk silently back to the natural queue.
   Three more things that bit: `.grade` carries `data-g` ITSELF, so a descendant selector matches nothing and
   the walk stands still at zero cards; **studying several hundred cards levels the reader up, and a level
   buys an artefact chest** whose modal overlay intercepts the pointer and stops the walk on a timeout naming
-  an SVG (level 4 dismisses eleven of them); and the
+  an SVG (levels 4–6 dismiss eight of them); and the
   sandbox's Chromium is not where Playwright looks for it, so it needs
   `FOLIO_CHROMIUM=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`.
   **Re-running it must reproduce the shipped deck byte for byte** (a fixed `STAMP`, no clock read anywhere);

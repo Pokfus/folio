@@ -108,11 +108,33 @@ SCOPE = {
                   'standard Indonesian of computing, the clinic, the state as an employer, '
                   'and the vocabulary of integrity and its failures',
     },
+    '6': {
+        'rank': 'the second from the top',
+        'quote': 'Untuk kepentingan akademik yang kompleks, yang bersangkutan masih '
+                 'memiliki kendala',
+        'gloss': 'very highly proficient: unobstructed for survival, social and '
+                 'professional purposes alike, and constrained only at the complex end of '
+                 'academic work — which is where the academic register begins, since '
+                 'constraining the hard case is a statement that the ordinary one is '
+                 'within reach',
+        'topics': 'doing a piece of research and writing it up, the parts of a paper, the '
+                  'apparatus of citation, the university and its degrees, argument and the '
+                  'evidence under it, the words for judging a claim, statistics and '
+                  'diagrams, the language a test of Indonesian uses to talk about '
+                  'Indonesian, letters and their forms, and the historical record',
+    },
 }
 
 TITLES = {k: f'UKBI {k} {v[0]} — Indonesian' for k, v in PREDICATES.items()}
 DECK_IDS = {k: f'ukbi{k}' for k in PREDICATES}
-DECK_FILES = {k: f'UKBI-{k}-{v[0]}-Indonesian.folio-deck.json'
+# A PREDICATE'S NAME MAY BE TWO WORDS, AND A FILE NAME MAY NOT HAVE A SPACE IN
+# IT.  The first five predicates are single words, so this went unnoticed until
+# `Sangat Unggul` wrote `UKBI-6-Sangat Unggul-Indonesian.folio-deck.json` -- a
+# name that works on disk, breaks a shell command anybody types without quoting
+# it, and is the deck's own downloaded file name for every reader who saves it.
+# The hyphen is applied to all seven, which leaves levels 1-5 byte-identical
+# because a name with no space cannot change.
+DECK_FILES = {k: f'UKBI-{k}-{v[0].replace(" ", "-")}-Indonesian.folio-deck.json'
               for k, v in PREDICATES.items()}
 
 # a level is taught on top of the ones below it, so their words are excluded

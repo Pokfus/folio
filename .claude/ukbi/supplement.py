@@ -748,10 +748,21 @@ SECTIONS_4 = {
 # opposite.  Unggul's descriptor does not mention `keilmiahan` at all, and
 # Sangat Unggul's, a rung higher, still says "Untuk kepentingan akademik yang
 # kompleks, yang bersangkutan masih memiliki kendala".  So no `hipotesis`, no
-# `metodologi`, no `variabel`, no `sitasi`, no `tinjauan pustaka`: writing about
-# the literature is Istimewa's.  `analisis` and `evaluasi` are not academic
-# words -- they are what any professional does on a Tuesday -- and the test is
-# whether the word belongs to RESEARCH or to WORK.
+# `metodologi`, no `variabel`, no `sitasi`, no `tinjauan pustaka` here.
+# `analisis` and `evaluasi` are not academic words -- they are what any
+# professional does on a Tuesday -- and the test is whether the word belongs to
+# RESEARCH or to WORK.
+#
+# (THIS COMMENT ONCE ENDED "writing about the literature is Istimewa's", WHICH
+# IS THE MADYA SLIP AGAIN, ONE LEVEL ALONG AND WRITTEN BY SOMEONE WHO HAD JUST
+# CORRECTED IT.  Sangat Unggul's descriptor constrains the COMPLEX academic
+# case, which is a statement that the ordinary one is within reach -- so the
+# student's register belongs to level 6 and only its hardest end to level 7.
+# TWICE IS A PATTERN AND THE CAUSE IS STRUCTURAL: writing a level's header
+# requires saying where the things it excludes DO belong, and the ready answer
+# is always "the next level's", which is a guess dressed as a boundary.  Say
+# only what THIS level's descriptor says, and name another level solely by
+# quoting its own.)
 #
 # WHAT COMPLEX PROFESSIONAL INDONESIAN ACTUALLY IS, and this is the part a
 # frequency list is worst at.  Measured while drafting: of the professional
@@ -815,7 +826,7 @@ bursa efek
 
 # ------------------------------------------------------- what a company IS
 L5_CORP = """
-firma koperasi materai
+firma koperasi meterai
 perseroan terbatas
 badan hukum
 anggaran dasar
@@ -925,11 +936,162 @@ SECTIONS_5 = {
     'verbs': L5_VERBS,
 }
 
+# ===========================================================================
+# LEVEL 6 — SANGAT UNGGUL.  THE ACADEMIC DOOR, OPENED PART OF THE WAY.
+# ===========================================================================
+# THE DESCRIPTOR'S ADJECTIVE IS WHAT MAKES THIS LEVEL POSSIBLE TO WRITE.  Sangat
+# Unggul says the candidate "tidak memiliki kendala dalam berkomunikasi untuk
+# keperluan sintas, sosial, dan keprofesian" -- every door below is fully open --
+# and then: "Untuk kepentingan akademik yang KOMPLEKS, yang bersangkutan masih
+# memiliki kendala."  Constraining the complex case is a statement that the
+# ORDINARY one is within reach, so this is where `keilmiahan` begins, and only
+# its hardest end waits for Istimewa, whose own descriptor is the first to list
+# `keilmiahan` among the things with no kendala at all.
+# (ukbi.kemendikdasmen.go.id/front-new/page/predikat, quoted.)
+#
+# WHICH IS TO SAY: THIS IS THE STUDENT'S REGISTER, NOT THE PROFESSOR'S.  The
+# vocabulary of doing a piece of work and writing it up -- a research design, a
+# sample, a table of results, an argument with evidence under it, a bibliography
+# -- rather than the specialist discourse of any one discipline.  So `skripsi`,
+# `sitasi`, `daftar pustaka` and `simpulan` are here; the internal terminology of
+# a field is not, and neither is a word that only a monograph would use.
+#
+# AND MUCH OF THE OBVIOUS LIST WAS ALREADY TAUGHT, which is worth knowing before
+# drafting one.  Measured against the five decks below: `penelitian`, `hipotesis`,
+# `teori`, `metode`, `analisis`, `data`, `sampel`, `populasi`, `filsafat`,
+# `psikologi`, `statistik` and some seventy more had already arrived on
+# frequency alone, because film dialogue talks about science.  What is left for
+# the inventory is the part a corpus of speech never says out loud: the
+# APPARATUS -- the bibliography, the abbreviations, the parts of a paper -- and
+# the vocabulary of assessing a claim.
+#
+# THE LANGUAGE-ABOUT-LANGUAGE SECTION IS NOT A FLOURISH.  UKBI is a test OF
+# Indonesian, its reading section is largely about how the language works, and
+# `kaidah`, `imbuhan`, `ragam baku`, `sinonim` and `ejaan` are the words a
+# candidate meets in the paper itself.
+#
+# THE ACADEMIC REGISTER'S SET PHRASES HAD TO BE WRITTEN IN BY HAND, AND THE
+# FIRST DRAFT OF THIS INVENTORY CARRIED NOT ONE.  Every earlier level got its
+# phrases free: `estimate_phrases` finds them in the corpus, and levels 2-5
+# shipped 19, 31, 56, 100 and 124 that way.  A film corpus does not say `daftar
+# pustaka`, so at this level the estimator found none above `PHRASE_MIN` and the
+# level shipped with **zero multi-word entries** -- which `check-ukbi.js` caught
+# and which nothing else could have, since a deck of 2,500 single words is a
+# perfectly ordinary-looking deck.  The register is full of them: a bibliography
+# is `daftar pustaka` and nothing shorter, a benchmark is `tolok ukur`, a
+# university is a `perguruan tinggi`.
+#
+# TWO SIGNS OF THE GAP WERE ALREADY IN THIS FILE and neither was read as one.
+# The judgement section carried bare `tolok`, which outside `tolok ukur` is a
+# word almost nobody uses, and the citation section carried bare `pustaka`; a
+# HALF of a set phrase standing alone in an inventory is what the missing whole
+# looks like.  **And the header above this one already promised `daftar
+# pustaka`** -- prose describing a list it had drifted out of.  Fifteen were
+# added, every one confirmed present in the dictionary and absent from levels
+# 1-5 first: eight of the obvious candidates (`hak cipta`, `ilmu pengetahuan`,
+# `sumber daya`, `tata bahasa`, `kata kerja`, `kata benda`, `kata ganti`, `di
+# samping itu`) turned out to have arrived on frequency at a lower level
+# already, which is the same finding as the seventy single words above.
+
+# --------------------------------------------------------- doing the research
+L6_RESEARCH = """
+variabel kuesioner meneliti mengkaji menelaah pengamatan pengkajian
+kuantitatif kualitatif deskriptif komparatif empiris sistematis
+"""
+
+# ---------------------------------------------------- the parts of the writing
+L6_PAPER = """
+abstrak simpulan paragraf alinea uraian paparan pemaparan ikhtisar
+sinopsis rangkuman resensi telaah kajian
+kata pengantar
+karya ilmiah
+"""
+
+# ---------------------------------------------------------- the apparatus
+# What a corpus of speech never contains and a paper cannot do without.
+L6_CITE = """
+pustaka sitasi rujuk acuan indeks glosarium jilid terbitan cetakan
+naskah salinan penerjemahan pengarang penyusun penyunting menyunting
+daftar pustaka
+catatan kaki
+"""
+
+# ------------------------------------------------------------ the university
+L6_STUDY = """
+skripsi tesis disertasi penguji wisuda magister kurikulum silabus
+praktikum lokakarya politeknik hibah akademik jenjang
+perguruan tinggi
+tugas akhir
+mata kuliah
+"""
+
+# ------------------------------------------------- argument and what holds it up
+L6_ARGUE = """
+premis dalil nalar penalaran deduksi induksi inferensi generalisasi
+abstraksi implikasi kontradiksi paradoks hakikat esensi
+sudut pandang
+sebagai contoh
+"""
+
+# ------------------------------------------------------- judging a claim
+L6_JUDGE = """
+objektif valid sahih andal mutakhir terperinci saksama
+patokan tolok pedoman kriteria parameter klasifikasi bobot taraf
+tolok ukur
+"""
+
+# ------------------------------------------------------------- the fields
+L6_FIELD = """
+keilmuan humaniora linguistik sosiologi antropologi
+"""
+
+# --------------------------------------------------------- figures and shapes
+L6_NUM = """
+persentase median korelasi diagram bagan
+berbanding lurus
+"""
+
+# ------------------------------------------------- the language about language
+L6_LANG = """
+kaidah ejaan imbuhan awalan akhiran sinonim antonim semantik gramatika
+kosakata perbendaharaan leksikon tesaurus ensiklopedia aksara abjad
+dialek ragam lisan
+bahasa baku
+kata sifat
+kata depan
+"""
+
+# ---------------------------------------------------------------- letters
+L6_LIT = """
+prosa kritik lakon amanat majas perumpamaan peribahasa
+bait larik pantun syair
+"""
+
+# ------------------------------------------------------------- the record
+L6_HIST = """
+sejarawan prasasti babad hikayat khazanah
+"""
+
+# ------------------------------------------------------- the wider abstractions
+L6_ABSTRACT = """
+lingkup cakupan ranah wacana konteks padan pandang
+nirlaba swadaya swasembada kurun milenium ikhtiar penekanan
+akal sehat
+dan lain-lain
+"""
+
+SECTIONS_6 = {
+    'research': L6_RESEARCH, 'the writing': L6_PAPER, 'the apparatus': L6_CITE,
+    'the university': L6_STUDY, 'argument': L6_ARGUE, 'judgement': L6_JUDGE,
+    'the fields': L6_FIELD, 'figures': L6_NUM, 'language about language': L6_LANG,
+    'letters': L6_LIT, 'the record': L6_HIST, 'abstractions': L6_ABSTRACT,
+}
+
 # A LEVEL WITH NO INVENTORY OF ITS OWN GETS NONE, and that is deliberate rather
 # than an omission: `select.py` would then fill the whole level from frequency,
 # which is exactly what this file exists to stop, so the run says so out loud.
 LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2, '3': SECTIONS_3, '4': SECTIONS_4,
-          '5': SECTIONS_5}
+          '5': SECTIONS_5, '6': SECTIONS_6}
 
 
 def sections():
