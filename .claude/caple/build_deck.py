@@ -186,6 +186,20 @@ def debracket(g):
     return ''.join(out).strip(' ;,')
 
 
+# A THIRD SHAPE OF CROSS-REFERENCE, and it is prose rather than a field.  Where
+# a multi-word entry can also be read literally, Wiktionary files a sense whose
+# gloss is the instruction `Used other than figuratively or idiomatically: see
+# de, borla.` -- an editorial note telling a READER to look the parts up, not a
+# translation of anything, and it is filed FIRST on most entries that have one.
+# Five shipped cards printed it as their meaning (`de borla` said that instead
+# of "for free"), and every one had the real gloss sitting in the very next
+# sense.  It bites hardest on a phrase, which is the only kind of entry that can
+# have one, so it was found while measuring the phrases deck rather than by
+# anything watching the six levels.  `form_of` and `alt_of` above are the other
+# two shapes; this one has no field to test, only its own wording.
+SOP_RX = re.compile(r'^Used other than figuratively or idiomatically\b', re.I)
+
+
 def glosses_for(rec, limit=2):
     out = []
     # a sense carrying a form_of FIELD is a cross-reference, not a translation.
@@ -193,7 +207,8 @@ def glosses_for(rec, limit=2):
     # set it.
     cands = [s for s in rec.get('senses', [])
              if not (BAD_TAGS & set(s.get('tags', [])))
-             and not (s.get('form_of') or s.get('alt_of')) and s.get('glosses')]
+             and not (s.get('form_of') or s.get('alt_of')) and s.get('glosses')
+             and not SOP_RX.match(s['glosses'][0])]
     # Keep the senses at the BEST rank rather than at rank zero exactly.  The
     # zero test is what hid `comboio`'s "train" behind "convoy": a European
     # sense now scores below zero, so a rule looking for zero would throw away
