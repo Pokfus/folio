@@ -114,10 +114,14 @@ async function typeField(page, field, text) {
   await page.waitForTimeout(900);
   const lib = await page.evaluate(() => {
     const row = document.querySelector(".collection.udeck [data-udeck]");
+    /* …SCOPED TO "Your decks" since Aug 2026. The Language section above it carries a `.udeck-intro` too —
+       it is the same kind of paragraph and takes the same styling — and it does NOT say "not fact-checked",
+       because those decks are Folio's own. Read unscoped, this asserted the wrong section's prose. */
+    const own = document.querySelector(".community-group:not(#sharedDecks)");
     return {
       present: !!row,
       title: row ? (row.querySelector(".collection-title") || {}).textContent : null,
-      warns: /not fact-checked/i.test((document.querySelector(".udeck-intro") || {}).textContent || ""),
+      warns: /not fact-checked/i.test(((own && own.querySelector(".udeck-intro")) || {}).textContent || ""),
       count: (document.querySelector(".collection.udeck .collection-count") || {}).textContent,
     };
   });

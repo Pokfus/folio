@@ -159,7 +159,9 @@ function syntheticPool() {
     check("…and no level numeral is left on one", d.numerals === 0);
     check("…each with a studied/total bar in its place", d.progs === d.rows);
     check("…labelled as progress rather than as a level", d.labels.length > 0 && d.labels.every((x) => x === "Studied"), JSON.stringify(d.labels));
-    check("…and counting cards, not XP", d.counts.every((x) => /^\d+ \/ \d+ cards$/.test(x)), JSON.stringify(d.counts));
+    // the figures are grouped (1,000), so the pattern allows a separator — what is being asserted is that
+    // the bar counts CARDS rather than XP, not how a thousand is punctuated
+    check("…and counting cards, not XP", d.counts.every((x) => /^[\d,]+ \/ [\d,]+ cards$/.test(x)), JSON.stringify(d.counts));
     check("the deck-cap line is gone from the page head", !d.cap);
 
     // THE CAP ITSELF. A level-1 reader (nothing studied) adds every live collection; a cap left in any

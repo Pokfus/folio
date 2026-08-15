@@ -3691,16 +3691,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
-- `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
-  of the site and never loaded by it: a deck file is somebody else's content that happens to have been
-  written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
-  The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
-  **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
-  levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
-  chengyu). 22 MB in all. The **DELE Spanish set** sits beside it — four files, A1 to B2, 3,993 notes /
-  7,986 cards, built by `.claude/dele/` — and the **Goethe German set** by `.claude/goethe/`. All three
-  sets are now one note per word with a template each way, which is what makes the options sheet's "Both
-  directions together" reachable on any of them; see each generator's own bullet below.
+- `decks/*.folio-deck.json` — **deck files a reader imports through the Studio.** They are still not
+  *loaded* by the site — no `<script>`, nothing in the eager path — but since Aug 2026 **five of them are
+  LINKED from it**: the Mandarin deck and the four DELE levels are the two **Language collections** on the
+  Collections page, downloaded on request and marked `origin: "curated"` (see THE LANGUAGE COLLECTIONS
+  bullet). Every file still goes through `uDeckNormalize` on import exactly as a stranger's would, and a
+  file this repo does not link to — the Goethe A1 German deck — is what it always was: a file to hand
+  somebody.
+  The Mandarin set is **one** file since Aug 2026: **Mandarin Chinese**, 11,532 notes / 23,064 cards as
+  **nine subdecks**, the seven HSK 3.0 levels of the 2026 standard plus the two the syllabus leaves out,
+  **Phrases** (159) and **Idioms** (477 chengyu), 20.6 MB. **HSK1 and HSK2 were DELETED on request** — the
+  2012 standard at 150 and 151 words, both of them subsets of the deck beside them, so two shelves of one
+  subject where the smaller contains nothing the larger has not got. The **DELE Spanish set** sits beside
+  it — four files, A1 to B2, 3,993 notes / 7,986 cards, built by `.claude/dele/` — and the **Goethe German
+  set** by `.claude/goethe/`. All three sets are now one note per word with a template each way, which is
+  what makes the options sheet's "Both directions together" reachable on any of them; see each generator's
+  own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -6029,7 +6035,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   trade for instant loads. Live admin edits are unaffected (they arrive through the Supabase
   `content_overrides` overlay at runtime, not through these files). The multi-MB lazy bundles are **not**
   precached — that would undo the split; they enter the cache when a page actually asks for them, so one
-  Atlas visit makes it available offline. Bump `VERSION` in sw.js to invalidate everything.
+  Atlas visit makes it available offline. **`/decks/` IS SKIPPED ENTIRELY** (Aug 2026, with the Language
+  collections): a downloaded deck file is written into IndexedDB by the import, so caching the response
+  would keep a second copy of the same 20 MB — and unlike a lazy bundle it is never fetched twice, the
+  store being what the site reads afterwards. Bump `VERSION` in sw.js to invalidate everything.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
 - **RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE** (`resetProgress` / `RESET_KEEPS`, beside
   `applyProgress`/`emptyProgress`; Settings → Danger zone. Aug 2026, on a bug report). It was
@@ -9289,11 +9298,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_ICON` — a collection with no row there falls through
   to a stack-of-cards mark, which is honest but says nothing about the subject).
-- **Collections layout (`PAGES.decks`)** — three sections down the page: **Collections**, then **Your decks**
+- **Collections layout (`PAGES.decks`)** — five sections down the page: **History**, **Coming soon**,
+  **Language**, then **Your decks**
   (the reader's own, and the way into the Studio), then **Shared decks** (Aug 2026, on request — the browse
   list that used to be `PAGES.community`, a page of its own; see the Phase 2 Pages bullet for the route, the
-  redirect and the sortable table). The order is the point: your own shelf first, strangers' below it, one page.
-  "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
+  redirect and the sortable table). The order is the point: Folio's own shelves first, then your own,
+  strangers' below that, one page.
+  **The first group was called "Collections" until Aug 2026 and is now HISTORY** (on request), because a
+  second kind of Folio collection arrived below it — see THE LANGUAGE COLLECTIONS bullet — and a group
+  labelled "Collections" inside a page titled Collections said nothing about which of the two a reader was
+  looking at. It is a plain group; **"Coming soon" is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
@@ -9325,6 +9339,88 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   was 9px of nothing inside a flex item the row centres as a whole, so the title rode ~4.5px above the middle
   of its own banner. A flex item establishes its own formatting context, so the margin cannot collapse away by
   itself — it has to be zeroed.
+- **THE LANGUAGE COLLECTIONS — Folio's own vocabulary decks, offered for download** (`LANG_COLLECTIONS` /
+  `languageCollectionsHTML` / `wireLanguageCollections` / `langDeckDownload` / `langCollStats` /
+  `langCollHere` / `langCollOn` / `langOpen` / `isCuratedDeck` / `langSize` / `DOWNLOAD_ICON`; the
+  `.lang-coll` / `.lang-row` / `.lang-sub` rules in styles.css. Aug 2026, on request). The Mandarin deck and
+  the four DELE Spanish levels have sat in `decks/` since they were built and **nothing on the site linked
+  to them** — they were files to hand somebody, which is what the community-deck rules call user content.
+  This makes them Folio's own, downloadable by anyone, in a **Language** section under History.
+  · **THEY ARE FILES, NOT CONTENT — which is why this is a table rather than a tree.** The Mandarin deck
+    alone is 20.6 MB; putting any of it in `data.js` or in `COLLECTION_TREE` would put it in the eager load
+    path, where the whole of that path is 5.9 MB today. So a language collection is a registry row naming a
+    FILE, and a reader who wants it downloads it once to this device. **`LANG_COLLECTIONS` carries five decks
+    in two collections** (`hsk30`, and `delea1`…`deleb2`), each row `{ id, file, label, title, sub, cards,
+    bytes }`.
+  · **THE FIGURES ARE ASSERTED AGAINST THE FILES, never trusted** — `.claude/decks/check-decks.js`'s
+    `langRegistryChecks()` reads every file and fails if the id, the title, the subtitle, the card count or
+    the byte size has moved. A deck is rebuilt by its generator every few weeks and a figure restated by
+    hand is a figure that goes stale; the check was written before the registry was.
+  · **`label` IS WHAT THE ROW SAYS AND `title` WHAT THE FILE SAYS**, and they differ on purpose: the banner
+    above already reads "Spanish", so a row reading "DELE A1 — Spanish" says it twice — the same reason a
+    history collection's deck rows read "Origins" rather than "World History: Origins". `title` is kept
+    because the download toast and the button's own label want the deck's real name. The check asserts the
+    label is the SHORTER of the two, which is what a later tidy-up collapsing them into one field would break.
+  · **A DOWNLOADED DECK IS `origin: "curated"`, and that is a PUBLISH KEY.** `uDeckImportText(text, asCopy,
+    origin)` takes it and nothing else does, so a stranger's deck file can never wear Folio's badge — the
+    publish keys are reset on every file import by construction. Two things read it: `isCuratedDeck` keeps
+    these out of **Your decks**, whose own intro says its contents are "not fact-checked by Folio", and the
+    Language rows use it to know a deck is theirs.
+  · **IT SHIPS THROUGH THE ORDINARY IMPORT PATH**, `uDeckImportText` and its sanitizer and all, rather than a
+    second and less-travelled ingest route for content that happens to be ours. On `file://` the fetch is a
+    cross-origin read and is blocked, so `langDeckDownload` says what to do instead (import through the
+    Studio) rather than reporting a network failure that is really a protocol one.
+  · **THE DECK FILES ARE EXCLUDED FROM THE SERVICE WORKER** (the `/decks/` guard in `sw.js`): the
+    stale-while-revalidate branch would keep a second 20 MB copy of every downloaded deck in the cache, on
+    top of the copy already written into IndexedDB. A deck is fetched once and stored once.
+  · **THE BANNER IS BUILT TO THE HISTORY COLLECTION'S PLAN** (Aug 2026, on request: "should appear the same
+    way as the history collections do in their respective section"). Same markup — `.collection >
+    .collection-row` over `.node-children` holding numbered `.node` rows — so the wash, the icon, the
+    studied/total bar, the fold, the numbering, the left hairline and every hover are INHERITED and
+    `styles.css` restates none of them. What is new is one line of prose under a deck's title (`.lang-sub`)
+    and the download button, which has to be the same circle the + is.
+  · **THE BAR'S TOTAL IS THE REGISTRY'S, not the store's**, so a collection reads "0 / 23,064 cards" before
+    anything is downloaded — the same claim a history collection's bar makes, and the honest one: the cards
+    exist and you have studied none of them. Counting only what is on the device would give a full bar to a
+    reader who has downloaded one deck of four.
+  · **THE BANNER'S ACTION DEPENDS ON WHETHER ANYTHING IS HERE**: a **download-everything** button until one
+    deck is, and then the ordinary **+ / ✓** standing for every deck of the collection that IS here. A + that
+    added decks the reader has not got would be a control that cannot do what it says, and a download button
+    beside four decks already downloaded is the same fault the other way round. The download-everything loop
+    is **serial**, since four multi-megabyte files parsed at once is what runs a phone's tab out of memory,
+    and it re-reads each row's button from the document because every success re-renders.
+  · **A ROW'S + / ✓ CARRIES `data-uadd`, on purpose**: that is what `wireCommunityLibrary` wires and what
+    `refreshAddButtons` sweeps, so its tick follows an add made anywhere else on the page for free.
+    **`refreshAddButtons` had to be widened to reach it** — it matched `.collection-add[data-uadd]` and these
+    are `.node-add`, so a deck added from its own row kept a + while the review below it held the deck — and
+    it also re-states the COLLECTION's own button, which stands for several entries and so cannot be updated
+    by the one handler that changed one of them.
+  · **`langOpen` KEEPS THE FOLD OPEN ACROSS A RENDER.** Every other fold on this page survives because
+    nothing re-renders the page while a reader is using it; downloading a deck does (`uImportDone` calls
+    `render()`), so without it a reader who opens Spanish and taps a deck finds the fold shut at exactly the
+    moment the row they were watching changes state. Module-level and NOT in `S` — a way of looking at the
+    page, the call `bookQuery` and the glossary sort make.
+  · **THE BANNER DOES NOT STUDY ON A BODY CLICK** the way a history collection's can: `buildSession` has no
+    scope spanning several decks, and a collection whose four levels are separate decks has nothing to hand
+    it. It toggles the fold; the rows below are where studying starts.
+  · **The two hues are MEASURED, not picked** (`COLL_THEME`): `lang-zh` `#3F7A22` and `lang-es` `#0E8C99`,
+    the greenest and the cyan-most corners the shelf still had. The teal is the compromise of the pair and it
+    is worth recording why — the better-separated alternatives were a fourth blue at ΔE 25.8, which would
+    have said Spanish belongs with Greece and Rome, and a magenta 12.7 from Japan, inside the shelf's own
+    tightest pair. Their `COLLECTION_ICON` marks are a 米 grid and an inverted **¿**, both drawn to read at
+    28px on a deck row as well as 34px on a banner.
+  · **HSK 1 and HSK 2 WERE DELETED** (Aug 2026, on request): those two files were the 2012 standard at 150
+    and 151 words, and the Mandarin deck beside them is the 2026 standard's seven levels plus phrases and
+    idioms, 11,532 words, which contains them. Two shelves of the same subject where the smaller is a subset
+    of the larger is a choice a reader cannot make on any grounds. `.claude/decks/check-reverse.js` cut its
+    two-note fixture from HSK 1 and now cuts it from the big deck.
+  · **`deckProgMarkup` GROUPS ITS FIGURES and `.xp-head` WRAPS**, both because of these collections. The
+    history ones top out at 1,000 and never needed a separator; "0 / 23064 cards" is a figure a reader has to
+    count the digits of. And the head sits in a `min-width:0` flex column with two nowrap children, so
+    without `flex-wrap` they spilled to the right and ran under the buttons beside them — measured at 390px,
+    the Mandarin banner's figure overlapped its own + by 5.6px. **Truncating the caption was tried and is
+    worse**: at 360px every collection then reads "STU…", which says nothing, where a figure on a second line
+    says everything and costs one line of a banner only the widest collections ever need.
 - **A collection wears a SUBJECT ICON and a PROGRESS BAR** (`COLLECTION_ICON` / `collectionIconMarkup(id)` /
   `deckProgMarkup(studied, total)`, Aug 2026, on request). Both replace something a level used to occupy:
   the icon stands where the per-script level numeral stood (`.coll-ic`, at the same 56px width, so nothing
@@ -10788,6 +10884,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     type has more than one template, read off the deck FILE rather than from a list in the test, so a deck
     added later is covered by the rule. That is the check the Spanish decks would have failed for a
     fortnight: nothing threw, the decks studied both ways, and the setting simply was not on the sheet.
+    **Its `langRegistryChecks()` runs FIRST, before the browser launches**, and is a plain-Node read of
+    `LANG_COLLECTIONS` sliced out of app.js by a bracket-matching walk: every file exists, and the id, the
+    title, the subtitle, the card count and the byte size the registry states are the file's. Those figures
+    are what the Collections page prints before a reader has downloaded anything, so a generator re-run
+    silently makes every one of them a lie — and nothing on the page can tell.
+    **Its add-and-study half is SCOPED TO "Your decks"** (`.community-group:not(#sharedDecks)`) for a reason
+    worth knowing before widening it back: a Language row turns into a + the moment that deck id is in the
+    store, which importing the same file by hand does — so a page-wide `[data-uadd]` sweep finds the deck
+    TWICE, and the first of the two sits inside a collapsed fold that no click can reach (it timed out
+    rather than failing, which is the worse shape). That duplicate is correct on the page: a hand-imported
+    file is the reader's own deck AND is the deck the Language row names.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the

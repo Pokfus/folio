@@ -998,7 +998,13 @@ function scrimCheck() {
     const lib = await page.evaluate(() => {
       const groupLabel = (document.querySelector(".collection-group .group-label") || {}).textContent || "";
       const soon = document.querySelector(".collection.placeholder");
-      const live = [...document.querySelectorAll(".collection:not(.placeholder):not(.udeck)")][0];
+      // …:not(.lang-coll) since Aug 2026 — the Language section's collections wear `.collection` too and are
+      // built to the same plan, but this wants a HISTORY one: a language collection prints no
+      // `.collection-count` (its size is on each deck row, in megabytes until the deck is here), so it
+      // would report a live collection missing furniture it never had
+      const live = [...document.querySelectorAll(".collection:not(.placeholder):not(.udeck):not(.lang-coll)")][0];
+      const labels = [...document.querySelectorAll(".collection-group .group-label")].map((x) => x.textContent.trim());
+      const lang = document.querySelector(".lang-coll");
       const has = (el, sel) => !!(el && el.querySelector(sel));
       // with the XP bar gone, the title row's bottom margin was 9px of nothing under the title, inside a
       // flex item the row centres as a whole — so the title rode above the middle of its own banner
@@ -1009,7 +1015,20 @@ function scrimCheck() {
         off = +((t.top + t.height / 2 - r.top) - r.height / 2).toFixed(2);
       }
       return {
-        groupLabel: groupLabel.trim(), soonTitleOffset: off,
+        groupLabel: groupLabel.trim(), soonTitleOffset: off, labels: labels,
+        langCount: document.querySelectorAll(".lang-coll").length,
+        langRows: document.querySelectorAll(".lang-row").length,
+        langGet: document.querySelectorAll(".lang-row [data-langget]").length,
+        langHue: lang ? lang.style.getPropertyValue("--coll-bg") : "",
+        langIcon: !!(lang && lang.querySelector(".coll-ic svg")),
+        // the shape a history collection has: a studied/total bar on the banner, a chevron over a fold, and
+        // numbered rows inside it
+        langBar: !!(lang && lang.querySelector(".collection-main .deck-prog")),
+        langChev: !!(lang && lang.querySelector(".collection-actions .chev")),
+        langFold: !!(lang && lang.querySelector(".node-children .node-children-pad .lang-row")),
+        langNums: [...document.querySelectorAll(".lang-row .node-num")].map((x) => x.textContent),
+        // …and an action, which before anything is downloaded can only be "get the lot"
+        langGetAll: document.querySelectorAll("[data-langgetall]").length,
         soonBadge: has(soon, ".coll-ic"), soonXp: has(soon, ".xp"), soonPill: has(soon, ".pill.soon"),
         liveBadge: has(live, ".coll-ic"), liveXp: has(live, ".deck-prog"), liveCount: has(live, ".collection-count"),
         // …and the DECK rows inside keep theirs, which is what makes the line above a rule rather than a loss
@@ -1017,7 +1036,28 @@ function scrimCheck() {
         anyNumeral: !!document.querySelector(".collection-row .lb-num"),
       };
     });
-    check("the first group is called Collections", lib.groupLabel === "Collections", lib.groupLabel);
+    /* THE SECTIONS, in order (Aug 2026, on request): the live collections under HISTORY, the coming-soon
+       ones after them, then LANGUAGE — Folio's own vocabulary decks, offered for download. The label
+       matters as much as the section: "Collections" inside a page titled Collections said nothing about
+       which of the two a reader was looking at. */
+    check("the first group is called History", lib.groupLabel === "History", lib.groupLabel);
+    check("…with Language under it", lib.labels.indexOf("Language") > lib.labels.indexOf("History"), lib.labels.join(" | "));
+    check("…holding two collections", lib.langCount === 2, lib.langCount);
+    check("…each with its own hue and mark", !!lib.langHue && lib.langIcon, lib.langHue);
+    /* BUILT TO THE HISTORY COLLECTION'S PLAN (Aug 2026, on request: "should appear the same way as the
+       history collections do in their respective section"). The four things that makes it are a
+       studied/total bar on the banner, a chevron, a fold, and numbered rows — each of which fails silently
+       on its own, since a language collection missing any one of them still lists its decks. */
+    check("…each drawn like a history collection — bar, chevron, fold",
+          lib.langBar && lib.langChev && lib.langFold,
+          "bar " + lib.langBar + " chev " + lib.langChev + " fold " + lib.langFold);
+    check("…with its decks numbered inside it", lib.langNums.join(",") === "01,01,02,03,04", lib.langNums.join(","));
+    /* Five rows, and EVERY one offering a download: a reader who has downloaded none must be shown the way
+       to all of them, and a row whose button had gone missing would look exactly like one already here.
+       The banners offer the same in one press, which is the only action they can honestly carry yet. */
+    check("…and five deck rows, all downloadable", lib.langRows === 5 && lib.langGet === 5,
+          lib.langRows + " rows / " + lib.langGet + " download buttons");
+    check("…over two download-everything buttons", lib.langGetAll === 2, lib.langGetAll);
     // a level meter towards a level in a collection that cannot be studied, over a "0 / 3 cards" figure that
     // reads as a card count when the collection holds none
     check("a coming-soon collection carries no icon", !lib.soonBadge);

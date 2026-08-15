@@ -5934,7 +5934,12 @@
     // publishing state (phase 2). A deck is "mine" unless it was installed from someone else's.
     o.remoteId = /^[0-9a-fA-F-]{36}$/.test(String(m && m.remoteId)) ? String(m.remoteId) : "";
     o.slug = /^[a-z0-9][a-z0-9-]{2,63}$/.test(String(m && m.slug)) ? String(m.slug) : "";
-    o.origin = (m && m.origin === "installed") ? "installed" : "mine";
+    /* THREE ORIGINS. "mine" is written here, "installed" is somebody else's pulled down from the server,
+       and "curated" (Aug 2026, on request) is one of Folio's own language decks downloaded from the
+       Collections page. It is in the PUBLISH keys and not the meta ones, which is what makes it safe: a
+       deck FILE cannot claim it, because uDeckImportText overwrites every publish key on the way in and
+       only the curated installer passes anything but "mine". */
+    o.origin = (m && (m.origin === "installed" || m.origin === "curated")) ? m.origin : "mine";
     o.remoteStatus = ["draft", "published", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
     o.publishedVersion = Number(m && m.publishedVersion) || 0;
     o.installedVersion = Number(m && m.installedVersion) || 0;
@@ -7145,8 +7150,11 @@
     setTimeout(() => URL.revokeObjectURL(url), 30000);
     toast("Deck file downloaded");
   }
-  // returns { ok, deck } | { error }
-  function uDeckImportText(text, asCopy) {
+  /* returns { ok, deck } | { error }
+     `origin` is the caller's, never the file's — see the publish-key reset below. It is "mine" for every
+     ordinary import and "curated" only for Folio's own language decks, which the Collections page fetches
+     from this site. */
+  function uDeckImportText(text, asCopy, origin) {
     let raw;
     try { raw = JSON.parse(text); } catch (e) { return { error: "That file isn't valid JSON." }; }
     if (!raw || typeof raw !== "object" || !raw.folioDeck) return { error: "That doesn't look like a Folio deck file." };
@@ -7160,6 +7168,10 @@
     if (norm.over > 0) return { error: "That deck has " + (norm.cards.length + norm.over).toLocaleString() +
       " cards and a deck holds at most " + UDECK_MAX_CARDS.toLocaleString() + ". Split it and import the parts." };
     UDECK_PUBLISH_KEYS.forEach((f) => { norm.meta[f] = (f === "origin") ? "mine" : (typeof norm.meta[f] === "number" ? 0 : ""); });   // an imported file is always a fresh, unpublished deck of your own
+    // …unless the CALLER says otherwise, which only the curated-deck installer does. A file that carries
+    // `origin: "curated"` has just had it overwritten one line above, so a stranger's deck cannot arrive
+    // wearing Folio's own badge.
+    if (origin === "curated") norm.meta.origin = "curated";
     /* …or one that has NO id at all, which a hand-written file plausibly has and which Folio's own export
        never does. Without that clause such a deck mounted under the empty string: it half worked (its entry
        id was the bare "u:", its rows carried an empty data-uadd), it kept the file's own card ids where every
@@ -7251,7 +7263,11 @@
      Cards go up as ROWS, not one blob, because that is what lets a later paid tier gate the non-demo ones
      in RLS. Card ids stay stable across a publish so that when a creator ships an update, a learner's
      scheduling on the cards that didn't change survives. */
-  function uDeckIsMine(d) { return !d || d.origin !== "installed"; }
+  /* A CURATED deck is Folio's own, downloaded from the Language collections, and is NOT mine in this sense —
+     it takes the installed deck's treatment exactly (read-only in the Studio, "Duplicate to edit", refused
+     by publish). Without the second test a reader could publish Folio's Mandarin deck to the shared list as
+     their own work, which is the one thing `origin` exists to stop. */
+  function uDeckIsMine(d) { return !d || (d.origin !== "installed" && d.origin !== "curated"); }
   function uDeckIsPublished(d) { return !!(d && d.remoteId && d.remoteStatus === "published"); }
   function slugify(s, salt) {
     let base = sanitizePlain(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
@@ -15446,11 +15462,25 @@
   function refreshAddButtons() {
     // …[data-uaddsub] with them: adding a deck now adds its subdecks, so their own buttons have to follow
     // in the same sweep, or the rows below the one just pressed go on reading "add" over something added
-    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd], .collection-add[data-uaddsub]").forEach((b) => {
+    /* `[data-uadd]` is matched WITHOUT a class since Aug 2026: a Language collection's deck row carries one
+       on a `.node-add`, and the old `.collection-add[data-uadd]` skipped it — so a deck added from its own
+       row kept a + while the review below it held the deck. */
+    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], [data-uadd], [data-uaddsub]").forEach((b) => {
       const eid = b.dataset.id != null ? b.dataset.id
         : b.dataset.uaddsub != null ? b.dataset.uaddsub
         : uDeckEntry(b.dataset.uadd);
       const on = isActive(eid);
+      b.classList.toggle("added", on);
+      b.innerHTML = addIcon(on);
+      b.setAttribute("aria-label", on ? "Remove from review" : "Add to review");
+    });
+    /* …and a Language collection's own + / ✓, which does not stand for ONE entry but for every deck of it
+       that is downloaded. Sweeping it here rather than in its own click handler is what makes it follow a
+       press on a deck row below it, which is the whole reason the collection button exists. */
+    document.querySelectorAll(".collection-add[data-langadd]").forEach((b) => {
+      const c = LANG_COLLECTIONS.filter((x) => x.id === b.dataset.langadd)[0];
+      if (!c) return;
+      const on = langCollOn(c);
       b.classList.toggle("added", on);
       b.innerHTML = addIcon(on);
       b.setAttribute("aria-label", on ? "Remove from review" : "Add to review");
@@ -15987,6 +16017,18 @@
     ww2: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>',
     // torii gate
     japan: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>',
+    /* The two LANGUAGE collections (Aug 2026, on request). Each takes the writing system's own mark rather
+       than anything national — a flag or a landmark would be saying something about a country where the
+       collection is about a language. Mandarin gets the 米字格, the ruled grid a character is practised in;
+       Spanish gets the ¿, which is Spanish's own punctuation and reads instantly at 28px. The ¿ is drawn as
+       an ordinary question mark turned through half a circle, which is exactly what it is, and is what
+       keeps the two curves from having to be hand-fitted. */
+    "lang-zh": '<path d="M4 4h16v16H4z"/><path d="M12 4v16"/><path d="M4 12h16"/><path d="M4.9 4.9 19.1 19.1"/><path d="M19.1 4.9 4.9 19.1"/>',
+    /* …and the ¿'s dot carries its own stroke-width. A round-capped zero-length path is a dot the width of
+       the stroke, which at 1.5 next to a 3.8-radius hook reads as a speck rather than as the point of a
+       question mark. */
+    "lang-es": '<g transform="rotate(180 12 12)"><path d="M8.2 8.6a3.8 3.8 0 1 1 4.6 3.7v2.1"/>' +
+      '<path d="M12.8 18.2h.01" stroke-width="2.6"/></g>',
     // fallback — a stack of cards
     _: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>',
   };
@@ -16000,7 +16042,10 @@
   function deckProgMarkup(studied, total) {
     const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
     return '<div class="xp deck-prog" data-pct="' + pct.toFixed(2) + '">' +
-      '<div class="xp-head"><span class="xp-lvl">Studied</span><span class="xp-count">' + studied + ' / ' + total + ' cards</span></div>' +
+      /* Grouped since Aug 2026: the history collections top out at 1,000 and never needed it, and the
+         Mandarin one is 23,064 — "0 / 23064 cards" is a figure a reader has to count the digits of. */
+      '<div class="xp-head"><span class="xp-lvl">Studied</span><span class="xp-count">' +
+        studied.toLocaleString() + ' / ' + total.toLocaleString() + ' cards</span></div>' +
       '<div class="xp-track"><div class="xp-fill"></div></div></div>';
   }
   /* The XP bar toward the next Folio level. ONE caller now — the home Daily-study banner — since
@@ -18553,10 +18598,15 @@
         ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
               itself (Aug 2026, on request) — there is no limit left to state. */""}
       </div>
-      ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
-            list of collections — the label contradicted both that and the page title above it. */""}
-      ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
+      ${/* "History", since Aug 2026 and on request: there is a Language section under this one now, and a
+            group labelled "Collections" inside a page titled Collections said nothing about which of the
+            two a reader was looking at. (It was "All decks" before that, which contradicted the hierarchy
+            — collection → deck → subdeck — as well as the page title.) The coming-soon group stays a
+            section of its own between the two, which is where the request leaves it: every collection in
+            it is a history collection, and none of them can be studied yet either way. */""}
+      ${available.length || admin ? section("History", available.length, "collection-list-all", available.length) : ""}
       ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
+      ${languageCollectionsHTML()}
       ${communityLibraryHTML()}
       ${sharedDecksHTML()}`;
 
@@ -18565,7 +18615,8 @@
     if (allList) available.forEach((d) => allList.appendChild(buildCollection(d)));
     if (soonList) comingSoon.forEach((d) => soonList.appendChild(buildCollection(d)));
     wireLibraryDnd(root);
-    wireCommunityLibrary(root);
+    wireCommunityLibrary(root);   // …which also wires every [data-uadd] on the page, the language rows' included
+    wireLanguageCollections(root);
     wireSharedDecks(root);
     animateProgs(root);   // fill the collection XP bars from their data-pct
   };
@@ -18648,7 +18699,12 @@
     return '<div class="udeck-subs">' + uSubChildren(d.id, "").map((s) => row(s, 0)).join("") + '</div>';
   }
   function communityLibraryHTML() {
-    const decks = uDeckList();
+    /* Folio's own language decks are NOT listed here, and that exclusion is the reason `origin: "curated"`
+       exists. This section's whole point is the sentence below it — these are not fact-checked by Folio —
+       and a deck Folio wrote, downloaded from Folio's own Collections page, sitting under that warning
+       says the opposite of what is true. Its home is the Language section, where it was downloaded; the
+       Studio still lists it, so it can be edited or deleted. */
+    const decks = uDeckList().filter((d) => !isCuratedDeck(d));
     return '<div class="collection-group community-group">' +
       '<div class="group-head"><span class="group-label">Your decks</span><span class="group-line"></span><span class="group-count">' + decks.length + '</span></div>' +
       '<p class="udeck-intro">Decks you write yourself, and decks you install from other people. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>.</p>' +
@@ -18701,6 +18757,271 @@
         if (!d) return;
         if (!(d.cardIds || []).length) { studioState.deck = d.id; studioState.card = null; route("studio"); return; }   // nothing to study yet — go and write it
         route("study", { scope: { type: "udeck", id: d.id } });
+      };
+      rowEl.addEventListener("click", go);
+      rowEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
+  }
+
+  /* ============================================================
+     THE LANGUAGE COLLECTIONS (Aug 2026, on request)
+     ============================================================
+     Folio's own vocabulary decks, offered on the Collections page under a "Language" section of their own
+     and downloadable by any visitor. Until now the files in `decks/` were user content that happened to
+     have been written here — nothing on the site linked to them, and the changelog rule says as much — and
+     this is the deliberate reversal of that for these two subjects: they are Folio's, so the site serves
+     them.
+
+     THEY ARE STILL COMMUNITY DECKS UNDERNEATH, and that is the whole economy of the feature. A download is
+     a plain deck-file import, so the sanitizer, the store, the subdeck and direction rows, the scheduler
+     and the Studio all work on them exactly as they already do — the only thing added is a fetch and an
+     `origin` of "curated", which is what keeps them out of the "Your decks" section, whose whole point is
+     the sentence "not fact-checked by Folio". A history collection is a tree of cards inside `data.js`; a
+     language collection is a shelf of files. They look alike on the page and are nothing alike behind it,
+     which is why this is a table of files rather than anything in COLLECTION_TREE.
+
+     THE FIGURES HERE ARE ASSERTED AGAINST THE FILES, never trusted: `.claude/decks/check-decks.js` reads
+     each one and fails if the id, the subtitle, the card count or the size has moved. A deck is rebuilt by
+     its generator every few weeks, and a figure restated by hand is a figure that goes stale — this file
+     has learnt that often enough to write the check first.
+
+     Adding a language is a row here plus a `COLL_THEME` hue and a `COLLECTION_ICON` mark. The German deck
+     (`decks/Goethe-A1-German.folio-deck.json`) is a one-row change away and is deliberately NOT listed:
+     the request named Mandarin and Spanish. */
+  const LANG_COLLECTIONS = [
+    {
+      id: "lang-zh",
+      title: "Mandarin Chinese",
+      decks: [
+        { id: "hsk30", file: "decks/Mandarin-Chinese.folio-deck.json",
+          label: "HSK 3.0, phrases and idioms", title: "Mandarin Chinese — HSK 3.0, phrases and idioms",
+          sub: "11,532 words · nine subdecks · both directions", cards: 23064, bytes: 21580394 },
+      ],
+    },
+    {
+      id: "lang-es",
+      title: "Spanish",
+      decks: [
+        { id: "delea1", file: "decks/DELE-A1-Spanish.folio-deck.json",
+          label: "DELE A1", title: "DELE A1 — Spanish",
+          sub: "500 words · both directions", cards: 992, bytes: 1469390 },
+        { id: "delea2", file: "decks/DELE-A2-Spanish.folio-deck.json",
+          label: "DELE A2", title: "DELE A2 — Spanish",
+          sub: "500 more words, none of them in A1 · both directions", cards: 998, bytes: 1649334 },
+        { id: "deleb1", file: "decks/DELE-B1-Spanish.folio-deck.json",
+          label: "DELE B1", title: "DELE B1 — Spanish",
+          sub: "1,000 more words, none of them in A1 or A2 · both directions", cards: 1998, bytes: 3846162 },
+        { id: "deleb2", file: "decks/DELE-B2-Spanish.folio-deck.json",
+          label: "DELE B2", title: "DELE B2 — Spanish",
+          sub: "2,000 more words, none of them in A1, A2 or B1 · both directions", cards: 3998, bytes: 7006378 },
+      ],
+    },
+  ];
+  /* `label` is what the ROW says and `title` what the FILE says, and they differ on purpose: the banner
+     above the row already reads "Spanish", so a row reading "DELE A1 — Spanish" says it twice — which is
+     the same reason a history collection's deck rows read "Origins" rather than "World History: Origins".
+     `title` is kept because the download toast and the button's own label want the deck's real name, and
+     because it is what check-decks.js compares against the file to catch one being swapped underneath. */
+  const langDeckList = () => LANG_COLLECTIONS.reduce((a, c) => a.concat(c.decks), []);
+  /* WHICH LANGUAGE COLLECTIONS ARE OPEN, kept across a render. Every other fold on this page survives
+     because nothing re-renders the page while a reader is using it; downloading a deck does — `uImportDone`
+     calls render() — so without this a reader who opens Spanish, taps a deck and waits would find the fold
+     shut and their place lost at exactly the moment the row they were watching changed state. Module-level
+     and NOT in `S`: it is a way of looking at the page, the call `bookQuery` and the glossary sort make. */
+  const langOpen = new Set();
+  const isCuratedDeck = (d) => !!d && d.origin === "curated";
+  // MB to one decimal, because the largest of these is 20.6 MB and a reader on a phone is owed the figure
+  // before they tap rather than a spinner afterwards
+  const langSize = (b) => (b / 1048576 < 1 ? Math.round(b / 1024) + " KB" : (b / 1048576).toFixed(1) + " MB");
+  const DOWNLOAD_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+    'stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v10"/><polyline points="8 11 12 15 16 11"/>' +
+    '<path d="M5 19h14"/></svg>';
+
+  /* What a language collection has STUDIED and how big it is. The total is the REGISTRY's, not the store's,
+     so a collection reads "0 / 23,064 cards" before anything is downloaded — the same claim a history
+     collection's bar makes, and the honest one: the cards exist, you have studied none of them. Counting
+     only what is on the device would give a full bar to a reader who has downloaded one deck of four. */
+  function langCollStats(c) {
+    let studied = 0, total = 0;
+    c.decks.forEach((dk) => {
+      total += dk.cards;
+      const d = UDECKS[dk.id];
+      if (d) studied += uDeckStudyIds(d.cardIds || []).filter(isSeen).length;
+    });
+    return { studied: studied, total: total };
+  }
+  const langCollHere = (c) => c.decks.filter((dk) => UDECKS[dk.id]);
+  // "added" on the banner means every deck of it that is HERE is in the review — the state its + will leave
+  // them all in if pressed, which is what makes one button honest about several decks
+  const langCollOn = (c) => {
+    const here = langCollHere(c);
+    return here.length > 0 && here.every((dk) => isActive(uDeckEntry(dk.id)));
+  };
+  function languageCollectionsHTML() {
+    /* Built to the same plan as buildCollection / buildNode one section up: a banner carrying the hue, the
+       icon, a studied/total bar and an action, over a fold of deck rows numbered 01, 02… A reader should
+       not have to learn a second kind of shelf because the cards happen to arrive over the network. */
+    const collHTML = (c) => {
+      const st = langCollStats(c), here = langCollHere(c), on = langCollOn(c);
+      const rows = c.decks.map((dk, i) => {
+        const d = UDECKS[dk.id];
+        const ids = d ? uDeckStudyIds(d.cardIds || []) : [];
+        const rowOn = d ? isActive(uDeckEntry(d.id)) : false;
+        return '<div class="node lang-row" role="button" tabindex="0" data-langrow="' + esc(dk.id) + '">' +
+          '<span class="node-num">' + String(i + 1).padStart(2, "0") + "</span>" +
+          '<div class="node-main">' +
+            '<div class="node-title-row">' +
+              '<span class="node-title">' + esc(dk.label) + "</span>" +
+              /* the SIZE until it is here and the card count afterwards, in the same slot: before the
+                 download the figure a reader needs is what it will cost them */
+              '<span class="node-count">' + (d ? ids.length.toLocaleString() + " cards" : esc(langSize(dk.bytes))) + "</span>" +
+            "</div>" +
+            '<div class="lang-sub">' + esc(dk.sub) + "</div>" +
+          "</div>" +
+          (d
+            /* An installed row takes the ordinary + / ✓, and carries `data-uadd` on purpose: that is what
+               wireCommunityLibrary wires and what refreshAddButtons sweeps, so its tick follows an add made
+               anywhere else on the page for free. */
+            ? '<button class="node-add' + (rowOn ? " added" : "") + '" data-uadd="' + esc(d.id) +
+              '" aria-label="' + (rowOn ? "Remove from review" : "Add to review") + '">' + addIcon(rowOn) + "</button>"
+            : '<button class="node-add lang-get" type="button" data-langget="' + esc(dk.id) +
+              '" aria-label="Download ' + esc(dk.title) + ", " + esc(langSize(dk.bytes)) + '">' + DOWNLOAD_ICON + "</button>") +
+        "</div>";
+      }).join("");
+      const theme = COLL_THEME[c.id];
+      const hue = theme ? ' style="--coll-bg:' + esc(theme.bg) + '"' : "";
+      return '<div class="collection lang-coll"' + hue + '>' +
+        '<div class="collection-row" role="button" tabindex="0" data-langcoll="' + esc(c.id) + '"' + hue + ">" +
+          (theme ? '<div class="collection-deco" aria-hidden="true"></div>' : "") +
+          collectionIconMarkup(c.id) +
+          '<div class="collection-main">' +
+            '<div class="collection-title-row">' +
+              '<span class="collection-title">' + esc(c.title) + "</span>" +
+            "</div>" +
+            deckProgMarkup(st.studied, st.total) +
+          "</div>" +
+          '<div class="collection-actions">' +
+            /* One action, and which one depends on whether anything is here yet: a + that adds decks the
+               reader has not got would be a control that cannot do what it says, and a download button
+               beside four decks already downloaded is the same fault the other way round. */
+            (here.length
+              ? '<button class="collection-add' + (on ? " added" : "") + '" type="button" data-langadd="' + esc(c.id) +
+                '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + "</button>"
+              : '<button class="collection-add lang-get" type="button" data-langgetall="' + esc(c.id) +
+                '" aria-label="Download ' + esc(c.title) + ", " + esc(langSize(c.decks.reduce((a, d2) => a + d2.bytes, 0))) + '">' + DOWNLOAD_ICON + "</button>") +
+            chevBtn() +
+          "</div>" +
+        "</div>" +
+        '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
+          rows +
+        "</div></div></div>" +
+      "</div>";
+    };
+    return '<div class="collection-group lang-group">' +
+      '<div class="group-head"><span class="group-label">Language</span><span class="group-line"></span>' +
+        '<span class="group-count">' + LANG_COLLECTIONS.length + "</span></div>" +
+      '<p class="udeck-intro">Folio’s own vocabulary decks. They are kept as files rather than in the site ' +
+        'itself, so a deck is downloaded to this device once and then studies like anything else here — the ' +
+        'same schedule, the same statistics. Each names its own sources in its description.</p>' +
+      '<div class="collection-list">' + LANG_COLLECTIONS.map(collHTML).join("") + "</div>" +
+    "</div>";
+  }
+  /* Fetch the file this site is serving and import it. It is deliberately the SAME path a reader takes
+     when they import a deck file by hand — `uDeckImportText`, sanitizer and all — because the alternative
+     is a second, less-travelled ingest route for content that happens to be ours. */
+  async function langDeckDownload(dk, btn) {
+    if (!dk || UDECKS[dk.id]) return;
+    /* The golden rule is that opening index.html directly keeps working, and it does — but a fetch of a
+       neighbouring file from file:// is blocked as a cross-origin read, so this says what to do instead
+       rather than reporting a network failure that is really a protocol one. */
+    if (location.protocol === "file:") {
+      toast("Downloads need Folio open from a web address. Import " + dk.file + " through the Studio instead.");
+      return;
+    }
+    if (btn) { btn.classList.add("lang-busy"); btn.disabled = true; }
+    toast("Downloading “" + dk.title + "” (" + langSize(dk.bytes) + ")…");
+    try {
+      const res = await fetch(dk.file, { credentials: "omit" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const r = uDeckImportText(await res.text(), false, "curated");
+      await uImportDone(r);   // renders, so the row is rebuilt in its installed state and the button goes with it
+    } catch (e) {
+      if (btn) { btn.classList.remove("lang-busy"); btn.disabled = false; }
+      toast("Couldn’t download that deck. Check your connection and try again.");
+    }
+  }
+  function wireLanguageCollections(root) {
+    /* The + / ✓ on a downloaded row is NOT wired here — it carries `data-uadd` and wireCommunityLibrary's
+       page-wide sweep takes it, which is also what puts it in refreshAddButtons' reach. PAGES.decks calls
+       that one first; keep the order. */
+    const all = langDeckList();
+    const find = (id) => all.filter((x) => x.id === id)[0];
+    const collOf = (id) => LANG_COLLECTIONS.filter((c) => c.id === id)[0];
+
+    root.querySelectorAll("[data-langget]").forEach((b) =>
+      b.addEventListener("click", (e) => { e.stopPropagation(); langDeckDownload(find(b.dataset.langget), b); }));
+
+    /* Download the lot, ONE AT A TIME rather than in parallel: each of these is a multi-megabyte file that
+       is parsed and then written note by note, and four at once on a phone is the shape that runs the tab
+       out of memory. Each success re-renders — the button pressed is gone by the second file — so the loop
+       re-reads the row's own button each time instead of holding a reference to a detached node. */
+    root.querySelectorAll("[data-langgetall]").forEach((b) =>
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const c = collOf(b.dataset.langgetall);
+        if (!c) return;
+        b.classList.add("lang-busy");
+        b.disabled = true;
+        for (let i = 0; i < c.decks.length; i++) {
+          const dk = c.decks[i];
+          if (UDECKS[dk.id]) continue;
+          await langDeckDownload(dk, document.querySelector('[data-langget="' + cssEsc(dk.id) + '"]'));
+        }
+      }));
+
+    /* The collection's own + / ✓ stands for every deck of it that is HERE. It is not drawn at all until one
+       is (see the markup), so this can never be a control with nothing to act on. */
+    root.querySelectorAll("[data-langadd]").forEach((b) =>
+      b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const c = collOf(b.dataset.langadd);
+        if (!c) return;
+        const wantOn = !langCollOn(c);
+        langCollHere(c).forEach((dk) => {
+          const eid = uDeckEntry(dk.id);
+          if (wantOn) addActive(eid); else removeActive(eid);
+        });
+        refreshAddButtons();   // …which re-states this button too, along with every row below it
+        toast(wantOn ? "Added to daily review" : "Removed from review");
+      }));
+
+    /* The banner expands its decks, exactly as a history collection's does. It does NOT study on a body
+       click the way that one can: `buildSession` has no scope spanning several decks, and a collection whose
+       four levels are separate decks has nothing to hand it. The rows below are where studying starts. */
+    root.querySelectorAll("[data-langcoll]").forEach((rowEl) => {
+      const id = rowEl.dataset.langcoll;
+      const collEl = rowEl.parentElement;
+      const chev = rowEl.querySelector(".collection-actions > .chev");
+      const childrenEl = collEl && [...collEl.children].filter((x) => x.classList.contains("node-children"))[0];
+      if (!chev || !childrenEl) return;
+      wireExpander(rowEl, childrenEl, chev, collEl);
+      // record it AFTER wireExpander, so its own toggle has already flipped the class we read
+      const note = () => { if (collEl.classList.contains("open")) langOpen.add(id); else langOpen.delete(id); };
+      chev.addEventListener("click", note);
+      rowEl.addEventListener("click", note);
+      rowEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") note(); });
+      if (langOpen.has(id)) openExpander(childrenEl, chev, collEl);
+    });
+
+    root.querySelectorAll("[data-langrow]").forEach((rowEl) => {
+      const go = (e) => {
+        if (e && e.target.closest && e.target.closest("button")) return;   // the row's button is its own control
+        const dk = find(rowEl.dataset.langrow);
+        if (!dk) return;
+        // downloaded → study it; not yet → the row does what its own button does, since a row that looks
+        // like a control and answers nothing is worse than one that acts
+        if (UDECKS[dk.id]) route("study", { scope: { type: "udeck", id: dk.id } });
+        else langDeckDownload(dk, rowEl.querySelector("[data-langget]"));
       };
       rowEl.addEventListener("click", go);
       rowEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
@@ -18969,6 +19290,17 @@
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
+    /* The two LANGUAGE collections (Aug 2026, on request), measured against the ten above in CIELAB rather
+       than eyeballed, as every colour on this site is. The history hues sit at h 33/34/64/66/79/172/247/
+       284/306/351 and their own tightest pair is ΔE 12.9 (China's vermilion against Russia's lacquer red),
+       so the two quarters genuinely empty are the greens (100–160) and the cyans (185–240). The green is
+       37.5 from its nearest neighbour — three times that tightest pair — and the teal 20.2 from Greece's
+       Aegean blue; the two are 57.4 apart from each other, which is what stops the section reading as one
+       colour twice. The teal is the compromise of the pair: the better-separated alternatives were a
+       fourth blue (25.8, in a quarter already holding Greece, Rome and the United States) and a magenta
+       that lands 12.7 from Japan, and a hue that crowds is worse than one that is merely close. */
+    "lang-zh": { bg: "#3F7A22" }, // bamboo green (Mandarin Chinese)
+    "lang-es": { bg: "#0E8C99" }, // teal (Spanish)
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -21566,9 +21898,15 @@
         '</div>' +
       '</div>' +
       '<div class="studio-publish installed">' +
-        '<div class="sp-state"><b>Installed from the community.</b>' + (d.ownerName ? " Written by " + esc(d.ownerName) + "." : "") +
-          ' It stays read-only so the author&rsquo;s updates can reach you.' +
-          (d.slug ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">Its page</a>' : "") + '</div>' +
+        /* A curated deck is Folio's own, downloaded from a Language collection, and takes the installed
+           deck's read-only treatment — so it needs the installed deck's WORDS to say why, rather than
+           being described as somebody else's work pulled off the community shelf. */
+        (isCuratedDeck(d)
+          ? '<div class="sp-state"><b>One of Folio&rsquo;s own decks.</b> It stays read-only so it can be ' +
+            'kept up to date; duplicate it if you want a copy of your own to change.</div>'
+          : '<div class="sp-state"><b>Installed from the community.</b>' + (d.ownerName ? " Written by " + esc(d.ownerName) + "." : "") +
+            ' It stays read-only so the author&rsquo;s updates can reach you.' +
+            (d.slug ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">Its page</a>' : "") + '</div>') +
         '<div class="sp-acts">' +
           (upd ? '<button class="btn tiny" type="button" id="stUpdate">Update available</button>' : "") +
           '<button class="btn tiny ghost" type="button" id="stFork">Duplicate to edit</button>' +

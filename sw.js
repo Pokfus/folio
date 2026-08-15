@@ -93,6 +93,12 @@ self.addEventListener("fetch", (e) => {
 
   if (!CACHEABLE.test(url.pathname)) return;
 
+  /* THE LANGUAGE DECK FILES ARE NEVER CACHED (Aug 2026). They are .json and same-origin, so the rule above
+     would take them — and a deck file is fetched exactly once, by a reader who then has its every card in
+     IndexedDB. Cached as well, the largest of them would be a second 20 MB copy of a deck already stored,
+     bought for a request nobody makes twice. */
+  if (url.pathname.indexOf("/decks/") >= 0) return;
+
   // assets — stale-while-revalidate
   e.respondWith(
     caches.open(CACHE).then((c) =>

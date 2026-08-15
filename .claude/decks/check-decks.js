@@ -15,7 +15,56 @@ const server = http.createServer((req, res) => {
 let fails = 0, checks = 0;
 const ok = (c, m, extra) => { checks++; if (!c) { fails++; console.log("   ✗ " + m + (extra ? "   " + extra : "")); } else console.log("   ✓ " + m); };
 
+/* --- THE LANGUAGE COLLECTIONS' REGISTRY, checked against the files it names (Aug 2026) ---
+   `LANG_COLLECTIONS` in app.js states each downloadable deck's id, title, subtitle, card count and size,
+   because the Collections page has to draw a row — and say how big the download is — before it has fetched
+   anything. Every one of those figures is written by a generator that is re-run every few weeks, so each
+   is a figure that can go stale in silence: a wrong size misleads a reader on a phone, and a wrong id is
+   worse than that, since the page decides whether a deck is already downloaded by looking `id` up in the
+   store. Sliced out of app.js as a literal and compared with the files themselves. */
+function langRegistryChecks() {
+  console.log("\n=== the Language collections' registry");
+  const src = fs.readFileSync(ROOT + "/app.js", "utf8");
+  const i = src.indexOf("const LANG_COLLECTIONS = [");
+  ok(i >= 0, "LANG_COLLECTIONS is in app.js");
+  if (i < 0) return;
+  const body = src.slice(src.indexOf("[", i));
+  let depth = 0, end = -1;
+  for (let k = 0; k < body.length; k++) {
+    if (body[k] === "[") depth++;
+    else if (body[k] === "]" && --depth === 0) { end = k + 1; break; }
+  }
+  let REG;
+  try { REG = new Function("return " + body.slice(0, end))(); } catch (e) { REG = null; }
+  ok(!!REG && REG.length >= 2, "…and reads as a literal with a collection or two in it");
+  if (!REG) return;
+  const seen = new Set();
+  REG.forEach((c) => {
+    ok(!!c.id && !!c.title, "collection " + c.id + " names itself");
+    c.decks.forEach((dk) => {
+      const p = ROOT + "/" + dk.file;
+      if (!fs.existsSync(p)) { ok(false, dk.file + " exists"); return; }
+      const st = fs.statSync(p), d = JSON.parse(fs.readFileSync(p, "utf8"));
+      const tpl = Object.values(d.meta.types || {}).reduce((m, t) => Math.max(m, (t.cards || []).length || 1), 1);
+      ok(!seen.has(dk.id), dk.id + " is listed once"); seen.add(dk.id);
+      /* `label` is what the ROW prints and `title` what the FILE says. The row sits under a banner already
+         reading "Spanish", so it must NOT repeat it — which is the whole reason the two fields exist, and
+         is the thing a later tidy-up would collapse back into one. */
+      ok(!!dk.label && dk.label.length < dk.title.length, dk.id + ": the row's label is shorter than the file's title",
+         JSON.stringify(dk.label) + " vs " + JSON.stringify(dk.title));
+      ok(d.meta.id === dk.id, dk.file + ": the registry's id is the file's", d.meta.id + " ≠ " + dk.id);
+      ok(d.meta.title === dk.title, dk.id + ": title matches the file", JSON.stringify(d.meta.title));
+      ok(d.meta.subtitle === dk.sub, dk.id + ": subtitle matches the file", JSON.stringify(d.meta.subtitle));
+      // CARDS, not notes: the row says "23,064 cards" and a two-way note is two cards to study
+      ok(d.cards.length * tpl === dk.cards, dk.id + ": card count matches the file",
+         (d.cards.length * tpl) + " ≠ " + dk.cards);
+      ok(st.size === dk.bytes, dk.id + ": size matches the file", st.size + " ≠ " + dk.bytes);
+    });
+  });
+}
+
 (async () => {
+  langRegistryChecks();
   await new Promise((r) => server.listen(0, r));
   const base = "http://127.0.0.1:" + server.address().port + "/index.html";
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
@@ -54,15 +103,23 @@ const ok = (c, m, extra) => { checks++; if (!c) { fails++; console.log("   ✗ "
     // --- the collections page: how many entries does the deck offer?
     await pg.goto(base + "#decks", { waitUntil: "load" });
     await pg.waitForTimeout(500);
-    const entries = await pg.evaluate(() => [...document.querySelectorAll("[data-uadd]")]
-      .map((b) => decodeURIComponent(b.getAttribute("data-uadd"))));
+    /* SCOPED TO "YOUR DECKS", and it has to be since Aug 2026: the Language collections list Folio's own
+       five deck FILES, and a row of one turns into a + the moment that deck id is in the store — which
+       importing the same file by hand does. So a page-wide sweep finds the same deck twice, and the first
+       of the two sits inside a collapsed fold that no click can reach. Scope by SECTION rather than by
+       filtering on visibility: what this wants is the deck the Studio has just imported, listed where an
+       imported deck is listed. */
+    const SEC = ".community-group:not(#sharedDecks) ";
+    const entries = await pg.evaluate((sec) => [...document.querySelectorAll(sec + "[data-uadd], " + sec + "[data-uaddsub]")]
+      .map((b) => decodeURIComponent(b.getAttribute("data-uadd") || b.getAttribute("data-uaddsub"))), SEC);
     console.log("   entries offered: " + entries.length + (entries.length > 1 ? "  " + JSON.stringify(entries.slice(0, 9)) : ""));
     ok(entries.length >= 1, "the deck is addable");
 
     // --- add the LAST entry (a subdeck where there are any) and study it
     const pick = entries[entries.length - 1];
-    await pg.click('[data-uadd="' + encodeURIComponent(pick).replace(/"/g, '\\"') + '"]')
-      .catch(async () => { await pg.click("[data-uadd]"); });
+    await pg.click(SEC + '[data-uadd="' + encodeURIComponent(pick).replace(/"/g, '\\"') + '"], ' +
+                   SEC + '[data-uaddsub="' + encodeURIComponent(pick).replace(/"/g, '\\"') + '"]')
+      .catch(async () => { await pg.click(SEC + "[data-uadd]"); });
     await pg.waitForTimeout(400);
     await pg.goto(base + "#home", { waitUntil: "load" });
     await pg.waitForTimeout(500);

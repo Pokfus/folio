@@ -18,7 +18,10 @@ const ok = (c, m, x) => { checks++; console.log((c ? "   ✓ " : "   ✗ ") + m 
   await new Promise((r) => server.listen(0, r));
   const base = "http://127.0.0.1:" + server.address().port + "/index.html";
   const b = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
-  const src = JSON.parse(fs.readFileSync(ROOT + "/decks/HSK1-Mandarin.folio-deck.json", "utf8"));
+  /* The two-note cut comes from the big Mandarin deck since Aug 2026, the HSK 2.0 files having been
+     retired. It is 20 MB to parse for two notes, which is a second in Node and buys the check what it
+     needs: the SHIPPED card type, so the two templates and their CSS are the real ones. */
+  const src = JSON.parse(fs.readFileSync(ROOT + "/decks/Mandarin-Chinese.folio-deck.json", "utf8"));
   src.meta.id = "revtest"; src.meta.title = "Reverse check";
   src.cards = src.cards.slice(0, 2).map((c, i) => ({ ...c, id: "u_revtest_" + (i + 1) }));
   const tmp = "/tmp/rev-check.folio-deck.json";

@@ -456,7 +456,14 @@ html[dir="rtl"] .site-ver{text-align:right;}
 .prog.zh .fill{background:linear-gradient(90deg, var(--zh), #E0786F);}
 /* ---------- XP / level bars (replace progress bars on collections + the daily-review banner) ---------- */
 .xp{display:flex; flex-direction:column; gap:6px;}
-.xp-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+/* IT WRAPS RATHER THAN OVERFLOWING (Aug 2026). The head sits inside a `min-width:0` flex column and both
+   of its children are nowrap, so without this they spill out of the column to the RIGHT and run under the
+   + beside them — measured at 390px, the Mandarin collection's "0 / 23,064 cards" overlapped its own
+   buttons by 5.6px. Truncating the caption was tried and is worse: at 360px every collection reads "STU…",
+   which says nothing, where a figure on a second line says everything and costs one line of a banner that
+   only the widest collections ever need. Where both fit — every collection above 430px, and the history
+   ones on a phone — nothing moves. */
+.xp-head{display:flex; align-items:baseline; justify-content:space-between; gap:4px 12px; min-width:0; flex-wrap:wrap;}
 .xp-lvl{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--indigo); font-weight:600;}
 .xp-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em; white-space:nowrap; font-weight:500;}
 .xp-track{height:8px; border-radius:99px; background:var(--paper-2); overflow:hidden; border:1px solid var(--rule);}
@@ -4251,6 +4258,10 @@ button.game-tile .gt-glyph{opacity:.14;}
    whose background already runs several screens. Four columns fit once the shortcut digits go (they name
    keys a phone does not have) and the interval sits closer under the label. */
 @media (max-width:430px){
+  /* The bar's caption and its figure come to 177px against about 180px of column on a 390px screen, so
+     the gap is what decides whether the figure has to wrap to a second line. It is the only slack there is
+     on that row, and 7px buys the history collections their one line back. */
+  .xp-head{gap:4px 7px;}
   /* Three tiles to a row on a 390px screen is about 110px each, so the display title comes down again:
      at 18px "Multiple Choice" breaks to three lines. */
   .game-grid{gap:8px;}
@@ -5826,6 +5837,18 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .udeck-subrow .collection-count{font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
 .udeck-upd{font-size:calc(9px * var(--fs)); letter-spacing:.07em; color:#fff; background:var(--indigo); border-color:var(--indigo);}
 .collection.udeck-installed > .collection-row{border-left-color:var(--indigo);}
+
+/* --- the Language collections (Aug 2026) ---
+   Folio's own vocabulary decks, offered for download on the Collections page. They are built to the HISTORY
+   collection's markup exactly — `.collection > .collection-row` over `.node-children` holding numbered
+   `.node` rows — so the banner wash, the icon, the studied/total bar, the fold, the numbering, the left
+   hairline and every hover are inherited and nothing here restates them. What is new is one line of prose
+   under a deck's title and the download button, which has to be the same shape as the + it replaces. */
+.lang-sub{margin-top:2px; font-family:var(--sans); font-size:calc(11.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);}
+/* the download arrow sits in the same circle the + does, so a deck that is here and one that is not are the
+   same shape and only the mark inside changes */
+.node-add.lang-get svg, .collection-add.lang-get svg{width:16px; height:16px;}
+.node-add.lang-busy, .collection-add.lang-busy{opacity:.5; cursor:progress;}
 
 /* --- Studio: tabs + a deck's own glossary (phase 4) --- */
 .studio-tabs{display:flex; gap:4px; margin-bottom:15px; border-bottom:1px solid var(--rule);}
