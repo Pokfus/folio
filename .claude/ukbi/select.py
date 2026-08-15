@@ -273,6 +273,20 @@ def entry_relation(e, word, byword):
     return None, None
 
 
+def is_live_word(word, byword):
+    """True when the dictionary carries this spelling as a word in its own right.
+
+    The same two tests `classify` opens with -- a part of speech a deck can
+    teach, and at least one entry that is not wholly outside the standard
+    language -- pulled out because `read_frequency` needs to ask the question of
+    a LOWERCASE form before anything has been classified.
+    """
+    for e in byword.get(word, []):
+        if e['pos'] not in NOT_A_WORD and not entry_nonstandard(e):
+            return True
+    return False
+
+
 def classify(word, byword):
     """(state, base, kind) for a word.
 
@@ -287,6 +301,15 @@ def classify(word, byword):
     Measured on the top 1,500: 128 words carry a derived reading, and eleven of
     them also carry an unrelated live one.
     """
+    # A SINGLE CHARACTER IS NOT A WORD THIS DECK TEACHES.  Indonesian has none --
+    # its shortest are two letters (`di`, `ke`, `ya`) -- so this can never refuse
+    # a real one, and it is what keeps a letter of the alphabet out of the deck
+    # when the letter ALSO carries some live non-letter sense that the meaning
+    # test therefore lets through: `P` reached level 4 glossed "used to ping or
+    # otherwise start a text messaging conversation", its `character` entry
+    # correctly ignored and its interjection entry perfectly good.
+    if len(word) < 2:
+        return 'notword', None, None
     ents = [e for e in byword.get(word, []) if e['pos'] not in NOT_A_WORD]
     if not ents:
         return 'notword', None, None
@@ -326,6 +349,21 @@ def read_frequency(byword):
       `Anda`, `Senin`, `Januari`, `Indonesia`.  The count is looked up
       case-insensitively, so the capitalised headword is ranked on the real
       frequency of its lowercase surface rather than on nothing.
+
+      **BUT ONLY WHERE THE LOWERCASE FORM IS NOT ITSELF A WORD**, which is the
+      other half of that rule and was missing until level 4 reached far enough
+      down the list to meet it.  The corpus is lowercased, so a count filed under
+      `maya` cannot be attributed to `Maya`: handed it, the deck carded `Maya`
+      (an ethnonym and a very common given name) on the frequency of `maya`
+      ("virtual"), `Nabi` ("Master, Confucius") on that of `nabi` ("prophet"),
+      `BA` (a West Sumatra number-plate code) on that of `ba`, and `Insinyur` (a
+      degree) on that of `insinyur` (an engineer) -- four cards teaching the
+      wrong word each, every count healthy.  The fold exists for `Anda`, `Senin`
+      and `Januari`, whose lowercase forms are NOT live words (`anda` is filed as
+      an alternative letter-case form and the calendar has no lowercase entry at
+      all), and that is exactly the test.  `Minggu` is the one case where both
+      are live and both are wanted -- Sunday and week -- and it is unaffected,
+      being a supplement word that is forced in whatever it ranks.
     """
     raw = {}
     for line in open('id_50k.txt', encoding='utf-8'):
@@ -351,7 +389,10 @@ def read_frequency(byword):
     lower = collections.Counter()
     for w, c in folded.items():
         lower[w.lower()] += c
-    return folded, lower
+    # the lowercase spellings that are words of their own, which is what the
+    # fold must NOT reach across
+    live_lower = {w for w in byword if w == w.lower() and is_live_word(w, byword)}
+    return folded, lower, live_lower
 
 
 TOKEN = re.compile(r"[a-z]+(?:-[a-z]+)?")
@@ -519,11 +560,17 @@ class Union:
 
 def main():
     byword = load()
-    folded, lower = read_frequency(byword)
+    folded, lower, live_lower = read_frequency(byword)
     phrase_est, factor = estimate_phrases(byword, lower)
     for p, c in phrase_est.items():
         lower[p.lower()] = max(lower.get(p.lower(), 0), c)
-    freq = lambda w: lower.get(w.lower(), 0)
+
+    def freq(w):
+        # a capitalised headword is ranked on its own count where the lowercase
+        # spelling is a different word -- see `read_frequency`
+        if w != w.lower() and w.lower() in live_lower:
+            return folded.get(w, 0)
+        return lower.get(w.lower(), 0)
 
     # every word the dictionary knows, so the supplement can be resolved
     json.dump(sorted(byword), open(lvlf('known.json'), 'w'), ensure_ascii=False)

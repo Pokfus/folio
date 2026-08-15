@@ -81,6 +81,19 @@ SCOPE = {
                   'renting somewhere to live, arranging a journey, being treated, and the '
                   'abstract and connective vocabulary a paragraph is built out of',
     },
+    '4': {
+        'rank': 'the fourth from the bottom, the middle of the seven',
+        'quote': 'berkomunikasi untuk keperluan sintas dan kemasyarakatan dengan baik',
+        'gloss': 'adequately proficient: able to communicate for survival and community '
+                 'purposes well, and for professional ones short of the complex end, while '
+                 'academic communication remains out of reach',
+        'topics': 'organisations and the roles in them, how work is planned and checked, '
+                  'writing a formal letter, meetings and discussion, commerce, rules and '
+                  'what breaks them, civic life, education and the health system described '
+                  'from outside, the environment, what is reported in the press, the '
+                  '"ke-...-an" abstractions a formal sentence is built out of, and the '
+                  'hedges and qualifiers that let a thing be said exactly',
+    },
 }
 
 TITLES = {k: f'UKBI {k} {v[0]} — Indonesian' for k, v in PREDICATES.items()}

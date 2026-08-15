@@ -56,7 +56,7 @@ const ok = (c, m, extra) => {
   await pg.addInitScript(() => {
     try {
       const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
-      s.settings = Object.assign({}, s.settings, { newPerDay: 400, maxReviewsPerDay: 500 });
+      s.settings = Object.assign({}, s.settings, { newPerDay: 800, maxReviewsPerDay: 900 });
       localStorage.setItem("folio_v1", JSON.stringify(s));
     } catch (e) {}
   });
@@ -151,6 +151,18 @@ const ok = (c, m, extra) => {
       "money at a bank": ["rekening", "tabungan", "pinjaman", "pajak", "anggaran", "modal"],
       "abstract nouns": ["proses", "tahap", "akibat", "syarat", "pengaruh", "perubahan",
                          "peningkatan", "penyelesaian"],
+    },
+    // Madya's descriptor is Semenjana's `dengan baik` -- the same purposes, done well -- so it
+    // adds no new DOMAIN the way clothes or the workplace did, and the three groups below are
+    // instead where doing it well takes the vocabulary: the shape of an organisation, the
+    // running of a meeting, and the `ke-...-an` abstractions a formal sentence is built out of.
+    // Every member was checked to be in level 4 and in none of the levels below it, or the
+    // assertion would pass on a lower level's word and say nothing about this one.
+    4: {
+      "organisations and roles": ["panitia", "divisi", "struktur", "tanggung jawab",
+                                  "pengelolaan"],
+      "meetings and discussion": ["musyawarah", "diskusi", "pembahasan", "kesimpulan"],
+      "ke-...-an abstractions": ["kebijakan", "kemajuan", "kepentingan", "ketentuan"],
     },
   };
   for (let l = 1; l <= Number(LEVEL); l++) {
@@ -281,7 +293,14 @@ const ok = (c, m, extra) => {
   });
 
   let famCard = null, phraseCard = null, exOK = null, i = 0, chests = 0;
-  for (; i < 240 && (!famCard || !phraseCard || !exOK); i++) {
+  // HOW FAR THE WALK GOES IS A MEASUREMENT AND NOT A ROUND NUMBER, and the cap was 240 because at
+  // levels 1-3 a family always turned up early.  That held by LUCK: the deck is ordered by frequency
+  // and an affix family is a property of the WORD, so the higher the level the later the first one
+  // falls -- level 3's is note 167, which the old cap cleared by 73, and level 4's is note 383, which
+  // it did not.  The check then reported a deck with 79 families as having none.  The loop exits as
+  // soon as all three specimens are found, so a generous cap costs the lower levels nothing and is
+  // the only thing standing between this assertion and the next level that pushes the figure out.
+  for (; i < 600 && (!famCard || !phraseCard || !exOK); i++) {
     const card = await pg.evaluate(() => {
       const cards = [...document.querySelectorAll(".uc-card")];
       const c = cards[cards.length - 1] || document;

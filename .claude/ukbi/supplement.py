@@ -556,10 +556,174 @@ SECTIONS_3 = {
     'adjectives': L3_ADJ, 'verbs': L3_VERBS,
 }
 
+
+# ===========================================================================
+# LEVEL 4 — MADYA.  THE SAME WORLD, DONE WELL.
+# ===========================================================================
+# Every level below this one is defined by what it CANNOT do.  Madya is the
+# first that is defined by doing something properly: a candidate here "mampu
+# berkomunikasi untuk keperluan sintas dan kemasyarakatan **dengan baik**" --
+# for survival and community purposes WELL, both now unqualified, where
+# Semenjana could manage only the `tidak kompleks` end of the community
+# register.  What is still short is the top of the professional one ("masih
+# mengalami kendala dalam hal keprofesian yang kompleks") and `keilmiahan`,
+# which is shut at every level below Unggul.
+# (ukbi.kemendikdasmen.go.id/front-new/page/predikat, quoted.)
+#
+# SO THE STEP IS BREADTH AND REGISTER RATHER THAN A NEW TOPIC.  Level 3 opened
+# the workplace at its plainest -- a job, a rota, a payslip, a bank, a
+# government counter.  This level is the community that surrounds it and the
+# formal register the same person is expected to use in it: the organisation
+# rather than the desk, the procedure rather than the task, the letter rather
+# than the message, the neighbourhood association rather than the neighbour.
+#
+# WHAT `dengan baik` MEANS FOR A WORD LIST, and it is the harder half.  Doing
+# something well is not doing more of it, so a third of this inventory is not a
+# topic at all: it is the vocabulary of PRECISION -- the hedges (`agaknya`,
+# `tampaknya`, `barangkali`), the qualifiers (`terutama`, `khususnya`, `pada
+# dasarnya`), the contrastives Indonesian is rich in and English is not
+# (`sedangkan`, `melainkan`, `padahal`), and the `ke-...-an` abstractions a
+# formal sentence is built out of.  A frequency list built from film dialogue
+# is at its worst here for the reason it is worst on the closed classes: these
+# are written words, and people do not say them aloud.
+#
+# STILL NOT ACADEMIC.  No `hipotesis`, no `metodologi`, no `variabel`, no
+# `kutipan`.  The line is that a Madya candidate can read and write about the
+# world; `keilmiahan` is writing about the literature, and that is Unggul's.
+
+# ------------------------------------------------------ organisations and roles
+L4_ORG = """
+organisasi badan panitia anggota ketua wakil sekretaris bendahara
+pengurus divisi cabang pusat yayasan perkumpulan pimpinan
+"""
+
+# ------------------------------------------------------------- how work is done
+L4_PROC = """
+prosedur kebijakan ketentuan persyaratan target sasaran
+evaluasi penilaian pengawasan pelaksanaan perencanaan
+pengelolaan pengembangan penerapan pencapaian
+"""
+
+# ------------------------------------------------------------ writing a letter
+# The formal-letter register, which is a real genre in Indonesian and is
+# examined: `perihal` heads the subject line, `sehubungan dengan` opens the
+# body, `terlampir` introduces the enclosure.
+L4_CORR = """
+lampiran undangan pemberitahuan balasan salam hormat
+dengan hormat
+atas perhatian
+"""
+
+# ------------------------------------------------------------ talking it over
+L4_MEET = """
+diskusi musyawarah mufakat usul keberatan kesimpulan pembahasan
+peserta pemimpin risalah
+"""
+
+# ------------------------------------------------------------------- commerce
+L4_TRADE = """
+perdagangan pemasaran pesanan persediaan gudang
+kualitas mutu produk jasa layanan konsumen pesaing keuntungan
+kerugian perjanjian pembayaran tagihan
+"""
+
+# ------------------------------------------------- rules, and what breaks them
+L4_LAW = """
+pasal sanksi denda pelanggaran perizinan pengaduan saksi tuntutan
+putusan keadilan kejahatan korban tersangka pengadilan pembelaan
+"""
+
+# ---------------------------------------------------------- living among people
+# `kemasyarakatan` at full breadth, which is what this level's descriptor opens.
+# `gotong royong` and `kerja bakti` are the words for the thing itself and have
+# no English equivalent worth the name.
+L4_CIVIC = """
+sumbangan iuran arisan ronda pemilihan calon suara kampanye
+kependudukan kesejahteraan kemiskinan pengangguran
+gotong royong
+kerja bakti
+"""
+
+# ------------------------------------------------ school, described from outside
+# Attending, funding and finishing an education -- not studying a subject, which
+# is `keilmiahan` and is shut.
+L4_EDU = """
+pendidikan universitas fakultas dosen ijazah beasiswa semester
+kuliah keterampilan penyuluhan pengajaran
+"""
+
+# ---------------------------------------------------------- the health system
+L4_HEALTH = """
+pengobatan vaksin imunisasi gizi olahraga tular wabah
+rawat inap
+rawat jalan
+"""
+
+# ---------------------------------------------------- the world it happens in
+L4_ENV = """
+sampah limbah pencemaran polusi banjir gempa bencana
+iklim kebakaran pertanian perkebunan peternakan perikanan
+pelestarian sumber daya
+"""
+
+# ------------------------------------------------------------- what is reported
+L4_MEDIA = """
+media pers narasumber opini pembaca pendengar liputan penyiaran
+"""
+
+# ------------------------------------------------------- the abstractions
+# Indonesian derives these rather than borrowing them, so `ke-...-an` is the
+# single most productive thing a learner can be shown at this level.
+L4_ABSTRACT = """
+kejujuran kebebasan peduli kesadaran keberhasilan kegagalan
+kemajuan keamanan nyaman kesulitan kemudahan kekuatan
+kelemahan kelebihan kekurangan keperluan kepentingan kebutuhan
+kemampuan keinginan kebiasaan kenyataan keterangan kehidupan
+"""
+
+# ------------------------------------------------------- saying it exactly
+L4_DISCOURSE = """
+sebenarnya sesungguhnya terutama sebagaimana
+sedangkan melainkan padahal seandainya barangkali agak
+tampaknya adapun maka bahwa
+antara lain
+dengan kata lain
+oleh sebab itu
+"""
+
+# ------------------------------------------------------------ how, and how much
+L4_ADV = """
+secara amat terlalu hampir nyaris segera perlahan turut
+sekaligus masing-masing saling
+"""
+
+# ------------------------------------------------------------------ doing it
+L4_VERBS = """
+susun rencana laksana kembang terap awas pimpin bina bahas
+timbang tentu tetap capai jamin mengajukan serah terbit umum wakil ganti
+oleh hasil biaya tanggung larang sedia atur nilai
+"""
+
+# ------------------------------------------------------------- describing it
+L4_ADJ = """
+sah sukarela mandiri terbuka tertutup teratur tertib rapi
+teliti cermat bijaksana adil tegas hemat mewah
+berkala
+"""
+
+SECTIONS_4 = {
+    'organisations': L4_ORG, 'procedure': L4_PROC, 'letters': L4_CORR,
+    'meetings': L4_MEET, 'commerce': L4_TRADE, 'law': L4_LAW,
+    'civic life': L4_CIVIC, 'education': L4_EDU, 'health': L4_HEALTH,
+    'environment': L4_ENV, 'media': L4_MEDIA, 'abstractions': L4_ABSTRACT,
+    'precision': L4_DISCOURSE, 'adverbs': L4_ADV, 'verbs': L4_VERBS,
+    'adjectives': L4_ADJ,
+}
+
 # A LEVEL WITH NO INVENTORY OF ITS OWN GETS NONE, and that is deliberate rather
 # than an omission: `select.py` would then fill the whole level from frequency,
 # which is exactly what this file exists to stop, so the run says so out loud.
-LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2, '3': SECTIONS_3}
+LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2, '3': SECTIONS_3, '4': SECTIONS_4}
 
 
 def sections():

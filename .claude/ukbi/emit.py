@@ -226,6 +226,19 @@ DESC = (
     "commonest words of everyday Indonesian, taken from a frequency list built from "
     "film and television subtitles. The cards are ordered by that frequency, so the "
     "words you meet most often come first. "
+    # THE CAVEAT GETS HEAVIER AS THE LEVELS CLIMB, and it has to say so.  The
+    # inventory is written to a descriptor and runs out; the corpus does not, so
+    # the higher the level the more of the list the subtitles choose -- 122 of 500
+    # at level 1 against 1,357 of 1,500 at level 4.  The sentence above is true at
+    # every level and stops being the whole truth once the corpus is choosing most
+    # of the words, because a subtitle corpus is an accurate record of what people
+    # say in films and a poor guide to what a candidate needs.  Fires on the
+    # measurement rather than on the level number.
+    + ("A frequency list of subtitles is an accurate record of what people say in "
+       "films and a rougher guide to what a candidate needs, and at this level it "
+       f"chooses {round(100 * (n - from_inv) / n)} per cent of the words, so expect "
+       "some of what films talk about among them. "
+       if n - from_inv > from_inv else "") +
     "Everything here is standard Indonesian, bahasa baku, because that is what UKBI "
     "tests: where a colloquial form is far commoner in speech the standard one is what "
     "is taught — tidak rather than nggak, tetapi rather than tapi, and di mana as two "
