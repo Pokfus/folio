@@ -71,6 +71,21 @@ const ok = (c, m, extra) => {
   const wordSet = new Set(words);
   console.log("=== " + DECK + "   " + deck.cards.length + " notes");
 
+  // THE LEVELS BELOW, read off the shipped files exactly as `words_below()` reads them.  A level is
+  // taught ON TOP of the ones under it, so what a learner working the stack has met is the union --
+  // and the closed sets a lower level guarantees have to be asserted against that union rather than
+  // against this deck, or every one of them fails at level 2 for the entirely correct reason that
+  // level 1 already taught the days of the week.
+  const below = new Map();       // level -> Set of its words
+  for (let l = 1; l < Number(LEVEL); l++) {
+    const f = ROOT + "/decks/UKBI-" + l + "-" + NAMES[l] + "-Indonesian.folio-deck.json";
+    if (!fs.existsSync(f)) continue;
+    below.set(l, new Set(JSON.parse(fs.readFileSync(f, "utf8"))
+                             .cards.map((c) => c.fields.Word)));
+  }
+  const taught = new Set(wordSet);
+  for (const s of below.values()) for (const w of s) taught.add(w);
+
   // ---------------------------------------------------------------- the file
   const type = deck.meta.types.ukbi;
   ok(type && type.cards && type.cards.length === 2, "the type declares two card templates");
@@ -93,35 +108,63 @@ const ok = (c, m, extra) => {
   const leaked = colloquial.filter((w) => wordSet.has(w));
   ok(leaked.length === 0, "no colloquial form is taught as a word", JSON.stringify(leaked));
   const baku = ["tidak", "di mana", "mengapa", "saya", "Anda", "aku", "kamu", "tetapi"];
-  const missingBaku = baku.filter((w) => !wordSet.has(w));
+  const missingBaku = baku.filter((w) => !taught.has(w));
   ok(missingBaku.length === 0, "the standard forms are all present", JSON.stringify(missingBaku));
 
-  // ------------------------------------------------- the survival core is guaranteed
+  // ------------------------------------------------- each level's core is guaranteed
   // What `supplement.py` exists for.  A frequency list leaves the closed classes out -- `Kamis` is
   // outside the top 3,000 of the subtitle corpus -- and a survival deck with no word for Thursday in
   // it is not a survival deck.  Asserted as whole closed SETS, because a set with a hole in it is the
   // failure and one missing member is invisible.
-  const sets = {
-    "days of the week": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
-    "months": ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
-               "September", "Oktober", "November", "Desember"],
-    "one to ten": ["satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan",
-                   "sembilan", "sepuluh"],
-    "question words": ["apa", "siapa", "kapan", "mengapa", "bagaimana", "berapa", "mana"],
-    "politeness": ["terima kasih", "maaf", "permisi", "tolong", "silakan", "selamat pagi"],
-    "survival nouns": ["air", "makanan", "uang", "rumah sakit", "dokter", "kamar mandi", "harga"],
+  //
+  // A LEVEL'S SETS ARE ASSERTED AT AND ABOVE THAT LEVEL, against everything taught so far.  The
+  // alternative -- checking only this deck -- reports level 2 as having no word for Monday, which is
+  // true and is the whole point of `words_below()`; and dropping the lower levels' sets once past
+  // them would stop watching the thing they were written to watch.  So the union is the subject, and
+  // a level-1 regression fails a level-2 run as well.
+  const CORE = {
+    1: {
+      "days of the week": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
+      "months": ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
+                 "September", "Oktober", "November", "Desember"],
+      "one to ten": ["satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan",
+                     "sembilan", "sepuluh"],
+      "question words": ["apa", "siapa", "kapan", "mengapa", "bagaimana", "berapa", "mana"],
+      "politeness": ["terima kasih", "maaf", "permisi", "tolong", "silakan", "selamat pagi"],
+      "survival nouns": ["air", "makanan", "uang", "rumah sakit", "dokter", "kamar mandi", "harga"],
+    },
+    // Marginal is "keperluan keseharian" -- everyday life -- and these are the three groups its
+    // inventory adds that a survival level deliberately has none of.  Clothes is the cleanest of
+    // them: not one of the five is in level 1.
+    2: {
+      "clothes": ["baju", "celana", "sepatu", "topi", "tas"],
+      "feelings beyond the basics": ["marah", "bosan", "kecewa", "bangga"],
+      "narrative connectives": ["akhirnya", "tiba-tiba", "setuju", "sebaiknya"],
+    },
   };
-  for (const [name, members] of Object.entries(sets)) {
-    const miss = members.filter((w) => !wordSet.has(w));
-    ok(miss.length === 0, "the " + name + " are all taught", JSON.stringify(miss));
+  for (let l = 1; l <= Number(LEVEL); l++) {
+    for (const [name, members] of Object.entries(CORE[l] || {})) {
+      const miss = members.filter((w) => !taught.has(w));
+      ok(miss.length === 0, "the " + name + " are all taught", JSON.stringify(miss));
+    }
+  }
+
+  // ------------------------------------------------- a level teaches nothing the ones below it did
+  // `words_below()` reads the SHIPPED lower deck files so the levels cannot drift apart, and the
+  // failure if it stops working is not an error but a duplicate: the learner meets the same word
+  // twice, on two decks, with two schedules, and nothing anywhere says so.
+  for (const [l, s] of below) {
+    const dup = words.filter((w) => s.has(w));
+    ok(dup.length === 0, "no word is taught again from level " + l,
+       dup.length + (dup.length ? ": " + dup.slice(0, 8).join(", ") : ""));
   }
 
   // ------------------------------------------------- the phrases survived intact
   // `kopi teh susu` on one line of the supplement was resolved as `kopi` plus the entry `teh susu`
   // (milk tea), which silently cost the deck its words for tea and for milk.  Both halves are
   // asserted, because either alone passes on the bug.
-  ok(wordSet.has("teh") && wordSet.has("susu"), "tea and milk are separate words");
-  ok(!wordSet.has("teh susu"), "and were not swallowed into one phrase");
+  ok(taught.has("teh") && taught.has("susu"), "tea and milk are separate words");
+  ok(!taught.has("teh susu"), "and were not swallowed into one phrase");
   const phrases = words.filter((w) => w.includes(" "));
   ok(phrases.length >= 10, "multi-word entries are taught as single items",
      phrases.length + ": " + phrases.slice(0, 6).join(", "));

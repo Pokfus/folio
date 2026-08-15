@@ -69,7 +69,22 @@ REL = re.compile(r'^(?:\w+\s+)?(?:active|passive|actor focus|patient focus|plura
 # of letters.  Here it lands third, so `es` (ice) reads "ice, cold beverage, the
 # name of the Latin script letter S" on a survival card.  Dropped by its own
 # wording, which is fixed boilerplate.
-LETTER_NAME = re.compile(r'name of the Latin[- ]script letter', re.I)
+#
+# THE SECOND HALF IS FOR A WORD WHOSE LETTER SENSE IS THE ONLY ONE LEFT, and it
+# is `tau` that needed it.  `tau` is the nineteenth of the top 19,125 words of
+# the corpus -- because in speech it is the colloquial form of `tahu`, "to know"
+# -- and that reading is tagged colloquial and correctly refused, which leaves
+# the entry Wiktionary files for the Greek letter Τ standing alone.  So the deck
+# was teaching a Greek letter on the strength of an Indonesian colloquialism's
+# frequency: the `kan` / `ku` / `mu` / `nya` shape in `select.py`'s EXCLUDE, and
+# the same answer -- the frequency belongs to a form the deck does not teach, and
+# the surviving sense does not deserve it.  With the letter sense dropped `tau`
+# has no meaning at all and the pool's meaning test refuses it, which is what
+# EXCLUDE would have done by hand and covers the other 63 such entries too.
+# Swept over the whole dictionary before it was widened: 31 senses are newly
+# dropped and every one of them defines a letter of an alphabet.
+LETTER_NAME = re.compile(r'name of the Latin[- ]script letter'
+                         r'|\bletter\b[^.;]{0,40}\b(?:alphabet|abjad)\b', re.I)
 
 MAX_SENSES = 3
 MAX_POS = 2

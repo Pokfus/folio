@@ -69,12 +69,30 @@ DERIVED_HT = {'verbf', 'verb form', 'nounf', 'noun form', 'adjf', 'adj form'}
 #     often the form a learner actually meets: `mengerti` is used 47,243 times
 #     in the corpus against nineteen for its root `erti`, which is Malay and is
 #     not Indonesian at all.
+# THE OPTIONAL LEADING WORD IS LOAD-BEARING.  Wiktionary qualifies the relation
+# as often as not -- `menjaga` is glossed "TRANSITIVE active of jaga" -- and
+# without it the pattern misses those, so the word never joins its root's family:
+# no forms row, and no meaning either, since the meaning lives on the root.  It
+# had to be found from the other end, by `build_deck.py` refusing to write a card
+# for a common verb, because a family that fails to form is invisible -- the word
+# simply ships alone, looking exactly like a word that has no relatives.
+# `build_deck.py`'s own REL already allowed the modifier; the two patterns are
+# asking the same question and had drifted apart.
+# INFLECTION ONLY.  An abbreviation, an ellipsis, a contraction and an
+# alternative spelling are LEXICAL VARIANTS rather than morphological forms, and
+# they have no business in an affix family: the row exists to show a root and the
+# words derived from it by prefix and suffix, which is the part of Indonesian a
+# learner cannot guess.  Admitting them put `kabag` -- a syllabic abbreviation of
+# `kepala bagian`, a head of division -- on the card for `kepala`, alongside
+# `warnet` on `warung` and `miras` on `minuman`.  None of those is a form of
+# anything; each is a separate word made by cutting two others up.
+# `build_deck.py`'s own REL still drops such a gloss when it is the only thing an
+# entry says, which is the job that pattern is for and a different one.
 REL_INFLECTIONAL = re.compile(
-    r'^(?:plural|singular form|alternative form|alternative spelling|'
-    r'alternative letter-case form|contraction|abbreviation|ellipsis|'
-    r'nonstandard form|informal form|misspelling|inflection)\s+of\s+([\w\- ]+)')
+    r'^(?:\w+\s+)?(?:plural|singular form|reduplication|inflection)'
+    r'\s+of\s+([\w\- ]+)')
 REL_DERIVATIONAL = re.compile(
-    r'^(?:active|passive|actor focus|patient focus|accidental passive|'
+    r'^(?:\w+\s+)?(?:active|passive|actor focus|patient focus|accidental passive|'
     r'infinitive, imperative and colloquial|basic/imperative[\w/]*)\s+of\s+([\w\- ]+)')
 
 # A LABEL IN THE id-verb PARADIGM THAT NAMES THE BASE.  The template writes
@@ -89,7 +107,10 @@ BASE_LABEL = re.compile(r'imperativ|^base|^basic|root', re.I)
 # it stands rather than dropped, and the run prints it, so a new one arrives
 # visibly instead of silently losing a form.
 LABEL_MAP = [
-    (re.compile(r'imperativ|^base|^basic|root|infinitive', re.I), 'root'),
+    # `imperati[vf]` because the paradigm writes the label in Indonesian on some
+    # entries and in English on others -- `buka`'s reads `imperatif`.  The
+    # imperative IS the bare root in Indonesian, which is why both say root.
+    (re.compile(r'imperati[vf]|^base|^basic|root|infinitive', re.I), 'root'),
     (re.compile(r'accidental', re.I), 'accidental'),
     (re.compile(r'active|actor focus', re.I), 'active'),
     (re.compile(r'passive|patient focus', re.I), 'passive'),
@@ -101,7 +122,48 @@ LABEL_MAP = [
 ]
 # the order forms are shown in, whatever order the source lists them
 LABEL_ORDER = ['root', 'active', 'passive', 'accidental', 'emphatic', 'plural',
-               'singular', 'comparative', 'superlative']
+               'singular', 'feminine', 'masculine', 'equative', 'comparative',
+               'superlative']
+
+# THE RELATION IS OFTEN IN THE TAGS RATHER THAN IN THE WORDING, and reading only
+# the wording left a fifth of the rows with a cell that had no label against it.
+# Wiktionary states a VERB's relation in the gloss -- "active of lihat" -- and
+# nearly everything else's in the sense's own tags: `terbaik` is glossed
+# "superlative degree of baik: best" and tagged `superlative`, `sebaik` "equative
+# degree of baik: as good as" and tagged `equative`, `pergilah` is tagged
+# `jussive`, `raja-raja` `plural`, `siswi` `feminine`.  An unlabelled cell is
+# worse than no cell at all: it asserts that the word is a form of the headword
+# without saying which form, on a row whose whole purpose is to name the
+# relation.  Measured before this was written: 21 rows in level 1 and 10 in
+# level 2 carried one.
+TAG_LABEL = [('superlative', 'superlative'), ('equative', 'equative'),
+             ('comparative', 'comparative'), ('jussive', 'emphatic'),
+             ('emphatic', 'emphatic'), ('feminine', 'feminine'),
+             ('masculine', 'masculine'), ('plural', 'plural'),
+             ('singular', 'singular')]
+
+# TWO KINDS OF RELATIVE ARE REAL AND ARE STILL NOT SHOWN ON THE CARD.
+#
+#   · A COLLOQUIAL RESPELLING -- `udah` for `sudah`, `malem` for `malam`,
+#     `dapet` for `dapat`, `males` for `malas`.  The deck teaches bahasa baku,
+#     its own description says outright that the standard form is what is taught
+#     where a colloquial one is commoner, and printing the colloquial variant
+#     beside the standard word contradicts that on the card itself.  It is also
+#     not an affix family at all: `udah` is not derived from `sudah` by any
+#     prefix or suffix, it is the same word with a syllable knocked off.
+#
+#   · THE WORD PLUS A POSSESSIVE CLITIC -- `hatiku`, `hatinya`, `sakitnya`,
+#     `keadaannya`.  These are mechanical and reversible with no sound change,
+#     which is why `read_frequency` already strips them; they teach nothing the
+#     pronoun cards do not, and they crowd the row out (`hati` showed four cells,
+#     three of which were `hati` with a pronoun on the end).
+#
+# HIDDEN FROM THE ROW, NOT REMOVED FROM THE FAMILY.  They stay merged, because
+# the family is also what keeps them out of the pool as words in their own right
+# and what the meaning falls back to; freeing them would promote each to a
+# headword whose only gloss is a cross-reference.
+FORM_HIDE = {'informal', 'possessive', 'alt-of', 'colloquial', 'nonstandard',
+             'misspelling', 'abbreviation', 'ellipsis', 'contraction'}
 
 
 def say_label(lab):
@@ -178,9 +240,19 @@ def entry_relation(e, word, byword):
         for rx, kind in ((REL_INFLECTIONAL, 'infl'), (REL_DERIVATIONAL, 'deriv')):
             m = rx.match(g)
             if m:
-                b = m.group(1).strip().split(' ')[0]
-                if b != word and b in byword:
-                    return b, kind
+                # A MULTI-WORD TARGET IS TAKEN WHOLE OR NOT AT ALL.  Reducing it
+                # to its first word invents a relation: the gloss "syllabic
+                # abbreviation of kepala bagian" names a two-word phrase, and
+                # taking `kepala` from it claims a kinship that does not exist.
+                # Longest first, so `di sini` beats `di`.
+                parts = m.group(1).strip().split(' ')
+                for n in range(len(parts), 0, -1):
+                    cand = ' '.join(parts[:n])
+                    if cand != word and cand in byword:
+                        return cand, kind
+                    if n > 1:
+                        continue
+                    break
     if e.get('ht') in DERIVED_HT:
         for lab, val in e.get('pairs') or []:
             if val != word and val in byword and BASE_LABEL.search(lab):
@@ -333,40 +405,86 @@ def family_forms(head, members, byword, state):
     deletes the root's first consonant, so `menulis` is `tulis` but `menanti` is
     `nanti`, and no rule can tell those apart without a dictionary.
     """
-    seen, out = {}, []
+    # A PARADIGM ARGUMENT LIST IS NOT PURELY LABEL/VALUE, so a label this file
+    # cannot name is held back rather than printed.  The id-adj template writes
+    # `superlative | paling aman | or | teraman` -- the periphrastic superlative
+    # as a proper pair, then the literal word `or` introducing the affixed
+    # alternative -- and the id-verb template writes `used in the form |
+    # menyanyi`.  Read as pairs those label `teraman` "or" and `menyanyi` "used
+    # in the form", both of which reached the card.  Deferring to the sense's own
+    # tags and gloss names them correctly (superlative; active of nyanyi), and an
+    # unrecognised label is still used where nothing else names the form at all,
+    # and is reported when it is -- so a template shape the source starts using
+    # arrives visibly rather than silently losing a form.
+    seen, weak, hide, out = {}, {}, set(), []
     for m in members:
         for e in byword.get(m, []):
             for lab, val in e.get('pairs') or []:
                 if val in members or val == head:
                     l = say_label(lab)
-                    if val not in seen:
-                        seen[val] = l
+                    (seen if l in LABEL_ORDER else weak).setdefault(val, l)
     for m in members:
         if m in seen:
             continue
         for e in byword.get(m, []):
             for s in e['s']:
+                # only a sense that actually states a relation TO THIS FAMILY --
+                # `apa-apa` opens on the pronoun "anything" and states its
+                # relation to `apa` in its second sense
                 g = (s.get('glosses') or [''])[0]
-                mm = REL_INFLECTIONAL.match(g) or REL_DERIVATIONAL.match(g)
-                if mm:
-                    seen[m] = say_label(g[:mm.start(1)])
+                rel = REL_INFLECTIONAL.match(g) or REL_DERIVATIONAL.match(g)
+                if not rel and not (set(s.get('form_of') or []) & set(members)):
+                    continue
+                tags = sense_tags(s)
+                if tags & FORM_HIDE:
+                    hide.add(m)
                     break
-            if m in seen:
+                for tag, lab in TAG_LABEL:
+                    if tag in tags:
+                        seen[m] = lab
+                        break
+                else:
+                    if rel:
+                        seen[m] = say_label(g[:rel.start(1)])
+                if m in seen:
+                    break
+            if m in seen or m in hide:
                 break
     # AN UNLABELLED MEMBER THAT STANDS ON ITS OWN IS THE ROOT.  The paradigm
     # never labels its own base -- `ambil`'s template names the active and the
     # passive and says nothing about `ambil` -- so the root would otherwise be
     # the one form on the card with no label against it.
     for m in members:
+        if m not in seen and m in weak:
+            seen[m] = weak[m]
+    for m in members:
         if m not in seen and state.get(m, ('',))[0] == 'headword':
             seen[m] = 'root'
+    # ANYTHING STILL UNNAMED IS HIDDEN AND REPORTED.  See the note on FORM_HIDE:
+    # a cell with no label makes a claim it cannot state.  Reporting it is what
+    # keeps a relation shape the source starts using from being lost in silence,
+    # which is the same discipline `say_label` follows for a label it does not
+    # recognise.
     for m in members:
-        seen.setdefault(m, '')
+        if m not in seen:
+            hide.add(m)
+    # THE HEADWORD IS NEVER HIDDEN, AND UNNAMED IT IS THE ROOT.  It is the word
+    # the card is asking for, so a row that dropped it would mark none of its
+    # cells as the answer; and a head that nothing above named is the base of
+    # its family by construction, since a head that is an affixed form -- the
+    # very common case, `mengerti` over `erti` -- states its own relation in its
+    # gloss and is labelled by the pass above.  This also covers the calendar,
+    # whose entries are proper nouns and so carry no state of their own.
+    if head in hide:
+        hide.discard(head)
+        seen.setdefault(head, 'root')
     for m in members:
-        out.append([m, seen.get(m, '')])
+        if m not in hide:
+            out.append([m, seen[m]])
     out.sort(key=lambda r: (LABEL_ORDER.index(r[1]) if r[1] in LABEL_ORDER
                             else len(LABEL_ORDER), r[0]))
-    return out
+    odd = sorted({l for _f, l in out if l not in LABEL_ORDER})
+    return out, sorted(hide), odd
 
 
 class Union:
@@ -481,11 +599,22 @@ def main():
     pool = [r for r in pool if r[0] not in below]
 
     # ---- the level: the supplement first, then frequency up to the target
-    supp_heads = []
+    # A SUPPLEMENT WORD IS FORCED IN, WHICH MEANS IT BYPASSES THE POOL'S OWN
+    # CHECKS -- so the meaning test has to be repeated here or a hand-written
+    # inventory entry with no usable gloss reaches `build_deck.py`, is refused
+    # there, and leaves the level short of its target with nothing said about
+    # why.  Rejects are REPORTED rather than dropped quietly: an inventory entry
+    # the dictionary cannot gloss is a fault in this file, and the run is where
+    # it should surface.
+    supp_heads, supp_bad = [], []
     for w in supp:
         h = heads.get(uf.find(w), w)
-        if h not in supp_heads and h not in below and h not in EXCLUDE:
-            supp_heads.append(h)
+        if h in supp_heads or h in below or h in EXCLUDE:
+            continue
+        if not meanings(h, sorted(fam[uf.find(h)]) or [h], byword):
+            supp_bad.append(w)
+            continue
+        supp_heads.append(h)
     chosen = list(supp_heads)
     have = set(chosen)
     for head, _t, _m in pool:
@@ -498,7 +627,13 @@ def main():
     # ordered by frequency for output, so the commonest words come first
     chosen.sort(key=lambda w: -freq(w))
     fams = {w: sorted(fam[uf.find(w)]) for w in chosen}
-    labelled = {w: family_forms(w, fams[w], byword, state) for w in chosen}
+    labelled, hidden, oddlab = {}, collections.Counter(), collections.Counter()
+    for w in chosen:
+        labelled[w], hid, odd = family_forms(w, fams[w], byword, state)
+        for h in hid:
+            hidden[h] += 1
+        for o in odd:
+            oddlab[o] += 1
 
     json.dump({'words': chosen, 'families': fams, 'forms': labelled,
                'freq': {w: freq(w) for w in chosen}},
@@ -515,6 +650,12 @@ def main():
         print(f'      {v:6d}  {k}')
     print(f'    families {len(fam)}; multi-word families '
           f'{sum(1 for m in fam.values() if len(m) > 1)}')
+    if hidden:
+        print(f'    kept in the family, off the card ({len(hidden)}): '
+              + ', '.join(sorted(hidden)))
+    if oddlab:
+        print('    form labels this file does not recognise, shown as they '
+              'stand: ' + ', '.join(f'{k} x{v}' for k, v in oddlab.most_common()))
     print(f'    chose {len(chosen)} of a target {TARGET[LEVEL]}: '
           f'{from_supp} from the survival inventory, '
           f'{len(chosen) - from_supp} by frequency')
@@ -522,6 +663,9 @@ def main():
         print(f'    supplement items the dictionary does not carry '
               f'({len(supp_missing)}): '
               + ', '.join(f'{w}[{s}]' for w, s in supp_missing))
+    if supp_bad:
+        print(f'    supplement items the dictionary cannot gloss '
+              f'({len(supp_bad)}): ' + ', '.join(supp_bad))
     if len(chosen) < TARGET[LEVEL]:
         raise SystemExit(f'    SHORT: {len(chosen)} words for a target of '
                          f'{TARGET[LEVEL]} -- the pool has run out')

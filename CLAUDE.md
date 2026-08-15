@@ -4621,8 +4621,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
-- `.claude/ukbi/` — the generator behind `decks/UKBI-1-Terbatas-Indonesian.folio-deck.json` (**500 notes /
-  1,000 cards**, 536 KB): `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
+- `.claude/ukbi/` — the generator behind the UKBI Indonesian decks: **level 1
+  `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB) and **level 2
+  `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 notes / 1,500 cards, 788 KB).
+  `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
   corpora in `.claude/ukbi-cache/` (~175 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
   and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
   **ONE LEVEL PER RUN** (`ukbi_level` reads the level once, at import), and a level is taught on top of the
@@ -4630,8 +4632,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **THE LEVELS ARE NUMBERED FROM THE BOTTOM, which is the opposite of how UKBI prints them.** UKBI reports a
   *peringkat* I–VII from the TOP down, so Istimewa is I and **Terbatas is VII, score 251–325, the lowest**. A
   learner meets them the other way up, so the decks are numbered in the order they are studied and the
-  predicate's own name is carried in the title. Level 1 is Terbatas; the other six are laid out in
-  `ukbi_level.py` and none is built.
+  predicate's own name is carried in the title. Level 1 is Terbatas and level 2 Marginal (peringkat VI, score
+  326–404); the other five are laid out in `ukbi_level.py` and none is built.
+  **A LEVEL'S SCOPE IS ITS OWN DESCRIPTOR, AND THE DESCRIPTOR EXCLUDES AS WELL AS INCLUDES.** Terbatas is
+  "keperluan **sintas**", survival, so `SECTIONS_1` is greetings, numbers, days, food, money, the body and the
+  closed classes. Marginal is everyday and community life **and its official descriptor says outright that a
+  candidate at this level cannot yet use Indonesian for professional or academic purposes** — so `SECTIONS_2`
+  is feelings, the home, clothes, errands, travel, narration and opinion, and deliberately carries no office,
+  no contract and no essay vocabulary. `supplement.LEVELS` maps the level to its inventory and
+  `supplement.sections()` reads it; a level with no inventory contributes nothing rather than falling back to
+  another level's, which would fill Marginal with words level 1 has already taught.
   **THE ONE FACT THE WHOLE GENERATOR RESTS ON: UKBI PUBLISHES NO VOCABULARY LIST.** It is a proficiency test
   rather than a syllabus — it reports a score and a predicate, and the Badan Bahasa publishes descriptors of
   what a candidate at each predicate can DO, never the words they should know. Neither does BIPA:
@@ -4644,15 +4654,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   own descriptor — Terbatas is "berkomunikasi untuk keperluan **sintas**", survival communication — which is
   what `supplement.py` is an inventory of, and the ORDER and the fill are corpus frequency. **Ask whether an
   exam board publishes a word list before assuming the sibling's shape transfers.**
-  Nine things it settled are worth carrying.
+  Thirteen things it settled are worth carrying.
   **THE AFFIX FAMILY IS INDONESIAN'S ANSWER TO A PARADIGM, AND IT IS THE WHOLE POINT OF THE CARD.** The
   siblings spend their card on morphology a learner cannot guess — German's gender and plural, Spanish's
   conjugation, Mandarin's character breakdown — and Indonesian has none of that: no gender, no agreement, no
   conjugation, no tense. What it has instead is a family of derived words around a root, so the card carries
-  `lihat` / `melihat` / `dilihat` labelled **root, active and passive** (77 of the 500; 42 show a passive,
-  which Indonesian uses far more readily than English). **The forms are READ from the dictionary and never
-  derived by stripping affixes**, because `meN-` assimilates and swallows the root's first consonant:
-  `tulis` → `menulis` but `nanti` → `menanti`, and no rule can undo that without a dictionary.
+  `lihat` / `melihat` / `dilihat` labelled **root, active and passive** (67 of level 1 and 89 of level 2; 42
+  and 63 show a passive, which Indonesian uses far more readily than English). **The forms are READ from the
+  dictionary and never derived by stripping affixes**, because `meN-` assimilates and swallows the root's
+  first consonant: `tulis` → `menulis` but `nanti` → `menanti`, and no rule can undo that without a
+  dictionary.
+  **THE RELATION IS OFTEN IN THE TAGS RATHER THAN IN THE WORDING, and reading only the wording left a fifth
+  of the rows with a cell that had no label against it** (21 of level 1's and 10 of level 2's, measured).
+  Wiktionary states a VERB's relation in the gloss — "active of lihat" — and nearly everything else's in the
+  sense's own tags: `terbaik` is glossed "superlative degree of baik: best" and TAGGED `superlative`, `sebaik`
+  `equative`, `pergilah` `jussive`, `raja-raja` `plural`, `siswi` `feminine`. **An unlabelled cell is worse
+  than no cell**: it asserts that the word is a form of the headword without saying which form, on a row whose
+  whole purpose is to name the relation. So the tags are read first, the gloss second, and anything still
+  unnamed is dropped from the row and REPORTED rather than printed bare.
+  **TWO KINDS OF RELATIVE ARE REAL AND ARE STILL NOT SHOWN** (`FORM_HIDE`). A **colloquial respelling** —
+  `udah` for `sudah`, `malem` for `malam`, `dapet` for `dapat` — contradicts the deck's own promise on the
+  card itself, and is not an affix family at all: `udah` is not derived from `sudah` by any affix, it is the
+  same word with a syllable knocked off. And **the word plus a possessive clitic** — `hatiku`, `hatinya`,
+  `sakitnya` — is mechanical and reversible with no sound change, which is why `read_frequency` already strips
+  it; `hati` was showing four cells, three of them `hati` with a pronoun on the end. **Hidden from the ROW,
+  not removed from the FAMILY**: freeing them would promote each to a headword whose only gloss is a
+  cross-reference.
+  **A PARADIGM ARGUMENT LIST IS NOT PURELY LABEL/VALUE.** The id-adj template writes `superlative | paling
+  aman | or | teraman` — the periphrastic superlative as a proper pair, then the literal word `or`
+  introducing the affixed alternative — and id-verb writes `used in the form | menyanyi`. Read as pairs those
+  label `teraman` "or" and `menyanyi` "used in the form", and both reached the card. A label the file cannot
+  NAME is now held back and the sense's own tags and gloss are asked instead (superlative; active of nyanyi);
+  an unrecognised label is still used where nothing else names the form, and is reported when it is.
   **THE CLITICS ARE THE ONE THING THAT CAN SAFELY BE STRIPPED**, and doing it recovers a fifth of the
   frequency list: Indonesian writes `-ku`, `-mu`, `-nya` onto the word, so a surface list counts `ayahku`
   apart from `ayah` and 342 of the top 1,500 are absent from the dictionary largely because of it. Those are
@@ -4663,6 +4696,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   flattens both without having to decide which arrow is true, and **the headword is then the family's most
   frequent member**, which is what stops the deck teaching `erti`: it is used nineteen times in the corpus
   against 47,243 for `mengerti`, and it is Malay rather than Indonesian.
+  **A RELATION IS QUALIFIED AS OFTEN AS NOT, and a family that fails to form is INVISIBLE.** `menjaga` is
+  glossed "**transitive** active of jaga", and a pattern anchored hard at the start misses it — so the word
+  never joins its root's family, gets no forms row, and gets no MEANING either, since the meaning lives on the
+  root. It was found from the other end, by `build_deck.py` refusing to write a card for a common verb: a word
+  whose family fails to form simply ships alone, looking exactly like a word that has no relatives.
+  `build_deck.py`'s own pattern already allowed the modifier and the two had drifted apart.
+  **…AND WIDENING IT THEN BUILT FALSE FAMILIES, which is the other half of the same lesson.** With an
+  optional leading word, "**syllabic** abbreviation of kepala bagian" matched, and `kabag` (a head of
+  division) was carded as a form of `kepala` (head) — with `warnet` under `warung`, `miras` under `minuman`
+  and `toserba` under `toko`. Two fixes, and both are statements about what an affix family IS. **Inflection
+  only**: an abbreviation, an ellipsis, a contraction and an alternative spelling are LEXICAL VARIANTS rather
+  than morphological forms, and the row exists to show a root and what is derived from it by prefix and
+  suffix. And **a multi-word target is taken whole or not at all**: reducing "kepala bagian" to its first word
+  invents a kinship that does not exist.
   **A WORD WITH ANY LIVE ENTRY OF ITS OWN IS A HEADWORD, and that single line saves `mereka`.** It carries
   two entries — the third-person plural pronoun, and a verb form glossed "active of reka" — and a rule that
   merged on the existence of any derived entry would have filed **"they" under the root "to devise"** and
@@ -4683,6 +4730,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `April`, `Mei` and half the week as names. A survival deck with no word for Monday is the exact failure
   `supplement.py` exists to prevent, reintroduced one stage further down. Choosing and glossing are different
   questions; ask which one a filter is answering.
+  **A WORD CAN INHERIT A FREQUENCY FROM A FORM THE DECK REFUSES TO TEACH.** `tau` is the nineteenth of the
+  top 19,125 words of the corpus, because in speech it is the colloquial form of `tahu`, "to know" — and that
+  reading is tagged colloquial and correctly refused, which leaves the entry Wiktionary files for the **Greek
+  letter Τ** standing alone. So level 2 taught a Greek letter on the strength of an Indonesian
+  colloquialism's frequency. It is the `kan` / `ku` / `mu` / `nya` shape already in `EXCLUDE` — "the frequency
+  belongs to a form the deck does not teach and the surviving sense does not deserve it" — and the answer is
+  to widen `LETTER_NAME` rather than to name `tau` by hand, which leaves it with no meaning at all and lets
+  the pool's own meaning test refuse it. Swept before it was widened: **31 senses are newly dropped and every
+  one defines a letter of an alphabet**; `es` (ice) and `ha` (an interjection) both carry a letter sense and
+  both keep their real meanings, which is why the sweep was the check rather than the pattern.
   **A PHRASE MUST BE WRITTEN ON A LINE OF ITS OWN, NEVER INFERRED FROM A LINE OF SINGLE WORDS.** The
   supplement reader scanned each line for the longest run that happened to be a dictionary entry, and
   Indonesian compounds freely: `kopi teh susu` resolved as `kopi` plus `teh susu`, which is a real entry
@@ -4701,12 +4758,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The 123 words not in the survival inventory are the commonest words of film dialogue, so `membunuh` (to
   kill) outranks `air` (water) and `sialan`, `bodoh` and `polisi` all arrive before a word for food or a day
   of the week. That is an accurate description of what people say in films and a poor one of what a beginner
-  needs, which is why 377 of the 500 come from the inventory instead; the deck's description says which half
-  is which. Tatoeba's Indonesian is small — 28,192 sentences, 22,023 with an English pair, against hundreds of
-  thousands for Spanish — and was **measured before the level was built rather than assumed**: 495 of the 500
-  words occur at least once and 486 at least three times, so 488 cards carry three sentences and two carry
-  none.
-  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (42 assertions), and it exists because
+  needs, which is why 378 of the 500 come from the inventory instead; the deck's description says which half
+  is which. **The higher the level, the more of it the corpus decides** — level 2 is 313 from its inventory
+  and 437 by frequency — so the caveat gets heavier as the levels climb, not lighter. Tatoeba's Indonesian is
+  small — 28,192 sentences, 22,023 with an English pair, against hundreds of thousands for Spanish — and was
+  **measured before the level was built rather than assumed**: 488 of level 1's cards carry three sentences
+  and two carry none, and at level 2, whose words are rarer, it is 641 with three and **33 with none**. Those
+  are kept: a word is chosen for being worth knowing and not for being well covered by a sentence bank, and
+  each deck's own description states the figure.
+  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (42 assertions at level 1, 46 at level 2),
+  and it exists because
   `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything Indonesian the
   deck is FOR is unchecked by anything until there. Every fault it hunts is quiet: a dropped forms row leaves
   a good card that has stopped teaching the hard part, a colloquial form that slips the filter looks exactly
@@ -4714,13 +4775,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   days, all twelve months, one to ten, the question words), that no colloquial form is taught while every
   standard one is, that tea and milk survived as two words, and — on the page, after walking to a card that
   has one — that the family row renders with its labels and marks which form is being asked for. **It runs
-  under `reducedMotion`**, or every screenshot is a card caught half way through its fade. Two things that
-  bit: `.grade` carries `data-g` ITSELF, so a descendant selector matches nothing and the walk stands still
-  at zero cards; and **studying 240 cards levels the reader up, and a level buys an artefact chest** whose
-  modal overlay intercepts the pointer and stops the walk on a timeout naming an SVG.
+  under `reducedMotion`**, or every screenshot is a card caught half way through its fade.
+  **A LEVEL'S CLOSED SETS ARE ASSERTED AGAINST THE WHOLE STACK, NOT AGAINST THAT DECK** (`CORE`, keyed by
+  level; `taught` is this deck's words plus every lower deck's, read off the shipped files exactly as
+  `words_below()` reads them). Checking only the deck in hand reported level 2 as having no word for Monday —
+  which is TRUE and is the entire point of `words_below()` — and dropping a lower level's sets once past them
+  would stop watching the thing they were written to watch, so a level-1 regression now fails a level-2 run
+  as well. Level 2 adds three sets of its own, clothes being the cleanest (not one of the five is in level 1).
+  **And a new assertion the stack needed: no word is taught again from a level below**, whose failure is not
+  an error but a duplicate — the learner meets one word on two decks with two schedules and nothing says so.
+  Three things that bit: `.grade` carries `data-g` ITSELF, so a descendant selector matches nothing and the
+  walk stands still at zero cards; **studying 240 cards levels the reader up, and a level buys an artefact
+  chest** whose modal overlay intercepts the pointer and stops the walk on a timeout naming an SVG; and the
+  sandbox's Chromium is not where Playwright looks for it, so it needs
+  `FOLIO_CHROMIUM=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`.
   **Re-running it must reproduce the shipped deck byte for byte** (a fixed `STAMP`, no clock read anywhere);
-  that is the check to make after any edit, since every fault above is silent. **A community deck is not a
-  change to Folio**, so this one gets no changelog line and no version bump. Not part of the site.
+  that is the check to make after any edit, since every fault above is silent — **and it has to be run on
+  EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
+  every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
+  changelog line and no version bump. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   **A BATCH TOOL RE-SERIALIZES THE WHOLE CARD, NEVER A LIST OF FIELDS** (Aug 2026, after this one stripped
   every card's rating). It kept a private copy of `serializeCardData`'s field list and emitted only what

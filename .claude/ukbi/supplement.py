@@ -46,6 +46,7 @@ A multi-word entry is deliberate and not a mistake: `terima kasih`, `rumah
 sakit` and `apa kabar` are single lexical items that a list of single words
 cannot see, and each is carried by the dictionary as an entry in its own right.
 """
+from ukbi_level import LEVEL
 
 # ---------------------------------------------------------------- who you are
 PRONOUNS = """
@@ -213,7 +214,7 @@ TALKING = """
 bahasa Indonesia kata buku kertas guru murid telepon surat
 """
 
-SECTIONS = {
+SECTIONS_1 = {
     'pronouns': PRONOUNS, 'numbers': NUMBERS, 'days': DAYS, 'months': MONTHS,
     'time': TIME, 'questions': QUESTIONS, 'places': PLACES,
     'conjunctions': CONJUNCTIONS, 'greetings': GREETINGS, 'people': PEOPLE,
@@ -222,6 +223,169 @@ SECTIONS = {
     'adjectives': ADJECTIVES, 'verbs': VERBS, 'particles': PARTICLES,
     'nature': NATURE, 'talking': TALKING,
 }
+
+
+# ===========================================================================
+# LEVEL 2 — MARGINAL.  A DIFFERENT INVENTORY, NOT A LONGER ONE.
+# ===========================================================================
+# Terbatas is survival; Marginal is the step past it, and UKBI draws the line
+# itself rather than leaving it to be guessed.  Its descriptor says a candidate
+# here "memiliki kemahiran yang tidak memadai" -- proficiency that is not
+# adequate -- and can manage **keperluan kemasyarakatan yang sederhana**, simple
+# community purposes, while being unready for complex community communication,
+# for any **keprofesian** (professional) purpose, and for **keilmuan**
+# (academic) purposes at all.  Semenjana, the level above, is where
+# straightforward workplace communication begins.
+#
+# THAT EXCLUSION IS THE MOST USEFUL THING THE DESCRIPTOR SAYS, and it is
+# obeyed.  The obvious way to write an intermediate list is to reach for the
+# workplace -- rapat, laporan, atasan, jabatan, perusahaan -- and every one of
+# those belongs to a level this one explicitly cannot reach.  So this inventory
+# is social and domestic: the life a person lives among neighbours rather than
+# the one they live at a desk.  A handful of school words are here because
+# talking about going to school is social, and the academic register they open
+# onto is not.
+#
+# A word already taught at level 1 costs nothing to list -- `words_below()`
+# excludes it against the SHIPPED deck -- so a section is written whole for
+# readability rather than pruned against the level below by hand.
+
+# --------------------------------------------------------- describing people
+L2_PEOPLE = """
+sifat ramah sopan sabar rajin malas jujur sombong pandai pintar
+cantik tampan gemuk kurus rambut wajah kulit dewasa remaja bayi
+tetangga tamu sahabat kenalan masyarakat warga penduduk
+"""
+
+# ------------------------------------------------------------- how you feel
+L2_FEELINGS = """
+perasaan marah kecewa bangga malu khawatir gembira bahagia
+kesal rindu kaget heran bosan tenang nyaman puas
+"""
+
+# ---------------------------------------------------------------- the house
+L2_HOME = """
+dapur halaman atap dinding lantai jendela tangga lemari
+kasur bantal selimut handuk sabun cermin lampu listrik sampah
+sapu mencuci memasak membersihkan memperbaiki menyimpan membuang
+"""
+
+L2_CLOTHES = """
+pakaian baju celana rok kemeja jaket sepatu sandal topi tas
+kacamata ukuran memakai melepas
+"""
+
+# ------------------------------------------------------------- what you eat
+L2_FOOD = """
+sarapan goreng merebus resep bumbu bawang cabai kecap minyak
+mentega keju kue camilan asam pahit hambar kenyang memesan
+sayuran daging ikan telur beras mi
+"""
+
+# ------------------------------------------------- shopping and errands
+L2_ERRANDS = """
+belanja kasir antre menawar kembali bank tunai
+paket menerima mengirim alamat prangko
+"""
+
+# ------------------------------------------------------------- going places
+L2_TRAVEL = """
+perjalanan liburan wisata penginapan peta arah belok menyeberang
+jembatan persimpangan macet berangkat tiba terlambat penumpang sopir
+bensin parkir kecelakaan
+"""
+
+# ------------------------------------------------------------ being unwell
+L2_HEALTH = """
+kesehatan sehat penyakit flu luka berdarah istirahat olahraga
+memeriksa sembuh perawat rumah
+"""
+
+# ------------------------------------------------------- weather and country
+L2_NATURE = """
+musim banjir gempa awan petir badai sejuk lingkungan
+sawah kebun tanah batu pasir langit bintang tanaman
+kucing anjing burung sapi kambing kuda tikus nyamuk semut ular
+"""
+
+# ---------------------------------------------------------- telling a story
+L2_NARRATION = """
+akhirnya nyata biasanya tiba-tiba sementara sejak hingga
+zaman abad peristiwa kejadian cerita
+bercerita menceritakan menjelaskan mengundang menawarkan menolak
+berjanji mengucapkan berita koran televisi radio
+"""
+
+# ------------------------------------------------------- saying what you think
+L2_OPINION = """
+pendapat setuju alasan contoh misalnya sebaiknya
+padahal walaupun meskipun apalagi tentu
+"""
+
+# ------------------------------------------------------- how much, how many
+L2_QUANTITY = """
+jumlah meter liter potong butir lembar pasang
+seluruh sebagian kira-kira sekitar paling kurang
+"""
+
+# ------------------------------------------------- what a neighbourhood does
+# The community half of `kemasyarakatan`: the festivals, the observances and
+# the customs a person is expected to be able to talk about with neighbours.
+L2_COMMUNITY = """
+agama masjid gereja doa berdoa puasa upacara tradisi adat budaya
+undangan pesta pernikahan menikah lahir meninggal
+kampung desa
+hari raya
+ulang tahun
+"""
+
+# --------------------------------------------------------- school, but not study
+# Marginal cannot reach `keilmuan`, so this is deliberately six words about
+# ATTENDING a school rather than any of the vocabulary of studying in one.
+L2_SCHOOL = """
+pelajaran kelas ujian tugas siswa mahasiswa
+"""
+
+# --------------------------------------------------------------- doing things
+L2_VERBS = """
+mengunjungi mengajak mengantar jemput meminjam mengembalikan
+menolong menjaga memilih gagal mengajar bermain berenang menari
+menyanyi menggambar menonton tertawa menangis tersenyum berteriak
+berbaring pindah nyala mematikan mengunci menghitung mengubah
+mengikuti membawa mengangkat menarik mendorong melempar menendang
+"""
+
+# ------------------------------------------------------------- describing it
+L2_ADJECTIVES = """
+ramai sepi sibuk santai aman menarik lucu serius lengkap
+berbeda mirip asli palsu modern indah jelek keras lembut tajam
+basah kering tebal tipis berat ringan luas sempit gelap terang
+dangkal sunyi
+"""
+
+# --------------------------------------------------------------- the body
+L2_BODY = """
+leher bahu punggung dada jari kuku lidah bibir pipi dagu jantung darah
+"""
+
+SECTIONS_2 = {
+    'people': L2_PEOPLE, 'feelings': L2_FEELINGS, 'home': L2_HOME,
+    'clothes': L2_CLOTHES, 'food': L2_FOOD, 'errands': L2_ERRANDS,
+    'travel': L2_TRAVEL, 'health': L2_HEALTH, 'nature': L2_NATURE,
+    'narration': L2_NARRATION, 'opinion': L2_OPINION,
+    'quantity': L2_QUANTITY, 'community': L2_COMMUNITY,
+    'school': L2_SCHOOL, 'verbs': L2_VERBS, 'adjectives': L2_ADJECTIVES,
+    'body': L2_BODY,
+}
+
+# A LEVEL WITH NO INVENTORY OF ITS OWN GETS NONE, and that is deliberate rather
+# than an omission: `select.py` would then fill the whole level from frequency,
+# which is exactly what this file exists to stop, so the run says so out loud.
+LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2}
+
+
+def sections():
+    return LEVELS.get(LEVEL, {})
 
 
 def candidates(known):
@@ -247,7 +411,7 @@ def candidates(known):
     `di mana`, `dua belas` and `kamar mandi` -- a fifth of the survival core.
     """
     out, missing = [], []
-    for name, block in SECTIONS.items():
+    for name, block in sections().items():
         for line in block.strip().splitlines():
             line = line.strip()
             if not line:
@@ -273,7 +437,7 @@ if __name__ == '__main__':
             seen.add(w)
             uniq.append(w)
     json.dump(uniq, open(sys.argv[2], 'w'), ensure_ascii=False)
-    print(f'    supplement: {len(uniq)} items across {len(SECTIONS)} sections')
+    print(f'    supplement: {len(uniq)} items across {len(sections())} sections')
     if missing:
         print(f'    NOT IN THE DICTIONARY ({len(missing)}): '
               + ', '.join(f'{w} [{s}]' for w, s in missing))
