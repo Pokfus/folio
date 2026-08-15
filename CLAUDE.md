@@ -3524,6 +3524,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
   "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
   counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
+- `.claude/check-overlay.js` — audits the LIVE cloud content overlay (`content_overrides`) against the shipped
+  data files: `node .claude/check-overlay.js`. It reports a card delta whose prose plainly belongs to ANOTHER
+  card (the renumbering fault — see the overlay bullet under "Environment"), a delta pointing at an id that no
+  longer exists, a live collection the overlay DELETES, timeline eras that differ from `timeline.js`, footnote
+  markers or licence attributions an edit has dropped, and what the row costs every visitor on every page load.
+  It reads and never writes. Needs the network; reads `SUPA_URL`/`SUPA_KEY` out of app.js rather than restating
+  them, and fails loudly if it cannot find them. **Run it after any renumbering and after baking.**
+  **`--file=<path>` audits a LOCAL overlay JSON instead of the live row**, which is how a REPLACEMENT is checked
+  before it is pasted into production rather than by pasting it and looking at the site — the file is the bare
+  `data` value, not the PostgREST row wrapper. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -7301,8 +7311,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **⚠ NO NEW GROUP CAN BE MADE — THE FUNCTION WAS REMOVED FROM THE DAILY STUDY BLOCK** (Aug 2026, on
     request: "remove the group function from the daily study/active decks banner"). "+ New group" stood
     inside the banner, then at the bottom left of the DECK LIST for a fortnight, and is now gone along with
-    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives holding the lip alone, since that
-    row is what keeps `.rv-lip` against the review group's own bottom edge.
+    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, since that row is what keeps
+    `.rv-lip` against the review group's own bottom edge — it held the lip alone for a fortnight and now
+    carries the day's timer (`.rv-time`) at the left end it vacated.
     **WHAT DELIBERATELY STAYS is everything a reader who ALREADY made one needs**: the group row in the
     list, its hue, dragging a deck in, and Rename / Colour / Ungroup in its own options sheet. Deleting
     that code would leave such a reader a container on their home page that nothing could open — and there
@@ -9445,8 +9456,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be a function of the column width. The banner shows a **🔥 day-streak
   chip** (`S.streak`, shown at 2+ when the run is alive).
   **…AND, SINCE AUG 2026 ON REQUEST, THE DAY'S TIME ON CARDS** (`S.studyTime = { d, ms }`, `studyTimeAdd` /
-  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; the `.stat.st-time` chip). Five
-  things are decisions rather than plumbing.
+  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; **`.rv-time` in the `.rv-foot`
+  row**, not in the banner — see the last bullet). Five things are decisions rather than plumbing.
   · **THE MINIGAMES ARE EXCLUDED BY CONSTRUCTION, NOT BY A RULE** — the clock is a ticker living inside
     `PAGES.study` and `studyTimeAdd` has exactly that one caller, so no game can reach it and none has to
     be named. A rule listing the games would be a list to keep in step with the grid.
@@ -9468,13 +9479,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every five seconds for a figure nothing else reads is a great deal of traffic for a clock. The grade
     path saves anyway, so in ordinary use the day is written down card by card; at most a minute is lost to
     an abrupt close, which is inside the honesty of the figure.
-  The chip is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
+  · **IT SITS AT THE BOTTOM LEFT OF THE REVIEW GROUP, NOT IN THE BANNER** (Aug 2026, on request — it was a
+    fourth `.stat` in the meta row beside New / Learning / Review, and `.banner .stat.st-time` is gone).
+    Those three say what is LEFT to do today and this says what has been DONE, so standing it among them
+    asked a reader to take four numbers of two different kinds off one line. It takes the left end of the
+    **`.rv-foot`** row instead, the line the "+ Add decks" lip already hangs from, so the two sit at the
+    two ends of the block's own bottom edge — which cost that row nothing, `margin-inline-start:auto` on
+    the lip having always held it right whatever stood to its left ("+ New group" did, until it went).
+    Two consequences worth knowing. Out there it is on the page's own **paper** rather than on the card,
+    where its `--ink-faint` label measures exactly what the About line below it already measures (2.78–5.23
+    across the six themes both ways, sampled from painted pixels; the shipped bar is folio/light/`body.hc`,
+    where it reads 4.96) — so it introduces no contrast state the site had not got. And it stops being a
+    figure over a word: the row is one small tab high, so it is **one line**, and it names the day now that
+    nothing beside it supplies one.
+  · **THE WORD LEADS AND THE FIGURE FOLLOWS** — "studied 13m today", not "13m studied today" (Aug 2026, on
+    request). A figure with its label under it is what the three piles in the banner are, and reversing the
+    order is what stops this reading as a fourth one: it is a sentence about the day rather than a labelled
+    statistic. Three flex children rather than two, so the row's own `gap` spaces them and no text node
+    carries a space of its own — and "today" is LAST, which is what lets `.rv-today` drop it below 430px
+    without leaving the line ungrammatical ("studied 3h 07m" is whole; "13m studied" was not).
+  The figure is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
   midnight, and is **drawn only once there is time to report** — a "0s" before the first card is a clock
   saying nothing has happened, which the empty row already says. `fmtStudyTime` prints seconds below a
   minute ("45s"), because rounding the first card of the day up to "1m" is a small lie and "<1m" is not a
-  figure. Its `<b>` is **smaller than the three piles' and in the ordinary ink** rather than their indigo:
-  it is not a fourth pile, and at their size it would compete with the numbers that say where the day's
-  work actually is. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
+  figure. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
   laptop agree) and deliberately NOT in `RESET_KEEPS` — it is study history, which is what that control
   names. Measured at 390px with everything on the row: it fits with the streak chip beside it.
   **Completion is a MARK in the top-right corner, and
@@ -11191,6 +11219,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     one wording, so it cannot reach one of them and not the other.
     Guarded by the last two sections of `.claude/test-publish.js`, where a fresh browser context is a
     second device.
+  · **PRESENT ON THE DEVICE AND PRESENT ON THE ACCOUNT ARE TWO QUESTIONS, AND THE DECK PAGE ASKED ONLY THE
+    FIRST** (`accountHasDeck` / `deckInstallRowWrite` / `uDeckInstall`'s `adopt` branch / `.ddetail-adopt`;
+    Aug 2026, on a bug report — a deck imported and shared under one account, then added from the Shared
+    decks list under a SECOND account **on the same device**, reached no other device of that second
+    account). The bullet above is the sync, and the sync was never reached: **the failure is on the device
+    the deck was added on.**
+    Community decks are DEVICE-local and shared by every account signing in on the device — the whole
+    reason `by` exists, and stated three paragraphs up — so the second account meets the first's decks
+    already present. `deckDetailRender` derived its actions from `localDeckForRemote`, which answers *is
+    this deck on this device*, and read that as *does this account have it*: it showed **Study / Remove
+    from this device** and offered no way in. No `deck_installs` row was ever written, so the account's
+    list never mentioned the deck, so no other device could learn of it. **Nothing threw and nothing was
+    missing** — the deck was genuinely there and studiable — and the only symptom was on a different
+    device, where a deck that never arrives is indistinguishable from a deck nobody added.
+    Four things about the fix.
+    **THE QUESTION IS ANSWERED FROM THIS DEVICE'S OWN SYNC RECORD** (`by[id] === me` or `seen[me]`), which
+    is the pair `communitySyncInstalls` already reconciles on — so the page and the sync cannot come to
+    disagree, and it costs no request. Signed out there is no account to ask and device presence is the
+    only honest answer; the AUTHOR (`row.owner === me`) counts as having their own deck however they came
+    by it, since asking them to add their own published deck to their own account says the wrong thing.
+    **ADOPTING DOES NOT RE-MOUNT THE SERVER'S COPY**, and that is the load-bearing half. The obvious
+    implementation lets `uDeckInstall` run as usual, which overwrites the existing record — taking the
+    author's `origin: "mine"` away and with it their only handle on the published row, since `uDeckPublish`
+    PATCHes by `remoteId` and a record without one publishes a **second, separate deck** instead of
+    updating theirs. So the local record is left exactly as it is and only the ACCOUNT's list is written,
+    which is all that was ever missing. Asserted directly, because the loss would be silent until the
+    author next tried to ship an update.
+    **THE ADOPTED DECK IS THEN ALIGNED ONTO `deckIdFromRemote`** (`communityAlignDeckIds`, widened from
+    `origin === "installed"` to anything the account lists). Without it the two devices file the same deck
+    under different local ids — the adopting device keeps the random id its IMPORT minted — so the deck
+    arrives on the other device and the reader's `S.active` entry, daily limits, colour and groups all
+    stop at the device they were made on. That is the reader's actual complaint: it is the DAILY STUDY the
+    deck has to reach, and arriving in the Studio alone would have read as still broken.
+    **AND `by` IS RECORDED ONLY ON A SUCCESSFUL POST** (a pre-existing hazard this surfaced): `by[id] === me`
+    with no row on the server is read by the very next sync as a removal made on another device, so an
+    install whose POST failed had the deck **deleted off the device it was just added to** — and for an
+    adopted deck that would be the author's own copy. Unrecorded it simply stays unannounced, the reader
+    is told so in the toast, and nothing is lost.
+    Guarded by `test-publish.js`'s last section, which is the only one giving TWO accounts ONE device.
+    **It must NOT use `newSession`**: that helper's `addInitScript` is fixed at add time and re-writes its
+    account's session on every load, so a device switched to the second account is silently switched back
+    on the next navigation — the app stays signed in as the first while the mock answers as the second, and
+    the page then reads as the author looking at their own deck (which it did, and the section passed for
+    the wrong reason until the session was written by hand instead).
   · **The column guard — `guard_user_deck_columns()`.** RLS decides which ROWS you may write, **never which
     COLUMNS**. "edit your own decks" therefore let an owner PATCH their own `install_count`, `rating_avg`,
     `staff_pick` or even `owner` — inventing an editorial endorsement and a five-star average for
@@ -14448,3 +14520,34 @@ dead code (never rendered).
   `applyAdminEdits`) and **must list every overlay key — `mission` was once missing from the load path, silently dropping
   Mission-page edits on reload**. **Hygiene:** after baking the overlay into `data.js`/`glossary.js`/`timeline.js` and
   deploying, reset `content_overrides.data` to `{}` (Table Editor) so a stale cloud overlay can't shadow the newer shipped files.
+  · **AN OVERLAY DELTA IS KEYED BY ID, SO RENUMBERING IDS SILENTLY REPOINTS EVERY EDIT** (Aug 2026, on a bug
+    report: "some cards in the World History collection are getting their background sections mixed up with
+    those of other cards"). The key is the ONLY thing joining an edit to its subject, and it lives in a
+    Supabase row that no repo operation touches — so the day an id changes meaning, the delta goes on being
+    applied and paints its content onto whoever inherited the number. The **2026-08-04 World History
+    renumbering** moved 89 cards into their planned slots and left the previous week's live edits on the old
+    numbers: seven cards spent the next fortnight showing another card's background, and the mapping was
+    exact both ways — old `wh-001` is now `wh-046`, so `wh-001` (Prehistory) served the Paleolithic card's
+    prose, while `wh-014` and `wh-017`, which map to themselves in the table, stayed correct. **Nothing threw
+    and no count could see it**: the question, answer, date line, difficulty and star rating are all read
+    from `data.js` and were right, and only the prose inside the Background fold was wrong — which is why it
+    took a reader to notice. **Renumber the overlay in the same pass as the cards, or clear it**;
+    `docs/world-history-card-plan.md` holds the old→new table.
+    **AND THE SAME ROW ACCUMULATES DAMAGE NOBODY IS WATCHING.** Audited at the same time, that overlay was
+    also **deleting `col-41` and `col-42`** — the live United States and Russia collections, gone from the
+    Collections page for every visitor — re-creating decks retired in the same replan, **shadowing the fixed
+    1900 map** with the pre-fix one (no Ottoman Empire, no Greece; see `build-era.js`'s `SUP_MIN`), and
+    carrying eleven further timeline eras byte-identical to the shipped ones as dead weight. Of 4 MB, three
+    things were worth keeping. **`node .claude/check-overlay.js` is the audit** — it reads the live row
+    against the shipped files and reports a delta whose prose belongs to another card, a delta pointing at a
+    dead id, a live collection the overlay deletes, timeline eras that differ, footnote markers or licence
+    attributions an edit has dropped, and what the row costs every visitor. **Run it after any renumbering
+    and after baking.**
+    · **A CONTENTEDITABLE ROUND TRIP IS NOT LOSSLESS, and what it drops is the apparatus.** Several edits in
+      that row had lost **every** `<sup class="fn">` marker while the prose stayed word-for-word identical
+      (both artefacts, four glossary descriptions, one abstract) — so the citations were still listed and
+      nothing pointed at them, which `add-sources.js` refuses and no render-time check can see. Others moved
+      a space inside the opening `<b>` (`The<b> Minoan`), dropped an image's `alt`, or dropped the licence
+      line out of a picture's `desc` — losing a required CC BY-SA attribution. Ordinary typing is safe
+      (verified in a browser); it is select-all, paste and heavy restructuring that strip them. **Check the
+      marker count after editing prose that carries citations**, which is what `check-overlay.js` does.
