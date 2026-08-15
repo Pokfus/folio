@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-015` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-016` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 15 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 16 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10134,6 +10134,32 @@ so a synthetic `.ttip` appended to the page is never wired and answers nothing.
 errors" assertion began failing on `fonts.googleapis.com` and `supabase.co`, which this sandbox cannot
 reach and which the page legitimately requests. It now filters by HOST and by nothing else, so a
 same-origin failure still fails; a blanket "ignore failed resources" would have retired the assertion.
+**`cnh-016` IS WHERE THE ENGLISH-LANGUAGE SHELF RAN OUT AND A CHINESE UNIVERSITY REPOSITORY CARRIED
+THE WHOLE CARD** (Aug 2026). Kuafu is in neither Mayers nor Herbert Giles nor Werner — the 19th- and
+early-20th-century reference works cover the rulers and the great deities and stop — and every complete
+English translation of the *Shanhaijing* is modern and in copyright, while Lionel Giles's Liezi is a
+SELECTION that skips the passage (checked, not assumed: his book V runs from the two mountains straight
+to King Mu's automaton). What answered was **`ir.nwnu.edu.cn`, Northwest Normal University's repository,
+serving Zhao Kuifu's article in 《文学遗产》 2020 no. 5 as a full-text PDF** — which quotes all three
+primary passages verbatim with page references to Yuan Ke's edition, and carries the name's meaning, the
+Bofu variant, the genealogy, the Peach Forest identification and the Huainanzi on Yuyuan besides. **When
+a subject is thin in English, search the Chinese institutional repositories on the SUBJECT'S OWN NAME in
+characters**; the search that found it was `夸父 神话 山海经 论文 pdf`, and a second one the same way
+(`ir.lib.shimane-u.ac.jp`, a Shimane University bulletin) supplied the ending Zhao does not quote.
+**A CHINESE PDF MAY HAVE NO ToUnicode MAP AT ALL, AND THEN THE LITERALS ARE GB18030.** The cnh-003 rules
+still hold and were not enough here: this file's only CMap is a 72-entry Latin one, so decoding through
+it returns mojibake that looks like a broken extractor rather than a wrong encoding. **Try `gb18030` on
+the raw literal bytes before debugging anything else** — `ÇØ±¾¼Í` read as latin1 is 秦本纪 read as GBK.
+Its punctuation still arrives as substituted ASCII (`!` `"` `#` for the CJK quote marks) **and so do the
+DIGITS**, which is why this card's citation gives the journal, year and issue — read off the running
+footer, which spells 二〇二〇年第五期 in characters — **and no page numbers**: cnh-011's rule, met where
+the page number is on the page and unreadable.
+**AND A SECOND SOURCE QUOTED THE RIGHT WORDS UNDER THE WRONG BOOK.** The Shimane paper gives 夸父與日逐走
+… 化為鄧林 as 《列子·湯問》 where it is the *Shanhaijing*'s Haiwai beijing; the Liezi's own version opens
+differently (夸父不量力，欲追日影) and adds the corpse-fat detail. Zhao attributes each passage and cites
+an edition and page for it, so **where two open sources disagree about which book a quotation is from,
+follow the one that gives a locator** — and use the looser one only for what it alone carries, here
+Yinglong killing Kuafu as he killed Chiyou.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
