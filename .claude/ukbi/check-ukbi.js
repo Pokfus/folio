@@ -164,6 +164,22 @@ const ok = (c, m, extra) => {
       "meetings and discussion": ["musyawarah", "diskusi", "pembahasan", "kesimpulan"],
       "ke-...-an abstractions": ["kebijakan", "kemajuan", "kepentingan", "ketentuan"],
     },
+    // Unggul lifts the one ceiling Madya names as its own -- "keprofesian, baik yang sederhana
+    // maupun kompleks" -- so these four sets are the complex professional register itself.  The
+    // last is the level's own finding: at this register a great deal of the vocabulary is a
+    // COMPOUND that a segmented frequency list cannot see, so the multi-word machinery is what
+    // carries it, and an assertion on single words alone would miss the half that matters.
+    // `mengunggah` rather than `unggah` because the family's headword is the form a learner
+    // meets; the root is shown in its forms row.
+    5: {
+      "agreements": ["klausul", "wanprestasi", "adendum", "pembatalan"],
+      "the books": ["neraca", "piutang", "akuntansi", "audit", "pembukuan", "dividen"],
+      "computing in standard Indonesian": ["unduh", "mengunggah", "daring", "luring",
+                                           "peramban", "tautan"],
+      "courts": ["gugatan", "penggugat", "tergugat", "arbitrase", "notaris"],
+      "professional compounds": ["arus kas", "tata kelola", "pemangku kepentingan",
+                                 "pemutusan hubungan kerja", "perseroan terbatas"],
+    },
   };
   for (let l = 1; l <= Number(LEVEL); l++) {
     for (const [name, members] of Object.entries(CORE[l] || {})) {

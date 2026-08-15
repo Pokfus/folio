@@ -41,6 +41,13 @@ import supplement
 NOT_A_WORD = {'name', 'prefix', 'suffix', 'infix', 'interfix', 'circumfix',
               'root', 'character', 'punct', 'symbol'}
 
+# How many times a multi-word entry must occur in the sentence corpus before its
+# frequency is estimated at all.  See `estimate_phrases` for the measurement:
+# below this the estimate is not a measurement of anything and every phrase gets
+# the same one.  A phrase the inventory asks for is unaffected -- it is forced in
+# without consulting a frequency.
+PHRASE_MIN = 2
+
 # TAGS THAT MARK A FORM AS OUTSIDE THE STANDARD LANGUAGE.  UKBI tests bahasa
 # baku, so these do not earn a card.
 #
@@ -201,6 +208,33 @@ EXCLUDE = {
     # print three sentences meaning "like".  Found by `check-ukbi.js`, which
     # lists it among the colloquial forms that must never be taught.
     'kayak',
+    # THE SAME SHAPE AT LEVEL 5, WHERE THE OTHER FORM IS ENGLISH OR A NAME.  The
+    # deck goes 2,000 words deep into a corpus of film subtitles, and a subtitle
+    # file is full of English -- so a word spelled like a common English one
+    # collects that word's count, and what the reader is then shown is whatever
+    # marginal Indonesian sense the dictionary happens to file under the
+    # spelling.  Each of these is a real entry and every one of them is absurd at
+    # the rank the count buys it:
+    #   `station`  an obstetric measurement (the position of the foetal head)
+    #   `cup`      "sound of something immersed in water"
+    #   `along`    "abundant catch of fishermen"
+    #   `lukas`    a fish species, ranked on the given name Lucas
+    #   `jamal`    "male camel", ranked on the given name Jamal
+    #   `Aditya`   a solar deity, and a Javanese given name
+    # TWO RULES FOR THIS WERE MEASURED AND BOTH REFUSED, which is the finding
+    # rather than the six words.  Dropping Wiktionary's "unadapted borrowing"
+    # etymology would take `bank`, `si`, `laptop`, `tank`, `tsunami` and `siku`
+    # to catch four; dropping anything spelled like a common English word would
+    # take `digital`, `legal`, `formal`, `vitamin`, `stadium`, `diagnosis` and
+    # `proposal` -- ordinary Indonesian, and several of them this level's own
+    # subject matter.  Indonesian has borrowed too well for either test to
+    # separate a borrowing from an intruder, so this stays a hand list and will
+    # grow by a few at every level.
+    # KEPT DELIBERATELY, for contrast: `bridge` (the card game), `port` (port
+    # wine) and `flat` (an apartment) are ranked by their English homographs too,
+    # and their cards are HONEST -- inflated rank, true gloss.  The test is not
+    # whether the count is borrowed but whether the card teaches something false.
+    'station', 'cup', 'along', 'lukas', 'jamal', 'Aditya',
 }
 
 KEEP = {
@@ -218,6 +252,36 @@ def load():
     for e in ents:
         byword[e['w']].append(e)
     return byword
+
+
+def compound_numeral(word, byword):
+    """True for a multi-word cardinal number, which is arithmetic and not a word.
+
+    `delapan puluh sembilan` is eighty-nine.  A learner who has `delapan`,
+    `puluh` and `sembilan` -- all three of them level-1 words -- can produce it
+    and every other number in the language without being shown one, so a card
+    for it teaches nothing at all.  The dictionary states the part of speech
+    (`num`) and multi-word is the whole of the test, so single numerals are
+    untouched: `sepuluh`, `seratus` and `seribu` are words and stay.
+
+    THE DECKS HAD BEEN SLOWLY FILLING UP WITH THESE, which is why the rule is
+    worth having rather than a tidy-up of one level.  Measured across the four
+    shipped decks before it was written: level 2 had `tiga puluh`, level 3 four
+    of them, level 4 nine -- including `puluh ribu`, which is not even a number
+    but "tens of thousands" -- and level 5 seven more.  Twenty-three cards of
+    counting practice, arriving a few at a time and never enough at once to be
+    noticed.
+
+    IT IS APPLIED TO THE POOL AND NOT TO THE SUPPLEMENT, which is the whole
+    reason it can be this blunt.  Level 1's inventory asks for `sebelas`, `dua
+    belas` and `dua puluh` deliberately -- as the PATTERN, its own comment says,
+    rather than as a run -- and a hand-written entry is forced in without
+    consulting this.  So what the rule removes is precisely the numbers nobody
+    chose: the ones a film happened to say aloud.
+    """
+    if ' ' not in word:
+        return False
+    return any(e['pos'] == 'num' for e in byword.get(word, []))
 
 
 def sense_tags(s):
@@ -418,6 +482,24 @@ def estimate_phrases(byword, lower):
     MEDIAN ratio rather than the mean, so that one word whose two corpora
     disagree wildly -- and film subtitles and a sentence bank disagree about
     plenty -- cannot drag the whole scale with it.
+
+    ONE OCCURRENCE IS NOT A FREQUENCY, AND `PHRASE_MIN` IS WHERE THAT BITES.
+    A count of 1 says only that the phrase exists somewhere in 28,192 sentences;
+    multiplying it by the factor dresses that up as a number with three
+    significant figures, and worse, EVERY hapax gets the SAME number -- so they
+    do not spread out along the ranking, they arrive together as one
+    undifferentiated block sorted alphabetically, which is visibly not the
+    frequency ordering the deck's own description promises.
+
+    Measured before the floor was set.  Of the 579 multi-word entries Tatoeba
+    contains at all, 263 occur exactly once, and at level 5 those filled 234 of
+    the deck's 360 phrases -- a run of cards from about rank 1200 reading `air
+    putih, air tenang menghanyutkan, akal imitasi, aksi terorisme, alat bantu`,
+    straight down the alphabet.  Not one of them is a bad Indonesian word; what
+    is missing is any evidence that they belong at THIS rank rather than three
+    levels further on.  The floor costs the shipped levels nothing at all: 0, 1,
+    0 and 0 of levels 1-4's phrases rest on a single occurrence, and the one is
+    `hari raya`, which is in level 2's inventory and is forced in regardless.
     """
     grams = collections.Counter()
     for line in open('ind_sent.tsv', encoding='utf-8'):
@@ -437,7 +519,7 @@ def estimate_phrases(byword, lower):
     for w in byword:
         if ' ' in w:
             c = grams.get(w.lower(), 0)
-            if c:
+            if c >= PHRASE_MIN:
                 est[w] = int(c * factor)
     return est, factor
 
@@ -643,8 +725,12 @@ def main():
     # the count has already been struck.  So the same test is applied here, where
     # a refusal costs nothing but the next word in the ranking.
     pool = []
+    numerals = []
     for root, head in heads.items():
         if head in EXCLUDE:
+            continue
+        if compound_numeral(head, byword):
+            numerals.append(head)
             continue
         st = state.get(head, ('notword',))[0]
         if st in ('notword', 'nonstandard') and head not in KEEP:
@@ -723,6 +809,12 @@ def main():
     if oddlab:
         print('    form labels this file does not recognise, shown as they '
               'stand: ' + ', '.join(f'{k} x{v}' for k, v in oddlab.most_common()))
+    # REPORTED RATHER THAN DROPPED IN SILENCE: a rule that quietly stops firing
+    # looks exactly like a rule with nothing to do, and this one is meant to
+    # find a handful per level and not a hundred.
+    if numerals:
+        print(f'    compound numerals not chosen ({len(numerals)}): '
+              + ', '.join(sorted(numerals)))
     print(f'    chose {len(chosen)} of a target {TARGET[LEVEL]}: '
           f'{from_supp} from the survival inventory, '
           f'{len(chosen) - from_supp} by frequency')

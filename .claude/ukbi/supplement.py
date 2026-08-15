@@ -589,7 +589,17 @@ SECTIONS_3 = {
 #
 # STILL NOT ACADEMIC.  No `hipotesis`, no `metodologi`, no `variabel`, no
 # `kutipan`.  The line is that a Madya candidate can read and write about the
-# world; `keilmiahan` is writing about the literature, and that is Unggul's.
+# world; `keilmiahan` is writing about the literature.
+#
+# (THIS COMMENT ONCE SAID "and that is Unggul's", WHICH THE BOARD'S OWN
+# DESCRIPTORS CONTRADICT, and the slip is worth leaving on the record because of
+# its shape: it was a claim about the NEXT level written while building this one,
+# from the assumption that a ladder opens one door per rung.  Unggul's descriptor
+# does not mention `keilmiahan` at all, and Sangat Unggul's -- one rung higher
+# still -- says "Untuk kepentingan akademik yang kompleks, yang bersangkutan
+# masih memiliki kendala".  The academic door is the LAST one and it opens at
+# Istimewa.  Read the descriptor of the level you are naming, not the one you
+# are building.)
 
 # ------------------------------------------------------ organisations and roles
 L4_ORG = """
@@ -720,10 +730,206 @@ SECTIONS_4 = {
     'adjectives': L4_ADJ,
 }
 
+# ===========================================================================
+# LEVEL 5 — UNGGUL.  THE COMPLEX PROFESSIONS, WHICH IS MADYA'S OWN LIMIT.
+# ===========================================================================
+# THE DOOR THIS LEVEL OPENS IS NAMED BY THE LEVEL BELOW IT, in as many words.
+# Madya's descriptor ends "tetapi masih mengalami kendala dalam hal keprofesian
+# yang KOMPLEKS"; Unggul's says the candidate "tidak terkendala dalam
+# berkomunikasi untuk keperluan keprofesian, baik keprofesian yang sederhana
+# MAUPUN KOMPLEKS".  So the step is not a new subject area chosen here -- it is
+# the one thing the previous level says it cannot do, lifted.  Level 3 opened
+# the professions at their plainest and level 4 refused to go further; this is
+# where the ceiling comes off.
+# (ukbi.kemendikdasmen.go.id/front-new/page/predikat, quoted.)
+#
+# AND THE ACADEMIC DOOR IS STILL SHUT, which had to be read rather than
+# assumed -- see the note at the foot of the Madya header, which asserted the
+# opposite.  Unggul's descriptor does not mention `keilmiahan` at all, and
+# Sangat Unggul's, a rung higher, still says "Untuk kepentingan akademik yang
+# kompleks, yang bersangkutan masih memiliki kendala".  So no `hipotesis`, no
+# `metodologi`, no `variabel`, no `sitasi`, no `tinjauan pustaka`: writing about
+# the literature is Istimewa's.  `analisis` and `evaluasi` are not academic
+# words -- they are what any professional does on a Tuesday -- and the test is
+# whether the word belongs to RESEARCH or to WORK.
+#
+# WHAT COMPLEX PROFESSIONAL INDONESIAN ACTUALLY IS, and this is the part a
+# frequency list is worst at.  Measured while drafting: of the professional
+# vocabulary that belongs at this level a large share is COMPOUND -- Indonesian
+# builds its technical terminology out of two or three ordinary words rather
+# than borrowing a Latinism, so severance is `pemutusan hubungan kerja`, cash
+# flow is `arus kas`, a stakeholder is a `pemangku kepentingan`, governance is
+# `tata kelola` and a shareholder is a `pemegang saham`.  **A segmented
+# frequency list cannot see one of them**, and neither can a learner who has
+# been taught the parts.  So the multi-word machinery this file grew for
+# `terima kasih` does its heaviest work here, and each of these is carried by
+# the dictionary as an entry in its own right.
+#
+# ITS OTHER HALF IS THE BADAN BAHASA'S OWN COINAGES.  Computing is where the
+# standard language has been most deliberately built -- `perangkat lunak`,
+# `peladen`, `unduh`, `unggah`, `daring`, `luring`, `peramban`, `tautan` -- and
+# those, rather than the English words everyone says, are what UKBI tests.
+
+# ------------------------------------------------ agreements, and what binds
+L5_CONTRACT = """
+klausul adendum wanprestasi batal pembatalan mengikat
+surat kuasa
+pihak ketiga
+serah terima
+"""
+
+# ------------------------------------------------------- the documents themselves
+# `risalah` (minutes) is level 4's; these are the papers a complex job turns on.
+L5_DOC = """
+proposal ringkasan pendahuluan
+latar belakang
+ruang lingkup
+kerangka acuan
+berita acara
+sebagai berikut
+"""
+
+# ---------------------------------------------------------- running the work
+L5_PROJ = """
+tenggat capaian indikator tinjauan pemantauan pengujian
+kemitraan koordinasi wewenang delegasi kendala hambatan
+pemangku kepentingan
+tata kelola
+tata cara
+tata tertib
+"""
+
+# ------------------------------------------------------------ the books
+L5_FIN = """
+neraca piutang laba penyusutan pembukuan akuntansi audit
+obligasi dividen faktur
+arus kas
+laporan keuangan
+buku besar
+pajak penghasilan
+suku bunga
+nilai tukar
+pasar modal
+bursa efek
+"""
+
+# ------------------------------------------------------- what a company IS
+L5_CORP = """
+firma koperasi materai
+perseroan terbatas
+badan hukum
+anggaran dasar
+rapat umum
+pemegang saham
+dewan direksi
+juru bicara
+tenaga ahli
+konsultan
+"""
+
+# ------------------------------------------------------------ arguing it out
+L5_NEG = """
+perundingan konsesi kompromi tawar argumen bantahan sanggah
+penolakan usulan pertimbangan runding
+"""
+
+# ------------------------------------------------ hiring, paying, and letting go
+L5_HR = """
+rekrutmen seleksi kualifikasi mutasi kinerja tunjangan insentif
+pesangon lowongan
+upah minimum
+tenaga kerja
+sumber daya manusia
+pemutusan hubungan kerja
+"""
+
+# --------------------------------------------------------- courts and rights
+L5_LAW = """
+gugatan penggugat tergugat arbitrase mediasi notaris lisensi
+paten perdata pidana kasasi sita gugat tuntut langgar
+hak cipta
+merek dagang
+"""
+
+# ----------------------------------------------------- making and checking things
+L5_TECH = """
+spesifikasi kalibrasi pemeliharaan instalasi rekayasa rakit
+toleransi tegangan katup turbin pembangkit sertifikasi akreditasi
+tera henti
+rantai pasok
+pangsa pasar
+jaminan mutu
+kendali mutu
+nilai tambah
+"""
+
+# ------------------------------------------------- the language of computing
+L5_IT = """
+peladen unduh unggah daring luring peramban tautan peranti
+pemrograman algoritma
+perangkat lunak
+perangkat keras
+basis data
+kata sandi
+"""
+
+# ------------------------------------------------------------- the clinic
+L5_MED = """
+diagnosis rujukan anestesi kedaluwarsa
+rekam medis
+gawat darurat
+efek samping
+tekanan darah
+"""
+
+# ------------------------------------------------------- the state as employer
+L5_ADMIN = """
+regulasi birokrasi otonomi desentralisasi subsidi retribusi
+instansi kementerian dinas penyelenggaraan penetapan
+pengambilan penyediaan perolehan pengadaan penanganan selenggara
+"""
+
+# ------------------------------------------------- integrity, and its failures
+# A complex professional register is largely a register for saying that
+# something has gone wrong without saying who did it.
+L5_ETHIC = """
+asas norma etika integritas transparansi akuntabilitas
+gratifikasi penyalahgunaan
+konflik kepentingan
+aturan main
+"""
+
+# ---------------------------------------------------------- judging it
+L5_QUAL = """
+strategis efisien optimal rinci mendasar berkelanjutan mutlak
+tuntas tegak tanggap
+"""
+
+# ------------------------------------------------- joining a complex argument
+L5_DISC = """
+kendati berupa yakni umpama sebaliknya
+"""
+
+# --------------------------------------------------------------- doing it
+L5_VERBS = """
+tunjuk tinjau pantau kelola hitung catat sunting edar
+tempa tampung tunda tolak dukung tuju urai simpul susut tukar pinjam
+"""
+
+SECTIONS_5 = {
+    'agreements': L5_CONTRACT, 'documents': L5_DOC, 'running the work': L5_PROJ,
+    'the books': L5_FIN, 'companies': L5_CORP, 'negotiation': L5_NEG,
+    'employment': L5_HR, 'courts': L5_LAW, 'making things': L5_TECH,
+    'computing': L5_IT, 'the clinic': L5_MED, 'administration': L5_ADMIN,
+    'integrity': L5_ETHIC, 'judgement': L5_QUAL, 'connectives': L5_DISC,
+    'verbs': L5_VERBS,
+}
+
 # A LEVEL WITH NO INVENTORY OF ITS OWN GETS NONE, and that is deliberate rather
 # than an omission: `select.py` would then fill the whole level from frequency,
 # which is exactly what this file exists to stop, so the run says so out loud.
-LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2, '3': SECTIONS_3, '4': SECTIONS_4}
+LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2, '3': SECTIONS_3, '4': SECTIONS_4,
+          '5': SECTIONS_5}
 
 
 def sections():

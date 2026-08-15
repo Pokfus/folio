@@ -94,6 +94,20 @@ SCOPE = {
                   '"ke-...-an" abstractions a formal sentence is built out of, and the '
                   'hedges and qualifiers that let a thing be said exactly',
     },
+    '5': {
+        'rank': 'the fifth from the bottom, the third from the top',
+        'quote': 'keprofesian, baik keprofesian yang sederhana maupun kompleks',
+        'gloss': 'very adequately proficient: unobstructed in communicating for survival '
+                 'and social purposes, and unobstructed for professional ones at both the '
+                 'simple and the complex end — which is the ceiling the level below names '
+                 'as its own limit — while writing about scholarship is not yet claimed',
+        'topics': 'agreements and what binds them, the papers a complex job turns on, '
+                  'running and checking work, accounts and the money markets, what a '
+                  'company is and who governs it, negotiating, hiring and paying and '
+                  'letting go, courts and rights, making things to a specification, the '
+                  'standard Indonesian of computing, the clinic, the state as an employer, '
+                  'and the vocabulary of integrity and its failures',
+    },
 }
 
 TITLES = {k: f'UKBI {k} {v[0]} — Indonesian' for k, v in PREDICATES.items()}
