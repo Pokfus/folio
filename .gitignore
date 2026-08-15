@@ -40,3 +40,14 @@ __pycache__/
 # this line is what stops a `git add -A` sweeping it in. Delete the line to ship it.
 decks/Goethe-A2-German.folio-deck.json
 decks/Goethe-B1-German.folio-deck.json
+
+# the four corpora .claude/cils/run.py builds the Italian deck from (~950 MB, the
+# Wiktionary dump being most of it), plus the intermediate files between its
+# stages. The deck it writes IS committed — this is only the working cache behind it.
+.claude/cils-cache/
+
+# The COMBINED Italian deck is an ARTEFACT of the seven committed ones and is
+# deliberately not in the repo — it duplicates ~20 MB already here, and
+# `python3 .claude/cils/combine.py` regenerates it byte-for-byte from them.
+# This line is what stops a `git add -A` sweeping it in.
+decks/Italian-Complete.folio-deck.json
