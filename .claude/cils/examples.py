@@ -82,6 +82,16 @@ def forms_of(lemma, pos=''):
             tags = set(f.get('tags') or [])
             if not s or s in ('-', '—') or (tags & SKIP_TAGS):
                 continue
+            # **THE PRESENT PARTICIPLE IS NOT A VERB FORM A LEARNER MEETS.**
+            # Italian barely uses it as one; almost every present participle has
+            # lexicalised into an independent adjective, noun or preposition, and
+            # THAT is what the corpus sentences containing it are about.  Indexed,
+            # `importare` was illustrated by a sentence about something being
+            # `importante`, `durare` by one using `durante` ("during"), and
+            # `incidere` by one about an `incidente`.  The tag says so outright,
+            # so no guessing is involved.
+            if {'participle', 'present'} <= tags:
+                continue
             if len(s) < 2 or s.count(' ') > 1:
                 continue
             out.setdefault(s, set()).update(tags)
@@ -93,6 +103,48 @@ def forms_of(lemma, pos=''):
 # because they are the first and second person plural (`ci chiamiamo`), not
 # because of their locative senses.
 CLITICS = {'mi', 'ti', 'si', 'ci', 'vi'}
+
+# **A SURFACE WHOSE COMMONEST READING BELONGS TO A WORD IN ANOTHER BAND.**
+#
+# `FORM2KEY` measures ambiguity inside the band, and the bands are strictly
+# disjoint, so a collision with a word filed one level up or down is invisible to
+# it -- the same hole `FUNC_FORMS` was opened to close, but for content words,
+# where no closed class can stand in.  Two cards in the 2,927 built across A1, A2
+# and B1 are wrong because of it, and both were found by reading the cards:
+#
+#   `l'era`, the noun "age, epoch", drew three sentences using `era` -- the
+#   imperfect of `essere`, which is in A1 and by a wide margin the commoner
+#   reading.  "Questa era gente che ha combattuto per soldi."
+#
+#   `contestare`, "to contest", drew three using `contesto` and `contesti` --
+#   the noun "context", which is not in this band at all.
+#
+# Closing it in general means indexing the inflected forms of all six bands
+# rather than one, which is a real change to the pipeline for two cards; the
+# limitation is recorded here instead and the two are named.  A FORM IS BANNED
+# RATHER THAN PENALISED, and the card is left with fewer examples if that is all
+# the corpus can honestly give it -- the rule `li` settled: one example with the
+# right word in it beats three with the wrong one.
+# The rest were found by ranking every bolded form against its headword in the
+# subtitle list and reading the 105 that came back -- most of which are simply a
+# verb whose conjugated form is commoner than its infinitive (`volere` -> `voglio`)
+# and are perfectly right.  These are the ones where the form belongs to another
+# lemma altogether.
+BAD_FORMS = {
+    'era': {'era'},                            # imperfect of `essere`
+    'contestare': {'contesto', 'contesti'},    # the noun "context"
+    'bere': {'bei'},                           # the plural of `bello`
+    'dettare': {'detto'},                      # the participle of `dire`
+    'estate': {'state'},                       # participle of `essere` / `stare`
+    'testo': {'testa', 'teste'},               # the head
+    'pari': {'pare', 'pari'},                  # `parere`; and `pari` is adverbial
+    'grazia': {'grazie'},                      # "thank you"
+    'animare': {'anima', 'anime'},             # the soul
+    'salvo': {'salve'},                        # "hello"
+    'capitare': {'capitano'},                  # the captain
+    'partito': {'partita'},                    # the match
+    'fata': {'fate'},                          # `fare`, second person plural
+}
 
 FORM2KEY = defaultdict(set)        # single-token form -> keys
 PAIRS = {}                         # key -> [(clitic, verb form), ...]
@@ -340,6 +392,8 @@ for key, cs in cand.items():
         # meaning of "a penalty, not a ban".
         if form.lower() in FUNC_FORMS and form.lower() != BYKEY[key]['word'].lower():
             continue
+        if form.lower() in BAD_FORMS.get(key, ()):
+            continue
         # three different inflected forms teach more than the same one thrice
         if form.lower() in seen_forms and len(out) < 3 and len(cs) > 6:
             continue
@@ -362,6 +416,8 @@ for key, cs in cand.items():
             # twice, on a card teaching the pronoun "them".  One example with
             # the right word in it beats three with the wrong one.
             if form.lower() in FUNC_FORMS and form.lower() != BYKEY[key]['word'].lower():
+                continue
+            if form.lower() in BAD_FORMS.get(key, ()):
                 continue
             seen_txt.add(ita[sid])
             seen_en.add(same_en(eng[eid]))

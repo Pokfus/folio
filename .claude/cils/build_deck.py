@@ -178,6 +178,10 @@ def glosses_for(rec, limit=3):
 # A word Wiktionary cannot gloss is AUTHORED rather than dropped -- the Goethe
 # stage's rule.  These are the entries in this band whose record is missing or
 # is nothing but a pointer; each was read before it was written.
+#
+# `(part of speech, gloss)`, or `(part of speech, gloss, gender)` for a noun that
+# should carry its article -- the gender cannot be read off a record that is not
+# there, and `il tour` teaches more than a bare `tour`.
 AUTHORED = {
     'new york': ('name', 'New York'),
     'stati uniti': ('name', 'the United States'),
@@ -202,7 +206,21 @@ AUTHORED = {
     # gloss of its own
     'vabbè': ('intj', 'oh well; all right, fine'),
     # an abbreviation of `chilometro`, read aloud as the word it stands for
-    'km': ('noun', 'kilometre (abbreviation of chilometro)'),
+    'km': ('noun', 'kilometre (abbreviation of chilometro)', 'm'),
+    # B1.  Four initialisms, which Italian borrows whole and genders by the word
+    # they stand for (la televisione, il compact disc, il personal computer)
+    'tv': ('noun', 'TV, television', 'f'),
+    'cd': ('noun', 'CD, compact disc', 'm'),
+    'pc': ('noun', 'PC, computer', 'm'),
+    # Italian Wiktionary carries no entry for the ordinary borrowing at all --
+    # only `Tour`, the cycling race, which is what the card was glossed with
+    'tour': ('noun', 'tour, trip, excursion', 'm'),
+    # filed as a bare variant of `olivo`, with no gloss of its own
+    'ulivo': ('noun', 'olive tree', 'm'),
+    'lontano da': ('phrase', 'far from'),
+    'invece di': ('phrase', 'instead of'),
+    'sino a': ('phrase', 'up to, until, as far as'),
+    'unione sovietica': ('name', 'the Soviet Union'),
 }
 
 # A NAME THE DICTIONARY DOES NOT CARRY IS SPELT HERE, since `select`'s
@@ -212,6 +230,7 @@ AUTHORED_DISPLAY = {
     'new york': 'New York',
     'stati uniti': 'Stati Uniti',
     'gran bretagna': 'Gran Bretagna',
+    'unione sovietica': 'Unione Sovietica',
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -602,6 +621,8 @@ for e in entries:
     auth = AUTHORED.get(e['word'].lower())
     if auth:
         pos, gl = auth[0], [auth[1]]
+        if len(auth) > 2:
+            gender = auth[2]     # the record it would be read from is not there
     else:
         gl = glosses_for(rec)
 

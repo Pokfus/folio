@@ -188,16 +188,14 @@ for e in entries:
     # alternative surface the lookup ever offers is `w.capitalize()`.  `key` is
     # deliberately set above this and stays lower-cased -- it is what
     # `examples.py` matches Tatoeba sentences on.
-    if e['lemma'].lower() == e['display'].lower():
-        e['display'] = e['lemma']
+    #
+    # PROPOSED here and APPLIED after the corpus count below, because it is not
+    # always right -- see `recase` there.
+    e['_cap'] = e['lemma'] if e['lemma'].lower() == e['display'].lower() else ''
     # a reflexive infinitive is its own lemma in Italian (`chiamarsi`), and the
     # base verb is what its compound tenses are built from
     e['reflexive'] = bool(re.search(r'[aei]rsi$', e['lemma']))
     e['base'] = (e['lemma'][:-2] + 'e') if e['reflexive'] else ''
-
-recased = [e['display'] for e in entries if e['display'] != e['key']]
-if recased:
-    print(f'  capitalised from the dictionary: {len(recased)} -- ' + ', '.join(recased))
 
 print('  parts of speech:', dict(Counter(e['pos'] for e in entries).most_common()))
 no_rec = [e['display'] for e in entries if not W.get(e['lemma'])]
@@ -214,16 +212,21 @@ for line in open('it_50k.txt', encoding='utf-8'):
 
 phrases = [e for e in entries if e['multiword']]
 counts, scale = Counter(), 1.0
-if phrases:
+cap_seen, low_seen = Counter(), Counter()
+cap_cand = {e['key']: e['_cap'] for e in entries if e['_cap']}
+if phrases or cap_cand:
     plook = {e['word'].lower(): e['key'] for e in phrases}
     singles = {e['word'].lower(): e['key'] for e in entries
                if not e['multiword'] and freq.get(e['word'].lower())}
     tok = re.compile(r"[a-zàèéìíòóùú']+")
+    # a word is only evidence of its own case where it does not open the sentence
+    capt = re.compile(r"[A-Za-zÀ-ÿ']+")
     for line in open('ita_sentences_detailed.tsv', encoding='utf-8'):
         p = line.split('\t')
         if len(p) < 3:
             continue
-        low = p[2].lower()
+        txt_ = p[2]
+        low = txt_.lower()
         for w, k in plook.items():
             if w in low:
                 counts[k] += 1
@@ -231,11 +234,55 @@ if phrases:
             k = singles.get(t)
             if k:
                 counts[k] += 1
+        if cap_cand:
+            for m in capt.finditer(txt_):
+                w = m.group(0)
+                if w.lower() in cap_cand and m.start() and txt_[m.start() - 1] not in '.!?"«»(':
+                    (cap_seen if w[:1].isupper() else low_seen)[w.lower()] += 1
     ratios = sorted(freq[w] / counts[k] for w, k in singles.items()
                     if counts.get(k, 0) >= 5)
     scale = ratios[len(ratios) // 2] if ratios else 1.0
     print(f'  {len(phrases)} phrases counted in Tatoeba; calibration {scale:.0f} subtitle '
           f'hits per corpus hit, from {len(ratios)} words carrying both')
+
+
+# ------------------------------------------------------------------ recase
+# **THE CAPITAL IS PROPOSED BY THE DICTIONARY AND CONFIRMED BY THE CORPUS**, and
+# it takes both because either alone gets a real word wrong.
+#
+# The dictionary alone promoted `tour` to `Tour`: Italian Wiktionary has no
+# lower-case entry for the ordinary borrowing at all, only the cycling race, so
+# the B1 card for "a tour" came out headed `Tour` and glossed "the Tour de
+# France" -- above three example sentences all using the common noun, which is
+# what made it visible.
+#
+# The corpus alone gets `Usa` wrong in the other direction: it is written
+# lower-case 274 times against 21, because `usa` is also the third person of
+# `usare`.  So the lower-case hits are only evidence about THIS word when the
+# lower-case spelling has no entry of its own -- which is precisely the `tour`
+# case and not the `Usa` one.
+#
+# "No lower-case entry" is NOT usable on its own either, and it was tried:
+# `Italia`, `Firenze` and `Londra` have none, because for a proper noun that is
+# the norm rather than the exception.  Thirty-seven of the forty-two would have
+# been un-capitalised by it.
+recased, refused = [], []
+for e in entries:
+    cap = e.pop('_cap', '')
+    if not cap or cap == e['display']:
+        continue
+    k = e['key']
+    n_cap, n_low = cap_seen[k], low_seen[k]
+    common = n_cap + n_low >= 5 and n_low > n_cap and not W.get(k)
+    if common:
+        refused.append(f'{cap} (corpus: {n_low} lower-case, {n_cap} capitalised)')
+    else:
+        e['display'] = cap
+        recased.append(cap)
+if recased:
+    print(f'  capitalised from the dictionary: {len(recased)} -- ' + ', '.join(recased))
+if refused:
+    print('  left lower-case, the corpus says a common noun: ' + '; '.join(refused))
 
 for e in entries:
     f_ = freq.get(e['word'].lower(), 0) or freq.get(e['lemma'].lower(), 0)
