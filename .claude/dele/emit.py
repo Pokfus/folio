@@ -208,16 +208,21 @@ CSS = """.card {
 }
 """
 
-FIELDS_ES = ['Spanish', 'Word', 'English', 'Forms', 'Conjugation', 'Examples']
-FIELDS_EN = ['English', 'Spanish', 'Word', 'Forms', 'Conjugation', 'Examples']
+# ONE FIELD LIST, because there is now one type.  It was two -- the same six
+# names in two orders, so the Studio's boxes opened with the prompt of each
+# direction at the top -- and a type carries one list however many templates it
+# has.  The Spanish-first order is kept: it is the order the word is written in.
+FIELDS = ['Spanish', 'Word', 'English', 'Forms', 'Conjugation', 'Examples']
 
-nverbs = sum(1 for c in cards if c['sub'].startswith('Spanish') and c['fields']['Conjugation'])
-nrefl = sum(1 for c in cards if c['sub'].startswith('Spanish')
-            and c['fields']['Spanish'].endswith(('arse', 'erse', 'irse')))
-n3 = sum(1 for c in cards if c['sub'].startswith('Spanish')
-         and c['fields']['Examples'].count('uc-exi') == 3)
-ntot = sum(1 for c in cards if c['sub'].startswith('Spanish'))
-n0 = sum(1 for c in cards if c['sub'].startswith('Spanish') and not c['fields']['Examples'])
+# EVERY CARD IS A WORD NOW.  These counts used to filter on the forward
+# subdeck, which was how a per-word figure was taken out of a file that carried
+# each word twice; with one note per word the filter would halve every number
+# in the description while nothing threw.
+nverbs = sum(1 for c in cards if c['fields']['Conjugation'])
+nrefl = sum(1 for c in cards if c['fields']['Spanish'].endswith(('arse', 'erse', 'irse')))
+n3 = sum(1 for c in cards if c['fields']['Examples'].count('uc-exi') == 3)
+ntot = len(cards)
+n0 = sum(1 for c in cards if not c['fields']['Examples'])
 # A word the sentence corpus cannot illustrate is SAID, not swapped out: the
 # word list is chosen by the inventory and by frequency, and dropping `matizar`
 # because Tatoeba has no sentence for it would be letting the corpus set the
@@ -231,10 +236,9 @@ EX_NOTE = ('Every word also carries three real example sentences'
            f'{n3} of them and one or two for the rest; the sentence corpus has nothing at all for '
            f'the remaining {n0}, which are kept because the word list is set by the exam board and '
            f'not by the corpus')
-narts = sum(1 for c in cards if c['sub'].startswith('Spanish')
-            and c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las', 'el/la', 'los/las'))
-npairs = sum(1 for c in cards if c['sub'].startswith('Spanish')
-             and ', ' in c['fields']['Spanish'])
+narts = sum(1 for c in cards
+            if c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las', 'el/la', 'los/las'))
+npairs = sum(1 for c in cards if ', ' in c['fields']['Spanish'])
 
 LEVEL_U = LEVEL.upper()
 NWORDS = len(words)
@@ -272,9 +276,10 @@ CLOSED_NOTE = (
     "of frequency. ")
 
 DESC = (
-    "Both study directions in one deck, as subdecks you can add and study separately: "
-    "Spanish → English (see the Spanish, recall the meaning) and English → Spanish "
-    f"(see an English meaning, recall the Spanish). {NW} words for level {LEVEL_U} of the DELE, the "
+    "Every word is one card each way, and the two directions are listed separately so you can add "
+    "or study either on its own: Spanish → English (see the Spanish, recall the meaning) and "
+    "English → Spanish (see an English meaning, recall the Spanish). "
+    f"{NW} words for level {LEVEL_U} of the DELE, the "
     f"Spanish qualification awarded by the Instituto Cervantes.{BELOW_NOTE} "
     "There is no official published DELE word list, so the vocabulary is taken from the body that "
     f"sets the exam: {COLUMN_NOTE} of the Instituto Cervantes' own Plan curricular — its "
@@ -311,24 +316,33 @@ DESC = (
 meta = {
     'id': DECK_IDS[LEVEL],
     'title': TITLES[LEVEL],
-    'subtitle': ('500 words · both directions, as two subdecks' if LEVEL == 'a1' else
-                 '500 more words, none of them in A1 · both directions, as two subdecks'
+    'subtitle': ('500 words · both directions' if LEVEL == 'a1' else
+                 '500 more words, none of them in A1 · both directions'
                  if LEVEL == 'a2' else
-                 f'{NW} more words, none of them in A1 or A2 · both directions, as two subdecks'
+                 f'{NW} more words, none of them in A1 or A2 · both directions'
                  if LEVEL == 'b1' else
-                 f'{NW} more words, none of them in A1, A2 or B1 · both directions, as two subdecks'),
+                 f'{NW} more words, none of them in A1, A2 or B1 · both directions'),
     'desc': DESC,
     'author': '',
     'language': 'en',
     'tags': ['spanish', 'dele', LEVEL, 'cefr', 'vocabulary'],
     'glossMode': 'site',
+    # ONE TYPE WITH TWO TEMPLATES (Aug 2026).  It was two types of one template
+    # apiece, filed into two subdecks, which is the same word written out twice;
+    # the templates themselves are unchanged.  A note now makes one card per
+    # TEMPLATE, so app.js lists the two directions as rows of their own under
+    # the deck and the options sheet grows its "Both directions together"
+    # switch -- which is drawn only where a note makes more than one card.
     'types': {
-        'es-to-en': {'id': 'es-to-en', 'name': 'Spanish → English', 'speechLang': 'es-ES',
-                     'fields': FIELDS_ES, 'front': FRONT_ES, 'back': BACK_ES, 'css': CSS},
-        'en-to-es': {'id': 'en-to-es', 'name': 'English → Spanish', 'speechLang': 'es-ES',
-                     'fields': FIELDS_EN, 'front': FRONT_EN, 'back': BACK_EN, 'css': CSS},
+        'es-en': {'id': 'es-en', 'name': 'Spanish vocabulary', 'speechLang': 'es-ES',
+                  'fields': FIELDS, 'css': CSS,
+                  'cards': [{'name': 'Spanish → English', 'front': FRONT_ES, 'back': BACK_ES},
+                            {'name': 'English → Spanish', 'front': FRONT_EN, 'back': BACK_EN}]},
     },
-    'version': 1,
+    # 2 rather than 1: the deck is the same words in the same order, and a
+    # different set of cards, so a reader holding the older file is holding a
+    # different edition rather than an older copy of this one.
+    'version': 2,
     'createdAt': 1786665600000,
     'updatedAt': 1786665600000,
     'forkedFrom': None,

@@ -66,6 +66,33 @@ const ok = (c, m, extra) => { checks++; if (!c) { fails++; console.log("   ✗ "
     await pg.waitForTimeout(400);
     await pg.goto(base + "#home", { waitUntil: "load" });
     await pg.waitForTimeout(500);
+
+    /* --- THE OPTIONS SHEET OFFERS "BOTH DIRECTIONS TOGETHER" WHERE A NOTE MAKES TWO CARDS (Aug 2026,
+       on a report: the Spanish decks had no such row where the Mandarin ones did). It is drawn by
+       `entryHasSiblings`, which asks whether some note in the entry makes more than one card — so a deck
+       that teaches a word both ways by writing it out TWICE, as two notes in two subdecks, cannot have
+       the switch however it is arranged, and the miss looks exactly like a deck arranged some other way.
+       Asserted from the deck FILE rather than from a list here: whether a type has two templates is what
+       decides it, so a deck added later is covered by the rule and not by somebody remembering. */
+    const twoWay = Object.values(JSON.parse(fs.readFileSync(ROOT + "/decks/" + file, "utf8")).meta.types || {})
+      .some((t) => (t.cards || []).length > 1);
+    await pg.evaluate(() => {
+      const row = document.querySelector(".active-deck[data-uadd], .active-deck");
+      if (row) row.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+    });
+    await pg.waitForTimeout(400);
+    const sheet = await pg.evaluate(() => {
+      const ov = document.querySelector(".deck-menu");
+      const r = ov && ov.querySelector('.dm-switch[data-act="pair"]');
+      return { open: !!ov, pair: !!r, bury: !!(ov && ov.querySelector('.dm-switch[data-act="bury"]')),
+               label: r ? (r.querySelector("b") || {}).textContent : "" };
+    });
+    ok(sheet.open, "holding the deck's row opens its options");
+    ok(sheet.pair === twoWay, twoWay ? "…and offers Both directions together" : "…and offers no direction switch (one card per note)",
+       JSON.stringify(sheet));
+    if (twoWay) ok(sheet.bury, "…and Bury siblings with it");
+    await pg.evaluate(() => { const b = document.querySelector(".deck-menu .dm-x"); if (b) b.click(); });
+    await pg.waitForTimeout(320);
     await pg.click(".review-group .banner .cta .btn");
     await pg.waitForSelector(".cardwrap", { timeout: 120000 });
 

@@ -3,17 +3,18 @@
 
     python3 .claude/dele/combine.py [out.folio-deck.json]
 
-It reads `decks/DELE-*.folio-deck.json` and writes a single deck whose
-subdecks NEST, a direction inside a level:
+It reads `decks/DELE-*.folio-deck.json` and writes a single deck with one
+subdeck per level:
 
-    A1                        B1
-      Spanish → English         …
-      English → Spanish       B2
-    A2                          …
-      …
+    A1   A2   B1   B2
 
-so a reader adds a whole level or one direction of it, and the four levels
-stay separable inside one file rather than being poured together.
+so a reader adds a whole level, and the four stay separable inside one file
+rather than being poured together.  The two DIRECTIONS are not subdecks and
+have not been since Aug 2026: a word is one note whose type carries a template
+each way, so app.js lists Spanish → English and English → Spanish as rows of
+their own under each level, which is the level below a subdeck rather than
+another one.  The `::` nesting this used to write is therefore unused here, and
+the guard against a level title containing the separator is kept.
 
 FIVE THINGS IT HAS TO GET RIGHT, and four of them fail silently.
 
@@ -26,10 +27,9 @@ their full counts and nothing threw.  `deleall` is likewise its own deck id.
 
 THE SUBDECK IS A STRING ON THE CARD and the deck's subdecks are the DISTINCT
 values in CARD ORDER, so the cards are concatenated level by level and the
-order above follows.  NESTING is `::` inside that same string — Anki's deck
-separator, which app.js adopted for this in Aug 2026 — so it needs no field of
-its own and travels wherever the card does.  A segment may not contain `::`,
-and none of these does.
+order above follows.  It needs no field of its own and travels wherever the
+card does.  A subdeck title may not contain `::`, app.js's own separator, and
+none of these does.
 
 THE TYPE BLOCK IS SHARED.  All four decks carry byte-identical `types`, which
 is asserted rather than assumed — a level rebuilt against a changed template
@@ -60,10 +60,11 @@ DECK_ID = 'deleall'
 SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
 TITLE = 'DELE A1–B2 — Spanish'
 
-# app.js's own limits, restated here so this refuses to write a file that
-# cannot be imported rather than leaving it to be found on a phone.
-MAX_CARDS = 12000
-MAX_BYTES = 48 * 1024 * 1024
+# app.js's own limits (UDECK_MAX_CARDS / UDECK_MAX_BYTES), restated here so this
+# refuses to write a file that cannot be imported rather than leaving it to be
+# found on a phone.  Keep the two in step.
+MAX_CARDS = 20000
+MAX_BYTES = 80 * 1024 * 1024
 
 
 def load(level):
@@ -75,24 +76,28 @@ def load(level):
 def stats(cards):
     """Counted off the cards, not read out of the four descriptions.
 
-    THE CARD COUNT IS NOT THE WORD COUNT, and neither can stand in for the
+    THE NOTE COUNT IS NOT THE WORD COUNT, and neither can stand in for the
     other here.  A masculine and a feminine headword that are both in the word
-    list share ONE card (`el nino, la nina`), so a forward card may teach two
-    words; and a pair whose feminine was NOT selected shows that feminine as a
-    form while teaching one word.  The shipped files do not record which of the
-    two a pair card is, so how many WORDS a level teaches is not derivable from
-    them at all -- it is the level's own target, and is read from `dele_level`
-    rather than counted or restated.
+    list share ONE note (`el nino, la nina`), so a note may teach two words; and
+    a pair whose feminine was NOT selected shows that feminine as a form while
+    teaching one word.  The shipped files do not record which of the two a pair
+    note is, so how many WORDS a level teaches is not derivable from them at all
+    -- it is the level's own target, and is read from `dele_level` rather than
+    counted or restated.
+
+    EVERY NOTE IS A WORD SINCE AUG 2026, so these count the lot.  They used to
+    filter on the forward type, which was how a per-word figure was taken out of
+    a file that carried each word twice; left in, every figure in the
+    description would have doubled while nothing threw.
     """
-    fwd = [c for c in cards if c['type'] == 'es-to-en']
-    verbs = sum(1 for c in fwd if c['fields'].get('Conjugation'))
-    refl = sum(1 for c in fwd if c['fields'].get('Conjugation')
+    verbs = sum(1 for c in cards if c['fields'].get('Conjugation'))
+    refl = sum(1 for c in cards if c['fields'].get('Conjugation')
                and c['fields']['Word'].endswith('se'))
-    nouns = sum(1 for c in fwd
+    nouns = sum(1 for c in cards
                 if c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las'))
-    pairs = sum(1 for c in fwd if ', ' in c['fields']['Spanish'])
-    exs = sum(1 for c in fwd if c['fields'].get('Examples'))
-    return dict(cards=len(fwd), verbs=verbs, refl=refl, nouns=nouns,
+    pairs = sum(1 for c in cards if ', ' in c['fields']['Spanish'])
+    exs = sum(1 for c in cards if c['fields'].get('Examples'))
+    return dict(cards=len(cards), verbs=verbs, refl=refl, nouns=nouns,
                 pairs=pairs, exs=exs)
 
 
@@ -100,17 +105,17 @@ def desc(s, per_level):
     n = f"{s['cards']:,}"
     sizes = [TARGET[lv.lower()] for lv, _ in per_level]
     return (
-        'All four DELE levels in one deck. The subdecks nest — a level, and the '
-        'two study directions inside it — so you can add a whole level or just '
-        'the direction you want, and study each on its own: for each of A1, A2, '
-        'B1 and B2, Spanish → English (see the Spanish, recall the meaning) and '
+        'All four DELE levels in one deck, a subdeck each, and every word is one '
+        'card each way — so you can add a whole level or just one direction of '
+        'it, and study each on its own: for each of A1, A2, B1 and B2, '
+        'Spanish → English (see the Spanish, recall the meaning) and '
         'English → Spanish (see an English meaning, recall the Spanish). '
         + 'The four levels teach '
         + ', '.join(f'{c:,}' for c in sizes[:-1]) + f' and {sizes[-1]:,} words '
         f'— {sum(sizes):,} in all, and no word is taught twice, since each '
         'level excludes every word the levels below it contain. They sit on '
         f'{n} cards in each direction, because a masculine and a feminine '
-        'headword that are both in the word list share one card. '
+        'headword that are both in the word list share one. '
         'There is no official published DELE word list, so the vocabulary is '
         "taken from the body that sets the exam: the level's own column of the "
         "Instituto Cervantes' own Plan curricular — its inventories of Nociones "
@@ -149,7 +154,7 @@ def desc(s, per_level):
         f"{s['refl']:,} reflexive verbs are conjugated with their pronouns (me "
         'llamo, te llamas), including the written accent the imperative takes '
         'when the pronoun is attached (llámate, levántense). '
-        f"Real example sentences come with {s['exs']:,} of the {n} cards, up to "
+        f"Real example sentences come with {s['exs']:,} of the {n} words, up to "
         'three apiece, chosen where possible to show three different inflected '
         'forms rather than the same one three times, with the word picked out '
         'in colour and a speaker beside it; the sentence corpus has nothing at '
@@ -180,17 +185,17 @@ def main():
 
     cards, per_level = [], []
     for lv, d in decks:
-        by_sub = {}
+        # A level's own file carries no subdeck of its own -- the level IS the
+        # deck there -- so the level name becomes the sub here.  Should one ever
+        # grow subdecks, they nest under it.
+        per_level.append((lv, len(d['cards'])))
+        if SUB_SEP in lv:
+            raise SystemExit(f'level title contains {SUB_SEP!r}: {lv!r}')
         for c in d['cards']:
-            by_sub.setdefault(c['sub'], []).append(c)
-        per_level.append((lv, sum(1 for c in d['cards'] if c['type'] == 'es-to-en')))
-        for sub in by_sub:                       # insertion order = card order
-            if SUB_SEP in sub:
-                raise SystemExit(f'sub title contains {SUB_SEP!r}: {sub!r}')
-            for c in by_sub[sub]:
-                n = len(cards) + 1
-                cards.append(dict(c, id=f'u_{DECK_ID}_{n}', num=str(n),
-                                  category='DELE', sub=f'{lv}{SUB_SEP}{sub}'))
+            n = len(cards) + 1
+            sub = f'{lv}{SUB_SEP}{c["sub"]}' if c['sub'] else lv
+            cards.append(dict(c, id=f'u_{DECK_ID}_{n}', num=str(n),
+                              category='DELE', sub=sub))
 
     if len(cards) > MAX_CARDS:
         raise SystemExit(f'{len(cards)} cards, over app.js\'s {MAX_CARDS} cap')
@@ -204,8 +209,8 @@ def main():
             'id': DECK_ID,
             'title': TITLE,
             'subtitle': f'{sum(TARGET[l.lower()] for l in LEVELS):,} words '
-                        'across all four levels · a subdeck per level, and the '
-                        'two directions inside it',
+                        'across all four levels · a subdeck per level, both '
+                        'directions',
             'desc': desc(s, per_level),
             'author': '',
             'language': 'en',

@@ -695,28 +695,44 @@ for word in words:
     fields = {'Spanish': headword, 'Word': headword, 'English': english,
               'Forms': forms, 'Conjugation': conj, 'Examples': exhtml}
 
-    for direction, sub, typ in (('es', 'Spanish → English', 'es-to-en'),
-                                ('en', 'English → Spanish', 'en-to-es')):
-        n += 1
-        cards.append({
-            # THE ID CARRIES THE DECK, and did not until Aug 2026: both levels
-            # wrote `u_delea1_N`, and a file import only mints fresh ids when
-            # the DECK id already exists -- which `delea2` does not -- so
-            # installing A2 after A1 overwrote A1's cards in the shared store
-            # one for one, silently, with both decks still on the shelf.
-            'id': f'u_{DECK_IDS[LEVEL]}_{n}', 'num': str(idx),
-            'category': 'DELE ' + LEVEL.upper(),
-            'sub': sub,
-            'question': headword if direction == 'es' else plain,
-            'answer': plain if direction == 'es' else headword,
-            'answerDate': '', 'traditional': '', 'hanzi': '', 'pinyin': '',
-            'translations': '', 'abstract': '', 'citation': '',
-            'answerText': plain if direction == 'es' else headword,
-            'type': typ, 'fields': dict(fields),
-        })
+    # ONE NOTE PER WORD, TWO CARDS (Aug 2026, on request: the long-press menu's
+    # "Both directions together" switch was missing on these decks and present
+    # on the Mandarin ones).  A word used to be written out TWICE, once per
+    # direction, as two notes in two subdecks -- and every field of the two was
+    # identical, so the file was twice the size it needed to be and a definition
+    # corrected on one of them drifted silently from the other.
+    #
+    # The switch is what forced it rather than merely rewarding it.  It gathers
+    # a NOTE's cards, and `entryHasSiblings` draws it only where some note in
+    # the entry makes more than one card, so a deck of one-card notes cannot
+    # have it however it is arranged: direction as a `sub` is a fact about the
+    # note, and two notes are two words as far as the scheduler is concerned.
+    # Written as one note whose TYPE carries two templates, the two directions
+    # come back as the DIRECTION ROWS app.js lists under a level (`#0` / `#1`
+    # entries), so they are still separately addable and studiable -- and the
+    # switch, sibling burying and a single record per word come for free.
+    n += 1
+    cards.append({
+        # THE ID CARRIES THE DECK, and did not until Aug 2026: both levels
+        # wrote `u_delea1_N`, and a file import only mints fresh ids when
+        # the DECK id already exists -- which `delea2` does not -- so
+        # installing A2 after A1 overwrote A1's cards in the shared store
+        # one for one, silently, with both decks still on the shelf.
+        'id': f'u_{DECK_IDS[LEVEL]}_{n}', 'num': str(idx),
+        'category': 'DELE ' + LEVEL.upper(),
+        # No subdeck: the level IS the deck, and the two directions are the
+        # type's templates rather than two piles of cards.
+        'sub': '',
+        'question': headword,
+        'answer': plain,
+        'answerDate': '', 'traditional': '', 'hanzi': '', 'pinyin': '',
+        'translations': '', 'abstract': '', 'citation': '',
+        'answerText': plain,
+        'type': 'es-en', 'fields': dict(fields),
+    })
 
 blank = [c['fields']['Spanish'] for c in cards
-         if c['sub'].startswith('Spanish') and not re.sub(r'<[^>]+>', '', c['fields']['English']).strip()]
+         if not re.sub(r'<[^>]+>', '', c['fields']['English']).strip()]
 if blank:
     raise SystemExit('cards with no meaning at all: ' + ', '.join(blank))
 print('cards:', len(cards), 'stats:', stats)

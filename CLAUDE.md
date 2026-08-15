@@ -3697,8 +3697,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
-  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, and the
-  **Goethe German set** by `.claude/goethe/` — see its own bullet below.
+  chengyu). 22 MB in all. The **DELE Spanish set** sits beside it — four files, A1 to B2, 3,993 notes /
+  7,986 cards, built by `.claude/dele/` — and the **Goethe German set** by `.claude/goethe/`. All three
+  sets are now one note per word with a template each way, which is what makes the options sheet's "Both
+  directions together" reachable on any of them; see each generator's own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4301,6 +4303,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   reflexives. **`select.py` REFUSES a level whose pool is short of its TARGET**, since a short list is the
   one failure that stage can have that looks like success: the deck builds, every card is well formed, and
   the level quietly teaches fewer words than it says it does.
+  **A WORD IS ONE NOTE WITH TWO CARDS, AND A MISSING SETTING IS WHAT FORCED IT** (Aug 2026, on a report:
+  "on my new Spanish decks, on the long press menu of active decks, I don't have the same 'both directions
+  together' option that I have for my Chinese decks"). Each word used to be written out TWICE — a note per
+  direction, filed into a `Spanish → English` and an `English → Spanish` subdeck — and every field of the
+  two was byte-identical, so the four files were twice the size they needed to be and a definition
+  corrected on one of them would drift silently from the other. **The switch cannot be given to that shape
+  however it is arranged**, which is the part worth carrying: `entryHasSiblings` draws it only where some
+  note in the entry makes more than one CARD, and `sub` is a property of the NOTE, so two directions in two
+  subdecks are two words as far as the scheduler is concerned and there is no pair to gather. Written as one
+  note whose TYPE carries a template each way — the Mandarin shape, which this file's own note on it
+  recommends — the two directions come back as the DIRECTION ROWS app.js lists under a deck (`#0` / `#1`
+  entries, still separately addable and studiable, 496 cards apiece at A1), and the switch, sibling burying
+  and one record per word come for free. **The four files went 28.0 MB → 13.5 MB** with nothing lost.
+  **THE SHIPPED FILES WERE RE-EMITTED RATHER THAN REBUILT, and the check that made that honest is worth
+  copying.** The pipeline cannot run without its 1.2 GB corpus cache, which is gitignored — so the merge was
+  done on the shipped cards. What licenses it is that **`emit.py` is a pure function of `cards.json` and
+  `wordlist.json`**: reconstructing both out of each shipped deck and re-emitting reproduced all four
+  **byte for byte** before a line was changed, so re-emitting from merged cards is what a rebuild would
+  write. The merge asserts what makes it lossless rather than assuming it — the two notes of a word are
+  adjacent, carry identical fields, and mirror each other's question and answer — and every derived figure
+  in the descriptions (92 verbs, 220 articles, 63 pairs at A1) came out unchanged, which is what proves the
+  counts that used to filter on the forward subdeck were re-cut correctly. **A rebuild renumbers the ids
+  1..N** (the reverse notes' are gone), so a reader who had the old files re-imports rather than updates.
   **THE CARDS SHIP IN FREQUENCY ORDER, AND THAT IS A SEPARATE QUESTION FROM WHICH WORDS ARE CHOSEN**
   (Aug 2026, on request). `select.py`'s cascade decides WHICH words a level teaches — it exists to stop
   the closed classes and the verbs competing with nouns on raw frequency, a 500-word A1 list without `yo`
@@ -4325,23 +4350,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the days no longer arriving together; that is what ordering by frequency MEANS, and the deck's own
   description says which order it is in.
   **`combine.py` is the ONE-FILE version of all four** (`python3 .claude/dele/combine.py [out.json]`), on
-  request: 7,986 cards under a fresh deck id `deleall`, whose subdecks **NEST** — a level, with its two
-  directions inside it (`A1`, then `A1::Spanish → English` and `A1::English → Spanish`) — so the levels
-  stay separable inside one file rather than being poured together. Nesting is the `::` path app.js grew
-  for this in Aug 2026 (see the SUBDECKS bullet under "How the app is wired"); it was `A1 · Spanish →
-  English` as eight flat subdecks for a day. Three things it has to get right and two of them are silent.
+  request: 3,993 notes — 7,986 cards — under a fresh deck id `deleall`, with **one subdeck per level**
+  (`A1`, `A2`, `B1`, `B2`), so the levels stay separable inside one file rather than being poured together
+  and each still lists its two directions as rows of its own. It wrote a NESTED path while the directions
+  were subdecks (`A1::Spanish → English`), and that machinery is kept, unused, against a level that ever
+  grows subdecks of its own — nesting is the `::` path app.js grew for this in Aug 2026 (see the SUBDECKS
+  bullet under "How the app is wired"), and it was `A1 · Spanish → English` as eight flat subdecks for a
+  day before that. Three things it has to get right and two of them are silent.
   **A CARD ID MUST CARRY THE DECK** — every card is renumbered `u_deleall_N`, since a deck FILE import only
   mints fresh ids when the DECK id already exists, so reusing `u_delea1_1` would collide with an installed
   A1 in the shared `UCARDS` store and study the wrong card. **THE TYPE BLOCK IS ASSERTED IDENTICAL** across
   the four rather than assumed, a level rebuilt against a changed template otherwise having its cards
-  rendered silently by another level's. And **THE WORD COUNT IS NOT DERIVABLE FROM THE FILES**: a pair card
+  rendered silently by another level's. And **THE WORD COUNT IS NOT DERIVABLE FROM THE FILES**: a pair note
   teaches two headwords where both were selected and one where only the masculine was, and the shipped
-  files do not record which, so the 4,000 comes from `TARGET` and only the CARD counts are counted. It reads
+  files do not record which, so the 4,000 comes from `TARGET` and only the NOTE counts are counted. It reads
   no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
-  **The combined file is deliberately NOT committed** — it duplicates ~27 MB already in the repo and this
-  regenerates it. **Combining ALL nine decks in `decks/` is not possible as one importable file**: 19,819
-  cards against `UDECK_MAX_CARDS` and 50.4 MB against `UDECK_MAX_BYTES`, measured, which is why the
-  combined deck is the four Spanish levels and not everything.
+  **The combined file is deliberately NOT committed** — it duplicates ~13.5 MB already in the repo and this
+  regenerates it. **Combining every deck in `decks/` would now FIT and is still not what this writes**:
+  measured Aug 2026, the eight committed files come to 16,611 rows and 36.7 MB against `UDECK_MAX_CARDS`
+  20,000 and `UDECK_MAX_BYTES` 80 MB — it was over both under the older caps — so what rules it out is the
+  script's own shared-type assertion rather than a limit: these four are one course in one language, and
+  a Mandarin deck poured in with them would need a second type block and would be a different feature.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
   **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
@@ -4548,9 +4577,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `Lieblings-` still took "**Liebling**, ich kann es dir erklären!", which is the noun and a different
     word from the prefix. Measured over all fifteen stems it costs NOTHING — barring the wrong sentence let
     a lower-scoring right one through.
-  · **THE CARD IS ONE NOTE AND TWO TEMPLATES**, the Mandarin shape rather than the DELE's two-notes-per-word:
-    785 notes, 1,570 cards, 1.59 MB. A corrected gloss is corrected in both directions at once and each
-    direction keeps a schedule of its own. Its `.uc-field` needs a `min-width` the Mandarin decks do not,
+  · **THE CARD IS ONE NOTE AND TWO TEMPLATES**, the Mandarin shape — which the DELE decks were on
+    two-notes-per-word against until Aug 2026 and have since been converted to:
+    785 notes, 1,570 cards, 1.59 MB. A corrected gloss is corrected in both directions at once, each
+    direction keeps a schedule of its own, and the options sheet can offer "Both directions together". Its `.uc-field` needs a `min-width` the Mandarin decks do not,
     because German's commonest words gloss in ONE word and `ich` → `I` left an 80px stamp adrift in a 680px
     card under a rule spanning the whole of it.
   · **`check-goethe.js` is the browser half** and exists because `check-decks.js` skips the card-level
@@ -10676,10 +10706,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **IT COSTS THE DECK FILE NOTHING, which is the whole argument for doing it here.** The templates are in
     the type already, named by their author, so every two-way deck ever written or installed gains its
     direction rows on the next load with nothing rewritten, nothing republished and no card duplicated.
-    The alternative is what the **DELE Spanish decks** do — direction written into the file as a real
-    `sub`, `Spanish → English` / `English → Spanish` — which is two notes per word (992 for ~500), and a
-    definition corrected on one of them silently drifts from the other. Both shapes now work; this is the
-    one that does not double the file.
+    The alternative is what the **DELE Spanish decks did until Aug 2026** — direction written into the file
+    as a real `sub`, `Spanish → English` / `English → Spanish` — which is two notes per word (992 for ~500),
+    and a definition corrected on one of them silently drifts from the other. Both shapes draw the rows;
+    this is the one that does not double the file. **What the subdeck shape CANNOT have is the "Both
+    directions together" switch**, which is what took those decks off it (see `.claude/dele/`):
+    `entryHasSiblings` asks whether a NOTE makes more than one card, and two notes are two words. So a deck
+    arranged that way is not merely fatter — it is a deck one setting cannot reach, and the miss looks
+    exactly like a deck arranged some other way.
   · **`#` IS SAFE AS A RAW SEPARATOR AND `~` WOULD NOT HAVE BEEN.** `uSubEntry` percent-encodes the whole
     path and `encodeURIComponent` escapes `#` to `%23` while leaving `~` alone — so a subdeck titled "C#"
     cannot forge a template suffix and one titled "A~B" would have. `uDeckIdOf` cuts at whichever of `/`
@@ -10749,7 +10783,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `#fragment` is a same-document navigation, so localStorage written behind the app's back needs a real
     `reload()` or the next `save()` puts the in-memory state straight back over it. **`check-decks.js` is
     the other half**, since it studies the shipped decks through the pooled review, which is where a
-    cascade that is too wide shows up as reverses on the first day.
+    cascade that is too wide shows up as reverses on the first day — and since Aug 2026 it holds each
+    deck's own row and asserts that the sheet offers **Both directions together** exactly where that deck's
+    type has more than one template, read off the deck FILE rather than from a list in the test, so a deck
+    added later is covered by the rule. That is the check the Spanish decks would have failed for a
+    fortnight: nothing threw, the decks studied both ways, and the setting simply was not on the sheet.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
