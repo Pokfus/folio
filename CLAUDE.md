@@ -4317,6 +4317,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `direi` → `dir-me-á`), the ending list is **sorted by length** (the conditional's `íeis` must beat
     the future's `eis`, or `chamaríeis` comes out `chamarí-vos-eis`), and a form matching no ending is
     reported at the end of the run rather than falling back silently.
+  · **…AND THE PRONOUN IS PRINTED AS A COLOUR RATHER THAN WITH A HYPHEN** (`marked` / `clitic_html` /
+    `CL_A` / `.uc-cl`; Aug 2026, on request). The card shows `sintome`, `sentirmeei` and `me sinta`
+    with the pronoun in indigo, where standard orthography writes `sinto-me`, `sentir-me-ei` and
+    `me sinta`. **The trade is real and is recorded rather than smoothed over**: the hyphen is not
+    decoration a learner can do without, it is how the form is SPELLED, so the card teaches the right
+    word in the wrong orthography — and the example sentences under the table are Tatoeba's own
+    Portuguese and keep their hyphens, so a reflexive card shows both spellings a few lines apart.
+    What it buys is that the three parts of `sentir·me·ei` read as three parts at a glance. The deck's
+    own description says which way round it is, so a learner meeting `chamo-me` in a book is not left
+    thinking one of the two is a misprint.
+    **THE MARK IS A SENTINEL, NOT A TAG**, because every one of these strings goes through `esc()` on
+    its way onto the card and a `<span>` built in the builder would arrive as visible angle brackets:
+    two control characters no source text can contain survive the escape and become the span after it.
+    It is a **weight as well as a colour** — with the hyphen gone, a `chamome` whose mark did not land
+    is simply a misspelling, so the one channel that can fail for a reader (high contrast, bright sun,
+    these two hues being one colour to them) is not the only one. And it reaches the **headword** too:
+    `chamar-se` at the top of the card over `chamome` in the table would show both spellings with
+    nothing to say which is the rule. The stored key keeps its hyphen — this is the printed form only,
+    and the word is still looked up, spoken and matched as `chamar-se`.
   · **A BRACKET CAN CONTAIN A BRACKET, AND EVERY CUT CAN LAND INSIDE ONE** (`strip_parens` /
     `split_top` / `debracket`). Three faults, one shape, and all three were found by LOOKING at a
     rendered card rather than by any count. A gloss is split on `;` and `,` to make the meaning lines,
@@ -4379,6 +4398,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     have to be asked about a word the level teaches — `o comboio` is in A1 and in no other deck — and
     the expected verb forms are written out rather than derived from the infinitive, since a
     derivation here could share a bug with `build_deck.py` and the two would then be wrong together.
+    **Each expected form is asserted TWICE, as text and as HTML** (`clText` / `clHtml`, the clitic
+    written between pipes): the text says WHERE the pronoun sits and the HTML says that it is actually
+    marked up, and with the hyphen gone the markup is the only thing separating the pronoun from the
+    letters around it — so a text-only assertion passes on `chamarmeei` with the span dropped, which
+    on the page is a misspelling. The text side is **space-blind**, since `txt` turns every tag into a
+    space and a pronoun in a span of its own reads `chamar se ei` however tightly the card sets it.
+    The browser half then asserts the colour LANDS — a deck's CSS is scoped per (deck, type) at
+    install, so a rule that stopped matching would leave every reflexive flat and correct-looking —
+    and that a reflexive is recognised by **having coloured pronouns** rather than by a headword
+    ending `-se`, which is exactly the hyphen this change removed: read the old way, no reflexive is
+    ever found, the screenshot is never taken and the walk reports nothing wrong.
     **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
     `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
     in Portugal and a *grama* a gram.

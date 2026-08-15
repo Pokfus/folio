@@ -504,19 +504,46 @@ def pick(forms, tags_ok, extra=None):
 
 
 # ------------------------------------------------------- enclisis
-# EUROPEAN PORTUGUESE PUTS THE PRONOUN AFTER THE VERB AND HYPHENATES IT.  That
-# is the visible difference from Brazil (`chamo-me` against `me chamo`) and it
-# is not a straight concatenation: the first person plural drops its -s before
-# -nos (`chamamos` + `nos` = `chamamo-nos`), and the second person plural drops
-# its -s before -vos.  A negative imperative takes PROCLISIS instead, because
+# EUROPEAN PORTUGUESE PUTS THE PRONOUN AFTER THE VERB.  That is the visible
+# difference from Brazil (`chamo-me` against `me chamo`) and it is not a
+# straight concatenation: the first person plural drops its -s before -nos
+# (`chamamos` + `nos` = `chamamo-nos`), and the second person plural drops its
+# -s before -vos.  A negative imperative takes PROCLISIS instead, because
 # European Portuguese requires the pronoun in front after a negative -- which is
 # why the two imperatives are built separately rather than as one tense.
+#
+# THE PRONOUN IS MARKED WITH A COLOUR RATHER THAN A HYPHEN, on request, and the
+# trade is worth stating because it is a real one: the hyphen is not decoration
+# a learner can do without, it is how the form is SPELLED, so a card reading
+# `chamome` in one colour and `me` in another is teaching the right word in the
+# wrong orthography.  What it buys is that the three parts of `chamar-me-ei`
+# read as three parts at a glance instead of as a hyphenated string.  The deck's
+# own description says which way round this is, so a learner meeting `chamo-me`
+# in a book is not left thinking one of the two is a misprint.
+#
+# THE MARK IS A SENTINEL, NOT A TAG, because every one of these strings goes
+# through `esc()` on its way onto the card -- a `<span>` built here would arrive
+# as visible angle brackets.  Two control characters no source text can contain
+# survive the escape untouched and become the span afterwards; see `clitic_html`.
+CL_A, CL_B = '\x01', '\x02'
+
+
+def marked(cl):
+    return f'{CL_A}{cl}{CL_B}'
+
+
+def clitic_html(s):
+    """Escape a form and turn its sentinels into the span.  Escape FIRST."""
+    return (esc(s).replace(CL_A, '<span class="uc-cl">')
+                  .replace(CL_B, '</span>'))
+
+
 def enclitic(form, cl):
     if cl == 'nos' and form.endswith('mos'):
         form = form[:-1]                  # chamamos -> chamamo-nos
     elif cl == 'vos' and form.endswith('s'):
         form = form[:-1]                  # chamais -> chamai-vos
-    return f'{form}-{cl}'
+    return form + marked(cl)
 
 
 # The endings the future and the conditional are built out of, SORTED LONGEST
@@ -532,7 +559,7 @@ _meso_missed = []
 
 
 def mesoclitic(form, cl):
-    """chamarei + me -> chamar-me-ei.  See the note above `TENSES`.
+    """chamarei + me -> chamar·me·ei, the `me` coloured.  See above `TENSES`.
 
     The split is found by STRIPPING THE ENDING rather than by assuming the stem
     is the infinitive, because the irregular futures are irregular in the stem:
@@ -543,7 +570,7 @@ def mesoclitic(form, cl):
     """
     for end in MESO_END:
         if form.endswith(end) and len(form) > len(end) + 1:
-            return f'{form[:-len(end)]}-{cl}-{end}'
+            return form[:-len(end)] + marked(cl) + end
     _meso_missed.append(form)
     return enclitic(form, cl)
 
@@ -559,7 +586,8 @@ def conjugation_html(word, rec, reflexive):
                and 'masculine' in t) \
         or pick(forms, lambda t: 'participle' in t and 'past' in t)
     if reflexive:
-        inf = word
+        # the lemma, with its own pronoun marked like every other row's
+        inf = word[:-3] + marked('se') if word.endswith('-se') else word
         if ger:
             ger = enclitic(ger, 'se')
 
@@ -568,7 +596,7 @@ def conjugation_html(word, rec, reflexive):
                               ('particípio', par)) if b]
     if nf:
         p.append('<div class="uc-cj-nf">' + ''.join(
-            f'<span class="uc-cj-nfi"><i>{esc(a)}</i><b>{esc(b)}</b></span>'
+            f'<span class="uc-cj-nfi"><i>{esc(a)}</i><b>{clitic_html(b)}</b></span>'
             for a, b in nf) + '</div>')
 
     by_mood = {}
@@ -582,7 +610,7 @@ def conjugation_html(word, rec, reflexive):
                 continue
             if reflexive:
                 cl = CLITIC[label]
-                s = (f'{cl} {s}' if place == 'pro'
+                s = (f'{marked(cl)} {s}' if place == 'pro'
                      else mesoclitic(s, cl) if place == 'meso'
                      else enclitic(s, cl))
             rows.append((label, s))
@@ -604,8 +632,8 @@ def conjugation_html(word, rec, reflexive):
                 if neg:
                     # `não fales` -> `não te fales`? no: proclisis puts the
                     # pronoun between the negative and the verb, `não te levantes`
-                    s = re.sub(r'^não\s+', f'não {cl} ', s) if s.startswith('não ') \
-                        else f'{cl} {s}'
+                    s = (re.sub(r'^não\s+', f'não {marked(cl)} ', s)
+                         if s.startswith('não ') else f'{marked(cl)} {s}')
                 else:
                     s = enclitic(s, cl)
             rows.append((label, s))
@@ -622,7 +650,7 @@ def conjugation_html(word, rec, reflexive):
         for name, rows in bl:
             cells = ''.join(
                 f'<div class="uc-cj-r"><span class="uc-cj-p">{esc(lab)}</span>'
-                f'<span class="uc-cj-f">{esc(v) if v else "—"}</span></div>'
+                f'<span class="uc-cj-f">{clitic_html(v) if v else "—"}</span></div>'
                 for lab, v in rows)
             p.append(f'<div class="uc-cj-t"><div class="uc-cj-h">{esc(name)}'
                      f'</div>{cells}</div>')
@@ -812,10 +840,21 @@ print('  gendered pairs:', sum(1 for v in PAIR.values() if v[0]),
 GENDER_CLASS = {'m': 'uc-m', 'f': 'uc-f'}
 
 
-def headword_html(headword, gender):
-    """The word as it is printed, with the article coloured for its gender."""
+def headword_html(headword, gender, reflexive=False):
+    """The word as it is printed, with the article coloured for its gender.
+
+    A REFLEXIVE'S OWN PRONOUN IS COLOURED HERE TOO, and it has to be: the card
+    prints `chamar-se` at the top and the paradigm under it, and colouring the
+    clitic in the table while hyphenating it in the headword two lines above
+    shows a learner both spellings at once with nothing to say which is the
+    rule.  The stored key keeps its hyphen -- this is the printed form only, and
+    the word is still looked up, spoken and matched as `chamar-se`.
+    """
     parts = []
     for i, half in enumerate(headword.split(', ')):
+        if reflexive and half.endswith('-se'):
+            parts.append(clitic_html(half[:-3] + marked('se')))
+            continue
         m = re.match(r'^(o/a|os/as|os|as|o|a)\s+(.*)$', half)
         if m:
             g = ART_GENDER.get(m.group(1), '')
@@ -970,7 +1009,7 @@ for word in words:
         'answerText': plain,
         'type': 'caple',
         'fields': {
-            'Portuguese': headword_html(headword, gender),
+            'Portuguese': headword_html(headword, gender, reflexive),
             'Word': speak,
             'English': english,
             'Forms': forms,

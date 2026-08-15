@@ -48,10 +48,16 @@ const PROBE = {
     numbers: ["dezasseis", "catorze"],
     preterite: ["falar", "falámos", "falamos"],
     reflexive: "chamar-se",
-    forms: { pres: "eu chamo-me", plural: "nós chamamo-nos", conj: "eu me chame",
-             fut: "eu chamar-me-ei", futPl: "nós chamar-nos-emos",
-             cond: "eu chamar-me-ia", condVos: "vós chamar-vos-íeis",
-             neg: "tu não te chames", pinf: "nós chamarmo-nos" },
+    // [person, form], the form written with the CLITIC BETWEEN PIPES.  The card
+    // prints no hyphen — the pronoun is a colour instead — so each of these is
+    // asserted twice: as text, which pins WHERE the pronoun sits, and as HTML,
+    // which pins that it is actually marked up.  Text alone would pass on
+    // `chamarmeei` with the span dropped, which is a misspelling on the page.
+    forms: { pres: ["eu", "chamo|me|"], plural: ["nós", "chamamo|nos|"],
+             conj: ["eu", "|me| chame"],
+             fut: ["eu", "chamar|me|ei"], futPl: ["nós", "chamar|nos|emos"],
+             cond: ["eu", "chamar|me|ia"], condVos: ["vós", "chamar|vos|íeis"],
+             neg: ["tu", "não |te| chames"], pinf: ["nós", "chamarmo|nos|"] },
     // no imperative: nobody can be told to snow or to ache
     impersonal: ["doer", "nevar"],
   },
@@ -61,10 +67,11 @@ const PROBE = {
     numbers: [],
     preterite: ["voltar", "voltámos", "voltamos"],
     reflexive: "tornar-se",
-    forms: { pres: "eu torno-me", plural: "nós tornamo-nos", conj: "eu me torne",
-             fut: "eu tornar-me-ei", futPl: "nós tornar-nos-emos",
-             cond: "eu tornar-me-ia", condVos: "vós tornar-vos-íeis",
-             neg: "tu não te tornes", pinf: "nós tornarmo-nos" },
+    forms: { pres: ["eu", "torno|me|"], plural: ["nós", "tornamo|nos|"],
+             conj: ["eu", "|me| torne"],
+             fut: ["eu", "tornar|me|ei"], futPl: ["nós", "tornar|nos|emos"],
+             cond: ["eu", "tornar|me|ia"], condVos: ["vós", "tornar|vos|íeis"],
+             neg: ["tu", "não |te| tornes"], pinf: ["nós", "tornarmo|nos|"] },
     impersonal: [],
   },
 }[LEVEL];
@@ -151,38 +158,76 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // every table is the right shape and the right length whichever way round the pronoun is written.
   const refl = cards.filter((c) => /-se$/.test(c.question));
   ok(refl.length > 0, "the deck teaches reflexive verbs", String(refl.length));
+  // `chamo|me|` -> the text the card shows, and the HTML it shows it as.  Odd pipe-separated
+  // pieces are the clitic; the pipes are the test's own notation and appear nowhere in the deck.
+  const clText = (s) => s.split("|").join("");
+  const clHtml = (s) => s.split("|")
+    .map((p, i) => (i % 2 ? '<span class="uc-cl">' + p + "</span>" : p)).join("");
   const ch = by[PROBE.reflexive];
   if (ch) {
     const t = txt(ch.fields.Conjugation);
+    const h = ch.fields.Conjugation;
     const F = PROBE.forms;
-    const has = (s) => t.includes(s);
-    ok(has(F.pres), "the indicative takes enclisis: " + F.pres);
-    ok(has(F.plural), "the first person plural drops its -s before -nos: " + F.plural);
-    ok(has(F.conj), "the conjuntivo takes proclisis: (que) " + F.conj);
+    // BOTH, every time.  The text says where the pronoun is and the HTML says that it is marked —
+    // and with the hyphen gone the markup is the only thing separating the pronoun from the letters
+    // around it, so a card that passes the first and fails the second is spelling the word wrong.
+    // SPACE-BLIND on the text side, because `txt` turns every tag into one — so a pronoun in a span
+    // of its own reads `chamar se ei` however tightly the card sets it.  What the text test is for
+    // is WHERE the pronoun sits and which person it belongs to; the HTML test beside it pins the
+    // rendering exactly, which is the half a space could otherwise hide.
+    const sq = (s) => s.replace(/\s+/g, "");
+    const has = ([per, f], why, ctx) => {
+      ok(sq(t).includes(sq(per + clText(f))), why + ": " + per + " " + clText(f), ctx);
+      ok(h.includes(clHtml(f)), "…with its pronoun coloured, not run into the verb");
+    };
+    has(F.pres, "the indicative takes enclisis");
+    has(F.plural, "the first person plural drops its -s before -nos");
+    has(F.conj, "the conjuntivo takes proclisis, (que)");
     // MESOCLISIS: the future and the conditional put the pronoun INSIDE the verb.  Written as
-    // ordinary enclisis they come out `chamarei-me`, which is not Portuguese — and looks entirely
+    // ordinary enclisis they come out `chamareime`, which is not Portuguese — and looks entirely
     // regular in a table of six rows.
-    ok(has(F.fut), "the future takes mesoclisis: " + F.fut);
-    ok(has(F.futPl), "…in the plural too: " + F.futPl);
-    ok(has(F.cond), "and so does the conditional: " + F.cond);
-    ok(has(F.condVos), "with the conditional vós ending kept whole: " + F.condVos,
-       (t.match(/Condicional.{0,160}/) || [""])[0].slice(-60));
-    ok(has(F.neg), "a negative imperative takes proclisis: " + F.neg);
-    ok(has(F.pinf), "and the personal infinitive enclisis: " + F.pinf);
+    has(F.fut, "the future takes mesoclisis");
+    has(F.futPl, "…in the plural too");
+    has(F.cond, "and so does the conditional");
+    has(F.condVos, "with the conditional vós ending kept whole",
+        (t.match(/Condicional.{0,160}/) || [""])[0].slice(-60));
+    has(F.neg, "a negative imperative takes proclisis");
+    has(F.pinf, "and the personal infinitive enclisis");
   } else ok(false, PROBE.reflexive + " is in the deck");
 
   // …over EVERY reflexive, not just the one read by eye.  A future built by enclisis is
   // `<infinitive> + ending + -pronoun`, which is exactly what mesoclisis replaces.
   const badMeso = [];
+  const bare = [];
+  const CL = "(?:me|te|se|nos|vos)";
   for (const c of refl) {
     const inf = c.question.slice(0, -3);
-    const rx = new RegExp("\\b" + inf + "(?:ei|ás|á|emos|eis|ão|ia|ias|íamos|íeis|iam)-(?:me|te|se|nos|vos)\\b", "g");
+    const rx = new RegExp("\\b" + inf + "(?:ei|ás|á|emos|eis|ão|ia|ias|íamos|íeis|iam)" + CL + "\\b", "g");
     const s = txt(c.fields.Conjugation);
-    (s.match(rx) || []).forEach((m) => badMeso.push(c.question + ": " + m));
-    if (!/-(?:me|te|se|nos|vos)-\w/.test(s)) badMeso.push(c.question + ": no mesoclisis at all");
+    const h = c.fields.Conjugation;
+    // space-blind, for `has`'s reason: a wrongly enclitic future reads `chamarei se` in the text
+    (s.replace(/\s+/g, "").match(rx) || []).forEach((m) => badMeso.push(c.question + ": " + m));
+    // mesoclisis, in the markup: a closing clitic span with a LETTER after it — which is what
+    // "inside the verb" means and what no enclitic form can produce, its clitic ending the cell.
+    if (!new RegExp('class="uc-cl">' + CL + "</span>[a-záàâãéêíóôõú]").test(h))
+      badMeso.push(c.question + ": no mesoclisis at all");
+    // AND NOWHERE IS A CLITIC STILL HYPHENATED ON, which is the check that the change reached every
+    // site rather than the four this file reads by name.  A missed one is invisible: the form is
+    // correct Portuguese, it just contradicts the eleven rows around it.
+    (s.match(new RegExp("\\w-" + CL + "\\b", "g")) || [])
+      .forEach((m) => bare.push(c.question + ": " + m));
+    if (!/class="uc-cl"/.test(h)) bare.push(c.question + ": no coloured pronoun at all");
   }
   ok(badMeso.length === 0, "every reflexive's future and conditional take mesoclisis",
      JSON.stringify(badMeso.slice(0, 4)));
+  ok(bare.length === 0, "and every pronoun is a colour rather than a hyphen",
+     JSON.stringify(bare.slice(0, 4)));
+  // the headword carries the same treatment — `chamar-se` at the top of the card over `chamome` in
+  // the table would show a learner both spellings at once with nothing to say which is the rule
+  const headBad = refl.filter((c) => !/class="uc-cl"/.test(c.fields.Portuguese)
+                                     || /-se/.test(txt(c.fields.Portuguese)));
+  ok(headBad.length === 0, "the reflexive's own headword is marked the same way",
+     JSON.stringify(headBad.slice(0, 3).map((c) => c.fields.Portuguese)));
 
   // ------------------------------------------------- the paradigm's own shape
   const verbs = cards.filter((c) => c.fields.Conjugation);
@@ -340,6 +385,17 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
         moods: [...document.querySelectorAll(".uc-cj-mood")].map((e) => e.textContent.trim()),
         tenses: [...document.querySelectorAll(".uc-cj-h")].map((e) => e.textContent.trim()),
         rows: [...document.querySelectorAll(".uc-cj-r")].slice(0, 6).map((e) => e.textContent.trim()),
+        // THE COLOUR HAS TO LAND, and only the rendered page can say so: the deck's CSS is scoped
+        // per (deck, type) at install, so a rule that stopped matching would leave every reflexive
+        // spelled `chamome` in one flat colour — correct markup, and a misspelling on the screen.
+        cl: [...document.querySelectorAll(".uc-cl")].map((e) => e.textContent.trim()),
+        clStyle: (() => {
+          const e = document.querySelector(".uc-cj-f .uc-cl");
+          if (!e) return null;
+          const s = getComputedStyle(e), p = getComputedStyle(e.parentElement);
+          return { color: s.color, weight: s.fontWeight,
+                   around: p.color, aroundWeight: p.fontWeight };
+        })(),
         ex: [...document.querySelectorAll(".uc-exz")].map((e) => e.textContent.trim()),
         bold: [...document.querySelectorAll(".uc-exz b")].map((e) => e.textContent.trim()),
         folds: [...document.querySelectorAll(".uc-fold summary")].map((e) => e.textContent.trim()),
@@ -348,8 +404,12 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
     let shot = "";
     if (card.arts.length === 1 && !seen.noun) { seen.noun = card; shot = "noun"; }
     if (card.arts.length === 2 && !seen.pair) { seen.pair = card; shot = "pair"; }
-    if (card.moods.length && !/-se$/.test(card.word) && !seen.verb) { seen.verb = card; shot = "verb"; }
-    if (/-se$/.test(card.word) && card.moods.length && !seen.refl) { seen.refl = card; shot = "refl"; }
+    // A REFLEXIVE IS THE CARD WITH COLOURED PRONOUNS ON IT.  It used to be the one whose headword
+    // ended `-se`, and that hyphen is exactly what this change removed — read the old way, no
+    // reflexive is ever recognised, the screenshot is never taken and the walk reports nothing wrong.
+    const isRefl = card.cl.length > 0;
+    if (card.moods.length && !isRefl && !seen.verb) { seen.verb = card; shot = "verb"; }
+    if (isRefl && card.moods.length && !seen.refl) { seen.refl = card; shot = "refl"; }
     if (shot) {
       // grading a couple of hundred cards earns levels, and a chest overlay sits over the card.  The
       // walk itself is unaffected (it clicks through `evaluate`, which does not hit-test) — only the
@@ -401,9 +461,25 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   console.log("   refl:  " + JSON.stringify(seen.refl && [seen.refl.word, seen.refl.rows[0]]));
   ok(seen.refl, "a reflexive verb came up");
   if (seen.refl) {
-    ok(/\w-(?:me|te|se|nos|vos)\b/.test(seen.refl.rows.join(" ")),
+    // the pronoun is still AFTER the verb — the enclisis rule is unchanged, only its mark is.  The
+    // first row is the present tense's `eu`, so the clitic is the last thing on it under enclisis
+    // and the first thing after the person label under the proclisis this must not have become.
+    ok(/(?:me|te|se|nos|vos)$/.test(seen.refl.rows[0] || ""),
        "its present tense renders with the pronoun after the verb",
        JSON.stringify(seen.refl.rows[0]));
+    ok(!/-(?:me|te|se|nos|vos)\b/.test(seen.refl.rows.join(" ")),
+       "…and with no hyphen between them", JSON.stringify(seen.refl.rows[0]));
+    const cs = seen.refl.clStyle;
+    ok(cs, "the pronoun is in a span of its own", JSON.stringify(cs));
+    if (cs) {
+      // TWO CHANNELS, because one of them can fail for a reader rather than for the page: a colour
+      // is no use in high contrast, in bright sun, or to somebody who cannot separate these hues,
+      // and with the hyphen gone the word without its mark is simply misspelled.
+      ok(cs.color !== cs.around, "coloured differently from the letters around it",
+         cs.color + " vs " + cs.around);
+      ok(Number(cs.weight) > Number(cs.aroundWeight), "and set heavier as well as coloured",
+         cs.weight + " vs " + cs.aroundWeight);
+    }
   }
 
   // ------------------------------------------------------------ the two colours

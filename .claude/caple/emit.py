@@ -212,6 +212,18 @@ CSS = """.card {
   text-align: right;
   font-weight: 500;
 }
+/* THE CLITIC PRONOUN.  It stands where a hyphen used to, so it is carrying
+   information the letters no longer carry -- which is why it is a weight as
+   well as a colour: on a phone in bright sun, in high-contrast mode, or to a
+   reader who cannot separate these two hues, `chamome` with no bold in it is
+   just a misspelling.  Indigo rather than the vermilion the mood headings and
+   the example bolding already use, and free on these cards for a second
+   reason: only a reflexive verb shows one, and a verb never carries the
+   gender-coloured article that is the other indigo on this deck. */
+.uc-cl {
+  color: var(--indigo, #3D4E8F);
+  font-weight: 700;
+}
 .uc-exs {
   margin-top: 10px;
 }
@@ -326,9 +338,12 @@ DESC = (
     "are shown, from eu to eles; você and vocês are named on the third-person "
     "rows, which is where they take their verb and the single most confusing "
     f"thing about the Portuguese verb for a beginner. The {refl} reflexive "
-    "verbs are conjugated the European way, with the pronoun after the verb and "
-    "hyphenated (chamo-me, levanta-te), including the first person plural that "
-    "drops its -s before -nos (chamamo-nos). "
+    "verbs are conjugated the European way, with the pronoun after the verb "
+    "rather than in front of it, including the first person plural that drops "
+    "its -s before -nos and the future and conditional, where the pronoun goes "
+    "inside the verb. The pronoun is picked out in colour so its three "
+    "positions can be seen at a glance; in ordinary writing it is joined to the "
+    "verb with hyphens, as chamo-me, levanta-te, chamamo-nos and chamar-me-ei. "
 
     + EX_NOTE +
     ", chosen where possible to show three different inflected forms rather "
