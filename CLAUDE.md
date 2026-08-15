@@ -10502,6 +10502,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     one wording, so it cannot reach one of them and not the other.
     Guarded by the last two sections of `.claude/test-publish.js`, where a fresh browser context is a
     second device.
+  · **PRESENT ON THE DEVICE AND PRESENT ON THE ACCOUNT ARE TWO QUESTIONS, AND THE DECK PAGE ASKED ONLY THE
+    FIRST** (`accountHasDeck` / `deckInstallRowWrite` / `uDeckInstall`'s `adopt` branch / `.ddetail-adopt`;
+    Aug 2026, on a bug report — a deck imported and shared under one account, then added from the Shared
+    decks list under a SECOND account **on the same device**, reached no other device of that second
+    account). The bullet above is the sync, and the sync was never reached: **the failure is on the device
+    the deck was added on.**
+    Community decks are DEVICE-local and shared by every account signing in on the device — the whole
+    reason `by` exists, and stated three paragraphs up — so the second account meets the first's decks
+    already present. `deckDetailRender` derived its actions from `localDeckForRemote`, which answers *is
+    this deck on this device*, and read that as *does this account have it*: it showed **Study / Remove
+    from this device** and offered no way in. No `deck_installs` row was ever written, so the account's
+    list never mentioned the deck, so no other device could learn of it. **Nothing threw and nothing was
+    missing** — the deck was genuinely there and studiable — and the only symptom was on a different
+    device, where a deck that never arrives is indistinguishable from a deck nobody added.
+    Four things about the fix.
+    **THE QUESTION IS ANSWERED FROM THIS DEVICE'S OWN SYNC RECORD** (`by[id] === me` or `seen[me]`), which
+    is the pair `communitySyncInstalls` already reconciles on — so the page and the sync cannot come to
+    disagree, and it costs no request. Signed out there is no account to ask and device presence is the
+    only honest answer; the AUTHOR (`row.owner === me`) counts as having their own deck however they came
+    by it, since asking them to add their own published deck to their own account says the wrong thing.
+    **ADOPTING DOES NOT RE-MOUNT THE SERVER'S COPY**, and that is the load-bearing half. The obvious
+    implementation lets `uDeckInstall` run as usual, which overwrites the existing record — taking the
+    author's `origin: "mine"` away and with it their only handle on the published row, since `uDeckPublish`
+    PATCHes by `remoteId` and a record without one publishes a **second, separate deck** instead of
+    updating theirs. So the local record is left exactly as it is and only the ACCOUNT's list is written,
+    which is all that was ever missing. Asserted directly, because the loss would be silent until the
+    author next tried to ship an update.
+    **THE ADOPTED DECK IS THEN ALIGNED ONTO `deckIdFromRemote`** (`communityAlignDeckIds`, widened from
+    `origin === "installed"` to anything the account lists). Without it the two devices file the same deck
+    under different local ids — the adopting device keeps the random id its IMPORT minted — so the deck
+    arrives on the other device and the reader's `S.active` entry, daily limits, colour and groups all
+    stop at the device they were made on. That is the reader's actual complaint: it is the DAILY STUDY the
+    deck has to reach, and arriving in the Studio alone would have read as still broken.
+    **AND `by` IS RECORDED ONLY ON A SUCCESSFUL POST** (a pre-existing hazard this surfaced): `by[id] === me`
+    with no row on the server is read by the very next sync as a removal made on another device, so an
+    install whose POST failed had the deck **deleted off the device it was just added to** — and for an
+    adopted deck that would be the author's own copy. Unrecorded it simply stays unannounced, the reader
+    is told so in the toast, and nothing is lost.
+    Guarded by `test-publish.js`'s last section, which is the only one giving TWO accounts ONE device.
+    **It must NOT use `newSession`**: that helper's `addInitScript` is fixed at add time and re-writes its
+    account's session on every load, so a device switched to the second account is silently switched back
+    on the next navigation — the app stays signed in as the first while the mock answers as the second, and
+    the page then reads as the author looking at their own deck (which it did, and the section passed for
+    the wrong reason until the session was written by hand instead).
   · **The column guard — `guard_user_deck_columns()`.** RLS decides which ROWS you may write, **never which
     COLUMNS**. "edit your own decks" therefore let an owner PATCH their own `install_count`, `rating_avg`,
     `staff_pick` or even `owner` — inventing an editorial endorsement and a five-star average for

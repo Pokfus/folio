@@ -7578,23 +7578,47 @@
     };
     return uDeckNormalize(rec);   // sanitizes the glossary too — the server copy is not trusted
   }
+  // Tell the account this deck is one of its own. Separated from the install itself because ADOPTING a
+  // deck already on the device is exactly this and nothing else — see uDeckInstall's `adopt` branch.
+  async function deckInstallRowWrite(remoteId, version) {
+    if (!supaLoggedIn()) return { ok: false, signedOut: true };
+    return supaFetch("/rest/v1/deck_installs", {
+      method: "POST", body: { deck_id: remoteId, user_id: SUPA.user.id, version: version || 1 },
+      headers: { Prefer: "resolution=merge-duplicates" },
+    });
+  }
   async function uDeckInstall(row, cards, gloss) {
     const existing = localDeckForRemote(row.id);
-    const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
-    if (!norm) return { error: "That deck couldn't be read." };
-    if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
-    const d = uDeckMount(norm);
-    await uDeckSaveAll(d.id);
-    if (supaLoggedIn()) {
-      await supaFetch("/rest/v1/deck_installs", {
-        method: "POST", body: { deck_id: row.id, user_id: SUPA.user.id, version: row.version },
-        headers: { Prefer: "resolution=merge-duplicates" },
-      });
+    /* ADOPTING A DECK THIS DEVICE ALREADY AUTHORED (Aug 2026, on a bug report: a deck imported and shared
+       under one account, then added from the Shared decks list under a SECOND account on the same device,
+       reached no other device of that second account).
+       Community decks are device-local and every account signing in here sees them — the whole reason
+       `deckSyncRead().by` exists — so the deck is already physically present, under the record its author
+       made. Re-mounting the server's copy over it would take the AUTHOR's `origin: "mine"` away and with it
+       their only handle on the published row: `uDeckPublish` PATCHes by `remoteId`, and a record without
+       one publishes a second, separate deck. So the local record is left exactly as it is and only the
+       ACCOUNT's list is written — which is all that was ever missing. */
+    const adopt = !!(existing && existing.origin !== "installed");
+    let d = existing;
+    if (!adopt) {
+      const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
+      if (!norm) return { error: "That deck couldn't be read." };
+      if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
+      d = uDeckMount(norm);
+      await uDeckSaveAll(d.id);
     }
-    // …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
-    // a re-install being read as the removal that came before it
-    deckSyncInstalled(row.id);
-    return { ok: true, deck: d };
+    const ins = await deckInstallRowWrite(row.id, row.version);
+    /* …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
+       a re-install being read as the removal that came before it. Recorded ONLY when the row was actually
+       written: `by[id] === me` with no row on the server is read by the very next sync as a removal made on
+       another device, so a POST that failed would have this deck deleted off the device it was just added
+       to. Unrecorded, the deck simply stays unannounced and the reader can try again. */
+    if (ins.ok || ins.signedOut) deckSyncInstalled(row.id);
+    if (!ins.ok && !ins.signedOut) return { ok: true, deck: d, adopted: adopt, unannounced: true };
+    // every device files a shared deck under the same local id, which is what carries the reader's own
+    // arrangement of it across — an adopted deck still wears the random id its import minted
+    if (adopt && d) await communityAlignDeckIds();
+    return { ok: true, deck: UDECKS[d && d.id] || d, adopted: adopt };
   }
   /* Removing an installed deck takes it off the ACCOUNT's list too, so the removal reaches every other
      device. A delete the server would not take is therefore worth both recording and reporting: the row
@@ -7675,6 +7699,21 @@
   }
   function deckSyncWrite(rec) { try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {} }
   function deckSyncList(rec, part, owner) { const a = rec[part][owner]; return Array.isArray(a) ? a : []; }
+  /* DOES THE SIGNED-IN ACCOUNT LIST THIS DECK? — which is NOT the same question as "is this deck on this
+     device", and mistaking one for the other is what stranded a reader's decks on the phone they were added
+     on. Community decks are device-local and shared by every account that signs in here, so a second
+     account meets the first's decks already present; only the account's own install list makes a deck
+     travel, and until this was asked the deck page read presence on the device as ownership by the account
+     and offered no way to add it.
+     Answered from this device's own sync record — the same two signals `communitySyncInstalls` reconciles
+     on, so the page and the sync cannot come to disagree — and therefore with no request. Signed out there
+     is no account to ask, and presence on the device is the only honest answer. */
+  function accountHasDeck(remoteId) {
+    if (!remoteId) return false;
+    if (!supaLoggedIn()) return !!localDeckForRemote(remoteId);
+    const rec = deckSyncRead(), me = SUPA.user.id;
+    return rec.by[remoteId] === me || deckSyncList(rec, "seen", me).indexOf(remoteId) >= 0;
+  }
   /* Who installed a deck, recorded AT THE INSTALL rather than at the next sync — which is what makes the
      removal half safe. A sync interrupted by a navigation writes nothing, so a deck installed and then
      removed on another device before this device ever completed a sync would look, here, like a deck
@@ -7799,7 +7838,10 @@
      costs nothing to check. */
   async function communityAlignDeckIds() {
     for (const d of uDeckList()) {
-      if (d.origin !== "installed" || !d.remoteId) continue;
+      // …or ADOPTED: a deck the account lists but whose local record its author made, which still wears the
+      // random id that import minted. Aligning it is what carries the reader's own arrangement of the deck
+      // — its review entry, its limits, its colour — onto every other device the account reaches.
+      if (!d.remoteId || (d.origin !== "installed" && !accountHasDeck(d.remoteId))) continue;
       const want = deckIdFromRemote(d.remoteId);
       if (d.id === want || UDECKS[want]) continue;
       await uDeckRekeyStored(d.id, want);
@@ -21993,6 +22035,11 @@
   function deckDetailRender(root, row, cards, gloss) {
     const local = localDeckForRemote(row.id);
     const mine = supaLoggedIn() && SUPA.user && row.owner === SUPA.user.id;
+    /* PRESENT ON THIS DEVICE AND PRESENT ON THIS ACCOUNT ARE TWO QUESTIONS, and this page asked only the
+       first — which is what stranded a reader's decks on the phone they were added on. See accountHasDeck.
+       The AUTHOR is counted as having their own deck however they came by it: they published it, and asking
+       them to add it to their own account would be a control that says the wrong thing. */
+    const onAccount = mine || accountHasDeck(row.id);
     const hasUpdate = local && Number(row.version) > Number(local.installedVersion || 0) && local.origin === "installed";
     const n = row.card_count || cards.length;
     root.innerHTML =
@@ -22027,9 +22074,14 @@
       '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       '<div class="ddetail-actions">' +
         (local
-          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>') +
-            '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>'
-          : '<button class="btn" type="button" id="ddInstall">Add to my decks</button>') +
+          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>')
+          : "") +
+        // shown whenever the ACCOUNT does not list the deck — whether or not this device happens to hold a
+        // copy somebody else put here. Over a deck already present it adds nothing to the device and says so.
+        (onAccount && local ? "" :
+          '<button class="btn' + (local ? " ghost" : "") + '" type="button" id="ddInstall">' +
+            (local ? "Add to my account" : "Add to my decks") + '</button>') +
+        (local ? '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>' : "") +
         /* …and the file itself (Aug 2026, on request). "Add to my decks" installs it into Folio; this
            downloads the same `.folio-deck.json` a Studio export writes, which is what lets a reader keep a
            copy, pass it on, or open it in a Folio that is not signed in to anything. It needs no install
@@ -22040,6 +22092,11 @@
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
         (isAdmin() ? '<button class="btn ghost" type="button" id="ddPick">' + (row.staff_pick ? "Remove staff pick" : "Mark staff pick") + "</button>" : "") +
       '</div>' +
+      // …and why that button is there over a deck the reader can already see: shared decks live on the
+      // device and are shared by every account signing in on it, so this one is here without being yours
+      (onAccount || !local ? "" :
+        '<p class="ddetail-adopt">This deck is already on this device, but it isn&rsquo;t on your account &mdash; ' +
+        'so it won&rsquo;t appear on your other devices. Adding it to your account fixes that and downloads nothing.</p>') +
       '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>' +
       '<div class="ddetail-reviews" id="ddReviews"></div>' +
       '<div class="ddetail-more" id="ddMore"></div>';
@@ -22061,10 +22118,15 @@
 
     const inst = root.querySelector("#ddInstall");
     if (inst) inst.addEventListener("click", async () => {
+      const was = inst.textContent;
       inst.disabled = true; inst.textContent = "Adding…";
       const r = await uDeckInstall(row, cards, gloss);
-      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = "Add to my decks"; return; }
-      toast("Added to your decks");
+      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = was; return; }
+      // a write the account did not take is worth saying: the deck is usable here and will not travel, which
+      // is precisely the silence this whole path exists to end
+      toast(r.unannounced ? "Added here, but your account couldn't be reached — it won't reach your other devices yet"
+            : r.adopted ? "Added to your account — it will appear on your other devices"
+            : "Added to your decks");
       render();
     });
     const upd = root.querySelector("#ddUpdate");
