@@ -1163,7 +1163,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1] },
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -5107,7 +5107,13 @@
      (deckDoneToday below), which is what makes them right for a deck that is not in the review, right after
      an undo, and right for a card that sits in two decks at once — a per-deck tally would have to be kept
      in step with all three by hand. */
-  const DECK_MAX_REVIEWS = 200;   // Anki's own default, and high enough that it never surprises a reader who has not gone looking for it
+  /* The maximum reviews a day, where a deck has not been given one of its own. It was Anki's 200 and is 50
+     (Aug 2026, on request), which is a decision about what a day's studying should feel like rather than a
+     technical bound: a pile of two hundred due cards is where a reader stops opening the app, and fifty is a
+     sitting. It is a DEFAULT and nothing more — a deck, or the review itself, can still be set as high as
+     anybody likes in its own Daily limits sheet, and a reader who has already set one keeps it, since
+     `deckLimits` reads this only where nothing has been chosen. */
+  const DECK_MAX_REVIEWS = 50;
   /* ---------- and the DAILY REVIEW's own limits (Aug 2026, on request) ----------
      The review is Anki's parent deck: it pools what its decks offer and caps the pool. It had no settings of
      its own, so the cap came from Settings → New cards per day while each deck's came from its own sheet —
@@ -12438,6 +12444,12 @@
      like the other overlays there, so render() has to close it; see closeDeckMenu in the render() list. */
   let _deckMenuClose = null;
   const DECK_SHEET_OUT_MS = 190;   // keep in step with .deck-menu.closing in styles.css
+  /* How long a freshly opened sheet ignores a press — see the guard in `deckSheet`. Half a second rather than
+     the whole one the report asks for, because the exact half of that guard is what actually fixes the
+     reported misfire (the lift of the press that opened the sheet is swallowed however long it takes), and
+     this window only has to cover a DELIBERATE tap made too early. A full second is long enough that a reader
+     reaching straight for a row would meet a sheet that ignores them, which is the same complaint again. */
+  const DECK_SHEET_ARM_MS = 500;
   function closeDeckMenu() { if (_deckMenuClose) _deckMenuClose(); }
   // one shell for the sheet and its two dialogs, so Escape, the backdrop and the focus trap are written once
   function deckSheet(labelText, innerHTML, wire) {
@@ -12478,6 +12490,25 @@
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
     ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
+    /* A SHEET IS NOT LIVE THE INSTANT IT APPEARS (Aug 2026, on a bug report: "when the long-press menu loads,
+       I sometimes accidentally immediately press a menu item"). A hold opens the sheet UNDER the finger that
+       is still down, so the lift that ends the gesture lands on whichever row happens to be beneath it and
+       fires it — a Remove or a Skip today the reader never chose. The document-level capture guard that
+       swallows the click after a hold deliberately steps aside inside `.deck-menu`, so it cannot help here.
+       Two tests, and the first is exact rather than a guess at how fast a finger is: a pointer click whose
+       own pointerdown never landed in this sheet is, by definition, the tail of the press that opened it, so
+       it is swallowed however long that press ran. `e.detail` is 0 for a keyboard or programmatic click,
+       which has no pointerdown to have seen and must go through. The second is the short arming window the
+       report asks for, which covers a fresh tap made before the sheet has settled into place. */
+    let sawDown = false;
+    const armedAt = Date.now() + DECK_SHEET_ARM_MS;
+    ov.addEventListener("pointerdown", () => { sawDown = true; }, true);
+    ov.addEventListener("click", (e) => {
+      if (e.target === ov) return;                    // the backdrop closes on pointerdown; let its click alone
+      if (sawDown && Date.now() >= armedAt) return;
+      if (!e.detail) return;                          // keyboard / programmatic — no press to be the tail of
+      e.stopPropagation(); e.preventDefault();
+    }, true);
     ov.querySelector(".dm-x").addEventListener("click", close);
     _deckMenuClose = close;
     wire(ov, close);
@@ -13209,7 +13240,13 @@
      THE PARSER AND THE PREDICATE ARE PURE — a row is a plain object and nothing here reads S — which is
      what lets test-cards.js slice them out and put thirty queries through them as arithmetic. Building the
      rows is the impure half and is done once per repaint. */
-  const BROWSE_CAP = 300;          // rows drawn at once; the count line always states the true total
+  /* HOW MANY ROWS ARE DRAWN AT ONCE — a page, not a ceiling (Aug 2026, on request: "the browser should load
+     further cards when scrolled all the way to the bottom, instead of being limited to only 300"). It was a
+     hard cut with a line telling the reader to narrow the search, which on a collection of a few thousand
+     cards makes the last two thirds of it unreachable by scrolling at all. The table now grows by a page
+     whenever the foot of it comes into view; the count line still states the true total, and it now says how
+     many of them are on screen rather than telling anyone to go away. */
+  const BROWSE_PAGE = 300;
   const BROWSE_OPS = { is: 1, flag: 1, deck: 1, tag: 1, prop: 1, introduced: 1, rated: 1 };
 
   /* Split a query into terms, honouring quotes so `"stone age"` is one term and not two. A leading `-`
@@ -14678,6 +14715,16 @@
     handle.addEventListener("contextmenu", (e) => e.preventDefault());
   }
 
+  /* THE MARKER CAN BE TURNED OFF ALTOGETHER (Aug 2026, on request: Settings → Study → Whiteboard marker).
+     It is a floating control over every study card, every book page and the Atlas globe, and a reader who
+     never draws on any of them has been carrying it round the corner of the screen regardless — so this is
+     an explicit OFF, default ON, and nothing about the marker changes for anybody who leaves it alone.
+     ONE predicate, asked in the two places that bring the marker into existence: `showWBTools`, which is
+     what puts the panel on screen, and `setupWhiteboard`, which lays the ink canvas over the page. Gating
+     both means a disabled marker costs a page neither the panel, the canvas, nor the pointer listeners that
+     go with it — and because the panel is the only way to put the pen DOWN, `WB.enabled` can never become
+     true, so every page-specific hook (the globe's cursor, the book's ink store) simply never fires. */
+  const markerOn = () => !(S.settings && S.settings.marker === false);
   function ensureWBTools() {
     if (wbToolsRef) return wbToolsRef;
     const el = document.createElement("div");
@@ -14926,7 +14973,10 @@
     applyWBState();
     if (WB.onToggle) WB.onToggle();
   }
-  function showWBTools() { const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns(); }
+  function showWBTools() {
+    if (!markerOn()) return;   // turned off in Settings — the floating panel never appears
+    const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns();
+  }
   function hideWBTools() {
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
@@ -15071,6 +15121,10 @@
     if (WB._panStop) { WB._panStop(); WB._panStop = null; }   // a fling from the previous card would keep scrolling this one
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
+    /* …and with the marker turned off in Settings there is no second half to build: no canvas over the page
+       and none of the pointer listeners that go with it. It sits AFTER the teardown above rather than at the
+       top, or a fling or a resize listener left by the page before this one would outlive it. */
+    if (!markerOn()) { WB.canvas = null; WB.ctx = null; WB.enabled = false; WB.panelOpen = false; return; }
     WB.fixed = !!o.fixed;
     const canvas = document.createElement("canvas");
     canvas.className = "draw-canvas" + (WB.fixed ? " wb-fixed" : "");
@@ -15982,7 +16036,18 @@
     const im = a.image;
     if (im && typeof im === "object" && im.src) {
       const src = sanitizeUrl(String(im.src), ["http", "https"]);
-      if (src) out.image = { src, credit: sanitizePlain(String(im.credit || "")).trim().slice(0, 300), alt: sanitizePlain(String(im.alt || "")).trim().slice(0, 300) };
+      /* `title` and `desc` caption the picture in the fullscreen viewer (Aug 2026 — until then an artefact's
+         picture opened it with a blank description). They are carried through here, or the first admin edit
+         of any artefact would strip them from that artefact and the next bake would strip them from the
+         file. Plain, like the credit and the alt: a caption is a sentence about a photograph, and there is
+         nothing in one that wants markup. */
+      if (src) out.image = {
+        src,
+        title: sanitizePlain(String(im.title || "")).trim().slice(0, 200),
+        desc: sanitizePlain(String(im.desc || "")).trim().slice(0, 600),
+        credit: sanitizePlain(String(im.credit || "")).trim().slice(0, 300),
+        alt: sanitizePlain(String(im.alt || "")).trim().slice(0, 300),
+      };
     }
     return out;
   }
@@ -16224,6 +16289,12 @@
       (o.close ? '<button class="ar-close" type="button" aria-label="Close">×</button>' : "") +
       '<div class="ar-winart">' + artefactPlateArtHTML(a) + '</div>' +
       '<div class="ar-wintext">' +
+        /* SHOWCASE SITS AT THE TOP (Aug 2026, on request). It used to close the plate, below five sentences
+           and a fold of citations — so on anything but the shortest artefact it was off the bottom of a
+           scrolling box, and a reader who opened a plate to pin it had to read past everything first. It is
+           the one ACTION on a page that is otherwise all reading, and an action belongs where the reader
+           arrives rather than where the reading runs out. */
+        (o.pin ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + esc(o.pin) + "</button>" : "") +
         /* The rarity sits AFTER the name on its own line (Aug 2026, on request) rather than above it: a
            chip standing alone over a title reads as a section heading for the whole plate, where beside
            the name it reads as what it is — an adjective on this object. `.ar-wtop` is a baseline-aligned
@@ -16246,7 +16317,6 @@
            page about one object rather than a glance at a word, and this is where a reader who wants to
            know whether the thing is really 65 centimetres long goes to find out. */
         sourcesHTML(src) +
-        (o.pin ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + esc(o.pin) + "</button>" : "") +
       "</div></div>";
   }
   /* AN ARTEFACT'S FIVE SENTENCES LINK THE GLOSSARY, like a card's background (Aug 2026, on request). The
@@ -18127,7 +18197,13 @@
     const all = browseRowData();
 
     let shown = [];
-    const repaint = () => {
+    /* How far down the filtered list the table has been drawn. It is reset by every repaint that CHANGES the
+       list — a new search or a new sort is a new list, and carrying a scrolled-to depth across one would
+       paint a thousand rows of something the reader has only just asked for. Growing it (the sentinel below)
+       repaints without resetting, which is what `keepLimit` says. */
+    let limit = BROWSE_PAGE;
+    const repaint = (keepLimit) => {
+      if (!keepLimit) limit = BROWSE_PAGE;
       const pred = browsePredicate(browseTokens(browseQ));
       const col = BROWSE_COLS.find((c) => c.k === browseSort) || BROWSE_COLS[0];
       shown = all.filter(pred).sort((a, b) => {
@@ -18138,7 +18214,7 @@
         if (!d) d = a.title.toLowerCase() < b.title.toLowerCase() ? -1 : a.title.toLowerCase() > b.title.toLowerCase() ? 1 : 0;
         return browseRev ? -d : d;
       });
-      const cut = shown.slice(0, BROWSE_CAP);
+      const cut = shown.slice(0, limit);
       body.innerHTML = shown.length
         ? cut.map((r) =>
             /* The full deck path and anything the row could not fit go on the TOOLTIP rather than being
@@ -18161,17 +18237,48 @@
             '<span class="bw-cell bw-lapses">' + (r.lapses || "—") + "</span>" +
             "</div>").join("")
         : '<p class="bw-none">Nothing matches that search. ' + (browseQ.trim() ? "Try fewer terms, or clear the box." : "") + "</p>";
-      countEl.innerHTML = shown.length === all.length
-        ? "<b>" + all.length + "</b> " + (all.length === 1 ? "card" : "cards")
-        : "<b>" + shown.length + "</b> of " + all.length + " cards" +
-          (shown.length > BROWSE_CAP ? ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>" : "");
-      if (shown.length > BROWSE_CAP && shown.length === all.length) {
-        countEl.innerHTML = "<b>" + all.length + "</b> cards" + ' <span class="bw-cap">showing the first ' + BROWSE_CAP + " — narrow the search to see the rest</span>";
+      /* The sentinel is the LAST thing in the body, so it comes into view exactly when the reader reaches the
+         foot of the table — including on a first paint whose rows do not fill the window, which a scroll
+         listener could never see because no scroll ever happens. It is drawn only while there is more to
+         come, so an exhausted list carries no "loading" line that will never resolve. */
+      if (shown.length > cut.length) {
+        const more = document.createElement("div");
+        more.className = "bw-more";
+        more.id = "bwMore";
+        more.textContent = "Loading more…";
+        body.appendChild(more);
+        watchMore(more);
       }
+      countEl.innerHTML = shown.length === all.length
+        ? "<b>" + all.length + "</b> " + (all.length === 1 ? "card" : "cards") + drawnNote(cut.length, shown.length)
+        : "<b>" + shown.length + "</b> of " + all.length + " cards" + drawnNote(cut.length, shown.length);
       const allBox = root.querySelector("#bwAll");
       if (allBox) allBox.checked = cut.length > 0 && cut.every((r) => browseSel[r.id]);
       paintBulk();
     };
+    // …and the count line says how much of the list is actually on screen rather than telling the reader to
+    // narrow the search: the rest is a scroll away now, not out of reach
+    const drawnNote = (drawn, total) =>
+      total > drawn ? ' <span class="bw-cap">' + drawn + " on screen — scroll for more</span>" : "";
+    /* ONE observer, re-pointed at each freshly drawn sentinel rather than one per repaint: the sentinel is
+       rebuilt with the rows every time, and an observer left watching the old one would fire on a node that
+       is no longer in the document. It disconnects itself when the page goes, the self-stopping shape the
+       book's scroll listener uses — there is no teardown hook to hang it on. */
+    let moreObs = null;
+    function watchMore(el) {
+      if (!("IntersectionObserver" in window)) { limit = shown.length; return; }
+      if (!moreObs) {
+        moreObs = new IntersectionObserver((entries) => {
+          if (!body.isConnected) { moreObs.disconnect(); moreObs = null; return; }
+          if (!entries.some((e) => e.isIntersecting)) return;
+          if (limit >= shown.length) return;
+          limit += BROWSE_PAGE;
+          repaint(true);
+        }, { rootMargin: "400px 0px" });   // a page ahead of the fold, so the rows are there before the reader is
+      }
+      moreObs.disconnect();
+      moreObs.observe(el);
+    }
 
     /* The bulk bar. It appears only when something is selected — a permanent row of disabled buttons is a
        row of things that look broken — and it is rebuilt rather than hidden, so the count in it can never
@@ -18214,14 +18321,14 @@
         if (browseSel[id]) delete browseSel[id]; else browseSel[id] = true;
         row.classList.toggle("sel", !!browseSel[id]);
         const allBox = root.querySelector("#bwAll");
-        if (allBox) allBox.checked = shown.slice(0, BROWSE_CAP).every((r) => browseSel[r.id]);
+        if (allBox) allBox.checked = shown.slice(0, limit).every((r) => browseSel[r.id]);
         paintBulk();
         return;
       }
       if (e.target.closest(".bw-name")) openCardInfo(id, () => PAGES.browse(root));
     });
     root.querySelector("#bwAll").addEventListener("change", (e) => {
-      const cut = shown.slice(0, BROWSE_CAP);
+      const cut = shown.slice(0, limit);
       if (e.target.checked) cut.forEach((r) => { browseSel[r.id] = true; });
       else cut.forEach((r) => { delete browseSel[r.id]; });
       repaint();
@@ -22019,10 +22126,16 @@
     const sess = buildSession(params.scope);
     // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
     const resume = params.resume && Array.isArray(params.resume.queue) ? params.resume : null;
-    // a session that starts from the home page goes back there: the daily review, the Card of the day and the
-    // cards it has added are all launched from that page, and "Collections" would strand the reader
-    // …and a GROUP is the reader's own arrangement of the home page's list, so it goes back there too
-    const fromHome = params.scope.type === "review" || params.scope.type === "card" || params.scope.type === "cotd" || params.scope.type === "group";
+    /* EVERY SESSION GOES BACK TO THE HOME PAGE (Aug 2026, on request: "once completing daily studies for a
+       deck, the button should lead back to the home page, not the collections page"). It used to depend on
+       the scope — the review, the Card of the day and a group returned home while a DECK returned to the
+       collections — which was written when a deck was something a reader found on that page. It is not any
+       more: a deck is added to the daily study and then tapped on its own row on the home page, so that is
+       where a reader finishing one came from and where their other decks are waiting. The collections are one
+       press further on, from the lip under the review, which is the route the home page advertises.
+       It is ONE answer rather than a rule per surface: the mid-session exit, the caught-up placard and the
+       completion screen all read this, and a completion screen going home while the exit beside it went to
+       the collections would be two answers to one question. */
     if (!sess) {
       root.innerHTML = params.scope.type === "card"
         ? emptyPlacard("Card not found", "—", "We couldn't find that card.", () => route("home"), "Back home")
@@ -22227,7 +22340,7 @@
         sess.scope.type === "review"
           ? "No cards are due right now. New cards unlock as you keep a streak going."
           : "You've studied everything available in this deck for now.",
-        () => route(fromHome ? "home" : "decks"),
+        () => route("home"),
         "Done"
       );
       return;
@@ -22281,9 +22394,7 @@
       root.innerHTML = `
         <div class="study-shell">
           <div class="study-bar">
-            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> ${
-              fromHome ? "Home" : "Collections"
-            }</button>
+            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Home</button>
             ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
             ${/* Card info — Anki's `I`, and deliberately in the study BAR rather than in the grade bar. The
                   grade bar's phone layout is a fixed three-cell row under the grades ("help undo suspend"),
@@ -22347,7 +22458,7 @@
       wireTTS(cardRoot, c);
       if (ttsActive()) ttsSay(ttsPartsFor("question", c));   // the slow male voice reads the question ("blank" for the ____)
       root.querySelector("#exit").addEventListener("click", () =>
-        route(fromHome ? "home" : "decks")
+        route("home")
       );
       { const ub = root.querySelector("#undoGrade"); if (ub) ub.addEventListener("click", undoGrade); }
       { const ib = root.querySelector("#cardInfo"); if (ib) ib.addEventListener("click", () => openCardInfo(id, () => renderCard())); }
@@ -22592,11 +22703,11 @@
         <div class="row">
           <button class="btn" id="more">Keep studying</button>
           ${canUndo() ? '<button class="btn ghost" id="undoLast">Undo the last card</button>' : ""}
-          <button class="btn ghost" id="home">Back ${fromHome ? "home" : "to collections"}</button>
+          <button class="btn ghost" id="home">Back home</button>
         </div>`;
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>
-        route(fromHome ? "home" : "decks")
+        route("home")
       );
       // the last card of a session is exactly where a misclick is hardest to live with — the queue is empty
       // and there is no card left to press Undo on, so the way back sits here too
@@ -25163,18 +25274,32 @@
         inlineConfirm("Show today's answers? The grid closes for the day — you keep the " + solved +
           " of " + N + " you have found.", () => {
           const earned = solved;
+          /* A REVEALED LETTER IS RED, NOT GREEN (Aug 2026, on request). Green means "you got this" — it is
+             what a solved entry paints and what locks a square against being typed over — so painting the
+             whole board green on a give-up tells the reader they answered a grid they in fact gave up on,
+             and the one thing a reader wants to see afterwards is which letters were theirs. What each
+             square WAS is read BEFORE the answers are written over it: a square whose own letter already
+             matched the answer stays green, and every square that was empty or wrong turns red. */
+          const own = {};
+          root.querySelectorAll(".xw-cell").forEach((el) => { own[el.dataset.k] = el.value; });
+          const mine = {};
           puz.entries.forEach((e) => cellsOf(e).forEach((k, i) => {
             const el = input(k);
-            if (el) el.value = e.w[i];
+            if (!el) return;
+            if ((own[k] || "") === e.w[i]) mine[k] = true;
+            el.value = e.w[i];
           }));
           finished = true;   // set BEFORE the sweep, so every square locks and nothing re-judges as a win
           const shown = {};
           root.querySelectorAll(".xw-cell").forEach((el) => {
-            shown[el.dataset.k] = el.value;
+            const k = el.dataset.k;
+            shown[k] = el.value;
             el.readOnly = true; el.tabIndex = -1;
-            el.classList.remove("bad"); el.classList.add("ok");
+            el.classList.toggle("ok", !!mine[k]);
+            el.classList.toggle("bad", !mine[k]);
           });
-          root.querySelectorAll(".xw-clue").forEach((b) => b.classList.add("done"));
+          // …and a clue is "done" only where the reader finished it, for the same reason: the tick beside a
+          // clue is what they earned, not a note that the answer is now on the board
           const clr = root.querySelector("#xw-clear"); if (clr) clr.hidden = true;
           const gu = root.querySelector("#xw-giveup"); if (gu) gu.hidden = true;
           xwMarkGaveUp(shown);
@@ -25183,7 +25308,7 @@
           const res = root.querySelector("#xwResult");
           res.className = "chrono-result show";
           res.innerHTML = '<div class="cr-title">' + earned + " of " + N + " found</div>" +
-            '<div class="cr-sub">The rest are filled in above. A fresh grid arrives tomorrow.</div>';
+            '<div class="cr-sub">The rest are filled in above, in red. A fresh grid arrives tomorrow.</div>';
         }, "Show the answers");
       });
       root.querySelector("#xw-home").addEventListener("click", () => route("home"));
@@ -29906,9 +30031,13 @@
       "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are.\n" +
       "     date    a short date line, in the compact notation the cards use.\n" +
       "     origin  where it is from, and where it is now if that is worth knowing.\n" +
-      "     image   optional { src, credit, alt } — a LINK, never an upload, exactly as a card's picture is.\n" +
-      "             `credit` is required wherever `src` is set; an artefact with no picture draws a\n" +
-      "             rarity-coloured placeholder rather than an empty frame.\n" +
+      "     image   optional { src, title, desc, credit, alt } — a LINK, never an upload, exactly as a card's\n" +
+      "             picture is. `credit` is required wherever `src` is set; an artefact with no picture draws\n" +
+      "             a rarity-coloured placeholder rather than an empty frame. `title` and `desc` are what the\n" +
+      "             fullscreen viewer captions the picture with — they were added Aug 2026, on request, all 99\n" +
+      "             pictures having opened the viewer with a blank description until then. Neither composes\n" +
+      "             anything: the title is the artefact's own name and the description is the alt with the\n" +
+      "             attribution `credit` already carries. See .claude/fix-image-text.js.\n" +
       "     desc    exactly FIVE sentences, about 200 words (±10%), at the same reading level as a card's\n" +
       "             background. Rich HTML: <b> for the object's own name at its first mention, <i> for titles\n" +
       "             and foreign terms. Metric first with the imperial equivalent in brackets. It carries the\n" +
@@ -29926,7 +30055,10 @@
         let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
         if (a.date) out += "    date: " + s(a.date) + ",\n";
         if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-        if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+        if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
+          (a.image.title ? ", title: " + s(a.image.title) : "") +
+          (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
+          ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
         out += "    desc: " + s(a.desc) + ",\n";
         const src = normSources(a.sources);
         if (src.length) out += "    sources: [\n" + src.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
@@ -30336,6 +30468,15 @@
             }</div></div>
           </div>
           <div class="set-row">
+            ${/* THE WHITEBOARD MARKER (Aug 2026, on request). It floats over every study card, every page of
+                  a book and the Atlas globe, and a reader who never draws has been carrying it round the
+                  corner of the screen on all three. OFF removes the panel and the ink canvas with it — see
+                  markerOn() — so it costs those pages nothing rather than merely being hidden. Anything
+                  already drawn is kept: this decides whether the marker appears, not whether the ink exists. */""}
+            <div class="info"><h3>Whiteboard marker</h3><p>The floating pen that draws over a study card, a book page or the Atlas globe. Turn it off and it stops appearing anywhere; marks you have already made on a book are kept.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.marker !== false ? "on" : ""}" id="sw-marker" role="switch" aria-label="Whiteboard marker" tabindex="0" aria-checked="${S.settings.marker !== false}"></div></div>
+          </div>
+          <div class="set-row">
             ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
                   — so without this it would be unreachable the moment either answer was given. The Atlas
                   and the Library keep their own "?" for the same reason. */""}
@@ -30454,6 +30595,13 @@
        `bumpLoadMap()`, because the map is cached for the day and turning either setting on or off is
        exactly the case a day-keyed cache cannot see. */
     wireSwitch("#sw-load", () => !!S.settings.loadBalance, (v) => { S.settings.loadBalance = v; bumpLoadMap(); });
+    /* The marker. Turning it OFF while the panel is on screen has to take it away there and then — the
+       Settings page is not one of the three that mount it, so nothing would repaint it away by itself, and a
+       panel still floating over the page a switch has just disabled reads as a switch that did nothing. */
+    wireSwitch("#sw-marker", () => S.settings.marker !== false, (v) => {
+      S.settings.marker = v;
+      if (!v) hideWBTools();
+    });
     /* The seven days. Stored Sunday-first to match Date#getDay, so the scheduler does no conversion; drawn
        Monday-first to match the heatmap. Written as a WHOLE array rather than an index, because a save made
        before this existed has no `easyDays` at all and easyDays() is what fills that in. */

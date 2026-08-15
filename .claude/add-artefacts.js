@@ -116,7 +116,13 @@ const body = all.map((a) => {
   let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
   if (a.date) out += "    date: " + s(a.date) + ",\n";
   if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-  if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+  /* `title` and `desc` caption the picture in the fullscreen viewer (added Aug 2026 — see
+     .claude/fix-image-text.js). They are emitted only where they exist, so an entry written without
+     them is byte-identical to what this always wrote; a re-run must not strip the ones on disk. */
+  if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
+    (a.image.title ? ", title: " + s(a.image.title) : "") +
+    (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
+    ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
   out += "    desc: " + s(a.desc) + ",\n";
   const src = Array.isArray(a.sources) ? a.sources.map((x) => String(x).replace(/\s+/g, " ").trim()).filter(Boolean) : [];
   if (src.length) out += "    sources: [\n" + src.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
