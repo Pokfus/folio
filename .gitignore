@@ -31,6 +31,11 @@ node_modules/
 # dump being most of it), and the intermediate files between its stages. The deck
 # it writes IS committed — this is only the working cache behind it.
 .claude/goethe-cache/
+# the five corpora .claude/delf/run.py builds the French deck from, plus the word-list
+# page it reads the headwords off (~760 MB, the Wiktionary dump being most of it), and
+# the intermediate files between its stages. The deck it writes IS committed — this is
+# only the working cache behind it.
+.claude/delf-cache/
 # run.py imports one stage from another, so Python leaves bytecode beside them
 __pycache__/
 

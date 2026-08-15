@@ -3697,8 +3697,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
-  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, and the
-  **Goethe German set** by `.claude/goethe/` — see its own bullet below.
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
+  **Goethe German set** by `.claude/goethe/`, and the **DELF French set** by `.claude/delf/` — see their
+  own bullets below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4587,6 +4588,113 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
+- `.claude/delf/` — the generator behind `decks/DELF-A1-French.folio-deck.json` (**379 notes / 758
+  cards**, 668 KB), a community deck rather than site content:
+  `python3 .claude/delf/run.py [--level a1|a2|b1|b2] [--no-fetch]`. Six stages, run by `run.py`, caching
+  its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
+  `.claude/goethe/` and unlike every other helper here, and for the same reason: a further level is a
+  re-run against the next page rather than a rebuild. **ONE LEVEL PER RUN** (`delf_level` reads the level
+  once, at import), and a level is taught on top of the ones below it, read out of the shipped deck FILES
+  so they cannot drift — the DELE and Goethe arrangement exactly. The same site publishes A2 (554 words),
+  B1 (893) and B2 (1,673), so `LISTS` and `BELOW` are written for four levels rather than one.
+  · **THE WORD LIST IS NOT AN EXAM BOARD'S, AND THAT CHANGES WHAT THE PIPELINE MAY DO WITH IT.** The
+    Goethe deck teaches the Goethe-Institut's own published Wortliste, and its standing rule is that the
+    list IS the syllabus — a word the sentence corpus cannot illustrate still ships, because the board
+    sets the scope and the corpus gets no vote. **France Éducation international publishes no such list
+    for the DELF**: it publishes a syllabus of THEMES, and the reference that turns those into words
+    (Beacco et al., *Niveau A1 pour le français*, Didier) is a commercially published book. So the list
+    here is a third party's — the A1 page of minddory.com, 384 words, which is the size the published
+    guidance implies — and **a compilation with typos in it has no authority to defer to**. Its defects
+    are repaired, every repair is declared in `REPAIRS` with the reason, and the deck's own description
+    tells the reader whose list it is.
+  · **THE DEFECTS WERE FOUND BY A MEASUREMENT, NOT BY EYE.** Looking every entry up in the dump, **four
+    of the 384 have no French record at all** — `exercise` (the English spelling of *exercice*), `france`
+    (uncapitalised), `cinema` (the accent dropped, and `cinéma` is on the list too) and `loud`, which is
+    an English word — and **four more are the same word printed twice** (`chaussure`/`chaussures`,
+    `parent`/`parents`, `salle de bain`/`salle de bains`). Four in 384 is a sharp test rather than a
+    suggestive one, and all four are the ones a reader would flinch at. `loud` is DROPPED rather than
+    guessed at: `lourd` is the obvious near-miss and choosing it would be composing a syllabus entry out
+    of a typo. **`renter` is the one repair the dictionary does not make for us and is marked as such** —
+    it IS a French word, meaning to yield an income, so the no-record test walks past it; what gives it
+    away is that it lands LAST of 379 in the frequency ordering, among `regarder` and `rester`, in a list
+    with no word for coming home. **What is deliberately NOT repaired is the harder half**: `chaussettes`,
+    `sandales` and `devoirs` are printed only in the plural and stay there, since each is a real word in a
+    real form and normalising them would be editing a syllabus rather than correcting an error.
+  · **WIKTIONARY'S OWN RECORD ORDER IS THE SIGNAL, and a preference list is not** — the Goethe build
+    reaches this about SENSES (a commoner sense is not a shorter one) and it holds one level up, about
+    which PART OF SPEECH an entry leads with. Measured: a fixed order (noun, then verb, then adjective…)
+    disagrees with the first record on **73 of the 379 words**, and reading all 73 the first record is
+    right almost every time — `être`, `avoir`, `aller`, `parler` and `dire` are verbs that happen to have
+    a noun record, `grand`, `beau`, `petit` and `vieux` adjectives that happen to have one. French
+    nominalises so freely that preferring `noun` makes two thirds of the deck a noun, which is how the
+    first build came out with **245 nouns and 35 verbs** against the true 195 and 43.
+  · **A FORCED CLASS MUST WIN EVEN WHERE THE DICTIONARY HAS NO RECORD FOR IT.** `une` is the indefinite
+    article, which Wiktionary files under `un` as a bare form-of with no senses of its own — so the only
+    record for `une` carrying a real sense is the NOUN, *la une*, a newspaper's front page. Read with
+    `FORCE_POS` as a mere preference, the entry fell through to that noun, took the feminine article,
+    elided it, and the card came out reading **`l'une`** with a forms row offering *une une*. The table is
+    hand-written and every row was read off the page, so where it names a class the dump has no record
+    for, the class stands and the meaning comes from `AUTHORED` — and a forced class with no record is
+    now REPORTED on the run, because otherwise the build dies at the blank-meaning guard with no clue why.
+  · **`œ` AND `æ` ARE VOWELS**, and leaving them out of the elision set is how **`le œuf`** reached a
+    card. They are single letters rather than the two-letter sequences they look like, so a set written
+    out of the ASCII vowels plus the accents misses them — and `œuf`, `œil` and `sœur` are exactly the
+    words a beginners' list carries.
+  · **A MONTH TAKES NO ARTICLE AND A DAY WITH ONE MEANS SOMETHING ELSE.** `le janvier` is not French;
+    `le lundi` is French and means "on Mondays", so an article there changes the card from the NAME of the
+    day into a habit. Both groups print bare and the gender still shows in the label line. The SEASONS
+    keep theirs, because that is how they are said (`le printemps`, `l'été`).
+  · **THE ELIDED ARTICLE HIDES THE ONE THING IT IS THERE TO TEACH**, which is the French problem the
+    German deck never had: `le` and `la` both become `l'`, so `l'arbre` and `l'année` print the same
+    article and say nothing about gender — and the words it happens to are not marginal (`l'eau`,
+    `l'homme`, `l'école`, `l'hôtel`, `l'argent`). `un` and `une` do not elide, so those **25** cards carry
+    the indefinite form as well, on exactly the words that need it rather than on all of them.
+  · **A NOUN'S EXAMPLES MUST NOT BE SENTENCES WHERE THE SAME STRING IS A PARTICIPLE** — the German deck's
+    `essen`/`das Essen` collision in a language with no capitalisation to settle it. `l'été` is the summer
+    AND the past participle of `être`, so the card teaching *summer* was illustrated with "Tout le monde a
+    **été** invité sauf moi", which is grammatical, correctly translated and about the wrong word. The
+    ambiguity penalty cannot help, because every occurrence of `été` is ambiguous and the penalty falls on
+    all of them equally. What separates the readings is POSITION: a participle follows a conjugated
+    `avoir` or `être`, where a noun would need a determiner in between (`a été invité` against `a un été
+    chaud`). **Written as "the token before it", the rule caught that sentence and walked straight past
+    `n'ai jamais été`** — French puts adverbs between the auxiliary and the participle — so the fault
+    survived its own fix and the card simply showed a different wrong sentence. It is a short scan back
+    that stops at a determiner; it changes two cards, `été` and `marché` (the participle of *marcher*,
+    which nobody had spotted), and both were wrong before.
+  · **A TRANSLATION IS SHORT AND A DEFINITION IS LONG**, and Wiktionary writes both in the same field:
+    `l'eau` came out glossed "water, a liquid that is transparent, colorless, odorless, and tasteless in
+    its pure form…", and sixteen more did the same. Only 15 of 508 leading glosses run past 80 characters,
+    so the trim bites where it should; the head is salvaged (`water`, `a sponge cake`, `banana`) and the
+    definition dropped where the card already has a meaning. **A SUB-SENSE OPENS ON A DISCOURSE MARKER
+    AND THE COMMA AFTER IT IS NOT A LIST COMMA** — "In particular, rain" was split into two lines, so the
+    card offered "water", "In particular" and "rain" as three meanings, one of which is not a word.
+  · **A PRONOMINAL VERB'S MEANING IS IN THE SENSES TAGGED `reflexive`, and the entry's first sense is
+    usually the opposite of it**: `se lever` came out "to raise, lift", which is what `lever` means, where
+    the word means to get up. Four of the five have such senses; `brosser` has none, so `se brosser` is
+    the one AUTHORED there. **Three forms are COMPOSED and they are the only ones** — the passé composé
+    (the auxiliary's own présent plus the participle, with the agreement printed as `je suis allé(e)` so
+    the bracket teaches the rule), the pronominal finite forms, and the pronominal imperative, where the
+    pronoun moves behind the verb and `te` becomes `toi` (`lève-toi`). Which auxiliary a verb takes is
+    **read** off Wiktionary's own `avoir + past participle` row, never guessed.
+  · **kaikki INTERLEAVES THE PRONUNCIATION INTO THE CONJUGATION TABLE**, with the same tags as the
+    spelling it belongs to (`paʁl` beside `parle`, on four verbs). The obvious test — look for IPA
+    characters — is wrong: it also throws away `sœurs` and `œufs`, because `œ` is a French letter. So the
+    test is positive, that every character be one French orthography uses; it keeps 4,023 forms and drops
+    the 8 that are pronunciations. **A REGION TAG ON A PRONUNCIATION IS NOT ONE ON A SENSE**, either:
+    rejecting `['Belgium','France']` the way a regional sense is rejected left `le chien` with no
+    transcription at all, when that tag marks the ordinary European one against Quebec's.
+  · **`check-delf.js` is the browser half** and exists because `check-decks.js` skips the card-level
+    checks for a deck that is not Mandarin — so everything French this deck is FOR is unchecked by
+    anything until here. It studies the deck and asserts what the PAGE says (the coloured article, the
+    elided `l'` with its `un`/`une`, all five tenses in six persons, the auxiliary, `je` eliding before a
+    vowel, the agreement table's cells on one line and not overlapping) and **writes seven screenshots to
+    look at** — which is how the `été` sentence was found, every assertion having passed. Two harness
+    notes: the grade button is `.grade[data-g='easy']` and NOT `.grade [data-g='easy']`, since the class
+    and the attribute are on the same element and the descendant form silently clicks nothing and reports
+    a deck with no nouns, verbs or adjectives in it; and **a walk this long levels the reader up**, which
+    opens an artefact chest over the card and swallows the click on Reveal.
+  **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any
+  edit, since every fault above is silent. Verified across `PYTHONHASHSEED`. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
