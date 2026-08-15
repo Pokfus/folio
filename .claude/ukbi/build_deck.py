@@ -63,6 +63,52 @@ REL = re.compile(r'^(?:\w+\s+)?(?:active|passive|actor focus|patient focus|plura
                  r'|nonstandard form|informal form|misspelling|accidental'
                  r'|basic/imperative|infinitive, imperative)\s+of\b', re.I)
 
+# A GLOSS THAT NAMES ANOTHER INDONESIAN WORD INSTEAD OF SAYING WHAT THIS ONE
+# MEANS -- and it is the commonest defect the finished decks had.
+#
+# `synonym of X` is not in REL above, because it is not a FORM-of relation: the
+# target is a different lexeme rather than a member of this word's affix family,
+# so the fallback REL relies on (walk the family, take the root's meaning) does
+# not reach it.  It slipped through as a meaning, and 62 cards across the seven
+# decks were therefore defined in Indonesian: `memahami` read "synonym of
+# paham", `perkosaan` read "synonym of pemerkosaan", `literal` read "synonym of
+# harfiah".  Eighteen of those carried no English anywhere at all -- a card that
+# shows the reader a word they do not know and glosses it with another word they
+# do not know.
+#
+# TWO THINGS ARE READ RATHER THAN COMPOSED, in this order.  Wiktionary usually
+# writes the meaning into the gloss itself -- `synonym of beri (“to give”)` --
+# and that parenthetical IS the English, sitting unused two characters away from
+# where it was needed; SYN_ENG lifts it.  Where there is no parenthetical the
+# TARGET is looked up and its own glosses are taken, which is the same move
+# `meanings` already makes for a form-of pointer, one lexeme further out.
+# Where neither works the sense is dropped, and a word left with nothing is
+# refused by `main` -- which is the right answer for `momod` (an internet
+# clipping of `moderator`) and `advisor`, and is how they left the decks.
+SYN = re.compile(r'^synonyms?\s+of\s+(.+)$', re.I)
+# `synonym of beri (“to give”)` CLOSES WITH TWO CHARACTERS, `”` and `)`, and a
+# pattern allowing one of them matches nothing at all -- which is silent, since
+# the caller then falls through to the pointer lookup and usually finds
+# something.  It cost `memberikan` its meaning for a run.
+SYN_ENG = re.compile(r'\(\s*[“"”]?\s*([^)“"”]+?)\s*[“"”]?\s*\)\s*$')
+# `pir` is glossed "synonym of pir": the pointer names the word it is on.  A
+# lookup would recurse, so a self-pointer is simply dropped.
+SYN_MAX_HOP = 1
+
+# A GLOSS THAT SAYS THE HEADWORD IS NOT USED IN THIS SENSE IS NOT A MEANING FOR
+# THE HEADWORD.  `kejam` is the case: its two adjective senses (brutal, violent,
+# vicious, ruthless, cruel) are both tagged `colloquial` and are refused by the
+# register filter, which leaves one verb entry glossed "to close (eyes) (used in
+# the form mengejamkan)" -- a sense the gloss itself says belongs to a different
+# word.  The card taught a Semenjana candidate that a very common adjective
+# means to close one's eyes.  It is the `tau` shape with the opposite outcome:
+# there the refused sense left a Greek letter behind and the word fell out of the
+# deck, here it left a rarer homograph and the word stayed with the wrong
+# meaning.  Dropped, after which `kejam` has no standard meaning in this
+# dictionary at all and is refused -- which is the honest reading of a source
+# that tags every sense a reader wants as outside the standard language.
+NOT_THIS_FORM = re.compile(r'used in the form\b', re.I)
+
 # A LETTER HAS A NOUN ENTRY, AND WIKTIONARY WRITES IT OUT IN FULL.  The Spanish
 # generator records the same trap one language over, where it was worse -- there
 # the letter sense came FIRST and `de`, `te` and `ese` were carded as the names
@@ -90,13 +136,93 @@ MAX_SENSES = 3
 MAX_POS = 2
 
 
+# A CROSS-REFERENCE MAY BE A CLAUSE INSIDE A GLOSS RATHER THAN THE WHOLE OF IT,
+# and the two that reach a card this way are the only two in the dictionary that
+# matter: `tarian` is glossed "a dance; synonym of tari" and `gunakan` "to use;
+# basic form of menggunakan".  Dropping the sense loses the English, and keeping
+# it whole prints an Indonesian word the reader has no use for -- so the TAIL is
+# cut and the meaning in front of it is kept.  Anchored to the separator, so a
+# gloss can only lose a clause that begins as a cross-reference.
+#
+# `see` IS NOT ONE OF THEM, and it was, for a run.  Wiktionary does write "see
+# temefos for further information" as a pointer -- but `arrivederci` is glossed
+# "farewell, goodbye, see you later" and `sampai jumpa` simply "see you later",
+# where those three words are the English and cutting them leaves a greeting
+# card that has lost its greeting.  Swept over the whole dictionary: allowing
+# `see` touches eleven glosses and gets two of them wrong, so it goes and the
+# two unambiguous forms stay.
+XREF_TAIL = re.compile(r'\s*[;,]\s*(?:synonyms?|basic form)\s+of\s+[^;]*$', re.I)
+
+
 def clean_gloss(g):
     """Wiktionary's parenthetical qualifiers are kept; its wiki furniture is not."""
-    g = re.sub(r'\s+', ' ', g).strip().rstrip(':;,')
-    return g
+    g = re.sub(r'\s+', ' ', g).strip()
+    g = XREF_TAIL.sub('', g)
+    return g.strip().rstrip(':;,')
 
 
-def glosses_for(word, byword):
+def sense_refused(s):
+    """True when the sense is outside the standard language UKBI tests.
+
+    A SENSE THE DICTIONARY ITSELF CALLS `formal` IS STANDARD, whatever else it
+    carries, and that single line is what fixes the worst card in the stack.
+    `beri` -- "to give", one of the first verbs anybody learns -- is tagged
+    `['dialectal', 'formal']`, so the register filter refused it and the only
+    surviving `beri` entry was the English loanword for a berry.  `memberi` and
+    `memberikan` take their meaning from `beri`, so BOTH of them shipped on the
+    500-word survival deck defined as fruit: "berry (a small succulent fruit, of
+    any one of many varieties)".  Nothing threw, the cards were well formed, and
+    the register filter was doing exactly what it was written to do.
+    Measured over the whole dictionary before it was kept: twelve senses carry a
+    nonstandard tag beside `formal`, of which half are alt-of forms that REL
+    drops anyway, so this cannot reach far enough to do damage.  `formal` and
+    `dialectal` together is the source disagreeing with itself; the tag that
+    names the register UKBI actually examines is the one to believe.
+    """
+    t = set(s.get('tags') or [])
+    return bool(t & NONSTANDARD) and 'formal' not in t
+
+
+def gloss_of(s):
+    """The sense's English, or None when it does not carry one.
+
+    Returns the parenthetical of a `synonym of X (“…”)` gloss, since that IS the
+    English; a bare `synonym of X` returns None and is resolved by the caller.
+    """
+    g = (s.get('glosses') or [''])[0]
+    if not g or REL.match(g) or LETTER_NAME.search(g) or NOT_THIS_FORM.search(g):
+        return None
+    m = SYN.match(g)
+    if m:
+        eng = SYN_ENG.search(m.group(1))
+        return clean_gloss(eng.group(1)) if eng else None
+    return clean_gloss(g) or None
+
+
+def syn_targets(word, byword):
+    """The words a bare `synonym of X` gloss points at, in order."""
+    out = []
+    for e in byword.get(word, []):
+        if e['pos'] in NOT_A_WORD:
+            continue
+        for s in e['s']:
+            if sense_refused(s):
+                continue
+            m = SYN.match((s.get('glosses') or [''])[0])
+            if not m or SYN_ENG.search(m.group(1)):
+                continue
+            t = clean_gloss(m.group(1)).rstrip('.')
+            # LONGEST FIRST, and the target must itself be a word: the gloss may
+            # name several (`synonym of celaka, sial`) or a phrase, and taking a
+            # prefix of one invents a pointer -- the same rule `entry_relation`
+            # applies to a multi-word base.
+            for cand in (t, t.split(',')[0].strip()):
+                if cand and cand != word and cand in byword and cand not in out:
+                    out.append(cand)
+    return out
+
+
+def glosses_for(word, byword, pos_hint=None):
     """[(pos, [gloss, ...]), ...] -- the meanings, best first.
 
     A SENSE THAT ONLY POINTS AT ANOTHER WORD IS NOT A MEANING.  `melihat`'s own
@@ -105,19 +231,21 @@ def glosses_for(word, byword):
     define anything.  Those are dropped and the meaning is taken from whichever
     member of the family actually carries one -- which for an affixed headword
     is nearly always the root.
+
+    `pos_hint` is the entry we arrived FROM, when this is a fallback lookup.
+    See `meanings`.
     """
     out = []
     for e in byword.get(word, []):
         if e['pos'] in NOT_A_WORD:
             continue
+        if pos_hint and e['pos'] != pos_hint:
+            continue
         gs = []
         for s in e['s']:
-            if set(s.get('tags') or []) & NONSTANDARD:
+            if sense_refused(s):
                 continue
-            g = (s.get('glosses') or [''])[0]
-            if not g or REL.match(g) or LETTER_NAME.search(g):
-                continue
-            g = clean_gloss(g)
+            g = gloss_of(s)
             if g and g not in gs:
                 gs.append(g)
         if gs:
@@ -125,16 +253,57 @@ def glosses_for(word, byword):
     return out
 
 
+def owning_entries(word, base, byword):
+    """`base`'s entries whose own paradigm names `word`, or [] if none does.
+
+    A FAMILY MEMBER'S MEANING COMES FROM THE ENTRY THAT CLAIMS THE WORD, and
+    without this the deck's two worst cards were on level 1.  `memberikan` is
+    glossed "active of berikan" and falls back to `berikan`, which has three
+    entries: two of them are `ber-` + `ikan` and mean "have a fish", "full of
+    fish" and "to fish", and the third is `beri` + `-kan` and means to give.
+    Wiktionary's own order puts the fish first, so `memberikan` -- a verb every
+    beginner needs -- was defined on the survival deck as an adjective meaning
+    "have a fish".
+    The source separates them cleanly and the separator is already extracted:
+    the third entry's head template reads `active: memberikan, passive:
+    diberikan`, so the entry that names the word we came from is the entry the
+    word belongs to.  `beri` does the same for `memberi` (`active: memberi`).
+    Exact rather than heuristic, and no etymology parsing.
+    """
+    return [e for e in byword.get(base, [])
+            if any(v == word for _lab, v in (e.get('pairs') or []))]
+
+
 def meanings(word, family, byword):
     """The card's English, taking the root's meaning where the headword's entry
     is only a cross-reference."""
     got = glosses_for(word, byword)
     if not got:
+        # the part of speech this word's own entry claims to be, so a fallback
+        # cannot answer a verb with a homograph noun -- `memberi` is "active of
+        # beri" and must not be glossed from `beri`'s "berry".
+        hint = next((e['pos'] for e in byword.get(word, [])
+                     if e['pos'] not in NOT_A_WORD), None)
         for m in family:
-            if m != word:
-                got = glosses_for(m, byword)
+            if m == word:
+                continue
+            owner = owning_entries(word, m, byword)
+            if owner:
+                got = glosses_for(word, {word: owner})
                 if got:
                     break
+            got = glosses_for(m, byword, pos_hint=hint) or glosses_for(m, byword)
+            if got:
+                break
+    if not got:
+        # nothing in the family carries a meaning: follow a `synonym of X`
+        # pointer, one hop, and take X's own glosses.
+        for _hop in range(SYN_MAX_HOP):
+            for t in syn_targets(word, byword):
+                got = glosses_for(t, byword)
+                if got:
+                    break
+            break
     merged = collections.OrderedDict()
     for pos, gs in got:
         merged.setdefault(pos, [])
@@ -181,8 +350,18 @@ def forms_html(word, forms):
 
 
 def bold(sentence, form):
-    """Pick the word out of the sentence, without touching anything inside a tag."""
-    rx = re.compile(r'(?<![\w-])(' + re.escape(form) + r')(?![\w-])', re.I)
+    """Pick the word out of the sentence, without touching anything inside a tag.
+
+    THE CLITIC IS PART OF THE MATCH AND SO IS PART OF THE BOLD.  `examples.py`
+    accepts `peradangannya` as an occurrence of `peradangan` -- the possessive is
+    written onto the word in Indonesian -- and a pattern here that demanded the
+    bare form would find nothing in that sentence and mark nothing at all.  The
+    two have to allow the same thing: the sentence would still render, still be
+    paired, and simply stop picking the word out, which on a card whose whole
+    point is to show the word in use is the quiet kind of failure.
+    """
+    rx = re.compile(r'(?<![\w-])(' + re.escape(form) + r'(?:ku|mu|nya)?)(?![\w-])',
+                    re.I)
     esc = html.escape(sentence)
     return rx.sub(lambda m: f'<b>{m.group(1)}</b>', esc, count=1)
 

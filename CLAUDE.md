@@ -4631,7 +4631,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `UKBI-7-Istimewa-Indonesian.folio-deck.json`** (1,500 / 3,000, 618 KB — smaller than the level below it,
   for the reason its own bullet gives).
   `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
-  corpora in `.claude/ukbi-cache/` (~175 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
+  corpora in `.claude/ukbi-cache/` (~180 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
   and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
   **ONE LEVEL PER RUN** (`ukbi_level` reads the level once, at import), and a level is taught on top of the
   ones below it, read out of the SHIPPED deck files so they cannot drift — the DELE arrangement exactly.
@@ -4844,6 +4844,67 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   widened: **31 senses are newly dropped and every one defines a letter of an alphabet**; `es` (ice) and `ha`
   (an interjection) both carry a letter sense and both keep their real meanings, which is why the sweep was
   the check rather than the pattern.
+  **A CARD MAY BE DEFINED IN INDONESIAN, AND 62 OF THEM WERE** (Aug 2026, on request: "check the deck
+  for any mistakes or inconsistencies"). Wiktionary writes `synonym of paham` where it means "to
+  understand", and `synonym of` is **not a form-of relation** — the target is a different lexeme rather
+  than a member of this word's affix family — so `REL`, which drops `active of` and `plural of`, never
+  saw it and the pointer shipped as the meaning. **Eighteen of the 62 carried no English anywhere at
+  all**: the reader was shown a word they do not know and told it means another word they do not know
+  (`perkosaan` → "synonym of pemerkosaan"). Every count was healthy throughout and the cards were well
+  formed. **TWO THINGS ARE READ RATHER THAN COMPOSED, in this order**: the dictionary usually writes
+  the meaning into the gloss itself — `synonym of beri (“to give”)` — and that parenthetical IS the
+  English, sitting two characters from where it was needed; where there is none, the TARGET is looked
+  up and its own glosses are taken, one hop. Where neither works the word is refused, which is how
+  `momod` (an internet clipping of `moderator`) left the decks. **THE PARENTHETICAL CLOSES WITH TWO
+  CHARACTERS**, `”` and `)`, and a pattern allowing one matched nothing at all — silently, since the
+  caller then falls through to the lookup and usually finds something. **A cross-reference may also be
+  a CLAUSE inside a gloss** (`a dance; synonym of tari`), where the tail is cut and the meaning kept —
+  and **`see` is not one of the words that may introduce such a tail**, which it was for a run:
+  `arrivederci` is glossed "farewell, goodbye, see you later" and cutting there leaves a greeting with
+  no greeting in it. Swept over the whole dictionary, allowing `see` touches eleven glosses and gets
+  two wrong.
+  **THE TWO WORST CARDS IN THE STACK WERE BOTH ON LEVEL 1 AND BOTH MEANT "TO GIVE".** `memberi` was
+  glossed **"berry (a small succulent fruit, of any one of many varieties)"** and `memberikan`
+  **"have a fish; full of fish"**, on a 500-word survival deck. Two independent causes, and each is a
+  general rule:
+  · **A SENSE THE DICTIONARY ITSELF CALLS `formal` IS STANDARD, whatever else it is tagged.** `beri`
+    ("to give") is tagged `['dialectal', 'formal']`, `dialectal` is in `NONSTANDARD`, so the register
+    filter refused it and left the English loanword for a berry as the only surviving `beri` entry —
+    and both verbs take their meaning from it. The filter was doing exactly what it was written to do.
+    `formal` and `dialectal` together is the source disagreeing with itself, and the tag naming the
+    register UKBI actually examines is the one to believe. **Measured before it was kept: twelve senses
+    in the whole dictionary carry a nonstandard tag beside `formal`**, half of them alt-of forms `REL`
+    drops anyway, so it cannot reach far enough to do damage. The same line is in `select.py`'s
+    `entry_nonstandard` and **the two have to be kept in step** — the stages would otherwise disagree
+    about whether `beri` is a word at all.
+  · **A FAMILY MEMBER'S MEANING COMES FROM THE ENTRY THAT CLAIMS THE WORD.** `memberikan` falls back to
+    `berikan`, which has three entries: two are `ber-` + `ikan` and mean fish, one is `beri` + `-kan`
+    and means to give. Wiktionary's own order — which this generator otherwise trusts — puts the fish
+    first. **The source separates them cleanly and the separator was already extracted**: the third
+    entry's head template reads `active: memberikan, passive: diberikan`, so the entry naming the word
+    we came from is the entry the word belongs to. Exact rather than heuristic, and no etymology
+    parsing. A `pos_hint` backs it up where no entry names the word, so a verb cannot be answered with
+    a homograph noun.
+  **AND A WORD WHOSE ONLY SURVIVING GLOSS SAYS THE HEADWORD IS NOT USED IS NOT TAUGHT.** `kejam`'s two
+  adjective senses (brutal, violent, vicious, ruthless, cruel) are both tagged `colloquial` and both
+  refused, leaving a verb entry glossed "to close (eyes) **(used in the form mengejamkan)**" — a sense
+  the gloss itself says belongs to a different word. The card taught a Semenjana candidate that a very
+  common adjective means to close one's eyes. It is the `tau` shape with the opposite outcome: there
+  the refused sense left a Greek letter and the word fell out, here it left a rarer homograph and the
+  word stayed with the wrong meaning. Dropped, after which `kejam` has no standard meaning in this
+  dictionary and is refused — the honest reading of a source that tags every sense a reader wants as
+  outside the standard language.
+  **TWO NONSTANDARD FORMS CARRY NO NONSTANDARD TAG AND WERE FOUND BY AUDITING THE GLOSSES RATHER THAN
+  THE WORDS**: `enggak` (the written-out `nggak`, tagged `informal`, which this generator deliberately
+  keeps because `aku`, `kamu` and `Anda` are tagged the same) and `momod` (tagged nothing at all).
+  Neither is reachable by any rule — what gave them away is that their only gloss named another
+  Indonesian word, which is what a variant's entry looks like — so both go in `EXCLUDE` by hand.
+  **The synonym resolution is exactly why they needed naming**: it turns their glosses into ordinary
+  English and makes them look like ordinary words.
+  **What the audit found NOTHING wrong with is worth recording too**, since it is what a later pass
+  need not re-check: no word is taught on two levels, no card has an empty field, every forms row's
+  labels match its cells, the HTML balances in every field of all 9,750 cards, and every card id
+  follows its deck.
   **`kayak` AT LEVEL 3 IS THE SAME SHAPE AND SHOWS WHY IT CANNOT BE AUTOMATED.** It is very common as the
   colloquial preposition "like, such as"; that sense is refused, leaving the untagged noun — `kayak`, the
   boat. `tau` was reachable by a rule because its surviving sense was recognisably not an Indonesian word at
@@ -4962,13 +5023,65 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   overwhelmingly ordinary vocabulary (`orbit`, `karbon`, `reputasi`, `pengelolaan`, `musyawarah`,
   `sutradara`) with a handful of marginal-but-real dictionary entries in the tail (`bong`, `dom`, `ken`,
   `bedebah`) — none invented, all glossed from Wiktionary, and exactly what a film corpus yields.
+  **THERE ARE THREE SENTENCE SOURCES AND THE ORDER THEY GO IN IS THE WHOLE DESIGN** (Aug 2026, on
+  request: "add example sentences for as many as you can that don't have any yet"). Tatoeba is a
+  pair bank of everyday sentences written and translated by people, and it runs out — 22,008
+  Indonesian sentences with an English pair covers a survival vocabulary almost completely and an
+  academic one hardly at all. **Two things were measured and REFUSED before a source was added**, and
+  both are the obvious moves: **raising the length cap does nothing** (110 characters already admits
+  99% of that corpus — p99 is 102 — so lifting it to 150 recovers 55 words across the whole stack and
+  to 180 recovers 79, each a longer sentence on a card), and **the matcher was already correct** (a
+  re-implementation with no limits found no extra matches at all). What is missing is not long
+  sentences, it is the words. So two sources were added, strictly in order of how much they can be
+  trusted, and each word takes the best three it can get:
+  **1. Tatoeba** (CC BY 2.0 FR), human-written pairs; **2. Wiktionary's own usage examples**
+  (CC BY-SA 4.0, the same source and licence as the definitions already on the card, carried through
+  `extract_kaikki.py` — 1,257 usable of 2,583 raw, the rest being `Near-synonyms:` lists, collocations
+  written with an em-dash gloss, and literary quotations in older orthography); **3. Global Voices news
+  articles via OPUS** (CC BY 3.0).
+  **THE THIRD IS A DELIBERATE TRADE AND ITS COST IS STATED RATHER THAN HIDDEN.** OPUS aligns Global
+  Voices sentence by sentence with SOFTWARE, and software drifts: reading thirty random pairs by hand
+  found one where the two sides were different sentences from the same article — both real, both
+  fluent, neither a translation of the other. A wrong English under a right Indonesian teaches a wrong
+  meaning, which is worse than teaching nothing. Four things make it acceptable, and the first is the
+  one that matters: **it is reached ONLY where the other two have nothing**, so the risk falls on
+  exactly the words that would otherwise have no example at all; it is filtered hard (see `gv_pairs` —
+  two complete sentences, no URL, a length ratio inside a factor of two, and **where both sides state
+  a number they must state the same one**); where several of its sentences carry the word, the one
+  whose English contains the word's own dictionary gloss is preferred, which raised the confirmed rate
+  of what is actually chosen from 52% to **64%**; and the deck's own description says it used an
+  automatically aligned source and that a few sentences may not line up.
+  **THE PROPER-NOUN VERSION OF THAT NUMBER CHECK WAS TRIED AND THROWN AWAY**, which is the finding:
+  a translated proper noun changes form — `Korea Utara` against `North Korea`, `Eropa` against
+  `Europe`, `Islam` against `Islamic` — so a rule keyed on them rejected **28% of the corpus, of
+  which seven in eight were correctly aligned**. Numbers survive translation and names do not.
+  **THE LICENCE WAS READ RATHER THAN RECALLED**, which is this file's standing rule and mattered here:
+  OPUS's own LICENSE file says only "the same license as the original sources", so it settles nothing
+  — Global Voices' attribution policy is what states CC BY 3.0, and it was fetched. **TED2020 and
+  WikiMatrix were checked and refused**: TED is CC BY-NC-**ND**, which the site's own bar rules out
+  (Folio may sell premium accounts), and WikiMatrix is machine-MINED rather than human-translated, so
+  its misalignment rate is far worse than the one being weighed here.
+  **THE RESULT: 1,528 words gained an example**, and the stack went from 5,602 words with no sentence
+  to 4,074. Per level, "with none" went 2 → 1, 33 → 11, 180 → 46, 591 → 271, 1,313 → 849, 2,096 →
+  1,643 and 1,387 → 1,253. **The bulk of the remainder is not recoverable from any corpus**: level 7's
+  vocabulary is the `-isme`/`-itas`/`ke-…-an` morphology, which no sentence bank of any size contains.
+  **THE CLITIC WAS A REAL MATCHER BUG AND IS WORTH 72 WORDS ON ITS OWN.** Indonesian writes `-ku`,
+  `-mu` and `-nya` onto the end of the word, so a sentence about `peradangannya` is a sentence about
+  `peradangan` — and a whole-word match refuses it. `select.py`'s `read_frequency` had stripped those
+  for exactly this reason since level 1 and `examples.py` had not. **The fix has a second half that
+  fails silently**: `build_deck.bold` picks the word out of the sentence with its own pattern, and
+  left demanding the bare form it marked NOTHING in precisely the sentences the clitic rule had just
+  admitted — the card renders, the sentence is there, the English is there, and the word is simply no
+  longer picked out. Caught by an assertion counting `<b>` against sentences, not by eye. Nothing is
+  ever stripped off the FRONT anywhere in this generator, because `meN-` assimilates and eats the
+  root's first consonant.
   Tatoeba's Indonesian is
   small — 28,192 sentences, 22,023 with an English pair, against hundreds of thousands for Spanish — and was
-  **measured before each level was built rather than assumed**: 488 of level 1's cards carry three sentences
-  and two carry none; at level 2 it is 642 and 33; at level 3, whose words are rarer again, **541 with three
-  and 180 with none**, nearly a fifth; at level 4, **373 with three and 591 with none**, 39% of the deck; at
-  level 5, **137 with three and 1,312 with none**, which is 66%; at level 6, **47 with three and 2,096 with
-  none**, 84%; at level 7, **7 with three and 1,387 with none**, which is 92%. Those are kept: a word is chosen for being
+  **measured before each level was built rather than assumed**: 494 of level 1's cards carry three sentences
+  and one carries none; at level 2 it is 703 and 11; at level 3, whose words are rarer again, **814 with three
+  and 46 with none**; at level 4, **779 with three and 271 with none**, 18% of the deck; at
+  level 5, **382 with three and 849 with none**, which is 42%; at level 6, **174 with three and 1,643 with
+  none**, 66%; at level 7, **28 with three and 1,253 with none**, which is 84%. Those are kept: a word is chosen for being
   worth knowing and not for
   being well covered by a sentence bank, and each deck's own description states its own figure. **That
   figure is the honest output of a small corpus meeting a large deck, and the answer is to print it rather
@@ -5035,8 +5148,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   same. **The one that had to be read rather than assumed** was `keandalan`, whose family is `['keandalan']`
   alone: Wiktionary lists it as a headword in its own right rather than as a derivation of `andal`, so the
   count is TRUE and the fix is the range, not the reader.
-  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (43 assertions at level 1, 47 at level 2,
-  51 at level 3, 55 at level 4, 61 at level 5, 67 at level 6, 68 at level 7), and it exists because
+  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (49 assertions at level 1, 53 at level 2,
+  57 at level 3, 61 at level 4, 67 at level 5, 73 at level 6, 74 at level 7), and it exists because
   `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything Indonesian the
   deck is FOR is unchecked by anything until there. Every fault it hunts is quiet: a dropped forms row leaves
   a good card that has stopped teaching the hard part, a colloquial form that slips the filter looks exactly
@@ -5070,6 +5183,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `unggah` is shown in its forms row) rather than the root a reader might expect.
   **And a new assertion the stack needed: no word is taught again from a level below**, whose failure is not
   an error but a duplicate — the learner meets one word on two decks with two schedules and nothing says so.
+  **THREE ASSERTIONS COME FROM THE AUG 2026 AUDIT AND EACH GUARDS A FAULT THAT LOOKED LIKE A WORKING
+  CARD.** **No card is defined by naming another Indonesian word** — a sweep for `synonym of` /
+  `basic form of` / `used in the form` in the rendered English, which is what the 62 bad cards had in
+  common and what no count could see. **The words for giving are glossed as giving** — asserted by
+  MEANING rather than by presence, since `memberi` and `memberikan` were on the deck all along and it
+  was their definitions that were fruit and fish. And **`kejam` is not taught**, which is the one place
+  the check asserts an ABSENCE for a content reason rather than a register one. Two more cover the new
+  sentence sources, and they assert the property all three must share rather than which source a row
+  came from: **every sentence is paired with an English and has its word marked**, and **every sentence
+  contains the form it is credited to** — a row with no pair is what a half-read corpus leaves behind
+  and a sentence without the word is what an over-eager matcher leaves behind, and both render as an
+  ordinary card. The second tolerates a clitic on purpose, for the reason the matcher does.
   **THE SPECIMENS ARE SEEDED AS DUE RATHER THAN WALKED TO, AND THAT IS THE THIRD ANSWER TO A QUESTION
   THIS CHECK KEPT GETTING WRONG** (`SPECIMENS` / `WANT` / `seedIds`). The walk exists to prove that a card carrying an
   affix family, one carrying a phrase and one carrying three sentences all RENDER, and it used to reach them

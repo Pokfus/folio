@@ -324,7 +324,12 @@ DESC = (
     "families and parts of speech: English Wiktionary, via the kaikki.org extraction "
     "(CC BY-SA 4.0). Frequency ordering: a word list built from OpenSubtitles "
     "(hermitdave/FrequencyWords, CC BY-SA 4.0). Example sentences: Tatoeba "
-    "(tatoeba.org), CC BY 2.0 FR."
+    "(tatoeba.org), CC BY 2.0 FR; English Wiktionary's own usage examples "
+    "(CC BY-SA 4.0); and Global Voices news articles via the OPUS collection "
+    "(CC BY 3.0), which are human translations aligned sentence by sentence "
+    "automatically, so a few of the sentences taken from them may not line up "
+    "exactly with their English. They are used only where the other two sources "
+    "have nothing."
 )
 
 meta = {

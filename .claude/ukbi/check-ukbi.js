@@ -49,6 +49,9 @@ const ok = (c, m, extra) => {
   const deck = JSON.parse(fs.readFileSync(ROOT + "/decks/" + DECK, "utf8"));
   const words = deck.cards.map((c) => c.fields.Word);
   const wordSet = new Set(words);
+  const byWord = new Map(deck.cards.map((c) => [c.fields.Word, c]));
+  const strip = (h) => (h || "").replace(/<[^>]+>/g, " ").replace(/&quot;/g, '"')
+                                .replace(/&#x27;/g, "'").replace(/&amp;/g, "&");
 
   /* THE THREE SPECIMENS ARE SEEDED AS DUE RATHER THAN WALKED TO, AND THAT IS THE THIRD ANSWER TO A
      QUESTION THIS FILE KEPT GETTING WRONG.  The walk exists to prove that a card carrying an affix
@@ -167,9 +170,42 @@ const ok = (c, m, extra) => {
   // is indistinguishable from a word.  `informal` is deliberately NOT excluded (aku, kamu are
   // standard and essential), which is why the standard members of each pair are asserted present.
   const colloquial = ["nggak", "gak", "gue", "lo", "banget", "dimana", "disini", "disana",
-                      "kayak", "udah", "aja", "tau", "bilangin", "ngapain"];
+                      "kayak", "udah", "aja", "tau", "bilangin", "ngapain",
+                      // FOUND BY AUDITING THE GLOSSES RATHER THAN THE WORDS, which is
+                      // the only way these two could be found: neither carries a tag the
+                      // register filter can act on -- `enggak` is `informal`, which this
+                      // deck deliberately keeps for `aku` and `kamu`, and `momod` is
+                      // tagged nothing at all.  What gave them away is that their only
+                      // gloss named another Indonesian word, which is what a variant's
+                      // entry looks like.
+                      "enggak", "momod"];
   const leaked = colloquial.filter((w) => wordSet.has(w));
   ok(leaked.length === 0, "no colloquial form is taught as a word", JSON.stringify(leaked));
+
+  // ------------------------------------------------- a card must teach ENGLISH
+  // THE COMMONEST DEFECT THE FINISHED DECKS HAD, and one that no count could see: 62 cards
+  // across the seven levels were defined in INDONESIAN, because Wiktionary writes "synonym of
+  // paham" where it means "to understand" and nothing dropped it.  Eighteen carried no English
+  // anywhere at all.  The card was well formed, the deck was the right length, and the reader
+  // was shown a word they do not know glossed with another word they do not know.
+  const xref = /\b(?:synonym of|basic form of|used in the form)\b/i;
+  const notEnglish = deck.cards.filter((c) => xref.test(strip(c.fields.English)))
+                               .map((c) => c.fields.Word);
+  ok(notEnglish.length === 0, "no card is defined by naming another Indonesian word",
+     JSON.stringify(notEnglish.slice(0, 8)));
+
+  // THE TWO WORST CARDS IN THE STACK WERE BOTH ON LEVEL 1 AND BOTH MEANT "TO GIVE".
+  // `beri` is tagged `['dialectal', 'formal']`, so the register filter refused it and left the
+  // English loanword for a berry; `memberi` and `memberikan` take their meaning from it, and
+  // `memberikan` additionally falls back to `berikan`, whose first two entries are `ber-` +
+  // `ikan` and mean "have a fish".  A survival deck defined its word for giving as fruit.
+  // Asserted by MEANING rather than by presence: the cards were there all along.
+  const giving = ["memberi", "memberikan"].filter((w) => wordSet.has(w));
+  const wrong = giving.filter((w) => !/\bgive\b/i.test(strip(byWord.get(w).fields.English)));
+  ok(giving.length === 0 || wrong.length === 0,
+     "the words for giving are glossed as giving", JSON.stringify(wrong));
+  ok(!wordSet.has("kejam"),
+     "a word whose only standard sense the filter refuses is not taught with a rarer one");
   const baku = ["tidak", "di mana", "mengapa", "saya", "Anda", "aku", "kamu", "tetapi"];
   const missingBaku = baku.filter((w) => !taught.has(w));
   ok(missingBaku.length === 0, "the standard forms are all present", JSON.stringify(missingBaku));
@@ -295,6 +331,31 @@ const ok = (c, m, extra) => {
   const phrases = words.filter((w) => w.includes(" "));
   ok(phrases.length >= 10, "multi-word entries are taught as single items",
      phrases.length + ": " + phrases.slice(0, 6).join(", "));
+
+  /* ------------------------------------------------- the example sentences
+     THREE SOURCES FEED THIS FIELD AND ONLY THE FIRST IS HAND-ALIGNED, so what has to be asserted
+     is the property all three must share rather than which one a row came from: every sentence
+     shown carries the word it is illustrating, and every one is paired with an English.  A row
+     with no pair is what a half-read corpus leaves behind, and a sentence that does not contain
+     the word is what an over-eager matcher leaves behind -- and both render as an ordinary card.
+     The clitic is allowed for on purpose: `peradangannya` illustrates `peradangan`, which is why
+     the matcher tolerates one and why this assertion has to as well. */
+  const exRows = [];
+  for (const c of deck.cards) {
+    const ex = c.fields.Examples || "";
+    if (!ex) continue;
+    const ids = [...ex.matchAll(/<div class="uc-exz">([\s\S]*?)<\/div>/g)].map((m) => strip(m[1]));
+    const ens = [...ex.matchAll(/<div class="uc-exe">([\s\S]*?)<\/div>/g)].map((m) => strip(m[1]));
+    const bolds = [...ex.matchAll(/<b>([\s\S]*?)<\/b>/g)].map((m) => strip(m[1]));
+    exRows.push({ w: c.fields.Word, ids, ens, bolds });
+  }
+  ok(exRows.length > 0, "the deck carries example sentences", exRows.length + " cards");
+  ok(exRows.every((r) => r.ids.length === r.ens.length && r.ids.length === r.bolds.length),
+     "every sentence is paired with an English and has its word marked");
+  const notIn = exRows.filter((r) => !r.ids.every((s, i) =>
+    s.toLowerCase().includes(r.bolds[i].toLowerCase().replace(/(ku|mu|nya)$/, ""))));
+  ok(notIn.length === 0, "every sentence contains the form it is credited to",
+     JSON.stringify(notIn.slice(0, 4).map((r) => r.w)));
 
   /* ------------------------------------------------- the affix families
      THE CARD'S CENTREPIECE STOPS APPLYING AT THE TOP LEVEL, AND THAT IS A FACT ABOUT ISTIMEWA

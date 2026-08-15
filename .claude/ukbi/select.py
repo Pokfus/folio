@@ -235,6 +235,20 @@ EXCLUDE = {
     # and their cards are HONEST -- inflated rank, true gloss.  The test is not
     # whether the count is borrowed but whether the card teaches something false.
     'station', 'cup', 'along', 'lukas', 'jamal', 'Aditya',
+    # NONSTANDARD FORMS THAT CARRY NO NONSTANDARD TAG, found by auditing the
+    # shipped decks for a gloss that names another Indonesian word instead of
+    # saying what this one means -- which is what a variant's entry looks like.
+    #   `enggak`  the written-out `nggak`, glossed only "synonym of tidak" and
+    #             tagged `informal`, which this file deliberately keeps because
+    #             `kamu`, `aku` and `Anda` are tagged the same.  The tag cannot
+    #             separate them; `nggak` and `gue` are caught by `colloquial`
+    #             and this spelling is not, so it comes here.
+    #   `momod`   an internet clipping of `moderator`, glossed "synonym of
+    #             moderator" and tagged nothing at all.
+    # Both would now resolve to a real English gloss through the synonym
+    # pointer, which is exactly why they need naming: the resolution makes them
+    # look like ordinary words rather than dropping them.
+    'enggak', 'momod',
 }
 
 KEEP = {
@@ -296,7 +310,14 @@ def entry_nonstandard(e):
     ellipsis and carry the ordinary meaning further down, and a rule reading
     `senses[0]` threw all five out along with `Anda` and `kamu`.
     """
-    return all(sense_tags(s) & NONSTANDARD for s in e['s'])
+    # `formal` OVERRIDES, which is the same line `build_deck.sense_refused`
+    # carries and has to be kept in step with it: a sense the dictionary itself
+    # calls formal belongs to the written standard UKBI examines, whatever else
+    # it is tagged.  `beri` ("to give") is tagged `['dialectal', 'formal']`, and
+    # without this the two stages would disagree about whether it is a word --
+    # which is how `memberi` came to be glossed "berry" on the survival deck.
+    return all(sense_tags(s) & NONSTANDARD and 'formal' not in sense_tags(s)
+               for s in e['s'])
 
 
 def entry_relation(e, word, byword):

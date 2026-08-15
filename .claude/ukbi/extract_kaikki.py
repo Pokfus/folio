@@ -19,6 +19,34 @@ import json, sys, collections
 
 KEEP_SENSE = ('glosses', 'tags', 'form_of', 'raw_glosses')
 
+# THE DICTIONARY'S OWN USAGE EXAMPLES, WHICH IT TURNS OUT TO CARRY.  Tatoeba is
+# a pair bank of everyday sentences and runs out fast on an advanced vocabulary
+# -- level 6 has a sentence for 16% of its words -- and Wiktionary illustrates
+# about 800 headwords itself, under the same CC BY-SA 4.0 as the definitions
+# already taken from it.  Most of the file's `examples` are NOT usable and the
+# filtering is done here, where the raw shape is still visible: 519 carry no
+# English at all, and the array is also where the extraction files a stray
+# "Near-synonyms: akselerator, pemercepat" or a bare "the".  A usable one is an
+# `example` (never a `quotation`, which is a literary citation in older
+# orthography), has an English, and is a sentence rather than the collocation
+# form Wiktionary writes with an em-dash gloss (`buah bit ― beetroot`).
+EX_MIN, EX_MAX = 12, 110
+
+
+def usable_examples(s):
+    out = []
+    for ex in s.get('examples') or []:
+        if ex.get('type') not in (None, 'example'):
+            continue
+        t = (ex.get('text') or '').strip()
+        en = (ex.get('english') or '').strip()
+        if not t or not en or '―' in t or '―' in en:
+            continue
+        if not (EX_MIN <= len(t) <= EX_MAX) or len(t.split()) < 3:
+            continue
+        out.append([t, en])
+    return out
+
 
 def reduce_entry(e):
     senses = []
@@ -26,6 +54,9 @@ def reduce_entry(e):
         r = {k: s[k] for k in KEEP_SENSE if s.get(k)}
         if r.get('form_of'):
             r['form_of'] = [x.get('word') for x in r['form_of'] if x.get('word')]
+        ex = usable_examples(s)
+        if ex:
+            r['ex'] = ex
         if r:
             senses.append(r)
     if not senses:
@@ -67,8 +98,10 @@ def main():
             out.append(r)
             pos[r['pos']] += 1
     json.dump(out, open(dst, 'w', encoding='utf-8'), ensure_ascii=False)
+    nex = sum(len(s['ex']) for r in out for s in r['s'] if s.get('ex'))
     print(f'    dictionary: {len(out)} entries, '
-          + ', '.join(f'{v} {k}' for k, v in pos.most_common(6)))
+          + ', '.join(f'{v} {k}' for k, v in pos.most_common(6))
+          + f'; {nex} usable usage examples')
 
 
 if __name__ == '__main__':
