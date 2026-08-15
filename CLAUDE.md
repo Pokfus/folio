@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-028` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-029` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 28 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 29 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10473,7 +10473,8 @@ searching for the claim**; for a text, that is the bibliographer.
 **AND THE PAGE NUMBER MOVES BETWEEN EDITIONS**, which is cnh-011's rule on two printings of one book: Doré
 cites p. 43, and in the 1867 edition the passage is on **p. 35**, read off a clean run of running heads
 (GEOGRAPHY. 35, then 36). Follow a cross-reference to the PASSAGE and then find its page in the copy you
-actually have.
+actually have — and see `cnh-029`, which measured both halves of this and found the offset is not a
+constant.
 **ITS SHARPEST FINDING IS THAT THE SAME MEASUREMENT cnh-012 RAN GAVE THE OPPOSITE ANSWER.** There a shared
 alias scored 11 right against 3 wrong and was KEPT, on the reasoning that the fix which scales is to give
 the other thing its own term. Here the alias `Chinese` on `China` scores **1 apt use against 40**: measured
@@ -10489,6 +10490,31 @@ CORPUS rather than over the card in front of you.**
 answer term and italics mark a title, and the two NEST rather than one giving way. Nothing in `answer` or
 `answerText` carries markup — no card's does — so the title is set plain in the answer box and italic
 everywhere it is a title in a sentence.
+  **`cnh-029` IS THE CROSS-REFERENCE RULE AT ITS CHEAPEST, AND IT SETTLED cnh-028's OPEN QUESTION** (Aug 2026).
+Doré's two footnotes on the Li Sao name Mayers p. 107, Mayers p. 196 and Wylie p. 226 — three locators for
+three different facts — and reading them gave four of the card's five sources in a sitting. **Wylie's page
+was then MEASURED rather than inferred**: the 1902 reprint really does carry the Elegies of Tsoo on p. 226
+and the Shan hae king on p. 43, both exactly as Doré cites, where the 1867 edition has them on 181 and 35 —
+and Mayers, writing in 1874, independently cites "W.N., p. 181" for the same passage. So Doré cites the
+1902 throughout and nobody is wrong; the offset is 45 in one place and 8 in the other, because the reprint
+was reset. **An edition offset is not a constant and must never be applied — look the passage up in the
+copy you have.**
+**ITS FIRST FINDING IS ABOUT THE TOOLING RATHER THAN THE BOOK: NUMBER THE LINES, NEVER COUNT THEM.** Placing
+Mayers's Qu Yuan entry by counting into a `sed` range put it on p. 106 when it is on 107 — the range came
+back 66 lines where the count assumed 65, so every relative index after the first was one out, and the page
+head that settles it sat fourteen lines from where it appeared to. `awk 'NR>=a && NR<=b {printf "%d| %s\n",
+NR, $0}'` costs nothing and cannot drift. cnh-011's rule that a locator is READ, met one level down.
+**A SLIP IN ONE SOURCE IS CORRECTED BY TWO.** Wylie puts the Dragon Boat Festival on "the fifth day of the
+fifteenth month", a month the calendar has not got, where Giles and Mayers both give the fifth of the fifth
+moon; the card follows the two and says nothing about the third. cnh-015's rule — a reference work is
+evidence for what a Chinese text says and is not automatically right about a date — with the majority
+deciding rather than a judgement.
+**AND THE PICTURE AGREED WITH THE TRANSLATION, WHICH IS cnh-025's TEST PASSING RATHER THAN FIRING.** Giles
+renders the ninth of the Nine Songs as a genius "clad in wistaria, girdled with ivy … riding on the red
+pard", and Xiao Yuncong's plate of 1645 for that very poem shows a figure in leaf robes on a spotted
+leopard, with the poem itself printed on the facing page. **Read a card's picture against its prose in both
+directions**: where they disagree one of them is wrong, and where they agree the picture is doing the work
+a picture is for.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
