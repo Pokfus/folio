@@ -14,6 +14,12 @@
 //                          "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }
 //              ("skipSources": true only for a maintenance edit of a card written before citations existed).
 //              deckId defaults to the first leaf deck.
+//
+//              A MAP CARD instead carries `map` + `facts` and no extra phrasings — its question is a window
+//              onto the globe with one place shaded (see the MAP CARDS block below and in app.js):
+//                "map": { "layer": "us-states", "key": "California" },
+//                "facts": [["Capital", "Sacramento"], ["Population", "39.4 million"], …],
+//                "questions": []
 const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
 const dataPath = path.join(__dirname, "..", "data.js");
@@ -63,19 +69,81 @@ const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(fs.readFi
 // only publicly reachable scholarship is citable here, and that a page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
 
+/* ---------- MAP CARDS (Aug 2026, on request) ----------
+   A card carrying `map: { layer, key }` asks its question as a WINDOW onto the globe with one place
+   shaded, and three of the rules above stop making sense for it:
+
+   · THE QUESTION IS A PROMPT, NOT A CLUE. Twenty-eight words of identifying detail is what a text card
+     needs because the words are all the reader has; here the MAP is the clue, and a paragraph beside it
+     would be a second, easier question sitting on top of the first. So a map card's prompt is held to
+     MAPQ_MIN–MAPQ_MAX words instead — still with its blank, since the reader still types the answer.
+
+   · AND IT CARRIES NO EXTRA PHRASINGS. The pool exists so a card is not learned as one sentence's shape;
+     a map card is not learned as a sentence at all, and "which state is shaded?" has no second angle —
+     three ways of saying it would be three ways of saying it. `cardQuestions` then yields a pool of one,
+     so the ‹ › chevrons simply do not appear.
+
+   · THE KEY IS CHECKED AGAINST THE LAYER'S OWN DATA, which is the half that matters. A mistyped key is
+     the quiet failure this whole repo keeps recording: nothing throws, the card ships, and its window
+     says "this map could not be loaded" to a reader who has no idea what they were meant to see. */
+const MAP_LAYERS = {
+  "us-states": { file: "us-states.js", global: "US_STATES", what: "state" },
+};
+const MAPQ_MIN = 5, MAPQ_MAX = 20;
+const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
+
 const cardFile = process.argv[2], deckId = process.argv[3];
 if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]"); process.exit(1); }
 const card = JSON.parse(fs.readFileSync(cardFile, "utf8"));
 for (const f of FIELDS) if (!(f in card)) { console.error("ERROR: card is missing field:", f); process.exit(1); }
 if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
-if (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim())) {
+
+const isMap = !!card.map;
+if (isMap) {
+  const m = card.map;
+  if (typeof m !== "object" || Array.isArray(m)) { console.error("ERROR: card.map must be an object: { \"layer\": \"us-states\", \"key\": \"California\" }"); process.exit(1); }
+  const layer = MAP_LAYERS[m.layer];
+  if (!layer) { console.error("ERROR: unknown map layer " + JSON.stringify(m.layer) + " — known layers: " + Object.keys(MAP_LAYERS).join(", ") + " (add one to CARD_MAP_LAYERS in app.js and to MAP_LAYERS here, in the same commit)."); process.exit(1); }
+  if (typeof m.key !== "string" || !m.key.trim()) { console.error("ERROR: card.map.key is empty — it names the place to shade."); process.exit(1); }
+  if ("zoom" in m && !(Number.isFinite(m.zoom) && m.zoom > 0)) { console.error("ERROR: card.map.zoom must be a positive number, or absent (the window fits the place automatically)."); process.exit(1); }
+  const lp = path.join(__dirname, "..", layer.file);
+  if (!fs.existsSync(lp)) { console.error("ERROR: the " + m.layer + " layer's data file is missing: " + layer.file + " — build it first (see .claude/build-us-states.js)."); process.exit(1); }
+  const shapes = loadWindow(lp)[layer.global] || [];
+  if (!shapes.some((s) => s.n === m.key || s.a === m.key)) {
+    const near = shapes.map((s) => s.n).filter((n) => n.toLowerCase().startsWith(String(m.key).slice(0, 3).toLowerCase()));
+    console.error("ERROR: " + JSON.stringify(m.key) + " is not a " + layer.what + " in " + layer.file + "." +
+      (near.length ? " Did you mean: " + near.join(", ") + "?" : "") +
+      "\n       A key the layer does not carry ships a card whose window says it could not be loaded — which is\n" +
+      "       a reader meeting a broken card, not an error anybody would see first.");
+    process.exit(1);
+  }
+  if (Array.isArray(card.questions) && card.questions.length) {
+    console.error("ERROR: a map card carries no extra question phrasings — the map is the clue, and \"which " + layer.what + " is shaded?\" has no second angle. Give it `\"questions\": []`.");
+    process.exit(1);
+  }
+  card.questions = [];
+  const facts = Array.isArray(card.facts) ? card.facts : [];
+  const bad = facts.find((r) => !Array.isArray(r) || r.length !== 2 || !String(r[0] || "").trim() || !String(r[1] || "").trim() || /[<>]/.test(String(r[0]) + String(r[1])));
+  if (bad) { console.error("ERROR: every `facts` row is a [label, value] pair of non-empty PLAIN TEXT (no markup — the writer builds the tags): " + JSON.stringify(bad)); process.exit(1); }
+  if (facts.length < MAP_FACTS_MIN || facts.length > MAP_FACTS_MAX) {
+    console.error("ERROR: a map card carries " + MAP_FACTS_MIN + "–" + MAP_FACTS_MAX + " `facts` rows — the figures box beside its answer (capital, population, area …). This one has " + facts.length + ".");
+    process.exit(1);
+  }
+} else if (Array.isArray(card.facts) && card.facts.length) {
+  // not refused — the box is general — but worth saying, since it is a map card's furniture
+  console.warn("WARNING: card." + card.id + " has a `facts` box but no `map`. That is allowed; just check it was meant.");
+}
+
+const QMIN = isMap ? MAPQ_MIN : Q_MIN, QMAX = isMap ? MAPQ_MAX : Q_MAX;
+if (!isMap && (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim()))) {
   console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
 }
 for (const [qi, q] of [card.question, ...card.questions].entries()) {
   const qn = qWords(q);
-  if (qn < Q_MIN || qn > Q_MAX) {
-    console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + Q_MIN + "–" + Q_MAX + " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract.");
+  if (qn < QMIN || qn > QMAX) {
+    console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + QMIN + "–" + QMAX +
+      (isMap ? " (a map card's prompt is short: the map is the clue)." : " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract."));
     process.exit(1);
   }
   if (!/class="blank"/.test(q)) {
@@ -277,7 +345,9 @@ console.log("added card " + card.id + " -> deck " + deck.id + " | total cards: "
    the candidate list is a name match, and a name match is confidently wrong in a way nothing
    downstream can catch, so a person picks.  Best-effort — it needs the network and this has
    already written the card, so a failure prints a line and changes no exit status. */
-if (!(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
+// …except a MAP card, whose illustration is its map. A second picture there would sit under the globe
+// answering the same question, and the suggestion is a network round trip nobody is going to act on.
+if (!isMap && !(card.image && card.image.src) && !(card.video && card.video.src) && !process.argv.includes("--no-image")) {
   require("./suggest-image.js").report("cards", card.id, card.answerText || card.answer || card.id)
     .catch((e) => console.log("  (no picture looked for: " + e.message + ")"));
 }

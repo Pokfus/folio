@@ -27,6 +27,15 @@ const ORD = {
   fourteenth: "14th", fifteenth: "15th", sixteenth: "16th", seventeenth: "17th", eighteenth: "18th",
   nineteenth: "19th", twentieth: "20th", "twenty-first": "21st", "twenty-second": "22nd", "twenty-third": "23rd",
 };
+/* KNOWN GAP, left deliberately (Aug 2026): the lookahead is `\s*`, so it does not see the ATTRIBUTIVE
+   hyphenated form — "nineteenth-century city", "second-millennium BCE". Measured over the corpus when it
+   was found: 32 hyphenated century NUMERALS against 2 hyphenated WORDS, so the house convention plainly
+   covers this shape and the rule simply cannot reach it.
+   IT IS NOT WIDENED TO `[\s-]*` HERE because the cases it then finds are not all violations, and `--fix`
+   would damage two of them: `Eighth-century_revival` is a GLOSSARY KEY and the term's own name, and "A
+   Seventeenth-Century manual of arms" sits inside an image credit quoting the scan's own book title —
+   the citation mask does not cover either. Widening it wants a pass that masks glossary keys and quoted
+   titles first, which is a job of its own rather than a character class. */
 const ORD_RE = new RegExp("\\b(" + Object.keys(ORD).join("|") + ")(\\s+(?:and|to|or)\\s+(?:" + Object.keys(ORD).join("|") + ")\\s+)?(?=\\s*(century|centuries|millennium|millennia)\\b)", "gi");
 // also "the (ord) and (ord) centuries": handle the leading ord when the century word comes after the 2nd ord
 const ORD_PAIR_RE = new RegExp("\\b(" + Object.keys(ORD).join("|") + ")(?=\\s+(?:and|to|or)\\s+(?:" + Object.keys(ORD).join("|") + ")[\\s-]*(?:century|centuries|millennium|millennia)\\b)", "gi");

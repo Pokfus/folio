@@ -106,6 +106,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
+| `usstates` | `us-states.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
@@ -3513,6 +3514,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
   has been written yet.** Not part of the site.
+- `docs/geography-card-plan.md` — the running order for the **Geography collection** (`geography`), and **the
+  only plan that is not a thousand cards**: its United States deck is fifty states (`geo-001`–`geo-050`) and
+  their fifty capitals (`geo-501`–`geo-550`), a capital being `geo-500+N` for state `N` so the two subdecks
+  pair by number. The eleventh planned collection and the only one whose cards use the **map card** format,
+  so the file describes the format as well as the order: what `map` and `facts` are, why a map card carries
+  no extra phrasings and a short question, why it is kept out of the minigames, and **the accessibility
+  limitation stated rather than papered over** — the shape is the whole question, so there is no text
+  alternative that does not answer it. It also carries the three glossary collisions already waiting
+  (`Alaska`, `Olympia`, `Georgia`), the reachable-source spine (Census CSVs, Library of Congress state
+  guides, National Park Service), and the finding that `history.house.gov` serves a 200-status error
+  document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
+  "Generating cards & glossary entries". Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -3814,12 +3827,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` (~2.1 MB) — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 409 cards** (measured
-  2026-08-10; this line said 99 for weeks, so **count them rather than quoting it**:
-  `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **119 in World
-  History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **250 in Ancient Greece**
-  (`gr-001`…`gr-250`) and **40 in Ancient Rome** (`rm-001`…`rm-040`) — **each carrying its full pool of 3
-  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all rated on
+- `data.js` (~2.9 MB) — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 560 cards** (measured
+  2026-08-15; this line said 99 for weeks and then 409 for days, so **count them rather than quoting it**:
+  `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **200 in World
+  History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **305 in Ancient Greece**
+  (`gr-001`…`gr-305`), **50 in Ancient Rome** (`rm-001`…`rm-050`) and **5 in Geography** — **each carrying its
+  full pool of 3
+  question phrasings** (`question` + 2 `questions` extras — **except a MAP CARD, which carries exactly one**,
+  see the map-card bullet) **and a `difficulty` of 1–5** (all rated on
   2026-08-10; see the card-difficulty bullet under "How the app is wired") **and, on 14 of them, an
   `undatable: true`** (the terms Timeline must not ask a reader to place — see the bullet beside that one),
   **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
@@ -3846,6 +3861,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
   `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
   taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
+  **`geography` is new — the collection was created on 2026-08-15** by `docs/geography-card-plan.md`, with
+  one deck (`geo-us` The United States) and two leaf subdecks (`geo-us-states`, `geo-us-capitals`), a
+  `COLL_THEME` hue and a `COLLECTION_ICON` compass rose of its own. It is the fourth collection a plan has
+  had to bring into existence, after Egypt, the Second World War and Japan — and the FIRST that ships with
+  cards rather than empty: **five**, `geo-001`–`geo-004` and `geo-504`. Its cards carry two fields no other
+  card has, **`map` and `facts`**, so `serializeCardData` and `revertCard` had to learn both — the
+  documented whitelist trap, and the reason `test-map-cards.js` asserts them in the file rather than on the
+  page. See the map-card bullet under "How the app is wired".
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration, **771 of the 836 terms** since Aug 2026 — see the
@@ -3887,6 +3910,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   them. See the "Language picker + i18n" bullet below.
 - `world.js` (~1.6 MB) — `window.WORLD_GEO`, country-border polygons (Natural Earth 110m, ~117k verts) for the
   Atlas globe.
+- `us-states.js` (~600 KB) — `window.US_STATES = [ { n, a, c:[lon,lat], p:[rings] } ]`, the 50 US states and the
+  District of Columbia (Natural Earth 10m admin-1), for the **map cards** in the Geography collection. `n` is the
+  name a card's `map.key` addresses it by, `a` the postal abbreviation, `c` Natural Earth's own published label
+  point (what the card centres on). Same SHAPE as `world.js`, so `startCardGlobe` draws a state with the code
+  that draws a country. **Lazy** (bundle `usstates`), generated by `.claude/build-us-states.js`, never hand-edited.
+  **It is traced TEN TIMES FINER than world.js (Douglas–Peucker 0.002, 3dp against 0.02, 2dp), and that is a
+  decision rather than an oversight.** The first cut copied world.js's figures, on the reasoning that two traces
+  drawn into one canvas should match — which is a rule about a WORLD map, and this is not one: world.js is seen at
+  zoom 1–10 and a state card opens at whatever zoom frames its state, 79× for Rhode Island. At 0.02/2dp Rhode
+  Island came out as **49 points** — Narragansett Bay three triangular spikes, Block Island a triangle — and
+  nothing was WRONG with it, which is why no count could see it and it took looking at the card. The tolerance is
+  derived from the card's own zoom ceiling instead (see the builder), and the disagreement with world.js's coarser
+  shore is answered in the RENDERER, which fills the states as land. `test-map-cards.js` asserts a floor on the
+  vertex count, so a re-coarsening fails there rather than shipping a hexagon.
 - `uk.js` (~47 KB) — `window.UK_SUBUNITS = [ { n, p:[rings], c:[mask] } ]`, the UK's constituent countries (England,
   Scotland, Wales, Northern Ireland) + Ireland (the whole island, for the pre-1922 all-Ireland UK), from Natural Earth
   10m admin-0 **map subunits** (matched by `SU_A3`, since the NAME field abbreviates "Northern Ireland" → "N. Ireland").
@@ -4116,6 +4153,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   single-response reader records a handful and reports the rest as having no coordinate, which is
   indistinguishable from the truth. Rate-limited hard: it backs off and retries rather than recording a 429 as
   "no coordinate". Not part of the site.
+- `.claude/build-us-states.js` — builds `us-states.js` from Natural Earth 10m admin-1: `node
+  .claude/build-us-states.js [--refetch]`, caching the 40 MB source in `.claude/ne-cache/` (gitignored).
+  Zero deps. It **asserts exactly 51 shapes and unique postal abbreviations** and re-parses the file it
+  writes, on `add-card.js`'s discipline — a builder that quietly drops a state produces a card whose key
+  names nothing, which paints an empty window and throws. Its header carries the tolerance arithmetic, which
+  is the part worth reading before touching it: the figures are derived from the map card's own zoom ceiling
+  and **must not be re-synced to world.js's**, which is where they started and which produced a 49-point
+  Rhode Island. Filters on `adm0_a3 === "USA"` and `type_en === "State"`, plus DC by name — that last is a
+  named exception because Natural Earth does not type it as a state and the layer would otherwise be 50.
+  Not part of the site.
 - `.claude/fetch-images.js` → `.claude/search-images.js` → `.claude/pick-images.js` → `.claude/add-images.js`
   — the four-step **picture pass** that put an illustration on 233 cards and 547 glossary terms (Aug 2026, on
   request; the site had exactly ONE picture before it). Standalone Node helpers, zero deps, resumable, cache
@@ -8161,6 +8208,58 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and **`frame-src`** for the two embed hosts. `.ces-imgpanel[hidden]{display:none}` is
   **required** — the author `display:flex` beats the UA `[hidden]` rule, and without it the panel sits
   permanently open and the click-to-edit toggle does nothing. Guarded by `.claude/test-video.js` (89 assertions).
+- **MAP CARDS — a shape on a globe as the question** (the `MAP CARDS` block in app.js, just above
+  `cardFrontHTML`; `us-states.js`; the Geography collection. Aug 2026, on request). The card shows a place
+  shaded on a globe the reader can turn and zoom but not click, and asks what it is; the back names it and
+  adds a box of figures. Two new card fields carry it — **`map`** (`{ layer, key, zoom? }`) and **`facts`**
+  (`[[label, value], …]`) — and everything else about such a card is an ordinary curated card. Six decisions
+  are load-bearing.
+  · **IT IS A BUILT-IN FORMAT AND NOT A COMMUNITY CARD TYPE, and that was settled before anything was
+    written.** A card type is templates plus scoped CSS and cannot run code — deliberately, since a type is a
+    stranger's content and `sanitizeHTML` plus the CSP exist to keep it inert. A globe needs a canvas, an
+    animation frame and pointer handlers, so it cannot be one, and the reasoning is worth keeping because
+    the request said "a new card type" and the honest answer was that the machinery it needs is exactly what
+    a card type may not have.
+  · **THE MAP IS DRAWN HERE RATHER THAN BY REUSING THE ATLAS.** `PAGES.map` is one enormous closure holding a
+    timeline, an editor, twelve layers, a search index and a game mode, all keyed to a full-bleed stage —
+    none of which belongs in a 260px window on a study card, and half of which (clicking a country to open
+    its panel) is exactly what this must NOT do. What is shared is the ARITHMETIC: `startCardGlobe`'s
+    orthographic basis is the Atlas's `setBasis`/`proj`, so a state sits where the Atlas would put it.
+  · **NOTHING IS CLICKABLE, which is the point of the exercise.** No click handler, no hit test, no hover.
+    The pointer turns the globe and the buttons zoom it — a reader who could tap the shaded state and be
+    told its name would not be studying. Asserted in `test-map-cards.js`, since a map that has become
+    clickable looks exactly like one that has not.
+  · **A MAP CARD IS KEPT OUT OF EVERY DAILY MINIGAME, BY CONSTRUCTION** (`gameCardIdSet` tests
+    `cardMapSpec`). The games deal a question cold with no map beside it, so "the state shaded on the map is
+    ____" is unanswerable there. Unlike `difficulty` and `undatable` this needs no editorial judgement and
+    so needs no field: a card whose clue is its map is by definition unanswerable without it. It also means
+    **`undatable` should NOT be set on one** — Timeline is behind that filter and can never reach it.
+  · **THE FIT IS READ OFF THE SHAPE**, centred on Natural Earth's published label point and zoomed so the
+    longest side fills a little over half the window, with `map.zoom` as an override no shipped card needs.
+    Fifty hand-tuned numbers would be fifty things to keep right. Two subtleties: the fit is taken from the
+    rings NEAR the label point (`nearRings`, ±25°), or **Alaska's bbox spans the antimeridian and it opens on
+    the whole planet** — while every ring is still SHADED, or the Aleutians drop out of Alaska — and
+    `fitTarget` takes those rings as an ARGUMENT rather than narrowing `target.p`, since `shapes[i] ===
+    target` is what stops the target being drawn twice.
+  · **AND IT IS HONESTLY INACCESSIBLE TO A READER WHO CANNOT SEE IT.** A shape is the whole question, so
+    there is no text alternative that does not give the answer away — an `alt` describing the outline has
+    answered the card. The canvas says what it IS and what to do with it, and the answer is announced
+    normally once revealed, so the card can be READ where it cannot be ANSWERED. That is the Picture round's
+    position; it is stated in `docs/geography-card-plan.md` rather than papered over.
+  **`facts` IS NOT THE DATE LINE and the two are easy to confuse**: `isDateList` caps the date line at four
+  rows and demands a number in every labelled row, so `Capital · Sacramento` cannot go there — the date line
+  carries dates and the facts box everything else, and a card may have both (`CARD_FACTS_MAX` 8, plain text).
+  **`add-card.js` validates the key against the real data file** and suggests a near match on a typo, since a
+  key naming nothing paints an empty window and throws; it also refuses extra phrasings on a map card and
+  holds its question to 5–20 words rather than 20–34, the picture being the clue.
+  **THE ZOOM CEILING IS WHAT THE POLYGONS SUPPORT** (`CMAP_ZMAX` 180), not what a place wants: at 3dp every
+  vertex sits on a 0.001° grid, which is half a CSS pixel at 180× on a 340px window and a visible step past
+  it. The District of Columbia is 0.15° across and wants roughly twice that, so it is the one entry of the
+  layer's 51 that is capped — measured, and reported by name by the test so a second cannot appear quietly.
+  Guarded by `.claude/test-map-cards.js`, which sweeps the fit over all 51 shapes, **asserts the VIEW rather
+  than sampled pixels** (an earlier drag check compared two pixels and reported "the drag did nothing" on a
+  globe that had turned four degrees — both samples sat on the same flat fill), and pins its own copy of the
+  fit formula against app.js so it cannot go stale.
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of the
@@ -11251,6 +11350,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   CITATIONS (three spellings now — a card's `"sources":[…]`, glossary.js's whole `GLOSSARY_SOURCES` block, and
   artefacts.js's unquoted `sources: [`), and any **URL**, since a Commons file really is called
   `…c_2700_BC_(10465349433).jpg` and renaming it in an href breaks the picture.
+  **THE CENTURY RULE HAS A DELIBERATE GAP AND IT SHOULD STAY** (Aug 2026): `ORD_RE`'s lookahead is `\s*`, so
+  it does not see the ATTRIBUTIVE hyphenated form — "nineteenth-century city", "second-millennium BCE".
+  Measured when it was found: **32 hyphenated century NUMERALS against 2 hyphenated WORDS**, so the house
+  convention plainly covers the shape and the rule simply cannot reach it. **Widening it to `[\s-]*` was
+  tried and reverted**, because the cases it then finds are not all violations and `--fix` would damage two
+  of them: `Eighth-century_revival` is a GLOSSARY KEY and the term's own name, and "A Seventeenth-Century
+  manual of arms" sits inside an image credit quoting the scan's own book title — neither of which the
+  citation mask covers. It wants a pass that masks glossary keys and quoted titles first, which is a job of
+  its own rather than a character class. The reasoning is in the script's own header too.
 
 **FOLIO IS A HISTORY SITE, NOT AN ARCHAEOLOGY SITE (Aug 2026, on request).** A card is about the PAST it
 names, not about the people who dug it up: the excavation is how we know, not what the reader came for.
@@ -11352,7 +11460,7 @@ shipped `data.js` — the China deck was trimmed to nothing and regrown as `wh-`
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links.
 
-**THE TEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE ELEVEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -11371,6 +11479,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+| Geography | `geography` | `geo-` | `docs/geography-card-plan.md` | 1 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):
 
@@ -11760,6 +11869,44 @@ from the start** at the `GLOSS_SRC_TARGET` bar, and mind that this collection ha
 ordinary-English-word surfaces than any other (`Resistance`, `Blitz`, `Ultra`, `Enigma`, `Overlord`)
 because operation code names were chosen to be ordinary words: use `GLOSSARY_CASESENSITIVE` or the full
 form as the head word (`Operation Barbarossa`, not `Barbarossa`).
+
+**GEOGRAPHY (`geography`) is the ELEVENTH and is not like the other ten (Aug 2026, on request).** Its deck
+is `geo-us` The United States, in two subdecks — `geo-us-states` (`geo-001`–`geo-050`) and
+`geo-us-capitals` (`geo-501`–`geo-550`) — and its plan is `docs/geography-card-plan.md`, used the same
+way: **"generate the next Geography card" means take the lowest `geo-NNN` not yet in `data.js`, read its
+subject from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
+The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='geo-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+**Five cards are written** — `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode
+Island and `geo-504` Providence — so the next state is `geo-005` and the next capital `geo-501`.
+**IT IS 100 CARDS, NOT 1000**, which is the first thing that differs and is declared in
+`test-card-plans.js`'s own `PLANS` table rather than assumed: the other ten each run a contiguous 1–1000
+and this runs 1–50 and 501–550. **A capital is `geo-500+N` for state `N`**, so `geo-004` Rhode Island and
+`geo-504` Providence are the same state seen twice — the two subdecks show the same fifty pictures and ask
+two different questions of them, and `studyOrder`'s round-robin lag then deals a state and its capital a
+day apart, which is the right way round.
+**ITS CARDS USE A FORMAT NO OTHER COLLECTION USES** — a MAP CARD, which puts a globe on the front and asks
+what the shaded shape is; see the map-card bullet under "How the app is wired" for the machinery and the
+plan for the rules it imposes on the writing. The two that bite hardest: **a map card carries NO extra
+phrasings** (`add-card.js` refuses them — two more ways of describing one shape is the same sentence
+twice), and **its question is 5–20 words** rather than 20–34, the picture being the clue.
+**THE RUNNING ORDER IS BY HOW RECOGNISABLE THE OUTLINE IS**, not alphabetical and not by anything else:
+that is the question the card actually asks, and alphabetical would open on Alabama, Alaska and Arizona.
+Four bands, unmistakable to hard, ending on the plains rectangles and the New England cluster — which are
+the reason a shape deck is worth studying at all.
+**THREE GLOSSARY COLLISIONS ARE ALREADY WAITING and each is named in the plan rather than left to be
+discovered**: `Alaska` exists and is a prehistory framing written for `wh-097` Beringia, so it must be
+EXTENDED rather than replaced; `Olympia` exists and is the Greek sanctuary, so Washington's capital needs
+a disambiguated key and must not claim the bare surface; and **`Georgia` is an ALIAS of
+`Georgia_(country)`**, which is batch N7's own recorded lesson arriving on schedule — *an alias list
+written before the sibling term existed will contain the sibling's name*. Decide that one explicitly when
+`geo-027` is written; do not add a second claimant to one surface and let the two race.
+**AND ITS SOURCING IS THE BEST ON THE SITE, which is worth knowing before assuming a US subject is hard**:
+the Census Bureau publishes area and population as CSVs, the Library of Congress publishes per-state
+resource guides with named authors and revision dates, and the National Park Service publishes real
+history under `/learn/historyculture/`. Two access findings in the plan: `history.house.gov`'s statehood
+pages serve a **200-status "Error Document"**, and the state-capital city governments are the weak point —
+JavaScript sites with no citable text — which is why a capital card leans on the Census place file.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort
@@ -12500,7 +12647,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Forty-one committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -12870,16 +13017,22 @@ dead code (never rendered).
     theme is caught. The default mode is REPORTED — the quiet tokens are quiet on purpose and the high-contrast
     mode is the answer to them — while **with `body.hc` on, nothing may fall short**, which is the assertion.
     **Re-run after touching a control's markup, `body.hc`, or any theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 125 assertions on **the join between the ten card plans and
+  · `node .claude/test-card-plans.js` — 150 assertions on **the join between the eleven card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. Everything it guards
     fails SILENTLY, and the worst of them is not a crash: **a plan naming a deck id the tree hasn't got
     makes `add-card.js` file the card in the FIRST leaf of the whole tree, which is `cn-myth`, in
     China** — nothing throws, and the card sits in the wrong collection until somebody notices. It also
     asserts that no leaf in `data.js` goes unnamed by a plan (cards could never be routed there), that
-    each running order covers 1–1000 with no gaps, no duplicate ids and no two cards naming the same
+    each running order covers **the numbers its own collection declares** with no gaps and nothing
+    outside them, no duplicate ids and no two cards naming the same
     topic, that CLAUDE.md carries every plan and a working next-id command, and that the **index table**
     under "Generating cards & glossary entries" still matches the tree. **No browser and no
-    dependencies.** Two things it had to learn, both of which made a first draft report faults that were
+    dependencies.**
+    **A COLLECTION NEED NOT BE A THOUSAND CARDS, and the numbering is DECLARED rather than assumed**
+    (Aug 2026, adding Geography). The check was a flat 1–1000, which is right for the ten planned
+    histories and wrong for a deck of fifty states and their fifty capitals: `PLANS`' third element is
+    now either `1000` or a list of ranges (`[[1,50],[501,550]]`), and a number outside the declared set
+    fails too — a mistyped one otherwise reads as a card the plan does not have. Two things it had to learn, both of which made a first draft report faults that were
     not there: **a `##` heading may name a FLAT DECK** — a deck that is itself a leaf (`gr-iron`,
     `ru-federation`, `cn-myth`) — so reading only `###` misses it and reading `##` as always-a-leaf
     misfires on the branch decks; and **`docs/world-history-card-plan.md` carries an appendix**, the
@@ -13116,6 +13269,29 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
+  · `node .claude/test-map-cards.js` — **the geography map-card format** (76 assertions, Aug 2026), half of it
+    with no browser. Everything it guards is silent on the page. **The FIT**: a map that does not frame its
+    state still draws a globe — the reader gets an ocean, or a continent with a speck in it — so it sweeps
+    all 51 shapes and asserts each fills a useful part of its window without overflowing, that Alaska's fit
+    ignores the rings across the antimeridian, and that **at most one entry sits at the zoom ceiling**, which
+    it names (the District of Columbia). **The RESOLUTION**: a floor on Rhode Island's vertex count and on
+    the layer's, which is what fails if somebody re-syncs the tolerance to world.js's and turns the bay back
+    into three spikes — no count of states or rings can see that. **The BEHAVIOUR**: dragging turns the globe
+    and does not zoom it, the three buttons do what they say, recentre returns EXACTLY to the opening view,
+    and a click opens no place panel and no popup of any kind. **The SERIALIZER**: `map` and `facts` carried
+    by `serializeCardData` and restored by `revertCard`, read out of app.js by text — a whitelist that drops
+    a field strips it from every card on the next admin keystroke. Plus that map cards are out of
+    `gameCardIdSet`, that `us-states.js` is lazy and not in `index.html`, and that each card's key names a
+    shape the layer actually has.
+    **ASSERT THE VIEW, NOT PIXELS** — `_folioMap.view()` exists for this. An earlier drag check compared two
+    sampled pixels and reported "the drag did nothing" on a globe that had turned four degrees, both samples
+    having landed on the same flat fill. **And its copy of the fit formula is PINNED against app.js** (the
+    span, the zoom, the near-ring test, the disk radius, and both zoom limits read out by regex), because
+    the real fit lives inside `startCardGlobe`'s closure with no way in from outside and a copy is exactly
+    what goes stale. Verified against two reintroduced faults — the game filter removed, and the layer
+    re-coarsened — each caught. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
+    `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
+    `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's restricted
     pool** (75 assertions), and every one of
     its checks is for something that fails SILENTLY. **The wiring**: each of the three is a route, has a

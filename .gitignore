@@ -40,3 +40,7 @@ __pycache__/
 # this line is what stops a `git add -A` sweeping it in. Delete the line to ship it.
 decks/Goethe-A2-German.folio-deck.json
 decks/Goethe-B1-German.folio-deck.json
+
+# the 40 MB Natural Earth admin-1 geojson .claude/build-us-states.js reads the state polygons off.
+# The us-states.js it writes IS committed — this is only the working cache behind it.
+.claude/ne-cache/
