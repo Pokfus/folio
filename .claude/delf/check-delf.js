@@ -71,15 +71,37 @@ const ok = (c, m, extra) => {
   // The word list is a third party's page and only the WORDS are taken from it; nothing that page
   // wrote about them should be anywhere in the deck.
   ok(!/minddory/i.test(JSON.stringify(deck.cards)), "no card text quotes the source page");
-  // The four entries that are not French words, and the one that is a rare verb: none may survive.
+  // THE REPAIRS ARE READ OUT OF `wordlist.py`, NEVER WRITTEN DOWN HERE.  This
+  // block once named A1's five broken entries and its three duplicates as
+  // literals, which is the same fault the guided tour's own test records: a
+  // level-parameterised checker with one level's answers baked into it does not
+  // guard the rule, it pins a stale copy of it -- and run against A2 it failed
+  // on `cinéma`, a word that page does not print.  The expectation now comes
+  // from the same table the build reads, so a repair added later is checked by
+  // having been written once.
   const words = new Set(deck.cards.map((c) => c.fields.Word));
-  ok(!words.has("exercise") && !words.has("loud") && !words.has("cinema") &&
-     !words.has("france") && !words.has("renter"),
+  const py = fs.readFileSync(__dirname + "/wordlist.py", "utf8");
+  const block = new RegExp("^'" + LEVEL + "': \\{$([\\s\\S]*?)^\\},$", "m").exec(py);
+  ok(block, "the level's repair table is in wordlist.py");
+  const repairs = [...(block ? block[1] : "")
+    .matchAll(/^    '([^']+)':\s*\((None|'[^']*')/gm)]
+    .map((m) => [m[1], m[2] === "None" ? null : m[2].slice(1, -1)]);
+  ok(repairs.length > 0, "and it has rows in it");
+  ok(repairs.every(([from]) => !words.has(from)),
      "the list's broken entries were repaired or dropped");
-  ok(words.has("exercice") && words.has("cinéma") && words.has("France") && words.has("rentrer"),
-     "and their repairs are in the deck");
-  ok(!words.has("chaussures") && !words.has("parents") && !words.has("salle de bain"),
-     "the duplicates were merged away");
+  // A repaired word reaches the deck UNLESS a lower level already teaches it --
+  // A2 corrects `temperature` and is then silent about `exercice`, which A1 has.
+  const below = { a1: [], a2: ["a1"], b1: ["a1", "a2"], b2: ["a1", "a2", "b1"] }[LEVEL];
+  const taught = new Set();
+  for (const lv of below) {
+    const p = ROOT + "/decks/DELF-" + lv.toUpperCase() + "-French.folio-deck.json";
+    if (fs.existsSync(p))
+      for (const c of JSON.parse(fs.readFileSync(p, "utf8")).cards) taught.add(c.fields.Word);
+  }
+  const missing = repairs.filter(([, to]) => to && !words.has(to) && !taught.has(to));
+  ok(missing.length === 0,
+     "and their repairs are in the deck" +
+     (missing.length ? " -- absent: " + missing.map((m) => m[1]).join(", ") : ""));
 
   // ---------------------------------------------------------------- import
   await pg.goto(base + "#studio", { waitUntil: "load" });

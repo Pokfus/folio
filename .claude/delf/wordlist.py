@@ -9,19 +9,33 @@ so it has no authority to defer to, and it was measured against Wiktionary befor
 a single card was built.
 
 TWO KINDS OF DEFECT, AND EACH IS FOUND BY A MEASUREMENT RATHER THAN BY EYE.
+Both recur at the same rate on every list this site has read, which is the
+argument for running the two measurements on a new one rather than trusting
+that a longer page was compiled more carefully.
 
-  · A WORD THE FRENCH DICTIONARY HAS NEVER HEARD OF.  Looking every entry up in
-    the kaikki extraction of English Wiktionary, four of the 384 come back with
-    no French record at all: `exercise` (the English spelling; French is
-    `exercice`), `france` (a proper noun, uncapitalised), `cinema` (the accent
-    dropped -- and the list carries `cinéma` as well) and `loud`, which is an
-    English adjective and is not a French word in any spelling.  Every other
-    entry is in the dictionary, so the test is sharp rather than suggestive:
-    four out of 384, and all four are the ones a reader would flinch at.
-  · THE SAME WORD TWICE.  `cinema`/`cinéma`, `chaussure`/`chaussures`,
-    `parent`/`parents` and `salle de bain`/`salle de bains` are four pairs where
-    both members are on the list.  Carded as they stand, a reader meets the same
-    word as two cards with two schedules and no way to tell which is which.
+  · A WORD THE FRENCH DICTIONARY HAS NEVER HEARD OF.  Look every entry up in the
+    kaikki extraction of English Wiktionary and read what comes back with no
+    French record at all.  On the A1 page that is four of 384: `exercise` (the
+    English spelling; French is `exercice`), `france` (a proper noun,
+    uncapitalised), `cinema` (the accent dropped -- and the list carries
+    `cinéma` as well) and `loud`, which is an English adjective and is not a
+    French word in any spelling.  On the A2 page it is two of 554: `temperature`
+    (the accent dropped again, and `température` is on the list too) and
+    `faire du sport`, which is a real French phrase the dictionary simply has no
+    entry for and is therefore not a defect at all -- see AUTHORED in
+    build_deck.py.  Every other entry is in the dictionary, so the test is sharp
+    rather than suggestive, and the ones it names are the ones a reader would
+    flinch at.
+  · THE SAME WORD TWICE.  Strip the accents off the whole list and read every
+    collision, then read every singular/plural pair.  A1 prints `cinema`/
+    `cinéma`, `chaussure`/`chaussures`, `parent`/`parents` and `salle de bain`/
+    `salle de bains`; A2 prints `temperature`/`température` and four nouns in
+    both numbers (`cheveu`, `loisir`, `personne`, `quelque`).  Carded as they
+    stand, a reader meets the same word as two cards with two schedules and no
+    way to tell which is which.  **A COLLISION IS NOT A DUPLICATE UNTIL IT HAS
+    BEEN READ**: A2's `âge`/`âgé` collide and are the noun and the adjective,
+    and three more of its words collide with A1's across the level boundary
+    (`salé`/`sale`, `sucré`/`sucre`, `sûr`/`sur`) and are six different words.
 
 WHAT IS DELIBERATELY *NOT* REPAIRED, which is the harder half.  `chaussettes`,
 `sandales` and `devoirs` are printed only in the plural and are left there: each
@@ -58,7 +72,17 @@ if not raw:
 # a string that is already on the list MERGES the two; any other string is a
 # correction.  Every one is justified by one of the two measurements above, and
 # the run prints the table so a repair can never happen quietly.
-REPAIRS = {
+#
+# THE TABLE IS PER LEVEL, and that is not tidiness.  A repair is a statement
+# about one page: A1 prints `chaussures` beside `chaussure` and A2 does not, so
+# a flat table shared across levels would fire a merge on a list that has
+# nothing to merge -- silently, since a repair whose source word is absent does
+# nothing at all and reports nothing.  Worse in the other direction: a level
+# whose list happens to print a word another level's table corrects would have
+# that correction applied without anybody having looked at it.  Every row here
+# was read off the page it names.
+REPAIRS_BY_LEVEL = {
+'a1': {
     'exercise': ('exercice', 'the English spelling; no French record'),
     'france':   ('France',   'a proper noun, printed uncapitalised'),
     'loud':     (None,       'an English word; not French in any spelling'),
@@ -77,7 +101,43 @@ REPAIRS = {
     'chaussures':      ('chaussure',     'the list carries the singular too'),
     'parents':         ('parent',        'the list carries the singular too'),
     'salle de bain':   ('salle de bains', 'the list carries both spellings'),
+},
+'a2': {
+    # The A1 page's two kinds of defect, on a longer list and in the same
+    # proportion: one accent dropped off a word the list ALSO prints correctly,
+    # and four nouns printed in both numbers.
+    'temperature': ('température', 'the accent dropped, and the list carries '
+                                   'température too'),
+    'cheveux':   ('cheveu',   'the list carries the singular too'),
+    'loisirs':   ('loisir',   'the list carries the singular too'),
+    'personnes': ('personne', 'the list carries the singular too'),
+    'quelques':  ('quelque',  'the list carries the singular too'),
+    # A THIRD SHAPE OF DUPLICATE, WHICH ONLY THE BUILT CARDS SHOW: the same word
+    # printed in both GENDERS.  Neither the no-record test nor the accent sweep
+    # nor the singular/plural sweep can see it, because both members are real
+    # words in real forms -- what shows it is a card whose Forms row names
+    # another card, which is what `joli`/`jolie` and `voisin`/`voisine` do and
+    # what `parti`/`partie` (party against part) and `surpris`/`surprise`
+    # (surprised against a surprise) deliberately do not.  Read all four before
+    # merging any: a feminine form and a feminine noun look identical from the
+    # outside.  The masculine keeps the card and prints its feminine, which is
+    # what those cards were already doing for eighty other words.
+    'jolie':   ('joli',   'the masculine is on the list and prints it as its feminine'),
+    'voisine': ('voisin', 'the masculine is on the list and prints it as its feminine'),
+    # WHAT LOOKS LIKE A SIXTH ROW AND IS NOT, in two different ways -- both
+    # found by stripping the accents off every word and reading each collision
+    # rather than by assuming the shape of one was the shape of all.
+    #   · WITHIN this list, `âge` and `âgé` collide and are two different words
+    #     an accent apart: the noun for age, and the adjective for elderly.
+    #     Both stay.
+    #   · ACROSS the levels, `salé`, `sucré` and `sûr` are A2 words whose
+    #     unaccented partners `sale`, `sucre` and `sur` are A1 words -- salted
+    #     against dirty, sugared against sugar, sure against on.  Nothing has to
+    #     be done about those at all: `words_below()` excludes an A1 word by its
+    #     exact spelling, so all six ship, one pair to a level.
+},
 }
+REPAIRS = REPAIRS_BY_LEVEL.get(LEVEL, {})
 
 # ---------------------------------------------------------------- groups
 # What the alphabet cannot say about a word.  These exist for the same reason
@@ -142,6 +202,16 @@ for w, why in dropped:
 merged = [e['word'] for e in entries if e['merged']]
 if merged:
     print('  merged duplicates into:', ', '.join(merged))
+
+# WHAT WAS REPAIRED IS WRITTEN DOWN FOR THE DECK'S OWN DESCRIPTION TO READ.  That
+# paragraph named A1's five broken entries and its three duplicates as literals,
+# which on the A2 deck told a reader about words its list does not print -- the
+# same fault the checker had.  Emitted here, where the repairs actually happen,
+# so the prose a reader is shown cannot come apart from what was done.
+json.dump({'raw': len(raw),
+           'fixed': [{'from': a, 'to': b, 'merged': b in raw} for a, b, _ in log],
+           'dropped': [a for a, _ in dropped]},
+          open(lvlf('repairs.json'), 'w'), ensure_ascii=False, indent=1)
 
 print('  words:', len(entries),
       f"(reflexive {sum(1 for e in entries if e['reflexive'])},"

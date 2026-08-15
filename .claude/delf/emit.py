@@ -314,23 +314,63 @@ EX_NOTE = ('Every word also carries three real example sentences'
            f'{ex3} of them and one or two for the rest'
            + (f'; the corpus has nothing at all for the other {ex0}' if ex0 else ''))
 
+# WHAT THE LIST GOT WRONG IS DESCRIBED FROM WHAT WAS ACTUALLY REPAIRED, never
+# written out.  This paragraph named A1's five broken entries and its three
+# duplicate pairs as literals, so the A2 deck told its reader about `cinéma` and
+# `chaussures` -- words that page does not print -- while saying nothing about
+# the ones it does.  `wordlist.py` records each repair as it makes it and this
+# reads that back, which is the same rule the checker was fixed to follow.
+LEVELS_SAID = {'a1': "the beginner's", 'a2': "the elementary",
+               'b1': "the intermediate", 'b2': "the upper-intermediate"}
+REP = json.load(open(lvlf('repairs.json')))
+
+
+def _and(xs):
+    xs = list(xs)
+    return xs[0] if len(xs) == 1 else ', '.join(xs[:-1]) + ' and ' + xs[-1]
+
+
+_corr = [r for r in REP['fixed'] if not r['merged']]
+_dups = [r for r in REP['fixed'] if r['merged']]
+_bits = []
+if _corr:
+    _bits.append(f"{len(_corr)} " + ("is" if len(_corr) == 1 else "are") +
+                 " misspelt (" + _and(f"{r['from']} for {r['to']}" for r in _corr) + ")")
+if _dups:
+    _bits.append(f"{len(_dups)} " + ("is" if len(_dups) == 1 else "are") +
+                 " the same word printed twice (" +
+                 _and(f"{r['from']} beside {r['to']}" for r in _dups) + ")")
+if REP['dropped']:
+    _bits.append(_and(REP['dropped']) +
+                 (" is" if len(REP['dropped']) == 1 else " are") +
+                 " not " + ("a French word" if len(REP['dropped']) == 1 else "French words") +
+                 " in any spelling")
+# each phrase carries its own verb, so the sentence reads whether it has three
+# clauses or one -- shared across a list it came out as the fragment "The
+# duplicates merged into one card." on the level that has only duplicates
+_did = ([] + (["the misspellings are corrected"] if _corr else [])
+        + ([("the duplicate is" if len(_dups) == 1 else "the duplicates are") +
+            " merged into one card"] if _dups else [])
+        + ([("the rest is" if len(REP['dropped']) == 1 else "the others are") +
+            " dropped rather than guessed at"] if REP['dropped'] else []))
+FAULTS = (f"Of its {REP['raw']} entries, " + _and(_bits) + ". " +
+          _and(_did).capitalize() + ". " if _bits else
+          f"Its {REP['raw']} entries are all real French words, none printed twice. ")
+
 DESC = (
     "Both study directions in one deck: French → English (see the French, recall the meaning) "
     "and English → French (see an English meaning, recall the French). Each direction is a card "
     "of its own with its own schedule, so recognising a word and producing it are learnt "
-    f"separately. {n} words for the DELF A1, the beginner's French diploma awarded by France "
-    "Éducation international for the French Ministry of Education. "
+    f"separately. {n} words for the DELF {LEVEL.upper()}, {LEVELS_SAID[LEVEL]} French diploma "
+    "awarded by France Éducation international for the French Ministry of Education. "
     "A NOTE ON THE WORD LIST, because it is not the exam board's. Unlike the Goethe-Institut, "
     "France Éducation international publishes no vocabulary list for the DELF: it publishes a "
     "syllabus of themes — greetings, numbers, the family, nationalities, the date, the weather, "
     "colours, places — and the reference work that turns those into words is a commercially "
     "published book. The list here is therefore a third party's compilation of roughly the right "
-    "size for A1, taken from the A1 page of minddory.com's French vocabulary lists. It was "
-    "checked against Wiktionary word by word before anything was built: four of its 384 entries "
-    "are not French words at all — exercise for exercice, cinema for cinéma, an uncapitalised "
-    "france, and loud, which is English — and four more are the same word printed twice "
-    "(chaussure and chaussures, parent and parents, salle de bain and salle de bains). The "
-    "typos are corrected, the duplicates merged, and loud is dropped rather than guessed at. "
+    f"size for {LEVEL.upper()}, taken from the {LEVEL.upper()} page of minddory.com's French "
+    "vocabulary lists. It was checked against Wiktionary word by word before anything was "
+    f"built. {FAULTS}"
     "The cards are ordered roughly by how common the word is in everyday French, so the words "
     "you meet most often come first: the order is taken from a frequency list built from film "
     "and television subtitles, with a phrase — which a list of single words cannot see — placed "
@@ -361,7 +401,8 @@ DESC = (
     + EX_NOTE +
     ", chosen where possible to show three different inflected forms rather than the same one "
     "three times, with the word picked out in colour. "
-    "Word list: the A1 list at minddory.com (the list of words only). Meanings, genders, "
+    f"Word list: the {LEVEL.upper()} list at minddory.com (the list of words only). Meanings, "
+    "genders, "
     "plurals, feminines, conjugations and pronunciations: English Wiktionary, via the kaikki.org "
     "extraction (CC BY-SA 4.0). Frequency ordering: a word list built from OpenSubtitles "
     "(hermitdave/FrequencyWords, CC BY-SA 4.0). Example sentences: Tatoeba (tatoeba.org), "

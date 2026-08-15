@@ -4588,8 +4588,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
-- `.claude/delf/` — the generator behind `decks/DELF-A1-French.folio-deck.json` (**379 notes / 758
-  cards**, 668 KB), a community deck rather than site content:
+- `.claude/delf/` — the generator behind the DELF French decks: `decks/DELF-A1-French.folio-deck.json`
+  (**379 notes / 758 cards**, 670 KB) and `decks/DELF-A2-French.folio-deck.json` (**545 notes / 1,090
+  cards**, 1.22 MB), community decks rather than site content:
   `python3 .claude/delf/run.py [--level a1|a2|b1|b2] [--no-fetch]`. Six stages, run by `run.py`, caching
   its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
   `.claude/goethe/` and unlike every other helper here, and for the same reason: a further level is a
@@ -4603,10 +4604,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     sets the scope and the corpus gets no vote. **France Éducation international publishes no such list
     for the DELF**: it publishes a syllabus of THEMES, and the reference that turns those into words
     (Beacco et al., *Niveau A1 pour le français*, Didier) is a commercially published book. So the list
-    here is a third party's — the A1 page of minddory.com, 384 words, which is the size the published
-    guidance implies — and **a compilation with typos in it has no authority to defer to**. Its defects
-    are repaired, every repair is declared in `REPAIRS` with the reason, and the deck's own description
-    tells the reader whose list it is.
+    here is a third party's — the A1 page of minddory.com, 384 words, and the A2 page, 554 — and **a
+    compilation with typos in it has no authority to defer to**. Its defects are repaired, every repair
+    is declared in `REPAIRS_BY_LEVEL` with the reason, and the deck's own description tells the reader
+    whose list it is.
+    **THE REPAIR TABLE IS PER LEVEL, AND SO IS EVERY SENTENCE WRITTEN ABOUT IT.** A repair is a statement
+    about ONE page, so a flat table shared across levels fires a merge on a list with nothing to merge —
+    silently, since a repair whose source word is absent does nothing and reports nothing — and, worse,
+    applies one page's correction to another nobody has read. The same fault had already been made twice
+    in prose: `check-delf.js` hard-coded A1's five broken entries and three duplicate pairs as literals
+    and **failed on A2 over `cinéma`, a word that page does not print**, and the deck's own DESCRIPTION
+    told an A2 reader about `chaussures` while saying nothing about its own seven duplicates. Both are
+    derived now — the checker parses `REPAIRS_BY_LEVEL` out of `wordlist.py`, and `wordlist.py` writes a
+    `repairs.json` the description reads back. **A level-parameterised thing with one level's answers
+    baked into it does not guard the rule, it pins a stale copy of it.**
   · **THE DEFECTS WERE FOUND BY A MEASUREMENT, NOT BY EYE.** Looking every entry up in the dump, **four
     of the 384 have no French record at all** — `exercise` (the English spelling of *exercice*), `france`
     (uncapitalised), `cinema` (the accent dropped, and `cinéma` is on the list too) and `loud`, which is
@@ -4620,6 +4631,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     with no word for coming home. **What is deliberately NOT repaired is the harder half**: `chaussettes`,
     `sandales` and `devoirs` are printed only in the plural and stay there, since each is a real word in a
     real form and normalising them would be editing a syllabus rather than correcting an error.
+    **THE A2 PAGE HAS THE SAME TWO DEFECTS AT THE SAME RATE, WHICH IS THE ARGUMENT FOR RUNNING BOTH
+    MEASUREMENTS ON EVERY NEW LIST** rather than trusting that a longer page was compiled more carefully:
+    one accent dropped off a word the list also prints correctly (`temperature` beside `température`) and
+    four nouns printed in both numbers (`cheveu`, `loisir`, `personne`, `quelque`). **A COLLISION IS NOT A
+    DUPLICATE UNTIL IT HAS BEEN READ**: `âge`/`âgé` collide within A2 and are the noun and the adjective,
+    and `salé`/`sale`, `sucré`/`sucre` and `sûr`/`sur` collide ACROSS the levels and are six different
+    words — nothing has to be done about those, since `words_below()` excludes by exact spelling.
+    **AND A THIRD SHAPE OF DUPLICATE IS INVISIBLE TO BOTH SWEEPS: the same word printed in both GENDERS.**
+    Neither the no-record test nor the accent sweep nor the singular/plural sweep can see `joli`/`jolie`
+    or `voisin`/`voisine`, because all four are real words in real forms. What shows it is **a card whose
+    Forms row names another card** — which `parti`/`partie` (party against part) and `surpris`/`surprise`
+    (surprised against a surprise) also do and deliberately are not. Read all four before merging any.
+    **AND A FOURTH: the bare infinitive beside its pronominal.** A2 prints `promener` AND `se promener`,
+    `sentir` AND `se sentir`. Those are NOT merged — they are different verbs — but they came out sharing
+    glosses and an example; see the two entries below.
   · **WIKTIONARY'S OWN RECORD ORDER IS THE SIGNAL, and a preference list is not** — the Goethe build
     reaches this about SENSES (a commoner sense is not a shorter one) and it holds one level up, about
     which PART OF SPEECH an entry leads with. Measured: a fixed order (noun, then verb, then adjective…)
@@ -4636,6 +4662,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     hand-written and every row was read off the page, so where it names a class the dump has no record
     for, the class stands and the meaning comes from `AUTHORED` — and a forced class with no record is
     now REPORTED on the run, because otherwise the build dies at the blank-meaning guard with no clue why.
+  · **…AND ON A2 THE PIPELINE ALREADY HANDLED THE FAMILY THAT LOOKED WORST, which is worth measuring
+    before writing a table.** Swept over all **159** of that list's multi-record entries, a record whose
+    every gloss is a form-of pointer already loses to the next, so `produit`, `tapis`, `fermé`,
+    `amusant`, `pressé`, `bruyant`, `surprise` and `droite` come out right untouched. **Ten do not, and
+    they are two shapes.** A DEVERBAL NOUN FILED AHEAD OF ITS VERB — `devenir` glosses "future" and
+    `toucher` "the act of touching, a way of touching, the sense of touch", both real nouns and neither
+    what a learner means by the word; nothing structural separates those from a word that genuinely is a
+    noun first, so they were found by reading. And A RARE SENSE FILED AHEAD OF THE EVERYDAY ONE, which is
+    the A1 table's own `journal`/`menu` shape at greater length: `pendant` leads with the participle
+    "hanging" where the word is *during*, `parti` with a heraldic adjective and "drunk" where it is the
+    political party, `cher` with the vocative "dear, honey, hon" where it is *expensive*, `reçu` with
+    "accomplished" where it is a receipt, `général` with the military rank, and `devoir` with the noun
+    "duty, homework" — **which A1 already teaches as `devoirs`, so at A2 the word left to learn is the
+    verb *must***.
+  · **A FEMININE TAKES ITS OWN ARTICLE, NOT THE HEADWORD'S** — the sharpest fault of the A2 batch and it
+    was in the SHIPPED A1 deck too. The forms row was written `'la ' + fem`, so it printed **`la
+    étudiante`**, `la amie`, `la employée`: ungrammatical French, on a card whose entire subject is which
+    article a word takes, directly under a headword correctly reading `l'étudiant`. It survives because a
+    feminine begins with the same letter as its masculine and so gets it right often enough to look like
+    an exception rather than a rule — the elision has to be recomputed for the feminine, and `elides()`
+    was already sitting there unused by that line. One A1 card changed (`ami`).
   · **`œ` AND `æ` ARE VOWELS**, and leaving them out of the elision set is how **`le œuf`** reached a
     card. They are single letters rather than the two-letter sequences they look like, so a set written
     out of the ASCII vowels plus the accents misses them — and `œuf`, `œil` and `sœur` are exactly the
@@ -4661,6 +4708,55 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     survived its own fix and the card simply showed a different wrong sentence. It is a short scan back
     that stops at a determiner; it changes two cards, `été` and `marché` (the participle of *marcher*,
     which nobody had spotted), and both were wrong before.
+  · **A HYPHEN EITHER ATTACHES A CLITIC OR BUILDS A COMPOUND WORD, and the tokeniser cannot tell them
+    apart** — `-` is not a word character, exactly as the apostrophe is not, which is right half the time.
+    `Donnez-moi`, `pensez-vous`, `Amuse-toi` and `adresse-t-il` are the verb the card teaches with its
+    pronoun stuck on and a learner wants to see them; `passe-temps`, `porte-monnaie`, `couvre-feu`,
+    `sèche-linge`, `après-midi`, `centre-ville` and `sous-entends` are single words meaning what their
+    halves do not, so the `temps` card was illustrated twice over by a HOBBY. Measured before the rule was
+    written: **72 hyphen-adjacent matches across both decks, about fifteen of them compounds.** What
+    separates them is a CLOSED CLASS — everything a hyphen legitimately attaches is a clitic pronoun or a
+    deictic particle, two dozen words that have not changed since the seventeenth century — so a match
+    beside a hyphen is kept when either side of it is one of them. Deliberately a test on the NEIGHBOUR
+    rather than on the compound: asking whether `passe-temps` "is a word" needs a dictionary of compounds,
+    and the one to hand holds only the five hundred headwords being taught. Every compound goes; the two
+    documented false accepts are `monsieur-je-sais-tout` and `ras-le-bol`, whose second halves really do
+    follow a clitic.
+  · **…AND THE MIRROR OF THAT RULE IS WHY EIGHT CARDS HAD NO EXAMPLES AT ALL.** A hyphenated HEADWORD is
+    not a token either, and it is not a `phrase` — that test is a space — so `là-bas`, `grand-mère`,
+    `grand-père`, `après-midi`, `peut-être`, `rendez-vous`, `petit-déjeuner` and `micro-ondes` could never
+    match anything, silently, since a word with no examples simply prints none. They are matched against
+    the TEXT like a phrase: `compound_here` stops a HALF of a compound matching and this lets the WHOLE of
+    one match.
+  · **WHERE THE LIST TEACHES BOTH MEMBERS OF A PAIR, A PRONOMINAL SENTENCE BELONGS TO THE PRONOMINAL
+    CARD** — and the two cards came out sharing an example word for word ("Ils se promenèrent le long de
+    la plage" sat on both `promener` and `se promener`), because a reflexive occurrence matches the bare
+    verb's forms as readily as the pronominal's. `reflexive_here` already existed to REQUIRE the pronoun
+    for the pronominal card; this is the same test read backwards to EXCLUDE it from the plain one. **It
+    is safe only because the pronominal is on the list**: where it is not, `se` before a plain verb is
+    very often the ordinary passive-reflexive ("la porte se ferme", "ça se voit"), which illustrates that
+    verb perfectly well and is deliberately left alone — measured, and the alternative would remove good
+    examples with the poor ones. **The same rule applies to the GLOSSES**, one file over: a sense tagged
+    `reflexive` is dropped from the bare verb's card, which took "to walk (leisurely), to go for a walk"
+    off `promener` and, on A1, "to use" off `aider`, "to wonder" off `demander`, "to wash oneself" off
+    `laver` and "to be read" off `lire` — four cards that had been quietly glossing `s'aider`, `se
+    demander`, `se laver` and `se lire`.
+  · **THAT TEST WAS BLIND IN THREE PLACES AND EACH IS A DIFFERENT FACT ABOUT FRENCH.** **A PAST PARTICIPLE
+    CARRIES NO PERSON**, so there is nothing for the pronoun to agree with and `Il s'est senti mis à
+    l'écart` was invisible — the docstring had CLAIMED compound tenses worked, which is worse than an
+    unstated limit; on a participle the window test now runs alone. **IN AN IMPERATIVE THE PRONOUN
+    FOLLOWS, HYPHENATED, AND IS A DIFFERENT WORD**: `Lave-toi` is `se laver`, and `toi` and `moi` are the
+    STRESSED forms, in no reflexive table — kept in `ENCL_PN` of their own rather than added to `REFL_PN`,
+    because before a verb `moi` and `toi` mark nothing (`c'est à moi de jouer`). And **AN ESSENTIALLY
+    PRONOMINAL VERB CARRIES ITS PRONOUN INSIDE ITS OWN FORMS**: `se souvenir` does not exist without one,
+    so kaikki conjugates it `me souviens`, `te souviens`, `se souvient` — and every form-reader here drops
+    anything containing a space, so all six persons were thrown away and that card had no examples while
+    the corpus held a thousand sentences. The pronoun is stripped back off and the bare form indexed,
+    which costs no precision because `reflexive_here` then demands it back.
+  · **…AND PAIRING IT WITH ITSELF IS HOW THAT CARD STAYED EMPTY AFTER THE FIX.** `se souvenir`'s own lemma
+    IS `se souvenir`, so the plain-key → pronominal-key map mapped it to itself, every occurrence read as
+    "belongs to the other card", and the card came out empty a second time. **A pair must be two DIFFERENT
+    entries**, which is not the tautology it looks like.
   · **A TRANSLATION IS SHORT AND A DEFINITION IS LONG**, and Wiktionary writes both in the same field:
     `l'eau` came out glossed "water, a liquid that is transparent, colorless, odorless, and tasteless in
     its pure form…", and sixteen more did the same. Only 15 of 508 leading glosses run past 80 characters,
@@ -4693,8 +4789,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and the attribute are on the same element and the descendant form silently clicks nothing and reports
     a deck with no nouns, verbs or adjectives in it; and **a walk this long levels the reader up**, which
     opens an artefact chest over the card and swallows the click on Reveal.
-  **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any
-  edit, since every fault above is silent. Verified across `PYTHONHASHSEED`. Not part of the site.
+  **Re-running it must reproduce the shipped deck byte for byte, ON EVERY LEVEL**; that is the check to
+  make after any edit, since every fault above is silent — and the stages are SHARED, so a change made for
+  one level has to be run across the other and its diff READ rather than glanced at. That is what found
+  the `la amie` elision and the five reflexive senses on A1's bare verbs: seven A1 cards changed while A2
+  was being built, and every one was a correction. Verified across `PYTHONHASHSEED`. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's

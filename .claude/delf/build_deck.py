@@ -155,13 +155,28 @@ def glosses_for(rec, limit=2, want_fem=False, reflexive=False):
     such senses and `brosser` has none, so that one falls back to the transitive
     reading ("to brush") -- which is honest, since `se brosser` really is that
     verb turned on oneself, and is noted in the run.
+
+    ...AND THE RULE HAS TO RUN THE OTHER WAY TOO, which the A2 list is what
+    showed: it prints `promener` AND `se promener`, and `sentir` AND `se
+    sentir`, so both members of each pair get a card.  Wiktionary files the
+    pronominal senses under the bare infinitive, and on `promener` it files the
+    reflexive one FIRST -- so the bare card opened "to walk (leisurely), to go
+    for a walk, to stroll", which is what `se promener` means and not what
+    `promener` means, and a reader met the same English line twice under two
+    different French words.  A sense tagged `reflexive` or `pronominal` belongs
+    to the pronominal card and is dropped from the plain one.  It is a filter
+    rather than a preference, and it falls back rather than emptying a card: an
+    entry whose every sense is tagged that way still has to gloss something.
     """
     if rec is None:
         return []
     senses = rec.get('senses', [])
-    if reflexive:
-        refl = [s for s in senses if 'reflexive' in (s.get('tags') or [])]
-        senses = refl or senses
+    if rec.get('pos') == 'verb':
+        def is_refl(s_):
+            return bool({'reflexive', 'pronominal'} & set(s_.get('tags') or ()))
+        refl = [s for s in senses if is_refl(s)]
+        plain = [s for s in senses if not is_refl(s)]
+        senses = (refl or senses) if reflexive else (plain or senses)
     out = []
     for s_ in sorted(senses, key=sense_rank):
         g = sense_gloss(s_, want_fem)
@@ -235,6 +250,37 @@ FORCE_POS = {
     # to force them to `particle` named a class the dump has no record for.
     'merci': 'intj', 'pardon': 'intj',
     'bonjour': 'intj', 'bonsoir': 'intj', 'allô': 'intj', 'au revoir': 'intj',
+
+    # ------------------------------------------------------------------ A2
+    # Read the same way, over all 159 of that list's multi-record entries.  What
+    # the sweep showed is that the pipeline ALREADY handles the family this file
+    # most feared -- a form of another word filed first -- because a record whose
+    # every gloss is a form-of pointer loses to the next: `produit`, `tapis`,
+    # `fermé`, `amusant`, `pressé`, `bruyant`, `surprise` and `droite` all come
+    # out right untouched, and none of them is in this table.  Ten do not, and
+    # they divide into two shapes.
+    #
+    # A DEVERBAL NOUN FILED AHEAD OF ITS VERB.  `devenir` glosses "future" and
+    # `toucher` "the act of touching, a way of touching, the sense of touch" --
+    # perfectly real nouns, and not what a learner meeting either word means by
+    # it.  These are not form-of records, so nothing structural separates them
+    # from a word that genuinely is a noun first; they were found by reading.
+    'devenir': 'verb', 'toucher': 'verb',
+    # AND A RARE SENSE FILED AHEAD OF THE EVERYDAY ONE, which is the A1 table's
+    # own shape (`journal`, `menu`) at greater length.  `pendant` leads with the
+    # participle-turned-adjective "hanging" where the word is the preposition
+    # *during*; `parti` with a heraldic adjective and "drunk" where it is the
+    # political party; `cher` with the vocative noun "dear, honey, hon" where it
+    # is *expensive*; `reçu` with the adjective "accomplished" where it is a
+    # receipt; `général` with the military rank where the list means *general*;
+    # and `devoir` with the noun "duty, homework" -- which A1 already teaches as
+    # `devoirs`, so at A2 the word left to learn is the verb *must*.
+    'pendant': 'prep', 'parti': 'noun', 'cher': 'adj', 'reçu': 'noun',
+    'général': 'adj', 'devoir': 'verb', 'vidéo': 'noun',
+    # `voisin` leads with the adjective "neighbouring"; the list also prints
+    # `voisine`, which is merged into it (see REPAIRS), so the card has to be the
+    # noun or the merge would file a feminine noun under an adjective.
+    'voisin': 'noun',
 }
 
 # WHERE WIKTIONARY HAS NO USABLE MEANING, IT IS WRITTEN OUT.  Each of these was
@@ -284,6 +330,14 @@ AUTHORED = {
     # card offered a note about French spelling reform as the word's meaning.
     'weekend': ['weekend'],
     'tout': ['all, every', 'everything'],
+    # A REAL PHRASE THE DICTIONARY HAS NO ENTRY FOR, which is a different thing
+    # from a defect in the list and must not be repaired as one.  `faire du
+    # sport` is ordinary French and English Wiktionary simply does not card it;
+    # `faire`, `du` and `sport` are each there and their meanings do not add up
+    # to it, which is what makes it worth teaching as a unit.  Written out, and
+    # the run reports it beside the words that genuinely have no record so the
+    # difference between the two is visible rather than assumed.
+    'faire du sport': ['to do sport, to exercise'],
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -801,7 +855,15 @@ def forms_html(e, rec, pos, gender, elided):
             bits.append(('plural', 'les ' + pl))
         fem = feminine_of(rec, e['lemma'])
         if fem:
-            bits.append(('feminine', 'la ' + fem))
+            # THE FEMININE TAKES ITS OWN ARTICLE, NOT THE HEADWORD'S.  Written
+            # `'la ' + fem` this row printed `la étudiante`, `la amie` and `la
+            # employée` -- ungrammatical French, on a card whose whole subject
+            # is which article a word takes, under a headword correctly reading
+            # `l'étudiant`.  The elision is a property of the word it stands in
+            # front of and has to be recomputed for the feminine, which begins
+            # with the same letter as its masculine and so gets it right often
+            # enough for the fault to look like an exception rather than a rule.
+            bits.append(('feminine', ("l'" if elides(fem) else 'la ') + fem))
     if pos == 'adj' and rec is not None:
         fem = pick_form(rec, {'feminine'}, without={'plural'})
         if fem:
