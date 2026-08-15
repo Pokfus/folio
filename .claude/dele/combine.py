@@ -15,13 +15,15 @@ and writes deck files whose subdecks NEST, a direction inside a level:
 so a reader adds a whole level or one direction of it, and the levels stay
 separable inside one file rather than being poured together.
 
-IT WRITES TWO FILES, AND THAT IS FORCED RATHER THAN CHOSEN.  All seven decks
-come to about 15,800 cards and 55 MB, against app.js's import caps of 12,000
-cards and 48 MB, so one file is not possible at these sizes and shrinking the
-content to fit would be answering the wrong question.  The cut is made where the
-CEFR itself makes one: A1–B2, the levels a learner works up through, with the
-phrases deck; and C1–C2, the two mastery levels.  Each file is a whole deck in
-its own right, they share no card, and a reader can import one or both.
+IT WRITES ONE FILE holding all seven, which it could not do at the caps app.js
+shipped with: 16,782 rows and ~54 MB against a 12,000-row, 48 MB limit.  It was
+two files for exactly that reason, split where the CEFR splits.  On request the
+caps were RAISED instead -- to 20,000 rows and 80 MB, both re-derived from what
+the shipped decks actually weigh rather than nudged until this fitted -- so the
+seven now travel together.  Keep `MAX_CARDS` and `MAX_BYTES` below in step with
+app.js's `UDECK_MAX_CARDS` and `UDECK_MAX_BYTES`; this refuses to WRITE a file
+the app would refuse to read, which is the only way the two can disagree
+without somebody finding out on a phone.
 
 SIX THINGS IT HAS TO GET RIGHT, and five of them fail silently.
 
@@ -72,22 +74,17 @@ SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
 
 # app.js's own limits, restated here so this refuses to write a file that
 # cannot be imported rather than leaving it to be found on a phone.
-MAX_CARDS = 12000
-MAX_BYTES = 48 * 1024 * 1024
+MAX_CARDS = 20000
+MAX_BYTES = 80 * 1024 * 1024
 
 # key -> the name its subdeck takes at the top level of a combined file
 LABEL = {'a1': 'A1', 'a2': 'A2', 'b1': 'B1', 'b2': 'B2', 'c1': 'C1', 'c2': 'C2',
          'ph': 'Phrases'}
 
 FILES = [
-    dict(id='delelow', title='DELE A1–B2 and Phrases — Spanish',
-         out='DELE-A1-B2-and-Phrases-Spanish.folio-deck.json',
-         parts=['a1', 'a2', 'b1', 'b2', 'ph'],
-         other='the C1 and C2 levels, which are a second file of the same shape'),
-    dict(id='delehigh', title='DELE C1–C2 — Spanish',
-         out='DELE-C1-C2-Spanish.folio-deck.json',
-         parts=['c1', 'c2'],
-         other='A1 to B2 and the phrases deck, which are a first file of the same shape'),
+    dict(id='deleall', title='DELE A1–C2 and Phrases — Spanish',
+         out='DELE-A1-C2-and-Phrases-Spanish.folio-deck.json',
+         parts=['a1', 'a2', 'b1', 'b2', 'c1', 'c2', 'ph']),
 ]
 
 
@@ -152,11 +149,11 @@ def desc(spec, s):
            if has_ph else '. ')
         + f'They sit on {n} cards in each direction, because a masculine and a feminine '
         'headword that are both in the word list share one card. '
-        'The six DELE levels are split across two files because all seven together run '
-        'past the size a single deck file can be imported at; this one carries '
-        + andlist(names + (['the phrases'] if has_ph else [])) + ', and '
-        + spec['other'] + '. '
-        'There is no official published DELE word list, so the vocabulary is '
+        + ('Every level of the DELE is here, from the first words a beginner meets to the '
+           'vocabulary the highest certificate is examined on, so this one file is the whole '
+           'ladder. '
+           if len(levels) == 6 else '')
+        + 'There is no official published DELE word list, so the vocabulary is '
         "taken from the body that sets the exam: the level's own column of the "
         "Instituto Cervantes' own Plan curricular — its inventories of Nociones "
         'específicas and Nociones generales, which are printed two levels to a '

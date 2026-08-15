@@ -1,11 +1,12 @@
-/* The combined Spanish deck files, imported the way a reader imports them.
+/* The combined Spanish deck file, imported the way a reader imports it.
 
-   `combine.py` writes a file per set because all seven decks do not fit in one, and every way that can
-   go wrong is quiet.  A file over app.js's caps is REFUSED at import, so the reader sees a sentence and
-   no deck.  A card id reused between the two files collides in the shared UCARDS store, and both decks
-   then sit on the shelf with their full counts while one studies the other's cards.  A subdeck path
-   that loses its `::` flattens the tree into one level with no error at all.  None of that is visible
-   in the JSON, so this imports the files into a real browser and reads the shelf back.
+   Every way this can go wrong is quiet.  A file over app.js's caps is REFUSED at import, so the reader
+   sees a sentence and no deck — and this file is deliberately close to both caps, so a cap lowered or a
+   deck grown turns it away and nothing else in the suite would notice.  A card id reused from another
+   deck collides in the shared UCARDS store, and both decks then sit on the shelf with their full counts
+   while one studies the other's cards.  A subdeck path that loses its `::` flattens the tree into one
+   level with no error at all.  None of that is visible in the JSON, so this imports into a real browser
+   and reads the shelf back.
 
      NODE_PATH=<playwright>/node_modules node .claude/test-combined-deck.js
 
@@ -18,9 +19,8 @@ const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css
                ".json": "application/json", ".svg": "image/svg+xml" };
 
 const FILES = [
-  { file: "DELE-A1-B2-and-Phrases-Spanish.folio-deck.json", id: "delelow",
-    tops: ["A1", "A2", "B1", "B2", "Phrases"] },
-  { file: "DELE-C1-C2-Spanish.folio-deck.json", id: "delehigh", tops: ["C1", "C2"] },
+  { file: "DELE-A1-C2-and-Phrases-Spanish.folio-deck.json", id: "deleall",
+    tops: ["A1", "A2", "B1", "B2", "C1", "C2", "Phrases"] },
 ];
 const DIRS = ["Spanish → English", "English → Spanish"];
 
@@ -44,8 +44,8 @@ const ok = (c, m, extra) => {
   const base = "http://127.0.0.1:" + server.address().port + "/index.html";
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
 
-  // BOTH files go into ONE page, deliberately: the collision this is most worried about only exists
-  // when the two are installed together, which is exactly what the reader is being asked to do.
+  // Everything goes into ONE page, deliberately: an id collision only exists between decks installed
+  // together, which is what a reader with more than one of these ends up with.
   const pg = await browser.newPage();
   const errs = [];
   pg.on("console", (m) => { if (m.type() === "error" && !/ERR_CONNECTION/.test(m.text())) errs.push(m.text()); });
@@ -92,8 +92,14 @@ const ok = (c, m, extra) => {
       });
       db.close();
       if (!decks.some((x) => x.id === id || (x.meta || {}).id === id)) return null;
+      // `getAll()` returns rows in KEY order, which is a STRING sort -- so `u_deleall_10` comes
+      // before `u_deleall_2` and the subdeck order read off it is B1 and B2 last. That is an
+      // artefact of this shortcut and not of the deck, so the file order is reconstructed from
+      // the numeric tail of the id, which combine.py assigns in card order.
       const mine = rows.filter((r) => r.deckId === id);
-      const cards = mine.map((r) => r.c || r.card || r).filter(Boolean);
+      const cards = mine.map((r) => r.c || r.card || r).filter(Boolean)
+        .sort((a, b) => (parseInt(String(a.id).split("_").pop(), 10) || 0)
+                      - (parseInt(String(b.id).split("_").pop(), 10) || 0));
       const subs = [];
       cards.forEach((c) => { if (c.sub && !subs.includes(c.sub)) subs.push(c.sub); });
       return { subs, n: cards.length, ids: cards.slice(0, 3).map((c) => c.id),
@@ -138,8 +144,8 @@ const ok = (c, m, extra) => {
     }));
     return { decks: all.length, cards: seen.size, dup: dup.slice(0, 5) };
   });
-  ok(clash.decks >= 2, "both decks are installed at once", "decks " + clash.decks);
-  ok(clash.dup.length === 0, "no card id is shared between them", clash.dup.join(" "));
+  ok(clash.decks >= 1, "the deck is installed", "decks " + clash.decks);
+  ok(clash.dup.length === 0, "no card id is shared with any other installed deck", clash.dup.join(" "));
 
   // --- and the shelf can actually open one
   await pg.goto(base + "#decks", { waitUntil: "load" });

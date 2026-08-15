@@ -2952,13 +2952,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the days no longer arriving together; that is what ordering by frequency MEANS, and the deck's own
   description says which order it is in.
   **`combine.py` is the MULTI-LEVEL version** (`python3 .claude/dele/combine.py`), on
-  request. It wrote one file of the four levels; since the C levels and the phrases deck it writes
-  **TWO**, and that is forced rather than chosen — all seven come to ~15,800 cards and ~55 MB against
-  app.js's caps of 12,000 and 48 MB, so one file is impossible at these sizes and shrinking the content to
-  fit would be answering the wrong question. **The cut is made where the CEFR makes one**: `delelow` is
-  A1–B2 with the phrases deck (8,786 cards) and `delehigh` is C1–C2 (7,996), each a whole deck in its own
-  right, sharing no card, and importable together — which is why each carries its OWN deck id, the card-id
-  rule below applying between the two files as much as between a file and an installed level. Its subdecks
+  request: **ONE file, `deleall`, holding all six levels and the phrases deck** — 16,782 rows, 53.9 MB,
+  21 subdecks of which 14 are leaves. It wrote one file of the four levels, then TWO once the C levels and
+  the phrases deck existed (split where the CEFR splits), and is back to one because **the CAPS WERE
+  RAISED on request rather than the content cut** — see the `UDECK_MAX_CARDS` bullet under "Community
+  decks". `MAX_CARDS`/`MAX_BYTES` in combine.py restate app.js's two and **must be kept in step with
+  them**: it refuses to WRITE a file the app would refuse to read, which is the only way the two can
+  disagree without somebody finding out on a phone. Its subdecks
   **NEST** — a level, with its two
   directions inside it (`A1`, then `A1::Spanish → English` and `A1::English → Spanish`) — so the levels
   stay separable inside one file rather than being poured together. Nesting is the `::` path app.js grew
@@ -2975,11 +2975,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   teaches two headwords where both were selected and one where only the masculine was, and the shipped
   files do not record which, so the 8,000 comes from `TARGET` and only the CARD counts are counted. It reads
   no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
-  **The combined files are deliberately NOT committed** — they duplicate ~55 MB already in the repo and this
-  regenerates them. **Combining ALL the decks in `decks/` is not possible as one importable file**, measured
-  rather than assumed, which is why the combined files are Spanish and split rather than everything in one.
-  `.claude/test-combined-deck.js` imports BOTH into one browser page and reads the shelf back — the caps,
-  the nesting and the cross-file id collision all fail silently in the JSON.
+  **The combined file is deliberately NOT committed** — it duplicates ~54 MB already in the repo and this
+  regenerates it. **Combining ALL the decks in `decks/` is still not one importable file**, measured rather
+  than assumed, which is why the combined file is the Spanish set rather than everything.
+  `.claude/test-combined-deck.js` imports it into a browser page and reads the shelf back — the caps, the
+  nesting and an id collision with another installed deck all fail silently in the JSON. **It is the only
+  thing standing on the raised caps**, the file being deliberately close to both, so a cap lowered or a
+  deck grown turns it away and nothing else in the suite would notice. One trap in writing it, and it is
+  the shape it exists to catch twice over: app.js keeps a deck's cards in a SECOND object store (`notes`),
+  not in the `decks` record, so reading only `decks` returns a deck with no cards and every assertion made
+  over that empty list passes vacuously; and `getAll()` returns rows in KEY order, which is a STRING sort,
+  so `u_deleall_10` precedes `u_deleall_2` and the subdeck order read off it is wrong while the deck is
+  right — the file order is reconstructed from the numeric tail of the id.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
   **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
@@ -7952,7 +7959,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
     the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
     DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
-  · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 20,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -7961,19 +7968,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
     view about how big a deck should be, and it is set from the largest legitimate deck anyone has brought:
-    the whole of HSK 3.0 in one file is 10,896 notes. **IT COUNTS NOTES, NOT CARDS**, which since reverse
-    cards is a real distinction — those 10,896 notes carry 21,792 cards to study — and it is deliberately
-    left on the thing the FILE holds, since what it guards is the cost of parsing somebody else's file.
+    that was the whole of HSK 3.0 in one file (10,896 rows) and is now all six DELE levels and the phrases
+    deck in one, at 16,782 — raised on request rather than splitting the content, and 20,000 leaves that
+    the same headroom 12,000 left HSK. **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, which since
+    reverse cards is a real distinction — and **it cuts BOTH ways, which is worth knowing before reading
+    anything into the figure**: HSK 3.0 asks a word in both directions from ONE row, by giving its card
+    type two templates, so its 10,896 rows are 21,792 cards; the DELE decks cannot, because their two
+    directions are separately addable SUBDECKS and a subdeck is a property of a row, so a word is two rows
+    and 16,782 rows is only 8,400 words. It is deliberately left on the thing the FILE holds, since what it
+    guards is the cost of parsing somebody else's file.
   · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
-    48 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
-    whole file is a string and then an object, so something has to stop a 500 MB file before that. Two
+    80 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    whole file is a string and then an object, so something has to stop a 500 MB file before that. Three
     things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
     for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
-    number is how a legitimate deck comes to be refused for a reason nobody can find. At ~2 KB a note
-    (measured over these decks, whose notes are the largest here) the card cap comes to ~24 MB, and this is
-    twice that so a file at one cap can never be turned away by the other. And **the message names the
-    figures**: "too large to be a deck" tells a reader nothing they can act on, where the size and the limit
-    tell them how far to split it.
+    number is how a legitimate deck comes to be refused for a reason nobody can find. It is now derived
+    from the card cap at the heaviest row anyone has shipped, and **that per-row figure was itself stale**:
+    the comment said "~2 KB a note, measured over the HSK decks, whose notes are the largest here", and the
+    HSK rows are the LIGHTEST at 1.8–2.2 KB — measured across all fourteen shipped decks a DELE row runs
+    2.9–3.8 KB, carrying a full conjugation table, so the design figure is 4 KB and 20,000 × 4 KB is the
+    80 MB. And **the message names the figures**: "too large to be a deck" tells a reader nothing they can
+    act on, where the size and the limit tell them how far to split it.
+    **THE HONEST COST OF THE RAISE, stated in app.js and not only here**: a file near this cap is read into
+    a string and then `JSON.parse`d, so a phone briefly holds several times the file in JS heap and a deck
+    at the limit may fail to import on a low-end device where two half-size ones would not. The cap is a
+    guard against a hostile file, not a promise that anything under it imports anywhere.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT

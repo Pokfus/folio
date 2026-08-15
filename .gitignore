@@ -28,11 +28,10 @@ node_modules/
 # run.py imports one stage from another, so Python leaves bytecode beside them
 __pycache__/
 
-# The COMBINED Spanish deck files .claude/dele/combine.py writes. Each is an artefact of the
-# seven decks committed beside it and holds not one card of its own — together they duplicate
-# ~54 MB that is already in the repo, and `python3 .claude/dele/combine.py` regenerates them
-# byte for byte from the same inputs. Named one by one rather than by a pattern over decks/,
-# so a real deck added later cannot be swallowed by a wildcard. Keep in step with FILES in
-# combine.py.
-decks/DELE-A1-B2-and-Phrases-Spanish.folio-deck.json
-decks/DELE-C1-C2-Spanish.folio-deck.json
+# The COMBINED Spanish deck file .claude/dele/combine.py writes. It is an artefact of the seven
+# decks committed beside it and holds not one card of its own — it duplicates ~54 MB that is
+# already in the repo, and `python3 .claude/dele/combine.py` regenerates it byte for byte from
+# the same inputs. Named outright rather than by a pattern over decks/, so a real deck added
+# later cannot be swallowed by a wildcard. Keep in step with FILES in combine.py — the two
+# earlier names here were the A1–B2 / C1–C2 pair it wrote before the caps were raised.
+decks/DELE-A1-C2-and-Phrases-Spanish.folio-deck.json
