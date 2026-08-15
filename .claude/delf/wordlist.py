@@ -265,6 +265,142 @@ REPAIRS_BY_LEVEL = {
                             'means something else and has no gloss of its own'),
     'worldview':     (None, 'an English word, with no French spelling anywhere near it'),
 },
+'c1': {
+    # THE LIST IS GRADED, WHICH WAS MEASURED BEFORE ANY OF THIS WAS WRITTEN,
+    # because the page does not read like one: its commonest words are
+    # `seigneur`, `bordel`, `inspecteur` and `commandant`, and it carries
+    # `droïde` and `réplicateurs`.  Ranked against the subtitle frequency list
+    # the six levels run 700, 1754, 4861, 15490, 18538 and 21194 by median, and
+    # 88%, 80%, 50%, 11%, 6% and 4% of each falls in the commonest five
+    # thousand -- monotone both ways.  So C1 is a real level and its odd
+    # entries are the commonest of a rare vocabulary, not a rag-bag.  Its
+    # defect rate is A1's: 28 of 3,220 have no record at all, 0.9%.
+    #
+    # · THE ACCENT DROPPED, and unlike B2 the correct spelling is mostly NOT on
+    #   the page, so these are corrections rather than merges.
+    'coincidence':  ('coïncidence',  'the diaeresis dropped'),
+    'controle':     ('contrôle',     'the circumflex dropped'),
+    'echec':        ('échec',        'the accent dropped'),
+    'enquete':      ('enquête',      'the circumflex dropped'),
+    'federal':      ('fédéral',      'the accent dropped'),
+    'serieusement': ('sérieusement', 'the accents dropped'),
+    'credo':        ('crédo',        'the accent dropped; Wiktionary files the accented form'),
+    'edition':      ('édition',      'the accent dropped, and the list carries édition too'),
+    'eloigne':      ('éloigné',      'the accents dropped, and the list carries éloigné too'),
+    # · AND THE `œ` LIGATURE, which French writes as ONE letter and which a
+    #   list typed as `oe` therefore spells with a letter the word has not got.
+    #   Neither has any record at all until it is repaired.
+    'manoeuvre':    ('manœuvre',     'oe for the ligature œ, which French writes as one letter'),
+    'écoeurant':    ('écœurant',     'oe for the ligature œ, which French writes as one letter'),
+    # · THE ENGLISH SPELLING OF A FRENCH WORD, A1's `exercise` shape.
+    'zodiac':       ('zodiaque',     'the English spelling; the French word is zodiaque'),
+    'jihad':        ('djihad',       'the English transliteration; Wiktionary files it under djihad'),
+    # · A SINGULAR THE DICTIONARY HAS NOT GOT, which is B1's inflected-form
+    #   fault seen from the other side: here the LIST prints the singular and
+    #   the word is met in the plural.  Both go into `PLURAL_ONLY` so they card
+    #   as `les oreillons` rather than `l'oreillons`.
+    'oreillon':     ('oreillons',    'mumps is a plural in French; the singular has no record',
+                                     'form'),
+    'ossement':     ('ossements',    'bones is a plural in French; the singular has no record',
+                                     'form'),
+    'pourparler':   ('pourparlers',  'talks is a plural in French; the singular has no record',
+                                     'form'),
+    # · TWO SPELLINGS OF ONE WORD, both printed.  Wiktionary calls `répartie`
+    #   the post-1990 spelling OF `repartie`, so the pointer runs that way and
+    #   the merge follows it rather than the other way about.
+    'répartie':     ('repartie',     'the post-1990 spelling; the list prints both'),
+    # · THE FEMININE OF AN ADJECTIVE, printed as the headword.  Six more have
+    #   their masculine on the page and are merged into it; these fourteen do
+    #   not, so each is a correction and the level would otherwise lack the
+    #   word.  Read before merging: `gaine` beside `gain` is NOT one of these —
+    #   a sheath is not a gain — and nor are `corse`/`corsé`, `forge`/`forgé`,
+    #   `gène`/`gêne`, `planque`/`planqué`, `ravage`/`ravagé` and
+    #   `tourmente`/`tourmenté`, which are a noun beside an adjective each.
+    'ambitieuse':   ('ambitieux',    'the feminine; the list has no ambitieux', 'form'),
+    'criminelle':   ('criminel',     'the feminine; the list has no criminel', 'form'),
+    'défensive':    ('défensif',     'the feminine; the list has no défensif', 'form'),
+    'dorsale':      ('dorsal',       'the feminine; the list has no dorsal', 'form'),
+    'égyptienne':   ('égyptien',     'the feminine; the list has no égyptien', 'form'),
+    'exclusive':    ('exclusif',     'the feminine; the list has no exclusif', 'form'),
+    'flippante':    ('flippant',     'the feminine; the list has no flippant', 'form'),
+    'irrationnelle':('irrationnel',  'the feminine; the list has no irrationnel', 'form'),
+    'latérale':     ('latéral',      'the feminine; the list has no latéral', 'form'),
+    'majeure':      ('majeur',       'the feminine; the list has no majeur', 'form'),
+    'partielle':    ('partiel',      'the feminine; the list has no partiel', 'form'),
+    'précieuse':    ('précieux',     'the feminine; the list has no précieux', 'form'),
+    'routière':     ('routier',      'the feminine; the list has no routier', 'form'),
+    'universelle':  ('universel',    'the feminine; the list has no universel', 'form'),
+    # · SIX WHOSE MASCULINE IS ON THE PAGE, so each is a merge rather than a
+    #   correction.  `impériale` and `internationale` are also real nouns — the
+    #   top deck of a bus, the anthem — and beside their masculines on a
+    #   vocabulary list they are plainly the feminine.
+    'bourgeoise':   ('bourgeois',    'the masculine is on the list and prints it as its feminine'),
+    'explosive':    ('explosif',     'the masculine is on the list and prints it as its feminine'),
+    'impériale':    ('impérial',     'the masculine is on the list and prints it as its feminine'),
+    'internationale':('international','the masculine is on the list and prints it as its feminine'),
+    'navale':       ('naval',        'the masculine is on the list and prints it as its feminine'),
+    'piquante':     ('piquant',      'the masculine is on the list and prints it as its feminine'),
+    # · AND FOUR PLURALS, one of them a merge.
+    'manœuvres':    ('manœuvre',     'the list carries the singular too'),
+    'issus':        ('issu',         'the plural; the list has no issu', 'form'),
+    'œuvres':       ('œuvre',        'the plural; the list has no œuvre', 'form'),
+    'ripoux':       ('ripou',        'the plural; the list has no ripou', 'form'),
+    # · AND FOURTEEN DROPPED RATHER THAN GUESSED AT.  Four are not words at all
+    #   (`valpi`), or are English (`gloss`, `mart`, `serial`, `stifler`); two
+    #   are half of a Latin tag the list prints without its other half (`alter`
+    #   ego, a `priori`); two are proper nouns; two are franchise vocabulary a
+    #   subtitle corpus would carry; and `vénére` has three candidates a single
+    #   character apart — `vénère`, `vénéré` and `vénérer` — meaning furious,
+    #   revered and to revere.
+    'alter':        (None, 'half of alter ego; not a French word on its own'),
+    'priori':       (None, 'half of a priori; not a French word on its own'),
+    'valpi':        (None, 'not a word in any language reachable here'),
+    'gloss':        (None, 'an English word; French has glose and brillant à lèvres, which are '
+                           'different things'),
+    'mart':         (None, 'an English word'),
+    'serial':       (None, 'an English word; the French is feuilleton or série'),
+    'stifler':      (None, 'an English verb given a French ending; the French is étouffer'),
+    'gibraltar':    (None, 'a place name rather than vocabulary'),
+    'gémeau':       (None, 'a proper noun, the zodiac sign Gémeaux'),
+    'orient':       (None, 'a proper noun, l’Orient, printed uncapitalised'),
+    'droïde':       (None, 'science-fiction vocabulary; no record in the dictionary'),
+    'réplicateurs': (None, 'science-fiction vocabulary; no record in the dictionary'),
+    'goder':        (None, 'a real but rare verb about fabric puckering; nothing here can say '
+                           'that is what a C1 list means by it'),
+    'vénére':       (None, 'three candidates a single character apart, meaning furious, revered '
+                           'and to revere'),
+},
+'c2': {
+    # THE SMALLEST LIST AND THE ONE LEAST LIKE A SYLLABUS.  Its sweeps are the
+    # cleanest of the six -- one accent twin, one plural, two only-pointer
+    # entries -- and that is not a sign of quality: at 376 entries there is
+    # simply less to collide with.  What IS wrong with it is not a defect rate
+    # at all and no repair can reach it; see `LIST_NOTE` in emit.py, which is
+    # what the deck tells its reader.
+    'eventreur':    ('éventreur', 'the accent dropped, and the list carries éventreur too'),
+    # · FRANCHISE VOCABULARY, which the lower lists carry at a hundredth of this
+    #   rate (C1 has `droïde` and `réplicateurs` in 3,220).  None has a record.
+    'cardassien':   (None, 'a Star Trek people; no record in the dictionary'),
+    'romulien':     (None, 'a Star Trek people; no record in the dictionary'),
+    'phaseur':      (None, 'a Star Trek weapon; no record in the dictionary'),
+    'phaseurs':     (None, 'the same word again, in the plural'),
+    'métamorphe':   (None, 'a shapeshifter in dubbed science fiction; no record'),
+    # · PROPER NOUNS, printed uncapitalised.
+    'excalibur':    (None, 'a proper noun, the sword'),
+    'prométhée':    (None, 'a proper noun, the titan'),
+    'nobel':        (None, 'a proper noun, the prize and the man'),
+    'argo':         (None, 'a proper noun, the ship'),
+    # · AND THE REST: two English words, a Latin half-binomial, half of a
+    #   French phrase the list prints without its other half, a real but
+    #   unrecorded common noun, and one neologism nothing here can confirm.
+    'maxim':        (None, 'an English word'),
+    'mystic':       (None, 'an English word; the French is mystique'),
+    'sapiens':      (None, 'half of homo sapiens; not a French word on its own'),
+    'emblée':       (None, 'half of d’emblée; not a word on its own'),
+    'argus':        (None, 'l’argus is a real French noun for the used-car price guide, and the '
+                           'dictionary has no record of it'),
+    'intraçable':   (None, 'a neologism with no record; untraceable is normally introuvable'),
+},
 }
 REPAIRS = REPAIRS_BY_LEVEL.get(LEVEL, {})
 

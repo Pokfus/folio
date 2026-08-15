@@ -312,6 +312,38 @@ FORCE_POS = {
     'élaboré': 'adj', 'embrouillé': 'adj', 'fragmenté': 'adj',
     'impliqué': 'adj', 'intégré': 'adj', 'stéréotypé': 'adj',
     'vérifié': 'adj',
+
+    # ------------------------------------------------------------------ C1
+    # THE SAME CLASS AGAIN AND IT SCALES: 71 of C1's 3,220 entries have nothing
+    # but a pointer, against B2's 27 of 1,673 and B1's 11 of 893 -- 2.2%, 1.6%
+    # and 1.2%, so it grows a little faster than the list does.  After the
+    # merges and the corrections in `REPAIRS_BY_LEVEL` these forty-six are
+    # left, every one a participle standing as an adjective, and the reason
+    # they cannot simply be merged into their verbs is that the verb is a
+    # DIFFERENT CARD: `bannir` is to banish and `banni` is banished, and
+    # thirteen of the forty-six have their verb on the page as well.
+    'abouti': 'adj', 'banni': 'adj', 'bouilli': 'adj', 'ciblé': 'adj',
+    'conféré': 'adj', 'congédié': 'adj', 'conquis': 'adj', 'constitué': 'adj',
+    'damné': 'adj', 'déclarant': 'adj', 'défiguré': 'adj', 'désorienté': 'adj',
+    'déterré': 'adj', 'disqualifié': 'adj', 'dissimulé': 'adj',
+    'distingué': 'adj', 'doté': 'adj', 'écœurant': 'adj', 'enflammé': 'adj',
+    'engagé': 'adj', 'enrichi': 'adj', 'ensorcelé': 'adj', 'envisagé': 'adj',
+    'épanoui': 'adj', 'étranglé': 'adj', 'exagéré': 'adj', 'exercé': 'adj',
+    'forgé': 'adj', 'habilité': 'adj', 'honoré': 'adj', 'immatriculé': 'adj',
+    'implanté': 'adj', 'incarcéré': 'adj', 'intitulé': 'adj',
+    'maîtrisé': 'adj', 'neutralisé': 'adj', 'opprimé': 'adj',
+    'orchestré': 'adj', 'pénétré': 'adj', 'ravagé': 'adj', 'refoulé': 'adj',
+    'réputé': 'adj', 'tourmenté': 'adj', 'tracé': 'adj', 'voué': 'adj',
+    # `visée` chains through a participle to `viser` and comes out with no
+    # meaning at all; the noun — someone's aims, their designs — is what a
+    # vocabulary list means by it and is what the dictionary has not got.
+    'visée': 'noun',
+
+    # ------------------------------------------------------------------ C2
+    # `ferment` is only the third-person plural of `fermer` in the dump, so the
+    # card came out glossed "to close"; the noun — a leaven, and figuratively a
+    # source of unrest — is the word, and is what has no record.
+    'ferment': 'noun',
 }
 
 # WHERE WIKTIONARY HAS NO USABLE MEANING, IT IS WRITTEN OUT.  Each of these was
@@ -411,6 +443,65 @@ AUTHORED = {
     'mettre en perspective': ['to put into perspective'],
     'mettre en relief':      ['to highlight, to bring out'],
     'tendre vers':           ['to tend towards, to approach'],
+    # AND C1's FORTY-SIX, each the base verb's own gloss put into the
+    # participle.  Where the verb has two senses far apart the participle
+    # usually carries only one, and that is the judgement in each line:
+    # `engager` is to pledge AND to hire, and `engagé` is committed.
+    'abouti':      ['successful, fully realised'],
+    'banni':       ['banished, banned'],
+    'bouilli':     ['boiled'],
+    'ciblé':       ['targeted'],
+    'conféré':     ['conferred, bestowed'],
+    'congédié':    ['dismissed, laid off'],
+    'conquis':     ['conquered', 'won over'],
+    'constitué':   ['made up, constituted'],
+    'damné':       ['damned'],
+    'déclarant':   ['declaring', 'the declarant, the person making the declaration'],
+    'défiguré':    ['disfigured'],
+    'désorienté':  ['disoriented, bewildered'],
+    'déterré':     ['dug up, unearthed'],
+    'disqualifié': ['disqualified'],
+    'dissimulé':   ['hidden, concealed'],
+    'distingué':   ['distinguished'],
+    'doté':        ['endowed, equipped (with)'],
+    'écœurant':    ['sickening, nauseating', 'sickly (of food)'],
+    'enflammé':    ['inflamed', 'ablaze', 'impassioned'],
+    'engagé':      ['committed, engaged', 'hired'],
+    'enrichi':     ['enriched'],
+    'ensorcelé':   ['bewitched, spellbound'],
+    'envisagé':    ['envisaged, contemplated'],
+    'épanoui':     ['fulfilled, flourishing', 'in full bloom'],
+    'étranglé':    ['strangled', 'choked, constricted'],
+    'exagéré':     ['exaggerated', 'excessive'],
+    'exercé':      ['trained, practised'],
+    'forgé':       ['forged', 'fabricated, made up'],
+    'habilité':    ['authorised, empowered'],
+    'honoré':      ['honoured'],
+    'immatriculé': ['registered (of a vehicle)'],
+    'implanté':    ['established, set up', 'implanted'],
+    'incarcéré':   ['imprisoned, incarcerated'],
+    'intitulé':    ['entitled, titled'],
+    'maîtrisé':    ['mastered', 'under control'],
+    'neutralisé':  ['neutralised'],
+    'opprimé':     ['oppressed'],
+    'orchestré':   ['orchestrated'],
+    'pénétré':     ['penetrated', 'imbued (with)'],
+    'ravagé':      ['ravaged, devastated'],
+    'refoulé':     ['repressed', 'turned away'],
+    'réputé':      ['renowned, reputed'],
+    'tourmenté':   ['tormented', 'troubled'],
+    'tracé':       ['drawn, plotted', 'the route, the layout'],
+    'voué':        ['devoted, dedicated', 'doomed (to)'],
+    'visée':       ['aim, objective', 'designs, intentions'],
+    # AND TWO REAL FRENCH WORDS THE DUMP SIMPLY HAS NOT GOT, `faire du sport`'s
+    # case again.  `infiltrer` is an ordinary verb with no record at all in the
+    # extraction, and `débriefing` an ordinary borrowing; neither is a fault in
+    # the list, so neither is repaired as one.
+    'infiltrer':   ['to infiltrate'],
+    'débriefing':  ['debriefing'],
+    # AND C2's TWO, the same case.
+    'ferment':     ['ferment, leaven', 'a source of unrest'],
+    'transpondeur': ['transponder'],
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -1002,7 +1093,11 @@ GENDER_NAME = {'m': 'masculine', 'f': 'feminine'}
 # prints no singular, so it stays and is carded in the plural.
 PLURAL_ONLY = {'les', 'des', 'ces', 'mes', 'ils', 'elles', 'chaussettes',
                'sandales', 'devoirs', 'gens', 'vêtements', 'parents',
-               'déchets'}
+               'déchets',
+               # C1's three, each repaired from a singular the list printed and
+               # the dictionary has no record of: mumps, bones and talks are
+               # plurals in French the way `les gens` is.
+               'oreillons', 'ossements', 'pourparlers'}
 
 cards, stats, forced_missing = [], Counter(), []
 for i, e in enumerate(entries, 1):

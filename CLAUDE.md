@@ -3698,8 +3698,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **DELF French set** by `.claude/delf/` — see their
-  own bullets below.
+  **Goethe German set** by `.claude/goethe/`, and the **French set** — DELF A1–B2 and DALF C1–C2 — by
+  `.claude/delf/` — see their own bullets below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4588,28 +4588,58 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
-- `.claude/delf/` — the generator behind the DELF French decks, **all four levels**:
+- `.claude/delf/` — the generator behind the French decks, **all six levels**:
   `decks/DELF-A1-French.folio-deck.json` (**379 notes / 758 cards**, 0.65 MB),
   `decks/DELF-A2-French.folio-deck.json` (**545 / 1,090**, 1.19 MB),
-  `decks/DELF-B1-French.folio-deck.json` (**887 / 1,774**, 2.16 MB) and
-  `decks/DELF-B2-French.folio-deck.json` (**1,646 / 3,292**, 3.66 MB), community decks rather than site
-  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2] [--no-fetch]`. Six stages, run by `run.py`,
+  `decks/DELF-B1-French.folio-deck.json` (**887 / 1,774**, 2.16 MB),
+  `decks/DELF-B2-French.folio-deck.json` (**1,646 / 3,292**, 3.66 MB),
+  `decks/DALF-C1-French.folio-deck.json` (**3,180 / 6,360**, 5.52 MB) and
+  `decks/DALF-C2-French.folio-deck.json` (**359 / 718**, 0.41 MB), community decks rather than site
+  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2|c1|c2] [--no-fetch]`. Six stages, run by
+  `run.py`,
   caching its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
   `.claude/goethe/` and unlike every other helper here, and for the same reason: a further level is a
   re-run against the next page rather than a rebuild. **ONE LEVEL PER RUN** (`delf_level` reads the level
   once, at import), and a level is taught on top of the ones below it, read out of the shipped deck FILES
   so they cannot drift — the DELE and Goethe arrangement exactly. The ladder is complete, so `LISTS` and
   `BELOW` name every level the source publishes.
+  · **THE DIPLOMA CHANGES ITS NAME AT C1, AND THE DECK HAS TO CHANGE WITH IT** (`EXAM` in
+    `delf_level.py`). The **DELF** covers A1–B2; C1 and C2 are the **DALF**, the *diplôme approfondi de
+    langue française* — a different diploma under the same authority — so those two files are
+    `DALF-C1-French` and `DALF-C2-French` with deck ids `dalfc1` / `dalfc2`, and the exam name is a
+    TABLE rather than a literal in the prose (two sites in the description read it). A level above B2
+    calling itself a DELF would be telling its reader something false about the exam it is for. **The
+    GENERATOR keeps its own name** (`.claude/delf/`, `delf_level`) — that is what the pipeline is
+    called, and renaming it would churn every stage for nothing. The four existing titles, ids and
+    filenames are derived from the same table and were verified unchanged.
   · **THE WORD LIST IS NOT AN EXAM BOARD'S, AND THAT CHANGES WHAT THE PIPELINE MAY DO WITH IT.** The
     Goethe deck teaches the Goethe-Institut's own published Wortliste, and its standing rule is that the
     list IS the syllabus — a word the sentence corpus cannot illustrate still ships, because the board
     sets the scope and the corpus gets no vote. **France Éducation international publishes no such list
-    for the DELF**: it publishes a syllabus of THEMES, and the reference that turns those into words
+    for the DELF or the DALF**: it publishes a syllabus of THEMES, and the reference that turns those
+    into words
     (Beacco et al., *Niveau A1 pour le français*, Didier) is a commercially published book. So the list
-    here is a third party's — the four pages of minddory.com at 384, 554, 893 and 1,673 words — and **a
+    here is a third party's — the six pages of minddory.com at 384, 554, 893, 1,673, 3,220 and 376 words
+    — and **a
     compilation with typos in it has no authority to defer to**. Its defects are repaired, every repair
     is declared in `REPAIRS_BY_LEVEL` with the reason, and the deck's own description tells the reader
     whose list it is.
+    **AND THE LIST IS GRADED BY FREQUENCY, WHICH WAS MEASURED RATHER THAN TAKEN ON TRUST** — the check
+    to run before building a level nobody has looked at. Ranked against the OpenSubtitles list the six
+    pages' medians run **700 / 1,754 / 4,861 / 15,490 / 18,538 / 21,194**, and the share falling in the
+    commonest five thousand runs **88% / 80% / 50% / 11% / 6% / 4%** — monotone both ways, so each page
+    really is rarer vocabulary than the one below it and "is C1 junk?" is a measured no.
+    **BUT THE CORPUS BEHIND THAT RANKING IS FILM AND TELEVISION SUBTITLES, AND THE HIGHER THE BAND THE
+    MORE ITS CHARACTER DOMINATES.** At A1 the commonest words are the commonest words whatever the
+    corpus; by C2 the corpus's own character is all that is left, and its 376 words are Star Trek
+    (*hyperespace*, *téléportation*, *symbiote*, and among the dropped entries *cardassien*,
+    *romulien*, *phaseur*, *réplicateurs*), hospital drama (*anévrisme*, *défibrillateur*,
+    *pneumothorax*), crime procedural (*légiste*, *perquisition*, *macchabée*) and the occult
+    (*exorcisme*, *grimoire*) — **rare French worth knowing, and not the abstract argumentative register
+    a DALF C2 candidate is examined on**. The answer is neither to withhold the deck nor to let its name
+    make a claim it cannot keep: **`LIST_NOTE` in `emit.py` is a per-level paragraph, written only for
+    c1 and c2**, telling the reader exactly that in the deck's own description. The lower four need
+    none.
     **THE REPAIR TABLE IS PER LEVEL, AND SO IS EVERY SENTENCE WRITTEN ABOUT IT.** A repair is a statement
     about ONE page, so a flat table shared across levels fires a merge on a list with nothing to merge —
     silently, since a repair whose source word is absent does nothing and reports nothing — and, worse,
@@ -4692,6 +4722,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       exactly this reason. A word in that table cards as `les chaussettes` and one outside it as
       `l'aspects`, which is the whole of B1's justification and is worth knowing before trusting it: the
       Wiktionary records of the two are identical.
+    **THE C1 PAGE'S DEFECTS ARE THE SAME FIVE SHAPES AT 3,220 ENTRIES**, which is the point: fifty-odd
+    rows, and not one of them a shape the four levels below had not already met — nine accents dropped,
+    twelve duplicates, fourteen feminines and three plurals standing in for their citation form, and
+    fourteen with no record at all. **Only the LIGATURE is new** (`manoeuvre` for *manœuvre*, `écoeurant`
+    for *écœurant*), and it is the accent case wearing another coat: `œ` is a single letter, so a page
+    that types it as two has misspelt the word exactly as one that drops a circumflex has. Its
+    participle-as-adjective class is B2's at three times the size — **46 rows of `FORCE_POS` +
+    `AUTHORED`** — and `PLURAL_ONLY` gained `oreillons`, `ossements` and `pourparlers`, three more words
+    French does not have a singular for in ordinary use.
+    **AND THE C2 PAGE IS THE ONE WHOSE DEFECTS ARE MOSTLY NOT DEFECTS.** Seventeen rows against C1's
+    fifty on a page a ninth the size, and sixteen of them are drops: `cardassien`, `romulien`,
+    `excalibur`, `prométhée`, `phaseur`, `métamorphe`, `nobel`, `sapiens`, `mystic`, `maxim`, `serial`.
+    A proper noun and an English word are what the no-record test is for, and finding eleven of them in
+    376 entries is the same finding as the subtitle-corpus measurement above, arriving from the other
+    side. **The one repair is an accent** (`eventreur` beside `éventreur`, a duplicate). What that means
+    for the pipeline is that a page can be clean and still be wrong for its name — the defect count says
+    nothing about whether the list is the right list, which is why `LIST_NOTE` exists and is not a
+    repair.
   · **WIKTIONARY'S OWN RECORD ORDER IS THE SIGNAL, and a preference list is not** — the Goethe build
     reaches this about SENSES (a commoner sense is not a shorter one) and it holds one level up, about
     which PART OF SPEECH an entry leads with. Measured: a fixed order (noun, then verb, then adjective…)
@@ -4884,6 +4932,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cannot illustrate it landed after "the corpus has nothing at all for the other 223" and read as
     though those words had been chosen — on B1's 7 as well. It belongs to the sentences, so it is now
     written inside the branch that talks about them rather than glued on after.
+    **C1 AND C2 THEN FOUND THREE MORE, and two of them are the same fault as the first three: a claim
+    that was true where it was written and is false somewhere else.** **A COUNT OF ZERO IS THE
+    BEFORE-VOWEL FAULT ONE CLAUSE ALONG** — "whether a verb takes avoir or être has to be learnt with
+    the verb (0 of them take être)" is a bracket promising a figure and then saying there is none of it,
+    and on a deck whose six verbs all take avoir the sentence before it teaches a distinction the reader
+    will not meet; it says "here they all take avoir" instead, and bites at C2 alone, the être verbs
+    being common ones the lower levels take. **AND A SIZE CLAIM NOBODY MEASURED IS NOT MADE AT ALL**:
+    "a third party's compilation **of roughly the right size for** C2" is an assertion about the exam's
+    own scope that this pipeline has no way to check, and which the `LIST_NOTE` two sentences later
+    flatly contradicts — so it says where the list came from and stops. The third is about what a DROP
+    means: "are not French words in any spelling" is true of `loud` and `worldview` and **false of
+    `argus`** (a real noun, the used-car guide), `goder`, `intraçable` and B2's `relevant`, all of them
+    real French the extraction simply has no record of. The honest claim is the one the pipeline can
+    make — "could not be matched to a French dictionary entry". **A generated sentence must state the
+    TEST that was actually run, not the conclusion it feels like.**
   · **`check-delf.js` is the browser half** and exists because `check-decks.js` skips the card-level
     checks for a deck that is not Mandarin — so everything French this deck is FOR is unchecked by
     anything until here. It studies the deck and asserts what the PAGE says (the coloured article, the
@@ -4892,7 +4955,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     look at** — which is how the `été` sentence was found, every assertion having passed. It takes the
     level as its argument (`node .claude/delf/check-delf.js b1`) and reads that level's repairs out of
     `wordlist.py` rather than carrying a copy, so a list defect met on one page cannot be asserted on
-    another that does not print it. Two harness notes: the grade button is `.grade[data-g='easy']` and NOT `.grade [data-g='easy']`, since the class
+    another that does not print it.
+    **EVERYTHING ELSE LEVEL-SPECIFIC IN IT IS DERIVED THE SAME WAY, AND C1 IS WHY** (Aug 2026). The
+    deck's FILENAME, its ID and the LADDER below it were literals — right for the four DELF levels and
+    wrong the moment C1 became a DALF and the ladder five deep — so all three are now parsed out of
+    `delf_level.py` (`EXAM`, `BELOW`). That is the fifth time this file has recorded the same lesson,
+    after the repairs table, the checker's repairs, the deck description and the exam name: **a
+    level-parameterised thing with one level's answers baked into it does not guard the rule, it pins a
+    stale copy of it.**
+    **AND THE ÊTRE ASSERTION IS THREE-WAY, because a deck may honestly have no être verb at all.** It
+    was "the walk reached a verb taking être", which C1 failed with 2 of 428 and C2 with 0 of 6 — a
+    healthy deck reported as broken. Made proportional it would go quiet on C2 exactly when the
+    auxiliary machinery could be broken and nothing would say so, so: walked one → assert it agrees with
+    the deck; **many and none walked** → fail; some but few → read off the deck file; **NONE IN THE DECK
+    AT ALL** → assert the deck teaches no verb from a closed list of 19 motion verbs, which is the only
+    reading under which zero is the truth rather than a bug.
+    Two harness notes: the grade button is `.grade[data-g='easy']` and NOT `.grade [data-g='easy']`, since the class
     and the attribute are on the same element and the descendant form silently clicks nothing and reports
     a deck with no nouns, verbs or adjectives in it; and **a walk this long levels the reader up**, which
     opens an artefact chest over the card and swallows the click on Reveal.

@@ -33,13 +33,20 @@ import json, os
 
 LEVEL = os.environ.get('DELF_LEVEL', 'a1').lower()
 
-TITLES = {'a1': 'DELF A1 — French', 'a2': 'DELF A2 — French',
-          'b1': 'DELF B1 — French', 'b2': 'DELF B2 — French'}
-DECK_IDS = {'a1': 'delfa1', 'a2': 'delfa2', 'b1': 'delfb1', 'b2': 'delfb2'}
-DECK_FILES = {'a1': 'DELF-A1-French.folio-deck.json',
-              'a2': 'DELF-A2-French.folio-deck.json',
-              'b1': 'DELF-B1-French.folio-deck.json',
-              'b2': 'DELF-B2-French.folio-deck.json'}
+# THE DIPLOMA CHANGES ITS NAME AT C1, and the deck has to change with it.  The
+# DELF covers A1 to B2; C1 and C2 are the DALF, the `diplome approfondi de
+# langue francaise` -- a different diploma with a different name, sat under the
+# same authority.  Every level above B2 that called itself a DELF would be
+# telling its reader something false about the exam it is for, so the exam name
+# is a table rather than a literal in the prose.  The generator keeps its own
+# name (`.claude/delf/`, `delf_level`): that is what the pipeline is called and
+# renaming it would churn every stage for nothing.
+EXAM = {'a1': 'DELF', 'a2': 'DELF', 'b1': 'DELF', 'b2': 'DELF',
+        'c1': 'DALF', 'c2': 'DALF'}
+
+TITLES = {lv: f'{EXAM[lv]} {lv.upper()} — French' for lv in EXAM}
+DECK_IDS = {lv: f'{EXAM[lv].lower()}{lv}' for lv in EXAM}
+DECK_FILES = {lv: f'{EXAM[lv]}-{lv.upper()}-French.folio-deck.json' for lv in EXAM}
 
 # The page each level's list is read from.  A further level is a row here plus a
 # `BELOW` entry, exactly as the four DELE levels and the three Goethe ones are --
@@ -50,13 +57,17 @@ LISTS = {
     'a2': ('minddory-a2.html', 'https://minddory.com/french-vocabulary-list/a2'),
     'b1': ('minddory-b1.html', 'https://minddory.com/french-vocabulary-list/b1'),
     'b2': ('minddory-b2.html', 'https://minddory.com/french-vocabulary-list/b2'),
+    'c1': ('minddory-c1.html', 'https://minddory.com/french-vocabulary-list/c1'),
+    'c2': ('minddory-c2.html', 'https://minddory.com/french-vocabulary-list/c2'),
 }
 
 # A LEVEL IS TAUGHT ON TOP OF THE ONES BELOW IT, and the higher lists repeat the
 # lower ones -- the A2 page carries `avoir`, `bonjour` and several hundred more
 # that A1 has already taught.  Read from the shipped deck FILE rather than from a
 # working file, so the exclusion is against what actually went out.
-BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1']}
+BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
+         'c1': ['a1', 'a2', 'b1', 'b2'],
+         'c2': ['a1', 'a2', 'b1', 'b2', 'c1']}
 
 
 def f(name):

@@ -10,7 +10,7 @@
    what the PAGE says, and writes four screenshots to look at.
 
      FOLIO_CHROMIUM=/path/to/chrome NODE_PATH=/tmp/pw/node_modules \
-       node .claude/delf/check-delf.js [a1|a2|b1|b2]
+       node .claude/delf/check-delf.js [a1|a2|b1|b2|c1|c2]
 
    The level is an argument rather than a constant because the assertions are about FRENCH and not
    about a level: every one of them is the same question of any deck this pipeline writes, so a second
@@ -19,8 +19,23 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^(a[12]|b[12])$/.test(LEVEL)) { console.error("level must be a1, a2, b1 or b2"); process.exit(2); }
-const DECK = "DELF-" + LEVEL.toUpperCase() + "-French.folio-deck.json";
+/* THE EXAM'S NAME IS READ OUT OF `delf_level.py`, NEVER WRITTEN DOWN HERE.  The DELF stops at B2 and
+   C1/C2 are the DALF, so the deck's file name, its id and its title all change above B2 — and a
+   checker carrying its own copy of that would assert the wrong name on the levels it was not written
+   against, which is exactly the fault this file was fixed for once already over A1's repairs. */
+const LVL_PY = fs.readFileSync(ROOT + "/.claude/delf/delf_level.py", "utf8");
+const EXAM = Object.fromEntries(
+  [...(/^EXAM = \{([\s\S]*?)\}$/m.exec(LVL_PY) || ["", ""])[1]
+    .matchAll(/'([a-c][12])':\s*'([A-Z]+)'/g)].map((m) => [m[1], m[2]]));
+if (!EXAM[LEVEL]) {
+  console.error("level must be one of " + Object.keys(EXAM).join(", ")); process.exit(2);
+}
+const DECK = EXAM[LEVEL] + "-" + LEVEL.toUpperCase() + "-French.folio-deck.json";
+const DECK_ID = EXAM[LEVEL].toLowerCase() + LEVEL;
+const BELOW = Object.fromEntries(
+  [...(/^BELOW = \{([\s\S]*?)\}$/m.exec(LVL_PY) || ["", ""])[1]
+    .matchAll(/'([a-c][12])':\s*\[([^\]]*)\]/g)]
+    .map((m) => [m[1], [...m[2].matchAll(/'([a-c][12])'/g)].map((x) => x[1])]));
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -67,7 +82,7 @@ const ok = (c, m, extra) => {
   ok(type.speechLang === "fr-FR", "the speech language is French");
   ok(deck.cards.every((c) => c.type === "delf"), "every note carries the type");
   ok(new Set(deck.cards.map((c) => c.id)).size === deck.cards.length, "no id occurs twice");
-  ok(deck.cards.every((c) => c.id.startsWith("u_delf" + LEVEL + "_")), "every id carries the deck");
+  ok(deck.cards.every((c) => c.id.startsWith("u_" + DECK_ID + "_")), "every id carries the deck");
   // The word list is a third party's page and only the WORDS are taken from it; nothing that page
   // wrote about them should be anywhere in the deck.
   ok(!/minddory/i.test(JSON.stringify(deck.cards)), "no card text quotes the source page");
@@ -91,10 +106,12 @@ const ok = (c, m, extra) => {
      "the list's broken entries were repaired or dropped");
   // A repaired word reaches the deck UNLESS a lower level already teaches it --
   // A2 corrects `temperature` and is then silent about `exercice`, which A1 has.
-  const below = { a1: [], a2: ["a1"], b1: ["a1", "a2"], b2: ["a1", "a2", "b1"] }[LEVEL];
+  // …and the LADDER is read out of the same file for the same reason: written
+  // here it stopped at B2 and threw the moment a C1 deck was checked.
+  const below = BELOW[LEVEL];
   const taught = new Set();
   for (const lv of below) {
-    const p = ROOT + "/decks/DELF-" + lv.toUpperCase() + "-French.folio-deck.json";
+    const p = ROOT + "/decks/" + EXAM[lv] + "-" + lv.toUpperCase() + "-French.folio-deck.json";
     if (fs.existsSync(p))
       for (const c of JSON.parse(fs.readFileSync(p, "utf8")).cards) taught.add(c.fields.Word);
   }
@@ -127,7 +144,7 @@ const ok = (c, m, extra) => {
   await pg.waitForTimeout(700);
   const rows = await pg.evaluate(() => [...document.querySelectorAll(".active-deck .dk-title")]
     .map((e) => e.textContent.trim()));
-  ok(rows.length === 1 && rows[0].includes("DELF " + LEVEL.toUpperCase()),
+  ok(rows.length === 1 && rows[0].includes(EXAM[LEVEL] + " " + LEVEL.toUpperCase()),
      "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
 
   // ---------------------------------------------------------------- study
@@ -290,7 +307,37 @@ const ok = (c, m, extra) => {
     const pc = seen.etre.conjRows.find((r) => /suis|es |est |sommes|êtes|sont/.test(r));
     ok(!!pc && /\(e\)/.test(seen.etre.conjRows.join(" ")),
        "an être verb's passé composé shows the agreement", pc || "");
-  } else ok(false, "the walk reached a verb taking être");
+  } else {
+    // A DECK MAY HONESTLY HAVE ALMOST NONE.  The verbs taking être are a small
+    // closed set of motion verbs and every one of them is taught at A1 or A2,
+    // so a level high enough has two or three in four hundred and a walk of
+    // twenty-odd cards cannot be expected to reach one.  The assertion is
+    // therefore about the DECK's own proportion rather than about the walk:
+    // where être verbs are more than a fortieth of the deck the walk must find
+    // one, and where they are not the check says so rather than failing on a
+    // fact about French.
+    const etres = deck.cards.filter((c) => /auxiliary<\/i><b>être/.test(c.fields.Conjugation || ""));
+    const verbs = deck.cards.filter((c) => /Passé composé/.test(c.fields.Conjugation || ""));
+    if (etres.length * 40 >= verbs.length) ok(false, "the walk reached a verb taking être");
+    else if (etres.length) {
+      // …but the agreement is still asserted, off the deck rather than off the walk.
+      ok(/\(e\)/.test(etres[0].fields.Conjugation || ""),
+         "être verbs are too few to walk into (" + etres.length + " of " + verbs.length +
+         "), so the agreement is read off the deck", etres[0].fields.Word);
+    } else {
+      // A DECK MAY HONESTLY HAVE NONE, and that must not simply pass: a broken
+      // auxiliary would give every verb `avoir` and look exactly like this.
+      // What tells them apart is that the verbs taking être are a CLOSED SET,
+      // so a zero is only honest if the deck teaches none of them.
+      const ETRE = ["aller", "venir", "arriver", "partir", "entrer", "sortir", "monter",
+                    "descendre", "naître", "mourir", "rester", "tomber", "retourner",
+                    "passer", "devenir", "revenir", "rentrer", "repartir", "décéder"];
+      const should = deck.cards.filter((c) => ETRE.includes(c.fields.Word));
+      ok(should.length === 0,
+         "the deck teaches no verb that takes être (" + verbs.length + " verbs), so there is " +
+         "none to walk into", should.map((c) => c.fields.Word).join(", "));
+    }
+  }
 
   // -------------------------------------------------------- the adjective
   if (seen.adj) {

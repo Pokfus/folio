@@ -3,7 +3,7 @@
 import json, os, re
 from collections import Counter
 
-from delf_level import LEVEL, f as lvlf, TITLES, DECK_IDS, DECK_FILES, LISTS
+from delf_level import LEVEL, f as lvlf, TITLES, DECK_IDS, DECK_FILES, LISTS, EXAM
 
 cards = json.load(open(lvlf('cards.json')))
 entries = json.load(open(lvlf('entries.json')))
@@ -337,7 +337,41 @@ EX_NOTE = ('Every word also carries three real example sentences' + _HOW
 # the ones it does.  `wordlist.py` records each repair as it makes it and this
 # reads that back, which is the same rule the checker was fixed to follow.
 LEVELS_SAID = {'a1': "the beginner's", 'a2': "the elementary",
-               'b1': "the intermediate", 'b2': "the upper-intermediate"}
+               'b1': "the intermediate", 'b2': "the upper-intermediate",
+               'c1': "the advanced", 'c2': "the mastery-level"}
+
+# WHAT THE LIST IS, WHERE THAT IS NOT WHAT ITS NAME SAYS.  The six pages are
+# graded by FREQUENCY, which was measured rather than assumed: ranked against
+# the OpenSubtitles list their medians run 700, 1754, 4861, 15490, 18538 and
+# 21194, and the share falling in the commonest five thousand runs 88%, 80%,
+# 50%, 11%, 6% and 4% -- monotone both ways, so each page really is rarer
+# vocabulary than the one below it.
+#
+# The corpus that ranking came from is FILM AND TELEVISION SUBTITLES, and the
+# higher the band the more that shows: at A1 the commonest words are the
+# commonest words whatever the corpus, and by C2 the corpus's own character is
+# all that is left.  A reader is owed that, because a deck headed `DALF C2`
+# otherwise says these are the words the exam wants.  Written per level and
+# only where it is needed; the lower four pages need no such note.
+LIST_NOTE = {
+    'c1': ("A word of warning about the level, which was measured rather than assumed. The six "
+           "lists are graded by how common a word is in a corpus of film and television "
+           "subtitles, and by C1 that corpus's own character is beginning to show: the deck "
+           "carries the vocabulary of dubbed drama alongside the vocabulary of the exam. It is "
+           "3,180 real French words in rough order of usefulness, and it is not an exam "
+           "syllabus. "),
+    'c2': ("A word of warning about the level, because the deck's name and its contents do not "
+           "agree. The six lists are graded by how common a word is in a corpus of film and "
+           "television subtitles — measured, not assumed — and C2 is the rarest band, so what "
+           "is left in it is whatever that corpus has and ordinary French does not. In "
+           "practice that is the specialist vocabulary of genre television: science fiction "
+           "(hyperespace, téléportation, antimatière, symbiote), hospital drama (anévrisme, "
+           "défibrillateur, tachycardie, pneumothorax), crime (légiste, effraction, "
+           "perquisition, macchabée) and the occult (exorcisme, sortilège, grimoire). A DALF "
+           "C2 candidate is tested on abstract and argumentative register, and almost none of "
+           "that is here. Treat this as a deck of rare French words worth knowing — most of "
+           "them are — and not as preparation for the examination it is named after. "),
+}
 REP = json.load(open(lvlf('repairs.json')))
 
 
@@ -370,10 +404,14 @@ if _dups:
                  " the same word printed twice (" +
                  _and(f"{r['from']} beside {r['to']}" for r in _dups) + ")")
 if REP['dropped']:
+    # WHAT THE TEST ACTUALLY WAS, and not more.  This read "are not French words
+    # in any spelling", which is true of `loud` and `worldview` and false of
+    # `argus` (a real noun for the used-car guide), `goder` and B2's `relevant`
+    # — all of them real French the extraction simply has no record of.  The
+    # honest claim is the one the pipeline can make: the dictionary has nothing
+    # to card them from, so they are dropped rather than guessed at.
     _bits.append(_and(REP['dropped']) +
-                 (" is" if len(REP['dropped']) == 1 else " are") +
-                 " not " + ("a French word" if len(REP['dropped']) == 1 else "French words") +
-                 " in any spelling")
+                 " could not be matched to a French dictionary entry")
 # each phrase carries its own verb, so the sentence reads whether it has three
 # clauses or one -- shared across a list it came out as the fragment "The
 # duplicates merged into one card." on the level that has only duplicates
@@ -392,16 +430,24 @@ DESC = (
     "Both study directions in one deck: French → English (see the French, recall the meaning) "
     "and English → French (see an English meaning, recall the French). Each direction is a card "
     "of its own with its own schedule, so recognising a word and producing it are learnt "
-    f"separately. {n} words for the DELF {LEVEL.upper()}, {LEVELS_SAID[LEVEL]} French diploma "
+    f"separately. {n} words for the {EXAM[LEVEL]} {LEVEL.upper()}, {LEVELS_SAID[LEVEL]} French "
+    "diploma "
     "awarded by France Éducation international for the French Ministry of Education. "
     "A NOTE ON THE WORD LIST, because it is not the exam board's. Unlike the Goethe-Institut, "
-    "France Éducation international publishes no vocabulary list for the DELF: it publishes a "
+    f"France Éducation international publishes no vocabulary list for the {EXAM[LEVEL]}: it "
+    "publishes a "
     "syllabus of themes — greetings, numbers, the family, nationalities, the date, the weather, "
     "colours, places — and the reference work that turns those into words is a commercially "
-    "published book. The list here is therefore a third party's compilation of roughly the right "
-    f"size for {LEVEL.upper()}, taken from the {LEVEL.upper()} page of minddory.com's French "
+    # NO SIZE CLAIM, because nothing here measured one.  This read "a third
+    # party's compilation of roughly the right size for C2", which is an
+    # assertion about the exam's own scope that the pipeline has no way to
+    # check -- and which the C1 and C2 notes below then flatly contradict, the
+    # deck and the diploma having been shown not to agree.  What CAN be said is
+    # where the list came from.
+    "published book. The list here is therefore a third party's compilation, taken from the "
+    f"{LEVEL.upper()} page of minddory.com's French "
     "vocabulary lists. It was checked against Wiktionary word by word before anything was "
-    f"built. {FAULTS}"
+    f"built. {FAULTS}{LIST_NOTE.get(LEVEL, '')}"
     "The cards are ordered roughly by how common the word is in everyday French, so the words "
     "you meet most often come first: the order is taken from a frequency list built from film "
     "and television subtitles, with a phrase — which a list of single words cannot see — placed "
@@ -418,8 +464,16 @@ DESC = (
     "the present participle and the auxiliary it takes, then the présent, the passé composé, the "
     "imparfait, the futur simple and the impératif, each in all six persons from je to "
     "ils/elles. The passé composé is the point — it is how a French speaker talks about the "
-    f"past, and whether a verb takes avoir or être has to be learnt with the verb ({etre} of "
-    "them take être). Agreement is printed the way a textbook prints it, je suis allé(e), so the "
+    "past, and whether a verb takes avoir or être has to be learnt with the verb"
+    # A COUNT OF ZERO IS THE BEFORE-VOWEL FAULT AGAIN, one clause along.  Written
+    # flat this read "(0 of them take être)", which is a bracket promising a
+    # figure and then saying there is none of it -- and on a deck whose six verbs
+    # all take avoir the sentence before it is left teaching a distinction the
+    # reader will not meet.  Say which auxiliary they take instead.  It bites at
+    # C2 and nowhere else, the être verbs being common ones the lower levels take.
+    + (f" ({etre} of them take être)" if etre else
+       " — here they all take avoir") +
+    ". Agreement is printed the way a textbook prints it, je suis allé(e), so the "
     f"bracket teaches the rule rather than hiding it. {REFL_NOTE}Adjectives carry their "
     f"feminine and their agreement table ({adjs} of them), since French forms the feminine "
     "unpredictably — blanc, blanche; beau, belle; vieux, vieille"
