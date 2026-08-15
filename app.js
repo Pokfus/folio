@@ -2235,13 +2235,25 @@
     }, 4000);
   }
   async function cloudBootOverrides() {
-    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
-    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;   // table not migrated yet / offline → shipped files only
-    const row = r.data[0];
+    /* TWO REQUESTS, AND THE FIRST IS A TIMESTAMP (Aug 2026). This selected `data` up front, which
+       downloads the WHOLE published overlay on every page load before anything has decided whether it
+       is needed — the `updated_at` comparison below was already there and was being made against a body
+       that had by then been paid for. Measured on a row that had accumulated a copy of the timeline:
+       1.17 MB gzipped per visitor per load, more than `data.js`, and for an eagerly-fetched row against
+       a `timeline.js` that is deliberately lazy. The stamp alone is ~100 bytes, and the body is fetched
+       only when it can actually be used: this device has not got this version (a first visit, or a real
+       publish), or this device is an admin whose own overlay may need publishing. */
+    const head = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=updated_at");
+    if (!head.ok || !Array.isArray(head.data) || !head.data.length) return;   // table not migrated yet / offline → shipped files only
     if (isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it, signed-in or not
     let baseline = null; try { baseline = localStorage.getItem(CLOUD_TS_KEY); } catch (e) {}
+    const fresh = head.data[0].updated_at !== baseline;
+    if (!fresh && !cloudCanPublish()) return;   // nothing to adopt and nothing to publish — the body is never needed
+    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
+    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;
+    const row = r.data[0];
     const remote = stableJson(row.data || {});
-    if (row.updated_at !== baseline) {
+    if (fresh) {
       // the published content changed since this device last saw it → adopt it (reset to pristine + re-apply)
       reapplyAdminOverlay(row.data || {});
       try { localStorage.setItem(ADMIN_KEY, JSON.stringify(row.data || {})); localStorage.setItem(CLOUD_TS_KEY, row.updated_at); } catch (e) {}
@@ -6266,16 +6278,22 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
-     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
-     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
-     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
-     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
-     rather than on the thing the reader studies, since what it guards against is the cost of parsing
-     somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
-     uDeckImportText), so raising this cannot hide anything. */
-  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
+     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
+     runaway file — so it is set from the largest legitimate deck anyone has brought. That was the whole of
+     HSK 3.0 in one file (10,896 rows, being the standard's 11,000 less the words it lists again at a
+     higher level); it is now all six DELE levels and a deck of phrases in one, at 16,782, and 20,000
+     leaves that the same sort of headroom 12,000 left HSK.
+     **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, and since reverse cards that is a real
+     distinction — but it cuts BOTH ways, and the two largest decks sit on opposite sides of it, which is
+     worth knowing before reading anything into the figure. HSK 3.0 asks a word in both directions from ONE
+     row, by giving its card type two templates, so its 10,896 rows are 21,792 cards. A deck whose two
+     directions are separately addable SUBDECKS cannot do that, a subdeck being a property of a row, so
+     there a word is two rows and 16,782 rows is 16,782 cards and only 8,400 words. The cap stays on the
+     thing the FILE holds rather than on the thing the reader studies, since what it guards against is the
+     cost of parsing somebody else's file. An over-size one is REFUSED with both figures rather than
+     silently trimmed (see uDeckImportText), so raising this cannot hide anything. */
+  const UDECK_MAX_CARDS = 20000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -7200,13 +7218,21 @@
   }
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
-     the whole file is a string and then an object, so something has to stop a 500 MB file before that. At
-     ~2 KB a note — measured over the HSK decks, whose notes are the largest here — UDECK_MAX_CARDS notes
-     come to ~24 MB, and this is set at twice that so a legitimate file at the card cap is never turned away
-     by the byte one. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
-     600 KB of; a deck refused here says nothing about how to split it, so the message now gives both
-     figures rather than "too large to be a deck". */
-  const UDECK_MAX_BYTES = 48 * 1024 * 1024;
+     the whole file is a string and then an object, so something has to stop a 500 MB file before that.
+     It is derived from the card cap rather than picked: at the heaviest row anyone has shipped,
+     UDECK_MAX_CARDS rows must still be under it, or the byte cap silently turns away a file the card cap
+     allows. **THE PER-ROW FIGURE IS MEASURED, AND THE OLD ONE WAS STALE**: this said "~2 KB a note,
+     measured over the HSK decks, whose notes are the largest here", and the HSK rows are in fact the
+     LIGHTEST at 1.8–2.2 KB. Measured across all fourteen shipped decks, a DELE row runs 2.9–3.8 KB,
+     because it carries a full conjugation table. So the design figure is 4 KB, and 20,000 × 4 KB is the
+     80 MB below. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
+     600 KB of; a deck refused here says nothing about how to split it, so the message gives both
+     figures rather than "too large to be a deck".
+     **THE HONEST COST OF RAISING IT**: a file this size is read into a string and then JSON.parse'd, so a
+     phone briefly holds several times the file in JS heap, and on a low-end device a deck near this cap
+     may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
+     not a promise that anything under it will import on any device. */
+  const UDECK_MAX_BYTES = 80 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
@@ -17923,14 +17949,26 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
-    /* The day's time on cards (Aug 2026, on request), beside the streak and in the same shape as the three
-       piles: a figure over a word. It is drawn only once there is time to report — a "0s" before the first
-       card of the day is a clock reporting that nothing has happened, which is what the empty row already
-       says — and it counts the study page alone, so the minigames are outside it by construction rather
-       than by a rule (see studyTimeAdd). */
-    const timeChip = (() => {
+    /* THE DAY'S TIME ON CARDS SITS UNDER THE DECK LIST, NOT IN THE BANNER (Aug 2026, on request — it was a
+       fourth `.stat` in the meta row beside New / Learning / Review). It is not a pile: those three say
+       what is left to do today and this says what has been done, so standing it among them made a reader
+       read four numbers of two different kinds off one line. It goes to the bottom LEFT of the review
+       group, on the `.rv-foot` line the "+ Add decks" lip already hangs from — the two ends of the block's
+       own bottom edge, which is where a footnote about the day belongs.
+       Being out of the banner it also stops being a figure-over-a-word: the row it joins is one small tab
+       high, so it is one line, and it names the day now that nothing beside it supplies one. Drawn only
+       once there is time to report — a "0s" before the first card is a clock reporting that nothing has
+       happened, which the empty row already says — and it counts the study page alone, so the minigames
+       are outside it by construction rather than by a rule (see studyTimeAdd). */
+    const timeFoot = (() => {
       const ms = studyTimeToday();
-      return ms > 0 ? `<div class="stat st-time" title="Time spent on cards today — the daily games are not counted"><b>${esc(fmtStudyTime(ms))}</b><span>Studied</span></div>` : "";
+      /* THE WORD LEADS AND THE FIGURE FOLLOWS — "studied 13m today", not "13m studied today" (Aug 2026, on
+         request). It reads as a sentence about the day rather than as a labelled statistic, which is what
+         the three piles in the banner are and what this deliberately stopped being when it left them.
+         Three flex children rather than two, so the gap spaces them and no text node carries a space of
+         its own; "today" is last and is its own span so the narrowest phones can drop it (see .rv-today),
+         where the longest this prints — "studied 3h 07m today" — runs past the lip and ellipsises. */
+      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
     })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
@@ -17997,7 +18035,7 @@
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
-              ${timeChip}
+              ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
@@ -18034,17 +18072,19 @@
        where that function was defined for what deliberately STAYS, and why.
        The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
        holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
-       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung. */
+       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung — which is also
+       what lets the day's timer take the LEFT end of the same line without moving it (Aug 2026). */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list. It held "+ New group" at its left until Aug 2026 and
-                  now carries only the lip to the collections, which has always hung off the group's own
-                  bottom EDGE — hence a row rather than the lip on its own, and hence nothing stacked
-                  between the two. */""}
-            <div class="rv-foot">${addDecksLip}</div>
+            ${/* The footer row under the deck list: the day's time studied at its left, the lip to the
+                  collections at its right, each against one end of the group's own bottom EDGE. "+ New
+                  group" held the left until Aug 2026; the timer took it when it left the banner's meta
+                  row, which is why the row survived that control's removal rather than collapsing into
+                  the lip. */""}
+            <div class="rv-foot">${timeFoot}${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
