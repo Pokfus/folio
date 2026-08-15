@@ -4314,11 +4314,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   files do not record which, so the 4,000 comes from `TARGET` and only the CARD counts are counted. It reads
   no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
   **The combined file is deliberately NOT committed** — it duplicates ~27 MB already in the repo and this
-  regenerates it. **Combining EVERY deck in `decks/` is not possible as one importable file**: measured
-  again on 2026-08-15 it is **28,255 notes against `UDECK_MAX_CARDS`'s 12,000 and 64.7 MB against
-  `UDECK_MAX_BYTES`'s 48**, which is why a combined deck is one language's levels and not everything.
-  **Re-measure rather than quoting it** — this line said 19,819 and 50.4 MB, which was true of nine
-  decks and is now four short.
+  regenerates it. **Combining EVERY deck in `decks/` IS possible and is `.claude/combine-decks.py`** — this
+  line said it was not, on the caps as they then stood (28,252 notes against `UDECK_MAX_CARDS`'s 12,000 and
+  66 MB against `UDECK_MAX_BYTES`'s 48), and **a legitimate deck that will not fit is what moves a cap**,
+  which is what happened. See that file's own bullet below. **Re-measure rather than quoting any of it** —
+  the same line has said 19,819 notes and 50.4 MB, which was true of nine decks and is now six short.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
   **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
@@ -5246,6 +5246,51 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   current description. The browser checkers are `check-delf.js <level>` for a level,
   **`check-phrases.js`** for the expressions and `check-combined.js` for the combined file. Not part of
   the site.
+- `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
+  (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
+  request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
+  combine.py` and `delf/combine.py` each know their own pipeline — its levels, its exam name, its
+  per-level figures — where this one knows a TABLE (`PARTS`) of which shipped file goes where in the
+  tree, so a pipeline change reaches the language combiner and a new language reaches this one without
+  the two being kept in step. **28,252 notes = 56,504 cards, 66.41 MB**, in four branches: French 7,648
+  (A1 446, A2 589, B1 895, B2 1,654, C1 3,231, C2 431, Expressions 402), German 785, Mandarin 11,833
+  (HSK 1 150, HSK 2 151, HSK 3.0 11,532), Spanish 7,986 (A1 992, A2 998, B1 1,998, B2 3,998). It is
+  **gitignored**, like the other two combined files: every byte of it is already in the repo and this
+  regenerates it, reading no clock (`exportedAt` comes from the newest source), so the same inputs write
+  the same bytes and a diff means something. Six things are decisions rather than plumbing.
+  · **IT IS WHAT RAISED BOTH CAPS, and that is the intended direction of causation.** At 2.4× the note cap
+    and 1.4× the byte cap that stood before it, this file did not fit — and `UDECK_MAX_CARDS` /
+    `UDECK_MAX_BYTES` are guards against a hostile or runaway file rather than views about how large a
+    deck may usefully be, each set from the largest legitimate deck anyone had brought. So a legitimate
+    deck this size is the thing that moves them, which is what happened twice before. **The caps are READ
+    out of app.js by `app_const`** rather than restated here, so this tool and the app can never come to
+    disagree about what will import.
+  · **A FILE IN `decks/` THAT `PARTS` DOES NOT NAME IS AN ERROR, not a silent omission** — combining
+    "every deck" and quietly leaving one out is the failure the whole file exists to avoid, and it looks
+    exactly like a smaller shelf. `ARTEFACTS` names the two pipelines' own combined files so the check can
+    tell one of those from a deck somebody added.
+  · **A SOURCE DECK'S OWN SUBDECKS SURVIVE BELOW THE LANGUAGE**, at no cost in the table: `sub` is
+    `[lang] + [path] + [the card's own]`, so HSK 3.0 keeps its nine levels and the four Spanish levels
+    keep their two directions. Depth is checked against `SUB_MAX_DEPTH`, also read off app.js.
+  · **A CARD ID MUST CARRY THE DECK** (`u_alldecks_N`), the Spanish generator's own lesson: a deck FILE
+    import only mints fresh ids when the DECK id already exists, so a reused `u_delfa1_1` collides with an
+    installed DELF A1 in the shared `UCARDS` store and studies the wrong card.
+  · **TWO DECKS DEFINING ONE TYPE ID DIFFERENTLY IS REFUSED rather than picked between** — one language's
+    cards rendered with another's templates reads as a card merely laid out oddly, not as a fault. (The
+    fifteen decks use five: `delf`, `en-to-es`, `es-to-en`, `goethe`, `hsk`.)
+  · **THE STAMP COMES FROM `meta.updatedAt`, NOT `exportedAt`.** The two pipelines write that top-level
+    field differently — French an epoch integer, Mandarin an ISO string — so comparing them raises on the
+    first mixed pair, and picking either convention would silently ignore half the shelf.
+  **`.claude/decks/check-all-languages.js` is its browser half**, and it MEASURES as well as asserting:
+  everything `check-combined.js` covers is true here by construction (the cards are copied unchanged),
+  where what this file BUILDS is the branch per language, five card types in one file and 28,252
+  renumbered ids — and, above all, whether a file this size is usable. **Measured on one machine: JSON.parse
+  514 ms in node, import visible in 13.7 s and fully written in 31.1 s, and a later boot 636 ms with the
+  deck installed** — that last being the cost every visit after the first pays, and small because boot
+  reads the note INDEX and no prose at all (see the Persistence bullet under COMMUNITY DECKS). Those
+  timings are the evidence for the raised caps and the thing to re-read before anyone raises them again;
+  **time the boot with no settling wait after it**, or a fixed `waitForTimeout` lands in the figure and a
+  fast boot reads as a slow one (it did: 2.1 s, of which 1.5 was mine). Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
@@ -10660,7 +10705,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
     the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
     DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
-  · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 32,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -10668,18 +10713,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `uDeckImportText` turns any positive value into an error naming both numbers. **The slice stays** as the
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
-    view about how big a deck should be, and it is set from the largest legitimate deck anyone has brought:
-    the whole of HSK 3.0 in one file is 10,896 notes. **IT COUNTS NOTES, NOT CARDS**, which since reverse
-    cards is a real distinction — those 10,896 notes carry 21,792 cards to study — and it is deliberately
-    left on the thing the FILE holds, since what it guards is the cost of parsing somebody else's file.
+    view about how big a deck should be, and **it is set from the largest legitimate deck anyone has
+    brought — so a legitimate deck that will not fit is what MOVES it**, which has now happened twice: the
+    whole of HSK 3.0 in one file took it to 12,000, and every deck on the shelf combined
+    (`.claude/combine-decks.py`, **28,252 notes = 56,504 cards**) took it here. **A deck that size is
+    usable and that was MEASURED rather than assumed** — parse 514 ms, import visible in 13.7 s and written
+    in 31.1 s, and a later boot 636 ms with it installed, since boot reads the note index and no prose; see
+    the Persistence bullet above for what that split costs and buys. **IT COUNTS NOTES, NOT CARDS**, which
+    since reverse cards is a real distinction, and it is deliberately left on the thing the FILE holds,
+    since what it guards is the cost of parsing somebody else's file.
   · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
-    48 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    96 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
     whole file is a string and then an object, so something has to stop a 500 MB file before that. Two
     things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
     for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
-    number is how a legitimate deck comes to be refused for a reason nobody can find. At ~2 KB a note
-    (measured over these decks, whose notes are the largest here) the card cap comes to ~24 MB, and this is
-    twice that so a file at one cap can never be turned away by the other. And **the message names the
+    number is how a legitimate deck comes to be refused for a reason nobody can find. **The density is
+    re-measured whenever the note cap moves**: over all fifteen shipped decks it is 2.38 KB a note (65.58 MB
+    for 28,252), against the "~2 KB" the HSK decks alone gave, so the note cap comes to ~74 MB and this is
+    set clear of it — a file at one cap can never be turned away by the other. And **the message names the
     figures**: "too large to be a deck" tells a reader nothing they can act on, where the size and the limit
     tell them how far to split it.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /

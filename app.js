@@ -6182,16 +6182,21 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
-     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
-     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
-     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
-     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
-     rather than on the thing the reader studies, since what it guards against is the cost of parsing
-     somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
-     uDeckImportText), so raising this cannot hide anything. */
-  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
+     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
+     runaway file — so it is set from the largest legitimate deck anyone has brought, and that is now
+     every vocabulary deck on the shelf combined into one file: 28,252 notes across four languages
+     (12,000 was set from the whole of HSK 3.0 at 10,896). **IT COUNTS NOTES, NOT CARDS**, and since
+     reverse cards that is a real distinction — those 28,252 notes carry 56,504 cards to study, and the
+     cap is deliberately left on the thing the FILE holds rather than on the thing the reader studies,
+     since what it guards against is the cost of parsing somebody else's file. An over-size one is
+     REFUSED with both figures rather than silently trimmed (see uDeckImportText), so raising this cannot
+     hide anything.
+     RAISING IT IS NOT FREE AND THE COST WAS MEASURED RATHER THAN ARGUED ABOUT, because a file this size
+     is read into a string, parsed into an object and then written one record per note inside a single
+     IndexedDB transaction — see the import timings in CLAUDE.md's community-decks Persistence bullet
+     before raising it again. */
+  const UDECK_MAX_CARDS = 32000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -7116,13 +7121,16 @@
   }
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
-     the whole file is a string and then an object, so something has to stop a 500 MB file before that. At
-     ~2 KB a note — measured over the HSK decks, whose notes are the largest here — UDECK_MAX_CARDS notes
-     come to ~24 MB, and this is set at twice that so a legitimate file at the card cap is never turned away
-     by the byte one. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
-     600 KB of; a deck refused here says nothing about how to split it, so the message now gives both
-     figures rather than "too large to be a deck". */
-  const UDECK_MAX_BYTES = 48 * 1024 * 1024;
+     the whole file is a string and then an object, so something has to stop a 500 MB file before that.
+     THE DERIVATION IS UDECK_MAX_CARDS × THE MEASURED DENSITY, WITH SLACK: 2.38 KB a note — re-measured
+     over all fifteen shipped decks at 65.58 MB for 28,252 notes, where this comment used to say "~2 KB"
+     from the HSK decks alone — so the card cap comes to ~74 MB of file and this is set above it, or a
+     legitimate file at the card cap would be turned away by the byte one. Re-measure the density when
+     raising either; a note has grown as the card types have.
+     It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within 600 KB of; a deck
+     refused here says nothing about how to split it, so the message now gives both figures rather than
+     "too large to be a deck". */
+  const UDECK_MAX_BYTES = 96 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
