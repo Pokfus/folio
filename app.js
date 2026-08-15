@@ -17881,14 +17881,25 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
-    /* The day's time on cards (Aug 2026, on request), beside the streak and in the same shape as the three
-       piles: a figure over a word. It is drawn only once there is time to report — a "0s" before the first
-       card of the day is a clock reporting that nothing has happened, which is what the empty row already
-       says — and it counts the study page alone, so the minigames are outside it by construction rather
-       than by a rule (see studyTimeAdd). */
-    const timeChip = (() => {
+    /* THE DAY'S TIME ON CARDS SITS UNDER THE DECK LIST, NOT IN THE BANNER (Aug 2026, on request — it was a
+       fourth `.stat` in the meta row beside New / Learning / Review). It is not a pile: those three say
+       what is left to do today and this says what has been done, so standing it among them made a reader
+       read four numbers of two different kinds off one line. It goes to the bottom LEFT of the review
+       group, on the `.rv-foot` line the "+ Add decks" lip already hangs from — the two ends of the block's
+       own bottom edge, which is where a footnote about the day belongs.
+       Being out of the banner it also stops being a figure-over-a-word: the row it joins is one small tab
+       high, so it is one line, and it says "studied today" rather than "Studied" now that nothing beside
+       it supplies the day. Drawn only once there is time to report — a "0s" before the first card is a
+       clock reporting that nothing has happened, which the empty row already says — and it counts the
+       study page alone, so the minigames are outside it by construction rather than by a rule (see
+       studyTimeAdd). */
+    const timeFoot = (() => {
       const ms = studyTimeToday();
-      return ms > 0 ? `<div class="stat st-time" title="Time spent on cards today — the daily games are not counted"><b>${esc(fmtStudyTime(ms))}</b><span>Studied</span></div>` : "";
+      /* "today" is its own span so the narrowest phones can drop it (see .rv-today): the longest figure this
+         prints is "3h 07m", and at 320px — or at Very large text on any phone — the full line runs past the
+         lip and ellipsises, which is worse than the shorter sentence. Nothing is lost by the cut: the line
+         is inside the Daily study block, which is today's by definition. */
+      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><b>${esc(fmtStudyTime(ms))}</b><span>studied<span class="rv-today"> today</span></span></div>` : "";
     })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
@@ -17955,7 +17966,7 @@
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
-              ${timeChip}
+              ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
@@ -17992,17 +18003,19 @@
        where that function was defined for what deliberately STAYS, and why.
        The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
        holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
-       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung. */
+       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung — which is also
+       what lets the day's timer take the LEFT end of the same line without moving it (Aug 2026). */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list. It held "+ New group" at its left until Aug 2026 and
-                  now carries only the lip to the collections, which has always hung off the group's own
-                  bottom EDGE — hence a row rather than the lip on its own, and hence nothing stacked
-                  between the two. */""}
-            <div class="rv-foot">${addDecksLip}</div>
+            ${/* The footer row under the deck list: the day's time studied at its left, the lip to the
+                  collections at its right, each against one end of the group's own bottom EDGE. "+ New
+                  group" held the left until Aug 2026; the timer took it when it left the banner's meta
+                  row, which is why the row survived that control's removal rather than collapsing into
+                  the lip. */""}
+            <div class="rv-foot">${timeFoot}${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
