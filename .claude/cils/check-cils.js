@@ -101,18 +101,47 @@ const MONO_OK = new Set(["è", "dà", "dì", "là", "lì", "né", "sé", "sì", 
      [...midStress].slice(0, 10).join(" "));
 
   // ------------------------------------------------- the article, derived
-  // A spot-check of the derivation against words this band actually carries: `lo` before impure s
-  // and z, `l'` before a vowel, `il` otherwise, and the plural article that goes with each.
-  const head = {};
+  // **THE RULE IS CHECKED OVER EVERY NOUN, NOT AGAINST THREE NAMED WORDS.**  It was
+  // written as `lo stato` / `il problema` / `la casa` -- the A1 band's own vocabulary --
+  // and the bands are strictly DISJOINT, so pointed at A2 all three failed while nothing
+  // was wrong with the deck.  A check that names today's data is a check that has to be
+  // rewritten for every band; recomputing the article from the headword's spelling and
+  // gender covers all of them and needs no example to exist.
+  //
+  // `lo`/`gli` before impure s, z, gn, ps, pn, x, y, j and i+vowel; `l'` before a vowel in
+  // BOTH genders (which is why the plural is what carries the gender); `il`/`la` otherwise.
+  const artFor = (w, g) => {
+    const s = w.trim().toLowerCase();
+    if (/^[aeiouàáèéìíòóùú]/.test(s)) return "l'";
+    if (g === "f") return "la";
+    return /^(s(?![aeiouàáèéìíòóùú])|z|gn|ps|pn|x|y|j|i(?=[aeiouàáèéìíòóùú]))/.test(s) ? "lo" : "il";
+  };
+  // The article and its word are ONE token when the article elides (`l'anno`), so the word
+  // is found by taking the article's own length off the front rather than by splitting on
+  // whitespace -- and the span's text is HTML-escaped, so `l'` arrives as `l&#x27;`.
+  const unesc = (s) => (s || "").replace(/&#x27;/g, "'").replace(/&#39;/g, "'")
+                                .replace(/&amp;/g, "&").replace(/&quot;/g, '"');
+  const bad = [];
+  const classes = {};
   for (const c of deck.cards) {
-    const m = c.fields.Italian.replace(/<[^>]*>/g, "|").replace(/\|+/g, "|");
-    head[c.fields.Word] = m;
+    const g = /noun, masculine/.test(c.fields.English) ? "m"
+            : /noun, feminine/.test(c.fields.English) ? "f" : "";
+    if (!g) continue;
+    const arts = [...c.fields.Italian.matchAll(/class="uc-art[^"]*">([^<]*)</g)].map((m) => unesc(m[1]));
+    if (arts.length !== 1) continue;   // no article at all, or a noun offering both genders
+    const art = arts[0];
+    const whole = unesc(c.fields.Italian.replace(/<[^>]*>/g, ""));
+    const word = whole.slice(whole.indexOf(art) + art.length).trim();
+    const want = artFor(word, g);
+    classes[want] = (classes[want] || 0) + 1;
+    if (art !== want) bad.push(`${art} ${word} (want ${want})`);
   }
-  const want = [["lo stato", /lo/], ["il problema", /il/], ["la casa", /la/]];
-  for (const [w, rx] of want) {
-    ok(Object.prototype.hasOwnProperty.call(head, w) || Object.keys(head).some((k) => k === w),
-       "the article on " + JSON.stringify(w) + " is derived", Object.keys(head).find((k) => k.endsWith(w.split(" ").pop())) || "");
-  }
+  ok(bad.length === 0, "every noun's article follows from its spelling and gender",
+     bad.slice(0, 6).join(" | "));
+  // and that the band actually exercised the rule rather than passing on one easy class
+  ok(Object.keys(classes).length >= 3,
+     "the band exercises at least three of the four article classes",
+     JSON.stringify(classes));
 
   // ---------------------------------------------------------------- import
   await pg.goto(base + "#studio", { waitUntil: "load" });

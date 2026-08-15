@@ -231,6 +231,21 @@ def is_pos(c, name):
 
 nouns = [c for c in cards if is_pos(c, 'noun')]
 adj_cards = [c for c in cards if is_pos(c, 'adjective')]
+
+# **WHAT THE DESCRIPTION SAYS ABOUT THE BAND IS MEASURED FROM THE BAND**, since
+# the same prose ships on all six.  Written for A1 it named that band's own
+# oddities and its own De Mauro figure -- so the A2 deck went out saying "the A1
+# band", quoting `amministrativo` (which is not in it) and reporting 934 of 961
+# under a heading reading 995 words.  Every one of those is a sentence about a
+# deck other than the one being read.
+#
+# `entries` is in the order the cards are dealt, so its tail is literally what a
+# reader meets last; proper nouns are skipped because a place name says nothing
+# about the band's difficulty.  The De Mauro membership is measured in `select`,
+# which is where the reference is read, and carried on the entry.
+tail_words = ', '.join(e['display'] for e in
+                       [x for x in entries if x['pos'] != 'name'][-3:])
+nvdb_n = sum(1 for e in entries if e.get('nvdb'))
 arts = sum(1 for c in cards if 'uc-art' in c['fields']['Italian'])
 plurals = sum(1 for c in nouns if '>plural<' in c['fields']['Forms'])
 fems = sum(1 for c in nouns if '>feminine<' in c['fields']['Forms'])
@@ -264,13 +279,13 @@ DESC = (
     "di Siena publishes for each level is a syllabus of grammar and functions — the tenses, the "
     "sentence types, the things a candidate must be able to do — and for vocabulary it asks only "
     "for a basic repertoire suited to everyday situations. There is therefore no official list to "
-    f"read, and the words here are a third party's: the A1 band of MindDory's Italian vocabulary "
-    f"list ({LIST_URL[LEVEL]}), which sorts about 7,200 Italian words into six CEFR-labelled "
-    "bands. Those bands are a frequency gradient rather than a graded syllabus, and this one "
-    "carries some words a beginner would not meet early — amministrativo, valutazione, ipotesi — "
-    "while leaving out some they would, including the greetings. What can be said for it is that "
-    "the words are real and central: 934 of the 961 are in De Mauro's nuovo vocabolario di base, "
-    "the standard reference for the core of the language. "
+    f"read, and the words here are a third party's: the {LEVEL.upper()} band of MindDory's Italian "
+    f"vocabulary list ({LIST_URL[LEVEL]}), which sorts about 7,200 Italian words into six "
+    "CEFR-labelled bands. Those bands are a frequency gradient rather than a graded syllabus, so "
+    f"this one carries words a learner at this level would not meet early — {tail_words} are among "
+    "the last it deals — while leaving out some they would meet at once, including the greetings. "
+    f"What can be said for it is that the words are real and central: {nvdb_n} of the {n} are in "
+    "De Mauro's nuovo vocabolario di base, the standard reference for the core of the language. "
     "SO THE ORDER IS DOING THE WORK. The cards are dealt by how common the word actually is in "
     "everyday spoken Italian, taken from a frequency list built from film and television "
     "subtitles, so you meet essere, avere, fare, dire and andare in the first handful and the "
@@ -296,7 +311,7 @@ DESC = (
     + EX_NOTE +
     ", chosen where possible to show three different inflected forms rather than the same one "
     "three times, with the word picked out in colour and a speaker beside it. "
-    "Word list: MindDory Italian vocabulary list, A1 band — the list of words only. Meanings, "
+    f"Word list: MindDory Italian vocabulary list, {LEVEL.upper()} band — the list of words only. Meanings, "
     "genders, plurals, feminines and conjugations: English Wiktionary, via the kaikki.org "
     "extraction (CC BY-SA 4.0). Frequency ordering: a word list built from OpenSubtitles "
     "(hermitdave/FrequencyWords, CC BY-SA 4.0). Example sentences: Tatoeba (tatoeba.org), "

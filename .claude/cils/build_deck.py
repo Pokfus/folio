@@ -190,6 +190,28 @@ AUTHORED = {
     # every sense of `ecco` is a usage note, in both of its records: the word is
     # a presentative and has no translation, only an equivalent
     'ecco': ('intj', 'here is, here are; there you go'),
+    # A2.  The same three shapes as A1's: a multiword expression the dictionary
+    # files under its parts, a proper noun, and an apocopated determiner.
+    'in grado di': ('phrase', 'able to, capable of'),
+    'per quanto riguarda': ('phrase', 'as regards, as for, concerning'),
+    'vicino a': ('phrase', 'near, close to'),
+    'fuori da': ('phrase', 'out of, outside'),
+    'gran bretagna': ('name', 'Great Britain'),
+    'ciascun': ('det', 'each, every'),
+    # a colloquial contraction of `va bene`, which Wiktionary carries with no
+    # gloss of its own
+    'vabbè': ('intj', 'oh well; all right, fine'),
+    # an abbreviation of `chilometro`, read aloud as the word it stands for
+    'km': ('noun', 'kilometre (abbreviation of chilometro)'),
+}
+
+# A NAME THE DICTIONARY DOES NOT CARRY IS SPELT HERE, since `select`'s
+# recasing can only read a spelling off a record that exists.  Keyed by the
+# lower-case surface the list prints, exactly as AUTHORED is.
+AUTHORED_DISPLAY = {
+    'new york': 'New York',
+    'stati uniti': 'Stati Uniti',
+    'gran bretagna': 'Gran Bretagna',
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -574,6 +596,8 @@ for e in entries:
     rec = rec_for(e)
     pos = e['pos']
     gender = gender_of(rec, e['lemma']) if pos == 'noun' else ''
+
+    e['display'] = AUTHORED_DISPLAY.get(e['word'].lower(), e['display'])
 
     auth = AUTHORED.get(e['word'].lower())
     if auth:

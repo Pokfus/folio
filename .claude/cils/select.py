@@ -62,14 +62,40 @@ else:
 
 
 # ------------------------------------------------------------------ lemma
+def says_something(recs):
+    """Whether any of these records glosses the word as something OTHER than
+    itself.
+
+    **A GLOSS EQUAL TO ITS OWN HEADWORD IS USUALLY CORRECT AND OCCASIONALLY
+    EMPTY**, which is why this is a tie-break and not a filter.  Measured over
+    both bands, six records gloss the word with the word: `no`, `me`, `idea`,
+    `internet` and `volume` are true cognates and that IS the translation, so
+    refusing them would strip five right answers to fix one.  The sixth is
+    `zaire`, whose lower-case entry is a bare currency stub reading "zaire"
+    while `Zaire` carries the country, the river and the Angolan province.
+    What separates it is not the circularity but the existence of a better
+    record under the other surface -- so that, and only that, is what is tested.
+    """
+    for r in recs:
+        for s in real_senses(r):
+            g = (s.get('glosses') or [''])[0]
+            if fold(g) != fold(r.get('word', '')):
+                return True
+    return False
+
+
 def pick_lemma(e):
     """The surface the dictionary actually carries.
 
     The list prints everything lower-cased, so a proper noun (`italia`) offers
     its capital as an alternative and is looked up under whichever form has a
     real entry.  A form with meanings of its own beats one that only points
-    elsewhere, which is what keeps `italia` from resolving to nothing.
+    elsewhere, which is what keeps `italia` from resolving to nothing, and a
+    form that says something beats one that only repeats itself.
     """
+    for l in e['lemmas']:
+        if says_something(W.get(l) or []):
+            return l
     for l in e['lemmas']:
         if any(real_senses(r) for r in (W.get(l) or [])):
             return l
@@ -143,10 +169,35 @@ for e in entries:
     e['lemma'] = pick_lemma(e)
     e['pos'] = pick_pos(e, e['lemma'])
     e['key'] = e['display']
+    # **A PROPER NOUN IS CAPITALISED IN ITALIAN EXACTLY AS IT IS IN ENGLISH, AND
+    # THE LIST PRINTS EVERYTHING LOWER-CASED.**  Left alone the card teaches a
+    # learner to write `italia`, `firenze` and `new york` -- which is not a
+    # near-miss but simply wrong, and wrong on the one line of the card the
+    # reader is being asked to reproduce.  Eighteen words across the two shipped
+    # bands, and every count reads healthy either way.
+    #
+    # The spelling is READ rather than composed, which is what makes this safe:
+    # `pick_lemma` already resolved `usa` to `Usa` and `firenze` to `Firenze`,
+    # because the lower-case records for those are all pointers and it prefers a
+    # form with senses of its own.  So the right orthography is a fact the
+    # dictionary states and the entry is already carrying.  A rule instead would
+    # have to decide what to do with an acronym (`USA` or `Usa`?) and with the
+    # inner words of a compound name, and would be guessing at both.
+    #
+    # The test is CASE ALONE, so it can fire on nothing else: the only
+    # alternative surface the lookup ever offers is `w.capitalize()`.  `key` is
+    # deliberately set above this and stays lower-cased -- it is what
+    # `examples.py` matches Tatoeba sentences on.
+    if e['lemma'].lower() == e['display'].lower():
+        e['display'] = e['lemma']
     # a reflexive infinitive is its own lemma in Italian (`chiamarsi`), and the
     # base verb is what its compound tenses are built from
     e['reflexive'] = bool(re.search(r'[aei]rsi$', e['lemma']))
     e['base'] = (e['lemma'][:-2] + 'e') if e['reflexive'] else ''
+
+recased = [e['display'] for e in entries if e['display'] != e['key']]
+if recased:
+    print(f'  capitalised from the dictionary: {len(recased)} -- ' + ', '.join(recased))
 
 print('  parts of speech:', dict(Counter(e['pos'] for e in entries).most_common()))
 no_rec = [e['display'] for e in entries if not W.get(e['lemma'])]
@@ -212,9 +263,11 @@ try:
 except FileNotFoundError:
     nvdb = set()
 if nvdb:
-    inside = [e for e in entries if fold(e['word']) in nvdb]
+    for e in entries:
+        e['nvdb'] = fold(e['word']) in nvdb        # `emit` states this figure
+    inside = [e for e in entries if e['nvdb']]
     top = entries[:200]
-    inside_top = [e for e in top if fold(e['word']) in nvdb]
+    inside_top = [e for e in top if e['nvdb']]
     print(f'  De Mauro basic vocabulary: {len(inside)} of {len(entries)} '
           f'({100 * len(inside) // max(1, len(entries))}%) of the band, '
           f'{len(inside_top)} of the first {len(top)} by frequency')

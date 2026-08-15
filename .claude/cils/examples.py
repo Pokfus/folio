@@ -204,6 +204,24 @@ DETERMINER = {
 }
 NOUNS = {e['key'] for e in entries if e['pos'] == 'noun'}
 
+# THE CLOSED CLASS AN INFLECTED FORM CAN COLLIDE WITH, whichever band the
+# function word itself happens to be filed in.  Deliberately narrower than
+# DETERMINER above, which also holds the possessives and demonstratives: those
+# are ordinary words a card may legitimately be teaching, where nothing in this
+# set is ever the headword of a content word.  Articles, the nine simple
+# prepositions, every articulated preposition and the clitics.
+FUNC_FORMS = {
+    'il', 'lo', 'la', 'i', 'gli', 'le', "l'", 'un', 'uno', 'una', "un'",
+    'di', 'a', 'da', 'in', 'con', 'su', 'per', 'tra', 'fra',
+    'del', 'dello', 'della', 'dei', 'degli', 'delle', "dell'",
+    'al', 'allo', 'alla', 'ai', 'agli', 'alle', "all'",
+    'dal', 'dallo', 'dalla', 'dai', 'dagli', 'dalle', "dall'",
+    'nel', 'nello', 'nella', 'nei', 'negli', 'nelle', "nell'",
+    'sul', 'sullo', 'sulla', 'sui', 'sugli', 'sulle', "sull'",
+    'col', 'collo', 'colla', 'coi', 'cogli', 'colle',
+    'mi', 'ti', 'si', 'ci', 'vi', 'ne', 'li', 'me', 'te', 'se', 'ce', 've',
+}
+
 cand = defaultdict(list)
 for sid, text in ita.items():
     eid = link.get(sid)
@@ -250,6 +268,23 @@ print('  words with at least one candidate:', len(cand))
 
 
 # ---------------------------------------------------------------- choose three
+def same_en(s):
+    """**TWO SENTENCES WITH ONE TRANSLATION ARE ONE EXAMPLE.**
+
+    Tatoeba links several Italian renderings to the same English, so a card
+    could show "Dio mio, Dio mio, perche mi hai abbandonato?" and "Mio Dio, mio
+    Dio, perche mi hai abbandonato?" as two of its three examples -- with the
+    same gloss printed under each, which is what makes it visible.  Measured
+    over the two shipped bands before it was written: 320 cards did this, a
+    sixth of them, each spending a slot on a sentence it was already showing.
+    The Italian was already deduped; the English was not.
+
+    Folded rather than compared outright, since the pairs differ by case and
+    final punctuation as often as not.
+    """
+    return re.sub(r'[^a-z0-9 ]+', '', (s or '').lower()).strip()
+
+
 def score(c, key):
     sid, eid, form, n, hard, bare = c
     s = abs(n - 8) * 1.0            # around eight words reads best on a card
@@ -264,6 +299,17 @@ def score(c, key):
     amb = len(FORM2KEY.get(form.lower(), ()))
     if amb > 1:
         s += 12.0 * (amb - 1)
+    # **AND THE AMBIGUITY THAT MATTERS MOST IS WITH A WORD THE BAND HAS NOT GOT.**
+    # `FORM2KEY` can only see collisions INSIDE this band, and the bands are
+    # strictly disjoint -- so `dei`, which is the plural of `dio` and also `di` +
+    # `i`, scored as unambiguous in A2 because `di` lives in A1.  The card came
+    # out bolding the partitive article in "Ha tradito i suoi amici per dei
+    # soldi" and calling it the plural of `dio`, which is not a near-miss but a
+    # different word.  Two forms across the two bands do this (`dio` -> `dei`,
+    # `dare` -> `dai`), and it is a PENALTY rather than a ban because both really
+    # are forms of their word and may be all Tatoeba offers.
+    if form.lower() in FUNC_FORMS and form.lower() != BYKEY[key]['word'].lower():
+        s += 20.0
     if form.lower() == BYKEY[key]['word'].lower():
         s -= 1.0
     if bare:
@@ -279,26 +325,46 @@ for key, cs in cand.items():
     # order moves with the hash seed.  The sentence id is unique, so ordering on
     # it as well makes the sort total.
     cs.sort(key=lambda c: (score(c, key), int(c[0])))
-    out, seen_forms, seen_txt = [], set(), set()
+    out, seen_forms, seen_txt, seen_en = [], set(), set(), set()
     for c in cs:
         sid, eid, form, n, hard, bare = c
         t = ita[sid]
-        if t in seen_txt:
+        if t in seen_txt or same_en(eng[eid]) in seen_en:
+            continue
+        # …AND THE VARIETY RULE BELOW MUST NOT OUTRANK THAT PENALTY, which is how
+        # `dei` survived it: `dio` has only two forms in the corpus, so once a
+        # `Dio` sentence was taken the variety rule declined every other one and
+        # the partitive was the only unseen form left to reach.  The scorer had
+        # pushed it to the back and the selector fetched it anyway.  Refused
+        # outright here and left to the top-up pass below, which is the whole
+        # meaning of "a penalty, not a ban".
+        if form.lower() in FUNC_FORMS and form.lower() != BYKEY[key]['word'].lower():
             continue
         # three different inflected forms teach more than the same one thrice
         if form.lower() in seen_forms and len(out) < 3 and len(cs) > 6:
             continue
         seen_forms.add(form.lower())
         seen_txt.add(t)
+        seen_en.add(same_en(eng[eid]))
         out.append({'it': t, 'en': eng[eid], 'form': form})
         if len(out) == 3:
             break
     if len(out) < 3:
         for c in cs:
             sid, eid, form, n, hard, bare = c
-            if ita[sid] in seen_txt:
+            if ita[sid] in seen_txt or same_en(eng[eid]) in seen_en:
+                continue
+            # …and the top-up pass refuses it as well, which is what "a penalty,
+            # not a ban" turned out to be worth on its own: NOTHING scores badly
+            # enough to be left out of a pass that ignores the score.  `li` came
+            # out illustrated by "Lo studio non è davvero una cosa facile" and
+            # "Si è sposata con Tom lo scorso mese" -- the definite article,
+            # twice, on a card teaching the pronoun "them".  One example with
+            # the right word in it beats three with the wrong one.
+            if form.lower() in FUNC_FORMS and form.lower() != BYKEY[key]['word'].lower():
                 continue
             seen_txt.add(ita[sid])
+            seen_en.add(same_en(eng[eid]))
             out.append({'it': ita[sid], 'en': eng[eid], 'form': form})
             if len(out) == 3:
                 break
