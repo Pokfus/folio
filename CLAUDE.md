@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-017` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-018` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 17 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 18 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10189,6 +10189,37 @@ the authority and the running heads are how the page is read**, cnh-011's rule w
 every other digit. That 2737 is a THIRD reckoning beside the two `cnh-006` already records (Legge's 31st
 century, Bretschneider's 28th), so both cards now hedge with "by one reckoning" rather than pretending
 to a date the tradition has not got.
+**`cnh-018` IS WHERE A CROSS-REFERENCE IN ONE SOURCE OPENED FOUR MORE, AND THE ROUTE IS WORTH COPYING**
+(Aug 2026). Mayers's Gonggong entry closes "Cf. L.C., III, pp. 23, 39" — Legge's *Chinese Classics*
+vol. 3, two page numbers — and following it gave the card a third of its content: 共工 is **the name of an
+OFFICE**, about Minister of Works, and the Bamboo Annals have Yao appoint the Gonggong to the management
+of the Ho in his 19th year, unsuccessfully, which is where the inundation comes from. Chavannes then says
+the same thing independently and adds why it matters — the commentators read 共工 as an office and Kiang
+Cheng objects that Yao is precisely REFUSING to give him that office, so perhaps an ancestor held it and
+the office name became the family name. **A 19th-century reference work's cross-references are locators
+into books this shelf already has**; follow them rather than searching afresh, and the corroboration is
+free. **AND EVERY PAGE NUMBER WAS READ OFF A RUNNING HEAD, in three different layouts** — Legge sets his
+in the head (`Cil. III. 9, 10. | THE CANON OF YAOU. | 23`), Herbert Giles sets his in the head with the
+entry numbers in a MARGINAL column the OCR throws into a block of its own, and Chavannes sets his in the
+head of a separately-numbered appendix (`ANNALES DES TROIS SOUVERAINS 11`). Where the marginal numbers
+could not be aligned to their entries with confidence, **the page alone is cited and no entry number is
+invented** — cnh-011's rule, met on a book that offers two locators and lets you check only one.
+**ITS PICTURE SEARCH IS THE NAME-MATCH TRAP AT ITS MOST LITERAL, TWICE.** The automatic search returns
+**fourteen of fifteen results for the DWARF PLANET 225088 Gonggong**, and `suggest-image.js`, searching
+the term, returns two Indo-Pacific FISH (*Pelates quadrilineatus*, whose Malay name is *gonggong*) and a
+Hindu deity. The hand-written Commons search on the CHARACTERS found the right one at once —
+`共工氏頭觸不周山`, a Ming woodblock of the butting itself — which is cnh-016's rule again: **search the
+subject's own name in its own script.** Its record names the SOURCE WORK where the Artist field should be
+（按鑑演義帝王御世盤古至唐虞傳）, so the `desc` says the work and that the artist is not named, rather
+than reading an artist off a field that has not got one.
+**AND ITS DATE LINE HEDGES BECAUSE THE SOURCES DO.** Mayers alone gives three incompatible placements —
+minister of Fuxi, vassal of Shennong, rebel against Zhuanxu — and the Liezi and Huainanzi name Zhuanxu
+where Sima Zhen names Zhurong, which Chavannes reconciles by giving the fight to Gonggong's DESCENDANTS,
+Gonggong being generations older than Huangdi. So the first two rows read "by 1 reckoning" and "or under",
+and the sort year is Mayers's 2852 BCE — which is a **different reckoning from `cnh-005`'s 3322 BCE for
+Fuxi**, recorded rather than reconciled, exactly as `cnh-006` and `cnh-017` already disagree about Yandi.
+The check that matters is the SIBLING one: `cnh-016` says Kuafu descends from Gonggong three generations
+back, so Gonggong has to sort earlier than Kuafu's −2697, and at −2852 he does.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
