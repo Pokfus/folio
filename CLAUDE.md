@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-031` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-032` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 31 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 32 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10592,6 +10592,38 @@ error**: the gate is made of the substance the term defines, where `afar` pointe
 `tripod` at a Greek cauldron. The term is lower-case by necessity (the deck says "smelting iron", "iron
 tools"), so `GLOSSARY_CASESENSITIVE` would break the majority to mend a distraction. **Ask whether a link is
 WRONG or merely loud before reaching for the tools that fix a wrong one.**
+  **`cnh-032` SETTLED THE TENSION `cnh-031` FLAGGED BY FINDING WHAT COULD BE SAID RATHER THAN PICKING A
+SIDE** (Aug 2026). That card recorded that Doré dates the ten-court legend to the Song while the British
+Museum's Dunhuang *Kshitigarbha with the Ten Kings* is late 9th to early 10th century, and left the question
+for this one. The earlier attestation **could not be cited from here** — `britishmuseum.org` and `idp.bl.uk`
+are both 403 even with a proper user agent, and the one open scholarly article DOAJ finds on the Dunhuang
+*Ten Kings Sutra* is in *Religions*, which is MDPI and 403 as `cnh-003` records — so it is **not asserted**.
+What the card says instead is stronger and better sourced: not WHEN the scheme arose but WHERE IT COMES
+FROM, which is one Taoist monk's handbook, per Doré's own footnote citing Wylie. And the picture chosen is a
+**Southern Song** album leaf, which agrees with the card rather than contradicting it. **A flagged tension is
+resolved by narrowing the claim to what the open sources carry, and by not shipping a picture that argues
+with the prose.**
+**A MUSEUM'S ONLINE RECORD CAN BE THE SOURCE THAT STATES THE CENTRAL THING**, which is batch 18's rule
+paying at the top of a card rather than at its edges: the Cleveland Museum of Art's page for accession
+2004.1.29 says outright that "the netherworld is divided into ten realms, each ruled by one of these kings"
+and dates the leaf to the 1200s, and it is the fifth work on a five-work card. It is also unusually
+**cautious** — "his identity remains unclear", "could show a specific mountain", "would represent a unique
+treatment" — which is exactly what makes it worth citing, and what the caption copies rather than tidies up.
+**DORÉ'S FOOTNOTE NAMED A PAGE THIS DECK HAD ALREADY READ OFF THE RUNNING HEADS**: he cites Giles p. 245 for
+Han Qinhu, which is where `cnh-031` independently placed that entry. **A cited page that matches one you
+found yourself is the cheapest corroboration there is** — the converse of `cnh-011`'s computed locator, and
+worth noticing when it happens rather than only when it fails.
+**AND AN AUTO-LINK ASSERTION THAT FAILS MAY BE THE PROSE'S FAULT RATHER THAN THE GLOSSARY'S.** The harness
+asserted that `Diyu` links from this card and it did not: the abstract said "the Chinese underworld" and
+never named it, and the corpus has no `Buddhism`, `Taoism` or `Song_dynasty` term either, so `ttips` was
+legitimately **empty**. Naming Diyu in the first sentence fixed it and is better writing besides. **Where two
+consecutive cards are about one subject, check that the second NAMES the first** — the link is the only thing
+on the page that joins them.
+**A GLOSSARY KEY MAY DIFFER FROM THE CARD'S ANSWER TERM, AND THE ALIAS IS WHAT JOINS THEM.** The answer is
+`ten courts of hell`, which carries no article as the rule requires, while the key is `Ten_Kings_of_Hell` —
+the name Wikipedia uses and the name the Met and Cleveland both give their paintings. The answer is an alias
+of it, which is what makes `autoLinkGlossary`'s answer-suppression work on this card and what lets a reader
+who has met either name find the entry.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
