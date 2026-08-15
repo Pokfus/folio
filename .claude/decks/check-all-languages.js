@@ -4,19 +4,20 @@
  *
  * WHY THIS IS A FILE OF ITS OWN.  `check-combined.js` covers one language's
  * levels; everything it asserts is true of this file by construction, because
- * the cards are copied out of the fifteen shipped decks unchanged.  What is NOT
- * true by construction is the part `combine-decks.py` builds — the branch per
- * language, the source decks' own subdecks hanging below it, five card types in
- * one file, 28,252 renumbered ids — and, above all, whether a file this size is
- * USABLE.  It is 2.4x the note cap and 1.4x the byte cap that stood before it,
- * so raising those caps is a claim about performance, and a claim about
+ * the cards are copied out of the 23 shipped decks unchanged.  What is NOT true
+ * by construction is the part `combine-decks.py` builds — the branch per
+ * language, the source decks' own subdecks hanging below it, six card types in
+ * one file, 39,830 renumbered ids — and, above all, whether a file this size is
+ * USABLE.  It is twice the row cap and well over the byte cap that stood before
+ * it, so raising those caps is a claim about performance, and a claim about
  * performance that nobody measured is a guess.  Hence the timings below: they
  * are the evidence for the new numbers and the thing to re-read before anyone
- * raises them again.
+ * raises them again — AND THE THING TO RE-RUN, since they are a measurement of
+ * one file on one machine and go out of date the moment a language is added.
  *
  * Every failure here is silent on a real device:
  *   * an id collision studies the WRONG CARD, with both decks on the shelf;
- *   * a lost `sub` lands 28,000 words in one undivided pile;
+ *   * a lost `sub` lands 40,000 words in one undivided pile;
  *   * a missing card type renders that language's cards as raw prose;
  *   * and an import that never finishes writing looks exactly like one that did
  *     until the next reload, when the deck is simply not there.
@@ -27,7 +28,8 @@ const { chromium } = require("playwright");
 
 const ROOT = path.resolve(__dirname, "..", "..");
 const DECK = "All-Languages.folio-deck.json";
-const LANGS = ["French", "German", "Mandarin", "Spanish"];
+const LANGS = ["French", "German", "Italian", "Mandarin", "Spanish"];
+const TYPES = 6;
 
 let pass = 0, fail = 0;
 const ok = (c, m, extra) => {
@@ -78,9 +80,11 @@ const ms = (t) => (t >= 1000 ? (t / 1000).toFixed(1) + " s" : Math.round(t) + " 
   ok(subs.some((s) => /^Spanish::B2::/.test(s)),
      "and the Spanish levels keep their directions");
   ok(subs.includes("French::Expressions"), "and French keeps its expressions");
+  ok(subs.includes("Italian::Core vocabulary"),
+     "and Italian keeps its core deck beside its bands");
 
   const types = Object.keys(deck.meta.types || {}).sort();
-  ok(types.length === 5, "all five card types travel", JSON.stringify(types));
+  ok(types.length === TYPES, `all ${TYPES} card types travel`, JSON.stringify(types));
   // A card naming a type the file does not carry renders as raw prose.
   const orphan = deck.cards.find((c) => c.type && !deck.meta.types[c.type]);
   ok(!orphan, "and no card names a type the file has not got", orphan && orphan.type);

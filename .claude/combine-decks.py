@@ -54,6 +54,19 @@ PARTS = [
     ('DALF-C2-French.folio-deck.json',    'French',   'C2'),
     ('French-Phrases.folio-deck.json',    'French',   'Expressions'),
     ('Goethe-A1-German.folio-deck.json',  'German',   'A1'),
+    ('CILS-A1-Italian.folio-deck.json',   'Italian',  'A1'),
+    ('CILS-A2-Italian.folio-deck.json',   'Italian',  'A2'),
+    ('CILS-B1-Italian.folio-deck.json',   'Italian',  'B1'),
+    ('CILS-B2-Italian.folio-deck.json',   'Italian',  'B2'),
+    ('CILS-C1-Italian.folio-deck.json',   'Italian',  'C1'),
+    ('CILS-C2-Italian.folio-deck.json',   'Italian',  'C2'),
+    # The core deck sits after the bands and NOT at the head, which is the
+    # Italian combiner's own ordering and its own reasoning: the deck is named
+    # for the CILS progression, so the bands lead, and the core deck is named
+    # for what it is rather than left to be inferred from where it sits.
+    ('Italian-Core-Vocabulary.folio-deck.json', 'Italian', 'Core vocabulary'),
+    ('Italian-Phrases-Expressions.folio-deck.json', 'Italian',
+     'Phrases and expressions'),
     ('HSK1-Mandarin.folio-deck.json',     'Mandarin', 'HSK 1'),
     ('HSK2-Mandarin.folio-deck.json',     'Mandarin', 'HSK 2'),
     ('Mandarin-Chinese.folio-deck.json',  'Mandarin', 'HSK 3.0'),
@@ -65,7 +78,8 @@ PARTS = [
 # The combined files the two language pipelines write.  Skipped rather than
 # listed, and named here so the unlisted-file check above can tell "an artefact
 # we already know about" from "a deck somebody added and this table missed".
-ARTEFACTS = {'French-A1-C2.folio-deck.json', OUT}
+ARTEFACTS = {'French-A1-C2.folio-deck.json', 'Italian-Complete.folio-deck.json',
+             'DELE-A1-B2-Spanish.folio-deck.json', OUT}
 
 
 def app_const(name, src):

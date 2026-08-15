@@ -3825,8 +3825,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **119 in World
   History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **250 in Ancient Greece**
   (`gr-001`…`gr-250`) and **40 in Ancient Rome** (`rm-001`…`rm-040`) — **each carrying its full pool of 3
-  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all 409 rated on
-  2026-08-10; see the card-difficulty bullet under "How the app is wired"), **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
+  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all rated on
+  2026-08-10; see the card-difficulty bullet under "How the app is wired") **and, on 14 of them, an
+  `undatable: true`** (the terms Timeline must not ask a reader to place — see the bullet beside that one),
+  **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
   request** — 2.06 MB, 58% of the file, that `MULTILANG = false` put beyond every reader's reach, and the
   file went 4.32 MB → 1.64 MB with them. `add-card.js` now DROPS a supplied `i18n` block with a warning and
   `test-i18n-lang.js` fails if one reappears, so the eager path cannot silently regain it; both collections are grown one card at a time (see "Generating cards & glossary
@@ -4002,12 +4004,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   candidates were reviewed and rejected as not being the object — `gladius` matches *Xiphias gladius*, the
   swordfish. That is a fact rather than a backlog: a `src` is somebody else's URL and a `credit` is
   required beside it, so an invented one would be a fabricated source holding up a real object, and the
-  rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
-  `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
-  five-sentence description, so `credit` is the only place the attribution can go and it is written there
-  in full, URL included. Since Aug 2026 the plate's picture OPENS (see "THE PLATE'S PICTURE IS THE SITE'S
-  OWN MEDIA FRAME" under THE RELIQUARY), and the viewer's caption is built from those same three fields
-  plus the artefact's own name — nothing new is asked of an entry, and nothing is composed for it.
+  rarity-coloured placeholder is what the shape was designed for. **An artefact's image was three fields —
+  `src`, `credit`, `alt`** — not the card's five, on the reasoning that the entry already carries the name,
+  date, origin and five-sentence description, so `credit` was the only place the attribution could go and is
+  written there in full, URL included. **IT IS FIVE SINCE AUG 2026, on request** ("some images don't contain
+  titles or descriptions"): the plate's picture OPENS the site's fullscreen viewer, and with no `desc` all 99
+  of them opened it with the object's name over a blank caption. They gained `title` and `desc`, and NEITHER
+  composes anything — the title is the artefact's own name and the description is the `alt` this corpus
+  already wrote plus the attribution `credit` already carries, re-punctuated (see `.claude/fix-image-text.js`).
+  **Three places had to learn the two fields or the next admin keystroke would strip them**: `artefactSanitize`,
+  `serializeArtefacts` and `add-artefacts.js`'s own emitter, the last two writing them only where they exist so
+  an entry without them is byte-identical to what those always wrote.
   **THE PLATE ITSELF NO LONGER PRINTS THE CREDIT** (`.ar-wcredit`, deleted Aug 2026 on request): the viewer
   carries it a tap away from the picture it belongs to, where on the plate it was a grey line under five
   sentences it is not about. **The field is still REQUIRED** — `add-artefacts.js` and Admin → Artefacts both
@@ -4245,6 +4252,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is how the corpus went from one picture to several hundred in a day and then began drifting out of
     date the next. `.claude/suggest-image.js` is the single-item version, and `add-card.js`,
     `add-glossary.js` and `add-artefacts.js` each call it at the end of a successful add.
+- `.claude/fix-image-text.js` — the repair pass over the words that travel WITH a picture (Aug 2026, on
+  request: "some images don't contain titles or descriptions, and some of those that do contain grammatical
+  errors or spelling mistakes"). A picture's caption is ASSEMBLED rather than written — Commons' own English
+  description where there is one, the cleaned FILE NAME where there is not, plus the attribution the licence
+  requires — and that leaves residue a reader meets in the viewer's caption bar. Run it after a picture batch;
+  it is IDEMPOTENT for cards and the glossary (the hand-checked table is keyed on the exact text as it ships,
+  so an entry that has already been applied is REPORTED rather than silently doing nothing) and skips an
+  artefact that already has its two fields. Four things it settled:
+  · **AN ATTRIBUTION IS NOT A DESCRIPTION, and 56 captions were only that** — "Michael Gunther, CC BY-SA 4.0,
+    via Wikimedia Commons." and nothing else, where Commons carried no usable English and the file name
+    cleaned down to nothing. The repair composes NOTHING: those pictures already carry a full hand-written
+    `alt`, which is a description of the picture by definition, so the alt is PROMOTED to the caption.
+  · **A COLON IS NOT PUNCTUATION TO BE TIDIED.** The first cut spaced out every `,;:` with nothing after it,
+    which turned every URL in the corpus into "http: //", every wiki namespace into "en: William" and an
+    aspect ratio into "1.7477: 1". It is the one mark here as often structural as grammatical, and it is left
+    alone in both directions.
+  · **THE ELLIPSIS HAS TO BE NORMALISED BEFORE THE DOUBLED STOP**, or `\.{2}` eats the tail of one and leaves
+    a caption ending in two dots — the rule that exists to fix "12 by 19 cm.." breaking the truncation mark
+    that `pick-images.js` puts on a caption it cut at 300 characters.
+  · **AND THE HAND-CHECKED TABLE IS THE HONEST HALF.** A mechanical rule cannot know that "MeadowcroftPA" is
+    a rockshelter in Pennsylvania, that "afarensisIMG 2930" is a camera number welded to a species, or that a
+    flag file's caption is the SVG author's construction notes rather than anything about the flag. 35
+    captions and 9 alts are read by hand, each entry recording what the file name actually said. Not part of
+    the site.
 - `.claude/suggest-image.js` — the SINGLE-ITEM half of that pass, and the reason the corpus should not
   drift out of date again: `add-card.js`, `add-glossary.js` and `add-artefacts.js` each call
   `report(kind, key, subject)` at the end of a successful add, so a new card, term or artefact looks for
@@ -4315,8 +4346,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
   **The combined file is deliberately NOT committed** — it duplicates ~27 MB already in the repo and this
   regenerates it. **Combining EVERY deck in `decks/` IS possible and is `.claude/combine-decks.py`** — this
-  line said it was not, on the caps as they then stood (28,252 notes against `UDECK_MAX_CARDS`'s 12,000 and
-  66 MB against `UDECK_MAX_BYTES`'s 48), and **a legitimate deck that will not fit is what moves a cap**,
+  line said it was not, on the caps as they then stood, and **a legitimate deck that will not fit is what
+  moves a cap** (it has moved three of them since, twice over this very file),
   which is what happened. See that file's own bullet below. **Re-measure rather than quoting any of it** —
   the same line has said 19,819 notes and 50.4 MB, which was true of nine decks and is now six short.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
@@ -5252,9 +5283,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   combine.py` and `delf/combine.py` each know their own pipeline — its levels, its exam name, its
   per-level figures — where this one knows a TABLE (`PARTS`) of which shipped file goes where in the
   tree, so a pipeline change reaches the language combiner and a new language reaches this one without
-  the two being kept in step. **28,252 notes = 56,504 cards, 66.41 MB**, in four branches: French 7,648
-  (A1 446, A2 589, B1 895, B2 1,654, C1 3,231, C2 431, Expressions 402), German 785, Mandarin 11,833
-  (HSK 1 150, HSK 2 151, HSK 3.0 11,532), Spanish 7,986 (A1 992, A2 998, B1 1,998, B2 3,998). It is
+  the two being kept in step. **39,830 rows = 79,660 cards, 94.05 MB**, in five branches: French 7,648
+  (A1 446, A2 589, B1 895, B2 1,654, C1 3,231, C2 431, Expressions 402), German 785, Italian 11,578
+  (A1 961, A2 995, B1 970, B2 1,011, C1 2,809, C2 417, Core vocabulary 3,039, Phrases 1,376), Mandarin
+  11,833 (HSK 1 150, HSK 2 151, HSK 3.0 11,532), Spanish 7,986 (A1 992, A2 998, B1 1,998, B2 3,998). It is
   **gitignored**, like the other two combined files: every byte of it is already in the repo and this
   regenerates it, reading no clock (`exportedAt` comes from the newest source), so the same inputs write
   the same bytes and a diff means something. Six things are decisions rather than plumbing.
@@ -5277,21 +5309,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     installed DELF A1 in the shared `UCARDS` store and studies the wrong card.
   · **TWO DECKS DEFINING ONE TYPE ID DIFFERENTLY IS REFUSED rather than picked between** — one language's
     cards rendered with another's templates reads as a card merely laid out oddly, not as a fault. (The
-    fifteen decks use five: `delf`, `en-to-es`, `es-to-en`, `goethe`, `hsk`.)
+    23 decks use six: `cils`, `delf`, `en-to-es`, `es-to-en`, `goethe`, `hsk`.)
   · **THE STAMP COMES FROM `meta.updatedAt`, NOT `exportedAt`.** The two pipelines write that top-level
     field differently — French an epoch integer, Mandarin an ISO string — so comparing them raises on the
     first mixed pair, and picking either convention would silently ignore half the shelf.
   **`.claude/decks/check-all-languages.js` is its browser half**, and it MEASURES as well as asserting:
   everything `check-combined.js` covers is true here by construction (the cards are copied unchanged),
-  where what this file BUILDS is the branch per language, five card types in one file and 28,252
+  where what this file BUILDS is the branch per language, six card types in one file and 39,830
   renumbered ids — and, above all, whether a file this size is usable. **Measured on one machine: JSON.parse
-  514 ms in node, import visible in 13.7 s and fully written in 31.1 s, and a later boot 636 ms with the
+  690 ms in node, import visible in 30.2 s and fully written in 56.8 s, and a later boot 861 ms with the
   deck installed** — that last being the cost every visit after the first pays, and small because boot
-  reads the note INDEX and no prose at all (see the Persistence bullet under COMMUNITY DECKS). Those
-  timings are the evidence for the raised caps and the thing to re-read before anyone raises them again;
-  **time the boot with no settling wait after it**, or a fixed `waitForTimeout` lands in the figure and a
-  fast boot reads as a slow one (it did: 2.1 s, of which 1.5 was mine). Not part of the site.
+  reads the note INDEX and no prose at all (see the Persistence bullet under COMMUNITY DECKS). **The
+  import is the honest cost and it is nearly a minute**: it is ONE IndexedDB transaction, so it is atomic
+  and an interrupted import leaves the old state rather than half a deck, but it is a real wait and the
+  reader is told so ("Saving…"). Those timings are the evidence for the raised caps and the thing to
+  **re-run** rather than re-read — they measure one file on one machine and go out of date the moment a
+  language is added (at 28,252 rows / 66 MB they were 514 ms, 13.7 s, 31.1 s and 636 ms). **Time the boot
+  with no settling wait after it**, or a fixed `waitForTimeout` lands in the figure and a fast boot reads
+  as a slow one (it did: 2.1 s, of which 1.5 was mine). Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
+  **A BATCH TOOL RE-SERIALIZES THE WHOLE CARD, NEVER A LIST OF FIELDS** (Aug 2026, after this one stripped
+  every card's rating). It kept a private copy of `serializeCardData`'s field list and emitted only what
+  that copy named — written before `difficulty` existed and knowing nothing about `undatable` — so **ONE
+  run silently removed both from all 500 cards**: the tags were written correctly, the file parsed, nothing
+  threw, and the only symptom was every minigame's pool quietly emptying. A whitelist in a tool can only
+  ever be a copy of app.js's, and a copy goes stale on a change made in another file by someone with no
+  reason to look here; `JSON.stringify(c)` cannot, since the cards are read from data.js and written back
+  with their own keys in their own order. It also spliced a `tail` starting at `window.COLLECTION_TREE`,
+  which dropped the comment standing above the tree on every run — both headers are written out in full
+  now. **Diff `data.js` after any tool run**: a whole-file rewrite normalises every card's KEY ORDER, which
+  is semantically identical and turns a one-card change into 400 lines of review noise (the fix above
+  prevents it, and the cure is to splice the changed line into the old text).
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
@@ -7011,6 +7059,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     overlay chrome (backdrop, ×, Escape) stays with `openArtefactWin`, since the preview has nothing to
     close; the FOOTNOTE NUMBERING stays with `wireFootnotes`, which needs rendered nodes, so every caller
     pairs the builder with `wireArtefactPlate` on the container it put the markup in.
+  · **THE PLATE IS WASHED IN ITS OWN RARITY, AND SO IS THE CHEST'S REVEAL** (Aug 2026, on request). The
+    rarity was already the plate's whole language — the chip, the top rule, the border, the picture frame —
+    and every one of those is an EDGE, so a common and a legendary read alike anywhere but the rim. Both now
+    carry a gradient of `--rar` running top to bottom, laid OVER `var(--card)` rather than mixed into it, so
+    it needs no per-theme rule: whatever paper a theme uses is what the wash fades into. Two things. It is
+    strongest at the top, where the name and the chip are, and gone by two thirds down, so the five sentences
+    and the citations under it sit on ordinary paper and lose no contrast — `test-a11y.js` measures every
+    text node against the background it really renders on. And NIGHT takes a weaker mix, for the reason every
+    other wash on the site does: a colour over a dark paper reads far stronger than the same percentage over
+    a light one. The chest's `.chest-reveal` is additionally BOXED, because it floats on the overlay's dark
+    backdrop rather than on a card, and a gradient fading to transparent there would fade into the backdrop
+    instead of into paper.
+  · **AND SHOWCASE SITS AT THE TOP OF THE PLATE** (same request). It used to close the plate, below five
+    sentences and a fold of citations — so on anything but the shortest artefact it was off the bottom of a
+    scrolling box, and a reader who opened a plate to pin it had to read past everything first. It is the one
+    ACTION on a page that is otherwise all reading, and an action belongs where the reader arrives.
   · **THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME** (`artefactPlateArtHTML`, Aug 2026, on a bug
     report: "there's no way to zoom in on artefact images"). A TILE's `.ar-img` is a bare `<img>` inside a
     `<button>` and must stay one — a `role="button"` figure nested in a button is invalid markup and would
@@ -7061,8 +7125,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   retires its own row. The id carries a **colon** so it can never collide with a node id (plain slugs) or a `u:` deck.
   Two study-session details go with it: a **one-card session does not requeue** a learning step (`res.requeue &&
   scope.type !== "card"`) — with no other card between, the card would reappear instantly and read as a grade that
-  never landed, and it is scheduled properly regardless — and `fromHome` (review / card / cotd scopes) sends the exit
-  button, the completion screen and the caught-up placard back to **Home** rather than the collections.
+  never landed, and it is scheduled properly regardless. **EVERY SESSION NOW ENDS AT THE HOME PAGE** (Aug 2026,
+  on request): `fromHome` is gone, and the exit button, the caught-up placard and the completion screen all
+  route there. It used to depend on the scope — the review, the Card of the day and a group returned home
+  while a DECK returned to the collections — which was written when a deck was something a reader found on
+  that page. It is not any more: a deck is added to the daily study and tapped on its own row on the home
+  page, so that is where a reader finishing one came from and where their other decks are waiting, and the
+  collections are one press further on from the lip the home page advertises. It is ONE answer rather than a
+  rule per surface, since a completion screen going home while the exit beside it went to the collections
+  would be two answers to one question.
 - **Daily review order** (`S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug 2026, renamed on
   request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
@@ -7106,7 +7177,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the fix, and the shape is Anki's.
   · **`deckLimits(id)`** → `{ newPerDay, maxReviews, newIgnoresReview }`, stored in **`S.deckOpts`** keyed by the same
     entry id as `S.active` and written only for decks the reader has actually changed — an absent deck follows
-    `S.settings.newPerDay`, exactly as before. `DECK_MAX_REVIEWS` (200) is Anki's own default.
+    `S.settings.newPerDay`, exactly as before. **`DECK_MAX_REVIEWS` is 50** (Aug 2026, on request; it was
+    Anki's own 200) — a view about what a day's studying should feel like rather than a technical bound, and
+    a DEFAULT only: a deck or the review can still be set as high as anybody likes in its own Daily limits
+    sheet, and a reader who has already chosen one keeps it, `deckLimits` reading the constant only where
+    nothing has been chosen.
   · **`S.deckDay`** holds TODAY only — `{ d, extra, skip }`, the Custom-study bump and "Skip today" — and resets in
     place, dropping every other stale record with it, so the table can never outgrow the decks in use.
   · **The COUNTS are DERIVED, never tallied** (`deckDoneToday`). `grade()` writes **`c.first`** — the day a card was
@@ -7326,6 +7401,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `warn` the Studio toasts, which is the card-types column's own pattern (an ADMIN gets a different
     sentence naming the block to run, being the one person who can clear it). A deck therefore publishes
     from an un-migrated database and simply arrives in the generic indigo.
+  · **A SHEET IS NOT LIVE THE INSTANT IT APPEARS** (`DECK_SHEET_ARM_MS`, Aug 2026, on a bug report: "when
+    the long-press menu loads, I sometimes accidentally immediately press a menu item"). A hold opens the
+    sheet UNDER the finger that is still down, so the lift that ends the gesture lands on whichever row
+    happens to be beneath it and fires it — a Remove or a Skip today the reader never chose. **The
+    document-level capture guard that swallows the click after a hold cannot help**: it deliberately steps
+    aside inside `.deck-menu`, which is what lets a fast deliberate click through. So `deckSheet` guards its
+    own clicks, on TWO tests. The first is EXACT rather than a guess at how fast a finger is: a pointer click
+    whose own pointerdown never landed in this sheet is by definition the tail of the press that opened it,
+    and is swallowed however long that press ran (`e.detail` is 0 for a keyboard or programmatic click, which
+    has no pointerdown to have seen and must go through). The second is a 500ms arming window, covering a
+    fresh tap made before the sheet has settled — half the second the report asks for, because the exact test
+    is what fixes the reported misfire and a full second is long enough that a reader reaching straight for a
+    row would meet a sheet that ignores them, which is the same complaint again.
   · **A × IN THE TOP RIGHT OF EVERY SHEET** (`.dm-x`, Aug 2026, on request). Escape and a backdrop tap both
     closed it already and neither says so: Escape is a key a phone has not got, and "tap outside" is a
     convention a reader has to know in advance. Three decisions.
@@ -7916,8 +8004,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     tells a reader strictly less than "Origins"). **Below 640px five of the nine columns go** rather than
     being squeezed: at 390px the card's own title is the only part of a row with no shorter form, so anything
     taking width from it is what gives, and the rest is one tap away in Card info.
-    **`BROWSE_CAP` (300) bounds what is DRAWN and the count line always states the true total** with the cap
-    named — a silent truncation would read as a search that found 300 things.
+    **`BROWSE_PAGE` (300) is a PAGE, not a ceiling** (Aug 2026, on request). It was a hard cut with a line
+    telling the reader to narrow the search, which on a few thousand cards makes the last two thirds of the
+    collection unreachable by scrolling at all. The table grows by a page whenever its foot comes into view,
+    watched by an **IntersectionObserver on a sentinel drawn as the body's last child** — a scroll listener
+    cannot see the case where the first page does not fill the window, since no scroll ever happens there.
+    One observer, re-pointed at each freshly drawn sentinel (the rows are rebuilt on every repaint, so an
+    observer left on the old one fires on a detached node) and disconnecting itself when the page goes. The
+    count line still states the true total and now says how much of it is on screen; a repaint that CHANGES
+    the list resets the depth, since a new search is a new list.
     **The query, the column and the selection are module-level and deliberately NOT in `S`**: they are a way
     of LOOKING at the collection rather than a preference about Folio, so they survive navigating away and
     back within a session and reset on reload — the glossary record's own call. Typing repaints IN PLACE
@@ -8159,8 +8254,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `CARD_DIFFICULTY_MIN/MAX`, `GAME_MAX_DIFFICULTY`, `cardDifficulty()`, `difficultyOK()`, `gameCardIdSet()`;
   Aug 2026, on request). An integer **1–5 rating HOW WELL KNOWN THE ANSWER TERM IS to the general
   population** — not how hard the card is, which is a different question and conflating the two is the one
-  way this scale stops meaning anything. **All 409 shipped cards are rated** (19 / 39 / 91 / 122 / 138
-  across the five rungs, so 58 sit at or below the games' bar).
+  way this scale stops meaning anything. **Every shipped card is rated** (29 / 63 / 129 / 141 / 138 across
+  the five rungs at 500 cards, so 92 sit at or below the games' bar — **count them rather than quoting
+  that**, which said 409 and 58 for months: `node .claude/test-difficulty.js` prints the distribution).
   · **THE SCALE** (stated identically in app.js, `.claude/add-card-difficulty.js`, `add-card.js` and here —
     keep the four in step): **1** household name, almost any adult would recognise it (Stone Age, Homer,
     Sparta, Neanderthal); **2** generally familiar, an ordinary secondary education reaches it (Neolithic,
@@ -8199,12 +8295,66 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     RNG differed — **730 distinct grids became 60**, a repeat every fortnight. Nothing throws and every grid
     is still full; the game just quietly stops being daily. Taking a fraction restored it to 577, and a
     pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was.
+  · **THE READER SEES IT, AS FIVE STARS IN THE CARD'S TOP RIGHT** (`cardStarsHTML` / `.card-stars`, Aug
+    2026, on request). Three decisions. It renders as **NOTHING at 0** — every community-deck card and any
+    curated card not yet rated — because five empty stars claim a rating of zero, which is not on the
+    scale. It is **DECORATIVE to a screen reader**: one `aria-label` on the row says the rating in words
+    (the `CARD_DIFFICULTY_LABELS` wording, so the star row and the tooltip cannot disagree), where five
+    identical glyphs read out one at a time say nothing. And the colour is the QUESTION/ANSWER label's own
+    `--indigo` at the same `.5` opacity, on request, so the corner reads as the card's own furniture rather
+    than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
+    reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
+    question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
   · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
     the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
     undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
     of the games by accident is not worth having). Carried by `serializeCardData` and restored by
-    `revertCard` — **a serializer that forgot it would strip all 409 ratings from data.js on the next admin
+    `revertCard` — **a serializer that forgot it would strip every rating from data.js on the next admin
     keystroke**, which is why that is asserted rather than assumed.
+- **SOME TERMS DO NOT HAPPEN AT A TIME, AND TIMELINE MUST NOT ASK** (`card.undatable`, `cardUndatable()`,
+  the filter in `chronoPool()`; Aug 2026, on a bug report — "there are some answers which really shouldn't
+  have a specific starting date, e.g. human evolution"). The sibling of the difficulty rule above: a second
+  editorial fact about the ANSWER TERM that decides whether a game may deal it. **14 of the 500 cards carry
+  it**, all of them inside the games' pool, leaving Timeline 78 of its 92.
+  · **THE TEST IS WHETHER THE SORT YEAR IS A DATE THE TERM IS CONVENTIONALLY GIVEN**, and it fails two
+    ways. A term may not be **located in time at all** — a physical feature (`Tiber`, `Apennines`,
+    `Dardanelles`), a material (`Ochre`), a condition (`Ice age`), a way of life (`Hunter-gatherer`), a
+    category (`zoonotic disease`), a question (`origins of social inequality`) or a modern method
+    (`ancient DNA`, which sorts a prehistory card at 2010 CE). Or it may be a **process so diffuse that
+    the earliest figure on its date line is one arbitrary moment inside it**: `human evolution` sorts at
+    8 Mya because that is where the ape line split, which is not when human evolution happened — it is one
+    end of the span the term names as a whole, and the same card prints the other end.
+  · **A LONG PROCESS IS NOT AUTOMATICALLY UNDATABLE, which is the half that keeps the game worth playing.**
+    `domestication`, `animal domestication` and the `Neolithic Revolution` each ran for millennia and each
+    sorts at the onset a reader would give it, which is about the precision a Timeline round is answered
+    to. Flagging those would empty the game of exactly the terms it is for. **Two of the flagged cards
+    argue the case in their own opening sentence** — `Ice age` is "not a slice of time but a climate
+    condition" and `Hunter-gatherer` "names a subsistence strategy rather than a period of the past" —
+    which is the shape to look for.
+  · **IT IS TIMELINE'S RULE AND NOTHING ELSE'S.** Multiple Choice, the Crossword, the Picture round and
+    Common Thread ask what a term IS, which a process answers perfectly well; only this game asks WHEN. So
+    the filter is in `chronoPool` rather than in `gameCardIdSet`, and `test-difficulty.js` asserts it is
+    absent from every other pool as well as present in this one.
+  · **THE DECK'S OWN ORDER IS UNTOUCHED**, and that is why this could not be done with the existing
+    "timeless" machinery (`ADMIN_EDITS.chrono[id] = "none"`, which `cardStartYear` reads): human evolution
+    belongs at 8 Mya among its neighbours in the study deck, and setting it timeless would file a
+    prehistory card in the middle of the Roman ones. `cardStartYear` therefore knows nothing about the
+    flag — asserted, since a later tidy-up would naturally put the two together.
+  · **THREE OF THE FOURTEEN ARE FLAGGED BELT-AND-BRACES.** `Apennines`, `Tiber` and `origins of social
+    inequality` carry no date line, so they were already out of the game for want of a year; the flag is
+    what stops a date line added later walking them silently back into it. (`Dardanelles` is not one of
+    them — it has a year, off graves beside the strait, so flagging it really does remove it.)
+  · **IT ONLY BITES ON A CARD THE GAMES CAN REACH**, i.e. rated at or below `GAME_MAX_DIFFICULTY`, so the
+    pass that applied it went over those 92 and not the whole corpus. **A card RE-RATED down into the pool
+    needs the judgement made about it** — that is the one way the corpus can quietly regrow an unflagged
+    process, and nothing can detect it, since no rule can read an onset off a date line and tell it from
+    one end of a span.
+  · Written by `.claude/mark-undatable.js` in batches (which demands a reason naming the kind of thing the
+    term is, refuses the batch outright rather than half-applying it, and prints the pool it leaves),
+    accepted on a new card by `add-card.js` (optional, and type-checked — `true` or nothing), and editable
+    per card in Admin → Cards as a **"no single date" tick** beside the difficulty select. Carried by
+    `serializeCardData` and restored by `revertCard`, for the reason the rating is: a serializer that
+    forgot it would strip all fourteen flags on the next admin keystroke and put a river back in the game.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -8636,10 +8786,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as a **16:9
   frame** (`.card-img`, `cardImageHTML`) at the top of the Background section, above the prose (the section now
   renders when a card has an image even without an abstract). Clicking it opens the **fullscreen viewer**
-  (`openImageViewer`: wheel zoom toward the cursor 1–8×, click toggles 1↔2.5×, drag pans when zoomed, Esc/×/backdrop
-  closes, `closeImageViewer()` runs in `render()`), with title/description/source in a bottom caption bar (a URL
-  source becomes a link). One **delegated** document click/keydown listener opens it from any `.card-img` (study,
-  previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  (`openImageViewer`: wheel zoom toward the cursor 1–8×, **pinch zoom**, tap toggles 1↔2.5×, drag pans when
+  zoomed, **only the × and Escape close**, `closeImageViewer()` runs in `render()`), with title/description/source
+  in a bottom caption bar (a URL source becomes a link). One **delegated** document click/keydown listener opens
+  it from any `.card-img` (study, previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  **NOTHING INSIDE THE STAGE CLOSES IT** (Aug 2026, on request: "a click on the image itself should not close
+  it; instead it should be possible to zoom in, especially on mobile, and only the X in the top right should
+  close"). A click on the image toggled zoom and a click on the space around it CLOSED, which is the same
+  gesture landing a few pixels apart doing opposite things — and a picture opened to be looked at is one a
+  reader zooms and drags about, so a close-on-backdrop rule reads the end of every clumsy gesture as "done".
+  **AND ON A REAL DEVICE THE TAP HALF COULD NOT FIRE AT ALL, WHICH IS WHY IT WAS REPORTED AS "A CLICK ON THE
+  IMAGE CLOSES IT"** — the finding worth carrying furthest. `stage.setPointerCapture(e.pointerId)` on
+  pointerdown **RETARGETS every later event for that pointer to the STAGE**, so the `e.target === im` the
+  toggle tested at pointerup was false for a real finger or mouse even dead centre of the picture, and the
+  close branch took every press. Whether the press landed on the picture is now recorded at POINTERDOWN,
+  whose own target is resolved before the capture it sets. **A synthetic `PointerEvent` dispatched at an
+  element bypasses that retargeting entirely**, so a test written with synthetic events passes on the broken
+  code — which is why `test-video.js`'s ninth section drives real mouse and real touch, and why a gesture
+  bug should be reproduced with real input before it is believed fixed.
+  **A VIDEO KEEPS ITS BACKDROP CLOSE**, deliberately: the player owns every pointer inside its own frame
+  (scrub, volume, fullscreen), so there is no zoom to protect and nothing but the frame to tap past.
+  **PINCH IS THE HALF THAT MADE THE ZOOM REACHABLE AT ALL** — there was only a `wheel` handler, so on a phone
+  the 1–8× range could not be reached and the tap toggle was the whole of it. Two pointers are tracked in a
+  `Map`; the pinch holds whatever was under the fingers' midpoint under it (the wheel's zoom-to-cursor
+  arithmetic, from a baseline captured when the second finger lands) and follows that midpoint as it moves.
+  Three things it has to get right, and each fails quietly: a second finger **cancels the one-finger pan** or
+  the two fight over `tx`/`ty`; **lifting either finger must not count as a tap**, or the end of every pinch
+  toggles the zoom back (hence the `pinched` flag, which survives until the last pointer is up); and
+  `.iv-live` **kills the `transform` transition while a gesture is in flight**, or the picture eases 180 ms
+  behind the fingers. `.iv-stage` already carried `touch-action:none`, so the browser never takes the pinch
+  for a page zoom.
   **`alt` is the text alternative, and it is a field of its own** (Aug 2026, on request: "add alt text for
   images, which can be added when editing/making cards"). Deliberately not a reuse of `title`: a title NAMES
   the picture for a reader who can already see it, where alt text has to DESCRIBE it to somebody who cannot,
@@ -8922,8 +9098,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   non-English `S.settings.lang` to `"en"` on boot. Without it, a reader who had chosen Spanish would be held
   in Spanish for ever with no control left on the page to escape — the one way removing a setting can
   genuinely strand someone. The content pipeline has the same switch twice over
-  (`REQUIRE_TRANSLATIONS` in `add-card.js` and `add-glossary.js`) and, since the removal, a second guard
-  beyond it: both tools **DROP** a supplied `i18n` / `translations` block with a warning rather than writing
+  (`REQUIRE_TRANSLATIONS` in `add-card.js`, `add-glossary.js` and `add-questions.js`) and, since the
+  removal, a second guard
+  beyond it: both content tools **DROP** a supplied `i18n` / `translations` block with a warning rather than writing
   it, so the eager path cannot regain megabytes because one batch file still carried its nine languages. The
   changelog rule in the golden rules is suspended to match. Guarded by `test-layout.js` (the gate) and `test-i18n-lang.js`, which asserts the
   gate UNPATCHED and then **serves an app.js with the flag flipped** so the machinery behind it stays tested
@@ -9266,7 +9443,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
   leaving the two halves to the wrap: it is a promise and a price, and which line each falls on should not
   be a function of the column width. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a MARK in the top-right corner, and
+  chip** (`S.streak`, shown at 2+ when the run is alive).
+  **…AND, SINCE AUG 2026 ON REQUEST, THE DAY'S TIME ON CARDS** (`S.studyTime = { d, ms }`, `studyTimeAdd` /
+  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; the `.stat.st-time` chip). Five
+  things are decisions rather than plumbing.
+  · **THE MINIGAMES ARE EXCLUDED BY CONSTRUCTION, NOT BY A RULE** — the clock is a ticker living inside
+    `PAGES.study` and `studyTimeAdd` has exactly that one caller, so no game can reach it and none has to
+    be named. A rule listing the games would be a list to keep in step with the grid.
+  · **IT IS A TICKER, NOT A STAMP PER CARD.** What was asked for is the time a question or an answer was ON
+    SCREEN, and a card can be left mid-session, requeued, or read for three minutes with nothing graded —
+    none of which a per-grade duration sees. **It cannot be summed out of `revlog` either**: that records a
+    duration only for a card that was GRADED, capped at `REV_MAX_DS` (60s) precisely so a card left open
+    over lunch cannot claim two hours, so both a long read and an abandoned session count wrongly there.
+  · **TWO GUARDS MAKE THE FIGURE HONEST RATHER THAN MERELY LARGE**, and both matter on a phone: a tick is
+    discarded while `document.hidden` or after `STUDY_IDLE_MS` (3 minutes) with no pointer, key, wheel,
+    scroll or touch — a card left face-up on a table is not studying — and a tick is CLAMPED to twice its
+    own interval, so a laptop waking from sleep cannot hand the day eight hours in one go. The idle window
+    is deliberately generous: a reader three minutes into a 300-word background is reading it.
+  · **THE TICKER IS SELF-STOPPING ON `root.isConnected`**, the shape `startMiniGlobe` uses — `render()`
+    replaces `#view` without telling anyone and there is no teardown hook to hang it on — and it takes its
+    document-level activity listeners with it when it goes. It counts only while a `.study-card` is
+    actually painted, so the completion screen and the caught-up placard are not studying.
+  · **IT REACHES `save()` ONCE A MINUTE, not on every tick**: `save()` queues a synced push, and a push
+    every five seconds for a figure nothing else reads is a great deal of traffic for a clock. The grade
+    path saves anyway, so in ordinary use the day is written down card by card; at most a minute is lost to
+    an abrupt close, which is inside the honesty of the figure.
+  The chip is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
+  midnight, and is **drawn only once there is time to report** — a "0s" before the first card is a clock
+  saying nothing has happened, which the empty row already says. `fmtStudyTime` prints seconds below a
+  minute ("45s"), because rounding the first card of the day up to "1m" is a small lie and "<1m" is not a
+  figure. Its `<b>` is **smaller than the three piles' and in the ordinary ink** rather than their indigo:
+  it is not a fourth pile, and at their size it would compete with the numbers that say where the day's
+  work actually is. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
+  laptop agree) and deliberately NOT in `RESET_KEEPS` — it is study history, which is what that control
+  names. Measured at 390px with everything on the row: it fits with the streak chip beside it.
+  **Completion is a MARK in the top-right corner, and
   it comes in TWO SHAPES** (`doneMarkHTML` in `PAGES.home`; Aug 2026). The tile used to FILL with its colour
   once played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought
   every theme's own treatment of the card; that became a diagonal **ribbon**, and the ribbon then split in
@@ -9413,6 +9624,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   date a reader could check once, read the years off the rows and reorder to a perfect score every day. Later
   checks still mark the rows and show the dates — the puzzle stays usable for learning the order — they just
   no longer rewrite the score, and the result says so.
+  **It is the one game with a SECOND pool filter** (`card.undatable`, Aug 2026, on a bug report): it is
+  also the only one that asks WHEN rather than what, so a term that does not happen at a time — `human
+  evolution`, `Tiber`, `Ice age` — is kept out of it and out of nothing else. See "SOME TERMS DO NOT
+  HAPPEN AT A TIME" above.
   **Its DRAG was rewritten in Aug 2026, on a report that it felt unpleasant** (`setupChronoDrag`). The old
   one called `insertBefore` on every `pointermove` and did nothing else, so the row being dragged never
   went anywhere under the finger — it was re-inserted at the new index and appeared there — and every other
@@ -9619,6 +9834,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     out of the arrows. Completing an entry then calls `nextOpen`, which finds the next entry still holding
     an unsolved square **and wraps**, so the last clue on the board leads back to the first rather than
     stopping dead.
+  · **A REVEALED LETTER IS RED, NOT GREEN** (Aug 2026, on request). Green is what a solved entry paints and
+    what locks a square against being typed over — it means "you got this" — so painting the whole board
+    green on a give-up told the reader they had answered a grid they in fact gave up on, and took away the
+    one thing they want to see afterwards: which letters were theirs. What each square WAS is read BEFORE the
+    answers are written over it, so a square whose own letter already matched stays green and every square
+    that was empty or wrong turns red; the clue rows keep their tick only where the reader earned it. The
+    whole square goes red for free, `.xw-sq:has(.xw-cell.bad)` already washing it.
   · **AND A GIVE-UP BUTTON REVEALS THE ANSWERS, WHICH HAD TO BE RECORDED** (`xwGaveUpToday` / `xwMarkGaveUp`,
     same request). The letters go into the very store the grid is restored from, so a revealed board reads
     back on the next visit as a board somebody filled in — a perfect score, a gold tile and a lifetime win.
@@ -9879,6 +10101,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
   breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
   third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
+- **THE WHITEBOARD MARKER CAN BE TURNED OFF ALTOGETHER** (`markerOn` beside `ensureWBTools`;
+  **Settings → Study → Whiteboard marker**, `S.settings.marker`, default ON. Aug 2026, on request). It floats
+  over every study card, every page of a book and the Atlas globe, and a reader who never draws has been
+  carrying it round the corner of the screen on all three. **ONE predicate, asked in the two places that
+  bring the marker into existence** — `showWBTools`, which puts the panel on screen, and `setupWhiteboard`,
+  which lays the ink canvas over the page — so a disabled marker costs a page neither the panel, the canvas
+  nor the pointer listeners that go with it. It needs no third gate: **the panel is the only way to put the
+  pen DOWN**, so `WB.enabled` can never become true and every page-specific hook (the globe's cursor, the
+  book's ink store) simply never fires. Two things are load-bearing. The guard in `setupWhiteboard` sits
+  AFTER that function's own teardown, or a fling or a resize listener left by the previous page would outlive
+  it. And the switch calls `hideWBTools()` when thrown OFF: Settings is not one of the three pages that mount
+  the marker, so nothing would repaint it away by itself, and a panel still floating over the page a switch
+  has just disabled reads as a switch that did nothing. Anything already drawn is kept — this decides whether
+  the marker APPEARS, not whether the ink exists.
 - **The whiteboard marker is DRAGGABLE anywhere on screen** (`wbMakeDraggable` / `wbApplyPos`, beside
   `ensureWBTools` — Aug 2026, on request). It is a fixed control floating over a card the reader is trying to
   read, and its default corner is exactly where some cards put the thing you want to look at.
@@ -10705,7 +10941,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
     the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
     DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
-  · **`UDECK_MAX_CARDS` is 32,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 44,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -10714,25 +10950,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
     view about how big a deck should be, and **it is set from the largest legitimate deck anyone has
-    brought — so a legitimate deck that will not fit is what MOVES it**, which has now happened twice: the
-    whole of HSK 3.0 in one file took it to 12,000, and every deck on the shelf combined
-    (`.claude/combine-decks.py`, **28,252 notes = 56,504 cards**) took it here. **A deck that size is
-    usable and that was MEASURED rather than assumed** — parse 514 ms, import visible in 13.7 s and written
-    in 31.1 s, and a later boot 636 ms with it installed, since boot reads the note index and no prose; see
-    the Persistence bullet above for what that split costs and buys. **IT COUNTS NOTES, NOT CARDS**, which
-    since reverse cards is a real distinction, and it is deliberately left on the thing the FILE holds,
-    since what it guards is the cost of parsing somebody else's file.
+    brought — so a legitimate deck that will not fit is what MOVES it**, which has now happened three
+    times: the whole of HSK 3.0 in one file took it to 12,000, all the Italian in one to 20,000, and every
+    vocabulary deck on the shelf combined (`.claude/combine-decks.py`, **39,830 rows across five
+    languages**) to here. **A deck that size is usable and that was MEASURED rather than assumed** — see
+    the timings under that file's own bullet, and the Persistence bullet above for why a later boot is
+    cheap. **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, which since reverse cards is a real
+    distinction — and **it cuts BOTH ways, which is worth knowing before reading anything into the
+    figure**: HSK 3.0 asks a word in both directions from ONE row, by giving its card type two templates,
+    so its 10,896 rows are 21,792 cards; a deck whose two directions are separately addable SUBDECKS
+    cannot, a subdeck being a property of a row, so there a word is two rows and 16,782 rows is only 8,400
+    words. It is deliberately left on the thing the FILE holds, since what it guards is the cost of
+    parsing somebody else's file.
   · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
-    96 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
-    whole file is a string and then an object, so something has to stop a 500 MB file before that. Two
+    128 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    whole file is a string and then an object, so something has to stop a 500 MB file before that. Four
     things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
     for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
-    number is how a legitimate deck comes to be refused for a reason nobody can find. **The density is
-    re-measured whenever the note cap moves**: over all fifteen shipped decks it is 2.38 KB a note (65.58 MB
-    for 28,252), against the "~2 KB" the HSK decks alone gave, so the note cap comes to ~74 MB and this is
-    set clear of it — a file at one cap can never be turned away by the other. And **the message names the
-    figures**: "too large to be a deck" tells a reader nothing they can act on, where the size and the limit
-    tell them how far to split it.
+    number is how a legitimate deck comes to be refused for a reason nobody can find. **The per-row figure
+    is measured, and has been stale TWICE**: the comment once said "~2 KB a note, measured over the HSK
+    decks, whose notes are the largest here" when the HSK rows are in fact the LIGHTEST, and the 4 KB that
+    replaced it was overtaken within the day by the bolding of the conjugation tables — measured over all
+    23 shipped decks it runs **1.08 KB a row** (Italian phrases, no paradigm) to **4.31** (DELE B1, a full
+    one), the combined file averaging 2.42. **THE STRICT DERIVATION IS THEREFORE ABANDONED, AND SAYING SO
+    IS THE POINT**: "the row cap × the heaviest row must fit" now means 185 MB, a byte cap that guards
+    nothing, justified by a file of 44,000 uniformly heaviest rows that does not exist. What is set is the
+    largest real file plus headroom, and the tension is left REAL rather than papered over — a deck of
+    30,000 all-heavy rows is under the row cap and over this one. That is tolerable **only because it is
+    not silent**: the message names the size AND the limit and says to split it, which is exactly what the
+    8 MB cap did not do.
+    **THE HONEST COST OF THE RAISE, stated in app.js and not only here**: a file near this cap is read into
+    a string and then `JSON.parse`d, so a phone briefly holds several times the file in JS heap and a deck
+    at the limit may fail to import on a low-end device where two half-size ones would not. The cap is a
+    guard against a hostile file, not a promise that anything under it imports anywhere.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT
@@ -12243,9 +12493,13 @@ form as the head word (`Operation Barbarossa`, not `Barbarossa`).
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort
 that went into nine translations into the English instead — the sourcing, the sentence rhythm, the
-question pool. `add-card.js` and `add-glossary.js` each carry a `REQUIRE_TRANSLATIONS = false` beside
-their `I18N_LANGS`, which is the content-pipeline half of `MULTILANG` in app.js; flip both back and new
-entries are held to all nine again. **Translations that ARE supplied are still written and still checked**
+question pool. `add-card.js`, `add-glossary.js` **and `add-questions.js`** each carry a
+`REQUIRE_TRANSLATIONS = false` beside their `I18N_LANGS`, which is the content-pipeline half of
+`MULTILANG` in app.js; flip all three back and new entries are held to all nine again. (`add-questions.js`
+gained its copy in Aug 2026, having demanded nine translations that no longer exist since 2026-08-08 — so
+it could only be run with `--partial`, a flag documented as being for a deliberate staged batch rather
+than for the only shape the corpus can now have. **A gate lifted in one tool has to be lifted in every
+tool the same content passes through**, or the pipeline refuses work the rule says is finished.) **Translations that ARE supplied are still written and still checked**
 (question length, footnote-marker parity) — the requirement is lifted, the machinery is not, and the
 existing 105 cards and 333 terms keep the translations they have. What is written below about the nine
 languages is the rule to resume, not the rule in force.
@@ -12376,6 +12630,16 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   studiable at every rating**, and most cards worth writing are 3s, 4s and 5s. `add-card.js` REFUSES a card
   without one rather than defaulting — the safe default is invisible, since the card simply never appears in
   a game and nothing says so. Batch-rate older cards with `.claude/add-card-difficulty.js`.
+- `undatable` — **OPTIONAL, and only where the answer term does not happen at a time**: `true` says the
+  term names a process, a condition, a material, a category, a modern method or a physical feature, so the
+  **Timeline** game must not ask a reader to place it. Ask whether the year the deck would sort the card at
+  is a date the term is CONVENTIONALLY GIVEN — `human evolution` sorts at the ape split 8 Mya, which is one
+  end of the span the term names rather than when it happened, and `Tiber` has no date at all. **A long
+  process is not automatically undatable**: `domestication` and the `Neolithic Revolution` each sort at the
+  onset a reader would give them and stay in the game. It is not required, is never guessed at, and applies
+  only to a card the games can reach (rated at or below the bar); the deck's own chronological order, the
+  other games and studying are all unaffected. See the "SOME TERMS DO NOT HAPPEN AT A TIME" bullet under
+  "How the app is wired", and flag an older card with `.claude/mark-undatable.js`.
 - `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
   `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
   asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
@@ -13134,7 +13398,8 @@ dead code (never rendered).
     **or any of `supaSignIn` / `supaEmailForUsername` / `supaSwitchTo` / `supaRemember` / `supaForget` /
     `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that carries the outgoing account's progress across is
     exactly what its `_supaOwner` assertions exist to catch, and nothing on screen would say so.**
-  · `node .claude/test-video.js` — 89 assertions on card + glossary videos: that every accepted link shape
+  · `node .claude/test-video.js` — 100 assertions on card + glossary videos **and the fullscreen viewer's
+    gestures**: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
     (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
@@ -13148,6 +13413,15 @@ dead code (never rendered).
     same-origin 404 leaves the AUTHOR the frame, marked and worded, and leaves the READER nothing at all
     (`height:0`, out of the flow — not a blank 16:9 box), with a click on it opening no empty viewer.
     Both halves matter: hiding it everywhere would leave the author with no way to notice.
+    **Its ninth section is the VIEWER'S GESTURES, and every assertion in it is made with REAL mouse and REAL
+    touch on purpose** (Aug 2026): a synthetic `PointerEvent` dispatched at an element BYPASSES
+    pointer-capture retargeting, which is the whole of the bug it exists for — `setPointerCapture` makes
+    every later event target the STAGE, so the tap toggle's `e.target === im` was false for a real finger
+    even dead centre of the picture and the close-on-backdrop branch took every press. **A synthetic version
+    of these checks passes on the broken code**, verified by reintroducing the fault. It covers the click
+    that must not close (on the picture and on the space around it), the tap that must zoom, the drag that
+    must pan without toggling the zoom back, a CDP two-finger pinch with `.iv-live` on during it, and the ×
+    as the only way out.
     **Re-run after touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` /
     the delegated `error` listener / `.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 44 assertions on glossary images: the popup floats one to the
@@ -13625,7 +13899,7 @@ dead code (never rendered).
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`,
     `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY`, `whatyear.js` / `truefalse.js` / `quotes.js`, or the home page's tile grid.**
-  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filter** (53 assertions,
+  · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69 assertions,
     Aug 2026). No browser and no dependencies: the rule is arithmetic over the shipped data plus a few
     structural reads of app.js, the shape `test-date-line.js` uses. Every one of its checks is for something
     that fails silently on the page — a wrongly-filtered game still deals a puzzle, still scores it and still
@@ -13637,16 +13911,26 @@ dead code (never rendered).
     that the filtered pool **can still deal** (the opposite failure, and just as quiet — the game shows a
     "Coming soon" placard that reads as content nobody has written); that **study is untouched**, with
     `availableCardIdSet` knowing nothing about difficulty; that `serializeCardData` **emits** the rating,
-    since a serializer that forgot it would strip all 409 from data.js on the next admin keystroke; and that
+    since a serializer that forgot it would strip every one from data.js on the next admin keystroke; and that
     `add-card-difficulty.js` refuses a bad batch **and writes nothing at all** when it does, which it proves
     by running the tool for real and comparing the file's bytes. It also owns the **What year? event pool**:
     every year carrying at least `WY_EVENTS`, no entry with markup (the clue list escapes, so a stray `<i>`
     would print its own tags), no entry naming the year it asks about, no duplicate event, and at least ten
-    usable years. Verified against three injected faults — an unrated card, a game reverted to the
-    unfiltered set, and a serializer that drops the field; each was caught. **Re-run after touching
-    `cardDifficulty` / `difficultyOK` / `gameCardIdSet` / `GAME_MAX_DIFFICULTY` / `serializeCardData` /
-    `revertCard`, any game's pool function, `add-card.js`'s difficulty guard, `add-card-difficulty.js`, or
-    `whatyear.js` — and after any batch of ratings.**
+    usable years. **Its section 8 is the second filter, `card.undatable`** (Aug 2026): that Timeline's pool
+    skips the flagged terms and **that no other game's pool applies it**, since those ask what a term IS
+    and narrowing them would be a rule borrowed for a reason that does not apply; that `cardStartYear`
+    knows nothing about it, so the deck's own order is unmoved; that `human evolution` — the card this was
+    reported about — is flagged AND still carries its sort year; that the flag is only ever written as
+    `true`; that what is left is comfortably larger than a round, which is the opposite failure and just as
+    quiet; and that `mark-undatable.js` refuses a flag with no reasoning behind it and writes nothing when
+    it does. Verified against five injected faults — an unrated card, a game reverted to the unfiltered
+    set, a serializer that drops either field, and `chronoPool` reverted to the unfiltered pool; each was
+    caught. **Re-run after touching
+    `cardDifficulty` / `difficultyOK` / `gameCardIdSet` / `GAME_MAX_DIFFICULTY` / `cardUndatable` /
+    `chronoPool` / `cardStartYear` / `serializeCardData` /
+    `revertCard`, any game's pool function, `add-card.js`'s difficulty or undatable guard,
+    `add-card-difficulty.js`, `mark-undatable.js`, or
+    `whatyear.js` — and after any batch of ratings or flags.**
   · `node .claude/test-tour.js` — the first visitor's walkthrough and the pages that explain themselves
     (Aug 2026), 70 assertions. Everything in it fails SILENTLY and most of it has broken once. **The offer is
     INLINE**, so a regression to a modal over the first paint would look like a feature rather than a fault.

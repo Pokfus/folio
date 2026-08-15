@@ -123,6 +123,19 @@ if (!Number.isInteger(card.difficulty) || card.difficulty < DIFF_MIN || card.dif
   process.exit(1);
 }
 
+/* OPTIONAL: `undatable: true` says the ANSWER TERM does not happen at a time — a process, a condition, a
+   material, a category or a physical feature — so the Timeline game must not ask a reader to place it.
+   It is not required and not guessed at: almost every card names something with a date, and the flag is
+   an editorial judgement about the term rather than a fact anything can read off the date line, which
+   cannot tell an onset from one end of a span. It only bites on a card the games can reach at all
+   (difficulty at or below the bar); see `cardUndatable` in app.js and `.claude/mark-undatable.js`, which
+   is the batch tool for cards already shipped. */
+if ("undatable" in card && typeof card.undatable !== "boolean") {
+  console.error("ERROR: card.undatable must be true or false — it is the Timeline game's own filter, not a note. Set it true where the answer term names something with no single moment a reader could place it at (see CLAUDE.md), and leave it out otherwise.");
+  process.exit(1);
+}
+if (card.undatable === false) delete card.undatable;   // the absent state, written out rather than shipped as a field that says nothing
+
 const aWords = qWords(card.abstract);
 if (aWords < A_MIN || aWords > A_MAX) {
   console.error("ERROR: the background is " + aWords + " words — it must be " + A_MIN + "–" + A_MAX +
