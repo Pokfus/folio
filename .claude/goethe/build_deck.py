@@ -40,10 +40,17 @@ language rather than a pattern, and taking it from there rather than from the
 present indicative is what makes it right for `sein` as well -- Seien Sie ruhig,
 never *Sind Sie ruhig.  Every other form on every card is read.
 """
-import json, re
+import json, os, re, sys
+
+# THE INFLECTION MARKING IS SHARED WITH THE OTHER LANGUAGE'S PIPELINE, because
+# the rule is about paradigms rather than about German or Spanish: within a
+# block, bold what follows the prefix every form shares.  One implementation
+# means the two decks cannot come to mark their tables differently.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from inflect_mark import mark as mark_inflections
 from collections import Counter
 
-from goethe_level import LEVEL, f as lvlf
+from goethe_level import LEVEL, f as lvlf, EXAM
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -443,9 +450,12 @@ def pointed_glosses(same, article=''):
 # HOW MANY SENSES ARE EVEN LOOKED AT, which is the cap that actually bit on C1.
 # Three is plenty for a word an A1 list prints; a C1 word is polysemous by
 # definition, and `der Einsatz` files use, deployment and commitment as senses
-# three, four and six behind the literal `something inserted`.  Raised for C1
-# only, and proved inert on A1, A2 and B1 byte-for-byte.
-GLOSS_SENSES = 5 if LEVEL == 'c1' else 3
+# three, four and six behind the literal `something inserted`.  Raised for the
+# levels with no published word list -- the ones whose vocabulary comes from a
+# corpus, and which are therefore the abstract end of the language -- and proved
+# inert on A1, A2 and B1 byte-for-byte.  Gated on the TABLE rather than on a
+# level's name, so a level added later is covered by the rule and not by a list.
+GLOSS_SENSES = 3 if LEVEL in EXAM else 5
 
 
 def merged_glosses(same, article=''):
@@ -990,10 +1000,10 @@ def comma_parts(s):
 # the words are polysemous and Wiktionary's first sense is often the literal one
 # nobody uses.  `der Einsatz` came out as "something inserted / inset / inlay /
 # compartment" while the corpus that selected it means deployment, use and
-# commitment -- senses three, four and six.  So C1 shows more SENSES and fewer
-# synonyms of each; the levels below are untouched and byte-identical.
-SENSE_CAP = 6 if LEVEL == 'c1' else 4
-PER_SENSE = 2 if LEVEL == 'c1' else 0
+# commitment -- senses three, four and six.  So a corpus level shows more SENSES
+# and fewer synonyms of each; the exam levels are untouched and byte-identical.
+SENSE_CAP = 4 if LEVEL in EXAM else 6
+PER_SENSE = 0 if LEVEL in EXAM else 2
 
 
 def meaning_lines(glosses, cap=SENSE_CAP, per_sense=PER_SENSE):
@@ -1115,8 +1125,10 @@ def gender_from_article(art):
     return ''.join(out)
 
 
-# every card carried the literal 'Goethe A1' whatever level it belonged to
-CATEGORY = ('Goethe ' + LEVEL.upper()) if LEVEL != 'c1' else 'German C1'
+# every card carried the literal 'Goethe A1' whatever level it belonged to -- and
+# a level with no Goethe word list behind it must not be labelled with the exam
+# board's name at all, so it is `German C1` rather than `Goethe C1`.
+CATEGORY = ('Goethe ' if LEVEL in EXAM else 'German ') + LEVEL.upper()
 
 cards, stats = [], Counter()
 for i, e in enumerate(entries, 1):
@@ -1221,7 +1233,7 @@ for i, e in enumerate(entries, 1):
             'Word': e['speak'],
             'English': english,
             'Forms': forms,
-            'Conjugation': conj,
+            'Conjugation': mark_inflections(conj),
             'Examples': examples_html(exs),
         },
     })

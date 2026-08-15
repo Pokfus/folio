@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Choose the C1 vocabulary, because nobody publishes it.
+"""Choose the C1 and C2 vocabulary, because nobody publishes it.
 
 EVERY OTHER LEVEL IN THIS PIPELINE TEACHES A LIST SOMEBODY ELSE WROTE.  The
 Goethe-Institut publishes a Wortliste for A1, A2 and B1, so `parse_goethe.py`
@@ -88,13 +88,19 @@ import json, re, sys
 
 from goethe_level import LEVEL, FREQ, f as lvlf, words_below
 
-TARGET = 3000
+# HOW MANY WORDS EACH LEVEL TAKES AND HOW FAR DOWN THE CORPUS IT LOOKS.  C2 is
+# the next tranche after C1 -- it excludes C1 through `BELOW` like any other
+# level -- so it has to reach further into the tail, and the floor comes down
+# with it: 3,000 words at 60 occurrences per 17.6M tokens exhausts what a corpus
+# this size has to say above that line.  A word at the C2 floor still turns up
+# about once in a million words of newsprint, which is where the vocabulary of
+# a near-native reader actually lives.
+TARGET = {'c1': 3000, 'c2': 3000}[LEVEL]
+MIN_COUNT = {'c1': 40, 'c2': 12}[LEVEL]
 
-# how far down the corpus to look before giving up; the selection has never
-# needed more than a third of this, and it bounds the dump scan
-DEPTH = 60000
-
-MIN_COUNT = 40          # a word rarer than this in 17.6M tokens is not C1, it is chance
+# how far down the corpus to look before giving up; the floor above bites first
+# on both levels, and this bounds the dump scan
+DEPTH = 90000
 OPEN_POS = {'noun', 'verb', 'adj', 'adv', 'conj', 'prep', 'phrase'}
 BAD_FLAG = {'vulgar', 'offensive', 'derogatory', 'slur', 'ethnic-slur',
             'obsolete', 'archaic'}
@@ -269,5 +275,10 @@ entries = [{
 
 json.dump(entries, open(lvlf('wortliste.json'), 'w'), ensure_ascii=False, indent=1)
 json.dump([], open(lvlf('wordgroups.json'), 'w'), ensure_ascii=False)
+# The frequency FLOOR travels to the deck's own description, which tells a reader
+# how far into the tail the last card sits.  Written here rather than recomputed
+# there because this is the only stage that sees the corpus counts at all.
+json.dump({'floor': counts[keep[-1]], 'word': keep[-1]},
+          open(lvlf('corpus-floor.json'), 'w'), ensure_ascii=False)
 print('  words:', len(entries))
 print('  first ten:', ', '.join(keep[:10]))

@@ -194,6 +194,10 @@ CSS = """.card {
   font-size: 16px;
   line-height: 1.55;
 }
+.uc-infl {
+  font-weight: 600;
+  color: var(--zh, #C8453C);
+}
 .uc-exz b {
   font-weight: 600;
   color: var(--zh, #C8453C);

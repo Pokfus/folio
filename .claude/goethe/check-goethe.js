@@ -9,7 +9,7 @@
    what the PAGE says, and writes two screenshots to look at.
 
      FOLIO_CHROMIUM=/path/to/chrome NODE_PATH=/tmp/pw/node_modules \
-       node .claude/goethe/check-goethe.js [a1|a2]
+       node .claude/goethe/check-goethe.js [a1|a2|b1|c1|c2]
 
    The level is an argument rather than a constant because the assertions are about GERMAN and not
    about a level: every one of them — the article's colour, the plural, the paradigm, the marked
@@ -19,15 +19,15 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^(a[12]|b1|c1)$/.test(LEVEL)) { console.error("level must be a1, a2, b1 or c1"); process.exit(2); }
-// C1 IS NOT A GOETHE DECK AND IS NOT NAMED LIKE ONE.  The Goethe-Institut
-// publishes no C1 word list -- see `c1_wordlist.py` -- so that deck is titled,
+if (!/^(a[12]|b1|c[12])$/.test(LEVEL)) { console.error("level must be a1, a2, b1, c1 or c2"); process.exit(2); }
+// A C LEVEL IS NOT A GOETHE DECK AND IS NOT NAMED LIKE ONE.  The Goethe-Institut
+// publishes no C1 or C2 word list -- see `corpus_wordlist.py` -- so that deck is titled,
 // filed and identified for what it is, and the checks read these tables rather
 // than composing a name out of the level.
-const DECK = LEVEL === "c1" ? "German-C1-Vocabulary.folio-deck.json"
-                            : "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
-const DECK_ID = LEVEL === "c1" ? "germanc1" : "goethe" + LEVEL;
-const SHELF = LEVEL === "c1" ? "German C1" : "Goethe " + LEVEL.toUpperCase();
+const DECK = /^c/.test(LEVEL) ? "German-" + LEVEL.toUpperCase() + "-Vocabulary.folio-deck.json"
+                              : "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
+const DECK_ID = (/^c/.test(LEVEL) ? "german" : "goethe") + LEVEL;
+const SHELF = (/^c/.test(LEVEL) ? "German " : "Goethe ") + LEVEL.toUpperCase();
 // the composed paradigms live in the lowest level that teaches the word
 const COMPOSED = LEVEL === "a1";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
@@ -199,6 +199,17 @@ const ok = (c, m, extra) => {
           })),
         ex: [...document.querySelectorAll(".uc-exz")].map((e) => e.textContent.trim()),
         bold: [...document.querySelectorAll(".uc-exz b")].map((e) => e.textContent.trim()),
+        // THE INFLECTION MARKING, form by form: the whole text of each cell and
+        // the part of it picked out.  Read as a PAIR because the only fault that
+        // matters is a mark that has changed the word rather than coloured it --
+        // a missing mark is merely a plain table, where a mark spanning a word
+        // boundary or swallowing a whole form is a lie about the paradigm.
+        infl: [...document.querySelectorAll(".uc-cj-f, .uc-dtc")].map((e) => [
+          e.textContent, [...e.querySelectorAll(".uc-infl")].map((m) => m.textContent)]),
+        inflColor: (() => { const m = document.querySelector(".uc-infl");
+          return m ? getComputedStyle(m).color : ""; })(),
+        exBoldColor: (() => { const b = document.querySelector(".uc-exz b");
+          return b ? getComputedStyle(b).color : ""; })(),
       };
     });
     // A screenshot of each KIND, with the folds open: the examples and the paradigm are the two things
@@ -260,6 +271,23 @@ const ok = (c, m, extra) => {
     ok(seen.verb.nonfinite.some((s) => /auxiliary/i.test(s)),
        "and which auxiliary it takes", JSON.stringify(seen.verb.nonfinite));
     ok(seen.verb.conjRows.length >= 6, "six persons are shown");
+    // WHAT PART OF THE WORD IS ACTUALLY CHANGING, picked out in the paradigm.  A
+    // paradigm that has stopped being marked still renders perfectly, so nothing
+    // but this can see it; and the colour is compared against the example
+    // sentence's own bold rather than against a hex, so re-toning `--zh` moves
+    // both together instead of failing here.
+    const marks = seen.verb.infl.filter((f) => f[1].length);
+    ok(marks.length >= 3, "the changing part of each form is marked",
+       JSON.stringify(marks.slice(0, 4)));
+    ok(seen.verb.inflColor && seen.verb.inflColor === seen.verb.exBoldColor,
+       "in the same colour the example sentences use", seen.verb.inflColor);
+    // A MARK IS A TAIL OF ONE WORD -- never the whole of a form, which would say
+    // that every letter of it is an ending, and never across a space.
+    const badMark = seen.verb.infl.find(([text, ms]) => ms.some((m) =>
+      !m || /\s/.test(m) || m === text.trim()
+      || !text.split(/[\s/]+/).some((w) => w.endsWith(m) && w.length > m.length)));
+    ok(!badMark, "and is a tail of one word, never the whole of it",
+       JSON.stringify(badMark));
   }
   console.log("   adj:   " + JSON.stringify(seen.adj && [seen.adj.word, seen.adj.forms]));
   ok(seen.adj, "an adjective came up");

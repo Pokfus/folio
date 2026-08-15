@@ -284,6 +284,10 @@ CSS = """.card {
   font-size: 16px;
   line-height: 1.55;
 }
+.uc-infl {
+  font-weight: 600;
+  color: var(--zh, #C8453C);
+}
 .uc-exz b {
   font-weight: 600;
   color: var(--zh, #C8453C);
@@ -341,6 +345,21 @@ EX_NOTE = ('Every word also carries three real example sentences'
            + (f'; the sentence corpus has nothing at all for the other {ex0}, which are kept '
               + KEPT_WHY if ex0 else ''))
 
+# A LEVEL WITH NO PUBLISHED LIST DESCRIBES ITSELF THE SAME WAY WHATEVER IT IS
+# CALLED, so C1 and C2 share one entry keyed `corpus` and differ only in what
+# they sit on top of and in the sentence naming the level.  Written as tables
+# rather than as a branch per level, which is what let A2's and B1's wording go
+# out saying A1 for a fortnight.
+LIST_KEY = LEVEL if LEVEL in EXAM else 'corpus'
+_below = {'c1': 'A1, A2 and B1', 'c2': 'A1, A2, B1 and C1'}
+BELOW_SENT = _below.get(LEVEL, '')
+CEFR_SENT = {
+    'c1': "for reading German at C1, the level at which a learner follows demanding texts on "
+          "abstract subjects without a dictionary. ",
+    'c2': "for reading German at C2, the level at which a learner reads virtually everything "
+          "with ease and catches what is implied as well as what is said. ",
+}
+
 # WHAT THE DECK IS AND WHERE ITS WORDS COME FROM, per level.  This was ONE
 # hardcoded paragraph naming A1 until Aug 2026, so the A2 and B1 decks both went
 # out describing themselves as "words for the Goethe-Zertifikat A1: Start Deutsch
@@ -370,31 +389,42 @@ LIST_SENT = {
           "remark about the word rather than a word to learn, so it is not carded; where the "
           "Institut means the variant itself to be known it gives it an entry of its own, and "
           "that entry is here. Words already taught by the A1 and A2 lists are not repeated. ",
-    'c1': "There is no Goethe C1 word list, and that is the exam board's own position rather than "
-          "something missing here. The published Wortlisten stop at B1. The Goethe-Institut's own "
-          "C1 Prüfungsziele/Testbeschreibung says, in section 4.4: „Wortschatz- und "
-          "Grammatikinventare zum Goethe-Zertifikat C1 gibt es aus folgenden Gründen nicht: Auf "
-          "dieser Stufe läßt sich keine verbindliche Eingrenzung des Wortschatzes vornehmen, da "
-          "authentische Texte verwendet werden.“ — no binding delimitation of the vocabulary can "
-          "be made at this level, because the exam uses authentic texts. So this deck does not "
-          "claim to be that list. It is the vocabulary a reader who already has A1, A2 and B1 will "
-          "actually meet in written German: the most frequent words beyond those three lists in a "
+    'corpus': "There is no Goethe " + LEVEL.upper() + " word list, and that is the exam board's own "
+          "position rather than something missing here. The published Wortlisten stop at B1, and "
+          "the Goethe-Institut gives its reason in the C1 Prüfungsziele/Testbeschreibung, section 4.4: "
+          "„Wortschatz- und Grammatikinventare zum Goethe-Zertifikat C1 gibt es aus folgenden "
+          "Gründen nicht: Auf dieser Stufe läßt sich keine verbindliche Eingrenzung des "
+          "Wortschatzes vornehmen, da authentische Texte verwendet werden.“ — no binding "
+          "delimitation of the vocabulary can be made at that level, because the exam uses "
+          "authentic texts; the C2 brochure names no inventory either. So this deck does not claim "
+          "to be that list. It is the vocabulary a reader who already has " + BELOW_SENT + " will "
+          "actually meet in written German: the most frequent words beyond those in a "
           "corpus of one million sentences of German news (the Leipzig Corpora Collection's "
-          "deu_news_2024, 17.6 million words), which is the register the C1 reading passages are "
-          "drawn from. Only the ranking is taken from that corpus — not one of its sentences "
-          "appears in this deck. Proper names, inflected forms, regional and place-derived words, "
-          "and words spelt the same in English are left out. So are compounds that can simply be "
-          "read off their parts (Bushaltestelle, Wahlergebnis), on the Institut's own reasoning in "
-          "the same passage: a C1 candidate is expected to decode those rather than to have learnt "
-          "them. ",
+          "deu_news_2024, 17.6 million words), which is the register the reading passages at this "
+          "level are drawn from. Only the ranking is taken from that corpus — not one of its "
+          "sentences appears in this deck. Proper names, inflected forms, regional and "
+          "place-derived words, and words spelt the same in English are left out. So are compounds "
+          "that can simply be read off their parts (Bushaltestelle, Wahlergebnis), on the "
+          "Institut's own reasoning in the same passage: a candidate at this level is expected to "
+          "decode those rather than to have learnt them. ",
 }
+# HOW FAR INTO THE TAIL THE LAST CARD SITS, stated rather than rounded: on a
+# 3,000-word deck chosen by frequency, the honest question a reader has is
+# whether the words at the end are still worth learning, and the floor answers
+# it.  Read from the file `corpus_wordlist.py` writes, since only that stage
+# sees the corpus counts.
+try:
+    FLOOR = json.load(open(lvlf('corpus-floor.json')))['floor']
+except Exception:
+    FLOOR = 0
 ORDER_SENT = {
-    'c1': "The cards are ordered by how common the word is in that corpus, so the words you meet "
-          "most often come first; the last of them still appears about three times in every "
-          "million words of newsprint. ",
+    'corpus': "The cards are ordered by how common the word is in that corpus, so the words you "
+              "meet most often come first"
+              + (f"; even the last of them turns up {FLOOR:,} times in it" if FLOOR else "")
+              + ". ",
 }
 CREDIT_SENT = {
-    'c1': "Word selection and ordering: the Leipzig Corpora Collection, deu_news_2024 "
+    'corpus': "Word selection and ordering: the Leipzig Corpora Collection, deu_news_2024 "
           "(wortschatz-leipzig.de), used for word frequencies only. ",
 }
 
@@ -405,10 +435,9 @@ DESC = (
     f"separately. {n} words "
     + (f"for the {EXAM[LEVEL]}, the German qualification awarded by the Goethe-Institut. "
        if LEVEL in EXAM else
-       "for reading German at C1, the level at which a learner follows demanding texts on "
-       "abstract subjects without a dictionary. ")
-    + LIST_SENT[LEVEL]
-    + ORDER_SENT.get(LEVEL,
+       CEFR_SENT[LEVEL])
+    + LIST_SENT[LIST_KEY]
+    + ORDER_SENT.get(LIST_KEY,
       "The cards are ordered roughly by how common the word is in everyday German, so the words "
       "you meet most often come first: the order is taken from a frequency list built from film "
       "and television subtitles, with a phrase — which a list of single words cannot see — placed "
@@ -439,7 +468,7 @@ DESC = (
     "three times, with the word picked out in colour and a speaker beside it. "
     + (f"Word list: {EXAM[LEVEL]} Wortliste (goethe.de) — the list of words only; the example "
        "sentences printed beside them in that document are the Goethe-Institut's own and are not "
-       "reproduced here. " if LEVEL in EXAM else CREDIT_SENT[LEVEL])
+       "reproduced here. " if LEVEL in EXAM else CREDIT_SENT[LIST_KEY])
     + "Meanings, genders, plurals, feminines and conjugations: English Wiktionary, via the "
       "kaikki.org extraction (CC BY-SA 4.0). "
     + ("Frequency ordering: a word list built from OpenSubtitles "

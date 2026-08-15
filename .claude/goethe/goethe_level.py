@@ -12,17 +12,23 @@ import json, os, re
 LEVEL = os.environ.get('GOETHE_LEVEL', 'a1').lower()
 
 TITLES = {'a1': 'Goethe A1 — German', 'a2': 'Goethe A2 — German',
-          'b1': 'Goethe B1 — German', 'c1': 'German C1 — Vocabulary'}
+          'b1': 'Goethe B1 — German', 'c1': 'German C1 — Vocabulary',
+          'c2': 'German C2 — Vocabulary'}
 DECK_IDS = {'a1': 'goethea1', 'a2': 'goethea2', 'b1': 'goetheb1',
-            'c1': 'germanc1'}
+            'c1': 'germanc1', 'c2': 'germanc2'}
 DECK_FILES = {'a1': 'Goethe-A1-German.folio-deck.json',
               'a2': 'Goethe-A2-German.folio-deck.json',
               'b1': 'Goethe-B1-German.folio-deck.json',
-              'c1': 'German-C1-Vocabulary.folio-deck.json'}
+              'c1': 'German-C1-Vocabulary.folio-deck.json',
+              'c2': 'German-C2-Vocabulary.folio-deck.json'}
 
 # THE EXAM EACH LEVEL IS FOR, in the exam board's own name for it -- read off the
-# Wortliste's own title page rather than composed.  C1 has no entry because there
-# is no Goethe C1 word list to be for; see WORTLISTE below.
+# Wortliste's own title page rather than composed.  C1 and C2 have no entry
+# because there is no Goethe word list at those levels to be for; see WORTLISTE
+# below.  Membership of this table is what the rest of the pipeline branches on
+# whenever the question is really "does this level have a published list?" --
+# the deck's category, its description, how many senses a gloss shows -- so a
+# level added later answers the rule rather than a list of level names.
 EXAM = {'a1': 'Goethe-Zertifikat A1: Start Deutsch 1',
         'a2': 'Goethe-Zertifikat A2',
         'b1': 'Goethe-Zertifikat B1'}
@@ -54,16 +60,22 @@ WORTLISTE = {
     # list of its own.  Both were checked against the brochures themselves rather
     # than inferred from the download page 404ing.
     #
-    # So a C1 deck cannot BE the list, and must not claim to: it is built from a
-    # corpus instead, by `c1_wordlist.py`, and the deck's own description states
-    # in the Institut's words that no such list exists.  A level with no entry
-    # here takes that path; `run.py` branches on it.
+    # C2 IS THE SAME AND ITS BROCHURE IS QUIETER ABOUT IT: the C2
+    # Prüfungsziele's section 4.5 asks for "einen reichen Wortschatz" and states
+    # only that the exam's texts need no specialist vocabulary beyond what C2
+    # courses teach.  It names no inventory, and none is published.
+    #
+    # So a C1 or C2 deck cannot BE the list, and must not claim to: it is built
+    # from a corpus instead, by `corpus_wordlist.py`, and the deck's own description
+    # states in the Institut's words that no such list exists.  A level with no
+    # entry here takes that path; `run.py` branches on it.
 }
 
 # A2's list REPEATS the A1 vocabulary -- `aus`, `und`, `was` and several hundred
 # more are printed in both -- so without this the second deck would teach a
 # third of the first one over again.  B1 repeats both.
-BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'c1': ['a1', 'a2', 'b1']}
+BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'c1': ['a1', 'a2', 'b1'],
+         'c2': ['a1', 'a2', 'b1', 'c1']}
 
 # WHICH FREQUENCY LIST ORDERS THE LEVEL, and it is not the same list twice.  A1
 # to B1 are ordered by a word's rank in film and television subtitles, which is
@@ -80,7 +92,8 @@ BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'c1': ['a1', 'a2', 'b1']}
 #     'leipzig' -- `rank<TAB>word<TAB>count` per line (Leipzig Corpora Collection)
 FREQ = {'a1': ('de_50k.txt', 'subs'), 'a2': ('de_50k.txt', 'subs'),
         'b1': ('de_50k.txt', 'subs'),
-        'c1': ('leipzig-news-words.txt', 'leipzig')}
+        'c1': ('leipzig-news-words.txt', 'leipzig'),
+        'c2': ('leipzig-news-words.txt', 'leipzig')}
 
 # WHERE THE WORDS ARE ON THE PAGE, and it is not the same shape twice.  The A1
 # list is ONE pair of columns, a headword at x 143-233 and its example from 237;

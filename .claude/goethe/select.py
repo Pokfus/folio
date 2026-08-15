@@ -115,12 +115,22 @@ if no_rec:
 # THE SUBTITLE LIST IS ALL LOWER CASE AND THE LEIPZIG ONE IS NOT, which matters
 # on a language that capitalises every noun: keyed only by the lowercased form,
 # `Recht` and `recht` are one entry and whichever is commoner supplies the count
-# for both.  So each word is stored under BOTH its own spelling and its
-# lowercased one, and the lookup below tries the exact form first.  A repeated
-# key keeps its FIRST count, which is the higher, both files being ordered by
-# frequency.
+# for both.
+#
+# THE TWO MAPS HAVE TO BE SEPARATE, and writing both spellings into one was the
+# whole of a bug that only the C2 build made visible.  `Schulen` comes first in a
+# rank-ordered file and writes its own count under `schulen` as well; the real
+# lowercase line then finds that key taken and is discarded, so the EXACT lookup
+# for the verb `schulen` returns the noun's count.  Every German noun is
+# capitalised and most have a lowercase homograph, so at a level whose words come
+# from the corpus this floated a whole page of verbs-read-as-nouns to the top of
+# the deck -- `schulen`, `fällen`, `aussagen`, `orten`, `strecken` -- each
+# carrying a frequency that belongs to a word already taught.  Nothing threw and
+# every count in the run was right; only the ORDER was wrong, which is invisible
+# unless you read the first ten words out loud.  A repeated key keeps its FIRST
+# count in either map, which is the higher, both files being ordered by frequency.
 freq_file, freq_shape = FREQ[LEVEL]
-freq = {}
+freq, fold = {}, {}
 for line in open(freq_file, encoding='utf-8'):
     if freq_shape == 'leipzig':
         t = line.rstrip('\n').split('\t')
@@ -133,7 +143,7 @@ for line in open(freq_file, encoding='utf-8'):
             continue
         w, n = t[0], int(t[1])
     freq.setdefault(w, n)
-    freq.setdefault(w.lower(), n)
+    fold.setdefault(w.lower(), n)
 print(f'  ordering by {freq_file}')
 
 # A phrase is counted by scanning the corpus, and the single words are counted in
@@ -148,7 +158,7 @@ if phrases:
     # `zum Beispiel/z. B.`, and the string to look for in a corpus is the phrase
     plook = {e['lemma'].lower(): e['key'] for e in phrases}
     singles = {e['word'].lower(): e['key'] for e in entries
-               if ' ' not in e['word'] and freq.get(e['word'].lower())}
+               if ' ' not in e['word'] and fold.get(e['word'].lower())}
     tok = re.compile(r"[a-zäöüßA-ZÄÖÜ]+")
     for line in open('deu_sentences_detailed.tsv', encoding='utf-8'):
         p = line.split('\t')
@@ -178,14 +188,14 @@ for e in entries:
     # count falls back to the LEMMA -- which is the DELE pipeline's rule that a
     # reflexive is placed by the verb it is formed from, arrived at from the
     # other side.
-    f = (freq.get(e['word'], 0) or freq.get(e['word'].lower(), 0)
-         or freq.get(e['lemma'], 0) or freq.get(e['lemma'].lower(), 0))
+    f = (freq.get(e['word'], 0) or fold.get(e['word'].lower(), 0)
+         or freq.get(e['lemma'], 0) or fold.get(e['lemma'].lower(), 0))
     # A STEM HAS NO BARE SURFACE AT ALL: `nächst-` is printed with a hyphen
     # because the word only ever appears with an ending on it, so neither the
     # stem nor its dictionary lemma is a string a corpus can have counted.  The
     # commonest of its endings stands for it.
     if not f and e['display'].endswith('-'):
-        f = max(freq.get(e['lemma'].lower() + suf, 0)
+        f = max(fold.get(e['lemma'].lower() + suf, 0)
                 for suf in ('', 'e', 'er', 'es', 'en', 'em'))
     if not f and ' ' in e['lemma']:
         f = counts.get(e['key'], 0) * scale

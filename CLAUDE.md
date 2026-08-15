@@ -4408,13 +4408,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   stage you are debugging** — and note the check below could not have caught this by itself, since it
   compares a rebuild against a shipped file that was already unreproducible.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
-  since every fault above is silent. Not part of the site.
+  since every fault above is silent — **with ONE standing exception it is worth knowing about before
+  reaching for that check**: the four shipped files carry the inflection marking (see
+  `.claude/inflect_mark.py`) applied in place by `.claude/mark-shipped-decks.py`, because the corpora are
+  not on the machine that made the change and the warning directly above applies. `dele/build_deck.py`
+  marks as it builds, so a clean run from a restored cache agrees with the shipped files; until such a run
+  is made, the two have never been compared. Not part of the site.
 - `.claude/goethe/` — the generator behind the German decks: `decks/Goethe-A1-German.folio-deck.json`
   (**785 notes / 1,570 cards**), an **A2** built the same way (**715 / 1,430**), a **B1** (**1,865 /
-  3,730**) and a **C1** (**3,000 / 6,000**), the last three DELIBERATELY NOT COMMITTED — see the last
-  sub-bullet.
-  `python3 .claude/goethe/run.py [--level a1|a2|b1|c1] [--no-fetch]`. Seven stages, caching its corpora and
-  the Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.5 GB, gitignored). PYTHON, like
+  3,730**), a **C1** (**3,000 / 6,000**) and a **C2** (**3,000 / 6,000**), the last four DELIBERATELY NOT
+  COMMITTED — see the last sub-bullet.
+  `python3 .claude/goethe/run.py [--level a1|a2|b1|c1|c2] [--no-fetch]`. Seven stages, caching its corpora
+  and the Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.5 GB, gitignored). PYTHON, like
   `.claude/dele/` and unlike every other helper here, and for the same reason: a further level is a re-run
   against the next Wortliste rather than a rebuild. **ONE LEVEL PER RUN** (`goethe_level` reads the level
   once, at import), and a level is taught on top of the ones below it, read out of the SHIPPED deck files
@@ -4598,20 +4603,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Swiss words the list gives entries of their own (`der Führerausweis`, `die e-card`, `der Zivilstand`) —
     and each is written into `AUTHORED` with its country where the country is the point. `build_deck` still
     REFUSES a card with no meaning, which is what keeps that list honest.
-  **THE FOURTH LEVEL HAS NO WORD LIST TO TEACH, AND THAT IS THE EXAM BOARD'S POSITION RATHER THAN A GAP**
-  (`c1_wordlist.py`, `TARGET` 3,000; Aug 2026, on request). The published Wortlisten STOP AT B1. Checked
+  **THE LAST TWO LEVELS HAVE NO WORD LIST TO TEACH, AND THAT IS THE EXAM BOARD'S POSITION RATHER THAN A
+  GAP** (`corpus_wordlist.py`, `TARGET` 3,000 apiece; Aug 2026, on request). The published Wortlisten STOP
+  AT B1. Checked
   against the brochures rather than inferred from a 404: the Goethe-Institut's own C1
   Prüfungsziele/Testbeschreibung says in section 4.4 that *„Wortschatz- und Grammatikinventare zum
   Goethe-Zertifikat C1 gibt es aus folgenden Gründen nicht: Auf dieser Stufe läßt sich keine verbindliche
   Eingrenzung des Wortschatzes vornehmen, da authentische Texte verwendet werden"* — no binding
-  delimitation of the vocabulary can be made at this level, because the exam uses authentic texts. **B2 is
-  the same** and points instead at the *Profile deutsch* CD-ROM, a commercial Langenscheidt product, so it
-  would need a word list from somewhere else too. Six things this settled:
-  · **A DECK MUST NOT CLAIM TO BE A LIST THAT DOES NOT EXIST.** It is titled `German C1 — Vocabulary`, its
-    id is `germanc1`, its file is `German-C1-Vocabulary.folio-deck.json`, its cards are categorised
-    `German C1` and its tags do NOT include `goethe`. Its description quotes the paragraph above and says
-    what the deck is instead. `EXAM` has no `c1` row and `emit.py` branches on that rather than on the
-    level's name, so the claim cannot be made by accident.
+  delimitation of the vocabulary can be made at this level, because the exam uses authentic texts. **C2 is
+  the same and its brochure is quieter about it**: its section 4.5 asks for *„einen reichen Wortschatz"* and
+  says only that the exam's texts need no specialist vocabulary beyond what C2 courses teach; it names no
+  inventory. **B2 is the same again** and points instead at the *Profile deutsch* CD-ROM, a commercial
+  Langenscheidt product, so it would need a word list from somewhere else too. Seven things this settled:
+  · **A DECK MUST NOT CLAIM TO BE A LIST THAT DOES NOT EXIST.** They are titled `German C1 — Vocabulary`
+    and `German C2 — Vocabulary`, their ids are `germanc1`/`germanc2`, their files are
+    `German-C<n>-Vocabulary.folio-deck.json`, their cards are categorised `German C1`/`German C2` and their
+    tags do NOT include `goethe`. Each description quotes the paragraph above and says what the deck is
+    instead. **`EXAM` has no `c1` or `c2` row, and everything that really means "does this level have a
+    published list?" branches on membership of that table rather than on a level's name** — the deck's
+    category, its description, its tags, the gloss caps — so the claim cannot be made by accident and a
+    level added later answers the rule rather than a list of names.
   · **THE CORPUS DOES THE SELECTING, SO IT MUST BE THE RIGHT REGISTER.** A1–B1 are merely ORDERED by a
     subtitle frequency list; here the corpus chooses the words, and measured on the tail beyond B1 that
     list offers `Mörder`, `Pistole`, `Hexe`, `Dreck`, `verflucht` and a drift of first names — television
@@ -4635,6 +4646,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     lemma is dropped outright; a CAPITALISED one only if its source lemma is taught. German nominalises
     freely, so `die Habe` and `das Muss` are genuine nouns that happen to be forms of `haben` and `müssen`,
     where `Tage` and `Gute` are inflections of words already on the shelf.
+  · **A CASE-SENSITIVE FREQUENCY LIST NEEDS TWO MAPS, AND ONE MAP LET A CAPITALISED NOUN LEND ITS COUNT TO
+    ITS LOWERCASE HOMOGRAPH** (found by the C2 build, Aug 2026). The subtitle list A1–B1 use is entirely
+    lower case; the Leipzig one is not, and German capitalises every noun, so `select.py` stored each word
+    under its own spelling AND its lowercased one and looked the exact form up first. **That cannot work in
+    one dictionary**: the file is rank-ordered, so `Schulen` is read first and writes its count under
+    `schulen` as well, and the real lowercase line then finds the key taken and is thrown away — after which
+    the "exact" lookup for the verb `schulen` returns the noun's frequency. Most German nouns have a
+    lowercase homograph, so the top of the C2 deck was a page of them: `schulen`, `fällen`, `aussagen`,
+    `orten`, `strecken`, `reihen`, each sorted there by a count belonging to a word already taught. **Nothing
+    threw and every count in the run was right — only the ORDER was wrong**, which is invisible unless you
+    read the first ten words out loud, and which is exactly what a deck ordered by frequency is FOR. Two
+    maps now, exact tried before folded; **inert on A1–B1 by construction**, since in an all-lowercase list
+    the two maps hold the same thing, and re-run byte-for-byte to prove it. **C1 had it too and it did not
+    show**, which is the part to carry: its top was already right, because those words have no commoner
+    capitalised twin, and the fault sat further down where nobody looks — the same 3,000 words in a
+    different order, 17 of them moved by more than 200 places (`zeugen` by 2,758, `eintreffen` by 2,210,
+    `formen`, `ehren`, `vereinen`, `punkten`). **A deck can carry exactly the right words in the wrong
+    order and look perfect**; only the level where the fault reached the first screen made it visible at all.
   · **AND THE GLOSS CAPS HAD TO RISE, WHICH ONLY LOOKING AT A CARD SHOWED.** `merged_glosses` reads three
     senses and `meaning_lines` prints four synonyms — right for A1, where `groß` is "big, large, tall" and
     that IS the word, and wrong at C1, where the words are polysemous and Wiktionary's first sense is often
@@ -4642,15 +4671,73 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     while the corpus that selected it means deployment, use and commitment — senses three, four and six. So
     C1 reads five senses and prints at most two synonyms of each (`GLOSS_SENSES`, `SENSE_CAP`, `PER_SENSE`),
     and the three levels below are byte-identical.
-  · **A1 IS IN THE REPO AND A2, B1 AND C1 ARE NOT** (on request, Aug 2026): they are files to hand a reader
-    for import, not something the site should carry, so `.gitignore` names all three and a `git add -A`
-    cannot sweep them in. Deleting a line ships that deck. Nothing on the site links to any of them — a
-    community deck is user content, which is also why none of them goes in the changelog.
+  · **C2 IS THE NEXT TRANCHE OF THE SAME CORPUS AND THE TWO TILE IT EXACTLY**, which is what `BELOW` buys
+    and is worth measuring rather than assuming: C1 takes the 3,000 most frequent usable words down to a
+    floor of **60** occurrences in 17.6M tokens, and C2 — which excludes C1 like any other level — starts
+    at exactly 60 and runs down to **22**, about 1.25 per million. The only settings that differ are
+    `TARGET` and `MIN_COUNT` (40 for C1, 12 for C2, the floor above biting first on both). At C2's depth
+    the top of the corpus is entirely spoken for, so its first words are not common words at all —
+    `Würfel`, `abbilden`, `ansatzweise` — and the run PRINTS the floor with the word that sits on it, which
+    is the number to read: a deck reaching further than the corpus can support would show it there and
+    nowhere else. **The floor also travels into the deck's own description** (`corpus-floor.json`), because
+    the honest question about the tail of a frequency-chosen deck is how rare the last card is.
+  · **A1 IS IN THE REPO AND A2, B1, C1 AND C2 ARE NOT** (on request, Aug 2026): they are files to hand a
+    reader for import, not something the site should carry, so `.gitignore` names all four and a
+    `git add -A` cannot sweep them in. Deleting a line ships that deck. Nothing on the site links to any of
+    them — a community deck is user content, which is also why none of them goes in the changelog.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
-  A1 must stay byte-identical to what is committed, and A2, B1 and C1 must reproduce themselves. That is how
-  the two gloss caps and the level-aware description were shown to touch nothing below C1. `check-goethe.js`
-  takes the level as its argument and passes 44/35/35/35 on a1/a2/b1/c1. Not part of the site.
+  A1 must stay byte-identical to what is committed, and A2, B1, C1 and C2 must reproduce themselves. That is
+  how the two gloss caps and the level-aware description were shown to touch nothing below C1.
+  `check-goethe.js` takes the level as its argument. Not part of the site.
+- `.claude/inflect_mark.py` + `.claude/mark-shipped-decks.py` — **the part of the word that is actually
+  changing, picked out in bold vermilion** in every conjugation and declension panel of every language deck
+  (Aug 2026, on request). A paradigm is six spellings of one word and the lesson is the handful of letters
+  that differ; printed flat — `setze`, `setzt`, `setzen` — the eye has to find them. Marked, the table says
+  its own lesson: setz**e**, setz**t**, setz**en**. The span is `.uc-infl`, styled in the card type's CSS in
+  the same `var(--zh)` the example sentences pick the headword out in. Shared by BOTH pipelines
+  (`goethe/build_deck.py` and `dele/build_deck.py` each call `mark()` on the Conjugation field), which is
+  the whole reason it is a module of its own. Six things are decisions rather than plumbing.
+  · **ONE RULE, DELIBERATELY LANGUAGE-INDEPENDENT: within a block, whatever follows the longest prefix every
+    form in that block shares.** That IS the definition of "the part that changes", it needs no table of
+    endings for any language, and it is what lets German and Spanish use one implementation. **An ending
+    list was tried and is worse in both directions**: it cannot mark the article (d**er** / d**es** / d**em**
+    / d**en** — no German ending list has `er` as a form of `der`), and every language it is applied to needs
+    its own.
+  · **WHAT IT MARKS ON A STRONG VERB IS THE STEM CHANGE AS WELL AS THE ENDING, and that is right rather than
+    a limitation.** `treffen` gives tr**effe** / tr**iffst** / tr**ifft**, because `tr` is genuinely all six
+    share. A textbook bolds only the ending and is then silent about the vowel alternation — which is the
+    harder half of a German strong verb and the whole difficulty of a Spanish stem-changing one
+    (t**engo** / t**ienes**).
+  · **THREE GUARDS, each for a way the marking could say something untrue.** A block whose forms share
+    NOTHING marks nothing — `sein` is bin/bist/ist/sind/seid/sind and `ser` is soy/eres/es/somos, and a rule
+    that marks "what differs" would paint a suppletive table entirely red and teach that every letter is an
+    ending. A block whose forms are ALL THE SAME marks nothing — the participle repeated down a compound
+    tense (`habe gesetzt`, `hast gesetzt`) does not inflect. And a form that IS the shared prefix has no tail
+    to wrap.
+  · **THE ALIGNMENT IS BY WORD, NOT BY CELL**, which is what makes a declension table work: `der Einsatz` /
+    `des Einsatzes` / `dem Einsatz` is two paradigms side by side, and comparing whole cells finds `de` and
+    stops. The nth word of every cell is compared with the nth word of the others, and a word carrying
+    slash-separated alternatives (`dem Einsatz/Einsatze`) contributes each of them.
+  · **A TABLE DECLINES DOWN ITS COLUMNS, and every column must be computed BEFORE any is written back.**
+    Reading across a row compares the masculine with the neuter, which share an ending exactly where the
+    lesson is that they differ. And writing a column back first leaves a nested `<span>` in the cell, which
+    the cell pattern (`[^<]*`) can then no longer match — so the second pass finds fewer cells than there are
+    and silently skips every column but the first. That happened, and it looks precisely like a table whose
+    plural simply has nothing to mark.
+  · **THE FOUR SPANISH DECKS ARE PATCHED WHERE THEY STAND RATHER THAN REBUILT** (`mark-shipped-decks.py`),
+    because the corpora `dele/run.py` works from are not on this machine and that file's own warning applies
+    — a stage driven by hand can ship a deck no clean run reproduces. It is the precedent set for the
+    `.uc-exst` typography change: the same edit made to the built file, with the builder fixed in the same
+    commit so the next clean run agrees. **It is a TEXT edit, not a re-serialisation** — re-encoding 14 MB of
+    JSON rewrites every line whatever the change, so the diff would say nothing about what was done; each
+    `"Conjugation"` value is located, decoded on its own, marked, re-encoded and written back in place.
+    `mark()` is idempotent (a field already carrying `uc-infl` is handed back untouched), so neither tool can
+    nest one span inside another.
+  **The check after any change to it is the same one the pipelines already use**: rebuild every German level
+  and assert each file is IDENTICAL to what it was once the `uc-infl` spans and their CSS are stripped back
+  out — which is how the four German decks were shown to have changed by the marking and nothing else. The
+  Mandarin decks have no conjugation panels and are untouched. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's

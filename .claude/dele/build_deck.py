@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """Assemble one level's DELE Spanish deck."""
-import json, re, html
+import json, os, re, sys, html
+
+# THE INFLECTION MARKING IS SHARED WITH THE GERMAN PIPELINE, because the rule is
+# about paradigms rather than about Spanish: within a block, bold what follows the
+# prefix every form shares.  One implementation means the two decks cannot come to
+# mark their tables differently.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from inflect_mark import mark as mark_inflections
 from dele_level import LEVEL, DECK_IDS, f as lvlf
 
 words = json.load(open(lvlf('wordlist.json')))
@@ -693,7 +700,7 @@ for word in words:
     plain = "; ".join(senses[0][1]) if senses else ''
 
     fields = {'Spanish': headword, 'Word': headword, 'English': english,
-              'Forms': forms, 'Conjugation': conj, 'Examples': exhtml}
+              'Forms': forms, 'Conjugation': mark_inflections(conj), 'Examples': exhtml}
 
     for direction, sub, typ in (('es', 'Spanish → English', 'es-to-en'),
                                 ('en', 'English → Spanish', 'en-to-es')):
