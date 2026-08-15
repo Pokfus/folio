@@ -38,11 +38,20 @@ import html
 import json
 import re
 
-from caple_level import LEVEL, DECK_IDS, f as lvlf
+import os
+
+from caple_level import LEVEL, DECK_IDS, PHRASES, SUBS, f as lvlf
 
 words = json.load(open(lvlf('wordlist.json')))
 W = json.load(open(lvlf('wikt.json')))
 EX = json.load(open(lvlf('examples.json')))
+
+# THE PHRASES DECK IS THE SAME BUILDER WITH TWO THINGS TURNED OFF, and both are
+# about the headword rather than about the meanings, the examples or the tables,
+# which are what most of this file is and which a phrase wants exactly as a word
+# does.  See `phrase_headword` below for what the two are and why.
+FAMILY = (json.load(open(lvlf('family.json')))
+          if PHRASES and os.path.exists(lvlf('family.json')) else {})
 
 esc = lambda s: html.escape(s, quote=True)
 
@@ -232,14 +241,42 @@ POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
             'pron': 'pronoun', 'num': 'numeral', 'intj': 'interjection',
             'det': 'determiner', 'prep': 'preposition', 'conj': 'conjunction',
             'article': 'article', 'particle': 'particle', 'contraction': 'contraction',
-            'phrase': 'phrase'}
+            'phrase': 'phrase',
+            # TWO PARTS OF SPEECH ONLY A PHRASE CAN HAVE, and their absence was
+            # the phrases deck's loudest fault: `recs_of` keeps a record only if
+            # its `pos` is a key here, so all 218 proverbs and 19 prepositional
+            # phrases arrived with no records, no senses and no meaning -- which
+            # the "cards with no meaning at all" guard caught outright rather
+            # than shipping, the failure shape this pipeline wants.
+            #
+            # ADDED UNCONDITIONALLY BECAUSE THEY ARE PROVABLY INERT ABOVE, which
+            # is cheaper than a re-run and does not decay: swept over all six
+            # shipped word lists, not one word has a `proverb` or `prep_phrase`
+            # record.  `name` is NOT in that position -- B1's `terra` and C2's
+            # `ártico` each have one -- so it is added per deck below rather
+            # than here, where it could quietly re-pick the primary record of
+            # two cards in decks nobody was editing.
+            'proverb': 'proverb', 'prep_phrase': 'prepositional phrase'}
+if PHRASES:
+    POS_NAME['name'] = 'proper noun'
 
 # ---------------------------------------------------------------- reflexives
 # Wiktionary has no record for any of them, so the gloss is written out in
 # `reflexives.py` and the paradigm is the base verb's with the clitics attached.
 from reflexives import GLOSS as REFLEXIVE, base as refl_base, report_missing
 
-report_missing(words, 'build_deck.py')
+# A PHRASE THAT ENDS IN `-se` IS STILL A PHRASE.  The reflexive machinery keys
+# on that ending, which is right for a word list -- `chamar-se` there can only
+# be the verb -- and wrong for a collection of expressions, where `primeiro
+# estranha-se, depois entranha-se` is a proverb whose second verb happens to be
+# reflexive.  Left alone the builder looks for a gloss and a base verb for the
+# whole saying, finds neither and stops.  So the whole reflexive path is off
+# here: an expression is taught as it is said, and the pronoun inside it belongs
+# to the sentence rather than to a headword.
+if PHRASES:
+    REFLEXIVE = {}
+else:
+    report_missing(words, 'build_deck.py')
 
 # Words whose Wiktionary entry cannot furnish a card, and what they mean.
 # `obrigado` is the one every A1 course opens with and Wiktionary files the
@@ -921,8 +958,20 @@ def examples_html(exs):
         pat = re.compile(r'(?<![0-9A-Za-zÀ-ÖØ-öø-ÿ])('
                          + re.escape(form)
                          + r')(?![0-9A-Za-zÀ-ÖØ-öø-ÿ])', re.I)
-        shown = pat.sub(lambda m: '<b>' + esc(m.group(1)) + '</b>',
-                        esc(pt), count=1)
+        # MATCHED ON THE RAW SENTENCE AND ESCAPED AFTERWARDS, never the other way
+        # round.  Written as a substitution over `esc(pt)` the pattern is built
+        # from the raw form and applied to text in which `'` has already become
+        # `&#x27;`, so any form carrying an escapable character matches nothing
+        # and its sentences ship with no bold in them at all.  One form on the
+        # shelf does -- `tempestade em copo d'água`, in the phrases deck -- and
+        # the six word decks have none, which is why this went unseen: it was
+        # found by `check-caple.js`'s assertion that a card with examples has a
+        # bolded term in them, the same assertion that caught `poder com`.
+        # The output is unchanged wherever the old form matched, escaping being
+        # per character and independent of position.
+        m = pat.search(pt)
+        shown = (esc(pt[:m.start()]) + '<b>' + esc(m.group(1)) + '</b>'
+                 + esc(pt[m.end():])) if m else esc(pt)
         out.append('<div class="uc-exi">'
                    f'<div class="uc-exz"><span class="uc-tts uc-exsay" '
                    f'data-say="{esc(pt)}"></span>{shown}</div>'
@@ -943,6 +992,9 @@ def recs_of(word):
 
 PAIR, MERGED = {}, {}
 for word in words:
+    if PHRASES:               # an expression has no feminine -- see the headword
+        PAIR[word] = ('', '')
+        continue
     if word in REFLEXIVE:
         PAIR[word] = ('', '')
         continue
@@ -1027,10 +1079,20 @@ for word in words:
 
     # headword: a noun carries its article, and a word with a distinct feminine
     # carries it too -- `o professor, a professora`
+    #
+    # A PHRASE CARRIES NEITHER, AND THAT IS THE WHOLE OF WHAT THIS DECK TURNS
+    # OFF.  An article is added so that a noun's GENDER is learnt with it, which
+    # is a fact about a word and not about an expression: `pão e circo` takes no
+    # article in any sentence, and `quinta coluna` is quoted as it stands.  The
+    # entry is already the citation form -- that is what a dictionary headword
+    # is -- so prepending anything would be this file editing the idiom.  The
+    # feminine pairing goes for the same reason one step further on: an
+    # expression has no feminine to pair with, and the machinery that finds one
+    # is looking at a noun record inside the phrase.
     art, headword, gender = '', word, ''
     nrec = next((r for r in recs if r['pos'] == 'noun'), None)
-    if (nrec is not None and not reflexive and primary is not None
-            and primary['pos'] == 'noun'):
+    if (nrec is not None and not reflexive and not PHRASES
+            and primary is not None and primary['pos'] == 'noun'):
         gender = gender_of(nrec)
         art = article(word, gender)
         if art:
@@ -1136,8 +1198,13 @@ for word in words:
         # already exists -- so two levels sharing an id prefix would overwrite
         # each other in the shared store, silently, with both decks on the shelf.
         'id': f'u_{DECK_IDS[LEVEL]}_{idx}', 'num': str(idx),
-        'category': 'CAPLE ' + LEVEL.upper(),
-        'sub': '',
+        'category': ('Portuguese phrases' if PHRASES
+                     else 'CAPLE ' + LEVEL.upper()),
+        # THE SUBDECK IS A STRING ON THE CARD and there is no list beside it --
+        # the deck's subdecks are the distinct values its cards name, which is
+        # what makes them cost the file nothing and travel through export,
+        # import, publish and install with no plumbing of their own.
+        'sub': SUBS.get(FAMILY.get(word, ''), ''),
         'question': headword, 'answer': plain,
         'answerDate': '', 'traditional': '', 'hanzi': '', 'pinyin': '',
         'translations': '', 'abstract': '', 'citation': '',

@@ -3698,8 +3698,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (all six CEFR levels) by
-  `.claude/caple/` — each has its own bullet below.
+  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (all six CEFR levels,
+  plus a seventh deck of phrases and expressions) by `.claude/caple/` — each has its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4258,7 +4258,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `.claude/caple/` — the generator behind the six `decks/CAPLE-<level>-Portuguese.folio-deck.json`
   files, **all six CEFR levels** (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB;
   B1: 998 / 1,996, 3.4 MB; B2: 1,400 / 2,800, 4.1 MB; C1: 999 / 1,998, 3.0 MB; C2: 700 / 1,400,
-  2.0 MB), community decks rather than site content:
+  2.0 MB) **and, since Aug 2026, a seventh deck that is not a level**
+  (`decks/Portuguese-Phrases-and-Expressions.folio-deck.json`), community decks rather than site content:
   `python3 .claude/caple/run.py [--level c2] [--no-fetch] [--variety-check]`. Seven stages, run by
   `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
   `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
@@ -4267,6 +4268,85 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the DELE and Goethe arrangement exactly. It takes the **Goethe SHAPE** rather than the DELE one: one
   note with two card templates, so a corrected gloss is corrected both ways at once and each direction
   still keeps a schedule of its own.
+  · **THE PHRASES DECK IS THE SEVENTH AND IT IS NOT A CEFR LEVEL** (`--level phr`; `parse_phrases.py`,
+    and `PHRASES` / `SUBS` / `headwords_below` in `caple_level.py`. Aug 2026, on request: "add a deck
+    with common phrases and expressions"). **It is the Mandarin set's own arrangement** — that deck
+    teaches the seven HSK levels and then two subdecks carry Phrases and Idioms, "the two the syllabus
+    leaves out" — and the reason is the same here: a Referencial level is an inventory of WORDS, so a
+    set expression reaches those decks only where the inventory happens to name one, and what the six
+    between them teach is **16 of the 1,356 this pool holds**. Seven things are decisions rather than
+    plumbing.
+    **IT REUSES EVERY STAGE THAT IS ABOUT PORTUGUESE AND REPLACES THE FOUR THAT ARE ABOUT THE
+    REFERENCIAL.** `examples.py` and `build_deck.py` are the same code with the same European filters
+    and the same card type; `parse_phrases.py` stands in for parse_referencial + supplement +
+    extract_kaikki + select, because none of the cascade those run applies when the pool IS the deck —
+    that cascade exists to stop the closed classes competing with nouns on raw frequency while choosing
+    500 words from several thousand, and here nothing is being chosen.
+    **WHAT COUNTS AS AN EXPRESSION IS TWO TESTS, and each misses what the other catches**: a part of
+    speech only a phrase can have (`phrase`, `proverb`, `prep_phrase`, `intj`) OR an `idiomatic` tag on
+    any sense. `de vez em quando` is an ADVERB and `pão e circo` a NOUN, so the POS test alone loses
+    both; `não sei` and `com certeza` are filed as phrases and carry no tag, so the tag alone loses
+    those. **What the pair keeps OUT is the point** — `cartão de crédito`, `fim de semana` and `banda
+    desenhada` are all in the dump, all multi-word, and none is in this deck, being nouns that happen
+    to be spelled with a space.
+    **THE ORDER IS THE CORPUS COUNT, and it has to be**: hermitdave's frequency lists are SEGMENTED, so
+    `de vez em quando` appears in them as four ordinary words and the phrase has no rank at all.
+    `select.py` solves that for the handful of phrases in a word deck by counting them in Tatoeba and
+    calibrating onto the subtitle scale through the single words that carry both; here every entry is a
+    phrase, there is nothing to calibrate against, and the calibration would be monotone in the count
+    anyway. **Counted on WORD BOUNDARIES** — the pipeline's own `poder com` / `poder comprar` fault,
+    worth more here because a short phrase is common: `a par` matches 7,847 times as a substring
+    (almost all `a parte` and `a partir`) and 21 on boundaries.
+    **725 OF THE 1,356 ARE IN NO CORPUS AT ALL, and that is the subject rather than a gap** — an idiom
+    is literary where a sentence-pair corpus is conversational, and the Mandarin deck records exactly
+    the same of its chengyu (361 of 5,227 appear even once). Stated in the deck's own description and
+    NOT repaired by truncating to what the corpus can rank, which would let the corpus choose the
+    syllabus — the DELE pipeline's own finding.
+    **THE BRAZIL FILTER IS ENTRY-LEVEL HERE where the word decks demote a SENSE**, and the difference
+    follows from what is being taught: a word usually means the same thing on both sides of the
+    Atlantic and differs in one sense, so the sense is demoted and the word ships, while an idiom is
+    the whole of what is being taught and one whose every recorded meaning is marked Brazil is not said
+    in Portugal at all. **178 go that way — much the largest filter here**, which is what a corpus of
+    idioms should look like, set expressions being the most regionally divided part of a language.
+    **AND `headwords_below` IS A SECOND FUNCTION RATHER THAN A WIDER `words_below`.** A level asks "is
+    this WORD already taught?" and strips a leading article, so `a distância` goes into its exclusion
+    set as `distância`; this deck asks "is this PHRASE already taught?" and the two answers differ on
+    exactly the entries beginning with something article-shaped. Widening the shared one would also
+    have dropped six adverbial locutions from C1 and C2, which ship there correctly and on purpose.
+    **TWO SUBDECKS, READ AND NOT GUESSED**: Wiktionary files a proverb under a part of speech of its
+    own, so **Expressions (1,138)** and **Proverbs (218)** are split on the record rather than on the
+    shape of the words. `build_deck.py` writes the `sub` string; the deck's subdecks are the distinct
+    values its cards name, which is what makes them cost the file nothing.
+    **A BOUNDARY MATCH FINDS THE WORDS AND NOT ALWAYS THE EXPRESSION**, which is `poder com` /
+    `poder comprar` one level deeper — there the boundary rule fixed it, and here the boundaries are
+    already right. `que foi` is the exclamation "what's the matter?" and also the two words in `a
+    primeira vez que foi preso`, so the card came up glossed as an interjection over three sentences
+    in which it is a relative clause: **teaching the wrong thing rather than nothing**, which is worse
+    than an empty fold. **What separates them is the ENGLISH** — `reflexives.py`'s own answer to the
+    same question, where `KEYWORDS` requires the translation to carry a word the reflexive means — and
+    here the keyword set is free, being the entry's own gloss. It is scored as a **PREFERENCE and not
+    a filter**: an idiom translates loosely (`bater as botas` is "to kick the bucket" and its sentence
+    may say "he died"), so a hard test would drop good sentences to remove bad ones. Measured, it took
+    the mismatches from 149 of 445 to 108 and `que foi` now opens on "Que foi que eu fiz de errado?".
+    The rest is stated in the deck's own description rather than repaired. **Gated on `PHRASES`** for
+    the ordinary reason: it changes which sentence is chosen, so ungated it would re-pick examples
+    across all six word decks for a problem those decks barely have, their entries being single words
+    where an inflected form is its own evidence of which word it is.
+    **AND THE BOLDER MATCHED AGAINST ALREADY-ESCAPED TEXT**, found by the same assertion that caught
+    `poder com` (a card with examples must have a bolded term in them): the pattern is built from the
+    raw form and was applied to `esc(pt)`, so a form carrying an escapable character matched nothing
+    and its sentences shipped with no bold at all. **One form on the whole shelf does** —
+    `tempestade em copo d'água`, whose apostrophe becomes `&#x27;` — which is why it went unseen and
+    why the fix is provably inert on the six: swept over every level's examples, no other form
+    contains `'`, `&`, `<` or `>`. Matched on the raw sentence and escaped afterwards now.
+    **ITS LOUDEST FAULT WAS TWO MISSING KEYS IN `POS_NAME`** — `recs_of` keeps a record only if its
+    `pos` is a key there, and `proverb` and `prep_phrase` were not, so all 218 proverbs and 19
+    prepositional phrases arrived with no records, no senses and no meaning. **The guard caught it
+    outright** ("cards with no meaning at all") rather than shipping, which is the failure shape this
+    pipeline wants. Both were added UNCONDITIONALLY because they are **provably inert** — swept over
+    all six shipped word lists, not one word has such a record — where `name` was NOT in that position
+    (B1's `terra` and C2's `ártico` each have one) and is therefore added only under `PHRASES`, rather
+    than quietly re-picking the primary record of two cards in decks nobody was editing.
   · **THE BUILD WAS NOT DETERMINISTIC, FOR THREE LEVELS, AND ONLY THE BYTE-FOR-BYTE RULE COULD SEE IT**
     (Aug 2026, found while adding B2). `examples.py` banked its per-sentence findings in a SET of
     `(word, form)` pairs and then iterated it — and Python randomises string hashing per process, so
@@ -4566,7 +4646,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the corpus's Portuguese is overwhelmingly Brazilian (measured at about 10:1), so the filter rejects
     16,732 sentences outright and what remains is mostly variety-NEUTRAL rather than positively
     European. That is a limit of the corpus and not something a filter can repair.
-  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2|c1|c2]` is the browser half**, and it exists because
+  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2|c1|c2|phr]` is the browser half**, and it exists because
     `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything
     Portuguese this deck is FOR is unchecked by anything until there. It splits its assertions on
     purpose: what is EUROPEAN is checked in the FILE, exactly, over every card (a wrong clitic on one
@@ -4609,8 +4689,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
     `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
     in Portugal and a *grama* a gram.
-  Re-running it must reproduce the shipped decks byte for byte, **and ALL SIX levels have to be
-  re-run, IN ORDER**: the stages are shared, so a change made for C2 reaches A1, and a level is built
+    **THE `phr` ROW ASKS A DIFFERENT SET OF QUESTIONS, and half the file is SKIPPED there rather than
+    loosened** — there is no article to colour, no gendered pair and no reflexive lemma, and the
+    European question is about whole idioms rather than about lexis. Three things it pins that nothing
+    else can: **an ordinary compound is NOT in the deck** (`cartão de crédito`, `fim de semana`), which
+    is the whole of what the idiomatic test buys and which no count can see — a filter that stopped
+    firing leaves a deck of perfectly good cards that is no longer a deck of idioms; **the commonest
+    expressions come first**, the corpus ordering being the only one there is and its loss leaving a
+    deck that is still complete and still well formed; and **no expression is given an article**, which
+    is the stronger form of the word decks' own colour assertion. Two of its skips are ACTIVE rather
+    than passive: the three mesoclisis sweeps run over an empty list there and would report a clean
+    pass on nothing, so they are gated off — **three ticks proving nothing is worse than three missing
+    lines** — and the impersonal-verb list becomes a printed COUNT, since a verb phrase nobody can be
+    told to do (`bater as botas`) is the rule rather than the exception there.
+  Re-running it must reproduce the shipped decks byte for byte, **and ALL SIX levels plus `phr` have to
+  be re-run, IN ORDER**: the stages are shared, so a change made for C2 reaches A1, and a level is built
   on the shipped decks BELOW it, so a stale file lower down is a higher level quietly teaching the
   same word twice. **Build them under two different `PYTHONHASHSEED` values** rather than twice the
   ordinary way — that is what caught the set-iteration non-determinism above, which two default runs
@@ -4620,7 +4713,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   across the four decks already shipped**, corrected by two shared-stage fixes that C1 found and that
   nothing in C1's own deck would have shown. **It reports the other answer just as usefully**: C2
   touched no shared stage and all five earlier decks came back byte-identical, which is how a level
-  is known to have cost the ones below it nothing. Not part of the site.
+  is known to have cost the ones below it nothing. **Adding the phrases deck reported it a third way**:
+  it changed three shared stages and the six word decks still came back byte-identical, because each
+  change was either gated on `PHRASES` or provably inert (see the `POS_NAME` note above) — which is the
+  cheaper half of the discipline and the half to reach for whenever two readings could ever collide.
+  Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
   `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching

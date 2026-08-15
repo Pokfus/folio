@@ -48,7 +48,7 @@ two blocklists below are the DELE stage's, translated into Portuguese.
 import json, re
 from collections import defaultdict
 
-from caple_level import f as lvlf, FREQ_FILE
+from caple_level import f as lvlf, FREQ_FILE, PHRASES as IS_PHRASES
 from reflexives import KEYWORDS as REFL_KEYWORDS
 
 words = json.load(open(lvlf('wordlist.json')))
@@ -88,7 +88,13 @@ def forms_of(k):
     return out
 
 
-REFLEXIVES = {k for k in words if k.endswith('-se')}
+# A REFLEXIVE LEMMA IS ONE WORD.  The `-se` test alone also catches a PHRASE
+# whose last verb happens to be reflexive -- the proverb `primeiro estranha-se,
+# depois entranha-se` -- and everything below then looks for that saying's base
+# verb and its paradigm, which do not exist.  Inert in the six word decks, whose
+# reflexives are all single lemmas; stated because the phrases deck is full of
+# them and because the same test in `build_deck.py` was NOT inert there.
+REFLEXIVES = {k for k in words if k.endswith('-se') and ' ' not in k}
 FORM2WORD = defaultdict(set)
 PHRASES = []
 for k in words:
@@ -102,6 +108,7 @@ ALLFORMS = set(FORM2WORD)
 # is FOUND here is a phrase that can be MARKED there
 PH_RX = {p: re.compile(r'(?<![0-9a-zà-öø-ÿ])' + re.escape(p)
                        + r'(?![0-9a-zà-öø-ÿ])') for p in PHRASES}
+
 print('  distinct forms indexed:', len(FORM2WORD), ' phrases:', len(PHRASES),
       ' reflexives:', len(REFLEXIVES))
 
@@ -150,6 +157,28 @@ for i, l in enumerate(open(FREQ_FILE, encoding='utf-8')):
 
 # a token may carry a hyphen: `pequeno-almoço` is one word and so is `chamo-me`
 TOKEN = re.compile(r"[a-zà-öø-ÿ]+(?:-[a-zà-öø-ÿ]+)*", re.I)
+
+# ONE TOKEN OF EACH PHRASE, TO SKIP THE OTHER 1,355.  The loop below used to run
+# every phrase's regex against every sentence, which is nothing on a word deck
+# (a handful of phrases) and 601 million searches on the phrases deck -- about
+# ten minutes of a build that otherwise takes one.
+#
+# IT CANNOT CHANGE A RESULT, which is what makes it an optimisation rather than
+# a heuristic: `PH_RX` matches only at word boundaries, so every token of the
+# phrase is necessarily a whole token of any text it matches in, and a sentence
+# whose token set lacks one cannot possibly match.  The LONGEST token is chosen
+# as a free proxy for the rarest -- `pensar na morte da bezerra` waits on
+# `bezerra` rather than on `na`, and `de vez em quando` on `quando` rather than
+# on `de` -- and it is taken with TOKEN rather than by splitting on spaces,
+# because `azeite, vinho e amigo, o mais antigo` splits to `azeite,` with the
+# comma on, which is in no token set anywhere and would lose the phrase.
+PH_KEY = {}
+for p in PHRASES:
+    ts = [t.lower() for t in TOKEN.findall(p)]
+    PH_KEY[p] = max(ts, key=len) if ts else ''
+PH_BY_KEY = defaultdict(list)
+for p, k in PH_KEY.items():
+    PH_BY_KEY[k].append(p)
 
 # ------------------------------------------------------- the variety filter
 # Words that are simply not the European standard.  A sentence carrying one is
@@ -309,7 +338,8 @@ for sid, text in por.items():
                     if k not in REFLEXIVES:
                         hits.add((k, t))
     low = text.lower()
-    for p in PHRASES:
+    # only the phrases whose own rarest token is in this sentence -- see PH_KEY
+    for p in (q for t in set(toks) for q in PH_BY_KEY.get(t, ())):
         # ON WORD BOUNDARIES, NEVER AS A BARE SUBSTRING.  `poder com` is inside
         # `poder comprar`, so the plain `in` gave that phrase three sentences
         # about buying a car and none about coping with anything -- and the
@@ -341,6 +371,57 @@ print(f'  rejected: {seen_block} adult/graphic, {seen_br} carrying a Brazilian m
 print('  words with at least one candidate:', len(cand))
 
 
+# ----------------------------------------------- does the sentence MEAN it?
+# A SHORT EXPRESSION MADE OF COMMON WORDS ALSO OCCURS AS AN ORDINARY SEQUENCE OF
+# THEM, and a boundary match cannot tell the two apart.  `que foi` is the
+# interjection "what's the matter?" and it is also the two words in `a primeira
+# vez que foi preso` -- so the card came up glossed as an exclamation over three
+# sentences in which it is a relative clause, which teaches the wrong thing
+# rather than nothing.  It is `poder com` / `poder comprar` one level deeper:
+# there the boundary rule fixed it, and here the boundaries are already right.
+#
+# WHAT SEPARATES THEM IS THE ENGLISH, which is `reflexives.py`'s own answer to
+# the same question -- its `KEYWORDS` require the translation to carry a word
+# the reflexive means, so that `Por favor sente-se` is not offered as an example
+# of `sentir-se`.  Here the keyword set is free: it is the entry's own gloss.
+#
+# A PREFERENCE AND NOT A FILTER, deliberately.  An idiom translates loosely --
+# `bater as botas` is "to kick the bucket" and its sentence may say "he died" --
+# so a hard test would drop good sentences to remove bad ones, and a card with a
+# slightly-off example is not worse than a card with none.  Scored, the sentence
+# that shares a word wins where one exists and nothing is lost where none does.
+#
+# GATED ON THE PHRASES DECK, and provably inert on the six: it changes the ORDER
+# candidates are chosen in, so it would re-pick example sentences across every
+# word deck for a problem those decks barely have -- their entries are single
+# words, where an inflected form is its own evidence of which word it is.
+GLOSS_STOP = set("""a an the of to in on at for and or but not no it its this
+that these those be is are was were been being have has had do does did done
+will would shall should can could may might must i you he she we they me him
+her us them my your his our their as by from with into over under s t""".split())
+GLOSS_W = {}
+if IS_PHRASES:
+    for k in words:
+        ws = set()
+        for r in W.get(k, []):
+            for sn in r.get('senses', [])[:3]:
+                for g in (sn.get('glosses') or [])[:1]:
+                    ws |= {w for w in re.findall(r"[a-z']+", g.lower())
+                           if len(w) > 2 and w not in GLOSS_STOP}
+        if ws:
+            GLOSS_W[k] = ws
+    print('  phrases with a gloss to match the English against:', len(GLOSS_W))
+
+
+def means_it(k, eid):
+    """Does this sentence's English carry a word the phrase's gloss carries?"""
+    g = GLOSS_W.get(k)
+    if not g:
+        return True
+    return bool(g & {w for w in re.findall(r"[a-z']+", eng[eid].lower())
+                     if len(w) > 2 and w not in GLOSS_STOP})
+
+
 # ---------------------------------------------------------------- choose three
 def score(c, k):
     sid, eid, form, n, hw, ep = c
@@ -357,6 +438,8 @@ def score(c, k):
         s += 12.0 * (amb - 1)
     if form == k:
         s -= 1.0                # the headword itself is always unambiguous
+    if not means_it(k, eid):
+        s += 8.0                # the words, but very likely not the expression
     return s
 
 

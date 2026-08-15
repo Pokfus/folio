@@ -3,9 +3,10 @@
 import json
 import os
 import re
+from collections import Counter
 
 from caple_level import (LEVEL, EXAM, f as lvlf, TITLES, DECK_IDS, DECK_FILES,
-                         BELOW, TARGET)
+                         BELOW, TARGET, PHRASES, SUBS)
 
 cards = json.load(open(lvlf('cards.json')))
 words = json.load(open(lvlf('wordlist.json')))
@@ -279,8 +280,14 @@ NW = f'{len(words):,}'
 # table that will one day be extended wrongly instead of not at all.  The levels
 # it names and the total it quotes both come from `caple_level`, so they cannot
 # disagree with what the decks actually teach.
+#
+# THE PHRASES DECK SKIPS IT, and not because the sentence would read oddly: it
+# has no `TARGET` row -- deliberately, the pool being the deck -- so computing
+# the total throws.  The same `KeyError` C1 got from the table this replaced,
+# from the other direction: a derivation is only as general as the tables it
+# derives from.  Its own description states what the six teach in its own words.
 _COUNT = {2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six'}
-_below = [l.upper() for l in BELOW.get(LEVEL, [])]
+_below = [] if PHRASES else [l.upper() for l in BELOW.get(LEVEL, [])]
 if not _below:
     BELOW_NOTE = ''
 else:
@@ -290,23 +297,107 @@ else:
     BELOW_NOTE = (f' None of them appears in the {_names} deck, so the '
                   f'{_COUNT[len(_below) + 1]} together come to {_total:,} words.')
 
+_THING = 'expression' if PHRASES else 'word'
+
 # A word the sentence corpus cannot illustrate is SAID, not swapped out: the
 # word list is set by the inventory and by frequency, and dropping a word
 # because Tatoeba has no European sentence for it would be letting the corpus
 # set the syllabus.  So the count is stated rather than engineered away.
-EX_NOTE = ('Every word also carries three real example sentences'
+# GROUPED ONLY ON THE PHRASES DECK, which is a smaller decision than it looks.
+# `NW` above already writes the deck's size with a separator, so B1, B2 and C1
+# each say "1,400 words" in one sentence and "of the 1400 words" in another --
+# a real inconsistency, and fixing it would rewrite three shipped descriptions
+# for a comma.  That is not this deck's business to carry in, so the six keep
+# exactly the wording they shipped with and only the new one is consistent.
+_g = (lambda v: f'{v:,}') if PHRASES else str
+EX_NOTE = (f'Every {_THING} also carries three real example sentences'
            if ex3 == n else
-           f'Real example sentences come with {n - ex0} of the {n} words, three '
-           f'apiece for {ex3} of them and one or two for the rest'
+           f'Real example sentences come with {_g(n - ex0)} of the {_g(n)} '
+           f'{_THING}s, three apiece for {_g(ex3)} of them and one or two for '
+           f'the rest'
            if ex0 else
-           f'Every word also carries real example sentences, three of them for '
-           f'{ex3} of the {n}')
-if ex0:
+           f'Every {_THING} also carries real example sentences, three of them '
+           f'for {_g(ex3)} of the {_g(n)}')
+if ex0 and not PHRASES:
     EX_NOTE += (f'; the sentence corpus has nothing at all for the remaining '
                 f'{ex0}, which are kept because the word list is set by the '
                 f'reference inventory and not by the corpus')
 
-DESC = (
+# THE PHRASES DECK'S OWN DESCRIPTION, and it is a branch rather than a sibling
+# file because everything ABOVE this point -- the card templates, the CSS, the
+# field list, the pt-PT speech tag -- is shared and must stay provably shared.
+# What differs is only what the deck IS, which is a description and two tags.
+if PHRASES:
+    subs = Counter(c['sub'] for c in cards)
+    NEX = f'{subs[SUBS["expression"]]:,}'
+    NPR = f'{subs[SUBS["proverb"]]:,}'
+    # measured in `parse_phrases.py` and written down there -- see the note
+    # beside the file it writes
+    ST = json.load(open(lvlf('stats.json')))
+    DESC = (
+        "Both study directions in one deck, as two cards per phrase: "
+        "Portuguese → English (see the Portuguese, recall the meaning) and "
+        "English → Portuguese (see an English meaning, recall the Portuguese). "
+        f"{NW} set expressions of European Portuguese, in two subdecks: "
+        f"Expressions ({NEX}) and Proverbs ({NPR}). An expression is a phrase a "
+        "speaker uses as a unit — de vez em quando, à vontade, levar a cabo — "
+        "and a proverb is a complete saying with a moral in it, which is a "
+        "different kind of thing to learn and is met far less often, so the two "
+        "are kept apart rather than shuffled together. "
+
+        "These are the phrases a vocabulary list leaves out. A syllabus is an "
+        "inventory of words, so it names a set expression only where one "
+        "happens to be the natural way to say a notion, and the six CAPLE decks "
+        f"between them teach {ST['taught']} of the {NW} here — none of which is "
+        "repeated in this deck. What qualifies is an entry whose meaning is not the sum of "
+        "its words: a compound like cartão de crédito or fim de semana is not "
+        "in this deck, because a card teaching it teaches nothing that the two "
+        "words do not already. "
+
+        "THIS DECK TEACHES EUROPEAN PORTUGUESE, and set expressions are the "
+        "most regionally divided part of a language — far more so than its "
+        "nouns. An expression whose every recorded meaning is marked Brazilian "
+        "is left out entirely rather than demoted, because unlike a word, which "
+        "usually means the same thing on both sides of the Atlantic and differs "
+        f"in one sense, an idiom is the whole of what is being taught; "
+        f"{ST['brazil']} go that way. Brazilian clitic placement goes with them: European "
+        "Portuguese puts an unstressed pronoun after its verb, as amo-te, so an "
+        "entry spelled eu te amo is not how the sentence is said in Portugal. "
+        "Example sentences carrying a Brazilian marker are rejected, and "
+        "Wiktionary's Brazil-marked word senses are ranked below the rest. "
+
+        "The two subdecks are each ordered by how often the phrase turns up in "
+        "a corpus of real sentences, so the ones you will meet most often come "
+        "first. The frequency lists that order an ordinary vocabulary deck "
+        "cannot help here at all — they are built from single words, so de vez "
+        "em quando appears in them as four separate ordinary words and the "
+        "phrase itself is simply absent — which is also the deck's honest "
+        f"limitation: {ST['noCorpus']:,} of the {NW} appear nowhere in that "
+        "corpus at all, an idiom being literary where a collection of sentence "
+        "pairs is conversational. Those are kept and are ordered alphabetically "
+        "at the end of their subdeck: dropping a phrase because a corpus has "
+        "not got it would let the corpus decide which idioms are worth knowing. "
+
+        + EX_NOTE +
+        ", with the phrase picked out in colour and a speaker beside it. A "
+        "short expression built out of common words also occurs as an ordinary "
+        "sequence of them — que foi is the exclamation what's the matter? and "
+        "also the two words in a primeira vez que foi preso — so where more "
+        "than one sentence is available the deck prefers one whose English "
+        "carries a word the meaning carries. Where none does, the sentence "
+        "still shows the words rather than the expression, which is a limit of "
+        "matching text and not something a filter can settle. "
+        "Tatoeba's Portuguese is overwhelmingly Brazilian, so sentences "
+        "carrying a Brazilian marker are rejected outright; what remains is "
+        "mostly variety-neutral rather than positively European, which is a "
+        "limit of the corpus and not something the filter can repair. "
+
+        "Phrases, meanings and the expression-or-proverb division: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Ordering and "
+        "example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+    )
+else:
+    DESC = (
     "Both study directions in one deck, as two cards per word: Portuguese → "
     "English (see the Portuguese, recall the meaning) and English → Portuguese "
     "(see an English meaning, recall the Portuguese). "
@@ -380,12 +471,17 @@ DESC = (
 meta = {
     'id': DECK_IDS[LEVEL],
     'title': TITLES[LEVEL],
-    'subtitle': f'{NW} words · European Portuguese · both directions',
+    'subtitle': (f'{NW} expressions · European Portuguese · both directions'
+                 if PHRASES else
+                 f'{NW} words · European Portuguese · both directions'),
     'desc': DESC,
     'author': '',
     'language': 'en',
-    'tags': ['portuguese', 'european portuguese', 'caple',
-             EXAM[LEVEL].lower(), LEVEL, 'cefr', 'vocabulary'],
+    'tags': (['portuguese', 'european portuguese', 'phrases', 'expressions',
+              'idioms', 'proverbs']
+             if PHRASES else
+             ['portuguese', 'european portuguese', 'caple',
+              EXAM[LEVEL].lower(), LEVEL, 'cefr', 'vocabulary']),
     'glossMode': 'site',
     'types': {
         TYPE_ID: {
@@ -417,7 +513,17 @@ out = os.path.abspath(os.path.join('..', '..', 'decks', DECK_FILES[LEVEL]))
 with open(out, 'w', encoding='utf-8') as f:
     json.dump(deck, f, ensure_ascii=False)
 print('  wrote', out)
-print(f'  notes {n}  (x2 cards)   verbs with a paradigm {paradigms}'
-      f'   nouns with an article {arts}   pairs {pairs}   reflexives {refl}')
+# THE PHRASES DECK COUNTS DIFFERENT THINGS, and two of the six above are not
+# merely uninteresting there but WRONG: `pairs` tests for a comma in the
+# headword, which on `azeite, vinho e amigo, o mais antigo` is punctuation
+# rather than a feminine, and `refl` tests for a `-se` ending, which catches the
+# one proverb that has one.  A misleading figure in a build report is how
+# somebody later sets out to fix a fault that is not there.
+if PHRASES:
+    print(f'  notes {n}  (x2 cards)   verb phrases with a paradigm {paradigms}'
+          f'   ' + '   '.join(f'{k} {v}' for k, v in sorted(subs.items())))
+else:
+    print(f'  notes {n}  (x2 cards)   verbs with a paradigm {paradigms}'
+          f'   nouns with an article {arts}   pairs {pairs}   reflexives {refl}')
 print(f'  examples: three {ex3}, none {ex0}')
 print('  bytes', os.path.getsize(out))

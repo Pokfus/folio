@@ -43,22 +43,50 @@ LEVEL = os.environ.get('CAPLE_LEVEL', 'a1').lower()
 EXAM = {'a1': 'ACESSO', 'a2': 'CIPLE', 'b1': 'DEPLE',
         'b2': 'DIPLE', 'c1': 'DAPLE', 'c2': 'DUPLE'}
 
+# `phr` IS NOT A CEFR LEVEL AND IS NOT A CAPLE EXAM, which is why it is titled
+# and tagged unlike the six and why it has no `EXAM` row.  It is the seventh
+# deck this pipeline builds and it is the Mandarin set's arrangement: the HSK
+# decks teach the seven syllabus levels and then two more subdecks carry the
+# PHRASES and the IDIOMS, which are "the two the syllabus leaves out".  A
+# Referencial level is an inventory of WORDS, so a set expression reaches these
+# decks only where the inventory happens to name one; what the six between them
+# teach is 16 of the 1,294 this pool holds.
+#
+# IT REUSES EVERY STAGE THAT IS ABOUT PORTUGUESE and replaces the four that are
+# about the Referencial.  `build_deck` and `examples` are the same code with the
+# same European filters and the same card type; `parse_phrases` stands in for
+# parse_referencial + supplement + extract_kaikki + select, because none of the
+# cascade those run applies when the pool IS the deck.
+PHRASES = LEVEL == 'phr'
+
 TITLES = {'a1': 'CAPLE A1 — Portuguese', 'a2': 'CAPLE A2 — Portuguese',
           'b1': 'CAPLE B1 — Portuguese', 'b2': 'CAPLE B2 — Portuguese',
-          'c1': 'CAPLE C1 — Portuguese', 'c2': 'CAPLE C2 — Portuguese'}
+          'c1': 'CAPLE C1 — Portuguese', 'c2': 'CAPLE C2 — Portuguese',
+          'phr': 'Portuguese Phrases and Expressions'}
 DECK_IDS = {'a1': 'caplea1', 'a2': 'caplea2', 'b1': 'capleb1', 'b2': 'capleb2',
-            'c1': 'caplec1', 'c2': 'caplec2'}
+            'c1': 'caplec1', 'c2': 'caplec2', 'phr': 'ptphrase'}
 DECK_FILES = {'a1': 'CAPLE-A1-Portuguese.folio-deck.json',
               'a2': 'CAPLE-A2-Portuguese.folio-deck.json',
               'b1': 'CAPLE-B1-Portuguese.folio-deck.json',
               'b2': 'CAPLE-B2-Portuguese.folio-deck.json',
               'c1': 'CAPLE-C1-Portuguese.folio-deck.json',
-              'c2': 'CAPLE-C2-Portuguese.folio-deck.json'}
+              'c2': 'CAPLE-C2-Portuguese.folio-deck.json',
+              'phr': 'Portuguese-Phrases-and-Expressions.folio-deck.json'}
 
 # a level is taught on top of the ones below it, so their words are excluded
 BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
          'c1': ['a1', 'a2', 'b1', 'b2'],
-         'c2': ['a1', 'a2', 'b1', 'b2', 'c1']}
+         'c2': ['a1', 'a2', 'b1', 'b2', 'c1'],
+         'phr': ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']}
+
+# THE TWO SUBDECKS OF THE PHRASES DECK, in the order they are drawn.  An
+# EXPRESSION is a set phrase a speaker uses as a unit -- `de vez em quando`, `à
+# vontade`, `levar a cabo` -- and a PROVERB is a complete saying with a moral in
+# it, which is a different kind of thing to learn and is met far less often, so
+# the two are separated rather than shuffled together.  Wiktionary files the
+# proverbs under a part of speech of their own, so the split is READ and not
+# guessed at; see `parse_phrases.py`.
+SUBS = {'expression': 'Expressions', 'proverb': 'Proverbs'}
 
 # HOW MANY WORDS the level teaches.  A1 matches the DELE and Goethe A1 decks at
 # 500, which is also about what the Council of Europe's own A1 descriptors ask
@@ -89,6 +117,13 @@ BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
 # levels have already given them, so the last two levels contribute the
 # specialised words and little else.  Each target leaves about 5% of margin
 # against its own pool, which is what a corpus refresh needs.
+#
+# THE PHRASES DECK HAS NO TARGET, and that is the difference between choosing a
+# level's words and collecting a language's expressions.  A level's pool is far
+# larger than its deck, so a number has to be set and defended; here the pool IS
+# the deck -- every set expression the source carries that the six levels do not
+# already teach -- so a cap would be this file deciding which idioms are worth
+# knowing, which is exactly the judgement it has no grounds to make.
 TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 1400, 'c1': 1000, 'c2': 700}
 
 # ------------------------------------------------------------------ variety
@@ -174,6 +209,39 @@ def words_below():
                 parts = half.split(' ', 1)
                 out.add(parts[1] if parts[0] in ARTICLES and len(parts) > 1
                         else half)
+    out.discard('')
+    return out
+
+
+def headwords_below():
+    """Every headword a lower deck teaches, EXACTLY as it is keyed.
+
+    `words_below` above strips a leading article, because a level asks "is this
+    WORD already taught?" and `a distância` is taught as the word `distância`.
+    The phrases deck asks a different question -- "is this PHRASE already
+    taught?" -- and the two answers differ on exactly the entries where the
+    phrase begins with something article-shaped: `a par`, `a seco`, `a pé`.
+    Stripped, those go into the set as `par`, `seco` and `pé`, and a phrase
+    candidate spelled `a par` matches none of them.
+
+    SO IT IS A SECOND FUNCTION AND NOT A WIDER FIRST ONE.  Adding the unstripped
+    form to `words_below` would also change what C1 and C2 may teach: six
+    adverbial locutions ship there precisely because the stripped form is what
+    was compared, and they are correct -- `a distância` the adverb is not `a
+    distância` the noun, and the two cards say which they are with their parts
+    of speech.  Widening the shared function to serve this one would quietly
+    drop them from decks nobody was editing.
+    """
+    out = set()
+    for lvl in BELOW.get(LEVEL, []):
+        p = os.path.join('..', '..', 'decks', DECK_FILES[lvl])
+        if not os.path.exists(p):
+            raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
+        for c in json.load(open(p, encoding='utf-8'))['cards']:
+            w = c.get('question') or strip_tags(
+                (c.get('fields') or {}).get('Portuguese', ''))
+            for half in strip_tags(w).split(', '):
+                out.add(half)
     out.discard('')
     return out
 

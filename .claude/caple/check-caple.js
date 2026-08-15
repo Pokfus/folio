@@ -5,7 +5,7 @@
    until here.
 
      FOLIO_CHROMIUM=/path/to/chrome NODE_PATH=/tmp/pw/node_modules \
-       node .claude/caple/check-caple.js [a1]
+       node .claude/caple/check-caple.js [a1|…|c2|phr]
 
    TWO KINDS OF ASSERTION, and the split is deliberate.  What is EUROPEAN about this deck is a fact
    about the generated text, so it is checked in the FILE, exactly, over every card — a wrong clitic on
@@ -29,7 +29,18 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^(a[12]|b[12]|c[12])$/.test(LEVEL)) { console.error("level must be a1..c2"); process.exit(2); }
+if (!/^(a[12]|b[12]|c[12]|phr)$/.test(LEVEL)) {
+  console.error("level must be a1..c2, or phr for the phrases deck"); process.exit(2);
+}
+/* `phr` IS THE SEVENTH DECK AND IT IS NOT A LEVEL, so a good half of what
+   follows does not apply to it and is skipped rather than loosened.  There is
+   no article to colour (an expression is quoted as the dictionary lists it),
+   no gendered pair, no reflexive lemma, and no European-versus-Brazilian WORD
+   to probe — the variety question there is about whole idioms and about clitic
+   placement, which is what its own probes ask instead.  What stays is
+   everything that is true of any deck this pipeline builds: the type, the ids,
+   the source document, the moods, the Brazilian sentence sweep and the page. */
+const PHR = LEVEL === "phr";
 
 /* THE PROBES ARE PER LEVEL BECAUSE THE WORDS ARE.  Every assertion below is
    about EUROPEAN PORTUGUESE and is the same question of any level this
@@ -196,9 +207,40 @@ const PROBE = {
     // nowhere, so it is in `BLOCK` rather than `BRAZILIAN`.
     noBrazilian: ["cesta básica", "parabenizar"],
   },
+  /* THE PHRASES DECK'S PROBES ASK A DIFFERENT SET OF QUESTIONS, because what is
+     European about an expression is not what is European about a word.  A word
+     deck is probed on lexis (`o comboio` against `trem`) and on the shape of a
+     paradigm; an idiom is either said in Portugal or it is not, so the probes
+     are whole expressions — two that Portugal says and Brazil does not, and two
+     the other way round which must be absent. */
+  phr: {
+    glosses: [
+      // Portugal's own, and the one the header of `caple_level` names: a
+      // `banheiro` there is a lifeguard, so `onde fica o banheiro` is dropped
+      // and this is the phrase a learner in Lisbon actually needs.
+      ["de vez em quando", /(now and then|from time to time|occasionally)/i],
+      ["à vontade", /(at ease|comfortable|freely)/i],
+      // a verb phrase, which is where a paradigm can still appear
+      ["levar a cabo", /(carry out|accomplish|complete)/i],
+    ],
+    // ordered by CORPUS COUNT rather than by a frequency list, so the commonest
+    // expressions have to be near the front: this is the ordering's only
+    // visible consequence and nothing else would report it going.
+    firstFew: ["não sei", "por favor", "de vez em quando"],
+    subs: ["Expressions", "Proverbs"],
+    // an entry that is only said in Brazil, or only said the Brazilian way
+    noBrazilian: ["onde fica o banheiro", "grana preta", "eu te amo"],
+    // AN ORDINARY COMPOUND IS NOT AN EXPRESSION.  Each of these is in the dump,
+    // is multi-word, and teaches nothing its own two words do not — which is
+    // what the idiomatic test is for, and the half of it that no count can see.
+    noCompound: ["cartão de crédito", "fim de semana", "banda desenhada"],
+    // a proverb, to prove the split is read rather than guessed
+    proverbs: [["o tempo voa", /time flies/i], ["errar é humano", /(err|human)/i]],
+  },
 }[LEVEL];
 if (!PROBE) { console.error("no probes written for level " + LEVEL); process.exit(2); }
-const DECK = "CAPLE-" + LEVEL.toUpperCase() + "-Portuguese.folio-deck.json";
+const DECK = PHR ? "Portuguese-Phrases-and-Expressions.folio-deck.json"
+                 : "CAPLE-" + LEVEL.toUpperCase() + "-Portuguese.folio-deck.json";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -235,7 +277,8 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
      type && type.speechLang);
   ok(cards.every((c) => c.type === "caple"), "every note carries the type");
   ok(new Set(cards.map((c) => c.id)).size === cards.length, "no id occurs twice");
-  ok(cards.every((c) => new RegExp("^u_caple" + LEVEL + "_\\d+$").test(c.id)),
+  ok(cards.every((c) => new RegExp("^u_" + (PHR ? "ptphrase" : "caple" + LEVEL)
+                                   + "_\\d+$").test(c.id)),
      "every id carries the deck");
   // The word inventory is taken from the Referencial; its prose is not, exactly as the German deck
   // takes the Wortliste and leaves the Goethe-Institut's example sentences alone.
@@ -255,7 +298,7 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   const brNums = cards.map((c) => c.question)
     .filter((q) => /\b(dezesseis|dezessete|dezenove|quatorze)\b/.test(q));
   ok(brNums.length === 0, "the numbers are the European forms", JSON.stringify(brNums));
-  if (PROBE.numbers.length)
+  if (PROBE.numbers && PROBE.numbers.length)
     ok(PROBE.numbers.every((w) => !!by[w]), "the European numerals are taught",
        JSON.stringify(PROBE.numbers.filter((w) => !by[w])));
 
@@ -271,12 +314,68 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
        txt(c.fields.English).slice(0, 70));
   }
 
+  // ------------------------------------------------- the phrases deck's own
+  if (PHR) {
+    // THE TWO SUBDECKS, and every card in one of them.  A `sub` is a plain
+    // string on the card and the deck's subdecks are the distinct values its
+    // cards name — so a card that lost its own would not throw or shorten
+    // anything, it would quietly appear as a third row with no name.
+    const subs = {};
+    cards.forEach((c) => (subs[c.sub] = (subs[c.sub] || 0) + 1));
+    ok(Object.keys(subs).sort().join("|") === PROBE.subs.slice().sort().join("|"),
+       "the deck is in two subdecks and every card is in one", JSON.stringify(subs));
+    ok(subs.Expressions > subs.Proverbs * 3,
+       "most of it is expressions rather than proverbs", JSON.stringify(subs));
+    // THE SPLIT IS READ OFF WIKTIONARY'S OWN PART OF SPEECH, not guessed from
+    // the shape of the words, so a saying is in Proverbs and a set phrase is
+    // not.  Nothing else can see this: both are well-formed cards either way.
+    for (const [w, want] of PROBE.proverbs) {
+      const c = by[w];
+      if (!c) { ok(false, w + " is in the deck"); continue; }
+      ok(c.sub === "Proverbs", w + " is filed as a proverb", c.sub);
+      ok(want.test(txt(c.fields.English)), "…and glosses as one",
+         txt(c.fields.English).slice(0, 60));
+    }
+    // AN ORDINARY COMPOUND IS NOT AN EXPRESSION.  Each of these is multi-word,
+    // is in the dump, and teaches nothing its own two words do not — which is
+    // the whole of what the idiomatic test buys, and a filter that stopped
+    // firing would leave a deck of perfectly good cards that is no longer a
+    // deck of idioms.  Asserted by name because no count can see it.
+    for (const w of PROBE.noCompound)
+      ok(!by[w], "the plain compound " + w + " is not in the deck");
+    // ORDERED BY CORPUS COUNT.  The frequency lists that order every other deck
+    // here are built from single words and cannot see a phrase at all, so this
+    // ordering is the only one there is — and if it stopped being applied the
+    // deck would still be complete, still well formed, and would open on
+    // whichever expression the dump happened to yield first.
+    const firstThirty = cards.slice(0, 30).map((c) => c.question);
+    for (const w of PROBE.firstFew)
+      ok(firstThirty.includes(w), "the commonest expressions come first: " + w,
+         JSON.stringify(firstThirty.slice(0, 6)));
+    // EVERY CARD IS A PHRASE, which is what separates this deck from the six.
+    const single = cards.filter((c) => !/\s/.test(c.question));
+    ok(single.length === 0, "every headword is more than one word",
+       JSON.stringify(single.slice(0, 5).map((c) => c.question)));
+    // AND NONE OF THEM IS ALREADY TAUGHT BY A LEVEL — the exclusion asks a
+    // different question from the levels' own (`headwords_below` against
+    // `words_below`), so it is the one thing here nothing else has ever run.
+    const below = new Set();
+    for (const l of ["a1", "a2", "b1", "b2", "c1", "c2"])
+      JSON.parse(fs.readFileSync(ROOT + "/decks/CAPLE-" + l.toUpperCase()
+                                 + "-Portuguese.folio-deck.json", "utf8"))
+        .cards.forEach((c) => below.add(c.question));
+    const dup = cards.filter((c) => below.has(c.question));
+    ok(dup.length === 0, "and none repeats a phrase a CAPLE level already teaches",
+       JSON.stringify(dup.slice(0, 5).map((c) => c.question)));
+  }
+
   // A BRAZIL-TAGGED VERB FORM DROPPED HERE IS THE SINGLE MOST IMPORTANT LINE IN `build_deck.py`:
   // without it almost every -ar verb shows `falamos` in the preterite beside `falámos` in the present,
   // with nothing on the card to say which is which.
-  const [pv, pEu, pBr] = PROBE.preterite;
-  const pvc = by[pv];
-  if (pvc) {
+  const [pv, pEu, pBr] = PROBE.preterite || [];
+  const pvc = pv && by[pv];
+  if (!pv) { /* the phrases deck teaches no lemma to conjugate */ }
+  else if (pvc) {
     const pret = txt(pvc.fields.Conjugation).match(/Pretérito perfeito.{0,120}/);
     ok(pret && pret[0].includes(pEu) && !new RegExp("\\b" + pBr + "\\b").test(pret[0]),
        `the preterite of ${pv} is ${pEu} and not the Brazilian ${pBr}`,
@@ -286,9 +385,13 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // ------------------------------------------------- where the pronoun goes
   // FOUR PLACEMENTS, and each is a different rule.  Nothing else in this repo can see any of them:
   // every table is the right shape and the right length whichever way round the pronoun is written.
-  const refl = cards.filter((c) => /-se$/.test(c.question));
-  ok(refl.length >= (PROBE.minReflexives || 1), "the deck teaches reflexive verbs",
-     String(refl.length));
+  // A REFLEXIVE LEMMA IS ONE WORD.  The phrases deck holds a proverb ending
+  // `-se` and it is a saying rather than a verb, so the whole reflexive path is
+  // off there and this filter says why rather than matching it.
+  const refl = PHR ? [] : cards.filter((c) => /-se$/.test(c.question));
+  if (!PHR)
+    ok(refl.length >= (PROBE.minReflexives || 1), "the deck teaches reflexive verbs",
+       String(refl.length));
   // A REFLEXIVE THE INVENTORY NAMES AND `reflexives.py` DOES NOT GLOSS IS DROPPED IN SILENCE — the
   // word is not offered, the cascade takes the next one, and the deck builds at exactly its target.
   // B1 names 56 of them where A2 names 32, so the floor is a level's own number rather than one.
@@ -303,8 +406,9 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   const clText = (s) => s.split("|").join("");
   const clHtml = (s) => s.split("|")
     .map((p, i) => (i % 2 ? '<span class="uc-cl">' + p + "</span>" : p)).join("");
-  const ch = by[PROBE.reflexive];
-  if (ch) {
+  const ch = PROBE.reflexive && by[PROBE.reflexive];
+  if (!PROBE.reflexive) { /* no reflexive lemma in the phrases deck */ }
+  else if (ch) {
     const t = txt(ch.fields.Conjugation);
     const h = ch.fields.Conjugation;
     const F = PROBE.forms;
@@ -369,16 +473,21 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
       .forEach((m) => bare.push(c.question + ": " + m));
     if (!/class="uc-cl"/.test(h)) bare.push(c.question + ": no coloured pronoun at all");
   }
-  ok(badMeso.length === 0, "every reflexive's future and conditional take mesoclisis",
-     JSON.stringify(badMeso.slice(0, 4)));
-  ok(bare.length === 0, "and every pronoun is a colour rather than a hyphen",
-     JSON.stringify(bare.slice(0, 4)));
-  // the headword carries the same treatment — `chamar-se` at the top of the card over `chamome` in
-  // the table would show a learner both spellings at once with nothing to say which is the rule
-  const headBad = refl.filter((c) => !/class="uc-cl"/.test(c.fields.Portuguese)
-                                     || /-se/.test(txt(c.fields.Portuguese)));
-  ok(headBad.length === 0, "the reflexive's own headword is marked the same way",
-     JSON.stringify(headBad.slice(0, 3).map((c) => c.fields.Portuguese)));
+  // NOT ASSERTED WHERE THERE ARE NO REFLEXIVES, because all three of these
+  // sweeps are over `refl` and would report a clean pass on an empty list —
+  // three ticks proving nothing, which is worse than three missing lines.
+  if (!PHR) {
+    ok(badMeso.length === 0, "every reflexive's future and conditional take mesoclisis",
+       JSON.stringify(badMeso.slice(0, 4)));
+    ok(bare.length === 0, "and every pronoun is a colour rather than a hyphen",
+       JSON.stringify(bare.slice(0, 4)));
+    // the headword carries the same treatment — `chamar-se` at the top of the card over `chamome` in
+    // the table would show a learner both spellings at once with nothing to say which is the rule
+    const headBad = refl.filter((c) => !/class="uc-cl"/.test(c.fields.Portuguese)
+                                       || /-se/.test(txt(c.fields.Portuguese)));
+    ok(headBad.length === 0, "the reflexive's own headword is marked the same way",
+       JSON.stringify(headBad.slice(0, 3).map((c) => c.fields.Portuguese)));
+  }
 
   // AN ARTICLE IS COLOURED ONLY ON A NOUN.  The Referencial names adverbial
   // locutions built on the preposition `a` — `a fim de`, `a distância`, `a
@@ -387,10 +496,20 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // the FEMININE-ARTICLE colour with the part of speech contradicting it two
   // lines below.  Nothing threw and every count was right; the symptom was a
   // colour.  Read off the shipped cards rather than a list, so a new one fails.
-  const artNoun = cards.filter((c) => /uc-art/.test(c.fields.Portuguese)
-    && !(c.fields.English.match(/<div class="uc-pos">([^<]*)<\/div>/g) || [])
-         .some((p) => />noun/.test(p)));
-  ok(artNoun.length === 0, "an article is coloured only where the word is a noun",
+  // …AND ON THE PHRASES DECK, NOWHERE AT ALL, which is the stronger form of the
+  // same assertion.  An article is added so a noun's GENDER is learnt with it,
+  // which is a fact about a word: `pão e circo` takes none in any sentence and
+  // `quinta coluna` is quoted as the dictionary lists it, so prepending one
+  // would be the builder editing the idiom.  Several phrases have a noun record
+  // and would take one the moment that gate came off.
+  const artNoun = PHR
+    ? cards.filter((c) => /uc-art/.test(c.fields.Portuguese))
+    : cards.filter((c) => /uc-art/.test(c.fields.Portuguese)
+        && !(c.fields.English.match(/<div class="uc-pos">([^<]*)<\/div>/g) || [])
+             .some((p) => />noun/.test(p)));
+  ok(artNoun.length === 0,
+     PHR ? "no expression is given an article it does not have"
+         : "an article is coloured only where the word is a noun",
      JSON.stringify(artNoun.slice(0, 5).map((c) => c.question)));
   for (const w of PROBE.plainArticle || [])
     ok(by[w] && !/uc-art/.test(by[w].fields.Portuguese),
@@ -398,7 +517,7 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
 
   // ------------------------------------------------- the paradigm's own shape
   const verbs = cards.filter((c) => c.fields.Conjugation);
-  ok(verbs.length > 20, "verbs carry a conjugation", String(verbs.length));
+  ok(verbs.length > (PHR ? 0 : 20), "verbs carry a conjugation", String(verbs.length));
   const lacks = (m) => verbs.filter((c) => !c.fields.Conjugation.includes(">" + m + "<"))
     .map((c) => c.question);
   for (const m of ["Indicativo", "Conjuntivo", "Infinitivo"])
@@ -406,9 +525,18 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // AN IMPERSONAL VERB HAS NO IMPERATIVE and should not be given one: nobody can be told to snow or
   // to ache.  Named rather than waved through, so a NORMAL verb losing its imperative — which is what
   // a broken pass would look like — fires here and a person decides.
-  ok(lacks("Imperativo").every((q) => PROBE.impersonal.includes(q)),
-     "and an imperative unless the verb is impersonal",
-     JSON.stringify(lacks("Imperativo").filter((q) => !PROBE.impersonal.includes(q))));
+  // …EXCEPT ON THE PHRASES DECK, where the list would be a table of expressions
+  // rather than a table of impersonal verbs.  A verb phrase is very often one
+  // nobody can be told to do — `chover a cântaros`, `bater as botas` — and the
+  // reason is the phrase rather than the verb, so naming them one by one would
+  // be maintaining a list that says nothing.  The count is printed instead.
+  if (PHR)
+    console.log("   expressions with no imperative: " + lacks("Imperativo").length
+                + " of " + verbs.length);
+  else
+    ok(lacks("Imperativo").every((q) => PROBE.impersonal.includes(q)),
+       "and an imperative unless the verb is impersonal",
+       JSON.stringify(lacks("Imperativo").filter((q) => !PROBE.impersonal.includes(q))));
   // A NOUN THAT IS ALSO AN INFINITIVE MUST NOT SHOW THE VERB'S TABLE: `o jantar` is dinner and
   // `jantar` is to dine, and a paradigm under the noun conjugates a word the card does not teach.
   const nounConj = cards.filter((c) => c.fields.Conjugation && /^(o|a|os|as) /.test(c.question));
@@ -441,7 +569,15 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
       if (BR.test(s)) brHits.push(c.question + ": " + s.slice(0, 60));
     }
   }
-  ok(ptSentences > cards.length, "the deck ships real example sentences", String(ptSentences));
+  // A WORD DECK CARRIES MORE SENTENCES THAN IT HAS CARDS (three apiece for most
+  // of them); the phrases deck cannot, since 725 of its expressions are in no
+  // corpus at all — so there the floor is that every card claiming examples has
+  // at least one and that the deck has real sentences, which is the assertion
+  // the count was standing in for and is true of any deck this builds.
+  const withEx = cards.filter((c) => c.fields.Examples).length;
+  ok(PHR ? ptSentences >= withEx && withEx > 0 : ptSentences > cards.length,
+     "the deck ships real example sentences",
+     ptSentences + " on " + withEx + " cards");
   ok(brHits.length === 0, "not one of them carries a Brazilian marker",
      JSON.stringify(brHits.slice(0, 3)));
   ok(cards.every((c) => !c.fields.Examples || /<b>/.test(c.fields.Examples)),
@@ -491,8 +627,17 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   await pg.waitForTimeout(700);
   const rows = await pg.evaluate(() => [...document.querySelectorAll(".active-deck .dk-title")]
     .map((e) => e.textContent.trim()));
-  ok(rows.length === 1 && rows[0].includes("CAPLE " + LEVEL.toUpperCase()),
-     "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
+  // …AND ON THE PHRASES DECK IT ADDS ITS TWO SUBDECKS WITH IT, which is the
+  // site's own rule one level down (a container brings what is inside it) and
+  // is what the six word decks, having no subdecks, cannot exercise at all.
+  if (PHR)
+    ok(rows.length === 3 && rows.some((r) => /Phrases/.test(r))
+       && PROBE.subs.every((s) => rows.some((r) => r.includes(s))),
+       "adding the deck adds its two subdecks and not the directions",
+       JSON.stringify(rows));
+  else
+    ok(rows.length === 1 && rows[0].includes("CAPLE " + LEVEL.toUpperCase()),
+       "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
 
   // ---------------------------------------------------------------- study
   await pg.click(".review-group .cta .btn");
@@ -532,8 +677,13 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // Grade EASY, never Good: a new card graded Good requeues as a learning step and comes straight
   // back, so the walk stands still.  The button's `data-g` is the grade's NAME — a numeric one
   // matches nothing and the click silently does nothing, which reads as forty identical cards.
+  // ON THE PHRASES DECK the walk is looking for different cards: there is no
+  // article and no gendered pair, and a reflexive lemma is not taught, so what
+  // is worth a screenshot is an ordinary expression, a PROVERB and a verb
+  // phrase that carries a paradigm.
   const seen = { noun: null, pair: null, verb: null, refl: null };
-  const done = () => seen.noun && seen.pair && seen.verb && seen.refl;
+  const done = () => (PHR ? seen.noun && seen.verb
+                          : seen.noun && seen.pair && seen.verb && seen.refl);
   for (let i = 0; i < 260 && !done(); i++) {
     const card = await pg.evaluate(() => {
       const t = (s) => { const e = document.querySelector(s); return e ? e.textContent.trim() : ""; };
@@ -569,8 +719,12 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
       };
     });
     let shot = "";
-    if (card.arts.length === 1 && !seen.noun) { seen.noun = card; shot = "noun"; }
-    if (card.arts.length === 2 && !seen.pair) { seen.pair = card; shot = "pair"; }
+    if (PHR) {
+      if (card.word && !card.moods.length && !seen.noun) { seen.noun = card; shot = "phrase"; }
+    } else {
+      if (card.arts.length === 1 && !seen.noun) { seen.noun = card; shot = "noun"; }
+      if (card.arts.length === 2 && !seen.pair) { seen.pair = card; shot = "pair"; }
+    }
     // A REFLEXIVE IS THE CARD WITH COLOURED PRONOUNS ON IT.  It used to be the one whose headword
     // ended `-se`, and that hyphen is exactly what this change removed — read the old way, no
     // reflexive is ever recognised, the screenshot is never taken and the walk reports nothing wrong.
@@ -594,16 +748,22 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
     await pg.waitForTimeout(150);
   }
 
-  console.log("   noun:  " + JSON.stringify(seen.noun && [seen.noun.word, seen.noun.forms]));
-  ok(seen.noun, "a noun came up");
-  if (seen.noun) {
+  console.log((PHR ? "   phrase: " : "   noun:  ")
+              + JSON.stringify(seen.noun && [seen.noun.word, seen.noun.pos]));
+  ok(seen.noun, PHR ? "an expression came up" : "a noun came up");
+  if (seen.noun && PHR) {
+    ok(/\s/.test(seen.noun.word), "it is more than one word", seen.noun.word);
+    ok(seen.noun.arts.length === 0, "and carries no article",
+       JSON.stringify(seen.noun.arts));
+  } else if (seen.noun) {
     ok(/^(o|a)$/.test(seen.noun.arts[0]), "it carries its article", seen.noun.arts[0]);
     ok(/plural/i.test(seen.noun.forms), "and its plural", seen.noun.forms);
     ok(seen.noun.artColors[0] && seen.noun.artColors[0] !== "rgb(0, 0, 0)",
        "the article is coloured by gender", seen.noun.artColors[0]);
   }
-  console.log("   pair:  " + JSON.stringify(seen.pair && [seen.pair.word, seen.pair.forms]));
-  ok(seen.pair, "a masculine/feminine pair came up");
+  if (!PHR)
+    console.log("   pair:  " + JSON.stringify(seen.pair && [seen.pair.word, seen.pair.forms]));
+  if (!PHR) ok(seen.pair, "a masculine/feminine pair came up");
   if (seen.pair) {
     // THE POINT OF THE PAIR IS THE TWO COLOURS: `o professor, a professora` on one card teaches the
     // gender pattern, where two cards teach two words.
@@ -625,8 +785,9 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
     ok(seen.verb.ex.length > 0 && seen.verb.bold.length > 0,
        "with the word picked out in its sentences", JSON.stringify(seen.verb.bold));
   }
-  console.log("   refl:  " + JSON.stringify(seen.refl && [seen.refl.word, seen.refl.rows[0]]));
-  ok(seen.refl, "a reflexive verb came up");
+  if (!PHR)
+    console.log("   refl:  " + JSON.stringify(seen.refl && [seen.refl.word, seen.refl.rows[0]]));
+  if (!PHR) ok(seen.refl, "a reflexive verb came up");
   if (seen.refl) {
     // the pronoun is still AFTER the verb — the enclisis rule is unchanged, only its mark is.  The
     // first row is the present tense's `eu`, so the clitic is the last thing on it under enclisis

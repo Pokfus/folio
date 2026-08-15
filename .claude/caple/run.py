@@ -15,7 +15,14 @@ A1 existed and its inventory yields 1,491, C1's is 1,054 and C2's 741 -- three
 refusals rather than three short decks, which is the guard doing its job every
 time it has been asked.
 
-    for L in a1 a2 b1 b2 c1 c2; do PYTHONHASHSEED=1 python3 .claude/caple/run.py --level $L --no-fetch; done
+    for L in a1 a2 b1 b2 c1 c2 phr; do PYTHONHASHSEED=1 python3 .claude/caple/run.py --level $L --no-fetch; done
+
+`phr` IS THE SEVENTH DECK AND IT IS NOT A LEVEL -- the phrases and expressions
+a vocabulary inventory leaves out, which is the Mandarin set's own arrangement.
+It shares every stage that is about PORTUGUESE and replaces the four that are
+about the Referencial with one; see `parse_phrases.py`, which is where the whole
+of that deck's reasoning lives.  It is built LAST because it is taught on top of
+all six levels.
 
 A LEVEL IS BUILT ON THE SHIPPED DECKS BELOW IT, so build them IN ORDER and
 rebuild the lot after any change to a shared stage -- `words_below` reads the
@@ -62,6 +69,10 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
     examples.py           three Tatoeba sentences each, Brazilian ones rejected
     build_deck.py         articles, genders, conjugations, cards
     emit.py               the .folio-deck.json
+
+…and for `phr`, the first four are one:
+
+    parse_phrases.py      every set expression in the dump, ordered by corpus count
 
 SOURCES AND LICENCES, which the deck's own description also states:
   · Referencial Camões PLE -- instituto-camoes.pt (the word inventory only)
@@ -184,8 +195,26 @@ def main():
     os.makedirs(CACHE, exist_ok=True)
     os.chdir(CACHE)
 
-    from caple_level import f as lvlf
+    from caple_level import f as lvlf, PHRASES
     import json
+
+    # THE PHRASES DECK REPLACES THE FIRST FOUR STAGES WITH ONE, and shares the
+    # last three unchanged.  The four it replaces are the ones that are about
+    # the Referencial -- reading an inventory of words, supplementing the closed
+    # classes it never writes out, fetching their records and choosing a few
+    # hundred under a cascade -- and none of that applies when the pool IS the
+    # deck.  What it keeps is everything that is about PORTUGUESE: the Tatoeba
+    # pairing with its Brazilian filter, the gloss and clitic handling, and the
+    # card type, all of them the same code rather than a copy of it.
+    if PHRASES:
+        print('phrases:')
+        runpy.run_path(os.path.join(HERE, 'parse_phrases.py'),
+                       run_name='__main__')
+        for stage in ('examples.py', 'build_deck.py', 'emit.py'):
+            print(stage.split('.')[0] + ':')
+            sys.argv = [stage]
+            runpy.run_path(os.path.join(HERE, stage), run_name='__main__')
+        return
 
     print('word list:')
     runpy.run_path(os.path.join(HERE, 'parse_referencial.py'), run_name='__main__')
