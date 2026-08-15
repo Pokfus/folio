@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-016` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-017` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 16 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 17 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10160,6 +10160,35 @@ differently (夸父不量力，欲追日影) and adds the corpse-fat detail. Zha
 an edition and page for it, so **where two open sources disagree about which book a quotation is from,
 follow the one that gives a locator** — and use the looser one only for what it alone carries, here
 Yinglong killing Kuafu as he killed Chiyou.
+**`cnh-017` IS WHERE A NAME COULD NOT BE WRITTEN AT ALL, AND THAT IS THE FINDING** (Aug 2026).
+Jingwei's mortal name is **女娃, romanised Nüwa** — identical in pinyin to **女媧**, the goddess who
+patched the sky, who is `cnh-004` and a shipped glossary term with four aliases. Writing the name in the
+card's prose auto-links it to the wrong figure, and unlike the `afar` and `tripod` cases NOTHING can
+separate them: they are the same string, so `GLOSSARY_CASESENSITIVE` is no help, a longer key never
+matches the bare surface, and **`glossOff` is an `ADMIN_EDITS` overlay that a card in `data.js` cannot
+declare**. So the name is simply left out — the passage's own "youngest daughter of Yandi" says who she
+is — and the loss is recorded here rather than papered over. **Before writing a personal name into a
+card, check it against the glossary's existing keys AND aliases**; where two different figures share a
+romanisation, the prose has to work without one of them.
+**AND FOUR OF FOUR PICTURE CANDIDATES WERE WANG JINGWEI**, the 20th-century politician — the name-match
+trap at its most literal, worse than Chang'e's spacecraft because every candidate was the wrong subject.
+The hand-written Commons search found two right ones and **the better-provenanced was rejected on SIZE**:
+a detail from the illustrated Shanhaijing of 1597, named artist and date, at 174 × 119. What ships is the
+Gujin Tushu Jicheng's own 精衛圖, from the same imperial encyclopaedia that gave `cnh-016` its Kuafu —
+a different section, so the two are siblings rather than a repeat.
+**ITS SOURCES ARE A GOVERNMENT CURRICULUM DOCUMENT AND FOUR OLD REFERENCE WORKS, WHICH IS WHAT WAS
+THERE.** No open scholarly article on Jingwei could be found in any repository this sandbox reaches;
+what carries the primary text, with glosses and Tao Yuanming's line, is the **Hong Kong Education
+Bureau's 《郁文華章》 selected-readings analysis** — batch 18's rule (look for the body responsible)
+reaching a ministry rather than a museum. Cite such a document for the TEXT it reproduces and not for
+its didactic reading.
+**AND MAYERS GIVES YANDI'S ACCESSION TWICE, ONCE MIS-OCR'd.** His Shennong entry reads "B.C. 2787" in
+the scan and his Part III table of the Legendary Period reads 2737, which the run of page headers
+(363, 364, 365, 366, 367, 368) confirms is p. 366 — **where one book states a figure twice, the table is
+the authority and the running heads are how the page is read**, cnh-011's rule with the OCR mangling
+every other digit. That 2737 is a THIRD reckoning beside the two `cnh-006` already records (Legge's 31st
+century, Bretschneider's 28th), so both cards now hedge with "by one reckoning" rather than pretending
+to a date the tradition has not got.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
