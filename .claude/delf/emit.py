@@ -214,6 +214,15 @@ CSS = """.card {
   text-align: right;
   font-weight: 500;
 }
+/* WHAT CHANGES DOWN THE TENSE, in the same red the tense heading above it is
+   set in -- so the panel gains no new colour, only a second use of the one it
+   has.  Which characters those are is MEASURED per tense rather than taken from
+   a table of endings; see `common_prefix` in build_deck.py for why, and for why
+   an irregular verb is marked all the way through. */
+.uc-cj-e {
+  font-weight: 700;
+  color: var(--zh, #C8453C);
+}
 /* An adjective's agreement is a GRID -- masculine/feminine against
    singular/plural -- and flattening that into label/value pairs loses the thing
    the table is for.  `minmax(min-content, 1fr)` and not `minmax(0, 1fr)`: a zero

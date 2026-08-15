@@ -305,6 +305,44 @@ def main():
         f'{lv} {n:,}' for lv, n in ((s, sum(1 for c in cards if c['sub'] == s))
                                     for s in subs)))
     print('  ' + '  '.join(f'{k} {v:,}' for k, v in s.items()))
+    colon_sweep(cards)
+
+
+def colon_sweep(cards):
+    """Is every COLON_GLOSS row still doing something, anywhere on the shelf?
+
+    `build_deck.py` cannot answer this: a level legitimately carries only some of
+    the twelve, so a staleness check there fires on every run of every level and
+    becomes a warning nobody reads.  Here all seven decks are in hand at once,
+    and two opposite faults are visible that are invisible from either end --
+
+      * a KEY still on a card means the fix did not fire at all (the table is
+        matched against the FINAL rendered line, so a change to `meaning_lines`
+        upstream can move that string out from under it);
+      * a row whose replacement appears NOWHERE has gone stale, which is what
+        Wiktionary rewording a sense looks like from here.
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        'colon', os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                              'build_deck.py'))
+    # build_deck runs a whole level on import, so the table is read as TEXT --
+    # the same trick check-phrases.js uses on phraselist.py, and for the same
+    # reason: the declaration is the thing under test, not the module.
+    src = open(spec.origin, encoding='utf-8').read()
+    body = src.split('COLON_GLOSS = {', 1)[1].split('\n}', 1)[0]
+    table = eval('{' + body + '\n}')                       # noqa: S307 - our own
+    blob = json.dumps(cards, ensure_ascii=False)
+    live = [k for k in table if k in blob]
+    gone = [k for k, v in table.items() if v and v not in blob]
+    if live:
+        print('  !! COLON_GLOSS did not fire -- these are still on a card:\n    ' +
+              '\n    '.join(live))
+    if gone:
+        print('  !! COLON_GLOSS rows whose replacement is on no card; the source'
+              ' has probably reworded them:\n    ' + '\n    '.join(gone))
+    if not live and not gone:
+        print(f'  colon glosses: all {len(table)} declared rows still resolve')
 
 
 if __name__ == '__main__':

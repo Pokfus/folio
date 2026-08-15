@@ -307,6 +307,15 @@ FORCE_POS = {
     'reconnu': 'adj', 'lié': 'adj', 'énervé': 'adj', 'guéri': 'adj',
     'examiné': 'adj', 'soulagé': 'adj', 'amélioré': 'adj', 'estimé': 'adj',
     'équilibré': 'adj', 'dominé': 'adj', 'découragé': 'adj',
+    # …and one where the leading record is a verb the language does not use on
+    # its own.  Wiktionary leads `souvenir` with the verb and glosses it "to
+    # remember", so the card came out teaching a bare `souvenir` that nobody
+    # says -- modern French has only `se souvenir`, which is A2's own card, so
+    # B1 was ALSO teaching A2's word a second time under another spelling
+    # (`words_below` excludes by exact spelling, and the two are not the same
+    # string).  A B1 vocabulary list printing `souvenir` means the noun, and
+    # forcing it makes the two cards two different words again.
+    'souvenir': 'noun',
 
     # ------------------------------------------------------------------ B2
     # THE SAME CLASS AT THE SAME RATE, which is the useful measurement rather
@@ -901,14 +910,102 @@ def finite(subject, refl, form, reflexive):
     return elide(subject, form)
 
 
+# ------------------------------------------- what changes down a paradigm
+# THE CONJUGATING PART IS MEASURED, NEVER WRITTEN DOWN AS A LIST OF ENDINGS
+# (Aug 2026, on request: the parts that conjugate are set in bold red).  The
+# obvious implementation is a table of `-e -es -e -ons -ez -ent` per group, and
+# it is wrong twice over: it says nothing about the second and third groups, and
+# it is silent about the verbs a learner most needs warning of, whose STEM moves
+# as well (`je bois` against `nous buvons`, `je vais` against `nous allons`).
+#
+# What is actually being asked is "which characters differ within this tense",
+# and that is arithmetic: the longest prefix ALL SIX forms share is the part
+# that does not change, and everything after it is the part that does.  It
+# lands on the textbook analysis wherever there is one -- parl|e parl|ons,
+# parler|ai parler|ont -- and tells the truth where there is not: `être` shares
+# no prefix at all across suis/es/est/sommes/êtes/sont, so the whole of every
+# form is marked, which is exactly the fact about `être` a beginner needs.
+#
+# It is measured PER TENSE rather than over the whole verb, because a stem that
+# is constant through the présent may still move in the futur, and marking
+# against the infinitive would paint the invariant part of one tense red for
+# belonging to another.
+def common_prefix(forms):
+    """How many leading characters every one of `forms` shares.
+
+    CAPPED SO THAT EVERY FORM KEEPS AT LEAST ONE MARKED CHARACTER, which is not
+    a tidying rule but a repair for a whole class of verb.  The `-ger` verbs
+    soften their stem before `-ons` (`nous mangeons`), so `mange` is a PREFIX of
+    `mangeons` and the raw common prefix of the présent comes out as the whole
+    of `je mange` -- leaving that row with nothing marked at all, and `nous
+    mange|ons` marked as though only three letters of it were the ending.  Read
+    beside `je parl|e` on the next card that is not an oddity, it is a
+    contradiction.  One character back gives `mang|e` … `mang|eons`, which is
+    the textbook analysis, and the cap is provably inert everywhere else:
+    it can only bite where one form is a prefix of another, and a paradigm in
+    which no person is spelled inside another person's form is untouched by it
+    (measured over all six decks -- 8 verbs move, every one of them `-ger`).
+    """
+    if not forms:
+        return 0
+    n = min(len(f) for f in forms)
+    i = 0
+    while i < n and all(f[i] == forms[0][i] for f in forms):
+        i += 1
+    return min(i, n - 1) if n else 0
+
+
+def mark_tail(text, n):
+    """The last `n` characters of `text` in bold red; the rest plain.
+
+    Marking a TAIL is what lets one mechanism serve every row: the subject
+    pronoun and any pronominal pronoun are composed onto the FRONT (and elision
+    only ever shortens the pronoun, never the verb), so the ending is always the
+    last `n` characters of whatever `finite` hands back, whatever stands before
+    it.  n == 0 is a form that does not differ from its neighbours and is left
+    alone rather than marked empty.
+    """
+    if n <= 0 or n > len(text):
+        return esc(text)
+    return (esc(text[:len(text) - n]) +
+            '<b class="uc-cj-e">' + esc(text[len(text) - n:]) + '</b>')
+
+
+# AN ESSENTIALLY PRONOMINAL VERB CARRIES ITS PRONOUN INSIDE ITS OWN FORMS, and
+# composing another one onto the front prints it twice (Aug 2026, found by
+# marking the endings -- the doubled word was there all along and the red run is
+# what made it visible).  `se souvenir` does not exist without a pronoun, so
+# kaikki conjugates it `me souviens`, `te souviens`, `se souvient`, and `finite`
+# then produced **"je me me souviens"** -- ungrammatical French, on the one panel
+# whose whole job is to show the reader how the verb is written.
+#
+# `examples.py` already strips the pronoun back off for its own indexing and
+# says so in its header; this is the same repair one file over, and it does more
+# than remove a word: the common prefix of `me souviens … nous souvenons` is
+# EMPTY, so every form was marked red end to end, where the bare forms share
+# `souv` and mark `souv|iens` / `souv|enons` as they should.
+#
+# Gated on `reflexive`, which is as narrow as the evidence: measured over all
+# seven decks exactly one card is affected, and a finite form of a plain verb is
+# one word, so there is nothing for this to bite on elsewhere.
+CARRIED_PRON = re.compile(r"^(?:me|m'|te|t'|se|s'|nous|vous)\s*", re.I)
+
+
 def conj_rows(rec, reflexive, tags, without):
-    """One tense, as (English person, written form) rows."""
-    rows = []
-    for subject, label, ptags, refl, _ in PERSONS:
+    """One tense, as (English person, written HTML) rows."""
+    forms = []
+    for _, _, ptags, _, _ in PERSONS:
         form = pick_form(rec, tags | ptags, without)
         if not form:
             return []
-        rows.append((label, finite(subject, refl, form, reflexive)))
+        if reflexive and ' ' in form:
+            form = CARRIED_PRON.sub('', form, count=1)
+        forms.append(form)
+    stem = common_prefix(forms)
+    rows = []
+    for (subject, label, _, refl, _), form in zip(PERSONS, forms):
+        rows.append((label, mark_tail(finite(subject, refl, form, reflexive),
+                                      len(form) - stem)))
     return rows
 
 
@@ -920,16 +1017,24 @@ def passe_compose(reflexive, part, aux):
     agreement is printed the way a textbook prints it -- `je suis allé(e)` -- so
     the bracket teaches the rule instead of hiding it; a verb taking `avoir`
     agrees with nothing here and gets no bracket.
+
+    WHAT CONJUGATES HERE IS THE AUXILIARY AND NOT THE PARTICIPLE, so that is
+    what is marked -- and because avoir and être are both suppletive the mark
+    covers the whole of it, which is the point of the tense: `je SUIS allé(e)`,
+    `nous SOMMES allé(e)s`, with the participle standing still beside it.
     """
     if not part:
         return []
+    auxes = AUX_PRESENT.get(aux, [''] * 6)
+    if not all(auxes):
+        return []
+    stem = common_prefix(auxes)
     rows = []
     for i, (subject, label, _, refl, _) in enumerate(PERSONS):
-        a = AUX_PRESENT.get(aux, [''] * 6)[i]
-        if not a:
-            return []
+        a = auxes[i]
         p = part + (('(e)s' if i >= 3 else '(e)') if aux == 'être' else '')
-        rows.append((label, finite(subject, refl, a, reflexive) + ' ' + p))
+        rows.append((label, mark_tail(finite(subject, refl, a, reflexive),
+                                      len(a) - stem) + ' ' + esc(p)))
     return rows
 
 
@@ -942,21 +1047,35 @@ def imperative_rows(rec, reflexive):
     want = [('you', {'second-person', 'singular'}, 'toi'),
             ('we', {'first-person', 'plural'}, 'nous'),
             ('you (pl.)', {'second-person', 'plural'}, 'vous')]
-    rows = []
+    got = []
     for label, tags, stressed in want:
         form = pick_form(rec, tags | {'imperative'}, without={'subjunctive'})
         if not form:
             continue
-        rows.append((label, form + '-' + stressed if reflexive else form))
-    return rows
+        # …AND THE SAME VERB CARRIES IT HERE TOO, hyphenated on the end, which
+        # is where an imperative's pronoun goes.  `se souvenir` was printing
+        # `souviens-toi-toi`; the pronoun is taken off and the composition below
+        # puts the right one back, so the two can never disagree.
+        if reflexive:
+            form = re.sub(r'-(?:moi|toi|nous|vous)$', '', form)
+        got.append((label, form, stressed))
+    # The stressed pronoun is composed onto the END here, so `mark_tail` cannot
+    # reach the verb through it -- the ending is marked on the form alone and
+    # the `-toi` appended after.
+    stem = common_prefix([f for _, f, _ in got])
+    return [(label, mark_tail(form, len(form) - stem) +
+             ('-' + esc(stressed) if reflexive else ''))
+            for label, form, stressed in got]
 
 
 def tense_block(head, rows):
+    """`rows` carry HTML: each builder has already escaped its own text and
+    marked what conjugates, so nothing is escaped a second time here."""
     if not rows:
         return ''
     return ('<div><div class="uc-cj-h">' + esc(head) + '</div>' +
             ''.join(f'<div class="uc-cj-r"><span class="uc-cj-p">{esc(p)}</span>'
-                    f'<span class="uc-cj-f">{esc(v)}</span></div>' for p, v in rows) +
+                    f'<span class="uc-cj-f">{v}</span></div>' for p, v in rows) +
             '</div>')
 
 
@@ -1076,6 +1195,71 @@ def head_of(part):
     return head if 2 <= len(head) <= MAX_HEAD else ''
 
 
+# A COLON MEANS TWO OPPOSITE THINGS AND NO RULE WRITTEN FROM TWELVE EXAMPLES
+# CAN TELL THEM APART (Aug 2026, found by reading every gloss in the seven
+# decks).  Wiktionary sometimes writes `<usage label>: <gloss>` and sometimes
+# `<gloss>: <definition>`, and the same colon serves both:
+#
+#     Sports game: away                      the TAIL is the meaning
+#     Exclamation of surprise …: crap!       the TAIL
+#     friction: the rubbing                  the HEAD
+#     A hardware store: a store where …      the HEAD
+#
+# `head_of` already carries a colon branch and it is gated on the part running
+# past MAX_LINE -- so it never sees any of these, a label being short.  Ungating
+# it was tried and is worse than useless: of the twelve it gets four right, five
+# wrong and leaves two shipping whole through the no-meaning fallback.  Length
+# does not separate them either (`Sports game: away` and `all the way: totally`
+# have identical head lengths and opposite answers), so the split is semantic and
+# a heuristic fitted to twelve strings is a heuristic nobody can trust.
+#
+# Twelve cards in 7,651 is the size at which this file's own answer is a
+# DECLARED TABLE -- `DROP`, `AUTHORED`, `FORCE_POS`, `PLURAL_ONLY` are all this
+# shape -- so each is read once and written down, and **any colon line NOT in the
+# table is REPORTED on the run**, since the day Wiktionary rewords one the entry
+# simply comes back and nothing else would say so.
+COLON_GLOSS = {
+    # the head is a usage label; the tail is the meaning
+    'Sports game: away': 'away',
+    'Exclamation of surprise or astonishment: crap!, dammit!, shucks! holy cow!':
+        'crap!, dammit!, holy cow!',
+    'attestation of truthfulness and frankness: to tell the truth, as a matter'
+    ' of fact': 'to tell the truth',
+    'also as form of address: dad, daddy': 'dad, daddy',
+    'Intensitive adverb : very': 'very',
+    # the head is the meaning; the tail is a definition of it
+    'friction: the rubbing': 'friction',
+    'Hardware: metal implements': 'hardware',
+    'contribution: levy or impost': 'contribution',
+    'A hardware store: a store where hardware is sold': 'a hardware store',
+    'legal, lawful, licit: in accordance with the law': 'legal, lawful, licit',
+    'wise: prudent, cautious, and judicious': 'wise',
+    # two translations the colon happens to separate
+    'all the way: totally': 'all the way',
+    # NEITHER side is a meaning.  `dernier` was carding "see: ce dernier" as its
+    # fourth sense -- a cross-reference to an entry this deck does not carry, so
+    # a reader is sent to look up something that is not there.  None drops the
+    # line; the card keeps its other three.
+    'see: ce dernier': None,
+}
+COLON_SEEN = set()
+COLON_NEW = set()
+
+
+def colon_fix(lines):
+    """Resolve the declared colon glosses and report any that is not declared."""
+    out = []
+    for line in lines:
+        if line in COLON_GLOSS:
+            COLON_SEEN.add(line)
+            line = COLON_GLOSS[line]
+        elif re.search(r'\S\s*:\s+\S', line):
+            COLON_NEW.add(line)
+        if line and line not in out:
+            out.append(line)
+    return out
+
+
 def meaning_lines(glosses, cap=4):
     out = []
     for g in glosses:
@@ -1101,7 +1285,10 @@ def meaning_lines(glosses, cap=4):
         # nothing survived the trim -- keep the first gloss whole rather than
         # ship a card with no meaning at all
         out = [g.strip() for g in glosses if g.strip()][:1]
-    return out[:cap]
+    # LAST, so that ONE insertion point covers both the ordinary path and the
+    # fallback above -- two of the twelve reach the card only through the
+    # fallback, and a fix applied earlier would miss exactly those.
+    return colon_fix(out)[:cap]
 
 
 def meanings_html(glosses):
@@ -1244,7 +1431,16 @@ PLURAL_ONLY = {'les', 'des', 'ces', 'mes', 'ils', 'elles', 'chaussettes',
                # C1's three, each repaired from a singular the list printed and
                # the dictionary has no record of: mumps, bones and talks are
                # plurals in French the way `les gens` is.
-               'oreillons', 'ossements', 'pourparlers'}
+               'oreillons', 'ossements', 'pourparlers',
+               # Two more, found by sweeping every card for an article
+               # disagreeing in number with its noun (Aug 2026): `le gants` and
+               # `le confins`.  Both pass the test `déchets` is here on -- a
+               # glove is worn as a pair, like the socks and sandals above, and
+               # `aux confins de` is the only way the second is ever said.  The
+               # slips that sweep also turned up are repaired instead, in
+               # `REPAIRS_BY_LEVEL`; the difference is whether the plural is how
+               # the word is normally met.
+               'gants', 'confins'}
 
 cards, stats, forced_missing = [], Counter(), []
 for i, e in enumerate(entries, 1):
@@ -1351,6 +1547,15 @@ for i, e in enumerate(entries, 1):
 if forced_missing:
     print('  FORCE_POS names a class the dump has no record for, so the meaning must'
           ' come from AUTHORED:', ', '.join(forced_missing))
+if COLON_NEW:
+    print('  a gloss carries a colon and COLON_GLOSS does not declare it -- read it'
+          ' and say which side is the meaning:\n    ' +
+          '\n    '.join(sorted(COLON_NEW)))
+# A ROW MATCHING NOTHING IS STALE -- but that cannot be judged HERE, because a
+# level legitimately carries only some of the twelve and this print would then
+# fire on every run of every level, which is a warning nobody reads.  The
+# question is whether a row matches nothing in ANY deck, and the only place that
+# view exists is `combine.py`, which reads all seven; the check lives there.
 blank = [c['question'] for c in cards if not c['answerText'].strip()]
 if blank:
     raise SystemExit('cards with no meaning at all: ' + ' | '.join(blank) +

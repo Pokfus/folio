@@ -203,6 +203,24 @@ const ok = (c, m, extra) => {
         art: art ? art.textContent.trim() : "", artColor: art ? getComputedStyle(art).color : "",
         conj: [...document.querySelectorAll(".uc-cj-h")].map((e) => e.textContent.trim()),
         conjRows: [...document.querySelectorAll(".uc-cj-r")].map((e) => e.textContent.trim()),
+        // WHAT CONJUGATES, AS THE PAGE ACTUALLY PAINTS IT.  Each form cell is read
+        // as {whole, marked, weight, colour} so the assertions below can ask three
+        // separate questions of it: that something is marked at all, that it is not
+        // the subject pronoun, and that it is rendered bold and in the tense
+        // heading's own red rather than merely wrapped in a tag.
+        conjForms: [...document.querySelectorAll(".uc-cj-f")].map((e) => {
+          const b = e.querySelector(".uc-cj-e");
+          return {
+            whole: e.textContent.trim(),
+            marked: b ? b.textContent : "",
+            weight: b ? getComputedStyle(b).fontWeight : "",
+            colour: b ? getComputedStyle(b).color : "",
+          };
+        }),
+        headColour: (() => {
+          const h = document.querySelector(".uc-cj-h");
+          return h ? getComputedStyle(h).color : "";
+        })(),
         nonfinite: [...document.querySelectorAll(".uc-cj-nfi")].map((e) => e.textContent.trim()),
         // the agreement table as a grid: one row of cells per number
         decl: [...document.querySelectorAll(".uc-dtr")].map((r) =>
@@ -298,6 +316,41 @@ const ok = (c, m, extra) => {
     // The elision is composed, so it is asserted: `j'ai`, `j'aime` — never `je ai`.
     ok(!seen.verb.conjRows.some((r) => /\bje [aeiouéèêh]/i.test(r)),
        "and elides je before a vowel", seen.verb.conjRows.slice(0, 3).join(" | "));
+
+    // ------------------------------------------------ what conjugates, in red
+    // FOUR SEPARATE QUESTIONS, because three of them pass on a rule that has
+    // stopped working.  "Something is marked" passes on a table that marks the
+    // WHOLE of every form; "the pronoun is never marked" passes on a table that
+    // marks nothing at all; and both pass on a `<b>` the stylesheet does not
+    // paint, which is what a renamed class or a dropped rule looks like — the
+    // reader would see a bold ending in the body ink and nothing would throw.
+    const F = seen.verb.conjForms;
+    ok(F.length > 0 && F.every((f) => f.marked),
+       "every form in the paradigm marks what conjugates",
+       (F.find((f) => !f.marked) || {}).whole);
+    ok(F.every((f) => !/^(je |j'|tu |il|nous |vous |ils)/.test(f.marked)),
+       "and the mark never swallows the subject pronoun",
+       (F.find((f) => /^(je |j'|tu |il|nous |vous |ils)/.test(f.marked)) || {}).whole);
+    ok(F.some((f) => f.marked.length < f.whole.length),
+       "and it is a PART of the form, not the whole row",
+       F.map((f) => f.whole + " -> " + f.marked).slice(0, 3).join(" | "));
+    const m0 = F[0] || {};
+    ok(parseInt(m0.weight, 10) >= 700, "it is bold", m0.weight);
+    ok(m0.colour && m0.colour === seen.verb.headColour,
+       "and in the same red the tense heading uses",
+       m0.colour + " vs " + seen.verb.headColour);
+
+    // AND A PRONOMINAL VERB DOES NOT PRINT ITS PRONOUN TWICE.  `se souvenir`
+    // carries the pronoun inside its own dictionary forms, so the composition
+    // produced "je me me souviens" — ungrammatical French on the one panel whose
+    // job is to show how the verb is written, and shipped for months because
+    // nothing looked at it.  Asserted over EVERY verb the walk reached, not just
+    // the pronominal one, since a walk of twenty cards may not reach one.
+    const dbl = [];
+    for (const c of Object.values(seen)) for (const f of (c && c.conjForms) || [])
+      if (/^(?:je|j'|tu|il\/elle|nous|vous|ils\/elles)\s*(?:me|m'|te|t'|se|s'|nous|vous)\s*(?:me|m'|te|t'|se|s'|nous|vous)\b/.test(f.whole)
+          || /-(moi|toi|nous|vous)-(moi|toi|nous|vous)$/.test(f.whole)) dbl.push(f.whole);
+    ok(dbl.length === 0, "no form prints its pronominal pronoun twice", dbl[0]);
   } else ok(false, "the walk reached a verb");
 
   // --------------------------------------- a verb whose auxiliary is être

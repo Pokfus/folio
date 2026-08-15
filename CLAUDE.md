@@ -3700,7 +3700,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
   **Goethe German set** by `.claude/goethe/`, and the **French set** — DELF A1–B2, DALF C1–C2 and a
   seventh of **common phrases and expressions** (402), seven files plus a **combined `French-A1-C2`**
-  (7,651 notes / 15,302 cards, a subdeck per level and one of idiom) — by
+  (7,648 notes / 15,296 cards, a subdeck per level and one of idiom) — by
   `.claude/delf/` — see their own bullets below. **A COMBINED FILE IS GITIGNORED**, French and Spanish
   alike: it is an artefact of the levels it combines rather than another deck, so committing it
   duplicates every megabyte the repo already carries for them, and its own `combine.py` regenerates it
@@ -4595,14 +4595,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
-- `.claude/delf/` — the generator behind the French decks, **all six levels**:
-  `decks/DELF-A1-French.folio-deck.json` (**446 notes / 892 cards**, 0.75 MB),
-  `decks/DELF-A2-French.folio-deck.json` (**589 / 1,178**, 1.28 MB),
-  `decks/DELF-B1-French.folio-deck.json` (**896 / 1,792**, 2.18 MB),
-  `decks/DELF-B2-French.folio-deck.json` (**1,654 / 3,308**, 3.67 MB),
-  `decks/DALF-C1-French.folio-deck.json` (**3,233 / 6,466**, 5.62 MB) and
-  `decks/DALF-C2-French.folio-deck.json` (**431 / 862**, 0.52 MB), community decks rather than site
-  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2|c1|c2] [--no-fetch]`. Six stages, run by
+- `.claude/delf/` — the generator behind the French decks, **all six levels plus the expressions**:
+  `decks/DELF-A1-French.folio-deck.json` (**446 notes / 892 cards**, 0.78 MB),
+  `decks/DELF-A2-French.folio-deck.json` (**589 / 1,178**, 1.37 MB),
+  `decks/DELF-B1-French.folio-deck.json` (**895 / 1,790**, 2.34 MB),
+  `decks/DELF-B2-French.folio-deck.json` (**1,654 / 3,308**, 3.96 MB),
+  `decks/DALF-C1-French.folio-deck.json` (**3,231 / 6,462**, 5.91 MB) and
+  `decks/DALF-C2-French.folio-deck.json` (**431 / 862**, 0.53 MB), community decks rather than site
+  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2|c1|c2|phrases] [--no-fetch]`. Six stages, run by
   `run.py`,
   caching its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
   `.claude/goethe/` and unlike every other helper here, and for the same reason: a further level is a
@@ -5159,6 +5159,78 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and **no paradigm**, the latter checked against the description promising there is none, since
     those fail in opposite directions. It reads the deck's name, its refusals and its written-in
     meanings out of `delf_level.py` and `phraselist.py` rather than carrying copies.
+  · **WHAT CONJUGATES IS SET IN BOLD RED, AND WHICH CHARACTERS THOSE ARE IS MEASURED**
+    (`common_prefix` / `mark_tail` / `.uc-cj-e`; Aug 2026, on request — the expressions deck
+    deliberately keeps no conjugation at all, see the bullet above). The obvious implementation is a
+    table of `-e -es -e -ons -ez -ent` per group and it is wrong twice over: it says nothing about
+    the second and third groups, and it is silent about the verbs a learner most needs warning of,
+    whose STEM moves as well. What is actually being asked is *which characters differ within this
+    tense*, and that is arithmetic — **the longest prefix all six forms share is the part that does
+    not change**. It lands on the textbook analysis wherever there is one (`parl|e … parl|ons`,
+    `parler|ai … parler|ont`) and tells the truth where there is not: `être` shares no prefix across
+    suis/es/est/sommes/êtes/sont, so the whole of every form is marked, which is exactly the fact
+    about `être` a beginner needs. Measured **per tense**, not over the verb — a stem constant
+    through the présent may still move in the futur (`je b|ois` against `nous b|uvons`, `j'ir|ai`).
+    Five things about it.
+    **THE PREFIX IS CAPPED SO EVERY FORM KEEPS AT LEAST ONE MARKED CHARACTER, and that is a repair
+    rather than a tidying rule.** The `-ger` verbs soften their stem before `-ons`, so `mange` is a
+    PREFIX of `mangeons` and the raw common prefix of the présent came out as the whole of `je
+    mange` — that row marked nothing at all while `nous mange|ons` marked three letters, which read
+    beside `je parl|e` on the next card is a contradiction rather than an oddity. One character back
+    gives `mang|e … mang|eons`, the textbook analysis, and the cap can only bite where one form is
+    spelled inside another: measured over all six decks, **8 verbs move and every one is `-ger`**.
+    **THE PASSÉ COMPOSÉ MARKS THE AUXILIARY AND NOT THE PARTICIPLE**, which is the tense's whole
+    point — `je SUIS allé(e)`, `nous SOMMES allé(e)s` — and because avoir and être are suppletive the
+    mark covers all of it.
+    **ONE MECHANISM SERVES EVERY ROW BECAUSE THE MARK IS A TAIL**: the subject and any pronominal
+    pronoun are composed onto the FRONT and elision only ever shortens the pronoun, so the ending is
+    always the last *n* characters of whatever `finite` returns, whatever stands before it. The
+    imperative is the one exception — its pronoun is composed onto the END, hyphenated — so there the
+    form is marked before `-toi` is appended.
+    **THE COLOUR IS `var(--zh, #C8453C)`, the one the tense heading already uses**, so the panel gains
+    no new colour; keep the hex fallback, a deck file being readable outside the site.
+    **AND IT EXPOSED A SHIPPED FAULT NOTHING ELSE HAD SEEN**: `se souvenir` was rendering **"je me me
+    souviens"** and **"souviens-toi-toi"**. An essentially pronominal verb carries its pronoun inside
+    its own dictionary forms (`me souviens`, `nous souvenons`) — which `examples.py` already records
+    and strips for its own indexing — and `finite` was composing a second one onto the front. The
+    doubled word had been on the card for months; the red run is what made it legible, and the common
+    prefix of `me souviens … nous souvenons` being EMPTY is what made it impossible to ignore.
+    Stripped in `conj_rows` and `imperative_rows`, gated on `reflexive`, which is as narrow as the
+    evidence: **one card in 7,648**.
+  · **THE GLOSS SCAN, AND WHY A COLON IS A DECLARED TABLE RATHER THAN A RULE** (`COLON_GLOSS` /
+    `colon_fix` / `colon_sweep`; Aug 2026, on request to scan the deck for mistakes — and the scan ran
+    over all seven, since the pipeline is shared). Wiktionary uses a colon for two opposite things:
+    `<usage label>: <gloss>` (`Sports game: away`, `Exclamation of surprise…: crap!`) and
+    `<gloss>: <definition>` (`friction: the rubbing`, `A hardware store: a store where…`). `head_of`
+    already carries a colon branch and it is **gated on the part running past `MAX_LINE`**, so it
+    never sees any of these, a label being short. **Ungating it was tried and is worse than useless**:
+    of the twelve it gets four right, five wrong, and leaves two shipping whole through the no-meaning
+    fallback. Length does not separate them either — `Sports game: away` and `all the way: totally`
+    have identical head lengths and opposite answers. So each was read once and written down, which is
+    this file's own answer at this size, and **any colon line NOT in the table is REPORTED on the
+    run**. A thirteenth row DROPS rather than replaces: `dernier` was carding "see: ce dernier" as a
+    fourth meaning — a cross-reference to an entry the deck has not got. **The staleness check lives in
+    `combine.py`, not in `build_deck.py`**: a level carries only some of the thirteen, so a per-level
+    check fires every run and becomes a warning nobody reads, where the combined build has all seven
+    decks in hand and can see both failures at once — a KEY still on a card (the fix did not fire) and
+    a replacement on no card (the source has reworded it).
+  · **FOUR MORE LIST DEFECTS THE SAME SCAN TURNED UP, and each was found by a sweep rather than by
+    eye.** **A PLURAL PRINTED AS THE HEADWORD RENDERS AS UNGRAMMATICAL FRENCH** — sweeping every card
+    for an article disagreeing in number with its noun found `le vœux`, `l'achats`, `le gants`,
+    `le degrés` and `le confins`. They divide on the test `déchets` is already here on: a wish and a
+    purchase are made one at a time, so those are slips and are repaired; gloves come in pairs and
+    `aux confins de` is the only way the last is ever said, so those go to `PLURAL_ONLY`. **A LIGATURE
+    TYPED AS `oe` SURVIVES THE NO-RECORD TEST WHERE WIKTIONARY DOCUMENTS THE `oe` FORM** — which is
+    why `manoeuvre` and `écoeurant` were caught and `voeu` was not: it HAS a record, the
+    pointer-follower resolves it to the real word's gloss, and C1 shipped `le vœu` and `le voeu` with
+    identical meanings. Normalise the ligature and read the collisions; the no-record sweep cannot see
+    it. **A PLURAL ALSO HIDES A CROSS-LEVEL DUPLICATE**: `words_below()` excludes by EXACT spelling,
+    so B1's `degrés` slipped past A2's `degré` — repaired, B1 ships 895 rather than 896, and there is
+    no back-fill, because this pipeline teaches the page rather than selecting a quota from it. **AND
+    A LEADING RECORD MAY BE A VERB THE LANGUAGE DOES NOT USE ALONE**: Wiktionary leads `souvenir` with
+    the verb, so B1 was teaching a bare `souvenir` nobody says AND teaching A2's `se souvenir` a
+    second time under another spelling; `FORCE_POS` makes it the noun and the two cards are two
+    different words again.
   **Re-running it must reproduce the shipped deck byte for byte, ON EVERY LEVEL AND ON THE EXPRESSIONS
   DECK**; that is the check to
   make after any edit, since every fault above is silent — and the stages are SHARED, so a change made for

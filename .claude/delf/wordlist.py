@@ -124,6 +124,17 @@ REPAIRS_BY_LEVEL = {
     # what those cards were already doing for eighty other words.
     'jolie':   ('joli',   'the masculine is on the list and prints it as its feminine'),
     'voisine': ('voisin', 'the masculine is on the list and prints it as its feminine'),
+    # A FOURTH SHAPE, AND THE ONLY ONE THE BUILT CARD SHOWS AS UNGRAMMATICAL
+    # FRENCH (Aug 2026, found by sweeping every card for an article and a noun
+    # disagreeing in number).  A plural printed as the headword renders under
+    # the singular article the card composes: `le vœux`, `l'achats`.  It is B1's
+    # `aspects`/`profondes` fault, and it is separated from A1's `chaussettes`
+    # by the test that entry states -- is the plural how the word is normally
+    # met?  A wish is made one at a time and a purchase is made one at a time,
+    # so these are slips; socks and gloves come in pairs and are in
+    # `PLURAL_ONLY` instead.
+    'vœux':    ('vœu',    'a plural printed as the headword; the card came out "le vœux"'),
+    'achats':  ('achat',  'a plural printed as the headword; the card came out "l\'achats"'),
     # WHAT LOOKS LIKE A SIXTH ROW AND IS NOT, in two different ways -- both
     # found by stripping the accents off every word and reading each collision
     # rather than by assuming the shape of one was the shape of all.
@@ -145,6 +156,14 @@ REPAIRS_BY_LEVEL = {
     'médias':     ('média',     'the list carries the singular too'),
     'sentiments': ('sentiment', 'the list carries the singular too'),
     'soldes':     ('solde',     'the list carries the singular too'),
+    # A PLURAL PRINTED AS THE HEADWORD WHOSE SINGULAR IS ON A LOWER PAGE, which
+    # is A2's `vœux` shape with a second consequence: rendered "le degrés", and
+    # teaching a word A2 already teaches under another spelling (`words_below()`
+    # excludes by EXACT spelling, so the plural slipped past it).  Repaired,
+    # after which that exclusion does see it and B1 ships 895 rather than 896 --
+    # there is no back-fill here and there should not be, since this pipeline
+    # teaches the page rather than selecting a quota from it.
+    'degrés':     ('degré',     'a plural printed as the headword, and A2 carries the singular'),
     # A THIRD KIND, AND THE ONE THE OTHER TWO SWEEPS CANNOT SEE: an entry printed
     # in an INFLECTED FORM whose base word is not on the list at all.  Both come
     # out as cards -- `l'aspects` with `un aspects` beside it, ungrammatical
@@ -292,6 +311,17 @@ REPAIRS_BY_LEVEL = {
     #   Neither has any record at all until it is repaired.
     'manoeuvre':    ('manœuvre',     'oe for the ligature œ, which French writes as one letter'),
     'écoeurant':    ('écœurant',     'oe for the ligature œ, which French writes as one letter'),
+    'oeuvrer':      ('œuvrer',       'oe for the ligature œ, which French writes as one letter'),
+    #   AND THE ONE THE NO-RECORD TEST CANNOT SEE, which is why this row was
+    #   two builds late (Aug 2026).  The three above are caught because the `oe`
+    #   spelling has NO Wiktionary entry -- but where Wiktionary carries the
+    #   `oe` form as a documented alternative spelling it has a record, the
+    #   pointer-follower resolves it to the real word's own gloss, and the level
+    #   ships the word TWICE with identical meanings.  `voeu` and `vœu` are both
+    #   on this page and both carded, "vow, wish" each.  What finds it is
+    #   normalising the ligature and reading the collisions, not the no-record
+    #   sweep; run that on any new list as well.
+    'voeu':         ('vœu',          'oe for the ligature œ, and the list carries vœu too'),
     # · THE ENGLISH SPELLING OF A FRENCH WORD, A1's `exercise` shape.
     'zodiac':       ('zodiaque',     'the English spelling; the French word is zodiaque'),
     'jihad':        ('djihad',       'the English transliteration; Wiktionary files it under djihad'),
