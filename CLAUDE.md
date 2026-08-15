@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-029` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-030` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 29 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 30 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10515,6 +10515,34 @@ pard", and Xiao Yuncong's plate of 1645 for that very poem shows a figure in lea
 leopard, with the poem itself printed on the facing page. **Read a card's picture against its prose in both
 directions**: where they disagree one of them is wrong, and where they agree the picture is doing the work
 a picture is for.
+  **`cnh-030` HAS THREE INCOMPATIBLE ORIGINS IN THE SOURCES AND GIVES ALL THREE** (Aug 2026). Doré and Werner
+put the god's entry into the state cult at the Song emperor Zhenzong's fraud of 1012; Mayers dates the
+worship to 1116 under Huizong and the Taoist Lin Lingsu; and Giles's dictionary makes him a magician named
+Chang who raced another to heaven on dragons and won. A popular god has no single origin, and a card that
+picks one is tidier and less true — cnh-014's rule about a name borne by several figures, met one level up,
+on a single figure with several beginnings.
+**THE OFFICIAL HISTORY'S OWN WORDING IS WHAT MAKES THE 1012 CLAIM SAFE, AND THE SUMMARY AROUND IT IS NOT.**
+Werner writes that the god "was born of a fraud, and came ready-made from the brain of an emperor", which is
+more than the evidence carries — the title is older than Zhenzong. What Doré quotes from the *Zizhi tongjian
+gangmu* is narrower and checkable: at that date "the name of Yuh-hwang figures for the first time on the list
+of divinities to be worshipped". The card says the second and not the first. **Where a source's summary
+reaches further than the document it quotes, cite the document.**
+**AND THE STYLE CHECKER'S AMBIGUOUS-NAME LIST CANNOT BE SILENCED, WHICH IS HOW IT FOUND A REAL ERROR.**
+`check-style` reports every un-italicised occurrence of nine person-or-book names — Laozi, Mencius, Zhuangzi,
+Liezi and the rest — as "fix by hand", and there is no annotation that records a decision, so a card
+legitimately naming the PERSON would leave a standing finding for ever, and a checker carrying two permanent
+findings is one nobody reads. Rather than accept that, the draft went back to the sources, and **they do not
+say Laozi at all**: Werner writes "Lao Chun" and Doré "Lao-kiin", both 老君, **Lord Lao** — the deified
+Laozi, not the philosopher. The paraphrase had gone a step past the record and the flag is what sent me
+back. **Treat a name on that list as a prompt to check which of the two you mean AND whether your source
+says it.** Two tooling notes go with the fix: `fix-field.js` reaches `abstract` and cannot reach the
+`questions` array, so one word in both takes two tools, and `add-questions.js` needs `--partial` while the
+site is English-only, since it still asks for nine translated pools.
+**WHEN COMMONS RATE-LIMITS, VERIFY A `src` BY SHA1 RATHER THAN BY A 200.** `upload.wikimedia.org` answered
+429 to every retry for the best part of an hour across these three cards, which makes the standing
+curl-every-URL check impossible — and the API's `imageinfo` will still hand back the file's `sha1` and
+`size`. Comparing those against the copy already downloaded proves the URL names the file that was looked
+at, which is what the check is actually for; a 200 only proves the CDN is answering today.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
