@@ -5337,6 +5337,44 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   language is added (at 28,252 rows / 66 MB they were 514 ms, 13.7 s, 31.1 s and 636 ms). **Time the boot
   with no settling wait after it**, or a fixed `waitForTimeout` lands in the figure and a fast boot reads
   as a slow one (it did: 2.1 s, of which 1.5 was mine). Not part of the site.
+- `.claude/split-decks.js` — **the inverse of that one: an all-languages file back into a deck per
+  language** (`node .claude/split-decks.js <combined.folio-deck.json> [outDir] [--drop=Lang]
+  [--add=Lang/Sub=file] [--add=Lang=file]`; Aug 2026, on request). Standalone Node, zero deps, not part of
+  the site. Five decks out of the 94 MB file: **French 7,648 notes / 16.7 MB, German 13,244 / 43.5,
+  Italian 11,578 / 24.7, Mandarin 11,833 / 23.9, Spanish 16,782 / 56.5**, each keeping its own subdeck
+  tree below the language (HSK 3.0's nine levels, the Spanish levels' two directions). **Gitignored**, on
+  the artefact rule above.
+  · **ITS REASON IS NOT THE ONE IT WAS WRITTEN WITH, and the correction is the point.** It was built
+    because at 94 MB and 39,830 notes the combined file was over both caps as they then stood, so the one
+    file carrying everything was the one file no device could open. `combine-decks.py` then raised them to
+    44,000 and 128 MB for a combined file of its own — **so that argument is gone**, and what remains is
+    the reason the reader actually gave and the caps never answered: a language per deck, so the languages
+    you study are the ones you add. **The SIZE argument survives it**: app.js's own note beside
+    `UDECK_MAX_BYTES` says a cap is a guard against a hostile file rather than a promise that anything
+    under it imports on the device the reader studies on, and five files of 17–57 MB are a far safer thing
+    to hand a phone than one of 94.
+  · **THE CAPS ARE READ OUT OF app.js** (`appConst`), never restated — combine-decks.py's rule, and this
+    is what it is for: both figures were written into this file as literals, and the raise above left them
+    silently wrong within the hour. A renamed constant is FATAL rather than assumed.
+  · **CARD IDS ARE RENUMBERED PER DECK**, the same lesson one level over: an import only mints fresh ids
+    when the DECK id already exists, so a German deck carrying the `u_goethea1_…` ids of the file it was
+    built from collides with an installed Goethe A1 in the shared `UCARDS` store.
+  · **`--add` TAKES TWO FORMS and the difference is whether the added deck is already divided**:
+    `Lang/Sub=file` files a whole deck as ONE subdeck (the seven German level files, each a flat list),
+    `Lang=file` keeps the added deck's OWN tree (the Spanish DELE A1–C2 file, whose fourteen subdecks are
+    seven levels × two directions). Splitting that one on its own first segment would have made seven
+    decks called A1, A2 … out of one language.
+  · **GERMAN AND SPANISH ARE NOT PURE SPLITS**, and it is why these five are the one set of artefacts here
+    that the repo could NOT reproduce: the combined file predates both languages' later levels — German A1
+    alone, Spanish only to B2 — so each is rebuilt with `--drop` / `--add` from the reader's own files,
+    which are not in `decks/`.
+  · **SPANISH IS THE ONE TO WATCH.** At 16,782 notes and 56.5 MB it is 38% of the note cap and 44% of the
+    byte cap, which is comfortable — but it is also the only one of the five that grew by a whole exam
+    ladder in a day, and the next such growth is what would need it split by band rather than by language.
+  A rebuild reproduces every deck **byte for byte** (`updatedAt` comes from the files that fed each
+  language, not the clock), which is the standing check here and the only way to tell a deliberate change
+  from a re-run. Nothing is written unchecked: each file is re-parsed, measured against both caps, its ids
+  checked unique and its notes counted back against the source.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   **A BATCH TOOL RE-SERIALIZES THE WHOLE CARD, NEVER A LIST OF FIELDS** (Aug 2026, after this one stripped
   every card's rating). It kept a private copy of `serializeCardData`'s field list and emitted only what
