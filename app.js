@@ -6281,19 +6281,22 @@
   /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
      number is not a view about how large a deck may usefully be — it is a guard against a hostile or
      runaway file — so it is set from the largest legitimate deck anyone has brought. That was the whole of
-     HSK 3.0 in one file (10,896 rows, being the standard's 11,000 less the words it lists again at a
-     higher level); it is now all six DELE levels and a deck of phrases in one, at 16,782, and 20,000
-     leaves that the same sort of headroom 12,000 left HSK.
+     HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782); it is now EVERY vocabulary
+     deck on the shelf in one, across five languages: 39,830 rows, and 44,000 leaves it the sort of headroom 12,000 left HSK.
      **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, and since reverse cards that is a real
-     distinction — but it cuts BOTH ways, and the two largest decks sit on opposite sides of it, which is
-     worth knowing before reading anything into the figure. HSK 3.0 asks a word in both directions from ONE
-     row, by giving its card type two templates, so its 10,896 rows are 21,792 cards. A deck whose two
-     directions are separately addable SUBDECKS cannot do that, a subdeck being a property of a row, so
-     there a word is two rows and 16,782 rows is 16,782 cards and only 8,400 words. The cap stays on the
-     thing the FILE holds rather than on the thing the reader studies, since what it guards against is the
-     cost of parsing somebody else's file. An over-size one is REFUSED with both figures rather than
-     silently trimmed (see uDeckImportText), so raising this cannot hide anything. */
-  const UDECK_MAX_CARDS = 20000, UDECK_MAX_TERMS = 400;
+     distinction — but it cuts BOTH ways, and the two largest single-language decks sit on opposite sides
+     of it, which is worth knowing before reading anything into the figure. HSK 3.0 asks a word in both
+     directions from ONE row, by giving its card type two templates, so its 10,896 rows are 21,792 cards.
+     A deck whose two directions are separately addable SUBDECKS cannot do that, a subdeck being a
+     property of a row, so there a word is two rows and 16,782 rows is 16,782 cards and only 8,400 words.
+     The cap stays on the thing the FILE holds rather than on the thing the reader studies, since what it
+     guards against is the cost of parsing somebody else's file. An over-size one is REFUSED with both
+     figures rather than silently trimmed (see uDeckImportText), so raising this cannot hide anything.
+     RAISING IT IS NOT FREE AND THE COST WAS MEASURED RATHER THAN ARGUED ABOUT, because a file this size
+     is read into a string, parsed into an object and then written one record per note inside a single
+     IndexedDB transaction — see the import timings in CLAUDE.md's community-decks Persistence bullet
+     before raising it again. */
+  const UDECK_MAX_CARDS = 44000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -7219,20 +7222,25 @@
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
      the whole file is a string and then an object, so something has to stop a 500 MB file before that.
-     It is derived from the card cap rather than picked: at the heaviest row anyone has shipped,
-     UDECK_MAX_CARDS rows must still be under it, or the byte cap silently turns away a file the card cap
-     allows. **THE PER-ROW FIGURE IS MEASURED, AND THE OLD ONE WAS STALE**: this said "~2 KB a note,
-     measured over the HSK decks, whose notes are the largest here", and the HSK rows are in fact the
-     LIGHTEST at 1.8–2.2 KB. Measured across all fourteen shipped decks, a DELE row runs 2.9–3.8 KB,
-     because it carries a full conjugation table. So the design figure is 4 KB, and 20,000 × 4 KB is the
-     80 MB below. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
-     600 KB of; a deck refused here says nothing about how to split it, so the message gives both
-     figures rather than "too large to be a deck".
+     **THE PER-ROW FIGURE IS MEASURED, AND HAS BEEN STALE TWICE**: it once said "~2 KB a note, measured
+     over the HSK decks, whose notes are the largest here" when the HSK rows are in fact the LIGHTEST, and
+     the 4 KB that replaced it was overtaken within the day by the bolding of the conjugation tables.
+     Measured over all 23 shipped decks: 1.08 KB a row at the lightest (Italian phrases, no paradigm) and
+     4.31 KB at the heaviest (DELE B1, a full one), with the all-languages file averaging 2.42.
+     **THE STRICT DERIVATION IS THEREFORE ABANDONED, AND SAYING SO IS THE POINT.** It used to be "at the
+     heaviest row anyone has shipped, UDECK_MAX_CARDS rows must still be under it, or the byte cap turns
+     away a file the card cap allows", which at 44,000 rows now means 185 MB — a byte cap that guards
+     nothing, on the ground that a file of 44,000 uniformly heaviest rows might one day exist. What is set
+     instead is the largest real file plus headroom, and the tension is REAL rather than papered over: a
+     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. That is tolerable
+     only because it is not silent — uDeckImportFile names the size AND the limit and says to split it —
+     which is what the 8 MB cap it replaced did not do, having quietly come within 600 KB of refusing the
+     HSK 3.0 level 6 deck for no reason a reader could find.
      **THE HONEST COST OF RAISING IT**: a file this size is read into a string and then JSON.parse'd, so a
      phone briefly holds several times the file in JS heap, and on a low-end device a deck near this cap
      may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
      not a promise that anything under it will import on any device. */
-  const UDECK_MAX_BYTES = 80 * 1024 * 1024;
+  const UDECK_MAX_BYTES = 128 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
