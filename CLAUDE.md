@@ -4416,10 +4416,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   is made, the two have never been compared. Not part of the site.
 - `.claude/goethe/` — the generator behind the German decks: `decks/Goethe-A1-German.folio-deck.json`
   (**785 notes / 1,570 cards**), an **A2** built the same way (**715 / 1,430**), a **B1** (**1,865 /
-  3,730**), a **C1** (**3,000 / 6,000**) and a **C2** (**3,000 / 6,000**), the last four DELIBERATELY NOT
-  COMMITTED — see the last sub-bullet.
-  `python3 .claude/goethe/run.py [--level a1|a2|b1|c1|c2] [--no-fetch]`. Seven stages, caching its corpora
-  and the Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.5 GB, gitignored). PYTHON, like
+  3,730**), a **B2**, **C1** and **C2** (**3,000 / 6,000** apiece) and a **PHRASES & EXPRESSIONS** deck
+  (**980 / 1,960**), all but A1 DELIBERATELY NOT COMMITTED — see the last sub-bullet — plus
+  **`combine.py`**, which puts all seven into one importable file of **13,345 notes / 26,690 cards,
+  41.3 MB** as seven subdecks.
+  `python3 .claude/goethe/run.py [--level a1|a2|b1|b2|c1|c2|phrases] [--no-fetch]`. Seven stages, caching
+  its corpora and the Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.5 GB, gitignored). PYTHON, like
   `.claude/dele/` and unlike every other helper here, and for the same reason: a further level is a re-run
   against the next Wortliste rather than a rebuild. **ONE LEVEL PER RUN** (`goethe_level` reads the level
   once, at import), and a level is taught on top of the ones below it, read out of the SHIPPED deck files
@@ -4554,7 +4556,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     — which is where the bolding fault and the `bitte` sentences were actually found. Two things it has to
     keep doing: **grade EASY** (a new card graded Good requeues as a learning step and the walk stands
     still) and **raise the day's allowance**, since five new cards is five function words and no noun, verb
-    or adjective is ever reached. It takes the level as its argument (`node check-goethe.js b1`).
+    or adjective is ever reached. It takes the deck as its argument (`node check-goethe.js b1`), and
+    **`combined` is one of them** — the combined file is checked as an eighth deck rather than by a checker
+    of its own, which is that file's own rule and is worth most there: it is the artefact a reader actually
+    imports, it is built by concatenating seven files nothing then re-reads, and every way that can go wrong
+    is silent. Two of its assertions are the ones to keep. **It compares every note against the deck it came
+    from, field for field**, allowing only the three things the combiner rewrites (`id`, `num`, `sub`) — so a
+    field dropped, a type taken from the wrong level or a level concatenated twice fails here rather than
+    shipping as a deck that imports and studies and looks entirely ordinary. And **the subdecks are read off
+    the ENTRY ID rather than the row's markup** and compared as a list in order, since a mangled `sub` is not
+    an error but a NEW subdeck — the Mandarin deck once drew a phantom eighth level holding one word, which
+    no count of notes or of cards can see. Mind that a DIRECTION row carries `data-uaddsub` too, its id
+    ending `#<n>`, so a bare sweep returns 21 rows for 7 subdecks and the suffix is what filters.
+    **THE COMPOSED PARADIGMS ARE DELIBERATELY NOT ASSERTED ON THE COMBINED FILE, and the reason generalises**:
+    `ich` is its very first note and the definite article its seventh, and the walk still never reaches them
+    — a single deck is dealt in its own frequency order, where the combined file is added alongside its seven
+    subdecks, so the pooled review draws across eight entries and seeded-shuffles what it draws. A hundred
+    and fifty cards of 26,690 reach note 1 by luck or not at all. **An assertion that rests on "it comes up
+    early" is an assertion about the QUEUE, and the queue changes when the deck is added differently**; the
+    note-for-note comparison above covers the same ground for all 13,345.
   **THE THIRD LEVEL IS WHERE THE LIST'S OWN TYPESETTING BECAME THE WHOLE JOB.** B1 is 2,529 headwords
   against A2's 1,300, set in a narrower column with two or three numbered example sentences under each, so
   it wraps constantly and in every direction — and a wrapped line read as a headword is a card for a word
@@ -4603,7 +4623,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Swiss words the list gives entries of their own (`der Führerausweis`, `die e-card`, `der Zivilstand`) —
     and each is written into `AUTHORED` with its country where the country is the point. `build_deck` still
     REFUSES a card with no meaning, which is what keeps that list honest.
-  **THE LAST TWO LEVELS HAVE NO WORD LIST TO TEACH, AND THAT IS THE EXAM BOARD'S POSITION RATHER THAN A
+  **THE TOP THREE LEVELS HAVE NO WORD LIST TO TEACH, AND THAT IS THE EXAM BOARD'S POSITION RATHER THAN A
   GAP** (`corpus_wordlist.py`, `TARGET` 3,000 apiece; Aug 2026, on request). The published Wortlisten STOP
   AT B1. Checked
   against the brochures rather than inferred from a 404: the Goethe-Institut's own C1
@@ -4671,25 +4691,66 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     while the corpus that selected it means deployment, use and commitment — senses three, four and six. So
     C1 reads five senses and prints at most two synonyms of each (`GLOSS_SENSES`, `SENSE_CAP`, `PER_SENSE`),
     and the three levels below are byte-identical.
-  · **C2 IS THE NEXT TRANCHE OF THE SAME CORPUS AND THE TWO TILE IT EXACTLY**, which is what `BELOW` buys
-    and is worth measuring rather than assuming: C1 takes the 3,000 most frequent usable words down to a
-    floor of **60** occurrences in 17.6M tokens, and C2 — which excludes C1 like any other level — starts
-    at exactly 60 and runs down to **22**, about 1.25 per million. The only settings that differ are
-    `TARGET` and `MIN_COUNT` (40 for C1, 12 for C2, the floor above biting first on both). At C2's depth
-    the top of the corpus is entirely spoken for, so its first words are not common words at all —
-    `Würfel`, `abbilden`, `ansatzweise` — and the run PRINTS the floor with the word that sits on it, which
-    is the number to read: a deck reaching further than the corpus can support would show it there and
-    nowhere else. **The floor also travels into the deck's own description** (`corpus-floor.json`), because
-    the honest question about the tail of a frequency-chosen deck is how rare the last card is.
-  · **A1 IS IN THE REPO AND A2, B1, C1 AND C2 ARE NOT** (on request, Aug 2026): they are files to hand a
-    reader for import, not something the site should carry, so `.gitignore` names all four and a
-    `git add -A` cannot sweep them in. Deleting a line ships that deck. Nothing on the site links to any of
+  · **THE THREE ARE ONE LADDER CUT INTO EQUAL TRANCHES AND THEY TILE THE CORPUS EXACTLY**, which is what
+    `BELOW` buys and is worth measuring rather than assuming: B2 takes the 3,000 most frequent usable words
+    beyond B1 down to a floor of **58** occurrences in 17.6M tokens, C1 picks up there and runs to **22**,
+    C2 from 22 to **10** — about 0.6 per million. **`MIN_COUNT` IS A BOUND ON THE SCAN AND NOT A DECK'S
+    FLOOR**, and confusing the two is how it came to be a per-level table: what sets a level's real floor
+    is the `TARGET` slice, so one number (8) does for all three and only has to be low enough that the LAST
+    of them still finds 3,000. Measured beyond B1: **10,663 usable candidates against the 9,000 the three
+    want**, so the corpus supports this ladder and not much more — a fourth tranche would have to read
+    words appearing under ten times in a million sentences. **They must be BUILT IN THAT ORDER**, each
+    reading the SHIPPED deck files of the levels below: building C1 before B2 exists does not fail, it
+    quietly builds a deck one tranche too shallow. At C2's depth the top of the corpus is entirely spoken
+    for, so its first words are not common words at all — `inspizieren`, `intervenieren`, `paradox` — and
+    the run PRINTS each floor with the word that sits on it, which is the number to read: a deck reaching
+    further than the corpus can support would show it there and nowhere else. **The floor also travels into
+    the deck's own description** (`corpus-floor.json`), because the honest question about the tail of a
+    frequency-chosen deck is how rare the last card is.
+  · **A1 IS IN THE REPO AND NOTHING ELSE IS** (on request, Aug 2026): A2, B1, B2, C1, C2, the phrases deck
+    and the combined file are all things to hand a reader for import rather than something the site should
+    carry, so `.gitignore` names each of them and a `git add -A` cannot sweep them in. Deleting a line ships that deck. Nothing on the site links to any of
     them — a community deck is user content, which is also why none of them goes in the changelog.
+  · **THE SEVENTH DECK IS NOT A LEVEL AND TEACHES WHAT NONE OF THE SIX CAN** (`phrase_wordlist.py`,
+    `TARGET` 1,200; Aug 2026, on request). Six decks of single words leave out the part of German a learner
+    most obviously lacks — `Schwein haben`, `auf jeden Fall`, `um die Ecke bringen` — none of which can be
+    derived from the words in it. **WHAT COUNTS AS A PHRASE IS A WIKTIONARY ENTRY WHOSE HEADWORD HAS A
+    SPACE IN IT**, and that is the whole test because somebody has already made the judgement: an
+    expression earns a dictionary entry when its meaning is not the sum of its parts, so the
+    lexicographers' entry list IS the list of things worth learning as a unit. The alternative — mining a
+    corpus for recurring word sequences — returns `in der Regel` and `an dem Tag` alike, and no rule tells
+    the two apart. Measured over the dump: **21,289 multiword German entries**, of which 16,766 are VERBS
+    (the heart of it), then 2,041 nouns, 502 marked `phrase`, 426 adverbs, 271 proverbs, 170 prepositional
+    phrases and 125 interjections. Left out: proper names, the frames Wiktionary writes with a placeholder
+    (`sowohl ... als auch` — a card cannot print that and no corpus can count it, the words not being
+    adjacent), pointer-only entries, the vulgar and obsolete, what is the English unchanged (`you name
+    it`), and anything the six levels already teach.
+    **IT IS ORDERED BY THE TATOEBA CORPUS AND THAT NEEDED NO CHANGE TO `select.py`**: that stage already
+    counts a phrase by scanning the corpus and calibrates it onto the word list's scale using the single
+    words carrying both — and here every entry is a phrase, so there is nothing to calibrate WITH, the
+    scale falls to 1.0 and the raw count is the order. Which is the right measure anyway, all the entries
+    being the same kind of thing counted the same way; a newspaper word list cannot rank a phrase at all,
+    being a list of single tokens no segmenter ever saw `Schwein haben` in.
+    **THE COUNTING IS BY N-GRAM AND NOT BY SUBSTRING SEARCH**, which is the only reason the stage
+    finishes: twenty thousand candidates against 777,000 sentences is sixteen billion substring tests,
+    where taking each sentence's own two- to six-word runs and looking each up in a set is 777,000 × ~40
+    lookups. `select.py`'s own lesson at fifty times the candidate count.
+  · **AND `combine.py` PUTS ALL SEVEN IN ONE FILE**, mirroring `.claude/dele/combine.py` — one deck id,
+    fresh `u_germanall_N` note ids (a deck FILE import only mints fresh ids when the DECK id already
+    exists, so reusing `u_goethea1_1` would collide with an installed A1 in the shared `UCARDS` store and
+    study the wrong card), the type block asserted identical across all seven, the counts COUNTED rather
+    than added up out of the seven descriptions, and no clock read so the same inputs write the same bytes.
+    **IT NEEDS NO NESTING WHERE THE DELE COMBINER DOES**, and the difference is the thing to know before
+    copying that file's shape: a Spanish word is two NOTES, one per direction, so direction has to be
+    carried in the subdeck string and the levels nest one deep — where a German word is ONE note with two
+    card TEMPLATES, so app.js offers the two directions as rows under each subdeck on its own account and
+    `sub` holds nothing but the level. **It is what raised `UDECK_MAX_CARDS` from 12,000 to 16,000**: at
+    13,345 notes it is the largest legitimate deck anyone has brought, which is what that cap is set from.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
-  A1 must stay byte-identical to what is committed, and A2, B1, C1 and C2 must reproduce themselves. That is
+  A1 must stay byte-identical to what is committed, and the other six must reproduce themselves. That is
   how the two gloss caps and the level-aware description were shown to touch nothing below C1.
-  `check-goethe.js` takes the level as its argument. Not part of the site.
+  `check-goethe.js` takes the deck as its argument, `combined` included. Not part of the site.
 - `.claude/inflect_mark.py` + `.claude/mark-shipped-decks.py` — **the part of the word that is actually
   changing, picked out in bold vermilion** in every conjugation and declension panel of every language deck
   (Aug 2026, on request). A paradigm is six spellings of one word and the lesson is the handful of letters

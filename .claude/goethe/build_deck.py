@@ -50,7 +50,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from inflect_mark import mark as mark_inflections
 from collections import Counter
 
-from goethe_level import LEVEL, f as lvlf, EXAM
+from goethe_level import LEVEL, f as lvlf, EXAM, CATEGORIES
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -1127,8 +1127,11 @@ def gender_from_article(art):
 
 # every card carried the literal 'Goethe A1' whatever level it belonged to -- and
 # a level with no Goethe word list behind it must not be labelled with the exam
-# board's name at all, so it is `German C1` rather than `Goethe C1`.
-CATEGORY = ('Goethe ' if LEVEL in EXAM else 'German ') + LEVEL.upper()
+# board's name at all, so it is `German C1` rather than `Goethe C1`.  A level that
+# is not a CEFR level names itself in `CATEGORIES`, the rule being wrong there:
+# `PHRASES` is not a level and `German PHRASES` is not a label.
+CATEGORY = (CATEGORIES.get(LEVEL)
+            or ('Goethe ' if LEVEL in EXAM else 'German ') + LEVEL.upper())
 
 cards, stats = [], Counter()
 for i, e in enumerate(entries, 1):

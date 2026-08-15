@@ -6178,16 +6178,17 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
-     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
-     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
-     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
-     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
+     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
+     runaway file — so it is set from the largest legitimate deck anyone has brought, and that is now the
+     whole German collection in one file: A1 to C2 plus its phrases deck, 13,345 notes. (The previous
+     holder was HSK 3.0 at 10,896, the standard's 11,000 rows less the words it lists again at a higher
+     level.) **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
+     13,345 notes carry 26,690 cards to study, and the cap is deliberately left on the thing the FILE holds
      rather than on the thing the reader studies, since what it guards against is the cost of parsing
      somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
      uDeckImportText), so raising this cannot hide anything. */
-  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
+  const UDECK_MAX_CARDS = 16000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.

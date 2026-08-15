@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Choose the C1 and C2 vocabulary, because nobody publishes it.
+"""Choose the B2, C1 and C2 vocabulary, because nobody publishes it.
 
 EVERY OTHER LEVEL IN THIS PIPELINE TEACHES A LIST SOMEBODY ELSE WROTE.  The
 Goethe-Institut publishes a Wortliste for A1, A2 and B1, so `parse_goethe.py`
 reads it off a PDF and `select.py` does no selecting at all -- its own header
-says so.  The published lists STOP AT B1.  There is no C1 Wortliste and no B2
-one either, and that is the exam board's own position rather than a gap in this
-cache: the C1 Prüfungsziele/Testbeschreibung says, in section 4.4,
+says so.  The published lists STOP AT B1.  There is no B2, C1 or C2 Wortliste,
+and that is the exam board's own position rather than a gap in this cache: the
+C1 Prüfungsziele/Testbeschreibung says, in section 4.4,
 
     "Wortschatz- und Grammatikinventare zum Goethe-Zertifikat C1 gibt es aus
      folgenden Gründen nicht: Auf dieser Stufe läßt sich keine verbindliche
@@ -19,12 +19,20 @@ to do instead: recognise that such texts are full of words "die sich aus bereits
 bekannten Wörtern zusammensetzen, ableiten und inhaltlich erschließen lassen",
 and to bring the word-formation knowledge to decode them.
 
-SO THIS DECK MUST NOT CLAIM TO BE A GOETHE C1 LIST, and it does not -- the title
-is `German C1 — Vocabulary` and the description quotes the paragraph above.  What
-it IS: the words a reader who already has A1, A2 and B1 will actually meet in
-written German, taken by frequency from a newspaper corpus.  That is as close to
-"authentische Texte" as a word list can honestly get, and the exam's own reading
-passages are journalistic.
+SO THESE DECKS MUST NOT CLAIM TO BE GOETHE LISTS, and they do not -- each is
+titled `German <level> — Vocabulary` and its description quotes the paragraph
+above.  What they ARE: the words a reader who already has the levels below will
+actually meet in written German, taken by frequency from a newspaper corpus.
+That is as close to "authentische Texte" as a word list can honestly get, and the
+exams' own reading passages are journalistic.
+
+THE THREE OF THEM ARE ONE LADDER CUT INTO EQUAL TRANCHES.  B2 takes the 3,000
+most frequent usable words beyond B1, C1 the 3,000 beyond B2, C2 the 3,000 beyond
+C1 -- each excluding the ones under it through `BELOW`, which is the same
+mechanism that stops A2 re-teaching A1.  So they must be BUILT IN THAT ORDER, and
+each reads the SHIPPED deck files of the levels below rather than a working file.
+Measured beyond B1: 10,663 usable candidates against the 9,000 the three want, so
+the corpus supports the ladder and not much more.
 
 WHY A NEWSPAPER CORPUS AND NOT THE ONE THE OTHER LEVELS USE.  A1 to B1 are
 ORDERED by a subtitle frequency list, which is right for the vocabulary of
@@ -45,25 +53,26 @@ THE FILTERS ARE THE WHOLE OF THE WORK, and each was written from a measured
 inventory rather than from the example that prompted it.  Run with no filter at
 all, the top of the list is `den`, `ist`, `dem`, `eine` -- inflected forms of
 words A1 already teaches, which survive because BELOW excludes a lemma and a
-corpus counts surfaces.  In order:
+corpus counts surfaces.  In order, with the counts from the B2 run (65,469 of
+76,132 candidates dropped; every run prints its own):
 
-  a  no German record in Wiktionary        22,559   `mio`, `dpa`, scanning debris
-  b  no sense of its own                   18,915   `ist`, `hat`, `wurde`: the record
+  a  no German record in Wiktionary        30,292   `mio`, `dpa`, scanning debris
+  b  no sense of its own                   21,896   `ist`, `hat`, `wurde`: the record
                                                     is a pointer at another word
-  c  also a proper name                     3,048   `Bayern`, `Mercedes`, `Till`
-  d  a closed word class                       74   determiners and pronouns, which
+  c  also a proper name                     3,480   `Bayern`, `Mercedes`, `Till`
+  d  a closed word class                      137   determiners and pronouns, which
                                                     A1 to B1 already cover entirely
-  e  vulgar, obsolete or archaic              313
-  f  taught by A1, A2 or B1                         the BELOW exclusion
-  g  an inflected form of another word      1,100   `belegt`, `betroffen`, `Tage`
-  h  hyphenated                                49   `EU-Kommission`, `Corona-Pandemie`
-  i  place-derived                            227   `Berliner`, `Wiener`, `Moskauer`
-  j  the English word unchanged               520   `Design`, `Top`, `Radar`: nothing
+  e  vulgar, obsolete or archaic              497
+  f  taught by a level below                2,771   the BELOW exclusion
+  g  an inflected form of another word      1,176   `belegt`, `betroffen`, `Tage`
+  h  hyphenated                                53   `EU-Kommission`, `Corona-Pandemie`
+  i  place-derived                            262   `Berliner`, `Wiener`, `Moskauer`
+  j  the English word unchanged               586   `Design`, `Top`, `Radar`: nothing
                                                     for an English speaker to learn
-  k  a compound of words already known      3,671   `Bushaltestelle`, `Wahlergebnis`
+  k  a compound of words already known      4,319   `Bushaltestelle`, `Wahlergebnis`
 
 RULE (k) IS THE EXAM BOARD'S OWN CRITERION, which is why it is worth having and
-worth explaining.  The passage quoted above says a C1 candidate is expected to
+worth explaining.  The passage quoted above says a candidate at this level is expected to
 DECODE the compounds authentic texts are full of rather than to have learnt them,
 so a word that segments into parts the learner already has is not a card.
 `Bushaltestelle` is Bus + Haltestelle and both are taught; `Wertschöpfung` is
@@ -88,18 +97,25 @@ import json, re, sys
 
 from goethe_level import LEVEL, FREQ, f as lvlf, words_below
 
-# HOW MANY WORDS EACH LEVEL TAKES AND HOW FAR DOWN THE CORPUS IT LOOKS.  C2 is
-# the next tranche after C1 -- it excludes C1 through `BELOW` like any other
-# level -- so it has to reach further into the tail, and the floor comes down
-# with it: 3,000 words at 60 occurrences per 17.6M tokens exhausts what a corpus
-# this size has to say above that line.  A word at the C2 floor still turns up
-# about once in a million words of newsprint, which is where the vocabulary of
-# a near-native reader actually lives.
-TARGET = {'c1': 3000, 'c2': 3000}[LEVEL]
-MIN_COUNT = {'c1': 40, 'c2': 12}[LEVEL]
+# HOW MANY WORDS EACH LEVEL TAKES AND HOW FAR DOWN THE CORPUS IT LOOKS.  The three
+# corpus levels are ONE LADDER cut into equal tranches: B2 takes the 3,000 most
+# frequent words beyond B1, C1 the 3,000 beyond B2, C2 the 3,000 beyond C1, each
+# excluding the ones under it through `BELOW`.
+TARGET = 3000
 
-# how far down the corpus to look before giving up; the floor above bites first
-# on both levels, and this bounds the dump scan
+# MIN_COUNT IS A BOUND ON THE SCAN, NOT THE DECK'S FLOOR, and confusing the two is
+# how it came to be a per-level table.  What sets a level's real floor is the
+# TARGET slice: B2 stops at whatever the 3,000th word happens to be, and the level
+# above it starts there.  So one number does for all three, and it only has to be
+# low enough that the LAST of them still finds 3,000 usable words -- 9,000 beyond
+# B1 in all, which is most of what a corpus this size has above a dozen
+# occurrences.  Set too high it fails loudly (the SystemExit below); set far too
+# low it merely wastes a bigger dump pass.
+MIN_COUNT = 8
+
+# how far down the corpus to look before giving up.  MIN_COUNT bites first -- 8
+# occurrences reaches 76,132 word-shaped surfaces against this cap -- and this
+# bounds the dump scan for a level whose floor is lower still.
 DEPTH = 90000
 OPEN_POS = {'noun', 'verb', 'adj', 'adv', 'conj', 'prep', 'phrase'}
 BAD_FLAG = {'vulgar', 'offensive', 'derogatory', 'slur', 'ethnic-slur',

@@ -118,33 +118,36 @@ def main():
     print('building level', level.upper())
 
     sys.path.insert(0, HERE)
-    from goethe_level import WORTLISTE, f as lvlf
+    from goethe_level import WORTLISTE, WORDLIST, f as lvlf
 
-    # A LEVEL WITH NO PUBLISHED WORTLISTE CHOOSES ITS OWN WORDS.  The
-    # Goethe-Institut's lists stop at B1 and it says in the C1 brochure why; see
-    # `WORTLISTE` and `corpus_wordlist.py`.  Such a level reads no PDF and has no
+    # WHERE THIS LEVEL'S WORDS COME FROM, read off a table rather than inferred.
+    # A level with a published Wortliste reads the PDF; the Goethe-Institut's
+    # lists stop at B1 and it says in the C1 brochure why, so B2, C1 and C2 select
+    # a tranche of a newspaper corpus instead; and the phrases deck selects from
+    # Wiktionary's own multiword entries.  Each of those reads no PDF and has no
     # Wortgruppenliste, so the two parsing stages are replaced by one selecting
-    # stage -- and the branch is on the table rather than on the level's name, so
-    # a level that gains a list later needs no change here.
+    # stage.
+    kind = WORDLIST[level]
     pdf = WORTLISTE.get(level)
 
     if '--no-fetch' not in sys.argv:
         print('sources:')
         fetch([(pdf[0], pdf[1], False)] if pdf else [])
-        if not pdf:
+        if kind == 'corpus':
             fetch_corpus()
     os.makedirs(CACHE, exist_ok=True)
     os.chdir(CACHE)
 
     print('word list:')
-    if pdf:
+    if kind == 'pdf':
         sys.argv = ['parse_goethe.py', pdf[0]]
         runpy.run_path(os.path.join(HERE, 'parse_goethe.py'), run_name='__main__')
         sys.argv = ['wordgroups.py', pdf[0]]
         runpy.run_path(os.path.join(HERE, 'wordgroups.py'), run_name='__main__')
     else:
-        sys.argv = ['corpus_wordlist.py']
-        runpy.run_path(os.path.join(HERE, 'corpus_wordlist.py'), run_name='__main__')
+        stage = 'corpus_wordlist.py' if kind == 'corpus' else 'phrase_wordlist.py'
+        sys.argv = [stage]
+        runpy.run_path(os.path.join(HERE, stage), run_name='__main__')
 
     # every lemma any entry might be looked up under, plus the halves of a pair
     cands = set()

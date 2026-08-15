@@ -34,11 +34,15 @@ node_modules/
 # run.py imports one stage from another, so Python leaves bytecode beside them
 __pycache__/
 
-# The A2, B1, C1 and C2 German decks are deliberately NOT in the repo (on request, Aug 2026): they
-# are files to hand a reader for import, not something the site should carry. Each is built by
-# `python3 .claude/goethe/run.py --level a2` (or b1, c1, c2), which writes it here beside the A1
-# deck, so these lines are what stop a `git add -A` sweeping them in. Delete a line to ship that deck.
+# Every German deck but A1 is deliberately NOT in the repo (on request, Aug 2026): they are files to
+# hand a reader for import, not something the site should carry. Each is built by
+# `python3 .claude/goethe/run.py --level a2` (or b1, b2, c1, c2, phrases), which writes it here beside
+# the A1 deck, so these lines are what stop a `git add -A` sweeping them in. Delete a line to ship that
+# deck. The last is the combined file `combine.py` writes, which duplicates all seven.
 decks/Goethe-A2-German.folio-deck.json
 decks/Goethe-B1-German.folio-deck.json
+decks/German-B2-Vocabulary.folio-deck.json
 decks/German-C1-Vocabulary.folio-deck.json
 decks/German-C2-Vocabulary.folio-deck.json
+decks/German-Phrases-Expressions.folio-deck.json
+decks/German-A1-C2-Complete.folio-deck.json

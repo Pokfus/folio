@@ -12,15 +12,34 @@ import json, os, re
 LEVEL = os.environ.get('GOETHE_LEVEL', 'a1').lower()
 
 TITLES = {'a1': 'Goethe A1 — German', 'a2': 'Goethe A2 — German',
-          'b1': 'Goethe B1 — German', 'c1': 'German C1 — Vocabulary',
-          'c2': 'German C2 — Vocabulary'}
+          'b1': 'Goethe B1 — German', 'b2': 'German B2 — Vocabulary',
+          'c1': 'German C1 — Vocabulary', 'c2': 'German C2 — Vocabulary',
+          'phrases': 'German — Phrases & expressions'}
 DECK_IDS = {'a1': 'goethea1', 'a2': 'goethea2', 'b1': 'goetheb1',
-            'c1': 'germanc1', 'c2': 'germanc2'}
+            'b2': 'germanb2', 'c1': 'germanc1', 'c2': 'germanc2',
+            'phrases': 'germanphr'}
 DECK_FILES = {'a1': 'Goethe-A1-German.folio-deck.json',
               'a2': 'Goethe-A2-German.folio-deck.json',
               'b1': 'Goethe-B1-German.folio-deck.json',
+              'b2': 'German-B2-Vocabulary.folio-deck.json',
               'c1': 'German-C1-Vocabulary.folio-deck.json',
-              'c2': 'German-C2-Vocabulary.folio-deck.json'}
+              'c2': 'German-C2-Vocabulary.folio-deck.json',
+              'phrases': 'German-Phrases-Expressions.folio-deck.json'}
+
+# THE SHORT LABEL EVERY CARD CARRIES.  It is the level's own name in the ordinary
+# case -- `Goethe A1`, `German C2` -- and a level that is not a CEFR level needs
+# its own, since `PHRASES` is not a level name and `German PHRASES` is not a
+# label.  `build_deck` falls back to the rule where there is no row here.
+CATEGORIES = {'phrases': 'German Phrases'}
+
+# WHICH STAGE BUILDS A LEVEL'S WORD LIST.  A level with a published Wortliste
+# reads it off the PDF; the three corpus levels select from a frequency list; the
+# phrases deck selects from Wiktionary's own multiword entries.  Branching on a
+# table rather than on a level's name is what has kept each of these additions to
+# a row apiece.
+WORDLIST = {'a1': 'pdf', 'a2': 'pdf', 'b1': 'pdf',
+            'b2': 'corpus', 'c1': 'corpus', 'c2': 'corpus',
+            'phrases': 'phrases'}
 
 # THE EXAM EACH LEVEL IS FOR, in the exam board's own name for it -- read off the
 # Wortliste's own title page rather than composed.  C1 and C2 have no entry
@@ -45,8 +64,8 @@ WORTLISTE = {
     'b1': ('b1-wortliste.pdf',
            'https://www.goethe.de/pro/relaunch/prf/de/'
            'Goethe-Zertifikat_B1_Wortliste.pdf'),
-    # C1 HAS NO WORTLISTE, AND THAT IS THE EXAM BOARD'S OWN POSITION RATHER THAN
-    # A GAP IN THIS CACHE.  The published lists stop at B1.  The Goethe-Institut's
+    # B2, C1 AND C2 HAVE NO WORTLISTE, AND THAT IS THE EXAM BOARD'S OWN POSITION
+    # RATHER THAN A GAP IN THIS CACHE.  The published lists stop at B1.  The Goethe-Institut's
     # C1 Prüfungsziele/Testbeschreibung says so outright, in section 4.4:
     #
     #   "Wortschatz- und Grammatikinventare zum Goethe-Zertifikat C1 gibt es aus
@@ -57,15 +76,15 @@ WORTLISTE = {
     # -- there is no binding delimitation of the vocabulary at this level, because
     # the exam uses authentic texts.  B2 is the same: its brochure points at the
     # Profile deutsch CD-ROM, a commercial Langenscheidt product, and publishes no
-    # list of its own.  Both were checked against the brochures themselves rather
-    # than inferred from the download page 404ing.
+    # list of its own.  All three were checked against the brochures themselves
+    # rather than inferred from the download page 404ing.
     #
     # C2 IS THE SAME AND ITS BROCHURE IS QUIETER ABOUT IT: the C2
     # Prüfungsziele's section 4.5 asks for "einen reichen Wortschatz" and states
     # only that the exam's texts need no specialist vocabulary beyond what C2
     # courses teach.  It names no inventory, and none is published.
     #
-    # So a C1 or C2 deck cannot BE the list, and must not claim to: it is built
+    # So a B2, C1 or C2 deck cannot BE the list, and must not claim to: it is built
     # from a corpus instead, by `corpus_wordlist.py`, and the deck's own description
     # states in the Institut's words that no such list exists.  A level with no
     # entry here takes that path; `run.py` branches on it.
@@ -74,8 +93,20 @@ WORTLISTE = {
 # A2's list REPEATS the A1 vocabulary -- `aus`, `und`, `was` and several hundred
 # more are printed in both -- so without this the second deck would teach a
 # third of the first one over again.  B1 repeats both.
-BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'c1': ['a1', 'a2', 'b1'],
-         'c2': ['a1', 'a2', 'b1', 'c1']}
+#
+# THE THREE CORPUS LEVELS ARE ONE LADDER AND THE ORDER OF THIS TABLE IS THE ORDER
+# THEY MUST BE BUILT IN: B2 takes the most frequent words beyond B1, C1 the most
+# frequent beyond B2, C2 beyond C1.  Each reads the SHIPPED deck files of the
+# levels under it, so building C1 before B2 exists does not fail -- it quietly
+# builds the wrong deck, one tranche too shallow.
+BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'],
+         'b2': ['a1', 'a2', 'b1'],
+         'c1': ['a1', 'a2', 'b1', 'b2'],
+         'c2': ['a1', 'a2', 'b1', 'b2', 'c1'],
+         # the phrases deck sits beside the ladder rather than on top of it, but
+         # it excludes all six for the same reason: `zum Beispiel` and `es gibt`
+         # are printed in the A1 and B1 Wortlisten and are already carded
+         'phrases': ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']}
 
 # WHICH FREQUENCY LIST ORDERS THE LEVEL, and it is not the same list twice.  A1
 # to B1 are ordered by a word's rank in film and television subtitles, which is
@@ -92,8 +123,18 @@ BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'c1': ['a1', 'a2', 'b1'],
 #     'leipzig' -- `rank<TAB>word<TAB>count` per line (Leipzig Corpora Collection)
 FREQ = {'a1': ('de_50k.txt', 'subs'), 'a2': ('de_50k.txt', 'subs'),
         'b1': ('de_50k.txt', 'subs'),
+        'b2': ('leipzig-news-words.txt', 'leipzig'),
         'c1': ('leipzig-news-words.txt', 'leipzig'),
-        'c2': ('leipzig-news-words.txt', 'leipzig')}
+        'c2': ('leipzig-news-words.txt', 'leipzig'),
+        # THE PHRASES DECK IS ORDERED BY THE TATOEBA CORPUS AND NOT BY THIS FILE,
+        # and it needs no change to `select.py` to be: that stage already counts a
+        # phrase by scanning the corpus, and calibrates the count onto the word
+        # list's scale using the single words that carry both.  Here every entry
+        # is a phrase, so there is nothing to calibrate WITH, the scale falls to
+        # 1.0 and the raw corpus count is the order -- which is the right measure
+        # anyway, all the entries being the same kind of thing counted the same
+        # way.  The file is read and goes unused.
+        'phrases': ('leipzig-news-words.txt', 'leipzig')}
 
 # WHERE THE WORDS ARE ON THE PAGE, and it is not the same shape twice.  The A1
 # list is ONE pair of columns, a headword at x 143-233 and its example from 237;

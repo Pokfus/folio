@@ -350,10 +350,14 @@ EX_NOTE = ('Every word also carries three real example sentences'
 # they sit on top of and in the sentence naming the level.  Written as tables
 # rather than as a branch per level, which is what let A2's and B1's wording go
 # out saying A1 for a fortnight.
-LIST_KEY = LEVEL if LEVEL in EXAM else 'corpus'
-_below = {'c1': 'A1, A2 and B1', 'c2': 'A1, A2, B1 and C1'}
+LIST_KEY = LEVEL if LEVEL in EXAM or LEVEL == 'phrases' else 'corpus'
+_below = {'b2': 'A1, A2 and B1', 'c1': 'A1, A2, B1 and B2',
+          'c2': 'A1, A2, B1, B2 and C1'}
 BELOW_SENT = _below.get(LEVEL, '')
 CEFR_SENT = {
+    'phrases': "of the German that cannot be worked out from the words in it. ",
+    'b2': "for reading German at B2, the level at which a learner follows an argument in a "
+          "newspaper or a technical discussion in their own field. ",
     'c1': "for reading German at C1, the level at which a learner follows demanding texts on "
           "abstract subjects without a dictionary. ",
     'c2': "for reading German at C2, the level at which a learner reads virtually everything "
@@ -389,6 +393,18 @@ LIST_SENT = {
           "remark about the word rather than a word to learn, so it is not carded; where the "
           "Institut means the variant itself to be known it gives it an entry of its own, and "
           "that entry is here. Words already taught by the A1 and A2 lists are not repeated. ",
+    # THE PHRASES DECK IS NOT A LEVEL AND DOES NOT DESCRIBE ITSELF AS ONE.  It
+    # sits beside the six rather than on top of them, and what it has to explain
+    # is not where a word list came from but what makes something a phrase --
+    # which is a lexicographer's judgement and is said as one.
+    'phrases': "An expression earns its own dictionary entry when its meaning is not the sum of "
+          "its parts, so this deck is exactly that: every German entry in Wiktionary whose "
+          "headword is more than one word, which is a judgement somebody has already made about "
+          "each of them. Verbal idioms are the heart of it — jemandem auf den Keks gehen, durch "
+          "den Kakao ziehen, Schwein haben — alongside the greetings, the prepositional phrases, "
+          "the proverbs and the set adverbials. Proper names are left out, so are the frames "
+          "Wiktionary writes with a placeholder in them (sowohl … als auch), and so is anything "
+          "the six vocabulary decks already teach. ",
     'corpus': "There is no Goethe " + LEVEL.upper() + " word list, and that is the exam board's own "
           "position rather than something missing here. The published Wortlisten stop at B1, and "
           "the Goethe-Institut gives its reason in the C1 Prüfungsziele/Testbeschreibung, section 4.4: "
@@ -418,21 +434,41 @@ try:
 except Exception:
     FLOOR = 0
 ORDER_SENT = {
+    'phrases': "The cards are ordered by how often the expression is actually said, counted in "
+              "the Tatoeba corpus of 777,128 German sentences — the same corpus the example "
+              "sentences come from, and the only kind that can rank a phrase at all, a word-"
+              "frequency list being a list of single tokens"
+              + (f". Even the last of them turns up {FLOOR:,} times in it" if FLOOR else "")
+              + ". ",
     'corpus': "The cards are ordered by how common the word is in that corpus, so the words you "
               "meet most often come first"
               + (f"; even the last of them turns up {FLOOR:,} times in it" if FLOOR else "")
               + ". ",
 }
 CREDIT_SENT = {
+    'phrases': "Selection: the multiword entries of English Wiktionary, via the kaikki.org "
+          "extraction (CC BY-SA 4.0). Ordering: Tatoeba (tatoeba.org), CC BY 2.0 FR. ",
     'corpus': "Word selection and ordering: the Leipzig Corpora Collection, deu_news_2024 "
           "(wortschatz-leipzig.de), used for word frequencies only. ",
 }
+
+# WHAT A PHRASE CARD SHOWS, which is not what a vocabulary card shows.  The
+# paragraph it replaces is four sentences about articles, genders, plurals and
+# feminines, and a deck of expressions has almost none of those -- a handful of
+# its entries are noun phrases and the rest are verbal idioms and set adverbials.
+# What it does have that the six levels do not is the literal reading, which is
+# most of the pleasure of a German idiom and all of the difficulty.
+PHRASE_BODY = (
+    f"Where the expression is built on a verb ({verbs} of them) the verb's full paradigm comes "
+    "with it, so the idiom can be said in the tense it is wanted in rather than only in the "
+    "infinitive: ich habe Schwein gehabt, not merely Schwein haben. "
+)
 
 DESC = (
     "Both study directions in one deck: German → English (see the German, recall the meaning) "
     "and English → German (see an English meaning, recall the German). Each direction is a card "
     f"of its own with its own schedule, so recognising a word and producing it are learnt "
-    f"separately. {n} words "
+    f"separately. {n} " + ('expressions ' if LEVEL == 'phrases' else 'words ')
     + (f"for the {EXAM[LEVEL]}, the German qualification awarded by the Goethe-Institut. "
        if LEVEL in EXAM else
        CEFR_SENT[LEVEL])
@@ -442,7 +478,7 @@ DESC = (
       "you meet most often come first: the order is taken from a frequency list built from film "
       "and television subtitles, with a phrase — which a list of single words cannot see — placed "
       "by how often it turns up in a corpus of everyday sentences. ")
-    +
+    + (PHRASE_BODY if LEVEL == 'phrases' else
     f"Every noun carries its article, so the gender is learnt with the word ({arts} of them), and "
     "the article is coloured by gender: der blue, die red, das green. Its plural sits directly "
     f"beneath it ({plurals} of them). Where a noun names a person its feminine is given too "
@@ -462,7 +498,7 @@ DESC = (
        "freust dich)" if refl else "")
     + ". The polite imperative is given as well as the du and ihr forms: seien Sie "
     f"ruhig, fahren Sie ab. Adjectives carry their comparative and superlative ({comps} of them), "
-    "since German umlauts them unpredictably — groß, größer, am größten. "
+    "since German umlauts them unpredictably — groß, größer, am größten. ")
     + EX_NOTE +
     ", chosen where possible to show three different inflected forms rather than the same one "
     "three times, with the word picked out in colour and a speaker beside it. "

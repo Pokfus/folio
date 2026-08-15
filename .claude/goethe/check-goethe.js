@@ -9,7 +9,7 @@
    what the PAGE says, and writes two screenshots to look at.
 
      FOLIO_CHROMIUM=/path/to/chrome NODE_PATH=/tmp/pw/node_modules \
-       node .claude/goethe/check-goethe.js [a1|a2|b1|c1|c2]
+       node .claude/goethe/check-goethe.js [a1|a2|b1|b2|c1|c2|phrases]
 
    The level is an argument rather than a constant because the assertions are about GERMAN and not
    about a level: every one of them — the article's colour, the plural, the paradigm, the marked
@@ -19,17 +19,51 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^(a[12]|b1|c[12])$/.test(LEVEL)) { console.error("level must be a1, a2, b1, c1 or c2"); process.exit(2); }
-// A C LEVEL IS NOT A GOETHE DECK AND IS NOT NAMED LIKE ONE.  The Goethe-Institut
-// publishes no C1 or C2 word list -- see `corpus_wordlist.py` -- so that deck is titled,
-// filed and identified for what it is, and the checks read these tables rather
-// than composing a name out of the level.
-const DECK = /^c/.test(LEVEL) ? "German-" + LEVEL.toUpperCase() + "-Vocabulary.folio-deck.json"
-                              : "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
-const DECK_ID = (/^c/.test(LEVEL) ? "german" : "goethe") + LEVEL;
-const SHELF = (/^c/.test(LEVEL) ? "German " : "Goethe ") + LEVEL.toUpperCase();
-// the composed paradigms live in the lowest level that teaches the word
+// A LEVEL ABOVE B1 IS NOT A GOETHE DECK AND IS NOT NAMED LIKE ONE.  The
+// Goethe-Institut publishes no B2, C1 or C2 word list -- see `corpus_wordlist.py`
+// -- so those decks are titled, filed and identified for what they are, and the
+// phrases deck is not a level at all.  A TABLE rather than a rule composed out of
+// the level's name: it mirrors `goethe_level.py`'s own three tables, an unknown
+// level fails loudly here rather than looking for a file nobody ever wrote, and
+// the naming has already changed twice.
+const LEVELS = {
+  a1:      ["Goethe-A1-German.folio-deck.json",        "goethea1",  "Goethe A1"],
+  a2:      ["Goethe-A2-German.folio-deck.json",        "goethea2",  "Goethe A2"],
+  b1:      ["Goethe-B1-German.folio-deck.json",        "goetheb1",  "Goethe B1"],
+  b2:      ["German-B2-Vocabulary.folio-deck.json",    "germanb2",  "German B2"],
+  c1:      ["German-C1-Vocabulary.folio-deck.json",    "germanc1",  "German C1"],
+  c2:      ["German-C2-Vocabulary.folio-deck.json",    "germanc2",  "German C2"],
+  phrases: ["German-Phrases-Expressions.folio-deck.json", "germanphr", "Phrases & expressions"],
+  // THE COMBINED FILE IS CHECKED AS AN EIGHTH DECK RATHER THAN BY A CHECKER OF ITS OWN, which is this
+  // file's own rule and is worth more here than anywhere: it is the artefact a reader actually imports,
+  // it is built by concatenating seven files nothing then re-reads, and every way that can go wrong is
+  // silent -- a subdeck whose `sub` string was mangled draws a phantom row, a card id that kept its old
+  // deck collides in the shared store and studies the wrong card, a type block taken from the wrong
+  // level renders every card with another's template.  The fourth column is the subdecks it must offer.
+  combined: ["German-A1-C2-Complete.folio-deck.json", "germanall", "German A1–C2",
+             ["A1", "A2", "B1", "B2", "C1", "C2", "Phrases & expressions"]],
+};
+if (!LEVELS[LEVEL]) { console.error("level must be one of " + Object.keys(LEVELS).join(", ")); process.exit(2); }
+const [DECK, DECK_ID, SHELF, SUBDECKS] = LEVELS[LEVEL];
+// THE COMPOSED PARADIGMS ARE WATCHED ON A1 AND NOWHERE ELSE, the combined file included, and the reason
+// is worth writing down because A1's cards ARE in that file — `ich` is its very first note and the
+// definite article its seventh.  The walk reaches them there for free only because a single deck is
+// dealt in its own frequency order; the combined file is added alongside its seven subdecks, so the
+// pooled review draws across eight entries and seeded-shuffles what it draws, and a hundred and fifty
+// cards of 26,690 no longer reach note 1 by luck.  Asserting them off the PAGE there would be asserting
+// the shuffle.  What proves the concatenation kept its cards intact is `SOURCES` below, which compares
+// every note against the deck it came from — cheaper, and stronger, since it covers all 13,345.
 const COMPOSED = LEVEL === "a1";
+// the seven decks a combined file must carry unchanged, in the order it concatenates them
+const SOURCES = LEVEL === "combined"
+  ? ["a1", "a2", "b1", "b2", "c1", "c2", "phrases"].map((l) => LEVELS[l][0]) : null;
+// A PHRASES DECK IS NOT A VOCABULARY DECK, so the assertions about articles,
+// plurals and comparatives are asked only where the deck teaches single words --
+// they would fail on a deck of expressions for the right reason, which is worse
+// than not asking, since a failure nobody can act on is a failure people learn to
+// skip past.  What it IS asked is everything about a paradigm, since a verbal
+// idiom carries its verb's own.
+const VOCAB = LEVEL !== "phrases";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -84,6 +118,35 @@ const ok = (c, m, extra) => {
   ok(!/Wortliste|goethe\.de/i.test(JSON.stringify(deck.cards)),
      "no card text quotes the source document");
 
+  // ------------------------------------------- a combined file carries its sources UNCHANGED
+  // The combiner concatenates seven files and rewrites three things on each note: `id` (a card id must
+  // carry the deck, or an installed A1 collides with it in the shared store and studies the wrong card),
+  // `num` and `sub`.  EVERYTHING ELSE MUST BE THE NOTE IT CAME FROM, and nothing downstream re-reads the
+  // sources to find out — so a field dropped, a type rewritten or a level concatenated twice ships as a
+  // deck that imports, studies and looks entirely ordinary.  Compared note for note, in order, which also
+  // pins the ORDER the subdecks come out in without trusting the row list the page happens to print.
+  if (SOURCES) {
+    let at = 0, mismatch = null, counts = [];
+    for (const f of SOURCES) {
+      const src = JSON.parse(fs.readFileSync(ROOT + "/decks/" + f, "utf8"));
+      counts.push(src.cards.length);
+      for (const c of src.cards) {
+        const got = deck.cards[at++];
+        const strip = (o) => { const q = Object.assign({}, o); delete q.id; delete q.num; delete q.sub; return q; };
+        if (!mismatch && (!got || JSON.stringify(strip(got)) !== JSON.stringify(strip(c))))
+          mismatch = [f, c.id, got && got.id];
+      }
+    }
+    ok(at === deck.cards.length, "it holds exactly the seven decks' notes and no more",
+       at + " vs " + deck.cards.length);
+    ok(!mismatch, "every note is the note it came from, field for field", JSON.stringify(mismatch));
+    ok(SOURCES.every((f, i) => {
+      const src = JSON.parse(fs.readFileSync(ROOT + "/decks/" + f, "utf8"));
+      return JSON.stringify(src.meta.types) === JSON.stringify(deck.meta.types);
+    }), "and every source's card-type block is the one it ships");
+    console.log("   sources: " + counts.join(" + ") + " = " + at);
+  }
+
   // ---------------------------------------------------------------- import
   await pg.goto(base + "#studio", { waitUntil: "load" });
   await pg.waitForTimeout(400);
@@ -106,14 +169,44 @@ const ok = (c, m, extra) => {
     .map((r) => r.querySelector(".deck-title").textContent.trim()));
   ok(dirs.some((r) => /German . English/.test(r)) && dirs.some((r) => /English . German/.test(r)),
      "each direction is offered as a row of its own", JSON.stringify(dirs));
+
+  // A SUBDECKED FILE MUST OFFER EXACTLY THE SUBDECKS IT WAS BUILT WITH.  `sub` is a plain string on the
+  // card and the deck's subdecks are the DISTINCT values of it, so a mangled one is not an error but a
+  // new subdeck — an intermediate build of the Mandarin deck once drew a phantom eighth level holding a
+  // single word, and neither the note count nor the card count can see that.  Compared as a SET, and read
+  // off the entry id rather than off the row's markup: the id IS `u:<deck>/<title>` percent-encoded, so
+  // this asks app.js what it would study rather than what it happened to print.
+  // A DIRECTION IS A LEVEL BELOW THE SUBDECK AND CARRIES THE SAME ATTRIBUTE, its entry id ending `#<n>`,
+  // so a sweep of [data-uaddsub] returns 21 rows and not 7 — which is correct and is why the suffix is
+  // what filters rather than a count.
+  if (SUBDECKS) {
+    const all = await pg.evaluate(() => [...document.querySelectorAll("[data-uaddsub]")]
+      .map((b) => decodeURIComponent(b.dataset.uaddsub.split("/").slice(1).join("/"))));
+    const subs = all.filter((s) => !/#\d+$/.test(s));
+    ok(subs.length === SUBDECKS.length && SUBDECKS.every((s, i) => subs[i] === s),
+       "the seven subdecks are offered, in order", JSON.stringify(subs));
+    ok(SUBDECKS.every((s) => all.includes(s + "#0") && all.includes(s + "#1")),
+       "and each of them offers both directions", JSON.stringify(all.filter((s) => /#\d+$/.test(s))));
+  }
+
   await pg.click("[data-uadd]");
   await pg.waitForTimeout(500);
   await pg.goto(base + "#home", { waitUntil: "load" });
   await pg.waitForTimeout(700);
   const rows = await pg.evaluate(() => [...document.querySelectorAll(".active-deck .dk-title")]
     .map((e) => e.textContent.trim()));
-  ok(rows.length === 1 && rows[0].includes(SHELF),
-     "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
+  if (SUBDECKS) {
+    // ADDING A SUBDECKED DECK ADDS ITS SUBDECKS — the collection rule, since a subdeck holds cards
+    // nothing else in the subtree holds — but never the DIRECTIONS, which hold a subset of their own
+    // parent's and would surface every reverse in the pooled draw from the first day.
+    ok(rows.length === 1 + SUBDECKS.length && rows[0].includes(SHELF),
+       "adding it adds the deck and its subdecks, and not the directions", JSON.stringify(rows));
+    ok(SUBDECKS.every((s) => rows.some((r) => r === s || r.includes(s))),
+       "and every subdeck is a row of its own", JSON.stringify(rows.slice(1)));
+  } else {
+    ok(rows.length === 1 && rows[0].includes(SHELF),
+       "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
+  }
 
   // ---------------------------------------------------------------- study
   await pg.click(".review-group .cta .btn");
@@ -170,7 +263,8 @@ const ok = (c, m, extra) => {
   // typo in one is a wrong German word on a card with every count still healthy.  Both words
   // are near the front of a deck ordered by frequency, so the walk reaches them for free.
   const seen = { noun: null, verb: null, adj: null, pron: null, art: null };
-  const done = () => seen.noun && seen.verb && seen.adj && (!COMPOSED || (seen.pron && seen.art));
+  const done = () => seen.verb && (!VOCAB || (seen.noun && seen.adj))
+                     && (!COMPOSED || (seen.pron && seen.art));
   for (let i = 0; i < 150 && !done(); i++) {
     const card = await pg.evaluate(() => {
       const t = (s) => { const e = document.querySelector(s); return e ? e.textContent.trim() : ""; };
@@ -221,10 +315,10 @@ const ok = (c, m, extra) => {
     // asserting it carries a plural tests what the deck happened to deal: B1's first noun
     // became `das Wissen` once the levels stopped repeating each other, and a mass noun has
     // no plural, so a correct deck failed.
-    if (card.pos.startsWith("noun") && card.art && !seen.noun
+    if (VOCAB && card.pos.startsWith("noun") && card.art && !seen.noun
         && /plural/.test(card.forms + card.pos)) { seen.noun = card; shot = "noun"; }
     if (/verb/.test(card.pos) && card.conj.length && !seen.verb) { seen.verb = card; shot = "verb"; }
-    if (card.pos === "adjective" && /comparative/.test(card.forms) && !seen.adj) { seen.adj = card; shot = "adj"; }
+    if (VOCAB && card.pos === "adjective" && /comparative/.test(card.forms) && !seen.adj) { seen.adj = card; shot = "adj"; }
     if (card.word === "ich" && !seen.pron) { seen.pron = card; shot = "pron"; }
     if (card.word === "der, die, das" && !seen.art) { seen.art = card; shot = "art"; }
     if (shot) {
@@ -245,6 +339,7 @@ const ok = (c, m, extra) => {
     await pg.waitForTimeout(190);
   }
 
+  if (VOCAB) {
   console.log("   noun:  " + JSON.stringify(seen.noun && [seen.noun.word, seen.noun.forms]));
   ok(seen.noun, "a noun with a plural came up in the first forty cards");
   if (seen.noun) {
@@ -261,6 +356,7 @@ const ok = (c, m, extra) => {
        JSON.stringify(seen.noun.decl.map((r) => r[0])));
     ok(nrows.some((r) => r.slice(1).some((c) => /^des |^der |^dem |^den /.test(c))),
        "with the article declined beside each form", JSON.stringify(nrows[3]));
+  }
   }
   console.log("   verb:  " + JSON.stringify(seen.verb && [seen.verb.word, seen.verb.conj, seen.verb.conjRows.slice(0, 3)]));
   ok(seen.verb, "a verb came up");
@@ -289,6 +385,7 @@ const ok = (c, m, extra) => {
     ok(!badMark, "and is a tail of one word, never the whole of it",
        JSON.stringify(badMark));
   }
+  if (VOCAB) {
   console.log("   adj:   " + JSON.stringify(seen.adj && [seen.adj.word, seen.adj.forms]));
   ok(seen.adj, "an adjective came up");
   if (seen.adj) {
@@ -308,6 +405,7 @@ const ok = (c, m, extra) => {
                                  || c[0] < cells[i - 1][1])));
     ok(!bad, "and every row is one line of cells that do not overlap",
        JSON.stringify(bad));
+  }
   }
 
   // ------------------------------------------------- the two composed paradigms
