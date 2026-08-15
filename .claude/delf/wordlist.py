@@ -404,6 +404,162 @@ REPAIRS_BY_LEVEL = {
 }
 REPAIRS = REPAIRS_BY_LEVEL.get(LEVEL, {})
 
+# ---------------------------------------------------------------- supplement
+# WHAT THE PAGE LEAVES OUT, WHICH IS A DIFFERENT QUESTION FROM WHAT IT GETS
+# WRONG.  Everything above is a REPAIR: the list printed something and the
+# something was defective.  This is an ADDITION, and it needs its own
+# justification, because the pipeline's standing position is that the list is
+# somebody else's and gets corrected rather than rewritten.
+#
+# THE JUSTIFICATION IS THAT THE LIST IS A FREQUENCY CUT AND A LANGUAGE IS NOT.
+# The six pages are graded by how common a word is in a corpus of film and
+# television subtitles (see LIST_NOTE in emit.py), and that method cannot see
+# two things at either end of it.  MEASURED, over all six shipped decks against
+# the same 50,000-word list:
+#
+#   * AT THE TOP, the closed classes come through with holes in them, because a
+#     frequency cut has no notion of a paradigm.  A1 taught `pas` and not `ne`
+#     -- so a reader could not form a negative sentence -- and taught `je`,
+#     `tu`, `il`, `elle`, `nous` and `vous` but not `on`, which is how French
+#     actually says `we`.  Absent from all six: `ne` (rank 17), `on` (21), `ça`
+#     (22), `si` (38), `du` (39), `y` (40), `au` (50), `moi` (52), `comme` (63),
+#     `toi` (69), `lui` (72).  Eleven of the hundred commonest words in the
+#     language.  The DELE pipeline reached this conclusion first and states it
+#     in one line: a 500-word A1 list without `yo` and `tú` is not an A1 list.
+#
+#   * AT THE BOTTOM, the corpus simply does not contain the register.  The C2
+#     page is the rarest band, so what is left in it is whatever subtitles have
+#     and ordinary French does not -- science fiction, hospital drama, crime --
+#     and none of the abstract, argumentative vocabulary a DALF C2 is examined
+#     on.  No frequency method can find that, because it is not in the corpus
+#     being counted.  It has to be AUTHORED, which is what the C1 and C2 blocks
+#     below are.
+#
+# So the two halves have two different warrants and are kept apart on purpose:
+# the lower levels' additions are DERIVED (the commonest words no deck teaches,
+# read off the frequency list and then hand-filtered for the proper nouns,
+# English and vulgarity a subtitle corpus is full of), and the upper levels' are
+# AUTHORED.  A word here is added, never substituted: nothing the page prints is
+# displaced, and a supplement word a lower level already teaches is dropped by
+# `words_below` exactly as a repeated page entry is.
+#
+# THE GROUPING IS THE REASON, and it is what the deck's own description reads
+# back -- the same arrangement as REPAIRS_BY_LEVEL, where the row carries why it
+# is there.  A group's key is printed to the reader; keep it a phrase that
+# finishes the sentence "the level's own list does not print ...".
+SUPPLEMENT_BY_LEVEL = {
+'a1': {
+    # The eleven above, plus the rest of the first-year grammar the page omits.
+    # `du`, `au` and `aux` are the contracted articles: a learner who has `de`
+    # and `le` still cannot read `du pain`, and no other card teaches the
+    # contraction.  `y` is the pronominal adverb of `il y a`.
+    'the negation, the pronouns and the contracted articles':
+        "ne on ça y du au aux moi toi lui",
+    'the commonest conjunctions, prepositions and presentatives':
+        "si comme chez contre vers quel cet voilà voici puis",
+    # Frequent AND ordinary, which is a narrower test than frequent.  The
+    # subtitle corpus puts `meurtre`, `prison`, `arme` and `capitaine` in the
+    # first eight hundred words of French, and they are frequent because of what
+    # films are about rather than because a beginner needs them; those are left
+    # for the levels whose own pages print them.
+    'everyday nouns in the commonest thousand that no level teaches':
+        "an air maman papa coup attention fin début terre ciel lieu pièce numéro "
+        "sorte genre type bout face visage voix vue esprit état ordre ligne fond "
+        "bord moitié seconde",
+    'everyday adjectives and adverbs in the same band':
+        "vrai gros dur pauvre meilleur incroyable dessus debout",
+    'the colloquial register a first course meets at once':
+        "salut super truc mec boulot chéri bienvenue",
+    'three verbs the page skips':
+        "mourir sauver mort",
+},
+'a2': {
+    'the demonstrative and relative pronouns':
+        "cela ceci celui dont eux",
+    'the conjunctions and prepositions of the second year':
+        "car ni tant dès sauf",
+    'nouns in the second thousand that no level teaches':
+        "centre âme signe voie trou peau peuple héros témoin directeur secours "
+        "prise combat tort souffle mine fortune moteur crédit fer",
+    'verbs in the same band':
+        "jeter cacher emmener ramener libérer pousser casser voler attaquer respirer",
+    'adjectives in the same band':
+        "terrible bête puissant sage",
+},
+'b1': {
+    'the relative and indefinite pronouns of formal French':
+        "lequel nul soi",
+    'the subordinating conjunctions and prepositions a written register needs':
+        "lorsque puisque parmi hors selon envers",
+},
+'b2': {
+    'the last of the closed classes, which are all formal or written':
+        "or celles auquel jusque quiconque mien tien sien",
+},
+# ---- authored from here down.  See the note above: the corpus cannot supply
+# this, so a frequency argument is not available and none is made.  What these
+# two blocks are is the vocabulary of ARGUMENT -- the connectives that concede,
+# contrast, qualify and conclude, and the abstract nouns and verbs of reasoning
+# -- which is what the DALF actually tests and what the pages, being cut from
+# dialogue, have almost none of.  The DELE pipeline supplies the same layer to
+# its own upper levels for the same reason.
+#
+# EVERY ENTRY WAS LOOKED UP BEFORE IT WAS WRITTEN DOWN.  Five candidates were
+# dropped for having no Wiktionary record at all rather than being guessed at
+# (`s'avérer`, `plutôt que`, `force est de constater`, `à telle enseigne que`,
+# `au prisme de`), and everything the B2 and C1 pages already print -- which is
+# a good deal of it, `néanmoins`, `toutefois`, `cependant`, `certes`,
+# `davantage`, `désormais`, `enjeu`, `constat`, `souligner`, `susciter` -- is
+# not repeated here.
+'c1': {
+    'the connectives that structure an argument, most of them as the phrases '
+    'they are':
+        "en revanche|par ailleurs|en outre|du reste|au demeurant|dès lors|"
+        "de ce fait|en effet|bien que|alors que|tandis que|à moins que|"
+        "pourvu que|de sorte que|dans la mesure où|étant donné que|"
+        "compte tenu de|en dépit de|au lieu de|contrairement à|par rapport à|"
+        "en vertu de|faute de|quant à",
+    'the abstract nouns an argument is made of':
+        "écueil carence clivage pléthore rouage assise émergence pérennité "
+        "acuité corollaire postulat paradigme mainmise soubassement probité",
+    'the verbs of supporting, qualifying and refuting a claim':
+        "étayer entériner infirmer nuancer prôner pallier endiguer découler "
+        "escompter esquisser amoindrir conforter pondérer avaliser",
+},
+'c2': {
+    'the concessive and hypothetical constructions of the highest register':
+        "quand bien même|pour peu que|si tant est que|d'autant plus que|"
+        "à l'aune de|en filigrane|à rebours de|à l'instar de|sous réserve de|"
+        "d'aucuns|tant s'en faut",
+    'the adjectives a formal text qualifies with':
+        "abscons afférent attenant caduc délétère éculé emblématique fallacieux "
+        "imparable inhérent intrinsèque latent manichéen patent pérenne "
+        "préjudiciable prépondérant probant prolixe spécieux subséquent ténu "
+        "foisonnant",
+    'the vocabulary of reasoning itself':
+        "acception aporie axiome exégèse idiosyncrasie palliatif paroxysme "
+        "poncif quintessence réquisitoire sophisme syllogisme truchement "
+        "velléité verbiage apanage parangon gageure mansuétude déliquescence "
+        "obsolescence prémisse truisme",
+    'the verbs of evading, blunting and denouncing':
+        "achopper atermoyer édulcorer éluder étriller galvauder occulter "
+        "tergiverser vilipender exacerber pâtir prévaloir",
+    'two literary function words a reader will meet and not guess':
+        "nonobstant|partant|moult",
+},
+}
+
+# A PHRASE IS SEPARATED BY `|`, NOT BY A SPACE, and this is the B1 lesson in
+# another coat: every supplement list is a string ending in `.split()`, which is
+# right for single words and silently tears a phrase into its pieces -- and half
+# of what the C1 and C2 blocks add IS a phrase.  A group whose value carries a
+# `|` is a list of phrases; anything else splits on whitespace as before.
+def _items(v):
+    return [x.strip() for x in v.split('|')] if '|' in v else v.split()
+
+
+SUPPLEMENT = SUPPLEMENT_BY_LEVEL.get(LEVEL, {})
+
 # ---------------------------------------------------------------- groups
 # What the alphabet cannot say about a word.  These exist for the same reason
 # `GROUP_POS` does in the German build: `neuf` is nine and it is also `new`,
@@ -423,6 +579,36 @@ GROUPS = {
 GROUP_OF = {w: g for g, ws in GROUPS.items() for w in ws}
 
 # ---------------------------------------------------------------- build
+# THE SUPPLEMENT GOES THROUGH THE SAME LOOP AS THE PAGE, and it is appended
+# rather than merged in beside it.  Appending is what makes every stage below
+# treat an added word exactly as a printed one: it is looked up in the same
+# dictionary, ordered by the same frequency rule, excluded by `words_below` if a
+# lower level already teaches it, and refused by the same blank-meaning guard.
+# The order it is appended in does not survive `select.py`, which sorts the
+# whole level by frequency, so `ne` and `on` come out at the front where they
+# belong rather than at the end where they were added.
+#
+# AND A SUPPLEMENT WORD THE PAGE ALREADY PRINTS IS A DEAD ROW, so it is reported
+# rather than silently swallowed by the `seen` check below -- a table that has
+# started duplicating the list is a table nobody has re-read, and the failure is
+# invisible from the outside because the deck is correct either way.
+# `page` is what the LIST prints and `raw` is what gets built, and the two must
+# not be conflated: the description says "Of its 384 entries, 3 are misspelt",
+# which is a claim about the page.  Counting the supplement into that figure
+# would have the deck report a page longer than the one anybody can go and read.
+page = list(raw)
+supp, supp_dupe = [], []
+for _reason, _v in SUPPLEMENT.items():
+    for _w in _items(_v):
+        (supp_dupe if _w in page else supp).append(_w)
+if supp_dupe:
+    print('  SUPPLEMENT ROWS THE PAGE ALREADY PRINTS (drop them):',
+          ', '.join(supp_dupe))
+if supp:
+    print(f'  supplement: {len(supp)} words the page does not print, in '
+          f'{len(SUPPLEMENT)} groups')
+raw = page + supp
+
 entries, seen, log = [], {}, []
 dropped = []
 for w in raw:
@@ -481,10 +667,14 @@ if merged:
 # which on the A2 deck told a reader about words its list does not print -- the
 # same fault the checker had.  Emitted here, where the repairs actually happen,
 # so the prose a reader is shown cannot come apart from what was done.
-json.dump({'raw': len(raw),
-           'fixed': [{'from': a, 'to': b, 'merged': b in raw, 'kind': k}
+json.dump({'raw': len(page),
+           'fixed': [{'from': a, 'to': b, 'merged': b in page, 'kind': k}
                      for a, b, _, k in log],
-           'dropped': [a for a, _ in dropped]},
+           'dropped': [a for a, _ in dropped],
+           # what was ADDED, grouped by the reason it was added, for the
+           # description to read back -- a reader told the list is a third
+           # party's is owed the fact that it has been added to, and by how much
+           'added': {r: _items(v) for r, v in SUPPLEMENT.items()}},
           open(lvlf('repairs.json'), 'w'), ensure_ascii=False, indent=1)
 
 print('  words:', len(entries),

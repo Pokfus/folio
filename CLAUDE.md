@@ -3698,8 +3698,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **French set** — DELF A1–B2 and DALF C1–C2 — by
-  `.claude/delf/` — see their own bullets below.
+  **Goethe German set** by `.claude/goethe/`, and the **French set** — DELF A1–B2 and DALF C1–C2, six
+  files plus a **combined `French-A1-C2`** (7,249 notes / 14,498 cards, one subdeck per level) — by
+  `.claude/delf/` — see their own bullets below. **A COMBINED FILE IS GITIGNORED**, French and Spanish
+  alike: it is an artefact of the levels it combines rather than another deck, so committing it
+  duplicates every megabyte the repo already carries for them, and its own `combine.py` regenerates it
+  byte for byte.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4589,12 +4593,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
 - `.claude/delf/` — the generator behind the French decks, **all six levels**:
-  `decks/DELF-A1-French.folio-deck.json` (**379 notes / 758 cards**, 0.65 MB),
-  `decks/DELF-A2-French.folio-deck.json` (**545 / 1,090**, 1.19 MB),
-  `decks/DELF-B1-French.folio-deck.json` (**887 / 1,774**, 2.16 MB),
-  `decks/DELF-B2-French.folio-deck.json` (**1,646 / 3,292**, 3.66 MB),
-  `decks/DALF-C1-French.folio-deck.json` (**3,180 / 6,360**, 5.52 MB) and
-  `decks/DALF-C2-French.folio-deck.json` (**359 / 718**, 0.41 MB), community decks rather than site
+  `decks/DELF-A1-French.folio-deck.json` (**446 notes / 892 cards**, 0.75 MB),
+  `decks/DELF-A2-French.folio-deck.json` (**589 / 1,178**, 1.28 MB),
+  `decks/DELF-B1-French.folio-deck.json` (**896 / 1,792**, 2.18 MB),
+  `decks/DELF-B2-French.folio-deck.json` (**1,654 / 3,308**, 3.67 MB),
+  `decks/DALF-C1-French.folio-deck.json` (**3,233 / 6,466**, 5.62 MB) and
+  `decks/DALF-C2-French.folio-deck.json` (**431 / 862**, 0.52 MB), community decks rather than site
   content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2|c1|c2] [--no-fetch]`. Six stages, run by
   `run.py`,
   caching its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
@@ -4640,6 +4644,97 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     make a claim it cannot keep: **`LIST_NOTE` in `emit.py` is a per-level paragraph, written only for
     c1 and c2**, telling the reader exactly that in the deck's own description. The lower four need
     none.
+  · **AND THE PAGES ARE ADDED TO, WHICH IS A DIFFERENT ACT FROM REPAIRING THEM AND NEEDS ITS OWN
+    WARRANT** (`SUPPLEMENT_BY_LEVEL` in `wordlist.py`; Aug 2026, on request — "add more core words or
+    less common ones where appropriate"). Everything in `REPAIRS_BY_LEVEL` is a correction: the list
+    printed something and the something was defective. An addition is not, and the pipeline's standing
+    position is that the list is somebody else's. **The warrant is that a frequency cut is not a
+    language, and it fails at BOTH ends — measured, over all six shipped decks against the same
+    50,000-word list.**
+    **AT THE TOP THE CLOSED CLASSES COME THROUGH WITH HOLES IN THEM, because a frequency cut has no
+    notion of a paradigm.** The A1 deck taught **`pas` and not `ne`** — a learner could not form a
+    negative sentence — and taught `je`, `tu`, `il`, `elle`, `nous` and `vous` but not **`on`**, which
+    is how French says *we*. Absent from all six: `ne` (rank 17), `on` (21), `ça` (22), `si` (38), `du`
+    (39), `y` (40), `au` (50), `moi` (52), `comme` (63), `toi` (69), `lui` (72) — **eleven of the
+    hundred commonest words in the language**, plus the demonstratives, the relatives and the
+    contracted articles. The DELE pipeline reached this first and states it in one line: a 500-word A1
+    list without `yo` and `tú` is not an A1 list.
+    **AT THE BOTTOM THE CORPUS SIMPLY DOES NOT CONTAIN THE REGISTER**, which is the C2 finding above
+    arriving from the other side: no amount of counting subtitles turns up the connectives and abstract
+    vocabulary of argument, because they are not in the thing being counted. So **the two halves have
+    two different warrants and are kept apart on purpose** — the lower levels' additions are DERIVED
+    (the commonest words no deck taught, read off the same frequency list that orders the cards, then
+    hand-filtered for the proper nouns, English and swearing a subtitle corpus is full of) and C1's and
+    C2's are **AUTHORED**. 253 words in all: 67 / 44 / 9 / 8 / 53 / 72.
+    Four things about it are decisions rather than lists.
+    **FREQUENT IS NOT THE SAME TEST AS EVERYDAY, and at A1 the difference is the whole filter.** The
+    subtitle corpus puts `meurtre`, `prison`, `arme` and `capitaine` inside the first eight hundred
+    words of French — frequent because of what films are about, not because a beginner needs them — so
+    the A1 additions are the ones that are frequent AND ordinary, and those are left for the levels
+    whose own pages print them.
+    **A GROUP CARRIES THE REASON IT IS THERE, and the reader is told**: the table is keyed by a phrase
+    finishing "the level's own list does not print …", and `emit.py` reads those back into the
+    description, with a different sentence for the derived half and the authored half. A deck that says
+    "the list is a third party's" and then quietly teaches two hundred words the third party never
+    printed has told the reader something false about its own scope.
+    **`page` AND `raw` ARE NOT THE SAME LIST**, which is the one thing here that would have gone wrong
+    silently: the description says "Of its 384 entries, 3 are misspelt", which is a claim about the
+    PAGE, and counting the supplement into `repairs.json`'s `raw` would have every level report a page
+    longer than the one anybody can go and read.
+    **AND A PHRASE IS SEPARATED BY `|`, NOT BY A SPACE** — the B1 lesson in another coat, and it bites
+    harder here, since half of what C1 and C2 add IS a phrase (`dans la mesure où`, `quand bien même`,
+    `si tant est que`). A group whose value carries a `|` is a list of phrases; anything else splits on
+    whitespace as before.
+    Its own supporting changes: **six `FORCE_POS` rows** where the dump's first record is a different
+    part of speech from the word being taught (`voici`/`voilà` are filed as VERBS and would be sent to
+    the conjugation builder for a paradigm they have not got; `sauf` leads as the adjective *safe* and
+    `envers` as the noun *the reverse*; `or` leads as *gold* and `partant` as a runner in a race), and
+    **`AUTHORED` glosses for the contracted articles**, which are the clearest case in that table of a
+    gloss that has to be written — `du`, `au` and `aux` are pointer-only records pointing at `de` and
+    `à`, so the pointer walk hands back the meaning of the OTHER half of the contraction and says
+    nothing about the word in front of the reader.
+    **`CLOSED_FORMS` in `build_deck.py` is the other half, and it is what stopped the supplement being
+    four cards where one will do.** `forms_html` reads the dictionary, which supplies a feminine for a
+    noun and an agreement for an adjective and **nothing at all for a pronoun or a determiner** — so
+    `celui` came out taught alone, its `celle`, `ceux` and `celles` being bare pointers back to it with
+    no meaning of their own, and `mon` was carded without `ma` or `mes`. Hand-written, because these
+    ARE the closed classes: enumerable, unchanging, and precisely the exceptions any derived rule would
+    be about. One trap it hit: **`mien`/`tien`/`sien` are filed as ADJECTIVES**, so the adjective branch
+    already reads `mienne` off the dictionary and a `feminine` row here printed the feminine twice on
+    one card; what the dictionary cannot say is that the word takes an article, which is the whole
+    difference between `mon livre` and `le mien`.
+  · **`combine.py` IS THE SIX IN ONE IMPORTABLE FILE** (`python3 .claude/delf/combine.py`, Aug 2026, on
+    request), a subdeck per level: **7,249 notes / 14,498 cards, 13.9 MB**, inside app.js's caps
+    (12,000 NOTES — what the file holds — and 48 MB), both of which it restates and refuses to exceed
+    rather than leaving the failure to be found on a phone.
+    **THE TREE IS FLAT, AND THAT IS THE DIFFERENCE FROM THE SPANISH ONE.** `dele/combine.py` nests a
+    direction inside each level, because a DELE deck writes the study direction into the card's own
+    `sub` — it is two notes per word, one each way. A French deck is ONE note with TWO TEMPLATES, so
+    the direction is not a subdeck and **cannot be made one**: `sub` is a property of the note, and the
+    note is both directions. What replaces it is better and costs nothing, since app.js already draws a
+    level's two templates as rows of their own beneath it — so the reader gets `A1` → `French →
+    English` / `English → French` out of a file with one `sub` per level and no `::` in it anywhere.
+    **THE EXAM NAME CHANGES AT C1 AND THE TITLE HAS TO SAY SO** — `DELF A1–B2 & DALF C1–C2 — French`,
+    built by walking `delf_level.EXAM` rather than typed, so it cannot drift from the six files it is
+    made of; a combined deck called `DELF A1–C2` would be making a claim about the exam that is false
+    for a third of it. The rest is the Spanish version's discipline unchanged: ids renumbered
+    `u_delfall_N` (a combined deck reusing `u_delfa1_1` collides with an installed A1 in the shared
+    `UCARDS` store and studies the wrong card), the type block **asserted** identical across the six
+    rather than assumed, every figure in the description COUNTED off the cards, and no clock read, so
+    the same inputs write the same bytes and a diff means something. Here the note count IS the word
+    count, which the Spanish version cannot say — a pair card there may teach two words, so how many
+    WORDS a level teaches is not derivable from its shipped file at all.
+    **IT IS GITIGNORED, like the Spanish one**: a combined deck is an ARTEFACT of the levels it
+    combines, so committing it duplicates every megabyte the repo already carries for them, and one
+    command regenerates it byte for byte.
+    **`check-combined.js` is its browser half** and exists because everything `check-delf.js` asserts
+    about a French card is true of this file by construction — the cards are copied over unchanged —
+    while everything `combine.py` BUILDS fails silently: an id collision studies the wrong card with
+    both decks on the shelf and their full counts showing, a lost `sub` lands seven thousand words in
+    one undivided pile, a mismatched type block renders one level with another's templates, and a file
+    over the note cap is refused with a message about the file rather than about the deck. So it
+    imports the real file through the real picker, asserts the six subdecks and the direction rows
+    underneath them, adds A1, studies it, and checks **the word dealt is one of A1's**.
     **THE REPAIR TABLE IS PER LEVEL, AND SO IS EVERY SENTENCE WRITTEN ABOUT IT.** A repair is a statement
     about ONE page, so a flat table shared across levels fires a merge on a list with nothing to merge —
     silently, since a repair whose source word is absent does nothing and reports nothing — and, worse,
@@ -4983,8 +5078,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   those was an improvement except the one named above**, which is the point of reading them: a
   shared-stage change reaches decks nobody is looking at. **Diff the CARDS and the DESCRIPTION
   separately** — B2's fixes changed two levels' prose and not one card, and a whole-file md5 cannot tell
-  that from a level whose cards have quietly moved. Verified across `PYTHONHASHSEED`. Not part of the
-  site.
+  that from a level whose cards have quietly moved. Verified across `PYTHONHASHSEED`. **And rebuild the
+  COMBINED file with them** (`combine.py`), or it goes on carrying the previous build's cards under the
+  current description. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's

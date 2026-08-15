@@ -344,6 +344,33 @@ FORCE_POS = {
     # card came out glossed "to close"; the noun — a leaven, and figuratively a
     # source of unrest — is the word, and is what has no record.
     'ferment': 'noun',
+
+    # ---------------------------------------------------------- SUPPLEMENT
+    # THE SUPPLEMENT'S OWN SIX, and every one is the same shape as the rows
+    # above: the dump's FIRST record is a different part of speech from the word
+    # the level is being taught, so the card would come out running the wrong
+    # machinery.  Only `noun`, `adj`, `verb` and `name` are special-cased in
+    # `card()`, so a closed-class word needs forcing only when it collides with
+    # one of those four.
+    #
+    # `voici` and `voilà` are filed as VERBS -- etymologically they are, `vois
+    # ci` -- which would send them to the conjugation builder for a paradigm
+    # they have not got.
+    'voici': 'adv', 'voilà': 'adv',
+    # `sauf` leads as the adjective `safe`, and it is the PREPOSITION `except`
+    # that is one of the commonest words in French; as an adjective it would
+    # additionally print an agreement table for the wrong word.
+    'sauf': 'prep',
+    # `envers` leads as the noun `the reverse`, gender and plural and all; the
+    # preposition `towards` is what a B1 reader needs.
+    'envers': 'prep',
+    # `or` leads as the noun `gold`.  Both are real and the noun is the commoner,
+    # but it is the discourse connective — `now`, `and yet` — that the B2 list is
+    # missing, and a card cannot teach both under one headword.
+    'or': 'conj',
+    # `partant` leads as a noun (a runner in a race).  The literary conjunction
+    # `hence, therefore` is the C2 word.
+    'partant': 'conj',
 }
 
 # WHERE WIKTIONARY HAS NO USABLE MEANING, IT IS WRITTEN OUT.  Each of these was
@@ -502,6 +529,32 @@ AUTHORED = {
     # AND C2's TWO, the same case.
     'ferment':     ['ferment, leaven', 'a source of unrest'],
     'transpondeur': ['transponder'],
+
+    # ---------------------------------------------------------- SUPPLEMENT
+    # THE CONTRACTED ARTICLES, which are the clearest case in this table of a
+    # gloss that has to be written.  Wiktionary files `du`, `au` and `aux` as
+    # contractions whose only sense POINTS at `de` and `à` -- so the pointer
+    # walk resolves them and hands back "of, from" and "to, at", which is the
+    # meaning of the OTHER half of the contraction and tells a learner nothing
+    # about the word in front of them.  What has to be taught is that the
+    # article is inside it.
+    'du':  ['of the, from the', 'some, any (partitive, before a masculine noun)'],
+    'au':  ['to the, at the, in the (à + le)'],
+    'aux': ['to the, at the, in the (à + les)'],
+    # THE STRESSED PRONOUN THAT IS ONLY A POINTER.  `eux` is filed as the
+    # disjunctive form of `ils` and carries no gloss of its own, so it would
+    # come out saying "they" -- which is the subject pronoun the deck already
+    # teaches and not this word, whose whole point is that it is the form used
+    # after a preposition and for emphasis.
+    'eux': ['them (after a preposition, or for emphasis)'],
+    # THE FIVE FORCE_POS SENDS HERE, each written from the sense the level is
+    # being taught rather than from the record that happens to come first.
+    'voici': ['here is, here are'],
+    'voilà': ['there is, there are', 'that is it, there you go'],
+    'sauf':  ['except, apart from, save'],
+    'envers': ['towards, to (in one’s attitude to)'],
+    'or':    ['now, and yet (introducing a turn in an argument)'],
+    'partant': ['hence, therefore (formal)'],
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -1002,8 +1055,44 @@ def meanings_html(glosses):
 
 
 # ---------------------------------------------------------------- other forms
+# A CLOSED-CLASS PARADIGM IS ONE WORD, AND THE ALTERNATIVE IS FOUR CARDS SAYING
+# THE SAME THING.  `forms_html` below reads the dictionary, which supplies a
+# feminine for a noun and an agreement for an adjective and nothing at all for a
+# pronoun or a determiner -- so `celui` came out taught alone, and its `celle`,
+# `ceux` and `celles` are filed by Wiktionary as bare pointers back to it with no
+# meaning of their own.  Carding all four would put four nearly identical rows in
+# the deck; carding one and printing the set teaches the paradigm in the place a
+# reader will meet it.  Hand-written, because these ARE the closed classes: they
+# are enumerable, they do not change, and a rule that derived them would be a
+# rule about French morphology that these words are precisely the exceptions to.
+CLOSED_FORMS = {
+    'mon':   [('feminine', 'ma'), ('plural', 'mes')],
+    'ton':   [('feminine', 'ta'), ('plural', 'tes')],
+    'son':   [('feminine', 'sa'), ('plural', 'ses')],
+    'notre': [('plural', 'nos')],
+    'votre': [('plural', 'vos')],
+    'leur':  [('plural', 'leurs')],
+    'ce':    [('before a vowel', 'cet'), ('feminine', 'cette'), ('plural', 'ces')],
+    'celui': [('feminine', 'celle'), ('plural', 'ceux'),
+              ('feminine plural', 'celles')],
+    'quel':  [('feminine', 'quelle'), ('plural', 'quels'),
+              ('feminine plural', 'quelles')],
+    'lequel': [('feminine', 'laquelle'), ('plural', 'lesquels'),
+               ('feminine plural', 'lesquelles')],
+    # THE POSSESSIVE PRONOUNS TAKE THEIR ARTICLE AND NOTHING ELSE HERE.  These
+    # three are filed as ADJECTIVES, so `forms_html`'s adjective branch already
+    # reads `mienne` off the dictionary -- a `feminine` row here as well printed
+    # the feminine twice on one card, once as `la mienne` and once as `mienne`.
+    # What the dictionary cannot say is that the word is used with an article,
+    # which is the whole difference between `mon livre` and `le mien`.
+    'mien':  [('with its article', 'le mien')],
+    'tien':  [('with its article', 'le tien')],
+    'sien':  [('with its article', 'le sien')],
+}
+
+
 def forms_html(e, rec, pos, gender, elided):
-    bits = []
+    bits = list(CLOSED_FORMS.get(e['word'], ()))
     if pos == 'noun' and rec is not None:
         if elided:
             # THE LESSON THE ELIDED ARTICLE SWALLOWS.  `l'` is the same string for

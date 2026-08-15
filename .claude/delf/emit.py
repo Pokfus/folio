@@ -357,20 +357,22 @@ LIST_NOTE = {
     'c1': ("A word of warning about the level, which was measured rather than assumed. The six "
            "lists are graded by how common a word is in a corpus of film and television "
            "subtitles, and by C1 that corpus's own character is beginning to show: the deck "
-           "carries the vocabulary of dubbed drama alongside the vocabulary of the exam. It is "
-           "3,180 real French words in rough order of usefulness, and it is not an exam "
-           "syllabus. "),
-    'c2': ("A word of warning about the level, because the deck's name and its contents do not "
-           "agree. The six lists are graded by how common a word is in a corpus of film and "
-           "television subtitles — measured, not assumed — and C2 is the rarest band, so what "
-           "is left in it is whatever that corpus has and ordinary French does not. In "
-           "practice that is the specialist vocabulary of genre television: science fiction "
-           "(hyperespace, téléportation, antimatière, symbiote), hospital drama (anévrisme, "
-           "défibrillateur, tachycardie, pneumothorax), crime (légiste, effraction, "
-           "perquisition, macchabée) and the occult (exorcisme, sortilège, grimoire). A DALF "
-           "C2 candidate is tested on abstract and argumentative register, and almost none of "
-           "that is here. Treat this as a deck of rare French words worth knowing — most of "
-           "them are — and not as preparation for the examination it is named after. "),
+           "carries the vocabulary of dubbed drama alongside the vocabulary of the exam. That "
+           "is what the additions above are for, and they do not make the rest of it a "
+           "syllabus. Treat this as advanced French in rough order of usefulness. "),
+    'c2': ("A word of warning about the level, because the deck's name and the page it was "
+           "built from do not agree. The six lists are graded by how common a word is in a "
+           "corpus of film and television subtitles — measured, not assumed — and C2 is the "
+           "rarest band, so what is left in it is whatever that corpus has and ordinary French "
+           "does not. In practice that is the specialist vocabulary of genre television: "
+           "science fiction (hyperespace, téléportation, antimatière, symbiote), hospital "
+           "drama (anévrisme, défibrillateur, tachycardie, pneumothorax), crime (légiste, "
+           "effraction, perquisition, macchabée) and the occult (exorcisme, sortilège, "
+           "grimoire). A DALF C2 candidate is tested on abstract and argumentative register, "
+           "and the page has essentially none of it — which is why the additions above were "
+           "written in rather than found. Even so, most of this deck is the page: rare French "
+           "worth knowing, and not by itself preparation for the examination it is named "
+           "after. "),
 }
 REP = json.load(open(lvlf('repairs.json')))
 
@@ -426,6 +428,44 @@ FAULTS = (f"Of its {REP['raw']} entries, " + _and(_bits) + ". " +
           _and(_did).capitalize() + ". " if _bits else
           f"Its {REP['raw']} entries are all real French words, none printed twice. ")
 
+# WHAT WAS ADDED IS SAID AS PLAINLY AS WHAT WAS REPAIRED, and it is the half a
+# reader is likelier to want.  A correction leaves the list the same list; an
+# addition does not, and a deck that says "the list is a third party's" and then
+# quietly teaches two hundred words the third party never printed has told the
+# reader something false about its own scope.  Each group carries the reason it
+# was added, which is the same arrangement the faults sentence above uses.
+_add = {r: ws for r, ws in (REP.get('added') or {}).items() if ws}
+_n_add = sum(len(ws) for ws in _add.values())
+# THE WARRANT DIFFERS BY LEVEL AND THE SENTENCE HAS TO FOLLOW IT.  At the lower
+# levels the additions are DERIVED — the commonest words in French that no deck
+# taught, read off the same frequency list the ordering uses — and at C1 and C2
+# they are AUTHORED, because the corpus being counted contains none of the
+# register a DALF tests and so no frequency method could have found it.  Written
+# flat, one explanation would be false on half the deck.
+_DERIVED = ("The page is a frequency cut of a corpus of film and television "
+            "subtitles, and a frequency cut has no notion of a paradigm, so the "
+            "closed classes come through with holes in them: this deck taught pas "
+            "and not ne, and je, tu, il, elle, nous and vous but not on. The "
+            "additions are the commonest words in French that no level taught, "
+            "read off the same frequency list that orders the cards and then "
+            "filtered by hand for the proper nouns, English and swearing a "
+            "subtitle corpus is full of. ")
+_AUTHORED = ("These are not from the frequency list, because they could not be: "
+             "the corpus behind it is film and television dialogue, which "
+             "contains almost none of the abstract, argumentative French this "
+             "diploma is examined on, so no amount of counting it would turn "
+             "them up. They are written in, and every one was looked up before "
+             "it was written down — five candidates were dropped for having no "
+             "dictionary entry at all rather than being guessed at. ")
+ADDED = ('' if not _add else
+         f"{_n_add} words are ADDED to it, which is worth saying as plainly as "
+         "the corrections, since it changes what the deck covers: "
+         + _and(list(_add)) + ". "
+         + (_AUTHORED if LEVEL in ('c1', 'c2') else _DERIVED)
+         + "Nothing the page prints is displaced, the additions sit in the same "
+         "frequency order as the rest, and any of them a lower level already "
+         "teaches is dropped. ")
+
 DESC = (
     "Both study directions in one deck: French → English (see the French, recall the meaning) "
     "and English → French (see an English meaning, recall the French). Each direction is a card "
@@ -447,7 +487,7 @@ DESC = (
     "published book. The list here is therefore a third party's compilation, taken from the "
     f"{LEVEL.upper()} page of minddory.com's French "
     "vocabulary lists. It was checked against Wiktionary word by word before anything was "
-    f"built. {FAULTS}{LIST_NOTE.get(LEVEL, '')}"
+    f"built. {FAULTS}{ADDED}{LIST_NOTE.get(LEVEL, '')}"
     "The cards are ordered roughly by how common the word is in everyday French, so the words "
     "you meet most often come first: the order is taken from a frequency list built from film "
     "and television subtitles, with a phrase — which a list of single words cannot see — placed "
