@@ -3524,6 +3524,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
   "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
   counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
+- `.claude/check-overlay.js` — audits the LIVE cloud content overlay (`content_overrides`) against the shipped
+  data files: `node .claude/check-overlay.js`. It reports a card delta whose prose plainly belongs to ANOTHER
+  card (the renumbering fault — see the overlay bullet under "Environment"), a delta pointing at an id that no
+  longer exists, a live collection the overlay DELETES, timeline eras that differ from `timeline.js`, footnote
+  markers or licence attributions an edit has dropped, and what the row costs every visitor on every page load.
+  It reads and never writes. Needs the network; reads `SUPA_URL`/`SUPA_KEY` out of app.js rather than restating
+  them, and fails loudly if it cannot find them. **Run it after any renumbering and after baking.** Not part of
+  the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -13731,3 +13739,34 @@ dead code (never rendered).
   `applyAdminEdits`) and **must list every overlay key — `mission` was once missing from the load path, silently dropping
   Mission-page edits on reload**. **Hygiene:** after baking the overlay into `data.js`/`glossary.js`/`timeline.js` and
   deploying, reset `content_overrides.data` to `{}` (Table Editor) so a stale cloud overlay can't shadow the newer shipped files.
+  · **AN OVERLAY DELTA IS KEYED BY ID, SO RENUMBERING IDS SILENTLY REPOINTS EVERY EDIT** (Aug 2026, on a bug
+    report: "some cards in the World History collection are getting their background sections mixed up with
+    those of other cards"). The key is the ONLY thing joining an edit to its subject, and it lives in a
+    Supabase row that no repo operation touches — so the day an id changes meaning, the delta goes on being
+    applied and paints its content onto whoever inherited the number. The **2026-08-04 World History
+    renumbering** moved 89 cards into their planned slots and left the previous week's live edits on the old
+    numbers: seven cards spent the next fortnight showing another card's background, and the mapping was
+    exact both ways — old `wh-001` is now `wh-046`, so `wh-001` (Prehistory) served the Paleolithic card's
+    prose, while `wh-014` and `wh-017`, which map to themselves in the table, stayed correct. **Nothing threw
+    and no count could see it**: the question, answer, date line, difficulty and star rating are all read
+    from `data.js` and were right, and only the prose inside the Background fold was wrong — which is why it
+    took a reader to notice. **Renumber the overlay in the same pass as the cards, or clear it**;
+    `docs/world-history-card-plan.md` holds the old→new table.
+    **AND THE SAME ROW ACCUMULATES DAMAGE NOBODY IS WATCHING.** Audited at the same time, that overlay was
+    also **deleting `col-41` and `col-42`** — the live United States and Russia collections, gone from the
+    Collections page for every visitor — re-creating decks retired in the same replan, **shadowing the fixed
+    1900 map** with the pre-fix one (no Ottoman Empire, no Greece; see `build-era.js`'s `SUP_MIN`), and
+    carrying eleven further timeline eras byte-identical to the shipped ones as dead weight. Of 4 MB, three
+    things were worth keeping. **`node .claude/check-overlay.js` is the audit** — it reads the live row
+    against the shipped files and reports a delta whose prose belongs to another card, a delta pointing at a
+    dead id, a live collection the overlay deletes, timeline eras that differ, footnote markers or licence
+    attributions an edit has dropped, and what the row costs every visitor. **Run it after any renumbering
+    and after baking.**
+    · **A CONTENTEDITABLE ROUND TRIP IS NOT LOSSLESS, and what it drops is the apparatus.** Several edits in
+      that row had lost **every** `<sup class="fn">` marker while the prose stayed word-for-word identical
+      (both artefacts, four glossary descriptions, one abstract) — so the citations were still listed and
+      nothing pointed at them, which `add-sources.js` refuses and no render-time check can see. Others moved
+      a space inside the opening `<b>` (`The<b> Minoan`), dropped an image's `alt`, or dropped the licence
+      line out of a picture's `desc` — losing a required CC BY-SA attribution. Ordinary typing is safe
+      (verified in a browser); it is select-all, paste and heavy restructuring that strip them. **Check the
+      marker count after editing prose that carries citations**, which is what `check-overlay.js` does.
