@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-018` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-019` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 18 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 19 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10220,6 +10220,33 @@ and the sort year is Mayers's 2852 BCE — which is a **different reckoning from
 Fuxi**, recorded rather than reconciled, exactly as `cnh-006` and `cnh-017` already disagree about Yandi.
 The check that matters is the SIBLING one: `cnh-016` says Kuafu descends from Gonggong three generations
 back, so Gonggong has to sort earlier than Kuafu's −2697, and at −2852 he does.
+**`cnh-019` IS THE FIRST CARD HERE WHOSE PICTURE IS A PHOTOGRAPH, AND THE REASON IS THE CARD'S ARGUMENT**
+(Aug 2026). Kunlun is a real range on the western frontier before it is the world-mountain, and the four
+candidates that ARE art each fail: the best-provenanced painting on Commons is Lu Qian's Ming scroll
+titled *Cranes and Pines in the Kunlun Mountains* — named artist, Tokyo National Museum — **and what it
+shows is three cranes on a pine bough**, at 1566 × 3207, which the floated slot renders as a thin column;
+the Han material that shows the mountain properly is the Queen Mother's, and she is the NEXT card. A
+photograph of the range makes the card's own opening claim visible. **Its identification is attributed
+rather than asserted**: the `desc` says the photographer titles the view the Kunlun Mountains and names
+where he stood, because Tashkurgan sits where the western Kunlun meets the Pamirs and Folio cannot settle
+which range the peak belongs to — cnh-013's rule that a `desc` is a claim, met on a modern file whose
+uploader is the only authority for it.
+**AND KUNLUN IS OWNED BY ITS NAMESAKES IN EVERY IMAGE AND ARTICLE SEARCH.** Commons on the bare name
+returns the range, a warship class and a battle; DOAJ returns 1,088 records that are glaciology, nephrite
+geology and **the acupuncture point 昆仑**, with nothing on the myth in the first dozen. It is the
+Gonggong dwarf planet again with more claimants, and the way through is the same: search the characters,
+and search the SUBJECT rather than the name — `崑崙山` found the Ming painting where `Kunlun` found ships.
+**ITS SPINE IS A CROSS-REFERENCE FOLLOWED TWICE, which is cnh-018's rule paying again.** Mayers's entry
+cites "L.C., III., p. 127" for the mountain's earliest mention, and that page carries the Tribute of Yu's
+one flat sentence — hair-cloth and skins from Kunlun, brought by the wild tribes of the west — which is
+the whole of what the classics say before the cosmogonists start building. Legge's Bamboo Annals then give
+King Mu's 17th-year expedition, and **Chavannes supplies the sentence that makes the card an argument
+rather than a list**: Sima Qian leaves the journey out of his Zhou annals altogether, and on the oldest
+texts the figure Mu met is a barbarian chief rather than a queen.
+**AND ITS SORT YEAR IS THE LATEST-DATABLE EVENT, NOT THE EARLIEST MENTION.** A mountain has no date, the
+Tribute of Yu's own composition is a Warring States question rather than Yu's, and the one hard figure any
+source gives is King Mu's reign from 1001 BCE — so the card sorts at −1001, after every sovereign in the
+deck, which is where the Kunlun legend's earliest datable attestation actually sits.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
