@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-023` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-024` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 23 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 24 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10353,7 +10353,28 @@ rather than carrying it.
 the citation gives the SERIES span rather than the 1918 that catalogues and an uploader's filename both
 assert — a year, like a page, is read or it is not claimed. And the Shuowen is dated AD 100 by Doré and
 AD 200 by Mayers, so the card and the date line say "a Han dictionary", which is true under both.
-**It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
+**`cnh-024` FOUND A RENDERING FAULT IN TWO ALREADY-SHIPPED CARDS, AND IT IS A FACT ABOUT THE WHOLE
+CORPUS** (Aug 2026). A great many of this site's illustrations are woodblock plates uploaded to Commons as
+PNGs with a **transparent** background — black line and nothing else — and `.card-img img` set no ground of
+its own, so on a dark theme they were black ink on `--paper-2`'s near-black and **the picture was a blank
+rectangle**. Nothing throws, the file decodes, `naturalWidth` is right and every count reads healthy;
+**only looking at it after dark shows anything**, which is why it had been shipping since `cnh-016`.
+Measured rather than argued about before it was fixed: the Kuafu, Jingwei and fenghuang plates are 95–97%
+transparent and **100% of their opaque pixels are dark**. The ground is a **theme-independent literal**,
+and that is the decision rather than an oversight — `var(--paper)` flips dark at night and fixes nothing,
+and line art is ink on PAPER, which is a fact about the object and not about the reader's theme. **Look at
+a new picture on a DARK theme as well as a light one**; the same trap waits for any scan uploaded with its
+background knocked out.
+**AND AN OMEN BIRD CAN CARRY A DATE LINE WHERE AN EMPEROR CANNOT.** `cnh-007` leaves that field empty
+because the tradition declines to date the Yellow Emperor at all, and this card's subject is a creature
+that never existed and has four dated rows — because what the sources date is not the bird but the
+SIGHTINGS: Huangdi's, Shun's, the one Huo Guang got up in 84 BCE for a boy emperor, and the last in 1368
+on the tomb of the father of the man then taking the throne. **Ask what the sources actually date before
+concluding a legendary subject cannot be dated** — a myth about an appearance carries a chronology that a
+myth about a person may not. And **`Fenghuang` is a county in Hunan**, the namesake trap a seventh time
+after the dwarf planet, the warship, the Shandong city, the surname, the hydrangea and the dragon boat:
+searching the characters found the plate where searching the name found a tourist town.
+  **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
 called Jin nine centuries apart (`col-17` 晉 266–420 and `col-30` 金 1115–1234); **`col-2 Xia` is retitled
