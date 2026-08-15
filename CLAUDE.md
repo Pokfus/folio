@@ -4259,7 +4259,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   files, **all six CEFR levels** (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB;
   B1: 998 / 1,996, 3.4 MB; B2: 1,400 / 2,800, 4.1 MB; C1: 999 / 1,998, 3.0 MB; C2: 700 / 1,400,
   2.0 MB) **and, since Aug 2026, a seventh deck that is not a level**
-  (`decks/Portuguese-Phrases-and-Expressions.folio-deck.json`), community decks rather than site content:
+  (`decks/Portuguese-Phrases-and-Expressions.folio-deck.json`; 1,342 notes / 2,684 cards, 2.2 MB),
+  community decks rather than site content:
   `python3 .claude/caple/run.py [--level c2] [--no-fetch] [--variety-check]`. Seven stages, run by
   `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
   `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
@@ -4274,7 +4275,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     teaches the seven HSK levels and then two subdecks carry Phrases and Idioms, "the two the syllabus
     leaves out" — and the reason is the same here: a Referencial level is an inventory of WORDS, so a
     set expression reaches those decks only where the inventory happens to name one, and what the six
-    between them teach is **16 of the 1,356 this pool holds**. Seven things are decisions rather than
+    between them teach is **17 of the 1,342 this pool holds**. Eight things are decisions rather than
     plumbing.
     **IT REUSES EVERY STAGE THAT IS ABOUT PORTUGUESE AND REPLACES THE FOUR THAT ARE ABOUT THE
     REFERENCIAL.** `examples.py` and `build_deck.py` are the same code with the same European filters
@@ -4297,7 +4298,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     anyway. **Counted on WORD BOUNDARIES** — the pipeline's own `poder com` / `poder comprar` fault,
     worth more here because a short phrase is common: `a par` matches 7,847 times as a substring
     (almost all `a parte` and `a partir`) and 21 on boundaries.
-    **725 OF THE 1,356 ARE IN NO CORPUS AT ALL, and that is the subject rather than a gap** — an idiom
+    **715 OF THE 1,342 ARE IN NO CORPUS AT ALL, and that is the subject rather than a gap** — an idiom
     is literary where a sentence-pair corpus is conversational, and the Mandarin deck records exactly
     the same of its chengyu (361 of 5,227 appear even once). Stated in the deck's own description and
     NOT repaired by truncating to what the corpus can rank, which would let the corpus choose the
@@ -4308,13 +4309,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the whole of what is being taught and one whose every recorded meaning is marked Brazil is not said
     in Portugal at all. **178 go that way — much the largest filter here**, which is what a corpus of
     idioms should look like, set expressions being the most regionally divided part of a language.
-    **AND `headwords_below` IS A SECOND FUNCTION RATHER THAN A WIDER `words_below`.** A level asks "is
-    this WORD already taught?" and strips a leading article, so `a distância` goes into its exclusion
-    set as `distância`; this deck asks "is this PHRASE already taught?" and the two answers differ on
-    exactly the entries beginning with something article-shaped. Widening the shared one would also
-    have dropped six adverbial locutions from C1 and C2, which ship there correctly and on purpose.
+    **…AND THE TAG CANNOT SEE AN EXPRESSION THAT IS BRAZILIAN IN ITS WORDS**, which is a second filter
+    and was nearly missed: `a grama do vizinho é sempre mais verde` is filed as Portuguese generally,
+    so nothing marks it, and in Portugal a lawn is `relva` while a `grama` is a gram. The first hand
+    table was swept with **the seven shibboleth PAIRS `run.py` checks the corpora with**, and every
+    leak turned on a word outside that list — so the sweep is now against the **whole frequency list**
+    (`variety_report`, printed on every run) and the table names **15**. **THE LINE IS ZERO EUROPEAN
+    HITS**: a word common in Brazil and wholly absent from a European list of the same size is a
+    variety marker rather than a rarity, and that took nine (`sumiço`, `mané`, `eita`, `cê`, `capim`,
+    `pingando`, `oras`, and `cômico`, which is a SPELLING — Wiktionary's own `cómico` entry glosses
+    itself "European Portuguese standard spelling of cômico"). The rest were read: `grama` at 9.5×
+    against `relva`'s 0.23, `fumaça` 16.7× against Portugal's `fumo`, `paletó` 19.4×.
+    **AND THE REST IS REPORTED AND LEFT, WHICH IS `select.py`'S OWN RULE.** 78 shipped phrases still
+    carry a word said ≥8× more often in Brazil and taking them wholesale would cost more than it
+    saved: `em suma` is flagged for the coincidence of `suma` and `grão a grão enche a galinha o papo`
+    for `papo`, both of them Portugal's own, and they sit in the same band as the real Brazilianisms
+    (`tô ligado`, four on `botar`, `chutar o balde`). **Read the report, do not automate it.**
+    **AND `headwords_below` IS A SECOND FUNCTION RATHER THAN A WIDER `words_below` — BUT IT RETURNS
+    BOTH FORMS, AND SHIPPED RETURNING ONE.** A level asks "is this WORD already taught?" and strips a
+    leading article, so `a distância` goes into its exclusion set as `distância`; this deck asks "is
+    this PHRASE already taught?", and the two answers differ at BOTH ends. Keeping the unstripped form
+    is what saves the adverbial locutions (`a par`, `a seco`, `a pé`), which stripped would enter as
+    `par`, `seco` and `pé` and match nothing. Keeping the STRIPPED form is what was missing: **a noun
+    is keyed WITH its article**, so C1's `o peso morto` never matched the candidate `peso morto` and
+    the deck taught one lexeme twice under one gloss. A noun's article there is the deck's own
+    typography — it is what colours the gender — and no part of the headword. Widening the shared
+    `words_below` is still refused: it would drop six adverbial locutions from C1 and C2, which ship
+    correctly. Widening THIS one is safe because only `parse_phrases` imports it, and measured over
+    the pool the union excludes exactly one phrase the old rule kept — that duplicate.
     **TWO SUBDECKS, READ AND NOT GUESSED**: Wiktionary files a proverb under a part of speech of its
-    own, so **Expressions (1,138)** and **Proverbs (218)** are split on the record rather than on the
+    own, so **Expressions (1,127)** and **Proverbs (215)** are split on the record rather than on the
     shape of the words. `build_deck.py` writes the `sub` string; the deck's subdecks are the distinct
     values its cards name, which is what makes them cost the file nothing.
     **A BOUNDARY MATCH FINDS THE WORDS AND NOT ALWAYS THE EXPRESSION**, which is `poder com` /
@@ -4326,8 +4350,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     same question, where `KEYWORDS` requires the translation to carry a word the reflexive means — and
     here the keyword set is free, being the entry's own gloss. It is scored as a **PREFERENCE and not
     a filter**: an idiom translates loosely (`bater as botas` is "to kick the bucket" and its sentence
-    may say "he died"), so a hard test would drop good sentences to remove bad ones. Measured, it took
-    the mismatches from 149 of 445 to 108 and `que foi` now opens on "Que foi que eu fiz de errado?".
+    may say "he died"), so a hard test would drop good sentences to remove bad ones. Measured on the
+    pool as it then stood, it took the mismatches from 149 of 445 to 108, and `que foi` now opens on
+    "Que foi que eu fiz de errado?".
     The rest is stated in the deck's own description rather than repaired. **Gated on `PHRASES`** for
     the ordinary reason: it changes which sentence is chosen, so ungated it would re-pick examples
     across all six word decks for a problem those decks barely have, their entries being single words

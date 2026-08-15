@@ -50,7 +50,7 @@ EXAM = {'a1': 'ACESSO', 'a2': 'CIPLE', 'b1': 'DEPLE',
 # PHRASES and the IDIOMS, which are "the two the syllabus leaves out".  A
 # Referencial level is an inventory of WORDS, so a set expression reaches these
 # decks only where the inventory happens to name one; what the six between them
-# teach is 16 of the 1,294 this pool holds.
+# teach is 17 of the 1,342 this pool holds.
 #
 # IT REUSES EVERY STAGE THAT IS ABOUT PORTUGUESE and replaces the four that are
 # about the Referencial.  `build_deck` and `examples` are the same code with the
@@ -214,23 +214,37 @@ def words_below():
 
 
 def headwords_below():
-    """Every headword a lower deck teaches, EXACTLY as it is keyed.
+    """Every headword a lower deck teaches, BOTH as keyed and article-stripped.
 
-    `words_below` above strips a leading article, because a level asks "is this
-    WORD already taught?" and `a distância` is taught as the word `distância`.
-    The phrases deck asks a different question -- "is this PHRASE already
-    taught?" -- and the two answers differ on exactly the entries where the
-    phrase begins with something article-shaped: `a par`, `a seco`, `a pé`.
-    Stripped, those go into the set as `par`, `seco` and `pé`, and a phrase
+    `words_below` above strips a leading article and keeps ONLY the stripped
+    form, because a level asks "is this WORD already taught?" and `a distância`
+    is taught as the word `distância`.  The phrases deck asks a different
+    question -- "is this PHRASE already taught?" -- and the two answers differ
+    at BOTH ends, which is why this returns the union rather than either half.
+
+    KEEPING THE UNSTRIPPED FORM is what the stripped-only rule loses: the six
+    decks teach a handful of adverbial locutions that merely begin with
+    something article-shaped -- `a par`, `a seco`, `a pé`, `a fim de`.  Stripped,
+    those enter the set as `par`, `seco`, `pé` and `fim de`, and a phrase
     candidate spelled `a par` matches none of them.
 
+    KEEPING THE STRIPPED FORM is what the unstripped-only rule loses, and it
+    shipped that way: a NOUN is keyed WITH its article, so C1's `o peso morto`
+    never matched the phrase candidate `peso morto` and the deck taught the same
+    lexeme twice under the same gloss.  A noun's article is the deck's own
+    typography -- it is there to colour the gender -- and is no part of the
+    headword the phrase pool is being compared against.
+
     SO IT IS A SECOND FUNCTION AND NOT A WIDER FIRST ONE.  Adding the unstripped
-    form to `words_below` would also change what C1 and C2 may teach: six
-    adverbial locutions ship there precisely because the stripped form is what
-    was compared, and they are correct -- `a distância` the adverb is not `a
+    form to `words_below` would change what C1 and C2 may teach: six adverbial
+    locutions ship there precisely because the stripped form is what was
+    compared, and they are correct -- `a distância` the adverb is not `a
     distância` the noun, and the two cards say which they are with their parts
     of speech.  Widening the shared function to serve this one would quietly
-    drop them from decks nobody was editing.
+    drop them from decks nobody was editing.  Widening THIS one is safe because
+    only `parse_phrases` imports it; measured over the shipped pool, the union
+    excludes exactly one phrase the exact rule kept, and that phrase is the
+    duplicate above.
     """
     out = set()
     for lvl in BELOW.get(LEVEL, []):
@@ -242,6 +256,9 @@ def headwords_below():
                 (c.get('fields') or {}).get('Portuguese', ''))
             for half in strip_tags(w).split(', '):
                 out.add(half)
+                bare = half.split(' ', 1)
+                if len(bare) == 2 and bare[0].lower() in ARTICLES:
+                    out.add(bare[1])
     out.discard('')
     return out
 

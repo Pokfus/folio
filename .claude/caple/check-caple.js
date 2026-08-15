@@ -570,7 +570,7 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
     }
   }
   // A WORD DECK CARRIES MORE SENTENCES THAN IT HAS CARDS (three apiece for most
-  // of them); the phrases deck cannot, since 725 of its expressions are in no
+  // of them); the phrases deck cannot, since 715 of its expressions are in no
   // corpus at all — so there the floor is that every card claiming examples has
   // at least one and that the deck has real sentences, which is the assertion
   // the count was standing in for and is true of any deck this builds.
