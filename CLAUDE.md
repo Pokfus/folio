@@ -3698,7 +3698,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, and the
-  **Goethe German set** by `.claude/goethe/` — see its own bullet below.
+  **German set** by `.claude/goethe/` — Goethe A1, A2 and B1 plus a corpus-built C1, there being no
+  published Goethe list above B1 — see its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4408,17 +4409,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   compares a rebuild against a shipped file that was already unreproducible.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent. Not part of the site.
-- `.claude/goethe/` — the generator behind the Goethe decks: `decks/Goethe-A1-German.folio-deck.json`
-  (**785 notes / 1,570 cards**), an **A2** built the same way (**1,072 notes / 2,144 cards**) and a **B1**
-  (**2,525 notes / 5,050 cards**), the last two DELIBERATELY NOT COMMITTED — see the last sub-bullet.
-  `python3 .claude/goethe/run.py [--level a1|a2|b1] [--no-fetch]`. Seven stages, caching its corpora and the
-  Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.3 GB, gitignored). PYTHON, like `.claude/dele/`
-  and unlike every other helper here, and for the same reason: a further level is a re-run against the next
-  Wortliste rather than a rebuild. **ONE LEVEL PER RUN** (`goethe_level` reads the level once, at import),
-  and a level is taught on top of the ones below it, read out of the SHIPPED deck files so they cannot
-  drift — the DELE arrangement exactly (A2's list REPEATS 330 A1 words and B1 repeats 571 of both, which is
-  what `BELOW` removes). B2 has a published Wortliste of its own and would take a row in each of that
-  module's tables plus a `BELOW` entry.
+- `.claude/goethe/` — the generator behind the German decks: `decks/Goethe-A1-German.folio-deck.json`
+  (**785 notes / 1,570 cards**), an **A2** built the same way (**715 / 1,430**), a **B1** (**1,865 /
+  3,730**) and a **C1** (**3,000 / 6,000**), the last three DELIBERATELY NOT COMMITTED — see the last
+  sub-bullet.
+  `python3 .claude/goethe/run.py [--level a1|a2|b1|c1] [--no-fetch]`. Seven stages, caching its corpora and
+  the Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.5 GB, gitignored). PYTHON, like
+  `.claude/dele/` and unlike every other helper here, and for the same reason: a further level is a re-run
+  against the next Wortliste rather than a rebuild. **ONE LEVEL PER RUN** (`goethe_level` reads the level
+  once, at import), and a level is taught on top of the ones below it, read out of the SHIPPED deck files
+  so they cannot drift — the DELE arrangement exactly (A2's list REPEATS 687 A1 words and B1 repeats 1,225
+  of both, which is what `BELOW` removes).
+  **`words_below()` READ AN HTML FIELD AS PLAIN TEXT AND THE EXCLUSION SILENTLY DID NOTHING FOR ANY NOUN**
+  (found and fixed Aug 2026, while adding C1). It reads each lower deck's `German` field and strips the
+  leading article — but `headword_html` wraps that article in a span so the gender can be coloured, so the
+  test for a leading `der`/`die`/`das` matched nothing and what went into the set was the whole tag soup,
+  which no headword can ever equal. **A2 shipped re-teaching 341 of A1's words and B1 644 of A1's and
+  A2's**, which is precisely what `BELOW` exists to prevent and which its own comment says would otherwise
+  happen. Nothing threw, every count was right, and card by card it reads exactly like a deck. Found by
+  comparing the three SHIPPED decks against each other rather than by anything in a run — the rebuilt decks
+  now intersect on nothing but a handful of pair halves. **Compare the outputs, not the logs**, and mind
+  that a field a card renders is markup even where it reads like a word.
+  **AND EVERY DECK DESCRIBED ITSELF AS A1** (same batch, same shape of fault). `emit.py` built its `desc`
+  from one hardcoded paragraph, so the A2 and B1 files went out saying *"1072 words for the
+  Goethe-Zertifikat A1: Start Deutsch 1"*, quoting A1's "about 650 words" and citing A1's PDF as their
+  source; every card also carried the literal `category: 'Goethe A1'`. Every COUNT in them was correct,
+  which is why it read as finished. The per-level facts are tables now (`EXAM`, `LIST_SENT`, `ORDER_SENT`,
+  `CREDIT_SENT`) and the wording is composed from them — **a sentence naming the wrong exam is the one
+  thing a deck's description must never do**, and nothing but reading the shipped description end to end
+  can catch it.
   **THE SECOND LEVEL IS WHERE THE PIPELINE'S ASSUMPTIONS WERE TESTED, and almost every one of them was a
   fact about A1's TYPESETTING rather than about German.** Six things it settled are worth carrying.
   · **THE PAGE GEOMETRY IS A TABLE, NOT A CONSTANT.** A1 is ONE pair of columns and A2 is TWO pairs side by
@@ -4579,14 +4598,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Swiss words the list gives entries of their own (`der Führerausweis`, `die e-card`, `der Zivilstand`) —
     and each is written into `AUTHORED` with its country where the country is the point. `build_deck` still
     REFUSES a card with no meaning, which is what keeps that list honest.
-  · **A1 IS IN THE REPO AND A2 AND B1 ARE NOT** (on request, Aug 2026): they are files to hand a reader for
-    import, not something the site should carry, so `.gitignore` names both and a `git add -A` cannot sweep
-    them in. Deleting a line ships that deck. Nothing on the site links to any of them — a community deck is
-    user content, which is also why none of them goes in the changelog.
+  **THE FOURTH LEVEL HAS NO WORD LIST TO TEACH, AND THAT IS THE EXAM BOARD'S POSITION RATHER THAN A GAP**
+  (`c1_wordlist.py`, `TARGET` 3,000; Aug 2026, on request). The published Wortlisten STOP AT B1. Checked
+  against the brochures rather than inferred from a 404: the Goethe-Institut's own C1
+  Prüfungsziele/Testbeschreibung says in section 4.4 that *„Wortschatz- und Grammatikinventare zum
+  Goethe-Zertifikat C1 gibt es aus folgenden Gründen nicht: Auf dieser Stufe läßt sich keine verbindliche
+  Eingrenzung des Wortschatzes vornehmen, da authentische Texte verwendet werden"* — no binding
+  delimitation of the vocabulary can be made at this level, because the exam uses authentic texts. **B2 is
+  the same** and points instead at the *Profile deutsch* CD-ROM, a commercial Langenscheidt product, so it
+  would need a word list from somewhere else too. Six things this settled:
+  · **A DECK MUST NOT CLAIM TO BE A LIST THAT DOES NOT EXIST.** It is titled `German C1 — Vocabulary`, its
+    id is `germanc1`, its file is `German-C1-Vocabulary.folio-deck.json`, its cards are categorised
+    `German C1` and its tags do NOT include `goethe`. Its description quotes the paragraph above and says
+    what the deck is instead. `EXAM` has no `c1` row and `emit.py` branches on that rather than on the
+    level's name, so the claim cannot be made by accident.
+  · **THE CORPUS DOES THE SELECTING, SO IT MUST BE THE RIGHT REGISTER.** A1–B1 are merely ORDERED by a
+    subtitle frequency list; here the corpus chooses the words, and measured on the tail beyond B1 that
+    list offers `Mörder`, `Pistole`, `Hexe`, `Dreck`, `verflucht` and a drift of first names — television
+    dialogue, and nothing like a C1 reading text. The Leipzig Corpora Collection's **`deu_news_2024`** (a
+    million sentences of German news, 17.6M tokens) offers `Nachhaltigkeit`, `hinsichtlich`, `Rechtsstaat`.
+    `FREQ` in `goethe_level.py` says which list orders which level and in what shape. **Only the ranking is
+    taken** — not one of its sentences enters the deck, exactly as only the LIST is taken from a Wortliste
+    — and `run.py` deletes the tarball after lifting the word file out of it.
+  · **THE FILTERS ARE THE WHOLE OF THE WORK.** Unfiltered, the top of the list is `den`, `ist`, `dem`,
+    `eine`: inflected forms of words A1 already teaches, which survive because `BELOW` excludes a lemma and
+    a corpus counts surfaces. Eleven rules, each counted on every run, drop 18,272 of 22,469 candidates —
+    no German record, no sense of its own, also a proper name, a closed word class, vulgar or obsolete,
+    taught below, an inflected form, hyphenated, place-derived, the English word unchanged, and a compound
+    of words already known.
+  · **ONE OF THEM IS THE EXAM BOARD'S OWN CRITERION**, which is why it is worth having: the same passage
+    says a C1 candidate is expected to DECODE the compounds authentic texts are full of ("die sich aus
+    bereits bekannten Wörtern zusammensetzen … erschließen lassen") rather than to have learnt them. So a
+    word that segments into parts the learner already has is not a card — `Bushaltestelle` and
+    `Wahlergebnis` go, `Wertschöpfung` stays because `Schöpfung` is not taught. 1,136 of them.
+  · **THE INFLECTED-FORM RULE IS ASYMMETRIC ON PURPOSE.** A lower-case surface listed as a form of another
+    lemma is dropped outright; a CAPITALISED one only if its source lemma is taught. German nominalises
+    freely, so `die Habe` and `das Muss` are genuine nouns that happen to be forms of `haben` and `müssen`,
+    where `Tage` and `Gute` are inflections of words already on the shelf.
+  · **AND THE GLOSS CAPS HAD TO RISE, WHICH ONLY LOOKING AT A CARD SHOWED.** `merged_glosses` reads three
+    senses and `meaning_lines` prints four synonyms — right for A1, where `groß` is "big, large, tall" and
+    that IS the word, and wrong at C1, where the words are polysemous and Wiktionary's first sense is often
+    a literal one nobody uses. `der Einsatz` came out as *something inserted / inset / inlay / compartment*
+    while the corpus that selected it means deployment, use and commitment — senses three, four and six. So
+    C1 reads five senses and prints at most two synonyms of each (`GLOSS_SENSES`, `SENSE_CAP`, `PER_SENSE`),
+    and the three levels below are byte-identical.
+  · **A1 IS IN THE REPO AND A2, B1 AND C1 ARE NOT** (on request, Aug 2026): they are files to hand a reader
+    for import, not something the site should carry, so `.gitignore` names all three and a `git add -A`
+    cannot sweep them in. Deleting a line ships that deck. Nothing on the site links to any of them — a
+    community deck is user content, which is also why none of them goes in the changelog.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
-  A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
-  the site.
+  A1 must stay byte-identical to what is committed, and A2, B1 and C1 must reproduce themselves. That is how
+  the two gloss caps and the level-aware description were shown to touch nothing below C1. `check-goethe.js`
+  takes the level as its argument and passes 44/35/35/35 on a1/a2/b1/c1. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's

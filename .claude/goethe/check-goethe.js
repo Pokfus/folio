@@ -19,8 +19,15 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^(a[12]|b1)$/.test(LEVEL)) { console.error("level must be a1, a2 or b1"); process.exit(2); }
-const DECK = "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
+if (!/^(a[12]|b1|c1)$/.test(LEVEL)) { console.error("level must be a1, a2, b1 or c1"); process.exit(2); }
+// C1 IS NOT A GOETHE DECK AND IS NOT NAMED LIKE ONE.  The Goethe-Institut
+// publishes no C1 word list -- see `c1_wordlist.py` -- so that deck is titled,
+// filed and identified for what it is, and the checks read these tables rather
+// than composing a name out of the level.
+const DECK = LEVEL === "c1" ? "German-C1-Vocabulary.folio-deck.json"
+                            : "Goethe-" + LEVEL.toUpperCase() + "-German.folio-deck.json";
+const DECK_ID = LEVEL === "c1" ? "germanc1" : "goethe" + LEVEL;
+const SHELF = LEVEL === "c1" ? "German C1" : "Goethe " + LEVEL.toUpperCase();
 // the composed paradigms live in the lowest level that teaches the word
 const COMPOSED = LEVEL === "a1";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
@@ -71,8 +78,8 @@ const ok = (c, m, extra) => {
   ok(type.speechLang === "de-DE", "the speech language is German");
   ok(deck.cards.every((c) => c.type === "goethe"), "every note carries the type");
   ok(new Set(deck.cards.map((c) => c.id)).size === deck.cards.length, "no id occurs twice");
-  ok(deck.cards.every((c) => c.id.startsWith("u_goethe" + LEVEL + "_")
-                             && /^u_goethe[a-z0-9]+_\d+$/.test(c.id)),
+  ok(deck.cards.every((c) => c.id.startsWith("u_" + DECK_ID + "_")
+                             && /^u_[a-z0-9]+_\d+$/.test(c.id)),
      "every id carries the deck");
   ok(!/Wortliste|goethe\.de/i.test(JSON.stringify(deck.cards)),
      "no card text quotes the source document");
@@ -105,7 +112,7 @@ const ok = (c, m, extra) => {
   await pg.waitForTimeout(700);
   const rows = await pg.evaluate(() => [...document.querySelectorAll(".active-deck .dk-title")]
     .map((e) => e.textContent.trim()));
-  ok(rows.length === 1 && rows[0].includes("Goethe " + LEVEL.toUpperCase()),
+  ok(rows.length === 1 && rows[0].includes(SHELF),
      "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
 
   // ---------------------------------------------------------------- study
@@ -198,7 +205,13 @@ const ok = (c, m, extra) => {
     // most worth looking at and both are behind a shut <details>, so a picture of a card as dealt shows
     // neither.  The pronoun the session opens on is the least representative card in the deck.
     let shot = "";
-    if (card.pos.startsWith("noun") && card.art && !seen.noun) { seen.noun = card; shot = "noun"; }
+    // THE NOUN SAMPLED MUST BE ONE THAT HAS A PLURAL, the way the verb sampled must have a
+    // paradigm and the adjective a comparative.  Taking the first noun of any kind and then
+    // asserting it carries a plural tests what the deck happened to deal: B1's first noun
+    // became `das Wissen` once the levels stopped repeating each other, and a mass noun has
+    // no plural, so a correct deck failed.
+    if (card.pos.startsWith("noun") && card.art && !seen.noun
+        && /plural/.test(card.forms + card.pos)) { seen.noun = card; shot = "noun"; }
     if (/verb/.test(card.pos) && card.conj.length && !seen.verb) { seen.verb = card; shot = "verb"; }
     if (card.pos === "adjective" && /comparative/.test(card.forms) && !seen.adj) { seen.adj = card; shot = "adj"; }
     if (card.word === "ich" && !seen.pron) { seen.pron = card; shot = "pron"; }
@@ -222,11 +235,11 @@ const ok = (c, m, extra) => {
   }
 
   console.log("   noun:  " + JSON.stringify(seen.noun && [seen.noun.word, seen.noun.forms]));
-  ok(seen.noun, "a noun came up in the first forty cards");
+  ok(seen.noun, "a noun with a plural came up in the first forty cards");
   if (seen.noun) {
     ok(/^(der|die|das)$/.test(seen.noun.art), "it carries its article", seen.noun.art);
-    ok(/plural/.test(seen.noun.forms) || /plural only/.test(seen.noun.pos + seen.noun.forms),
-       "and its plural", seen.noun.forms);
+    ok(/die \S/.test(seen.noun.forms) || /plural only/.test(seen.noun.pos + seen.noun.forms),
+       "and the plural is printed with its article", seen.noun.forms);
     ok(seen.noun.artColor !== "rgb(0, 0, 0)" && seen.noun.artColor.length > 0,
        "the article is coloured by gender", seen.noun.artColor);
     // THE WHOLE PARADIGM, not just the plural: the four cases against singular and

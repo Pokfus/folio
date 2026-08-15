@@ -7,16 +7,25 @@ level, so one level can be built after another without either overwriting the
 other's working files.  The DELE pipeline's `dele_level` is the same idea; the
 two are deliberately separate files, because the German settings are German.
 """
-import json, os
+import json, os, re
 
 LEVEL = os.environ.get('GOETHE_LEVEL', 'a1').lower()
 
 TITLES = {'a1': 'Goethe A1 — German', 'a2': 'Goethe A2 — German',
-          'b1': 'Goethe B1 — German'}
-DECK_IDS = {'a1': 'goethea1', 'a2': 'goethea2', 'b1': 'goetheb1'}
+          'b1': 'Goethe B1 — German', 'c1': 'German C1 — Vocabulary'}
+DECK_IDS = {'a1': 'goethea1', 'a2': 'goethea2', 'b1': 'goetheb1',
+            'c1': 'germanc1'}
 DECK_FILES = {'a1': 'Goethe-A1-German.folio-deck.json',
               'a2': 'Goethe-A2-German.folio-deck.json',
-              'b1': 'Goethe-B1-German.folio-deck.json'}
+              'b1': 'Goethe-B1-German.folio-deck.json',
+              'c1': 'German-C1-Vocabulary.folio-deck.json'}
+
+# THE EXAM EACH LEVEL IS FOR, in the exam board's own name for it -- read off the
+# Wortliste's own title page rather than composed.  C1 has no entry because there
+# is no Goethe C1 word list to be for; see WORTLISTE below.
+EXAM = {'a1': 'Goethe-Zertifikat A1: Start Deutsch 1',
+        'a2': 'Goethe-Zertifikat A2',
+        'b1': 'Goethe-Zertifikat B1'}
 
 # The Wortliste each level is read from, published by the Goethe-Institut.  A
 # further level is a row apiece in these tables plus a `BELOW` entry, exactly as
@@ -30,12 +39,48 @@ WORTLISTE = {
     'b1': ('b1-wortliste.pdf',
            'https://www.goethe.de/pro/relaunch/prf/de/'
            'Goethe-Zertifikat_B1_Wortliste.pdf'),
+    # C1 HAS NO WORTLISTE, AND THAT IS THE EXAM BOARD'S OWN POSITION RATHER THAN
+    # A GAP IN THIS CACHE.  The published lists stop at B1.  The Goethe-Institut's
+    # C1 Prüfungsziele/Testbeschreibung says so outright, in section 4.4:
+    #
+    #   "Wortschatz- und Grammatikinventare zum Goethe-Zertifikat C1 gibt es aus
+    #    folgenden Gründen nicht: Auf dieser Stufe läßt sich keine verbindliche
+    #    Eingrenzung des Wortschatzes vornehmen, da authentische Texte verwendet
+    #    werden."
+    #
+    # -- there is no binding delimitation of the vocabulary at this level, because
+    # the exam uses authentic texts.  B2 is the same: its brochure points at the
+    # Profile deutsch CD-ROM, a commercial Langenscheidt product, and publishes no
+    # list of its own.  Both were checked against the brochures themselves rather
+    # than inferred from the download page 404ing.
+    #
+    # So a C1 deck cannot BE the list, and must not claim to: it is built from a
+    # corpus instead, by `c1_wordlist.py`, and the deck's own description states
+    # in the Institut's words that no such list exists.  A level with no entry
+    # here takes that path; `run.py` branches on it.
 }
 
 # A2's list REPEATS the A1 vocabulary -- `aus`, `und`, `was` and several hundred
 # more are printed in both -- so without this the second deck would teach a
 # third of the first one over again.  B1 repeats both.
-BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2']}
+BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'c1': ['a1', 'a2', 'b1']}
+
+# WHICH FREQUENCY LIST ORDERS THE LEVEL, and it is not the same list twice.  A1
+# to B1 are ordered by a word's rank in film and television subtitles, which is
+# the right measure for the vocabulary of everyday life those exams test.  C1 is
+# not taken from an exam list at all but FROM a corpus, and a subtitle corpus has
+# almost nothing to say about the words in question: `Nachhaltigkeit`,
+# `hinsichtlich` and `Rechtsstaat` are rare in dialogue and ordinary in a
+# newspaper.  Measured -- of the 3,000 words C1 selects, most do not appear in
+# the 50,000-word subtitle list at all, so ordering C1 by it would put nearly the
+# whole deck in one undifferentiated block at the end.
+#
+#   ('file', 'shape'), where the shape is how the file's columns are read:
+#     'subs'    -- `word count` per line (hermitdave)
+#     'leipzig' -- `rank<TAB>word<TAB>count` per line (Leipzig Corpora Collection)
+FREQ = {'a1': ('de_50k.txt', 'subs'), 'a2': ('de_50k.txt', 'subs'),
+        'b1': ('de_50k.txt', 'subs'),
+        'c1': ('leipzig-news-words.txt', 'leipzig')}
 
 # WHERE THE WORDS ARE ON THE PAGE, and it is not the same shape twice.  The A1
 # list is ONE pair of columns, a headword at x 143-233 and its example from 237;
@@ -142,13 +187,27 @@ def f(name):
     return f'{base}-{LEVEL}{ext}'
 
 
+ART = ('der', 'die', 'das')
+
+
 def words_below():
     """Every word already taught by a lower level, read from its shipped deck.
 
     Taken from the deck FILE rather than from a working file, so the exclusion
     is against what actually went out and the two can never drift apart.  A1 is
-    the bottom of the ladder and has nothing below it; the function is written
-    now so that adding A2 is a table row rather than a new idea.
+    the bottom of the ladder and has nothing below it.
+
+    THE FIELD IS HTML AND WAS READ AS PLAIN TEXT, WHICH BROKE THE EXCLUSION FOR
+    EVERY NOUN.  `headword_html` wraps the article so the gender can be coloured
+    -- `<span class="uc-art uc-m">der</span> Arbeitsplatz` -- so the test for a
+    leading `der`/`die`/`das` matched nothing, the article was never stripped,
+    and what went into the set was the whole tag soup, which no headword can ever
+    equal.  Nothing threw and every count stayed right; the only symptom was that
+    A2 re-taught 341 of A1's words and B1 re-taught 644 of A1's and A2's, which
+    is precisely what BELOW exists to prevent and reads, card by card, exactly
+    like a deck.  Found by comparing the three shipped decks against each other
+    rather than by anything in the run.  Strip the markup FIRST, and split on the
+    comma AND the slash, since a pair is printed `der Schüler / die Schülerin`.
     """
     out = set()
     for lvl in BELOW.get(LEVEL, []):
@@ -157,9 +216,15 @@ def words_below():
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
         deck = json.load(open(p, encoding='utf-8'))
         for c in deck['cards']:
-            w = (c.get('fields') or {}).get('German', '')
-            for half in w.split(', '):
-                parts = half.split(' ', 1)
-                out.add(parts[1] if parts[0] in ('der', 'die', 'das', 'der/die')
-                        and len(parts) > 1 else half)
+            w = re.sub(r'<[^>]*>', ' ', (c.get('fields') or {}).get('German', ''))
+            for half in re.split(r'[,/]', w):
+                parts = half.split()
+                # `der/die Bekannte` splits into a bare article and the word; the
+                # article half is not a word this level taught
+                if not parts or (len(parts) == 1 and parts[0] in ART):
+                    continue
+                # strip the ARTICLE and keep the rest: `die Pommes frites` is
+                # `Pommes frites`, not `frites`
+                out.add(' '.join(parts[1:] if parts[0] in ART and len(parts) > 1
+                                 else parts))
     return out

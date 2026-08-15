@@ -43,7 +43,7 @@ never *Sind Sie ruhig.  Every other form on every card is read.
 import json, re
 from collections import Counter
 
-from goethe_level import f as lvlf
+from goethe_level import LEVEL, f as lvlf
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -440,6 +440,14 @@ def pointed_glosses(same, article=''):
     return []
 
 
+# HOW MANY SENSES ARE EVEN LOOKED AT, which is the cap that actually bit on C1.
+# Three is plenty for a word an A1 list prints; a C1 word is polysemous by
+# definition, and `der Einsatz` files use, deployment and commitment as senses
+# three, four and six behind the literal `something inserted`.  Raised for C1
+# only, and proved inert on A1, A2 and B1 byte-for-byte.
+GLOSS_SENSES = 5 if LEVEL == 'c1' else 3
+
+
 def merged_glosses(same, article=''):
     """The senses of every record that shares the chosen part of speech.
 
@@ -449,12 +457,13 @@ def merged_glosses(same, article=''):
     half the word.  The Goethe list means both: it prints two example sentences
     for Bank, one about four o'clock closing and one about sitting in the park.
     """
-    out = glosses_for(same[0], article, limit=3) if same else []
+    out = glosses_for(same[0], article, limit=GLOSS_SENSES) if same else []
     for r in same[1:]:
         for g in glosses_for(r, article, limit=1):
             if g not in out:
                 out.append(g)
-    return out[:3]
+    return out[:GLOSS_SENSES]
+
 
 
 # ---------------------------------------------------------------- nouns
@@ -974,13 +983,27 @@ def comma_parts(s):
     return parts
 
 
-def meaning_lines(glosses, cap=4):
+# HOW MANY MEANINGS A CARD SHOWS, and C1 needs a different answer from the rest.
+# The lines are the SYNONYMS inside each sense flattened together, so a first
+# sense listing four of them fills the card on its own -- which is right for A1,
+# where `groß` is "big, large, tall" and that IS the word, and wrong at C1, where
+# the words are polysemous and Wiktionary's first sense is often the literal one
+# nobody uses.  `der Einsatz` came out as "something inserted / inset / inlay /
+# compartment" while the corpus that selected it means deployment, use and
+# commitment -- senses three, four and six.  So C1 shows more SENSES and fewer
+# synonyms of each; the levels below are untouched and byte-identical.
+SENSE_CAP = 6 if LEVEL == 'c1' else 4
+PER_SENSE = 2 if LEVEL == 'c1' else 0
+
+
+def meaning_lines(glosses, cap=SENSE_CAP, per_sense=PER_SENSE):
     out = []
     for g in glosses:
         for semi in (re.split(r';(?![^(]*\))', g) if '(' in g else g.split(';')):
             semi = semi.strip(' ;,')
             if not semi:
                 continue
+            taken = 0
             for part in comma_parts(semi):
                 part = part.strip(' ;,')
                 if not part or part in out:
@@ -988,7 +1011,10 @@ def meaning_lines(glosses, cap=4):
                 if re.fullmatch(r'\([^)]*\)', part) and out:
                     out[-1] += ' ' + part
                     continue
+                if per_sense and taken >= per_sense:
+                    break
                 out.append(part)
+                taken += 1
     return out[:cap]
 
 
@@ -1089,6 +1115,9 @@ def gender_from_article(art):
     return ''.join(out)
 
 
+# every card carried the literal 'Goethe A1' whatever level it belonged to
+CATEGORY = ('Goethe ' + LEVEL.upper()) if LEVEL != 'c1' else 'German C1'
+
 cards, stats = [], Counter()
 for i, e in enumerate(entries, 1):
     rec, pos, same_pos = pick_pos(e)
@@ -1180,9 +1209,9 @@ for i, e in enumerate(entries, 1):
     stats['with a feminine'] += 'feminine</span>' in forms
     stats['no examples'] += not exs
 
-    plain = '; '.join(meaning_lines(glosses, cap=3))
+    plain = '; '.join(meaning_lines(glosses, cap=3, per_sense=PER_SENSE))
     cards.append({
-        'id': f'u_{{DECK}}_{i}', 'num': str(i), 'category': 'Goethe A1',
+        'id': f'u_{{DECK}}_{i}', 'num': str(i), 'category': CATEGORY,
         'sub': '', 'question': e['display'], 'answer': plain,
         'answerDate': '', 'traditional': '', 'hanzi': '', 'pinyin': '',
         'translations': '', 'abstract': '', 'citation': '', 'answerText': plain,

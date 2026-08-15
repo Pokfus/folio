@@ -65,6 +65,34 @@ SOURCES = [
 ]
 
 
+# The corpus a level with no published Wortliste selects from.  Only the WORD
+# FILE is kept -- rank, word, count -- and the tarball, which also carries the
+# million sentences themselves, is deleted after it is opened: this pipeline
+# takes a ranking from the corpus and never a sentence, so keeping a quarter of a
+# gigabyte of somebody else's newspaper text would be storing what it has no use
+# for.  See `c1_wordlist.py`.
+CORPUS_NAME = 'leipzig-news-words.txt'
+CORPUS_URL = ('https://downloads.wortschatz-leipzig.de/corpora/'
+              'deu_news_2024_1M.tar.gz')
+CORPUS_MEMBER = 'deu_news_2024_1M/deu_news_2024_1M-words.txt'
+
+
+def fetch_corpus():
+    out = os.path.join(CACHE, CORPUS_NAME)
+    if os.path.exists(out) and os.path.getsize(out) > 0:
+        print(f'  have  {CORPUS_NAME}')
+        return
+    print(f'  get   {CORPUS_NAME}  <- {CORPUS_URL}')
+    import tarfile
+    tmp = out + '.tar.gz'
+    with urllib.request.urlopen(CORPUS_URL) as r, open(tmp, 'wb') as f:
+        shutil.copyfileobj(r, f)
+    with tarfile.open(tmp) as t, open(out + '.part', 'wb') as f:
+        shutil.copyfileobj(t.extractfile(CORPUS_MEMBER), f)
+    os.replace(out + '.part', out)
+    os.remove(tmp)
+
+
 def fetch(extra):
     os.makedirs(CACHE, exist_ok=True)
     for name, url, bz in SOURCES + extra:
@@ -91,19 +119,32 @@ def main():
 
     sys.path.insert(0, HERE)
     from goethe_level import WORTLISTE, f as lvlf
-    pdf, pdf_url = WORTLISTE[level]
+
+    # A LEVEL WITH NO PUBLISHED WORTLISTE CHOOSES ITS OWN WORDS.  The
+    # Goethe-Institut's lists stop at B1 and it says in the C1 brochure why; see
+    # `WORTLISTE` and `c1_wordlist.py`.  Such a level reads no PDF and has no
+    # Wortgruppenliste, so the two parsing stages are replaced by one selecting
+    # stage -- and the branch is on the table rather than on the level's name, so
+    # a level that gains a list later needs no change here.
+    pdf = WORTLISTE.get(level)
 
     if '--no-fetch' not in sys.argv:
         print('sources:')
-        fetch([(pdf, pdf_url, False)])
+        fetch([(pdf[0], pdf[1], False)] if pdf else [])
+        if not pdf:
+            fetch_corpus()
     os.makedirs(CACHE, exist_ok=True)
     os.chdir(CACHE)
 
     print('word list:')
-    sys.argv = ['parse_goethe.py', pdf]
-    runpy.run_path(os.path.join(HERE, 'parse_goethe.py'), run_name='__main__')
-    sys.argv = ['wordgroups.py', pdf]
-    runpy.run_path(os.path.join(HERE, 'wordgroups.py'), run_name='__main__')
+    if pdf:
+        sys.argv = ['parse_goethe.py', pdf[0]]
+        runpy.run_path(os.path.join(HERE, 'parse_goethe.py'), run_name='__main__')
+        sys.argv = ['wordgroups.py', pdf[0]]
+        runpy.run_path(os.path.join(HERE, 'wordgroups.py'), run_name='__main__')
+    else:
+        sys.argv = ['c1_wordlist.py']
+        runpy.run_path(os.path.join(HERE, 'c1_wordlist.py'), run_name='__main__')
 
     # every lemma any entry might be looked up under, plus the halves of a pair
     cands = set()

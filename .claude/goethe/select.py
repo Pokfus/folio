@@ -28,7 +28,7 @@ in subtitles, and a missing count must not read as a count of zero.
 import json, math, re
 from collections import Counter
 
-from goethe_level import f as lvlf, words_below
+from goethe_level import LEVEL, FREQ, f as lvlf, words_below
 
 wl = json.load(open(lvlf('wortliste.json')))
 wg = json.load(open(lvlf('wordgroups.json')))
@@ -46,10 +46,13 @@ for e in wl + wg:
         continue
     seen.add(e['display'])
     entries.append(e)
+# the two causes are counted apart: a word printed in both halves of one list is
+# not the same fact as a word the level below already teaches, and reporting the
+# sum as "shared" hid the exclusion doing nothing at all for every noun
 print('  entries after merge:', len(entries),
-      f'(alphabet {len(wl)} + groups {len(wg)}, {len(wl) + len(wg) - len(entries)} shared)')
-if dropped_below:
-    print('  already taught by a lower level:', len(dropped_below))
+      f'(alphabet {len(wl)} + groups {len(wg)},'
+      f' {len(wl) + len(wg) - len(entries) - len(dropped_below)} printed in both,'
+      f' {len(dropped_below)} already taught below)')
 
 
 # ------------------------------------------------------------------ lemma
@@ -104,11 +107,34 @@ if no_rec:
     print('  no Wiktionary record at all:', ', '.join(no_rec))
 
 # ------------------------------------------------------------------ order
+# WHICH LIST ORDERS THIS LEVEL is a level fact and lives in `goethe_level.FREQ`
+# -- A1 to B1 by subtitle frequency, C1 by a newspaper corpus, for the reason
+# recorded there.  The two files are shaped differently and are read to the same
+# `word -> count`; a repeated word keeps its FIRST count, which is the higher,
+# both files being ordered by frequency.
+# THE SUBTITLE LIST IS ALL LOWER CASE AND THE LEIPZIG ONE IS NOT, which matters
+# on a language that capitalises every noun: keyed only by the lowercased form,
+# `Recht` and `recht` are one entry and whichever is commoner supplies the count
+# for both.  So each word is stored under BOTH its own spelling and its
+# lowercased one, and the lookup below tries the exact form first.  A repeated
+# key keeps its FIRST count, which is the higher, both files being ordered by
+# frequency.
+freq_file, freq_shape = FREQ[LEVEL]
 freq = {}
-for i, line in enumerate(open('de_50k.txt', encoding='utf-8')):
-    t = line.split()
-    if len(t) == 2:
-        freq.setdefault(t[0], int(t[1]))
+for line in open(freq_file, encoding='utf-8'):
+    if freq_shape == 'leipzig':
+        t = line.rstrip('\n').split('\t')
+        if len(t) != 3:
+            continue
+        w, n = t[1], int(t[2])
+    else:
+        t = line.split()
+        if len(t) != 2:
+            continue
+        w, n = t[0], int(t[1])
+    freq.setdefault(w, n)
+    freq.setdefault(w.lower(), n)
+print(f'  ordering by {freq_file}')
 
 # A phrase is counted by scanning the corpus, and the single words are counted in
 # the SAME pass to calibrate it -- but by tokenising each sentence once rather
@@ -152,7 +178,8 @@ for e in entries:
     # count falls back to the LEMMA -- which is the DELE pipeline's rule that a
     # reflexive is placed by the verb it is formed from, arrived at from the
     # other side.
-    f = freq.get(e['word'].lower(), 0) or freq.get(e['lemma'].lower(), 0)
+    f = (freq.get(e['word'], 0) or freq.get(e['word'].lower(), 0)
+         or freq.get(e['lemma'], 0) or freq.get(e['lemma'].lower(), 0))
     # A STEM HAS NO BARE SURFACE AT ALL: `nächst-` is printed with a hyphen
     # because the word only ever appears with an ending on it, so neither the
     # stem nor its dictionary lemma is a string a corpus can have counted.  The
