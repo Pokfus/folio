@@ -95,7 +95,7 @@ taught.
 """
 import json, re, sys
 
-from goethe_level import LEVEL, FREQ, f as lvlf, words_below
+from goethe_level import LEVEL, FREQ, FREQ_BLEND, f as lvlf, words_below
 
 # HOW MANY WORDS EACH LEVEL TAKES AND HOW FAR DOWN THE CORPUS IT LOOKS.  The three
 # corpus levels are ONE LADDER cut into equal tranches: B2 takes the 3,000 most
@@ -151,6 +151,39 @@ for line in open(freq_file, encoding='utf-8'):
     if len(cands) >= DEPTH:
         break
 print(f'  corpus: {len(cands)} surfaces above {MIN_COUNT} occurrences')
+
+# ------------------------------------------------------- the blended scale
+# The same measure `select.py` orders the cards by, and it has to be read here
+# too because SELECTION now uses it -- see the note above `keep.sort`.  Read the
+# two files to rates per million and sum them; a repeated key keeps its first
+# count within a file, which is the higher, both files being rank-ordered.
+_blend_ex, _blend_fo = {}, {}
+for _path, _shape in FREQ_BLEND:
+    _ex, _fo, _tot = {}, {}, 0
+    for _l in open(_path, encoding='utf-8'):
+        if _shape == 'leipzig':
+            _t = _l.rstrip('\n').split('\t')
+            if len(_t) != 3:
+                continue
+            _w, _n = _t[1], int(_t[2])
+        else:
+            _t = _l.split()
+            if len(_t) != 2:
+                continue
+            _w, _n = _t[0], int(_t[1])
+        _tot += _n
+        _ex.setdefault(_w, _n)
+        _fo.setdefault(_w.lower(), _n)
+    _per = 1e6 / _tot
+    for _k, _n in _ex.items():
+        _blend_ex[_k] = _blend_ex.get(_k, 0.0) + _n * _per
+    for _k, _n in _fo.items():
+        _blend_fo[_k] = _blend_fo.get(_k, 0.0) + _n * _per
+
+
+def blend(w):
+    return _blend_ex.get(w, 0.0) or _blend_fo.get(w.lower(), 0.0)
+
 
 # ------------------------------------------------------------ one dump pass
 # What each surface IS (part of speech, whether it has a meaning of its own, its
@@ -272,9 +305,29 @@ print(f'  usable candidates: {len(keep)}')
 if len(keep) < TARGET:
     raise SystemExit(f'{LEVEL} wants {TARGET} words and the corpus yields {len(keep)}; '
                      'widen DEPTH or lower MIN_COUNT rather than shipping a short deck')
+# THE TRANCHES ARE CUT ON THE SAME SCALE THE DECKS ARE ORDERED BY (Aug 2026, on
+# request).  They used to be cut on the newspaper count alone while the cards
+# were ordered by it too, which was at least self-consistent; once one blended
+# scale ordered all seven decks (see `goethe_level.FREQ_BLEND`) it stopped being
+# so, and visibly.  B2 opened on `okay` and C1 on `umbringen, beschützen,
+# erschießen, nerven` -- ordinary spoken verbs sitting at the top of an advanced
+# deck because a newspaper does not use them.  Worse, the collection was no
+# longer in frequency order at all: C1's first word is commoner than most of B2,
+# so reading the combined file A1 to C2 you meet a rarer word before a commoner
+# one every time you cross a tranche boundary.
+#
+# So the pool is SORTED by the blend before it is sliced.  What this does NOT
+# change is where the candidates come from: they are still the newspaper corpus's
+# own vocabulary, because that is the list with 743,000 words in it against the
+# subtitle list's 50,000.  Measured, the subtitle words absent from the candidate
+# pool are 19,108 and almost every one is something the filters below reject
+# anyway -- inflected forms (`wolltest`, `vergiss`, `hörst`), transcription junk
+# (`chffffff`, `lhr`) and English (`mom`, `yeah`, `colonel`).
+keep.sort(key=lambda w: (-blend(w), w.lower()))
 keep = keep[:TARGET]
-print(f'  taking the {TARGET} most frequent; floor is '
-      f'{counts[keep[-1]]} occurrences ({keep[-1]})')
+print(f'  taking the {TARGET} most frequent on the blended scale; floor is '
+      f'{blend(keep[-1]):.2f} per million ({keep[-1]}, '
+      f'{counts[keep[-1]]} occurrences in the news corpus)')
 
 # ------------------------------------------------------------------ emit
 # The shape `parse_goethe.py` writes, so every later stage runs unchanged.  Almost
@@ -294,7 +347,8 @@ json.dump([], open(lvlf('wordgroups.json'), 'w'), ensure_ascii=False)
 # The frequency FLOOR travels to the deck's own description, which tells a reader
 # how far into the tail the last card sits.  Written here rather than recomputed
 # there because this is the only stage that sees the corpus counts at all.
-json.dump({'floor': counts[keep[-1]], 'word': keep[-1]},
+json.dump({'floor': counts[keep[-1]], 'word': keep[-1],
+           'rate': round(blend(keep[-1]), 2)},
           open(lvlf('corpus-floor.json'), 'w'), ensure_ascii=False)
 print('  words:', len(entries))
 print('  first ten:', ', '.join(keep[:10]))

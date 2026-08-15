@@ -133,8 +133,12 @@ def main():
     if '--no-fetch' not in sys.argv:
         print('sources:')
         fetch([(pdf[0], pdf[1], False)] if pdf else [])
-        if kind == 'corpus':
-            fetch_corpus()
+        # THE NEWSPAPER CORPUS IS FETCHED FOR EVERY LEVEL, not only the three it
+        # SELECTS.  Since Aug 2026 one blended scale orders all seven decks (see
+        # `FREQ_BLEND`), and half of it is this file — so a level built without it
+        # would order on the spoken register alone and put a written word the
+        # subtitle list has never seen at the end of the deck.
+        fetch_corpus()
     os.makedirs(CACHE, exist_ok=True)
     os.chdir(CACHE)
 

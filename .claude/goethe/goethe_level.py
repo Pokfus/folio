@@ -108,33 +108,47 @@ BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'],
          # are printed in the A1 and B1 Wortlisten and are already carded
          'phrases': ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']}
 
-# WHICH FREQUENCY LIST ORDERS THE LEVEL, and it is not the same list twice.  A1
-# to B1 are ordered by a word's rank in film and television subtitles, which is
-# the right measure for the vocabulary of everyday life those exams test.  C1 is
-# not taken from an exam list at all but FROM a corpus, and a subtitle corpus has
-# almost nothing to say about the words in question: `Nachhaltigkeit`,
-# `hinsichtlich` and `Rechtsstaat` are rare in dialogue and ordinary in a
-# newspaper.  Measured -- of the 3,000 words C1 selects, most do not appear in
-# the 50,000-word subtitle list at all, so ordering C1 by it would put nearly the
-# whole deck in one undifferentiated block at the end.
+# SELECTION AND ORDERING ARE TWO DIFFERENT QUESTIONS AND ARE ANSWERED BY TWO
+# DIFFERENT MEASURES, which is the distinction these two tables exist to keep
+# apart.  SELECTION asks *which words belong at this level*; ORDERING asks *how
+# often a learner actually meets one*.
 #
-#   ('file', 'shape'), where the shape is how the file's columns are read:
-#     'subs'    -- `word count` per line (hermitdave)
-#     'leipzig' -- `rank<TAB>word<TAB>count` per line (Leipzig Corpora Collection)
+# `FREQ` IS SELECTION ONLY, and only `corpus_wordlist.py` reads it: B2, C1 and C2
+# are cut out of a newspaper corpus because a subtitle corpus has almost nothing
+# to say about the words in question -- `Nachhaltigkeit`, `hinsichtlich` and
+# `Rechtsstaat` are rare in dialogue and ordinary in a newspaper.  The rows for
+# the levels that read a published Wortliste are unused: their membership is the
+# exam board's, not a corpus's.
 FREQ = {'a1': ('de_50k.txt', 'subs'), 'a2': ('de_50k.txt', 'subs'),
         'b1': ('de_50k.txt', 'subs'),
         'b2': ('leipzig-news-words.txt', 'leipzig'),
         'c1': ('leipzig-news-words.txt', 'leipzig'),
         'c2': ('leipzig-news-words.txt', 'leipzig'),
-        # THE PHRASES DECK IS ORDERED BY THE TATOEBA CORPUS AND NOT BY THIS FILE,
-        # and it needs no change to `select.py` to be: that stage already counts a
-        # phrase by scanning the corpus, and calibrates the count onto the word
-        # list's scale using the single words that carry both.  Here every entry
-        # is a phrase, so there is nothing to calibrate WITH, the scale falls to
-        # 1.0 and the raw corpus count is the order -- which is the right measure
-        # anyway, all the entries being the same kind of thing counted the same
-        # way.  The file is read and goes unused.
         'phrases': ('leipzig-news-words.txt', 'leipzig')}
+
+# `FREQ_BLEND` IS ORDERING, AND IT IS ONE SCALE FOR ALL SEVEN DECKS (Aug 2026, on
+# request: "order all cards by (approximate) frequency of use").  It was three
+# scales -- subtitles for A1 to B1, the newspaper corpus for B2 to C2, raw
+# Tatoeba counts for the phrases -- and a rank in one is not a rank in another,
+# so the seven decks could not be read against each other and the combined file
+# had no order at all.
+#
+# A WORD'S FREQUENCY OF USE IS ITS RATE IN BOTH REGISTERS, SUMMED: occurrences
+# per million in the subtitle corpus plus occurrences per million in the news
+# corpus.  Counts cannot simply be added -- the corpora are 152M and 18M tokens,
+# so the raw numbers are on scales an order of magnitude apart -- and a rate is
+# what makes a word in one comparable with a word in the other.
+#
+# WHY THE SUM RATHER THAN EITHER ALONE, measured over the shipped decks: the
+# subtitle list is the top 50,000 words only, so it scores 0 for 45% of C2 and
+# 30% of C1 and would pile most of those decks at the end in one undifferentiated
+# block; the news corpus covers the lower levels well (95% of A1) but flattens the
+# spoken vocabulary those exams are about -- `ich` is 38,827 per million in
+# subtitles and 1,034 in news, `Tschüss` 79 against 0.6.  Summed, the spoken
+# register decides among the very common words and the written register decides
+# among the rest, which is what a learner's ladder needs and what neither corpus
+# gives on its own.
+FREQ_BLEND = [('de_50k.txt', 'subs'), ('leipzig-news-words.txt', 'leipzig')]
 
 # WHERE THE WORDS ARE ON THE PAGE, and it is not the same shape twice.  The A1
 # list is ONE pair of columns, a headword at x 143-233 and its example from 237;
@@ -271,6 +285,21 @@ def words_below():
         deck = json.load(open(p, encoding='utf-8'))
         for c in deck['cards']:
             w = re.sub(r'<[^>]*>', ' ', (c.get('fields') or {}).get('German', ''))
+            # THE WHOLE HEADWORD IS A KEY AS WELL AS ITS HALVES, and without it an
+            # entry printed identically by two lists survives (Aug 2026).  A2 and
+            # B1 both print `weg/weg-`, and splitting on the slash stored `weg`
+            # and `weg-` and never `weg/weg-`, so nothing the exclusion held could
+            # equal B1's candidate.  The halves stay -- they are what catches a
+            # gender pair, `der Schüler / die Schülerin` -- but they are not
+            # enough on their own.  Note this is deliberately NOT a match on a
+            # half: A1 prints `hier` and B1 prints `hier/hier-`, which is the
+            # adverb AND the separable prefix, and dropping the second because of
+            # the first would lose what B1 is teaching.
+            whole = w.split()
+            if whole and whole[0] in ART and len(whole) > 1:
+                whole = whole[1:]
+            if whole:
+                out.add(' '.join(whole))
             for half in re.split(r'[,/]', w):
                 parts = half.split()
                 # `der/die Bekannte` splits into a bare article and the word; the
@@ -281,4 +310,26 @@ def words_below():
                 # `Pommes frites`, not `frites`
                 out.add(' '.join(parts[1:] if parts[0] in ART and len(parts) > 1
                                  else parts))
-    return out
+    return {normal_key(w) for w in out} | out
+
+
+# WHERE THE REFLEXIVE MARKER SITS IS A FACT ABOUT THE LIST, AND IT DEFEATED THE
+# EXCLUSION ENTIRELY (Aug 2026).  `parse_goethe` already records that A1 prints
+# `(sich) anziehen` and A2 prints `anziehen (sich)`; B1 prints a bare `sich
+# anziehen`.  Three spellings of one word, so `sich freuen` was taught in A1, A2
+# AND B1 -- nineteen reflexives duplicated across the three decks, plus `dort,
+# -her, -hin` and `weg/weg-`, whose printed forms differ by a space.  Nothing
+# threw, every count was right, and the only symptom was the same card twice.
+#
+# So the exclusion compares on a NORMALISED key rather than on what was printed:
+# the marker is lifted out wherever it sits, the pronoun is dropped, and the
+# result is folded.  Both the raw and the normalised forms go into the set, since
+# the caller tests a raw `word` against it.
+_SICH = re.compile(r'\(sich\)|\bsich\b')
+
+
+def normal_key(w):
+    """One key for one word, whatever the list printed round it."""
+    w = _SICH.sub(' ', w)
+    w = re.sub(r'[\s ]+', ' ', w).strip(' ,-')
+    return w.lower()

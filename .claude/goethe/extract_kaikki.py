@@ -22,7 +22,7 @@ which German Wiktionary files under the plain verb (`freuen`, never
 `sich freuen`).  Both are handled by the caller asking for every candidate
 lemma; this stage only has to keep whatever it is told to.
 """
-import json, sys
+import json, re, sys
 
 want = set(json.load(open(sys.argv[1])))
 out_fn = sys.argv[2]
@@ -59,6 +59,14 @@ if missing:
 # other end of the pointer, and this is what puts it in the dump for the builder
 # to reach.  Only the targets nothing already wanted are fetched -- on B1 that is
 # a few dozen lemmas -- and the pass is skipped altogether when there are none.
+# A POINTER MAY BE PROSE RATHER THAN A FIELD, and it has to be fetched too or
+# `build_deck.follow_prose_pointer` has nothing at the far end to resolve.
+# Wiktionary defines a regional word by its standard twin in the gloss itself --
+# "synonym of Januar", "alternative form of Bube" -- with no `form_of` on the
+# sense at all, and the card then teaches a German word with another German word.
+PROSE_PTR = re.compile(
+    r'^(?:synonym of|alternative (?:form|spelling) of)\s+([^\s,;:(]+)', re.I)
+
 targets = set()
 for recs in kept.values():
     for r in recs:
@@ -68,6 +76,10 @@ for recs in kept.values():
                     w_ = f_.get('word') if isinstance(f_, dict) else f_
                     if w_:
                         targets.add(w_.strip())
+            for g_ in (s_.get('glosses') or []):
+                m_ = PROSE_PTR.match((g_ or '').strip())
+                if m_:
+                    targets.add(m_.group(1).strip())
 targets -= set(kept)
 if targets:
     n2 = 0

@@ -447,6 +447,38 @@ def pointed_glosses(same, article=''):
     return []
 
 
+# A POINTER WRITTEN AS PROSE IS STILL A POINTER, and it defeats every rule above
+# because it IS a gloss: `real_senses` counts it, `merged_glosses` returns it, and
+# `pointed_glosses` is therefore never reached.  So 40 cards taught a German word
+# with another German word and nothing else -- `der Jänner` glossed "synonym of
+# Januar", `das Eck` "synonym of Ecke", `die Klappe halten` "synonym of den Mund
+# halten" -- which for a reader who does not already know the other word is a card
+# with no meaning on it at all.  Austrian and Swiss vocabulary is most of them,
+# since Wiktionary defines a regional word by its standard twin.
+#
+# FOLLOWED ONLY WHEN EVERY GLOSS IS ONE, so a word carrying a real meaning beside
+# the cross-reference is untouched -- `der Zufall` keeps "chance, coincidence,
+# randomness" and its trailing pointer.  The pointer's own words are kept in front
+# of what they resolve to, because WHICH word it is a synonym of is worth knowing
+# and is often the standard form the learner should recognise.
+PROSE_POINTER = re.compile(
+    r'^(synonym of|alternative (?:form|spelling) of)\s+([^\s,;:(]+)', re.I)
+
+
+def follow_prose_pointer(glosses, article=''):
+    hits = [PROSE_POINTER.match(g.strip()) for g in glosses]
+    if not glosses or not all(hits):
+        return glosses
+    for m in hits:
+        for base in W.get(m.group(2).strip(), []):
+            g = merged_glosses([base], article)
+            # never point at a word that is itself only a pointer
+            g = [x for x in g if not PROSE_POINTER.match(x.strip())]
+            if g:
+                return [glosses[0] + ': ' + '; '.join(g[:2])]
+    return glosses
+
+
 # HOW MANY SENSES ARE EVEN LOOKED AT, which is the cap that actually bit on C1.
 # Three is plenty for a word an A1 list prints; a C1 word is polysemous by
 # definition, and `der Einsatz` files use, deployment and commitment as senses
@@ -1087,10 +1119,23 @@ def examples_html(exs):
 GENDER_CLASS = {'m': 'uc-m', 'f': 'uc-f', 'n': 'uc-n'}
 
 
-def headword_html(e, gender):
-    """The word as it is printed on the card, with the article coloured."""
+def headword_html(e, gender, is_noun=True):
+    """The word as it is printed on the card, with the article coloured.
+
+    THE COLOURED ARTICLE IS A NOUN'S GENDER AND NOTHING ELSE, so it is applied by
+    PART OF SPEECH and never by first word (Aug 2026).  The rule used to be "the
+    headword begins der/die/das", which is true of a great many things that are
+    not nouns and have no gender: the phrases deck alone had 34 -- `das heißt`,
+    `das macht nichts`, `die Klappe halten`, `der Reihe nach` -- each printing a
+    demonstrative or a case-marked article in the blue, red or green that on
+    every other card means "this noun is masculine".  Teaching a gender the word
+    has not got is worse than teaching none, and it is invisible in every count.
+    """
     parts = []
-    for half in e['display'].split(', '):
+    for half in (e['display'].split(', ') if is_noun else [e['display']]):
+        if not is_noun:
+            parts.append(esc(half))
+            continue
         m = re.match(r'^((?:der|die|das)(?:/(?:der|die|das))?)\s+(.*)$', half)
         if m:
             g = gender if half == e['display'].split(', ')[0] else ''
@@ -1164,6 +1209,8 @@ for i, e in enumerate(entries, 1):
         glosses = merged_glosses(same_pos, e['article'])
         if not glosses:
             glosses = pointed_glosses(same_pos or [rec], e['article'])
+        else:
+            glosses = follow_prose_pointer(glosses, e['article'])
     if not glosses:
         stats['no gloss'] += 1
 
@@ -1232,7 +1279,7 @@ for i, e in enumerate(entries, 1):
         'translations': '', 'abstract': '', 'citation': '', 'answerText': plain,
         'type': '{TYPE}',
         'fields': {
-            'German': headword_html(e, gender),
+            'German': headword_html(e, gender, pos == 'noun'),
             'Word': e['speak'],
             'English': english,
             'Forms': forms,

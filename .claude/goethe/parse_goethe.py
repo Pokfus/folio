@@ -423,7 +423,17 @@ def join_wraps(rs):
 # A2 prints `der/das` three times and `der/die` five, A1 prints `der/die` twice
 # and nothing else.  The reversed spellings are carried for the symmetry the
 # `die/der` written for A1 already has; neither list prints one.
-ART = ('der', 'die', 'das', 'der/die', 'die/der', 'der/das', 'das/der')
+# `die/das` and `das/die` were added for B1 (Aug 2026), which prints the two-gender
+# form with a COMMA -- `die, das Glace/Glacé`, the Swiss and Austrian word for ice
+# cream.  The comma rewrite below turns that into `die/das Glace/Glacé`, and with
+# the spelling missing from this tuple the entry was read as the bare word `die`:
+# the deck then carried a card headed `die`, glossed as the RELATIVE PRONOUN
+# ("which, who, whom, whose") because that is what the lemma `die` resolves to,
+# and ranked FIRST in the whole of B1, `die` being one of the commonest words in
+# German.  Nothing threw and every count was right.  One entry, and it was the
+# first card a B1 reader met.
+ART = ('der', 'die', 'das', 'der/die', 'die/der', 'der/das', 'das/der',
+       'die/das', 'das/die')
 
 # `Satz, -ä, e` is printed with no article, alone among the nouns; the gender is
 # taken from Wiktionary like every other, and it is recorded here rather than
@@ -879,6 +889,11 @@ def main():
         # the slash form the rule below already reads rather than given a second
         # rule of its own.  Four entries.
         text = re.sub(r',\s*(?=(?:der|die|das)\s)', '/', text)
+        # …and where the comma joined TWO ARTICLES rather than two halves of a
+        # gender pair (`die, das Glace`), the rewrite leaves `die/ das Glace`
+        # with a space the article spellings in `ART` do not carry.  Closed up,
+        # so `die/das` is recognised as the one two-gender article it is.
+        text = re.sub(r'\b((?:der|die|das))/\s+(?=(?:der|die|das)\s)', r'\1/', text)
         art, word, plural = split_entry(text)
         e = normalise({'display': (art + ' ' + word).strip() if art else word,
                        'article': art, 'word': word, 'plural_note': plural,

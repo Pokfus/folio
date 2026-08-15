@@ -433,17 +433,33 @@ try:
     FLOOR = json.load(open(lvlf('corpus-floor.json')))['floor']
 except Exception:
     FLOOR = 0
+# ONE ORDERING SENTENCE FOR ALL SEVEN, because there is now one scale (Aug 2026,
+# on request).  It used to be three -- subtitles, a newspaper corpus, raw Tatoeba
+# hits -- and the descriptions said so honestly, which meant a reader comparing
+# two decks was comparing two different measures without being told they could
+# not be compared.  The phrases deck keeps a clause of its own about HOW a phrase
+# is counted, since a word-frequency list cannot see one, but the scale it lands
+# on is the same.
+ORDER_BASE = ("The cards are ordered by roughly how often a word is used, so the ones you meet "
+              "most often come first. The measure is one scale for every deck here: how often "
+              "the word turns up per million words of film and television dialogue, plus how "
+              "often it turns up per million words of newspaper German. Neither corpus does the "
+              "job alone — the spoken one barely knows the vocabulary of the upper levels, and "
+              "the written one flattens the everyday words the lower ones are about — so the "
+              "two are added, and the spoken register decides among the very common words while "
+              "the written register decides among the rest. ")
 ORDER_SENT = {
-    'phrases': "The cards are ordered by how often the expression is actually said, counted in "
-              "the Tatoeba corpus of 777,128 German sentences — the same corpus the example "
-              "sentences come from, and the only kind that can rank a phrase at all, a word-"
-              "frequency list being a list of single tokens"
+    'phrases': ORDER_BASE
+              + "A frequency list is a list of single words and cannot see an expression at all, "
+                "so each phrase is counted in the Tatoeba corpus of 777,128 German sentences "
+                "instead, and that count is put on the same scale as the words"
               + (f". Even the last of them turns up {FLOOR:,} times in it" if FLOOR else "")
               + ". ",
-    'corpus': "The cards are ordered by how common the word is in that corpus, so the words you "
-              "meet most often come first"
-              + (f"; even the last of them turns up {FLOOR:,} times in it" if FLOOR else "")
-              + ". ",
+    'corpus': ORDER_BASE
+              + (f"The three levels are cut on that same scale, so they are frequency bands "
+                 f"rather than three separate lists: what separates this one from the next is "
+                 f"where a word falls on it, and even the last word here turns up {FLOOR:,} "
+                 f"times in the newspaper corpus alone. " if FLOOR else ""),
 }
 CREDIT_SENT = {
     'phrases': "Selection: the multiword entries of English Wiktionary, via the kaikki.org "
@@ -473,11 +489,7 @@ DESC = (
        if LEVEL in EXAM else
        CEFR_SENT[LEVEL])
     + LIST_SENT[LIST_KEY]
-    + ORDER_SENT.get(LIST_KEY,
-      "The cards are ordered roughly by how common the word is in everyday German, so the words "
-      "you meet most often come first: the order is taken from a frequency list built from film "
-      "and television subtitles, with a phrase — which a list of single words cannot see — placed "
-      "by how often it turns up in a corpus of everyday sentences. ")
+    + ORDER_SENT.get(LIST_KEY, ORDER_BASE)
     + (PHRASE_BODY if LEVEL == 'phrases' else
     f"Every noun carries its article, so the gender is learnt with the word ({arts} of them), and "
     "the article is coloured by gender: der blue, die red, das green. Its plural sits directly "

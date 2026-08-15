@@ -4623,6 +4623,79 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Swiss words the list gives entries of their own (`der Führerausweis`, `die e-card`, `der Zivilstand`) —
     and each is written into `AUTHORED` with its country where the country is the point. `build_deck` still
     REFUSES a card with no meaning, which is what keeps that list honest.
+  **ONE FREQUENCY SCALE ORDERS ALL SEVEN DECKS** (`FREQ_BLEND` in `goethe_level.py`; Aug 2026, on request:
+  "order all cards by (approximate) frequency of use"). It was THREE — a subtitle list for A1–B1, the
+  newspaper corpus for B2–C2, raw Tatoeba hits for the phrases — each defensible on its own and none
+  comparable with another, so the seven decks could not be read against each other and the combined file
+  had no order at all. A word's frequency of use is now **its rate per million in the subtitle corpus plus
+  its rate per million in the news corpus**. Four things about it.
+  · **RATES, NEVER COUNTS.** The corpora are 152M and 18M tokens, so the raw numbers are an order of
+    magnitude apart and adding them would be adding the subtitle list to itself.
+  · **WHY THE SUM RATHER THAN EITHER ALONE, measured over the shipped decks rather than argued.** The
+    subtitle list is the top 50,000 words only, so it scores **zero for 45% of C2 and 30% of C1** and would
+    pile most of those decks at the end in one undifferentiated block; the news corpus covers the lower
+    levels well (95% of A1) and flattens the spoken vocabulary those exams are about — `ich` is 38,827 per
+    million in subtitles against 1,034 in news, `Tschüss` 79 against 0.6. Summed, the spoken register
+    decides among the very common words and the written register among the rest.
+  · **AND THE THREE TRANCHES ARE CUT ON THE SAME SCALE, which was NOT the first answer and had to be.**
+    Selection was left on the newspaper count while the cards were ordered by the blend, on the reasoning
+    that *which words belong at this level* is a register question and *how often you meet one* is not.
+    The rebuild showed what that costs: B2 opened on `okay` and C1 on `umbringen, beschützen, erschießen,
+    nerven` — ordinary spoken verbs at the top of an advanced deck, there because a newspaper does not use
+    them. **Worse, the collection stopped being in frequency order at all**: C1's first word is commoner
+    than most of B2, so reading the combined file A1 → C2 you meet a rarer word before a commoner one every
+    time you cross a tranche boundary. A tranche defined BY frequency has to be cut on the frequency the
+    deck states, or its own description is false. `corpus_wordlist.py` sorts on the blend before it slices.
+    **Membership therefore moved** — the same 9,000 words, split differently.
+  · **WHAT DID NOT CHANGE IS WHERE THE CANDIDATES COME FROM**, and that was measured rather than assumed:
+    they are still the newspaper corpus's own vocabulary, it being the list with 743,000 words in it
+    against the subtitle list's 50,000. The subtitle words absent from the candidate pool are **19,108**,
+    and almost every one is something the filters reject anyway — inflected forms (`wolltest`, `vergiss`,
+    `hörst`), transcription junk (`chffffff`, `lhr`) and English (`mom`, `yeah`, `colonel`).
+  · **AND A DECK THAT IS ALL PHRASES HAS NOTHING TO CALIBRATE AGAINST**, which failed silently: `select.py`
+    puts a phrase on the word scale through the single words that carry both a corpus count and a list
+    frequency, and with no single words the ratio list is empty, the scale falls to 1.0 and the deck is
+    ordered by raw corpus hits — fine alone, wrong the moment it stands beside six decks of words in one
+    file. Reference words are borrowed from the frequency list where the level brings none of its own.
+  **THE AUDIT THAT CAME WITH IT FOUND SIX FAULTS, AND EVERY ONE WAS SILENT** (Aug 2026, on request: "check
+  the deck for any mistakes or inconsistencies"). Worth reading as a set, because what they have in common
+  is that each renders as a perfectly ordinary card.
+  · **B1's FIRST CARD WAS THE DEFINITE ARTICLE, GLOSSED AS THE RELATIVE PRONOUN.** The list prints the
+    two-gender form with a comma — `die, das Glace/Glacé`, the Swiss word for ice cream — and `ART` in
+    `parse_goethe.py` carried `der/die` and `der/das` but not `die/das`, so the entry was read as the bare
+    word `die`: a card headed `die`, meaning "which, who, whom, whose", and ranked FIRST in the whole deck
+    because `die` is one of the commonest words in German. **The `ART` tuple's own comment says it was
+    inventoried over A1 and A2 — and B1 was added later and never re-inventoried.** Re-measure an inventory
+    when a list joins it.
+  · **NINETEEN REFLEXIVES WERE TAUGHT TWICE OR THREE TIMES**, because `words_below()` compared what was
+    PRINTED. A1 prints `(sich) freuen`, A2 prints `freuen (sich)` and B1 prints `sich freuen`: three
+    spellings of one word, so the exclusion matched none of them and `sich freuen` is in all three decks.
+    The reflexive marker's position was already documented as a fact about the LIST — it had been fixed for
+    the lookup and not for the exclusion. It compares on a normalised key now (`normal_key`).
+    **AND THE WHOLE HEADWORD HAD TO BECOME A KEY AS WELL AS ITS HALVES**, which the first fix missed:
+    `words_below` splits a headword on the comma and the slash — that is what catches a gender pair,
+    `der Schüler / die Schülerin` — so A2's `weg/weg-` stored `weg` and `weg-` and never `weg/weg-`, and
+    nothing in the set could equal B1's identical candidate. **It is deliberately NOT a match on a half**:
+    A1 prints `hier` and B1 prints `hier/hier-`, which is the adverb AND the separable prefix, so dropping
+    the second because of the first would lose what B1 is teaching.
+  · **FOUR CARDS WERE DUPLICATED INSIDE A2** — `die Musik`, `die Geschichte`, `die Kunst`, `der Babysitter`
+    — because the alphabetical list gives a noun its article and the Wortgruppenliste does not (school
+    subjects are printed bare), and the merge deduped on the DISPLAY. Deduped on the word, keeping the
+    alphabetical entry, which is the one carrying the article.
+  · **THIRTY-FOUR PHRASES WORE A GENDER-COLOURED ARTICLE THAT MEANT NOTHING.** `headword_html` coloured a
+    leading der/die/das by FIRST WORD rather than by part of speech, so `das heißt`, `das macht nichts` and
+    `die Klappe halten` each printed a demonstrative or a case-marked article in the blue, red or green that
+    on every other card means "this noun is masculine". Gated on `pos == 'noun'`.
+  · **FORTY CARDS TAUGHT A GERMAN WORD WITH ANOTHER GERMAN WORD**, glossed only "synonym of Januar",
+    "synonym of Ecke", "synonym of den Mund halten" — mostly Austrian and Swiss vocabulary, which Wiktionary
+    defines by its standard twin. **A POINTER WRITTEN AS PROSE DEFEATS EVERY POINTER RULE, because it IS a
+    gloss**: `real_senses` counts it, `merged_glosses` returns it, and `pointed_glosses` is therefore never
+    reached. `follow_prose_pointer` resolves it, and `extract_kaikki` fetches those targets — it collected
+    `form_of`/`alt_of` and had no reason to look inside a gloss. Followed only when EVERY gloss is one.
+  · **AND A PROPER NAME REACHED THE PHRASES DECK BY THE BACK DOOR.** `van Gogh` was skipped on its `name`
+    record and kept on a `noun` one meaning "a painting by Van Gogh" — after which `select.pos_hint`
+    declined THAT reading, wanting a capitalised headword for a noun, and the card shipped as the name after
+    all. A name record now disqualifies the word rather than only itself.
   **THE TOP THREE LEVELS HAVE NO WORD LIST TO TEACH, AND THAT IS THE EXAM BOARD'S POSITION RATHER THAN A
   GAP** (`corpus_wordlist.py`, `TARGET` 3,000 apiece; Aug 2026, on request). The published Wortlisten STOP
   AT B1. Checked

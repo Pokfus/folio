@@ -13,22 +13,30 @@ the DELE pipeline records why, and German is if anything a better example: `sein
 is both the verb `to be` and the possessive `his`, `war` is a form of the one and
 an English word besides, and half the nouns collide with a verb form somewhere in
 their paradigm.  So a word is ranked by how often its own headword form turns up
-in a list built from film and television subtitles, which for a German noun means
-the nominative singular and for a verb the infinitive.  A phrase cannot appear in
-a segmented list at all, and giving it the rank of its rarest word is a true
-ceiling and a hopeless estimate (a phrase built from very common words gets a
-very low one), so the eleven phrases are COUNTED in the Tatoeba corpus and that
-count is calibrated onto the frequency list's own scale through the single words
-that carry both.
+in the corpora, which for a German noun means the nominative singular and for a
+verb the infinitive.
 
-A WORD THE FREQUENCY LIST HAS NEVER SEEN goes to the end rather than to the
-front: `der Quadratmeter` and `die Halbpension` are real A1 vocabulary and rare
-in subtitles, and a missing count must not read as a count of zero.
+IT IS ONE SCALE FOR ALL SEVEN DECKS (Aug 2026, on request), and what that scale
+is lives in `goethe_level.FREQ_BLEND`: a rate per million in a corpus of film
+subtitles plus a rate per million in a corpus of newspaper German, summed.  It
+was three scales, one of which was raw corpus hits, and a rank in one is not a
+rank in another -- so the decks could not be read against each other at all.
+
+A phrase cannot appear in a segmented list at all, and giving it the rank of its
+rarest word is a true ceiling and a hopeless estimate (a phrase built from very
+common words gets a very low one), so a phrase is COUNTED in the Tatoeba corpus
+and that count is calibrated onto the blended scale through the single words that
+carry both -- or, on a deck that is ALL phrases and so brings none, through
+reference words borrowed from the frequency list.
+
+A WORD THE CORPORA HAVE NEVER SEEN goes to the end rather than to the front:
+`der Quadratmeter` and `die Halbpension` are real A1 vocabulary and rare in
+speech, and a missing count must not read as a count of zero.
 """
 import json, math, re
 from collections import Counter
 
-from goethe_level import LEVEL, FREQ, f as lvlf, words_below
+from goethe_level import LEVEL, FREQ_BLEND, f as lvlf, words_below, normal_key
 
 wl = json.load(open(lvlf('wortliste.json')))
 wg = json.load(open(lvlf('wordgroups.json')))
@@ -38,13 +46,21 @@ W = json.load(open(lvlf('wikt.json')))
 below = words_below()
 entries, seen = [], set()
 dropped_below = []
+# THE TWO HALVES OF ONE LIST PRINT THE SAME WORD DIFFERENTLY, so the display is
+# not a key (Aug 2026).  The alphabetical list gives a noun its article and the
+# Wortgruppenliste does not -- school subjects are printed bare -- so `die Musik`
+# and `Musik` are two spellings of one entry and the deck carried both.  Four
+# cards in A2: Musik, Geschichte, Kunst, Babysitter.  Deduped on the WORD, which
+# is the lemma key and is the same in both halves; `wl` comes first, so what
+# survives is the alphabetical entry, which is the one carrying the article.
 for e in wl + wg:
-    if e['display'] in seen:
+    if e['display'] in seen or e['word'] in seen:
         continue
-    if e['word'] in below:
+    if e['word'] in below or normal_key(e['word']) in below:
         dropped_below.append(e['display'])
         continue
     seen.add(e['display'])
+    seen.add(e['word'])
     entries.append(e)
 # the two causes are counted apart: a word printed in both halves of one list is
 # not the same fact as a word the level below already teaches, and reporting the
@@ -107,11 +123,11 @@ if no_rec:
     print('  no Wiktionary record at all:', ', '.join(no_rec))
 
 # ------------------------------------------------------------------ order
-# WHICH LIST ORDERS THIS LEVEL is a level fact and lives in `goethe_level.FREQ`
-# -- A1 to B1 by subtitle frequency, C1 by a newspaper corpus, for the reason
-# recorded there.  The two files are shaped differently and are read to the same
-# `word -> count`; a repeated word keeps its FIRST count, which is the higher,
-# both files being ordered by frequency.
+# ONE SCALE ORDERS ALL SEVEN DECKS, and what it is and why is in
+# `goethe_level.FREQ_BLEND`: a word's rate per million in the subtitle corpus
+# plus its rate per million in the newspaper corpus, so the spoken register
+# decides among the very common words and the written register among the rest.
+#
 # THE SUBTITLE LIST IS ALL LOWER CASE AND THE LEIPZIG ONE IS NOT, which matters
 # on a language that capitalises every noun: keyed only by the lowercased form,
 # `Recht` and `recht` are one entry and whichever is commoner supplies the count
@@ -127,24 +143,40 @@ if no_rec:
 # the deck -- `schulen`, `fällen`, `aussagen`, `orten`, `strecken` -- each
 # carrying a frequency that belongs to a word already taught.  Nothing threw and
 # every count in the run was right; only the ORDER was wrong, which is invisible
-# unless you read the first ten words out loud.  A repeated key keeps its FIRST
-# count in either map, which is the higher, both files being ordered by frequency.
-freq_file, freq_shape = FREQ[LEVEL]
+# unless you read the first ten words out loud.
+#
+# WITHIN one file a repeated key keeps its FIRST count, which is the higher, the
+# file being rank-ordered.  ACROSS the two the rates are SUMMED, which is the
+# whole point and is why this cannot be written with `setdefault` over both.
+def _read_freq(path, shape):
+    """One file to `{word: count}` twice over, exact and case-folded."""
+    ex, fo, total = {}, {}, 0
+    for line in open(path, encoding='utf-8'):
+        if shape == 'leipzig':
+            t = line.rstrip('\n').split('\t')
+            if len(t) != 3:
+                continue
+            w, n = t[1], int(t[2])
+        else:
+            t = line.split()
+            if len(t) != 2:
+                continue
+            w, n = t[0], int(t[1])
+        total += n
+        ex.setdefault(w, n)
+        fo.setdefault(w.lower(), n)
+    return ex, fo, total
+
+
 freq, fold = {}, {}
-for line in open(freq_file, encoding='utf-8'):
-    if freq_shape == 'leipzig':
-        t = line.rstrip('\n').split('\t')
-        if len(t) != 3:
-            continue
-        w, n = t[1], int(t[2])
-    else:
-        t = line.split()
-        if len(t) != 2:
-            continue
-        w, n = t[0], int(t[1])
-    freq.setdefault(w, n)
-    fold.setdefault(w.lower(), n)
-print(f'  ordering by {freq_file}')
+for _path, _shape in FREQ_BLEND:
+    _ex, _fo, _tot = _read_freq(_path, _shape)
+    per = 1e6 / _tot
+    for k, n in _ex.items():
+        freq[k] = freq.get(k, 0.0) + n * per
+    for k, n in _fo.items():
+        fold[k] = fold.get(k, 0.0) + n * per
+    print(f'  ordering by {_path}: {len(_ex):,} words, {_tot:,} tokens')
 
 # A phrase is counted by scanning the corpus, and the single words are counted in
 # the SAME pass to calibrate it -- but by tokenising each sentence once rather
@@ -159,6 +191,19 @@ if phrases:
     plook = {e['lemma'].lower(): e['key'] for e in phrases}
     singles = {e['word'].lower(): e['key'] for e in entries
                if ' ' not in e['word'] and fold.get(e['word'].lower())}
+    # A DECK THAT IS ALL PHRASES HAS NO SINGLE WORDS TO CALIBRATE AGAINST, and
+    # the failure is silent: `ratios` comes back empty, the scale falls to 1.0
+    # and the deck is ordered by raw corpus hits -- fine on its own, since every
+    # entry is then counted the same way, and wrong the moment it stands beside
+    # six decks of words in one file, which is what the combined deck is.  So
+    # where the level brings none of its own, reference words are borrowed from
+    # the frequency list: the commonest few thousand, counted in the same pass,
+    # which is what the ratio needs and costs nothing extra to count.
+    if not singles:
+        top = sorted(fold.items(), key=lambda kv: -kv[1])[:4000]
+        singles = {w: '\0ref:' + w for w, _ in top}
+        print(f'  no single words of its own; calibrating against '
+              f'{len(singles):,} reference words')
     tok = re.compile(r"[a-zäöüßA-ZÄÖÜ]+")
     for line in open('deu_sentences_detailed.tsv', encoding='utf-8'):
         p = line.split('\t')
@@ -172,13 +217,17 @@ if phrases:
             k = singles.get(t)
             if k:
                 counts[k] += 1
-    # calibrate: the ratio between a subtitle count and a Tatoeba count, taken
-    # over the single words that carry both, is what puts a phrase on the same
-    # scale as a word rather than on a scale of its own
-    ratios = sorted(freq[w] / counts[k] for w, k in singles.items()
-                    if counts.get(k, 0) >= 5)
+    # calibrate: the ratio between a word's blended rate and its Tatoeba count,
+    # taken over the single words that carry both, is what puts a phrase on the
+    # same scale as a word rather than on a scale of its own.
+    # READ THE FOLDED MAP, NOT THE EXACT ONE.  `singles` is keyed by the
+    # LOWERCASED word and only `fold` is guaranteed to hold it -- the guard above
+    # tests `fold` -- so an exact lookup here is a KeyError waiting for the first
+    # word that exists only capitalised.
+    ratios = sorted(fold[w] / counts[k] for w, k in singles.items()
+                    if counts.get(k, 0) >= 5 and w in fold)
     scale = ratios[len(ratios) // 2] if ratios else 1.0
-    print(f'  phrases counted in Tatoeba; calibration {scale:.0f} subtitle hits per '
+    print(f'  phrases counted in Tatoeba; calibration {scale:.2f} rate points per '
           f'corpus hit, from {len(ratios)} words carrying both')
 
 for e in entries:

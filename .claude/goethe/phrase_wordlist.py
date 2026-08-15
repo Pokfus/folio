@@ -92,6 +92,19 @@ if LEVEL != 'phrases':
 taught = {t.lower() for t in words_below()}
 print('  already taught below:', len(taught))
 
+LEAD_ARTICLE = re.compile(r'^(?:der|die|das)\s+', re.I)
+
+
+def already_taught(w):
+    """A HEADWORD WITH AN ARTICLE ON IT IS NOT A PHRASE THE LEVELS HAVE MISSED.
+    `die Ecke` has a space, so it passes the multiword test, and Wiktionary has an
+    adverb reading of it ("thereabout") -- while A1 already teaches `die Ecke`,
+    the corner.  Two cards spelled the same in one collection, and neither says
+    which is which.  So the article-stripped form is tested as well: what the
+    levels teach is the WORD, however the phrase entry dresses it."""
+    lw = w.lower()
+    return lw in taught or LEAD_ARTICLE.sub('', lw) in taught
+
 
 def gloss_of(sense):
     g = sense.get('glosses') or sense.get('raw_glosses') or []
@@ -108,6 +121,7 @@ def english_unchanged(w, gls):
 
 # ------------------------------------------------------------------ candidates
 cand = {}
+named = set()      # words with a proper-name reading, dropped whatever else they have
 dropped = Counter()
 for line in open('kaikki-de.jsonl', encoding='utf-8'):
     try:
@@ -121,6 +135,15 @@ for line in open('kaikki-de.jsonl', encoding='utf-8'):
         continue
     pos = e.get('pos') or ''
     if pos in DROP_POS:
+        # A NAME RECORD DOES NOT ONLY DISQUALIFY ITSELF, it disqualifies the
+        # WORD (Aug 2026).  Skipping the record and keeping the candidate on the
+        # strength of another one let `van Gogh` through on a `noun` reading
+        # meaning "a painting by Van Gogh" -- and `select.pos_hint` then declined
+        # that reading, since it wants a capitalised headword for a noun and this
+        # one begins with a lowercase `v`, so the card shipped as the name after
+        # all: "van Gogh -- name -- a surname".  A phrase that doubles as a
+        # surname is not an expression worth carding whichever record wins.
+        named.add(w)
         dropped['a  a proper name or an affix'] += 1
         continue
     if PLACEHOLDER.search(w):
@@ -151,13 +174,20 @@ for line in open('kaikki-de.jsonl', encoding='utf-8'):
     if english_unchanged(w, gl):
         dropped['f  the English phrase unchanged'] += 1
         continue
-    if w.lower() in taught:
+    if already_taught(w):
         dropped['g  taught by one of the six levels'] += 1
         continue
     rec = cand.setdefault(w, {'pos': set(), 'idiom': False})
     rec['pos'].add(pos)
     rec['idiom'] = rec['idiom'] or ('idiomatic' in tags)
 
+# a candidate that also has a name reading goes, however it got in
+_gone = [w for w in cand if w in named]
+for w in _gone:
+    del cand[w]
+if _gone:
+    print(f'  also dropped for having a proper-name reading: {len(_gone)}',
+          ', '.join(sorted(_gone)[:8]))
 print(f'  multiword entries kept: {len(cand)}')
 for why in sorted(dropped):
     print(f'    {why:<38} {dropped[why]:>6}')
