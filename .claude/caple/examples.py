@@ -49,6 +49,7 @@ import json, re
 from collections import defaultdict
 
 from caple_level import f as lvlf, FREQ_FILE
+from reflexives import KEYWORDS as REFL_KEYWORDS
 
 words = json.load(open(lvlf('wordlist.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -157,7 +158,7 @@ BR_LEX = (
     r"sanduíche?s?|bonde|açougue|xícara?s?|calcinha|sorvete|carona|aeromoça|"
     r"caminhão|caminhões|café da manhã|papai|mamãe|vovô|vovó|grana|bagunça|"
     r"delegacia|rodoviária|bacana|legal(?=[,.!?\s]|$)|"
-    r"time(?=[,.!?\s]|$)|torcida|goleiro|esportes?|pedestre|fazendeiro"
+    r"times?(?=[,.!?\s]|$)|torcida|goleiro|esportes?|pedestre|fazendeiro"
 )
 # The Brazilian progressive.  `estar` + gerund is how Brazil says what Portugal
 # says with `estar a` + infinitive, and it is the commonest single marker in the
@@ -219,10 +220,13 @@ def reflexive_here(toks, i, form, k):
                 for s in cand:
                     if not pn or (FORM_PN.get((k, s)) or set()) & CLITIC[cl] or not FORM_PN.get((k, s)):
                         return True
-    for j in range(max(0, i - 2), i):
-        c = toks[j]
-        if c in REFL_PRON and pn and (CLITIC[c] & pn):
-            return True
+    # PROCLISIS IS ADJACENT.  European Portuguese puts the pronoun immediately
+    # in front of the verb -- `não me chamo`, `como se chama` -- with nothing
+    # between, so a window of two tokens takes a clitic that belongs to another
+    # verb entirely: `Me deixa voltar a dormir` is `me` on `deixa`, and read
+    # loosely it made that sentence an example of `voltar-se`.
+    if i and toks[i - 1] in REFL_PRON and pn and (CLITIC[toks[i - 1]] & pn):
+        return True
     return False
 
 
@@ -273,10 +277,20 @@ for sid, text in por.items():
     n = len(toks)
     if n < 3 or n > 14:
         continue
+    elow = eng[eid].lower()
     hits = set()
     for i, t in enumerate(toks):
         for k in FORM2WORD.get(t, ()):
             if k in REFLEXIVES and not reflexive_here(toks, i, t, k):
+                continue
+            # THE CLITIC AGREES AND THE VERB IS STILL THE WRONG ONE, on the
+            # handful whose base verb is common and means something else:
+            # `tornar` is to make and `tornar-se` is to become, `divertir` is
+            # to amuse somebody and `divertir-se` is to enjoy yourself.  Both
+            # translate a sentence carrying `torna-se`, and only the ENGLISH
+            # tells them apart -- so where a keyword is written for a
+            # reflexive, the translation has to carry it.
+            if k in REFL_KEYWORDS and not any(w in elow for w in REFL_KEYWORDS[k]):
                 continue
             if (k in NOUNS and len(FORM2WORD.get(t, ())) > 1
                     and (i == 0 or toks[i - 1] not in NOUNCTX)):

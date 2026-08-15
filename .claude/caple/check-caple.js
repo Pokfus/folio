@@ -30,6 +30,45 @@ const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
 if (!/^(a[12]|b[12]|c[12])$/.test(LEVEL)) { console.error("level must be a1..c2"); process.exit(2); }
+
+/* THE PROBES ARE PER LEVEL BECAUSE THE WORDS ARE.  Every assertion below is
+   about EUROPEAN PORTUGUESE and is the same question of any level this
+   pipeline builds — but it has to be asked about a word the level teaches, and
+   a level is taught on top of the ones below it, so `o comboio` is in A1 and in
+   no other deck.  The expected verb forms are written out rather than derived
+   from the infinitive: a derivation here could share a bug with the one in
+   `build_deck.py`, and then the two would agree with each other and be wrong
+   together.  Adding a level means adding a row. */
+const PROBE = {
+  a1: {
+    // a European word whose Brazilian counterpart is a different word
+    glosses: [["o comboio", /train/i], ["o autocarro", /bus/i],
+              ["o telemóvel", /(mobile|cell)/i], ["o pequeno-almoço", /breakfast/i]],
+    // Portugal writes dezasseis where Brazil writes dezesseis
+    numbers: ["dezasseis", "catorze"],
+    preterite: ["falar", "falámos", "falamos"],
+    reflexive: "chamar-se",
+    forms: { pres: "eu chamo-me", plural: "nós chamamo-nos", conj: "eu me chame",
+             fut: "eu chamar-me-ei", futPl: "nós chamar-nos-emos",
+             cond: "eu chamar-me-ia", condVos: "vós chamar-vos-íeis",
+             neg: "tu não te chames", pinf: "nós chamarmo-nos" },
+    // no imperative: nobody can be told to snow or to ache
+    impersonal: ["doer", "nevar"],
+  },
+  a2: {
+    glosses: [["o duche", /shower/i], ["o fato", /suit/i],
+              ["a camisola", /(sweater|jumper|jersey)/i]],
+    numbers: [],
+    preterite: ["voltar", "voltámos", "voltamos"],
+    reflexive: "tornar-se",
+    forms: { pres: "eu torno-me", plural: "nós tornamo-nos", conj: "eu me torne",
+             fut: "eu tornar-me-ei", futPl: "nós tornar-nos-emos",
+             cond: "eu tornar-me-ia", condVos: "vós tornar-vos-íeis",
+             neg: "tu não te tornes", pinf: "nós tornarmo-nos" },
+    impersonal: [],
+  },
+}[LEVEL];
+if (!PROBE) { console.error("no probes written for level " + LEVEL); process.exit(2); }
 const DECK = "CAPLE-" + LEVEL.toUpperCase() + "-Portuguese.folio-deck.json";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
@@ -79,16 +118,16 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   const brNums = cards.map((c) => c.question)
     .filter((q) => /\b(dezesseis|dezessete|dezenove|quatorze)\b/.test(q));
   ok(brNums.length === 0, "the numbers are the European forms", JSON.stringify(brNums));
-  ok(!!by["dezasseis"] && !!by["catorze"], "dezasseis and catorze are both taught");
+  if (PROBE.numbers.length)
+    ok(PROBE.numbers.every((w) => !!by[w]), "the European numerals are taught",
+       JSON.stringify(PROBE.numbers.filter((w) => !by[w])));
 
   // THE SENSE, not just the headword.  `comboio` has a Portugal-tagged "train" sense and an untagged
   // "convoy" one, and the untagged sense wins under any ranking that does not reward the European tag
   // — which is what shipped for an hour, glossing the commonest word for a train as `convoy`.
-  // The words are the ones the A1 inventory actually carries: `frigorífico` and `sandes` are
-  // shibboleths for the FREQUENCY LIST (see `run.py --variety-check`) and are not A1 vocabulary.
-  const glosses = [["o comboio", /train/i], ["o autocarro", /bus/i],
-                   ["o telemóvel", /(mobile|cell)/i], ["o pequeno-almoço", /breakfast/i]];
-  for (const [w, want] of glosses) {
+  // The words are ones the level's own inventory carries: `frigorífico` and `sandes` are shibboleths
+  // for the FREQUENCY LIST (see `run.py --variety-check`) and are not A1 or A2 vocabulary.
+  for (const [w, want] of PROBE.glosses) {
     const c = by[w];
     if (!c) { ok(false, w + " is in the deck"); continue; }
     ok(want.test(txt(c.fields.English)), w + " glosses as its European sense",
@@ -98,43 +137,39 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // A BRAZIL-TAGGED VERB FORM DROPPED HERE IS THE SINGLE MOST IMPORTANT LINE IN `build_deck.py`:
   // without it almost every -ar verb shows `falamos` in the preterite beside `falámos` in the present,
   // with nothing on the card to say which is which.
-  const falar = by["falar"];
-  if (falar) {
-    const pret = txt(falar.fields.Conjugation).match(/Pretérito perfeito.{0,120}/);
-    ok(pret && /falámos/.test(pret[0]) && !/\bfalamos\b/.test(pret[0]),
-       "the preterite of falar is falámos and not the Brazilian falamos",
+  const [pv, pEu, pBr] = PROBE.preterite;
+  const pvc = by[pv];
+  if (pvc) {
+    const pret = txt(pvc.fields.Conjugation).match(/Pretérito perfeito.{0,120}/);
+    ok(pret && pret[0].includes(pEu) && !new RegExp("\\b" + pBr + "\\b").test(pret[0]),
+       `the preterite of ${pv} is ${pEu} and not the Brazilian ${pBr}`,
        pret && pret[0].slice(0, 80));
-  } else ok(false, "falar is in the deck");
+  } else ok(false, pv + " is in the deck");
 
   // ------------------------------------------------- where the pronoun goes
   // FOUR PLACEMENTS, and each is a different rule.  Nothing else in this repo can see any of them:
   // every table is the right shape and the right length whichever way round the pronoun is written.
   const refl = cards.filter((c) => /-se$/.test(c.question));
   ok(refl.length > 0, "the deck teaches reflexive verbs", String(refl.length));
-  const ch = by["chamar-se"];
+  const ch = by[PROBE.reflexive];
   if (ch) {
     const t = txt(ch.fields.Conjugation);
-    const seg = (h) => (t.match(new RegExp(h + ".{0,150}")) || [""])[0];
-    ok(/eu chamo-me\b/.test(seg("Presente eu")),
-       "the indicative takes enclisis: chamo-me", seg("Presente eu").slice(0, 50));
-    ok(/nós chamamo-nos\b/.test(t),
-       "the first person plural drops its -s before -nos: chamamo-nos");
-    ok(/eu me chame\b/.test(t),
-       "the conjuntivo takes proclisis: (que eu) me chame");
+    const F = PROBE.forms;
+    const has = (s) => t.includes(s);
+    ok(has(F.pres), "the indicative takes enclisis: " + F.pres);
+    ok(has(F.plural), "the first person plural drops its -s before -nos: " + F.plural);
+    ok(has(F.conj), "the conjuntivo takes proclisis: (que) " + F.conj);
     // MESOCLISIS: the future and the conditional put the pronoun INSIDE the verb.  Written as
     // ordinary enclisis they come out `chamarei-me`, which is not Portuguese — and looks entirely
     // regular in a table of six rows.
-    ok(/eu chamar-me-ei\b/.test(t), "the future takes mesoclisis: chamar-me-ei");
-    ok(/nós chamar-nos-emos\b/.test(t), "…in the plural too: chamar-nos-emos");
-    ok(/eu chamar-me-ia\b/.test(t), "and so does the conditional: chamar-me-ia");
-    ok(/vós chamar-vos-íeis\b/.test(t),
-       "with the conditional vós ending kept whole: chamar-vos-íeis",
+    ok(has(F.fut), "the future takes mesoclisis: " + F.fut);
+    ok(has(F.futPl), "…in the plural too: " + F.futPl);
+    ok(has(F.cond), "and so does the conditional: " + F.cond);
+    ok(has(F.condVos), "with the conditional vós ending kept whole: " + F.condVos,
        (t.match(/Condicional.{0,160}/) || [""])[0].slice(-60));
-    ok(/tu não te chames\b/.test(t),
-       "a negative imperative takes proclisis: não te chames");
-    ok(/nós chamarmo-nos\b/.test(t),
-       "and the personal infinitive enclisis: chamarmo-nos");
-  } else ok(false, "chamar-se is in the deck");
+    ok(has(F.neg), "a negative imperative takes proclisis: " + F.neg);
+    ok(has(F.pinf), "and the personal infinitive enclisis: " + F.pinf);
+  } else ok(false, PROBE.reflexive + " is in the deck");
 
   // …over EVERY reflexive, not just the one read by eye.  A future built by enclisis is
   // `<infinitive> + ending + -pronoun`, which is exactly what mesoclisis replaces.
@@ -159,16 +194,33 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // AN IMPERSONAL VERB HAS NO IMPERATIVE and should not be given one: nobody can be told to snow or
   // to ache.  Named rather than waved through, so a NORMAL verb losing its imperative — which is what
   // a broken pass would look like — fires here and a person decides.
-  const IMPERSONAL = ["doer", "nevar"];
-  ok(lacks("Imperativo").every((q) => IMPERSONAL.includes(q)),
+  ok(lacks("Imperativo").every((q) => PROBE.impersonal.includes(q)),
      "and an imperative unless the verb is impersonal",
-     JSON.stringify(lacks("Imperativo").filter((q) => !IMPERSONAL.includes(q))));
+     JSON.stringify(lacks("Imperativo").filter((q) => !PROBE.impersonal.includes(q))));
+  // A NOUN THAT IS ALSO AN INFINITIVE MUST NOT SHOW THE VERB'S TABLE: `o jantar` is dinner and
+  // `jantar` is to dine, and a paradigm under the noun conjugates a word the card does not teach.
+  const nounConj = cards.filter((c) => c.fields.Conjugation && /^(o|a|os|as) /.test(c.question));
+  ok(nounConj.length === 0, "no noun card carries a verb's paradigm",
+     JSON.stringify(nounConj.map((c) => c.question).slice(0, 4)));
+  // A gloss that is only a pointer teaches nothing: `duche` is glossed by Wiktionary as the
+  // European standard form of `ducha (“shower”)`, and the card wants the shower.
+  // ANCHORED, because a gloss may mention one in passing: `primeiro` is glossed `first (ordinal
+  // form of um (“one”))`, which is a translation with an etymology after it and not a pointer.
+  const glossLines = (c) => [...c.fields.English.matchAll(/<(?:li|div class="uc-gl")[^>]*>([^<]*)</g)]
+    .map((m) => m[1].trim());
+  const ptr = cards.filter((c) => glossLines(c).some((g) => /^[\w\- ]*\bform of\s+\S+\s*\(“/.test(g)));
+  ok(ptr.length === 0, "no gloss is an unresolved cross-reference",
+     JSON.stringify(ptr.map((c) => c.question).slice(0, 4)));
   // THE PERSONAL INFINITIVE IS THE ONE TENSE PORTUGUESE HAS THAT NO OTHER ROMANCE LANGUAGE DOES.
   ok(verbs.every((c) => c.fields.Conjugation.includes("Infinitivo pessoal")),
      "and the personal infinitive");
 
   // ------------------------------------------------- the examples
-  const BR = /\b(ônibus|trem|trens|celular|celulares|geladeira|banheiro|garoto|garota|papai|mamãe|xícara|terno|sorvete|time|times|bonde|calçada|aeromoça|bunda|bacana|grama|carona|açougue|sanduíche|geladinho)\b|\bcafé da manhã\b|\b(?:est\w+|and\w+|continu\w+)\s+\w{2,}ndo\b/i;
+  // WORDS THAT ARE BRAZILIAN AND NOT MERELY BRAZILIAN-FLAVOURED.  `calçada` and `grama` were in
+  // this list and came out: a `calçada` is an ordinary paved street in Portugal (the *calçada
+  // portuguesa* is Lisbon's own pavement) and a `grama` is a gram, so both fire on good European
+  // sentences.  A marker has to be a word Portugal does not use in that sense at all.
+  const BR = /\b(ônibus|trem|trens|celular|celulares|geladeira|banheiro|garoto|garota|papai|mamãe|xícara|terno|sorvete|times?|bonde|aeromoça|bunda|bacana|carona|açougue|sanduíche|geladinho)\b|\bcafé da manhã\b|\b(?:est\w+|and\w+|continu\w+)\s+\w{2,}ndo\b/i;
   let ptSentences = 0, brHits = [];
   for (const c of cards) {
     for (const m of c.fields.Examples.matchAll(/<div class="uc-exz">([\s\S]*?)<\/div>/g)) {

@@ -124,6 +124,17 @@ def tidy(g):
     g = re.sub(r'^\s*(alternative (form|letter-case form)|clipping|'
                r'apocopic form|contraction) of \S+\s*[;:,]?\s*',
                '', g, flags=re.I).strip(' ;,')
+    # A CROSS-REFERENCE THAT CARRIES ITS TARGET'S MEANING IS A TRANSLATION.
+    # Wiktionary glosses `duche` as `European Portuguese standard form of ducha
+    # (“shower”)`, which is the whole sense -- so stripping the pointer the way
+    # the rule above does would leave nothing, and keeping it whole tells a
+    # learner the etymology of a word instead of what it means.  The quoted
+    # target is what the card wants.  Where the pointer carries no gloss
+    # (`secção` -> `seção`) it is kept as printed, which at least says that
+    # this is the European spelling.
+    m = re.fullmatch(r'[\w\- ]*\bform of\s+\S+\s*\(“([^”]+)”\)', g)
+    if m:
+        g = m.group(1)
     if len(g) > 58 and ' (' in g:
         head = strip_parens(g)
         if len(head) >= 3:
@@ -240,6 +251,8 @@ def gender_of(rec):
 
 
 def article(word, g):
+    if word in PLURAL_ONLY:
+        return 'as' if g.startswith('f') else 'os'
     if g.startswith('m-p'):
         return 'os'
     if g.startswith('f-p'):
@@ -328,7 +341,21 @@ FORCE_POS = {
     'café': 'noun', 'jornal': 'noun', 'telemóvel': 'noun', 'comboio': 'noun',
     'tarde': 'noun', 'noite': 'noun', 'manhã': 'noun', 'meio': 'noun',
     'primeiro': 'adj', 'segundo': 'adj',
+    # A2.  Wiktionary files a noun `mesmo` "the same" ahead of the adjective and
+    # the adverb, so the card came out `o mesmo` -- a masculine noun, with an
+    # article and no plural -- where what the A2 inventory names, and what a
+    # learner needs, is `mesmo` meaning `same` and `even`.
+    'mesmo': 'adj',
 }
+
+# A PLURAL-ONLY NOUN TAKES A PLURAL ARTICLE, and Wiktionary does not always say
+# that it is one: `cuecas` is tagged plainly feminine with no plural form of its
+# own, so `article` reads it as a singular and writes `a cuecas`.  The tag is
+# what would decide this if it were there (`f-p` gives `as` already, which is
+# how `os óculos` comes out right), so the handful that are mis-tagged are named
+# rather than guessed at from the final -s -- `o país` and `o mês` end in one
+# too, and `o lápis` is invariable and still takes the singular article.
+PLURAL_ONLY = {'cuecas', 'calças', 'férias', 'parabéns', 'meias-calças'}
 
 
 def has_real_sense(r):
@@ -905,7 +932,18 @@ for word in words:
         f'{meanings_html(g)}</div>'
         for p, g in senses)
 
-    conj = conjugation_html(word, vrec, reflexive) if vrec is not None else ''
+    # THE PARADIGM BELONGS TO THE WORD THE CARD IS TEACHING, and a Portuguese
+    # infinitive is very often a noun as well: `o jantar` is dinner and `jantar`
+    # is to dine, `a colher` is a spoon and `colher` is to harvest, `o colar` a
+    # necklace and `colar` to glue.  Emitted on the strength of a verb record
+    # alone, those four cards print a noun's headword and gloss over a
+    # conjugation of a different word -- and `o prazer` printed the defective
+    # paradigm of `prazer` "to please" under the noun `pleasure`.  Nothing else
+    # can see it: the card is well formed and the table is correct, it is simply
+    # about something the card does not claim to teach.
+    show_conj = reflexive or (primary is not None and primary['pos'] == 'verb')
+    conj = (conjugation_html(word, vrec, reflexive)
+            if vrec is not None and show_conj else '')
     if conj:
         stats['verbs with a paradigm'] += 1
     forms = forms_html(word, recs, primary, (fem, fpl)) if not conj else ''

@@ -3698,8 +3698,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese deck** by `.claude/caple/` —
-  each has its own bullet below.
+  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (A1 and A2) by
+  `.claude/caple/` — each has its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4255,8 +4255,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/caple/` — the generator behind `decks/CAPLE-A1-Portuguese.folio-deck.json` (498 notes /
-  996 cards, 1.9 MB), a community deck rather than site content:
+- `.claude/caple/` — the generator behind the two `decks/CAPLE-<level>-Portuguese.folio-deck.json`
+  files (A1: 498 notes / 996 cards, 1.9 MB; A2: 500 / 1,000, 2.1 MB), community decks rather than
+  site content:
   `python3 .claude/caple/run.py [--level a2] [--no-fetch] [--variety-check]`. Seven stages, run by
   `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
   `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
@@ -4265,6 +4266,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the DELE and Goethe arrangement exactly. It takes the **Goethe SHAPE** rather than the DELE one: one
   note with two card templates, so a corrected gloss is corrected both ways at once and each direction
   still keeps a schedule of its own.
+  · **A2 WAS A RE-RUN AND A TABLE ROW, WHICH IS WHAT THE PIPELINE WAS BUILT FOR** — the Referencial's
+    six levels are siblings in one HTML file and every node carries `id="nivel<LEVEL>-…"`, so the
+    parser was already level-scoped and the A2 inventory is a genuinely different and larger one
+    (3,036 candidates against A1's 1,646, sharing 841). **What it did cost is a REFLEXIVE PASS**: the
+    A2 inventory names thirty-two `-se` verbs where A1 names eleven, and since Wiktionary has a record
+    for none of them the twenty worth teaching had to be glossed by hand in `reflexives.py`. Adding a
+    level means reading its inventory for those; nothing warns, because a reflexive with no gloss is
+    simply not offered and the deck builds cleanly at exactly 500 words without it.
+  · **A REFLEXIVE'S BASE VERB IS FETCHED FOR ITS PARADIGM AND MUST NOT JOIN THE WORD LIST BY ITSELF.**
+    `run.py` adds every reflexive's base to the Wiktionary lookup, and `select.py`'s pool is
+    everything with a record — so once `reflexives.py` covered two levels at once, A2's twenty bases
+    (`voltar`, `casar`, `tornar`, `divertir`, …) entered **A1's** pool and pushed nineteen real A1
+    nouns out of its top 500, with A1 still building cleanly at exactly 500 words. The guard is one
+    `if k in cands`: fetch a base only where this level's inventory names the reflexive.
   · **CAPLE PUBLISHES NO VOCABULARY LIST, and that was established rather than assumed** — its site
     carries exam specifications and nothing else, checked page by page, and the one PDF that looks like
     a syllabus is an image-only scan of a brochure. So the words come from the reference description
@@ -4315,9 +4330,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     parenthetical is a qualifier, so losing it entirely is honest where losing half of it is not.
     Every count stayed healthy throughout: the glosses were non-empty strings of the right shape on
     cards of the right length.
-  · **WIKTIONARY HAS NO RECORD FOR ANY PORTUGUESE REFLEXIVE**, so `reflexives.py` carries the eleven by
-    hand, each attested in the A1 Referencial, and the paradigm is built from the base verb — which is
-    why `run.py` adds every reflexive's base to the lookup set before the extraction runs.
+  · **WIKTIONARY HAS NO RECORD FOR ANY PORTUGUESE REFLEXIVE**, so `reflexives.py` carries all
+    thirty-one by hand — eleven attested in the A1 Referencial and twenty in the A2 one — and the
+    paradigm is built from the base verb, which is why `run.py` adds a reflexive's base to the lookup
+    set before the extraction runs. **Four of A2's thirty-two are deliberately absent and the file
+    says why**: `ir-se` and `vir-se` are named only inside `ir-se/vir-se embora`, where the unit is
+    the phrase, and `ver-se` and `dizer-se` mean what their base verbs mean with a pronoun on them —
+    which is the test, and the reason the table is not simply every `-se` string in the source.
+  · **`se` IS BOTH THE THIRD-PERSON CLITIC AND THE CONJUNCTION `IF`, AND NOTHING STRUCTURAL TELLS THEM
+    APART.** `KEYWORDS` in `reflexives.py` is what does — the English translation has to carry a word
+    the reflexive means — and it existed unused for a session while the docstring claimed
+    `examples.py` applied it. Wired in, it replaced a `sentir-se` example that was actually
+    `sentar-se` ("Por favor sente-se" / "Please sit") and an `apresentar-se` one that meant
+    "volunteered". **Proclisis is also ADJACENT** in European Portuguese, so the two-token window that
+    let `Me deixa voltar a dormir` count as `voltar-se` is now one. The cost is honest and stated in
+    each deck's own description: A2 has eight words the corpus cannot illustrate at all, where a
+    looser rule gave them wrong sentences.
+  · **A PORTUGUESE INFINITIVE IS VERY OFTEN A NOUN**, so a verb record alone is not grounds for
+    printing a paradigm: `o jantar` is dinner and `jantar` is to dine, `a colher` a spoon and `colher`
+    to harvest, `o colar` a necklace and `colar` to glue. Four cards printed a noun's headword and
+    gloss over a conjugation of the other word — `o prazer` "pleasure" over the defective paradigm of
+    `prazer` "to please" — and the table was correct in every case, simply about something the card
+    does not claim to teach. The paradigm is now gated on the card's PRIMARY part of speech, and those
+    four gained their plural line instead.
   · **A PARENTHESIS IN THE INVENTORY MEANS FOUR DIFFERENT THINGS** (`unparen`): `segunda(-feira)` is one
     word with an optional tail, `irmã(o)` is TWO words, `pequeno(a)` is a feminine ending, and a
     trailing gloss is neither — so both readings are returned and the junk (`pequenoa`) dies harmlessly
@@ -4340,8 +4375,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     — re-using `examples.py`'s pattern would pass by construction on whatever it let through — and it
     runs over the PORTUGUESE half of each example only, since the English beside it says "next time"
     and `time` is also the Brazilian word for a football team. It writes screenshots to look at.
-  Re-running it must reproduce the shipped deck byte for byte; that is the check to make after any
-  edit, since every fault above is silent. Not part of the site.
+    **Its probes are PER LEVEL** (`PROBE`), because the assertions are about European Portuguese and
+    have to be asked about a word the level teaches — `o comboio` is in A1 and in no other deck — and
+    the expected verb forms are written out rather than derived from the infinitive, since a
+    derivation here could share a bug with `build_deck.py` and the two would then be wrong together.
+    **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
+    `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
+    in Portugal and a *grama* a gram.
+  Re-running it must reproduce the shipped decks byte for byte, **and both levels have to be
+  re-run**: the stages are shared, so a change made for A2 reaches A1 and the only way to see it is
+  to rebuild A1 and diff. That is the check to make after any edit, since every fault above is
+  silent. Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
   `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching

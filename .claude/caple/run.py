@@ -167,11 +167,20 @@ def main():
 
     # every lemma any entry might be looked up under, plus the base verb of
     # every reflexive -- a reflexive has no Wiktionary record of its own, so the
-    # paradigm has to come from the base and the base has to be fetched
+    # paradigm has to come from the base and the base has to be fetched.
+    #
+    # ONLY THE REFLEXIVES THIS LEVEL NAMES, and that `if` is load-bearing.
+    # `reflexives.py` covers every level at once, and the pool `select.py`
+    # builds is everything with a Wiktionary record -- so fetching all of their
+    # bases puts the bases into THIS level's word list whether or not its
+    # inventory ever names them.  Written without the guard, adding A2's twenty
+    # reflexives put `voltar`, `casar`, `tornar`, `divertir` and fifteen more
+    # into the A1 deck, pushing nineteen real A1 nouns out of the top 500 --
+    # with A1 still building cleanly at exactly 500 words.
     from reflexives import GLOSS as REFL, base as refl_base
     cands = set(json.load(open(lvlf('referencial_candidates.json'))))
     cands |= set(json.load(open(lvlf('supplement.json'))))
-    cands |= {refl_base(k) for k in REFL}
+    cands |= {refl_base(k) for k in REFL if k in cands}
     json.dump(sorted(cands), open(lvlf('lookup.json'), 'w'), ensure_ascii=False)
 
     print('wiktionary:')
