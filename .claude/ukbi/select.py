@@ -110,7 +110,7 @@ LABEL_MAP = [
     # `imperati[vf]` because the paradigm writes the label in Indonesian on some
     # entries and in English on others -- `buka`'s reads `imperatif`.  The
     # imperative IS the bare root in Indonesian, which is why both say root.
-    (re.compile(r'imperati[vf]|^base|^basic|root|infinitive', re.I), 'root'),
+    (re.compile(r'imperati[vf]|^base|^basic|root|infinit', re.I), 'root'),
     (re.compile(r'accidental', re.I), 'accidental'),
     (re.compile(r'active|actor focus', re.I), 'active'),
     (re.compile(r'passive|patient focus', re.I), 'passive'),
@@ -188,6 +188,19 @@ EXCLUDE = {
     'ku', 'mu', 'nya',
     # `dr` / `tn` / `s` are subtitle abbreviations that happen to have entries.
     'dr', 'tn', 's',
+    # THE THIRD OF THIS SHAPE, and the one that shows why it cannot be automated.
+    # `kayak` is very common in speech as the colloquial preposition "like, such
+    # as"; that sense is tagged colloquial and correctly refused, which leaves
+    # the untagged noun -- `kayak`, the boat, an English loanword a Semenjana
+    # candidate has no use for.  `tau` was caught by widening `LETTER_NAME`,
+    # because its surviving sense was recognisably not an Indonesian word at all;
+    # here the surviving sense is a perfectly good Indonesian noun, so no rule
+    # can see it and the exclusion is by hand.  The harm is worse than a useless
+    # card: the example sentences are drawn from a corpus in which nearly every
+    # `kayak` is the preposition, so the card would gloss it "a canoe" and then
+    # print three sentences meaning "like".  Found by `check-ukbi.js`, which
+    # lists it among the colloquial forms that must never be taught.
+    'kayak',
 }
 
 KEEP = {
@@ -635,13 +648,20 @@ def main():
         for o in odd:
             oddlab[o] += 1
 
+    # HOW MANY CAME FROM WHICH INPUT IS CARRIED THROUGH, because the deck's own
+    # description states it and the split moves a great deal between levels --
+    # 378 of level 1's 500 are the inventory's and 200 of level 3's 1,000 are.
+    # A sentence written once with level 1's proportion in it would be false at
+    # every level after it, which is the fault `SCOPE` records.
+    from_supp = len([w for w in supp_heads if w in have])
+
     json.dump({'words': chosen, 'families': fams, 'forms': labelled,
-               'freq': {w: freq(w) for w in chosen}},
+               'freq': {w: freq(w) for w in chosen},
+               'from_inventory': from_supp},
               open(lvlf('wordlist.json'), 'w', encoding='utf-8'), ensure_ascii=False)
 
     # ------------------------------------------------------------- the numbers
     st_count = collections.Counter(s for s, _b, _k in state.values())
-    from_supp = len([w for w in supp_heads if w in have])
     phr = [w for w in chosen if ' ' in w]
     print(f'    dictionary {len(byword)} words; corpus universe {len(universe)}')
     print(f'    phrases: {len(phrase_est)} estimated at x{factor:.1f} off the '

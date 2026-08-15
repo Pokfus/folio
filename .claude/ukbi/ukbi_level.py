@@ -32,6 +32,57 @@ PREDICATES = {
     '7': ('Istimewa',      'I',   '725-800'),
 }
 
+# WHAT EACH LEVEL IS FOR, IN THE BOARD'S OWN WORDS.  This is a table rather than
+# prose in `emit.py` because of the fault it exists to fix: that file was written
+# for level 1 and templated only the NAME and the NUMBERS, so levels 2 and 3
+# shipped calling themselves "the first and most basic level of the UKBI", saying
+# each was "the lowest of them", and quoting **Terbatas's descriptor verbatim
+# under their own names** -- "untuk keperluan sintas", survival, against a
+# predicate whose own descriptor says something else entirely.  Nothing threw and
+# every count was right; a description is simply prose, and prose written once
+# for one level goes on being printed for every level after it.  **A deck's
+# description is the one place that has to state true things about the deck.**
+#
+# `quote` is the short distinctive phrase of that predicate's descriptor, taken
+# verbatim from ukbi.kemendikdasmen.go.id/front-new/page/predikat -- short on
+# purpose, because an ellipsis-joined quotation of a paragraph is a quotation
+# nobody can check.  `gloss` is the plain-English reading of the whole
+# descriptor, `topics` a summary of what THIS level's inventory in
+# `supplement.py` actually covers, and `rank` where the predicate sits.
+SCOPE = {
+    '1': {
+        'rank': 'the lowest of the seven',
+        'quote': 'hanya mampu berkomunikasi untuk keperluan sintas',
+        'gloss': 'able to communicate for survival purposes and no further',
+        'topics': 'greetings and politeness, numbers, days and months, telling the '
+                  'time, family, food and drink, money and shopping, getting about, '
+                  'health and the body, and the closed classes of pronouns, question '
+                  'words, prepositions and conjunctions',
+    },
+    '2': {
+        'rank': 'the second from the bottom',
+        'quote': 'keperluan kemasyarakatan yang sederhana',
+        'gloss': 'not yet adequately proficient: able to manage simple community purposes, '
+                 'but unready for complex ones, for any professional purpose, and for '
+                 'academic purposes at all',
+        'topics': 'describing people, how you feel, the home and what is in it, clothes, '
+                  'food, shopping and errands, travelling, health, the weather and the '
+                  'natural world, telling a story in order, and giving an opinion',
+    },
+    '3': {
+        'rank': 'the third from the bottom',
+        'quote': 'keperluan keprofesian yang tidak kompleks',
+        'gloss': 'reasonably proficient: able to communicate for survival, for non-complex '
+                 'professional and for non-complex community purposes, while in academic '
+                 'communication — the descriptor adds — still "sangat terkendala", very '
+                 'much constrained',
+        'topics': 'having a job and the trades people work in, the paperwork of an '
+                  'office, money at a bank, the state and its offices, getting in touch, '
+                  'renting somewhere to live, arranging a journey, being treated, and the '
+                  'abstract and connective vocabulary a paragraph is built out of',
+    },
+}
+
 TITLES = {k: f'UKBI {k} {v[0]} — Indonesian' for k, v in PREDICATES.items()}
 DECK_IDS = {k: f'ukbi{k}' for k in PREDICATES}
 DECK_FILES = {k: f'UKBI-{k}-{v[0]}-Indonesian.folio-deck.json'

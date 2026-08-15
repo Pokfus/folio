@@ -141,6 +141,17 @@ const ok = (c, m, extra) => {
       "feelings beyond the basics": ["marah", "bosan", "kecewa", "bangga"],
       "narrative connectives": ["akhirnya", "tiba-tiba", "setuju", "sebaiknya"],
     },
+    // Semenjana opens `keprofesian yang tidak kompleks`, and these are the three groups that
+    // door lets in -- the workplace, money at a bank, and the abstract `ke-...-an` /
+    // `peN-...-an` nouns a paragraph is built out of.  Level 2's header says in as many words
+    // that the workplace belongs to a level Marginal cannot reach; this is that level, so the
+    // set that would have been WRONG one level down is the right one to assert here.
+    3: {
+      "workplace": ["karyawan", "jabatan", "rapat", "gaji", "cuti", "kontrak", "wawancara"],
+      "money at a bank": ["rekening", "tabungan", "pinjaman", "pajak", "anggaran", "modal"],
+      "abstract nouns": ["proses", "tahap", "akibat", "syarat", "pengaruh", "perubahan",
+                         "peningkatan", "penyelesaian"],
+    },
   };
   for (let l = 1; l <= Number(LEVEL); l++) {
     for (const [name, members] of Object.entries(CORE[l] || {})) {

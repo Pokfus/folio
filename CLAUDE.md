@@ -4622,8 +4622,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
 - `.claude/ukbi/` — the generator behind the UKBI Indonesian decks: **level 1
-  `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB) and **level 2
-  `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 notes / 1,500 cards, 788 KB).
+  `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB), **level 2
+  `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 / 1,500, 788 KB) and **level 3
+  `UKBI-3-Semenjana-Indonesian.folio-deck.json`** (1,000 / 2,000, 927 KB).
   `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
   corpora in `.claude/ukbi-cache/` (~175 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
   and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
@@ -4632,16 +4633,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **THE LEVELS ARE NUMBERED FROM THE BOTTOM, which is the opposite of how UKBI prints them.** UKBI reports a
   *peringkat* I–VII from the TOP down, so Istimewa is I and **Terbatas is VII, score 251–325, the lowest**. A
   learner meets them the other way up, so the decks are numbered in the order they are studied and the
-  predicate's own name is carried in the title. Level 1 is Terbatas and level 2 Marginal (peringkat VI, score
-  326–404); the other five are laid out in `ukbi_level.py` and none is built.
+  predicate's own name is carried in the title. Level 1 is Terbatas, level 2 Marginal (peringkat VI, score
+  326–404) and level 3 Semenjana (V, 405–481); the other four are laid out in `ukbi_level.py` and none is
+  built.
   **A LEVEL'S SCOPE IS ITS OWN DESCRIPTOR, AND THE DESCRIPTOR EXCLUDES AS WELL AS INCLUDES.** Terbatas is
   "keperluan **sintas**", survival, so `SECTIONS_1` is greetings, numbers, days, food, money, the body and the
   closed classes. Marginal is everyday and community life **and its official descriptor says outright that a
   candidate at this level cannot yet use Indonesian for professional or academic purposes** — so `SECTIONS_2`
   is feelings, the home, clothes, errands, travel, narration and opinion, and deliberately carries no office,
-  no contract and no essay vocabulary. `supplement.LEVELS` maps the level to its inventory and
-  `supplement.sections()` reads it; a level with no inventory contributes nothing rather than falling back to
-  another level's, which would fill Marginal with words level 1 has already taught.
+  no contract and no essay vocabulary. **Semenjana is where that door opens**: "keperluan **keprofesian yang
+  tidak kompleks**", non-complex professional purposes, so `SECTIONS_3` is precisely the list level 2 refused
+  to write — a job, a rota, a colleague, a payslip, a bank, a government counter — plus the abstract and
+  connective vocabulary a paragraph is built out of. **The same list is wrong one level down and right one
+  level up, and the descriptor is what says which**, which is why the two section headers should be read
+  together. `keilmiahan` (academic) is still shut at Semenjana, so there is no `hipotesis`, `metodologi` or
+  `analisis` in it either.
+  `supplement.LEVELS` maps the level to its inventory and `supplement.sections()` reads it; a level with no
+  inventory contributes nothing rather than falling back to another level's, which would fill Marginal with
+  words level 1 has already taught.
   **THE ONE FACT THE WHOLE GENERATOR RESTS ON: UKBI PUBLISHES NO VOCABULARY LIST.** It is a proficiency test
   rather than a syllabus — it reports a score and a predicate, and the Badan Bahasa publishes descriptors of
   what a candidate at each predicate can DO, never the words they should know. Neither does BIPA:
@@ -4654,7 +4663,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   own descriptor — Terbatas is "berkomunikasi untuk keperluan **sintas**", survival communication — which is
   what `supplement.py` is an inventory of, and the ORDER and the fill are corpus frequency. **Ask whether an
   exam board publishes a word list before assuming the sibling's shape transfers.**
-  Thirteen things it settled are worth carrying.
+  Fifteen things it settled are worth carrying.
+  **A DESCRIPTION IS PROSE, AND PROSE WRITTEN ONCE FOR ONE LEVEL GOES ON BEING PRINTED FOR EVERY LEVEL AFTER
+  IT.** `emit.py` was written for level 1 and templated only the NAME and the NUMBERS, so **levels 2 and 3
+  shipped calling themselves "the first and most basic level of the UKBI", saying each was "the lowest of
+  them", and quoting Terbatas's descriptor verbatim under their own names** — "untuk keperluan sintas",
+  survival, against predicates whose own descriptors say something else entirely — over a topic list that
+  was level 1's inventory and an example of phrases (`terima kasih`, `apa kabar`) that those decks do not
+  contain. Nothing threw and every count was right. **A deck's description is the one place that has to state
+  true things about the deck**, so every claim in it now comes from `SCOPE` in `ukbi_level.py` (rank, the
+  short verbatim phrase of that predicate's own descriptor, its plain-English reading, and what that level's
+  inventory actually covers) or is derived from the built deck — the inventory/frequency split is carried
+  through `wordlist.json` because it moves from 378-of-500 to 200-of-1,000, and the phrase examples are the
+  deck's own first four. **Templating the name is not the same as templating the claims.**
   **THE AFFIX FAMILY IS INDONESIAN'S ANSWER TO A PARADIGM, AND IT IS THE WHOLE POINT OF THE CARD.** The
   siblings spend their card on morphology a learner cannot guess — German's gender and plural, Spanish's
   conjugation, Mandarin's character breakdown — and Indonesian has none of that: no gender, no agreement, no
@@ -4696,6 +4717,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   flattens both without having to decide which arrow is true, and **the headword is then the family's most
   frequent member**, which is what stops the deck teaching `erti`: it is used nineteen times in the corpus
   against 47,243 for `mengerti`, and it is Malay rather than Indonesian.
+  **AN AFFIXED VERB OFTEN HAS NO ENTRY OF ITS OWN AND ITS ROOT DOES**, which is a fact about Wiktionary's
+  Indonesian coverage rather than about the language, and it bites hardest on an intermediate inventory: of
+  level 3's list, `mengurus`, `menyetujui`, `membandingkan`, `menyebutkan`, `mengharapkan`, `membutuhkan`,
+  `mengalami`, `menghadapi`, `melibatkan`, `melapor` and `menandatangani` are all absent while `urus`,
+  `setuju`, `banding`, `sebut`, `harap`, `butuh`, `hadap` and `lapor` are all there and correctly glossed.
+  The affixed form is how a learner meets the verb and the root is what the dictionary can teach, so the
+  inventory is written in roots — and the ones whose root teaches something ELSE are dropped rather than
+  substituted (`alam`/`alami` for `mengalami` is nature and natural, not to experience). Level 2 hit the same
+  wall and it is a standing step: **write the inventory, run it, and read the "the dictionary does not carry"
+  report before believing the list.** Three more went for the sibling reason — `satpam` is glossed only as
+  the expansion of its own abbreviation, `diskon` is tagged colloquial, `rawat` says only "basic form of
+  merawat" — which is `build_deck.py`'s meaning test doing its job at the inventory rather than at the card.
   **A RELATION IS QUALIFIED AS OFTEN AS NOT, and a family that fails to form is INVISIBLE.** `menjaga` is
   glossed "**transitive** active of jaga", and a pattern anchored hard at the start misses it — so the word
   never joins its root's family, gets no forms row, and gets no MEANING either, since the meaning lives on the
@@ -4730,16 +4763,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `April`, `Mei` and half the week as names. A survival deck with no word for Monday is the exact failure
   `supplement.py` exists to prevent, reintroduced one stage further down. Choosing and glossing are different
   questions; ask which one a filter is answering.
-  **A WORD CAN INHERIT A FREQUENCY FROM A FORM THE DECK REFUSES TO TEACH.** `tau` is the nineteenth of the
-  top 19,125 words of the corpus, because in speech it is the colloquial form of `tahu`, "to know" — and that
-  reading is tagged colloquial and correctly refused, which leaves the entry Wiktionary files for the **Greek
-  letter Τ** standing alone. So level 2 taught a Greek letter on the strength of an Indonesian
-  colloquialism's frequency. It is the `kan` / `ku` / `mu` / `nya` shape already in `EXCLUDE` — "the frequency
-  belongs to a form the deck does not teach and the surviving sense does not deserve it" — and the answer is
-  to widen `LETTER_NAME` rather than to name `tau` by hand, which leaves it with no meaning at all and lets
-  the pool's own meaning test refuse it. Swept before it was widened: **31 senses are newly dropped and every
-  one defines a letter of an alphabet**; `es` (ice) and `ha` (an interjection) both carry a letter sense and
-  both keep their real meanings, which is why the sweep was the check rather than the pattern.
+  **A WORD CAN INHERIT A FREQUENCY FROM A FORM THE DECK REFUSES TO TEACH, and this has now happened three
+  times.** `tau` is the nineteenth of the top 19,125 words of the corpus, because in speech it is the
+  colloquial form of `tahu`, "to know" — and that reading is tagged colloquial and correctly refused, which
+  leaves the entry Wiktionary files for the **Greek letter Τ** standing alone. So level 2 taught a Greek
+  letter on the strength of an Indonesian colloquialism's frequency. It is the `kan` / `ku` / `mu` / `nya`
+  shape already in `EXCLUDE` — "the frequency belongs to a form the deck does not teach and the surviving
+  sense does not deserve it" — and there the answer was to widen `LETTER_NAME` rather than name `tau` by hand,
+  which leaves it with no meaning at all and lets the pool's own meaning test refuse it. Swept before it was
+  widened: **31 senses are newly dropped and every one defines a letter of an alphabet**; `es` (ice) and `ha`
+  (an interjection) both carry a letter sense and both keep their real meanings, which is why the sweep was
+  the check rather than the pattern.
+  **`kayak` AT LEVEL 3 IS THE SAME SHAPE AND SHOWS WHY IT CANNOT BE AUTOMATED.** It is very common as the
+  colloquial preposition "like, such as"; that sense is refused, leaving the untagged noun — `kayak`, the
+  boat. `tau` was reachable by a rule because its surviving sense was recognisably not an Indonesian word at
+  all, where this one is a perfectly good Indonesian noun, so no rule can see it and the exclusion is by hand.
+  **The harm is worse than a useless card**: the sentences come from a corpus in which nearly every `kayak` is
+  the preposition, so the card would gloss it "a canoe" and print three sentences meaning "like". Found by
+  `check-ukbi.js`, which lists it among the colloquial forms that must never be taught — the assertion
+  catching a word the deck arrived at from the other direction.
   **A PHRASE MUST BE WRITTEN ON A LINE OF ITS OWN, NEVER INFERRED FROM A LINE OF SINGLE WORDS.** The
   supplement reader scanned each line for the longest run that happened to be a dictionary entry, and
   Indonesian compounds freely: `kopi teh susu` resolved as `kopi` plus `teh susu`, which is a real entry
@@ -4760,14 +4802,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of the week. That is an accurate description of what people say in films and a poor one of what a beginner
   needs, which is why 378 of the 500 come from the inventory instead; the deck's description says which half
   is which. **The higher the level, the more of it the corpus decides** — level 2 is 313 from its inventory
-  and 437 by frequency — so the caveat gets heavier as the levels climb, not lighter. Tatoeba's Indonesian is
+  and 437 by frequency, level 3 **200 against 800** — so the caveat gets heavier as the levels climb, not
+  lighter, and the description now derives the split rather than restating level 1's. Tatoeba's Indonesian is
   small — 28,192 sentences, 22,023 with an English pair, against hundreds of thousands for Spanish — and was
-  **measured before the level was built rather than assumed**: 488 of level 1's cards carry three sentences
-  and two carry none, and at level 2, whose words are rarer, it is 641 with three and **33 with none**. Those
-  are kept: a word is chosen for being worth knowing and not for being well covered by a sentence bank, and
-  each deck's own description states the figure.
-  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (42 assertions at level 1, 46 at level 2),
-  and it exists because
+  **measured before each level was built rather than assumed**: 488 of level 1's cards carry three sentences
+  and two carry none; at level 2 it is 641 and 33; at level 3, whose words are rarer again, **544 with three
+  and 179 with none**, nearly a fifth. Those are kept: a word is chosen for being worth knowing and not for
+  being well covered by a sentence bank, and each deck's own description states its own figure.
+  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (42 assertions at level 1, 46 at level 2,
+  50 at level 3), and it exists because
   `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything Indonesian the
   deck is FOR is unchecked by anything until there. Every fault it hunts is quiet: a dropped forms row leaves
   a good card that has stopped teaching the hard part, a colloquial form that slips the filter looks exactly
@@ -4781,7 +4824,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `words_below()` reads them). Checking only the deck in hand reported level 2 as having no word for Monday —
   which is TRUE and is the entire point of `words_below()` — and dropping a lower level's sets once past them
   would stop watching the thing they were written to watch, so a level-1 regression now fails a level-2 run
-  as well. Level 2 adds three sets of its own, clothes being the cleanest (not one of the five is in level 1).
+  as well. Level 2 adds three sets of its own, clothes being the cleanest (not one of the five is in level 1);
+  level 3 adds the workplace, money at a bank and the abstract nouns — **the set that would have been WRONG
+  one level down**, which is the descriptor doing its work in the test as well as in the inventory.
   **And a new assertion the stack needed: no word is taught again from a level below**, whose failure is not
   an error but a duplicate — the learner meets one word on two decks with two schedules and nothing says so.
   Three things that bit: `.grade` carries `data-g` ITSELF, so a descendant selector matches nothing and the

@@ -3,7 +3,7 @@
 import json, os
 
 from ukbi_level import (LEVEL, f as lvlf, TITLES, DECK_IDS, DECK_FILES,
-                        PREDICATES, TARGET)
+                        PREDICATES, TARGET, SCOPE)
 
 cards = json.load(open(lvlf('cards.json'), encoding='utf-8'))
 entries = json.load(open(lvlf('entries.json'), encoding='utf-8'))
@@ -177,8 +177,19 @@ ex3 = sum(1 for e in entries if e['examples'] == 3)
 ex0 = sum(1 for e in entries if e['examples'] == 0)
 passives = sum(1 for e in entries
                if any(l == 'passive' for _f, l in e['forms']))
+# THE EXAMPLES ARE THIS DECK'S OWN, taken in the deck's own order (commonest
+# first), not four phrases typed out for level 1 -- which is the same fault
+# `SCOPE` records one field up, and it would name `terima kasih` in a deck that
+# does not contain it.
+PHRASE_EG = ', '.join([e['word'] for e in entries if ' ' in e['word']][:4])
 
 NAME, PERINGKAT, BAND = PREDICATES[LEVEL]
+# EVERY CLAIM THE DESCRIPTION MAKES ABOUT THE LEVEL COMES FROM HERE, not from a
+# sentence typed once for level 1; see the note on `SCOPE` in `ukbi_level.py` for
+# what shipped before it did.
+SC = SCOPE[LEVEL]
+from_inv = json.load(open(lvlf('wordlist.json'),
+                          encoding='utf-8')).get('from_inventory', 0)
 
 EX_NOTE = (f'Every word also carries three real example sentences'
            if ex0 == 0 and ex3 == n else
@@ -192,33 +203,36 @@ DESC = (
     "Both study directions in one deck: Indonesian → English (see the Indonesian, "
     "recall the meaning) and English → Indonesian (see an English meaning, recall the "
     "Indonesian). Each direction is a card of its own with its own schedule, so "
-    f"recognising a word and producing it are learnt separately. {n} words for the "
-    f"first and most basic level of the UKBI, the Uji Kemahiran Berbahasa Indonesia — "
+    f"recognising a word and producing it are learnt separately. {n} words for "
+    f"{NAME}, a predicate of the UKBI, the Uji Kemahiran Berbahasa Indonesia — "
     "the Indonesian language proficiency test set by the Badan Pengembangan dan "
     "Pembinaan Bahasa. "
-    f"UKBI reports a score from 251 to 800 and one of seven predicates; {NAME} is the "
-    f"lowest of them, peringkat {PERINGKAT}, a score of {BAND}, and its official "
-    "descriptor says that a candidate at this level is able to communicate only "
-    "'untuk keperluan sintas' — for survival purposes. "
+    f"UKBI reports a score from 251 to 800 and one of seven predicates; {NAME} is "
+    f"{SC['rank']}, peringkat {PERINGKAT}, a score of {BAND}, and its official "
+    f"descriptor — the phrase it turns on is '{SC['quote']}' — describes a candidate "
+    f"here as {SC['gloss']}. "
+    + ("The words already taught by the level"
+       + ("s" if int(LEVEL) > 2 else "")
+       + " below this one are left out, so nothing here repeats them. "
+       if int(LEVEL) > 1 else "") +
     "WHERE THESE WORDS COME FROM, since it matters and since it is not what the other "
     "exam decks do: UKBI publishes no vocabulary list. It is a proficiency test rather "
     "than a syllabus, and the Badan Bahasa describes what a candidate at each predicate "
     "can do rather than which words they should know; the BIPA competency standards "
     "(Permendikbud 27/2017) are written the same way. So this word list is not an "
-    "official one and is not presented as one. It was assembled here from two things "
-    f"that can be stated: a survival vocabulary written to the level's own descriptor — "
-    "greetings and politeness, numbers, days and months, telling the time, family, food "
-    "and drink, money and shopping, getting about, health and the body, and the closed "
-    "classes of pronouns, question words, prepositions and conjunctions — and, for the "
-    "rest, the commonest words of everyday Indonesian, taken from a frequency list built "
-    "from film and television subtitles. The cards are ordered by that frequency, so the "
+    "official one and is not presented as one. It was assembled from two things that "
+    f"can be stated. {from_inv} of the {n} come from a vocabulary written to the "
+    f"level's own descriptor — {SC['topics']} — and the other {n - from_inv} are the "
+    "commonest words of everyday Indonesian, taken from a frequency list built from "
+    "film and television subtitles. The cards are ordered by that frequency, so the "
     "words you meet most often come first. "
     "Everything here is standard Indonesian, bahasa baku, because that is what UKBI "
     "tests: where a colloquial form is far commoner in speech the standard one is what "
     "is taught — tidak rather than nggak, tetapi rather than tapi, and di mana as two "
-    "words rather than the dimana that the test marks wrong. The familiar-but-standard "
-    "pronouns aku and kamu are taught alongside the formal saya and Anda, because "
-    "Indonesian chooses its pronoun by who is being spoken to. "
+    "words rather than the dimana that the test marks wrong. "
+    + ("The familiar-but-standard pronouns aku and kamu are taught alongside the formal "
+       "saya and Anda, because Indonesian chooses its pronoun by who is being spoken "
+       "to. " if LEVEL == '1' else "") +
     f"Indonesian has no gender, no plural agreement and no verb conjugation, so a card "
     "carries none. What it carries instead is the affix family, which is the part of the "
     f"language that cannot be guessed: {fams} of the words show their relatives labelled "
@@ -227,9 +241,8 @@ DESC = (
     "assimilates and swallows the root's first consonant, so tulis becomes menulis while "
     "nanti stays menanti, and there is no rule a learner can apply; the forms are read "
     "from a dictionary rather than derived. "
-    f"{phrases} of the entries are phrases rather than single words — terima kasih, "
-    "selamat pagi, apa kabar, rumah sakit — which a list of single words cannot see at "
-    "all. "
+    f"{phrases} of the entries are phrases rather than single words — {PHRASE_EG} — "
+    "which a list of single words cannot see at all. "
     + EX_NOTE +
     ", with the word picked out in colour and a speaker beside the sentence and the "
     "headword. "

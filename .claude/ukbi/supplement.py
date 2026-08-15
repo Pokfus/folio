@@ -233,7 +233,7 @@ SECTIONS_1 = {
 # here "memiliki kemahiran yang tidak memadai" -- proficiency that is not
 # adequate -- and can manage **keperluan kemasyarakatan yang sederhana**, simple
 # community purposes, while being unready for complex community communication,
-# for any **keprofesian** (professional) purpose, and for **keilmuan**
+# for any **keprofesian** (professional) purpose, and for **keilmiahan**
 # (academic) purposes at all.  Semenjana, the level above, is where
 # straightforward workplace communication begins.
 #
@@ -340,7 +340,7 @@ ulang tahun
 """
 
 # --------------------------------------------------------- school, but not study
-# Marginal cannot reach `keilmuan`, so this is deliberately six words about
+# Marginal cannot reach `keilmiahan`, so this is deliberately six words about
 # ATTENDING a school rather than any of the vocabulary of studying in one.
 L2_SCHOOL = """
 pelajaran kelas ujian tugas siswa mahasiswa
@@ -378,10 +378,188 @@ SECTIONS_2 = {
     'body': L2_BODY,
 }
 
+
+# ===========================================================================
+# LEVEL 3 — SEMENJANA.  THE LEVEL THAT OPENS THE WORKPLACE.
+# ===========================================================================
+# UKBI's descriptor is what decides this, and for once the line it draws is a
+# door rather than a wall.  A candidate at Semenjana "memiliki kemahiran yang
+# cukup memadai" -- reasonably adequate proficiency -- and can communicate for
+# **keperluan sintas**, for **keprofesian yang tidak kompleks** and for
+# **kemasyarakatan yang tidak kompleks**: survival, NON-COMPLEX PROFESSIONAL and
+# non-complex community purposes.  What stays shut is the academic register:
+# "Dalam berkomunikasi untuk keperluan **keilmiahan**, yang bersangkutan sangat
+# terkendala."  (ukbi.kemendikdasmen.go.id/front-new/page/predikat, quoted.)
+#
+# SO THIS INVENTORY IS THE ONE LEVEL 2 REFUSED TO WRITE.  Marginal's header says
+# in as many words that the obvious way to write an intermediate list is to reach
+# for the workplace -- rapat, laporan, atasan, jabatan, perusahaan -- and that
+# every one of those belongs to a level Marginal explicitly cannot reach.  This
+# is that level, so those words are here, and the two headers should be read
+# together: the same list is wrong one level down and right one level up, and
+# the descriptor is what says which.
+#
+# WHAT IS STILL EXCLUDED, and it is the harder half to hold to.  `keilmiahan` is
+# out, so there is no `hipotesis`, `metodologi`, `variabel`, `kutipan`,
+# `analisis`, `disertasi` -- none of the vocabulary of writing or reading
+# research.  And `kompleks` is out on both the open registers, so the workplace
+# here is the one a person WORKS IN rather than the one they negotiate: a job, a
+# rota, a colleague, a payslip, a form to sign, a meeting to attend.  A contract
+# is listed because signing one is an ordinary act; the law of contract is not.
+#
+# THE OTHER HALF OF THIS LEVEL IS NOT A TOPIC AT ALL.  By Semenjana a learner
+# needs the connective and abstract vocabulary that lets three sentences become a
+# paragraph -- `sehingga`, `meskipun`, `oleh karena itu`, `sebaliknya`, and the
+# `ke-...-an` and `peN-...-an` nouns Indonesian builds its abstractions out of
+# (`keadaan`, `perubahan`, `peningkatan`, `penyelesaian`).  A frequency list
+# built from film dialogue serves those worst of anything, because people do not
+# say them aloud: this is the same argument the closed classes made at level 1,
+# arriving one level up in another form.
+
+# --------------------------------------------------------------- having a job
+L3_WORK = """
+pekerjaan karyawan pegawai staf atasan bawahan rekan kantor
+perusahaan jabatan tugas jadwal rapat laporan proyek klien
+pelanggan gaji upah lembur cuti izin kontrak lamaran wawancara
+pengalaman keahlian pelatihan promosi pensiun magang karier
+kerja sama
+jam kerja
+"""
+
+# --------------------------------------------------------- what people do for it
+# Trades and professions, which a survival level has no use for and a
+# non-complex professional one is largely made of.
+L3_TRADE = """
+insinyur perawat pengacara akuntan penerjemah wartawan petani
+nelayan pedagang penjual pembeli sopir montir tukang pelayan
+koki pengusaha buruh seniman penulis pelukis peneliti
+arsitek juru masak
+"""
+
+# ------------------------------------------------------------ the paperwork
+L3_OFFICE = """
+dokumen berkas formulir arsip salinan catatan agenda presentasi
+stempel cetak
+tanda tangan
+"""
+
+# --------------------------------------------------------------- money, at a bank
+L3_MONEY = """
+bank rekening tabungan pinjaman utang kredit bunga biaya tarif
+pajak kuitansi anggaran penghasilan pengeluaran untung rugi modal
+investasi asuransi tunai
+kartu kredit
+"""
+
+# ----------------------------------------------------- the state, and its offices
+# `kemasyarakatan yang tidak kompleks`: the counter you queue at, not the
+# politics behind it.
+L3_GOV = """
+pemerintah negara kabupaten kecamatan kelurahan paspor visa
+identitas akta sertifikat peraturan hukum pengadilan hak kewajiban
+penduduk pejabat lembaga kantor pos
+warga negara
+kartu tanda penduduk
+"""
+
+# ------------------------------------------------------------ getting in touch
+L3_MEDIA = """
+telepon ponsel pesan surel internet situs jaringan sinyal siaran
+berita koran majalah radio televisi iklan pengumuman informasi
+alamat sandi
+"""
+
+# ------------------------------------------------------- somewhere to live in
+L3_HOUSING = """
+sewa pemilik listrik gas tagihan perbaikan kerusakan
+lingkungan perumahan gedung lantai atap dinding pagar halaman
+"""
+
+# ---------------------------------------------------------- arranging a journey
+L3_TRAVEL = """
+tiket keberangkatan kedatangan penerbangan bandara pelabuhan
+stasiun terminal penginapan bagasi perjalanan tujuan singgah
+kendaraan penumpang jurusan
+"""
+
+# --------------------------------------------------------------- being treated
+L3_HEALTH = """
+klinik apotek resep suntik operasi pemeriksaan gejala penyakit
+perawatan kesehatan pasien
+"""
+
+# ------------------------------------------------ how a thing happens, and why
+# The abstract nouns Indonesian derives rather than borrows.  These are the
+# words a paragraph is built out of, and the subtitle corpus has almost none of
+# them, because nobody says `penyelesaian` in a film.
+L3_PROCESS = """
+proses cara langkah tahap sebab akibat hasil syarat aturan contoh
+perbedaan persamaan hubungan pengaruh perubahan perkembangan
+peningkatan penurunan kemungkinan keputusan pilihan penyelesaian
+kesalahan tujuan kegiatan usaha bagian jenis sifat bentuk
+"""
+
+# ------------------------------------------------------- joining the sentences
+L3_CONNECT = """
+sehingga meskipun walaupun namun selain kecuali apabila asal
+supaya agar sementara selama pertama-tama misalnya
+yaitu bahkan justru sebaliknya bagaimanapun
+oleh karena itu
+dengan demikian
+akan tetapi
+di samping itu
+"""
+
+# ------------------------------------------------------------- saying what you think
+L3_OPINION = """
+pendapat alasan bukti sikap tanggapan saran kritik keluhan
+permintaan penawaran kesepakatan perjanjian tanggung jawab
+kepercayaan harapan kekhawatiran maksud kesan
+"""
+
+# -------------------------------------------------------- measuring and comparing
+L3_QUANTITY = """
+jumlah sebagian seluruh setengah seperempat persen sekitar ukuran
+lebar jarak kecepatan rata-rata kira-kira tambahan
+"""
+
+# --------------------------------------------------------------- time, at length
+L3_TIME = """
+masa zaman abad periode jarang biasanya dahulu kelak mendatang
+belakangan
+"""
+
+# ---------------------------------------------------------- describing precisely
+L3_ADJ = """
+penting utama umum khusus resmi tetap aman berbahaya sulit rumit
+sederhana jelas tepat wajar layak pantas mampu sanggup siap luang
+mendadak langsung wajib mungkin pasti
+"""
+
+# ---------------------------------------------------------------- doing things
+L3_VERBS = """
+mengatur urus menangani menyelesaikan memutuskan menyarankan
+mengusulkan menolak setuju banding menjelaskan
+sebut menganggap memperhatikan harap butuh
+memerlukan menyediakan menggunakan memanfaatkan meningkatkan
+mengurangi memperbaiki mengganti melanjutkan menghentikan berusaha
+berhasil hadap mendukung mengatasi
+menerima mengirim mendaftar lapor membayar
+"""
+
+SECTIONS_3 = {
+    'work': L3_WORK, 'trades': L3_TRADE, 'office': L3_OFFICE,
+    'money': L3_MONEY, 'the state': L3_GOV, 'media': L3_MEDIA,
+    'housing': L3_HOUSING, 'travel': L3_TRAVEL, 'health': L3_HEALTH,
+    'process': L3_PROCESS, 'connectives': L3_CONNECT,
+    'opinion': L3_OPINION, 'quantity': L3_QUANTITY, 'time': L3_TIME,
+    'adjectives': L3_ADJ, 'verbs': L3_VERBS,
+}
+
 # A LEVEL WITH NO INVENTORY OF ITS OWN GETS NONE, and that is deliberate rather
 # than an omission: `select.py` would then fill the whole level from frequency,
 # which is exactly what this file exists to stop, so the run says so out loud.
-LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2}
+LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2, '3': SECTIONS_3}
 
 
 def sections():
