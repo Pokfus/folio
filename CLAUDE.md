@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-035` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-036` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 35 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 36 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10737,6 +10737,34 @@ older than anything that can date it. Note what the probe found while the rows w
 **a bare three-digit year is invisible to `cardYears` and a three-digit year followed by CE is not**
 (`627 – 650` yields nothing, `627 – 650 CE` yields both), so the blind spot `cnh-031` recorded is
 narrower than it looked — it is the missing ERA MARKER rather than the digit count.
+  **`cnh-036` IS THE FIRST CARD ON THE DECK WHOSE TITLE COULD NOT GO IN THE DATE LINE, AND THE CHECKER
+IS WHAT FOUND IT** (Aug 2026). The line opened `Oldest notice | the Huainanzi, by 122 BCE`, which reads
+well and is exactly right — and `check-style`'s `title-plain` rule flagged it, because a **date line
+carries no markup** (`date-line.js` refuses it) and a literature title that cannot be italicised is a
+title the house rules will not have. The two rules meet head-on and neither gives way, so the ROW gives
+way instead: `a Han treatise, by 122 BCE`, which is what the glossary term already says and which asserts
+nothing extra. **Where a date line wants to name a book, name what KIND of book it is** — and note that
+`cnh-034`'s `Told again in | the Fengsu tongyi` passed the same checker, so the rule is a list of known
+titles rather than a general one and a second offender will not always announce itself.
+**A DATE-LINE FIGURE NEEDS ITS OWN CITATION, AND NOTHING IN THE REPO CHECKS THAT.** The line asserts
+122 BCE, the year Liu An died, and the abstract's *Huainanzi* sentence was marked to Mayers no. 311 and
+Wylie — neither of which gives the year. `add-sources.js` was satisfied (every source referenced, no
+marker past the end), `test-date-line.js` was satisfied (the span parses, the card sorts at −122), and
+the figure rested on nothing. It is `cnh-011`'s invented page number in another coat: **the apparatus
+checks the SHAPE of a citation and never what it carries**, so a date line's numbers have to be walked
+against the source list by hand. Fixed by citing Mayers pt. I no. 412 as a sixth work for Liu An's death,
+which pushed the abstract to 331 words and cost two compensating trims — **budget for the length rule
+when a correction adds a clause**, which this file has said once before and which bites hardest at the
+end of a card rather than at the start.
+**AND THE PICTURE WITH THE BETTER PROVENANCE WAS REJECTED FOR WHAT THE DIGITISATION SHOWS.** The National
+Palace Museum's fan of the subject is named, dated and public domain, and its Commons file is a
+photograph of the fan on its mount **with a Kodak colour-calibration bar down one side** — which is a
+picture of a museum's imaging setup as much as of the painting, and which `cnh-021`'s Met fan already
+records shipping with. The Long Corridor panel taken instead names no painter and shows the thing the
+card is about: the two of them meeting on the bridge of magpies, with the children between them. **Where
+two candidates are both honest, prefer the one whose FRAME is the picture** — a calibration bar is a fact
+about the scan and a `desc` that ignores it is a caption that does not describe its own image.
+
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
