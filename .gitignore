@@ -63,3 +63,15 @@ decks/French-A1-C2.folio-deck.json
 decks/Italian-Complete.folio-deck.json
 decks/DELE-A1-B2-Spanish.folio-deck.json
 decks/All-Languages.folio-deck.json
+
+# The five PER-LANGUAGE decks are artefacts on the same rule, one branch of the
+# all-languages file each: 165 MB between them, every card already here in the
+# parts they were split from, and `node .claude/split-decks.js` rebuilds them
+# byte for byte. Unlike the four above they can also be built from files that are
+# NOT in the repo — the reader's own German B2–C2 and Spanish C1–C2 — which is
+# the other reason not to commit them: what is here would not reproduce them.
+decks/French-All-Levels.folio-deck.json
+decks/German-All-Levels.folio-deck.json
+decks/Italian-All-Levels.folio-deck.json
+decks/Mandarin-All-Levels.folio-deck.json
+decks/Spanish-All-Levels.folio-deck.json
