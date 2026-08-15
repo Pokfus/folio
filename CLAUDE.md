@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-026` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-027` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 26 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 27 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10432,6 +10432,36 @@ p. 303 — and reading the RUN rather than one header is what put the four quadr
 confidence. Where the run gave no clean read the citation names the edition's own division instead
 (pt. II, no. 313 for the 28 mansions; pt. II, no. 94), which is cnh-011's rule. Chavannes' two notes were
 placed the same way, off clean runs of 43, 44, 45 and 45, 47, 48, 49.
+  **`cnh-027` IS WHERE A COMMITTED TEST CAUGHT WHAT THE EYE WOULD NOT, AND THE FAULT IS THE CENTURY RULE ONE
+SCALE UP** (Aug 2026). The date line read "the Shang, in the 2nd millennium BCE", which is true, reads
+perfectly and is **not a date `cardYears` can parse** — so the card yielded no sort year at all and fell to
+0, "timeless", which on a deck running in BCE puts it after everything. `test-date-line.js`'s "every card
+that states a date yields a sort year from it" is the only thing in the repo that can see this, and it
+fired. The fix is the one this file already prescribes for centuries: **write the span the unit MEANS**
+(`c. 2000 – 1001 BCE`), which asserts no precision the source has not got, since that interval IS the 2nd
+millennium — and NOT a change to `cardYears`, which would silently move the sort year of every date line
+carrying a millennium beside a plain year.
+**AND A THUMBNAIL URL IS ASKED FOR, NEVER COMPOSED.** The picture rule says `src` is the 1600px rendering
+of a raster, and a hand-built `…/1600px-<file>` **400s on Commons**, which snaps a thumbnail to its own
+standard widths — asking the API for `iiurlwidth=1600` hands back a `1920px-` URL for this file. It was
+caught by the standing curl of every citation and image URL, and only by that: the card renders from the
+harness's local stub, so the browser check is blind to it. `cnh-026` got it right by accident, having used
+the API's answer; this one composed the width from the rule and was wrong.
+**ITS SOURCES ARE THE FIRST ON THE DECK TO REACH OUT OF SINOLOGY INTO MUSEUM ARCHAEOLOGY**, and that is
+what the second half of the card needed: the earliest text to use the name means a MAN — one of the Zuo
+Commentary's four wicked ones — and nothing in the classics connects him to the face on the bronzes, so
+Legge and Chavannes carry the first half and can carry no more. Berthold Laufer's *Jade* (Field Museum,
+1912) and S. W. Bushell's *Chinese Art* (the Victoria and Albert Museum's own handbook, 1904) carry the
+second, and both are out of copyright. **What makes them worth citing is that they do not agree**: the
+tiger, the all-devouring storm god and the Tibetan mastiff were each proposed within a few years, Bushell
+himself offering two of them in two different books, and Laufer gathered the readings and declined to
+choose — regretting in print that no evidence had been given for any of them. A card about a famous motif
+whose meaning is unknown is better served by sources that say so than by one that picks a winner.
+**AND `add-images.js` REFUSES MARKUP IN A TEXT FIELD WHERE `add-card.js` ACCEPTS IT**, so a `desc`
+italicising a vessel name goes in through one path and is turned away by the other; it also refuses to
+OVERWRITE a picture already installed, which is right for a batch installer and means a corrected URL has
+to be patched in place. Mind that it writes the glossary before the cards, so a batch that throws on the
+card half has **already written the glossary half** — check both before assuming nothing landed.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
