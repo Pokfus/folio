@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-019` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-020` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 19 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 20 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10247,6 +10247,31 @@ texts the figure Mu met is a barbarian chief rather than a queen.
 Tribute of Yu's own composition is a Warring States question rather than Yu's, and the one hard figure any
 source gives is King Mu's reign from 1001 BCE — so the card sorts at −1001, after every sovereign in the
 deck, which is where the Kunlun legend's earliest datable attestation actually sits.
+**`cnh-020` IS THE DECK'S FIRST MODERN PEER-REVIEWED SOURCE, AND IT WAS FOUND BY SEARCHING FOR THE
+GODDESS RATHER THAN THE SUBJECT** (Aug 2026). Nineteen cards had run on 19th-century reference works,
+out-of-copyright translations and one Japanese bulletin, because a bare search on a Chinese mythological
+name returns almost nothing scholarly. What broke it is **DOAJ's own API on the ROMANISED DEITY NAME**
+(`Xiwangmu`), which returned five modern articles where `Kunlun myth` returned none — an ancient PLACE is
+owned by its namesakes, a goddess is not. The usable one is Nataša Vampelj Suhadolnik's in *Asian
+Studies* (Ljubljana), which is **Slovenian in the body with an English abstract and title**, so it is
+cited for what the abstract states and nothing further — the Persée first-page rule met on a whole
+journal. Its galley defeated the CJK PDF extractor on an odd-length hex string, which was left alone
+rather than debugged, the body being in a language the card was not going to quote.
+**`journals.uni-lj.si` ANSWERS AND MDPI STILL DOES NOT**: of DOAJ's five hits three were MDPI (403 here,
+as cnh-003 records) and the fourth was that press again, so one host in five was reachable. **Search
+DOAJ on the romanised name of a deity, and expect to lose most of what it finds to publishers.**
+**AND THE PICTURE WAS RESERVED A CARD AHEAD, WHICH IS WORTH DOING DELIBERATELY.** The Freer Gallery's
+*Peach Festival of the Queen Mother of the West* — a 17th- or 18th-century handscroll, 3897 × 2130,
+public domain — turned up while searching for `cnh-019`'s Kunlun and was passed over there under
+cnh-013's one-picture-one-term rule, because the very next card was hers. That is why cnh-019 ended with
+a photograph and this one has the best-shaped image on the shelf: **when a search turns up the right
+picture for a LATER card, note it and leave it.**
+**ITS ONE CORRECTION IS TO A SIBLING'S MARKER, AND IT IS THE BATCH-23 FAULT IN MINIATURE.** Giles says
+the peaches ripen once in 3,000 years; Werner says the tree leafs every 3,000 years and takes 3,000 more
+to fruit — so `cnh-019`'s peach clause, which carries a Werner marker among its three, points at a source
+that gives a different figure. The clause is compound and each marker carries part of it, so it was left
+standing; what this card does is state the divergence outright rather than pick a number. **Two sources
+disagreeing about a figure is a fact to carry, not a tie to break.**
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
